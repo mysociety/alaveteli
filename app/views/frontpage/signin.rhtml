@@ -1,0 +1,11 @@
+
+<%= start_form_tag :action => "signin" %>
+    <label for="email">Email:</label>
+    <%= text_field_tag "email" %>
+    <br>
+    <label for="password">Password:</label>
+    <%= password_field_tag "password" %>
+    <br>
+    <%= submit_tag "Sign in" %>
+<%= end_form_tag %>
+

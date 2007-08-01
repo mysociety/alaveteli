@@ -11,6 +11,11 @@
     <ul id="navigation">
         <li>Home</li>
     </ul>
+
+    <% if flash[:notice] %>
+        <div id="notice"><%= flash[:notice] %></div>
+    <% end %>
+
     <%= yield :layout %>
     </body>
 </html>
