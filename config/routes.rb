@@ -18,6 +18,11 @@ ActionController::Routing::Routes.draw do |map|
   map.connect ':controller/service.wsdl', :action => 'wsdl'
 
   # Install the default route as the lowest priority.
-  map.connect ':controller/:action/:id.:format'
-  map.connect ':controller/:action/:id'
+  # FAI: Turned off for now, as to be honest I don't trust it from a security point of view.
+  #map.connect ':controller/:action/:id.:format'
+  #map.connect ':controller/:action/:id'
+  
+  map.connect "/", :controller => 'frontpage'
+
 end
+
