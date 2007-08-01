@@ -3,11 +3,11 @@
     <head>
         <!-- <script type="text/javascript" src="/js.js"></script> -->
         <title>Freedom of Information Filer and Archive</title>
-        <!-- <%= stylesheet_link_tag 'fooble' %> -->
+        <%= stylesheet_link_tag 'main' %>
         <!-- <link rel="alternate" type="application/rss+xml" title="" href=""> -->
     </head>
     <body>
-    <h1>Freedom of Information Filer and Archive</h1>
+    <h1 id="header">Freedom <span id="my">of Information</span> Archive <span id="beta">Beta</span></h1>
     <ul id="navigation">
         <li>Home</li>
     </ul>
@@ -15,6 +15,10 @@
     <% if flash[:notice] %>
         <div id="notice"><%= flash[:notice] %></div>
     <% end %>
+    <% if flash[:error] %>
+        <div id="error"><%= flash[:error] %></div>
+    <% end %>
+
 
     <%= yield :layout %>
     </body>

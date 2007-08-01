@@ -6,7 +6,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: application.rb,v 1.2 2007-08-01 16:41:32 francis Exp $
+# $Id: application.rb,v 1.3 2007-08-01 17:06:04 francis Exp $
 
 
 class ApplicationController < ActionController::Base
@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
                 session[:user] = user.id
                 redirect_to :action => session[:intended_action], :controller => session[:intended_controller]
             else
-                flash[:notice] = "Email or password not correct"
+                flash[:error] = "Email or password not correct"
             end
 
         end

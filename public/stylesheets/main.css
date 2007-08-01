@@ -1,0 +1,247 @@
+/* Generics */
+
+body {
+    font-family: "Gill Sans", "Gill Sans MT", Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    margin: 0;
+    font-size: 175%;
+}
+h2 {
+    font-size: 140%;
+}
+
+a:link {
+    color: #0000ff;
+}
+a:visited {
+    color: #000099;
+}
+a:hover, a:active {
+    color: #ff0000;
+}
+
+form {
+    margin: 0;
+}
+
+select, input, textarea {
+    font-size: 99%;
+}
+
+label {
+    float: left;
+    text-align: right;
+    padding-right: 0.5em;
+    width: 5em;
+}
+
+fieldset {
+    border: none;
+    padding: 0.5em;
+}
+
+legend {
+    display: none;
+}
+
+dt {
+    font-weight: bold;
+    margin-top: 0.5em;
+}
+
+.v { display: none; }
+
+.a {
+    color: #000000;
+    background-color: #f3e5a5;
+}
+
+/* Flashes */
+
+#error, #notice {
+    text-align: center;
+    font-size: larger;
+    padding: 4px;
+    margin: 1em;
+}
+#error {
+    
+    color: #cc0000;
+    background-color: #ffeeee;
+    border: solid 1px #cc0000;
+}
+#notice {
+    color: #00cc00;
+    background-color: #eeffee;
+    border: solid 1px #00cc00;
+}
+
+/* Site-wide layout */
+
+#header {
+    font-size: 200%;
+    font-weight: bold;
+    border-bottom: solid 2px #006f2c;
+    margin: 0;
+    padding: 5px 0.5em;
+    background-color: #00bd4b;
+    color: #006f2c;
+}
+
+#my {
+    color: #4e451b;
+    background-color: #00bd4b;
+}
+#beta {
+    color: #6e653b;
+    background-color: #00bd4b;
+    font-size: 50%;
+    font-style: italic;
+}
+
+#header a:link, #header a:visited {
+    color: #006f2c;
+    background-color: #00bd4b;
+    text-decoration: none;
+}
+#header a:active, #header a:hover {
+    text-decoration: underline;
+}
+
+#content {
+    width: 100%; /* Must specify a width or IE goes crazy wrong! */
+    position: relative;
+    margin: 0 auto;
+    max-width: 60em;
+}
+
+/* Can't put the margin in #content because of above IE craziness */
+#wrapper {
+    margin: 2em;
+}
+
+#navigation {
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+#navigation li {
+    display: inline;
+    padding: 0;
+    margin: 0;
+}
+
+#navigation a {
+    display: -moz-inline-box;
+    display: inline-block;
+    padding: 0.5em 1em;
+}
+#navigation a:link, #navigation a:visited {
+    color: #006f2c;
+}
+#navigation a:hover, #navigation a:active {
+    background-color: #006f2c;
+    color: #00bd4b;
+}
+
+#footer {
+    clear: both;
+    text-align: right;
+    font-size: 83%;
+    border-top: solid 1px #006f2c;
+    display: table;
+    margin: 2em 0 1em auto;
+    padding: 2px 4px;
+}
+
+/* Front page */
+
+#expl {
+    text-align: center;
+    font-size: 150%;
+    margin: 0 2em;
+}
+
+#postcodeForm {
+    display: table;
+    _width: 31em;
+    text-align: center;
+    font-size: 150%;
+    margin: 1em auto;
+    padding: 1em;
+    background-color: #00bd4b;
+    -moz-border-radius: 1em;
+    border-radius: 1em;
+}
+
+#postcodeForm label {
+    float: none;
+    padding-right: 0;
+}
+
+#postcodeForm #submit {
+    font-size: 83%;
+}
+
+#front_intro {
+    float: left;
+    width: 48%;
+}
+
+#front_intro p {
+    clear: both;
+    margin-top: 0;
+}
+
+#front_stats div {
+    text-align: center;
+    width: 5.5em;
+    background-color: #00bd4b;
+    -moz-border-radius: 0.5em;
+    border-radius: 0.5em;
+    float: left;
+    margin: 0 1em 1em;
+}
+
+#front_stats div big {
+    font-size: 150%;
+    display: block;
+}
+
+#front_recent {
+    float: right;
+    width: 48%;
+}
+#front_recent img {
+    margin-right: 0.25em;
+    margin-bottom: 0.25em;
+}
+#front_recent > h2:first-child, #front_intro > h2:first-child {
+    margin-top: 0;
+}
+
+/* Forms */
+
+fieldset div {
+    margin-top: 2px;
+    clear: left;
+}
+fieldset div.checkbox {
+    padding-left: 5.5em;
+}
+fieldset div.checkbox label, label.n {
+    float: none;
+    text-align: left;
+    padding-right: 0;
+    width: auto;
+    cursor: pointer;
+    cursor: hand;
+}
+
