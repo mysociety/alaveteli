@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: frontpage_controller.rb,v 1.2 2007-08-01 16:41:32 francis Exp $
+# $Id: frontpage_controller.rb,v 1.3 2007-08-03 16:14:58 francis Exp $
 
 class FrontpageController < ApplicationController
     layout "default"
@@ -15,6 +15,6 @@ class FrontpageController < ApplicationController
         end
     end
 
-    before_filter :check_authentication, :except => [:signin]
+    #before_filter :check_authentication, :except => [:signin]
 end
 

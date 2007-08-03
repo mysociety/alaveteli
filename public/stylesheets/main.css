@@ -190,43 +190,6 @@ dt {
     font-size: 83%;
 }
 
-#front_intro {
-    float: left;
-    width: 48%;
-}
-
-#front_intro p {
-    clear: both;
-    margin-top: 0;
-}
-
-#front_stats div {
-    text-align: center;
-    width: 5.5em;
-    background-color: #00bd4b;
-    -moz-border-radius: 0.5em;
-    border-radius: 0.5em;
-    float: left;
-    margin: 0 1em 1em;
-}
-
-#front_stats div big {
-    font-size: 150%;
-    display: block;
-}
-
-#front_recent {
-    float: right;
-    width: 48%;
-}
-#front_recent img {
-    margin-right: 0.25em;
-    margin-bottom: 0.25em;
-}
-#front_recent > h2:first-child, #front_intro > h2:first-child {
-    margin-top: 0;
-}
-
 /* Forms */
 
 fieldset div {
