@@ -1,9 +1,19 @@
+# config/routes.rb:
+# Mapping URLs to controllers for FOIFA.
+#
+# Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
+# Email: francis@mysociety.org; WWW: http://www.mysociety.org/
+#
+# $Id: routes.rb,v 1.4 2007-08-04 11:10:26 francis Exp $
+
 ActionController::Routing::Routes.draw do |map|
   # The priority is based upon order of creation: first created -> highest priority.
   
   # Sample of regular route:
   # map.connect 'products/:id', :controller => 'catalog', :action => 'view'
   # Keep in mind you can assign values other than :controller and :action
+  map.connect "/new/:action", :controller => 'file_request', :action => 'index'
+  map.connect "/:action/:id", :controller => 'frontpage'
 
   # Sample of named route:
   # map.purchase 'products/:id/purchase', :controller => 'catalog', :action => 'purchase'
@@ -21,8 +31,5 @@ ActionController::Routing::Routes.draw do |map|
   # FAI: Turned off for now, as to be honest I don't trust it from a security point of view.
   #map.connect ':controller/:action/:id.:format'
   #map.connect ':controller/:action/:id'
-  
-  map.connect "/:action/:id", :controller => 'frontpage'
-
 end
 

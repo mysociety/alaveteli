@@ -1,0 +1,33 @@
+<h1>New request</h1>
+
+<% form_for(:foi_request, @foi_request, :url => { :action => :create }, :html => { :id => 'writeForm' }  ) do |f| %>
+   <%= error_messages_for :foi_request %>
+
+   <% fields_for :user do |u| %>
+      <p>
+        <b>Your name</b> (will be displayed on this site with your request and any response)<br />
+        <%= u.text_field :name %>
+      </p>
+
+      <p>
+        <b>Your email</b> (we'll only use it to keep you up to date about your request, and this site)<br />
+        <%= u.text_field :email %>
+      </p>
+  <% end %>
+
+  <p>
+    <b>Request title</b><br />
+    <%= f.text_field :title, "size" => 30 %>
+  </p>
+
+  <p>
+    <b>Letter</b><br />
+    <%= f.text_area :body %>
+  </p>
+
+  <p>
+    <%= submit_tag "Create" %>
+  </p>
+<% end %>
+
+

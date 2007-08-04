@@ -85,27 +85,24 @@ dt {
 #header {
     font-size: 200%;
     font-weight: bold;
-    border-bottom: solid 2px #006f2c;
+    border-bottom: solid 2px #4e451b;
     margin: 0;
     padding: 5px 0.5em;
-    background-color: #00bd4b;
-    color: #006f2c;
+    background-color: #97E300;
+    color: #4e451b;
+    /* 4e451b is another useful green */
 }
 
-#my {
-    color: #4e451b;
-    background-color: #00bd4b;
-}
 #beta {
     color: #6e653b;
-    background-color: #00bd4b;
+    background-color: #97E300;
     font-size: 50%;
     font-style: italic;
 }
 
 #header a:link, #header a:visited {
-    color: #006f2c;
-    background-color: #00bd4b;
+    color: #4e451b;
+    background-color: #97E300;
     text-decoration: none;
 }
 #header a:active, #header a:hover {
@@ -144,18 +141,18 @@ dt {
     padding: 0.5em 1em;
 }
 #navigation a:link, #navigation a:visited {
-    color: #006f2c;
+    color: #4e451b;
 }
 #navigation a:hover, #navigation a:active {
-    background-color: #006f2c;
-    color: #00bd4b;
+    background-color: #4e451b;
+    color: #97E300;
 }
 
 #footer {
     clear: both;
     text-align: right;
     font-size: 83%;
-    border-top: solid 1px #006f2c;
+    border-top: solid 1px #4e451b;
     display: table;
     margin: 2em 0 1em auto;
     padding: 2px 4px;
@@ -163,30 +160,30 @@ dt {
 
 /* Front page */
 
-#expl {
+#explanation {
     text-align: center;
     font-size: 150%;
     margin: 0 2em;
 }
 
-#postcodeForm {
+#writeForm {
     display: table;
     _width: 31em;
     text-align: center;
     font-size: 150%;
     margin: 1em auto;
     padding: 1em;
-    background-color: #00bd4b;
+    background-color: #97E300;
     -moz-border-radius: 1em;
     border-radius: 1em;
 }
 
-#postcodeForm label {
+#writeForm label {
     float: none;
     padding-right: 0;
 }
 
-#postcodeForm #submit {
+#writeForm #submit {
     font-size: 83%;
 }
 

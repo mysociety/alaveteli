@@ -6,20 +6,15 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: application.rb,v 1.3 2007-08-01 17:06:04 francis Exp $
+# $Id: application.rb,v 1.4 2007-08-04 11:10:25 francis Exp $
 
 
 class ApplicationController < ActionController::Base
+    # Standard hearders, footers and navigation for whole site
+    layout "default"
+
     # Pick a unique cookie name to distinguish our session data from others'
     session :session_key => '_foi_session_id'
-
-    def check_authentication
-        unless session[:user]
-            session[:intended_action] = action_name
-            session[:intended_controller] = controller_name
-            redirect_to :action => "signin"
-        end
-    end
 
     def signin
         if request.post?
@@ -37,6 +32,16 @@ class ApplicationController < ActionController::Base
     def signout
         sessions[:user] = nil
         redirect_to frontpage
+    end
+
+    private
+
+    def check_authentication
+        unless session[:user]
+            session[:intended_action] = action_name
+            session[:intended_controller] = controller_name
+            redirect_to :action => "signin"
+        end
     end
 
 end

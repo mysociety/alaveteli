@@ -4,11 +4,9 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: frontpage_controller.rb,v 1.3 2007-08-03 16:14:58 francis Exp $
+# $Id: frontpage_controller.rb,v 1.4 2007-08-04 11:10:25 francis Exp $
 
 class FrontpageController < ApplicationController
-    layout "default"
-
     def index
         respond_to do |format|
             format.html
