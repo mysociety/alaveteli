@@ -5,23 +5,25 @@
 
    <% fields_for :user do |u| %>
       <p>
-        <b>Your name</b> (will be displayed on this site with your request and any response)<br />
-        <%= u.text_field :name %>
+        <label for="user_name">Your name:</label>
+        <%= u.text_field :name, "size" => 20 %>
+    <!--    (will be displayed on this site with your request and any response)<br /> -->
       </p>
 
       <p>
-        <b>Your email</b> (we'll only use it to keep you up to date about your request, and this site)<br />
-        <%= u.text_field :email %>
+        <label for="user_email">Email:</label>
+        <%= u.text_field :email, "size" => 20 %>
+    <!--    (we'll only use it to keep you up to date about your request, and this site) -->
       </p>
   <% end %>
 
   <p>
-    <b>Request title</b><br />
-    <%= f.text_field :title, "size" => 30 %>
+  <!--  <label for="foi_request_title">Title:</label>  -->
+    <%= f.text_field :title, "size" => 50 %>
+<!--    (a one line summary of the information you are requesting, e.g. 'Crime statistics by ward level for Wales') -->
   </p>
 
   <p>
-    <b>Letter</b><br />
     <%= f.text_area :body %>
   </p>
 
