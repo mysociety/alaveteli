@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: file_request_controller.rb,v 1.1 2007-08-04 11:10:25 francis Exp $
+# $Id: file_request_controller.rb,v 1.2 2007-08-21 11:33:45 francis Exp $
 
 class FileRequestController < ApplicationController
     def index
@@ -14,9 +14,16 @@ class FileRequestController < ApplicationController
     end
 
     def create
-        respond_to do |format|
-            format.html
-        end
+        @info_request = InfoRequest.new(params[:info_request])
+        @info_request.save
+
+        #redirect_to(:action => 'index')
+        render :action => 'index'
+
+#        respond_to do |format|
+#            format.html
+#        end
+
     end
 
 
