@@ -1,6 +1,6 @@
 <% @title = "New FOI request" %>
 
-<%= error_messages_for :info_request %>
+<%= foi_error_messages_for :info_request %>
 
 <% form_for(:info_request, @info_request, :url => { :action => :create }, :html => { :id => 'writeForm' }  ) do |f| %>
     

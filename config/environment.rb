@@ -57,4 +57,10 @@ end
 # Mime::Type.register "text/richtext", :rtf
 # Mime::Type.register "application/x-mobile", :mobile
 
+# Validation error messages
+ActiveRecord::Errors.default_error_messages[:blank] = "must be filled in"
+
 # Include your application configuration below
+
+
+
