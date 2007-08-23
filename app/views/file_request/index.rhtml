@@ -9,6 +9,8 @@
    <p>All information that you enter, except for your email address, will be
 displayed publically on this website.</p>
 
+   <div id="address_part">
+
    <% fields_for :user do |u| %>
       <p>
         <label for="user_name">Your name:</label>
@@ -22,6 +24,10 @@ displayed publically on this website.</p>
     <!--    (we'll only use it to keep you up to date about your request, and this site) -->
       </p>
   <% end %>
+ 
+  </div>
+
+  <div id="message_part">
 
   <p>
   <label for="info_request_title">Title:</label> 
@@ -41,6 +47,8 @@ displayed publically on this website.</p>
   <p>
     <%= submit_tag "Create" %>
   </p>
+
+  </div>
 <% end %>
 
 

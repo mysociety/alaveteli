@@ -158,6 +158,16 @@ label {
     font-size: 83%;
 }
 
+#writeForm #address_part {
+    float: right;
+    width: 50%;
+}
+
+#writeForm #message_part {
+    float: left;
+    clear: both;
+}
+
 /* Forms */
 
 .fieldWithErrors input, .fieldWithErrors input[type=text], .fieldWithErrors select, .fieldWithErrors input[type=radio]{
