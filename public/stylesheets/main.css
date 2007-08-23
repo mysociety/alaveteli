@@ -39,39 +39,17 @@ label {
     width: 5em;
 }
 
-fieldset {
-    border: none;
-    padding: 0.5em;
-}
-
-legend {
-    display: none;
-}
-
-dt {
-    font-weight: bold;
-    margin-top: 0.5em;
-}
-
-.v { display: none; }
-
-.a {
-    color: #000000;
-    background-color: #f3e5a5;
-}
-
 /* Flashes */
 
-#error, #notice {
+#errorExplanation, #notice {
     text-align: center;
     font-size: larger;
     padding: 4px;
     margin: 1em;
 }
-#error {
-    
+#errorExplanation {
     color: #cc0000;
-    background-color: #ffeeee;
+    background-color: #ffcccc;
     border: solid 1px #cc0000;
 }
 #notice {
@@ -148,16 +126,6 @@ dt {
     color: #97E300;
 }
 
-#footer {
-    clear: both;
-    text-align: right;
-    font-size: 83%;
-    border-top: solid 1px #4e451b;
-    display: table;
-    margin: 2em 0 1em auto;
-    padding: 2px 4px;
-}
-
 /* Front page */
 
 #explanation {
@@ -165,6 +133,8 @@ dt {
     font-size: 150%;
     margin: 0 2em;
 }
+
+/* Submitting requests */
 
 #writeForm {
     float: right;
@@ -190,19 +160,9 @@ dt {
 
 /* Forms */
 
-fieldset div {
-    margin-top: 2px;
-    clear: left;
+.fieldWithErrors input, .fieldWithErrors input[type=text], .fieldWithErrors select, .fieldWithErrors input[type=radio]{
+    border: solid 1px #cc0000;
+    background-color: #ffcccc;
 }
-fieldset div.checkbox {
-    padding-left: 5.5em;
-}
-fieldset div.checkbox label, label.n {
-    float: none;
-    text-align: left;
-    padding-right: 0;
-    width: auto;
-    cursor: pointer;
-    cursor: hand;
-}
+
 

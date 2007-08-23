@@ -2,7 +2,7 @@
 <html lang="en-gb">
     <head>
         <!-- <script type="text/javascript" src="/js.js"></script> -->
-        <title>Freedom of Information Filer and Archive</title>
+        <title>Freedom of Information Filer and Archive <%= @title ? "-" : "" %> <%=@title%></title>
         <%= stylesheet_link_tag 'main' %>
         <!-- <link rel="alternate" type="application/rss+xml" title="" href=""> -->
     </head>
@@ -19,7 +19,11 @@
         <div id="error"><%= flash[:error] %></div>
     <% end %>
 
+    <div id="wrapper">
+        <div id="content">
+            <%= yield :layout %>
+        </div>
+    </div>
 
-    <%= yield :layout %>
     </body>
 </html>

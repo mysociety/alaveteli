@@ -1,7 +1,13 @@
-<h1>New request</h1>
+<% @title = "New FOI request" %>
+
+<%= error_messages_for :info_request %>
 
 <% form_for(:info_request, @info_request, :url => { :action => :create }, :html => { :id => 'writeForm' }  ) do |f| %>
-   <%= error_messages_for :info_request %>
+    
+   <h1>New FOI request</h1>
+
+   <p>All information that you enter, except for your email address, will be
+displayed publically on this website.</p>
 
    <% fields_for :user do |u| %>
       <p>
@@ -18,7 +24,7 @@
   <% end %>
 
   <p>
-  <label for="info_request_title">Title:</label>
+  <label for="info_request_title">Title:</label> 
     <%= f.text_field :title, "size" => 50 %>
 <!--    (a one line summary of the information you are requesting, e.g. 'Crime statistics by ward level for Wales') -->
   </p>
