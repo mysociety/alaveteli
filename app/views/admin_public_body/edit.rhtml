@@ -1,0 +1,9 @@
+<h1>Editing public body</h1>
+
+<% form_tag :action => 'update', :id => @public_body do %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag 'Edit' %>
+<% end %>
+
+<%= link_to 'Show', :action => 'show', :id => @public_body %> |
+<%= link_to 'Back', :action => 'list' %>

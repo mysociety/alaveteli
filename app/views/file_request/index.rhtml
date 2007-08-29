@@ -35,14 +35,11 @@ displayed publically on this website.</p>
 <!--    (a one line summary of the information you are requesting, e.g. 'Crime statistics by ward level for Wales') -->
   </p>
 
-<% 
-=begin %>
-  <p>
-    <%= f.text_area :body %>
-  </p>
-<% 
-=end 
-%>
+  <% fields_for :outgoing_message do |o| %>
+      <p>
+        <%= o.text_area :body %>
+      </p>
+  <% end %>
 
   <p>
     <%= submit_tag "Create" %>

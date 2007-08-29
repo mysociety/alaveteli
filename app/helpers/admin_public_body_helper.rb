@@ -1,0 +1,2 @@
+module AdminPublicBodyHelper
+end

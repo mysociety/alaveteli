@@ -1,0 +1,51 @@
+class AdminPublicBodyController < ApplicationController
+  def index
+    list
+    render :action => 'list'
+  end
+
+  # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
+  verify :method => :post, :only => [ :destroy, :create, :update ],
+         :redirect_to => { :action => :list }
+
+  def list
+    @public_body_pages, @public_bodies = paginate :public_bodies, :per_page => 10
+  end
+
+  def show
+    @public_body = PublicBody.find(params[:id])
+  end
+
+  def new
+    @public_body = PublicBody.new
+  end
+
+  def create
+    @public_body = PublicBody.new(params[:public_body])
+    if @public_body.save
+      flash[:notice] = 'PublicBody was successfully created.'
+      redirect_to :action => 'list'
+    else
+      render :action => 'new'
+    end
+  end
+
+  def edit
+    @public_body = PublicBody.find(params[:id])
+  end
+
+  def update
+    @public_body = PublicBody.find(params[:id])
+    if @public_body.update_attributes(params[:public_body])
+      flash[:notice] = 'PublicBody was successfully updated.'
+      redirect_to :action => 'show', :id => @public_body
+    else
+      render :action => 'edit'
+    end
+  end
+
+  def destroy
+    PublicBody.find(params[:id]).destroy
+    redirect_to :action => 'list'
+  end
+end
