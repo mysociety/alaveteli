@@ -1,0 +1,14 @@
+
+Fix up how we do HTML 4.0
+
+
+Public body
+-----------
+
+Validate email address
+Put links from front admin page
+Log user who made change to public body
+Display history of public body in admin
+
+
+
