@@ -61,6 +61,7 @@ end
 ActiveRecord::Errors.default_error_messages[:blank] = "must be filled in"
 
 # Include your application configuration below
-
+$:.push("../rblib")
+load "validate.rb"
 
 
