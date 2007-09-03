@@ -6,7 +6,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: application.rb,v 1.4 2007-08-04 11:10:25 francis Exp $
+# $Id: application.rb,v 1.5 2007-09-03 13:52:01 francis Exp $
 
 
 class ApplicationController < ActionController::Base
@@ -16,6 +16,7 @@ class ApplicationController < ActionController::Base
     # Pick a unique cookie name to distinguish our session data from others'
     session :session_key => '_foi_session_id'
 
+    # Login form
     def signin
         if request.post?
             user = User.authenticate(params[:email], params[:password])
@@ -29,6 +30,7 @@ class ApplicationController < ActionController::Base
         end
     end
 
+    # Logout form
     def signout
         sessions[:user] = nil
         redirect_to frontpage
@@ -36,11 +38,21 @@ class ApplicationController < ActionController::Base
 
     private
 
+    # Check the user is logged in
     def check_authentication
         unless session[:user]
             session[:intended_action] = action_name
             session[:intended_controller] = controller_name
             redirect_to :action => "signin"
+        end
+    end
+
+    # For administration interface, return display name of authenticated user
+    def admin_http_auth_user
+        if not request.env["REMOTE_USER"]
+            return "*unknown*";
+        else
+            return request.env["REMOTE_USER"]
         end
     end
 
