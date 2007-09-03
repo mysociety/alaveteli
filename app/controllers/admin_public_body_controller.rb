@@ -1,4 +1,14 @@
+# app/controllers/admin_public_body_controller.rb:
+# Controller for editing public bodies from the admin interface.
+#
+# Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
+# Email: francis@mysociety.org; WWW: http://www.mysociety.org/
+#
+# $Id: admin_public_body_controller.rb,v 1.2 2007-09-03 09:39:20 francis Exp $
+
 class AdminPublicBodyController < ApplicationController
+  layout "admin"
+
   def index
     list
     render :action => 'list'

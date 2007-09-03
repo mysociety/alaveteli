@@ -4,10 +4,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-  <title>AdminPublicBody: <%= controller.action_name %></title>
+  <title>FOIFA admin: <%=controller.controller_name %> <%= controller.action_name %></title>
   <%= stylesheet_link_tag 'scaffold' %>
 </head>
 <body>
+
+<p><b>FOIFA admin interface:</b> 
+<%= link_to 'Public bodies', :controller => 'admin_public_body', :action => 'list' %>
+</p>
 
 <p style="color: green"><%= flash[:notice] %></p>
 
