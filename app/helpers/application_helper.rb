@@ -1,12 +1,6 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
 
-    # This was the best solution I could find to this, yeuch.
-    # http://www.ruby-forum.com/topic/88857
-    def stylesheet_link_tag_html4( _n )
-        return stylesheet_link_tag( _n ).gsub( ' />', '>' )
-    end
-
     # Copied from error_messages_for in active_record_helper.rb
     def foi_error_messages_for(*params)
         options = params.last.is_a?(Hash) ? params.pop.symbolize_keys : {}
