@@ -8,7 +8,7 @@
   </tr>
   
 <% for public_body in @public_bodies %>
-  <tr>
+  <tr class="<%= cycle('odd', 'even') %>">
   <% for column in PublicBody.content_columns %>
     <td><%=h public_body.send(column.name) %></td>
   <% end %>

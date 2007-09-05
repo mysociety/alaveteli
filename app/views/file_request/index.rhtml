@@ -11,6 +11,14 @@ displayed publically on this website.</p>
 
    <div id="address_part">
 
+   <p>
+        <label for="public_body">Public body:</label>
+   <%=
+        @public_bodies = PublicBody.find(:all, :order => "name")
+        f.collection_select(:public_body, @public_bodies, :id, :name)
+   %>
+   </p>
+
    <% fields_for :user do |u| %>
       <p>
         <label for="user_name">Your name:</label>

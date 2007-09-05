@@ -1,3 +1,9 @@
 
 
+Redirect the front page to the new FOI request page
+
+Just use crappy login and get on with it :(
+
+
+Rename file_requet to new ?
 
