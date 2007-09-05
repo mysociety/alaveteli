@@ -2,10 +2,3 @@
 Fix up how we do HTML 4.0
 
 
-Public body
------------
-
-Display history of public body in admin
-
-
-
