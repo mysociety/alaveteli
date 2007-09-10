@@ -65,7 +65,10 @@ label {
 
 /* Form error highlighting */
 
-.fieldWithErrors input, .fieldWithErrors input[type=text], .fieldWithErrors select, .fieldWithErrors input[type=radio]{
+.fieldWithErrors input, .fieldWithErrors input[type=text], 
+.fieldWithErrors select, .fieldWithErrors input[type=radio],
+.fieldWithErrors textarea
+{
     border: solid 1px #cc0000;
     background-color: #ffcccc;
 }

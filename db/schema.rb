@@ -2,12 +2,22 @@
 # migrations feature of ActiveRecord to incrementally modify your database, and
 # then regenerate this schema definition.
 
-ActiveRecord::Schema.define(:version => 8) do
+ActiveRecord::Schema.define(:version => 9) do
 
   create_table "info_requests", :force => true do |t|
     t.column "title",          :text
     t.column "user_id",        :integer
     t.column "public_body_id", :integer
+  end
+
+  create_table "outgoing_messages", :force => true do |t|
+    t.column "info_request_id", :integer
+    t.column "body",            :text
+    t.column "status",          :string
+    t.column "public_body_id",  :integer
+    t.column "message_type",    :string
+    t.column "created_at",      :datetime
+    t.column "updated_at",      :datetime
   end
 
   create_table "public_bodies", :force => true do |t|

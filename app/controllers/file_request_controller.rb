@@ -4,25 +4,27 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: file_request_controller.rb,v 1.4 2007-09-10 01:16:35 francis Exp $
+# $Id: file_request_controller.rb,v 1.5 2007-09-10 18:58:43 francis Exp $
 
 class FileRequestController < ApplicationController
     def index
     end
 
     def create
-#        raise params[:info_request][:public_body_id]
-#        params[:info_request][:public_body] = PublicBody.find(params[:info_request][:public_body_id])
-#        params[:info_request].delete(:public_body_id)
         @info_request = InfoRequest.new(params[:info_request])
+        @outgoing_message = OutgoingMessage.new(params[:outgoing_message].merge({ :status => 'ready',
+            :message_type => 'initial_request'}))
 
-        if not @info_request.save
-            render :action => 'index'
-        else
+        InfoRequest.transaction do
+            @info_request.save!
+            @outgoing_message.info_request_id = @info_request.id
+            @outgoing_message.save!
             # render create action
         end
+    rescue ActiveRecord::RecordInvalid => e
+        @outgoing_message.valid? # force cecking of errors even if info_request fails
+        render :action => 'index'
     end
-
 
 end
 
