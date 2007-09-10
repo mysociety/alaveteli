@@ -26,6 +26,11 @@ a:hover, a:active {
 
 form {
     margin: 0;
+
+    padding: 1em;
+    background-color: #97E300;
+    -moz-border-radius: 1em;
+    border-radius: 1em;
 }
 
 select, input, textarea {
@@ -36,7 +41,7 @@ label {
     float: left;
     text-align: right;
     padding-right: 0.5em;
-    width: 5em;
+    width: 10em;
 }
 
 /* Flashes */
@@ -56,6 +61,13 @@ label {
     color: #00cc00;
     background-color: #eeffee;
     border: solid 1px #00cc00;
+}
+
+/* Form error highlighting */
+
+.fieldWithErrors input, .fieldWithErrors input[type=text], .fieldWithErrors select, .fieldWithErrors input[type=radio]{
+    border: solid 1px #cc0000;
+    background-color: #ffcccc;
 }
 
 /* Site-wide layout */
@@ -138,24 +150,6 @@ label {
 
 #writeForm {
     float: right;
-    text-align: center;
-    margin: 1em auto;
-    margin-right: 2em;
-    padding: 1em;
-    background-color: #97E300;
-    -moz-border-radius: 1em;
-    border-radius: 1em;
-}
-
-#writeForm label {
-    float: left;
-    text-align: right;
-    padding-right: 0;
-    display: block;
-}
-
-#writeForm #submit {
-    font-size: 83%;
 }
 
 #writeForm #address_part {
@@ -164,15 +158,7 @@ label {
 }
 
 #writeForm #message_part {
-    float: left;
-    clear: both;
-}
-
-/* Forms */
-
-.fieldWithErrors input, .fieldWithErrors input[type=text], .fieldWithErrors select, .fieldWithErrors input[type=radio]{
-    border: solid 1px #cc0000;
-    background-color: #ffcccc;
+    float: right;
 }
 
 

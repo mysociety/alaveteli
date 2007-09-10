@@ -1,9 +1,12 @@
 
 
 Redirect the front page to the new FOI request page
+Make it say "dear" as default letter
 
-Just use crappy login and get on with it :(
+Tidying
+=======
 
+Rename file_request to new ?
+Add foreign keys to database
 
-Rename file_requet to new ?
 

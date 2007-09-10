@@ -4,10 +4,12 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.4 2007-08-31 17:56:01 francis Exp $
+# $Id: public_body.rb,v 1.5 2007-09-10 01:16:35 francis Exp $
 
 class PublicBody < ActiveRecord::Base
     validates_presence_of :request_email
+
+    has_many :info_request
 
     def validate
         unless MySociety::Validate.is_valid_email(request_email)

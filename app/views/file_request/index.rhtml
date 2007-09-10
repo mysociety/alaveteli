@@ -6,51 +6,34 @@
     
    <h1>New FOI request</h1>
 
-   <p>All information that you enter, except for your email address, will be
-displayed publically on this website.</p>
-
-   <div id="address_part">
+   <p><strong>Privacy warning:</strong> All information that you enter, except
+   for your email address, will be displayed publically on this website.</p>
 
    <p>
-        <label for="public_body">Public body:</label>
+        <label for="public_body_id">Public body:</label>
    <%=
         @public_bodies = PublicBody.find(:all, :order => "name")
-        f.collection_select(:public_body, @public_bodies, :id, :name)
+        f.collection_select(:public_body_id, @public_bodies, :id, :name)
    %>
    </p>
 
-   <% fields_for :user do |u| %>
-      <p>
-        <label for="user_name">Your name:</label>
-        <%= u.text_field :name, "size" => 20 %>
-    <!--    (will be displayed on this site with your request and any response)<br /> -->
-      </p>
-
-      <p>
-        <label for="user_email">Email:</label>
-        <%= u.text_field :email, "size" => 20 %>
-    <!--    (we'll only use it to keep you up to date about your request, and this site) -->
-      </p>
-  <% end %>
- 
-  </div>
-
-  <div id="message_part">
 
   <p>
-  <label for="info_request_title">Title:</label> 
-    <%= f.text_field :title, "size" => 50 %>
-<!--    (a one line summary of the information you are requesting, e.g. 'Crime statistics by ward level for Wales') -->
+  <label for="info_request_title">Summary:</label> 
+    <%= f.text_field :title, :size => 50 %>
+    <br>(a one line summary of the information you are requesting, e.g. 'Crime statistics by ward level for Wales')
   </p>
 
   <% fields_for :outgoing_message do |o| %>
       <p>
-        <%= o.text_area :body %>
+      <label for="outgoing_message_body">Your letter:</label> 
+        <%= o.text_area :body, :rows => 20, :cols => 60 %>
       </p>
   <% end %>
 
   <p>
-    <%= submit_tag "Create" %>
+      <label for="commit">&nbsp;</label> 
+    <%= submit_tag "Create request >>" %>
   </p>
 
   </div>
