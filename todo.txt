@@ -1,5 +1,3 @@
-
-Store the letter
 Give a better login dialog
 
 public_body_id not set in outgoing_message (maybe not needed)

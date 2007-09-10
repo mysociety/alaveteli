@@ -1,0 +1,22 @@
+/* FOIFA admin CSS */
+
+table {
+    border-collapse: collapse;
+}
+
+td, th {
+    border: solid 1px #000000;
+}
+
+tr.odd {
+    background-color: #bbbbbb;
+}
+
+tr.even {
+    background-color: #dddddd;
+}
+
+.entry_changed {
+    font-weight: bold;
+}
+
