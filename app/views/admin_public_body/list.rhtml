@@ -9,12 +9,10 @@
   
 <% for public_body in @public_bodies %>
   <tr class="<%= cycle('odd', 'even') %>">
-  <% for column in PublicBody.content_columns %>
-    <td><%=h public_body.send(column.name) %></td>
+    <td><%= link_to public_body.name, :action => 'show', :id => public_body %></td>
+  <% for column in PublicBody.content_columns.map { |c| c.name } - [ "name" ] %>
+    <td><%=h public_body.send(column) %></td>
   <% end %>
-    <td><%= link_to 'Show', :action => 'show', :id => public_body %></td>
-    <td><%= link_to 'Edit', :action => 'edit', :id => public_body %></td>
-    <td><%= link_to 'Destroy', { :action => 'destroy', :id => public_body }, :confirm => 'Are you sure?', :method => :post %></td>
   </tr>
 <% end %>
 </table>

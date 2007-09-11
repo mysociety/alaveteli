@@ -1,11 +1,12 @@
 Give a better login dialog
 
 Check validation for saving info request / outgoing message pair works with transactions fine
+Set "null" and "default" options more in schema
 Tidy up error message text (like "body must be filled in" on info request form)
-Add created_at / updated_at to every model that might need it
 Make sure that constraints / foreign keys in model are in same order as data in schema
 Check have validates_presence_of for every belongs_to
 Check using :string rather than :text for definitely limited fields like "status"
+
 Redirect the front page to the new FOI request page
 Make it say "dear" as default letter
 
@@ -16,6 +17,11 @@ Tidying
 
 Rename "file_request" controller to "new" ?
 Add SQL foreign keys to database schema
+    execute 'ALTER TABLE researchers ADD CONSTRAINT fk_researchers_departments FOREIGN KEY ( department_id ) REFERENCES departments( id ) '
+    http://wiki.rubyonrails.org/rails/pages/UsingMigrations link to:
+        http://www.surfdewey.com/2.html
+        http://www.redhillconsulting.com.au/rails_plugins.html#foreign_key_migrations
+        http://rubyforge.org/projects/mig-constraints/
 Call "delete from sessions where now() - updated_at > 3600" (one hour) or whatever
 
 Later

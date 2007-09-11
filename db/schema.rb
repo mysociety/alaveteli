@@ -2,12 +2,14 @@
 # migrations feature of ActiveRecord to incrementally modify your database, and
 # then regenerate this schema definition.
 
-ActiveRecord::Schema.define(:version => 10) do
+ActiveRecord::Schema.define(:version => 11) do
 
   create_table "info_requests", :force => true do |t|
     t.column "title",          :text
     t.column "user_id",        :integer
     t.column "public_body_id", :integer
+    t.column "created_at",     :datetime
+    t.column "updated_at",     :datetime
   end
 
   create_table "outgoing_messages", :force => true do |t|
@@ -27,6 +29,8 @@ ActiveRecord::Schema.define(:version => 10) do
     t.column "version",           :integer
     t.column "last_edit_editor",  :string
     t.column "last_edit_comment", :string
+    t.column "created_at",        :datetime
+    t.column "updated_at",        :datetime
   end
 
   create_table "public_body_versions", :force => true do |t|
@@ -45,6 +49,7 @@ ActiveRecord::Schema.define(:version => 10) do
     t.column "session_id", :string
     t.column "data",       :text
     t.column "updated_at", :datetime
+    t.column "created_at", :datetime
   end
 
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
@@ -55,6 +60,8 @@ ActiveRecord::Schema.define(:version => 10) do
     t.column "name",            :string
     t.column "hashed_password", :string
     t.column "salt",            :string
+    t.column "created_at",      :datetime
+    t.column "updated_at",      :datetime
   end
 
 end

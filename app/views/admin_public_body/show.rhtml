@@ -13,21 +13,24 @@
 <h2>History</h2>
 <table border="1">
 <tr>
-<% for column in PublicBody.content_columns %>
+<% 
+    history_columns = PublicBody.content_columns
+    history_columns.delete_if {|c| ['created_at', 'updated_at'].include?(c.name)}
+    for column in history_columns %>
   <th><%= column.human_name %></th>
 <% end %>
 <th>Updated at</th>
 </tr>
-<% for old_public_body in @public_body.versions.reverse %>
+<% for historic_public_body in @public_body.versions.reverse %>
       <tr class="<%= cycle('odd', 'even') %>">
-    <% for column in PublicBody.content_columns %>
+    <% for column in history_columns %>
       <% # Highlight entries which have changed since previous version
-        changed = ((old_public_body.send(column.name) != @public_body.versions[old_public_body.version - 2].send(column.name)) && column.name != 'version' && column.name != 'last_edit_editor' && column.name != 'last_edit_comment') || (old_public_body.version == 1) %>
+        changed = (not ['version', 'last_edit_editor', 'last_edit_comment'].include?(column.name)) && ((historic_public_body.send(column.name) != @public_body.versions[historic_public_body.version - 2].send(column.name)) || (historic_public_body.version == 1)) %>
       <td <%= changed ? ' class="entry_changed" ': '' %> >
-      <%=h old_public_body.send(column.name) %>
+      <%=h historic_public_body.send(column.name) %>
       </td>
     <% end %>
-      <td><%=h old_public_body.updated_at %></td>
+      <td><%=h historic_public_body.updated_at %></td>
     </tr>
 <% end %>
 </table>

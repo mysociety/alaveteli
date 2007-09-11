@@ -4,6 +4,6 @@ class RemovePublicBodyIdFromOutgoingMessages < ActiveRecord::Migration
   end
 
   def self.down
-    add_column :ourgoing_messages, :public_body_id, :integer
+    add_column :outgoing_messages, :public_body_id, :integer
   end
 end
