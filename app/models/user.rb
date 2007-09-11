@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user.rb,v 1.4 2007-09-11 15:23:59 francis Exp $
+# $Id: user.rb,v 1.5 2007-09-11 15:26:12 francis Exp $
 
 require 'digest/sha1'
 
@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
 
     validates_presence_of :name
 
-    has_many :user
+    has_many :info_request
 
     attr_accessor :password_confirmation
     validates_confirmation_of :password

@@ -5,7 +5,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: outgoing_message.rb,v 1.2 2007-09-11 06:42:40 francis Exp $
+# $Id: outgoing_message.rb,v 1.3 2007-09-11 15:26:12 francis Exp $
 
 class OutgoingMessage < ActiveRecord::Base
     belongs_to :info_request
@@ -15,8 +15,5 @@ class OutgoingMessage < ActiveRecord::Base
     validates_inclusion_of :status, :in => ['ready', 'sent', 'failed']
 
     validates_inclusion_of :message_type, :in => ['initial_request'] #, 'complaint']
-
-    belongs_to :recipient, :polymorphic => true
-
 end
 

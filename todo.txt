@@ -1,7 +1,6 @@
 Give a better login dialog
 
 Tidy up error message text (like "body must be filled in") on info request form
-Check have validates_presence_of for every belongs_to
 Check using :string rather than :text for definitely limited fields like "status"
 IF just title is blank says "Info request must be filled in"
 
