@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: file_request_controller.rb,v 1.6 2007-09-11 15:21:16 francis Exp $
+# $Id: file_request_controller.rb,v 1.7 2007-09-11 15:21:30 francis Exp $
 
 class FileRequestController < ApplicationController
     def index
@@ -27,7 +27,6 @@ class FileRequestController < ApplicationController
                 # render create action
             rescue ActiveRecord::RecordInvalid => e
                 @outgoing_message.valid? # force cecking of errors even if info_request fails
-                @outgoing_message.errors.full_messages.delete("info_request")
                 render :action => 'index'
             end
         end
