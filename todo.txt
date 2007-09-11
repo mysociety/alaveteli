@@ -1,11 +1,11 @@
 Give a better login dialog
 
-Check validation for saving info request / outgoing message pair works with transactions fine
 Set "null" and "default" options more in schema
-Tidy up error message text (like "body must be filled in" on info request form)
+Tidy up error message text (like "body must be filled in") on info request form
 Make sure that constraints / foreign keys in model are in same order as data in schema
 Check have validates_presence_of for every belongs_to
 Check using :string rather than :text for definitely limited fields like "status"
+IF just title is blank says "Info request must be filled in"
 
 Redirect the front page to the new FOI request page
 Make it say "dear" as default letter
