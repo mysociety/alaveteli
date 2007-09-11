@@ -1,6 +1,5 @@
 Give a better login dialog
 
-public_body_id not set in outgoing_message (maybe not needed)
 Check validation for saving info request / outgoing message pair works with transactions fine
 Tidy up error message text (like "body must be filled in" on info request form)
 Add created_at / updated_at to every model that might need it
@@ -19,4 +18,8 @@ Rename "file_request" controller to "new" ?
 Add SQL foreign keys to database schema
 Call "delete from sessions where now() - updated_at > 3600" (one hour) or whatever
 
+Later
+=====
+
+Add spelling checker as in WTT
 
