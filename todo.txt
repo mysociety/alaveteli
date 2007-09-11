@@ -1,8 +1,6 @@
 Give a better login dialog
 
-Set "null" and "default" options more in schema
 Tidy up error message text (like "body must be filled in") on info request form
-Make sure that constraints / foreign keys in model are in same order as data in schema
 Check have validates_presence_of for every belongs_to
 Check using :string rather than :text for definitely limited fields like "status"
 IF just title is blank says "Info request must be filled in"
@@ -16,6 +14,7 @@ Tidying
 =======
 
 Rename "file_request" controller to "new" ?
+Set "null" and "default" options more in schema
 Add SQL foreign keys to database schema
     execute 'ALTER TABLE researchers ADD CONSTRAINT fk_researchers_departments FOREIGN KEY ( department_id ) REFERENCES departments( id ) '
     http://wiki.rubyonrails.org/rails/pages/UsingMigrations link to:
