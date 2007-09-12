@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user.rb,v 1.5 2007-09-11 15:26:12 francis Exp $
+# $Id: user.rb,v 1.6 2007-09-12 08:52:23 francis Exp $
 
 require 'digest/sha1'
 
@@ -21,9 +21,7 @@ class User < ActiveRecord::Base
 
     def validate
         errors.add_to_base("Missing password") if hashed_password.blank?
-        unless MySociety::Validate.is_valid_email(email)
-            errors.add(:email, "doesn't look like a valid address")
-        end
+        errors.add(:email, "doesn't look like a valid address") unless MySociety::Validate.is_valid_email(email)
     end
 
     # Return user given login email and password

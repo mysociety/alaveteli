@@ -1,4 +1,11 @@
+# app/helpers/application_helper.rb:
 # Methods added to this helper will be available to all templates in the application.
+#
+# Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
+# Email: francis@mysociety.org; WWW: http://www.mysociety.org/
+#
+# $Id: application_helper.rb,v 1.5 2007-09-12 08:52:23 francis Exp $
+
 module ApplicationHelper
 
     # Copied from error_messages_for in active_record_helper.rb
@@ -27,5 +34,5 @@ module ApplicationHelper
         end
     end
 
-
 end
+
