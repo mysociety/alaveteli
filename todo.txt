@@ -1,7 +1,5 @@
 Give a better login dialog
 
-Tidy up error message text (like "body must be filled in") on info request form
-
 Redirect the front page to the new FOI request page
 Make it say "dear" as default letter
 
@@ -10,8 +8,8 @@ Write some tests (try it their way, at every level)
 Tidying
 =======
 
-If just summary/title is blank says "Info request must be filled in" as spurious extra error
 If summary is blank, says "title must be filled in" grrrr
+Tidy up error message text (like "body must be filled in") on info request form
 
 Rename "file_request" controller to "new" ?
 Set "null" and "default" options more in schema
