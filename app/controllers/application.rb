@@ -6,7 +6,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: application.rb,v 1.5 2007-09-03 13:52:01 francis Exp $
+# $Id: application.rb,v 1.6 2007-09-12 15:27:15 francis Exp $
 
 
 class ApplicationController < ActionController::Base
@@ -26,8 +26,8 @@ class ApplicationController < ActionController::Base
             else
                 flash[:error] = "Email or password not correct"
             end
-
         end
+        render :template => 'user_accounts/signin'
     end
 
     # Logout form
