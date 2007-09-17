@@ -6,7 +6,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: application.rb,v 1.6 2007-09-12 15:27:15 francis Exp $
+# $Id: application.rb,v 1.7 2007-09-17 06:24:40 francis Exp $
 
 
 class ApplicationController < ActionController::Base
@@ -44,7 +44,9 @@ class ApplicationController < ActionController::Base
             session[:intended_action] = action_name
             session[:intended_controller] = controller_name
             redirect_to :action => "signin"
+            return false
         end
+        return true
     end
 
     # For administration interface, return display name of authenticated user
