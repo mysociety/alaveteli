@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: file_request_controller.rb,v 1.9 2007-09-17 10:13:24 francis Exp $
+# $Id: file_request_controller.rb,v 1.10 2007-09-17 10:13:45 francis Exp $
 
 class FileRequestController < ApplicationController
     def index
@@ -23,7 +23,6 @@ class FileRequestController < ApplicationController
 
         # This automatically saves dependent objects, such as @info_request, in the same transaction
         if not @info_request.save
-            raise @info_request.errors.@errors.to_yaml
             render :action => 'index'
         end
 
