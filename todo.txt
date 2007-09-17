@@ -8,6 +8,8 @@ Write some tests (try it their way, at every level)
 Tidying
 =======
 
+Prevent double posting of same request
+
 If summary is blank, says "title must be filled in" grrrr
 Tidy up error message text (like "body must be filled in") on info request form
 

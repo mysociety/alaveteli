@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.5 2007-09-11 15:23:59 francis Exp $
+# $Id: info_request.rb,v 1.6 2007-09-17 10:13:24 francis Exp $
 
 class InfoRequest < ActiveRecord::Base
     validates_presence_of :title
@@ -15,6 +15,6 @@ class InfoRequest < ActiveRecord::Base
     belongs_to :public_body
     validates_presence_of :public_body_id
 
-    has_many :outgoing_message
+    has_many :outgoing_messages
 end
 
