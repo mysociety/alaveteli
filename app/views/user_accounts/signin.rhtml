@@ -1,13 +1,31 @@
+<%= foi_error_messages_for :user %>
 
-<%= start_form_tag :action => "signin" %>
+<% form_tag({:action => "signin"}, {:id => "accountForm"}) do %>
     <p>
-    <label for="email">Enter your e-mail address:</label>
-    <%= text_field_tag "email" %>
+    <label for="user_email" id="signin_email"><strong>Enter your e-mail address:</strong></label>
+    <%= text_field 'user', 'email', { :size => 20 } %>
     </p>
+
     <p>
-    <label for="password">Password:</label>
-    <%= password_field_tag "password" %>
+    <%= radio_button_tag 'returning', 0, params[:returning] == "0" %>
+    <label for="returning_0" class="radio_label"><strong>I am new to FOIFA</strong></label>
     </p>
+
+    <p>
+    <%= radio_button_tag 'returning', 1, params[:returning] == "1" %>
+    <label for="returning_1" class="radio_label"><strong>I am returning to FOIFA and
+    my password is:</strong></label>
+    </p>
+
+    <p>
+    <label for="user_password">&nbsp;</label>
+    <%= password_field 'user', 'password', { :size => 15 } %>
+    </p>
+
+    <p>
+    <label for="submit">&nbsp;</label>
     <%= submit_tag "Sign in" %>
-<%= end_form_tag %>
+    </p>
+
+<% end %>
 

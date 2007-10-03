@@ -26,7 +26,6 @@ a:hover, a:active {
 
 form {
     margin: 0;
-
     padding: 1em;
     background-color: #97E300;
     -moz-border-radius: 1em;
@@ -42,17 +41,18 @@ label {
     text-align: right;
     padding-right: 0.5em;
     width: 10em;
+    margin-bottom: 0.5em;
 }
 
 /* Flashes */
 
-#errorExplanation, #notice {
+#errorExplanation, #error, #notice {
     text-align: center;
     font-size: larger;
     padding: 4px;
     margin: 1em;
 }
-#errorExplanation {
+#errorExplanation, #error {
     color: #cc0000;
     background-color: #ffcccc;
     border: solid 1px #cc0000;
@@ -67,6 +67,7 @@ label {
 
 .fieldWithErrors input, .fieldWithErrors input[type=text], 
 .fieldWithErrors select, .fieldWithErrors input[type=radio],
+.fieldWithErrors input[type=password],
 .fieldWithErrors textarea
 {
     border: solid 1px #cc0000;
@@ -163,5 +164,40 @@ label {
 #writeForm #message_part {
     float: right;
 }
+
+/* User accounts */
+
+#accountForm {
+    width: 75%;
+}
+
+#accountForm label {
+    width: 15em;
+/*    font-weight: bold; */
+}
+
+#accountForm input[type=radio] {
+    float: left;
+    text-align: right;
+    padding-right: 0.5em;
+    margin-left: 14em;
+}
+
+#accountForm .radio_label {
+    text-align: left;
+    margin-left: 0.5em;
+    float: none;
+}
+
+#accountForm .form_note {
+    display: block;
+    margin-left: 16em;
+    clear: both;
+}
+
+#accountForm h2 {
+    text-align: center;
+}
+
 
 

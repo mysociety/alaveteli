@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user.rb,v 1.7 2007-09-17 10:13:24 francis Exp $
+# $Id: user.rb,v 1.8 2007-10-03 17:13:50 francis Exp $
 
 require 'digest/sha1'
 
@@ -48,6 +48,20 @@ class User < ActiveRecord::Base
     end
 
     private
+
+    # XXX - wanted to override initialize to return existing model if
+    # authentication succeeds, but couldn't get it to work. This would move
+    # some code from controllers/application.rb
+    #def initialize(params = {}) 
+    #    raise params.to_yaml
+       # if not params[:email].empty? and not params[:password].empty?
+       #     user = self.authenticate(params[:email], params[:password])
+       #     if user
+       #         return user
+       #     end
+       # end
+    #    super
+    #end
 
     def self.encrypted_password(password, salt)
         string_to_hash = password + salt # XXX need to add a secret here too?
