@@ -1,0 +1,44 @@
+<%= foi_error_messages_for :user %>
+
+<% form_tag({:action => "signup"}, {:id => "accountForm"}) do %>
+    <h2>Create a new account</h2>
+
+    <p>
+    <label for="user_email" id="signin_email"><strong>E-mail:</strong></label>
+    <%= text_field 'user', 'email', :size => 20 %>
+    </p>
+
+    <p>
+    <label for="name"><strong>Full name:</strong> e.g. "Jack Bauer"</label>
+    <%= text_field 'user', 'name', { :size => 20 } %>
+    </p>
+
+    <p>
+    <label for="password"><strong>Password:</strong></label>
+    <%= password_field 'user', 'password', { :size => 15 } %>
+    </p>
+
+    <p>
+    <label for="password"><strong>Password (again):</strong></label>
+    <%= password_field 'user', 'password_confirmation', { :size => 15 } %>
+    </p>
+
+    <div class="form_note">
+    <strong>Privacy notes</strong>
+    <ul>
+    <li>We will not reveal your email address to anybody.
+    <li>Your <strong>name will appear publically</strong> on this website and
+    in search engines. We encourage you to use your real name, but you may use
+    an obvious pseudonym if you would like to be anonymous. 
+    <li>Any requests you make using the same email will be displayed on the
+    site under the same name.
+    </ul>
+    </div>
+
+    <p>
+    <label for="submit">&nbsp;</label>
+    <%= submit_tag "Sign in" %>
+    </p>
+
+<% end %>
+
