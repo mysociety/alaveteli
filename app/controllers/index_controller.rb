@@ -1,12 +1,12 @@
-# controllers/frontpage_controller.rb:
+# controllers/index_controller.rb:
 # Main page of site.
 #
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: frontpage_controller.rb,v 1.4 2007-08-04 11:10:25 francis Exp $
+# $Id: index_controller.rb,v 1.1 2007-10-08 15:02:01 francis Exp $
 
-class FrontpageController < ApplicationController
+class IndexController < ApplicationController
     def index
         respond_to do |format|
             format.html
