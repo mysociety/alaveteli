@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.6 2007-09-17 10:13:24 francis Exp $
+# $Id: public_body.rb,v 1.7 2007-10-08 14:51:47 francis Exp $
 
 class PublicBody < ActiveRecord::Base
     validates_presence_of :request_email
@@ -23,4 +23,5 @@ class PublicBody < ActiveRecord::Base
     end
 
     acts_as_versioned
+    self.non_versioned_columns << 'created_at' << 'updated_at'
 end
