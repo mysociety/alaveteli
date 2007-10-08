@@ -1,12 +1,31 @@
-Do second page of login dialog (new account)
+Try making login just go username/password always
 Ghost out password field when radio not selected on signin.rhtml
-
+Use something other than session for post redirect store, so can go via email
 Show that you are logged in in top right corner
+
+Send confirmation email
 
 Redirect the front page to the new FOI request page
 Make it say "dear" as default letter
 
 Write some tests (try it their way, at every level)
+
+Tidying
+=======
+
+Prevent double posting of same request
+
+If summary is blank, says "title must be filled in" grrrr
+Tidy up error message text (like "body must be filled in") on info request form
+
+Set "null" and "default" options more in schema
+Add SQL foreign keys to database schema
+    execute 'ALTER TABLE researchers ADD CONSTRAINT fk_researchers_departments FOREIGN KEY ( department_id ) REFERENCES departments( id ) '
+    http://wiki.rubyonrails.org/rails/pages/UsingMigrations link to:
+        http://www.surfdewey.com/2.html
+        http://www.redhillconsulting.com.au/rails_plugins.html#foreign_key_migrations
+        http://rubyforge.org/projects/mig-constraints/
+Call "delete from sessions where now() - updated_at > 3600" (one hour) or whatever
 
 Legal/privacy
 =============
@@ -18,25 +37,6 @@ Check act to see if can use pseudonym for FOI request?
 
 Maybe we SHOULD reveal their email to the public body, why not?
 
-Tidying
-=======
-
-Check times are being kept in UTC (! can't believe they might not be)
-
-Prevent double posting of same request
-
-If summary is blank, says "title must be filled in" grrrr
-Tidy up error message text (like "body must be filled in") on info request form
-
-Rename "file_request" controller to "new" ?
-Set "null" and "default" options more in schema
-Add SQL foreign keys to database schema
-    execute 'ALTER TABLE researchers ADD CONSTRAINT fk_researchers_departments FOREIGN KEY ( department_id ) REFERENCES departments( id ) '
-    http://wiki.rubyonrails.org/rails/pages/UsingMigrations link to:
-        http://www.surfdewey.com/2.html
-        http://www.redhillconsulting.com.au/rails_plugins.html#foreign_key_migrations
-        http://rubyforge.org/projects/mig-constraints/
-Call "delete from sessions where now() - updated_at > 3600" (one hour) or whatever
 
 Later
 =====
