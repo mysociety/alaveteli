@@ -1,12 +1,12 @@
-# app/controllers/file_request_controller.rb:
+# app/controllers/new_controller.rb:
 # Interface for building a new FOI request.
 #
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: file_request_controller.rb,v 1.11 2007-10-03 17:13:50 francis Exp $
+# $Id: new_controller.rb,v 1.1 2007-10-08 14:58:27 francis Exp $
 
-class FileRequestController < ApplicationController
+class NewController < ApplicationController
     def index
         # render index.rhtml template
     end

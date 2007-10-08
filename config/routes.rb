@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: routes.rb,v 1.6 2007-09-03 09:39:21 francis Exp $
+# $Id: routes.rb,v 1.7 2007-10-08 14:58:28 francis Exp $
 
 ActionController::Routing::Routes.draw do |map|
   # The priority is based upon order of creation: first created -> highest priority.
@@ -12,7 +12,7 @@ ActionController::Routing::Routes.draw do |map|
   # Sample of regular route:
   # map.connect 'products/:id', :controller => 'catalog', :action => 'view'
   # Keep in mind you can assign values other than :controller and :action
-  map.connect "/new/:action", :controller => 'file_request', :action => 'index'
+  map.connect "/new/:action", :controller => 'new', :action => 'index'
 
   map.connect '/admin/:action', :controller => 'admin', :action => 'index'
   map.connect '/admin/body/:action/:id', :controller => 'admin_public_body'
