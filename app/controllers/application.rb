@@ -6,7 +6,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: application.rb,v 1.9 2007-10-03 20:01:45 louise Exp $
+# $Id: application.rb,v 1.10 2007-10-08 15:16:22 francis Exp $
 
 
 class ApplicationController < ActionController::Base
@@ -80,6 +80,11 @@ class ApplicationController < ActionController::Base
             return false
         end
         return true
+    end
+
+    # Return logged in user
+    def authenticated_user
+        return User.find(session[:user])
     end
 
     # For redirects to POST requests

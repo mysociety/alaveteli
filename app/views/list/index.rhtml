@@ -1,0 +1,21 @@
+
+
+<h1>All FOI requests</h1>
+
+<table>
+  <tr>
+  <th>Title</th>
+ <th>Requester</th>
+  <th>Created</th>
+
+  </tr>
+
+<% for info_request in @info_requests %>
+  <tr class="<%= cycle('odd', 'even') %>">
+    <td><%= link_to info_request.title, :action => 'show', :id => info_request %></td>
+    <td><%= info_request.user.name %></td>
+    <td><%= info_request.created_at %></td>
+  </tr>
+<% end %>
+</table>
+

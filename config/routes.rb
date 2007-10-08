@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: routes.rb,v 1.7 2007-10-08 14:58:28 francis Exp $
+# $Id: routes.rb,v 1.8 2007-10-08 15:16:23 francis Exp $
 
 ActionController::Routing::Routes.draw do |map|
   # The priority is based upon order of creation: first created -> highest priority.
@@ -13,11 +13,12 @@ ActionController::Routing::Routes.draw do |map|
   # map.connect 'products/:id', :controller => 'catalog', :action => 'view'
   # Keep in mind you can assign values other than :controller and :action
   map.connect "/new/:action", :controller => 'new', :action => 'index'
+  map.connect "/list/:action", :controller => 'list', :action => 'index'
 
   map.connect '/admin/:action', :controller => 'admin', :action => 'index'
   map.connect '/admin/body/:action/:id', :controller => 'admin_public_body'
 
-  map.connect "/:action/:id", :controller => 'frontpage'
+  map.connect "/:action/:id", :controller => 'index'
 
   # Sample of named route:
   # map.purchase 'products/:id/purchase', :controller => 'catalog', :action => 'purchase'

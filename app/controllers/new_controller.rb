@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: new_controller.rb,v 1.1 2007-10-08 14:58:27 francis Exp $
+# $Id: new_controller.rb,v 1.2 2007-10-08 15:16:22 francis Exp $
 
 class NewController < ApplicationController
     def index
@@ -25,6 +25,7 @@ class NewController < ApplicationController
         if not @info_request.valid?
             render :action => 'index'
         elsif check_authentication
+            @info_request.user = authenticated_user
             @info_request.save
         end
 
