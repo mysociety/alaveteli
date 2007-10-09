@@ -7,7 +7,9 @@ Request to <%=@info_request.public_body.name%>
 </p>
 
 <p>
-Created by <%= @info_request.user.name %></td> on <%= @info_request.created_at %>
+Created by 
+<%= link_to @info_request.user.name, :controller => 'user', :action => 'index', :name => @info_request.user.name %>
+on <%= @info_request.created_at %>
 </p>
 
 

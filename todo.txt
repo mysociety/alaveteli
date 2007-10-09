@@ -13,6 +13,9 @@ Write some tests (try it their way, at every level)
 Link to user pages
 
 Check all controllers to be sure non-action functions are private
+You have a zillion CSS holes - run h() more
+
+Format dates nicely
 
 Tidying
 =======
@@ -55,6 +58,8 @@ Add spelling checker as in WTT
 
 For grey hints in input fields
 http://pauldowman.com/projects/fieldhints/
+
+Somehow validate all pages with HTML validate
 
 
 Sources of public bodies

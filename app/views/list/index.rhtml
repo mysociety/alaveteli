@@ -2,7 +2,7 @@
 
 <h2><%=@title%></h2>
 
-<p.
+<p>
 <table>
   <tr>
   <th>Title</th>
@@ -14,7 +14,7 @@
 <% for info_request in @info_requests %>
   <tr class="<%= cycle('odd', 'even') %>">
     <td><%= link_to info_request.title, :controller => 'request', :action => 'index', :id => info_request %></td>
-    <td><%= info_request.user.name %></td>
+    <td><%= link_to info_request.user.name, :controller => 'user', :action => 'index', :name => info_request.user.name %></td>
     <td><%= info_request.created_at %></td>
   </tr>
 <% end %>
