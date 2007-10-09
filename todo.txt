@@ -10,15 +10,17 @@ Make it say "dear" as default letter
 
 Write some tests (try it their way, at every level)
 
-Link to user pages
-
 Check all controllers to be sure non-action functions are private
-You have a zillion CSS holes - run h() more
 
 Format dates nicely
 
+Rename back links in admin interface
+
 Tidying
 =======
+
+Links to user pages with <sup> etc. in don't work
+Check that when on such a page <title> etc. is right
 
 Prevent double posting of same request
 

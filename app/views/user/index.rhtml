@@ -1,4 +1,4 @@
-<% @title = @display_users[0].name %>
+<% @title = h(@display_users[0].name) %>
 
 <% if (@display_users.size > 1) %>
     <p>There is more than one user with this name.
@@ -11,7 +11,7 @@
     <p>Freedom of Information requests made by this person:</p>
     <ul>
     <% for info_request in display_user.info_requests %>
-    <li><%= link_to info_request.title, :controller => 'request', :action => 'index', :id => info_request %></td>
+    <li><%= link_to h(info_request.title), :controller => 'request', :action => 'index', :id => info_request %></td>
     <% end %>
     </ul>
 <% end %>

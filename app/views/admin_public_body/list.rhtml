@@ -9,7 +9,7 @@
   
 <% for public_body in @public_bodies %>
   <tr class="<%= cycle('odd', 'even') %>">
-    <td><%= link_to public_body.name, :action => 'show', :id => public_body %></td>
+    <td><%= link_to h(public_body.name), :action => 'show', :id => public_body %></td>
   <% for column in PublicBody.content_columns.map { |c| c.name } - [ "name" ] %>
     <td><%=h public_body.send(column) %></td>
   <% end %>
