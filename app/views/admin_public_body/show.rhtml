@@ -1,4 +1,6 @@
-<h1><%=h @public_body.name%></h1>
+<% @title = h(@public_body.name) %>
+
+<h1><%=@title%></h1>
 
 <p>
 <% for column in PublicBody.content_columns %>

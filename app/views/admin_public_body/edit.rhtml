@@ -1,4 +1,6 @@
-<h1>Editing public body</h1>
+<% @title = 'Editing public body' %>
+
+<h1><%=@title%></h1>
 
 <% form_tag :action => 'update', :id => @public_body do %>
   <%= render :partial => 'form' %>
