@@ -1,5 +1,7 @@
 <h1>Listing public bodies</h1>
 
+<p><%= link_to 'New public body', :action => 'new' %></p>
+
 <table>
   <tr>
   <% for column in PublicBody.content_columns %>
@@ -22,4 +24,3 @@
 
 <br />
 
-<%= link_to 'New public body', :action => 'new' %>
