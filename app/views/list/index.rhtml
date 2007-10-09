@@ -15,7 +15,7 @@
   <tr class="<%= cycle('odd', 'even') %>">
     <td><%= link_to h(info_request.title), :controller => 'request', :action => 'index', :id => info_request %></td>
     <td><%= link_to h(info_request.user.name), :controller => 'user', :action => 'index', :name => info_request.user.name %></td>
-    <td><%= info_request.created_at %></td>
+    <td><%= simple_date(info_request.created_at) %></td>
   </tr>
 <% end %>
 </table>

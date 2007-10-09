@@ -7,11 +7,11 @@
 <% for display_user in @display_users %>
     <h2><%=@title%></h2>
 
-    <p>Registered <%= display_user.created_at %></p>
+    <p>Registered on <%= simple_date(display_user.created_at) %></p>
     <p>Freedom of Information requests made by this person:</p>
     <ul>
     <% for info_request in display_user.info_requests %>
-    <li><%= link_to h(info_request.title), :controller => 'request', :action => 'index', :id => info_request %></td>
+    <li><%= link_to h(info_request.title), :controller => 'request', :action => 'index', :id => info_request %></li>
     <% end %>
     </ul>
 <% end %>

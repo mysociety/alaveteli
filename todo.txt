@@ -10,10 +10,6 @@ Make it say "dear" as default letter
 
 Write some tests (try it their way, at every level)
 
-Check all controllers to be sure non-action functions are private
-
-Format dates nicely
-
 Rename back links in admin interface
 
 Tidying

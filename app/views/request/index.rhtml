@@ -9,7 +9,7 @@ Request to <%=h @info_request.public_body.name%>
 <p>
 Created by 
 <%= link_to h(@info_request.user.name), :controller => 'user', :action => 'index', :name => @info_request.user.name %>
-on <%= @info_request.created_at %>
+on <%= simple_date(@info_request.created_at) %>
 </p>
 
 

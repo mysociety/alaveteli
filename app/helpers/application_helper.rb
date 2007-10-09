@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: application_helper.rb,v 1.5 2007-09-12 08:52:23 francis Exp $
+# $Id: application_helper.rb,v 1.6 2007-10-09 20:02:13 francis Exp $
 
 module ApplicationHelper
 
@@ -32,6 +32,11 @@ module ApplicationHelper
         else
           ''
         end
+    end
+
+    # Basic date format
+    def simple_date(date)
+        return date.strftime("%e %B %Y")
     end
 
 end
