@@ -6,7 +6,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: application.rb,v 1.10 2007-10-08 15:16:22 francis Exp $
+# $Id: application.rb,v 1.11 2007-10-09 17:29:43 francis Exp $
 
 
 class ApplicationController < ActionController::Base
@@ -94,7 +94,6 @@ class ApplicationController < ActionController::Base
             params.update(session[:intended_params])
         end
     end
-    
 
     # For administration interface, return display name of authenticated user
     def admin_http_auth_user

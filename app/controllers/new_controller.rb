@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: new_controller.rb,v 1.2 2007-10-08 15:16:22 francis Exp $
+# $Id: new_controller.rb,v 1.3 2007-10-09 17:29:43 francis Exp $
 
 class NewController < ApplicationController
     def index
@@ -41,6 +41,8 @@ class NewController < ApplicationController
 #            render :action => 'index'
 #        end
     end
+
+    private
 
 end
 
