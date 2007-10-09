@@ -10,6 +10,10 @@ Make it say "dear" as default letter
 
 Write some tests (try it their way, at every level)
 
+Link to user pages
+
+Check all controllers to be sure non-action functions are private
+
 Tidying
 =======
 
@@ -43,6 +47,9 @@ Later
 
 Read wiki page lots
 http://www.mysociety.org/moin.cgi/FreedomOfInformation
+
+Check FOE site lots
+http://community.foe.co.uk/tools/right_to_know/request_generator.html
 
 Add spelling checker as in WTT
 

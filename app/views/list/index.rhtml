@@ -1,18 +1,19 @@
+<% @title = "All FOI requests" %>
 
+<h2><%=@title%></h2>
 
-<h1>All FOI requests</h1>
-
+<p.
 <table>
   <tr>
   <th>Title</th>
- <th>Requester</th>
+  <th>Requester</th>
   <th>Created</th>
 
   </tr>
 
 <% for info_request in @info_requests %>
   <tr class="<%= cycle('odd', 'even') %>">
-    <td><%= link_to info_request.title, :action => 'show', :id => info_request %></td>
+    <td><%= link_to info_request.title, :controller => 'request', :action => 'index', :id => info_request %></td>
     <td><%= info_request.user.name %></td>
     <td><%= info_request.created_at %></td>
   </tr>

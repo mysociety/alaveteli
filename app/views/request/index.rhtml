@@ -1,0 +1,14 @@
+<% @title = @info_request.title %>
+
+<h2><%=@title%></h2>
+
+<p>
+Request to <%=@info_request.public_body.name%>
+</p>
+
+<p>
+Created by <%= @info_request.user.name %></td> on <%= @info_request.created_at %>
+</p>
+
+
+
