@@ -5,12 +5,15 @@ Show that you are logged in in top right corner
 
 Send confirmation email
 
+Send actually FOIFA request
+
 Redirect the front page to the new FOI request page
 Make it say "dear" as default letter
 
 Write some tests (try it their way, at every level)
 
-Rename back links in admin interface
+Go through all controllers and make sure index URL works
+After signin, should go back to full URL with ids etc. as well
 
 Tidying
 =======
@@ -52,6 +55,9 @@ http://www.mysociety.org/moin.cgi/FreedomOfInformation
 Check FOE site lots
 http://community.foe.co.uk/tools/right_to_know/request_generator.html
 
+Look at this basic US site
+http://www.rcfp.org/foi_letter/generate.php
+
 Add spelling checker as in WTT
 
 For grey hints in input fields
@@ -60,8 +66,13 @@ http://pauldowman.com/projects/fieldhints/
 Somehow validate all pages with HTML validate
 
 
+
 Sources of public bodies
 ========================
 
 Schools list: www.edubase.gov.uk
+
+Heather has some for central departments
+
+
 

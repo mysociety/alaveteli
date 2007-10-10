@@ -13,6 +13,16 @@
         <li><a href="/new">New Request</a></li>
     </ul>
 
+    <% if not (controller.action_name == 'signin' or controller.action_name == 'signup') %>
+        <div id="logged_in_bar">
+        <% if @user %>
+            Hello, <%=h(@user.name)%>! (<%= link_to "Logout", :action => 'signout', :r => request.request_uri %>)
+        <% else %>
+            Hello! (<%= link_to "Login or register", { :action => 'signin', :r => request.request_uri  } %>)
+        <% end %>
+        </div>
+    <% end %>
+
     <% if flash[:notice] %>
         <div id="notice"><%= flash[:notice] %></div>
     <% end %>

@@ -142,6 +142,10 @@ label {
     color: #97E300;
 }
 
+#logged_in_bar {
+    text-align: right;
+}
+
 /* Front page */
 
 #explanation {

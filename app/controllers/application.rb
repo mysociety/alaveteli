@@ -6,7 +6,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: application.rb,v 1.11 2007-10-09 17:29:43 francis Exp $
+# $Id: application.rb,v 1.12 2007-10-10 16:06:17 francis Exp $
 
 
 class ApplicationController < ActionController::Base
@@ -18,6 +18,11 @@ class ApplicationController < ActionController::Base
 
     # Login form
     def signin
+        # The explict signin link uses this to store where it is to go back to
+        if params[:r]
+            session[:request_uri] = params[:r]
+        end
+
         if not params[:user] 
             # First time page is shown
             render :template => 'user_accounts/signin' and return
@@ -31,7 +36,7 @@ class ApplicationController < ActionController::Base
             if @user
                 # Successful login
                 session[:user] = @user.id
-                redirect_to :action => session[:intended_action], :controller => session[:intended_controller], :post_redirect => 1 and return
+                post_redirect session[:intended_uri], session[:intended_params] and return
             else
                 # Failed to authenticate
                 flash[:error] = "Email or password not correct, please try again"
@@ -58,23 +63,26 @@ class ApplicationController < ActionController::Base
         else
             # New user made, redirect back to where we were
             session[:user] = @user.id
-            redirect_to :action => session[:intended_action], :controller => session[:intended_controller], :post_redirect => 1
+            post_redirect session[:intended_uri], session[:intended_params] and return
         end
     end
 
     # Logout form
     def signout
         session[:user] = nil
-        redirect_to frontpage
+        if params[:r]
+            redirect_to params[:r]
+        else
+            redirect_to :action => "index"
+        end
     end
 
     private
 
     # Check the user is logged in
-    def check_authentication
+    def authenticated?
         unless session[:user]
-            session[:intended_action] = action_name
-            session[:intended_controller] = controller_name
+            session[:intended_uri] = @request.request_uri
             session[:intended_params] = params
             redirect_to :action => "signin"
             return false
@@ -87,11 +95,31 @@ class ApplicationController < ActionController::Base
         return User.find(session[:user])
     end
 
-    # For redirects to POST requests
-    before_filter :post_redirect
-    def post_redirect
+    # Post redirect
+    def post_redirect(uri, params)
+        session[:post_redirect_params] = params
+        # XXX what is built in Ruby URI munging function?
+        if uri.include?("?")
+            uri += "&post_redirect=1"
+        else
+            uri += "?post_redirect=1"
+        end
+        redirect_to uri
+    end
+
+    # Default layout shows user in corner, so needs access to it
+    before_filter :authentication_check
+    def authentication_check
+        if session[:user]
+            @user = authenticated_user
+        end
+    end
+
+    # If we are in a redirect to POST request, then set params
+    before_filter :check_in_post_redirect
+    def check_in_post_redirect
         if params[:post_redirect]
-            params.update(session[:intended_params])
+            params.update(session[:post_redirect_params])
         end
     end
 

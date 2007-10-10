@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: new_controller.rb,v 1.3 2007-10-09 17:29:43 francis Exp $
+# $Id: new_controller.rb,v 1.4 2007-10-10 16:06:17 francis Exp $
 
 class NewController < ApplicationController
     def index
@@ -24,16 +24,18 @@ class NewController < ApplicationController
         # This automatically saves dependent objects, such as @info_request, in the same transaction
         if not @info_request.valid?
             render :action => 'index'
-        elsif check_authentication
+        elsif authenticated?
             @info_request.user = authenticated_user
             @info_request.save
+            flash[:notice] = "Your Freedom of Information request has been created."
+            redirect_to :controller => 'request', :id => @info_request
         end
 
         # Save both models
 #        valid = @info_request.valid? 
 #        valid &&= @outgoing_message.valid? # XXX maybe there is a nicer way of preventing lazy boolean evaluation than this
 #        if valid
-#            if check_authentication
+#            if authenticated?
 #                @info_request.save!
 #                @outgoing_message.save!
 #            end
