@@ -24,10 +24,102 @@ a:hover, a:active {
     color: #ff0000;
 }
 
+/* Site-wide layout */
+
+#header {
+    border-bottom: solid 1px #4e451b;
+    margin: 0;
+    padding: 5px 0.5em;
+    background-color: #a8f400;
+    color: #000000;
+    /* 4e451b, a8f400 are useful greens */
+}
+
+#header h1 {
+    font-size: 200%;
+    font-weight: bold;
+}
+
+#beta {
+    color: #6e653b;
+    background-color: #a8f400;
+    font-size: 50%;
+}
+#tagline {
+    /* color: #6e653b; */
+
+    color: #000000;
+    background-color: #a8f400;
+    padding-top: -2em;
+    font-size: 50%;
+    font-style: italic;
+}
+
+#header a:link, #header a:visited {
+    color: #000000;
+    background-color: #a8f400;
+    text-decoration: none;
+}
+#header a:active, #header a:hover {
+    text-decoration: underline;
+}
+
+#content {
+    width: 100%; /* Must specify a width or IE goes crazy wrong! */
+    position: relative;
+    margin: 0 auto;
+    max-width: 60em;
+}
+
+/* Can't put the margin in #content because of above IE craziness */
+#wrapper {
+    margin: 2em;
+    margin-left: 4em;
+    margin-right: 4em;
+}
+
+#navigation {
+    position: absolute;
+    top: 2em;
+    right: 1em;
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+#navigation li {
+    display: inline;
+    padding: 0;
+    margin: 0;
+}
+
+#navigation a {
+    display: -moz-inline-box;
+    display: inline-block;
+    padding: 0.5em 1em;
+}
+#navigation a:link, #navigation a:visited {
+    color: #000000;
+}
+#navigation a:hover, #navigation a:active {
+    background-color: #4e451b;
+    color: #a8f400;
+}
+
+#logged_in_bar {
+    text-align: right;
+    margin-top: 0.5em;
+    margin-right: 1em;
+}
+
+/* Forms */
+
 form {
     margin: 0;
     padding: 1em;
-    background-color: #97E300;
+}
+
+.plaque {
+    background-color: #a8f400;
     -moz-border-radius: 1em;
     border-radius: 1em;
 }
@@ -43,13 +135,19 @@ label {
     width: 10em;
     margin-bottom: 0.5em;
 }
+.form_note {
+    margin-left: 10.5em;
+}
+.form_button {
+    margin-left: 10em;
+}
 
 /* Flashes */
 
 #errorExplanation, #error, #notice {
     text-align: center;
     font-size: larger;
-    padding: 4px;
+    padding: 0.5em;
     margin: 1em;
 }
 #errorExplanation, #error {
@@ -74,87 +172,27 @@ label {
     background-color: #ffcccc;
 }
 
-/* Site-wide layout */
+/* / - front page */
 
-#header {
-    font-size: 200%;
-    font-weight: bold;
-    border-bottom: solid 2px #4e451b;
-    margin: 0;
-    padding: 5px 0.5em;
-    background-color: #97E300;
-    color: #4e451b;
-    /* 4e451b is another useful green */
+#frontpage h1 {
+    margin-bottom: 1em;
 }
-
-#beta {
-    color: #6e653b;
-    background-color: #97E300;
-    font-size: 50%;
-    font-style: italic;
-}
-
-#header a:link, #header a:visited {
-    color: #4e451b;
-    background-color: #97E300;
-    text-decoration: none;
-}
-#header a:active, #header a:hover {
-    text-decoration: underline;
-}
-
-#content {
-    width: 100%; /* Must specify a width or IE goes crazy wrong! */
-    position: relative;
-    margin: 0 auto;
-    max-width: 60em;
-}
-
-/* Can't put the margin in #content because of above IE craziness */
-#wrapper {
-    margin: 2em;
-}
-
-#navigation {
-    position: absolute;
-    top: 1em;
-    right: 1em;
-    padding: 0;
-    margin: 0;
-    list-style-type: none;
-}
-#navigation li {
-    display: inline;
-    padding: 0;
-    margin: 0;
-}
-
-#navigation a {
-    display: -moz-inline-box;
-    display: inline-block;
-    padding: 0.5em 1em;
-}
-#navigation a:link, #navigation a:visited {
-    color: #4e451b;
-}
-#navigation a:hover, #navigation a:active {
-    background-color: #4e451b;
-    color: #97E300;
-}
-
-#logged_in_bar {
-    text-align: right;
-}
-
-/* Front page */
-
-#explanation {
+#frontpage #make_requests {
     text-align: center;
-    font-size: 150%;
-    margin: 0 2em;
+    width: 45%;
+    float: left;
+}
+#frontpage #public_body_form {
 }
 
-/* Submitting requests */
+#frontpage #find_information {
+    text-align: center;
+    width: 45%;
+    float: right;
+}
+
+
+/* /new - submitting requests */
 
 #writeForm {
     float: right;
@@ -167,6 +205,20 @@ label {
 
 #writeForm #message_part {
     float: right;
+}
+
+/* /list - browsing requests */
+table#list_requests {
+    border-collapse: collapse; 
+    border: solid 1px #4e451b;
+    border-width: 1px 0 1px 1px;
+}
+table#list_requests td, table#list_requests th {
+    margin: 0; padding: 0.2em;
+    border: solid 1px #4e451b;
+}
+table#list_requests .odd {
+    background-color: #dddddd;
 }
 
 /* User accounts */

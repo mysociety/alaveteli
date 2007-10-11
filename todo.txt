@@ -1,18 +1,21 @@
-Try making login just go username/password always
-Ghost out password field when radio not selected on signin.rhtml
-
 Use something other than session for post redirect store, so can go via email
 If you recently made a request, then a login will try to make it again because
     all the stuff for the post redirect is in the session. Consider again
 
 Send confirmation email
 
-Send actually FOIFA request
+Send actual FOIFA request
 
-Redirect the front page to the new FOI request page
 Make it say "dear" as default letter
 
 Write some tests (try it their way, at every level)
+
+Make sure index for every controller shows all, and the /controller/:id URls go to a show action
+
+Escape/simplify short name properly in URLs of public bodies
+For public bodies whose short names are renamed, make old URL still work and redirect
+
+Pagination on /list isn't set up properly - set number to low one to test, it doesn't show links
 
 Tidying
 =======

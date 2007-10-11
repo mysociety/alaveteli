@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: routes.rb,v 1.11 2007-10-10 16:06:17 francis Exp $
+# $Id: routes.rb,v 1.12 2007-10-11 22:01:37 francis Exp $
 
 ActionController::Routing::Routes.draw do |map|
     # The priority is based upon order of creation: first created -> highest priority.
@@ -16,6 +16,7 @@ ActionController::Routing::Routes.draw do |map|
     map.connect "/list/:action", :controller => 'list'
     map.connect "/request/:id", :controller => 'request', :action => 'index'
     map.connect "/user/:name", :controller => 'user', :action => 'index'
+    map.connect "/body/:short_name", :controller => 'body', :action => 'show'
 
     map.connect '/admin/:action', :controller => 'admin', :action => 'index'
     map.connect '/admin/body/:action/:id', :controller => 'admin_public_body'

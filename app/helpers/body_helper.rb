@@ -1,0 +1,2 @@
+module BodyHelper
+end

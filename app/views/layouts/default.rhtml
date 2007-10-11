@@ -6,14 +6,13 @@
         <%= stylesheet_link_tag 'main' %>
     </head>
     <body>
-    <h1 id="header">
-        <% if controller.controller_name == 'index' and controller.action_name == 'index' %>
-            Freedom of Information Filer and Archive
-        <% else %>
-            <a href="/">Freedom of Information Filer and Archive</a> 
-        <% end %>
-        <span id="beta">Beta</span>
-    </h1>
+    <div id="header">
+        <h1>
+            <a href="/">Government Spy</a> 
+            <span id="beta">Beta</span>
+        </h1>
+        <div id="tagline">Freeing your information from them</div>
+    </div>
     <ul id="navigation">
         <li><a href="/list">All Requests</a></li>
         <li><a href="/new">New Request</a></li>
