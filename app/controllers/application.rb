@@ -6,7 +6,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: application.rb,v 1.12 2007-10-10 16:06:17 francis Exp $
+# $Id: application.rb,v 1.13 2007-10-11 13:21:31 francis Exp $
 
 
 class ApplicationController < ActionController::Base
@@ -20,34 +20,33 @@ class ApplicationController < ActionController::Base
     def signin
         # The explict signin link uses this to store where it is to go back to
         if params[:r]
-            session[:request_uri] = params[:r]
+            session[:intended_uri] = params[:r]
+            session[:intended_params] = nil
         end
 
         if not params[:user] 
             # First time page is shown
             render :template => 'user_accounts/signin' and return
-        elsif params[:returning] == "0"
-            # "I am new to FOIFA"
-            session[:email] = params[:user][:email]
-            redirect_to :action => 'signup' and return
-        elsif params[:returning] == "1"
-            # "I am returning to FOIFA and my password is"
+        else
             @user = User.authenticate(params[:user][:email], params[:user][:password])
             if @user
                 # Successful login
                 session[:user] = @user.id
                 post_redirect session[:intended_uri], session[:intended_params] and return
             else
-                # Failed to authenticate
-                flash[:error] = "Email or password not correct, please try again"
+                if User.find(:first, :conditions => [ "email = ?", params[:user][:email] ])
+                    # Failed to authenticate
+                    flash[:error] = "Password not correct, please try again"
+                    @user = User.new(params[:user])
+                    render :template => 'user_accounts/signin' and return
+                else 
+                    # "I am new to FOIFA"
+                    session[:email] = params[:user][:email]
+                    session[:password] = params[:user][:password]
+                    session[:first_time] = true
+                    redirect_to :action => 'signup' and return
+                end
             end
-            @user = User.new(params[:user])
-            render :template => 'user_accounts/signin' and return
-        else
-            # Form submitted, but didn't specify whether had already used FOIFA or not
-            flash[:error] = "Please say whether you already have a FOIFA account or not"
-            @user = User.new(params[:user])
-            render :template => 'user_accounts/signin' and return
         end
     end
 
@@ -55,10 +54,18 @@ class ApplicationController < ActionController::Base
     def signup
         # Default to value saved from signin form
         params[:user] ||= { :email => session[:email] }
+        params[:user] ||= { :password => session[:password] }
 
         # Make the user and try to save it
         @user = User.new(params[:user])
         if not @user.save
+            # First time get to form (e.g. from signin) , don't show errors
+            if session[:first_time]
+                @first_time = true
+                @user.errors.clear
+                session[:first_time] = false
+            end
+            # Show the form
             render :template => 'user_accounts/signup'
         else
             # New user made, redirect back to where we were
@@ -118,7 +125,7 @@ class ApplicationController < ActionController::Base
     # If we are in a redirect to POST request, then set params
     before_filter :check_in_post_redirect
     def check_in_post_redirect
-        if params[:post_redirect]
+        if params[:post_redirect] and session[:post_redirect_params]
             params.update(session[:post_redirect_params])
         end
     end

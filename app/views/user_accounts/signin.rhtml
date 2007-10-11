@@ -7,19 +7,13 @@
     </p>
 
     <p>
-    <%= radio_button_tag 'returning', 0, params[:returning] == "0" %>
-    <label for="returning_0" class="radio_label"><strong>I am new to FOIFA</strong></label>
-    </p>
-
-    <p>
-    <%= radio_button_tag 'returning', 1, params[:returning] == "1" %>
-    <label for="returning_1" class="radio_label"><strong>I am returning to FOIFA and
-    my password is:</strong></label>
-    </p>
-
-    <p>
-    <label for="user_password">&nbsp;</label>
+    <label for="user_password"><strong>Password:</strong></label>
     <%= password_field 'user', 'password', { :size => 15 } %>
+    </p>
+
+    <p>
+    <label>&nbsp;</label>
+    Don't have a password? Just enter one to register a new account.
     </p>
 
     <p>

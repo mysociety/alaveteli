@@ -1,7 +1,9 @@
 Try making login just go username/password always
 Ghost out password field when radio not selected on signin.rhtml
+
 Use something other than session for post redirect store, so can go via email
-Show that you are logged in in top right corner
+If you recently made a request, then a login will try to make it again because
+    all the stuff for the post redirect is in the session. Consider again
 
 Send confirmation email
 
@@ -11,9 +13,6 @@ Redirect the front page to the new FOI request page
 Make it say "dear" as default letter
 
 Write some tests (try it their way, at every level)
-
-Go through all controllers and make sure index URL works
-After signin, should go back to full URL with ids etc. as well
 
 Tidying
 =======
