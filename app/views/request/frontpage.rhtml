@@ -1,0 +1,20 @@
+<div id="frontpage">
+
+    <div id="make_requests">
+        <h1>Make requests for information from the UK Government</h1>
+
+        <% form_for(:info_request, @info_request, :url => { :controller => :new, :action => :index }, :html => { :id => 'public_body_form', :class => 'plaque' }  ) do |f| %>
+           <p>Choose which public body you would like information from.</p>
+           <%= @public_bodies = PublicBody.find(:all, :order => "name")
+               f.collection_select(:public_body_id, @public_bodies, :id, :name) %>
+            <p><%= submit_tag "Submit >>" %></p>
+        <% end %>
+    </div>
+
+    <div id="find_information">
+        <h1>Find information that others requested</h1>
+        <p><a href="/list">View all information</a></p>
+    </div>
+
+
+</div>

@@ -1,0 +1,23 @@
+<% @title = "Recent Freedom of Information requests" %>
+
+<h2><%=@title%></h2>
+
+<table id="list_requests">
+  <tr>
+  <th>Public body</th>
+  <th>Title</th>
+  <th>Requester</th>
+  <th>Created</th>
+
+  </tr>
+
+<% for info_request in @info_requests %>
+  <tr class="<%= cycle('odd', 'even') %>">
+    <td><%= link_to h(info_request.public_body.short_name), :controller => 'body', :action => 'show', :short_name => info_request.public_body.short_name %></td>
+    <td><%= link_to h(info_request.title), :controller => 'request', :action => 'index', :id => info_request %></td>
+    <td><%= link_to h(info_request.user.name), :controller => 'user', :action => 'index', :name => info_request.user.name %></td>
+    <td><%= simple_date(info_request.created_at) %></td>
+  </tr>
+<% end %>
+</table>
+
