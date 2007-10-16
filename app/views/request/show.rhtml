@@ -4,12 +4,12 @@
 
 <p>
 Request to 
-<%= link_to h(@info_request.public_body.name), :controller => 'body', :action => 'show', :short_name => @info_request.public_body.short_name %>
+<%= public_body_link(@info_request.public_body) %>
 </p>
 
 <p>
 Created by 
-<%= link_to h(@info_request.user.name), :controller => 'user', :action => 'index', :name => @info_request.user.name %>
+<%= link_to h(@info_request.user.name), show_user_url(:name => @info_request.user.name) %>
 on <%= simple_date(@info_request.created_at) %>
 </p>
 

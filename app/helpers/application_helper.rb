@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: application_helper.rb,v 1.6 2007-10-09 20:02:13 francis Exp $
+# $Id: application_helper.rb,v 1.7 2007-10-16 21:17:14 louise Exp $
 
 module ApplicationHelper
 
@@ -37,6 +37,14 @@ module ApplicationHelper
     # Basic date format
     def simple_date(date)
         return date.strftime("%e %B %Y")
+    end
+    
+    def request_link(info_request)
+        link_to h(info_request.title), request_url(:id => info_request)
+    end
+    
+    def public_body_link(public_body)
+        link_to h(public_body.short_name), public_body_url(:short_name => public_body.short_name)
     end
 
 end

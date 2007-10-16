@@ -11,7 +11,7 @@
     <p>Freedom of Information requests made by this person:</p>
     <ul>
     <% for info_request in display_user.info_requests %>
-    <li><%= link_to h(info_request.title), :controller => 'request', :action => 'show', :id => info_request %></li>
+    <li><%= link_to h(info_request.title), request_url(:id => info_request) %></li>
     <% end %>
     </ul>
 <% end %>

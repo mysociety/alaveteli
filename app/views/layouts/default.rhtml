@@ -14,7 +14,7 @@
         <div id="tagline">Freeing your information from them</div>
     </div>
     <ul id="navigation">
-        <li><a href="/list">All Requests</a></li>
+        <li><%= link_to "All Requests", request_list_url %></li>
         <li><a href="/new">New Request</a></li>
         <!-- <li><a href="/my">My Requests</a></li> -->
         <!-- <li><a href="/about">About</a></li> -->
@@ -23,9 +23,10 @@
     <% if not (controller.action_name == 'signin' or controller.action_name == 'signup') %>
         <div id="logged_in_bar">
         <% if @user %>
-            Hello, <%=h(@user.name)%>! (<%= link_to "Logout", :controller => 'user', :action => 'signout', :r => request.request_uri %>)
+            Hello, <%=h(@user.name)%>! 
+            (<%= link_to "Logout", signout_url(:r => request.request_uri) %>)
         <% else %>
-            Hello! (<%= link_to "Login or register", { :controller => 'user', :action => 'signin', :r => request.request_uri  } %>)
+            Hello! (<%= link_to "Login or register", signin_url(:r => request.request_uri) %>)
         <% end %>
         </div>
     <% end %>

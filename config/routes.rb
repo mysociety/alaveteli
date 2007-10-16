@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: routes.rb,v 1.14 2007-10-16 07:11:15 francis Exp $
+# $Id: routes.rb,v 1.15 2007-10-16 21:17:15 louise Exp $
 
 ActionController::Routing::Routes.draw do |map|
     # The priority is based upon order of creation: first created -> highest priority.
@@ -14,21 +14,21 @@ ActionController::Routing::Routes.draw do |map|
     # Keep in mind you can assign values other than :controller and :action
     
     map.with_options :controller => 'request' do |request|
-      request.connect '/request/:id', :action => 'show'   
-      request.connect '/list',        :action => 'list'
-      request.connect '/',            :action => 'frontpage'
-      request.connect '/new',         :action => 'new'
-      request.connect '/create',      :action => 'create' 
+      request.home           '/',            :action => 'frontpage'
+      request.request_list   '/list',        :action => 'list'
+      request.new_request    '/new',         :action => 'new'
+      request.create_request '/create',      :action => 'create' 
+      request.request        '/request/:id', :action => 'show'   
     end
 
     map.with_options :controller => 'user' do |user|
-      user.connect '/signin',     :action => 'signin'
-      user.connect '/signup',     :action => 'signup'
-      user.connect '/signout',    :action => 'signout'
-      user.connect "/user/:name", :action => 'index'
+      user.signin '/signin',        :action => 'signin'
+      user.signup '/signup',        :action => 'signup'
+      user.signout '/signout',      :action => 'signout'
+      user.show_user "/user/:name", :action => 'index'
     end
 
-    map.connect "/body/:short_name", :controller => 'body', :action => 'show'
+    map.public_body "/body/:short_name", :controller => 'body', :action => 'show'
 
     map.connect '/admin/:action', :controller => 'admin', :action => 'index'
     map.connect '/admin/body/:action/:id', :controller => 'admin_public_body'

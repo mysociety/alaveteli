@@ -6,7 +6,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: application.rb,v 1.14 2007-10-15 22:38:27 louise Exp $
+# $Id: application.rb,v 1.15 2007-10-16 21:17:14 louise Exp $
 
 
 class ApplicationController < ActionController::Base
@@ -91,7 +91,7 @@ class ApplicationController < ActionController::Base
         unless session[:user]
             session[:intended_uri] = @request.request_uri
             session[:intended_params] = params
-            redirect_to :controller => 'user', :action => "signin"
+            redirect_to signin_url
             return false
         end
         return true
