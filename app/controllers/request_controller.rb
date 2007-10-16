@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.3 2007-10-15 22:26:37 louise Exp $
+# $Id: request_controller.rb,v 1.4 2007-10-16 07:11:13 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -16,9 +16,15 @@ class RequestController < ApplicationController
         @info_request_pages, @info_requests = paginate :info_requests, :per_page => 25, :order => "created_at desc"
     end
     
+    
     def frontpage
     end
 
+    # Form for creating new request
+    def new
+    end
+
+    # Page new form posts to
     def create
         # Create both FOI request and the first request message
         @info_request = InfoRequest.new(params[:info_request])

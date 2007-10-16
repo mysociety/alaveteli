@@ -17,6 +17,10 @@ For public bodies whose short names are renamed, make old URL still work and red
 
 Pagination on /list isn't set up properly - set number to low one to test, it doesn't show links
 
+Shitty using sessions for redirect back - you lose if you click login
+   link elsewhere in same browser, and then do sign in on original.
+   It trashes your whole request.
+
 Tidying
 =======
 
@@ -67,7 +71,11 @@ http://pauldowman.com/projects/fieldhints/
 
 Somehow validate all pages with HTML validate
 
+Consider having link to publications scheme type pages for each body:
+http://www.ordnancesurvey.co.uk/oswebsite/aboutus/foi/index.html
+http://www.ordnancesurvey.co.uk/oswebsite/aboutus/foi/coiindex.html
 
+Maybe prepend letter for them with "this is FOI request blah" boilerplate?
 
 Sources of public bodies
 ========================

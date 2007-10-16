@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: routes.rb,v 1.13 2007-10-15 22:26:38 louise Exp $
+# $Id: routes.rb,v 1.14 2007-10-16 07:11:15 francis Exp $
 
 ActionController::Routing::Routes.draw do |map|
     # The priority is based upon order of creation: first created -> highest priority.
@@ -14,12 +14,11 @@ ActionController::Routing::Routes.draw do |map|
     # Keep in mind you can assign values other than :controller and :action
     
     map.with_options :controller => 'request' do |request|
-      request.connect '/',            :action => 'frontpage'
+      request.connect '/request/:id', :action => 'show'   
       request.connect '/list',        :action => 'list'
-      request.connect '/index',       :action => 'index' 
+      request.connect '/',            :action => 'frontpage'
       request.connect '/new',         :action => 'new'
       request.connect '/create',      :action => 'create' 
-      request.connect '/request/:id', :action => 'show'   
     end
 
     map.with_options :controller => 'user' do |user|

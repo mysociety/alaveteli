@@ -7,7 +7,6 @@ body {
 }
 
 h1 {
-    margin: 0;
     font-size: 175%;
 }
 h2 {
@@ -38,6 +37,7 @@ a:hover, a:active {
 #header h1 {
     font-size: 200%;
     font-weight: bold;
+    margin: 0;
 }
 
 #beta {

@@ -1,9 +1,10 @@
 <% @title = h(@info_request.title) %>
 
-<h2><%=@title%></h2>
+<h1><%=@title%></h1>
 
 <p>
-Request to <%=h @info_request.public_body.name%>
+Request to 
+<%= link_to h(@info_request.public_body.name), :controller => 'body', :action => 'show', :short_name => @info_request.public_body.short_name %>
 </p>
 
 <p>
@@ -12,5 +13,12 @@ Created by
 on <%= simple_date(@info_request.created_at) %>
 </p>
 
+<h2>Correspondence</h2>
+ 
+<% for outgoing_message in @info_request.outgoing_messages %>
+    <h3><%= simple_date(outgoing_message.created_at) %></h3>
+    <p><%= outgoing_message.status %>, <%= outgoing_message.message_type %> </p>
+    <pre><%= outgoing_message.body %></pre>
+<% end %>
 
 
