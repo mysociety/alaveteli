@@ -17,6 +17,7 @@ development:
   username: francis
   password:
   host: localhost
+  port: 5433 # PostgreSQL 8.1 pretty please
 
 # Warning: The database defined as 'test' will be erased and
 # re-generated from your development database when you run 'rake'.
@@ -27,6 +28,7 @@ test:
   username: francis
   password:
   host: localhost
+  port: 5433
 
 production:
   adapter: postgresql
@@ -34,4 +36,5 @@ production:
   username: francis
   password: 
   host: localhost
+  port: 5433
 
