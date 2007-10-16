@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user.rb,v 1.8 2007-10-03 17:13:50 francis Exp $
+# $Id: user.rb,v 1.9 2007-10-16 18:52:11 louise Exp $
 
 require 'digest/sha1'
 
@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
 
     # Return user given login email and password
     def self.authenticate(email, password)
-        user = self.find(:first, :conditions => [ 'email ilike ?', email ] )
+        user = self.find(:first, :conditions => [ 'email like ?', email ] )
         if user
             expected_password = encrypted_password(password, user.salt)
             if user.hashed_password != expected_password
