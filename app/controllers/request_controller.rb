@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.5 2007-10-16 21:17:14 louise Exp $
+# $Id: request_controller.rb,v 1.6 2007-10-24 11:39:37 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -16,12 +16,13 @@ class RequestController < ApplicationController
         @info_request_pages, @info_requests = paginate :info_requests, :per_page => 25, :order => "created_at desc"
     end
     
-    
     def frontpage
     end
 
     # Form for creating new request
     def new
+        # Read parameters in - public body can be passed from front page
+        @info_request = InfoRequest.new(params[:info_request])
     end
 
     # Page new form posts to
@@ -41,7 +42,8 @@ class RequestController < ApplicationController
         elsif authenticated?
             @info_request.user = authenticated_user
             @info_request.save
-            flash[:notice] = "Your Freedom of Information request has been created."
+            @outgoing_message.send_message
+            flash[:notice] = "Your Freedom of Information request has been created and sent on its way."
             redirect_to request_url(:id => @info_request)
         end
 

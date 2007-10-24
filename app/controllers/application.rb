@@ -6,7 +6,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: application.rb,v 1.15 2007-10-16 21:17:14 louise Exp $
+# $Id: application.rb,v 1.16 2007-10-24 11:39:37 francis Exp $
 
 
 class ApplicationController < ActionController::Base
@@ -138,5 +138,7 @@ class ApplicationController < ActionController::Base
             return request.env["REMOTE_USER"]
         end
     end
-
 end
+
+
+

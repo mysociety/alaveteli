@@ -25,6 +25,12 @@ a:hover, a:active {
 
 /* Site-wide layout */
 
+#staging {
+    text-align: center;
+    border-bottom: solid 2px #ff0000;
+    background: #ffbbbb;
+}
+
 #header {
     border-bottom: solid 1px #4e451b;
     margin: 0;

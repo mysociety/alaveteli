@@ -6,9 +6,14 @@
         <%= stylesheet_link_tag 'main' %>
     </head>
     <body>
+    <% if MySociety::Config.getbool("STAGING_SITE", 1) %>
+        <div id="staging">
+            This is a test version of the site. FOI requests will not be sent to real public bodies.
+        </div>
+    <% end %>
     <div id="header">
         <h1>
-            <a href="/">Government Spy</a> 
+            <a href="/">GovernmentSpy</a> 
             <span id="beta">Beta</span>
         </h1>
         <div id="tagline">Freeing your information from them</div>

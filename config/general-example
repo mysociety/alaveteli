@@ -1,0 +1,27 @@
+<?php
+/*
+ * general-example:
+ * Example values for the "general" config file.
+ *
+ * Configuration parameters, in PHP syntax. Configuration parameters are set
+ * using the PHP define('OPTION_...', '...') function. Both perl and PHP code
+ * parse this properly, so you can use comments and conditionals and whatnot,
+ * but unless essential it's better to keep it simple....
+ *
+ * Copy this file to one called "general" in the same directory.  Or
+ * have multiple config files and use a symlink to change between them.
+ * 
+ * Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
+ * Email: francis@mysociety.org; WWW: http://www.mysociety.org
+ *
+ * $Id: general-example,v 1.1 2007-10-24 11:39:38 francis Exp $
+ * 
+ */
+
+// URL for use in emails etc.
+define('OPTION_BASE_URL', 'http://127.0.0.1:3000');
+
+// For test sites
+define('OPTION_STAGING_SITE', 1);
+
+?>

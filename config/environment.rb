@@ -10,6 +10,11 @@ RAILS_GEM_VERSION = '1.2.1' unless defined? RAILS_GEM_VERSION
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
 
+# MySociety specific helper functions
+$:.push("../rblib")
+load "validate.rb"
+load "config.rb"
+
 Rails::Initializer.run do |config|
   # Settings in config/environments/* take precedence over those specified here
   
@@ -42,6 +47,10 @@ Rails::Initializer.run do |config|
   config.active_record.default_timezone = :utc
   
   # See Rails::Configuration for more options
+  
+  # Load intial mySociety config
+  MySociety::Config.set_file(File.join(config.root_path, 'config', 'general'), true)
+  MySociety::Config.load_default
 end
 
 # Add new inflection rules using the following format 
@@ -62,10 +71,6 @@ ActiveRecord::Errors.default_error_messages[:blank] = "must be filled in"
 
 # Include your application configuration below
 
-# Include our own helper functions
-$:.push("../rblib")
-load "validate.rb"
-
 # Output HTML 4.0 compliant code, using method described in this ticket
 # http://dev.rubyonrails.org/ticket/6009
 ActionView::Helpers::TagHelper.module_eval do
@@ -73,4 +78,5 @@ ActionView::Helpers::TagHelper.module_eval do
     "<#{name}#{tag_options(options.stringify_keys) if options}>"
   end
 end
+
 
