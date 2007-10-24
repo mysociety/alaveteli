@@ -7,18 +7,36 @@ Request to
 <%= public_body_link(@info_request.public_body) %>
 </p>
 
-<p>
-Created by 
-<%= link_to h(@info_request.user.name), show_user_url(:name => @info_request.user.name) %>
-on <%= simple_date(@info_request.created_at) %>
-</p>
-
 <h2>Correspondence</h2>
  
 <% for outgoing_message in @info_request.outgoing_messages %>
-    <h3><%= simple_date(outgoing_message.created_at) %></h3>
-    <p><%= outgoing_message.status %>, <%= outgoing_message.message_type %> </p>
-    <pre><%= outgoing_message.body %></pre>
-<% end %>
+    <div id="correspondence">
 
+    <blockquote class="xsnazzy">
+    <b class="xb1"></b><b class="xb2"></b><b class="xb3"></b><b class="xb4"></b><b class="xb5"></b><b class="xb6"></b><b class="xb7"></b>
+    <div class="xboxcontent">
+    <p><%= outgoing_message.body.gsub(/\n/, '<br>') %></p>
+    </div>
+    <b class="xb7"></b><b class="xb6"></b><b class="xb5"></b><b class="xb4"></b><b class="xb3"></b><b class="xb2"></b><b class="xb1"></b>
+    <em></em><span></span>
+    </blockquote>
+
+    <p class="xspeaker"> 
+        <%= user_link(@info_request.user) %>
+
+        <% if outgoing_message.message_type == 'initial_request' %>
+            sent the initial request
+            <% if outgoing_message.status == 'sent' %>
+                to <%= public_body_link(@info_request.public_body) %>
+                on <strong><%= simple_date(outgoing_message.sent_at) %></strong>
+            <% elsif outgoing_message.status == 'ready' %>
+                it has <strong>not yet been sent</strong>
+            <% else raise "unknown outgoing_message.status" %>
+            <% end %> 
+        <% else raise "unknown outgoing_message.message_type" %>
+        <% end %>
+    </p>
+
+    </div>
+<% end %>
 

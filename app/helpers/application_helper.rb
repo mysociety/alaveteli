@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: application_helper.rb,v 1.7 2007-10-16 21:17:14 louise Exp $
+# $Id: application_helper.rb,v 1.8 2007-10-24 19:13:06 francis Exp $
 
 module ApplicationHelper
 
@@ -43,8 +43,15 @@ module ApplicationHelper
         link_to h(info_request.title), request_url(:id => info_request)
     end
     
-    def public_body_link(public_body)
+    def public_body_link_short(public_body)
         link_to h(public_body.short_name), public_body_url(:short_name => public_body.short_name)
+    end
+    def public_body_link(public_body)
+        link_to h(public_body.name), public_body_url(:short_name => public_body.short_name)
+    end
+
+    def user_link(user)
+        link_to h(user.name), show_user_url(:name => user.name)
     end
 
 end

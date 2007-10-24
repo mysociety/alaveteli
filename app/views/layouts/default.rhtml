@@ -45,7 +45,9 @@
 
     <div id="wrapper">
         <div id="content">
+            <div id="<%= controller.controller_name + "_" + controller.action_name %>">
             <%= yield :layout %>
+            <?div>
         </div>
     </div>
 

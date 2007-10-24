@@ -13,9 +13,9 @@
 
 <% for info_request in @info_requests %>
   <tr class="<%= cycle('odd', 'even') %>">
-    <td><%= public_body_link(info_request.public_body) %></td>
+    <td><%= public_body_link_short(info_request.public_body) %></td>
     <td><%= request_link(info_request) %></td>
-    <td><%= link_to h(info_request.user.name), show_user_url(:name => info_request.user.name) %></td>
+    <td><%= user_link(info_request.user) %></td>
     <td><%= simple_date(info_request.created_at) %></td>
   </tr>
 <% end %>
