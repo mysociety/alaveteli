@@ -5,7 +5,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: outgoing_message.rb,v 1.6 2007-10-24 11:39:37 francis Exp $
+# $Id: outgoing_message.rb,v 1.7 2007-10-24 17:47:38 francis Exp $
 
 class OutgoingMessage < ActiveRecord::Base
     belongs_to :info_request
@@ -23,9 +23,9 @@ class OutgoingMessage < ActiveRecord::Base
         if message_type == 'initial_request'
             if status == 'ready'
                 RequestMailer.deliver_initial_request(info_request, self)
-                sent_at = Time.now
-                status = 'sent'
-                save
+                self.sent_at = Time.now
+                self.status = 'sent'
+                self.save!
             elsif status == 'sent'
                 raise "Message id #{id} has already been sent"
             else
