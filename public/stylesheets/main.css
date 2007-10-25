@@ -23,6 +23,11 @@ a:hover, a:active {
     color: #ff0000;
 }
 
+.subtitle {
+    font-style: italic;
+    margin-top: -1em;
+}
+
 /* Site-wide layout */
 
 #staging {

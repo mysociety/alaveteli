@@ -2,13 +2,12 @@
 
 <h1><%=@title%></h1>
 
-<p>
-Request to 
+<p class="subtitle">A Freedom of Information request to 
 <%= public_body_link(@info_request.public_body) %>
+by 
+<%= user_link(@info_request.user) %>
 </p>
 
-<h2>Correspondence</h2>
- 
 <% for outgoing_message in @info_request.outgoing_messages %>
     <div id="correspondence">
 
@@ -18,7 +17,8 @@ Request to
     <p><%= outgoing_message.body.gsub(/\n/, '<br>') %></p>
     </div>
     <b class="xb7"></b><b class="xb6"></b><b class="xb5"></b><b class="xb4"></b><b class="xb3"></b><b class="xb2"></b><b class="xb1"></b>
-    <em></em><span></span>
+    <em></em>
+    <span></span>
     </blockquote>
 
     <p class="xspeaker"> 
