@@ -5,6 +5,8 @@ Dear <%= @info_request.public_body.name %>,
 -- 
 
 Sent using GovernmentSpy, a project of UKCOD, registered charity number
-1076346.  If this is not the correct address for Freedom of Information
-requests, please let us know by contacting team@governmentspy and we'll make
-sure future ones go to the right place.
+1076346. Is <%= @info_request.public_body.request_email%> the wrong
+address for Freedom of Information requests to <%=
+@info_request.public_body.name%>? If so please let us know by emailing
+team@governmentspy quoting reference PB<%= @info_request.public_body.id%>.
+We'll make sure future ones go to the right place.
