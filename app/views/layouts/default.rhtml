@@ -6,11 +6,6 @@
         <%= stylesheet_link_tag 'main' %>
     </head>
     <body>
-    <% if MySociety::Config.getbool("STAGING_SITE", 1) %>
-        <div id="staging">
-            This is a test version of the site. FOI requests will not be sent to real public bodies.
-        </div>
-    <% end %>
     <div id="header">
         <h1>
             <a href="/">GovernmentSpy</a> 
@@ -24,6 +19,12 @@
         <!-- <li><a href="/my">My Requests</a></li> -->
         <!-- <li><a href="/about">About</a></li> -->
     </ul>
+
+    <% if MySociety::Config.getbool("STAGING_SITE", 1) %>
+        <div id="staging">
+            This is a test version of the site. FOI requests will not be sent to real public bodies.
+        </div>
+    <% end %>
 
     <% if not (controller.action_name == 'signin' or controller.action_name == 'signup') %>
         <div id="logged_in_bar">
