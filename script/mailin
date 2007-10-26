@@ -1,0 +1,7 @@
+#!/bin/bash
+
+LOC=`dirname $0`
+
+$LOC/runner 'RequestMailer.receive(STDIN.read)'
+
+

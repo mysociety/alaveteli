@@ -5,7 +5,9 @@ Send actual FOIFA request
 Make it say "dear" as default letter
 
 Make sure index for every controller shows all, and the /controller/:id URLs go to a show action
+so body/index.rhtml should go? and request/index.rhtml should be show.rhtml?
 
+Make sure all models use self. for variables to reduce confusion
 
 Escape/simplify short name properly in URLs of public bodies
 For public bodies whose short names are renamed, make old URL still work and redirect

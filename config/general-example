@@ -14,14 +14,17 @@
  * Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
  * Email: francis@mysociety.org; WWW: http://www.mysociety.org
  *
- * $Id: general-example,v 1.1 2007-10-24 11:39:38 francis Exp $
+ * $Id: general-example,v 1.2 2007-10-26 18:00:27 francis Exp $
  * 
  */
 
 // URL for use in emails etc.
 define('OPTION_BASE_URL', 'http://127.0.0.1:3000');
 
-// For test sites
-define('OPTION_STAGING_SITE', 1);
+// Incoming email
+define('OPTION_INCOMING_EMAIL_DOMAIN', 'localhost'); // e.g. 'foifa.com'
+define('OPTION_INCOMING_EMAIL_PREFIX', ''); // e.g. 'foi+'
+define('OPTION_INCOMING_EMAIL_SECRET', 'xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx'); // Used for hash in request email address
+
 
 ?>
