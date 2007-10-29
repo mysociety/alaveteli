@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.7 2007-10-26 18:00:26 francis Exp $
+# $Id: info_request.rb,v 1.8 2007-10-29 18:11:34 francis Exp $
 
 require 'digest/sha1'
 
@@ -12,12 +12,13 @@ class InfoRequest < ActiveRecord::Base
     validates_presence_of :title
 
     belongs_to :user
-#    validates_presence_of :user_id
+    validates_presence_of :user_id
 
     belongs_to :public_body
     validates_presence_of :public_body_id
 
     has_many :outgoing_messages
+    has_many :incoming_messages
 
     # Email which public body should use to respond to request. This is in
     # the format PREFIXrequest-ID-HASH@DOMAIN. Here ID is the id of the 
@@ -48,9 +49,13 @@ class InfoRequest < ActiveRecord::Base
     end
 
     # A new incoming email to this request
-    def receive(email)
-        raise "TBD"
+    def receive(email, raw_email)
+        incoming_message = IncomingMessage.new
+        incoming_message.raw_data = raw_email
+        incoming_message.info_request = self
+        incoming_message.save
     end
+
 end
 
 
