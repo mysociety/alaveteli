@@ -4,12 +4,13 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.6 2007-10-24 11:39:37 francis Exp $
+# $Id: request_controller.rb,v 1.7 2007-10-30 14:03:27 francis Exp $
 
 class RequestController < ApplicationController
     
     def show
         @info_request = InfoRequest.find(params[:id])
+        @correspondences = @info_request.outgoing_messages + @info_request.incoming_messages
     end
 
     def list
