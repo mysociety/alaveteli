@@ -19,5 +19,11 @@
     <td><%= simple_date(info_request.created_at) %></td>
   </tr>
 <% end %>
+
 </table>
+
+<p>
+<%= pagination_links(@info_request_pages) %>
+</p>
+
 
