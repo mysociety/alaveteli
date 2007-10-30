@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.9 2007-10-30 15:03:03 francis Exp $
+# $Id: info_request.rb,v 1.10 2007-10-30 20:02:28 francis Exp $
 
 require 'digest/sha1'
 
@@ -24,6 +24,7 @@ class InfoRequest < ActiveRecord::Base
     # the format PREFIXrequest-ID-HASH@DOMAIN. Here ID is the id of the 
     # FOI request, and HASH is a signature for that id.
     def incoming_email
+        raise "id required to make incoming_email" if not self.id
         incoming_email = MySociety::Config.get("INCOMING_EMAIL_PREFIX", "") 
         incoming_email += "request-" + self.id.to_s 
         incoming_email += "-" + Digest::SHA1.hexdigest(self.id.to_s + MySociety::Config.get("INCOMING_EMAIL_SECRET"))[0,8]

@@ -13,3 +13,5 @@ describe User, " when authenticating" do
   end
 
 end
+
+

@@ -1,10 +1,11 @@
-new_request:
-  id: 1
-  title: New Request
+fancy_dog_request:
+  id: 101
+  title: Why do you have such a fancy dog?
   created_at: 2007-10-13 18:15:57
   updated_at: 2007-10-13 18:15:57
-rejected_request:
-  id: 2
-  title: Rejected Request
-  created_at: 2007-10-13 18:15:57
-  updated_at: 2007-10-13 18:15:57
+# naughty_chicken_request:
+#  id: 2
+#  title: How much public money is wasted on breeding naughty chickens?
+#  created_at: 2007-10-13 18:15:57
+#  updated_at: 2007-10-13 18:15:57
+

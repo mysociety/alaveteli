@@ -1,4 +1,5 @@
 Send confirmation email
+Send email to requestor telling them new information has come in
 
 Make it say "dear" as default letter
 
@@ -10,7 +11,7 @@ Use something other than session for post redirect store, so can go via email
 If you recently made a request, then a login will try to make it again because
     all the stuff for the post redirect is in the session. Consider again
 
-Write some tests (try it their way, at every level)
+Write some tests (using rspec)
 
 Tidying
 =======
