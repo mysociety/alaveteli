@@ -14,7 +14,7 @@ describe InfoRequest, " when emailing" do
     it "should recognise its own incoming email" do
         incoming_email = @info_request.incoming_email
         found_info_request = InfoRequest.find_by_incoming_email(incoming_email)
-        found_info_request.should ==(@info_request)
+        found_info_request.should == (@info_request)
     end
 
 end
