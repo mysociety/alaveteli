@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.7 2007-10-08 14:51:47 francis Exp $
+# $Id: public_body.rb,v 1.8 2007-10-30 14:23:21 francis Exp $
 
 class PublicBody < ActiveRecord::Base
     validates_presence_of :request_email
@@ -12,11 +12,11 @@ class PublicBody < ActiveRecord::Base
     has_many :info_requests
 
     def validate
-        unless MySociety::Validate.is_valid_email(request_email)
+        unless MySociety::Validate.is_valid_email(self.request_email)
             errors.add(:request_email, "doesn't look like a valid email address")
         end
-        if complaint_email != ""
-            unless MySociety::Validate.is_valid_email(complaint_email)
+        if self.complaint_email != ""
+            unless MySociety::Validate.is_valid_email(self.complaint_email)
                 errors.add(:complaint_email, "doesn't look like a valid email address")
             end
         end

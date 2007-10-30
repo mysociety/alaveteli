@@ -5,7 +5,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: outgoing_message.rb,v 1.7 2007-10-24 17:47:38 francis Exp $
+# $Id: outgoing_message.rb,v 1.8 2007-10-30 14:23:21 francis Exp $
 
 class OutgoingMessage < ActiveRecord::Base
     belongs_to :info_request
@@ -20,19 +20,19 @@ class OutgoingMessage < ActiveRecord::Base
     # Note: You can test this from script/console with, say:
     # InfoRequest.find(1).outgoing_messages[0].send_message
     def send_message
-        if message_type == 'initial_request'
-            if status == 'ready'
-                RequestMailer.deliver_initial_request(info_request, self)
+        if self.message_type == 'initial_request'
+            if self.status == 'ready'
+                RequestMailer.deliver_initial_request(self.info_request, self)
                 self.sent_at = Time.now
                 self.status = 'sent'
                 self.save!
-            elsif status == 'sent'
-                raise "Message id #{id} has already been sent"
+            elsif self.status == 'sent'
+                raise "Message id #{self.id} has already been sent"
             else
-                raise "Message id #{id} not in state for send_message"
+                raise "Message id #{self.id} not in state for send_message"
             end
         else
-            raise "Message id #{id} has type '#{message_type}' which send_message can't handle"
+            raise "Message id #{self.id} has type '#{self.message_type}' which send_message can't handle"
         end
 
     end

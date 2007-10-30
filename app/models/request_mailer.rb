@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.4 2007-10-29 18:11:34 francis Exp $
+# $Id: request_mailer.rb,v 1.5 2007-10-30 14:23:21 francis Exp $
 
 class RequestMailer < ActionMailer::Base
 
@@ -38,24 +38,10 @@ class RequestMailer < ActionMailer::Base
             info_requests.push(info_request) if info_request
         end
 
-        # Deal with each on
+        # Send the message to each request
         for info_request in info_requests
             info_request.receive(email, raw_email)
         end
-
-        #    email.cc
-        #     page = Page.find_by_address(email.to.first)
-        #      page.emails.create(
-        #        :subject => email.subject, :body => email.body
-        #      )
-        #
-        #      if email.has_attachments?
-        #        for attachment in email.attachments
-        #          page.attachments.create({
-        #            :file => attachment, :description => email.subject
-        #          })
-        #        end
-        #      end
     end
 
 end

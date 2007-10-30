@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user.rb,v 1.9 2007-10-16 18:52:11 louise Exp $
+# $Id: user.rb,v 1.10 2007-10-30 14:23:21 francis Exp $
 
 require 'digest/sha1'
 
@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
 
     def validate
         errors.add_to_base("Missing password") if hashed_password.blank?
-        errors.add(:email, "doesn't look like a valid address") unless MySociety::Validate.is_valid_email(email)
+        errors.add(:email, "doesn't look like a valid address") unless MySociety::Validate.is_valid_email(self.email)
     end
 
     # Return user given login email and password
@@ -48,20 +48,6 @@ class User < ActiveRecord::Base
     end
 
     private
-
-    # XXX - wanted to override initialize to return existing model if
-    # authentication succeeds, but couldn't get it to work. This would move
-    # some code from controllers/application.rb
-    #def initialize(params = {}) 
-    #    raise params.to_yaml
-       # if not params[:email].empty? and not params[:password].empty?
-       #     user = self.authenticate(params[:email], params[:password])
-       #     if user
-       #         return user
-       #     end
-       # end
-    #    super
-    #end
 
     def self.encrypted_password(password, salt)
         string_to_hash = password + salt # XXX need to add a secret here too?
