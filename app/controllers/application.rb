@@ -6,7 +6,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: application.rb,v 1.16 2007-10-24 11:39:37 francis Exp $
+# $Id: application.rb,v 1.17 2007-10-30 18:52:27 francis Exp $
 
 
 class ApplicationController < ActionController::Base
@@ -138,6 +138,18 @@ class ApplicationController < ActionController::Base
             return request.env["REMOTE_USER"]
         end
     end
+
+    # Simplified links to our objects
+    # XXX See controllers/user_controller.rb controllers/body_controller.rb for inverse
+    # XXX consolidate somehow with stuff in helpers/application_helper.rb
+    # use :helper_method => :your_method_name
+    def simplify_url_part(text)
+        text.downcase!
+        text.gsub!(/ /, "-")
+        text.gsub!(/[^a-z0-9_-]/, "")
+        text
+    end
+ 
 end
 
 

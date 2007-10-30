@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: application_helper.rb,v 1.10 2007-10-30 17:31:31 francis Exp $
+# $Id: application_helper.rb,v 1.11 2007-10-30 18:52:27 francis Exp $
 
 module ApplicationHelper
 
@@ -39,24 +39,20 @@ module ApplicationHelper
         return date.strftime("%e %B %Y")
     end
     
-    # Simplified links to our objects
-    # XXX See controllers/user_controller.rb for inverse
-    def simplify_url_part(text)
-        text.downcase!
-        text.gsub!(/ /, "-")
-        text.gsub!(/[^a-z0-9_-]/, "")
-        text
-    end
-    
+
+    # Links to various models
+    # XXX consolidate with simplify_url_part in controllers/application.rb so
+    # ones with calls to simplify_url_part are only in one place
+   
     def request_link(info_request)
         link_to h(info_request.title), show_request_url(:id => info_request)
     end
     
     def public_body_link_short(public_body)
-        link_to h(public_body.short_name), show_public_body_url(:short_name => public_body.short_name)
+        link_to h(public_body.short_name), show_public_body_url(:simple_short_name => simplify_url_part(public_body.short_name))
     end
     def public_body_link(public_body)
-        link_to h(public_body.name), show_public_body_url(:short_name => public_body.short_name)
+        link_to h(public_body.name), show_public_body_url(:simple_short_name => simplify_url_part(public_body.short_name))
     end
 
     def user_link(user)

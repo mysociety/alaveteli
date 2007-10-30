@@ -2,9 +2,6 @@ Send confirmation email
 
 Make it say "dear" as default letter
 
-Escape/simplify short name properly in URLs of public bodies
-For public bodies whose short names are renamed, make old URL still work and redirect
-
 Shitty using sessions for redirect back - you lose if you click login
    link elsewhere in same browser, and then do sign in on original.
    It trashes your whole request.
@@ -34,6 +31,8 @@ Add SQL foreign keys to database schema
         http://www.redhillconsulting.com.au/rails_plugins.html#foreign_key_migrations
         http://rubyforge.org/projects/mig-constraints/
 Call "delete from sessions where now() - updated_at > 3600" (one hour) or whatever
+
+Do pretty error messages, e.g. on invalid public body name page etc.
 
 Legal/privacy
 =============
