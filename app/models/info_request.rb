@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.8 2007-10-29 18:11:34 francis Exp $
+# $Id: info_request.rb,v 1.9 2007-10-30 15:03:03 francis Exp $
 
 require 'digest/sha1'
 
@@ -12,7 +12,7 @@ class InfoRequest < ActiveRecord::Base
     validates_presence_of :title
 
     belongs_to :user
-    validates_presence_of :user_id
+    #validates_presence_of :user_id # breaks during construction of new ones :(
 
     belongs_to :public_body
     validates_presence_of :public_body_id
