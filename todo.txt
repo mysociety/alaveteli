@@ -13,6 +13,8 @@ If you recently made a request, then a login will try to make it again because
 
 Write some tests (using rspec)
 
+Migrate to will_paginate from classic_pagination
+
 Tidying
 =======
 
