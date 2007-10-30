@@ -1,0 +1,10 @@
+new_request:
+  id: 1
+  title: New Request
+  created_at: 2007-10-13 18:15:57
+  updated_at: 2007-10-13 18:15:57
+rejected_request:
+  id: 2
+  title: Rejected Request
+  created_at: 2007-10-13 18:15:57
+  updated_at: 2007-10-13 18:15:57
