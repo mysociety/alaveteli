@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: routes.rb,v 1.17 2007-10-30 15:03:04 francis Exp $
+# $Id: routes.rb,v 1.18 2007-10-30 17:31:32 francis Exp $
 
 ActionController::Routing::Routes.draw do |map|
     # The priority is based upon order of creation: first created -> highest priority.
@@ -25,7 +25,7 @@ ActionController::Routing::Routes.draw do |map|
       user.signin '/signin',        :action => 'signin'
       user.signup '/signup',        :action => 'signup'
       user.signout '/signout',      :action => 'signout'
-      user.show_user "/user/:name", :action => 'show'
+      user.show_user "/user/:simple_name", :action => 'show'
     end
 
     map.show_public_body "/body/:short_name", :controller => 'body', :action => 'show'

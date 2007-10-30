@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.8 2007-10-30 14:13:46 francis Exp $
+# $Id: request_controller.rb,v 1.9 2007-10-30 17:31:31 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -46,7 +46,7 @@ class RequestController < ApplicationController
             @info_request.save
             @outgoing_message.send_message
             flash[:notice] = "Your Freedom of Information request has been created and sent on its way."
-            redirect_to request_url(:id => @info_request)
+            redirect_to show_request_url(:id => @info_request)
         end
 
         # Save both models
