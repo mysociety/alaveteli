@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: routes.rb,v 1.15 2007-10-16 21:17:15 louise Exp $
+# $Id: routes.rb,v 1.16 2007-10-30 14:49:08 francis Exp $
 
 ActionController::Routing::Routes.draw do |map|
     # The priority is based upon order of creation: first created -> highest priority.
@@ -25,7 +25,7 @@ ActionController::Routing::Routes.draw do |map|
       user.signin '/signin',        :action => 'signin'
       user.signup '/signup',        :action => 'signup'
       user.signout '/signout',      :action => 'signout'
-      user.show_user "/user/:name", :action => 'index'
+      user.show_user "/user/:name", :action => 'show'
     end
 
     map.public_body "/body/:short_name", :controller => 'body', :action => 'show'
@@ -47,6 +47,7 @@ ActionController::Routing::Routes.draw do |map|
 
     # Install the default route as the lowest priority.
     # FAI: Turned off for now, as to be honest I don't trust it from a security point of view.
+    # Somebody is bound to leave a method public in a controller that shouldn't be.
     #map.connect ':controller/:action/:id.:format'
     #map.connect ':controller/:action/:id'
     # map.connect '/:controller/:action'
