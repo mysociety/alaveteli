@@ -1,0 +1,4 @@
+new_request_message:
+  id: 1
+  info_request_id: 1
+  raw_data: xxxx
