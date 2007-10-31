@@ -1,0 +1,30 @@
+rake_tasks
+==========
+
+Overview
+--------
+
+Adds the following Rake tasks:
+
+  rake db:create      # Creates the databases defined in your config/database.yml (unless they already exist)
+  rake db:drop        # Drops the database for your currenet RAILS_ENV as defined in config/database.yml
+  rake db:reset       # Drops, creates and then migrates the database for your current RAILS_ENV
+  rake db:shell       # Launches the database shell using the values defined in config/database.yml
+  
+  rake svn:add        # Adds new files to subversion
+  rake svn:remove     # Removes missing files from subversion
+  rake svn:ignore     # Configures svn:ignore properties on log, tmp, db/schema.rb and config/database.yml
+  rake svn:conflicts  # Resolves all svn conflicts by keeping the working file
+  
+  rake spec:check     # Check files in the app directory for corresponding test files in the spec directory.
+  rake spec:sync      # Check for missing test files in the spec directory and create them if they don't exist. 
+  
+Authors
+-------
+  
+  Josh Knowles    joshknowles@gmal.com
+  Matt Heidemann  matthew.heidemann@gmail.com
+  Matt Aimonetti  mattaimonetti@gmail.com
+  Curtis Miller   curtm95@gmail.com
+  
+Copyright (c) 2007 Integrum Technologies, LLC, released under the MIT license
