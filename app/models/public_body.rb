@@ -1,12 +1,14 @@
-# models/info_request.rb:
+# models/public_body.rb:
 # A public body, from which information can be requested.
 #
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.8 2007-10-30 14:23:21 francis Exp $
+# $Id: public_body.rb,v 1.9 2007-10-31 17:25:29 francis Exp $
 
 class PublicBody < ActiveRecord::Base
+    validates_presence_of :name
+    validates_presence_of :short_name
     validates_presence_of :request_email
 
     has_many :info_requests
