@@ -1,12 +1,23 @@
-new_public_body: 
+geraldine_public_body: 
   name: The Geraldine Quango
   updated_at: 2007-10-24 10:51:01.161639
   last_edit_comment: Mark named this stupid quango.
-  complaint_email: ""
-  request_email: francis@flourish.org
+  complaint_email: geraldine-complaints@localhost
+  request_email: geraldine-requests@localhost
   id: "2"
   version: "1"
-  last_edit_editor: "*unknown*"
+  last_edit_editor: "mark"
   short_name: TGQ
   created_at: 2007-10-24 10:51:01.161639
+humpadink_public_body: 
+  name: "Department for Humpadinking"
+  updated_at: 2007-10-25 10:51:01.161639
+  last_edit_comment: Not sure what this new department does.
+  complaint_email: humpadink-complaints@localhost
+  request_email: humpadink-requests@localhost
+  id: "3"
+  version: "1"
+  last_edit_editor: "francis"
+  short_name: DfH
+  created_at: 2007-10-25 10:51:01.161639
 

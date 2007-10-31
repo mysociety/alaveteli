@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.9 2007-10-30 17:31:31 francis Exp $
+# $Id: request_controller.rb,v 1.10 2007-10-31 12:14:20 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -47,9 +47,12 @@ class RequestController < ApplicationController
             @outgoing_message.send_message
             flash[:notice] = "Your Freedom of Information request has been created and sent on its way."
             redirect_to show_request_url(:id => @info_request)
+        else
+            # do nothing - as "authenticated?" has done the redirect to signin page for us
         end
 
-        # Save both models
+        # Save both models # XXX still fiddling with error reporting here, see Louise's
+        # email about some better error reporting plugin.
 #        valid = @info_request.valid? 
 #        valid &&= @outgoing_message.valid? # XXX maybe there is a nicer way of preventing lazy boolean evaluation than this
 #        if valid

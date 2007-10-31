@@ -6,7 +6,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: application.rb,v 1.17 2007-10-30 18:52:27 francis Exp $
+# $Id: application.rb,v 1.18 2007-10-31 12:14:20 francis Exp $
 
 
 class ApplicationController < ActionController::Base
@@ -89,7 +89,7 @@ class ApplicationController < ActionController::Base
     # Check the user is logged in
     def authenticated?
         unless session[:user]
-            session[:intended_uri] = @request.request_uri
+            session[:intended_uri] = request.request_uri
             session[:intended_params] = params
             redirect_to signin_url
             return false

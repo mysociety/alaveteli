@@ -1,0 +1,10 @@
+bob_smith_user: 
+  id: "1"
+  name: Bob Smith
+  email: bob@localhost
+  salt: "-6116981980.392287733335677"
+  hashed_password: 6b7cd45a5f35fd83febc0452a799530398bfb6e8 # jonespassword
+  updated_at: 2007-10-31 10:39:15.491593
+  created_at: 2007-10-31 10:39:15.491593
+
+
