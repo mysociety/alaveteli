@@ -6,7 +6,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: application.rb,v 1.18 2007-10-31 12:14:20 francis Exp $
+# $Id: application.rb,v 1.19 2007-10-31 12:39:58 francis Exp $
 
 
 class ApplicationController < ActionController::Base
@@ -142,7 +142,7 @@ class ApplicationController < ActionController::Base
     # Simplified links to our objects
     # XXX See controllers/user_controller.rb controllers/body_controller.rb for inverse
     # XXX consolidate somehow with stuff in helpers/application_helper.rb
-    # use :helper_method => :your_method_name
+    helper_method :simplify_url_part
     def simplify_url_part(text)
         text.downcase!
         text.gsub!(/ /, "-")
