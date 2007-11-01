@@ -25,7 +25,9 @@ namespace :spec do
     files = {}
     `find #{PROJ_DIR} -name '*.rb'`.split(/\n/).each do |file|
       spec_file = file.sub('/app/', '/spec/').sub('.rb', '_spec.rb')
-      type = (File.dirname(file).split("/").last == "models" ? "model" : "controller")
+      dir_type = File.dirname(file).split("/").last
+      next if dir_type == "helpers"
+      type = (dir_type == "models" ? "model" : "controller")
       File.exists?(spec_file) ? next : files[spec_file] = type
     end
     files
@@ -43,7 +45,8 @@ namespace :spec do
 
   desc "Check files in the app directory for corresponding test files in the spec directory."
   task :check do
-    files = find_untested_ruby_files.merge(find_untested_view_files)
+    # XXX Don't check views, as we use controllers for view tests. Francis.
+    files = find_untested_ruby_files #.merge(find_untested_view_files)
     unless files.empty?
       puts "Missing test files:"
       files.each {|file, type|  puts "  #{file}"}

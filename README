@@ -173,9 +173,14 @@ public
 script
   Helper scripts for automation and generation.
 
+spec
+  Unit and functional specifications along with fixtures. We use this instead of
+  test.
+
 test
-  Unit and functional tests along with fixtures. When using the script/generate scripts, template
-  test files will be generated for you and placed in this directory.
+  DEPRECATED for this project, see 'spec' instead. Unit and functional tests
+  along with fixtures.  When using the script/generate scripts, template test
+  files will be generated for you and placed in this directory.
 
 vendor
   External libraries that the application depends on. Also includes the plugins subdirectory.

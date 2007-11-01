@@ -25,3 +25,4 @@ describe UserController, "when showing a user" do
 
     # XXX test for 404s when don't give valid name
 end
+

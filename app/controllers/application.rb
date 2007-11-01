@@ -6,7 +6,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: application.rb,v 1.20 2007-10-31 17:25:29 francis Exp $
+# $Id: application.rb,v 1.21 2007-11-01 05:35:43 francis Exp $
 
 
 class ApplicationController < ActionController::Base
@@ -73,17 +73,10 @@ class ApplicationController < ActionController::Base
         end
     end
 
-    # Simplified links to our objects
-    # XXX See controllers/user_controller.rb controllers/body_controller.rb for inverse
-    # XXX consolidate somehow with stuff in helpers/application_helper.rb
-    helper_method :simplify_url_part
-    def simplify_url_part(text)
-        text.downcase!
-        text.gsub!(/ /, "-")
-        text.gsub!(/[^a-z0-9_-]/, "")
-        text
-    end
- 
+    # URL generating functions are needed by all controllers (for redirects)
+    # and views (for links), so include them into all of both.
+    include LinkToHelper
+
 end
 
 

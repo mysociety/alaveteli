@@ -1,3 +1,12 @@
+Offline
+=======
+
+Work out how to do controller/view integrated specs and add some
+Change to will_paginate
+
+Next
+====
+
 Send confirmation email
 Send email to requestor telling them new information has come in
 
