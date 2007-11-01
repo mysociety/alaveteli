@@ -3,6 +3,7 @@ Online
 
 Work out how to do controller/view integrated specs and add some
 Move things from views/user_accounts into views/user
+Replace all find :conditions with find_by_
 
 Next
 ====
@@ -21,10 +22,6 @@ If you recently made a request, then a login will try to make it again because
     all the stuff for the post redirect is in the session. Consider again
 
 Write some tests (using rspec)
-
-Migrate to will_paginate from classic_pagination
-
-Replace all find :conditions with find_by_
 
 Tidying
 =======
