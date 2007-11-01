@@ -1,8 +1,12 @@
 <%= foi_error_messages_for :user %>
 
 <% form_tag({:action => "signup"}, {:id => "accountForm"}) do %>
-    <h1>Create a new account</h1>
-
+    <% if @first_time %>
+    <div class="form_note">
+    <h1>Register new account</h1>
+    </div>
+    <% end %>
+        
     <p>
     <label for="user_email" id="signin_email"><strong>E-mail:</strong></label>
     <%= text_field 'user', 'email', :size => 20 %>
@@ -37,6 +41,7 @@
 
     <p>
     <label for="submit">&nbsp;</label>
+    <%= hidden_field_tag 'token', params[:token] %>
     <%= submit_tag "Sign in" %>
     </p>
 

@@ -1,8 +1,8 @@
-Offline
-=======
+Online
+======
 
 Work out how to do controller/view integrated specs and add some
-Change to will_paginate
+Move things from views/user_accounts into views/user
 
 Next
 ====
@@ -24,6 +24,8 @@ Write some tests (using rspec)
 
 Migrate to will_paginate from classic_pagination
 
+Replace all find :conditions with find_by_
+
 Tidying
 =======
 
@@ -43,6 +45,7 @@ Add SQL foreign keys to database schema
         http://www.redhillconsulting.com.au/rails_plugins.html#foreign_key_migrations
         http://rubyforge.org/projects/mig-constraints/
 Call "delete from sessions where now() - updated_at > 3600" (one hour) or whatever
+     - take care about this if you're still keeping POST requests in sessions during login
 
 Do pretty error messages, e.g. on invalid public body name page etc.
 
@@ -85,6 +88,8 @@ http://www.ordnancesurvey.co.uk/oswebsite/aboutus/foi/index.html
 http://www.ordnancesurvey.co.uk/oswebsite/aboutus/foi/coiindex.html
 
 Maybe prepend letter for them with "this is FOI request blah" boilerplate?
+
+Forgotten password link
 
 Sources of public bodies
 ========================

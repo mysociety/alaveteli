@@ -18,6 +18,7 @@
 
     <p>
     <label for="submit">&nbsp;</label>
+    <%= hidden_field_tag 'token', params[:token] %>
     <%= submit_tag "Sign in" %>
     </p>
 

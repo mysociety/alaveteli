@@ -74,7 +74,13 @@ describe RequestController, "when creating a new request" do
         post :create, :info_request => { :public_body_id => public_bodies(:geraldine_public_body).id, 
             :title => "Why is your quango called Geraldine?"},
             :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." }  
-        response.should redirect_to(:controller => 'user', :action => 'signin')
+        # XXX yeuch - no other easy way of getting the token so we can check
+        # the redirect URL, as it is by definition opaque to the controller
+        # apart from in the place that it redirects to.
+        post_redirects = PostRedirect.find_by_sql("select * from post_redirects order by id desc limit 1")
+        post_redirects.size.should == 1
+        post_redirect = post_redirects[0]
+        response.should redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
     end
 
     it "should create the request and outgoing message and redirec to request page when input is good and somebody is logged in" do

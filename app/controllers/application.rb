@@ -6,7 +6,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: application.rb,v 1.21 2007-11-01 05:35:43 francis Exp $
+# $Id: application.rb,v 1.22 2007-11-01 14:45:56 francis Exp $
 
 
 class ApplicationController < ActionController::Base
@@ -21,9 +21,9 @@ class ApplicationController < ActionController::Base
     # Check the user is logged in
     def authenticated?
         unless session[:user]
-            session[:intended_uri] = request.request_uri
-            session[:intended_params] = params
-            redirect_to signin_url
+            post_redirect = PostRedirect.new(:uri => request.request_uri, :post_params => params)
+            post_redirect.save!
+            redirect_to signin_url(:token => post_redirect.token)
             return false
         end
         return true
@@ -34,12 +34,13 @@ class ApplicationController < ActionController::Base
         return User.find(session[:user])
     end
 
-    # Do a POST redirect. This is a nasty hack - we store the posted values to
-    # the controller, and when the GET redirect with "?post_redirect=1"
-    # happens, load them in.
-    def post_redirect(uri, params)
+    # Do a POST redirect. This is a nasty hack - we store the posted values in
+    # the session, and when the GET redirect with "?post_redirect=1" happens,
+    # load them in.
+    def do_post_redirect(uri, params)
         session[:post_redirect_params] = params
-        # XXX what is built in Ruby URI munging function?
+        # XXX what is the built in Ruby URI munging function that can do this
+        # choice of & vs. ? more elegantly than this dumb if statement?
         if uri.include?("?")
             uri += "&post_redirect=1"
         else
