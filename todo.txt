@@ -2,8 +2,6 @@ Online
 ======
 
 Work out how to do controller/view integrated specs and add some
-Move things from views/user_accounts into views/user
-Replace all find :conditions with find_by_
 
 Next
 ====

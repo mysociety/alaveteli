@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user_controller.rb,v 1.9 2007-11-01 15:18:54 francis Exp $
+# $Id: user_controller.rb,v 1.10 2007-11-01 16:14:43 francis Exp $
 
 class UserController < ApplicationController
     # XXX See controllers/application.rb simplify_url_part for reverse of expression in SQL below
@@ -23,7 +23,7 @@ class UserController < ApplicationController
 
         if not params[:user] 
             # First time page is shown
-            render :template => 'signin' 
+            render :action => 'signin' 
             return
         else
             @user = User.authenticate(params[:user][:email], params[:user][:password])
@@ -34,11 +34,11 @@ class UserController < ApplicationController
                 do_post_redirect post_redirect.uri, post_redirect.post_params
                 return
             else
-                if User.find(:first, :conditions => [ "email = ?", params[:user][:email] ])
+                if User.find(:first, :conditions => [ "email ilike ?", params[:user][:email] ]) # using like for case insensitive
                     # Failed to authenticate
                     flash[:error] = "Password not correct, please try again"
                     @user = User.new(params[:user])
-                    render :template => 'signin' 
+                    render :action => 'signin' 
                     return
                 else 
                     # Create a new account
@@ -59,7 +59,7 @@ class UserController < ApplicationController
             @first_time = params[:first_time]
             @user.errors.clear if @first_time
             # Show the form
-            render :template => 'signup'
+            render :action => 'signup'
         else
             # New user made, redirect back to where we were
             session[:user] = @user.id
