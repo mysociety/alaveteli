@@ -1,8 +1,3 @@
-Online
-======
-
-Work out how to do controller/view integrated specs and add some
-
 Next
 ====
 
@@ -11,21 +6,10 @@ Send email to requestor telling them new information has come in
 
 Make it say "dear" as default letter
 
-Shitty using sessions for redirect back - you lose if you click login
-   link elsewhere in same browser, and then do sign in on original.
-   It trashes your whole request.
-
-Use something other than session for post redirect store, so can go via email
-If you recently made a request, then a login will try to make it again because
-    all the stuff for the post redirect is in the session. Consider again
-
-Write some tests (using rspec)
+Work out how to do controller/view integrated specs and add some
 
 Tidying
 =======
-
-Links to user pages with <sup> etc. in don't work
-Check that when on such a page <title> etc. is right
 
 Prevent double posting of same request
 
@@ -40,9 +24,11 @@ Add SQL foreign keys to database schema
         http://www.redhillconsulting.com.au/rails_plugins.html#foreign_key_migrations
         http://rubyforge.org/projects/mig-constraints/
 Call "delete from sessions where now() - updated_at > 3600" (one hour) or whatever
-     - take care about this if you're still keeping POST requests in sessions during login
 
 Do pretty error messages, e.g. on invalid public body name page etc.
+
+404s on all invalid URL parameters
+Hook global error message also
 
 Legal/privacy
 =============

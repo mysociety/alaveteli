@@ -83,7 +83,7 @@ describe RequestController, "when creating a new request" do
         response.should redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
     end
 
-    it "should create the request and outgoing message and redirec to request page when input is good and somebody is logged in" do
+    it "should create the request and outgoing message and redirect to request page when input is good and somebody is logged in" do
         session[:user] = users(:bob_smith_user)
         post :create, :info_request => { :public_body_id => public_bodies(:geraldine_public_body).id, 
             :title => "Why is your quango called Geraldine?"},
