@@ -6,7 +6,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: application.rb,v 1.22 2007-11-01 14:45:56 francis Exp $
+# $Id: application.rb,v 1.23 2007-11-05 16:46:10 francis Exp $
 
 
 class ApplicationController < ActionController::Base
@@ -19,9 +19,10 @@ class ApplicationController < ActionController::Base
     private
 
     # Check the user is logged in
-    def authenticated?
+    def authenticated?(reason_params)
         unless session[:user]
-            post_redirect = PostRedirect.new(:uri => request.request_uri, :post_params => params)
+            post_redirect = PostRedirect.new(:uri => request.request_uri, :post_params => params,
+                :reason_params => reason_params)
             post_redirect.save!
             redirect_to signin_url(:token => post_redirect.token)
             return false

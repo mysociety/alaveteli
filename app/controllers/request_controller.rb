@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.11 2007-11-01 05:44:43 francis Exp $
+# $Id: request_controller.rb,v 1.12 2007-11-05 16:46:10 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -41,7 +41,11 @@ class RequestController < ApplicationController
         # This automatically saves dependent objects, such as @info_request, in the same transaction
         if not @info_request.valid?
             render :action => 'new'
-        elsif authenticated?
+        elsif authenticated?(
+                :web => "To send your FOI request, please log in or make a new account.",
+                :email => "Then your FOI request to " + @info_request.public_body.name + " will be sent.",
+                :email_subject => "Confirm that you want to send an FOI request to " + @info_request.public_body.name
+            )
             @info_request.user = authenticated_user
             @info_request.save
             @outgoing_message.send_message

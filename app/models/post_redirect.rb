@@ -5,17 +5,28 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: post_redirect.rb,v 1.2 2007-11-02 10:28:20 francis Exp $
+# $Id: post_redirect.rb,v 1.3 2007-11-05 16:46:10 francis Exp $
 
 require 'openssl' # for random bytes function
 
 class PostRedirect < ActiveRecord::Base
+    # Optional, does login confirm after email.
+    belongs_to :user
+
     # We store YAML version of POST parameters in the database
     def post_params=(params)
         self.post_params_yaml = params.to_yaml
     end
     def post_params
         YAML.load(self.post_params_yaml)
+    end
+
+    # We store YAML version of textual "reason for redirect" parameters
+    def reason_params=(reason_params)
+        self.reason_params_yaml = reason_params.to_yaml
+    end
+    def reason_params
+        YAML.load(self.reason_params_yaml)
     end
 
     # Makes a random token, suitable for using in URLs e.g confirmation messages.

@@ -143,14 +143,14 @@ label {
     float: left;
     text-align: right;
     padding-right: 0.5em;
-    width: 10em;
+    width: 16em;
     margin-bottom: 0.5em;
 }
 .form_note {
-    margin-left: 10.5em;
+    margin-left: 16.5em;
 }
 .form_button {
-    margin-left: 10em;
+    margin-left: 16em;
 }
 
 /* Flashes */
@@ -242,33 +242,15 @@ table#list_requests .odd {
     width: 75%;
 }
 
-#accountForm label {
-    width: 15em;
-/*    font-weight: bold; */
-}
-
-#accountForm input[type=radio] {
-    float: left;
-    text-align: right;
-    padding-right: 0.5em;
-    margin-left: 14em;
-}
-
-#accountForm .radio_label {
-    text-align: left;
-    margin-left: 0.5em;
-    float: none;
-}
-
-#accountForm .form_note {
-    display: block;
-    margin-left: 16em;
-    clear: both;
-}
-
-#accountForm h2 {
+.confirmation_message {
+    font-size: 150%;
+    font-weight: bold;
     text-align: center;
 }
+.confirmation_heading {
+    text-align: center;
+}
+
 
 /* Speech bubbles
  * from http://www.cssplay.co.uk/boxes/chunky.html */

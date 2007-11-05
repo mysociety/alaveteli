@@ -1,3 +1,6 @@
+Check confirmed everywhere in password check etc.
+
+
 Next
 ====
 
@@ -7,9 +10,18 @@ Send email to requestor telling them new information has come in
 Make it say "dear" as default letter
 
 Work out how to do controller/view integrated specs and add some
+Make it validate the HTML
+
+Make login have wording like on PledgeBank
+    Do you have a PledgeBank password?
+    Yes, please enter it:
+    No, or you’ve forgotten it
+    — we’ll send you a confirmation email instead.
 
 Tidying
 =======
+
+Add indices to token / email_token in post_redirects
 
 Prevent double posting of same request
 

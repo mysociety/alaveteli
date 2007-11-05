@@ -1,6 +1,8 @@
 <%= foi_error_messages_for :user %>
 
 <% form_tag({:action => "signin"}, {:id => "accountForm"}) do %>
+    <div class="form_note"><%= @post_redirect.reason_params[:web] %></div>
+
     <p>
     <label for="user_email" id="signin_email"><strong>Enter your e-mail address:</strong></label>
     <%= text_field 'user', 'email', { :size => 20 } %>
@@ -11,16 +13,14 @@
     <%= password_field 'user', 'password', { :size => 15 } %>
     </p>
 
-    <p>
-    <label>&nbsp;</label>
+    <p class="form_note">
     Don't have a password? Just enter one to register a new account.
     </p>
 
-    <p>
-    <label for="submit">&nbsp;</label>
+    <div class="form_button">
     <%= hidden_field_tag 'token', params[:token] %>
     <%= submit_tag "Sign in" %>
-    </p>
+    </div>
 
 <% end %>
 
