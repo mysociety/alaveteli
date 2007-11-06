@@ -4,8 +4,9 @@ Check confirmed everywhere in password check etc.
 Next
 ====
 
-Send confirmation email
 Send email to requestor telling them new information has come in
+
+Forgotten password link
 
 Make it say "dear" as default letter
 
@@ -17,6 +18,18 @@ Make login have wording like on PledgeBank
     Yes, please enter it:
     No, or you’ve forgotten it
     — we’ll send you a confirmation email instead.
+
+
+    UST ONE MORE THING YOU HAVE TO DO!
+        
+        You are now a bbc.co.uk member.
+    However, we need to confirm that frabcus@fastmail.fm is your email address.
+            If your email address is not correct you can go to your membership details to change it. Retrieve my details    
+        1. Check your inbox now, we have sent you an email to which you must respond.
+    2. Just follow the instructions in our email.
+    3. You can leave this page now knowing that we have all your details safely stored.
+
+    What if I don't receive the email?
 
 Tidying
 =======
@@ -55,6 +68,11 @@ Maybe we SHOULD reveal their email to the public body, why not?
 
 Later
 =====
+
+(10:32:14) richard: you just need to count the number of rows of text and compare it to the number of rows in the textbox
+(10:32:29) richard: then increase the height of the textbox by 1em-ish
+(10:32:52) Matthew: their function is called autogrow_textarea() by the way, if you just want to look at it...
+ thanks :) I won't do it now as there are more important things, I was just accidentally impressed
 
 Add postal address at City University to request
 

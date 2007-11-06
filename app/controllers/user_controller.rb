@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user_controller.rb,v 1.11 2007-11-05 16:46:10 francis Exp $
+# $Id: user_controller.rb,v 1.12 2007-11-06 15:50:58 francis Exp $
 
 class UserController < ApplicationController
     # XXX See controllers/application.rb simplify_url_part for reverse of expression in SQL below
@@ -16,7 +16,12 @@ class UserController < ApplicationController
     def signin
         # The explict signin link uses this to store where it is to go back to
         if params[:r]
-            @post_redirect = PostRedirect.new(:uri => params[:r], :post_params => {})
+            @post_redirect = PostRedirect.new(:uri => params[:r], :post_params => {},
+                :reason_params => {
+                    :web => "Please sign in or make a new account.",
+                    :email => "Then your can sign in to GovernmentSpy.",
+                    :email_subject => "Confirm your account on GovernmentSpy"
+                })
             @post_redirect.save!
             params[:token] = @post_redirect.token
         else
@@ -66,7 +71,7 @@ class UserController < ApplicationController
             # Show the form
             render :action => 'signup'
         else
-            # Unconfirmed user
+            # New unconfirmed user
             @user.email_confirmed = false
             @user.save
 

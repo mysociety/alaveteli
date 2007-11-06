@@ -1,7 +1,9 @@
 <%= foi_error_messages_for :user %>
 
 <% form_tag({:action => "signin"}, {:id => "accountForm"}) do %>
+    <% if not @post_redirect.reason_params[:web].nil? %>
     <div class="form_note"><%= @post_redirect.reason_params[:web] %></div>
+    <% end %>
 
     <p>
     <label for="user_email" id="signin_email"><strong>Enter your e-mail address:</strong></label>
