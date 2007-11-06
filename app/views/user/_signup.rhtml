@@ -1,0 +1,44 @@
+<div id="signup">
+
+<% form_tag({:action => "signup"}, {:id => "accountForm"}) do %>
+    <%= foi_error_messages_for :user %>
+
+    <% if not flash[:error] %>
+    <h2>If you're new to GovernmentSpy</h2>
+    <% end %>
+
+    <p>
+    <label for="user_email" id="signin_email"><strong>Your e-mail:</strong></label>
+    <%= text_field 'user', 'email', :size => 20 %>
+    </p>
+    <div class="form_item_note">
+    We will not reveal your email address to anybody.
+    </div>
+
+    <p>
+    <label for="name"><strong>Your name:</strong></label>
+    <%= text_field 'user', 'name', { :size => 20 } %>
+    </p>
+    <div class="form_item_note">Your <strong>name will appear
+    publically</strong> on this website and in search engines. We encourage you
+    to use your real name, but you may use a pseudonym if you would like to be
+    anonymous.</div>
+
+    <p>
+    <label for="password"><strong>Password:</strong></label>
+    <%= password_field 'user', 'password', { :size => 15 } %>
+    </p>
+
+    <p>
+    <label for="password"><strong>Password: (again)</strong></label>
+    <%= password_field 'user', 'password_confirmation', { :size => 15 } %>
+    </p>
+
+    <div class="form_button">
+    <%= hidden_field_tag 'token', params[:token] %>
+    <%= submit_tag "Sign up" %>
+    </div>
+
+<% end %>
+
+</div>

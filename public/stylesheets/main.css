@@ -140,17 +140,25 @@ select, input, textarea {
 }
 
 label {
+    clear: both;
     float: left;
     text-align: right;
     padding-right: 0.5em;
-    width: 16em;
     margin-bottom: 0.5em;
+}
+label {
+    width: 16em;
 }
 .form_note {
     margin-left: 16.5em;
 }
 .form_button {
     margin-left: 16em;
+}
+.form_item_note {
+    margin-left: 16.5em;
+    margin-top: -0.85em;
+    font-style: italic;
 }
 
 /* Flashes */
@@ -239,7 +247,6 @@ table#list_requests .odd {
 /* User accounts */
 
 #accountForm {
-    width: 75%;
 }
 
 .confirmation_message {
@@ -251,6 +258,34 @@ table#list_requests .odd {
     text-align: center;
 }
 
+#sign_together #signin {
+    width: 48%;
+    float: left;
+}
+
+#sign_together #signup {
+    width: 48%;
+    float: right;
+}
+
+#sign_together label {
+    width: 8em;
+}
+#sign_together .form_note {
+    margin-left: 8.5em;
+}
+#sign_together .form_button {
+    margin-left: 8em;
+}
+#sign_together .form_item_note {
+    margin-left: 8.5em;
+}
+
+#sign_in_reason {
+    font-weight: bold;
+    text-align: center;
+    font-size: 125%;
+}
 
 /* Speech bubbles
  * from http://www.cssplay.co.uk/boxes/chunky.html */

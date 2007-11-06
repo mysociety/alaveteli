@@ -1,0 +1,30 @@
+<div id="signin">
+
+<% form_tag({:action => "signin"}, {:id => "accountForm"}) do %>
+    <%= foi_error_messages_for :user %>
+
+    <% if not flash[:error] %>
+    <h2>If you've used GovernmentSpy before</h2>
+    <% end %>
+
+    <p>
+    <label for="user_email" id="signin_email"><strong>Your e-mail:</strong></label>
+    <%= text_field 'user', 'email', { :size => 20 } %>
+    </p>
+
+    <p>
+    <label for="user_password"><strong>Password:</strong></label>
+    <%= password_field 'user', 'password', { :size => 15 } %>
+    </p>
+
+    <p class="form_note">
+    Forgotten your password? Tough.
+    </p>
+
+    <div class="form_button">
+    <%= hidden_field_tag 'token', params[:token] %>
+    <%= submit_tag "Sign in" %>
+    </div>
+<% end %>
+
+</div>

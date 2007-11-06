@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user_controller.rb,v 1.12 2007-11-06 15:50:58 francis Exp $
+# $Id: user_controller.rb,v 1.13 2007-11-06 18:09:36 francis Exp $
 
 class UserController < ApplicationController
     # XXX See controllers/application.rb simplify_url_part for reverse of expression in SQL below
@@ -30,7 +30,7 @@ class UserController < ApplicationController
 
         if not params[:user] 
             # First time page is shown
-            render :action => 'signin' 
+            render :action => 'sign' 
             return
         else
             @user = User.authenticate(params[:user][:email], params[:user][:password])
@@ -44,18 +44,11 @@ class UserController < ApplicationController
                 end
                 return
             else
-                if User.find(:first, :conditions => [ "email ilike ?", params[:user][:email] ]) # using like for case insensitive
-                    # Failed to authenticate
-                    flash[:error] = "Password not correct, please try again"
-                    @user = User.new(params[:user])
-                    render :action => 'signin' 
-                    return
-                else 
-                    # Create a new account
-                    params[:first_time] = true
-                    self.signup
-                    return
-                end
+                # Failed to authenticate
+                flash[:error] = "Email or password not correct, please try again"
+                @user = User.new(params[:user])
+                render :action => 'signin' 
+                return
             end
         end
     end
@@ -69,7 +62,7 @@ class UserController < ApplicationController
             @first_time = params[:first_time]
             @user.errors.clear if @first_time
             # Show the form
-            render :action => 'signup'
+            render :action => (@first_time ? 'sign' : 'signup')
         else
             # New unconfirmed user
             @user.email_confirmed = false

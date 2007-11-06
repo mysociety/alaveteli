@@ -7,6 +7,7 @@ Next
 Send email to requestor telling them new information has come in
 
 Forgotten password link
+Email has already been taken
 
 Make it say "dear" as default letter
 
@@ -30,6 +31,8 @@ Make login have wording like on PledgeBank
     3. You can leave this page now knowing that we have all your details safely stored.
 
     What if I don't receive the email?
+
+Use word verify
 
 Tidying
 =======
