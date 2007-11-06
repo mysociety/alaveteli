@@ -5,7 +5,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: link_to_helper.rb,v 1.1 2007-11-01 05:35:43 francis Exp $
+# $Id: link_to_helper.rb,v 1.2 2007-11-06 16:05:29 francis Exp $
 
 module LinkToHelper
 
@@ -36,7 +36,7 @@ module LinkToHelper
     # XXX See controllers/user_controller.rb controllers/body_controller.rb for inverse
     # XXX consolidate somehow with stuff in helpers/application_helper.rb
     def simplify_url_part(text)
-        text.downcase!
+        text = text.downcase # this also clones the string, if we use downcase! we modify the original
         text.gsub!(/ /, "-")
         text.gsub!(/[^a-z0-9_-]/, "")
         text
