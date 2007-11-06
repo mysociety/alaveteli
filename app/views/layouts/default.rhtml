@@ -30,9 +30,9 @@
         <div id="logged_in_bar">
         <% if @user %>
             Hello, <%=h(@user.name)%>! 
-            (<%= link_to "Logout", signout_url(:r => request.request_uri) %>)
+            (<%= link_to "Sign out", signout_url(:r => request.request_uri) %>)
         <% else %>
-            Hello! (<%= link_to "Login or register", signin_url(:r => request.request_uri) %>)
+            Hello! (<%= link_to "Sign in or sign up", signin_url(:r => request.request_uri) %>)
         <% end %>
         </div>
     <% end %>

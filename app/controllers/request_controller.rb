@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.12 2007-11-05 16:46:10 francis Exp $
+# $Id: request_controller.rb,v 1.13 2007-11-06 15:58:56 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -42,7 +42,7 @@ class RequestController < ApplicationController
         if not @info_request.valid?
             render :action => 'new'
         elsif authenticated?(
-                :web => "To send your FOI request, please log in or make a new account.",
+                :web => "To send your FOI request, please sign in or make a new account.",
                 :email => "Then your FOI request to " + @info_request.public_body.name + " will be sent.",
                 :email_subject => "Confirm that you want to send an FOI request to " + @info_request.public_body.name
             )

@@ -5,12 +5,12 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: post_redirect.rb,v 1.3 2007-11-05 16:46:10 francis Exp $
+# $Id: post_redirect.rb,v 1.4 2007-11-06 15:58:56 francis Exp $
 
 require 'openssl' # for random bytes function
 
 class PostRedirect < ActiveRecord::Base
-    # Optional, does login confirm after email.
+    # Optional, does a login confirm before redirect for use in email links.
     belongs_to :user
 
     # We store YAML version of POST parameters in the database
