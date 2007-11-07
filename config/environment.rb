@@ -68,6 +68,8 @@ end
 
 # Validation error messages
 ActiveRecord::Errors.default_error_messages[:blank] = "must be filled in"
+# Use SPAN instead of DIV. See http://dev.rubyonrails.org/ticket/2210
+ActionView::Base.field_error_proc = Proc.new{ |html_tag, instance|  %(<span class="fieldWithErrors">#{html_tag}</span>)}
 
 # Include your application configuration below
 

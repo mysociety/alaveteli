@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user_controller.rb,v 1.13 2007-11-06 18:09:36 francis Exp $
+# $Id: user_controller.rb,v 1.14 2007-11-07 10:26:29 francis Exp $
 
 class UserController < ApplicationController
     # XXX See controllers/application.rb simplify_url_part for reverse of expression in SQL below
@@ -33,8 +33,12 @@ class UserController < ApplicationController
             render :action => 'sign' 
             return
         else
-            @user = User.authenticate(params[:user][:email], params[:user][:password])
-            if @user
+            @user = User.authenticate_from_form(params[:user])
+            if @user.errors.size > 0
+                # Failed to authenticate
+                render :action => 'signin' 
+                return
+            else
                 # Successful login
                 if @user.email_confirmed
                     session[:user] = @user.id
@@ -42,12 +46,6 @@ class UserController < ApplicationController
                 else
                     send_confirmation_mail
                 end
-                return
-            else
-                # Failed to authenticate
-                flash[:error] = "Email or password not correct, please try again"
-                @user = User.new(params[:user])
-                render :action => 'signin' 
                 return
             end
         end

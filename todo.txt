@@ -7,7 +7,8 @@ Next
 Send email to requestor telling them new information has come in
 
 Forgotten password link
-Email has already been taken
+Email has already been taken hasn't got a link to better place
+Link from error page for signin/signup to go to other one
 
 Make it say "dear" as default letter
 

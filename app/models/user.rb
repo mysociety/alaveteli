@@ -4,34 +4,42 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user.rb,v 1.11 2007-11-01 16:14:43 francis Exp $
+# $Id: user.rb,v 1.12 2007-11-07 10:26:30 francis Exp $
 
 require 'digest/sha1'
 
 class User < ActiveRecord::Base
-    validates_presence_of :email
+    validates_presence_of :email, :message => "^Please enter your email address"
     validates_uniqueness_of :email, :case_sensitive => false
 
     validates_presence_of :name
+    validates_presence_of :hashed_password, :message => "^Please enter a password"
 
     has_many :info_requests
 
     attr_accessor :password_confirmation
-    validates_confirmation_of :password
+    validates_confirmation_of :password, :message =>"^Please enter the same password twice"
 
     def validate
-        errors.add_to_base("Missing password") if hashed_password.blank?
         errors.add(:email, "doesn't look like a valid address") unless MySociety::Validate.is_valid_email(self.email)
     end
 
-    # Return user given login email and password
-    def self.authenticate(email, password)
-        user = self.find(:first, :conditions => [ 'email ilike ?', email ] ) # using ilike for case insensitive
+    # Return user given login email, password and other form parameters (e.g. name)
+    def self.authenticate_from_form(params)
+        auth_fail_message = "Email or password not recognised, please try again"
+        user = self.find(:first, :conditions => [ 'email ilike ?', params[:email] ] ) # using ilike for case insensitive
         if user
-            expected_password = encrypted_password(password, user.salt)
+            # There is user with email, check password
+            expected_password = encrypted_password(params[:password], user.salt)
             if user.hashed_password != expected_password
-                user = nil
+                user.errors.add_to_base(auth_fail_message)
             end
+        else
+            # No user of same email, make one (that we don't save in the database)
+            # for the forms code to use.
+            user = User.new(params)
+            # deliberately same message as above so as not to leak whether 
+            user.errors.add_to_base(auth_fail_message)
         end
         user
     end

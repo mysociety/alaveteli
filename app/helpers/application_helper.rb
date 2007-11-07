@@ -5,7 +5,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: application_helper.rb,v 1.12 2007-11-01 05:35:43 francis Exp $
+# $Id: application_helper.rb,v 1.13 2007-11-07 10:26:30 francis Exp $
 
 module ApplicationHelper
     # URL generating functions are needed by all controllers (for redirects)
@@ -29,7 +29,6 @@ module ApplicationHelper
           end
           error_messages = objects.map {|object| object.errors.full_messages.map {|msg| content_tag(:li, msg) } }
           content_tag(:div,
-              content_tag(:p, 'Please correct the following and try again.') <<
               content_tag(:ul, error_messages),
             html
           )

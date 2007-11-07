@@ -126,7 +126,6 @@ a:hover, a:active {
 
 form {
     margin: 0;
-    padding: 1em;
 }
 
 .plaque {
@@ -157,7 +156,7 @@ label {
 }
 .form_item_note {
     margin-left: 16.5em;
-    margin-top: -0.85em;
+    margin-top: -0.85em; 
     font-style: italic;
 }
 
@@ -190,6 +189,7 @@ label {
     border: solid 1px #cc0000;
     background-color: #ffcccc;
 }
+div.fieldWithErrors { display:inline; }
 
 /* / - front page */
 
@@ -266,6 +266,11 @@ table#list_requests .odd {
 #sign_together #signup {
     width: 48%;
     float: right;
+}
+
+#sign_alone {
+    margin-left: 24%;
+    margin-right: 24%;
 }
 
 #sign_together label {
