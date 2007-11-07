@@ -4,12 +4,12 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.10 2007-10-30 20:02:28 francis Exp $
+# $Id: info_request.rb,v 1.11 2007-11-07 11:10:56 francis Exp $
 
 require 'digest/sha1'
 
 class InfoRequest < ActiveRecord::Base
-    validates_presence_of :title
+    validates_presence_of :title, :message => "^Please enter a summary of your request"
 
     belongs_to :user
     #validates_presence_of :user_id # breaks during construction of new ones :(

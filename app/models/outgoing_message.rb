@@ -5,13 +5,13 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: outgoing_message.rb,v 1.8 2007-10-30 14:23:21 francis Exp $
+# $Id: outgoing_message.rb,v 1.9 2007-11-07 11:10:56 francis Exp $
 
 class OutgoingMessage < ActiveRecord::Base
     belongs_to :info_request
     validates_presence_of :info_request
 
-    validates_presence_of :body
+    validates_presence_of :body, :message => "^Please enter your letter requesting information."
     validates_inclusion_of :status, :in => ['ready', 'sent', 'failed']
 
     validates_inclusion_of :message_type, :in => ['initial_request'] #, 'complaint']
