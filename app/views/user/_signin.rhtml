@@ -1,6 +1,6 @@
 <div id="signin">
 
-<% form_tag({:action => "signin"}, {:id => "accountForm"}) do %>
+<% form_tag({:action => "signin"}, {:id => "signin_form"}) do %>
     <%= foi_error_messages_for :user %>
 
     <% if not flash[:error] %>
@@ -8,13 +8,13 @@
     <% end %>
 
     <p>
-    <label for="user_email" id="signin_email"><strong>Your e-mail:</strong></label>
-    <%= text_field 'user', 'email', { :size => 20 } %>
+    <label for="signin_email"><strong>Your e-mail:</strong></label>
+    <%= text_field 'user', 'email', { :size => 20, :id => 'signin_email' } %>
     </p>
 
     <p>
-    <label for="user_password"><strong>Password:</strong></label>
-    <%= password_field 'user', 'password', { :size => 15 } %>
+    <label for="signin_password"><strong>Password:</strong></label>
+    <%= password_field 'user', 'password', { :size => 15, :id => 'signin_password' } %>
     </p>
 
     <p class="form_note">
@@ -22,7 +22,7 @@
     </p>
 
     <div class="form_button">
-    <%= hidden_field_tag 'token', params[:token] %>
+    <%= hidden_field_tag 'token', params[:token], { :id => 'signin_token' } %>
     <%= submit_tag "Sign in" %>
     </div>
 <% end %>
