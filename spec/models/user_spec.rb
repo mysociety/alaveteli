@@ -17,18 +17,19 @@ describe User, " when authenticating" do
         @empty_user.hashed_password.should_not be_nil
     end
 
-    it "should not find the user when given the wrong password" do
-        found_user = User.authenticate("sensible@localhost", "iownzyou")
-        found_user.should be_nil
+    it "should have errors when given the wrong password" do
+        found_user = User.authenticate_from_form({ :email => "sensible@localhost", :password => "iownzyou" })
+        found_user.errors.size.should > 0
     end
 
     it "should not find the user when given the wrong email" do
-        found_user = User.authenticate("soccer@localhost", "foolishpassword")
-        found_user.should be_nil
+        found_user = User.authenticate_from_form( { :email => "soccer@localhost", :password => "foolishpassword" })
+        found_user.errors.size.should > 0
     end
 
     it "should find the user when given the right email and password" do
-        found_user = User.authenticate("sensible@localhost", "foolishpassword")
+        found_user = User.authenticate_from_form( { :email => "sensible@localhost", :password => "foolishpassword" })
+        found_user.errors.size.should == 0
         found_user.should == (@full_user)
     end
 
