@@ -132,6 +132,7 @@ form {
     background-color: #a8f400;
     -moz-border-radius: 1em;
     border-radius: 1em;
+    padding: 1em;
 }
 
 select, input, textarea {
@@ -269,8 +270,8 @@ table#list_requests .odd {
 }
 
 #sign_alone {
-    margin-left: 24%;
-    margin-right: 24%;
+    margin-left: 15%;
+    margin-right: 15%;
 }
 
 #sign_together label {
