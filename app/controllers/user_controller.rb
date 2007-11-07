@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user_controller.rb,v 1.14 2007-11-07 10:26:29 francis Exp $
+# $Id: user_controller.rb,v 1.15 2007-11-07 10:45:44 francis Exp $
 
 class UserController < ApplicationController
     # XXX See controllers/application.rb simplify_url_part for reverse of expression in SQL below
@@ -14,7 +14,11 @@ class UserController < ApplicationController
 
     # Login form
     def signin
-        # The explict signin link uses this to store where it is to go back to
+        # Redirect to front page later if nothing else specified
+        if not params[:r] and not params[:token]
+            params[:r] = "/"  
+        end
+        # The explicit "signin" link uses this to specify where to go back to
         if params[:r]
             @post_redirect = PostRedirect.new(:uri => params[:r], :post_params => {},
                 :reason_params => {
@@ -24,7 +28,8 @@ class UserController < ApplicationController
                 })
             @post_redirect.save!
             params[:token] = @post_redirect.token
-        else
+        elsif params[:token]
+            # Otherwise we have a token (which represents a saved POST request0
             @post_redirect = PostRedirect.find_by_token(params[:token])
         end
 
