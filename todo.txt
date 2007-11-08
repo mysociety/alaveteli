@@ -9,31 +9,13 @@ Send email to requestor telling them new information has come in
 Forgotten password link
 Email has already been taken hasn't got a link to better place
 Link from error page for signin/signup to go to other one
+Remember me box
 
 Make it say "dear" as default letter
 
-Work out how to do controller/view integrated specs and add some
+Work out how to get it to tell you code coverage of .rhtml files
 Make it validate the HTML
-
-Make login have wording like on PledgeBank
-    Do you have a PledgeBank password?
-    Yes, please enter it:
-    No, or you’ve forgotten it
-    — we’ll send you a confirmation email instead.
-
-
-    UST ONE MORE THING YOU HAVE TO DO!
-        
-        You are now a bbc.co.uk member.
-    However, we need to confirm that frabcus@fastmail.fm is your email address.
-            If your email address is not correct you can go to your membership details to change it. Retrieve my details    
-        1. Check your inbox now, we have sent you an email to which you must respond.
-    2. Just follow the instructions in our email.
-    3. You can leave this page now knowing that we have all your details safely stored.
-
-    What if I don't receive the email?
-
-Use word verify
+    maybe with http://www.anodyne.ca/wp-content/uploads/2007/09/be_valid_xhtml.rb
 
 Tidying
 =======

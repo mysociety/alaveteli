@@ -174,8 +174,8 @@ script
   Helper scripts for automation and generation.
 
 spec
-  Unit and functional specifications along with fixtures. We use this instead of
-  test.
+  Unit and functional specifications along with fixtures, using rspec. We use
+  this instead of test.
 
 test
   DEPRECATED for this project, see 'spec' instead. Unit and functional tests

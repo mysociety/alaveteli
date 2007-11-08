@@ -8,6 +8,11 @@ describe UserController, "when showing a user" do
         response.should be_success
     end
 
+    it "should redirect to lower case name if given one with capital letters" do
+        get :show, :simple_name => "Bob_Smith"
+        response.should redirect_to(:controller => 'user', :action => 'show', :simple_name => "bob_smith")
+    end
+
     it "should render with 'show' template" do
         get :show, :simple_name => "bob_smith"
         response.should render_template('show')
