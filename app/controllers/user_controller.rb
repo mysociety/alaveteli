@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user_controller.rb,v 1.16 2007-11-08 12:57:01 francis Exp $
+# $Id: user_controller.rb,v 1.17 2007-11-08 16:18:25 francis Exp $
 
 class UserController < ApplicationController
     # XXX See controllers/application.rb simplify_url_part for reverse of expression in SQL below
@@ -65,11 +65,8 @@ class UserController < ApplicationController
         # Make the user and try to save it
         @user = User.new(params[:user])
         if not @user.valid?
-            # First time get to form (e.g. from signin) , don't show errors
-            @first_time = params[:first_time]
-            @user.errors.clear if @first_time
             # Show the form
-            render :action => (@first_time ? 'sign' : 'signup')
+            render :action => 'signup'
         else
             # New unconfirmed user
             @user.email_confirmed = false
@@ -108,7 +105,7 @@ class UserController < ApplicationController
         if params[:r]
             redirect_to params[:r]
         else
-            redirect_to :action => "index"
+            redirect_to :controller => "request", :action => "frontpage"
         end
     end
 

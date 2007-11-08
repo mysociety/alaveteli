@@ -94,9 +94,11 @@ describe RequestController, "when creating a new request" do
     end
 
     it "should redirect to sign in page when input is good and nobody is logged in" do
-        post :create, :info_request => { :public_body_id => public_bodies(:geraldine_public_body).id, 
+        params = { :info_request => { :public_body_id => public_bodies(:geraldine_public_body).id, 
             :title => "Why is your quango called Geraldine?"},
-            :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." }  
+            :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." } 
+        }
+        post :create, params
         # XXX yeuch - no other easy way of getting the token so we can check
         # the redirect URL, as it is by definition opaque to the controller
         # apart from in the place that it redirects to.
@@ -104,6 +106,7 @@ describe RequestController, "when creating a new request" do
         post_redirects.size.should == 1
         post_redirect = post_redirects[0]
         response.should redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
+        # post_redirect.post_params.should == params # XXX get this working. there's a : vs '' problem amongst others
     end
 
     it "should create the request and outgoing message and redirect to request page when input is good and somebody is logged in" do

@@ -16,6 +16,7 @@ Make it say "dear" as default letter
 Work out how to get it to tell you code coverage of .rhtml files
 Make it validate the HTML
     maybe with http://www.anodyne.ca/wp-content/uploads/2007/09/be_valid_xhtml.rb
+Check we call integrate_views for all controllers
 
 Tidying
 =======
