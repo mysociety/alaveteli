@@ -5,7 +5,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: outgoing_message.rb,v 1.9 2007-11-07 11:10:56 francis Exp $
+# $Id: outgoing_message.rb,v 1.10 2007-11-09 02:11:36 francis Exp $
 
 class OutgoingMessage < ActiveRecord::Base
     belongs_to :info_request
@@ -15,6 +15,23 @@ class OutgoingMessage < ActiveRecord::Base
     validates_inclusion_of :status, :in => ['ready', 'sent', 'failed']
 
     validates_inclusion_of :message_type, :in => ['initial_request'] #, 'complaint']
+
+    # Set default letter
+    def after_initialize
+        if self.body.nil?
+            self.body = "Dear Sir or Madam,\n\n\n\nYours faithfully,\n\n"
+        end
+    end
+
+    # Check have edited letter
+    def validate
+        if self.body =~ /\ADear Sir or Madam,\s+Yours faithfully,\s+/
+            errors.add(:body, "^Please enter your letter requesting information")
+        end
+        if self.body =~ /Yours faithfully,\s+\Z/
+            errors.add(:body, '^Please sign at the bottom with your name, or alter the "Yours faithfully" signature')
+        end
+    end
 
     # Deliver outgoing message
     # Note: You can test this from script/console with, say:

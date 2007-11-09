@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.13 2007-11-06 15:58:56 francis Exp $
+# $Id: request_controller.rb,v 1.14 2007-11-09 02:11:35 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -25,6 +25,7 @@ class RequestController < ApplicationController
     def new
         # Read parameters in - public body can be passed from front page
         @info_request = InfoRequest.new(params[:info_request])
+        @outgoing_message = OutgoingMessage.new(params[:outgoing_message])
     end
 
     # Page new form posts to

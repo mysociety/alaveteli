@@ -11,12 +11,12 @@ Email has already been taken hasn't got a link to better place
 Link from error page for signin/signup to go to other one
 Remember me box
 
-Make it say "dear" as default letter
-
 Work out how to get it to tell you code coverage of .rhtml files
 Make it validate the HTML
     maybe with http://www.anodyne.ca/wp-content/uploads/2007/09/be_valid_xhtml.rb
 Check we call integrate_views for all controllers
+
+Remove "Outgoing messages is invalid"
 
 Tidying
 =======
