@@ -79,6 +79,7 @@ describe UserController, "when signing in" do
         }
         session[:user].should == users(:bob_smith_user).id
         response.should redirect_to(:controller => 'request', :action => 'list', :post_redirect => 1)
+        response.should_not send_email
     end
 
     it "should ask you to confirm your email if it isn't confirmed, after log in" do
@@ -89,10 +90,28 @@ describe UserController, "when signing in" do
             :token => post_redirect.token
         }
         response.should render_template('confirm')
-        # XXX check email sent
+        response.should send_email
     end
 
-    it "should confirm your email, log you in and redirect you to where you were after you click an email link"
+    it "should confirm your email, log you in and redirect you to where you were after you click an email link" do
+        get :signin, :r => "/list"
+        post_redirect = get_last_postredirect
+
+        post :signin, { :user => { :email => 'silly@localhost', :password => 'jonespassword' },
+            :token => post_redirect.token
+        }
+        response.should send_email
+
+        deliveries = ActionMailer::Base.deliveries
+        deliveries.size.should  == 1
+        mail = deliveries[0]
+        mail.body =~ /(http:\/\/.*\/c\/(.*))/
+        mail_url = $1
+        mail_token = $2
+
+        get :confirm, :email_token => post_redirect.email_token
+        response.should redirect_to(:controller => 'request', :action => 'list', :post_redirect => 1)
+    end
 
 end
 
@@ -114,13 +133,13 @@ describe UserController, "when signing up" do
         assigns[:user].errors[:email].should_not be_nil
     end
 
-#    it "should ask you to confirm your email if you fill in the form right" do
-#        post :signup, { :user => { :email => 'new@localhost', :name => 'New Person',
-#            :password => 'sillypassword', :password_confirmation => 'sillypassword' } 
-#        }
-#        response.should render_template('confirm')
+    it "should ask you to confirm your email if you fill in the form right" do
+        post :signup, { :user => { :email => 'new@localhost', :name => 'New Person',
+            :password => 'sillypassword', :password_confirmation => 'sillypassword' } 
+        }
+        response.should render_template('confirm')
         # XXX if you go straight into signup form without token it doesn't make one
-#    end
+    end
 end
 
 describe UserController, "when signing out" do

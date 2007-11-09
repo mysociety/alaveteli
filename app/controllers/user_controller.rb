@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user_controller.rb,v 1.17 2007-11-08 16:18:25 francis Exp $
+# $Id: user_controller.rb,v 1.18 2007-11-09 01:48:36 francis Exp $
 
 class UserController < ApplicationController
     # XXX See controllers/application.rb simplify_url_part for reverse of expression in SQL below
@@ -18,24 +18,7 @@ class UserController < ApplicationController
 
     # Login form
     def signin
-        # Redirect to front page later if nothing else specified
-        if not params[:r] and not params[:token]
-            params[:r] = "/"  
-        end
-        # The explicit "signin" link uses this to specify where to go back to
-        if params[:r]
-            @post_redirect = PostRedirect.new(:uri => params[:r], :post_params => {},
-                :reason_params => {
-                    :web => "Please sign in or make a new account.",
-                    :email => "Then your can sign in to GovernmentSpy.",
-                    :email_subject => "Confirm your account on GovernmentSpy"
-                })
-            @post_redirect.save!
-            params[:token] = @post_redirect.token
-        elsif params[:token]
-            # Otherwise we have a token (which represents a saved POST request0
-            @post_redirect = PostRedirect.find_by_token(params[:token])
-        end
+        work_out_post_redirect
 
         if not params[:user] 
             # First time page is shown
@@ -62,6 +45,8 @@ class UserController < ApplicationController
 
     # Create new account form
     def signup
+        work_out_post_redirect
+
         # Make the user and try to save it
         @user = User.new(params[:user])
         if not @user.valid?
@@ -111,6 +96,28 @@ class UserController < ApplicationController
 
 
     private
+
+    # Decide where we are going to redirect back to after signin/signup, and record that
+    def work_out_post_redirect
+        # Redirect to front page later if nothing else specified
+        if not params[:r] and not params[:token]
+            params[:r] = "/"  
+        end
+        # The explicit "signin" link uses this to specify where to go back to
+        if params[:r]
+            @post_redirect = PostRedirect.new(:uri => params[:r], :post_params => {},
+                :reason_params => {
+                    :web => "Please sign in or make a new account.",
+                    :email => "Then your can sign in to GovernmentSpy.",
+                    :email_subject => "Confirm your account on GovernmentSpy"
+                })
+            @post_redirect.save!
+            params[:token] = @post_redirect.token
+        elsif params[:token]
+            # Otherwise we have a token (which represents a saved POST request0
+            @post_redirect = PostRedirect.find_by_token(params[:token])
+        end
+    end
 
     # Ask for email confirmation
     def send_confirmation_mail
