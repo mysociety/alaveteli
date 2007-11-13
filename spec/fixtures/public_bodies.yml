@@ -16,7 +16,7 @@ humpadink_public_body:
   complaint_email: humpadink-complaints@localhost
   request_email: humpadink-requests@localhost
   id: "3"
-  version: "1"
+  version: "2"
   last_edit_editor: "francis"
   short_name: DfH
   created_at: 2007-10-25 10:51:01.161639
