@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.5 2007-10-30 14:23:21 francis Exp $
+# $Id: request_mailer.rb,v 1.6 2007-11-13 12:02:14 francis Exp $
 
 class RequestMailer < ActionMailer::Base
 
@@ -17,6 +17,13 @@ class RequestMailer < ActionMailer::Base
         end
         @subject    = 'Freedom of Information Request - ' + info_request.title
         @body       = {:info_request => info_request, :outgoing_message => outgoing_message}
+    end
+
+    def bounced_message(email)
+        @from = MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost')
+        @recipients = @from
+        @subject = "Incoming email to unknown FOI request"
+        email.setup_forward(self)
     end
 
     # Copy of function from action_mailer/base.rb, which passes the
@@ -36,6 +43,11 @@ class RequestMailer < ActionMailer::Base
         for address in (email.to || []) + (email.cc || [])
             info_request = InfoRequest.find_by_incoming_email(address)
             info_requests.push(info_request) if info_request
+        end
+
+        # Nothing found
+        if info_requests.size == 0
+            RequestMailer.deliver_bounced_message(email)
         end
 
         # Send the message to each request

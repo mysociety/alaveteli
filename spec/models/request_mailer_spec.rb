@@ -13,7 +13,16 @@ describe RequestMailer, " when receiving incoming mail" do
         ir.incoming_messages.size.should == 1
     end
     
-    it "should XXX when the email is not to any information request"
+    it "should bounce email to admin when the email is not to any information request" do
+        ir = info_requests(:fancy_dog_request) 
+        receive_incoming_mail('incoming-request-plain.email', 'dummy@localhost')
+        ir.incoming_messages.size.should == 0
+
+        deliveries = ActionMailer::Base.deliveries
+        deliveries.size.should  == 1
+        mail = deliveries[0]
+        mail.to.should == [ MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost') ]
+    end
 end
 
 

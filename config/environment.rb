@@ -11,7 +11,8 @@ RAILS_GEM_VERSION = '1.2.1' unless defined? RAILS_GEM_VERSION
 require File.join(File.dirname(__FILE__), 'boot')
 
 # MySociety specific helper functions
-$:.push("../rblib")
+$:.push(File.join(File.dirname(__FILE__), '../../rblib'))
+
 load "validate.rb"
 load "config.rb"
 

@@ -10,11 +10,16 @@
  *
  * Copy this file to one called "general" in the same directory.  Or
  * have multiple config files and use a symlink to change between them.
+ *
+ * NOTE ON USE IN RAILS: So that people don't have to have PHP installed just
+ * to run this stuff, by convention we always provide a default config value
+ * in the source code when reading the config option. The Rails application
+ * should run fine without the general config file, it is a bug if it does not.
  * 
  * Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
  * Email: francis@mysociety.org; WWW: http://www.mysociety.org
  *
- * $Id: general-example,v 1.3 2007-11-05 16:46:11 francis Exp $
+ * $Id: general-example,v 1.4 2007-11-13 12:02:16 francis Exp $
  * 
  */
 
