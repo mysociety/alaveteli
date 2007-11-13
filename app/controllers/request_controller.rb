@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.14 2007-11-09 02:11:35 francis Exp $
+# $Id: request_controller.rb,v 1.15 2007-11-13 12:47:05 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -55,21 +55,8 @@ class RequestController < ApplicationController
         else
             # do nothing - as "authenticated?" has done the redirect to signin page for us
         end
+   end
 
-        # Save both models # XXX still fiddling with error reporting here, see Louise's
-        # email about some better error reporting plugin.
-#        valid = @info_request.valid? 
-#        valid &&= @outgoing_message.valid? # XXX maybe there is a nicer way of preventing lazy boolean evaluation than this
-#        if valid
-#            if authenticated?
-#                @info_request.save!
-#                @outgoing_message.save!
-#            end
-#        else
-#            render :action => 'index'
-#        end
-    end
-
-    private
+   private
 
 end

@@ -48,7 +48,8 @@ describe RequestController, "when listing all requests" do
 end
 
 describe RequestController, "when showing one request" do
-    fixtures :info_requests
+    integrate_views
+    fixtures :info_requests, :public_bodies, :users # all needed as integrating views
   
     it "should be successful" do
         get :show, :id => 101
@@ -63,6 +64,13 @@ describe RequestController, "when showing one request" do
     it "should assign the request" do
         get :show, :id => 101
         assigns[:info_request].should == info_requests(:fancy_dog_request)
+    end
+
+    it "should show incoming messages" do
+        ir = info_requests(:fancy_dog_request) 
+        receive_incoming_mail('incoming-request-plain.email', ir.incoming_email)
+        get :show, :id => 101
+        assigns[:correspondences].size.should == 1
     end
 end
 
