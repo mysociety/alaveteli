@@ -1,6 +1,5 @@
 Check confirmed everywhere in password check etc.
 
-
 Next
 ====
 
@@ -19,12 +18,16 @@ Make it validate the HTML
 Check we call integrate_views for all controllers
 Test that actually sending request outgoing mail using deliveries
 
-Remove "Outgoing messages is invalid"
+Remove "Outgoing messages is invalid" error
+
 
 Tidying
 =======
 
-Add indices to token / email_token in post_redirects
+Bubbles don't validate
+http://localhost:3000/request/5
+
+Add SQL database indexes to token / email_token in post_redirects
 
 Prevent double posting of same request
 

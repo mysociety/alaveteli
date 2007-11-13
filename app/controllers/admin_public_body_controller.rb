@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_public_body_controller.rb,v 1.3 2007-09-03 13:52:01 francis Exp $
+# $Id: admin_public_body_controller.rb,v 1.4 2007-11-13 12:59:53 francis Exp $
 
 class AdminPublicBodyController < ApplicationController
     layout "admin"
@@ -19,7 +19,7 @@ class AdminPublicBodyController < ApplicationController
                  :redirect_to => { :action => :list }
 
     def list
-        @public_body_pages, @public_bodies = paginate :public_bodies, :per_page => 10
+        @public_bodies = PublicBody.paginate :order => "name", :page => params[:page], :per_page => 10
     end
 
     def show

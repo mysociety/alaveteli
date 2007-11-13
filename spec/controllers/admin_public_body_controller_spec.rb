@@ -1,9 +1,11 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-describe AdminPublicBodyController, "when routing requests" do
+describe AdminPublicBodyController, "when administering public bodies" do
+    integrate_views
+    fixtures :public_bodies
   
-  it "should map { :controller => 'admin_public_body', :action => 'list' } to /admin/body/list" do
-    route_for(:controller => "admin_public_body", :action => "list").should == "/admin/body/list"
-  end
+    it "show the index page" do
+        get :index
+    end
 
 end

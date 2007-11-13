@@ -21,8 +21,7 @@
 <% end %>
 </table>
 
-<%= link_to 'Previous page', { :page => @public_body_pages.current.previous } if @public_body_pages.current.previous %>
-<%= link_to 'Next page', { :page => @public_body_pages.current.next } if @public_body_pages.current.next %> 
+<%= will_paginate(@public_bodies) %>
 
 <br />
 
