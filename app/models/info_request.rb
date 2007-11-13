@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.11 2007-11-07 11:10:56 francis Exp $
+# $Id: info_request.rb,v 1.12 2007-11-13 10:22:14 francis Exp $
 
 require 'digest/sha1'
 
@@ -27,7 +27,7 @@ class InfoRequest < ActiveRecord::Base
         raise "id required to make incoming_email" if not self.id
         incoming_email = MySociety::Config.get("INCOMING_EMAIL_PREFIX", "") 
         incoming_email += "request-" + self.id.to_s 
-        incoming_email += "-" + Digest::SHA1.hexdigest(self.id.to_s + MySociety::Config.get("INCOMING_EMAIL_SECRET"))[0,8]
+        incoming_email += "-" + Digest::SHA1.hexdigest(self.id.to_s + MySociety::Config.get("INCOMING_EMAIL_SECRET", 'dummysecret'))[0,8]
         incoming_email += "@" + MySociety::Config.get("INCOMING_EMAIL_DOMAIN", "localhost")
         return incoming_email
     end
@@ -40,7 +40,7 @@ class InfoRequest < ActiveRecord::Base
         id = $1.to_i
         hash = $2
 
-        expected_hash = Digest::SHA1.hexdigest(id.to_s + MySociety::Config.get("INCOMING_EMAIL_SECRET"))[0,8]
+        expected_hash = Digest::SHA1.hexdigest(id.to_s + MySociety::Config.get("INCOMING_EMAIL_SECRET", 'dummysecret'))[0,8]
         #print "expected: " + expected_hash + "\nhash: " + hash + "\n"
         if hash != expected_hash
             return nil

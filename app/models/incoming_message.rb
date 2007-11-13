@@ -5,7 +5,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.3 2007-10-30 14:13:46 francis Exp $
+# $Id: incoming_message.rb,v 1.4 2007-11-13 10:22:14 francis Exp $
 
 class IncomingMessage < ActiveRecord::Base
     belongs_to :info_request
@@ -13,16 +13,13 @@ class IncomingMessage < ActiveRecord::Base
 
     validates_presence_of :raw_data
 
-    # We store the raw email in the database, and parse it into 
-    # a structured TMail every time we get it out again.
-    def after_initialize
-        @mail = TMail::Mail.parse(self.raw_data)
-        @mail.base64_decode
-    end
-
     # Return the structured TMail::Mail object
     # Documentation at http://i.loveruby.net/en/projects/tmail/doc/
     def mail
+        if @mail.nil?
+            @mail = TMail::Mail.parse(self.raw_data)
+            @mail.base64_decode
+        end
         @mail
     end
 

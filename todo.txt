@@ -5,6 +5,8 @@ Next
 ====
 
 Send email to requestor telling them new information has come in
+Let them send follow-ups
+Do something after 20 working days if you get no response
 
 Forgotten password link
 Email has already been taken hasn't got a link to better place
@@ -15,6 +17,7 @@ Work out how to get it to tell you code coverage of .rhtml files
 Make it validate the HTML
     maybe with http://www.anodyne.ca/wp-content/uploads/2007/09/be_valid_xhtml.rb
 Check we call integrate_views for all controllers
+Test that actually sending request outgoing mail using deliveries
 
 Remove "Outgoing messages is invalid"
 
@@ -52,6 +55,7 @@ Check act to see if can use pseudonym for FOI request?
 
 Maybe we SHOULD reveal their email to the public body, why not?
 
+Say that we would like response by email (not postal address) in footer
 
 Later
 =====
