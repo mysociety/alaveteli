@@ -8,6 +8,27 @@ by
 <%= user_link(@info_request.user) %>
 </p>
 
+<p class="xspeaker">
+<% if @status == 'awaiting' %>
+Currently <strong>waiting for a response</strong> from <%= public_body_link(@info_request.public_body) %>
+<% elsif @status == 'overdue' %>
+Currently <strong>overdue a response</strong> from <%=
+public_body_link(@info_request.public_body) %>.  Under section blah of the
+Freedom of Information Act 2000 responses must be made within 20 working days.
+<% elsif @status == 'information_and_rejection' %>
+The request was <strong>partly successful, partly rejected</strong>
+<% elsif @status == 'information' %>
+The request was <strong>successful</strong>
+<% elsif @status == 'rejection' %>
+The request was <strong>rejected</strong>
+<% elsif @status == 'unknown' %>
+<strong>Response received</strong>, but <%= user_link(@info_request.user) %> has not yet reported if it was
+successful or a rejection.
+<% else %>
+<% raise "unknown status " + $status %>
+<% end %>
+</p>
+
 <% for correspondence in @correspondences %>
     <div id="correspondence">
 
@@ -36,8 +57,9 @@ by
 
         <p class="xspeaker">
         <%= incoming_message.mail.friendly_from %>
-        wrote a reply 
-        on <strong><%= simple_date(incoming_message.sent_at) %></strong>
+        of <%= public_body_link(@info_request.public_body) %>
+        wrote a reply on <strong><%= simple_date(incoming_message.sent_at)
+        %></strong>
         </p>
     <% else %>
         <% raise "Unknown correspondence type" + correspondence.class.to_s %>

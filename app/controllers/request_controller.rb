@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.15 2007-11-13 12:47:05 francis Exp $
+# $Id: request_controller.rb,v 1.16 2007-11-14 01:01:38 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -12,6 +12,7 @@ class RequestController < ApplicationController
         @info_request = InfoRequest.find(params[:id])
         @correspondences = @info_request.outgoing_messages + @info_request.incoming_messages
         @correspondences.sort! { |a,b| a.sent_at <=> b.sent_at } 
+        @status = @info_request.calculate_status
     end
 
     def list

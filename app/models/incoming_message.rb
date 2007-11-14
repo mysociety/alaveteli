@@ -5,13 +5,15 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.4 2007-11-13 10:22:14 francis Exp $
+# $Id: incoming_message.rb,v 1.5 2007-11-14 01:01:39 francis Exp $
 
 class IncomingMessage < ActiveRecord::Base
     belongs_to :info_request
     validates_presence_of :info_request
 
     validates_presence_of :raw_data
+
+    has_many :rejection_reasons
 
     # Return the structured TMail::Mail object
     # Documentation at http://i.loveruby.net/en/projects/tmail/doc/

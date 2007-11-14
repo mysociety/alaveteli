@@ -1,14 +1,25 @@
-Check confirmed everywhere in password check etc.
+Status outputs for entire request:
+
+- Awaiting response (in 20 working day limit)
+- Overdue a response (over 20 working day limit)
+
+- Received a positive response
+- Received a partly positive response w/ rejection reasons
+- Received an entirely negative response w/ rejection reasons
+
+- Have sent a follow up
 
 Next
 ====
+
+Check confirmed everywhere in password check etc.
 
 Send email to requestor telling them new information has come in
 Let them send follow-ups
 Do something after 20 working days if you get no response
 
 Forgotten password link
-Email has already been taken hasn't got a link to better place
+Email has already been taken hasn't got a way to sign in
 Link from error page for signin/signup to go to other one
 Remember me box
 
@@ -20,9 +31,12 @@ Test that actually sending request outgoing mail using deliveries
 
 Remove "Outgoing messages is invalid" error
 
+Remove everything from test/
 
 Tidying
 =======
+
+Use working days
 
 Bubbles don't validate
 http://localhost:3000/request/5
@@ -69,6 +83,8 @@ Later
  thanks :) I won't do it now as there are more important things, I was just accidentally impressed
 
 Add postal address at City University to request
+
+Lucene for search (ask Louise for plugin)
 
 Read wiki page lots
 http://www.mysociety.org/moin.cgi/FreedomOfInformation

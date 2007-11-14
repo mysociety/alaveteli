@@ -1,4 +1,23 @@
-new_request_message:
+useless_incoming_message: 
   id: 1
-  info_request_id: 1
-  raw_data: xxxx
+  info_request_id: 101
+  updated_at: 2007-11-13 18:09:20.042061
+  raw_data: |
+    From: Francis Irving <frabcus@fastmail.fm>
+    To: FOI Person <foiperson@localhost>
+    Date: Tue, 13 Nov 2007 11:39:55 +0000
+    NoCc: foi+request-1-4b571715@cat
+    Bcc: 
+    Subject: Re: Freedom of Information Request - Why do you have such a fancy dog?
+    Reply-To: 
+    In-Reply-To: <471f1eae5d1cb_7347..fdbe67386163@cat.tmail>
+    
+    No way! I'm not going to tell you that in a month of Thursdays.
+    
+    The Geraldine Quango
+    
+    On Wed, Oct 24, 2007 at 11:30:06AM +0100, Bob Smith wrote:
+    > Why do you have such a fancy dog?
+
+  created_at: 2007-11-13 18:09:20.042061
+

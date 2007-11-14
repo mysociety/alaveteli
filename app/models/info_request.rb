@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.12 2007-11-13 10:22:14 francis Exp $
+# $Id: info_request.rb,v 1.13 2007-11-14 01:01:39 francis Exp $
 
 require 'digest/sha1'
 
@@ -56,6 +56,60 @@ class InfoRequest < ActiveRecord::Base
         incoming_message.info_request = self
         incoming_message.save
     end
+
+    # Work out what the situation of the request is
+    def calculate_status
+        # Extract aggregate information for any incoming messages all together
+        contains_information = false
+        rejection_reasons = []
+        self.incoming_messages.each do |msg|
+            if msg.user_classified
+                if msg.contains_information
+                    contains_information = true
+                end
+                rejection_reasons += msg.rejection_reasons
+            end
+        end
+
+        # See if response would be overdue 
+        overdue = false
+        # XXX if a second outgoing message is really a new request, then this
+        # is no good
+        earliest_sent = self.outgoing_messages.map { |om| om.sent_at }.min
+        time_left = Time.now - earliest_sent
+        # XXX use working days 
+        if time_left > 20.days
+            overdue = true
+        end
+
+        # Return appropriate status string
+        if self.incoming_messages.size == 0
+            if overdue
+                return "overdue"
+            else
+                return "awaiting"
+            end
+        end
+        if contains_information and rejection_reasons.size > 0
+            return "information_and_rejection"
+        end
+        if contains_information and rejection_reasons.size == 0
+            return "information"
+        end
+        if rejection_reasons.size > 0 
+            return "rejection"
+        end
+        return "unknown"
+    end
+    # - Awaiting response (in 20 working day limit)
+    # - Overdue a response (over 20 working day limit)
+    #
+    # - Has a response but not sure what to think of it
+    # - Received a positive response
+    # - Received a partly positive response w/ rejection reasons
+    # - Received an entirely negative response w/ rejection reasons
+    #
+    # - Have sent a follow up
 
 end
 

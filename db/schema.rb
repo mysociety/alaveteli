@@ -2,13 +2,15 @@
 # migrations feature of ActiveRecord to incrementally modify your database, and
 # then regenerate this schema definition.
 
-ActiveRecord::Schema.define(:version => 17) do
+ActiveRecord::Schema.define(:version => 18) do
 
   create_table "incoming_messages", :force => true do |t|
-    t.column "info_request_id", :integer
-    t.column "raw_data",        :text
-    t.column "created_at",      :datetime
-    t.column "updated_at",      :datetime
+    t.column "info_request_id",      :integer
+    t.column "raw_data",             :text
+    t.column "created_at",           :datetime
+    t.column "updated_at",           :datetime
+    t.column "user_classified",      :boolean,  :default => false
+    t.column "contains_information", :boolean,  :default => false
   end
 
   create_table "info_requests", :force => true do |t|
@@ -62,6 +64,13 @@ ActiveRecord::Schema.define(:version => 17) do
     t.column "updated_at",        :datetime
     t.column "last_edit_editor",  :string
     t.column "last_edit_comment", :string
+  end
+
+  create_table "rejection_reasons", :force => true do |t|
+    t.column "incoming_message_id", :integer
+    t.column "reason",              :string
+    t.column "created_at",          :datetime
+    t.column "updated_at",          :datetime
   end
 
   create_table "sessions", :force => true do |t|
