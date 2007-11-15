@@ -1,0 +1,16 @@
+useless_outgoing_message:
+  id: 1
+  info_request_id: 101
+  message_type: initial_request
+  status: sent
+  updated_at: 2007-10-12 01:56:58.586598
+  body: "Hi,\r\n\
+    \r\n\
+    Why do you have such a fancy dog?\r\n\
+    \r\n\
+    Thanks!\r\n\
+    \r\n\
+    Francis\r\n"
+  sent_at: 2007-10-25 10:41:12.686264
+  created_at: 2007-10-12 01:56:58.586598
+
