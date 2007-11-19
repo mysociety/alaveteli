@@ -6,7 +6,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: application.rb,v 1.23 2007-11-05 16:46:10 francis Exp $
+# $Id: application.rb,v 1.24 2007-11-19 12:36:57 francis Exp $
 
 
 class ApplicationController < ActionController::Base
@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
 
     # Check the user is logged in
     def authenticated?(reason_params)
-        unless session[:user]
+        unless session[:user_id]
             post_redirect = PostRedirect.new(:uri => request.request_uri, :post_params => params,
                 :reason_params => reason_params)
             post_redirect.save!
@@ -30,9 +30,26 @@ class ApplicationController < ActionController::Base
         return true
     end
 
+    def authenticated_as_user?(user, reason_params) 
+        reason_params[:user_name] = user.name
+        reason_params[:user_url] = show_user_url(:simple_name => simplify_url_part(user.name))
+        if session[:user_id]
+            if session[:user_id] == user.id
+                # They are logged in as the right user
+                return true
+            else
+                # They are already logged in, but as the wrong user
+                @reason_params = reason_params
+                render 'user/wrong_user'
+            end
+        end
+        # They are not logged in at all
+        return authenticated?(reason_params)
+    end
+
     # Return logged in user
     def authenticated_user
-        return User.find(session[:user])
+        return User.find(session[:user_id])
     end
 
     # Do a POST redirect. This is a nasty hack - we store the posted values in
@@ -61,7 +78,7 @@ class ApplicationController < ActionController::Base
     # Default layout shows user in corner, so needs access to it
     before_filter :authentication_check
     def authentication_check
-        if session[:user]
+        if session[:user_id]
             @user = authenticated_user
         end
     end

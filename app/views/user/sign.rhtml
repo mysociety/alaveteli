@@ -1,14 +1,43 @@
-<% @title = "Sign in or make a new account" %>
+<% if @post_redirect.reason_params[:user_name] %>
+    <% @title = "Sign in" %>
 
-<div id="sign_together">
+    <div id="sign_alone">
 
-<p id="sign_in_reason">
-<%= @post_redirect.reason_params[:web] %>
-</p>
+        <p id="sign_in_reason">
+        <% if @post_redirect.reason_params[:web].empty? %>
+            Please sign in as <%= link_to h(@post_redirect.reason_params[:user_name]), @post_redirect.reason_params[:user_url] %>.
+        <% else %>
+            <%= @post_redirect.reason_params[:web] %>, 
+            please sign in as <%= link_to h(@post_redirect.reason_params[:user_name]), @post_redirect.reason_params[:user_url] %>.
+        <% end %>
+        </p>
 
-<%= render :partial => 'signin' %>
+    <%= render :partial => 'signin' %>
 
-<%= render :partial => 'signup' %>
+    </div>
 
-</div>
+<% else %>
+    <% @title = "Sign in or make a new account" %>
+
+    <div id="sign_together">
+
+        <p id="sign_in_reason">
+        <% if @post_redirect.reason_params[:web].empty? %>
+            Please sign in or make a new account.
+        <% else %>
+            <%= @post_redirect.reason_params[:web] %>, please sign in or make a new account.
+        <% end %>
+        </p>
+
+        <%= render :partial => 'signin' %>
+        <%= render :partial => 'signup' %>
+
+    </div>
+
+<% end %>
+
+<% if @post_redirect.reason_params[:user_name] %>
+<% else %>
+<% end %>
+
 

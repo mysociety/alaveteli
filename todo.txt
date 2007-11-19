@@ -1,13 +1,6 @@
-Status outputs for entire request:
 
-- Awaiting response (in 20 working day limit)
-- Overdue a response (over 20 working day limit)
+Form for requestor to choose what happened
 
-- Received a positive response
-- Received a partly positive response w/ rejection reasons
-- Received an entirely negative response w/ rejection reasons
-
-- Have sent a follow up
 
 Next
 ====
@@ -32,6 +25,9 @@ Test that actually sending request outgoing mail using deliveries
 Remove "Outgoing messages is invalid" error
 
 Remove everything from test/
+
+You need to pull the magic email addresses out of incoming_messages so they
+aren't shown on the website
 
 Tidying
 =======

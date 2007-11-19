@@ -1,0 +1,8 @@
+
+<p id="sign_in_reason">
+<%= @reason_params[:web] %>, please 
+<%= link_to "sign out", signout_url(:r => request.request_uri) %>, 
+and sign in as <%= h(@reason_params[:user_name]) %>.
+</p>
+
+

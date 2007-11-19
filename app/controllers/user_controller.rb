@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user_controller.rb,v 1.18 2007-11-09 01:48:36 francis Exp $
+# $Id: user_controller.rb,v 1.19 2007-11-19 12:36:57 francis Exp $
 
 class UserController < ApplicationController
     # XXX See controllers/application.rb simplify_url_part for reverse of expression in SQL below
@@ -33,7 +33,7 @@ class UserController < ApplicationController
             else
                 # Successful login
                 if @user.email_confirmed
-                    session[:user] = @user.id
+                    session[:user_id] = @user.id
                     do_post_redirect @post_redirect.uri, @post_redirect.post_params
                 else
                     send_confirmation_mail
@@ -79,14 +79,14 @@ class UserController < ApplicationController
         @user.email_confirmed = true
         @user.save
 
-        session[:user] = @user.id
+        session[:user_id] = @user.id
 
         do_post_redirect post_redirect.uri, post_redirect.post_params
     end
 
     # Logout form
     def signout
-        session[:user] = nil
+        session[:user_id] = nil
         if params[:r]
             redirect_to params[:r]
         else
@@ -107,7 +107,7 @@ class UserController < ApplicationController
         if params[:r]
             @post_redirect = PostRedirect.new(:uri => params[:r], :post_params => {},
                 :reason_params => {
-                    :web => "Please sign in or make a new account.",
+                    :web => "",
                     :email => "Then your can sign in to GovernmentSpy.",
                     :email_subject => "Confirm your account on GovernmentSpy"
                 })

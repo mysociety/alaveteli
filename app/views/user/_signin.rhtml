@@ -3,7 +3,7 @@
 <% form_tag({:action => "signin"}, {:id => "signin_form"}) do %>
     <%= foi_error_messages_for :user %>
 
-    <% if not flash[:error] %>
+    <% if not flash[:error] and not @post_redirect.reason_params[:user_name] %>
     <h2>If you've used GovernmentSpy before</h2>
     <% end %>
 

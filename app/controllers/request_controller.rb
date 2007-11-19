@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.16 2007-11-14 01:01:38 francis Exp $
+# $Id: request_controller.rb,v 1.17 2007-11-19 12:36:57 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -44,7 +44,7 @@ class RequestController < ApplicationController
         if not @info_request.valid?
             render :action => 'new'
         elsif authenticated?(
-                :web => "To send your FOI request, please sign in or make a new account.",
+                :web => "To send your FOI request",
                 :email => "Then your FOI request to " + @info_request.public_body.name + " will be sent.",
                 :email_subject => "Confirm that you want to send an FOI request to " + @info_request.public_body.name
             )
@@ -56,7 +56,26 @@ class RequestController < ApplicationController
         else
             # do nothing - as "authenticated?" has done the redirect to signin page for us
         end
-   end
+    end
+
+    # Did the incoming message contain info?
+    def classify
+        @info_request = InfoRequest.find(params[:id])
+
+        if authenticated_as_user?(@info_request.user,
+                :web => "To view and classify the response to this FOI request",
+                :email => "Then you can classify the FOI response you have got from " + @info_request.public_body.name + ".",
+                :email_subject => "Classify a response from " + @info_request.public_body.name + " to your FOI request"
+            )
+            @correspondences = @info_request.outgoing_messages + @info_request.incoming_messages
+            @correspondences.sort! { |a,b| a.sent_at <=> b.sent_at } 
+            @status = @info_request.calculate_status
+        else
+            # do nothing - as "authenticated?" has done the redirect to signin page for us
+        end
+
+    end
+
 
    private
 
