@@ -139,14 +139,14 @@ select, input, textarea {
     font-size: 99%;
 }
 
-label {
+.form_label {
     clear: both;
     float: left;
     text-align: right;
     padding-right: 0.5em;
     margin-bottom: 0.5em;
 }
-label {
+.form_label {
     width: 16em;
 }
 .form_note {
@@ -244,6 +244,18 @@ table#list_requests .odd {
 /* /request - viewing requests */
 
 
+/* /classify - classifying requests */
+
+#classify_action {
+    float: right;
+    width: 35%;
+}
+
+#classify_view {
+    float: left;
+    width: 60%;
+}
+
 
 /* User accounts */
 
@@ -271,7 +283,7 @@ table#list_requests .odd {
     margin-right: 15%;
 }
 
-#sign_together label {
+#sign_together .form_label {
     width: 8em;
 }
 #sign_together .form_note {

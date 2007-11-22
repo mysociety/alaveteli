@@ -1,0 +1,37 @@
+<div id="correspondence">
+
+<% if (correspondence.class.to_s == 'OutgoingMessage') 
+    outgoing_message = correspondence %>
+    <%= render :partial => 'bubble', :locals => { :body => outgoing_message.body }  %>
+
+    <p class="xspeaker"> 
+        <%= user_link(@info_request.user) %>
+
+        <% if outgoing_message.message_type == 'initial_request' %>
+            sent the initial request
+            <% if outgoing_message.status == 'sent' %>
+                to <%= public_body_link(@info_request.public_body) %>
+                on <strong><%= simple_date(outgoing_message.sent_at) %></strong>
+            <% elsif outgoing_message.status == 'ready' %>
+                it has <strong>not yet been sent</strong>
+            <% else raise "unknown outgoing_message.status" %>
+            <% end %> 
+        <% else raise "unknown outgoing_message.message_type" %>
+        <% end %>
+    </p>
+<% elsif (correspondence.class.to_s == 'IncomingMessage') 
+    incoming_message = correspondence%>
+    <%= render :partial => 'bubble', :locals => { :body => incoming_message.mail.body }  %>
+
+    <p class="xspeaker">
+    <%= incoming_message.mail.friendly_from %>
+    of <%= public_body_link(@info_request.public_body) %>
+    wrote a reply on <strong><%= simple_date(incoming_message.sent_at)
+    %></strong>
+    </p>
+<% else %>
+    <% raise "Unknown correspondence type" + correspondence.class.to_s %>
+<% end %>
+
+</div>
+

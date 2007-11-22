@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.17 2007-11-19 12:36:57 francis Exp $
+# $Id: request_controller.rb,v 1.18 2007-11-22 15:22:35 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -60,7 +60,8 @@ class RequestController < ApplicationController
 
     # Did the incoming message contain info?
     def classify
-        @info_request = InfoRequest.find(params[:id])
+        @incoming_message = IncomingMessage.find(params[:outgoing_message_id])
+        @info_request = @incoming_message.info_request
 
         if authenticated_as_user?(@info_request.user,
                 :web => "To view and classify the response to this FOI request",

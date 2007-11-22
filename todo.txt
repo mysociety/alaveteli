@@ -1,6 +1,12 @@
 
 Form for requestor to choose what happened
 
+[12:11:25] … To Liverpool City Council:
+
+Please send me a copy of the contract signed with Veolia for refuse and recycling collection.
+
+Check these out for ids
+http://www.ico.gov.uk/Home/tools_and_resources/decision_notices.aspx
 
 Next
 ====
@@ -92,6 +98,9 @@ http://community.foe.co.uk/tools/right_to_know/request_generator.html
 
 Look at this basic US site
 http://www.rcfp.org/foi_letter/generate.php
+
+This is interesting
+http://www.liverpool.gov.uk/Council_government_and_democracy/About_your_council/Data_protection_and_FOI/FOI/Suppliers_and_Contractors/index.asp
 
 Add spelling checker as in WTT
 

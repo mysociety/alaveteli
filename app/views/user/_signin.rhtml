@@ -8,12 +8,12 @@
     <% end %>
 
     <p>
-    <label for="signin_email"><strong>Your e-mail:</strong></label>
+    <label class="form_label" for="signin_email"><strong>Your e-mail:</strong></label>
     <%= text_field 'user', 'email', { :size => 20, :id => 'signin_email' } %>
     </p>
 
     <p>
-    <label for="signin_password"><strong>Password:</strong></label>
+    <label class="form_label" for="signin_password"><strong>Password:</strong></label>
     <%= password_field 'user', 'password', { :size => 15, :id => 'signin_password' } %>
     </p>
 

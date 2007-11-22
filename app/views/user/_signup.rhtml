@@ -8,7 +8,7 @@
     <% end %>
 
     <p>
-    <label for="signup_email"><strong>Your e-mail:</strong></label>
+    <label class="form_label" for="signup_email"><strong>Your e-mail:</strong></label>
     <%= text_field 'user', 'email', { :size => 20, :id => 'signup_email' } %>
     </p>
     <div class="form_item_note">
@@ -16,7 +16,7 @@
     </div>
 
     <p>
-    <label for="signup_name"><strong>Your name:</strong></label>
+    <label class="form_label" for="signup_name"><strong>Your name:</strong></label>
     <%= text_field 'user', 'name', { :size => 20, :id => 'signup_name' } %>
     </p>
     <div class="form_item_note">Your <strong>name will appear
@@ -25,12 +25,12 @@
     anonymous.</div>
 
     <p>
-    <label for="signup_password"><strong>Password:</strong></label>
+    <label class="form_label" for="signup_password"><strong>Password:</strong></label>
     <%= password_field 'user', 'password', { :size => 15, :id => 'signup_password' } %>
     </p>
 
     <p>
-    <label for="signup_password_confirmation"><strong>Password: (again)</strong></label>
+    <label class="form_label" for="signup_password_confirmation"><strong>Password: (again)</strong></label>
     <%= password_field 'user', 'password_confirmation', { :size => 15, :id => 'signup_password_confirmation' } %>
     </p>
 
