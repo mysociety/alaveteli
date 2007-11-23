@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.19 2007-11-23 10:57:24 francis Exp $
+# $Id: request_controller.rb,v 1.20 2007-11-23 12:01:19 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -60,7 +60,7 @@ class RequestController < ApplicationController
 
     # Did the incoming message contain info?
     def classify
-        @incoming_message = IncomingMessage.find(params[:outgoing_message_id])
+        @incoming_message = IncomingMessage.find(params[:incoming_message_id])
         @info_request = @incoming_message.info_request
 
         if not authenticated_as_user?(@info_request.user,

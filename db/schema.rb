@@ -2,7 +2,7 @@
 # migrations feature of ActiveRecord to incrementally modify your database, and
 # then regenerate this schema definition.
 
-ActiveRecord::Schema.define(:version => 20) do
+ActiveRecord::Schema.define(:version => 21) do
 
   create_table "incoming_messages", :force => true do |t|
     t.column "info_request_id",      :integer
@@ -10,7 +10,7 @@ ActiveRecord::Schema.define(:version => 20) do
     t.column "created_at",           :datetime
     t.column "updated_at",           :datetime
     t.column "user_classified",      :boolean,  :default => false
-    t.column "contains_information", :boolean,  :default => false
+    t.column "contains_information", :boolean
   end
 
   create_table "info_requests", :force => true do |t|

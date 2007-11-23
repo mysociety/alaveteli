@@ -82,4 +82,7 @@ ActionView::Helpers::TagHelper.module_eval do
   end
 end
 
+# Domain for URLs (so can work for scripts, not just web pages)
+ActionController::UrlWriter.default_url_options[:host] = MySociety::Config.get("DOMAIN", 'localhost:3000')
+
 

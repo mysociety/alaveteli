@@ -5,7 +5,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: post_redirect.rb,v 1.4 2007-11-06 15:58:56 francis Exp $
+# $Id: post_redirect.rb,v 1.5 2007-11-23 12:01:20 francis Exp $
 
 require 'openssl' # for random bytes function
 
@@ -18,6 +18,9 @@ class PostRedirect < ActiveRecord::Base
         self.post_params_yaml = params.to_yaml
     end
     def post_params
+        if self.post_params_yaml.nil?   
+            return {}
+        end
         YAML.load(self.post_params_yaml)
     end
 

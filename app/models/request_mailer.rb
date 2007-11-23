@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.6 2007-11-13 12:02:14 francis Exp $
+# $Id: request_mailer.rb,v 1.7 2007-11-23 12:01:20 francis Exp $
 
 class RequestMailer < ActionMailer::Base
 
@@ -26,6 +26,19 @@ class RequestMailer < ActionMailer::Base
         email.setup_forward(self)
     end
 
+    def new_response(info_request, incoming_message)
+        post_redirect = PostRedirect.new(
+            :uri => classify_request_url(:incoming_message_id => incoming_message.id),
+            :user_id => info_request.user.id)
+        post_redirect.save!
+        url = confirm_url(:email_token => post_redirect.email_token)
+
+        @from = MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost')
+        @recipients = info_request.user.email
+        @subject = "New reponse to your FOI request  - " + info_request.title
+        @body = { :incoming_message => incoming_message, :info_request => info_request, :url => url }
+    end
+
     # Copy of function from action_mailer/base.rb, which passes the
     # raw_email to the member function, as we want to record it.
     # script/mailin calls this function.
@@ -35,7 +48,6 @@ class RequestMailer < ActionMailer::Base
         mail.base64_decode
         new.receive(mail, raw_email)
     end
-
 
     def receive(email, raw_email)
         # Find which info requests the email is for

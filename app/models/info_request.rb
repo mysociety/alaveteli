@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.14 2007-11-23 10:57:24 francis Exp $
+# $Id: info_request.rb,v 1.15 2007-11-23 12:01:20 francis Exp $
 
 require 'digest/sha1'
 
@@ -55,6 +55,8 @@ class InfoRequest < ActiveRecord::Base
         incoming_message.raw_data = raw_email
         incoming_message.info_request = self
         incoming_message.save
+
+        RequestMailer.deliver_new_response(self, incoming_message)
     end
 
     # Work out what the situation of the request is
