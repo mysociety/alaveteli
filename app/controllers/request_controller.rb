@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.18 2007-11-22 15:22:35 francis Exp $
+# $Id: request_controller.rb,v 1.19 2007-11-23 10:57:24 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -63,18 +63,27 @@ class RequestController < ApplicationController
         @incoming_message = IncomingMessage.find(params[:outgoing_message_id])
         @info_request = @incoming_message.info_request
 
-        if authenticated_as_user?(@info_request.user,
+        if not authenticated_as_user?(@info_request.user,
                 :web => "To view and classify the response to this FOI request",
                 :email => "Then you can classify the FOI response you have got from " + @info_request.public_body.name + ".",
                 :email_subject => "Classify a response from " + @info_request.public_body.name + " to your FOI request"
             )
-            @correspondences = @info_request.outgoing_messages + @info_request.incoming_messages
-            @correspondences.sort! { |a,b| a.sent_at <=> b.sent_at } 
-            @status = @info_request.calculate_status
-        else
+            return
             # do nothing - as "authenticated?" has done the redirect to signin page for us
         end
 
+        if params[:incoming_message]
+            contains_information = (params[:incoming_message][:contains_information] == 'true' ? true : false)
+            @incoming_message.contains_information = contains_information
+            @incoming_message.user_classified = true
+            @incoming_message.save
+            flash[:notice] = "Thank you for classifying the response."
+            redirect_to show_request_url(:id => @info_request)
+        end
+
+        @correspondences = @info_request.outgoing_messages + @info_request.incoming_messages
+            @correspondences.sort! { |a,b| a.sent_at <=> b.sent_at } 
+            @status = @info_request.calculate_status
     end
 
 

@@ -1,6 +1,6 @@
 <% @title = "Classify FOI response" %>
 
-<%= foi_error_messages_for :rejection_reason %>
+<%= foi_error_messages_for :incoming_message %>
 
 <div id="classify_view">
 <h2>New response to your request '<%= request_link @info_request %>'</h2>
@@ -8,56 +8,22 @@
 <%= render :partial => 'correspondence', :locals => { :correspondence => @incoming_message } %>
 </div>
 
-<div id="classify_action">
-<% form_for(:rejection_reason, @info_request ) do |f| %>
-    <h2>Classify the response</h2>
-    <p>Does this response contain any of the information that you requested?</p>
-    <% fields_for :incoming_message do |o| %>
-    <p>
-        <%= radio_button "incoming_message", "contains_information", "true" %>
-        <label for="incoming_message_contains_information_true">Yes, this response contains some or all of the information that I requested</label>
-        <br>
-        <%= radio_button "incoming_message", "contains_information", "false" %>
-        <label for="incoming_message_contains_information_false">No, this response does not contain anything useful</label>
-    </p>
+<% if not @incoming_message.user_classified %>
+    <div id="classify_action">
+    <% form_for(:incoming_message, @info_request ) do |f| %>
+        <h2>Got what you wanted?</h2>
+        <p>Does this response contain any of the information that you requested?</p>
+        <p>
+            <%= radio_button "incoming_message", "contains_information", "true" %>
+            <label for="incoming_message_contains_information_true">Yes, this response contains some or all of the information that I requested.</label>
+            <br>
+            <%= radio_button "incoming_message", "contains_information", "false" %>
+            <label for="incoming_message_contains_information_false">No, this response does not contain any of the information.</label>
+        </p>
+
+        <%= submit_tag "Update" %>
+
     <% end %>
-
-
-    <h2>Rejection reasons</h2>
-
-    <p>Does this response give any
-    <a href="http://www.opsi.gov.uk/Acts/acts2000/plain/ukpga_20000036_en#pt2">reasons under the FOI Act 2000</a>
-    for rejecting your request, or part of your request?</p>
-
-    <p>
-        <%= radio_button "dummy", "reasons_given", "false" %>
-        <label for="dummy_reasons_given_false">No reasons for rejection under sections of an Act are given</label>
-        <br>
-        <%= radio_button "dummy", "reasons_given", "true" %>
-        <label for="dummy_reasons_given_true">Yes, they have given reasons for rejection</label>
-    </p>
-
-    <p>If yes, choose all the reasons given for rejection.</p>
-
-    <p>
-    <% for code_name in RejectionReason.all_reasons_array %>
-        <% human_name = RejectionReason.all_reasons_hash[code_name] %>
-        <%= check_box "reason", code_name %>
-        <label for="reason_<%= code_name %>">
-        <%=
-            code_name =~ /section(\d+)/
-            if not $1.nil?
-                "Section " + $1 + "."
-            end
-        %>
-        <%= human_name %>
-        </label> 
-        <br>
-    <% end %>
-    </p>
-
-    <%= submit_tag "Update" %>
-
+    <div>
 <% end %>
-<div>
 

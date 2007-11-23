@@ -15,12 +15,10 @@ Currently <strong>waiting for a response</strong> from <%= public_body_link(@inf
 Currently <strong>overdue a response</strong> from <%=
 public_body_link(@info_request.public_body) %>.  Under section blah of the
 Freedom of Information Act 2000 responses must be made within 20 working days.
-<% elsif @status == 'information_and_rejection' %>
-The request was <strong>partly successful, partly rejected</strong>
 <% elsif @status == 'information' %>
-The request was <strong>successful</strong>
-<% elsif @status == 'rejection' %>
-The request was <strong>rejected</strong>
+The request was at least partly <strong>successful</strong>.
+<% elsif @status == 'none' %>
+The request is <strong>not (yet) successful</strong>.
 <% elsif @status == 'unknown' %>
 <strong>Response received</strong>, but <%= user_link(@info_request.user) %> has not yet reported if it was
 successful or a rejection.

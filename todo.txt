@@ -13,6 +13,8 @@ Next
 
 Check confirmed everywhere in password check etc.
 
+Rename classify to /request/single_response or something?
+
 Send email to requestor telling them new information has come in
 Let them send follow-ups
 Do something after 20 working days if you get no response
@@ -116,6 +118,8 @@ http://www.ordnancesurvey.co.uk/oswebsite/aboutus/foi/coiindex.html
 Maybe prepend letter for them with "this is FOI request blah" boilerplate?
 
 Forgotten password link
+
+Link to source code
 
 Sources of public bodies
 ========================

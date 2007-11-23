@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.13 2007-11-14 01:01:39 francis Exp $
+# $Id: info_request.rb,v 1.14 2007-11-23 10:57:24 francis Exp $
 
 require 'digest/sha1'
 
@@ -61,13 +61,14 @@ class InfoRequest < ActiveRecord::Base
     def calculate_status
         # Extract aggregate information for any incoming messages all together
         contains_information = false
-        rejection_reasons = []
+        missing_classification = false
         self.incoming_messages.each do |msg|
             if msg.user_classified
                 if msg.contains_information
                     contains_information = true
                 end
-                rejection_reasons += msg.rejection_reasons
+            else
+                missing_classification = true
             end
         end
 
@@ -90,26 +91,15 @@ class InfoRequest < ActiveRecord::Base
                 return "awaiting"
             end
         end
-        if contains_information and rejection_reasons.size > 0
-            return "information_and_rejection"
+        if missing_classification
+            return "unknown"
         end
-        if contains_information and rejection_reasons.size == 0
+        if contains_information
             return "information"
+        else
+            return "none"
         end
-        if rejection_reasons.size > 0 
-            return "rejection"
-        end
-        return "unknown"
     end
-    # - Awaiting response (in 20 working day limit)
-    # - Overdue a response (over 20 working day limit)
-    #
-    # - Has a response but not sure what to think of it
-    # - Received a positive response
-    # - Received a partly positive response w/ rejection reasons
-    # - Received an entirely negative response w/ rejection reasons
-    #
-    # - Have sent a follow up
 
 end
 
