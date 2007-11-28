@@ -2,7 +2,7 @@
 
 <h1><%=@title%></h1>
 
-<% form_tag :action => 'create' do %>
+<% form_tag 'create' do %>
   <%= render :partial => 'form' %>
   <%= submit_tag "Create" %>
 <% end %>

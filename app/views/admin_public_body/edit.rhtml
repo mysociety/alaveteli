@@ -2,10 +2,11 @@
 
 <h1><%=@title%></h1>
 
-<% form_tag :action => 'update', :id => @public_body do %>
+<% form_tag '../update/' + @public_body.id.to_s do %>
   <%= render :partial => 'form' %>
   <%= submit_tag 'Save' %>
 <% end %>
 
-<%= link_to 'Show', :action => 'show', :id => @public_body %> |
-<%= link_to 'List all', :action => 'list' %>
+<%= link_to 'Show', '../show/' + @public_body.id.to_s %> |
+<%= link_to 'List all', '../list' %>
+

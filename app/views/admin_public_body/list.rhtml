@@ -2,7 +2,7 @@
 
 <h1><%=@title%></h1>
 
-<p><%= link_to 'New public body', :action => 'new' %></p>
+<p><%= link_to 'New public body', 'new' %></p>
 
 <table>
   <tr>
@@ -13,7 +13,7 @@
   
 <% for public_body in @public_bodies %>
   <tr class="<%= cycle('odd', 'even') %>">
-    <td><%= link_to h(public_body.name), :action => 'show', :id => public_body %></td>
+    <td><%= link_to h(public_body.name), 'show/' + public_body.id.to_s %></td>
   <% for column in PublicBody.content_columns.map { |c| c.name } - [ "name" ] %>
     <td><%=h public_body.send(column) %></td>
   <% end %>
