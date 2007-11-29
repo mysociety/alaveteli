@@ -11,7 +11,12 @@
 <body>
 
 <p><b>FOIFA admin interface:</b> 
-<%= link_to 'Public bodies', :controller => 'admin_public_body', :action => 'list' %>
+<%  # This is evil. We have to use ../../blah relative URLs so it still works
+    # when proxied over HTTPS from secure.mysociety.org - which it has to be as
+    # it is our admin interface and is protected by valuable passwords.
+    url_prefix = ('../' * (request.request_uri.split('/').size - 3))
+%>
+<%= link_to 'Public bodies', url_prefix + 'body/list' %>
 </p>
 
 <p style="color: green"><%= flash[:notice] %></p>
