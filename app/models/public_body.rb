@@ -1,10 +1,27 @@
+# == Schema Information
+# Schema version: 21
+#
+# Table name: public_bodies
+#
+#  id                :integer         not null, primary key
+#  name              :text            
+#  short_name        :text            
+#  request_email     :text            
+#  complaint_email   :text            
+#  version           :integer         
+#  last_edit_editor  :string(255)     
+#  last_edit_comment :string(255)     
+#  created_at        :datetime        
+#  updated_at        :datetime        
+#
+
 # models/public_body.rb:
 # A public body, from which information can be requested.
 #
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.9 2007-10-31 17:25:29 francis Exp $
+# $Id: public_body.rb,v 1.10 2007-12-11 12:16:29 francis Exp $
 
 class PublicBody < ActiveRecord::Base
     validates_presence_of :name

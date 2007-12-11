@@ -1,3 +1,19 @@
+# == Schema Information
+# Schema version: 21
+#
+# Table name: post_redirects
+#
+#  id                 :integer         not null, primary key
+#  token              :text            
+#  uri                :text            
+#  post_params_yaml   :text            
+#  created_at         :datetime        
+#  updated_at         :datetime        
+#  email_token        :text            
+#  reason_params_yaml :text            
+#  user_id            :integer         
+#
+
 # models/postredirect.rb:
 # Saves an HTTP POST request, so it can be redirected to later.
 # For example, after registering / logging in.
@@ -5,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: post_redirect.rb,v 1.5 2007-11-23 12:01:20 francis Exp $
+# $Id: post_redirect.rb,v 1.6 2007-12-11 12:16:29 francis Exp $
 
 require 'openssl' # for random bytes function
 

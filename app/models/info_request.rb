@@ -1,10 +1,23 @@
+# == Schema Information
+# Schema version: 21
+#
+# Table name: info_requests
+#
+#  id             :integer         not null, primary key
+#  title          :text            
+#  user_id        :integer         
+#  public_body_id :integer         
+#  created_at     :datetime        
+#  updated_at     :datetime        
+#
+
 # models/info_request.rb:
 # A Freedom of Information request.
 #
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.15 2007-11-23 12:01:20 francis Exp $
+# $Id: info_request.rb,v 1.16 2007-12-11 12:16:29 francis Exp $
 
 require 'digest/sha1'
 

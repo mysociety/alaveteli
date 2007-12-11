@@ -1,3 +1,18 @@
+# == Schema Information
+# Schema version: 21
+#
+# Table name: outgoing_messages
+#
+#  id              :integer         not null, primary key
+#  info_request_id :integer         
+#  body            :text            
+#  status          :string(255)     
+#  message_type    :string(255)     
+#  created_at      :datetime        
+#  updated_at      :datetime        
+#  sent_at         :datetime        
+#
+
 # models/outgoing_message.rb:
 # A message, associated with a request, from the user of the site to somebody
 # else. e.g. An initial request for information, or a complaint.
@@ -5,7 +20,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: outgoing_message.rb,v 1.10 2007-11-09 02:11:36 francis Exp $
+# $Id: outgoing_message.rb,v 1.11 2007-12-11 12:16:29 francis Exp $
 
 class OutgoingMessage < ActiveRecord::Base
     belongs_to :info_request

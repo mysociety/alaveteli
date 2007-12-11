@@ -1,3 +1,17 @@
+# == Schema Information
+# Schema version: 21
+#
+# Table name: incoming_messages
+#
+#  id                   :integer         not null, primary key
+#  info_request_id      :integer         
+#  raw_data             :text            
+#  created_at           :datetime        
+#  updated_at           :datetime        
+#  user_classified      :boolean         
+#  contains_information :boolean         
+#
+
 # models/incoming_message.rb:
 # An (email) message from really anybody to be logged with a request. e.g. A
 # response from the public body.
@@ -5,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.5 2007-11-14 01:01:39 francis Exp $
+# $Id: incoming_message.rb,v 1.6 2007-12-11 12:16:29 francis Exp $
 
 class IncomingMessage < ActiveRecord::Base
     belongs_to :info_request

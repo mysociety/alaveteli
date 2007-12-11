@@ -1,10 +1,25 @@
+# == Schema Information
+# Schema version: 21
+#
+# Table name: users
+#
+#  id              :integer         not null, primary key
+#  email           :string(255)     
+#  name            :string(255)     
+#  hashed_password :string(255)     
+#  salt            :string(255)     
+#  created_at      :datetime        
+#  updated_at      :datetime        
+#  email_confirmed :boolean         
+#
+
 # models/user.rb:
 # Model of people who use the site to file requests, make comments etc.
 #
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user.rb,v 1.12 2007-11-07 10:26:30 francis Exp $
+# $Id: user.rb,v 1.13 2007-12-11 12:16:29 francis Exp $
 
 require 'digest/sha1'
 
