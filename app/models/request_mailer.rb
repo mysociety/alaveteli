@@ -4,14 +4,14 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.7 2007-11-23 12:01:20 francis Exp $
+# $Id: request_mailer.rb,v 1.8 2007-12-11 12:09:37 francis Exp $
 
 class RequestMailer < ActionMailer::Base
 
     def initial_request(info_request, outgoing_message)
         @from = info_request.incoming_email
         if MySociety::Config.getbool("STAGING_SITE", 1)
-            @recipients = @from
+            @recipients = info_request.user.email
         else
             @recipients = info_request.public_body.request_email
         end
