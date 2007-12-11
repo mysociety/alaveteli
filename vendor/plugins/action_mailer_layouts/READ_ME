@@ -1,0 +1,30 @@
+A plugin to enable layouts for ActionMailer templates.
+
+Adds a new 'layout' property to the ActionMailer::Base class. Specify the name
+of the layout you want to use. The plugin will look in app/views/layouts for your 
+layout.  If no layout is specified, the plugin will look for a layout that matches
+the name of your mailer class.
+
+For example:
+
+If your mailer class is called UserNotifier and you are rendering the activation.rhtml
+template, then the plugin will attempt to load the user_notifier.rhtml layout.  If you are 
+rendering the activation.text.html.rhtml template, the plugin will look for the
+user_notifier.text.html.rhtml layout. In other words, the plugin attempts to load the 
+layout named after the your ActionMailer class.
+
+You can overload this behavior by setting the layout property of your mailer:
+
+class UserNotfier < ActionMailer::Base
+  def activation(user)
+    @recipients     = user.email
+    @from           = 'you@domain.com'
+    @sent_on        = Time.now
+    @subject		= 'Activate your account!'
+    @layout         = :email
+  end
+end
+
+This arrangement will cause the plugin to render the content in 
+views/user_notifier/activation.text.html.rhtml in the views/layouts/email.text.html.rhtml 
+layout.

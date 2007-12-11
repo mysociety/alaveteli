@@ -1,0 +1,9 @@
+2007-11-27
+* Now supports helpers defined in the mailer class. Thanks to Marshall Roch.
+
+2007-24-07
+* Now requires actionmailer-1.3.3.
+
+2007-05-07
+* No longer have to specify a :layout. The layout name is now inferred from the mailer class name. Thanks to Peter Boctor.
+* Helper methods are now available to action mailer layouts.  Thanks to Peter Boctor.
