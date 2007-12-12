@@ -15,7 +15,7 @@ describe RequestController, "when showing the front page" do
     end
 
     it "should have sign out link when signed in" do
-        session[:user] = users(:bob_smith_user)
+        session[:user_id] = users(:bob_smith_user).id
         get :frontpage
         response.should have_tag('a', "Sign out")
     end
@@ -122,7 +122,7 @@ describe RequestController, "when creating a new request" do
     end
 
     it "should create the request and outgoing message and redirect to request page when input is good and somebody is logged in" do
-        session[:user] = users(:bob_smith_user)
+        session[:user_id] = users(:bob_smith_user).id
         post :create, :info_request => { :public_body_id => public_bodies(:geraldine_public_body).id, 
             :title => "Why is your quango called Geraldine?"},
             :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." }  

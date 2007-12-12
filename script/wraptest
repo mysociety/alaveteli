@@ -1,0 +1,41 @@
+#!/usr/bin/ruby
+#
+# wraptest:
+# Test email wrapping function
+#
+# Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
+# Email: francis@mysociety.org; WWW: http://www.mysociety.org/
+#
+
+$:.push(File.join(File.dirname(__FILE__), '../../rblib'))
+load "format.rb"
+
+test_email = '''Dear Sir or Madam,
+
+Again and again I extend this sentence and yet again I extend this sentence and yet again I extend this sentence and yet again I extend this sentence and yet again I extend this sentence and yet again I extend this sentence and yet again I extend this sentence and yet again I extend this sentence and yet again I extend this sentence and yet again I extend this sentence and yet again I extend this sentence and yet again I extend this sentence and yet again I extend this sentence and yet again I extend this sentence and yet again I extend this sentence and yet again I extend this sentence and yet again I extend this sentence and yet again I extend this sentence and yet
+
+Hey you.
+
+Yours faithfully,
+
+Boo!
+
+-- 
+
+Sent using GovernmentSpy, a project of UKCOD, registered charity number
+1076346. Is frabcus@fastmail.fm the wrong
+address for Freedom of Information requests to The Geraldine Quango? If so please let us know by emailing
+team@governmentspy quoting reference PB2.
+We\'ll make sure future ones go to the right place.
+'''
+
+puts MySociety::Format.wrap_email_body(test_email)
+
+#puts MySociety::Format.wrap_email_body("Hello this is a string.
+#
+#And another.
+#And a third.")
+
+
+
+

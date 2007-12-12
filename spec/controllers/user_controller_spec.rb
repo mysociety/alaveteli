@@ -77,7 +77,7 @@ describe UserController, "when signing in" do
         post :signin, { :user => { :email => 'bob@localhost', :password => 'jonespassword' },
             :token => post_redirect.token
         }
-        session[:user].should == users(:bob_smith_user).id
+        session[:user_id].should == users(:bob_smith_user).id
         response.should redirect_to(:controller => 'request', :action => 'list', :post_redirect => 1)
         response.should_not send_email
     end
@@ -147,16 +147,16 @@ describe UserController, "when signing out" do
     fixtures :users
 
     it "should log you out and redirect to the home page" do
-        session[:user] = users(:bob_smith_user).id
+        session[:user_id] = users(:bob_smith_user).id
         get :signout
-        session[:user].should be_nil
+        session[:user_id].should be_nil
         response.should redirect_to(:controller => 'request', :action => 'frontpage')
     end
 
     it "should log you out and redirect you to where you were" do
-        session[:user] = users(:bob_smith_user).id
+        session[:user_id] = users(:bob_smith_user).id
         get :signout, :r => '/list'
-        session[:user].should be_nil
+        session[:user_id].should be_nil
         response.should redirect_to(:controller => 'request', :action => 'list')
     end
 
