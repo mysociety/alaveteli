@@ -29,6 +29,8 @@ team@governmentspy quoting reference PB2.
 We\'ll make sure future ones go to the right place.
 '''
 
+test_email.gsub!(/\n/, "\r\n")
+
 puts MySociety::Format.wrap_email_body(test_email)
 
 #puts MySociety::Format.wrap_email_body("Hello this is a string.
