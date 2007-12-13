@@ -8,14 +8,20 @@
     <h1><%=@title%></h1>
     <p class="subtitle">Joined on <%= simple_date(display_user.created_at) %></p>
 
-    <p>Freedom of Information requests made by this person:</p>
-    <ul>
-    <% for info_request in display_user.info_requests %>
-    <li>
-    <%= info_request_link(info_request) %>
-    on <%= simple_date(info_request.created_at) %>
-    </li>
+    <% if display_user.info_requests.empty? %>
+        <p>This person has made no Freedom of Information requests using this site.</p>
+
+    <% else %>
+        <p>Freedom of Information requests made by this person:</p>
+        <ul>
+        <% for info_request in display_user.info_requests %>
+        <li>
+        <%= info_request_link(info_request) %>
+        on <%= simple_date(info_request.created_at) %>
+        </li>
+        <% end %>
+        </ul>
     <% end %>
-    </ul>
+
 <% end %>
 
