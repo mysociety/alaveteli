@@ -87,4 +87,7 @@ end
 # Domain for URLs (so can work for scripts, not just web pages)
 ActionController::UrlWriter.default_url_options[:host] = MySociety::Config.get("DOMAIN", 'localhost:3000')
 
+# So that it queues the message if there is a temporary error
+ActionMailer::Base.delivery_method = :sendmail
+
 
