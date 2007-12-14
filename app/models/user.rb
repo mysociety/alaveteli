@@ -19,15 +19,15 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user.rb,v 1.13 2007-12-11 12:16:29 francis Exp $
+# $Id: user.rb,v 1.14 2007-12-14 18:50:42 francis Exp $
 
 require 'digest/sha1'
 
 class User < ActiveRecord::Base
     validates_presence_of :email, :message => "^Please enter your email address"
-    validates_uniqueness_of :email, :case_sensitive => false
+    validates_uniqueness_of :email, :case_sensitive => false, :message => "^There is already an account with that email address. You can sign in to it on the left."
 
-    validates_presence_of :name
+    validates_presence_of :name, :message => "^Please enter your name"
     validates_presence_of :hashed_password, :message => "^Please enter a password"
 
     has_many :info_requests
@@ -41,7 +41,7 @@ class User < ActiveRecord::Base
 
     # Return user given login email, password and other form parameters (e.g. name)
     def self.authenticate_from_form(params)
-        auth_fail_message = "Email or password not recognised, please try again"
+        auth_fail_message = "Either the email or password was not recognised, please try again. Or create a new account using the form on the right."
         user = self.find(:first, :conditions => [ 'email ilike ?', params[:email] ] ) # using ilike for case insensitive
         if user
             # There is user with email, check password
