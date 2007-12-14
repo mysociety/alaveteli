@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.11 2007-12-14 00:55:57 francis Exp $
+# $Id: request_mailer.rb,v 1.12 2007-12-14 14:55:56 francis Exp $
 
 class RequestMailer < ActionMailer::Base
 
@@ -36,7 +36,7 @@ class RequestMailer < ActionMailer::Base
 
         @from = MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost')
         @recipients = info_request.user.email
-        @subject = "New reponse to your FOI request  - " + info_request.title
+        @subject = "New response to your FOI request - " + info_request.title
         @body = { :incoming_message => incoming_message, :info_request => info_request, :url => url }
     end
 
