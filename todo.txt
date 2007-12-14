@@ -7,10 +7,7 @@ Next
 
 Either rotate log files, or merge with Apache ones
 
-Rename classify to /request/single_response or something?
-
-Send email to requestor telling them new information has come in
-Let them send follow-ups
+Let requester send follow-ups
 Do something after 20 working days if you get no response
 
 Forgotten password link

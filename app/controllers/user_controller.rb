@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user_controller.rb,v 1.20 2007-12-14 13:42:28 francis Exp $
+# $Id: user_controller.rb,v 1.21 2007-12-14 18:46:08 francis Exp $
 
 class UserController < ApplicationController
     # XXX See controllers/application.rb simplify_url_part for reverse of expression in SQL below
@@ -20,23 +20,23 @@ class UserController < ApplicationController
     def signin
         work_out_post_redirect
 
-        if not params[:user] 
+        if not params[:user_signin] 
             # First time page is shown
             render :action => 'sign' 
             return
         else
-            @user = User.authenticate_from_form(params[:user])
-            if @user.errors.size > 0
+            @user_signin = User.authenticate_from_form(params[:user_signin])
+            if @user_signin.errors.size > 0
                 # Failed to authenticate
-                render :action => 'signin' 
+                render :action => 'sign' 
                 return
             else
                 # Successful login
-                if @user.email_confirmed
-                    session[:user_id] = @user.id
+                if @user_signin.email_confirmed
+                    session[:user_id] = @user_signin.id
                     do_post_redirect @post_redirect.uri, @post_redirect.post_params
                 else
-                    send_confirmation_mail
+                    send_confirmation_mail @user_signin
                 end
                 return
             end
@@ -48,16 +48,16 @@ class UserController < ApplicationController
         work_out_post_redirect
 
         # Make the user and try to save it
-        @user = User.new(params[:user])
-        if not @user.valid?
+        @user_signup = User.new(params[:user_signup])
+        if not @user_signup.valid?
             # Show the form
-            render :action => 'signup'
+            render :action => 'sign'
         else
             # New unconfirmed user
-            @user.email_confirmed = false
-            @user.save
+            @user_signup.email_confirmed = false
+            @user_signup.save
 
-            send_confirmation_mail
+            send_confirmation_mail @user_signup
             return
         end
     end
@@ -116,15 +116,15 @@ class UserController < ApplicationController
     end
 
     # Ask for email confirmation
-    def send_confirmation_mail
-        raise "user #{@user.id} already confirmed" if @user.email_confirmed
+    def send_confirmation_mail(user)
+        raise "user #{user.id} already confirmed" if user.email_confirmed
 
         post_redirect = PostRedirect.find_by_token(params[:token])
-        post_redirect.user = @user
+        post_redirect.user = user
         post_redirect.save!
 
         url = confirm_url(:email_token => post_redirect.email_token)
-        UserMailer.deliver_confirm_login(@user, post_redirect.reason_params, url)
+        UserMailer.deliver_confirm_login(user, post_redirect.reason_params, url)
         render :action => 'confirm'
     end
 

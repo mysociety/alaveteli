@@ -1,23 +1,21 @@
 <div id="signup">
 
 <% form_tag({:action => "signup"}, {:id => "signup_form"}) do %>
-    <%= foi_error_messages_for :user %>
+    <%= foi_error_messages_for :user_signup %>
 
-    <% if not flash[:error] %>
     <h2>If you're new to GovernmentSpy</h2>
-    <% end %>
 
     <p>
-    <label class="form_label" for="signup_email"><strong>Your e-mail:</strong></label>
-    <%= text_field 'user', 'email', { :size => 20, :id => 'signup_email' } %>
+    <label class="form_label" for="user_signup_email"><strong>Your e-mail:</strong></label>
+    <%= text_field 'user_signup', 'email', { :size => 20 } %>
     </p>
     <div class="form_item_note">
     We will not reveal your email address to anybody.
     </div>
 
     <p>
-    <label class="form_label" for="signup_name"><strong>Your name:</strong></label>
-    <%= text_field 'user', 'name', { :size => 20, :id => 'signup_name' } %>
+    <label class="form_label" for="user_signup_name"><strong>Your name:</strong></label>
+    <%= text_field 'user_signup', 'name', { :size => 20 } %>
     </p>
     <div class="form_item_note">Your <strong>name will appear
     publically</strong> on this website and in search engines. We encourage you
@@ -25,13 +23,13 @@
     anonymous.</div>
 
     <p>
-    <label class="form_label" for="signup_password"><strong>Password:</strong></label>
-    <%= password_field 'user', 'password', { :size => 15, :id => 'signup_password' } %>
+    <label class="form_label" for="user_signup_password"><strong>Password:</strong></label>
+    <%= password_field 'user_signup', 'password', { :size => 15 } %>
     </p>
 
     <p>
-    <label class="form_label" for="signup_password_confirmation"><strong>Password: (again)</strong></label>
-    <%= password_field 'user', 'password_confirmation', { :size => 15, :id => 'signup_password_confirmation' } %>
+    <label class="form_label" for="user_signup_password_confirmation"><strong>Password: (again)</strong></label>
+    <%= password_field 'user_signup', 'password_confirmation', { :size => 15 } %>
     </p>
 
     <div class="form_button">

@@ -1,20 +1,18 @@
 <div id="signin">
 
 <% form_tag({:action => "signin"}, {:id => "signin_form"}) do %>
-    <%= foi_error_messages_for :user %>
+    <%= foi_error_messages_for :user_signin %>
 
-    <% if not flash[:error] and not @post_redirect.reason_params[:user_name] %>
     <h2>If you've used GovernmentSpy before</h2>
-    <% end %>
 
     <p>
-    <label class="form_label" for="signin_email"><strong>Your e-mail:</strong></label>
-    <%= text_field 'user', 'email', { :size => 20, :id => 'signin_email' } %>
+    <label class="form_label" for="user_signin_email"><strong>Your e-mail:</strong></label>
+    <%= text_field 'user_signin', 'email', { :size => 20 } %>
     </p>
 
     <p>
-    <label class="form_label" for="signin_password"><strong>Password:</strong></label>
-    <%= password_field 'user', 'password', { :size => 15, :id => 'signin_password' } %>
+    <label class="form_label" for="user_signin_password"><strong>Password:</strong></label>
+    <%= password_field 'user_signin', 'password', { :size => 15 } %>
     </p>
 
     <p class="form_note">

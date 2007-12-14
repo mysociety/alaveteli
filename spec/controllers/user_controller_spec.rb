@@ -64,17 +64,17 @@ describe UserController, "when signing in" do
         get :signin, :r => "/list"
         response.should render_template('sign')
         post_redirect = get_last_postredirect
-        post :signin, { :user => { :email => 'bob@localhost', :password => 'NOTRIGHTPASSWORD' },
+        post :signin, { :user_signin => { :email => 'bob@localhost', :password => 'NOTRIGHTPASSWORD' },
             :token => post_redirect.token
         }
-        response.should render_template('signin')
+        response.should render_template('sign')
     end
 
     it "should log in when you give right email/password, and redirect to where you were" do
         get :signin, :r => "/list"
         response.should render_template('sign')
         post_redirect = get_last_postredirect
-        post :signin, { :user => { :email => 'bob@localhost', :password => 'jonespassword' },
+        post :signin, { :user_signin => { :email => 'bob@localhost', :password => 'jonespassword' },
             :token => post_redirect.token
         }
         session[:user_id].should == users(:bob_smith_user).id
@@ -86,7 +86,7 @@ describe UserController, "when signing in" do
         get :signin, :r => "/list"
         response.should render_template('sign')
         post_redirect = get_last_postredirect
-        post :signin, { :user => { :email => 'silly@localhost', :password => 'jonespassword' },
+        post :signin, { :user_signin => { :email => 'silly@localhost', :password => 'jonespassword' },
             :token => post_redirect.token
         }
         response.should render_template('confirm')
@@ -97,7 +97,7 @@ describe UserController, "when signing in" do
         get :signin, :r => "/list"
         post_redirect = get_last_postredirect
 
-        post :signin, { :user => { :email => 'silly@localhost', :password => 'jonespassword' },
+        post :signin, { :user_signin => { :email => 'silly@localhost', :password => 'jonespassword' },
             :token => post_redirect.token
         }
         response.should send_email
@@ -120,21 +120,21 @@ describe UserController, "when signing up" do
     fixtures :users
 
     it "should be an error if you type the password differently each time" do
-        post :signup, { :user => { :email => 'new@localhost', :name => 'New Person',
+        post :signup, { :user_signup => { :email => 'new@localhost', :name => 'New Person',
             :password => 'sillypassword', :password_confirmation => 'sillypasswordtwo' } 
         }
-        assigns[:user].errors[:password].should_not be_nil
+        assigns[:user_signup].errors[:password].should_not be_nil
     end
 
     it "should be an error to sign up with an email that has already been used" do
-        post :signup, { :user => { :email => 'bob@localhost', :name => 'Second Bob',
+        post :signup, { :user_signup => { :email => 'bob@localhost', :name => 'Second Bob',
             :password => 'sillypassword', :password_confirmation => 'sillypassword' } 
         }
-        assigns[:user].errors[:email].should_not be_nil
+        assigns[:user_signup].errors[:email].should_not be_nil
     end
 
     it "should ask you to confirm your email if you fill in the form right" do
-        post :signup, { :user => { :email => 'new@localhost', :name => 'New Person',
+        post :signup, { :user_signup => { :email => 'new@localhost', :name => 'New Person',
             :password => 'sillypassword', :password_confirmation => 'sillypassword' } 
         }
         response.should render_template('confirm')
