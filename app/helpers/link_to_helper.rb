@@ -5,7 +5,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: link_to_helper.rb,v 1.2 2007-11-06 16:05:29 francis Exp $
+# $Id: link_to_helper.rb,v 1.3 2007-12-14 13:24:04 francis Exp $
 
 module LinkToHelper
 
@@ -40,6 +40,11 @@ module LinkToHelper
         text.gsub!(/ /, "-")
         text.gsub!(/[^a-z0-9_-]/, "")
         text
+    end
+
+    def admin_url(relative_path)
+        admin_url_prefix = MySociety::Config.get("ADMIN_BASE_URL", "/admin/")
+        return admin_url_prefix + relative_path
     end
  
 end

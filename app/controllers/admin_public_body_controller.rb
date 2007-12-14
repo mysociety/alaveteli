@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_public_body_controller.rb,v 1.4 2007-11-13 12:59:53 francis Exp $
+# $Id: admin_public_body_controller.rb,v 1.5 2007-12-14 13:24:04 francis Exp $
 
 class AdminPublicBodyController < ApplicationController
     layout "admin"
@@ -13,10 +13,6 @@ class AdminPublicBodyController < ApplicationController
         list
         render :action => 'list'
     end
-
-    # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
-    verify :method => :post, :only => [ :destroy, :create, :update ],
-                 :redirect_to => { :action => :list }
 
     def list
         @public_bodies = PublicBody.paginate :order => "name", :page => params[:page], :per_page => 10
@@ -35,7 +31,7 @@ class AdminPublicBodyController < ApplicationController
         @public_body = PublicBody.new(params[:public_body])
         if @public_body.save
             flash[:notice] = 'PublicBody was successfully created.'
-            redirect_to :action => 'list'
+            redirect_to admin_url('body/list')
         else
             render :action => 'new'
         end
@@ -51,7 +47,7 @@ class AdminPublicBodyController < ApplicationController
         @public_body = PublicBody.find(params[:id])
         if @public_body.update_attributes(params[:public_body])
             flash[:notice] = 'PublicBody was successfully updated.'
-            redirect_to :action => 'show', :id => @public_body
+            redirect_to admin_url('body/show/' + @public_body.id.to_s)
         else
             render :action => 'edit'
         end
@@ -59,7 +55,7 @@ class AdminPublicBodyController < ApplicationController
 
     def destroy
         PublicBody.find(params[:id]).destroy
-        redirect_to :action => 'list'
+        redirect_to admin_url('body/list')
     end
 
     private

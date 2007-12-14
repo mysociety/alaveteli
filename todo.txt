@@ -2,13 +2,8 @@
 
 Please send me a copy of the contract signed with Veolia for refuse and recycling collection.
 
-Check these out for ids
-http://www.ico.gov.uk/Home/tools_and_resources/decision_notices.aspx
-
 Next
 ====
-
-When making new public body redirect doesn't work
 
 Either rotate log files, or merge with Apache ones
 
@@ -33,15 +28,16 @@ Test that actually sending request outgoing mail using deliveries
 
 Remove "Outgoing messages is invalid" error
 
-Remove everything from test/
-
 You need to pull the magic email addresses out of incoming_messages so they
 aren't shown on the website
 
-Some way of getting to your own home page
-
+Some way of getting to your own user page
+ 
 Tidying
 =======
+
+Do we need to say to the public body "all responses will be published" from a
+privacy point of view?
 
 accept-charset="utf-8" on all forms - does it matter if Content-Type of whole
 page is already UTF-8?
@@ -87,12 +83,13 @@ Say that we would like response by email (not postal address) in footer
 Later
 =====
 
+Check these out for ids
+http://www.ico.gov.uk/Home/tools_and_resources/decision_notices.aspx
+
 (10:32:14) richard: you just need to count the number of rows of text and compare it to the number of rows in the textbox
 (10:32:29) richard: then increase the height of the textbox by 1em-ish
 (10:32:52) Matthew: their function is called autogrow_textarea() by the way, if you just want to look at it...
  thanks :) I won't do it now as there are more important things, I was just accidentally impressed
-
-Add postal address at City University to request
 
 Lucene for search (ask Louise for plugin)
 

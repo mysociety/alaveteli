@@ -11,8 +11,7 @@
 <body>
 
 <p><b>FOIFA admin interface:</b> 
-<%  admin_url_prefix = MySociety::Config.get("ADMIN_BASE_URL", "/admin/") %>
-<%= link_to 'Public bodies', admin_url_prefix + 'body/list' %>
+<%= link_to 'Public bodies', admin_url('body/list') %>
 </p>
 
 <p style="color: green"><%= flash[:notice] %></p>
