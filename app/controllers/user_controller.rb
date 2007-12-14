@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user_controller.rb,v 1.19 2007-11-19 12:36:57 francis Exp $
+# $Id: user_controller.rb,v 1.20 2007-12-14 13:42:28 francis Exp $
 
 class UserController < ApplicationController
     # XXX See controllers/application.rb simplify_url_part for reverse of expression in SQL below
@@ -66,14 +66,10 @@ class UserController < ApplicationController
     def confirm
         post_redirect = PostRedirect.find_by_email_token(params[:email_token])
 
-        # XXX add message like this if post_redirect not found
-        #        err(sprintf(_("Please check the URL (i.e. the long code of
-        #        letters and numbers) is copied correctly from your email.  If
-        #        you can't click on it in the email, you'll have to select and
-        #        copy it from the email.  Then paste it into your browser, into
-        #        the place you would type the address of any other webpage.
-        #        Technical details: The token '%s' wasn't found."), $q_t));
-        #
+        if post_redirect.nil?
+            render 'user/bad_token'
+            return
+        end
 
         @user = post_redirect.user
         @user.email_confirmed = true

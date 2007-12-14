@@ -296,7 +296,7 @@ table#list_requests .odd {
     margin-left: 8.5em;
 }
 
-#sign_in_reason {
+#sign_in_reason, #bad_token {
     font-weight: bold;
     text-align: center;
     font-size: 125%;

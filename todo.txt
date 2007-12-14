@@ -7,8 +7,6 @@ Next
 
 Either rotate log files, or merge with Apache ones
 
-Check confirmed everywhere in password check etc.
-
 Rename classify to /request/single_response or something?
 
 Send email to requestor telling them new information has come in
