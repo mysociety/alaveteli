@@ -1,7 +1,3 @@
-Check the template going to users
-
-Form for requestor to choose what happened
-
 [12:11:25] … To Liverpool City Council:
 
 Please send me a copy of the contract signed with Veolia for refuse and recycling collection.
@@ -11,6 +7,8 @@ http://www.ico.gov.uk/Home/tools_and_resources/decision_notices.aspx
 
 Next
 ====
+
+When making new public body redirect doesn't work
 
 Either rotate log files, or merge with Apache ones
 
@@ -39,6 +37,8 @@ Remove everything from test/
 
 You need to pull the magic email addresses out of incoming_messages so they
 aren't shown on the website
+
+Some way of getting to your own home page
 
 Tidying
 =======
@@ -126,6 +126,8 @@ Maybe prepend letter for them with "this is FOI request blah" boilerplate?
 Forgotten password link
 
 Link to source code
+
+Way of contacting other users
 
 Sources of public bodies
 ========================
