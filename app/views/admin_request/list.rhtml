@@ -1,0 +1,25 @@
+<% @title = 'Listing FOI requests' %>
+
+<h1><%=@title%></h1>
+
+<table>
+  <tr>
+  <% for column in InfoRequest.content_columns %>
+    <th><%= column.human_name %></th>
+  <% end %>
+  </tr>
+  
+<% for info_request in @info_requests %>
+  <tr class="<%= cycle('odd', 'even') %>">
+    <td><%= link_to h(info_request.title), 'show/' + info_request.id.to_s %></td>
+  <% for column in InfoRequest.content_columns.map { |c| c.name } - [ "title" ] %>
+    <td><%=h info_request.send(column) %></td>
+  <% end %>
+  </tr>
+<% end %>
+</table>
+
+<%= will_paginate(@info_requests) %>
+
+<br />
+

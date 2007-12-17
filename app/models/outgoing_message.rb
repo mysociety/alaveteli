@@ -20,7 +20,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: outgoing_message.rb,v 1.11 2007-12-11 12:16:29 francis Exp $
+# $Id: outgoing_message.rb,v 1.12 2007-12-17 00:34:55 francis Exp $
 
 class OutgoingMessage < ActiveRecord::Base
     belongs_to :info_request
@@ -66,7 +66,16 @@ class OutgoingMessage < ActiveRecord::Base
         else
             raise "Message id #{self.id} has type '#{self.message_type}' which send_message can't handle"
         end
+    end
 
+    # An admin function
+    def resend_message
+        if self.message_type == 'initial_request' and self.status == 'sent'
+            self.status = 'ready'
+            send_message
+        else
+            raise "Message id #{self.id} has type '#{self.message_type}' status '#{self.status}' "
+        end
     end
 end
 

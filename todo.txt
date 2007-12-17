@@ -5,14 +5,14 @@ Please send me a copy of the contract signed with Veolia for refuse and recyclin
 Next
 ====
 
+Cope with bouncing requests
+
 Either rotate log files, or merge with Apache ones
 
 Let requester send follow-ups
 Do something after 20 working days if you get no response
 
 Forgotten password link
-Email has already been taken hasn't got a way to sign in
-Link from error page for signin/signup to go to other one
 Remember me box
 
 Work out how to get it to tell you code coverage of .rhtml files

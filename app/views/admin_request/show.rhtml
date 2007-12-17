@@ -1,0 +1,37 @@
+<% @title = "FOI request - " + h(@info_request.title) %>
+
+<h1><%=@title%></h1>
+
+<p>
+<% for column in InfoRequest.content_columns %>
+  <b><%= column.human_name %>:</b> <%=h @info_request.send(column.name) %>
+  <br/>
+<% end %>
+</p>
+
+<h2>Outgoing messages</h2>
+
+<table>
+  <tr>
+  <% for column in OutgoingMessage.content_columns %>
+    <th><%= column.human_name %></th>
+  <% end %>
+  <th>Actions</th>
+  </tr>
+  
+<% for outgoing_message in @info_request.outgoing_messages %>
+  <tr class="<%= cycle('odd', 'even') %>">
+  <% for column in OutgoingMessage.content_columns.map { |c| c.name } %>
+    <td><%=h outgoing_message.send(column) %></td>
+  <% end %>
+  <td>
+  <% form_tag '../resend' do %>
+  <%= hidden_field_tag 'outgoing_message_id', outgoing_message.id %>
+  <%= submit_tag "Resend" %>
+  <% end %>
+  </td>
+  </tr>
+<% end %>
+</table>
+
+
