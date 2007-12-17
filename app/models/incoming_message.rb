@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.6 2007-12-11 12:16:29 francis Exp $
+# $Id: incoming_message.rb,v 1.7 2007-12-17 19:35:13 francis Exp $
 
 class IncomingMessage < ActiveRecord::Base
     belongs_to :info_request
@@ -43,6 +43,19 @@ class IncomingMessage < ActiveRecord::Base
     def sent_at
         # Use date it arrived (created_at) if mail itself doesn't have Date: header
         self.mail.date || self.created_at
+    end
+
+    # Use this when displaying the body text
+    def sanitised_body
+        body = self.mail.body.dup
+
+        # Remove any email addresses - we don't want bounce messages to leak out
+        # either the requestor's email address or the request's response email
+        # address out onto the internet
+        rx = Regexp.new(MySociety::Validate.email_match_regexp)
+        body.gsub!(rx, "...@...")
+
+        return body
     end
 end
 

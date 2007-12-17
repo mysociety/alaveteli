@@ -21,7 +21,7 @@
     </p>
 <% elsif (correspondence.class.to_s == 'IncomingMessage') 
     incoming_message = correspondence%>
-    <%= render :partial => 'bubble', :locals => { :body => incoming_message.mail.body }  %>
+    <%= render :partial => 'bubble', :locals => { :body => incoming_message.sanitised_body }  %>
 
     <p class="xspeaker">
     <%= incoming_message.mail.friendly_from %>
