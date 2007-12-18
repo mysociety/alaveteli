@@ -2,8 +2,13 @@
 
 Please send me a copy of the contract signed with Veolia for refuse and recycling collection.
 
+"Fundamental Savings Review"
+
 Next
 ====
+
+Admin doesn't have stylesheets
+Admin links to main site don't work
 
 Cope with bouncing requests
 
@@ -87,6 +92,7 @@ http://www.ico.gov.uk/Home/tools_and_resources/decision_notices.aspx
  thanks :) I won't do it now as there are more important things, I was just accidentally impressed
 
 Lucene for search (ask Louise for plugin)
+Have a look at http://swish-e.org/
 
 Read wiki page lots
 http://www.mysociety.org/moin.cgi/FreedomOfInformation

@@ -5,7 +5,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: link_to_helper.rb,v 1.3 2007-12-14 13:24:04 francis Exp $
+# $Id: link_to_helper.rb,v 1.4 2007-12-18 17:39:55 francis Exp $
 
 module LinkToHelper
 
@@ -13,15 +13,21 @@ module LinkToHelper
     # XXX consolidate with simplify_url_part in controllers/application.rb so
     # ones with calls to simplify_url_part are only in one place
    
+    def request_url(info_request)
+        return show_request_url(:id => info_request, :only_path => true)
+    end
     def request_link(info_request)
-        link_to h(info_request.title), show_request_url(:id => info_request)
+        link_to h(info_request.title), request_url(info_request)
     end
     
+    def public_body_url(public_body)
+        return show_public_body_url(:simple_short_name => simplify_url_part(public_body.short_name), :only_path => true)
+    end
     def public_body_link_short(public_body)
-        link_to h(public_body.short_name), show_public_body_url(:simple_short_name => simplify_url_part(public_body.short_name))
+        link_to h(public_body.short_name), public_body_url(public_body_url)
     end
     def public_body_link(public_body)
-        link_to h(public_body.name), show_public_body_url(:simple_short_name => simplify_url_part(public_body.short_name))
+        link_to h(public_body.name), public_body_url(public_body)
     end
 
     def user_link(user)
@@ -46,6 +52,11 @@ module LinkToHelper
         admin_url_prefix = MySociety::Config.get("ADMIN_BASE_URL", "/admin/")
         return admin_url_prefix + relative_path
     end
- 
+
+    def main_url(relative_path)
+        url_prefix = "http://" + MySociety::Config.get("DOMAIN", '127.0.0.1:3000')
+        return url_prefix + relative_path
+    end
+  
 end
 

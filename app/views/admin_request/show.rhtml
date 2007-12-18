@@ -8,9 +8,9 @@
   <br/>
 <% end %>
 <b>Public body:</b> <%=h @info_request.public_body.name %> <br>
-<b>Public link:</b> <%= request_link(@info_request) %> <br>
 </p>
 
+<%= link_to 'Public page', main_url(request_url(@info_request)) %>
 
 <h2>Outgoing messages</h2>
 
