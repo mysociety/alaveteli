@@ -24,6 +24,7 @@ describe RequestController, "when showing the front page" do
 end
 
 describe RequestController, "when listing all requests" do
+    integrate_views
     fixtures :info_requests
   
     it "should be successful" do

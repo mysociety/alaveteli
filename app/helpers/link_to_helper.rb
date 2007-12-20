@@ -5,7 +5,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: link_to_helper.rb,v 1.4 2007-12-18 17:39:55 francis Exp $
+# $Id: link_to_helper.rb,v 1.5 2007-12-20 16:42:43 francis Exp $
 
 module LinkToHelper
 
@@ -24,7 +24,7 @@ module LinkToHelper
         return show_public_body_url(:simple_short_name => simplify_url_part(public_body.short_name), :only_path => true)
     end
     def public_body_link_short(public_body)
-        link_to h(public_body.short_name), public_body_url(public_body_url)
+        link_to h(public_body.short_name), public_body_url(public_body)
     end
     def public_body_link(public_body)
         link_to h(public_body.name), public_body_url(public_body)

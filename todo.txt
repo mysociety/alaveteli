@@ -1,24 +1,24 @@
-[12:11:25] … To Liverpool City Council:
-
-Please send me a copy of the contract signed with Veolia for refuse and recycling collection.
-
-"Fundamental Savings Review"
+"Fundamental Savings Review" - Tom's friend
+BAILII - relationship with law courts, robots.txt ?
 
 Next
 ====
 
-Admin doesn't have stylesheets
-Admin links to main site don't work
+Track bounce messages via a separate address
 
-Cope with bouncing requests
+Swap over the question as to if contains info to be on the left
+
+Formatting of emails
+    - don't show HTML and plain version, just show one
+    - do simple quotation folding
+    - date of bounce on http://foi.mysociety.org/request/4 is wrong
 
 Either rotate log files, or merge with Apache ones
 
+Format user emails as well as request ones
+
 Let requester send follow-ups
 Do something after 20 working days if you get no response
-
-Forgotten password link
-Remember me box
 
 Work out how to get it to tell you code coverage of .rhtml files
 Make it validate the HTML
@@ -27,9 +27,6 @@ Check we call integrate_views for all controllers
 Test that actually sending request outgoing mail using deliveries
 
 Remove "Outgoing messages is invalid" error
-
-You need to pull the magic email addresses out of incoming_messages so they
-aren't shown on the website
 
 Some way of getting to your own user page
  
@@ -83,8 +80,17 @@ Say that we would like response by email (not postal address) in footer
 Later
 =====
 
+About page
+Contact page
+
+Remember me box
+    This can't possible be the best way, it is too depressing:
+    http://onrails.org/articles/2006/02/18/auto-login
+Forgotten password link
+
 Check these out for ids
 http://www.ico.gov.uk/Home/tools_and_resources/decision_notices.aspx
+Screen scrape it and add it to the public body page
 
 (10:32:14) richard: you just need to count the number of rows of text and compare it to the number of rows in the textbox
 (10:32:29) richard: then increase the height of the textbox by 1em-ish
