@@ -1,5 +1,27 @@
+FOI requests to use to test it
+==============================
+
 "Fundamental Savings Review" - Tom's friend
+
 BAILII - relationship with law courts, robots.txt ?
+
+Parliament - Corporate Business Plan 2007
+    http://www.parliament.uk/documents/upload/CorporateBusinessPlan2007.pdf
+on page 32, it says that PICT "undertook work to identify a future development
+path for Parliament’s Enterprise Architecture". We would like a copy of the
+resultant "agreed set of priorities and programme of work for the period up to
+2009/10"
+
+The Better Regulation Executive has issued step–by–step guidance for officials
+wishing to use the order–making powers to deliver regulatory reform. For this
+and contact details for the guidance, please visit the Better Regulation Unit
+Intranet site [NB:This site is only available for Government departments].
+http://bre.berr.gov.uk/regulation/reform/bill/index.asp
+
+Please send me all documentation relating to the decision to use results from
+the Oxford Economic Forecasting's report "The Economic Contribution of the
+Aviation Industry in the UK" in the "Air Transport White Paper Progress Report
+ 2006"
 
 Next
 ====
@@ -132,6 +154,16 @@ Forgotten password link
 Link to source code
 
 Way of contacting other users
+
+Give hotline to call body for extra help
+Advice and assistance in making FoI requests to the House of Lords is available
+from the Freedom of Information Officer, Parliamentary Archives, House of
+Lords. London SW1A 0PW. Telephone 020 7219 0100. E-mail: foilords@parliament.uk
+http://www.parliament.uk/parliamentary_publications_and_archives/freedom_of_information_in_the_house_of_lords/lords__foi___how_to_obtain_information.cfm
+
+Including 'Request for information' in the subject line of your e-mail will assist us in prioritising your request.
+http://www.parliament.uk/parliamentary_publications_and_archives/freedom_of_information_in_the_house_of_lords/lords__foi___how_to_obtain_information.cfm
+
 
 Sources of public bodies
 ========================
