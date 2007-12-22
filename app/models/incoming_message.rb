@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.10 2007-12-22 04:22:54 francis Exp $
+# $Id: incoming_message.rb,v 1.11 2007-12-22 13:12:08 francis Exp $
 
 class IncomingMessage < ActiveRecord::Base
     belongs_to :info_request
@@ -81,10 +81,26 @@ class IncomingMessage < ActiveRecord::Base
 
     # Returns body text as HTML with quotes flattened, and emails removed.
     def get_body_for_display(collapse_quoted_sections = true)
-        parts = self.mail.parts
-        if parts.size > 0
-            #return self.mail.parts[0].class.to_s
-            text = self.mail.body
+        # XXX make this part scanning for mime parts properly recursive,
+        # allow download of specific parts, and always show them all (in
+        # case say the HTML differs from the text part)
+        if self.mail.multipart?
+            if self.mail.sub_type == 'alternative'
+                # Choose best part from alternatives
+                best_part = nil
+                mail.parts.each do |m|
+                    # Take the first one, or the last text/plain one
+                    if not best_part
+                        best_part = m
+                    elsif m.content_type == 'text/plain'
+                        best_part = m
+                    end
+                end
+                text = best_part.body
+            else
+                # Just turn them all into text using built in
+                text = self.mail.body
+            end
         else
             text = self.mail.body
         end
