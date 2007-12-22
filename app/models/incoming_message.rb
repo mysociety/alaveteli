@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.9 2007-12-22 03:04:27 francis Exp $
+# $Id: incoming_message.rb,v 1.10 2007-12-22 04:22:54 francis Exp $
 
 class IncomingMessage < ActiveRecord::Base
     belongs_to :info_request
@@ -86,15 +86,13 @@ class IncomingMessage < ActiveRecord::Base
             #return self.mail.parts[0].class.to_s
             text = self.mail.body
         else
-            text = self.mail.quoted_body
+            text = self.mail.body
         end
 
         text = IncomingMessage.email_filter(text)
         text = IncomingMessage.remove_email_quotage(text)
         text = CGI.escapeHTML(text)
         if collapse_quoted_sections
-            #text = text.gsub(/BEGIN_QUOTED/, '<span class="quoted_email">')
-            #text = text.gsub(/END_QUOTED/, '</span>')
             text = text.gsub(/(BEGIN_QUOTED(.+?)END_QUOTED)+/m, '<a href="?unfold=1">show quoted sections</a>')
         else
             if text.include?('BEGIN_QUOTED')
