@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.21 2007-12-22 02:23:35 francis Exp $
+# $Id: request_controller.rb,v 1.22 2007-12-22 02:52:05 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -63,6 +63,7 @@ class RequestController < ApplicationController
     def classify
         @incoming_message = IncomingMessage.find(params[:incoming_message_id])
         @info_request = @incoming_message.info_request
+        @collapse_quotes = params[:unfold] ? false : true
 
         if not authenticated_as_user?(@info_request.user,
                 :web => "To view and classify the response to this FOI request",
