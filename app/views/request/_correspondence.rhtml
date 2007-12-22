@@ -2,7 +2,7 @@
 
 <% if (correspondence.class.to_s == 'OutgoingMessage') 
     outgoing_message = correspondence %>
-    <%= render :partial => 'bubble', :locals => { :body => outgoing_message.body }  %>
+    <%= render :partial => 'bubble', :locals => { :body => outgoing_message.get_body_for_display() }  %>
 
     <p class="xspeaker"> 
         <%= user_link(@info_request.user) %>

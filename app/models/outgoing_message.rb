@@ -20,7 +20,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: outgoing_message.rb,v 1.12 2007-12-17 00:34:55 francis Exp $
+# $Id: outgoing_message.rb,v 1.13 2007-12-22 03:04:27 francis Exp $
 
 class OutgoingMessage < ActiveRecord::Base
     belongs_to :info_request
@@ -77,5 +77,16 @@ class OutgoingMessage < ActiveRecord::Base
             raise "Message id #{self.id} has type '#{self.message_type}' status '#{self.status}' "
         end
     end
+
+    # Return body for display as HTML
+    def get_body_for_display
+        text = body
+        text = text.gsub(/\n/, '<br>')
+
+        return text
+    end
+
+
 end
+
 

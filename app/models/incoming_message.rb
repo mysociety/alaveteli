@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.8 2007-12-22 02:23:35 francis Exp $
+# $Id: incoming_message.rb,v 1.9 2007-12-22 03:04:27 francis Exp $
 
 class IncomingMessage < ActiveRecord::Base
     belongs_to :info_request
@@ -79,7 +79,7 @@ class IncomingMessage < ActiveRecord::Base
         return text
     end
 
-    # Returns body text with quotes flattened, and emails removed.
+    # Returns body text as HTML with quotes flattened, and emails removed.
     def get_body_for_display(collapse_quoted_sections = true)
         parts = self.mail.parts
         if parts.size > 0
