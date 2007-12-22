@@ -1,33 +1,46 @@
 <% @title = h(@info_request.title) %>
 
-<h1><%=@title%></h1>
+<div id="request_main">
+    <h1><%=@title%></h1>
 
-<p class="subtitle">A Freedom of Information request to 
-<%= public_body_link(@info_request.public_body) %>
-by 
-<%= user_link(@info_request.user) %>
-</p>
+    <p class="subtitle">A Freedom of Information request to 
+    <%= public_body_link(@info_request.public_body) %>
+    by 
+    <%= user_link(@info_request.user) %>
+    </p>
 
-<p class="xspeaker">
-<% if @status == 'awaiting' %>
-Currently <strong>waiting for a response</strong> from <%= public_body_link(@info_request.public_body) %>
-<% elsif @status == 'overdue' %>
-Currently <strong>overdue a response</strong> from <%=
-public_body_link(@info_request.public_body) %>.  Under section blah of the
-Freedom of Information Act 2000 responses must be made within 20 working days.
-<% elsif @status == 'information' %>
-The request was at least partly <strong>successful</strong>.
-<% elsif @status == 'none' %>
-The request is <strong>not (yet) successful</strong>.
-<% elsif @status == 'unknown' %>
-<strong>Response received</strong>, but <%= user_link(@info_request.user) %> has not yet reported if it was
-successful or a rejection.
-<% else %>
-<% raise "unknown status " + $status %>
-<% end %>
-</p>
+    <p id="request_status">
+    <% if @status == 'awaiting' %>
+    Currently <strong>waiting for a response</strong> from <%= public_body_link(@info_request.public_body) %>
+    <% elsif @status == 'overdue' %>
+    Currently <strong>overdue a response</strong> from <%=
+    public_body_link(@info_request.public_body) %>.  Under section blah of the
+    Freedom of Information Act 2000 responses must be made within 20 working days.
+    <% elsif @status == 'information' %>
+    The request was at least partly <strong>successful</strong>.
+    <% elsif @status == 'none' %>
+    The request is <strong>not (yet) successful</strong>.
+    <% elsif @status == 'unknown' %>
+    <strong>Response received</strong>, but <%= user_link(@info_request.user) %> has not yet reported if it was
+    successful or a rejection.
+    <% else %>
+    <% raise "unknown status " + $status %>
+    <% end %>
+    </p>
 
-<% for correspondence in @correspondences %>
-    <%= render :partial => 'correspondence', :locals => { :correspondence => correspondence } %>
-<% end %>
+    <% for correspondence in @correspondences %>
+        <%= render :partial => 'correspondence', :locals => { :correspondence => correspondence } %>
+    <% end %>
+</div>
+
+<div id="request_sidebar">
+    <h2>Juicy stuff will be here</h2>
+    <p>For now it is just padding to make the messages on the left
+    narrower, so I can see what the formatting is like.
+    <!--<h2>Blog posts about this request</h2>
+    <p>...
+    <h2>Wikipedia articles</h2>
+    <p>...-->
+</div>
+
 

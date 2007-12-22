@@ -243,6 +243,22 @@ table#list_requests .odd {
 
 /* /request - viewing requests */
 
+#request_main {
+    float: left;
+    width: 70%;
+}
+
+#request_sidebar {
+    float: right;
+    width: 25%;
+}
+
+#request_status {
+}
+
+.quoted_email {
+    display: none;
+}
 
 /* /classify - classifying requests */
 
@@ -310,15 +326,15 @@ table#list_requests .odd {
 .xsnazzy h2 {font-size:2em; color:#234; border:0;}
 .xsnazzy p {padding-bottom:0.5em; color:#eee;}
 .xsnazzy h2 {padding-top:0.5em; padding-left:10px;}
-.xsnazzy {background: transparent; margin:1em;}
+.xsnazzy {background: transparent; margin:1em 0.5em 1em 0.5em;}
 
 .xsnazzy em {display:block; width:0; height:0; color:#d8d8ee; overflow:hidden; border-top:12px solid #fff; border-left:12px dotted transparent; border-right:12px dotted transparent; margin-left:50px;}
 
 /* hack for IE5.5 */
 * html .xsnazzy em {width:24px; height:12px; w\idth:0; hei\ght:0;}
 
-.xsnazzy span {display:block; width:0; height:0; color:#fff; overflow:hidden; border-top:10px solid #7f7f7f; border-left:10px dotted transparent; border-right:10px dotted transparent; margin-left:52px; margin-top:-15px;}
-* html .xsnazzy span {width:20px; height:10px; w\idth:0; hei\ght:0;}
+.xsnazzy span.bubblebit {display:block; width:0; height:0; color:#fff; overflow:hidden; border-top:10px solid #5f5f5f; border-left:10px dotted transparent; border-right:10px dotted transparent; margin-left:52px; margin-top:-15px;}
+* html .xsnazzy span.bubblebit {width:20px; height:10px; w\idth:0; hei\ght:0;}
 
 .xb1, .xb2, .xb3, .xb4, .xb5, .xb6, .xb7 {display:block; overflow:hidden; font-size:0;}
 .xb1, .xb2, .xb3, .xb4, .xb5, .xb6 {height:1px;}
@@ -326,12 +342,19 @@ table#list_requests .odd {
 .xb1 {margin:0 8px; background:#fff;}
 .xb2 {margin:0 6px; background:#fff;}
 .xb3 {margin:0 4px; background:#fff;}
-.xb4 {margin:0 3px; background:#7f7f7f; border-width:0 5px;}
-.xb5 {margin:0 2px; background:#7f7f7f; border-width:0 4px;}
-.xb6 {margin:0 2px; background:#7f7f7f; border-width:0 3px;} 
-.xb7 {margin:0 1px; background:#7f7f7f; border-width:0 3px; height:2px;} 
+.xb4 {margin:0 3px; background:#5f5f5f; border-width:0 5px;}
+.xb5 {margin:0 2px; background:#5f5f5f; border-width:0 4px;}
+.xb6 {margin:0 2px; background:#5f5f5f; border-width:0 3px;} 
+.xb7 {margin:0 1px; background:#5f5f5f; border-width:0 3px; height:2px;} 
 
-.xboxcontent {display:block; background:#7f7f7f; border:3px solid #fff; border-width:0 3px;}
+.xboxcontent {display:block; background:#5f5f5f; border:3px solid #fff; border-width:0 3px;}
 
-.xspeaker { margin: -0.5em 52px; }
+.xsnazzy a:link {
+    color: #ffffff;
+}
+.xsnazzy a:visited {
+    color: #999999;
+}
+
+.xspeaker { margin: -0.5em 1.5em; }
 

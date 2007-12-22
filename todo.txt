@@ -5,13 +5,6 @@ FOI requests to use to test it
 
 BAILII - relationship with law courts, robots.txt ?
 
-Parliament - Corporate Business Plan 2007
-    http://www.parliament.uk/documents/upload/CorporateBusinessPlan2007.pdf
-on page 32, it says that PICT "undertook work to identify a future development
-path for Parliament’s Enterprise Architecture". We would like a copy of the
-resultant "agreed set of priorities and programme of work for the period up to
-2009/10"
-
 The Better Regulation Executive has issued step–by–step guidance for officials
 wishing to use the order–making powers to deliver regulatory reform. For this
 and contact details for the guidance, please visit the Better Regulation Unit
@@ -27,6 +20,8 @@ Next
 ====
 
 Track bounce messages via a separate address
+    - just record if they are bounce, and any DSN, for now
+    - and say in display "automatic message"
 
 Swap over the question as to if contains info to be on the left
 
@@ -101,6 +96,11 @@ Say that we would like response by email (not postal address) in footer
 
 Later
 =====
+
+Show public body email address on their public page, with a link to say "this isn't right!"
+
+Email me updates on this request
+Blog posts / Wikipedia articles about this request
 
 About page
 Contact page

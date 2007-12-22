@@ -21,16 +21,18 @@
     </p>
 <% elsif (correspondence.class.to_s == 'IncomingMessage') 
     incoming_message = correspondence%>
-    <%= render :partial => 'bubble', :locals => { :body => incoming_message.sanitised_body }  %>
+    <%= render :partial => 'bubble', :locals => { :body => incoming_message.get_body_for_display(@collapse_quotes) }  %>
 
     <p class="xspeaker">
-    <%= incoming_message.mail.friendly_from %>
-    of <%= public_body_link(@info_request.public_body) %>
+    <% if incoming_message.mail.from %>
+        <%= incoming_message.mail.friendly_from %> of 
+    <% end %>
+    <%= public_body_link(@info_request.public_body) %>
     wrote a reply on <strong><%= simple_date(incoming_message.sent_at)
     %></strong>
     </p>
 <% else %>
-    <% raise "Unknown correspondence type" + correspondence.class.to_s %>
+    <% raise "Unknown correspondence type " + correspondence.class.to_s %>
 <% end %>
 
 </div>
