@@ -20,7 +20,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: outgoing_message.rb,v 1.13 2007-12-22 03:04:27 francis Exp $
+# $Id: outgoing_message.rb,v 1.14 2007-12-23 13:44:18 francis Exp $
 
 class OutgoingMessage < ActiveRecord::Base
     belongs_to :info_request
@@ -81,6 +81,7 @@ class OutgoingMessage < ActiveRecord::Base
     # Return body for display as HTML
     def get_body_for_display
         text = body
+        text = MySociety::Format.make_clickable(text, :contract => 1)
         text = text.gsub(/\n/, '<br>')
 
         return text

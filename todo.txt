@@ -34,7 +34,7 @@ Either rotate log files, or merge with Apache ones
 
 Format user emails as well as request ones
 
-Let requester send follow-ups
+Let requester send follow-ups - but to which email address???!! aargh
 Do something after 20 working days if you get no response
 
 Work out how to get it to tell you code coverage of .rhtml files

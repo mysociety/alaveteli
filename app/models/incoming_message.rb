@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.11 2007-12-22 13:12:08 francis Exp $
+# $Id: incoming_message.rb,v 1.12 2007-12-23 13:44:18 francis Exp $
 
 class IncomingMessage < ActiveRecord::Base
     belongs_to :info_request
@@ -48,7 +48,7 @@ class IncomingMessage < ActiveRecord::Base
     # Remove email addresses from text (mainly to reduce spam - particularly
     # we want to stop spam to our own magic archiving request-* addresses,
     # which would otherwise appear a lot in bounce messages and reply quotes etc.)
-    def self.email_filter(text)
+    def self.remove_email_addresses(text)
         text = text.dup
 
         # Remove any email addresses - we don't want bounce messages to leak out
@@ -63,7 +63,7 @@ class IncomingMessage < ActiveRecord::Base
     # Remove quoted sections from emails (eventually the aim would be for this
     # to do as good a job as GMail does) XXX bet it needs a proper parser
     # XXX and this BEGIN_QUOTED / END_QUOTED stuff is a mess
-    def self.remove_email_quotage(text)
+    def self.remove_quoted_sections(text)
         text = text.dup
         
         text.gsub!(/^(>.+\n)/, "BEGIN_QUOTED\\1END_QUOTED")
@@ -81,6 +81,8 @@ class IncomingMessage < ActiveRecord::Base
 
     # Returns body text as HTML with quotes flattened, and emails removed.
     def get_body_for_display(collapse_quoted_sections = true)
+        # Find the body text 
+        
         # XXX make this part scanning for mime parts properly recursive,
         # allow download of specific parts, and always show them all (in
         # case say the HTML differs from the text part)
@@ -105,9 +107,11 @@ class IncomingMessage < ActiveRecord::Base
             text = self.mail.body
         end
 
-        text = IncomingMessage.email_filter(text)
-        text = IncomingMessage.remove_email_quotage(text)
+        # Format the body text
+        text = IncomingMessage.remove_email_addresses(text)
+        text = IncomingMessage.remove_quoted_sections(text)
         text = CGI.escapeHTML(text)
+        text = MySociety::Format.make_clickable(text, :contract => 1)
         if collapse_quoted_sections
             text = text.gsub(/(BEGIN_QUOTED(.+?)END_QUOTED)+/m, '<a href="?unfold=1">show quoted sections</a>')
         else
