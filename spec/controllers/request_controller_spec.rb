@@ -86,6 +86,7 @@ end
 #  end
 
 describe RequestController, "when creating a new request" do
+    integrate_views
     fixtures :info_requests, :public_bodies, :users
 
     it "should render with 'new' template" do

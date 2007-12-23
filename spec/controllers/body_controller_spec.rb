@@ -1,6 +1,7 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe BodyController, "when showing a body" do
+    integrate_views
     fixtures :public_bodies, :public_body_versions
   
     it "should be successful" do
