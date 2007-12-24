@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.12 2007-12-23 13:44:18 francis Exp $
+# $Id: incoming_message.rb,v 1.13 2007-12-24 17:27:24 francis Exp $
 
 class IncomingMessage < ActiveRecord::Base
     belongs_to :info_request
@@ -107,8 +107,20 @@ class IncomingMessage < ActiveRecord::Base
             text = self.mail.body
         end
 
-        # Format the body text
+        # Format the body text...
+       
+        # Show special emails we know about
+        if not self.info_request.public_body.request_email.empty?
+            text = text.gsub(self.info_request.public_body.request_email, "[" + self.info_request.public_body.short_name + " request email]")
+        end
+        if not self.info_request.public_body.complaint_email.empty?
+            text = text.gsub(self.info_request.public_body.complaint_email, "[" + self.info_request.public_body.short_name + " complaint email]")
+        end
+        text = text.gsub(self.info_request.incoming_email, "[FOI #" + self.info_request.id.to_s + " email]")
+        # Remove all other emails
         text = IncomingMessage.remove_email_addresses(text)
+
+        # Removing quoted sections, adding HTML
         text = IncomingMessage.remove_quoted_sections(text)
         text = CGI.escapeHTML(text)
         text = MySociety::Format.make_clickable(text, :contract => 1)
