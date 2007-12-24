@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.14 2007-12-24 18:26:18 francis Exp $
+# $Id: incoming_message.rb,v 1.15 2007-12-24 18:30:34 francis Exp $
 
 class IncomingMessage < ActiveRecord::Base
     belongs_to :info_request
@@ -110,6 +110,9 @@ class IncomingMessage < ActiveRecord::Base
         # Format the body text...
        
         # Show special emails we know about
+        # XXX can later display some of these special emails as actual emails,
+        # if they are public anyway.  For now just be precautionary and only
+        # put in descriptions of them in square brackets.
         if not self.info_request.public_body.request_email.empty?
             text = text.gsub(self.info_request.public_body.request_email, "[" + self.info_request.public_body.short_name + " request email]")
         end
