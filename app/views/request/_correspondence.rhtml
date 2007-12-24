@@ -24,8 +24,8 @@
     <%= render :partial => 'bubble', :locals => { :body => incoming_message.get_body_for_display(@collapse_quotes) }  %>
 
     <p class="xspeaker">
-    <% if incoming_message.mail.from %>
-        <%= incoming_message.mail.friendly_from %> of 
+    <% if incoming_message.mail.from and (not incoming_message.mail.friendly_from.include?('@')) %>
+        <%= incoming_message.mail.friendly_from %>
     <% end %>
     <%= public_body_link(@info_request.public_body) %>
     <% if incoming_message.contains_information %>
