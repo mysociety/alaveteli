@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.13 2007-12-24 17:27:24 francis Exp $
+# $Id: incoming_message.rb,v 1.14 2007-12-24 18:26:18 francis Exp $
 
 class IncomingMessage < ActiveRecord::Base
     belongs_to :info_request
@@ -117,6 +117,7 @@ class IncomingMessage < ActiveRecord::Base
             text = text.gsub(self.info_request.public_body.complaint_email, "[" + self.info_request.public_body.short_name + " complaint email]")
         end
         text = text.gsub(self.info_request.incoming_email, "[FOI #" + self.info_request.id.to_s + " email]")
+        text = text.gsub(MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost'), "[GovernmentSpy contact email]")
         # Remove all other emails
         text = IncomingMessage.remove_email_addresses(text)
 
