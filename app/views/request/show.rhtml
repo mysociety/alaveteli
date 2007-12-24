@@ -11,18 +11,24 @@
 
     <p id="request_status">
     <% if @status == 'awaiting' %>
-    Currently <strong>waiting for a response</strong> from <%= public_body_link(@info_request.public_body) %>
+        Currently <strong>waiting for a response</strong> from <%= public_body_link(@info_request.public_body) %>
     <% elsif @status == 'overdue' %>
-    Currently <strong>overdue a response</strong> from <%=
-    public_body_link(@info_request.public_body) %>.  Under section blah of the
-    Freedom of Information Act 2000 responses must be made within 20 working days.
+        Currently <strong>overdue a response</strong> from <%=
+        public_body_link(@info_request.public_body) %>.  Under section blah of the
+        Freedom of Information Act 2000 responses must be made within 20 working days.
     <% elsif @status == 'information' %>
-    The request was at least partly <strong>successful</strong>.
+        The request was at least partly <strong>successful</strong>.
     <% elsif @status == 'none' %>
-    The request is <strong>not (yet) successful</strong>.
+        The request is <strong>not (yet) successful</strong>.
     <% elsif @status == 'unknown' %>
-    <strong>Response received</strong>, but <%= user_link(@info_request.user) %> has not yet reported if it was
-    successful or a rejection.
+        <strong><%= MySociety::Format.fancy_pluralize(@info_request.incoming_messages.size, 'Response', 'responses') %> 
+        received</strong>, 
+        but <%= user_link(@info_request.user) %> has not yet reported whether
+        <%= @info_request.incoming_messages.size == 1 ? 'it' : 'they' %> 
+        contained useful information or not. 
+        
+        If you are <%= user_link(@info_request.user) %>, please classify them below.
+        <!-- This will be useful here too: @info_request.unclassified_responses -->
     <% else %>
     <% raise "unknown status " + $status %>
     <% end %>

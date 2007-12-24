@@ -17,7 +17,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.16 2007-12-11 12:16:29 francis Exp $
+# $Id: info_request.rb,v 1.17 2007-12-24 16:49:36 francis Exp $
 
 require 'digest/sha1'
 
@@ -113,6 +113,13 @@ class InfoRequest < ActiveRecord::Base
             return "information"
         else
             return "none"
+        end
+    end
+
+    # Return array of unclassified responses
+    def unclassified_responses
+        return self.incoming_messages.select do |msg|
+            not msg.user_classified
         end
     end
 

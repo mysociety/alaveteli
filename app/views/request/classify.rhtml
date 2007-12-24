@@ -10,20 +10,7 @@
 
 <% if not @incoming_message.user_classified %>
     <div id="classify_action">
-    <% form_for(:incoming_message, @info_request ) do |f| %>
-        <h2>Got what you wanted?</h2>
-        <p>Does this response contain any of the information that you requested?</p>
-        <p>
-            <%= radio_button "incoming_message", "contains_information", "true" %>
-            <label for="incoming_message_contains_information_true">Yes, this response contains some or all of the information that I requested.</label>
-            <br>
-            <%= radio_button "incoming_message", "contains_information", "false" %>
-            <label for="incoming_message_contains_information_false">No, this response does not contain any of the information.</label>
-        </p>
-
-        <%= submit_tag "Update" %>
-
-    <% end %>
+        <%= render :partial => 'classify' %>
     <div>
 <% end %>
 

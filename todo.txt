@@ -23,8 +23,6 @@ Track bounce messages via a separate address
     - just record if they are bounce, and any DSN, for now
     - and say in display "automatic message"
 
-Swap over the question as to if contains info to be on the left
-
 Formatting of emails
     - don't show HTML and plain version, just show one
     - do simple quotation folding
@@ -32,15 +30,12 @@ Formatting of emails
 
 Either rotate log files, or merge with Apache ones
 
-Format user emails as well as request ones
-
 Let requester send follow-ups - but to which email address???!! aargh
 Do something after 20 working days if you get no response
 
 Work out how to get it to tell you code coverage of .rhtml files
 Make it validate the HTML
     maybe with http://www.anodyne.ca/wp-content/uploads/2007/09/be_valid_xhtml.rb
-Check we call integrate_views for all controllers
 Test that actually sending request outgoing mail using deliveries
 
 Remove "Outgoing messages is invalid" error

@@ -28,8 +28,16 @@
         <%= incoming_message.mail.friendly_from %> of 
     <% end %>
     <%= public_body_link(@info_request.public_body) %>
-    wrote a reply on <strong><%= simple_date(incoming_message.sent_at)
+    <% if incoming_message.contains_information %>
+        sent some <strong>useful information</strong>
+    <% else %>
+        replied 
+    <% end %>
+    on <strong><%= simple_date(incoming_message.sent_at)
     %></strong>
+    <% if not incoming_message.user_classified %>
+        &mdash; please <%= link_to "classify this response", classify_request_url(:incoming_message_id => incoming_message.id) %>
+    <% end %>
     </p>
 <% else %>
     <% raise "Unknown correspondence type " + correspondence.class.to_s %>

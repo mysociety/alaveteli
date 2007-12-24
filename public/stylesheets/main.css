@@ -263,12 +263,12 @@ table#list_requests .odd {
 /* /classify - classifying requests */
 
 #classify_action {
-    float: right;
+    float: left;
     width: 35%;
 }
 
 #classify_view {
-    float: left;
+    float: right;
     width: 60%;
 }
 
