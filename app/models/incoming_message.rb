@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.19 2007-12-31 04:03:47 francis Exp $
+# $Id: incoming_message.rb,v 1.20 2007-12-31 04:07:48 francis Exp $
 
 class IncomingMessage < ActiveRecord::Base
     belongs_to :info_request
@@ -141,7 +141,7 @@ class IncomingMessage < ActiveRecord::Base
         text = CGI.escapeHTML(text)
         text = MySociety::Format.make_clickable(text, :contract => 1)
         if collapse_quoted_sections
-            text = text.gsub(/(BEGIN_QUOTED(.+?)END_QUOTED)+/m, '<a href="?unfold=1">show quoted sections</a>')
+            text = text.gsub(/(BEGIN_QUOTED(.+?)END_QUOTED\s*)+/m, '<a href="?unfold=1">show quoted sections</a>')
         else
             if text.include?('BEGIN_QUOTED')
                 text = text.gsub(/BEGIN_QUOTED(.+?)END_QUOTED/m, '\1')
