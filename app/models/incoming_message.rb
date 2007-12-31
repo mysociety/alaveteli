@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.15 2007-12-24 18:30:34 francis Exp $
+# $Id: incoming_message.rb,v 1.16 2007-12-31 02:30:52 francis Exp $
 
 class IncomingMessage < ActiveRecord::Base
     belongs_to :info_request
@@ -99,12 +99,23 @@ class IncomingMessage < ActiveRecord::Base
                     end
                 end
                 text = best_part.body
+                text_charset = best_part.charset
             else
                 # Just turn them all into text using built in
                 text = self.mail.body
+                text_charset = self.mail.charset
             end
         else
             text = self.mail.body
+            text_charset = self.mail.charset.to_s
+        end
+
+        # Charset conversion, turn everything into UTF-8
+        if not text_charset.nil?
+            if text_charset == 'us-ascii'
+                # Emails say US ASCII, but mean ISO-8859-1
+                text = Iconv.conv('utf-8', 'iso-8859-1', text)
+            end
         end
 
         # Format the body text...
