@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.18 2007-12-31 03:58:25 francis Exp $
+# $Id: incoming_message.rb,v 1.19 2007-12-31 04:03:47 francis Exp $
 
 class IncomingMessage < ActiveRecord::Base
     belongs_to :info_request
@@ -66,7 +66,7 @@ class IncomingMessage < ActiveRecord::Base
     def self.remove_quoted_sections(text)
         text = text.dup
         
-        text.gsub!(/^(>.+\n)/, "BEGIN_QUOTED\\1END_QUOTED")
+        text.gsub!(/^(>.*\n)/, "BEGIN_QUOTED\\1END_QUOTED")
         text.gsub!(/^(On .+ wrote:\n)/, "BEGIN_QUOTED\\1END_QUOTED")
 
         original_message = 
