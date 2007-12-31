@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.16 2007-12-31 02:30:52 francis Exp $
+# $Id: incoming_message.rb,v 1.17 2007-12-31 02:53:18 francis Exp $
 
 class IncomingMessage < ActiveRecord::Base
     belongs_to :info_request
@@ -113,8 +113,9 @@ class IncomingMessage < ActiveRecord::Base
         # Charset conversion, turn everything into UTF-8
         if not text_charset.nil?
             if text_charset == 'us-ascii'
-                # Emails say US ASCII, but mean ISO-8859-1
-                text = Iconv.conv('utf-8', 'iso-8859-1', text)
+                # Emails say US ASCII, but mean Windows-1252
+                # XXX How do we autodetect this properly?
+                text = text_charset + "\n\n" + Iconv.conv('utf-8', 'windows-1252', text)
             end
         end
 
