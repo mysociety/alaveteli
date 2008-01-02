@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.24 2008-01-02 15:45:00 francis Exp $
+# $Id: request_controller.rb,v 1.25 2008-01-02 20:29:38 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -81,15 +81,12 @@ class RequestController < ApplicationController
             @incoming_message.save
             flash[:notice] = "Thank you for classifying the response."
             redirect_to show_request_url(:id => @info_request)
+            return
         end
-        if params[:incoming_message_id]
+        if params[:commit]
             # Case when didn't choose radio option, but did submit form
             flash[:error] = "Please choose whether or not you got some of the information that you wanted."
         end
-
-        @correspondences = @info_request.outgoing_messages + @info_request.incoming_messages
-            @correspondences.sort! { |a,b| a.sent_at <=> b.sent_at } 
-            @status = @info_request.calculate_status
     end
 
 

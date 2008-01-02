@@ -41,8 +41,6 @@ Test that it is actually sending the request outgoing mail, by using deliveries
 Remove "Outgoing messages is invalid" error
 
 Make it so "mysociety test" can be done on the servers, so it checks any packages are installed
-
-When you classify something, it prints the error message on the page after it for no reason
  
 Add fixtures for info_request_event
 
