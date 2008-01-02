@@ -10,8 +10,7 @@ A public body in the UK, also called <%= h(@public_body.short_name) %>
     <p>Nobody has made any Freedom of Information requests to this public body using this site.</p>
 
 <% else %>
-    <p>There have been <%=pluralize(@public_body.info_requests.size, "Freedom of Information request") %> 
-    made to this public body using this site.</p>
+    <p>People have made <%=pluralize(@public_body.info_requests.size, "Freedom of Information request") %> to this public body using this site.</p>
 
     <%= render :partial => 'request/request_listing', :locals => { :info_requests => @public_body.info_requests.sort { |a,b| b.created_at <=> a.created_at } } %>
 <% end %>

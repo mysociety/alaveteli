@@ -1,10 +1,6 @@
 FOI requests to use to test it
 ==============================
 
-"Fundamental Savings Review" - Tom's friend
-
-BAILII - relationship with law courts, robots.txt ?
-
 The Better Regulation Executive has issued step–by–step guidance for officials
 wishing to use the order–making powers to deliver regulatory reform. For this
 and contact details for the guidance, please visit the Better Regulation Unit
@@ -16,7 +12,9 @@ the Oxford Economic Forecasting's report "The Economic Contribution of the
 Aviation Industry in the UK" in the "Air Transport White Paper Progress Report
  2006"
 
-DTI CAM one
+BAILII - relationship with law courts, robots.txt ?
+
+"Fundamental Savings Review" - Tom's friend
 
 Next
 ====
