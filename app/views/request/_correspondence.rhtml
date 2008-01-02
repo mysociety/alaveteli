@@ -1,29 +1,12 @@
 <div id="correspondence">
 
-<% if (correspondence.class.to_s == 'OutgoingMessage') 
-    outgoing_message = correspondence %>
-    <%= render :partial => 'bubble', :locals => { :body => outgoing_message.get_body_for_display() }  %>
+<%  @last_email = nil
 
-    <p class="xspeaker"> 
-        <%= user_link(@info_request.user) %>
-
-        <% if outgoing_message.message_type == 'initial_request' %>
-            sent the initial request
-            <% if outgoing_message.status == 'sent' %>
-                to <%= public_body_link(@info_request.public_body) %>
-                on <strong><%= simple_date(outgoing_message.sent_at) %></strong>
-            <% elsif outgoing_message.status == 'ready' %>
-                it has <strong>not yet been sent</strong>
-            <% else raise "unknown outgoing_message.status" %>
-            <% end %> 
-        <% else raise "unknown outgoing_message.message_type" %>
-        <% end %>
-    </p>
-<% elsif (correspondence.class.to_s == 'IncomingMessage') 
+    if (correspondence.class.to_s == 'IncomingMessage') 
     incoming_message = correspondence%>
     <%= render :partial => 'bubble', :locals => { :body => incoming_message.get_body_for_display(@collapse_quotes) }  %>
 
-    <p class="xspeaker">
+    <p class="event_bubble">
     <% if incoming_message.mail.from and (not incoming_message.mail.friendly_from.include?('@')) %>
         <%= incoming_message.mail.friendly_from %> of
     <% end %>
@@ -33,12 +16,45 @@
     <% else %>
         replied 
     <% end %>
-    on <strong><%= simple_date(incoming_message.sent_at)
-    %></strong>
+    on <strong><%= simple_date(incoming_message.sent_at) %></strong>
     <% if not incoming_message.user_classified %>
         &mdash; please <%= link_to "classify this response", classify_request_url(:incoming_message_id => incoming_message.id) %>
     <% end %>
     </p>
+<% elsif (correspondence.class.to_s == 'InfoRequestEvent') 
+    info_request_event = correspondence
+    if info_request_event.event_type == 'sent' 
+        outgoing_message = OutgoingMessage.find(info_request_event.params[:outgoing_message_id]) 
+        %>
+        <%= render :partial => 'bubble', :locals => { :body => outgoing_message.get_body_for_display() }  %>
+
+        <p class="event_bubble"> 
+            <%= user_link(@info_request.user) %>
+
+            <% if outgoing_message.message_type == 'initial_request' %>
+                sent the initial request
+                <% if outgoing_message.status == 'sent' %>
+                    to <%= public_body_link(@info_request.public_body) %>
+                    on <strong><%= simple_date(outgoing_message.sent_at) %></strong>
+                <% elsif outgoing_message.status == 'ready' %>
+                    it has <strong>not yet been sent</strong>
+                <% else raise "unknown outgoing_message.status" %>
+                <% end %> 
+            <% else raise "unknown outgoing_message.message_type" %>
+            <% end %>
+        </p>
+    <% elsif info_request_event.event_type == 'resent' %>
+        <p class="event_plain"> 
+        Sent to <%= public_body_link(@info_request.public_body) %>
+        again (perhaps to a new contact address) <!-- XXX actually say if it is a new one or not -->
+        on <strong><%= simple_date(info_request_event.sent_at) %></strong>
+        </p>
+    <% 
+    end 
+    if ['sent', 'resent'].include?(info_request_event.event_type)
+         @last_email = info_request_event.params[:email]
+    end
+    %>
 <% else %>
     <% raise "Unknown correspondence type " + correspondence.class.to_s %>
 <% end %>

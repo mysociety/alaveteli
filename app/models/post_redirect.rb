@@ -14,14 +14,14 @@
 #  user_id            :integer         
 #
 
-# models/postredirect.rb:
+# models/post_redirect.rb:
 # Saves an HTTP POST request, so it can be redirected to later.
 # For example, after registering / logging in.
 #
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: post_redirect.rb,v 1.6 2007-12-11 12:16:29 francis Exp $
+# $Id: post_redirect.rb,v 1.7 2008-01-02 15:45:00 francis Exp $
 
 require 'openssl' # for random bytes function
 

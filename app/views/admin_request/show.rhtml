@@ -56,3 +56,22 @@
 </table>
 
 
+<h2>Events</h2>
+
+<table>
+  <tr>
+  <% for column in InfoRequestEvent.content_columns %>
+    <th><%= column.human_name %></th>
+  <% end %>
+  </tr>
+  
+<% for info_request_event in @info_request.info_request_events %>
+  <tr class="<%= cycle('odd', 'even') %>">
+  <% for column in InfoRequestEvent.content_columns.map { |c| c.name } %>
+    <td><%=h info_request_event.send(column) %></td>
+  <% end %>
+  </tr>
+<% end %>
+</table>
+
+

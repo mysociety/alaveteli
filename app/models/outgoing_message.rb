@@ -20,7 +20,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: outgoing_message.rb,v 1.14 2007-12-23 13:44:18 francis Exp $
+# $Id: outgoing_message.rb,v 1.15 2008-01-02 15:45:00 francis Exp $
 
 class OutgoingMessage < ActiveRecord::Base
     belongs_to :info_request
@@ -51,13 +51,14 @@ class OutgoingMessage < ActiveRecord::Base
     # Deliver outgoing message
     # Note: You can test this from script/console with, say:
     # InfoRequest.find(1).outgoing_messages[0].send_message
-    def send_message
+    def send_message(log_event_type = 'sent')
         if self.message_type == 'initial_request'
             if self.status == 'ready'
                 RequestMailer.deliver_initial_request(self.info_request, self)
                 self.sent_at = Time.now
                 self.status = 'sent'
                 self.save!
+                self.info_request.log_event(log_event_type, { :email => self.info_request.recipient_email, :outgoing_message_id => self.id })
             elsif self.status == 'sent'
                 raise "Message id #{self.id} has already been sent"
             else
@@ -72,7 +73,7 @@ class OutgoingMessage < ActiveRecord::Base
     def resend_message
         if self.message_type == 'initial_request' and self.status == 'sent'
             self.status = 'ready'
-            send_message
+            send_message('resent')
         else
             raise "Message id #{self.id} has type '#{self.message_type}' status '#{self.status}' "
         end

@@ -17,7 +17,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.17 2007-12-24 16:49:36 francis Exp $
+# $Id: info_request.rb,v 1.18 2008-01-02 15:45:00 francis Exp $
 
 require 'digest/sha1'
 
@@ -32,6 +32,7 @@ class InfoRequest < ActiveRecord::Base
 
     has_many :outgoing_messages
     has_many :incoming_messages
+    has_many :info_request_events
 
     # Email which public body should use to respond to request. This is in
     # the format PREFIXrequest-ID-HASH@DOMAIN. Here ID is the id of the 
@@ -123,6 +124,23 @@ class InfoRequest < ActiveRecord::Base
         end
     end
 
+    # Where the initial request is sent to
+    def recipient_email
+        if MySociety::Config.getbool("STAGING_SITE", 1)
+            return self.user.email
+        else
+            return self.public_body.request_email
+        end
+    end
+
+    # History of some things that have happened
+    def log_event(type, params)
+        info_request_event = InfoRequestEvent.new
+        info_request_event.event_type = type 
+        info_request_event.params = params
+        info_request_event.info_request = self
+        info_request_event.save!
+    end
 end
 
 

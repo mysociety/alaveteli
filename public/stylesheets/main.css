@@ -356,5 +356,12 @@ table#list_requests .odd {
     color: #999999;
 }
 
-.xspeaker { margin: -0.5em 1.5em; }
+.event_bubble { 
+    margin: -0.5em 1.5em; 
+}
+
+.event_plain { 
+    margin-left: 1.5em;
+}
+
 
