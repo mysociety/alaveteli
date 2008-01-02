@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 21
+# Schema version: 22
 #
 # Table name: incoming_messages
 #
@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.21 2008-01-02 16:04:16 francis Exp $
+# $Id: incoming_message.rb,v 1.22 2008-01-02 16:04:53 francis Exp $
 
 class IncomingMessage < ActiveRecord::Base
     belongs_to :info_request

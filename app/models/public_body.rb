@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 21
+# Schema version: 22
 #
 # Table name: public_bodies
 #
@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.10 2007-12-11 12:16:29 francis Exp $
+# $Id: public_body.rb,v 1.11 2008-01-02 16:04:53 francis Exp $
 
 class PublicBody < ActiveRecord::Base
     validates_presence_of :name
