@@ -14,9 +14,12 @@
         <div id="tagline">It's your information. Free it from them.</div>
     </div>
     <ul id="navigation">
+        <li><a href="/new">Make Request</a></li>
         <li><%= link_to "All Requests", request_list_url %></li>
-        <li><a href="/new">New Request</a></li>
-        <!-- <li><a href="/my">My Requests</a></li> -->
+        <% if @user %>
+            <li><%=link_to "My Requests", user_url(@user) %></li>
+        <% else %>
+        <% end %>
         <!-- <li><a href="/about">About</a></li> -->
     </ul>
 

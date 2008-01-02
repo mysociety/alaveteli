@@ -31,15 +31,14 @@ Either rotate log files, or merge with Apache ones
 
 Let requester send follow-ups - but to which email address???!! aargh
 Do something after 20 working days if you get no response
+    display the working days correctly
 
 Work out how to get it to tell you code coverage of .rhtml files
 Make it validate the HTML
     maybe with http://www.anodyne.ca/wp-content/uploads/2007/09/be_valid_xhtml.rb
-Test that actually sending request outgoing mail using deliveries
+Test that it is actually sending the request outgoing mail, by using deliveries
 
 Remove "Outgoing messages is invalid" error
-
-Some way of getting to your own user page
 
 Make it so "mysociety test" can be done on the servers, so it checks any packages are installed
 
