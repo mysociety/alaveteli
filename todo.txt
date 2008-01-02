@@ -19,8 +19,6 @@ BAILII - relationship with law courts, robots.txt ?
 Next
 ====
 
-Rename outgoing_message.sent_at as last_sent_at
-
 Make response messages go to a mailbox as backup
 Make it so if the pipe fails, exim tries again rather than sending an error to the public body.
     Or so errors go to an admin somehow, at the very least.

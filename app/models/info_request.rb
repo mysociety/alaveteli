@@ -17,7 +17,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.21 2008-01-02 18:16:39 francis Exp $
+# $Id: info_request.rb,v 1.22 2008-01-02 20:13:01 francis Exp $
 
 require 'digest/sha1'
 
@@ -92,7 +92,9 @@ class InfoRequest < ActiveRecord::Base
         overdue = false
         # XXX if a second outgoing message is really a new request, then this
         # is no good
-        earliest_sent = self.outgoing_messages.map { |om| om.sent_at }.min
+        # We use the last_sent_at date for each outgoing message, as fair
+        # enough if the first email bounced or something and it got recent.
+        earliest_sent = self.outgoing_messages.map { |om| om.last_sent_at }.min
         time_left = Time.now - earliest_sent
         # XXX use working days 
         if time_left > 20.days

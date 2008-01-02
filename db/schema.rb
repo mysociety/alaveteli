@@ -2,7 +2,7 @@
 # migrations feature of ActiveRecord to incrementally modify your database, and
 # then regenerate this schema definition.
 
-ActiveRecord::Schema.define(:version => 22) do
+ActiveRecord::Schema.define(:version => 23) do
 
   create_table "incoming_messages", :force => true do |t|
     t.column "info_request_id",      :integer
@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(:version => 22) do
     t.column "message_type",    :string
     t.column "created_at",      :datetime
     t.column "updated_at",      :datetime
-    t.column "sent_at",         :datetime
+    t.column "last_sent_at",    :datetime
   end
 
   create_table "post_redirects", :force => true do |t|

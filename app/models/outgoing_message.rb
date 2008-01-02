@@ -20,7 +20,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: outgoing_message.rb,v 1.16 2008-01-02 16:04:53 francis Exp $
+# $Id: outgoing_message.rb,v 1.17 2008-01-02 20:13:01 francis Exp $
 
 class OutgoingMessage < ActiveRecord::Base
     belongs_to :info_request
@@ -55,7 +55,7 @@ class OutgoingMessage < ActiveRecord::Base
         if self.message_type == 'initial_request'
             if self.status == 'ready'
                 RequestMailer.deliver_initial_request(self.info_request, self)
-                self.sent_at = Time.now
+                self.last_sent_at = Time.now
                 self.status = 'sent'
                 self.save!
                 self.info_request.log_event(log_event_type, { :email => self.info_request.recipient_email, :outgoing_message_id => self.id })
