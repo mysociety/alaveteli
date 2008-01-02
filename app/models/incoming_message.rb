@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.20 2007-12-31 04:07:48 francis Exp $
+# $Id: incoming_message.rb,v 1.21 2008-01-02 16:04:16 francis Exp $
 
 class IncomingMessage < ActiveRecord::Base
     belongs_to :info_request
@@ -67,7 +67,7 @@ class IncomingMessage < ActiveRecord::Base
         text = text.dup
         
         text.gsub!(/^(>.*\n)/, "BEGIN_QUOTED\\1END_QUOTED")
-        text.gsub!(/^(On .+ wrote:\n)/, "BEGIN_QUOTED\\1END_QUOTED")
+        text.gsub!(/^(On .+ (wrote|said):\n)/, "BEGIN_QUOTED\\1END_QUOTED")
 
         original_message = 
             '(' + '''------ This is a copy of the message, including all the headers. ------''' + 
