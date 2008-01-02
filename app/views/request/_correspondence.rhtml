@@ -35,7 +35,7 @@
                 sent the initial request
                 <% if outgoing_message.status == 'sent' %>
                     to <%= public_body_link(@info_request.public_body) %>
-                    on <strong><%= simple_date(outgoing_message.sent_at) %></strong>
+                    on <strong><%= simple_date(info_request_event.sent_at) %></strong>
                 <% elsif outgoing_message.status == 'ready' %>
                     it has <strong>not yet been sent</strong>
                 <% else raise "unknown outgoing_message.status" %>
