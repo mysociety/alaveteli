@@ -12,15 +12,10 @@
         <p>This person has made no Freedom of Information requests using this site.</p>
 
     <% else %>
-        <p>Freedom of Information requests made by this person:</p>
-        <ul>
-        <% for info_request in display_user.info_requests.sort { |a,b| b.created_at <=> a.created_at }  %>
-        <li>
-        <%= info_request_link(info_request) %>
-        on <%= simple_date(info_request.created_at) %>
-        </li>
-        <% end %>
-        </ul>
+        <p>This person has made <%=pluralize(display_user.info_requests.size, "Freedom of Information request") %>
+        using this site.</p>
+
+        <%= render :partial => 'request/request_listing', :locals => { :info_requests => display_user.info_requests.sort { |a,b| b.created_at <=> a.created_at } } %>
     <% end %>
 
 <% end %>

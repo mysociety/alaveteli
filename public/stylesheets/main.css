@@ -241,6 +241,12 @@ table#list_requests .odd {
     background-color: #dddddd;
 }
 
+.request_listing {
+}
+.request_listing_bottomline {
+    color: #888888;
+}
+
 /* /request - viewing requests */
 
 #request_main {

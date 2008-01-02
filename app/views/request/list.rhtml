@@ -2,28 +2,5 @@
 
 <h1><%=@title%></h1>
 
-<table id="list_requests">
-  <tr>
-  <th>Public body</th>
-  <th>Title</th>
-  <th>Requester</th>
-  <th>Created</th>
-
-  </tr>
-
-<% for info_request in @info_requests %>
-  <tr class="<%= cycle('odd', 'even') %>">
-    <td><%= public_body_link_short(info_request.public_body) %></td>
-    <td><%= request_link(info_request) %></td>
-    <td><%= user_link(info_request.user) %></td>
-    <td><%= simple_date(info_request.created_at) %></td>
-  </tr>
-<% end %>
-
-</table>
-
-<p>
-<%= will_paginate(@info_requests) %>
-</p>
-
+<%= render :partial => 'request_listing', :locals => { :info_requests => @info_requests } %>
 

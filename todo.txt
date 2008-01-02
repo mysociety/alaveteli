@@ -21,6 +21,8 @@ DTI CAM one
 Next
 ====
 
+Rename outgoing_message.sent_at as last_sent_at
+
 Make response messages go to a mailbox as backup
 Make it so if the pipe fails, exim tries again rather than sending an error to the public body.
     Or so errors go to an admin somehow, at the very least.
@@ -28,9 +30,6 @@ Make it so if the pipe fails, exim tries again rather than sending an error to t
 Track bounce messages via a separate address
     - just record if they are bounce, and any DSN, for now
     - and say in display "automatic message"
-
-Formatting of emails
-    - date of bounce on http://foi.mysociety.org/request/4 is wrong
 
 Either rotate log files, or merge with Apache ones
 

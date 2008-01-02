@@ -17,7 +17,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.19 2008-01-02 16:04:53 francis Exp $
+# $Id: info_request.rb,v 1.20 2008-01-02 18:14:40 francis Exp $
 
 require 'digest/sha1'
 
@@ -140,6 +140,13 @@ class InfoRequest < ActiveRecord::Base
         info_request_event.params = params
         info_request_event.info_request = self
         info_request_event.save!
+    end
+
+    # Text from the the initial request, for use in summary display
+    def initial_request_text
+        excerpt = outgoing_messages[0].body
+        excerpt.sub!(/Dear .+,/, "")
+        return excerpt
     end
 end
 

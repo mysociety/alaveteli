@@ -2,10 +2,7 @@
 
 <h1><%=@title%></h1>
 
-<p>Freedom of Information requests made to this body:</p>
-<ul>
-<% for info_request in @public_body.info_requests %>
-<li><%= info_request_link(info_request) %></li>
-<% end %>
-</ul>
+<p class="subtitle">Recent Freedom of Information requests to this public body</p>
+
+<%= render :partial => 'request/request_listing', :locals => { :info_requests => @public_body.info_requests.sort { |a,b| b.created_at <=> a.created_at } } %>
 
