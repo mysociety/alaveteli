@@ -4,10 +4,11 @@
 
 <p>
 <% for column in InfoRequest.content_columns %>
-  <b><%= column.human_name %>:</b> <%=h @info_request.send(column.name) %>
+  <strong><%= column.human_name %>:</strong> <%=h @info_request.send(column.name) %>
   <br/>
 <% end %>
-<b>Public body:</b> <%=h @info_request.public_body.name %> <br>
+<strong>Public body:</strong> <%=h @info_request.public_body.name %> <br>
+<strong>Incoming email address:</strong> <%=h @info_request.incoming_email %> <br>
 </p>
 
 <%= link_to 'Public page', main_url(request_url(@info_request)) %>
