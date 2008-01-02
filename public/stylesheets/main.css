@@ -19,7 +19,7 @@ a:link {
 a:visited {
     color: #000099;
 }
-a:hover, a:active {
+a:active {
     color: #ff0000;
 }
 
@@ -244,8 +244,18 @@ table#list_requests .odd {
 .request_listing {
 }
 .request_listing_bottomline {
-    color: #888888;
+    color: #777777;
 }
+.request_listing_bottomline a:link {
+    color: #7777cc;
+}
+.request_listing_bottomline a:visited {
+    color: #551a8b;
+}
+.request_listing_bottomline a:active {
+    color: #ff0000;
+}
+
 
 /* /request - viewing requests */
 
