@@ -88,7 +88,9 @@ end
 ActionController::UrlWriter.default_url_options[:host] = MySociety::Config.get("DOMAIN", 'localhost:3000')
 
 # Monkeypatch! Set envelope from in ActionMailer. Code mostly taken from this
-# Rails patch, with addition of using mail.from for sendmail if sender not set.
+# Rails patch, with addition of using mail.from for sendmail if sender not set
+# (the patch does that only for SMTP, when it clearly should consistently do it
+# for both)
 #   http://dev.rubyonrails.org/attachment/ticket/7697/action_mailer_base_sender.diff
 # Which is part of this ticket:
 #   http://dev.rubyonrails.org/ticket/7697

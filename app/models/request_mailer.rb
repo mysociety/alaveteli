@@ -4,12 +4,13 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.13 2008-01-02 15:45:00 francis Exp $
+# $Id: request_mailer.rb,v 1.14 2008-01-03 18:21:30 francis Exp $
 
 class RequestMailer < ActionMailer::Base
 
     def initial_request(info_request, outgoing_message)
         @from = info_request.incoming_email
+        headers 'Sender' => info_request.envelope_email
         @recipients = info_request.recipient_email
         @subject    = 'Freedom of Information Request - ' + info_request.title
         @body       = {:info_request => info_request, :outgoing_message => outgoing_message,
@@ -48,20 +49,26 @@ class RequestMailer < ActionMailer::Base
 
     def receive(email, raw_email)
         # Find which info requests the email is for
-        info_requests = []
+        reply_info_requests = []
+        bounce_info_requests = []
         for address in (email.to || []) + (email.cc || [])
-            info_request = InfoRequest.find_by_incoming_email(address)
-            info_requests.push(info_request) if info_request
+            reply_info_request = InfoRequest.find_by_incoming_email(address)
+            reply_info_requests.push(reply_info_request) if reply_info_request
+            bounce_info_request = InfoRequest.find_by_envelope_email(address)
+            bounce_info_requests.push(bounce_info_request) if bounce_info_request
         end
 
         # Nothing found
-        if info_requests.size == 0
+        if reply_info_requests.size == 0 && bounce_info_requests.size == 0
             RequestMailer.deliver_bounced_message(email)
         end
 
         # Send the message to each request
-        for info_request in info_requests
-            info_request.receive(email, raw_email)
+        for reply_info_request in reply_info_requests
+            reply_info_request.receive(email, raw_email, false)
+        end
+        for bounce_info_request in bounce_info_requests
+            bounce_info_request.receive(email, raw_email, true)
         end
     end
 

@@ -9,6 +9,7 @@
 <% end %>
 <strong>Public body:</strong> <%=h @info_request.public_body.name %> <br>
 <strong>Incoming email address:</strong> <%=h @info_request.incoming_email %> <br>
+<strong>Envelope email address:</strong> <%=h @info_request.envelope_email %> <br>
 </p>
 
 <%= link_to 'Public page', main_url(request_url(@info_request)) %>

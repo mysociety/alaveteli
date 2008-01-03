@@ -17,7 +17,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.22 2008-01-02 20:13:01 francis Exp $
+# $Id: info_request.rb,v 1.23 2008-01-03 18:21:30 francis Exp $
 
 require 'digest/sha1'
 
@@ -34,16 +34,18 @@ class InfoRequest < ActiveRecord::Base
     has_many :incoming_messages
     has_many :info_request_events
 
+public
     # Email which public body should use to respond to request. This is in
     # the format PREFIXrequest-ID-HASH@DOMAIN. Here ID is the id of the 
     # FOI request, and HASH is a signature for that id.
     def incoming_email
-        raise "id required to make incoming_email" if not self.id
-        incoming_email = MySociety::Config.get("INCOMING_EMAIL_PREFIX", "") 
-        incoming_email += "request-" + self.id.to_s 
-        incoming_email += "-" + Digest::SHA1.hexdigest(self.id.to_s + MySociety::Config.get("INCOMING_EMAIL_SECRET", 'dummysecret'))[0,8]
-        incoming_email += "@" + MySociety::Config.get("INCOMING_EMAIL_DOMAIN", "localhost")
-        return incoming_email
+        return self.magic_email("request-")
+    end
+
+    # Modified version of incoming_email to use in the envelope from, for
+    # bounce messages.
+    def envelope_email
+        return self.magic_email("request-bounce-")
     end
 
     # Return info request corresponding to an incoming email address, or nil if
@@ -54,21 +56,24 @@ class InfoRequest < ActiveRecord::Base
         id = $1.to_i
         hash = $2
 
-        expected_hash = Digest::SHA1.hexdigest(id.to_s + MySociety::Config.get("INCOMING_EMAIL_SECRET", 'dummysecret'))[0,8]
-        #print "expected: " + expected_hash + "\nhash: " + hash + "\n"
-        if hash != expected_hash
-            return nil
-        else
-            return self.find(id)
-        end
+        return self.find_by_magic_email(id, hash)
+    end
+
+    def self.find_by_envelope_email(incoming_email)
+        incoming_email =~ /request-bounce-(\d+)-([a-z0-9]+)/
+        id = $1.to_i
+        hash = $2
+
+        return self.find_by_magic_email(id, hash)
     end
 
     # A new incoming email to this request
-    def receive(email, raw_email)
+    def receive(email, raw_email, is_bounce)
         incoming_message = IncomingMessage.new
         incoming_message.raw_data = raw_email
+        incoming_message.is_bounce = is_bounce
         incoming_message.info_request = self
-        incoming_message.save
+        incoming_message.save!
 
         RequestMailer.deliver_new_response(self, incoming_message)
     end
@@ -153,6 +158,31 @@ class InfoRequest < ActiveRecord::Base
         excerpt.sub!(/Dear .+,/, "")
         return excerpt
     end
+
+    protected
+
+    # Called by incoming_email and envelope_email
+    def magic_email(prefix_part)
+        raise "id required to make magic" if not self.id
+        magic_email = MySociety::Config.get("INCOMING_EMAIL_PREFIX", "") 
+        magic_email += prefix_part + self.id.to_s 
+        magic_email += "-" + Digest::SHA1.hexdigest(self.id.to_s + MySociety::Config.get("INCOMING_EMAIL_SECRET", 'dummysecret'))[0,8]
+        magic_email += "@" + MySociety::Config.get("INCOMING_EMAIL_DOMAIN", "localhost")
+        return magic_email
+    end
+
+    # Called by find_by_incoming_email and find_by_envelope_email
+    def self.find_by_magic_email(id, hash)
+        expected_hash = Digest::SHA1.hexdigest(id.to_s + MySociety::Config.get("INCOMING_EMAIL_SECRET", 'dummysecret'))[0,8]
+        #print "expected: " + expected_hash + "\nhash: " + hash + "\n"
+        if hash != expected_hash
+            return nil
+        else
+            return self.find(id)
+        end
+    end
+
+
 end
 
 

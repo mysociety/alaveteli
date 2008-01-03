@@ -13,6 +13,8 @@
     <%= public_body_link(@info_request.public_body) %>
     <% if incoming_message.contains_information %>
         sent some <strong>useful information</strong>
+    <% elsif incoming_message.is_bounce %>
+        replied automatically
     <% else %>
         replied 
     <% end %>

@@ -2,7 +2,7 @@
 # migrations feature of ActiveRecord to incrementally modify your database, and
 # then regenerate this schema definition.
 
-ActiveRecord::Schema.define(:version => 23) do
+ActiveRecord::Schema.define(:version => 24) do
 
   create_table "incoming_messages", :force => true do |t|
     t.column "info_request_id",      :integer
@@ -11,6 +11,7 @@ ActiveRecord::Schema.define(:version => 23) do
     t.column "updated_at",           :datetime
     t.column "user_classified",      :boolean,  :default => false
     t.column "contains_information", :boolean
+    t.column "is_bounce",            :boolean,  :default => false
   end
 
   create_table "info_request_events", :force => true do |t|

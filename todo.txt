@@ -19,13 +19,11 @@ BAILII - relationship with law courts, robots.txt ?
 Next
 ====
 
+Remove security warning from admin pages
+
 Make response messages go to a mailbox as backup
 Make it so if the pipe fails, exim tries again rather than sending an error to the public body.
     Or so errors go to an admin somehow, at the very least.
-
-Track bounce messages via a separate address
-    - just record if they are bounce, and any DSN, for now
-    - and say in display "automatic message"
 
 Either rotate log files, or merge with Apache ones
 
@@ -43,12 +41,10 @@ Remove "Outgoing messages is invalid" error
 Make it so "mysociety test" can be done on the servers, so it checks any packages are installed
  
 Add fixtures for info_request_event
+Test sending a message to bounce/envelope-from address
 
 Tidying
 =======
-
-Do we need to say to the public body "all responses will be published" from a
-privacy point of view?
 
 accept-charset="utf-8" on all forms - does it matter if Content-Type of whole
 page is already UTF-8?
@@ -61,9 +57,6 @@ http://localhost:3000/request/5
 Add SQL database indexes to token / email_token in post_redirects
 
 Prevent double posting of same request
-
-If summary is blank, says "title must be filled in" grrrr
-Tidy up error message text (like "body must be filled in") on info request form
 
 Set "null" and "default" options more in schema
 Add SQL foreign keys to database schema
@@ -87,10 +80,6 @@ Check act to see if can use pseudonym for FOI request?
  (e.g. somebody messaging creator of a request and it bouncing) where we
  may reasonably do this, and should say it may happen?
 
-Maybe we SHOULD reveal their email to the public body, why not?
-
-Say that we would like response by email (not postal address) in footer
-
 Later
 =====
 
@@ -107,9 +96,8 @@ Remember me box
     http://onrails.org/articles/2006/02/18/auto-login
 Forgotten password link
 
-Check these out for ids
+Screen scrape this and add link to it on the public body page
 http://www.ico.gov.uk/Home/tools_and_resources/decision_notices.aspx
-Screen scrape it and add it to the public body page
 
 (10:32:14) richard: you just need to count the number of rows of text and compare it to the number of rows in the textbox
 (10:32:29) richard: then increase the height of the textbox by 1em-ish
