@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user_controller.rb,v 1.21 2007-12-14 18:46:08 francis Exp $
+# $Id: user_controller.rb,v 1.22 2008-01-03 12:54:40 francis Exp $
 
 class UserController < ApplicationController
     # XXX See controllers/application.rb simplify_url_part for reverse of expression in SQL below
@@ -55,7 +55,7 @@ class UserController < ApplicationController
         else
             # New unconfirmed user
             @user_signup.email_confirmed = false
-            @user_signup.save
+            @user_signup.save!
 
             send_confirmation_mail @user_signup
             return
@@ -73,7 +73,7 @@ class UserController < ApplicationController
 
         @user = post_redirect.user
         @user.email_confirmed = true
-        @user.save
+        @user.save!
 
         session[:user_id] = @user.id
 

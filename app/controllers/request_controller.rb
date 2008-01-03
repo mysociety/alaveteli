@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.25 2008-01-02 20:29:38 francis Exp $
+# $Id: request_controller.rb,v 1.26 2008-01-03 12:54:40 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -50,7 +50,7 @@ class RequestController < ApplicationController
                 :email_subject => "Confirm that you want to send an FOI request to " + @info_request.public_body.name
             )
             @info_request.user = authenticated_user
-            @info_request.save
+            @info_request.save!
             @outgoing_message.send_message
             flash[:notice] = "Your Freedom of Information request has been created and sent on its way."
             redirect_to show_request_url(:id => @info_request)
@@ -78,7 +78,7 @@ class RequestController < ApplicationController
             contains_information = (params[:incoming_message][:contains_information] == 'true' ? true : false)
             @incoming_message.contains_information = contains_information
             @incoming_message.user_classified = true
-            @incoming_message.save
+            @incoming_message.save!
             flash[:notice] = "Thank you for classifying the response."
             redirect_to show_request_url(:id => @info_request)
             return
