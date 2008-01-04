@@ -38,8 +38,6 @@ Test sending a message to bounce/envelope-from address
 
 Remove "Outgoing messages is invalid" error
 
-Make it so "mysociety test" can be done on the servers, so it checks any packages are installed
- 
 
 Tidying
 =======
