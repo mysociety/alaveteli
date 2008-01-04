@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.27 2008-01-04 10:56:22 francis Exp $
+# $Id: request_controller.rb,v 1.28 2008-01-04 15:12:32 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -23,15 +23,16 @@ class RequestController < ApplicationController
     def frontpage
     end
 
-    # Form for creating new request
-    def new
-        # Read parameters in - public body can be passed from front page
-        @info_request = InfoRequest.new(params[:info_request])
-        @outgoing_message = OutgoingMessage.new(params[:outgoing_message])
-    end
-
     # Page new form posts to
-    def create
+    def new
+        if params[:info_request].nil? || params[:outgoing_message].nil?
+            # Read parameters in - public body can be passed from front page
+            @info_request = InfoRequest.new(params[:info_request])
+            @outgoing_message = OutgoingMessage.new(params[:outgoing_message])
+            render :action => 'new'
+            return
+        end
+
         # See if the exact same request has already been submitted
         # XXX this *should* also check outgoing message joined to is an initial request (rather than follow up)
         # XXX this check could go in the model, except we really want to pass @existing_request to the view so it can link to it.
