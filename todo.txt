@@ -40,9 +40,6 @@ Test sending a message to bounce/envelope-from address
 Tidying
 =======
 
-accept-charset="utf-8" on all forms - does it matter if Content-Type of whole
-page is already UTF-8?
-
 Use working days
 
 Bubbles don't validate

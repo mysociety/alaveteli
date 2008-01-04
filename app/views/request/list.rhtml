@@ -4,3 +4,4 @@
 
 <%= render :partial => 'request_listing', :locals => { :info_requests => @info_requests } %>
 
+<%= will_paginate(@info_requests) %>
