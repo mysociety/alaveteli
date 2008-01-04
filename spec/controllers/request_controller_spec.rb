@@ -87,7 +87,7 @@ end
 
 describe RequestController, "when creating a new request" do
     integrate_views
-    fixtures :info_requests, :public_bodies, :users
+    fixtures :info_requests, :outgoing_messages, :public_bodies, :users
 
     it "should render with 'new' template" do
         get :new
@@ -135,6 +135,13 @@ describe RequestController, "when creating a new request" do
         om = ir.outgoing_messages[0]
         om.body.should == "This is a silly letter. It is too short to be interesting."
         response.should redirect_to(:controller => 'request', :action => 'show', :id => ir.id)
+    end
+
+    it "should give an error if the same request is submitted twice" do
+        post :create, :info_request => { :public_body_id => info_requests(:fancy_dog_request).public_body_id, 
+            :title => info_requests(:fancy_dog_request).title},
+            :outgoing_message => { :body => info_requests(:fancy_dog_request).outgoing_messages[0].body}  
+        response.should render_template('new')
     end
 end
 

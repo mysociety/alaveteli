@@ -1,5 +1,16 @@
 <% @title = "New FOI request" %>
 
+<% if @existing_request %>
+    <div class="errorExplanation" id="errorExplanation"><ul>
+    <li>
+    <%= user_or_you_capital_link(@existing_request.user) %> already
+    created the same request on <%=simple_date(@existing_request.created_at)%>.
+    You can either view the <a href="<%=request_url(@existing_request)%>">existing request</a>,
+    or edit the details below to make a new but similar request.
+    </li>
+    </ul></div>
+<% end %>
+
 <%= foi_error_messages_for :info_request, :outgoing_message %>
 
 <% form_for(:info_request, @info_request, :url => { :action => :create }, :html => { :id => 'writeForm' }  ) do |f| %>

@@ -25,8 +25,6 @@ Make response messages go to a mailbox as backup
 Make it so if the pipe fails, exim tries again rather than sending an error to the public body.
     Or so errors go to an admin somehow, at the very least.
 
-Either rotate log files, or merge with Apache ones
-
 Let requester send follow-ups - but to which email address???!! aargh
 Do something after 20 working days if you get no response
     display the working days correctly
@@ -35,13 +33,13 @@ Work out how to get it to tell you code coverage of .rhtml files
 Make it validate the HTML
     maybe with http://www.anodyne.ca/wp-content/uploads/2007/09/be_valid_xhtml.rb
 Test that it is actually sending the request outgoing mail, by using deliveries
+Add fixtures for info_request_event
+Test sending a message to bounce/envelope-from address
 
 Remove "Outgoing messages is invalid" error
 
 Make it so "mysociety test" can be done on the servers, so it checks any packages are installed
  
-Add fixtures for info_request_event
-Test sending a message to bounce/envelope-from address
 
 Tidying
 =======
@@ -56,8 +54,6 @@ http://localhost:3000/request/5
 
 Add SQL database indexes to token / email_token in post_redirects
 
-Prevent double posting of same request
-
 Set "null" and "default" options more in schema
 Add SQL foreign keys to database schema
     execute 'ALTER TABLE researchers ADD CONSTRAINT fk_researchers_departments FOREIGN KEY ( department_id ) REFERENCES departments( id ) '
@@ -71,6 +67,8 @@ Do pretty error messages, e.g. on invalid public body name page etc.
 
 404s on all invalid URL parameters
 Hook global error message also
+
+Check log rotation is working well
 
 Legal/privacy
 =============
@@ -114,6 +112,8 @@ http://www.mysociety.org/2006/04/04/freedom-of-information-archive/
 
 Check FOE site lots
 http://community.foe.co.uk/tools/right_to_know/request_generator.html
+It has email addresses of lots of bodies, e.g.
+http://community.foe.co.uk/app/tc
 
 Look at this basic US site
 http://www.rcfp.org/foi_letter/generate.php

@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.26 2008-01-03 12:54:40 francis Exp $
+# $Id: request_controller.rb,v 1.27 2008-01-04 10:56:22 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -32,6 +32,13 @@ class RequestController < ApplicationController
 
     # Page new form posts to
     def create
+        # See if the exact same request has already been submitted
+        # XXX this *should* also check outgoing message joined to is an initial request (rather than follow up)
+        # XXX this check could go in the model, except we really want to pass @existing_request to the view so it can link to it.
+        # XXX could have a date range here, so say only check last month's worth of new requests. If somebody is making
+        # repeated requests, say once a quarter for time information, then might need to do that.
+        @existing_request = InfoRequest.find(:first, :conditions => [ 'title = ? and public_body_id = ? and outgoing_messages.body = ?', params[:info_request][:title], params[:info_request][:public_body_id], params[:outgoing_message][:body] ], :include => [ :outgoing_messages ] )
+
         # Create both FOI request and the first request message
         @info_request = InfoRequest.new(params[:info_request])
         @outgoing_message = OutgoingMessage.new(params[:outgoing_message].merge({ 
@@ -41,8 +48,8 @@ class RequestController < ApplicationController
         @info_request.outgoing_messages << @outgoing_message
         @outgoing_message.info_request = @info_request
 
-        # This automatically saves dependent objects, such as @info_request, in the same transaction
-        if not @info_request.valid?
+        # See if values were valid or not
+        if !@existing_request.nil? || !@info_request.valid?
             render :action => 'new'
         elsif authenticated?(
                 :web => "To send your FOI request",
@@ -50,6 +57,7 @@ class RequestController < ApplicationController
                 :email_subject => "Confirm that you want to send an FOI request to " + @info_request.public_body.name
             )
             @info_request.user = authenticated_user
+            # This automatically saves dependent objects, such as @outgoing_message, in the same transaction
             @info_request.save!
             @outgoing_message.send_message
             flash[:notice] = "Your Freedom of Information request has been created and sent on its way."
