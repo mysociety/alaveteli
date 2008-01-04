@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.29 2008-01-04 15:27:18 francis Exp $
+# $Id: request_controller.rb,v 1.30 2008-01-04 16:15:40 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -25,7 +25,7 @@ class RequestController < ApplicationController
 
     # Page new form posts to
     def new
-        # First time we get to the page, not everything is filled in
+        # First time we get to the page, just display it
         if params[:submitted_new_request].nil?
             # Read parameters in - public body can be passed from front page
             @info_request = InfoRequest.new(params[:info_request])
@@ -52,6 +52,9 @@ class RequestController < ApplicationController
 
         # See if values were valid or not
         if !@existing_request.nil? || !@info_request.valid?
+            # We don't want the error "Outgoing messages is invalid", as the outgoing message
+            # will be valid for a specific reason which we are displaying anyway.
+            @info_request.errors.delete("outgoing_messages")
             render :action => 'new'
         elsif authenticated?(
                 :web => "To send your FOI request",
