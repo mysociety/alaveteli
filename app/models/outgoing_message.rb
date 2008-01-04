@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 22
+# Schema version: 24
 #
 # Table name: outgoing_messages
 #
@@ -10,7 +10,7 @@
 #  message_type    :string(255)     
 #  created_at      :datetime        
 #  updated_at      :datetime        
-#  sent_at         :datetime        
+#  last_sent_at    :datetime        
 #
 
 # models/outgoing_message.rb:
@@ -20,7 +20,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: outgoing_message.rb,v 1.17 2008-01-02 20:13:01 francis Exp $
+# $Id: outgoing_message.rb,v 1.18 2008-01-04 11:19:18 francis Exp $
 
 class OutgoingMessage < ActiveRecord::Base
     belongs_to :info_request

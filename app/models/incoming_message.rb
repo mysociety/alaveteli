@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 22
+# Schema version: 24
 #
 # Table name: incoming_messages
 #
@@ -10,6 +10,7 @@
 #  updated_at           :datetime        
 #  user_classified      :boolean         
 #  contains_information :boolean         
+#  is_bounce            :boolean         
 #
 
 # models/incoming_message.rb:
@@ -19,7 +20,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.23 2008-01-03 18:21:30 francis Exp $
+# $Id: incoming_message.rb,v 1.24 2008-01-04 11:19:18 francis Exp $
 
 class IncomingMessage < ActiveRecord::Base
     belongs_to :info_request
