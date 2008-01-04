@@ -101,16 +101,17 @@ describe RequestController, "when creating a new request" do
     end
 
     it "should give an error and render 'new' template when a summary isn't given" do
-        post :new, :info_request => { :public_body_id => public_bodies(:geraldine_public_body).id
-            },
-            :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." }
+        post :new, :info_request => { :public_body_id => public_bodies(:geraldine_public_body).id },
+            :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." },
+            :submitted_new_request => 1
         response.should render_template('new')
     end
 
     it "should redirect to sign in page when input is good and nobody is logged in" do
         params = { :info_request => { :public_body_id => public_bodies(:geraldine_public_body).id, 
             :title => "Why is your quango called Geraldine?"},
-            :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." } 
+            :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." },
+            :submitted_new_request => 1
         }
         post :new, params
         # XXX yeuch - no other easy way of getting the token so we can check
@@ -127,7 +128,8 @@ describe RequestController, "when creating a new request" do
         session[:user_id] = users(:bob_smith_user).id
         post :new, :info_request => { :public_body_id => public_bodies(:geraldine_public_body).id, 
             :title => "Why is your quango called Geraldine?"},
-            :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." }  
+            :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." },
+            :submitted_new_request => 1
         ir_array = InfoRequest.find(:all, :conditions => ["title = ?", "Why is your quango called Geraldine?"])
         ir_array.size.should == 1
         ir = ir_array[0]
@@ -140,7 +142,8 @@ describe RequestController, "when creating a new request" do
     it "should give an error if the same request is submitted twice" do
         post :new, :info_request => { :public_body_id => info_requests(:fancy_dog_request).public_body_id, 
             :title => info_requests(:fancy_dog_request).title},
-            :outgoing_message => { :body => info_requests(:fancy_dog_request).outgoing_messages[0].body}  
+            :outgoing_message => { :body => info_requests(:fancy_dog_request).outgoing_messages[0].body},
+            :submitted_new_request => 1
         response.should render_template('new')
     end
 end
