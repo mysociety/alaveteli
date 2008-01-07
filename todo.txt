@@ -19,6 +19,8 @@ BAILII - relationship with law courts, robots.txt ?
 Next
 ====
 
+Test it works if exim is down - e.g. not accepting connections
+
 Remove security warning from admin pages
 
 Make response messages go to a mailbox as backup
@@ -39,6 +41,11 @@ Test sending a message to bounce/envelope-from address
 
 Tidying
 =======
+
+Set From: to have name of user, and set To: to have name of body etc. for all mails
+
+Add display of users to admin interface (so can find their email address out)
+Link internally between different bits of admin interface
 
 Use working days
 
@@ -73,6 +80,9 @@ Check act to see if can use pseudonym for FOI request?
 
 Later
 =====
+
+Synthesise these tips into 4 snappy bullet points
+http://community.foe.co.uk/tools/right_to_know/tips.html
 
 Change to Rails 2, may as well do it now rather than later.
 

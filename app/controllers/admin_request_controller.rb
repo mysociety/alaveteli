@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_request_controller.rb,v 1.1 2007-12-17 00:34:55 francis Exp $
+# $Id: admin_request_controller.rb,v 1.2 2008-01-07 13:26:46 francis Exp $
 
 class AdminRequestController < ApplicationController
     layout "admin"
@@ -29,10 +29,21 @@ class AdminRequestController < ApplicationController
         redirect_to admin_url('request/show/' + @outgoing_message.info_request.id.to_s)
     end
 
-#    def destroy
-#        InfoRequest.find(params[:id]).destroy
-#        redirect_to admin_url('request/list')
-#    end
+    def edit_outgoing
+        @outgoing_message = OutgoingMessage.find(params[:id])
+    end
+
+    def update_outgoing
+        @outgoing_message = OutgoingMessage.find(params[:id])
+        old_body = @outgoing_message.body
+        if @outgoing_message.update_attributes(params[:outgoing_message])
+            @outgoing_message.info_request.log_event("edit_outgoing", { :outgoing_message_id => @outgoing_message.id, :editor => admin_http_auth_user(), :old_body => old_body, :body => @outgoing_message.body })
+            flash[:notice] = 'OutgoingMessage was successfully updated.'
+            redirect_to admin_url('request/show/' + @outgoing_message.info_request.id.to_s)
+        else
+            render :action => 'edit_outgoing'
+        end
+    end 
 
     private
 
