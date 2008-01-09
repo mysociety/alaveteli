@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.32 2008-01-09 19:34:07 francis Exp $
+# $Id: request_controller.rb,v 1.33 2008-01-09 19:46:26 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -83,16 +83,16 @@ class RequestController < ApplicationController
             raise sprintf("Incoming message %d does not belong to request %d", @incoming_message.info_request_id, params[:id])
         end
 
-        if not authenticated_as_user?(@info_request.user,
-                :web => "To view and classify the response to this FOI request",
-                :email => "Then you can classify the FOI response you have got from " + @info_request.public_body.name + ".",
-                :email_subject => "Classify a response from " + @info_request.public_body.name + " to your FOI request"
-            )
-            return
-            # do nothing - as "authenticated?" has done the redirect to signin page for us
-        end
-
         if params[:incoming_message]
+            if not authenticated_as_user?(@info_request.user,
+                    :web => "To view and classify the response to this FOI request",
+                    :email => "Then you can classify the FOI response you have got from " + @info_request.public_body.name + ".",
+                    :email_subject => "Classify a response from " + @info_request.public_body.name + " to your FOI request"
+                )
+                return
+                # do nothing - as "authenticated?" has done the redirect to signin page for us
+            end
+
             contains_information = (params[:incoming_message][:contains_information] == 'true' ? true : false)
             @incoming_message.contains_information = contains_information
             @incoming_message.user_classified = true
