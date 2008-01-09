@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.34 2008-01-09 19:56:01 francis Exp $
+# $Id: request_controller.rb,v 1.35 2008-01-09 19:56:41 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -78,7 +78,7 @@ class RequestController < ApplicationController
         @incoming_message = IncomingMessage.find(params[:incoming_message_id])
         @info_request = @incoming_message.info_request
         @collapse_quotes = params[:unfold] ? false : true
-        @is_owning_user = !authenticated_user.nil? && authenticated_user.id == info_request.user_id
+        @is_owning_user = !authenticated_user.nil? && authenticated_user.id == @info_request.user_id
 
         if @incoming_message.info_request_id != params[:id].to_i
             raise sprintf("Incoming message %d does not belong to request %d", @incoming_message.info_request_id, params[:id])
