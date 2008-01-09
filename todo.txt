@@ -19,9 +19,6 @@ BAILII - relationship with law courts, robots.txt ?
 Next
 ====
 
-Do something about /classify links - so if you send them to another user can still view
-    e.g. http://foi.mysociety.org/classify/12?post_redirect=1
-
 Let requester send follow-ups - but to which email address???!! aargh
 Alert somewhere if working days table not up to date
 
