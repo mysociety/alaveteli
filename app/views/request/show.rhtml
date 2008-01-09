@@ -11,11 +11,13 @@
 
     <p id="request_status">
     <% if @status == 'awaiting' %>
-        Currently <strong>waiting for a response</strong> from <%= public_body_link(@info_request.public_body) %>
+        Currently <strong>waiting for a response</strong> from <%= public_body_link(@info_request.public_body) %>.
+        Response must be made by <strong><%= simple_date(@date_response_required_by) %></strong>.
     <% elsif @status == 'overdue' %>
         Currently <strong>overdue a response</strong> from <%=
-        public_body_link(@info_request.public_body) %>.  Under section blah of the
-        Freedom of Information Act 2000 responses must be made within 20 working days.
+        public_body_link(@info_request.public_body) %>. The 
+        <%= link_to "response was due", about_url %></li>
+        on <strong><%= simple_date(@date_response_required_by) %></strong>.
     <% elsif @status == 'information' %>
         The request was at least partly <strong>successful</strong>.
     <% elsif @status == 'none' %>

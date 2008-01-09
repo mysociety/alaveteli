@@ -17,7 +17,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.24 2008-01-04 11:19:18 francis Exp $
+# $Id: info_request.rb,v 1.25 2008-01-09 15:35:40 francis Exp $
 
 require 'digest/sha1'
 
@@ -94,16 +94,12 @@ public
         end
 
         # See if response would be overdue 
-        overdue = false
-        # XXX if a second outgoing message is really a new request, then this
-        # is no good
-        # We use the last_sent_at date for each outgoing message, as fair
-        # enough if the first email bounced or something and it got recent.
-        earliest_sent = self.outgoing_messages.map { |om| om.last_sent_at }.min
-        time_left = Time.now - earliest_sent
-        # XXX use working days 
-        if time_left > 20.days
+        date_today = Time.now.strftime("%Y-%m-%d")
+        date_response = date_response_required_by.strftime("%Y-%m-%d")
+        if date_today > date_response
             overdue = true
+        else
+            overdue = false
         end
 
         # Return appropriate status string
@@ -122,6 +118,60 @@ public
         else
             return "none"
         end
+    end
+
+    # Calculate date by which response is required by law.
+    #
+    #   ... "working day” means any day other than a Saturday, a Sunday, Christmas
+    #   Day, Good Friday or a day which is a bank holiday under the [1971 c. 80.]
+    #   Banking and Financial Dealings Act 1971 in any part of the United Kingdom.
+    #
+    # Freedom of Information Act 2000 section 10
+    #
+    # XXX how do we cope with case where extra info was required from the requester
+    # by the public body in order to fulfill the request, as per sections 1(3) and 10(6b) ?
+    def date_response_required_by
+        # We use the last_sent_at date for each outgoing message, as fair
+        # enough if the first email bounced or something and it got recent.
+        # XXX if a second outgoing message is really a new request, then this
+        # is no good. Likewise, a second outgoing message may contain
+        # clarifications asked for by the public body, and so reset things.
+        # Possibly just show 20 working days since the *last* message? Hmmm.
+        earliest_sent = self.outgoing_messages.map { |om| om.last_sent_at }.min
+
+        days_passed = 0
+        response_required_by = earliest_sent
+        while days_passed < 20
+            response_required_by = response_required_by + 1.day
+            if response_required_by.wday == 0 || response_required_by.wday == 6
+                # not working day, as weekend
+            elsif [
+                # Union of holidays from these places:
+                #   http://www.dti.gov.uk/employment/bank-public-holidays/
+                #   http://www.scotland.gov.uk/Publications/2005/01/bankholidays
+
+                '2007-11-30', '2007-12-25', '2007-12-26',
+
+                '2008-01-01', '2008-01-02', '2008-03-17', '2008-03-21', '2008-03-24', '2008-05-05', 
+                '2008-05-26', '2008-07-14', '2008-08-04', '2008-08-25', '2008-12-01', '2008-12-25', '2008-12-26',
+
+                '2009-01-01', '2009-01-02', '2009-03-17', '2009-04-10', '2009-04-13', '2009-05-04',
+                '2009-05-25', '2009-07-13', '2009-08-03', '2009-08-31', '2009-11-30', '2009-12-25', '2009-12-28',
+
+                '2010-01-01', '2010-01-04', '2010-03-17', '2010-04-02', '2010-04-05', '2010-05-03', 
+                '2010-05-31', '2010-07-12', '2010-08-02', '2010-08-30', '2010-11-30', '2010-12-27', '2010-12-28'
+
+
+                ].include?(response_required_by.strftime('%Y-%m-%d'))
+                # bank holiday
+            else
+                days_passed = days_passed + 1
+            end
+        end
+
+        # XXX and give until the end of that 20th working day
+        
+        return response_required_by
     end
 
     # Return array of unclassified responses

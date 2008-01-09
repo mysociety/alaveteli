@@ -19,6 +19,13 @@ BAILII - relationship with law courts, robots.txt ?
 Next
 ====
 
+Do something about /classify links - so if you send them to another user can still view
+    e.g. http://foi.mysociety.org/classify/12?post_redirect=1
+    Consider renaming them
+
+Let requester send follow-ups - but to which email address???!! aargh
+Alert somewhere if working days table not up to date
+
 Test it works if exim is down - e.g. not accepting connections
 
 Remove security warning from admin pages
@@ -26,10 +33,6 @@ Remove security warning from admin pages
 Make response messages go to a mailbox as backup
 Make it so if the pipe fails, exim tries again rather than sending an error to the public body.
     Or so errors go to an admin somehow, at the very least.
-
-Let requester send follow-ups - but to which email address???!! aargh
-Do something after 20 working days if you get no response
-    display the working days correctly
 
 Work out how to get it to tell you code coverage of .rhtml files
 Make it validate the HTML
@@ -85,6 +88,7 @@ Synthesise these tips into 4 snappy bullet points
 http://community.foe.co.uk/tools/right_to_know/tips.html
 
 Change to Rails 2, may as well do it now rather than later.
+http://www.slashdotdash.net/articles/2007/12/03/rails-2-upgrade-notes
 
 Show public body email address on their public page, with a link to say "this isn't right!"
 

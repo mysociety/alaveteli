@@ -211,7 +211,6 @@ div.fieldWithErrors { display:inline; }
     float: right;
 }
 
-
 /* /new - submitting requests */
 
 #writeForm {
@@ -288,6 +287,12 @@ table#list_requests .odd {
     width: 60%;
 }
 
+/* / - about page */
+
+dt {
+    font-weight: bold;
+    margin-top: 0.5em;
+}
 
 /* User accounts */
 
