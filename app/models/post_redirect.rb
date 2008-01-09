@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: post_redirect.rb,v 1.9 2008-01-04 11:19:18 francis Exp $
+# $Id: post_redirect.rb,v 1.10 2008-01-09 17:47:31 francis Exp $
 
 require 'openssl' # for random bytes function
 
@@ -68,6 +68,16 @@ class PostRedirect < ActiveRecord::Base
         if not self.email_token
             self.email_token = PostRedirect.generate_random_token
         end
+    end
+
+    # Used by test code
+    def self.get_last_post_redirect
+        # XXX yeuch - no other easy way of getting the token so we can check
+        # the redirect URL, as it is by definition opaque to the controller
+        # apart from in the place that it redirects to.
+        post_redirects = PostRedirect.find_by_sql("select * from post_redirects order by id desc limit 1")
+        post_redirects.size.should == 1
+        return post_redirects[0]
     end
 
 end

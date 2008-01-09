@@ -6,7 +6,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: application.rb,v 1.24 2007-11-19 12:36:57 francis Exp $
+# $Id: application.rb,v 1.25 2008-01-09 17:47:31 francis Exp $
 
 
 class ApplicationController < ActionController::Base
@@ -40,7 +40,8 @@ class ApplicationController < ActionController::Base
             else
                 # They are already logged in, but as the wrong user
                 @reason_params = reason_params
-                render 'user/wrong_user'
+                render :template => 'user/wrong_user'
+                return
             end
         end
         # They are not logged in at all
