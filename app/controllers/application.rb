@@ -6,7 +6,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: application.rb,v 1.25 2008-01-09 17:47:31 francis Exp $
+# $Id: application.rb,v 1.26 2008-01-09 19:56:01 francis Exp $
 
 
 class ApplicationController < ActionController::Base
@@ -50,7 +50,11 @@ class ApplicationController < ActionController::Base
 
     # Return logged in user
     def authenticated_user
-        return User.find(session[:user_id])
+        if session[:user_id].nil?
+            return nil
+        else
+            return User.find(session[:user_id])
+        end
     end
 
     # Do a POST redirect. This is a nasty hack - we store the posted values in
