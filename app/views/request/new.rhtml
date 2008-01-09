@@ -15,8 +15,23 @@
 
 <% form_for(:info_request, @info_request, :html => { :id => 'writeForm' }  ) do |f| %>
     
-    <label class="form_label" for="heading">&nbsp;</label>
-    <h1>New public Freedom of Information request</h1>
+    <div id="request_advice">
+    <h1>Read this before writing your Freedom of Information request</h1>
+    <ul>
+    <li>Use a <strong>search engine first</strong> to check that the information isn't already published.
+    </li>
+    <li>Write your request in <strong>simple, precise language</strong>.
+    <li>Browse <%= link_to "other requests", request_list_url %> for examples of how to word your request.
+    </li>
+    <li>Keep it <strong>focussed</strong>, if you ask for everything it might cost too much
+    and you might get nothing.
+    </li>
+    <li>Top tip: Ask for a <strong>particular document</strong> you have seen mentioned elsewhere.
+    </li>
+    <li>This site is <strong>public</strong>, everything you type (except your email address) and any response will be published.
+    </li>
+    </ul>
+    </div>
 
     <p>
         <label class="form_label" for="public_body_id">Public body:</label>
@@ -38,7 +53,7 @@
 
     <% fields_for :outgoing_message do |o| %>
     <p>
-        <label class="form_label" for="outgoing_message_body">Your letter:</label> 
+        <label class="form_label" for="outgoing_message_body">Your request:</label> 
         <%= o.text_area :body, :rows => 20, :cols => 60 %>
     </p>
     <% end %>
@@ -51,7 +66,7 @@
 
     <div class="form_button">
     <%= hidden_field_tag(:submitted_new_request, { :value => 1 } ) %>
-    <%= submit_tag "Create public request >>" %>
+    <%= submit_tag "Make public Freedom of Information request >>" %>
     </div>
 
   </div>

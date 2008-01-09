@@ -145,6 +145,7 @@ select, input, textarea {
     text-align: right;
     padding-right: 0.5em;
     margin-bottom: 0.5em;
+    font-weight: bold;
 }
 .form_label {
     width: 16em;
@@ -224,6 +225,10 @@ div.fieldWithErrors { display:inline; }
 
 #writeForm #message_part {
     float: right;
+}
+
+#request_advice {
+    margin-left: 12em;
 }
 
 /* /list - browsing requests */
