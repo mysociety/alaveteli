@@ -20,7 +20,7 @@
     <% end %>
     on <strong><%= simple_date(incoming_message.sent_at) %></strong>
     <% if not incoming_message.user_classified %>
-        &mdash; please <%= link_to "classify this response", classify_request_url(:incoming_message_id => incoming_message.id) %>
+        &mdash; please <%= link_to "classify this response", show_response_url(:id => incoming_message.info_request.id, :incoming_message_id => incoming_message.id) %>
     <% end %>
     </p>
 <% elsif (correspondence.class.to_s == 'InfoRequestEvent') 

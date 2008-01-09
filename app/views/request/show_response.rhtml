@@ -1,15 +1,15 @@
-<% @title = "Classify FOI response" %>
+<% @title = "View and classify FOI response" %>
 
 <%= foi_error_messages_for :incoming_message %>
 
-<div id="classify_view">
+<div id="show_response_view">
 <h2>New response to your request '<%= request_link @info_request %>'</h2>
 
 <%= render :partial => 'correspondence', :locals => { :correspondence => @incoming_message } %>
 </div>
 
 <% if not @incoming_message.user_classified %>
-    <div id="classify_action">
+    <div id="show_response_classify_action">
         <%= render :partial => 'classify' %>
     <div>
 <% end %>

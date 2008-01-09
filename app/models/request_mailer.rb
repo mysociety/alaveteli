@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.14 2008-01-03 18:21:30 francis Exp $
+# $Id: request_mailer.rb,v 1.15 2008-01-09 19:34:07 francis Exp $
 
 class RequestMailer < ActionMailer::Base
 
@@ -26,7 +26,7 @@ class RequestMailer < ActionMailer::Base
 
     def new_response(info_request, incoming_message)
         post_redirect = PostRedirect.new(
-            :uri => classify_request_url(:incoming_message_id => incoming_message.id),
+            :uri => show_response_url(:id => info_request.id, :incoming_message_id => incoming_message.id),
             :user_id => info_request.user.id)
         post_redirect.save!
         url = confirm_url(:email_token => post_redirect.email_token)

@@ -148,21 +148,21 @@ describe RequestController, "when viewing an individual response" do
     fixtures :info_requests, :public_bodies, :users, :incoming_messages, :outgoing_messages # all needed as integrating views
   
     it "should require login if not logged in" do
-        get :classify, :incoming_message_id => 1
+        get :show_response, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message)
         post_redirect = PostRedirect.get_last_post_redirect
         response.should redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
     end
 
     it "should say you are the wrong user if logged in as wrong user" do
         session[:user_id] = users(:silly_name_user).id
-        get :classify, :incoming_message_id => 1
+        get :show_response, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message)
         response.should render_template('user/wrong_user')
     end
 
     it "should show classification page if logged in as user controlling request" do
         session[:user_id] = users(:bob_smith_user).id
-        get :classify, :incoming_message_id => 1
-        response.should render_template('classify')
+        get :show_response, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message)
+        response.should render_template('show_response')
     end
 end
 
@@ -171,21 +171,21 @@ describe RequestController, "when classifying an individual response" do
     fixtures :info_requests, :public_bodies, :users, :incoming_messages, :outgoing_messages # all needed as integrating views
 
     it "should require login" do
-        post :classify, :incoming_message => { :contains_information => true }, :incoming_message_id => incoming_messages(:useless_incoming_message)
+        post :show_response, :incoming_message => { :contains_information => true }, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message)
         post_redirect = PostRedirect.get_last_post_redirect
         response.should redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
     end
 
     it "should not classify response if logged in as wrong user" do
         session[:user_id] = users(:silly_name_user).id
-        post :classify, :incoming_message => { :contains_information => true }, :incoming_message_id => incoming_messages(:useless_incoming_message)
+        post :show_response, :incoming_message => { :contains_information => true }, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message)
         response.should render_template('user/wrong_user')
     end
 
     it "should successfully classify response if logged in as user controlling request" do
         incoming_messages(:useless_incoming_message).user_classified.should == false
         session[:user_id] = users(:bob_smith_user).id
-        post :classify, :incoming_message => { :contains_information => true }, :incoming_message_id => incoming_messages(:useless_incoming_message)
+        post :show_response, :incoming_message => { :contains_information => true }, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message)
         response.should redirect_to(:controller => 'request', :action => 'show', :id => info_requests(:fancy_dog_request))
         incoming_messages(:useless_incoming_message).reload
         incoming_messages(:useless_incoming_message).user_classified.should == true

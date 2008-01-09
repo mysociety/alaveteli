@@ -280,14 +280,14 @@ table#list_requests .odd {
     display: none;
 }
 
-/* /classify - classifying requests */
+/* /show_response - viewing and classifying individual responses */
 
-#classify_action {
+#show_response_classify_action {
     float: left;
     width: 35%;
 }
 
-#classify_view {
+#show_response_view {
     float: right;
     width: 60%;
 }

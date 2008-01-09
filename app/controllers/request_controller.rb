@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.31 2008-01-09 15:35:40 francis Exp $
+# $Id: request_controller.rb,v 1.32 2008-01-09 19:34:07 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -73,11 +73,15 @@ class RequestController < ApplicationController
         end
     end
 
-    # Did the incoming message contain info?
-    def classify
+    # Show an individual incoming message, and let the user classify it.
+    def show_response
         @incoming_message = IncomingMessage.find(params[:incoming_message_id])
         @info_request = @incoming_message.info_request
         @collapse_quotes = params[:unfold] ? false : true
+
+        if @incoming_message.info_request_id != params[:id].to_i
+            raise sprintf("Incoming message %d does not belong to request %d", @incoming_message.info_request_id, params[:id])
+        end
 
         if not authenticated_as_user?(@info_request.user,
                 :web => "To view and classify the response to this FOI request",
