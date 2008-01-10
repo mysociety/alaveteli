@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: outgoing_message.rb,v 1.20 2008-01-10 18:12:10 francis Exp $
+# $Id: outgoing_message.rb,v 1.21 2008-01-10 19:59:33 francis Exp $
 
 class OutgoingMessage < ActiveRecord::Base
     belongs_to :info_request
@@ -110,15 +110,23 @@ class OutgoingMessage < ActiveRecord::Base
         end
     end
 
+    # Returns the text to quote the original message when sending this one
+    def get_quoted_part_of_followup
+        if self.message_type == 'followup' && !self.incoming_message_followup.nil?
+            return "\n\n-----Original Message-----\n\n" + self.incoming_message_followup.get_body_for_quoting + "\n"
+        else
+            return ""
+        end
+    end
+
     # Return body for display as HTML
-    def get_body_for_display
+    def get_body_for_html_display
         text = body
         text = MySociety::Format.make_clickable(text, :contract => 1)
         text = text.gsub(/\n/, '<br>')
 
         return text
     end
-
 
 end
 

@@ -20,7 +20,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.26 2008-01-10 01:13:28 francis Exp $
+# $Id: incoming_message.rb,v 1.27 2008-01-10 19:59:33 francis Exp $
 
 class IncomingMessage < ActiveRecord::Base
     belongs_to :info_request
@@ -48,6 +48,23 @@ class IncomingMessage < ActiveRecord::Base
         self.mail.date || self.created_at
     end
 
+    # Converts email addresses we know about into textual descriptions of them
+    def mask_special_emails(text)
+        # XXX can later display some of these special emails as actual emails,
+        # if they are public anyway.  For now just be precautionary and only
+        # put in descriptions of them in square brackets.
+        if not self.info_request.public_body.request_email.empty?
+            text = text.gsub(self.info_request.public_body.request_email, "[" + self.info_request.public_body.short_name + " request email]")
+        end
+        if not self.info_request.public_body.complaint_email.empty?
+            text = text.gsub(self.info_request.public_body.complaint_email, "[" + self.info_request.public_body.short_name + " complaint email]")
+        end
+        text = text.gsub(self.info_request.incoming_email, "[FOI #" + self.info_request.id.to_s + " email]")
+        text = text.gsub(self.info_request.envelope_email, "[FOI #" + self.info_request.id.to_s + " bounce email]")
+        text = text.gsub(MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost'), "[GovernmentSpy contact email]")
+        return text
+    end
+
     # Remove email addresses from text (mainly to reduce spam - particularly
     # we want to stop spam to our own magic archiving request-* addresses,
     # which would otherwise appear a lot in bounce messages and reply quotes etc.)
@@ -66,7 +83,7 @@ class IncomingMessage < ActiveRecord::Base
     # Remove quoted sections from emails (eventually the aim would be for this
     # to do as good a job as GMail does) XXX bet it needs a proper parser
     # XXX and this BEGIN_QUOTED / END_QUOTED stuff is a mess
-    def self.remove_quoted_sections(text)
+    def self.mark_quoted_sections(text)
         text = text.dup
         
         text.gsub!(/^(>.*\n)/, "BEGIN_QUOTED\\1END_QUOTED")
@@ -82,10 +99,8 @@ class IncomingMessage < ActiveRecord::Base
         return text
     end
 
-    # Returns body text as HTML with quotes flattened, and emails removed.
-    def get_body_for_display(collapse_quoted_sections = true)
-        # Find the body text 
-        
+    # Returns body text from main text part of email, converted to UTF-8
+    def get_main_body_text
         # XXX make this part scanning for mime parts properly recursive,
         # allow download of specific parts, and always show them all (in
         # case say the HTML differs from the text part)
@@ -122,26 +137,18 @@ class IncomingMessage < ActiveRecord::Base
             end
         end
 
-        # Format the body text...
-       
-        # Show special emails we know about
-        # XXX can later display some of these special emails as actual emails,
-        # if they are public anyway.  For now just be precautionary and only
-        # put in descriptions of them in square brackets.
-        if not self.info_request.public_body.request_email.empty?
-            text = text.gsub(self.info_request.public_body.request_email, "[" + self.info_request.public_body.short_name + " request email]")
-        end
-        if not self.info_request.public_body.complaint_email.empty?
-            text = text.gsub(self.info_request.public_body.complaint_email, "[" + self.info_request.public_body.short_name + " complaint email]")
-        end
-        text = text.gsub(self.info_request.incoming_email, "[FOI #" + self.info_request.id.to_s + " email]")
-        text = text.gsub(self.info_request.envelope_email, "[FOI #" + self.info_request.id.to_s + " bounce email]")
-        text = text.gsub(MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost'), "[GovernmentSpy contact email]")
-        # Remove all other emails
+        return text
+    end
+
+    # Returns body text as HTML with quotes flattened, and emails removed.
+    def get_body_for_html_display(collapse_quoted_sections = true)
+        # Find the body text and remove emails for privacy/anti-spam reasons
+        text = get_main_body_text
+        text = self.mask_special_emails(text)
         text = IncomingMessage.remove_email_addresses(text)
 
-        # Removing quoted sections, adding HTML
-        text = IncomingMessage.remove_quoted_sections(text)
+        # Remove quoted sections, adding HTML
+        text = IncomingMessage.mark_quoted_sections(text)
         text = CGI.escapeHTML(text)
         text = MySociety::Format.make_clickable(text, :contract => 1)
         if collapse_quoted_sections
@@ -155,6 +162,18 @@ class IncomingMessage < ActiveRecord::Base
         text = text.gsub(/\n/, '<br>')
 
         return text
+    end
+
+    # Returns body for quoting in reply
+    def get_body_for_quoting
+        # Find the body text and remove emails for privacy/anti-spam reasons
+        text = get_main_body_text
+        text = self.mask_special_emails(text)
+        text = IncomingMessage.remove_email_addresses(text)
+
+        # Remove existing quoted sections
+        text = IncomingMessage.mark_quoted_sections(text)
+        text = text.gsub(/BEGIN_QUOTED(.+?)END_QUOTED/m, '')
     end
 
     # Returns the name of the person the incoming message is from, or nil if there isn't one
