@@ -21,33 +21,55 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: outgoing_message.rb,v 1.19 2008-01-10 01:13:28 francis Exp $
+# $Id: outgoing_message.rb,v 1.20 2008-01-10 18:12:10 francis Exp $
 
 class OutgoingMessage < ActiveRecord::Base
     belongs_to :info_request
     validates_presence_of :info_request
-
-    validates_presence_of :body, :message => "^Please enter your letter requesting information"
 
     validates_inclusion_of :status, :in => ['ready', 'sent', 'failed']
     validates_inclusion_of :message_type, :in => ['initial_request', 'followup' ] #, 'complaint']
 
     belongs_to :incoming_message_followup, :foreign_key => 'incoming_message_followup_id', :class_name => 'IncomingMessage'
 
+    # How the default letter starts and ends
+    def get_salutation
+        ret = "Dear "
+        if self.message_type == 'followup' && !self.incoming_message_followup.nil? && !self.incoming_message_followup.safe_mail_from.nil?
+            ret = ret + self.incoming_message_followup.safe_mail_from
+        else
+            ret = ret + "Sir or Madam"
+        end
+        return ret + ","
+    end
+    def get_signoff
+        if self.message_type == 'followup'
+            return "Yours sincerely,"
+        else
+            return "Yours faithfully,"
+        end
+    end
+
     # Set default letter
     def after_initialize
         if self.body.nil?
-            self.body = "Dear Sir or Madam,\n\n\n\nYours faithfully,\n\n"
+            self.body = get_salutation + "\n\n\n\n" + get_signoff + "\n\n"
         end
     end
 
     # Check have edited letter
     def validate
-        if self.body =~ /\ADear Sir or Madam,\s+Yours faithfully,\s+/
-            errors.add(:body, "^Please enter your letter requesting information")
+        if self.body.empty? || self.body =~ /\A#{get_salutation}\s+#{get_signoff}\s+/
+            if self.message_type == 'followup'
+                errors.add(:body, "^Please enter your follow up message")
+            elsif
+                errors.add(:body, "^Please enter your letter requesting information")
+            else
+                raise "Message id #{self.id} has type '#{self.message_type}' which validate can't handle"
+            end
         end
-        if self.body =~ /Yours faithfully,\s+\Z/
-            errors.add(:body, '^Please sign at the bottom with your name, or alter the "Yours faithfully" signature')
+        if self.body =~ /#{get_signoff}\s+\Z/
+            errors.add(:body, '^Please sign at the bottom with your name, or alter the "' + get_signoff + '" signature')
         end
     end
 

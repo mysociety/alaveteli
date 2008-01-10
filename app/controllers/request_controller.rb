@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.36 2008-01-10 01:13:27 francis Exp $
+# $Id: request_controller.rb,v 1.37 2008-01-10 18:12:10 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -80,6 +80,17 @@ class RequestController < ApplicationController
         @collapse_quotes = params[:unfold] ? false : true
         @is_owning_user = !authenticated_user.nil? && authenticated_user.id == @info_request.user_id
 
+        params_outgoing_message = params[:outgoing_message]
+        if params_outgoing_message.nil?
+            params_outgoing_message = {}
+        end
+        params_outgoing_message.merge!({ 
+            :status => 'ready', 
+            :message_type => 'followup',
+            :incoming_message_followup => @incoming_message
+        })
+        @outgoing_message = OutgoingMessage.new(params_outgoing_message)
+
         if @incoming_message.info_request_id != params[:id].to_i
             raise sprintf("Incoming message %d does not belong to request %d", @incoming_message.info_request_id, params[:id])
         end
@@ -110,13 +121,8 @@ class RequestController < ApplicationController
             return
         elsif !params[:submitted_followup].nil?
             # Send a follow up message
-            @outgoing_message = OutgoingMessage.new(params[:outgoing_message].merge({ 
-                :status => 'ready', 
-                :message_type => 'followup'
-            }))
             @info_request.outgoing_messages << @outgoing_message
             @outgoing_message.info_request = @info_request
-            @outgoing_message.incoming_message_followup = @incoming_message
 
             # See if values were valid or not
             if !@info_request.valid?
@@ -135,7 +141,6 @@ class RequestController < ApplicationController
                 # do nothing - as "authenticated?" has done the redirect to signin page for us
             end
         else
-            @outgoing_message = OutgoingMessage.new(params[:outgoing_message])
             # render default show_response template
         end
     end

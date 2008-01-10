@@ -20,10 +20,9 @@ Next
 ====
 
 Let requester send follow-ups - but to which email address???!! aargh
-    - fix error text on form for followup, and default values
     - link to the follow up form, or embed in bottom of main request page
     - don't show classify link on /response/ page
-    - add test code for followups
+    - add spec test code for followups
     - should we quote the message we're replying to? hmmm
 Alert somewhere if working days table not up to date
 
