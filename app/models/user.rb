@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user.rb,v 1.17 2008-01-10 01:13:28 francis Exp $
+# $Id: user.rb,v 1.18 2008-01-10 18:20:35 francis Exp $
 
 require 'digest/sha1'
 
@@ -40,8 +40,16 @@ class User < ActiveRecord::Base
     end
 
     # Return user given login email, password and other form parameters (e.g. name)
-    def self.authenticate_from_form(params)
-        auth_fail_message = "Either the email or password was not recognised, please try again. Or create a new account using the form on the right."
+    #  
+    # The specific_user_login parameter says that login as a particular user is
+    # expected, so no parallel registration form is being displayed.
+    def self.authenticate_from_form(params, specific_user_login = false)
+        if specific_user_login
+            auth_fail_message = "Either the email or password was not recognised, please try again."
+        else
+            auth_fail_message = "Either the email or password was not recognised, please try again. Or create a new account using the form on the right."
+        end
+
         user = self.find(:first, :conditions => [ 'email ilike ?', params[:email] ] ) # using ilike for case insensitive
         if user
             # There is user with email, check password

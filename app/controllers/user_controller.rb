@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user_controller.rb,v 1.22 2008-01-03 12:54:40 francis Exp $
+# $Id: user_controller.rb,v 1.23 2008-01-10 18:20:35 francis Exp $
 
 class UserController < ApplicationController
     # XXX See controllers/application.rb simplify_url_part for reverse of expression in SQL below
@@ -25,7 +25,7 @@ class UserController < ApplicationController
             render :action => 'sign' 
             return
         else
-            @user_signin = User.authenticate_from_form(params[:user_signin])
+            @user_signin = User.authenticate_from_form(params[:user_signin], @post_redirect.reason_params[:user_name] ? true : false)
             if @user_signin.errors.size > 0
                 # Failed to authenticate
                 render :action => 'sign' 
