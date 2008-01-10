@@ -17,7 +17,7 @@ a:link {
     color: #0000ff;
 }
 a:visited {
-    color: #000099;
+    color: #551a8b;
 }
 a:active {
     color: #ff0000;
@@ -290,6 +290,9 @@ table#list_requests .odd {
 #show_response_view {
     float: right;
     width: 60%;
+}
+#show_response_followup {
+    margin-top: 3em;
 }
 
 /* / - about page */

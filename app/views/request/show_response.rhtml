@@ -1,11 +1,15 @@
 <% @title = "View and classify FOI response" %>
 
-<%= foi_error_messages_for :incoming_message %>
+<%= foi_error_messages_for :incoming_message, :outgoing_message %>
 
 <div id="show_response_view">
-<h2>New response to your request '<%= request_link @info_request %>'</h2>
+    <h2>New response to your request '<%= request_link @info_request %>'</h2>
 
-<%= render :partial => 'correspondence', :locals => { :correspondence => @incoming_message } %>
+    <%= render :partial => 'correspondence', :locals => { :correspondence => @incoming_message } %>
+
+    <div id="show_response_followup">
+        <%= render :partial => 'followup', :locals => { :correspondence => @incoming_message } %>
+    </div>
 </div>
 
 <% if not @incoming_message.user_classified %>

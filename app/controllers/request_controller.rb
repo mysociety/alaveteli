@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.35 2008-01-09 19:56:41 francis Exp $
+# $Id: request_controller.rb,v 1.36 2008-01-10 01:13:27 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -73,7 +73,7 @@ class RequestController < ApplicationController
         end
     end
 
-    # Show an individual incoming message, and let the user classify it.
+    # Show an individual incoming message
     def show_response
         @incoming_message = IncomingMessage.find(params[:incoming_message_id])
         @info_request = @incoming_message.info_request
@@ -84,7 +84,8 @@ class RequestController < ApplicationController
             raise sprintf("Incoming message %d does not belong to request %d", @incoming_message.info_request_id, params[:id])
         end
 
-        if params[:incoming_message]
+        if !params[:submitted_classify].nil?
+            # Let the user classify it.
             if not authenticated_as_user?(@info_request.user,
                     :web => "To classify the response to this FOI request",
                     :email => "Then you can classify the FOI response you have got from " + @info_request.public_body.name + ".",
@@ -94,6 +95,12 @@ class RequestController < ApplicationController
                 # do nothing - as "authenticated?" has done the redirect to signin page for us
             end
 
+            if !params[:incoming_message]
+                flash[:error] = "Please choose whether or not you got some of the information that you wanted."
+                render :action => 'show_response'
+                return
+            end
+
             contains_information = (params[:incoming_message][:contains_information] == 'true' ? true : false)
             @incoming_message.contains_information = contains_information
             @incoming_message.user_classified = true
@@ -101,14 +108,37 @@ class RequestController < ApplicationController
             flash[:notice] = "Thank you for classifying the response."
             redirect_to show_request_url(:id => @info_request)
             return
-        end
-        if params[:commit]
-            # Case when didn't choose radio option, but did submit form
-            flash[:error] = "Please choose whether or not you got some of the information that you wanted."
+        elsif !params[:submitted_followup].nil?
+            # Send a follow up message
+            @outgoing_message = OutgoingMessage.new(params[:outgoing_message].merge({ 
+                :status => 'ready', 
+                :message_type => 'followup'
+            }))
+            @info_request.outgoing_messages << @outgoing_message
+            @outgoing_message.info_request = @info_request
+            @outgoing_message.incoming_message_followup = @incoming_message
+
+            # See if values were valid or not
+            if !@info_request.valid?
+                render :action => 'show_response'
+            elsif authenticated_as_user?(@info_request.user,
+                    :web => "To send a follow up message about your FOI request",
+                    :email => "Then you can send a follow up message to " + @info_request.public_body.name + ".",
+                    :email_subject => "Send a follow up message to " + @info_request.public_body.name + " regarding your FOI request"
+                )
+                # This automatically saves dependent objects, such as @outgoing_message, in the same transaction
+                @info_request.save!
+                @outgoing_message.send_message
+                flash[:notice] = "Your follow up message has been created and sent on its way."
+                redirect_to show_request_url(:id => @info_request)
+            else
+                # do nothing - as "authenticated?" has done the redirect to signin page for us
+            end
+        else
+            @outgoing_message = OutgoingMessage.new(params[:outgoing_message])
+            # render default show_response template
         end
     end
 
-
-   private
-
+    private
 end

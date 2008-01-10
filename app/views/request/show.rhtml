@@ -11,8 +11,8 @@
 
     <p id="request_status">
     <% if @status == 'awaiting' %>
-        Currently <strong>waiting for a response</strong> from <%= public_body_link(@info_request.public_body) %>.
-        Response must be made by <strong><%= simple_date(@date_response_required_by) %></strong>.
+        Currently <strong>waiting for a response</strong> from <%= public_body_link(@info_request.public_body) %>,
+        due by <strong><%= simple_date(@date_response_required_by) %></strong>.
     <% elsif @status == 'overdue' %>
         Currently <strong>overdue a response</strong> from <%=
         public_body_link(@info_request.public_body) %>. The 

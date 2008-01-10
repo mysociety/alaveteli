@@ -7,8 +7,8 @@
     <%= render :partial => 'bubble', :locals => { :body => incoming_message.get_body_for_display(@collapse_quotes) }  %>
 
     <p class="event_bubble">
-    <% if incoming_message.mail.from and (not incoming_message.mail.friendly_from.include?('@')) %>
-        <%= incoming_message.mail.friendly_from %> of
+    <% if !incoming_message.safe_mail_from.nil? %>
+        <%= incoming_message.safe_mail_from %> of
     <% end %>
     <%= public_body_link(@info_request.public_body) %>
     <% if incoming_message.contains_information %>
@@ -25,21 +25,32 @@
     </p>
 <% elsif (correspondence.class.to_s == 'InfoRequestEvent') 
     info_request_event = correspondence
-    if info_request_event.event_type == 'sent' 
+    if info_request_event.event_type == 'sent' || info_request_event.event_type == 'followup_sent'
         outgoing_message = OutgoingMessage.find(info_request_event.params[:outgoing_message_id]) 
         %>
         <%= render :partial => 'bubble', :locals => { :body => outgoing_message.get_body_for_display() }  %>
 
         <p class="event_bubble"> 
             <%= user_link(@info_request.user) %>
-
             <% if outgoing_message.message_type == 'initial_request' %>
-                sent the initial request
                 <% if outgoing_message.status == 'sent' %>
+                    sent the initial request
                     to <%= public_body_link(@info_request.public_body) %>
                     on <strong><%= simple_date(info_request_event.sent_at) %></strong>
                 <% elsif outgoing_message.status == 'ready' %>
-                    it has <strong>not yet been sent</strong>
+                     wrote the initial request, but it has <strong>not yet been sent</strong>
+                <% else raise "unknown outgoing_message.status" %>
+                <% end %> 
+            <% elsif outgoing_message.message_type == 'followup' %>
+                <% if outgoing_message.status == 'sent' %>
+                    wrote to
+                    <% if !outgoing_message.incoming_message_followup.safe_mail_from.nil? %>
+                        <%= outgoing_message.incoming_message_followup.safe_mail_from %> of
+                    <% end %>
+                    <%= public_body_link(@info_request.public_body) %>
+                    on <strong><%= simple_date(info_request_event.sent_at) %></strong>
+                <% elsif outgoing_message.status == 'ready' %>
+                     wrote a follow up message, but it has <strong>not yet been sent</strong>
                 <% else raise "unknown outgoing_message.status" %>
                 <% end %> 
             <% else raise "unknown outgoing_message.message_type" %>

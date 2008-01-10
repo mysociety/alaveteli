@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 24
+# Schema version: 25
 #
 # Table name: incoming_messages
 #
@@ -20,7 +20,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.25 2008-01-07 15:08:59 francis Exp $
+# $Id: incoming_message.rb,v 1.26 2008-01-10 01:13:28 francis Exp $
 
 class IncomingMessage < ActiveRecord::Base
     belongs_to :info_request
@@ -29,6 +29,8 @@ class IncomingMessage < ActiveRecord::Base
     validates_presence_of :raw_data
 
     has_many :rejection_reasons
+
+    has_many :outgoing_message_followups, :class_name => OutgoingMessage
 
     # Return the structured TMail::Mail object
     # Documentation at http://i.loveruby.net/en/projects/tmail/doc/
@@ -155,6 +157,15 @@ class IncomingMessage < ActiveRecord::Base
         return text
     end
 
+    # Returns the name of the person the incoming message is from, or nil if there isn't one
+    # or if there is only an email address.
+    def safe_mail_from
+        if self.mail.from and (not self.mail.friendly_from.include?('@'))
+            return self.mail.friendly_from
+        else 
+            return nil
+        end
+    end
 end
 
 

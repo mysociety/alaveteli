@@ -1,0 +1,38 @@
+<div id="followup">
+
+<% if (correspondence.class.to_s == 'IncomingMessage') 
+        incoming_message = correspondence%>
+
+    <h2>Send a follow up message
+        <% if !incoming_message.safe_mail_from.nil? %>
+            to <%= incoming_message.safe_mail_from %>
+        <% end %>
+    </h2>
+
+    <p>If the public body has asked for clarifications about your request,
+    you can respond to them here.
+
+    <% form_for(:outgoing_message, @outgoing_message) do |o| %>
+        <p>
+            <%= o.text_area :body, :rows => 10, :cols => 55 %>
+        </p>
+
+        <p>
+            <strong>Privacy warning:</strong> Your follow up message, and any response
+            to it, will also be displayed publically on this website.
+        </p>
+
+        <%= hidden_field_tag 'submitted_followup', 1 %>
+        <%= submit_tag "Send >>" %>
+    <% end %>
+
+    <p>
+        <% if not @is_owning_user %>
+        (You will be asked to sign in as <%= user_link(@info_request.user) %>)
+        <% end %>
+    </p>
+
+<% end %>
+
+</div>
+

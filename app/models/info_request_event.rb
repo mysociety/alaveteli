@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 24
+# Schema version: 25
 #
 # Table name: info_request_events
 #
@@ -15,14 +15,14 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request_event.rb,v 1.4 2008-01-07 13:26:46 francis Exp $
+# $Id: info_request_event.rb,v 1.5 2008-01-10 01:13:28 francis Exp $
 
 class InfoRequestEvent < ActiveRecord::Base
     belongs_to :info_request
     validates_presence_of :info_request
 
     validates_presence_of :event_type
-    validates_inclusion_of :event_type, :in => ['sent', 'resent', 'edit_outgoing']
+    validates_inclusion_of :event_type, :in => ['sent', 'resent', 'followup_sent', 'followup_resent', 'edit_outgoing']
 
     # We store YAML version of parameters in the database
     def params=(params)

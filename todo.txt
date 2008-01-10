@@ -20,6 +20,7 @@ Next
 ====
 
 Let requester send follow-ups - but to which email address???!! aargh
+    - and how do we cope 
 Alert somewhere if working days table not up to date
 
 Test it works if exim is down - e.g. not accepting connections

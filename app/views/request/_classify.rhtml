@@ -1,4 +1,4 @@
-<% form_for(:incoming_message, @info_request ) do |f| %>
+<% form_for(:incoming_message, @info_request) do |f| %>
     <h2>Got what you wanted?</h2>
     <p>Does this response contain any of the information that you requested?</p>
     <p>
@@ -9,6 +9,7 @@
         <label for="incoming_message_contains_information_false">No, this response does not contain any of the information.</label>
     </p>
 
+    <%= hidden_field_tag 'submitted_classify', 1 %>
     <%= submit_tag "Update" %>
 
     <p>

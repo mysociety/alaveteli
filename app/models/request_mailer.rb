@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.15 2008-01-09 19:34:07 francis Exp $
+# $Id: request_mailer.rb,v 1.16 2008-01-10 01:13:28 francis Exp $
 
 class RequestMailer < ActionMailer::Base
 
@@ -15,6 +15,17 @@ class RequestMailer < ActionMailer::Base
         @subject    = 'Freedom of Information Request - ' + info_request.title
         @body       = {:info_request => info_request, :outgoing_message => outgoing_message,
             :contact_email => MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost') }
+    end
+
+    def followup(info_request, outgoing_message, incoming_message_followup)
+        @from = info_request.incoming_email
+        headers 'Sender' => info_request.envelope_email
+        @recipients = incoming_message_followup.mail.from
+        @subject    = 'Re: Freedom of Information Request - ' + info_request.title
+        @body       = {:info_request => info_request, :outgoing_message => outgoing_message,
+            :incoming_message_followup => incoming_message_followup,
+            :contact_email => MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost') }
+
     end
 
     def bounced_message(email)
