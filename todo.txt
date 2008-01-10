@@ -20,7 +20,11 @@ Next
 ====
 
 Let requester send follow-ups - but to which email address???!! aargh
-    - and how do we cope 
+    - fix error text on form for followup, and default values
+    - link to the follow up form, or embed in bottom of main request page
+    - don't show classify link on /response/ page
+    - add test code for followups
+    - should we quote the message we're replying to? hmmm
 Alert somewhere if working days table not up to date
 
 Test it works if exim is down - e.g. not accepting connections
