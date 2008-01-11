@@ -284,12 +284,12 @@ table#list_requests .odd {
 
 #show_response_classify_action {
     float: left;
-    width: 35%;
+    width: 25%;
 }
 
 #show_response_view {
     float: right;
-    width: 60%;
+    width: 70%;
 }
 #show_response_followup {
     margin-top: 3em;

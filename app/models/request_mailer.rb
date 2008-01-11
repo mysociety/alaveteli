@@ -4,9 +4,10 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.16 2008-01-10 01:13:28 francis Exp $
+# $Id: request_mailer.rb,v 1.17 2008-01-11 01:02:45 francis Exp $
 
 class RequestMailer < ActionMailer::Base
+    helper :application
 
     def initial_request(info_request, outgoing_message)
         @from = info_request.incoming_email

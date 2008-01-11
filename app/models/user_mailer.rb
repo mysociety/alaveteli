@@ -4,9 +4,10 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user_mailer.rb,v 1.2 2007-11-13 12:02:14 francis Exp $
+# $Id: user_mailer.rb,v 1.3 2008-01-11 01:02:45 francis Exp $
 
 class UserMailer < ActionMailer::Base
+    helper :application
 
     def confirm_login(user, reasons, url)
         @from = MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost')

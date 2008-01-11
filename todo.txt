@@ -19,11 +19,13 @@ BAILII - relationship with law courts, robots.txt ?
 Next
 ====
 
-Let requester send follow-ups - but to which email address???!! aargh
+Set From: to have name of user, and set To: to have name of body etc. for all mails
+
+Followups:
     - link to the follow up form, or embed in bottom of main request page
     - don't show classify link on /response/ page
     - add spec test code for followups
-    - should we quote the message we're replying to? hmmm
+    - rename get_quoted_part_of_followup
 Alert somewhere if working days table not up to date
 
 Test it works if exim is down - e.g. not accepting connections
@@ -41,11 +43,14 @@ Test that it is actually sending the request outgoing mail, by using deliveries
 Add fixtures for info_request_event
 Test sending a message to bounce/envelope-from address
 
+Show due date on, e.g.
+    http://foi.mysociety.org/request/4
+Sort by due date, show categorisation everywhere
+
+
 
 Tidying
 =======
-
-Set From: to have name of user, and set To: to have name of body etc. for all mails
 
 Add display of users to admin interface (so can find their email address out)
 Link internally between different bits of admin interface
