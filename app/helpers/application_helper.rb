@@ -5,11 +5,11 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: application_helper.rb,v 1.13 2007-11-07 10:26:30 francis Exp $
+# $Id: application_helper.rb,v 1.14 2008-01-14 12:27:56 francis Exp $
 
 module ApplicationHelper
     # URL generating functions are needed by all controllers (for redirects)
-    # and views (for links), so include them into all of both.
+    # views (for links), so include them into all of both.
     include LinkToHelper
 
     # Copied from error_messages_for in active_record_helper.rb
