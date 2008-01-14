@@ -4,14 +4,14 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user_mailer.rb,v 1.3 2008-01-11 01:02:45 francis Exp $
+# $Id: user_mailer.rb,v 1.4 2008-01-14 10:43:30 francis Exp $
 
 class UserMailer < ActionMailer::Base
     helper :application
 
     def confirm_login(user, reasons, url)
-        @from = MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost')
-        @recipients = user.email
+        @from = "GovernmentSpy <"+MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost')+">"
+        @recipients = user.name_and_email
         @subject    = reasons[:email_subject]
         @body[:reasons] = reasons
         @body[:name] = user.name

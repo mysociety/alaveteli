@@ -48,14 +48,11 @@ Show due date on, e.g.
 Sort by due date, show categorisation everywhere
 
 
-
 Tidying
 =======
 
 Add display of users to admin interface (so can find their email address out)
 Link internally between different bits of admin interface
-
-Use working days
 
 Bubbles don't validate
 http://localhost:3000/request/5
@@ -63,7 +60,7 @@ http://localhost:3000/request/5
 Add SQL database indexes to token / email_token in post_redirects
 
 Set "null" and "default" options more in schema
-Add SQL foreign keys to database schema
+Add SQL foreign keys to database schema (THIS IS IMPORTANT, or things will screw up)
     execute 'ALTER TABLE researchers ADD CONSTRAINT fk_researchers_departments FOREIGN KEY ( department_id ) REFERENCES departments( id ) '
     http://wiki.rubyonrails.org/rails/pages/UsingMigrations link to:
         http://www.surfdewey.com/2.html
@@ -77,6 +74,9 @@ Do pretty error messages, e.g. on invalid public body name page etc.
 Hook global error message also
 
 Check log rotation is working well
+
+Mark some requests as test requests
+
 
 Legal/privacy
 =============
@@ -126,8 +126,6 @@ http://www.mysociety.org/2006/04/04/freedom-of-information-archive/
 
 Check FOE site lots
 http://community.foe.co.uk/tools/right_to_know/request_generator.html
-It has email addresses of lots of bodies, e.g.
-http://community.foe.co.uk/app/tc
 
 Look at this basic US site
 http://www.rcfp.org/foi_letter/generate.php
@@ -171,5 +169,7 @@ Schools list: www.edubase.gov.uk
 
 Heather has some for central departments
 
+FOE site has email addresses of lots of bodies, e.g.
+http://community.foe.co.uk/app/tc
 
 

@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user.rb,v 1.18 2008-01-10 18:20:35 francis Exp $
+# $Id: user.rb,v 1.19 2008-01-14 10:43:30 francis Exp $
 
 require 'digest/sha1'
 
@@ -76,6 +76,11 @@ class User < ActiveRecord::Base
         return if pwd.blank?
         create_new_salt
         self.hashed_password = User.encrypted_password(self.password, self.salt)
+    end
+
+    # For use in to/from in email messages
+    def name_and_email
+        return self.name + " <" + self.email + ">"
     end
 
     private
