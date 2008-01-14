@@ -19,11 +19,9 @@ BAILII - relationship with law courts, robots.txt ?
 Next
 ====
 
-
 Followups:
     - link to the follow up form, or embed in bottom of main request page
     - don't show classify link on /response/ page
-    - add spec test code for followups
     - rename get_quoted_part_of_followup
     - Copy To: for followups properly (including name not just email)
 Alert somewhere if working days table not up to date
@@ -47,6 +45,10 @@ Show due date on, e.g.
     http://foi.mysociety.org/request/4
 Sort by due date, show categorisation everywhere
 
+Properly escape all name_and_email functions
+
+Check out all automatically things here:
+http://foi.mysociety.org/request/14
 
 Tidying
 =======
@@ -82,6 +84,7 @@ Legal/privacy
 =============
 
 Check act to see if can use pseudonym for FOI request?
+
 "We will not reveal your email address to anybody" - are there circumstances
  (e.g. somebody messaging creator of a request and it bouncing) where we
  may reasonably do this, and should say it may happen?
@@ -89,7 +92,14 @@ Check act to see if can use pseudonym for FOI request?
 Later
 =====
 
-Synthesise these tips into 4 snappy bullet points
+Workflow:
+a) a confirmation of message received / forwarded on
+b) a request for clarification
+c) a response containing all the information you requested
+d) a response containing some of the information
+e) a rejection notice
+
+Synthesise these tips into our handful of snappy snappy bullet points
 http://community.foe.co.uk/tools/right_to_know/tips.html
 
 Change to Rails 2, may as well do it now rather than later.
@@ -161,6 +171,7 @@ http://www.parliament.uk/parliamentary_publications_and_archives/freedom_of_info
 Including 'Request for information' in the subject line of your e-mail will assist us in prioritising your request.
 http://www.parliament.uk/parliamentary_publications_and_archives/freedom_of_information_in_the_house_of_lords/lords__foi___how_to_obtain_information.cfm
 
+Consider putting the requesting user's name in the request's magic email address
 
 Sources of public bodies
 ========================

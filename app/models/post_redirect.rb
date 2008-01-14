@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: post_redirect.rb,v 1.11 2008-01-10 01:13:28 francis Exp $
+# $Id: post_redirect.rb,v 1.12 2008-01-14 19:11:18 francis Exp $
 
 require 'openssl' # for random bytes function
 
@@ -70,7 +70,7 @@ class PostRedirect < ActiveRecord::Base
         end
     end
 
-    # Used by test code
+    # Used by (rspec) test code only
     def self.get_last_post_redirect
         # XXX yeuch - no other easy way of getting the token so we can check
         # the redirect URL, as it is by definition opaque to the controller

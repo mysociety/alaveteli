@@ -104,6 +104,7 @@ describe RequestController, "when creating a new request" do
         post :new, :info_request => { :public_body_id => public_bodies(:geraldine_public_body).id },
             :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." },
             :submitted_new_request => 1
+        # XXX how do I check the error message here?
         response.should render_template('new')
     end
 
@@ -119,18 +120,25 @@ describe RequestController, "when creating a new request" do
         # post_redirect.post_params.should == params # XXX get this working. there's a : vs '' problem amongst others
     end
 
-    it "should create the request and outgoing message and redirect to request page when input is good and somebody is logged in" do
+    it "should create the request and outgoing message, and send the outgoing message by email, and redirect to request page when input is good and somebody is logged in" do
         session[:user_id] = users(:bob_smith_user).id
         post :new, :info_request => { :public_body_id => public_bodies(:geraldine_public_body).id, 
             :title => "Why is your quango called Geraldine?"},
             :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." },
             :submitted_new_request => 1
+
         ir_array = InfoRequest.find(:all, :conditions => ["title = ?", "Why is your quango called Geraldine?"])
         ir_array.size.should == 1
         ir = ir_array[0]
         ir.outgoing_messages.size.should == 1
         om = ir.outgoing_messages[0]
         om.body.should == "This is a silly letter. It is too short to be interesting."
+
+        deliveries = ActionMailer::Base.deliveries
+        deliveries.size.should  == 1
+        mail = deliveries[0]
+        mail.body.should =~ /This is a silly letter. It is too short to be interesting./
+
         response.should redirect_to(:controller => 'request', :action => 'show', :id => ir.id)
     end
 
@@ -177,6 +185,46 @@ describe RequestController, "when classifying an individual response" do
         incoming_messages(:useless_incoming_message).reload
         incoming_messages(:useless_incoming_message).user_classified.should == true
     end
+end
+
+describe RequestController, "when sending a followup message" do
+    integrate_views
+    fixtures :info_requests, :public_bodies, :users, :incoming_messages, :outgoing_messages # all needed as integrating views
+  
+    it "should require login" do
+        post :show_response, :outgoing_message => { :body => "What a useless response! You suck." }, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_followup => 1
+        post_redirect = PostRedirect.get_last_post_redirect
+        response.should redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
+    end
+
+    it "should not let you if you are logged in as the wrong user" do
+        session[:user_id] = users(:silly_name_user).id
+        post :show_response, :outgoing_message => { :body => "What a useless response! You suck." }, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_followup => 1
+        response.should render_template('user/wrong_user')
+    end
+
+    it "should give an error and render 'show_response' template when a body isn't given" do
+        session[:user_id] = users(:bob_smith_user).id
+        post :show_response, :outgoing_message => { :body => "" }, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_followup => 1
+
+        # XXX how do I check the error message here?
+        response.should render_template('show_response')
+    end
+
+
+    it "should send the follow up message if you are the right user" do
+        session[:user_id] = users(:bob_smith_user).id
+        post :show_response, :outgoing_message => { :body => "What a useless response! You suck." }, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_followup => 1
+
+        deliveries = ActionMailer::Base.deliveries
+        deliveries.size.should  == 1
+        mail = deliveries[0]
+        mail.body.should =~ /What a useless response! You suck./
+
+        response.should redirect_to(:controller => 'request', :action => 'show', :id => info_requests(:fancy_dog_request))
+    end
+
+
 end
 
 
