@@ -17,7 +17,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.26 2008-01-10 01:13:28 francis Exp $
+# $Id: info_request.rb,v 1.27 2008-01-14 12:22:36 francis Exp $
 
 require 'digest/sha1'
 
@@ -41,11 +41,17 @@ public
     def incoming_email
         return self.magic_email("request-")
     end
+    def incoming_name_and_email
+        return "GovernmentSpy <" + self.incoming_email + ">"
+    end
 
     # Modified version of incoming_email to use in the envelope from, for
     # bounce messages.
     def envelope_email
         return self.magic_email("request-bounce-")
+    end
+    def envelope_name_and_email
+        return "GovernmentSpy <" + self.envelope_email + ">"
     end
 
     # Return info request corresponding to an incoming email address, or nil if
@@ -188,6 +194,9 @@ public
         else
             return self.public_body.request_email
         end
+    end
+    def recipient_name_and_email
+        return "FOI requests at " + self.public_body.short_name + " <" + self.recipient_email + ">"
     end
 
     # History of some things that have happened

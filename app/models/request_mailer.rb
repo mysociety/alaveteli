@@ -4,23 +4,21 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.17 2008-01-11 01:02:45 francis Exp $
+# $Id: request_mailer.rb,v 1.18 2008-01-14 12:22:36 francis Exp $
 
-class RequestMailer < ActionMailer::Base
-    helper :application
-
+class RequestMailer < ApplicationMailer
     def initial_request(info_request, outgoing_message)
-        @from = info_request.incoming_email
-        headers 'Sender' => info_request.envelope_email
-        @recipients = info_request.recipient_email
+        @from = info_request.incoming_name_and_email
+        headers 'Sender' => info_request.envelope_name_and_email
+        @recipients = info_request.recipient_name_and_email
         @subject    = 'Freedom of Information Request - ' + info_request.title
         @body       = {:info_request => info_request, :outgoing_message => outgoing_message,
             :contact_email => MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost') }
     end
 
     def followup(info_request, outgoing_message, incoming_message_followup)
-        @from = info_request.incoming_email
-        headers 'Sender' => info_request.envelope_email
+        @from = info_request.incoming_name_and_email
+        headers 'Sender' => info_request.envelope_name_and_email
         @recipients = incoming_message_followup.mail.from
         @subject    = 'Re: Freedom of Information Request - ' + info_request.title
         @body       = {:info_request => info_request, :outgoing_message => outgoing_message,
@@ -30,7 +28,7 @@ class RequestMailer < ActionMailer::Base
     end
 
     def bounced_message(email)
-        @from = MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost')
+        @from = contact_from_name_and_email
         @recipients = @from
         @subject = "Incoming email to unknown FOI request"
         email.setup_forward(self)
@@ -43,8 +41,8 @@ class RequestMailer < ActionMailer::Base
         post_redirect.save!
         url = confirm_url(:email_token => post_redirect.email_token)
 
-        @from = MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost')
-        @recipients = info_request.user.email
+        @from = contact_from_name_and_email
+        @recipients = info_request.user.name_and_email
         @subject = "New response to your FOI request - " + info_request.title
         @body = { :incoming_message => incoming_message, :info_request => info_request, :url => url }
     end
