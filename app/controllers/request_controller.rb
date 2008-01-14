@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.37 2008-01-10 18:12:10 francis Exp $
+# $Id: request_controller.rb,v 1.38 2008-01-14 11:02:49 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -60,7 +60,7 @@ class RequestController < ApplicationController
         elsif authenticated?(
                 :web => "To send your FOI request",
                 :email => "Then your FOI request to " + @info_request.public_body.name + " will be sent.",
-                :email_subject => "Confirm that you want to send an FOI request to " + @info_request.public_body.name
+                :email_subject => "Confirm your FOI request to " + @info_request.public_body.name
             )
             @info_request.user = authenticated_user
             # This automatically saves dependent objects, such as @outgoing_message, in the same transaction
@@ -100,7 +100,7 @@ class RequestController < ApplicationController
             if not authenticated_as_user?(@info_request.user,
                     :web => "To classify the response to this FOI request",
                     :email => "Then you can classify the FOI response you have got from " + @info_request.public_body.name + ".",
-                    :email_subject => "Classify a response from " + @info_request.public_body.name + " to your FOI request"
+                    :email_subject => "Classify an FOI response from " + @info_request.public_body.name
                 )
                 return
                 # do nothing - as "authenticated?" has done the redirect to signin page for us
@@ -130,7 +130,7 @@ class RequestController < ApplicationController
             elsif authenticated_as_user?(@info_request.user,
                     :web => "To send a follow up message about your FOI request",
                     :email => "Then you can send a follow up message to " + @info_request.public_body.name + ".",
-                    :email_subject => "Send a follow up message to " + @info_request.public_body.name + " regarding your FOI request"
+                    :email_subject => "Confirm your FOI follow up message to " + @info_request.public_body.name
                 )
                 # This automatically saves dependent objects, such as @outgoing_message, in the same transaction
                 @info_request.save!
