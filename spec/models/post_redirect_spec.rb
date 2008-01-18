@@ -27,12 +27,12 @@ describe PostRedirect, " when constructing" do
 
     it "should generate a URL friendly token" do
         pr = PostRedirect.new 
-        pr.token.should match(/[a-z][0-9]/);
+        pr.token.should match(/[a-z0-9]+/);
     end
 
     it "should generate an email friendly email token" do
         pr = PostRedirect.new 
-        pr.email_token.should match(/[a-z][0-9]/);
+        pr.email_token.should match(/[a-z0-9]+/);
     end
 end
 
