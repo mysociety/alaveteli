@@ -20,7 +20,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.29 2008-01-18 03:54:04 francis Exp $
+# $Id: incoming_message.rb,v 1.30 2008-01-18 22:47:36 francis Exp $
 
 module TMail
     class Mail
@@ -127,14 +127,19 @@ class IncomingMessage < ActiveRecord::Base
     def self.mark_quoted_sections(text)
         text = text.dup
         
+        # Single line sections
         text.gsub!(/^(>.*\n)/, "BEGIN_QUOTED\\1END_QUOTED")
         text.gsub!(/^(On .+ (wrote|said):\n)/, "BEGIN_QUOTED\\1END_QUOTED")
 
+        # Multiple line sections
+        text.gsub!(/(\s+[-_]{20,}\n.*?disclaimer.*?[-_]{20,}\n)/im, "\n\nBEGIN_QUOTED\\1END_QUOTED")
+#        --------------------------------------------------------
+
+        # To end of message sections
         original_message = 
             '(' + '''------ This is a copy of the message, including all the headers. ------''' + 
             '|' + '''-----Original Message-----''' +
             ')'
-
         text.gsub!(/^(#{original_message}\n.*)$/m, "BEGIN_QUOTED\\1END_QUOTED")
 
         return text
