@@ -20,7 +20,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.28 2008-01-18 03:30:21 francis Exp $
+# $Id: incoming_message.rb,v 1.29 2008-01-18 03:54:04 francis Exp $
 
 module TMail
     class Mail
@@ -47,7 +47,7 @@ class IncomingMessage < ActiveRecord::Base
 
     # Number the attachments in depth first tree order, for use in URLs.
     def after_initialize
-        if !@mail.nil?
+        if !self.mail.nil?
             @count_parts_count = 0
             count_parts_recursive(self.mail)
         end
@@ -76,7 +76,7 @@ class IncomingMessage < ActiveRecord::Base
     # Return the structured TMail::Mail object
     # Documentation at http://i.loveruby.net/en/projects/tmail/doc/
     def mail
-        if @mail.nil?
+        if @mail.nil? && !self.raw_data.nil?
             @mail = TMail::Mail.parse(self.raw_data)
             @mail.base64_decode
         end
