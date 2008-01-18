@@ -4,7 +4,7 @@
 
     if (correspondence.class.to_s == 'IncomingMessage') 
     incoming_message = correspondence%>
-    <%= render :partial => 'bubble', :locals => { :body => incoming_message.get_body_for_html_display(@collapse_quotes) }  %>
+    <%= render :partial => 'bubble', :locals => { :incoming_message => incoming_message, :body => incoming_message.get_body_for_html_display(@collapse_quotes), :attachments => incoming_message.get_attachments_for_display }  %>
 
     <p class="event_bubble">
     <% if !incoming_message.safe_mail_from.nil? %>
@@ -28,7 +28,7 @@
     if info_request_event.event_type == 'sent' || info_request_event.event_type == 'followup_sent'
         outgoing_message = OutgoingMessage.find(info_request_event.params[:outgoing_message_id]) 
         %>
-        <%= render :partial => 'bubble', :locals => { :body => outgoing_message.get_body_for_html_display() }  %>
+        <%= render :partial => 'bubble', :locals => { :body => outgoing_message.get_body_for_html_display(), :attachments => nil }  %>
 
         <p class="event_bubble"> 
             <%= user_link(@info_request.user) %>

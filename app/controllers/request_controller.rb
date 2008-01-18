@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.38 2008-01-14 11:02:49 francis Exp $
+# $Id: request_controller.rb,v 1.39 2008-01-18 03:30:21 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -143,6 +143,23 @@ class RequestController < ApplicationController
         else
             # render default show_response template
         end
+    end
+
+    # Download an attachment
+    def get_attachment
+        @incoming_message = IncomingMessage.find(params[:incoming_message_id])
+        @info_request = @incoming_message.info_request
+        if @incoming_message.info_request_id != params[:id].to_i
+            raise sprintf("Incoming message %d does not belong to request %d", @incoming_message.info_request_id, params[:id])
+        end
+        @part_number = params[:part].to_i
+        
+        @attachment = IncomingMessage.get_attachment_by_url_part_number(@incoming_message.get_attachments_for_display, @part_number)
+        response.content_type = 'application/octet-stream'
+        if !@attachment.content_type.nil?
+            response.content_type = @attachment.content_type
+        end
+        render :text => @attachment.body
     end
 
     private

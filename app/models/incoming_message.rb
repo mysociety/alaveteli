@@ -20,7 +20,20 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.27 2008-01-10 19:59:33 francis Exp $
+# $Id: incoming_message.rb,v 1.28 2008-01-18 03:30:21 francis Exp $
+
+module TMail
+    class Mail
+        attr_accessor :url_part_number
+
+        def self.get_part_file_name(part)
+            file_name = (part['content-location'] &&
+                          part['content-location'].body) ||
+                        part.sub_header("content-type", "name") ||
+                        part.sub_header("content-disposition", "filename")
+        end
+    end
+end
 
 class IncomingMessage < ActiveRecord::Base
     belongs_to :info_request
@@ -31,6 +44,34 @@ class IncomingMessage < ActiveRecord::Base
     has_many :rejection_reasons
 
     has_many :outgoing_message_followups, :class_name => OutgoingMessage
+
+    # Number the attachments in depth first tree order, for use in URLs.
+    def after_initialize
+        if !@mail.nil?
+            @count_parts_count = 0
+            count_parts_recursive(self.mail)
+        end
+    end
+    def count_parts_recursive(part)
+        if part.multipart?
+            part.parts.each do |p|
+                count_parts_recursive(p)
+            end
+        else
+            @count_parts_count += 1
+            part.url_part_number = @count_parts_count
+        end
+    end
+    # And look up by URL part number
+    def self.get_attachment_by_url_part_number(attachments, found_url_part_number)
+        @count_parts_count = 0  
+        attachments.each do |a|
+            if a.url_part_number == found_url_part_number
+                return a
+            end
+        end
+        return nil
+    end
 
     # Return the structured TMail::Mail object
     # Documentation at http://i.loveruby.net/en/projects/tmail/doc/
@@ -99,34 +140,44 @@ class IncomingMessage < ActiveRecord::Base
         return text
     end
 
-    # Returns body text from main text part of email, converted to UTF-8
-    def get_main_body_text
-        # XXX make this part scanning for mime parts properly recursive,
-        # allow download of specific parts, and always show them all (in
-        # case say the HTML differs from the text part)
-        if self.mail.multipart?
-            if self.mail.sub_type == 'alternative'
+    # Flattens all the attachments, picking only one part where there are alternatives.
+    # (This risks losing info if the unchosen alternative is the only one to contain 
+    # useful info, but let's worry about that another time)
+    def get_attachment_leaves
+        return get_attachment_leaves_recursive(self.mail, [])
+    end
+    def get_attachment_leaves_recursive(curr_mail, leaves_so_far)
+        if curr_mail.multipart?
+            if curr_mail.sub_type == 'alternative'
                 # Choose best part from alternatives
                 best_part = nil
-                mail.parts.each do |m|
+                self.mail.parts.each do |m|
                     # Take the first one, or the last text/plain one
+                    # XXX - could do better!
                     if not best_part
                         best_part = m
                     elsif m.content_type == 'text/plain'
                         best_part = m
                     end
                 end
-                text = best_part.body
-                text_charset = best_part.charset
+                leaves_so_far += get_attachment_leaves_recursive(best_part, [])
             else
-                # Just turn them all into text using built in
-                text = self.mail.body
-                text_charset = self.mail.charset
+                # Add all parts
+                curr_mail.parts.each do |m|
+                    leaves_so_far += get_attachment_leaves_recursive(m, [])
+                end
             end
         else
-            text = self.mail.body
-            text_charset = self.mail.charset.to_s
+            leaves_so_far += [curr_mail]
         end
+        return leaves_so_far
+    end
+
+    # Returns body text from main text part of email, converted to UTF-8
+    def get_main_body_text
+        main_part = get_main_body_text_part
+        text = main_part.body
+        text_charset = main_part.charset
 
         # Charset conversion, turn everything into UTF-8
         if not text_charset.nil?
@@ -138,6 +189,32 @@ class IncomingMessage < ActiveRecord::Base
         end
 
         return text
+    end
+    # Returns part which contains main body text
+    def get_main_body_text_part
+        leaves = get_attachment_leaves
+        
+        # Find first part which is text
+        leaves.each do |p|
+            # XXX do we need to look at content-disposition? I'm guessing not *really*.
+            #(part['content-disposition'] && part['content-disposition'].disposition == "attachment") ||
+            if p.main_type == 'text'
+                return p
+            end
+        end
+        # ... or if none, just first part (covers cases of one part, not
+        # labelled as text - not sure # what the better way to handle this is)
+        return leaves[0]
+    end
+
+    # Returns all attachments for use in display code
+    def get_attachments_for_display
+        main_part = get_main_body_text_part
+        leaves = get_attachment_leaves
+        leaves = leaves.select do |p|
+            p != main_part
+        end
+        return leaves
     end
 
     # Returns body text as HTML with quotes flattened, and emails removed.

@@ -23,7 +23,7 @@ Followups:
     - link to the follow up form, or embed in bottom of main request page
     - don't show classify link on /response/ page
     - rename get_quoted_part_of_followup
-    - Copy To: for followups properly (including name not just email)
+    - Copy the To: for followups properly (including name not just email)
 Alert somewhere if working days table not up to date
 
 Test it works if exim is down - e.g. not accepting connections

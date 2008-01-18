@@ -1,6 +1,18 @@
     <blockquote class="xsnazzy">
     <b class="xb1"></b><b class="xb2"></b><b class="xb3"></b><b class="xb4"></b><b class="xb5"></b><b class="xb6"></b><b class="xb7"></b>
     <div class="xboxcontent">
+    <%  if not attachments.nil? and attachments.size > 0 %>
+        <p>
+            <% attachments.each do |a| %>
+                Attachment: 
+                <%= link_to (TMail::Mail.get_part_file_name(a) || "download.bin"), get_attachment_url(:id => incoming_message.info_request_id,
+                    :incoming_message_id => incoming_message.id, :part => a.url_part_number,
+                    :file_name => (TMail::Mail.get_part_file_name(a) || "download.bin")) %>
+                (<%= a.content_type %>)
+                <br>
+            <% end %>
+        </p>
+    <% end %>
     <p><%= body %></p>
     </div>
     <b class="xb7"></b><b class="xb6"></b><b class="xb5"></b><b class="xb4"></b><b class="xb3"></b><b class="xb2"></b><b class="xb1"></b>
