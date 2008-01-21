@@ -122,6 +122,15 @@ a:active {
     margin-right: 1em;
 }
 
+#footer {
+    padding: 3px;
+    border-top: solid 1px #527b10;
+    font-size: 90%;
+    text-align: center;
+    width: 75%;
+    margin: 1em auto 0;
+    clear: both;
+}
 /* Forms */
 
 form {
@@ -202,6 +211,7 @@ div.fieldWithErrors { display:inline; }
     text-align: center;
     width: 45%;
     float: left;
+    margin-bottom: 1em;
 }
 #request_frontpage #public_body_form {
 }
@@ -210,6 +220,7 @@ div.fieldWithErrors { display:inline; }
     text-align: center;
     width: 45%;
     float: right;
+    margin-bottom: 1em;
 }
 
 /* /new - submitting requests */

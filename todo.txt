@@ -202,8 +202,6 @@ Maybe prepend letter for them with "this is FOI request blah" boilerplate?
 
 Forgotten password link
 
-Link to source code
-
 Way of contacting other users
 
 Give hotline to call body for extra help
@@ -220,6 +218,7 @@ Consider putting the requesting user's name in the request's magic email address
 Escape "www.liverpool.gov.uk <http://www.liverpool.gov.uk>" properly - so it doesn't catch
 the last > converted to &gt; too badly
     http://localhost:3000/request/5?
+(and be sure if you use a hack with a secret, it really is secret to stop people making evil links)
 
 Sources of public bodies
 ========================
