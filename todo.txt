@@ -76,7 +76,6 @@ Test it works if exim is down - e.g. not accepting connections
 
 Remove security warning from admin pages
 
-Make response messages go to a mailbox as backup
 Make it so if the pipe fails, exim tries again rather than sending an error to the public body.
     Or so errors go to an admin somehow, at the very least.
 
@@ -95,6 +94,9 @@ Properly escape all name_and_email functions
 
 Check out all automatically things here:
 http://foi.mysociety.org/request/14
+
+Sort the requests by when something last happened to them (this needs thought as to what
+sort orders we need)
 
 Tidying
 =======

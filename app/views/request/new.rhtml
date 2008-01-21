@@ -34,7 +34,7 @@
     </div>
 
     <p>
-        <label class="form_label" for="public_body_id">Public body:</label>
+        <label class="form_label" for="info_request_public_body_id">Public body:</label>
         <%=
         @public_bodies = PublicBody.find(:all, :order => "name")
         f.collection_select(:public_body_id, @public_bodies, :id, :name)
@@ -65,11 +65,10 @@
     </p>
 
     <div class="form_button">
-    <%= hidden_field_tag(:submitted_new_request, { :value => 1 } ) %>
-    <%= submit_tag "Make public Freedom of Information request >>" %>
+        <%= hidden_field_tag(:submitted_new_request, { :value => 1 } ) %>
+        <%= submit_tag "Make public Freedom of Information request >>" %>
     </div>
 
-  </div>
 <% end %>
 
 
