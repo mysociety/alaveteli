@@ -1,7 +1,7 @@
 <% @title = h(@display_users[0].name) %>
 
 <% if (@display_users.size > 1) %>
-    <p>There is more than one user with this name.
+    <p>There are <strong><%=@display_users.size%> people</strong> who've used this site called <%=h(@display_users[0].name)%>.
 <% end%>
 
 <% for display_user in @display_users %>
@@ -9,10 +9,12 @@
     <p class="subtitle">Joined on <%= simple_date(display_user.created_at) %></p>
 
     <% if display_user.info_requests.empty? %>
-        <p>This person has made no Freedom of Information requests using this site.</p>
+        <p><%= display_user == @user ? 'You have' : 'This person has' %>
+        made no Freedom of Information requests using this site.</p>
 
     <% else %>
-        <p>This person has made <%=pluralize(display_user.info_requests.size, "Freedom of Information request") %>
+        <p><%= display_user == @user ? 'You have' : 'This person has' %>
+        made <%=pluralize(display_user.info_requests.size, "Freedom of Information request") %>
         using this site.</p>
 
         <%= render :partial => 'request/request_listing', :locals => { :info_requests => display_user.info_requests.sort { |a,b| b.created_at <=> a.created_at } } %>
