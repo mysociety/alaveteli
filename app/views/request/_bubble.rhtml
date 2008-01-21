@@ -4,7 +4,7 @@
     <%  if not attachments.nil? and attachments.size > 0 %>
         <p> <% attachments.each do |a| %>
                 <% if ['application/pdf', 'application/msword', 'text/plain'].include?(a.content_type) %>
-                    <img src="/images/icon_<%=a.content_type.sub('/', '_')%>_large.png" align="absmiddle">
+                    <img alt="Attachment" src="/images/icon_<%=a.content_type.sub('/', '_')%>_large.png" align="absmiddle">
                 <% else %>
                     Attachment: 
                 <% end %>
