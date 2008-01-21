@@ -124,7 +124,7 @@ a:active {
 
 #footer {
     padding: 3px;
-    border-top: solid 1px #527b10;
+    border-top: solid 1px #4e451b;
     font-size: 90%;
     text-align: center;
     width: 75%;
@@ -277,6 +277,7 @@ table#list_requests .odd {
 #request_main {
     float: left;
     width: 70%;
+    margin-bottom: 2em;
 }
 
 #request_sidebar {
