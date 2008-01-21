@@ -20,7 +20,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.30 2008-01-18 22:47:36 francis Exp $
+# $Id: incoming_message.rb,v 1.31 2008-01-21 04:22:53 francis Exp $
 
 module TMail
     class Mail
@@ -123,24 +123,23 @@ class IncomingMessage < ActiveRecord::Base
 
     # Remove quoted sections from emails (eventually the aim would be for this
     # to do as good a job as GMail does) XXX bet it needs a proper parser
-    # XXX and this BEGIN_QUOTED / END_QUOTED stuff is a mess
-    def self.mark_quoted_sections(text)
+    # XXX and this FOLDED_QUOTED_SECTION stuff is a mess
+    def self.remove_quoted_sections(text, replacement = "FOLDED_QUOTED_SECTION")
         text = text.dup
         
         # Single line sections
-        text.gsub!(/^(>.*\n)/, "BEGIN_QUOTED\\1END_QUOTED")
-        text.gsub!(/^(On .+ (wrote|said):\n)/, "BEGIN_QUOTED\\1END_QUOTED")
+        text.gsub!(/^(>.*\n)/, replacement)
+        text.gsub!(/^(On .+ (wrote|said):\n)/, replacement)
 
         # Multiple line sections
-        text.gsub!(/(\s+[-_]{20,}\n.*?disclaimer.*?[-_]{20,}\n)/im, "\n\nBEGIN_QUOTED\\1END_QUOTED")
-#        --------------------------------------------------------
+        text.gsub!(/(\s*[-_]{20,}\n.*?disclaimer.*?[-_]{20,}\n)/im, "\n\n" + replacement)
 
         # To end of message sections
         original_message = 
             '(' + '''------ This is a copy of the message, including all the headers. ------''' + 
             '|' + '''-----Original Message-----''' +
             ')'
-        text.gsub!(/^(#{original_message}\n.*)$/m, "BEGIN_QUOTED\\1END_QUOTED")
+        text.gsub!(/^(#{original_message}\n.*)$/m, replacement)
 
         return text
     end
@@ -229,16 +228,22 @@ class IncomingMessage < ActiveRecord::Base
         text = self.mask_special_emails(text)
         text = IncomingMessage.remove_email_addresses(text)
 
-        # Remove quoted sections, adding HTML
-        text = IncomingMessage.mark_quoted_sections(text)
+        # Remove quoted sections, adding HTML. XXX The FOLDED_QUOTED_SECTION is
+        # a nasty hack so we can escape other HTML before adding the unfold
+        # links, without escaping them. Rather than using some proper parser
+        # making a tree structure (I don't know of one that is to hand, that
+        # works well in this kind of situation, such as with regexps).
+        folded_quoted_text = IncomingMessage.remove_quoted_sections(text, 'FOLDED_QUOTED_SECTION')
+        if collapse_quoted_sections
+            text = folded_quoted_text
+        end
         text = CGI.escapeHTML(text)
         text = MySociety::Format.make_clickable(text, :contract => 1)
         if collapse_quoted_sections
-            text = text.gsub(/(BEGIN_QUOTED(.+?)END_QUOTED\s*)+/m, '<a href="?unfold=1">show quoted sections</a>' + "\n")
+            text = text.gsub(/(FOLDED_QUOTED_SECTION\s*)+/m, '<span class="unfold_link"><a href="?unfold=1">show quoted sections</a></span>' + "\n")
         else
-            if text.include?('BEGIN_QUOTED')
-                text = text.gsub(/BEGIN_QUOTED(.+?)END_QUOTED/m, '\1')
-                text = text + "\n" + '<a href="?">hide quoted sections</a>'
+            if folded_quoted_text.include?('FOLDED_QUOTED_SECTION')
+                text = text + "\n\n" + '<span class="unfold_link"><a href="?">hide quoted sections</a></span>'
             end
         end
         text = text.gsub(/\n/, '<br>')
@@ -246,7 +251,7 @@ class IncomingMessage < ActiveRecord::Base
         return text
     end
 
-    # Returns body for quoting in reply
+    # Returns text of email for using in quoted section when replying
     def get_body_for_quoting
         # Find the body text and remove emails for privacy/anti-spam reasons
         text = get_main_body_text
@@ -254,8 +259,7 @@ class IncomingMessage < ActiveRecord::Base
         text = IncomingMessage.remove_email_addresses(text)
 
         # Remove existing quoted sections
-        text = IncomingMessage.mark_quoted_sections(text)
-        text = text.gsub(/BEGIN_QUOTED(.+?)END_QUOTED/m, '')
+        text = IncomingMessage.remove_quoted_sections(text)
     end
 
     # Returns the name of the person the incoming message is from, or nil if there isn't one

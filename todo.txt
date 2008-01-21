@@ -129,6 +129,11 @@ http://www.ico.gov.uk/Home/tools_and_resources/decision_notices.aspx
 Lucene for search (ask Louise for plugin)
 Have a look at http://swish-e.org/
 
+Generic alerting/tracking system including
+    - email alerts and RSS
+    - new requests, new good responses etc.
+    
+
 Read wiki page lots
 http://www.mysociety.org/moin.cgi/FreedomOfInformation
 And comments on proposal
