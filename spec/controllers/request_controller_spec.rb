@@ -220,6 +220,7 @@ describe RequestController, "when sending a followup message" do
         deliveries.size.should  == 1
         mail = deliveries[0]
         mail.body.should =~ /What a useless response! You suck./
+        mail.to_addrs.to_s.should == "FOI Person <foiperson@localhost>"
 
         response.should redirect_to(:controller => 'request', :action => 'show', :id => info_requests(:fancy_dog_request))
     end

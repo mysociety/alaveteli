@@ -64,10 +64,12 @@ Brainstorm of things to say if c):
 Next
 ====
 
+Use sent again date when there has been resent?, e.g. for
+    http://foi.mysociety.org/request/16
+
 Followups:
     - link to the follow up form, or embed in bottom of main request page
     - don't show classify link on /response/ page
-    - Copy the To: for followups properly (including name not just email)
 Alert somewhere if working days table not up to date
 
 Test it works if exim is down - e.g. not accepting connections
@@ -214,6 +216,10 @@ Including 'Request for information' in the subject line of your e-mail will assi
 http://www.parliament.uk/parliamentary_publications_and_archives/freedom_of_information_in_the_house_of_lords/lords__foi___how_to_obtain_information.cfm
 
 Consider putting the requesting user's name in the request's magic email address
+
+Escape "www.liverpool.gov.uk <http://www.liverpool.gov.uk>" properly - so it doesn't catch
+the last > converted to &gt; too badly
+    http://localhost:3000/request/5?
 
 Sources of public bodies
 ========================

@@ -3,8 +3,8 @@ useless_incoming_message:
   info_request_id: 101
   updated_at: 2007-11-13 18:09:20.042061
   raw_data: |
-    From: Francis Irving <frabcus@fastmail.fm>
-    To: FOI Person <foiperson@localhost>
+    From: FOI Person <foiperson@localhost>
+    To: Bob Smith <bob@localhost>
     Date: Tue, 13 Nov 2007 11:39:55 +0000
     NoCc: foi+request-1-4b571715@cat
     Bcc: 
