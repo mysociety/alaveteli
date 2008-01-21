@@ -8,4 +8,4 @@ location: <%= main_url(request_url(@info_request)) %>
 Sent using GovernmentSpy, a project of UKCOD, registered charity number 1076346. 
 -------------------------------------------------------------------
 
-<%= @outgoing_message.get_quoted_part_of_followup.strip %>
+<%= @outgoing_message.quoted_part_to_append_to_email.strip %>

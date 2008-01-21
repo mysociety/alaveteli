@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: outgoing_message.rb,v 1.21 2008-01-10 19:59:33 francis Exp $
+# $Id: outgoing_message.rb,v 1.22 2008-01-21 10:20:34 francis Exp $
 
 class OutgoingMessage < ActiveRecord::Base
     belongs_to :info_request
@@ -111,7 +111,7 @@ class OutgoingMessage < ActiveRecord::Base
     end
 
     # Returns the text to quote the original message when sending this one
-    def get_quoted_part_of_followup
+    def quoted_part_to_append_to_email
         if self.message_type == 'followup' && !self.incoming_message_followup.nil?
             return "\n\n-----Original Message-----\n\n" + self.incoming_message_followup.get_body_for_quoting + "\n"
         else

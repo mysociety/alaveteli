@@ -16,13 +16,57 @@ BAILII - relationship with law courts, robots.txt ?
 
 "Fundamental Savings Review" - Tom's friend
 
+States
+======
+
+What I *really* care about is the state of the request for use in the
+user interface, e.g. search results, RSS feeds.
+
+- Awaiting response
+- Response overdue
+- Awaiting follow up information / clarification from requester
+  (same as awaiting categorisation from requester?)
+- Responses contain no useful information XXX exact wording matters
+- Responses contain some useful information (XXX RSS needs to know when more)
+- Response contains all information requested
+
+State to ask about individual messages
+
+Please choose what this response is.
+    a) an acknowledgement of message received / forwarded on
+    b) asking for clarification about your request
+    c) a response containing information
+    e) a rejection notice
+
+Brainstorm of things to say if c):
+
+    How satisfied are you that your original request has been answered?
+        a) Quite satisfied, they've sent most of the information, or equivalent information.
+        b) Neutral, they sent some useful information, but not all.
+        c) Dissatisfied, they didn't send the relevant information.
+
+    How much of the information you originally requested have you recieved?
+        a) All of it.
+        b) Some of it.
+        c) None of it.
+
+    Have you now got all the info you originally requested
+        a) Yes, pretty well.
+        b) No
+
+    Are you yet satisfied that your original request has been answered?
+        a) Yes, I now have (most) of the information I wanted from my original request.
+        b) I received some of the information, or some related useful information.
+        c) I have received
+        d) My request was explicitly rejected
+
+
 Next
 ====
 
 Followups:
     - link to the follow up form, or embed in bottom of main request page
     - don't show classify link on /response/ page
-    - rename get_quoted_part_of_followup
     - Copy the To: for followups properly (including name not just email)
 Alert somewhere if working days table not up to date
 
@@ -91,13 +135,6 @@ Check act to see if can use pseudonym for FOI request?
 
 Later
 =====
-
-Workflow:
-a) a confirmation of message received / forwarded on
-b) a request for clarification
-c) a response containing all the information you requested
-d) a response containing some of the information
-e) a rejection notice
 
 Synthesise these tips into our handful of snappy snappy bullet points
 http://community.foe.co.uk/tools/right_to_know/tips.html

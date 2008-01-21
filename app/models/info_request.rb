@@ -17,7 +17,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.27 2008-01-14 12:22:36 francis Exp $
+# $Id: info_request.rb,v 1.28 2008-01-21 10:20:34 francis Exp $
 
 require 'digest/sha1'
 
@@ -85,6 +85,11 @@ public
     end
 
     # Work out what the situation of the request is
+    #   awaiting - awaiting a response
+    #   overdue - response is overdue
+    #   information - has response containing information
+    #   none - received a response, but no information XXX
+    #   unknown - received a response that hasn't been classified
     def calculate_status
         # Extract aggregate information for any incoming messages all together
         contains_information = false
