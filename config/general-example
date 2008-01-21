@@ -19,7 +19,7 @@
  * Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
  * Email: francis@mysociety.org; WWW: http://www.mysociety.org
  *
- * $Id: general-example,v 1.8 2007-12-11 12:07:10 francis Exp $
+ * $Id: general-example,v 1.9 2008-01-21 18:53:41 francis Exp $
  * 
  */
 
@@ -38,6 +38,6 @@ define('OPTION_INCOMING_EMAIL_SECRET', 'xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx'
 // Administration
 define('OPTION_CONTACT_EMAIL', 'admin@localhost');
 define('OPTION_ADMIN_BASE_URL', '/admin/');
-
+define('OPTION_ADMIN_PUBLIC_URL', '/'); // where /stylesheets sits under for admin pages
 
 ?>
