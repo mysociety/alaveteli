@@ -72,17 +72,8 @@ Followups:
     - don't show classify link on /response/ page
 Alert somewhere if working days table not up to date
 
-Test it works if exim is down - e.g. not accepting connections
-
 Make it so if the pipe fails, exim tries again rather than sending an error to the public body.
     Or so errors go to an admin somehow, at the very least.
-
-Work out how to get it to tell you code coverage of .rhtml files
-Make it validate the HTML
-    maybe with http://www.anodyne.ca/wp-content/uploads/2007/09/be_valid_xhtml.rb
-Test that it is actually sending the request outgoing mail, by using deliveries
-Add fixtures for info_request_event
-Test sending a message to bounce/envelope-from address
 
 Show due date on, e.g.
     http://foi.mysociety.org/request/4
@@ -98,6 +89,13 @@ sort orders we need)
 
 Tidying
 =======
+
+Work out how to get it to tell you code coverage of .rhtml files
+Make it validate the HTML
+    maybe with http://www.anodyne.ca/wp-content/uploads/2007/09/be_valid_xhtml.rb
+Test that it is actually sending the request outgoing mail, by using deliveries
+Add fixtures for info_request_event
+Test sending a message to bounce/envelope-from address
 
 Add display of users to admin interface (so can find their email address out)
 Link internally between different bits of admin interface

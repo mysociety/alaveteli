@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.39 2008-01-18 03:30:21 francis Exp $
+# $Id: request_controller.rb,v 1.40 2008-01-22 13:48:16 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -65,6 +65,7 @@ class RequestController < ApplicationController
             @info_request.user = authenticated_user
             # This automatically saves dependent objects, such as @outgoing_message, in the same transaction
             @info_request.save!
+            # XXX send_message needs the database id, so we send after saving, which isn't ideal if the request broke here.
             @outgoing_message.send_message
             flash[:notice] = "Your Freedom of Information request has been created and sent on its way."
             redirect_to show_request_url(:id => @info_request)
@@ -120,21 +121,18 @@ class RequestController < ApplicationController
             redirect_to show_request_url(:id => @info_request)
             return
         elsif !params[:submitted_followup].nil?
-            # Send a follow up message
-            @info_request.outgoing_messages << @outgoing_message
-            @outgoing_message.info_request = @info_request
-
             # See if values were valid or not
-            if !@info_request.valid?
+            @outgoing_message.info_request = @info_request
+            if !@outgoing_message.valid?
                 render :action => 'show_response'
             elsif authenticated_as_user?(@info_request.user,
                     :web => "To send a follow up message about your FOI request",
                     :email => "Then you can send a follow up message to " + @info_request.public_body.name + ".",
                     :email_subject => "Confirm your FOI follow up message to " + @info_request.public_body.name
                 )
-                # This automatically saves dependent objects, such as @outgoing_message, in the same transaction
-                @info_request.save!
+                # Send a follow up message
                 @outgoing_message.send_message
+                @outgoing_message.save!
                 flash[:notice] = "Your follow up message has been created and sent on its way."
                 redirect_to show_request_url(:id => @info_request)
             else
