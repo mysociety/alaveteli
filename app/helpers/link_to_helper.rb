@@ -5,7 +5,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: link_to_helper.rb,v 1.10 2008-01-22 18:34:15 francis Exp $
+# $Id: link_to_helper.rb,v 1.11 2008-01-22 18:51:21 francis Exp $
 
 module LinkToHelper
 
@@ -75,7 +75,7 @@ module LinkToHelper
     # Where stylesheets used by admin page sit under
     def admin_public_url(relative_path)
         admin_url_prefix = MySociety::Config.get("ADMIN_PUBLIC_URL", "/")
-        return (admin_url_prefix + relative_path).gsub('//', '/') # XXX stylesheet_path includes a /, as do our url_prefixes by convention
+        return admin_url_prefix + relative_path.sub(/^\//, "") # stylesheet relative paths start with /
     end
 
     def main_url(relative_path)
