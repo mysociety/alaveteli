@@ -8,9 +8,9 @@
 #  raw_data             :text            
 #  created_at           :datetime        
 #  updated_at           :datetime        
-#  user_classified      :boolean         
+#  user_classified      :boolean         default(false)
 #  contains_information :boolean         
-#  is_bounce            :boolean         
+#  is_bounce            :boolean         default(false)
 #
 
 # models/incoming_message.rb:
@@ -20,7 +20,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.33 2008-01-22 14:04:16 francis Exp $
+# $Id: incoming_message.rb,v 1.34 2008-01-22 19:45:07 francis Exp $
 
 
 # TODO

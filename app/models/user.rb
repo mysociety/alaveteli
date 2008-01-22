@@ -10,7 +10,7 @@
 #  salt            :string(255)     
 #  created_at      :datetime        
 #  updated_at      :datetime        
-#  email_confirmed :boolean         
+#  email_confirmed :boolean         default(false)
 #
 
 # models/user.rb:
@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user.rb,v 1.19 2008-01-14 10:43:30 francis Exp $
+# $Id: user.rb,v 1.20 2008-01-22 19:45:07 francis Exp $
 
 require 'digest/sha1'
 
