@@ -1,10 +1,10 @@
 # app/controllers/admin_request_controller.rb:
-# Controller for editing public bodies from the admin interface.
+# Controller for viewing FOI requests from the admin interface.
 #
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_request_controller.rb,v 1.2 2008-01-07 13:26:46 francis Exp $
+# $Id: admin_request_controller.rb,v 1.3 2008-01-22 18:34:15 francis Exp $
 
 class AdminRequestController < ApplicationController
     layout "admin"

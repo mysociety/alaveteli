@@ -61,25 +61,25 @@ Brainstorm of things to say if c):
         d) My request was explicitly rejected
 
 
-Next
-====
-
-Use sent again date when there has been resent?, e.g. for
-    http://foi.mysociety.org/request/16
+Status of messages stuff
+========================
 
 Followups:
     - link to the follow up form, or embed in bottom of main request page
     - don't show classify link on /response/ page
-Alert somewhere if working days table not up to date
+
+Use sent again date when there has been resent?, e.g. for
+    http://foi.mysociety.org/request/16
 
 Show due date on, e.g.
     http://foi.mysociety.org/request/4
 Sort by due date, show categorisation everywhere
+Alert somewhere if working days table not up to date
 
 Sort the requests by when something last happened to them (this needs thought as to what
 sort orders we need)
 
-Check out all automatically things here:
+Make sure this page is OK
 http://foi.mysociety.org/request/14
 
 Tidying
@@ -92,11 +92,7 @@ Test that it is actually sending the request outgoing mail, by using deliveries
 Add fixtures for info_request_event
 Test sending a message to bounce/envelope-from address
 
-Add display of users to admin interface (so can find their email address out)
 Link internally between different bits of admin interface
-
-Bubbles don't validate
-http://localhost:3000/request/5
 
 Add SQL database indexes to token / email_token in post_redirects
 
@@ -108,11 +104,6 @@ Add SQL foreign keys to database schema (THIS IS IMPORTANT, or things will screw
         http://www.redhillconsulting.com.au/rails_plugins.html#foreign_key_migrations
         http://rubyforge.org/projects/mig-constraints/
 Call "delete from sessions where now() - updated_at > 3600" (one hour) or whatever
-
-404s on all invalid URL parameters
-Hook global error message also
-
-Check log rotation is working well
 
 Mark some requests as test requests
 
@@ -217,6 +208,8 @@ Escape "www.liverpool.gov.uk <http://www.liverpool.gov.uk>" properly - so it doe
 the last > converted to &gt; too badly
     http://localhost:3000/request/5?
 (and be sure if you use a hack with a secret, it really is secret to stop people making evil links)
+
+Check log rotation is working well
 
 Sources of public bodies
 ========================
