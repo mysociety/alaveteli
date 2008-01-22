@@ -3,6 +3,7 @@
 <h1><%=@title%></h1>
 
 <p>
+<strong>ID:</strong> <%= @admin_user.id%>
 <% for column in User.content_columns %>
     <strong><%= column.human_name %>:</strong> 
     <% if column.name == 'email' %>
@@ -12,7 +13,6 @@
     <% end %>
     <br>
 <% end %>
-<strong>ID:</strong> <%= @admin_user.id%>
 </p>
 
 <%= link_to 'Public page', main_url(user_url(@admin_user)) %>
