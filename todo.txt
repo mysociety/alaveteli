@@ -72,9 +72,6 @@ Followups:
     - don't show classify link on /response/ page
 Alert somewhere if working days table not up to date
 
-Make it so if the pipe fails, exim tries again rather than sending an error to the public body.
-    Or so errors go to an admin somehow, at the very least.
-
 Show due date on, e.g.
     http://foi.mysociety.org/request/4
 Sort by due date, show categorisation everywhere
@@ -112,8 +109,6 @@ Add SQL foreign keys to database schema (THIS IS IMPORTANT, or things will screw
         http://rubyforge.org/projects/mig-constraints/
 Call "delete from sessions where now() - updated_at > 3600" (one hour) or whatever
 
-Do pretty error messages, e.g. on invalid public body name page etc.
-
 404s on all invalid URL parameters
 Hook global error message also
 
@@ -122,17 +117,13 @@ Check log rotation is working well
 Mark some requests as test requests
 
 
-Legal/privacy
-=============
+Later
+=====
 
 Check act to see if can use pseudonym for FOI request?
 
-"We will not reveal your email address to anybody" - are there circumstances
- (e.g. somebody messaging creator of a request and it bouncing) where we
- may reasonably do this, and should say it may happen?
-
-Later
-=====
+Make it so if the pipe fails, exim tries again rather than sending an error to the public body.
+    Or so errors go to an admin somehow, at the very least.
 
 Synthesise these tips into our handful of snappy snappy bullet points
 http://community.foe.co.uk/tools/right_to_know/tips.html
@@ -202,6 +193,12 @@ Maybe prepend letter for them with "this is FOI request blah" boilerplate?
 Forgotten password link
 
 Way of contacting other users
+    "We will not reveal your email address to anybody" - are there circumstances
+     (e.g. somebody messaging creator of a request and it bouncing) where we
+     may reasonably do this, and should say it may happen?
+     -- I think this is fine EXCEPT for the facility to send messages. Do we have
+     fake hash addresses two way for each user for the message-to-user sending
+     thing? Would make sense.
 
 Properly escape all name_and_email functions
 

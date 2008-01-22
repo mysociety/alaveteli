@@ -23,6 +23,11 @@ a:active {
     color: #ff0000;
 }
 
+#error_technical_details {
+    font-size: 70%;
+    margin-top: 2em;
+}
+
 .subtitle {
     font-style: italic;
     margin-top: -1em;

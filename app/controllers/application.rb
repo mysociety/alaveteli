@@ -6,7 +6,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: application.rb,v 1.26 2008-01-09 19:56:01 francis Exp $
+# $Id: application.rb,v 1.27 2008-01-22 17:59:50 francis Exp $
 
 
 class ApplicationController < ActionController::Base
@@ -15,6 +15,18 @@ class ApplicationController < ActionController::Base
 
     # Pick a unique cookie name to distinguish our session data from others'
     session :session_key => '_foi_session_id'
+
+    # Override default error handler
+    def rescue_action_in_public(exception)
+        # do something based on exception
+        @exception_backtrace = exception.backtrace.join("\n")
+        @exception_class = exception.class.to_s
+        render :template => "general/exception_caught.rhtml", :status => 404
+    end
+      
+    def local_request?
+        false
+    end
 
     private
 
