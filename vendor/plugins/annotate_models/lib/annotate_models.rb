@@ -10,9 +10,9 @@ module AnnotateModels
   # Simple quoting for the default column value
   def self.quote(value)
     case value
-      when NilClass                 then "NULL"
-      when TrueClass                then "TRUE"
-      when FalseClass               then "FALSE"
+      when NilClass                 then "null"
+      when TrueClass                then "true"
+      when FalseClass               then "false"
       when Float, Fixnum, Bignum    then value.to_s
       # BigDecimals need to be output in a non-normalized form and quoted.
       when BigDecimal               then value.to_s('F')
@@ -32,7 +32,7 @@ module AnnotateModels
     max_size = klass.column_names.collect{|name| name.size}.max + 1
     klass.columns.each do |col|
       attrs = []
-      attrs << "default(#{quote(col.default)})" if col.default
+      attrs << "default(#{quote(col.default)})" if !col.default.nil?
       attrs << "not null" unless col.null
       attrs << "primary key" if col.name == klass.primary_key
 
