@@ -20,7 +20,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.31 2008-01-21 04:22:53 francis Exp $
+# $Id: incoming_message.rb,v 1.32 2008-01-22 13:46:53 francis Exp $
 
 module TMail
     class Mail
@@ -259,7 +259,7 @@ class IncomingMessage < ActiveRecord::Base
         text = IncomingMessage.remove_email_addresses(text)
 
         # Remove existing quoted sections
-        text = IncomingMessage.remove_quoted_sections(text)
+        text = IncomingMessage.remove_quoted_sections(text, "")
     end
 
     # Returns the name of the person the incoming message is from, or nil if there isn't one
