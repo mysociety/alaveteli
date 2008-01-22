@@ -79,13 +79,11 @@ Show due date on, e.g.
     http://foi.mysociety.org/request/4
 Sort by due date, show categorisation everywhere
 
-Properly escape all name_and_email functions
+Sort the requests by when something last happened to them (this needs thought as to what
+sort orders we need)
 
 Check out all automatically things here:
 http://foi.mysociety.org/request/14
-
-Sort the requests by when something last happened to them (this needs thought as to what
-sort orders we need)
 
 Tidying
 =======
@@ -204,6 +202,8 @@ Maybe prepend letter for them with "this is FOI request blah" boilerplate?
 Forgotten password link
 
 Way of contacting other users
+
+Properly escape all name_and_email functions
 
 Give hotline to call body for extra help
 Advice and assistance in making FoI requests to the House of Lords is available

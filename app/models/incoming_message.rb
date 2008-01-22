@@ -20,7 +20,12 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.32 2008-01-22 13:46:53 francis Exp $
+# $Id: incoming_message.rb,v 1.33 2008-01-22 14:04:16 francis Exp $
+
+
+# TODO
+# Move some of the (e.g. quoting) functions here into rblib, as they feel
+# general not specific to IncomingMessage.
 
 module TMail
     class Mail
@@ -45,6 +50,16 @@ class IncomingMessage < ActiveRecord::Base
 
     has_many :outgoing_message_followups, :class_name => OutgoingMessage
 
+    # Return the structured TMail::Mail object
+    # Documentation at http://i.loveruby.net/en/projects/tmail/doc/
+    def mail
+        if @mail.nil? && !self.raw_data.nil?
+            @mail = TMail::Mail.parse(self.raw_data)
+            @mail.base64_decode
+        end
+        @mail
+    end
+
     # Number the attachments in depth first tree order, for use in URLs.
     def after_initialize
         if !self.mail.nil?
@@ -62,7 +77,7 @@ class IncomingMessage < ActiveRecord::Base
             part.url_part_number = @count_parts_count
         end
     end
-    # And look up by URL part number
+    # And look up by URL part number to get an attachment
     def self.get_attachment_by_url_part_number(attachments, found_url_part_number)
         @count_parts_count = 0  
         attachments.each do |a|
@@ -71,16 +86,6 @@ class IncomingMessage < ActiveRecord::Base
             end
         end
         return nil
-    end
-
-    # Return the structured TMail::Mail object
-    # Documentation at http://i.loveruby.net/en/projects/tmail/doc/
-    def mail
-        if @mail.nil? && !self.raw_data.nil?
-            @mail = TMail::Mail.parse(self.raw_data)
-            @mail.base64_decode
-        end
-        @mail
     end
 
     # Return date mail was sent
@@ -132,7 +137,9 @@ class IncomingMessage < ActiveRecord::Base
         text.gsub!(/^(On .+ (wrote|said):\n)/, replacement)
 
         # Multiple line sections
-        text.gsub!(/(\s*[-_]{20,}\n.*?disclaimer.*?[-_]{20,}\n)/im, "\n\n" + replacement)
+        ['-', '_'].each do |score|
+            text.gsub!(/(\s*#{score}{20,}\n.*?disclaimer:\n.*?#{score}{20,}\n)/im, "\n\n" + replacement)
+        end
 
         # To end of message sections
         original_message = 
@@ -240,7 +247,7 @@ class IncomingMessage < ActiveRecord::Base
         text = CGI.escapeHTML(text)
         text = MySociety::Format.make_clickable(text, :contract => 1)
         if collapse_quoted_sections
-            text = text.gsub(/(FOLDED_QUOTED_SECTION\s*)+/m, '<span class="unfold_link"><a href="?unfold=1">show quoted sections</a></span>' + "\n")
+            text = text.gsub(/(\s*FOLDED_QUOTED_SECTION\s*)+/m, "\n\n" + '<span class="unfold_link"><a href="?unfold=1">show quoted sections</a></span>' + "\n")
         else
             if folded_quoted_text.include?('FOLDED_QUOTED_SECTION')
                 text = text + "\n\n" + '<span class="unfold_link"><a href="?">hide quoted sections</a></span>'
