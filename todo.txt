@@ -119,9 +119,7 @@ Make it so if the pipe fails, exim tries again rather than sending an error to t
 Synthesise these tips into our handful of snappy snappy bullet points
 http://community.foe.co.uk/tools/right_to_know/tips.html
 
-Change to Rails 2, may as well do it now rather than later.
-http://www.slashdotdash.net/articles/2007/12/03/rails-2-upgrade-notes
-See if occasional fastcgi errors then go away
+See if occasional fastcgi errors go away now with Rails 2
 [Mon Jan 21 10:38:45 2008] [error] [client 81.107.40.81] FastCGI: incomplete headers (0 bytes) rec
 eived from server "/data/vhost/foi.mysociety.org/docs/dispatch.fcgi"
 

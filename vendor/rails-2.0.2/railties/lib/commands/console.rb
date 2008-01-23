@@ -29,4 +29,5 @@ if options[:sandbox]
 else
   puts "Loading #{ENV['RAILS_ENV']} environment (Rails #{Rails::VERSION::STRING})"
 end
+#puts "FAITEMP #{options[:irb]} #{libs} --simple-prompt" # FAI temp
 exec "#{options[:irb]} #{libs} --simple-prompt"
