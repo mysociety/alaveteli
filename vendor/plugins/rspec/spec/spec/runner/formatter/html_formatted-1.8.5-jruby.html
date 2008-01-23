@@ -1,12 +1,11 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
-<!DOCTYPE html
-     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html 
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
   <title>RSpec results</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="Expires" content="-1" />
   <meta http-equiv="Pragma" content="no-cache" />
   <style type="text/css">
@@ -19,7 +18,6 @@
   </style>
 </head>
 <body>
-
 <div class="rspec-report">
   <script type="text/javascript">
     // <![CDATA[
@@ -75,7 +73,7 @@ function makeYellow(element_id) {
   font-size: 1.2em;
 }
 
-.behaviour {
+.example_group {
   margin: 0 10px 5px;
   background: #fff;
 }
@@ -178,22 +176,23 @@ a {
 </div>
 
 <div class="results">
-
-<div class="behaviour">
+<div class="example_group">
   <dl>
-  <dt id="behaviour_1">Mocker</dt>
+  <dt id="example_group_1">Mocker</dt>
     <script type="text/javascript">moveProgressBar('5.8');</script>
     <dd class="spec passed"><span class="passed_spec_name">should be able to call mock()</span></dd>
     <script type="text/javascript">makeRed('rspec-header');</script>
-    <script type="text/javascript">makeRed('behaviour_1');</script>
+    <script type="text/javascript">makeRed('example_group_1');</script>
     <script type="text/javascript">moveProgressBar('11.7');</script>
     <dd class="spec failed">
       <span class="failed_spec_name">should fail when expected message not received</span>
       <div class="failure" id="failure_1">
         <div class="message"><pre>Mock 'poke me' expected :poke with (any args) once, but received it 0 times</pre></div>
-        <div class="backtrace"><pre>./failing_examples/mocking_example.rb:13:
-./spec/spec/runner/formatter/html_formatter_spec.rb:17:
-./spec/spec/runner/formatter/html_formatter_spec.rb:13:</pre></div>
+        <div class="backtrace"><pre>/Users/david/projects/ruby/jruby/testsuites/rspec/target/rspec/./failing_examples/mocking_example.rb:13:in `should_receive'
+/Users/david/projects/ruby/jruby/testsuites/rspec/target/rspec/spec/spec/runner/formatter/html_formatter_spec.rb:24:in `run'
+/Users/david/projects/ruby/jruby/testsuites/rspec/target/rspec/spec/spec/runner/formatter/html_formatter_spec.rb:20:in `chdir'
+/Users/david/projects/ruby/jruby/testsuites/rspec/target/rspec/spec/spec/runner/formatter/html_formatter_spec.rb:20:in `chdir'
+/Users/david/projects/ruby/jruby/testsuites/rspec/target/rspec/spec/spec/runner/formatter/html_formatter_spec.rb:20:in `instance_eval'</pre></div>
     <pre class="ruby"><code><span class="linenum">11</span>  it "should fail when expected message not received" do
 <span class="linenum">12</span>    mock = mock("poke me")
 <span class="offending"><span class="linenum">13</span>    mock.should_receive(:poke)</span>
@@ -207,9 +206,12 @@ a {
       <span class="failed_spec_name">should fail when messages are received out of order</span>
       <div class="failure" id="failure_2">
         <div class="message"><pre>Mock 'one two three' received :three out of order</pre></div>
-        <div class="backtrace"><pre>./failing_examples/mocking_example.rb:22:
-./spec/spec/runner/formatter/html_formatter_spec.rb:17:
-./spec/spec/runner/formatter/html_formatter_spec.rb:13:</pre></div>
+        <div class="backtrace"><pre>/Users/david/projects/ruby/jruby/testsuites/rspec/target/rspec/./failing_examples/mocking_example.rb:22:in `three'
+/Users/david/projects/ruby/jruby/testsuites/rspec/target/rspec/./failing_examples/mocking_example.rb:16:in `instance_eval'
+/Users/david/projects/ruby/jruby/testsuites/rspec/target/rspec/spec/spec/runner/formatter/html_formatter_spec.rb:24:in `run'
+/Users/david/projects/ruby/jruby/testsuites/rspec/target/rspec/spec/spec/runner/formatter/html_formatter_spec.rb:20:in `chdir'
+/Users/david/projects/ruby/jruby/testsuites/rspec/target/rspec/spec/spec/runner/formatter/html_formatter_spec.rb:20:in `chdir'
+/Users/david/projects/ruby/jruby/testsuites/rspec/target/rspec/spec/spec/runner/formatter/html_formatter_spec.rb:20:in `instance_eval'</pre></div>
     <pre class="ruby"><code><span class="linenum">20</span>    mock.should_receive(:three).ordered
 <span class="linenum">21</span>    mock.one
 <span class="offending"><span class="linenum">22</span>    mock.three</span>
@@ -223,9 +225,11 @@ a {
       <span class="failed_spec_name">should get yelled at when sending unexpected messages</span>
       <div class="failure" id="failure_3">
         <div class="message"><pre>Mock 'don't talk to me' expected :any_message_at_all with (any args) 0 times, but received it once</pre></div>
-        <div class="backtrace"><pre>./failing_examples/mocking_example.rb:28:
-./spec/spec/runner/formatter/html_formatter_spec.rb:17:
-./spec/spec/runner/formatter/html_formatter_spec.rb:13:</pre></div>
+        <div class="backtrace"><pre>/Users/david/projects/ruby/jruby/testsuites/rspec/target/rspec/./failing_examples/mocking_example.rb:28:in `should_not_receive'
+/Users/david/projects/ruby/jruby/testsuites/rspec/target/rspec/spec/spec/runner/formatter/html_formatter_spec.rb:24:in `run'
+/Users/david/projects/ruby/jruby/testsuites/rspec/target/rspec/spec/spec/runner/formatter/html_formatter_spec.rb:20:in `chdir'
+/Users/david/projects/ruby/jruby/testsuites/rspec/target/rspec/spec/spec/runner/formatter/html_formatter_spec.rb:20:in `chdir'
+/Users/david/projects/ruby/jruby/testsuites/rspec/target/rspec/spec/spec/runner/formatter/html_formatter_spec.rb:20:in `instance_eval'</pre></div>
     <pre class="ruby"><code><span class="linenum">26</span>  it "should get yelled at when sending unexpected messages" do
 <span class="linenum">27</span>    mock = mock("don't talk to me")
 <span class="offending"><span class="linenum">28</span>    mock.should_not_receive(:any_message_at_all)</span>
@@ -239,9 +243,12 @@ a {
       <span class="failed_spec_name">has a bug we need to fix</span>
       <div class="failure" id="failure_4">
         <div class="message"><pre>Expected pending 'here is the bug' to fail. No Error was raised.</pre></div>
-        <div class="backtrace"><pre>./failing_examples/mocking_example.rb:33:
-./spec/spec/runner/formatter/html_formatter_spec.rb:17:
-./spec/spec/runner/formatter/html_formatter_spec.rb:13:</pre></div>
+        <div class="backtrace"><pre>/Users/david/projects/ruby/jruby/testsuites/rspec/target/rspec/./failing_examples/mocking_example.rb:33:in `pending'
+/Users/david/projects/ruby/jruby/testsuites/rspec/target/rspec/./failing_examples/mocking_example.rb:33:in `instance_eval'
+/Users/david/projects/ruby/jruby/testsuites/rspec/target/rspec/spec/spec/runner/formatter/html_formatter_spec.rb:24:in `run'
+/Users/david/projects/ruby/jruby/testsuites/rspec/target/rspec/spec/spec/runner/formatter/html_formatter_spec.rb:20:in `chdir'
+/Users/david/projects/ruby/jruby/testsuites/rspec/target/rspec/spec/spec/runner/formatter/html_formatter_spec.rb:20:in `chdir'
+/Users/david/projects/ruby/jruby/testsuites/rspec/target/rspec/spec/spec/runner/formatter/html_formatter_spec.rb:20:in `instance_eval'</pre></div>
     <pre class="ruby"><code><span class="linenum">31</span>
 <span class="linenum">32</span>  it "has a bug we need to fix" do
 <span class="offending"><span class="linenum">33</span>    pending "here is the bug" do</span>
@@ -252,10 +259,10 @@ a {
     </dd>
   </dl>
 </div>
-<div class="behaviour">
+<div class="example_group">
   <dl>
-  <dt id="behaviour_2">Running specs with --diff</dt>
-    <script type="text/javascript">makeRed('behaviour_2');</script>
+  <dt id="example_group_2">Running specs with --diff</dt>
+    <script type="text/javascript">makeRed('example_group_2');</script>
     <script type="text/javascript">moveProgressBar('35.2');</script>
     <dd class="spec failed">
       <span class="failed_spec_name">should print diff of different strings</span>
@@ -269,10 +276,11 @@ Diff:
 +behaviour driven development
  framework for Ruby
 </pre></div>
-        <div class="backtrace"><pre>./failing_examples/diffing_spec.rb:13:in `=='
-./failing_examples/diffing_spec.rb:13:
-./spec/spec/runner/formatter/html_formatter_spec.rb:17:
-./spec/spec/runner/formatter/html_formatter_spec.rb:13:</pre></div>
+        <div class="backtrace"><pre>/Users/david/projects/ruby/jruby/testsuites/rspec/target/rspec/./failing_examples/diffing_spec.rb:13:in `=='
+/Users/david/projects/ruby/jruby/testsuites/rspec/target/rspec/spec/spec/runner/formatter/html_formatter_spec.rb:24:in `run'
+/Users/david/projects/ruby/jruby/testsuites/rspec/target/rspec/spec/spec/runner/formatter/html_formatter_spec.rb:20:in `chdir'
+/Users/david/projects/ruby/jruby/testsuites/rspec/target/rspec/spec/spec/runner/formatter/html_formatter_spec.rb:20:in `chdir'
+/Users/david/projects/ruby/jruby/testsuites/rspec/target/rspec/spec/spec/runner/formatter/html_formatter_spec.rb:20:in `instance_eval'</pre></div>
     <pre class="ruby"><code><span class="linenum">11</span>framework for Ruby
 <span class="linenum">12</span>EOF
 <span class="offending"><span class="linenum">13</span>    usa.should == uk</span>
@@ -302,9 +310,12 @@ Diff:
 +species=tortoise
  &gt;
 </pre></div>
-        <div class="backtrace"><pre>./failing_examples/diffing_spec.rb:34:
-./spec/spec/runner/formatter/html_formatter_spec.rb:17:
-./spec/spec/runner/formatter/html_formatter_spec.rb:13:</pre></div>
+        <div class="backtrace"><pre>/Users/david/projects/ruby/jruby/testsuites/rspec/target/rspec/./failing_examples/diffing_spec.rb:34:in `should'
+/Users/david/projects/ruby/jruby/testsuites/rspec/target/rspec/./failing_examples/diffing_spec.rb:31:in `instance_eval'
+/Users/david/projects/ruby/jruby/testsuites/rspec/target/rspec/spec/spec/runner/formatter/html_formatter_spec.rb:24:in `run'
+/Users/david/projects/ruby/jruby/testsuites/rspec/target/rspec/spec/spec/runner/formatter/html_formatter_spec.rb:20:in `chdir'
+/Users/david/projects/ruby/jruby/testsuites/rspec/target/rspec/spec/spec/runner/formatter/html_formatter_spec.rb:20:in `chdir'
+/Users/david/projects/ruby/jruby/testsuites/rspec/target/rspec/spec/spec/runner/formatter/html_formatter_spec.rb:20:in `instance_eval'</pre></div>
     <pre class="ruby"><code><span class="linenum">32</span>    expected = Animal.new "bob", "giraffe"
 <span class="linenum">33</span>    actual   = Animal.new "bob", "tortoise"
 <span class="offending"><span class="linenum">34</span>    expected.should eql(actual)</span>
@@ -315,16 +326,16 @@ Diff:
     </dd>
   </dl>
 </div>
-<div class="behaviour">
+<div class="example_group">
   <dl>
-  <dt id="behaviour_3">A consumer of a stub</dt>
+  <dt id="example_group_3">A consumer of a stub</dt>
     <script type="text/javascript">moveProgressBar('47.0');</script>
     <dd class="spec passed"><span class="passed_spec_name">should be able to stub methods on any Object</span></dd>
   </dl>
 </div>
-<div class="behaviour">
+<div class="example_group">
   <dl>
-  <dt id="behaviour_4">A stubbed method on a class</dt>
+  <dt id="example_group_4">A stubbed method on a class</dt>
     <script type="text/javascript">moveProgressBar('52.9');</script>
     <dd class="spec passed"><span class="passed_spec_name">should return the stubbed value</span></dd>
     <script type="text/javascript">moveProgressBar('58.8');</script>
@@ -333,9 +344,9 @@ Diff:
     <dd class="spec passed"><span class="passed_spec_name">can stub! and mock the same message</span></dd>
   </dl>
 </div>
-<div class="behaviour">
+<div class="example_group">
   <dl>
-  <dt id="behaviour_5">A mock</dt>
+  <dt id="example_group_5">A mock</dt>
     <script type="text/javascript">moveProgressBar('70.5');</script>
     <dd class="spec passed"><span class="passed_spec_name">can stub!</span></dd>
     <script type="text/javascript">moveProgressBar('76.4');</script>
@@ -344,28 +355,28 @@ Diff:
     <dd class="spec passed"><span class="passed_spec_name">can stub! and mock the same message</span></dd>
   </dl>
 </div>
-<div class="behaviour">
+<div class="example_group">
   <dl>
-  <dt id="behaviour_6">pending example (using pending method)</dt>
-    <script type="text/javascript">makeYellow('behaviour_6');</script>
+  <dt id="example_group_6">pending example (using pending method)</dt>
+    <script type="text/javascript">makeYellow('example_group_6');</script>
     <script type="text/javascript">moveProgressBar('88.2');</script>
-    <dd class="spec not_implemented"><span class="not_implemented_spec_name">should be reported as &quot;PENDING: for some reason&quot;</span></dd>
+    <dd class="spec not_implemented"><span class="not_implemented_spec_name">should be reported as &quot;PENDING: for some reason&quot; (PENDING: for some reason)</span></dd>
   </dl>
 </div>
-<div class="behaviour">
+<div class="example_group">
   <dl>
-  <dt id="behaviour_7">pending example (with no block)</dt>
-    <script type="text/javascript">makeYellow('behaviour_7');</script>
+  <dt id="example_group_7">pending example (with no block)</dt>
+    <script type="text/javascript">makeYellow('example_group_7');</script>
     <script type="text/javascript">moveProgressBar('94.1');</script>
-    <dd class="spec not_implemented"><span class="not_implemented_spec_name">should be reported as &quot;PENDING: Not Yet Implemented&quot;</span></dd>
+    <dd class="spec not_implemented"><span class="not_implemented_spec_name">should be reported as &quot;PENDING: Not Yet Implemented&quot; (PENDING: Not Yet Implemented)</span></dd>
   </dl>
 </div>
-<div class="behaviour">
+<div class="example_group">
   <dl>
-  <dt id="behaviour_8">pending example (with block for pending)</dt>
-    <script type="text/javascript">makeYellow('behaviour_8');</script>
+  <dt id="example_group_8">pending example (with block for pending)</dt>
+    <script type="text/javascript">makeYellow('example_group_8');</script>
     <script type="text/javascript">moveProgressBar('100.0');</script>
-    <dd class="spec not_implemented"><span class="not_implemented_spec_name">should have a failing block, passed to pending, reported as &quot;PENDING: for some reason&quot;</span></dd>
+    <dd class="spec not_implemented"><span class="not_implemented_spec_name">should have a failing block, passed to pending, reported as &quot;PENDING: for some reason&quot; (PENDING: for some reason)</span></dd>
   </dl>
 </div>
 <script type="text/javascript">document.getElementById('duration').innerHTML = "Finished in <strong>x seconds</strong>";</script>
