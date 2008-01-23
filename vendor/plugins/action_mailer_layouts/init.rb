@@ -1,5 +1,5 @@
 begin
-  load(File.join(File.dirname(__FILE__), 'plugin.rb'))
+  require(File.join(File.dirname(__FILE__), 'plugin.rb'))
   ActionController::Base.logger.fatal '** Loaded layouts plugin for ActionMailer'
 rescue Exception => e
   puts e.inspect

@@ -7,7 +7,7 @@ module ActionMailer
     alias_method :render_message_without_layouts, :render_message
 
     def render_message(method_name, body)
-      layout = @layout ? @layout.to_s : self.class.to_s.underscore
+      layout = "./" + (@layout ? @layout.to_s : self.class.to_s.underscore)
       md = /^([^\.]+)\.([^\.]+\.[^\.]+)\.(rhtml|rxml)$/.match(method_name)
       layout << ".#{md.captures[1]}" if md && md.captures[1]
       layout << ".rhtml"
