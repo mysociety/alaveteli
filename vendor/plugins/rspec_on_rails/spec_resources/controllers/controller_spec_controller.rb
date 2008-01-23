@@ -1,5 +1,9 @@
 class ControllerSpecController < ActionController::Base
-  set_view_path File.join(File.dirname(__FILE__), "..", "views")
+  if ['edge','2.0.0'].include?(ENV['RSPEC_RAILS_VERSION'])
+    set_view_path [File.join(File.dirname(__FILE__), "..", "views")]
+  else
+    set_view_path File.join(File.dirname(__FILE__), "..", "views")
+  end
   
   def some_action
     render :template => "template/that/does/not/actually/exist"
@@ -29,8 +33,9 @@ class ControllerSpecController < ActionController::Base
 
   def action_setting_the_assigns_hash
     assigns['direct_assigns_key'] = :direct_assigns_key_value
+    @indirect_assigns_key = :indirect_assigns_key_value
   end
-
+  
   def action_setting_flash_after_session_reset
     reset_session
     flash[:after_reset] = "available"

@@ -1,8 +1,12 @@
-dir = File.dirname(__FILE__)
-require File.expand_path("#{dir}/extensions/object")
-require File.expand_path("#{dir}/extensions/active_record/base")
-require File.expand_path("#{dir}/extensions/active_record/oracle_adapter_patch")
-require File.expand_path("#{dir}/extensions/action_controller/base")
-require File.expand_path("#{dir}/extensions/action_controller/rescue")
-require File.expand_path("#{dir}/extensions/action_controller/test_response")
-require File.expand_path("#{dir}/extensions/action_view/base")
+require 'spec'
+
+require 'spec/rails/extensions/object'
+
+require 'spec/rails/extensions/spec/example/configuration'
+require 'spec/rails/extensions/spec/matchers/have'
+
+require 'spec/rails/extensions/active_record/base'
+require 'spec/rails/extensions/action_controller/base'
+require 'spec/rails/extensions/action_controller/rescue'
+require 'spec/rails/extensions/action_controller/test_response'
+require 'spec/rails/extensions/action_view/base'

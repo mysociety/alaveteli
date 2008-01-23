@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../../spec_helper'
 
 ['isolation','integration'].each do |mode|
   describe "response.should render_template (in #{mode} mode)",
-    :behaviour_type => :controller do
+    :type => :controller do
     controller_name :render_spec
     if mode == 'integration'
       integrate_views
@@ -30,7 +30,8 @@ require File.dirname(__FILE__) + '/../../spec_helper'
 
     it "should match an rjs template" do
       xhr :post, 'some_action'
-      if ActionView::Base.const_defined?('DEFAULT_TEMPLATE_HANDLER_PREFERENCE')
+      if ActionView::Base.const_defined?('DEFAULT_TEMPLATE_HANDLER_PREFERENCE') ||
+				 ActionView::Base.respond_to?(:handler_for_extension) then
         response.should render_template('render_spec/some_action')
       else
         response.should render_template('render_spec/some_action.rjs')
@@ -82,50 +83,4 @@ require File.dirname(__FILE__) + '/../../spec_helper'
       end.should fail_with("expected \"some_action\", got nil")
     end
   end
-
-  describe "response.should have_text (in #{mode} mode)",
-    :behaviour_type => :controller do
-    controller_name :render_spec
-    if mode == 'integration'
-      integrate_views
-    end
-
-    it "should pass with exactly matching text" do
-      post 'text_action'
-      response.should have_text("this is the text for this action")
-    end
-
-    it "should pass with matching text (using Regexp)" do
-      post 'text_action'
-      response.should have_text(/is the text/)
-    end
-
-    it "should fail with matching text" do
-      post 'text_action'
-      lambda {
-        response.should have_text("this is NOT the text for this action")
-      }.should fail_with("expected \"this is NOT the text for this action\", got \"this is the text for this action\"")
-    end
-
-    it "should fail when a template is rendered" do
-      post 'some_action'
-      lambda {
-        response.should have_text("this is the text for this action")
-      }.should fail_with(/expected \"this is the text for this action\", got .*/)
-    end
-  end
-
-  describe "response.should_not have_text (in #{mode} mode)",
-    :behaviour_type => :controller do
-    controller_name :render_spec
-    if mode == 'integration'
-      integrate_views
-    end
-
-    it "should pass with exactly matching text" do
-      post 'text_action'
-      response.should_not have_text("the accordian guy")
-    end
-  end
-
 end

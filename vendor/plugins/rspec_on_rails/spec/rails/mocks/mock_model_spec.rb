@@ -1,12 +1,17 @@
 require File.dirname(__FILE__) + '/../../spec_helper'
 
 class MockableModel < ActiveRecord::Base
+  has_one :associated_model
 end
 
 class SubMockableModel < MockableModel
 end
 
-describe "mock_model", :behaviour_type => :view do
+class AssociatedModel < ActiveRecord::Base
+  belongs_to :mockable_model
+end
+
+describe "mock_model", :type => :view do
   before(:each) do
     @model = mock_model(SubMockableModel)
   end
@@ -27,5 +32,34 @@ describe "mock_model", :behaviour_type => :view do
   end
   it "should not say it instance_of? if it isn't, even if it's ancestor is" do
     @model.instance_of?(MockableModel).should be(false)
+  end
+end
+
+describe "mock_model with null_object", :type => :view do
+  before(:each) do
+    @model = mock_model(MockableModel, :null_object => true, :mocked_method => "mocked")
+  end
+  
+  it "should be able to mock methods" do
+    @model.mocked_method.should == "mocked"
+  end
+  it "should return itself to unmocked methods" do
+    @model.unmocked_method.should equal(@model)
+  end
+end
+
+describe "mock_model as association", :type => :view do
+  before(:each) do
+    @real = AssociatedModel.create!
+    @mock_model = mock_model(MockableModel)
+    @real.mockable_model = @mock_model
+  end
+  
+  it "should pass associated_model == mock" do
+      @mock_model.should == @real.mockable_model
+  end
+
+  it "should pass mock == associated_model" do
+      @real.mockable_model.should == @mock_model
   end
 end

@@ -69,6 +69,13 @@ module AssertSelectSpecHelpers
     get :xml
   end
   
+  def first_non_rspec_line_in_backtrace_of(error)
+    rspec_path = File.join('rspec', 'lib', 'spec')
+    error.backtrace.reject { |line|
+      line =~ /#{rspec_path}/
+    }.first
+  end
+
   private
     # necessary for 1.2.1
     def clear_response
@@ -80,7 +87,7 @@ unless defined?(SpecFailed)
   SpecFailed = Spec::Expectations::ExpectationNotMetError 
 end
 
-describe "should have_tag", :behaviour_type => :controller do
+describe "should have_tag", :type => :controller do
   include AssertSelectSpecHelpers
   controller_name :assert_select
   integrate_views
@@ -226,8 +233,44 @@ describe "should have_tag", :behaviour_type => :controller do
     }.should raise_error(SpecFailed)
   end
   
-  it "should should report the correct line number for a nested failure" do
-    pending("bug report: http://rubyforge.org/tracker/index.php?func=detail&aid=11602&group_id=797&atid=3149") do
+  it "should report the correct line number for a nested failed expectation" do
+    render_html %Q{
+      <form action="test">
+        <input type="text" name="email">
+      </form>
+    }
+    begin
+      response.should have_tag("form[action=test]") {
+        @expected_error_line = __LINE__; should have_tag("input[type=text][name=other_input]")
+      }
+    rescue => e
+      first_non_rspec_line_in_backtrace_of(e).should =~ 
+        /#{File.basename(__FILE__)}:#{@expected_error_line}/
+    else
+      fail
+    end
+  end
+
+  it "should report the correct line number for a nested raised exception" do
+    render_html %Q{
+      <form action="test">
+        <input type="text" name="email">
+      </form>
+    }
+    begin
+      response.should have_tag("form[action=test]") {
+        @expected_error_line = __LINE__; raise "Failed!"
+      }
+    rescue => e
+      first_non_rspec_line_in_backtrace_of(e).should =~ 
+        /#{File.basename(__FILE__)}:#{@expected_error_line}/
+    else
+      fail
+    end
+  end
+
+  it "should report the correct line number for a nested failed test/unit assertion" do
+    pending "Doesn't work at the moment. Do we want to support this?" do
       render_html %Q{
         <form action="test">
           <input type="text" name="email">
@@ -235,13 +278,17 @@ describe "should have_tag", :behaviour_type => :controller do
       }
       begin
         response.should have_tag("form[action=test]") {
-          with_tag("input[type=text][name=other_input]")
+          @expected_error_line = __LINE__; assert false
         }
       rescue => e
-        e.backtrace[3].to_s.should =~ /assert_select_spec.rb:238/
+        first_non_rspec_line_in_backtrace_of(e).should =~
+          /#{File.basename(__FILE__)}:#{@expected_error_line}/
+      else
+        fail
       end
     end
   end
+
   
   it "beatles" do
     unless defined?(BEATLES)
@@ -358,7 +405,7 @@ describe "should have_tag", :behaviour_type => :controller do
   end
 end
 
-describe "css_select", :behaviour_type => :controller do
+describe "css_select", :type => :controller do
   include AssertSelectSpecHelpers
   controller_name :assert_select
   integrate_views
@@ -409,7 +456,7 @@ describe "css_select", :behaviour_type => :controller do
   
 end
 
-describe "have_rjs behaviour", :behaviour_type => :controller do
+describe "have_rjs behaviour_type", :type => :controller do
   include AssertSelectSpecHelpers
   controller_name :assert_select
   integrate_views
@@ -584,7 +631,7 @@ describe "have_rjs behaviour", :behaviour_type => :controller do
   end
 end
 
-describe "send_email behaviour", :behaviour_type => :controller do
+describe "send_email behaviour_type", :type => :controller do
   include AssertSelectSpecHelpers
   controller_name :assert_select
   integrate_views
@@ -628,7 +675,7 @@ describe "send_email behaviour", :behaviour_type => :controller do
 end
 
 # describe "An rjs call to :visual_effect, a 'should have_rjs' spec with",
-#   :behaviour_type => :view do
+#   :type => :view do
 #     
 #   before do
 #     render 'rjs_spec/visual_effect'
@@ -653,7 +700,7 @@ end
 # end
 #   
 # describe "An rjs call to :visual_effect for a toggle, a 'should have_rjs' spec with",
-#   :behaviour_type => :view do
+#   :type => :view do
 #     
 #   before do
 #     render 'rjs_spec/visual_toggle_effect'
@@ -677,7 +724,7 @@ end
 #   
 # end
 
-describe "string.should have_tag", :behaviour_type => :helper do
+describe "string.should have_tag", :type => :helper do
   include AssertSelectSpecHelpers
 
   it "should find root element" do
@@ -709,7 +756,7 @@ describe "string.should have_tag", :behaviour_type => :helper do
   end
 end
 
-describe "have_tag", :behaviour_type => :controller do
+describe "have_tag", :type => :controller do
   include AssertSelectSpecHelpers
   controller_name :assert_select
   integrate_views
@@ -733,3 +780,4 @@ describe "have_tag", :behaviour_type => :controller do
     response.should have_tag("#wrapper .piece h3", :text => "Another")
   end
 end
+
