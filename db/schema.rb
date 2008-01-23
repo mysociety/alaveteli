@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 26) do
+ActiveRecord::Schema.define(:version => 25) do
 
   create_table "incoming_messages", :force => true do |t|
     t.integer  "info_request_id"
@@ -93,9 +93,9 @@ ActiveRecord::Schema.define(:version => 26) do
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
   create_table "users", :force => true do |t|
-    t.string   "email",                              :null => false
-    t.string   "name",                               :null => false
-    t.string   "hashed_password",                    :null => false
+    t.string   "email"
+    t.string   "name"
+    t.string   "hashed_password"
     t.string   "salt"
     t.datetime "created_at"
     t.datetime "updated_at"
