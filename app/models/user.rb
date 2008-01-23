@@ -4,7 +4,7 @@
 # Table name: users
 #
 #  id              :integer         not null, primary key
-#  email           :string(255)     
+#  email           :string(255)     default("ook")
 #  name            :string(255)     
 #  hashed_password :string(255)     
 #  salt            :string(255)     
@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user.rb,v 1.20 2008-01-22 19:45:07 francis Exp $
+# $Id: user.rb,v 1.21 2008-01-23 01:59:23 francis Exp $
 
 require 'digest/sha1'
 

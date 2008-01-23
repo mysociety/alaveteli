@@ -20,7 +20,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.34 2008-01-22 19:45:07 francis Exp $
+# $Id: incoming_message.rb,v 1.35 2008-01-23 01:59:23 francis Exp $
 
 
 # TODO
@@ -31,6 +31,8 @@ module TMail
     class Mail
         attr_accessor :url_part_number
 
+        # Monkeypatch! (check to see if this becomes a standard function in
+        # TMail::Mail, then use that, whatever it is called)
         def self.get_part_file_name(part)
             file_name = (part['content-location'] &&
                           part['content-location'].body) ||

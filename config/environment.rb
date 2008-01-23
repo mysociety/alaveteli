@@ -79,8 +79,8 @@ ActionView::Base.field_error_proc = Proc.new{ |html_tag, instance|  %(<span clas
 # Monkeypatch! Output HTML 4.0 compliant code, using method described in this
 # ticket: http://dev.rubyonrails.org/ticket/6009
 ActionView::Helpers::TagHelper.module_eval do
-  def tag(name, options = nil, open = false)
-    "<#{name}#{tag_options(options.stringify_keys) if options}>"
+  def tag(name, options = nil, open = false, escape = true)
+    "<#{name}#{tag_options(options, escape) if options}" + (open ? ">" : ">")
   end
 end
 
