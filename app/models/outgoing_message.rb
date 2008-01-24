@@ -1,15 +1,15 @@
 # == Schema Information
-# Schema version: 25
+# Schema version: 26
 #
 # Table name: outgoing_messages
 #
 #  id                           :integer         not null, primary key
-#  info_request_id              :integer         
-#  body                         :text            
-#  status                       :string(255)     
-#  message_type                 :string(255)     
-#  created_at                   :datetime        
-#  updated_at                   :datetime        
+#  info_request_id              :integer         not null
+#  body                         :text            not null
+#  status                       :string(255)     not null
+#  message_type                 :string(255)     not null
+#  created_at                   :datetime        not null
+#  updated_at                   :datetime        not null
 #  last_sent_at                 :datetime        
 #  incoming_message_followup_id :integer         
 #
@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: outgoing_message.rb,v 1.22 2008-01-21 10:20:34 francis Exp $
+# $Id: outgoing_message.rb,v 1.23 2008-01-24 15:53:15 francis Exp $
 
 class OutgoingMessage < ActiveRecord::Base
     belongs_to :info_request

@@ -1,27 +1,31 @@
 # == Schema Information
-# Schema version: 25
+# Schema version: 26
 #
 # Table name: post_redirects
 #
 #  id                 :integer         not null, primary key
-#  token              :text            
-#  uri                :text            
+#  token              :text            not null
+#  uri                :text            not null
 #  post_params_yaml   :text            
-#  created_at         :datetime        
-#  updated_at         :datetime        
-#  email_token        :text            
+#  created_at         :datetime        not null
+#  updated_at         :datetime        not null
+#  email_token        :text            not null
 #  reason_params_yaml :text            
 #  user_id            :integer         
 #
 
 # models/post_redirect.rb:
-# Saves an HTTP POST request, so it can be redirected to later.
-# For example, after registering / logging in.
+# Saves an HTTP request, so it can be redirected to later.  For example, after
+# registering / logging in. This can save POST requests, if post_params_yaml
+# is not null.
+#
+# See check_in_post_redirect in controllers/application.rb for the hack that
+# fakes the redirect to include POST parameters in request later.
 #
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: post_redirect.rb,v 1.12 2008-01-14 19:11:18 francis Exp $
+# $Id: post_redirect.rb,v 1.13 2008-01-24 15:53:15 francis Exp $
 
 require 'openssl' # for random bytes function
 

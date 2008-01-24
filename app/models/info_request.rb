@@ -1,14 +1,14 @@
 # == Schema Information
-# Schema version: 25
+# Schema version: 26
 #
 # Table name: info_requests
 #
 #  id             :integer         not null, primary key
-#  title          :text            
-#  user_id        :integer         
-#  public_body_id :integer         
-#  created_at     :datetime        
-#  updated_at     :datetime        
+#  title          :text            not null
+#  user_id        :integer         not null
+#  public_body_id :integer         not null
+#  created_at     :datetime        not null
+#  updated_at     :datetime        not null
 #
 
 # models/info_request.rb:
@@ -17,7 +17,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.28 2008-01-21 10:20:34 francis Exp $
+# $Id: info_request.rb,v 1.29 2008-01-24 15:53:15 francis Exp $
 
 require 'digest/sha1'
 

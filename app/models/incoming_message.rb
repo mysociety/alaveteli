@@ -1,16 +1,16 @@
 # == Schema Information
-# Schema version: 25
+# Schema version: 26
 #
 # Table name: incoming_messages
 #
 #  id                   :integer         not null, primary key
-#  info_request_id      :integer         
-#  raw_data             :text            
-#  created_at           :datetime        
-#  updated_at           :datetime        
-#  user_classified      :boolean         default(false)
+#  info_request_id      :integer         not null
+#  raw_data             :text            not null
+#  created_at           :datetime        not null
+#  updated_at           :datetime        not null
+#  user_classified      :boolean         default(false), not null
 #  contains_information :boolean         
-#  is_bounce            :boolean         default(false)
+#  is_bounce            :boolean         default(false), not null
 #
 
 # models/incoming_message.rb:
@@ -20,7 +20,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.35 2008-01-23 01:59:23 francis Exp $
+# $Id: incoming_message.rb,v 1.36 2008-01-24 15:53:15 francis Exp $
 
 
 # TODO

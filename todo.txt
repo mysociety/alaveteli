@@ -25,12 +25,19 @@ user interface, e.g. search results, RSS feeds.
 - Awaiting response
 - Response overdue
 - Awaiting follow up information / clarification from requester
-  (same as awaiting categorisation from requester?)
 - Responses contain no useful information XXX exact wording matters
 - Responses contain some useful information (XXX RSS needs to know when more)
 - Response contains all information requested
+Flag: awaiting categorisation from requester?
 
 State to ask about individual messages
+
+Are you now:
+    * Awaiting a response
+    * About to clarify your request
+    * Looking at a rejection
+    * Happy with your response
+    * Partially happy with your response
 
 Please choose what this response is.
     a) an acknowledgement of message received / forwarded on
@@ -96,7 +103,6 @@ Link internally between different bits of admin interface
 
 Add SQL database indexes to token / email_token in post_redirects
 
-Set "null" and "default" options more in schema
 Add SQL foreign keys to database schema (THIS IS IMPORTANT, or things will screw up)
     execute 'ALTER TABLE researchers ADD CONSTRAINT fk_researchers_departments FOREIGN KEY ( department_id ) REFERENCES departments( id ) '
     http://wiki.rubyonrails.org/rails/pages/UsingMigrations link to:
@@ -104,6 +110,7 @@ Add SQL foreign keys to database schema (THIS IS IMPORTANT, or things will screw
         http://www.redhillconsulting.com.au/rails_plugins.html#foreign_key_migrations
         http://rubyforge.org/projects/mig-constraints/
 Call "delete from sessions where now() - updated_at > 3600" (one hour) or whatever
+Also delete old post_redirects (and similar)
 
 Mark some requests as test requests
 
