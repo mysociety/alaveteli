@@ -1,16 +1,14 @@
 # == Schema Information
-# Schema version: 26
+# Schema version: 27
 #
 # Table name: incoming_messages
 #
-#  id                   :integer         not null, primary key
-#  info_request_id      :integer         not null
-#  raw_data             :text            not null
-#  created_at           :datetime        not null
-#  updated_at           :datetime        not null
-#  user_classified      :boolean         default(false), not null
-#  contains_information :boolean         
-#  is_bounce            :boolean         default(false), not null
+#  id              :integer         not null, primary key
+#  info_request_id :integer         not null
+#  raw_data        :text            not null
+#  created_at      :datetime        not null
+#  updated_at      :datetime        not null
+#  is_bounce       :boolean         default(false), not null
 #
 
 # models/incoming_message.rb:
@@ -20,7 +18,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.36 2008-01-24 15:53:15 francis Exp $
+# $Id: incoming_message.rb,v 1.37 2008-01-29 01:26:21 francis Exp $
 
 
 # TODO
@@ -279,6 +277,11 @@ class IncomingMessage < ActiveRecord::Base
         else 
             return nil
         end
+    end
+
+    # Has message arrived "recently"?
+    def recently_arrived
+        (Time.now - self.created_at) <= 3.days
     end
 end
 

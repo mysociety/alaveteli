@@ -11,17 +11,14 @@
         <%= incoming_message.safe_mail_from %> of
     <% end %>
     <%= public_body_link(@info_request.public_body) %>
-    <% if incoming_message.contains_information %>
-        sent some <strong>useful information</strong>
-    <% elsif incoming_message.is_bounce %>
+    <% if incoming_message.is_bounce %>
         replied automatically
     <% else %>
         replied 
     <% end %>
     on <strong><%= simple_date(incoming_message.sent_at) %></strong>
-    <% if not incoming_message.user_classified %>
-        &mdash; please <%= link_to "classify this response", show_response_url(:id => incoming_message.info_request.id, :incoming_message_id => incoming_message.id) %>
-    <% end %>
+    (<%= link_to "link to this", show_response_url(:id => incoming_message.info_request.id, :incoming_message_id => incoming_message.id) %>,
+    <%= link_to "reply", show_response_url(:id => incoming_message.info_request.id, :incoming_message_id => incoming_message.id) + "#show_response_followup" %>)
     </p>
 <% elsif (correspondence.class.to_s == 'InfoRequestEvent') 
     info_request_event = correspondence

@@ -1,14 +1,36 @@
 <% for info_request in info_requests %>
+    <% status = info_request.calculate_status %>
     <p class="request_listing">
         <%= request_link(info_request) %>
+
         <br>
         <%=h excerpt(info_request.initial_request_text, "", 300) %>
         <br>
 
         <span class="request_listing_bottomline">
+            <strong>
+            <% if info_request.awaiting_description %>
+                Awaiting classification.
+            <% elsif status == 'waiting_response' %>
+                Awaiting response.
+            <% elsif status == 'waiting_response_overdue' %>
+                Response overdue.
+            <% elsif status == 'partially_successful' %>
+                Partially successful.
+            <% elsif status == 'rejected' %>
+                Rejected.
+            <% elsif status == 'successful' %>
+                Successful.
+            <% elsif status == 'waiting_clarification' %>
+                Waiting clarification.
+            <% else %>
+                <% raise "unknown status " + status %>
+            <% end %>
+            </strong>
+
             Requested from <%= public_body_link(info_request.public_body) %>
             by <%= user_link(info_request.user) %>
-            on <%= simple_date(info_request.created_at) %>
+            on <%= simple_date(info_request.created_at) %>.
         </span>
     </p>
 <% end %>

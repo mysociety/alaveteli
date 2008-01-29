@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.40 2008-01-22 13:48:16 francis Exp $
+# $Id: request_controller.rb,v 1.41 2008-01-29 01:26:21 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -15,6 +15,7 @@ class RequestController < ApplicationController
         @status = @info_request.calculate_status
         @date_response_required_by = @info_request.date_response_required_by
         @collapse_quotes = params[:unfold] ? false : true
+        @is_owning_user = !authenticated_user.nil? && authenticated_user.id == @info_request.user_id
     end
 
     def list
@@ -74,7 +75,54 @@ class RequestController < ApplicationController
         end
     end
 
-    # Show an individual incoming message
+    # Page describing state of message posts to
+    def describe_state
+        @info_request = InfoRequest.find(params[:id])
+        if @info_request.described_last_incoming_message_id.nil?
+            @correspondences = @info_request.incoming_messages.find(:all)
+        else
+            @correspondences = @info_request.incoming_messages.find(:all, :conditions => "id > " + @info_request.described_last_incoming_message_id.to_s)
+        end
+        @correspondences.sort! { |a,b| a.sent_at <=> b.sent_at } 
+        @is_owning_user = !authenticated_user.nil? && authenticated_user.id == @info_request.user_id
+
+        if not @info_request.awaiting_description
+            flash[:notice] = "The status of this request is up to date."
+            if !params[:submitted_describe_state].nil?
+                flash[:notice] = "The status of this request was made up to date elsewhere while you were filling in the form."
+            end
+            redirect_to show_request_url(:id => @info_request)
+            return
+        end
+
+        if !params[:submitted_describe_state].nil?
+            if not authenticated_as_user?(@info_request.user,
+                    :web => "To classify the response to this FOI request",
+                    :email => "Then you can classify the FOI response you have got from " + @info_request.public_body.name + ".",
+                    :email_subject => "Classify an FOI response from " + @info_request.public_body.name
+                )
+                # do nothing - as "authenticated?" has done the redirect to signin page for us
+                return
+            end
+
+            if !params[:incoming_message]
+                flash[:error] = "Please choose whether or not you got some of the information that you wanted."
+                return
+            end
+
+            @info_request.awaiting_description = false
+            @info_request.described_last_incoming_message_id = @correspondences[-1].id # XXX lock this with InfoRequest.receive
+            @info_request.described_state = params[:incoming_message][:described_state]
+            @info_request.save!
+            flash[:notice] = "Thank you for answering!"
+            # XXX need to prompt for followups here
+            redirect_to show_request_url(:id => @info_request)
+            return
+        end
+    end
+
+
+    # Show an individual incoming message, and allow followup
     def show_response
         @incoming_message = IncomingMessage.find(params[:incoming_message_id])
         @info_request = @incoming_message.info_request
@@ -96,31 +144,7 @@ class RequestController < ApplicationController
             raise sprintf("Incoming message %d does not belong to request %d", @incoming_message.info_request_id, params[:id])
         end
 
-        if !params[:submitted_classify].nil?
-            # Let the user classify it.
-            if not authenticated_as_user?(@info_request.user,
-                    :web => "To classify the response to this FOI request",
-                    :email => "Then you can classify the FOI response you have got from " + @info_request.public_body.name + ".",
-                    :email_subject => "Classify an FOI response from " + @info_request.public_body.name
-                )
-                return
-                # do nothing - as "authenticated?" has done the redirect to signin page for us
-            end
-
-            if !params[:incoming_message]
-                flash[:error] = "Please choose whether or not you got some of the information that you wanted."
-                render :action => 'show_response'
-                return
-            end
-
-            contains_information = (params[:incoming_message][:contains_information] == 'true' ? true : false)
-            @incoming_message.contains_information = contains_information
-            @incoming_message.user_classified = true
-            @incoming_message.save!
-            flash[:notice] = "Thank you for classifying the response."
-            redirect_to show_request_url(:id => @info_request)
-            return
-        elsif !params[:submitted_followup].nil?
+        if !params[:submitted_followup].nil?
             # See if values were valid or not
             @outgoing_message.info_request = @info_request
             if !@outgoing_message.valid?

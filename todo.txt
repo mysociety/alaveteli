@@ -1,3 +1,8 @@
+
+search for 'classify' and tidy text
+hack storing better info so know when state changed for stats purpose
+go through each one and add on the extra stuff
+
 FOI requests to use to test it
 ==============================
 
@@ -133,10 +138,11 @@ eived from server "/data/vhost/foi.mysociety.org/docs/dispatch.fcgi"
 Show public body email address on their public page, with a link to say "this isn't right!"
 
 Email me updates on this request
+Requests with related content
 Blog posts / Wikipedia articles about this request
 
-About page
 Contact page
+Finish about page
 
 Remember me box
     This can't possible be the best way, it is too depressing:
@@ -151,7 +157,7 @@ http://www.ico.gov.uk/Home/tools_and_resources/decision_notices.aspx
 (10:32:52) Matthew: their function is called autogrow_textarea() by the way, if you just want to look at it...
  thanks :) I won't do it now as there are more important things, I was just accidentally impressed
 
-Lucene for search (ask Louise for plugin)
+Lucene for search - use http://acts-as-solr.rubyforge.org/
 Have a look at http://swish-e.org/
 
 Generic alerting/tracking system including
@@ -215,6 +221,9 @@ the last > converted to &gt; too badly
 (and be sure if you use a hack with a secret, it really is secret to stop people making evil links)
 
 Check log rotation is working well
+
+Ask what they learnt from request, and other things?
+    and reward by putting their request on front page
 
 Sources of public bodies
 ========================

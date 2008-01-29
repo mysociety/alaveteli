@@ -298,15 +298,24 @@ table#list_requests .odd {
     display: none;
 }
 
-/* /show_response - viewing and classifying individual responses */
+/* /describe_state - user  setting status of request */
 
-#show_response_classify_action {
-    float: left;
+#describe_state_form {
+    clear: both;
+    background-color: #eeffee;
+    border: solid 1px #00cc00;
+    padding: 1em;
+}
+
+/* /show_response - viewing individual responses */
+
+#show_response_sidebar {
+    float: right;
     width: 30%;
 }
 
 #show_response_view {
-    float: right;
+    float: left;
     width: 70%;
 }
 #show_response_followup {

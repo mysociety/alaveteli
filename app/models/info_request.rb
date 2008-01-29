@@ -1,14 +1,17 @@
 # == Schema Information
-# Schema version: 26
+# Schema version: 27
 #
 # Table name: info_requests
 #
-#  id             :integer         not null, primary key
-#  title          :text            not null
-#  user_id        :integer         not null
-#  public_body_id :integer         not null
-#  created_at     :datetime        not null
-#  updated_at     :datetime        not null
+#  id                                 :integer         not null, primary key
+#  title                              :text            not null
+#  user_id                            :integer         not null
+#  public_body_id                     :integer         not null
+#  created_at                         :datetime        not null
+#  updated_at                         :datetime        not null
+#  described_state                    :string(255)     not null
+#  awaiting_description               :boolean         default(false), not null
+#  described_last_incoming_message_id :integer         
 #
 
 # models/info_request.rb:
@@ -17,7 +20,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.29 2008-01-24 15:53:15 francis Exp $
+# $Id: info_request.rb,v 1.30 2008-01-29 01:26:21 francis Exp $
 
 require 'digest/sha1'
 
@@ -33,6 +36,17 @@ class InfoRequest < ActiveRecord::Base
     has_many :outgoing_messages
     has_many :incoming_messages
     has_many :info_request_events
+
+    belongs_to :dsecribed_last_incoming_message_id
+
+    # user described state
+    validates_inclusion_of :described_state, :in => [ 
+        'waiting_response',
+        'waiting_clarification', 
+        'rejected', 
+        'successful', 
+        'partially_successful'
+    ]
 
 public
     # Email which public body should use to respond to request. This is in
@@ -75,35 +89,28 @@ public
 
     # A new incoming email to this request
     def receive(email, raw_email, is_bounce)
-        incoming_message = IncomingMessage.new
-        incoming_message.raw_data = raw_email
-        incoming_message.is_bounce = is_bounce
-        incoming_message.info_request = self
-        incoming_message.save!
+        ActiveRecord::Base.transaction do
+            incoming_message = IncomingMessage.new
+            incoming_message.raw_data = raw_email
+            incoming_message.is_bounce = is_bounce
+            incoming_message.info_request = self
+            incoming_message.save!
+
+            self.awaiting_description = true
+            self.save!
+        end
 
         RequestMailer.deliver_new_response(self, incoming_message)
     end
 
     # Work out what the situation of the request is
-    #   awaiting - awaiting a response
-    #   overdue - response is overdue
-    #   information - has response containing information
-    #   none - received a response, but no information XXX
-    #   unknown - received a response that hasn't been classified
+    #   waiting_response
+    #   waiting_response_overdue  # XXX calculated, should be cached for display?
+    #   waiting_clarification
+    #   rejected
+    #   successful
+    #   partially_successful
     def calculate_status
-        # Extract aggregate information for any incoming messages all together
-        contains_information = false
-        missing_classification = false
-        self.incoming_messages.each do |msg|
-            if msg.user_classified
-                if msg.contains_information
-                    contains_information = true
-                end
-            else
-                missing_classification = true
-            end
-        end
-
         # See if response would be overdue 
         date_today = Time.now.strftime("%Y-%m-%d")
         date_response = date_response_required_by.strftime("%Y-%m-%d")
@@ -113,22 +120,15 @@ public
             overdue = false
         end
 
-        # Return appropriate status string
-        if self.incoming_messages.size == 0
+        if self.described_state == "waiting_response"
             if overdue
-                return "overdue"
+                return 'waiting_response_overdue'
             else
-                return "awaiting"
+                return 'waiting_response'
             end
         end
-        if missing_classification
-            return "unknown"
-        end
-        if contains_information
-            return "information"
-        else
-            return "none"
-        end
+
+        return self.described_state
     end
 
     # Calculate date by which response is required by law.
@@ -183,13 +183,6 @@ public
         # XXX and give until the end of that 20th working day
         
         return response_required_by
-    end
-
-    # Return array of unclassified responses
-    def unclassified_responses
-        return self.incoming_messages.select do |msg|
-            not msg.user_classified
-        end
     end
 
     # Where the initial request is sent to

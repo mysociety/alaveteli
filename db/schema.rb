@@ -9,16 +9,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 26) do
+ActiveRecord::Schema.define(:version => 27) do
 
   create_table "incoming_messages", :force => true do |t|
-    t.integer  "info_request_id",                         :null => false
-    t.text     "raw_data",                                :null => false
-    t.datetime "created_at",                              :null => false
-    t.datetime "updated_at",                              :null => false
-    t.boolean  "user_classified",      :default => false, :null => false
-    t.boolean  "contains_information"
-    t.boolean  "is_bounce",            :default => false, :null => false
+    t.integer  "info_request_id",                    :null => false
+    t.text     "raw_data",                           :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
+    t.boolean  "is_bounce",       :default => false, :null => false
   end
 
   create_table "info_request_events", :force => true do |t|
@@ -29,11 +27,14 @@ ActiveRecord::Schema.define(:version => 26) do
   end
 
   create_table "info_requests", :force => true do |t|
-    t.text     "title",          :null => false
-    t.integer  "user_id",        :null => false
-    t.integer  "public_body_id", :null => false
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.text     "title",                                                 :null => false
+    t.integer  "user_id",                                               :null => false
+    t.integer  "public_body_id",                                        :null => false
+    t.datetime "created_at",                                            :null => false
+    t.datetime "updated_at",                                            :null => false
+    t.string   "described_state",                                       :null => false
+    t.boolean  "awaiting_description",               :default => false, :null => false
+    t.integer  "described_last_incoming_message_id"
   end
 
   create_table "outgoing_messages", :force => true do |t|

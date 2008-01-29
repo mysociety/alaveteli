@@ -1,5 +1,11 @@
 <% @title = h(@info_request.title) %>
 
+<% if @info_request.awaiting_description %>
+    <div id="describe_state_form">
+    <%= render :partial => 'describe_state' %>
+    </div>
+<% end %>
+
 <div id="request_main">
     <h1><%=@title%></h1>
 
@@ -10,19 +16,28 @@
     </p>
 
     <p id="request_status">
-    <% if @status == 'awaiting' %>
+    <% if @info_request.awaiting_description %>
+        <% if @is_owning_user %>
+            Please <strong>answer the question above</strong> so we know whether the 
+            most recent response you got contained useful information.
+        <% else %>
+            This request is <strong>awaiting description</strong> by <%= user_link(@info_request.user) %>
+        <% end %>
+    <% elsif @status == 'waiting_response' %>
         Currently <strong>waiting for a response</strong> from <%= public_body_link(@info_request.public_body) %>,
         due by <strong><%= simple_date(@date_response_required_by) %></strong>.
-    <% elsif @status == 'overdue' %>
+    <% elsif @status == 'waiting_response_overdue' %>
         Currently <strong>overdue a response</strong> from <%=
         public_body_link(@info_request.public_body) %>. The 
         <%= link_to "response was due", about_url %></li>
         on <strong><%= simple_date(@date_response_required_by) %></strong>.
-    <% elsif @status == 'information' %>
-        The request was at least partly <strong>successful</strong>.
-    <% elsif @status == 'none' %>
-        The request is <strong>not (yet) successful</strong>.
-    <% elsif @status == 'unknown' %>
+    <% elsif @status == 'rejected' %>
+        The request was <strong>rejected</strong> by <%= public_body_link(@info_request.public_body) %>.
+    <% elsif @status == 'successful' %>
+        The request was <strong>successful</strong>.
+    <% elsif @status == 'partially_successful' %>
+        The request was <strong>partially successful</strong>.
+    <% elsif @status == 'waiting_clarification' %>
         <strong><%= MySociety::Format.fancy_pluralize(@info_request.incoming_messages.size, 'Response', 'responses') %> 
         received</strong>, 
         but <%= user_link(@info_request.user) %> has not yet reported whether
@@ -30,9 +45,8 @@
         contained useful information or not. 
         
         If you are <%= user_link(@info_request.user) %>, please classify them below.
-        <!-- This will be useful here too: @info_request.unclassified_responses -->
     <% else %>
-    <% raise "unknown status " + $status %>
+        <% raise "unknown status " + @status %>
     <% end %>
     </p>
 
@@ -50,5 +64,11 @@
     <h2>Wikipedia articles</h2>
     <p>...-->
 </div>
+
+<% if @info_request.awaiting_description %>
+    <div id="describe_state_form">
+    <%= render :partial => 'describe_state' %>
+    </div>
+<% end %>
 
 

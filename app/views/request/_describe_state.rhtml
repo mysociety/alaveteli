@@ -1,0 +1,36 @@
+<% if @is_owning_user %>
+    <% form_for(:incoming_message, @info_request, :url => describe_state_url(:id => @info_request.id)) do |f| %>
+        <h2>What are you doing about this request now?</h2>
+        <p>Filling this in each time you get a new response helps us track the progress of your request.
+        </p>
+        <p>
+            <%= radio_button "incoming_message", "described_state", "waiting_response" %>
+            <label for="incoming_message_described_state_waiting_response">I'm still <strong>waiting</strong> for a response</label>
+            <br>
+            <%= radio_button "incoming_message", "described_state", "waiting_clarification" %>
+            <label for="incoming_message_described_state_waiting_clarification">I'm about to <strong>clarify</strong> my request</label>
+            <br>
+            <%= radio_button "incoming_message", "described_state", "rejected" %>
+            <label for="incoming_message_described_state_rejected">My request has been <strong>rejected</strong></label>
+            <br>
+            <%= radio_button "incoming_message", "described_state", "successful" %>
+            <label for="incoming_message_described_state_successful">I've received (nearly) <strong>all the information</strong> that I asked for</label>
+            <br>
+            <%= radio_button "incoming_message", "described_state", "partially_successful" %>
+            <label for="incoming_message_described_state_partially_successful">I've received <strong>some of the information</strong> that I asked for</label>
+        </p>
+
+        <%= hidden_field_tag 'submitted_describe_state', 1 %>
+        <%= submit_tag "Next >>" %>
+    <% end %>
+<% else %>
+        We don't know whether the most recent response to this request contains
+        information or not 
+            &ndash;
+        if you are
+            <%= user_link(@info_request.user) %>,
+        please 
+            <%= link_to "sign in", signin_url(:r => request.request_uri) %>
+        and let everyone know.
+<% end %>
+

@@ -1,0 +1,23 @@
+<% @title = "New responses to '" + h(@info_request.title) + "'" %>
+
+<%= foi_error_messages_for :incoming_message, :outgoing_message %>
+
+<div id="describe_state_form">
+    <%= render :partial => 'describe_state' %>
+</div>
+
+<div id="show_response_view">
+    <h2>New responses to your request '<%= request_link @info_request %>'</h2>
+
+    <% for correspondence in @correspondences %>
+        <%= render :partial => 'correspondence', :locals => { :correspondence => correspondence } %>
+    <% end %>
+
+    <div id="show_response_followup">
+        <%= render :partial => 'followup', :locals => { :correspondence => @incoming_message } %>
+    </div>
+</div>
+
+<div id="describe_state_form">
+    <%= render :partial => 'describe_state' %>
+</div>
