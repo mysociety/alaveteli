@@ -6,7 +6,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: application.rb,v 1.27 2008-01-22 17:59:50 francis Exp $
+# $Id: application.rb,v 1.28 2008-01-29 03:05:46 francis Exp $
 
 
 class ApplicationController < ActionController::Base
@@ -112,7 +112,6 @@ class ApplicationController < ActionController::Base
     # URL generating functions are needed by all controllers (for redirects)
     # and views (for links), so include them into all of both.
     include LinkToHelper
-
 end
 
 

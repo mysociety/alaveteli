@@ -1,8 +1,6 @@
 <% if @is_owning_user %>
     <% form_for(:incoming_message, @info_request, :url => describe_state_url(:id => @info_request.id)) do |f| %>
-        <h2>What are you doing about this request now?</h2>
-        <p>Filling this in each time you get a new response helps us track the progress of your request.
-        </p>
+        <h2>What is the status of this request now?</h2>
         <p>
             <%= radio_button "incoming_message", "described_state", "waiting_response" %>
             <label for="incoming_message_described_state_waiting_response">I'm still <strong>waiting</strong> for a response</label>
@@ -14,10 +12,12 @@
             <label for="incoming_message_described_state_rejected">My request has been <strong>rejected</strong></label>
             <br>
             <%= radio_button "incoming_message", "described_state", "successful" %>
-            <label for="incoming_message_described_state_successful">I've received (nearly) <strong>all the information</strong> that I asked for</label>
+            <label for="incoming_message_described_state_successful">I've received <strong>all the information</strong> (or equivalents) that I asked for</label>
             <br>
             <%= radio_button "incoming_message", "described_state", "partially_successful" %>
             <label for="incoming_message_described_state_partially_successful">I've received <strong>some of the information</strong> that I asked for</label>
+        </p>
+        <p>Filling this in each time you get a new response helps us track the progress of your request.
         </p>
 
         <%= hidden_field_tag 'submitted_describe_state', 1 %>

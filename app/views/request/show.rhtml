@@ -19,9 +19,12 @@
     <% if @info_request.awaiting_description %>
         <% if @is_owning_user %>
             Please <strong>answer the question above</strong> so we know whether the 
-            most recent response you got contained useful information.
+            <%= MySociety::Format.fancy_pluralize(@needing_description.size, 'recent response contains', 'recent responses contain') %> useful information.
         <% else %>
-            This request is <strong>awaiting description</strong> by <%= user_link(@info_request.user) %>
+            This request has an <strong>unknown status</strong>. We're waiting for
+            <%= user_link(@info_request.user) %> to read 
+            <%= MySociety::Format.fancy_pluralize(@needing_description.size, 'a recent response', 'recent responses') %> 
+            and update the status.
         <% end %>
     <% elsif @status == 'waiting_response' %>
         Currently <strong>waiting for a response</strong> from <%= public_body_link(@info_request.public_body) %>,
@@ -38,13 +41,8 @@
     <% elsif @status == 'partially_successful' %>
         The request was <strong>partially successful</strong>.
     <% elsif @status == 'waiting_clarification' %>
-        <strong><%= MySociety::Format.fancy_pluralize(@info_request.incoming_messages.size, 'Response', 'responses') %> 
-        received</strong>, 
-        but <%= user_link(@info_request.user) %> has not yet reported whether
-        <%= @info_request.incoming_messages.size == 1 ? 'it' : 'they' %> 
-        contained useful information or not. 
-        
-        If you are <%= user_link(@info_request.user) %>, please classify them below.
+        The request is <strong>waiting clarification</strong>
+        by <%= user_link(@info_request.user) %>.
     <% else %>
         <% raise "unknown status " + @status %>
     <% end %>

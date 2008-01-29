@@ -5,7 +5,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: link_to_helper.rb,v 1.11 2008-01-22 18:51:21 francis Exp $
+# $Id: link_to_helper.rb,v 1.12 2008-01-29 03:05:47 francis Exp $
 
 module LinkToHelper
 
@@ -52,10 +52,10 @@ module LinkToHelper
     end
 
 
-
     def info_request_link(info_request)
         link_to h(info_request.title), show_request_url(:id => info_request)
     end
+
 
     # Simplified links to our objects
     # XXX See controllers/user_controller.rb controllers/body_controller.rb for inverse
@@ -72,6 +72,15 @@ module LinkToHelper
         return admin_url_prefix + relative_path
     end
 
+    # About page URLs
+    def about_url
+        return help_general_url :action => 'about'
+    end
+    def unhappy_url
+        return help_general_url :action => 'unhappy'
+    end
+
+
     # Where stylesheets used by admin page sit under
     def admin_public_url(relative_path)
         admin_url_prefix = MySociety::Config.get("ADMIN_PUBLIC_URL", "/")
@@ -82,6 +91,12 @@ module LinkToHelper
         url_prefix = "http://" + MySociety::Config.get("DOMAIN", '127.0.0.1:3000')
         return url_prefix + relative_path
     end
+
+    # Basic date format
+    def simple_date(date)
+        return date.strftime("%e %B %Y")
+    end
+
   
 end
 

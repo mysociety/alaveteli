@@ -1,7 +1,4 @@
-
-search for 'classify' and tidy text
-hack storing better info so know when state changed for stats purpose
-go through each one and add on the extra stuff
+hack storing better info so know when state changed for stats purpose, and for RSS ordering
 
 FOI requests to use to test it
 ==============================
@@ -21,67 +18,18 @@ BAILII - relationship with law courts, robots.txt ?
 
 "Fundamental Savings Review" - Tom's friend
 
-States
-======
-
-What I *really* care about is the state of the request for use in the
-user interface, e.g. search results, RSS feeds.
-
-- Awaiting response
-- Response overdue
-- Awaiting follow up information / clarification from requester
-- Responses contain no useful information XXX exact wording matters
-- Responses contain some useful information (XXX RSS needs to know when more)
-- Response contains all information requested
-Flag: awaiting categorisation from requester?
-
-State to ask about individual messages
-
-Are you now:
-    * Awaiting a response
-    * About to clarify your request
-    * Looking at a rejection
-    * Happy with your response
-    * Partially happy with your response
-
-Please choose what this response is.
-    a) an acknowledgement of message received / forwarded on
-    b) asking for clarification about your request
-    c) a response containing information
-    e) a rejection notice
-
-Brainstorm of things to say if c):
-
-    How satisfied are you that your original request has been answered?
-        a) Quite satisfied, they've sent most of the information, or equivalent information.
-        b) Neutral, they sent some useful information, but not all.
-        c) Dissatisfied, they didn't send the relevant information.
-
-    How much of the information you originally requested have you recieved?
-        a) All of it.
-        b) Some of it.
-        c) None of it.
-
-    Have you now got all the info you originally requested
-        a) Yes, pretty well.
-        b) No
-
-    Are you yet satisfied that your original request has been answered?
-        a) Yes, I now have (most) of the information I wanted from my original request.
-        b) I received some of the information, or some related useful information.
-        c) I have received
-        d) My request was explicitly rejected
-
 
 Status of messages stuff
 ========================
 
-Followups:
-    - link to the follow up form, or embed in bottom of main request page
-    - don't show classify link on /response/ page
-
 Use sent again date when there has been resent?, e.g. for
     http://foi.mysociety.org/request/16
+Make date estimate use follow up time etc.
+
+Status inputting:
+    cope with "other" case when something is both (e.g. received some AND clarify)
+    search for 'classify' and tidy text
+
 
 Show due date on, e.g.
     http://foi.mysociety.org/request/4
@@ -129,7 +77,8 @@ Make it so if the pipe fails, exim tries again rather than sending an error to t
     Or so errors go to an admin somehow, at the very least.
 
 Synthesise these tips into our handful of snappy snappy bullet points
-http://community.foe.co.uk/tools/right_to_know/tips.html
+    http://community.foe.co.uk/tools/right_to_know/tips.html
+    http://www.justice.gov.uk/requestinginformation.htm
 
 See if occasional fastcgi errors go away now with Rails 2
 [Mon Jan 21 10:38:45 2008] [error] [client 81.107.40.81] FastCGI: incomplete headers (0 bytes) rec
@@ -142,7 +91,8 @@ Requests with related content
 Blog posts / Wikipedia articles about this request
 
 Contact page
-Finish about page
+Finish about page. Use these:
+    http://www.ico.gov.uk/for_the_public/access_to_official_information.aspx
 
 Remember me box
     This can't possible be the best way, it is too depressing:
@@ -224,6 +174,11 @@ Check log rotation is working well
 
 Ask what they learnt from request, and other things?
     and reward by putting their request on front page
+
+Link to:
+    Disclosure logs
+    Publication schemes (http://www.ico.gov.uk/what_we_cover/freedom_of_information/publication_schemes.aspx)
+
 
 Sources of public bodies
 ========================

@@ -41,15 +41,15 @@
         </div>
     <% end %>
 
-    <% if flash[:notice] %>
-        <div id="notice"><%= flash[:notice] %></div>
-    <% end %>
-    <% if flash[:error] %>
-        <div id="error"><%= flash[:error] %></div>
-    <% end %>
-
     <div id="wrapper">
         <div id="content">
+            <% if flash[:notice] %>
+                <div id="notice"><%= flash[:notice] %></div>
+            <% end %>
+            <% if flash[:error] %>
+                <div id="error"><%= flash[:error] %></div>
+            <% end %>
+
             <div id="<%= controller.controller_name + "_" + controller.action_name %>">
             <%= yield :layout %>
             </div>

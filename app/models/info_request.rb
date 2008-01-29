@@ -20,7 +20,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.30 2008-01-29 01:26:21 francis Exp $
+# $Id: info_request.rb,v 1.31 2008-01-29 03:05:47 francis Exp $
 
 require 'digest/sha1'
 
@@ -214,6 +214,17 @@ public
         excerpt = outgoing_messages[0].body
         excerpt.sub!(/Dear .+,/, "")
         return excerpt
+    end
+
+    # Returns all the messages which the user hasn't described yet
+    def incoming_messages_needing_description
+        if self.described_last_incoming_message_id.nil?
+            correspondences = self.incoming_messages.find(:all)
+        else
+            correspondences = self.incoming_messages.find(:all, :conditions => "id > " + self.described_last_incoming_message_id.to_s)
+        end
+        correspondences.sort! { |a,b| a.sent_at <=> b.sent_at } 
+        return correspondences
     end
 
     protected

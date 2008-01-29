@@ -5,7 +5,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: application_helper.rb,v 1.15 2008-01-21 19:12:46 francis Exp $
+# $Id: application_helper.rb,v 1.16 2008-01-29 03:05:47 francis Exp $
 
 module ApplicationHelper
     # URL generating functions are needed by all controllers (for redirects)
@@ -41,11 +41,5 @@ module ApplicationHelper
           ''
         end
     end
-
-    # Basic date format
-    def simple_date(date)
-        return date.strftime("%e %B %Y")
-    end
-
 end
 

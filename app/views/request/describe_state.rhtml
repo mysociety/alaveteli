@@ -1,4 +1,5 @@
-<% @title = "New responses to '" + h(@info_request.title) + "'" %>
+<% @title =  MySociety::Format.fancy_pluralize(@needing_description.size, 'New response', 'new responses') +
+    " to '" + h(@info_request.title) + "'" %>
 
 <%= foi_error_messages_for :incoming_message, :outgoing_message %>
 
@@ -7,9 +8,10 @@
 </div>
 
 <div id="show_response_view">
-    <h2>New responses to your request '<%= request_link @info_request %>'</h2>
+    <h2><%=MySociety::Format.fancy_pluralize(@needing_description.size, 'New response', 'new responses') %>
+    to your request '<%= request_link @info_request %>'</h2>
 
-    <% for correspondence in @correspondences %>
+    <% for correspondence in @needing_description %>
         <%= render :partial => 'correspondence', :locals => { :correspondence => correspondence } %>
     <% end %>
 

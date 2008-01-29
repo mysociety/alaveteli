@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.41 2008-01-29 01:26:21 francis Exp $
+# $Id: request_controller.rb,v 1.42 2008-01-29 03:05:46 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -16,6 +16,7 @@ class RequestController < ApplicationController
         @date_response_required_by = @info_request.date_response_required_by
         @collapse_quotes = params[:unfold] ? false : true
         @is_owning_user = !authenticated_user.nil? && authenticated_user.id == @info_request.user_id
+        @needing_description = @info_request.incoming_messages_needing_description
     end
 
     def list
@@ -78,12 +79,7 @@ class RequestController < ApplicationController
     # Page describing state of message posts to
     def describe_state
         @info_request = InfoRequest.find(params[:id])
-        if @info_request.described_last_incoming_message_id.nil?
-            @correspondences = @info_request.incoming_messages.find(:all)
-        else
-            @correspondences = @info_request.incoming_messages.find(:all, :conditions => "id > " + @info_request.described_last_incoming_message_id.to_s)
-        end
-        @correspondences.sort! { |a,b| a.sent_at <=> b.sent_at } 
+        @needing_description = @info_request.incoming_messages_needing_description
         @is_owning_user = !authenticated_user.nil? && authenticated_user.id == @info_request.user_id
 
         if not @info_request.awaiting_description
@@ -111,12 +107,30 @@ class RequestController < ApplicationController
             end
 
             @info_request.awaiting_description = false
-            @info_request.described_last_incoming_message_id = @correspondences[-1].id # XXX lock this with InfoRequest.receive
+            @info_request.described_last_incoming_message_id = @needing_description[-1].id # XXX lock this with InfoRequest.receive
             @info_request.described_state = params[:incoming_message][:described_state]
             @info_request.save!
-            flash[:notice] = "Thank you for answering!"
-            # XXX need to prompt for followups here
-            redirect_to show_request_url(:id => @info_request)
+            if @info_request.described_state == 'waiting_response'
+                flash[:notice] = "<p>Thank you! Hopefully your wait isn't too long.</p> <p>By law, you should get a response before the end of <strong>" + simple_date(@info_request.date_response_required_by) + "</strong>.</p>"
+                redirect_to show_request_url(:id => @info_request)
+            elsif @info_request.described_state == 'rejected'
+                # XXX explain how to complain
+                flash[:notice] = "Oh no! Sorry to hear that your request was rejected. Here is what to do now."
+                redirect_to unhappy_url
+            elsif @info_request.described_state == 'successful'
+                flash[:notice] = "We're glad you got all the information that you wanted. Thank you for using GovernmentSpy."
+                # XXX quiz them here for a comment
+                redirect_to show_request_url(:id => @info_request)
+            elsif @info_request.described_state == 'partially_successful'
+                flash[:notice] = "We're glad you got some of the information that you wanted."
+                # XXX explain how to complain / quiz them for a comment
+                redirect_to show_request_url(:id => @info_request)
+            elsif @info_request.described_state == 'waiting_clarification'
+                flash[:notice] = "Please write your follow up message containing the necessary clarifications below."
+                redirect_to show_response_url(:id => @info_request.id, :incoming_message_id => @needing_description[-1].id)
+            else
+                raise "unknown described_state " + @info_request.described_state
+            end
             return
         end
     end
