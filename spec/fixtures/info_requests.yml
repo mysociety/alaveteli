@@ -7,7 +7,7 @@ fancy_dog_request:
     user_id: 1
     described_state: awaiting_response
     awaiting_description: true
-    described_last_incoming_message_id: 1
+    described_last_incoming_message_id: nil
 naughty_chicken_request:
     id: 103
     title: How much public money is wasted on breeding naughty chickens?

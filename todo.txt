@@ -4,6 +4,14 @@ hack storing better info so know when state changed for stats purpose, and for R
 
 how do we change the state when a follow up is sent?
 
+describe_state post should store and check include message was up to?
+
+Adam's woes:
+http://foi.mysociety.org/request/18/response/31
+- Renders badly
+- No doubt leaks email address via download.bin :(
+- We don't have "this is an evil techy weird bounce" as option for state of message
+
 FOI requests to use to test it
 ==============================
 
@@ -28,7 +36,7 @@ Status of messages stuff
 
 Add - response was made in private state
 
-Sort out state vs. status vs. describe
+Sort out state vs. status vs. describe vs. classify
 
 Use sent again date when there has been resent?, e.g. for
     http://foi.mysociety.org/request/16

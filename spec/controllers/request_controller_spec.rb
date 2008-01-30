@@ -161,31 +161,34 @@ describe RequestController, "when viewing an individual response" do
     end
 end
 
-#describe RequestController, "when classifying an individual response" do
-#    integrate_views
-#    fixtures :info_requests, :public_bodies, :users, :incoming_messages, :outgoing_messages # all needed as integrating views
-#
-#    it "should require login" do
-#        post :show_response, :incoming_message => { :contains_information => true }, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_classify => 1
-#        post_redirect = PostRedirect.get_last_post_redirect
-#        response.should redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
-#    end
-#
-#    it "should not classify response if logged in as wrong user" do
-#        session[:user_id] = users(:silly_name_user).id
-#        post :show_response, :incoming_message => { :contains_information => true }, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_classify => 1
-#        response.should render_template('user/wrong_user')
-#    end
-#
-#    it "should successfully classify response if logged in as user controlling request" do
-#        incoming_messages(:useless_incoming_message).user_classified.should == false
-#        session[:user_id] = users(:bob_smith_user).id
-#        post :show_response, :incoming_message => { :contains_information => true }, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_classify => 1
-#        response.should redirect_to(:controller => 'request', :action => 'show', :id => info_requests(:fancy_dog_request))
-#        incoming_messages(:useless_incoming_message).reload
-#        incoming_messages(:useless_incoming_message).user_classified.should == true
-#    end
-#end
+describe RequestController, "when classifying an individual response" do
+    integrate_views
+    fixtures :info_requests, :public_bodies, :users, :incoming_messages, :outgoing_messages # all needed as integrating views
+
+    it "should require login" do
+        post :describe_state, :incoming_message => { :described_state => "rejected" }, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_describe_state => 1
+        post_redirect = PostRedirect.get_last_post_redirect
+        response.should redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
+    end
+
+    it "should not classify response if logged in as wrong user" do
+        session[:user_id] = users(:silly_name_user).id
+        post :describe_state, :incoming_message => { :described_state => "rejected" }, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_describe_state => 1
+        response.should render_template('user/wrong_user')
+    end
+
+    it "should successfully classify response if logged in as user controlling request" do
+        info_requests(:fancy_dog_request).awaiting_description.should == true
+        session[:user_id] = users(:bob_smith_user).id
+        post :describe_state, :incoming_message => { :described_state => "rejected" }, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_describe_state => 1
+        response.should redirect_to(:controller => 'help', :action => 'unhappy')
+        info_requests(:fancy_dog_request).reload
+        info_requests(:fancy_dog_request).awaiting_description.should == false
+    end
+
+        #response.should redirect_to(:controller => 'request', :action => 'show', :id => info_requests(:fancy_dog_request))
+        #incoming_messages(:useless_incoming_message).user_classified.should == true
+end
 
 describe RequestController, "when sending a followup message" do
     integrate_views
