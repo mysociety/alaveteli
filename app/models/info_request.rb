@@ -20,7 +20,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.31 2008-01-29 03:05:47 francis Exp $
+# $Id: info_request.rb,v 1.32 2008-01-30 09:53:47 francis Exp $
 
 require 'digest/sha1'
 
@@ -47,6 +47,10 @@ class InfoRequest < ActiveRecord::Base
         'successful', 
         'partially_successful'
     ]
+
+    def after_initialize
+        self.described_state = 'waiting_response'
+    end
 
 public
     # Email which public body should use to respond to request. This is in
@@ -89,8 +93,9 @@ public
 
     # A new incoming email to this request
     def receive(email, raw_email, is_bounce)
+        incoming_message = IncomingMessage.new
+
         ActiveRecord::Base.transaction do
-            incoming_message = IncomingMessage.new
             incoming_message.raw_data = raw_email
             incoming_message.is_bounce = is_bounce
             incoming_message.info_request = self
@@ -149,6 +154,9 @@ public
         # clarifications asked for by the public body, and so reset things.
         # Possibly just show 20 working days since the *last* message? Hmmm.
         earliest_sent = self.outgoing_messages.map { |om| om.last_sent_at }.min
+        if earliest_sent.nil?
+            raise "internal error, minimum last_sent_at for outgoing_messages is nil for request " + self.id.to_s
+        end
 
         days_passed = 0
         response_required_by = earliest_sent

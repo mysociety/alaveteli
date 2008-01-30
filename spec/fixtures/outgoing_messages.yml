@@ -10,7 +10,25 @@ useless_outgoing_message:
     \r\n\
     Thanks!\r\n\
     \r\n\
-    Francis\r\n"
+    Bob\r\n"
   last_sent_at: 2007-10-25 10:41:12.686264
   created_at: 2007-10-12 01:56:58.586598
+silly_outgoing_message:
+  id: 2
+  info_request_id: 103
+  message_type: initial_request
+  status: sent
+  updated_at: 2007-10-14 01:56:58.586598
+  body: "Hey you!\r\n\
+    \r\n\
+    I would like a complete breakdown of public sector\r\n\
+    spending on chickens by type of chicken. Specifically\r\n
+    I would like to know how much is spent on good \r\n
+    chickens and how much on naughty chickens.\r\n
+    \r\n\
+    Lovingly,\r\n\
+    \r\n\
+    Bob\r\n"
+  last_sent_at: 2007-10-14 10:41:12.686264
+  created_at: 2007-10-14 01:56:58.586598
 

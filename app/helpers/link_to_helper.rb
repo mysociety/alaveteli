@@ -5,7 +5,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: link_to_helper.rb,v 1.12 2008-01-29 03:05:47 francis Exp $
+# $Id: link_to_helper.rb,v 1.13 2008-01-30 09:53:47 francis Exp $
 
 module LinkToHelper
 
@@ -74,10 +74,10 @@ module LinkToHelper
 
     # About page URLs
     def about_url
-        return help_general_url :action => 'about'
+        return help_general_url(:action => 'about')
     end
     def unhappy_url
-        return help_general_url :action => 'unhappy'
+        return help_general_url(:action => 'unhappy')
     end
 
 
