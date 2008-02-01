@@ -73,7 +73,7 @@
   <% end %>
   </tr>
   
-<% for info_request_event in @info_request.info_request_events %>
+<% for info_request_event in @info_request.info_request_events.find(:all, :order => "created_at, id") %>
   <tr class="<%= cycle('odd', 'even') %>">
   <% for column in InfoRequestEvent.content_columns.map { |c| c.name } %>
     <td><%=h info_request_event.send(column) %></td>

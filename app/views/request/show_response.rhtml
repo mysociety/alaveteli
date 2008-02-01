@@ -13,10 +13,10 @@
         <h2>Response to your request '<%= request_link @info_request %>'</h2>
     <% end %>
 
-    <%= render :partial => 'correspondence', :locals => { :correspondence => @incoming_message } %>
+    <%= render :partial => 'correspondence', :locals => { :info_request_event => nil, :incoming_message => @incoming_message } %>
 
     <div id="show_response_followup">
-        <%= render :partial => 'followup', :locals => { :correspondence => @incoming_message } %>
+        <%= render :partial => 'followup', :locals => { :incoming_message => @incoming_message } %>
     </div>
 </div>
 

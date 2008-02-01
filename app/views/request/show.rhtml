@@ -48,8 +48,8 @@
     <% end %>
     </p>
 
-    <% for correspondence in @correspondences %>
-        <%= render :partial => 'correspondence', :locals => { :correspondence => correspondence } %>
+    <% for info_request_event in @info_request_events %>
+        <%= render :partial => 'correspondence', :locals => { :info_request_event => info_request_event, :incoming_message => nil } %>
     <% end %>
 </div>
 

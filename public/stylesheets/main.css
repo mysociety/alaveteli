@@ -317,6 +317,7 @@ table#list_requests .odd {
 #show_response_view {
     float: left;
     width: 70%;
+    margin-bottom: 2em;
 }
 #show_response_followup {
     margin-top: 3em;

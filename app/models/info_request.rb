@@ -20,7 +20,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.32 2008-01-30 09:53:47 francis Exp $
+# $Id: info_request.rb,v 1.33 2008-02-01 15:27:49 francis Exp $
 
 require 'digest/sha1'
 
@@ -102,6 +102,7 @@ public
             incoming_message.save!
 
             self.awaiting_description = true
+            self.log_event("response", { :incoming_message_id => incoming_message.id })
             self.save!
         end
 
@@ -155,7 +156,7 @@ public
         # Possibly just show 20 working days since the *last* message? Hmmm.
         earliest_sent = self.outgoing_messages.map { |om| om.last_sent_at }.min
         if earliest_sent.nil?
-            raise "internal error, minimum last_sent_at for outgoing_messages is nil for request " + self.id.to_s
+            raise "internal error, minimum last_sent_at for outgoing_messages is nil for request " + self.id.to_s + " outgoing messages count " + self.outgoing_messages.size.to_s
         end
 
         days_passed = 0
@@ -227,12 +228,12 @@ public
     # Returns all the messages which the user hasn't described yet
     def incoming_messages_needing_description
         if self.described_last_incoming_message_id.nil?
-            correspondences = self.incoming_messages.find(:all)
+            incoming_messages = self.incoming_messages.find(:all)
         else
-            correspondences = self.incoming_messages.find(:all, :conditions => "id > " + self.described_last_incoming_message_id.to_s)
+            incoming_messages = self.incoming_messages.find(:all, :conditions => "id > " + self.described_last_incoming_message_id.to_s)
         end
-        correspondences.sort! { |a,b| a.sent_at <=> b.sent_at } 
-        return correspondences
+        incoming_messages.sort! { |a,b| a.sent_at <=> b.sent_at } 
+        return incoming_messages
     end
 
     protected

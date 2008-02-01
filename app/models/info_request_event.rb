@@ -15,7 +15,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request_event.rb,v 1.8 2008-01-29 01:26:21 francis Exp $
+# $Id: info_request_event.rb,v 1.9 2008-02-01 15:27:49 francis Exp $
 
 class InfoRequestEvent < ActiveRecord::Base
     belongs_to :info_request
@@ -28,7 +28,8 @@ class InfoRequestEvent < ActiveRecord::Base
         'followup_sent', 
         'followup_resent', 
         'edit_outgoing', # outgoing message edited in admin interface
-        'manual' # you did something in the db by hand
+        'manual', # you did something in the db by hand
+        'response'
     ]
 
     # We store YAML version of parameters in the database
@@ -37,11 +38,6 @@ class InfoRequestEvent < ActiveRecord::Base
     end
     def params
         YAML.load(self.params_yaml)
-    end
-
-    # Used for sorting with the incoming/outgoing messages
-    def sent_at
-        created_at
     end
 
 end

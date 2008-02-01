@@ -1,8 +1,5 @@
 <div id="followup">
 
-<% if (correspondence.class.to_s == 'IncomingMessage') 
-        incoming_message = correspondence%>
-
     <h2>Send a follow up message
         <% if !incoming_message.safe_mail_from.nil? %>
             to <%= incoming_message.safe_mail_from %>
@@ -31,8 +28,6 @@
         (You will be asked to sign in as <%= user_link(@info_request.user) %>)
         <% end %>
     </p>
-
-<% end %>
 
 </div>
 

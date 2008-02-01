@@ -11,15 +11,12 @@
     <h2><%=MySociety::Format.fancy_pluralize(@needing_description.size, 'New response', 'new responses') %>
     to your request '<%= request_link @info_request %>'</h2>
 
-    <% for correspondence in @needing_description %>
-        <%= render :partial => 'correspondence', :locals => { :correspondence => correspondence } %>
+    <% for incoming_message in @needing_description %>
+        <%= render :partial => 'correspondence', :locals => { :info_request_event => nil, :incoming_message => incoming_message } %>
     <% end %>
-
-    <div id="show_response_followup">
-        <%= render :partial => 'followup', :locals => { :correspondence => @incoming_message } %>
-    </div>
 </div>
 
 <div id="describe_state_form">
     <%= render :partial => 'describe_state' %>
 </div>
+

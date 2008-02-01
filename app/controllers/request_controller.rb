@@ -4,14 +4,14 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.42 2008-01-29 03:05:46 francis Exp $
+# $Id: request_controller.rb,v 1.43 2008-02-01 15:27:48 francis Exp $
 
 class RequestController < ApplicationController
     
     def show
         @info_request = InfoRequest.find(params[:id])
-        @correspondences = @info_request.incoming_messages + @info_request.info_request_events
-        @correspondences.sort! { |a,b| a.sent_at <=> b.sent_at } 
+        @info_request_events = @info_request.info_request_events
+        @info_request_events.sort! { |a,b| a.created_at <=> b.created_at } 
         @status = @info_request.calculate_status
         @date_response_required_by = @info_request.date_response_required_by
         @collapse_quotes = params[:unfold] ? false : true
@@ -164,8 +164,8 @@ class RequestController < ApplicationController
             if !@outgoing_message.valid?
                 render :action => 'show_response'
             elsif authenticated_as_user?(@info_request.user,
-                    :web => "To send a follow up message about your FOI request",
-                    :email => "Then you can send a follow up message to " + @info_request.public_body.name + ".",
+                    :web => "To send your follow up message about your FOI request",
+                    :email => "Then your follow up message to " + @info_request.public_body.name + " will be sent.",
                     :email_subject => "Confirm your FOI follow up message to " + @info_request.public_body.name
                 )
                 # Send a follow up message
