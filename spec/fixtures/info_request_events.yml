@@ -1,0 +1,21 @@
+useless_outgoing_message_event:
+  params_yaml: "--- \n\
+    :outgoing_message_id: 1\n"
+  id: 900
+  info_request_id: 101
+  event_type: sent
+  created_at: 2007-10-25 10:41:12.686264
+silly_outgoing_message_event:
+  params_yaml: "--- \n\
+    :outgoing_message_id: 2\n"
+  id: 901
+  info_request_id: 103
+  event_type: sent
+  created_at: 2007-10-14 10:41:12.686264
+useless_incoming_message_event: 
+  params_yaml: "--- \n\
+    :incoming_message_id: 1\n"
+  id: 902
+  info_request_id: 101
+  event_type: response
+  created_at: 2007-11-13 18:09:20.042061
