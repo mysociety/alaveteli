@@ -10,7 +10,6 @@
 <strong>Public body:</strong> <%=h @info_request.public_body.name %> <br>
 <strong>Incoming email address:</strong> <%=h @info_request.incoming_email %> <br>
 <strong>Envelope email address:</strong> <%=h @info_request.envelope_email %> <br>
-<strong>Described last incoming message id:</strong> <%=h @info_request.described_last_incoming_message_id.nil? ? "nil" : @info_request.described_last_incoming_message_id %>
 </p>
 
 <%= link_to 'Public page', main_url(request_url(@info_request)) %>

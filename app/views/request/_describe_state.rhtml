@@ -20,6 +20,7 @@
         <p>Filling this in each time you get a new response helps us track the progress of your request.
         </p>
 
+        <%= hidden_field_tag 'last_info_request_event_id', @last_info_request_event_id %>
         <%= hidden_field_tag 'submitted_describe_state', 1 %>
         <%= submit_tag "Next >>" %>
     <% end %>

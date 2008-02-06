@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.43 2008-02-01 15:27:48 francis Exp $
+# $Id: request_controller.rb,v 1.44 2008-02-06 09:41:43 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -16,7 +16,9 @@ class RequestController < ApplicationController
         @date_response_required_by = @info_request.date_response_required_by
         @collapse_quotes = params[:unfold] ? false : true
         @is_owning_user = !authenticated_user.nil? && authenticated_user.id == @info_request.user_id
-        @needing_description = @info_request.incoming_messages_needing_description
+        @events_needing_description = @info_request.events_needing_description
+        last_event = @events_needing_description[-1]
+        @last_info_request_event_id = last_event.nil? ? nil : last_event.id
     end
 
     def list
@@ -79,14 +81,24 @@ class RequestController < ApplicationController
     # Page describing state of message posts to
     def describe_state
         @info_request = InfoRequest.find(params[:id])
-        @needing_description = @info_request.incoming_messages_needing_description
-        @is_owning_user = !authenticated_user.nil? && authenticated_user.id == @info_request.user_id
 
         if not @info_request.awaiting_description
             flash[:notice] = "The status of this request is up to date."
             if !params[:submitted_describe_state].nil?
                 flash[:notice] = "The status of this request was made up to date elsewhere while you were filling in the form."
             end
+            redirect_to show_request_url(:id => @info_request)
+            return
+        end
+
+        @events_needing_description = @info_request.events_needing_description
+        last_event = @events_needing_description[-1]
+        @last_info_request_event_id = last_event.nil? ? nil : last_event.id
+        @is_owning_user = !authenticated_user.nil? && authenticated_user.id == @info_request.user_id
+
+        if @last_info_request_event_id.nil?
+            raise "mnoo " + @events_needing_description.size.to_s
+            flash[:notice] = "Internal error - awaiting description, but no event to describe"
             redirect_to show_request_url(:id => @info_request)
             return
         end
@@ -105,11 +117,21 @@ class RequestController < ApplicationController
                 flash[:error] = "Please choose whether or not you got some of the information that you wanted."
                 return
             end
+            
+            if params[:last_info_request_event_id].to_i != @last_info_request_event_id
+                flash[:error] = "The request has been updated since you originally loaded this page. Please check for any new incoming messages below, and try again."
+                return
+            end
 
-            @info_request.awaiting_description = false
-            @info_request.described_last_incoming_message_id = @needing_description[-1].id # XXX lock this with InfoRequest.receive
-            @info_request.described_state = params[:incoming_message][:described_state]
-            @info_request.save!
+            ActiveRecord::Base.transaction do
+                @info_request.awaiting_description = false
+                last_event = InfoRequestEvent.find(@last_info_request_event_id)
+                last_event.described_state = params[:incoming_message][:described_state]
+                @info_request.described_state = params[:incoming_message][:described_state]
+                last_event.save!
+                @info_request.save!
+            end
+
             if @info_request.described_state == 'waiting_response'
                 flash[:notice] = "<p>Thank you! Hopefully your wait isn't too long.</p> <p>By law, you should get a response before the end of <strong>" + simple_date(@info_request.date_response_required_by) + "</strong>.</p>"
                 redirect_to show_request_url(:id => @info_request)
@@ -127,7 +149,7 @@ class RequestController < ApplicationController
                 redirect_to show_request_url(:id => @info_request)
             elsif @info_request.described_state == 'waiting_clarification'
                 flash[:notice] = "Please write your follow up message containing the necessary clarifications below."
-                redirect_to show_response_url(:id => @info_request.id, :incoming_message_id => @needing_description[-1].id)
+                redirect_to show_response_url(:id => @info_request.id, :incoming_message_id => @events_needing_description[-1].id)
             else
                 raise "unknown described_state " + @info_request.described_state
             end

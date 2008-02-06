@@ -1,7 +1,7 @@
-hack storing better info so know when state changed for stats purpose, and for RSS ordering
+we change the state when a follow up is sent
 
-how do we change the state when a follow up is sent?
-
+events_needing_description.size in views wrong
+check goes to describe URL from email
 
 FOI requests to use to test it
 ==============================
@@ -26,6 +26,7 @@ Status of messages stuff
 ========================
 
 Add - response was made in private state
+or maybe 'response refusing to publish for spurious reasons
 
 Sort out state vs. status vs. describe vs. classify
 

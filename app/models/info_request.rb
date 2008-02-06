@@ -1,17 +1,16 @@
 # == Schema Information
-# Schema version: 27
+# Schema version: 29
 #
 # Table name: info_requests
 #
-#  id                                 :integer         not null, primary key
-#  title                              :text            not null
-#  user_id                            :integer         not null
-#  public_body_id                     :integer         not null
-#  created_at                         :datetime        not null
-#  updated_at                         :datetime        not null
-#  described_state                    :string(255)     not null
-#  awaiting_description               :boolean         default(false), not null
-#  described_last_incoming_message_id :integer         
+#  id                   :integer         not null, primary key
+#  title                :text            not null
+#  user_id              :integer         not null
+#  public_body_id       :integer         not null
+#  created_at           :datetime        not null
+#  updated_at           :datetime        not null
+#  described_state      :string(255)     not null
+#  awaiting_description :boolean         default(false), not null
 #
 
 # models/info_request.rb:
@@ -20,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.33 2008-02-01 15:27:49 francis Exp $
+# $Id: info_request.rb,v 1.34 2008-02-06 09:41:44 francis Exp $
 
 require 'digest/sha1'
 
@@ -49,7 +48,9 @@ class InfoRequest < ActiveRecord::Base
     ]
 
     def after_initialize
-        self.described_state = 'waiting_response'
+        if self.described_state.nil?
+            self.described_state = 'waiting_response'
+        end
     end
 
 public
@@ -225,15 +226,28 @@ public
         return excerpt
     end
 
-    # Returns all the messages which the user hasn't described yet
-    def incoming_messages_needing_description
-        if self.described_last_incoming_message_id.nil?
-            incoming_messages = self.incoming_messages.find(:all)
-        else
-            incoming_messages = self.incoming_messages.find(:all, :conditions => "id > " + self.described_last_incoming_message_id.to_s)
+    # Returns index of last event which is described or nil if none described.
+    def index_of_last_described_event
+        events = self.info_request_events.find(:all, :order => "created_at")
+        events.each_index do |i|
+            revi = events.size - 1 - i 
+            m = events[revi] 
+            if not m.described_state.nil?
+                return revi
+            end
         end
-        incoming_messages.sort! { |a,b| a.sent_at <=> b.sent_at } 
-        return incoming_messages
+        return nil
+    end
+
+    # Returns all the events which the user hasn't described yet - an empty array if all described.
+    def events_needing_description
+        events = self.info_request_events.find(:all, :order => "created_at")
+        i = self.index_of_last_described_event
+        if i.nil?
+            return events
+        else
+            return events[i + 1, events.size]
+        end
     end
 
     protected

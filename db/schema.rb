@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 28) do
+ActiveRecord::Schema.define(:version => 29) do
 
   create_table "incoming_messages", :force => true do |t|
     t.integer  "info_request_id",                    :null => false
@@ -24,17 +24,17 @@ ActiveRecord::Schema.define(:version => 28) do
     t.text     "event_type",      :null => false
     t.text     "params_yaml",     :null => false
     t.datetime "created_at",      :null => false
+    t.string   "described_state"
   end
 
   create_table "info_requests", :force => true do |t|
-    t.text     "title",                                                 :null => false
-    t.integer  "user_id",                                               :null => false
-    t.integer  "public_body_id",                                        :null => false
-    t.datetime "created_at",                                            :null => false
-    t.datetime "updated_at",                                            :null => false
-    t.string   "described_state",                                       :null => false
-    t.boolean  "awaiting_description",               :default => false, :null => false
-    t.integer  "described_last_incoming_message_id"
+    t.text     "title",                                   :null => false
+    t.integer  "user_id",                                 :null => false
+    t.integer  "public_body_id",                          :null => false
+    t.datetime "created_at",                              :null => false
+    t.datetime "updated_at",                              :null => false
+    t.string   "described_state",                         :null => false
+    t.boolean  "awaiting_description", :default => false, :null => false
   end
 
   create_table "outgoing_messages", :force => true do |t|

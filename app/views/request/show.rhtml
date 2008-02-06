@@ -19,11 +19,11 @@
     <% if @info_request.awaiting_description %>
         <% if @is_owning_user %>
             Please <strong>answer the question above</strong> so we know whether the 
-            <%= MySociety::Format.fancy_pluralize(@needing_description.size, 'recent response contains', 'recent responses contain') %> useful information.
+            <%= MySociety::Format.fancy_pluralize(@events_needing_description.size, 'recent response contains', 'recent responses contain') %> useful information.
         <% else %>
             This request has an <strong>unknown status</strong>. We're waiting for
             <%= user_link(@info_request.user) %> to read 
-            <%= MySociety::Format.fancy_pluralize(@needing_description.size, 'a recent response', 'recent responses') %> 
+            <%= MySociety::Format.fancy_pluralize(@events_needing_description.size, 'a recent response', 'recent responses') %> 
             and update the status.
         <% end %>
     <% elsif @status == 'waiting_response' %>
@@ -49,7 +49,7 @@
     </p>
 
     <% for info_request_event in @info_request_events %>
-        <%= render :partial => 'correspondence', :locals => { :info_request_event => info_request_event, :incoming_message => nil } %>
+        <%= render :partial => 'correspondence', :locals => { :info_request_event => info_request_event } %>
     <% end %>
 </div>
 
