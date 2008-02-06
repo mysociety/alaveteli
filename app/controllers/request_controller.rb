@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.44 2008-02-06 09:41:43 francis Exp $
+# $Id: request_controller.rb,v 1.45 2008-02-06 12:20:37 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -78,7 +78,7 @@ class RequestController < ApplicationController
         end
     end
 
-    # Page describing state of message posts to
+    # Describing state of messages post here
     def describe_state
         @info_request = InfoRequest.find(params[:id])
 
@@ -104,6 +104,8 @@ class RequestController < ApplicationController
         end
 
         if !params[:submitted_describe_state].nil?
+            # Check authenticated, and parameters set
+            
             if not authenticated_as_user?(@info_request.user,
                     :web => "To classify the response to this FOI request",
                     :email => "Then you can classify the FOI response you have got from " + @info_request.public_body.name + ".",
@@ -123,15 +125,10 @@ class RequestController < ApplicationController
                 return
             end
 
-            ActiveRecord::Base.transaction do
-                @info_request.awaiting_description = false
-                last_event = InfoRequestEvent.find(@last_info_request_event_id)
-                last_event.described_state = params[:incoming_message][:described_state]
-                @info_request.described_state = params[:incoming_message][:described_state]
-                last_event.save!
-                @info_request.save!
-            end
+            # Make the state change
+            @info_request.set_described_state(params[:incoming_message][:described_state], @last_info_request_event_id)
 
+            # Display appropriate next page (e.g. help for complaint etc.)
             if @info_request.described_state == 'waiting_response'
                 flash[:notice] = "<p>Thank you! Hopefully your wait isn't too long.</p> <p>By law, you should get a response before the end of <strong>" + simple_date(@info_request.date_response_required_by) + "</strong>.</p>"
                 redirect_to show_request_url(:id => @info_request)
@@ -149,10 +146,13 @@ class RequestController < ApplicationController
                 redirect_to show_request_url(:id => @info_request)
             elsif @info_request.described_state == 'waiting_clarification'
                 flash[:notice] = "Please write your follow up message containing the necessary clarifications below."
-                redirect_to show_response_url(:id => @info_request.id, :incoming_message_id => @events_needing_description[-1].id)
+                redirect_to show_response_url(:id => @info_request.id, :incoming_message_id => @events_needing_description[-1].params[:incoming_message_id])
             else
                 raise "unknown described_state " + @info_request.described_state
             end
+            return
+        else
+            # Display default template
             return
         end
     end

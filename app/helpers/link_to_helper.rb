@@ -5,21 +5,27 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: link_to_helper.rb,v 1.13 2008-01-30 09:53:47 francis Exp $
+# $Id: link_to_helper.rb,v 1.14 2008-02-06 12:20:37 francis Exp $
 
 module LinkToHelper
 
     # Links to various models
-    # XXX consolidate with simplify_url_part in controllers/application.rb so
-    # ones with calls to simplify_url_part are only in one place
    
+    # Requests
     def request_url(info_request)
         return show_request_url(:id => info_request, :only_path => true)
     end
     def request_link(info_request)
         link_to h(info_request.title), request_url(info_request)
     end
-     
+    def request_admin_url(info_request)
+        return admin_url('request/show/' + info_request.id.to_s)
+    end
+    def request_admin_link(info_request)
+        link_to h(info_request.title), request_admin_url(info_request)
+    end
+ 
+    # Public bodies
     def public_body_url(public_body)
         return show_public_body_url(:simple_short_name => simplify_url_part(public_body.short_name), :only_path => true)
     end
@@ -29,7 +35,17 @@ module LinkToHelper
     def public_body_link(public_body)
         link_to h(public_body.name), public_body_url(public_body)
     end
+    def public_body_admin_url(public_body)
+        return admin_url('body/show/' + public_body.id.to_s)
+    end
+    def public_body_admin_link(public_body)
+        link_to h(public_body.name), public_body_admin_url(public_body)
+    end
+    def public_body_admin_link_short(public_body)
+        link_to h(public_body.short_name), public_body_admin_url(public_body)
+    end
 
+    # Users
     def user_url(user)
         return show_user_url(:simple_name => simplify_url_part(user.name))
     end
@@ -49,6 +65,12 @@ module LinkToHelper
         else
             link_to h(user.name), user_url(user)
         end
+    end
+    def user_admin_url(user)
+        return admin_url('user/show/' + user.id.to_s)
+    end
+    def user_admin_link(user)
+        link_to h(user.name), user_admin_url(user)
     end
 
 

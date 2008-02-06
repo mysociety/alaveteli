@@ -3,7 +3,7 @@
 <h1><%=@title%></h1>
 
 <p>
-<strong>ID:</strong> <%= @admin_user.id%>
+<strong>Id:</strong> <%= @admin_user.id%> <br>
 <% for column in User.content_columns %>
     <strong><%= column.human_name %>:</strong> 
     <% if column.name == 'email' %>

@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.34 2008-02-06 09:41:44 francis Exp $
+# $Id: info_request.rb,v 1.35 2008-02-06 12:20:37 francis Exp $
 
 require 'digest/sha1'
 
@@ -108,6 +108,19 @@ public
         end
 
         RequestMailer.deliver_new_response(self, incoming_message)
+    end
+
+    # Change status - event id is of the most recent event at the change
+    # XXX should probably check event id is last event here
+    def set_described_state(new_state, event_id)
+        ActiveRecord::Base.transaction do
+            self.awaiting_description = false
+            last_event = InfoRequestEvent.find(event_id)
+            last_event.described_state = new_state
+            self.described_state = new_state
+            last_event.save!
+            self.save!
+        end
     end
 
     # Work out what the situation of the request is

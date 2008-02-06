@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: outgoing_message.rb,v 1.25 2008-02-06 09:41:44 francis Exp $
+# $Id: outgoing_message.rb,v 1.26 2008-02-06 12:20:37 francis Exp $
 
 class OutgoingMessage < ActiveRecord::Base
     belongs_to :info_request
@@ -90,6 +90,7 @@ class OutgoingMessage < ActiveRecord::Base
                 self.status = 'sent'
                 self.save!
                 self.info_request.log_event('followup_' + log_event_type, { :email => self.info_request.recipient_email, :outgoing_message_id => self.id })
+                self.info_request.set_described_state('waiting_response', self.info_request.events_needing_description[-1].id)
             else
                 raise "Message id #{self.id} has type '#{self.message_type}' which send_message can't handle"
             end
