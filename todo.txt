@@ -23,8 +23,6 @@ Status of messages stuff
 Add - response was made in private state
 or maybe 'response refusing to publish for spurious reasons
 
-Sort out state vs. status vs. describe vs. classify
-
 Use sent again date when there has been resent?, e.g. for
     http://foi.mysociety.org/request/16
 Make date estimate use follow up time etc.
@@ -61,15 +59,11 @@ Consider removing login links from notifications of new responses
 Tidying
 =======
 
-describe_state post should store and check incoming message was up to?
-
 Work out how to get it to tell you code coverage of .rhtml files
 Make it validate the HTML
     maybe with http://www.anodyne.ca/wp-content/uploads/2007/09/be_valid_xhtml.rb
 Test that it is actually sending the request outgoing mail, by using deliveries
 Test sending a message to bounce/envelope-from address
-
-Link internally between different bits of admin interface
 
 Add SQL database indexes to token / email_token in post_redirects
 
