@@ -1,4 +1,4 @@
-<% @title =  MySociety::Format.fancy_pluralize(@events_needing_description.size, 'New response', 'new responses') +
+<% @title =  MySociety::Format.fancy_pluralize(@new_responses_count, 'New response', 'new responses') +
     " to '" + h(@info_request.title) + "'" %>
 
 <%= foi_error_messages_for :incoming_message, :outgoing_message %>
@@ -8,7 +8,7 @@
 </div>
 
 <div id="show_response_view">
-    <h2><%=MySociety::Format.fancy_pluralize(@events_needing_description.size, 'New response', 'new responses') %>
+    <h2><%=MySociety::Format.fancy_pluralize(@new_responses_count, 'New response', 'new responses') %>
     to your request '<%= request_link @info_request %>'</h2>
 
     <% for info_request_event in @events_needing_description %>

@@ -20,9 +20,6 @@ BAILII - relationship with law courts, robots.txt ?
 Status of messages stuff
 ========================
 
-events_needing_description.size in views wrong
-check goes to describe URL from email
-
 Add - response was made in private state
 or maybe 'response refusing to publish for spurious reasons
 

@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.45 2008-02-06 12:20:37 francis Exp $
+# $Id: request_controller.rb,v 1.46 2008-02-07 15:11:16 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -19,6 +19,7 @@ class RequestController < ApplicationController
         @events_needing_description = @info_request.events_needing_description
         last_event = @events_needing_description[-1]
         @last_info_request_event_id = last_event.nil? ? nil : last_event.id
+        @new_responses_count = @events_needing_description.select {|i| i.event_type == 'response'}.size
     end
 
     def list
@@ -95,6 +96,7 @@ class RequestController < ApplicationController
         last_event = @events_needing_description[-1]
         @last_info_request_event_id = last_event.nil? ? nil : last_event.id
         @is_owning_user = !authenticated_user.nil? && authenticated_user.id == @info_request.user_id
+        @new_responses_count = @events_needing_description.select {|i| i.event_type == 'response'}.size
 
         if @last_info_request_event_id.nil?
             raise "mnoo " + @events_needing_description.size.to_s

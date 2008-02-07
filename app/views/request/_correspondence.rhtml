@@ -1,6 +1,7 @@
 <div id="correspondence">
 
 <%  
+
     @last_email = nil
     if !info_request_event.nil? && info_request_event.event_type == 'response'
         incoming_message = IncomingMessage.find(info_request_event.params[:incoming_message_id]) 

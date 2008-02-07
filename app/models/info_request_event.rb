@@ -16,7 +16,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request_event.rb,v 1.10 2008-02-06 09:41:44 francis Exp $
+# $Id: info_request_event.rb,v 1.11 2008-02-07 15:11:16 francis Exp $
 
 class InfoRequestEvent < ActiveRecord::Base
     belongs_to :info_request
@@ -27,7 +27,6 @@ class InfoRequestEvent < ActiveRecord::Base
         'sent', 
         'resent', 
         'followup_sent', 
-        'followup_resent', 
         'edit_outgoing', # outgoing message edited in admin interface
         'manual', # you did something in the db by hand
         'response'
