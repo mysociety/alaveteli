@@ -30,5 +30,31 @@ def receive_incoming_mail(email_name, email_to)
     RequestMailer.receive(content)
 end
 
+# Monkeypatch! Validate HTML in tests.
+$tempfilecount = 0
+module ActionController
+    module TestProcess
+        alias :original_process :process
+
+        def process(action, parameters = nil, session = nil, flash = nil)
+            # Call original process function
+            self.original_process(action, parameters, session, flash)
+
+            # And then validate if HTML
+            if @response.content_type == "text/html" and @response.response_code != 302
+                $tempfilecount = $tempfilecount + 1
+                tempfilename = File.join(Dir::tmpdir, "railshtmlvalidate."+$$.to_s+"."+$tempfilecount.to_s+".html")
+                File.open(tempfilename, "w+") do |f|
+                    f.puts @response.body
+                end
+                if not system("/usr/bin/validate", tempfilename)
+                    raise "HTML validation error in " + tempfilename + " HTTP status: " + @response.response_code.to_s
+                end
+                File.unlink(tempfilename)
+            end
+        end
+    end
+end
+
 
 
