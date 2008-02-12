@@ -31,30 +31,36 @@ def receive_incoming_mail(email_name, email_to)
 end
 
 # Monkeypatch! Validate HTML in tests.
+$html_validation_script = "/usr/bin/validate" # from Debian package wdg-html-validator
 if $tempfilecount.nil?
     $tempfilecount = 0
-    module ActionController
-        module TestProcess
-            alias :original_process :process
+    if File.exist?($html_validation_script)
+        module ActionController
+            module TestProcess
+                # Hook into the process function, so can automatically get HTML after each request
+                alias :original_process :process
 
-            def process(action, parameters = nil, session = nil, flash = nil)
-                # Call original process function
-                self.original_process(action, parameters, session, flash)
+                def process(action, parameters = nil, session = nil, flash = nil)
+                    # Call original process function
+                    self.original_process(action, parameters, session, flash)
 
-                # And then validate if HTML
-                if @response.content_type == "text/html" and @response.response_code != 302
-                    $tempfilecount = $tempfilecount + 1
-                    tempfilename = File.join(Dir::tmpdir, "railshtmlvalidate."+$$.to_s+"."+$tempfilecount.to_s+".html")
-                    File.open(tempfilename, "w+") do |f|
-                        f.puts @response.body
+                    # And then if HTML, validate it
+                    if @response.content_type == "text/html" and @response.response_code != 302
+                        $tempfilecount = $tempfilecount + 1
+                        tempfilename = File.join(Dir::tmpdir, "railshtmlvalidate."+$$.to_s+"."+$tempfilecount.to_s+".html")
+                        File.open(tempfilename, "w+") do |f|
+                            f.puts @response.body
+                        end
+                        if not system($html_validation_script, tempfilename)
+                            raise "HTML validation error in " + tempfilename + " HTTP status: " + @response.response_code.to_s
+                        end
+                        File.unlink(tempfilename)
                     end
-                    if not system("/usr/bin/validate", tempfilename)
-                        raise "HTML validation error in " + tempfilename + " HTTP status: " + @response.response_code.to_s
-                    end
-                    File.unlink(tempfilename)
                 end
             end
         end
+    else
+        puts "WARNING: HTML validation script " + $html_validation_script + " not found"
     end
 end
 

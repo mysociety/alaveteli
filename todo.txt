@@ -59,9 +59,6 @@ Consider removing login links from notifications of new responses
 Tidying
 =======
 
-HTML validation - make it properly optional is /usr/bin/validate present
-
-Work out how to get it to tell you code coverage of .rhtml files
 Test that it is actually sending the request outgoing mail, by using deliveries
 Test sending a message to bounce/envelope-from address
 
