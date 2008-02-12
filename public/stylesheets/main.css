@@ -344,11 +344,13 @@ dt {
 #sign_together #signin {
     width: 48%;
     float: left;
+    margin-bottom: 1em;
 }
 
 #sign_together #signup {
     width: 48%;
     float: right;
+    margin-bottom: 1em;
 }
 
 #sign_alone {
