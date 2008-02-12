@@ -7,8 +7,10 @@ A public body in the UK, also called <%= h(@public_body.short_name) %>
 </p>
 
 <% form_for(:info_request, @info_request, :url => new_request_url, :html => { :id => 'public_body_form' }  ) do |f| %>
+   <p>
    <%= f.hidden_field(:public_body_id, { :value => @public_body.id } ) %>
-   <p><%= submit_tag "Make new FOI request to " + @public_body.short_name %></p>
+   <%= submit_tag "Make new FOI request to " + @public_body.short_name %>
+   </p>
 <% end %>
 
 <% if @public_body.info_requests.empty? %>

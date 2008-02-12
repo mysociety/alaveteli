@@ -300,7 +300,7 @@ table#list_requests .odd {
 
 /* /describe_state - user  setting status of request */
 
-#describe_state_form {
+.describe_state_form {
     clear: both;
     background-color: #eeffee;
     border: solid 1px #00cc00;

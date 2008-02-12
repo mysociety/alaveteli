@@ -59,9 +59,9 @@ Consider removing login links from notifications of new responses
 Tidying
 =======
 
+HTML validation - make it properly optional is /usr/bin/validate present
+
 Work out how to get it to tell you code coverage of .rhtml files
-Make it validate the HTML
-    maybe with http://www.anodyne.ca/wp-content/uploads/2007/09/be_valid_xhtml.rb
 Test that it is actually sending the request outgoing mail, by using deliveries
 Test sending a message to bounce/envelope-from address
 

@@ -1,7 +1,7 @@
 <% @title = h(@info_request.title) %>
 
 <% if @info_request.awaiting_description %>
-    <div id="describe_state_form">
+    <div class="describe_state_form">
     <%= render :partial => 'describe_state' %>
     </div>
 <% end %>
@@ -64,7 +64,7 @@
 </div>
 
 <% if @info_request.awaiting_description %>
-    <div id="describe_state_form">
+    <div class="describe_state_form">
     <%= render :partial => 'describe_state' %>
     </div>
 <% end %>

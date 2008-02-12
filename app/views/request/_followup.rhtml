@@ -7,7 +7,7 @@
     </h2>
 
     <p>Use this if the public body has asked for clarification of
-    your request.
+    your request.</p>
 
     <% form_for(:outgoing_message, @outgoing_message) do |o| %>
         <p>
@@ -19,8 +19,10 @@
             to it, will also be displayed publically on this website.
         </p>
 
-        <%= hidden_field_tag 'submitted_followup', 1 %>
-        <%= submit_tag "Send >>" %>
+        <p>
+            <%= hidden_field_tag 'submitted_followup', 1 %>
+            <%= submit_tag "Send >>" %>
+        </p>
     <% end %>
 
     <p>
