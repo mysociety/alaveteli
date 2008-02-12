@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 29) do
+ActiveRecord::Schema.define(:version => 30) do
 
   create_table "incoming_messages", :force => true do |t|
     t.integer  "info_request_id",                    :null => false
@@ -37,6 +37,9 @@ ActiveRecord::Schema.define(:version => 29) do
     t.boolean  "awaiting_description", :default => false, :null => false
   end
 
+  add_index "info_requests", ["created_at"], :name => "index_info_requests_on_created_at"
+  add_index "info_requests", ["title"], :name => "index_info_requests_on_title"
+
   create_table "outgoing_messages", :force => true do |t|
     t.integer  "info_request_id",              :null => false
     t.text     "body",                         :null => false
@@ -58,6 +61,9 @@ ActiveRecord::Schema.define(:version => 29) do
     t.text     "reason_params_yaml"
     t.integer  "user_id"
   end
+
+  add_index "post_redirects", ["email_token"], :name => "index_post_redirects_on_email_token"
+  add_index "post_redirects", ["token"], :name => "index_post_redirects_on_token"
 
   create_table "public_bodies", :force => true do |t|
     t.text     "name",              :null => false

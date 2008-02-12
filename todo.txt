@@ -65,8 +65,6 @@ Work out how to get it to tell you code coverage of .rhtml files
 Test that it is actually sending the request outgoing mail, by using deliveries
 Test sending a message to bounce/envelope-from address
 
-Add SQL database indexes to token / email_token in post_redirects
-
 Add SQL foreign keys to database schema (THIS IS IMPORTANT, or things will screw up)
     execute 'ALTER TABLE researchers ADD CONSTRAINT fk_researchers_departments FOREIGN KEY ( department_id ) REFERENCES departments( id ) '
     http://wiki.rubyonrails.org/rails/pages/UsingMigrations link to:
