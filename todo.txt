@@ -59,17 +59,12 @@ Consider removing login links from notifications of new responses
 Tidying
 =======
 
-Test that it is actually sending the request outgoing mail, by using deliveries
-Test sending a message to bounce/envelope-from address
-
 Add SQL foreign keys to database schema (THIS IS IMPORTANT, or things will screw up)
     execute 'ALTER TABLE researchers ADD CONSTRAINT fk_researchers_departments FOREIGN KEY ( department_id ) REFERENCES departments( id ) '
     http://wiki.rubyonrails.org/rails/pages/UsingMigrations link to:
         http://www.surfdewey.com/2.html
         http://www.redhillconsulting.com.au/rails_plugins.html#foreign_key_migrations
         http://rubyforge.org/projects/mig-constraints/
-Call "delete from sessions where now() - updated_at > 3600" (one hour) or whatever
-Also delete old post_redirects (and similar)
 
 Mark some requests as test requests
 

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 30) do
+ActiveRecord::Schema.define(:version => 31) do
 
   create_table "incoming_messages", :force => true do |t|
     t.integer  "info_request_id",                    :null => false
@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(:version => 30) do
 
   add_index "post_redirects", ["email_token"], :name => "index_post_redirects_on_email_token"
   add_index "post_redirects", ["token"], :name => "index_post_redirects_on_token"
+  add_index "post_redirects", ["updated_at"], :name => "index_post_redirects_on_updated_at"
 
   create_table "public_bodies", :force => true do |t|
     t.text     "name",              :null => false

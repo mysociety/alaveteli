@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user_controller.rb,v 1.23 2008-01-10 18:20:35 francis Exp $
+# $Id: user_controller.rb,v 1.24 2008-02-12 11:42:09 francis Exp $
 
 class UserController < ApplicationController
     # XXX See controllers/application.rb simplify_url_part for reverse of expression in SQL below
@@ -67,7 +67,7 @@ class UserController < ApplicationController
         post_redirect = PostRedirect.find_by_email_token(params[:email_token])
 
         if post_redirect.nil?
-            render 'user/bad_token'
+            render :template => 'user/bad_token.rhtml'
             return
         end
 

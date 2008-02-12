@@ -25,7 +25,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: post_redirect.rb,v 1.15 2008-02-06 09:41:44 francis Exp $
+# $Id: post_redirect.rb,v 1.16 2008-02-12 11:42:09 francis Exp $
 
 require 'openssl' # for random bytes function
 
@@ -82,6 +82,11 @@ class PostRedirect < ActiveRecord::Base
         post_redirects = PostRedirect.find_by_sql("select * from post_redirects order by id desc limit 1")
         post_redirects.size.should == 1
         return post_redirects[0]
+    end
+
+    # Called from cron job delete-old-sessions
+    def self.delete_old_post_redirects
+        PostRedirect.delete_all "now() - updated_at > '1 year'"        
     end
 
 end
