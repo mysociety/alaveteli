@@ -4,12 +4,19 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.20 2008-02-06 12:20:37 francis Exp $
+# $Id: request_mailer.rb,v 1.21 2008-02-13 08:59:37 francis Exp $
 
 class RequestMailer < ApplicationMailer
+    
+    # We always set Reply-To when we set Sender to be different from From,
+    # since some email clients seem to erroneously use the envelope from when
+    # they shouldn't, and this might help. (Have had mysterious cases of a
+    # reply coming in duplicate from a public body to both From and envelope
+    # from)
     def initial_request(info_request, outgoing_message)
         @from = info_request.incoming_name_and_email
-        headers 'Sender' => info_request.envelope_name_and_email
+        headers 'Sender' => info_request.envelope_name_and_email, 
+                'Reply-To' => @from
         @recipients = info_request.recipient_name_and_email
         @subject    = 'Freedom of Information Request - ' + info_request.title
         @body       = {:info_request => info_request, :outgoing_message => outgoing_message,
@@ -18,7 +25,8 @@ class RequestMailer < ApplicationMailer
 
     def followup(info_request, outgoing_message, incoming_message_followup)
         @from = info_request.incoming_name_and_email
-        headers 'Sender' => info_request.envelope_name_and_email
+        headers 'Sender' => info_request.envelope_name_and_email,
+                'Reply-To' => @from
         @recipients = incoming_message_followup.mail.from_addrs.to_s
         @subject    = 'Re: Freedom of Information Request - ' + info_request.title
         @body       = {:info_request => info_request, :outgoing_message => outgoing_message,

@@ -120,7 +120,7 @@ module ActionMailer
     end
 end
 
-# Monkeypatch! Remove individual error messages from an ActiveRecord.
+# Monkeypatch! Method to remove individual error messages from an ActiveRecord.
 module ActiveRecord
     class Errors
         def delete(key)
