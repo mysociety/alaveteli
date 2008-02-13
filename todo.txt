@@ -14,9 +14,6 @@ BAILII - relationship with law courts, robots.txt ?
 Status of messages stuff
 ========================
 
-Add - response was made in private state
-or maybe 'response refusing to publish for spurious reasons
-
 Use sent again date when there has been resent?, e.g. for
     http://foi.mysociety.org/request/16
 Make date estimate use follow up time etc.
@@ -26,8 +23,9 @@ Status inputting:
     search for 'classify' and tidy text
 
 
-Show due date on, e.g.
+Show proper due date on, e.g.
     http://foi.mysociety.org/request/4
+    http://foi.mysociety.org/request/17
 Sort by due date, show categorisation everywhere
 Alert somewhere if working days table not up to date
 
@@ -44,13 +42,14 @@ And Tom's woes:
     http://foi.mysociety.org/request/8
 Also: Consider removing login links from notifications of new responses
 
-And my woes:
-    http://foi.mysociety.org/request/17
-    - why duplicate?
-
 Things waiting clarification need link to help you do it.
 
 Do something at least a bit aggressive when response is late
+
+
+Add - response was made in private state
+or maybe 'response refusing to publish for spurious reasons
+
 
 Next
 ====
