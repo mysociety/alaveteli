@@ -7,10 +7,18 @@
 <%= foi_error_messages_for :incoming_message, :outgoing_message %>
 
 <div id="show_response_view">
-    <% if @incoming_message.recently_arrived %>
-        <h2>New response to your request '<%= request_link @info_request %>'</h2>
+    <% if @is_owning_user %>
+        <% if @incoming_message.recently_arrived %>
+            <h2>New response to your request '<%= request_link @info_request %>'</h2>
+        <% else %>
+            <h2>Response to your request '<%= request_link @info_request %>'</h2>
+        <% end %>
     <% else %>
-        <h2>Response to your request '<%= request_link @info_request %>'</h2>
+        <% if @incoming_message.recently_arrived %>
+            <h2>New response to FOI request '<%= request_link @info_request %>'</h2>
+        <% else %>
+            <h2>Response to FOI request '<%= request_link @info_request %>'</h2>
+        <% end %>
     <% end %>
 
     <%= render :partial => 'correspondence', :locals => { :info_request_event => nil, :incoming_message => @incoming_message } %>
