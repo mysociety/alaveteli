@@ -298,7 +298,7 @@ table#list_requests .odd {
     display: none;
 }
 
-/* /describe_state - user  setting status of request */
+/* /describe_state - user setting status of request */
 
 .describe_state_form {
     clear: both;
@@ -321,6 +321,10 @@ table#list_requests .odd {
 }
 #show_response_followup {
     margin-top: 3em;
+}
+
+img.attachment_image {
+    vertical-align: middle;
 }
 
 /* / - about page */

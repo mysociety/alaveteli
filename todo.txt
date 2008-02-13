@@ -14,6 +14,10 @@ BAILII - relationship with law courts, robots.txt ?
 Status of messages stuff
 ========================
 
+On request received /describe page the formatting of the dialogues asking for
+state change is broken now.
+
+
 Use sent again date when there has been resent?, e.g. for
     http://foi.mysociety.org/request/16
 Make date estimate use follow up time etc.
@@ -22,6 +26,8 @@ Status inputting:
     cope with "other" case when something is both (e.g. received some AND clarify)
     search for 'classify' and tidy text
 
+Status here is wrong:
+    http://foi.mysociety.org/request/11
 
 Show proper due date on, e.g.
     http://foi.mysociety.org/request/4
@@ -175,5 +181,11 @@ Heather has some for central departments
 
 FOE site has email addresses of lots of bodies, e.g.
 http://community.foe.co.uk/app/tc
+
+
+Visual design ideas
+===================
+
+Colour/shade requests and responses bubbles differently
 
 
