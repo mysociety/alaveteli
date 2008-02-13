@@ -18,7 +18,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.38 2008-02-06 09:41:44 francis Exp $
+# $Id: incoming_message.rb,v 1.39 2008-02-13 13:47:50 francis Exp $
 
 
 # TODO
@@ -162,7 +162,7 @@ class IncomingMessage < ActiveRecord::Base
             if curr_mail.sub_type == 'alternative'
                 # Choose best part from alternatives
                 best_part = nil
-                self.mail.parts.each do |m|
+                curr_mail.parts.each do |m|
                     # Take the first one, or the last text/plain one
                     # XXX - could do better!
                     if not best_part
