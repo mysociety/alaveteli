@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.35 2008-02-06 12:20:37 francis Exp $
+# $Id: info_request.rb,v 1.36 2008-02-13 09:32:55 francis Exp $
 
 require 'digest/sha1'
 
@@ -90,6 +90,15 @@ public
         hash = $2
 
         return self.find_by_magic_email(id, hash)
+    end
+
+    # When constructing a new request, use this to check user hasn't double submitted.
+    # XXX could have a date range here, so say only check last month's worth of new requests. If somebody is making
+    # repeated requests, say once a quarter for time information, then might need to do that.
+    # XXX this *should* also check outgoing message joined to is an initial
+    # request (rather than follow up)
+    def self.find_by_existing_request(title, public_body_id, body)
+        return InfoRequest.find(:first, :conditions => [ 'title = ? and public_body_id = ? and outgoing_messages.body = ?', title, public_body_id, body ], :include => [ :outgoing_messages ] )
     end
 
     # A new incoming email to this request
