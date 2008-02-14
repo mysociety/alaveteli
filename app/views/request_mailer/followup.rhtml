@@ -1,11 +1,3 @@
 <%= @outgoing_message.body.strip %>
 
--------------------------------------------------------------------
-Disclaimer: This message and all responses to it are public. Any
-reply that you make will be published on the Internet at this
-location: <%= main_url(request_url(@info_request)) %>
-
-Sent using GovernmentSpy, a project of UKCOD, registered charity number 1076346. 
--------------------------------------------------------------------
-
 <%= @outgoing_message.quoted_part_to_append_to_email.strip %>
