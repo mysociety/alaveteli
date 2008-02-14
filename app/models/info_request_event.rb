@@ -16,7 +16,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request_event.rb,v 1.12 2008-02-14 11:19:42 francis Exp $
+# $Id: info_request_event.rb,v 1.13 2008-02-14 12:21:48 francis Exp $
 
 class InfoRequestEvent < ActiveRecord::Base
     belongs_to :info_request
@@ -34,6 +34,7 @@ class InfoRequestEvent < ActiveRecord::Base
 
     # user described state (also update in info_request)
     validates_inclusion_of :described_state, :in => [ 
+        nil,
         'waiting_response',
         'waiting_clarification', 
         'rejected', 
