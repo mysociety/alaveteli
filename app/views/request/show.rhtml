@@ -44,7 +44,7 @@
         <% if @is_owning_user %>
             <%=h @info_request.public_body.name %> is <strong>waiting for your clarification</strong>. 
             Please
-            <%= link_to "send a follow up message", show_response_url(:id => @info_request.id, :incoming_message_id => @info_request.get_last_response.id) %>.
+            <%= link_to "send a follow up message", show_response_url(:id => @info_request.id, :incoming_message_id => @info_request.get_last_response.id) + "#show_response_followup" %>.
         <% else %>
             The request is <strong>waiting for clarification</strong>. 
             If you are
