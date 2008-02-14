@@ -14,6 +14,9 @@ BAILII - relationship with law courts, robots.txt ?
 Status of messages stuff
 ========================
 
+You can send a followup, not be making a clarification, and it puts the
+    thing in awaiting state when it shouldn't really
+
 Use sent again date when there has been resent?, e.g. for
     http://foi.mysociety.org/request/16
 Make date estimate use follow up time etc.
@@ -46,13 +49,14 @@ Also: Consider removing login links from notifications of new responses
 
 Do something at least a bit aggressive when response is late
 
-
 Add - response was made in private state
 or maybe 'response refusing to publish for spurious reasons
 
 
 Next
 ====
+
+Consider on staging sites making follow ups go to dummy address also
 
 Check "From:" of requests and followups, it is coming out as GovernmentSpy rather than the user
 
