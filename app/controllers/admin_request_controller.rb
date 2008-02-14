@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_request_controller.rb,v 1.4 2008-02-06 12:20:37 francis Exp $
+# $Id: admin_request_controller.rb,v 1.5 2008-02-14 07:45:08 francis Exp $
 
 class AdminRequestController < ApplicationController
     layout "admin"
@@ -31,15 +31,23 @@ class AdminRequestController < ApplicationController
 
     def edit_outgoing
         @outgoing_message = OutgoingMessage.find(params[:id])
+        @info_request = @outgoing_message.info_request
     end
 
     def update_outgoing
         @outgoing_message = OutgoingMessage.find(params[:id])
+        @info_request = @outgoing_message.info_request
+
         old_body = @outgoing_message.body
-        if @outgoing_message.update_attributes(params[:outgoing_message])
-            @outgoing_message.info_request.log_event("edit_outgoing", { :outgoing_message_id => @outgoing_message.id, :editor => admin_http_auth_user(), :old_body => old_body, :body => @outgoing_message.body })
-            flash[:notice] = 'OutgoingMessage was successfully updated.'
-            redirect_to request_admin_url(@outgoing_message.info_request)
+        old_title = @info_request.title
+
+        if @outgoing_message.update_attributes(params[:outgoing_message]) and @info_request.update_attributes(params[:info_request])
+            @outgoing_message.info_request.log_event("edit_outgoing", 
+                { :outgoing_message_id => @outgoing_message.id, :editor => admin_http_auth_user(), 
+                    :old_title => old_title, :title => @info_request.title, 
+                    :old_body => old_body, :body => @outgoing_message.body })
+            flash[:notice] = 'Request successfully updated.'
+            redirect_to request_admin_url(@info_request)
         else
             render :action => 'edit_outgoing'
         end

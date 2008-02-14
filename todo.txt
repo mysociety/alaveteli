@@ -14,10 +14,6 @@ BAILII - relationship with law courts, robots.txt ?
 Status of messages stuff
 ========================
 
-On request received /describe page the formatting of the dialogues asking for
-state change is broken now.
-
-
 Use sent again date when there has been resent?, e.g. for
     http://foi.mysociety.org/request/16
 Make date estimate use follow up time etc.

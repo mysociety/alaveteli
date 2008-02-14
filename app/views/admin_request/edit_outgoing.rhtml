@@ -4,8 +4,11 @@
 
 <% form_tag '../update_outgoing/' + @outgoing_message.id.to_s do %>
 
-    <p><label for="outgoing_message_body">Body of message</label><br/>
-    <%= text_area 'outgoing_message', 'body', :rows => 10, :cols => 60  %></p>
+   <p><label for="info_request_title">Title</label><br/>
+   <%= text_field 'info_request', 'title', :size => 50  %></p>
+
+   <p><label for="outgoing_message_body">Body of message</label><br/>
+   <%= text_area 'outgoing_message', 'body', :rows => 10, :cols => 60  %></p>
 
   <p><strong>Note:</strong> This is mainly to be used to excise information
   that users inadvertently put in their messages, not realising it would be
