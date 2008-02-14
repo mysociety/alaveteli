@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.47 2008-02-13 09:32:55 francis Exp $
+# $Id: request_controller.rb,v 1.48 2008-02-14 09:57:56 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -13,7 +13,6 @@ class RequestController < ApplicationController
         @info_request_events = @info_request.info_request_events
         @info_request_events.sort! { |a,b| a.created_at <=> b.created_at } 
         @status = @info_request.calculate_status
-        @date_response_required_by = @info_request.date_response_required_by
         @collapse_quotes = params[:unfold] ? false : true
         @is_owning_user = !authenticated_user.nil? && authenticated_user.id == @info_request.user_id
         @events_needing_description = @info_request.events_needing_description
