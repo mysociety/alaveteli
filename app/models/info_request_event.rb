@@ -16,7 +16,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request_event.rb,v 1.11 2008-02-07 15:11:16 francis Exp $
+# $Id: info_request_event.rb,v 1.12 2008-02-14 11:19:42 francis Exp $
 
 class InfoRequestEvent < ActiveRecord::Base
     belongs_to :info_request
@@ -30,6 +30,15 @@ class InfoRequestEvent < ActiveRecord::Base
         'edit_outgoing', # outgoing message edited in admin interface
         'manual', # you did something in the db by hand
         'response'
+    ]
+
+    # user described state (also update in info_request)
+    validates_inclusion_of :described_state, :in => [ 
+        'waiting_response',
+        'waiting_clarification', 
+        'rejected', 
+        'successful', 
+        'partially_successful'
     ]
 
     # We store YAML version of parameters in the database

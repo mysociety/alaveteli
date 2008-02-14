@@ -26,7 +26,7 @@
   <th>Actions</th>
   </tr>
   
-<% for outgoing_message in @info_request.outgoing_messages %>
+<% for outgoing_message in @info_request.outgoing_messages.find(:all, :order => 'created_at') %>
   <tr class="<%= cycle('odd', 'even') %>">
   <td><%=h outgoing_message.id %></td>
   <% for column in OutgoingMessage.content_columns.map { |c| c.name } %>
@@ -53,7 +53,7 @@
   <% end %>
   </tr>
   
-<% for incoming_message in @info_request.incoming_messages %>
+<% for incoming_message in @info_request.incoming_messages.find(:all, :order => 'created_at') %>
   <tr class="<%= cycle('odd', 'even') %>">
   <td><%=h incoming_message.id %></td>
   <% for column in IncomingMessage.content_columns.map { |c| c.name } %>
@@ -68,6 +68,7 @@
 
 <table>
   <tr>
+  <th>Id</th>
   <% for column in InfoRequestEvent.content_columns %>
     <th><%= column.human_name %></th>
   <% end %>
@@ -75,6 +76,7 @@
   
 <% for info_request_event in @info_request.info_request_events.find(:all, :order => "created_at, id") %>
   <tr class="<%= cycle('odd', 'even') %>">
+  <td><%=h info_request_event.id %></td>
   <% for column in InfoRequestEvent.content_columns.map { |c| c.name } %>
     <td><%=h info_request_event.send(column) %></td>
   <% end %>

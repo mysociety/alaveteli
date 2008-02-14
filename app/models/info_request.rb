@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.37 2008-02-14 09:55:21 francis Exp $
+# $Id: info_request.rb,v 1.38 2008-02-14 11:19:42 francis Exp $
 
 require 'digest/sha1'
 
@@ -38,7 +38,7 @@ class InfoRequest < ActiveRecord::Base
 
     belongs_to :dsecribed_last_incoming_message_id
 
-    # user described state
+    # user described state (also update in info_request_event)
     validates_inclusion_of :described_state, :in => [ 
         'waiting_response',
         'waiting_clarification', 
@@ -171,17 +171,38 @@ public
     # XXX how do we cope with case where extra info was required from the requester
     # by the public body in order to fulfill the request, as per sections 1(3) and 10(6b) ?
     def date_response_required_by
-        # We use the last_sent_at date for each outgoing message, as fair
-        # enough if the first email bounced or something and it got recent.
-        # XXX if a second outgoing message is really a new request, then this
-        # is no good. Likewise, a second outgoing message may contain
-        # clarifications asked for by the public body, and so reset things.
-        # Possibly just show 20 working days since the *last* message? Hmmm.
-        earliest_sent = self.outgoing_messages.map { |om| om.last_sent_at }.min
-        if earliest_sent.nil?
-            raise "internal error, minimum last_sent_at for outgoing_messages is nil for request " + self.id.to_s + " outgoing messages count " + self.outgoing_messages.size.to_s
-        end
+        events = self.info_request_events.find(:all, :order => "created_at")
 
+        # Find the earliest time at which an outgoing message was:
+        # -- sent at all
+        # -- OR the same message was resent
+        # -- OR the public body requested clarification, and a follow up was sent
+        earliest = nil
+        expecting_clarification = false
+        events.each do |event|
+            if [ 'sent', 'resent', 'followup_sent' ].include?(event.event_type)
+                outgoing_message = OutgoingMessage.find(event.params[:outgoing_message_id])
+
+                if earliest.nil?
+                    earliest = outgoing_message
+                elsif event.event_type == 'resent' and outgoing_message.id == event.params[:outgoing_message_id]
+                    earliest = outgoing_message
+                elsif expecting_clarification and event.event_type == 'followup_sent'
+                    earliest = outgoing_message
+                    expecting_clarification = false;
+                end
+            end
+
+            if event.described_state == 'waiting_clarification'
+                expecting_clarification = true
+            end
+        end
+        if earliest.nil?
+            raise "internal error, date_response_required_by gets nil for request " + self.id.to_s + " outgoing messages count " + self.outgoing_messages.size.to_s
+        end
+        earliest_sent = earliest.last_sent_at
+
+        # Count forward 20 working days
         days_passed = 0
         response_required_by = earliest_sent
         while days_passed < 20
@@ -212,8 +233,6 @@ public
             end
         end
 
-        # XXX and give until the end of that 20th working day
-        
         return response_required_by
     end
 

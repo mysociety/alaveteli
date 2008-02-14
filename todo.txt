@@ -54,6 +54,10 @@ or maybe 'response refusing to publish for spurious reasons
 Next
 ====
 
+Check "From:" of requests and followups, it is coming out as GovernmentSpy rather than the user
+
+Change ..@.. to something prettier / less confusing
+Put the admin "Public page" link on request page somewhere clearer
 
 Lucene for search - use http://acts-as-solr.rubyforge.org/
 Have a look at http://swish-e.org/
@@ -65,6 +69,10 @@ sort orders we need)
 
 Later
 =====
+
+Make the email address for responses 
+    - something bland for domain name
+    - perhaps put name of user in the part before the @ ?
 
 Make interface to specify status
 
