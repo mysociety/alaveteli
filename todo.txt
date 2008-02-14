@@ -72,6 +72,8 @@ sort orders we need)
 Later
 =====
 
+Make interface to specify status
+
 Synthesise these tips into our handful of snappy snappy bullet points
     http://community.foe.co.uk/tools/right_to_know/tips.html
     http://www.justice.gov.uk/requestinginformation.htm

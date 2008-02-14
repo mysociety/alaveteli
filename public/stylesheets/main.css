@@ -56,11 +56,6 @@ a:active {
     margin: 0;
 }
 
-#beta {
-    color: #6e653b;
-    background-color: #a8f400;
-    font-size: 50%;
-}
 #tagline {
     /* color: #6e653b; */
 
@@ -78,6 +73,12 @@ a:active {
 }
 #header a:active, #header a:hover {
     text-decoration: underline;
+}
+
+#beta, #beta a:link, #beta a:visited {
+    color: #6e653b;
+    background-color: #a8f400;
+    font-size: 50%;
 }
 
 #content {
