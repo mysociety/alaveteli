@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.36 2008-02-13 09:32:55 francis Exp $
+# $Id: info_request.rb,v 1.37 2008-02-14 09:55:21 francis Exp $
 
 require 'digest/sha1'
 
@@ -236,6 +236,18 @@ public
         info_request_event.params = params
         info_request_event.info_request = self
         info_request_event.save!
+    end
+
+    # The last response is the default one people might want to reply to
+    def get_last_response
+        events = self.info_request_events.find(:all, :order => "created_at")
+        events.reverse.each do |e|
+            if e.event_type == 'response'
+                id = e.params[:incoming_message_id].to_i
+                return IncomingMessage.find(id)
+            end
+        end
+        return nil
     end
 
     # Text from the the initial request, for use in summary display

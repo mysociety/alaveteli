@@ -44,8 +44,6 @@ And Tom's woes:
     http://foi.mysociety.org/request/8
 Also: Consider removing login links from notifications of new responses
 
-Things waiting clarification need link to help you do it.
-
 Do something at least a bit aggressive when response is late
 
 
