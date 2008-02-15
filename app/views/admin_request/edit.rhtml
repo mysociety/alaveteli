@@ -1,0 +1,25 @@
+<h1>Edit basic details of request</h1>
+
+<%= error_messages_for 'info_request' %>
+
+<% form_tag '../update/' + @info_request.id.to_s do %>
+
+   <p><label for="info_request_title">Title</label><br/>
+   <%= text_field 'info_request', 'title', :size => 50  %></p>
+
+   <p><label for="info_request_prominence">Prominence</label><br/>
+   <%= select( 'info_request', "prominence", { "normal" => "normal", "backpage" => "backpage"}) %>
+
+  <%= submit_tag 'Save' %>
+
+  <p><strong>Note:</strong> To edit the actual request body text, click edit
+  next to the specific outgoing message.
+  </p>
+
+<% end %>
+
+<p>
+<%= link_to 'Show', '../show/' + @info_request.id.to_s %> |
+<%= link_to 'List all', '../list' %>
+</p>
+
