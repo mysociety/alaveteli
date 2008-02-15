@@ -14,19 +14,9 @@ BAILII - relationship with law courts, robots.txt ?
 Status of messages stuff
 ========================
 
-You can send a followup, not be making a clarification, and it puts the
-    thing in awaiting state when it shouldn't really
-
-Use sent again date when there has been resent?, e.g. for
-    http://foi.mysociety.org/request/16
-Make date estimate use follow up time etc.
-
 Status inputting:
     cope with "other" case when something is both (e.g. received some AND clarify)
     search for 'classify' and tidy text
-
-Status here is wrong:
-    http://foi.mysociety.org/request/11
 
 Show proper due date on, e.g.
     http://foi.mysociety.org/request/4
@@ -52,13 +42,16 @@ Do something at least a bit aggressive when response is late
 Add - response was made in private state
 or maybe 'response refusing to publish for spurious reasons
 
+Go through all requests and check status is shiny
+
 
 Next
 ====
 
-Consider on staging sites making follow ups go to dummy address also
+"By law, you should get a response before the end of 23 January 2008." message needs updating
+if that is in the future.
 
-Check "From:" of requests and followups, it is coming out as GovernmentSpy rather than the user
+Consider on staging sites making follow ups go to dummy address also
 
 Change ..@.. to something prettier / less confusing
 Put the admin "Public page" link on request page somewhere clearer

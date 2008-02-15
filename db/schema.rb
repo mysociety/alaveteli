@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 32) do
+ActiveRecord::Schema.define(:version => 33) do
 
   create_table "incoming_messages", :force => true do |t|
     t.integer  "info_request_id",                    :null => false
@@ -28,13 +28,14 @@ ActiveRecord::Schema.define(:version => 32) do
   end
 
   create_table "info_requests", :force => true do |t|
-    t.text     "title",                                   :null => false
-    t.integer  "user_id",                                 :null => false
-    t.integer  "public_body_id",                          :null => false
-    t.datetime "created_at",                              :null => false
-    t.datetime "updated_at",                              :null => false
-    t.string   "described_state",                         :null => false
-    t.boolean  "awaiting_description", :default => false, :null => false
+    t.text     "title",                                      :null => false
+    t.integer  "user_id",                                    :null => false
+    t.integer  "public_body_id",                             :null => false
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
+    t.string   "described_state",                            :null => false
+    t.boolean  "awaiting_description", :default => false,    :null => false
+    t.string   "prominence",           :default => "normal", :null => false
   end
 
   add_index "info_requests", ["created_at"], :name => "index_info_requests_on_created_at"

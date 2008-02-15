@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.40 2008-02-14 15:31:22 francis Exp $
+# $Id: info_request.rb,v 1.41 2008-02-15 11:18:55 francis Exp $
 
 require 'digest/sha1'
 
@@ -45,6 +45,11 @@ class InfoRequest < ActiveRecord::Base
         'rejected', 
         'successful', 
         'partially_successful'
+    ]
+
+    validates_inclusion_of :prominence, :in => [ 
+        'normal', 
+        'backpage',
     ]
 
     def after_initialize

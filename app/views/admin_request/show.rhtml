@@ -13,7 +13,10 @@
 <strong>Envelope email address:</strong> <%=h @info_request.envelope_email %> <br>
 </p>
 
-<p><%= link_to 'Public page', main_url(request_url(@info_request)) %></p>
+<p>
+<%= link_to 'Public page', main_url(request_url(@info_request)) %>
+| <%= link_to "Edit", '../edit/' + @info_request.id.to_s %>
+</p>
 
 <h2>Outgoing messages</h2>
 

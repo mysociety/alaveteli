@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.48 2008-02-14 09:57:56 francis Exp $
+# $Id: request_controller.rb,v 1.49 2008-02-15 11:18:55 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -22,7 +22,7 @@ class RequestController < ApplicationController
     end
 
     def list
-        @info_requests = InfoRequest.paginate :order => "created_at desc", :page => params[:page], :per_page => 25
+        @info_requests = InfoRequest.paginate :order => "created_at desc", :page => params[:page], :per_page => 25, :conditions => "prominence = 'normal'"
     end
     
     def frontpage
