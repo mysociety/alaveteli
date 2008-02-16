@@ -18,7 +18,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.40 2008-02-14 15:31:22 francis Exp $
+# $Id: incoming_message.rb,v 1.41 2008-02-16 02:36:17 francis Exp $
 
 
 # TODO
@@ -121,7 +121,7 @@ class IncomingMessage < ActiveRecord::Base
         # either the requestor's email address or the request's response email
         # address out onto the internet
         rx = Regexp.new(MySociety::Validate.email_match_regexp)
-        text.gsub!(rx, "...@...")
+        text.gsub!(rx, "[email address]")
 
         return text
     end
@@ -244,6 +244,7 @@ class IncomingMessage < ActiveRecord::Base
         if collapse_quoted_sections
             text = folded_quoted_text
         end
+        text = MySociety::Format.simplify_angle_bracketed_urls(text)
         text = CGI.escapeHTML(text)
         text = MySociety::Format.make_clickable(text, :contract => 1)
         if collapse_quoted_sections

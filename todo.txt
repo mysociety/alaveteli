@@ -16,16 +16,8 @@ Status of messages stuff
 
 Status inputting:
     cope with "other" case when something is both (e.g. received some AND clarify)
-    search for 'classify' and tidy text
 
-Show proper due date on, e.g.
-    http://foi.mysociety.org/request/4
-    http://foi.mysociety.org/request/17
-Sort by due date, show categorisation everywhere
 Alert somewhere if working days table not up to date
-
-Make sure this page is OK
-http://foi.mysociety.org/request/14
 
 Adam's woes:
 http://foi.mysociety.org/request/18/response/31
@@ -35,12 +27,11 @@ http://foi.mysociety.org/request/18/response/31
 
 And Tom's woes:
     http://foi.mysociety.org/request/8
+Add - response was made in private state
+    or maybe 'response refusing to publish for spurious reasons
 Also: Consider removing login links from notifications of new responses
 
 Do something at least a bit aggressive when response is late
-
-Add - response was made in private state
-or maybe 'response refusing to publish for spurious reasons
 
 Go through all requests and check status is shiny
 
@@ -53,7 +44,6 @@ if that is in the future.
 
 Consider on staging sites making follow ups go to dummy address also
 
-Change ..@.. to something prettier / less confusing
 Put the admin "Public page" link on request page somewhere clearer
 
 Lucene for search - use http://acts-as-solr.rubyforge.org/
@@ -62,7 +52,7 @@ Or polish up an acts_as_xapian
 
 Sort the requests by when something last happened to them (this needs thought as to what
 sort orders we need)
-
+Sort by due date
 
 Later
 =====
@@ -176,6 +166,7 @@ Sources of public bodies
 Send to MoD seems to require a form
 Also DfT :( http://www.dft.gov.uk/foi/whatyouneedtoknow/foionlinefrm
 Also Met :( http://www.met.police.uk/information/metric/index.htm
+- perhaps just do them manually?
 
 Schools list: www.edubase.gov.uk
 
