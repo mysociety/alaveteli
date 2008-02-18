@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.49 2008-02-15 11:18:55 francis Exp $
+# $Id: request_controller.rb,v 1.50 2008-02-18 23:01:35 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -97,7 +97,6 @@ class RequestController < ApplicationController
         @new_responses_count = @events_needing_description.select {|i| i.event_type == 'response'}.size
 
         if @last_info_request_event_id.nil?
-            raise "mnoo " + @events_needing_description.size.to_s
             flash[:notice] = "Internal error - awaiting description, but no event to describe"
             redirect_to show_request_url(:id => @info_request)
             return
@@ -129,26 +128,29 @@ class RequestController < ApplicationController
             @info_request.set_described_state(params[:incoming_message][:described_state], @last_info_request_event_id)
 
             # Display appropriate next page (e.g. help for complaint etc.)
-            if @info_request.described_state == 'waiting_response'
+            if @info_request.calculate_status == 'waiting_response'
                 flash[:notice] = "<p>Thank you! Hopefully your wait isn't too long.</p> <p>By law, you should get a response before the end of <strong>" + simple_date(@info_request.date_response_required_by) + "</strong>.</p>"
                 redirect_to show_request_url(:id => @info_request)
-            elsif @info_request.described_state == 'rejected'
+            elsif @info_request.calculate_status == 'waiting_response_overdue'
+                flash[:notice] = "<p>Thank you! Hope you don't have to wait much longer.</p> <p>By law, you should have got a response before the end of <strong>" + simple_date(@info_request.date_response_required_by) + "</strong>.</p>"
+                redirect_to show_request_url(:id => @info_request)
+            elsif @info_request.calculate_status == 'rejected'
                 # XXX explain how to complain
                 flash[:notice] = "Oh no! Sorry to hear that your request was rejected. Here is what to do now."
                 redirect_to unhappy_url
-            elsif @info_request.described_state == 'successful'
+            elsif @info_request.calculate_status == 'successful'
                 flash[:notice] = "We're glad you got all the information that you wanted. Thank you for using GovernmentSpy."
                 # XXX quiz them here for a comment
                 redirect_to show_request_url(:id => @info_request)
-            elsif @info_request.described_state == 'partially_successful'
+            elsif @info_request.calculate_status == 'partially_successful'
                 flash[:notice] = "We're glad you got some of the information that you wanted."
                 # XXX explain how to complain / quiz them for a comment
                 redirect_to show_request_url(:id => @info_request)
-            elsif @info_request.described_state == 'waiting_clarification'
+            elsif @info_request.calculate_status == 'waiting_clarification'
                 flash[:notice] = "Please write your follow up message containing the necessary clarifications below."
                 redirect_to show_response_url(:id => @info_request.id, :incoming_message_id => @events_needing_description[-1].params[:incoming_message_id])
             else
-                raise "unknown described_state " + @info_request.described_state
+                raise "unknown calculate_status " + @info_request.calculate_status
             end
             return
         else
