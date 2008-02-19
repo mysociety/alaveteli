@@ -35,11 +35,12 @@ Do something at least a bit aggressive when response is late
 
 Go through all requests and check status is shiny
 
-
 Next
 ====
 
-Consider on staging sites making follow ups go to dummy address also
+Contact page
+
+Forgotten password link - make go to contact form
 
 Put the admin "Public page" link on request page somewhere clearer
 
@@ -51,22 +52,22 @@ Sort the requests by when something last happened to them (this needs thought as
 sort orders we need)
 Sort by due date
 
+Fix the fastcgi errors
+[Mon Jan 21 10:38:45 2008] [error] [client 81.107.40.81] FastCGI: incomplete headers (0 bytes) rec
+eived from server "/data/vhost/foi.mysociety.org/docs/dispatch.fcgi"
+
 Later
 =====
+
+Consider on staging sites making follow ups go to dummy address also
 
 Make the email address for responses 
     - something bland for domain name
     - perhaps put name of user in the part before the @ ?
 
-Make interface to specify status
-
 Synthesise these tips into our handful of snappy snappy bullet points
     http://community.foe.co.uk/tools/right_to_know/tips.html
     http://www.justice.gov.uk/requestinginformation.htm
-
-Fix the fastcgi errors
-[Mon Jan 21 10:38:45 2008] [error] [client 81.107.40.81] FastCGI: incomplete headers (0 bytes) rec
-eived from server "/data/vhost/foi.mysociety.org/docs/dispatch.fcgi"
 
 Show public body email address on their public page, with a link to say "this isn't right!"
 
@@ -78,14 +79,12 @@ Generic alerting/tracking system including
 Requests with related content
 Blog posts / Wikipedia articles about this request
 
-Contact page
 Finish about page. Use these:
     http://www.ico.gov.uk/for_the_public/access_to_official_information.aspx
 
 Remember me box
     This can't possible be the best way, it is too depressing:
     http://onrails.org/articles/2006/02/18/auto-login
-Forgotten password link
 
 Screen scrape this and add link to it on the public body page
 http://www.ico.gov.uk/Home/tools_and_resources/decision_notices.aspx
@@ -115,10 +114,6 @@ Add spelling checker as in WTT
 For grey hints in input fields
 http://pauldowman.com/projects/fieldhints/
 
-Consider having link to publications scheme type pages for each body:
-http://www.ordnancesurvey.co.uk/oswebsite/aboutus/foi/index.html
-http://www.ordnancesurvey.co.uk/oswebsite/aboutus/foi/coiindex.html
-
 Forgotten password link
 
 Way of contacting other users
@@ -142,19 +137,15 @@ http://www.parliament.uk/parliamentary_publications_and_archives/freedom_of_info
 
 Consider putting the requesting user's name in the request's magic email address
 
-Escape "www.liverpool.gov.uk <http://www.liverpool.gov.uk>" properly - so it doesn't catch
-the last > converted to &gt; too badly
-    http://localhost:3000/request/5?
-(and be sure if you use a hack with a secret, it really is secret to stop people making evil links)
-
 Ask what they learnt from request, and other things?
     and reward by putting their request on front page
 
 Link to:
     Disclosure logs
     Publication schemes (http://www.ico.gov.uk/what_we_cover/freedom_of_information/publication_schemes.aspx)
-
-Mark some requests as test requests 
+e.g.
+    http://www.ordnancesurvey.co.uk/oswebsite/aboutus/foi/index.html
+    http://www.ordnancesurvey.co.uk/oswebsite/aboutus/foi/coiindex.html
 
 
 Sources of public bodies

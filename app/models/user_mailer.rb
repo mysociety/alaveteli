@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user_mailer.rb,v 1.5 2008-01-14 12:22:36 francis Exp $
+# $Id: user_mailer.rb,v 1.6 2008-02-19 17:41:58 francis Exp $
 
 class UserMailer < ApplicationMailer
     def confirm_login(user, reasons, url)
@@ -17,9 +17,4 @@ class UserMailer < ApplicationMailer
     end
 
 end
-
-#'reason_web' => _("To view your pledges, we need to check your email address."),
-#'reason_email' => _("Then you will be able to view your pledges."),
-#'reason_email_subject' => _('View your pledges at PledgeBank.com')
-
 

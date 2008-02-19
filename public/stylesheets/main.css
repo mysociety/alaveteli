@@ -223,10 +223,13 @@ div.fieldWithErrors { display:inline; }
 }
 
 #request_frontpage #find_information {
-    text-align: center;
     width: 45%;
     float: right;
     margin-bottom: 1em;
+    text-align: center;
+}
+#request_frontpage .request_listing {
+    text-align: left;
 }
 
 /* /new - submitting requests */
@@ -333,6 +336,23 @@ img.attachment_image {
 dt {
     font-weight: bold;
     margin-top: 0.5em;
+}
+
+#about_sidebar {
+    float: right;
+    width: 15em;
+    border: solid 1px #a8f400;
+    margin: 3em 0 3em 3em;
+}
+#about_sidebar h1 {
+    font-size: 120%;
+    padding: 2px;
+    margin: 0;
+    color: #000000;
+    background-color: #a8f400;
+}
+#about_sidebar p {
+    margin: 1em;
 }
 
 /* User accounts */
