@@ -12,6 +12,7 @@
 </div>
 
 <div id="find_information">
-    <h1>Find information that others requested</h1>
+    <h1>View information that others requested</h1>
+    <%= render :partial => 'request_listing', :locals => { :info_requests => @info_requests } %>
     <p><a href="/list">View all information</a></p>
 </div>

@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.51 2008-02-19 12:13:07 francis Exp $
+# $Id: request_controller.rb,v 1.52 2008-02-19 12:28:59 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -26,6 +26,7 @@ class RequestController < ApplicationController
     end
     
     def frontpage
+        @info_requests = InfoRequest.find :all, :order => "created_at desc", :conditions => "prominence = 'normal' and described_state in ('successful', 'partially_successful')", :limit => 3
     end
 
     # Page new form posts to
