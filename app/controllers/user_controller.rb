@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user_controller.rb,v 1.24 2008-02-12 11:42:09 francis Exp $
+# $Id: user_controller.rb,v 1.25 2008-02-19 12:13:07 francis Exp $
 
 class UserController < ApplicationController
     # XXX See controllers/application.rb simplify_url_part for reverse of expression in SQL below
@@ -104,8 +104,8 @@ class UserController < ApplicationController
             @post_redirect = PostRedirect.new(:uri => params[:r], :post_params => {},
                 :reason_params => {
                     :web => "",
-                    :email => "Then your can sign in to GovernmentSpy.",
-                    :email_subject => "Confirm your account on GovernmentSpy"
+                    :email => "Then your can sign in to foi.mysociety.org",
+                    :email_subject => "Confirm your account on foi.mysociety.org"
                 })
             @post_redirect.save!
             params[:token] = @post_redirect.token

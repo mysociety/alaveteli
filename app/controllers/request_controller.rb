@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.50 2008-02-18 23:01:35 francis Exp $
+# $Id: request_controller.rb,v 1.51 2008-02-19 12:13:07 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -139,7 +139,7 @@ class RequestController < ApplicationController
                 flash[:notice] = "Oh no! Sorry to hear that your request was rejected. Here is what to do now."
                 redirect_to unhappy_url
             elsif @info_request.calculate_status == 'successful'
-                flash[:notice] = "We're glad you got all the information that you wanted. Thank you for using GovernmentSpy."
+                flash[:notice] = "We're glad you got all the information that you wanted. Thank you for using foi.mysociety.org"
                 # XXX quiz them here for a comment
                 redirect_to show_request_url(:id => @info_request)
             elsif @info_request.calculate_status == 'partially_successful'

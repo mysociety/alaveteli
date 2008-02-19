@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: application_mailer.rb,v 1.3 2008-02-13 08:12:10 francis Exp $
+# $Id: application_mailer.rb,v 1.4 2008-02-19 12:13:07 francis Exp $
 
 class ApplicationMailer < ActionMailer::Base
     # Include all the functions views get, as emails call similar things.
@@ -13,7 +13,7 @@ class ApplicationMailer < ActionMailer::Base
     self.raise_delivery_errors = true
 
     def contact_from_name_and_email
-        "GovernmentSpy <"+MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost')+">"
+        "foi.mysociety.org <"+MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost')+">"
     end
 end
 

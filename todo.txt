@@ -39,9 +39,6 @@ Go through all requests and check status is shiny
 Next
 ====
 
-"By law, you should get a response before the end of 23 January 2008." message needs updating
-if that is in the future.
-
 Consider on staging sites making follow ups go to dummy address also
 
 Put the admin "Public page" link on request page somewhere clearer
