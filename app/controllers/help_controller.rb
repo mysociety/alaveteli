@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: help_controller.rb,v 1.2 2008-02-19 17:41:58 francis Exp $
+# $Id: help_controller.rb,v 1.3 2008-02-20 08:00:09 francis Exp $
 
 class HelpController < ApplicationController
     
@@ -13,6 +13,10 @@ class HelpController < ApplicationController
 
     def contact
         if params[:submitted_contact_form]
+            if @user
+                params[:contact][:email] = @user.email
+                params[:contact][:name] = @user.name
+            end
             @contact = ContactValidator.new(params[:contact])
             if @contact.valid?
                 ContactMailer.deliver_message(
@@ -20,7 +24,7 @@ class HelpController < ApplicationController
                     params[:contact][:email],
                     params[:contact][:subject],
                     params[:contact][:message],
-                    "IP #{request.env['REMOTE_HOST']}"
+                    "IP #{request.env['REMOTE_HOST']}" + (@user ? (", logged in as user " + @user.email) : ", not logged in")
                 )
                 flash[:notice] = "Your message has been sent. Thank you for getting in touch! We'll get back to you soon."
                 redirect_to home_url 

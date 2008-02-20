@@ -17,15 +17,17 @@
         answer your question quicker.
     </p>
     
-    <p>
-        <label class="form_label" for="contact_name">Your name:</label>
-        <%= f.text_field :name, :size => 20 %>
-    </p>
+    <% if not @user %>
+        <p>
+            <label class="form_label" for="contact_name">Your name:</label>
+            <%= f.text_field :name, :size => 20 %>
+        </p>
 
-    <p>
-        <label class="form_label" for="contact_email">Your email:</label>
-        <%= f.text_field :email, :size => 20 %>
-    </p>
+        <p>
+            <label class="form_label" for="contact_email">Your email:</label>
+            <%= f.text_field :email, :size => 20 %>
+        </p>
+    <% end %>
 
     <p>
         <label class="form_label" for="contact_subject">Subject:</label> 
