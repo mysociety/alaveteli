@@ -1,0 +1,44 @@
+= acts_as_solr Rails plugin
+This plugin adds full text search capabilities and many other nifty features from Apache's Solr[http://lucene.apache.org/solr/] to any Rails model.
+It was based on the first draft by Erik Hatcher.
+
+== Current Release
+The current stable release is v0.9 and was released on 06-18-2007.
+
+== Changes
+Please refer to the CHANGE_LOG[link:files/CHANGE_LOG.html]
+
+== Installation
+=== Requirements
+* Java Runtime Environment(JRE) 1.5 aka 5.0 (http://www.java.com/en/download/index.jsp)
+
+=== Default
+On your Rails' root directory, just type
+
+  script/plugin install svn://svn.railsfreaks.com/projects/acts_as_solr/trunk
+
+== Basic Usage
+Just include the line below to any of your ActiveRecord models:
+
+  acts_as_solr
+
+Or if you want, you can specify only the fields that should be indexed:
+
+  acts_as_solr :fields => [:name, :author]
+
+Then to find instances of your model, just do:
+
+  Model.find_by_solr(query) #Query is a string representing your query
+
+Please see ActsAsSolr::ActsMethods for a complete info
+
+== Authors
+Erik Hatcher:: First draft
+Thiago Jackiw:: Current developer (tjackiw at gmail dot com)
+
+== Release Information
+Released under the MIT license.
+
+== More info
+http://acts-as-solr.railsfreaks.com
+http://acts_as_solr.railsfreaks.com
