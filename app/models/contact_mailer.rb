@@ -4,10 +4,9 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: contact_mailer.rb,v 1.2 2008-02-20 07:40:43 francis Exp $
+# $Id: contact_mailer.rb,v 1.3 2008-02-20 12:51:29 francis Exp $
 
 class ContactMailer < ApplicationMailer
- 
     def message(name, email, subject, message, request_details)
         @from = name + " <" + email + ">"
         @recipients = contact_from_name_and_email
@@ -16,5 +15,4 @@ class ContactMailer < ApplicationMailer
             :request_details => request_details 
         }
     end
-
 end

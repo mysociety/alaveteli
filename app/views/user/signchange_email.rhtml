@@ -1,0 +1,30 @@
+<% @title = "Change password" %>
+
+<div id="change_password">
+
+<% form_tag({:action => "signchange"}, {:id => "signchange_form"}) do %>
+    <%= foi_error_messages_for :signchange %>
+
+    <div class="form_note">
+    <h1>Change your password</h1>
+    </div>
+
+    <p>
+    <label class="form_label" for="signchange_email">Your e-mail:</label>
+    <%= text_field 'signchange', 'email', { :size => 20 } %>
+    </p>
+
+    <p class="form_note">
+    <strong>Note:</strong>
+    We will send you an email. Follow the instructions in it to change
+    your password.
+    </p>
+
+    <div class="form_button">
+    <%= hidden_field_tag 'submitted_signchange_email', 1 %>
+    <%= hidden_field_tag 'pretoken', params[:pretoken] %>
+    <%= submit_tag "Submit" %>
+    </div>
+<% end %>
+
+</div>

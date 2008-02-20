@@ -38,8 +38,6 @@ Go through all requests and check status is shiny
 Next
 ====
 
-Forgotten password link - make go to contact form
-
 Put the admin "Public page" link on request page somewhere clearer
 
 Lucene for search - use http://acts-as-solr.rubyforge.org/

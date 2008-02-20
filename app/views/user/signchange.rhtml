@@ -1,0 +1,30 @@
+<% @title = "Change password" %>
+
+<% raise "internal error" if not @user %>
+
+<div id="change_password">
+
+<% form_tag({:action => "signchange"}, {:id => "signchange_form"}) do %>
+    <%= foi_error_messages_for :user %>
+
+    <div class="form_note">
+    <h1>Change your password</h1>
+    </div>
+
+    <label class="form_label" for="user_password">New password:</label>
+    <%= password_field 'user', 'password', { :size => 15 } %>
+    </p>
+
+    <p>
+    <label class="form_label" for="user_password_confirmation">New password: (again)</label>
+    <%= password_field 'user', 'password_confirmation', { :size => 15 } %>
+    </p>
+
+    <div class="form_button">
+    <%= hidden_field_tag 'submitted_signchange_password', 1 %>
+    <%= hidden_field_tag 'pretoken', params[:pretoken] %>
+    <%= submit_tag "Update" %>
+    </div>
+<% end %>
+
+</div>

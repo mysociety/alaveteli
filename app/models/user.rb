@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user.rb,v 1.25 2008-02-14 15:31:22 francis Exp $
+# $Id: user.rb,v 1.26 2008-02-20 12:51:29 francis Exp $
 
 require 'digest/sha1'
 
@@ -50,7 +50,7 @@ class User < ActiveRecord::Base
             auth_fail_message = "Either the email or password was not recognised, please try again. Or create a new account using the form on the right."
         end
 
-        user = self.find(:first, :conditions => [ 'email ilike ?', params[:email] ] ) # using ilike for case insensitive
+        user = self.find_user_by_email(params[:email])
         if user
             # There is user with email, check password
             expected_password = encrypted_password(params[:password], user.salt)
@@ -67,13 +67,21 @@ class User < ActiveRecord::Base
         user
     end
 
+    # Case-insensitively find a user from their email
+    def self.find_user_by_email(email)
+        return self.find(:first, :conditions => [ 'email ilike ?', email ] ) # using ilike for case insensitive
+    end
+
     # Virtual password attribute, which stores the hashed password, rather than plain text.
     def password
         @password
     end
     def password=(pwd)
         @password = pwd
-        return if pwd.blank?
+        if pwd.blank?
+            self.hashed_password = nil
+            return
+        end
         create_new_salt
         self.hashed_password = User.encrypted_password(self.password, self.salt)
     end

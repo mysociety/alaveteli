@@ -16,7 +16,7 @@
     </p>
 
     <p class="form_note">
-    Forgotten your password? Tough.
+    <%= link_to "Forgotten your password?", signchange_url + "?pretoken=" + h(params[:token]) %>
     </p>
 
     <div class="form_button">
