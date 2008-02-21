@@ -1,13 +1,35 @@
 <div id="make_requests">
     <h1>Make requests for information from the UK Government</h1>
 
-    <% form_for(:info_request, @info_request, :url => new_request_url, :html => { :id => 'public_body_form', :class => 'plaque' }  ) do |f| %>
-       <p>Choose which public body you would like information from.</p>
-       <p>
-       <%= @public_bodies = PublicBody.find(:all, :order => "name")
-           f.collection_select(:public_body_id, @public_bodies, :id, :name) %>
+    <% form_tag({:action => :frontpage}, :id => 'public_body_form', :class => 'plaque' ) do %>
+        <p>
+            <label for="public_body_query">Find the public body you would like information from:</label>
         </p>
-       <p><%= submit_tag "Submit >>" %></p>
+
+        <div>
+            <%= text_field_with_auto_complete 'public_body', 'query', {}, { :skip_style => true } %>
+        </div>
+        <div class="public_body_search_note">
+        Type to search e.g. Transport, Health, Defence
+        </div>
+
+        <p>
+            <%= submit_tag "Submit" %>
+        </p>
+
+        <% if @public_bodies.size > 0 %>
+            <div id="public_body_search">
+                <ul>
+                    <strong>Public bodies found</strong>
+                <% for public_body in @public_bodies %>
+                    <li>
+                        <%= link_to h(public_body.name), new_request_to_body_url(:public_body_id => public_body.id.to_s) %>
+                    </li>
+                <% end %>
+                </ul>
+            </div>
+        <% end %>
+
     <% end %>
 </div>
 

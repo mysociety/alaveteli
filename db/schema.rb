@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 33) do
+ActiveRecord::Schema.define(:version => 34) do
 
   create_table "incoming_messages", :force => true do |t|
     t.integer  "info_request_id",                    :null => false

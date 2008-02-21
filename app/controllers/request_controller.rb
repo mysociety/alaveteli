@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.52 2008-02-19 12:28:59 francis Exp $
+# $Id: request_controller.rb,v 1.53 2008-02-21 15:18:46 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -25,7 +25,34 @@ class RequestController < ApplicationController
         @info_requests = InfoRequest.paginate :order => "created_at desc", :page => params[:page], :per_page => 25, :conditions => "prominence = 'normal'"
     end
     
+    # Fancy javascript smancy for auto complete search
+    def auto_complete_for_public_body_query
+        # @public_bodies = PublicBody.find_by_solr(params[:public_body][:query]).results
+        criteria = '%' + params[:public_body][:query] + '%'
+        @public_bodies = PublicBody.find(:all, 
+                    :conditions => ["name ilike ?", criteria],
+                    :order => 'name', :limit=>10)  
+       
+        render :partial => "public_body_query"
+    end
     def frontpage
+        # Public body search on the left
+        @public_bodies = []
+        if params[:public_body] and params[:public_body][:query]
+            # Try and do exact match - redirect if it is made
+            @public_body = PublicBody.find_by_name(params[:public_body][:query])
+            if not @public_body.nil?
+                redirect_to new_request_to_body_url(:public_body_id => @public_body.id.to_s)
+            end
+            # Otherwise use search engine to find public body
+            #@public_bodies = PublicBody.find_by_solr(params[:public_body][:query]).results
+            criteria = '%' + params[:public_body][:query] + '%'
+            @public_bodies = PublicBody.find(:all, 
+                        :conditions => ["name ilike ?", criteria],
+                        :order => 'name', :limit=>10)  
+        end
+
+        # Get all successful requests for display on the right  
         @info_requests = InfoRequest.find :all, :order => "created_at desc", :conditions => "prominence = 'normal' and described_state in ('successful', 'partially_successful')", :limit => 3
     end
 
@@ -34,6 +61,9 @@ class RequestController < ApplicationController
         # First time we get to the page, just display it
         if params[:submitted_new_request].nil?
             # Read parameters in - public body can be passed from front page
+            if params[:public_body_id]
+                params[:info_request] = { :public_body_id => params[:public_body_id] }
+            end
             @info_request = InfoRequest.new(params[:info_request])
             @outgoing_message = OutgoingMessage.new(params[:outgoing_message])
             render :action => 'new'
