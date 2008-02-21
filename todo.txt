@@ -38,7 +38,6 @@ Go through all requests and check status is shiny
 Next
 ====
 
-Show other requests to same public body on write page
 Browse all public bodies
 
 Lucene for search - use http://acts-as-solr.rubyforge.org/
@@ -55,6 +54,8 @@ eived from server "/data/vhost/foi.mysociety.org/docs/dispatch.fcgi"
 
 Later
 =====
+
+Contact form doesn't get IP on live site
 
 Consider on staging sites making follow ups go to dummy address also
 

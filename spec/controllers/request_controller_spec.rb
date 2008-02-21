@@ -89,9 +89,9 @@ describe RequestController, "when creating a new request" do
     integrate_views
     fixtures :info_requests, :outgoing_messages, :public_bodies, :users
 
-    it "should render with 'new' template" do
+    it "should redirect to front page if no public body specified" do
         get :new
-        response.should render_template('new')
+        response.should redirect_to(:action => 'frontpage')
     end
 
     it "should accept a public body parameter posted from the front page" do

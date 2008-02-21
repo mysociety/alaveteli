@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.42 2008-02-21 20:10:21 francis Exp $
+# $Id: info_request.rb,v 1.43 2008-02-21 20:41:18 francis Exp $
 
 require 'digest/sha1'
 
@@ -208,7 +208,7 @@ public
             end
         end
         if earliest.nil?
-            raise "internal error, date_response_required_by gets nil for request " + self.id.to_s + " outgoing messages count " + self.outgoing_messages.size.to_s
+            raise "internal error, date_response_required_by gets nil for request " + self.id.to_s + " outgoing messages count " + self.outgoing_messages.size.to_s + " all events: " + events.to_yaml
         end
         earliest_sent = earliest.last_sent_at
 

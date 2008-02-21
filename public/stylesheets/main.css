@@ -293,6 +293,12 @@ div.auto_complete ul strong.highlight {
     margin-left: 12em;
 }
 
+#to_public_body {
+    font-size: 140%;
+    font-weight: bold;
+}
+
+
 /* /list - browsing requests */
 table#list_requests {
     border-collapse: collapse; 
