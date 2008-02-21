@@ -38,7 +38,7 @@ Go through all requests and check status is shiny
 Next
 ====
 
-Rename frontpage to home
+Rename frontpage controller to home (or home to frontpage)
 
 Put the admin "Public page" link on request page somewhere clearer
 
@@ -149,10 +149,35 @@ e.g.
 Sources of public bodies
 ========================
 
-Send to MoD seems to require a form
+    * Home Office
+    * Department of Health
+    * Foreign and Commonwealth Office
+    * Department for Children, Schools and Families
+    * Department for Innovation, Universities and Skills
+    * Department for Business, Enterprise and Regulatory Reform
+    * Department for Environment, Food and Rural Affairs
+    * HM Treasury
+    * Northern Ireland Office
+    * Privy Council
+    * Wales Office
+    * Wales Office (in Welsh)
+    * Scotland Office
+    * Department for Work and Pensions
+    * Department for International Development
+    * Department for Communities and Local Government
+    * Cabinet Office
+    * Office of the Leader of the House of Commons
+
+Tricky:
+    * Ministry of Defence
+    * Department for Transport
 Also DfT :( http://www.dft.gov.uk/foi/whatyouneedtoknow/foionlinefrm
-Also Met :( http://www.met.police.uk/information/metric/index.htm
-- perhaps just do them manually?
+
+Ones that require form:
+    Met :( http://www.met.police.uk/information/metric/index.htm
+Perhaps just do them manually?
+
+MoJ and NOMS should link to each other?
 
 Schools list: www.edubase.gov.uk
 

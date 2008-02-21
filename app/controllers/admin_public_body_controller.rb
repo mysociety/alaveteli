@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_public_body_controller.rb,v 1.6 2008-02-21 16:02:57 francis Exp $
+# $Id: admin_public_body_controller.rb,v 1.7 2008-02-21 16:15:45 francis Exp $
 
 class AdminPublicBodyController < ApplicationController
     layout "admin"
@@ -55,6 +55,7 @@ class AdminPublicBodyController < ApplicationController
 
     def destroy
         PublicBody.find(params[:id]).destroy
+        flash[:notice] = "PublicBody was successfully destroyed."
         redirect_to admin_url('body/list')
     end
 

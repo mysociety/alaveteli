@@ -12,3 +12,10 @@
 <%= link_to 'List all', '../list' %>
 </p>
 
+<% form_tag('../destroy/' + @public_body.id.to_s) do |f| %>
+   <p>
+   <%= hidden_field_tag(:public_body_id, { :value => @public_body.id } ) %>
+   <%= submit_tag "Destroy " + @public_body.short_name %> (this is permanent!)
+   </p>
+<% end %>
+

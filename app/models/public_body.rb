@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.18 2008-02-21 15:18:46 francis Exp $
+# $Id: public_body.rb,v 1.19 2008-02-21 16:15:45 francis Exp $
 
 class PublicBody < ActiveRecord::Base
     validates_presence_of :name
@@ -30,7 +30,7 @@ class PublicBody < ActiveRecord::Base
 
     has_many :info_requests
 
-    acts_as_solr :fields => [:name, :short_name]
+    #acts_as_solr :fields => [:name, :short_name]
 
     def validate
         unless MySociety::Validate.is_valid_email(self.request_email)
