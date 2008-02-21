@@ -51,6 +51,8 @@
             <%= user_link(@info_request.user) %>, please
             <%= link_to "sign in", signin_url(:r => request.request_uri) %> to send a follow up message.
         <% end %>
+    <% elsif @status == 'requires_admin' %>
+        This request has had an unusual response, and <strong>requires attention</strong> from the foi.mysociety.org team.
     <% else %>
         <% raise "unknown status " + @status %>
     <% end %>

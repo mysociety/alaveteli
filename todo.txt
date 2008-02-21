@@ -14,16 +14,16 @@ BAILII - relationship with law courts, robots.txt ?
 Status of messages stuff
 ========================
 
-Status inputting:
-    cope with "other" case when something is both (e.g. received some AND clarify)
-
 Alert somewhere if working days table not up to date
+
+Status inputting:
+    Cope with "other" case when something is both (e.g. received some AND clarify)
+    We don't have "this is an evil techy weird bounce" as option for state of message
+    Response asks to be private
 
 Adam's woes:
 http://foi.mysociety.org/request/18/response/31
-- Renders badly
-- No doubt leaks email address via download.bin :(
-- We don't have "this is an evil techy weird bounce" as option for state of message
+    - No doubt leaks email address via download.bin :(
 
 And Tom's woes:
     http://foi.mysociety.org/request/8
@@ -162,7 +162,9 @@ Skipped: Office of the Leader of the House of Commons
 
 Tricky:
     * Ministry of Defence
+        maybe use public@ministers.mod.uk from http://www.number-10.gov.uk/output/Page934.asp and FOE
     * Department for Transport
+        just use FAX9643@dft.gsi.gov.uk from http://www.dft.gov.uk/contact ?
 Also DfT :( http://www.dft.gov.uk/foi/whatyouneedtoknow/foionlinefrm
 
 Ones that require form:

@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.55 2008-02-21 19:05:00 francis Exp $
+# $Id: request_controller.rb,v 1.56 2008-02-21 20:10:21 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -177,6 +177,9 @@ class RequestController < ApplicationController
             elsif @info_request.calculate_status == 'waiting_clarification'
                 flash[:notice] = "Please write your follow up message containing the necessary clarifications below."
                 redirect_to show_response_url(:id => @info_request.id, :incoming_message_id => @events_needing_description[-1].params[:incoming_message_id])
+            elsif @info_request.calculate_status == 'requires_admin'
+                flash[:notice] = "Thanks! The foi.mysociety.org team have been notified."
+                redirect_to show_request_url(:id => @info_request)
             else
                 raise "unknown calculate_status " + @info_request.calculate_status
             end

@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.41 2008-02-15 11:18:55 francis Exp $
+# $Id: info_request.rb,v 1.42 2008-02-21 20:10:21 francis Exp $
 
 require 'digest/sha1'
 
@@ -44,7 +44,8 @@ class InfoRequest < ActiveRecord::Base
         'waiting_clarification', 
         'rejected', 
         'successful', 
-        'partially_successful'
+        'partially_successful',
+        'requires_admin'
     ]
 
     validates_inclusion_of :prominence, :in => [ 
@@ -134,6 +135,10 @@ public
             self.described_state = new_state
             last_event.save!
             self.save!
+        end
+
+        if new_state == 'requires_admin'
+            RequestMailer.deliver_requires_admin(self)
         end
     end
 

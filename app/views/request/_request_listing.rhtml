@@ -23,6 +23,8 @@
                 Successful.
             <% elsif status == 'waiting_clarification' %>
                 Waiting clarification.
+            <% elsif status == 'requires_admin' %>
+                Unusual response.
             <% else %>
                 <% raise "unknown status " + status %>
             <% end %>

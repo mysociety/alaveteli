@@ -16,6 +16,9 @@
             <br>
             <%= radio_button "incoming_message", "described_state", "partially_successful" %>
             <label for="incoming_message_described_state_partially_successful">I've received <strong>some of the information</strong> that I asked for</label>
+            <br>
+            <%= radio_button "incoming_message", "described_state", "requires_admin" %>
+            <label for="incoming_message_described_state_requires_admin"><strong>None</strong> of the above - e.g. add a new option here</label>
         </p>
         <p>Filling this in each time you get a new response helps us track the progress of your request.
         </p>

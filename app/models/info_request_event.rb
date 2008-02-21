@@ -16,7 +16,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request_event.rb,v 1.15 2008-02-15 11:18:55 francis Exp $
+# $Id: info_request_event.rb,v 1.16 2008-02-21 20:10:21 francis Exp $
 
 class InfoRequestEvent < ActiveRecord::Base
     belongs_to :info_request
@@ -40,7 +40,8 @@ class InfoRequestEvent < ActiveRecord::Base
         'waiting_clarification', 
         'rejected', 
         'successful', 
-        'partially_successful'
+        'partially_successful',
+        'requires_admin'
     ]
 
     # We store YAML version of parameters in the database
