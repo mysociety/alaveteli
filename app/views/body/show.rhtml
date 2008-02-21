@@ -6,12 +6,9 @@
 A public body in the UK, also called <%= h(@public_body.short_name) %>
 </p>
 
-<% form_for(:info_request, @info_request, :url => new_request_url, :html => { :id => 'public_body_form' }  ) do |f| %>
-   <p>
-   <%= f.hidden_field(:public_body_id, { :value => @public_body.id } ) %>
-   <%= submit_tag "Make new FOI request to " + @public_body.short_name %>
-   </p>
-<% end %>
+<p>
+<%= link_to "Make new FOI request to " + @public_body.short_name, new_request_to_body_url(:public_body_id => @public_body.id.to_s)%>
+</p>
 
 <% if @public_body.info_requests.empty? %>
     <p>Nobody has made any Freedom of Information requests to this public body using this site.</p>
