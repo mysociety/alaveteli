@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.53 2008-02-21 15:18:46 francis Exp $
+# $Id: request_controller.rb,v 1.54 2008-02-21 16:37:11 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -27,12 +27,8 @@ class RequestController < ApplicationController
     
     # Fancy javascript smancy for auto complete search
     def auto_complete_for_public_body_query
-        # @public_bodies = PublicBody.find_by_solr(params[:public_body][:query]).results
-        criteria = '%' + params[:public_body][:query] + '%'
-        @public_bodies = PublicBody.find(:all, 
-                    :conditions => ["name ilike ?", criteria],
-                    :order => 'name', :limit=>10)  
-       
+        @public_bodies = public_body_query(params[:public_body][:query])
+
         render :partial => "public_body_query"
     end
     def frontpage
@@ -45,11 +41,7 @@ class RequestController < ApplicationController
                 redirect_to new_request_to_body_url(:public_body_id => @public_body.id.to_s)
             end
             # Otherwise use search engine to find public body
-            #@public_bodies = PublicBody.find_by_solr(params[:public_body][:query]).results
-            criteria = '%' + params[:public_body][:query] + '%'
-            @public_bodies = PublicBody.find(:all, 
-                        :conditions => ["name ilike ?", criteria],
-                        :order => 'name', :limit=>10)  
+            @public_bodies = public_body_query(params[:public_body][:query])
         end
 
         # Get all successful requests for display on the right  
@@ -254,4 +246,15 @@ class RequestController < ApplicationController
     end
 
     private
+
+    # Used in front page search for public body
+    def public_body_query(query)
+        # @public_bodies = PublicBody.find_by_solr(query).results
+
+        criteria = '%' + query + '%'
+        @public_bodies = PublicBody.find(:all, 
+                    :conditions => ["name ilike ? or short_name ilike ?", criteria, criteria],
+                    :order => 'name', :limit=>10)  
+        return @public_bodies
+    end
 end

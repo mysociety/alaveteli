@@ -149,9 +149,6 @@ e.g.
 Sources of public bodies
 ========================
 
-    * Home Office
-    * Department of Health
-    * Foreign and Commonwealth Office
     * Department for Children, Schools and Families
     * Department for Innovation, Universities and Skills
     * Department for Business, Enterprise and Regulatory Reform
