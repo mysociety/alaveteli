@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: help_controller.rb,v 1.3 2008-02-20 08:00:09 francis Exp $
+# $Id: help_controller.rb,v 1.4 2008-02-21 18:32:43 francis Exp $
 
 class HelpController < ApplicationController
     
@@ -27,7 +27,7 @@ class HelpController < ApplicationController
                     "IP #{request.env['REMOTE_HOST']}" + (@user ? (", logged in as user " + @user.email) : ", not logged in")
                 )
                 flash[:notice] = "Your message has been sent. Thank you for getting in touch! We'll get back to you soon."
-                redirect_to home_url 
+                redirect_to frontpage_url 
                 return
             end
         end

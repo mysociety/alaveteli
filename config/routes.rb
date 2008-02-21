@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: routes.rb,v 1.34 2008-02-21 15:18:47 francis Exp $
+# $Id: routes.rb,v 1.35 2008-02-21 18:32:43 francis Exp $
 
 ActionController::Routing::Routes.draw do |map|
     # The priority is based upon order of creation: first created -> highest priority.
@@ -14,7 +14,7 @@ ActionController::Routing::Routes.draw do |map|
     # Keep in mind you can assign values other than :controller and :action
     
     map.with_options :controller => 'request' do |request|
-      request.home           '/',            :action => 'frontpage'
+      request.frontpage           '/',            :action => 'frontpage'
       request.auto_complete_for_public_body_query 'auto_complete_for_public_body_query', :action => 'auto_complete_for_public_body_query'
 
       request.request_list   '/list',        :action => 'list'

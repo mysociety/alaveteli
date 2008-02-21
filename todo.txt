@@ -31,16 +31,17 @@ Add - response was made in private state
     or maybe 'response refusing to publish for spurious reasons
 Also: Consider removing login links from notifications of new responses
 
-Do something at least a bit aggressive when response is late
+When response is late, email the user
 
 Go through all requests and check status is shiny
 
 Next
 ====
 
-Rename frontpage controller to home (or home to frontpage)
-
-Put the admin "Public page" link on request page somewhere clearer
+Show other requests to same public body on write page
+Remove the drop down on the write page
+Make the button on public body page into a link
+Browse all public bodies
 
 Lucene for search - use http://acts-as-solr.rubyforge.org/
 Have a look at http://swish-e.org/
@@ -149,21 +150,13 @@ e.g.
 Sources of public bodies
 ========================
 
-    * Department for Children, Schools and Families
-    * Department for Innovation, Universities and Skills
-    * Department for Business, Enterprise and Regulatory Reform
-    * Department for Environment, Food and Rural Affairs
-    * HM Treasury
-    * Northern Ireland Office
-    * Privy Council
-    * Wales Office
-    * Wales Office (in Welsh)
-    * Scotland Office
-    * Department for Work and Pensions
-    * Department for International Development
-    * Department for Communities and Local Government
-    * Cabinet Office
-    * Office of the Leader of the House of Commons
+Got list of departments from:
+http://www.number10.gov.uk/output/Page30.asp
+
+Compare against
+http://en.wikipedia.org/wiki/Departments_of_the_United_Kingdom_Government
+
+Skipped: Office of the Leader of the House of Commons
 
 Tricky:
     * Ministry of Defence
