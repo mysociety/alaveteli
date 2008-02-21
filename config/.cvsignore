@@ -1,3 +1,4 @@
 general
 database.yml
 rails_env.rb
+solr.yml
