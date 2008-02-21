@@ -39,8 +39,6 @@ Next
 ====
 
 Show other requests to same public body on write page
-Remove the drop down on the write page
-Make the button on public body page into a link
 Browse all public bodies
 
 Lucene for search - use http://acts-as-solr.rubyforge.org/
@@ -139,9 +137,13 @@ Consider putting the requesting user's name in the request's magic email address
 Ask what they learnt from request, and other things?
     and reward by putting their request on front page
 
+Description for each body as to what info it holds
 Link to:
     Disclosure logs
     Publication schemes (http://www.ico.gov.uk/what_we_cover/freedom_of_information/publication_schemes.aspx)
+    Website itself (for general search)
+    Google search within website?
+    TWFY department search
 e.g.
     http://www.ordnancesurvey.co.uk/oswebsite/aboutus/foi/index.html
     http://www.ordnancesurvey.co.uk/oswebsite/aboutus/foi/coiindex.html

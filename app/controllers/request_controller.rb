@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.54 2008-02-21 16:37:11 francis Exp $
+# $Id: request_controller.rb,v 1.55 2008-02-21 19:05:00 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -58,7 +58,12 @@ class RequestController < ApplicationController
             end
             @info_request = InfoRequest.new(params[:info_request])
             @outgoing_message = OutgoingMessage.new(params[:outgoing_message])
-            render :action => 'new'
+
+            if @info_request.public_body.nil?
+                redirect_to frontpage_url
+            else 
+                render :action => 'new'
+            end
             return
         end
 
