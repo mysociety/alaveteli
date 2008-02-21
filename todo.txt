@@ -14,12 +14,9 @@ BAILII - relationship with law courts, robots.txt ?
 Status of messages stuff
 ========================
 
-Alert somewhere if working days table not up to date
+When response is late, email the user
 
-Status inputting:
-    Cope with "other" case when something is both (e.g. received some AND clarify)
-    We don't have "this is an evil techy weird bounce" as option for state of message
-    Response asks to be private
+Alert user if working days table not up to date, and offer followup
 
 Adam's woes:
 http://foi.mysociety.org/request/18/response/31
@@ -27,22 +24,15 @@ http://foi.mysociety.org/request/18/response/31
 
 And Tom's woes:
     http://foi.mysociety.org/request/8
-Add - response was made in private state
-    or maybe 'response refusing to publish for spurious reasons
 Also: Consider removing login links from notifications of new responses
-
-When response is late, email the user
 
 Go through all requests and check status is shiny
 
 Next
 ====
 
-Browse all public bodies
-
-Lucene for search - use http://acts-as-solr.rubyforge.org/
-Have a look at http://swish-e.org/
-Or polish up an acts_as_xapian
+Browse all public bodies from front page
+Make front page somehow a bit prettier
 
 Sort the requests by when something last happened to them (this needs thought as to what
 sort orders we need)
@@ -54,6 +44,8 @@ eived from server "/data/vhost/foi.mysociety.org/docs/dispatch.fcgi"
 
 Later
 =====
+
+Get deploying of Lucene search working
 
 Contact form doesn't get IP on live site
 
