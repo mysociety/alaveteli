@@ -183,7 +183,7 @@ select, input, textarea {
 
 #errorExplanation, #error, #notice {
     text-align: center;
-    font-size: larger;
+    font-size: 120%;
     padding: 0.5em;
     margin: 1em;
 }
@@ -211,6 +211,20 @@ select, input, textarea {
 div.fieldWithErrors { display:inline; }
 
 /* / - front page */
+
+#alpha_notice {
+    font-size: 120%;
+    color: #000000;
+    background-color: #eeeeee;
+    border: solid 1px #000000;
+}
+#alpha_notice p {
+    text-align: center;
+}
+#alpha_notice ol {
+    margin-left: 20%;
+    width: 60%;
+}
 
 #request_frontpage h1 {
     margin-bottom: 1em;

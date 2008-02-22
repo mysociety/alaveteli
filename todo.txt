@@ -27,13 +27,9 @@ Go through all requests and check status is shiny
 Next
 ====
 
-Spacing on 
-    http://localhost:3000/request/113/response#show_response_followup
-is screwy
-
 Browse all public bodies from front page
 Make front page somehow a bit prettier
-Remove the juicier sidebar on request pages
+Contact us to add a body you need
 
 Sort the requests by when something last happened to them (this needs thought as to what
 sort orders we need)
