@@ -7,6 +7,9 @@ table {
 td, th {
     border: solid 1px #000000;
 }
+td {
+    vertical-align: top
+}
 
 tr.odd {
     background-color: #bbbbbb;
