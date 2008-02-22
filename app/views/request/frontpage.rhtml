@@ -3,13 +3,18 @@
 <div id="make_requests">
     <h1>Make requests for information from the UK Government</h1>
 
-    <% form_tag({:action => :frontpage}, :id => 'public_body_form', :class => 'plaque' ) do %>
+    <% form_tag({:action => :frontpage}, :method => 'get', :id => 'public_body_form', :class => 'plaque' ) do %>
         <p>
             <label for="public_body_query">Find the public body you would like information from:</label>
         </p>
 
         <div>
-            <%= text_field_with_auto_complete 'public_body', 'query', {}, { :skip_style => true } %>
+            <%= text_field_with_auto_complete 'public_body', 'query', {}, { :skip_style => true, :frequency => 0.1, 
+                :after_update_element => 
+                  "function(element,value) {
+                      parent.window.location = '/?public_body[query]=' + element.value 
+                  }"
+                } %>
         </div>
         <div class="public_body_search_note">
         Type to search e.g. Health, Business, Scotland
