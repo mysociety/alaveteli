@@ -42,12 +42,14 @@ a:active {
 }
 
 #header {
-    border-bottom: solid 1px #4e451b;
+    border-bottom: solid 1px #79b837;
     margin: 0;
     padding: 5px 0.5em;
-    background-color: #a8f400;
+    background-color: #c7eb6e;
+    /* Richard: 006aa2, c35b00, 613000 */
+    /* Richard: 151517, a72d22, c3d42c */
+    /* Tom: how about block heading C7EB6E , heading edge 79B837 and title text 0A0A0A */
     color: #000000;
-    /* 4e451b, a8f400 are useful greens */
 }
 
 #header h1 {
@@ -59,16 +61,16 @@ a:active {
 #tagline {
     /* color: #6e653b; */
 
-    color: #000000;
-    background-color: #a8f400;
+    color: #0a0a0a;
+    background-color: #c7eb6e;
     padding-top: -2em;
-    font-size: 50%;
+    font-size: 100%;
     font-style: italic;
 }
 
 #header a:link, #header a:visited {
-    color: #000000;
-    background-color: #a8f400;
+    color: #0a0a0a;
+    background-color: #c7eb6e;
     text-decoration: none;
 }
 #header a:active, #header a:hover {
@@ -77,8 +79,8 @@ a:active {
 
 #beta, #beta a:link, #beta a:visited {
     color: #6e653b;
-    background-color: #a8f400;
-    font-size: 50%;
+    background-color: #c7eb6e;
+    font-size: 70%;
 }
 
 #content {
@@ -118,8 +120,8 @@ a:active {
     color: #000000;
 }
 #navigation a:hover, #navigation a:active {
-    background-color: #4e451b;
-    color: #a8f400;
+    background-color: #79b837;
+    color: #c7eb6e;
 }
 
 #logged_in_bar {
@@ -130,7 +132,7 @@ a:active {
 
 #footer {
     padding: 3px;
-    border-top: solid 1px #4e451b;
+    border-top: solid 1px #79b837;
     font-size: 90%;
     text-align: center;
     width: 75%;
@@ -144,7 +146,7 @@ form {
 }
 
 .plaque {
-    background-color: #a8f400;
+    background-color: #c7eb6e;
     -moz-border-radius: 1em;
     border-radius: 1em;
     padding: 1em;
@@ -234,7 +236,7 @@ div.fieldWithErrors { display:inline; }
 
 #public_body_search ul {
     padding: 1em 0 1em 0;
-    border: solid 1px #4e451b;
+    border: solid 1px #79b837;
     list-style-type: none;
     background-color: #ffffff;
 }
@@ -302,12 +304,12 @@ div.auto_complete ul strong.highlight {
 /* /list - browsing requests */
 table#list_requests {
     border-collapse: collapse; 
-    border: solid 1px #4e451b;
+    border: solid 1px #79b837;
     border-width: 1px 0 1px 1px;
 }
 table#list_requests td, table#list_requests th {
     margin: 0; padding: 0.2em;
-    border: solid 1px #4e451b;
+    border: solid 1px #79b837;
 }
 table#list_requests .odd {
     background-color: #dddddd;
@@ -388,7 +390,7 @@ dt {
 #about_sidebar {
     float: right;
     width: 15em;
-    border: solid 1px #a8f400;
+    border: solid 1px #c7eb6e;
     margin: 3em 0 3em 3em;
 }
 #about_sidebar h1 {
@@ -396,7 +398,7 @@ dt {
     padding: 2px;
     margin: 0;
     color: #000000;
-    background-color: #a8f400;
+    background-color: #c7eb6e;
 }
 #about_sidebar p {
     margin: 1em;
