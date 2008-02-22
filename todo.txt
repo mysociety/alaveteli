@@ -14,10 +14,6 @@ BAILII - relationship with law courts, robots.txt ?
 Status of messages stuff
 ========================
 
-Find transport/defence or rename them on front page
-
-Alert if working days table not up to date
-
 Adam's woes:
 http://foi.mysociety.org/request/18/response/31
     - No doubt leaks email address via download.bin :(
@@ -30,8 +26,6 @@ Go through all requests and check status is shiny
 
 Next
 ====
-
-Late followup alerts are only sent first time message goes into that state :(
 
 Spacing on 
     http://localhost:3000/request/113/response#show_response_followup
@@ -51,6 +45,11 @@ eived from server "/data/vhost/foi.mysociety.org/docs/dispatch.fcgi"
 
 Later
 =====
+
+Tell application developer if working days table not up to date, and needs
+updating
+
+Response overdue alerts are only sent first time a request goes into that state :(
 
 Get deploying of Lucene search working
 
