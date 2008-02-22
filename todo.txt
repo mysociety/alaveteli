@@ -27,8 +27,6 @@ Go through all requests and check status is shiny
 Next
 ====
 
-Browse all public bodies from front page
-
 Sort the requests by when something last happened to them (this needs thought as to what
 sort orders we need)
 Sort by due date
