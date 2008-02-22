@@ -3,6 +3,13 @@
 <div id="make_requests">
     <h1>Make requests for information from the UK Government</h1>
 
+    <% if @public_bodies.size == 0 and @query_made %>
+        <div id="error">
+            Sorry! We couldn't find any public bodies with that in their names.
+            Please <a href="/help/contact">ask us to add the one you want</a>.
+        </div>
+    <% end %>
+
     <% form_tag({:action => :frontpage}, :method => 'get', :id => 'public_body_form', :class => 'plaque' ) do %>
         <p>
             <label for="public_body_query">Find the public body you would like information from:</label>
@@ -17,12 +24,15 @@
                 } %>
         </div>
         <div class="public_body_search_note">
-        Type to search e.g. Health, Business, Scotland
+            Type to search e.g. Health, Business, Scotland
         </div>
 
-        <p>
-            <%= submit_tag "Submit" %>
+        <p id="public_body_query_button">
+            <%= submit_tag "Search" %>
         </p>
+        <script>
+        Element.toggle('public_body_query_button')
+        </script>
 
         <% if @public_bodies.size > 0 %>
             <div id="public_body_search">
@@ -37,6 +47,9 @@
             </div>
         <% end %>
 
+        <p>
+            Can't find the one you want? <a href="/help/contact">Ask us to add it</a>
+        </p>
     <% end %>
 </div>
 

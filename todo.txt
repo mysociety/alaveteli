@@ -28,8 +28,6 @@ Next
 ====
 
 Browse all public bodies from front page
-Make front page somehow a bit prettier
-Contact us to add a body you need
 
 Sort the requests by when something last happened to them (this needs thought as to what
 sort orders we need)

@@ -266,6 +266,7 @@ div.fieldWithErrors { display:inline; }
 div.auto_complete {
     width: 350px;
     background: #fff;
+    cursor: default;
 }
 div.auto_complete ul {
     border:1px solid #888;

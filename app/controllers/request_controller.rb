@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.57 2008-02-22 01:58:36 francis Exp $
+# $Id: request_controller.rb,v 1.58 2008-02-22 13:26:36 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -34,6 +34,7 @@ class RequestController < ApplicationController
     def frontpage
         # Public body search on the left
         @public_bodies = []
+        @query_made = false
         if params[:public_body] and params[:public_body][:query]
             # Try and do exact match - redirect if it is made
             @public_body = PublicBody.find_by_name(params[:public_body][:query])
@@ -42,6 +43,7 @@ class RequestController < ApplicationController
             end
             # Otherwise use search engine to find public body
             @public_bodies = public_body_query(params[:public_body][:query])
+            @query_made = true
         end
 
         # Get all successful requests for display on the right  
