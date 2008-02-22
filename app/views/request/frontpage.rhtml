@@ -16,6 +16,7 @@
             <label for="public_body_query">Find the public body you would like information from:</label>
         </p>
 
+        <!-- Autocomplete field, which submits form when user picks entry -->
         <div>
             <%= text_field_with_auto_complete 'public_body', 'query', {}, { :skip_style => true, :frequency => 0.1, 
                 :after_update_element => 
@@ -28,11 +29,12 @@
             Type to search e.g. Health, Business, Scotland
         </div>
 
+        <!-- Show search button if javascript isn't there -->
         <p id="public_body_query_button">
             <%= submit_tag "Search" %>
         </p>
         <script type="text/javascript">
-        Element.toggle('public_body_query_button')
+            Element.toggle('public_body_query_button')
         </script>
 
         <% if @public_bodies.size > 0 %>
