@@ -1,4 +1,6 @@
-<% if @incoming_message.recently_arrived %>
+<% if @incoming_message.nil? %>
+    <% @title = "Send follow up to '" + h(@info_request.title) + "'" %>
+<% elsif @incoming_message.recently_arrived %>
     <% @title = "New response to '" + h(@info_request.title) + "'" %>
 <% else %>
     <% @title = "Response to '" + h(@info_request.title) + "'" %>
@@ -8,20 +10,28 @@
 
 <div id="show_response_view">
     <% if @is_owning_user %>
-        <% if @incoming_message.recently_arrived %>
+        <% if @incoming_message.nil? %>
+            <h2>Your last message sent for request '<%= request_link @info_request %>'</h2>
+        <% elsif @incoming_message.recently_arrived %>
             <h2>New response to your request '<%= request_link @info_request %>'</h2>
         <% else %>
             <h2>Response to your request '<%= request_link @info_request %>'</h2>
         <% end %>
     <% else %>
-        <% if @incoming_message.recently_arrived %>
+        <% if @incoming_message.nil? %>
+            <h2>Last message sent for FOI request '<%= request_link @info_request %>'</h2>
+        <% elsif @incoming_message.recently_arrived %>
             <h2>New response to FOI request '<%= request_link @info_request %>'</h2>
         <% else %>
             <h2>Response to FOI request '<%= request_link @info_request %>'</h2>
         <% end %>
     <% end %>
 
-    <%= render :partial => 'correspondence', :locals => { :info_request_event => nil, :incoming_message => @incoming_message } %>
+    <% if @incoming_message.nil? %>
+        <%= render :partial => 'correspondence', :locals => { :info_request_event => @info_request.get_last_outgoing_event, :incoming_message => nil } %>
+    <% else %>
+        <%= render :partial => 'correspondence', :locals => { :info_request_event => nil, :incoming_message => @incoming_message } %>
+    <% end %>
 
     <div id="show_response_followup">
         <%= render :partial => 'followup', :locals => { :incoming_message => @incoming_message } %>

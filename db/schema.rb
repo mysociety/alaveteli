@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 34) do
+ActiveRecord::Schema.define(:version => 35) do
 
   create_table "incoming_messages", :force => true do |t|
     t.integer  "info_request_id",                    :null => false
@@ -100,6 +100,12 @@ ActiveRecord::Schema.define(:version => 34) do
 
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
+
+  create_table "user_info_request_sent_alerts", :force => true do |t|
+    t.integer "user_id"
+    t.integer "info_request_id"
+    t.string  "alert_type"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                              :null => false

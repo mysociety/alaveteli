@@ -1,13 +1,19 @@
 <div id="followup">
 
-    <h2>Send a follow up message
-        <% if !incoming_message.safe_mail_from.nil? %>
-            to <%= incoming_message.safe_mail_from %>
-        <% end %>
-    </h2>
+    <% if incoming_message.nil? %>
+        <h2>Send a follow up message 
+        to '<%=h @info_request.public_body.name %>'
+        </h2>
+    <% else %>
+        <h2>Send a follow up message
+            <% if !incoming_message.safe_mail_from.nil? %>
+                to <%= incoming_message.safe_mail_from %>
+            <% end %>
+        </h2>
+    <% end %>
 
-    <p>Use this if the public body has asked for clarification of
-    your request.</p>
+    <p>Use this to tell the public body something, such as to clarify
+    your request, or if they are late responding.</p>
 
     <% form_for(:outgoing_message, @outgoing_message) do |o| %>
         <p>

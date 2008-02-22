@@ -14,9 +14,9 @@ BAILII - relationship with law courts, robots.txt ?
 Status of messages stuff
 ========================
 
-When response is late, email the user
+Find transport/defence or rename them on front page
 
-Alert user if working days table not up to date, and offer followup
+Alert if working days table not up to date
 
 Adam's woes:
 http://foi.mysociety.org/request/18/response/31
@@ -31,8 +31,15 @@ Go through all requests and check status is shiny
 Next
 ====
 
+Late followup alerts are only sent first time message goes into that state :(
+
+Spacing on 
+    http://localhost:3000/request/113/response#show_response_followup
+is screwy
+
 Browse all public bodies from front page
 Make front page somehow a bit prettier
+Remove the juicier sidebar on request pages
 
 Sort the requests by when something last happened to them (this needs thought as to what
 sort orders we need)

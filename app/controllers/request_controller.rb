@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.56 2008-02-21 20:10:21 francis Exp $
+# $Id: request_controller.rb,v 1.57 2008-02-22 01:58:36 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -193,8 +193,12 @@ class RequestController < ApplicationController
 
     # Show an individual incoming message, and allow followup
     def show_response
-        @incoming_message = IncomingMessage.find(params[:incoming_message_id])
-        @info_request = @incoming_message.info_request
+        if params[:incoming_message_id].nil?
+            @incoming_message = nil
+        else
+            @incoming_message = IncomingMessage.find(params[:incoming_message_id])
+        end
+        @info_request = InfoRequest.find(params[:id].to_i)
         @collapse_quotes = params[:unfold] ? false : true
         @is_owning_user = !authenticated_user.nil? && authenticated_user.id == @info_request.user_id
 
@@ -209,8 +213,8 @@ class RequestController < ApplicationController
         })
         @outgoing_message = OutgoingMessage.new(params_outgoing_message)
 
-        if @incoming_message.info_request_id != params[:id].to_i
-            raise sprintf("Incoming message %d does not belong to request %d", @incoming_message.info_request_id, params[:id])
+        if (not @incoming_message.nil?) and @info_request != @incoming_message.info_request
+            raise sprintf("Incoming message %d does not belong to request %d", @incoming_message.info_request_id, @info_request.id)
         end
 
         if !params[:submitted_followup].nil?

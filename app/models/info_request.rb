@@ -20,7 +20,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.44 2008-02-21 20:45:51 francis Exp $
+# $Id: info_request.rb,v 1.45 2008-02-22 01:58:36 francis Exp $
 
 require 'digest/sha1'
 
@@ -36,6 +36,7 @@ class InfoRequest < ActiveRecord::Base
     has_many :outgoing_messages
     has_many :incoming_messages
     has_many :info_request_events
+    has_many :user_info_request_sent_alerts
 
     belongs_to :dsecribed_last_incoming_message_id
 
@@ -275,6 +276,17 @@ public
             if e.event_type == 'response'
                 id = e.params[:incoming_message_id].to_i
                 return IncomingMessage.find(id)
+            end
+        end
+        return nil
+    end
+
+    # The last outgoing message
+    def get_last_outgoing_event
+        events = self.info_request_events.find(:all, :order => "created_at")
+        events.reverse.each do |e|
+            if e.event_type == 'sent' || e.event_type == 'resent' || e.event_type == 'followup_sent'
+                return e
             end
         end
         return nil

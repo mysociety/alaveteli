@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.22 2008-02-21 20:10:21 francis Exp $
+# $Id: request_mailer.rb,v 1.23 2008-02-22 01:58:36 francis Exp $
 
 class RequestMailer < ApplicationMailer
     
@@ -30,7 +30,11 @@ class RequestMailer < ApplicationMailer
         @from = info_request.incoming_name_and_email
         headers 'Sender' => info_request.envelope_name_and_email,
                 'Reply-To' => @from
-        @recipients = incoming_message_followup.mail.from_addrs.to_s
+        if incoming_message_followup.nil?
+            @recipients = info_request.recipient_name_and_email
+        else
+            @recipients = incoming_message_followup.mail.from_addrs.to_s
+        end
         @subject    = 'Re: Freedom of Information Request - ' + info_request.title
         @body       = {:info_request => info_request, :outgoing_message => outgoing_message,
             :incoming_message_followup => incoming_message_followup,
@@ -70,6 +74,29 @@ class RequestMailer < ApplicationMailer
         @body = { :incoming_message => incoming_message, :info_request => info_request, :url => url }
     end
 
+    # Tell the requester that a new response has arrived
+    def overdue_alert(info_request, user)
+        last_response = info_request.get_last_response
+        if last_response.nil?
+            respond_url = show_response_no_followup_url(:id => info_request.id)
+        else
+            respond_url = show_response_url(:id => info_request.id, :incoming_message_id => last_response.id)
+        end
+        respond_url = respond_url + "#show_response_followup" 
+
+        post_redirect = PostRedirect.new(
+            :uri => respond_url,
+            :user_id => user.id)
+        post_redirect.save!
+        url = confirm_url(:email_token => post_redirect.email_token)
+
+        @from = contact_from_name_and_email
+        @recipients = user.name_and_email
+        @subject = "You're overdue a response to your FOI request - " + info_request.title
+        @body = { :info_request => info_request, :url => url }
+    end
+
+
     # Class function, called by script/mailin with all incoming responses.
     # [ This is a copy (Monkeypatch!) of function from action_mailer/base.rb,
     # but which additionally passes the raw_email to the member function, as we
@@ -107,4 +134,30 @@ class RequestMailer < ApplicationMailer
         end
     end
 
+    # Send email alerts for overdue requests
+    def self.alert_overdue_requests()
+        #puts "alert_overdue_requests"
+        info_requests = InfoRequest.find(:all, :conditions => [ "described_state = 'waiting_response' and not awaiting_description" ], :include => [ :user ] )
+        for info_request in info_requests
+            # Only overdue requests
+            if info_request.calculate_status == 'waiting_response_overdue'
+                # For now, just to the user who created the request
+                sent_already = UserInfoRequestSentAlert.find(:first, :conditions => [ "alert_type = 'overdue_1' and user_id = ? and info_request_id = ?", info_request.user_id, info_request.id])
+                if sent_already.nil?
+                    # Alert not yet sent for this user
+                    puts "sending overdue alert to info_request " + info_request.id.to_s + " user " + info_request.user_id.to_s
+                    store_sent = UserInfoRequestSentAlert.new
+                    store_sent.info_request = info_request
+                    store_sent.user = info_request.user
+                    store_sent.alert_type = 'overdue_1'
+                    RequestMailer.deliver_overdue_alert(info_request, info_request.user)
+                    store_sent.save!
+                    #puts "sent " + info_request.user.email
+                end
+            end
+        end
+
+    end
 end
+
+

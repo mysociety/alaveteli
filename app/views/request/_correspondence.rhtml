@@ -45,7 +45,7 @@
             <% elsif outgoing_message.message_type == 'followup' %>
                 <% if outgoing_message.status == 'sent' %>
                     wrote to
-                    <% if !outgoing_message.incoming_message_followup.safe_mail_from.nil? %>
+                    <% if !outgoing_message.incoming_message_followup.nil? && !outgoing_message.incoming_message_followup.safe_mail_from.nil? %>
                         <%= outgoing_message.incoming_message_followup.safe_mail_from %> of
                     <% end %>
                     <%= public_body_link(@info_request.public_body) %>
@@ -56,7 +56,8 @@
                 <% end %> 
             <% else raise "unknown outgoing_message.message_type" %>
             <% end %>
-        </p>
+            (<%= link_to "send follow up", show_response_no_followup_url(:id => outgoing_message.info_request.id, :incoming_message_id => nil) + "#show_response_followup" %>)
+    </p>
     <% elsif info_request_event.event_type == 'resent' %>
         <p class="event_plain"> 
             Sent to <%= public_body_link(@info_request.public_body) %>

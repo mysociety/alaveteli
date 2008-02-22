@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user.rb,v 1.27 2008-02-21 20:45:51 francis Exp $
+# $Id: user.rb,v 1.28 2008-02-22 01:58:36 francis Exp $
 
 require 'digest/sha1'
 
@@ -31,6 +31,7 @@ class User < ActiveRecord::Base
     validates_presence_of :hashed_password, :message => "^Please enter a password"
 
     has_many :info_requests
+    has_many :user_info_request_sent_alerts
 
     attr_accessor :password_confirmation
     validates_confirmation_of :password, :message =>"^Please enter the same password twice"
