@@ -1,0 +1,11 @@
+<% @title = "All UK public bodies" %>
+
+<h1><%=@title%></h1>
+
+<p>
+<a href="/help/about#missing_body">Are we missing a public body?</a>
+</p>
+
+<%= render :partial => 'body_listing', :locals => { :public_bodies => @public_bodies } %>
+
+<%= will_paginate(@public_bodies) %>

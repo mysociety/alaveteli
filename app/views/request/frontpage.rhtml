@@ -6,7 +6,8 @@
     <% if @public_bodies.size == 0 and @query_made %>
         <div id="error">
             Sorry! We couldn't find any public bodies with that in their names.
-            Please <a href="/help/contact">ask us to add the one you want</a>.
+            Either <a href="/body">browse them all</a> or
+            <a href="/help/contact">ask us to add the one you want</a>.
         </div>
     <% end %>
 
@@ -48,7 +49,7 @@
         <% end %>
 
         <p>
-            Can't find the one you want? <a href="/help/contact">Ask us to add it</a>
+            Can't find it? <a href="/body">Browse all</a> or <a href="/help/contact">ask us to add it</a>.
         </p>
     <% end %>
 </div>

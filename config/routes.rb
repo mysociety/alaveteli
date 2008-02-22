@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: routes.rb,v 1.36 2008-02-22 01:58:37 francis Exp $
+# $Id: routes.rb,v 1.37 2008-02-22 13:49:37 francis Exp $
 
 ActionController::Routing::Routes.draw do |map|
     # The priority is based upon order of creation: first created -> highest priority.
@@ -36,11 +36,14 @@ ActionController::Routing::Routes.draw do |map|
       user.show_user '/user/:simple_name', :action => 'show'
     end
 
+    map.with_options :controller => 'body' do |body|
+        body.list_public_bodies "/body", :action => 'list'
+        body.show_public_body "/body/:simple_short_name", :action => 'show'
+    end
+
     map.with_options :controller => 'help' do |help|
       help.help_general '/help/:action',            :action => :action
     end
-
-    map.show_public_body "/body/:simple_short_name", :controller => 'body', :action => 'show'
 
     # NB: We don't use routes to *construct* admin URLs, as they need to be relative
     # paths to work on the live site proxied over HTTPS to secure.mysociety.org

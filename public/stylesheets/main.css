@@ -345,6 +345,25 @@ table#list_requests .odd {
     color: #ff0000;
 }
 
+/* /body - listing bodies */
+
+.body_listing {
+}
+.body_listing_bottomline {
+    color: #7aa600;
+}
+.body_listing_bottomline a:link {
+    color: #7777cc;
+}
+.body_listing_bottomline a:visited {
+    color: #551a8b;
+}
+.body_listing_bottomline a:active {
+    color: #ff0000;
+}
+
+
+
 
 /* /request - viewing requests */
 

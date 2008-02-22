@@ -1,0 +1,14 @@
+<% for public_body in public_bodies %>
+    <p class="body_listing">
+        <%= public_body_link(public_body) %> 
+        
+        <br>
+        Also called <%=h public_body.short_name %>.
+        <br>
+
+        <span class="request_listing_bottomline">
+            <%= pluralize(public_body.info_requests.size, "request") %> made.
+            Added on <%= simple_date(public_body.created_at) %>.
+        </span>
+    </p>
+<% end %>

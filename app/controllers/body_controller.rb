@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: body_controller.rb,v 1.3 2007-10-31 12:39:58 francis Exp $
+# $Id: body_controller.rb,v 1.4 2008-02-22 13:49:37 francis Exp $
 
 class BodyController < ApplicationController
     # XXX tidy this up with better error messages, and a more standard infrastructure for the redirect to canonical URL
@@ -29,4 +29,8 @@ class BodyController < ApplicationController
         @public_body = @public_bodies[0]
     end
 
-end
+    def list
+        @public_bodies = PublicBody.paginate :order => "name", :page => params[:page], :per_page => 25
+    end
+
+ end
