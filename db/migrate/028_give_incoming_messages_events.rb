@@ -1,3 +1,8 @@
+# XXX If this one fails with errors about described_state on save, then you need
+# to temporarily modify the model for InfoRequestEvents to remove this part:
+#    validates_inclusion_of :described_state, :in => [ 
+# Or do some nice hack in here to make it happen permanently :)
+
 class GiveIncomingMessagesEvents < ActiveRecord::Migration
     def self.up
         ActiveRecord::Base.transaction do
