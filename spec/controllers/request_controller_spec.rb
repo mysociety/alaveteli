@@ -120,6 +120,8 @@ describe RequestController, "when creating a new request" do
         # post_redirect.post_params.should == params # XXX get this working. there's a : vs '' problem amongst others
     end
 
+    # XXX preview stuff not covered here
+
     it "should create the request and outgoing message, and send the outgoing message by email, and redirect to request page when input is good and somebody is logged in" do
         session[:user_id] = users(:bob_smith_user).id
         post :new, :info_request => { :public_body_id => public_bodies(:geraldine_public_body).id, 
