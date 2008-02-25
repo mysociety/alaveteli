@@ -292,17 +292,17 @@ div.auto_complete ul strong.highlight {
 
 /* /new - submitting requests */
 
-#writeForm {
+#write_form {
     float: right;
     margin-bottom: 1em;
 }
 
-#writeForm #address_part {
+#write_form #address_part {
     float: right;
     width: 50%;
 }
 
-#writeForm #message_part {
+#write_form #message_part {
     float: right;
 }
 
