@@ -18,7 +18,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.43 2008-02-21 20:45:51 francis Exp $
+# $Id: incoming_message.rb,v 1.44 2008-02-25 00:39:27 francis Exp $
 
 
 # TODO
@@ -144,7 +144,8 @@ class IncomingMessage < ActiveRecord::Base
         # To end of message sections
         original_message = 
             '(' + '''------ This is a copy of the message, including all the headers. ------''' + 
-            '|' + '''-----Original Message-----''' +
+            '|' + '''-----*\s*Original Message\s*-----*''' +
+            '|' + '''-----*\s*Forwarded message.+-----*''' +
             ')'
         text.gsub!(/^(#{original_message}\n.*)$/m, replacement)
 
