@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.58 2008-02-22 13:26:36 francis Exp $
+# $Id: request_controller.rb,v 1.59 2008-02-25 11:17:29 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -53,7 +53,7 @@ class RequestController < ApplicationController
     # Page new form posts to
     def new
         # First time we get to the page, just display it
-        if params[:submitted_new_request].nil?
+        if params[:submitted_new_request].nil? or params[:reedit]
             # Read parameters in - public body can be passed from front page
             if params[:public_body_id]
                 params[:info_request] = { :public_body_id => params[:public_body_id] }
@@ -90,7 +90,16 @@ class RequestController < ApplicationController
             # will be valid for a specific reason which we are displaying anyway.
             @info_request.errors.delete("outgoing_messages")
             render :action => 'new'
-        elsif authenticated?(
+            return
+        end
+
+        # Show preview page, if it is a preview
+        if params[:preview].to_i == 1
+            render :action => 'preview'
+            return
+        end
+
+        if authenticated?(
                 :web => "To send your FOI request",
                 :email => "Then your FOI request to " + @info_request.public_body.name + " will be sent.",
                 :email_subject => "Confirm your FOI request to " + @info_request.public_body.name

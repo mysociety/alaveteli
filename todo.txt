@@ -13,6 +13,10 @@ BAILII - relationship with law courts, robots.txt ?
 Next
 ====
 
+Search and replace text "FOI" and "Freedom of Information" out the way more
+
+hidden_field_tags are all wrong - they store value1 x
+
 Adam's woes:
 http://foi.mysociety.org/request/18/response/31
     - No doubt leaks email address via download.bin :(

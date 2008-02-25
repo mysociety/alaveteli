@@ -48,7 +48,7 @@ a:active {
     background-color: #c7eb6e;
     /* Richard: 006aa2, c35b00, 613000 */
     /* Richard: 151517, a72d22, c3d42c */
-    /* Tom: how about block heading C7EB6E , heading edge 79B837 and title text 0A0A0A */
+    /* Tom: how about block heading c7eb6e , heading edge 79b837 and title text 0a0a0a */
     color: #000000;
 }
 
@@ -293,7 +293,7 @@ div.auto_complete ul strong.highlight {
 /* /new - submitting requests */
 
 #write_form {
-    float: right;
+    float: center;
     margin-bottom: 1em;
 }
 
@@ -313,6 +313,18 @@ div.auto_complete ul strong.highlight {
 #to_public_body {
     font-size: 140%;
     font-weight: bold;
+}
+
+#preview_form {
+    float: center;
+    margin-left: 8em;
+}
+
+#preview_form .outgoing_message_preview {
+    width: 75%;
+    background-color: #c7eb6e;
+    border: solid 1px #79b837;
+    padding: 1em;
 }
 
 

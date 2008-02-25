@@ -1,0 +1,32 @@
+<% @title = "Preview new FOI request to '" + h(@info_request.public_body.name) + "'" %>
+
+<% form_for(:info_request, @info_request, :html => { :id => 'preview_form' }  ) do |f| %>
+    
+    <h1>Preview your request</h1>
+
+    <%= f.hidden_field(:title) %>
+
+    <% fields_for :outgoing_message do |o| %>
+    <p class="outgoing_message_preview">
+        <strong>To:</strong> <%=h @info_request.public_body.name %>
+        <br><strong>Subject:</strong> <%=h @info_request.title %>
+        <br><br>
+        <%= @outgoing_message.get_body_for_html_preview %>
+        <%= o.hidden_field(:body) %>
+    </p>
+    <% end %>
+
+    <strong>Note:</strong> Your request and any response will be
+    displayed publically on this website.
+
+    <p>
+    <%= f.hidden_field(:public_body_id, { :value => @info_request.public_body_id } ) %>
+    <%= hidden_field_tag(:submitted_new_request, 1) %>
+    <%= hidden_field_tag(:preview, 0 ) %>
+    <%= submit_tag "Re-edit this request", :name => 'reedit' %>
+    <%= submit_tag "Send Freedom of Information request", :name => 'submit' %>
+    </p>
+
+<% end %>
+
+

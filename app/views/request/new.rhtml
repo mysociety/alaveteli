@@ -69,8 +69,9 @@
 
     <div class="form_button">
         <%= f.hidden_field(:public_body_id, { :value => @info_request.public_body_id } ) %>
-        <%= hidden_field_tag(:submitted_new_request, { :value => 1 } ) %>
-        <%= submit_tag "Make public Freedom of Information request >>" %>
+        <%= hidden_field_tag(:submitted_new_request, 1 ) %>
+        <%= hidden_field_tag(:preview, 1 ) %>
+        <%= submit_tag "Preview your public request" %>
     </div>
 
 <% end %>
