@@ -9,6 +9,11 @@
         
     if not incoming_message.nil?
     %>
+        <% if @previous_date.nil? or (@previous_date != incoming_message.sent_at.to_date) %>
+            <h2><%= simple_date(incoming_message.sent_at) %></h2>
+        <% end
+        @previous_date = incoming_message.sent_at.to_date %>
+
         <%= render :partial => 'bubble', :locals => { :incoming_message => incoming_message, :body => incoming_message.get_body_for_html_display(@collapse_quotes), :attachments => incoming_message.get_attachments_for_display }  %>
 
         <p class="event_bubble">
@@ -21,7 +26,6 @@
             <% else %>
                 replied 
             <% end %>
-            on <strong><%= simple_date(incoming_message.sent_at) %></strong>
             (<%= link_to "link to this", show_response_url(:id => incoming_message.info_request.id, :incoming_message_id => incoming_message.id) %>,
             <%= link_to "reply", show_response_url(:id => incoming_message.info_request.id, :incoming_message_id => incoming_message.id) + "#show_response_followup" %>)
         </p>
@@ -29,6 +33,11 @@
     elsif info_request_event.event_type == 'sent' || info_request_event.event_type == 'followup_sent'
         outgoing_message = OutgoingMessage.find(info_request_event.params[:outgoing_message_id]) 
         %>
+        <% if @previous_date.nil? or (@previous_date != info_request_event.created_at.to_date) %>
+            <h2><%= simple_date(info_request_event.created_at) %></h2>
+        <% end
+        @previous_date = info_request_event.created_at.to_date %>
+
         <%= render :partial => 'bubble', :locals => { :body => outgoing_message.get_body_for_html_display(), :attachments => nil }  %>
 
         <p class="event_bubble"> 
@@ -37,7 +46,6 @@
                 <% if outgoing_message.status == 'sent' %>
                     sent the initial request
                     to <%= public_body_link(@info_request.public_body) %>
-                    on <strong><%= simple_date(info_request_event.created_at) %></strong>
                 <% elsif outgoing_message.status == 'ready' %>
                      wrote the initial request, but it has <strong>not yet been sent</strong>
                 <% else raise "unknown outgoing_message.status" %>
@@ -49,7 +57,6 @@
                         <%= outgoing_message.incoming_message_followup.safe_mail_from %> of
                     <% end %>
                     <%= public_body_link(@info_request.public_body) %>
-                    on <strong><%= simple_date(info_request_event.created_at) %></strong>
                 <% elsif outgoing_message.status == 'ready' %>
                      wrote a follow up message, but it has <strong>not yet been sent</strong>
                 <% else raise "unknown outgoing_message.status" %>
@@ -62,7 +69,6 @@
         <p class="event_plain"> 
             Sent to <%= public_body_link(@info_request.public_body) %>
             again (perhaps to a new contact address) <!-- XXX actually say if it is a new one or not -->
-            on <strong><%= simple_date(info_request_event.created_at) %></strong>
         </p>
     <% 
     end 

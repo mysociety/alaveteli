@@ -10,9 +10,8 @@ BAILII - relationship with law courts, robots.txt ?
 
 "Fundamental Savings Review" - Tom's friend
 
-
-Status of messages stuff
-========================
+Next
+====
 
 Adam's woes:
 http://foi.mysociety.org/request/18/response/31
@@ -21,11 +20,7 @@ http://foi.mysociety.org/request/18/response/31
 And Tom's woes:
     http://foi.mysociety.org/request/8
 Also: Consider removing login links from notifications of new responses
-
-Go through all requests and check status is shiny
-
-Next
-====
+      Consider password change code in relation to this
 
 Sort the requests by when something last happened to them (this needs thought as to what
 sort orders we need)
@@ -138,6 +133,8 @@ Link to:
 e.g.
     http://www.ordnancesurvey.co.uk/oswebsite/aboutus/foi/index.html
     http://www.ordnancesurvey.co.uk/oswebsite/aboutus/foi/coiindex.html
+
+Use environmental info laws for some bodies
 
 
 Sources of public bodies

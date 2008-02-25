@@ -385,6 +385,13 @@ table#list_requests .odd {
     display: none;
 }
 
+.correspondence h2 {
+    margin-left: 1em;
+    margin-top: 2em;
+    margin-bottom: 0em;
+}
+
+
 /* /describe_state - user setting status of request */
 
 .describe_state_form {
