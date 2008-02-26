@@ -34,8 +34,22 @@ Fix the fastcgi errors
 [Mon Jan 21 10:38:45 2008] [error] [client 81.107.40.81] FastCGI: incomplete headers (0 bytes) rec
 eived from server "/data/vhost/foi.mysociety.org/docs/dispatch.fcgi"
 
+Add tagging for public bodies
+
 Later
 =====
+
+Add lots more UNIQUE indices
+
+Merge workflow into one stream - find information, if you can't find it then request it.
+    so just search is on front page, with popular stuff below a la Google Directory
+
+Link to WriteToThem in sidebar of request - according to level of Government
+send to appropriate representative?
+Start a petition about this request
+Share this request on Facebook
+
+Successful requests should have success date as date in search results.
 
 Tell application developer if working days table not up to date, and needs
 updating
@@ -95,8 +109,6 @@ http://www.rcfp.org/foi_letter/generate.php
 
 This is interesting
 http://www.liverpool.gov.uk/Council_government_and_democracy/About_your_council/Data_protection_and_FOI/FOI/Suppliers_and_Contractors/index.asp
-
-Add spelling checker as in WTT
 
 For grey hints in input fields
 http://pauldowman.com/projects/fieldhints/

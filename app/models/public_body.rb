@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 34
+# Schema version: 36
 #
 # Table name: public_bodies
 #
@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.20 2008-02-21 20:45:51 francis Exp $
+# $Id: public_body.rb,v 1.21 2008-02-26 15:13:51 francis Exp $
 
 class PublicBody < ActiveRecord::Base
     validates_presence_of :name
@@ -29,6 +29,7 @@ class PublicBody < ActiveRecord::Base
     validates_presence_of :request_email
 
     has_many :info_requests
+    has_many :public_body_tags
 
     #acts_as_solr :fields => [:name, :short_name]
 
@@ -45,4 +46,26 @@ class PublicBody < ActiveRecord::Base
 
     acts_as_versioned
     self.non_versioned_columns << 'created_at' << 'updated_at'
+
+    # Given an input string of tags, sets all tags to that string
+    def tag_string=(tag_string)
+        tags = tag_string.split(/\s+/).uniq
+
+        ActiveRecord::Base.transaction do
+            for public_body_tag in self.public_body_tags
+                public_body_tag.destroy
+            end
+            for tag in tags
+                self.public_body_tags << PublicBodyTag.new(:name => tag)
+            end
+        end
+    end
+
+    def tag_string
+        return self.public_body_tags.map { |t| t.name }.join(' ')
+    end
+
+    def self.find_by_tag(tag) 
+        return PublicBodyTag.find(:all, :conditions => ['name = ?', tag] ).map { |t| t.public_body }
+    end
 end

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 35) do
+ActiveRecord::Schema.define(:version => 36) do
 
   create_table "incoming_messages", :force => true do |t|
     t.integer  "info_request_id",                    :null => false
@@ -78,6 +78,14 @@ ActiveRecord::Schema.define(:version => 35) do
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
   end
+
+  create_table "public_body_tags", :force => true do |t|
+    t.integer  "public_body_id", :null => false
+    t.text     "name",           :null => false
+    t.datetime "created_at",     :null => false
+  end
+
+  add_index "public_body_tags", ["public_body_id", "name"], :name => "index_public_body_tags_on_public_body_id_and_name", :unique => true
 
   create_table "public_body_versions", :force => true do |t|
     t.integer  "public_body_id"

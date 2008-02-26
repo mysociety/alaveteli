@@ -7,6 +7,8 @@
   <b><%= column.human_name %>:</b> <%=h @public_body.send(column.name) %>
   <br/>
 <% end %>
+<b>Tags:</b> <%=h @public_body.tag_string %>
+<br/>
 </p>
 
 <p><%= link_to 'Edit', '../edit/' + @public_body.id.to_s %>
