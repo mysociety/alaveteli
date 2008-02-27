@@ -53,28 +53,28 @@ describe RequestController, "when showing one request" do
     fixtures :info_requests, :info_request_events, :public_bodies, :users, :incoming_messages, :outgoing_messages # all needed as integrating views
   
     it "should be successful" do
-        get :show, :id => 101
+        get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
         response.should be_success
     end
 
     it "should render with 'show' template" do
-        get :show, :id => 101
+        get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
         response.should render_template('show')
     end
 
     it "should assign the request" do
-        get :show, :id => 101
+        get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
         assigns[:info_request].should == info_requests(:fancy_dog_request)
     end
 
     it "should show incoming messages" do
-        get :show, :id => 101
+        get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
         size_before = assigns[:info_request_events].size
 
         ir = info_requests(:fancy_dog_request) 
         receive_incoming_mail('incoming-request-plain.email', ir.incoming_email)
 
-        get :show, :id => 101
+        get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
         (assigns[:info_request_events].size - size_before).should == 1
     end
 end
@@ -141,7 +141,7 @@ describe RequestController, "when creating a new request" do
         mail = deliveries[0]
         mail.body.should =~ /This is a silly letter. It is too short to be interesting./
 
-        response.should redirect_to(:controller => 'request', :action => 'show', :id => ir.id)
+        response.should redirect_to(:controller => 'request', :action => 'show', :url_title => ir.url_title)
     end
 
     it "should give an error if the same request is submitted twice" do
@@ -227,7 +227,7 @@ describe RequestController, "when sending a followup message" do
         mail.body.should =~ /What a useless response! You suck./
         mail.to_addrs.to_s.should == "FOI Person <foiperson@localhost>"
 
-        response.should redirect_to(:controller => 'request', :action => 'show', :id => info_requests(:fancy_dog_request))
+        response.should redirect_to(:controller => 'request', :action => 'show', :url_title => info_requests(:fancy_dog_request).url_title)
     end
 
 

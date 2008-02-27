@@ -5,7 +5,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: link_to_helper.rb,v 1.18 2008-02-27 12:18:28 francis Exp $
+# $Id: link_to_helper.rb,v 1.19 2008-02-27 13:59:52 francis Exp $
 
 module LinkToHelper
 
@@ -13,7 +13,7 @@ module LinkToHelper
    
     # Requests
     def request_url(info_request)
-        return show_request_url(:id => info_request, :only_path => true)
+        return show_request_url(:url_title => info_request.url_title, :only_path => true)
     end
     def request_link(info_request)
         link_to h(info_request.title), request_url(info_request)
@@ -74,11 +74,7 @@ module LinkToHelper
     end
 
 
-    def info_request_link(info_request)
-        link_to h(info_request.title), show_request_url(:id => info_request)
-    end
-
-
+    # Admin pages
     def admin_url(relative_path)
         admin_url_prefix = MySociety::Config.get("ADMIN_BASE_URL", "/admin/")
         return admin_url_prefix + relative_path

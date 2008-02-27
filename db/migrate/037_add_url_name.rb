@@ -13,6 +13,6 @@ class AddUrlName < ActiveRecord::Migration
 
     def self.down
         remove_column :public_bodies, :url_name
-        remove_column :public_body_versions, :url_name, :text
+        remove_column :public_body_versions, :url_name
     end
 end

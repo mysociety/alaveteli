@@ -4,13 +4,14 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user_controller.rb,v 1.29 2008-02-27 12:20:22 francis Exp $
+# $Id: user_controller.rb,v 1.30 2008-02-27 13:59:52 francis Exp $
 
 class UserController < ApplicationController
     # Show page about a set of users with same url name
     def show
-        if  MySociety::Format.simplify_url_part(params[:url_name]) != params[:url_name]
+        if MySociety::Format.simplify_url_part(params[:url_name]) != params[:url_name]
             redirect_to :url_name =>  MySociety::Format.simplify_url_part(params[:url_name])
+            return
         end
 
         @display_users = User.find(:all, :conditions => [ "url_name = ?", params[:url_name] ], :order => "created_at desc")

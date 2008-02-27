@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.23 2008-02-22 01:58:36 francis Exp $
+# $Id: request_mailer.rb,v 1.24 2008-02-27 13:59:52 francis Exp $
 
 class RequestMailer < ApplicationMailer
     
@@ -55,7 +55,7 @@ class RequestMailer < ApplicationMailer
         @recipients = @from
         @subject = "Unusual FOI response, requires admin attention"
         # XXX these are repeats of things in helpers/link_to_helper.rb, and shouldn't be
-        url =  show_request_url(:id => info_request)
+        url =  show_request_url(:url_title => info_request.url_title)
         admin_url =  MySociety::Config.get("ADMIN_BASE_URL", "/admin/") + 'request/show/' + info_request.id.to_s
         @body       = {:info_request => info_request, :url => url, :admin_url => admin_url }
     end

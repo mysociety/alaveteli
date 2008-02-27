@@ -1,5 +1,7 @@
-and request!
+This is knackered:
+http://foi.mysociety.org/request/14/response/44/attach/3/Marie's%20letter.tif
 
+Load errors
 
 FOI requests to use to test it
 ==============================
@@ -15,6 +17,8 @@ BAILII - relationship with law courts, robots.txt ?
 
 Next
 ====
+
+Update test code
 
 Short name for highways agency
 

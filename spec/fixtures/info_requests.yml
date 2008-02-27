@@ -1,6 +1,7 @@
 fancy_dog_request:
     id: 101
     title: Why do you have such a fancy dog?
+    url_title: why_do_you_have_such_a_fancy_dog
     created_at: 2007-10-11 18:15:57
     updated_at: 2007-10-11 18:15:57
     public_body_id: 2
@@ -10,6 +11,7 @@ fancy_dog_request:
 naughty_chicken_request:
     id: 103
     title: How much public money is wasted on breeding naughty chickens?
+    url_title: how_much_public_money_is_wasted_o
     created_at: 2007-10-13 18:15:57
     updated_at: 2007-10-13 18:15:57
     public_body_id: 2

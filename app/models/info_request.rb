@@ -20,12 +20,13 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.47 2008-02-27 12:04:10 francis Exp $
+# $Id: info_request.rb,v 1.48 2008-02-27 13:59:52 francis Exp $
 
 require 'digest/sha1'
 
 class InfoRequest < ActiveRecord::Base
     validates_presence_of :title, :message => "^Please enter a summary of your request"
+    validates_format_of :title, :with => /[a-z]/, :message => "^Please write a summary with some text in it", :if => Proc.new { |info_request| !info_request.title.nil? && !info_request.title.empty? }
 
     belongs_to :user
     #validates_presence_of :user_id # breaks during construction of new ones :(
@@ -62,6 +63,23 @@ class InfoRequest < ActiveRecord::Base
     end
 
 public
+    # When name is changed, also change the url name
+    def title=(title)
+        write_attribute(:title, title)
+        self.update_url_title
+    end
+    def update_url_title
+        url_title = MySociety::Format.simplify_url_part(self.title)
+        if url_title.size > 32
+            url_title = url_title[0..31]
+        end
+        # For request with same name as others, tag on the request numeric id
+        while not InfoRequest.find_by_url_title(url_title).nil?
+            url_title += "-" + self.id.to_s
+        end
+        write_attribute(:url_title, url_title)
+    end
+
     # Email which public body should use to respond to request. This is in
     # the format PREFIXrequest-ID-HASH@DOMAIN. Here ID is the id of the 
     # FOI request, and HASH is a signature for that id.

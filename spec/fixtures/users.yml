@@ -1,7 +1,7 @@
 bob_smith_user: 
   id: "1"
   name: Bob Smith
-  url_name: bob-smith
+  url_name: bob_smith
   email: bob@localhost
   salt: "-6116981980.392287733335677"
   hashed_password: 6b7cd45a5f35fd83febc0452a799530398bfb6e8 # jonespassword
@@ -11,7 +11,7 @@ bob_smith_user:
 silly_name_user: 
   id: "2"
   name: "Silly <em>Name</em>"
-  url_name: silly-emnameem
+  url_name: silly_emnameem
   email: silly@localhost
   salt: "-6116981980.392287733335677"
   hashed_password: 6b7cd45a5f35fd83febc0452a799530398bfb6e8 # jonespassword
