@@ -3,8 +3,10 @@
         <%= public_body_link(public_body) %> 
         
         <br>
-        Also called <%=h public_body.short_name %>.
-        <br>
+        <% if not public_body.short_name.empty? %>
+            Also called <%=h public_body.short_name %>.
+            <br>
+        <% end %>
 
         <span class="request_listing_bottomline">
             <%= pluralize(public_body.info_requests.size, "request") %> made.

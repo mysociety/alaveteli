@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 36) do
+ActiveRecord::Schema.define(:version => 37) do
 
   create_table "incoming_messages", :force => true do |t|
     t.integer  "info_request_id",                    :null => false
@@ -77,7 +77,10 @@ ActiveRecord::Schema.define(:version => 36) do
     t.text     "last_edit_comment", :null => false
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
+    t.text     "url_name",          :null => false
   end
+
+  add_index "public_bodies", ["url_name"], :name => "index_public_bodies_on_url_name", :unique => true
 
   create_table "public_body_tags", :force => true do |t|
     t.integer  "public_body_id", :null => false
@@ -97,6 +100,7 @@ ActiveRecord::Schema.define(:version => 36) do
     t.datetime "updated_at"
     t.string   "last_edit_editor"
     t.string   "last_edit_comment"
+    t.text     "url_name"
   end
 
   create_table "sessions", :force => true do |t|

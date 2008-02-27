@@ -5,7 +5,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: link_to_helper.rb,v 1.15 2008-02-22 02:10:14 francis Exp $
+# $Id: link_to_helper.rb,v 1.16 2008-02-27 12:04:10 francis Exp $
 
 module LinkToHelper
 
@@ -27,10 +27,10 @@ module LinkToHelper
  
     # Public bodies
     def public_body_url(public_body)
-        return show_public_body_url(:simple_short_name => simplify_url_part(public_body.short_name), :only_path => true)
+        return show_public_body_url(:simple_short_name => public_body.url_name, :only_path => true)
     end
     def public_body_link_short(public_body)
-        link_to h(public_body.short_name), public_body_url(public_body)
+        link_to h(public_body.short_or_long_name), public_body_url(public_body)
     end
     def public_body_link(public_body)
         link_to h(public_body.name), public_body_url(public_body)
@@ -42,12 +42,12 @@ module LinkToHelper
         link_to h(public_body.name), public_body_admin_url(public_body)
     end
     def public_body_admin_link_short(public_body)
-        link_to h(public_body.short_name), public_body_admin_url(public_body)
+        link_to h(public_body.short_or_long_name), public_body_admin_url(public_body)
     end
 
     # Users
     def user_url(user)
-        return show_user_url(:simple_name => simplify_url_part(user.name), :only_path => true)
+        return show_user_url(:simple_name => MySociety::Format.simplify_url_part(user.name), :only_path => true)
     end
     def user_link(user)
         link_to h(user.name), user_url(user)
@@ -78,16 +78,6 @@ module LinkToHelper
         link_to h(info_request.title), show_request_url(:id => info_request)
     end
 
-
-    # Simplified links to our objects
-    # XXX See controllers/user_controller.rb controllers/body_controller.rb for inverse
-    # XXX consolidate somehow with stuff in helpers/application_helper.rb
-    def simplify_url_part(text)
-        text = text.downcase # this also clones the string, if we use downcase! we modify the original
-        text.gsub!(/ /, "-")
-        text.gsub!(/[^a-z0-9_-]/, "")
-        text
-    end
 
     def admin_url(relative_path)
         admin_url_prefix = MySociety::Config.get("ADMIN_BASE_URL", "/admin/")

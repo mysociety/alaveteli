@@ -18,7 +18,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.45 2008-02-26 15:13:51 francis Exp $
+# $Id: incoming_message.rb,v 1.46 2008-02-27 12:04:10 francis Exp $
 
 
 # TODO
@@ -100,10 +100,10 @@ class IncomingMessage < ActiveRecord::Base
         # if they are public anyway.  For now just be precautionary and only
         # put in descriptions of them in square brackets.
         if not self.info_request.public_body.request_email.empty?
-            text = text.gsub(self.info_request.public_body.request_email, "[" + self.info_request.public_body.short_name + " request email]")
+            text = text.gsub(self.info_request.public_body.request_email, "[" + self.info_request.public_body.short_or_long_name + " request email]")
         end
         if not self.info_request.public_body.complaint_email.empty?
-            text = text.gsub(self.info_request.public_body.complaint_email, "[" + self.info_request.public_body.short_name + " complaint email]")
+            text = text.gsub(self.info_request.public_body.complaint_email, "[" + self.info_request.public_body.short_or_long_name + " complaint email]")
         end
         text = text.gsub(self.info_request.incoming_email, "[FOI #" + self.info_request.id.to_s + " email]")
         text = text.gsub(self.info_request.envelope_email, "[FOI #" + self.info_request.id.to_s + " bounce email]")

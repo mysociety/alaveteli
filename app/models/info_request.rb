@@ -20,7 +20,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.46 2008-02-26 15:13:51 francis Exp $
+# $Id: info_request.rb,v 1.47 2008-02-27 12:04:10 francis Exp $
 
 require 'digest/sha1'
 
@@ -257,7 +257,7 @@ public
         end
     end
     def recipient_name_and_email
-        return "FOI requests at " + self.public_body.short_name + " <" + self.recipient_email + ">"
+        return "FOI requests at " + self.public_body.short_or_long_name + " <" + self.recipient_email + ">"
     end
 
     # History of some things that have happened
