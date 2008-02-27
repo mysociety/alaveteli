@@ -4,10 +4,10 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user_controller.rb,v 1.28 2008-02-27 12:18:28 francis Exp $
+# $Id: user_controller.rb,v 1.29 2008-02-27 12:20:22 francis Exp $
 
 class UserController < ApplicationController
-    # XXX See controllers/application.rb simplify_url_part for reverse of expression in SQL below
+    # Show page about a set of users with same url name
     def show
         if  MySociety::Format.simplify_url_part(params[:url_name]) != params[:url_name]
             redirect_to :url_name =>  MySociety::Format.simplify_url_part(params[:url_name])
