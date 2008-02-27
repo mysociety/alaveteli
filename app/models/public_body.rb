@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 36
+# Schema version: 39
 #
 # Table name: public_bodies
 #
@@ -13,6 +13,7 @@
 #  last_edit_comment :text            not null
 #  created_at        :datetime        not null
 #  updated_at        :datetime        not null
+#  url_name          :text            not null
 #
 
 # models/public_body.rb:
@@ -21,7 +22,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.23 2008-02-27 12:18:28 francis Exp $
+# $Id: public_body.rb,v 1.24 2008-02-27 14:01:30 francis Exp $
 
 class PublicBody < ActiveRecord::Base
     validates_presence_of :name

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 36
+# Schema version: 39
 #
 # Table name: info_requests
 #
@@ -12,6 +12,7 @@
 #  described_state      :string(255)     not null
 #  awaiting_description :boolean         default(false), not null
 #  prominence           :string(255)     default("normal"), not null
+#  url_title            :text            not null
 #
 
 # models/info_request.rb:
@@ -20,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.48 2008-02-27 13:59:52 francis Exp $
+# $Id: info_request.rb,v 1.49 2008-02-27 14:01:30 francis Exp $
 
 require 'digest/sha1'
 
