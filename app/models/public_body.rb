@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.22 2008-02-27 12:04:10 francis Exp $
+# $Id: public_body.rb,v 1.23 2008-02-27 12:18:28 francis Exp $
 
 class PublicBody < ActiveRecord::Base
     validates_presence_of :name
@@ -50,14 +50,14 @@ class PublicBody < ActiveRecord::Base
     # When name or short name is changed, also change the url name
     def short_name=(short_name)
         write_attribute(:short_name, short_name)
-        update_url_name
+        self.update_url_name
     end
     def name=(name)
         write_attribute(:name, name)
-        update_url_name
+        self.update_url_name
     end
     def update_url_name
-        url_name = MySociety::Format.simplify_url_part(short_or_long_name)
+        url_name = MySociety::Format.simplify_url_part(self.short_or_long_name)
         write_attribute(:url_name, url_name)
     end
     # Return the short name if present, or else long name

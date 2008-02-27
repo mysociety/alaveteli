@@ -4,16 +4,16 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user_controller.rb,v 1.27 2008-02-27 12:04:10 francis Exp $
+# $Id: user_controller.rb,v 1.28 2008-02-27 12:18:28 francis Exp $
 
 class UserController < ApplicationController
     # XXX See controllers/application.rb simplify_url_part for reverse of expression in SQL below
     def show
-        if  MySociety::Format.simplify_url_part(params[:simple_name]) != params[:simple_name]
-            redirect_to :simple_name =>  MySociety::Format.simplify_url_part(params[:simple_name])
+        if  MySociety::Format.simplify_url_part(params[:url_name]) != params[:url_name]
+            redirect_to :url_name =>  MySociety::Format.simplify_url_part(params[:url_name])
         end
 
-        @display_users = User.find(:all, :conditions => [ "regexp_replace(replace(lower(name), ' ', '-'), '[^a-z0-9_-]', '', 'g') = ?", params[:simple_name] ], :order => "created_at desc")
+        @display_users = User.find(:all, :conditions => [ "url_name = ?", params[:url_name] ], :order => "created_at desc")
     end
 
     # Login form

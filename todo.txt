@@ -1,9 +1,9 @@
-simple_short_name => url_name
-
 user should have url_name too
 and request!
 
 fix up comments in Format.simplify_url_part re. other places
+
+check all simplify_url_part again
 
 
 FOI requests to use to test it

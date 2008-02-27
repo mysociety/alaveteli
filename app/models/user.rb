@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user.rb,v 1.29 2008-02-26 15:13:51 francis Exp $
+# $Id: user.rb,v 1.30 2008-02-27 12:18:28 francis Exp $
 
 require 'digest/sha1'
 
@@ -28,6 +28,8 @@ class User < ActiveRecord::Base
     validates_uniqueness_of :email, :case_sensitive => false, :message => "^There is already an account with that email address. You can sign in to it on the left."
 
     validates_presence_of :name, :message => "^Please enter your name"
+    validates_presence_of :url_name
+
     validates_presence_of :hashed_password, :message => "^Please enter a password"
 
     has_many :info_requests
@@ -71,6 +73,16 @@ class User < ActiveRecord::Base
     # Case-insensitively find a user from their email
     def self.find_user_by_email(email)
         return self.find(:first, :conditions => [ 'email ilike ?', email ] ) # using ilike for case insensitive
+    end
+
+    # When name is changed, also change the url name
+    def name=(name)
+        write_attribute(:name, name)
+        self.update_url_name
+    end
+    def update_url_name
+        url_name = MySociety::Format.simplify_url_part(self.name)
+        write_attribute(:url_name, url_name)
     end
 
     # Virtual password attribute, which stores the hashed password, rather than plain text.

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 37) do
+ActiveRecord::Schema.define(:version => 38) do
 
   create_table "incoming_messages", :force => true do |t|
     t.integer  "info_request_id",                    :null => false
@@ -127,6 +127,9 @@ ActiveRecord::Schema.define(:version => 37) do
     t.datetime "created_at",                         :null => false
     t.datetime "updated_at",                         :null => false
     t.boolean  "email_confirmed", :default => false, :null => false
+    t.text     "url_name",                           :null => false
   end
+
+  add_index "users", ["url_name"], :name => "index_users_on_url_name"
 
 end

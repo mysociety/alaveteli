@@ -6,7 +6,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: application.rb,v 1.29 2008-02-27 12:04:10 francis Exp $
+# $Id: application.rb,v 1.30 2008-02-27 12:18:28 francis Exp $
 
 
 class ApplicationController < ActionController::Base
@@ -44,7 +44,7 @@ class ApplicationController < ActionController::Base
 
     def authenticated_as_user?(user, reason_params) 
         reason_params[:user_name] = user.name
-        reason_params[:user_url] = show_user_url(:simple_name =>  MySociety::Format.simplify_url_part(user.name))
+        reason_params[:user_url] = show_user_url(:url_name => user.url_name)
         if session[:user_id]
             if session[:user_id] == user.id
                 # They are logged in as the right user

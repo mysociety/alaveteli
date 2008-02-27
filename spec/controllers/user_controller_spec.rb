@@ -5,27 +5,27 @@ describe UserController, "when showing a user" do
     fixtures :users, :outgoing_messages, :incoming_messages, :info_requests, :info_request_events
   
     it "should be successful" do
-        get :show, :simple_name => "bob-smith"
+        get :show, :url_name => "bob-smith"
         response.should be_success
     end
 
     it "should redirect to lower case name if given one with capital letters" do
-        get :show, :simple_name => "Bob-Smith"
-        response.should redirect_to(:controller => 'user', :action => 'show', :simple_name => "bob-smith")
+        get :show, :url_name => "Bob-Smith"
+        response.should redirect_to(:controller => 'user', :action => 'show', :url_name => "bob-smith")
     end
 
     it "should render with 'show' template" do
-        get :show, :simple_name => "bob-smith"
+        get :show, :url_name => "bob-smith"
         response.should render_template('show')
     end
 
     it "should assign the user" do
-        get :show, :simple_name => "bob-smith"
+        get :show, :url_name => "bob-smith"
         assigns[:display_users].should == [ users(:bob_smith_user) ]
     end
     
     it "should assign the user for a more complex name" do
-        get :show, :simple_name => "silly-emnameem"
+        get :show, :url_name => "silly-emnameem"
         assigns[:display_users].should == [ users(:silly_name_user) ]
     end
 
