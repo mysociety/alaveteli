@@ -509,7 +509,7 @@ dt {
 
 .xsnazzy p {margin:0 10px; letter-spacing:1px;}
 .xsnazzy p {padding-bottom:0.5em; color:#eee;}
-.xsnazzy {background: transparent; margin:1em 0.5em 1em 0.5em;}
+.xsnazzy {background: transparent; margin:1.5em 0.5em 0.5em 0.5em;}
 
 .xsnazzy em {display:block; width:0; height:0; color:#d8d8ee; overflow:hidden; border-top:12px solid #fff; border-left:12px dotted transparent; border-right:12px dotted transparent; margin-left:50px;}
 
