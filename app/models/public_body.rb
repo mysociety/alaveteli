@@ -22,9 +22,10 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.26 2008-02-28 15:17:46 francis Exp $
+# $Id: public_body.rb,v 1.27 2008-02-28 15:59:21 francis Exp $
 
 require 'csv'
+require 'set'
 
 class PublicBody < ActiveRecord::Base
     validates_presence_of :name
@@ -100,10 +101,13 @@ class PublicBody < ActiveRecord::Base
             existing_bodies = PublicBody.find_by_tag(tag)
 
             bodies_by_name = {}
+            set_of_existing = Set.new()
             for existing_body in existing_bodies
                 bodies_by_name[existing_body.name] = existing_body
+                set_of_existing.add(existing_body.name)
             end
 
+            set_of_importing = Set.new()
             CSV::Reader.parse(csv) do |row|
                 name = row[1]
                 email = row[2]
@@ -111,9 +115,13 @@ class PublicBody < ActiveRecord::Base
 
                 name.strip!
                 email.strip!
-                print name, " ", email, "\n"
+
+                if not MySociety::Validate.is_valid_email(email)
+                    raise "invalid email:", name, " ", email, "\n"
+                end
 
                 if bodies_by_name[name]
+                    # Already have the public body, just update email
                     public_body = bodies_by_name[name]
                     if public_body.request_email != email
                         public_body.request_email = email
@@ -122,14 +130,22 @@ class PublicBody < ActiveRecord::Base
                         public_body.save
                     end
                 else
+                    # New public body
                     public_body = PublicBody.new(:name => name, :request_email => email, :complaint_email => "", :short_name => "", :last_edit_editor => "import_csv", :last_edit_comment => 'Created from spreadsheet')
                     public_body.save! # XXX shouldn't need this save, but without it the PublicBodyTag doesn't validate as no PublicBody id, and there is no harm cause we're in a transaction
                     public_body.tag_string = tag
                     public_body.save!
+
                 end
+
+                set_of_importing.add(name)
             end
 
-            # XXX what about if they are deleted?
+            # Give an error listing ones that are to be deleted 
+            deleted_ones = set_of_existing - set_of_importing
+            if deleted_ones.size > 0
+                raise "Some " + tag + " bodies are in database, but not in CSV file:\n" + Array(deleted_ones).join(", ")
+            end
         end
     end
 end
