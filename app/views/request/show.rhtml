@@ -64,6 +64,12 @@
 </div>
 
 <div id="request_sidebar">
+    <% if @info_requests_same_user_same_body.size > 0 %>
+        <h2>Some other requests made by
+            <%= user_link(@info_request.user) %> to <%= public_body_link(@info_request.public_body) %></h2>
+        <%= render :partial => 'sidebar_request_listing', :locals => { :info_requests => @info_requests_same_user_same_body } %>
+    <% end %>
+
     <!--<h2>Juicy stuff will be here</h2>
     <p>For now it is just padding to make the messages on the left
     narrower, so I can see what the formatting is like.

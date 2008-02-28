@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.49 2008-02-27 14:01:30 francis Exp $
+# $Id: info_request.rb,v 1.50 2008-02-28 14:04:46 francis Exp $
 
 require 'digest/sha1'
 
@@ -345,6 +345,31 @@ public
         end
     end
 
+    # Display versino of status
+    def display_status
+        status = self.calculate_status
+        if self.awaiting_description
+            "Awaiting classification"
+        elsif status == 'waiting_response'
+            "Awaiting response."
+        elsif status == 'waiting_response_overdue'
+            "Response overdue."
+        elsif status == 'partially_successful'
+            "Partially successful."
+        elsif status == 'rejected'
+            "Rejected."
+        elsif status == 'successful'
+            "Successful."
+        elsif status == 'waiting_clarification'
+            "Waiting clarification."
+        elsif status == 'requires_admin'
+            "Unusual response."
+        else
+            raise "unknown status " + status
+        end
+    end
+
+
     protected
 
     # Called by incoming_email and envelope_email
@@ -367,7 +392,6 @@ public
             return self.find(id)
         end
     end
-
 
 end
 

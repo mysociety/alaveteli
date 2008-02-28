@@ -10,10 +10,7 @@
             <strong>
             <%= info_request.display_status %>
             </strong>
-
-            Requested from <%= public_body_link(info_request.public_body) %>
-            by <%= user_link(info_request.user) %>
-            on <%= simple_date(info_request.created_at) %>.
+            Requested on <%= simple_date(info_request.created_at) %>.
         </span>
     </p>
 <% end %>
