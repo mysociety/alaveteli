@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: application_mailer.rb,v 1.5 2008-02-20 12:51:29 francis Exp $
+# $Id: application_mailer.rb,v 1.6 2008-02-28 14:25:51 francis Exp $
 
 class ApplicationMailer < ActionMailer::Base
     # Include all the functions views get, as emails call similar things.
@@ -15,7 +15,7 @@ class ApplicationMailer < ActionMailer::Base
     self.raise_delivery_errors = true
 
     def contact_from_name_and_email
-        "foi.mysociety.org <"+MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost')+">"
+        "WhatDoTheyKnow <"+MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost')+">"
     end
 end
 

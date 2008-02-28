@@ -18,7 +18,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.47 2008-02-27 14:01:30 francis Exp $
+# $Id: incoming_message.rb,v 1.48 2008-02-28 14:25:51 francis Exp $
 
 
 # TODO
@@ -107,7 +107,7 @@ class IncomingMessage < ActiveRecord::Base
         end
         text = text.gsub(self.info_request.incoming_email, "[FOI #" + self.info_request.id.to_s + " email]")
         text = text.gsub(self.info_request.envelope_email, "[FOI #" + self.info_request.id.to_s + " bounce email]")
-        text = text.gsub(MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost'), "[foi.mysociety.org contact email]")
+        text = text.gsub(MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost'), "[WhatDoTheyKnow contact email]")
         return text
     end
 

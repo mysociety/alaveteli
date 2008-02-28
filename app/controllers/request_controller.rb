@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.62 2008-02-28 14:14:47 francis Exp $
+# $Id: request_controller.rb,v 1.63 2008-02-28 14:25:51 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -193,7 +193,7 @@ class RequestController < ApplicationController
                 flash[:notice] = "Oh no! Sorry to hear that your request was rejected. Here is what to do now."
                 redirect_to unhappy_url
             elsif @info_request.calculate_status == 'successful'
-                flash[:notice] = "We're glad you got all the information that you wanted. Thank you for using foi.mysociety.org"
+                flash[:notice] = "We're glad you got all the information that you wanted. Thank you for using WhatDoTheyKnow."
                 # XXX quiz them here for a comment
                 redirect_to show_request_url(:url_title => @info_request.url_title)
             elsif @info_request.calculate_status == 'partially_successful'
@@ -204,7 +204,7 @@ class RequestController < ApplicationController
                 flash[:notice] = "Please write your follow up message containing the necessary clarifications below."
                 redirect_to show_response_url(:id => @info_request.id, :incoming_message_id => @events_needing_description[-1].params[:incoming_message_id])
             elsif @info_request.calculate_status == 'requires_admin'
-                flash[:notice] = "Thanks! The foi.mysociety.org team have been notified."
+                flash[:notice] = "Thanks! The WhatDoTheyKnow team have been notified."
                 redirect_to show_request_url(:url_title => @info_request.url_title)
             else
                 raise "unknown calculate_status " + @info_request.calculate_status
