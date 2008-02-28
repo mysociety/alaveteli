@@ -25,7 +25,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: post_redirect.rb,v 1.20 2008-02-27 14:01:30 francis Exp $
+# $Id: post_redirect.rb,v 1.21 2008-02-28 16:25:30 francis Exp $
 
 require 'openssl' # for random bytes function
 
@@ -68,7 +68,6 @@ class PostRedirect < ActiveRecord::Base
             self.token = PostRedirect.generate_random_token
         end
         # There is a separate token to use in the URL if we send a confirmation email.
-        # This is because 
         if not self.email_token
             self.email_token = PostRedirect.generate_random_token
         end
