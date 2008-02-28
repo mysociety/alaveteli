@@ -10,7 +10,7 @@ class EmailIsUnique < ActiveRecord::Migration
     end
 
     def self.down
-        execute "drop unique index users_email_index"
+        execute "drop index users_email_index"
 
         execute "create index public_bodies_url_short_name_index on public_bodies(regexp_replace(replace(lower(short_name), ' ', '-'), '[^a-z0-9_-]', '', 'g'))"
         execute "create index public_body_versions_url_short_name_index on public_body_versions(regexp_replace(replace(lower(short_name), ' ', '-'), '[^a-z0-9_-]', '', 'g'))"
