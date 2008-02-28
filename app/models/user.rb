@@ -20,13 +20,12 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user.rb,v 1.31 2008-02-27 14:01:30 francis Exp $
+# $Id: user.rb,v 1.32 2008-02-28 12:29:43 francis Exp $
 
 require 'digest/sha1'
 
 class User < ActiveRecord::Base
     validates_presence_of :email, :message => "^Please enter your email address"
-    validates_uniqueness_of :email, :case_sensitive => false, :message => "^There is already an account with that email address. You can sign in to it on the left."
 
     validates_presence_of :name, :message => "^Please enter your name"
     validates_presence_of :url_name
@@ -65,7 +64,7 @@ class User < ActiveRecord::Base
             # No user of same email, make one (that we don't save in the database)
             # for the forms code to use.
             user = User.new(params)
-            # deliberately same message as above so as not to leak whether 
+            # deliberately same message as above so as not to leak whether registered
             user.errors.add_to_base(auth_fail_message)
         end
         user

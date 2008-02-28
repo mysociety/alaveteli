@@ -22,7 +22,9 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.24 2008-02-27 14:01:30 francis Exp $
+# $Id: public_body.rb,v 1.25 2008-02-28 12:29:43 francis Exp $
+
+require 'csv'
 
 class PublicBody < ActiveRecord::Base
     validates_presence_of :name
@@ -83,12 +85,51 @@ class PublicBody < ActiveRecord::Base
             end
         end
     end
-
     def tag_string
         return self.public_body_tags.map { |t| t.name }.join(' ')
     end
 
+    # Find all public bodies with a particular tag
     def self.find_by_tag(tag) 
         return PublicBodyTag.find(:all, :conditions => ['name = ?', tag] ).map { |t| t.public_body }
     end
+
+    # Import from CSV 
+    def self.import_csv(csv, tag)
+        existing_bodies = PublicBody.find_by_tag(tag)
+
+        bodies_by_name = {}
+        for existing_body in existing_bodies
+            bodies_by_name[existing_body.name] = existing_body
+        end
+
+        CSV::Reader.parse(csv) do |row|
+            name = row[1]
+            email = row[2]
+            next if name.nil? or email.nil?
+
+            name.strip!
+            email.strip!
+            print name, " ", email, "\n"
+
+            if bodies_by_name[name]
+                public_body = bodies_by_name[name]
+                if public_body.request_email != email
+                    public_body.request_email = email
+                    public_body.last_edit_editor = 'import_csv'
+                    public_body.last_edit_comment = 'Updated from spreadsheet'
+                    public_body.save
+                end
+            else
+                public_body = PublicBody.new(:name => name, :request_email => email, :complaint_email => "", :short_name => "", :last_edit_editor => "import_csv", :last_edit_comment => 'Created from spreadsheet')
+                public_body.tag_string = tag
+                raise public_body.public_body_tags.to_yaml
+                public_body.save!
+            end
+        end
+
+        # XXX what about if they are deleted?
+    end
 end
+
+

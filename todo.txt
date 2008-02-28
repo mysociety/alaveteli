@@ -20,7 +20,9 @@ Next
 
 Update test code
 
-Short name for highways agency
+Make it link to other similar requests by same person to same place
+    http://foi.mysociety.org/request/team_foundation_server_backup_pr
+    http://foi.mysociety.org/request/all_computer_software_source_cod
 
 Search and replace text "FOI" and "Freedom of Information" out the way more
  - but put it in the title tag
@@ -45,7 +47,7 @@ Fix the fastcgi errors
 [Mon Jan 21 10:38:45 2008] [error] [client 81.107.40.81] FastCGI: incomplete headers (0 bytes) rec
 eived from server "/data/vhost/foi.mysociety.org/docs/dispatch.fcgi"
 
-Add tagging for public bodies
+Describe view doesn't hide quoted sections
 
 Later
 =====
@@ -157,12 +159,15 @@ Link to:
     Website itself (for general search)
     Google search within website?
     TWFY department search
+    Complaint email
 e.g.
     http://www.ordnancesurvey.co.uk/oswebsite/aboutus/foi/index.html
     http://www.ordnancesurvey.co.uk/oswebsite/aboutus/foi/coiindex.html
 
-Use environmental info laws for some bodies
+Environmental Information Regulations apply for some bodies (e.g. environment agency) do automatically
+    tag such bodies eir?
 
+Add geographical location to council import
 
 Sources of public bodies
 ========================

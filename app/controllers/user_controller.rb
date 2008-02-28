@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user_controller.rb,v 1.31 2008-02-28 10:54:35 francis Exp $
+# $Id: user_controller.rb,v 1.32 2008-02-28 12:29:43 francis Exp $
 
 class UserController < ApplicationController
     # Show page about a set of users with same url name
@@ -55,12 +55,18 @@ class UserController < ApplicationController
             # Show the form
             render :action => 'sign'
         else
-            # New unconfirmed user
-            @user_signup.email_confirmed = false
-            @user_signup.save!
+            user_alreadyexists = User.find_user_by_email(params[:user_signup][:email])
+            if user_alreadyexists
+                already_registered_mail user_alreadyexists
+                return
+            else 
+                # New unconfirmed user
+                @user_signup.email_confirmed = false
+                @user_signup.save!
 
-            send_confirmation_mail @user_signup
-            return
+                send_confirmation_mail @user_signup
+                return
+            end
         end
     end
 
@@ -94,7 +100,7 @@ class UserController < ApplicationController
         end
     end
 
-    # Change password and/or email - requires email authentication
+    # Change password (XXX and perhaps later email) - requires email authentication
     def signchange
         if @user and ((not session[:user_authtype]) or (session[:user_authtype] != :email))
             # Not logged in via email, so send confirmation
@@ -110,28 +116,27 @@ class UserController < ApplicationController
                 return
             end
             user_signchange = User.find_user_by_email(params[:signchange][:email])
-            if not user_signchange
-                flash[:error] = "There is no user with that email, please check you have typed it correctly."
-                render :action => 'signchange_email'
-                return
+            if user_signchange
+                # Send email with login link to go to signchange page
+                url = signchange_url
+                if params[:pretoken]
+                    url += "?pretoken=" + params[:pretoken]
+                end
+                post_redirect = PostRedirect.new(:uri => url , :post_params => {},
+                    :reason_params => {
+                        :web => "",
+                        :email => "Then your can change your password on foi.mysociety.org",
+                        :email_subject => "Change your password on foi.mysociety.org"
+                    })
+                post_redirect.user = user_signchange
+                post_redirect.save!
+                url = confirm_url(:email_token => post_redirect.email_token)
+                UserMailer.deliver_confirm_login(user_signchange, post_redirect.reason_params, url)
+            else
+                # User not found, but still show confirm page to not leak fact user exists
             end
 
-            # Send email with login link to go to signchange page
-            url = signchange_url
-            if params[:pretoken]
-                url += "?pretoken=" + params[:pretoken]
-            end
-            post_redirect = PostRedirect.new(:uri => url , :post_params => {},
-                :reason_params => {
-                    :web => "",
-                    :email => "Then your can change your password on foi.mysociety.org",
-                    :email_subject => "Change your password on foi.mysociety.org"
-                })
-            post_redirect.user = user_signchange
-            post_redirect.save!
-            url = confirm_url(:email_token => post_redirect.email_token)
-            UserMailer.deliver_confirm_login(user_signchange, post_redirect.reason_params, url)
-            render :action => 'confirm'
+            render :action => 'signchange_confirm'
         elsif not @user
             # Not logged in, prompt for email
             render :action => 'signchange_email'
@@ -187,8 +192,6 @@ class UserController < ApplicationController
 
     # Ask for email confirmation
     def send_confirmation_mail(user)
-        #raise "user #{user.id} already confirmed" if user.email_confirmed
-
         post_redirect = PostRedirect.find_by_token(params[:token])
         post_redirect.user = user
         post_redirect.save!
@@ -196,6 +199,17 @@ class UserController < ApplicationController
         url = confirm_url(:email_token => post_redirect.email_token)
         UserMailer.deliver_confirm_login(user, post_redirect.reason_params, url)
         render :action => 'confirm'
+    end
+
+    # If they register again
+    def already_registered_mail(user)
+        post_redirect = PostRedirect.find_by_token(params[:token])
+        post_redirect.user = user
+        post_redirect.save!
+
+        url = confirm_url(:email_token => post_redirect.email_token)
+        UserMailer.deliver_already_registered(user, post_redirect.reason_params, url)
+        render :action => 'confirm' # must be same as for send_confirmation_mail above to avoid leak of presence of email in db
     end
 
 end
