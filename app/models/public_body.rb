@@ -22,7 +22,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.25 2008-02-28 12:29:43 francis Exp $
+# $Id: public_body.rb,v 1.26 2008-02-28 15:17:46 francis Exp $
 
 require 'csv'
 
@@ -96,39 +96,41 @@ class PublicBody < ActiveRecord::Base
 
     # Import from CSV 
     def self.import_csv(csv, tag)
-        existing_bodies = PublicBody.find_by_tag(tag)
+        ActiveRecord::Base.transaction do
+            existing_bodies = PublicBody.find_by_tag(tag)
 
-        bodies_by_name = {}
-        for existing_body in existing_bodies
-            bodies_by_name[existing_body.name] = existing_body
-        end
-
-        CSV::Reader.parse(csv) do |row|
-            name = row[1]
-            email = row[2]
-            next if name.nil? or email.nil?
-
-            name.strip!
-            email.strip!
-            print name, " ", email, "\n"
-
-            if bodies_by_name[name]
-                public_body = bodies_by_name[name]
-                if public_body.request_email != email
-                    public_body.request_email = email
-                    public_body.last_edit_editor = 'import_csv'
-                    public_body.last_edit_comment = 'Updated from spreadsheet'
-                    public_body.save
-                end
-            else
-                public_body = PublicBody.new(:name => name, :request_email => email, :complaint_email => "", :short_name => "", :last_edit_editor => "import_csv", :last_edit_comment => 'Created from spreadsheet')
-                public_body.tag_string = tag
-                raise public_body.public_body_tags.to_yaml
-                public_body.save!
+            bodies_by_name = {}
+            for existing_body in existing_bodies
+                bodies_by_name[existing_body.name] = existing_body
             end
-        end
 
-        # XXX what about if they are deleted?
+            CSV::Reader.parse(csv) do |row|
+                name = row[1]
+                email = row[2]
+                next if name.nil? or email.nil?
+
+                name.strip!
+                email.strip!
+                print name, " ", email, "\n"
+
+                if bodies_by_name[name]
+                    public_body = bodies_by_name[name]
+                    if public_body.request_email != email
+                        public_body.request_email = email
+                        public_body.last_edit_editor = 'import_csv'
+                        public_body.last_edit_comment = 'Updated from spreadsheet'
+                        public_body.save
+                    end
+                else
+                    public_body = PublicBody.new(:name => name, :request_email => email, :complaint_email => "", :short_name => "", :last_edit_editor => "import_csv", :last_edit_comment => 'Created from spreadsheet')
+                    public_body.save! # XXX shouldn't need this save, but without it the PublicBodyTag doesn't validate as no PublicBody id, and there is no harm cause we're in a transaction
+                    public_body.tag_string = tag
+                    public_body.save!
+                end
+            end
+
+            # XXX what about if they are deleted?
+        end
     end
 end
 

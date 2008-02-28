@@ -20,10 +20,6 @@ Next
 
 Update test code
 
-Make it link to other similar requests by same person to same place
-    http://foi.mysociety.org/request/team_foundation_server_backup_pr
-    http://foi.mysociety.org/request/all_computer_software_source_cod
-
 Search and replace text "FOI" and "Freedom of Information" out the way more
  - but put it in the title tag
 "public body" --> "public authority"?
@@ -57,10 +53,10 @@ Add lots more UNIQUE indices
 Merge workflow into one stream - find information, if you can't find it then request it.
     so just search is on front page, with popular stuff below a la Google Directory
 
-Link to WriteToThem in sidebar of request - according to level of Government
-send to appropriate representative?
-Start a petition about this request
-Share this request on Facebook
+in sidebar of request 
+    Link to WriteToThem - according to level of Government of body
+    Start a petition about this request
+    Share this request on Facebook
 
 Successful requests should have success date as date in search results.
 
@@ -146,6 +142,7 @@ http://www.parliament.uk/parliamentary_publications_and_archives/freedom_of_info
 
 Including 'Request for information' in the subject line of your e-mail will assist us in prioritising your request.
 http://www.parliament.uk/parliamentary_publications_and_archives/freedom_of_information_in_the_house_of_lords/lords__foi___how_to_obtain_information.cfm
+Medway also hint at this with subject= on mailto link
 
 Consider putting the requesting user's name in the request's magic email address
 
