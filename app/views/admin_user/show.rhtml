@@ -28,7 +28,7 @@
   <% end %>
   </tr>
   
-<% for post_redirect in @admin_user.post_redirects.find(:all, :order => 'created_at') %>
+<% for post_redirect in @admin_user.post_redirects.find(:all, :order => 'created_at desc') %>
   <tr class="<%= cycle('odd', 'even') %>">
   <td><%=h post_redirect.id %></td>
   <% for column in PostRedirect.content_columns.map { |c| c.name } %>
