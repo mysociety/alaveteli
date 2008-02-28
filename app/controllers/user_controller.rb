@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user_controller.rb,v 1.30 2008-02-27 13:59:52 francis Exp $
+# $Id: user_controller.rb,v 1.31 2008-02-28 10:54:35 francis Exp $
 
 class UserController < ApplicationController
     # Show page about a set of users with same url name
@@ -14,7 +14,7 @@ class UserController < ApplicationController
             return
         end
 
-        @display_users = User.find(:all, :conditions => [ "url_name = ?", params[:url_name] ], :order => "created_at desc")
+        @display_users = User.find(:all, :conditions => [ "url_name = ? and email_confirmed", params[:url_name] ], :order => "created_at desc")
     end
 
     # Login form
