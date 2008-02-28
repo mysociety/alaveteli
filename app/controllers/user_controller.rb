@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user_controller.rb,v 1.33 2008-02-28 14:25:51 francis Exp $
+# $Id: user_controller.rb,v 1.34 2008-02-28 16:55:59 francis Exp $
 
 class UserController < ApplicationController
     # Show page about a set of users with same url name
@@ -125,7 +125,7 @@ class UserController < ApplicationController
                 post_redirect = PostRedirect.new(:uri => url , :post_params => {},
                     :reason_params => {
                         :web => "",
-                        :email => "Then your can change your password on WhatDoTheyKnow.com",
+                        :email => "Then you can change your password on WhatDoTheyKnow.com",
                         :email_subject => "Change your password on WhatDoTheyKnow.com"
                     })
                 post_redirect.user = user_signchange
@@ -179,7 +179,7 @@ class UserController < ApplicationController
             @post_redirect = PostRedirect.new(:uri => params[:r], :post_params => {},
                 :reason_params => {
                     :web => "",
-                    :email => "Then your can sign in to WhatDoTheyKnow.com",
+                    :email => "Then you can sign in to WhatDoTheyKnow.com",
                     :email_subject => "Confirm your account on WhatDoTheyKnow.com"
                 })
             @post_redirect.save!
