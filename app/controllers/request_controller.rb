@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.61 2008-02-28 14:04:45 francis Exp $
+# $Id: request_controller.rb,v 1.62 2008-02-28 14:14:47 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -32,7 +32,7 @@ class RequestController < ApplicationController
 
         # Sidebar stuff
         @info_requests_same_user_same_body = InfoRequest.find(:all, :order => "created_at desc", 
-            :conditions => ["prominence = 'normal' and user_id = ? and public_body_id = ?", @info_request.user_id, @info_request.public_body_id], 
+            :conditions => ["prominence = 'normal' and user_id = ? and public_body_id = ? and id <> ?", @info_request.user_id, @info_request.public_body_id, @info_request.id], 
             :limit => 5)
     end
 
