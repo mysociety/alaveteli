@@ -32,7 +32,7 @@
     <% elsif @status == 'waiting_response_overdue' %>
         Currently <strong>overdue a response</strong> from <%=
         public_body_link(@info_request.public_body) %>. The 
-        <%= link_to "response was due", about_url %></li>
+        <%= link_to "response was due", about_url + "#quickly_response" %></li>
         on <strong><%= simple_date(@info_request.date_response_required_by) %></strong>.
     <% elsif @status == 'rejected' %>
         The request was <strong>rejected</strong> by <%= public_body_link(@info_request.public_body) %>.
