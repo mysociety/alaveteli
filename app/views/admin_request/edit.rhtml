@@ -4,13 +4,28 @@
 
 <% form_tag '../update/' + @info_request.id.to_s do %>
 
-   <p><label for="info_request_title">Title</label><br/>
+   <p><label for="info_request_title">Title</label> (warning: editing this will break URLs right now)<br/>
    <%= text_field 'info_request', 'title', :size => 50  %></p>
 
-   <p><label for="info_request_prominence">Prominence</label><br/>
+   <p><label for="info_request_prominence">Prominence</label> (whether is shown in lists of requests or not)<br/>
    <%= select( 'info_request', "prominence", { "normal" => "normal", "backpage" => "backpage"}) %>
 
-  <%= submit_tag 'Save' %>
+   <p><label for="info_request_awaiting_description">Awaiting description</label><br/>
+   <%= select('info_request', "awaiting_description", [["Yes",true],["No",false]]) %>
+   </p>
+
+   <p><label for="info_request_described_state">Described state</label><br/>
+   <%= select( 'info_request', "described_state",
+       [ 
+        'waiting_response',
+        'waiting_clarification', 
+        'rejected', 
+        'successful', 
+        'partially_successful',
+        'requires_admin',
+    ]) %>
+
+    <%= submit_tag 'Save' %>
 
   <p><strong>Note:</strong> To edit the actual request body text, click edit
   next to the specific outgoing message.

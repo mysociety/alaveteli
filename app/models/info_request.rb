@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.50 2008-02-28 14:04:46 francis Exp $
+# $Id: info_request.rb,v 1.51 2008-02-29 13:21:14 francis Exp $
 
 require 'digest/sha1'
 
@@ -42,7 +42,7 @@ class InfoRequest < ActiveRecord::Base
 
     belongs_to :dsecribed_last_incoming_message_id
 
-    # user described state (also update in info_request_event)
+    # user described state (also update in info_request_event, admin_request/edit.rhtml)
     validates_inclusion_of :described_state, :in => [ 
         'waiting_response',
         'waiting_clarification', 
@@ -75,7 +75,7 @@ public
             url_title = url_title[0..31]
         end
         # For request with same name as others, tag on the request numeric id
-        while not InfoRequest.find_by_url_title(url_title).nil?
+        while not InfoRequest.find_by_url_title(url_title, :conditions => ["id <> ?", self.id] ).nil?
             url_title += "-" + self.id.to_s
         end
         write_attribute(:url_title, url_title)
@@ -345,7 +345,17 @@ public
         end
     end
 
-    # Display versino of status
+    # Returns last event
+    def get_last_event
+        events = self.info_request_events.find(:all, :order => "created_at")
+        if events.size == 0
+            return nil
+        else
+            return events[-1]
+        end
+    end
+
+    # Display version of status
     def display_status
         status = self.calculate_status
         if self.awaiting_description

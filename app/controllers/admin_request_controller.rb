@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_request_controller.rb,v 1.6 2008-02-15 11:18:55 francis Exp $
+# $Id: admin_request_controller.rb,v 1.7 2008-02-29 13:21:13 francis Exp $
 
 class AdminRequestController < ApplicationController
     layout "admin"
@@ -38,17 +38,29 @@ class AdminRequestController < ApplicationController
 
         old_title = @info_request.title
         old_prominence = @info_request.prominence
+        old_described_state = @info_request.described_state
+        old_awaiting_description = @info_request.awaiting_description
 
-        if @info_request.update_attributes(params[:info_request])
+        @info_request.title = params[:info_request][:title]
+        @info_request.prominence = params[:info_request][:prominence]
+        if @info_request.described_state != params[:info_request][:described_state]
+            @info_request.set_described_state(params[:info_request][:described_state], @info_request.get_last_event.id.to_i)
+        end
+        @info_request.awaiting_description = params[:info_request][:awaiting_description] == "true" ? true : false
+
+        if @info_request.valid?
+            @info_request.save!
             @info_request.log_event("edit", 
                 { :editor => admin_http_auth_user(), 
                     :old_title => old_title, :title => @info_request.title, 
                     :old_prominence => old_prominence, :prominence => @info_request.prominence, 
+                    :old_described_state => old_described_state, :described_state => @info_request.described_state,
+                    :old_awaiting_description => old_awaiting_description, :awaiting_description => @info_request.awaiting_description
                 })
             flash[:notice] = 'Request successfully updated.'
             redirect_to request_admin_url(@info_request)
         else
-            render :action => 'edit_outgoing'
+            render :action => 'edit'
         end
     end 
 
