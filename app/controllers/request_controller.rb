@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.63 2008-02-28 14:25:51 francis Exp $
+# $Id: request_controller.rb,v 1.64 2008-02-29 13:24:22 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -144,6 +144,7 @@ class RequestController < ApplicationController
             return
         end
 
+        @collapse_quotes = params[:unfold] ? false : true
         @events_needing_description = @info_request.events_needing_description
         last_event = @events_needing_description[-1]
         @last_info_request_event_id = last_event.nil? ? nil : last_event.id
