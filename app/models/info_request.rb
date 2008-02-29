@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.52 2008-02-29 16:00:29 francis Exp $
+# $Id: info_request.rb,v 1.53 2008-02-29 16:01:32 francis Exp $
 
 require 'digest/sha1'
 
@@ -102,10 +102,10 @@ public
 
     # Subject lines for emails about the request
     def email_subject_request
-        'Freedom of Information Request - ' + self.title
+        'Freedom of Information request - ' + self.title
     end
     def email_subject_followup
-        'Re: Freedom of Information Request - ' + self.title
+        'Re: Freedom of Information request - ' + self.title
     end
 
     # Return info request corresponding to an incoming email address, or nil if
