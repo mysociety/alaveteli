@@ -18,6 +18,9 @@ BAILII - relationship with law courts, robots.txt ?
 Next
 ====
 
+Can't set tags when making new public body
+Maybe do history of tags?
+
 Update test code
 
 Search and replace text "FOI" and "Freedom of Information" out the way more
@@ -42,8 +45,6 @@ Sort by due date
 Fix the fastcgi errors
 [Mon Jan 21 10:38:45 2008] [error] [client 81.107.40.81] FastCGI: incomplete headers (0 bytes) rec
 eived from server "/data/vhost/foi.mysociety.org/docs/dispatch.fcgi"
-
-Describe view doesn't hide quoted sections
 
 Later
 =====
@@ -85,6 +86,7 @@ Email me updates on this request
 Generic alerting/tracking system including
     - email alerts and RSS
     - new requests, new good responses etc.
+    - new responses to a particular request
 
 Requests with related content
 Blog posts / Wikipedia articles about this request

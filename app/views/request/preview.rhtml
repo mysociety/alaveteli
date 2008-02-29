@@ -9,7 +9,7 @@
     <% fields_for :outgoing_message do |o| %>
     <p class="outgoing_message_preview">
         <strong>To:</strong> <%=h @info_request.public_body.name %>
-        <br><strong>Subject:</strong> <%=h @info_request.title %>
+        <br><strong>Subject:</strong> <%=h @info_request.email_subject_request %>
         <br><br>
         <%= @outgoing_message.get_body_for_html_preview %>
         <%= o.hidden_field(:body) %>
