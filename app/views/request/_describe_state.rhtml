@@ -3,7 +3,7 @@
         <h2>What is the status of this request now?</h2>
         <p>
             <%= radio_button "incoming_message", "described_state", "waiting_response" %>
-            <label for="incoming_message_described_state_waiting_response">I'm still <strong>waiting</strong> for a response</label>
+            <label for="incoming_message_described_state_waiting_response">I'm still <strong>waiting</strong> for my information / a rejection (e.g. if the new response was just an acknowledgement)</label>
             <br>
             <%= radio_button "incoming_message", "described_state", "waiting_clarification" %>
             <label for="incoming_message_described_state_waiting_clarification">I'm about to <strong>clarify</strong> my request</label>
