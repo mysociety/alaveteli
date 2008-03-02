@@ -1,8 +1,3 @@
-This is knackered:
-http://foi.mysociety.org/request/14/response/44/attach/3/Marie's%20letter.tif
-
-Load errors
-
 FOI requests to use to test it
 ==============================
 
@@ -18,7 +13,9 @@ BAILII - relationship with law courts, robots.txt ?
 Next
 ====
 
-Can't set tags when making new public body
+This is knackered:
+http://foi.mysociety.org/request/14/response/44/attach/3/Marie's%20letter.tif
+
 Maybe do history of tags?
 
 Update test code
@@ -46,6 +43,8 @@ Fix the fastcgi errors
 [Mon Jan 21 10:38:45 2008] [error] [client 81.107.40.81] FastCGI: incomplete headers (0 bytes) rec
 eived from server "/data/vhost/foi.mysociety.org/docs/dispatch.fcgi"
 
+"Government" in about page
+
 Later
 =====
 
@@ -67,8 +66,6 @@ updating
 Response overdue alerts are only sent first time a request goes into that state :(
 
 Get deploying of Lucene search working
-
-Contact form doesn't get IP on live site
 
 Consider on staging sites making follow ups go to dummy address also
 
@@ -178,27 +175,19 @@ Compare against
 http://en.wikipedia.org/wiki/Departments_of_the_United_Kingdom_Government
 
 And against here:
-http://www.cabinetoffice.gov.uk/ministerial_responsibilities/departments/
+    http://www.cabinetoffice.gov.uk/ministerial_responsibilities/departments/
 Get executive agencies from here.
 
 Skipped: Office of the Leader of the House of Commons
 
 Tricky:
-    * Ministry of Defence
-        maybe use public@ministers.mod.uk from http://www.number-10.gov.uk/output/Page934.asp and FOE
     * Department for Transport
         just use FAX9643@dft.gsi.gov.uk from http://www.dft.gov.uk/contact ?
 Also DfT :( http://www.dft.gov.uk/foi/whatyouneedtoknow/foionlinefrm
 
-Ones that require form:
-    Met :( http://www.met.police.uk/information/metric/index.htm
-Perhaps just do them manually?
-
-MoJ and NOMS should link to each other?
-
 Schools list: www.edubase.gov.uk
 
-Heather has some for central departments
+Heather has emailed me NHS Trusts providing Mental Health Services
 
 FOE site has email addresses of lots of bodies, e.g.
 http://community.foe.co.uk/app/tc

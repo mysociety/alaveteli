@@ -22,7 +22,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.27 2008-02-28 15:59:21 francis Exp $
+# $Id: public_body.rb,v 1.28 2008-03-02 23:43:09 francis Exp $
 
 require 'csv'
 require 'set'
@@ -82,7 +82,9 @@ class PublicBody < ActiveRecord::Base
                 public_body_tag.destroy
             end
             for tag in tags
-                self.public_body_tags << PublicBodyTag.new(:name => tag)
+                public_body_tag = PublicBodyTag.new(:name => tag)
+                self.public_body_tags << public_body_tag
+                public_body_tag.public_body = self
             end
         end
     end
