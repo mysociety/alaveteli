@@ -22,7 +22,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.28 2008-03-02 23:43:09 francis Exp $
+# $Id: public_body.rb,v 1.29 2008-03-02 23:46:51 francis Exp $
 
 require 'csv'
 require 'set'
@@ -134,7 +134,6 @@ class PublicBody < ActiveRecord::Base
                 else
                     # New public body
                     public_body = PublicBody.new(:name => name, :request_email => email, :complaint_email => "", :short_name => "", :last_edit_editor => "import_csv", :last_edit_comment => 'Created from spreadsheet')
-                    public_body.save! # XXX shouldn't need this save, but without it the PublicBodyTag doesn't validate as no PublicBody id, and there is no harm cause we're in a transaction
                     public_body.tag_string = tag
                     public_body.save!
 
