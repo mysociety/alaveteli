@@ -1,10 +1,17 @@
-<% @title = "All UK public bodies" %>
-
-<h1><%=@title%></h1>
+<p>
+Show only:
+<% for category, description in PublicBody.categories_by_tag %>
+<%= link_to_unless (@tag == category), description, list_public_bodies_url(:tag => category) %> 
+<% end %>
+</p>
 
 <p>
 <a href="/help/about#missing_body">Are we missing a public body?</a>
 </p>
+
+<% @title = "Public bodies - " + @description %>
+
+<h1><%=@title%></h1>
 
 <%= render :partial => 'body_listing', :locals => { :public_bodies => @public_bodies } %>
 

@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: body_controller.rb,v 1.7 2008-02-27 13:59:51 francis Exp $
+# $Id: body_controller.rb,v 1.8 2008-03-03 00:43:51 francis Exp $
 
 class BodyController < ApplicationController
     # XXX tidy this up with better error messages, and a more standard infrastructure for the redirect to canonical URL
@@ -35,7 +35,27 @@ class BodyController < ApplicationController
     end
 
     def list
-        @public_bodies = PublicBody.paginate :order => "name", :page => params[:page], :per_page => 25
+        @tag = params[:tag]
+        if @tag.nil?
+            conditions = []
+        elsif @tag == 'other'
+            categories = PublicBody.categories_by_tag.keys
+            category_list = categories.map{|c| "'"+c+"'"}.join(",")
+            conditions = ['(select count(*) from public_body_tags where public_body_tags.public_body_id = public_bodies.id
+                and public_body_tags.name in (' + category_list + ')) = 0']
+        else
+            conditions = ['(select count(*) from public_body_tags where public_body_tags.public_body_id = public_bodies.id
+                and public_body_tags.name = ?) > 0', @tag]
+        end
+        @public_bodies = PublicBody.paginate(
+            :order => "public_bodies.name", :page => params[:page], :per_page => 25,
+            :conditions => conditions
+            )
+        @description = "All"
+        if not @tag.nil?
+            @description = PublicBody.categories_by_tag[@tag]
+        end
     end
+end
 
- end
+

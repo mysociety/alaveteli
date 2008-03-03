@@ -22,7 +22,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.29 2008-03-02 23:46:51 francis Exp $
+# $Id: public_body.rb,v 1.30 2008-03-03 00:43:51 francis Exp $
 
 require 'csv'
 require 'set'
@@ -36,6 +36,14 @@ class PublicBody < ActiveRecord::Base
     has_many :public_body_tags
 
     #acts_as_solr :fields => [:name, :short_name]
+    
+    def self.categories_by_tag 
+        {
+            "local_council" => "Local Councils",
+            "department" => "Departments",
+            "other" => "Other"
+        }
+    end
 
     def validate
         unless MySociety::Validate.is_valid_email(self.request_email)
