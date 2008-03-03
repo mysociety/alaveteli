@@ -168,22 +168,20 @@ Add geographical location to council import
 Sources of public bodies
 ========================
 
-Got list of departments from:
-http://www.number10.gov.uk/output/Page30.asp
-
-Compare against
-http://en.wikipedia.org/wiki/Departments_of_the_United_Kingdom_Government
-
-And against here:
+Three lists of departments
+    http://www.number10.gov.uk/output/Page30.asp
+    http://en.wikipedia.org/wiki/Departments_of_the_United_Kingdom_Government
     http://www.cabinetoffice.gov.uk/ministerial_responsibilities/departments/
-Get executive agencies from here.
 
-Skipped: Office of the Leader of the House of Commons
+Executive agencies
+    from links in http://www.cabinetoffice.gov.uk/ministerial_responsibilities/departments/
+    and from http://www.cabinetoffice.gov.uk/ministerial_responsibilities/executive_agencies.aspx
 
-Tricky:
-    * Department for Transport
-        just use FAX9643@dft.gsi.gov.uk from http://www.dft.gov.uk/contact ?
-Also DfT :( http://www.dft.gov.uk/foi/whatyouneedtoknow/foionlinefrm
+Skipped these supposed ministerial depts (accoring to number 10 page, but not Wikipedia): 
+    Office of the Leader of the House of Commons
+    Office of the Advocate General for Scotland
+    Office of the Leader of the House of Lords and Lord President of the Council 
+    Prime Minister's Office (No 10) 
 
 Schools list: www.edubase.gov.uk
 
