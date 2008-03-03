@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: body_controller.rb,v 1.8 2008-03-03 00:43:51 francis Exp $
+# $Id: body_controller.rb,v 1.9 2008-03-03 09:29:43 francis Exp $
 
 class BodyController < ApplicationController
     # XXX tidy this up with better error messages, and a more standard infrastructure for the redirect to canonical URL
@@ -54,6 +54,9 @@ class BodyController < ApplicationController
         @description = "All"
         if not @tag.nil?
             @description = PublicBody.categories_by_tag[@tag]
+            if @description.nil?
+                @description = @tag
+            end
         end
     end
 end

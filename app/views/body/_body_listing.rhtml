@@ -1,16 +1,20 @@
-<% for public_body in public_bodies %>
-    <p class="body_listing">
-        <%= public_body_link(public_body) %> 
-        
-        <br>
-        <% if not public_body.short_name.empty? %>
-            Also called <%=h public_body.short_name %>.
+<% if public_bodies.empty? %>
+    None found.
+<% else %>
+    <% for public_body in public_bodies %>
+        <p class="body_listing">
+            <%= public_body_link(public_body) %> 
+            
             <br>
-        <% end %>
+            <% if not public_body.short_name.empty? %>
+                Also called <%=h public_body.short_name %>.
+                <br>
+            <% end %>
 
-        <span class="request_listing_bottomline">
-            <%= pluralize(public_body.info_requests.size, "request") %> made.
-            Added on <%= simple_date(public_body.created_at) %>.
-        </span>
-    </p>
+            <span class="request_listing_bottomline">
+                <%= pluralize(public_body.info_requests.size, "request") %> made.
+                Added on <%= simple_date(public_body.created_at) %>.
+            </span>
+        </p>
+    <% end %>
 <% end %>
