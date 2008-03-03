@@ -531,6 +531,7 @@ dt {
 .xb7 {margin:0 1px; background:#6f6f6f; border-width:0 3px; height:2px;} 
 
 .xboxcontent {display:block; background:#6f6f6f; border:3px solid #fff; border-width:0 3px;}
+.xboxcontent img { border: 0 }
 
 .xsnazzy a:link {
     color: #0000aa;
