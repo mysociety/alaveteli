@@ -5,7 +5,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: link_to_helper.rb,v 1.20 2008-03-05 17:50:45 adam Exp $
+# $Id: link_to_helper.rb,v 1.21 2008-03-05 22:03:15 francis Exp $
 
 module LinkToHelper
 
@@ -76,7 +76,7 @@ module LinkToHelper
 
     # Admin pages
     def admin_url(relative_path)
-        admin_url_prefix = MySociety::Config.get("ADMIN_BASE_URL", "/admin/foi/")
+        admin_url_prefix = MySociety::Config.get("ADMIN_BASE_URL", "/admin/")
         return admin_url_prefix + relative_path
     end
 
