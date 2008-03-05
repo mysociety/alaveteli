@@ -22,12 +22,14 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.31 2008-03-03 12:47:13 francis Exp $
+# $Id: public_body.rb,v 1.32 2008-03-05 18:00:18 francis Exp $
 
 require 'csv'
 require 'set'
 
 class PublicBody < ActiveRecord::Base
+    #acts_as_solr :fields => [:name, :short_name]
+    
     validates_presence_of :name
     validates_presence_of :url_name
     validates_presence_of :request_email
@@ -35,12 +37,11 @@ class PublicBody < ActiveRecord::Base
     has_many :info_requests
     has_many :public_body_tags
 
-    #acts_as_solr :fields => [:name, :short_name]
-    
     def self.categories_by_tag 
         {
             "local_council" => "Local Councils",
             "department" => "Ministerial Departments",
+            "university" => "Universities",
             "other" => "Other"
         }
     end
