@@ -115,7 +115,12 @@ module WillPaginate
         @template.content_tag :span, text, :class => span_class
       else
         # page links should preserve GET/POST parameters
-        @template.link_to text, @template.params.merge(param => page != 1 ? page : nil)
+        if @template.params[:controller].match(/^admin_/)
+            # XXX hack for admin pages, for mySociety HTTP proxy, use relative URL
+            @template.link_to text, "?page=" + page.to_s
+        else
+            @template.link_to text, @template.params.merge(param => page != 1 ? page : nil)
+        end
       end
     end
 
