@@ -22,7 +22,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.32 2008-03-05 18:00:18 francis Exp $
+# $Id: public_body.rb,v 1.33 2008-03-05 18:14:03 francis Exp $
 
 require 'csv'
 require 'set'
@@ -42,6 +42,7 @@ class PublicBody < ActiveRecord::Base
             "local_council" => "Local Councils",
             "department" => "Ministerial Departments",
             "university" => "Universities",
+            "police" => "Police Forces",
             "other" => "Other"
         }
     end
