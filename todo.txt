@@ -2,7 +2,6 @@ Search:
 
 Add indexing of PDFs and DOCs etc.
 Date ranges and types and stuff
-Highlighting - http://www.quarkruby.com/2007/9/14/advanced-acts_as_solr
 
 
 FOI requests to use to test it

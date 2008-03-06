@@ -1,3 +1,7 @@
+<% if @highlight_words.nil? 
+      @highlight_words = [] 
+   end %>
+
 <p class="request_listing">
     <%= link_to highlight_words(info_request.title, @highlight_words), request_url(info_request) %>
 
