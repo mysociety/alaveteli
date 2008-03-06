@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(:version => 41) do
   end
 
   add_index "info_requests", ["created_at"], :name => "index_info_requests_on_created_at"
+  add_index "info_requests", ["solr_up_to_date"], :name => "index_info_requests_on_solr_up_to_date"
   add_index "info_requests", ["title"], :name => "index_info_requests_on_title"
   add_index "info_requests", ["url_title"], :name => "index_info_requests_on_url_title", :unique => true
 

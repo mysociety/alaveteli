@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.54 2008-03-06 01:23:38 francis Exp $
+# $Id: info_request.rb,v 1.55 2008-03-06 12:17:21 francis Exp $
 
 require 'digest/sha1'
 
@@ -68,20 +68,34 @@ class InfoRequest < ActiveRecord::Base
     $do_solr_index = false
     def self.update_solr_index
         $do_solr_index = true
-        InfoRequest.rebuild_solr_index(0) do |ar, options| 
-            ar.find(:all, :conditions => ["not solr_up_to_date"])
+
+        # Index each item separately in a transaction, so solr_up_to_date is right 
+        ids_to_refresh = InfoRequest.find(:all, :conditions => ["not solr_up_to_date"]).map() { |i| i.id }
+        for id in ids_to_refresh
+            #puts "updating id " + id.to_s
+            ActiveRecord::Base.transaction do
+                info_request = InfoRequest.find(id, :lock =>true)
+                if not info_request.solr_save
+                    raise "failed to solr_save"
+                end
+                for outgoing_message in info_request.outgoing_messages
+                    outgoing_message.solr_save
+                end
+                for incoming_message in info_request.incoming_messages
+                    incoming_message.solr_save
+                end
+                info_request.solr_up_to_date = true
+                info_request.save!
+            end
         end
-        OutgoingMessage.rebuild_solr_index(0) do |ar, options| 
-            ar.find(:all, :conditions => ["not (select solr_up_to_date from info_requests where id = outgoing_messages.info_request_id)"])
-        end
-        IncomingMessage.rebuild_solr_index(0)  do |ar, options| 
-            ar.find(:all, :conditions => ["not (select solr_up_to_date from info_requests where id = incoming_messages.info_request_id)"])
-        end
-        InfoRequest.update_all("solr_up_to_date = 't'")
+        InfoRequest.solr_optimize
         $do_solr_index = false
     end
     def before_update
-        self.solr_up_to_date = false
+        # If we're not mid index, then mark we need to index later
+        if not $do_solr_index
+            self.solr_up_to_date = false
+        end
         true
     end
 

@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Stops and restarts the Solr (Lucene) search engine daemon. Redirects it
+# to log.
+
+cd `dirname $0`
+cd ..
+rake solr:stop
+nohup rake solr:start >log/solr.log 2>log/solr.err.log
+
+
+
