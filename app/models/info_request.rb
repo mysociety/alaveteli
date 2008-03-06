@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.55 2008-03-06 12:17:21 francis Exp $
+# $Id: info_request.rb,v 1.56 2008-03-06 19:05:42 francis Exp $
 
 require 'digest/sha1'
 
@@ -405,7 +405,7 @@ public
     def display_status
         status = self.calculate_status
         if self.awaiting_description
-            "Awaiting classification"
+            "Awaiting classification."
         elsif status == 'waiting_response'
             "Awaiting response."
         elsif status == 'waiting_response_overdue'
