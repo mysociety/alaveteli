@@ -18,7 +18,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.52 2008-03-06 22:59:03 francis Exp $
+# $Id: incoming_message.rb,v 1.53 2008-03-06 23:00:48 francis Exp $
 
 
 # TODO
@@ -155,6 +155,11 @@ class IncomingMessage < ActiveRecord::Base
         text.gsub!(/^Communications\s+via\s+the\s+GSi\s+
                     .*?
                     legal\spurposes\.
+                    /imx, "\n\n" + replacement)
+        # http://www.whatdotheyknow.com/request/net_promoter_value_scores_for_bb
+        text.gsub!(/^http:\/\/www.bbc.co.uk
+                    .*?
+                    Further\s+communication\s+will\s+signify\s+your\s+consent\s+to\s+this\.
                     /imx, "\n\n" + replacement)
 
 
