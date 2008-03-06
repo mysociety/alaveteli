@@ -1,6 +1,13 @@
 ENV['RAILS_ENV']  = (ENV['RAILS_ENV'] || 'development').dup 
 SOLR_PATH = "#{File.dirname(File.expand_path(__FILE__))}/../solr" unless defined? SOLR_PATH
 
+# XXX hacky stuff to read the port from the main config file
+RAILS_SOLR_CONFIG="#{SOLR_PATH}/../../../../config/solr.yml"
+rails_solr_config = YAML.load(File.read(RAILS_SOLR_CONFIG))
+rails_solr_url = rails_solr_config[ENV['RAILS_ENV']]['url']
+rails_solr_port = rails_solr_url.match(/http:\/\/localhost:(\d+)\/solr/)[1]
+SOLR_PORT = rails_solr_port.to_i
+
 unless defined? SOLR_PORT
   SOLR_PORT = ENV['PORT'] || case ENV['RAILS_ENV']
               when 'test' then 8981

@@ -1,6 +1,7 @@
 Search:
 
 Deploy solr - do something with config file and access to ports
+Security
 
 Go to correct id for incoming / outgoing messages
 Show correct extract for incoming / outgoing messages
