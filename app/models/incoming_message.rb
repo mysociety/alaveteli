@@ -18,7 +18,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.50 2008-03-06 20:10:29 francis Exp $
+# $Id: incoming_message.rb,v 1.51 2008-03-06 22:41:28 francis Exp $
 
 
 # TODO
@@ -182,6 +182,13 @@ class IncomingMessage < ActiveRecord::Base
                 end
             end
         else
+            # PDFs often come with this mime type, fix it up for view code
+            if curr_mail.content_type == 'application/octet-stream'
+                if TMail::Mail.get_part_file_name(curr_mail).match(/\.pdf$/) 
+                    curr_mail.content_type = 'application/pdf'
+                end
+            end 
+            # Store leaf
             leaves_so_far += [curr_mail]
         end
         return leaves_so_far
