@@ -1,13 +1,12 @@
 Search:
 
-Security of port access
-
 Go to correct id for incoming / outgoing messages
 Show correct extract for incoming / outgoing messages
 Add indexing of PDFs and DOCs etc.
 Pagination - http://www.quarkruby.com/2007/8/12/acts_as_solr-for-search-and-faceting
 Date ranges and types and stuff
 Highlighting - http://www.quarkruby.com/2007/9/14/advanced-acts_as_solr
+
 
 FOI requests to use to test it
 ==============================
@@ -23,6 +22,10 @@ BAILII - relationship with law courts, robots.txt ?
 
 Next
 ====
+
+Tidy up display of these two:
+http://www.whatdotheyknow.com/request/information_on_m27_climbing_lane
+http://www.whatdotheyknow.com/request/identity_card_scheme_expenditure
 
 Need something to mark contact as bad, e.g. for university of huddersfield
 
