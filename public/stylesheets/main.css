@@ -357,6 +357,13 @@ table#list_requests .odd {
     color: #ff0000;
 }
 
+/* /search - searching */
+
+.highlight {
+    background-color: #eeee00;
+    color: #000000;
+}
+
 /* /body - listing bodies */
 
 .body_listing {

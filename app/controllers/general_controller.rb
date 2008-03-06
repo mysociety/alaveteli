@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: general_controller.rb,v 1.2 2008-03-06 20:10:29 francis Exp $
+# $Id: general_controller.rb,v 1.3 2008-03-06 21:49:33 francis Exp $
 
 class GeneralController < ApplicationController
 
@@ -47,6 +47,11 @@ class GeneralController < ApplicationController
     def search
         @per_page = 20
         query = params[:query]
+
+        query_nopunc = query.gsub(/[^a-z0-9]/i, " ")
+        query_nopunc = query_nopunc.gsub(/\s+/, " ")
+        @highlight_words = query_nopunc.split(" ")
+
         @solr_object = InfoRequest.multi_solr_search(query, :models => [ OutgoingMessage, IncomingMessage ],
             :limit => @per_page, :offset => ((params[:page]||"1").to_i-1) * @per_page)
         @search_results = @solr_object.results

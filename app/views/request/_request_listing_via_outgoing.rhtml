@@ -1,14 +1,14 @@
 <p class="request_listing">
     <% if outgoing_message.message_type == 'initial_request' %>
-        <%= link_to "Initial request for '" + h(info_request.title) + "'", request_url(info_request)+"#outgoing-"+outgoing_message.id.to_s %>
+        <%= link_to "Initial request for '" + highlight_words(info_request.title, @highlight_words) + "'", request_url(info_request)+"#outgoing-"+outgoing_message.id.to_s %>
     <% elsif outgoing_message.message_type == 'followup' %>
-        <%= link_to "Initial request for '" + h(info_request.title) + "'", request_url(info_request)+"#outgoing-"+outgoing_message.id.to_s %>
+        <%= link_to "Initial request for '" + highlight_words(info_request.title, @highlight_words) + "'", request_url(info_request)+"#outgoing-"+outgoing_message.id.to_s %>
     <% else %>
         <% raise "unknown outgoing message type" %>
     <% end %>
 
     <br>
-    <%=h excerpt(outgoing_message.body, "", 300) %>
+    <%= excerpt_and_highlight(outgoing_message.body, @highlight_words) %>
     <br>
 
     <span class="request_listing_bottomline">

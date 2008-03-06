@@ -1,8 +1,8 @@
 <p class="request_listing">
-    <%= request_link(info_request) %>
+    <%= link_to highlight_words(info_request.title, @highlight_words), request_url(info_request) %>
 
     <br>
-    <%=h excerpt(info_request.initial_request_text, "", 300) %>
+    <%= excerpt_and_highlight(info_request.initial_request_text, @highlight_words) %>
     <br>
 
     <span class="request_listing_bottomline">
