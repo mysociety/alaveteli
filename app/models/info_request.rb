@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.53 2008-02-29 16:01:32 francis Exp $
+# $Id: info_request.rb,v 1.54 2008-03-06 01:23:38 francis Exp $
 
 require 'digest/sha1'
 
@@ -61,6 +61,28 @@ class InfoRequest < ActiveRecord::Base
         if self.described_state.nil?
             self.described_state = 'waiting_response'
         end
+    end
+
+    # Full text search indexing
+    acts_as_solr :fields => [ :title ], :if => "$do_solr_index"
+    $do_solr_index = false
+    def self.update_solr_index
+        $do_solr_index = true
+        InfoRequest.rebuild_solr_index(0) do |ar, options| 
+            ar.find(:all, :conditions => ["not solr_up_to_date"])
+        end
+        OutgoingMessage.rebuild_solr_index(0) do |ar, options| 
+            ar.find(:all, :conditions => ["not (select solr_up_to_date from info_requests where id = outgoing_messages.info_request_id)"])
+        end
+        IncomingMessage.rebuild_solr_index(0)  do |ar, options| 
+            ar.find(:all, :conditions => ["not (select solr_up_to_date from info_requests where id = incoming_messages.info_request_id)"])
+        end
+        InfoRequest.update_all("solr_up_to_date = 't'")
+        $do_solr_index = false
+    end
+    def before_update
+        self.solr_up_to_date = false
+        true
     end
 
 public
@@ -110,7 +132,9 @@ public
 
     # Return info request corresponding to an incoming email address, or nil if
     # none found. Checks the hash to ensure the email came from the public body -
-    # only they are sent the email address with the has in it.
+    # only they are sent the email address with the has in it. (We don't check
+    # the prefix and domain, as sometimes those change, or might be elided by
+    # copying an email, and that doesn't matter)
     def self.find_by_incoming_email(incoming_email)
         incoming_email =~ /request-(\d+)-([a-z0-9]+)/
         id = $1.to_i

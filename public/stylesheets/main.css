@@ -226,25 +226,25 @@ div.fieldWithErrors { display:inline; }
     width: 64%;
 }
 
-#request_frontpage h1 {
+#general_frontpage h1 {
     margin-bottom: 1em;
 }
-#request_frontpage #make_requests {
+#general_frontpage #make_requests {
     text-align: center;
     width: 45%;
     float: left;
     margin-bottom: 1em;
 }
-#request_frontpage #public_body_form {
+#general_frontpage #public_body_form {
 }
 
-#request_frontpage #find_information {
+#general_frontpage #find_information {
     width: 45%;
     float: right;
     margin-bottom: 1em;
     text-align: center;
 }
-#request_frontpage .request_listing {
+#general_frontpage .request_listing {
     text-align: left;
 }
 

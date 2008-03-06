@@ -1,3 +1,12 @@
+Search:
+
+Go to correct id
+Add cron job
+Add indexing of PDFs and DOCs etc.
+Pagination - http://www.quarkruby.com/2007/8/12/acts_as_solr-for-search-and-faceting
+Date ranges and types and stuff
+Highlighting - http://www.quarkruby.com/2007/9/14/advanced-acts_as_solr
+
 FOI requests to use to test it
 ==============================
 
@@ -12,6 +21,8 @@ BAILII - relationship with law courts, robots.txt ?
 
 Next
 ====
+
+Need something to mark contact as bad, e.g. for university of huddersfield
 
 This is knackered:
 http://foi.mysociety.org/request/14/response/44/attach/3/Marie's%20letter.tif
@@ -167,6 +178,8 @@ Add geographical location to council import
 
 Sources of public bodies
 ========================
+
+Call university of huddersfield
 
 Three lists of departments
     http://www.number10.gov.uk/output/Page30.asp

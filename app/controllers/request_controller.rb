@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.64 2008-02-29 13:24:22 francis Exp $
+# $Id: request_controller.rb,v 1.65 2008-03-06 01:23:38 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -38,31 +38,6 @@ class RequestController < ApplicationController
 
     def list
         @info_requests = InfoRequest.paginate :order => "created_at desc", :page => params[:page], :per_page => 25, :conditions => "prominence = 'normal'"
-    end
-    
-    # Fancy javascript smancy for auto complete search
-    def auto_complete_for_public_body_query
-        @public_bodies = public_body_query(params[:public_body][:query])
-
-        render :partial => "public_body_query"
-    end
-    def frontpage
-        # Public body search on the left
-        @public_bodies = []
-        @query_made = false
-        if params[:public_body] and params[:public_body][:query]
-            # Try and do exact match - redirect if it is made
-            @public_body = PublicBody.find_by_name(params[:public_body][:query])
-            if not @public_body.nil?
-                redirect_to new_request_to_body_url(:public_body_id => @public_body.id.to_s)
-            end
-            # Otherwise use search engine to find public body
-            @public_bodies = public_body_query(params[:public_body][:query])
-            @query_made = true
-        end
-
-        # Get all successful requests for display on the right  
-        @info_requests = InfoRequest.find :all, :order => "created_at desc", :conditions => "prominence = 'normal' and described_state in ('successful', 'partially_successful')", :limit => 3
     end
 
     # Page new form posts to
@@ -284,16 +259,5 @@ class RequestController < ApplicationController
         render :text => @attachment.body
     end
 
-    private
-
-    # Used in front page search for public body
-    def public_body_query(query)
-        # @public_bodies = PublicBody.find_by_solr(query).results
-
-        criteria = '%' + query + '%'
-        @public_bodies = PublicBody.find(:all, 
-                    :conditions => ["name ilike ? or short_name ilike ?", criteria, criteria],
-                    :order => 'name', :limit=>10)  
-        return @public_bodies
-    end
 end
+

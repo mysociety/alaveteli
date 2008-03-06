@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: outgoing_message.rb,v 1.32 2008-02-27 14:01:30 francis Exp $
+# $Id: outgoing_message.rb,v 1.33 2008-03-06 01:23:38 francis Exp $
 
 class OutgoingMessage < ActiveRecord::Base
     belongs_to :info_request
@@ -31,6 +31,8 @@ class OutgoingMessage < ActiveRecord::Base
     validates_inclusion_of :message_type, :in => ['initial_request', 'followup' ] #, 'complaint']
 
     belongs_to :incoming_message_followup, :foreign_key => 'incoming_message_followup_id', :class_name => 'IncomingMessage'
+
+    acts_as_solr :fields => [ :body ], :if => "$do_solr_index"
 
     # How the default letter starts and ends
     def get_salutation

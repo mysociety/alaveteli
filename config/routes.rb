@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: routes.rb,v 1.41 2008-03-03 00:43:52 francis Exp $
+# $Id: routes.rb,v 1.42 2008-03-06 01:23:39 francis Exp $
 
 ActionController::Routing::Routes.draw do |map|
     # The priority is based upon order of creation: first created -> highest priority.
@@ -13,13 +13,21 @@ ActionController::Routing::Routes.draw do |map|
     # map.connect 'products/:id', :controller => 'catalog', :action => 'view'
     # Keep in mind you can assign values other than :controller and :action
     
+    map.with_options :controller => 'general' do |general|
+      general.frontpage           '/',            :action => 'frontpage'
+      general.auto_complete_for_public_body_query 'auto_complete_for_public_body_query', :action => 'auto_complete_for_public_body_query'
+
+      general.search_redirect '/search',      :action => 'search_redirect'
+      general.search '/search/:query',      :action => 'search'
+    end
+
     map.with_options :controller => 'request' do |request|
-      request.frontpage           '/',            :action => 'frontpage'
-      request.auto_complete_for_public_body_query 'auto_complete_for_public_body_query', :action => 'auto_complete_for_public_body_query'
 
       request.request_list   '/list',        :action => 'list'
+
       request.new_request    '/new',         :action => 'new'
       request.new_request_to_body    '/new/:public_body_id',         :action => 'new'
+
       request.show_request     '/request/:url_title', :action => 'show'
       request.describe_state   '/request/:id/describe', :action => 'describe_state'
       request.show_response_no_followup    '/request/:id/response', :action => 'show_response'

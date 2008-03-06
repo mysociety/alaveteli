@@ -58,6 +58,12 @@
 
 <div id="find_information">
     <h1>Explore information that others requested</h1>
-    <%= render :partial => 'request_listing', :locals => { :info_requests => @info_requests } %>
+    <% form_tag({:action => "search_redirect"}, {:id => "search_form"}) do %>
+       <p>
+           <%= text_field_tag 'query', params[:query], { :size => 20 } %>
+           <%= submit_tag "Search" %>
+       </p>
+    <% end %>
+    <%= render :partial => 'request/request_listing', :locals => { :info_requests => @info_requests } %>
     <p><a href="/list">View all information</a></p>
 </div>

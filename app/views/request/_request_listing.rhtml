@@ -1,19 +1,8 @@
-<% for info_request in info_requests %>
-    <p class="request_listing">
-        <%= request_link(info_request) %>
-
-        <br>
-        <%=h excerpt(info_request.initial_request_text, "", 300) %>
-        <br>
-
-        <span class="request_listing_bottomline">
-            <strong>
-            <%= info_request.display_status %>
-            </strong>
-
-            Requested from <%= public_body_link(info_request.public_body) %>
-            by <%= user_link(info_request.user) %>
-            on <%= simple_date(info_request.created_at) %>.
-        </span>
-    </p>
+<% if info_requests.empty? %>
+    None found.
+<% else %>
+    <% for info_request in info_requests %>
+        <%= render :partial => 'request/request_listing_single', :locals => { :info_request => info_request } %>
+    <% end %>
 <% end %>
+

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 40) do
+ActiveRecord::Schema.define(:version => 41) do
 
   create_table "incoming_messages", :force => true do |t|
     t.integer  "info_request_id",                    :null => false
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(:version => 40) do
     t.boolean  "awaiting_description", :default => false,    :null => false
     t.string   "prominence",           :default => "normal", :null => false
     t.text     "url_title",                                  :null => false
+    t.boolean  "solr_up_to_date",      :default => false,    :null => false
   end
 
   add_index "info_requests", ["created_at"], :name => "index_info_requests_on_created_at"
