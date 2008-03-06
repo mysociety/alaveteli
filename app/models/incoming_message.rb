@@ -18,7 +18,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.51 2008-03-06 22:41:28 francis Exp $
+# $Id: incoming_message.rb,v 1.52 2008-03-06 22:59:03 francis Exp $
 
 
 # TODO
@@ -139,9 +139,24 @@ class IncomingMessage < ActiveRecord::Base
         text.gsub!(/^(On .+ (wrote|said):\n)/, replacement)
 
         # Multiple line sections
-        ['-', '_'].each do |score|
-            text.gsub!(/(\s*#{score}{20,}\n.*?disclaimer:\n.*?#{score}{20,}\n)/im, "\n\n" + replacement)
+        # http://www.whatdotheyknow.com/request/identity_card_scheme_expenditure
+        ['-', '_', '*'].each do |score|
+            text.gsub!(/(\s*[#{score}]{20,}\n.*?
+                        (disclaimer:\n|confidential)
+                        .*?[#{score}]{20,}\n)/imx, "\n\n" + replacement)
         end
+
+        # Special paragraphs
+        # http://www.whatdotheyknow.com/request/identity_card_scheme_expenditure
+        text.gsub!(/^[^\n]+Government\s+Secure\s+Intranet\s+virus\s+scanning
+                    .*?
+                    virus\sfree\.
+                    /imx, "\n\n" + replacement)
+        text.gsub!(/^Communications\s+via\s+the\s+GSi\s+
+                    .*?
+                    legal\spurposes\.
+                    /imx, "\n\n" + replacement)
+
 
         # To end of message sections
         original_message = 
