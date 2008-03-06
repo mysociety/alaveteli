@@ -149,3 +149,23 @@ module ActsAsSolr
     end
 end
 
+# Monkeypatch! Hack for admin pages, when proxied via https on mySociety servers, they
+# need a relative URL.
+module WillPaginate
+    class LinkRenderer
+        def page_link_or_span(page, span_class, text)
+          unless page
+            @template.content_tag :span, text, :class => span_class
+          else
+            # page links should preserve GET/POST parameters
+            if @template.params[:controller].match(/^admin_/)
+                # XXX hack for admin pages, for mySociety HTTP proxy, use relative URL
+                @template.link_to text, "?page=" + page.to_s
+            else
+                @template.link_to text, @template.params.merge(param => page != 1 ? page : nil)
+            end
+          end
+        end
+    end
+end
+
