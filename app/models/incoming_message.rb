@@ -18,7 +18,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.53 2008-03-06 23:00:48 francis Exp $
+# $Id: incoming_message.rb,v 1.54 2008-03-06 23:17:28 francis Exp $
 
 
 # TODO
@@ -126,6 +126,19 @@ class IncomingMessage < ActiveRecord::Base
         text.gsub!(rx, "[email address]")
 
         return text
+    end
+
+    # Lotus notes quoting yeuch!
+    def remove_lotus_quoting(text, replacement = "FOLDED_QUOTED_SECTION")
+        text = text.dup
+        name = self.info_request.user.name
+
+        # To end of message sections
+        # http://www.whatdotheyknow.com/request/university_investment_in_the_arm
+        text.gsub!(/^#{name}[^\n]+\nSent by:[^\n]+\n.*/ims, "\n\n" + replacement)
+
+        return text
+
     end
 
     # Remove quoted sections from emails (eventually the aim would be for this
@@ -270,7 +283,8 @@ class IncomingMessage < ActiveRecord::Base
         # links, without escaping them. Rather than using some proper parser
         # making a tree structure (I don't know of one that is to hand, that
         # works well in this kind of situation, such as with regexps).
-        folded_quoted_text = IncomingMessage.remove_quoted_sections(text, 'FOLDED_QUOTED_SECTION')
+        folded_quoted_text = self.remove_lotus_quoting(text, 'FOLDED_QUOTED_SECTION')
+        folded_quoted_text = IncomingMessage.remove_quoted_sections(folded_quoted_text, 'FOLDED_QUOTED_SECTION')
         if collapse_quoted_sections
             text = folded_quoted_text
         end
