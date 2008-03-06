@@ -16,15 +16,13 @@
         <% if search_result.class.to_s == 'InfoRequest' %>
             <%= render :partial => 'request/request_listing_single', :locals => { :info_request => search_result } %>
         <% elsif search_result.class.to_s == 'OutgoingMessage' %>
-            <%= render :partial => 'request/request_listing_single', :locals => { :info_request => search_result.info_request } %>
+            <%= render :partial => 'request/request_listing_via_outgoing', :locals => { :info_request => search_result.info_request, :outgoing_message => search_result } %>
         <% elsif search_result.class.to_s == 'IncomingMessage' %>
-            <%= render :partial => 'request/request_listing_single', :locals => { :info_request => search_result.info_request } %>
+            <%= render :partial => 'request/request_listing_via_incoming', :locals => { :info_request => search_result.info_request, :incoming_message => search_result } %>
         <% else %>
             <p><strong>Unknown search result type <%=search_result.class.to_s%></strong></p>
         <% end %>
     <% end %>
 <% end %>
 
-<%
-#= will_paginate(@info_requests) 
-%>
+<%= will_paginate WillPaginate::Collection.new(params[:page]||1, @per_page, @solr_object.total_hits) %>

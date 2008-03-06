@@ -1,0 +1,18 @@
+<p class="request_listing">
+    <%= link_to "Response to '" + h(info_request.title) + "'", request_url(info_request)+"#incoming-"+incoming_message.id.to_s %>
+
+    <br>
+    <%=h excerpt(incoming_message.get_text_for_indexing, "", 300) %>
+    <br>
+
+    <span class="request_listing_bottomline">
+        <strong>
+        <%= info_request.display_status %>
+        </strong>
+
+        Response from <%= public_body_link(info_request.public_body) %>
+        to <%= user_link(info_request.user) %>
+        on <%= simple_date(incoming_message.sent_at) %>.
+    </span>
+</p>
+

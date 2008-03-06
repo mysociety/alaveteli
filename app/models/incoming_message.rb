@@ -18,7 +18,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.49 2008-03-06 01:23:38 francis Exp $
+# $Id: incoming_message.rb,v 1.50 2008-03-06 20:10:29 francis Exp $
 
 
 # TODO
@@ -50,7 +50,7 @@ class IncomingMessage < ActiveRecord::Base
 
     has_many :outgoing_message_followups, :class_name => OutgoingMessage
 
-    acts_as_solr :fields => [ :get_main_body_text ], :if => "$do_solr_index"
+    acts_as_solr :fields => [ :get_text_for_indexing ], :if => "$do_solr_index"
 
     # Return the structured TMail::Mail object
     # Documentation at http://i.loveruby.net/en/projects/tmail/doc/
@@ -271,6 +271,11 @@ class IncomingMessage < ActiveRecord::Base
 
         # Remove existing quoted sections
         text = IncomingMessage.remove_quoted_sections(text, "")
+    end
+
+    # Returns text for indexing
+    def get_text_for_indexing
+        return get_body_for_quoting()
     end
 
     # Returns the name of the person the incoming message is from, or nil if there isn't one

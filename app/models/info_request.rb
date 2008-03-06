@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.56 2008-03-06 19:05:42 francis Exp $
+# $Id: info_request.rb,v 1.57 2008-03-06 20:10:29 francis Exp $
 
 require 'digest/sha1'
 
@@ -362,7 +362,8 @@ public
         if outgoing_messages.empty? # mainly for use with incomplete fixtures
             return ""
         end
-        excerpt = outgoing_messages[0].body
+        messages = self.outgoing_messages.find(:all, :order => "created_at")
+        excerpt = messages[0].body
         excerpt.sub!(/Dear .+,/, "")
         return excerpt
     end

@@ -1,14 +1,12 @@
-<div class="correspondence">
-
 <%  
-
-    @last_email = nil
-    if !info_request_event.nil? && info_request_event.event_type == 'response'
-        incoming_message = IncomingMessage.find(info_request_event.params[:incoming_message_id]) 
-    end
-        
-    if not incoming_message.nil?
-    %>
+@last_email = nil
+if !info_request_event.nil? && info_request_event.event_type == 'response'
+    incoming_message = IncomingMessage.find(info_request_event.params[:incoming_message_id]) 
+end
+    
+if not incoming_message.nil?
+%>
+    <div class="correspondence" id="incoming-<%=incoming_message.id.to_s%>">
         <% if @previous_date.nil? or (@previous_date != incoming_message.sent_at.to_date) %>
             <h2><%= simple_date(incoming_message.sent_at) %></h2>
         <% end
@@ -29,10 +27,12 @@
             (<%= link_to "link to this", show_response_url(:id => incoming_message.info_request.id, :incoming_message_id => incoming_message.id) %>,
             <%= link_to "reply", show_response_url(:id => incoming_message.info_request.id, :incoming_message_id => incoming_message.id) + "#show_response_followup" %>)
         </p>
-    <%
-    elsif info_request_event.event_type == 'sent' || info_request_event.event_type == 'followup_sent'
-        outgoing_message = OutgoingMessage.find(info_request_event.params[:outgoing_message_id]) 
-        %>
+    </div>
+<%
+elsif info_request_event.event_type == 'sent' || info_request_event.event_type == 'followup_sent'
+    outgoing_message = OutgoingMessage.find(info_request_event.params[:outgoing_message_id]) 
+    %>
+    <div class="correspondence" id="outgoing-<%=outgoing_message.id.to_s%>">
         <% if @previous_date.nil? or (@previous_date != info_request_event.created_at.to_date) %>
             <h2><%= simple_date(info_request_event.created_at) %></h2>
         <% end
@@ -64,20 +64,21 @@
             <% else raise "unknown outgoing_message.message_type" %>
             <% end %>
             (<%= link_to "send follow up", show_response_no_followup_url(:id => outgoing_message.info_request.id, :incoming_message_id => nil) + "#show_response_followup" %>)
-    </p>
-    <% elsif info_request_event.event_type == 'resent' %>
+        </p>
+    </div>
+<% elsif info_request_event.event_type == 'resent' %>
+    <div class="correspondence">
         <p class="event_plain"> 
             Sent to <%= public_body_link(@info_request.public_body) %>
             again (perhaps to a new contact address) <!-- XXX actually say if it is a new one or not -->
         </p>
-    <% 
-    end 
-    if !info_request_event.nil? 
-        if ['sent', 'resent'].include?(info_request_event.event_type)
-             @last_email = info_request_event.params[:email]
-        end
+    </div>
+<% 
+end 
+
+if !info_request_event.nil? 
+    if ['sent', 'resent'].include?(info_request_event.event_type)
+         @last_email = info_request_event.params[:email]
     end
+end
 %>
-
-</div>
-

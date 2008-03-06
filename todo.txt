@@ -1,9 +1,6 @@
 Search:
 
-Go to correct id for incoming / outgoing messages
-Show correct extract for incoming / outgoing messages
 Add indexing of PDFs and DOCs etc.
-Pagination - http://www.quarkruby.com/2007/8/12/acts_as_solr-for-search-and-faceting
 Date ranges and types and stuff
 Highlighting - http://www.quarkruby.com/2007/9/14/advanced-acts_as_solr
 
