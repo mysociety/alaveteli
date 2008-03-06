@@ -1,28 +1,5 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-describe RequestController, "when showing the front page" do
-    integrate_views
-    fixtures :users
-
-    it "should be successful" do
-        get :frontpage
-        response.should be_success
-    end
-
-    it "should have sign in/up link when not signed in" do
-        get :frontpage
-        response.should have_tag('a', "Sign in or sign up")
-    end
-
-    it "should have sign out link when signed in" do
-        session[:user_id] = users(:bob_smith_user).id
-        get :frontpage
-        response.should have_tag('a', "Sign out")
-    end
-        
-
-end
-
 describe RequestController, "when listing all requests" do
     integrate_views
     fixtures :info_requests, :outgoing_messages
@@ -91,7 +68,7 @@ describe RequestController, "when creating a new request" do
 
     it "should redirect to front page if no public body specified" do
         get :new
-        response.should redirect_to(:action => 'frontpage')
+        response.should redirect_to(:controller => 'general', :action => 'frontpage')
     end
 
     it "should accept a public body parameter posted from the front page" do
