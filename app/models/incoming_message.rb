@@ -18,7 +18,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.54 2008-03-06 23:17:28 francis Exp $
+# $Id: incoming_message.rb,v 1.55 2008-03-07 10:13:57 francis Exp $
 
 
 # TODO
@@ -314,9 +314,37 @@ class IncomingMessage < ActiveRecord::Base
         text = IncomingMessage.remove_quoted_sections(text, "")
     end
 
+    # Returns text version of attachment text
+    def get_attachment_text
+        text = ''
+        attachments = self.get_attachments_for_display
+        for attachment in attachments
+            if attachment.content_type == 'text/plain'
+                text += attachment.body
+            elsif attachment.content_type == 'application/msword'
+                tempfile = Tempfile.new('foipdf')
+                tempfile.print attachment.body
+                tempfile.flush
+                system("/usr/bin/wvText " + tempfile.path + " " + tempfile.path + ".txt")
+                text += File.read(tempfile.path + ".txt")
+                File.unlink(tempfile.path + ".txt")
+                tempfile.close
+            elsif attachment.content_type == 'application/pdf'
+                tempfile = Tempfile.new('foipdf')
+                tempfile.print attachment.body
+                tempfile.flush
+                IO.popen("/usr/bin/pdftotext " + tempfile.path + " -", "r") do |child|
+                    text += child.read()
+                end
+                tempfile.close
+            end
+        end
+        return text
+    end
+
     # Returns text for indexing
     def get_text_for_indexing
-        return get_body_for_quoting()
+        return get_body_for_quoting + get_attachment_text
     end
 
     # Returns the name of the person the incoming message is from, or nil if there isn't one

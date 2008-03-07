@@ -1,8 +1,11 @@
 Search:
 
+Don't show same request so many times
 Add indexing of PDFs and DOCs etc.
 Date ranges and types and stuff
 
+Search for users
+Search for public bodies
 
 FOI requests to use to test it
 ==============================
@@ -56,6 +59,10 @@ Fix the fastcgi errors
 eived from server "/data/vhost/foi.mysociety.org/docs/dispatch.fcgi"
 
 "Government" in about page
+
+Send email to remind people to classify
+Send email to tell admins something isn't classified
+Send email to remind people to clarify
 
 Later
 =====
