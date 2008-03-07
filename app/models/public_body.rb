@@ -22,14 +22,12 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.33 2008-03-05 18:14:03 francis Exp $
+# $Id: public_body.rb,v 1.34 2008-03-07 23:13:38 francis Exp $
 
 require 'csv'
 require 'set'
 
 class PublicBody < ActiveRecord::Base
-    #acts_as_solr :fields => [:name, :short_name]
-    
     validates_presence_of :name
     validates_presence_of :url_name
     validates_presence_of :request_email
@@ -60,6 +58,8 @@ class PublicBody < ActiveRecord::Base
 
     acts_as_versioned
     self.non_versioned_columns << 'created_at' << 'updated_at'
+
+    acts_as_solr :fields => [{:name => { :boost => 10.0 }}, {:short_name => { :boost => 10.0 }} ]
 
     # When name or short name is changed, also change the url name
     def short_name=(short_name)

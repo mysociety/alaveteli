@@ -1,0 +1,19 @@
+<% if @highlight_words.nil? 
+      @highlight_words = []
+   end %>
+
+<p class="body_listing">
+    <%= link_to highlight_words(public_body.name, @highlight_words), public_body_url(public_body) %>
+    
+    <br>
+    <% if not public_body.short_name.empty? %>
+        Also called <%=highlight_words(public_body.short_name, @highlight_words) %>.
+        <br>
+    <% end %>
+
+    <span class="body_listing_bottomline">
+        <%= pluralize(public_body.info_requests.size, "request") %> made.
+        Added on <%= simple_date(public_body.created_at) %>.
+    </span>
+</p>
+

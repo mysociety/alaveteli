@@ -360,9 +360,25 @@ table#list_requests .odd {
 /* /search - searching */
 
 .highlight {
-    background-color: #eeee00;
+    background-color: #dddd00;
     color: #000000;
 }
+
+.user_listing {
+}
+.user_listing_bottomline {
+    color: #7aa600;
+}
+.user_listing_bottomline a:link {
+    color: #7777cc;
+}
+.user_listing_bottomline a:visited {
+    color: #551a8b;
+}
+.user_listing_bottomline a:active {
+    color: #ff0000;
+}
+
 
 /* /body - listing bodies */
 

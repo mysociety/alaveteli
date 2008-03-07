@@ -20,7 +20,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user.rb,v 1.33 2008-02-28 16:25:30 francis Exp $
+# $Id: user.rb,v 1.34 2008-03-07 23:13:38 francis Exp $
 
 require 'digest/sha1'
 
@@ -38,6 +38,8 @@ class User < ActiveRecord::Base
 
     attr_accessor :password_confirmation
     validates_confirmation_of :password, :message =>"^Please enter the same password twice"
+
+    acts_as_solr :fields => [ {:name => { :boost => 5.0 }} ]
 
     def validate
         errors.add(:email, "doesn't look like a valid address") unless MySociety::Validate.is_valid_email(self.email)

@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.57 2008-03-06 20:10:29 francis Exp $
+# $Id: info_request.rb,v 1.58 2008-03-07 23:13:38 francis Exp $
 
 require 'digest/sha1'
 
@@ -64,7 +64,16 @@ class InfoRequest < ActiveRecord::Base
     end
 
     # Full text search indexing
-    acts_as_solr :fields => [ :title ], :if => "$do_solr_index"
+    acts_as_solr :fields => [ 
+        :title, 
+        :initial_request_text, 
+        { :status => :string }
+#        { :created_at => :date } 
+    ], :if => "$do_solr_index"
+    def status # for name in Solr queries
+        calculate_status
+    end
+
     $do_solr_index = false
     def self.update_solr_index
         $do_solr_index = true
@@ -79,7 +88,13 @@ class InfoRequest < ActiveRecord::Base
                     raise "failed to solr_save"
                 end
                 for outgoing_message in info_request.outgoing_messages
-                    outgoing_message.solr_save
+                    # Initial request text is indexed for InfoRequest models -
+                    # see :initial_request_text in acts_as_solr entry above
+                    if outgoing_message.message_type != 'initial_request' 
+                        outgoing_message.solr_save
+                    else
+                        outgoing_message.solr_destroy
+                    end
                 end
                 for incoming_message in info_request.incoming_messages
                     incoming_message.solr_save
@@ -210,6 +225,7 @@ public
     end
 
     # Work out what the situation of the request is
+    #   waiting_classification
     #   waiting_response
     #   waiting_response_overdue  # XXX calculated, should be cached for display?
     #   waiting_clarification
@@ -217,6 +233,10 @@ public
     #   successful
     #   partially_successful
     def calculate_status
+        if self.awaiting_description
+            return 'waiting_classification'
+        end
+
         # See if response would be overdue 
         date_today = Time.now.strftime("%Y-%m-%d")
         date_response = date_response_required_by.strftime("%Y-%m-%d")
@@ -405,7 +425,7 @@ public
     # Display version of status
     def display_status
         status = self.calculate_status
-        if self.awaiting_description
+        if status == 'waiting_classification'
             "Awaiting classification."
         elsif status == 'waiting_response'
             "Awaiting response."

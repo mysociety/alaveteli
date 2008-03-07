@@ -1,8 +1,8 @@
 <p class="request_listing">
     <% if outgoing_message.message_type == 'initial_request' %>
-        <%= link_to "Initial request for '" + highlight_words(info_request.title, @highlight_words) + "'", request_url(info_request)+"#outgoing-"+outgoing_message.id.to_s %>
+        <% raise "initial_request shouldn't be indexed for search, text is indexed in InfoRequest model" %>
     <% elsif outgoing_message.message_type == 'followup' %>
-        <%= link_to "Initial request for '" + highlight_words(info_request.title, @highlight_words) + "'", request_url(info_request)+"#outgoing-"+outgoing_message.id.to_s %>
+        <%= link_to "Follow up message for '" + h(info_request.title) + "'", request_url(info_request)+"#outgoing-"+outgoing_message.id.to_s %>
     <% else %>
         <% raise "unknown outgoing message type" %>
     <% end %>
@@ -16,9 +16,9 @@
         <%= info_request.display_status %>
         </strong>
 
-        Requested from <%= public_body_link(info_request.public_body) %>
+        Follow up sent to <%= public_body_link(info_request.public_body) %>
         by <%= user_link(info_request.user) %>
-        on <%= simple_date(info_request.created_at) %>.
+        on <%= simple_date(outgoing_message.created_at) %>.
     </span>
 </p>
 

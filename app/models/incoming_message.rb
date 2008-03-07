@@ -18,7 +18,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.55 2008-03-07 10:13:57 francis Exp $
+# $Id: incoming_message.rb,v 1.56 2008-03-07 23:13:38 francis Exp $
 
 
 # TODO
@@ -320,13 +320,13 @@ class IncomingMessage < ActiveRecord::Base
         attachments = self.get_attachments_for_display
         for attachment in attachments
             if attachment.content_type == 'text/plain'
-                text += attachment.body
+                text += attachment.body + "\n\n"
             elsif attachment.content_type == 'application/msword'
                 tempfile = Tempfile.new('foipdf')
                 tempfile.print attachment.body
                 tempfile.flush
                 system("/usr/bin/wvText " + tempfile.path + " " + tempfile.path + ".txt")
-                text += File.read(tempfile.path + ".txt")
+                text += File.read(tempfile.path + ".txt") + "\n\n"
                 File.unlink(tempfile.path + ".txt")
                 tempfile.close
             elsif attachment.content_type == 'application/pdf'
@@ -334,7 +334,7 @@ class IncomingMessage < ActiveRecord::Base
                 tempfile.print attachment.body
                 tempfile.flush
                 IO.popen("/usr/bin/pdftotext " + tempfile.path + " -", "r") do |child|
-                    text += child.read()
+                    text += child.read() + "\n\n"
                 end
                 tempfile.close
             end
@@ -344,7 +344,7 @@ class IncomingMessage < ActiveRecord::Base
 
     # Returns text for indexing
     def get_text_for_indexing
-        return get_body_for_quoting + get_attachment_text
+        return get_body_for_quoting + "\n\n" + get_attachment_text
     end
 
     # Returns the name of the person the incoming message is from, or nil if there isn't one

@@ -1,28 +1,41 @@
-<% @title = "Freedom of Information requests matching '" + h(params[:query]) + "'" %>
+<% if @query.nil? %>
+    <% @title = "Search requests, public bodies and users" %>
+    <h1><%=@title%></h1>
+<% else %>
+    <% @title = "Search for '" + h(@query) + "'" %>
+<% end%>
 
 <% form_tag({:action => "search_redirect"}, {:id => "search_form"}) do %>
    <p>
-       <%= text_field_tag 'query', params[:query], { :size => 40 } %>
+       <%= text_field_tag 'query', @query, { :size => 40 } %>
        <%= submit_tag "Search" %>
    </p>
 <% end %>
 
-<h1><%=@title%></h1>
+<% if not @search_results.nil? %>
 
-<% if @search_results.empty? %>
-    None found.
-<% else %>
-    <% for search_result in @search_results %>
-        <% if search_result.class.to_s == 'InfoRequest' %>
-            <%= render :partial => 'request/request_listing_single', :locals => { :info_request => search_result } %>
-        <% elsif search_result.class.to_s == 'OutgoingMessage' %>
-            <%= render :partial => 'request/request_listing_via_outgoing', :locals => { :info_request => search_result.info_request, :outgoing_message => search_result } %>
-        <% elsif search_result.class.to_s == 'IncomingMessage' %>
-            <%= render :partial => 'request/request_listing_via_incoming', :locals => { :info_request => search_result.info_request, :incoming_message => search_result } %>
-        <% else %>
-            <p><strong>Unknown search result type <%=search_result.class.to_s%></strong></p>
+    <h1><%=@title%></h1>
+
+    <% if @search_results.empty? %>
+        None found.
+    <% else %>
+        <% for search_result in @search_results %>
+            <% if search_result.class.to_s == 'InfoRequest' %>
+                <%= render :partial => 'request/request_listing_single', :locals => { :info_request => search_result } %>
+            <% elsif search_result.class.to_s == 'OutgoingMessage' %>
+                <%= render :partial => 'request/request_listing_via_outgoing', :locals => { :info_request => search_result.info_request, :outgoing_message => search_result } %>
+            <% elsif search_result.class.to_s == 'IncomingMessage' %>
+                <%= render :partial => 'request/request_listing_via_incoming', :locals => { :info_request => search_result.info_request, :incoming_message => search_result } %>
+            <% elsif search_result.class.to_s == 'PublicBody' %>
+                <%= render :partial => 'body/body_listing_single', :locals => { :public_body => search_result } %>
+            <% elsif search_result.class.to_s == 'User' %>
+                <%= render :partial => 'user/user_listing_single', :locals => { :display_user => search_result } %>
+            <% else %>
+                <p><strong>Unknown search result type <%=search_result.class.to_s%></strong></p>
+            <% end %>
         <% end %>
     <% end %>
-<% end %>
 
-<%= will_paginate WillPaginate::Collection.new(params[:page]||1, @per_page, @solr_object.total_hits) %>
+    <%= will_paginate WillPaginate::Collection.new(params[:page]||1, @per_page, @solr_object.total_hits) %>
+
+<% end %>
