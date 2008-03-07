@@ -4,10 +4,10 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org. WWW: http://www.mysociety.org/
 #
-# $Id: crontab.ugly,v 1.4 2008-03-06 12:17:21 francis Exp $
+# $Id: crontab.ugly,v 1.5 2008-03-07 23:32:27 francis Exp $
 
 PATH=/usr/local/bin:/usr/bin:/bin
-MAILTO=team@mysociety.org
+MAILTO=team@whatdotheyknow.com
 
 # Every 10 minutes
 */10 0 * * * !!(*= $user *)!! run-with-lockfile -n /data/vhost/!!(*= $vhost *)!!/update-solr-index.lock /data/vhost/!!(*= $vhost *)!!/mysociety/foi/script/update-solr-index || echo "stalled?"
