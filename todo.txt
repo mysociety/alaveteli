@@ -1,11 +1,18 @@
 Search:
 
 Don't show same request so many times
-Add indexing of PDFs and DOCs etc.
-Date ranges and types and stuff
+Status and stuff
+Date ranges 
 
 Search for users
 Search for public bodies
+
+Rubbish highlighting:
+http://www.whatdotheyknow.com/search/%22MS%20Office%22
+
+One of the PDFs on live site has:
+Error: PDF version 1.6 -- xpdf supports version 1.5 (continuing anyway)
+Need to upgrade to poppler-utils?
 
 FOI requests to use to test it
 ==============================
@@ -21,10 +28,6 @@ BAILII - relationship with law courts, robots.txt ?
 
 Next
 ====
-
-Tidy up display of these two:
-http://www.whatdotheyknow.com/request/information_on_m27_climbing_lane
-http://www.whatdotheyknow.com/request/identity_card_scheme_expenditure
 
 Need something to mark contact as bad, e.g. for university of huddersfield
 
