@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: general_controller.rb,v 1.6 2008-03-10 02:05:01 francis Exp $
+# $Id: general_controller.rb,v 1.7 2008-03-10 12:24:10 francis Exp $
 
 class GeneralController < ApplicationController
 
@@ -76,6 +76,11 @@ class GeneralController < ApplicationController
         @highlighting = @solr_object.highlights
     end
  
+    def fai_test
+        sleep 10
+        render :text => "awake\n"
+    end
+
     private
 
     # Used in front page search for public body
@@ -88,5 +93,6 @@ class GeneralController < ApplicationController
                     :order => 'name', :limit=>10)  
         return @public_bodies
     end
+
 end
  

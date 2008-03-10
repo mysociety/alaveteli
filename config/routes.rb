@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: routes.rb,v 1.43 2008-03-07 23:13:39 francis Exp $
+# $Id: routes.rb,v 1.44 2008-03-10 12:24:11 francis Exp $
 
 ActionController::Routing::Routes.draw do |map|
     # The priority is based upon order of creation: first created -> highest priority.
@@ -19,6 +19,8 @@ ActionController::Routing::Routes.draw do |map|
 
       general.search_redirect '/search',      :action => 'search_redirect'
       general.search '/search/*query',      :action => 'search'
+
+      general.fai_test '/test', :action => 'fai_test'
     end
 
     map.with_options :controller => 'request' do |request|
