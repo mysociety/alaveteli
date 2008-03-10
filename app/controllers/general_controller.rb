@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: general_controller.rb,v 1.7 2008-03-10 12:24:10 francis Exp $
+# $Id: general_controller.rb,v 1.8 2008-03-10 13:06:53 francis Exp $
 
 class GeneralController < ApplicationController
 
@@ -25,7 +25,7 @@ class GeneralController < ApplicationController
             # Try and do exact match - redirect if it is made
             @public_body = PublicBody.find_by_name(params[:public_body][:query])
             if not @public_body.nil?
-                redirect_to new_request_to_body_url(:public_body_id => @public_body.id.to_s)
+                redirect_to public_body_url(@public_body)
             end
             # Otherwise use search engine to find public body
             @public_bodies = public_body_query(params[:public_body][:query])
