@@ -9,6 +9,9 @@
    <p>
        <%= text_field_tag 'query', @query, { :size => 40 } %>
        <%= submit_tag "Search" %>
+       <% if not @search_results.nil? and not @search_results.empty? %>
+           &nbsp;&nbsp;<a href="/search">Advanced tips</a>
+       <% end %>
    </p>
 <% end %>
 
@@ -37,5 +40,25 @@
     <% end %>
 
     <%= will_paginate WillPaginate::Collection.new(params[:page]||1, @per_page, @solr_object.total_hits) %>
+<% end %>
 
+<% if @search_results.nil? or @search_results.empty? %>
+    <h2>Search tips</h2>
+    <ul>
+    <li>Enter words that you want to find, e.g. climbing lane</li>
+    <li>Use OR (in capital letters) where you don't mind which word,  e.g. commons OR lords
+    <li>Use quotes when you want to find an exact phrase, e.g. "Liverpool City Council"
+    <li>Type status: to select based on the status of the request.
+        <table>
+        <tr><td>status:waiting_response</td><td> Waiting for the public body to reply </td></tr>
+        <tr><td>status:waiting_response_overdue</td><td> Waiting for the public body to reply, they are late </td></tr>
+        <tr><td>status:partially_successful</td><td> Some of the information requested has been received </td></tr>
+        <tr><td>status:successful</td><td> All of the information requested has been received </td></tr>
+        <tr><td>status:rejected</td><td> The request was rejected by the public body </td></tr>
+        <tr><td>status:waiting_clarification</td><td> The public body would like part of the request explained </td></tr>
+        <tr><td>status:waiting_classification</td><td> A new response has arrived, but it hasn't been categorised yet </td></tr>
+        <tr><td>status:requires_admin</td><td> A strange reponse, required attention by the WhatDoTheyKnow team </td></tr>
+        </table>
+    <li>Read about <a href="http://lucene.apache.org/java/docs/queryparsersyntax.html">advanced search operators</a>, such as fuzziness and proximity.
+    </ul>
 <% end %>

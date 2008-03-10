@@ -1,9 +1,11 @@
 Search:
 
-Put search box in the right places
+Date ranges http://lucene.apache.org/java/docs/queryparsersyntax.html
 
-Status - document how it works
-Date ranges 
+Search by type of public body
+
+Hide backpaged things from search
+http://www.whatdotheyknow.com/search/status:successful%20OR%20status:partially_successful
 
 cron jobs aren't running?
 

@@ -123,11 +123,17 @@ a:active {
     background-color: #79b837;
     color: #c7eb6e;
 }
+#navigation_search {
+    position: absolute;
+    top: -0.5em;
+    right: 2em;
+}
 
 #logged_in_bar {
     text-align: right;
     margin-top: 0.5em;
-    margin-right: 1em;
+    margin-right: 2em;
+    margin-left: 1em;
 }
 
 #footer {
