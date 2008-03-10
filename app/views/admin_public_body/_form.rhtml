@@ -3,7 +3,7 @@
 <!--[form:public_body]-->
 <p><label for="public_body_name">Name</label><br/>
 <%= text_field 'public_body', 'name', :size => 60  %></p>
-<p><label for="public_body_short_name">Short name (also used to make URL, leave blank for same as name. Don't worry about breaking URLs through renaming, as the history is used to redirect)</label><br/>
+<p><label for="public_body_short_name">Short name (only put in abbreviations which are really used, otherwise leave blank. Short or long name is used in the URL - don't worry about breaking URLs through renaming, as the history is used to redirect)</label><br/>
 <%= text_field 'public_body', 'short_name', :size => 60  %></p>
 <p><label for="public_body_tag_string">Tags (space separated:
     <% for category, description in PublicBody.categories_by_tag %>
