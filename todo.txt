@@ -1,17 +1,9 @@
 Search:
 
-remove highlight_words var
-escape HTML in solr returned highlighting
-
 Put search box in the right places
 
 Status - document how it works
 Date ranges 
-
-Rubbish highlighting:
-http://www.whatdotheyknow.com/search/%22MS%20Office%22
-Seems to be returning text anyway, so may as well highlight
-http://localhost:8999/solr/select/?q=house&version=2.2&start=0&rows=10&indent=on
 
 cron jobs aren't running?
 

@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: general_controller.rb,v 1.5 2008-03-10 00:48:55 francis Exp $
+# $Id: general_controller.rb,v 1.6 2008-03-10 02:05:01 francis Exp $
 
 class GeneralController < ApplicationController
 
@@ -52,6 +52,7 @@ class GeneralController < ApplicationController
         @per_page = 20
         @query = params[:query].join("/")
 
+        # Used for simpler word highlighting view code for users and public bodies
         query_nopunc = @query.gsub(/[^a-z0-9]/i, " ")
         query_nopunc = query_nopunc.gsub(/\s+/, " ")
         @highlight_words = query_nopunc.split(" ")
@@ -70,6 +71,8 @@ class GeneralController < ApplicationController
             ]}
         )
         @search_results = @solr_object.results
+
+        # Extract better Solr highlighting for info request related results
         @highlighting = @solr_object.highlights
     end
  
