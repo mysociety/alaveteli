@@ -6,7 +6,7 @@ module ActsAsSolr #:nodoc:
     
     # Method used by mostly all the ClassMethods when doing a search
     def parse_query(query=nil, options={}, models=nil)
-      valid_options = [:offset, :limit, :facets, :models, :results_format, :order, :scores, :operator]
+      valid_options = [:offset, :limit, :facets, :models, :results_format, :order, :scores, :operator, :highlight]
       query_options = {}
       return if query.nil?
       raise "Invalid parameters: #{(options.keys - valid_options).join(',')}" unless (options.keys - valid_options).empty?
@@ -41,6 +41,17 @@ module ActsAsSolr #:nodoc:
         order = options[:order].split(/\s*,\s*/).collect{|e| e.gsub(/\s+/,'_t ').gsub(/\bscore_t\b/, 'score')  }.join(',') if options[:order] 
         query_options[:query] = replace_types([query])[0] # TODO adjust replace_types to work with String or Array  
 
+        if options[:highlight]
+          query_options[:highlighting] = {}
+          query_options[:highlighting][:field_list] = []
+          query_options[:highlighting][:field_list] << options[:highlight][:fields].collect {|k| "#{k}_t"} if options[:highlight][:fields]
+          query_options[:highlighting][:require_field_match] =  options[:highlight][:require_field_match] if options[:highlight][:require_field_match]
+          query_options[:highlighting][:max_snippets] = options[:highlight][:max_snippets] if options[:highlight][:max_snippets]
+          query_options[:highlighting][:fragsize] = options[:highlight][:fragsize] if options[:highlight][:fragsize]
+          query_options[:highlighting][:prefix] = options[:highlight][:prefix] if options[:highlight][:prefix]
+          query_options[:highlighting][:suffix] = options[:highlight][:suffix] if options[:highlight][:suffix]
+        end
+
         if options[:order]
           # TODO: set the sort parameter instead of the old ;order. style.
           query_options[:query] << ';' << replace_types([order], false)[0]
@@ -70,12 +81,18 @@ module ActsAsSolr #:nodoc:
       conditions = [ "#{self.table_name}.#{primary_key} in (?)", ids ]
       result = configuration[:format] == :objects ? reorder(self.find(:all, :conditions => conditions), ids) : ids
       add_scores(result, solr_data) if configuration[:format] == :objects && options[:scores]
-      
+      highlighted = {}
+      solr_data.highlighting.map do |x,y| 
+        e={}
+        y1=y.map{|x1,y1| e[x1.gsub(/_[^_]*/,"")]=y1} unless y.nil?
+        highlighted[x.gsub(/[^:]*:/,"").to_i]=e
+      end unless solr_data.highlighting.nil?
+
       results.update(:facets => solr_data.data['facet_counts']) if options[:facets]
       results.update({:docs => result, :total => solr_data.total, :max_score => solr_data.max_score})
+      results.update({:highlights=>highlighted})
       SearchResults.new(results)
     end
-    
     # Reorders the instances keeping the order returned from Solr
     def reorder(things, ids)
       ordered_things = []
@@ -85,6 +102,53 @@ module ActsAsSolr #:nodoc:
         ordered_things << record
       end
       ordered_things
+    end
+
+ 
+    # Parses the data returned from Solr
+    # XXX can be merged with parse_results
+    def multi_parse_results(solr_data, options = {})
+      results = {
+        :docs => [],
+        :total => 0
+      }
+      configuration = {
+        :format => :objects
+      }
+      results.update(:facets => {'facet_fields' => []}) if options[:facets]
+      return SearchResults.new(results) if solr_data.total == 0
+      
+      configuration.update(options) if options.is_a?(Hash)
+
+      result = []
+      docs = solr_data.docs
+      if options[:results_format] == :objects
+        docs.each{|doc| k = doc.fetch('id').to_s.split(':'); result << k[0].constantize.find_by_id(k[1])}
+      elsif options[:results_format] == :ids
+        docs.each{|doc| result << {"id"=>doc.values.pop.to_s}}
+      end
+
+      #ids = solr_data.docs.collect {|doc| doc["#{solr_configuration[:primary_key_field]}"]}.flatten
+      #conditions = [ "#{self.table_name}.#{primary_key} in (?)", ids ]
+      #result = configuration[:format] == :objects ? reorder(self.find(:all, :conditions => conditions), ids) : ids
+
+      add_scores(result, solr_data) if configuration[:format] == :objects && options[:scores]
+      highlighted = {}
+      solr_data.highlighting.map do |x,y| 
+        e={}
+        y1=y.map{|x1,y1| e[x1.gsub(/_[^_]*/,"")]=y1} unless y.nil?
+        classname=x.gsub(/:[^:]*/,"")
+        id = x.gsub(/[^:]*:/,"").to_i
+        if highlighted[classname].nil?
+            highlighted[classname] = {}
+        end
+        highlighted[classname][id]=e
+      end unless solr_data.highlighting.nil?
+
+      results.update(:facets => solr_data.data['facet_counts']) if options[:facets]
+      results.update({:docs => result, :total => solr_data.total, :max_score => solr_data.max_score})
+      results.update({:highlights=>highlighted})
+      SearchResults.new(results)
     end
 
     # Replaces the field types based on the types (if any) specified

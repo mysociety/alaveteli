@@ -8,7 +8,7 @@
     <% end %>
 
     <br>
-    <%= excerpt_and_highlight(outgoing_message.body, @highlight_words) %>
+    <%= @highlighting['OutgoingMessage'][outgoing_message.id].values.join(" ") %>
     <br>
 
     <span class="request_listing_bottomline">

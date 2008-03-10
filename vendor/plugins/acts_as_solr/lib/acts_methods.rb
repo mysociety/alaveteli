@@ -116,7 +116,7 @@ module ActsAsSolr #:nodoc:
         :if => "true"
       }  
       self.solr_configuration = {
-        :type_field => "type_t",
+        :type_field => "type_s", # was type_t in original, but that breaks highlighting as words in class names get highlighted
         :primary_key_field => "pk_i",
         :default_boost => 1.0
       }

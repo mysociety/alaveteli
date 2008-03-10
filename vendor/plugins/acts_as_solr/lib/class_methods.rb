@@ -90,20 +90,11 @@ module ActsAsSolr #:nodoc:
     # 
     def multi_solr_search(query, options = {})
       models = "AND (#{solr_configuration[:type_field]}:#{self.name}"
-      options[:models].each{|m| models << " OR type_t:"+m.to_s} if options[:models].is_a?(Array)
+      options[:models].each{|m| models << " OR #{solr_configuration[:type_field]}:"+m.to_s} if options[:models].is_a?(Array)
       options.update(:results_format => :objects) unless options[:results_format]
       data = parse_query(query, options, models<<")")
-      result = []
-      if data
-        docs = data.docs
-        return SearchResults.new(:docs => [], :total => 0) if data.total == 0
-        if options[:results_format] == :objects
-          docs.each{|doc| k = doc.fetch('id').to_s.split(':'); result << k[0].constantize.find_by_id(k[1])}
-        elsif options[:results_format] == :ids
-          docs.each{|doc| result << {"id"=>doc.values.pop.to_s}}
-        end
-        SearchResults.new :docs => result, :total => data.total
-      end
+
+      return multi_parse_results(data, options) if data
     end
     
     # returns the total number of documents found in the query specified:

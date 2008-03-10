@@ -94,6 +94,7 @@ class Solr::Request::Standard < Solr::Request::Select
     if @params[:highlighting]
       hash[:hl] = true
       hash["hl.fl"] = @params[:highlighting][:field_list].join(',') if @params[:highlighting][:field_list]
+      hash["hl.fragsize"] = @params[:highlighting][:fragsize]
       hash["hl.snippets"] = @params[:highlighting][:max_snippets]
       hash["hl.requireFieldMatch"] = @params[:highlighting][:require_field_match]
       hash["hl.simple.pre"] = @params[:highlighting][:prefix]

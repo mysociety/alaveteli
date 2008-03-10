@@ -1,28 +1,19 @@
-CVS commit message:
-Index first message text with info requests themselves.
-Fix routing for search queries with full stops in.
-Public body search indexing.
-User search indexing.
-Link to specific users out of ones with same name.
-
-
 Search:
 
-Status and stuff
-Date ranges 
+remove highlight_words var
+escape HTML in solr returned highlighting
 
-Search for users
-Search for public bodies
+Put search box in the right places
+
+Status - document how it works
+Date ranges 
 
 Rubbish highlighting:
 http://www.whatdotheyknow.com/search/%22MS%20Office%22
 Seems to be returning text anyway, so may as well highlight
 http://localhost:8999/solr/select/?q=house&version=2.2&start=0&rows=10&indent=on
 
-One of the PDFs on live site has:
-Error: PDF version 1.6 -- xpdf supports version 1.5 (continuing anyway)
-Need to upgrade to poppler-utils?
-
+cron jobs aren't running?
 
 Should we index by individual piece of correspondence, or by whole info requests?
     Advantages of individual:
@@ -88,6 +79,10 @@ Send email to remind people to clarify
 
 Later
 =====
+
+One of the PDFs on live site has:
+Error: PDF version 1.6 -- xpdf supports version 1.5 (continuing anyway)
+Need to upgrade to poppler-utils?
 
 Add lots more UNIQUE indices
 

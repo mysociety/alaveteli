@@ -31,6 +31,6 @@ class Test::Unit::TestCase
   
   private
   def self.clear_from_solr(table_name)
-    ActsAsSolr::Post.execute(Solr::Request::Delete.new(:query => "type_t:#{table_name.to_s.capitalize.singularize}"))
+    ActsAsSolr::Post.execute(Solr::Request::Delete.new(:query => "type_s:#{table_name.to_s.capitalize.singularize}"))
   end
 end

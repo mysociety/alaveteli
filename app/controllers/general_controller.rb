@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: general_controller.rb,v 1.4 2008-03-07 23:13:38 francis Exp $
+# $Id: general_controller.rb,v 1.5 2008-03-10 00:48:55 francis Exp $
 
 class GeneralController < ApplicationController
 
@@ -57,8 +57,20 @@ class GeneralController < ApplicationController
         @highlight_words = query_nopunc.split(" ")
 
         @solr_object = InfoRequest.multi_solr_search(@query, :models => [ OutgoingMessage, IncomingMessage, PublicBody, User ],
-            :limit => @per_page, :offset => ((params[:page]||"1").to_i-1) * @per_page)
+            :limit => @per_page, :offset => ((params[:page]||"1").to_i-1) * @per_page, 
+            :highlight => { 
+                :prefix => '<span class="highlight">',
+                :suffix => '</span>',
+                :fragsize => 250,
+                :fields => ["title", "initial_request_text", # InfoRequest
+                           "body", # OutgoingMessage 
+                           "get_text_for_indexing", # IncomingMessage
+                           "name", "short_name", # PublicBody
+                           "name" # User
+            ]}
+        )
         @search_results = @solr_object.results
+        @highlighting = @solr_object.highlights
     end
  
     private

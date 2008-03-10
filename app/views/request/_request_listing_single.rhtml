@@ -1,12 +1,17 @@
-<% if @highlight_words.nil? 
-      @highlight_words = [] 
-   end %>
-
 <p class="request_listing">
-    <%= link_to highlight_words(info_request.title, @highlight_words), request_url(info_request) %>
+    <% if not @highlighting.nil? and @highlighting['InfoRequest'][info_request.id].include?('title') %>
+        <%= link_to @highlighting['InfoRequest'][info_request.id]["title"], request_url(info_request) %>
+        <% @highlighting['InfoRequest'][info_request.id].delete("title") %>
+    <% else %>
+        <%= link_to h(info_request.title), request_url(info_request) %>
+    <% end %>
 
     <br>
-    <%= excerpt_and_highlight(info_request.initial_request_text, @highlight_words) %>
+    <% if not @highlighting.nil? and @highlighting['InfoRequest'][info_request.id].size > 0 %>
+        <%= @highlighting['InfoRequest'][info_request.id].values.join(" ") %>
+    <% else %>
+        <%= excerpt(info_request.initial_request_text, "", 150) %>
+    <% end %>
     <br>
 
     <span class="request_listing_bottomline">
