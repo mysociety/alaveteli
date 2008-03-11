@@ -32,9 +32,9 @@
         <li><%= link_to "About", about_url %></li>
     </ul>
     <div id="navigation_search">
-        <% form_tag({:controller => "general", :action => "search_redirect"}, {:id => "search_form"}) do %>
+        <% form_tag({:controller => "general", :action => "search_redirect"}, {:id => "navigation_search_form"}) do %>
            <p>
-               <%= text_field_tag 'query', params[:query], { :size => 25 } %>
+               <%= text_field_tag 'query', params[:query], { :size => 25, :id => "navigation_search_query" } %>
                <%= submit_tag "Search" %>
            </p>
         <% end %>
