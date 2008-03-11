@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.59 2008-03-10 11:24:14 francis Exp $
+# $Id: info_request.rb,v 1.60 2008-03-11 08:14:29 francis Exp $
 
 require 'digest/sha1'
 
@@ -74,12 +74,13 @@ class InfoRequest < ActiveRecord::Base
 
     $do_solr_index = false
     def self.update_solr_index
+        #STDERR.puts "self.update_solr_index"
         $do_solr_index = true
 
         # Index each item separately in a transaction, so solr_up_to_date is right 
         ids_to_refresh = InfoRequest.find(:all, :conditions => ["not solr_up_to_date"]).map() { |i| i.id }
         for id in ids_to_refresh
-            #puts "updating id " + id.to_s
+            #STDERR.puts "updating id " + id.to_s
             ActiveRecord::Base.transaction do
                 info_request = InfoRequest.find(id, :lock =>true)
                 if not info_request.solr_save
