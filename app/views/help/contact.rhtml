@@ -27,6 +27,7 @@
         <p>
             <label class="form_label" for="contact_name">Your name:</label>
             <%= f.text_field :name, :size => 20 %>
+            (or <%= link_to "sign in", signin_url(:r => request.request_uri) %>)
         </p>
 
         <p>
@@ -46,7 +47,7 @@
     </p>
 
     <div class="form_button">
-        <%= hidden_field_tag(:submitted_contact_form, { :value => 1 } ) %>
+        <%= hidden_field_tag(:submitted_contact_form, 1) %>
         <%= submit_tag "Send message" %>
     </div>
 
