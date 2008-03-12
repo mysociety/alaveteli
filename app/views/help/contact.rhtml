@@ -17,6 +17,12 @@
         answer your question quicker.
     </p>
     
+    <p class="form_note">
+        <strong>Note:</strong> This is for contacting the WhatDoTheyKnow
+        team only. If you are trying to send a new Freedom of Information
+        request to a public body, then <a href="/new">go here</a>. 
+    </p>
+    
     <% if not @user %>
         <p>
             <label class="form_label" for="contact_name">Your name:</label>
@@ -37,12 +43,6 @@
     <p>
         <label class="form_label" for="outgoing_message_body">Message:</label> 
         <%= f.text_area :message, :rows => 5, :cols => 50 %>
-    </p>
-
-    <p class="form_note">
-        <strong>Note:</strong> This is for contacting the WhatDoTheyKnow
-        team only. If you are trying to send a new Freedom of Information
-        request to part of the UK government, then <a href="/new">go here</a>. 
     </p>
 
     <div class="form_button">
