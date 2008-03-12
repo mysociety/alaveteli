@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 39
+# Schema version: 41
 #
 # Table name: users
 #
@@ -20,7 +20,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user.rb,v 1.34 2008-03-07 23:13:38 francis Exp $
+# $Id: user.rb,v 1.35 2008-03-12 16:07:13 francis Exp $
 
 require 'digest/sha1'
 
@@ -85,6 +85,13 @@ class User < ActiveRecord::Base
     end
     def update_url_name
         url_name = MySociety::Format.simplify_url_part(self.name)
+        if url_name.size > 32
+            url_name = url_name[0..31]
+        end
+        # For request with same name as others, tag on the request numeric id
+        while not User.find_by_url_name(url_name, :conditions => ["id <> ?", self.id] ).nil?
+            url_name += "_" + self.id.to_s
+        end
         write_attribute(:url_name, url_name)
     end
 

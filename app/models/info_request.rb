@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 39
+# Schema version: 41
 #
 # Table name: info_requests
 #
@@ -13,6 +13,7 @@
 #  awaiting_description :boolean         default(false), not null
 #  prominence           :string(255)     default("normal"), not null
 #  url_title            :text            not null
+#  solr_up_to_date      :boolean         default(false), not null
 #
 
 # models/info_request.rb:
@@ -21,7 +22,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.60 2008-03-11 08:14:29 francis Exp $
+# $Id: info_request.rb,v 1.61 2008-03-12 16:07:13 francis Exp $
 
 require 'digest/sha1'
 
@@ -126,7 +127,7 @@ public
         end
         # For request with same name as others, tag on the request numeric id
         while not InfoRequest.find_by_url_title(url_title, :conditions => ["id <> ?", self.id] ).nil?
-            url_title += "-" + self.id.to_s
+            url_title += "_" + self.id.to_s
         end
         write_attribute(:url_title, url_title)
     end

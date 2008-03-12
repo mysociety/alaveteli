@@ -1,6 +1,6 @@
 Contact:
-Fix user pages properly
-Privacy policy
+    Privacy policy on new account page
+    Check messages look nice
 
 
 

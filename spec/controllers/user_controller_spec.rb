@@ -21,7 +21,7 @@ describe UserController, "when showing a user" do
 
     it "should assign the user" do
         get :show, :url_name => "bob_smith"
-        assigns[:display_users].should == [ users(:bob_smith_user) ]
+        assigns[:display_user].should == users(:bob_smith_user)
     end
 
 # Error handling not quite good enough for this yet

@@ -1,27 +1,29 @@
-<% @title = h(@display_users[0].name) %>
+<% @title = h(@display_user.name) %>
 
-<% if (@display_users.size > 1) %>
-    <p>There are <strong><%=@display_users.size%> people</strong> who've used this site called <%=h(@display_users[0].name)%>.
+<% if (@same_name_users.size >= 1) %>
+    <p>This is <strong>one person</strong> who uses this site and has this name, you may
+    mean a different one:
+    <% for @same_name_user in @same_name_users %>
+        <%= user_link(@same_name_user) %>
+    <% end %> 
 <% end%>
 
-<% for display_user in @display_users %>
-    <div class="single_user" id="user-<%=display_user.id.to_s%>">
-        <h1><%=@title%></h1>
-        <p class="subtitle">Joined on <%= simple_date(display_user.created_at) %></p>
+<div class="single_user" id="user-<%=@display_user.id.to_s%>">
+    <h1><%=@title%></h1>
+    <p class="subtitle">Joined on <%= simple_date(@display_user.created_at) %></p>
 
-        <p><%= link_to "Send message to " + h(display_user.name), contact_user_url(:id => display_user.id) %></p>
+    <p><%= link_to "Send message to " + h(@display_user.name), contact_user_url(:id => @display_user.id) %></p>
 
-        <% if display_user.info_requests.empty? %>
-            <p><%= display_user == @user ? 'You have' : 'This person has' %>
-            made no Freedom of Information requests using this site.</p>
+    <% if @display_user.info_requests.empty? %>
+        <p><%= @display_user == @user ? 'You have' : 'This person has' %>
+        made no Freedom of Information requests using this site.</p>
 
-        <% else %>
-            <h2>
-            <%=pluralize(display_user.info_requests.size, "Freedom of Information request") %>
-            </h2>
+    <% else %>
+        <h2>
+        <%=pluralize(@display_user.info_requests.size, "Freedom of Information request") %>
+        </h2>
 
-            <%= render :partial => 'request/request_listing', :locals => { :info_requests => display_user.info_requests.sort { |a,b| b.created_at <=> a.created_at } } %>
-        <% end %>
-    </div>
-<% end %>
+        <%= render :partial => 'request/request_listing', :locals => { :info_requests => @display_user.info_requests.sort { |a,b| b.created_at <=> a.created_at } } %>
+    <% end %>
+</div>
 
