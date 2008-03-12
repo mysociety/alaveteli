@@ -1,5 +1,4 @@
 Contact:
-    Privacy policy on new account page
     Check messages look nice
 
 
