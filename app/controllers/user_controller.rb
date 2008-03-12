@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user_controller.rb,v 1.35 2008-03-06 14:15:41 francis Exp $
+# $Id: user_controller.rb,v 1.36 2008-03-12 13:01:04 francis Exp $
 
 class UserController < ApplicationController
     # Show page about a set of users with same url name
@@ -163,6 +163,46 @@ class UserController < ApplicationController
                 render :action => 'signchange'
             end
         end
+    end
+
+    # Send a message to another user
+    def contact
+        @recipient_user = User.find(params[:id])
+
+        # You *must* be logged into send a message to another user. (This is
+        # partly to avoid spam, and partly to have some equanimity of openess
+        # between the two users)
+        if not authenticated?(
+                :web => "To send a message to " + CGI.escapeHTML(@recipient_user.name),
+                :email => "Then you can send a message to " + @recipient_user.name + ".",
+                :email_subject => "Send a message to " + @recipient_user.name
+            )
+            # "authenticated?" has done the redirect to signin page for us
+            return
+        end
+
+        if params[:submitted_contact_form]
+            params[:contact][:name] = @user.name
+            params[:contact][:email] = @user.email
+            @contact = ContactValidator.new(params[:contact])
+            if @contact.valid?
+                ContactMailer.deliver_user_message(
+                    @user,
+                    @recipient_user,
+                    main_url(user_url(@recipient_user)),
+                    params[:contact][:subject],
+                    params[:contact][:message]
+                )
+                flash[:notice] = "Your message to " + CGI.escapeHTML(@recipient_user.name) + " has been sent!"
+                redirect_to user_url(@recipient_user)
+                return
+            end
+        else
+            @contact = ContactValidator.new(
+                { :message => "" + @recipient_user.name + ",\n\n\n\nYours,\n\n" + @user.name }
+            )
+        end
+  
     end
 
 

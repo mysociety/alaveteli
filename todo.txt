@@ -1,3 +1,9 @@
+Contact:
+Fix user pages properly
+Privacy policy
+
+
+
 Search:
 
 Date ranges http://lucene.apache.org/java/docs/queryparsersyntax.html
@@ -7,7 +13,7 @@ Search by type of public body
 Hide backpaged things from search
 http://www.whatdotheyknow.com/search/status:successful%20OR%20status:partially_successful
 
-cron jobs aren't running?
+cron jobs aren't running, some weirdness with run-with-lockfile
 
 Should we index by individual piece of correspondence, or by whole info requests?
     Advantages of individual:
@@ -17,6 +23,15 @@ Should we index by individual piece of correspondence, or by whole info requests
         Easier to alert to new correspondence on request containing keyword
         Shorter search results
         Syntax of filtering requests by type is clearer
+
+Send mail re university requests
+    http://www.whatdotheyknow.com/user/jennifer_jones#user-55
+    Mention duty to provide assistance:
+    http://opsi.gov.uk/acts/acts2000/ukpga_20000036_en_2#pt1-pb1-l1g16
+    http://www.caat.org.uk/campaigns/clean-investment/universities/
+
+This search gives a runtime error:
+    "19 hours
 
 FOI requests to use to test it
 ==============================
@@ -32,6 +47,8 @@ BAILII - relationship with law courts, robots.txt ?
 
 Next
 ====
+
+Page of new responses - so I don't have to go into email
 
 Need something to mark contact as bad, e.g. for university of huddersfield
 
@@ -73,6 +90,12 @@ Send email to remind people to clarify
 
 Later
 =====
+
+Preview when sending followups - especially people need to see quoting/subject
+when sending "my response is late"
+
+Holding pen with comments - new requests don't get sent straight away, but are
+    delayed while people help improve them.
 
 One of the PDFs on live site has:
 Error: PDF version 1.6 -- xpdf supports version 1.5 (continuing anyway)
@@ -151,7 +174,10 @@ http://www.liverpool.gov.uk/Council_government_and_democracy/About_your_council/
 For grey hints in input fields
 http://pauldowman.com/projects/fieldhints/
 
-Forgotten password link
+Hyperlink Section 1(3) to the act
+    http://www.whatdotheyknow.com/request/49/response/86
+and to guidance notes
+    http://www.ico.gov.uk/what_we_cover/freedom_of_information/guidance.aspx
 
 Way of contacting other users
     "We will not reveal your email address to anybody" - are there circumstances

@@ -1,0 +1,14 @@
+Hi <%=@recipient_user.name%>,
+
+<%=@from_user.name%> has used WhatDoTheyKnow to send you the message below.
+Your details have not been given to anyone, unless you choose to reply to this
+message, which will then go directly to the person who wrote the message.
+
+See the Freedom of Information requests that they have made: 
+<%= @recipient_url %>
+
+-- the WhatDoTheyKnow team
+
+---------------------------------------------------------------------
+
+<%= @message.strip %>
