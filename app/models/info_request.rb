@@ -22,7 +22,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.62 2008-03-13 11:29:47 francis Exp $
+# $Id: info_request.rb,v 1.63 2008-03-13 12:15:21 francis Exp $
 
 require 'digest/sha1'
 
@@ -84,23 +84,38 @@ class InfoRequest < ActiveRecord::Base
             #STDERR.puts "updating id " + id.to_s
             ActiveRecord::Base.transaction do
                 info_request = InfoRequest.find(id, :lock =>true)
-                if not info_request.solr_save
-                    raise "failed to solr_save"
+                do_index = (info_request.prominence != 'backpage')
+
+                if do_index
+                    if not info_request.solr_save
+                        raise "failed to solr_save"
+                    end
+                else
+                    if not info_request.solr_destroy
+                        raise "failed to solr_destroy"
+                    end
                 end
+
                 for outgoing_message in info_request.outgoing_messages
                     # Initial request text is indexed for InfoRequest models -
                     # see :initial_request_text in acts_as_solr entry above
-                    if outgoing_message.message_type != 'initial_request' 
+                    if do_index and outgoing_message.message_type != 'initial_request' 
                         outgoing_message.solr_save
                     else
                         outgoing_message.solr_destroy
                     end
                 end
                 for incoming_message in info_request.incoming_messages
-                    incoming_message.solr_save
+                    if do_index 
+                        incoming_message.solr_save
+                    else
+                        incoming_message.solr_destroy
+                    end
                 end
                 info_request.solr_up_to_date = true
+                $do_solr_index = false # disable indexing again while we save it, or else destroyed things get put back
                 info_request.save!
+                $do_solr_index = true
             end
         end
         InfoRequest.solr_optimize

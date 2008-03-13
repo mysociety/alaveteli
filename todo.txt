@@ -4,14 +4,13 @@ Contact:
 
 Search:
 
+Gah - test to see if it queries solr when new message arrives
+
 Date sorting
     - add public bodies and users
     - make updated at use last event date
 
 Search by tags on public bodies
-
-Hide backpaged things from search
-http://www.whatdotheyknow.com/search/status:successful%20OR%20status:partially_successful
 
 cron jobs aren't running, some weirdness with run-with-lockfile
 
