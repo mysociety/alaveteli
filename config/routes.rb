@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: routes.rb,v 1.45 2008-03-12 13:01:05 francis Exp $
+# $Id: routes.rb,v 1.46 2008-03-13 11:29:47 francis Exp $
 
 ActionController::Routing::Routes.draw do |map|
     # The priority is based upon order of creation: first created -> highest priority.
@@ -18,7 +18,7 @@ ActionController::Routing::Routes.draw do |map|
       general.auto_complete_for_public_body_query 'auto_complete_for_public_body_query', :action => 'auto_complete_for_public_body_query'
 
       general.search_redirect '/search',      :action => 'search_redirect'
-      general.search '/search/*query',      :action => 'search'
+      general.search '/search/:query/:sortby',      :action => 'search', :sortby => nil
 
       general.fai_test '/test', :action => 'fai_test'
     end

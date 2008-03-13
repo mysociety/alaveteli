@@ -2,6 +2,12 @@
 
 LOC=`dirname $0`
 
+# Info request (and hence incoming and outgoing message) indexing is updated
+# incrementally by this separate batch job. This is so when an incoming
+# message arrives it doesn't have to call Solr, so errors in the indexing won't
+# go back to public body.
 $LOC/runner 'InfoRequest.update_solr_index()'
 
+# Public bodies and users are updated by the model, immediately when it is saved.
+# So nothing to do for them.
 

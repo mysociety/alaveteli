@@ -37,7 +37,13 @@ module ActsAsSolr #:nodoc:
         end
         
         query_options[:field_list] = [field_list, 'score']
-        query = "(#{query.gsub(/ *: */,"_t:")}) #{models}"
+        if query.strip.empty? # make it work with empty queries
+            models.sub!("AND ", "")
+            query = models
+        else
+            query = "(#{query.gsub(/ *: */,"_t:")})"
+            query = query + " #{models}"
+        end
         order = options[:order].split(/\s*,\s*/).collect{|e| e.gsub(/\s+/,'_t ').gsub(/\bscore_t\b/, 'score')  }.join(',') if options[:order] 
         query_options[:query] = replace_types([query])[0] # TODO adjust replace_types to work with String or Array  
 

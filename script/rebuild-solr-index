@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Reindex everything in Solr, not just changed things
+
+LOC=`dirname $0`
+
+# Info requests are updated incrementally by update-solr-index, so first set
+# them all to not up to date, then rebuild.
+$LOC/runner "ActiveRecord::Base.connection.execute(\"update info_requests set solr_up_to_date = 'f'\")"
+$LOC/runner 'InfoRequest.update_solr_index()'
+
+# These are updated in real time when the model is changed - so they aren't
+# called in update-solr-index. So for this rebuild script, just rebuild them.
+$LOC/runner 'PublicBody.rebuild_solr_index()'
+$LOC/runner 'User.rebuild_solr_index()'
+

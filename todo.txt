@@ -1,13 +1,14 @@
 Contact:
-    Check messages look nice
-
+    Check user contact messages look nice on live site (think about subject?)
 
 
 Search:
 
-Date ranges http://lucene.apache.org/java/docs/queryparsersyntax.html
+Date sorting
+    - add public bodies and users
+    - make updated at use last event date
 
-Search by type of public body
+Search by tags on public bodies
 
 Hide backpaged things from search
 http://www.whatdotheyknow.com/search/status:successful%20OR%20status:partially_successful
@@ -62,8 +63,6 @@ Search and replace text "FOI" and "Freedom of Information" out the way more
  - but put it in the title tag
 "public body" --> "public authority"?
 
-hidden_field_tags are all wrong - they store value1 x
-
 Adam's woes:
 http://foi.mysociety.org/request/18/response/31
     - No doubt leaks email address via download.bin :(
@@ -77,18 +76,14 @@ Sort the requests by when something last happened to them (this needs thought as
 sort orders we need)
 Sort by due date
 
-Fix the fastcgi errors
-[Mon Jan 21 10:38:45 2008] [error] [client 81.107.40.81] FastCGI: incomplete headers (0 bytes) rec
-eived from server "/data/vhost/foi.mysociety.org/docs/dispatch.fcgi"
-
-"Government" in about page
-
 Send email to remind people to classify
 Send email to tell admins something isn't classified
 Send email to remind people to clarify
 
 Later
 =====
+
+Search date ranges http://lucene.apache.org/java/docs/queryparsersyntax.html (at Louise's mail)
 
 Preview when sending followups - especially people need to see quoting/subject
 when sending "my response is late"
@@ -121,10 +116,6 @@ Get deploying of Lucene search working
 
 Consider on staging sites making follow ups go to dummy address also
 
-Make the email address for responses 
-    - something bland for domain name
-    - perhaps put name of user in the part before the @ ?
-
 Synthesise these tips into our handful of snappy snappy bullet points
     http://community.foe.co.uk/tools/right_to_know/tips.html
     http://www.justice.gov.uk/requestinginformation.htm
@@ -140,15 +131,13 @@ Generic alerting/tracking system including
 Requests with related content
 Blog posts / Wikipedia articles about this request
 
-Finish about page. Use these:
-    http://www.ico.gov.uk/for_the_public/access_to_official_information.aspx
-
 Remember me box
     This can't possible be the best way, it is too depressing:
     http://onrails.org/articles/2006/02/18/auto-login
 
 Screen scrape this and add link to it on the public body page
 http://www.ico.gov.uk/Home/tools_and_resources/decision_notices.aspx
+
 
 (10:32:14) richard: you just need to count the number of rows of text and compare it to the number of rows in the textbox
 (10:32:29) richard: then increase the height of the textbox by 1em-ish
@@ -161,15 +150,6 @@ http://www.mysociety.org/moin.cgi/FreedomOfInformation
 And comments on proposal
 http://www.mysociety.org/2006/04/04/freedom-of-information-archive/
 
-Check FOE site lots
-http://community.foe.co.uk/tools/right_to_know/request_generator.html
-
-Look at this basic US site
-http://www.rcfp.org/foi_letter/generate.php
-
-This is interesting
-http://www.liverpool.gov.uk/Council_government_and_democracy/About_your_council/Data_protection_and_FOI/FOI/Suppliers_and_Contractors/index.asp
-
 For grey hints in input fields
 http://pauldowman.com/projects/fieldhints/
 
@@ -178,18 +158,10 @@ Hyperlink Section 1(3) to the act
 and to guidance notes
     http://www.ico.gov.uk/what_we_cover/freedom_of_information/guidance.aspx
 
-Way of contacting other users
-    "We will not reveal your email address to anybody" - are there circumstances
-     (e.g. somebody messaging creator of a request and it bouncing) where we
-     may reasonably do this, and should say it may happen?
-     -- I think this is fine EXCEPT for the facility to send messages. Do we have
-     fake hash addresses two way for each user for the message-to-user sending
-     thing? Would make sense.
-
 Properly escape all name_and_email functions
 
 Give hotline to call body for extra help
-Advice and assistance in making FoI requests to the House of Lords is available
+e.g. Advice and assistance in making FoI requests to the House of Lords is available
 from the Freedom of Information Officer, Parliamentary Archives, House of
 Lords. London SW1A 0PW. Telephone 020 7219 0100. E-mail: foilords@parliament.uk
 http://www.parliament.uk/parliamentary_publications_and_archives/freedom_of_information_in_the_house_of_lords/lords__foi___how_to_obtain_information.cfm
@@ -197,8 +169,6 @@ http://www.parliament.uk/parliamentary_publications_and_archives/freedom_of_info
 Including 'Request for information' in the subject line of your e-mail will assist us in prioritising your request.
 http://www.parliament.uk/parliamentary_publications_and_archives/freedom_of_information_in_the_house_of_lords/lords__foi___how_to_obtain_information.cfm
 Medway also hint at this with subject= on mailto link
-
-Consider putting the requesting user's name in the request's magic email address
 
 Ask what they learnt from request, and other things?
     and reward by putting their request on front page
@@ -217,6 +187,7 @@ e.g.
 
 Environmental Information Regulations apply for some bodies (e.g. environment agency) do automatically
     tag such bodies eir?
+http://community.foe.co.uk/tools/right_to_know/faq.html#why_specify
 
 Add geographical location to council import
 
@@ -245,7 +216,8 @@ Schools list: www.edubase.gov.uk
 Heather has emailed me NHS Trusts providing Mental Health Services
 
 FOE site has email addresses of lots of bodies, e.g.
-http://community.foe.co.uk/app/tc
+    http://community.foe.co.uk/app/tc
+Has handy links to publication schemes that are now mainly broken
 
 Be sure to add:
 - all in schedule 1

@@ -22,7 +22,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.61 2008-03-12 16:07:13 francis Exp $
+# $Id: info_request.rb,v 1.62 2008-03-13 11:29:47 francis Exp $
 
 require 'digest/sha1'
 
@@ -66,8 +66,8 @@ class InfoRequest < ActiveRecord::Base
     acts_as_solr :fields => [ 
         :title, 
         :initial_request_text, 
-        { :status => :string }
-#        { :created_at => :date } 
+        { :status => :string },
+        { :created_at => :date }
     ], :if => "$do_solr_index"
     def status # for name in Solr queries
         calculate_status

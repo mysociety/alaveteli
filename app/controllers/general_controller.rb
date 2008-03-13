@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: general_controller.rb,v 1.8 2008-03-10 13:06:53 francis Exp $
+# $Id: general_controller.rb,v 1.9 2008-03-13 11:29:46 francis Exp $
 
 class GeneralController < ApplicationController
 
@@ -50,7 +50,18 @@ class GeneralController < ApplicationController
     # Actual search
     def search
         @per_page = 20
-        @query = params[:query].join("/")
+        @query = params[:query]
+        @sortby = params[:sortby]
+        @page = (params[:page] || "1").to_i
+
+        # Work out sorting method
+        if @sortby.nil?
+            order = nil
+        elsif @sortby == 'newest'
+            order = 'created_at desc'
+        else
+            raise "Unknown sort order " + @sortby
+        end
 
         # Used for simpler word highlighting view code for users and public bodies
         query_nopunc = @query.gsub(/[^a-z0-9]/i, " ")
@@ -58,7 +69,7 @@ class GeneralController < ApplicationController
         @highlight_words = query_nopunc.split(" ")
 
         @solr_object = InfoRequest.multi_solr_search(@query, :models => [ OutgoingMessage, IncomingMessage, PublicBody, User ],
-            :limit => @per_page, :offset => ((params[:page]||"1").to_i-1) * @per_page, 
+            :limit => @per_page, :offset => (@page - 1) * @per_page, 
             :highlight => { 
                 :prefix => '<span class="highlight">',
                 :suffix => '</span>',
@@ -68,9 +79,10 @@ class GeneralController < ApplicationController
                            "get_text_for_indexing", # IncomingMessage
                            "name", "short_name", # PublicBody
                            "name" # User
-            ]}
+            ]}, :order => order
         )
         @search_results = @solr_object.results
+        @search_hits = @solr_object.total_hits
 
         # Extract better Solr highlighting for info request related results
         @highlighting = @solr_object.highlights

@@ -18,7 +18,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.57 2008-03-12 16:07:13 francis Exp $
+# $Id: incoming_message.rb,v 1.58 2008-03-13 11:29:47 francis Exp $
 
 
 # TODO
@@ -50,7 +50,10 @@ class IncomingMessage < ActiveRecord::Base
 
     has_many :outgoing_message_followups, :class_name => OutgoingMessage
 
-    acts_as_solr :fields => [ :get_text_for_indexing ], :if => "$do_solr_index"
+    acts_as_solr :fields => [ 
+        :get_text_for_indexing,
+        { :created_at => :date }
+    ], :if => "$do_solr_index"
 
     # Return the structured TMail::Mail object
     # Documentation at http://i.loveruby.net/en/projects/tmail/doc/
