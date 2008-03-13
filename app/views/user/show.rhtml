@@ -10,17 +10,19 @@
 
 <div class="single_user" id="user-<%=@display_user.id.to_s%>">
     <h1><%=@title%></h1>
-    <p class="subtitle">Joined on <%= simple_date(@display_user.created_at) %></p>
+    <p class="subtitle">Joined WhatDoTheyKnow on <%= simple_date(@display_user.created_at) %></p>
 
     <p><%= link_to "Send message to " + h(@display_user.name), contact_user_url(:id => @display_user.id) %></p>
 
     <% if @display_user.info_requests.empty? %>
+        <h2>Freedom of Information requests made by this person</h2>
         <p><%= @display_user == @user ? 'You have' : 'This person has' %>
         made no Freedom of Information requests using this site.</p>
 
     <% else %>
         <h2>
         <%=pluralize(@display_user.info_requests.size, "Freedom of Information request") %>
+        made by this person
         </h2>
 
         <%= render :partial => 'request/request_listing', :locals => { :info_requests => @display_user.info_requests.sort { |a,b| b.created_at <=> a.created_at } } %>

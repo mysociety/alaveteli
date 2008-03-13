@@ -3,7 +3,7 @@
 <h1><%=@title%></h1>
 
 <p class="subtitle">
-A public body in the UK<% if not @public_body.short_name.empty? %>, also called <%= h(@public_body.short_name) %><% end %>
+A public authority in the UK<% if not @public_body.short_name.empty? %>, also called <%= h(@public_body.short_name) %><% end %>
 </p>
 
 <p>
@@ -11,10 +11,13 @@ A public body in the UK<% if not @public_body.short_name.empty? %>, also called 
 </p>
 
 <% if @public_body.info_requests.empty? %>
-    <p>Nobody has made any Freedom of Information requests to this public body using this site.</p>
+    <h2>Freedom of Information requests made to this authority</h2>
+    <p>Nobody has made any Freedom of Information requests to this public authority using this site.</p>
 
 <% else %>
-    <p>People have made <%=pluralize(@public_body.info_requests.size, "Freedom of Information request") %> to this public body using this site.</p>
+    <h2>
+    <%=pluralize(@public_body.info_requests.size, "Freedom of Information request") %> made to this authority
+    </h2>
 
     <%= render :partial => 'request/request_listing', :locals => { :info_requests => @public_body.info_requests.sort { |a,b| b.created_at <=> a.created_at } } %>
 <% end %>
