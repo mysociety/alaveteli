@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user_controller.rb,v 1.38 2008-03-13 00:14:17 francis Exp $
+# $Id: user_controller.rb,v 1.39 2008-03-13 12:33:40 francis Exp $
 
 class UserController < ApplicationController
     # Show page about a set of users with same url name
@@ -193,7 +193,7 @@ class UserController < ApplicationController
                 ContactMailer.deliver_user_message(
                     @user,
                     @recipient_user,
-                    main_url(user_url(@recipient_user)),
+                    main_url(user_url(@user)),
                     params[:contact][:subject],
                     params[:contact][:message]
                 )

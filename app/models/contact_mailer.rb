@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: contact_mailer.rb,v 1.4 2008-03-12 13:01:04 francis Exp $
+# $Id: contact_mailer.rb,v 1.5 2008-03-13 12:33:40 francis Exp $
 
 class ContactMailer < ApplicationMailer
 
@@ -19,7 +19,7 @@ class ContactMailer < ApplicationMailer
     end
 
     # Send message to another user
-    def user_message(from_user, recipient_user, recipient_url,subject, message)
+    def user_message(from_user, recipient_user, from_user_url, subject, message)
         @from = from_user.name_and_email
         # Do not set envelope from address to the from_user, so they can't get
         # someone's email addresses from transitory bounce messages.
@@ -31,7 +31,7 @@ class ContactMailer < ApplicationMailer
             :message => message,
             :from_user => from_user,
             :recipient_user => recipient_user,
-            :recipient_url => recipient_url
+            :from_user_url => from_user_url
         }
     end
 
