@@ -22,7 +22,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.64 2008-03-14 09:47:31 francis Exp $
+# $Id: info_request.rb,v 1.65 2008-03-14 10:03:20 francis Exp $
 
 require 'digest/sha1'
 
@@ -74,6 +74,7 @@ class InfoRequest < ActiveRecord::Base
     end
 
     $do_solr_index = false
+    $do_solr_index_marking = false
     def self.update_solr_index
         #STDERR.puts "self.update_solr_index"
         $do_solr_index = true
@@ -113,8 +114,11 @@ class InfoRequest < ActiveRecord::Base
                     end
                 end
                 $do_solr_index = false # disable indexing again while we save it, or else destroyed things get put back
+                $do_solr_index_marking = true # but record that we want to set solr_up_to_date to be true, so before_update doesn't clobber it
                 info_request.solr_up_to_date = true
+                #STDERR.puts "saving " + info_request.solr_up_to_date.to_s
                 info_request.save!
+                $do_solr_index_marking = false
                 $do_solr_index = true
             end
         end
@@ -123,7 +127,7 @@ class InfoRequest < ActiveRecord::Base
     end
     def before_update
         # If we're not mid index, then mark we need to index later
-        if not $do_solr_index
+        if not $do_solr_index_marking
             self.solr_up_to_date = false
         end
         true
