@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_user_controller.rb,v 1.1 2008-01-22 18:34:15 francis Exp $
+# $Id: admin_user_controller.rb,v 1.2 2008-03-14 10:15:43 francis Exp $
 
 class AdminUserController < ApplicationController
     layout "admin"
@@ -15,7 +15,10 @@ class AdminUserController < ApplicationController
     end
 
     def list
-        @admin_users = User.paginate :order => "name", :page => params[:page], :per_page => 100
+        @query = params[:query]
+        @admin_users = User.paginate :order => "name", :page => params[:page], :per_page => 100,
+            :conditions =>  @query.nil? ? nil : ["name ilike '%'||?||'%' or 
+                             email ilike '%'||?||'%'", @query, @query]
     end
 
     def show
