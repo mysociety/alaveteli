@@ -22,7 +22,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.63 2008-03-13 12:15:21 francis Exp $
+# $Id: info_request.rb,v 1.64 2008-03-14 09:47:31 francis Exp $
 
 require 'digest/sha1'
 
@@ -112,8 +112,8 @@ class InfoRequest < ActiveRecord::Base
                         incoming_message.solr_destroy
                     end
                 end
-                info_request.solr_up_to_date = true
                 $do_solr_index = false # disable indexing again while we save it, or else destroyed things get put back
+                info_request.solr_up_to_date = true
                 info_request.save!
                 $do_solr_index = true
             end

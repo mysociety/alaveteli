@@ -6,22 +6,13 @@ Search:
 
 Gah - test to see if it queries solr when new message arrives
 
-Date sorting
-    - add public bodies and users
-    - make updated at use last event date
+Search for successful requests now has bogus date order :( Doesn't fit in
+with paradigm of request / incoming message being separate objects.
+Perhaps we should be indexing events
 
 Search by tags on public bodies
 
-cron jobs aren't running, some weirdness with run-with-lockfile
-
-Should we index by individual piece of correspondence, or by whole info requests?
-    Advantages of individual:
-        Ordinary search results link more directly to object
-        Easy to alert when a new piece of correspondence occurs
-    Advantages of whole info requests:
-        Easier to alert to new correspondence on request containing keyword
-        Shorter search results
-        Syntax of filtering requests by type is clearer
+Check cron jobs are running
 
 Send mail re university requests
     http://www.whatdotheyknow.com/user/jennifer_jones#user-55
