@@ -1,3 +1,65 @@
-<!-- nothing here yet, just show navigation -->
+<% @title = "Overview" %>
 
+<h1><%=@title%></h1>
 
+<ul>
+<li><%=@public_body_count%> public bodies</li>
+<li><%=@info_request_count%> requests</li>
+<li><%=@user_count%> users</li>
+</ul>
+
+<h2><%=h @events_title%></h2>
+<a href="?">Week</a>
+| <a href="?month=1">Month</a>
+| <a href="?all=1">All time</a>
+
+<% last_date = nil %>
+<% for event in @events %>
+    <% if last_date != event.created_at.to_date %>
+    <h2><%= simple_date(event.created_at) %></h2>
+    <% end %>
+    <% last_date = event.created_at.to_date %>
+
+    <p>
+        '<%= link_to h(event.info_request.title), 'request/show/' + event.info_request.id.to_s %>'
+        <% if event.event_type == 'edit' %>
+            was edited by administrator <%=h event.params[:editor] %>.
+            <% for p in ['title', 'prominence', 'described_state', 'awaiting_description'] 
+                    if event.params[p.to_sym] != event.params[('old_'+p).to_sym]
+                        %> Changed <%=p%> from '<%=h event.params[('old_'+p).to_sym]%>' to '<%=h event.params[p.to_sym] %>'. <%
+                    end
+               end
+            %>
+        <% elsif event.event_type == 'edit_outgoing' %>
+            <% outgoing_messages = OutgoingMessage.find(:all, event.params[:outgoing_message_id].to_i) %>
+            had outgoing message edited by administrator <%=h event.params[:editor] %>.
+            <% if outgoing_messages.size > 0 %>
+                <% outgoing_message = outgoing_messages[0] %>
+                <% for p in ['body'] 
+                        if event.params[p.to_sym] != event.params[('old_'+p).to_sym]
+                            %> Changed <%=p%> from '<%=h event.params[('old_'+p).to_sym]%>' to '<%=h event.params[p.to_sym] %>'. <%
+                        end
+                   end
+                %>
+            <% else %>
+                Missing outgoing message, internal error.
+            <% end %>
+        <% elsif event.event_type == 'response' %>
+            <% incoming_message = IncomingMessage.find(event.params[:incoming_message_id]) %>
+            received 
+            <%= link_to 'a response', 
+                main_url(show_response_url(:id => incoming_message.info_request.id, :incoming_message_id => incoming_message.id)) %>
+
+            from <%=h event.info_request.public_body.name %>.
+        <% elsif event.event_type == 'sent' %>
+            was initially sent to <%=h event.params[:email]%> at <%=h event.info_request.public_body.name %>.
+        <% elsif event.event_type == 'resent' %>
+            had the request resent to <%=h event.params[:email]%> at <%=h event.info_request.public_body.name %>.
+        <% elsif event.event_type == 'followup_sent' %>
+            <% outgoing_messages = OutgoingMessage.find(:all, event.params[:outgoing_message_id].to_i) %>
+            had a follow up message sent to <%=h event.info_request.public_body.name %>.
+        <% else %>
+            had '<%=event.event_type%>' done to it, parameters <%=h event.params_yaml%>.
+        <% end %>
+    </p>
+<% end %>
