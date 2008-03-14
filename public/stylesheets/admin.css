@@ -1,7 +1,6 @@
 /* FOIFA admin CSS */
 
 table {
-    margin-top: 1em;
     border-collapse: collapse;
 }
 
@@ -22,5 +21,9 @@ tr.even {
 
 .entry_changed {
     font-weight: bold;
+}
+
+form {
+    margin-bottom: 1em;
 }
 
