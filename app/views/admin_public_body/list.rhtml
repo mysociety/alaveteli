@@ -9,7 +9,7 @@
 <p>
     <% form_tag({}) do %>
        <%= text_field_tag 'query', params[:query], { :size => 30 } %>
-       <%= submit_tag "Search" %>
+       <%= submit_tag "Search" %> (substring search, names and emails)
     <% end %>
 </p>
 

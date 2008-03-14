@@ -2,6 +2,13 @@
 
 <h1><%=@title%></h1>
 
+<p>
+    <% form_tag({}) do %>
+       <%= text_field_tag 'query', params[:query], { :size => 30 } %>
+       <%= submit_tag "Search" %> (substring search, titles only)
+    <% end %>
+</p>
+
 <table>
   <tr>
   <% for column in InfoRequest.content_columns.map { |c| c.human_name } - [ "Url title" ] %>
