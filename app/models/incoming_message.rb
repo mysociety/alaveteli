@@ -18,7 +18,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.58 2008-03-13 11:29:47 francis Exp $
+# $Id: incoming_message.rb,v 1.59 2008-03-14 19:44:17 francis Exp $
 
 
 # TODO
@@ -244,6 +244,10 @@ class IncomingMessage < ActiveRecord::Base
                 text = Iconv.conv('utf-8', 'windows-1252', text)
             end
         end
+
+        # Fix DOS style linefeeds to Unix style ones (or other later regexps won't work)
+        # Needed for e.g. http://www.whatdotheyknow.com/request/60/response/98
+        text = text.gsub!(/\r\n/, "\n")
 
         return text
     end
