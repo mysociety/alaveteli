@@ -2,7 +2,16 @@
 
 <h1><%=@title%></h1>
 
-<p><%= link_to 'New public body', 'new' %></p>
+<p>
+    <%= link_to 'New public body', 'new' %>
+</p>
+
+<p>
+    <% form_tag({}) do %>
+       <%= text_field_tag 'query', params[:query], { :size => 30 } %>
+       <%= submit_tag "Search" %>
+    <% end %>
+</p>
 
 <table>
   <tr>

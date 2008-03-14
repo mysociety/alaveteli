@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_public_body_controller.rb,v 1.8 2008-03-02 23:46:51 francis Exp $
+# $Id: admin_public_body_controller.rb,v 1.9 2008-03-14 10:09:55 francis Exp $
 
 class AdminPublicBodyController < ApplicationController
     layout "admin"
@@ -15,7 +15,11 @@ class AdminPublicBodyController < ApplicationController
     end
 
     def list
-        @public_bodies = PublicBody.paginate :order => "name", :page => params[:page], :per_page => 100
+        @query = params[:query]
+        @public_bodies = PublicBody.paginate :order => "name", :page => params[:page], :per_page => 100,
+            :conditions =>  @query.nil? ? nil : ["name ilike '%'||?||'%' or 
+                             short_name ilike '%'||?||'%' or 
+                             request_email ilike '%'||?||'%'", @query, @query, @query]
     end
 
     def show
