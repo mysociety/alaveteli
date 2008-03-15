@@ -18,7 +18,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.59 2008-03-14 19:44:17 francis Exp $
+# $Id: incoming_message.rb,v 1.60 2008-03-15 03:08:55 francis Exp $
 
 
 # TODO
@@ -38,6 +38,14 @@ module TMail
                         part.sub_header("content-disposition", "filename")
         end
     end
+end
+
+# This is the type which is used to send data about attachments to the view
+class FOIAttachment
+    attr_accessor :body
+    attr_accessor :content_type
+    attr_accessor :filename
+    attr_accessor :url_part_number
 end
 
 class IncomingMessage < ActiveRecord::Base
@@ -70,6 +78,8 @@ class IncomingMessage < ActiveRecord::Base
         if !self.mail.nil?
             @count_parts_count = 0
             count_parts_recursive(self.mail)
+            # we carry on using these numeric ids for attachments uudecoded from within text parts
+            @count_first_uudecode_count = @count_parts_count
         end
     end
     def count_parts_recursive(part)
@@ -156,9 +166,10 @@ class IncomingMessage < ActiveRecord::Base
 
         # Multiple line sections
         # http://www.whatdotheyknow.com/request/identity_card_scheme_expenditure
+        # http://www.whatdotheyknow.com/request/parliament_protest_actions
         ['-', '_', '*'].each do |score|
             text.gsub!(/(\s*[#{score}]{20,}\n.*?
-                        (disclaimer:\n|confidential)
+                        (disclaimer:\n|confidential|received\sthis\semail\sin\serror)
                         .*?[#{score}]{20,}\n)/imx, "\n\n" + replacement)
         end
 
@@ -230,8 +241,17 @@ class IncomingMessage < ActiveRecord::Base
         return leaves_so_far
     end
 
-    # Returns body text from main text part of email, converted to UTF-8
+    # Returns body text from main text part of email, converted to UTF-8, with uudecode removed
     def get_main_body_text
+        text = get_main_body_text_internal
+
+        # Strip the uudecode parts from main text
+        text = text.split(/^begin.+^`\n^end\n/sm).join(" ")
+
+        return text
+    end
+    # Returns body text from main text part of email, converted to UTF-8
+    def get_main_body_text_internal
         main_part = get_main_body_text_part
         text = main_part.body
         text_charset = main_part.charset
@@ -247,7 +267,7 @@ class IncomingMessage < ActiveRecord::Base
 
         # Fix DOS style linefeeds to Unix style ones (or other later regexps won't work)
         # Needed for e.g. http://www.whatdotheyknow.com/request/60/response/98
-        text = text.gsub!(/\r\n/, "\n")
+        text = text.gsub(/\r\n/, "\n")
 
         return text
     end
@@ -260,6 +280,7 @@ class IncomingMessage < ActiveRecord::Base
             # XXX do we need to look at content-disposition? I'm guessing not *really*.
             #(part['content-disposition'] && part['content-disposition'].disposition == "attachment") ||
             if p.main_type == 'text'
+            #if p.content_type.match(/^(.+)\//)[1] == 'text'
                 return p
             end
         end
@@ -267,15 +288,63 @@ class IncomingMessage < ActiveRecord::Base
         # labelled as text - not sure # what the better way to handle this is)
         return leaves[0]
     end
+    # Returns attachments that are uuencoded in main body part
+    def get_main_body_text_uudecode_attachments
+        text = get_main_body_text_internal
+
+        # Find any uudecoded things buried in it, yeuchly
+        uus = text.scan(/^begin.+^`\n^end\n/sm)
+        attachments = []
+        for uu in uus
+            # Decode the string
+            content = nil
+            IO.popen("/usr/bin/uudecode -o -", "r+") do |child|
+                child.print(uu)
+                child.flush
+                content = child.read()
+            end
+            # Make attachment type from it, working out filename and mime type
+            attachment = FOIAttachment.new()
+            attachment.body = content
+            attachment.filename = uu.match(/^begin\s+[0-9]+\s+(.*)$/)[1]
+            if attachment.filename.match(/\.pdf$/)
+                attachment.content_type = 'application/pdf'
+            elsif attachment.filename.match(/\.doc$/)
+                attachment.content_type = 'application/msword'
+            else
+                attachment.content_type = 'application/octet-stream'
+            end
+            attachments += [attachment]
+        end
+        
+        return attachments
+    end
 
     # Returns all attachments for use in display code
     def get_attachments_for_display
         main_part = get_main_body_text_part
         leaves = get_attachment_leaves
-        leaves = leaves.select do |p|
-            p != main_part
+        attachments = []
+        for leaf in leaves
+            if leaf != main_part
+                attachment = FOIAttachment.new
+                attachment.body = leaf.body
+                attachment.filename = TMail::Mail.get_part_file_name(leaf) 
+                attachment.content_type = leaf.content_type
+                attachment.url_part_number = leaf.url_part_number
+                attachments += [attachment]
+            end
         end
-        return leaves
+
+        uudecode_attachments = get_main_body_text_uudecode_attachments
+        c = @count_first_uudecode_count
+        for uudecode_attachment in uudecode_attachments
+            c += 1
+            uudecode_attachment.url_part_number = c
+            attachments += [uudecode_attachment]
+        end
+
+        return attachments
     end
 
     # Returns body text as HTML with quotes flattened, and emails removed.
