@@ -128,6 +128,31 @@ describe RequestController, "when creating a new request" do
             :submitted_new_request => 1
         response.should render_template('new')
     end
+
+    it "should let you submit another request with the same title" do
+        session[:user_id] = users(:bob_smith_user).id
+
+        post :new, :info_request => { :public_body_id => public_bodies(:geraldine_public_body).id, 
+            :title => "Why is your quango called Geraldine?"},
+            :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." },
+            :submitted_new_request => 1
+
+        post :new, :info_request => { :public_body_id => public_bodies(:geraldine_public_body).id, 
+            :title => "Why is your quango called Geraldine?"},
+            :outgoing_message => { :body => "This is a sensible letter. It is too long to be boring." },
+            :submitted_new_request => 1
+
+        ir_array = InfoRequest.find(:all, :conditions => ["title = ?", "Why is your quango called Geraldine?"], :order => "id")
+        ir_array.size.should == 2
+
+        ir = ir_array[0]
+        ir2 = ir_array[1]
+
+        ir.url_title.should_not == ir2.url_title
+
+        response.should redirect_to(:controller => 'request', :action => 'show', :url_title => ir2.url_title)
+    end
+
 end
 
 describe RequestController, "when viewing an individual response" do

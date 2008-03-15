@@ -20,7 +20,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user.rb,v 1.36 2008-03-13 11:29:47 francis Exp $
+# $Id: user.rb,v 1.37 2008-03-15 04:19:04 francis Exp $
 
 require 'digest/sha1'
 
@@ -92,7 +92,7 @@ class User < ActiveRecord::Base
             url_name = url_name[0..31]
         end
         # For request with same name as others, tag on the request numeric id
-        while not User.find_by_url_name(url_name, :conditions => ["id <> ?", self.id] ).nil?
+        while not User.find_by_url_name(url_name, :conditions => self.id.nil? ? nil : ["id <> ?", self.id] ).nil?
             url_name += "_" + self.id.to_s
         end
         write_attribute(:url_name, url_name)

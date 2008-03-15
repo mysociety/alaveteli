@@ -38,6 +38,7 @@ end
 describe User, " when saving" do
     before do
         @user = User.new 
+        @user2 = User.new 
     end
 
     it "should not save without setting some parameters" do
@@ -63,6 +64,18 @@ describe User, " when saving" do
         @user.password = "insecurepassword"  
         @user.email = "reasonable@localhost"
         @user.save!
+    end
+
+    it "should let you make two users with same name" do
+        @user.name = "Mr. Flobble"
+        @user.password = "insecurepassword"  
+        @user.email = "flobble@localhost"
+        @user.save!
+
+        @user2.name = "Mr. Flobble"
+        @user2.password = "insecurepassword"  
+        @user2.email = "flobble2@localhost"
+        @user2.save!
     end
 end
 

@@ -22,7 +22,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.65 2008-03-14 10:03:20 francis Exp $
+# $Id: info_request.rb,v 1.66 2008-03-15 04:19:04 francis Exp $
 
 require 'digest/sha1'
 
@@ -145,7 +145,7 @@ public
             url_title = url_title[0..31]
         end
         # For request with same name as others, tag on the request numeric id
-        while not InfoRequest.find_by_url_title(url_title, :conditions => ["id <> ?", self.id] ).nil?
+        while not InfoRequest.find_by_url_title(url_title, :conditions => self.id.nil? ? nil : ["id <> ?", self.id] ).nil?
             url_title += "_" + self.id.to_s
         end
         write_attribute(:url_title, url_title)
