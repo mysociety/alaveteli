@@ -18,7 +18,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.60 2008-03-15 03:08:55 francis Exp $
+# $Id: incoming_message.rb,v 1.61 2008-03-15 03:17:04 francis Exp $
 
 
 # TODO
@@ -300,7 +300,7 @@ class IncomingMessage < ActiveRecord::Base
             content = nil
             IO.popen("/usr/bin/uudecode -o -", "r+") do |child|
                 child.print(uu)
-                child.flush
+                child.close_write
                 content = child.read()
             end
             # Make attachment type from it, working out filename and mime type
