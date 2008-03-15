@@ -18,7 +18,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.62 2008-03-15 03:20:23 francis Exp $
+# $Id: incoming_message.rb,v 1.63 2008-03-15 03:26:05 francis Exp $
 
 
 # TODO
@@ -298,11 +298,13 @@ class IncomingMessage < ActiveRecord::Base
         for uu in uus
             # Decode the string
             content = nil
-            IO.popen("/usr/bin/uudecode -o -", "r+") do |child|
-                child.write(uu)
-                child.close_write
+            tempfile = Tempfile.new('foiuu')
+            tempfile.print uu
+            tempfile.flush
+            IO.popen("/usr/bin/uudecode " + tempfile.path + " -o -", "r") do |child|
                 content = child.read()
             end
+            tempfile.close
             # Make attachment type from it, working out filename and mime type
             attachment = FOIAttachment.new()
             attachment.body = content
@@ -398,7 +400,7 @@ class IncomingMessage < ActiveRecord::Base
             if attachment.content_type == 'text/plain'
                 text += attachment.body + "\n\n"
             elsif attachment.content_type == 'application/msword'
-                tempfile = Tempfile.new('foipdf')
+                tempfile = Tempfile.new('foidoc')
                 tempfile.print attachment.body
                 tempfile.flush
                 system("/usr/bin/wvText " + tempfile.path + " " + tempfile.path + ".txt")
