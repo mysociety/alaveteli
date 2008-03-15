@@ -18,7 +18,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.61 2008-03-15 03:17:04 francis Exp $
+# $Id: incoming_message.rb,v 1.62 2008-03-15 03:20:23 francis Exp $
 
 
 # TODO
@@ -299,7 +299,7 @@ class IncomingMessage < ActiveRecord::Base
             # Decode the string
             content = nil
             IO.popen("/usr/bin/uudecode -o -", "r+") do |child|
-                child.print(uu)
+                child.write(uu)
                 child.close_write
                 content = child.read()
             end
