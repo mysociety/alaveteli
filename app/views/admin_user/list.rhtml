@@ -2,12 +2,12 @@
 
 <h1><%=@title%></h1>
 
-<p>
-    <% form_tag("") do %>
+<% form_tag("") do %>
+   <p>
        <%= text_field_tag 'query', params[:query], { :size => 30 } %>
        <%= submit_tag "Search" %> (substring search, names and emails)
-    <% end %>
-</p>
+   </p>
+<% end %>
 
 <table>
   <tr>

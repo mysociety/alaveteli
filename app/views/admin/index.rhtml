@@ -9,9 +9,10 @@
 </ul>
 
 <h2><%=h @events_title%></h2>
-<a href="?">Week</a>
+
+<p><a href="?">Week</a>
 | <a href="?month=1">Month</a>
-| <a href="?all=1">All time</a>
+| <a href="?all=1">All time</a></p>
 
 <% last_date = nil %>
 <% for event in @events %>
@@ -68,5 +69,8 @@
         had '<%=event.event_type%>' done to it, parameters <%=h event.params_yaml%>.
     <% end %>
 <% end %>
+<% if not @events.empty? %>
 </p>
+<% end %>
+
 
