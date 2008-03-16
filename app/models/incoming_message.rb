@@ -18,7 +18,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.63 2008-03-15 03:26:05 francis Exp $
+# $Id: incoming_message.rb,v 1.64 2008-03-16 22:45:54 francis Exp $
 
 
 # TODO
@@ -28,6 +28,7 @@
 module TMail
     class Mail
         attr_accessor :url_part_number
+        attr_accessor :rfc822_attachment # when a whole email message is attached as text
 
         # Monkeypatch! (check to see if this becomes a standard function in
         # TMail::Mail, then use that, whatever it is called)
@@ -46,6 +47,20 @@ class FOIAttachment
     attr_accessor :content_type
     attr_accessor :filename
     attr_accessor :url_part_number
+
+    def display_filename
+        if @filename 
+            @filename
+        elsif @content_type == 'text/plain'
+            "attachment.txt"
+        elsif @content_type == 'application/pdf'
+            "attachment.pdf"
+        elsif @content_type == 'application/msword'
+            "attachment.doc"
+        else
+            "attachment.bin"
+        end
+    end
 end
 
 class IncomingMessage < ActiveRecord::Base
@@ -88,8 +103,15 @@ class IncomingMessage < ActiveRecord::Base
                 count_parts_recursive(p)
             end
         else
-            @count_parts_count += 1
-            part.url_part_number = @count_parts_count
+            if part.content_type == 'message/rfc822'
+                # An email attached as text
+                # e.g. http://www.whatdotheyknow.com/request/64/response/102
+                part.rfc822_attachment = TMail::Mail.parse(part.body)
+                count_parts_recursive(part.rfc822_attachment)
+            else
+                @count_parts_count += 1
+                part.url_part_number = @count_parts_count
+            end
         end
     end
     # And look up by URL part number to get an attachment
@@ -205,9 +227,10 @@ class IncomingMessage < ActiveRecord::Base
     # (This risks losing info if the unchosen alternative is the only one to contain 
     # useful info, but let's worry about that another time)
     def get_attachment_leaves
-        return get_attachment_leaves_recursive(self.mail, [])
+        return get_attachment_leaves_recursive(self.mail)
     end
-    def get_attachment_leaves_recursive(curr_mail, leaves_so_far)
+    def get_attachment_leaves_recursive(curr_mail)
+        leaves_found = []
         if curr_mail.multipart?
             if curr_mail.sub_type == 'alternative'
                 # Choose best part from alternatives
@@ -221,11 +244,11 @@ class IncomingMessage < ActiveRecord::Base
                         best_part = m
                     end
                 end
-                leaves_so_far += get_attachment_leaves_recursive(best_part, [])
+                leaves_found += get_attachment_leaves_recursive(best_part)
             else
                 # Add all parts
                 curr_mail.parts.each do |m|
-                    leaves_so_far += get_attachment_leaves_recursive(m, [])
+                    leaves_found += get_attachment_leaves_recursive(m)
                 end
             end
         else
@@ -235,10 +258,16 @@ class IncomingMessage < ActiveRecord::Base
                     curr_mail.content_type = 'application/pdf'
                 end
             end 
-            # Store leaf
-            leaves_so_far += [curr_mail]
+            # If the part is an attachment of email in text form
+            if curr_mail.content_type == 'message/rfc822'
+                # This has been expanded from text to an email in count_parts_recursive above
+                leaves_found += get_attachment_leaves_recursive(curr_mail.rfc822_attachment)
+            else
+                # Store leaf
+                leaves_found += [curr_mail]
+            end
         end
-        return leaves_so_far
+        return leaves_found
     end
 
     # Returns body text from main text part of email, converted to UTF-8, with uudecode removed
