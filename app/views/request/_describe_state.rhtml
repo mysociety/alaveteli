@@ -8,6 +8,9 @@
             <%= radio_button "incoming_message", "described_state", "waiting_clarification" %>
             <label for="incoming_message_described_state_waiting_clarification">I'm about to <strong>clarify</strong> my request</label>
             <br>
+            <%= radio_button "incoming_message", "described_state", "not_held" %>
+            <label for="incoming_message_described_state_not_held">The authority <strong>does not have</strong> the information (perhaps they suggest making the request elsewhere)</label>
+            <br>
             <%= radio_button "incoming_message", "described_state", "rejected" %>
             <label for="incoming_message_described_state_rejected">My request has been <strong>rejected</strong></label>
             <br>

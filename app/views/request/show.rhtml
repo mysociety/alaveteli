@@ -34,6 +34,8 @@
         public_body_link(@info_request.public_body) %>. The 
         <%= link_to "response was due", about_url + "#quickly_response" %></li>
         on <strong><%= simple_date(@info_request.date_response_required_by) %></strong>.
+    <% elsif @status == 'not_held' %>
+        <%= public_body_link(@info_request.public_body) %> <strong>did not have</strong> the information requested.
     <% elsif @status == 'rejected' %>
         The request was <strong>rejected</strong> by <%= public_body_link(@info_request.public_body) %>.
     <% elsif @status == 'successful' %>

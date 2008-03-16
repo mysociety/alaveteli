@@ -22,7 +22,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.66 2008-03-15 04:19:04 francis Exp $
+# $Id: info_request.rb,v 1.67 2008-03-16 23:32:11 francis Exp $
 
 require 'digest/sha1'
 
@@ -45,6 +45,7 @@ class InfoRequest < ActiveRecord::Base
     validates_inclusion_of :described_state, :in => [ 
         'waiting_response',
         'waiting_clarification', 
+        'not_held',
         'rejected', 
         'successful', 
         'partially_successful',
@@ -243,14 +244,10 @@ public
         end
     end
 
-    # Work out what the situation of the request is
+    # Work out what the situation of the request is In addition to values of
+    # self.described_state, can take these two values:
     #   waiting_classification
-    #   waiting_response
-    #   waiting_response_overdue  # XXX calculated, should be cached for display?
-    #   waiting_clarification
-    #   rejected
-    #   successful
-    #   partially_successful
+    #   waiting_response_overdue
     def calculate_status
         if self.awaiting_description
             return 'waiting_classification'
@@ -450,10 +447,12 @@ public
             "Awaiting response."
         elsif status == 'waiting_response_overdue'
             "Response overdue."
-        elsif status == 'partially_successful'
-            "Partially successful."
+        elsif status == 'not_held'
+            "Information not held."
         elsif status == 'rejected'
             "Rejected."
+        elsif status == 'partially_successful'
+            "Partially successful."
         elsif status == 'successful'
             "Successful."
         elsif status == 'waiting_clarification'

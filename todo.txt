@@ -1,27 +1,15 @@
-Contact:
-    Check user contact messages look nice on live site (think about subject?)
-
-
 Search:
 
 Gah - test to see if it queries solr when new message arrives
 
 Search for successful requests now has bogus date order :( Doesn't fit in
-with paradigm of request / incoming message being separate objects.
+    with paradigm of request / incoming message being separate objects.
 Perhaps we should be indexing events
+    or maybe index success/failure by type known for message?
 
 Search by tags on public bodies
 
 Check cron jobs are running
-
-Send mail re university requests
-    http://www.whatdotheyknow.com/user/jennifer_jones#user-55
-    Mention duty to provide assistance:
-    http://opsi.gov.uk/acts/acts2000/ukpga_20000036_en_2#pt1-pb1-l1g16
-    http://www.caat.org.uk/campaigns/clean-investment/universities/
-
-This search gives a runtime error:
-    "19 hours
 
 FOI requests to use to test it
 ==============================
@@ -73,8 +61,13 @@ Send email to remind people to classify
 Send email to tell admins something isn't classified
 Send email to remind people to clarify
 
+Now of course when ids go into requests/users for new ones it just adds an _ on end which is crap!
+
 Later
 =====
+
+This search gives a runtime error:
+    "19 hours
 
 Search date ranges http://lucene.apache.org/java/docs/queryparsersyntax.html (at Louise's mail)
 

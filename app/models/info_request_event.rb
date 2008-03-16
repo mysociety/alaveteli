@@ -16,7 +16,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request_event.rb,v 1.20 2008-03-12 16:07:13 francis Exp $
+# $Id: info_request_event.rb,v 1.21 2008-03-16 23:32:11 francis Exp $
 
 class InfoRequestEvent < ActiveRecord::Base
     belongs_to :info_request
@@ -38,6 +38,7 @@ class InfoRequestEvent < ActiveRecord::Base
         nil,
         'waiting_response',
         'waiting_clarification', 
+        'not_held',
         'rejected', 
         'successful', 
         'partially_successful',

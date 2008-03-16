@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.66 2008-03-15 04:44:37 francis Exp $
+# $Id: request_controller.rb,v 1.67 2008-03-16 23:32:10 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -100,7 +100,7 @@ class RequestController < ApplicationController
             # XXX send_message needs the database id, so we send after saving, which isn't ideal if the request broke here.
             @outgoing_message.send_message
             flash[:notice] = "Your Freedom of Information request has been created and sent on its way!"
-            redirect_to show_request_url(:url_title => @info_request.url_title)
+            redirect_to request_url(@info_request)
         else
             # do nothing - as "authenticated?" has done the redirect to signin page for us
         end
@@ -115,7 +115,7 @@ class RequestController < ApplicationController
             if !params[:submitted_describe_state].nil?
                 flash[:notice] = "The status of this request was made up to date elsewhere while you were filling in the form."
             end
-            redirect_to show_request_url(:url_title => @info_request.url_title)
+            redirect_to request_url(@info_request)
             return
         end
 
@@ -128,7 +128,7 @@ class RequestController < ApplicationController
 
         if @last_info_request_event_id.nil?
             flash[:notice] = "Internal error - awaiting description, but no event to describe"
-            redirect_to show_request_url(:url_title => @info_request.url_title)
+            redirect_to request_url(@info_request)
             return
         end
 
@@ -160,10 +160,14 @@ class RequestController < ApplicationController
             # Display appropriate next page (e.g. help for complaint etc.)
             if @info_request.calculate_status == 'waiting_response'
                 flash[:notice] = "<p>Thank you! Hopefully your wait isn't too long.</p> <p>By law, you should get a response before the end of <strong>" + simple_date(@info_request.date_response_required_by) + "</strong>.</p>"
-                redirect_to show_request_url(:url_title => @info_request.url_title)
+                redirect_to request_url(@info_request)
             elsif @info_request.calculate_status == 'waiting_response_overdue'
                 flash[:notice] = "<p>Thank you! Hope you don't have to wait much longer.</p> <p>By law, you should have got a response before the end of <strong>" + simple_date(@info_request.date_response_required_by) + "</strong>.</p>"
-                redirect_to show_request_url(:url_title => @info_request.url_title)
+                redirect_to request_url(@info_request)
+            elsif @info_request.calculate_status == 'not_held'
+                flash[:notice] = "Thank you! You may want to send your request to another public authority. To do so, first copy the text of your request below, then <a href=\"/new\">cick here</a> and find the other authority."
+                # XXX offer fancier option to duplicate request?
+                redirect_to request_url(@info_request)
             elsif @info_request.calculate_status == 'rejected'
                 # XXX explain how to complain
                 flash[:notice] = "Oh no! Sorry to hear that your request was rejected. Here is what to do now."
@@ -171,17 +175,17 @@ class RequestController < ApplicationController
             elsif @info_request.calculate_status == 'successful'
                 flash[:notice] = "We're glad you got all the information that you wanted. Thank you for using WhatDoTheyKnow."
                 # XXX quiz them here for a comment
-                redirect_to show_request_url(:url_title => @info_request.url_title)
+                redirect_to request_url(@info_request)
             elsif @info_request.calculate_status == 'partially_successful'
                 flash[:notice] = "We're glad you got some of the information that you wanted."
                 # XXX explain how to complain / quiz them for a comment
-                redirect_to show_request_url(:url_title => @info_request.url_title)
+                redirect_to request_url(@info_request)
             elsif @info_request.calculate_status == 'waiting_clarification'
                 flash[:notice] = "Please write your follow up message containing the necessary clarifications below."
                 redirect_to show_response_url(:id => @info_request.id, :incoming_message_id => @events_needing_description[-1].params[:incoming_message_id])
             elsif @info_request.calculate_status == 'requires_admin'
                 flash[:notice] = "Thanks! The WhatDoTheyKnow team have been notified."
-                redirect_to show_request_url(:url_title => @info_request.url_title)
+                redirect_to request_url(@info_request)
             else
                 raise "unknown calculate_status " + @info_request.calculate_status
             end
@@ -233,7 +237,7 @@ class RequestController < ApplicationController
                 @outgoing_message.send_message
                 @outgoing_message.save!
                 flash[:notice] = "Your follow up message has been created and sent on its way."
-                redirect_to show_request_url(:url_title => @info_request.url_title)
+                redirect_to request_url(@info_request)
             else
                 # do nothing - as "authenticated?" has done the redirect to signin page for us
             end
