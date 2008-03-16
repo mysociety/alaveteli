@@ -18,7 +18,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.64 2008-03-16 22:45:54 francis Exp $
+# $Id: incoming_message.rb,v 1.65 2008-03-16 22:48:42 francis Exp $
 
 
 # TODO
@@ -189,10 +189,13 @@ class IncomingMessage < ActiveRecord::Base
         # Multiple line sections
         # http://www.whatdotheyknow.com/request/identity_card_scheme_expenditure
         # http://www.whatdotheyknow.com/request/parliament_protest_actions
+        # http://www.whatdotheyknow.com/request/64/response/102
         ['-', '_', '*'].each do |score|
-            text.gsub!(/(\s*[#{score}]{20,}\n.*?
-                        (disclaimer:\n|confidential|received\sthis\semail\sin\serror)
-                        .*?[#{score}]{20,}\n)/imx, "\n\n" + replacement)
+            text.gsub!(/(Disclaimer\s+)?  # appears just before
+                        (\s*[#{score}]{20,}\n.*? # top line ------------
+                        (disclaimer:\n|confidential|received\sthis\semail\sin\serror|scanned\sfor\sviruses)
+                        .*?[#{score}]{20,}\n) # bottom line -----------
+                       /imx, "\n\n" + replacement)
         end
 
         # Special paragraphs
