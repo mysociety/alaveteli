@@ -486,6 +486,10 @@ dt {
     margin: 1em;
 }
 
+#hash_link_padding {
+    margin-bottom: 30em;
+}
+
 /* User accounts */
 
 .confirmation_message {

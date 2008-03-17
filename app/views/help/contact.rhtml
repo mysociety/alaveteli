@@ -5,22 +5,31 @@
 <% form_for :contact do |f| %>
 
     <div class="form_note">
+        <h1>Make a request for public, official information</h1>
+    </div>
+
+    <p class="form_note">
+        <a href="/new">Go here</a> to make your request, in public, for information
+        from UK public authorities.
+    </p>
+
+    <div class="form_note">
+        <h1>Request information about myself</h1>
+        Our help page about <a href="/help/about#data_protection">data protection</a>
+        explains how to request information about yourself from UK public authorities.
+    </div>
+
+    <div class="form_note">
         <h1>Contact the WhatDoTheyKnow team</h1>
     </div>
 
     <p class="form_note">
-        We'd love to hear how you found using the site.
+        We'd love to hear how you have found using this site.
     </p>
 
     <p class="form_note">
         Please read the  <a href="/help/about">about page</a> first, as it may
         answer your question quicker.
-    </p>
-    
-    <p class="form_note">
-        <strong>Note:</strong> This is for contacting the WhatDoTheyKnow
-        team only. If you are trying to send a new Freedom of Information
-        request to a public body, then <a href="/new">go here</a>. 
     </p>
     
     <% if not @user %>
@@ -48,7 +57,7 @@
 
     <div class="form_button">
         <%= hidden_field_tag(:submitted_contact_form, 1) %>
-        <%= submit_tag "Send message" %>
+        <%= submit_tag "Send message to the WhatDoTheyKnow team" %>
     </div>
 
 <% end %>
