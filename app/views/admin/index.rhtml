@@ -22,7 +22,7 @@
     <h2>Public bodies with missing contact details</h2>
     <ul>
     <% for @blank_contact in @blank_contacts %>
-        <li><%= link_to h(@blank_contact.name), main_url(public_body_url(@blank_contact)) %></li>
+        <li><%= link_to h(@blank_contact.name), "body/show/" + @blank_contact.id.to_s %></li>
     <% end %>
     </ul>
 <% end %>
