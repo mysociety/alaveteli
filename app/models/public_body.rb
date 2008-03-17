@@ -22,7 +22,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.36 2008-03-13 11:29:47 francis Exp $
+# $Id: public_body.rb,v 1.37 2008-03-17 10:36:43 francis Exp $
 
 require 'csv'
 require 'set'
@@ -30,8 +30,7 @@ require 'set'
 class PublicBody < ActiveRecord::Base
     validates_presence_of :name
     validates_presence_of :url_name
-    validates_presence_of :request_email
-
+    
     has_many :info_requests
     has_many :public_body_tags
 
@@ -46,8 +45,11 @@ class PublicBody < ActiveRecord::Base
     end
 
     def validate
-        unless MySociety::Validate.is_valid_email(self.request_email)
-            errors.add(:request_email, "doesn't look like a valid email address")
+        # Request_email can be blank, meaning we don't have details
+        if self.request_email != ""
+            unless MySociety::Validate.is_valid_email(self.request_email)
+                errors.add(:request_email, "doesn't look like a valid email address")
+            end
         end
         if self.complaint_email != ""
             unless MySociety::Validate.is_valid_email(self.complaint_email)

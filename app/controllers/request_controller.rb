@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.67 2008-03-16 23:32:10 francis Exp $
+# $Id: request_controller.rb,v 1.68 2008-03-17 10:36:41 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -44,7 +44,7 @@ class RequestController < ApplicationController
     def new
         # First time we get to the page, just display it
         if params[:submitted_new_request].nil? or params[:reedit]
-            # Read parameters in - public body can be passed from front page
+            # Read parameters in - public body must be passed in
             if params[:public_body_id]
                 params[:info_request] = { :public_body_id => params[:public_body_id] }
             end
@@ -54,7 +54,11 @@ class RequestController < ApplicationController
             if @info_request.public_body.nil?
                 redirect_to frontpage_url
             else 
-                render :action => 'new'
+                if @info_request.public_body.request_email.empty?
+                    render :action => 'new_bad_contact'
+                else
+                    render :action => 'new'
+                end
             end
             return
         end
@@ -73,6 +77,12 @@ class RequestController < ApplicationController
         }))
         @info_request.outgoing_messages << @outgoing_message
         @outgoing_message.info_request = @info_request
+
+        # Maybe we lost the address while they're writing it
+        if @info_request.public_body.request_email.empty?
+            render :action => 'new_bad_contact'
+            return
+        end
 
         # See if values were valid or not
         if !@existing_request.nil? || !@info_request.valid?
