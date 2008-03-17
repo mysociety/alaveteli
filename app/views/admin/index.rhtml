@@ -18,6 +18,15 @@
     </ul>
 <% end %>
 
+<% if @blank_contacts.size > 0 %>
+    <h2>Public bodies with missing contact details</h2>
+    <ul>
+    <% for @blank_contact in @blank_contacts %>
+        <li><%= link_to h(@blank_contact.name), main_url(public_body_url(@blank_contact)) %></li>
+    <% end %>
+    </ul>
+<% end %>
+
 <h2><%=h @events_title%></h2>
 
 <p><a href="?">Week</a>
