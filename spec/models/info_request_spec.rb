@@ -17,6 +17,12 @@ describe InfoRequest, " when emailing" do
         found_info_request.should == (@info_request)
     end
 
+    it "should return nil when receiving email for a deleted request" do
+        deleted_request_address = InfoRequest.magic_email_for_id("request-", 98765)  
+        found_info_request = InfoRequest.find_by_incoming_email(deleted_request_address)
+        found_info_request.should be_nil
+    end
+
 end
 
 

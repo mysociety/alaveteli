@@ -1,8 +1,3 @@
-Add list of things to do
-
-
-
-
 Search:
 
 Gah - test to see if it queries solr when new message arrives
@@ -15,6 +10,9 @@ Perhaps we should be indexing events
 Search by tags on public bodies
 
 Check cron jobs are running
+
+
+
 
 FOI requests to use to test it
 ==============================
@@ -30,6 +28,10 @@ BAILII - relationship with law courts, robots.txt ?
 
 Next
 ====
+
+Make clear about DPA vs. FOI
+Hidden flag
+
 
 Page of new responses - so I don't have to go into email
 
@@ -185,6 +187,7 @@ Add geographical location to council import
 Quoting fixing TODO:
     http://www.whatdotheyknow.com/request/64/response/102
     http://www.whatdotheyknow.com/request/55/response/96
+    http://www.whatdotheyknow.com/request/71/response/108
 
 Sources of public bodies
 ========================

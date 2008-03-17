@@ -22,7 +22,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.67 2008-03-16 23:32:11 francis Exp $
+# $Id: info_request.rb,v 1.68 2008-03-17 18:53:30 francis Exp $
 
 require 'digest/sha1'
 
@@ -76,7 +76,7 @@ class InfoRequest < ActiveRecord::Base
 
     $do_solr_index = false
     $do_solr_index_marking = false
-    def self.update_solr_index
+    def InfoRequest.update_solr_index
         #STDERR.puts "self.update_solr_index"
         $do_solr_index = true
 
@@ -184,7 +184,7 @@ public
     # only they are sent the email address with the has in it. (We don't check
     # the prefix and domain, as sometimes those change, or might be elided by
     # copying an email, and that doesn't matter)
-    def self.find_by_incoming_email(incoming_email)
+    def InfoRequest.find_by_incoming_email(incoming_email)
         incoming_email =~ /request-(\d+)-([a-z0-9]+)/
         id = $1.to_i
         hash = $2
@@ -192,7 +192,7 @@ public
         return self.find_by_magic_email(id, hash)
     end
 
-    def self.find_by_envelope_email(incoming_email)
+    def InfoRequest.find_by_envelope_email(incoming_email)
         incoming_email =~ /request-bounce-(\d+)-([a-z0-9]+)/
         id = $1.to_i
         hash = $2
@@ -205,7 +205,7 @@ public
     # repeated requests, say once a quarter for time information, then might need to do that.
     # XXX this *should* also check outgoing message joined to is an initial
     # request (rather than follow up)
-    def self.find_by_existing_request(title, public_body_id, body)
+    def InfoRequest.find_by_existing_request(title, public_body_id, body)
         return InfoRequest.find(:first, :conditions => [ 'title = ? and public_body_id = ? and outgoing_messages.body = ?', title, public_body_id, body ], :include => [ :outgoing_messages ] )
     end
 
@@ -465,26 +465,34 @@ public
     end
 
 
-    protected
-
     # Called by incoming_email and envelope_email
     def magic_email(prefix_part)
         raise "id required to make magic" if not self.id
+        return InfoRequest.magic_email_for_id(prefix_part, self.id)
+    end
+
+    def InfoRequest.magic_email_for_id(prefix_part, id) 
         magic_email = MySociety::Config.get("INCOMING_EMAIL_PREFIX", "") 
-        magic_email += prefix_part + self.id.to_s 
-        magic_email += "-" + Digest::SHA1.hexdigest(self.id.to_s + MySociety::Config.get("INCOMING_EMAIL_SECRET", 'dummysecret'))[0,8]
+        magic_email += prefix_part + id.to_s
+        magic_email += "-" + Digest::SHA1.hexdigest(id.to_s + MySociety::Config.get("INCOMING_EMAIL_SECRET", 'dummysecret'))[0,8]
         magic_email += "@" + MySociety::Config.get("INCOMING_EMAIL_DOMAIN", "localhost")
         return magic_email
     end
 
     # Called by find_by_incoming_email and find_by_envelope_email
-    def self.find_by_magic_email(id, hash)
+    def InfoRequest.find_by_magic_email(id, hash)
         expected_hash = Digest::SHA1.hexdigest(id.to_s + MySociety::Config.get("INCOMING_EMAIL_SECRET", 'dummysecret'))[0,8]
         #print "expected: " + expected_hash + "\nhash: " + hash + "\n"
         if hash != expected_hash
             return nil
         else
-            return self.find(id)
+            begin
+                return self.find(id)
+            rescue ActiveRecord::RecordNotFound
+                # so error email is sent to admin, rather than the exception sending weird
+                # error to the public body.
+                return nil
+            end
         end
     end
 
