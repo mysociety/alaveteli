@@ -2,7 +2,6 @@ geraldine_public_body:
   name: The Geraldine Quango
   updated_at: 2007-10-24 10:51:01.161639
   last_edit_comment: Mark named this stupid quango.
-  complaint_email: geraldine-complaints@localhost
   request_email: geraldine-requests@localhost
   id: "2"
   version: "1"
@@ -14,7 +13,6 @@ humpadink_public_body:
   name: "Department for Humpadinking"
   updated_at: 2007-10-25 10:51:01.161639
   last_edit_comment: Not sure what this new department does.
-  complaint_email: humpadink-complaints@localhost
   request_email: humpadink-requests@localhost
   id: "3"
   version: "2"

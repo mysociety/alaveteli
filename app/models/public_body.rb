@@ -22,7 +22,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.37 2008-03-17 10:36:43 francis Exp $
+# $Id: public_body.rb,v 1.38 2008-03-17 10:48:46 francis Exp $
 
 require 'csv'
 require 'set'
@@ -49,11 +49,6 @@ class PublicBody < ActiveRecord::Base
         if self.request_email != ""
             unless MySociety::Validate.is_valid_email(self.request_email)
                 errors.add(:request_email, "doesn't look like a valid email address")
-            end
-        end
-        if self.complaint_email != ""
-            unless MySociety::Validate.is_valid_email(self.complaint_email)
-                errors.add(:complaint_email, "doesn't look like a valid email address")
             end
         end
     end
@@ -149,7 +144,7 @@ class PublicBody < ActiveRecord::Base
                     end
                 else
                     # New public body
-                    public_body = PublicBody.new(:name => name, :request_email => email, :complaint_email => "", :short_name => "", :last_edit_editor => "import_csv", :last_edit_comment => 'Created from spreadsheet')
+                    public_body = PublicBody.new(:name => name, :request_email => email, :short_name => "", :last_edit_editor => "import_csv", :last_edit_comment => 'Created from spreadsheet')
                     public_body.tag_string = tag
                     public_body.save!
 

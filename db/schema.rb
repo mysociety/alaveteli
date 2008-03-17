@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 42) do
+ActiveRecord::Schema.define(:version => 43) do
 
   create_table "incoming_messages", :force => true do |t|
     t.integer  "info_request_id",                    :null => false
@@ -75,7 +75,6 @@ ActiveRecord::Schema.define(:version => 42) do
     t.text     "name",              :null => false
     t.text     "short_name",        :null => false
     t.text     "request_email",     :null => false
-    t.text     "complaint_email"
     t.integer  "version",           :null => false
     t.string   "last_edit_editor",  :null => false
     t.text     "last_edit_comment", :null => false
@@ -100,7 +99,6 @@ ActiveRecord::Schema.define(:version => 42) do
     t.text     "name"
     t.text     "short_name"
     t.text     "request_email"
-    t.text     "complaint_email"
     t.datetime "updated_at"
     t.string   "last_edit_editor"
     t.string   "last_edit_comment"
