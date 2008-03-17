@@ -8,6 +8,16 @@
 <li><%=@user_count%> users</li>
 </ul>
 
+<% if @requires_admin_requests.size > 0 %>
+    <h2>Requests requiring admin attention</h2>
+
+    <ul>
+    <% for @requires_admin_request in @requires_admin_requests %>
+        <li><%= link_to h(@requires_admin_request.title), main_url(request_url(@requires_admin_request)) %></li>
+    <% end %>
+    </ul>
+<% end %>
+
 <h2><%=h @events_title%></h2>
 
 <p><a href="?">Week</a>
