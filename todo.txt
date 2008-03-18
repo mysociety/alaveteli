@@ -6,12 +6,10 @@ Search for successful requests now has bogus date order :( Doesn't fit in
     with paradigm of request / incoming message being separate objects.
 Perhaps we should be indexing events
     or maybe index success/failure by type known for message?
+Successful requests should have success date as date in search results.
 
-Search by tags on public bodies
-
-Check cron jobs are running
-
-
+As a result fix up sorting in general 
+Make /list be search
 
 
 FOI requests to use to test it
@@ -29,40 +27,23 @@ BAILII - relationship with law courts, robots.txt ?
 Next
 ====
 
-Make clear about DPA vs. FOI
-Hidden flag
-
-
-Page of new responses - so I don't have to go into email
-
 Need something to mark contact as bad, e.g. for university of huddersfield
 
-This is knackered:
-http://foi.mysociety.org/request/14/response/44/attach/3/Marie's%20letter.tif
-
-Maybe do history of tags?
-
-Update test code
+Add all new stuff to test code till it has reasonable coverage
 
 Search and replace text "FOI" and "Freedom of Information" out the way more
  - but put it in the title tag
 "public body" --> "public authority"?
 
-download.bin knackered in this one
-http://www.whatdotheyknow.com/request/contracts_or_options_with_kimber
-
 Adam's woes:
 http://foi.mysociety.org/request/18/response/31
     - No doubt leaks email address via download.bin :(
 
-And Tom's woes:
+Tom's request to Parliament:
     http://foi.mysociety.org/request/8
-Also: Consider removing login links from notifications of new responses
-      Consider password change code in relation to this
 
-Sort the requests by when something last happened to them (this needs thought as to what
-sort orders we need)
-Sort by due date
+Consider removing login links from notifications of new responses
+Consider password change code in relation to this
 
 Send email to remind people to classify
 Send email to tell admins something isn't classified
@@ -75,8 +56,6 @@ Later
 
 This search gives a runtime error:
     "19 hours
-
-Search date ranges http://lucene.apache.org/java/docs/queryparsersyntax.html (at Louise's mail)
 
 Preview when sending followups - especially people need to see quoting/subject
 when sending "my response is late"
@@ -97,8 +76,6 @@ in sidebar of request
     Link to WriteToThem - according to level of Government of body
     Start a petition about this request
     Share this request on Facebook
-
-Successful requests should have success date as date in search results.
 
 Tell application developer if working days table not up to date, and needs
 updating
@@ -121,7 +98,7 @@ Generic alerting/tracking system including
     - new requests, new good responses etc.
     - new responses to a particular request
 
-Requests with related content
+Requests with related content (via Lucene compare document search somehow?)
 Blog posts / Wikipedia articles about this request
 
 Remember me box
@@ -131,20 +108,15 @@ Remember me box
 Screen scrape this and add link to it on the public body page
 http://www.ico.gov.uk/Home/tools_and_resources/decision_notices.aspx
 
-
 (10:32:14) richard: you just need to count the number of rows of text and compare it to the number of rows in the textbox
 (10:32:29) richard: then increase the height of the textbox by 1em-ish
 (10:32:52) Matthew: their function is called autogrow_textarea() by the way, if you just want to look at it...
  thanks :) I won't do it now as there are more important things, I was just accidentally impressed
 
-
 Read wiki page lots
 http://www.mysociety.org/moin.cgi/FreedomOfInformation
 And comments on proposal
 http://www.mysociety.org/2006/04/04/freedom-of-information-archive/
-
-For grey hints in input fields
-http://pauldowman.com/projects/fieldhints/
 
 Hyperlink Section 1(3) to the act
     http://www.whatdotheyknow.com/request/49/response/86
@@ -188,6 +160,7 @@ Quoting fixing TODO:
     http://www.whatdotheyknow.com/request/64/response/102
     http://www.whatdotheyknow.com/request/55/response/96
     http://www.whatdotheyknow.com/request/71/response/108
+    http://www.whatdotheyknow.com/request/police_powers_to_inform_car_insu
 
 Sources of public bodies
 ========================

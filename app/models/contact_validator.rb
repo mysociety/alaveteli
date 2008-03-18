@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 41
+# Schema version: 43
 #
 # Table name: contact_validators
 #
@@ -15,7 +15,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: contact_validator.rb,v 1.5 2008-03-12 16:07:13 francis Exp $
+# $Id: contact_validator.rb,v 1.6 2008-03-18 19:18:51 francis Exp $
 
 class ContactValidator < ActiveRecord::BaseWithoutTable
     column :name, :string
