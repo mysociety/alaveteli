@@ -44,6 +44,11 @@ describe RequestController, "when showing one request" do
         assigns[:info_request].should == info_requests(:fancy_dog_request)
     end
 
+    it "should redirect from a numeric URL to pretty one" do
+        get :show, :url_title => info_requests(:naughty_chicken_request).id
+        response.should redirect_to(:action => 'show', :url_title => info_requests(:naughty_chicken_request).url_title)
+    end
+
     it "should show incoming messages" do
         get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
         size_before = assigns[:info_request_events].size
@@ -53,6 +58,25 @@ describe RequestController, "when showing one request" do
 
         get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
         (assigns[:info_request_events].size - size_before).should == 1
+    end
+
+    it "should download attachments" do
+        get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
+        response.content_type.should == "text/html"
+        size_before = assigns[:info_request_events].size
+
+        ir = info_requests(:fancy_dog_request) 
+        receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
+
+        get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
+        (assigns[:info_request_events].size - size_before).should == 1
+
+        get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2
+        response.content_type.should == "text/plain"
+        response.should have_text(/Second hello/)        
+        get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 3
+        response.content_type.should == "text/plain"
+        response.should have_text(/First hello/)        
     end
 end
 

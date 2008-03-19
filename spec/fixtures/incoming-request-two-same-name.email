@@ -1,0 +1,27 @@
+From: Francis Irving <francis@flourish.org>
+To: FOI Person <EMAIL_TO>
+Subject: Same attachment twice
+Content-Type: multipart/mixed; boundary="Q68bSM7Ycu6FN28Q"
+Content-Disposition: inline
+
+
+--Q68bSM7Ycu6FN28Q
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+
+
+--Q68bSM7Ycu6FN28Q
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: attachment; filename="hello.txt"
+
+Second hello
+
+--Q68bSM7Ycu6FN28Q
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: attachment; filename="hello.txt"
+
+First hello
+
+--Q68bSM7Ycu6FN28Q--
+
