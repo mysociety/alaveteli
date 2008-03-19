@@ -49,12 +49,16 @@ describe RequestController, "when showing one request" do
         response.should redirect_to(:action => 'show', :url_title => info_requests(:naughty_chicken_request).url_title)
     end
 
-    it "should show incoming messages" do
+    it "should receive incoming messages, send email to creator, and show them" do
         get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
         size_before = assigns[:info_request_events].size
 
         ir = info_requests(:fancy_dog_request) 
         receive_incoming_mail('incoming-request-plain.email', ir.incoming_email)
+        deliveries = ActionMailer::Base.deliveries
+        deliveries.size.should  == 1
+        mail = deliveries[0]
+        mail.body.should =~ /You have a new response to the FOI request/
 
         get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
         (assigns[:info_request_events].size - size_before).should == 1
@@ -104,16 +108,25 @@ describe RequestController, "when creating a new request" do
     it "should give an error and render 'new' template when a summary isn't given" do
         post :new, :info_request => { :public_body_id => public_bodies(:geraldine_public_body).id },
             :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." },
-            :submitted_new_request => 1
+            :submitted_new_request => 1, :preview => 1
         # XXX how do I check the error message here?
         response.should render_template('new')
+    end
+
+    it "should show preview when input is good" do
+        post :new, { :info_request => { :public_body_id => public_bodies(:geraldine_public_body).id, 
+            :title => "Why is your quango called Geraldine?"},
+            :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." },
+            :submitted_new_request => 1, :preview => 1
+        }
+        response.should render_template('preview')
     end
 
     it "should redirect to sign in page when input is good and nobody is logged in" do
         params = { :info_request => { :public_body_id => public_bodies(:geraldine_public_body).id, 
             :title => "Why is your quango called Geraldine?"},
             :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." },
-            :submitted_new_request => 1
+            :submitted_new_request => 1, :preview => 0
         }
         post :new, params
         post_redirect = PostRedirect.get_last_post_redirect
@@ -121,14 +134,12 @@ describe RequestController, "when creating a new request" do
         # post_redirect.post_params.should == params # XXX get this working. there's a : vs '' problem amongst others
     end
 
-    # XXX preview stuff not covered here
-
     it "should create the request and outgoing message, and send the outgoing message by email, and redirect to request page when input is good and somebody is logged in" do
         session[:user_id] = users(:bob_smith_user).id
         post :new, :info_request => { :public_body_id => public_bodies(:geraldine_public_body).id, 
             :title => "Why is your quango called Geraldine?"},
             :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." },
-            :submitted_new_request => 1
+            :submitted_new_request => 1, :preview => 0
 
         ir_array = InfoRequest.find(:all, :conditions => ["title = ?", "Why is your quango called Geraldine?"])
         ir_array.size.should == 1
@@ -149,7 +160,7 @@ describe RequestController, "when creating a new request" do
         post :new, :info_request => { :public_body_id => info_requests(:fancy_dog_request).public_body_id, 
             :title => info_requests(:fancy_dog_request).title},
             :outgoing_message => { :body => info_requests(:fancy_dog_request).outgoing_messages[0].body},
-            :submitted_new_request => 1
+            :submitted_new_request => 1, :preview => 0
         response.should render_template('new')
     end
 
@@ -159,12 +170,12 @@ describe RequestController, "when creating a new request" do
         post :new, :info_request => { :public_body_id => public_bodies(:geraldine_public_body).id, 
             :title => "Why is your quango called Geraldine?"},
             :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." },
-            :submitted_new_request => 1
+            :submitted_new_request => 1, :preview => 0
 
         post :new, :info_request => { :public_body_id => public_bodies(:geraldine_public_body).id, 
             :title => "Why is your quango called Geraldine?"},
             :outgoing_message => { :body => "This is a sensible letter. It is too long to be boring." },
-            :submitted_new_request => 1
+            :submitted_new_request => 1, :preview => 0
 
         ir_array = InfoRequest.find(:all, :conditions => ["title = ?", "Why is your quango called Geraldine?"], :order => "id")
         ir_array.size.should == 2

@@ -4,8 +4,6 @@
     
     <h1>Now preview your request</h1>
 
-    <%= f.hidden_field(:title) %>
-
     <% fields_for :outgoing_message do |o| %>
     <p class="outgoing_message_preview">
         <strong>To:</strong> <%=h @info_request.public_body.name %>
@@ -16,10 +14,11 @@
     </p>
     <% end %>
 
-    <strong>Note:</strong> Your request and any response will be
-    displayed publically on this website.
+    <p><strong>Note:</strong> Your request and any response will be
+    displayed publically on this website.</p>
 
     <p>
+    <%= f.hidden_field(:title) %>
     <%= f.hidden_field(:public_body_id, { :value => @info_request.public_body_id } ) %>
     <%= hidden_field_tag(:submitted_new_request, 1) %>
     <%= hidden_field_tag(:preview, 0 ) %>
