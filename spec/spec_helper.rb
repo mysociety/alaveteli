@@ -44,8 +44,8 @@ if $tempfilecount.nil?
                     # Call original process function
                     self.original_process(action, parameters, session, flash)
 
-                    # And then if HTML, validate it
-                    if @response.content_type == "text/html" and @response.response_code != 302
+                    # And then if HTML, not a redirect (302), and not a partial template (something/_something, such as in AJAX partial results)
+                    if @response.content_type == "text/html" and @response.response_code != 302 and not @response.rendered_file.include?("/_")
                         $tempfilecount = $tempfilecount + 1
                         tempfilename = File.join(Dir::tmpdir, "railshtmlvalidate."+$$.to_s+"."+$tempfilecount.to_s+".html")
                         File.open(tempfilename, "w+") do |f|

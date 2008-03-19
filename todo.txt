@@ -27,7 +27,9 @@ BAILII - relationship with law courts, robots.txt ?
 Next
 ====
 
-Need something to mark contact as bad, e.g. for university of huddersfield
+Send email to remind people to classify
+Send email to tell admins something isn't classified
+Send email to remind people to clarify
 
 Add all new stuff to test code till it has reasonable coverage
 
@@ -44,10 +46,6 @@ Tom's request to Parliament:
 
 Consider removing login links from notifications of new responses
 Consider password change code in relation to this
-
-Send email to remind people to classify
-Send email to tell admins something isn't classified
-Send email to remind people to clarify
 
 Now of course when ids go into requests/users for new ones it just adds an _ on end which is crap!
 

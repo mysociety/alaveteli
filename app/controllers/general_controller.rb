@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: general_controller.rb,v 1.9 2008-03-13 11:29:46 francis Exp $
+# $Id: general_controller.rb,v 1.10 2008-03-19 03:05:25 francis Exp $
 
 class GeneralController < ApplicationController
 
@@ -63,12 +63,8 @@ class GeneralController < ApplicationController
             raise "Unknown sort order " + @sortby
         end
 
-        # Used for simpler word highlighting view code for users and public bodies
-        query_nopunc = @query.gsub(/[^a-z0-9]/i, " ")
-        query_nopunc = query_nopunc.gsub(/\s+/, " ")
-        @highlight_words = query_nopunc.split(" ")
-
-        @solr_object = InfoRequest.multi_solr_search(@query, :models => [ OutgoingMessage, IncomingMessage, PublicBody, User ],
+        # Peform the search
+        solr_object = InfoRequest.multi_solr_search(@query, :models => [ OutgoingMessage, IncomingMessage, PublicBody, User ],
             :limit => @per_page, :offset => (@page - 1) * @per_page, 
             :highlight => { 
                 :prefix => '<span class="highlight">',
@@ -81,11 +77,16 @@ class GeneralController < ApplicationController
                            "name" # User
             ]}, :order => order
         )
-        @search_results = @solr_object.results
-        @search_hits = @solr_object.total_hits
+        @search_results = solr_object.results
+        @search_hits = solr_object.total_hits
+
+        # Calculate simple word highlighting view code for users and public bodies
+        query_nopunc = @query.gsub(/[^a-z0-9]/i, " ")
+        query_nopunc = query_nopunc.gsub(/\s+/, " ")
+        @highlight_words = query_nopunc.split(" ")
 
         # Extract better Solr highlighting for info request related results
-        @highlighting = @solr_object.highlights
+        @highlighting = solr_object.highlights
     end
  
     def fai_test
