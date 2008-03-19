@@ -153,7 +153,7 @@ describe RequestController, "when creating a new request" do
         mail = deliveries[0]
         mail.body.should =~ /This is a silly letter. It is too short to be interesting./
 
-        response.should redirect_to(:controller => 'request', :action => 'show', :url_title => ir.url_title)
+        response.should redirect_to(:action => 'show', :url_title => ir.url_title)
     end
 
     it "should give an error if the same request is submitted twice" do
@@ -185,7 +185,7 @@ describe RequestController, "when creating a new request" do
 
         ir.url_title.should_not == ir2.url_title
 
-        response.should redirect_to(:controller => 'request', :action => 'show', :url_title => ir2.url_title)
+        response.should redirect_to(:action => 'show', :url_title => ir2.url_title)
     end
 
 end
@@ -225,7 +225,7 @@ describe RequestController, "when classifying an individual response" do
         info_requests(:fancy_dog_request).awaiting_description.should == false
     end
 
-        #response.should redirect_to(:controller => 'request', :action => 'show', :id => info_requests(:fancy_dog_request))
+        #response.should redirect_to(:action => 'show', :id => info_requests(:fancy_dog_request))
         #incoming_messages(:useless_incoming_message).user_classified.should == true
 end
 
@@ -264,14 +264,37 @@ describe RequestController, "when sending a followup message" do
         mail.body.should =~ /What a useless response! You suck./
         mail.to_addrs.to_s.should == "FOI Person <foiperson@localhost>"
 
-        response.should redirect_to(:controller => 'request', :action => 'show', :url_title => info_requests(:fancy_dog_request).url_title)
+        response.should redirect_to(:action => 'show', :url_title => info_requests(:fancy_dog_request).url_title)
     end
 
 
 end
 
+describe RequestController, "sending overdue request alerts" do
+    integrate_views
+    fixtures :info_requests, :info_request_events, :public_bodies, :users, :incoming_messages, :outgoing_messages # all needed as integrating views
+ 
+    it "should send an overdue alert mail to creators of overdue requests" do
+        RequestMailer.alert_overdue_requests
 
+        deliveries = ActionMailer::Base.deliveries
+        deliveries.size.should  == 1
+        mail = deliveries[0]
+        mail.body.should =~ /20 working days/
+        mail.to_addrs.to_s.should == info_requests(:naughty_chicken_request).user.name_and_email
 
+        mail.body =~ /(http:\/\/.*\/c\/(.*))/
+        mail_url = $1
+        mail_token = $2
+
+        #session[:user_id].should be_nil
+        # XXX this is so dumb - I just want to call the user controller here, bloody let me
+        #get :controller => :user, :action => :confirm, :email_token => mail_token
+        #session[:user_id].should == info_requests(:naughty_chicken_request).user.id
+        #response.should redirect_to(:action => 'show_response', :id => info_requests(:naughty_chicken_request).id)
+    end
+
+end
 
 
 

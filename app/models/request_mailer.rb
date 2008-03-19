@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.25 2008-02-29 16:00:29 francis Exp $
+# $Id: request_mailer.rb,v 1.26 2008-03-19 05:26:31 francis Exp $
 
 class RequestMailer < ApplicationMailer
     
@@ -75,7 +75,7 @@ class RequestMailer < ApplicationMailer
         @body = { :incoming_message => incoming_message, :info_request => info_request, :url => url }
     end
 
-    # Tell the requester that a new response has arrived
+    # Tell the requester that the public body is late in replying
     def overdue_alert(info_request, user)
         last_response = info_request.get_last_response
         if last_response.nil?

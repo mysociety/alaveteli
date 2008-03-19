@@ -1,5 +1,8 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
+# XXX Use route_for or params_from to check /c/ links better
+# http://rspec.info/rdoc-rails/classes/Spec/Rails/Example/ControllerExampleGroup.html
+
 describe UserController, "when showing a user" do
     integrate_views
     fixtures :users, :outgoing_messages, :incoming_messages, :info_requests, :info_request_events
@@ -110,7 +113,11 @@ describe UserController, "when signing in" do
         mail_url = $1
         mail_token = $2
 
+        mail_token.should == post_redirect.email_token
+
+        session[:user_id].should be_nil
         get :confirm, :email_token => post_redirect.email_token
+        session[:user_id].should == users(:silly_name_user).id
         response.should redirect_to(:controller => 'request', :action => 'list', :post_redirect => 1)
     end
 
