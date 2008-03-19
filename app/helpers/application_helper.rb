@@ -5,7 +5,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: application_helper.rb,v 1.17 2008-03-06 21:49:33 francis Exp $
+# $Id: application_helper.rb,v 1.18 2008-03-19 05:46:52 francis Exp $
 
 module ApplicationHelper
     # URL generating functions are needed by all controllers (for redirects)
@@ -42,24 +42,6 @@ module ApplicationHelper
         end
     end
 
-    # Used for search results
-    def excerpt_and_highlight(text, words, count = 150)
-        # Find at least one word if we can
-        t = nil
-        for word in words
-            t = excerpt(text, word, count)
-            if not t.nil?
-                break
-            end
-        end
-        if t.nil?
-            t = excerpt(text, "", count * 2)
-        end
-
-        # Highlight all the words, escaping HTML also
-        t = highlight_words(t, words)
-        return t
-    end
     # Highlight words, also escapes HTML (other than spans that we add)
     def highlight_words(t, words)
         t = h(t)
