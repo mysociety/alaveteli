@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user_controller.rb,v 1.39 2008-03-13 12:33:40 francis Exp $
+# $Id: user_controller.rb,v 1.40 2008-03-20 11:58:21 francis Exp $
 
 class UserController < ApplicationController
     # Show page about a set of users with same url name
@@ -74,7 +74,8 @@ class UserController < ApplicationController
         end
     end
 
-    # Followed link in user account confirmation email
+    # Followed link in user account confirmation email.
+    # If you change this, change ApplicationController.test_code_redirect_by_email_token also
     def confirm
         post_redirect = PostRedirect.find_by_email_token(params[:email_token])
 

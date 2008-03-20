@@ -287,11 +287,12 @@ describe RequestController, "sending overdue request alerts" do
         mail_url = $1
         mail_token = $2
 
-        #session[:user_id].should be_nil
-        # XXX this is so dumb - I just want to call the user controller here, bloody let me
-        #get :controller => :user, :action => :confirm, :email_token => mail_token
-        #session[:user_id].should == info_requests(:naughty_chicken_request).user.id
-        #response.should redirect_to(:action => 'show_response', :id => info_requests(:naughty_chicken_request).id)
+        session[:user_id].should be_nil
+        controller.test_code_redirect_by_email_token(mail_token, self) # XXX hack to avoid having to call User controller for email link
+        session[:user_id].should == info_requests(:naughty_chicken_request).user.id
+
+        response.should render_template('show_response')
+        assigns[:info_request].should == info_requests(:naughty_chicken_request)
     end
 
 end

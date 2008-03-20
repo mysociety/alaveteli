@@ -32,6 +32,10 @@ Send email to tell admins something isn't classified
 Send email to remind people to clarify
 
 Add all new stuff to test code till it has reasonable coverage
+- rake spec:check
+
+Fix password change to use a special field in post redirect rather than other nonsense
+- then can it be used for email change instead?
 
 Search and replace text "FOI" and "Freedom of Information" out the way more
  - but put it in the title tag
@@ -51,6 +55,8 @@ Now of course when ids go into requests/users for new ones it just adds an _ on 
 
 Later
 =====
+
+Just stop using the seaprate bounce address, it's a waste of time
 
 This search gives a runtime error:
     "19 hours

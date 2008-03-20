@@ -25,7 +25,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: post_redirect.rb,v 1.23 2008-03-18 19:18:51 francis Exp $
+# $Id: post_redirect.rb,v 1.24 2008-03-20 11:58:21 francis Exp $
 
 require 'openssl' # for random bytes function
 
@@ -50,6 +50,12 @@ class PostRedirect < ActiveRecord::Base
     end
     def reason_params
         YAML.load(self.reason_params_yaml)
+    end
+
+    # Extract just local path part, without domain or #
+    def local_part_uri
+        self.uri.match(/^http:\/\/.+?(\/[^#]+)/)
+        return $1
     end
 
     # Makes a random token, suitable for using in URLs e.g confirmation messages.

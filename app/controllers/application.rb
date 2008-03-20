@@ -6,7 +6,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: application.rb,v 1.30 2008-02-27 12:18:28 francis Exp $
+# $Id: application.rb,v 1.31 2008-03-20 11:58:21 francis Exp $
 
 
 class ApplicationController < ActionController::Base
@@ -26,6 +26,21 @@ class ApplicationController < ActionController::Base
       
     def local_request?
         false
+    end
+
+    # Called from test code, is a mimic of User.confirm, for use in following email
+    # links when in controller tests (since we don't have full integration tests that
+    # can work over multiple controllers)0
+    def test_code_redirect_by_email_token(token, controller_example_group)
+        post_redirect = PostRedirect.find_by_email_token(token)
+        if post_redirect.nil?
+            raise "bad token in test code email"
+        end
+        session[:user_id] = post_redirect.user.id
+        session[:user_authtype] = :email
+        params = controller_example_group.params_from(:get, post_redirect.local_part_uri)
+        params.merge(post_redirect.post_params)
+        controller_example_group.get params[:action], params
     end
 
     private
@@ -112,6 +127,7 @@ class ApplicationController < ActionController::Base
     # URL generating functions are needed by all controllers (for redirects)
     # and views (for links), so include them into all of both.
     include LinkToHelper
+
 end
 
 

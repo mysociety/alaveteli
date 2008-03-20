@@ -33,8 +33,6 @@ describe UserController, "when showing a user" do
 #        assigns[:display_users].should == [ users(:silly_name_user) ]
 #    end
 
-
-    # XXX test for 404s when don't give valid name
 end
 
 describe UserController, "when signing in" do
@@ -109,12 +107,16 @@ describe UserController, "when signing in" do
         deliveries = ActionMailer::Base.deliveries
         deliveries.size.should  == 1
         mail = deliveries[0]
-        mail.body =~ /(http:\/\/.*\/c\/(.*))/
+        mail.body =~ /(http:\/\/.*(\/c\/(.*)))/
         mail_url = $1
-        mail_token = $2
+        mail_path = $2
+        mail_token = $3
 
+        # check is right confirmation URL
         mail_token.should == post_redirect.email_token
+        params_from(:get, mail_path).should == { :controller => 'user', :action => 'confirm', :email_token => mail_token }
 
+        # check confirmation URL works
         session[:user_id].should be_nil
         get :confirm, :email_token => post_redirect.email_token
         session[:user_id].should == users(:silly_name_user).id
@@ -134,19 +136,33 @@ describe UserController, "when signing up" do
         assigns[:user_signup].errors[:password].should_not be_nil
     end
 
-    it "should be an error to sign up with an email that has already been used" do
+    it "should be an error to sign up with a misformatted email" do
         post :signup, { :user_signup => { :email => 'malformed-email', :name => 'Mr Malformed',
             :password => 'sillypassword', :password_confirmation => 'sillypassword' } 
         }
         assigns[:user_signup].errors[:email].should_not be_nil
     end
 
-    it "should ask you to confirm your email if you fill in the form right" do
+    it "should send confirmation mail if you fill in the form right" do
         post :signup, { :user_signup => { :email => 'new@localhost', :name => 'New Person',
             :password => 'sillypassword', :password_confirmation => 'sillypassword' } 
         }
         response.should render_template('confirm')
-        # XXX if you go straight into signup form without token it doesn't make one
+
+        deliveries = ActionMailer::Base.deliveries
+        deliveries.size.should  == 1
+        deliveries[0].body.should include("never give away or sell")
+    end
+
+    it "should send special 'already signed up' mail if you fill the form in with existing registered email " do
+        post :signup, { :user_signup => { :email => 'silly@localhost', :name => 'New Person',
+            :password => 'sillypassword', :password_confirmation => 'sillypassword' } 
+        }
+        response.should render_template('confirm')
+
+        deliveries = ActionMailer::Base.deliveries
+        deliveries.size.should  == 1
+        deliveries[0].body.should include("you\nalready have an account")
     end
 
     # XXX need to do bob@localhost signup and check that sends different email
@@ -168,6 +184,44 @@ describe UserController, "when signing out" do
         get :signout, :r => '/list'
         session[:user_id].should be_nil
         response.should redirect_to(:controller => 'request', :action => 'list')
+    end
+
+end
+
+describe UserController, "when sending another user a message" do
+    integrate_views
+    fixtures :users
+
+    it "should redirect to signin page if you go to the contact form and aren't signed in" do
+        get :contact, :id => users(:silly_name_user)
+        post_redirect = PostRedirect.get_last_post_redirect
+        response.should redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
+    end
+
+    it "should show contact form if you are signed in" do
+        session[:user_id] = users(:bob_smith_user).id
+        get :contact, :id => users(:silly_name_user)
+        response.should render_template('contact')
+    end
+
+    it "should give error if you don't fill in the subject" do
+        session[:user_id] = users(:bob_smith_user).id
+        post :contact, { :id => users(:silly_name_user), :contact => { :subject => "", :message => "Gah" }, :submitted_contact_form => 1 }
+        response.should render_template('contact')
+    end
+
+    it "should send the message" do
+        session[:user_id] = users(:bob_smith_user).id
+        post :contact, { :id => users(:silly_name_user), :contact => { :subject => "Dearest you", :message => "Just a test!" }, :submitted_contact_form => 1 }
+        response.should redirect_to(:controller => 'user', :action => 'show', :url_name => users(:silly_name_user).url_name)
+
+        deliveries = ActionMailer::Base.deliveries
+        deliveries.size.should  == 1
+        mail = deliveries[0]
+        mail.body.should include("Bob Smith has used WhatDoTheyKnow to send you the message below")
+        mail.body.should include("Just a test!")
+        #mail.to_addrs.to_s.should == users(:silly_name_user).name_and_email # XXX fix some nastiness with quoting name_and_email
+        mail.from_addrs.to_s.should == users(:bob_smith_user).name_and_email
     end
 
 end
