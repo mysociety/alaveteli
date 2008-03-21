@@ -3,10 +3,10 @@
 <h1><%=@title%></h1>
 
 <% form_tag("") do %>
-   </p>
+   <p>
        <%= text_field_tag 'query', params[:query], { :size => 30 } %>
        <%= submit_tag "Search" %> (substring search, titles only)
-   <p>
+   </p>
 <% end %>
 
 <table>
@@ -27,6 +27,4 @@
 </table>
 
 <%= will_paginate(@info_requests) %>
-
-<br />
 

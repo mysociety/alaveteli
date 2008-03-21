@@ -37,8 +37,10 @@
   <% end %>
   <td>
   <% form_tag '../resend' do %>
-      <%= hidden_field_tag 'outgoing_message_id', outgoing_message.id %>
-      <%= submit_tag "Resend" %>
+      <div>
+          <%= hidden_field_tag 'outgoing_message_id', outgoing_message.id %>
+          <%= submit_tag "Resend" %>
+      </div>
   <% end %>
   <%= link_to "Edit", '../edit_outgoing/' + outgoing_message.id.to_s %>
   </td>
