@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 44
+# Schema version: 45
 #
 # Table name: info_request_events
 #
@@ -16,7 +16,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request_event.rb,v 1.23 2008-03-21 14:04:29 francis Exp $
+# $Id: info_request_event.rb,v 1.24 2008-03-21 14:45:38 francis Exp $
 
 class InfoRequestEvent < ActiveRecord::Base
     belongs_to :info_request

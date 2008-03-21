@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 44
+# Schema version: 45
 #
 # Table name: post_redirects
 #
@@ -12,6 +12,7 @@
 #  email_token        :text            not null
 #  reason_params_yaml :text            
 #  user_id            :integer         
+#  circumstance       :text            default("normal"), not null
 #
 
 # models/post_redirect.rb:
@@ -25,7 +26,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: post_redirect.rb,v 1.25 2008-03-21 14:04:29 francis Exp $
+# $Id: post_redirect.rb,v 1.26 2008-03-21 14:45:38 francis Exp $
 
 require 'openssl' # for random bytes function
 

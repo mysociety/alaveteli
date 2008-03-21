@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 44) do
+ActiveRecord::Schema.define(:version => 45) do
 
   create_table "incoming_messages", :force => true do |t|
     t.integer  "info_request_id", :null => false
@@ -56,14 +56,15 @@ ActiveRecord::Schema.define(:version => 44) do
   end
 
   create_table "post_redirects", :force => true do |t|
-    t.text     "token",              :null => false
-    t.text     "uri",                :null => false
+    t.text     "token",                                    :null => false
+    t.text     "uri",                                      :null => false
     t.text     "post_params_yaml"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
-    t.text     "email_token",        :null => false
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
+    t.text     "email_token",                              :null => false
     t.text     "reason_params_yaml"
     t.integer  "user_id"
+    t.text     "circumstance",       :default => "normal", :null => false
   end
 
   add_index "post_redirects", ["email_token"], :name => "index_post_redirects_on_email_token"

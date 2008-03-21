@@ -6,7 +6,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: application.rb,v 1.31 2008-03-20 11:58:21 francis Exp $
+# $Id: application.rb,v 1.32 2008-03-21 14:45:38 francis Exp $
 
 
 class ApplicationController < ActionController::Base
@@ -37,7 +37,7 @@ class ApplicationController < ActionController::Base
             raise "bad token in test code email"
         end
         session[:user_id] = post_redirect.user.id
-        session[:user_authtype] = :email
+        session[:user_circumstance] = post_redirect.circumstance
         params = controller_example_group.params_from(:get, post_redirect.local_part_uri)
         params.merge(post_redirect.post_params)
         controller_example_group.get params[:action], params

@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user_controller.rb,v 1.40 2008-03-20 11:58:21 francis Exp $
+# $Id: user_controller.rb,v 1.41 2008-03-21 14:45:38 francis Exp $
 
 class UserController < ApplicationController
     # Show page about a set of users with same url name
@@ -39,7 +39,7 @@ class UserController < ApplicationController
                 # Successful login
                 if @user_signin.email_confirmed
                     session[:user_id] = @user_signin.id
-                    session[:user_authtype] = :password
+                    session[:user_circumstance] = nil
                     do_post_redirect @post_redirect.uri, @post_redirect.post_params
                 else
                     send_confirmation_mail @user_signin
@@ -89,7 +89,7 @@ class UserController < ApplicationController
         @user.save!
 
         session[:user_id] = @user.id
-        session[:user_authtype] = :email
+        session[:user_circumstance] = post_redirect.circumstance
 
         do_post_redirect post_redirect.uri, post_redirect.post_params
     end
@@ -97,7 +97,7 @@ class UserController < ApplicationController
     # Logout form
     def signout
         session[:user_id] = nil
-        session[:user_authtype] = nil
+        session[:user_circumstance] = nil
         if params[:r]
             redirect_to params[:r]
         else
@@ -107,7 +107,7 @@ class UserController < ApplicationController
 
     # Change password (XXX and perhaps later email) - requires email authentication
     def signchange
-        if @user and ((not session[:user_authtype]) or (session[:user_authtype] != :email))
+        if @user and ((not session[:user_circumstance]) or (session[:user_circumstance] != "change_password"))
             # Not logged in via email, so send confirmation
             params[:submitted_signchange_email] = true
             params[:signchange] = { :email => @user.email }
@@ -132,7 +132,9 @@ class UserController < ApplicationController
                         :web => "",
                         :email => "Then you can change your password on WhatDoTheyKnow.com",
                         :email_subject => "Change your password on WhatDoTheyKnow.com"
-                    })
+                    },
+                    :circumstance => "change_password" # special login that lets you change your password
+                )
                 post_redirect.user = user_signchange
                 post_redirect.save!
                 url = confirm_url(:email_token => post_redirect.email_token)
@@ -146,8 +148,8 @@ class UserController < ApplicationController
             # Not logged in, prompt for email
             render :action => 'signchange_email'
         else
-            # Logged in via email link, so can offer form to change email/password
-            raise "internal error" unless (session[:user_authtype] == :email)
+            # Logged in via special email change password link, so can offer form to change password
+            raise "internal error" unless (session[:user_circumstance] == "change_password")
 
             if params[:submitted_signchange_password]
                 @user.password = params[:user][:password]
