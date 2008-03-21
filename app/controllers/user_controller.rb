@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user_controller.rb,v 1.42 2008-03-21 14:50:04 francis Exp $
+# $Id: user_controller.rb,v 1.43 2008-03-21 15:02:55 francis Exp $
 
 class UserController < ApplicationController
     # Show page about a set of users with same url name
@@ -19,6 +19,8 @@ class UserController < ApplicationController
             raise "user not found"
         end
         @same_name_users = User.find(:all, :conditions => [ "name = ? and email_confirmed and id <> ?", @display_user.name, @display_user.id ], :order => "created_at")
+
+        @is_you = !@user.nil? && @user.id == @display_user.id
     end
 
     # Login form
@@ -117,7 +119,7 @@ class UserController < ApplicationController
             # They've entered the email, check it is OK and user exists
             if not MySociety::Validate.is_valid_email(params[:signchange][:email])
                 flash[:error] = "That doesn't look like a valid email address. Please check you have typed it correctly."
-                render :action => 'signchange_email'
+                render :action => 'signchange_send_confirm'
                 return
             end
             user_signchange = User.find_user_by_email(params[:signchange][:email])
@@ -146,7 +148,7 @@ class UserController < ApplicationController
             render :action => 'signchange_confirm'
         elsif not @user
             # Not logged in, prompt for email
-            render :action => 'signchange_email'
+            render :action => 'signchange_send_confirm'
         else
             # Logged in via special email change password link, so can offer form to change password
             raise "internal error" unless (session[:user_circumstance] == "change_password")
