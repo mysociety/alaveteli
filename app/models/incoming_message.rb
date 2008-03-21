@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 43
+# Schema version: 44
 #
 # Table name: incoming_messages
 #
@@ -8,7 +8,6 @@
 #  raw_data        :text            not null
 #  created_at      :datetime        not null
 #  updated_at      :datetime        not null
-#  is_bounce       :boolean         default(false), not null
 #
 
 # models/incoming_message.rb:
@@ -18,7 +17,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.67 2008-03-18 19:18:51 francis Exp $
+# $Id: incoming_message.rb,v 1.68 2008-03-21 14:04:29 francis Exp $
 
 
 # TODO
@@ -140,7 +139,6 @@ class IncomingMessage < ActiveRecord::Base
             text = text.gsub(self.info_request.public_body.request_email, "[" + self.info_request.public_body.short_or_long_name + " request email]")
         end
         text = text.gsub(self.info_request.incoming_email, "[FOI #" + self.info_request.id.to_s + " email]")
-        text = text.gsub(self.info_request.envelope_email, "[FOI #" + self.info_request.id.to_s + " bounce email]")
         text = text.gsub(MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost'), "[WhatDoTheyKnow contact email]")
         return text
     end

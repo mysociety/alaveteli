@@ -9,14 +9,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 43) do
+ActiveRecord::Schema.define(:version => 44) do
 
   create_table "incoming_messages", :force => true do |t|
-    t.integer  "info_request_id",                    :null => false
-    t.text     "raw_data",                           :null => false
-    t.datetime "created_at",                         :null => false
-    t.datetime "updated_at",                         :null => false
-    t.boolean  "is_bounce",       :default => false, :null => false
+    t.integer  "info_request_id", :null => false
+    t.text     "raw_data",        :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
   end
 
   create_table "info_request_events", :force => true do |t|

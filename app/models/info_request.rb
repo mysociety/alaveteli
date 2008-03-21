@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 43
+# Schema version: 44
 #
 # Table name: info_requests
 #
@@ -22,7 +22,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.69 2008-03-18 19:18:51 francis Exp $
+# $Id: info_request.rb,v 1.70 2008-03-21 14:04:29 francis Exp $
 
 require 'digest/sha1'
 
@@ -162,15 +162,6 @@ public
         return self.user.name + " <" + self.incoming_email + ">"
     end
 
-    # Modified version of incoming_email to use in the envelope from, for
-    # bounce messages.
-    def envelope_email
-        return self.magic_email("request-bounce-")
-    end
-    def envelope_name_and_email
-        return self.user.name + " <" + self.envelope_email + ">"
-    end
-
     # Subject lines for emails about the request
     def email_subject_request
         'Freedom of Information request - ' + self.title
@@ -185,15 +176,10 @@ public
     # the prefix and domain, as sometimes those change, or might be elided by
     # copying an email, and that doesn't matter)
     def InfoRequest.find_by_incoming_email(incoming_email)
-        incoming_email =~ /request-(\d+)-([a-z0-9]+)/
-        id = $1.to_i
-        hash = $2
-
-        return self.find_by_magic_email(id, hash)
-    end
-
-    def InfoRequest.find_by_envelope_email(incoming_email)
-        incoming_email =~ /request-bounce-(\d+)-([a-z0-9]+)/
+        # The optional bounce- dates from when we used to have separate emails for the envelope from.
+        # (that was abandoned because councils would send hand written responses to them, not just
+        # bounce messages)
+        incoming_email =~ /request-(?:bounce-)?(\d+)-([a-z0-9]+)/
         id = $1.to_i
         hash = $2
 
@@ -210,12 +196,11 @@ public
     end
 
     # A new incoming email to this request
-    def receive(email, raw_email, is_bounce)
+    def receive(email, raw_email)
         incoming_message = IncomingMessage.new
 
         ActiveRecord::Base.transaction do
             incoming_message.raw_data = raw_email
-            incoming_message.is_bounce = is_bounce
             incoming_message.info_request = self
             incoming_message.save!
 
@@ -464,8 +449,8 @@ public
         end
     end
 
-
-    # Called by incoming_email and envelope_email
+    # Called by incoming_email - and used to be called to generate separate
+    # envelope from address until we abandoned it.
     def magic_email(prefix_part)
         raise "id required to make magic" if not self.id
         return InfoRequest.magic_email_for_id(prefix_part, self.id)
@@ -479,7 +464,8 @@ public
         return magic_email
     end
 
-    # Called by find_by_incoming_email and find_by_envelope_email
+    # Called by find_by_incoming_email - and used to be called by separate
+    # function for envelope from address, until we abandoned it.
     def InfoRequest.find_by_magic_email(id, hash)
         expected_hash = Digest::SHA1.hexdigest(id.to_s + MySociety::Config.get("INCOMING_EMAIL_SECRET", 'dummysecret'))[0,8]
         #print "expected: " + expected_hash + "\nhash: " + hash + "\n"

@@ -4,21 +4,13 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.26 2008-03-19 05:26:31 francis Exp $
+# $Id: request_mailer.rb,v 1.27 2008-03-21 14:04:29 francis Exp $
 
 class RequestMailer < ApplicationMailer
-    
-    # We always set Reply-To when we set Sender to be different from From,
-    # since some email clients seem to erroneously use the envelope from when
-    # they shouldn't, and this might help. (Have had mysterious cases of a
-    # reply coming in duplicate from a public body to both From and envelope
-    # from)
     
     # Email to public body requesting info
     def initial_request(info_request, outgoing_message)
         @from = info_request.incoming_name_and_email
-        headers 'Sender' => info_request.envelope_name_and_email, 
-                'Reply-To' => @from
         @recipients = info_request.recipient_name_and_email
         @subject    = info_request.email_subject_request
         @body       = {:info_request => info_request, :outgoing_message => outgoing_message,
@@ -28,8 +20,6 @@ class RequestMailer < ApplicationMailer
     # Later message to public body regarding existing request
     def followup(info_request, outgoing_message, incoming_message_followup)
         @from = info_request.incoming_name_and_email
-        headers 'Sender' => info_request.envelope_name_and_email,
-                'Reply-To' => @from
         if incoming_message_followup.nil?
             @recipients = info_request.recipient_name_and_email
         else
@@ -113,25 +103,19 @@ class RequestMailer < ApplicationMailer
     def receive(email, raw_email)
         # Find which info requests the email is for
         reply_info_requests = []
-        bounce_info_requests = []
         for address in (email.to || []) + (email.cc || [])
             reply_info_request = InfoRequest.find_by_incoming_email(address)
             reply_info_requests.push(reply_info_request) if reply_info_request
-            bounce_info_request = InfoRequest.find_by_envelope_email(address)
-            bounce_info_requests.push(bounce_info_request) if bounce_info_request
         end
 
         # Nothing found
-        if reply_info_requests.size == 0 && bounce_info_requests.size == 0
+        if reply_info_requests.size == 0 
             RequestMailer.deliver_bounced_message(email)
         end
 
         # Send the message to each request, to be archived with it
         for reply_info_request in reply_info_requests
-            reply_info_request.receive(email, raw_email, false)
-        end
-        for bounce_info_request in bounce_info_requests
-            bounce_info_request.receive(email, raw_email, true)
+            reply_info_request.receive(email, raw_email)
         end
     end
 

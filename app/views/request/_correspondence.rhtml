@@ -18,12 +18,7 @@ if not incoming_message.nil?
             <% if !incoming_message.safe_mail_from.nil? %>
                 <%= incoming_message.safe_mail_from %> of
             <% end %>
-            <%= public_body_link(@info_request.public_body) %>
-            <% if incoming_message.is_bounce %>
-                replied automatically
-            <% else %>
-                replied 
-            <% end %>
+            <%= public_body_link(@info_request.public_body) %> replied 
             (<%= link_to "link to this", show_response_url(:id => incoming_message.info_request.id, :incoming_message_id => incoming_message.id) %>,
             <%= link_to "reply", show_response_url(:id => incoming_message.info_request.id, :incoming_message_id => incoming_message.id) + "#show_response_followup" %>)
         </p>

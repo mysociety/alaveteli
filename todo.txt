@@ -1,3 +1,5 @@
+remove is_bounce
+
 Search:
 
 Gah - test to see if it queries solr when new message arrives
