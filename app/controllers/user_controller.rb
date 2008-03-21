@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user_controller.rb,v 1.41 2008-03-21 14:45:38 francis Exp $
+# $Id: user_controller.rb,v 1.42 2008-03-21 14:50:04 francis Exp $
 
 class UserController < ApplicationController
     # Show page about a set of users with same url name
@@ -109,11 +109,11 @@ class UserController < ApplicationController
     def signchange
         if @user and ((not session[:user_circumstance]) or (session[:user_circumstance] != "change_password"))
             # Not logged in via email, so send confirmation
-            params[:submitted_signchange_email] = true
+            params[:submitted_signchange_send_confirm] = true
             params[:signchange] = { :email => @user.email }
         end
 
-        if params[:submitted_signchange_email]
+        if params[:submitted_signchange_send_confirm]
             # They've entered the email, check it is OK and user exists
             if not MySociety::Validate.is_valid_email(params[:signchange][:email])
                 flash[:error] = "That doesn't look like a valid email address. Please check you have typed it correctly."
