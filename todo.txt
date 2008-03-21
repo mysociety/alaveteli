@@ -1,6 +1,3 @@
-:user_authtype is crappy
-:submitted_signchange_email is wrong
-
 Search:
 
 Gah - test to see if it queries solr when new message arrives
@@ -34,12 +31,6 @@ Send email to remind people to classify
 Send email to tell admins something isn't classified
 Send email to remind people to clarify
 
-Add all new stuff to test code till it has reasonable coverage
-- rake spec:check
-
-Fix password change to use a special field in post redirect rather than other nonsense
-- then can it be used for email change instead?
-
 Search and replace text "FOI" and "Freedom of Information" out the way more
  - but put it in the title tag
 "public body" --> "public authority"?
@@ -69,6 +60,8 @@ when sending "my response is late"
 
 Holding pen with comments - new requests don't get sent straight away, but are
     delayed while people help improve them.
+
+Change email address - easier to do now with post_redirect.circumstance?
 
 One of the PDFs on live site has:
 Error: PDF version 1.6 -- xpdf supports version 1.5 (continuing anyway)

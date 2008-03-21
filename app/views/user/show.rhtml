@@ -16,7 +16,7 @@
         <%= link_to "Send message to " + h(@display_user.name), contact_user_url(:id => @display_user.id) %>
         <% if @is_you %>
             (just to see how it works)
-            <br><%= link_to "Change your password", signchange_url + "?pretoken=" + h(params[:token]) %>
+            <br><%= link_to "Change your password", signchange_url() %>
         <% else %>
         <% end %>
     </p>

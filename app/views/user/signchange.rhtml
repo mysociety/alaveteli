@@ -11,6 +11,7 @@
     <h1>Change your password</h1>
     </div>
 
+    <p>
     <label class="form_label" for="user_password">New password:</label>
     <%= password_field 'user', 'password', { :size => 15 } %>
     </p>
@@ -23,7 +24,7 @@
     <div class="form_button">
     <%= hidden_field_tag 'submitted_signchange_password', 1 %>
     <%= hidden_field_tag 'pretoken', params[:pretoken] %>
-    <%= submit_tag "Update" %>
+    <%= submit_tag "Change password" %>
     </div>
 <% end %>
 

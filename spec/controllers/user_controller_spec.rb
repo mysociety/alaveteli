@@ -226,3 +226,61 @@ describe UserController, "when sending another user a message" do
 
 end
 
+describe UserController, "when changing password" do
+    integrate_views
+    fixtures :users
+
+    it "should show the email form when not logged in" do
+        get :signchange
+        response.should render_template('signchange_send_confirm')
+    end
+
+    it "should send a confirmation email when logged in normally" do
+        session[:user_id] = users(:bob_smith_user).id
+        get :signchange
+        response.should render_template('signchange_confirm')
+
+        deliveries = ActionMailer::Base.deliveries
+        deliveries.size.should  == 1
+        mail = deliveries[0]
+        mail.body.should include("Please click on the link below to confirm your email address")
+    end
+
+    it "should send a confirmation email when have wrong login circumstance" do
+        session[:user_id] = users(:bob_smith_user).id
+        session[:user_circumstance] = "bogus"
+        get :signchange
+        response.should render_template('signchange_confirm')
+    end
+
+    it "should show the password change screen when logged in as special password change mode" do
+        session[:user_id] = users(:bob_smith_user).id
+        session[:user_circumstance] = "change_password"
+        get :signchange
+        response.should render_template('signchange')
+    end
+ 
+    it "should change the password, if you have right to do so" do
+        session[:user_id] = users(:bob_smith_user).id
+        session[:user_circumstance] = "change_password"
+
+        old_hash = users(:bob_smith_user).hashed_password
+        post :signchange, { :user => { :password => 'ooo', :password_confirmation => 'ooo' },
+            :submitted_signchange_password => 1
+        }
+        users(:bob_smith_user).hashed_password.should != old_hash
+
+        response.should redirect_to(:controller => 'user', :action => 'show', :url_name => users(:bob_smith_user).url_name)
+    end
+
+    it "should not change the password, if you're not logged in" do
+    end
+
+    it "should not change the password, if you're just logged in normally" do
+    end
+
+end
+
+
+
+

@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user_controller.rb,v 1.43 2008-03-21 15:02:55 francis Exp $
+# $Id: user_controller.rb,v 1.44 2008-03-21 15:31:31 francis Exp $
 
 class UserController < ApplicationController
     # Show page about a set of users with same url name
@@ -165,7 +165,7 @@ class UserController < ApplicationController
                         post_redirect = PostRedirect.find_by_token(params[:pretoken])
                         do_post_redirect post_redirect.uri, post_redirect.post_params
                     else    
-                        redirect_to :controller => "general", :action => "frontpage" # XXX should go back to login and where they were!
+                        redirect_to user_url(@user)
                     end
                 end
             else
