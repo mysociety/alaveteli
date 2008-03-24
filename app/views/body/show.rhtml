@@ -3,7 +3,7 @@
 <h1><%=@title%></h1>
 
 <p class="subtitle">
-A public authority in the UK<% if not @public_body.short_name.empty? %>, also called <%= h(@public_body.short_name) %><% end %>
+<%=@public_body.type_of_authority.capitalize%> in the UK<% if not @public_body.short_name.empty? %>, also called <%= h(@public_body.short_name) %><% end %>
 </p>
 
 <p>

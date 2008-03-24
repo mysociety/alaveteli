@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.44 2008-03-24 15:40:53 francis Exp $
+# $Id: public_body.rb,v 1.45 2008-03-24 19:11:32 francis Exp $
 
 require 'csv'
 require 'set'
@@ -35,22 +35,26 @@ class PublicBody < ActiveRecord::Base
 
     def self.categories_with_description
         [
-            [ "department", "Ministerial departments" ], 
-            [ "local_council", "Local councils" ], 
-            [ "non_ministerial_department", "Non-ministerial departments" ], 
-            [ "npa", "National park authorities" ], 
-            [ "police", "Police forces" ], 
-            [ "rda", "Regional development agencies" ], 
-            [ "university", "Universities" ], 
-            [ "other", "Other" ]
+            [ "department", "Ministerial departments", "a ministerial department" ], 
+            [ "local_council", "Local councils", "a local council" ], 
+            [ "non_ministerial_department", "Non-ministerial departments", "a non-ministerial department" ], 
+            [ "npa", "National park authorities", "a national park authority" ], 
+            [ "police", "Police forces", "a police force" ], 
+            [ "rda", "Regional development agencies", "a regional development agency" ], 
+            [ "university", "Universities", "university" ], 
+            [ "other", "Other", "other" ]
         ]
     end
     def self.categories
         self.categories_with_description.map() { |a| a[0] }
     end
     def self.categories_by_tag
-        Hash[*self.categories_with_description.flatten]
+        Hash[*self.categories_with_description.map() { |a| a[0..1] }.flatten]
     end
+    def self.category_singular_by_tag
+        Hash[*self.categories_with_description.map() { |a| [a[0],a[2]] }.flatten]
+    end
+
 
     def validate
         # Request_email can be blank, meaning we don't have details
@@ -114,6 +118,21 @@ class PublicBody < ActiveRecord::Base
     # Find all public bodies with a particular tag
     def self.find_by_tag(tag) 
         return PublicBodyTag.find(:all, :conditions => ['name = ?', tag] ).map { |t| t.public_body }
+    end
+
+    # Use tags to describe what type of thing this is
+    def type_of_authority
+        types = []
+        for tag in self.public_body_tags
+            if PublicBody.categories_by_tag.include?(tag.name)
+                types.push(PublicBody.category_singular_by_tag[tag.name])
+            end
+        end
+        if types.size > 0
+            types.join(", ")
+        else
+            return "a public authority"
+        end
     end
 
     # Import from CSV 
