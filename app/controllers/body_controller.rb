@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: body_controller.rb,v 1.9 2008-03-03 09:29:43 francis Exp $
+# $Id: body_controller.rb,v 1.10 2008-03-24 15:40:53 francis Exp $
 
 class BodyController < ApplicationController
     # XXX tidy this up with better error messages, and a more standard infrastructure for the redirect to canonical URL
@@ -39,8 +39,7 @@ class BodyController < ApplicationController
         if @tag.nil?
             conditions = []
         elsif @tag == 'other'
-            categories = PublicBody.categories_by_tag.keys
-            category_list = categories.map{|c| "'"+c+"'"}.join(",")
+            category_list = PublicBody.categories.map{|c| "'"+c+"'"}.join(",")
             conditions = ['(select count(*) from public_body_tags where public_body_tags.public_body_id = public_bodies.id
                 and public_body_tags.name in (' + category_list + ')) = 0']
         else

@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.43 2008-03-24 14:04:15 francis Exp $
+# $Id: public_body.rb,v 1.44 2008-03-24 15:40:53 francis Exp $
 
 require 'csv'
 require 'set'
@@ -33,17 +33,23 @@ class PublicBody < ActiveRecord::Base
     has_many :info_requests
     has_many :public_body_tags
 
-    def self.categories_by_tag 
-        {
-            "local_council" => "Local Councils",
-            "department" => "Ministerial Departments",
-            "non_ministerial_department" => "Non-Ministerial Departments",
-            "university" => "Universities",
-            "police" => "Police Forces",
-            "rda" => "Regional Development Agencies",
-            "npa" => "National Park Authorities",
-            "other" => "Other"
-        }
+    def self.categories_with_description
+        [
+            [ "department", "Ministerial departments" ], 
+            [ "local_council", "Local councils" ], 
+            [ "non_ministerial_department", "Non-ministerial departments" ], 
+            [ "npa", "National park authorities" ], 
+            [ "police", "Police forces" ], 
+            [ "rda", "Regional development agencies" ], 
+            [ "university", "Universities" ], 
+            [ "other", "Other" ]
+        ]
+    end
+    def self.categories
+        self.categories_with_description.map() { |a| a[0] }
+    end
+    def self.categories_by_tag
+        Hash[*self.categories_with_description.flatten]
     end
 
     def validate

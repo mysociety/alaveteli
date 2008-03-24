@@ -2,7 +2,7 @@
 <h1>Show only...</h1>
 <p>
 <ul>
-<% for category, description in PublicBody.categories_by_tag %>
+<% for category, description in PublicBody.categories_with_description %>
 <li>
     <%= link_to_unless (@tag == category), description, list_public_bodies_url(:tag => category) %> 
 </li>
@@ -11,12 +11,12 @@
 </p>
 
 <p>
-<a href="/help/about#missing_body">Are we missing a public body?</a>
+<a href="/help/about#missing_body">Are we missing a public authority?</a>
 </p>
 
 </div>
 
-<% @title = "Public bodies - " + @description %>
+<% @title = "Public authorities - " + @description %>
 
 <h1><%=@title%></h1>
 

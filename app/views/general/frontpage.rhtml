@@ -13,7 +13,7 @@
 
     <% form_tag({:action => :frontpage}, :method => 'get', :id => 'public_body_form', :class => 'plaque' ) do %>
         <p>
-            <label for="public_body_query">Find the public body you would like information from:</label>
+            <label for="public_body_query">Find the public authority you would like information from:</label>
         </p>
 
         <!-- Autocomplete field, which submits form when user picks entry -->
@@ -40,7 +40,7 @@
         <% if @public_bodies.size > 0 %>
             <div id="public_body_search">
                 <ul>
-                    <strong>Public bodies found</strong>
+                    <strong>Public authorities found</strong>
                 <% for public_body in @public_bodies %>
                     <li>
                         <%= link_to h(public_body.name), new_request_to_body_url(:public_body_id => public_body.id.to_s) %>
