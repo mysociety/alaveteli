@@ -27,7 +27,6 @@ BAILII - relationship with law courts, robots.txt ?
 Next
 ====
 
-Send email to tell admins something isn't classified
 Send email to remind people to clarify
 
 Search and replace text "FOI" and "Freedom of Information" out the way more

@@ -8,24 +8,42 @@
 <li><%=@user_count%> users</li>
 </ul>
 
+<hr>
+
 <% if @requires_admin_requests.size > 0 %>
-    <h2>Requests requiring admin attention</h2>
+    <h3>Requests requiring admin attention</h3>
 
     <ul>
-    <% for @requires_admin_request in @requires_admin_requests %>
-        <li><%= link_to h(@requires_admin_request.title), main_url(request_url(@requires_admin_request)) %></li>
+    <% for @request in @requires_admin_requests %>
+        <li><%= link_to h(@request.title), "request/show/" + @request.id.to_s %></li>
+    <% end %>
+    </ul>
+<% end %>
+
+<% if @two_week_old_unclassified.size > 0 %>
+    <h3>Still unclassified two weeks after response</h3>
+
+    <ul>
+    <% for @request in @two_week_old_unclassified %>
+        <li><%= link_to h(@request.title), "request/show/" + @request.id.to_s %></li>
     <% end %>
     </ul>
 <% end %>
 
 <% if @blank_contacts.size > 0 %>
-    <h2>Public bodies with missing contact details</h2>
+    <h3>Public bodies with missing contact details</h3>
     <ul>
     <% for @blank_contact in @blank_contacts %>
         <li><%= link_to h(@blank_contact.name), "body/show/" + @blank_contact.id.to_s %></li>
     <% end %>
     </ul>
 <% end %>
+
+<% if @requires_admin_requests.size == 0 and @two_week_old_unclassified.size == 0 and @blank_contacts.size == 0 %>
+    No pending administration required.
+<% end %>
+
+<hr>
 
 <h2><%=h @events_title%></h2>
 

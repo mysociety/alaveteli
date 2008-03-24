@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_controller.rb,v 1.5 2008-03-17 11:20:12 francis Exp $
+# $Id: admin_controller.rb,v 1.6 2008-03-24 10:40:26 francis Exp $
 
 class AdminController < ApplicationController
     layout "admin"
@@ -18,6 +18,7 @@ class AdminController < ApplicationController
         # Tasks to do
         @requires_admin_requests = InfoRequest.find(:all, :conditions => ["described_state = 'requires_admin'"])
         @blank_contacts = PublicBody.find(:all, :conditions => ["request_email = ''"])
+        @two_week_old_unclassified = InfoRequest.find(:all, :conditions => [ "awaiting_description and info_requests.updated_at < ?", Time.now() - 2.weeks ])
 
         # Recent events
         @events_title = "Events in last week"
