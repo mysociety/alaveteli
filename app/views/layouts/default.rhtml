@@ -25,9 +25,9 @@
     <ul id="navigation">
         <li><a href="/">Make Request</a></li>
         <li><%= link_to "View Requests", request_list_url %></li>
+        <li><%= link_to "View Authorities", list_public_bodies_url(:tag => 'department') %></li>
         <% if @user %>
             <li><%=link_to "My Requests", user_url(@user) %></li>
-        <% else %>
         <% end %>
         <li><%= link_to "About", about_url %></li>
     </ul>
