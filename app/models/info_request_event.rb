@@ -16,11 +16,13 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request_event.rb,v 1.24 2008-03-21 14:45:38 francis Exp $
+# $Id: info_request_event.rb,v 1.25 2008-03-24 09:35:23 francis Exp $
 
 class InfoRequestEvent < ActiveRecord::Base
     belongs_to :info_request
     validates_presence_of :info_request
+
+    belongs_to :info_request_event_id
 
     validates_presence_of :event_type
     validates_inclusion_of :event_type, :in => [
@@ -51,6 +53,34 @@ class InfoRequestEvent < ActiveRecord::Base
     end
     def params
         YAML.load(self.params_yaml)
+    end
+
+    # Find related incoming message
+    # XXX search for the find below and call this function more instead
+    def incoming_message
+        if not ['response'].include?(self.event_type)
+            raise "only call incoming_message for response events"
+        end
+
+        if not self.params[:incoming_message_id]
+            raise "internal error, no incoming message id for response event"
+        end
+
+        return IncomingMessage.find(self.params[:incoming_message_id].to_i)
+    end
+
+    # Find related outgoing message
+    # XXX search for the find below and call this function more instead
+    def outgoing_message
+        if not [ 'edit_outgoing', 'sent', 'resent', 'followup_sent' ].include?(self.event_type)
+            raise "only call outgoing_message for appropriate event types"
+        end
+
+        if not self.params[:outgoing_message_id]
+            raise "internal error, no outgoing message id for event type which expected one"
+        end
+
+        return OutgoingMessage.find(self.params[:outgoing_message_id].to_i)
     end
 
 end

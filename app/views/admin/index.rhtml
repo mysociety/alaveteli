@@ -71,7 +71,7 @@
             Missing outgoing message, internal error.
         <% end %>
     <% elsif event.event_type == 'response' %>
-        <% incoming_message = IncomingMessage.find(event.params[:incoming_message_id]) %>
+        <% incoming_message = event.incoming_message %>
         received 
         <%= link_to 'a response', 
             main_url(show_response_url(:id => incoming_message.info_request.id, :incoming_message_id => incoming_message.id, :only_path => true)) %>
@@ -82,7 +82,6 @@
     <% elsif event.event_type == 'resent' %>
         had the request resent to <%=h event.params[:email]%> at <%=h event.info_request.public_body.name %>.
     <% elsif event.event_type == 'followup_sent' %>
-        <% outgoing_messages = OutgoingMessage.find(:all, event.params[:outgoing_message_id].to_i) %>
         had a follow up message sent to <%=h event.info_request.public_body.name %>.
     <% else %>
         had '<%=event.event_type%>' done to it, parameters <%=h event.params_yaml%>.

@@ -4,7 +4,7 @@
 <%= foi_error_messages_for :incoming_message, :outgoing_message %>
 
 <div class="describe_state_form">
-    <%= render :partial => 'describe_state' %>
+    <%= render :partial => 'describe_state', :locals => { :id_suffix => "1" } %>
 </div>
 
 <div id="show_response_view">
@@ -17,6 +17,6 @@
 </div>
 
 <div class="describe_state_form">
-    <%= render :partial => 'describe_state' %>
+    <%= render :partial => 'describe_state', :locals => { :id_suffix => "2" } %>
 </div>
 

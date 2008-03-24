@@ -2,7 +2,7 @@
 
 <% if @info_request.awaiting_description %>
     <div class="describe_state_form">
-    <%= render :partial => 'describe_state' %>
+    <%= render :partial => 'describe_state', :locals => { :id_suffix => "1" } %>
     </div>
 <% end %>
 
@@ -84,7 +84,7 @@
 
 <% if @info_request.awaiting_description %>
     <div class="describe_state_form">
-    <%= render :partial => 'describe_state' %>
+    <%= render :partial => 'describe_state', :locals => { :id_suffix => "2" } %>
     </div>
 <% end %>
 

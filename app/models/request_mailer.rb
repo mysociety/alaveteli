@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.27 2008-03-21 14:04:29 francis Exp $
+# $Id: request_mailer.rb,v 1.28 2008-03-24 09:35:23 francis Exp $
 
 class RequestMailer < ApplicationMailer
     
@@ -87,6 +87,21 @@ class RequestMailer < ApplicationMailer
         @body = { :info_request => info_request, :url => url }
     end
 
+    # Tell the requester that they need to say if the new response
+    # contains info or not
+    def new_response_reminder_alert(info_request, incoming_message)
+        post_redirect = PostRedirect.new(
+            :uri => describe_state_url(:id => info_request.id),
+            :user_id => info_request.user.id)
+        post_redirect.save!
+        url = confirm_url(:email_token => post_redirect.email_token)
+
+        @from = contact_from_name_and_email
+        @recipients = info_request.user.name_and_email
+        @subject = "Did your recent FOI response contain information? - " + info_request.title
+        @body = { :incoming_message => incoming_message, :info_request => info_request, :url => url }
+    end
+
 
     # Class function, called by script/mailin with all incoming responses.
     # [ This is a copy (Monkeypatch!) of function from action_mailer/base.rb,
@@ -121,7 +136,7 @@ class RequestMailer < ApplicationMailer
 
     # Send email alerts for overdue requests
     def self.alert_overdue_requests()
-        #puts "alert_overdue_requests"
+        #STDERR.puts "alert_overdue_requests"
         info_requests = InfoRequest.find(:all, :conditions => [ "described_state = 'waiting_response' and not awaiting_description" ], :include => [ :user ] )
         for info_request in info_requests
             # Only overdue requests
@@ -130,19 +145,47 @@ class RequestMailer < ApplicationMailer
                 sent_already = UserInfoRequestSentAlert.find(:first, :conditions => [ "alert_type = 'overdue_1' and user_id = ? and info_request_id = ?", info_request.user_id, info_request.id])
                 if sent_already.nil?
                     # Alert not yet sent for this user
-                    puts "sending overdue alert to info_request " + info_request.id.to_s + " user " + info_request.user_id.to_s
+                    STDERR.puts "sending overdue alert to info_request " + info_request.id.to_s + " user " + info_request.user_id.to_s
                     store_sent = UserInfoRequestSentAlert.new
                     store_sent.info_request = info_request
                     store_sent.user = info_request.user
                     store_sent.alert_type = 'overdue_1'
                     RequestMailer.deliver_overdue_alert(info_request, info_request.user)
                     store_sent.save!
-                    #puts "sent " + info_request.user.email
+                    #STDERR.puts "sent " + info_request.user.email
                 end
             end
         end
-
     end
+
+    # Send email alerts for new responses which haven't been
+    # classified. Goes out 3 days after last update of event.
+    def self.alert_new_response_reminders()
+        #STDERR.puts "alert_new_response_reminders"
+        info_requests = InfoRequest.find(:all, :conditions => [ "awaiting_description and info_requests.updated_at < ?", Time.now() - 3.days ], :include => [ :user ], :order => "info_requests.id" )
+        for info_request in info_requests
+            alert_event_id = info_request.get_last_response_event_id
+            last_response_message = info_request.get_last_response
+            if alert_event_id.nil?
+                raise "internal error, no last response while making alert new response reminder, request id " + info_request.id.to_s
+            end
+            # To the user who created the request
+            sent_already = UserInfoRequestSentAlert.find(:first, :conditions => [ "alert_type = 'new_response_reminder_1' and user_id = ? and info_request_id = ? and info_request_event_id = ?", info_request.user_id, info_request.id, alert_event_id])
+            if sent_already.nil?
+                # Alert not yet sent for this user
+                STDERR.puts "sending new response reminder alert to info_request " + info_request.id.to_s + " user " + info_request.user_id.to_s + " event " + alert_event_id.to_s
+                store_sent = UserInfoRequestSentAlert.new
+                store_sent.info_request = info_request
+                store_sent.user = info_request.user
+                store_sent.alert_type = 'new_response_reminder_1'
+                store_sent.info_request_event_id = alert_event_id
+                RequestMailer.deliver_new_response_reminder_alert(info_request, last_response_message)
+                store_sent.save!
+                #STDERR.puts "sent " + info_request.user.email
+            end
+        end
+    end
+
 end
 
 

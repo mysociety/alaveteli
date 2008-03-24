@@ -56,9 +56,9 @@ describe RequestController, "when showing one request" do
         ir = info_requests(:fancy_dog_request) 
         receive_incoming_mail('incoming-request-plain.email', ir.incoming_email)
         deliveries = ActionMailer::Base.deliveries
-        deliveries.size.should  == 1
+        deliveries.size.should == 1
         mail = deliveries[0]
-        mail.body.should =~ /You have a new response to the FOI request/
+        mail.body.should =~ /You have a new response to the Freedom of Information request/
 
         get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
         (assigns[:info_request_events].size - size_before).should == 1
@@ -149,7 +149,7 @@ describe RequestController, "when creating a new request" do
         om.body.should == "This is a silly letter. It is too short to be interesting."
 
         deliveries = ActionMailer::Base.deliveries
-        deliveries.size.should  == 1
+        deliveries.size.should == 1
         mail = deliveries[0]
         mail.body.should =~ /This is a silly letter. It is too short to be interesting./
 
@@ -259,7 +259,7 @@ describe RequestController, "when sending a followup message" do
         post :show_response, :outgoing_message => { :body => "What a useless response! You suck." }, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_followup => 1
 
         deliveries = ActionMailer::Base.deliveries
-        deliveries.size.should  == 1
+        deliveries.size.should == 1
         mail = deliveries[0]
         mail.body.should =~ /What a useless response! You suck./
         mail.to_addrs.to_s.should == "FOI Person <foiperson@localhost>"
@@ -278,7 +278,7 @@ describe RequestController, "sending overdue request alerts" do
         RequestMailer.alert_overdue_requests
 
         deliveries = ActionMailer::Base.deliveries
-        deliveries.size.should  == 1
+        deliveries.size.should == 1
         mail = deliveries[0]
         mail.body.should =~ /20 working days/
         mail.to_addrs.to_s.should == info_requests(:naughty_chicken_request).user.name_and_email
@@ -296,6 +296,33 @@ describe RequestController, "sending overdue request alerts" do
     end
 
 end
+
+describe RequestController, "sending unclassified new response reminder alerts" do
+    integrate_views
+    fixtures :info_requests, :info_request_events, :public_bodies, :users, :incoming_messages, :outgoing_messages # all needed as integrating views
+ 
+    it "should send an alert" do
+        RequestMailer.alert_new_response_reminders
+
+        deliveries = ActionMailer::Base.deliveries
+        deliveries.size.should == 1
+        mail = deliveries[0]
+        mail.body.should =~ /this will help others/
+        mail.to_addrs.to_s.should == info_requests(:fancy_dog_request).user.name_and_email
+        mail.body =~ /(http:\/\/.*\/c\/(.*))/
+        mail_url = $1
+        mail_token = $2
+
+        session[:user_id].should be_nil
+        controller.test_code_redirect_by_email_token(mail_token, self) # XXX hack to avoid having to call User controller for email link
+        session[:user_id].should == info_requests(:fancy_dog_request).user.id
+
+        response.should render_template('describe_state')
+        assigns[:info_request].should == info_requests(:fancy_dog_request)
+    end
+
+end
+
 
 
 

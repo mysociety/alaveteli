@@ -27,7 +27,6 @@ BAILII - relationship with law courts, robots.txt ?
 Next
 ====
 
-Send email to remind people to classify
 Send email to tell admins something isn't classified
 Send email to remind people to clarify
 
@@ -81,6 +80,7 @@ Tell application developer if working days table not up to date, and needs
 updating
 
 Response overdue alerts are only sent first time a request goes into that state :(
+    Store id in alert of last event which resets the due date
 
 Get deploying of Lucene search working
 
