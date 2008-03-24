@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.42 2008-03-21 14:45:38 francis Exp $
+# $Id: public_body.rb,v 1.43 2008-03-24 14:04:15 francis Exp $
 
 require 'csv'
 require 'set'
@@ -40,6 +40,8 @@ class PublicBody < ActiveRecord::Base
             "non_ministerial_department" => "Non-Ministerial Departments",
             "university" => "Universities",
             "police" => "Police Forces",
+            "rda" => "Regional Development Agencies",
+            "npa" => "National Park Authorities",
             "other" => "Other"
         }
     end

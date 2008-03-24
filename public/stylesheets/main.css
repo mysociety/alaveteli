@@ -403,7 +403,22 @@ table#list_requests .odd {
     color: #ff0000;
 }
 
-
+#body_sidebar {
+    float: right;
+    width: 15em;
+    border: solid 1px #c7eb6e;
+    margin: 0em 0 3em 3em;
+}
+#body_sidebar h1 {
+    font-size: 120%;
+    padding: 2px;
+    margin: 0;
+    color: #000000;
+    background-color: #c7eb6e;
+}
+#body_sidebar p {
+    margin: 1em;
+}
 
 
 /* /request - viewing requests */

@@ -27,8 +27,6 @@ BAILII - relationship with law courts, robots.txt ?
 Next
 ====
 
-Send email to remind people to clarify
-
 Search and replace text "FOI" and "Freedom of Information" out the way more
  - but put it in the title tag
 "public body" --> "public authority"?
@@ -48,7 +46,7 @@ Now of course when ids go into requests/users for new ones it just adds an _ on 
 Later
 =====
 
-Just stop using the seaprate bounce address, it's a waste of time
+Send email to remind people to clarify
 
 This search gives a runtime error:
     "19 hours

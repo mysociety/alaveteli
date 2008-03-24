@@ -1,13 +1,20 @@
+<div id="body_sidebar">
+<h1>Show only...</h1>
 <p>
-Show only:
+<ul>
 <% for category, description in PublicBody.categories_by_tag %>
-<%= link_to_unless (@tag == category), description, list_public_bodies_url(:tag => category) %> 
+<li>
+    <%= link_to_unless (@tag == category), description, list_public_bodies_url(:tag => category) %> 
+</li>
 <% end %>
+</ul>
 </p>
 
 <p>
 <a href="/help/about#missing_body">Are we missing a public body?</a>
 </p>
+
+</div>
 
 <% @title = "Public bodies - " + @description %>
 
