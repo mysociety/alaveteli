@@ -56,7 +56,7 @@ describe BodyController, "when listing bodies" do
         response.should render_template('list')
         assigns[:public_bodies].should == [ public_bodies(:humpadink_public_body) ]
         assigns[:tag].should == "local_council"
-        assigns[:description].should == "Local Councils"
+        assigns[:description].should == "Local councils"
 
         get :list, :tag => "other"
         response.should render_template('list')

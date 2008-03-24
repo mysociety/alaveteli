@@ -46,6 +46,8 @@ Now of course when ids go into requests/users for new ones it just adds an _ on 
 Later
 =====
 
+RDAs need their short names somehow in CSV import?
+
 Send email to remind people to clarify
 
 This search gives a runtime error:
