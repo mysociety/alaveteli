@@ -1,7 +1,7 @@
 <% @title = h(@display_user.name) + (@is_you ? " (you)" : "") %>
 
 <% if (@same_name_users.size >= 1) %>
-    <p>This is <strong>one person</strong> who uses this site and has this name, you may
+    <p>This is <strong>just one person</strong> who uses this site and has this name, you may
     mean a different one:
     <% for @same_name_user in @same_name_users %>
         <%= user_link(@same_name_user) %>

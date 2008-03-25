@@ -50,21 +50,25 @@
 <% if @search_results.nil? or @search_results.empty? %>
     <h2>Search tips</h2>
     <ul>
-    <li>Enter words that you want to find separated by spaces, e.g. climbing lane</li>
-    <li>Use OR (in capital letters) where you don't mind which word,  e.g. commons OR lords
-    <li>Use quotes when you want to find an exact phrase, e.g. "Liverpool City Council"
-    <li>Type status: to select based on the status of the request.
-        <table>
-        <tr><td>status:waiting_response</td><td> Waiting for the public body to reply </td></tr>
-        <tr><td>status:waiting_response_overdue</td><td> Waiting for the public body to reply, they are late </td></tr>
-        <tr><td>status:not_held</td><td> The public body does not have the information requested </td></tr>
-        <tr><td>status:rejected</td><td> The request was rejected by the public body </td></tr>
-        <tr><td>status:partially_successful</td><td> Some of the information requested has been received </td></tr>
-        <tr><td>status:successful</td><td> All of the information requested has been received </td></tr>
-        <tr><td>status:waiting_clarification</td><td> The public body would like part of the request explained </td></tr>
-        <tr><td>status:waiting_classification</td><td> A new response has arrived, but it hasn't been categorised yet </td></tr>
-        <tr><td>status:requires_admin</td><td> A strange reponse, required attention by the WhatDoTheyKnow team </td></tr>
-        </table>
+    <li>Enter words that you want to find separated by spaces, e.g. <strong>climbing lane</strong></li>
+    <li>Use OR (in capital letters) where you don't mind which word,  e.g. <strong>commons OR lords</strong>
+    <li>Use quotes when you want to find an exact phrase, e.g. <strong>"Liverpool City Council"</strong>
+    <li>Type <strong>status:</strong> to select based on the status of the request, see table below.
+    <li><strong>requested_from:home_office</strong>, typing the name as in the URL, to restrict to requests from the Home Office.
+    <li><strong>requested_by:francis_irving</strong>, typing the name as in the URL, to restrict to requests made by Francis Irving.
+    <li><strong>type:</strong> with value InfoRequest, OutgoingMessage, IncomingMessage, PubicBody or User to select type of thing being searched for
     <li>Read about <a href="http://lucene.apache.org/java/docs/queryparsersyntax.html">advanced search operators</a>, such as fuzziness and proximity.
     </ul>
+
+    <table class="status_table">
+        <tr><td><strong>status:waiting_response</strong></td><td> Waiting for the public body to reply </td></tr>
+        <tr><td><strong>status:waiting_response_overdue</strong></td><td> Waiting for the public body to reply, they are late </td></tr>
+        <tr><td><strong>status:not_held</strong></td><td> The public body does not have the information requested </td></tr>
+        <tr><td><strong>status:rejected</strong></td><td> The request was rejected by the public body </td></tr>
+        <tr><td><strong>status:partially_successful</strong></td><td> Some of the information requested has been received </td></tr>
+        <tr><td><strong>status:successful</strong></td><td> All of the information requested has been received </td></tr>
+        <tr><td><strong>status:waiting_clarification</strong></td><td> The public body would like part of the request explained </td></tr>
+        <tr><td><strong>status:waiting_classification</strong></td><td> A new response has arrived, but it hasn't been categorised yet </td></tr>
+        <tr><td><strong>status:requires_admin</strong></td><td> A strange reponse, required attention by the WhatDoTheyKnow team </td></tr>
+    </table>
 <% end %>

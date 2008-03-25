@@ -20,7 +20,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user.rb,v 1.40 2008-03-21 14:45:38 francis Exp $
+# $Id: user.rb,v 1.41 2008-03-25 17:25:09 francis Exp $
 
 require 'digest/sha1'
 
@@ -87,15 +87,15 @@ class User < ActiveRecord::Base
         self.update_url_name
     end
     def update_url_name
-        url_name = MySociety::Format.simplify_url_part(self.name)
-        if url_name.size > 32
-            url_name = url_name[0..31]
+        url_name = MySociety::Format.simplify_url_part(self.name, 32)
+        # For user with same name as others, add on arbitary numeric identifier
+        unique_url_name = url_name
+        suffix_num = 2 # as there's already one without numeric suffix
+        while not User.find_by_url_name(unique_url_name, :conditions => self.id.nil? ? nil : ["id <> ?", self.id] ).nil?
+            unique_url_name = url_name + "_" + suffix_num.to_s
+            suffix_num = suffix_num + 1
         end
-        # For request with same name as others, tag on the request numeric id
-        while not User.find_by_url_name(url_name, :conditions => self.id.nil? ? nil : ["id <> ?", self.id] ).nil?
-            url_name += "_" + self.id.to_s
-        end
-        write_attribute(:url_name, url_name)
+        write_attribute(:url_name, unique_url_name)
     end
 
     # Virtual password attribute, which stores the hashed password, rather than plain text.

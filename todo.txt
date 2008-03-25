@@ -1,6 +1,8 @@
-Search:
+CVS commit:
 
-Gah - test to see if it queries solr when new message arrives
+Fix up url names for info requests and users so don't end in _
+
+Search:
 
 Search for successful requests now has bogus date order :( Doesn't fit in
     with paradigm of request / incoming message being separate objects.
@@ -45,6 +47,8 @@ Now of course when ids go into requests/users for new ones it just adds an _ on 
 
 Later
 =====
+
+Offer search on 404s
 
 RDAs need their short names somehow in CSV import?
 

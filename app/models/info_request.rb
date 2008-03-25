@@ -22,7 +22,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.72 2008-03-24 09:35:23 francis Exp $
+# $Id: info_request.rb,v 1.73 2008-03-25 17:25:09 francis Exp $
 
 require 'digest/sha1'
 
@@ -68,10 +68,28 @@ class InfoRequest < ActiveRecord::Base
         :title, 
         :initial_request_text, 
         { :status => :string },
-        { :created_at => :date }
+        { :requested_by => :string },
+        { :requested_from => :string },
+        { :created_at => :date },
+        { :type => :string}  # see "def type" below
     ], :if => "$do_solr_index"
     def status # for name in Solr queries
         calculate_status
+    end
+    def requested_by
+        self.user.url_name
+    end
+    def requested_from
+        self.public_body.url_name
+    end
+    # acts_on_solr indexes things with type: anyway but by default does text (full text)
+    # rather than string (flag) indexing for it. The entry in acts_on_solr above forces
+    # the type to be string, and this function returns the same value as acts_on_solr would
+    # anyway. Also, only needs to happen in this one model, as others are
+    # covered automatically by the multi solr search query command, which treats types same
+    # across all models.
+    def type
+        "InfoRequest" 
     end
 
     $do_solr_index = false
@@ -141,15 +159,15 @@ public
         self.update_url_title
     end
     def update_url_title
-        url_title = MySociety::Format.simplify_url_part(self.title)
-        if url_title.size > 32
-            url_title = url_title[0..31]
+        url_title = MySociety::Format.simplify_url_part(self.title, 32)
+        # For request with same title as others, add on arbitary numeric identifier
+        unique_url_title = url_title
+        suffix_num = 2 # as there's already one without numeric suffix
+        while not InfoRequest.find_by_url_title(unique_url_title, :conditions => self.id.nil? ? nil : ["id <> ?", self.id] ).nil?
+            unique_url_title = url_title + "_" + suffix_num.to_s
+            suffix_num = suffix_num + 1
         end
-        # For request with same name as others, tag on the request numeric id
-        while not InfoRequest.find_by_url_title(url_title, :conditions => self.id.nil? ? nil : ["id <> ?", self.id] ).nil?
-            url_title += "_" + self.id.to_s
-        end
-        write_attribute(:url_title, url_title)
+        write_attribute(:url_title, unique_url_title)
     end
 
     # Email which public body should use to respond to request. This is in

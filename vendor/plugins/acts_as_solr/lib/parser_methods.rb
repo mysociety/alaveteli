@@ -166,7 +166,7 @@ module ActsAsSolr #:nodoc:
           field_type = get_solr_field_type(:text)
           if solr_field.is_a?(Hash)
             solr_field.each do |name,value|
-         	    if value.respond_to?(:each_pair)
+         	  if value.respond_to?(:each_pair)
                 field_type = get_solr_field_type(value[:type]) if value[:type]
               else
                 field_type = get_solr_field_type(value)
