@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: body_controller.rb,v 1.10 2008-03-24 15:40:53 francis Exp $
+# $Id: body_controller.rb,v 1.11 2008-03-28 15:09:47 francis Exp $
 
 class BodyController < ApplicationController
     # XXX tidy this up with better error messages, and a more standard infrastructure for the redirect to canonical URL
@@ -47,7 +47,7 @@ class BodyController < ApplicationController
                 and public_body_tags.name = ?) > 0', @tag]
         end
         @public_bodies = PublicBody.paginate(
-            :order => "public_bodies.name", :page => params[:page], :per_page => 25,
+            :order => "public_bodies.name", :page => params[:page], :per_page => 1000, # fit all councils on one page
             :conditions => conditions
             )
         @description = "All"
