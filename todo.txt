@@ -157,6 +157,7 @@ Quoting fixing TODO:
     http://www.whatdotheyknow.com/request/55/response/96
     http://www.whatdotheyknow.com/request/71/response/108
     http://www.whatdotheyknow.com/request/police_powers_to_inform_car_insu
+    http://www.whatdotheyknow.com/request/30/response/166
 Char encoding:
     http://www.whatdotheyknow.com/request/107/response/144
 

@@ -17,7 +17,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request_event.rb,v 1.29 2008-03-31 22:41:34 francis Exp $
+# $Id: info_request_event.rb,v 1.30 2008-03-31 23:19:16 francis Exp $
 
 class InfoRequestEvent < ActiveRecord::Base
     belongs_to :info_request
@@ -56,6 +56,7 @@ class InfoRequestEvent < ActiveRecord::Base
         { :requested_by => :string },
         { :requested_from => :string },
         { :created_at => :date },
+        { :last_described_at => :date },
         { :variety => :string }
     ], :if => "$do_solr_index"
     def status # for name in Solr queries

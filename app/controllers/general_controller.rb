@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: general_controller.rb,v 1.13 2008-03-31 19:15:30 francis Exp $
+# $Id: general_controller.rb,v 1.14 2008-03-31 23:19:16 francis Exp $
 
 class GeneralController < ApplicationController
 
@@ -61,6 +61,8 @@ class GeneralController < ApplicationController
             order = nil
         elsif @sortby == 'newest'
             order = 'created_at desc'
+        elsif @sortby == 'described'
+            order = 'last_described_at desc' # use this for RSS
         else
             raise "Unknown sort order " + @sortby
         end
