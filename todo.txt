@@ -1,13 +1,6 @@
-CVS commit:
-
-Fix up url names for info requests and users so don't end in _
-
 Search:
 
-Search for successful requests now has bogus date order :( Doesn't fit in
-    with paradigm of request / incoming message being separate objects.
-Perhaps we should be indexing events
-    or maybe index success/failure by type known for message?
+Check date order of search fo successful requests
 Successful requests should have success date as date in search results.
 
 As a result fix up sorting in general 
@@ -164,6 +157,8 @@ Quoting fixing TODO:
     http://www.whatdotheyknow.com/request/55/response/96
     http://www.whatdotheyknow.com/request/71/response/108
     http://www.whatdotheyknow.com/request/police_powers_to_inform_car_insu
+Char encoding:
+    http://www.whatdotheyknow.com/request/107/response/144
 
 Sources of public bodies
 ========================

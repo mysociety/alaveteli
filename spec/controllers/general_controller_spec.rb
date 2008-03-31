@@ -31,10 +31,10 @@ describe GeneralController, "when searching" do
         response.should render_template('search')
 
         assigns[:search_hits].should == 1
-        assigns[:search_results].should == [ info_requests(:fancy_dog_request) ]
+        assigns[:search_results].should == [ info_request_events(:useless_outgoing_message_event) ]
 
         assigns[:highlight_words].should == ["fancy", "dog"]
-        assigns[:highlighting]["InfoRequest"][101]["initial"][0].should include('Why do you have such a <span class="highlight">fancy</span> <span class="highlight">dog</span>?')
+        assigns[:highlighting]["InfoRequestEvent"][900]["solr"][0].should include('Why do you have such a <span class="highlight">fancy</span> <span class="highlight">dog</span>?')
     end
 
     it "should show help when searching for nothing" do
@@ -53,7 +53,7 @@ describe GeneralController, "when searching" do
         response.should render_template('search')
 
         assigns[:search_hits].should == 2
-        assigns[:search_results].should == [ public_bodies(:geraldine_public_body), incoming_messages(:useless_incoming_message) ]
+        assigns[:search_results].should == [ public_bodies(:geraldine_public_body), info_request_events(:useless_incoming_message_event) ]
     end
 
     it "should find incoming message and public body (in that order) when searching for 'geraldine quango', newest first" do
@@ -65,7 +65,7 @@ describe GeneralController, "when searching" do
         response.should render_template('search')
 
         assigns[:search_hits].should == 2
-        assigns[:search_results].should == [ incoming_messages(:useless_incoming_message), public_bodies(:geraldine_public_body) ]
+        assigns[:search_results].should == [ info_request_events(:useless_incoming_message_event), public_bodies(:geraldine_public_body) ]
     end
 
 

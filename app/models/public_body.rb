@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.47 2008-03-25 17:25:09 francis Exp $
+# $Id: public_body.rb,v 1.48 2008-03-31 17:20:59 francis Exp $
 
 require 'csv'
 require 'set'
@@ -73,9 +73,9 @@ class PublicBody < ActiveRecord::Base
         {:name => { :boost => 10.0 }}, 
         {:short_name => { :boost => 10.0 }},
         { :created_at => :date },
-        { :moo => :string }
+        { :variety => :string }
     ]
-    def moo 
+    def variety
         "authority"
     end
 

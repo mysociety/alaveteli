@@ -22,7 +22,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.73 2008-03-25 17:25:09 francis Exp $
+# $Id: info_request.rb,v 1.74 2008-03-31 17:20:59 francis Exp $
 
 require 'digest/sha1'
 
@@ -64,34 +64,6 @@ class InfoRequest < ActiveRecord::Base
     end
 
     # Full text search indexing
-    acts_as_solr :fields => [ 
-        :title, 
-        :initial_request_text, 
-        { :status => :string },
-        { :requested_by => :string },
-        { :requested_from => :string },
-        { :created_at => :date },
-        { :type => :string}  # see "def type" below
-    ], :if => "$do_solr_index"
-    def status # for name in Solr queries
-        calculate_status
-    end
-    def requested_by
-        self.user.url_name
-    end
-    def requested_from
-        self.public_body.url_name
-    end
-    # acts_on_solr indexes things with type: anyway but by default does text (full text)
-    # rather than string (flag) indexing for it. The entry in acts_on_solr above forces
-    # the type to be string, and this function returns the same value as acts_on_solr would
-    # anyway. Also, only needs to happen in this one model, as others are
-    # covered automatically by the multi solr search query command, which treats types same
-    # across all models.
-    def type
-        "InfoRequest" 
-    end
-
     $do_solr_index = false
     $do_solr_index_marking = false
     def InfoRequest.update_solr_index
@@ -106,32 +78,28 @@ class InfoRequest < ActiveRecord::Base
                 info_request = InfoRequest.find(id, :lock =>true)
                 do_index = (info_request.prominence != 'backpage')
 
-                if do_index
-                    if not info_request.solr_save
-                        raise "failed to solr_save"
-                    end
-                else
-                    if not info_request.solr_destroy
-                        raise "failed to solr_destroy"
+                # fill in any missing event states for all responses - so responses which
+                # have not been described get the status of later ones.
+                events = info_request.info_request_events.find(:all, :order => "created_at")
+                curr_state = info_request.described_state
+                for event in events.reverse
+                    if event.event_type == 'response'
+                        if not event.described_state.nil?
+                            curr_state = event.described_state
+                        end
+                        event.described_state = curr_state
                     end
                 end
 
-                for outgoing_message in info_request.outgoing_messages
-                    # Initial request text is indexed for InfoRequest models -
-                    # see :initial_request_text in acts_as_solr entry above
-                    if do_index and outgoing_message.message_type != 'initial_request' 
-                        outgoing_message.solr_save
+                # index all the events
+                for event in events
+                    if do_index and event.indexed_by_solr
+                        event.solr_save
                     else
-                        outgoing_message.solr_destroy
+                        event.solr_destroy
                     end
                 end
-                for incoming_message in info_request.incoming_messages
-                    if do_index 
-                        incoming_message.solr_save
-                    else
-                        incoming_message.solr_destroy
-                    end
-                end
+
                 $do_solr_index = false # disable indexing again while we save it, or else destroyed things get put back
                 $do_solr_index_marking = true # but record that we want to set solr_up_to_date to be true, so before_update doesn't clobber it
                 info_request.solr_up_to_date = true
@@ -141,7 +109,7 @@ class InfoRequest < ActiveRecord::Base
                 $do_solr_index = true
             end
         end
-        InfoRequest.solr_optimize
+        InfoRequestEvent.solr_optimize
         $do_solr_index = false
     end
     def before_update
@@ -412,8 +380,7 @@ public
             return ""
         end
         messages = self.outgoing_messages.find(:all, :order => "created_at")
-        excerpt = messages[0].body
-        excerpt.sub!(/Dear .+,/, "")
+        excerpt = messages[0].body_without_salutation
         return excerpt
     end
 

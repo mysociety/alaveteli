@@ -1,5 +1,5 @@
 <% if @query.nil? %>
-    <% @title = "Search Freedom of Information requests, public bodies and users" %>
+    <% @title = "Search Freedom of Information requests, public authorities and users" %>
     <h1><%=@title%></h1>
 <% elsif @search_hits == 0 %>
     <% @title = "Nothing found for '" + h(@query) + "'" %>
@@ -28,16 +28,12 @@
     <% if @search_results.empty? %>
     <% else %>
         <% for search_result in @search_results %>
-            <% if search_result.class.to_s == 'InfoRequest' %>
-                <%= render :partial => 'request/request_listing_single', :locals => { :info_request => search_result } %>
-            <% elsif search_result.class.to_s == 'OutgoingMessage' %>
-                <%= render :partial => 'request/request_listing_via_outgoing', :locals => { :info_request => search_result.info_request, :outgoing_message => search_result } %>
-            <% elsif search_result.class.to_s == 'IncomingMessage' %>
-                <%= render :partial => 'request/request_listing_via_incoming', :locals => { :info_request => search_result.info_request, :incoming_message => search_result } %>
-            <% elsif search_result.class.to_s == 'PublicBody' %>
+            <% if search_result.class.to_s == 'PublicBody' %>
                 <%= render :partial => 'body/body_listing_single', :locals => { :public_body => search_result } %>
             <% elsif search_result.class.to_s == 'User' %>
                 <%= render :partial => 'user/user_listing_single', :locals => { :display_user => search_result } %>
+            <% elsif search_result.class.to_s == 'InfoRequestEvent' %>
+                <%= render :partial => 'request/request_listing_via_event', :locals => { :event => search_result, :info_request => search_result.info_request } %>
             <% else %>
                 <p><strong>Unknown search result type <%=search_result.class.to_s%></strong></p>
             <% end %>
@@ -53,10 +49,10 @@
     <li>Enter words that you want to find separated by spaces, e.g. <strong>climbing lane</strong></li>
     <li>Use OR (in capital letters) where you don't mind which word,  e.g. <strong>commons OR lords</strong>
     <li>Use quotes when you want to find an exact phrase, e.g. <strong>"Liverpool City Council"</strong>
-    <li>Type <strong>status:</strong> to select based on the status of the request, see table below.
-    <li><strong>requested_from:home_office</strong>, typing the name as in the URL, to restrict to requests from the Home Office.
-    <li><strong>requested_by:francis_irving</strong>, typing the name as in the URL, to restrict to requests made by Francis Irving.
-    <li><strong>type:</strong> with value InfoRequest, OutgoingMessage, IncomingMessage, PubicBody or User to select type of thing being searched for
+    <li><strong>variety:</strong> with value sent, followup_sent, response, authority or user to select type of thing to search for.
+    <li>Type <strong>status:</strong> to select based on the status of the request or the status that the response caused, see table below.
+    <li><strong>requested_from:home_office</strong> to restrict to requests from the <%= link_to "Home Office", show_public_body_url(:url_name => 'home_office') %>, typing the name as in the URL.
+    <li><strong>requested_by:julian_todd</strong> to restrict to requests made by <%= link_to "Julian Todd", show_user_url(:url_name => 'julian_todd') %>, typing the name as in the URL.
     <li>Read about <a href="http://lucene.apache.org/java/docs/queryparsersyntax.html">advanced search operators</a>, such as fuzziness and proximity.
     </ul>
 

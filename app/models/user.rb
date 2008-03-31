@@ -20,7 +20,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user.rb,v 1.41 2008-03-25 17:25:09 francis Exp $
+# $Id: user.rb,v 1.42 2008-03-31 17:20:59 francis Exp $
 
 require 'digest/sha1'
 
@@ -41,8 +41,12 @@ class User < ActiveRecord::Base
 
     acts_as_solr :fields => [ 
         {:name => { :boost => 5.0 }},
-        { :created_at => :date }
+        { :created_at => :date },
+        { :variety => :string }
     ]
+    def variety
+        "user"
+    end
 
     def validate
         errors.add(:email, "doesn't look like a valid address") unless MySociety::Validate.is_valid_email(self.email)

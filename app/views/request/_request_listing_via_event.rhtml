@@ -1,0 +1,41 @@
+<p class="request_listing">
+
+    <% if not @highlighting.nil? and @highlighting['InfoRequestEvent'][event.id].include?('title') %>
+        <%= link_to @highlighting['InfoRequestEvent'][event.id]["title"], request_url(info_request) %>
+        <% @highlighting['InfoRequestEvent'][event.id].delete("title") %>
+    <% elsif not event.incoming_message.nil? %>
+        <%= link_to "Response to '" + h(info_request.title) + "'", request_url(info_request)+"#incoming-"+event.incoming_message.id.to_s %>
+    <% elsif not event.outgoing_message.nil? and event.event_type == 'followup_sent' %>
+        <%= link_to "Follow up message for '" + h(info_request.title) + "'", request_url(info_request)+"#outgoing-"+event.outgoing_message.id.to_s %>
+    <% else %>
+        <%= link_to h(info_request.title), request_url(info_request) %>
+    <% end %>
+
+    <br>
+    <% if not @highlighting.nil? and @highlighting['InfoRequestEvent'][event.id].size > 0 %>
+        <%= @highlighting['InfoRequestEvent'][event.id].values.join(" ") %>
+    <% else %>
+        <%= excerpt(info_request.initial_request_text, "", 150) %>
+    <% end %>
+    <br>
+
+    <span class="request_listing_bottomline">
+
+        <% if event.event_type == 'sent' %>
+            <strong>Request</strong> sent to <%= public_body_link(info_request.public_body) %>
+            by <%= user_link(info_request.user) %>
+        <% elsif event.event_type == 'followup_sent' %>
+            <strong>Follow up</strong> sent to <%= public_body_link(info_request.public_body) %>
+            by <%= user_link(info_request.user) %>
+        <% elsif event.event_type == 'response' %>
+            <% # <strong> XXX <%=event.display_status %> <%= info_request.display_status %> </strong> %>
+            <strong>Response</strong> by <%= public_body_link(info_request.public_body) %>
+            to <%= user_link(info_request.user) %>
+        <% else %>
+            <% raise "unknown event type indexed " + event.event_type %>
+        <% end %>
+
+        on <%= simple_date(event.created_at) %>.
+    </span>
+</p>
+

@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: general_controller.rb,v 1.10 2008-03-19 03:05:25 francis Exp $
+# $Id: general_controller.rb,v 1.11 2008-03-31 17:20:58 francis Exp $
 
 class GeneralController < ApplicationController
 
@@ -64,15 +64,13 @@ class GeneralController < ApplicationController
         end
 
         # Peform the search
-        solr_object = InfoRequest.multi_solr_search(@query, :models => [ OutgoingMessage, IncomingMessage, PublicBody, User ],
+        solr_object = InfoRequestEvent.multi_solr_search(@query, :models => [ PublicBody, User ],
             :limit => @per_page, :offset => (@page - 1) * @per_page, 
             :highlight => { 
                 :prefix => '<span class="highlight">',
                 :suffix => '</span>',
                 :fragsize => 250,
-                :fields => ["title", "initial_request_text", # InfoRequest
-                           "body", # OutgoingMessage 
-                           "get_text_for_indexing", # IncomingMessage
+                :fields => ["solr_text_main", "title", # InfoRequestEvent
                            "name", "short_name", # PublicBody
                            "name" # User
             ]}, :order => order
