@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: general_controller.rb,v 1.12 2008-03-31 17:38:10 francis Exp $
+# $Id: general_controller.rb,v 1.13 2008-03-31 19:15:30 francis Exp $
 
 class GeneralController < ApplicationController
 
@@ -41,7 +41,7 @@ class GeneralController < ApplicationController
     def search_redirect
         @query = params[:query]
         @sortby = params[:sortby]
-        if @query.empty?
+        if @query.nil? or @query.empty?
             @query = nil
             render :action => "search"
         else
