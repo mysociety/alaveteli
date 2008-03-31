@@ -14,6 +14,10 @@
     <br>
     <% if not @highlighting.nil? and @highlighting['InfoRequestEvent'][event.id].size > 0 %>
         <%= @highlighting['InfoRequestEvent'][event.id].values.join(" ") %>
+    <% elsif not event.outgoing_message.nil? %>
+        <%= excerpt(event.outgoing_message.body_without_salutation, "", 150) %>
+    <% elsif not event.incoming_message.nil? %>
+        <%= excerpt(event.incoming_message.get_body_for_quoting, "", 150) %>
     <% else %>
         <%= excerpt(info_request.initial_request_text, "", 150) %>
     <% end %>
