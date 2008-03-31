@@ -17,7 +17,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request_event.rb,v 1.28 2008-03-31 19:15:38 francis Exp $
+# $Id: info_request_event.rb,v 1.29 2008-03-31 22:41:34 francis Exp $
 
 class InfoRequestEvent < ActiveRecord::Base
     belongs_to :info_request
@@ -150,15 +150,15 @@ class InfoRequestEvent < ActiveRecord::Base
         if status == 'waiting_response'
             "Acknowledgement"
         elsif status == 'waiting_clarification'
-            "Clarification request"
+            "Clarification required"
         elsif status == 'not_held'
             "Information not held"
         elsif status == 'rejected'
-            "Rejection"
+            "Rejection by"
         elsif status == 'partially_successful'
-            "Partially successful response"
+            "Some information sent"
         elsif status == 'successful'
-            "Successful response"
+            "All information sent"
         elsif status == 'requires_admin'
             "Unusual response"
         else
