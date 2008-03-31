@@ -17,7 +17,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request_event.rb,v 1.30 2008-03-31 23:19:16 francis Exp $
+# $Id: info_request_event.rb,v 1.31 2008-03-31 23:58:54 francis Exp $
 
 class InfoRequestEvent < ActiveRecord::Base
     belongs_to :info_request
@@ -63,18 +63,10 @@ class InfoRequestEvent < ActiveRecord::Base
         self.calculated_state
     end
     def requested_by
-        if self.event_type == 'sent' 
-            self.info_request.user.url_name
-        else
-            nil
-        end
+        self.info_request.user.url_name
     end
     def requested_from
-        if self.event_type == 'sent' 
-            self.info_request.public_body.url_name
-        else
-            nil
-        end
+        self.info_request.public_body.url_name
     end
     def solr_text_main
         text = ''

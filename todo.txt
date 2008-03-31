@@ -1,7 +1,6 @@
 Search:
 
 Make /list be search
-Make requested_by field in responses as well
 
 FOI requests to use to test it
 ==============================
