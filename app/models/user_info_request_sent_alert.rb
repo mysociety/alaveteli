@@ -1,12 +1,13 @@
 # == Schema Information
-# Schema version: 45
+# Schema version: 47
 #
 # Table name: user_info_request_sent_alerts
 #
-#  id              :integer         not null, primary key
-#  user_id         :integer         not null
-#  info_request_id :integer         not null
-#  alert_type      :string(255)     not null
+#  id                    :integer         not null, primary key
+#  user_id               :integer         not null
+#  info_request_id       :integer         not null
+#  alert_type            :string(255)     not null
+#  info_request_event_id :integer         
 #
 
 # models/user_info_request_sent_alert.rb:
@@ -16,7 +17,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user_info_request_sent_alert.rb,v 1.8 2008-03-24 09:35:23 francis Exp $
+# $Id: user_info_request_sent_alert.rb,v 1.9 2008-03-31 19:15:38 francis Exp $
 
 class UserInfoRequestSentAlert < ActiveRecord::Base
     belongs_to :user

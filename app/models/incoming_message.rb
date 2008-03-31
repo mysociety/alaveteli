@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 45
+# Schema version: 47
 #
 # Table name: incoming_messages
 #
@@ -17,7 +17,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.70 2008-03-31 17:20:58 francis Exp $
+# $Id: incoming_message.rb,v 1.71 2008-03-31 19:15:38 francis Exp $
 
 
 # TODO
