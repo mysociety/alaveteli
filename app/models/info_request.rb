@@ -22,7 +22,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.74 2008-03-31 17:20:59 francis Exp $
+# $Id: info_request.rb,v 1.75 2008-03-31 17:49:27 francis Exp $
 
 require 'digest/sha1'
 
@@ -78,16 +78,22 @@ class InfoRequest < ActiveRecord::Base
                 info_request = InfoRequest.find(id, :lock =>true)
                 do_index = (info_request.prominence != 'backpage')
 
-                # fill in any missing event states for all responses - so responses which
-                # have not been described get the status of later ones.
+                # Fill in any missing event states for first response before a
+                # description was made.
                 events = info_request.info_request_events.find(:all, :order => "created_at")
-                curr_state = info_request.described_state
+                curr_state = nil
                 for event in events.reverse
-                    if event.event_type == 'response'
-                        if not event.described_state.nil?
+                    if event.described_state.nil?
+                        if not curr_state.nil? and event.event_type == 'response'
+                            event.described_state = curr_state
+                            curr_state = nil
+                        end
+                    else
+                        if event.event_type == 'response'
+                            curr_state = nil
+                        else
                             curr_state = event.described_state
                         end
-                        event.described_state = curr_state
                     end
                 end
 
