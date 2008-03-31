@@ -28,8 +28,12 @@
             <strong>Follow up</strong> sent to <%= public_body_link(info_request.public_body) %>
             by <%= user_link(info_request.user) %>
         <% elsif event.event_type == 'response' %>
-            <% # <strong> XXX <%=event.display_status %> <%= info_request.display_status %> </strong> %>
-            <strong>Response</strong> by <%= public_body_link(info_request.public_body) %>
+            <% if event.calculated_state.nil? %>
+                <strong>Response</strong> 
+            <% else %>
+                <strong> <%=event.display_status %> </strong>
+            <% end %>
+            by <%= public_body_link(info_request.public_body) %>
             to <%= user_link(info_request.user) %>
         <% else %>
             <% raise "unknown event type indexed " + event.event_type %>

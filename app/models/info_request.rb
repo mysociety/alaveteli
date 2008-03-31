@@ -22,7 +22,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.75 2008-03-31 17:49:27 francis Exp $
+# $Id: info_request.rb,v 1.76 2008-03-31 19:14:47 francis Exp $
 
 require 'digest/sha1'
 
@@ -78,26 +78,10 @@ class InfoRequest < ActiveRecord::Base
                 info_request = InfoRequest.find(id, :lock =>true)
                 do_index = (info_request.prominence != 'backpage')
 
-                # Fill in any missing event states for first response before a
-                # description was made.
-                events = info_request.info_request_events.find(:all, :order => "created_at")
-                curr_state = nil
-                for event in events.reverse
-                    if event.described_state.nil?
-                        if not curr_state.nil? and event.event_type == 'response'
-                            event.described_state = curr_state
-                            curr_state = nil
-                        end
-                    else
-                        if event.event_type == 'response'
-                            curr_state = nil
-                        else
-                            curr_state = event.described_state
-                        end
-                    end
-                end
+                info_request.calculate_event_states
 
                 # index all the events
+                events = info_request.info_request_events.find(:all, :order => "created_at")
                 for event in events
                     if do_index and event.indexed_by_solr
                         event.solr_save
@@ -248,6 +232,24 @@ public
         end
 
         return self.described_state
+    end
+
+    # Fill in any missing event states for first response before a
+    # description was made.
+    def calculate_event_states
+        events = self.info_request_events.find(:all, :order => "created_at")
+        curr_state = nil
+        for event in events.reverse
+            if not event.described_state.nil?
+                curr_state = event.described_state
+            end
+
+            if not curr_state.nil? and event.event_type == 'response'
+                event.calculated_state = curr_state
+                curr_state = nil
+                event.save!
+            end
+        end
     end
 
     # Calculate date by which response is required by law.

@@ -16,7 +16,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request_event.rb,v 1.26 2008-03-31 17:20:59 francis Exp $
+# $Id: info_request_event.rb,v 1.27 2008-03-31 19:14:47 francis Exp $
 
 class InfoRequestEvent < ActiveRecord::Base
     belongs_to :info_request
@@ -58,7 +58,7 @@ class InfoRequestEvent < ActiveRecord::Base
         { :variety => :string }
     ], :if => "$do_solr_index"
     def status # for name in Solr queries
-        self.info_request.calculate_status
+        self.calculated_state
     end
     def requested_by
         if self.event_type == 'sent' 
@@ -145,8 +145,7 @@ class InfoRequestEvent < ActiveRecord::Base
         if incoming_message.nil?
             raise "display_status only works for incoming messages right now"
         end
-        status = self.described_state
-        raise status.to_s
+        status = self.calculated_state
         if status == 'waiting_response'
             "Acknowledgement"
         elsif status == 'waiting_clarification'
