@@ -1,11 +1,7 @@
 Search:
 
-Check date order of search fo successful requests
-Successful requests should have success date as date in search results.
-
-As a result fix up sorting in general 
 Make /list be search
-
+Make requested_by field in responses as well
 
 FOI requests to use to test it
 ==============================
