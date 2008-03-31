@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: general_controller.rb,v 1.11 2008-03-31 17:20:58 francis Exp $
+# $Id: general_controller.rb,v 1.12 2008-03-31 17:38:10 francis Exp $
 
 class GeneralController < ApplicationController
 
@@ -40,10 +40,12 @@ class GeneralController < ApplicationController
     # Just does a redirect from ?query= search to /query
     def search_redirect
         @query = params[:query]
-        if @query.nil?
+        @sortby = params[:sortby]
+        if @query.empty?
+            @query = nil
             render :action => "search"
         else
-            redirect_to search_url(:query => @query)
+            redirect_to search_url(:query => @query, :sortby => @sortby)
         end
     end
 

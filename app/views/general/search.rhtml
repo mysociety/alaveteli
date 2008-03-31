@@ -11,6 +11,7 @@
 <% form_tag({:action => "search_redirect"}, {:id => "search_form"}) do %>
    <p>
        <%= text_field_tag 'query', @query, { :size => 40 } %>
+       <%= hidden_field_tag 'sortby', params[:sortby] %>
        <%= submit_tag "Search" %>
        <% if not @search_results.nil? and not @search_results.empty? %>
            &nbsp;&nbsp;<a href="/search">Advanced tips</a>
