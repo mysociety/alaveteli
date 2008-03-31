@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_public_body_controller.rb,v 1.9 2008-03-14 10:09:55 francis Exp $
+# $Id: admin_public_body_controller.rb,v 1.10 2008-03-31 13:26:09 francis Exp $
 
 class AdminPublicBodyController < ApplicationController
     layout "admin"
@@ -35,7 +35,7 @@ class AdminPublicBodyController < ApplicationController
         @public_body = PublicBody.new(params[:public_body])
         if @public_body.save
             flash[:notice] = 'PublicBody was successfully created.'
-            redirect_to admin_url('body/list')
+            redirect_to admin_url('body/show/' + @public_body.id.to_s)
         else
             render :action => 'new'
         end
