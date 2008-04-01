@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: general_controller.rb,v 1.14 2008-03-31 23:19:16 francis Exp $
+# $Id: general_controller.rb,v 1.15 2008-04-01 00:36:56 francis Exp $
 
 class GeneralController < ApplicationController
 
@@ -51,46 +51,12 @@ class GeneralController < ApplicationController
 
     # Actual search
     def search
-        @per_page = 20
-        @query = params[:query]
-        @sortby = params[:sortby]
-        @page = (params[:page] || "1").to_i
-
-        # Work out sorting method
-        if @sortby.nil?
-            order = nil
-        elsif @sortby == 'newest'
-            order = 'created_at desc'
-        elsif @sortby == 'described'
-            order = 'last_described_at desc' # use this for RSS
-        else
-            raise "Unknown sort order " + @sortby
-        end
-
-        # Peform the search
-        solr_object = InfoRequestEvent.multi_solr_search(@query, :models => [ PublicBody, User ],
-            :limit => @per_page, :offset => (@page - 1) * @per_page, 
-            :highlight => { 
-                :prefix => '<span class="highlight">',
-                :suffix => '</span>',
-                :fragsize => 250,
-                :fields => ["solr_text_main", "title", # InfoRequestEvent
-                           "name", "short_name", # PublicBody
-                           "name" # User
-            ]}, :order => order
-        )
-        @search_results = solr_object.results
-        @search_hits = solr_object.total_hits
-
-        # Calculate simple word highlighting view code for users and public bodies
-        query_nopunc = @query.gsub(/[^a-z0-9]/i, " ")
-        query_nopunc = query_nopunc.gsub(/\s+/, " ")
-        @highlight_words = query_nopunc.split(" ")
-
-        # Extract better Solr highlighting for info request related results
-        @highlighting = solr_object.highlights
+        query = params[:query]
+        sortby = params[:sortby]
+        perform_search(query, sortby)
     end
  
+    # For debugging
     def fai_test
         sleep 10
         render :text => "awake\n"

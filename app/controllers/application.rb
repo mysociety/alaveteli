@@ -6,7 +6,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: application.rb,v 1.32 2008-03-21 14:45:38 francis Exp $
+# $Id: application.rb,v 1.33 2008-04-01 00:36:56 francis Exp $
 
 
 class ApplicationController < ActionController::Base
@@ -122,6 +122,49 @@ class ApplicationController < ActionController::Base
         else
             return request.env["REMOTE_USER"]
         end
+    end
+
+    # Function for search
+    def perform_search(query, sortby) 
+        @query = query
+        @sortby = sortby
+
+        # Work out sorting method
+        if @sortby.nil?
+            order = nil
+        elsif @sortby == 'newest'
+            order = 'created_at desc'
+        elsif @sortby == 'described'
+            order = 'last_described_at desc' # use this for RSS
+        else
+            raise "Unknown sort order " + @sortby
+        end
+
+        # Peform the search
+        @per_page = 20
+        @page = (params[:page] || "1").to_i
+
+        solr_object = InfoRequestEvent.multi_solr_search(@query, :models => [ PublicBody, User ],
+            :limit => @per_page, :offset => (@page - 1) * @per_page, 
+            :highlight => { 
+                :prefix => '<span class="highlight">',
+                :suffix => '</span>',
+                :fragsize => 250,
+                :fields => ["solr_text_main", "title", # InfoRequestEvent
+                           "name", "short_name", # PublicBody
+                           "name" # User
+            ]}, :order => order
+        )
+        @search_results = solr_object.results
+        @search_hits = solr_object.total_hits
+
+        # Calculate simple word highlighting view code for users and public bodies
+        query_nopunc = @query.gsub(/[^a-z0-9]/i, " ")
+        query_nopunc = query_nopunc.gsub(/\s+/, " ")
+        @highlight_words = query_nopunc.split(" ")
+
+        # Extract better Solr highlighting for info request related results
+        @highlighting = solr_object.highlights
     end
 
     # URL generating functions are needed by all controllers (for redirects)

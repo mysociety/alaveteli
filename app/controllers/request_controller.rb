@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.68 2008-03-17 10:36:41 francis Exp $
+# $Id: request_controller.rb,v 1.69 2008-04-01 00:36:56 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -37,7 +37,20 @@ class RequestController < ApplicationController
     end
 
     def list
-        @info_requests = InfoRequest.paginate :order => "created_at desc", :page => params[:page], :per_page => 25, :conditions => "prominence = 'normal'"
+        view = params[:view]
+
+        if view.nil?
+            @title = "Recent Freedom of Information requests"
+            query = "variety:sent";
+            sortby = "newest"
+        elsif view == 'successful'
+            @title = "Recent successful responses"
+            query = 'variety:response (status:successful OR status:partially_successful)'
+            sortby = "newest"
+        else
+            raise "unknown request list view " + view.to_s
+        end
+        perform_search(query, sortby)
     end
 
     # Page new form posts to
