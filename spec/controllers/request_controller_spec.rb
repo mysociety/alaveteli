@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe RequestController, "when listing all requests" do
     integrate_views
-    fixtures :info_requests, :outgoing_messages
+    fixtures :info_requests, :outgoing_messages, :info_request_events
   
     it "should be successful" do
         get :list
@@ -18,9 +18,9 @@ describe RequestController, "when listing all requests" do
         # XXX probably should load more than one page of requests into db here :)
         
         get :list
-        assigns[:info_requests].should == [ 
-            info_requests(:naughty_chicken_request), # reverse-chronological order
-            info_requests(:fancy_dog_request)
+        assigns[:search_results].should == [ 
+            info_request_events(:silly_outgoing_message_event), # reverse-chronological order
+            info_request_events(:useless_outgoing_message_event)
         ]
     end
 end

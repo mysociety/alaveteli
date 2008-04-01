@@ -1,7 +1,3 @@
-Search:
-
-Make /list be search
-
 FOI requests to use to test it
 ==============================
 
