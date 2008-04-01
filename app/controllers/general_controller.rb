@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: general_controller.rb,v 1.16 2008-04-01 05:43:40 francis Exp $
+# $Id: general_controller.rb,v 1.17 2008-04-01 16:40:37 francis Exp $
 
 class GeneralController < ApplicationController
 
@@ -57,7 +57,7 @@ class GeneralController < ApplicationController
         sortby = params[:sortby]
         perform_search(query, sortby)
     end
- 
+
     # For debugging
     def fai_test
         sleep 10

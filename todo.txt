@@ -13,6 +13,16 @@ BAILII - relationship with law courts, robots.txt ?
 Next
 ====
 
+Read how Matthew's alert thang works
+
+Overdue response events, so search / RSS picks up when response is late
+
+Fix search to deal with overdue message query that TOmski asks for
+
+If you edit needs anim to waiting_response it doesn't edit the value in the event history, so screws up search stuff?
+https://secure.mysociety.org/admin/foi/request/show/37
+https://secure.mysociety.org/admin/foi/request/show/137
+
 Search and replace text "FOI" and "Freedom of Information" out the way more
  - but put it in the title tag
 "public body" --> "public authority"?
@@ -25,12 +35,13 @@ Tom's request to Parliament:
     http://foi.mysociety.org/request/8
 
 Consider removing login links from notifications of new responses
-Consider password change code in relation to this
-
-Now of course when ids go into requests/users for new ones it just adds an _ on end which is crap!
 
 Later
 =====
+
+Wrapping long URLs in emails breaks the h off http off the beginning nastily
+
+Use :order in the info_request.events belongs_to clause instead of each time it is queried
 
 Offer search on 404s
 
@@ -82,6 +93,12 @@ Show public body email address on their public page, with a link to say "this is
 Email me updates on this request
 Generic alerting/tracking system including
     - email alerts and RSS
+Things to track:
+    - updates to a particular request
+    - new requests
+    - new requests with keyword
+    - successful responses
+
     - new requests, new good responses etc.
     - new responses to a particular request
 
@@ -149,8 +166,9 @@ Quoting fixing TODO:
     http://www.whatdotheyknow.com/request/71/response/108
     http://www.whatdotheyknow.com/request/police_powers_to_inform_car_insu
     http://www.whatdotheyknow.com/request/30/response/166
-Char encoding:
+Char encoding and other bad formatting:
     http://www.whatdotheyknow.com/request/107/response/144
+    http://www.whatdotheyknow.com/request/35/response/177
 
 Sources of public bodies
 ========================

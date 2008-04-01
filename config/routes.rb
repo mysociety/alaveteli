@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: routes.rb,v 1.48 2008-04-01 00:36:56 francis Exp $
+# $Id: routes.rb,v 1.49 2008-04-01 16:40:38 francis Exp $
 
 ActionController::Routing::Routes.draw do |map|
 
@@ -15,42 +15,46 @@ ActionController::Routing::Routes.draw do |map|
     # Keep in mind you can assign values other than :controller and :action
     
     map.with_options :controller => 'general' do |general|
-      general.frontpage           '/',            :action => 'frontpage'
-      general.auto_complete_for_public_body_query 'auto_complete_for_public_body_query', :action => 'auto_complete_for_public_body_query'
+        general.frontpage           '/',            :action => 'frontpage'
+        general.auto_complete_for_public_body_query 'auto_complete_for_public_body_query', :action => 'auto_complete_for_public_body_query'
 
-      general.search_redirect '/search',      :action => 'search_redirect'
-      general.search '/search/:query/:sortby',      :action => 'search', :sortby => nil
+        general.search_redirect '/search',      :action => 'search_redirect'
+        general.search '/search/:query/:sortby',      :action => 'search', :sortby => nil
 
-      general.fai_test '/test', :action => 'fai_test'
+        general.fai_test '/test', :action => 'fai_test'
     end
 
     map.with_options :controller => 'request' do |request|
-      request.request_list   '/list/:view',        :action => 'list', :view => nil
+        request.request_list   '/list/:view',        :action => 'list', :view => nil
 
-      request.new_request    '/new',         :action => 'new'
-      request.new_request_to_body    '/new/:public_body_id',         :action => 'new'
+        request.new_request    '/new',         :action => 'new'
+        request.new_request_to_body    '/new/:public_body_id',         :action => 'new'
 
-      request.show_request     '/request/:url_title', :action => 'show'
-      request.describe_state   '/request/:id/describe', :action => 'describe_state'
-      request.show_response_no_followup    '/request/:id/response', :action => 'show_response'
-      request.show_response    '/request/:id/response/:incoming_message_id', :action => 'show_response'
-      request.get_attachment   '/request/:id/response/:incoming_message_id/attach/:part/*file_name', :action => 'get_attachment'
+        request.show_request     '/request/:url_title', :action => 'show'
+        request.describe_state   '/request/:id/describe', :action => 'describe_state'
+        request.show_response_no_followup    '/request/:id/response', :action => 'show_response'
+        request.show_response    '/request/:id/response/:incoming_message_id', :action => 'show_response'
+        request.get_attachment   '/request/:id/response/:incoming_message_id/attach/:part/*file_name', :action => 'get_attachment'
     end
 
     map.with_options :controller => 'user' do |user|
-      user.signin '/signin',        :action => 'signin'
-      user.signup '/signup',        :action => 'signup'
-      user.signout '/signout',      :action => 'signout'
-      user.signchange '/signchange',      :action => 'signchange'
-      user.confirm '/c/:email_token', :action => 'confirm'
-      user.show_user '/user/:url_name', :action => 'show'
-      user.contact_user '/user/contact/:id', :action => 'contact'
+        user.signin '/signin',        :action => 'signin'
+        user.signup '/signup',        :action => 'signup'
+        user.signout '/signout',      :action => 'signout'
+        user.signchange '/signchange',      :action => 'signchange'
+        user.confirm '/c/:email_token', :action => 'confirm'
+        user.show_user '/user/:url_name', :action => 'show'
+        user.contact_user '/user/contact/:id', :action => 'contact'
     end
 
     map.with_options :controller => 'body' do |body|
         body.list_public_bodies "/body", :action => 'list'
         body.list_public_bodies "/body/list/:tag", :action => 'list'
         body.show_public_body "/body/:url_name", :action => 'show'
+    end
+
+    map.with_options :controller => 'track' do |track|
+        track.track_request     'track/request/:url_title', :action => 'track_request'
     end
 
     map.with_options :controller => 'help' do |help|

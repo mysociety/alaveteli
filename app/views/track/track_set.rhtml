@@ -1,0 +1,35 @@
+<div id="track_set">
+
+<% form_tag({:id => "track_set_form"}) do %>
+    <%= foi_error_messages_for :track_thing %>
+
+    <div class="form_note">
+    <h1><%=@title %></h1>
+    </div>
+
+    <div class="form_note">
+    <!--<%= radio_button "track_thing", "track_medium", "email_immediate" %>
+    <label for="track_track_medium_email">Send me emails shortly after there are updates</label>
+    <br> -->
+    <%= radio_button "track_thing", "track_medium", "email_daily" %>
+    <label for="track_thing_track_medium_email">Send me emails at most once a day</label>
+    <!--
+    <br>
+    <%= radio_button "track_thing", "track_medium", "rss" %>
+    <label for="track__thingtrack_medium_rss">Give me a feed to use in my news reader (RSS)</label>
+    -->
+    </div>
+
+    <p class="form_note">
+    <strong>Privacy note:</strong> It will appear publically on your user page that
+    you are tracking this request (<a href="/help/about/#tracking">details</a>). 
+    </p>
+
+    <div class="form_button">
+    <%= hidden_field_tag 'submitted_track_request', 1 %>
+    <%= submit_tag "Subscribe" %>
+    </div>
+<% end %>
+
+</div>
+
