@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: general_controller.rb,v 1.15 2008-04-01 00:36:56 francis Exp $
+# $Id: general_controller.rb,v 1.16 2008-04-01 05:43:40 francis Exp $
 
 class GeneralController < ApplicationController
 
@@ -33,7 +33,9 @@ class GeneralController < ApplicationController
         end
 
         # Get all successful requests for display on the right  
-        @info_requests = InfoRequest.find :all, :order => "created_at desc", :conditions => "prominence = 'normal' and described_state in ('successful', 'partially_successful')", :limit => 3
+        query = 'variety:response (status:successful OR status:partially_successful)'
+        sortby = "newest"
+        perform_search(query, sortby, 3)
     end
 
 

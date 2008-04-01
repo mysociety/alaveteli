@@ -6,7 +6,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: application.rb,v 1.33 2008-04-01 00:36:56 francis Exp $
+# $Id: application.rb,v 1.34 2008-04-01 05:43:40 francis Exp $
 
 
 class ApplicationController < ActionController::Base
@@ -125,7 +125,7 @@ class ApplicationController < ActionController::Base
     end
 
     # Function for search
-    def perform_search(query, sortby) 
+    def perform_search(query, sortby, per_page = 25) 
         @query = query
         @sortby = sortby
 
@@ -141,7 +141,7 @@ class ApplicationController < ActionController::Base
         end
 
         # Peform the search
-        @per_page = 20
+        @per_page = per_page
         @page = (params[:page] || "1").to_i
 
         solr_object = InfoRequestEvent.multi_solr_search(@query, :models => [ PublicBody, User ],
