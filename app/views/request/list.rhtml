@@ -4,14 +4,10 @@
     <p>No requests made yet.</p>
 <% else %>
     <% for search_result in @search_results %>
-        <% if search_result.class.to_s == 'PublicBody' %>
-            <%= render :partial => 'body/body_listing_single', :locals => { :public_body => search_result } %>
-        <% elsif search_result.class.to_s == 'User' %>
-            <%= render :partial => 'user/user_listing_single', :locals => { :display_user => search_result } %>
-        <% elsif search_result.class.to_s == 'InfoRequestEvent' %>
+        <% if search_result.class.to_s == 'InfoRequestEvent' %>
             <%= render :partial => 'request/request_listing_via_event', :locals => { :event => search_result, :info_request => search_result.info_request } %>
         <% else %>
-            <p><strong>Unknown search result type <%=search_result.class.to_s%></strong></p>
+            <p><strong>Unexpected search result type <%=search_result.class.to_s%></strong></p>
         <% end %>
     <% end %>
 <% end %>
