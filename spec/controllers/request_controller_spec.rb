@@ -17,6 +17,8 @@ describe RequestController, "when listing all requests" do
     it "should assign the first page of results" do
         # XXX probably should load more than one page of requests into db here :)
         
+        InfoRequest.update_solr_index
+        
         get :list
         assigns[:search_results].should == [ 
             info_request_events(:silly_outgoing_message_event), # reverse-chronological order
