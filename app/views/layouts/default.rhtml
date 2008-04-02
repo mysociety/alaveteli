@@ -11,8 +11,11 @@
         <% end %>
         </title>
         <%= stylesheet_link_tag 'main' %>
+        <%= stylesheet_link_tag 'alt', :rel => "alternate stylesheet", :title => "Tommy1"  %>
     </head>
     <body>
+    <div id="banner">
+    </div>
     <div id="header">
         <h1>
             <a href="/">WhatDoTheyKnow?</a> 
@@ -22,15 +25,6 @@
             Lift the lid on the UK public sector!
         </div>
     </div>
-    <ul id="navigation">
-        <li><a href="/">Make request</a></li>
-        <li><%= link_to "View requests", request_list_url %></li>
-        <li><%= link_to "View authorities", list_public_bodies_url(:tag => 'department') %></li>
-        <% if @user %>
-            <li><%=link_to "My requests", user_url(@user) %></li>
-        <% end %>
-        <li><%= link_to "About", about_url %></li>
-    </ul>
     <div id="navigation_search">
         <% form_tag({:controller => "general", :action => "search_redirect"}, {:id => "navigation_search_form"}) do %>
            <p>
@@ -39,23 +33,34 @@
            </p>
         <% end %>
     </div>
-
+	<div id="topnav">
+		<ul id="navigation">
+			<li><a href="/">Make request</a></li>
+			<li><%= link_to "View requests", request_list_url %></li>
+			<li><%= link_to "View authorities", list_public_bodies_url(:tag => 'department') %></li>
+			<% if @user %>
+				<li><%=link_to "My requests", user_url(@user) %></li>
+			<% end %>
+			<li><%= link_to "About", about_url %></li>
+		</ul>
+		<% if not (controller.action_name == 'signin' or controller.action_name == 'signup') %>
+			<div id="logged_in_bar">
+			<% if @user %>
+				Hello, <%=h(@user.name)%>! 
+				(<%= link_to "Sign out", signout_url(:r => request.request_uri) %>)
+			<% else %>
+				Hello! (<%= link_to "Sign in or sign up", signin_url(:r => request.request_uri) %>)
+			<% end %>
+			</div>
+		<% end %>
+	</div>
+	
     <% if MySociety::Config.getbool("STAGING_SITE", 1) %>
         <div id="staging">
             This is a test version of the site. FOI requests will not be sent to real public bodies.
         </div>
     <% end %>
 
-    <% if not (controller.action_name == 'signin' or controller.action_name == 'signup') %>
-        <div id="logged_in_bar">
-        <% if @user %>
-            Hello, <%=h(@user.name)%>! 
-            (<%= link_to "Sign out", signout_url(:r => request.request_uri) %>)
-        <% else %>
-            Hello! (<%= link_to "Sign in or sign up", signin_url(:r => request.request_uri) %>)
-        <% end %>
-        </div>
-    <% end %>
 
     <div id="wrapper">
         <div id="content">

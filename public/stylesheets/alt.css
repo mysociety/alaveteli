@@ -1,0 +1,232 @@
+/*------------------------------------------------ global */
+body
+{
+	padding: 0px;
+	margin: 0px;
+	text-align: center;
+	font-family: Tahoma, Geneva, sans-serif;
+}
+
+/*------------------------------------------------ banner */
+
+#banner
+{
+	position: relative;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 200px;
+	margin: 0px;
+	background-color: #F0F0F0;
+	background-image: url(../images/navimg/bnnr-ifyoudontask.png);
+	background-repeat: no-repeat;
+	background-position: center top;
+	border-color: #993233;
+	border-width: 0 0 3px 0;
+	border-style: solid;
+}
+
+/*------------------------------------------------ header; not needed? */
+#header
+{ display: none; }
+
+/*------------------------------------------------ search */
+			
+#navigation_search
+{
+	position: absolute;
+	width: 100%;
+	left: 0px;
+	top: 175px;
+	z-index: 150;
+	text-align: right;
+			-moz-opacity: 0.7!important;
+			filter: alpha(opacity= 70)!important;
+			opacity: 0.7!important;
+}
+	#navigation_search input
+	{
+		border-color: #010101;
+		border-width: 1px;
+		border-style: solid;
+		background-color: #fff;
+		color: #000;
+	}
+	#navigation_search input#navigation_search_query
+	{
+		width: 8em; 
+	}
+
+#navigation_search p { margin: 0 0.6em 0 0; }	
+
+/*------------------------------------------------ topnav */
+#topnav
+{
+	position: relative;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: auto;
+	overflow: auto;
+	padding: 0px 0px 0px 0px;
+	z-index: 100;
+	background-color: #000;
+	font-size: 0.9em;
+}
+
+	#topnav ul
+	{		
+		list-style: none;
+		margin: 0px;
+		padding: 0px;
+	}
+	
+		#topnav li 
+		{
+			float: left;
+		}
+		
+			#topnav li a, #topnav li a:visited
+			{
+				display: block;
+				margin: 0px;
+				padding: 0.15em 0.6em 0.25em 0.8em;
+				color: #ADADAD;
+				text-decoration: none;
+			}
+							
+				#topnav li a:hover
+				{ color: #fff; } 
+	
+				#topnav li a:active { }
+	
+		#topnav li a.on, #topnav li a.on:visited
+		{ 
+			font-weight: bold; 
+			color: #000;
+		}
+	
+			#topnav li a.on:hover {}
+	
+			#topnav li a.on:active {}
+
+/*-------------------------- login/signup */
+#logged_in_bar
+{
+	float: right;
+	clear: none;
+	font-size: 0.9em;
+	z-index: 200;
+	padding: 0.20em 10px 0.25em 1em;
+	color: #FFF;
+}
+	#logged_in_bar a, #logged_in_bar a:visited { color: #92B3FF; }
+
+/*------------------------------------------------ temp stuff */
+#staging, #alpha_notice
+{ display: none;}
+
+#staging
+{
+	border-color: #FF201D;
+	border-width: 1px;
+	border-style: dotted;
+	clear: both;
+	text-align: center;
+	color: #FF201D;
+	margin-top: 40px;
+}
+
+#alpha_notice
+{
+	padding: 0 20px 0 20px;
+	border-color: #FF201D;
+	border-width: 1px;
+	border-style: dotted;
+	background-color: #f0f0f0;
+}
+
+/*------------------------------------------------ wrapper*/
+
+#wrapper
+{
+	position: relative;
+	clear: both;
+	top: 0em;
+	padding: 0px;
+	margin: 0px auto 1.2em auto;
+	max-width: 50em;
+	/* = 800px at default size? so 1em = 16px*/
+	_width: 50em;
+	text-align: left;
+}
+
+/*------------------------------------------------ content */
+
+#content
+{
+	position: relative;
+	padding: 2em 1em 1em 1em;
+}
+
+h1, h2, h3
+{
+	font-family: Trebuchet, Trebuchet MS, Helvetica, sans-serif;
+	/*Arial Black, Gadget, sans-serif*/
+	font-weight: bold;
+	line-height: 1em;
+	letter-spacing: 0em;
+	color: #555;
+}
+	h1 { font-size: 1.8em;}
+	h2 { font-size: 1.4em;}
+	h3 { font-size: 1em;}
+
+h4, h5, h6
+{}
+
+
+/*---------------- content : recent requests sidebar */
+#find_information
+{
+	width: 10.5em;
+	float: right;
+	clear: none;
+	background-color: #e0e0e0;
+	background-image: url(../images/navimg/sidebag-bg-wide.png);
+	background-repeat: no-repeat;
+	background-position: center top;
+	padding: 105px 0.25em 0.25em 0.35em;
+}
+	#find_information h1
+	{ font-size: 1.2em; line-height: 0.85em; margin-top: 0px;}
+
+	#find_information p
+	{ font-size: 0.8em; line-height: 1em; }
+	
+	#find_information input#query
+	{ width: 12em; }
+
+/*---------------- content : find body */
+#make_requests
+{
+	float: left;
+	clear: none;
+	width: 34em;
+	text-align: center;
+}
+
+/*------------------------------------------------ footer */
+
+#footer
+{
+	clear: both;
+	position: relative;
+	background-color: #F0F0F0;
+	border-color: #993233;
+	border-width: 3px 0 0 0;
+	border-style: solid;
+	margin: 1em 0 0 0;
+	padding: 0.5em 0 0.5em 0;
+	font-size: 0.85em;
+}
