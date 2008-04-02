@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.50 2008-04-01 16:40:37 francis Exp $
+# $Id: public_body.rb,v 1.51 2008-04-02 09:59:06 francis Exp $
 
 require 'csv'
 require 'set'
@@ -42,6 +42,7 @@ class PublicBody < ActiveRecord::Base
             [ "media", "Media", "a media organisation" ],
             [ "police", "Police forces", "a police force" ], 
             [ "rda", "Regional development agencies", "a regional development agency" ], 
+            [ "sha", "Strategic health authorities", "a strategic health authority" ],
             [ "university", "Universities", "university" ], 
             [ "other", "Other", "other" ]
         ]
@@ -156,13 +157,17 @@ class PublicBody < ActiveRecord::Base
             CSV::Reader.parse(csv) do |row|
                 name = row[1]
                 email = row[2]
-                next if name.nil? or email.nil?
+                next if name.nil?
+                #or email.nil?
+                if email.nil?
+                    email = '' # unknown/bad contact is empty string
+                end
 
                 name.strip!
                 email.strip!
 
-                if not MySociety::Validate.is_valid_email(email)
-                    raise "invalid email:", name, " ", email, "\n"
+                if email != "" && !MySociety::Validate.is_valid_email(email)
+                    raise "invalid email:" + name + " " + email
                 end
 
                 if bodies_by_name[name]
