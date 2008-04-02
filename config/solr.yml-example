@@ -6,5 +6,8 @@
 development:
   url: http://localhost:8999/solr
   
+test:
+  url: http://localhost:8991/solr
+
 production:
   url: http://localhost:8983/solr
