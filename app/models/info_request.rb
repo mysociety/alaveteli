@@ -22,7 +22,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.79 2008-04-01 16:40:37 francis Exp $
+# $Id: info_request.rb,v 1.80 2008-04-03 17:23:39 francis Exp $
 
 require 'digest/sha1'
 
@@ -152,6 +152,9 @@ public
     # the prefix and domain, as sometimes those change, or might be elided by
     # copying an email, and that doesn't matter)
     def InfoRequest.find_by_incoming_email(incoming_email)
+        # Match case insensitively
+        incoming_email = incoming_email.downcase
+
         # The optional bounce- dates from when we used to have separate emails for the envelope from.
         # (that was abandoned because councils would send hand written responses to them, not just
         # bounce messages)

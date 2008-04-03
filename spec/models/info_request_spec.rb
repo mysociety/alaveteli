@@ -17,6 +17,12 @@ describe InfoRequest, " when emailing" do
         found_info_request.should == (@info_request)
     end
 
+    it "should recognise its own incoming email with some capitalisation" do
+        incoming_email = @info_request.incoming_email.gsub(/request/, "Request")
+        found_info_request = InfoRequest.find_by_incoming_email(incoming_email)
+        found_info_request.should == (@info_request)
+    end
+
     it "should recognise old style request-bounce- addresses" do
         incoming_email = @info_request.magic_email("request-bounce-")
         found_info_request = InfoRequest.find_by_incoming_email(incoming_email)
