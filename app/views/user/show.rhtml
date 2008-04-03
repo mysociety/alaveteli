@@ -29,7 +29,7 @@
 
         <ul>
         <% for track_thing in @display_user.track_things %>
-            <li><%= track_thing.params[:describe].titleize %></li>
+            <li><%= track_thing.params[:describe] %></li>
         <% end %>
         </ul>
     <% end %>
