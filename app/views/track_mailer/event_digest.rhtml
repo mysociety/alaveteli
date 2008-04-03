@@ -2,8 +2,8 @@
         # Construct the main text of the mail
         main_text = ''
         for track_thing, alert_results in @email_about_things
-            main_text += track_thing.params[:describe] + "\n"
-            main_text += ("=" * track_thing.params[:describe].size) + "\n\n"
+            main_text += "New events for " + track_thing.params[:describe] + "\n"
+            main_text += ("=" * ("New events for ".size + track_thing.params[:describe].size)) + "\n\n"
             for result in alert_results.reverse
                 if result.class.to_s == "InfoRequestEvent"
                     event = result

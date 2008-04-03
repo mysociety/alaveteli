@@ -18,7 +18,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_thing.rb,v 1.2 2008-04-03 15:29:51 francis Exp $
+# $Id: track_thing.rb,v 1.3 2008-04-03 18:45:01 francis Exp $
 
 class TrackThing < ActiveRecord::Base
     belongs_to :user, :foreign_key => 'tracking_user_id'
@@ -53,7 +53,7 @@ class TrackThing < ActiveRecord::Base
             if self.track_type == 'request_updates'
                 @params = {
                     :title => "Track the request '" + CGI.escapeHTML(self.info_request.title) + "'",
-                    :describe => "The request '" + CGI.escapeHTML(self.info_request.title) + "'",
+                    :describe => "the request '" + CGI.escapeHTML(self.info_request.title) + "'",
                     :web => "To follow updates to the request '" + CGI.escapeHTML(self.info_request.title) + "'",
                     :email => "Then you will be emailed whenever the request '" + CGI.escapeHTML(self.info_request.title) + "' is updated.",
                     :email_subject => "Confirm you want to follow updates to the request '" + CGI.escapeHTML(self.info_request.title) + "'",
