@@ -5,7 +5,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: link_to_helper.rb,v 1.23 2008-03-12 16:07:13 francis Exp $
+# $Id: link_to_helper.rb,v 1.24 2008-04-03 18:36:57 francis Exp $
 
 module LinkToHelper
 
@@ -102,7 +102,7 @@ module LinkToHelper
 
     # Basic date format
     def simple_date(date)
-        return date.strftime("%e %B %Y")
+        return date.strftime("%e %B %Y").strip
     end
 
   
