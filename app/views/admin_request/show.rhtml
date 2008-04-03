@@ -17,6 +17,26 @@
 | <%= link_to "Edit", '../edit/' + @info_request.id.to_s %>
 </p>
 
+<h2>Events</h2>
+
+<table>
+  <tr>
+  <th>Id</th>
+  <% for column in InfoRequestEvent.content_columns %>
+    <th><%= column.human_name %></th>
+  <% end %>
+  </tr>
+  
+<% for info_request_event in @info_request.info_request_events.find(:all, :order => "created_at, id") %>
+  <tr class="<%= cycle('odd', 'even') %>">
+  <td><%=h info_request_event.id %></td>
+  <% for column in InfoRequestEvent.content_columns.map { |c| c.name } %>
+    <td><%=h info_request_event.send(column) %></td>
+  <% end %>
+  </tr>
+<% end %>
+</table>
+
 <h2>Outgoing messages</h2>
 
 <table>
@@ -66,26 +86,4 @@
   </tr>
 <% end %>
 </table>
-
-
-<h2>Events</h2>
-
-<table>
-  <tr>
-  <th>Id</th>
-  <% for column in InfoRequestEvent.content_columns %>
-    <th><%= column.human_name %></th>
-  <% end %>
-  </tr>
-  
-<% for info_request_event in @info_request.info_request_events.find(:all, :order => "created_at, id") %>
-  <tr class="<%= cycle('odd', 'even') %>">
-  <td><%=h info_request_event.id %></td>
-  <% for column in InfoRequestEvent.content_columns.map { |c| c.name } %>
-    <td><%=h info_request_event.send(column) %></td>
-  <% end %>
-  </tr>
-<% end %>
-</table>
-
 
