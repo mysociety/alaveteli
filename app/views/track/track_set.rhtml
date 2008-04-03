@@ -12,7 +12,7 @@
     <label for="track_track_medium_email">Send me emails shortly after there are updates</label>
     <br> -->
     <%= radio_button "track_thing", "track_medium", "email_daily" %>
-    <label for="track_thing_track_medium_email">Send me emails at most once a day</label>
+    <label for="track_thing_track_medium_email_daily">Send me emails at most once a day</label>
     <!--
     <br>
     <%= radio_button "track_thing", "track_medium", "rss" %>
@@ -26,7 +26,7 @@
     </p>
 
     <div class="form_button">
-    <%= hidden_field_tag 'submitted_track_request', 1 %>
+    <%= hidden_field_tag 'submitted_track', 1 %>
     <%= submit_tag "Subscribe" %>
     </div>
 <% end %>

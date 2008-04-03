@@ -13,7 +13,7 @@ BAILII - relationship with law courts, robots.txt ?
 Next
 ====
 
-Read how Matthew's alert thang works
+Search has been done
 
 Overdue response events, so search / RSS picks up when response is late
 
@@ -39,9 +39,15 @@ Consider removing login links from notifications of new responses
 Later
 =====
 
+Now that we have LinkToHelper in mailer *objects* (not classes) call out to it
+everywhere that it should
+
+"Some of the information" option should give you choice of complaining if you like.
+
 Wrapping long URLs in emails breaks the h off http off the beginning nastily
 
 Use :order in the info_request.events belongs_to clause instead of each time it is queried
+Also sort user.info_requests for user pages
 
 Offer search on 404s
 
@@ -79,6 +85,9 @@ updating
 
 Response overdue alerts are only sent first time a request goes into that state :(
     Store id in alert of last event which resets the due date
+
+Overdue response alert email click through should show how many days overdue
+    it is near where you write your reply
 
 Get deploying of Lucene search working
 

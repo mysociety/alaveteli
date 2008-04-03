@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: application_mailer.rb,v 1.6 2008-02-28 14:25:51 francis Exp $
+# $Id: application_mailer.rb,v 1.7 2008-04-03 15:29:51 francis Exp $
 
 class ApplicationMailer < ActionMailer::Base
     # Include all the functions views get, as emails call similar things.
@@ -17,5 +17,10 @@ class ApplicationMailer < ActionMailer::Base
     def contact_from_name_and_email
         "WhatDoTheyKnow <"+MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost')+">"
     end
+
+    # URL generating functions are needed by all controllers (for redirects),
+    # views (for links) and mailers (for use in emails), so include them into
+    # all of all.
+    include LinkToHelper
 end
 

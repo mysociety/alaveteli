@@ -18,35 +18,52 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_thing.rb,v 1.1 2008-04-01 16:40:37 francis Exp $
+# $Id: track_thing.rb,v 1.2 2008-04-03 15:29:51 francis Exp $
 
 class TrackThing < ActiveRecord::Base
     belongs_to :user, :foreign_key => 'tracking_user_id'
     validates_presence_of :track_query
+    validates_presence_of :track_type
 
     belongs_to :info_request
     belongs_to :public_body
     belongs_to :user, :foreign_key => 'tracked_user_id'
 
+    has_many :track_things_sent_emails
+
+    validates_inclusion_of :track_type, :in => [ 
+        'request_updates', 
+    ]
+
     validates_inclusion_of :track_medium, :in => [ 
         'email_daily', 
     ]
 
-    attr_accessor :params
-
     def TrackThing.create_track_for_request(info_request)
         track_thing = TrackThing.new
+        track_thing.track_type = 'request_updates'
         track_thing.info_request = info_request
-        track_thing.params = {
-            :title => "Track the request '" + CGI.escapeHTML(info_request.title) + "'",
-            :feed_sortby => 'described',
-
-            :web => "To follow updates to the request '" + CGI.escapeHTML(info_request.title) + "'",
-            :email => "Then you will be emailed whenever the request '" + CGI.escapeHTML(info_request.title) + "' is updated.",
-            :email_subject => "Confirm you want to follow updates to the request '" + CGI.escapeHTML(info_request.title) + "'",
-        }
         track_thing.track_query = "request:" + info_request.url_title
         return track_thing
+    end
+
+    # Return hash of text parameters describing the request etc.
+    def params
+        if @params.nil?
+            if self.track_type == 'request_updates'
+                @params = {
+                    :title => "Track the request '" + CGI.escapeHTML(self.info_request.title) + "'",
+                    :describe => "The request '" + CGI.escapeHTML(self.info_request.title) + "'",
+                    :web => "To follow updates to the request '" + CGI.escapeHTML(self.info_request.title) + "'",
+                    :email => "Then you will be emailed whenever the request '" + CGI.escapeHTML(self.info_request.title) + "' is updated.",
+                    :email_subject => "Confirm you want to follow updates to the request '" + CGI.escapeHTML(self.info_request.title) + "'",
+                    :feed_sortby => 'described', # for RSS, as newest would give a date for responses possibly days before description
+                }
+            else
+                raise "unknown tracking type " + self.track_type
+            end
+        end
+        return @params
     end
 
 end

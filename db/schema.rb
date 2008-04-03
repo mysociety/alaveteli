@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 49) do
+ActiveRecord::Schema.define(:version => 50) do
 
   create_table "incoming_messages", :force => true do |t|
     t.integer  "info_request_id", :null => false
@@ -118,19 +118,24 @@ ActiveRecord::Schema.define(:version => 49) do
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
   create_table "track_things", :force => true do |t|
-    t.integer "tracking_user_id", :null => false
-    t.string  "track_query",      :null => false
-    t.integer "info_request_id"
-    t.integer "tracked_user_id"
-    t.integer "public_body_id"
-    t.string  "track_medium",     :null => false
+    t.integer  "tracking_user_id", :null => false
+    t.string   "track_query",      :null => false
+    t.integer  "info_request_id"
+    t.integer  "tracked_user_id"
+    t.integer  "public_body_id"
+    t.string   "track_medium",     :null => false
+    t.string   "track_type",       :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "track_things_sent_emails", :force => true do |t|
-    t.integer "track_thing_id",        :null => false
-    t.integer "info_request_event_id"
-    t.integer "user_id"
-    t.integer "public_body_id"
+    t.integer  "track_thing_id",        :null => false
+    t.integer  "info_request_event_id"
+    t.integer  "user_id"
+    t.integer  "public_body_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "user_info_request_sent_alerts", :force => true do |t|
@@ -143,14 +148,15 @@ ActiveRecord::Schema.define(:version => 49) do
   add_index "user_info_request_sent_alerts", ["user_id", "info_request_id", "alert_type"], :name => "user_info_request_sent_alerts_unique_index", :unique => true
 
   create_table "users", :force => true do |t|
-    t.string   "email",                              :null => false
-    t.string   "name",                               :null => false
-    t.string   "hashed_password",                    :null => false
-    t.string   "salt",                               :null => false
-    t.datetime "created_at",                         :null => false
-    t.datetime "updated_at",                         :null => false
-    t.boolean  "email_confirmed", :default => false, :null => false
-    t.text     "url_name",                           :null => false
+    t.string   "email",                                                     :null => false
+    t.string   "name",                                                      :null => false
+    t.string   "hashed_password",                                           :null => false
+    t.string   "salt",                                                      :null => false
+    t.datetime "created_at",                                                :null => false
+    t.datetime "updated_at",                                                :null => false
+    t.boolean  "email_confirmed",        :default => false,                 :null => false
+    t.text     "url_name",                                                  :null => false
+    t.datetime "last_daily_track_email", :default => '2000-01-01 00:00:00'
   end
 
   add_index "users", ["url_name"], :name => "index_users_on_url_name", :unique => true

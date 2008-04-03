@@ -21,6 +21,19 @@
         <% end %>
     </p>
 
+    <% if not @display_user.track_things.empty? %>
+        <h2>
+        <%= @is_you ? 'You are' : 'This person is' %> tracking
+        <%=pluralize(@display_user.track_things.size, "thing") %>
+        </h2>
+
+        <ul>
+        <% for track_thing in @display_user.track_things %>
+            <li><%= track_thing.params[:describe] %></li>
+        <% end %>
+        </ul>
+    <% end %>
+
     <% if @display_user.info_requests.empty? %>
         <h2>Freedom of Information requests made by <%= @is_you ? 'you' : 'this person' %></h2>
         <p><%= @is_you ? 'You have' : 'This person has' %>
@@ -28,8 +41,8 @@
 
     <% else %>
         <h2>
-        <%=pluralize(@display_user.info_requests.size, "Freedom of Information request") %>
-        made by <%= @is_you ? 'you' : 'this person' %>
+        <%= @is_you ? 'You have' : 'This person has' %>
+        made <%=pluralize(@display_user.info_requests.size, "Freedom of Information request") %>
         </h2>
 
         <%= render :partial => 'request/request_listing', :locals => { :info_requests => @display_user.info_requests.sort { |a,b| b.created_at <=> a.created_at } } %>

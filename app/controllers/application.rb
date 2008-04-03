@@ -6,7 +6,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: application.rb,v 1.34 2008-04-01 05:43:40 francis Exp $
+# $Id: application.rb,v 1.35 2008-04-03 15:29:50 francis Exp $
 
 
 class ApplicationController < ActionController::Base
@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
 
     # Called from test code, is a mimic of User.confirm, for use in following email
     # links when in controller tests (since we don't have full integration tests that
-    # can work over multiple controllers)0
+    # can work over multiple controllers)
     def test_code_redirect_by_email_token(token, controller_example_group)
         post_redirect = PostRedirect.find_by_email_token(token)
         if post_redirect.nil?
@@ -144,6 +144,7 @@ class ApplicationController < ActionController::Base
         @per_page = per_page
         @page = (params[:page] || "1").to_i
 
+        # XXX remember to update in models/track_mailer.rb also
         solr_object = InfoRequestEvent.multi_solr_search(@query, :models => [ PublicBody, User ],
             :limit => @per_page, :offset => (@page - 1) * @per_page, 
             :highlight => { 
@@ -167,8 +168,9 @@ class ApplicationController < ActionController::Base
         @highlighting = solr_object.highlights
     end
 
-    # URL generating functions are needed by all controllers (for redirects)
-    # and views (for links), so include them into all of both.
+    # URL generating functions are needed by all controllers (for redirects),
+    # views (for links) and mailers (for use in emails), so include them into
+    # all of all.
     include LinkToHelper
 
 end

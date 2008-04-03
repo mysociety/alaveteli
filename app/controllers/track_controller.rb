@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_controller.rb,v 1.1 2008-04-01 16:40:37 francis Exp $
+# $Id: track_controller.rb,v 1.2 2008-04-03 15:29:50 francis Exp $
 
 class TrackController < ApplicationController
 
@@ -21,10 +21,14 @@ class TrackController < ApplicationController
 
     # Generic request tracker - set @track_thing before calling
     def track_set
-        @title = @track_thing.params[:title]
-        @track_thing.track_medium = params[:track_thing][:track_medium]
+        @track_thing.track_medium = 'email_daily'
 
-        if not params[:submitted_track_request] or not @track_thing.valid?
+        @title = @track_thing.params[:title]
+        if params[:track_thing]
+            @track_thing.track_medium = params[:track_thing][:track_medium]
+        end
+
+        if not params[:submitted_track] or not @track_thing.valid?
             render :template => 'track/track_set'
             return false
         end

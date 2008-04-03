@@ -5,11 +5,12 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: application_helper.rb,v 1.18 2008-03-19 05:46:52 francis Exp $
+# $Id: application_helper.rb,v 1.19 2008-04-03 15:29:51 francis Exp $
 
 module ApplicationHelper
-    # URL generating functions are needed by all controllers (for redirects)
-    # views (for links), so include them into all of both.
+    # URL generating functions are needed by all controllers (for redirects),
+    # views (for links) and mailers (for use in emails), so include them into
+    # all of all.
     include LinkToHelper
 
     # Contact email address
