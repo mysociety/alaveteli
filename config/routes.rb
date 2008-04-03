@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: routes.rb,v 1.49 2008-04-01 16:40:38 francis Exp $
+# $Id: routes.rb,v 1.50 2008-04-03 15:42:57 francis Exp $
 
 ActionController::Routing::Routes.draw do |map|
 
@@ -63,7 +63,8 @@ ActionController::Routing::Routes.draw do |map|
 
     # NB: We don't use routes to *construct* admin URLs, as they need to be relative
     # paths to work on the live site proxied over HTTPS to secure.mysociety.org
-    map.connect '/admin/:action', :controller => 'admin', :action => 'index'
+    map.connect '/admin/', :controller => 'admin', :action => 'index'
+    map.connect '/admin/timeline', :controller => 'admin', :action => 'timeline'
     map.connect '/admin/body/:action/:id', :controller => 'admin_public_body'
     map.connect '/admin/request/:action/:id', :controller => 'admin_request'
     map.connect '/admin/user/:action/:id', :controller => 'admin_user'

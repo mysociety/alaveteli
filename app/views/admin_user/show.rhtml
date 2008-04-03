@@ -17,6 +17,28 @@
 
 <p><%= link_to 'Public page', main_url(user_url(@admin_user)) %></p>
 
+<h2>Track things</h2>
+
+<table>
+  <tr>
+  <th>Id</th>
+  <% for column in TrackThing.content_columns %>
+    <th><%= column.human_name %></th>
+  <% end %>
+  <th>Items sent by email</th>
+  </tr>
+  
+<% for track_thing in @admin_user.track_things.find(:all, :order => 'created_at desc') %>
+  <tr class="<%= cycle('odd', 'even') %>">
+  <td><%=h track_thing.id %></td>
+  <% for column in TrackThing.content_columns.map { |c| c.name } %>
+    <td><%=h track_thing.send(column) %></td>
+  <% end %>
+  <td><%= track_thing.track_things_sent_emails.size %></td>
+  </tr>
+<% end %>
+</table>
+
 
 <h2>Post redirects</h2>
 
