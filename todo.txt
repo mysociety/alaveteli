@@ -39,6 +39,8 @@ Consider removing login links from notifications of new responses
 Later
 =====
 
+"Some other requets..." should have "more" link now
+
 Now that we have LinkToHelper in mailer *objects* (not classes) call out to it
 everywhere that it should
 
