@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_controller.rb,v 1.7 2008-04-03 15:38:51 francis Exp $
+# $Id: admin_controller.rb,v 1.8 2008-04-03 19:45:47 francis Exp $
 
 class AdminController < ApplicationController
     layout "admin"
@@ -14,6 +14,7 @@ class AdminController < ApplicationController
         @user_count = User.count
         @public_body_count = PublicBody.count
         @info_request_count = InfoRequest.count
+        @track_thing_count = TrackThing.count
 
         # Tasks to do
         @requires_admin_requests = InfoRequest.find(:all, :conditions => ["described_state = 'requires_admin'"])
