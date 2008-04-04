@@ -22,7 +22,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.81 2008-04-04 01:44:41 francis Exp $
+# $Id: info_request.rb,v 1.82 2008-04-04 02:29:09 francis Exp $
 
 require 'digest/sha1'
 
@@ -40,6 +40,7 @@ class InfoRequest < ActiveRecord::Base
     has_many :incoming_messages
     has_many :info_request_events
     has_many :user_info_request_sent_alerts
+    has_many :track_things, :order => 'created_at desc'
 
     # user described state (also update in info_request_event, admin_request/edit.rhtml)
     validates_inclusion_of :described_state, :in => [ 

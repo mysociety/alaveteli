@@ -66,7 +66,17 @@
 </div>
 
 <div id="request_sidebar">
-    <h2>Follow this request</h2>
+    <% if @info_request.track_things.size > 0 %>
+        <h2>People following this request</h2>
+        <ul>
+        <% for track_thing in @info_request.track_things %>
+            <li><%=user_link(track_thing.tracking_user)%></li>
+        <% end %>
+        </ul>
+    <% else %>
+        <h2>Follow this request</h2>
+    <% end %>
+
     <p>
         <% if @existing_track %>
             You are already tracking this request.

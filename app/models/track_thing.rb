@@ -21,16 +21,16 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_thing.rb,v 1.6 2008-04-04 01:59:40 francis Exp $
+# $Id: track_thing.rb,v 1.7 2008-04-04 02:29:09 francis Exp $
 
 class TrackThing < ActiveRecord::Base
-    belongs_to :user, :foreign_key => 'tracking_user_id'
+    belongs_to :tracking_user, :class_name => 'User'
     validates_presence_of :track_query
     validates_presence_of :track_type
 
     belongs_to :info_request
     belongs_to :public_body
-    belongs_to :user, :foreign_key => 'tracked_user_id'
+    belongs_to :tracked_user, :class_name => 'User'
 
     has_many :track_things_sent_emails
 

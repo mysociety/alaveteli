@@ -4,7 +4,6 @@ Add unsubscribe / manage tracks page.
     Link from email
     Link from user page
     Link from "already tracking" text
-Show on request who is tracking it
 
 Improve "you are now tracking this request!" flash
 
@@ -63,6 +62,8 @@ Wrapping long URLs in emails breaks the h off http off the beginning nastily
 
 Use :order in the info_request.events belongs_to clause instead of each time it is queried
 Also sort user.info_requests for user pages
+Also see in request_controller.rb: @info_request_events.sort! { |a,b| a.created_at <=> b.created_at }
+Go through all has_many and pick something sane
 
 Offer search on 404s
 

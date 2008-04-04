@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.71 2008-04-04 01:59:40 francis Exp $
+# $Id: request_controller.rb,v 1.72 2008-04-04 02:29:09 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -30,6 +30,11 @@ class RequestController < ApplicationController
         @last_info_request_event_id = last_event.nil? ? nil : last_event.id
         @new_responses_count = @events_needing_description.select {|i| i.event_type == 'response'}.size
 
+        # Sidebar stuff
+        @info_requests_same_user_same_body = InfoRequest.find(:all, :order => "created_at desc", 
+            :conditions => ["prominence = 'normal' and user_id = ? and public_body_id = ? and id <> ?", @info_request.user_id, @info_request.public_body_id, @info_request.id], 
+            :limit => 5)
+
         # Already tracking?
         @track_thing = TrackThing.create_track_for_request(@info_request)
         if @user
@@ -37,11 +42,6 @@ class RequestController < ApplicationController
         else
             @existing_track = nil
         end
-
-        # Sidebar stuff
-        @info_requests_same_user_same_body = InfoRequest.find(:all, :order => "created_at desc", 
-            :conditions => ["prominence = 'normal' and user_id = ? and public_body_id = ? and id <> ?", @info_request.user_id, @info_request.public_body_id, @info_request.id], 
-            :limit => 5)
     end
 
     def list
