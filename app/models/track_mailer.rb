@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_mailer.rb,v 1.2 2008-04-03 15:32:50 francis Exp $
+# $Id: track_mailer.rb,v 1.3 2008-04-04 14:47:52 francis Exp $
 
 class TrackMailer < ApplicationMailer
     def event_digest(user, email_about_things)
@@ -62,7 +62,7 @@ class TrackMailer < ApplicationMailer
                             alert_results.push(result)
                         end
                     else
-                        raise "need to add other types to TrackMailer.alert_tracks"
+                        raise "need to add other types to TrackMailer.alert_tracks (unalerted)"
                     end
                 end
                 # If there were more alerts for this track, then store them
@@ -89,9 +89,14 @@ class TrackMailer < ApplicationMailer
             # Record that we've now sent those alerts to that user
             for track_thing, alert_results in email_about_things
                 for result in alert_results
+                    STDERR.puts "xxx result " + result.id.to_s
                     track_things_sent_email = TrackThingsSentEmail.new
                     track_things_sent_email.track_thing_id = track_thing.id
-                    track_things_sent_email.info_request_event_id = result.id
+                    if result.class.to_s == "InfoRequestEvent"
+                        track_things_sent_email.info_request_event_id = result.id
+                    else
+                        raise "need to add other types to TrackMailer.alert_tracks (mark alerted)"
+                    end
                     track_things_sent_email.save!
                 end
             end
