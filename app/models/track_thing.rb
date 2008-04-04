@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 49
+# Schema version: 51
 #
 # Table name: track_things
 #
@@ -10,6 +10,9 @@
 #  tracked_user_id  :integer         
 #  public_body_id   :integer         
 #  track_medium     :string(255)     not null
+#  track_type       :string(255)     not null
+#  created_at       :datetime        
+#  updated_at       :datetime        
 #
 
 # models/track_thing.rb:
@@ -18,7 +21,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_thing.rb,v 1.4 2008-04-04 01:35:44 francis Exp $
+# $Id: track_thing.rb,v 1.5 2008-04-04 01:44:41 francis Exp $
 
 class TrackThing < ActiveRecord::Base
     belongs_to :user, :foreign_key => 'tracking_user_id'

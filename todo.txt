@@ -1,3 +1,16 @@
+Alerts:
+
+Add unsubscribe / manage tracks page.
+Show on request who is tracking it
+
+Add you are already tracking this request error
+And show that you already tracking if you are logged in and on the request page
+
+Improve "you are now tracking this request!" flash
+
+Add unique indices, to stop duplicate tracks
+And to stop duplicate sent email things
+
 FOI requests to use to test it
 ==============================
 
@@ -18,6 +31,7 @@ Search has been done
 Overdue response events, so search / RSS picks up when response is late
 
 Fix search to deal with overdue message query that TOmski asks for
+And show status on the list of recent requests - is a pain not being able to see it.
 
 If you edit needs anim to waiting_response it doesn't edit the value in the event history, so screws up search stuff?
 https://secure.mysociety.org/admin/foi/request/show/37
@@ -38,6 +52,8 @@ Consider removing login links from notifications of new responses
 
 Later
 =====
+
+Michael Turner's name has a space in it - strip them automatically (can see on the write message to page)
 
 "Some other requets..." should have "more" link now
 

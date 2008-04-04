@@ -1,17 +1,18 @@
 # == Schema Information
-# Schema version: 49
+# Schema version: 51
 #
 # Table name: users
 #
-#  id              :integer         not null, primary key
-#  email           :string(255)     not null
-#  name            :string(255)     not null
-#  hashed_password :string(255)     not null
-#  salt            :string(255)     not null
-#  created_at      :datetime        not null
-#  updated_at      :datetime        not null
-#  email_confirmed :boolean         default(false), not null
-#  url_name        :text            not null
+#  id                     :integer         not null, primary key
+#  email                  :string(255)     not null
+#  name                   :string(255)     not null
+#  hashed_password        :string(255)     not null
+#  salt                   :string(255)     not null
+#  created_at             :datetime        not null
+#  updated_at             :datetime        not null
+#  email_confirmed        :boolean         default(false), not null
+#  url_name               :text            not null
+#  last_daily_track_email :datetime        default(Sat Jan 01 00:00:00 UTC 2000)
 #
 
 # models/user.rb:
@@ -20,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user.rb,v 1.45 2008-04-03 15:29:51 francis Exp $
+# $Id: user.rb,v 1.46 2008-04-04 01:44:41 francis Exp $
 
 require 'digest/sha1'
 
