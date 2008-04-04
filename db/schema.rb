@@ -140,8 +140,6 @@ ActiveRecord::Schema.define(:version => 51) do
     t.datetime "updated_at"
   end
 
-  add_index "track_things_sent_emails", ["track_thing_id"], :name => "track_things_sent_emails_unique_index", :unique => true
-
   create_table "user_info_request_sent_alerts", :force => true do |t|
     t.integer "user_id",               :null => false
     t.integer "info_request_id",       :null => false

@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_mailer.rb,v 1.3 2008-04-04 14:47:52 francis Exp $
+# $Id: track_mailer.rb,v 1.4 2008-04-04 14:50:51 francis Exp $
 
 class TrackMailer < ApplicationMailer
     def event_digest(user, email_about_things)
@@ -89,7 +89,6 @@ class TrackMailer < ApplicationMailer
             # Record that we've now sent those alerts to that user
             for track_thing, alert_results in email_about_things
                 for result in alert_results
-                    STDERR.puts "xxx result " + result.id.to_s
                     track_things_sent_email = TrackThingsSentEmail.new
                     track_things_sent_email.track_thing_id = track_thing.id
                     if result.class.to_s == "InfoRequestEvent"

@@ -37,7 +37,7 @@ end
 
 describe TrackController, "when sending alerts for a track" do
     integrate_views
-    fixtures :info_requests, :outgoing_messages, :incoming_messages, :info_request_events, :users, :track_things
+    fixtures :info_requests, :outgoing_messages, :incoming_messages, :info_request_events, :users, :track_things, :track_things_sent_emails
   
     it "should send alerts" do
         TrackMailer.alert_tracks
