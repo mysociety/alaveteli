@@ -18,7 +18,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_thing.rb,v 1.3 2008-04-03 18:45:01 francis Exp $
+# $Id: track_thing.rb,v 1.4 2008-04-04 01:35:44 francis Exp $
 
 class TrackThing < ActiveRecord::Base
     belongs_to :user, :foreign_key => 'tracking_user_id'
@@ -48,15 +48,21 @@ class TrackThing < ActiveRecord::Base
     end
 
     # Return hash of text parameters describing the request etc.
+    include LinkToHelper
     def params
         if @params.nil?
             if self.track_type == 'request_updates'
                 @params = {
+                    # Website
                     :title => "Track the request '" + CGI.escapeHTML(self.info_request.title) + "'",
-                    :describe => "the request '" + CGI.escapeHTML(self.info_request.title) + "'",
+                    :list_description => "'<a href=\"/request/" + CGI.escapeHTML(self.info_request.url_title) + "\">" + CGI.escapeHTML(self.info_request.title) + "</a>', a request", # XXX yeuch, sometimes I just want to call view helpers from the model, sorry! can't work out how 
+                    # Email
+                    :title_in_email => "New updates for the request '" + self.info_request.title + "'",
+                    # Authentication
                     :web => "To follow updates to the request '" + CGI.escapeHTML(self.info_request.title) + "'",
                     :email => "Then you will be emailed whenever the request '" + CGI.escapeHTML(self.info_request.title) + "' is updated.",
                     :email_subject => "Confirm you want to follow updates to the request '" + CGI.escapeHTML(self.info_request.title) + "'",
+                    # Other
                     :feed_sortby => 'described', # for RSS, as newest would give a date for responses possibly days before description
                 }
             else

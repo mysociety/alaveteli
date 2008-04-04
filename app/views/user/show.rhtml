@@ -29,7 +29,11 @@
 
         <ul>
         <% for track_thing in @display_user.track_things %>
-            <li><%= track_thing.params[:describe] %></li>
+            <li><%= track_thing.params[:list_description] %>
+            <!-- 
+            (<%= link_to "view latest updates", :controller => 'general', :action => 'search', :query => track_thing.track_query %>) 
+            -->
+            </li>
         <% end %>
         </ul>
     <% end %>
