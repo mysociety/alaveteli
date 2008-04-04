@@ -1,12 +1,3 @@
-Alerts:
-
-Add unsubscribe / manage tracks page.
-    Link from email
-    Link from user page
-    Link from "already tracking" text
-
-Improve "you are now tracking this request!" flash
-
 FOI requests to use to test it
 ==============================
 

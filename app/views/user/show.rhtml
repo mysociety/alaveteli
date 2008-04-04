@@ -29,10 +29,12 @@
 
         <ul>
         <% for track_thing in @display_user.track_things %>
-            <li><%= track_thing.params[:list_description] %>
-            <!-- 
-            (<%= link_to "view latest updates", :controller => 'general', :action => 'search', :query => track_thing.track_query %>) 
-            -->
+            <li>
+                <% form_tag :controller => 'track', :action => 'delete', :track_id => track_thing.id do %>
+                    <%= track_thing.params[:list_description] %>
+                    <!-- (<%= link_to "view latest updates", :controller => 'general', :action => 'search', :query => track_thing.track_query %>) -->
+                    <%= submit_tag "Delete" %>
+                <% end %>
             </li>
         <% end %>
         </ul>

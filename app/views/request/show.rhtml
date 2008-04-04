@@ -75,7 +75,8 @@
         </ul>
         <p>
             <% if @existing_track %>
-                You are already tracking this request.
+                You are already tracking this request
+                (<%= link_to "alter your subscriptions", user_url(@user) %>).
             <% else %>
                 <%= link_to "Track updates to this request", track_request_url(:url_title => @info_request.url_title) %>
                 (by email or RSS)

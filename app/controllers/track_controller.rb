@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_controller.rb,v 1.3 2008-04-04 01:59:40 francis Exp $
+# $Id: track_controller.rb,v 1.4 2008-04-04 03:02:02 francis Exp $
 
 class TrackController < ApplicationController
 
@@ -50,6 +50,25 @@ class TrackController < ApplicationController
 
         return "now"
     end 
+
+    # Delete a track
+    def delete
+        track_thing = TrackThing.find(params[:track_id].to_i)
+
+        if not authenticated_as_user?(track_thing.tracking_user,
+                :web => "To cancel this alert",
+                :email => "Then you can cancel the alert.",
+                :email_subject => "Cancel a WhatDoTheyKnow alert"
+            )
+            # do nothing - as "authenticated?" has done the redirect to signin page for us
+            return
+        end
+
+        track_thing.destroy
+
+        flash[:notice] = "Your alert has been cancelled."
+        redirect_to user_url(track_thing.tracking_user)
+    end
 
 end
  
