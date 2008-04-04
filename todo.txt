@@ -1,15 +1,12 @@
 Alerts:
 
 Add unsubscribe / manage tracks page.
+    Link from email
+    Link from user page
+    Link from "already tracking" text
 Show on request who is tracking it
 
-Add you are already tracking this request error
-And show that you already tracking if you are logged in and on the request page
-
 Improve "you are now tracking this request!" flash
-
-Add unique indices, to stop duplicate tracks
-And to stop duplicate sent email things
 
 FOI requests to use to test it
 ==============================

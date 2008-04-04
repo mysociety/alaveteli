@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.70 2008-04-03 16:09:25 francis Exp $
+# $Id: request_controller.rb,v 1.71 2008-04-04 01:59:40 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -29,6 +29,14 @@ class RequestController < ApplicationController
         last_event = @events_needing_description[-1]
         @last_info_request_event_id = last_event.nil? ? nil : last_event.id
         @new_responses_count = @events_needing_description.select {|i| i.event_type == 'response'}.size
+
+        # Already tracking?
+        @track_thing = TrackThing.create_track_for_request(@info_request)
+        if @user
+            @existing_track = TrackThing.find_by_existing_track(@user.id, @track_thing.track_query)
+        else
+            @existing_track = nil
+        end
 
         # Sidebar stuff
         @info_requests_same_user_same_body = InfoRequest.find(:all, :order => "created_at desc", 

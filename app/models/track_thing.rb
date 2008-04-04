@@ -21,7 +21,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_thing.rb,v 1.5 2008-04-04 01:44:41 francis Exp $
+# $Id: track_thing.rb,v 1.6 2008-04-04 01:59:40 francis Exp $
 
 class TrackThing < ActiveRecord::Base
     belongs_to :user, :foreign_key => 'tracking_user_id'
@@ -74,6 +74,12 @@ class TrackThing < ActiveRecord::Base
         end
         return @params
     end
+
+    # When constructing a new track, use this to avoid duplicates / double posting
+    def TrackThing.find_by_existing_track(tracking_user_id, track_query)
+        return TrackThing.find(:first, :conditions => [ 'tracking_user_id = ? and track_query = ?', tracking_user_id, track_query ] )
+    end
+
 
 end
 
