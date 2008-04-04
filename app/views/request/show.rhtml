@@ -66,30 +66,32 @@
 </div>
 
 <div id="request_sidebar">
+    <h2>People tracking this request</h2>
     <% if @info_request.track_things.size > 0 %>
-        <h2>People following this request</h2>
         <ul>
         <% for track_thing in @info_request.track_things %>
             <li><%=user_link(track_thing.tracking_user)%></li>
         <% end %>
         </ul>
+        <p>
+            <% if @existing_track %>
+                You are already tracking this request.
+            <% else %>
+                <%= link_to "Track updates to this request", track_request_url(:url_title => @info_request.url_title) %>
+                (by email or RSS)
+            <% end %>
+        </p>
     <% else %>
-        <h2>Follow this request</h2>
+        <%= link_to "Track updates to this request", track_request_url(:url_title => @info_request.url_title) %>
+        (by email or RSS; be the first)
     <% end %>
 
-    <p>
-        <% if @existing_track %>
-            You are already tracking this request.
-        <% else %>
-            <%= link_to "Track updates to this request", track_request_url(:url_title => @info_request.url_title) %>
-            (by email or RSS)
-        <% end %>
-    </p>
-
     <% if @info_requests_same_user_same_body.size > 0 %>
-        <h2>Some other requests made by
-            <%= user_link(@info_request.user) %> to <%= public_body_link(@info_request.public_body) %></h2>
+        <h2>Requests from same user to same authority</h2>
+        <!-- <h2>Some other requests made by
+            <%= user_link(@info_request.user) %> to <%= public_body_link(@info_request.public_body) %></h2> -->
         <%= render :partial => 'sidebar_request_listing', :locals => { :info_requests => @info_requests_same_user_same_body } %>
+        <!-- XXX more link -->
     <% end %>
 
     <!--<h2>Juicy stuff will be here</h2>
