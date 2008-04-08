@@ -2,7 +2,7 @@
 <html lang="en-gb">
     <head>
       <meta http-equiv="content-type" content="text/html;charset=UTF-8" >
-      <title>FOIFA admin<%= @title ? ":" : "" %> <%=@title%></title>
+      <title>WhatDoTheyKnow admin<%= @title ? ":" : "" %> <%=@title%></title>
       <% 
         # Have to do explicit tag for stylesheet, to get absolute path on main server
       %>
@@ -10,7 +10,7 @@
     </head>
     <body>
 
-    <p><b>FOIFA admin interface:</b> 
+    <p><b>WhatDoTheyKnow admin interface:</b> 
     <%= link_to 'Overview', admin_url('') %>
     | <%= link_to 'Timeline', admin_url('timeline') %>
     | <%= link_to 'Public bodies', admin_url('body/list') %>
