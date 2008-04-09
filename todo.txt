@@ -38,11 +38,7 @@ If you edit needs anim to waiting_response it doesn't edit the value in the even
 https://secure.mysociety.org/admin/foi/request/show/37
 https://secure.mysociety.org/admin/foi/request/show/137
 
-Show history of recent changes done by admins
 GUI for uploading changed CSV files
-
-Search and replace text "FOI" and "Freedom of Information" out the way more
- - but put it in the title tag
 
 Later
 =====
@@ -66,6 +62,9 @@ Also see in request_controller.rb: @info_request_events.sort! { |a,b| a.created_
 Go through all has_many and pick something sane
 
 Offer search on 404s
+
+Search and replace text "FOI" and "Freedom of Information" out the way more
+ - but put it in the title tag
 
 RDAs need their short names somehow in CSV import?
 

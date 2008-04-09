@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.52 2008-04-04 01:44:41 francis Exp $
+# $Id: public_body.rb,v 1.53 2008-04-09 02:51:46 francis Exp $
 
 require 'csv'
 require 'set'
@@ -69,6 +69,10 @@ class PublicBody < ActiveRecord::Base
 
     acts_as_versioned
     self.non_versioned_columns << 'created_at' << 'updated_at'
+    class Version
+        attr_accessor :created_at
+    end
+
 
     acts_as_solr :fields => [
         {:name => { :boost => 10.0 }}, 

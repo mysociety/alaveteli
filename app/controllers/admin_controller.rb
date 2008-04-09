@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_controller.rb,v 1.8 2008-04-03 19:45:47 francis Exp $
+# $Id: admin_controller.rb,v 1.9 2008-04-09 02:51:46 francis Exp $
 
 class AdminController < ApplicationController
     layout "admin"
@@ -36,6 +36,14 @@ class AdminController < ApplicationController
         end
         @events = InfoRequestEvent.find(:all, :order => "created_at desc, id desc",
                 :conditions => ["created_at > ? ", date_back_to])
+        @public_body_history = PublicBody.versioned_class.find(:all, :order => "updated_at desc, id desc",
+                :conditions => ["updated_at > ? ", date_back_to])
+        for pbh in @public_body_history
+            pbh.created_at = pbh.updated_at
+        end
+        @events += @public_body_history
+
+        @events.sort! { |a,b| b.created_at <=> a.created_at }
     end
 end
 

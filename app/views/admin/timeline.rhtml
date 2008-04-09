@@ -20,44 +20,51 @@
     <% last_date = event.created_at.to_date %>
 
 
-    '<%= link_to h(event.info_request.title), main_url(request_url(event.info_request)) %>'
-    <% if event.event_type == 'edit' %>
-        was edited by administrator <%=h event.params[:editor] %>.
-        <% for p in ['title', 'prominence', 'described_state', 'awaiting_description'] 
-                if event.params[p.to_sym] != event.params[('old_'+p).to_sym]
-                    %> Changed <%=p%> from '<%=h event.params[('old_'+p).to_sym]%>' to '<%=h event.params[p.to_sym] %>'. <%
-                end
-           end
-        %>
-    <% elsif event.event_type == 'edit_outgoing' %>
-        <% outgoing_messages = OutgoingMessage.find(:all, event.params[:outgoing_message_id].to_i) %>
-        had outgoing message edited by administrator <%=h event.params[:editor] %>.
-        <% if outgoing_messages.size > 0 %>
-            <% outgoing_message = outgoing_messages[0] %>
-            <% for p in ['body'] 
+    <% if event.class.to_s == 'InfoRequestEvent' %>
+        '<%= link_to h(event.info_request.title), main_url(request_url(event.info_request)) %>'
+        (<%= link_to "admin", "request/show/" + event.info_request.id.to_s %>)
+        <% if event.event_type == 'edit' %>
+            was edited by administrator <strong><%=h event.params[:editor] %></strong>.
+            <% for p in ['title', 'prominence', 'described_state', 'awaiting_description'] 
                     if event.params[p.to_sym] != event.params[('old_'+p).to_sym]
                         %> Changed <%=p%> from '<%=h event.params[('old_'+p).to_sym]%>' to '<%=h event.params[p.to_sym] %>'. <%
                     end
                end
             %>
-        <% else %>
-            Missing outgoing message, internal error.
-        <% end %>
-    <% elsif event.event_type == 'response' %>
-        <% incoming_message = event.incoming_message %>
-        received 
-        <%= link_to 'a response', 
-            main_url(show_response_url(:id => incoming_message.info_request.id, :incoming_message_id => incoming_message.id, :only_path => true)) %>
+        <% elsif event.event_type == 'edit_outgoing' %>
+            <% outgoing_messages = OutgoingMessage.find(:all, event.params[:outgoing_message_id].to_i) %>
+            had outgoing message edited by administrator <strong><%=h event.params[:editor] %></strong>.
+            <% if outgoing_messages.size > 0 %>
+                <% outgoing_message = outgoing_messages[0] %>
+                <% for p in ['body'] 
+                        if event.params[p.to_sym] != event.params[('old_'+p).to_sym]
+                            %> Changed <%=p%> from '<%=h event.params[('old_'+p).to_sym]%>' to '<%=h event.params[p.to_sym] %>'. <%
+                        end
+                   end
+                %>
+            <% else %>
+                Missing outgoing message, internal error.
+            <% end %>
+        <% elsif event.event_type == 'response' %>
+            <% incoming_message = event.incoming_message %>
+            received 
+            <%= link_to 'a response', 
+                main_url(show_response_url(:id => incoming_message.info_request.id, :incoming_message_id => incoming_message.id, :only_path => true)) %>
 
-        from <%=h event.info_request.public_body.name %>.
-    <% elsif event.event_type == 'sent' %>
-        was initially sent to <%=h event.params[:email]%> at <%=h event.info_request.public_body.name %>.
-    <% elsif event.event_type == 'resent' %>
-        had the request resent to <%=h event.params[:email]%> at <%=h event.info_request.public_body.name %>.
-    <% elsif event.event_type == 'followup_sent' %>
-        had a follow up message sent to <%=h event.info_request.public_body.name %>.
+            from <%=h event.info_request.public_body.name %>.
+        <% elsif event.event_type == 'sent' %>
+            was initially sent to <%=h event.params[:email]%> at <%=h event.info_request.public_body.name %>.
+        <% elsif event.event_type == 'resent' %>
+            had the request resent to <%=h event.params[:email]%> at <%=h event.info_request.public_body.name %>.
+        <% elsif event.event_type == 'followup_sent' %>
+            had a follow up message sent to <%=h event.info_request.public_body.name %>.
+        <% else %>
+            had '<%=event.event_type%>' done to it, parameters <%=h event.params_yaml%>.
+        <% end %>
     <% else %>
-        had '<%=event.event_type%>' done to it, parameters <%=h event.params_yaml%>.
+        <%= link_to event.public_body.name, main_url(public_body_url(event.public_body)) %>
+        (<%= link_to "admin", "body/show/" + event.public_body_id.to_s %>)
+        was created/updated by administrator <strong><%=h event.last_edit_editor %></strong>
     <% end %>
 <% end %>
 <% if not @events.empty? %>
