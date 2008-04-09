@@ -51,7 +51,7 @@
     <li>Use OR (in capital letters) where you don't mind which word,  e.g. <strong>commons OR lords</strong>
     <li>Use quotes when you want to find an exact phrase, e.g. <strong>"Liverpool City Council"</strong>
     <li><strong>variety:</strong> with value sent, followup_sent, response, authority or user to select type of thing to search for.
-    <li>Type <strong>status:</strong> to select based on the status of the request or the status that the response caused, see table below.
+    <li>Type <strong>status:</strong> to select based on the status of the request see table below.
     <li><strong>requested_from:home_office</strong> to restrict to requests from the <%= link_to "Home Office", show_public_body_url(:url_name => 'home_office') %>, typing the name as in the URL.
     <li><strong>requested_by:julian_todd</strong> to restrict to requests made by <%= link_to "Julian Todd", show_user_url(:url_name => 'julian_todd') %>, typing the name as in the URL.
     <li><strong>request:</strong> to restrict to a specific request, typing the title as in the URL.
@@ -59,13 +59,13 @@
     </ul>
 
     <table class="status_table">
-        <tr><td><strong>status:waiting_response</strong></td><td> Waiting for the public body to reply </td></tr>
-        <tr><td><strong>status:waiting_response_overdue</strong></td><td> Waiting for the public body to reply, they are late </td></tr>
-        <tr><td><strong>status:not_held</strong></td><td> The public body does not have the information requested </td></tr>
-        <tr><td><strong>status:rejected</strong></td><td> The request was rejected by the public body </td></tr>
+        <tr><td><strong>status:waiting_response</strong></td><td> Waiting for the public authority to reply </td></tr>
+        <tr><td><strong>status:waiting_response_overdue</strong></td><td> Waiting for the public authority to reply, they are late </td></tr>
+        <tr><td><strong>status:not_held</strong></td><td> The public authority does not have the information requested </td></tr>
+        <tr><td><strong>status:rejected</strong></td><td> The request was rejected by the public authority </td></tr>
         <tr><td><strong>status:partially_successful</strong></td><td> Some of the information requested has been received </td></tr>
         <tr><td><strong>status:successful</strong></td><td> All of the information requested has been received </td></tr>
-        <tr><td><strong>status:waiting_clarification</strong></td><td> The public body would like part of the request explained </td></tr>
+        <tr><td><strong>status:waiting_clarification</strong></td><td> The public authority would like part of the request explained </td></tr>
         <tr><td><strong>status:waiting_classification</strong></td><td> A new response has arrived, but it hasn't been categorised yet </td></tr>
         <tr><td><strong>status:requires_admin</strong></td><td> A strange reponse, required attention by the WhatDoTheyKnow team </td></tr>
     </table>

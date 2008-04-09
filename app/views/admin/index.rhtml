@@ -3,7 +3,7 @@
 <h1><%=@title%></h1>
 
 <ul>
-<li><%=@public_body_count%> public bodies</li>
+<li><%=@public_body_count%> public authorities</li>
 <li><%=@info_request_count%> requests</li>
 <li><%=@user_count%> users</li>
 <li><%=@track_thing_count%> tracked things</li>
@@ -32,7 +32,7 @@
 <% end %>
 
 <% if @blank_contacts.size > 0 %>
-    <h3>Public bodies with missing contact details</h3>
+    <h3>Public authorities with missing contact details</h3>
     <ul>
     <% for @blank_contact in @blank_contacts %>
         <li><%= link_to h(@blank_contact.name), "body/show/" + @blank_contact.id.to_s %></li>

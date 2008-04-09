@@ -1,7 +1,3 @@
-Atom:
-
-Add page to view responses from a specific track for RSS to link back to?
-
 FOI requests to use to test it
 ==============================
 
@@ -33,7 +29,6 @@ Next
 ====
 
 Fix search to deal with overdue message query that Tomski asks for
-And show status on the list of recent requests - is a pain not being able to see it.
 
 Don't let people track their own requests?
 
@@ -48,7 +43,6 @@ GUI for uploading changed CSV files
 
 Search and replace text "FOI" and "Freedom of Information" out the way more
  - but put it in the title tag
-"public body" --> "public authority"?
 
 Later
 =====
