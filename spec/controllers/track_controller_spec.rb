@@ -12,7 +12,7 @@ describe TrackController, "when making a new track on a request" do
     it "should assign the title" do
         get :track_request, :url_title => info_requests(:fancy_dog_request).url_title
 
-        assigns[:title].should include("Track the request")
+        assigns[:title].should include("track the request")
     end
 
     it "should require login when making new track" do
