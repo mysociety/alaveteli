@@ -5,9 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_controller.rb,v 1.5 2008-04-09 01:32:52 francis Exp $
-
-require 'feedparser'
+# $Id: track_controller.rb,v 1.6 2008-04-09 02:56:47 francis Exp $
 
 class TrackController < ApplicationController
 
