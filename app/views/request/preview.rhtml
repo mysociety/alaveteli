@@ -2,7 +2,14 @@
 
 <% form_for(:info_request, @info_request, :html => { :id => 'preview_form' }  ) do |f| %>
     
+
     <h1>Now preview your request</h1>
+    <ul>
+    <li>Check you haven't included any <strong>personal information</strong>.</li>
+    <li>Your name, request and any responses will appear in <strong>search engines</strong>
+        (<a href="/help/about#public_request">details</a>).
+    </li>
+    </ul>
 
     <% fields_for :outgoing_message do |o| %>
     <p class="outgoing_message_preview">
@@ -14,8 +21,8 @@
     </p>
     <% end %>
 
-    <p><strong>Note:</strong> Your request and any response will be
-    displayed publically on this website.</p>
+    <p><strong>Privacy note:</strong> If you want to request private information about
+    yourself then <a href="/help/about#data_protection">click here</a>.
 
     <p>
     <%= f.hidden_field(:title) %>

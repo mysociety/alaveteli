@@ -5,6 +5,6 @@ LOC=`dirname $0`
 # Arguments are:
 # - tag to use for public bodies from this spreadsheet
 
-$LOC/runner 'PublicBody.import_csv(STDIN.read, "'$1'")'
+$LOC/runner 'STDERR.write(PublicBody.import_csv(STDIN.read, "'$1'"))'
 
 

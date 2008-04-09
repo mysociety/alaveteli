@@ -18,7 +18,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request_event.rb,v 1.34 2008-04-04 01:44:41 francis Exp $
+# $Id: info_request_event.rb,v 1.35 2008-04-09 16:53:59 francis Exp $
 
 class InfoRequestEvent < ActiveRecord::Base
     belongs_to :info_request
@@ -152,7 +152,7 @@ class InfoRequestEvent < ActiveRecord::Base
         elsif status == 'not_held'
             "Information not held"
         elsif status == 'rejected'
-            "Rejection by"
+            "Rejection"
         elsif status == 'partially_successful'
             "Some information sent"
         elsif status == 'successful'

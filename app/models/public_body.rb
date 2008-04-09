@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.53 2008-04-09 02:51:46 francis Exp $
+# $Id: public_body.rb,v 1.54 2008-04-09 16:53:59 francis Exp $
 
 require 'csv'
 require 'set'
@@ -145,62 +145,85 @@ class PublicBody < ActiveRecord::Base
         end
     end
 
-    # Import from CSV 
-    def self.import_csv(csv, tag)
-        ActiveRecord::Base.transaction do
-            existing_bodies = PublicBody.find_by_tag(tag)
-
-            bodies_by_name = {}
-            set_of_existing = Set.new()
-            for existing_body in existing_bodies
-                bodies_by_name[existing_body.name] = existing_body
-                set_of_existing.add(existing_body.name)
-            end
-
-            set_of_importing = Set.new()
-            CSV::Reader.parse(csv) do |row|
-                name = row[1]
-                email = row[2]
-                next if name.nil?
-                #or email.nil?
-                if email.nil?
-                    email = '' # unknown/bad contact is empty string
-                end
-
-                name.strip!
-                email.strip!
-
-                if email != "" && !MySociety::Validate.is_valid_email(email)
-                    raise "invalid email:" + name + " " + email
-                end
-
-                if bodies_by_name[name]
-                    # Already have the public body, just update email
-                    public_body = bodies_by_name[name]
-                    if public_body.request_email != email
-                        public_body.request_email = email
-                        public_body.last_edit_editor = 'import_csv'
-                        public_body.last_edit_comment = 'Updated from spreadsheet'
-                        public_body.save
-                    end
-                else
-                    # New public body
-                    public_body = PublicBody.new(:name => name, :request_email => email, :short_name => "", :last_edit_editor => "import_csv", :last_edit_comment => 'Created from spreadsheet')
-                    public_body.tag_string = tag
-                    public_body.save!
-
-                end
-
-                set_of_importing.add(name)
-            end
-
-            # Give an error listing ones that are to be deleted 
-            deleted_ones = set_of_existing - set_of_importing
-            if deleted_ones.size > 0
-                raise "Some " + tag + " bodies are in database, but not in CSV file:\n" + Array(deleted_ones).join(", ")
-            end
-        end
+    class ImportCSVDryRun < StandardError
     end
+
+    # Import from CSV 
+    def self.import_csv(csv, tag, dry_run = false)
+        errors = []
+        notes = []
+
+        begin
+            ActiveRecord::Base.transaction do
+                existing_bodies = PublicBody.find_by_tag(tag)
+
+                bodies_by_name = {}
+                set_of_existing = Set.new()
+                for existing_body in existing_bodies
+                    bodies_by_name[existing_body.name] = existing_body
+                    set_of_existing.add(existing_body.name)
+                end
+
+                set_of_importing = Set.new()
+                line = 0
+                CSV::Reader.parse(csv) do |row|
+                    line = line + 1
+
+                    name = row[1]
+                    email = row[2]
+                    next if name.nil?
+                    #or email.nil?
+                    if email.nil?
+                        email = '' # unknown/bad contact is empty string
+                    end
+
+                    name.strip!
+                    email.strip!
+
+                    if email != "" && !MySociety::Validate.is_valid_email(email)
+                        errors.push "error: line " + line.to_s + ": invalid email " + email + " for authority '" + name + "'"
+                        next
+                    end
+
+                    if bodies_by_name[name]
+                        # Already have the public body, just update email
+                        public_body = bodies_by_name[name]
+                        if public_body.request_email != email
+                            notes.push "line " + line.to_s + ": updating email for '" + name + "' from " + public_body.request_email + " to " + email
+                            public_body.request_email = email
+                            public_body.last_edit_editor = 'import_csv'
+                            public_body.last_edit_comment = 'Updated from spreadsheet'
+                            public_body.save!
+                        end
+                    else
+                        # New public body
+                        notes.push "line " + line.to_s + ": new authority '" + name + "' with email " + email
+                        public_body = PublicBody.new(:name => name, :request_email => email, :short_name => "", :last_edit_editor => "import_csv", :last_edit_comment => 'Created from spreadsheet')
+                        public_body.tag_string = tag
+                        public_body.save!
+                    end
+
+                    set_of_importing.add(name)
+                end
+
+                # Give an error listing ones that are to be deleted 
+                deleted_ones = set_of_existing - set_of_importing
+                if deleted_ones.size > 0
+                    errors.push "error: Some " + tag + " bodies are in database, but not in CSV file: " + Array(deleted_ones).join(", ")
+                end
+
+                # Rollback if a dry run, or we had errors
+                if dry_run or errors.size > 0
+                    raise ImportCSVDryRun
+                end
+            end
+        rescue ImportCSVDryRun
+            # Ignore
+        end
+
+        return errors.join("\n") + notes.join("\n")
+    end
+
 end
 
 

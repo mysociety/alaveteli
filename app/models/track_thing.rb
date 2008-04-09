@@ -21,7 +21,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_thing.rb,v 1.8 2008-04-09 01:32:53 francis Exp $
+# $Id: track_thing.rb,v 1.9 2008-04-09 16:53:59 francis Exp $
 
 class TrackThing < ActiveRecord::Base
     belongs_to :tracking_user, :class_name => 'User'
@@ -62,7 +62,7 @@ class TrackThing < ActiveRecord::Base
                     :list_description => "'<a href=\"/request/" + CGI.escapeHTML(self.info_request.url_title) + "\">" + CGI.escapeHTML(self.info_request.title) + "</a>', a request", # XXX yeuch, sometimes I just want to call view helpers from the model, sorry! can't work out how 
                     # Email
                     :title_in_email => "New updates for the request '" + self.info_request.title + "'",
-                    :title_in_rss => "New updates for the request '" + CGI.escapeHTML(self.info_request.title) + "'",
+                    :title_in_rss => "New updates for the request '" + self.info_request.title + "'",
                     # Authentication
                     :web => "To follow updates to the request '" + CGI.escapeHTML(self.info_request.title) + "'",
                     :email => "Then you will be emailed whenever the request '" + CGI.escapeHTML(self.info_request.title) + "' is updated.",

@@ -1,3 +1,10 @@
+CVS commits:
+
+Fix duplicate by by (see http://www.whatdotheyknow.com/track/feed/5)
+Added more privacy warnings to preview
+Fix escaping of HTML in titles in RSS
+Improved CSV import function a bit
+
 FOI requests to use to test it
 ==============================
 
@@ -28,9 +35,14 @@ BAILII - relationship with law courts, robots.txt ?
 Next
 ====
 
+Check date order here
+http://www.whatdotheyknow.com/track/feed/5
+
 Fix search to deal with overdue message query that Tomski asks for
 
 Don't let people track their own requests?
+
+Let you change feeds from email to RSS
 
 "Some other requests..." should have "more" link now
 
@@ -39,6 +51,11 @@ https://secure.mysociety.org/admin/foi/request/show/37
 https://secure.mysociety.org/admin/foi/request/show/137
 
 GUI for uploading changed CSV files
+
+Things to track:
+    - new requests
+    - new requests with keyword
+    - successful responses
 
 Later
 =====
@@ -60,6 +77,12 @@ Use :order in the info_request.events belongs_to clause instead of each time it 
 Also sort user.info_requests for user pages
 Also see in request_controller.rb: @info_request_events.sort! { |a,b| a.created_at <=> b.created_at }
 Go through all has_many and pick something sane
+
+Add credits for everyone
+    Heather Brook, Chris Lightfoot, other original suggester in Call for Proposals
+    Julian Todd, Francis Davey, Etienne Pollard
+    Alex Skene, John Cross, Adam McGregor
+    Angie Ahl, Matthew Somerville, Tom Steinberg, Tommy, Francis Irving
 
 Offer search on 404s
 
@@ -110,8 +133,6 @@ Overdue response events, so track alerts / RSS picks up when response is late
 Overdue response alert email click through should show how many days overdue
     it is near where you write your reply
 
-Get deploying of Lucene search working
-
 Consider on staging sites making follow ups go to dummy address also
 
 Synthesise these tips into our handful of snappy snappy bullet points
@@ -119,18 +140,6 @@ Synthesise these tips into our handful of snappy snappy bullet points
     http://www.justice.gov.uk/requestinginformation.htm
 
 Show public body email address on their public page, with a link to say "this isn't right!"
-
-Email me updates on this request
-Generic alerting/tracking system including
-    - email alerts and RSS
-Things to track:
-    - updates to a particular request
-    - new requests
-    - new requests with keyword
-    - successful responses
-
-    - new requests, new good responses etc.
-    - new responses to a particular request
 
 Requests with related content (via Lucene compare document search somehow?)
 Blog posts / Wikipedia articles about this request
