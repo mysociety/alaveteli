@@ -5,7 +5,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: link_to_helper.rb,v 1.24 2008-04-03 18:36:57 francis Exp $
+# $Id: link_to_helper.rb,v 1.25 2008-04-09 01:32:53 francis Exp $
 
 module LinkToHelper
 
@@ -24,7 +24,15 @@ module LinkToHelper
     def request_admin_link(info_request)
         link_to h(info_request.title), request_admin_url(info_request)
     end
- 
+
+    # Incoming / outgoing messages
+    def incoming_message_url(incoming_message)
+        return request_url(incoming_message.info_request)+"#incoming-"+incoming_message.id.to_s
+    end
+    def outgoing_message_url(outgoing_message)
+        return request_url(outgoing_message.info_request)+"#outgoing-"+outgoing_message.id.to_s
+    end
+  
     # Public bodies
     def public_body_url(public_body)
         return show_public_body_url(:url_name => public_body.url_name, :only_path => true)

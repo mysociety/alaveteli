@@ -31,7 +31,14 @@
         <% for track_thing in @display_user.track_things %>
             <li>
                 <% form_tag :controller => 'track', :action => 'delete', :track_id => track_thing.id do %>
-                    <%= track_thing.params[:list_description] %>
+                    <%= track_thing.params[:list_description] %>,
+                    <% if track_thing.track_medium == 'email_daily' %>
+                        by email daily
+                    <% elsif track_thing.track_medium == 'feed' %>
+                        by <%= link_to "RSS feed", :controller => 'track', :action => 'atom_feed', :track_id => track_thing.id %>
+                    <% else %>
+                        <% raise "unknown track medium '" + track_thing.track_medium + "'" %>
+                    <% end %>
                     <!-- (<%= link_to "view latest updates", :controller => 'general', :action => 'search', :query => track_thing.track_query %>) -->
                     <%= submit_tag "Delete" %>
                 <% end %>

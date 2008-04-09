@@ -4,9 +4,9 @@
         <%= link_to @highlighting['InfoRequestEvent'][event.id]["title"], request_url(info_request) %>
         <% @highlighting['InfoRequestEvent'][event.id].delete("title") %>
     <% elsif not event.incoming_message.nil? %>
-        <%= link_to "Response to '" + h(info_request.title) + "'", request_url(info_request)+"#incoming-"+event.incoming_message.id.to_s %>
+        <%= link_to "Response to '" + h(info_request.title) + "'", incoming_message_url(event.incoming_message) %>
     <% elsif not event.outgoing_message.nil? and event.event_type == 'followup_sent' %>
-        <%= link_to "Follow up message for '" + h(info_request.title) + "'", request_url(info_request)+"#outgoing-"+event.outgoing_message.id.to_s %>
+        <%= link_to "Follow up message for '" + h(info_request.title) + "'", outgoing_message_url(event.outgoing_message) %>
     <% else %>
         <%= link_to h(info_request.title), request_url(info_request) %>
     <% end %>

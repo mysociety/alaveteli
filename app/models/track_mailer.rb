@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_mailer.rb,v 1.4 2008-04-04 14:50:51 francis Exp $
+# $Id: track_mailer.rb,v 1.5 2008-04-09 01:32:53 francis Exp $
 
 class TrackMailer < ApplicationMailer
     def event_digest(user, email_about_things)
@@ -28,7 +28,7 @@ class TrackMailer < ApplicationMailer
             #STDERR.puts "user " + user.url_name
 
             email_about_things = []
-            track_things = TrackThing.find(:all, :conditions => [ "tracking_user_id = ?", user.id ])
+            track_things = TrackThing.find(:all, :conditions => [ "tracking_user_id = ? and track_medium = ?", user.id, 'email_daily' ])
             for track_thing in track_things
                 #STDERR.puts "  track " + track_thing.track_query
 
@@ -41,16 +41,17 @@ class TrackMailer < ApplicationMailer
                 end
 
                 # Query for things in this track
-                # XXX remember to update in controllers/application.rb also
+                # XXX remove duplication with controllers/application.rb
+                #perform_search(track_thing.track_query, 'newest', 100, 1, false) 
                 solr_object = InfoRequestEvent.multi_solr_search(track_thing.track_query, :models => [ PublicBody, User ],
-                    :limit => 100, :offset => 0, 
+                    :limit => 100, :offset => 0,
                     :highlight => { 
-                        :prefix => '*', :suffix => '*',
+                        :prefix => "*", :suffix => "*",
                         :fragsize => 250,
                         :fields => ["solr_text_main", "title", # InfoRequestEvent
                                    "name", "short_name", # PublicBody
                                    "name" # User
-                    ]}, :order => "created_at desc"
+                    ]}, :order => 'created_at desc'
                 )
 
                 # Go through looking for unalerted things

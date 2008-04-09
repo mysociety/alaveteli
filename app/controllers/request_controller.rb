@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.72 2008-04-04 02:29:09 francis Exp $
+# $Id: request_controller.rb,v 1.73 2008-04-09 01:32:52 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -227,6 +227,19 @@ class RequestController < ApplicationController
         end
     end
 
+    # Used for links from polymorphic URLs e.g. in Atom feeds - just redirect to 
+    # proper URL for the message the event refers to
+    def show_request_event
+        @info_request_event = InfoRequestEvent.find(params[:info_request_event_id])
+        if not @info_request_event.incoming_message.nil?
+            redirect_to incoming_message_url(@info_request_event.incoming_message)
+        elsif not @info_request_event.outgoing_message.nil?
+            redirect_to outgoing_message_url(@info_request_event.outgoing_message)
+        else
+            # XXX maybe there are better URLs for some events than this
+            redirect_to request_url(@info_request_event.info_request)
+        end 
+    end
 
     # Show an individual incoming message, and allow followup
     def show_response

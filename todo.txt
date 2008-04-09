@@ -1,5 +1,24 @@
+Atom:
+
+Add page to view responses from a specific track for RSS to link back to?
+
 FOI requests to use to test it
 ==============================
+
+http://www.whatdotheyknow.com/request/details_of_grant_awarded_to_vi_g_
+     I received a reply on 4 April from Alison McCarthy to my request for
+information about a development grant (SIC Code 7220) to Vero International
+Software UK Limited which is unfortunately not satisfactory.
+    I requested all details about this grant in terms of its application and
+any reports done afterwards.  In order to facilitate my understanding as to the
+degree of accountability regarding this grants, I need to see all documents
+held by the Regional Development Agency which could possibly provide evidence
+that the project outlined actually existed, and that the money wasn't simply
+absorbed into shareholder profit.
+    It would be entirely fair to redact all trade secrets and confidential
+information from the documents as they are disclosed, but I do not believe it
+is reasonable to withhold disclosure of even their titles, dates and number of
+pages.
 
 Please send me all documentation relating to the decision to use results from
 the Oxford Economic Forecasting's report "The Economic Contribution of the
@@ -13,30 +32,30 @@ BAILII - relationship with law courts, robots.txt ?
 Next
 ====
 
-"Some other requets..." should have "more" link now
-
 Fix search to deal with overdue message query that Tomski asks for
 And show status on the list of recent requests - is a pain not being able to see it.
+
+Don't let people track their own requests?
+
+"Some other requests..." should have "more" link now
 
 If you edit needs anim to waiting_response it doesn't edit the value in the event history, so screws up search stuff?
 https://secure.mysociety.org/admin/foi/request/show/37
 https://secure.mysociety.org/admin/foi/request/show/137
 
+Show history of recent changes done by admins
+GUI for uploading changed CSV files
+
 Search and replace text "FOI" and "Freedom of Information" out the way more
  - but put it in the title tag
 "public body" --> "public authority"?
 
-Adam's woes:
-http://foi.mysociety.org/request/18/response/31
-    - No doubt leaks email address via download.bin :(
-
-Tom's request to Parliament:
-    http://foi.mysociety.org/request/8
-
-Consider removing login links from notifications of new responses
-
 Later
 =====
+
+Get Atom highlighting to include stylesheet for yellow somehow
+Does Atom infer base URLs from included HTML or do we need to be explicit?
+Add RSS icons
 
 Michael Turner's name has a space in it - strip them automatically (can see on the write message to page)
 
@@ -68,6 +87,10 @@ Holding pen with comments - new requests don't get sent straight away, but are
     delayed while people help improve them.
 
 Change email address - easier to do now with post_redirect.circumstance?
+
+Consider showing Subject: of email somewhere
+    e.g. for http://www.whatdotheyknow.com/request/172/response/234
+the subject has all the content
 
 One of the PDFs on live site has:
 Error: PDF version 1.6 -- xpdf supports version 1.5 (continuing anyway)
@@ -122,6 +145,7 @@ Blog posts / Wikipedia articles about this request
 Remember me box
     This can't possible be the best way, it is too depressing:
     http://onrails.org/articles/2006/02/18/auto-login
+Then consider removing login links from notifications of new responses
 
 Screen scrape this and add link to it on the public body page
 http://www.ico.gov.uk/Home/tools_and_resources/decision_notices.aspx

@@ -5,7 +5,9 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_controller.rb,v 1.4 2008-04-04 03:02:02 francis Exp $
+# $Id: track_controller.rb,v 1.5 2008-04-09 01:32:52 francis Exp $
+
+require 'feedparser'
 
 class TrackController < ApplicationController
 
@@ -15,8 +17,12 @@ class TrackController < ApplicationController
         @track_thing = TrackThing.create_track_for_request(@info_request)
         ret = self.track_set
         if ret
-            flash[:notice] = "You are " + ret + " tracking this request!"
-            redirect_to request_url(@info_request)
+            if @track_thing.track_medium == 'feed'
+                redirect_to :controller => 'track', :action => 'atom_feed', :track_id => @track_thing.id
+            else
+                flash[:notice] = "You are " + ret + " tracking this request!"
+                redirect_to request_url(@info_request)
+            end
         end
     end
 
@@ -31,7 +37,7 @@ class TrackController < ApplicationController
 
         @track_thing.track_medium = 'email_daily'
 
-        @title = @track_thing.params[:title]
+        @title = @track_thing.params[:set_title]
         if params[:track_thing]
             @track_thing.track_medium = params[:track_thing][:track_medium]
         end
@@ -50,6 +56,14 @@ class TrackController < ApplicationController
 
         return "now"
     end 
+
+    # Atom feed (like RSS) for the track
+    def atom_feed
+        @track_thing = TrackThing.find(params[:track_id].to_i)
+
+        perform_search(@track_thing.track_query, @track_thing.params[:feed_sortby], 25, 1) 
+        respond_to :atom
+    end
 
     # Delete a track
     def delete

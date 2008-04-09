@@ -6,7 +6,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: application.rb,v 1.35 2008-04-03 15:29:50 francis Exp $
+# $Id: application.rb,v 1.36 2008-04-09 01:32:52 francis Exp $
 
 
 class ApplicationController < ActionController::Base
@@ -124,32 +124,41 @@ class ApplicationController < ActionController::Base
         end
     end
 
+    # Convert URL name for sort by order, to Lucene query 
+    def order_to_sort_by(sortby)
+        if sortby.nil?
+            return nil
+        elsif sortby == 'newest'
+            return 'created_at desc'
+        elsif sortby == 'described'
+            return 'last_described_at desc' # use this for RSS
+        else
+            raise "Unknown sort order " + @sortby
+        end
+    end
+
     # Function for search
-    def perform_search(query, sortby, per_page = 25) 
+    def perform_search(query, sortby, per_page = 25, this_page = nil, html_highlight = true) 
         @query = query
         @sortby = sortby
 
         # Work out sorting method
-        if @sortby.nil?
-            order = nil
-        elsif @sortby == 'newest'
-            order = 'created_at desc'
-        elsif @sortby == 'described'
-            order = 'last_described_at desc' # use this for RSS
-        else
-            raise "Unknown sort order " + @sortby
-        end
+        order = order_to_sort_by(@sortby)
 
         # Peform the search
         @per_page = per_page
-        @page = (params[:page] || "1").to_i
+        if this_page.nil?
+            @page = (params[:page] || "1").to_i
+        else
+            @page = this_page
+        end
 
-        # XXX remember to update in models/track_mailer.rb also
+        # XXX remove duplication with models/track_mailer.rb
         solr_object = InfoRequestEvent.multi_solr_search(@query, :models => [ PublicBody, User ],
             :limit => @per_page, :offset => (@page - 1) * @per_page, 
             :highlight => { 
-                :prefix => '<span class="highlight">',
-                :suffix => '</span>',
+                :prefix => html_highlight ? '<span class="highlight">' : "*",
+                :suffix => html_highlight ? '</span>' : "*",
                 :fragsize => 250,
                 :fields => ["solr_text_main", "title", # InfoRequestEvent
                            "name", "short_name", # PublicBody

@@ -79,12 +79,12 @@
                 (<%= link_to "alter your subscriptions", user_url(@user) %>).
             <% else %>
                 <%= link_to "Track updates to this request", track_request_url(:url_title => @info_request.url_title) %>
-                (by email or RSS)
+                (by email or RSS feed)
             <% end %>
         </p>
     <% else %>
-        <%= link_to "Track updates to this request", track_request_url(:url_title => @info_request.url_title) %>
-        (by email or RSS; be the first)
+        Be the first to <%= link_to "track updates to this request", track_request_url(:url_title => @info_request.url_title) %>
+        (by email or RSS feed)
     <% end %>
 
     <% if @info_requests_same_user_same_body.size > 0 %>
