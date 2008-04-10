@@ -1,8 +1,8 @@
-# General Apache options
-AddHandler fastcgi-script .fcgi
-AddHandler cgi-script .cgi
-Options +FollowSymLinks +ExecCGI
-DirectoryIndex dispatch.fcgi
+# Apache options for FastCGI
+#AddHandler fastcgi-script .fcgi
+#AddHandler cgi-script .cgi
+#Options +FollowSymLinks +ExecCGI
+#DirectoryIndex dispatch.fcgi
 
 # If you don't want Rails to look in certain directories,
 # use the following rewrite rules so that Apache won't rewrite certain requests
@@ -27,10 +27,10 @@ RewriteEngine On
 #   Alias /myrailsapp /path/to/myrailsapp/public
 #   RewriteBase /myrailsapp
 
-RewriteRule ^$ index.html [QSA]
-RewriteRule ^([^.]+)$ $1.html [QSA]
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^(.*)$ dispatch.fcgi [QSA,L]
+#RewriteRule ^$ index.html [QSA]
+#RewriteRule ^([^.]+)$ $1.html [QSA]
+#RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteRule ^(.*)$ dispatch.fcgi [QSA,L]
 
 # In case Rails experiences terminal errors
 # Instead of displaying this message you can supply a file here which will be rendered instead
@@ -39,3 +39,4 @@ RewriteRule ^(.*)$ dispatch.fcgi [QSA,L]
 #   ErrorDocument 500 /500.html
 
 ErrorDocument 500 "<h2>Application error</h2>Rails application failed to start properly"
+
