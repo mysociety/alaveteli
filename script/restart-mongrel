@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Stops and restarts the Mongrel web server.
+
+cd `dirname $0`
+cd ..
+# XXX Include path for dodgy version of daemonize package
+ruby -I/usr/lib/ruby/ /usr/bin/mongrel_rails stop
+ruby -I/usr/lib/ruby/ /usr/bin/mongrel_rails start -d
