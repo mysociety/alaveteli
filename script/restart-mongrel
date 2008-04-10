@@ -5,5 +5,10 @@
 cd `dirname $0`
 cd ..
 # XXX Include path for dodgy version of daemonize package
-ruby -I/usr/lib/ruby/ /usr/bin/mongrel_rails stop
-ruby -I/usr/lib/ruby/ /usr/bin/mongrel_rails start -d
+if [ -e log/mongrel.pid ]
+then
+    ruby -I/usr/lib/ruby/ /usr/bin/mongrel_rails restart
+else
+    ruby -I/usr/lib/ruby/ /usr/bin/mongrel_rails start -d
+fi
+
