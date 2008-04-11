@@ -101,6 +101,7 @@ Change email address interface - easier to do now with post_redirect.circumstanc
 
 Consider showing Subject: of email somewhere
     e.g. for http://www.whatdotheyknow.com/request/172/response/234
+             http://www.whatdotheyknow.com/request/breakdown_of_calulation_of_jsa
 the subject has all the content
 
 One of the PDFs on live site has:
