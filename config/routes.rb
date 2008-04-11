@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: routes.rb,v 1.52 2008-04-09 01:32:55 francis Exp $
+# $Id: routes.rb,v 1.53 2008-04-11 16:10:12 francis Exp $
 
 ActionController::Routing::Routes.draw do |map|
 
@@ -69,6 +69,7 @@ ActionController::Routing::Routes.draw do |map|
     # paths to work on the live site proxied over HTTPS to secure.mysociety.org
     map.connect '/admin/', :controller => 'admin', :action => 'index'
     map.connect '/admin/timeline', :controller => 'admin', :action => 'timeline'
+    map.connect '/admin/debug', :controller => 'admin', :action => 'debug'
     map.connect '/admin/body/:action/:id', :controller => 'admin_public_body'
     map.connect '/admin/request/:action/:id', :controller => 'admin_request'
     map.connect '/admin/user/:action/:id', :controller => 'admin_user'

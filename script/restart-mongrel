@@ -7,7 +7,9 @@ cd ..
 # XXX Include path for dodgy version of daemonize package
 if [ -e log/mongrel.pid ]
 then
-    ruby -I/usr/lib/ruby/ /usr/bin/mongrel_rails restart
+    ruby -I/usr/lib/ruby/ /usr/bin/mongrel_rails stop
+    sleep 1s
+    ruby -I/usr/lib/ruby/ /usr/bin/mongrel_rails start -d
 else
     ruby -I/usr/lib/ruby/ /usr/bin/mongrel_rails start -d
 fi

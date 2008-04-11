@@ -1,0 +1,18 @@
+<% @title = "Debug" %>
+
+<h1><%=@title%></h1>
+
+<h2>Environment variables</h2>
+<pre>
+<%= @request_env.to_yaml %>
+</pre>
+
+<h2>Parameters</h2>
+<pre>
+<%= params.to_yaml %>
+</pre>
+
+<h2>Session</h2>
+<pre>
+<%= session.to_yaml %>
+</pre>

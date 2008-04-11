@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_controller.rb,v 1.10 2008-04-11 15:53:57 francis Exp $
+# $Id: admin_controller.rb,v 1.11 2008-04-11 16:10:12 francis Exp $
 
 class AdminController < ApplicationController
     layout "admin"
@@ -45,6 +45,10 @@ class AdminController < ApplicationController
         @events += @public_body_history
 
         @events.sort! { |a,b| b.created_at <=> a.created_at }
+    end
+
+    def debug
+        @request_env = request.env 
     end
 end
 

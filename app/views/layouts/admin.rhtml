@@ -10,13 +10,14 @@
     </head>
     <body>
 
-    <p><strong><%= link_to 'WhatDoTheyKnow', main_url('/') %> admin interface</strong> 
+    <p><strong><%= link_to 'WhatDoTheyKnow', main_url('/') %> admin interface:</strong> 
     <%= link_to 'Overview', admin_url('') %>
     | <%= link_to 'Timeline', admin_url('timeline') %>
     | <%= link_to 'Public authorities', admin_url('body/list') %>
     | <%= link_to 'Requests', admin_url('request/list') %>
     | <%= link_to 'Users', admin_url('user/list') %>
-    - you are <%= h @http_auth_user %>
+    | <%= link_to 'Debug', admin_url('debug') %>
+    - you are <%= h @http_auth_user %> 
     </p>
 
     <p style="color: green"><%= flash[:notice] %></p>
