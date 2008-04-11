@@ -4,10 +4,11 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_public_body_controller.rb,v 1.10 2008-03-31 13:26:09 francis Exp $
+# $Id: admin_public_body_controller.rb,v 1.11 2008-04-11 15:53:57 francis Exp $
 
 class AdminPublicBodyController < ApplicationController
     layout "admin"
+    before_filter :assign_http_auth_user
 
     def index
         list

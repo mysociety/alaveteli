@@ -6,7 +6,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: application.rb,v 1.36 2008-04-09 01:32:52 francis Exp $
+# $Id: application.rb,v 1.37 2008-04-11 15:53:57 francis Exp $
 
 
 class ApplicationController < ActionController::Base
@@ -122,6 +122,9 @@ class ApplicationController < ActionController::Base
         else
             return request.env["REMOTE_USER"]
         end
+    end
+    def assign_http_auth_user
+        @http_auth_user = admin_http_auth_user
     end
 
     # Convert URL name for sort by order, to Lucene query 

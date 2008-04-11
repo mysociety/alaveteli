@@ -1,10 +1,3 @@
-CVS commits:
-
-Fix duplicate by by (see http://www.whatdotheyknow.com/track/feed/5)
-Added more privacy warnings to preview
-Fix escaping of HTML in titles in RSS
-Improved CSV import function a bit
-
 FOI requests to use to test it
 ==============================
 
@@ -57,6 +50,8 @@ Things to track:
     - new requests with keyword
     - successful responses
 
+Interface for DPA hiding
+
 Later
 =====
 
@@ -102,7 +97,7 @@ when sending "my response is late"
 Holding pen with comments - new requests don't get sent straight away, but are
     delayed while people help improve them.
 
-Change email address - easier to do now with post_redirect.circumstance?
+Change email address interface - easier to do now with post_redirect.circumstance?
 
 Consider showing Subject: of email somewhere
     e.g. for http://www.whatdotheyknow.com/request/172/response/234
