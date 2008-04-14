@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 51) do
+ActiveRecord::Schema.define(:version => 52) do
 
   create_table "incoming_messages", :force => true do |t|
     t.integer  "info_request_id", :null => false
@@ -86,6 +86,12 @@ ActiveRecord::Schema.define(:version => 51) do
   end
 
   add_index "public_bodies", ["url_name"], :name => "index_public_bodies_on_url_name", :unique => true
+
+  create_table "public_body_tag_categories", :force => true do |t|
+    t.text "name",     :null => false
+    t.text "title",    :null => false
+    t.text "singular", :null => false
+  end
 
   create_table "public_body_tags", :force => true do |t|
     t.integer  "public_body_id", :null => false
