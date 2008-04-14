@@ -22,7 +22,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.82 2008-04-04 02:29:09 francis Exp $
+# $Id: info_request.rb,v 1.83 2008-04-14 09:44:38 francis Exp $
 
 require 'digest/sha1'
 
@@ -457,6 +457,19 @@ public
         else
             raise "unknown status " + status
         end
+    end
+
+    # Completely delete this request and all objects depending on it
+    def fully_destroy
+        self.track_things.each do |track_thing|
+            track_thing.track_things_sent_emails.each { |a| a.destroy }
+            track_thing.destroy
+        end
+        self.incoming_messages.each { |a| a.destroy }
+        self.outgoing_messages.each { |a| a.destroy }
+        self.user_info_request_sent_alerts.each { |a| a.destroy }
+        self.info_request_events.each { |a| a.destroy }
+        self.destroy
     end
 
     # Called by incoming_email - and used to be called to generate separate
