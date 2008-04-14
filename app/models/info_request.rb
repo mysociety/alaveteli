@@ -22,7 +22,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.84 2008-04-14 10:05:21 francis Exp $
+# $Id: info_request.rb,v 1.85 2008-04-14 14:46:48 francis Exp $
 
 require 'digest/sha1'
 
@@ -109,6 +109,22 @@ class InfoRequest < ActiveRecord::Base
             self.solr_up_to_date = false
         end
         true
+    end
+
+    # Central function to do all searches
+    def InfoRequest.full_search(query, order, per_page, page, html_highlight)
+        offset = (page - 1) * per_page
+        return InfoRequestEvent.multi_solr_search(query, :models => [ PublicBody, User ],
+            :limit => per_page, :offset => offset, 
+            :highlight => { 
+                :prefix => html_highlight ? '<span class="highlight">' : "*",
+                :suffix => html_highlight ? '</span>' : "*",
+                :fragsize => 250,
+                :fields => ["solr_text_main", "title", # InfoRequestEvent
+                           "name", "short_name", # PublicBody
+                           "name" # User
+            ]}, :order => order
+        )
     end
 
 public

@@ -6,7 +6,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: application.rb,v 1.37 2008-04-11 15:53:57 francis Exp $
+# $Id: application.rb,v 1.38 2008-04-14 14:46:47 francis Exp $
 
 
 class ApplicationController < ActionController::Base
@@ -155,19 +155,7 @@ class ApplicationController < ActionController::Base
         else
             @page = this_page
         end
-
-        # XXX remove duplication with models/track_mailer.rb
-        solr_object = InfoRequestEvent.multi_solr_search(@query, :models => [ PublicBody, User ],
-            :limit => @per_page, :offset => (@page - 1) * @per_page, 
-            :highlight => { 
-                :prefix => html_highlight ? '<span class="highlight">' : "*",
-                :suffix => html_highlight ? '</span>' : "*",
-                :fragsize => 250,
-                :fields => ["solr_text_main", "title", # InfoRequestEvent
-                           "name", "short_name", # PublicBody
-                           "name" # User
-            ]}, :order => order
-        )
+        solr_object = InfoRequest.full_search(@query, order, @per_page, @page, true) 
         @search_results = solr_object.results
         @search_hits = solr_object.total_hits
 
