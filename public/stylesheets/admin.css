@@ -27,3 +27,9 @@ form {
     margin-bottom: 1em;
 }
 
+#notice {
+    color: green;
+    border: solid 1px green;
+    padding: 1em;
+}
+

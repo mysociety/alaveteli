@@ -25,14 +25,29 @@
         'partially_successful',
         'requires_admin',
     ]) %>
+    </p>
 
-    <%= submit_tag 'Save' %>
+   <p><%= submit_tag 'Save changes' %>
+   </p>
 
   <p><strong>Note:</strong> To edit the actual request body text, click edit
   next to the specific outgoing message.
   </p>
 
 <% end %>
+
+<hr>
+
+<% form_tag '../fully_destroy/' + @info_request.id.to_s do %>
+    <p>
+    <strong>This is permanent and irreversible!</strong> <%= submit_tag 'Destory request entirely' %>
+    <br>Use it mainly if someone posts private information, e.g. made a Data Protection request. It
+    destroys all responses and tracks as well.
+    </p>
+
+<% end %>
+
+<hr>
 
 <p>
 <%= link_to 'Show', '../show/' + @info_request.id.to_s %> |

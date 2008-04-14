@@ -28,6 +28,8 @@ BAILII - relationship with law courts, robots.txt ?
 Next
 ====
 
+Link more clearly to full request and next/previous correspondence (ask Matthew)
+
 Check date order here
 http://www.whatdotheyknow.com/track/feed/5
 
@@ -45,6 +47,7 @@ https://secure.mysociety.org/admin/foi/request/show/137
 
 GUI for uploading changed CSV files
 Interface for deleting requests
+Make tag categories better
 
 Things to track:
     - new requests

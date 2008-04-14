@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_request_controller.rb,v 1.9 2008-04-11 15:53:57 francis Exp $
+# $Id: admin_request_controller.rb,v 1.10 2008-04-14 10:02:55 francis Exp $
 
 class AdminRequestController < ApplicationController
     layout "admin"
@@ -66,6 +66,18 @@ class AdminRequestController < ApplicationController
             render :action => 'edit'
         end
     end 
+
+    def fully_destroy
+        @info_request = InfoRequest.find(params[:id])
+
+        user = @info_request.user
+        url_title = @info_request.url_title
+
+        @info_request.fully_destroy
+
+        flash[:notice] = "Request #{url_title} has been completely destroyed. Email of user who made request: " + user.email
+        redirect_to admin_url('request/list')
+    end
 
     def edit_outgoing
         @outgoing_message = OutgoingMessage.find(params[:id])

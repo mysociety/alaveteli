@@ -20,7 +20,9 @@
     - you are <%= h @http_auth_user %> 
     </p>
 
-    <p style="color: green"><%= flash[:notice] %></p>
+    <% if flash[:notice] %>
+        <p id="notice"><%= flash[:notice] %></p>
+    <% end %>
 
     <%= yield  %>
 
