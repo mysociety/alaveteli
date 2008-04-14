@@ -22,7 +22,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.83 2008-04-14 09:44:38 francis Exp $
+# $Id: info_request.rb,v 1.84 2008-04-14 10:05:21 francis Exp $
 
 require 'digest/sha1'
 
@@ -468,6 +468,9 @@ public
         self.incoming_messages.each { |a| a.destroy }
         self.outgoing_messages.each { |a| a.destroy }
         self.user_info_request_sent_alerts.each { |a| a.destroy }
+        for event in self.info_request_events
+            event.solr_destroy
+        end
         self.info_request_events.each { |a| a.destroy }
         self.destroy
     end
