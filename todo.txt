@@ -29,6 +29,8 @@ Next
 ====
 
 Link more clearly to full request and next/previous correspondence (ask Matthew)
+    Perhaps always redirect to internal # links from the /response/ pages
+e.g. http://www.flickr.com/groups/central/discuss/72157604494352123/72157604515433851/
 
 Check date order here
 http://www.whatdotheyknow.com/track/feed/5

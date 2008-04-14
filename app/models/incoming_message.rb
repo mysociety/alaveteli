@@ -17,7 +17,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.74 2008-04-14 15:45:01 francis Exp $
+# $Id: incoming_message.rb,v 1.75 2008-04-14 23:12:36 francis Exp $
 
 
 # TODO
@@ -432,6 +432,18 @@ class IncomingMessage < ActiveRecord::Base
                 system("/usr/bin/wvText " + tempfile.path + " " + tempfile.path + ".txt")
                 text += File.read(tempfile.path + ".txt") + "\n\n"
                 File.unlink(tempfile.path + ".txt")
+                tempfile.close
+            elsif attachment.content_type == 'application/msexcel'
+                # Bit crazy using catdoc - but xls2csv, xlhtml and py_xls2txt
+                # only extract text from cells, not from floating notes. catdoc
+                # may be fooled by weird character sets, but will probably do for
+                # UK FOI requests.
+                tempfile = Tempfile.new('foixls')
+                tempfile.print attachment.body
+                tempfile.flush
+                IO.popen("/usr/bin/catdoc " + tempfile.path, "r") do |child|
+                    text += child.read() + "\n\n"
+                end
                 tempfile.close
             elsif attachment.content_type == 'application/pdf'
                 tempfile = Tempfile.new('foipdf')
