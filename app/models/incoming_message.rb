@@ -17,7 +17,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.76 2008-04-14 23:18:33 francis Exp $
+# $Id: incoming_message.rb,v 1.77 2008-04-14 23:24:54 francis Exp $
 
 
 # TODO
@@ -253,6 +253,13 @@ class IncomingMessage < ActiveRecord::Base
                     curr_mail.content_type = 'application/pdf'
                 end
             end 
+            # e.g. http://www.whatdotheyknow.com/request/93/response/250
+            if curr_mail.content_type == 'application/vnd.ms-excel'
+                curr_mail.content_type = 'application/msexcel'
+            end
+            if curr_mail.content_type == 'application/vnd.ms-word'
+                curr_mail.content_type = 'application/msword'
+            end
             # If the part is an attachment of email in text form
             if curr_mail.content_type == 'message/rfc822'
                 # This has been expanded from text to an email in count_parts_recursive above
