@@ -1,0 +1,39 @@
+<% @title = "Upload CSV of public authorities" %>
+
+<h1><%=@title%></h1>
+
+<% if not @notes.empty? %>
+<pre id="notice"><%=@notes %></pre>
+<% end %>
+<% if not @errors.empty? %>
+<pre id="error"><%=@errors %></pre>
+<% end %>
+
+
+<% form_tag 'import_csv', :multipart => true do %>
+    <p>
+    <label for="tag">Tag to add entries to (maybe you want:
+    <% for category, description in PublicBody.categories_by_tag %>
+        <% if category != "other" %>
+            <strong><%= category %></strong>=<%= description %>;
+        <% end %>
+    <% end %>
+    )
+    </label>
+    <br/>
+    <%= text_field_tag 'tag', params[:tag] %>
+    </p>
+
+    <p>
+    <label for="csv_file">CSV file (no header rows; unused first column; name second column; email third column):</label>
+    <br/>
+    <%= file_field_tag :csv_file, :size => 60 %> 
+    </p>
+
+    <p><strong>Note:</strong> This will report errors in the CSV file. If there are no errors, it will make updates.
+    Any changes since last import will be overwritten - e.g. email addresses changed back. Changes and additions
+    are reported on a successful import for you to check.
+
+    <p><%= submit_tag 'Upload' %></p>
+<% end %>
+

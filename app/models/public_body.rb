@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.56 2008-04-11 15:53:57 francis Exp $
+# $Id: public_body.rb,v 1.57 2008-04-14 12:09:38 francis Exp $
 
 require 'csv'
 require 'set'
@@ -149,7 +149,9 @@ class PublicBody < ActiveRecord::Base
     class ImportCSVDryRun < StandardError
     end
 
-    # Import from CSV 
+    # Import from CSV. Just tests things and returns messages if dry_run is true.
+    # Returns an array of [array of errors, array of notes]. If there are errors,
+    # always rolls back (as with dry_run).
     def self.import_csv(csv, tag, dry_run = false)
         errors = []
         notes = []
@@ -222,7 +224,7 @@ class PublicBody < ActiveRecord::Base
             # Ignore
         end
 
-        return errors.join("\n") + notes.join("\n")
+        return [errors, notes]
     end
 
 end
