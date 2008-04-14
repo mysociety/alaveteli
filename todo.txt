@@ -44,6 +44,7 @@ https://secure.mysociety.org/admin/foi/request/show/37
 https://secure.mysociety.org/admin/foi/request/show/137
 
 GUI for uploading changed CSV files
+Interface for deleting requests
 
 Things to track:
     - new requests
@@ -65,8 +66,6 @@ Now that we have LinkToHelper in mailer *objects* (not classes) call out to it
 everywhere that it should
 
 "Some of the information" option should give you choice of complaining if you like.
-
-Wrapping long URLs in emails breaks the h off http off the beginning nastily
 
 Use :order in the info_request.events belongs_to clause instead of each time it is queried
 Also sort user.info_requests for user pages
