@@ -46,7 +46,6 @@ https://secure.mysociety.org/admin/foi/request/show/37
 https://secure.mysociety.org/admin/foi/request/show/137
 
 GUI for uploading changed CSV files
-Interface for deleting requests
 Make tag categories better
 
 Things to track:
