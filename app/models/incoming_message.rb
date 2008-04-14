@@ -17,7 +17,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.73 2008-04-04 01:44:41 francis Exp $
+# $Id: incoming_message.rb,v 1.74 2008-04-14 15:45:01 francis Exp $
 
 
 # TODO
@@ -56,6 +56,8 @@ class FOIAttachment
             "attachment.pdf"
         elsif @content_type == 'application/msword'
             "attachment.doc"
+        elsif @content_type == 'application/msexcel'
+            "attachment.xls"
         else
             "attachment.bin"
         end
@@ -335,6 +337,8 @@ class IncomingMessage < ActiveRecord::Base
                 attachment.content_type = 'application/pdf'
             elsif attachment.filename.match(/\.doc$/)
                 attachment.content_type = 'application/msword'
+            elsif attachment.filename.match(/\.xls$/)
+                attachment.content_type = 'application/msexcel'
             else
                 attachment.content_type = 'application/octet-stream'
             end

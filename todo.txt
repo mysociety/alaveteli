@@ -196,6 +196,8 @@ Quoting fixing TODO:
     http://www.whatdotheyknow.com/request/71/response/108
     http://www.whatdotheyknow.com/request/police_powers_to_inform_car_insu
     http://www.whatdotheyknow.com/request/30/response/166
+    http://www.whatdotheyknow.com/request/road_safety_campaign_expenditure
+    http://www.whatdotheyknow.com/request/47/response/283
 Char encoding and other bad formatting:
     http://www.whatdotheyknow.com/request/107/response/144
     http://www.whatdotheyknow.com/request/35/response/177
