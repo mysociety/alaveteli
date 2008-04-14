@@ -10,6 +10,7 @@
 
     <span class="user_listing_bottomline">
         <%= pluralize(display_user.info_requests.size, "request") %> made.
+        <%= pluralize(display_user.track_things.size, "thing") %> tracked.
         Joined on <%= simple_date(display_user.created_at) %>.
     </span>
 </p>
