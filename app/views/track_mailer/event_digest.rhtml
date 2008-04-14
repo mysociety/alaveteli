@@ -20,10 +20,10 @@
                     extract.gsub!(/\s+/, ' ')
 
                     if event.event_type == 'response'
-                        url = incoming_message_url(event.incoming_message)
+                        url = main_url(incoming_message_url(event.incoming_message))
                         main_text += event.info_request.public_body.name + " sent a response to " + event.info_request.user.name 
                     elsif event.event_type == 'followup_sent'
-                        url = outgoing_message_url(event.outgoing_message)
+                        url = main_url(outgoing_message_url(event.outgoing_message))
                         main_text += event.info_request.user.name + " sent a follow up message to " + event.info_request.public_body.name 
                     elsif event.event_type == 'sent'
                         # this is unlikely to happen in real life, but happens in the test code
