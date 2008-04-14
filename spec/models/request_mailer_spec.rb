@@ -20,7 +20,6 @@ describe RequestMailer, " when receiving incoming mail" do
         ir.incoming_messages.size.should == 1
 
         deliveries = ActionMailer::Base.deliveries
-        #raise deliveries[1].body
         deliveries.size.should  == 1
         mail = deliveries[0]
         mail.to.should == [ MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost') ]

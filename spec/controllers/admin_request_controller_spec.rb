@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe AdminRequestController, "when administering requests" do
     integrate_views
-    fixtures :info_requests, :outgoing_messages
+    fixtures :info_requests, :outgoing_messages, :users
   
     it "shows the index/list page" do
         get :index
