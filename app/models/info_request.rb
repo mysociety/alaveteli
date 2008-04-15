@@ -22,7 +22,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.85 2008-04-14 14:46:48 francis Exp $
+# $Id: info_request.rb,v 1.86 2008-04-15 17:22:34 francis Exp $
 
 require 'digest/sha1'
 
@@ -125,6 +125,17 @@ class InfoRequest < ActiveRecord::Base
                            "name" # User
             ]}, :order => order
         )
+    end
+
+    # For debugging
+    def InfoRequest.profile_search(query)
+        t = Time.now.usec
+        for i in (1..10)
+            t = Time.now.usec - t
+            secs = t / 1000000.0
+            STDOUT.write secs.to_s + " query " + i.to_s + "\n"
+            results = InfoRequest.full_search(query, "created_at desc", 10, 1, false).results
+        end
     end
 
 public

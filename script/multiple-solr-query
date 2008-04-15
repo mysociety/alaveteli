@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -x
+
+# Test solr multiple times
+
+LOC=`dirname $0`
+
+$LOC/runner 'InfoRequest.profile_search("'$1'")'
+

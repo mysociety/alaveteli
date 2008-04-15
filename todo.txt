@@ -1,5 +1,8 @@
 Isn't showing admin things that haven't been touched for 2 weeks or whatever
 
+Check fixed: Michael Turner's name has a space in it - strip them automatically
+(can see on the write message to page)
+
 FOI requests to use to test it
 ==============================
 
@@ -30,16 +33,8 @@ BAILII - relationship with law courts, robots.txt ?
 Next
 ====
 
-Put user rather than import_csv
-
-Link more clearly to full request and next/previous correspondence (ask Matthew)
-    Perhaps always redirect to internal # links from the /response/ pages
-e.g. http://www.flickr.com/groups/central/discuss/72157604494352123/72157604515433851/
-
 Check date order here
 http://www.whatdotheyknow.com/track/feed/5
-
-Fix search to deal with overdue message query that Tomski asks for
 
 Don't let people track their own requests?
 
@@ -56,17 +51,20 @@ Things to track:
     - new requests with keyword
     - successful responses
 
+Fix search to deal with overdue message query that Tomski asks for
+
 Later
 =====
+
+Put user rather than import_csv
+
+Link more clearly to full request and next/previous correspondence (ask Matthew)
+    Perhaps always redirect to internal # links from the /response/ pages
+e.g. http://www.flickr.com/groups/central/discuss/72157604494352123/72157604515433851/
 
 Get Atom highlighting to include stylesheet for yellow somehow
 Does Atom infer base URLs from included HTML or do we need to be explicit?
 Add RSS icons
-
-Michael Turner's name has a space in it - strip them automatically (can see on the write message to page)
-
-Now that we have LinkToHelper in mailer *objects* (not classes) call out to it
-everywhere that it should
 
 "Some of the information" option should give you choice of complaining if you like.
 
