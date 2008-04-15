@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_public_body_controller.rb,v 1.12 2008-04-14 12:09:38 francis Exp $
+# $Id: admin_public_body_controller.rb,v 1.13 2008-04-15 01:06:12 francis Exp $
 
 class AdminPublicBodyController < ApplicationController
     layout "admin"
@@ -68,24 +68,29 @@ class AdminPublicBodyController < ApplicationController
 
     def import_csv
         if params[:csv_file]
-            # Try with dry run first
-            csv_contents = params[:csv_file].read
-            en = PublicBody.import_csv(csv_contents, params[:tag], true)
-            errors = en[0]
-            notes = en[1]
-
-            if errors.size == 0
-                # And if OK, with real run
-                en = PublicBody.import_csv(csv_contents, params[:tag], false)
+            if not params[:tag].empty?
+                # Try with dry run first
+                csv_contents = params[:csv_file].read
+                en = PublicBody.import_csv(csv_contents, params[:tag], true)
                 errors = en[0]
                 notes = en[1]
-                if errors.size != 0
-                    raise "dry run mismatched real run"
+
+                if errors.size == 0
+                    # And if OK, with real run
+                    en = PublicBody.import_csv(csv_contents, params[:tag], false)
+                    errors = en[0]
+                    notes = en[1]
+                    if errors.size != 0
+                        raise "dry run mismatched real run"
+                    end
+                    notes.push("Import was successful.")
                 end
-                notes.push("Import was successful.")
+                @errors = errors.join("\n")
+                @notes = notes.join("\n")
+            else
+                @errors = "Please enter a tag, use a singular e.g. sea_fishery_committee"
+                @notes = ""
             end
-            @errors = errors.join("\n")
-            @notes = notes.join("\n")
         else
             @errors = ""
             @notes = ""

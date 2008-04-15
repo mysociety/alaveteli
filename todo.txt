@@ -30,6 +30,8 @@ BAILII - relationship with law courts, robots.txt ?
 Next
 ====
 
+Put user rather than import_csv
+
 Link more clearly to full request and next/previous correspondence (ask Matthew)
     Perhaps always redirect to internal # links from the /response/ pages
 e.g. http://www.flickr.com/groups/central/discuss/72157604494352123/72157604515433851/
@@ -151,11 +153,6 @@ http://www.ico.gov.uk/Home/tools_and_resources/decision_notices.aspx
 (10:32:52) Matthew: their function is called autogrow_textarea() by the way, if you just want to look at it...
  thanks :) I won't do it now as there are more important things, I was just accidentally impressed
 
-Read wiki page lots
-http://www.mysociety.org/moin.cgi/FreedomOfInformation
-And comments on proposal
-http://www.mysociety.org/2006/04/04/freedom-of-information-archive/
-
 Hyperlink Section 1(3) to the act
     http://www.whatdotheyknow.com/request/49/response/86
 and to guidance notes
@@ -172,6 +169,8 @@ http://www.parliament.uk/parliamentary_publications_and_archives/freedom_of_info
 Including 'Request for information' in the subject line of your e-mail will assist us in prioritising your request.
 http://www.parliament.uk/parliamentary_publications_and_archives/freedom_of_information_in_the_house_of_lords/lords__foi___how_to_obtain_information.cfm
 Medway also hint at this with subject= on mailto link
+
+OCR all images automatically, even if badly (check for tiffs!)
 
 Ask what they learnt from request, and other things?
     and reward by putting their request on front page
@@ -194,6 +193,10 @@ http://community.foe.co.uk/tools/right_to_know/faq.html#why_specify
 
 Add geographical location to council import
 
+Simple Digg style "I lke this request" button
+
+Editable user profile, including photo upload
+
 Quoting fixing TODO:
     http://www.whatdotheyknow.com/request/64/response/102
     http://www.whatdotheyknow.com/request/55/response/96
@@ -203,12 +206,17 @@ Quoting fixing TODO:
     http://www.whatdotheyknow.com/request/road_safety_campaign_expenditure
     http://www.whatdotheyknow.com/request/47/response/283
     http://www.whatdotheyknow.com/request/secured_convictions_aided_by_cct
+    http://www.whatdotheyknow.com/request/m3_junction_2_eastbound_speed_re
+    http://www.whatdotheyknow.com/request/taxi_ranking
 Char encoding and other bad formatting:
     http://www.whatdotheyknow.com/request/107/response/144
     http://www.whatdotheyknow.com/request/35/response/177
 
 Sources of public bodies
 ========================
+
+List of which get most requests:
+http://www.dca.gov.uk/foi/reference/foi-independent-review.pdf
 
 Call university of huddersfield
 
