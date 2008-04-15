@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user.rb,v 1.48 2008-04-15 12:01:19 francis Exp $
+# $Id: user.rb,v 1.49 2008-04-15 12:06:59 francis Exp $
 
 require 'digest/sha1'
 
@@ -56,7 +56,11 @@ class User < ActiveRecord::Base
 
     # Don't display any leading/trailing spaces
     def name
-        read_attribute(:name).strip
+        name = read_attribute(:name)
+        if not name.nil?
+            name.strip!
+        end
+        name
     end
 
     # Return user given login email, password and other form parameters (e.g. name)
