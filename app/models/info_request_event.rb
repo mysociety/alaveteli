@@ -18,13 +18,14 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request_event.rb,v 1.35 2008-04-09 16:53:59 francis Exp $
+# $Id: info_request_event.rb,v 1.36 2008-04-15 23:53:10 francis Exp $
 
 class InfoRequestEvent < ActiveRecord::Base
     belongs_to :info_request
     validates_presence_of :info_request
 
-    belongs_to :info_request_event_id
+    belongs_to :outgoing_message
+    belongs_to :incoming_message
 
     validates_presence_of :event_type
     validates_inclusion_of :event_type, :in => [
@@ -105,6 +106,14 @@ class InfoRequestEvent < ActiveRecord::Base
 
     # We store YAML version of parameters in the database
     def params=(params)
+        # XXX should really set these explicitly, and stop storing them in
+        # here, but keep it for compatibility with old way for now
+        if not params[:incoming_message_id].nil?
+            self.incoming_message_id = params[:incoming_message_id]
+        end
+        if not params[:outgoing_message_id].nil?
+            self.outgoing_message_id = params[:outgoing_message_id]
+        end
         self.params_yaml = params.to_yaml
     end
     def params
@@ -113,7 +122,8 @@ class InfoRequestEvent < ActiveRecord::Base
 
     # Find related incoming message
     # XXX search for the find below and call this function more instead
-    def incoming_message
+    # XXX deprecated, remove it
+    def incoming_message_via_params
         if not ['response'].include?(self.event_type)
             return nil
         end
@@ -127,7 +137,8 @@ class InfoRequestEvent < ActiveRecord::Base
 
     # Find related outgoing message
     # XXX search for the find below and call this function more instead
-    def outgoing_message
+    # XXX deprecated, remove it
+    def outgoing_message_via_params
         if not [ 'edit_outgoing', 'sent', 'resent', 'followup_sent' ].include?(self.event_type)
             return nil
         end

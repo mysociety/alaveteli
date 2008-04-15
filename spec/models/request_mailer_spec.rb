@@ -12,6 +12,7 @@ describe RequestMailer, " when receiving incoming mail" do
         ir.incoming_messages.size.should == 1 # in the fixture
         receive_incoming_mail('incoming-request-plain.email', ir.incoming_email)
         ir.incoming_messages.size.should == 2 # one more arrives
+        ir.info_request_events[-1].incoming_message_id.should_not be_nil
     end
     
     it "should bounce email to admin when the email is not to any information request" do

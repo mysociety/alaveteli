@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: general_controller.rb,v 1.17 2008-04-01 16:40:37 francis Exp $
+# $Id: general_controller.rb,v 1.18 2008-04-15 23:53:10 francis Exp $
 
 class GeneralController < ApplicationController
 
@@ -56,6 +56,8 @@ class GeneralController < ApplicationController
         query = params[:query]
         sortby = params[:sortby]
         perform_search(query, sortby)
+
+        #render :controller => "help", :action => "about"
     end
 
     # For debugging
