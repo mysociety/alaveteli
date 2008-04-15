@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -x
+
 # Test solr
 
 LOC=`dirname $0`
