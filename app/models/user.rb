@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user.rb,v 1.47 2008-04-04 02:29:09 francis Exp $
+# $Id: user.rb,v 1.48 2008-04-15 12:01:19 francis Exp $
 
 require 'digest/sha1'
 
@@ -52,6 +52,11 @@ class User < ActiveRecord::Base
 
     def validate
         errors.add(:email, "doesn't look like a valid address") unless MySociety::Validate.is_valid_email(self.email)
+    end
+
+    # Don't display any leading/trailing spaces
+    def name
+        read_attribute(:name).strip
     end
 
     # Return user given login email, password and other form parameters (e.g. name)
