@@ -22,7 +22,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.88 2008-04-16 00:44:40 francis Exp $
+# $Id: info_request.rb,v 1.89 2008-04-16 02:02:29 francis Exp $
 
 require 'digest/sha1'
 
@@ -125,7 +125,7 @@ class InfoRequest < ActiveRecord::Base
                            "name" # User
             ]}, 
             :order => order,
-            :include => { :InfoRequestEvent => [ :incoming_message, :outgoing_message ] } 
+            :include => { :InfoRequestEvent => [ { :incoming_message => { :info_request => :public_body }}, :outgoing_message, { :info_request => [ :user, :public_body ] } ] } 
         )
     end
 
