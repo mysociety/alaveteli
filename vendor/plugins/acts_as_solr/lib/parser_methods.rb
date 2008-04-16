@@ -6,7 +6,7 @@ module ActsAsSolr #:nodoc:
     
     # Method used by mostly all the ClassMethods when doing a search
     def parse_query(query=nil, options={}, models=nil)
-      valid_options = [:offset, :limit, :facets, :models, :results_format, :order, :scores, :operator, :highlight]
+      valid_options = [:offset, :limit, :facets, :models, :results_format, :order, :scores, :operator, :highlight, :include]
       query_options = {}
       return if query.nil?
       raise "Invalid parameters: #{(options.keys - valid_options).join(',')}" unless (options.keys - valid_options).empty?
@@ -129,7 +129,25 @@ module ActsAsSolr #:nodoc:
       result = []
       docs = solr_data.docs
       if options[:results_format] == :objects
-        docs.each{|doc| k = doc.fetch('id').to_s.split(':'); result << k[0].constantize.find_by_id(k[1])}
+        # NOTE: All this bit is new, by mySociety, to reduce number of SQL queries
+        # find all ids for each class
+        lhash = {}
+        lhash.default = []
+        for doc in docs
+            k = doc.fetch('id').to_s.split(':')
+            lhash[k[0]] = lhash[k[0]] + [k[1]]
+        end
+        # for each class, look up all ids
+        chash = {}
+        for cls, ids in lhash
+            conditions = [ "#{cls.constantize.table_name}.#{primary_key} in (?)", ids ]
+            found = reorder(cls.constantize.find(:all, :conditions => conditions, :include => options[:include][cls.to_sym]), ids)
+            for f in found
+                chash[[cls, f.id]] = f
+            end
+        end
+        # now get them in right order again
+        docs.each{|doc| k = doc.fetch('id').to_s.split(':'); result << chash[[k[0], k[1].to_i]]}
       elsif options[:results_format] == :ids
         docs.each{|doc| result << {"id"=>doc.values.pop.to_s}}
       end
