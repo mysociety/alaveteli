@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 53) do
+ActiveRecord::Schema.define(:version => 52) do
 
   create_table "incoming_messages", :force => true do |t|
     t.integer  "info_request_id", :null => false
@@ -141,8 +141,6 @@ ActiveRecord::Schema.define(:version => 53) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "track_things_sent_emails", ["track_thing_id"], :name => "track_things_sent_emails_unique_index", :unique => true
 
   create_table "user_info_request_sent_alerts", :force => true do |t|
     t.integer "user_id",               :null => false
