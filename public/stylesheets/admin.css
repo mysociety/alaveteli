@@ -32,7 +32,7 @@ form {
     border: solid 1px green;
     padding: 1em;
 }
-#error {
+#error, #errorExplanation {
     color: red;
     border: solid 1px red;
     padding: 1em;
