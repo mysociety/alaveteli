@@ -1,8 +1,5 @@
 Isn't showing admin things that haven't been touched for 2 weeks or whatever
 
-Check fixed: Michael Turner's name has a space in it - strip them automatically
-(can see on the write message to page)
-
 jslib path loading broken in Mongrel :(
 
 FOI requests to use to test it
@@ -54,6 +51,8 @@ Things to track:
     - successful responses
 
 Fix search to deal with overdue message query that Tomski asks for
+Make overdue an actual state change?
+
 
 Later
 =====

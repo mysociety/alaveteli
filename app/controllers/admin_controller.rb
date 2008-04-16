@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_controller.rb,v 1.11 2008-04-11 16:10:12 francis Exp $
+# $Id: admin_controller.rb,v 1.12 2008-04-16 13:23:55 francis Exp $
 
 class AdminController < ApplicationController
     layout "admin"
@@ -45,6 +45,12 @@ class AdminController < ApplicationController
         @events += @public_body_history
 
         @events.sort! { |a,b| b.created_at <=> a.created_at }
+    end
+
+    def stats
+        @request_by_state = InfoRequest.count(:group => 'described_state')
+        @tracks_by_type = TrackThing.count(:group => 'track_type')
+        @tracks_by_medium = TrackThing.count(:group => 'track_medium')
     end
 
     def debug

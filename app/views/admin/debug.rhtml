@@ -2,6 +2,8 @@
 
 <h1><%=@title%></h1>
 
+<p>You are <%= h @http_auth_user %></p>
+
 <h2>Environment variables</h2>
 <pre>
 <%= @request_env.to_yaml %>

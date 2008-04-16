@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: routes.rb,v 1.53 2008-04-11 16:10:12 francis Exp $
+# $Id: routes.rb,v 1.54 2008-04-16 13:23:55 francis Exp $
 
 ActionController::Routing::Routes.draw do |map|
 
@@ -70,6 +70,7 @@ ActionController::Routing::Routes.draw do |map|
     map.connect '/admin/', :controller => 'admin', :action => 'index'
     map.connect '/admin/timeline', :controller => 'admin', :action => 'timeline'
     map.connect '/admin/debug', :controller => 'admin', :action => 'debug'
+    map.connect '/admin/stats', :controller => 'admin', :action => 'stats'
     map.connect '/admin/body/:action/:id', :controller => 'admin_public_body'
     map.connect '/admin/request/:action/:id', :controller => 'admin_request'
     map.connect '/admin/user/:action/:id', :controller => 'admin_user'

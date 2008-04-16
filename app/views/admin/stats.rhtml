@@ -1,0 +1,29 @@
+<% @title = "Statistics" %>
+
+<h1>Statistics</h1>
+
+<h2>State of requests</h2>
+
+<table>
+<% for state, count in @request_by_state %>
+<tr> <td><%=state %></td><td><%= count %></td> </tr>
+<% end %>
+</table>
+
+<h2>Tracks by type</h2>
+
+<table>
+<% for state, count in @tracks_by_type %>
+<tr> <td><%=state %></td><td><%= count %></td> </tr>
+<% end %>
+</table>
+
+<h2>Tracks by medium</h2>
+
+<table>
+<% for state, count in @tracks_by_medium %>
+<tr> <td><%=state %></td><td><%= count %></td> </tr>
+<% end %>
+</table>
+
+
