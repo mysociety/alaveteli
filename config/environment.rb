@@ -169,3 +169,7 @@ module WillPaginate
     end
 end
 
+# XXX temp debug for SQL logging production sites
+# ActiveRecord::Base.logger = Logger.new(STDOUT)
+
+

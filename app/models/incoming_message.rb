@@ -17,7 +17,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.77 2008-04-14 23:24:54 francis Exp $
+# $Id: incoming_message.rb,v 1.78 2008-04-16 12:00:10 francis Exp $
 
 
 # TODO
@@ -149,7 +149,7 @@ class IncomingMessage < ActiveRecord::Base
         # Remove any email addresses - we don't want bounce messages to leak out
         # either the requestor's email address or the request's response email
         # address out onto the internet
-        rx = Regexp.new(MySociety::Validate.email_match_regexp)
+        rx = Regexp.new("(\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}\\b)")
         text.gsub!(rx, "[email address]")
 
         return text
