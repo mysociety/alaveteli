@@ -22,7 +22,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.89 2008-04-16 02:02:29 francis Exp $
+# $Id: info_request.rb,v 1.90 2008-04-17 10:50:47 francis Exp $
 
 require 'digest/sha1'
 
@@ -280,6 +280,10 @@ public
             if !curr_state.nil? && event.event_type == 'response' 
                 if event.calculated_state != curr_state
                     event.calculated_state = curr_state
+                    event.last_described_at = Time.now()
+                    event.save!
+                end
+                if event.last_described_at.nil?
                     event.last_described_at = Time.now()
                     event.save!
                 end
