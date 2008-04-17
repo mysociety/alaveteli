@@ -6,7 +6,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: application.rb,v 1.38 2008-04-14 14:46:47 francis Exp $
+# $Id: application.rb,v 1.39 2008-04-17 23:19:55 francis Exp $
 
 
 class ApplicationController < ActionController::Base
@@ -134,7 +134,7 @@ class ApplicationController < ActionController::Base
         elsif sortby == 'newest'
             return 'created_at desc'
         elsif sortby == 'described'
-            return 'last_described_at desc' # use this for RSS
+            return 'rss_at desc' # use this for RSS
         else
             raise "Unknown sort order " + @sortby
         end

@@ -18,7 +18,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request_event.rb,v 1.36 2008-04-15 23:53:10 francis Exp $
+# $Id: info_request_event.rb,v 1.37 2008-04-17 23:19:55 francis Exp $
 
 class InfoRequestEvent < ActiveRecord::Base
     belongs_to :info_request
@@ -59,7 +59,7 @@ class InfoRequestEvent < ActiveRecord::Base
         { :requested_from => :string },
         { :request => :string },
         { :created_at => :date },
-        { :last_described_at => :date },
+        { :rss_at => :date },
         { :variety => :string }
     ], :if => "$do_solr_index"
     def status # for name in Solr queries
@@ -73,6 +73,13 @@ class InfoRequestEvent < ActiveRecord::Base
     end
     def request
         self.info_request.url_title
+    end
+    def rss_at
+        # For responses, people might have RSS feeds on searches for type of
+        # response (e.g. successful) in which case we want to date sort by
+        # when the responses was described as being of the type. For other
+        # types, just use the create at date.
+        self.last_described_at || self.created_at
     end
     def solr_text_main
         text = ''

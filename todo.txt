@@ -1,7 +1,3 @@
-Isn't showing admin things that haven't been touched for 2 weeks or whatever
-
-jslib path loading broken in Mongrel :(
-
 FOI requests to use to test it
 ==============================
 
@@ -40,10 +36,6 @@ Don't let people track their own requests?
 Let you change feeds from email to RSS
 
 "Some other requests..." should have "more" link now
-
-If you edit needs anim to waiting_response it doesn't edit the value in the event history, so screws up search stuff?
-https://secure.mysociety.org/admin/foi/request/show/37
-https://secure.mysociety.org/admin/foi/request/show/137
 
 Things to track:
     - new requests
@@ -138,6 +130,7 @@ Show public body email address on their public page, with a link to say "this is
 
 Requests with related content (via Lucene compare document search somehow?)
 Blog posts / Wikipedia articles about this request
+    e.g. http://socialreporter.wordpress.com/2008/04/14/costs-of-the-bbc-action-action-network/
 
 Remember me box
     This can't possible be the best way, it is too depressing:
@@ -207,6 +200,9 @@ Quoting fixing TODO:
     http://www.whatdotheyknow.com/request/secured_convictions_aided_by_cct
     http://www.whatdotheyknow.com/request/m3_junction_2_eastbound_speed_re
     http://www.whatdotheyknow.com/request/taxi_ranking
+    http://www.whatdotheyknow.com/request/94/response/161
+    http://www.whatdotheyknow.com/request/police_powers_to_inform_car_insu
+    http://www.whatdotheyknow.com/request/sale_of_public_land_in_worcester
 Char encoding and other bad formatting:
     http://www.whatdotheyknow.com/request/107/response/144
     http://www.whatdotheyknow.com/request/35/response/177
