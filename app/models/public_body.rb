@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.59 2008-04-16 09:46:46 francis Exp $
+# $Id: public_body.rb,v 1.60 2008-04-17 22:09:05 francis Exp $
 
 require 'csv'
 require 'set'
@@ -30,7 +30,7 @@ class PublicBody < ActiveRecord::Base
     validates_presence_of :name
     validates_presence_of :url_name
 
-    validates_uniqueness_of :short_name
+    validates_uniqueness_of :short_name, :if => Proc.new { |pb| pb.short_name != "" }
     validates_uniqueness_of :name
     
     has_many :info_requests
