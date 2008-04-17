@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.61 2008-04-17 22:15:50 francis Exp $
+# $Id: public_body.rb,v 1.62 2008-04-17 22:39:21 francis Exp $
 
 require 'csv'
 require 'set'
@@ -45,7 +45,7 @@ class PublicBody < ActiveRecord::Base
             [ "npa", "National park authorities", "a national park authority" ], 
             [ "sea_fishery_committee", "Sea fisheries committees", "a sea fisheries committee" ], 
             [ "media", "Media", "a media organisation" ],
-            [ "museum", "Museums", "a museum" ],
+            [ "museum", "Museums and galleries", "a museum or gallery" ],
             [ "police", "Police forces", "a police force" ], 
             [ "rda", "Regional development agencies", "a regional development agency" ], 
             [ "sha", "Strategic health authorities", "a strategic health authority" ],
