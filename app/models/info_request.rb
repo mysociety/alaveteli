@@ -22,7 +22,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.90 2008-04-17 10:50:47 francis Exp $
+# $Id: info_request.rb,v 1.91 2008-04-17 10:53:25 francis Exp $
 
 require 'digest/sha1'
 
@@ -283,7 +283,7 @@ public
                     event.last_described_at = Time.now()
                     event.save!
                 end
-                if event.last_described_at.nil?
+                if event.last_described_at.nil? # XXX actually maybe this isn't needed
                     event.last_described_at = Time.now()
                     event.save!
                 end
