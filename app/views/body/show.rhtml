@@ -1,6 +1,6 @@
-<% @title = h(@public_body.name) %>
+<% @title = "Information freed from '" + h(@public_body.name) + "'" %>
 
-<h1><%=@title%></h1>
+<h1><%=h(@public_body.name)%></h1>
 
 <p class="subtitle">
 <%=@public_body.type_of_authority.capitalize%> in the UK<% if not @public_body.short_name.empty? %>, also called <%= h(@public_body.short_name) %><% end %>
