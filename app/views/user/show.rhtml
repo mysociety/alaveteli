@@ -32,12 +32,13 @@
             <li>
                 <% form_tag :controller => 'track', :action => 'update', :track_id => track_thing.id do %>
                     <%= track_thing.params[:list_description] %> by
-                    <!-- <% if track_thing.track_medium == 'feed' %>
-                        (<%= link_to "RSS feed", :controller => 'track', :action => 'atom_feed', :track_id => track_thing.id %>)
-                    <% end %> -->
                     <!-- (<%= link_to "view latest updates", :controller => 'general', :action => 'search', :query => track_thing.track_query %>) -->
                     <%= select 'track_thing', "track_medium", { "Email daily" => "email_daily", "RSS feed" => "feed", "Cancel updates" => "delete"}, { :selected => track_thing.track_medium } %>
                     <%= submit_tag "Update" %>
+                    <!-- <% if track_thing.track_medium == 'feed' %>
+                        (<%= link_to "Feed", :controller => 'track', :action => 'atom_feed', :track_id => track_thing.id %>
+                        <img src="/images/feed-14.png" alt="" class="rss">)
+                    <% end %> -->
                 <% end %>
             </li>
         <% end %>
