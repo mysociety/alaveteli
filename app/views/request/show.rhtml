@@ -32,7 +32,7 @@
     <% elsif @status == 'waiting_response_overdue' %>
         Currently <strong>overdue a response</strong> from <%=
         public_body_link(@info_request.public_body) %>. The 
-        <%= link_to "response was due", about_url + "#quickly_response" %></li>
+        <%= link_to "response was due", about_url + "#quickly_response" %>
         on <strong><%= simple_date(@info_request.date_response_required_by) %></strong>.
     <% elsif @status == 'not_held' %>
         <%= public_body_link(@info_request.public_body) %> <strong>did not have</strong> the information requested.
@@ -80,20 +80,22 @@
             <% else %>
                 <% if @info_request.user == @user %> 
                     <p>You will be emailed when there are updates to your own request.</p>
-                    <p>You may also <%= link_to "get an RSS feed", track_request_url(:url_title => @info_request.url_title) %>.</p>
+                    <p>You may also <%= link_to "get an RSS feed", track_request_url(:url_title => @info_request.url_title) %>
+                    <img src="/images/feed-14.png" alt="" class="rss"></p>
                 <% else %>
                     <%= link_to "Track updates to this request", track_request_url(:url_title => @info_request.url_title) %>
-                    (by email or RSS feed)
+                    (by email or RSS feed <img src="/images/feed-14.png" alt="" class="rss">)
                 <% end %>
             <% end %>
         </p>
     <% else %>
         <% if @info_request.user == @user %> 
             <p>You will be emailed when there are updates to your own request.</p>
-            <p>You may also <%= link_to "get an RSS feed", track_request_url(:url_title => @info_request.url_title) %>.</p>
+            <p>You may also get an <%= link_to 'RSS feed', track_request_url(:url_title => @info_request.url_title) %>
+            <img src="/images/feed-14.png" alt="" class="rss"></p>
         <% else %>
             <p>Be the first to <%= link_to "track updates to this request", track_request_url(:url_title => @info_request.url_title) %>
-            (by email or RSS feed)</p>
+            (by email or RSS feed <img src="/images/feed-14.png" alt="" class="rss">)</p>
         <% end %>
     <% end %>
 

@@ -34,7 +34,6 @@ Things to track:
     - successful responses
 
 Fix search to deal with overdue message query that Tomski asks for
-Make overdue an actual state change?
 
 
 Later
@@ -48,7 +47,7 @@ e.g. http://www.flickr.com/groups/central/discuss/72157604494352123/721576045154
 
 Get Atom highlighting to include stylesheet for yellow somehow
 Does Atom infer base URLs from included HTML or do we need to be explicit?
-Add RSS icons
+When you click RSS feed when on own request, default to RSS in the choice on next page
 
 "Some of the information" option should give you choice of complaining if you like.
 
@@ -76,9 +75,6 @@ This search gives a runtime error:
 Preview when sending followups - especially people need to see quoting/subject
 when sending "my response is late"
 
-Holding pen with comments - new requests don't get sent straight away, but are
-    delayed while people help improve them.
-
 Change email address interface - easier to do now with post_redirect.circumstance?
 
 Consider showing Subject: of email somewhere
@@ -103,8 +99,9 @@ in sidebar of request
 Tell application developer if working days table not up to date, and needs
 updating
 
-Response overdue alerts are only sent first time a request goes into that state :(
-    Store id in alert of last event which resets the due date
+Response overdue alerts (NOT TRACKS - this is old style alerts to requester)
+are only sent first time a request goes into that state :( Store id in alert of
+last event which resets the due date
 
 Overdue response events, so track alerts / RSS picks up when response is late
 
@@ -175,6 +172,9 @@ Environmental Information Regulations apply for some bodies (e.g. environment ag
 http://community.foe.co.uk/tools/right_to_know/faq.html#why_specify
 
 Add geographical location to council import
+
+Holding pen with comments - new requests don't get sent straight away, but are
+    delayed while people help improve them.
 
 Simple Digg style "I lke this request" button
 

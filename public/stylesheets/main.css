@@ -512,6 +512,14 @@ dt {
     margin-bottom: 30em;
 }
 
+/* tracking */
+
+img.rss {
+    vertical-align: baseline;
+    border: 0;
+}
+
+
 /* User accounts */
 
 .confirmation_message {
