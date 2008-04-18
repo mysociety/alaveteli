@@ -22,7 +22,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.91 2008-04-17 10:53:25 francis Exp $
+# $Id: info_request.rb,v 1.92 2008-04-18 08:35:05 francis Exp $
 
 require 'digest/sha1'
 
@@ -38,7 +38,7 @@ class InfoRequest < ActiveRecord::Base
 
     has_many :outgoing_messages
     has_many :incoming_messages
-    has_many :info_request_events
+    has_many :info_request_events, :order => 'created_at'
     has_many :user_info_request_sent_alerts
     has_many :track_things, :order => 'created_at desc'
 
@@ -82,8 +82,7 @@ class InfoRequest < ActiveRecord::Base
                 info_request.calculate_event_states
 
                 # index all the events
-                events = info_request.info_request_events.find(:all, :order => "created_at")
-                for event in events
+                for event in info_request.info_request_events
                     if do_index and event.indexed_by_solr
                         event.solr_save
                     else
@@ -270,9 +269,8 @@ public
     # Fill in any missing event states for first response before a
     # description was made.
     def calculate_event_states
-        events = self.info_request_events.find(:all, :order => "created_at")
         curr_state = nil
-        for event in events.reverse
+        for event in self.info_request_events.reverse
             if not event.described_state.nil?
                 curr_state = event.described_state
             end
@@ -303,15 +301,13 @@ public
     # XXX how do we cope with case where extra info was required from the requester
     # by the public body in order to fulfill the request, as per sections 1(3) and 10(6b) ?
     def date_response_required_by
-        events = self.info_request_events.find(:all, :order => "created_at")
-
         # Find the earliest time at which an outgoing message was:
         # -- sent at all
         # -- OR the same message was resent
         # -- OR the public body requested clarification, and a follow up was sent
         earliest = nil
         expecting_clarification = false
-        events.each do |event|
+        for event in self.info_request_events
             if [ 'sent', 'resent', 'followup_sent' ].include?(event.event_type)
                 outgoing_message = OutgoingMessage.find(event.params[:outgoing_message_id])
 
@@ -330,7 +326,7 @@ public
             end
         end
         if earliest.nil?
-            raise "internal error, date_response_required_by gets nil for request " + self.id.to_s + " outgoing messages count " + self.outgoing_messages.size.to_s + " all events: " + events.to_yaml
+            raise "internal error, date_response_required_by gets nil for request " + self.id.to_s + " outgoing messages count " + self.outgoing_messages.size.to_s + " all events: " + self.info_request_events.to_yaml
         end
         earliest_sent = earliest.last_sent_at
 
@@ -391,8 +387,7 @@ public
 
     # The last response is the default one people might want to reply to
     def get_last_response_event_id
-        events = self.info_request_events.find(:all, :order => "created_at")
-        events.reverse.each do |e|
+        for e in self.info_request_events.reverse
             if e.event_type == 'response'
                 return e.id
             end
@@ -413,8 +408,7 @@ public
 
     # The last outgoing message
     def get_last_outgoing_event
-        events = self.info_request_events.find(:all, :order => "created_at")
-        events.reverse.each do |e|
+        for e in self.info_request_events.reverse
             if e.event_type == 'sent' || e.event_type == 'resent' || e.event_type == 'followup_sent'
                 return e
             end
@@ -434,7 +428,7 @@ public
 
     # Returns index of last event which is described or nil if none described.
     def index_of_last_described_event
-        events = self.info_request_events.find(:all, :order => "created_at")
+        events = self.info_request_events
         events.each_index do |i|
             revi = events.size - 1 - i 
             m = events[revi] 
@@ -447,7 +441,7 @@ public
 
     # Returns all the events which the user hasn't described yet - an empty array if all described.
     def events_needing_description
-        events = self.info_request_events.find(:all, :order => "created_at")
+        events = self.info_request_events
         i = self.index_of_last_described_event
         if i.nil?
             return events
@@ -458,7 +452,7 @@ public
 
     # Returns last event
     def get_last_event
-        events = self.info_request_events.find(:all, :order => "created_at")
+        events = self.info_request_events
         if events.size == 0
             return nil
         else

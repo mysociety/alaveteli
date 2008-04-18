@@ -46,12 +46,10 @@ Link more clearly to full request and next/previous correspondence (ask Matthew)
 e.g. http://www.flickr.com/groups/central/discuss/72157604494352123/72157604515433851/
 
 Get Atom highlighting to include stylesheet for yellow somehow
-Does Atom infer base URLs from included HTML or do we need to be explicit?
 When you click RSS feed when on own request, default to RSS in the choice on next page
 
 "Some of the information" option should give you choice of complaining if you like.
 
-Use :order in the info_request.events belongs_to clause instead of each time it is queried
 Also sort user.info_requests for user pages
 Also see in request_controller.rb: @info_request_events.sort! { |a,b| a.created_at <=> b.created_at }
 Go through all has_many and pick something sane
