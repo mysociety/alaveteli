@@ -28,8 +28,6 @@ BAILII - relationship with law courts, robots.txt ?
 Next
 ====
 
-Let you change feeds from email to RSS
-
 "Some other requests..." should have "more" link now
 
 Things to track:

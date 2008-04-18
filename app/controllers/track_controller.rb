@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_controller.rb,v 1.6 2008-04-09 02:56:47 francis Exp $
+# $Id: track_controller.rb,v 1.7 2008-04-18 01:57:43 francis Exp $
 
 class TrackController < ApplicationController
 
@@ -64,7 +64,8 @@ class TrackController < ApplicationController
     end
 
     # Delete a track
-    def delete
+#    def delete
+    def update
         track_thing = TrackThing.find(params[:track_id].to_i)
 
         if not authenticated_as_user?(track_thing.tracking_user,
@@ -76,10 +77,24 @@ class TrackController < ApplicationController
             return
         end
 
-        track_thing.destroy
-
-        flash[:notice] = "Your alert has been cancelled."
-        redirect_to user_url(track_thing.tracking_user)
+        new_medium = params[:track_thing][:track_medium]
+        if new_medium == 'delete'
+            track_thing.destroy
+            flash[:notice] = "You will no longer be updated about " + track_thing.params[:list_description]
+            redirect_to user_url(track_thing.tracking_user)
+        elsif new_medium == 'email_daily'
+            track_thing.track_medium = new_medium
+            track_thing.created_at = Time.now() # as created_at is used to limit the alerts to start with
+            track_thing.save!
+            flash[:notice] = "You will now be emailed when " + track_thing.params[:list_description] + ", is updated"
+            redirect_to user_url(track_thing.tracking_user)
+        elsif new_medium == 'feed'
+            track_thing.track_medium = new_medium
+            track_thing.save!
+            redirect_to :controller => 'track', :action => 'atom_feed', :track_id => track_thing.id
+        else
+            raise "unknown medium " + new_medium
+        end
     end
 
 end
