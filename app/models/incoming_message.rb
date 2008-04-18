@@ -17,7 +17,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.79 2008-04-18 08:54:36 francis Exp $
+# $Id: incoming_message.rb,v 1.80 2008-04-18 15:44:49 francis Exp $
 
 
 # TODO
@@ -56,6 +56,8 @@ class FOIAttachment
             "attachment.pdf"
         elsif @content_type == 'application/msword'
             "attachment.doc"
+        elsif @content_type == 'application/rtf'
+            "attachment.rtf"
         elsif @content_type == 'application/msexcel'
             "attachment.xls"
         else
@@ -342,6 +344,8 @@ class IncomingMessage < ActiveRecord::Base
                 attachment.content_type = 'application/pdf'
             elsif attachment.filename.match(/\.doc$/)
                 attachment.content_type = 'application/msword'
+            elsif attachment.filename.match(/\.rtf$/)
+                attachment.content_type = 'application/rtf'
             elsif attachment.filename.match(/\.xls$/)
                 attachment.content_type = 'application/msexcel'
             else
@@ -430,32 +434,30 @@ class IncomingMessage < ActiveRecord::Base
         for attachment in attachments
             if attachment.content_type == 'text/plain'
                 text += attachment.body + "\n\n"
-            elsif attachment.content_type == 'application/msword'
-                tempfile = Tempfile.new('foidoc')
+            else
+                tempfile = Tempfile.new('foiextract')
                 tempfile.print attachment.body
                 tempfile.flush
-                system("/usr/bin/wvText " + tempfile.path + " " + tempfile.path + ".txt")
-                text += File.read(tempfile.path + ".txt") + "\n\n"
-                File.unlink(tempfile.path + ".txt")
-                tempfile.close
-            elsif attachment.content_type == 'application/msexcel'
-                # Bit crazy using strings - but xls2csv, xlhtml and py_xls2txt
-                # only extract text from cells, not from floating notes. catdoc
-                # may be fooled by weird character sets, but will probably do for
-                # UK FOI requests.
-                tempfile = Tempfile.new('foixls')
-                tempfile.print attachment.body
-                tempfile.flush
-                IO.popen("/usr/bin/strings " + tempfile.path, "r") do |child|
-                    text += child.read() + "\n\n"
-                end
-                tempfile.close
-            elsif attachment.content_type == 'application/pdf'
-                tempfile = Tempfile.new('foipdf')
-                tempfile.print attachment.body
-                tempfile.flush
-                IO.popen("/usr/bin/pdftotext " + tempfile.path + " -", "r") do |child|
-                    text += child.read() + "\n\n"
+                if attachment.content_type == 'application/msword'
+                    system("/usr/bin/wvText " + tempfile.path + " " + tempfile.path + ".txt")
+                    text += File.read(tempfile.path + ".txt") + "\n\n"
+                    File.unlink(tempfile.path + ".txt")
+                elsif attachment.content_type == 'application/rtf'
+                    IO.popen("/usr/bin/catdoc " + tempfile.path, "r") do |child|
+                        text += child.read() + "\n\n"
+                    end
+                elsif attachment.content_type == 'application/msexcel'
+                    # Bit crazy using strings - but xls2csv, xlhtml and py_xls2txt
+                    # only extract text from cells, not from floating notes. catdoc
+                    # may be fooled by weird character sets, but will probably do for
+                    # UK FOI requests.
+                    IO.popen("/usr/bin/strings " + tempfile.path, "r") do |child|
+                        text += child.read() + "\n\n"
+                    end
+                elsif attachment.content_type == 'application/pdf'
+                    IO.popen("/usr/bin/pdftotext " + tempfile.path + " -", "r") do |child|
+                        text += child.read() + "\n\n"
+                    end
                 end
                 tempfile.close
             end

@@ -1,3 +1,6 @@
+Watch this one:
+http://www.whatdotheyknow.com/request/crime_statistics_for_2007_champi
+
 FOI requests to use to test it
 ==============================
 
@@ -28,10 +31,14 @@ BAILII - relationship with law courts, robots.txt ?
 Next
 ====
 
+Group requests by response
+Make it totally awesome like in Tommy's screenshot
+
 Things to track:
     - new requests
     - new requests with keyword
     - successful responses
+described_at is needed for Users and Public Bodies for RSS
 
 Fix search to deal with overdue message query that Tomski asks for
 
