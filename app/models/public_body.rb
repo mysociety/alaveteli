@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.62 2008-04-17 22:39:21 francis Exp $
+# $Id: public_body.rb,v 1.63 2008-04-18 08:54:36 francis Exp $
 
 require 'csv'
 require 'set'
@@ -33,7 +33,7 @@ class PublicBody < ActiveRecord::Base
     validates_uniqueness_of :short_name, :if => Proc.new { |pb| pb.short_name != "" }
     validates_uniqueness_of :name
     
-    has_many :info_requests
+    has_many :info_requests, :order => 'created_at desc'
     has_many :public_body_tags
 
     def self.categories_with_description

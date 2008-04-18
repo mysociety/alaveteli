@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user.rb,v 1.49 2008-04-15 12:06:59 francis Exp $
+# $Id: user.rb,v 1.50 2008-04-18 08:54:36 francis Exp $
 
 require 'digest/sha1'
 
@@ -33,7 +33,7 @@ class User < ActiveRecord::Base
 
     validates_presence_of :hashed_password, :message => "^Please enter a password"
 
-    has_many :info_requests
+    has_many :info_requests, :order => 'created_at desc'
     has_many :user_info_request_sent_alerts
     has_many :post_redirects
     has_many :track_things, :foreign_key => 'tracking_user_id', :order => 'created_at desc'

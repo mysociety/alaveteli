@@ -50,10 +50,6 @@ When you click RSS feed when on own request, default to RSS in the choice on nex
 
 "Some of the information" option should give you choice of complaining if you like.
 
-Also sort user.info_requests for user pages
-Also see in request_controller.rb: @info_request_events.sort! { |a,b| a.created_at <=> b.created_at }
-Go through all has_many and pick something sane
-
 Add credits for everyone
     Heather Brook, Chris Lightfoot, other original suggester in Call for Proposals
     Julian Todd, Francis Davey, Etienne Pollard

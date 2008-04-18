@@ -22,7 +22,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.92 2008-04-18 08:35:05 francis Exp $
+# $Id: info_request.rb,v 1.93 2008-04-18 08:54:36 francis Exp $
 
 require 'digest/sha1'
 
@@ -36,8 +36,8 @@ class InfoRequest < ActiveRecord::Base
     belongs_to :public_body
     validates_presence_of :public_body_id
 
-    has_many :outgoing_messages
-    has_many :incoming_messages
+    has_many :outgoing_messages, :order => 'created_at'
+    has_many :incoming_messages, :order => 'created_at'
     has_many :info_request_events, :order => 'created_at'
     has_many :user_info_request_sent_alerts
     has_many :track_things, :order => 'created_at desc'
@@ -421,8 +421,7 @@ public
         if outgoing_messages.empty? # mainly for use with incomplete fixtures
             return ""
         end
-        messages = self.outgoing_messages.find(:all, :order => "created_at")
-        excerpt = messages[0].body_without_salutation
+        excerpt = self.outgoing_messages[0].body_without_salutation
         return excerpt
     end
 

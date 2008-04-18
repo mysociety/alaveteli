@@ -56,7 +56,7 @@
         made <%=pluralize(@display_user.info_requests.size, "Freedom of Information request") %>
         </h2>
 
-        <%= render :partial => 'request/request_listing', :locals => { :info_requests => @display_user.info_requests.sort { |a,b| b.created_at <=> a.created_at } } %>
+        <%= render :partial => 'request/request_listing', :locals => { :info_requests => @display_user.info_requests } %>
     <% end %>
 </div>
 

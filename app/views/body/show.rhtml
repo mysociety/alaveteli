@@ -19,7 +19,7 @@
     <%=pluralize(@public_body.info_requests.size, "Freedom of Information request") %> made to this authority
     </h2>
 
-    <%= render :partial => 'request/request_listing', :locals => { :info_requests => @public_body.info_requests.sort { |a,b| b.created_at <=> a.created_at } } %>
+    <%= render :partial => 'request/request_listing', :locals => { :info_requests => @public_body.info_requests } %>
 <% end %>
 
 

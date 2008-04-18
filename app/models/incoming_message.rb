@@ -17,7 +17,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.78 2008-04-16 12:00:10 francis Exp $
+# $Id: incoming_message.rb,v 1.79 2008-04-18 08:54:36 francis Exp $
 
 
 # TODO
@@ -70,9 +70,7 @@ class IncomingMessage < ActiveRecord::Base
 
     validates_presence_of :raw_data
 
-    has_many :rejection_reasons
-
-    has_many :outgoing_message_followups, :class_name => OutgoingMessage
+    has_many :outgoing_message_followups, :foreign_key => 'incoming_message_followup_id', :class_name => 'OutgoingMessage'
 
     # Return the structured TMail::Mail object
     # Documentation at http://i.loveruby.net/en/projects/tmail/doc/
