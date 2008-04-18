@@ -28,11 +28,6 @@ BAILII - relationship with law courts, robots.txt ?
 Next
 ====
 
-Check date order here
-http://www.whatdotheyknow.com/track/feed/5
-
-Don't let people track their own requests?
-
 Let you change feeds from email to RSS
 
 "Some other requests..." should have "more" link now

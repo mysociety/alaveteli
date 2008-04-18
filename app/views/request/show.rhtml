@@ -78,13 +78,23 @@
                 You are already tracking this request
                 (<%= link_to "alter your subscriptions", user_url(@user) %>).
             <% else %>
-                <%= link_to "Track updates to this request", track_request_url(:url_title => @info_request.url_title) %>
-                (by email or RSS feed)
+                <% if @info_request.user == @user %> 
+                    <p>You will be emailed when there are updates to your own request.</p>
+                    <p>You may also <%= link_to "get an RSS feed", track_request_url(:url_title => @info_request.url_title) %>.</p>
+                <% else %>
+                    <%= link_to "Track updates to this request", track_request_url(:url_title => @info_request.url_title) %>
+                    (by email or RSS feed)
+                <% end %>
             <% end %>
         </p>
     <% else %>
-        Be the first to <%= link_to "track updates to this request", track_request_url(:url_title => @info_request.url_title) %>
-        (by email or RSS feed)
+        <% if @info_request.user == @user %> 
+            <p>You will be emailed when there are updates to your own request.</p>
+            <p>You may also <%= link_to "get an RSS feed", track_request_url(:url_title => @info_request.url_title) %>.</p>
+        <% else %>
+            <p>Be the first to <%= link_to "track updates to this request", track_request_url(:url_title => @info_request.url_title) %>
+            (by email or RSS feed)</p>
+        <% end %>
     <% end %>
 
     <% if @info_requests_same_user_same_body.size > 0 %>
