@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_controller.rb,v 1.13 2008-04-17 10:38:38 francis Exp $
+# $Id: admin_controller.rb,v 1.14 2008-04-18 15:11:13 francis Exp $
 
 class AdminController < ApplicationController
     layout "admin"
@@ -25,8 +25,12 @@ class AdminController < ApplicationController
 
     def timeline
         # Recent events
-        @events_title = "Events in last week"
-        date_back_to = Time.now - 1.week
+        @events_title = "Events in last two days"
+        date_back_to = Time.now - 2.days
+        if params[:week]
+            @events_title = "Events in last week"
+            date_back_to = Time.now - 1.week
+        end
         if params[:month]
             @events_title = "Events in last month"
             date_back_to = Time.now - 1.month
