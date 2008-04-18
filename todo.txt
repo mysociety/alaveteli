@@ -28,8 +28,6 @@ BAILII - relationship with law courts, robots.txt ?
 Next
 ====
 
-"Some other requests..." should have "more" link now
-
 Things to track:
     - new requests
     - new requests with keyword

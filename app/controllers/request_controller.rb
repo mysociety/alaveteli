@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.73 2008-04-09 01:32:52 francis Exp $
+# $Id: request_controller.rb,v 1.74 2008-04-18 02:06:33 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -31,9 +31,15 @@ class RequestController < ApplicationController
         @new_responses_count = @events_needing_description.select {|i| i.event_type == 'response'}.size
 
         # Sidebar stuff
+        limit = 8
         @info_requests_same_user_same_body = InfoRequest.find(:all, :order => "created_at desc", 
             :conditions => ["prominence = 'normal' and user_id = ? and public_body_id = ? and id <> ?", @info_request.user_id, @info_request.public_body_id, @info_request.id], 
-            :limit => 5)
+            :limit => limit)
+        @info_requests_same_user_same_body_more = false
+        if @info_requests_same_user_same_body.size == limit
+            @info_requests_same_user_same_body = @info_requests_same_user_same_body[0, limit - 1]
+            @info_requests_same_user_same_body_more = true
+        end
 
         # Already tracking?
         @track_thing = TrackThing.create_track_for_request(@info_request)
