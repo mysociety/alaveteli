@@ -1,8 +1,20 @@
 Watch this one:
 http://www.whatdotheyknow.com/request/crime_statistics_for_2007_champi
 
+OK, so we could index status of requests... But then there are two problems:
+1) Have to somehow reindex when a request becomes overdue.
+2) The Email/RSS won't work that well, as it uses created date as a filter,
+which won't work for when there is no event.
+
+Group requests by response
+Make it totally awesome like in Tommy's screenshot
+Cluster solr patch - https://issues.apache.org/jira/browse/SOLR-236
+
 FOI requests to use to test it
 ==============================
+
+Complaint to info commissioner:
+http://www.whatdotheyknow.com/request/search_engine_advertising_bought
 
 http://www.whatdotheyknow.com/request/details_of_grant_awarded_to_vi_g_
      I received a reply on 4 April from Alison McCarthy to my request for
@@ -31,9 +43,6 @@ BAILII - relationship with law courts, robots.txt ?
 Next
 ====
 
-Group requests by response
-Make it totally awesome like in Tommy's screenshot
-
 Things to track:
     - new requests
     - new requests with keyword
@@ -56,12 +65,6 @@ Get Atom highlighting to include stylesheet for yellow somehow
 When you click RSS feed when on own request, default to RSS in the choice on next page
 
 "Some of the information" option should give you choice of complaining if you like.
-
-Add credits for everyone
-    Heather Brook, Chris Lightfoot, other original suggester in Call for Proposals
-    Julian Todd, Francis Davey, Etienne Pollard
-    Alex Skene, John Cross, Adam McGregor
-    Angie Ahl, Matthew Somerville, Tom Steinberg, Tommy, Francis Irving
 
 Offer search on 404s
 

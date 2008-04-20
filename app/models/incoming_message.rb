@@ -17,7 +17,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.80 2008-04-18 15:44:49 francis Exp $
+# $Id: incoming_message.rb,v 1.81 2008-04-20 21:20:02 francis Exp $
 
 
 # TODO
@@ -40,6 +40,40 @@ module TMail
     end
 end
 
+# To add an image, create a file with appropriate name corresponding to the
+# mime type in public/images e.g. icon_application_msexcel_large.png
+$file_extension_to_mime_type = {
+    "txt" => 'text/plain',
+    "pdf" => 'application/pdf',
+    "doc" => 'application/msword',
+    "rtf" => 'application/rtf',
+    "xls" => 'application/msexcel',
+    "tif" => 'image/tiff',
+    "gif" => 'image/gif'
+}
+$file_extension_to_mime_type_rev = $file_extension_to_mime_type.invert
+
+# XXX clearly this shouldn't be a global function, or the above global vars.
+def filename_to_mimetype(filename)
+    if not filename
+        return nil
+    end
+    if filename.match(/\.([^.]+)$/i)
+        lext = $1.downcase
+        if $file_extension_to_mime_type.include?(lext)
+            return $file_extension_to_mime_type[lext]
+        end
+    end
+    return nil
+end
+
+def mimetype_to_extension(mime)
+    if $file_extension_to_mime_type_rev.include?(mime)
+        return $file_extension_to_mime_type_rev[mime]
+    end
+    return nil
+end
+ 
 # This is the type which is used to send data about attachments to the view
 class FOIAttachment
     attr_accessor :body
@@ -50,18 +84,13 @@ class FOIAttachment
     def display_filename
         if @filename 
             @filename
-        elsif @content_type == 'text/plain'
-            "attachment.txt"
-        elsif @content_type == 'application/pdf'
-            "attachment.pdf"
-        elsif @content_type == 'application/msword'
-            "attachment.doc"
-        elsif @content_type == 'application/rtf'
-            "attachment.rtf"
-        elsif @content_type == 'application/msexcel'
-            "attachment.xls"
         else
-            "attachment.bin"
+            calc_ext = mimetype_to_extension(@content_type)
+            if calc_ext
+                "attachment." + calc_ext
+            else
+                "attachment.bin"
+            end
         end
     end
 end
@@ -249,8 +278,9 @@ class IncomingMessage < ActiveRecord::Base
         else
             # PDFs often come with this mime type, fix it up for view code
             if curr_mail.content_type == 'application/octet-stream'
-                if TMail::Mail.get_part_file_name(curr_mail).match(/\.pdf$/) 
-                    curr_mail.content_type = 'application/pdf'
+                calc_mime = filename_to_mimetype(TMail::Mail.get_part_file_name(curr_mail))
+                if calc_mime
+                    curr_mail.content_type = calc_mime
                 end
             end 
             # e.g. http://www.whatdotheyknow.com/request/93/response/250
@@ -340,14 +370,9 @@ class IncomingMessage < ActiveRecord::Base
             attachment = FOIAttachment.new()
             attachment.body = content
             attachment.filename = uu.match(/^begin\s+[0-9]+\s+(.*)$/)[1]
-            if attachment.filename.match(/\.pdf$/)
-                attachment.content_type = 'application/pdf'
-            elsif attachment.filename.match(/\.doc$/)
-                attachment.content_type = 'application/msword'
-            elsif attachment.filename.match(/\.rtf$/)
-                attachment.content_type = 'application/rtf'
-            elsif attachment.filename.match(/\.xls$/)
-                attachment.content_type = 'application/msexcel'
+            calc_mime = filename_to_mimetype(attachment.filename)
+            if calc_mime
+                attachment.content_type = calc_mime
             else
                 attachment.content_type = 'application/octet-stream'
             end
