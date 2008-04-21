@@ -17,7 +17,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.90 2008-04-21 16:44:06 francis Exp $
+# $Id: incoming_message.rb,v 1.91 2008-04-21 21:48:50 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -51,7 +51,8 @@ $file_extension_to_mime_type = {
     "xls" => 'application/msexcel',
     "tif" => 'image/tiff',
     "gif" => 'image/gif',
-    "html" => 'text/html',
+    "jpg" => 'image/jpeg', # XXX add jpeg
+    "html" => 'text/html', # XXX add htm
 }
 # XXX doesn't have way of choosing default for inverse map - might want to add
 # one when you need it

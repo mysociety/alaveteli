@@ -188,6 +188,7 @@ Quoting fixing TODO:
     http://www.whatdotheyknow.com/request/94/response/161
     http://www.whatdotheyknow.com/request/sale_of_public_land_in_worcester
     http://www.whatdotheyknow.com/request/35/response/191
+    http://www.whatdotheyknow.com/request/88/response/352 (and charset)
    
 Sources of public bodies
 ========================
