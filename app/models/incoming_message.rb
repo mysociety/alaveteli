@@ -17,7 +17,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.81 2008-04-20 21:20:02 francis Exp $
+# $Id: incoming_message.rb,v 1.82 2008-04-21 11:23:03 francis Exp $
 
 
 # TODO
@@ -316,6 +316,15 @@ class IncomingMessage < ActiveRecord::Base
         main_part = get_main_body_text_part
         text = main_part.body
         text_charset = main_part.charset
+        if main_part.content_type == 'text/html'
+            # XXX could use better HTML to text conversion than this!
+            # (it only matters for emails without a text part, so not a massive deal
+            # e.g. http://www.whatdotheyknow.com/request/35/response/177 )
+            text.gsub!(/<br[^>]+>/, "\n")
+            text.gsub!(/<p[^>]+>/, "\n\n")
+            text.gsub!(/<div[^>]+>/, "\n\n")
+            text.gsub!(/<\/?[^>]*>/, "")
+        end
 
         # Charset conversion, turn everything into UTF-8
         if not text_charset.nil?
@@ -336,17 +345,22 @@ class IncomingMessage < ActiveRecord::Base
     def get_main_body_text_part
         leaves = get_attachment_leaves
         
-        # Find first part which is text
+        # Find first part which is text/plain
         leaves.each do |p|
-            # XXX do we need to look at content-disposition? I'm guessing not *really*.
-            #(part['content-disposition'] && part['content-disposition'].disposition == "attachment") ||
-            if p.main_type == 'text'
-            #if p.content_type.match(/^(.+)\//)[1] == 'text'
+            if p.content_type == 'text/plain'
                 return p
             end
         end
+
+        # Otherwise first part which is any sort of text
+        leaves.each do |p|
+            if p.main_type == 'text'
+                return p
+            end
+        end
+ 
         # ... or if none, just first part (covers cases of one part, not
-        # labelled as text - not sure # what the better way to handle this is)
+        # labelled as text - not sure what the better way to handle this is)
         return leaves[0]
     end
     # Returns attachments that are uuencoded in main body part
@@ -430,14 +444,22 @@ class IncomingMessage < ActiveRecord::Base
         text = CGI.escapeHTML(text)
         text = MySociety::Format.make_clickable(text, :contract => 1)
         if collapse_quoted_sections
-            text = text.gsub(/(\s*FOLDED_QUOTED_SECTION\s*)+/m, "\n\n" + '<span class="unfold_link"><a href="?unfold=1">show quoted sections</a></span>' + "\n")
+            text = text.gsub(/(\s*FOLDED_QUOTED_SECTION\s*)+/m, "FOLDED_QUOTED_SECTION")
+            text.strip!
+            # if there is nothing but quoted stuff, then show the subject
+            if text == "FOLDED_QUOTED_SECTION"
+                text = "[Subject only] " + CGI.escapeHTML(self.mail.subject) + text
+            end
+            # and display link for quoted stuff
+            text = text.gsub(/FOLDED_QUOTED_SECTION/, "\n\n" + '<span class="unfold_link"><a href="?unfold=1">show quoted sections</a></span>' + "\n")
         else
             if folded_quoted_text.include?('FOLDED_QUOTED_SECTION')
                 text = text + "\n\n" + '<span class="unfold_link"><a href="?">hide quoted sections</a></span>'
             end
         end
-        text = text.gsub(/\n/, '<br>')
+        text.strip!
 
+        text = text.gsub(/\n/, '<br>')
         return text
     end
 

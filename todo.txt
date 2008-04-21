@@ -201,6 +201,7 @@ Quoting fixing TODO:
 Char encoding and other bad formatting:
     http://www.whatdotheyknow.com/request/107/response/144
     http://www.whatdotheyknow.com/request/35/response/177
+    http://www.whatdotheyknow.com/request/52/response/238
 
 Sources of public bodies
 ========================

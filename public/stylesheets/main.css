@@ -454,6 +454,12 @@ table#list_requests .odd {
     margin-bottom: -0.5em;
 }
 
+.correspondence .subject {
+    margin-left: 1em;
+    margin-top: 1em;
+    margin-bottom: -1.0em;
+}
+
 
 /* /describe_state - user setting status of request */
 
