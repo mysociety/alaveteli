@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.63 2008-04-18 08:54:36 francis Exp $
+# $Id: public_body.rb,v 1.64 2008-04-21 13:55:34 francis Exp $
 
 require 'csv'
 require 'set'
@@ -180,7 +180,6 @@ class PublicBody < ActiveRecord::Base
                     name = row[1]
                     email = row[2]
                     next if name.nil?
-                    #or email.nil?
                     if email.nil?
                         email = '' # unknown/bad contact is empty string
                     end
