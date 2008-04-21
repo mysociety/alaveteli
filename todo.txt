@@ -91,7 +91,7 @@ Add lots more UNIQUE indices
 Merge workflow into one stream - find information, if you can't find it then request it.
     so just search is on front page, with popular stuff below a la Google Directory
 
-in sidebar of request 
+In sidebar of request 
     Link to WriteToThem - according to level of Government of body
     Start a petition about this request
     Share this request on Facebook
@@ -182,25 +182,12 @@ Simple Digg style "I lke this request" button
 Editable user profile, including photo upload
 
 Quoting fixing TODO:
-    http://www.whatdotheyknow.com/request/64/response/102
     http://www.whatdotheyknow.com/request/55/response/96
-    http://www.whatdotheyknow.com/request/71/response/108
-    http://www.whatdotheyknow.com/request/police_powers_to_inform_car_insu
-
-    http://www.whatdotheyknow.com/request/30/response/166
-    http://www.whatdotheyknow.com/request/road_safety_campaign_expenditure
-    http://www.whatdotheyknow.com/request/47/response/283
-    http://www.whatdotheyknow.com/request/secured_convictions_aided_by_cct
     http://www.whatdotheyknow.com/request/m3_junction_2_eastbound_speed_re
     http://www.whatdotheyknow.com/request/taxi_ranking
     http://www.whatdotheyknow.com/request/94/response/161
-    http://www.whatdotheyknow.com/request/police_powers_to_inform_car_insu
     http://www.whatdotheyknow.com/request/sale_of_public_land_in_worcester
-    http://www.whatdotheyknow.com/request/148/response/209
     http://www.whatdotheyknow.com/request/35/response/191
-
-
-    http://www.whatdotheyknow.com/request/52/response/238
    
 Sources of public bodies
 ========================
@@ -208,30 +195,10 @@ Sources of public bodies
 List of which get most requests:
 http://www.dca.gov.uk/foi/reference/foi-independent-review.pdf
 
-Call university of huddersfield
-
-Three lists of departments
-    http://www.number10.gov.uk/output/Page30.asp
-    http://en.wikipedia.org/wiki/Departments_of_the_United_Kingdom_Government
-    http://www.cabinetoffice.gov.uk/ministerial_responsibilities/departments/
-
-Executive agencies
-    from links in http://www.cabinetoffice.gov.uk/ministerial_responsibilities/departments/
-    and from http://www.cabinetoffice.gov.uk/ministerial_responsibilities/executive_agencies.aspx
-
-Skipped these supposed ministerial depts (accoring to number 10 page, but not Wikipedia): 
-    Office of the Leader of the House of Commons
-    Office of the Advocate General for Scotland
-    Office of the Leader of the House of Lords and Lord President of the Council 
-    Prime Minister's Office (No 10) 
-
 Schools list: www.edubase.gov.uk
 
-Heather has emailed me NHS Trusts providing Mental Health Services
-
-FOE site has email addresses of lots of bodies, e.g.
+Check have everything from FOE site
     http://community.foe.co.uk/app/tc
-Has handy links to publication schemes that are now mainly broken
 
 Be sure to add:
 - all in schedule 1

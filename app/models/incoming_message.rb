@@ -17,7 +17,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.87 2008-04-21 16:22:24 francis Exp $
+# $Id: incoming_message.rb,v 1.88 2008-04-21 16:26:47 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -48,8 +48,11 @@ $file_extension_to_mime_type = {
     "rtf" => 'application/rtf',
     "xls" => 'application/msexcel',
     "tif" => 'image/tiff',
-    "gif" => 'image/gif'
+    "gif" => 'image/gif',
+    "html" => 'text/html',
 }
+# XXX doesn't have way of choosing default for inverse map - might want to add
+# one when you need it
 $file_extension_to_mime_type_rev = $file_extension_to_mime_type.invert
 
 # XXX clearly this shouldn't be a global function, or the above global vars.
