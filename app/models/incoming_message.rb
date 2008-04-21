@@ -17,7 +17,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.85 2008-04-21 15:28:38 francis Exp $
+# $Id: incoming_message.rb,v 1.86 2008-04-21 15:36:39 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -209,7 +209,8 @@ class IncomingMessage < ActiveRecord::Base
         # 01:51:50 >>>
         # http://www.whatdotheyknow.com/request/71/response/108
         # http://www.whatdotheyknow.com/request/police_powers_to_inform_car_insu
-        multiline_original_message = '(' + '''>>>.* \d\d/\d\d/\d\d\d\d\s+\d\d:\d\d:\d\d\s+>>>''' + ')'
+        # http://www.whatdotheyknow.com/request/secured_convictions_aided_by_cct
+        multiline_original_message = '(' + '''>>>.* \d\d/\d\d/\d\d\d\d\s+\d\d:\d\d(?::\d\d)?\s*>>>''' + ')'
         text.gsub!(/^(#{multiline_original_message}\n.*)$/ms, replacement)
  
         # Single line sections
