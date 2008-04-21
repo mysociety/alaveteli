@@ -17,7 +17,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.84 2008-04-21 15:00:57 francis Exp $
+# $Id: incoming_message.rb,v 1.85 2008-04-21 15:28:38 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -220,11 +220,14 @@ class IncomingMessage < ActiveRecord::Base
         # http://www.whatdotheyknow.com/request/identity_card_scheme_expenditure
         # http://www.whatdotheyknow.com/request/parliament_protest_actions
         # http://www.whatdotheyknow.com/request/64/response/102
+        # http://www.whatdotheyknow.com/request/47/response/283
+        # http://www.whatdotheyknow.com/request/30/response/166
+        # http://www.whatdotheyknow.com/request/52/response/238
         ['-', '_', '*'].each do |score|
             text.gsub!(/(Disclaimer\s+)?  # appears just before
-                        (\s*[#{score}]{20,}\n.*? # top line ------------
-                        (disclaimer:\n|confidential|received\sthis\semail\sin\serror|scanned\sfor\sviruses)
-                        .*?[#{score}]{20,}\n) # bottom line -----------
+                        (\s*[#{score}]{8,}\s*\n.*? # top line ------------
+                        (disclaimer:\n|confidential|received\sthis\semail\sin\serror|virus|intended\s+recipient|monitored\s+centrally|intended\s+for\s+the\s+addressee)
+                        .*?[#{score}]{8,}\s*\n) # bottom line -----------
                        /imx, "\n\n" + replacement)
         end
 
@@ -246,10 +249,12 @@ class IncomingMessage < ActiveRecord::Base
 
 
         # To end of message sections
+        # http://www.whatdotheyknow.com/request/123/response/192
         original_message = 
             '(' + '''------ This is a copy of the message, including all the headers. ------''' + 
             '|' + '''-----*\s*Original Message\s*-----*''' +
             '|' + '''-----*\s*Forwarded message.+-----*''' +
+            '|' + '''-----*\s*Forwarded by.+-----*''' +
             ')'
         text.gsub!(/^(#{original_message}\n.*)$/m, replacement)
 
