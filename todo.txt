@@ -196,14 +196,13 @@ Quoting fixing TODO:
     http://www.whatdotheyknow.com/request/sale_of_public_land_in_worcester
     http://www.whatdotheyknow.com/request/148/response/209
     http://www.whatdotheyknow.com/request/35/response/191
-Char encoding and other bad formatting:
-    http://www.whatdotheyknow.com/request/107/response/144
-    http://www.whatdotheyknow.com/request/35/response/177
-    http://www.whatdotheyknow.com/request/52/response/238
 
-    http://localhost:3001/request/107/response/144
-    http://localhost:3001/request/52/response/238
-
+    http://localhost:3001/request/64/response/102
+    http://localhost:3001/request/55/response/96
+    http://localhost:3001/request/71/response/108
+    http://localhost:3001/request/police_powers_to_inform_car_insu
+    http://localhost:3001/request/30/response/166
+ 
 Sources of public bodies
 ========================
 

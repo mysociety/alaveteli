@@ -17,7 +17,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.83 2008-04-21 14:45:06 francis Exp $
+# $Id: incoming_message.rb,v 1.84 2008-04-21 15:00:57 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -201,7 +201,17 @@ class IncomingMessage < ActiveRecord::Base
     # XXX and this FOLDED_QUOTED_SECTION stuff is a mess
     def self.remove_quoted_sections(text, replacement = "FOLDED_QUOTED_SECTION")
         text = text.dup
-        
+
+        # First do this peculiar form of quoting, as the > single line quoting
+        # further below messes with it. Note the carriage return where it wraps -
+        # this can happen anywhere according to length of the name/email. e.g.
+        # >>> D K Elwell <[email address]> 17/03/2008
+        # 01:51:50 >>>
+        # http://www.whatdotheyknow.com/request/71/response/108
+        # http://www.whatdotheyknow.com/request/police_powers_to_inform_car_insu
+        multiline_original_message = '(' + '''>>>.* \d\d/\d\d/\d\d\d\d\s+\d\d:\d\d:\d\d\s+>>>''' + ')'
+        text.gsub!(/^(#{multiline_original_message}\n.*)$/ms, replacement)
+ 
         # Single line sections
         text.gsub!(/^(>.*\n)/, replacement)
         text.gsub!(/^(On .+ (wrote|said):\n)/, replacement)
