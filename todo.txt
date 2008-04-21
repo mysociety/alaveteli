@@ -13,8 +13,9 @@ Cluster solr patch - https://issues.apache.org/jira/browse/SOLR-236
 FOI requests to use to test it
 ==============================
 
-Complaint to info commissioner:
+Internal review:
 http://www.whatdotheyknow.com/request/search_engine_advertising_bought
+http://www.whatdotheyknow.com/request/communications_from_home_office_
 
 http://www.whatdotheyknow.com/request/details_of_grant_awarded_to_vi_g_
      I received a reply on 4 April from Alison McCarthy to my request for
@@ -80,11 +81,6 @@ Preview when sending followups - especially people need to see quoting/subject
 when sending "my response is late"
 
 Change email address interface - easier to do now with post_redirect.circumstance?
-
-Consider showing Subject: of email somewhere
-    e.g. for http://www.whatdotheyknow.com/request/172/response/234
-             http://www.whatdotheyknow.com/request/breakdown_of_calulation_of_jsa
-the subject has all the content
 
 One of the PDFs on live site has:
 Error: PDF version 1.6 -- xpdf supports version 1.5 (continuing anyway)
@@ -198,10 +194,15 @@ Quoting fixing TODO:
     http://www.whatdotheyknow.com/request/94/response/161
     http://www.whatdotheyknow.com/request/police_powers_to_inform_car_insu
     http://www.whatdotheyknow.com/request/sale_of_public_land_in_worcester
+    http://www.whatdotheyknow.com/request/148/response/209
+    http://www.whatdotheyknow.com/request/35/response/191
 Char encoding and other bad formatting:
     http://www.whatdotheyknow.com/request/107/response/144
     http://www.whatdotheyknow.com/request/35/response/177
     http://www.whatdotheyknow.com/request/52/response/238
+
+    http://localhost:3001/request/107/response/144
+    http://localhost:3001/request/52/response/238
 
 Sources of public bodies
 ========================

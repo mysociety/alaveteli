@@ -17,8 +17,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.82 2008-04-21 11:23:03 francis Exp $
-
+# $Id: incoming_message.rb,v 1.83 2008-04-21 14:45:06 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -328,11 +327,32 @@ class IncomingMessage < ActiveRecord::Base
 
         # Charset conversion, turn everything into UTF-8
         if not text_charset.nil?
-            if text_charset == 'us-ascii'
-                # Emails say US ASCII, but mean Windows-1252
-                # XXX How do we autodetect this properly?
-                text = Iconv.conv('utf-8', 'windows-1252', text)
+            begin
+                text = Iconv.conv('utf-8', text_charset, text)
+            rescue Iconv::IllegalSequence
+                # Clearly specified charset was nonsense
+                text_charset = nil
             end
+        end
+        if text_charset.nil?
+            # No specified charset, so guess
+            
+            # Could use rchardet here, but it had trouble with 
+            #   http://www.whatdotheyknow.com/request/107/response/144
+            # So I gave up - most likely in UK we'll only get windows-1252 anyway.
+
+            begin
+                # See if it is good UTF-8 anyway
+                text = Iconv.conv('utf-8', 'utf-8', text)
+            rescue Iconv::IllegalSequence
+                begin
+                    # Or is it good windows-1252, most likely
+                    text = Iconv.conv('utf-8', 'windows-1252', text)
+                rescue Iconv::IllegalSequence
+                    # Just use it even though it is nonsense - treat as UTF-8
+                end
+            end
+
         end
 
         # Fix DOS style linefeeds to Unix style ones (or other later regexps won't work)
