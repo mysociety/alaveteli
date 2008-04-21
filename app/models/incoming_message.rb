@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 51
+# Schema version: 52
 #
 # Table name: incoming_messages
 #
@@ -17,7 +17,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.89 2008-04-21 16:43:54 francis Exp $
+# $Id: incoming_message.rb,v 1.90 2008-04-21 16:44:06 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel

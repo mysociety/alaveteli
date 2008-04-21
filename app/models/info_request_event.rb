@@ -1,16 +1,18 @@
 # == Schema Information
-# Schema version: 51
+# Schema version: 52
 #
 # Table name: info_request_events
 #
-#  id                :integer         not null, primary key
-#  info_request_id   :integer         not null
-#  event_type        :text            not null
-#  params_yaml       :text            not null
-#  created_at        :datetime        not null
-#  described_state   :string(255)     
-#  calculated_state  :string(255)     
-#  last_described_at :datetime        
+#  id                  :integer         not null, primary key
+#  info_request_id     :integer         not null
+#  event_type          :text            not null
+#  params_yaml         :text            not null
+#  created_at          :datetime        not null
+#  described_state     :string(255)     
+#  calculated_state    :string(255)     
+#  last_described_at   :datetime        
+#  incoming_message_id :integer         
+#  outgoing_message_id :integer         
 #
 
 # models/info_request_event.rb:
@@ -18,7 +20,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request_event.rb,v 1.37 2008-04-17 23:19:55 francis Exp $
+# $Id: info_request_event.rb,v 1.38 2008-04-21 16:44:06 francis Exp $
 
 class InfoRequestEvent < ActiveRecord::Base
     belongs_to :info_request
