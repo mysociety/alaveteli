@@ -17,7 +17,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.86 2008-04-21 15:36:39 francis Exp $
+# $Id: incoming_message.rb,v 1.87 2008-04-21 16:22:24 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -339,6 +339,7 @@ class IncomingMessage < ActiveRecord::Base
             text.gsub!(/<p[^>]+>/, "\n\n")
             text.gsub!(/<div[^>]+>/, "\n\n")
             text.gsub!(/<\/?[^>]*>/, "")
+            text = CGI::unescapeHTML(text)
         end
 
         # Charset conversion, turn everything into UTF-8
