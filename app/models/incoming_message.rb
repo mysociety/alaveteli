@@ -17,11 +17,13 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.88 2008-04-21 16:26:47 francis Exp $
+# $Id: incoming_message.rb,v 1.89 2008-04-21 16:43:54 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
 # general not specific to IncomingMessage.
+
+require 'htmlentities'
 
 module TMail
     class Mail
@@ -342,7 +344,7 @@ class IncomingMessage < ActiveRecord::Base
             text.gsub!(/<p[^>]+>/, "\n\n")
             text.gsub!(/<div[^>]+>/, "\n\n")
             text.gsub!(/<\/?[^>]*>/, "")
-            text = CGI::unescapeHTML(text)
+            text = HTMLEntities.decode_entities(text)
         end
 
         # Charset conversion, turn everything into UTF-8
