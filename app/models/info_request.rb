@@ -22,7 +22,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.93 2008-04-18 08:54:36 francis Exp $
+# $Id: info_request.rb,v 1.94 2008-04-21 16:08:40 francis Exp $
 
 require 'digest/sha1'
 
@@ -290,6 +290,37 @@ public
         end
     end
 
+    # Find last outgoing message which  was:
+    # -- sent at all
+    # -- OR the same message was resent
+    # -- OR the public body requested clarification, and a follow up was sent
+    def last_outgoing_message_forming_initial_request
+        last_sent = nil
+        expecting_clarification = false
+        for event in self.info_request_events
+            if event.described_state == 'waiting_clarification'
+                expecting_clarification = true
+            end
+
+            if [ 'sent', 'resent', 'followup_sent' ].include?(event.event_type)
+                outgoing_message = event.outgoing_message
+
+                if last_sent.nil?
+                    last_sent = outgoing_message
+                elsif event.event_type == 'resent'
+                    last_sent = outgoing_message
+                elsif expecting_clarification and event.event_type == 'followup_sent'
+                    last_sent = outgoing_message
+                    expecting_clarification = false
+                end
+            end
+        end
+        if last_sent.nil?
+            raise "internal error, date_response_required_by gets nil for request " + self.id.to_s + " outgoing messages count " + self.outgoing_messages.size.to_s + " all events: " + self.info_request_events.to_yaml
+        end
+        return last_sent
+    end
+
     # Calculate date by which response is required by law.
     #
     #   ... "working day” means any day other than a Saturday, a Sunday, Christmas
@@ -301,38 +332,13 @@ public
     # XXX how do we cope with case where extra info was required from the requester
     # by the public body in order to fulfill the request, as per sections 1(3) and 10(6b) ?
     def date_response_required_by
-        # Find the earliest time at which an outgoing message was:
-        # -- sent at all
-        # -- OR the same message was resent
-        # -- OR the public body requested clarification, and a follow up was sent
-        earliest = nil
-        expecting_clarification = false
-        for event in self.info_request_events
-            if [ 'sent', 'resent', 'followup_sent' ].include?(event.event_type)
-                outgoing_message = OutgoingMessage.find(event.params[:outgoing_message_id])
-
-                if earliest.nil?
-                    earliest = outgoing_message
-                elsif event.event_type == 'resent' and outgoing_message.id == event.params[:outgoing_message_id]
-                    earliest = outgoing_message
-                elsif expecting_clarification and event.event_type == 'followup_sent'
-                    earliest = outgoing_message
-                    expecting_clarification = false;
-                end
-            end
-
-            if event.described_state == 'waiting_clarification'
-                expecting_clarification = true
-            end
-        end
-        if earliest.nil?
-            raise "internal error, date_response_required_by gets nil for request " + self.id.to_s + " outgoing messages count " + self.outgoing_messages.size.to_s + " all events: " + self.info_request_events.to_yaml
-        end
-        earliest_sent = earliest.last_sent_at
+        # Find the ear
+        last_sent = self.last_outgoing_message_forming_initial_request
+        last_sent_at = last_sent.last_sent_at
 
         # Count forward 20 working days
         days_passed = 0
-        response_required_by = earliest_sent
+        response_required_by = last_sent_at
         while days_passed < 20
             response_required_by = response_required_by + 1.day
             if response_required_by.wday == 0 || response_required_by.wday == 6
@@ -402,8 +408,7 @@ public
             return nil
         end
         e = self.info_request_events.find(event_id)
-        incoming_message_id = e.params[:incoming_message_id].to_i
-        return IncomingMessage.find(incoming_message_id)
+        return e.incoming_message
     end
 
     # The last outgoing message
