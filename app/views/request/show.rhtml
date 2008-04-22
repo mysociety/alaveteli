@@ -99,6 +99,12 @@
         <% end %>
     <% end %>
 
+    <h2>Act on this request</h2>
+    <p>
+    <img src="/images/writetothem.png"> <a href="http://www.writetothem.com">Write to your politician</a> about it
+    <br><img src="/images/pledgebank.png"> <a href="http://www.pledgebank.com">Pledge with others</a>
+    </p>
+
     <% if @info_requests_same_user_same_body.size > 0 %>
         <h2>Requests from same user to same authority</h2>
         <!-- <h2>Some other requests made by <%= user_link(@info_request.user) %> to <%= public_body_link(@info_request.public_body) %></h2> -->
@@ -107,39 +113,6 @@
             <p><%= link_to "More such requests", search_url(:query => "variety:sent requested_from:" + @info_request.public_body.url_name + " requested_by:" + @info_request.user.url_name + " -request:" + @info_request.url_title, :sortby => "newest") %></p>
         <% end %>
     <% end %>
-
-    <h2>Things to do about this request</h2>
-
-    <!-- WriteToThem envelope box, start -->
-    <script type="text/javascript">
-        function clearDefault(el) {
-          if (el.defaultValue==el.value) el.value = "";
-        }
-        function fillDefault(el) {
-          if (el.value=="") el.value = "Your Postcode";
-        }
-    </script>
-    <div style="width:167px;height:120px;
-        background: url(http://www.writetothem.com/envelope_bg.gif) no-repeat 0 0; 
-        font:9pt/11pt arial,helvetica,sans-serif;position:relative;">
-        <form method="get" action="http://www.writetothem.com/">
-            <div style="padding:55px 0 0 20px;">
-                <label for="pc" style="display:none;">
-                    Contact Your Politician
-                </label>
-                <input type="text" value="Your Postcode" name="pc" size="13"
-                    style="width:90px;vertical-align:bottom;
-                        font:8pt/11pt arial,helvetica,sans-serif;color:#666;" 
-                    onfocus="clearDefault(this)" onblur="fillDefault(this)" />
-                <input type="image" value="Go" style="vertical-align:bottom;" 
-                    src="http://www.writetothem.com/envelope_arrow.gif" />
-            </div>
-        </form>
-        <a href="http://www.writetothem.com/" title="Visit writetothem.com" 
-        style="display:block;position:absolute;bottom:0;width:100%;overflow:hidden;
-        text-indent:-1234em;height:30px;bottom:0;">writetothem.com</a>
-    </div>
-    <!-- WriteToThem envelope box, end-->
 
     <!--<h2>Blog posts about this request</h2>
     <p>...
