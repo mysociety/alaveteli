@@ -16,6 +16,9 @@
 <% @title = "Public authorities - " + @description %>
 
 <h1><%=@title%></h1>
+<p class="subtitle">
+    <%= @public_bodies.size %> in total
+</p>
 
 <%= render :partial => 'body_listing', :locals => { :public_bodies => @public_bodies } %>
 
