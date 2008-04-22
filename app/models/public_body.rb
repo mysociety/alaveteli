@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.65 2008-04-21 16:44:06 francis Exp $
+# $Id: public_body.rb,v 1.66 2008-04-22 00:54:07 francis Exp $
 
 require 'csv'
 require 'set'
@@ -216,7 +216,7 @@ class PublicBody < ActiveRecord::Base
                 # Give an error listing ones that are to be deleted 
                 deleted_ones = set_of_existing - set_of_importing
                 if deleted_ones.size > 0
-                    errors.push "error: Some " + tag + " bodies are in database, but not in CSV file: " + Array(deleted_ones).join(", ") + "\n"
+                    notes.push "notes: Some " + tag + " bodies are in database, but not in CSV file:\n    " + Array(deleted_ones).join("\n    ") + "\nYou may want to delete them manually.\n"
                 end
 
                 # Rollback if a dry run, or we had errors
