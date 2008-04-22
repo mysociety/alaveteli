@@ -108,10 +108,39 @@
         <% end %>
     <% end %>
 
-    <!--<h2>Juicy stuff will be here</h2>
-    <p>For now it is just padding to make the messages on the left
-    narrower, so I can see what the formatting is like.
-    -->
+    <h2>Things to do about this request</h2>
+
+    <!-- WriteToThem envelope box, start -->
+    <script type="text/javascript">
+        function clearDefault(el) {
+          if (el.defaultValue==el.value) el.value = "";
+        }
+        function fillDefault(el) {
+          if (el.value=="") el.value = "Your Postcode";
+        }
+    </script>
+    <div style="width:167px;height:120px;
+        background: url(http://www.writetothem.com/envelope_bg.gif) no-repeat 0 0; 
+        font:9pt/11pt arial,helvetica,sans-serif;position:relative;">
+        <form method="get" action="http://www.writetothem.com/">
+            <div style="padding:55px 0 0 20px;">
+                <label for="pc" style="display:none;">
+                    Contact Your Politician
+                </label>
+                <input type="text" value="Your Postcode" name="pc" size="13"
+                    style="width:90px;vertical-align:bottom;
+                        font:8pt/11pt arial,helvetica,sans-serif;color:#666;" 
+                    onfocus="clearDefault(this)" onblur="fillDefault(this)" />
+                <input type="image" value="Go" style="vertical-align:bottom;" 
+                    src="http://www.writetothem.com/envelope_arrow.gif" />
+            </div>
+        </form>
+        <a href="http://www.writetothem.com/" title="Visit writetothem.com" 
+        style="display:block;position:absolute;bottom:0;width:100%;overflow:hidden;
+        text-indent:-1234em;height:30px;bottom:0;">writetothem.com</a>
+    </div>
+    <!-- WriteToThem envelope box, end-->
+
     <!--<h2>Blog posts about this request</h2>
     <p>...
     <h2>Wikipedia articles</h2>
