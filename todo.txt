@@ -1,11 +1,6 @@
 Watch this one:
 http://www.whatdotheyknow.com/request/crime_statistics_for_2007_champi
 
-OK, so we could index status of requests... But then there are two problems:
-1) Have to somehow reindex when a request becomes overdue.
-2) The Email/RSS won't work that well, as it uses created date as a filter,
-which won't work for when there is no event.
-
 Group requests by response
 Make it totally awesome like in Tommy's screenshot
 Cluster solr patch - https://issues.apache.org/jira/browse/SOLR-236
@@ -50,11 +45,10 @@ Things to track:
     - successful responses
 described_at is needed for Users and Public Bodies for RSS
 
-Fix search to deal with overdue message query that Tomski asks for
-
-
 Later
 =====
+
+Enter > 255 char comment when editing public body gives unhelpful error
 
 Put user rather than import_csv
 
@@ -91,9 +85,11 @@ Add lots more UNIQUE indices
 Merge workflow into one stream - find information, if you can't find it then request it.
     so just search is on front page, with popular stuff below a la Google Directory
 
+Only show "is email right" footer the first time a new request is sent to that
+email?
+
 In sidebar of request 
-    Link to WriteToThem - according to level of Government of body
-    Start a petition about this request
+    Link to WriteToThem according to level of Government of body
     Share this request on Facebook
 
 Tell application developer if working days table not up to date, and needs
@@ -102,8 +98,6 @@ updating
 Response overdue alerts (NOT TRACKS - this is old style alerts to requester)
 are only sent first time a request goes into that state :( Store id in alert of
 last event which resets the due date
-
-Overdue response events, so track alerts / RSS picks up when response is late
 
 Overdue response alert email click through should show how many days overdue
     it is near where you write your reply
@@ -149,15 +143,18 @@ http://www.parliament.uk/parliamentary_publications_and_archives/freedom_of_info
 
 Including 'Request for information' in the subject line of your e-mail will assist us in prioritising your request.
 http://www.parliament.uk/parliamentary_publications_and_archives/freedom_of_information_in_the_house_of_lords/lords__foi___how_to_obtain_information.cfm
+XXX do we need specifically that text, is it better than "Freedom of Information Request" which we put now?
 Medway also hint at this with subject= on mailto link
 
 OCR all images automatically, even if badly (check for tiffs!)
+Maybe use Scrbd's free service :) http://www.scribd.com/paper
 
 Ask what they learnt from request, and other things?
     and reward by putting their request on front page
 
 Description for each body as to what info it holds
 Link to:
+    Aliases (not just short name, but multiple real names)
     Disclosure logs
     Publication schemes (http://www.ico.gov.uk/what_we_cover/freedom_of_information/publication_schemes.aspx)
     Website itself (for general search)
@@ -189,6 +186,7 @@ Quoting fixing TODO:
     http://www.whatdotheyknow.com/request/sale_of_public_land_in_worcester
     http://www.whatdotheyknow.com/request/35/response/191
     http://www.whatdotheyknow.com/request/88/response/352 (and charset)
+    http://www.whatdotheyknow.com/request/51/response/93
    
 Sources of public bodies
 ========================
