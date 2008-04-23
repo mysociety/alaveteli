@@ -4,9 +4,11 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: acts_as_xapian.rb,v 1.2 2008-04-23 14:58:11 francis Exp $
-
+# $Id: acts_as_xapian.rb,v 1.3 2008-04-23 16:00:00 francis Exp $
+#
 # TODO:
+
+
 # Cope with making acts_as_xapian get called before search by preloading classes somewhere
 # Make all indexing offline - have a table where what needs doing is stored
 
@@ -15,6 +17,55 @@
 # Query just one model type
 # Eager loading
 # Boost particular fields?
+
+# Documentation
+# =============
+#
+# Xapian is a search engine library, which has Ruby bindings. acts_as_xapian
+# adds support for it to Rails. 
+#
+# Xapian is an *offline indexing* search library - only one process can have
+# the database open for writing at once, and others that try meanwhile are
+# unceremoniously kicked off. For this reason, acts_as_xapian does not support
+# automatic writing to the database when your models change. You need to
+# update indices in a separate batch job (cron or a daemon) which there is
+# only one of.
+#
+# Indexing
+# ========
+#
+# Put acts_as_xapian in your models that need search indexing.
+#
+# Options must include:
+# :texts, an array of fields for indexing with full text search 
+#         e.g. :texts => [ :title, :body ]
+# :values, things which have a range of values for indexing, or for collapsing. 
+#         Specify an array quadruple of [ field, index, prefix, type ] where 
+#         - :index is an arbitary numeric identifier for use in the Xapian database
+#         - :prefix is the part to use in search queries that goes before the :
+#         - :type can be any of :string, :number or :date
+#         e.g. :values => [ [ :created_at, 0, "created_at" ], [ :size, 1, "size"] ]
+# :terms, things which come after a : in search queries. Specify an array
+#         triple of [ field, char, prefix ] where 
+#         - :char is an arbitary single upper case char used in the Xapian database
+#         - :prefix is the part to use in search queries that goes before the :
+#         e.g. :terms => [ [ :variety, 'V', "variety" ] ]
+# A field is a symbol referring to either an attribute or a name
+#
+# Then call xapian_index and/or xapian_destroy on the model.
+#
+# Querying
+# ========
+#
+# To perform a query call ActsAsXapian.search. This takes in turn:
+# query_string - Google like syntax, as described in http://www.xapian.org/docs/queryparser.html
+# first_result - Offset of first result
+# results_per_page - Number of results per page
+# sort_by_prefix - Optionally, prefix of value to sort by
+# collapse_by_prefix - Optionally, prefix of value to collapse by (i.e. only return most relevant result from group)
+#
+# Returns an object. The count and results methods are the two useful ones.
+#
 
 require 'xapian'
 
@@ -27,6 +78,10 @@ module ActsAsXapian
     @@db = nil
     def ActsAsXapian.db
         @@db
+    end
+    @@writable_db = nil
+    def ActsAsXapian.writable_db
+        @@writable_db
     end
     def ActsAsXapian.stemmer
         @@stemmer
@@ -51,14 +106,8 @@ module ActsAsXapian
 
             # basic Xapian objects
             @@db_path = File.join(db_parent_path, ENV['RAILS_ENV']) 
-            @@db = Xapian::WritableDatabase.new(@@db_path, Xapian::DB_CREATE_OR_OPEN)
+            @@db = Xapian::Database.new(@@db_path)
             @@stemmer = Xapian::Stem.new('english')
-            
-            # for indexing
-            @@term_generator = Xapian::TermGenerator.new()
-            @@term_generator.set_flags(Xapian::TermGenerator::FLAG_SPELLING, 0)
-            @@term_generator.database = @@db
-            @@term_generator.stemmer = @@stemmer
 
             # for queries
             @@enquire = Xapian::Enquire.new(@@db)
@@ -108,6 +157,16 @@ module ActsAsXapian
 
         end
     end
+    def ActsAsXapian.writable_init
+        if @@writable_db.nil?
+            # for indexing
+            @@writable_db = Xapian::WritableDatabase.new(@@db_path, Xapian::DB_CREATE_OR_OPEN)
+            @@term_generator = Xapian::TermGenerator.new()
+            @@term_generator.set_flags(Xapian::TermGenerator::FLAG_SPELLING, 0)
+            @@term_generator.database = @@writable_db
+            @@term_generator.stemmer = @@stemmer
+        end
+    end
 
     # Search for a query string, returns an array of hashes in result order.
     # Each hash contains the actual Rails object in :model, and other detail
@@ -120,6 +179,10 @@ module ActsAsXapian
         attr_accessor :matches
 
         def initialize(query_string, first_result, results_per_page, sort_by_prefix = nil, collapse_by_prefix = nil)
+            if ActsAsXapian.db.nil?
+                raise "ActsAsXapian not initialized"
+            end
+
             self.query = ActsAsXapian.query_parser.parse_query(query_string,
                   Xapian::QueryParser::FLAG_BOOLEAN | Xapian::QueryParser::FLAG_PHRASE |
                   Xapian::QueryParser::FLAG_LOVEHATE | Xapian::QueryParser::FLAG_WILDCARD |
@@ -127,10 +190,10 @@ module ActsAsXapian
             ActsAsXapian.enquire.query = self.query
 
             if not sort_by_prefix.nil?
-                enquire->sort_by_value(ActsAsXapian.values_by_prefix[sort_by_prefix])
+                enquire.sort_by_value(ActsAsXapian.values_by_prefix[sort_by_prefix])
             end
             if not collapse_by_prefix.nil?
-                enquire->set_collapse_key(ActsAsXapian.values_by_prefix[collapse_by_prefix])
+                enquire.set_collapse_key(ActsAsXapian.values_by_prefix[collapse_by_prefix])
             end
 
             self.matches = ActsAsXapian.enquire.mset(first_result, results_per_page, 100)
@@ -147,7 +210,6 @@ module ActsAsXapian
         end
 
         # Return array of models found
-        # XXX currently only returns all types of models
         def results
             # Pull out all the results
             docs = []
@@ -198,8 +260,8 @@ module ActsAsXapian
         end
 
         # Store record in the Xapian database
-        def xapian_save
-            ActsAsXapian.db.begin_transaction # XXX hoping this will lock/unlock on disk too?
+        def xapian_index
+            ActsAsXapian.writable_init
 
             doc = Xapian::Document.new
             ActsAsXapian.term_generator.document = doc
@@ -219,46 +281,28 @@ module ActsAsXapian
                 ActsAsXapian.term_generator.index_text(xapian_value(text)) 
             end
 
-            ActsAsXapian.db.replace_document("I" + doc.data, doc)
-            ActsAsXapian.db.commit_transaction 
+            ActsAsXapian.writable_db.replace_document("I" + doc.data, doc)
         end
 
         # Delete record from the Xapian database
         def xapian_destroy
-            raise "xapian_destroy"
+            ActsAsXapian.writable_init
+
+            ActsAsXapian.writable_db.delete_document("I" + self.class.to_s + "-" + self.id.to_s)
         end
     end
 
     # Main entry point
     module ActsMethods
-
-        # Put acts_as_xapian in your models that need search indexing.
-        #
-        # Options must include:
-        # :texts, an array of fields for indexing with full text search 
-        #         e.g. :texts => [ :title, :body ]
-        # :values, things which have a range of values for indexing, or for collapsing. 
-        #         Specify an array quadruple of [ field, index, prefix, type ] where 
-        #         - :index is an arbitary numeric identifier for use in the Xapian database
-        #         - :prefix is the part to use in search queries that goes before the :
-        #         - :type can be any of :string, :number or :date
-        #         e.g. :values => [ [ :created_at, 0, "created_at" ], [ :size, 1, "size"] ]
-        # :terms, things which come after a : in search queries. Specify an array
-        #         triple of [ field, char, prefix ] where 
-        #         - :char is an arbitary single upper case char used in the Xapian database
-        #         - :prefix is the part to use in search queries that goes before the :
-        #         e.g. :terms => [ [ :variety, 'V', "variety" ] ]
-        # A field is a symbol referring to either an attribute or a name
+        # See top of this file for docs
         def acts_as_xapian(options)
+            STDERR.puts("acts_as_xapian")
             include InstanceMethods
 
             cattr_accessor :xapian_options
             self.xapian_options = options
 
             ActsAsXapian.init(self.class.to_s, options)
-
-            after_save :xapian_save
-            after_destroy :xapian_destroy
         end
     end
    
