@@ -4,13 +4,11 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: acts_as_xapian.rb,v 1.5 2008-04-24 09:31:18 francis Exp $
+# $Id: acts_as_xapian.rb,v 1.6 2008-04-24 09:49:32 francis Exp $
 
 # TODO:
-# Delete everything for the rebuild task
 # Spell checking
 # Eager loading
-# Boost particular fields?
 # Function to keep a model out of the index entirely
 
 # Documentation
@@ -102,7 +100,8 @@
 # (search for ActsAsXapianJob).
 #
 # 3. Call 'rake xapian::rebuild_index models="ModelName1 ModelName2"' to build the index
-# the first time. It's put in a development/test/production dir in acts_as_xapian/xapiandbs.
+# the first time (you must specify all your indexed models). It's put in a
+# development/test/production dir in acts_as_xapian/xapiandbs.
 #
 # 4. Then from a cron job or a daemon, or by hand regularly!, call 'rake xapian:update_index'
 #
@@ -226,10 +225,10 @@ module ActsAsXapian
         end
     end
 
-    def ActsAsXapian.writable_init
+    def ActsAsXapian.writable_init(suffix = "")
         if @@writable_db.nil?
             # for indexing
-            @@writable_db = Xapian::WritableDatabase.new(@@db_path, Xapian::DB_CREATE_OR_OPEN)
+            @@writable_db = Xapian::WritableDatabase.new(@@db_path + suffix, Xapian::DB_CREATE_OR_OPEN)
             @@term_generator = Xapian::TermGenerator.new()
             @@term_generator.set_flags(Xapian::TermGenerator::FLAG_SPELLING, 0)
             @@term_generator.database = @@writable_db
@@ -375,23 +374,42 @@ module ActsAsXapian
         end
     end
         
+    # You must specify *all* the models here, this totally rebuilds the Xapian database.
     def ActsAsXapian.rebuild_index(model_classes)
-        ActsAsXapian.writable_init
+        raise "when rebuilding all, please call as first and only thing done in process / task" if not ActsAsXapian.writable_db.nil?
 
-        # XXX also delete everything in the models! or maybe just what we didn't find again :)
-        # or maybe just what is marked delete in ActsAsXapianJob
-        #iter = ActsAsXapian.writable_db.allterms_begin
-        #while not iter.equals(ActsAsXapian.writable_db.allterms_end)
-        #    STDERR.puts(iter.to_yaml)
-        #    iter.next
-        #end
- 
+        # Delete existing new database, and open a new one
+        new_path = ActsAsXapian.db_path + ".new"
+        if File.exist?(new_path)
+            raise "found existing " + new_path + " which is not Xapian flint database, please delete for me" if not File.exist?(File.join(new_path, "iamflint"))
+            FileUtils.rm_rf(new_path)
+        end
+        ActsAsXapian.writable_init(".new")
+
+        # Index everything 
         ActsAsXapianJob.destroy_all
         for model_class in model_classes
             models = model_class.find(:all)
             for model in models
                 model.xapian_index
             end
+        end
+        ActsAsXapian.writable_db.flush
+
+        # Rename into place
+        old_path = ActsAsXapian.db_path
+        temp_path = ActsAsXapian.db_path + ".tmp"
+        if File.exist?(temp_path)
+            raise "temporary database found " + temp_path + " which is not Xapian flint database, please delete for me" if not File.exist?(File.join(temp_path, "iamflint"))
+            FileUtils.rm_rf(temp_path)
+        end
+        FileUtils.mv old_path, temp_path
+        FileUtils.mv new_path, old_path
+
+        # Delete old database
+        if File.exist?(temp_path)
+            raise "old database now at " + temp_path + " is not Xapian flint database, please delete for me" if not File.exist?(File.join(temp_path, "iamflint"))
+            FileUtils.rm_rf(temp_path)
         end
     end
 

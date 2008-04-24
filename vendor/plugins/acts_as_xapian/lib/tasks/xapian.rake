@@ -11,15 +11,18 @@ namespace :xapian do
     end
 
     # Parameters - specify 'models="PublicBody User"' to say which models
-    # to add to the rebuilt index.
-    desc 'Builds/rebuilds Xapian search index for specified models'
+    # you index with Xapian.
+    desc 'Completely rebuilds Xapian search index (must specify all models)'
     task :rebuild_index do
+        raise "specify ALL your models with models=\"ModelName1 ModelName2\" as parameter" if ENV['models'].nil?
         ActsAsXapian.rebuild_index(ENV['models'].split(" ").map{|m| m.constantize})
     end
 
     # Parameters - are models, query, first_result, results_per_page, sort_by_prefix, collapse_by_prefix
     desc 'Run a query, return YAML of results'
     task :query do
+        raise "specify models=\"ModelName1 ModelName2\" as parameter" if ENV['models'].nil?
+        raise "specify query=\"your terms\" as parameter" if ENV['query'].nil?
         s = ActsAsXapian::Search.new(ENV['models'].split(" ").map{|m| m.constantize}, 
             ENV['query'], 
             ENV['first_result'] || 0, ENV['results_per_page'] || 10,  
