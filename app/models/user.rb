@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user.rb,v 1.51 2008-04-21 16:44:06 francis Exp $
+# $Id: user.rb,v 1.52 2008-04-24 23:52:59 francis Exp $
 
 require 'digest/sha1'
 
@@ -41,11 +41,9 @@ class User < ActiveRecord::Base
     attr_accessor :password_confirmation
     validates_confirmation_of :password, :message =>"^Please enter the same password twice"
 
-    acts_as_solr :fields => [ 
-        {:name => { :boost => 5.0 }},
-        { :created_at => :date },
-        { :variety => :string }
-    ]
+    acts_as_xapian :texts => [ :name ],
+        :values => [ [ :created_at, 0, "created_at", :date ] ],
+        :terms => [ [ :variety, 'V', "variety" ] ]
     def variety
         "user"
     end

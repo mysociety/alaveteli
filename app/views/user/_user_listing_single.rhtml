@@ -1,6 +1,6 @@
 <% if @highlight_words.nil? 
       @highlight_words = []
-   end %>
+end %>
 
 <p class="user_listing">
     <%= link_to highlight_words(display_user.name, @highlight_words), user_url(display_user) %>

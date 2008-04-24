@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: general_controller.rb,v 1.18 2008-04-15 23:53:10 francis Exp $
+# $Id: general_controller.rb,v 1.19 2008-04-24 23:52:59 francis Exp $
 
 class GeneralController < ApplicationController
 
@@ -70,7 +70,7 @@ class GeneralController < ApplicationController
 
     # Used in front page search for public body
     def public_body_query(query)
-        # @public_bodies = PublicBody.find_by_solr(query).results
+        # XXX try using search now we have spell correction?
 
         criteria = '%' + query + '%'
         @public_bodies = PublicBody.find(:all, 

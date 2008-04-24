@@ -20,7 +20,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request_event.rb,v 1.39 2008-04-24 22:50:03 angie Exp $
+# $Id: info_request_event.rb,v 1.40 2008-04-24 23:52:59 francis Exp $
 
 class InfoRequestEvent < ActiveRecord::Base
     belongs_to :info_request
@@ -53,20 +53,19 @@ class InfoRequestEvent < ActiveRecord::Base
     ]
 
     # Full text search indexing
-    acts_as_solr :fields => [ 
-        { :solr_text_main => :text },
-        { :title => :text },
-        { :status => :string },
-        { :requested_by => :string },
-        { :requested_from => :string },
-        { :request => :string },
-        { :created_at => :date },
-        { :rss_at => :date },
-        { :variety => :string }
-    ], :if => "$do_solr_index"
-    def status # for name in Solr queries
-        self.calculated_state
-    end
+    acts_as_xapian :texts => [ :search_text_main, :title ],
+        :values => [ [ :created_at, 0, "created_at", :date ],
+                     [ :rss_at, 1, "rss_at", :date ],
+                     [ :request, 2, "request_collapse", :string ]
+                   ],
+        :terms => [ [ :calculated_state, 'S', "status" ],
+                [ :requested_by, 'B', "requested_by" ],
+                [ :requested_from, 'F', "requested_from" ],
+                [ :request, 'R', "request" ],
+                [ :variety, 'V', "variety" ]
+        ],
+        :if => :indexed_by_search,
+        :eager_load => [ { :incoming_message => { :info_request => :public_body }}, :outgoing_message, { :info_request => [ :user, :public_body ] } ]
     def requested_by
         self.info_request.user.url_name
     end
@@ -83,7 +82,7 @@ class InfoRequestEvent < ActiveRecord::Base
         # types, just use the create at date.
         self.last_described_at || self.created_at
     end
-    def solr_text_main
+    def search_text_main
         text = ''
         if self.event_type == 'sent' 
             text = text + self.outgoing_message.body_without_salutation + "\n\n"
@@ -102,8 +101,11 @@ class InfoRequestEvent < ActiveRecord::Base
         end
         return ''
     end
-    def indexed_by_solr
+    def indexed_by_search
         if ['sent', 'followup_sent', 'response'].include?(self.event_type)
+            if info_request.prominence == 'backpage'
+                return false
+            end
             return true
         else
             return false

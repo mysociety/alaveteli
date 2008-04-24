@@ -13,7 +13,6 @@
 #  awaiting_description :boolean         default(false), not null
 #  prominence           :string(255)     default("normal"), not null
 #  url_title            :text            not null
-#  solr_up_to_date      :boolean         default(false), not null
 #
 
 # models/info_request.rb:
@@ -22,9 +21,10 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.95 2008-04-21 16:44:06 francis Exp $
+# $Id: info_request.rb,v 1.96 2008-04-24 23:52:59 francis Exp $
 
 require 'digest/sha1'
+require 'vendor/plugins/acts_as_xapian/lib/acts_as_xapian'
 
 class InfoRequest < ActiveRecord::Base
     validates_presence_of :title, :message => "^Please enter a summary of your request"
@@ -64,67 +64,19 @@ class InfoRequest < ActiveRecord::Base
         end
     end
 
-    # Full text search indexing
-    $do_solr_index = false
-    $do_solr_index_marking = false
-    def InfoRequest.update_solr_index
-        #STDERR.puts "self.update_solr_index"
-        $do_solr_index = true
-
-        # Index each item separately in a transaction, so solr_up_to_date is right 
-        ids_to_refresh = InfoRequest.find(:all, :conditions => ["not solr_up_to_date"]).map() { |i| i.id }
-        for id in ids_to_refresh
-            #STDERR.puts "updating id " + id.to_s
-            ActiveRecord::Base.transaction do
-                info_request = InfoRequest.find(id, :lock =>true)
-                do_index = (info_request.prominence != 'backpage')
-
-                info_request.calculate_event_states
-
-                # index all the events
-                for event in info_request.info_request_events
-                    if do_index and event.indexed_by_solr
-                        event.solr_save
-                    else
-                        event.solr_destroy
-                    end
-                end
-
-                $do_solr_index = false # disable indexing again while we save it, or else destroyed things get put back
-                $do_solr_index_marking = true # but record that we want to set solr_up_to_date to be true, so before_update doesn't clobber it
-                info_request.solr_up_to_date = true
-                #STDERR.puts "saving " + info_request.solr_up_to_date.to_s
-                info_request.save!
-                $do_solr_index_marking = false
-                $do_solr_index = true
-            end
-        end
-        InfoRequestEvent.solr_optimize
-        $do_solr_index = false
-    end
-    def before_update
-        # If we're not mid index, then mark we need to index later
-        if not $do_solr_index_marking
-            self.solr_up_to_date = false
-        end
-        true
-    end
-
     # Central function to do all searches
-    def InfoRequest.full_search(query, order, per_page, page, html_highlight)
+    # (Not really the right place to put it, but everything can get it here, and it
+    # does *mainly* find info requests, via their events, so hey)
+    def InfoRequest.full_search(query, order, ascending, per_page, page, html_highlight)
+        # XXX handle order better
+        # XXX html_highlight
         offset = (page - 1) * per_page
-        return InfoRequestEvent.multi_solr_search(query, :models => [ PublicBody, User ],
-            :limit => per_page, :offset => offset, 
-            :highlight => { 
-                :prefix => html_highlight ? '<span class="highlight">' : "*",
-                :suffix => html_highlight ? '</span>' : "*",
-                :fragsize => 250,
-                :fields => ["solr_text_main", "title", # InfoRequestEvent
-                           "name", "short_name", # PublicBody
-                           "name" # User
-            ]}, 
-            :order => order,
-            :include => { :InfoRequestEvent => [ { :incoming_message => { :info_request => :public_body }}, :outgoing_message, { :info_request => [ :user, :public_body ] } ] } 
+        return ::ActsAsXapian::Search.new(
+            [InfoRequestEvent, PublicBody, User], query,
+            :offset => offset, :limit => per_page,
+            :sort_by_prefix => order,
+            :sort_by_ascending => ascending, 
+            :collapse_by_prefix => "request_collapse"
         )
     end
 
@@ -135,7 +87,7 @@ class InfoRequest < ActiveRecord::Base
             t = Time.now.usec - t
             secs = t / 1000000.0
             STDOUT.write secs.to_s + " query " + i.to_s + "\n"
-            results = InfoRequest.full_search(query, "created_at desc", 25, 1, false).results
+            results = InfoRequest.full_search(query, "created_at", false, 25, 1, false).results
         end
     end
 
@@ -499,9 +451,6 @@ public
         self.incoming_messages.each { |a| a.destroy }
         self.outgoing_messages.each { |a| a.destroy }
         self.user_info_request_sent_alerts.each { |a| a.destroy }
-        for event in self.info_request_events
-            event.solr_destroy
-        end
         self.info_request_events.each { |a| a.destroy }
         self.destroy
     end

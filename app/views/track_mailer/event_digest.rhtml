@@ -1,3 +1,7 @@
+<% if @highlight_words.nil? 
+      @highlight_words = []
+end %>
+
 <%
         # Construct the main text of the mail
         main_text = ''
@@ -5,17 +9,15 @@
             main_text += track_thing.params[:title_in_email] + "\n"
             main_text += ("=" * track_thing.params[:title_in_email].size) + "\n\n"
             for result in alert_results.reverse
-                if result.class.to_s == "InfoRequestEvent"
-                    event = result
+                if result[:model].class.to_s == "InfoRequestEvent"
+                    event = result[:model]
 
-                    if not @highlighting.nil? and @highlighting['InfoRequestEvent'][event.id].size > 0
-                        extract = @highlighting['InfoRequestEvent'][event.id].values.join(" ")
-                    elsif not event.outgoing_message.nil?
-                        extract = excerpt(event.outgoing_message.body_without_salutation, "", 150)
+                    if not event.outgoing_message.nil?
+                        extract = highlight_and_excerpt(event.outgoing_message.body_without_salutation, @highlight_words, 150, false)
                     elsif not event.incoming_message.nil?
-                        extract = excerpt(event.incoming_message.get_body_for_quoting, "", 150)
+                        extract = highlight_and_excerpt(event.incoming_message.get_body_for_quoting, @highlight_words, 150, false)
                     else
-                        extract = excerpt(info_request.initial_request_text, "", 150)
+                        extract = highlight_and_excerpt(info_request.initial_request_text, @highlight_words, 150, false)
                     end
                     extract.gsub!(/\s+/, ' ')
 
@@ -44,7 +46,7 @@
             main_text += "\n"
         end
 
-        #STDERR.puts main_text
+        STDERR.puts main_text
         #STDERR.puts @unsubscribe_url
 %><%=main_text%>Alter your subscription
 =======================

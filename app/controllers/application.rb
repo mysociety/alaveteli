@@ -6,7 +6,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: application.rb,v 1.39 2008-04-17 23:19:55 francis Exp $
+# $Id: application.rb,v 1.40 2008-04-24 23:52:59 francis Exp $
 
 
 class ApplicationController < ActionController::Base
@@ -130,11 +130,11 @@ class ApplicationController < ActionController::Base
     # Convert URL name for sort by order, to Lucene query 
     def order_to_sort_by(sortby)
         if sortby.nil?
-            return nil
+            return [nil, true]
         elsif sortby == 'newest'
-            return 'created_at desc'
+            return ['created_at', false]
         elsif sortby == 'described'
-            return 'rss_at desc' # use this for RSS
+            return ['rss_at', false] # use this for RSS
         else
             raise "Unknown sort order " + @sortby
         end
@@ -146,7 +146,9 @@ class ApplicationController < ActionController::Base
         @sortby = sortby
 
         # Work out sorting method
-        order = order_to_sort_by(@sortby)
+        order_pair = order_to_sort_by(@sortby)
+        order = order_pair[0]
+        ascending = order_pair[1]
 
         # Peform the search
         @per_page = per_page
@@ -155,17 +157,15 @@ class ApplicationController < ActionController::Base
         else
             @page = this_page
         end
-        solr_object = InfoRequest.full_search(@query, order, @per_page, @page, true) 
-        @search_results = solr_object.results
-        @search_hits = solr_object.total_hits
+        xapian_object = InfoRequest.full_search(@query, order, ascending, @per_page, @page, true) 
+        @search_results = xapian_object.results
+        @search_hits = xapian_object.matches_estimated
+        @search_spelling = xapian_object.spelling_correction
 
         # Calculate simple word highlighting view code for users and public bodies
         query_nopunc = @query.gsub(/[^a-z0-9]/i, " ")
         query_nopunc = query_nopunc.gsub(/\s+/, " ")
         @highlight_words = query_nopunc.split(" ")
-
-        # Extract better Solr highlighting for info request related results
-        @highlighting = solr_object.highlights
     end
 
     # URL generating functions are needed by all controllers (for redirects),

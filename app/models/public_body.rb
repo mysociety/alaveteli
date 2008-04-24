@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.66 2008-04-22 00:54:07 francis Exp $
+# $Id: public_body.rb,v 1.67 2008-04-24 23:52:59 francis Exp $
 
 require 'csv'
 require 'set'
@@ -79,13 +79,9 @@ class PublicBody < ActiveRecord::Base
         attr_accessor :created_at
     end
 
-
-    acts_as_solr :fields => [
-        {:name => { :boost => 10.0 }}, 
-        {:short_name => { :boost => 10.0 }},
-        { :created_at => :date },
-        { :variety => :string }
-    ]
+    acts_as_xapian :texts => [ :name, :short_name ],
+        :values => [ [ :created_at, 0, "created_at", :date ] ],
+        :terms => [ [ :variety, 'V', "variety" ] ]
     def variety
         "authority"
     end

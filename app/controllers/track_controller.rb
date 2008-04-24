@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_controller.rb,v 1.7 2008-04-18 01:57:43 francis Exp $
+# $Id: track_controller.rb,v 1.8 2008-04-24 23:52:59 francis Exp $
 
 class TrackController < ApplicationController
 
@@ -63,8 +63,7 @@ class TrackController < ApplicationController
         respond_to :atom
     end
 
-    # Delete a track
-#    def delete
+    # Change or delete a track
     def update
         track_thing = TrackThing.find(params[:track_id].to_i)
 

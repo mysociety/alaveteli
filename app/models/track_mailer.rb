@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_mailer.rb,v 1.6 2008-04-14 14:46:48 francis Exp $
+# $Id: track_mailer.rb,v 1.7 2008-04-24 23:52:59 francis Exp $
 
 class TrackMailer < ApplicationMailer
     def event_digest(user, email_about_things)
@@ -41,13 +41,13 @@ class TrackMailer < ApplicationMailer
                 end
 
                 # Query for things in this track
-                solr_object = InfoRequest.full_search(track_thing.track_query, 'created_at desc', 100, 1, false) 
+                xapian_object = InfoRequest.full_search(track_thing.track_query, 'created_at', false, 100, 1, false) 
 
                 # Go through looking for unalerted things
                 alert_results = []
-                for result in solr_object.results
-                    if result.class.to_s == "InfoRequestEvent"
-                        if not done_info_request_events.include?(result.id) and track_thing.created_at < result.created_at
+                for result in xapian_object.results
+                    if result[:model].class.to_s == "InfoRequestEvent"
+                        if not done_info_request_events.include?(result[:model].id) and track_thing.created_at < result[:model].created_at
                             # OK alert this one
                             alert_results.push(result)
                         end
@@ -68,7 +68,7 @@ class TrackMailer < ApplicationMailer
                 for track_thing, alert_results in email_about_things
                     STDERR.puts "  tracking " + track_thing.track_query
                     for result in alert_results.reverse
-                        STDERR.puts "    result " + result.class.to_s + " id " + result.id.to_s
+                        STDERR.puts "    result " + result[:model].class.to_s + " id " + result[:model].id.to_s
                     end
                 end
 
@@ -81,8 +81,8 @@ class TrackMailer < ApplicationMailer
                 for result in alert_results
                     track_things_sent_email = TrackThingsSentEmail.new
                     track_things_sent_email.track_thing_id = track_thing.id
-                    if result.class.to_s == "InfoRequestEvent"
-                        track_things_sent_email.info_request_event_id = result.id
+                    if result[:model].class.to_s == "InfoRequestEvent"
+                        track_things_sent_email.info_request_event_id = result[:model].id
                     else
                         raise "need to add other types to TrackMailer.alert_tracks (mark alerted)"
                     end

@@ -5,7 +5,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: application_helper.rb,v 1.19 2008-04-03 15:29:51 francis Exp $
+# $Id: application_helper.rb,v 1.20 2008-04-24 23:52:59 francis Exp $
 
 module ApplicationHelper
     # URL generating functions are needed by all controllers (for redirects),
@@ -44,9 +44,22 @@ module ApplicationHelper
     end
 
     # Highlight words, also escapes HTML (other than spans that we add)
-    def highlight_words(t, words)
+    def highlight_words(t, words, html = true)
         t = h(t)
-        t = highlight(t, words, '<span class="highlight">\1</span>')
+        if html
+            t = highlight(t, words, '<span class="highlight">\1</span>')
+        else
+            t = highlight(t, words, '*\1*')
+        end
+        return t
+    end
+    def highlight_and_excerpt(t, words, excount, html = true)
+        newt = excerpt(t, words[0], excount)
+        if not newt
+            newt = excerpt(t, '', excount)
+        end
+        t = newt
+        t = highlight_words(t, words, html)
         return t
     end
 end

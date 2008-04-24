@@ -26,17 +26,21 @@
 
     <h1><%=@title%></h1>
 
+    <% if @search_spelling %>
+        <p id="did_you_mean">Did you mean: <%= link_to @search_spelling, search_url(:query => @search_spelling) %></p>
+    <% end %>
+
     <% if @search_results.empty? %>
     <% else %>
         <% for search_result in @search_results %>
-            <% if search_result.class.to_s == 'PublicBody' %>
-                <%= render :partial => 'body/body_listing_single', :locals => { :public_body => search_result } %>
-            <% elsif search_result.class.to_s == 'User' %>
-                <%= render :partial => 'user/user_listing_single', :locals => { :display_user => search_result } %>
-            <% elsif search_result.class.to_s == 'InfoRequestEvent' %>
-                <%= render :partial => 'request/request_listing_via_event', :locals => { :event => search_result, :info_request => search_result.info_request } %>
+            <% if search_result[:model].class.to_s == 'PublicBody' %>
+                <%= render :partial => 'body/body_listing_single', :locals => { :public_body => search_result[:model] } %>
+            <% elsif search_result[:model].class.to_s == 'User' %>
+                <%= render :partial => 'user/user_listing_single', :locals => { :display_user => search_result[:model] } %>
+            <% elsif search_result[:model].class.to_s == 'InfoRequestEvent' %>
+                <%= render :partial => 'request/request_listing_via_event', :locals => { :event => search_result[:model], :info_request => search_result[:model].info_request } %>
             <% else %>
-                <p><strong>Unknown search result type <%=search_result.class.to_s%></strong></p>
+                <p><strong>Unknown search result type <%=search_result[:model].class.to_s%></strong></p>
             <% end %>
         <% end %>
     <% end %>
