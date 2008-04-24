@@ -1,75 +1,135 @@
 # acts_as_xapian/lib/acts_as_xapian.rb:
-# Xapian search in Ruby on Rails.
+# Xapian full text search in Ruby on Rails.
 #
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: acts_as_xapian.rb,v 1.4 2008-04-24 08:19:30 francis Exp $
-#
+# $Id: acts_as_xapian.rb,v 1.5 2008-04-24 09:31:18 francis Exp $
+
 # TODO:
-
-# Rake tasks
 # Delete everything for the rebuild task
-
 # Spell checking
-
 # Eager loading
 # Boost particular fields?
-#
-# Function to keep it out of the index entirely
+# Function to keep a model out of the index entirely
 
 # Documentation
 # =============
 #
-# Xapian is a search engine library, which has Ruby bindings. acts_as_xapian
-# adds support for it to Rails. 
+# Xapian is a full text search engine library, which has Ruby bindings.
+# acts_as_xapian adds support for it to Rails. It is an alternative to
+# acts_as_lucene or acts_as_ferret.
 #
 # Xapian is an *offline indexing* search library - only one process can have
 # the database open for writing at once, and others that try meanwhile are
-# unceremoniously kicked off. For this reason, acts_as_xapian does not support
-# automatic writing to the database when your models change. You need to
-# update indices in a separate batch job (cron or a daemon) which there is
-# only one of.
+# unceremoniously kicked out. For this reason, acts_as_xapian does not support
+# automatic writing to the database when your models change.
+#
+# Instead, there is a ActsAsXapianJob model which stores which models need
+# updating or deleting in the search index. A rake task 'xapian:update_index'
+# then performs the updates since last change. Run it on a cron job, or
+# similar.
+#
+# Email francis@mysociety.org with patches.
+#
+#
+# Comparison to acts_as_solr (as on 24 April 2008)
+# ==========================
+#
+# * Offline indexing only mode - which is a minus if you want changes
+# immediately reflected in the search index, and a plus if you were going to
+# have to implement your own offline indexing anyway.
+#
+# * Collapsing - the equivalent of SQL's "group by". You can specify a field
+# to collapse on, and only the most relevant result from each value of that
+# field is returned. Along with a count of how many there are in total.
+# acts_as_solr doesn't have this.
+#
+# * No highlighting - Xapian can't return you text highlighted with a search query.
+# You can try and make do with TextHelper::highlight. I found the highlighting
+# in acts_as_solr didn't really understand the query anyway.
+#
+# * Date range searching - maybe this works in acts_as_solr, but I never found
+# out how.
+#
+# * Multiple models - acts_as_xapian searches multiple models if you like,
+# returning them mixed up together by relevancy. This is like multi_solr_search,
+# only it is the default mode of operation and is properly supported.
+#
+# * No daemons - However, if you have more than one web server, you'll need to
+# work out how to use Xapian's remote backend http://xapian.org/docs/remote.html. 
+#
+# * One layer - full-powered Xapian is called directly from the Ruby, without
+# Solr getting in the way whenever you want to use a new feature from Lucene.
+#
+# * No Java - an advantage if you're more used to working in the rest of the
+# open source world. acts_as_xapian, it's pure Ruby and C++.
+#
+# * Xapian's awesome email list - the kids over at xapian-discuss are super
+# helpful. Useful if you need to extend and improve acts_as_xapian. The
+# Ruby bindings are mature and well maintained as part of Xapian.
+# http://lists.xapian.org/mailman/listinfo/xapian-discuss
+#
 #
 # Indexing
 # ========
 #
-# Put acts_as_xapian in your models that need search indexing.
+# 1. Put acts_as_xapian in your models that need search indexing.
+#
+# e.g. acts_as_xapian :texts => [ :name, :short_name ],
+#        :values => [ [ :created_at, 0, "created_at", :date ] ],
+#        :terms => [ [ :variety, 'V', "variety" ] ]
 #
 # Options must include:
 # :texts, an array of fields for indexing with full text search 
 #         e.g. :texts => [ :title, :body ]
 # :values, things which have a range of values for indexing, or for collapsing. 
-#         Specify an array quadruple of [ field, index, prefix, type ] where 
-#         - :index is an arbitary numeric identifier for use in the Xapian database
-#         - :prefix is the part to use in search queries that goes before the :
-#         - :type can be any of :string, :number or :date
+#         Specify an array quadruple of [ field, identifier, prefix, type ] where 
+#         - number is an arbitary numeric identifier for use in the Xapian database
+#         - prefix is the part to use in search queries that goes before the :
+#         - type can be any of :string, :number or :date
 #         e.g. :values => [ [ :created_at, 0, "created_at" ], [ :size, 1, "size"] ]
 # :terms, things which come after a : in search queries. Specify an array
 #         triple of [ field, char, prefix ] where 
-#         - :char is an arbitary single upper case char used in the Xapian database
-#         - :prefix is the part to use in search queries that goes before the :
+#         - char is an arbitary single upper case char used in the Xapian database
+#         - prefix is the part to use in search queries that goes before the :
 #         e.g. :terms => [ [ :variety, 'V', "variety" ] ]
-# A field is a symbol referring to either an attribute or a name
+# A 'field' is a symbol referring to either an attribute or a function which
+# returns the text, date or number to index. Both 'number' and 'char' must be
+# the same for the same prefix in different models.
 #
-# Run the migration to create the ActsAsXapianJob model, code below (search for
-# ActsAsXapianJob).
+# 2. Make and run the migration to create the ActsAsXapianJob model, code below
+# (search for ActsAsXapianJob).
 #
-# Call... XXX
+# 3. Call 'rake xapian::rebuild_index models="ModelName1 ModelName2"' to build the index
+# the first time. It's put in a development/test/production dir in acts_as_xapian/xapiandbs.
+#
+# 4. Then from a cron job or a daemon, or by hand regularly!, call 'rake xapian:update_index'
+#
 #
 # Querying
 # ========
 #
-# To perform a query call ActsAsXapian.search. This takes in turn:
-# model_classes - list of models to search, e.g. [PublicBody, InfoRequestEvent]
-# query_string - Google like syntax, as described in http://www.xapian.org/docs/queryparser.html
-# first_result - Offset of first result
-# results_per_page - Number of results per page
-# sort_by_prefix - Optionally, prefix of value to sort by
-# collapse_by_prefix - Optionally, prefix of value to collapse by (i.e. only return most relevant result from group)
+# If you just want to test indexing is working, you'll find this rake task
+# useful (it has more options, see lib/tasks/xapian.rake)
+#   rake xapian:query models="PublicBody User" query="moo"
 #
-# Returns an object. The count and results methods are the two useful ones.
+# To perform a query call ActsAsXapian::Search.new. This takes in turn:
+#   model_classes - list of models to search, e.g. [PublicBody, InfoRequestEvent]
+#   query_string - Google like syntax, as described in http://www.xapian.org/docs/queryparser.html
+#   first_result - Offset of first result
+#   results_per_page - Number of results per page
+#   sort_by_prefix - Optionally, prefix of value to sort by
+#   collapse_by_prefix - Optionally, prefix of value to collapse by (i.e. only return most relevant result from group)
 #
+# Returns an ActsAsXapian::Search object. Useful methods are:
+#   description - a techy one, to check how the query has been parsed
+#   matches_estimated - a guesstimate at the total number of hits
+#   results - an array of hashes containing:
+#       :model - your Rails model, this is what you most want!
+#       :weight - relevancy measure
+#       :percent - the weight as a %, 0 meaning the item did not match the query at all
+#       :collapse_count - number of results with the same prefix, if you specified collapse_by_prefix
 
 require 'xapian'
 
@@ -218,12 +278,12 @@ module ActsAsXapian
         end
 
         # Return a description of the query
-        def techy_description
+        def description
             self.query.description
         end
 
         # Estimate total number of results
-        def count
+        def matches_estimated
             self.matches.matches_estimated
         end
 
@@ -318,7 +378,7 @@ module ActsAsXapian
     def ActsAsXapian.rebuild_index(model_classes)
         ActsAsXapian.writable_init
 
-        # XXX also delete everything! or maybe just what we didn't find again :)
+        # XXX also delete everything in the models! or maybe just what we didn't find again :)
         # or maybe just what is marked delete in ActsAsXapianJob
         #iter = ActsAsXapian.writable_db.allterms_begin
         #while not iter.equals(ActsAsXapian.writable_db.allterms_end)
