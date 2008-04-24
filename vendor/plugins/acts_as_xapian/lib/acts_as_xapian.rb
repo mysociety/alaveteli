@@ -4,11 +4,12 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: acts_as_xapian.rb,v 1.8 2008-04-24 10:26:50 francis Exp $
+# $Id: acts_as_xapian.rb,v 1.9 2008-04-24 13:08:11 francis Exp $
 
 # TODO:
-# Eager loading
-# Function to keep a model out of the index entirely
+# Test :eager_load
+# Test :if
+# Reverse sorting?
 
 # Documentation
 # =============
@@ -97,6 +98,12 @@
 # returns the text, date or number to index. Both 'number' and 'char' must be
 # the same for the same prefix in different models.
 #
+# Options may include:
+# :eager_load, added as an :include clause when looking up search results in
+# database
+# :if, either an attribute or a function which if returns false means the
+# object isn't indexed
+#
 # 2. Make and run the migration to create the ActsAsXapianJob model, code below
 # (search for ActsAsXapianJob).
 #
@@ -116,11 +123,18 @@
 #
 # To perform a query call ActsAsXapian::Search.new. This takes in turn:
 #   model_classes - list of models to search, e.g. [PublicBody, InfoRequestEvent]
-#   query_string - Google like syntax, as described in http://www.xapian.org/docs/queryparser.html
-#   first_result - Offset of first result
-#   results_per_page - Number of results per page
-#   sort_by_prefix - Optionally, prefix of value to sort by
-#   collapse_by_prefix - Optionally, prefix of value to collapse by (i.e. only return most relevant result from group)
+#   query_string - Google like syntax, see below
+# And then a hash of options:
+#   :offset - Offset of first result
+#   :limit - Number of results per page
+#   :sort_by_prefix - Optionally, prefix of value to sort by, otherwise sort by relevance
+#   :collapse_by_prefix - Optionally, prefix of value to collapse by (i.e. only return most relevant result from group)
+#
+# Google like query syntax is as described in http://www.xapian.org/docs/queryparser.html
+# Queries can include prefix:value parts, according to what you indexed in the
+# acts_as_xapian part above. You can also say things like model:InfoRequestEvent 
+# to constrain by model in more complex ways than the :model parameter, or
+# modelid:InfoRequestEvent-100 to only find one specific object.
 #
 # Returns an ActsAsXapian::Search object. Useful methods are:
 #   description - a techy one, to check how the query has been parsed
@@ -193,13 +207,15 @@ module ActsAsXapian
 
         # go through the various field types, and tell query parser about them,
         # and error check them - i.e. check for consistency between models
+        @@query_parser.add_boolean_prefix("model", "M")
+        @@query_parser.add_boolean_prefix("modelid", "I")
         for term in options[:terms]
             raise "Use a single capital letter for term code" if not term[1].match(/^[A-Z]$/)
             raise "M and I are reserved for use as the model/id term" if term[1] == "M" or term[1] == "I"
+            raise "model and modelid are reserved for use as the model/id prefixes" if term[2] == "model" or term[2] == "modelid"
             raise "Z is reserved for stemming terms" if term[1] == "Z"
             raise "Already have code '" + term[1] + "' in another model but with different prefix '" + @@terms_by_capital[term[1]] + "'" if @@terms_by_capital.include?(term[1]) && @@terms_by_capital[term[1]] != term[2]
             @@terms_by_capital[term[1]] = term[2]
-
             @@query_parser.add_boolean_prefix(term[2], term[1])
         end
         for value in options[:values]
@@ -246,15 +262,20 @@ module ActsAsXapian
     # about relevancy etc. in other keys.
     class Search
         attr_accessor :query_string
-        attr_accessor :first_result
-        attr_accessor :results_per_page
+        attr_accessor :offset
+        attr_accessor :limit
         attr_accessor :query
         attr_accessor :matches
 
         # Note that model_classes is not only sometimes useful here - it's essential to make sure the
         # classes have been loaded, and thus acts_as_xapian called on them, so
         # we know the fields for the query parser.
-        def initialize(model_classes, query_string, first_result, results_per_page, sort_by_prefix = nil, collapse_by_prefix = nil)
+        def initialize(model_classes, query_string, options = {})
+            offset = options[:offset].to_i || 0
+            limit = options[:limit].to_i || 10
+            sort_by_prefix = options[:sort_by_prefix] || nil
+            collapse_by_prefix = options[:collapse_by_prefix] || nil
+
             if ActsAsXapian.db.nil?
                 raise "ActsAsXapian not initialized"
             end
@@ -275,7 +296,7 @@ module ActsAsXapian
                 enquire.set_collapse_key(ActsAsXapian.values_by_prefix[collapse_by_prefix])
             end
 
-            self.matches = ActsAsXapian.enquire.mset(first_result, results_per_page, 100)
+            self.matches = ActsAsXapian.enquire.mset(offset, limit, 100)
         end
 
         # Return a description of the query
@@ -321,8 +342,7 @@ module ActsAsXapian
             chash = {}
             for cls, ids in lhash
                 conditions = [ "#{cls.constantize.table_name}.id in (?)", ids ]
-                # XXX add eager loading in line below: :include => options[:include][cls.to_sym])
-                found = cls.constantize.find(:all, :conditions => conditions, :include => nil)
+                found = cls.constantize.find(:all, :conditions => conditions, :include => cls.constantize.xapian_options[:eager_load])
                 for f in found
                     chash[[cls, f.id]] = f
                 end
@@ -367,8 +387,8 @@ module ActsAsXapian
         for id in ids_to_refresh
             ActiveRecord::Base.transaction do
                 job = ActsAsXapianJob.find(id, :lock =>true)
-                # XXX maybe have eager loading here too? index functions may reference other models.
-                model = job.model.constantize.find(job.model_id)
+                # XXX Index functions may reference other models, so we could eager load here too?
+                model = job.model.constantize.find(job.model_id) # :include => cls.constantize.xapian_options[:include]
                 if job.action == 'update'
                     model.xapian_index
                 elsif job.action == 'destroy'
@@ -437,6 +457,8 @@ module ActsAsXapian
             value = self[field] || self.instance_variable_get("@#{field.to_s}".to_sym) || self.send(field.to_sym)
             if type == :date
                 value.utc.strftime("%Y%m%d")
+            elsif type == :boolean
+                value ? true : false
             else
                 value.to_s
             end
@@ -444,6 +466,16 @@ module ActsAsXapian
 
         # Store record in the Xapian database
         def xapian_index
+            # if we have a conditional function for indexing, call it and destory object if failed
+            if self.class.xapian_options.include?(:if)
+                if_value = xapian_value(self.class.xapian_options[:if], :boolean)
+                if not if_value
+                    self.xapian_destroy
+                    return
+                end
+            end
+
+            # otherwise (re)write the Xapian record for the object
             ActsAsXapian.writable_init
 
             doc = Xapian::Document.new
