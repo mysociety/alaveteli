@@ -16,73 +16,74 @@
 <% form_for(:info_request, @info_request, :html => { :id => 'write_form' }  ) do |f| %>
     
     <div id="request_advice">
-    <h1>Read this before writing your Freedom of Information request</h1>
-    <ul>
-    <li>Use a <strong>search engine first</strong> to check that the information isn't already published.
-    </li>
-    <li>Write your request in <strong>simple, precise language</strong>.
-    <% if @info_request.public_body.info_requests.size > 0 %>
-        <li>Browse <%= link_to "other requests", public_body_url(@info_request.public_body)  %> 
-        to '<%= h(@info_request.public_body.name) %>'
-        for examples of how to word your request.
-        </li>
-    <% else %>
-        <li>Browse <%= link_to "other requests", request_list_url %> for examples of how to word your request.
-        </li>
-    <% end %>
-    <li>Keep it <strong>focussed</strong>, if you ask for everything it might cost too much
-    and you might get nothing.
-    </li>
-    <li>Top tip: Ask for a <strong>particular document</strong> you have seen mentioned elsewhere.
-    </li>
-    <li>This site is <strong>public</strong>, everything you type (except your email address) and any response will be published.
-    </li>
-    </ul>
+		<h1>Read this before writing your Freedom of Information request</h1>
+		<ul>
+		<li>Use a <strong>search engine first</strong> to check that the information isn't already published.
+		</li>
+		<li>Write your request in <strong>simple, precise language</strong>.
+		<% if @info_request.public_body.info_requests.size > 0 %>
+			<li>Browse <%= link_to "other requests", public_body_url(@info_request.public_body)  %> 
+			to '<%= h(@info_request.public_body.name) %>'
+			for examples of how to word your request.
+			</li>
+		<% else %>
+			<li>Browse <%= link_to "other requests", request_list_url %> for examples of how to word your request.
+			</li>
+		<% end %>
+		<li>Keep it <strong>focussed</strong>, if you ask for everything it might cost too much
+		and you might get nothing.
+		</li>
+		<li>Top tip: Ask for a <strong>particular document</strong> you have seen mentioned elsewhere.
+		</li>
+		<li>This site is <strong>public</strong>, everything you type (except your email address) and any response will be published.
+		</li>
+		</ul>
     </div>
-
-    <p>
-        <label class="form_label" for="info_request_public_body_id">To:</label>
-        <span id="to_public_body"><%=h(@info_request.public_body.name)%></span>
-    </p>
-
-    <p>
-        <label class="form_label" for="info_request_title">Summary:</label> 
-        <%= f.text_field :title, :size => 50 %>
-    </p>
-    <div class="form_item_note">
-        (a one line summary of the information you are requesting, 
-        e.g. 'Crime statistics by ward level for Wales')
-    </div>
-
-    <% fields_for :outgoing_message do |o| %>
-    <p>
-        <label class="form_label" for="outgoing_message_body">Your request:</label> 
-        <%= o.text_area :body, :rows => 20, :cols => 60 %>
-    </p>
-    <% end %>
-
-    <div class="form_button">
-        <script type="text/javascript">document.write('<input name="doSpell" type="button" value="Check spelling" onClick="openSpellChecker(document.getElementById(\'write_form\').body);"/> (optional)')</script>
-    </div>
-
-    <p class="form_note">
-        <strong>Privacy warning:</strong> All information that you enter, except
-        for your email address, will be displayed publically on this website. Any
-        response you get will also be published.
-    </p>
-
-    <p class="form_note">
-        <strong>Can I request information about myself?</strong>
-        <a href="/help/about#data_protection">No! (Click here for details)</a> 
-    </p>
-
-    <div class="form_button">
-        <%= f.hidden_field(:public_body_id, { :value => @info_request.public_body_id } ) %>
-        <%= hidden_field_tag(:submitted_new_request, 1 ) %>
-        <%= hidden_field_tag(:preview, 1 ) %>
-        <%= submit_tag "Preview your public request" %>
-    </div>
-
+	
+	<div id="request_form">
+		<h1>
+			<label class="form_label" for="info_request_public_body_id">To:</label>
+			<span id="to_public_body"><%=h(@info_request.public_body.name)%></span>
+		</h1>
+	
+		<p>
+			<label class="form_label" for="info_request_title">Summary:</label> 
+			<%= f.text_field :title, :size => 50 %>
+		</p>
+		<div class="form_item_note">
+			(a one line summary of the information you are requesting, 
+			e.g. 'Crime statistics by ward level for Wales')
+		</div>
+	
+		<% fields_for :outgoing_message do |o| %>
+		<p>
+			<label class="form_label" for="outgoing_message_body">Your request:</label> 
+			<%= o.text_area :body, :rows => 20, :cols => 60 %>
+		</p>
+		<% end %>
+	
+		<div class="form_button">
+			<script type="text/javascript">document.write('<input name="doSpell" type="button" value="Check spelling" onClick="openSpellChecker(document.getElementById(\'write_form\').body);"/> (optional)')</script>
+		</div>
+	
+		<p class="form_note">
+			<strong>Privacy warning:</strong> All information that you enter, except
+			for your email address, will be displayed publically on this website. Any
+			response you get will also be published.
+		</p>
+	
+		<p class="form_note">
+			<strong>Can I request information about myself?</strong>
+			<a href="/help/about#data_protection">No! (Click here for details)</a> 
+		</p>
+	
+		<div class="form_button">
+			<%= f.hidden_field(:public_body_id, { :value => @info_request.public_body_id } ) %>
+			<%= hidden_field_tag(:submitted_new_request, 1 ) %>
+			<%= hidden_field_tag(:preview, 1 ) %>
+			<%= submit_tag "Preview your public request" %>
+		</div>
+	</div>
 <% end %>
 
 

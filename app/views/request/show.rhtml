@@ -6,6 +6,62 @@
     </div>
 <% end %>
 
+<div id="request_sidebar">
+    <h2>People tracking this request</h2>
+    <% if @info_request.track_things.size > 0 %>
+        <ul>
+        <% for track_thing in @info_request.track_things %>
+            <li><%=user_link(track_thing.tracking_user)%></li>
+        <% end %>
+        </ul>
+        <p>
+            <% if @existing_track %>
+                You are already tracking this request
+                (<%= link_to "alter your subscriptions", user_url(@user) %>).
+            <% else %>
+                <% if @info_request.user == @user %> 
+                    <p>You will be emailed when there are updates to your own request.</p>
+                    <p>You may also <%= link_to "get an RSS feed", track_request_url(:url_title => @info_request.url_title) %>
+                    <img src="/images/feed-14.png" alt="" class="rss"></p>
+                <% else %>
+                    <%= link_to "Track updates to this request", track_request_url(:url_title => @info_request.url_title) %>
+                    (by email or RSS feed <img src="/images/feed-14.png" alt="" class="rss">)
+                <% end %>
+            <% end %>
+        </p>
+    <% else %>
+        <% if @info_request.user == @user %> 
+            <p>You will be emailed when there are updates to your own request.</p>
+            <p>You may also get an <%= link_to 'RSS feed', track_request_url(:url_title => @info_request.url_title) %>
+            <img src="/images/feed-14.png" alt="" class="rss"></p>
+        <% else %>
+            <p>Be the first to <%= link_to "track updates to this request", track_request_url(:url_title => @info_request.url_title) %>
+            (by email or RSS feed <img src="/images/feed-14.png" alt="" class="rss">)</p>
+        <% end %>
+    <% end %>
+
+    <h2>Act on this request</h2>
+    <p>
+    <img src="/images/writetothem.png" alt=""> <a href="http://www.writetothem.com">Write to your politician</a> about it
+    <br><img src="/images/pledgebank.png" alt=""> <a href="http://www.pledgebank.com">Pledge with others</a>
+    </p>
+
+    <% if @info_requests_same_user_same_body.size > 0 %>
+        <h2>Requests from same user to same authority</h2>
+        <!-- <h2>Some other requests made by <%= user_link(@info_request.user) %> to <%= public_body_link(@info_request.public_body) %></h2> -->
+        <%= render :partial => 'sidebar_request_listing', :locals => { :info_requests => @info_requests_same_user_same_body } %>
+        <% if @info_requests_same_user_same_body_more %>
+            <p><%= link_to "More such requests", search_url(:query => "variety:sent requested_from:" + @info_request.public_body.url_name + " requested_by:" + @info_request.user.url_name + " -request:" + @info_request.url_title, :sortby => "newest") %></p>
+        <% end %>
+    <% end %>
+
+    <!--<h2>Blog posts about this request</h2>
+    <p>...
+    <h2>Wikipedia articles</h2>
+    <p>...-->
+</div>
+
+
 <div id="request_main">
     <h1><%=@title%></h1>
 
@@ -65,60 +121,6 @@
     <% end %>
 </div>
 
-<div id="request_sidebar">
-    <h2>People tracking this request</h2>
-    <% if @info_request.track_things.size > 0 %>
-        <ul>
-        <% for track_thing in @info_request.track_things %>
-            <li><%=user_link(track_thing.tracking_user)%></li>
-        <% end %>
-        </ul>
-        <p>
-            <% if @existing_track %>
-                You are already tracking this request
-                (<%= link_to "alter your subscriptions", user_url(@user) %>).
-            <% else %>
-                <% if @info_request.user == @user %> 
-                    <p>You will be emailed when there are updates to your own request.</p>
-                    <p>You may also <%= link_to "get an RSS feed", track_request_url(:url_title => @info_request.url_title) %>
-                    <img src="/images/feed-14.png" alt="" class="rss"></p>
-                <% else %>
-                    <%= link_to "Track updates to this request", track_request_url(:url_title => @info_request.url_title) %>
-                    (by email or RSS feed <img src="/images/feed-14.png" alt="" class="rss">)
-                <% end %>
-            <% end %>
-        </p>
-    <% else %>
-        <% if @info_request.user == @user %> 
-            <p>You will be emailed when there are updates to your own request.</p>
-            <p>You may also get an <%= link_to 'RSS feed', track_request_url(:url_title => @info_request.url_title) %>
-            <img src="/images/feed-14.png" alt="" class="rss"></p>
-        <% else %>
-            <p>Be the first to <%= link_to "track updates to this request", track_request_url(:url_title => @info_request.url_title) %>
-            (by email or RSS feed <img src="/images/feed-14.png" alt="" class="rss">)</p>
-        <% end %>
-    <% end %>
-
-    <h2>Act on this request</h2>
-    <p>
-    <img src="/images/writetothem.png" alt=""> <a href="http://www.writetothem.com">Write to your politician</a> about it
-    <br><img src="/images/pledgebank.png" alt=""> <a href="http://www.pledgebank.com">Pledge with others</a>
-    </p>
-
-    <% if @info_requests_same_user_same_body.size > 0 %>
-        <h2>Requests from same user to same authority</h2>
-        <!-- <h2>Some other requests made by <%= user_link(@info_request.user) %> to <%= public_body_link(@info_request.public_body) %></h2> -->
-        <%= render :partial => 'sidebar_request_listing', :locals => { :info_requests => @info_requests_same_user_same_body } %>
-        <% if @info_requests_same_user_same_body_more %>
-            <p><%= link_to "More such requests", search_url(:query => "variety:sent requested_from:" + @info_request.public_body.url_name + " requested_by:" + @info_request.user.url_name + " -request:" + @info_request.url_title, :sortby => "newest") %></p>
-        <% end %>
-    <% end %>
-
-    <!--<h2>Blog posts about this request</h2>
-    <p>...
-    <h2>Wikipedia articles</h2>
-    <p>...-->
-</div>
 
 <% if @info_request.awaiting_description %>
     <div class="describe_state_form">

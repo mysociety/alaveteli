@@ -1,8 +1,4 @@
-<blockquote class="xsnazzy">
-    <div>
-        <strong class="xb1"></strong><strong class="xb2"></strong><strong class="xb3"></strong><strong class="xb4"></strong><strong class="xb5"></strong><strong class="xb6"></strong><strong class="xb7"></strong>
-    </div>
-    <div class="xboxcontent">
+    <div class="correspondence_text">
         <%  if not attachments.nil? and attachments.size > 0 %>
             <p> <% attachments.each do |a| %>
                     <% attachment_url = get_attachment_url(:id => incoming_message.info_request_id,
@@ -22,10 +18,3 @@
         <% end %>
         <p><%= body %></p>
     </div>
-    <div>
-        <strong class="xb7"></strong><strong class="xb6"></strong><strong class="xb5"></strong><strong class="xb4"></strong><strong class="xb3"></strong><strong class="xb2"></strong><strong class="xb1"></strong>
-        <em></em>
-        <span class="bubblebit"></span>
-    </div>
-</blockquote>
-

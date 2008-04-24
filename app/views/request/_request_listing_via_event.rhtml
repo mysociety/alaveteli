@@ -1,34 +1,34 @@
-<p class="request_listing">
+<div class="request_listing">
+	<span class="head">
+		<% if not @highlighting.nil? and @highlighting['InfoRequestEvent'][event.id].include?('title') %>
+			<%= link_to @highlighting['InfoRequestEvent'][event.id]["title"], request_url(info_request) %>
+			<% @highlighting['InfoRequestEvent'][event.id].delete("title") %>
+		<% elsif not event.incoming_message.nil? %>
+			<%= link_to "Response to '" + h(info_request.title) + "'", incoming_message_url(event.incoming_message) %>
+		<% elsif not event.outgoing_message.nil? and event.event_type == 'followup_sent' %>
+			<%= link_to "Follow up message for '" + h(info_request.title) + "'", outgoing_message_url(event.outgoing_message) %>
+		<% else %>
+			<%= link_to h(info_request.title), request_url(info_request) %>
+		<% end %>
+	</span>
+    <span class="desc">	
+		<% if not @highlighting.nil? and @highlighting['InfoRequestEvent'][event.id].size > 0 %>
+			<%= @highlighting['InfoRequestEvent'][event.id].values.join(" ") %>
+		<% elsif not event.outgoing_message.nil? %>
+			<%= excerpt(event.outgoing_message.body_without_salutation, "", 150) %>
+		<% elsif not event.incoming_message.nil? %>
+			<%= excerpt(event.incoming_message.get_body_for_quoting, "", 150) %>
+		<% else %>
+			<%= excerpt(info_request.initial_request_text, "", 150) %>
+		<% end %>
+	</span>
 
-    <% if not @highlighting.nil? and @highlighting['InfoRequestEvent'][event.id].include?('title') %>
-        <%= link_to @highlighting['InfoRequestEvent'][event.id]["title"], request_url(info_request) %>
-        <% @highlighting['InfoRequestEvent'][event.id].delete("title") %>
-    <% elsif not event.incoming_message.nil? %>
-        <%= link_to "Response to '" + h(info_request.title) + "'", incoming_message_url(event.incoming_message) %>
-    <% elsif not event.outgoing_message.nil? and event.event_type == 'followup_sent' %>
-        <%= link_to "Follow up message for '" + h(info_request.title) + "'", outgoing_message_url(event.outgoing_message) %>
-    <% else %>
-        <%= link_to h(info_request.title), request_url(info_request) %>
-    <% end %>
-
-    <br>
-    <% if not @highlighting.nil? and @highlighting['InfoRequestEvent'][event.id].size > 0 %>
-        <%= @highlighting['InfoRequestEvent'][event.id].values.join(" ") %>
-    <% elsif not event.outgoing_message.nil? %>
-        <%= excerpt(event.outgoing_message.body_without_salutation, "", 150) %>
-    <% elsif not event.incoming_message.nil? %>
-        <%= excerpt(event.incoming_message.get_body_for_quoting, "", 150) %>
-    <% else %>
-        <%= excerpt(info_request.initial_request_text, "", 150) %>
-    <% end %>
-    <br>
-
-    <span class="request_listing_bottomline">
+    <span class="bottomline icon_<%= info_request.calculate_status %>">
 
         <% if event.event_type == 'sent' %>
             <strong>
             <%= info_request.display_status %>
-            </strong>
+            </strong><br>
             Request sent to <%= public_body_link(info_request.public_body) %>
             by <%= user_link(info_request.user) %>
         <% elsif event.event_type == 'followup_sent' %>
@@ -45,8 +45,7 @@
         <% else %>
             <% raise "unknown event type indexed " + event.event_type %>
         <% end %>
-
         on <%= simple_date(event.created_at) %>.
     </span>
-</p>
+</div>
 

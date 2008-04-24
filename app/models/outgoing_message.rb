@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: outgoing_message.rb,v 1.43 2008-04-21 16:44:06 francis Exp $
+# $Id: outgoing_message.rb,v 1.44 2008-04-24 22:50:03 angie Exp $
 
 class OutgoingMessage < ActiveRecord::Base
     belongs_to :info_request
@@ -133,9 +133,16 @@ class OutgoingMessage < ActiveRecord::Base
         text = self.body
         text = MySociety::Format.make_clickable(text, :contract => 1)
         text = text.gsub(/\n/, '<br>')
-
         return text
     end
+    
+    def get_body_for_neat_html_display
+        text = self.body
+        text = MySociety::Format.make_clickable(text, :contract => 1)
+        text = text.gsub(/\n\n/, '<br>')
+        return text
+    end
+    
 
     # Return body for display as HTML
     # XXX this is repeating code in a combination of 

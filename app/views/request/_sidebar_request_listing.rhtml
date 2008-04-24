@@ -1,16 +1,16 @@
 <% for info_request in info_requests %>
-    <p class="request_listing">
-        <%= request_link(info_request) %>
-
-        <br>
+    <div class="request_listing">
+    	<span class="head">
+	        <%= request_link(info_request) %>
+		</span>
+        <span class="desc">
         <%=h excerpt(info_request.initial_request_text, "", 100) %>
-        <br>
-
-        <span class="request_listing_bottomline">
+        </span>
+        <span class="bottomline">
             <strong>
             <%= info_request.display_status %>
-            </strong>
+            </strong><br>
             Requested on <%= simple_date(info_request.created_at) %>.
         </span>
-    </p>
+    </div>
 <% end %>

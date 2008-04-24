@@ -20,7 +20,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request_event.rb,v 1.38 2008-04-21 16:44:06 francis Exp $
+# $Id: info_request_event.rb,v 1.39 2008-04-24 22:50:03 angie Exp $
 
 class InfoRequestEvent < ActiveRecord::Base
     belongs_to :info_request
@@ -183,7 +183,6 @@ class InfoRequestEvent < ActiveRecord::Base
             raise "unknown status " + status
         end
     end
-
 
 end
 

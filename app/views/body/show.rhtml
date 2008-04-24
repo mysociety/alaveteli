@@ -1,5 +1,4 @@
 <% @title = "Information freed from '" + h(@public_body.name) + "'" %>
-
 <h1><%=h(@public_body.name)%></h1>
 
 <p class="subtitle">
@@ -21,5 +20,3 @@
 
     <%= render :partial => 'request/request_listing', :locals => { :info_requests => @public_body.info_requests } %>
 <% end %>
-
-

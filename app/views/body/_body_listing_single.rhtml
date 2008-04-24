@@ -2,18 +2,19 @@
       @highlight_words = []
    end %>
 
-<p class="body_listing">
+<div class="body_listing">
+	<span class="head">
     <%= link_to highlight_words(public_body.name, @highlight_words), public_body_url(public_body) %>
-    
-    <br>
+   	</span>
+    <span class="desc">
     <% if not public_body.short_name.empty? %>
         Also called <%=highlight_words(public_body.short_name, @highlight_words) %>.
         <br>
     <% end %>
-
-    <span class="body_listing_bottomline">
-        <%= pluralize(public_body.info_requests.size, "request") %> made.
+	</span>
+    <span class="bottomline">
+        <%= pluralize(public_body.info_requests.size, "request") %> made. <br>
         Added on <%= simple_date(public_body.created_at) %>.
     </span>
-</p>
+</div>
 

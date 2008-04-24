@@ -1,18 +1,17 @@
-<p class="request_listing">
-    <%= link_to h(info_request.title), request_url(info_request) %>
-
-    <br>
-    <%= excerpt(info_request.initial_request_text, "", 150) %>
-    <br>
-
-    <span class="request_listing_bottomline">
+<div class="request_listing">
+	<span class="head">
+	    <%= link_to h(info_request.title), request_url(info_request) %>
+	</span>
+	<span class="desc">
+	    <%= excerpt(info_request.initial_request_text, "", 150) %>
+    </span>
+    <span class="bottomline icon_<%= info_request.calculate_status %>">
         <strong>
         <%= info_request.display_status %>
-        </strong>
-
+        </strong><br>
         Requested from <%= public_body_link(info_request.public_body) %>
         by <%= user_link(info_request.user) %>
         on <%= simple_date(info_request.created_at) %>.
     </span>
-</p>
+</div>
 
