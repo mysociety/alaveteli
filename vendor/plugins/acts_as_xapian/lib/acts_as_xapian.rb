@@ -4,19 +4,19 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: acts_as_xapian.rb,v 1.3 2008-04-23 16:00:00 francis Exp $
+# $Id: acts_as_xapian.rb,v 1.4 2008-04-24 08:19:30 francis Exp $
 #
 # TODO:
 
-
-# Cope with making acts_as_xapian get called before search by preloading classes somewhere
-# Make all indexing offline - have a table where what needs doing is stored
+# Rake tasks
+# Delete everything for the rebuild task
 
 # Spell checking
 
-# Query just one model type
 # Eager loading
 # Boost particular fields?
+#
+# Function to keep it out of the index entirely
 
 # Documentation
 # =============
@@ -52,12 +52,16 @@
 #         e.g. :terms => [ [ :variety, 'V', "variety" ] ]
 # A field is a symbol referring to either an attribute or a name
 #
-# Then call xapian_index and/or xapian_destroy on the model.
+# Run the migration to create the ActsAsXapianJob model, code below (search for
+# ActsAsXapianJob).
+#
+# Call... XXX
 #
 # Querying
 # ========
 #
 # To perform a query call ActsAsXapian.search. This takes in turn:
+# model_classes - list of models to search, e.g. [PublicBody, InfoRequestEvent]
 # query_string - Google like syntax, as described in http://www.xapian.org/docs/queryparser.html
 # first_result - Offset of first result
 # results_per_page - Number of results per page
@@ -70,6 +74,7 @@
 require 'xapian'
 
 module ActsAsXapian
+    ######################################################################
     # Module level variables
     # XXX must be some kind of cattr_accessor that can do this better
     def ActsAsXapian.db_path
@@ -98,6 +103,9 @@ module ActsAsXapian
     def ActsAsXapian.values_by_prefix
         @@values_by_prefix
     end
+
+    ######################################################################
+    # Initialisation
     def ActsAsXapian.init(classname, options)
         if @@db.nil?
             # make the directory for the xapian databases to go in
@@ -157,6 +165,7 @@ module ActsAsXapian
 
         end
     end
+
     def ActsAsXapian.writable_init
         if @@writable_db.nil?
             # for indexing
@@ -168,6 +177,9 @@ module ActsAsXapian
         end
     end
 
+    ######################################################################
+    # Search
+    
     # Search for a query string, returns an array of hashes in result order.
     # Each hash contains the actual Rails object in :model, and other detail
     # about relevancy etc. in other keys.
@@ -178,15 +190,21 @@ module ActsAsXapian
         attr_accessor :query
         attr_accessor :matches
 
-        def initialize(query_string, first_result, results_per_page, sort_by_prefix = nil, collapse_by_prefix = nil)
+        # Note that model_classes is not only sometimes useful here - it's essential to make sure the
+        # classes have been loaded, and thus acts_as_xapian called on them, so
+        # we know the fields for the query parser.
+        def initialize(model_classes, query_string, first_result, results_per_page, sort_by_prefix = nil, collapse_by_prefix = nil)
             if ActsAsXapian.db.nil?
                 raise "ActsAsXapian not initialized"
             end
 
-            self.query = ActsAsXapian.query_parser.parse_query(query_string,
+            # Construct query which only finds things from specified models
+            model_query = Xapian::Query.new(Xapian::Query::OP_OR, model_classes.map{|mc| "M" + mc.to_s})
+            user_query = ActsAsXapian.query_parser.parse_query(query_string,
                   Xapian::QueryParser::FLAG_BOOLEAN | Xapian::QueryParser::FLAG_PHRASE |
                   Xapian::QueryParser::FLAG_LOVEHATE | Xapian::QueryParser::FLAG_WILDCARD |
                   Xapian::QueryParser::FLAG_SPELLING_CORRECTION)
+            self.query = Xapian::Query.new(Xapian::Query::OP_AND, model_query, user_query)
             ActsAsXapian.enquire.query = self.query
 
             if not sort_by_prefix.nil?
@@ -247,7 +265,79 @@ module ActsAsXapian
         end
     end
 
-    # Functions that are called after saving or deleting a model, which update the Xapian database
+    ######################################################################
+    # Index
+   
+    # Offline indexing job queue model, create with this migration:
+    #    class ActsAsXapianMigration < ActiveRecord::Migration
+    #        def self.up
+    #           create_table :acts_as_xapian_jobs do |t|
+    #                t.column :model, :string, :null => false
+    #                t.column :model_id, :integer, :null => false
+    #
+    #                t.column :action, :string, :null => false
+    #            end
+    #            add_index :acts_as_xapian_jobs, [:model, :model_id], :unique => true
+    #        end
+    #
+    #        def self.down
+    #            remove_table :acts_as_xapian_jobs
+    #        end
+    #    end
+    class ActsAsXapianJob < ActiveRecord::Base
+    end
+
+    # Update index with any changes needed, call this offline. Only call it
+    # from a script that exits - otherwise Xapian's writable database won't
+    # flush your changes. Specifying flush will reduce performance, but 
+    # make sure that each index update is definitely saved to disk before
+    # logging in the database that it has been.
+    def ActsAsXapian.update_index(flush = false)
+        ids_to_refresh = ActsAsXapianJob.find(:all).map() { |i| i.id }
+        for id in ids_to_refresh
+            ActiveRecord::Base.transaction do
+                job = ActsAsXapianJob.find(id, :lock =>true)
+                # XXX maybe have eager loading here too? index functions may reference other models.
+                model = job.model.constantize.find(job.model_id)
+                if job.action == 'update'
+                    model.xapian_index
+                elsif job.action == 'destroy'
+                    model.xapian_destroy
+                else
+                    raise "unknown ActsAsXapianJob action '" + job.action + "'"
+                end
+                job.destroy
+
+                if flush
+                    ActsAsXapian.writable_db.flush
+                end
+            end
+        end
+    end
+        
+    def ActsAsXapian.rebuild_index(model_classes)
+        ActsAsXapian.writable_init
+
+        # XXX also delete everything! or maybe just what we didn't find again :)
+        # or maybe just what is marked delete in ActsAsXapianJob
+        #iter = ActsAsXapian.writable_db.allterms_begin
+        #while not iter.equals(ActsAsXapian.writable_db.allterms_end)
+        #    STDERR.puts(iter.to_yaml)
+        #    iter.next
+        #end
+ 
+        ActsAsXapianJob.destroy_all
+        for model_class in model_classes
+            models = model_class.find(:all)
+            for model in models
+                model.xapian_index
+            end
+        end
+    end
+
+    ######################################################################
+    # Instance methods that get injected into your model.
+    
     module InstanceMethods
         # Extract value of a field from the model
         def xapian_value(field, type = nil)
@@ -290,19 +380,49 @@ module ActsAsXapian
 
             ActsAsXapian.writable_db.delete_document("I" + self.class.to_s + "-" + self.id.to_s)
         end
-    end
 
-    # Main entry point
+        # Used to mark changes needed by batch indexer
+        def xapian_mark_needs_index
+            model = self.class.to_s
+            model_id = self.id
+            ActiveRecord::Base.transaction do
+                found = ActsAsXapianJob.delete_all([ "model = ? and model_id = ?", model, model_id])
+                job = ActsAsXapianJob.new
+                job.model = model
+                job.model_id = model_id
+                job.action = 'update'
+                job.save!
+            end
+        end
+        def xapian_mark_needs_destroy
+            model = self.class.to_s
+            model_id = self.id
+            ActiveRecord::Base.transaction do
+                found = ActsAsXapianJob.delete_all([ "model = ? and model_id = ?", model, model_id])
+                job = ActsAsXapianJob.new
+                job.model = model
+                job.model_id = model_id
+                job.action = 'destroy'
+                job.save!
+            end
+        end
+     end
+
+    ######################################################################
+    # Main entry point, add acts_as_xapian to your model.
+    
     module ActsMethods
         # See top of this file for docs
         def acts_as_xapian(options)
-            STDERR.puts("acts_as_xapian")
             include InstanceMethods
 
             cattr_accessor :xapian_options
             self.xapian_options = options
 
             ActsAsXapian.init(self.class.to_s, options)
+
+            after_save :xapian_mark_needs_index
+            after_destroy :xapian_mark_needs_destroy
         end
     end
    
