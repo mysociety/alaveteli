@@ -1,3 +1,9 @@
+/* XXX Francis put this here so he could check highlighting worked */ 
+.highlight {
+    background-color: #dddd00;
+    color: #000000;
+}
+
 /*------------------------------------------------ global */
 body
 {

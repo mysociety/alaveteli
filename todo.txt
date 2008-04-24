@@ -1,3 +1,30 @@
+deployment:
+    change the exec_after scripts to not do solr
+    rebuild the xapian index
+    install it on the server
+
+call info_request.calculate_event_states
+check info request fully_destroy does remove it from index
+solr_object
+grep for solr in app
+
+check emails
+
+update the cron job
+
+
+remove all the scripts in scripts/*solr*
+remove all the solr plugins and stuff
+
+
+highlight word docs text
+full_search still has html_highlight parameter
+
+follow up E re. blog
+needs tagline that v. quickly explains what site is on each page
+needs development text box
+
+
 Watch this one:
 http://www.whatdotheyknow.com/request/crime_statistics_for_2007_champi
 

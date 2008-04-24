@@ -1,0 +1,5 @@
+#!/bin/bash
+
+cd `dirname $0`
+rake xapian:update_index 
+

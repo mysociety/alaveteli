@@ -26,15 +26,16 @@ describe GeneralController, "when searching" do
     end
   
     it "should find info request when searching for '\"fancy dog\"'" do
-        InfoRequest.update_solr_index
+        #ActsAsXapian.rebuild_index([PublicBody, User, InfoRequestEvent])
+        ActsAsXapian.update_index
         get :search, :query => '"fancy dog"'
         response.should render_template('search')
 
         assigns[:search_hits].should == 1
-        assigns[:search_results].should == [ info_request_events(:useless_outgoing_message_event) ]
+        assigns[:search_results].size.should == 1
+        assigns[:search_results][0][:model].should == info_request_events(:useless_outgoing_message_event)
 
         assigns[:highlight_words].should == ["fancy", "dog"]
-        assigns[:highlighting]["InfoRequestEvent"][900]["solr"][0].should include('Why do you have such a <span class="highlight">fancy</span> <span class="highlight">dog</span>?')
     end
 
     it "should show help when searching for nothing" do
@@ -45,27 +46,27 @@ describe GeneralController, "when searching" do
     end
 
     it "should find public body and incoming message (in that order) when searching for 'geraldine quango'" do
-        InfoRequest.update_solr_index
-        PublicBody.rebuild_solr_index
-        User.rebuild_solr_index
+        ActsAsXapian.update_index
 
         get :search, :query => 'geraldine quango'
         response.should render_template('search')
 
         assigns[:search_hits].should == 2
-        assigns[:search_results].should == [ public_bodies(:geraldine_public_body), info_request_events(:useless_incoming_message_event) ]
+        assigns[:search_results].size.should == 2
+        assigns[:search_results][0][:model].should == public_bodies(:geraldine_public_body)
+        assigns[:search_results][1][:model].should == info_request_events(:useless_incoming_message_event)
     end
 
     it "should find incoming message and public body (in that order) when searching for 'geraldine quango', newest first" do
-        InfoRequest.update_solr_index
-        PublicBody.rebuild_solr_index
-        User.rebuild_solr_index
+        ActsAsXapian.update_index
 
         get :search, :query => 'geraldine quango', :sortby => 'newest'
         response.should render_template('search')
 
         assigns[:search_hits].should == 2
-        assigns[:search_results].should == [ info_request_events(:useless_incoming_message_event), public_bodies(:geraldine_public_body) ]
+        assigns[:search_results].size.should == 2
+        assigns[:search_results][0][:model].should == info_request_events(:useless_incoming_message_event)
+        assigns[:search_results][1][:model].should == public_bodies(:geraldine_public_body)
     end
 
 

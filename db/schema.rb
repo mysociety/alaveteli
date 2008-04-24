@@ -9,7 +9,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 52) do
+ActiveRecord::Schema.define(:version => 53) do
+
+  create_table "acts_as_xapian_jobs", :force => true do |t|
+    t.string  "model",    :null => false
+    t.integer "model_id", :null => false
+    t.string  "action",   :null => false
+  end
+
+  add_index "acts_as_xapian_jobs", ["model", "model_id"], :name => "index_acts_as_xapian_jobs_on_model_and_model_id", :unique => true
 
   create_table "incoming_messages", :force => true do |t|
     t.integer  "info_request_id", :null => false
@@ -40,11 +48,9 @@ ActiveRecord::Schema.define(:version => 52) do
     t.boolean  "awaiting_description", :default => false,    :null => false
     t.string   "prominence",           :default => "normal", :null => false
     t.text     "url_title",                                  :null => false
-    t.boolean  "solr_up_to_date",      :default => false,    :null => false
   end
 
   add_index "info_requests", ["created_at"], :name => "index_info_requests_on_created_at"
-  add_index "info_requests", ["solr_up_to_date"], :name => "index_info_requests_on_solr_up_to_date"
   add_index "info_requests", ["title"], :name => "index_info_requests_on_title"
   add_index "info_requests", ["url_title"], :name => "index_info_requests_on_url_title", :unique => true
 

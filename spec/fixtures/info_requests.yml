@@ -8,7 +8,6 @@ fancy_dog_request:
     user_id: 1
     described_state: waiting_response
     awaiting_description: true
-    solr_up_to_date: false
 naughty_chicken_request:
     id: 103
     title: How much public money is wasted on breeding naughty chickens?
@@ -19,6 +18,5 @@ naughty_chicken_request:
     user_id: 1
     described_state: waiting_response
     awaiting_description: false
-    solr_up_to_date: false
 
 
