@@ -4,10 +4,9 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: acts_as_xapian.rb,v 1.7 2008-04-24 09:57:48 francis Exp $
+# $Id: acts_as_xapian.rb,v 1.8 2008-04-24 10:26:50 francis Exp $
 
 # TODO:
-# Spell checking
 # Eager loading
 # Function to keep a model out of the index entirely
 
@@ -49,6 +48,8 @@
 #
 # * Date range searching - maybe this works in acts_as_solr, but I never found
 # out how.
+#
+# * Spelling correction - "did you mean?" built in and just works.
 #
 # * Multiple models - acts_as_xapian searches multiple models if you like,
 # returning them mixed up together by relevancy. This is like multi_solr_search,
@@ -124,6 +125,7 @@
 # Returns an ActsAsXapian::Search object. Useful methods are:
 #   description - a techy one, to check how the query has been parsed
 #   matches_estimated - a guesstimate at the total number of hits
+#   spelling_correction - the corrected query string if there is a correction, otherwise nil
 #   results - an array of hashes containing:
 #       :model - your Rails model, this is what you most want!
 #       :weight - relevancy measure
@@ -284,6 +286,15 @@ module ActsAsXapian
         # Estimate total number of results
         def matches_estimated
             self.matches.matches_estimated
+        end
+
+        # Return query string with spelling correction
+        def spelling_correction
+            correction = ActsAsXapian.query_parser.get_corrected_query_string
+            if correction.empty?
+                return nil
+            end
+            return correction
         end
 
         # Return array of models found
