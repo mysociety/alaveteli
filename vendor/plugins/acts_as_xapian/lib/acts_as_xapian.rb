@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: acts_as_xapian.rb,v 1.6 2008-04-24 09:49:32 francis Exp $
+# $Id: acts_as_xapian.rb,v 1.7 2008-04-24 09:57:48 francis Exp $
 
 # TODO:
 # Spell checking
@@ -375,10 +375,11 @@ module ActsAsXapian
     end
         
     # You must specify *all* the models here, this totally rebuilds the Xapian database.
+    # You'll want any readers to reopen the database after this.
     def ActsAsXapian.rebuild_index(model_classes)
         raise "when rebuilding all, please call as first and only thing done in process / task" if not ActsAsXapian.writable_db.nil?
 
-        # Delete existing new database, and open a new one
+        # Delete any existing .new database, and open a new one
         new_path = ActsAsXapian.db_path + ".new"
         if File.exist?(new_path)
             raise "found existing " + new_path + " which is not Xapian flint database, please delete for me" if not File.exist?(File.join(new_path, "iamflint"))
@@ -411,6 +412,9 @@ module ActsAsXapian
             raise "old database now at " + temp_path + " is not Xapian flint database, please delete for me" if not File.exist?(File.join(temp_path, "iamflint"))
             FileUtils.rm_rf(temp_path)
         end
+
+        # You'll want to restart your FastCGI or Mongrel processes after this,
+        # so they get the new db
     end
 
     ######################################################################
