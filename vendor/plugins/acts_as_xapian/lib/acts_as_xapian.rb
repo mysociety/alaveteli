@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: acts_as_xapian.rb,v 1.9 2008-04-24 13:08:11 francis Exp $
+# $Id: acts_as_xapian.rb,v 1.10 2008-04-24 23:37:41 francis Exp $
 
 # TODO:
 # Test :eager_load
@@ -128,6 +128,7 @@
 #   :offset - Offset of first result
 #   :limit - Number of results per page
 #   :sort_by_prefix - Optionally, prefix of value to sort by, otherwise sort by relevance
+#   :sort_by_ascending - Default true, set to false for descending sort
 #   :collapse_by_prefix - Optionally, prefix of value to collapse by (i.e. only return most relevant result from group)
 #
 # Google like query syntax is as described in http://www.xapian.org/docs/queryparser.html
@@ -155,11 +156,17 @@ module ActsAsXapian
     def ActsAsXapian.db_path
         @@db_path
     end
-    @@db = nil
+    # XXX global class intializers here get loaded more than once, don't know why. Protect them.
+    if not $acts_as_xapian_class_var_init 
+        @@db = nil
+        @@writable_db = nil
+        @@writable_suffix = nil
+        @@init_values = []
+        $acts_as_xapian_class_var_init = true
+    end
     def ActsAsXapian.db
         @@db
     end
-    @@writable_db = nil
     def ActsAsXapian.writable_db
         @@writable_db
     end
@@ -182,18 +189,26 @@ module ActsAsXapian
     ######################################################################
     # Initialisation
     def ActsAsXapian.init(classname, options)
-        if @@db.nil?
-            # make the directory for the xapian databases to go in
-            db_parent_path = File.join(File.dirname(__FILE__), '../xapiandbs/')
-            Dir.mkdir(db_parent_path) unless File.exists?(db_parent_path)
+        # store class and options for use later, when we open the db in late_init
+        @@init_values.push([classname,options])
 
+        # make the directory for the xapian databases to go in
+        db_parent_path = File.join(File.dirname(__FILE__), '../xapiandbs/')
+        Dir.mkdir(db_parent_path) unless File.exists?(db_parent_path)
+        @@db_path = File.join(db_parent_path, ENV['RAILS_ENV']) 
+
+        # make some things that don't depend on the db
+        @@stemmer = Xapian::Stem.new('english')
+    end
+    # called only when we *need* to open the db
+    def ActsAsXapian.late_init
+        if @@db.nil?
             # basic Xapian objects
-            @@db_path = File.join(db_parent_path, ENV['RAILS_ENV']) 
+            @@db = Xapian::Database.new()
             @@db = Xapian::Database.new(@@db_path)
-            @@stemmer = Xapian::Stem.new('english')
+            @@enquire = Xapian::Enquire.new(@@db)
 
             # for queries
-            @@enquire = Xapian::Enquire.new(@@db)
             @@query_parser = Xapian::QueryParser.new
             @@query_parser.stemmer = @@stemmer
             @@query_parser.stemming_strategy = Xapian::QueryParser::STEM_SOME
@@ -203,54 +218,61 @@ module ActsAsXapian
             @@terms_by_capital = {}
             @@values_by_number = {}
             @@values_by_prefix = {}
-        end
 
-        # go through the various field types, and tell query parser about them,
-        # and error check them - i.e. check for consistency between models
-        @@query_parser.add_boolean_prefix("model", "M")
-        @@query_parser.add_boolean_prefix("modelid", "I")
-        for term in options[:terms]
-            raise "Use a single capital letter for term code" if not term[1].match(/^[A-Z]$/)
-            raise "M and I are reserved for use as the model/id term" if term[1] == "M" or term[1] == "I"
-            raise "model and modelid are reserved for use as the model/id prefixes" if term[2] == "model" or term[2] == "modelid"
-            raise "Z is reserved for stemming terms" if term[1] == "Z"
-            raise "Already have code '" + term[1] + "' in another model but with different prefix '" + @@terms_by_capital[term[1]] + "'" if @@terms_by_capital.include?(term[1]) && @@terms_by_capital[term[1]] != term[2]
-            @@terms_by_capital[term[1]] = term[2]
-            @@query_parser.add_boolean_prefix(term[2], term[1])
-        end
-        for value in options[:values]
-            raise "Value index '"+value[1].to_s+"' must be an integer, is " + value[1].class.to_s if value[1].class != 1.class
-            raise "Already have value index '" + value[1].to_s + "' in another model but with different prefix '" + @@values_by_number[value[1]].to_s + "'" if @@values_by_number.include?(value[1]) && @@values_by_number[value[1]] != value[2]
+            for init_value_pair in @@init_values
+                classname = init_value_pair[0]
+                options = init_value_pair[1]
 
-            # date types are special, mark them so the first model they're seen for
-            if !@@values_by_number.include?(value[1])
-                if value[3] == :date 
-                    value_range = Xapian::DateValueRangeProcessor.new(value[1])
-                elsif value[3] == :string 
-                    value_range = Xapian::StringValueRangeProcessor.new(value[1])
-                elsif value[3] == :number
-                    value_range = Xapian::NumberValueRangeProcessor.new(value[1])
-                else
-                    raise "Unknown value type '" + value[3].to_s + "'"
+                # go through the various field types, and tell query parser about them,
+                # and error check them - i.e. check for consistency between models
+                @@query_parser.add_boolean_prefix("model", "M")
+                @@query_parser.add_boolean_prefix("modelid", "I")
+                for term in options[:terms]
+                    raise "Use a single capital letter for term code" if not term[1].match(/^[A-Z]$/)
+                    raise "M and I are reserved for use as the model/id term" if term[1] == "M" or term[1] == "I"
+                    raise "model and modelid are reserved for use as the model/id prefixes" if term[2] == "model" or term[2] == "modelid"
+                    raise "Z is reserved for stemming terms" if term[1] == "Z"
+                    raise "Already have code '" + term[1] + "' in another model but with different prefix '" + @@terms_by_capital[term[1]] + "'" if @@terms_by_capital.include?(term[1]) && @@terms_by_capital[term[1]] != term[2]
+                    @@terms_by_capital[term[1]] = term[2]
+                    @@query_parser.add_boolean_prefix(term[2], term[1])
                 end
+                for value in options[:values]
+                    raise "Value index '"+value[1].to_s+"' must be an integer, is " + value[1].class.to_s if value[1].class != 1.class
+                    raise "Already have value index '" + value[1].to_s + "' in another model but with different prefix '" + @@values_by_number[value[1]].to_s + "'" if @@values_by_number.include?(value[1]) && @@values_by_number[value[1]] != value[2]
 
-                @@query_parser.add_valuerangeprocessor(value_range)
+                    # date types are special, mark them so the first model they're seen for
+                    if !@@values_by_number.include?(value[1])
+                        if value[3] == :date 
+                            value_range = Xapian::DateValueRangeProcessor.new(value[1])
+                        elsif value[3] == :string 
+                            value_range = Xapian::StringValueRangeProcessor.new(value[1])
+                        elsif value[3] == :number
+                            value_range = Xapian::NumberValueRangeProcessor.new(value[1])
+                        else
+                            raise "Unknown value type '" + value[3].to_s + "'"
+                        end
+
+                        @@query_parser.add_valuerangeprocessor(value_range)
+                    end
+
+                    @@values_by_number[value[1]] = value[2]
+                    @@values_by_prefix[value[2]] = value[1]
+                end
             end
-
-            @@values_by_number[value[1]] = value[2]
-            @@values_by_prefix[value[2]] = value[1]
-
         end
     end
 
     def ActsAsXapian.writable_init(suffix = "")
+        new_path = @@db_path + suffix
+        raise "writable_suffix/suffix inconsistency" if @@writable_suffix && @@writable_suffix != suffix
         if @@writable_db.nil?
             # for indexing
-            @@writable_db = Xapian::WritableDatabase.new(@@db_path + suffix, Xapian::DB_CREATE_OR_OPEN)
+            @@writable_db = Xapian::WritableDatabase.new(new_path, Xapian::DB_CREATE_OR_OPEN)
             @@term_generator = Xapian::TermGenerator.new()
             @@term_generator.set_flags(Xapian::TermGenerator::FLAG_SPELLING, 0)
             @@term_generator.database = @@writable_db
             @@term_generator.stemmer = @@stemmer
+            @@writable_suffix = suffix
         end
     end
 
@@ -274,8 +296,10 @@ module ActsAsXapian
             offset = options[:offset].to_i || 0
             limit = options[:limit].to_i || 10
             sort_by_prefix = options[:sort_by_prefix] || nil
+            sort_by_ascending = options[:sort_by_ascending] || true
             collapse_by_prefix = options[:collapse_by_prefix] || nil
 
+            ActsAsXapian.late_init
             if ActsAsXapian.db.nil?
                 raise "ActsAsXapian not initialized"
             end
@@ -289,11 +313,19 @@ module ActsAsXapian
             self.query = Xapian::Query.new(Xapian::Query::OP_AND, model_query, user_query)
             ActsAsXapian.enquire.query = self.query
 
-            if not sort_by_prefix.nil?
-                enquire.sort_by_value(ActsAsXapian.values_by_prefix[sort_by_prefix])
+            if sort_by_prefix.nil?
+                ActsAsXapian.enquire.sort_by_relevance!
+            else
+                value = ActsAsXapian.values_by_prefix[sort_by_prefix]
+                raise "couldn't find prefix '" + sort_by_prefix + "'" if value.nil?
+                ActsAsXapian.enquire.sort_by_value_then_relevance!(value, sort_by_ascending)
             end
-            if not collapse_by_prefix.nil?
-                enquire.set_collapse_key(ActsAsXapian.values_by_prefix[collapse_by_prefix])
+            if collapse_by_prefix.nil?
+                ActsAsXapian.enquire.collapse_key = nil
+            else
+                value = ActsAsXapian.values_by_prefix[collapse_by_prefix]
+                raise "couldn't find prefix '" + collapse_by_prefix + "'" if value.nil?
+                ActsAsXapian.enquire.collapse_key = value
             end
 
             self.matches = ActsAsXapian.enquire.mset(offset, limit, 100)
@@ -383,6 +415,8 @@ module ActsAsXapian
     # make sure that each index update is definitely saved to disk before
     # logging in the database that it has been.
     def ActsAsXapian.update_index(flush = false)
+        ActsAsXapian.writable_init
+
         ids_to_refresh = ActsAsXapianJob.find(:all).map() { |i| i.id }
         for id in ids_to_refresh
             ActiveRecord::Base.transaction do
@@ -414,7 +448,7 @@ module ActsAsXapian
         new_path = ActsAsXapian.db_path + ".new"
         if File.exist?(new_path)
             raise "found existing " + new_path + " which is not Xapian flint database, please delete for me" if not File.exist?(File.join(new_path, "iamflint"))
-            FileUtils.rm_rf(new_path)
+            FileUtils.rm_r(new_path)
         end
         ActsAsXapian.writable_init(".new")
 
@@ -433,15 +467,17 @@ module ActsAsXapian
         temp_path = ActsAsXapian.db_path + ".tmp"
         if File.exist?(temp_path)
             raise "temporary database found " + temp_path + " which is not Xapian flint database, please delete for me" if not File.exist?(File.join(temp_path, "iamflint"))
-            FileUtils.rm_rf(temp_path)
+            FileUtils.rm_r(temp_path)
         end
-        FileUtils.mv old_path, temp_path
+        if File.exist?(old_path)
+            FileUtils.mv old_path, temp_path
+        end
         FileUtils.mv new_path, old_path
 
         # Delete old database
         if File.exist?(temp_path)
             raise "old database now at " + temp_path + " is not Xapian flint database, please delete for me" if not File.exist?(File.join(temp_path, "iamflint"))
-            FileUtils.rm_rf(temp_path)
+            FileUtils.rm_r(temp_path)
         end
 
         # You'll want to restart your FastCGI or Mongrel processes after this,
@@ -476,8 +512,6 @@ module ActsAsXapian
             end
 
             # otherwise (re)write the Xapian record for the object
-            ActsAsXapian.writable_init
-
             doc = Xapian::Document.new
             ActsAsXapian.term_generator.document = doc
 
@@ -485,13 +519,13 @@ module ActsAsXapian
 
             doc.add_term("M" + self.class.to_s)
             doc.add_term("I" + doc.data)
-            for term in xapian_options[:terms]
+            for term in self.xapian_options[:terms]
                 doc.add_term(term[1] + xapian_value(term[0]))
             end
-            for value in xapian_options[:values]
+            for value in self.xapian_options[:values]
                 doc.add_value(value[1], xapian_value(value[0], value[3])) 
             end
-            for text in xapian_options[:texts]
+            for text in self.xapian_options[:texts]
                 ActsAsXapian.term_generator.increase_termpos # stop phrases spanning different text fields
                 ActsAsXapian.term_generator.index_text(xapian_value(text)) 
             end
@@ -501,8 +535,6 @@ module ActsAsXapian
 
         # Delete record from the Xapian database
         def xapian_destroy
-            ActsAsXapian.writable_init
-
             ActsAsXapian.writable_db.delete_document("I" + self.class.to_s + "-" + self.id.to_s)
         end
 
