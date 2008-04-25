@@ -36,7 +36,7 @@
 	<div id="topnav">
 		<ul id="navigation">
 			<li><a href="/">Make request</a></li>
-			<li><%= link_to "View requests", request_list_url %></li>
+			<li><%= link_to "View requests", request_list_url(:view => nil) %></li>
 			<li><%= link_to "View authorities", list_public_bodies_url(:tag => 'department') %></li>
 			<% if @user %>
 				<li><%=link_to "My requests", user_url(@user) %></li>
