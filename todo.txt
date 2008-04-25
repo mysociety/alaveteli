@@ -7,6 +7,7 @@ call info_request.calculate_event_states
 check info request fully_destroy does remove it from index
 solr_object
 grep for solr in app
+http://localhost:3000/list - sent highlighted here
 
 check emails
 
