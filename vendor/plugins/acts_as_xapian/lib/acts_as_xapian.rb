@@ -4,12 +4,12 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: acts_as_xapian.rb,v 1.10 2008-04-24 23:37:41 francis Exp $
+# $Id: acts_as_xapian.rb,v 1.11 2008-04-25 21:01:36 francis Exp $
 
 # TODO:
 # Test :eager_load
 # Test :if
-# Reverse sorting?
+# Test reverse sorting
 
 # Documentation
 # =============

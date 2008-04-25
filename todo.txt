@@ -6,13 +6,11 @@ deployment:
 call info_request.calculate_event_states
 check info request fully_destroy does remove it from index
 solr_object
-grep for solr in app
+grep for solr and Solr in app
 http://localhost:3000/list - sent highlighted here
 
-check emails
-
-update the cron job
-
+date range tips in search help
+check emails look OK
 
 remove all the scripts in scripts/*solr*
 remove all the solr plugins and stuff
@@ -32,6 +30,11 @@ http://www.whatdotheyknow.com/request/crime_statistics_for_2007_champi
 Group requests by response
 Make it totally awesome like in Tommy's screenshot
 Cluster solr patch - https://issues.apache.org/jira/browse/SOLR-236
+
+Search for "health" crashes it (Solr?)
+
+Index HTML e.g. MRSA:
+http://www.whatdotheyknow.com/request/_the_infection_rates_of_orthopae
 
 FOI requests to use to test it
 ==============================
@@ -76,6 +79,8 @@ described_at is needed for Users and Public Bodies for RSS
 Later
 =====
 
+Plot graph of new request rate
+
 Enter > 255 char comment when editing public body gives unhelpful error
 
 Put user rather than import_csv
@@ -118,7 +123,8 @@ email?
 
 In sidebar of request 
     Link to WriteToThem according to level of Government of body
-    Share this request on Facebook
+    Share this request on Facebook etc.
+    Email icon here: http://www.guardian.co.uk/news/video/2008/apr/03/mugabe
 
 Tell application developer if working days table not up to date, and needs
 updating
@@ -141,6 +147,8 @@ Show public body email address on their public page, with a link to say "this is
 Requests with related content (via Lucene compare document search somehow?)
 Blog posts / Wikipedia articles about this request
     e.g. http://socialreporter.wordpress.com/2008/04/14/costs-of-the-bbc-action-action-network/
+    http://reportr.net/2008/04/24/bbc-spent-6m-to-develop-the-iplayer/
+Or just look at referrers as Julian says
 
 Remember me box
     This can't possible be the best way, it is too depressing:
@@ -215,6 +223,7 @@ Quoting fixing TODO:
     http://www.whatdotheyknow.com/request/35/response/191
     http://www.whatdotheyknow.com/request/88/response/352 (and charset)
     http://www.whatdotheyknow.com/request/51/response/93
+    http://www.whatdotheyknow.com/request/56/response/252
    
 Sources of public bodies
 ========================
