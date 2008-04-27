@@ -9,6 +9,8 @@ solr_object
 grep for solr and Solr in app
 http://localhost:3000/list - sent highlighted here
 
+check that you aren't doing collapse_by for RSS / Email
+
 date range tips in search help
 check emails look OK
 
@@ -35,6 +37,8 @@ Search for "health" crashes it (Solr?)
 
 Index HTML e.g. MRSA:
 http://www.whatdotheyknow.com/request/_the_infection_rates_of_orthopae
+
+Museum aliases
 
 FOI requests to use to test it
 ==============================
