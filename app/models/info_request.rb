@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.96 2008-04-24 23:52:59 francis Exp $
+# $Id: info_request.rb,v 1.97 2008-04-29 16:23:31 francis Exp $
 
 require 'digest/sha1'
 require 'vendor/plugins/acts_as_xapian/lib/acts_as_xapian'
@@ -184,6 +184,8 @@ public
             self.save!
         end
 
+        self.calculate_event_states
+
         if new_state == 'requires_admin'
             RequestMailer.deliver_requires_admin(self)
         end
@@ -223,7 +225,7 @@ public
     def calculate_event_states
         curr_state = nil
         for event in self.info_request_events.reverse
-            if not event.described_state.nil?
+            if not event.described_state.nil? and curr_state.nil?
                 curr_state = event.described_state
             end
 
