@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: acts_as_xapian.rb,v 1.11 2008-04-25 21:01:36 francis Exp $
+# $Id: acts_as_xapian.rb,v 1.12 2008-04-29 16:14:58 francis Exp $
 
 # TODO:
 # Test :eager_load
@@ -27,6 +27,8 @@
 # updating or deleting in the search index. A rake task 'xapian:update_index'
 # then performs the updates since last change. Run it on a cron job, or
 # similar.
+#
+# Xapian 1.0.5 and associated Ruby bindings are required.
 #
 # Email francis@mysociety.org with patches.
 #
