@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: acts_as_xapian.rb,v 1.12 2008-04-29 16:14:58 francis Exp $
+# $Id: acts_as_xapian.rb,v 1.13 2008-04-29 16:42:11 francis Exp $
 
 # TODO:
 # Test :eager_load
@@ -190,9 +190,11 @@ module ActsAsXapian
 
     ######################################################################
     # Initialisation
-    def ActsAsXapian.init(classname, options)
-        # store class and options for use later, when we open the db in late_init
-        @@init_values.push([classname,options])
+    def ActsAsXapian.init(classname = nil, options = nil)
+        if not classname.nil?
+            # store class and options for use later, when we open the db in late_init
+            @@init_values.push([classname,options])
+        end
 
         # make the directory for the xapian databases to go in
         db_parent_path = File.join(File.dirname(__FILE__), '../xapiandbs/')
@@ -200,6 +202,7 @@ module ActsAsXapian
         @@db_path = File.join(db_parent_path, ENV['RAILS_ENV']) 
 
         # make some things that don't depend on the db
+        # XXX this gets made once for each acts_as_xapian. Oh well.
         @@stemmer = Xapian::Stem.new('english')
     end
     # called only when we *need* to open the db
@@ -265,6 +268,8 @@ module ActsAsXapian
     end
 
     def ActsAsXapian.writable_init(suffix = "")
+        ActsAsXapian.init # XXX so db_path is made
+
         new_path = @@db_path + suffix
         raise "writable_suffix/suffix inconsistency" if @@writable_suffix && @@writable_suffix != suffix
         if @@writable_db.nil?
@@ -423,11 +428,14 @@ module ActsAsXapian
         for id in ids_to_refresh
             ActiveRecord::Base.transaction do
                 job = ActsAsXapianJob.find(id, :lock =>true)
-                # XXX Index functions may reference other models, so we could eager load here too?
-                model = job.model.constantize.find(job.model_id) # :include => cls.constantize.xapian_options[:include]
                 if job.action == 'update'
+                    # XXX Index functions may reference other models, so we could eager load here too?
+                    model = job.model.constantize.find(job.model_id) # :include => cls.constantize.xapian_options[:include]
                     model.xapian_index
                 elsif job.action == 'destroy'
+                    # Make dummy model with right id, just for destruction
+                    model = job.model.constantize.new
+                    model.id = job.model_id
                     model.xapian_destroy
                 else
                     raise "unknown ActsAsXapianJob action '" + job.action + "'"

@@ -1,12 +1,18 @@
+Add PCTs to categories
+Museum aliases
+Index HTML e.g. MRSA:
+http://www.whatdotheyknow.com/request/_the_infection_rates_of_orthopae
+Internet explorer bug with HTML for Elena
+
+
 deployment:
     change the exec_after scripts to not do solr
     rebuild the xapian index
     install it on the server
 
-call info_request.calculate_event_states
-check info request fully_destroy does remove it from index
 solr_object
 grep for solr and Solr in app
+bin/rails-post-deploy
 http://localhost:3000/list - sent highlighted here
 
 check that you aren't doing collapse_by for RSS / Email
@@ -17,6 +23,7 @@ check emails look OK
 remove all the scripts in scripts/*solr*
 remove all the solr plugins and stuff
 
+You need to reload db after deleting stuff, how do we deal with that?
 
 highlight word docs text
 full_search still has html_highlight parameter
@@ -35,10 +42,6 @@ Cluster solr patch - https://issues.apache.org/jira/browse/SOLR-236
 
 Search for "health" crashes it (Solr?)
 
-Index HTML e.g. MRSA:
-http://www.whatdotheyknow.com/request/_the_infection_rates_of_orthopae
-
-Museum aliases
 
 FOI requests to use to test it
 ==============================
@@ -80,8 +83,14 @@ Things to track:
     - successful responses
 described_at is needed for Users and Public Bodies for RSS
 
+Don't let people use email as their name
+
 Later
 =====
+
+Strip spaces on titles for email alerts - New updates for the request 'Suicide rates '
+
+CSV export of lists of emails for admins
 
 Plot graph of new request rate
 
@@ -218,6 +227,9 @@ Simple Digg style "I lke this request" button
 
 Editable user profile, including photo upload
 
+Julian's PDF excerpting thing for highlighting paragraphs
+   and convert Word Docs to PDFs too
+
 Quoting fixing TODO:
     http://www.whatdotheyknow.com/request/55/response/96
     http://www.whatdotheyknow.com/request/m3_junction_2_eastbound_speed_re
@@ -228,6 +240,7 @@ Quoting fixing TODO:
     http://www.whatdotheyknow.com/request/88/response/352 (and charset)
     http://www.whatdotheyknow.com/request/51/response/93
     http://www.whatdotheyknow.com/request/56/response/252
+    http://www.whatdotheyknow.com/request/298/response/415
    
 Sources of public bodies
 ========================
