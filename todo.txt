@@ -9,19 +9,16 @@ deployment:
     change the exec_after scripts to not do solr
     rebuild the xapian index
     install it on the server
-
-solr_object
-grep for solr and Solr in app
-bin/rails-post-deploy
-http://localhost:3000/list - sent highlighted here
+    make sure solr is stopped
 
 check that you aren't doing collapse_by for RSS / Email
-
 date range tips in search help
 check emails look OK
 
 remove all the scripts in scripts/*solr*
 remove all the solr plugins and stuff
+
+http://localhost:3000/list - sent highlighted here
 
 You need to reload db after deleting stuff, how do we deal with that?
 

@@ -129,26 +129,6 @@ module ActiveRecord
     end
 end
 
-# Monkeypatch! Make it so :if really turns off all access to solr on saving.
-module ActsAsSolr
-    module InstanceMethods
-       # saves to the Solr index
-        def solr_save
-          return true unless configuration[:if]
-          if evaluate_condition(configuration[:if], self)
-            logger.debug "solr_save: #{self.class.name} : #{record_id(self)}"
-            solr_add to_solr_doc
-            solr_commit if configuration[:auto_commit]
-            true
-          else
-            # XXX commented out - so when new requests arrive no connection is
-            # made to solr, in case it is broken.
-            # solr_destroy
-          end
-        end
-    end
-end
-
 # Monkeypatch! Hack for admin pages, when proxied via https on mySociety servers, they
 # need a relative URL.
 module WillPaginate
