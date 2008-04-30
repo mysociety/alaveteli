@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: acts_as_xapian.rb,v 1.17 2008-04-30 08:12:59 francis Exp $
+# $Id: acts_as_xapian.rb,v 1.18 2008-04-30 10:58:21 francis Exp $
 
 # TODO:
 # Test :eager_load
@@ -208,15 +208,15 @@ module ActsAsXapian
         @@stemmer = Xapian::Stem.new('english')
     end
 
-    # Called only when we *need* to open the db
+    # Opens / reopens the db for reading
+    # XXX we perhaps don't need to rebuild database and enquire and queryparser - 
+    # but db.reopen wasn't enough by itself, so just do everything it's easier.
     def ActsAsXapian.readable_init
-        if @@db.nil?
-            # basic Xapian objects
-            @@db = Xapian::Database.new(@@db_path)
-            @@enquire = Xapian::Enquire.new(@@db)
+        # basic Xapian objects
+        @@db = Xapian::Database.new(@@db_path)
+        @@enquire = Xapian::Enquire.new(@@db)
 
-            init_query_parser
-        end
+        init_query_parser
     end
 
     # Make a new query parser
