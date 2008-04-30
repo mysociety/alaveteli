@@ -156,7 +156,7 @@ body
 
 /*------------------------------------------------ temp stuff */
 #staging, #alpha_notice, #beta
-{ display: none;}
+{ }
 
 #staging
 {
@@ -174,7 +174,7 @@ body
 	padding: 0 20px 0 20px;
 	border-color: #FF201D;
 	border-width: 1px;
-	border-style: dotted;
+	border-style: solid;
 	background-color: #f0f0f0;
 }
 
@@ -414,7 +414,7 @@ div.pagination { text-align: center; padding-top: 0.3em;}
 
 div.correspondence
 {
-	width: 34em;
+	width: 33em;
 	float: left;
 	padding: 0.4em 1em 0.4em 1em;
 	margin: 0 0 1em 0;
