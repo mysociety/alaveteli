@@ -11,8 +11,6 @@ deployment:
     install it on the server
     make sure solr is stopped
 
-check emails look OK
-
 remove all the scripts in scripts/*solr*
 remove all the solr plugins and stuff
 
