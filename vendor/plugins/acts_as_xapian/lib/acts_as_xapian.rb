@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: acts_as_xapian.rb,v 1.16 2008-04-30 02:14:07 francis Exp $
+# $Id: acts_as_xapian.rb,v 1.17 2008-04-30 08:12:59 francis Exp $
 
 # TODO:
 # Test :eager_load
@@ -371,14 +371,16 @@ module ActsAsXapian
             return correction
         end
 
-        # Return just normal words in the query, not ones in date ranges or similar
-        # Use this for cheap highlighting with TextHelper::highlight, and excerpt.
+        # Return just normal words in the query i.e. Not operators, ones in
+        # date ranges or similar. Use this for cheap highlighting with
+        # TextHelper::highlight, and excerpt.
         def words_to_highlight
             query_nopunc = self.query_string.gsub(/[^a-z0-9:\.\/]/i, " ")
             query_nopunc = query_nopunc.gsub(/\s+/, " ")
             words = query_nopunc.split(" ")
             # Remove anything with a :, . or / in it
             words = words.find_all {|o| !o.match(/(:|\.|\/)/) }
+            words = words.find_all {|o| !o.match(/^(AND|NOT|OR|XOR)$/) }
             return words
         end
 
