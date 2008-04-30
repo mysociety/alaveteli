@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: general_controller.rb,v 1.19 2008-04-24 23:52:59 francis Exp $
+# $Id: general_controller.rb,v 1.20 2008-04-30 00:37:50 francis Exp $
 
 class GeneralController < ApplicationController
 
@@ -47,14 +47,19 @@ class GeneralController < ApplicationController
             @query = nil
             render :action => "search"
         else
-            redirect_to search_url(:query => @query, :sortby => @sortby)
+            redirect_to search_url(@query, @sortby)
         end
     end
 
     # Actual search
     def search
-        query = params[:query]
-        sortby = params[:sortby]
+        combined = params[:combined]
+        sortby = nil
+        if combined.size > 1 and combined[-1] == 'newest'
+            sortby = 'newest'
+            combined = combined[0..-2]
+        end
+        query = combined.join("/")
         perform_search(query, sortby)
 
         #render :controller => "help", :action => "about"

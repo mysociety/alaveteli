@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.98 2008-04-29 16:42:11 francis Exp $
+# $Id: info_request.rb,v 1.99 2008-04-30 00:37:50 francis Exp $
 
 require 'digest/sha1'
 require 'vendor/plugins/acts_as_xapian/lib/acts_as_xapian'
@@ -75,8 +75,8 @@ class InfoRequest < ActiveRecord::Base
             [InfoRequestEvent, PublicBody, User], query,
             :offset => offset, :limit => per_page,
             :sort_by_prefix => order,
-            :sort_by_ascending => ascending, 
-            :collapse_by_prefix => "request_collapse"
+            :sort_by_ascending => ascending
+#            :collapse_by_prefix => "request_collapse" # XXX fix this so off for email/RSS, on for web
         )
     end
 

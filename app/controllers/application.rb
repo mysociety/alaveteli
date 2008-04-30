@@ -6,7 +6,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: application.rb,v 1.40 2008-04-24 23:52:59 francis Exp $
+# $Id: application.rb,v 1.41 2008-04-30 00:37:50 francis Exp $
 
 
 class ApplicationController < ActionController::Base
@@ -127,7 +127,7 @@ class ApplicationController < ActionController::Base
         @http_auth_user = admin_http_auth_user
     end
 
-    # Convert URL name for sort by order, to Lucene query 
+    # Convert URL name for sort by order, to Xapian query 
     def order_to_sort_by(sortby)
         if sortby.nil?
             return [nil, true]

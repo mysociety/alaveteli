@@ -20,14 +20,14 @@
 <% end %>
 
 <% if not @search_results.nil? %>
-    <%=link_to_unless @sortby.nil?, "Show most relevant results first", { :sortby => nil } %>
+    <%=link_to_unless @sortby.nil?, "Show most relevant results first", search_url(@query, nil) %>
     |
-    <%=link_to_unless @sortby == 'newest', "Newest results first", { :sortby => "newest" } %>
+    <%=link_to_unless @sortby == 'newest', "Newest results first", search_url(@query, 'newest') %>
 
     <h1><%=@title%></h1>
 
     <% if @search_spelling %>
-        <p id="did_you_mean">Did you mean: <%= link_to @search_spelling, search_url(:query => @search_spelling) %></p>
+        <p id="did_you_mean">Did you mean: <%= link_to @search_spelling, search_url(@search_spelling, @sortby) %></p>
     <% end %>
 
     <% if @search_results.empty? %>
@@ -59,7 +59,7 @@
     <li><strong>requested_from:home_office</strong> to restrict to requests from the <%= link_to "Home Office", show_public_body_url(:url_name => 'home_office') %>, typing the name as in the URL.
     <li><strong>requested_by:julian_todd</strong> to restrict to requests made by <%= link_to "Julian Todd", show_user_url(:url_name => 'julian_todd') %>, typing the name as in the URL.
     <li><strong>request:</strong> to restrict to a specific request, typing the title as in the URL.
-    <li>Read about <a href="http://lucene.apache.org/java/docs/queryparsersyntax.html">advanced search operators</a>, such as fuzziness and proximity.
+    <li>Read about <a href="http://www.xapian.org/docs/queryparser.html">advanced search operators</a>, such as proximity and wildcards.
     </ul>
 
     <table class="status_table">

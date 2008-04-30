@@ -11,8 +11,8 @@ deployment:
     install it on the server
     make sure solr is stopped
 
-check that you aren't doing collapse_by for RSS / Email
-date range tips in search help
+XXX date range tips in search help
+check that you aren't doing collapse_by for RSS / Email (via full_search)
 check emails look OK
 
 remove all the scripts in scripts/*solr*
@@ -20,25 +20,25 @@ remove all the solr plugins and stuff
 
 http://localhost:3000/list - sent highlighted here
 
-You need to reload db after deleting stuff, how do we deal with that?
-
 highlight word docs text
 full_search still has html_highlight parameter
-
-follow up E re. blog
-needs tagline that v. quickly explains what site is on each page
-needs development text box
-
 
 Watch this one:
 http://www.whatdotheyknow.com/request/crime_statistics_for_2007_champi
 
-Group requests by response
-Make it totally awesome like in Tommy's screenshot
-Cluster solr patch - https://issues.apache.org/jira/browse/SOLR-236
+Design
+------
 
+needs tagline that v. quickly explains what site is on each page
+needs development text box
+
+Later Solr
+----------
+
+You need to reload Xapian processes after deleting stuff (and maybe other
+    times?), how do we deal with that? - maybe reload xapian db every x searches?
 Search for "health" crashes it (Solr?)
-
+Remove vendor/plugins/acts_as_solr
 
 FOI requests to use to test it
 ==============================
@@ -238,6 +238,7 @@ Quoting fixing TODO:
     http://www.whatdotheyknow.com/request/51/response/93
     http://www.whatdotheyknow.com/request/56/response/252
     http://www.whatdotheyknow.com/request/298/response/415
+    http://www.whatdotheyknow.com/request/119/response/447 # remove double blank lines
    
 Sources of public bodies
 ========================

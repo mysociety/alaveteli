@@ -51,7 +51,7 @@
         <!-- <h2>Some other requests made by <%= user_link(@info_request.user) %> to <%= public_body_link(@info_request.public_body) %></h2> -->
         <%= render :partial => 'sidebar_request_listing', :locals => { :info_requests => @info_requests_same_user_same_body } %>
         <% if @info_requests_same_user_same_body_more %>
-            <p><%= link_to "More such requests", search_url(:query => "variety:sent requested_from:" + @info_request.public_body.url_name + " requested_by:" + @info_request.user.url_name + " -request:" + @info_request.url_title, :sortby => "newest") %></p>
+            <p><%= link_to "More such requests", search_url("variety:sent requested_from:" + @info_request.public_body.url_name + " requested_by:" + @info_request.user.url_name + " -request:" + @info_request.url_title, "newest") %></p>
         <% end %>
     <% end %>
 
