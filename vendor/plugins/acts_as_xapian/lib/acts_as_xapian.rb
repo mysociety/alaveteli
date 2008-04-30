@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: acts_as_xapian.rb,v 1.18 2008-04-30 10:58:21 francis Exp $
+# $Id: acts_as_xapian.rb,v 1.19 2008-04-30 12:55:14 francis Exp $
 
 # TODO:
 # Test :eager_load
@@ -100,6 +100,10 @@
 # A 'field' is a symbol referring to either an attribute or a function which
 # returns the text, date or number to index. Both 'number' and 'char' must be
 # the same for the same prefix in different models.
+#
+# Alternatively, 
+# :instead_index, a field which refers to another model that should be reindexed
+#          instead of this one.
 #
 # Options may include:
 # :eager_load, added as an :include clause when looking up search results in
@@ -213,8 +217,12 @@ module ActsAsXapian
     # but db.reopen wasn't enough by itself, so just do everything it's easier.
     def ActsAsXapian.readable_init
         # basic Xapian objects
-        @@db = Xapian::Database.new(@@db_path)
-        @@enquire = Xapian::Enquire.new(@@db)
+        begin
+            @@db = Xapian::Database.new(@@db_path)
+            @@enquire = Xapian::Enquire.new(@@db)
+        rescue IOError
+            raise "Xapian database not opened; have you built it with scripts/rebuild-xapian-index ?"
+        end
 
         init_query_parser
     end
