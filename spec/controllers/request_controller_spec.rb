@@ -23,7 +23,7 @@ describe RequestController, "when listing all requests" do
         # reverse-chronological order
         assigns[:search_results].size.should == 2
         assigns[:search_results][0][:model].should == info_request_events(:silly_outgoing_message_event)
-        assigns[:search_results][1][:model].should == info_request_events(:useless_incoming_message_event)
+        assigns[:search_results][1][:model].should == info_request_events(:useless_outgoing_message_event)
     end
 end
 

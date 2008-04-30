@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: routes.rb,v 1.56 2008-04-30 00:37:51 francis Exp $
+# $Id: routes.rb,v 1.57 2008-04-30 00:57:20 francis Exp $
 
 ActionController::Routing::Routes.draw do |map|
 
@@ -19,6 +19,10 @@ ActionController::Routing::Routes.draw do |map|
         general.auto_complete_for_public_body_query 'auto_complete_for_public_body_query', :action => 'auto_complete_for_public_body_query'
 
         general.search_redirect '/search',      :action => 'search_redirect'
+        # XXX combined is the search query, and then if sorted a "/newest" at the end.
+        # Couldn't find a way to do this in routes which also picked up multiple other slashes
+        # and dots and other characters that can appear in search query. So we sort it all
+        # out in the controller.
         general.search_general '/search/*combined',      :action => 'search'
 
         general.fai_test '/test', :action => 'fai_test'

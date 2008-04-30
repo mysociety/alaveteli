@@ -22,13 +22,13 @@ describe GeneralController, "when searching" do
 
     it "should redirect from search query URL to pretty URL" do
         post :search_redirect, :query => "mouse" # query hidden in POST parameters
-        response.should redirect_to(:action => 'search', :query => "mouse") # URL /search/:query
+        response.should redirect_to(:action => 'search', :combined => "mouse") # URL /search/:query
     end
   
     it "should find info request when searching for '\"fancy dog\"'" do
         #ActsAsXapian.rebuild_index([PublicBody, User, InfoRequestEvent])
         ActsAsXapian.update_index
-        get :search, :query => '"fancy dog"'
+        get :search, :combined => ['"fancy dog"']
         response.should render_template('search')
 
         assigns[:search_hits].should == 1
@@ -48,7 +48,7 @@ describe GeneralController, "when searching" do
     it "should find public body and incoming message (in that order) when searching for 'geraldine quango'" do
         ActsAsXapian.update_index
 
-        get :search, :query => 'geraldine quango'
+        get :search, :combined => ['geraldine quango']
         response.should render_template('search')
 
         assigns[:search_hits].should == 2
@@ -60,7 +60,7 @@ describe GeneralController, "when searching" do
     it "should find incoming message and public body (in that order) when searching for 'geraldine quango', newest first" do
         ActsAsXapian.update_index
 
-        get :search, :query => 'geraldine quango', :sortby => 'newest'
+        get :search, :combined => ['geraldine quango','newest']
         response.should render_template('search')
 
         assigns[:search_hits].should == 2

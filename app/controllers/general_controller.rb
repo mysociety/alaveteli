@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: general_controller.rb,v 1.21 2008-04-30 00:46:00 francis Exp $
+# $Id: general_controller.rb,v 1.22 2008-04-30 00:57:20 francis Exp $
 
 class GeneralController < ApplicationController
 
@@ -53,6 +53,8 @@ class GeneralController < ApplicationController
 
     # Actual search
     def search
+        # XXX Why is this so complicated with arrays and stuff? Look at the route
+        # in config/routes.rb for comments.
         combined = params[:combined]
         sortby = nil
         if combined.size > 1 and combined[-1] == 'newest'
