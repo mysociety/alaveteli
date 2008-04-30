@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.101 2008-04-30 01:19:53 francis Exp $
+# $Id: info_request.rb,v 1.102 2008-04-30 01:42:39 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -68,8 +68,6 @@ class InfoRequest < ActiveRecord::Base
     # (Not really the right place to put it, but everything can get it here, and it
     # does *mainly* find info requests, via their events, so hey)
     def InfoRequest.full_search(query, order, ascending, collapse, per_page, page)
-        # XXX handle order better
-        # XXX html_highlight
         offset = (page - 1) * per_page
         return ::ActsAsXapian::Search.new(
             [InfoRequestEvent, PublicBody, User], query,

@@ -6,7 +6,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: application.rb,v 1.42 2008-04-30 00:46:00 francis Exp $
+# $Id: application.rb,v 1.43 2008-04-30 01:42:39 francis Exp $
 
 
 class ApplicationController < ActionController::Base
@@ -141,7 +141,7 @@ class ApplicationController < ActionController::Base
     end
 
     # Function for search
-    def perform_search(query, sortby, collapse, per_page = 25, this_page = nil, html_highlight = true) 
+    def perform_search(query, sortby, collapse, per_page = 25, this_page = nil) 
         @query = query
         @sortby = sortby
 
