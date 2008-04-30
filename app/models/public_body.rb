@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.67 2008-04-24 23:52:59 francis Exp $
+# $Id: public_body.rb,v 1.68 2008-04-30 01:41:03 francis Exp $
 
 require 'csv'
 require 'set'
@@ -49,6 +49,7 @@ class PublicBody < ActiveRecord::Base
             [ "police", "Police forces", "a police force" ], 
             [ "rda", "Regional development agencies", "a regional development agency" ], 
             [ "sha", "Strategic health authorities", "a strategic health authority" ],
+            [ "pct", "Primary care trusts", "a primary care trust" ],
             [ "university", "Universities", "university" ], 
             [ "other", "Other", "other" ]
         ]
