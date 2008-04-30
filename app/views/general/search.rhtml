@@ -55,10 +55,11 @@
     <li>Use OR (in capital letters) where you don't mind which word,  e.g. <strong>commons OR lords</strong>
     <li>Use quotes when you want to find an exact phrase, e.g. <strong>"Liverpool City Council"</strong>
     <li><strong>variety:</strong> with value sent, followup_sent, response, authority or user to select type of thing to search for.
-    <li>Type <strong>status:</strong> to select based on the status of the request see table below.
+    <li>Type <strong>status:</strong> to select based on the status or historical status of the request, see table below.
     <li><strong>requested_from:home_office</strong> to restrict to requests from the <%= link_to "Home Office", show_public_body_url(:url_name => 'home_office') %>, typing the name as in the URL.
     <li><strong>requested_by:julian_todd</strong> to restrict to requests made by <%= link_to "Julian Todd", show_user_url(:url_name => 'julian_todd') %>, typing the name as in the URL.
     <li><strong>request:</strong> to restrict to a specific request, typing the title as in the URL.
+    <li>Type <strong>01/01/2008..14/01/2008</strong> to only show things that happened in the first two weeks of January.
     <li>Read about <a href="http://www.xapian.org/docs/queryparser.html">advanced search operators</a>, such as proximity and wildcards.
     </ul>
 
