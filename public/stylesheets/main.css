@@ -1,8 +1,3 @@
-/* XXX Francis put this here so he could check highlighting worked */ 
-.highlight {
-    background-color: #dddd00;
-    color: #000000;
-}
 
 /*------------------------------------------------ global */
 body
@@ -184,12 +179,11 @@ body
 {
 	position: relative;
 	clear: both;
-	top: 105px;
+	top: 55px;
 	padding: 0px;
 	margin: 0px auto 1.2em auto;
-	max-width: 50em;
+	width: 50em;
 	/* = 800px at default size? so 1em = 16px*/
-	_width: 50em;
 	text-align: left;
 	border-color: #FF0B16;
 }
@@ -217,6 +211,13 @@ h1, h2, h3
 
 h4, h5, h6
 {}
+
+/* XXX Francis put this here so he could check highlighting worked */ 
+.highlight
+{
+	background-color: #490C0F;
+	color: #fff;
+}
 
 
 /*---------------- content : recent requests sidebar */
