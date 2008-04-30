@@ -456,7 +456,8 @@ div[id|=incoming] { background-color: #E7E7E7; font-family: Times New Roman, Tim
 #request_form
 { margin-top: 4em;}
 
-#request_form label
+#request_form label,
+label.form_label
 {
 	display: block;
 	width: 8em;
@@ -483,7 +484,7 @@ div[id|=incoming] { background-color: #E7E7E7; font-family: Times New Roman, Tim
 	margin-left: 10em;
 }
 
-#request_form .form_button
+.form_button
 {
 	margin-left: 9em;
 }
