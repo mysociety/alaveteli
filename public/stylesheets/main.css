@@ -193,7 +193,7 @@ body
 #content
 {
 	position: relative;
-	padding: 2em 1em 1em 1em;
+	padding: 1em 1em 1em 1em;
 }
 
 h1, h2, h3
@@ -442,7 +442,7 @@ div[id|=incoming] { background-color: #E7E7E7; font-family: Times New Roman, Tim
 #body_sidebar a { text-decoration: none; }
 
 
-/*------------------------------------------------ making a request */
+/*------------------------------------------------ making a request / sign up / sign in  */
 
 #request_advice
 {}
@@ -474,13 +474,13 @@ label.form_label
 .form_item_note
 {
 	font-size: 0.8em;
-	width: 30em;
-	margin-left: 10.5em;
+	width: 27em;
+	margin-left: 11em;
 }
 .form_note
 {
 	font-size: 0.9em;
-	width: 30em;
+	width: 34em;
 	margin-left: 10em;
 }
 
@@ -488,6 +488,64 @@ label.form_label
 {
 	margin-left: 9em;
 }
+
+p#sign_in_reason { text-align: center;}
+
+#signup,
+#signin
+{
+	clear: none;
+}
+	#signup h2,
+	#signin h2
+	{ font-size: 1.2em; }
+
+	#signup
+	{ 	
+		float: left;
+		width: 30em; 
+	}
+
+	#signin
+	{
+		float: right;
+		width: 12em;
+		border-color: #545454;
+		border-width: 1px;
+		border-style: solid;
+		background-color: #F0F0F0;
+		padding: 0 1em 1em 1em;
+		margin-top: 1.2em;
+	}
+
+/* mini-signin form overrides */
+
+			#signin label.form_label
+			{
+				width: 12em; clear: both;
+				text-align: left;
+			}
+				#signin  h1 label
+				{
+				}
+			
+			#signin .form_item_note
+			{
+				width: 12em;
+				margin-left: 0em;
+			}
+			#signin .form_note
+			{
+				width: 12em;
+				margin-left: 0em;
+			}
+			
+			#signin .form_button
+			{
+				margin-left: 0em;
+			}
+	
+
 /*------------------------------------------------ footer */
 
 #footer
