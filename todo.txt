@@ -1,7 +1,5 @@
 Add PCTs to categories
 Museum aliases
-Index HTML e.g. MRSA:
-http://www.whatdotheyknow.com/request/_the_infection_rates_of_orthopae
 Internet explorer bug with HTML for Elena
 
 
@@ -11,16 +9,13 @@ deployment:
     install it on the server
     make sure solr is stopped
 
-remove all the scripts in scripts/*solr*
-remove all the solr plugins and stuff
-
 http://localhost:3000/list - sent highlighted here
 
 highlight word docs text
 full_search still has html_highlight parameter
 
-Watch this one:
-http://www.whatdotheyknow.com/request/crime_statistics_for_2007_champi
+You need to reload Xapian processes after any change
+    how do we deal with that? - maybe reload xapian db every x searches?
 
 Design
 ------
@@ -31,10 +26,9 @@ needs development text box
 Later Solr
 ----------
 
-You need to reload Xapian processes after deleting stuff (and maybe other
-    times?), how do we deal with that? - maybe reload xapian db every x searches?
 Search for "health" crashes it (Solr?)
 Remove vendor/plugins/acts_as_solr
+remove all the solr plugins and stuff
 
 FOI requests to use to test it
 ==============================
@@ -69,6 +63,9 @@ BAILII - relationship with law courts, robots.txt ?
 
 Next
 ====
+
+Watch this one:
+http://www.whatdotheyknow.com/request/crime_statistics_for_2007_champi
 
 Things to track:
     - new requests

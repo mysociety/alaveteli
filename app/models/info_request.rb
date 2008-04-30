@@ -21,10 +21,10 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.100 2008-04-30 00:46:01 francis Exp $
+# $Id: info_request.rb,v 1.101 2008-04-30 01:19:53 francis Exp $
 
 require 'digest/sha1'
-require 'vendor/plugins/acts_as_xapian/lib/acts_as_xapian'
+require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
 
 class InfoRequest < ActiveRecord::Base
     validates_presence_of :title, :message => "^Please enter a summary of your request"

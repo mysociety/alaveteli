@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: acts_as_xapian.rb,v 1.14 2008-04-30 00:37:51 francis Exp $
+# $Id: acts_as_xapian.rb,v 1.15 2008-04-30 01:19:53 francis Exp $
 
 # TODO:
 # Test :eager_load
@@ -199,6 +199,7 @@ module ActsAsXapian
         # make the directory for the xapian databases to go in
         db_parent_path = File.join(File.dirname(__FILE__), '../xapiandbs/')
         Dir.mkdir(db_parent_path) unless File.exists?(db_parent_path)
+        raise "Set RAILS_ENV, so acts_as_xapian can find the right Xapian database" if not ENV['RAILS_ENV']
         @@db_path = File.join(db_parent_path, ENV['RAILS_ENV']) 
 
         # make some things that don't depend on the db

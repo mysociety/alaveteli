@@ -17,7 +17,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.91 2008-04-21 21:48:50 francis Exp $
+# $Id: incoming_message.rb,v 1.92 2008-04-30 01:19:53 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -534,6 +534,10 @@ class IncomingMessage < ActiveRecord::Base
                     File.unlink(tempfile.path + ".txt")
                 elsif attachment.content_type == 'application/rtf'
                     IO.popen("/usr/bin/catdoc " + tempfile.path, "r") do |child|
+                        text += child.read() + "\n\n"
+                    end
+                elsif attachment.content_type == 'text/html'
+                    IO.popen("/usr/bin/lynx -force_html -dump " + tempfile.path, "r") do |child|
                         text += child.read() + "\n\n"
                     end
                 elsif attachment.content_type == 'application/msexcel'
