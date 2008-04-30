@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: acts_as_xapian.rb,v 1.15 2008-04-30 01:19:53 francis Exp $
+# $Id: acts_as_xapian.rb,v 1.16 2008-04-30 02:14:07 francis Exp $
 
 # TODO:
 # Test :eager_load
@@ -45,9 +45,10 @@
 # field is returned. Along with a count of how many there are in total.
 # acts_as_solr doesn't have this.
 #
-# * No highlighting - Xapian can't return you text highlighted with a search query.
-# You can try and make do with TextHelper::highlight. I found the highlighting
-# in acts_as_solr didn't really understand the query anyway.
+# * No highlighting - Xapian can't return you text highlighted with a search
+# query. You can try and make do with TextHelper::highlight (combined with
+# words_to_highlight below). I found the highlighting in acts_as_solr didn't
+# really understand the query anyway.
 #
 # * Date range searching - maybe this works in acts_as_solr, but I never found
 # out how.
@@ -306,6 +307,7 @@ module ActsAsXapian
         attr_accessor :limit
         attr_accessor :query
         attr_accessor :matches
+        attr_accessor :query_string
 
         # Note that model_classes is not only sometimes useful here - it's essential to make sure the
         # classes have been loaded, and thus acts_as_xapian called on them, so
@@ -316,6 +318,7 @@ module ActsAsXapian
             sort_by_prefix = options[:sort_by_prefix] || nil
             sort_by_ascending = options[:sort_by_ascending] || true
             collapse_by_prefix = options[:collapse_by_prefix] || nil
+            self.query_string = query_string
 
             ActsAsXapian.readable_init
             if ActsAsXapian.db.nil?
@@ -324,7 +327,7 @@ module ActsAsXapian
 
             # Construct query which only finds things from specified models
             model_query = Xapian::Query.new(Xapian::Query::OP_OR, model_classes.map{|mc| "M" + mc.to_s})
-            user_query = ActsAsXapian.query_parser.parse_query(query_string,
+            user_query = ActsAsXapian.query_parser.parse_query(self.query_string,
                   Xapian::QueryParser::FLAG_BOOLEAN | Xapian::QueryParser::FLAG_PHRASE |
                   Xapian::QueryParser::FLAG_LOVEHATE | Xapian::QueryParser::FLAG_WILDCARD |
                   Xapian::QueryParser::FLAG_SPELLING_CORRECTION)
@@ -366,6 +369,17 @@ module ActsAsXapian
                 return nil
             end
             return correction
+        end
+
+        # Return just normal words in the query, not ones in date ranges or similar
+        # Use this for cheap highlighting with TextHelper::highlight, and excerpt.
+        def words_to_highlight
+            query_nopunc = self.query_string.gsub(/[^a-z0-9:\.\/]/i, " ")
+            query_nopunc = query_nopunc.gsub(/\s+/, " ")
+            words = query_nopunc.split(" ")
+            # Remove anything with a :, . or / in it
+            words = words.find_all {|o| !o.match(/(:|\.|\/)/) }
+            return words
         end
 
         # Return array of models found

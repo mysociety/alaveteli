@@ -1,18 +1,14 @@
-Add PCTs to categories
 Museum aliases
 Internet explorer bug with HTML for Elena
 
+Test: Add PCTs to categories
+Test: http://localhost:3000/list - sent highlighted here
 
 deployment:
     change the exec_after scripts to not do solr
-    rebuild the xapian index
     install it on the server
+    rebuild the xapian index
     make sure solr is stopped
-
-http://localhost:3000/list - sent highlighted here
-
-highlight word docs text
-full_search still has html_highlight parameter
 
 You need to reload Xapian processes after any change
     how do we deal with that? - maybe reload xapian db every x searches?
@@ -27,8 +23,10 @@ Later Solr
 ----------
 
 Search for "health" crashes it (Solr?)
+
+highlight word docs text
 Remove vendor/plugins/acts_as_solr
-remove all the solr plugins and stuff
+Finally check no solr in source grep -i, or in find (filenames)
 
 FOI requests to use to test it
 ==============================

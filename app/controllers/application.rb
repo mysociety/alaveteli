@@ -6,7 +6,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: application.rb,v 1.43 2008-04-30 01:42:39 francis Exp $
+# $Id: application.rb,v 1.44 2008-04-30 02:14:07 francis Exp $
 
 
 class ApplicationController < ActionController::Base
@@ -161,11 +161,7 @@ class ApplicationController < ActionController::Base
         @search_results = xapian_object.results
         @search_hits = xapian_object.matches_estimated
         @search_spelling = xapian_object.spelling_correction
-
-        # Calculate simple word highlighting view code for users and public bodies
-        query_nopunc = @query.gsub(/[^a-z0-9]/i, " ")
-        query_nopunc = query_nopunc.gsub(/\s+/, " ")
-        @highlight_words = query_nopunc.split(" ")
+        @highlight_words = xapian_object.words_to_highlight
     end
 
     # URL generating functions are needed by all controllers (for redirects),
