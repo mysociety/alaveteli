@@ -11,8 +11,6 @@ deployment:
     install it on the server
     make sure solr is stopped
 
-XXX date range tips in search help
-check that you aren't doing collapse_by for RSS / Email (via full_search)
 check emails look OK
 
 remove all the scripts in scripts/*solr*

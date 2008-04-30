@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_controller.rb,v 1.8 2008-04-24 23:52:59 francis Exp $
+# $Id: track_controller.rb,v 1.9 2008-04-30 00:46:00 francis Exp $
 
 class TrackController < ApplicationController
 
@@ -59,7 +59,7 @@ class TrackController < ApplicationController
     def atom_feed
         @track_thing = TrackThing.find(params[:track_id].to_i)
 
-        perform_search(@track_thing.track_query, @track_thing.params[:feed_sortby], 25, 1) 
+        perform_search(@track_thing.track_query, @track_thing.params[:feed_sortby], nil, 25, 1) 
         respond_to :atom
     end
 

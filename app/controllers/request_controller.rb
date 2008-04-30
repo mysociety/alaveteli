@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.76 2008-04-22 10:11:00 francis Exp $
+# $Id: request_controller.rb,v 1.77 2008-04-30 00:46:00 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -63,7 +63,7 @@ class RequestController < ApplicationController
         else
             raise "unknown request list view " + view.to_s
         end
-        perform_search(query, sortby)
+        perform_search(query, sortby, 'request_collapse')
     end
 
     # Page new form posts to

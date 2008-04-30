@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.99 2008-04-30 00:37:50 francis Exp $
+# $Id: info_request.rb,v 1.100 2008-04-30 00:46:01 francis Exp $
 
 require 'digest/sha1'
 require 'vendor/plugins/acts_as_xapian/lib/acts_as_xapian'
@@ -67,7 +67,7 @@ class InfoRequest < ActiveRecord::Base
     # Central function to do all searches
     # (Not really the right place to put it, but everything can get it here, and it
     # does *mainly* find info requests, via their events, so hey)
-    def InfoRequest.full_search(query, order, ascending, per_page, page, html_highlight)
+    def InfoRequest.full_search(query, order, ascending, collapse, per_page, page)
         # XXX handle order better
         # XXX html_highlight
         offset = (page - 1) * per_page
@@ -75,8 +75,8 @@ class InfoRequest < ActiveRecord::Base
             [InfoRequestEvent, PublicBody, User], query,
             :offset => offset, :limit => per_page,
             :sort_by_prefix => order,
-            :sort_by_ascending => ascending
-#            :collapse_by_prefix => "request_collapse" # XXX fix this so off for email/RSS, on for web
+            :sort_by_ascending => ascending,
+            :collapse_by_prefix => collapse
         )
     end
 
@@ -87,7 +87,7 @@ class InfoRequest < ActiveRecord::Base
             t = Time.now.usec - t
             secs = t / 1000000.0
             STDOUT.write secs.to_s + " query " + i.to_s + "\n"
-            results = InfoRequest.full_search(query, "created_at", false, 25, 1, false).results
+            results = InfoRequest.full_search(query, "created_at", false, nil, 25, 1).results
         end
     end
 

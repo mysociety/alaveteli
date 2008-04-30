@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: general_controller.rb,v 1.20 2008-04-30 00:37:50 francis Exp $
+# $Id: general_controller.rb,v 1.21 2008-04-30 00:46:00 francis Exp $
 
 class GeneralController < ApplicationController
 
@@ -35,7 +35,7 @@ class GeneralController < ApplicationController
         # Get all successful requests for display on the right  
         query = 'variety:response (status:successful OR status:partially_successful)'
         sortby = "newest"
-        perform_search(query, sortby, 3)
+        perform_search(query, sortby, 'request_collapse', 3)
     end
 
 
@@ -60,7 +60,7 @@ class GeneralController < ApplicationController
             combined = combined[0..-2]
         end
         query = combined.join("/")
-        perform_search(query, sortby)
+        perform_search(query, sortby, 'request_collapse')
 
         #render :controller => "help", :action => "about"
     end

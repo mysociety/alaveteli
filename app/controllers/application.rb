@@ -6,7 +6,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: application.rb,v 1.41 2008-04-30 00:37:50 francis Exp $
+# $Id: application.rb,v 1.42 2008-04-30 00:46:00 francis Exp $
 
 
 class ApplicationController < ActionController::Base
@@ -141,7 +141,7 @@ class ApplicationController < ActionController::Base
     end
 
     # Function for search
-    def perform_search(query, sortby, per_page = 25, this_page = nil, html_highlight = true) 
+    def perform_search(query, sortby, collapse, per_page = 25, this_page = nil, html_highlight = true) 
         @query = query
         @sortby = sortby
 
@@ -157,7 +157,7 @@ class ApplicationController < ActionController::Base
         else
             @page = this_page
         end
-        xapian_object = InfoRequest.full_search(@query, order, ascending, @per_page, @page, true) 
+        xapian_object = InfoRequest.full_search(@query, order, ascending, collapse, @per_page, @page) 
         @search_results = xapian_object.results
         @search_hits = xapian_object.matches_estimated
         @search_spelling = xapian_object.spelling_correction
