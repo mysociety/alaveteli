@@ -1,8 +1,21 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
+def rebuild_xapian_index
+    rebuild_name = File.dirname(__FILE__) + '/../../script/rebuild-xapian-index'
+    Kernel.system(rebuild_name) or raise "failed to launch rebuild-xapian-index"
+end
+
 describe GeneralController, "when searching" do
     integrate_views
     fixtures :users, :outgoing_messages, :incoming_messages, :info_requests, :info_request_events, :public_bodies
+
+    before do
+        # XXX - what is proper way to do this only once?
+        if not $general_controller_built_xapian_index
+            rebuild_xapian_index
+            $general_controller_built_xapian_index = true
+        end
+    end
 
     it "should render the front page successfully" do
         get :frontpage
@@ -26,8 +39,6 @@ describe GeneralController, "when searching" do
     end
   
     it "should find info request when searching for '\"fancy dog\"'" do
-        #ActsAsXapian.rebuild_index([PublicBody, User, InfoRequestEvent])
-        ActsAsXapian.update_index
         get :search, :combined => ['"fancy dog"']
         response.should render_template('search')
 
@@ -46,8 +57,6 @@ describe GeneralController, "when searching" do
     end
 
     it "should find public body and incoming message (in that order) when searching for 'geraldine quango'" do
-        ActsAsXapian.update_index
-
         get :search, :combined => ['geraldine quango']
         response.should render_template('search')
 
@@ -58,8 +67,6 @@ describe GeneralController, "when searching" do
     end
 
     it "should find incoming message and public body (in that order) when searching for 'geraldine quango', newest first" do
-        ActsAsXapian.update_index
-
         get :search, :combined => ['geraldine quango','newest']
         response.should render_template('search')
 
