@@ -17,7 +17,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.94 2008-05-05 22:48:54 francis Exp $
+# $Id: incoming_message.rb,v 1.95 2008-05-05 22:58:18 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -362,7 +362,7 @@ class IncomingMessage < ActiveRecord::Base
         if not text_charset.nil?
             begin
                 text = Iconv.conv('utf-8', text_charset, text)
-            rescue Iconv::IllegalSequence
+            rescue Iconv::IllegalSequence, Iconv::InvalidEncoding
                 # Clearly specified charset was nonsense
                 text_charset = nil
             end
