@@ -1,32 +1,24 @@
 Museum aliases
-Internet explorer bug with HTML for Elena
 
 Test: Add PCTs to categories
 Test: http://localhost:3000/list - sent highlighted here
 
 deployment:
-    change the exec_after scripts to not do solr
-    install it on the server
     rebuild the xapian index
     make sure solr is stopped
 
-You need to reload Xapian processes after any change
-    how do we deal with that? - maybe reload xapian db every x searches?
-
-Design
-------
-
-needs tagline that v. quickly explains what site is on each page
-needs development text box
-
 Later Solr
 ----------
+
+Use spelling correction for public bodies
 
 Search for "health" crashes it (Solr?)
 
 highlight word docs text
 Remove vendor/plugins/acts_as_solr
 Finally check no solr in source grep -i, or in find (filenames)
+
+Edits to outgoing/incoming/title won't be reindexed
 
 FOI requests to use to test it
 ==============================
@@ -75,6 +67,9 @@ Don't let people use email as their name
 
 Later
 =====
+
+Internet explorer bug with HTML for Elena
+http://www.whatdotheyknow.com/request/_the_infection_rates_of_orthopae
 
 Strip spaces on titles for email alerts - New updates for the request 'Suicide rates '
 
@@ -247,9 +242,10 @@ Be sure to add:
 - all publically owned companies
 
 
-Visual design ideas
+Visual design notes
 ===================
 
+Needs tagline that v. quickly explains what site is on each page
 Colour/shade requests and responses bubbles differently
 
 

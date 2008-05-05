@@ -460,6 +460,13 @@ table#list_requests .odd {
     margin-bottom: -1.0em;
 }
 
+.correspondence_text {
+    background-color: #6f6f6f;
+    color: #ffffff;
+    padding: 0.5em;
+    margin: 1em;
+}
+
 
 /* /describe_state - user setting status of request */
 
