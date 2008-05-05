@@ -17,7 +17,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.93 2008-05-05 22:48:43 francis Exp $
+# $Id: incoming_message.rb,v 1.94 2008-05-05 22:48:54 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -181,7 +181,6 @@ class IncomingMessage < ActiveRecord::Base
         end
         text = text.gsub(self.info_request.incoming_email, 'X' * self.info_request.incoming_email.size)
         text = text.gsub(MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost'), 'X' * MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost').size)
-        text = text.gsub('Welwyn', "XXXXXX")
         return text
     end
 
