@@ -17,7 +17,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.92 2008-04-30 01:19:53 francis Exp $
+# $Id: incoming_message.rb,v 1.93 2008-05-05 22:48:43 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -171,6 +171,17 @@ class IncomingMessage < ActiveRecord::Base
         end
         text = text.gsub(self.info_request.incoming_email, "[FOI #" + self.info_request.id.to_s + " email]")
         text = text.gsub(MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost'), "[WhatDoTheyKnow contact email]")
+        return text
+    end
+
+    # Replaces emails we know about in (possibly binary data) with equal length alternative ones.
+    def binary_mask_special_emails(text)
+        if not self.info_request.public_body.request_email.empty?
+            text = text.gsub(self.info_request.public_body.request_email, 'X' * self.info_request.public_body.request_email.size)
+        end
+        text = text.gsub(self.info_request.incoming_email, 'X' * self.info_request.incoming_email.size)
+        text = text.gsub(MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost'), 'X' * MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost').size)
+        text = text.gsub('Welwyn', "XXXXXX")
         return text
     end
 
