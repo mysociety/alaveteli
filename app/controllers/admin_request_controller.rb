@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_request_controller.rb,v 1.10 2008-04-14 10:02:55 francis Exp $
+# $Id: admin_request_controller.rb,v 1.11 2008-05-05 22:38:04 francis Exp $
 
 class AdminRequestController < ApplicationController
     layout "admin"
@@ -97,6 +97,28 @@ class AdminRequestController < ApplicationController
         else
             render :action => 'edit_outgoing'
         end
+    end 
+
+    def destroy_incoming
+        @incoming_message = IncomingMessage.find(params[:incoming_message_id])
+        @info_request_event = InfoRequestEvent.find_by_incoming_message_id(@incoming_message.id)
+        @info_request = @incoming_message.info_request
+
+        raw_data = @incoming_message
+        incoming_message_id = @incoming_message.id
+
+        ActiveRecord::Base.transaction do
+            @info_request_event.track_things_sent_emails.each { |a| a.destroy }
+            @info_request_event.user_info_request_sent_alerts.each { |a| a.destroy }
+            @info_request_event.destroy
+            @incoming_message.destroy
+        end
+
+        @incoming_message.info_request.log_event("destroy_incoming", 
+            { :editor => admin_http_auth_user(), :raw_data => raw_data })
+
+        flash[:notice] = 'Incoming message successfully destroyed.'
+        redirect_to request_admin_url(@info_request)
     end 
 
     private

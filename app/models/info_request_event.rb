@@ -20,7 +20,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request_event.rb,v 1.41 2008-04-29 16:23:31 francis Exp $
+# $Id: info_request_event.rb,v 1.42 2008-05-05 22:38:04 francis Exp $
 
 class InfoRequestEvent < ActiveRecord::Base
     belongs_to :info_request
@@ -29,6 +29,9 @@ class InfoRequestEvent < ActiveRecord::Base
     belongs_to :outgoing_message
     belongs_to :incoming_message
 
+    has_many :user_info_request_sent_alerts
+    has_many :track_things_sent_emails
+
     validates_presence_of :event_type
     validates_inclusion_of :event_type, :in => [
         'sent', 
@@ -36,6 +39,7 @@ class InfoRequestEvent < ActiveRecord::Base
         'followup_sent', 
         'edit', # title etc. edited in admin interface
         'edit_outgoing', # outgoing message edited in admin interface
+        'destroy_incoming', # deleted an incoming message
         'manual', # you did something in the db by hand
         'response'
     ]
