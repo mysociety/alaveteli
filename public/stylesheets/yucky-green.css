@@ -348,18 +348,23 @@ table#list_requests .odd {
     background-color: #dddddd;
 }
 
-.request_listing {
+.request_listing, .body_listing, .user_listing {
+    margin-bottom: 1em;
+    display: block;
 }
-.request_listing_bottomline {
+.head, .desc {
+    display: block;
+}
+.bottomline {
     color: #7aa600;
 }
-.request_listing_bottomline a:link {
+.bottomline a:link {
     color: #7777cc;
 }
-.request_listing_bottomline a:visited {
+.bottomline a:visited {
     color: #551a8b;
 }
-.request_listing_bottomline a:active {
+.bottomline a:active {
     color: #ff0000;
 }
 
@@ -368,21 +373,6 @@ table#list_requests .odd {
 .highlight {
     background-color: #dddd00;
     color: #000000;
-}
-
-.user_listing {
-}
-.user_listing_bottomline {
-    color: #7aa600;
-}
-.user_listing_bottomline a:link {
-    color: #7777cc;
-}
-.user_listing_bottomline a:visited {
-    color: #551a8b;
-}
-.user_listing_bottomline a:active {
-    color: #ff0000;
 }
 
 .status_table {
@@ -394,21 +384,6 @@ table#list_requests .odd {
 }
 
 /* /body - listing bodies */
-
-.body_listing {
-}
-.body_listing_bottomline {
-    color: #7aa600;
-}
-.body_listing_bottomline a:link {
-    color: #7777cc;
-}
-.body_listing_bottomline a:visited {
-    color: #551a8b;
-}
-.body_listing_bottomline a:active {
-    color: #ff0000;
-}
 
 #body_sidebar {
     float: right;
