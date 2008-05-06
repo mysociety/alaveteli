@@ -1,6 +1,6 @@
 #!/bin/bash
 
 cd `dirname $0`
-rake xapian:rebuild_index models="PublicBody User InfoRequestEvent"
+rake --silent xapian:rebuild_index models="PublicBody User InfoRequestEvent"
 
 
