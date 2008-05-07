@@ -51,11 +51,7 @@ body
 		background-image: url(../images/navimg/logo-trans.png);
 		background-repeat: no-repeat;
 	}
-	#header #beta a
-	{ 
-		background-image: none;
-		/*../images/navimg/*/
-	}
+	
 	#header #tagline { display: none; }
 /*------------------------------------------------ search */
 			
@@ -152,6 +148,16 @@ body
 /*------------------------------------------------ temp stuff */
 #staging, #alpha_notice, #beta
 { }
+
+
+#header h1 #beta, #header h1 #beta a
+{
+	display: inline;
+	background-image: none;
+	font-size: 12px;
+	color: #A4A4A4;
+}
+
 
 #staging
 {
