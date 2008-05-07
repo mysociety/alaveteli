@@ -161,13 +161,8 @@ body
 
 #staging
 {
-	border-color: #FF201D;
-	border-width: 1px;
-	border-style: dotted;
-	clear: both;
-	text-align: center;
-	color: #FF201D;
-	margin-top: 40px;
+	visibility: hidden;
+	overflow: default;
 }
 
 #alpha_notice
@@ -186,7 +181,7 @@ body
 {
 	position: relative;
 	clear: both;
-	top: 55px;
+	top: 100px;
 	padding: 0px;
 	margin: 0px auto 1.2em auto;
 	width: 50em;
