@@ -1,22 +1,11 @@
 Museum aliases
 
-Test: Add PCTs to categories
-Test: http://localhost:3000/list - sent highlighted here
-
-deployment:
-    rebuild the xapian index
-    make sure solr is stopped
-
 Later Solr
 ----------
 
 Use spelling correction for public bodies
 
-Search for "health" crashes it (Solr?)
-
 highlight word docs text
-Remove vendor/plugins/acts_as_solr
-Finally check no solr in source grep -i, or in find (filenames)
 
 Edits to outgoing/incoming/title won't be reindexed
 
@@ -65,6 +54,12 @@ described_at is needed for Users and Public Bodies for RSS
 
 Don't let people use email as their name
 
+Make the "needs admin attention" have a text box?
+Mask -bounce addresses too
+
+Editing status in admin interface isn't putting it in info request events
+    Do search for cases where current value doens't corespond to last event value
+
 Later
 =====
 
@@ -96,9 +91,6 @@ Search and replace text "FOI" and "Freedom of Information" out the way more
  - but put it in the title tag
 
 Send email to remind people to clarify
-
-This search gives a runtime error:
-    "19 hours
 
 Preview when sending followups - especially people need to see quoting/subject
 when sending "my response is late"
@@ -140,7 +132,7 @@ Synthesise these tips into our handful of snappy snappy bullet points
 
 Show public body email address on their public page, with a link to say "this isn't right!"
 
-Requests with related content (via Lucene compare document search somehow?)
+Requests with related content (via a compare document search somehow?)
 Blog posts / Wikipedia articles about this request
     e.g. http://socialreporter.wordpress.com/2008/04/14/costs-of-the-bbc-action-action-network/
     http://reportr.net/2008/04/24/bbc-spent-6m-to-develop-the-iplayer/
@@ -225,6 +217,14 @@ Quoting fixing TODO:
     http://www.whatdotheyknow.com/request/56/response/252
     http://www.whatdotheyknow.com/request/298/response/415
     http://www.whatdotheyknow.com/request/119/response/447 # remove double blank lines
+    http://www.whatdotheyknow.com/request/council_tax_payments
+    http://www.whatdotheyknow.com/request/56/response/94
+    http://www.whatdotheyknow.com/request/83/response/212 # broken highlighted link
+    http://www.whatdotheyknow.com/request/234/response/342
+    http://www.whatdotheyknow.com/request/297/response/506
+    http://www.whatdotheyknow.com/request/297/response/449
+    http://www.whatdotheyknow.com/request/289/response/419
+    http://www.whatdotheyknow.com/request/235/response/513
    
 Sources of public bodies
 ========================
