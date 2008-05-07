@@ -167,6 +167,7 @@ body
 #alpha_notice
 {
 	padding: 0 20px 0 20px;
+	margin: 0 0 1em 0;
 	border-color: #FF201D;
 	border-width: 1px;
 	border-style: solid;
