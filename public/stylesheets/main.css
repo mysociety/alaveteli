@@ -221,6 +221,14 @@ h4, h5, h6
 	color: #fff;
 }
 
+dl { line-height: 1.2em; }
+
+dt
+{
+	font-weight: bold;
+
+}
+dd { margin: 0.6em 0 2em 4em; width: 30em; }
 
 /*---------------- content : recent requests sidebar */
 #find_information
@@ -547,6 +555,15 @@ p#sign_in_reason { text-align: center;}
 				margin-left: 0em;
 			}
 	
+/*--------------------------------- content : about pages */
+
+div#about_sidebar
+{
+	float: right;
+	clear: none;
+	width: 12em;
+	margin: 1.2em 0 1.2em 2em;
+}
 
 /*------------------------------------------------ footer */
 
