@@ -10,8 +10,8 @@
             WhatDoTheyKnow - file and explore Freedom of Information (FOI) requests
         <% end %>
         </title>
-        <%= stylesheet_link_tag 'yucky-green', :rel => "alternate stylesheet", :title => "Yucky Green"  %>
-        <%= stylesheet_link_tag 'main', :title => "Main" %>
+        <%= stylesheet_link_tag 'yucky-green', :title => "Yucky Green"  %>
+        <%= stylesheet_link_tag 'main', :rel => "alternate stylesheet", :title => "Main" %>
     </head>
     <body>
     <div id="banner">
@@ -55,13 +55,6 @@
 		<% end %>
 	</div>
 	
-    <% if MySociety::Config.getbool("STAGING_SITE", 1) %>
-        <div id="staging">
-            This is a test version of the site. FOI requests will not be sent to real public authorities.
-        </div>
-    <% end %>
-
-
     <div id="wrapper">
         <div id="content">
             <% if flash[:notice] %>
