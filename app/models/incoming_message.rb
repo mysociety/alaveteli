@@ -17,7 +17,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.95 2008-05-05 22:58:18 francis Exp $
+# $Id: incoming_message.rb,v 1.96 2008-05-08 12:24:31 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -211,6 +211,17 @@ class IncomingMessage < ActiveRecord::Base
         return text
 
     end
+
+    # Remove other stuff, such as details an FOI officer has asked to be removed.
+    def self.foi_officer_privacy(text)
+        text = text.dup
+
+        # http://www.whatdotheyknow.com/request/total_number_of_objects_in_the_n_6
+        text.gsub!(/\*\*\*+\nPolly Tucker.*/ms, "")
+
+        return text
+    end
+
 
     # Remove quoted sections from emails (eventually the aim would be for this
     # to do as good a job as GMail does) XXX bet it needs a proper parser
@@ -482,6 +493,7 @@ class IncomingMessage < ActiveRecord::Base
         text = get_main_body_text
         text = self.mask_special_emails(text)
         text = IncomingMessage.remove_email_addresses(text)
+        text = IncomingMessage.foi_officer_privacy(text)
 
         # Remove quoted sections, adding HTML. XXX The FOLDED_QUOTED_SECTION is
         # a nasty hack so we can escape other HTML before adding the unfold
@@ -522,8 +534,10 @@ class IncomingMessage < ActiveRecord::Base
         text = get_main_body_text
         text = self.mask_special_emails(text)
         text = IncomingMessage.remove_email_addresses(text)
+        text = IncomingMessage.foi_officer_privacy(text)
 
         # Remove existing quoted sections
+        text = self.remove_lotus_quoting(text, '')
         text = IncomingMessage.remove_quoted_sections(text, "")
     end
 

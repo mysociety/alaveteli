@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.102 2008-04-30 01:42:39 francis Exp $
+# $Id: info_request.rb,v 1.103 2008-05-08 12:24:31 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -324,11 +324,7 @@ public
 
     # Where the initial request is sent to
     def recipient_email
-        if MySociety::Config.getbool("STAGING_SITE", 1)
-            return self.user.email
-        else
-            return self.public_body.request_email
-        end
+        return self.public_body.request_email
     end
     def recipient_name_and_email
         return "FOI requests at " + self.public_body.short_or_long_name + " <" + self.recipient_email + ">"
