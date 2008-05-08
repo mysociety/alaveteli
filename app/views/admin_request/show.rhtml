@@ -82,7 +82,11 @@
   <tr class="<%= cycle('odd', 'even') %>">
   <td><%=h incoming_message.id %></td>
   <% for column in IncomingMessage.content_columns.map { |c| c.name } %>
-    <td><%=h incoming_message.send(column) %></td>
+    <% if column == 'raw_data' %>
+        <td><%=h(incoming_message.send(column)).gsub!(/\n/, '<br>') %></td>
+    <% else %>
+        <td><%=h incoming_message.send(column) %></td>
+    <% end %>
   <% end %>
   <td>
       <% form_tag '../destroy_incoming' do %>
