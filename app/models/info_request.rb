@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.103 2008-05-08 12:24:31 francis Exp $
+# $Id: info_request.rb,v 1.104 2008-05-08 22:56:27 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -105,6 +105,11 @@ public
             suffix_num = suffix_num + 1
         end
         write_attribute(:url_title, unique_url_title)
+    end
+    # Remove spaces from ends (for when used in emails etc.)
+    def title
+        title = read_attribute(:title)
+        kitle.strip
     end
 
     # Email which public body should use to respond to request. This is in

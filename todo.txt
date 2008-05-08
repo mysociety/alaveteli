@@ -1,14 +1,5 @@
 Museum aliases
 
-Later Solr
-----------
-
-Use spelling correction for public bodies
-
-highlight word docs text
-
-Edits to outgoing/incoming/title won't be reindexed
-
 FOI requests to use to test it
 ==============================
 
@@ -63,10 +54,11 @@ Editing status in admin interface isn't putting it in info request events
 Later
 =====
 
+Highlight text search finds in word docs
+Edits to outgoing/incoming/title won't be reindexed in Xapian
+
 Internet explorer bug with HTML for Elena
 http://www.whatdotheyknow.com/request/_the_infection_rates_of_orthopae
-
-Strip spaces on titles for email alerts - New updates for the request 'Suicide rates '
 
 CSV export of lists of emails for admins
 
@@ -105,6 +97,7 @@ Add lots more UNIQUE indices
 
 Merge workflow into one stream - find information, if you can't find it then request it.
     so just search is on front page, with popular stuff below a la Google Directory
+Use spelling correction for public bodies search?
 
 Only show "is email right" footer the first time a new request is sent to that
 email?
@@ -202,6 +195,7 @@ Simple Digg style "I lke this request" button
 
 Editable user profile, including photo upload
 
+Show documents inline (word docs etc.)
 Julian's PDF excerpting thing for highlighting paragraphs
    and convert Word Docs to PDFs too
 
