@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.104 2008-05-08 22:56:27 francis Exp $
+# $Id: info_request.rb,v 1.105 2008-05-09 01:00:42 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -109,7 +109,7 @@ public
     # Remove spaces from ends (for when used in emails etc.)
     def title
         title = read_attribute(:title)
-        kitle.strip
+        title.strip
     end
 
     # Email which public body should use to respond to request. This is in
