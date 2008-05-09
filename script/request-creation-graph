@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org. WWW: http://www.mysociety.org/
 # 
-# $Id: request-creation-graph,v 1.1 2008-05-09 00:55:43 francis Exp $
+# $Id: request-creation-graph,v 1.2 2008-05-09 01:11:41 francis Exp $
 
 GPLOT_OUTPUT="set terminal png font 'Vera.ttf' 9 size 1200,400"
 EXTENSION=".png"
@@ -40,6 +40,7 @@ function grab_data {
         date(created_at), count(*)
         from info_requests
         $1
+        and prominence != 'backpage'
         group by date(created_at)
         order by date(created_at)
         ;" | psql --host $OPTION_FOI_DB_HOST --port $OPTION_FOI_DB_PORT -A -F " " $OPTION_FOI_DB_NAME $OPTION_FOI_DB_USER | egrep -v "date|rows" >$2
@@ -91,8 +92,8 @@ cat >$GPSCRIPT <<END
          "$SOURCEC" using 1:2 with impulses lt 5 lw 15 title "not_held",\
          "$SOURCED" using 1:2 with impulses lt 6 lw 15 title "rejected",\
          "$SOURCEE" using 1:2 with impulses lt 7 lw 15 title "successful",\
-         "$SOURCEE" using 1:2 with impulses lt 8 lw 15 title "partially_successful",\
-         "$SOURCEE" using 1:2 with impulses lt 9 lw 15 title "requires_admin",\
+         "$SOURCEF" using 1:2 with impulses lt 8 lw 15 title "partially_successful",\
+         "$SOURCEG" using 1:2 with impulses lt 9 lw 15 title "requires_admin",\
     "< awk 'BEGIN { n = 0 } { n += \$2; print \$1, \$2, n; }' $SOURCEA" using 1:3 axes x1y2 with lines lt 2 title "cumulative total number of requests"
 END
 #echo "gpscript $GPSCRIPT"
