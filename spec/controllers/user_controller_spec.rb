@@ -151,7 +151,7 @@ describe UserController, "when signing up" do
 
         deliveries = ActionMailer::Base.deliveries
         deliveries.size.should  == 1
-        deliveries[0].body.should include("never give away or sell")
+        deliveries[0].body.should include("not reveal your email")
     end
 
     it "should send special 'already signed up' mail if you fill the form in with existing registered email " do
