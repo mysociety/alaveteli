@@ -2,9 +2,11 @@
 
 <h1>Statistics</h1>
 
-<h2>State of requests</h2>
+<h2>Chart of requests (excluding backpaged)</h2>
 
 <img src="<%= main_url("/foi-live-creation.png")%>">
+
+<h2>State of requests (includes backpaged)</h2>
 
 <table>
 <% for state, count in @request_by_state %>
