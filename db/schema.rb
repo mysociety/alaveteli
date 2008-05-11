@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 53) do
+ActiveRecord::Schema.define(:version => 54) do
 
   create_table "acts_as_xapian_jobs", :force => true do |t|
     t.string  "model",    :null => false
@@ -111,7 +111,7 @@ ActiveRecord::Schema.define(:version => 53) do
     t.text     "request_email"
     t.datetime "updated_at"
     t.string   "last_edit_editor"
-    t.string   "last_edit_comment"
+    t.text     "last_edit_comment"
     t.text     "url_name"
   end
 

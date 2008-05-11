@@ -27,26 +27,19 @@ Aviation Industry in the UK" in the "Air Transport White Paper Progress Report
 
 BAILII - relationship with law courts, robots.txt ?
 
-"Fundamental Savings Review" - Tom's friend
 
 Next
 ====
 
-Museum aliases
-
-Watch this one:
-http://www.whatdotheyknow.com/request/crime_statistics_for_2007_champi
-
-Things to track:
+Things to track - don't ever return users / public bodies for now!
     - new requests
     - new requests with keyword
     - successful responses
-described_at is needed for Users and Public Bodies for RSS
-
-Don't let people use email as their name
 
 Editing status in admin interface isn't putting it in info request events
     Do search for cases where current value doens't corespond to last event value
+
+Museum aliases
 
 Later
 =====
@@ -60,8 +53,6 @@ Internet explorer bug with HTML for Elena
 http://www.whatdotheyknow.com/request/_the_infection_rates_of_orthopae
 
 CSV export of lists of emails for admins
-
-Plot graph of new request rate
 
 Enter > 255 char comment when editing public body gives unhelpful error
 
@@ -116,7 +107,8 @@ last event which resets the due date
 Overdue response alert email click through should show how many days overdue
     it is near where you write your reply
 
-Consider on staging sites making follow ups go to dummy address also
+Remove staging site stuff, and making the banner a not www.whatdotheyknow.com
+banner
 
 Synthesise these tips into our handful of snappy snappy bullet points
     http://community.foe.co.uk/tools/right_to_know/tips.html
@@ -124,7 +116,9 @@ Synthesise these tips into our handful of snappy snappy bullet points
 
 Show public body email address on their public page, with a link to say "this isn't right!"
 
-Requests with related content (via a compare document search somehow?)
+Requests with related content 
+    - via a compare document search somehow?
+    - using the tracking requests network
 Blog posts / Wikipedia articles about this request
     e.g. http://socialreporter.wordpress.com/2008/04/14/costs-of-the-bbc-action-action-network/
     http://reportr.net/2008/04/24/bbc-spent-6m-to-develop-the-iplayer/
@@ -190,7 +184,7 @@ Add geographical location to council import
 Holding pen with comments - new requests don't get sent straight away, but are
     delayed while people help improve them.
 
-Simple Digg style "I lke this request" button
+Simple Digg style "I lke this request" button (doesn't tracking do?)
 
 Editable user profile, including photo upload
 
@@ -226,13 +220,6 @@ List of which get most requests:
 http://www.dca.gov.uk/foi/reference/foi-independent-review.pdf
 
 Schools list: www.edubase.gov.uk
-
-Check have everything from FOE site
-    http://community.foe.co.uk/app/tc
-
-Be sure to add:
-- all in schedule 1
-- all publically owned companies
 
 
 Visual design notes
