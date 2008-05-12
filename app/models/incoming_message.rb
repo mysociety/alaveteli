@@ -17,7 +17,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.98 2008-05-12 16:53:03 francis Exp $
+# $Id: incoming_message.rb,v 1.99 2008-05-12 17:02:41 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -228,6 +228,7 @@ class IncomingMessage < ActiveRecord::Base
     # XXX and this FOLDED_QUOTED_SECTION stuff is a mess
     def self.remove_quoted_sections(text, replacement = "FOLDED_QUOTED_SECTION")
         text = text.dup
+        replacement = "\n" + replacement + "\n"
 
         # First do this peculiar form of quoting, as the > single line quoting
         # further below messes with it. Note the carriage return where it wraps -
@@ -256,7 +257,7 @@ class IncomingMessage < ActiveRecord::Base
                         (\s*[#{score}]{8,}\s*\n.*? # top line ------------
                         (disclaimer:\n|confidential|received\sthis\semail\sin\serror|virus|intended\s+recipient|monitored\s+centrally|intended\s+for\s+the\s+addressee)
                         .*?[#{score}]{8,}\s*\n) # bottom line -----------
-                       /imx, "\n\n" + replacement)
+                       /imx, replacement)
         end
 
         # Special paragraphs
@@ -264,16 +265,16 @@ class IncomingMessage < ActiveRecord::Base
         text.gsub!(/^[^\n]+Government\s+Secure\s+Intranet\s+virus\s+scanning
                     .*?
                     virus\sfree\.
-                    /imx, "\n\n" + replacement)
+                    /imx, replacement)
         text.gsub!(/^Communications\s+via\s+the\s+GSi\s+
                     .*?
                     legal\spurposes\.
-                    /imx, "\n\n" + replacement)
+                    /imx, replacement)
         # http://www.whatdotheyknow.com/request/net_promoter_value_scores_for_bb
         text.gsub!(/^http:\/\/www.bbc.co.uk
                     .*?
                     Further\s+communication\s+will\s+signify\s+your\s+consent\s+to\s+this\.
-                    /imx, "\n\n" + replacement)
+                    /imx, replacement)
 
 
         # To end of message sections
