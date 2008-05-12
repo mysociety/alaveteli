@@ -21,7 +21,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_thing.rb,v 1.10 2008-04-21 16:44:06 francis Exp $
+# $Id: track_thing.rb,v 1.11 2008-05-12 01:37:50 francis Exp $
 
 class TrackThing < ActiveRecord::Base
     belongs_to :tracking_user, :class_name => 'User'
@@ -36,6 +36,7 @@ class TrackThing < ActiveRecord::Base
 
     validates_inclusion_of :track_type, :in => [ 
         'request_updates', 
+        'all_new_requests',
     ]
 
     validates_inclusion_of :track_medium, :in => [ 
@@ -48,6 +49,13 @@ class TrackThing < ActiveRecord::Base
         track_thing.track_type = 'request_updates'
         track_thing.info_request = info_request
         track_thing.track_query = "request:" + info_request.url_title
+        return track_thing
+    end
+
+    def TrackThing.create_track_for_all_new_requests()
+        track_thing = TrackThing.new
+        track_thing.track_type = 'all_new_requests'
+        track_thing.track_query = "variety:sent"
         return track_thing
     end
 
@@ -70,7 +78,22 @@ class TrackThing < ActiveRecord::Base
                     # Other
                     :feed_sortby => 'described', # for RSS, as newest would give a date for responses possibly days before description
                 }
-            else
+            elsif self.track_type == 'all_new_requests'
+                @params = {
+                    # Website
+                    :set_title => "How would you like to be told about any new requests?",
+                    :list_description => "any <a href=\"/list\">new requests</a>",
+                    # Email
+                    :title_in_email => "New Freedom of Information requests",
+                    :title_in_rss => "New Freedom of Information requests",
+                    # Authentication
+                    :web => "To be told about any new requets",
+                    :email => "Then you will be emailed whenever anyone makes a new FOI request",
+                    :email_subject => "Confirm you want to be emailed about new requests",
+                    # Other
+                    :feed_sortby => 'described', # for RSS, as newest would give a date for responses possibly days before description
+                }
+             else
                 raise "unknown tracking type " + self.track_type
             end
         end

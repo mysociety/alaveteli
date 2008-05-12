@@ -1,3 +1,9 @@
+<% if @view.nil? %>
+<p><%= link_to "Track all new requests", track_new_requests_url() %>
+(by email or RSS feed <img src="/images/feed-14.png" alt="" class="rss">)
+</p>
+<% end %>
+
 <h1><%=@title%></h1>
 
 <% if @search_results.empty? %>
@@ -13,4 +19,10 @@
 <% end %>
 
 <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @search_hits) %>
+
+<% if @view.nil? %>
+<p><%= link_to "Track all new requests", track_new_requests_url() %>
+(by email or RSS feed <img src="/images/feed-14.png" alt="" class="rss">)
+</p>
+<% end %>
 

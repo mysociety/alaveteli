@@ -1,3 +1,6 @@
+
+create_track_for_request
+
 FOI requests to use to test it
 ==============================
 
@@ -33,14 +36,16 @@ Next
 
 Things to track - don't ever return users / public bodies for now!
     - new requests
-    - new requests with keyword
+    - anything requesty with keyword
     - successful responses
-
-Editing status in admin interface isn't putting it in info request events
-    Do search for cases where current value doens't corespond to last event value
+    - requests for a particular public body
+    - requests by a particular user
 
 Later
 =====
+
+Check this again after a while, for dodgy states of events:
+s = InfoRequest.find(:all).select { |i| (not i.awaiting_description) and i.get_last_response_event_id and InfoRequestEvent.find(i.get_last_response_event_id).calculated_state != i.described_state }; s.size
 
 Museum aliases
 

@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.79 2008-05-12 00:56:21 francis Exp $
+# $Id: request_controller.rb,v 1.80 2008-05-12 01:37:50 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -50,18 +50,18 @@ class RequestController < ApplicationController
     end
 
     def list
-        view = params[:view]
+        @view = params[:view]
 
-        if view.nil?
+        if @view.nil?
             @title = "Recently sent Freedom of Information requests"
             query = "variety:sent";
             sortby = "newest"
-        elsif view == 'successful'
+        elsif @view == 'successful'
             @title = "Recent successful responses"
             query = 'variety:response (status:successful OR status:partially_successful)'
             sortby = "newest"
         else
-            raise "unknown request list view " + view.to_s
+            raise "unknown request list view " + @view.to_s
         end
         perform_search(query, sortby, 'request_collapse')
     end

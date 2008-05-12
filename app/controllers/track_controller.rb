@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_controller.rb,v 1.9 2008-04-30 00:46:00 francis Exp $
+# $Id: track_controller.rb,v 1.10 2008-05-12 01:37:50 francis Exp $
 
 class TrackController < ApplicationController
 
@@ -20,6 +20,20 @@ class TrackController < ApplicationController
             else
                 flash[:notice] = "You are " + ret + " tracking this request!"
                 redirect_to request_url(@info_request)
+            end
+        end
+    end
+
+    # Track all new requests
+    def track_new_requests
+        @track_thing = TrackThing.create_track_for_all_new_requests
+        ret = self.track_set
+        if ret
+            if @track_thing.track_medium == 'feed'
+                redirect_to :controller => 'track', :action => 'atom_feed', :track_id => @track_thing.id
+            else
+                flash[:notice] = "You are " + ret + " being told about any new requests!"
+                redirect_to request_list_url(:view => nil)
             end
         end
     end
