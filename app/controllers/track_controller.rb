@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_controller.rb,v 1.12 2008-05-12 01:59:01 francis Exp $
+# $Id: track_controller.rb,v 1.13 2008-05-12 09:18:45 francis Exp $
 
 class TrackController < ApplicationController
 
@@ -25,15 +25,30 @@ class TrackController < ApplicationController
     end
 
     # Track all new requests
-    def track_new_requests
-        @track_thing = TrackThing.create_track_for_all_new_requests
+    def track_list
+        @view = params[:view]
+
+        if @view.nil?
+            @track_thing = TrackThing.create_track_for_all_new_requests
+        elsif @view == 'successful'
+            @track_thing = TrackThing.create_track_for_all_successful_requests
+        else
+            raise "unknown request list view " + @view.to_s
+        end
+
         ret = self.track_set
         if ret
             if @track_thing.track_medium == 'feed'
                 redirect_to :controller => 'track', :action => 'atom_feed', :track_id => @track_thing.id
             else
-                flash[:notice] = "You are " + ret + " being told about any new requests!"
-                redirect_to request_list_url(:view => nil)
+                if @view.nil?
+                        flash[:notice] = "You are " + ret + " being told about any new requests!"
+                elsif @view == 'successful'
+                        flash[:notice] = "You are " + ret + " being told about any successful requests!"
+                else
+                    raise "unknown request list view " + @view.to_s
+                end
+                redirect_to request_list_url(:view => @view)
             end
         end
     end

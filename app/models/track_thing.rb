@@ -21,7 +21,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_thing.rb,v 1.14 2008-05-12 08:35:25 francis Exp $
+# $Id: track_thing.rb,v 1.15 2008-05-12 09:18:45 francis Exp $
 
 class TrackThing < ActiveRecord::Base
     belongs_to :tracking_user, :class_name => 'User'
@@ -37,6 +37,7 @@ class TrackThing < ActiveRecord::Base
     validates_inclusion_of :track_type, :in => [ 
         'request_updates', 
         'all_new_requests',
+        'all_successful_requests',
     ]
 
     validates_inclusion_of :track_medium, :in => [ 
@@ -52,10 +53,17 @@ class TrackThing < ActiveRecord::Base
         return track_thing
     end
 
-    def TrackThing.create_track_for_all_new_requests()
+    def TrackThing.create_track_for_all_new_requests
         track_thing = TrackThing.new
         track_thing.track_type = 'all_new_requests'
         track_thing.track_query = "variety:sent"
+        return track_thing
+    end
+
+    def TrackThing.create_track_for_all_successful_requests
+        track_thing = TrackThing.new
+        track_thing.track_type = 'all_successful_requests'
+        track_thing.track_query = 'variety:response (status:successful OR status:partially_successful)'
         return track_thing
     end
 
@@ -91,13 +99,30 @@ class TrackThing < ActiveRecord::Base
                     :title_in_email => "New Freedom of Information requests",
                     :title_in_rss => "New Freedom of Information requests",
                     # Authentication
-                    :web => "To be told about any new requets",
+                    :web => "To be told about any new requests",
                     :email => "Then you will be emailed whenever anyone makes a new FOI request",
                     :email_subject => "Confirm you want to be emailed about new requests",
                     # Other
                     :feed_sortby => 'described', # for RSS, as newest would give a date for responses possibly days before description
                 }
-            else
+            elsif self.track_type == 'all_successful_requests'
+                @params = {
+                    # Website
+                    :set_title => "How would you like to be told when any request succeeds?",
+                    :list_description => "any <a href=\"/list\">successful requests</a>",
+                    :verb_on_page => "Be told when any request succeeds",
+                    :verb_on_page_already => "being told when any request succeeds",
+                    # Email
+                    :title_in_email => "Successful Freedom of Information requests",
+                    :title_in_rss => "Successful Freedom of Information requests",
+                    # Authentication
+                    :web => "To be told about any successful requests",
+                    :email => "Then you will be emailed whenever an FOI request succeeds",
+                    :email_subject => "Confirm you want to be emailed when an FOI request succeeds",
+                    # Other
+                    :feed_sortby => 'described', # for RSS, as successfulest would give a date for responses possibly days before description
+                }
+             else
                 raise "unknown tracking type " + self.track_type
             end
         end

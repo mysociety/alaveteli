@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.82 2008-05-12 08:35:24 francis Exp $
+# $Id: request_controller.rb,v 1.83 2008-05-12 09:18:45 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -51,12 +51,12 @@ class RequestController < ApplicationController
             @title = "Recently sent Freedom of Information requests"
             query = "variety:sent";
             sortby = "newest"
-            # Track corresponding to this page
             @track_thing = TrackThing.create_track_for_all_new_requests
         elsif @view == 'successful'
             @title = "Recent successful responses"
             query = 'variety:response (status:successful OR status:partially_successful)'
             sortby = "newest"
+            @track_thing = TrackThing.create_track_for_all_successful_requests
         else
             raise "unknown request list view " + @view.to_s
         end

@@ -35,9 +35,7 @@ Next
 ====
 
 Things to track - don't ever return users / public bodies for now!
-    - new requests
     - anything requesty with keyword
-    - successful responses
     - requests for a particular public body
     - requests by a particular user
 
