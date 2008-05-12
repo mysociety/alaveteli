@@ -1,6 +1,3 @@
-
-create_track_for_request
-
 FOI requests to use to test it
 ==============================
 
@@ -34,10 +31,13 @@ BAILII - relationship with law courts, robots.txt ?
 Next
 ====
 
-Things to track - don't ever return users / public bodies for now!
+Things to track 
     - anything requesty with keyword
 
-Link to /list/successful from /list
+Blog posts / Wikipedia articles about this request
+    e.g. http://socialreporter.wordpress.com/2008/04/14/costs-of-the-bbc-action-action-network/
+    http://reportr.net/2008/04/24/bbc-spent-6m-to-develop-the-iplayer/
+Or just look at referrers as Julian says
 
 Later
 =====
@@ -68,21 +68,16 @@ When you click RSS feed when on own request, default to RSS in the choice on nex
 
 Offer search on 404s
 
-Search and replace text "FOI" and "Freedom of Information" out the way more
- - but put it in the title tag
-
 Send email to remind people to clarify
 
 Preview when sending followups - especially people need to see quoting/subject
 when sending "my response is late"
 
-Change email address interface - easier to do now with post_redirect.circumstance?
+Interface for when you change your email address - easier to do now with post_redirect.circumstance?
 
 One of the PDFs on live site has:
 Error: PDF version 1.6 -- xpdf supports version 1.5 (continuing anyway)
 Need to upgrade to poppler-utils?
-
-Add lots more UNIQUE indices
 
 Merge workflow into one stream - find information, if you can't find it then request it.
     so just search is on front page, with popular stuff below a la Google Directory
@@ -120,10 +115,6 @@ CSV export of lists of emails for admins
 Requests with related content 
     - via a compare document search somehow?
     - using the tracking requests network
-Blog posts / Wikipedia articles about this request
-    e.g. http://socialreporter.wordpress.com/2008/04/14/costs-of-the-bbc-action-action-network/
-    http://reportr.net/2008/04/24/bbc-spent-6m-to-develop-the-iplayer/
-Or just look at referrers as Julian says
 
 Remember me box
     This can't possible be the best way, it is too depressing:
@@ -213,6 +204,7 @@ Quoting fixing TODO:
     http://www.whatdotheyknow.com/request/297/response/449
     http://www.whatdotheyknow.com/request/289/response/419
     http://www.whatdotheyknow.com/request/235/response/513
+    http://www.whatdotheyknow.com/request/299/response/484
    
 Sources of public bodies
 ========================

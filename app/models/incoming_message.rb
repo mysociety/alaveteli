@@ -17,7 +17,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.99 2008-05-12 17:02:41 francis Exp $
+# $Id: incoming_message.rb,v 1.100 2008-05-12 23:07:31 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -177,10 +177,10 @@ class IncomingMessage < ActiveRecord::Base
     # Replaces emails we know about in (possibly binary data) with equal length alternative ones.
     def binary_mask_special_emails(text)
         if not self.info_request.public_body.request_email.empty?
-            text = text.gsub(self.info_request.public_body.request_email, 'X' * self.info_request.public_body.request_email.size)
+            text = text.gsub(Regexp.new(self.info_request.public_body.request_email, Regexp::IGNORECASE), 'X' * self.info_request.public_body.request_email.size)
         end
-        text = text.gsub(self.info_request.incoming_email, 'X' * self.info_request.incoming_email.size)
-        text = text.gsub(MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost'), 'X' * MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost').size)
+        text = text.gsub(Regexp.new(self.info_request.incoming_email, Regexp::IGNORECASE), 'X' * self.info_request.incoming_email.size)
+        text = text.gsub(Regexp.new(MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost'), Regexp::IGNORECASE), 'X' * MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost').size)
         return text
     end
 
