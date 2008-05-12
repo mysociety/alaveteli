@@ -35,19 +35,26 @@
         <ul>
         <% for track_thing in @display_user.track_things %>
             <li>
-                <% form_tag :controller => 'track', :action => 'update', :track_id => track_thing.id do %>
-                    <%= track_thing.params[:list_description] %> by
-                    <!-- (<%= link_to "view latest updates", :controller => 'general', :action => 'search', :query => track_thing.track_query %>) -->
-                    <%= select 'track_thing', "track_medium", { "Email daily" => "email_daily", "RSS feed" => "feed", "Cancel updates" => "delete"}, { :selected => track_thing.track_medium } %>
-                    <%= submit_tag "Update" %>
-                    <!-- <% if track_thing.track_medium == 'feed' %>
-                        (<%= link_to "Feed", :controller => 'track', :action => 'atom_feed', :track_id => track_thing.id %>
-                        <img src="/images/feed-14.png" alt="" class="rss">)
-                    <% end %> -->
+                <% if @is_you %>
+                    <% form_tag :controller => 'track', :action => 'update', :track_id => track_thing.id do %>
+                        <%= track_thing.params[:list_description] %> by
+                        <!-- (<%= link_to "view latest updates", :controller => 'general', :action => 'search', :query => track_thing.track_query %>) -->
+                        <%= select 'track_thing', "track_medium", { "Email daily" => "email_daily", "RSS feed" => "feed", "Cancel updates" => "delete"}, { :selected => track_thing.track_medium } %>
+                        <%= submit_tag "Update" %>
+                        <!-- <% if track_thing.track_medium == 'feed' %>
+                            (<%= link_to "Feed", :controller => 'track', :action => 'atom_feed', :track_id => track_thing.id %>
+                            <img src="/images/feed-14.png" alt="" class="rss">)
+                        <% end %> -->
+                    <% end %>
+                <% else %>
+                    <%= track_thing.params[:list_description] %>
                 <% end %>
             </li>
         <% end %>
         </ul>
+        <% if not @is_you %>
+        <p>If you are <%=h @display_user.name %>, <%= link_to "sign in", signin_url(:r => request.request_uri) %> to alter these settings.</p>
+        <% end %>
     <% end %>
 
     <% if @display_user.info_requests.empty? %>
