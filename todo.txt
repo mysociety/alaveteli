@@ -36,7 +36,6 @@ Next
 
 Things to track - don't ever return users / public bodies for now!
     - anything requesty with keyword
-    - requests by a particular user
 
 Link to /list/successful from /list
 

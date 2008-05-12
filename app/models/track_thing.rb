@@ -21,7 +21,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_thing.rb,v 1.16 2008-05-12 10:21:35 francis Exp $
+# $Id: track_thing.rb,v 1.17 2008-05-12 10:57:44 francis Exp $
 
 class TrackThing < ActiveRecord::Base
     belongs_to :tracking_user, :class_name => 'User'
@@ -39,6 +39,7 @@ class TrackThing < ActiveRecord::Base
         'all_new_requests',
         'all_successful_requests',
         'public_body_updates', 
+        'user_updates'
     ]
 
     validates_inclusion_of :track_medium, :in => [ 
@@ -73,6 +74,14 @@ class TrackThing < ActiveRecord::Base
         track_thing.track_type = 'public_body_updates'
         track_thing.public_body = public_body
         track_thing.track_query = "variety:sent requested_from:" + public_body.url_name
+        return track_thing
+    end
+
+    def TrackThing.create_track_for_user(user)
+        track_thing = TrackThing.new
+        track_thing.track_type = 'user_updates'
+        track_thing.tracked_user = user
+        track_thing.track_query = "variety:sent requested_by:" + user.url_name
         return track_thing
     end
 
@@ -148,7 +157,24 @@ class TrackThing < ActiveRecord::Base
                     # Other
                     :feed_sortby => 'described', # for RSS, as newest would give a date for responses possibly days before description
                 }
-            else
+            elsif self.track_type == 'user_updates'
+                @params = {
+                    # Website
+                    :set_title => "How would you like track the person '" + CGI.escapeHTML(self.tracked_user.name) + "'?",
+                    :list_description => "'<a href=\"/user/" + CGI.escapeHTML(self.tracked_user.url_name) + "\">" + CGI.escapeHTML(self.tracked_user.name) + "</a>', a person", # XXX yeuch, sometimes I just want to call view helpers from the model, sorry! can't work out how 
+                    :verb_on_page => "Be told about new requests by this person",
+                    :verb_on_page_already => "being told about new requests by this person",
+                    # Email
+                    :title_in_email => "New FOI requests by '" + self.tracked_user.name + "'",
+                    :title_in_rss => "New FOI requests by '" + self.tracked_user.name + "'",
+                    # Authentication
+                    :web => "To be told about new requests by '" + CGI.escapeHTML(self.tracked_user.name) + "'",
+                    :email => "Then you will be emailed whenever '" + CGI.escapeHTML(self.tracked_user.name) + "' requests something",
+                    :email_subject => "Confirm you want to be told about new requests by '" + CGI.escapeHTML(self.tracked_user.name) + "'",
+                    # Other
+                    :feed_sortby => 'described', # for RSS, as newest would give a date for responses possibly days before description
+                }
+             else
                 raise "unknown tracking type " + self.track_type
             end
         end

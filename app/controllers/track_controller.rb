@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_controller.rb,v 1.14 2008-05-12 10:21:34 francis Exp $
+# $Id: track_controller.rb,v 1.15 2008-05-12 10:57:43 francis Exp $
 
 class TrackController < ApplicationController
 
@@ -64,6 +64,21 @@ class TrackController < ApplicationController
             else
                 flash[:notice] = "You are " + ret + " tracking this public body!"
                 redirect_to public_body_url(@public_body)
+            end
+        end
+    end
+
+    # Track a user
+    def track_user
+        @track_user = User.find_by_url_name(params[:url_name])
+        @track_thing = TrackThing.create_track_for_user(@track_user)
+        ret = self.track_set
+        if ret
+            if @track_thing.track_medium == 'feed'
+                redirect_to :controller => 'track', :action => 'atom_feed', :track_id => @track_thing.id
+            else
+                flash[:notice] = "You are " + ret + " tracking this person!"
+                redirect_to user_url(@track_user)
             end
         end
     end

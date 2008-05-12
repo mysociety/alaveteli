@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user_controller.rb,v 1.45 2008-03-25 17:25:09 francis Exp $
+# $Id: user_controller.rb,v 1.46 2008-05-12 10:57:43 francis Exp $
 
 class UserController < ApplicationController
     # Show page about a set of users with same url name
@@ -21,6 +21,9 @@ class UserController < ApplicationController
         @same_name_users = User.find(:all, :conditions => [ "name = ? and email_confirmed and id <> ?", @display_user.name, @display_user.id ], :order => "created_at")
 
         @is_you = !@user.nil? && @user.id == @display_user.id
+
+        # Track corresponding to this page
+        @track_thing = TrackThing.create_track_for_user(@display_user)
     end
 
     # Login form

@@ -8,6 +8,11 @@
     <% end %> 
 <% end%>
 
+<div id="request_sidebar">
+    <h2>People tracking this person</h2>
+    <%= render :partial => 'track/tracking_people_and_link', :locals => { :track_thing => @track_thing } %>
+</div> 
+
 <div class="single_user" id="user-<%=@display_user.id.to_s%>">
     <h1><%=@title%></h1>
     <p class="subtitle">Joined WhatDoTheyKnow on <%= simple_date(@display_user.created_at) %></p>
