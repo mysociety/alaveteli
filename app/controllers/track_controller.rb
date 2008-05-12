@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_controller.rb,v 1.11 2008-05-12 01:53:41 francis Exp $
+# $Id: track_controller.rb,v 1.12 2008-05-12 01:59:01 francis Exp $
 
 class TrackController < ApplicationController
 
@@ -99,7 +99,7 @@ class TrackController < ApplicationController
             track_thing.track_medium = new_medium
             track_thing.created_at = Time.now() # as created_at is used to limit the alerts to start with
             track_thing.save!
-            flash[:notice] = "You will now be emailed when " + track_thing.params[:list_description] + ", is updated"
+            flash[:notice] = "You are now tracking " + track_thing.params[:list_description] + " by email"
             redirect_to user_url(track_thing.tracking_user)
         elsif new_medium == 'feed'
             track_thing.track_medium = new_medium
