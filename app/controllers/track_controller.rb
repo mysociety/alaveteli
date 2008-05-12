@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_controller.rb,v 1.15 2008-05-12 10:57:43 francis Exp $
+# $Id: track_controller.rb,v 1.16 2008-05-12 17:55:18 francis Exp $
 
 class TrackController < ApplicationController
 
@@ -42,9 +42,21 @@ class TrackController < ApplicationController
                 redirect_to :controller => 'track', :action => 'atom_feed', :track_id => @track_thing.id
             else
                 if @view.nil?
-                        flash[:notice] = "You are " + ret + " being told about any new requests!"
+                    if ret == 'already'
+                        flash[:notice] = "You are already being told about any new requests!"
+                    elsif ret == 'now'
+                        flash[:notice] = "You will now be told about any new requests!"
+                    else 
+                        raise "unknown ret '" + ret + "'"
+                    end
                 elsif @view == 'successful'
-                        flash[:notice] = "You are " + ret + " being told about any successful requests!"
+                    if ret == 'already'
+                        flash[:notice] = "You are already being told about any successful requests!"
+                    elsif ret == 'now'
+                        flash[:notice] = "You will now be told about any successful requests!"
+                    else 
+                        raise "unknown ret '" + ret + "'"
+                    end
                 else
                     raise "unknown request list view " + @view.to_s
                 end
