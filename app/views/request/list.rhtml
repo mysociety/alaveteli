@@ -1,5 +1,7 @@
-<% if @view.nil? %>
-<p><%= link_to "Track all new requests", track_new_requests_url() %>
+<% if @existing_track %>
+<p>You are already being told about any new requests (<%= link_to "alter your subscriptions", user_url(@user) %>).</p>
+<% elsif @view.nil? %>
+<p><%= link_to "Be told about any new requests", track_new_requests_url() %>
 (by email or RSS feed <img src="/images/feed-14.png" alt="" class="rss">)
 </p>
 <% end %>
@@ -20,8 +22,10 @@
 
 <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @search_hits) %>
 
-<% if @view.nil? %>
-<p><%= link_to "Track all new requests", track_new_requests_url() %>
+<% if @existing_track %>
+<p>You are already being told about any new requests.  (<%= link_to "alter your subscriptions", user_url(@user) %>).</p>
+<% elsif @view.nil? %>
+<p><%= link_to "Be told about any new requests", track_new_requests_url() %>
 (by email or RSS feed <img src="/images/feed-14.png" alt="" class="rss">)
 </p>
 <% end %>
