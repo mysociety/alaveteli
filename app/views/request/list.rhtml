@@ -1,8 +1,19 @@
+<div id="list_sidebar">
+<h1>Show only...</h1>
+<ul>
+<% for view, description in [ [nil, "Recently sent requests"], ['successful', "Successful responses"] ] %>
+<li>
+    <%= link_to_unless (@view == view), description, request_list_url(:view => view) %> 
+</li>
+<% end %>
+</ul>
+</div>
+
+<h1><%=@title%></h1>
+
 <% if @track_thing %>
     <%= render :partial => 'track/tracking_people_and_link', :locals => { :track_thing => @track_thing, :own_request => false, :list_people => false } %>
 <% end %>
-
-<h1><%=@title%></h1>
 
 <% if @search_results.empty? %>
     <p>No requests made yet.</p>
