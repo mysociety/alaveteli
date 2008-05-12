@@ -28,10 +28,11 @@ end %>
 
     <span class="bottomline icon_<%= info_request.calculate_status %>">
 
+        <strong>
+        <%= info_request.display_status %>
+        </strong><br>
+
         <% if event.event_type == 'sent' %>
-            <strong>
-            <%= info_request.display_status %>
-            </strong><br>
             Request sent to <%= public_body_link(info_request.public_body) %>
             by <%= user_link(info_request.user) %>
         <% elsif event.event_type == 'followup_sent' %>
