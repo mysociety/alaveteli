@@ -10,7 +10,7 @@
 
 <div id="request_sidebar">
     <h2>People tracking this person</h2>
-    <%= render :partial => 'track/tracking_people_and_link', :locals => { :track_thing => @track_thing } %>
+    <%= render :partial => 'track/tracking_people_and_link', :locals => { :track_thing => @track_thing, :own_request => false, :list_people => true } %>
 </div> 
 
 <div class="single_user" id="user-<%=@display_user.id.to_s%>">
