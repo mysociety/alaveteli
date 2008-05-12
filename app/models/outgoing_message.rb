@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: outgoing_message.rb,v 1.44 2008-04-24 22:50:03 angie Exp $
+# $Id: outgoing_message.rb,v 1.45 2008-05-12 00:56:22 francis Exp $
 
 class OutgoingMessage < ActiveRecord::Base
     belongs_to :info_request
@@ -97,7 +97,7 @@ class OutgoingMessage < ActiveRecord::Base
                 self.save!
                 self.info_request.log_event('followup_' + log_event_type, { :email => self.info_request.recipient_email, :outgoing_message_id => self.id })
                 if self.info_request.described_state == 'waiting_clarification'
-                    self.info_request.set_described_state('waiting_response', self.info_request.events_needing_description[-1].id)
+                    self.info_request.set_described_state('waiting_response')
                 end
             else
                 raise "Message id #{self.id} has type '#{self.message_type}' which send_message can't handle"

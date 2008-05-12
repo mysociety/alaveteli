@@ -39,22 +39,18 @@ Things to track - don't ever return users / public bodies for now!
 Editing status in admin interface isn't putting it in info request events
     Do search for cases where current value doens't corespond to last event value
 
-Museum aliases
-
 Later
 =====
 
-Make the "needs admin attention" have a text box asking why
+Museum aliases
 
 Highlight text search finds in word docs
 Edits to outgoing/incoming/title won't be reindexed in Xapian
 
+Make the "needs admin attention" have a text box asking why
+
 Internet explorer bug with HTML for Elena
 http://www.whatdotheyknow.com/request/_the_infection_rates_of_orthopae
-
-CSV export of lists of emails for admins
-
-Enter > 255 char comment when editing public body gives unhelpful error
 
 Put name of admin user rather than import_csv
 
@@ -115,6 +111,8 @@ Synthesise these tips into our handful of snappy snappy bullet points
     http://www.justice.gov.uk/requestinginformation.htm
 
 Show public body email address on their public page, with a link to say "this isn't right!"
+
+CSV export of lists of emails for admins
 
 Requests with related content 
     - via a compare document search somehow?

@@ -225,6 +225,8 @@ describe RequestController, "when classifying an individual response" do
         response.should redirect_to(:controller => 'help', :action => 'unhappy')
         info_requests(:fancy_dog_request).reload
         info_requests(:fancy_dog_request).awaiting_description.should == false
+        info_requests(:fancy_dog_request).described_state.should == 'rejected'
+        info_requests(:fancy_dog_request).get_last_response_event.calculated_state.should == 'rejected'
     end
 
         #response.should redirect_to(:action => 'show', :id => info_requests(:fancy_dog_request))
@@ -257,9 +259,16 @@ describe RequestController, "when sending a followup message" do
 
 
     it "should send the follow up message if you are the right user" do
+        # fake that this is a clarification
+        info_requests(:fancy_dog_request).set_described_state('waiting_clarification')
+        info_requests(:fancy_dog_request).described_state.should == 'waiting_clarification'
+        info_requests(:fancy_dog_request).get_last_response_event.calculated_state.should == 'waiting_clarification'
+
+        # make the followup
         session[:user_id] = users(:bob_smith_user).id
         post :show_response, :outgoing_message => { :body => "What a useless response! You suck." }, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_followup => 1
 
+        # check it worked
         deliveries = ActionMailer::Base.deliveries
         deliveries.size.should == 1
         mail = deliveries[0]
@@ -267,6 +276,11 @@ describe RequestController, "when sending a followup message" do
         mail.to_addrs.to_s.should == "FOI Person <foiperson@localhost>"
 
         response.should redirect_to(:action => 'show', :url_title => info_requests(:fancy_dog_request).url_title)
+
+        # and that the status changed
+        info_requests(:fancy_dog_request).reload
+        info_requests(:fancy_dog_request).described_state.should == 'waiting_response'
+        info_requests(:fancy_dog_request).get_last_response_event.calculated_state.should == 'waiting_response'
     end
 
 

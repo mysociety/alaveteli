@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.78 2008-05-05 22:48:43 francis Exp $
+# $Id: request_controller.rb,v 1.79 2008-05-12 00:56:21 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -191,7 +191,7 @@ class RequestController < ApplicationController
             end
 
             # Make the state change
-            @info_request.set_described_state(params[:incoming_message][:described_state], @last_info_request_event_id)
+            @info_request.set_described_state(params[:incoming_message][:described_state])
 
             # Display appropriate next page (e.g. help for complaint etc.)
             if @info_request.calculate_status == 'waiting_response'

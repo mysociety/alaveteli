@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_request_controller.rb,v 1.11 2008-05-05 22:38:04 francis Exp $
+# $Id: admin_request_controller.rb,v 1.12 2008-05-12 00:56:21 francis Exp $
 
 class AdminRequestController < ApplicationController
     layout "admin"
@@ -47,7 +47,7 @@ class AdminRequestController < ApplicationController
         @info_request.title = params[:info_request][:title]
         @info_request.prominence = params[:info_request][:prominence]
         if @info_request.described_state != params[:info_request][:described_state]
-            @info_request.set_described_state(params[:info_request][:described_state], @info_request.get_last_event.id.to_i)
+            @info_request.set_described_state(params[:info_request][:described_state])
         end
         @info_request.awaiting_description = params[:info_request][:awaiting_description] == "true" ? true : false
 
