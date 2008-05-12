@@ -36,8 +36,9 @@ Next
 
 Things to track - don't ever return users / public bodies for now!
     - anything requesty with keyword
-    - requests for a particular public body
     - requests by a particular user
+
+Link to /list/successful from /list
 
 Later
 =====
@@ -48,7 +49,7 @@ s = InfoRequest.find(:all).select { |i| (not i.awaiting_description) and i.get_l
 Museum aliases
 
 Highlight text search finds in word docs
-Edits to outgoing/incoming/title won't be reindexed in Xapian
+Edits to outgoing/incoming/title won't be reindexed in Xapian (maybe just reindex all once a week)
 
 Make the "needs admin attention" have a text box asking why
 

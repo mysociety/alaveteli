@@ -21,7 +21,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_thing.rb,v 1.15 2008-05-12 09:18:45 francis Exp $
+# $Id: track_thing.rb,v 1.16 2008-05-12 10:21:35 francis Exp $
 
 class TrackThing < ActiveRecord::Base
     belongs_to :tracking_user, :class_name => 'User'
@@ -38,6 +38,7 @@ class TrackThing < ActiveRecord::Base
         'request_updates', 
         'all_new_requests',
         'all_successful_requests',
+        'public_body_updates', 
     ]
 
     validates_inclusion_of :track_medium, :in => [ 
@@ -64,6 +65,14 @@ class TrackThing < ActiveRecord::Base
         track_thing = TrackThing.new
         track_thing.track_type = 'all_successful_requests'
         track_thing.track_query = 'variety:response (status:successful OR status:partially_successful)'
+        return track_thing
+    end
+
+    def TrackThing.create_track_for_public_body(public_body)
+        track_thing = TrackThing.new
+        track_thing.track_type = 'public_body_updates'
+        track_thing.public_body = public_body
+        track_thing.track_query = "variety:sent requested_from:" + public_body.url_name
         return track_thing
     end
 
@@ -120,9 +129,26 @@ class TrackThing < ActiveRecord::Base
                     :email => "Then you will be emailed whenever an FOI request succeeds",
                     :email_subject => "Confirm you want to be emailed when an FOI request succeeds",
                     # Other
-                    :feed_sortby => 'described', # for RSS, as successfulest would give a date for responses possibly days before description
+                    :feed_sortby => 'described', # for RSS, as newest would give a date for responses possibly days before description
                 }
-             else
+            elsif self.track_type == 'public_body_updates'
+                @params = {
+                    # Website
+                    :set_title => "How would you like to be told about new requests to the public authority '" + CGI.escapeHTML(self.public_body.name) + "'?",
+                    :list_description => "'<a href=\"/body/" + CGI.escapeHTML(self.public_body.url_name) + "\">" + CGI.escapeHTML(self.public_body.name) + "</a>', a public authority", # XXX yeuch, sometimes I just want to call view helpers from the model, sorry! can't work out how 
+                    :verb_on_page => "Be told about new requests to this public authority",
+                    :verb_on_page_already => "being told about new requests to this public authority",
+                    # Email
+                    :title_in_email => "New FOI requests to '" + self.public_body.name + "'",
+                    :title_in_rss => "New FOI requests to '" + self.public_body.name + "'",
+                    # Authentication
+                    :web => "To be told about new requests to the public authority '" + CGI.escapeHTML(self.public_body.name) + "'",
+                    :email => "Then you will be emailed whenever someone requests something from '" + CGI.escapeHTML(self.public_body.name) + "'.",
+                    :email_subject => "Confirm you want to be told about new requests to '" + CGI.escapeHTML(self.public_body.name) + "'",
+                    # Other
+                    :feed_sortby => 'described', # for RSS, as newest would give a date for responses possibly days before description
+                }
+            else
                 raise "unknown tracking type " + self.track_type
             end
         end

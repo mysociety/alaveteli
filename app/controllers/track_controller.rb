@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_controller.rb,v 1.13 2008-05-12 09:18:45 francis Exp $
+# $Id: track_controller.rb,v 1.14 2008-05-12 10:21:34 francis Exp $
 
 class TrackController < ApplicationController
 
@@ -24,7 +24,7 @@ class TrackController < ApplicationController
         end
     end
 
-    # Track all new requests
+    # Track all new/successful requests
     def track_list
         @view = params[:view]
 
@@ -52,6 +52,22 @@ class TrackController < ApplicationController
             end
         end
     end
+
+    # Track all updates to a particular public body
+    def track_public_body
+        @public_body = PublicBody.find_by_url_name(params[:url_name])
+        @track_thing = TrackThing.create_track_for_public_body(@public_body)
+        ret = self.track_set
+        if ret
+            if @track_thing.track_medium == 'feed'
+                redirect_to :controller => 'track', :action => 'atom_feed', :track_id => @track_thing.id
+            else
+                flash[:notice] = "You are " + ret + " tracking this public body!"
+                redirect_to public_body_url(@public_body)
+            end
+        end
+    end
+
 
     # Generic request tracker - set @track_thing before calling
     def track_set

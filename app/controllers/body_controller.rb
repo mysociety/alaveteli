@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: body_controller.rb,v 1.11 2008-03-28 15:09:47 francis Exp $
+# $Id: body_controller.rb,v 1.12 2008-05-12 10:21:34 francis Exp $
 
 class BodyController < ApplicationController
     # XXX tidy this up with better error messages, and a more standard infrastructure for the redirect to canonical URL
@@ -32,6 +32,8 @@ class BodyController < ApplicationController
             redirect_to show_public_body_url(:url_name => @public_bodies[0].url_name)
         end
         @public_body = @public_bodies[0]
+
+        @track_thing = TrackThing.create_track_for_public_body(@public_body)
     end
 
     def list

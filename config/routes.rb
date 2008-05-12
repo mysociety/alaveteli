@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: routes.rb,v 1.59 2008-05-12 09:18:46 francis Exp $
+# $Id: routes.rb,v 1.60 2008-05-12 10:21:35 francis Exp $
 
 ActionController::Routing::Routes.draw do |map|
 
@@ -62,6 +62,7 @@ ActionController::Routing::Routes.draw do |map|
     map.with_options :controller => 'track' do |track|
         track.track_request 'track/request/:url_title', :action => 'track_request'
         track.track_list '/track/list/:view', :action => 'track_list', :view => nil
+        track.track_public_body "/track/body/:url_name", :action => 'track_public_body'
 
         track.update '/track/update/:track_id', :action => 'update'
         track.atom_feed '/track/feed/:track_id', :action => 'atom_feed'
