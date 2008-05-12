@@ -21,7 +21,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_thing.rb,v 1.13 2008-05-12 01:53:41 francis Exp $
+# $Id: track_thing.rb,v 1.14 2008-05-12 08:35:25 francis Exp $
 
 class TrackThing < ActiveRecord::Base
     belongs_to :tracking_user, :class_name => 'User'
@@ -68,6 +68,8 @@ class TrackThing < ActiveRecord::Base
                     # Website
                     :set_title => "How would you like to track the request '" + CGI.escapeHTML(self.info_request.title) + "'?",
                     :list_description => "'<a href=\"/request/" + CGI.escapeHTML(self.info_request.url_title) + "\">" + CGI.escapeHTML(self.info_request.title) + "</a>', a request", # XXX yeuch, sometimes I just want to call view helpers from the model, sorry! can't work out how 
+                    :verb_on_page => "Track updates to this request",
+                    :verb_on_page_already => "tracking this request",
                     # Email
                     :title_in_email => "New updates for the request '" + self.info_request.title + "'",
                     :title_in_rss => "New updates for the request '" + self.info_request.title + "'",
@@ -83,6 +85,8 @@ class TrackThing < ActiveRecord::Base
                     # Website
                     :set_title => "How would you like to be told about any new requests?",
                     :list_description => "any <a href=\"/list\">new requests</a>",
+                    :verb_on_page => "Be told about any new requests",
+                    :verb_on_page_already => "being told about any new requests",
                     # Email
                     :title_in_email => "New Freedom of Information requests",
                     :title_in_rss => "New Freedom of Information requests",
@@ -93,7 +97,7 @@ class TrackThing < ActiveRecord::Base
                     # Other
                     :feed_sortby => 'described', # for RSS, as newest would give a date for responses possibly days before description
                 }
-             else
+            else
                 raise "unknown tracking type " + self.track_type
             end
         end
@@ -108,6 +112,10 @@ class TrackThing < ActiveRecord::Base
         return TrackThing.find(:first, :conditions => [ 'tracking_user_id = ? and track_query = ?', tracking_user.id, track_query ] )
     end
 
+    # List of people tracking same thing
+    def TrackThing.find_tracking_people(track_query)
+        return TrackThing.find(:all, :conditions => [ 'track_query = ?', track_query ]).map { |t| t.tracking_user }
+    end
 
 end
 

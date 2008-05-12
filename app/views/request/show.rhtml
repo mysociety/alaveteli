@@ -8,37 +8,7 @@
 
 <div id="request_sidebar">
     <h2>People tracking this request</h2>
-    <% if @info_request.track_things.size > 0 %>
-        <ul>
-        <% for track_thing in @info_request.track_things %>
-            <li><%=user_link(track_thing.tracking_user)%></li>
-        <% end %>
-        </ul>
-        <p>
-            <% if @existing_track %>
-                You are already tracking this request
-                (<%= link_to "alter your subscriptions", user_url(@user) %>).
-            <% else %>
-                <% if @info_request.user == @user %> 
-                    <p>You will be emailed when there are updates to your own request.</p>
-                    <p>You may also <%= link_to "get an RSS feed", track_request_url(:url_title => @info_request.url_title) %>
-                    <img src="/images/feed-14.png" alt="" class="rss"></p>
-                <% else %>
-                    <%= link_to "Track updates to this request", track_request_url(:url_title => @info_request.url_title) %>
-                    (by email or RSS feed <img src="/images/feed-14.png" alt="" class="rss">)
-                <% end %>
-            <% end %>
-        </p>
-    <% else %>
-        <% if @info_request.user == @user %> 
-            <p>You will be emailed when there are updates to your own request.</p>
-            <p>You may also get an <%= link_to 'RSS feed', track_request_url(:url_title => @info_request.url_title) %>
-            <img src="/images/feed-14.png" alt="" class="rss"></p>
-        <% else %>
-            <p>Be the first to <%= link_to "track updates to this request", track_request_url(:url_title => @info_request.url_title) %>
-            (by email or RSS feed <img src="/images/feed-14.png" alt="" class="rss">)</p>
-        <% end %>
-    <% end %>
+    <%= render :partial => 'track/tracking_people_and_link', :locals => { :track_thing => @track_thing, :own_request => @info_request.user == @user, :list_people => true } %>
 
     <h2>Act on this request</h2>
     <p>

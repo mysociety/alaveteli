@@ -5,7 +5,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: link_to_helper.rb,v 1.26 2008-04-30 00:37:50 francis Exp $
+# $Id: link_to_helper.rb,v 1.27 2008-05-12 08:35:25 francis Exp $
 
 module LinkToHelper
 
@@ -79,6 +79,17 @@ module LinkToHelper
     end
     def user_admin_link(user)
         link_to h(user.name), user_admin_url(user)
+    end
+
+    # Teacks
+    def do_track_url(track_thing)
+        if track_thing.track_type == 'request_updates'
+            track_request_url(:url_title => track_thing.info_request.url_title)
+        elsif track_thing.track_type == 'all_new_requests' 
+            track_new_requests_url
+        else
+            raise "unknown tracking type " + track_thing.track_type
+        end
     end
 
     # General pages
