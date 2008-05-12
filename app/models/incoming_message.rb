@@ -17,7 +17,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.97 2008-05-12 01:38:18 francis Exp $
+# $Id: incoming_message.rb,v 1.98 2008-05-12 16:53:03 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -525,6 +525,7 @@ class IncomingMessage < ActiveRecord::Base
         text.strip!
 
         text = text.gsub(/\n/, '<br>')
+        text = text.gsub(/(?:<br>\s*){2,}/, '<br><br>') # remove excess linebreaks that unnecessarily space it out
         return text
     end
 
