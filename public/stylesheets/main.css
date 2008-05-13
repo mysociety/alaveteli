@@ -343,17 +343,21 @@ dd { margin: 0.6em 0 2em 4em; width: 30em; }
 	span.desc
 	{
 		display: block;
-		width: 23em;
 		float: right;
 		clear: none;
 		font-style: italic;
 		color: #3F3F3F;
 		overflow: hidden;
+	}
+	#request_list span.desc /* full page request list only */
+	{
+		width: 23em;
 		background-image: url(../images/navimg/quote-open.png);
 		background-repeat: no-repeat;
 		background-position: 0 0;
 		padding: 8px 0 0 25px;
 	}
+	
 	.body_listing span.desc
 	{ background-image: none; float: left; clear: both; padding: 0px 0 0 0px;}
 
@@ -408,8 +412,14 @@ div.pagination { text-align: center; padding-top: 0.3em;}
 	{
 		margin: 0px 0px 0.4em 0px;
 		padding: 0.1em 1em 0.3em 1em;
+		color: #595959;
 	}
-	.auto_complete ul li:hover { color: #fff; background-color: #000; }
+	.auto_complete ul li:hover
+	{
+		color: #000;
+		background-color: #D7D7D7;
+		cursor: default;
+	}
 
 
 /*---------------- content : request detail pages */
@@ -418,29 +428,35 @@ div.pagination { text-align: center; padding-top: 0.3em;}
 {
 	float: right;
 	clear: none;
-	width: 12em;
-	margin: 0 0 0 1em;
-	font-size: 0.85em;
+	width: 9em;
+	margin: 0 0 0 0.6em;
+	font-size: 0.9em;
 }
 
 div.correspondence
 {
-	width: 33em;
+	width: 37em;
 	float: left;
-	padding: 0.4em 1em 0.4em 1em;
+	padding: 0em 0.5em 0em 0.5em;
 	margin: 0 0 1em 0;
 	border-color: #5F5F5F;
 	border-width: 1px;
 	border-style: solid;
+	overflow: auto;
 }
+div.correspondence h2
+{ text-align: right; font-size: 1em; }
 
 /* id starts with... */
-div[id|=outgoing] { }
-div[id|=incoming] { background-color: #E7E7E7; font-family: Times New Roman, Times, serif;}
+div[id|="outgoing"] { }
+	div[id|="outgoing"] p { font-size: 0.95em;}
+	
+div[id|="incoming"] { background-color: #E7E7E7; font-family: Times New Roman, Times, serif; }
+	div[id|="incoming"] p { font-size: 1.08em;}
 
-.correspondence_text { margin: 0 2em 0 2em; }
+.correspondence_text { margin: 0 1.2em 0 0.8em; }
 
-.event_bubble { margin: 3em 0 0 0; font-size: 0.9em;}
+/*.event_bubble { margin: 3em 0 0 0; font-size: 0.9em;}*/
 
 /*------------------------------------------------ authority listings */
 #body_sidebar {
@@ -470,65 +486,66 @@ div[id|=incoming] { background-color: #E7E7E7; font-family: Times New Roman, Tim
 label.form_label
 {
 	display: block;
-	width: 8em;
+	width: 128px; /*width: 8em;*/
 	float: left;
 	clear: none;
 	text-align: right;
-	padding: 0 0.6em 0 0;
+	padding: 0 10px 0 0;
 }
 	#request_form h1 label
 	{
 		font-size: 0.55em;
 	}
 
-.form_item_note
+.form_item_note, .form_note
 {
 	font-size: 0.8em;
-	width: 27em;
-	margin-left: 11em;
+	width: 432px; /*width: 27em;*/
+	margin-left: 138px;/*margin-left: 11em;*/
 }
-.form_note
-{
-	font-size: 0.9em;
-	width: 34em;
-	margin-left: 10em;
-}
+
 
 .form_button
 {
 	margin-left: 9em;
 }
 
-p#sign_in_reason { text-align: center;}
+p#sign_in_reason
+{
+	text-align: center;
+	font-size: 1.4em;
+	font-weight: bold;
+	line-height: 1em;
+}
 
 #signup,
 #signin
 {
 	clear: none;
+	width: 22em;
 }
 	#signup h2,
 	#signin h2
-	{ font-size: 1.2em; }
+	{ font-size: 1.1em; }
 
 	#signup
 	{ 	
-		float: left;
-		width: 30em; 
+		float: right;
 	}
 
 	#signin
 	{
-		float: right;
-		width: 12em;
-		border-color: #545454;
-		border-width: 1px;
-		border-style: solid;
-		background-color: #F0F0F0;
-		padding: 0 1em 1em 1em;
-		margin-top: 1.2em;
+		float: left;		
 	}
+	
+#signup .form_item_note
+{
+	font-size: 0.8em;
+	width: 224px; /*width: 16em;*/
+	margin-left: 142px; /*margin-left: 6em;*/
+}
 
-/* mini-signin form overrides */
+/* mini-signin form overrides 
 
 			#signin label.form_label
 			{
@@ -554,7 +571,7 @@ p#sign_in_reason { text-align: center;}
 			{
 				margin-left: 0em;
 			}
-	
+	*/
 /*--------------------------------- content : about pages */
 
 div#about_sidebar
