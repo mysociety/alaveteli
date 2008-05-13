@@ -310,13 +310,18 @@ dd { margin: 0.6em 0 2em 4em; width: 30em; }
 	span.bottomline
 	{
 		display: block;
-		width: 30em;
-		padding: 10px 0 0 42px;
-		margin: 0 0 0.6em 0;
-		background-repeat: no-repeat;
-		background-position: left center;
-		min-height: 42px;
+		padding: 6em 0 0.7em 0px;
 	}
+		#request_list span.bottomline /* full page request list only */
+		{
+			width: 30em;
+			padding: 10px 0 0 42px;
+			margin: 0 0 0.6em 0;
+			background-repeat: no-repeat;
+			background-position: left center;
+			min-height: 42px;		
+		}
+
 		/* Waiting */
 		span.bottomline.icon_waiting_response,
 		span.bottomline.icon_waiting_response_overdue,
