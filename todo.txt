@@ -31,8 +31,12 @@ BAILII - relationship with law courts, robots.txt ?
 Next
 ====
 
+Unusual FOI response subject should have name of request
+
 Things to track 
     - anything requesty with keyword
+
+In email alerts, show request heading somewhere
 
 Blog posts / Wikipedia articles about this request
     e.g. http://socialreporter.wordpress.com/2008/04/14/costs-of-the-bbc-action-action-network/
