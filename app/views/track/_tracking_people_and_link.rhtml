@@ -1,8 +1,8 @@
 <%  
-    existing_track = TrackThing.find_by_existing_track(@user, track_thing.track_query)
+    existing_track = TrackThing.find_by_existing_track(@user, track_thing)
     tracking_people = []
     if list_people
-        tracking_people = TrackThing.find_tracking_people(track_thing.track_query) 
+        tracking_people = TrackThing.find_tracking_people(track_thing) 
     end
 %>
 

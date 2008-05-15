@@ -21,7 +21,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_thing.rb,v 1.19 2008-05-15 22:47:16 francis Exp $
+# $Id: track_thing.rb,v 1.20 2008-05-15 22:57:08 francis Exp $
 
 class TrackThing < ActiveRecord::Base
     belongs_to :tracking_user, :class_name => 'User'
@@ -207,16 +207,16 @@ class TrackThing < ActiveRecord::Base
     end
 
     # When constructing a new track, use this to avoid duplicates / double posting
-    def TrackThing.find_by_existing_track(tracking_user, track_query)
+    def TrackThing.find_by_existing_track(tracking_user, track)
         if tracking_user.nil?
             return nil
         end
-        return TrackThing.find(:first, :conditions => [ 'tracking_user_id = ? and track_query = ?', tracking_user.id, track_query ] )
+        return TrackThing.find(:first, :conditions => [ 'tracking_user_id = ? and track_query = ? and track_type = ?', tracking_user.id, track.track_query, track.track_type ] )
     end
 
     # List of people tracking same thing
-    def TrackThing.find_tracking_people(track_query)
-        return TrackThing.find(:all, :conditions => [ 'track_query = ?', track_query ]).map { |t| t.tracking_user }
+    def TrackThing.find_tracking_people(track)
+        return TrackThing.find(:all, :conditions => [ 'track_query = ? and track_type = ?', track.track_query, track.track_type ]).map { |t| t.tracking_user }
     end
 
 end

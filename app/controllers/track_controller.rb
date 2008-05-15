@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_controller.rb,v 1.18 2008-05-15 22:47:16 francis Exp $
+# $Id: track_controller.rb,v 1.19 2008-05-15 22:57:08 francis Exp $
 
 class TrackController < ApplicationController
 
@@ -115,7 +115,7 @@ class TrackController < ApplicationController
     # Generic request tracker - set @track_thing before calling
     def track_set
         if @user
-            @existing_track = TrackThing.find_by_existing_track(@user, @track_thing.track_query)
+            @existing_track = TrackThing.find_by_existing_track(@user, @track_thing)
             if @existing_track
                 return "already"
             end
