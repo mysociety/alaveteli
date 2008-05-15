@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_controller.rb,v 1.19 2008-05-15 22:57:08 francis Exp $
+# $Id: track_controller.rb,v 1.20 2008-05-15 23:59:04 francis Exp $
 
 class TrackController < ApplicationController
 
@@ -105,7 +105,7 @@ class TrackController < ApplicationController
                 redirect_to :controller => 'track', :action => 'atom_feed', :track_id => @track_thing.id
             else
                 flash[:notice] = "You are " + ret + " tracking the search '" + CGI.escapeHTML(@query) + "' !"
-                redirect_to user_url(@track_user)
+                redirect_to search_url(@query)
             end
         end
     end
