@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.84 2008-05-15 17:40:43 francis Exp $
+# $Id: request_controller.rb,v 1.85 2008-05-15 22:18:19 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -60,7 +60,7 @@ class RequestController < ApplicationController
         else
             raise "unknown request list view " + @view.to_s
         end
-        @xapian_object = perform_search([InfoRequestEvent], sortby, 'request_collapse')
+        @xapian_object = perform_search([InfoRequestEvent], query, sortby, 'request_collapse')
     end
 
     # Page new form posts to

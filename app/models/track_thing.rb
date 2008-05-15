@@ -21,7 +21,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_thing.rb,v 1.17 2008-05-12 10:57:44 francis Exp $
+# $Id: track_thing.rb,v 1.18 2008-05-15 22:18:19 francis Exp $
 
 class TrackThing < ActiveRecord::Base
     belongs_to :tracking_user, :class_name => 'User'
@@ -127,7 +127,7 @@ class TrackThing < ActiveRecord::Base
                 @params = {
                     # Website
                     :set_title => "How would you like to be told when any request succeeds?",
-                    :list_description => "any <a href=\"/list\">successful requests</a>",
+                    :list_description => "any <a href=\"/list/successful\">successful requests</a>",
                     :verb_on_page => "Be told when any request succeeds",
                     :verb_on_page_already => "being told when any request succeeds",
                     # Email

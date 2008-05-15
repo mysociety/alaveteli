@@ -42,41 +42,31 @@ describe GeneralController, "when searching" do
         get :search, :combined => ['"fancy dog"']
         response.should render_template('search')
 
-        assigns[:search_hits].should == 1
-        assigns[:search_results].size.should == 1
-        assigns[:search_results][0][:model].should == info_request_events(:useless_outgoing_message_event)
+        assigns[:xapian_requests].matches_estimated.should == 1
+        assigns[:xapian_requests].results.size.should == 1
+        assigns[:xapian_requests].results[0][:model].should == info_request_events(:useless_outgoing_message_event)
 
-        assigns[:highlight_words].should == ["fancy", "dog"]
+        assigns[:xapian_requests].words_to_highlight == ["fancy", "dog"]
     end
 
     it "should show help when searching for nothing" do
         get :search_redirect, :query => nil
         response.should render_template('search')
-        assigns[:search_hits].should be_nil
+        assigns[:total_hits].should be_nil
         assigns[:query].should be_nil
     end
 
-    it "should find public body and incoming message (in that order) when searching for 'geraldine quango'" do
+    it "should find public body and incoming message when searching for 'geraldine quango'" do
         get :search, :combined => ['geraldine quango']
         response.should render_template('search')
 
-        assigns[:search_hits].should == 2
-        assigns[:search_results].size.should == 2
-        assigns[:search_results][0][:model].should == public_bodies(:geraldine_public_body)
-        assigns[:search_results][1][:model].should == info_request_events(:useless_incoming_message_event)
+        assigns[:xapian_requests].matches_estimated.should == 1
+        assigns[:xapian_requests].results.size.should == 1
+        assigns[:xapian_requests].results[0][:model].should == info_request_events(:useless_incoming_message_event)
+
+        assigns[:xapian_bodies].matches_estimated.should == 1
+        assigns[:xapian_bodies].results.size.should == 1
+        assigns[:xapian_bodies].results[0][:model].should == public_bodies(:geraldine_public_body)
     end
-
-    it "should find incoming message and public body (in that order) when searching for 'geraldine quango', newest first" do
-        get :search, :combined => ['geraldine quango','newest']
-        response.should render_template('search')
-
-        assigns[:search_hits].should == 2
-        assigns[:search_results].size.should == 2
-        assigns[:search_results][0][:model].should == info_request_events(:useless_incoming_message_event)
-        assigns[:search_results][1][:model].should == public_bodies(:geraldine_public_body)
-    end
-
-
-    #    assigns[:display_user].should == users(:bob_smith_user)
 end
 
