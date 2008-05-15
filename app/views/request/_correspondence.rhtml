@@ -7,10 +7,7 @@ end
 if not incoming_message.nil?
 %>
     <div class="correspondence" id="incoming-<%=incoming_message.id.to_s%>">
-        <% if @previous_date.nil? or (@previous_date != incoming_message.sent_at.to_date) %>
-            <h2><%= simple_date(incoming_message.sent_at) %></h2>
-        <% end
-        @previous_date = incoming_message.sent_at.to_date %>
+        <h2><%= simple_date(incoming_message.sent_at) %></h2>
 
         <%= render :partial => 'bubble', :locals => { :incoming_message => incoming_message, :body => incoming_message.get_body_for_html_display(@collapse_quotes), :attachments => incoming_message.get_attachments_for_display }  %>
 
@@ -28,10 +25,7 @@ elsif info_request_event.event_type == 'sent' || info_request_event.event_type =
     outgoing_message = info_request_event.outgoing_message
     %>
     <div class="correspondence" id="outgoing-<%=outgoing_message.id.to_s%>">
-        <% if @previous_date.nil? or (@previous_date != info_request_event.created_at.to_date) %>
-            <h2><%= simple_date(info_request_event.created_at) %></h2>
-        <% end
-        @previous_date = info_request_event.created_at.to_date %>
+        <h2><%= simple_date(info_request_event.created_at) %></h2>
 
         <%= render :partial => 'bubble', :locals => { :body => outgoing_message.get_body_for_html_display(), :attachments => nil }  %>
 
