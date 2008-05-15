@@ -4,12 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: acts_as_xapian.rb,v 1.19 2008-04-30 12:55:14 francis Exp $
-
-# TODO:
-# Test :eager_load
-# Test :if
-# Test reverse sorting
+# $Id: acts_as_xapian.rb,v 1.20 2008-05-15 10:00:06 francis Exp $
 
 # Documentation
 # =============
@@ -19,9 +14,9 @@
 # acts_as_lucene or acts_as_ferret.
 #
 # Xapian is an *offline indexing* search library - only one process can have
-# the database open for writing at once, and others that try meanwhile are
-# unceremoniously kicked out. For this reason, acts_as_xapian does not support
-# automatic writing to the database when your models change.
+# the Xapian database open for writing at once, and others that try meanwhile
+# are unceremoniously kicked out. For this reason, acts_as_xapian does not
+# support immediate writing to the database when your models change.
 #
 # Instead, there is a ActsAsXapianJob model which stores which models need
 # updating or deleting in the search index. A rake task 'xapian:update_index'
