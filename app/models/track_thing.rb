@@ -21,7 +21,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_thing.rb,v 1.18 2008-05-15 22:18:19 francis Exp $
+# $Id: track_thing.rb,v 1.19 2008-05-15 22:47:16 francis Exp $
 
 class TrackThing < ActiveRecord::Base
     belongs_to :tracking_user, :class_name => 'User'
@@ -39,7 +39,8 @@ class TrackThing < ActiveRecord::Base
         'all_new_requests',
         'all_successful_requests',
         'public_body_updates', 
-        'user_updates'
+        'user_updates',
+        'search_query'
     ]
 
     validates_inclusion_of :track_medium, :in => [ 
@@ -82,6 +83,13 @@ class TrackThing < ActiveRecord::Base
         track_thing.track_type = 'user_updates'
         track_thing.tracked_user = user
         track_thing.track_query = "variety:sent requested_by:" + user.url_name
+        return track_thing
+    end
+
+    def TrackThing.create_track_for_search_query(query)
+        track_thing = TrackThing.new
+        track_thing.track_type = 'search_query'
+        track_thing.track_query = query
         return track_thing
     end
 
@@ -174,7 +182,24 @@ class TrackThing < ActiveRecord::Base
                     # Other
                     :feed_sortby => 'described', # for RSS, as newest would give a date for responses possibly days before description
                 }
-             else
+            elsif self.track_type == 'search_query'
+                @params = {
+                    # Website
+                    :set_title => "How would you like to be updated about new requests and responses matching '" + CGI.escapeHTML(self.track_query) + "'?",
+                    :list_description => "requests and responses matching '<a href=\"/search/" + CGI.escapeHTML(self.track_query) + "/newest\">" + CGI.escapeHTML(self.track_query) + "</a>'", # XXX yeuch, sometimes I just want to call view helpers from the model, sorry! can't work out how 
+                    :verb_on_page => "Track new requests and responses matching '" + CGI.escapeHTML(self.track_query) + "'",
+                    :verb_on_page_already => "tracking '" + CGI.escapeHTML(self.track_query) + "'",
+                    # Email
+                    :title_in_email => "Requests or responses matching '" + self.track_query + "'",
+                    :title_in_rss => "Requests or responses matching '" + self.track_query + "'",
+                    # Authentication
+                    :web => "To follow requests and responses matching '" + CGI.escapeHTML(self.track_query) + "'",
+                    :email => "Then you will be emailed whenever a new request or response matches '" + CGI.escapeHTML(self.track_query) + "'.",
+                    :email_subject => "Confirm you want to be told about new requests or responses matching '" + CGI.escapeHTML(self.track_query) + "'",
+                    # Other
+                    :feed_sortby => 'described', # for RSS, as newest would give a date for responses possibly days before description
+                }
+              else
                 raise "unknown tracking type " + self.track_type
             end
         end

@@ -1,9 +1,3 @@
-highlight_words
-
-@search_spelling = xapian_object.spelling_correction
-@highlight_words = xapian_object.words_to_highlight
-
-
 FOI requests to use to test it
 ==============================
 
@@ -38,9 +32,6 @@ Next
 ====
 
 Unusual FOI response subject should have name of request
-
-Things to track 
-    - anything requesty with keyword
 
 In email alerts, show request heading somewhere
 

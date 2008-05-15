@@ -35,6 +35,10 @@
         <p id="did_you_mean">Did you mean: <%= link_to @spelling_correction, search_url(@spelling_correction, @sortby) %></p>
     <% end %>
 
+    <% if @track_thing %>
+        <%= render :partial => 'track/tracking_people_and_link', :locals => { :track_thing => @track_thing, :own_request => false, :list_people => false } %>
+    <% end %>
+
     <% if @xapian_bodies.results.size > 0 %>
         <h1><%= "Public authorities " + ((@page-1)*@per_page+1).to_s + "-" + [@page*@per_page, @xapian_bodies.matches_estimated].min.to_s + " of " + @xapian_bodies.matches_estimated.to_s + " for '" + h(@query) + "'" %></h1>
 
@@ -63,6 +67,9 @@
         <% end %>
 
         <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @xapian_requests.matches_estimated) %>
+        <% if @track_thing %>
+            <%= render :partial => 'track/tracking_people_and_link', :locals => { :track_thing => @track_thing, :own_request => false, :list_people => false } %>
+        <% end %>
     <% end %>
 <% end %>
 

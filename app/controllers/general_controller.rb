@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: general_controller.rb,v 1.23 2008-05-15 17:40:43 francis Exp $
+# $Id: general_controller.rb,v 1.24 2008-05-15 22:47:16 francis Exp $
 
 class GeneralController < ApplicationController
 
@@ -73,6 +73,8 @@ class GeneralController < ApplicationController
         # Spelling and highight words are same for all three queries
         @spelling_correction = @xapian_requests.spelling_correction
         @highlight_words = @xapian_requests.words_to_highlight
+
+        @track_thing = TrackThing.create_track_for_search_query(query)
     end
 
     # For debugging
