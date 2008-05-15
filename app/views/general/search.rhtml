@@ -1,11 +1,12 @@
+<% @show_tips = @xapian_requests.nil? || (@total_hits == 0) %>
+
 <% if @query.nil? %>
     <% @title = "Search Freedom of Information requests, public authorities and users" %>
     <h1><%=@title%></h1>
-<% elsif @search_hits == 0 %>
+<% elsif @total_hits == 0 %>
     <% @title = "Nothing found for '" + h(@query) + "'" %>
-
 <% else %>
-    <% @title = "Results " + ((@page-1)*@per_page+1).to_s + "-" + [@page*@per_page, @search_hits].min.to_s + " of " + @search_hits.to_s + " for '" + h(@query) + "'" %>
+    <% @title = "Results page " + @page.to_s %>
 <% end%>
 
 <% form_tag({:action => "search_redirect"}, {:id => "search_form"}) do %>
@@ -13,42 +14,55 @@
        <%= text_field_tag 'query', @query, { :size => 40 } %>
        <%= hidden_field_tag 'sortby', params[:sortby] %>
        <%= submit_tag "Search" %>
-       <% if not @search_results.nil? and not @search_results.empty? %>
+       <% if not @show_tips %>
            &nbsp;&nbsp;<a href="/search">Advanced tips</a>
        <% end %>
    </p>
 <% end %>
 
-<% if not @search_results.nil? %>
-    <%=link_to_unless @sortby.nil?, "Show most relevant results first", search_url(@query, nil) %>
-    |
-    <%=link_to_unless @sortby == 'newest', "Newest results first", search_url(@query, 'newest') %>
+<%=link_to_unless @sortby.nil?, "Show most relevant results first", search_url(@query, nil) %>
+|
+<%=link_to_unless @sortby == 'newest', "Newest results first", search_url(@query, 'newest') %>
 
-    <h1><%=@title%></h1>
-
-    <% if @search_spelling %>
-        <p id="did_you_mean">Did you mean: <%= link_to @search_spelling, search_url(@search_spelling, @sortby) %></p>
-    <% end %>
-
-    <% if @search_results.empty? %>
-    <% else %>
-        <% for search_result in @search_results %>
-            <% if search_result[:model].class.to_s == 'PublicBody' %>
-                <%= render :partial => 'body/body_listing_single', :locals => { :public_body => search_result[:model] } %>
-            <% elsif search_result[:model].class.to_s == 'User' %>
-                <%= render :partial => 'user/user_listing_single', :locals => { :display_user => search_result[:model] } %>
-            <% elsif search_result[:model].class.to_s == 'InfoRequestEvent' %>
-                <%= render :partial => 'request/request_listing_via_event', :locals => { :event => search_result[:model], :info_request => search_result[:model].info_request } %>
-            <% else %>
-                <p><strong>Unknown search result type <%=search_result[:model].class.to_s%></strong></p>
-            <% end %>
-        <% end %>
-    <% end %>
-
-    <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @search_hits) %>
+<% if @total_hits == 0 %>
+    <h1><%=@title %></h1>
 <% end %>
 
-<% if @search_results.nil? or @search_results.empty? %>
+<% if @spelling_correction %>
+    <p id="did_you_mean">Did you mean: <%= link_to @spelling_correction, search_url(@spelling_correction, @sortby) %></p>
+<% end %>
+
+<% if @xapian_bodies.results.size > 0 %>
+    <h1><%= "Public authorities " + ((@page-1)*@per_page+1).to_s + "-" + [@page*@per_page, @xapian_bodies.matches_estimated].min.to_s + " of " + @xapian_bodies.matches_estimated.to_s + " for '" + h(@query) + "'" %></h1>
+
+    <% for result in @xapian_bodies.results %>
+        <%= render :partial => 'body/body_listing_single', :locals => { :public_body => result[:model] }  %>
+    <% end %>
+
+    <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @xapian_bodies.matches_estimated) %>
+<% end %>
+
+<% if @xapian_users.results.size > 0 %>
+    <h1><%= "People " + ((@page-1)*@per_page+1).to_s + "-" + [@page*@per_page, @xapian_users.matches_estimated].min.to_s + " of " + @xapian_users.matches_estimated.to_s + " for '" + h(@query) + "'" %></h1>
+
+    <% for result in @xapian_users.results %>
+        <%= render :partial => 'user/user_listing_single', :locals => { :display_user => result[:model] } %>
+    <% end %>
+
+    <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @xapian_users.matches_estimated) %>
+<% end %>
+
+<% if @xapian_requests.results.size > 0 %>
+    <h1><%= "FOI requests " + ((@page-1)*@per_page+1).to_s + "-" + [@page*@per_page, @xapian_requests.matches_estimated].min.to_s + " of " + @xapian_requests.matches_estimated.to_s + " for '" + h(@query) + "'" %></h1>
+
+    <% for result in @xapian_requests.results %>
+        <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result[:model], :info_request => result[:model].info_request } %>
+    <% end %>
+
+    <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @xapian_requests.matches_estimated) %>
+<% end %>
+
+<% if @show_tips %>
     <h2>Search tips</h2>
     <ul>
     <li>Enter words that you want to find separated by spaces, e.g. <strong>climbing lane</strong></li>

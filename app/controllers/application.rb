@@ -6,7 +6,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: application.rb,v 1.44 2008-04-30 02:14:07 francis Exp $
+# $Id: application.rb,v 1.45 2008-05-15 17:40:43 francis Exp $
 
 
 class ApplicationController < ActionController::Base
@@ -141,7 +141,7 @@ class ApplicationController < ActionController::Base
     end
 
     # Function for search
-    def perform_search(query, sortby, collapse, per_page = 25, this_page = nil) 
+    def perform_search(models, query, sortby, collapse, per_page = 25, this_page = nil) 
         @query = query
         @sortby = sortby
 
@@ -157,11 +157,7 @@ class ApplicationController < ActionController::Base
         else
             @page = this_page
         end
-        xapian_object = InfoRequest.full_search(@query, order, ascending, collapse, @per_page, @page) 
-        @search_results = xapian_object.results
-        @search_hits = xapian_object.matches_estimated
-        @search_spelling = xapian_object.spelling_correction
-        @highlight_words = xapian_object.words_to_highlight
+        return InfoRequest.full_search(models, @query, order, ascending, collapse, @per_page, @page) 
     end
 
     # URL generating functions are needed by all controllers (for redirects),

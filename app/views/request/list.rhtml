@@ -15,19 +15,19 @@
     <%= render :partial => 'track/tracking_people_and_link', :locals => { :track_thing => @track_thing, :own_request => false, :list_people => false } %>
 <% end %>
 
-<% if @search_results.empty? %>
+<% if @xapian_object.results.empty? %>
     <p>No requests made yet.</p>
 <% else %>
-    <% for search_result in @search_results %>
-        <% if search_result[:model].class.to_s == 'InfoRequestEvent' %>
-            <%= render :partial => 'request/request_listing_via_event', :locals => { :event => search_result[:model], :info_request => search_result[:model].info_request } %>
+    <% for result in @xapian_object.results %>
+        <% if result[:model].class.to_s == 'InfoRequestEvent' %>
+            <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result[:model], :info_request => result[:model].info_request } %>
         <% else %>
-            <p><strong>Unexpected search result type <%=search_result[:model].class.to_s%></strong></p>
+            <p><strong>Unexpected search result type <%=result[:model].class.to_s%></strong></p>
         <% end %>
     <% end %>
 <% end %>
 
-<%= will_paginate WillPaginate::Collection.new(@page, @per_page, @search_hits) %>
+<%= will_paginate WillPaginate::Collection.new(@page, @per_page, @xapian_object.matches_estimated) %>
 
 <% if @track_thing %>
     <%= render :partial => 'track/tracking_people_and_link', :locals => { :track_thing => @track_thing, :own_request => false, :list_people => false } %>

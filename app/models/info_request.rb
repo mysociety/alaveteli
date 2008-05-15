@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.108 2008-05-12 01:38:18 francis Exp $
+# $Id: info_request.rb,v 1.109 2008-05-15 17:40:43 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -67,10 +67,10 @@ class InfoRequest < ActiveRecord::Base
     # Central function to do all searches
     # (Not really the right place to put it, but everything can get it here, and it
     # does *mainly* find info requests, via their events, so hey)
-    def InfoRequest.full_search(query, order, ascending, collapse, per_page, page)
+    def InfoRequest.full_search(models, query, order, ascending, collapse, per_page, page)
         offset = (page - 1) * per_page
         return ::ActsAsXapian::Search.new(
-            [InfoRequestEvent, PublicBody, User], query,
+            models, query,
             :offset => offset, :limit => per_page,
             :sort_by_prefix => order,
             :sort_by_ascending => ascending,
@@ -85,7 +85,7 @@ class InfoRequest < ActiveRecord::Base
             t = Time.now.usec - t
             secs = t / 1000000.0
             STDOUT.write secs.to_s + " query " + i.to_s + "\n"
-            results = InfoRequest.full_search(query, "created_at", false, nil, 25, 1).results
+            results = InfoRequest.full_search([InfoRequestEvent], query, "created_at", false, nil, 25, 1).results
         end
     end
 

@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_mailer.rb,v 1.8 2008-04-30 00:46:01 francis Exp $
+# $Id: track_mailer.rb,v 1.9 2008-05-15 17:40:43 francis Exp $
 
 class TrackMailer < ApplicationMailer
     def event_digest(user, email_about_things)
@@ -41,7 +41,7 @@ class TrackMailer < ApplicationMailer
                 end
 
                 # Query for things in this track
-                xapian_object = InfoRequest.full_search(track_thing.track_query, 'created_at', false, nil, 100, 1) 
+                xapian_object = InfoRequest.full_search([InfoRequestEvent], track_thing.track_query, 'created_at', false, nil, 100, 1) 
 
                 # Go through looking for unalerted things
                 alert_results = []

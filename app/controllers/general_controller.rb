@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: general_controller.rb,v 1.22 2008-04-30 00:57:20 francis Exp $
+# $Id: general_controller.rb,v 1.23 2008-05-15 17:40:43 francis Exp $
 
 class GeneralController < ApplicationController
 
@@ -35,7 +35,7 @@ class GeneralController < ApplicationController
         # Get all successful requests for display on the right  
         query = 'variety:response (status:successful OR status:partially_successful)'
         sortby = "newest"
-        perform_search(query, sortby, 'request_collapse', 3)
+        @xapian_object = perform_search([InfoRequestEvent], query, sortby, 'request_collapse', 3)
     end
 
 
@@ -62,9 +62,17 @@ class GeneralController < ApplicationController
             combined = combined[0..-2]
         end
         query = combined.join("/")
-        perform_search(query, sortby, 'request_collapse')
 
-        #render :controller => "help", :action => "about"
+        # Query each type separately for separate display
+        @xapian_requests = perform_search([InfoRequestEvent], query, sortby, 'request_collapse', 25)
+        @xapian_bodies = perform_search([PublicBody], query, sortby, nil, 5)
+        @xapian_users = perform_search([User], query, sortby, nil, 5)
+
+        @total_hits = @xapian_requests.matches_estimated + @xapian_bodies.matches_estimated + @xapian_users.matches_estimated
+
+        # Spelling and highight words are same for all three queries
+        @spelling_correction = @xapian_requests.spelling_correction
+        @highlight_words = @xapian_requests.words_to_highlight
     end
 
     # For debugging

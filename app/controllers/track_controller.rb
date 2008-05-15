@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_controller.rb,v 1.16 2008-05-12 17:55:18 francis Exp $
+# $Id: track_controller.rb,v 1.17 2008-05-15 17:40:43 francis Exp $
 
 class TrackController < ApplicationController
 
@@ -130,8 +130,7 @@ class TrackController < ApplicationController
     # Atom feed (like RSS) for the track
     def atom_feed
         @track_thing = TrackThing.find(params[:track_id].to_i)
-
-        perform_search(@track_thing.track_query, @track_thing.params[:feed_sortby], nil, 25, 1) 
+        @xapian_object = perform_search([InfoRequestEvent], @track_thing.track_query, @track_thing.params[:feed_sortby], nil, 25, 1) 
         respond_to :atom
     end
 

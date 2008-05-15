@@ -1,3 +1,9 @@
+highlight_words
+
+@search_spelling = xapian_object.spelling_correction
+@highlight_words = xapian_object.words_to_highlight
+
+
 FOI requests to use to test it
 ==============================
 
@@ -87,9 +93,6 @@ Merge workflow into one stream - find information, if you can't find it then req
     so just search is on front page, with popular stuff below a la Google Directory
 Use spelling correction for public bodies search?
 
-Only show "is email right" footer the first time a new request is sent to that
-email?
-
 In sidebar of request 
     Link to WriteToThem according to level of Government of body
     Share this request on Facebook etc.
@@ -112,6 +115,8 @@ Synthesise these tips into our handful of snappy snappy bullet points
     http://community.foe.co.uk/tools/right_to_know/tips.html
     http://www.justice.gov.uk/requestinginformation.htm
 
+Only show "is email right" footer the first time a new request is sent to that
+email?
 Show public body email address on their public page, with a link to say "this isn't right!"
 
 CSV export of lists of emails for admins
@@ -188,6 +193,11 @@ Show documents inline (word docs etc.)
 Julian's PDF excerpting thing for highlighting paragraphs
    and convert Word Docs to PDFs too
 
+Remove request email address from PDFs
+   http://www.whatdotheyknow.com/request/cost_of_policing_the_oxford_unio_3
+   - maybe if text contains email, refuse to show full PDF just show conversion
+     to text/HTML?
+
 Quoting fixing TODO:
     http://www.whatdotheyknow.com/request/55/response/96
     http://www.whatdotheyknow.com/request/m3_junction_2_eastbound_speed_re
@@ -209,6 +219,7 @@ Quoting fixing TODO:
     http://www.whatdotheyknow.com/request/289/response/419
     http://www.whatdotheyknow.com/request/235/response/513
     http://www.whatdotheyknow.com/request/299/response/484
+    http://www.whatdotheyknow.com/request/320/response/605 (encoding, vcf)
    
 Sources of public bodies
 ========================
