@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: acts_as_xapian.rb,v 1.21 2008-05-15 11:20:47 francis Exp $
+# $Id: acts_as_xapian.rb,v 1.22 2008-05-16 12:29:39 francis Exp $
 
 # Documentation
 # =============
@@ -241,7 +241,7 @@ module ActsAsXapian
         # date ranges or similar. Use this for cheap highlighting with
         # TextHelper::highlight, and excerpt.
         def words_to_highlight
-            query_nopunc = self.query_string.gsub(/[^a-z0-9:\.\/]/i, " ")
+            query_nopunc = self.query_string.gsub(/[^a-z0-9:\.\/_]/i, " ")
             query_nopunc = query_nopunc.gsub(/\s+/, " ")
             words = query_nopunc.split(" ")
             # Remove anything with a :, . or / in it

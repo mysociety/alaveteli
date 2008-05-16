@@ -1,12 +1,10 @@
-<%  if @highlight_words.nil? 
-      @highlight_words = []
-    end 
-
+<%  
     # Construct the main text of the mail
     main_text = ''
-    for track_thing, alert_results in @email_about_things
+    for track_thing, alert_results, xapian_object in @email_about_things
         main_text += track_thing.params[:title_in_email] + "\n"
         main_text += ("=" * track_thing.params[:title_in_email].size) + "\n\n"
+        @highlight_words = xapian_object.words_to_highlight
         for result in alert_results.reverse
             if result[:model].class.to_s == "InfoRequestEvent"
                 event = result[:model]

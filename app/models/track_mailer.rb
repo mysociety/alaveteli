@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_mailer.rb,v 1.9 2008-05-15 17:40:43 francis Exp $
+# $Id: track_mailer.rb,v 1.10 2008-05-16 12:29:38 francis Exp $
 
 class TrackMailer < ApplicationMailer
     def event_digest(user, email_about_things)
@@ -57,7 +57,7 @@ class TrackMailer < ApplicationMailer
                 end
                 # If there were more alerts for this track, then store them
                 if alert_results.size > 0 
-                    email_about_things.push([track_thing, alert_results])
+                    email_about_things.push([track_thing, alert_results, xapian_object])
                 end
             end
 
@@ -65,7 +65,7 @@ class TrackMailer < ApplicationMailer
             if email_about_things.size > 0
                 # Debugging
                 STDERR.puts "sending email alert for user " + user.url_name
-                for track_thing, alert_results in email_about_things
+                for track_thing, alert_results, xapian_object in email_about_things
                     STDERR.puts "  tracking " + track_thing.track_query
                     for result in alert_results.reverse
                         STDERR.puts "    result " + result[:model].class.to_s + " id " + result[:model].id.to_s

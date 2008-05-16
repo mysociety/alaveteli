@@ -37,13 +37,17 @@ Blog posts / Wikipedia articles about this request
 Or just look at referrers as Julian says
 
 Test: In email alerts, show request heading somewhere
+
 Add test code for search track emails
 Highlight words in them with *
     and also highling in RSS
+    and highlight title
 
-Check test code coverage again
+Check test code coverage again - do we have all models
 
 Reconsider described vs. newest for the tracks
+
+Fix up the privacy policy
 
 Later
 =====

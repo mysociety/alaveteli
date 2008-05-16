@@ -24,12 +24,12 @@ describe TrackController, "when making a new track on a request" do
     end
 
     it "should make track and redirect if you are logged in " do
-        TrackThing.count.should == 1
+        TrackThing.count.should == 2
         session[:user_id] = users(:bob_smith_user).id
         post :track_request, :url_title => info_requests(:fancy_dog_request).url_title,
             :track_thing => { :track_medium => "email_daily" }, 
             :submitted_track => 1
-        TrackThing.count.should == 2
+        TrackThing.count.should == 3
         response.should redirect_to(:controller => 'request', :action => 'show', :url_title => info_requests(:fancy_dog_request).url_title)
     end
 
