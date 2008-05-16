@@ -18,12 +18,13 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_things_sent_email.rb,v 1.4 2008-05-12 01:38:18 francis Exp $
+# $Id: track_things_sent_email.rb,v 1.5 2008-05-16 01:14:12 francis Exp $
 
 class TrackThingsSentEmail < ActiveRecord::Base
     belongs_to :info_request_event
     belongs_to :user
     belongs_to :public_body
+    belongs_to :track_thing
 end
 
 
