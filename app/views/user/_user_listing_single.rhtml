@@ -1,17 +1,15 @@
 <% if @highlight_words.nil? 
       @highlight_words = []
 end %>
-
-<p class="user_listing">
+<div class="user_listing">
+	<span class="head">
     <%= link_to highlight_words(display_user.name, @highlight_words), user_url(display_user) %>
-    
-    <br>
-    <!--<br>-->
+    </span>
 
-    <span class="user_listing_bottomline">
+    <span class="bottomline">
         <%= pluralize(display_user.info_requests.size, "request") %> made.
         <%= pluralize(display_user.track_things.size, "thing") %> tracked.
         Joined on <%= simple_date(display_user.created_at) %>.
     </span>
-</p>
 
+</div>
