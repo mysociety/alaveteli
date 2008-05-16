@@ -31,10 +31,6 @@ BAILII - relationship with law courts, robots.txt ?
 Next
 ====
 
-Unusual FOI response subject should have name of request
-
-In email alerts, show request heading somewhere
-
 Blog posts / Wikipedia articles about this request
     e.g. http://socialreporter.wordpress.com/2008/04/14/costs-of-the-bbc-action-action-network/
     http://reportr.net/2008/04/24/bbc-spent-6m-to-develop-the-iplayer/
@@ -44,8 +40,11 @@ Check that this, which was success marked late by admin (me), makes it into
 RSS feed OK.
 http://www.whatdotheyknow.com/request/breakdown_of_calulation_of_jsa
 
+Test: In email alerts, show request heading somewhere
 Debug for search track emails
 Highlight words in them, and in RSS
+
+Check test code coverage again
 
 Later
 =====

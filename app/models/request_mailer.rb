@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.29 2008-04-15 12:06:10 francis Exp $
+# $Id: request_mailer.rb,v 1.30 2008-05-16 00:57:49 francis Exp $
 
 class RequestMailer < ApplicationMailer
     
@@ -44,7 +44,7 @@ class RequestMailer < ApplicationMailer
     def requires_admin(info_request)
         @from = contact_from_name_and_email
         @recipients = @from
-        @subject = "Unusual FOI response, requires admin attention"
+        @subject = "Unusual FOI response - " + info_request.title
         url = main_url(request_url(info_request))
         admin_url = request_admin_url(info_request)
         @body = {:info_request => info_request, :url => url, :admin_url => admin_url }
