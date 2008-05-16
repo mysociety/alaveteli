@@ -300,17 +300,29 @@ dd { margin: 0.6em 0 2em 4em; width: 30em; }
 	.body_listing a
 	{ text-decoration: none; }
 	
-	span.head
+	span.head 
 	{
 		display: block;
 		font-size: 1.4em;
-		margin: 0 0 0.8em 0;
+		padding: 12px 0 0 0;
 	}
-	
+		#request_list span.head /* full page request list only */
+		{
+			min-height: 41px;
+			margin: 0 0 0.3em 0;
+			padding: 8px 0 0 42px;
+			background-image: url(../images/navimg/request-icon.png);
+			background-repeat: no-repeat;
+			background-position: 4px 0px;
+		}
+		
 	span.bottomline
 	{
 		display: block;
 		padding: 6em 0 0.7em 0px;
+			/* Francis' FF 3 beta wasn't picking up no-repeat from #request_list span.bottomline; does this fix it??? */
+			background-repeat: no-repeat;
+			background-position: left center;
 	}
 		#request_list span.bottomline /* full page request list only */
 		{
@@ -366,6 +378,31 @@ dd { margin: 0.6em 0 2em 4em; width: 30em; }
 	.body_listing span.desc
 	{ background-image: none; float: left; clear: both; padding: 0px 0 0 0px;}
 
+
+#list_sidebar
+{
+	width: 10em;
+	float: right;
+	font-size: 0.85em;
+	border-color: #AEAEAE;
+	border-width: 1px;
+	border-style: solid;
+	background-color: #EAEAEA;
+	padding: 0.25em;
+	margin: 0 0 0 1em;
+}
+	#list_sidebar h1, #list_sidebar h2
+	{
+		font-size: 1.2em;
+		line-height: 1em;
+		margin: 0px 0px 0.3em 0px;
+	}
+		#list_sidebar ul
+		{
+			list-style: none;
+			margin: 0px;
+			padding: 0px;
+		}
 /*---------------- content : lists back/next */
 
 div.pagination { text-align: center; padding-top: 0.3em;}
