@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: outgoing_message.rb,v 1.46 2008-05-12 01:38:18 francis Exp $
+# $Id: outgoing_message.rb,v 1.47 2008-05-16 12:11:23 francis Exp $
 
 class OutgoingMessage < ActiveRecord::Base
     belongs_to :info_request
@@ -48,6 +48,13 @@ class OutgoingMessage < ActiveRecord::Base
         else
             return "Yours faithfully,"
         end
+    end
+
+    def body
+        ret = read_attribute(:body)
+        ret.strip!
+        ret = ret.gsub(/(?:\n\s*){2,}/, "\n\n") # remove excess linebreaks that unnecessarily space it out
+        ret
     end
 
     def body_without_salutation
@@ -130,19 +137,11 @@ class OutgoingMessage < ActiveRecord::Base
 
     # Return body for display as HTML
     def get_body_for_html_display
-        text = self.body
+        text = self.body.strip
         text = MySociety::Format.make_clickable(text, :contract => 1)
         text = text.gsub(/\n/, '<br>')
         return text
     end
-    
-    def get_body_for_neat_html_display
-        text = self.body
-        text = MySociety::Format.make_clickable(text, :contract => 1)
-        text = text.gsub(/\n\n/, '<br>')
-        return text
-    end
-    
 
     # Return body for display as HTML
     # XXX this is repeating code in a combination of 

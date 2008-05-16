@@ -36,18 +36,20 @@ Blog posts / Wikipedia articles about this request
     http://reportr.net/2008/04/24/bbc-spent-6m-to-develop-the-iplayer/
 Or just look at referrers as Julian says
 
-Check that this, which was success marked late by admin (me), makes it into
-RSS feed OK.
-http://www.whatdotheyknow.com/request/breakdown_of_calulation_of_jsa
-
 Test: In email alerts, show request heading somewhere
-Debug for search track emails
-Highlight words in them, and in RSS
+Add test code for search track emails
+Highlight words in them with *
+    and also highling in RSS
 
 Check test code coverage again
 
+Reconsider described vs. newest for the tracks
+
 Later
 =====
+
+Bit confusing that sort order when you do "variety:successful" in query is by the date of creation.
+Should probably use the described date a lot more often for dates. But not sure, hard to tell.
 
 HTML in Atom feed ask Tommy about it
 
@@ -219,6 +221,7 @@ Quoting fixing TODO:
     http://www.whatdotheyknow.com/request/235/response/513
     http://www.whatdotheyknow.com/request/299/response/484
     http://www.whatdotheyknow.com/request/320/response/605 (encoding, vcf)
+    http://www.whatdotheyknow.com/request/118/response/600 (encoding)
    
 Sources of public bodies
 ========================
