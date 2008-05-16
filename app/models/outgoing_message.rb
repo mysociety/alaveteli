@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: outgoing_message.rb,v 1.47 2008-05-16 12:11:23 francis Exp $
+# $Id: outgoing_message.rb,v 1.48 2008-05-16 12:30:13 francis Exp $
 
 class OutgoingMessage < ActiveRecord::Base
     belongs_to :info_request
@@ -52,6 +52,9 @@ class OutgoingMessage < ActiveRecord::Base
 
     def body
         ret = read_attribute(:body)
+        if ret.nil?
+            return ret
+        end
         ret.strip!
         ret = ret.gsub(/(?:\n\s*){2,}/, "\n\n") # remove excess linebreaks that unnecessarily space it out
         ret
