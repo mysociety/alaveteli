@@ -47,6 +47,9 @@ Reconsider described vs. newest for the tracks
 
 Fix up the privacy policy
 
+Advertise WDTK search queries on TWFY
+Show popular tracks somewhere (on admin, or not!)
+
 Later
 =====
 

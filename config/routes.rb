@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: routes.rb,v 1.62 2008-05-15 22:47:16 francis Exp $
+# $Id: routes.rb,v 1.63 2008-05-16 18:28:07 francis Exp $
 
 ActionController::Routing::Routes.draw do |map|
 
@@ -83,6 +83,7 @@ ActionController::Routing::Routes.draw do |map|
     map.connect '/admin/body/:action/:id', :controller => 'admin_public_body'
     map.connect '/admin/request/:action/:id', :controller => 'admin_request'
     map.connect '/admin/user/:action/:id', :controller => 'admin_user'
+    map.connect '/admin/track/:action/:id', :controller => 'admin_track'
 
     # Sample of named route:
     # map.purchase 'products/:id/purchase', :controller => 'catalog', :action => 'purchase'
