@@ -8,7 +8,7 @@ cd ..
 if [ -e log/mongrel.pid ]
 then
     ruby -I/usr/lib/ruby/ /usr/bin/mongrel_rails stop
-    sleep 2s
+    sleep 3s
     ruby -I/usr/lib/ruby/ /usr/bin/mongrel_rails start -d
 else
     ruby -I/usr/lib/ruby/ /usr/bin/mongrel_rails start -d
