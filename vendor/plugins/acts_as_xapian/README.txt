@@ -96,11 +96,12 @@ e.g. :texts => [ :title, :body ]
 
 * :values, things which have a range of values for sorting, or for collapsing. 
 Specify an array quadruple of [ field, identifier, prefix, type ] where 
-** number is an arbitary numeric identifier for use in the Xapian database
+** identifier is an arbitary numeric identifier for use in the Xapian database
 ** prefix is the part to use in search queries that goes before the :
 ** type can be any of :string, :number or :date
 
-e.g. :values => [ [ :created_at, 0, "created_at" ], [ :size, 1, "size"] ]
+e.g. :values => [ [ :created_at, 0, "created_at", :date ],
+[ :size, 1, "size", :string ] ]
 
 * :terms, things which come after a : in search queries. Specify an array
 triple of [ field, char, prefix ] where 
@@ -123,23 +124,12 @@ database
 * :if, either an attribute or a function which if returns false means the
 object isn't indexed
 
-2. Make and run this database migration to create the ActsAsXapianJob model.
+2. Generate a database migration to create the ActsAsXapianJob model:
 
-    class ActsAsXapianMigration < ActiveRecord::Migration
-        def self.up
-           create_table :acts_as_xapian_jobs do |t|
-                t.column :model, :string, :null => false
-                t.column :model_id, :integer, :null => false
-                t.column :action, :string, :null => false
-            end
-            add_index :acts_as_xapian_jobs, [:model, :model_id], :unique => true
-        end
-        def self.down
-            remove_table :acts_as_xapian_jobs
-        end
-    end
+    script/generate acts_as_xapian
+    rake db:migrate
 
-3. Call 'rake xapian::rebuild_index models="ModelName1 ModelName2"' to build the index
+3. Call 'rake xapian:rebuild_index models="ModelName1 ModelName2"' to build the index
 the first time (you must specify all your indexed models). It's put in a
 development/test/production dir in acts_as_xapian/xapiandbs.
 

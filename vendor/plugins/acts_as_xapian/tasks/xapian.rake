@@ -1,6 +1,8 @@
 require 'rubygems'
 require 'rake'
 require 'rake/testtask'
+require 'activerecord'
+require File.dirname(__FILE__) + '/../lib/acts_as_xapian.rb'
 
 namespace :xapian do
     # Parameters - specify "flush=true" to save changes to the Xapian database
@@ -16,7 +18,7 @@ namespace :xapian do
     # web server afterwards to make sure it gets the changes, rather than
     # still pointing to the old deleted database.
     desc 'Completely rebuilds Xapian search index (must specify all models)'
-    task :rebuild_index do
+    task (:rebuild_index => :environment) do
         raise "specify ALL your models with models=\"ModelName1 ModelName2\" as parameter" if ENV['models'].nil?
         ActsAsXapian.rebuild_index(ENV['models'].split(" ").map{|m| m.constantize})
     end
@@ -24,7 +26,7 @@ namespace :xapian do
     # Parameters - are models, query, offset, limit, sort_by_prefix,
     # collapse_by_prefix
     desc 'Run a query, return YAML of results'
-    task :query do
+    task (:query => :environment) do
         raise "specify models=\"ModelName1 ModelName2\" as parameter" if ENV['models'].nil?
         raise "specify query=\"your terms\" as parameter" if ENV['query'].nil?
         s = ActsAsXapian::Search.new(ENV['models'].split(" ").map{|m| m.constantize}, 

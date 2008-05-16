@@ -4,13 +4,13 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: acts_as_xapian.rb,v 1.22 2008-05-16 12:29:39 francis Exp $
+# $Id: acts_as_xapian.rb,v 1.23 2008-05-16 14:47:25 francis Exp $
 
 # Documentation
 # =============
 #
-# See ../README.txt for documentation. Please update that file as you
-# this code.
+# See ../README.txt for documentation. Please update that file if you edit
+# code.
 
 require 'xapian'
 
@@ -107,40 +107,44 @@ module ActsAsXapian
             # and error check them - i.e. check for consistency between models
             @@query_parser.add_boolean_prefix("model", "M")
             @@query_parser.add_boolean_prefix("modelid", "I")
-            for term in options[:terms]
-                raise "Use a single capital letter for term code" if not term[1].match(/^[A-Z]$/)
-                raise "M and I are reserved for use as the model/id term" if term[1] == "M" or term[1] == "I"
-                raise "model and modelid are reserved for use as the model/id prefixes" if term[2] == "model" or term[2] == "modelid"
-                raise "Z is reserved for stemming terms" if term[1] == "Z"
-                raise "Already have code '" + term[1] + "' in another model but with different prefix '" + @@terms_by_capital[term[1]] + "'" if @@terms_by_capital.include?(term[1]) && @@terms_by_capital[term[1]] != term[2]
-                @@terms_by_capital[term[1]] = term[2]
-                @@query_parser.add_boolean_prefix(term[2], term[1])
+            if options[:terms]
+              for term in options[:terms]
+                  raise "Use a single capital letter for term code" if not term[1].match(/^[A-Z]$/)
+                  raise "M and I are reserved for use as the model/id term" if term[1] == "M" or term[1] == "I"
+                  raise "model and modelid are reserved for use as the model/id prefixes" if term[2] == "model" or term[2] == "modelid"
+                  raise "Z is reserved for stemming terms" if term[1] == "Z"
+                  raise "Already have code '" + term[1] + "' in another model but with different prefix '" + @@terms_by_capital[term[1]] + "'" if @@terms_by_capital.include?(term[1]) && @@terms_by_capital[term[1]] != term[2]
+                  @@terms_by_capital[term[1]] = term[2]
+                  @@query_parser.add_boolean_prefix(term[2], term[1])
+              end
             end
-            for value in options[:values]
-                raise "Value index '"+value[1].to_s+"' must be an integer, is " + value[1].class.to_s if value[1].class != 1.class
-                raise "Already have value index '" + value[1].to_s + "' in another model but with different prefix '" + @@values_by_number[value[1]].to_s + "'" if @@values_by_number.include?(value[1]) && @@values_by_number[value[1]] != value[2]
+            if options[:values]
+              for value in options[:values]
+                  raise "Value index '"+value[1].to_s+"' must be an integer, is " + value[1].class.to_s if value[1].class != 1.class
+                  raise "Already have value index '" + value[1].to_s + "' in another model but with different prefix '" + @@values_by_number[value[1]].to_s + "'" if @@values_by_number.include?(value[1]) && @@values_by_number[value[1]] != value[2]
 
-                # date types are special, mark them so the first model they're seen for
-                if !@@values_by_number.include?(value[1])
-                    if value[3] == :date 
-                        value_range = Xapian::DateValueRangeProcessor.new(value[1])
-                    elsif value[3] == :string 
-                        value_range = Xapian::StringValueRangeProcessor.new(value[1])
-                    elsif value[3] == :number
-                        value_range = Xapian::NumberValueRangeProcessor.new(value[1])
-                    else
-                        raise "Unknown value type '" + value[3].to_s + "'"
-                    end
+                  # date types are special, mark them so the first model they're seen for
+                  if !@@values_by_number.include?(value[1])
+                      if value[3] == :date 
+                          value_range = Xapian::DateValueRangeProcessor.new(value[1])
+                      elsif value[3] == :string 
+                          value_range = Xapian::StringValueRangeProcessor.new(value[1])
+                      elsif value[3] == :number
+                          value_range = Xapian::NumberValueRangeProcessor.new(value[1])
+                      else
+                          raise "Unknown value type '" + value[3].to_s + "'"
+                      end
 
-                    @@query_parser.add_valuerangeprocessor(value_range)
+                      @@query_parser.add_valuerangeprocessor(value_range)
 
-                    # stop it being garbage collected, as
-                    # add_valuerangeprocessor ref is outside Ruby's GC
-                    @@value_ranges_store.push(value_range) 
-                end
+                      # stop it being garbage collected, as
+                      # add_valuerangeprocessor ref is outside Ruby's GC
+                      @@value_ranges_store.push(value_range) 
+                  end
 
-                @@values_by_number[value[1]] = value[2]
-                @@values_by_prefix[value[2]] = value[1]
+                  @@values_by_number[value[1]] = value[2]
+                  @@values_by_prefix[value[2]] = value[1]
+              end
             end
         end
     end
@@ -290,7 +294,8 @@ module ActsAsXapian
     ######################################################################
     # Index
    
-    # Offline indexing job queue model, create with migration in ../README.txt
+    # Offline indexing job queue model, create with migration made 
+    # using "script/generate acts_as_xapian" as described in ../README.txt
     class ActsAsXapianJob < ActiveRecord::Base
     end
 
@@ -407,15 +412,21 @@ module ActsAsXapian
 
             doc.add_term("M" + self.class.to_s)
             doc.add_term("I" + doc.data)
-            for term in self.xapian_options[:terms]
-                doc.add_term(term[1] + xapian_value(term[0]))
+            if self.xapian_options[:terms]
+              for term in self.xapian_options[:terms]
+                  doc.add_term(term[1] + xapian_value(term[0]))
+              end
             end
-            for value in self.xapian_options[:values]
-                doc.add_value(value[1], xapian_value(value[0], value[3])) 
+            if self.xapian_options[:values]
+              for value in self.xapian_options[:values]
+                  doc.add_value(value[1], xapian_value(value[0], value[3])) 
+              end
             end
-            for text in self.xapian_options[:texts]
-                ActsAsXapian.term_generator.increase_termpos # stop phrases spanning different text fields
-                ActsAsXapian.term_generator.index_text(xapian_value(text)) 
+            if self.xapian_options[:texts]
+              for text in self.xapian_options[:texts]
+                  ActsAsXapian.term_generator.increase_termpos # stop phrases spanning different text fields
+                  ActsAsXapian.term_generator.index_text(xapian_value(text)) 
+              end
             end
 
             ActsAsXapian.writable_db.replace_document("I" + doc.data, doc)
