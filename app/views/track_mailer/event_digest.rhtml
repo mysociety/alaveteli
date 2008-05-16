@@ -12,7 +12,7 @@
                 # Request title - only add title if we're not tracking a request.
                 # e.g. -- Address and opening times of Post Office branches --
                 if track_thing.info_request.nil?
-                    main_text += "-- " + event.info_request.title + " --\n"
+                    main_text += "-- " + highlight_words(event.info_request.title, @highlight_words, false) + " --\n"
                 end
 
                 # e.g. Julian Burgess sent a request to Royal Mail Group (15 May 2008)
