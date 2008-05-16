@@ -160,10 +160,12 @@ describe RequestController, "when creating a new request" do
     end
 
     it "should give an error if the same request is submitted twice" do
+        session[:user_id] = users(:bob_smith_user).id
+
         post :new, :info_request => { :public_body_id => info_requests(:fancy_dog_request).public_body_id, 
-            :title => info_requests(:fancy_dog_request).title},
+            :title => info_requests(:fancy_dog_request).title },
             :outgoing_message => { :body => info_requests(:fancy_dog_request).outgoing_messages[0].body},
-            :submitted_new_request => 1, :preview => 0
+            :submitted_new_request => 1, :preview => 0, :mouse_house => 1
         response.should render_template('new')
     end
 
