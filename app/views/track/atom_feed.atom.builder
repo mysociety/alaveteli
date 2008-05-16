@@ -1,5 +1,6 @@
 atom_feed do |feed|
     feed.title(@track_thing.params[:title_in_rss])
+    @highlight_words = @xapian_object.words_to_highlight
 
     for result in @xapian_object.results
         feed.entry(result[:model]) do |entry|
