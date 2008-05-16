@@ -21,7 +21,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_thing.rb,v 1.20 2008-05-15 22:57:08 francis Exp $
+# $Id: track_thing.rb,v 1.21 2008-05-16 00:05:09 francis Exp $
 
 class TrackThing < ActiveRecord::Base
     belongs_to :tracking_user, :class_name => 'User'
@@ -111,8 +111,6 @@ class TrackThing < ActiveRecord::Base
                     :web => "To follow updates to the request '" + CGI.escapeHTML(self.info_request.title) + "'",
                     :email => "Then you will be emailed whenever the request '" + CGI.escapeHTML(self.info_request.title) + "' is updated.",
                     :email_subject => "Confirm you want to follow updates to the request '" + CGI.escapeHTML(self.info_request.title) + "'",
-                    # Other
-                    :feed_sortby => 'described', # for RSS, as newest would give a date for responses possibly days before description
                 }
             elsif self.track_type == 'all_new_requests'
                 @params = {
@@ -128,8 +126,6 @@ class TrackThing < ActiveRecord::Base
                     :web => "To be told about any new requests",
                     :email => "Then you will be emailed whenever anyone makes a new FOI request",
                     :email_subject => "Confirm you want to be emailed about new requests",
-                    # Other
-                    :feed_sortby => 'described', # for RSS, as newest would give a date for responses possibly days before description
                 }
             elsif self.track_type == 'all_successful_requests'
                 @params = {
@@ -145,8 +141,6 @@ class TrackThing < ActiveRecord::Base
                     :web => "To be told about any successful requests",
                     :email => "Then you will be emailed whenever an FOI request succeeds",
                     :email_subject => "Confirm you want to be emailed when an FOI request succeeds",
-                    # Other
-                    :feed_sortby => 'described', # for RSS, as newest would give a date for responses possibly days before description
                 }
             elsif self.track_type == 'public_body_updates'
                 @params = {
@@ -162,8 +156,6 @@ class TrackThing < ActiveRecord::Base
                     :web => "To be told about new requests to the public authority '" + CGI.escapeHTML(self.public_body.name) + "'",
                     :email => "Then you will be emailed whenever someone requests something from '" + CGI.escapeHTML(self.public_body.name) + "'.",
                     :email_subject => "Confirm you want to be told about new requests to '" + CGI.escapeHTML(self.public_body.name) + "'",
-                    # Other
-                    :feed_sortby => 'described', # for RSS, as newest would give a date for responses possibly days before description
                 }
             elsif self.track_type == 'user_updates'
                 @params = {
@@ -179,14 +171,12 @@ class TrackThing < ActiveRecord::Base
                     :web => "To be told about new requests by '" + CGI.escapeHTML(self.tracked_user.name) + "'",
                     :email => "Then you will be emailed whenever '" + CGI.escapeHTML(self.tracked_user.name) + "' requests something",
                     :email_subject => "Confirm you want to be told about new requests by '" + CGI.escapeHTML(self.tracked_user.name) + "'",
-                    # Other
-                    :feed_sortby => 'described', # for RSS, as newest would give a date for responses possibly days before description
                 }
             elsif self.track_type == 'search_query'
                 @params = {
                     # Website
                     :set_title => "How would you like to be updated about new requests and responses matching '" + CGI.escapeHTML(self.track_query) + "'?",
-                    :list_description => "requests and responses matching '<a href=\"/search/" + CGI.escapeHTML(self.track_query) + "/newest\">" + CGI.escapeHTML(self.track_query) + "</a>'", # XXX yeuch, sometimes I just want to call view helpers from the model, sorry! can't work out how 
+                    :list_description => "'<a href=\"/search/" + CGI.escapeHTML(self.track_query) + "/newest\">" + CGI.escapeHTML(self.track_query) + "</a>' in new requests/responses", # XXX yeuch, sometimes I just want to call view helpers from the model, sorry! can't work out how 
                     :verb_on_page => "Track new requests and responses matching '" + CGI.escapeHTML(self.track_query) + "'",
                     :verb_on_page_already => "tracking '" + CGI.escapeHTML(self.track_query) + "'",
                     # Email
@@ -196,12 +186,15 @@ class TrackThing < ActiveRecord::Base
                     :web => "To follow requests and responses matching '" + CGI.escapeHTML(self.track_query) + "'",
                     :email => "Then you will be emailed whenever a new request or response matches '" + CGI.escapeHTML(self.track_query) + "'.",
                     :email_subject => "Confirm you want to be told about new requests or responses matching '" + CGI.escapeHTML(self.track_query) + "'",
-                    # Other
-                    :feed_sortby => 'described', # for RSS, as newest would give a date for responses possibly days before description
                 }
               else
                 raise "unknown tracking type " + self.track_type
             end
+
+            # for RSS sort by described date, as newest would give a date for
+            # responses possibly days before description, so wouldn't appear at top
+            # of list when description causes match.
+            params[:feed_sortby] = 'described'
         end
         return @params
     end
