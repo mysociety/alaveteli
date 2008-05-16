@@ -1,0 +1,35 @@
+<% @title = 'Listing tracks' %>
+
+<h1><%=@title%></h1>
+
+<% form_tag("", :method => "get") do %>
+   <p>
+       <%= text_field_tag 'query', params[:query], { :size => 30 } %>
+       <%= submit_tag "Search" %> (substring search the query - so use url_names_for_a_particular_request_or_authority_or_person)
+   </p>
+<% end %>
+
+<table>
+  <tr>
+  <th>Id</th>
+  <th>Tracked by</th>
+  <% for column in TrackThing.content_columns %>
+    <th><%= column.human_name %></th>
+  <% end %>
+  <th>Items sent by email</th>
+  </tr>
+  
+<% for track_thing in @admin_tracks %>
+  <tr class="<%= cycle('odd', 'even') %>">
+  <td><%=h track_thing.id %></td>
+  <td><%= user_admin_link(track_thing.tracking_user) %></td>
+  <% for column in TrackThing.content_columns.map { |c| c.name } %>
+    <td><%=h track_thing.send(column) %></td>
+  <% end %>
+  <td><%= track_thing.track_things_sent_emails.size %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= will_paginate(@admin_tracks) %>
+
