@@ -11,15 +11,13 @@
             if result[:model].class.to_s == "InfoRequestEvent"
                 event = result[:model]
 
-                if not event.outgoing_message.nil?
-                    extract = highlight_and_excerpt(event.outgoing_message.body_without_salutation, @highlight_words, 150, false)
-                elsif not event.incoming_message.nil?
-                    extract = highlight_and_excerpt(event.incoming_message.get_body_for_quoting, @highlight_words, 150, false)
-                else
-                    extract = highlight_and_excerpt(info_request.initial_request_text, @highlight_words, 150, false)
+                # Request title - only add title if we're not tracking a request.
+                # e.g. -- Address and opening times of Post Office branches --
+                if track_thing.info_request.nil?
+                    main_text += "-- " + event.info_request.title + " --\n"
                 end
-                extract.gsub!(/\s+/, ' ')
 
+                # e.g. Julian Burgess sent a request to Royal Mail Group (15 May 2008)
                 if event.event_type == 'response'
                     url = main_url(incoming_message_url(event.incoming_message))
                     main_text += event.info_request.public_body.name + " sent a response to " + event.info_request.user.name 
@@ -34,9 +32,20 @@
                     raise "unknown type in event_digest " + event.event_type
                 end
                 main_text += " (" + simple_date(event.created_at) + ")\n"
-                main_text += MySociety::Format.wrap_email_body('"' + extract + '"').gsub(/\n+$/, "") + "\n"
-                main_text += url + "\n"
 
+                # Main text, wrapped, words highlighted with * and indented.
+                if not event.outgoing_message.nil?
+                    extract = highlight_and_excerpt(event.outgoing_message.body_without_salutation, @highlight_words, 150, false)
+                elsif not event.incoming_message.nil?
+                    extract = highlight_and_excerpt(event.incoming_message.get_body_for_quoting, @highlight_words, 150, false)
+                else
+                    extract = highlight_and_excerpt(info_request.initial_request_text, @highlight_words, 150, false)
+                end
+                extract.gsub!(/\s+/, ' ')
+                main_text += MySociety::Format.wrap_email_body('"' + extract + '"').gsub(/\n+$/, "") + "\n"
+
+                # Link to the request/response
+                main_text += url + "\n"
                 main_text += "\n"
             else
                 raise "need to add other types to TrackMailer.event_digest"

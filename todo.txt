@@ -40,8 +40,17 @@ Blog posts / Wikipedia articles about this request
     http://reportr.net/2008/04/24/bbc-spent-6m-to-develop-the-iplayer/
 Or just look at referrers as Julian says
 
+Check that this, which was success marked late by admin (me), makes it into
+RSS feed OK.
+http://www.whatdotheyknow.com/request/breakdown_of_calulation_of_jsa
+
+Debug for search track emails
+Highlight words in them, and in RSS
+
 Later
 =====
+
+HTML in Atom feed ask Tommy about it
 
 Check this again after a while, for dodgy states of events:
 s = InfoRequest.find(:all).select { |i| (not i.awaiting_description) and i.get_last_response_event_id and InfoRequestEvent.find(i.get_last_response_event_id).calculated_state != i.described_state }; s.size
