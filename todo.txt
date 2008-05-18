@@ -1,6 +1,3 @@
-Second page of search knackered
-http://www.whatdotheyknow.com/search/bill?page=2
-
 FOI requests to use to test it
 ==============================
 
@@ -39,13 +36,10 @@ Blog posts / Wikipedia articles about this request
     http://reportr.net/2008/04/24/bbc-spent-6m-to-develop-the-iplayer/
 Or just look at referrers as Julian says
 
-Test: In email alerts, show request heading somewhere
-
-Make highlightng in RSS actually light up
-
 Check test code coverage again - do we have all models
 
-Reconsider described vs. newest for the tracks
+Reconsider described vs. newest sort order for the RSS for each track
+separately
 
 Fix up the privacy policy
 
@@ -54,6 +48,11 @@ Advertise alerts on end pages with WDTK
 
 Later
 =====
+
+Display current page (when not on first page), or perhaps range on both the
+/list pages, and on the /..../similar pages (maybe I missed it elsewhere too).
+Should make a general will_paginate like function to do this part, and call
+that from /search (which has this already) too.
 
 Bit confusing that sort order when you do "variety:successful" in query is by the date of creation.
 Should probably use the described date a lot more often for dates. But not sure, hard to tell.
@@ -68,10 +67,7 @@ Museum aliases
 Highlight text search finds in word docs
 Edits to outgoing/incoming/title won't be reindexed in Xapian (maybe just reindex all once a week)
 
-Make the "needs admin attention" have a text box asking why
-
-Internet explorer bug with HTML for Elena
-http://www.whatdotheyknow.com/request/_the_infection_rates_of_orthopae
+Make highlighting of search terms in RSS actually light up
 
 Put name of admin user rather than import_csv
 
@@ -86,7 +82,7 @@ When you click RSS feed when on own request, default to RSS in the choice on nex
 
 Offer search on 404s
 
-Send email to remind people to clarify
+Send automated email to remind people to clarify their request
 
 Preview when sending followups - especially people need to see quoting/subject
 when sending "my response is late"
@@ -102,8 +98,7 @@ Merge workflow into one stream - find information, if you can't find it then req
 Use spelling correction for public bodies search?
 
 In sidebar of request 
-    Link to WriteToThem according to level of Government of body
-    Share this request on Facebook etc.
+    Share this request on Facebook, by email etc.
     Email icon here: http://www.guardian.co.uk/news/video/2008/apr/03/mugabe
 
 Tell application developer if working days table not up to date, and needs
@@ -230,6 +225,7 @@ Quoting fixing TODO:
     http://www.whatdotheyknow.com/request/299/response/484
     http://www.whatdotheyknow.com/request/320/response/605 (encoding, vcf)
     http://www.whatdotheyknow.com/request/118/response/600 (encoding)
+    http://www.whatdotheyknow.com/request/235/response/513
    
 Sources of public bodies
 ========================
