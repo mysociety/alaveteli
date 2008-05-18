@@ -1,5 +1,3 @@
-Commit similar documents thing to acts_as_xapian
-
 Second page of search knackered
 http://www.whatdotheyknow.com/search/bill?page=2
 
