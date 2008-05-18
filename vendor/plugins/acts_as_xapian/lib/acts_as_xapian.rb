@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: acts_as_xapian.rb,v 1.24 2008-05-18 03:45:07 francis Exp $
+# $Id: acts_as_xapian.rb,v 1.25 2008-05-18 18:56:21 francis Exp $
 
 # Documentation
 # =============
@@ -274,9 +274,13 @@ module ActsAsXapian
     class Search < QueryBase
         attr_accessor :query_string
 
-        # Note that model_classes is not only sometimes useful here - it's essential to make sure the
-        # classes have been loaded, and thus acts_as_xapian called on them, so
-        # we know the fields for the query parser.
+        # Note that model_classes is not only sometimes useful here - it's
+        # essential to make sure the classes have been loaded, and thus
+        # acts_as_xapian called on them, so we know the fields for the query
+        # parser.
+        
+        # model_classes - model classes to search within, e.g. [PublicBody, User]
+        # query_string - user inputed query string, with syntax much like Google Search
         def initialize(model_classes, query_string, options = {})
             self.initialize_db
 
@@ -310,10 +314,15 @@ module ActsAsXapian
 
     end
 
+    # Search for models which contain theimportant terms taken from a specified
+    # list of models. i.e. Use to find documents similar to one (or more)
+    # documents, or use to refine searches.
     class Similar < QueryBase
         attr_accessor :query_models
         attr_accessor :important_terms
 
+        # model_classes - model classes to search within, e.g. [PublicBody, User]
+        # query_models - list of models you want to find things similar to
         def initialize(model_classes, query_models, options = {})
             self.initialize_db
 
@@ -355,7 +364,6 @@ module ActsAsXapian
             self.query = Xapian::Query.new(Xapian::Query::OP_AND, model_query, combined_query)
 
             # Call base class constructor
-            self.initialize_db
             self.initialize_query(options)
         end
     end
