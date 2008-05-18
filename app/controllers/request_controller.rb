@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.86 2008-05-18 03:45:06 francis Exp $
+# $Id: request_controller.rb,v 1.87 2008-05-18 03:47:01 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -30,6 +30,7 @@ class RequestController < ApplicationController
         @new_responses_count = @events_needing_description.select {|i| i.event_type == 'response'}.size
 
         # Sidebar stuff
+        limit = 3 + 1
         # ... requests made by same person to same authority
         @info_requests_same_user_same_body = InfoRequest.find(:all, :order => "created_at desc", 
             :conditions => ["prominence = 'normal' and user_id = ? and public_body_id = ? and id <> ?", @info_request.user_id, @info_request.public_body_id, @info_request.id], 
