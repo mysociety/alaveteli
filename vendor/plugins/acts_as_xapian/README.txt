@@ -13,7 +13,7 @@ a. Introduction to acts_as_xapian
 
 "Xapian":http://www.xapian.org is a full text search engine library, which has
 Ruby bindings. acts_as_xapian adds support for it to Rails. It is an
-alternative to acts_as_lucene or acts_as_ferret.
+alternative to acts_as_solr or acts_as_ferret.
 
 Xapian is an *offline indexing* search library - only one process can have the
 Xapian database open for writing at once, and others that try meanwhile are
