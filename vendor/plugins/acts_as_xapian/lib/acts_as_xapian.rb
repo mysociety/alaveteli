@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: acts_as_xapian.rb,v 1.23 2008-05-16 14:47:25 francis Exp $
+# $Id: acts_as_xapian.rb,v 1.24 2008-05-18 03:45:07 francis Exp $
 
 # Documentation
 # =============
@@ -166,42 +166,32 @@ module ActsAsXapian
     end
 
     ######################################################################
-    # Search
+    # Search with a query or for similar models
     
-    # Search for a query string, returns an array of hashes in result order.
-    # Each hash contains the actual Rails object in :model, and other detail
-    # about relevancy etc. in other keys.
-    class Search
-        attr_accessor :query_string
+    # Base class for Search and Similar below
+    class QueryBase
         attr_accessor :offset
         attr_accessor :limit
         attr_accessor :query
         attr_accessor :matches
-        attr_accessor :query_string
+        attr_accessor :query_models
 
-        # Note that model_classes is not only sometimes useful here - it's essential to make sure the
-        # classes have been loaded, and thus acts_as_xapian called on them, so
-        # we know the fields for the query parser.
-        def initialize(model_classes, query_string, options = {})
-            offset = options[:offset].to_i || 0
-            limit = options[:limit].to_i || 10
-            sort_by_prefix = options[:sort_by_prefix] || nil
-            sort_by_ascending = options[:sort_by_ascending] || true
-            collapse_by_prefix = options[:collapse_by_prefix] || nil
-            self.query_string = query_string
-
+        def initialize_db
             ActsAsXapian.readable_init
             if ActsAsXapian.db.nil?
                 raise "ActsAsXapian not initialized"
             end
+        end
 
-            # Construct query which only finds things from specified models
-            model_query = Xapian::Query.new(Xapian::Query::OP_OR, model_classes.map{|mc| "M" + mc.to_s})
-            user_query = ActsAsXapian.query_parser.parse_query(self.query_string,
-                  Xapian::QueryParser::FLAG_BOOLEAN | Xapian::QueryParser::FLAG_PHRASE |
-                  Xapian::QueryParser::FLAG_LOVEHATE | Xapian::QueryParser::FLAG_WILDCARD |
-                  Xapian::QueryParser::FLAG_SPELLING_CORRECTION)
-            self.query = Xapian::Query.new(Xapian::Query::OP_AND, model_query, user_query)
+        # Set self.query before calling this
+        def initialize_query(options)
+            #raise options.to_yaml
+            offset = options[:offset] || 0; offset = offset.to_i
+            limit = options[:limit] || 10; limit = limit.to_i
+            sort_by_prefix = options[:sort_by_prefix] || nil
+            sort_by_ascending = options[:sort_by_ascending] || true
+            collapse_by_prefix = options[:collapse_by_prefix] || nil
+
             ActsAsXapian.enquire.query = self.query
 
             if sort_by_prefix.nil?
@@ -241,19 +231,6 @@ module ActsAsXapian
             return correction
         end
 
-        # Return just normal words in the query i.e. Not operators, ones in
-        # date ranges or similar. Use this for cheap highlighting with
-        # TextHelper::highlight, and excerpt.
-        def words_to_highlight
-            query_nopunc = self.query_string.gsub(/[^a-z0-9:\.\/_]/i, " ")
-            query_nopunc = query_nopunc.gsub(/\s+/, " ")
-            words = query_nopunc.split(" ")
-            # Remove anything with a :, . or / in it
-            words = words.find_all {|o| !o.match(/(:|\.|\/)/) }
-            words = words.find_all {|o| !o.match(/^(AND|NOT|OR|XOR)$/) }
-            return words
-        end
-
         # Return array of models found
         def results
             # Pull out all the results
@@ -288,6 +265,98 @@ module ActsAsXapian
             docs.each{|doc| k = doc[:data].split('-'); results << { :model => chash[[k[0], k[1].to_i]],
                     :percent => doc[:percent], :weight => doc[:weight], :collapse_count => doc[:collapse_count] } }
             return results
+        end
+    end
+
+    # Search for a query string, returns an array of hashes in result order.
+    # Each hash contains the actual Rails object in :model, and other detail
+    # about relevancy etc. in other keys.
+    class Search < QueryBase
+        attr_accessor :query_string
+
+        # Note that model_classes is not only sometimes useful here - it's essential to make sure the
+        # classes have been loaded, and thus acts_as_xapian called on them, so
+        # we know the fields for the query parser.
+        def initialize(model_classes, query_string, options = {})
+            self.initialize_db
+
+            # Case of a string, searching for a Google-like syntax query
+            self.query_string = query_string
+
+            # Construct query which only finds things from specified models
+            model_query = Xapian::Query.new(Xapian::Query::OP_OR, model_classes.map{|mc| "M" + mc.to_s})
+            user_query = ActsAsXapian.query_parser.parse_query(self.query_string,
+                  Xapian::QueryParser::FLAG_BOOLEAN | Xapian::QueryParser::FLAG_PHRASE |
+                  Xapian::QueryParser::FLAG_LOVEHATE | Xapian::QueryParser::FLAG_WILDCARD |
+                  Xapian::QueryParser::FLAG_SPELLING_CORRECTION)
+            self.query = Xapian::Query.new(Xapian::Query::OP_AND, model_query, user_query)
+
+            # Call base class constructor
+            self.initialize_query(options)
+        end
+
+        # Return just normal words in the query i.e. Not operators, ones in
+        # date ranges or similar. Use this for cheap highlighting with
+        # TextHelper::highlight, and excerpt.
+        def words_to_highlight
+            query_nopunc = self.query_string.gsub(/[^a-z0-9:\.\/_]/i, " ")
+            query_nopunc = query_nopunc.gsub(/\s+/, " ")
+            words = query_nopunc.split(" ")
+            # Remove anything with a :, . or / in it
+            words = words.find_all {|o| !o.match(/(:|\.|\/)/) }
+            words = words.find_all {|o| !o.match(/^(AND|NOT|OR|XOR)$/) }
+            return words
+        end
+
+    end
+
+    class Similar < QueryBase
+        attr_accessor :query_models
+        attr_accessor :important_terms
+
+        def initialize(model_classes, query_models, options = {})
+            self.initialize_db
+
+            # Case of an array, searching for models similar to those models in the array
+            self.query_models = query_models
+
+            # Find the documents by their unique term
+            input_models_query = Xapian::Query.new(Xapian::Query::OP_OR, query_models.map{|m| "I" + m.xapian_document_term})
+            ActsAsXapian.enquire.query = input_models_query
+            matches = ActsAsXapian.enquire.mset(0, 100, 100) # XXX so this whole method will only work with 100 docs
+
+            # Get set of relevant terms for those documents
+            selection = Xapian::RSet.new()
+            iter = matches._begin
+            while not iter.equals(matches._end)
+                selection.add_document(iter)
+                iter.next
+            end
+
+            # Bit weird that the function to make esets is part of the enquire
+            # object. This explains what exactly it does, which is to exclude
+            # terms in the existing query.
+            # http://thread.gmane.org/gmane.comp.search.xapian.general/3673/focus=3681
+            eset = ActsAsXapian.enquire.eset(40, selection) 
+
+            # Do main search for them
+            self.important_terms = []
+            iter = eset._begin
+            while not iter.equals(eset._end)
+                self.important_terms.push(iter.term)
+                iter.next
+            end
+            similar_query = Xapian::Query.new(Xapian::Query::OP_OR, self.important_terms)
+            # Exclude original
+            combined_query = Xapian::Query.new(Xapian::Query::OP_AND_NOT, similar_query, input_models_query)
+
+            # Restrain to model classes
+            model_query = Xapian::Query.new(Xapian::Query::OP_OR, model_classes.map{|mc| "M" + mc.to_s})
+            self.query = Xapian::Query.new(Xapian::Query::OP_AND, model_query, combined_query)
+
+            # Call base class constructor
+            self.initialize_db
+            self.initialize_query(options)
         end
     end
 
@@ -381,6 +450,11 @@ module ActsAsXapian
     # Instance methods that get injected into your model.
     
     module InstanceMethods
+        # Used internally
+        def xapian_document_term
+            self.class.to_s + "-" + self.id.to_s
+        end
+
         # Extract value of a field from the model
         def xapian_value(field, type = nil)
             value = self[field] || self.instance_variable_get("@#{field.to_s}".to_sym) || self.send(field.to_sym)
@@ -408,7 +482,7 @@ module ActsAsXapian
             doc = Xapian::Document.new
             ActsAsXapian.term_generator.document = doc
 
-            doc.data = self.class.to_s + "-" + self.id.to_s
+            doc.data = self.xapian_document_term
 
             doc.add_term("M" + self.class.to_s)
             doc.add_term("I" + doc.data)
@@ -434,7 +508,7 @@ module ActsAsXapian
 
         # Delete record from the Xapian database
         def xapian_destroy
-            ActsAsXapian.writable_db.delete_document("I" + self.class.to_s + "-" + self.id.to_s)
+            ActsAsXapian.writable_db.delete_document("I" + self.xapian_document_term)
         end
 
         # Used to mark changes needed by batch indexer

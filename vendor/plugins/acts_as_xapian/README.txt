@@ -139,10 +139,16 @@ development/test/production dir in acts_as_xapian/xapiandbs.
 e. Documentation - querying
 ===========================
 
+Testing indexing
+----------------
+
 If you just want to test indexing is working, you'll find this rake task
 useful (it has more options, see tasks/xapian.rake)
 
     rake xapian:query models="PublicBody User" query="moo"
+
+Performing a query
+------------------
 
 To perform a query from code call ActsAsXapian::Search.new. This takes in turn:
 * model_classes - list of models to search, e.g. [PublicBody, InfoRequestEvent]
@@ -173,9 +179,21 @@ Returns an ActsAsXapian::Search object. Useful methods are:
 ** :percent - the weight as a %, 0 meaning the item did not match the query at all
 ** :collapse_count - number of results with the same prefix, if you specified collapse_by_prefix
 
+Finding similar models
+----------------------
+
+To find models that are similar to a given set of models call ActsAsXapian::Similar.new. This takes:
+* model_classes - list of model classes to return models from within
+* models - list of models that you want to find related ones to
+
+Returns an ActsAsXapian::Similar object. Has all methods from ActsAsXapian::Search above, except
+for words_to_highlight. In addition has:
+* important_terms - the terms extracted from the input models, that were used to search for output
+You need the results methods to get the similar models.
+
+
 
 For more details about anything, see source code in lib/acts_as_xapian.rb -
 please though do patch this file if there is documentation missing / wrong.
 It's called README.txt and is in git, using Textile formatting. The wiki page
 is just copied from the README.txt file.
-
