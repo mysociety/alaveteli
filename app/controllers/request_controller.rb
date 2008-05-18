@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.87 2008-05-18 03:47:01 francis Exp $
+# $Id: request_controller.rb,v 1.88 2008-05-18 21:53:15 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -30,22 +30,23 @@ class RequestController < ApplicationController
         @new_responses_count = @events_needing_description.select {|i| i.event_type == 'response'}.size
 
         # Sidebar stuff
-        limit = 3 + 1
-        # ... requests made by same person to same authority
-        @info_requests_same_user_same_body = InfoRequest.find(:all, :order => "created_at desc", 
-            :conditions => ["prominence = 'normal' and user_id = ? and public_body_id = ? and id <> ?", @info_request.user_id, @info_request.public_body_id, @info_request.id], 
-            :limit => limit)
-        @info_requests_same_user_same_body_more = false
-        if @info_requests_same_user_same_body.size == limit
-            @info_requests_same_user_same_body = @info_requests_same_user_same_body[0, limit - 1]
-            @info_requests_same_user_same_body_more = true
-        end
+        limit = 3
         # ... requests that have similar imporant terms
         @xapian_similar = ::ActsAsXapian::Similar.new([InfoRequestEvent], @info_request.info_request_events, 
-            :limit => limit - 1, :collapse_by_prefix => 'request_collapse')
-
+            :limit => limit, :collapse_by_prefix => 'request_collapse')
+        @xapian_similar_more = (@xapian_similar.matches_estimated > limit)
+ 
         # Track corresponding to this page
         @track_thing = TrackThing.create_track_for_request(@info_request)
+    end
+
+    # Requests similar to this one
+    def similar
+        @per_page = 25
+        @page = (params[:page] || "1").to_i
+        @info_request = InfoRequest.find_by_url_title(params[:url_title])
+        @xapian_object = ::ActsAsXapian::Similar.new([InfoRequestEvent], @info_request.info_request_events, 
+            :offset => (@page - 1) * @per_page, :limit => @per_page, :collapse_by_prefix => 'request_collapse')
     end
 
     def list

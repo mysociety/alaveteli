@@ -16,21 +16,15 @@
     <br><img src="/images/pledgebank.png" alt=""> <a href="http://www.pledgebank.com">Pledge with others</a>
     </p>
 
-    <% if @info_requests_same_user_same_body.size > 0 %>
-        <h2>Requests from same user to same authority</h2>
-        <!-- <h2>Some other requests made by <%= user_link(@info_request.user) %> to <%= public_body_link(@info_request.public_body) %></h2> -->
-        <%= render :partial => 'sidebar_request_listing', :locals => { :info_requests => @info_requests_same_user_same_body } %>
-        <% if @info_requests_same_user_same_body_more %>
-            <p><%= link_to "More such requests", search_url("variety:sent requested_from:" + @info_request.public_body.url_name + " requested_by:" + @info_request.user.url_name + " -request:" + @info_request.url_title, "newest") %></p>
-        <% end %>
-    <% end %>
-
     <% if @xapian_similar.results.size > 0 %>
         <h2>Similar requests</h2>
         <% for result in @xapian_similar.results %>
             <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result[:model], :info_request => result[:model].info_request } %>
         <% end %>
-    <% end %>
+        <% if @xapian_similar_more %>
+            <p><%= link_to "More similar requests", request_similar_url(@info_request) %></p>
+        <% end %>
+     <% end %>
     <!-- <%= @xapian_similar.important_terms.join(" ") %>  -->
 
     <!--<h2>Blog posts about this request</h2>

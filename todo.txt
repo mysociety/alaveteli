@@ -1,3 +1,8 @@
+Commit similar documents thing to acts_as_xapian
+
+Second page of search knackered
+http://www.whatdotheyknow.com/search/bill?page=2
+
 FOI requests to use to test it
 ==============================
 
@@ -47,7 +52,7 @@ Reconsider described vs. newest for the tracks
 Fix up the privacy policy
 
 Advertise WDTK search queries on TWFY
-
+Advertise alerts on end pages with WDTK
 
 Later
 =====
