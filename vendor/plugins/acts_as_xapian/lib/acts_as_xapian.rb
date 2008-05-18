@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: acts_as_xapian.rb,v 1.26 2008-05-18 22:10:53 francis Exp $
+# $Id: acts_as_xapian.rb,v 1.27 2008-05-18 22:26:21 francis Exp $
 
 # Documentation
 # =============
@@ -346,7 +346,7 @@ module ActsAsXapian
             # object. This explains what exactly it does, which is to exclude
             # terms in the existing query.
             # http://thread.gmane.org/gmane.comp.search.xapian.general/3673/focus=3681
-            eset = ActsAsXapian.enquire.eset(100, selection) 
+            eset = ActsAsXapian.enquire.eset(40, selection) 
 
             # Do main search for them
             self.important_terms = []
