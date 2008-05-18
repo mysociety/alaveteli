@@ -1,8 +1,10 @@
-<% @title = "Requests similar to '" + h(@info_request.title) + "'" %>
+<% @title = "Requests similar to '" + h(@info_request.title) + "'"  %>
 <h1><%="Requests similar to '" + request_link(@info_request) + "'"%></h1>
 
+<!-- Important terms: <%= @xapian_object.important_terms.join(" ") %>  -->
+
 <% if @xapian_object.results.empty? %>
-    <p>No requests made yet.</p>
+    <p>No similar requests found.</p>
 <% else %>
     <p class="subtitle">
         <%= @xapian_object.matches_estimated %> in total
