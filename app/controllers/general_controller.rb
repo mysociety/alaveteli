@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: general_controller.rb,v 1.24 2008-05-15 22:47:16 francis Exp $
+# $Id: general_controller.rb,v 1.25 2008-05-18 22:07:40 francis Exp $
 
 class GeneralController < ApplicationController
 
@@ -63,11 +63,17 @@ class GeneralController < ApplicationController
         end
         query = combined.join("/")
 
-        # Query each type separately for separate display
+        # Query each type separately for separate display (XXX we are calling
+        # perform_search multiple times and it clobbers per_page for each one,
+        # so set as separate var)
         @xapian_requests = perform_search([InfoRequestEvent], query, sortby, 'request_collapse', 25)
+        @requests_per_page = @per_page
         @xapian_bodies = perform_search([PublicBody], query, sortby, nil, 5)
+        @bodies_per_page = @per_page
         @xapian_users = perform_search([User], query, sortby, nil, 5)
+        @users_per_page = @per_page
 
+        @this_page_hits = @xapian_requests.results.size + @xapian_bodies.results.size + @xapian_users.results.size
         @total_hits = @xapian_requests.matches_estimated + @xapian_bodies.matches_estimated + @xapian_users.matches_estimated
 
         # Spelling and highight words are same for all three queries
