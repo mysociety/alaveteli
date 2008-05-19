@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.89 2008-05-19 12:40:22 francis Exp $
+# $Id: request_controller.rb,v 1.90 2008-05-19 23:28:39 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -60,7 +60,7 @@ class RequestController < ApplicationController
         elsif @view == 'successful'
             @title = "Recent successful responses"
             query = 'variety:response (status:successful OR status:partially_successful)'
-            sortby = "newest"
+            sortby = "described"
             @track_thing = TrackThing.create_track_for_all_successful_requests
         else
             raise "unknown request list view " + @view.to_s

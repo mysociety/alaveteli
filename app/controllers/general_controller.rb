@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: general_controller.rb,v 1.26 2008-05-19 18:12:08 francis Exp $
+# $Id: general_controller.rb,v 1.27 2008-05-19 23:28:39 francis Exp $
 
 class GeneralController < ApplicationController
 
@@ -34,7 +34,7 @@ class GeneralController < ApplicationController
 
         # Get all successful requests for display on the right  
         query = 'variety:response (status:successful OR status:partially_successful)'
-        sortby = "newest"
+        sortby = "described"
         @xapian_object = perform_search([InfoRequestEvent], query, sortby, 'request_collapse', 3)
     end
 
