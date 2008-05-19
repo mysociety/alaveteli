@@ -7,18 +7,14 @@
    <p><label for="info_request_title">Title</label> (warning: editing this will break URLs right now)<br/>
    <%= text_field 'info_request', 'title', :size => 50  %></p>
 
-   <p><label for="info_request_prominence">Prominence</label> (whether is shown in lists of requests or not)<br/>
+   <p><label for="info_request_prominence">Prominence</label> (whether is shown in lists of requests / search or not)<br/>
    <%= select( 'info_request', "prominence", { "normal" => "normal", "backpage" => "backpage"}) %>
 
-   <p><label for="info_request_awaiting_description">Awaiting description</label><br/>
-   <%= select('info_request', "awaiting_description", [["Yes",true],["No",false]]) %>
-   </p>
-
    <p><label for="info_request_stop_new_responses">Stop new responses</label> (use this on requests getting spam, but also work out how the email leaked and plug it)<br/>
-   <%= select('info_request', "stop_new_responses", [["Yes",true],["No",false]]) %>
+   <%= select('info_request', "stop_new_responses", [["Yes - stop new responses",true],["No - allow new responses",false]]) %>
    </p>
 
-   <p><label for="info_request_described_state">Described state</label><br/>
+   <p><label for="info_request_described_state">Described state</label> (don't forget to change 'awaiting description' below too if necessary)<br/>
    <%= select( 'info_request', "described_state",
        [ 
         'waiting_response',
@@ -31,6 +27,10 @@
     ]) %>
     </p>
 
+   <p><label for="info_request_awaiting_description">Awaiting description</label><br/>
+   <%= select('info_request', "awaiting_description", [["Yes - needs state updating",true],["No - state is up to date",false]]) %>
+   </p>
+
    <p><%= submit_tag 'Save changes' %>
    </p>
 
@@ -39,6 +39,11 @@
   </p>
 
 <% end %>
+
+<p>
+<%= link_to 'Show', '../show/' + @info_request.id.to_s %> |
+<%= link_to 'List all', '../list' %>
+</p>
 
 <hr>
 
@@ -52,9 +57,3 @@
 <% end %>
 
 <hr>
-
-<p>
-<%= link_to 'Show', '../show/' + @info_request.id.to_s %> |
-<%= link_to 'List all', '../list' %>
-</p>
-
