@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: general_controller.rb,v 1.25 2008-05-18 22:07:40 francis Exp $
+# $Id: general_controller.rb,v 1.26 2008-05-19 18:12:08 francis Exp $
 
 class GeneralController < ApplicationController
 
@@ -57,8 +57,8 @@ class GeneralController < ApplicationController
         # in config/routes.rb for comments.
         combined = params[:combined]
         sortby = nil
-        if combined.size > 1 and combined[-1] == 'newest'
-            sortby = 'newest'
+        if combined.size > 1 and (combined[-1] == 'newest' or combined[-1] == 'described')
+            sortby = combined[-1]
             combined = combined[0..-2]
         end
         query = combined.join("/")
