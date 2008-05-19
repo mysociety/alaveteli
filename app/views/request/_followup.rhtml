@@ -12,30 +12,36 @@
         </h2>
     <% end %>
 
-    <p>Use this to tell the public authority something, such as to clarify
-    your request, or if they are late responding.</p>
+    <% if @info_request.stop_new_responses %>
+    <p>Follow ups and new responses to this request have been stopped to prevent spam. Please
+    <a href="/help/contact">contact us</a> if you are <%= user_link(@info_request.user) %>
+    and need to send a follow up.</p>
+    <% else %>
+        <p>Use this to tell the public authority something, such as to clarify
+        your request, or if they are late responding.</p>
 
-    <% form_for(:outgoing_message, @outgoing_message) do |o| %>
-        <p>
-            <%= o.text_area :body, :rows => 10, :cols => 55 %>
-        </p>
+        <% form_for(:outgoing_message, @outgoing_message) do |o| %>
+            <p>
+                <%= o.text_area :body, :rows => 10, :cols => 55 %>
+            </p>
+
+            <p>
+                <strong>Privacy warning:</strong> Your follow up message, and any response
+                to it, will also be displayed publically on this website.
+            </p>
+
+            <p>
+                <%= hidden_field_tag 'submitted_followup', 1 %>
+                <%= submit_tag "Send public follow up message" %>
+            </p>
+        <% end %>
 
         <p>
-            <strong>Privacy warning:</strong> Your follow up message, and any response
-            to it, will also be displayed publically on this website.
-        </p>
-
-        <p>
-            <%= hidden_field_tag 'submitted_followup', 1 %>
-            <%= submit_tag "Send public follow up message" %>
+            <% if not @is_owning_user %>
+            (You will be asked to sign in as <%= user_link(@info_request.user) %>)
+            <% end %>
         </p>
     <% end %>
-
-    <p>
-        <% if not @is_owning_user %>
-        (You will be asked to sign in as <%= user_link(@info_request.user) %>)
-        <% end %>
-    </p>
 
 </div>
 

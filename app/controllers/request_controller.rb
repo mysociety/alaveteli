@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.88 2008-05-18 21:53:15 francis Exp $
+# $Id: request_controller.rb,v 1.89 2008-05-19 12:40:22 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -275,22 +275,26 @@ class RequestController < ApplicationController
         end
 
         if !params[:submitted_followup].nil?
-            # See if values were valid or not
-            @outgoing_message.info_request = @info_request
-            if !@outgoing_message.valid?
-                render :action => 'show_response'
-            elsif authenticated_as_user?(@info_request.user,
-                    :web => "To send your follow up message about your FOI request",
-                    :email => "Then your follow up message to " + @info_request.public_body.name + " will be sent.",
-                    :email_subject => "Confirm your FOI follow up message to " + @info_request.public_body.name
-                )
-                # Send a follow up message
-                @outgoing_message.send_message
-                @outgoing_message.save!
-                flash[:notice] = "Your follow up message has been created and sent on its way."
-                redirect_to request_url(@info_request)
+            if @info_request.stop_new_responses
+                flash[:notice] = 'Your follow up has not been sent because this request has been stopped to prevent spam. Please <a href="/help/contact">contact us</a> if you really want to send a follow up message.'
             else
-                # do nothing - as "authenticated?" has done the redirect to signin page for us
+                # See if values were valid or not
+                @outgoing_message.info_request = @info_request
+                if !@outgoing_message.valid?
+                    render :action => 'show_response'
+                elsif authenticated_as_user?(@info_request.user,
+                        :web => "To send your follow up message about your FOI request",
+                        :email => "Then your follow up message to " + @info_request.public_body.name + " will be sent.",
+                        :email_subject => "Confirm your FOI follow up message to " + @info_request.public_body.name
+                    )
+                    # Send a follow up message
+                    @outgoing_message.send_message
+                    @outgoing_message.save!
+                    flash[:notice] = "Your follow up message has been created and sent on its way."
+                    redirect_to request_url(@info_request)
+                else
+                    # do nothing - as "authenticated?" has done the redirect to signin page for us
+                end
             end
         else
             # render default show_response template
