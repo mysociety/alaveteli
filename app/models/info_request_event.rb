@@ -20,7 +20,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request_event.rb,v 1.44 2008-05-19 12:01:22 francis Exp $
+# $Id: info_request_event.rb,v 1.45 2008-05-19 21:28:07 francis Exp $
 
 class InfoRequestEvent < ActiveRecord::Base
     belongs_to :info_request
@@ -59,7 +59,7 @@ class InfoRequestEvent < ActiveRecord::Base
     # Full text search indexing
     acts_as_xapian :texts => [ :search_text_main, :title ],
         :values => [ [ :created_at, 0, "created_at", :date ],
-                     [ :rss_at, 1, "rss_at", :date ],
+                     [ :rss_at, 1, "rss_at", :number ], # XXX using number for lack of :datetime support in Xapian
                      [ :request, 2, "request_collapse", :string ]
                    ],
         :terms => [ [ :calculated_state, 'S', "status" ],
@@ -84,7 +84,8 @@ class InfoRequestEvent < ActiveRecord::Base
         # response (e.g. successful) in which case we want to date sort by
         # when the responses was described as being of the type. For other
         # types, just use the create at date.
-        self.last_described_at || self.created_at
+        date = self.last_described_at || self.created_at
+        return date.strftime("%Y%m%d%H%M%S") # format it here as no datetime support in Xapian's value ranges
     end
     def search_text_main
         text = ''

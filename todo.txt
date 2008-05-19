@@ -31,9 +31,6 @@ BAILII - relationship with law courts, robots.txt ?
 Next
 ====
 
-Block new messages to particular requests (for those we failed to spam protect
-in time)
-
 Blog posts / Wikipedia articles about this request
     e.g. http://socialreporter.wordpress.com/2008/04/14/costs-of-the-bbc-action-action-network/
     http://reportr.net/2008/04/24/bbc-spent-6m-to-develop-the-iplayer/
@@ -46,10 +43,10 @@ separately
 Bit confusing that sort order when you do "variety:successful" in query is by the date of creation.
 Should probably use the described date a lot more often for dates. But not sure, hard to tell.
 
-Fix up the privacy policy
-
 Advertise WDTK search queries on TWFY
 Advertise alerts on end pages with WDTK
+
+Do some performance profiling
 
 Later
 =====
@@ -224,6 +221,7 @@ Quoting fixing TODO:
     http://www.whatdotheyknow.com/request/235/response/513
     http://www.whatdotheyknow.com/request/40/response/163 - Disclaimer
     http://www.whatdotheyknow.com/request/265/response/688 - word wrapping
+    http://www.whatdotheyknow.com/request/180/response/482 (charset)
    
 Sources of public bodies
 ========================
