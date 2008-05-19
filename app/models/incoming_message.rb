@@ -17,7 +17,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.101 2008-05-19 12:01:22 francis Exp $
+# $Id: incoming_message.rb,v 1.102 2008-05-19 13:54:39 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -176,12 +176,33 @@ class IncomingMessage < ActiveRecord::Base
 
     # Replaces emails we know about in (possibly binary data) with equal length alternative ones.
     def binary_mask_special_emails(text)
+
+text = IncomingMessage.mask_string_multicharset(text, 'request-144-a724c835@whatdotheyknow.com')
+
         if not self.info_request.public_body.request_email.empty?
-            text = text.gsub(Regexp.new(self.info_request.public_body.request_email, Regexp::IGNORECASE), 'X' * self.info_request.public_body.request_email.size)
+            text = IncomingMessage.mask_string_multicharset(text, self.info_request.public_body.request_email)
         end
-        text = text.gsub(Regexp.new(self.info_request.incoming_email, Regexp::IGNORECASE), 'X' * self.info_request.incoming_email.size)
-        text = text.gsub(Regexp.new(MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost'), Regexp::IGNORECASE), 'X' * MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost').size)
+        text = IncomingMessage.mask_string_multicharset(text, self.info_request.incoming_email)
+        text = IncomingMessage.mask_string_multicharset(text, MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost'))
         return text
+    end
+    # Helper for binary_mask_special_emails. Masks out an email from some
+    # (binary) text, replacing with something of similar size. Does it for
+    # common fixed-width multibyte character sets used in word documents etc.
+    def IncomingMessage.mask_string_multicharset(text, email)
+        mask_with = email.gsub(/[^@.]/, 'X')
+        for encoding in ['ascii', 'ucs-2']
+            begin
+                email_enc = Iconv.conv(encoding, 'ascii', email)
+                mask_with_enc = Iconv.conv(encoding, 'ascii', mask_with)
+                # we musn't change size of the binary
+                raise "email/mask size mismatch in binary email mask" if email_enc.size != mask_with_enc.size
+                text = text.gsub(Regexp.new(email_enc, Regexp::IGNORECASE), mask_with_enc)
+            rescue Iconv::IllegalSequence, Iconv::InvalidEncoding
+                # just forget it, if not expressable in it
+            end
+        end
+        return text 
     end
 
     # Remove email addresses from text (mainly to reduce spam - particularly
