@@ -14,6 +14,10 @@
    <%= select('info_request', "awaiting_description", [["Yes",true],["No",false]]) %>
    </p>
 
+   <p><label for="info_request_stop_new_responses">Stop new responses</label> (use this on requests getting spam, but also work out how the email leaked and plug it)<br/>
+   <%= select('info_request', "stop_new_responses", [["Yes",true],["No",false]]) %>
+   </p>
+
    <p><label for="info_request_described_state">Described state</label><br/>
    <%= select( 'info_request', "described_state",
        [ 

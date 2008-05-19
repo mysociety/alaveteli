@@ -21,10 +21,31 @@ describe RequestMailer, " when receiving incoming mail" do
         ir.incoming_messages.size.should == 1
 
         deliveries = ActionMailer::Base.deliveries
-        deliveries.size.should  == 1
+        deliveries.size.should == 1
         mail = deliveries[0]
         mail.to.should == [ MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost') ]
+        deliveries.clear
     end
+
+    it "should return incoming mail to sender when a request is stopped for spam" do
+        # mark request as anti-spam
+        ir = info_requests(:fancy_dog_request) 
+        ir.stop_new_responses = true
+        ir.save!
+
+        # test what happens if something arrives
+        ir.incoming_messages.size.should == 1 # in the fixture
+        receive_incoming_mail('incoming-request-plain.email', ir.incoming_email)
+        ir.incoming_messages.size.should == 1 # nothing should arrive
+
+        # should be a message back to sender
+        deliveries = ActionMailer::Base.deliveries
+        deliveries.size.should == 1
+        mail = deliveries[0]
+        mail.to.should == [ 'geraldinequango@localhost' ]
+        deliveries.clear
+    end
+
 
     it "should not mutilate long URLs when trying to word wrap them" do
         long_url = 'http://www.this.is.quite.a.long.url.flourish.org/there.is.no.way.it.is.short.whatsoever'

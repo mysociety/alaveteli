@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 54
+# Schema version: 55
 #
 # Table name: users
 #
@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user.rb,v 1.54 2008-05-12 01:38:38 francis Exp $
+# $Id: user.rb,v 1.55 2008-05-19 12:01:22 francis Exp $
 
 require 'digest/sha1'
 

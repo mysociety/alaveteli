@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 54
+# Schema version: 55
 #
 # Table name: track_things
 #
@@ -21,7 +21,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_thing.rb,v 1.21 2008-05-16 00:05:09 francis Exp $
+# $Id: track_thing.rb,v 1.22 2008-05-19 12:01:22 francis Exp $
 
 class TrackThing < ActiveRecord::Base
     belongs_to :tracking_user, :class_name => 'User'

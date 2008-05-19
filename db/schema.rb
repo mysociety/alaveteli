@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 54) do
+ActiveRecord::Schema.define(:version => 55) do
 
   create_table "acts_as_xapian_jobs", :force => true do |t|
     t.string  "model",    :null => false
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(:version => 54) do
     t.boolean  "awaiting_description", :default => false,    :null => false
     t.string   "prominence",           :default => "normal", :null => false
     t.text     "url_title",                                  :null => false
+    t.boolean  "stop_new_responses",   :default => false,    :null => false
   end
 
   add_index "info_requests", ["created_at"], :name => "index_info_requests_on_created_at"

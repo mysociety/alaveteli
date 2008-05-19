@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.31 2008-05-18 21:57:42 francis Exp $
+# $Id: request_mailer.rb,v 1.32 2008-05-19 12:01:22 francis Exp $
 
 class RequestMailer < ApplicationMailer
     
@@ -38,6 +38,18 @@ class RequestMailer < ApplicationMailer
         @recipients = @from
         @subject = "Incoming email to unknown FOI request"
         email.setup_forward(self)
+    end
+
+    # Incoming message arrived for a request, but new responses have been stopped.
+    def stopped_responses(info_request, email)
+        @from = contact_from_name_and_email
+        @recipients = email.from_addrs.to_s
+        @subject = "Your response to an FOI request was not delivered"
+        email.setup_forward(self)
+        @body = { 
+            :info_request => info_request,
+            :contact_email => MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost')     
+        }
     end
 
     # An FOI response is outside the scope of the system, and needs admin attention

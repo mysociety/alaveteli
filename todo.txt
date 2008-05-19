@@ -31,6 +31,9 @@ BAILII - relationship with law courts, robots.txt ?
 Next
 ====
 
+Block new messages to particular requests (for those we failed to spam protect
+in time)
+
 Blog posts / Wikipedia articles about this request
     e.g. http://socialreporter.wordpress.com/2008/04/14/costs-of-the-bbc-action-action-network/
     http://reportr.net/2008/04/24/bbc-spent-6m-to-develop-the-iplayer/
@@ -40,6 +43,8 @@ Check test code coverage again - do we have all models
 
 Reconsider described vs. newest sort order for the RSS for each track
 separately
+Bit confusing that sort order when you do "variety:successful" in query is by the date of creation.
+Should probably use the described date a lot more often for dates. But not sure, hard to tell.
 
 Fix up the privacy policy
 
@@ -49,15 +54,12 @@ Advertise alerts on end pages with WDTK
 Later
 =====
 
+Show people tracking same query, when you are on search page
+
 Display current page (when not on first page), or perhaps range on both the
 /list pages, and on the /..../similar pages (maybe I missed it elsewhere too).
 Should make a general will_paginate like function to do this part, and call
 that from /search (which has this already) too.
-
-Bit confusing that sort order when you do "variety:successful" in query is by the date of creation.
-Should probably use the described date a lot more often for dates. But not sure, hard to tell.
-
-HTML in Atom feed ask Tommy about it
 
 Check this again after a while, for dodgy states of events:
 s = InfoRequest.find(:all).select { |i| (not i.awaiting_description) and i.get_last_response_event_id and InfoRequestEvent.find(i.get_last_response_event_id).calculated_state != i.described_state }; s.size
@@ -67,7 +69,7 @@ Museum aliases
 Highlight text search finds in word docs
 Edits to outgoing/incoming/title won't be reindexed in Xapian (maybe just reindex all once a week)
 
-Make highlighting of search terms in RSS actually light up
+Make highlighting of search terms in RSS actually light up (maybe ask Tommy)
 
 Put name of admin user rather than import_csv
 
@@ -111,9 +113,6 @@ last event which resets the due date
 Overdue response alert email click through should show how many days overdue
     it is near where you write your reply
 
-Remove staging site stuff, and making the banner a not www.whatdotheyknow.com
-banner
-
 Synthesise these tips into our handful of snappy snappy bullet points
     http://community.foe.co.uk/tools/right_to_know/tips.html
     http://www.justice.gov.uk/requestinginformation.htm
@@ -124,9 +123,6 @@ Show public body email address on their public page, with a link to say "this is
 
 CSV export of lists of emails for admins
 
-Requests with related content 
-    - via a compare document search somehow?
-    - using the tracking requests network
 Show list of popular tracks somewhere (finds most popular requests in a way)
 
 Remember me box
@@ -197,7 +193,7 @@ Show documents inline (word docs etc.)
 Julian's PDF excerpting thing for highlighting paragraphs
    and convert Word Docs to PDFs too
 
-Remove request email address from PDFs
+Remove request email address from PDFs (we already do from docs)
    http://www.whatdotheyknow.com/request/cost_of_policing_the_oxford_unio_3
    - maybe if text contains email, refuse to show full PDF just show conversion
      to text/HTML?
@@ -226,6 +222,8 @@ Quoting fixing TODO:
     http://www.whatdotheyknow.com/request/320/response/605 (encoding, vcf)
     http://www.whatdotheyknow.com/request/118/response/600 (encoding)
     http://www.whatdotheyknow.com/request/235/response/513
+    http://www.whatdotheyknow.com/request/40/response/163 - Disclaimer
+    http://www.whatdotheyknow.com/request/265/response/688 - word wrapping
    
 Sources of public bodies
 ========================

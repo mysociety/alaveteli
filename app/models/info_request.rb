@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 54
+# Schema version: 55
 #
 # Table name: info_requests
 #
@@ -13,6 +13,7 @@
 #  awaiting_description :boolean         default(false), not null
 #  prominence           :string(255)     default("normal"), not null
 #  url_title            :text            not null
+#  stop_new_responses   :boolean         default(false), not null
 #
 
 # models/info_request.rb:
@@ -21,7 +22,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.111 2008-05-16 19:19:42 francis Exp $
+# $Id: info_request.rb,v 1.112 2008-05-19 12:01:22 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -164,6 +165,13 @@ public
 
     # A new incoming email to this request
     def receive(email, raw_email)
+        # See if new responses are prevented for spam reasons
+        if self.stop_new_responses
+            RequestMailer.deliver_stopped_responses(self, email)
+            return
+        end
+
+        # Otherwise log the message
         incoming_message = IncomingMessage.new
 
         ActiveRecord::Base.transaction do
