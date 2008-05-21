@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_controller.rb,v 1.20 2008-05-15 23:59:04 francis Exp $
+# $Id: track_controller.rb,v 1.21 2008-05-21 14:51:34 francis Exp $
 
 class TrackController < ApplicationController
 
@@ -74,7 +74,7 @@ class TrackController < ApplicationController
             if @track_thing.track_medium == 'feed'
                 redirect_to :controller => 'track', :action => 'atom_feed', :track_id => @track_thing.id
             else
-                flash[:notice] = "You are " + ret + " tracking this public body!"
+                flash[:notice] = "You are " + ret + " tracking this public authority!"
                 redirect_to public_body_url(@public_body)
             end
         end
