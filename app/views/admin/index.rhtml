@@ -23,11 +23,11 @@
     </ul>
 <% end %>
 
-<% if @two_week_old_unclassified.size > 0 %>
-    <h3>Classify responses that are still unclassified two weeks after response</h3>
+<% if @one_week_old_unclassified.size > 0 %>
+    <h3>Classify responses that are still unclassified one week after response</h3>
 
     <ul>
-    <% for @request in @two_week_old_unclassified %>
+    <% for @request in @one_week_old_unclassified %>
         <li><%= link_to h(@request.title), "request/show/" + @request.id.to_s %></li>
     <% end %>
     </ul>
@@ -42,7 +42,7 @@
     </ul>
 <% end %>
 
-<% if @requires_admin_requests.size == 0 and @two_week_old_unclassified.size == 0 and @blank_contacts.size == 0 %>
+<% if @requires_admin_requests.size == 0 and @one_week_old_unclassified.size == 0 and @blank_contacts.size == 0 %>
     <p>No pending administration required.</p>
 <% end %>
 
