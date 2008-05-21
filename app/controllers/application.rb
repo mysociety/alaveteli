@@ -6,7 +6,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: application.rb,v 1.46 2008-05-21 10:51:24 francis Exp $
+# $Id: application.rb,v 1.47 2008-05-21 23:36:52 francis Exp $
 
 
 class ApplicationController < ActionController::Base
@@ -92,9 +92,17 @@ class ApplicationController < ActionController::Base
         # XXX what is the built in Ruby URI munging function that can do this
         # choice of & vs. ? more elegantly than this dumb if statement?
         if uri.include?("?")
-            uri += "&post_redirect=1"
+            if uri.include?("#")
+                uri.sub!("#", "&post_redirect=1#")
+            else
+                uri += "&post_redirect=1"
+            end
         else
-            uri += "?post_redirect=1"
+            if uri.include?("#")
+                uri.sub!("#", "?post_redirect=1#")
+            else
+                uri += "?post_redirect=1"
+            end
         end
         redirect_to uri
     end
