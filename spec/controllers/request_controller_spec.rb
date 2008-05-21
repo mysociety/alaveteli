@@ -342,6 +342,41 @@ describe RequestController, "sending unclassified new response reminder alerts" 
 
 end
 
+describe RequestController, "clarification required alerts" do
+    integrate_views
+    fixtures :info_requests, :info_request_events, :public_bodies, :users, :incoming_messages, :outgoing_messages # all needed as integrating views
+ 
+    it "should send an alert" do
+        ir = info_requests(:fancy_dog_request)
+        ir.set_described_state('waiting_clarification')
+        # this is pretty horrid, but will do :) need to make it waiting
+        # clarification more than 3 days ago for the alerts to go out.
+        ActiveRecord::Base.connection.update "update info_requests set updated_at = now() - '5 day'::interval where id = " + ir.id.to_s
+        ir.reload
+
+        RequestMailer.alert_not_clarified_request
+
+        deliveries = ActionMailer::Base.deliveries
+        deliveries.size.should == 1
+        mail = deliveries[0]
+        mail.body.should =~ /asked you to explain/
+        mail.to_addrs.to_s.should == info_requests(:fancy_dog_request).user.name_and_email
+        mail.body =~ /(http:\/\/.*\/c\/(.*))/
+        mail_url = $1
+        mail_token = $2
+
+        session[:user_id].should be_nil
+        controller.test_code_redirect_by_email_token(mail_token, self) # XXX hack to avoid having to call User controller for email link
+        session[:user_id].should == info_requests(:fancy_dog_request).user.id
+
+        response.should render_template('show_response')
+        assigns[:info_request].should == info_requests(:fancy_dog_request)
+    end
+
+end
+
+
+
 
 
 

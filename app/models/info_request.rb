@@ -22,7 +22,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.113 2008-05-21 10:51:24 francis Exp $
+# $Id: info_request.rb,v 1.114 2008-05-21 22:37:33 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -262,7 +262,7 @@ public
     # -- sent at all
     # -- OR the same message was resent
     # -- OR the public body requested clarification, and a follow up was sent
-    def last_outgoing_message_forming_initial_request
+    def last_event_forming_initial_request
         last_sent = nil
         expecting_clarification = false
         for event in self.info_request_events
@@ -271,14 +271,12 @@ public
             end
 
             if [ 'sent', 'resent', 'followup_sent' ].include?(event.event_type)
-                outgoing_message = event.outgoing_message
-
                 if last_sent.nil?
-                    last_sent = outgoing_message
+                    last_sent = event
                 elsif event.event_type == 'resent'
-                    last_sent = outgoing_message
+                    last_sent = event
                 elsif expecting_clarification and event.event_type == 'followup_sent'
-                    last_sent = outgoing_message
+                    last_sent = event
                     expecting_clarification = false
                 end
             end
@@ -297,12 +295,15 @@ public
     #
     # Freedom of Information Act 2000 section 10
     #
-    # XXX how do we cope with case where extra info was required from the requester
-    # by the public body in order to fulfill the request, as per sections 1(3) and 10(6b) ?
+    # How do we cope with case where extra info was required from the requester
+    # by the public body in order to fulfill the request, as per sections 1(3)
+    # and 10(6b) ? For clarifications this is covered by
+    # last_event_forming_initial_request. There may be more obscure
+    # things, e.g. fees, not properly covered.
     def date_response_required_by
         # Find the ear
-        last_sent = self.last_outgoing_message_forming_initial_request
-        last_sent_at = last_sent.last_sent_at
+        last_sent = self.last_event_forming_initial_request
+        last_sent_at = last_sent.outgoing_message.last_sent_at
 
         # Count forward 20 working days
         days_passed = 0

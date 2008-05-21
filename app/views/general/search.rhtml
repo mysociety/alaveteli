@@ -1,5 +1,13 @@
 <% @show_tips = @xapian_requests.nil? || (@total_hits == 0) %>
 
+<% # XXX should call find_tracking_people in controller, not here / in partial
+   if @track_thing and TrackThing.find_tracking_people(@track_thing).size > 0 %>
+    <div id="request_sidebar">
+    <h2>People tracking this search</h2>
+    <%= render :partial => 'track/tracking_people_and_link', :locals => { :track_thing => @track_thing, :list_people => true } %>
+    </div>
+<% end %>
+
 <% if @query.nil? %>
     <% @title = "Search Freedom of Information requests, public authorities and users" %>
     <h1><%=@title%></h1>
@@ -39,7 +47,7 @@
     <% end %>
 
     <% if @track_thing %>
-        <%= render :partial => 'track/tracking_people_and_link', :locals => { :track_thing => @track_thing, :own_request => false, :list_people => false } %>
+        <%= render :partial => 'track/tracking_people_and_link', :locals => { :track_thing => @track_thing, :list_people => false } %>
     <% end %>
 
     <% if @xapian_bodies.results.size > 0 %>

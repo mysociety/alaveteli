@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_public_body_controller.rb,v 1.13 2008-04-15 01:06:12 francis Exp $
+# $Id: admin_public_body_controller.rb,v 1.14 2008-05-21 22:37:32 francis Exp $
 
 class AdminPublicBodyController < ApplicationController
     layout "admin"
@@ -71,13 +71,13 @@ class AdminPublicBodyController < ApplicationController
             if not params[:tag].empty?
                 # Try with dry run first
                 csv_contents = params[:csv_file].read
-                en = PublicBody.import_csv(csv_contents, params[:tag], true)
+                en = PublicBody.import_csv(csv_contents, params[:tag], true, admin_http_auth_user())
                 errors = en[0]
                 notes = en[1]
 
                 if errors.size == 0
                     # And if OK, with real run
-                    en = PublicBody.import_csv(csv_contents, params[:tag], false)
+                    en = PublicBody.import_csv(csv_contents, params[:tag], false, admin_http_auth_user())
                     errors = en[0]
                     notes = en[1]
                     if errors.size != 0

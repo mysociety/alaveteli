@@ -26,7 +26,7 @@
             <h2>Response to FOI request '<%= request_link @info_request %>'</h2>
         <% end %>
     <% end %>
-
+    
     <% if @incoming_message.nil? %>
         <%= render :partial => 'correspondence', :locals => { :info_request_event => @info_request.get_last_outgoing_event, :incoming_message => nil } %>
     <% else %>

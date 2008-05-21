@@ -20,6 +20,16 @@
         <p>Use this to tell the public authority something, such as to clarify
         your request, or if they are late responding.</p>
 
+        <% if @info_request.calculate_status == 'waiting_response_overdue' %>
+            <p>This request is currently <strong>overdue a response</strong> from <%=
+            public_body_link(@info_request.public_body) %>. 
+            The response was due
+            on <strong><%= simple_date(@info_request.date_response_required_by) %></strong>
+            (<%= link_to "more info", about_url + "#quickly_response" %>). You can say
+            that under the Freedom of Information Act they should have replied by now.
+            </p>
+        <% end %>
+
         <% form_for(:outgoing_message, @outgoing_message) do |o| %>
             <p>
                 <%= o.text_area :body, :rows => 10, :cols => 55 %>

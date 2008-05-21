@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.71 2008-05-21 10:51:24 francis Exp $
+# $Id: public_body.rb,v 1.72 2008-05-21 22:37:33 francis Exp $
 
 require 'csv'
 require 'set'
@@ -154,7 +154,7 @@ class PublicBody < ActiveRecord::Base
     # Import from CSV. Just tests things and returns messages if dry_run is true.
     # Returns an array of [array of errors, array of notes]. If there are errors,
     # always rolls back (as with dry_run).
-    def self.import_csv(csv, tag, dry_run = false)
+    def self.import_csv(csv, tag, dry_run, editor)
         errors = []
         notes = []
 
@@ -195,14 +195,14 @@ class PublicBody < ActiveRecord::Base
                         if public_body.request_email != email
                             notes.push "line " + line.to_s + ": updating email for '" + name + "' from " + public_body.request_email + " to " + email
                             public_body.request_email = email
-                            public_body.last_edit_editor = 'import_csv'
+                            public_body.last_edit_editor = editor
                             public_body.last_edit_comment = 'Updated from spreadsheet'
                             public_body.save!
                         end
                     else
                         # New public body
                         notes.push "line " + line.to_s + ": new authority '" + name + "' with email " + email
-                        public_body = PublicBody.new(:name => name, :request_email => email, :short_name => "", :last_edit_editor => "import_csv", :last_edit_comment => 'Created from spreadsheet')
+                        public_body = PublicBody.new(:name => name, :request_email => email, :short_name => "", :last_edit_editor => editor, :last_edit_comment => 'Created from spreadsheet')
                         public_body.tag_string = tag
                         public_body.save!
                     end

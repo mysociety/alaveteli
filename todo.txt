@@ -1,5 +1,29 @@
+CVS
+---
+Show people tracking same query, when you are on search page.
+Put name of admin user rather than import_csv.
+Send automated email to remind people to clarify their request.
+Send response overdue alerts multiple times for one request.
+Overdue response alert email click through should show how many days overdue
+it is near where you write your reply.
+
+
+
+Altering updated_at for test code
+
+Test: Count how many clarification emails need to go out and run them manually
+after deploying
+
+XXX - is 3 day thing in self.alert_new_response_reminders stopping it working completely
+Change 14 days to 7? for when manually choose responses
+Check the table to see which of those alerts have gone out recently
+
 Test: Fix bug as to why "Vacant Council Housing Stock" didn't appear in my email
 alert - i.e. created at date compared, not described at date.
+
+#links and ?post_redirect knackered - e.g. from overdue email
+
+git push
 
 FOI requests to use to test it
 ==============================
@@ -42,12 +66,10 @@ Or just look at referrers as Julian says
 Advertise WDTK search queries on TWFY
 Advertise alerts on end pages with WDTK
 
-Do some performance profiling
+user/show.rhtml sidebar vs. generic sidebar?
 
 Later
 =====
-
-Show people tracking same query, when you are on search page
 
 Display current page (when not on first page), or perhaps range on both the
 /list pages, and on the /..../similar pages (maybe I missed it elsewhere too).
@@ -64,8 +86,6 @@ Never update cached attachment text unless cache is explicitly cleared
 
 Make highlighting of search terms in RSS actually light up (maybe ask Tommy)
 
-Put name of admin user rather than import_csv
-
 Link more clearly to full request and next/previous correspondence (ask Matthew)
     Perhaps always redirect to internal # links from the /response/ pages
 e.g. http://www.flickr.com/groups/central/discuss/72157604494352123/72157604515433851/
@@ -77,8 +97,6 @@ When you click RSS feed when on own request, default to RSS in the choice on nex
 
 Offer search on 404s
 
-Send automated email to remind people to clarify their request
-
 Preview when sending followups - especially people need to see quoting/subject
 when sending "my response is late"
 
@@ -87,6 +105,7 @@ Interface for when you change your email address - easier to do now with post_re
 One of the PDFs on live site has:
 Error: PDF version 1.6 -- xpdf supports version 1.5 (continuing anyway)
 Need to upgrade to poppler-utils?
+Check that it now shows editor fine
 
 Merge workflow into one stream - find information, if you can't find it then request it.
     so just search is on front page, with popular stuff below a la Google Directory
@@ -95,16 +114,10 @@ Use spelling correction for public bodies search?
 In sidebar of request 
     Share this request on Facebook, by email etc.
     Email icon here: http://www.guardian.co.uk/news/video/2008/apr/03/mugabe
+    Simple Digg style "I lke this request" button (doesn't tracking do?)
 
 Tell application developer if working days table not up to date, and needs
 updating
-
-Response overdue alerts (NOT TRACKS - this is old style alerts to requester)
-are only sent first time a request goes into that state :( Store id in alert of
-last event which resets the due date
-
-Overdue response alert email click through should show how many days overdue
-    it is near where you write your reply
 
 Synthesise these tips into our handful of snappy snappy bullet points
     http://community.foe.co.uk/tools/right_to_know/tips.html
@@ -177,8 +190,6 @@ Add geographical location to council import
 
 Holding pen with comments - new requests don't get sent straight away, but are
     delayed while people help improve them.
-
-Simple Digg style "I lke this request" button (doesn't tracking do?)
 
 Editable user profile, including photo upload
 

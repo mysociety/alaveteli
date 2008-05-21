@@ -17,7 +17,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user_info_request_sent_alert.rb,v 1.15 2008-05-21 10:51:24 francis Exp $
+# $Id: user_info_request_sent_alert.rb,v 1.16 2008-05-21 22:37:33 francis Exp $
 
 class UserInfoRequestSentAlert < ActiveRecord::Base
     belongs_to :user
@@ -25,7 +25,8 @@ class UserInfoRequestSentAlert < ActiveRecord::Base
 
     validates_inclusion_of :alert_type, :in => [ 
         'overdue_1', # tell user that info request has become overdue
-        'new_response_reminder_1' # reminder user to classify the recent response
+        'new_response_reminder_1', # reminder user to classify the recent response
+        'not_clarified_1', # reminder that user has to explain part of the request
     ]
 end
 

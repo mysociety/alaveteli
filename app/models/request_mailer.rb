@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.32 2008-05-19 12:01:22 francis Exp $
+# $Id: request_mailer.rb,v 1.33 2008-05-21 22:37:33 francis Exp $
 
 class RequestMailer < ApplicationMailer
     
@@ -113,6 +113,23 @@ class RequestMailer < ApplicationMailer
         @body = { :incoming_message => incoming_message, :info_request => info_request, :url => url }
     end
 
+    # Tell the requester that they need to clarify their request
+    def not_clarified_alert(info_request, incoming_message)
+        respond_url = show_response_url(:id => info_request.id, :incoming_message_id => incoming_message.id)
+        respond_url = respond_url + "#show_response_followup" 
+
+        post_redirect = PostRedirect.new(
+            :uri => respond_url,
+            :user_id => info_request.user.id)
+        post_redirect.save!
+        url = confirm_url(:email_token => post_redirect.email_token)
+
+        @from = contact_from_name_and_email
+        @recipients = info_request.user.name_and_email
+        @subject = "Clarify your FOI request - " + info_request.title
+        @body = { :incoming_message => incoming_message, :info_request => info_request, :url => url }
+    end
+
 
     # Class function, called by script/mailin with all incoming responses.
     # [ This is a copy (Monkeypatch!) of function from action_mailer/base.rb,
@@ -150,17 +167,19 @@ class RequestMailer < ApplicationMailer
         #STDERR.puts "alert_overdue_requests"
         info_requests = InfoRequest.find(:all, :conditions => [ "described_state = 'waiting_response' and not awaiting_description" ], :include => [ :user ] )
         for info_request in info_requests
+            alert_event_id = info_request.last_event_forming_initial_request.id
             # Only overdue requests
             if info_request.calculate_status == 'waiting_response_overdue'
                 # For now, just to the user who created the request
-                sent_already = UserInfoRequestSentAlert.find(:first, :conditions => [ "alert_type = 'overdue_1' and user_id = ? and info_request_id = ?", info_request.user_id, info_request.id])
+                sent_already = UserInfoRequestSentAlert.find(:first, :conditions => [ "alert_type = 'overdue_1' and user_id = ? and info_request_id = ? and info_request_event_id = ?", info_request.user_id, info_request.id, alert_event_id])
                 if sent_already.nil?
                     # Alert not yet sent for this user
-                    #STDERR.puts "sending overdue alert to info_request " + info_request.id.to_s + " user " + info_request.user_id.to_s
+                    #STDERR.puts "sending overdue alert to info_request " + info_request.id.to_s + " user " + info_request.user_id.to_s + " event " + alert_event_id
                     store_sent = UserInfoRequestSentAlert.new
                     store_sent.info_request = info_request
                     store_sent.user = info_request.user
                     store_sent.alert_type = 'overdue_1'
+                    store_sent.info_request_event_id = alert_event_id
                     RequestMailer.deliver_overdue_alert(info_request, info_request.user)
                     store_sent.save!
                     #STDERR.puts "sent " + info_request.user.email
@@ -191,6 +210,34 @@ class RequestMailer < ApplicationMailer
                 store_sent.alert_type = 'new_response_reminder_1'
                 store_sent.info_request_event_id = alert_event_id
                 RequestMailer.deliver_new_response_reminder_alert(info_request, last_response_message)
+                store_sent.save!
+                #STDERR.puts "sent " + info_request.user.email
+            end
+        end
+    end
+
+    # Send email alerts for requests which need clarification. Goes out 3 days
+    # after last update of event.
+    def self.alert_not_clarified_request()
+        #STDERR.puts "alert_not_clarified_request"
+        info_requests = InfoRequest.find(:all, :conditions => [ "not awaiting_description and described_state = 'waiting_clarification' and info_requests.updated_at < ?", Time.now() - 3.days ], :include => [ :user ], :order => "info_requests.id" )
+        for info_request in info_requests
+            alert_event_id = info_request.get_last_response_event_id
+            last_response_message = info_request.get_last_response
+            if alert_event_id.nil?
+                raise "internal error, no last response while making alert not clarified reminder, request id " + info_request.id.to_s
+            end
+            # To the user who created the request
+            sent_already = UserInfoRequestSentAlert.find(:first, :conditions => [ "alert_type = 'not_clarified_1' and user_id = ? and info_request_id = ? and info_request_event_id = ?", info_request.user_id, info_request.id, alert_event_id])
+            if sent_already.nil?
+                # Alert not yet sent for this user
+                STDERR.puts "sending clarification reminder alert to info_request " + info_request.id.to_s + " user " + info_request.user_id.to_s + " event " + alert_event_id.to_s
+                store_sent = UserInfoRequestSentAlert.new
+                store_sent.info_request = info_request
+                store_sent.user = info_request.user
+                store_sent.alert_type = 'not_clarified_1'
+                store_sent.info_request_event_id = alert_event_id
+                RequestMailer.deliver_not_clarified_alert(info_request, last_response_message)
                 store_sent.save!
                 #STDERR.puts "sent " + info_request.user.email
             end
