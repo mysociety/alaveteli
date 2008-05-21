@@ -1,18 +1,5 @@
-CVS
----
-
-Bullet list in credits on about page.
-Rename rss_at to described_at.
-Email alerts based on date of description, not just creation date (so don't
-miss things that were created before alert but described only recently)
-Tidy up when described vs. newest is used for sort order
-Caching of text extracted from attachments, and display in search results.
-
-
-
 Test: Fix bug as to why "Vacant Council Housing Stock" didn't appear in my email
 alert - i.e. created at date compared, not described at date.
-
 
 FOI requests to use to test it
 ==============================
@@ -51,8 +38,6 @@ Blog posts / Wikipedia articles about this request
     e.g. http://socialreporter.wordpress.com/2008/04/14/costs-of-the-bbc-action-action-network/
     http://reportr.net/2008/04/24/bbc-spent-6m-to-develop-the-iplayer/
 Or just look at referrers as Julian says
-
-Check test code coverage again - do we have all models
 
 Advertise WDTK search queries on TWFY
 Advertise alerts on end pages with WDTK
@@ -233,6 +218,7 @@ Quoting fixing TODO:
     http://www.whatdotheyknow.com/request/40/response/163 - Disclaimer
     http://www.whatdotheyknow.com/request/265/response/688 - word wrapping
     http://www.whatdotheyknow.com/request/180/response/482 (charset)
+    http://www.whatdotheyknow.com/request/576/response/812
    
 Sources of public bodies
 ========================
