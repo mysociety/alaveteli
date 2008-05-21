@@ -24,6 +24,9 @@
     <%=link_to_unless @sortby.nil?, "Show most relevant results first", search_url(@query, nil) %>
     |
     <%=link_to_unless @sortby == 'newest', "Newest results first", search_url(@query, 'newest') %>
+    <% if @sortby == 'described' %>
+    | Recently described results first
+    <% end %>
 <% end %>
 
 <% if @total_hits == 0 %>

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 55
+# Schema version: 56
 #
 # Table name: track_things
 #
@@ -21,7 +21,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_thing.rb,v 1.22 2008-05-19 12:01:22 francis Exp $
+# $Id: track_thing.rb,v 1.23 2008-05-21 10:51:24 francis Exp $
 
 class TrackThing < ActiveRecord::Base
     belongs_to :tracking_user, :class_name => 'User'
@@ -111,6 +111,8 @@ class TrackThing < ActiveRecord::Base
                     :web => "To follow updates to the request '" + CGI.escapeHTML(self.info_request.title) + "'",
                     :email => "Then you will be emailed whenever the request '" + CGI.escapeHTML(self.info_request.title) + "' is updated.",
                     :email_subject => "Confirm you want to follow updates to the request '" + CGI.escapeHTML(self.info_request.title) + "'",
+                    # RSS sorting
+                    :feed_sortby => 'newest'
                 }
             elsif self.track_type == 'all_new_requests'
                 @params = {
@@ -126,6 +128,8 @@ class TrackThing < ActiveRecord::Base
                     :web => "To be told about any new requests",
                     :email => "Then you will be emailed whenever anyone makes a new FOI request",
                     :email_subject => "Confirm you want to be emailed about new requests",
+                    # RSS sorting
+                    :feed_sortby => 'newest'
                 }
             elsif self.track_type == 'all_successful_requests'
                 @params = {
@@ -141,6 +145,11 @@ class TrackThing < ActiveRecord::Base
                     :web => "To be told about any successful requests",
                     :email => "Then you will be emailed whenever an FOI request succeeds",
                     :email_subject => "Confirm you want to be emailed when an FOI request succeeds",
+                    # RSS sorting - used described date, as newest would give a
+                    # date for responses possibly days before description, so
+                    # wouldn't appear at top of list when description (known
+                    # success) causes match.
+                    :feed_sortby => 'described'
                 }
             elsif self.track_type == 'public_body_updates'
                 @params = {
@@ -156,6 +165,8 @@ class TrackThing < ActiveRecord::Base
                     :web => "To be told about new requests to the public authority '" + CGI.escapeHTML(self.public_body.name) + "'",
                     :email => "Then you will be emailed whenever someone requests something from '" + CGI.escapeHTML(self.public_body.name) + "'.",
                     :email_subject => "Confirm you want to be told about new requests to '" + CGI.escapeHTML(self.public_body.name) + "'",
+                    # RSS sorting
+                    :feed_sortby => 'newest'
                 }
             elsif self.track_type == 'user_updates'
                 @params = {
@@ -171,6 +182,8 @@ class TrackThing < ActiveRecord::Base
                     :web => "To be told about new requests by '" + CGI.escapeHTML(self.tracked_user.name) + "'",
                     :email => "Then you will be emailed whenever '" + CGI.escapeHTML(self.tracked_user.name) + "' requests something",
                     :email_subject => "Confirm you want to be told about new requests by '" + CGI.escapeHTML(self.tracked_user.name) + "'",
+                    # RSS sorting
+                    :feed_sortby => 'newest'
                 }
             elsif self.track_type == 'search_query'
                 @params = {
@@ -186,15 +199,18 @@ class TrackThing < ActiveRecord::Base
                     :web => "To follow requests and responses matching '" + CGI.escapeHTML(self.track_query) + "'",
                     :email => "Then you will be emailed whenever a new request or response matches '" + CGI.escapeHTML(self.track_query) + "'.",
                     :email_subject => "Confirm you want to be told about new requests or responses matching '" + CGI.escapeHTML(self.track_query) + "'",
+                    # RSS sorting - XXX hmmm, we don't really know which to use
+                    # here for sorting. Might be a query term (e.g. 'cctv'), in
+                    # which case newest is good, or might be something like
+                    # all rejected requests in which case want to sort by
+                    # described (when we discover criteria is met). Rather
+                    # conservatively am picking described, as that will make
+                    # things appear in feed more than the should, rather than less.
+                    :feed_sortby => 'described'
                 }
               else
                 raise "unknown tracking type " + self.track_type
             end
-
-            # for RSS sort by described date, as newest would give a date for
-            # responses possibly days before description, so wouldn't appear at top
-            # of list when description causes match.
-            params[:feed_sortby] = 'described'
         end
         return @params
     end

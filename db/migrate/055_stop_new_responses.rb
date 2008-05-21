@@ -4,6 +4,6 @@ class StopNewResponses < ActiveRecord::Migration
     end
 
     def self.down
-        remove :info_requests, :stop_new_responses
+        remove_column :info_requests, :stop_new_responses
     end
 end

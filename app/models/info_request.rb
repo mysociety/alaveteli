@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 55
+# Schema version: 56
 #
 # Table name: info_requests
 #
@@ -22,7 +22,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.112 2008-05-19 12:01:22 francis Exp $
+# $Id: info_request.rb,v 1.113 2008-05-21 10:51:24 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')

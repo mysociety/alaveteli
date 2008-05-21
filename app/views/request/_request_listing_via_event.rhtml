@@ -13,17 +13,7 @@ end %>
         <% end %>
 	</span>
     <span class="desc">	
-        <%
-            # this will work, but will spawn catdoc and be slow!
-            #highlight_and_excerpt(event.search_text_main, @highlight_words, 150)
-        %>
-        <% if not event.outgoing_message.nil? %>
-            <%= highlight_and_excerpt(event.outgoing_message.body_without_salutation, @highlight_words, 150) %>
-        <% elsif not event.incoming_message.nil? %>
-            <%= highlight_and_excerpt(event.incoming_message.get_body_for_quoting, @highlight_words, 150) %>
-        <% else %>
-            <%= highlight_and_excerpt(info_request.initial_request_text, @highlight_words, 150) %>
-        <% end %>
+        <%= highlight_and_excerpt(event.search_text_main, @highlight_words, 150) %>
 	</span>
 
     <span class="bottomline icon_<%= info_request.calculate_status %>">

@@ -1,3 +1,19 @@
+CVS
+---
+
+Bullet list in credits on about page.
+Rename rss_at to described_at.
+Email alerts based on date of description, not just creation date (so don't
+miss things that were created before alert but described only recently)
+Tidy up when described vs. newest is used for sort order
+Caching of text extracted from attachments, and display in search results.
+
+
+
+Test: Fix bug as to why "Vacant Council Housing Stock" didn't appear in my email
+alert - i.e. created at date compared, not described at date.
+
+
 FOI requests to use to test it
 ==============================
 
@@ -38,11 +54,6 @@ Or just look at referrers as Julian says
 
 Check test code coverage again - do we have all models
 
-Reconsider described vs. newest sort order for the RSS for each track
-separately
-Bit confusing that sort order when you do "variety:successful" in query is by the date of creation.
-Should probably use the described date a lot more often for dates. But not sure, hard to tell.
-
 Advertise WDTK search queries on TWFY
 Advertise alerts on end pages with WDTK
 
@@ -63,8 +74,8 @@ s = InfoRequest.find(:all).select { |i| (not i.awaiting_description) and i.get_l
 
 Museum aliases
 
-Highlight text search finds in word docs
 Edits to outgoing/incoming/title won't be reindexed in Xapian (maybe just reindex all once a week)
+Never update cached attachment text unless cache is explicitly cleared
 
 Make highlighting of search terms in RSS actually light up (maybe ask Tommy)
 

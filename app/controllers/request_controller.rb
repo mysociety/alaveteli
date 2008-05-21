@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.90 2008-05-19 23:28:39 francis Exp $
+# $Id: request_controller.rb,v 1.91 2008-05-21 10:51:24 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -58,7 +58,7 @@ class RequestController < ApplicationController
             sortby = "newest"
             @track_thing = TrackThing.create_track_for_all_new_requests
         elsif @view == 'successful'
-            @title = "Recent successful responses"
+            @title = "Recently successful responses"
             query = 'variety:response (status:successful OR status:partially_successful)'
             sortby = "described"
             @track_thing = TrackThing.create_track_for_all_successful_requests

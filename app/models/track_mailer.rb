@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_mailer.rb,v 1.11 2008-05-18 21:57:42 francis Exp $
+# $Id: track_mailer.rb,v 1.12 2008-05-21 10:51:24 francis Exp $
 
 class TrackMailer < ApplicationMailer
     def event_digest(user, email_about_things)
@@ -40,14 +40,16 @@ class TrackMailer < ApplicationMailer
                     end
                 end
 
-                # Query for things in this track
-                xapian_object = InfoRequest.full_search([InfoRequestEvent], track_thing.track_query, 'created_at', false, nil, 100, 1) 
+                # Query for things in this track. We use described_at for the
+                # ordering, so we catch anything new (before described), or
+                # anything whose new status has been described.
+                xapian_object = InfoRequest.full_search([InfoRequestEvent], track_thing.track_query, 'described_at', false, nil, 200, 1) 
 
                 # Go through looking for unalerted things
                 alert_results = []
                 for result in xapian_object.results
                     if result[:model].class.to_s == "InfoRequestEvent"
-                        if not done_info_request_events.include?(result[:model].id) and track_thing.created_at < result[:model].created_at
+                        if not done_info_request_events.include?(result[:model].id) and track_thing.created_at < result[:model].described_at
                             # OK alert this one
                             alert_results.push(result)
                         end

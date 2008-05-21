@@ -111,7 +111,7 @@ triple of [ field, char, prefix ] where
 e.g. :terms => [ [ :variety, 'V', "variety" ] ]
         
 A 'field' is a symbol referring to either an attribute or a function which
-returns the text, date or number to index. Both 'number' and 'char' must be
+returns the text, date or number to index. Both 'identifier' and 'char' must be
 the same for the same prefix in different models.
 
 Alternatively, 

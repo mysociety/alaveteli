@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: general_controller.rb,v 1.27 2008-05-19 23:28:39 francis Exp $
+# $Id: general_controller.rb,v 1.28 2008-05-21 10:51:24 francis Exp $
 
 class GeneralController < ApplicationController
 
@@ -57,6 +57,8 @@ class GeneralController < ApplicationController
         # in config/routes.rb for comments.
         combined = params[:combined]
         sortby = nil
+        # XXX currently /described isn't linked to anywhere, just used in RSS and for /list/successful
+        # This is because it's confusingly different from /newest - but still useful for power users.
         if combined.size > 1 and (combined[-1] == 'newest' or combined[-1] == 'described')
             sortby = combined[-1]
             combined = combined[0..-2]

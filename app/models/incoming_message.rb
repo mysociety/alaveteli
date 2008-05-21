@@ -1,13 +1,14 @@
 # == Schema Information
-# Schema version: 55
+# Schema version: 56
 #
 # Table name: incoming_messages
 #
-#  id              :integer         not null, primary key
-#  info_request_id :integer         not null
-#  raw_data        :text            not null
-#  created_at      :datetime        not null
-#  updated_at      :datetime        not null
+#  id                     :integer         not null, primary key
+#  info_request_id        :integer         not null
+#  raw_data               :text            not null
+#  created_at             :datetime        not null
+#  updated_at             :datetime        not null
+#  cached_attachment_text :text            
 #
 
 # models/incoming_message.rb:
@@ -17,7 +18,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.102 2008-05-19 13:54:39 francis Exp $
+# $Id: incoming_message.rb,v 1.103 2008-05-21 10:51:24 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -566,6 +567,14 @@ text = IncomingMessage.mask_string_multicharset(text, 'request-144-a724c835@what
 
     # Returns text version of attachment text
     def get_attachment_text
+        if self.cached_attachment_text.nil?
+            attachment_text = self.get_attachment_text_internal
+            self.cached_attachment_text = attachment_text
+            self.save!
+        end
+        return self.cached_attachment_text
+    end
+    def get_attachment_text_internal
         text = ''
         attachments = self.get_attachments_for_display
         for attachment in attachments
