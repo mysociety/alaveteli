@@ -7,6 +7,8 @@ Contents
 * d. Documentation - indexing
 * e. Documentation - querying
 
+Official home page for acts_as_xapian:
+http://github.com/frabcus/acts_as_xapian/wikis
 
 a. Introduction to acts_as_xapian
 =================================
@@ -197,3 +199,6 @@ For more details about anything, see source code in lib/acts_as_xapian.rb -
 please though do patch this file if there is documentation missing / wrong.
 It's called README.txt and is in git, using Textile formatting. The wiki page
 is just copied from the README.txt file.
+
+The official home page and repository for acts_as_xapian are here:
+http://github.com/frabcus/acts_as_xapian/wikis
