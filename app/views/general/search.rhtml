@@ -4,7 +4,7 @@
    if @track_thing and TrackThing.find_tracking_people(@track_thing).size > 0 %>
     <div id="request_sidebar">
     <h2>People tracking this search</h2>
-    <%= render :partial => 'track/tracking_people_and_link', :locals => { :track_thing => @track_thing, :list_people => true } %>
+    <%= render :partial => 'track/tracking_people_and_link', :locals => { :track_thing => @track_thing, :list_people => true, :own_request => false } %>
     </div>
 <% end %>
 
@@ -47,7 +47,7 @@
     <% end %>
 
     <% if @track_thing %>
-        <%= render :partial => 'track/tracking_people_and_link', :locals => { :track_thing => @track_thing, :list_people => false } %>
+        <%= render :partial => 'track/tracking_people_and_link', :locals => { :track_thing => @track_thing, :list_people => false, :own_request => false } %>
     <% end %>
 
     <% if @xapian_bodies.results.size > 0 %>
