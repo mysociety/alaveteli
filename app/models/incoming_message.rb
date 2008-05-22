@@ -18,7 +18,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.103 2008-05-21 10:51:24 francis Exp $
+# $Id: incoming_message.rb,v 1.104 2008-05-22 11:23:14 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -575,6 +575,7 @@ text = IncomingMessage.mask_string_multicharset(text, 'request-144-a724c835@what
         return self.cached_attachment_text
     end
     def get_attachment_text_internal
+        # XXX - tell all these command line tools to return utf-8
         text = ''
         attachments = self.get_attachments_for_display
         for attachment in attachments
@@ -612,6 +613,8 @@ text = IncomingMessage.mask_string_multicharset(text, 'request-144-a724c835@what
                 tempfile.close
             end
         end
+        # Remove any bad characters
+        text = Iconv.conv('utf-8//IGNORE', 'utf-8', text)
         return text
     end
 
