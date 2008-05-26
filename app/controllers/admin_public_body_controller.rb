@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_public_body_controller.rb,v 1.14 2008-05-21 22:37:32 francis Exp $
+# $Id: admin_public_body_controller.rb,v 1.15 2008-05-26 12:25:36 francis Exp $
 
 class AdminPublicBodyController < ApplicationController
     layout "admin"
@@ -21,6 +21,7 @@ class AdminPublicBodyController < ApplicationController
             :conditions =>  @query.nil? ? nil : ["name ilike '%'||?||'%' or 
                              short_name ilike '%'||?||'%' or 
                              request_email ilike '%'||?||'%'", @query, @query, @query]
+        @public_bodies_by_tag = PublicBody.find_by_tag(@query) 
     end
 
     def show
