@@ -32,8 +32,6 @@ BAILII - relationship with law courts, robots.txt ?
 Next
 ====
 
-Detect postcodes
-
 Blog posts / Wikipedia articles about this request
     e.g. http://socialreporter.wordpress.com/2008/04/14/costs-of-the-bbc-action-action-network/
     http://reportr.net/2008/04/24/bbc-spent-6m-to-develop-the-iplayer/

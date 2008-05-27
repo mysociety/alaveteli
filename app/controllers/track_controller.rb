@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_controller.rb,v 1.21 2008-05-21 14:51:34 francis Exp $
+# $Id: track_controller.rb,v 1.22 2008-05-27 11:16:05 francis Exp $
 
 class TrackController < ApplicationController
 
@@ -97,7 +97,11 @@ class TrackController < ApplicationController
 
     # Track a search term
     def track_search_query
-        @query = params[:query]
+        # XXX should be better thing in rails routes than having to do this
+        # join just to get / and . to work in a query.
+        query_array = params[:query_array]
+        @query = query_array.join("/")
+
         @track_thing = TrackThing.create_track_for_search_query(@query)
         ret = self.track_set
         if ret
