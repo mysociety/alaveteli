@@ -21,7 +21,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_thing.rb,v 1.23 2008-05-21 10:51:24 francis Exp $
+# $Id: track_thing.rb,v 1.24 2008-05-27 01:25:09 francis Exp $
 
 class TrackThing < ActiveRecord::Base
     belongs_to :tracking_user, :class_name => 'User'
@@ -159,8 +159,8 @@ class TrackThing < ActiveRecord::Base
                     :verb_on_page => "Be told about new requests to this public authority",
                     :verb_on_page_already => "being told about new requests to this public authority",
                     # Email
-                    :title_in_email => "New FOI requests to '" + self.public_body.name + "'",
-                    :title_in_rss => "New FOI requests to '" + self.public_body.name + "'",
+                    :title_in_email => "New " + self.public_body.law_only_short + " requests to '" + self.public_body.name + "'",
+                    :title_in_rss => "New " + self.public_body.law_only_short + " requests to '" + self.public_body.name + "'",
                     # Authentication
                     :web => "To be told about new requests to the public authority '" + CGI.escapeHTML(self.public_body.name) + "'",
                     :email => "Then you will be emailed whenever someone requests something from '" + CGI.escapeHTML(self.public_body.name) + "'.",

@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.73 2008-05-27 01:19:45 francis Exp $
+# $Id: public_body.rb,v 1.74 2008-05-27 01:25:09 francis Exp $
 
 require 'csv'
 require 'set'
@@ -159,6 +159,13 @@ class PublicBody < ActiveRecord::Base
     # Are all requests to this body under the Environmental Information Regulations?
     def eir_only?
         return self.has_tag?('eir_only')
+    end
+    def law_only_short
+        if self.eir_only?
+            return "EIR"
+        else
+            return "FOI"
+        end
     end
 
 

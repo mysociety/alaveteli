@@ -1,6 +1,3 @@
-EIR:
-app/models/track_thing.rb:
-
 FOI requests to use to test it
 ==============================
 
