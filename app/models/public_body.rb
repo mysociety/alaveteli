@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.72 2008-05-21 22:37:33 francis Exp $
+# $Id: public_body.rb,v 1.73 2008-05-27 01:19:45 francis Exp $
 
 require 'csv'
 require 'set'
@@ -127,6 +127,14 @@ class PublicBody < ActiveRecord::Base
     def tag_string
         return self.public_body_tags.map { |t| t.name }.join(' ')
     end
+    def has_tag?(tag)
+        for public_body_tag in self.public_body_tags
+            if public_body_tag.name == tag
+                return true
+            end
+        end 
+        return false
+    end
 
     # Find all public bodies with a particular tag
     def self.find_by_tag(tag) 
@@ -147,6 +155,12 @@ class PublicBody < ActiveRecord::Base
             return "a public authority"
         end
     end
+
+    # Are all requests to this body under the Environmental Information Regulations?
+    def eir_only?
+        return self.has_tag?('eir_only')
+    end
+
 
     class ImportCSVDryRun < StandardError
     end

@@ -37,7 +37,7 @@
 <div id="request_main">
     <h1><%=@title%></h1>
 
-    <p class="subtitle">A Freedom of Information request to 
+    <p class="subtitle"><%=h @info_request.law_used_with_a%> to 
     <%= public_body_link(@info_request.public_body) %>
     by 
     <%= user_link(@info_request.user) %>

@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.91 2008-05-21 10:51:24 francis Exp $
+# $Id: request_controller.rb,v 1.92 2008-05-27 01:19:44 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -137,7 +137,7 @@ class RequestController < ApplicationController
             @info_request.save!
             # XXX send_message needs the database id, so we send after saving, which isn't ideal if the request broke here.
             @outgoing_message.send_message
-            flash[:notice] = "Your Freedom of Information request has been created and sent on its way!"
+            flash[:notice] = "Your " + @info_request.law_used_full + " request has been created and sent on its way!"
             redirect_to request_url(@info_request)
         else
             # do nothing - as "authenticated?" has done the redirect to signin page for us

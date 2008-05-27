@@ -11,18 +11,36 @@
 <%=@public_body.type_of_authority.capitalize%> in the UK<% if not @public_body.short_name.empty? %>, also called <%= h(@public_body.short_name) %><% end %>
 </p>
 
+<% if @public_body.eir_only? %>
+<p>You can only request information about the environment from this authority.</p>
+<% end %>
+
 <p>
+<% if @public_body.eir_only? %>
+<%= link_to "Make new EIR request to " + @public_body.short_or_long_name, new_request_to_body_url(:public_body_id => @public_body.id.to_s)%>
+<% else %>
 <%= link_to "Make new FOI request to " + @public_body.short_or_long_name, new_request_to_body_url(:public_body_id => @public_body.id.to_s)%>
+<% end %>
 </p>
 
 <% if @public_body.info_requests.empty? %>
-    <h2>Freedom of Information requests made to this authority</h2>
-    <p>Nobody has made any Freedom of Information requests to this public authority using this site.</p>
+    <% if @public_body.eir_only? %>
+        <h2>Environmental Information Regulations requests made to this authority</h2>
+        <p>Nobody has made any Environmental Information Regulations requests to this public authority using this site.</p>
+    <% else %>
+        <h2>Freedom of Information requests made to this authority</h2>
+        <p>Nobody has made any Freedom of Information requests to this public authority using this site.</p>
+    <% end %>
 
 <% else %>
     <h2>
-    <%=pluralize(@public_body.info_requests.size, "Freedom of Information request") %> made to this authority
+    <% if @public_body.eir_only? %>
+        <%=pluralize(@public_body.info_requests.size, "Environmental Information Regulations request") %> made to this authority
+    <% else %>
+        <%=pluralize(@public_body.info_requests.size, "Freedom of Information request") %> made to this authority
+    <% end %>
     </h2>
 
     <%= render :partial => 'request/request_listing', :locals => { :info_requests => @public_body.info_requests } %>
 <% end %>
+

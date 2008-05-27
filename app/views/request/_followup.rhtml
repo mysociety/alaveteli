@@ -26,7 +26,7 @@
             The response was due
             on <strong><%= simple_date(@info_request.date_response_required_by) %></strong>
             (<%= link_to "more info", about_url + "#quickly_response" %>). You can say
-            that under the Freedom of Information Act they should have replied by now.
+            that under the <%=h(@info_request.law_used_act)%> they should have replied by now.
             </p>
         <% end %>
 

@@ -22,7 +22,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.114 2008-05-21 22:37:33 francis Exp $
+# $Id: info_request.rb,v 1.115 2008-05-27 01:19:45 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -59,9 +59,18 @@ class InfoRequest < ActiveRecord::Base
         'backpage',
     ]
 
+    validates_inclusion_of :law_used, :in => [ 
+        'foi', # Freedom of Information Act
+        'eir', # Environmental Information Regulations
+    ]
+
     def after_initialize
         if self.described_state.nil?
             self.described_state = 'waiting_response'
+        end
+        # FOI or EIR?
+        if not self.public_body.nil? and self.public_body.eir_only?
+            self.law_used = 'eir'
         end
     end
 
@@ -128,11 +137,50 @@ public
 
     # Subject lines for emails about the request
     def email_subject_request
-        'Freedom of Information request - ' + self.title
+        self.law_used_full + ' request - ' + self.title
     end
     def email_subject_followup
-        'Re: Freedom of Information request - ' + self.title
+        'Re: ' + self.law_used_full + ' request - ' + self.title
     end
+
+    # Two sorts of laws for requests, FOI or EIR 
+    def law_used_full
+        if self.law_used == 'foi'
+            return "Freedom of Information"
+        elsif self.law_used == 'eir'
+            return "Environmental Information Regulations"
+        else
+            raise "Unknown law used '" + self.law_used + "'"
+        end
+    end
+    def law_used_short
+        if self.law_used == 'foi'
+            return "FOI"
+        elsif self.law_used == 'eir'
+            return "EIR"
+        else
+            raise "Unknown law used '" + self.law_used + "'"
+        end
+    end
+    def law_used_act
+        if self.law_used == 'foi'
+            return "Freedom of Information Act"
+        elsif self.law_used == 'eir'
+            return "Environmental Information Regulations"
+        else
+            raise "Unknown law used '" + self.law_used + "'"
+        end
+    end
+    def law_used_with_a
+        if self.law_used == 'foi'
+            return "A Freedom of Information request"
+        elsif self.law_used == 'eir'
+            return "An Environmental Information Regulations request"
+        else
+            raise "Unknown law used '" + self.law_used + "'"
+        end
+    end
+
 
     # Return info request corresponding to an incoming email address, or nil if
     # none found. Checks the hash to ensure the email came from the public body -
@@ -344,7 +392,7 @@ public
         return self.public_body.request_email
     end
     def recipient_name_and_email
-        return "FOI requests at " + self.public_body.short_or_long_name + " <" + self.recipient_email + ">"
+        return self.law_used_short + " requests at " + self.public_body.short_or_long_name + " <" + self.recipient_email + ">"
     end
 
     # History of some things that have happened

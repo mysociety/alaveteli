@@ -19,11 +19,11 @@
         <% end %>
     <% else %>
         <% if @incoming_message.nil? %>
-            <h2>Last message sent for FOI request '<%= request_link @info_request %>'</h2>
+            <h2>Last message sent for <%=h(@info_request.law_used_short)%> request '<%= request_link @info_request %>'</h2>
         <% elsif @incoming_message.recently_arrived %>
-            <h2>New response to FOI request '<%= request_link @info_request %>'</h2>
+            <h2>New response to <%=h(@info_request.law_used_short)%> request '<%= request_link @info_request %>'</h2>
         <% else %>
-            <h2>Response to FOI request '<%= request_link @info_request %>'</h2>
+            <h2>Response to <%=h(@info_request.law_used_short)%> request '<%= request_link @info_request %>'</h2>
         <% end %>
     <% end %>
     

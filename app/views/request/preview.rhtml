@@ -1,4 +1,4 @@
-<% @title = "Preview new FOI request to '" + h(@info_request.public_body.name) + "'" %>
+<% @title = "Preview new " + h(@info_request.law_used_short) + " request to '" + h(@info_request.public_body.name) + "'" %>
 
 <% form_for(:info_request, @info_request, :html => { :id => 'preview_form' }  ) do |f| %>
     
@@ -30,7 +30,7 @@
     <%= hidden_field_tag(:submitted_new_request, 1) %>
     <%= hidden_field_tag(:preview, 0 ) %>
     <%= submit_tag "Re-edit this request", :name => 'reedit' %>
-    <%= submit_tag "Send public Freedom of Information request", :name => 'submit' %>
+    <%= submit_tag "Send public " + h(@info_request.law_used_full) + " request", :name => 'submit' %>
     </p>
 
 <% end %>
