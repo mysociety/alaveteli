@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: outgoing_message.rb,v 1.50 2008-05-21 10:51:24 francis Exp $
+# $Id: outgoing_message.rb,v 1.51 2008-05-27 08:56:27 francis Exp $
 
 class OutgoingMessage < ActiveRecord::Base
     belongs_to :info_request
@@ -64,6 +64,14 @@ class OutgoingMessage < ActiveRecord::Base
         ret = self.body
         ret.sub!(/Dear .+,/, "")
         return ret
+    end
+
+    # Used to give warnings when writing new messages
+    def contains_email?
+        MySociety::Validate.email_find_regexp.match(self.body)
+    end
+    def contains_postcode?
+        MySociety::Validate.contains_postcode?(self.body)
     end
  
     # Set default letter

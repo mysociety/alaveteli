@@ -18,7 +18,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.104 2008-05-22 11:23:14 francis Exp $
+# $Id: incoming_message.rb,v 1.105 2008-05-27 08:56:27 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -215,8 +215,7 @@ text = IncomingMessage.mask_string_multicharset(text, 'request-144-a724c835@what
         # Remove any email addresses - we don't want bounce messages to leak out
         # either the requestor's email address or the request's response email
         # address out onto the internet
-        rx = Regexp.new("(\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}\\b)")
-        text.gsub!(rx, "[email address]")
+        text.gsub!(MySociety::Validate.email_find_regexp, "[email address]")
 
         return text
     end

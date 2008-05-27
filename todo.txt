@@ -32,8 +32,7 @@ BAILII - relationship with law courts, robots.txt ?
 Next
 ====
 
-Unescape titles in email alerts, e.g. for Disused & Live Stations
-and &quot; in body e.g. http://www.whatdotheyknow.com/request/breakdown_of_marketing_press_and#outgoing-784
+Detect postcodes
 
 Blog posts / Wikipedia articles about this request
     e.g. http://socialreporter.wordpress.com/2008/04/14/costs-of-the-bbc-action-action-network/
@@ -58,6 +57,7 @@ that from /search (which has this already) too.
 
 Check this again after a while, for dodgy states of events:
 s = InfoRequest.find(:all).select { |i| (not i.awaiting_description) and i.get_last_response_event_id and InfoRequestEvent.find(i.get_last_response_event_id).calculated_state != i.described_state }; s.size
+- XXXX so when somebody changes waiting description without changing described state doesn't log in event.
 
 Museum aliases
 
@@ -77,7 +77,7 @@ Offer option of a feed with the union of all your feeds (tartarus asked for this
 Offer search on 404s
 
 Preview when sending followups - especially people need to see quoting/subject
-when sending "my response is late"
+When sending "my response is late"
 
 Interface for when you change your email address - easier to do now with post_redirect.circumstance?
 
