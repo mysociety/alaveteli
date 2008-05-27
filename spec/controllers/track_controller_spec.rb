@@ -50,6 +50,8 @@ describe TrackController, "when sending alerts for a track" do
         mail.body =~ /(http:\/\/.*\/c\/(.*))/
         mail_url = $1
         mail_token = $2
+        
+        mail.body.should_not =~ /&amp;/
 
         # Check subscription managing link
 # XXX reenable this if we ever have a page manager in the track controller

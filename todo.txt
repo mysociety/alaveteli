@@ -206,10 +206,11 @@ Quoting fixing TODO:
     http://www.whatdotheyknow.com/request/299/response/484
     http://www.whatdotheyknow.com/request/320/response/605 (encoding, vcf)
     http://www.whatdotheyknow.com/request/118/response/600 (encoding)
+    http://www.whatdotheyknow.com/request/180/response/482 (charset)
+    http://www.whatdotheyknow.com/request/305/response/767 (charset)
     http://www.whatdotheyknow.com/request/235/response/513
     http://www.whatdotheyknow.com/request/40/response/163 - Disclaimer
     http://www.whatdotheyknow.com/request/265/response/688 - word wrapping
-    http://www.whatdotheyknow.com/request/180/response/482 (charset)
     http://www.whatdotheyknow.com/request/576/response/812
     http://www.whatdotheyknow.com/request/35/response/191
    
