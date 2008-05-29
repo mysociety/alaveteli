@@ -32,13 +32,24 @@ BAILII - relationship with law courts, robots.txt ?
 Next
 ====
 
+Advertise WDTK search queries on TWFY
+Advertise alerts on end pages with WDTK
+
+Do up the EIR about text
+Have a bash at quoted text fixing up
+Antispam on contact form
+
+Do something about shared spreadsheet
+
 Blog posts / Wikipedia articles about this request
     e.g. http://socialreporter.wordpress.com/2008/04/14/costs-of-the-bbc-action-action-network/
     http://reportr.net/2008/04/24/bbc-spent-6m-to-develop-the-iplayer/
 Or just look at referrers as Julian says
 
-Advertise WDTK search queries on TWFY
-Advertise alerts on end pages with WDTK
+In sidebar of request 
+    Share this request on Facebook, by email etc.
+    Email icon here: http://www.guardian.co.uk/news/video/2008/apr/03/mugabe
+    Simple Digg style "I lke this request" button (doesn't tracking do?)
 
 user/show.rhtml sidebar vs. generic sidebar? (ask Tommy)
 Needs tagline that v. quickly explains what site is on each page
@@ -87,11 +98,6 @@ Check that it now shows editor fine
 Merge workflow into one stream - find information, if you can't find it then request it.
     so just search is on front page, with popular stuff below a la Google Directory
 Use spelling correction for public bodies search?
-
-In sidebar of request 
-    Share this request on Facebook, by email etc.
-    Email icon here: http://www.guardian.co.uk/news/video/2008/apr/03/mugabe
-    Simple Digg style "I lke this request" button (doesn't tracking do?)
 
 Tell application developer if working days table not up to date, and needs
 updating
@@ -211,6 +217,9 @@ Quoting fixing TODO:
     http://www.whatdotheyknow.com/request/265/response/688 - word wrapping
     http://www.whatdotheyknow.com/request/576/response/812
     http://www.whatdotheyknow.com/request/35/response/191
+    http://www.whatdotheyknow.com/request/229/response/809
+    http://www.whatdotheyknow.com/request/268/response/405
+    http://www.whatdotheyknow.com/request/268/response/929 - £ signs
    
 Sources of public bodies
 ========================
