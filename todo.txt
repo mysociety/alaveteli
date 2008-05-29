@@ -35,7 +35,7 @@ Next
 Advertise WDTK search queries on TWFY
 Advertise alerts on end pages with WDTK
 
-Do up the EIR about text
+Internal review marker
 Have a bash at quoted text fixing up
 Antispam on contact form
 
@@ -188,39 +188,43 @@ Remove request email address from PDFs (we already do from docs)
      to text/HTML?
 
 Quoting fixing TODO:
+    #Footer onesided:
     http://www.whatdotheyknow.com/request/55/response/96
-    http://www.whatdotheyknow.com/request/m3_junction_2_eastbound_speed_re
-    http://www.whatdotheyknow.com/request/taxi_ranking
+    http://www.whatdotheyknow.com/request/320/response/605 (vcf)
+    http://www.whatdotheyknow.com/request/268/response/929
     http://www.whatdotheyknow.com/request/94/response/161
-    http://www.whatdotheyknow.com/request/sale_of_public_land_in_worcester
-    http://www.whatdotheyknow.com/request/35/response/191
-    http://www.whatdotheyknow.com/request/88/response/352 (and charset)
-    http://www.whatdotheyknow.com/request/51/response/93
-    http://www.whatdotheyknow.com/request/56/response/252
     http://www.whatdotheyknow.com/request/298/response/415
-    http://www.whatdotheyknow.com/request/119/response/447 # remove double blank lines
-    http://www.whatdotheyknow.com/request/council_tax_payments
-    http://www.whatdotheyknow.com/request/56/response/94
-    http://www.whatdotheyknow.com/request/83/response/212 # broken highlighted link
     http://www.whatdotheyknow.com/request/234/response/342
-    http://www.whatdotheyknow.com/request/297/response/506
     http://www.whatdotheyknow.com/request/297/response/449
-    http://www.whatdotheyknow.com/request/289/response/419
-    http://www.whatdotheyknow.com/request/235/response/513
+    http://www.whatdotheyknow.com/request/40/response/163 - Disclaimer
+    http://www.whatdotheyknow.com/request/35/response/191
+    http://www.whatdotheyknow.com/request/268/response/405
+
+    http://www.whatdotheyknow.com/request/35/response/191 # Funny disclaimer
+
+    http://www.whatdotheyknow.com/request/m3_junction_2_eastbound_speed_re # cut here
+    http://www.whatdotheyknow.com/request/123/response/184 # nasty nasty quoting of message
+    http://www.whatdotheyknow.com/request/155/response/552
+    http://www.whatdotheyknow.com/request/51/response/93 # tough quoting with <
+    http://www.whatdotheyknow.com/request/265/response/688 - word wrapping of <
+
+    Done:
+    http://www.whatdotheyknow.com/request/229/response/809
+    http://www.whatdotheyknow.com/request/576/response/812
     http://www.whatdotheyknow.com/request/299/response/484
-    http://www.whatdotheyknow.com/request/320/response/605 (encoding, vcf)
-    http://www.whatdotheyknow.com/request/118/response/600 (encoding)
+    http://www.whatdotheyknow.com/request/235/response/513
+    http://www.whatdotheyknow.com/request/88/response/352 (and charset)
     http://www.whatdotheyknow.com/request/180/response/482 (charset)
     http://www.whatdotheyknow.com/request/305/response/767 (charset)
+    http://www.whatdotheyknow.com/request/118/response/600 (encoding)
+    http://www.whatdotheyknow.com/request/83/response/212 # broken highlighted link
+    http://www.whatdotheyknow.com/request/sale_of_public_land_in_worcester
+    http://www.whatdotheyknow.com/request/council_tax_payments
+    http://www.whatdotheyknow.com/request/297/response/506
+    http://www.whatdotheyknow.com/request/289/response/419
     http://www.whatdotheyknow.com/request/235/response/513
-    http://www.whatdotheyknow.com/request/40/response/163 - Disclaimer
-    http://www.whatdotheyknow.com/request/265/response/688 - word wrapping
-    http://www.whatdotheyknow.com/request/576/response/812
-    http://www.whatdotheyknow.com/request/35/response/191
-    http://www.whatdotheyknow.com/request/229/response/809
-    http://www.whatdotheyknow.com/request/268/response/405
-    http://www.whatdotheyknow.com/request/268/response/929 - £ signs
-   
+    http://www.whatdotheyknow.com/request/sale_of_land_to_fairview_homes_m#incoming-552 # nicer with * * *
+    
 Sources of public bodies
 ========================
 

@@ -18,7 +18,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.105 2008-05-27 08:56:27 francis Exp $
+# $Id: incoming_message.rb,v 1.106 2008-05-29 20:06:05 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -229,6 +229,14 @@ text = IncomingMessage.mask_string_multicharset(text, 'request-144-a724c835@what
         # http://www.whatdotheyknow.com/request/university_investment_in_the_arm
         text.gsub!(/^#{name}[^\n]+\nSent by:[^\n]+\n.*/ims, "\n\n" + replacement)
 
+        # Some other sort of forwarding quoting
+        # http://www.whatdotheyknow.com/request/224/response/326
+        text.gsub!(/^#{name}[^\n]+\n[0-9\/:\s]+\s+To\s+FOI requests at.*/ims, "\n\n" + replacement)
+
+        # http://www.whatdotheyknow.com/request/how_do_the_pct_deal_with_retirin_33#incoming-930
+        # http://www.whatdotheyknow.com/request/229/response/809
+        text.gsub!(/^From: [^\n]+\nSent: [^\n]+\nTo:\s+['"?]#{name}['"]?\nSubject:.*/ims, "\n\n" + replacement)
+
         return text
 
     end
@@ -273,10 +281,12 @@ text = IncomingMessage.mask_string_multicharset(text, 'request-144-a724c835@what
         # http://www.whatdotheyknow.com/request/47/response/283
         # http://www.whatdotheyknow.com/request/30/response/166
         # http://www.whatdotheyknow.com/request/52/response/238
-        ['-', '_', '*'].each do |score|
+        # http://www.whatdotheyknow.com/request/224/response/328 # example with * * * * *
+        # http://www.whatdotheyknow.com/request/297/response/506
+        ['-', '_', '*', '* ', '#'].each do |score|
             text.gsub!(/(Disclaimer\s+)?  # appears just before
                         (\s*[#{score}]{8,}\s*\n.*? # top line ------------
-                        (disclaimer:\n|confidential|received\sthis\semail\sin\serror|virus|intended\s+recipient|monitored\s+centrally|intended\s+for\s+the\s+addressee)
+                        (disclaimer:\n|confidential|received\sthis\semail\sin\serror|virus|intended\s+recipient|monitored\s+centrally|intended\s+(for\s+|only\s+for\s+use\s+by\s+)the\s+addressee|routinely\s+monitored\s|MessageLabs)
                         .*?[#{score}]{8,}\s*\n) # bottom line -----------
                        /imx, replacement)
         end
@@ -300,13 +310,23 @@ text = IncomingMessage.mask_string_multicharset(text, 'request-144-a724c835@what
 
         # To end of message sections
         # http://www.whatdotheyknow.com/request/123/response/192
+        # http://www.whatdotheyknow.com/request/235/response/513
+        # http://www.whatdotheyknow.com/request/445/response/743
         original_message = 
-            '(' + '''------ This is a copy of the message, including all the headers. ------''' + 
-            '|' + '''-----*\s*Original Message\s*-----*''' +
-            '|' + '''-----*\s*Forwarded message.+-----*''' +
-            '|' + '''-----*\s*Forwarded by.+-----*''' +
+            '(' + '''----* This is a copy of the message, including all the headers. ----*''' + 
+            '|' + '''----*\s*Original Message\s*----*''' +
+            '|' + '''----*\s*Forwarded message.+----*''' +
+            '|' + '''----*\s*Forwarded by.+----*''' +
             ')'
-        text.gsub!(/^(#{original_message}\n.*)$/m, replacement)
+        # Could have a ^ at start here, but see messed up formatting here:
+        # http://www.whatdotheyknow.com/request/refuse_and_recycling_collection#incoming-842
+        text.gsub!(/(#{original_message}\n.*)$/mi, replacement)
+
+
+        # Some silly Microsoft XML gets into parts marked as plain text.
+        # e.g. http://www.whatdotheyknow.com/request/are_traffic_wardens_paid_commiss#incoming-401
+        # Don't replace with "replacement" as it's pretty messy
+        text.gsub!(/<\?xml:namespace[^>]*\/>/, " ")
 
         return text
     end
@@ -394,6 +414,10 @@ text = IncomingMessage.mask_string_multicharset(text, 'request-144-a724c835@what
         # Charset conversion, turn everything into UTF-8
         if not text_charset.nil?
             begin
+                # XXX specially convert unicode pound signs, was needed here
+                # http://www.whatdotheyknow.com/request/88/response/352
+                text.gsub!("£", Iconv.conv(text_charset, 'utf-8', '£')) 
+                # Try proper conversion
                 text = Iconv.conv('utf-8', text_charset, text)
             rescue Iconv::IllegalSequence, Iconv::InvalidEncoding
                 # Clearly specified charset was nonsense
@@ -538,7 +562,7 @@ text = IncomingMessage.mask_string_multicharset(text, 'request-144-a724c835@what
                 text = "[Subject only] " + CGI.escapeHTML(self.mail.subject) + text
             end
             # and display link for quoted stuff
-            text = text.gsub(/FOLDED_QUOTED_SECTION/, "\n\n" + '<span class="unfold_link"><a href="?unfold=1">show quoted sections</a></span>' + "\n")
+            text = text.gsub(/FOLDED_QUOTED_SECTION/, "\n\n" + '<span class="unfold_link"><a href="?unfold=1">show quoted sections</a></span>' + "\n\n")
         else
             if folded_quoted_text.include?('FOLDED_QUOTED_SECTION')
                 text = text + "\n\n" + '<span class="unfold_link"><a href="?">hide quoted sections</a></span>'
