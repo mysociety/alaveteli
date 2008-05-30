@@ -9,17 +9,15 @@ if [ -e log/mongrel.pid ]
 then
     ruby -I/usr/lib/ruby/ /usr/bin/mongrel_rails stop
     sleep 5s
+    if ( ps h -p `cat log/mongrel.pid` )
+    then
+	echo "kill -9 ing `cat log/mongrel.pid` because it failed to stop"
+	kill -9 `cat log/mongrel.pid`
+	sleep 2s
+    fi
     if [ -e log/mongrel.pid ]
     then
-	    if ( ps h -p `cat log/mongrel.pid`45 )
-	    then
-	    	echo "kill -9 ing `cat log/mongrel.pid` because it failed to stop"
-	    	kill -9 `cat log/mongrel.pid`
-		sleep 2s
-	    fi
-	    if [ -e log/mongrel.pid ]
-	    	rm log/mongrel.pid
-	    fi
+	rm log/mongrel.pid
     fi
     ruby -I/usr/lib/ruby/ /usr/bin/mongrel_rails start -d --debug
 else
