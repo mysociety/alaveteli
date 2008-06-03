@@ -1,5 +1,5 @@
-FOI requests to use to test it
-==============================
+FOI requests  (that need action)
+============
 
 Internal review:
 http://www.whatdotheyknow.com/request/search_engine_advertising_bought
@@ -21,22 +21,18 @@ information from the documents as they are disclosed, but I do not believe it
 is reasonable to withhold disclosure of even their titles, dates and number of
 pages.
 
-Please send me all documentation relating to the decision to use results from
-the Oxford Economic Forecasting's report "The Economic Contribution of the
-Aviation Industry in the UK" in the "Air Transport White Paper Progress Report
- 2006"
-
-BAILII - relationship with law courts, robots.txt ?
-
 
 Next
 ====
+
+Make unfold not crawlable
 
 Advertise WDTK search queries on TWFY
 Advertise alerts on end pages with WDTK
 
 Internal review marker
 Antispam on contact form
+Incoming email to unknown FOI is a bit rubbish
 
 Do something about shared spreadsheet
 
@@ -49,9 +45,12 @@ In sidebar of request
     Share this request on Facebook, by email etc.
     Email icon here: http://www.guardian.co.uk/news/video/2008/apr/03/mugabe
     Simple Digg style "I lke this request" button (doesn't tracking do?)
+Show list of popular tracks somewhere (finds most popular requests in a way)
 
 user/show.rhtml sidebar vs. generic sidebar? (ask Tommy)
 Needs tagline that v. quickly explains what site is on each page
+
+Cope with l instead of 1 for request emails
 
 Later
 =====
@@ -70,6 +69,7 @@ s = InfoRequest.find(:all).select { |i| (not i.awaiting_description) and i.get_l
 Museum aliases
 
 Edits to outgoing/incoming/title won't be reindexed in Xapian (maybe just reindex all once a week)
+And maybe edits to prominence, which is more upsetting
 Never update cached attachment text unless cache is explicitly cleared
 
 Link more clearly to full request and next/previous correspondence (ask Matthew)
@@ -79,6 +79,9 @@ e.g. http://www.flickr.com/groups/central/discuss/72157604494352123/721576045154
 Get Atom highlighting to include stylesheet for yellow somehow
 When you click RSS feed when on own request, default to RSS in the choice on next page
 Offer option of a feed with the union of all your feeds (tartarus asked for this).
+
+Just make RSS normal like on other sites rather than something you have to
+register for.
 
 "Some of the information" option should give you choice of complaining if you like.
 
@@ -105,14 +108,11 @@ Synthesise these tips into our handful of snappy snappy bullet points
     http://community.foe.co.uk/tools/right_to_know/tips.html
     http://www.justice.gov.uk/requestinginformation.htm
 
-Only show "is email right" footer the first time a new request is sent to that
-email?
+Only show "is email right" footer the first time a new request is sent to that email?
 Show public body email address on their public page, with a link to say "this isn't right!"
 
 Allow searching of authorities by tag
 CSV export of lists of emails for admins
-
-Show list of popular tracks somewhere (finds most popular requests in a way)
 
 Remember me box
     This can't possible be the best way, it is too depressing:
