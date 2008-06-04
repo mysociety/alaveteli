@@ -18,7 +18,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.108 2008-06-04 19:16:25 francis Exp $
+# $Id: incoming_message.rb,v 1.109 2008-06-04 20:00:41 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -441,11 +441,16 @@ text = IncomingMessage.mask_string_multicharset(text, 'request-144-a724c835@what
                     # Or is it good windows-1252, most likely
                     text = Iconv.conv('utf-8', 'windows-1252', text)
                 rescue Iconv::IllegalSequence
-                    # Just use it even though it is nonsense - treat as UTF-8
+                    # Text looks like unlabelled nonsense, strip out anything that isn't UTF-8
+                    text = Iconv.conv('utf-8//IGNORE', 'utf-8', text) + "\n\n[ WhatDoTheyKnow note: The above text was badly encoded, and has had strange characters removed. ]"
                 end
             end
 
         end
+        
+        # An assertion that we have ended up with UTF-8 XXX can remove as this should
+        # always be fine if code above is
+        Iconv.conv('utf-8', 'utf-8', text)
 
         # Fix DOS style linefeeds to Unix style ones (or other later regexps won't work)
         # Needed for e.g. http://www.whatdotheyknow.com/request/60/response/98
