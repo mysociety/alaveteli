@@ -24,7 +24,11 @@
   <td><%=h track_thing.id %></td>
   <td><%= user_admin_link(track_thing.tracking_user) %></td>
   <% for column in TrackThing.content_columns.map { |c| c.name } %>
-    <td><%=h track_thing.send(column) %></td>
+    <% if column == 'track_medium' and track_thing.track_medium == 'feed'%>
+         <td><%= link_to track_thing.track_medium, atom_feed_url(:track_id => track_thing.id) %></td>
+    <% else %>
+        <td><%=h track_thing.send(column) %></td>
+    <% end %>
   <% end %>
   <td><%= track_thing.track_things_sent_emails.size %></td>
   </tr>
