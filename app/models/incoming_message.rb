@@ -18,7 +18,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.107 2008-05-29 20:24:41 francis Exp $
+# $Id: incoming_message.rb,v 1.108 2008-06-04 19:16:25 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -283,12 +283,12 @@ text = IncomingMessage.mask_string_multicharset(text, 'request-144-a724c835@what
         # http://www.whatdotheyknow.com/request/52/response/238
         # http://www.whatdotheyknow.com/request/224/response/328 # example with * * * * *
         # http://www.whatdotheyknow.com/request/297/response/506
-        ['-', '_', '_ ', '*', '* ', '#'].each do |score|
-            text.gsub!(/(Disclaimer\s+)?  # appears just before
+        ['-', '_', '*', '#'].each do |score|
+            text.sub!(/(Disclaimer\s+)?  # appears just before
                         (
-                            \s*[#{score}]{8,}\s*\n.*? # top line
+                            \s*(?:[#{score}]\s*){8,}\s*\n.*? # top line
                             (disclaimer:\n|confidential|received\sthis\semail\sin\serror|virus|intended\s+recipient|monitored\s+centrally|intended\s+(for\s+|only\s+for\s+use\s+by\s+)the\s+addressee|routinely\s+monitored|MessageLabs|unauthorised\s+use)
-                            .*?([#{score}]{8,}\s*\n|\z) # bottom line OR end of whole string (for ones with no terminator XXX risky)
+                            .*?((?:[#{score}]\s*){8,}\s*\n|\z) # bottom line OR end of whole string (for ones with no terminator XXX risky)
                         )
                        /imx, replacement)
         end
