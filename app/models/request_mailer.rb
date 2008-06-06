@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.33 2008-05-21 22:37:33 francis Exp $
+# $Id: request_mailer.rb,v 1.34 2008-06-06 11:39:07 francis Exp $
 
 class RequestMailer < ApplicationMailer
     
@@ -20,16 +20,20 @@ class RequestMailer < ApplicationMailer
     # Later message to public body regarding existing request
     def followup(info_request, outgoing_message, incoming_message_followup)
         @from = info_request.incoming_name_and_email
-        if incoming_message_followup.nil?
-            @recipients = info_request.recipient_name_and_email
-        else
-            @recipients = incoming_message_followup.mail.from_addrs.to_s
-        end
+        @recipients = RequestMailer.name_and_email_for_followup(info_request, incoming_message_followup)
         @subject    = 'Re: Freedom of Information Request - ' + info_request.title
         @subject    = info_request.email_subject_followup
         @body       = {:info_request => info_request, :outgoing_message => outgoing_message,
             :incoming_message_followup => incoming_message_followup,
             :contact_email => MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost') }
+    end
+    # Separate function, so can be called from controller for logging
+    def RequestMailer.name_and_email_for_followup(info_request, incoming_message_followup)
+        if incoming_message_followup.nil?
+            @recipients = info_request.recipient_name_and_email
+        else
+            @recipients = incoming_message_followup.mail.from_addrs.to_s
+        end
     end
 
     # Incoming message arrived at FOI address, but hasn't got To:/CC: of valid request
