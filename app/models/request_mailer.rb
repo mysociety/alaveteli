@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.34 2008-06-06 11:39:07 francis Exp $
+# $Id: request_mailer.rb,v 1.35 2008-06-06 12:12:29 francis Exp $
 
 class RequestMailer < ApplicationMailer
     
@@ -113,7 +113,7 @@ class RequestMailer < ApplicationMailer
 
         @from = contact_from_name_and_email
         @recipients = info_request.user.name_and_email
-        @subject = "Did your recent FOI response contain information? - " + info_request.title
+        @subject = "Did the response you got contain what you wanted? - " + info_request.title
         @body = { :incoming_message => incoming_message, :info_request => info_request, :url => url }
     end
 
