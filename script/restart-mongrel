@@ -22,8 +22,8 @@ then
     then
         rm log/mongrel.pid
     fi
-    ruby -I/usr/lib/ruby/ /usr/bin/mongrel_rails start -d --debug
+    ruby -I/usr/lib/ruby/ /usr/bin/mongrel_rails start -d
 else
-    ruby -I/usr/lib/ruby/ /usr/bin/mongrel_rails start -d --debug
+    ruby -I/usr/lib/ruby/ /usr/bin/mongrel_rails start -d
 fi
 
