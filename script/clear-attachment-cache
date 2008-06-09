@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Clear the cache of attachment text.
+
+LOC=`dirname $0`
+
+$LOC/runner "ActiveRecord::Base.connection.execute(\"update incoming_messages set cached_attachment_text = null\")"
+
+
