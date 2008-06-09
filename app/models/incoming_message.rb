@@ -18,7 +18,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.109 2008-06-04 20:00:41 francis Exp $
+# $Id: incoming_message.rb,v 1.110 2008-06-09 14:21:49 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -206,20 +206,6 @@ text = IncomingMessage.mask_string_multicharset(text, 'request-144-a724c835@what
         return text 
     end
 
-    # Remove email addresses from text (mainly to reduce spam - particularly
-    # we want to stop spam to our own magic archiving request-* addresses,
-    # which would otherwise appear a lot in bounce messages and reply quotes etc.)
-    def self.remove_email_addresses(text)
-        text = text.dup
-
-        # Remove any email addresses - we don't want bounce messages to leak out
-        # either the requestor's email address or the request's response email
-        # address out onto the internet
-        text.gsub!(MySociety::Validate.email_find_regexp, "[email address]")
-
-        return text
-    end
-
     # Lotus notes quoting yeuch!
     def remove_lotus_quoting(text, replacement = "FOLDED_QUOTED_SECTION")
         text = text.dup
@@ -241,10 +227,22 @@ text = IncomingMessage.mask_string_multicharset(text, 'request-144-a724c835@what
 
     end
 
-    # Remove other stuff, such as details an FOI officer has asked to be removed.
-    def self.foi_officer_privacy(text)
+    # Remove emails, mobile phones and other details FOI officers ask us to remove.
+    def self.remove_privacy_sensitive_things(text)
         text = text.dup
 
+        # Remove any email addresses - we don't want bounce messages to leak out
+        # either the requestor's email address or the request's response email
+        # address out onto the internet
+        text.gsub!(MySociety::Validate.email_find_regexp, "[email address]")
+
+        # Mobile phone numbers
+        # http://www.whatdotheyknow.com/request/failed_test_purchases_off_licenc#incoming-1013
+        # http://www.whatdotheyknow.com/request/selective_licensing_statistics_i#incoming-550
+        # http://www.whatdotheyknow.com/request/common_purpose_training_graduate#incoming-774
+        text.gsub!(/(Mobile|Mob)([\s\/]*(Fax|Tel))*\s*:?[\s\d]*\d/, "[mobile number]")
+
+        # Specific removals
         # http://www.whatdotheyknow.com/request/total_number_of_objects_in_the_n_6
         text.gsub!(/\*\*\*+\nPolly Tucker.*/ms, "")
 
@@ -545,8 +543,7 @@ text = IncomingMessage.mask_string_multicharset(text, 'request-144-a724c835@what
         # Find the body text and remove emails for privacy/anti-spam reasons
         text = get_main_body_text
         text = self.mask_special_emails(text)
-        text = IncomingMessage.remove_email_addresses(text)
-        text = IncomingMessage.foi_officer_privacy(text)
+        text = IncomingMessage.remove_privacy_sensitive_things(text)
 
         # Remove quoted sections, adding HTML. XXX The FOLDED_QUOTED_SECTION is
         # a nasty hack so we can escape other HTML before adding the unfold
@@ -587,8 +584,7 @@ text = IncomingMessage.mask_string_multicharset(text, 'request-144-a724c835@what
         # Find the body text and remove emails for privacy/anti-spam reasons
         text = get_main_body_text
         text = self.mask_special_emails(text)
-        text = IncomingMessage.remove_email_addresses(text)
-        text = IncomingMessage.foi_officer_privacy(text)
+        text = IncomingMessage.remove_privacy_sensitive_things(text)
 
         # Remove existing quoted sections
         text = self.remove_lotus_quoting(text, '')
