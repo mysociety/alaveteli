@@ -6,7 +6,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: application.rb,v 1.47 2008-05-21 23:36:52 francis Exp $
+# $Id: application.rb,v 1.48 2008-06-10 15:12:02 francis Exp $
 
 
 class ApplicationController < ActionController::Base
@@ -125,10 +125,15 @@ class ApplicationController < ActionController::Base
 
     # For administration interface, return display name of authenticated user
     def admin_http_auth_user
-        if not request.env["REMOTE_USER"]
-            return "*unknown*";
-        else
+        # This needs special magic in mongrel: http://www.ruby-forum.com/topic/83067
+        # Hence the second clause which reads X-Forwarded-User header if available.
+        # See the rewrite rules in conf/httpd.conf which set X-Forwarded-User
+        if request.env["REMOTE_USER"]
             return request.env["REMOTE_USER"]
+        elsif request.env["HTTP_X_FORWARDED_USER"]
+            return request.env["HTTP_X_FORWARDED_USER"]
+        else
+            return "*unknown*";
         end
     end
     def assign_http_auth_user
