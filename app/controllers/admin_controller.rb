@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_controller.rb,v 1.15 2008-05-21 23:34:23 francis Exp $
+# $Id: admin_controller.rb,v 1.16 2008-06-10 10:18:57 francis Exp $
 
 class AdminController < ApplicationController
     layout "admin"
@@ -18,9 +18,10 @@ class AdminController < ApplicationController
         @track_thing_count = TrackThing.count
 
         # Tasks to do
-        @requires_admin_requests = InfoRequest.find(:all, :conditions => ["described_state = 'requires_admin'"])
-        @blank_contacts = PublicBody.find(:all, :conditions => ["request_email = ''"])
-        @one_week_old_unclassified = InfoRequest.find(:all, :conditions => [ "awaiting_description and (select created_at from info_request_events where info_request_events.info_request_id = info_requests.id order by created_at desc limit 1) < ? and prominence != 'backpage'", Time.now() - 1.weeks ])
+        last_event_time_clause = '(select created_at from info_request_events where info_request_events.info_request_id = info_requests.id order by created_at desc limit 1)'
+        @requires_admin_requests = InfoRequest.find(:all, :select => '*, ' + last_event_time_clause + ' as last_event_time', :conditions => ["described_state = 'requires_admin'"], :order => "last_event_time")
+        @blank_contacts = PublicBody.find(:all, :conditions => ["request_email = ''"], :order => "updated_at")
+        @one_week_old_unclassified = InfoRequest.find(:all, :select => '*, ' + last_event_time_clause + ' as last_event_time', :conditions => [ "awaiting_description and " + last_event_time_clause + " < ? and prominence != 'backpage'", Time.now() - 1.weeks ], :order => "last_event_time")
     end
 
     def timeline
