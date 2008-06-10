@@ -35,7 +35,7 @@
                 if not event.outgoing_message.nil?
                     extract = highlight_and_excerpt(event.outgoing_message.body_without_salutation, @highlight_words, 150, false)
                 elsif not event.incoming_message.nil?
-                    extract = highlight_and_excerpt(event.incoming_message.get_body_for_quoting, @highlight_words, 150, false)
+                    extract = highlight_and_excerpt(event.incoming_message.get_text_for_indexing, @highlight_words, 150, false)
                 else
                     extract = highlight_and_excerpt(info_request.initial_request_text, @highlight_words, 150, false)
                 end
