@@ -1,3 +1,10 @@
+Site move:
+    Install PostgresSQL 8.3
+    Move database
+
+This infers the wrong calculated state due to followups
+https://secure.mysociety.org/admin/foi/request/show/619
+
 FOI requests  (that need action)
 ============
 
@@ -25,7 +32,13 @@ pages.
 Next
 ====
 
-Make unfold not crawlable
+In flow, encourage people to make new requests rather than file new requests as
+follow ups on existing one.
+
+Another potential tweak to the Summary page unclassified section to
+add to requirements list - could you add in the date of last response
+& sort by ascending date order so that they can be classified in a
+rough order?
 
 Advertise WDTK search queries on TWFY
 Advertise alerts on end pages with WDTK
@@ -50,10 +63,21 @@ Show list of popular tracks somewhere (finds most popular requests in a way)
 user/show.rhtml sidebar vs. generic sidebar? (ask Tommy)
 Needs tagline that v. quickly explains what site is on each page
 
-Cope with l instead of 1 for request emails
+This one is a word doc by itself:
+http://www.whatdotheyknow.com/request/cost_benefit_analysis_for_real_n
 
 Later
 =====
+
+It's looking very nice!  I had a look at the M27 request, as per your
+earlier email, but I was a bit thrown by the date - is it the 27th
+today, or last week, or more recently.  Do you think it would be
+worthwhile appending "($days days ago)" to the date of each message,
+and "($days days to go)" to the due dates?  Saves people having to
+work out (in their heads or otherwise) how long they need to wait for
+a response. (Etienne)
+
+Maybe set it up to email team@ website errors?
 
 Renaming public authorities will break alerts on them.
 
@@ -70,7 +94,8 @@ Museum aliases
 
 Edits to outgoing/incoming/title won't be reindexed in Xapian (maybe just reindex all once a week)
 And maybe edits to prominence, which is more upsetting
-Never update cached attachment text unless cache is explicitly cleared
+Never updates cached attachment text unless cache is explicitly cleared (which
+might matter with software updates, or code changes)
 
 Link more clearly to full request and next/previous correspondence (ask Matthew)
     Perhaps always redirect to internal # links from the /response/ pages
@@ -91,11 +116,6 @@ Preview when sending followups - especially people need to see quoting/subject
 When sending "my response is late"
 
 Interface for when you change your email address - easier to do now with post_redirect.circumstance?
-
-One of the PDFs on live site has:
-Error: PDF version 1.6 -- xpdf supports version 1.5 (continuing anyway)
-Need to upgrade to poppler-utils?
-Check that it now shows editor fine
 
 Merge workflow into one stream - find information, if you can't find it then request it.
     so just search is on front page, with popular stuff below a la Google Directory
@@ -186,6 +206,9 @@ Remove request email address from PDFs (we already do from docs)
    - maybe if text contains email, refuse to show full PDF just show conversion
      to text/HTML?
 
+EU regulation 1049/2001
+US (with Sunlight)
+
 Quoting fixing TODO:
     http://www.whatdotheyknow.com/request/35/response/191 # Funny disclaimer
     http://www.whatdotheyknow.com/request/40/response/163 # funny disclaimer
@@ -199,4 +222,12 @@ Quoting fixing TODO:
     http://www.whatdotheyknow.com/request/265/response/688 # word wrapping of <
 
     http://www.whatdotheyknow.com/request/224/response/589 # have knackered the apostrophes here
+
+    Unclassified:
+    http://www.whatdotheyknow.com/request/666/response/1020
+    http://www.whatdotheyknow.com/request/364/response/1100
+    http://www.whatdotheyknow.com/request/council_housing_accommodation # over zealous half cuts
+    http://www.whatdotheyknow.com/request/621/response/1131 # virus footer
+
+
 
