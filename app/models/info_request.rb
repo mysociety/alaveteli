@@ -22,7 +22,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.115 2008-05-27 01:19:45 francis Exp $
+# $Id: info_request.rb,v 1.116 2008-06-11 00:05:44 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -335,7 +335,7 @@ public
         return last_sent
     end
 
-    # Calculate date by which response is required by law.
+    # Calculate date by end of which response is required by law.
     #
     #   ... "working day” means any day other than a Saturday, a Sunday, Christmas
     #   Day, Good Friday or a day which is a bank holiday under the [1971 c. 80.]
@@ -353,9 +353,18 @@ public
         last_sent = self.last_event_forming_initial_request
         last_sent_at = last_sent.outgoing_message.last_sent_at
 
-        # Count forward 20 working days
-        days_passed = 0
-        response_required_by = last_sent_at
+        # Count forward 20 working days. We start with today (or if not a working day,
+        # the next working day*) as "day zero". The first of the twenty full
+        # working days is the next day. We return the date of the last of the twenty.
+        #
+        # * See this response for example of a public authority complaining when we got
+        # that detail wrong: http://www.whatdotheyknow.com/request/364/response/1100
+       
+        # We have to skip non-working days at start to find day zero, so start at
+        # day -1 and at yesterday, so we can do that.
+        days_passed = -1 
+        response_required_by = last_sent_at - 1.day
+        # Now step forward into day zero, and then each of the 20 days.
         while days_passed < 20
             response_required_by = response_required_by + 1.day
             if response_required_by.wday == 0 || response_required_by.wday == 6
