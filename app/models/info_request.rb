@@ -22,7 +22,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.116 2008-06-11 00:05:44 francis Exp $
+# $Id: info_request.rb,v 1.117 2008-06-11 15:00:35 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -188,7 +188,7 @@ public
     # the prefix and domain, as sometimes those change, or might be elided by
     # copying an email, and that doesn't matter)
     def InfoRequest.find_by_incoming_email(incoming_email)
-        # Match case insensitively
+        # Match case insensitively, FOI officers often write Request with capital R.
         incoming_email = incoming_email.downcase
 
         # The optional bounce- dates from when we used to have separate emails for the envelope from.
@@ -197,6 +197,13 @@ public
         incoming_email =~ /request-(?:bounce-)?(\d+)-([a-z0-9]+)/
         id = $1.to_i
         hash = $2
+
+        if not hash.nil?
+            # Convert l to 1, and o to 0. FOI officers quite often retype the
+            # email address and make this kind of error.
+            hash.gsub!(/l/, "1")
+            hash.gsub!(/o/, "0")
+        end
 
         return self.find_by_magic_email(id, hash)
     end
