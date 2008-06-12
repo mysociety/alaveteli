@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user_controller.rb,v 1.47 2008-06-12 13:43:29 francis Exp $
+# $Id: user_controller.rb,v 1.48 2008-06-12 14:10:46 francis Exp $
 
 class UserController < ApplicationController
     # Show page about a set of users with same url name
@@ -30,6 +30,13 @@ class UserController < ApplicationController
     def signin
         work_out_post_redirect
 
+        if session.instance_variable_get(:@dbman)
+            if not session.instance_variable_get(:@dbman).instance_variable_get(:@original)
+                render :action => 'no_cookies'
+                return
+            end
+        end
+        
         if not params[:user_signin] 
             # First time page is shown
             render :action => 'sign' 

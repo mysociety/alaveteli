@@ -139,11 +139,7 @@ Show public body email address on their public page, with a link to say "this is
 Allow searching of authorities by tag
 CSV export of lists of emails for admins
 
-Remember me box
-    This can't possible be the best way, it is too depressing:
-    http://onrails.org/articles/2006/02/18/auto-login
-Then consider removing login links from notifications of new responses
-Matthew says - only set session cookie first time, not each request
+Consider removing login links from notifications of new responses, now we have rememeber me
 
 Screen scrape this and add link to it on the public body page
 http://www.ico.gov.uk/Home/tools_and_resources/decision_notices.aspx
