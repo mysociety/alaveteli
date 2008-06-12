@@ -176,6 +176,12 @@ select, input, textarea {
 .form_note {
     margin-left: 16.5em;
 }
+.form_checkbox {
+    margin-left: 16.5em;
+}
+.form_checkbox label {
+    font-weight: bold;
+}
 .form_button {
     margin-left: 16em;
 }
@@ -540,6 +546,9 @@ img.rss {
     width: 8em;
 }
 #sign_together .form_note {
+    margin-left: 8.5em;
+}
+#sign_together .form_checkbox {
     margin-left: 8.5em;
 }
 #sign_together .form_button {
