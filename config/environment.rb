@@ -19,6 +19,10 @@ load "config.rb"
 load "format.rb"
 
 Rails::Initializer.run do |config|
+  # Load intial mySociety config
+  MySociety::Config.set_file(File.join(config.root_path, 'config', 'general'), true)
+  MySociety::Config.load_default
+
   # Settings in config/environments/* take precedence over those specified here
   
   # Skip frameworks you're not going to use (only works if using vendor/rails)
@@ -34,9 +38,15 @@ Rails::Initializer.run do |config|
   # (by default production uses :info, the others :debug)
   # config.log_level = :debug
 
-  # Use the database for sessions instead of the file system
-  # (create the session table with 'rake db:sessions:create')
-  config.action_controller.session_store = :active_record_store
+  # Your secret key for verifying cookie session data integrity.
+  # If you change this key, all old sessions will become invalid!
+  # Make sure the secret is at least 30 characters and all random, 
+  # no regular words or you'll be exposed to dictionary attacks.
+  config.action_controller.session = {
+    :session_key => '_foi_cookie_session',
+    :secret => MySociety::Config.get("COOKIE_STORE_SESSION_SECRET", 'this default is insecure as code is open source, please override for live sites in config/general; this will do for local development'),
+  }
+  config.action_controller.session_store = :cookie_store
 
   # Use SQL instead of Active Record's schema dumper when creating the test database.
   # This is necessary if your schema can't be completely dumped by the schema dumper, 
@@ -50,10 +60,6 @@ Rails::Initializer.run do |config|
   config.active_record.default_timezone = :utc
   
   # See Rails::Configuration for more options
-  
-  # Load intial mySociety config
-  MySociety::Config.set_file(File.join(config.root_path, 'config', 'general'), true)
-  MySociety::Config.load_default
 end
 
 # Add new inflection rules using the following format 

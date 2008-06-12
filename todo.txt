@@ -1,3 +1,6 @@
+Cookie:
+    Delete cronjob
+
 Site move:
     Install PostgresSQL 8.3
     Move database
@@ -65,6 +68,8 @@ Needs tagline that v. quickly explains what site is on each page
 
 This one is a word doc by itself:
 http://www.whatdotheyknow.com/request/cost_benefit_analysis_for_real_n
+
+rename delete_old_sessions
 
 Later
 =====

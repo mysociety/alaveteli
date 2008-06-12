@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 57) do
+ActiveRecord::Schema.define(:version => 58) do
 
   create_table "acts_as_xapian_jobs", :force => true do |t|
     t.string  "model",    :null => false
@@ -117,16 +117,6 @@ ActiveRecord::Schema.define(:version => 57) do
     t.text     "last_edit_comment"
     t.text     "url_name"
   end
-
-  create_table "sessions", :force => true do |t|
-    t.string   "session_id"
-    t.text     "data"
-    t.datetime "updated_at"
-    t.datetime "created_at"
-  end
-
-  add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
-  add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
   create_table "track_things", :force => true do |t|
     t.integer  "tracking_user_id", :null => false

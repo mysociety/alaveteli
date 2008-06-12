@@ -19,6 +19,11 @@
     <%= link_to "Forgotten your password?", signchange_url + "?pretoken=" + h(params[:token]) %>
     </p>
 
+    <p class="form_note">
+    <%= check_box_tag 'remember_me', "1" %>
+    <label for="remember_me">Remember me</label>
+    </p>
+
     <div class="form_button">
     <%= hidden_field_tag 'token', params[:token], { :id => 'signin_token' } %>
     <%= submit_tag "Sign in" %>

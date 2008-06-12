@@ -6,22 +6,58 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: application.rb,v 1.48 2008-06-10 15:12:02 francis Exp $
+# $Id: application.rb,v 1.49 2008-06-12 13:43:29 francis Exp $
 
 
 class ApplicationController < ActionController::Base
-    # Standard hearders, footers and navigation for whole site
+    # Standard headers, footers and navigation for whole site
     layout "default"
 
-    # Pick a unique cookie name to distinguish our session data from others'
-    session :session_key => '_foi_session_id'
+    # Set cookie expiry according to "remember me" checkbox, as per "An easier
+    # and more flexible hack" on this page:
+    #   http://wiki.rubyonrails.org/rails/pages/HowtoChangeSessionOptions
+    before_filter :session_remember_me
+    def session_remember_me
+        # Reset the "sliding window" session expiry time.
+        if session[:remember_me]
+            expire_time = 1.month.from_now
+            # "Why is session[:force_new_cookie] set to Time.now? In order for the “sliding window”
+            # concept to work, a fresh cookie must be sent with every response. Rails only
+            # sends a cookie when the session data has changed so using a value like Time.now
+            # ensures that it changes every time. What I have actually found is that some
+            # internal voodoo causes the session data to change slightly anyway but it’s best
+            # to be sure!"
+            session[:force_new_cookie] = Time.now
+        else
+            expire_time = nil
+        end
+        # if statement here is so test code runs
+        if session.instance_variable_get(:@dbman)
+            session.instance_variable_get(:@dbman).instance_variable_get(:@cookie_options)['expires'] = expire_time
+        end
+    end
 
-    # Override default error handler
+    # Override default error handler, for production sites.
     def rescue_action_in_public(exception)
-        # do something based on exception
+        # Make sure expiry time for session is set (before_filters are
+        # otherwise missed by this override) 
+        session_remember_me
+
+        # Display user appropriate error message
         @exception_backtrace = exception.backtrace.join("\n")
         @exception_class = exception.class.to_s
         render :template => "general/exception_caught.rhtml", :status => 404
+    end
+
+    # For development sites.
+    alias original_rescue_action_locally rescue_action_locally
+    def rescue_action_locally(exception)
+        # Make sure expiry time for session is set (before_filters are
+        # otherwise missed by this override) 
+        session_remember_me
+
+        # Display default, detailed error for developers
+        original_rescue_action_locally(exception)
     end
       
     def local_request?
@@ -87,8 +123,11 @@ class ApplicationController < ActionController::Base
     # Do a POST redirect. This is a nasty hack - we store the posted values in
     # the session, and when the GET redirect with "?post_redirect=1" happens,
     # load them in.
-    def do_post_redirect(uri, params)
-        session[:post_redirect_params] = params
+    def do_post_redirect(post_redirect)
+        uri = post_redirect.uri
+
+        session[:post_redirect_token] = post_redirect.token
+
         # XXX what is the built in Ruby URI munging function that can do this
         # choice of & vs. ? more elegantly than this dumb if statement?
         if uri.include?("?")
@@ -110,8 +149,9 @@ class ApplicationController < ActionController::Base
     # If we are in a faked redirect to POST request, then set post params.
     before_filter :check_in_post_redirect
     def check_in_post_redirect
-        if params[:post_redirect] and session[:post_redirect_params]
-            params.update(session[:post_redirect_params])
+        if params[:post_redirect] and session[:post_redirect_token]
+            post_redirect = PostRedirect.find_by_token(session[:post_redirect_token])
+            params.update(post_redirect.post_params)
         end
     end
 

@@ -19,7 +19,7 @@
  * Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
  * Email: francis@mysociety.org; WWW: http://www.mysociety.org
  *
- * $Id: general-example,v 1.14 2008-05-18 23:50:05 francis Exp $
+ * $Id: general-example,v 1.15 2008-06-12 13:43:30 francis Exp $
  * 
  */
 
@@ -38,5 +38,8 @@ define('OPTION_INCOMING_EMAIL_SECRET', 'xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx'
 define('OPTION_CONTACT_EMAIL', 'admin@localhost');
 define('OPTION_ADMIN_BASE_URL', '/admin/');
 define('OPTION_ADMIN_PUBLIC_URL', '/'); // where /stylesheets sits under for admin pages
+
+// Secret key for signing cookie_store sessions
+define('OPTION_COOKIE_STORE_SESSION_SECRET', 'your secret key here, make it long and random');
 
 ?>

@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user_controller.rb,v 1.46 2008-05-12 10:57:43 francis Exp $
+# $Id: user_controller.rb,v 1.47 2008-06-12 13:43:29 francis Exp $
 
 class UserController < ApplicationController
     # Show page about a set of users with same url name
@@ -45,7 +45,8 @@ class UserController < ApplicationController
                 if @user_signin.email_confirmed
                     session[:user_id] = @user_signin.id
                     session[:user_circumstance] = nil
-                    do_post_redirect @post_redirect.uri, @post_redirect.post_params
+                    session[:remember_me] = params[:remember_me] ? true : false
+                    do_post_redirect @post_redirect
                 else
                     send_confirmation_mail @user_signin
                 end
@@ -96,7 +97,7 @@ class UserController < ApplicationController
         session[:user_id] = @user.id
         session[:user_circumstance] = post_redirect.circumstance
 
-        do_post_redirect post_redirect.uri, post_redirect.post_params
+        do_post_redirect post_redirect
     end
 
     # Logout form
@@ -166,7 +167,7 @@ class UserController < ApplicationController
                     flash[:notice] = "Your password has been changed."
                     if params[:pretoken] and not params[:pretoken].empty?
                         post_redirect = PostRedirect.find_by_token(params[:pretoken])
-                        do_post_redirect post_redirect.uri, post_redirect.post_params
+                        do_post_redirect post_redirect
                     else    
                         redirect_to user_url(@user)
                     end

@@ -3,6 +3,5 @@
 LOC=`dirname $0`
 
 $LOC/runner 'PostRedirect.delete_old_post_redirects()'
-$LOC/runner "ActiveRecord::Base.connection.execute(\"delete from sessions where now() - updated_at > '1 month'\")"
 
 
