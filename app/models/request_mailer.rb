@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.35 2008-06-06 12:12:29 francis Exp $
+# $Id: request_mailer.rb,v 1.36 2008-06-12 15:14:15 francis Exp $
 
 class RequestMailer < ApplicationMailer
     
@@ -158,6 +158,7 @@ class RequestMailer < ApplicationMailer
         # Nothing found
         if reply_info_requests.size == 0 
             RequestMailer.deliver_bounced_message(email)
+            return
         end
 
         # Send the message to each request, to be archived with it
