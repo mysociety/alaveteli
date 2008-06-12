@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user_controller.rb,v 1.48 2008-06-12 14:10:46 francis Exp $
+# $Id: user_controller.rb,v 1.49 2008-06-12 14:35:09 francis Exp $
 
 class UserController < ApplicationController
     # Show page about a set of users with same url name
@@ -111,6 +111,7 @@ class UserController < ApplicationController
     def signout
         session[:user_id] = nil
         session[:user_circumstance] = nil
+        session[:remember_me] = false
         if params[:r]
             redirect_to params[:r]
         else
