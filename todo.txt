@@ -63,11 +63,6 @@ Show list of popular tracks somewhere (finds most popular requests in a way)
 user/show.rhtml sidebar vs. generic sidebar? (ask Tommy)
 Needs tagline that v. quickly explains what site is on each page
 
-This one is a word doc by itself:
-http://www.whatdotheyknow.com/request/cost_benefit_analysis_for_real_n
-
-rename delete_old_sessions
-
 Later
 =====
 

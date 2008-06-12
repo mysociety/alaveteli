@@ -18,7 +18,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.110 2008-06-09 14:21:49 francis Exp $
+# $Id: incoming_message.rb,v 1.111 2008-06-12 14:30:08 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -398,17 +398,22 @@ text = IncomingMessage.mask_string_multicharset(text, 'request-144-a724c835@what
     # Returns body text from main text part of email, converted to UTF-8
     def get_main_body_text_internal
         main_part = get_main_body_text_part
-        text = main_part.body
-        text_charset = main_part.charset
-        if main_part.content_type == 'text/html'
-            # XXX could use better HTML to text conversion than this!
-            # (it only matters for emails without a text part, so not a massive deal
-            # e.g. http://www.whatdotheyknow.com/request/35/response/177 )
-            text.gsub!(/<br[^>]+>/, "\n")
-            text.gsub!(/<p[^>]+>/, "\n\n")
-            text.gsub!(/<div[^>]+>/, "\n\n")
-            text.gsub!(/<\/?[^>]*>/, "")
-            text = HTMLEntities.decode_entities(text)
+        if main_part.nil?
+            text = "[ Email has no body, please see attachments ]"
+            text_charset = "utf-8"
+        else
+            text = main_part.body
+            text_charset = main_part.charset
+            if main_part.content_type == 'text/html'
+                # XXX could use better HTML to text conversion than this!
+                # (it only matters for emails without a text part, so not a massive deal
+                # e.g. http://www.whatdotheyknow.com/request/35/response/177 )
+                text.gsub!(/<br[^>]+>/, "\n")
+                text.gsub!(/<p[^>]+>/, "\n\n")
+                text.gsub!(/<div[^>]+>/, "\n\n")
+                text.gsub!(/<\/?[^>]*>/, "")
+                text = HTMLEntities.decode_entities(text)
+            end
         end
 
         # Charset conversion, turn everything into UTF-8
@@ -456,7 +461,7 @@ text = IncomingMessage.mask_string_multicharset(text, 'request-144-a724c835@what
 
         return text
     end
-    # Returns part which contains main body text
+    # Returns part which contains main body text, or nil if there isn't one
     def get_main_body_text_part
         leaves = get_attachment_leaves
         
@@ -474,9 +479,19 @@ text = IncomingMessage.mask_string_multicharset(text, 'request-144-a724c835@what
             end
         end
  
-        # ... or if none, just first part (covers cases of one part, not
-        # labelled as text - not sure what the better way to handle this is)
-        return leaves[0]
+        # ... or if none, consider first part 
+        p = leaves[0]
+        # if it is a known type then don't use it, return no body (nil)
+        if mimetype_to_extension(p.content_type)
+            # this is guess of case where there are only attachments, no body text
+            # e.g. http://www.whatdotheyknow.com/request/cost_benefit_analysis_for_real_n
+            return nil
+        end
+        # otherwise return it assuming it is text (sometimes you get things
+        # like binary/octet-stream, or the like, which are really text - XXX if
+        # you find an example, put URL here - perhaps we should be always returning
+        # nil in this case)
+        return p
     end
     # Returns attachments that are uuencoded in main body part
     def get_main_body_text_uudecode_attachments
