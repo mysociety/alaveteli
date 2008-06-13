@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.36 2008-06-12 15:14:15 francis Exp $
+# $Id: request_mailer.rb,v 1.37 2008-06-13 09:15:44 francis Exp $
 
 class RequestMailer < ApplicationMailer
     
@@ -21,7 +21,6 @@ class RequestMailer < ApplicationMailer
     def followup(info_request, outgoing_message, incoming_message_followup)
         @from = info_request.incoming_name_and_email
         @recipients = RequestMailer.name_and_email_for_followup(info_request, incoming_message_followup)
-        @subject    = 'Re: Freedom of Information Request - ' + info_request.title
         @subject    = info_request.email_subject_followup
         @body       = {:info_request => info_request, :outgoing_message => outgoing_message,
             :incoming_message_followup => incoming_message_followup,
