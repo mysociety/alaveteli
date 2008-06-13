@@ -4,10 +4,13 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org. WWW: http://www.mysociety.org/
 #
-# $Id: crontab.ugly,v 1.13 2008-06-12 14:17:31 francis Exp $
+# $Id: crontab.ugly,v 1.14 2008-06-13 10:14:30 francis Exp $
 
 PATH=/usr/local/bin:/usr/bin:/bin
 MAILTO=team@whatdotheyknow.com
+
+# Start mongrel after reboot
+@reboot /data/vhost/!!(*= $vhost *)!!/mysociety/foi/script/restart-mongrel
 
 # Every 10 minutes
 */10 * * * * !!(*= $user *)!! run-with-lockfile -n /data/vhost/!!(*= $vhost *)!!/update-xapian-index.lock /data/vhost/!!(*= $vhost *)!!/mysociety/foi/script/update-xapian-index || echo "stalled?"
