@@ -2,9 +2,6 @@ Site move:
     Install PostgresSQL 8.3
     Move database
 
-This infers the wrong calculated state due to followups
-https://secure.mysociety.org/admin/foi/request/show/619
-
 FOI requests  (that need action)
 ============
 
@@ -32,18 +29,17 @@ pages.
 Next
 ====
 
+This infers the wrong calculated state due to followups
+https://secure.mysociety.org/admin/foi/request/show/619
+
 In flow, encourage people to make new requests rather than file new requests as
 follow ups on existing one.
-
-Another potential tweak to the Summary page unclassified section to
-add to requirements list - could you add in the date of last response
-& sort by ascending date order so that they can be classified in a
-rough order?
 
 Advertise WDTK search queries on TWFY
 Advertise alerts on end pages with WDTK
 
 Internal review marker
+
 Antispam on contact form
 Incoming email to unknown FOI is a bit rubbish
 
@@ -87,8 +83,6 @@ Check this again after a while, for dodgy states of events:
 s = InfoRequest.find(:all).select { |i| (not i.awaiting_description) and i.get_last_response_event_id and InfoRequestEvent.find(i.get_last_response_event_id).calculated_state != i.described_state }; s.size
 - XXXX so when somebody changes waiting description without changing described state doesn't log in event.
 
-Museum aliases
-
 Edits to outgoing/incoming/title won't be reindexed in Xapian (maybe just reindex all once a week)
 And maybe edits to prominence, which is more upsetting
 Never updates cached attachment text unless cache is explicitly cleared (which
@@ -109,14 +103,13 @@ register for.
 
 Offer search on 404s
 
+Rate limit requests using Ratty, with a freeze thing WTT-style, to detect
+vexatious requests.
+
 Preview when sending followups - especially people need to see quoting/subject
 When sending "my response is late"
 
 Interface for when you change your email address - easier to do now with post_redirect.circumstance?
-
-Merge workflow into one stream - find information, if you can't find it then request it.
-    so just search is on front page, with popular stuff below a la Google Directory
-Use spelling correction for public bodies search?
 
 Tell application developer if working days table not up to date, and needs
 updating
@@ -125,26 +118,12 @@ Synthesise these tips into our handful of snappy snappy bullet points
     http://community.foe.co.uk/tools/right_to_know/tips.html
     http://www.justice.gov.uk/requestinginformation.htm
 
-Only show "is email right" footer the first time a new request is sent to that email?
-Show public body email address on their public page, with a link to say "this isn't right!"
-
-Allow searching of authorities by tag
-CSV export of lists of emails for admins
-
-Consider removing login links from notifications of new responses, now we have rememeber me
-
-Screen scrape this and add link to it on the public body page
-http://www.ico.gov.uk/Home/tools_and_resources/decision_notices.aspx
+Consider removing login links from notifications of new responses, now we have remember me
 
 (10:32:14) richard: you just need to count the number of rows of text and compare it to the number of rows in the textbox
 (10:32:29) richard: then increase the height of the textbox by 1em-ish
 (10:32:52) Matthew: their function is called autogrow_textarea() by the way, if you just want to look at it...
  thanks :) I won't do it now as there are more important things, I was just accidentally impressed
-
-Hyperlink Section 1(3) to the act
-    http://www.whatdotheyknow.com/request/49/response/86
-and to guidance notes
-    http://www.ico.gov.uk/what_we_cover/freedom_of_information/guidance.aspx
 
 Properly escape all name_and_email functions
 
@@ -156,51 +135,13 @@ http://www.parliament.uk/parliamentary_publications_and_archives/freedom_of_info
 
 Including 'Request for information' in the subject line of your e-mail will assist us in prioritising your request.
 http://www.parliament.uk/parliamentary_publications_and_archives/freedom_of_information_in_the_house_of_lords/lords__foi___how_to_obtain_information.cfm
-XXX do we need specifically that text, is it better than "Freedom of Information Request" which we put now?
+XXX do we need specifically that text, is it better than "Freedom of Information request" which we put now?
 Medway also hint at this with subject= on mailto link
-
-OCR all images automatically, even if badly (check for tiffs!)
-Maybe use Scrbd's free service :) http://www.scribd.com/paper
-
-Ask what they learnt from request, and other things?
-    and reward by putting their request on front page
-
-Description for each body as to what info it holds
-Link to:
-    Aliases (not just short name, but multiple real names)
-    Disclosure logs
-    Publication schemes (http://www.ico.gov.uk/what_we_cover/freedom_of_information/publication_schemes.aspx)
-    Website itself (for general search)
-    Google search within website?
-    TWFY department search
-    Complaint email
-e.g.
-    http://www.ordnancesurvey.co.uk/oswebsite/aboutus/foi/index.html
-    http://www.ordnancesurvey.co.uk/oswebsite/aboutus/foi/coiindex.html
-
-Environmental Information Regulations apply for some bodies (e.g. environment agency) do automatically
-    tag such bodies eir?
-http://community.foe.co.uk/tools/right_to_know/faq.html#why_specify
-
-Add geographical location to council import
-Have a single button to sign up to alerts on all your council PCTs etc.
-
-Holding pen with comments - new requests don't get sent straight away, but are
-    delayed while people help improve them.
-
-Editable user profile, including photo upload
-
-Show documents inline (word docs etc.)
-Julian's PDF excerpting thing for highlighting paragraphs
-   and convert Word Docs to PDFs too
 
 Remove request email address from PDFs (we already do from docs)
    http://www.whatdotheyknow.com/request/cost_of_policing_the_oxford_unio_3
    - maybe if text contains email, refuse to show full PDF just show conversion
      to text/HTML?
-
-EU regulation 1049/2001
-US (with Sunlight)
 
 Quoting fixing TODO:
     http://www.whatdotheyknow.com/request/35/response/191 # Funny disclaimer
@@ -222,5 +163,56 @@ Quoting fixing TODO:
     http://www.whatdotheyknow.com/request/council_housing_accommodation # over zealous half cuts
     http://www.whatdotheyknow.com/request/621/response/1131 # virus footer
 
+Larger new features
+-------------------
+
+Merge workflow into one stream - find information, if you can't find it then request it.
+    so just search is on front page, with popular stuff below a la Google Directory
+Use spelling correction for public bodies search?
+
+Editable user profile, including photo upload
+
+Show documents inline (word docs etc.)
+Julian's PDF excerpting thing for highlighting paragraphs
+   and convert Word Docs to PDFs too
+
+Add geographical location to council import
+Have a single button to sign up to alerts on all your council PCTs etc.
+
+Holding pen with comments - new requests don't get sent straight away, but are
+    delayed while people help improve them.
+
+Screen scrape this and add link to it on the public body page
+http://www.ico.gov.uk/Home/tools_and_resources/decision_notices.aspx
+
+Description for each body as to what info it holds
+Link to:
+    Aliases (not just short name, but multiple real names e.g. for museums)
+    Disclosure logs
+    Publication schemes (http://www.ico.gov.uk/what_we_cover/freedom_of_information/publication_schemes.aspx)
+    Website itself (for general search) XXX can get this from domain of email and some scanning
+    Google search within website?
+    TWFY department search
+    Complaint email
+e.g.
+    http://www.ordnancesurvey.co.uk/oswebsite/aboutus/foi/index.html
+    http://www.ordnancesurvey.co.uk/oswebsite/aboutus/foi/coiindex.html
+
+EU regulation 1049/2001
+US (with Sunlight)
+
+Ask what they learnt from request, and other things?
+    and reward by putting their request on front page
+
+OCR all images automatically, even if badly (check for tiffs!)
+Maybe use Scrbd's free service :) http://www.scribd.com/paper
+
+Hyperlink Section 1(3) to the act
+    http://www.whatdotheyknow.com/request/49/response/86
+and to guidance notes
+    http://www.ico.gov.uk/what_we_cover/freedom_of_information/guidance.aspx
+
+Only show "is email right" footer the first time a new request is sent to that email?
+Show public body email address on their public page, with a link to say "this isn't right!"
 
 
