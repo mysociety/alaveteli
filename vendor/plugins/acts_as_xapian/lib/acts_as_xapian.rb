@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: acts_as_xapian.rb,v 1.27 2008-05-18 22:26:21 francis Exp $
+# $Id: acts_as_xapian.rb,v 1.28 2008-06-23 20:43:30 francis Exp $
 
 # Documentation
 # =============
@@ -381,13 +381,14 @@ module ActsAsXapian
     # flush your changes. Specifying flush will reduce performance, but 
     # make sure that each index update is definitely saved to disk before
     # logging in the database that it has been.
-    def ActsAsXapian.update_index(flush = false)
+    def ActsAsXapian.update_index(flush = false, verbose = false)
         ActsAsXapian.writable_init
 
         ids_to_refresh = ActsAsXapianJob.find(:all).map() { |i| i.id }
         for id in ids_to_refresh
             ActiveRecord::Base.transaction do
                 job = ActsAsXapianJob.find(id, :lock =>true)
+                STDERR.puts("ActsAsXapian.update_index #{job.action} #{job.model} #{job.model_id.to_s}") if verbose
                 if job.action == 'update'
                     # XXX Index functions may reference other models, so we could eager load here too?
                     model = job.model.constantize.find(job.model_id) # :include => cls.constantize.xapian_options[:include]
@@ -411,7 +412,7 @@ module ActsAsXapian
         
     # You must specify *all* the models here, this totally rebuilds the Xapian database.
     # You'll want any readers to reopen the database after this.
-    def ActsAsXapian.rebuild_index(model_classes)
+    def ActsAsXapian.rebuild_index(model_classes, verbose = false)
         raise "when rebuilding all, please call as first and only thing done in process / task" if not ActsAsXapian.writable_db.nil?
 
         # Delete any existing .new database, and open a new one
@@ -423,10 +424,15 @@ module ActsAsXapian
         ActsAsXapian.writable_init(".new")
 
         # Index everything 
-        ActsAsXapianJob.destroy_all
+        # XXX not a good place to do this destroy, as unindexed list is lost if
+        # process is aborted and old database carries on being used. Perhaps do in
+        # transaction and commit after rename below? Not sure if thenlocking is then bad
+        # for live website running at same time.
+        ActsAsXapianJob.destroy_all 
         for model_class in model_classes
             models = model_class.find(:all)
             for model in models
+                STDERR.puts("ActsAsXapian.rebuild_index #{model_class} #{model.id}") if verbose
                 model.xapian_index
             end
         end
