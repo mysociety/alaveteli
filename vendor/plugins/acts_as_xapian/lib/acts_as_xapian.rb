@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: acts_as_xapian.rb,v 1.29 2008-06-23 20:57:57 francis Exp $
+# $Id: acts_as_xapian.rb,v 1.30 2008-06-23 21:05:39 francis Exp $
 
 # Documentation
 # =============
@@ -413,7 +413,7 @@ module ActsAsXapian
                 # XXX If item is later deleted, this should give up, and it
                 # won't. It will keep trying (assuming update_index called from
                 # regular cron job) and mayhap cause trouble.
-                STDERR.puts(detail.backtrace.join("\n") + "\nFAILED ActsAsXapian.update_index job #{id} #{$!}") if verbose
+                STDERR.puts(detail.backtrace.join("\n") + "\nFAILED ActsAsXapian.update_index job #{id} #{$!}")
             end
         end
     end
