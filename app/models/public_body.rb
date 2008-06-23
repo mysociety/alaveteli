@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.78 2008-06-23 23:24:19 francis Exp $
+# $Id: public_body.rb,v 1.79 2008-06-23 23:35:21 francis Exp $
 
 require 'csv'
 require 'set'
@@ -50,8 +50,11 @@ class PublicBody < ActiveRecord::Base
             [ "museum", "Museums and galleries", "a museum or gallery" ],
             [ "police", "Police forces", "a police force" ], 
             [ "rda", "Regional development agencies", "a regional development agency" ], 
+            [ "nhstrust", "NHS trusts", "an NHS trust" ],
             [ "sha", "Strategic health authorities", "a strategic health authority" ],
             [ "pct", "Primary care trusts", "a primary care trust" ],
+            [ "nhswales", "NHS in Wales", "part of the NHS in Wales" ],
+            [ "nhsni", "NHS in Northern Ireland", "part of the NHS in Northern Ireland" ],
             [ "university", "Universities", "university" ], 
             [ "hei", "Higher education institutions", "higher educational institutions" ],
             [ "fei", "Further education institutions", "further educational institutions" ],
