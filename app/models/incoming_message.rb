@@ -18,7 +18,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.113 2008-06-23 21:56:28 francis Exp $
+# $Id: incoming_message.rb,v 1.114 2008-06-23 22:12:15 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -177,9 +177,6 @@ class IncomingMessage < ActiveRecord::Base
 
     # Replaces emails we know about in (possibly binary data) with equal length alternative ones.
     def binary_mask_special_emails(text)
-
-text = IncomingMessage.mask_string_multicharset(text, 'request-144-a724c835@whatdotheyknow.com')
-
         if not self.info_request.public_body.request_email.empty?
             text = IncomingMessage.mask_string_multicharset(text, self.info_request.public_body.request_email)
         end
