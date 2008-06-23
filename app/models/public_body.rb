@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.74 2008-05-27 01:25:09 francis Exp $
+# $Id: public_body.rb,v 1.75 2008-06-23 13:00:32 adam Exp $
 
 require 'csv'
 require 'set'
@@ -51,6 +51,8 @@ class PublicBody < ActiveRecord::Base
             [ "sha", "Strategic health authorities", "a strategic health authority" ],
             [ "pct", "Primary care trusts", "a primary care trust" ],
             [ "university", "Universities", "university" ], 
+	    [ "hei", "Higher Education Institutions", "higher educational institutions" ],
+	    [ "fei", "Further Education Institutions", "further educational institutions" ],
             [ "other", "Other", "other" ]
         ]
     end
