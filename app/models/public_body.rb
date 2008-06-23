@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.77 2008-06-23 23:20:45 francis Exp $
+# $Id: public_body.rb,v 1.78 2008-06-23 23:24:19 francis Exp $
 
 require 'csv'
 require 'set'
@@ -80,7 +80,10 @@ class PublicBody < ActiveRecord::Base
 
     # Can an FOI (etc.) request be made to this body, and if not why not?
     def is_requestable?
-        not self.request_email.empty? and self.request_email != 'blank' and self.request_email != 'not_apply'
+        if self.request_email.nil?
+            return false
+        end
+        return !self.request_email.empty? && self.request_email != 'blank' && self.request_email != 'not_apply'
     end
     def not_requestable_reason
         if self.request_email.empty? or self.request_email == 'blank'
