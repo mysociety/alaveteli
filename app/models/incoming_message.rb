@@ -18,7 +18,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.112 2008-06-12 15:56:22 francis Exp $
+# $Id: incoming_message.rb,v 1.113 2008-06-23 21:56:28 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -633,8 +633,15 @@ text = IncomingMessage.mask_string_multicharset(text, 'request-144-a724c835@what
                 tempfile.flush
                 if attachment.content_type == 'application/msword'
                     system("/usr/bin/wvText " + tempfile.path + " " + tempfile.path + ".txt")
-                    text += File.read(tempfile.path + ".txt") + "\n\n"
-                    File.unlink(tempfile.path + ".txt")
+                    # Try catdoc if we get into trouble (e.g. for InfoRequestEvent 2701)
+                    if not File.exists?(tempfile.path + ".txt")
+                        IO.popen("/usr/bin/catdoc " + tempfile.path, "r") do |child|
+                            text += child.read() + "\n\n"
+                        end
+                    else
+                        text += File.read(tempfile.path + ".txt") + "\n\n"
+                        File.unlink(tempfile.path + ".txt")
+                    end
                 elsif attachment.content_type == 'application/rtf'
                     IO.popen("/usr/bin/catdoc " + tempfile.path, "r") do |child|
                         text += child.read() + "\n\n"
