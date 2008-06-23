@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: acts_as_xapian.rb,v 1.28 2008-06-23 20:43:30 francis Exp $
+# $Id: acts_as_xapian.rb,v 1.29 2008-06-23 20:57:57 francis Exp $
 
 # Documentation
 # =============
@@ -386,26 +386,34 @@ module ActsAsXapian
 
         ids_to_refresh = ActsAsXapianJob.find(:all).map() { |i| i.id }
         for id in ids_to_refresh
-            ActiveRecord::Base.transaction do
-                job = ActsAsXapianJob.find(id, :lock =>true)
-                STDERR.puts("ActsAsXapian.update_index #{job.action} #{job.model} #{job.model_id.to_s}") if verbose
-                if job.action == 'update'
-                    # XXX Index functions may reference other models, so we could eager load here too?
-                    model = job.model.constantize.find(job.model_id) # :include => cls.constantize.xapian_options[:include]
-                    model.xapian_index
-                elsif job.action == 'destroy'
-                    # Make dummy model with right id, just for destruction
-                    model = job.model.constantize.new
-                    model.id = job.model_id
-                    model.xapian_destroy
-                else
-                    raise "unknown ActsAsXapianJob action '" + job.action + "'"
-                end
-                job.destroy
+            begin
+                ActiveRecord::Base.transaction do
+                    job = ActsAsXapianJob.find(id, :lock =>true)
+                    STDOUT.puts("ActsAsXapian.update_index #{job.action} #{job.model} #{job.model_id.to_s}") if verbose
+                    if job.action == 'update'
+                        # XXX Index functions may reference other models, so we could eager load here too?
+                        model = job.model.constantize.find(job.model_id) # :include => cls.constantize.xapian_options[:include]
+                        model.xapian_index
+                    elsif job.action == 'destroy'
+                        # Make dummy model with right id, just for destruction
+                        model = job.model.constantize.new
+                        model.id = job.model_id
+                        model.xapian_destroy
+                    else
+                        raise "unknown ActsAsXapianJob action '" + job.action + "'"
+                    end
+                    job.destroy
 
-                if flush
-                    ActsAsXapian.writable_db.flush
+                    if flush
+                        ActsAsXapian.writable_db.flush
+                    end
                 end
+            rescue => detail
+                # print any error, and carry on so other things are indexed
+                # XXX If item is later deleted, this should give up, and it
+                # won't. It will keep trying (assuming update_index called from
+                # regular cron job) and mayhap cause trouble.
+                STDERR.puts(detail.backtrace.join("\n") + "\nFAILED ActsAsXapian.update_index job #{id} #{$!}") if verbose
             end
         end
     end
@@ -432,7 +440,7 @@ module ActsAsXapian
         for model_class in model_classes
             models = model_class.find(:all)
             for model in models
-                STDERR.puts("ActsAsXapian.rebuild_index #{model_class} #{model.id}") if verbose
+                STDOUT.puts("ActsAsXapian.rebuild_index #{model_class} #{model.id}") if verbose
                 model.xapian_index
             end
         end
