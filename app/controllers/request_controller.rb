@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.93 2008-05-27 08:56:27 francis Exp $
+# $Id: request_controller.rb,v 1.94 2008-06-23 23:20:45 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -82,10 +82,10 @@ class RequestController < ApplicationController
             if @info_request.public_body.nil?
                 redirect_to frontpage_url
             else 
-                if @info_request.public_body.request_email.empty?
-                    render :action => 'new_bad_contact'
-                else
+                if @info_request.public_body.is_requestable?
                     render :action => 'new'
+                else
+                    render :action => 'new_' + @info_request.public_body.not_requestable_reason
                 end
             end
             return
@@ -107,8 +107,8 @@ class RequestController < ApplicationController
         @outgoing_message.info_request = @info_request
 
         # Maybe we lost the address while they're writing it
-        if @info_request.public_body.request_email.empty?
-            render :action => 'new_bad_contact'
+        if not @info_request.public_body.is_requestable?
+            render :action => 'new_' + @info_request.public_body.not_requestable_reason
             return
         end
 

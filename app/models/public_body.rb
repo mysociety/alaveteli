@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.76 2008-06-23 22:03:25 francis Exp $
+# $Id: public_body.rb,v 1.77 2008-06-23 23:20:45 francis Exp $
 
 require 'csv'
 require 'set'
@@ -71,12 +71,27 @@ class PublicBody < ActiveRecord::Base
 
     def validate
         # Request_email can be blank, meaning we don't have details
-        if self.request_email != ""
+        if self.is_requestable?
             unless MySociety::Validate.is_valid_email(self.request_email)
                 errors.add(:request_email, "doesn't look like a valid email address")
             end
         end
     end
+
+    # Can an FOI (etc.) request be made to this body, and if not why not?
+    def is_requestable?
+        not self.request_email.empty? and self.request_email != 'blank' and self.request_email != 'not_apply'
+    end
+    def not_requestable_reason
+        if self.request_email.empty? or self.request_email == 'blank'
+            return 'bad_contact'
+        elsif self.request_email == 'not_apply'
+            return 'not_apply'
+        else
+            raise "requestable_failure_reason called with type that has no reason"
+        end
+    end
+
 
     acts_as_versioned
     self.non_versioned_columns << 'created_at' << 'updated_at'

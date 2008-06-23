@@ -18,7 +18,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.114 2008-06-23 22:12:15 francis Exp $
+# $Id: incoming_message.rb,v 1.115 2008-06-23 23:20:45 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -167,7 +167,7 @@ class IncomingMessage < ActiveRecord::Base
         # XXX can later display some of these special emails as actual emails,
         # if they are public anyway.  For now just be precautionary and only
         # put in descriptions of them in square brackets.
-        if not self.info_request.public_body.request_email.empty?
+        if info_request.public_body.is_requestable?
             text = text.gsub(self.info_request.public_body.request_email, "[" + self.info_request.public_body.short_or_long_name + " request email]")
         end
         text = text.gsub(self.info_request.incoming_email, "[FOI #" + self.info_request.id.to_s + " email]")
@@ -177,7 +177,7 @@ class IncomingMessage < ActiveRecord::Base
 
     # Replaces emails we know about in (possibly binary data) with equal length alternative ones.
     def binary_mask_special_emails(text)
-        if not self.info_request.public_body.request_email.empty?
+        if info_request.public_body.is_requestable?
             text = IncomingMessage.mask_string_multicharset(text, self.info_request.public_body.request_email)
         end
         text = IncomingMessage.mask_string_multicharset(text, self.info_request.incoming_email)

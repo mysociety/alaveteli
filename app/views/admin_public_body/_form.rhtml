@@ -15,7 +15,7 @@
 <%= text_field 'public_body', 'tag_string', :size => 80  %></p>
 
 
-<p><label for="public_body_request_email">Request email (set to blank if an old address became bad and you can't find a new one)</label><br/>
+<p><label for="public_body_request_email">Request email (set to <strong>blank</strong> (empty string) if can't find an address; to <strong>not_apply</strong> if FOI no longer / never did apply to authority)</label><br/>
 <%= text_field 'public_body', 'request_email', :size => 40  %></p>
 
 <p><label for="public_body_last_edit_comment">Comment for this edit</label> (put URL or other source of new info)<br/>
