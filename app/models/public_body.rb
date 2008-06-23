@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.75 2008-06-23 13:00:32 adam Exp $
+# $Id: public_body.rb,v 1.76 2008-06-23 22:03:25 francis Exp $
 
 require 'csv'
 require 'set'
@@ -42,6 +42,8 @@ class PublicBody < ActiveRecord::Base
             [ "local_council", "Local councils", "a local council" ], 
             [ "non_ministerial_department", "Non-ministerial departments", "a non-ministerial department" ], 
             [ "executive_agency", "Executive agencies", "an executive agency" ], 
+            [ "government_office", "Government offices for the regions", "a government office for the regions"], 
+            [ "regional_assembly", "Regional assemblies", "a regional assembly"], 
             [ "npa", "National park authorities", "a national park authority" ], 
             [ "sea_fishery_committee", "Sea fisheries committees", "a sea fisheries committee" ], 
             [ "media", "Media", "a media organisation" ],
@@ -51,8 +53,8 @@ class PublicBody < ActiveRecord::Base
             [ "sha", "Strategic health authorities", "a strategic health authority" ],
             [ "pct", "Primary care trusts", "a primary care trust" ],
             [ "university", "Universities", "university" ], 
-	    [ "hei", "Higher Education Institutions", "higher educational institutions" ],
-	    [ "fei", "Further Education Institutions", "further educational institutions" ],
+            [ "hei", "Higher education institutions", "higher educational institutions" ],
+            [ "fei", "Further education institutions", "further educational institutions" ],
             [ "other", "Other", "other" ]
         ]
     end
