@@ -23,6 +23,12 @@ describe InfoRequest, " when emailing" do
         found_info_request.should == (@info_request)
     end
 
+    it "should recognise its own incoming email with quotes" do
+        incoming_email = "'" + @info_request.incoming_email + "'"
+        found_info_request = InfoRequest.find_by_incoming_email(incoming_email)
+        found_info_request.should == (@info_request)
+    end
+
     it "should recognise l and 1 as the same in incoming emails" do
         # Make info request with a 1 in it
         while true
