@@ -18,7 +18,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.115 2008-06-23 23:20:45 francis Exp $
+# $Id: incoming_message.rb,v 1.116 2008-06-25 19:53:55 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -182,6 +182,7 @@ class IncomingMessage < ActiveRecord::Base
         end
         text = IncomingMessage.mask_string_multicharset(text, self.info_request.incoming_email)
         text = IncomingMessage.mask_string_multicharset(text, MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost'))
+        text = IncomingMessage.mask_string_multicharset(text, "foi" + "@" + "sandwich.ukcod.org.uk") # gets in some due to temporary bug
         return text
     end
     # Helper for binary_mask_special_emails. Masks out an email from some
