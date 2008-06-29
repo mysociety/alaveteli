@@ -280,6 +280,62 @@ dd { margin: 0.6em 0 2em 4em; width: 30em; }
 		margin: 0 0 0em 0;
 	}
 
+/*-----------------------------list sidebars----------------*/
+#list_sidebar
+{
+	width: 10em;
+	float: right;
+	font-size: 0.85em;
+	border-color: #AEAEAE;
+	border-width: 1px;
+	border-style: solid;
+	background-color: #EAEAEA;
+	padding: 0.25em;
+	margin: 0 0 0 1em;
+}
+	#list_sidebar h1, #list_sidebar h2
+	{
+		font-size: 1.2em;
+		line-height: 1em;
+		margin: 0px 0px 0.3em 0px;
+	}
+		#list_sidebar ul
+		{
+			list-style: none;
+			margin: 0px;
+			padding: 0px;
+		}
+		
+/*-----------------------------request sidebars----------------*/
+
+	#request_sidebar span.head
+	{
+		padding: 12px 0 0 0;
+		font-weight: bold;
+		font-size: 1.2em;
+		padding: 8px 0 0 0px;
+		background-image: none;
+	}
+
+	#request_sidebar .request_listing span.desc
+	{
+		width: 9em;
+		background-image: url(../images/navimg/quote-open.png);
+		background-repeat: no-repeat;
+		background-position: 0 0;
+		padding: 8px 0 1em 25px;
+	}
+
+	#request_sidebar span.bottomline
+	{
+		width: auto;
+		margin: 0 0 0.6em 0;
+		background-image: none;
+		padding: 0px;
+	}
+
+
+
 /*--------------------------------- content : full lists */
 
 .request_listing,
@@ -287,20 +343,16 @@ dd { margin: 0.6em 0 2em 4em; width: 30em; }
 .user_listing
 {
 	font-size: 0.8em;
-		margin-top: 1.5em;
+	margin-top: 1.5em;
+	padding: 0 0 1.5em 0;
 	border-bottom: #9C9C9C;
 	border-width: 0 0 1px 0;
 	border-style: none none solid none;
 	overflow: hidden;
 }
-		.request_listing
-		{
-			padding: 0 0 1em 0;
-		}
-		.body_listing
-		{ 
-			padding: 0 0 0em 0;
-		}
+/*.body_listing,
+.user_listing
+{ float: left; clear: none; width: 50%;}*/
 
 	.request_listing a,
 	.body_listing a,
@@ -316,7 +368,7 @@ dd { margin: 0.6em 0 2em 4em; width: 30em; }
 	}
 		.request_listing span.head /* full page request list only */
 		{
-			min-height: 41px;
+			min-height: 32px;
 			margin: 0 0 0.3em 0;
 			padding: 8px 0 0 42px;
 			background-image: url(../images/navimg/request-icon.png);
@@ -325,7 +377,7 @@ dd { margin: 0.6em 0 2em 4em; width: 30em; }
 		}
 		.body_listing span.head /* full page request list only */
 		{
-			min-height: 41px;
+			min-height: 32px;
 			margin: 0 0 0.3em 0;
 			padding: 8px 0 0 42px;
 			background-image: url(../images/navimg/auth-icon.png);
@@ -334,7 +386,7 @@ dd { margin: 0.6em 0 2em 4em; width: 30em; }
 		}
 		.user_listing span.head /* full page request list only */
 		{
-			min-height: 41px;
+			min-height: 32px;
 			margin: 0 0 0.3em 0;
 			padding: 8px 0 0 42px;
 			background-image: url(../images/navimg/user-icon.png);
@@ -345,6 +397,7 @@ dd { margin: 0.6em 0 2em 4em; width: 30em; }
 		
 	span.bottomline
 	{
+		clear: left; 
 		display: block;
 			padding: 10px 0 0 42px;
 
@@ -404,30 +457,6 @@ dd { margin: 0.6em 0 2em 4em; width: 30em; }
 
 
 
-#list_sidebar
-{
-	width: 10em;
-	float: right;
-	font-size: 0.85em;
-	border-color: #AEAEAE;
-	border-width: 1px;
-	border-style: solid;
-	background-color: #EAEAEA;
-	padding: 0.25em;
-	margin: 0 0 0 1em;
-}
-	#list_sidebar h1, #list_sidebar h2
-	{
-		font-size: 1.2em;
-		line-height: 1em;
-		margin: 0px 0px 0.3em 0px;
-	}
-		#list_sidebar ul
-		{
-			list-style: none;
-			margin: 0px;
-			padding: 0px;
-		}
 /*---------------- content : lists back/next */
 
 div.pagination { text-align: center; padding-top: 0.3em;}
@@ -524,6 +553,8 @@ div[id|="incoming"] { background-color: #E7E7E7; font-family: Times New Roman, T
 .correspondence_text { margin: 0 1.2em 0 0.8em; }
 
 /*.event_bubble { margin: 3em 0 0 0; font-size: 0.9em;}*/
+
+a img.attachment_image {border: 0px;}
 
 /*------------------------------------------------ authority listings */
 #body_sidebar {
