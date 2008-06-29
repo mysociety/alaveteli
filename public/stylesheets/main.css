@@ -518,6 +518,13 @@ div.pagination { text-align: center; padding-top: 0.3em;}
 	}
 
 
+.errorExplanation
+{
+	color: #FF0606;
+	font-size: 1.4em;
+	font-weight: bold;
+}
+
 /*---------------- content : request detail pages */
 
 #request_sidebar
