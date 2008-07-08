@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.38 2008-07-08 09:41:04 francis Exp $
+# $Id: request_mailer.rb,v 1.39 2008-07-08 10:20:44 francis Exp $
 
 class RequestMailer < ApplicationMailer
     
@@ -33,14 +33,6 @@ class RequestMailer < ApplicationMailer
         else
             @recipients = incoming_message_followup.mail.from_addrs.to_s
         end
-    end
-
-    # Incoming message arrived at FOI address, but hasn't got To:/CC: of valid request
-    def bounced_message(email)
-        @from = contact_from_name_and_email
-        @recipients = @from
-        @subject = "Incoming email to unknown FOI request"
-        email.setup_forward(self)
     end
 
     # Incoming message arrived for a request, but new responses have been stopped.
@@ -157,7 +149,6 @@ class RequestMailer < ApplicationMailer
         # Nothing found, so save in holding pen
         if reply_info_requests.size == 0 
             InfoRequest.holding_pen_request.receive(email, raw_email)
-            #RequestMailer.deliver_bounced_message(email)
             return
         end
 
