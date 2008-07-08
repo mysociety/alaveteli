@@ -13,6 +13,20 @@
 
 <h1>Things to do</h1>
 
+<% if @holding_pen_messages.size > 0 %>
+    <h3>Put misdelivered responses with the right request</h3>
+
+    <ul>
+    <% for message in @holding_pen_messages %>
+        <li>
+            <%= link_to excerpt(message.get_body_for_quoting, "", 60), "request/show/" + InfoRequest.holding_pen_request.id.to_s + "#incoming-" + message.id.to_s %> 
+            (<%=simple_date(message.sent_at)%>)
+        </li>
+    <% end %>
+    </ul>
+
+<% end %>
+
 <% if @one_week_old_unclassified.size > 0 %>
     <h3>Classify responses that are still unclassified one week after response</h3>
 

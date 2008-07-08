@@ -1,6 +1,7 @@
 Site move:
     Install PostgresSQL 8.3
     Move database
+    Move email foibackup to a new server
 
 FOI requests  (that need action)
 ============
@@ -28,6 +29,9 @@ pages.
 
 Next
 ====
+
+Add ppt icon
+http://www.whatdotheyknow.com/request/presentations_made_at_climate_ch#incoming-1773
 
 This infers the wrong calculated state due to followups
 https://secure.mysociety.org/admin/foi/request/show/619
@@ -162,6 +166,9 @@ Quoting fixing TODO:
     http://www.whatdotheyknow.com/request/364/response/1100
     http://www.whatdotheyknow.com/request/council_housing_accommodation # over zealous half cuts
     http://www.whatdotheyknow.com/request/621/response/1131 # virus footer
+    http://www.whatdotheyknow.com/request/231/response/338
+
+    http://www.whatdotheyknow.com/request/415/response/1041/attach/3/CONF%20FOI%209508%20Ian%20Holton.doc
 
 Larger new features
 -------------------

@@ -79,7 +79,7 @@
   </tr>
   
 <% for incoming_message in @info_request.incoming_messages.find(:all, :order => 'created_at') %>
-  <tr class="<%= cycle('odd', 'even') %>">
+  <tr class="<%= cycle('odd', 'even') %>" id="incoming-<%=incoming_message.id.to_s%>">
   <td><%=h incoming_message.id %></td>
   <% for column in IncomingMessage.content_columns.map { |c| c.name } %>
     <% if column == 'raw_data' %>
@@ -90,12 +90,20 @@
   <% end %>
   <td>
       <% form_tag '../destroy_incoming' do %>
-      <div>
-          <%= hidden_field_tag 'incoming_message_id', incoming_message.id %>
-          <%= submit_tag "Destroy" %>
-      </div>
-  <% end %>
+          <div>
+              <%= hidden_field_tag 'incoming_message_id', incoming_message.id %>
+              <%= submit_tag "Destroy message" %>
+          </div>
+      <% end %>
 
+      <% form_tag '../redeliver_incoming' do %>
+          <div>
+              id or url_title of request:
+              <%= text_field_tag 'url_title', "", { :size => 20 } %>
+              <%= hidden_field_tag 'redeliver_incoming_message_id', incoming_message.id %>
+              <%= submit_tag "Redeliver to another request" %>
+          </div>
+      <% end %>
   </td>
   </tr>
 <% end %>

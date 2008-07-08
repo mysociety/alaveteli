@@ -18,7 +18,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.116 2008-06-25 19:53:55 francis Exp $
+# $Id: incoming_message.rb,v 1.117 2008-07-08 09:41:04 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -687,6 +687,16 @@ class IncomingMessage < ActiveRecord::Base
     # Has message arrived "recently"?
     def recently_arrived
         (Time.now - self.created_at) <= 3.days
+    end
+
+    def fully_destroy
+        ActiveRecord::Base.transaction do
+            info_request_event = InfoRequestEvent.find_by_incoming_message_id(self.id)
+            info_request_event.track_things_sent_emails.each { |a| a.destroy }
+            info_request_event.user_info_request_sent_alerts.each { |a| a.destroy }
+            info_request_event.destroy
+            self.destroy
+        end
     end
 end
 

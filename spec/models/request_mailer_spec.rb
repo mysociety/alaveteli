@@ -13,12 +13,19 @@ describe RequestMailer, " when receiving incoming mail" do
         receive_incoming_mail('incoming-request-plain.email', ir.incoming_email)
         ir.incoming_messages.size.should == 2 # one more arrives
         ir.info_request_events[-1].incoming_message_id.should_not be_nil
+
+        deliveries = ActionMailer::Base.deliveries
+        deliveries.size.should == 1
+        deliveries.clear
     end
     
-    it "should bounce email to admin when the email is not to any information request" do
+    it "should store mail in holding pen and send to admin when the email is not to any information request" do
         ir = info_requests(:fancy_dog_request) 
+        ir.incoming_messages.size.should == 1
+        InfoRequest.holding_pen_request.incoming_messages.size.should == 0
         receive_incoming_mail('incoming-request-plain.email', 'dummy@localhost')
         ir.incoming_messages.size.should == 1
+        InfoRequest.holding_pen_request.incoming_messages.size.should == 1
 
         deliveries = ActionMailer::Base.deliveries
         deliveries.size.should == 1

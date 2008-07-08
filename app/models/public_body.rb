@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.79 2008-06-23 23:35:21 francis Exp $
+# $Id: public_body.rb,v 1.80 2008-07-08 09:41:04 francis Exp $
 
 require 'csv'
 require 'set'
@@ -191,6 +191,23 @@ class PublicBody < ActiveRecord::Base
         else
             return "FOI"
         end
+    end
+
+    # The "internal admin" is a special body for internal use.
+    def PublicBody.internal_admin_body
+        pb = PublicBody.find_by_url_name("internal_admin_authority")
+        if pb.nil?
+            pb = PublicBody.new(
+                :name => 'Internal admin authority',
+                :short_name => "",
+                :request_email => MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost'),
+                :last_edit_editor => "internal_admin",
+                :last_edit_comment => "Made by PublicBody.internal_admin_body"
+            )
+            pb.save!
+        end
+
+        return pb
     end
 
 

@@ -22,7 +22,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.117 2008-06-11 15:00:35 francis Exp $
+# $Id: info_request.rb,v 1.118 2008-07-08 09:41:04 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -240,6 +240,34 @@ public
         end
 
         RequestMailer.deliver_new_response(self, incoming_message)
+    end
+
+    # The "holding pen" is a special request which stores incoming emails whose
+    # destination request is unknown.
+    def InfoRequest.holding_pen_request
+        ir = InfoRequest.find_by_url_title("holding_pen")
+        if ir.nil?
+            ir = InfoRequest.new(
+                :user => User.internal_admin_user,
+                :public_body => PublicBody.internal_admin_body,
+                :title => 'Holding pen',
+                :described_state => 'waiting_response',
+                :awaiting_description => false,
+                :prominence  => 'backpage'
+            )
+            om = OutgoingMessage.new({
+                :status => 'ready',
+                :message_type => 'initial_request',
+                :body => 'This is the holding pen request. It shows responses that were sent to invalid addresses, and need moving to the correct request by an adminstrator.',
+                :last_sent_at => Time.now()
+            })
+            ir.outgoing_messages << om
+            om.info_request = ir
+            ir.save!
+            ir.log_event('sent', { :outgoing_message_id => om.id, :email => ir.public_body.request_email })
+        end
+
+        return ir
     end
 
     # Change status, including for last event for later historical purposes

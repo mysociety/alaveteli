@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user.rb,v 1.56 2008-05-21 10:51:24 francis Exp $
+# $Id: user.rb,v 1.57 2008-07-08 09:41:04 francis Exp $
 
 require 'digest/sha1'
 
@@ -132,6 +132,25 @@ class User < ActiveRecord::Base
     def name_and_email
         return self.name + " <" + self.email + ">"
     end
+
+    # The "internal admin" is a special user for internal use.
+    def User.internal_admin_user
+        contact_email = MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost')
+        u = User.find_by_email(contact_email)
+        if u.nil?
+            password = PostRedirect.generate_random_token
+            u = User.new(
+                :name => 'Internal admin user',
+                :email => contact_email,
+                :password => password,
+                :password_confirmation => password
+            )
+            u.save!
+        end
+
+        return u
+    end
+
 
     private
 

@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.37 2008-06-13 09:15:44 francis Exp $
+# $Id: request_mailer.rb,v 1.38 2008-07-08 09:41:04 francis Exp $
 
 class RequestMailer < ApplicationMailer
     
@@ -154,9 +154,10 @@ class RequestMailer < ApplicationMailer
             reply_info_requests.push(reply_info_request) if reply_info_request
         end
 
-        # Nothing found
+        # Nothing found, so save in holding pen
         if reply_info_requests.size == 0 
-            RequestMailer.deliver_bounced_message(email)
+            InfoRequest.holding_pen_request.receive(email, raw_email)
+            #RequestMailer.deliver_bounced_message(email)
             return
         end
 
