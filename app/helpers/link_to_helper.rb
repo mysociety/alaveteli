@@ -1,11 +1,11 @@
-# app/helpers/application_helper.rb:
+# app/helpers/link_to_helper.rb:
 # This module is included into all controllers via controllers/application.rb
 # - 
 #
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: link_to_helper.rb,v 1.32 2008-05-18 21:53:16 francis Exp $
+# $Id: link_to_helper.rb,v 1.33 2008-07-09 07:23:32 francis Exp $
 
 module LinkToHelper
 
