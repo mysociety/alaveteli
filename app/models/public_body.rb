@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.80 2008-07-08 09:41:04 francis Exp $
+# $Id: public_body.rb,v 1.81 2008-07-09 15:03:46 francis Exp $
 
 require 'csv'
 require 'set'
@@ -38,26 +38,35 @@ class PublicBody < ActiveRecord::Base
 
     def self.categories_with_description
         [
+            # Central government
             [ "department", "Ministerial departments", "a ministerial department" ], 
-            [ "local_council", "Local councils", "a local council" ], 
             [ "non_ministerial_department", "Non-ministerial departments", "a non-ministerial department" ], 
             [ "executive_agency", "Executive agencies", "an executive agency" ], 
             [ "government_office", "Government offices for the regions", "a government office for the regions"], 
+            # Countries, regional, local
+            [ "local_council", "Local councils", "a local council" ], 
             [ "regional_assembly", "Regional assemblies", "a regional assembly"], 
+            [ "nsbody", "North/south bodies", "a north/south body"],
+            [ "rda", "Regional development agencies", "a regional development agency" ], 
+            # Environment
             [ "npa", "National park authorities", "a national park authority" ], 
             [ "sea_fishery_committee", "Sea fisheries committees", "a sea fisheries committee" ], 
+            # Media, arts
             [ "media", "Media", "a media organisation" ],
             [ "museum", "Museums and galleries", "a museum or gallery" ],
+            # Home office
             [ "police", "Police forces", "a police force" ], 
-            [ "rda", "Regional development agencies", "a regional development agency" ], 
+            # NHS
             [ "nhstrust", "NHS trusts", "an NHS trust" ],
             [ "sha", "Strategic health authorities", "a strategic health authority" ],
             [ "pct", "Primary care trusts", "a primary care trust" ],
             [ "nhswales", "NHS in Wales", "part of the NHS in Wales" ],
             [ "nhsni", "NHS in Northern Ireland", "part of the NHS in Northern Ireland" ],
-            [ "university", "Universities", "university" ], 
-            [ "hei", "Higher education institutions", "higher educational institutions" ],
-            [ "fei", "Further education institutions", "further educational institutions" ],
+            # Education
+            [ "university", "Universities", "a university" ], 
+            [ "hei", "Higher education institutions", "a higher educational institution" ],
+            [ "fei", "Further education institutions", "a further educational institution" ],
+            # Other
             [ "other", "Other", "other" ]
         ]
     end
@@ -167,11 +176,21 @@ class PublicBody < ActiveRecord::Base
     end
 
     # Use tags to describe what type of thing this is
-    def type_of_authority
+    def type_of_authority(html = false)
         types = []
+        first = true
         for tag in self.public_body_tags
             if PublicBody.categories_by_tag.include?(tag.name)
-                types.push(PublicBody.category_singular_by_tag[tag.name])
+                desc = PublicBody.category_singular_by_tag[tag.name] 
+                if first
+                    desc = desc.capitalize
+                    first = false
+                end
+                if html
+                    # XXX this should call proper route helpers, but is in model sigh
+                    desc = '<a href="/body/list/' + tag.name + '">' + desc + '</a>'
+                end
+                types.push(desc)
             end
         end
         if types.size > 0
