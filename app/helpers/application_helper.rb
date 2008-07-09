@@ -5,18 +5,13 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: application_helper.rb,v 1.21 2008-05-27 01:57:02 francis Exp $
+# $Id: application_helper.rb,v 1.22 2008-07-09 07:24:50 francis Exp $
 
 module ApplicationHelper
     # URL generating functions are needed by all controllers (for redirects),
     # views (for links) and mailers (for use in emails), so include them into
     # all of all.
     include LinkToHelper
-
-    # Contact email address
-    def contact_email
-        MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost') 
-    end
 
     # Copied from error_messages_for in active_record_helper.rb
     def foi_error_messages_for(*params)
