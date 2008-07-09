@@ -4,20 +4,32 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: acts_as_xapian.rb,v 1.30 2008-06-23 21:05:39 francis Exp $
-
 # Documentation
 # =============
 #
-# See ../README.txt for documentation. Please update that file if you edit
+# See ../README.txt foocumentation. Please update that file if you edit
 # code.
 
-require 'xapian'
+# Make it so if Xapian isn't installed, the Rails app doesn't fail completely,
+# just when somebody does a search.
+begin
+    require 'xapian'
+    $acts_as_xapian_bindings_available = true
+rescue LoadError
+    STDERR.puts "acts_as_xapian: No Ruby bindings for Xapian installed" 
+    $acts_as_xapian_bindings_available = false
+end
 
 module ActsAsXapian
     ######################################################################
     # Module level variables
     # XXX must be some kind of cattr_accessor that can do this better
+    def ActsAsXapian.bindings_available
+        $acts_as_xapian_bindings_available
+    end
+    class NoXapianRubyBindingsError < StandardError
+    end
+
     def ActsAsXapian.db_path
         @@db_path
     end
@@ -74,6 +86,8 @@ module ActsAsXapian
     # XXX we perhaps don't need to rebuild database and enquire and queryparser - 
     # but db.reopen wasn't enough by itself, so just do everything it's easier.
     def ActsAsXapian.readable_init
+        raise NoXapianRubyBindingsError.new("Xapian Ruby bindings not installed") unless ActsAsXapian.bindings_available
+
         # basic Xapian objects
         begin
             @@db = Xapian::Database.new(@@db_path)
@@ -150,6 +164,8 @@ module ActsAsXapian
     end
 
     def ActsAsXapian.writable_init(suffix = "")
+        raise NoXapianRubyBindingsError.new("Xapian Ruby bindings not installed") unless ActsAsXapian.bindings_available
+
         ActsAsXapian.init # XXX so db_path is made
 
         new_path = @@db_path + suffix
@@ -566,6 +582,11 @@ module ActsAsXapian
     module ActsMethods
         # See top of this file for docs
         def acts_as_xapian(options)
+            # Give error only on queries if bindings not available
+            if not ActsAsXapian.bindings_available
+                return
+            end
+
             include InstanceMethods
 
             cattr_accessor :xapian_options
