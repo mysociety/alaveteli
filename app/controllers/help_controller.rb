@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: help_controller.rb,v 1.5 2008-02-29 10:34:15 francis Exp $
+# $Id: help_controller.rb,v 1.6 2008-07-09 07:29:54 francis Exp $
 
 class HelpController < ApplicationController
     
@@ -12,6 +12,9 @@ class HelpController < ApplicationController
     end
 
     def contact
+        @contact_email = MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost')
+        @contact_email.gsub!(/@/, "&#64;")
+
         if params[:submitted_contact_form]
             if @user
                 params[:contact][:email] = @user.email
