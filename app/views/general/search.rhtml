@@ -73,6 +73,10 @@
     <% if @xapian_requests.results.size > 0 %>
         <h1><%= "FOI requests " + ((@page-1)*@requests_per_page+1).to_s + "-" + [@page*@requests_per_page, @xapian_requests.matches_estimated].min.to_s + " of " + @xapian_requests.matches_estimated.to_s + " for '" + h(@query) + "'" %></h1>
 
+        <% if @track_thing %>
+            <%= render :partial => 'track/tracking_people_and_link', :locals => { :track_thing => @track_thing, :list_people => false, :own_request => false } %>
+        <% end %>
+
         <% for result in @xapian_requests.results %>
             <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result[:model], :info_request => result[:model].info_request } %>
         <% end %>
