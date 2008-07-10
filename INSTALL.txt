@@ -1,0 +1,71 @@
+ * Email: angie@mysociety.org; WWW: http://www.mysociety.org
+ *
+ * $Id: INSTALL.txt,v 1.1 2008-07-10 15:25:00 angie Exp $
+ * 
+
+
+These instructions are based on getting the FOI site up and running on Ubuntu. 
+It was last run using the Hardy Heron version of Ubuntu.
+
+Commands are intended to be run via the terminal or over ssh.
+
+Firstly, in terminal, navigate to the foi folder where this install guide lives.
+
+1. Install the packages that are listed in config/packages using apt-get eg:
+
+sudo apt-get install ruby1.8
+sudo apt-get install postgresql
+sudo apt-get install libpgsql-ruby1.8
+sudo apt-get install libgems-ruby1.8
+sudo apt-get install rake
+sudo apt-get install irb
+sudo apt-get install mongrel
+sudo apt-get install wv
+sudo apt-get install poppler-utils
+sudo apt-get install catdoc
+sudo apt-get install links
+sudo apt-get install lynx
+sudo apt-get install libxapian-ruby1.8
+sudo apt-get install gnuplot-nox
+sudo apt-get install ttf-bitstream-vera
+sudo apt-get install rubygems
+sudo apt-get install sharutils
+
+Now we need to set up the database config file to contain the name, username and password of your postgres database.
+
+2: copy database.yml-example to database.yml in foi/config
+
+3: edit it to point to your local postgresql database in the development section and create the databases
+
+NOTES:
+su to postgres as a user.
+psql to get into command tool
+\l to list databases
+create database foi encoding = 'SQL_ASCII';
+to change the password run 
+alter user postgres with password 'newpw';
+to import the data:
+
+
+4: cd ../../mysociety
+
+5: ./bin/rails-post-deploy foi
+
+This will need execture privs so chmod 755 if necessary
+
+6. cd foi/
+
+7 run the following to create the DB.
+
+rake db:migrate
+
+8. Next we need to create the index for the search engine (Xapian) or we'll get problems:
+./script/rebuild-xapian-index
+
+9: run the following to get the server running  (may need to chmod 755 again)
+./script/server  --environment=development
+
+or if you want the server to be available on the network and not just on localhost tell it your ip address by running
+./script/server --binding=10.0.0.11 --environment=development
+
+Obviously change 10.0.0.11 to your own IP address

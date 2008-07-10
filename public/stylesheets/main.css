@@ -21,7 +21,7 @@ body
 	border-width: 0 0 3px 0;
 	border-style: solid;
 	height: 100px;
-	background-image: url(../images/navimg/bnnr-temp-100pxa.jpg); 
+	background-image: url(../images/navimg/bnnr-temp-100pxc.jpg); 
 	background-repeat: no-repeat;
 	background-position: center top;
 
@@ -413,7 +413,6 @@ dd { margin: 0.6em 0 2em 4em; width: 30em; }
 
 		/* Waiting */
 		span.bottomline.icon_waiting_response,
-		span.bottomline.icon_waiting_response_overdue,
 		span.bottomline.icon_waiting_classification,
 		span.bottomline.icon_waiting_clarification
 		{ background-image: url(../images/navimg/status-icons-wait.png);}
@@ -426,7 +425,9 @@ dd { margin: 0.6em 0 2em 4em; width: 30em; }
 		span.bottomline.icon_partially_successful
 		{ background-image: url(../images/navimg/status-icons-succeed.png);}
 		/* Alert */
-		span.bottomline.icon_requires_admin	{ background-image: url(../images/navimg/status-icons-attn.png);}
+		span.bottomline.icon_requires_admin,	
+		span.bottomline.icon_waiting_response_overdue
+		{ background-image: url(../images/navimg/status-icons-attn.png);}
 
 
 		span.bottomline a
