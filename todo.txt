@@ -30,6 +30,8 @@ pages.
 Next
 ====
 
+It's terribly slow.
+
 https://secure.mysociety.org/cvstrac/tktview?tn=1032
 
 Add ppt icon
@@ -45,6 +47,8 @@ Advertise WDTK search queries on TWFY
 Advertise alerts on end pages with WDTK
 
 Internal review marker
+
+Redo the RSS feeds
 
 Antispam on contact form
 Incoming email to unknown FOI is a bit rubbish
@@ -67,6 +71,10 @@ Needs tagline that v. quickly explains what site is on each page
 
 Later
 =====
+
+Catch query parser error, e.g. for this query
+    water NOT NEAR "water lane"
+Document such errors in acts_as_xapian
 
 It's looking very nice!  I had a look at the M27 request, as per your
 earlier email, but I was a bit thrown by the date - is it the 27th

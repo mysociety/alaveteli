@@ -18,7 +18,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.117 2008-07-08 09:41:04 francis Exp $
+# $Id: incoming_message.rb,v 1.118 2008-07-10 13:30:25 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -43,13 +43,14 @@ module TMail
 end
 
 # To add an image, create a file with appropriate name corresponding to the
-# mime type in public/images e.g. icon_application_msexcel_large.png
+# mime type in public/images e.g. icon_image_tiff_large.png
 $file_extension_to_mime_type = {
     "txt" => 'text/plain',
     "pdf" => 'application/pdf',
-    "doc" => 'application/msword',
     "rtf" => 'application/rtf',
-    "xls" => 'application/msexcel',
+    "doc" => 'application/vnd.ms-word',
+    "xls" => 'application/vnd.ms-excel',
+    "ppt" => 'application/vnd.ms-powerpoint',
     "tif" => 'image/tiff',
     "gif" => 'image/gif',
     "jpg" => 'image/jpeg', # XXX add jpeg
@@ -366,11 +367,14 @@ class IncomingMessage < ActiveRecord::Base
                 end
             end 
             # e.g. http://www.whatdotheyknow.com/request/93/response/250
-            if curr_mail.content_type == 'application/vnd.ms-excel'
-                curr_mail.content_type = 'application/msexcel'
+            if curr_mail.content_type == 'application/msexcel'
+                curr_mail.content_type = 'application/vnd.ms-excel'
             end
-            if curr_mail.content_type == 'application/vnd.ms-word'
-                curr_mail.content_type = 'application/msword'
+            if curr_mail.content_type == 'application/mspowerpoint'
+                curr_mail.content_type = 'application/vnd.ms-powerpoint'
+            end
+            if curr_mail.content_type = 'application/msword'
+                curr_mail.content_type == 'application/vnd.ms-word'
             end
             # If the part is an attachment of email in text form
             if curr_mail.content_type == 'message/rfc822'
@@ -629,7 +633,7 @@ class IncomingMessage < ActiveRecord::Base
                 tempfile = Tempfile.new('foiextract')
                 tempfile.print attachment.body
                 tempfile.flush
-                if attachment.content_type == 'application/msword'
+                if attachment.content_type == 'application/vnd.ms-word'
                     system("/usr/bin/wvText " + tempfile.path + " " + tempfile.path + ".txt")
                     # Try catdoc if we get into trouble (e.g. for InfoRequestEvent 2701)
                     if not File.exists?(tempfile.path + ".txt")
@@ -648,12 +652,18 @@ class IncomingMessage < ActiveRecord::Base
                     IO.popen("/usr/bin/lynx -force_html -dump " + tempfile.path, "r") do |child|
                         text += child.read() + "\n\n"
                     end
-                elsif attachment.content_type == 'application/msexcel'
+                elsif attachment.content_type == 'application/vnd.ms-excel'
                     # Bit crazy using strings - but xls2csv, xlhtml and py_xls2txt
                     # only extract text from cells, not from floating notes. catdoc
                     # may be fooled by weird character sets, but will probably do for
                     # UK FOI requests.
                     IO.popen("/usr/bin/strings " + tempfile.path, "r") do |child|
+                        text += child.read() + "\n\n"
+                    end
+                elsif attachment.content_type == 'application/vnd.ms-powerpoint'
+                    # ppthtml seems to catch more text, but only outputs HTML when
+                    # we want text, so just use catppt for now
+                    IO.popen("/usr/bin/catppt " + tempfile.path, "r") do |child|
                         text += child.read() + "\n\n"
                     end
                 elsif attachment.content_type == 'application/pdf'
