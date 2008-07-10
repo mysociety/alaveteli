@@ -18,7 +18,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.118 2008-07-10 13:30:25 francis Exp $
+# $Id: incoming_message.rb,v 1.119 2008-07-10 13:32:01 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -373,8 +373,8 @@ class IncomingMessage < ActiveRecord::Base
             if curr_mail.content_type == 'application/mspowerpoint'
                 curr_mail.content_type = 'application/vnd.ms-powerpoint'
             end
-            if curr_mail.content_type = 'application/msword'
-                curr_mail.content_type == 'application/vnd.ms-word'
+            if curr_mail.content_type == 'application/msword'
+                curr_mail.content_type = 'application/vnd.ms-word'
             end
             # If the part is an attachment of email in text form
             if curr_mail.content_type == 'message/rfc822'
