@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: outgoing_message.rb,v 1.53 2008-07-10 08:24:30 francis Exp $
+# $Id: outgoing_message.rb,v 1.54 2008-07-10 08:26:08 francis Exp $
 
 class OutgoingMessage < ActiveRecord::Base
     belongs_to :info_request
@@ -159,6 +159,7 @@ class OutgoingMessage < ActiveRecord::Base
     # XXX this is repeating code in a combination of 
     # views/layouts/request_mailer.rhtml and views/request_mailer/initial_request.rhtml
     def get_body_for_html_preview
+        text = self.body.strip
         text = MySociety::Format.wrap_email_body(self.body.strip)
         text = CGI.escapeHTML(text)
         text = MySociety::Format.make_clickable(text, :contract => 1)
