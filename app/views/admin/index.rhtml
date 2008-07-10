@@ -14,7 +14,7 @@
 <h1>Things to do</h1>
 
 <% if @holding_pen_messages.size > 0 %>
-    <h3>Put misdelivered responses with the right request</h3>
+    <h3>Put misdelivered responses with the right request (<%=@holding_pen_messages.size%> total)</h3>
 
     <ul>
     <% for message in @holding_pen_messages %>
@@ -28,7 +28,7 @@
 <% end %>
 
 <% if @one_week_old_unclassified.size > 0 %>
-    <h3>Classify responses that are still unclassified one week after response</h3>
+    <h3>Classify responses that are still unclassified one week after response (<%=@one_week_old_unclassified.size%> total)</h3>
 
     <ul>
     <% for @request in @one_week_old_unclassified %>
@@ -41,7 +41,7 @@
 <% end %>
 
 <% if @requires_admin_requests.size > 0 %>
-    <h3>Work out what to do with these unusual responses (a new category?)</h3>
+    <h3>Work out what to do with these unusual responses (a new category?) (<%=@requires_admin_requests.size%> total)</h3>
 
     <ul>
     <% for @request in @requires_admin_requests %>
@@ -54,7 +54,7 @@
 <% end %>
 
 <% if @blank_contacts.size > 0 %>
-    <h3>Find missing FOI email for these public authorities (try phoning!)</h3>
+    <h3>Find missing FOI email for these public authorities (try phoning!) (<%=@blank_contacts.size%> total)</h3>
     <ul>
     <% for @blank_contact in @blank_contacts %>
         <li>
