@@ -19,7 +19,7 @@
             <%= text_field_with_auto_complete 'public_body', 'query', {}, { :skip_style => true, :frequency => 0.1, 
                 :after_update_element => 
                   "function(element,value) {
-                      parent.window.location = '/?public_body[query]=' + element.value 
+                      parent.window.location = '/?public_body[query]=' + encode(element.value)
                   }"
                 } %>
         </div>
