@@ -58,8 +58,8 @@ query. You can try and make do with TextHelper::highlight (combined with
 words_to_highlight below). I found the highlighting in acts_as_solr didn't
 really understand the query anyway.
 
-* Date range searching - maybe this works in acts_as_solr, but I never found
-out how.
+* Date range searching - this exists in acts_as_solr, but I found it
+wasn't documented well enough, and was hard to get working.
 
 * Spelling correction - "did you mean?" built in and just works.
 
