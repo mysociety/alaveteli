@@ -31,6 +31,8 @@ Next
 ====
 
 It's terribly slow.
+Clear out all the need admin attention requests
+Clear out all the need classifying requests
 
 https://secure.mysociety.org/cvstrac/tktview?tn=1032
 

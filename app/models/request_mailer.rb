@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.39 2008-07-08 10:20:44 francis Exp $
+# $Id: request_mailer.rb,v 1.40 2008-07-14 12:06:51 francis Exp $
 
 class RequestMailer < ApplicationMailer
     
@@ -184,11 +184,15 @@ class RequestMailer < ApplicationMailer
         end
     end
 
-    # Send email alerts for new responses which haven't been
-    # classified. Goes out 3 days after last update of event.
-    def self.alert_new_response_reminders()
-        #STDERR.puts "alert_new_response_reminders"
-        info_requests = InfoRequest.find(:all, :conditions => [ "awaiting_description and info_requests.updated_at < ?", Time.now() - 3.days ], :include => [ :user ], :order => "info_requests.id" )
+    # Send email alerts for new responses which haven't been classified. Goes
+    # out 3 days after last update of event, then after 7.
+    def self.alert_new_response_reminders
+        self.alert_new_response_reminders_internal(3, 'new_response_reminder_1')
+        self.alert_new_response_reminders_internal(7, 'new_response_reminder_2')
+    end
+    def self.alert_new_response_reminders_internal(days_since, type_code)
+        #STDERR.puts "alert_new_response_reminders_internal days:" + days_since.to_s + " type: " + type_code
+        info_requests = InfoRequest.find(:all, :conditions => [ "awaiting_description and info_requests.updated_at < ?", Time.now() - days_since.days ], :include => [ :user ], :order => "info_requests.id" )
         for info_request in info_requests
             alert_event_id = info_request.get_last_response_event_id
             last_response_message = info_request.get_last_response
@@ -196,15 +200,16 @@ class RequestMailer < ApplicationMailer
                 raise "internal error, no last response while making alert new response reminder, request id " + info_request.id.to_s
             end
             # To the user who created the request
-            sent_already = UserInfoRequestSentAlert.find(:first, :conditions => [ "alert_type = 'new_response_reminder_1' and user_id = ? and info_request_id = ? and info_request_event_id = ?", info_request.user_id, info_request.id, alert_event_id])
+            sent_already = UserInfoRequestSentAlert.find(:first, :conditions => [ "alert_type = ? and user_id = ? and info_request_id = ? and info_request_event_id = ?", type_code, info_request.user_id, info_request.id, alert_event_id])
             if sent_already.nil?
                 # Alert not yet sent for this user
-                #STDERR.puts "sending new response reminder alert to info_request " + info_request.id.to_s + " user " + info_request.user_id.to_s + " event " + alert_event_id.to_s
+                STDERR.puts "sending " + type_code + " alert to info_request " + info_request.url_title + " user " + info_request.user.url_name + " event " + alert_event_id.to_s
                 store_sent = UserInfoRequestSentAlert.new
                 store_sent.info_request = info_request
                 store_sent.user = info_request.user
-                store_sent.alert_type = 'new_response_reminder_1'
+                store_sent.alert_type = type_code
                 store_sent.info_request_event_id = alert_event_id
+                # XXX uses same template for reminder 1 and reminder 2 right now. 
                 RequestMailer.deliver_new_response_reminder_alert(info_request, last_response_message)
                 store_sent.save!
                 #STDERR.puts "sent " + info_request.user.email
