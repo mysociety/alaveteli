@@ -34,19 +34,19 @@ It's terribly slow.
 
 https://secure.mysociety.org/cvstrac/tktview?tn=1032
 
-Add ppt icon
-http://www.whatdotheyknow.com/request/presentations_made_at_climate_ch#incoming-1773
-
 This infers the wrong calculated state due to followups
 https://secure.mysociety.org/admin/foi/request/show/619
 
 In flow, encourage people to make new requests rather than file new requests as
 follow ups on existing one.
 
+Show similar requests after you have filed yours - maybe on preview too.
+
 Advertise WDTK search queries on TWFY
 Advertise alerts on end pages with WDTK
 
-Internal review marker
+Internal review status/marker?
+Request withdrawn by user status/marker?
 
 Redo the RSS feeds
 
@@ -71,6 +71,8 @@ Needs tagline that v. quickly explains what site is on each page
 
 Later
 =====
+
+Alert you when someone you're tracking starts tracking another request
 
 Catch query parser error, e.g. for this query
     water NOT NEAR "water lane"
