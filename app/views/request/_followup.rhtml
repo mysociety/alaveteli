@@ -13,12 +13,18 @@
     <% end %>
 
     <% if @info_request.stop_new_responses %>
-    <p>Follow ups and new responses to this request have been stopped to prevent spam. Please
-    <a href="/help/contact">contact us</a> if you are <%= user_link(@info_request.user) %>
-    and need to send a follow up.</p>
+        <p>Follow ups and new responses to this request have been stopped to prevent spam. Please
+        <a href="/help/contact">contact us</a> if you are <%= user_link(@info_request.user) %>
+        and need to send a follow up.</p>
     <% else %>
         <p>Use this to tell the public authority something, such as to clarify
         your request, or if they are late responding.</p>
+
+        <p>Please do <strong>not</strong> make new requests here.
+        If you are asking for information which was not in your original request, then
+        <%= link_to "file a new request", new_request_to_body_url(:public_body_id => @info_request.public_body.id.to_s) %>
+        instead.
+        </p>
 
         <% if @info_request.calculate_status == 'waiting_response_overdue' %>
             <p>This request is currently <strong>overdue a response</strong> from <%=
