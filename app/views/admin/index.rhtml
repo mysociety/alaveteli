@@ -27,11 +27,11 @@
 
 <% end %>
 
-<% if @one_week_old_unclassified.size > 0 %>
-    <h3>Classify responses that are still unclassified one week after response (<%=@one_week_old_unclassified.size%> total)</h3>
+<% if @ten_days_old_unclassified.size > 0 %>
+    <h3>Classify responses that are still unclassified ten days after response (<%=@ten_days_old_unclassified.size%> total)</h3>
 
     <ul>
-    <% for @request in @one_week_old_unclassified %>
+    <% for @request in @ten_days_old_unclassified %>
         <li>
             <%= link_to h(@request.title), "request/show/" + @request.id.to_s %> 
             (<%=simple_date(@request.get_last_event.created_at)%>)
@@ -65,7 +65,7 @@
     </ul>
 <% end %>
 
-<% if @requires_admin_requests.size == 0 and @one_week_old_unclassified.size == 0 and @blank_contacts.size == 0 %>
+<% if @requires_admin_requests.size == 0 and @ten_days_old_unclassified.size == 0 and @blank_contacts.size == 0 %>
     <p>No pending administration required.</p>
 <% end %>
 
