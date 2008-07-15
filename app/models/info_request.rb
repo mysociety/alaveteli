@@ -22,7 +22,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.118 2008-07-08 09:41:04 francis Exp $
+# $Id: info_request.rb,v 1.119 2008-07-15 08:29:34 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -78,7 +78,12 @@ class InfoRequest < ActiveRecord::Base
     # (Not really the right place to put it, but everything can get it here, and it
     # does *mainly* find info requests, via their events, so hey)
     def InfoRequest.full_search(models, query, order, ascending, collapse, per_page, page)
+
+
         offset = (page - 1) * per_page
+
+
+
         return ::ActsAsXapian::Search.new(
             models, query,
             :offset => offset, :limit => per_page,
@@ -86,6 +91,9 @@ class InfoRequest < ActiveRecord::Base
             :sort_by_ascending => ascending,
             :collapse_by_prefix => collapse
         )
+
+
+
     end
 
     # For debugging
@@ -137,10 +145,19 @@ public
 
     # Subject lines for emails about the request
     def email_subject_request
-        self.law_used_full + ' request - ' + self.title
+        if self.public_body.url_name == 'general_register_office'
+            # without GQ in the subject, you just get an auto response
+            self.law_used_full + ' request GQ - ' + self.title
+        else
+            self.law_used_full + ' request - ' + self.title
+        end
     end
     def email_subject_followup
-        'Re: ' + self.law_used_full + ' request - ' + self.title
+        if self.public_body.url_name == 'general_register_office'
+            'Re: ' + self.law_used_full + ' request GQ - ' + self.title
+        else
+            self.law_used_full + ' request - ' + self.title
+        end
     end
 
     # Two sorts of laws for requests, FOI or EIR 
