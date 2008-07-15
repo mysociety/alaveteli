@@ -22,7 +22,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.119 2008-07-15 08:29:34 francis Exp $
+# $Id: info_request.rb,v 1.120 2008-07-15 17:24:25 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -78,11 +78,7 @@ class InfoRequest < ActiveRecord::Base
     # (Not really the right place to put it, but everything can get it here, and it
     # does *mainly* find info requests, via their events, so hey)
     def InfoRequest.full_search(models, query, order, ascending, collapse, per_page, page)
-
-
         offset = (page - 1) * per_page
-
-
 
         return ::ActsAsXapian::Search.new(
             models, query,
@@ -91,9 +87,6 @@ class InfoRequest < ActiveRecord::Base
             :sort_by_ascending => ascending,
             :collapse_by_prefix => collapse
         )
-
-
-
     end
 
     # For debugging
