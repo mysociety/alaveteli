@@ -1,3 +1,7 @@
+Do patch this file if there is documentation missing / wrong. It's called
+README.txt and is in git, using Textile formatting. The wiki page is just
+copied from the README.txt file.
+
 Contents
 ========
 
@@ -6,30 +10,26 @@ Contents
 * c. Comparison to acts_as_solr (as on 24 April 2008)
 * d. Documentation - indexing
 * e. Documentation - querying
+* f. Support
 
-Official home page for acts_as_xapian:
-http://github.com/frabcus/acts_as_xapian/wikis
 
 a. Introduction to acts_as_xapian
 =================================
 
-"Xapian":http://www.xapian.org is a full text search engine library, which has
+"Xapian":http://www.xapian.org is a full text search engine library which has
 Ruby bindings. acts_as_xapian adds support for it to Rails. It is an
 alternative to acts_as_solr, acts_as_ferret or Ultrasphinx.
 
-Xapian is an *offline indexing* search library - only one process can have the
-Xapian database open for writing at once, and others that try meanwhile are
-unceremoniously kicked out. For this reason, acts_as_xapian does not support
-immediate writing to the database when your models change.
+acts_as_xapian is deployed in production on these websites.
+* "WhatDoTheyKnow":http://www.whatdotheyknow.com 
+* "MindBites":http://www.mindbites.com
 
-Instead, there is a ActsAsXapianJob model which stores which models need
-updating or deleting in the search index. A rake task 'xapian:update_index'
-then performs the updates since last change. Run it on a cron job, or similar.
+The section "c. Comparison to acts_as_solr" below will give you an idea of 
+acts_as_xapian's features.
 
-Xapian 1.0.5 and associated Ruby bindings are required. In Debian or Ubuntu
-install the packages libxapian15 and libxapian-ruby1.8.
-
-Email francis@mysociety.org with patches.
+acts_as_xapian was started by Francis Irving in May 2008 for search and email
+alerts in WhatDoTheyKnow, and so was supported by "mySociety":http://www.mysociety.org 
+and initially paid for by the "JRSST Charitable Trust":http://www.jrrt.org.uk/jrsstct.htm
 
 
 b. Installation
@@ -39,6 +39,16 @@ Retrieve the plugin directly from the git version control system by running
 this command within your Rails app.
 
     git clone git://github.com/frabcus/acts_as_xapian.git vendor/plugins/acts_as_xapian
+
+Xapian 1.0.5 and associated Ruby bindings are also required. 
+
+Debian or Ubuntu - install the packages libxapian15 and libxapian-ruby1.8. 
+
+Mac OSX - follow the instructions for installing from source on 
+the "Installing Xapian":http://xapian.org/docs/install.html page - you need the
+Xapian library and bindings (you don't need Omega).
+
+There is no Ruby Gem for Xapian, it would be great if you could make one!
 
 
 c. Comparison to acts_as_solr (as on 24 April 2008)
@@ -63,9 +73,13 @@ wasn't documented well enough, and was hard to get working.
 
 * Spelling correction - "did you mean?" built in and just works.
 
-* Multiple models - acts_as_xapian searches multiple models if you like,
-returning them mixed up together by relevancy. This is like multi_solr_search,
-only it is the default mode of operation and is properly supported.
+* Similar documents - acts_as_xapian has a simple command to find other models
+that are like a specified model.
+
+* Multiple models - acts_as_xapian searches multiple types of model if you
+like, returning them mixed up together by relevancy. This is like
+multi_solr_search, only it is the default mode of operation and is properly
+supported.
 
 * No daemons - However, if you have more than one web server, you'll need to
 work out how to use "Xapian's remote backend":http://xapian.org/docs/remote.html.
@@ -84,6 +98,18 @@ Ruby bindings are mature and well maintained as part of Xapian.
 
 d. Documentation - indexing
 ===========================
+
+Xapian is an *offline indexing* search library - only one process can have the
+Xapian database open for writing at once, and others that try meanwhile are
+unceremoniously kicked out. For this reason, acts_as_xapian does not support
+immediate writing to the database when your models change.
+
+Instead, there is a ActsAsXapianJob model which stores which models need
+updating or deleting in the search index. A rake task 'xapian:update_index'
+then performs the updates since last change. You can run it on a cron job, or
+similar.
+
+Here's how to add indexing to your Rails app:
 
 1. Put acts_as_xapian in your models that need search indexing. e.g.
 
@@ -105,10 +131,13 @@ Specify an array quadruple of [ field, identifier, prefix, type ] where
 e.g. :values => [ [ :created_at, 0, "created_at", :date ],
 [ :size, 1, "size", :string ] ]
 
-* :terms, things which come after a : in search queries. Specify an array
-triple of [ field, char, prefix ] where 
-** char is an arbitary single upper case char used in the Xapian database
+* :terms, things which come with a prefix (before a :) in search queries. 
+Specify an array triple of [ field, char, prefix ] where 
+** char is an arbitary single upper case char used in the Xapian database, just
+pick any single uppercase character, but use a different one for each prefix.
 ** prefix is the part to use in search queries that goes before the :
+For example, if you were making Google and indexing to be able to later do a
+query like "site:www.whatdotheyknow.com", then the prefix would be "site".
 
 e.g. :terms => [ [ :variety, 'V', "variety" ] ]
         
@@ -157,8 +186,8 @@ To perform a query from code call ActsAsXapian::Search.new. This takes in turn:
 * query_string - Google like syntax, see below
 
 And then a hash of options:
-* :offset - Offset of first result
-* :limit - Number of results per page
+* :offset - Offset of first result (default 0)
+* :limit - Number of results per page (default -1, all)
 * :sort_by_prefix - Optionally, prefix of value to sort by, otherwise sort by relevance
 * :sort_by_ascending - Default true, set to false for descending sort
 * :collapse_by_prefix - Optionally, prefix of value to collapse by (i.e. only return most relevant result from group)
@@ -194,11 +223,13 @@ for words_to_highlight. In addition has:
 You need the results methods to get the similar models.
 
 
+f. Support
+==========
 
-For more details about anything, see source code in lib/acts_as_xapian.rb -
-please though do patch this file if there is documentation missing / wrong.
-It's called README.txt and is in git, using Textile formatting. The wiki page
-is just copied from the README.txt file.
+Please ask any questions on the 
+"acts_as_xapian Google Group":http://groups.google.com/group/acts_as_xapian
 
-The official home page and repository for acts_as_xapian are here:
-http://github.com/frabcus/acts_as_xapian/wikis
+The official home page and repository for acts_as_xapian are the
+"acts_as_xapian github page":http://github.com/frabcus/acts_as_xapian/wikis
+
+For more details about anything, see source code in lib/acts_as_xapian.rb
