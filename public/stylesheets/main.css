@@ -21,13 +21,13 @@ body
 	border-width: 0 0 3px 0;
 	border-style: solid;
 	height: 100px;
-	background-image: url(../images/navimg/bnnr-temp-100pxc.jpg); 
+	background-image: url(../images/navimg/bnnr-temp-100pxd.jpg); 
 	background-repeat: no-repeat;
 	background-position: center top;
 
 }
 
-/*------------------------------------------------ header; not needed? */
+/*------------------------------------------------ header */
 #header
 {
 	height: 55px;
@@ -36,6 +36,7 @@ body
 	left: 14px;
 	height: 55px;
 	width: 300px;
+	z-index: 150;
 }
 	#header h1
 	{ 
@@ -51,7 +52,39 @@ body
 		background-repeat: no-repeat;
 	}
 	
-	#header #tagline { display: none; }
+	#header #tagline
+	{
+		font-size: 0.8em;
+		font-style: italic;
+		align: left;
+		margin: 5px 0 0 -18px;
+		color: #626262;
+	}
+	
+/*------------------------------------------------ mysoc logo */
+	#mysoclogo
+	{
+		position: absolute;
+		width: 100%;
+		left: 0px;
+		top: 15px;
+		z-index: 150;
+		text-align: right;
+		font-size: 0.01em;
+		height: 40px;
+		z-index: 100;
+	}
+		#mysoclogo a
+		{
+			color: #f0f0f0;
+			display: block;
+			float: right;
+			clear: none;
+			height: 40px;
+			width: 135px;
+			background-image: url(../images/navimg/mysoc-logo-header.png);
+			background-repeat: no-repeat;
+		}
 /*------------------------------------------------ search */
 			
 #navigation_search
