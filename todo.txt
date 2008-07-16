@@ -39,9 +39,6 @@ https://secure.mysociety.org/cvstrac/tktview?tn=1032
 This infers the wrong calculated state due to followups
 https://secure.mysociety.org/admin/foi/request/show/619
 
-In flow, encourage people to make new requests rather than file new requests as
-follow ups on existing one.
-
 Show similar requests after you have filed yours - maybe on preview too.
 
 Advertise WDTK search queries on TWFY
@@ -51,6 +48,11 @@ Internal review status/marker?
 Request withdrawn by user status/marker?
 
 Redo the RSS feeds
+- One click "track this" then single feed based on your preferences
+- Page tracking things within the site
+Maybe remove public tracking completely
+
+Comments interleaved with body
 
 Antispam on contact form
 Incoming email to unknown FOI is a bit rubbish
@@ -70,9 +72,17 @@ Show list of popular tracks somewhere (finds most popular requests in a way)
 
 user/show.rhtml sidebar vs. generic sidebar? (ask Tommy)
 Needs tagline that v. quickly explains what site is on each page
+There is grey on grey text in header? bad idea?
 
 Later
 =====
+
+Find a way to get corrected email addresses from responses - somehow getting
+user to send them in?  
+e.g. as in http://www.whatdotheyknow.com/request/1071/response/1870 which
+we found largely by accident.
+
+For followups, have radio button to say is it a new request or followup?
 
 Alert you when someone you're tracking starts tracking another request
 
@@ -181,6 +191,8 @@ Quoting fixing TODO:
     http://www.whatdotheyknow.com/request/council_housing_accommodation # over zealous half cuts
     http://www.whatdotheyknow.com/request/621/response/1131 # virus footer
     http://www.whatdotheyknow.com/request/231/response/338
+    http://www.whatdotheyknow.com/request/930/response/1609
+    http://www.whatdotheyknow.com/request/1102/response/2067
 
     http://www.whatdotheyknow.com/request/415/response/1041/attach/3/CONF%20FOI%209508%20Ian%20Holton.doc
 
@@ -208,10 +220,10 @@ http://www.ico.gov.uk/Home/tools_and_resources/decision_notices.aspx
 
 Description for each body as to what info it holds
 Link to:
+    Website itself (for general search) XXX can get this from domain of email and some scanning, with override needed
     Aliases (not just short name, but multiple real names e.g. for museums)
     Disclosure logs
     Publication schemes (http://www.ico.gov.uk/what_we_cover/freedom_of_information/publication_schemes.aspx)
-    Website itself (for general search) XXX can get this from domain of email and some scanning
     Google search within website?
     TWFY department search
     Complaint email

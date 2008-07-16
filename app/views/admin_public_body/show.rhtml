@@ -7,7 +7,8 @@
   <b><%= column.human_name %>:</b> <%=h @public_body.send(column.name) %>
   <br/>
 <% end %>
-<b>Tags:</b> <%=h @public_body.tag_string %>
+<b>Calculated home page:</b> <%= link_to(h(@public_body.calculated_home_page), @public_body.calculated_home_page) %>
+<br/><b>Tags:</b> <%=h @public_body.tag_string %>
 <br/>
 </p>
 

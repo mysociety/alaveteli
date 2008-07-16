@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 56
+# Schema version: 59
 #
 # Table name: public_bodies
 #
@@ -13,6 +13,8 @@
 #  created_at        :datetime        not null
 #  updated_at        :datetime        not null
 #  url_name          :text            not null
+#  home_page         :text            default(""), not null
+#  notes             :text            default(""), not null
 #
 
 # models/public_body.rb:
@@ -21,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.84 2008-07-10 08:45:46 francis Exp $
+# $Id: public_body.rb,v 1.85 2008-07-16 23:45:41 francis Exp $
 
 require 'csv'
 require 'set'
@@ -108,7 +110,6 @@ class PublicBody < ActiveRecord::Base
             raise "requestable_failure_reason called with type that has no reason"
         end
     end
-
 
     acts_as_versioned
     self.non_versioned_columns << 'created_at' << 'updated_at'
@@ -202,6 +203,30 @@ class PublicBody < ActiveRecord::Base
         end
     end
 
+    # Calculate home page, or nil if not known
+    def calculated_home_page
+        # manual override for ones we calculate wrongly
+        if self.home_page != ''
+            return self.home_page
+        end
+
+        # extract the domain name
+        url = self.request_email
+        url =~ /@(.*)/
+        if $1.nil?
+            return nil
+        end
+        url = $1
+
+        # remove special email domains for UK Government addresses
+        url.sub!(".gsi.", ".")
+        url.sub!(".x.", ".")
+        url.sub!(".pnn.", ".")
+
+        # add standard URL prefix
+        return "http://www." + url
+    end
+
     # Are all requests to this body under the Environmental Information Regulations?
     def eir_only?
         return self.has_tag?('eir_only')
@@ -222,6 +247,8 @@ class PublicBody < ActiveRecord::Base
                 :name => 'Internal admin authority',
                 :short_name => "",
                 :request_email => MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost'),
+                :home_page => "",
+                :notes => "",
                 :last_edit_editor => "internal_admin",
                 :last_edit_comment => "Made by PublicBody.internal_admin_body"
             )
@@ -286,7 +313,7 @@ class PublicBody < ActiveRecord::Base
                     else
                         # New public body
                         notes.push "line " + line.to_s + ": new authority '" + name + "' with email " + email
-                        public_body = PublicBody.new(:name => name, :request_email => email, :short_name => "", :last_edit_editor => editor, :last_edit_comment => 'Created from spreadsheet')
+                        public_body = PublicBody.new(:name => name, :request_email => email, :short_name => "", :home_page => "", :notes => "", :last_edit_editor => editor, :last_edit_comment => 'Created from spreadsheet')
                         public_body.tag_string = tag
                         public_body.save!
                     end

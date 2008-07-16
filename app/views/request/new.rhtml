@@ -39,6 +39,13 @@
 		</li>
 		</ul>
 
+        <% if @info_request.public_body.notes != "" %>
+            <h1>Please note for this authorite</h1>
+            <ul>
+                <li><%=@info_request.public_body.notes %></li>
+            </ul>
+        <% end %>
+
         <% if @info_request.public_body.eir_only? %>
             <h1>Please ask for environmental information only</h1>
             

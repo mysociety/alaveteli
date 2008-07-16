@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 56
+# Schema version: 59
 #
 # Table name: info_requests
 #
@@ -14,6 +14,7 @@
 #  prominence           :string(255)     default("normal"), not null
 #  url_title            :text            not null
 #  stop_new_responses   :boolean         default(false), not null
+#  law_used             :string(255)     default("foi"), not null
 #
 
 # models/info_request.rb:
@@ -22,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.120 2008-07-15 17:24:25 francis Exp $
+# $Id: info_request.rb,v 1.121 2008-07-16 23:45:41 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
