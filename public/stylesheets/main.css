@@ -317,12 +317,13 @@ dd { margin: 0.6em 0 2em 4em; width: 30em; }
 	}
 
 	#request_sidebar .request_listing span.desc
+	 /* sidebar request list only */
 	{
-		width: 9em;
-		background-image: url(../images/navimg/quote-open.png);
+		width: 9.9em;
+		background-image: url(../images/navimg/quote-open-small.png);
 		background-repeat: no-repeat;
 		background-position: 0 0;
-		padding: 8px 0 1em 25px;
+		padding: 2px 2px 1em 15px;
 	}
 
 	#request_sidebar span.bottomline
@@ -593,6 +594,9 @@ div[id|="incoming"] { background-color: #E7E7E7; font-family: Times New Roman, T
 
 a img.attachment_image {border: 0px;}
 
+.describe_state_form
+{ clear: both; float: left; }
+
 /*------------------------------------------------ authority listings */
 #body_sidebar {
 	font-size: 0.85em;
@@ -673,7 +677,8 @@ p#sign_in_reason
 		float: left;		
 	}
 	
-#signup .form_item_note
+#signup .form_item_note,
+#signin .form_note
 {
 	font-size: 0.8em;
 	width: 224px; /*width: 16em;*/
