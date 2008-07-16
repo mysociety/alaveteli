@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.85 2008-07-16 23:45:41 francis Exp $
+# $Id: public_body.rb,v 1.86 2008-07-16 23:55:49 francis Exp $
 
 require 'csv'
 require 'set'
@@ -203,14 +203,15 @@ class PublicBody < ActiveRecord::Base
         end
     end
 
-    # Calculate home page, or nil if not known
+    # Guess home page from the request email, or use explicit override, or nil
+    # if not known.
     def calculated_home_page
         # manual override for ones we calculate wrongly
         if self.home_page != ''
             return self.home_page
         end
 
-        # extract the domain name
+        # extract the domain name from the FOI request email
         url = self.request_email
         url =~ /@(.*)/
         if $1.nil?
