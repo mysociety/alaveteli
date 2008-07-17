@@ -226,6 +226,7 @@ module ActsAsXapian
             end
 
             self.matches = ActsAsXapian.enquire.mset(offset, limit, 100)
+            @cached_results = nil
         end
 
         # Return a description of the query
@@ -249,6 +250,11 @@ module ActsAsXapian
 
         # Return array of models found
         def results
+            # If they've already pulled out the results, just return them.
+            if not @cached_results.nil?
+                return @cached_results
+            end
+
             # Pull out all the results
             docs = []
             iter = self.matches._begin
@@ -280,6 +286,7 @@ module ActsAsXapian
             results = []
             docs.each{|doc| k = doc[:data].split('-'); results << { :model => chash[[k[0], k[1].to_i]],
                     :percent => doc[:percent], :weight => doc[:weight], :collapse_count => doc[:collapse_count] } }
+            @cached_results = results
             return results
         end
     end
