@@ -30,38 +30,28 @@ pages.
 Next
 ====
 
-It's terribly slow.
 Clear out all the need admin attention requests
 Clear out all the need classifying requests
 
 https://secure.mysociety.org/cvstrac/tktview?tn=1032
 
-This infers the wrong calculated state due to followups
+This infers the wrong calculated state due to followups - in the waiting
+clarification not being set to states?
 https://secure.mysociety.org/admin/foi/request/show/619
-
-Show similar requests after you have filed yours - maybe on preview too.
-
-Advertise WDTK search queries on TWFY
-Advertise alerts on end pages with WDTK
+https://secure.mysociety.org/admin/foi/request/show/755
 
 Internal review status/marker?
 Request withdrawn by user status/marker?
 
 Redo the RSS feeds
+- Look at Rob's TWFY.nz interface
 - One click "track this" then single feed based on your preferences
 - Page tracking things within the site
 Maybe remove public tracking completely
 
 Comments interleaved with body
 
-Antispam on contact form
-
 Do something about shared spreadsheet
-
-Blog posts / Wikipedia articles about this request
-    e.g. http://socialreporter.wordpress.com/2008/04/14/costs-of-the-bbc-action-action-network/
-    http://reportr.net/2008/04/24/bbc-spent-6m-to-develop-the-iplayer/
-Or just look at referrers as Julian says
 
 In sidebar of request 
     Share this request on Facebook, by email etc.
@@ -76,12 +66,13 @@ There is grey on grey text in header? bad idea?
 Later
 =====
 
-Find a way to get corrected email addresses from responses - somehow getting
-user to send them in?  
-e.g. as in http://www.whatdotheyknow.com/request/1071/response/1870 which
-we found largely by accident.
+Advertise WDTK search queries on TWFY
+Advertise alerts on end pages with WDTK
 
-For followups, have radio button to say is it a new request or followup?
+Blog posts / Wikipedia articles about this request
+    e.g. http://socialreporter.wordpress.com/2008/04/14/costs-of-the-bbc-action-action-network/
+    http://reportr.net/2008/04/24/bbc-spent-6m-to-develop-the-iplayer/
+Or just look at referrers as Julian says
 
 Alert you when someone you're tracking starts tracking another request
 
@@ -130,11 +121,10 @@ register for.
 
 Offer search on 404s
 
-Rate limit requests using Ratty, with a freeze thing WTT-style, to detect
-vexatious requests.
-
 Preview when sending followups - especially people need to see quoting/subject
 When sending "my response is late"
+For followups, have radio button to say is it a new request or followup?
+
 
 Interface for when you change your email address - easier to do now with post_redirect.circumstance?
 
@@ -153,12 +143,6 @@ Consider removing login links from notifications of new responses, now we have r
  thanks :) I won't do it now as there are more important things, I was just accidentally impressed
 
 Properly escape all name_and_email functions
-
-Give hotline to call body for extra help
-e.g. Advice and assistance in making FoI requests to the House of Lords is available
-from the Freedom of Information Officer, Parliamentary Archives, House of
-Lords. London SW1A 0PW. Telephone 020 7219 0100. E-mail: foilords@parliament.uk
-http://www.parliament.uk/parliamentary_publications_and_archives/freedom_of_information_in_the_house_of_lords/lords__foi___how_to_obtain_information.cfm
 
 Including 'Request for information' in the subject line of your e-mail will assist us in prioritising your request.
 http://www.parliament.uk/parliamentary_publications_and_archives/freedom_of_information_in_the_house_of_lords/lords__foi___how_to_obtain_information.cfm
@@ -198,9 +182,21 @@ Quoting fixing TODO:
 Larger new features
 -------------------
 
+Antispam on contact form
+
+Find a way to get corrected email addresses from responses - somehow getting
+user to send them in?  
+e.g. as in http://www.whatdotheyknow.com/request/1071/response/1870 which
+we found largely by accident.
+
+Rate limit requests using Ratty, with a freeze thing WTT-style, to detect
+vexatious requests.
+
 Merge workflow into one stream - find information, if you can't find it then request it.
     so just search is on front page, with popular stuff below a la Google Directory
-Use spelling correction for public bodies search?
+Google search within website of authority.
+Show similar requests after you have filed yours - maybe on preview too.
+Use spelling correction for public bodies search (in addition to substring?)
 
 Editable user profile, including photo upload
 
@@ -222,12 +218,17 @@ Link to:
     Aliases (not just short name, but multiple real names e.g. for museums)
     Disclosure logs
     Publication schemes (http://www.ico.gov.uk/what_we_cover/freedom_of_information/publication_schemes.aspx)
-    Google search within website?
     TWFY department search
     Complaint email
 e.g.
     http://www.ordnancesurvey.co.uk/oswebsite/aboutus/foi/index.html
     http://www.ordnancesurvey.co.uk/oswebsite/aboutus/foi/coiindex.html
+
+Give hotline to call body for extra help
+e.g. Advice and assistance in making FoI requests to the House of Lords is available
+from the Freedom of Information Officer, Parliamentary Archives, House of
+Lords. London SW1A 0PW. Telephone 020 7219 0100. E-mail: foilords@parliament.uk
+http://www.parliament.uk/parliamentary_publications_and_archives/freedom_of_information_in_the_house_of_lords/lords__foi___how_to_obtain_information.cfm
 
 EU regulation 1049/2001
 US (with Sunlight)

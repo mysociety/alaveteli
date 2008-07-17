@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 59
+# Schema version: 60
 #
 # Table name: info_requests
 #
@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.121 2008-07-16 23:45:41 francis Exp $
+# $Id: info_request.rb,v 1.122 2008-07-17 10:32:01 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -299,7 +299,7 @@ public
         end
     end
 
-    # Work out what the situation of the request is In addition to values of
+    # Work out what the situation of the request is. In addition to values of
     # self.described_state, can take these two values:
     #   waiting_classification
     #   waiting_response_overdue
@@ -328,13 +328,16 @@ public
         return self.described_state
     end
 
-    # Fill in any missing event states for first response before a
-    # description was made.
+    # Fill in any missing event states for first response before a description
+    # was made. i.e. We take the last described state in between two responses
+    # (inclusive of earlier), and set it as calculated value for the earlier
+    # response.
     def calculate_event_states
         curr_state = nil
         for event in self.info_request_events.reverse
             if not event.described_state.nil? and curr_state.nil?
                 curr_state = event.described_state
+                STDERR.puts "curr_state " + curr_state
             end
 
             if !curr_state.nil? && event.event_type == 'response' 
@@ -347,6 +350,11 @@ public
                     event.last_described_at = Time.now()
                     event.save!
                 end
+                curr_state = nil
+            elsif !curr_state.nil? && event.event_type == 'followup_sent' && !event.described_state.nil? && event.described_state == 'waiting_response'
+                # followups can set the status to waiting response, which we don't
+                # want to propogate to the response itself, as that might already be
+                # set to waiting_clarification, which we want to know about.
                 curr_state = nil
             end
         end

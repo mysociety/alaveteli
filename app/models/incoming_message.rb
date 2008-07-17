@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 59
+# Schema version: 60
 #
 # Table name: incoming_messages
 #
@@ -9,6 +9,7 @@
 #  created_at             :datetime        not null
 #  updated_at             :datetime        not null
 #  cached_attachment_text :text            
+#  cached_main_body_text  :text            
 #
 
 # models/incoming_message.rb:
@@ -18,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.121 2008-07-17 03:30:54 francis Exp $
+# $Id: incoming_message.rb,v 1.122 2008-07-17 10:32:01 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
