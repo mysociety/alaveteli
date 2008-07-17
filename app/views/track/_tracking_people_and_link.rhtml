@@ -35,7 +35,7 @@
         <p>You may also get an <%= link_to 'RSS feed', do_track_url(track_thing) %>
         <img src="/images/feed-14.png" alt="" class="rss"></p>
     <% else %>
-        <p>Be the first to <%= link_to track_thing.params[:verb_on_page].downcase, do_track_url(track_thing) %>
+        <p>Be the first to <%= link_to  MySociety::Format.lcfirst(track_thing.params[:verb_on_page]), do_track_url(track_thing) %>
         (by email or RSS feed <img src="/images/feed-14.png" alt="" class="rss">)</p>
     <% end %>
 <% end %>

@@ -21,7 +21,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_thing.rb,v 1.26 2008-07-17 10:32:01 francis Exp $
+# $Id: track_thing.rb,v 1.27 2008-07-17 11:24:03 francis Exp $
 
 class TrackThing < ActiveRecord::Base
     belongs_to :tracking_user, :class_name => 'User'
@@ -156,8 +156,8 @@ class TrackThing < ActiveRecord::Base
                     # Website
                     :set_title => "How would you like to be told about new requests to the public authority '" + CGI.escapeHTML(self.public_body.name) + "'?",
                     :list_description => "'<a href=\"/body/" + CGI.escapeHTML(self.public_body.url_name) + "\">" + CGI.escapeHTML(self.public_body.name) + "</a>', a public authority", # XXX yeuch, sometimes I just want to call view helpers from the model, sorry! can't work out how 
-                    :verb_on_page => "Be told about new requests to this public authority",
-                    :verb_on_page_already => "being told about new requests to this public authority",
+                    :verb_on_page => "Be told about new requests to " + CGI.escapeHTML(self.public_body.name),
+                    :verb_on_page_already => "being told about new requests to " + CGI.escapeHTML(self.public_body.name),
                     # Email
                     :title_in_email => "New " + self.public_body.law_only_short + " requests to '" + self.public_body.name + "'",
                     :title_in_rss => "New " + self.public_body.law_only_short + " requests to '" + self.public_body.name + "'",
