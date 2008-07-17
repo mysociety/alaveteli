@@ -55,7 +55,6 @@ Maybe remove public tracking completely
 Comments interleaved with body
 
 Antispam on contact form
-Incoming email to unknown FOI is a bit rubbish
 
 Do something about shared spreadsheet
 
@@ -220,7 +219,6 @@ http://www.ico.gov.uk/Home/tools_and_resources/decision_notices.aspx
 
 Description for each body as to what info it holds
 Link to:
-    Website itself (for general search) XXX can get this from domain of email and some scanning, with override needed
     Aliases (not just short name, but multiple real names e.g. for museums)
     Disclosure logs
     Publication schemes (http://www.ico.gov.uk/what_we_cover/freedom_of_information/publication_schemes.aspx)

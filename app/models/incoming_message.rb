@@ -18,7 +18,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.120 2008-07-16 23:45:41 francis Exp $
+# $Id: incoming_message.rb,v 1.121 2008-07-17 03:30:54 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -110,6 +110,11 @@ class IncomingMessage < ActiveRecord::Base
 
     has_many :outgoing_message_followups, :foreign_key => 'incoming_message_followup_id', :class_name => 'OutgoingMessage'
 
+    # Some emails are large (10Mb), making things like search results and the
+    # front page list of requests slow to display as the data is transferred from
+    # the database.
+    attr_lazy :raw_data
+ 
     # Return the structured TMail::Mail object
     # Documentation at http://i.loveruby.net/en/projects/tmail/doc/
     def mail
@@ -121,12 +126,21 @@ class IncomingMessage < ActiveRecord::Base
     end
 
     # Number the attachments in depth first tree order, for use in URLs.
+    # XXX This fills in part.rfc822_attachment and part.url_part_number within
+    # all the parts of the email (see TMail monkeypatch above for how these
+    # attributes are added). ensure_parts_counted must be called before using
+    # the attributes. This calculation is done only when required to avoid
+    # having to load and parse the email unnecessarily.
     def after_initialize
-        if !self.mail.nil?
+        @parts_counted = false 
+    end
+    def ensure_parts_counted
+        if not @parts_counted
             @count_parts_count = 0
             count_parts_recursive(self.mail)
             # we carry on using these numeric ids for attachments uudecoded from within text parts
             @count_first_uudecode_count = @count_parts_count
+            @parts_counted = true
         end
     end
     def count_parts_recursive(part)
@@ -147,8 +161,8 @@ class IncomingMessage < ActiveRecord::Base
         end
     end
     # And look up by URL part number to get an attachment
+    # XXX relies on get_attachments_for_display calling ensure_parts_counted
     def self.get_attachment_by_url_part_number(attachments, found_url_part_number)
-        @count_parts_count = 0  
         attachments.each do |a|
             if a.url_part_number == found_url_part_number
                 return a
@@ -378,7 +392,7 @@ class IncomingMessage < ActiveRecord::Base
             end
             # If the part is an attachment of email in text form
             if curr_mail.content_type == 'message/rfc822'
-                # This has been expanded from text to an email in count_parts_recursive above
+                ensure_parts_counted # fills in rfc822_attachment variable
                 leaves_found += get_attachment_leaves_recursive(curr_mail.rfc822_attachment)
             else
                 # Store leaf
@@ -390,7 +404,14 @@ class IncomingMessage < ActiveRecord::Base
 
     # Returns body text from main text part of email, converted to UTF-8, with uudecode removed
     def get_main_body_text
-        text = get_main_body_text_internal
+        # Cached as loading raw_data can be quite huge, and need this for just
+        # search results
+        if self.cached_main_body_text.nil?
+            text = self.get_main_body_text_internal
+            self.cached_main_body_text = text
+            self.save!
+        end
+        text = self.cached_main_body_text
 
         # Strip the uudecode parts from main text
         text = text.split(/^begin.+^`\n^end\n/sm).join(" ")
@@ -530,6 +551,8 @@ class IncomingMessage < ActiveRecord::Base
 
     # Returns all attachments for use in display code
     def get_attachments_for_display
+        ensure_parts_counted
+
         main_part = get_main_body_text_part
         leaves = get_attachment_leaves
         attachments = []
