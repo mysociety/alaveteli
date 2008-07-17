@@ -12,7 +12,7 @@
         <% end %>
         </p>
 
-    <%= render :partial => 'signin' %>
+    <%= render :partial => 'signin', :locals => { :sign_in_as_existing_user => true } %>
 
     </div>
 
@@ -29,7 +29,7 @@
         <% end %>
         </p>
 
-        <%= render :partial => 'signin' %>
+        <%= render :partial => 'signin', :locals => { :sign_in_as_existing_user => false } %>
         <%= render :partial => 'signup' %>
 
     </div>
