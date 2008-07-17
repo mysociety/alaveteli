@@ -228,6 +228,7 @@ body
 {
 	position: relative;
 	padding: 1em 1em 1em 1em;
+
 }
 
 h1, h2, h3
@@ -574,6 +575,18 @@ div.pagination { text-align: center; padding-top: 0.3em;}
 	background-color: #ffeeee;
 }
 
+/*-------------------- Content : action notice */
+#notice
+{
+	color: #16C132;
+	font-size: 1.4em;
+	font-weight: bold;
+	border-color: #1EFF38;
+	border-width: 1px;
+	border-style: solid;
+	background-color: #D5FFD8;
+}
+
 /*---------------- content : request detail pages */
 
 #request_sidebar
@@ -627,7 +640,8 @@ div[id|="incoming"] { background-color: #E7E7E7; font-family: Times New Roman, T
 
 a img.attachment_image {border: 0px;}
 
-.describe_state_form
+.describe_state_form, 
+#followup
 { clear: both; float: left; }
 
 /*------------------------------------------------ authority listings */
@@ -658,7 +672,7 @@ a img.attachment_image {border: 0px;}
 label.form_label
 {
 	display: block;
-	width: 128px; /*width: 8em;*/
+	/*width: 128px;*/ width: 8em;
 	float: left;
 	clear: none;
 	text-align: right;
@@ -672,14 +686,14 @@ label.form_label
 .form_item_note, .form_note
 {
 	font-size: 0.8em;
-	width: 432px; /*width: 27em;*/
-	margin-left: 138px;/*margin-left: 11em;*/
+	/*width: 432px;*/ width: 27em;
+	/*margin-left: 138px;*/margin-left: 11em;
 }
 
 
-.form_button
-{
-	margin-left: 9em;
+.form_button 
+{ 
+	margin: 0 0 0 9em; 
 }
 
 p#sign_in_reason
@@ -714,9 +728,10 @@ p#sign_in_reason
 #signin .form_note
 {
 	font-size: 0.8em;
-	width: 224px; /*width: 16em;*/
-	margin-left: 142px; /*margin-left: 6em;*/
+	/*width: 224px;*/ width: 16em;
+	/*margin-left: 142px;*/ margin-left: 11em;
 }
+
 
 /* mini-signin form overrides 
 
@@ -760,13 +775,12 @@ div#about_sidebar
 #footer
 {
 	clear: both;
-	position: relative;
-	top: 110px;
+	width: 100%;
 	background-color: #F0F0F0;
 	border-color: #993233;
 	border-width: 3px 0 0 0;
 	border-style: solid;
-	margin: 0 0 0 0;
+	margin: 100px 0 0 0;
 	padding: 0.5em 0 0.5em 0;
 	font-size: 0.85em;
 }
