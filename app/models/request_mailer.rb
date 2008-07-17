@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.40 2008-07-14 12:06:51 francis Exp $
+# $Id: request_mailer.rb,v 1.41 2008-07-17 01:14:09 francis Exp $
 
 class RequestMailer < ApplicationMailer
     
@@ -203,7 +203,7 @@ class RequestMailer < ApplicationMailer
             sent_already = UserInfoRequestSentAlert.find(:first, :conditions => [ "alert_type = ? and user_id = ? and info_request_id = ? and info_request_event_id = ?", type_code, info_request.user_id, info_request.id, alert_event_id])
             if sent_already.nil?
                 # Alert not yet sent for this user
-                STDERR.puts "sending " + type_code + " alert to info_request " + info_request.url_title + " user " + info_request.user.url_name + " event " + alert_event_id.to_s
+                #STDERR.puts "sending " + type_code + " alert to info_request " + info_request.url_title + " user " + info_request.user.url_name + " event " + alert_event_id.to_s
                 store_sent = UserInfoRequestSentAlert.new
                 store_sent.info_request = info_request
                 store_sent.user = info_request.user
@@ -232,7 +232,7 @@ class RequestMailer < ApplicationMailer
             sent_already = UserInfoRequestSentAlert.find(:first, :conditions => [ "alert_type = 'not_clarified_1' and user_id = ? and info_request_id = ? and info_request_event_id = ?", info_request.user_id, info_request.id, alert_event_id])
             if sent_already.nil?
                 # Alert not yet sent for this user
-                STDERR.puts "sending clarification reminder alert to info_request " + info_request.id.to_s + " user " + info_request.user_id.to_s + " event " + alert_event_id.to_s
+                #STDERR.puts "sending clarification reminder alert to info_request " + info_request.id.to_s + " user " + info_request.user_id.to_s + " event " + alert_event_id.to_s
                 store_sent = UserInfoRequestSentAlert.new
                 store_sent.info_request = info_request
                 store_sent.user = info_request.user
