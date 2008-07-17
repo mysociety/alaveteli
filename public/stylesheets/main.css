@@ -224,7 +224,7 @@ body
 	width: 50em;
 	/* = 800px at default size? so 1em = 16px*/
 	text-align: left;
-	border-color: #FF0B16;
+	overflow: auto;
 }
 
 /*------------------------------------------------ content */
@@ -233,7 +233,6 @@ body
 {
 	position: relative;
 	padding: 1em 1em 1em 1em;
-
 }
 
 h1, h2, h3
@@ -779,13 +778,15 @@ div#about_sidebar
 
 #footer
 {
+	position: relative;	
 	clear: both;
 	width: 100%;
+	margin: 120px 0 0 0;
+	padding: 0.5em 0 0.5em 0;
+	font-size: 0.85em;
+	height: 2em;
 	background-color: #F0F0F0;
 	border-color: #993233;
 	border-width: 3px 0 0 0;
 	border-style: solid;
-	margin: 100px 0 0 0;
-	padding: 0.5em 0 0.5em 0;
-	font-size: 0.85em;
 }
