@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.122 2008-07-17 10:32:01 francis Exp $
+# $Id: info_request.rb,v 1.123 2008-07-17 10:33:57 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -337,7 +337,7 @@ public
         for event in self.info_request_events.reverse
             if not event.described_state.nil? and curr_state.nil?
                 curr_state = event.described_state
-                STDERR.puts "curr_state " + curr_state
+                #STDERR.puts "curr_state " + curr_state
             end
 
             if !curr_state.nil? && event.event_type == 'response' 
