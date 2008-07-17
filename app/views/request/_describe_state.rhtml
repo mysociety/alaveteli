@@ -39,7 +39,7 @@
         if you are
             <%= user_link(@info_request.user) %>,
         please 
-            <%= link_to "sign in", signin_url(:r => request.request_uri) %>
+            <%= link_to "sign in as them", signin_url(:r => request.request_uri) %>
         and let everyone know.
 <% end %>
 
