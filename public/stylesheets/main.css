@@ -32,15 +32,18 @@ body
 {
 	height: 55px;
 	position: absolute;
-	top: 4px;
+	top: 0px;
 	left: 14px;
 	height: 55px;
-	width: 300px;
+	width: 500px;
 	z-index: 150;
+		text-align: left;
 }
 	#header h1
 	{ 
-		font-size: 0.01em;
+		font-size: 0.8em;
+			line-height: 0em;
+
 	}
 	
 	#header h1 a
@@ -56,10 +59,40 @@ body
 	{
 		font-size: 0.8em;
 		font-style: italic;
-		align: left;
-		margin: 5px 0 0 -18px;
+		text-align: left;
+		margin: 2px 0 0 0;
 		color: #626262;
 	}
+/*------------------------------------------------ temp stuff */
+#staging, #alpha_notice, #beta
+{ }
+
+
+#header h1 #beta, #header h1 #beta a
+{
+	display: inline;
+	height: 1em;
+	background-image: none;
+	font-size: 12px;
+	color: #A4A4A4;
+}
+
+
+#staging
+{
+	visibility: hidden;
+	overflow: default;
+}
+
+#alpha_notice
+{
+	padding: 0 20px 0 20px;
+	margin: 0 0 1em 0;
+	border-color: #FF201D;
+	border-width: 1px;
+	border-style: solid;
+	background-color: #f0f0f0;
+}
 	
 /*------------------------------------------------ mysoc logo */
 	#mysoclogo
@@ -67,10 +100,10 @@ body
 		position: absolute;
 		width: 100%;
 		left: 0px;
-		top: 15px;
+		top: 0px;
 		z-index: 150;
 		text-align: right;
-		font-size: 0.01em;
+		font-size: 0.8em;
 		height: 40px;
 		z-index: 100;
 	}
@@ -80,10 +113,11 @@ body
 			display: block;
 			float: right;
 			clear: none;
-			height: 40px;
-			width: 135px;
+			height: 55px;
+			width: 265px;
 			background-image: url(../images/navimg/mysoc-logo-header.png);
 			background-repeat: no-repeat;
+			background-position: 125px 15px;
 		}
 /*------------------------------------------------ search */
 			
@@ -177,35 +211,6 @@ body
 }
 	#logged_in_bar a, #logged_in_bar a:visited { color: #92B3FF; }
 
-/*------------------------------------------------ temp stuff */
-#staging, #alpha_notice, #beta
-{ }
-
-
-#header h1 #beta, #header h1 #beta a
-{
-	display: inline;
-	background-image: none;
-	font-size: 12px;
-	color: #A4A4A4;
-}
-
-
-#staging
-{
-	visibility: hidden;
-	overflow: default;
-}
-
-#alpha_notice
-{
-	padding: 0 20px 0 20px;
-	margin: 0 0 1em 0;
-	border-color: #FF201D;
-	border-width: 1px;
-	border-style: solid;
-	background-color: #f0f0f0;
-}
 
 /*------------------------------------------------ wrapper*/
 
