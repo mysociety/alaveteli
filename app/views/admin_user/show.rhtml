@@ -54,7 +54,11 @@
   <tr class="<%= cycle('odd', 'even') %>">
   <td><%=h post_redirect.id %></td>
   <% for column in PostRedirect.content_columns.map { |c| c.name } %>
+    <% if column == 'email_token' %>
+    <td><%=link_to post_redirect.send(column), confirm_url(:email_token => post_redirect.send(column)) %></td>
+    <% else %>
     <td><%=h post_redirect.send(column) %></td>
+    <% end %>
   <% end %>
   </tr>
 <% end %>
