@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.122 2008-07-17 10:32:01 francis Exp $
+# $Id: incoming_message.rb,v 1.123 2008-07-17 11:39:46 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -607,10 +607,10 @@ class IncomingMessage < ActiveRecord::Base
                 text = "[Subject only] " + CGI.escapeHTML(self.mail.subject) + text
             end
             # and display link for quoted stuff
-            text = text.gsub(/FOLDED_QUOTED_SECTION/, "\n\n" + '<span class="unfold_link"><a href="?unfold=1">show quoted sections</a></span>' + "\n\n")
+            text = text.gsub(/FOLDED_QUOTED_SECTION/, "\n\n" + '<span class="unfold_link"><a href="?unfold=1#incoming-'+self.id.to_s+'">show quoted sections</a></span>' + "\n\n")
         else
             if folded_quoted_text.include?('FOLDED_QUOTED_SECTION')
-                text = text + "\n\n" + '<span class="unfold_link"><a href="?">hide quoted sections</a></span>'
+                text = text + "\n\n" + '<span class="unfold_link"><a href="?#incoming-'+self.id.to_s+'">hide quoted sections</a></span>'
             end
         end
         text.strip!
