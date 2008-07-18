@@ -7,17 +7,19 @@ end
 if not incoming_message.nil?
 %>
     <div class="correspondence" id="incoming-<%=incoming_message.id.to_s%>">
-        <h2><%= simple_date(incoming_message.sent_at) %></h2>
+        <h2>
+            <% if !incoming_message.safe_mail_from.nil? %>
+                <%= incoming_message.safe_mail_from %><br>
+            <% end %>
+            <%=h @info_request.public_body.name %><br>
+            <br><%= simple_date(incoming_message.sent_at) %>
+        </h2>
 
         <%= render :partial => 'bubble', :locals => { :incoming_message => incoming_message, :body => incoming_message.get_body_for_html_display(@collapse_quotes), :attachments => incoming_message.get_attachments_for_display }  %>
 
-        <p class="event_bubble">
-            <% if !incoming_message.safe_mail_from.nil? %>
-                <%= incoming_message.safe_mail_from %> of
-            <% end %>
-            <%= public_body_link(@info_request.public_body) %> replied 
-            (<%= link_to "link to this", show_response_url(:id => incoming_message.info_request.id, :incoming_message_id => incoming_message.id) %>,
-            <%= link_to "reply", show_response_url(:id => incoming_message.info_request.id, :incoming_message_id => incoming_message.id) + "#show_response_followup" %>)
+        <p class="event_actions">
+            <%= link_to "Link to this", incoming_message_url(incoming_message) %> |
+            <%= link_to "Reply", show_response_url(:id => incoming_message.info_request.id, :incoming_message_id => incoming_message.id) + "#show_response_followup" %>
         </p>
     </div>
 <%
@@ -25,34 +27,27 @@ elsif info_request_event.event_type == 'sent' || info_request_event.event_type =
     outgoing_message = info_request_event.outgoing_message
     %>
     <div class="correspondence" id="outgoing-<%=outgoing_message.id.to_s%>">
-        <h2><%= simple_date(info_request_event.created_at) %></h2>
+        <h2>
+        <%=h @info_request.user.name %><br>
+        <br><%= simple_date(info_request_event.created_at) %>
+        </h2>
 
         <%= render :partial => 'bubble', :locals => { :body => outgoing_message.get_body_for_html_display(), :attachments => nil }  %>
 
-        <p class="event_bubble"> 
-            <%= user_link(@info_request.user) %>
-            <% if outgoing_message.message_type == 'initial_request' %>
-                <% if outgoing_message.status == 'sent' %>
-                    sent the initial request
-                    to <%= public_body_link(@info_request.public_body) %>
-                <% elsif outgoing_message.status == 'ready' %>
-                     wrote the initial request, but it has <strong>not yet been sent</strong>
-                <% else raise "unknown outgoing_message.status" %>
-                <% end %> 
-            <% elsif outgoing_message.message_type == 'followup' %>
-                <% if outgoing_message.status == 'sent' %>
-                    wrote to
-                    <% if !outgoing_message.incoming_message_followup.nil? && !outgoing_message.incoming_message_followup.safe_mail_from.nil? %>
-                        <%= outgoing_message.incoming_message_followup.safe_mail_from %> of
-                    <% end %>
-                    <%= public_body_link(@info_request.public_body) %>
-                <% elsif outgoing_message.status == 'ready' %>
-                     wrote a follow up message, but it has <strong>not yet been sent</strong>
-                <% else raise "unknown outgoing_message.status" %>
-                <% end %> 
-            <% else raise "unknown outgoing_message.message_type" %>
-            <% end %>
-            (<%= link_to "send follow up", show_response_no_followup_url(:id => outgoing_message.info_request.id, :incoming_message_id => nil) + "#show_response_followup" %>)
+        <p class="event_actions"> 
+            <% if outgoing_message.status == 'ready' %>
+                 <strong>Warning:</strong> This message has <strong>not yet been sent</strong> for an unknown reason.
+            <% end %> 
+
+            <!-- Can use this to get name of who followup was too, if say you
+                 play with proper from display, but not sure needed
+            <% if outgoing_message.message_type == 'followup' && !outgoing_message.incoming_message_followup.nil? && !outgoing_message.incoming_message_followup.safe_mail_from.nil? %>
+                Follow up sent to: <%= outgoing_message.incoming_message_followup.safe_mail_from %> 
+            <% end %> 
+            -->
+
+            <%= link_to "Link to this", outgoing_message_url(outgoing_message) %> |
+            <%= link_to "Send follow up", show_response_no_followup_url(:id => outgoing_message.info_request.id, :incoming_message_id => nil) + "#show_response_followup" %>
         </p>
     </div>
 <% elsif info_request_event.event_type == 'resent' %>

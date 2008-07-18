@@ -630,6 +630,8 @@ div.correspondence
 }
 div.correspondence h2
 { text-align: right; font-size: 1em; }
+.event_actions
+{ text-align: right} 
 
 /* id starts with... */
 div[id|="outgoing"] { }
