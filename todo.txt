@@ -1,3 +1,7 @@
+RSS move:
+    Can remove "if @track_thing.track_medium == 'feed'" bits from track controller
+
+
 Site move:
     Install PostgresSQL 8.3
     Move database
@@ -31,9 +35,8 @@ Next
 ====
 
 Clear out all the need admin attention requests
-Clear out all the need classifying requests
 
-https://secure.mysociety.org/cvstrac/tktview?tn=1032
+Clear out all the need classifying requests
 
 Internal review status/marker?
 Request withdrawn by user status/marker?
@@ -48,18 +51,18 @@ Comments interleaved with body
 
 Do something about shared spreadsheet
 
-In sidebar of request 
-    Share this request on Facebook, by email etc.
-    Email icon here: http://www.guardian.co.uk/news/video/2008/apr/03/mugabe
-    Simple Digg style "I lke this request" button (doesn't tracking do?)
-Show list of popular tracks somewhere (finds most popular requests in a way)
-
 user/show.rhtml sidebar vs. generic sidebar? (ask Tommy)
 Needs tagline that v. quickly explains what site is on each page
 There is grey on grey text in header? bad idea?
 
 Later
 =====
+
+In sidebar of request 
+    Share this request on Facebook, by email etc.
+    Email icon here: http://www.guardian.co.uk/news/video/2008/apr/03/mugabe
+    Simple Digg style "I lke this request" button (doesn't tracking do?)
+Show list of popular tracks somewhere (finds most popular requests in a way)
 
 Advertise WDTK search queries on TWFY
 Advertise alerts on end pages with WDTK

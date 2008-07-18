@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_controller.rb,v 1.22 2008-05-27 11:16:05 francis Exp $
+# $Id: track_controller.rb,v 1.23 2008-07-18 22:22:58 francis Exp $
 
 class TrackController < ApplicationController
 
@@ -13,6 +13,9 @@ class TrackController < ApplicationController
     def track_request
         @info_request = InfoRequest.find_by_url_title(params[:url_title])
         @track_thing = TrackThing.create_track_for_request(@info_request)
+
+        return atom_feed_internal if params[:feed] == 'feed'
+
         ret = self.track_set
         if ret
             if @track_thing.track_medium == 'feed'
@@ -35,6 +38,8 @@ class TrackController < ApplicationController
         else
             raise "unknown request list view " + @view.to_s
         end
+
+        return atom_feed_internal if params[:feed] == 'feed'
 
         ret = self.track_set
         if ret
@@ -69,6 +74,9 @@ class TrackController < ApplicationController
     def track_public_body
         @public_body = PublicBody.find_by_url_name(params[:url_name])
         @track_thing = TrackThing.create_track_for_public_body(@public_body)
+
+        return atom_feed_internal if params[:feed] == 'feed'
+
         ret = self.track_set
         if ret
             if @track_thing.track_medium == 'feed'
@@ -84,6 +92,9 @@ class TrackController < ApplicationController
     def track_user
         @track_user = User.find_by_url_name(params[:url_name])
         @track_thing = TrackThing.create_track_for_user(@track_user)
+
+        return atom_feed_internal if params[:feed] == 'feed'
+
         ret = self.track_set
         if ret
             if @track_thing.track_medium == 'feed'
@@ -101,8 +112,10 @@ class TrackController < ApplicationController
         # join just to get / and . to work in a query.
         query_array = params[:query_array]
         @query = query_array.join("/")
-
         @track_thing = TrackThing.create_track_for_search_query(@query)
+
+        return atom_feed_internal if params[:feed]
+
         ret = self.track_set
         if ret
             if @track_thing.track_medium == 'feed'
@@ -150,8 +163,13 @@ class TrackController < ApplicationController
     # Atom feed (like RSS) for the track
     def atom_feed
         @track_thing = TrackThing.find(params[:track_id].to_i)
+        atom_feed_internal
+    end
+    def atom_feed_internal
         @xapian_object = perform_search([InfoRequestEvent], @track_thing.track_query, @track_thing.params[:feed_sortby], nil, 25, 1) 
-        respond_to :atom
+        respond_to do |format|
+            format.atom { render :template => 'track/atom_feed' }
+        end
     end
 
     # Change or delete a track

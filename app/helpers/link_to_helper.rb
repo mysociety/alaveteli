@@ -5,7 +5,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: link_to_helper.rb,v 1.33 2008-07-09 07:23:32 francis Exp $
+# $Id: link_to_helper.rb,v 1.34 2008-07-18 22:22:58 francis Exp $
 
 module LinkToHelper
 
@@ -84,20 +84,20 @@ module LinkToHelper
         link_to h(user.name), user_admin_url(user)
     end
 
-    # Teacks
-    def do_track_url(track_thing)
+    # Tracks. feed can be 'track' or 'feed'
+    def do_track_url(track_thing, feed = 'track')
         if track_thing.track_type == 'request_updates'
-            track_request_url(:url_title => track_thing.info_request.url_title)
+            track_request_url(:url_title => track_thing.info_request.url_title, :feed => feed)
         elsif track_thing.track_type == 'all_new_requests' 
-            track_list_url(:view => nil)
+            track_list_url(:view => nil, :feed => feed)
         elsif track_thing.track_type == 'all_successful_requests' 
-            track_list_url(:view => 'successful')
+            track_list_url(:view => 'successful', :feed => feed)
         elsif track_thing.track_type == 'public_body_updates' 
-            track_public_body_url(:url_name => track_thing.public_body.url_name)
+            track_public_body_url(:url_name => track_thing.public_body.url_name, :feed => feed)
         elsif track_thing.track_type == 'user_updates' 
-            track_user_url(:url_name => track_thing.tracked_user.url_name)
+            track_user_url(:url_name => track_thing.tracked_user.url_name, :feed => feed)
         elsif track_thing.track_type == 'search_query' 
-            track_search_url(track_thing.track_query)
+            track_search_url(track_thing.track_query, :feed => feed)
         else
             raise "unknown tracking type " + track_thing.track_type
         end

@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: routes.rb,v 1.65 2008-05-27 11:16:05 francis Exp $
+# $Id: routes.rb,v 1.66 2008-07-18 22:22:59 francis Exp $
 
 ActionController::Routing::Routes.draw do |map|
 
@@ -62,12 +62,14 @@ ActionController::Routing::Routes.draw do |map|
     end
 
     map.with_options :controller => 'track' do |track|
-        track.track_request 'track/request/:url_title', :action => 'track_request'
-        track.track_list '/track/list/:view', :action => 'track_list', :view => nil
-        track.track_public_body "/track/body/:url_name", :action => 'track_public_body'
-        track.track_user "/track/user/:url_name", :action => 'track_user'
+        # /track/ is for setting up an email alert for the item
+        # /feed/ is a direct RSS feed of the item
+        track.track_request '/:feed/request/:url_title', :action => 'track_request', :feed => /(track|feed)/
+        track.track_list '/:feed/list/:view', :action => 'track_list', :view => nil, :feed => /(track|feed)/
+        track.track_public_body "/:feed/body/:url_name", :action => 'track_public_body', :feed => /(track|feed)/
+        track.track_user "/:feed/user/:url_name", :action => 'track_user', :feed => /(track|feed)/
         # XXX must be better way of getting dots and slashes in search queries to work than this *query_array
-        track.track_search "/track/search/*query_array", :action => 'track_search_query' 
+        track.track_search "/:feed/search/*query_array", :action => 'track_search_query' , :feed => /(track|feed)/
 
         track.update '/track/update/:track_id', :action => 'update'
         track.atom_feed '/track/feed/:track_id', :action => 'atom_feed'
