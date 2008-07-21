@@ -52,9 +52,20 @@ elsif info_request_event.event_type == 'sent' || info_request_event.event_type =
     </div>
 <% elsif info_request_event.event_type == 'resent' %>
     <div class="correspondence">
+        <h2>
+            <%= simple_date(info_request_event.created_at) %>
+        </h2>
         <p class="event_plain"> 
-            Sent to <%= public_body_link(@info_request.public_body) %>
-            again (perhaps to a new contact address) <!-- XXX actually say if it is a new one or not -->
+            Sent 
+            <% if info_request_event.outgoing_message.message_type == 'initial_request' %>
+                request
+            <% elsif info_request_event.outgoing_message.message_type == 'followup' %>
+                followup
+            <% else %>
+                <% raise "unknown message_type" %>
+            <% end %>
+            
+            to <%= public_body_link(@info_request.public_body) %> again<% if @info_request.get_previous_email_sent_to(info_request_event) != info_request_event.params[:email] %>, using a new contact address<% end %>.
         </p>
     </div>
 <% 

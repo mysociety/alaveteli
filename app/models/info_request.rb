@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.123 2008-07-17 10:33:57 francis Exp $
+# $Id: info_request.rb,v 1.124 2008-07-21 00:48:05 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -549,6 +549,21 @@ public
             return events[-1]
         end
     end
+
+    # Get previous email sent to
+    def get_previous_email_sent_to(info_request_event)
+        last_email = nil
+        for e in self.info_request_events
+            if (e.event_type == 'sent' || e.event_type == 'resent') && e.outgoing_message_id == info_request_event.outgoing_message_id
+                if e.id == info_request_event.id
+                    break
+                end
+                last_email = e.params[:email]
+            end
+        end
+        return last_email
+    end
+
 
     # Display version of status
     def display_status
