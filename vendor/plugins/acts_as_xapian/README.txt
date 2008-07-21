@@ -18,7 +18,8 @@ a. Introduction to acts_as_xapian
 
 "Xapian":http://www.xapian.org is a full text search engine library which has
 Ruby bindings. acts_as_xapian adds support for it to Rails. It is an
-alternative to acts_as_solr, acts_as_ferret or Ultrasphinx.
+alternative to acts_as_solr, acts_as_ferret, Ultrasphinx, acts_as_indexed,
+acts_as_searchable or acts_as_tsearch.
 
 acts_as_xapian is deployed in production on these websites.
 * "WhatDoTheyKnow":http://www.whatdotheyknow.com 

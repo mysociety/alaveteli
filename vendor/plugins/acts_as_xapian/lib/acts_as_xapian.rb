@@ -502,7 +502,7 @@ module ActsAsXapian
 
         # Extract value of a field from the model
         def xapian_value(field, type = nil)
-            value = self[field] || self.instance_variable_get("@#{field.to_s}".to_sym) || self.send(field.to_sym)
+            value = self[field] || self.send(field.to_sym)
             if type == :date
                 value.utc.strftime("%Y%m%d")
             elsif type == :boolean
