@@ -166,7 +166,9 @@ module ActsAsXapian
     def ActsAsXapian.writable_init(suffix = "")
         raise NoXapianRubyBindingsError.new("Xapian Ruby bindings not installed") unless ActsAsXapian.bindings_available
 
-        ActsAsXapian.init # XXX so db_path is made
+        # XXX called so db_path is made, shouldn't really be calling .init here
+        # as will make it remake stemmer etc. excessively often.
+        ActsAsXapian.init 
 
         new_path = @@db_path + suffix
         raise "writable_suffix/suffix inconsistency" if @@writable_suffix && @@writable_suffix != suffix
@@ -302,9 +304,22 @@ module ActsAsXapian
         # acts_as_xapian called on them, so we know the fields for the query
         # parser.
         
-        # model_classes - model classes to search within, e.g. [PublicBody, User]
+        # model_classes - model classes to search within, e.g. [PublicBody,
+        # User]. Can take a single model class, or you can express the model
+        # class names in strings if you like.
         # query_string - user inputed query string, with syntax much like Google Search
         def initialize(model_classes, query_string, options = {})
+            # Check parameters, convert to actual array of model classes
+            new_model_classes = []
+            model_classes = [model_classes] if model_classes.class != Array
+            for model_class in model_classes:
+                raise "pass in the model class itself, or a string containing its name" if model_class.class != Class && model_class.class != String
+                model_class = model_class.constantize if model_class.class == String
+                new_model_classes.push(model_class)
+            end
+            model_classes = new_model_classes
+                
+            # Set things up
             self.initialize_db
 
             # Case of a string, searching for a Google-like syntax query
