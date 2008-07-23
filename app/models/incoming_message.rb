@@ -19,13 +19,14 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.123 2008-07-17 11:39:46 francis Exp $
+# $Id: incoming_message.rb,v 1.124 2008-07-23 23:27:53 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
 # general not specific to IncomingMessage.
 
 require 'htmlentities'
+require 'rexml/document'
 
 module TMail
     class Mail
@@ -50,8 +51,11 @@ $file_extension_to_mime_type = {
     "pdf" => 'application/pdf',
     "rtf" => 'application/rtf',
     "doc" => 'application/vnd.ms-word',
+    "docx" => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
     "xls" => 'application/vnd.ms-excel',
+    "xlsx" => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
     "ppt" => 'application/vnd.ms-powerpoint',
+    "pptx" => 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
     "tif" => 'image/tiff',
     "gif" => 'image/gif',
     "jpg" => 'image/jpeg', # XXX add jpeg
@@ -694,6 +698,14 @@ class IncomingMessage < ActiveRecord::Base
                     IO.popen("/usr/bin/pdftotext " + tempfile.path + " -", "r") do |child|
                         text += child.read() + "\n\n"
                     end
+                elsif attachment.content_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+                    # just pull out the main XML file, and strip it of text
+                    xml = ''
+                    IO.popen("/usr/bin/unzip -qq -c " + tempfile.path + " word/document.xml", "r") do |child|
+                        xml += child.read() + "\n\n"
+                    end
+                    doc = REXML::Document.new(xml)
+                    text += doc.each_element( './/text()' ){}.join(" ")
                 end
                 tempfile.close
             end

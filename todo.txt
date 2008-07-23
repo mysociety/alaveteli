@@ -34,6 +34,9 @@ pages.
 Next
 ====
 
+.docx (hooray!) -- maybe add view as HTML / text link?
+http://www.whatdotheyknow.com/request/presentations_made_at_climate_ch#incoming-2136
+
 Clear out all the need admin attention requests
 
 Clear out all the need classifying requests
@@ -55,8 +58,19 @@ user/show.rhtml sidebar vs. generic sidebar? (ask Tommy)
 Needs tagline that v. quickly explains what site is on each page
 There is grey on grey text in header? bad idea?
 
+Make it clearer people should ask for documents
+http://www.whatdotheyknow.com/request/unusual_markings_in_the_uk_skies
+
 Later
 =====
+
+When described state is edited in admin interface, automatically reset the flag
+for needs classification.
+
+.tif files are hard for people to view as multi page, consider automatically
+separating out the pages as separate links (to .png files or whatever)
+    http://www.whatdotheyknow.com/request/windsor_maidenhead_council_commo#incoming-1910
+Heck, may as well give thumbnails of all images, indeed all docs while you're at it :)
 
 In sidebar of request 
     Share this request on Facebook, by email etc.
@@ -162,6 +176,7 @@ Quoting fixing TODO:
     http://www.whatdotheyknow.com/request/123/response/184 # nasty nasty formatted quoting 
     http://www.whatdotheyknow.com/request/155/response/552 # nasty nasty formatted quoting
     http://www.whatdotheyknow.com/request/51/response/93 # tough quoting with <
+    http://www.whatdotheyknow.com/request/how_do_the_pct_deal_with_retirin_87#incoming-1847
     http://www.whatdotheyknow.com/request/265/response/688 # word wrapping of <
 
     http://www.whatdotheyknow.com/request/224/response/589 # have knackered the apostrophes here
@@ -174,8 +189,13 @@ Quoting fixing TODO:
     http://www.whatdotheyknow.com/request/231/response/338
     http://www.whatdotheyknow.com/request/930/response/1609
     http://www.whatdotheyknow.com/request/1102/response/2067
+    http://www.whatdotheyknow.com/request/list_of_public_space_cctv_instal#incoming-2164
+    http://www.whatdotheyknow.com/request/errors_in_list_of_postbox_locati#incoming-2272
+
+    http://www.whatdotheyknow.com/request/public_inspection_periods_for_lo_2#outgoing-1707 # square bracket in link
 
     http://www.whatdotheyknow.com/request/415/response/1041/attach/3/CONF%20FOI%209508%20Ian%20Holton.doc
+
 
 Larger new features
 -------------------
