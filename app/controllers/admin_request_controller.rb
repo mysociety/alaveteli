@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_request_controller.rb,v 1.15 2008-07-28 17:59:40 francis Exp $
+# $Id: admin_request_controller.rb,v 1.16 2008-07-28 18:04:38 francis Exp $
 
 class AdminRequestController < ApplicationController
     layout "admin"
@@ -18,7 +18,7 @@ class AdminRequestController < ApplicationController
     def list
         @query = params[:query]
         @info_requests = InfoRequest.paginate :order => "created_at desc", :page => params[:page], :per_page => 100,
-            :conditions =>  @query.nil? ? nil : ["lower(title) = lower('%'||?||'%')", @query]
+            :conditions =>  @query.nil? ? nil : ["lower(title) like lower('%'||?||'%')", @query]
     end
 
     def show
