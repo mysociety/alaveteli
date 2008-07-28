@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_track_controller.rb,v 1.2 2008-05-21 10:51:24 francis Exp $
+# $Id: admin_track_controller.rb,v 1.3 2008-07-28 17:59:40 francis Exp $
 
 class AdminTrackController < ApplicationController
     layout "admin"
@@ -13,7 +13,7 @@ class AdminTrackController < ApplicationController
     def list
         @query = params[:query]
         @admin_tracks = TrackThing.paginate :order => "created_at desc", :page => params[:page], :per_page => 100,
-            :conditions =>  @query.nil? ? nil : ["track_query ilike '%'||?||'%'", @query ]
+            :conditions =>  @query.nil? ? nil : ["lower(track_query) = lower('%'||?||'%')", @query ]
     end
 
     private

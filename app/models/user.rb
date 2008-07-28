@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user.rb,v 1.59 2008-07-17 10:32:01 francis Exp $
+# $Id: user.rb,v 1.60 2008-07-28 17:59:41 francis Exp $
 
 require 'digest/sha1'
 
@@ -94,7 +94,7 @@ class User < ActiveRecord::Base
 
     # Case-insensitively find a user from their email
     def self.find_user_by_email(email)
-        return self.find(:first, :conditions => [ 'email ilike ?', email ] ) # using ilike for case insensitive
+        return self.find(:first, :conditions => [ 'lower(email) = lower(?)', email ] )
     end
 
     # When name is changed, also change the url name
