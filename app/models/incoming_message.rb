@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.124 2008-07-23 23:27:53 francis Exp $
+# $Id: incoming_message.rb,v 1.125 2008-07-28 13:24:10 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -699,7 +699,8 @@ class IncomingMessage < ActiveRecord::Base
                         text += child.read() + "\n\n"
                     end
                 elsif attachment.content_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-                    # just pull out the main XML file, and strip it of text
+                    # This is Microsoft's XML office document format.
+                    # Just pull out the main XML file, and strip it of text.
                     xml = ''
                     IO.popen("/usr/bin/unzip -qq -c " + tempfile.path + " word/document.xml", "r") do |child|
                         xml += child.read() + "\n\n"
