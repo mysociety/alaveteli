@@ -204,8 +204,11 @@ module ActsAsXapian
         # Set self.query before calling this
         def initialize_query(options)
             #raise options.to_yaml
+            
             offset = options[:offset] || 0; offset = offset.to_i
-            limit = options[:limit] || -1; limit = limit.to_i # -1 means all matches?
+            limit = options[:limit]
+            raise "please specifiy maximum number of results to return with parameter :limit" if not limit
+            limit = limit.to_i 
             sort_by_prefix = options[:sort_by_prefix] || nil
             sort_by_ascending = options[:sort_by_ascending] || true
             collapse_by_prefix = options[:collapse_by_prefix] || nil
@@ -278,7 +281,7 @@ module ActsAsXapian
             # for each class, look up all ids
             chash = {}
             for cls, ids in lhash
-                conditions = [ "#{cls.constantize.table_name}.id in (?)", ids ]
+                conditions = [ "#{cls.constantize.table_name}.#{cls.constantize.primary_key} in (?)", ids ]
                 found = cls.constantize.find(:all, :conditions => conditions, :include => cls.constantize.xapian_options[:eager_load])
                 for f in found
                     chash[[cls, f.id]] = f
