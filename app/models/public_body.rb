@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.87 2008-07-17 10:32:01 francis Exp $
+# $Id: public_body.rb,v 1.88 2008-07-29 22:13:07 francis Exp $
 
 require 'csv'
 require 'set'
@@ -60,6 +60,7 @@ class PublicBody < ActiveRecord::Base
             [ "museum", "Museums and galleries", "a museum or gallery" ],
             # Home office
             [ "police", "Police forces", "a police force" ], 
+            [ "police_authority", "Police authorities", "a police authority" ], 
             # NHS
             [ "nhstrust", "NHS trusts", "an NHS trust" ],
             [ "sha", "Strategic health authorities", "a strategic health authority" ],
