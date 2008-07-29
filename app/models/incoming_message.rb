@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.125 2008-07-28 13:24:10 francis Exp $
+# $Id: incoming_message.rb,v 1.126 2008-07-29 11:15:42 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -263,6 +263,8 @@ class IncomingMessage < ActiveRecord::Base
         # Specific removals
         # http://www.whatdotheyknow.com/request/total_number_of_objects_in_the_n_6
         text.gsub!(/\*\*\*+\nPolly Tucker.*/ms, "")
+        # http://localhost:3000/request/cctv_data_retention_and_use
+        text.gsub!(/Andy 079.*/, "Andy [mobile number]")
 
         return text
     end
