@@ -34,11 +34,7 @@ pages.
 Next
 ====
 
-.docx (hooray!) -- maybe add view as HTML / text link?
-http://www.whatdotheyknow.com/request/presentations_made_at_climate_ch#incoming-2136
-
 Clear out all the need admin attention requests
-
 Clear out all the need classifying requests
 
 Internal review status/marker?
@@ -55,7 +51,6 @@ Comments interleaved with body
 Do something about shared spreadsheet
 
 user/show.rhtml sidebar vs. generic sidebar? (ask Tommy)
-Needs tagline that v. quickly explains what site is on each page
 There is grey on grey text in header? bad idea?
 
 Make it clearer people should ask for documents
@@ -191,6 +186,7 @@ Quoting fixing TODO:
     http://www.whatdotheyknow.com/request/1102/response/2067
     http://www.whatdotheyknow.com/request/list_of_public_space_cctv_instal#incoming-2164
     http://www.whatdotheyknow.com/request/errors_in_list_of_postbox_locati#incoming-2272
+    http://localhost:3000/request/cctv_data_retention_and_use#incoming-2093
 
     http://www.whatdotheyknow.com/request/public_inspection_periods_for_lo_2#outgoing-1707 # square bracket in link
 
