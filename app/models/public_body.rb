@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.88 2008-07-29 22:13:07 francis Exp $
+# $Id: public_body.rb,v 1.89 2008-07-29 22:38:05 francis Exp $
 
 require 'csv'
 require 'set'
@@ -45,6 +45,9 @@ class PublicBody < ActiveRecord::Base
             [ "non_ministerial_department", "Non-ministerial departments", "a non-ministerial department" ], 
             [ "executive_agency", "Executive agencies", "an executive agency" ], 
             [ "government_office", "Government offices for the regions", "a government office for the regions"], 
+            [ "advisory_committee", "Advisory committees", "an advisory committee"],
+            [ "awc", "Agricultural wages committee", "an agriculatural wages committee"],
+            [ "adhac", "Agricultural dwelling house advisory committees", "an agriculatural dwelling house advisory committee" ],
             # Countries, regional, local
             [ "local_council", "Local councils", "a local council" ], 
             [ "regional_assembly", "Regional assemblies", "a regional assembly"], 
@@ -54,19 +57,22 @@ class PublicBody < ActiveRecord::Base
             [ "npa", "National park authorities", "a national park authority" ], 
             [ "sea_fishery_committee", "Sea fisheries committees", "a sea fisheries committee" ], 
             [ "watercompanies", "Water companies", "a water company" ],
-            [ "npte", "Passenger transport executives", "passenger transport executive" ],
+            [ "npte", "Passenger transport executives", "a passenger transport executive" ],
+            [ "idb", "Internal drainage boards", "an internal drainage board" ],
+            [ "rfdc", "Regional flood defence committees", "a regional flood defence committee" ],
             # Media, arts
             [ "media", "Media", "a media organisation" ],
             [ "museum", "Museums and galleries", "a museum or gallery" ],
             # Home office
             [ "police", "Police forces", "a police force" ], 
             [ "police_authority", "Police authorities", "a police authority" ], 
-            # NHS
+            # Health
             [ "nhstrust", "NHS trusts", "an NHS trust" ],
             [ "sha", "Strategic health authorities", "a strategic health authority" ],
             [ "pct", "Primary care trusts", "a primary care trust" ],
             [ "nhswales", "NHS in Wales", "part of the NHS in Wales" ],
             [ "nhsni", "NHS in Northern Ireland", "part of the NHS in Northern Ireland" ],
+            [ "hscr", "Health / social care", "Relating to health / social care" ],
             # Education
             [ "university", "Universities", "a university" ], 
             [ "hei", "Higher education institutions", "a higher educational institution" ],

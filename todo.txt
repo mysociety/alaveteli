@@ -59,8 +59,12 @@ http://www.whatdotheyknow.com/request/unusual_markings_in_the_uk_skies
 Later
 =====
 
+Something to check which tags are used but aren't in PublicBody category lists
+
 When described state is edited in admin interface, automatically reset the flag
 for needs classification.
+
+Public body tags should perhaps be lowercase only :)
 
 .tif files are hard for people to view as multi page, consider automatically
 separating out the pages as separate links (to .png files or whatever)
