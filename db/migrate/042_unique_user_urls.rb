@@ -5,13 +5,19 @@ class UniqueUserUrls < ActiveRecord::Migration
             user.update_url_name
             user.save!
         end
-        remove_index :users, :url_name
-        add_index :users, :url_name, :unique => true
+        # MySQL cannot index text blobs like this
+        if ActiveRecord::Base.connection.adapter_name != "MySQL"
+            remove_index :users, :url_name
+            add_index :users, :url_name, :unique => true
+        end
     end
 
     def self.down
-        remove_index :users, :url_name
-        add_index :users, :url_name, :unique => false
+        # MySQL cannot index text blobs like this
+        if ActiveRecord::Base.connection.adapter_name != "MySQL"
+            remove_index :users, :url_name
+            add_index :users, :url_name, :unique => false
+        end
     end
 
 end

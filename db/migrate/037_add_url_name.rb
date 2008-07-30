@@ -7,7 +7,10 @@ class AddUrlName < ActiveRecord::Migration
             public_body.update_url_name
             public_body.save!
         end
-        add_index :public_bodies, :url_name, :unique => true
+        # MySQL cannot index text blobs like this
+        if ActiveRecord::Base.connection.adapter_name != "MySQL"
+            add_index :public_bodies, :url_name, :unique => true
+        end
         change_column :public_bodies, :url_name, :text, :null => false
     end
 

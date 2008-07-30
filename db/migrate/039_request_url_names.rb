@@ -6,7 +6,10 @@ class RequestUrlNames < ActiveRecord::Migration
             info_request.update_url_title
             info_request.save!
         end
-        add_index :info_requests, :url_title, :unique => true
+        # MySQL cannot index text blobs like this
+        if ActiveRecord::Base.connection.adapter_name != "MySQL"
+            add_index :info_requests, :url_title, :unique => true
+        end
         change_column :info_requests, :url_title, :text, :null => false
     end
 

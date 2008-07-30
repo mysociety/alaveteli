@@ -5,7 +5,10 @@ class AddSomeIndices < ActiveRecord::Migration
         end
 
         add_index :info_requests, :created_at
-        add_index :info_requests, :title # For checking duplicates at new request time
+        # MySQL cannot index text blobs like this
+        if ActiveRecord::Base.connection.adapter_name != "MySQL"
+            add_index :info_requests, :title # For checking duplicates at new request time
+        end
 
         if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"
             execute "create index public_bodies_url_short_name_index on public_bodies(regexp_replace(replace(lower(short_name), ' ', '-'), '[^a-z0-9_-]', '', 'g'))"
@@ -13,9 +16,11 @@ class AddSomeIndices < ActiveRecord::Migration
             execute "create index users_url_name_index on users (regexp_replace(replace(lower(name), ' ', '-'), '[^a-z0-9_-]', '', 'g'))"
         end
 
-        add_index :post_redirects, :email_token
-        add_index :post_redirects, :token
-
+        # MySQL cannot index text blobs like this
+        if ActiveRecord::Base.connection.adapter_name != "MySQL"
+            add_index :post_redirects, :email_token
+            add_index :post_redirects, :token
+        end
     end
 
     def self.down
@@ -24,7 +29,9 @@ class AddSomeIndices < ActiveRecord::Migration
         end
 
         remove_index :info_requests, :created_at
-        remove_index :info_requests, :title 
+        if ActiveRecord::Base.connection.adapter_name != "MySQL"
+            remove_index :info_requests, :title 
+        end
 
         if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"
             execute 'drop index users_url_name_index'
@@ -32,7 +39,9 @@ class AddSomeIndices < ActiveRecord::Migration
             execute 'drop index public_body_versions_url_short_name_index'
         end
 
-        remove_index :post_redirects, :email_token
-        remove_index :post_redirects, :token
+        if ActiveRecord::Base.connection.adapter_name != "MySQL"
+            remove_index :post_redirects, :email_token
+            remove_index :post_redirects, :token
+        end
     end
 end

@@ -9,7 +9,11 @@ class AddPublicBodyTags < ActiveRecord::Migration
         if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"
             execute "ALTER TABLE public_body_tags ADD CONSTRAINT fk_public_body_tags_public_body FOREIGN KEY (public_body_id) REFERENCES public_bodies(id)"
         end
-        add_index :public_body_tags, [:public_body_id, :name], :unique => true
+
+        # MySQL cannot index text blobs like this
+        if ActiveRecord::Base.connection.adapter_name != "MySQL"
+            add_index :public_body_tags, [:public_body_id, :name], :unique => true
+        end
     end
 
     def self.down
