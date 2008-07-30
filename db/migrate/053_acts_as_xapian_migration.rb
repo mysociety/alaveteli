@@ -8,6 +8,7 @@ class ActsAsXapianMigration < ActiveRecord::Migration
         end
         add_index :acts_as_xapian_jobs, [:model, :model_id], :unique => true
 
+        remove_index :info_requests, :solr_up_to_date
         remove_column :info_requests, :solr_up_to_date
 
         InfoRequest.find(:all).each { |i| i.calculate_event_states; STDERR.puts "calculate_event_states " + i.id.to_s }

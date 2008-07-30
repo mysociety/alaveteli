@@ -14,8 +14,10 @@ class IncludeEventForeignReferences < ActiveRecord::Migration
             end
             event.save!
         end
-        execute "ALTER TABLE info_request_events ADD CONSTRAINT fk_info_request_events_incoming_message_id FOREIGN KEY (incoming_message_id) REFERENCES incoming_messages(id)"
-        execute "ALTER TABLE info_request_events ADD CONSTRAINT fk_info_request_events_outgoing_message_id FOREIGN KEY (outgoing_message_id) REFERENCES outgoing_messages(id)"
+        if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"
+            execute "ALTER TABLE info_request_events ADD CONSTRAINT fk_info_request_events_incoming_message_id FOREIGN KEY (incoming_message_id) REFERENCES incoming_messages(id)"
+            execute "ALTER TABLE info_request_events ADD CONSTRAINT fk_info_request_events_outgoing_message_id FOREIGN KEY (outgoing_message_id) REFERENCES outgoing_messages(id)"
+        end
     end
 
     def self.down

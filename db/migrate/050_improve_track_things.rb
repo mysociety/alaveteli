@@ -1,6 +1,7 @@
 class ImproveTrackThings < ActiveRecord::Migration
     def self.up
-        add_column :track_things, :track_type, :string, :null => false
+        # SQLite at least needs a default for this
+        add_column :track_things, :track_type, :string, :null => false, :default => "internal_error"
 
         add_column :track_things, :created_at, :datetime
         add_column :track_things, :updated_at, :datetime

@@ -6,7 +6,9 @@ class AddPublicBodyTags < ActiveRecord::Migration
             t.column :created_at, :datetime, :null => false
         end
 
-        execute "ALTER TABLE public_body_tags ADD CONSTRAINT fk_public_body_tags_public_body FOREIGN KEY (public_body_id) REFERENCES public_bodies(id)"
+        if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"
+            execute "ALTER TABLE public_body_tags ADD CONSTRAINT fk_public_body_tags_public_body FOREIGN KEY (public_body_id) REFERENCES public_bodies(id)"
+        end
         add_index :public_body_tags, [:public_body_id, :name], :unique => true
     end
 
