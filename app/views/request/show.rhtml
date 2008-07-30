@@ -56,12 +56,14 @@
         <% end %>
     <% elsif @status == 'waiting_response' %>
         Currently <strong>waiting for a response</strong> from <%= public_body_link(@info_request.public_body) %>,
-        due by <strong><%= simple_date(@info_request.date_response_required_by) %></strong>.
+        they <%= link_to "must respond", about_url + "#quickly_response" %> 
+        promptly but no later than <strong><%= simple_date(@info_request.date_response_required_by) %></strong>.
     <% elsif @status == 'waiting_response_overdue' %>
         Currently <strong>overdue a response</strong> from <%=
-        public_body_link(@info_request.public_body) %>. The 
-        <%= link_to "response was due", about_url + "#quickly_response" %>
-        on <strong><%= simple_date(@info_request.date_response_required_by) %></strong>.
+        public_body_link(@info_request.public_body) %>. By law,
+        the response had to be
+        <%= link_to "no later", about_url + "#quickly_response" %>
+        than <strong><%= simple_date(@info_request.date_response_required_by) %></strong>.
     <% elsif @status == 'not_held' %>
         <%= public_body_link(@info_request.public_body) %> <strong>did not have</strong> the information requested.
     <% elsif @status == 'rejected' %>
