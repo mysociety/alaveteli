@@ -162,21 +162,26 @@ describe RequestController, "when creating a new request" do
     it "should give an error if the same request is submitted twice" do
         session[:user_id] = users(:bob_smith_user).id
 
+        # We use raw_body here, so white space is the same
         post :new, :info_request => { :public_body_id => info_requests(:fancy_dog_request).public_body_id, 
             :title => info_requests(:fancy_dog_request).title },
-            :outgoing_message => { :body => info_requests(:fancy_dog_request).outgoing_messages[0].body},
+            :outgoing_message => { :body => info_requests(:fancy_dog_request).outgoing_messages[0].raw_body},
             :submitted_new_request => 1, :preview => 0, :mouse_house => 1
         response.should render_template('new')
     end
 
     it "should give an error if the same request is submitted twice with extra whitespace in the body" do
-        session[:user_id] = users(:bob_smith_user).id
+        # This only works for PostgreSQL databases which have regexp_replace -
+        # see model method InfoRequest.find_by_existing_request for more info
+        if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"
+            session[:user_id] = users(:bob_smith_user).id
 
-        post :new, :info_request => { :public_body_id => info_requests(:fancy_dog_request).public_body_id, 
-            :title => info_requests(:fancy_dog_request).title },
-            :outgoing_message => { :body => "\n" + info_requests(:fancy_dog_request).outgoing_messages[0].body + " "},
-            :submitted_new_request => 1, :preview => 0, :mouse_house => 1
-        response.should render_template('new')
+            post :new, :info_request => { :public_body_id => info_requests(:fancy_dog_request).public_body_id, 
+                :title => info_requests(:fancy_dog_request).title },
+                :outgoing_message => { :body => "\n" + info_requests(:fancy_dog_request).outgoing_messages[0].body + " "},
+                :submitted_new_request => 1, :preview => 0, :mouse_house => 1
+            response.should render_template('new')
+        end
     end
 
     it "should let you submit another request with the same title" do
@@ -361,7 +366,7 @@ describe RequestController, "clarification required alerts" do
         ir.set_described_state('waiting_clarification')
         # this is pretty horrid, but will do :) need to make it waiting
         # clarification more than 3 days ago for the alerts to go out.
-        ActiveRecord::Base.connection.update "update info_requests set updated_at = now() - '5 day'::interval where id = " + ir.id.to_s
+        ActiveRecord::Base.connection.update "update info_requests set updated_at = '" + (Time.now - 5.days).strftime("%Y-%m-%d %H:%M:%S") + "' where id = " + ir.id.to_s
         ir.reload
 
         RequestMailer.alert_not_clarified_request

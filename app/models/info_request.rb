@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.124 2008-07-21 00:48:05 francis Exp $
+# $Id: info_request.rb,v 1.125 2008-07-30 13:31:00 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -225,8 +225,14 @@ public
     # XXX this *should* also check outgoing message joined to is an initial
     # request (rather than follow up)
     def InfoRequest.find_by_existing_request(title, public_body_id, body)
-        # Exclude spaces from the body comparison
-        return InfoRequest.find(:first, :conditions => [ "title = ? and public_body_id = ? and regexp_replace(outgoing_messages.body, '[[:space:]]', '', 'g') = regexp_replace(?, '[[:space:]]', '', 'g')", title, public_body_id, body ], :include => [ :outgoing_messages ] )
+        # XXX can add other databases here which have regexp_replace
+        if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"
+            # Exclude spaces from the body comparison using regexp_replace
+            return InfoRequest.find(:first, :conditions => [ "title = ? and public_body_id = ? and regexp_replace(outgoing_messages.body, '[[:space:]]', '', 'g') = regexp_replace(?, '[[:space:]]', '', 'g')", title, public_body_id, body ], :include => [ :outgoing_messages ] )
+        else
+            # For other databases (e.g. SQLite) not the end of the world being space-sensitive for this check
+            return InfoRequest.find(:first, :conditions => [ "title = ? and public_body_id = ? and outgoing_messages.body = ?", title, public_body_id, body ], :include => [ :outgoing_messages ] )
+        end
     end
 
     # A new incoming email to this request

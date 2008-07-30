@@ -59,6 +59,9 @@ http://www.whatdotheyknow.com/request/unusual_markings_in_the_uk_skies
 Later
 =====
 
+When indexing .docx do you need to index docProps/custom.xml and docProps/app.xml
+as well as word/document.xml ? (thread on xapian-discuss does so)
+
 Something to check which tags are used but aren't in PublicBody category lists
 
 When described state is edited in admin interface, automatically reset the flag
@@ -133,7 +136,7 @@ register for.
 Offer search on 404s
 
 Preview when sending followups - especially people need to see quoting/subject
-When sending "my response is late"
+Spell checking for followups
 For followups, have radio button to say is it a new request or followup?
 
 
