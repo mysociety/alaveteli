@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user_controller.rb,v 1.50 2008-07-28 19:03:45 francis Exp $
+# $Id: user_controller.rb,v 1.51 2008-07-30 13:37:21 francis Exp $
 
 class UserController < ApplicationController
     # Show page about a set of users with same url name
@@ -14,11 +14,11 @@ class UserController < ApplicationController
             return
         end
 
-        @display_user = User.find(:first, :conditions => [ "url_name = ? and email_confirmed", params[:url_name] ])
+        @display_user = User.find(:first, :conditions => [ "url_name = ? and email_confirmed = ?", params[:url_name], true ])
         if not @display_user
             raise "user not found, url_name=" + params[:url_name]
         end
-        @same_name_users = User.find(:all, :conditions => [ "name = ? and email_confirmed and id <> ?", @display_user.name, @display_user.id ], :order => "created_at")
+        @same_name_users = User.find(:all, :conditions => [ "name = ? and email_confirmed = ? and id <> ?", @display_user.name, true, @display_user.id ], :order => "created_at")
 
         @is_you = !@user.nil? && @user.id == @display_user.id
 

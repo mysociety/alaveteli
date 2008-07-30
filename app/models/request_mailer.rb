@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.41 2008-07-17 01:14:09 francis Exp $
+# $Id: request_mailer.rb,v 1.42 2008-07-30 13:37:21 francis Exp $
 
 class RequestMailer < ApplicationMailer
     
@@ -161,7 +161,7 @@ class RequestMailer < ApplicationMailer
     # Send email alerts for overdue requests
     def self.alert_overdue_requests()
         #STDERR.puts "alert_overdue_requests"
-        info_requests = InfoRequest.find(:all, :conditions => [ "described_state = 'waiting_response' and not awaiting_description" ], :include => [ :user ] )
+        info_requests = InfoRequest.find(:all, :conditions => [ "described_state = 'waiting_response' and awaiting_description = ?", false ], :include => [ :user ] )
         for info_request in info_requests
             alert_event_id = info_request.last_event_forming_initial_request.id
             # Only overdue requests
@@ -192,7 +192,7 @@ class RequestMailer < ApplicationMailer
     end
     def self.alert_new_response_reminders_internal(days_since, type_code)
         #STDERR.puts "alert_new_response_reminders_internal days:" + days_since.to_s + " type: " + type_code
-        info_requests = InfoRequest.find(:all, :conditions => [ "awaiting_description and info_requests.updated_at < ?", Time.now() - days_since.days ], :include => [ :user ], :order => "info_requests.id" )
+        info_requests = InfoRequest.find(:all, :conditions => [ "awaiting_description = ? and info_requests.updated_at < ?", true, Time.now() - days_since.days ], :include => [ :user ], :order => "info_requests.id" )
         for info_request in info_requests
             alert_event_id = info_request.get_last_response_event_id
             last_response_message = info_request.get_last_response
@@ -221,7 +221,7 @@ class RequestMailer < ApplicationMailer
     # after last update of event.
     def self.alert_not_clarified_request()
         #STDERR.puts "alert_not_clarified_request"
-        info_requests = InfoRequest.find(:all, :conditions => [ "not awaiting_description and described_state = 'waiting_clarification' and info_requests.updated_at < ?", Time.now() - 3.days ], :include => [ :user ], :order => "info_requests.id" )
+        info_requests = InfoRequest.find(:all, :conditions => [ "awaiting_description = ? and described_state = 'waiting_clarification' and info_requests.updated_at < ?", false, Time.now() - 3.days ], :include => [ :user ], :order => "info_requests.id" )
         for info_request in info_requests
             alert_event_id = info_request.get_last_response_event_id
             last_response_message = info_request.get_last_response
