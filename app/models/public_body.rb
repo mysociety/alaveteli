@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.89 2008-07-29 22:38:05 francis Exp $
+# $Id: public_body.rb,v 1.90 2008-07-31 00:22:52 francis Exp $
 
 require 'csv'
 require 'set'
@@ -38,48 +38,57 @@ class PublicBody < ActiveRecord::Base
     has_many :info_requests, :order => 'created_at desc'
     has_many :public_body_tags
 
-    def self.categories_with_description
+    def self.categories_with_headings
         [
-            # Central government
-            [ "department", "Ministerial departments", "a ministerial department" ], 
-            [ "non_ministerial_department", "Non-ministerial departments", "a non-ministerial department" ], 
-            [ "executive_agency", "Executive agencies", "an executive agency" ], 
-            [ "government_office", "Government offices for the regions", "a government office for the regions"], 
-            [ "advisory_committee", "Advisory committees", "an advisory committee"],
-            [ "awc", "Agricultural wages committee", "an agriculatural wages committee"],
-            [ "adhac", "Agricultural dwelling house advisory committees", "an agriculatural dwelling house advisory committee" ],
-            # Countries, regional, local
-            [ "local_council", "Local councils", "a local council" ], 
-            [ "regional_assembly", "Regional assemblies", "a regional assembly"], 
-            [ "nsbody", "North/south bodies", "a north/south body"],
-            [ "rda", "Regional development agencies", "a regional development agency" ], 
-            # Environment
-            [ "npa", "National park authorities", "a national park authority" ], 
-            [ "sea_fishery_committee", "Sea fisheries committees", "a sea fisheries committee" ], 
-            [ "watercompanies", "Water companies", "a water company" ],
-            [ "npte", "Passenger transport executives", "a passenger transport executive" ],
-            [ "idb", "Internal drainage boards", "an internal drainage board" ],
-            [ "rfdc", "Regional flood defence committees", "a regional flood defence committee" ],
-            # Media, arts
-            [ "media", "Media", "a media organisation" ],
-            [ "museum", "Museums and galleries", "a museum or gallery" ],
-            # Home office
-            [ "police", "Police forces", "a police force" ], 
-            [ "police_authority", "Police authorities", "a police authority" ], 
-            # Health
-            [ "nhstrust", "NHS trusts", "an NHS trust" ],
-            [ "sha", "Strategic health authorities", "a strategic health authority" ],
-            [ "pct", "Primary care trusts", "a primary care trust" ],
-            [ "nhswales", "NHS in Wales", "part of the NHS in Wales" ],
-            [ "nhsni", "NHS in Northern Ireland", "part of the NHS in Northern Ireland" ],
-            [ "hscr", "Health / social care", "Relating to health / social care" ],
-            # Education
-            [ "university", "Universities", "a university" ], 
-            [ "hei", "Higher education institutions", "a higher educational institution" ],
-            [ "fei", "Further education institutions", "a further educational institution" ],
-            # Other
-            [ "other", "Other", "other" ]
+            "Miscellaneous",
+                [ "other", "Miscellaneous", "miscellaneous" ],
+            "Central government",
+                [ "department", "Ministerial departments", "a ministerial department" ], 
+                [ "non_ministerial_department", "Non-ministerial departments", "a non-ministerial department" ], 
+                [ "executive_agency", "Executive agencies", "an executive agency" ], 
+                [ "government_office", "Government offices for the regions", "a government office for the regions" ],  
+                [ "advisory_committee", "Advisory committees", "an advisory committee" ],
+                [ "awc", "Agricultural wages committees", "an agriculatural wages committee" ],
+                [ "adhac", "Agricultural dwelling house advisory committees", "an agriculatural dwelling house advisory committee" ],
+            "Local and regional",
+                [ "local_council", "Local councils", "a local council" ], 
+                [ "regional_assembly", "Regional assemblies", "a regional assembly"], 
+                [ "nsbody", "North/south bodies", "a north/south body"],
+                [ "rda", "Regional development agencies", "a regional development agency" ], 
+            "Education",
+                [ "university", "Universities", "a university" ], 
+                [ "hei", "Higher education institutions", "a higher educational institution" ],
+                [ "fei", "Further education institutions", "a further educational institution" ],
+                [ "research_council", "Research councils", "a research council" ],
+                [ "lib_board", "Education and library boards", "an education and library board" ],
+            "Environment",
+                [ "npa", "National park authorities", "a national park authority" ], 
+                [ "sea_fishery_committee", "Sea fisheries committees", "a sea fisheries committee" ], 
+                [ "watercompanies", "Water companies", "a water company" ],
+                [ "idb", "Internal drainage boards", "an internal drainage board" ],
+                [ "rfdc", "Regional flood defence committees", "a regional flood defence committee" ],
+                [ "zoo", "Zoos", "a zoo" ],
+            "Health",
+                [ "nhstrust", "NHS trusts", "an NHS trust" ],
+                [ "sha", "Strategic health authorities", "a strategic health authority" ],
+                [ "pct", "Primary care trusts", "a primary care trust" ],
+                [ "nhswales", "NHS in Wales", "part of the NHS in Wales" ],
+                [ "nhsni", "NHS in Northern Ireland", "part of the NHS in Northern Ireland" ],
+                [ "hscr", "Health / social care", "Relating to health / social care" ],
+            "Media and culture",
+                [ "media", "Media", "a media organisation" ],
+                [ "museum", "Museums and galleries", "a museum or gallery" ],
+            "Police and courts",
+                [ "police", "Police forces", "a police force" ], 
+                [ "police_authority", "Police authorities", "a police authority" ], 
+                [ "dpp", "District policing partnerships", "a district policing partnership" ],
+                [ "rules_committee", "Rules commitees", "a rules committee" ],
+            "Transport",
+                [ "npte", "Passenger transport executives", "a passenger transport executive" ],
         ]
+    end
+    def self.categories_with_description
+        self.categories_with_headings.select() { |a| a.instance_of?(Array) } 
     end
     def self.categories
         self.categories_with_description.map() { |a| a[0] }

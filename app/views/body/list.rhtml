@@ -1,10 +1,20 @@
 <div id="body_sidebar">
 <h1>Show only...</h1>
-<ul>
-<% for category, description in PublicBody.categories_with_description %>
-<li>
-    <%= link_to_unless (@tag == category), description, list_public_bodies_url(:tag => category) %> 
-</li>
+<% first_row = true %>
+<% for row in PublicBody.categories_with_headings %>
+    <% if row.instance_of?(Array) %>
+        <li>
+        <%= link_to_unless (@tag == row[0]), row[1], list_public_bodies_url(:tag => row[0]) %> 
+        </li>
+    <% else %>
+        <% if not first_row %>
+            </ul>
+        <% else %>
+            <% first_row = false %>
+        <% end %>
+        <h2><%=h row%></h2>
+        <ul>
+    <% end %>
 <% end %>
 </ul>
 <p>

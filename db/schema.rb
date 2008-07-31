@@ -54,9 +54,9 @@ ActiveRecord::Schema.define(:version => 60) do
     t.string   "law_used",             :default => "foi",    :null => false
   end
 
-  add_index "info_requests", ["url_title"], :name => "index_info_requests_on_url_title", :unique => true
-  add_index "info_requests", ["title"], :name => "index_info_requests_on_title"
   add_index "info_requests", ["created_at"], :name => "index_info_requests_on_created_at"
+  add_index "info_requests", ["title"], :name => "index_info_requests_on_title"
+  add_index "info_requests", ["url_title"], :name => "index_info_requests_on_url_title", :unique => true
 
   create_table "outgoing_messages", :force => true do |t|
     t.integer  "info_request_id",              :null => false
@@ -81,22 +81,22 @@ ActiveRecord::Schema.define(:version => 60) do
     t.text     "circumstance",       :default => "normal", :null => false
   end
 
-  add_index "post_redirects", ["updated_at"], :name => "index_post_redirects_on_updated_at"
-  add_index "post_redirects", ["token"], :name => "index_post_redirects_on_token"
   add_index "post_redirects", ["email_token"], :name => "index_post_redirects_on_email_token"
+  add_index "post_redirects", ["token"], :name => "index_post_redirects_on_token"
+  add_index "post_redirects", ["updated_at"], :name => "index_post_redirects_on_updated_at"
 
   create_table "public_bodies", :force => true do |t|
-    t.text     "name",                                             :null => false
-    t.text     "short_name",                                       :null => false
-    t.text     "request_email",                                    :null => false
-    t.integer  "version",                                          :null => false
-    t.string   "last_edit_editor",                                 :null => false
-    t.text     "last_edit_comment", :limit => 255,                 :null => false
-    t.datetime "created_at",                                       :null => false
-    t.datetime "updated_at",                                       :null => false
-    t.text     "url_name",                                         :null => false
-    t.text     "home_page",                        :default => "", :null => false
-    t.text     "notes",                            :default => "", :null => false
+    t.text     "name",                              :null => false
+    t.text     "short_name",                        :null => false
+    t.text     "request_email",                     :null => false
+    t.integer  "version",                           :null => false
+    t.string   "last_edit_editor",                  :null => false
+    t.text     "last_edit_comment",                 :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
+    t.text     "url_name",                          :null => false
+    t.text     "home_page",         :default => "", :null => false
+    t.text     "notes",             :default => "", :null => false
   end
 
   add_index "public_bodies", ["url_name"], :name => "index_public_bodies_on_url_name", :unique => true
@@ -117,20 +117,20 @@ ActiveRecord::Schema.define(:version => 60) do
     t.text     "request_email"
     t.datetime "updated_at"
     t.string   "last_edit_editor"
-    t.text     "last_edit_comment", :limit => 255
+    t.text     "last_edit_comment"
     t.text     "url_name"
     t.text     "home_page"
     t.text     "notes"
   end
 
   create_table "track_things", :force => true do |t|
-    t.integer  "tracking_user_id",                               :null => false
-    t.string   "track_query",                                    :null => false
+    t.integer  "tracking_user_id", :null => false
+    t.string   "track_query",      :null => false
     t.integer  "info_request_id"
     t.integer  "tracked_user_id"
     t.integer  "public_body_id"
-    t.string   "track_medium",                                   :null => false
-    t.string   "track_type",       :default => "internal_error", :null => false
+    t.string   "track_medium",     :null => false
+    t.string   "track_type",       :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -152,6 +152,8 @@ ActiveRecord::Schema.define(:version => 60) do
     t.string  "alert_type",            :null => false
     t.integer "info_request_event_id"
   end
+
+  add_index "user_info_request_sent_alerts", ["user_id", "info_request_id", "alert_type"], :name => "user_info_request_sent_alerts_unique_index", :unique => true
 
   create_table "users", :force => true do |t|
     t.string   "email",                                                     :null => false
