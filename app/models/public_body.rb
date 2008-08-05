@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.90 2008-07-31 00:22:52 francis Exp $
+# $Id: public_body.rb,v 1.91 2008-08-05 20:27:28 johncross Exp $
 
 require 'csv'
 require 'set'
@@ -71,6 +71,7 @@ class PublicBody < ActiveRecord::Base
             "Health",
                 [ "nhstrust", "NHS trusts", "an NHS trust" ],
                 [ "sha", "Strategic health authorities", "a strategic health authority" ],
+                [ "specialha", "Special health authorities", "a special health authority" ],
                 [ "pct", "Primary care trusts", "a primary care trust" ],
                 [ "nhswales", "NHS in Wales", "part of the NHS in Wales" ],
                 [ "nhsni", "NHS in Northern Ireland", "part of the NHS in Northern Ireland" ],
