@@ -234,3 +234,6 @@ The official home page and repository for acts_as_xapian are the
 "acts_as_xapian github page":http://github.com/frabcus/acts_as_xapian/wikis
 
 For more details about anything, see source code in lib/acts_as_xapian.rb
+
+Merging source instructions "Using git for collaboration" here:
+http://www.kernel.org/pub/software/scm/git/docs/gittutorial.html

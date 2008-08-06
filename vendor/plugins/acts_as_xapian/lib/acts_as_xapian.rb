@@ -551,7 +551,8 @@ module ActsAsXapian
             doc.add_term("I" + doc.data)
             if self.xapian_options[:terms]
               for term in self.xapian_options[:terms]
-                  doc.add_term(term[1] + xapian_value(term[0]))
+                  ActsAsXapian.term_generator.increase_termpos # stop phrases spanning different text fields
+                  ActsAsXapian.term_generator.index_text(xapian_value(term[0]), 1, term[1])
               end
             end
             if self.xapian_options[:values]
@@ -562,7 +563,8 @@ module ActsAsXapian
             if self.xapian_options[:texts]
               for text in self.xapian_options[:texts]
                   ActsAsXapian.term_generator.increase_termpos # stop phrases spanning different text fields
-                  ActsAsXapian.term_generator.index_text(xapian_value(text)) 
+                  # XXX the "1" here is a weight that could be varied for a boost function
+                  ActsAsXapian.term_generator.index_text(xapian_value(text), 1) 
               end
             end
 
@@ -576,7 +578,7 @@ module ActsAsXapian
 
         # Used to mark changes needed by batch indexer
         def xapian_mark_needs_index
-            model = self.class.to_s
+            model = self.class.base_class.to_s
             model_id = self.id
             ActiveRecord::Base.transaction do
                 found = ActsAsXapianJob.delete_all([ "model = ? and model_id = ?", model, model_id])
@@ -588,7 +590,7 @@ module ActsAsXapian
             end
         end
         def xapian_mark_needs_destroy
-            model = self.class.to_s
+            model = self.class.base_class.to_s
             model_id = self.id
             ActiveRecord::Base.transaction do
                 found = ActsAsXapianJob.delete_all([ "model = ? and model_id = ?", model, model_id])
