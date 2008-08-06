@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.91 2008-08-05 20:27:28 johncross Exp $
+# $Id: public_body.rb,v 1.92 2008-08-06 21:55:49 johncross Exp $
 
 require 'csv'
 require 'set'
@@ -70,14 +70,16 @@ class PublicBody < ActiveRecord::Base
                 [ "zoo", "Zoos", "a zoo" ],
             "Health",
                 [ "nhstrust", "NHS trusts", "an NHS trust" ],
-                [ "sha", "Strategic health authorities", "a strategic health authority" ],
-                [ "specialha", "Special health authorities", "a special health authority" ],
                 [ "pct", "Primary care trusts", "a primary care trust" ],
                 [ "nhswales", "NHS in Wales", "part of the NHS in Wales" ],
                 [ "nhsni", "NHS in Northern Ireland", "part of the NHS in Northern Ireland" ],
                 [ "hscr", "Health / social care", "Relating to health / social care" ],
+                [ "pha", "Port health authorities", "a port health authority"],
+                [ "sha", "Strategic health authorities", "a strategic health authority" ],
+                [ "specialha", "Special health authorities", "a special health authority" ],
             "Media and culture",
                 [ "media", "Media", "a media organisation" ],
+                [ "culture", "Cultural consortia", "a cultural consortium"]
                 [ "museum", "Museums and galleries", "a museum or gallery" ],
             "Police and courts",
                 [ "police", "Police forces", "a police force" ], 
