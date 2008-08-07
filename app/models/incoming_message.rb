@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.126 2008-07-29 11:15:42 francis Exp $
+# $Id: incoming_message.rb,v 1.127 2008-08-07 02:26:19 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -59,6 +59,7 @@ $file_extension_to_mime_type = {
     "tif" => 'image/tiff',
     "gif" => 'image/gif',
     "jpg" => 'image/jpeg', # XXX add jpeg
+    "png" => 'image/png',
     "html" => 'text/html', # XXX add htm
 }
 # XXX doesn't have way of choosing default for inverse map - might want to add
