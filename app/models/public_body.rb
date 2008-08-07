@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.93 2008-08-07 00:25:24 francis Exp $
+# $Id: public_body.rb,v 1.94 2008-08-07 20:46:32 johncross Exp $
 
 require 'csv'
 require 'set'
@@ -79,7 +79,7 @@ class PublicBody < ActiveRecord::Base
                 [ "specialha", "Special health authorities", "a special health authority" ],
             "Media and culture",
                 [ "media", "Media", "a media organisation" ],
-                [ "culture", "Cultural consortia", "a cultural consortium"],
+                [ "rcc", "Cultural consortia", "a cultural consortium"],
                 [ "museum", "Museums and galleries", "a museum or gallery" ],
             "Police and courts",
                 [ "police", "Police forces", "a police force" ], 
