@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: body_controller.rb,v 1.12 2008-05-12 10:21:34 francis Exp $
+# $Id: body_controller.rb,v 1.13 2008-08-07 00:24:51 francis Exp $
 
 class BodyController < ApplicationController
     # XXX tidy this up with better error messages, and a more standard infrastructure for the redirect to canonical URL
@@ -34,6 +34,7 @@ class BodyController < ApplicationController
         @public_body = @public_bodies[0]
 
         @track_thing = TrackThing.create_track_for_public_body(@public_body)
+        @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss] } ]
     end
 
     def list

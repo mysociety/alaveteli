@@ -1,5 +1,6 @@
 RSS move:
     Can remove "if @track_thing.track_medium == 'feed'" bits from track controller
+    views/user/show.rhtml feed
 
 
 Site move:
@@ -40,13 +41,13 @@ Clear out all the need classifying requests
 Internal review status/marker?
 Request withdrawn by user status/marker?
 
+Comments interleaved with body
+
 Redo the RSS feeds
 - Look at Rob's TWFY.nz interface
 - One click "track this" then single feed based on your preferences
 - Page tracking things within the site
 Maybe remove public tracking completely
-
-Comments interleaved with body
 
 Do something about shared spreadsheet
 
@@ -55,6 +56,7 @@ There is grey on grey text in header? bad idea?
 
 Make it clearer people should ask for documents
 http://www.whatdotheyknow.com/request/unusual_markings_in_the_uk_skies
+
 
 Later
 =====
@@ -100,7 +102,7 @@ today, or last week, or more recently.  Do you think it would be
 worthwhile appending "($days days ago)" to the date of each message,
 and "($days days to go)" to the due dates?  Saves people having to
 work out (in their heads or otherwise) how long they need to wait for
-a response. (Etienne)
+a response. (Etienne) Use distance_of_time_in_words to do this
 
 Maybe set it up to email team@ website errors?
 

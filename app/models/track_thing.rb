@@ -21,7 +21,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_thing.rb,v 1.27 2008-07-17 11:24:03 francis Exp $
+# $Id: track_thing.rb,v 1.28 2008-08-07 00:24:52 francis Exp $
 
 class TrackThing < ActiveRecord::Base
     belongs_to :tracking_user, :class_name => 'User'
@@ -74,7 +74,7 @@ class TrackThing < ActiveRecord::Base
         track_thing = TrackThing.new
         track_thing.track_type = 'public_body_updates'
         track_thing.public_body = public_body
-        track_thing.track_query = "variety:sent requested_from:" + public_body.url_name
+        track_thing.track_query = "requested_from:" + public_body.url_name
         return track_thing
     end
 
@@ -82,7 +82,7 @@ class TrackThing < ActiveRecord::Base
         track_thing = TrackThing.new
         track_thing.track_type = 'user_updates'
         track_thing.tracked_user = user
-        track_thing.track_query = "variety:sent requested_by:" + user.url_name
+        track_thing.track_query = "requested_by:" + user.url_name
         return track_thing
     end
 
@@ -154,17 +154,17 @@ class TrackThing < ActiveRecord::Base
             elsif self.track_type == 'public_body_updates'
                 @params = {
                     # Website
-                    :set_title => "How would you like to be told about new requests to the public authority '" + CGI.escapeHTML(self.public_body.name) + "'?",
+                    :set_title => "How would you like to track the public authority '" + CGI.escapeHTML(self.public_body.name) + "'?",
                     :list_description => "'<a href=\"/body/" + CGI.escapeHTML(self.public_body.url_name) + "\">" + CGI.escapeHTML(self.public_body.name) + "</a>', a public authority", # XXX yeuch, sometimes I just want to call view helpers from the model, sorry! can't work out how 
-                    :verb_on_page => "Be told about new requests to " + CGI.escapeHTML(self.public_body.name),
-                    :verb_on_page_already => "being told about new requests to " + CGI.escapeHTML(self.public_body.name),
+                    :verb_on_page => "Be told about requests to " + CGI.escapeHTML(self.public_body.name),
+                    :verb_on_page_already => "being told about requests to " + CGI.escapeHTML(self.public_body.name),
                     # Email
-                    :title_in_email => "New " + self.public_body.law_only_short + " requests to '" + self.public_body.name + "'",
-                    :title_in_rss => "New " + self.public_body.law_only_short + " requests to '" + self.public_body.name + "'",
+                    :title_in_email => self.public_body.law_only_short + " requests to '" + self.public_body.name + "'",
+                    :title_in_rss => self.public_body.law_only_short + " requests to '" + self.public_body.name + "'",
                     # Authentication
-                    :web => "To be told about new requests to the public authority '" + CGI.escapeHTML(self.public_body.name) + "'",
-                    :email => "Then you will be emailed whenever someone requests something from '" + CGI.escapeHTML(self.public_body.name) + "'.",
-                    :email_subject => "Confirm you want to be told about new requests to '" + CGI.escapeHTML(self.public_body.name) + "'",
+                    :web => "To be told about requests to the public authority '" + CGI.escapeHTML(self.public_body.name) + "'",
+                    :email => "Then you will be emailed whenever someone requests something or gets a response from '" + CGI.escapeHTML(self.public_body.name) + "'.",
+                    :email_subject => "Confirm you want to be told about requests to '" + CGI.escapeHTML(self.public_body.name) + "'",
                     # RSS sorting
                     :feed_sortby => 'newest'
                 }
@@ -173,15 +173,15 @@ class TrackThing < ActiveRecord::Base
                     # Website
                     :set_title => "How would you like track the person '" + CGI.escapeHTML(self.tracked_user.name) + "'?",
                     :list_description => "'<a href=\"/user/" + CGI.escapeHTML(self.tracked_user.url_name) + "\">" + CGI.escapeHTML(self.tracked_user.name) + "</a>', a person", # XXX yeuch, sometimes I just want to call view helpers from the model, sorry! can't work out how 
-                    :verb_on_page => "Be told about new requests by this person",
-                    :verb_on_page_already => "being told about new requests by this person",
+                    :verb_on_page => "Be told about requests by this person",
+                    :verb_on_page_already => "being told about requests by this person",
                     # Email
-                    :title_in_email => "New FOI requests by '" + self.tracked_user.name + "'",
-                    :title_in_rss => "New FOI requests by '" + self.tracked_user.name + "'",
+                    :title_in_email => "FOI requests by '" + self.tracked_user.name + "'",
+                    :title_in_rss => "FOI requests by '" + self.tracked_user.name + "'",
                     # Authentication
-                    :web => "To be told about new requests by '" + CGI.escapeHTML(self.tracked_user.name) + "'",
-                    :email => "Then you will be emailed whenever '" + CGI.escapeHTML(self.tracked_user.name) + "' requests something",
-                    :email_subject => "Confirm you want to be told about new requests by '" + CGI.escapeHTML(self.tracked_user.name) + "'",
+                    :web => "To be told about requests by '" + CGI.escapeHTML(self.tracked_user.name) + "'",
+                    :email => "Then you will be emailed whenever '" + CGI.escapeHTML(self.tracked_user.name) + "' requests something or gets a response",
+                    :email_subject => "Confirm you want to be told about requests by '" + CGI.escapeHTML(self.tracked_user.name) + "'",
                     # RSS sorting
                     :feed_sortby => 'newest'
                 }

@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user_controller.rb,v 1.51 2008-07-30 13:37:21 francis Exp $
+# $Id: user_controller.rb,v 1.52 2008-08-07 00:24:51 francis Exp $
 
 class UserController < ApplicationController
     # Show page about a set of users with same url name
@@ -24,6 +24,7 @@ class UserController < ApplicationController
 
         # Track corresponding to this page
         @track_thing = TrackThing.create_track_for_user(@display_user)
+        @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss] } ]
     end
 
     # Login form

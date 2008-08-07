@@ -776,6 +776,15 @@ div#about_sidebar
 	margin: 1.2em 0 1.2em 2em;
 }
 
+/*---------------------------------- RSS and email alerts */
+
+div.feed_link img {
+    border: none;
+    vertical-align: middle;
+    text-decoration: none;
+}
+
+
 /*------------------------------------------------ footer */
 
 #footer

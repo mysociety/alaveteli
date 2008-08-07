@@ -5,7 +5,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: link_to_helper.rb,v 1.34 2008-07-18 22:22:58 francis Exp $
+# $Id: link_to_helper.rb,v 1.35 2008-08-07 00:24:51 francis Exp $
 
 module LinkToHelper
 
@@ -97,7 +97,7 @@ module LinkToHelper
         elsif track_thing.track_type == 'user_updates' 
             track_user_url(:url_name => track_thing.tracked_user.url_name, :feed => feed)
         elsif track_thing.track_type == 'search_query' 
-            track_search_url(track_thing.track_query, :feed => feed)
+            track_search_url(:query_array => track_thing.track_query, :feed => feed)
         else
             raise "unknown tracking type " + track_thing.track_type
         end
