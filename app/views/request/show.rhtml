@@ -8,7 +8,7 @@
 
 <div id="request_sidebar">
     <h2>Track this request</h2>
-     <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => @info_request.user == @user } %>
+     <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => @info_request.user == @user, :location => 'sidebar' } %>
 
     <h2>Act on what you've learnt</h2>
      <p>

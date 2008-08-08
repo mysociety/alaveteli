@@ -1,10 +1,10 @@
 RSS move:
-    Spacing on http://localhost:3000/search/hello
-    Rename tracking_people_and_link
     Redo styling a bit of action icons so consistent
+        with writetothem link
     Add some tests
-    In controllers/track_controller.rb fiddle with wording of now/already
+    Spacing at end of search results
 
+    Remove find_tracking_people
 
 http://www.whatdotheyknow.com/request/communications_about_whatdotheyk
     Mask all emails from binary attachments

@@ -21,7 +21,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_thing.rb,v 1.29 2008-08-08 20:44:54 francis Exp $
+# $Id: track_thing.rb,v 1.30 2008-08-08 21:12:49 francis Exp $
 
 class TrackThing < ActiveRecord::Base
     belongs_to :tracking_user, :class_name => 'User'
@@ -190,7 +190,7 @@ class TrackThing < ActiveRecord::Base
                     # Website
                     :set_title => "How would you like to be updated about new requests and responses matching '" + CGI.escapeHTML(self.track_query) + "'?",
                     :list_description => "'<a href=\"/search/" + CGI.escapeHTML(self.track_query) + "/newest\">" + CGI.escapeHTML(self.track_query) + "</a>' in new requests/responses", # XXX yeuch, sometimes I just want to call view helpers from the model, sorry! can't work out how 
-                    :verb_on_page => "Email me about requests/responses matching '" + CGI.escapeHTML(self.track_query) + "'",
+                    :verb_on_page => "Email me new requests/responses matching '" + CGI.escapeHTML(self.track_query) + "'",
                     :verb_on_page_already => "Being emailed about '" + CGI.escapeHTML(self.track_query) + "'",
                     # Email
                     :title_in_email => "Requests or responses matching '" + self.track_query + "'",

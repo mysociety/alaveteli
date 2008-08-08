@@ -784,6 +784,10 @@ div.feed_link img {
     text-decoration: none;
 }
 
+div.feed_link_main {
+    display: inline;
+}
+
 
 /*------------------------------------------------ footer */
 

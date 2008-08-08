@@ -1,13 +1,5 @@
 <% @show_tips = @xapian_requests.nil? || (@total_hits == 0) %>
 
-<% # XXX should call find_tracking_people in controller, not here / in partial
-   if @track_thing and TrackThing.find_tracking_people(@track_thing).size > 0 %>
-    <div id="request_sidebar">
-    <h2>People tracking this search</h2>
-    <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => false } %>
-    </div>
-<% end %>
-
 <% if @query.nil? %>
     <% @title = "Search Freedom of Information requests, public authorities and users" %>
     <h1><%=@title%></h1>
@@ -29,12 +21,14 @@
 <% end %>
 
 <% if not @query.nil? %>
+    <p>
     <%=link_to_unless @sortby.nil?, "Show most relevant results first", search_url(@query, nil) %>
     |
     <%=link_to_unless @sortby == 'newest', "Newest results first", search_url(@query, 'newest') %>
     <% if @sortby == 'described' %>
     | Recently described results first
     <% end %>
+    </p>
 <% end %>
 
 <% if @total_hits == 0 %>
@@ -47,7 +41,7 @@
     <% end %>
 
     <% if @track_thing %>
-        <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => false } %>
+        <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => false, :location => 'main' } %>
     <% end %>
 
     <% if @xapian_bodies.results.size > 0 %>
@@ -74,7 +68,7 @@
         <h1><%= "FOI requests " + ((@page-1)*@requests_per_page+1).to_s + "-" + [@page*@requests_per_page, @xapian_requests.matches_estimated].min.to_s + " of " + @xapian_requests.matches_estimated.to_s + " for '" + h(@query) + "'" %></h1>
 
         <% if @track_thing %>
-            <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => false } %>
+            <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => false, :location => 'main' } %>
         <% end %>
 
         <% for result in @xapian_requests.results %>
@@ -83,7 +77,7 @@
 
         <%= will_paginate WillPaginate::Collection.new(@page, @requests_per_page, @xapian_requests.matches_estimated) %>
         <% if @track_thing %>
-            <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => false } %>
+            <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => false, :location => 'main' } %>
         <% end %>
     <% end %>
 <% end %>
