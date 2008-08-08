@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.127 2008-08-07 02:26:19 francis Exp $
+# $Id: incoming_message.rb,v 1.128 2008-08-08 01:31:50 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -32,6 +32,7 @@ module TMail
     class Mail
         attr_accessor :url_part_number
         attr_accessor :rfc822_attachment # when a whole email message is attached as text
+        attr_accessor :within_rfc822_attachment # for parts within a message attached as text (for getting subject mainly)
 
         # Monkeypatch! (check to see if this becomes a standard function in
         # TMail::Mail, then use that, whatever it is called)
@@ -40,6 +41,17 @@ module TMail
                           part['content-location'].body) ||
                         part.sub_header("content-type", "name") ||
                         part.sub_header("content-disposition", "filename")
+        end
+
+        # Monkeypatch! :)
+        # Returns the name of the person a message is from, or nil if there isn't
+        # one or if there is only an email address.
+        def safe_from
+            if self.from and (not self.friendly_from.include?('@'))
+                return self.friendly_from
+            else 
+                return nil
+            end
         end
     end
 end
@@ -93,16 +105,21 @@ class FOIAttachment
     attr_accessor :content_type
     attr_accessor :filename
     attr_accessor :url_part_number
+    attr_accessor :within_rfc822_subject # we use the subject as the filename for email attachments
 
     def display_filename
         if @filename 
             @filename
         else
             calc_ext = mimetype_to_extension(@content_type)
-            if calc_ext
-                "attachment." + calc_ext
+            if not calc_ext
+                calc_ext = "bin"
+            end
+
+            if @within_rfc822_subject
+                @within_rfc822_subject + "." + calc_ext
             else
-                "attachment.bin"
+                "attachment." + calc_ext
             end
         end
     end
@@ -358,7 +375,7 @@ class IncomingMessage < ActiveRecord::Base
     def get_attachment_leaves
         return get_attachment_leaves_recursive(self.mail)
     end
-    def get_attachment_leaves_recursive(curr_mail)
+    def get_attachment_leaves_recursive(curr_mail, within_rfc822_attachment = nil)
         leaves_found = []
         if curr_mail.multipart?
             if curr_mail.sub_type == 'alternative'
@@ -373,11 +390,11 @@ class IncomingMessage < ActiveRecord::Base
                         best_part = m
                     end
                 end
-                leaves_found += get_attachment_leaves_recursive(best_part)
+                leaves_found += get_attachment_leaves_recursive(best_part, within_rfc822_attachment)
             else
                 # Add all parts
                 curr_mail.parts.each do |m|
-                    leaves_found += get_attachment_leaves_recursive(m)
+                    leaves_found += get_attachment_leaves_recursive(m, within_rfc822_attachment)
                 end
             end
         else
@@ -401,9 +418,10 @@ class IncomingMessage < ActiveRecord::Base
             # If the part is an attachment of email in text form
             if curr_mail.content_type == 'message/rfc822'
                 ensure_parts_counted # fills in rfc822_attachment variable
-                leaves_found += get_attachment_leaves_recursive(curr_mail.rfc822_attachment)
+                leaves_found += get_attachment_leaves_recursive(curr_mail.rfc822_attachment, curr_mail.rfc822_attachment)
             else
                 # Store leaf
+                curr_mail.within_rfc822_attachment = within_rfc822_attachment
                 leaves_found += [curr_mail]
             end
         end
@@ -569,6 +587,16 @@ class IncomingMessage < ActiveRecord::Base
                 attachment = FOIAttachment.new
                 attachment.body = leaf.body
                 attachment.filename = TMail::Mail.get_part_file_name(leaf) 
+                if leaf.within_rfc822_attachment
+                    attachment.within_rfc822_subject = leaf.within_rfc822_attachment.subject
+
+                    # XXX Could add subject / from to content here. But should
+                    # only do for the first text part of the attached RFC822
+                    # message.
+                    #attachment.body = "Subject: " + CGI.escapeHTML(leaf.within_rfc822_attachment.subject) + "\n" + 
+                    #    "From: " + CGI.escapeHTML(leaf.within_rfc822_attachment.safe_from) + "\n\n" + 
+                    #    attachment.body
+                end
                 attachment.content_type = leaf.content_type
                 attachment.url_part_number = leaf.url_part_number
                 attachments += [attachment]
@@ -727,11 +755,7 @@ class IncomingMessage < ActiveRecord::Base
     # Returns the name of the person the incoming message is from, or nil if there isn't one
     # or if there is only an email address.
     def safe_mail_from
-        if self.mail.from and (not self.mail.friendly_from.include?('@'))
-            return self.mail.friendly_from
-        else 
-            return nil
-        end
+        return self.mail.safe_from
     end
 
     # Has message arrived "recently"?
