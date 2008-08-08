@@ -4,7 +4,7 @@
    if @track_thing and TrackThing.find_tracking_people(@track_thing).size > 0 %>
     <div id="request_sidebar">
     <h2>People tracking this search</h2>
-    <%= render :partial => 'track/tracking_people_and_link', :locals => { :track_thing => @track_thing, :own_request => false } %>
+    <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => false } %>
     </div>
 <% end %>
 
@@ -47,7 +47,7 @@
     <% end %>
 
     <% if @track_thing %>
-        <%= render :partial => 'track/tracking_people_and_link', :locals => { :track_thing => @track_thing, :own_request => false } %>
+        <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => false } %>
     <% end %>
 
     <% if @xapian_bodies.results.size > 0 %>
@@ -74,7 +74,7 @@
         <h1><%= "FOI requests " + ((@page-1)*@requests_per_page+1).to_s + "-" + [@page*@requests_per_page, @xapian_requests.matches_estimated].min.to_s + " of " + @xapian_requests.matches_estimated.to_s + " for '" + h(@query) + "'" %></h1>
 
         <% if @track_thing %>
-            <%= render :partial => 'track/tracking_people_and_link', :locals => { :track_thing => @track_thing, :own_request => false } %>
+            <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => false } %>
         <% end %>
 
         <% for result in @xapian_requests.results %>
@@ -83,7 +83,7 @@
 
         <%= will_paginate WillPaginate::Collection.new(@page, @requests_per_page, @xapian_requests.matches_estimated) %>
         <% if @track_thing %>
-            <%= render :partial => 'track/tracking_people_and_link', :locals => { :track_thing => @track_thing, :own_request => false } %>
+            <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => false } %>
         <% end %>
     <% end %>
 <% end %>
