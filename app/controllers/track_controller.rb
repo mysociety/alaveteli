@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_controller.rb,v 1.24 2008-08-08 20:44:54 francis Exp $
+# $Id: track_controller.rb,v 1.25 2008-08-08 20:48:48 francis Exp $
 
 class TrackController < ApplicationController
 
@@ -17,10 +17,7 @@ class TrackController < ApplicationController
         return atom_feed_internal if params[:feed] == 'feed'
 
         ret = self.track_set
-        if ret
-            flash[:notice] = "You are " + ret + " tracking this request!"
-            redirect_to request_url(@info_request)
-        end
+        redirect_to request_url(@info_request)
     end
 
     # Track all new/successful requests
@@ -38,28 +35,7 @@ class TrackController < ApplicationController
         return atom_feed_internal if params[:feed] == 'feed'
 
         ret = self.track_set
-        if ret
-            if @view.nil?
-                if ret == 'already'
-                    flash[:notice] = "You are already being told about any new requests!"
-                elsif ret == 'now'
-                    flash[:notice] = "You will now be told about any new requests!"
-                else 
-                    raise "unknown ret '" + ret + "'"
-                end
-            elsif @view == 'successful'
-                if ret == 'already'
-                    flash[:notice] = "You are already being told about any successful requests!"
-                elsif ret == 'now'
-                    flash[:notice] = "You will now be told about any successful requests!"
-                else 
-                    raise "unknown ret '" + ret + "'"
-                end
-            else
-                raise "unknown request list view " + @view.to_s
-            end
-            redirect_to request_list_url(:view => @view)
-        end
+        redirect_to request_list_url(:view => @view)
     end
 
     # Track all updates to a particular public body
@@ -70,10 +46,7 @@ class TrackController < ApplicationController
         return atom_feed_internal if params[:feed] == 'feed'
 
         ret = self.track_set
-        if ret
-            flash[:notice] = "You are " + ret + " tracking this public authority!"
-            redirect_to public_body_url(@public_body)
-        end
+        redirect_to public_body_url(@public_body)
     end
 
     # Track a user
@@ -84,10 +57,7 @@ class TrackController < ApplicationController
         return atom_feed_internal if params[:feed] == 'feed'
 
         ret = self.track_set
-        if ret
-            flash[:notice] = "You are " + ret + " tracking this person!"
-            redirect_to user_url(@track_user)
-        end
+        redirect_to user_url(@track_user)
     end
 
     # Track a search term
@@ -101,10 +71,7 @@ class TrackController < ApplicationController
         return atom_feed_internal if params[:feed]
 
         ret = self.track_set
-        if ret
-            flash[:notice] = "You are " + ret + " tracking the search '" + CGI.escapeHTML(@query) + "' !"
-            redirect_to search_url(@query)
-        end
+        redirect_to search_url(@query)
     end
 
     # Generic request tracker - set @track_thing before calling
@@ -112,7 +79,8 @@ class TrackController < ApplicationController
         if @user
             @existing_track = TrackThing.find_by_existing_track(@user, @track_thing)
             if @existing_track
-                return "already"
+                flash[:notice] = "You are already being emailed updates about " + @track_thing.params[:list_description]
+                return
             end
         end
 
@@ -124,7 +92,7 @@ class TrackController < ApplicationController
         @track_thing.tracking_user_id = @user.id
         @track_thing.save!
 
-        return "now"
+        flash[:notice] = "You will now be emailed updates about " + @track_thing.params[:list_description]
     end 
 
     # Atom feed (like RSS) for the track
