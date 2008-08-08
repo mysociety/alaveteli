@@ -1,19 +1,18 @@
 <% @title = h(@display_user.name) + (@is_you ? " (you)" : "") %>
 
 <% if (@same_name_users.size >= 1) %>
-    <p>This is <strong>just one person</strong> who uses this site and has this name, you may
-    mean a different one:
-    <% for @same_name_user in @same_name_users %>
+    <p>There is <strong>more than one person</strong> who uses this site and has this name. 
+    One of them is shown below, you may mean a different one: <% for @same_name_user in @same_name_users %>
         <%= user_link(@same_name_user) %>
     <% end %> 
 <% end%>
 
 <div id="request_sidebar">
-    <h2>People tracking this person</h2>
-    <%= render :partial => 'track/tracking_people_and_link', :locals => { :track_thing => @track_thing, :own_request => false, :list_people => true } %>
+    <h2>Track this person</h2>
+    <%= render :partial => 'track/tracking_people_and_link', :locals => { :track_thing => @track_thing, :own_request => false } %>
 </div> 
 
-<div class="single_user" id="user-<%=@display_user.id.to_s%>">
+<div class="single_user">
     <h1><%=@title%></h1>
     <p class="subtitle">Joined WhatDoTheyKnow on <%= simple_date(@display_user.created_at) %></p>
 
@@ -22,39 +21,38 @@
         <% if @is_you %>
             (just to see how it works)
             <br><%= link_to "Change your password", signchange_url() %>
-        <% else %>
         <% end %>
     </p>
 
-    <% if not @display_user.track_things.empty? %>
+    <% if not @is_you %>
+        <p>
+            If you are <%=h @display_user.name %>, <%= link_to "sign in", signin_url(:r => request.request_uri) %> to change your password or alter your subscriptions.
+        </p>
+    <% end %>
+
+    <% track_things = TrackThing.find(:all, :conditions => ["tracking_user_id = ? and track_medium = ?", @display_user.id, 'email_daily']) %>
+    <% if @is_you and not track_things.empty? %>
         <h2>
-        <%= @is_you ? 'You are' : 'This person is' %> tracking
-        <%=pluralize(@display_user.track_things.size, "thing") %>
+        Your <%=pluralize(track_things.size, "email subscription") %>
         </h2>
 
         <ul>
-        <% for track_thing in @display_user.track_things %>
+        <% for track_thing in track_things %>
             <li>
                 <% if @is_you %>
                     <% form_tag :controller => 'track', :action => 'update', :track_id => track_thing.id do %>
-                        <%= track_thing.params[:list_description] %> by
-                        <!-- (<%= link_to "view latest updates", :controller => 'general', :action => 'search', :query => track_thing.track_query %>) -->
-                        <%= select 'track_thing', "track_medium", { "Email daily" => "email_daily", "RSS feed" => "feed", "Cancel updates" => "delete"}, { :selected => track_thing.track_medium } %>
-                        <%= submit_tag "Update" %>
-                        <!-- <% if track_thing.track_medium == 'feed' %>
-                            (<%= link_to "Feed", :controller => 'track', :action => 'atom_feed', :track_id => track_thing.id %>
-                            <img src="/images/feed-14.png" alt="" class="rss">)
-                        <% end %> -->
+                        <%= track_thing.params[:list_description] %> 
+                        <%= hidden_field_tag 'track_medium', "delete" %>
+                        <%= hidden_field_tag 'r', request.request_uri %>
+                        <%= submit_tag "unsubscribe" %>
                     <% end %>
+                    <!-- (<%= link_to "view latest updates", :controller => 'general', :action => 'search', :query => track_thing.track_query %>) -->
                 <% else %>
                     <%= track_thing.params[:list_description] %>
                 <% end %>
             </li>
         <% end %>
         </ul>
-        <% if not @is_you %>
-        <p>If you are <%=h @display_user.name %>, <%= link_to "sign in", signin_url(:r => request.request_uri) %> to alter these settings.</p>
-        <% end %>
     <% end %>
 
     <% if @display_user.info_requests.empty? %>
@@ -64,8 +62,8 @@
 
     <% else %>
         <h2>
-        <%= @is_you ? 'You have' : 'This person has' %>
-        made <%=pluralize(@display_user.info_requests.size, "Freedom of Information request") %>
+        <%= @is_you ? 'Your ' : "This person's " %>
+        <%=pluralize(@display_user.info_requests.size, "Freedom of Information request") %>
         </h2>
 
         <%= render :partial => 'request/request_listing', :locals => { :info_requests => @display_user.info_requests } %>

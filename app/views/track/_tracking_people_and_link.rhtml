@@ -1,45 +1,26 @@
-<%  
-    existing_track = TrackThing.find_by_existing_track(@user, track_thing)
-    tracking_people = []
-    if list_people
-        tracking_people = TrackThing.find_tracking_people(track_thing) 
+<%
+    if @user
+        existing_track = TrackThing.find_by_existing_track(@user, track_thing)
     end
 %>
 
-<% if (not list_people) or tracking_people.size > 0 %>
-    <% if tracking_people.size > 0 %>
-        <ul>
-        <% for u in tracking_people %>
-            <li><%=user_link(u)%></li>
-        <% end %>
-        </ul>
+
+<% if own_request %> 
+    <p>This is your own request, so you will be automatically emailed when new responses arrive.</p>
+<% elsif existing_track %> 
+    <% form_tag :controller => 'track', :action => 'update', :track_id => existing_track.id do %>
+        <p>
+            <%= track_thing.params[:verb_on_page_already] %>
+            <%= hidden_field_tag 'track_medium', "delete" %>
+            <%= hidden_field_tag 'r', request.request_uri %>
+            <%= submit_tag "unsubscribe" %>
+        </p>
     <% end %>
-    <p>
-        <% if existing_track %>
-            You are already <%= track_thing.params[:verb_on_page_already] %>
-            (<%= link_to "alter your subscriptions", user_url(@user) %>).
-        <% else %>
-            <% if own_request %> 
-                <p>You will be emailed when there are updates to your own request.</p>
-                <p>You may also <%= link_to "get an RSS feed", do_track_url(track_thing) %>
-                <img src="/images/feed-16.png" alt="" class="rss"></p>
-            <% else %>
-                <%= link_to track_thing.params[:verb_on_page], do_track_url(track_thing) %>
-                (by email or RSS feed <img src="/images/feed-16.png" alt="" class="rss">)
-            <% end %>
-        <% end %>
-    </p>
 <% else %>
-    <% if own_request %> 
-        <p>You will be emailed when there are updates to your own request.</p>
-        <p>You may also get an <%= link_to 'RSS feed', do_track_url(track_thing) %>
-        <img src="/images/feed-16.png" alt="" class="rss"></p>
-    <% else %>
-        <p>Be the first to <%= link_to  MySociety::Format.lcfirst(track_thing.params[:verb_on_page]), do_track_url(track_thing) %>
-        (by email or RSS feed <img src="/images/feed-16.png" alt="" class="rss">)</p>
-    <% end %>
+    <div class="feed_link"><%= link_to '<img src="/images/email-16.png" alt="" class="rss">', do_track_url(track_thing) %>
+    <%= link_to track_thing.params[:verb_on_page], do_track_url(track_thing) %></div>
 <% end %>
 
-<div class="feed_link"><%= link_to '<img src="/images/feed-16.png" alt="" class="rss">', do_track_url(track_thing, 'feed') %> <%= link_to 'RSS feed', do_track_url(track_thing, 'feed') %></div>
+<div class="feed_link"><%= link_to '<img src="/images/feed-16.png" alt="" class="rss">', do_track_url(track_thing, 'feed') %> <%= link_to 'RSS feed of updates', do_track_url(track_thing, 'feed') %></div>
 
 

@@ -1,7 +1,17 @@
 RSS move:
-    Can remove "if @track_thing.track_medium == 'feed'" bits from track controller
-    views/user/show.rhtml feed
+    Spacing on http://localhost:3000/search/hello
+    Rename tracking_people_and_link
+    Redo styling a bit of action icons so consistent
+    Add some tests
+    In controllers/track_controller.rb fiddle with wording of now/already
 
+
+http://www.whatdotheyknow.com/request/communications_about_whatdotheyk
+    Mask all emails from binary attachments
+Say "followup sent to" rather than "sent to" http://www.whatdotheyknow.com/feed/user/richard_jackson
+Make links in notes clickable
+    http://www.whatdotheyknow.com/body/hesa
+Spacing on green boxes is rubbish
 
 Site move:
     Install PostgresSQL 8.3
@@ -15,33 +25,18 @@ Internal review:
 http://www.whatdotheyknow.com/request/search_engine_advertising_bought
 http://www.whatdotheyknow.com/request/communications_from_home_office_
 http://www.whatdotheyknow.com/request/crime_investigation_following_al
-
-http://www.whatdotheyknow.com/request/details_of_grant_awarded_to_vi_g_
-     I received a reply on 4 April from Alison McCarthy to my request for
-information about a development grant (SIC Code 7220) to Vero International
-Software UK Limited which is unfortunately not satisfactory.
-    I requested all details about this grant in terms of its application and
-any reports done afterwards.  In order to facilitate my understanding as to the
-degree of accountability regarding this grants, I need to see all documents
-held by the Regional Development Agency which could possibly provide evidence
-that the project outlined actually existed, and that the money wasn't simply
-absorbed into shareholder profit.
-    It would be entirely fair to redact all trade secrets and confidential
-information from the documents as they are disclosed, but I do not believe it
-is reasonable to withhold disclosure of even their titles, dates and number of
-pages.
+http://www.whatdotheyknow.com/request/determination_of_pricing_for_pro#incoming-2902
+(search for it!)
 
 
 Next
 ====
 
-Clear out all the need admin attention requests
-Clear out all the need classifying requests
-
 Internal review status/marker?
 Request withdrawn by user status/marker?
 
 Comments interleaved with body
+    - Email people when comments on their own request
 
 Redo the RSS feeds
 - Look at Rob's TWFY.nz interface
@@ -56,6 +51,9 @@ There is grey on grey text in header? bad idea?
 
 Make it clearer people should ask for documents
 http://www.whatdotheyknow.com/request/unusual_markings_in_the_uk_skies
+
+Clear out all the need admin attention requests
+Clear out all the need classifying requests
 
 
 Later

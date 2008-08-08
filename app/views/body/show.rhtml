@@ -1,8 +1,8 @@
 <% @title = "Information freed from '" + h(@public_body.name) + "'" %>
 
 <div id="request_sidebar">
-    <h2>People tracking this authority</h2>
-    <%= render :partial => 'track/tracking_people_and_link', :locals => { :track_thing => @track_thing, :own_request => false, :list_people => true } %>
+    <h2>Track this authority</h2>
+    <%= render :partial => 'track/tracking_people_and_link', :locals => { :track_thing => @track_thing, :own_request => false } %>
 </div> 
 
 <h1><%=h(@public_body.name)%></h1>

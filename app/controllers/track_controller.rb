@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_controller.rb,v 1.23 2008-07-18 22:22:58 francis Exp $
+# $Id: track_controller.rb,v 1.24 2008-08-08 20:44:54 francis Exp $
 
 class TrackController < ApplicationController
 
@@ -18,12 +18,8 @@ class TrackController < ApplicationController
 
         ret = self.track_set
         if ret
-            if @track_thing.track_medium == 'feed'
-                redirect_to :controller => 'track', :action => 'atom_feed', :track_id => @track_thing.id
-            else
-                flash[:notice] = "You are " + ret + " tracking this request!"
-                redirect_to request_url(@info_request)
-            end
+            flash[:notice] = "You are " + ret + " tracking this request!"
+            redirect_to request_url(@info_request)
         end
     end
 
@@ -43,30 +39,26 @@ class TrackController < ApplicationController
 
         ret = self.track_set
         if ret
-            if @track_thing.track_medium == 'feed'
-                redirect_to :controller => 'track', :action => 'atom_feed', :track_id => @track_thing.id
-            else
-                if @view.nil?
-                    if ret == 'already'
-                        flash[:notice] = "You are already being told about any new requests!"
-                    elsif ret == 'now'
-                        flash[:notice] = "You will now be told about any new requests!"
-                    else 
-                        raise "unknown ret '" + ret + "'"
-                    end
-                elsif @view == 'successful'
-                    if ret == 'already'
-                        flash[:notice] = "You are already being told about any successful requests!"
-                    elsif ret == 'now'
-                        flash[:notice] = "You will now be told about any successful requests!"
-                    else 
-                        raise "unknown ret '" + ret + "'"
-                    end
-                else
-                    raise "unknown request list view " + @view.to_s
+            if @view.nil?
+                if ret == 'already'
+                    flash[:notice] = "You are already being told about any new requests!"
+                elsif ret == 'now'
+                    flash[:notice] = "You will now be told about any new requests!"
+                else 
+                    raise "unknown ret '" + ret + "'"
                 end
-                redirect_to request_list_url(:view => @view)
+            elsif @view == 'successful'
+                if ret == 'already'
+                    flash[:notice] = "You are already being told about any successful requests!"
+                elsif ret == 'now'
+                    flash[:notice] = "You will now be told about any successful requests!"
+                else 
+                    raise "unknown ret '" + ret + "'"
+                end
+            else
+                raise "unknown request list view " + @view.to_s
             end
+            redirect_to request_list_url(:view => @view)
         end
     end
 
@@ -79,12 +71,8 @@ class TrackController < ApplicationController
 
         ret = self.track_set
         if ret
-            if @track_thing.track_medium == 'feed'
-                redirect_to :controller => 'track', :action => 'atom_feed', :track_id => @track_thing.id
-            else
-                flash[:notice] = "You are " + ret + " tracking this public authority!"
-                redirect_to public_body_url(@public_body)
-            end
+            flash[:notice] = "You are " + ret + " tracking this public authority!"
+            redirect_to public_body_url(@public_body)
         end
     end
 
@@ -97,12 +85,8 @@ class TrackController < ApplicationController
 
         ret = self.track_set
         if ret
-            if @track_thing.track_medium == 'feed'
-                redirect_to :controller => 'track', :action => 'atom_feed', :track_id => @track_thing.id
-            else
-                flash[:notice] = "You are " + ret + " tracking this person!"
-                redirect_to user_url(@track_user)
-            end
+            flash[:notice] = "You are " + ret + " tracking this person!"
+            redirect_to user_url(@track_user)
         end
     end
 
@@ -118,16 +102,10 @@ class TrackController < ApplicationController
 
         ret = self.track_set
         if ret
-            if @track_thing.track_medium == 'feed'
-                redirect_to :controller => 'track', :action => 'atom_feed', :track_id => @track_thing.id
-            else
-                flash[:notice] = "You are " + ret + " tracking the search '" + CGI.escapeHTML(@query) + "' !"
-                redirect_to search_url(@query)
-            end
+            flash[:notice] = "You are " + ret + " tracking the search '" + CGI.escapeHTML(@query) + "' !"
+            redirect_to search_url(@query)
         end
     end
-
-
 
     # Generic request tracker - set @track_thing before calling
     def track_set
@@ -138,22 +116,11 @@ class TrackController < ApplicationController
             end
         end
 
-        @track_thing.track_medium = 'email_daily'
-
-        @title = @track_thing.params[:set_title]
-        if params[:track_thing]
-            @track_thing.track_medium = params[:track_thing][:track_medium]
-        end
-
-        if not params[:submitted_track] or not @track_thing.valid?
-            render :template => 'track/track_set'
-            return false
-        end
-        
         if not authenticated?(@track_thing.params)
             return false
         end
 
+        @track_thing.track_medium = 'email_daily'
         @track_thing.tracking_user_id = @user.id
         @track_thing.save!
 
@@ -163,6 +130,9 @@ class TrackController < ApplicationController
     # Atom feed (like RSS) for the track
     def atom_feed
         @track_thing = TrackThing.find(params[:track_id].to_i)
+        if @track_thing.track_medium != 'feed'
+            raise "can only view feeds for feed tracks, not email ones"
+        end
         atom_feed_internal
     end
     def atom_feed_internal
@@ -185,23 +155,21 @@ class TrackController < ApplicationController
             return
         end
 
-        new_medium = params[:track_thing][:track_medium]
+        STDOUT.puts(params.to_yaml)
+        new_medium = params[:track_medium]
         if new_medium == 'delete'
             track_thing.destroy
-            flash[:notice] = "You will no longer be updated about " + track_thing.params[:list_description]
-            redirect_to user_url(track_thing.tracking_user)
-        elsif new_medium == 'email_daily'
-            track_thing.track_medium = new_medium
-            track_thing.created_at = Time.now() # as created_at is used to limit the alerts to start with
-            track_thing.save!
-            flash[:notice] = "You are now tracking " + track_thing.params[:list_description] + " by email"
-            redirect_to user_url(track_thing.tracking_user)
-        elsif new_medium == 'feed'
-            track_thing.track_medium = new_medium
-            track_thing.save!
-            redirect_to :controller => 'track', :action => 'atom_feed', :track_id => track_thing.id
+            flash[:notice] = "You will no longer be emailed updates about " + track_thing.params[:list_description]
+            redirect_to params[:r]
+        # Reuse code like this if we let medium change again.
+        #elsif new_medium == 'email_daily'
+        #    track_thing.track_medium = new_medium
+        #    track_thing.created_at = Time.now() # as created_at is used to limit the alerts to start with
+        #    track_thing.save!
+        #    flash[:notice] = "You are now tracking " + track_thing.params[:list_description] + " by email daily"
+        #    redirect_to user_url(track_thing.tracking_user)
         else
-            raise "unknown medium " + new_medium
+            raise "new medium not handled " + new_medium
         end
     end
 

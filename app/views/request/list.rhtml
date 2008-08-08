@@ -12,7 +12,7 @@
 <h1><%=@title%></h1>
 
 <% if @track_thing %>
-    <%= render :partial => 'track/tracking_people_and_link', :locals => { :track_thing => @track_thing, :own_request => false, :list_people => false } %>
+    <%= render :partial => 'track/tracking_people_and_link', :locals => { :track_thing => @track_thing, :own_request => false } %>
 <% end %>
 
 <% if @xapian_object.results.empty? %>
@@ -30,5 +30,5 @@
 <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @xapian_object.matches_estimated) %>
 
 <% if @track_thing %>
-    <%= render :partial => 'track/tracking_people_and_link', :locals => { :track_thing => @track_thing, :own_request => false, :list_people => false } %>
+    <%= render :partial => 'track/tracking_people_and_link', :locals => { :track_thing => @track_thing, :own_request => false } %>
 <% end %>
