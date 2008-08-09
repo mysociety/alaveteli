@@ -8,13 +8,11 @@
 <% if own_request %> 
     <p>This is your own request, so you will be automatically emailed when new responses arrive.</p>
 <% elsif existing_track %> 
-    <% form_tag :controller => 'track', :action => 'update', :track_id => existing_track.id do %>
-        <p>
+    <% form_tag({:controller => 'track', :action => 'update', :track_id => existing_track.id}, :class => "feed_form_" + location) do %>
             <%= track_thing.params[:verb_on_page_already] %>
             <%= hidden_field_tag 'track_medium', "delete" %>
             <%= hidden_field_tag 'r', request.request_uri %>
             <%= submit_tag "unsubscribe" %>
-        </p>
     <% end %>
 <% else %>
     <div class="feed_link feed_link_<%=location%>">

@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_controller.rb,v 1.25 2008-08-08 20:48:48 francis Exp $
+# $Id: track_controller.rb,v 1.26 2008-08-09 00:25:28 francis Exp $
 
 class TrackController < ApplicationController
 
@@ -16,8 +16,9 @@ class TrackController < ApplicationController
 
         return atom_feed_internal if params[:feed] == 'feed'
 
-        ret = self.track_set
-        redirect_to request_url(@info_request)
+        if self.track_set
+            redirect_to request_url(@info_request)
+        end
     end
 
     # Track all new/successful requests
@@ -34,8 +35,9 @@ class TrackController < ApplicationController
 
         return atom_feed_internal if params[:feed] == 'feed'
 
-        ret = self.track_set
-        redirect_to request_list_url(:view => @view)
+        if self.track_set
+            redirect_to request_list_url(:view => @view)
+        end
     end
 
     # Track all updates to a particular public body
@@ -45,8 +47,9 @@ class TrackController < ApplicationController
 
         return atom_feed_internal if params[:feed] == 'feed'
 
-        ret = self.track_set
-        redirect_to public_body_url(@public_body)
+        if self.track_set
+            redirect_to public_body_url(@public_body)
+        end
     end
 
     # Track a user
@@ -56,8 +59,9 @@ class TrackController < ApplicationController
 
         return atom_feed_internal if params[:feed] == 'feed'
 
-        ret = self.track_set
-        redirect_to user_url(@track_user)
+        if self.track_set
+            redirect_to user_url(@track_user)
+        end
     end
 
     # Track a search term
@@ -68,10 +72,11 @@ class TrackController < ApplicationController
         @query = query_array.join("/")
         @track_thing = TrackThing.create_track_for_search_query(@query)
 
-        return atom_feed_internal if params[:feed]
+        return atom_feed_internal if params[:feed] == 'feed'
 
-        ret = self.track_set
-        redirect_to search_url(@query)
+        if self.track_set
+            redirect_to search_url(@query)
+        end
     end
 
     # Generic request tracker - set @track_thing before calling
@@ -80,7 +85,7 @@ class TrackController < ApplicationController
             @existing_track = TrackThing.find_by_existing_track(@user, @track_thing)
             if @existing_track
                 flash[:notice] = "You are already being emailed updates about " + @track_thing.params[:list_description]
-                return
+                return true
             end
         end
 
@@ -93,6 +98,7 @@ class TrackController < ApplicationController
         @track_thing.save!
 
         flash[:notice] = "You will now be emailed updates about " + @track_thing.params[:list_description]
+        return true
     end 
 
     # Atom feed (like RSS) for the track

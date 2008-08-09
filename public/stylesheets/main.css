@@ -783,8 +783,14 @@ div.feed_link img {
     vertical-align: middle;
     text-decoration: none;
 }
+div.feed_link {
+    color: red;
+}
 
 div.feed_link_main {
+    display: inline;
+}
+form.feed_form_main {
     display: inline;
 }
 
