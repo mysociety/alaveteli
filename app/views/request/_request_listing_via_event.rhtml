@@ -26,7 +26,7 @@ end %>
             Request sent to <%= public_body_link(info_request.public_body) %>
             by <%= user_link(info_request.user) %>
         <% elsif event.event_type == 'followup_sent' %>
-            Sent to <%= public_body_link(info_request.public_body) %>
+            Follow up sent to <%= public_body_link(info_request.public_body) %>
             by <%= user_link(info_request.user) %>
         <% elsif event.event_type == 'response' %>
             <% if event.calculated_state.nil? %>
