@@ -21,7 +21,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_thing.rb,v 1.31 2008-08-09 00:25:28 francis Exp $
+# $Id: track_thing.rb,v 1.32 2008-08-09 00:37:48 francis Exp $
 
 class TrackThing < ActiveRecord::Base
     belongs_to :tracking_user, :class_name => 'User'
@@ -222,12 +222,6 @@ class TrackThing < ActiveRecord::Base
         end
         return TrackThing.find(:first, :conditions => [ 'tracking_user_id = ? and track_query = ? and track_type = ?', tracking_user.id, track.track_query, track.track_type ] )
     end
-
-    # List of people tracking same thing
-    def TrackThing.find_tracking_people(track)
-        return TrackThing.find(:all, :conditions => [ 'track_query = ? and track_type = ?', track.track_query, track.track_type ]).map { |t| t.tracking_user }
-    end
-
 end
 
 
