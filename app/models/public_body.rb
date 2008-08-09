@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.95 2008-08-09 15:19:01 francis Exp $
+# $Id: public_body.rb,v 1.96 2008-08-09 15:36:16 johncross Exp $
 
 require 'csv'
 require 'set'
@@ -88,6 +88,7 @@ class PublicBody < ActiveRecord::Base
                 [ "rules_committee", "Rules commitees", "a rules committee" ],
             "Transport",
                 [ "npte", "Passenger transport executives", "a passenger transport executive" ],
+                [ "port_authority", "Port authority", "a port authority" ],
         ]
     end
     def self.categories_with_description
