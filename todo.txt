@@ -1,7 +1,6 @@
 RSS move:
     Get test code working
     Add some tests
-    Spacing at end of search results
 
     Remove find_tracking_people
 

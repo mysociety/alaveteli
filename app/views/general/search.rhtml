@@ -77,6 +77,7 @@
 
         <%= will_paginate WillPaginate::Collection.new(@page, @requests_per_page, @xapian_requests.matches_estimated) %>
         <% if @track_thing %>
+            <p></p>
             <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => false, :location => 'main' } %>
         <% end %>
     <% end %>
