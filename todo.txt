@@ -1,6 +1,4 @@
 RSS move:
-    Redo styling a bit of action icons so consistent
-        with writetothem link
     Get test code working
     Add some tests
     Spacing at end of search results

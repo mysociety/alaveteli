@@ -11,10 +11,14 @@
      <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => @info_request.user == @user, :location => 'sidebar' } %>
 
     <h2>Act on what you've learnt</h2>
-     <p>
-    <img src="/images/writetothem.png" alt=""> <a href="http://www.writetothem.com">Write to your politician</a>
-    <br><img src="/images/pledgebank.png" alt=""> <a href="http://www.pledgebank.com">Join others with a pledge</a>
-    </p>
+    <div class="act_link">
+        <%= link_to '<img src="/images/writetothem.png" alt="" class="rss">', "http://www.writetothem.com"%> 
+        <%= link_to 'Write to your politician', "http://www.writetothem.com"%>
+    </div>
+    <div class="act_link">
+        <%= link_to '<img src="/images/pledgebank.png" alt="" class="rss">', "http://www.pledgebank.com"%> 
+        <%= link_to 'Join others with a pledge', "http://www.pledgebank.com"%>
+    </div>
 
     <% if @xapian_similar.results.size > 0 %>
         <h2>Similar requests</h2>
