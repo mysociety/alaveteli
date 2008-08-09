@@ -1,46 +1,37 @@
-RSS move:
-    Get test code working
-    Add some tests
-
-    Remove find_tracking_people
-
-http://www.whatdotheyknow.com/request/communications_about_whatdotheyk
-    Mask all emails from binary attachments
-Say "followup sent to" rather than "sent to" http://www.whatdotheyknow.com/feed/user/richard_jackson
-Make links in notes clickable
-    http://www.whatdotheyknow.com/body/hesa
-Spacing on green boxes is rubbish
-
 Site move:
     Install PostgresSQL 8.3
     Move database
     Move email foibackup to a new server
 
-FOI requests  (that need action)
-============
-
-Internal review:
-http://www.whatdotheyknow.com/request/search_engine_advertising_bought
-http://www.whatdotheyknow.com/request/communications_from_home_office_
-http://www.whatdotheyknow.com/request/crime_investigation_following_al
-http://www.whatdotheyknow.com/request/determination_of_pricing_for_pro#incoming-2902
-(search for it!)
-
-
 Next
 ====
 
-Internal review status/marker?
-Request withdrawn by user status/marker?
+Green box when you are classifying request is a bit too big / prominent
+Solicit people to tell us requests are misclassified?
+
+Search for user.name, esp. ./contact_mailer/user_message.rhtml
 
 Comments interleaved with body
+    - Allow anyone logged in to add a comment to any request.
+    - Add an event too
+    - Index it all in Xapian
+    - Add it to the spec fixtures
+    - Add basic tests
+    - Make sure it works in email alerts
     - Email people when comments on their own request
+    - Email people subscribed to people about new comments that they make
+      ... and likewise to requests, public bodies
 
-Redo the RSS feeds
-- Look at Rob's TWFY.nz interface
-- One click "track this" then single feed based on your preferences
-- Page tracking things within the site
-Maybe remove public tracking completely
+http://www.whatdotheyknow.com/request/communications_about_whatdotheyk
+    Mask all emails from binary attachments
+
+Internal review status/marker?
+    http://www.whatdotheyknow.com/request/search_engine_advertising_bought
+    http://www.whatdotheyknow.com/request/communications_from_home_office_
+    http://www.whatdotheyknow.com/request/crime_investigation_following_al
+    http://www.whatdotheyknow.com/request/determination_of_pricing_for_pro#incoming-2902
+    (search for it!)
+Request withdrawn by user status/marker?
 
 Do something about shared spreadsheet
 
@@ -56,6 +47,12 @@ Clear out all the need classifying requests
 
 Later
 =====
+
+This doesn't work:
+http://www.whatdotheyknow.com/search/status:waiting_classification/
+
+Link the overdue date to an explanation of what bank holidays it skipped etc.
+:)
 
 When indexing .docx do you need to index docProps/custom.xml and docProps/app.xml
 as well as word/document.xml ? (thread on xapian-discuss does so)
@@ -123,11 +120,7 @@ Link more clearly to full request and next/previous correspondence (ask Matthew)
 e.g. http://www.flickr.com/groups/central/discuss/72157604494352123/72157604515433851/
 
 Get Atom highlighting to include stylesheet for yellow somehow
-When you click RSS feed when on own request, default to RSS in the choice on next page
-Offer option of a feed with the union of all your feeds (tartarus asked for this).
-
-Just make RSS normal like on other sites rather than something you have to
-register for.
+Offer option of one RSS feed with all things you are tracking in it. Maybe.
 
 "Some of the information" option should give you choice of complaining if you like.
 
@@ -136,7 +129,6 @@ Offer search on 404s
 Preview when sending followups - especially people need to see quoting/subject
 Spell checking for followups
 For followups, have radio button to say is it a new request or followup?
-
 
 Interface for when you change your email address - easier to do now with post_redirect.circumstance?
 

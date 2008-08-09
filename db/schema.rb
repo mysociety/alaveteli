@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 61) do
+ActiveRecord::Schema.define(:version => 62) do
 
   create_table "acts_as_xapian_jobs", :force => true do |t|
     t.string  "model",    :null => false
@@ -18,6 +18,16 @@ ActiveRecord::Schema.define(:version => 61) do
   end
 
   add_index "acts_as_xapian_jobs", ["model", "model_id"], :name => "index_acts_as_xapian_jobs_on_model_and_model_id", :unique => true
+
+  create_table "comments", :force => true do |t|
+    t.integer  "user_id",                                       :null => false
+    t.string   "comment_type",    :default => "internal_error", :null => false
+    t.integer  "info_request_id"
+    t.text     "body",                                          :null => false
+    t.boolean  "visible",         :default => true,             :null => false
+    t.datetime "created_at",                                    :null => false
+    t.datetime "updated_at",                                    :null => false
+  end
 
   create_table "incoming_messages", :force => true do |t|
     t.integer  "info_request_id",        :null => false

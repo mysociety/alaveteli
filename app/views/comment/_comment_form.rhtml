@@ -1,0 +1,15 @@
+<% form_for(:comment, @comment) do |o| %>
+    <p>
+        <%= o.text_area :body, :rows => 10, :cols => 55 %>
+    </p>
+
+    <p>
+        Don't bother posting up nonsense (<a href="/help/about#moderation">like what sort of nonsense?</a>).
+    </p>
+
+    <p>
+        <%= hidden_field_tag 'submitted_comment', 1 %>
+        <%= submit_tag "Add public annotation" %>
+    </p>
+<% end %>
+
