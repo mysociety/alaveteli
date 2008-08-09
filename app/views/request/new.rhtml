@@ -42,7 +42,7 @@
         <% if @info_request.public_body.notes != "" %>
             <h1>Special note for this authority!</h1>
             <ul>
-                <li><%=@info_request.public_body.notes %></li>
+                <li><%=MySociety::Format.make_clickable(@info_request.public_body.notes) %></li>
             </ul>
         <% end %>
 

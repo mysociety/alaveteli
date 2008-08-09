@@ -13,7 +13,7 @@
 </p>
 
 <% if @public_body.notes != "" %>
-<p><%=@public_body.notes%></p>
+    <p><%=MySociety::Format.make_clickable(@public_body.notes) %></p>
 <% end %>
 
 <% if @public_body.eir_only? %>
