@@ -4,21 +4,8 @@ describe TrackController, "when making a new track on a request" do
     integrate_views
     fixtures :info_requests, :outgoing_messages, :incoming_messages, :info_request_events, :users
   
-    it "should render with 'track_set' template" do
-        get :track_request, :url_title => info_requests(:fancy_dog_request).url_title, :feed => 'track'
-        response.should render_template('track_set')
-    end
-
-    it "should assign the title" do
-        get :track_request, :url_title => info_requests(:fancy_dog_request).url_title, :feed => 'track'
-
-        assigns[:title].should include("track the request")
-    end
-
     it "should require login when making new track" do
-        post :track_request, :url_title => info_requests(:fancy_dog_request).url_title, :feed => 'track',
-            :track_thing => { :track_medium => "email_daily" }, 
-            :submitted_track => 1
+        get :track_request, :url_title => info_requests(:fancy_dog_request).url_title, :feed => 'track'
         post_redirect = PostRedirect.get_last_post_redirect
         response.should redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
     end
@@ -26,9 +13,7 @@ describe TrackController, "when making a new track on a request" do
     it "should make track and redirect if you are logged in " do
         TrackThing.count.should == 2
         session[:user_id] = users(:bob_smith_user).id
-        post :track_request, :url_title => info_requests(:fancy_dog_request).url_title, :feed => 'track',
-            :track_thing => { :track_medium => "email_daily" }, 
-            :submitted_track => 1
+        get :track_request, :url_title => info_requests(:fancy_dog_request).url_title, :feed => 'track'
         TrackThing.count.should == 3
         response.should redirect_to(:controller => 'request', :action => 'show', :url_title => info_requests(:fancy_dog_request).url_title)
     end
