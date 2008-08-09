@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.97 2008-08-09 15:47:06 johncross Exp $
+# $Id: public_body.rb,v 1.98 2008-08-09 16:19:07 johncross Exp $
 
 require 'csv'
 require 'set'
@@ -50,6 +50,7 @@ class PublicBody < ActiveRecord::Base
                 [ "advisory_committee", "Advisory committees", "an advisory committee" ],
                 [ "awc", "Agricultural wages committees", "an agriculatural wages committee" ],
                 [ "adhac", "Agricultural dwelling house advisory committees", "an agriculatural dwelling house advisory committee" ],
+                [ "newdeal", "New Deal for Communities partnership", "a New Deal for Communities partnership" ],
             "Local and regional",
                 [ "local_council", "Local councils", "a local council" ], 
                 [ "regional_assembly", "Regional assemblies", "a regional assembly"], 
