@@ -21,7 +21,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_thing.rb,v 1.32 2008-08-09 00:37:48 francis Exp $
+# $Id: track_thing.rb,v 1.33 2008-08-09 00:46:20 francis Exp $
 
 class TrackThing < ActiveRecord::Base
     belongs_to :tracking_user, :class_name => 'User'
@@ -117,7 +117,7 @@ class TrackThing < ActiveRecord::Base
             elsif self.track_type == 'all_new_requests'
                 @params = {
                     # Website
-                    :set_title => "How would you like to be told about any new requests?",
+                    :set_title => "How would you like to be emailed about any new requests?",
                     :list_description => "any <a href=\"/list\">new requests</a>",
                     :verb_on_page => "Email me when there are new requests",
                     :verb_on_page_already => "You are being emailed when there are new requests",
@@ -125,7 +125,7 @@ class TrackThing < ActiveRecord::Base
                     :title_in_email => "New Freedom of Information requests",
                     :title_in_rss => "New Freedom of Information requests",
                     # Authentication
-                    :web => "To be told about any new requests",
+                    :web => "To be emailed about any new requests",
                     :email => "Then you will be emailed whenever anyone makes a new FOI request",
                     :email_subject => "Confirm you want to be emailed about new requests",
                     # RSS sorting
@@ -134,7 +134,7 @@ class TrackThing < ActiveRecord::Base
             elsif self.track_type == 'all_successful_requests'
                 @params = {
                     # Website
-                    :set_title => "How would you like to be told when any request succeeds?",
+                    :set_title => "How would you like to be emailed when any request succeeds?",
                     :list_description => "any <a href=\"/list/successful\">successful requests</a>",
                     :verb_on_page => "Email me new successful responses",
                     :verb_on_page_already => "You are being emailed about any new successful responses",
@@ -142,7 +142,7 @@ class TrackThing < ActiveRecord::Base
                     :title_in_email => "Successful Freedom of Information requests",
                     :title_in_rss => "Successful Freedom of Information requests",
                     # Authentication
-                    :web => "To be told about any successful requests",
+                    :web => "To be emailed about any successful requests",
                     :email => "Then you will be emailed whenever an FOI request succeeds",
                     :email_subject => "Confirm you want to be emailed when an FOI request succeeds",
                     # RSS sorting - used described date, as newest would give a
@@ -162,9 +162,9 @@ class TrackThing < ActiveRecord::Base
                     :title_in_email => self.public_body.law_only_short + " requests to '" + self.public_body.name + "'",
                     :title_in_rss => self.public_body.law_only_short + " requests to '" + self.public_body.name + "'",
                     # Authentication
-                    :web => "To be told about requests to the public authority '" + CGI.escapeHTML(self.public_body.name) + "'",
+                    :web => "To be emailed about requests to the public authority '" + CGI.escapeHTML(self.public_body.name) + "'",
                     :email => "Then you will be emailed whenever someone requests something or gets a response from '" + CGI.escapeHTML(self.public_body.name) + "'.",
-                    :email_subject => "Confirm you want to be told about requests to '" + CGI.escapeHTML(self.public_body.name) + "'",
+                    :email_subject => "Confirm you want to be emailed about requests to '" + CGI.escapeHTML(self.public_body.name) + "'",
                     # RSS sorting
                     :feed_sortby => 'newest'
                 }
@@ -179,9 +179,9 @@ class TrackThing < ActiveRecord::Base
                     :title_in_email => "FOI requests by '" + self.tracked_user.name + "'",
                     :title_in_rss => "FOI requests by '" + self.tracked_user.name + "'",
                     # Authentication
-                    :web => "To be told about requests by '" + CGI.escapeHTML(self.tracked_user.name) + "'",
+                    :web => "To be emailed about requests by '" + CGI.escapeHTML(self.tracked_user.name) + "'",
                     :email => "Then you will be emailed whenever '" + CGI.escapeHTML(self.tracked_user.name) + "' requests something or gets a response",
-                    :email_subject => "Confirm you want to be told about requests by '" + CGI.escapeHTML(self.tracked_user.name) + "'",
+                    :email_subject => "Confirm you want to be emailed about requests by '" + CGI.escapeHTML(self.tracked_user.name) + "'",
                     # RSS sorting
                     :feed_sortby => 'newest'
                 }
@@ -198,7 +198,7 @@ class TrackThing < ActiveRecord::Base
                     # Authentication
                     :web => "To follow requests and responses matching '" + CGI.escapeHTML(self.track_query) + "'",
                     :email => "Then you will be emailed whenever a new request or response matches '" + CGI.escapeHTML(self.track_query) + "'.",
-                    :email_subject => "Confirm you want to be told about new requests or responses matching '" + CGI.escapeHTML(self.track_query) + "'",
+                    :email_subject => "Confirm you want to be emailed about new requests or responses matching '" + CGI.escapeHTML(self.track_query) + "'",
                     # RSS sorting - XXX hmmm, we don't really know which to use
                     # here for sorting. Might be a query term (e.g. 'cctv'), in
                     # which case newest is good, or might be something like
