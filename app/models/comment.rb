@@ -19,11 +19,11 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: comments.rb,v 1.1 2008-08-09 15:19:01 francis Exp $
+# $Id: comment.rb,v 1.1 2008-08-13 01:39:41 francis Exp $
 
-class Comments < ActiveRecord::Base
+class Comment < ActiveRecord::Base
     belongs_to :user
-    validates_presence_of :user
+    #validates_presence_of :user # breaks during construction of new ones :(
 
     validates_inclusion_of :comment_type, :in => [ 'request' ]
     belongs_to :info_request

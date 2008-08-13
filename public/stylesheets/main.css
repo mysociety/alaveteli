@@ -638,6 +638,15 @@ div.correspondence h2
 .event_actions
 { text-align: right} 
 
+div.comment_in_request
+{
+	width: 37em;
+	float: left;
+	padding: 0em 0em 0em 0em;
+	margin: 0 0 0 0;
+	overflow: auto;
+}
+
 /* id starts with... */
 div[id|="outgoing"] { }
 	div[id|="outgoing"] p { font-size: 0.95em;}
@@ -645,6 +654,9 @@ div[id|="outgoing"] { }
 div[id|="incoming"] { background-color: #E7E7E7; font-family: Times New Roman, Times, serif; }
 	div[id|="incoming"] p { font-size: 1.08em;}
 
+div[id|="comment"] { }
+	div[id|="comment"] p { font-size: 1.00em;}
+	
 .correspondence_text { margin: 0 1.2em 0 0.8em; }
 
 /*.event_bubble { margin: 3em 0 0 0; font-size: 0.9em;}*/

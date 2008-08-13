@@ -68,6 +68,18 @@ elsif info_request_event.event_type == 'sent' || info_request_event.event_type =
             to <%= public_body_link(@info_request.public_body) %> again<% if @info_request.get_previous_email_sent_to(info_request_event) != info_request_event.params[:email] %>, using a new contact address<% end %>.
         </p>
     </div>
+<% elsif info_request_event.event_type == 'comment' 
+    comment = info_request_event.comment
+%>
+    <div class="comment_in_request" id="comment-<%=comment.id.to_s%>">
+        <p class=""> 
+            On <%= simple_date(info_request_event.created_at) %>,
+            <%= user_link(comment.user) %> added an annotation:
+        </p>
+        <p> 
+            "<%= comment.get_body_for_html_display %>"
+        </p>
+    </div>
 <% 
 end 
 

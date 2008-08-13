@@ -109,3 +109,27 @@
 <% end %>
 </table>
 
+<h2>Comments</h2>
+
+<table>
+  <tr>
+  <th>Id</th>
+  <th>Posted by</th>
+  <% for column in Comment.content_columns %>
+    <th><%= column.human_name %></th>
+  <% end %>
+  <!--<th>Actions</th>-->
+  </tr>
+  
+<% for comment in @info_request.comments.find(:all, :order => 'created_at') %>
+  <tr class="<%= cycle('odd', 'even') %>">
+  <td><%=h comment.id %></td>
+  <td><%= user_admin_link(comment.user) %></td>
+  <% for column in Comment.content_columns.map { |c| c.name } %>
+    <td><%=h comment.send(column) %></td>
+  <% end %>
+  </tr>
+<% end %>
+</table>
+
+

@@ -99,7 +99,6 @@
     <% end %>
 
     <!--
-
     <div id="comment_form">
         <h2>Add an annotation</h2>
 
@@ -125,7 +124,7 @@
         <% if [ 'successful', 'partially_successful' ].include?(@info_request.described_state) %>
             <li> <strong>Summarise</strong> the content of any information returned. </li>
             <li> Say how you've <strong>used the information</strong>, with links if possible. </li>
-            <li> <strong>Thank</strong> the local authority or <%=h @info_request.user.name %>. </li>
+            <li> <strong>Thank</strong> the public authority or <%=h @info_request.user.name %>. </li>
         <% end %>
         <% if [ 'partially_successful' ].include?(@info_request.described_state) %>
             <li> Suggest how the requester can find the <strong>rest of the information</strong>. </li>
@@ -148,7 +147,8 @@
         </ul>
  
         <%= render :partial => 'comment/comment_form', :locals => { } %>
-    </div> -->
+    </div>
+    -->
 </div>
 
 

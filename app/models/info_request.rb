@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.126 2008-08-09 15:19:01 francis Exp $
+# $Id: info_request.rb,v 1.127 2008-08-13 01:39:41 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -43,6 +43,7 @@ class InfoRequest < ActiveRecord::Base
     has_many :info_request_events, :order => 'created_at'
     has_many :user_info_request_sent_alerts
     has_many :track_things, :order => 'created_at desc'
+    has_many :comments, :order => 'created_at'
 
     # user described state (also update in info_request_event, admin_request/edit.rhtml)
     validates_inclusion_of :described_state, :in => [ 
@@ -259,6 +260,22 @@ public
         RequestMailer.deliver_new_response(self, incoming_message)
     end
 
+    # An annotation (comment) is made
+    def add_comment(body, user)
+        comment = Comment.new
+
+        ActiveRecord::Base.transaction do
+            comment.body = body
+            comment.user = user
+            comment.comment_type = 'request'
+            comment.info_request = self
+            comment.save!
+
+            self.log_event("comment", { :comment_id => comment.id })
+            self.save!
+        end
+    end
+
     # The "holding pen" is a special request which stores incoming emails whose
     # destination request is unknown.
     def InfoRequest.holding_pen_request
@@ -275,8 +292,8 @@ public
             om = OutgoingMessage.new({
                 :status => 'ready',
                 :message_type => 'initial_request',
-                :body => 'This is the holding pen request. It shows responses that were sent to invalid addresses, and need moving to the correct request by an adminstrator.',
-                :last_sent_at => Time.now()
+                :body => 'this is the holding pen request. it shows responses that were sent to invalid addresses, and need moving to the correct request by an adminstrator.',
+                :last_sent_at => time.now()
             })
             ir.outgoing_messages << om
             om.info_request = ir
@@ -287,7 +304,7 @@ public
         return ir
     end
 
-    # Change status, including for last event for later historical purposes
+    # change status, including for last event for later historical purposes
     def set_described_state(new_state)
         ActiveRecord::Base.transaction do
             self.awaiting_description = false

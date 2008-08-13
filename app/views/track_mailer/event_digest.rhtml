@@ -24,8 +24,11 @@
                     main_text += event.info_request.user.name + " sent a follow up message to " + event.info_request.public_body.name 
                 elsif event.event_type == 'sent'
                     # this is unlikely to happen in real life, but happens in the test code
-                    url = main_url(request_url(event.info_request))+"#outgoing-"+event.outgoing_message.id.to_s
+                    url = main_url(outgoing_message_url(event.outgoing_message))
                     main_text += event.info_request.user.name + " sent a request to " + event.info_request.public_body.name 
+                elsif event.event_type == 'comment'
+                    url = main_url(comment_url(event.comment))
+                    main_text += event.comment.user.name + " added an annotation"
                 else
                     raise "unknown type in event_digest " + event.event_type
                 end

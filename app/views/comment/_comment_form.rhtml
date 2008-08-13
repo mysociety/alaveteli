@@ -1,6 +1,10 @@
-<% form_for(:comment, @comment) do |o| %>
+<% form_for(:comment, @comment, :url => { :controller => "comment", :action => "new", :type => "request" },  :html => { :id => 'comment_form' } ) do |f| %>
     <p>
-        <%= o.text_area :body, :rows => 10, :cols => 55 %>
+        <%= f.text_area :body, :rows => 10, :cols => 55 %>
+    </p>
+
+    <p>
+        <script type="text/javascript">document.write('<input name="doSpell" type="button" value="Check spelling" onClick="openSpellChecker(document.getElementById(\'comment_form\').body);"/> (optional)')</script>
     </p>
 
     <p>
@@ -9,7 +13,8 @@
 
     <p>
         <%= hidden_field_tag 'submitted_comment', 1 %>
-        <%= submit_tag "Add public annotation" %>
+        <%= hidden_field_tag 'preview', 1 %>
+        <%= submit_tag "Preview your annotation" %>
     </p>
 <% end %>
 

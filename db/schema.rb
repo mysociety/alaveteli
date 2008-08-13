@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(:version => 62) do
     t.datetime "last_described_at"
     t.integer  "incoming_message_id"
     t.integer  "outgoing_message_id"
+    t.integer  "comment_id"
   end
 
   create_table "info_requests", :force => true do |t|

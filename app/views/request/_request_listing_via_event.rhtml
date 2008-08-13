@@ -8,6 +8,8 @@ end %>
             <%= link_to highlight_words(info_request.title, @highlight_words), incoming_message_url(event.incoming_message) %>
         <% elsif not event.outgoing_message.nil? and event.event_type == 'followup_sent' %>
             <%= link_to highlight_words(info_request.title, @highlight_words), outgoing_message_url(event.outgoing_message) %>
+        <% elsif not event.comment.nil? %>
+            <%= link_to highlight_words(info_request.title, @highlight_words), comment_url(event.comment) %>
         <% else %>
             <%= link_to highlight_words(info_request.title, @highlight_words), request_url(info_request) %>
         <% end %>
@@ -36,6 +38,8 @@ end %>
             <% end %>
             by <%= public_body_link(info_request.public_body) %>
             to <%= user_link(info_request.user) %>
+        <% elsif event.event_type == 'comment' %>
+            Annotation by <%= user_link(event.comment.user) %>
         <% else %>
             <% raise "unknown event type indexed " + event.event_type %>
         <% end %>

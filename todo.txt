@@ -6,21 +6,45 @@ Site move:
 Next
 ====
 
+Compress the emails in the database
+
 Green box when you are classifying request is a bit too big / prominent
 Solicit people to tell us requests are misclassified?
 
 Search for user.name, esp. ./contact_mailer/user_message.rhtml
 
+Sort list of email subscriptions by type, and probably alphabetically /
+chronologically, and compress them a bit more somehow in vertical space.
+
+"Then you will be emailed whenever 'Martin Stabe' requests something or gets a
+response" doesn't word wrap in confirmation email, and no full stop.
+
+Reply links should probably link to form rather than message
+http://www.whatdotheyknow.com/request/4/response/866#show_response_followup
+
+Email subjects badly escaped
+Subject: Confirm you want to be emailed about requests to 'HM Revenue &amp; Customs'
+
 Comments interleaved with body
-    - Allow anyone logged in to add a comment to any request.
-    - Add an event too
-    - Index it all in Xapian
+     grep -rin followup_sent .
+
     - Add it to the spec fixtures
     - Add basic tests
-    - Make sure it works in email alerts
-    - Email people when comments on their own request
+
+    - Test email alerts for comments
     - Email people subscribed to people about new comments that they make
       ... and likewise to requests, public bodies
+
+    - Email people when comments on their own request
+    - Email people when responses to their own comment, or warn them they need to sign up
+
+    - Flag bad comments
+    - Delete comments from admin interface
+
+    - Test spell checker
+    - Don't allow double posting
+    - Check CSS class/id names used in all comment HTML
+    - Think about the "nonsense" text a lot more
 
 http://www.whatdotheyknow.com/request/communications_about_whatdotheyk
     Mask all emails from binary attachments

@@ -62,6 +62,8 @@
             had the request resent to <%=h event.params[:email]%> at <%=h event.info_request.public_body.name %>.
         <% elsif event.event_type == 'followup_sent' %>
             had a follow up message sent to <%=h event.info_request.public_body.name %>.
+        <% elsif event.event_type == 'comment' %>
+            had an annotation posted by <%=h event.comment.user.name %>.
         <% else %>
             had '<%=event.event_type%>' done to it, parameters <%=h event.params_yaml%>.
         <% end %>

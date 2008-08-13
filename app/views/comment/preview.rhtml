@@ -1,0 +1,24 @@
+<% @title = "Preview new annotation on '" + h(@info_request.title) + "'" %>
+
+<% form_for(:comment, @comment, :html => { :id => 'preview_form' }, :url => { :controller => "comment", :action => "new", :type => "request" } ) do |f| %>
+    
+    <h1>Now preview your annotation</h1>
+
+    <p class="comment_in_request">
+        <%= @comment.get_body_for_html_display %>
+        <%= f.hidden_field(:body) %>
+    </p>
+
+    <p>
+    Your name and annotation will appear in <strong>search engines</strong>.
+
+    <p>
+    <%= hidden_field_tag(:submitted_comment, 1) %>
+    <%= hidden_field_tag(:preview, 0 ) %>
+    <%= submit_tag "Re-edit this annotation", :name => 'reedit' %>
+    <%= submit_tag "Post annotation", :name => 'submit' %>
+    </p>
+
+<% end %>
+
+

@@ -20,7 +20,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request_event.rb,v 1.50 2008-08-09 15:19:01 francis Exp $
+# $Id: info_request_event.rb,v 1.51 2008-08-13 01:39:41 francis Exp $
 
 class InfoRequestEvent < ActiveRecord::Base
     belongs_to :info_request
@@ -28,6 +28,7 @@ class InfoRequestEvent < ActiveRecord::Base
 
     belongs_to :outgoing_message
     belongs_to :incoming_message
+    belongs_to :comment
 
     has_many :user_info_request_sent_alerts
     has_many :track_things_sent_emails
@@ -41,7 +42,8 @@ class InfoRequestEvent < ActiveRecord::Base
         'edit_outgoing', # outgoing message edited in admin interface
         'destroy_incoming', # deleted an incoming message
         'manual', # you did something in the db by hand
-        'response'
+        'response',
+        'comment'
     ]
 
     # user described state (also update in info_request)
@@ -69,7 +71,7 @@ class InfoRequestEvent < ActiveRecord::Base
                 [ :variety, 'V', "variety" ]
         ],
         :if => :indexed_by_search,
-        :eager_load => [ :incoming_message, :outgoing_message, { :info_request => [ :user, :public_body ] } ]
+        :eager_load => [ :incoming_message, :outgoing_message, :comment, { :info_request => [ :user, :public_body ] } ]
 
     def requested_by
         self.info_request.user.url_name
@@ -99,6 +101,8 @@ class InfoRequestEvent < ActiveRecord::Base
             text = text + self.outgoing_message.body_without_salutation + "\n\n"
         elsif self.event_type == 'response'
             text = text + self.incoming_message.get_text_for_indexing + "\n\n"
+        elsif self.event_type == 'comment'
+            text = text + self.comment.body + "\n\n"
         else
             # nothing
         end
@@ -111,7 +115,7 @@ class InfoRequestEvent < ActiveRecord::Base
         return ''
     end
     def indexed_by_search
-        if ['sent', 'followup_sent', 'response'].include?(self.event_type)
+        if ['sent', 'followup_sent', 'response', 'comment'].include?(self.event_type)
             if info_request.prominence == 'backpage'
                 return false
             end
@@ -134,40 +138,13 @@ class InfoRequestEvent < ActiveRecord::Base
         if not params[:outgoing_message_id].nil?
             self.outgoing_message_id = params[:outgoing_message_id]
         end
+        if not params[:comment_id].nil?
+            self.comment_id = params[:comment_id]
+        end
         self.params_yaml = params.to_yaml
     end
     def params
         YAML.load(self.params_yaml)
-    end
-
-    # Find related incoming message
-    # XXX search for the find below and call this function more instead
-    # XXX deprecated, remove it
-    def incoming_message_via_params
-        if not ['response'].include?(self.event_type)
-            return nil
-        end
-
-        if not self.params[:incoming_message_id]
-            raise "internal error, no incoming message id for response event"
-        end
-
-        return IncomingMessage.find(self.params[:incoming_message_id].to_i)
-    end
-
-    # Find related outgoing message
-    # XXX search for the find below and call this function more instead
-    # XXX deprecated, remove it
-    def outgoing_message_via_params
-        if not [ 'edit_outgoing', 'sent', 'resent', 'followup_sent' ].include?(self.event_type)
-            return nil
-        end
-
-        if not self.params[:outgoing_message_id]
-            raise "internal error, no outgoing message id for event type which expected one"
-        end
-
-        return OutgoingMessage.find(self.params[:outgoing_message_id].to_i)
     end
 
     # Display version of status
