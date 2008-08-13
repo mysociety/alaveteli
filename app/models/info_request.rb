@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.127 2008-08-13 01:39:41 francis Exp $
+# $Id: info_request.rb,v 1.128 2008-08-13 09:51:45 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -292,8 +292,9 @@ public
             om = OutgoingMessage.new({
                 :status => 'ready',
                 :message_type => 'initial_request',
-                :body => 'this is the holding pen request. it shows responses that were sent to invalid addresses, and need moving to the correct request by an adminstrator.',
-                :last_sent_at => time.now()
+                :body => 'This is the holding pen request. It shows responses that were sent to invalid addresses, and need moving to the correct request by an adminstrator.',
+                :last_sent_at => Time.now()
+
             })
             ir.outgoing_messages << om
             om.info_request = ir
