@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_public_body_controller.rb,v 1.17 2008-07-28 18:04:38 francis Exp $
+# $Id: admin_public_body_controller.rb,v 1.18 2008-08-14 08:09:39 francis Exp $
 
 class AdminPublicBodyController < ApplicationController
     layout "admin"
@@ -61,6 +61,13 @@ class AdminPublicBodyController < ApplicationController
 
     def destroy
         public_body = PublicBody.find(params[:id])
+
+        if public_body.info_requests.size > 0
+            flash[:notice] = "There are requests associated with the authority, so can't destroy it"
+            redirect_to admin_url('body/show/' + public_body.id.to_s)
+            return
+        end
+
         public_body.tag_string = ""
         public_body.destroy
         flash[:notice] = "PublicBody was successfully destroyed."

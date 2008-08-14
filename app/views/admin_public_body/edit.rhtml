@@ -12,10 +12,12 @@
 <%= link_to 'List all', '../list' %>
 </p>
 
-<% form_tag('../destroy/' + @public_body.id.to_s) do %>
-   <p>
-   <%= hidden_field_tag(:public_body_id, { :value => @public_body.id } ) %>
-   <%= submit_tag "Destroy " + @public_body.name %> (this is permanent!)
-   </p>
+<% if @public_body.info_requests.size == 0 %>
+    <% form_tag('../destroy/' + @public_body.id.to_s) do %>
+       <p>
+       <%= hidden_field_tag(:public_body_id, { :value => @public_body.id } ) %>
+       <%= submit_tag "Destroy " + @public_body.name %> (this is permanent!)
+       </p>
+    <% end %>
 <% end %>
 
