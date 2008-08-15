@@ -6,7 +6,20 @@ Site move:
 Next
 ====
 
-Compress the emails in the database
+Sort my requests by when activity last happened to them?
+http://www.whatdotheyknow.com/user/francis_irving
+
+Grrr - so here I wanted to clarify my request, but don't want the timer to be reset!
+http://www.whatdotheyknow.com/request/online_petitions_documents_from#incoming-3248
+
+Hide quoted sections shouldn't put ? at end of URL, as then link to this refreshes
+http://www.whatdotheyknow.com/request/rspb_and_defra?#incoming-3104
+
+Check where it sends messages to - why didn't thanks go direc to  Mitchell, Marilyn?
+http://www.whatdotheyknow.com/request/forthcoming_tidal_and_flood_defe#incoming-3202
+
+.zip file extensions
+http://www.whatdotheyknow.com/request/open_source_schools_tender
 
 Green box when you are classifying request is a bit too big / prominent
 Solicit people to tell us requests are misclassified?
@@ -25,11 +38,11 @@ http://www.whatdotheyknow.com/request/4/response/866#show_response_followup
 Email subjects badly escaped
 Subject: Confirm you want to be emailed about requests to 'HM Revenue &amp; Customs'
 
-Comments interleaved with body
-     grep -rin followup_sent .
+Don't unnecessarily show email me twice if only request hits
+e.g. http://www.whatdotheyknow.com/search/phorm
 
-    - Add it to the spec fixtures
-    - Add basic tests
+Comments interleaved with body
+    - Add basic tests for comment controller
 
     - Test email alerts for comments
     - Email people subscribed to people about new comments that they make
@@ -125,6 +138,8 @@ Maybe set it up to email team@ website errors?
 
 Renaming public authorities will break alerts on them.
 
+Compress the emails in the database
+
 Display current page (when not on first page), or perhaps range on both the
 /list pages, and on the /..../similar pages (maybe I missed it elsewhere too).
 Should make a general will_paginate like function to do this part, and call
@@ -138,10 +153,6 @@ Edits to outgoing/incoming/title won't be reindexed in Xapian (maybe just reinde
 And maybe edits to prominence, which is more upsetting
 Never updates cached attachment text unless cache is explicitly cleared (which
 might matter with software updates, or code changes)
-
-Link more clearly to full request and next/previous correspondence (ask Matthew)
-    Perhaps always redirect to internal # links from the /response/ pages
-e.g. http://www.flickr.com/groups/central/discuss/72157604494352123/72157604515433851/
 
 Get Atom highlighting to include stylesheet for yellow somehow
 Offer option of one RSS feed with all things you are tracking in it. Maybe.
@@ -229,6 +240,10 @@ vexatious requests.
 
 Merge workflow into one stream - find information, if you can't find it then request it.
     so just search is on front page, with popular stuff below a la Google Directory
+Shamefully your incremental search, make it as nice as Matthew's i.e. 
+    - have actual space in layout for full list rather than pop down.
+    - show things beginning with the term first, separated visually
+    - highlight the parts which match
 Google search within website of authority.
 Show similar requests after you have filed yours - maybe on preview too.
 Use spelling correction for public bodies search (in addition to substring?)

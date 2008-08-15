@@ -58,7 +58,7 @@ end
  
 describe TrackController, "when viewing RSS feed for a track" do
     integrate_views
-    fixtures :info_requests, :outgoing_messages, :incoming_messages, :info_request_events, :users, :track_things
+    fixtures :info_requests, :outgoing_messages, :incoming_messages, :info_request_events, :users, :track_things, :comments, :public_bodies
   
     it "should get the RSS feed" do
         track_thing = track_things(:track_fancy_dog_request)
@@ -67,10 +67,11 @@ describe TrackController, "when viewing RSS feed for a track" do
         response.should render_template('track/atom_feed')
         # XXX should check it is an atom.builder type being rendered, not sure how to
         
-        assigns[:xapian_object].matches_estimated.should == 2
-        assigns[:xapian_object].results.size.should == 2
-        assigns[:xapian_object].results[0][:model].should == info_request_events(:useless_incoming_message_event)
-        assigns[:xapian_object].results[1][:model].should == info_request_events(:useless_outgoing_message_event)
+        assigns[:xapian_object].matches_estimated.should == 3
+        assigns[:xapian_object].results.size.should == 3
+        assigns[:xapian_object].results[0][:model].should == info_request_events(:silly_comment_event)
+        assigns[:xapian_object].results[1][:model].should == info_request_events(:useless_incoming_message_event)
+        assigns[:xapian_object].results[2][:model].should == info_request_events(:useless_outgoing_message_event)
     end
 
 end

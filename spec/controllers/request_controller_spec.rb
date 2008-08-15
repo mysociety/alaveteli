@@ -212,7 +212,7 @@ end
 
 describe RequestController, "when viewing an individual response" do
     integrate_views
-    fixtures :info_requests, :info_request_events, :public_bodies, :users, :incoming_messages, :outgoing_messages # all needed as integrating views
+    fixtures :info_requests, :info_request_events, :public_bodies, :users, :incoming_messages, :outgoing_messages, :comments # all needed as integrating views
   
     it "should show the response" do
         get :show_response, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message)
@@ -222,7 +222,7 @@ end
 
 describe RequestController, "when classifying an individual response" do
     integrate_views
-    fixtures :info_requests, :info_request_events, :public_bodies, :users, :incoming_messages, :outgoing_messages # all needed as integrating views
+    fixtures :info_requests, :info_request_events, :public_bodies, :users, :incoming_messages, :outgoing_messages, :comments # all needed as integrating views
 
     it "should require login" do
         post :describe_state, :incoming_message => { :described_state => "rejected" }, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message), :last_info_request_event_id => info_request_events(:useless_incoming_message_event).id, :submitted_describe_state => 1
@@ -333,7 +333,7 @@ end
 
 describe RequestController, "sending unclassified new response reminder alerts" do
     integrate_views
-    fixtures :info_requests, :info_request_events, :public_bodies, :users, :incoming_messages, :outgoing_messages # all needed as integrating views
+    fixtures :info_requests, :info_request_events, :public_bodies, :users, :incoming_messages, :outgoing_messages, :comments # all needed as integrating views
  
     it "should send an alert" do
         RequestMailer.alert_new_response_reminders

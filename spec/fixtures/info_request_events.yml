@@ -25,3 +25,17 @@ useless_incoming_message_event:
   created_at: 2007-11-13 18:09:20.042061
   described_state:
   incoming_message_id: 1
+silly_comment_event: 
+  params_yaml: "--- \n\
+    :comment_id: 1\n"
+  incoming_message_id: 
+  last_described_at: 
+  described_state: 
+  id: "903"
+  info_request_id: "101"
+  comment_id: "1"
+  calculated_state: 
+  event_type: comment
+  outgoing_message_id: 
+  created_at: 2008-08-12 23:05:12.500942
+

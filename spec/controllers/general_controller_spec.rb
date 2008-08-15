@@ -7,7 +7,7 @@ end
 
 describe GeneralController, "when searching" do
     integrate_views
-    fixtures :users, :outgoing_messages, :incoming_messages, :info_requests, :info_request_events, :public_bodies
+    fixtures :users, :outgoing_messages, :incoming_messages, :info_requests, :info_request_events, :public_bodies, :comments
 
     before do
         # XXX - what is proper way to do this only once?

@@ -1,0 +1,11 @@
+silly_comment: 
+  visible: t
+  updated_at: 2008-08-13 01:25:17.486939
+  body: This a the daftest comment the world has ever seen.
+  id: "1"
+  info_request_id: "101"
+  comment_type: request
+  user_id: "2"
+  created_at: 2008-08-13 01:25:17.486939
+
+
