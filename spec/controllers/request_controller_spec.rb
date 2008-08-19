@@ -239,7 +239,7 @@ describe RequestController, "when classifying an individual response" do
     it "should successfully classify response if logged in as user controlling request" do
         info_requests(:fancy_dog_request).awaiting_description.should == true
         session[:user_id] = users(:bob_smith_user).id
-        post :describe_state, :incoming_message => { :described_state => "rejected" }, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message), :last_info_request_event_id => info_request_events(:useless_incoming_message_event).id, :submitted_describe_state => 1
+        post :describe_state, :incoming_message => { :described_state => "rejected" }, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message), :last_info_request_event_id => info_request_events(:silly_comment_event).id, :submitted_describe_state => 1
         response.should redirect_to(:controller => 'help', :action => 'unhappy')
         info_requests(:fancy_dog_request).reload
         info_requests(:fancy_dog_request).awaiting_description.should == false
