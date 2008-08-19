@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: general_controller.rb,v 1.31 2008-08-07 00:24:51 francis Exp $
+# $Id: general_controller.rb,v 1.32 2008-08-19 19:49:22 francis Exp $
 
 class GeneralController < ApplicationController
 
@@ -100,7 +100,7 @@ class GeneralController < ApplicationController
 
         criteria = '%' + query + '%'
         @public_bodies = PublicBody.find(:all, 
-                    :conditions => ["lower(name) like lower(?) or short_name like lower(?)", criteria, criteria],
+                    :conditions => ["lower(name) like lower(?) or lower(short_name) like lower(?)", criteria, criteria],
                     :order => 'name', :limit=>10)  
         return @public_bodies
     end
