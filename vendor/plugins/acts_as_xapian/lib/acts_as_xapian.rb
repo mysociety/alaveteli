@@ -36,6 +36,7 @@ module ActsAsXapian
     # XXX global class intializers here get loaded more than once, don't know why. Protect them.
     if not $acts_as_xapian_class_var_init 
         @@db = nil
+        @@db_path = nil
         @@writable_db = nil
         @@writable_suffix = nil
         @@init_values = []
@@ -87,6 +88,7 @@ module ActsAsXapian
     # but db.reopen wasn't enough by itself, so just do everything it's easier.
     def ActsAsXapian.readable_init
         raise NoXapianRubyBindingsError.new("Xapian Ruby bindings not installed") unless ActsAsXapian.bindings_available
+        raise "acts_as_xapian hasn't been called in any models" unless @@db_path
 
         # basic Xapian objects
         begin
