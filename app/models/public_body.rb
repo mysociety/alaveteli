@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.100 2008-08-17 16:56:33 johncross Exp $
+# $Id: public_body.rb,v 1.101 2008-08-19 10:17:08 francis Exp $
 
 require 'csv'
 require 'set'
@@ -93,7 +93,7 @@ class PublicBody < ActiveRecord::Base
             "Transport",
                 [ "npte", "Passenger transport executives", "a passenger transport executive" ],
                 [ "port_authority", "Port authorities", "a port authority" ],
-                [ "scp", "Safety Camera Partnerships", "a safety camera partnership" ]
+                [ "scp", "Safety Camera Partnerships", "a safety camera partnership" ],
                 [ "srp", "Safer Roads Partnership", "a safer roads partnership" ]
         ]
     end
