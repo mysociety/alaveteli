@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: outgoing_message.rb,v 1.58 2008-08-09 15:19:01 francis Exp $
+# $Id: outgoing_message.rb,v 1.59 2008-08-20 23:56:21 francis Exp $
 
 class OutgoingMessage < ActiveRecord::Base
     belongs_to :info_request
@@ -132,7 +132,7 @@ class OutgoingMessage < ActiveRecord::Base
 
     # An admin function
     def resend_message
-        if self.message_type == 'initial_request' and self.status == 'sent'
+        if ['initial_request', 'followup'].include?(self.message_type) and self.status == 'sent'
             self.status = 'ready'
             send_message('resent')
         else

@@ -85,6 +85,11 @@ Clear out all the need classifying requests
 Later
 =====
 
+From an email, isn't stripping spaces right.
+    "Met Office  sent a response to Andrew Montford (14 August 2008)"
+Also should group by the request id for search queries (so all appear
+together when request and response mention same term)
+
 This doesn't work:
 http://www.whatdotheyknow.com/search/status:waiting_classification/
 

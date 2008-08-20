@@ -1,5 +1,4 @@
 <%  
-@last_email = nil
 if !info_request_event.nil? && info_request_event.event_type == 'response'
     incoming_message = info_request_event.incoming_message
 end
@@ -50,7 +49,7 @@ elsif info_request_event.event_type == 'sent' || info_request_event.event_type =
             <%= link_to "Send follow up", show_response_no_followup_url(:id => outgoing_message.info_request.id, :incoming_message_id => nil) + "#show_response_followup" %>
         </p>
     </div>
-<% elsif info_request_event.event_type == 'resent' %>
+<% elsif [ 'resent', 'followup_resent' ].include?(info_request_event.event_type) %>
     <div class="correspondence">
         <h2>
             <%= simple_date(info_request_event.created_at) %>
@@ -60,13 +59,13 @@ elsif info_request_event.event_type == 'sent' || info_request_event.event_type =
             <% if info_request_event.outgoing_message.message_type == 'initial_request' %>
                 request
             <% elsif info_request_event.outgoing_message.message_type == 'followup' %>
-                followup
+                a follow up
             <% else %>
                 <% raise "unknown message_type" %>
             <% end %>
-            
-            to <%= public_body_link(@info_request.public_body) %> again<% if @info_request.get_previous_email_sent_to(info_request_event) != info_request_event.params[:email] %>, using a new contact address<% end %>.
-        </p>
+
+            to <%= public_body_link(@info_request.public_body) %> again<% if not info_request_event.same_email_as_previous_send? %>, using a new contact address<% end %>.
+         </p>
     </div>
 <% elsif info_request_event.event_type == 'comment' 
     comment = info_request_event.comment
@@ -83,9 +82,4 @@ elsif info_request_event.event_type == 'sent' || info_request_event.event_type =
 <% 
 end 
 
-if !info_request_event.nil? 
-    if ['sent', 'resent'].include?(info_request_event.event_type)
-         @last_email = info_request_event.params[:email]
-    end
-end
 %>

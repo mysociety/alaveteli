@@ -20,7 +20,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request_event.rb,v 1.51 2008-08-13 01:39:41 francis Exp $
+# $Id: info_request_event.rb,v 1.52 2008-08-20 23:56:21 francis Exp $
 
 class InfoRequestEvent < ActiveRecord::Base
     belongs_to :info_request
@@ -38,6 +38,7 @@ class InfoRequestEvent < ActiveRecord::Base
         'sent', 
         'resent', 
         'followup_sent', 
+        'followup_resent', 
         'edit', # title etc. edited in admin interface
         'edit_outgoing', # outgoing message edited in admin interface
         'destroy_incoming', # deleted an incoming message
@@ -171,6 +172,32 @@ class InfoRequestEvent < ActiveRecord::Base
             raise "unknown status " + status
         end
     end
+
+    def is_sent_sort?
+        if [ 'sent', 'resent'].include?(self.event_type)
+            return true
+        end
+        return false
+    end
+    def is_followup_sort?
+        if [ 'followup_sent', 'followup_resent'].include?(self.event_type)
+            return true
+        end
+        return false
+    end
+
+    def same_email_as_previous_send?
+        prev_addr = self.info_request.get_previous_email_sent_to(self)
+        curr_addr = self.params[:email]
+        if prev_addr.nil? && curr_addr.nil?
+            return true
+        end
+        if prev_addr.nil? || curr_addr.nil?
+            return false
+        end
+        return TMail::Address.parse(prev_addr).address == TMail::Address.parse(curr_addr).address
+    end
+
 end
 
 

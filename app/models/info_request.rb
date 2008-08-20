@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.128 2008-08-13 09:51:45 francis Exp $
+# $Id: info_request.rb,v 1.129 2008-08-20 23:56:21 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -396,12 +396,15 @@ public
                 expecting_clarification = true
             end
 
-            if [ 'sent', 'resent', 'followup_sent' ].include?(event.event_type)
+            if [ 'sent', 'resent', 'followup_sent', 'followup_resent' ].include?(event.event_type)
                 if last_sent.nil?
                     last_sent = event
                 elsif event.event_type == 'resent'
                     last_sent = event
                 elsif expecting_clarification and event.event_type == 'followup_sent'
+                    # XXX this needs to cope with followup_resent, which it doesn't.
+                    # Not really easy to do, and only affects cases where followups
+                    # were resent after a clarification.
                     last_sent = event
                     expecting_clarification = false
                 end
@@ -524,7 +527,7 @@ public
     # The last outgoing message
     def get_last_outgoing_event
         for e in self.info_request_events.reverse
-            if e.event_type == 'sent' || e.event_type == 'resent' || e.event_type == 'followup_sent'
+            if [ 'sent', 'resent', 'followup_sent', 'followup_resent' ].include?(e.event_type)
                 return e
             end
         end
@@ -578,7 +581,7 @@ public
     def get_previous_email_sent_to(info_request_event)
         last_email = nil
         for e in self.info_request_events
-            if (e.event_type == 'sent' || e.event_type == 'resent') && e.outgoing_message_id == info_request_event.outgoing_message_id
+            if ((info_request_event.is_sent_sort? && e.is_sent_sort?) || (info_request_event.is_followup_sort? && e.is_followup_sort?)) && e.outgoing_message_id == info_request_event.outgoing_message_id
                 if e.id == info_request_event.id
                     break
                 end
