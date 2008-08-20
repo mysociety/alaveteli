@@ -72,11 +72,14 @@ module ActsAsXapian
             @@init_values.push([classname,options])
         end
 
+        # stop if we can't find out if we're in development/test/production
+        rails_env = (ENV['RAILS_ENV'] or RAILS_ENV)
+        raise "Set RAILS_ENV, so acts_as_xapian can find the right Xapian database" if not rails_env
+
         # make the directory for the xapian databases to go in
         db_parent_path = File.join(File.dirname(__FILE__), '../xapiandbs/')
         Dir.mkdir(db_parent_path) unless File.exists?(db_parent_path)
-        raise "Set RAILS_ENV, so acts_as_xapian can find the right Xapian database" if not ENV['RAILS_ENV']
-        @@db_path = File.join(db_parent_path, ENV['RAILS_ENV']) 
+        @@db_path = File.join(db_parent_path, rails_env) 
 
         # make some things that don't depend on the db
         # XXX this gets made once for each acts_as_xapian. Oh well.
