@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user_controller.rb,v 1.52 2008-08-07 00:24:51 francis Exp $
+# $Id: user_controller.rb,v 1.53 2008-08-20 22:16:49 francis Exp $
 
 class UserController < ApplicationController
     # Show page about a set of users with same url name
@@ -247,7 +247,7 @@ class UserController < ApplicationController
             @post_redirect.save!
             params[:token] = @post_redirect.token
         elsif params[:token]
-            # Otherwise we have a token (which represents a saved POST request0
+            # Otherwise we have a token (which represents a saved POST request)
             @post_redirect = PostRedirect.find_by_token(params[:token])
         end
     end
