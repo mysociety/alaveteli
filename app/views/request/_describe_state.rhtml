@@ -23,13 +23,13 @@
             <%= radio_button "incoming_message", "described_state", "requires_admin", :id => 'requires_admin' + id_suffix %>
             <label for="requires_admin<%=id_suffix%>"><strong>None</strong> of the above - e.g. add a new option here</label>
         </p>
-        <p>Filling this in each time you get a new response helps us track the progress of your request.
+        <p>Filling this in helps everyone track the progress of your request.
         </p>
 
         <p>
         <%= hidden_field_tag 'last_info_request_event_id', @last_info_request_event_id, :id => 'last_info_request_event_id' + id_suffix %>
         <%= hidden_field_tag 'submitted_describe_state', 1, :id => 'submitted_describe_state' + id_suffix %>
-        <%= submit_tag "Next" %>
+        <%= submit_tag "Next ..." %>
         </p>
     <% end %>
 <% else %>
