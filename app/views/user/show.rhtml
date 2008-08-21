@@ -30,7 +30,7 @@
         </p>
     <% end %>
 
-    <% track_things = TrackThing.find(:all, :conditions => ["tracking_user_id = ? and track_medium = ?", @display_user.id, 'email_daily']) %>
+    <% track_things = TrackThing.find(:all, :conditions => ["tracking_user_id = ? and track_medium = ?", @display_user.id, 'email_daily'], :order => 'created_at desc') %>
     <% if @is_you and not track_things.empty? %>
         <h2>
         Your <%=pluralize(track_things.size, "email subscription") %>

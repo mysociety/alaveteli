@@ -4,10 +4,10 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user_controller.rb,v 1.53 2008-08-20 22:16:49 francis Exp $
+# $Id: user_controller.rb,v 1.54 2008-08-21 01:26:11 francis Exp $
 
 class UserController < ApplicationController
-    # Show page about a set of users with same url name
+    # Show page about a user
     def show
         if MySociety::Format.simplify_url_part(params[:url_name], 32) != params[:url_name]
             redirect_to :url_name =>  MySociety::Format.simplify_url_part(params[:url_name], 32)
