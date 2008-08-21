@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.129 2008-08-20 23:56:21 francis Exp $
+# $Id: info_request.rb,v 1.130 2008-08-21 00:41:44 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -527,7 +527,7 @@ public
     # The last outgoing message
     def get_last_outgoing_event
         for e in self.info_request_events.reverse
-            if [ 'sent', 'resent', 'followup_sent', 'followup_resent' ].include?(e.event_type)
+            if [ 'sent', 'followup_sent' ].include?(e.event_type)
                 return e
             end
         end
