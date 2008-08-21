@@ -1,3 +1,6 @@
+XXX
+    Fix up that shows last resend as message?
+
 Site move:
     Install PostgresSQL 8.3
     Move database

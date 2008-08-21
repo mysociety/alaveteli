@@ -37,7 +37,7 @@
             </p>
         <% end %>
 
-        <% form_for(:outgoing_message, @outgoing_message) do |o| %>
+        <% form_for(:outgoing_message, @outgoing_message, :url => incoming_message.nil? ? show_response_no_followup_url(:id => @info_request.id) : show_response_url(:id => @info_request.id, :incoming_message_id => incoming_message.id)) do |o| %>
             <p>
                 <%= o.text_area :body, :rows => 10, :cols => 55 %>
             </p>
