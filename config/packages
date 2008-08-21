@@ -16,3 +16,4 @@ ttf-bitstream-vera
 rubygems
 sharutils
 unzip
+libzip-ruby1.8

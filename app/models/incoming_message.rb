@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.130 2008-08-15 00:50:33 francis Exp $
+# $Id: incoming_message.rb,v 1.131 2008-08-21 02:08:17 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -27,6 +27,7 @@
 
 require 'htmlentities'
 require 'rexml/document'
+require 'zip/zip'
 
 module TMail
     class Mail
@@ -73,6 +74,7 @@ $file_extension_to_mime_type = {
     "jpg" => 'image/jpeg', # XXX add jpeg
     "png" => 'image/png',
     "html" => 'text/html', # XXX add htm
+    "zip" => 'application/zip'
 }
 # XXX doesn't have way of choosing default for inverse map - might want to add
 # one when you need it
@@ -415,6 +417,9 @@ class IncomingMessage < ActiveRecord::Base
             if curr_mail.content_type == 'application/msword'
                 curr_mail.content_type = 'application/vnd.ms-word'
             end
+            if curr_mail.content_type == 'application/x-zip-compressed'
+                curr_mail.content_type = 'application/zip'
+            end
             # If the part is an attachment of email in text form
             if curr_mail.content_type == 'message/rfc822'
                 ensure_parts_counted # fills in rfc822_attachment variable
@@ -681,66 +686,87 @@ class IncomingMessage < ActiveRecord::Base
         text = IncomingMessage.remove_privacy_sensitive_things(text)
         return text
     end
-    def get_attachment_text_internal
-        # XXX - tell all these command line tools to return utf-8
+    def IncomingMessage.get_attachment_text_internal_one_file(content_type, body)
         text = ''
-        attachments = self.get_attachments_for_display
-        for attachment in attachments
-            if attachment.content_type == 'text/plain'
-                text += attachment.body + "\n\n"
-            else
-                tempfile = Tempfile.new('foiextract')
-                tempfile.print attachment.body
-                tempfile.flush
-                if attachment.content_type == 'application/vnd.ms-word'
-                    system("/usr/bin/wvText " + tempfile.path + " " + tempfile.path + ".txt")
-                    # Try catdoc if we get into trouble (e.g. for InfoRequestEvent 2701)
-                    if not File.exists?(tempfile.path + ".txt")
-                        IO.popen("/usr/bin/catdoc " + tempfile.path, "r") do |child|
-                            text += child.read() + "\n\n"
-                        end
-                    else
-                        text += File.read(tempfile.path + ".txt") + "\n\n"
-                        File.unlink(tempfile.path + ".txt")
-                    end
-                elsif attachment.content_type == 'application/rtf'
+        # XXX - tell all these command line tools to return utf-8
+        if content_type == 'text/plain'
+            text += body + "\n\n"
+        else
+            tempfile = Tempfile.new('foiextract')
+            tempfile.print body
+            tempfile.flush
+            if content_type == 'application/vnd.ms-word'
+                system("/usr/bin/wvText " + tempfile.path + " " + tempfile.path + ".txt")
+                # Try catdoc if we get into trouble (e.g. for InfoRequestEvent 2701)
+                if not File.exists?(tempfile.path + ".txt")
                     IO.popen("/usr/bin/catdoc " + tempfile.path, "r") do |child|
                         text += child.read() + "\n\n"
                     end
-                elsif attachment.content_type == 'text/html'
-                    IO.popen("/usr/bin/lynx -force_html -dump " + tempfile.path, "r") do |child|
-                        text += child.read() + "\n\n"
-                    end
-                elsif attachment.content_type == 'application/vnd.ms-excel'
-                    # Bit crazy using strings - but xls2csv, xlhtml and py_xls2txt
-                    # only extract text from cells, not from floating notes. catdoc
-                    # may be fooled by weird character sets, but will probably do for
-                    # UK FOI requests.
-                    IO.popen("/usr/bin/strings " + tempfile.path, "r") do |child|
-                        text += child.read() + "\n\n"
-                    end
-                elsif attachment.content_type == 'application/vnd.ms-powerpoint'
-                    # ppthtml seems to catch more text, but only outputs HTML when
-                    # we want text, so just use catppt for now
-                    IO.popen("/usr/bin/catppt " + tempfile.path, "r") do |child|
-                        text += child.read() + "\n\n"
-                    end
-                elsif attachment.content_type == 'application/pdf'
-                    IO.popen("/usr/bin/pdftotext " + tempfile.path + " -", "r") do |child|
-                        text += child.read() + "\n\n"
-                    end
-                elsif attachment.content_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-                    # This is Microsoft's XML office document format.
-                    # Just pull out the main XML file, and strip it of text.
-                    xml = ''
-                    IO.popen("/usr/bin/unzip -qq -c " + tempfile.path + " word/document.xml", "r") do |child|
-                        xml += child.read() + "\n\n"
-                    end
-                    doc = REXML::Document.new(xml)
-                    text += doc.each_element( './/text()' ){}.join(" ")
+                else
+                    text += File.read(tempfile.path + ".txt") + "\n\n"
+                    File.unlink(tempfile.path + ".txt")
                 end
-                tempfile.close
+            elsif content_type == 'application/rtf'
+                IO.popen("/usr/bin/catdoc " + tempfile.path, "r") do |child|
+                    text += child.read() + "\n\n"
+                end
+            elsif content_type == 'text/html'
+                IO.popen("/usr/bin/lynx -force_html -dump " + tempfile.path, "r") do |child|
+                    text += child.read() + "\n\n"
+                end
+            elsif content_type == 'application/vnd.ms-excel'
+                # Bit crazy using strings - but xls2csv, xlhtml and py_xls2txt
+                # only extract text from cells, not from floating notes. catdoc
+                # may be fooled by weird character sets, but will probably do for
+                # UK FOI requests.
+                IO.popen("/usr/bin/strings " + tempfile.path, "r") do |child|
+                    text += child.read() + "\n\n"
+                end
+            elsif content_type == 'application/vnd.ms-powerpoint'
+                # ppthtml seems to catch more text, but only outputs HTML when
+                # we want text, so just use catppt for now
+                IO.popen("/usr/bin/catppt " + tempfile.path, "r") do |child|
+                    text += child.read() + "\n\n"
+                end
+            elsif content_type == 'application/pdf'
+                IO.popen("/usr/bin/pdftotext " + tempfile.path + " -", "r") do |child|
+                    text += child.read() + "\n\n"
+                end
+            elsif content_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+                # This is Microsoft's XML office document format.
+                # Just pull out the main XML file, and strip it of text.
+                xml = ''
+                IO.popen("/usr/bin/unzip -qq -c " + tempfile.path + " word/document.xml", "r") do |child|
+                    xml += child.read() + "\n\n"
+                end
+                doc = REXML::Document.new(xml)
+                text += doc.each_element( './/text()' ){}.join(" ")
+            elsif content_type == 'application/zip'
+                # recurse into zip files
+                zip_file = Zip::ZipFile.open(tempfile.path)
+                for entry in zip_file
+                    if entry.file?
+                        filename = entry.to_s
+                        body = entry.get_input_stream.read
+                        calc_mime = filename_to_mimetype(filename)
+                        content_type = calc_mime or 'application/octet-stream'
+                    
+                        STDERR.puts("doing file " + filename + " content type " + content_type)
+                        text += IncomingMessage.get_attachment_text_internal_one_file(content_type, body)
+                    end
+                end
             end
+            tempfile.close
+        end
+
+        return text
+    end
+    def get_attachment_text_internal
+        # Extract text from each attachment
+        text = ''
+        attachments = self.get_attachments_for_display
+        for attachment in attachments
+            text += IncomingMessage.get_attachment_text_internal_one_file(attachment.content_type, attachment.body)
         end
         # Remove any bad characters
         text = Iconv.conv('utf-8//IGNORE', 'utf-8', text)

@@ -24,14 +24,6 @@ http://www.whatdotheyknow.com/request/forthcoming_tidal_and_flood_defe#incoming-
 .zip file extensions
 http://www.whatdotheyknow.com/request/open_source_schools_tender
 
-Green box when you are classifying request is a bit too big / prominent
-Solicit people to tell us requests are misclassified?
-
-Search for user.name, esp. ./contact_mailer/user_message.rhtml
-
-Sort list of email subscriptions by type, and probably alphabetically /
-chronologically, and compress them a bit more somehow in vertical space.
-
 "Then you will be emailed whenever 'Martin Stabe' requests something or gets a
 response" doesn't word wrap in confirmation email, and no full stop.
 
@@ -84,6 +76,10 @@ http://www.whatdotheyknow.com/request/unusual_markings_in_the_uk_skies
 Clear out all the need admin attention requests
 Clear out all the need classifying requests
 
+Admin:
+Have internal links to different parts of request page
+Somehow fold up the enormous pages on many admin pages
+Make it easy to go from pages to admin page
 
 Later
 =====
