@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: outgoing_message.rb,v 1.59 2008-08-20 23:56:21 francis Exp $
+# $Id: outgoing_message.rb,v 1.60 2008-08-22 04:18:18 francis Exp $
 
 class OutgoingMessage < ActiveRecord::Base
     belongs_to :info_request
@@ -31,6 +31,10 @@ class OutgoingMessage < ActiveRecord::Base
     validates_inclusion_of :message_type, :in => ['initial_request', 'followup' ] #, 'complaint']
 
     belongs_to :incoming_message_followup, :foreign_key => 'incoming_message_followup_id', :class_name => 'IncomingMessage'
+
+    # can have many events, for items which were resent by site admin e.g. if
+    # contact address changed
+    has_many :info_request_events 
 
     # How the default letter starts and ends
     def get_salutation

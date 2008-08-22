@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.133 2008-08-22 04:09:52 francis Exp $
+# $Id: incoming_message.rb,v 1.134 2008-08-22 04:18:18 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -134,6 +134,8 @@ class IncomingMessage < ActiveRecord::Base
     validates_presence_of :raw_data
 
     has_many :outgoing_message_followups, :foreign_key => 'incoming_message_followup_id', :class_name => 'OutgoingMessage'
+
+    has_many :info_request_events # never really has many, but could in theory
 
     # Some emails are large (10Mb), making things like search results and the
     # front page list of requests slow to display as the data is transferred from
