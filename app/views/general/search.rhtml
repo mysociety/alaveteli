@@ -40,7 +40,7 @@
         <p id="did_you_mean">Did you mean: <%= link_to @spelling_correction, search_url(@spelling_correction, @sortby) %></p>
     <% end %>
 
-    <% if @track_thing %>
+    <% if @track_thing and (@xapian_bodies.results.size > 0 or @xapian_users.results.size > 0)%>
         <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => false, :location => 'main' } %>
     <% end %>
 

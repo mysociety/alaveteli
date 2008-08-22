@@ -9,32 +9,19 @@ Site move:
 Next
 ====
 
-Sort my requests by when activity last happened to them?
-http://www.whatdotheyknow.com/user/francis_irving
-
 Grrr - so here I wanted to clarify my request, but don't want the timer to be reset!
 http://www.whatdotheyknow.com/request/online_petitions_documents_from#incoming-3248
 
-Hide quoted sections shouldn't put ? at end of URL, as then link to this refreshes
-http://www.whatdotheyknow.com/request/rspb_and_defra?#incoming-3104
-
-Check where it sends messages to - why didn't thanks go direc to  Mitchell, Marilyn?
-http://www.whatdotheyknow.com/request/forthcoming_tidal_and_flood_defe#incoming-3202
-
-.zip file extensions
-http://www.whatdotheyknow.com/request/open_source_schools_tender
+Test: Check where followups are going to now
 
 "Then you will be emailed whenever 'Martin Stabe' requests something or gets a
 response" doesn't word wrap in confirmation email, and no full stop.
 
-Reply links should probably link to form rather than message
+Reply links link to form rather than message, but don't actually work
 http://www.whatdotheyknow.com/request/4/response/866#show_response_followup
 
 Email subjects badly escaped
 Subject: Confirm you want to be emailed about requests to 'HM Revenue &amp; Customs'
-
-Don't unnecessarily show email me twice if only request hits
-e.g. http://www.whatdotheyknow.com/search/phorm
 
 Comments interleaved with body
     - Add basic tests for comment controller
@@ -62,6 +49,7 @@ Internal review status/marker?
     http://www.whatdotheyknow.com/request/communications_from_home_office_
     http://www.whatdotheyknow.com/request/crime_investigation_following_al
     http://www.whatdotheyknow.com/request/determination_of_pricing_for_pro#incoming-2902
+    my own veolia request
     (search for it!)
 Request withdrawn by user status/marker?
 
@@ -154,9 +142,11 @@ s = InfoRequest.find(:all).select { |i| (not i.awaiting_description) and i.get_l
 - XXXX so when somebody changes waiting description without changing described state doesn't log in event.
 
 Edits to outgoing/incoming/title won't be reindexed in Xapian (maybe just reindex all once a week)
-And maybe edits to prominence, which is more upsetting
-Never updates cached attachment text unless cache is explicitly cleared (which
-might matter with software updates, or code changes)
+    And maybe edits to prominence, which is more upsetting
+    Never updates cached attachment text unless cache is explicitly cleared (which
+    might matter with software updates, or code changes)
+This does it all:
+$ ./script/clear-incoming-text-cache ; ./script/rebuild-xapian-index
 
 Get Atom highlighting to include stylesheet for yellow somehow
 Offer option of one RSS feed with all things you are tracking in it. Maybe.
