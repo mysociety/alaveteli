@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.132 2008-08-21 02:18:48 francis Exp $
+# $Id: incoming_message.rb,v 1.133 2008-08-22 04:09:52 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -749,7 +749,11 @@ class IncomingMessage < ActiveRecord::Base
                         filename = entry.to_s
                         body = entry.get_input_stream.read
                         calc_mime = filename_to_mimetype(filename)
-                        content_type = calc_mime or 'application/octet-stream'
+                        if calc_mime
+                            content_type = calc_mime
+                        else
+                            content_type = 'application/octet-stream'
+                        end
                     
                         #STDERR.puts("doing file " + filename + " content type " + content_type)
                         text += IncomingMessage.get_attachment_text_internal_one_file(content_type, body)
