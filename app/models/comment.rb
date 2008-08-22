@@ -19,7 +19,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: comment.rb,v 1.1 2008-08-13 01:39:41 francis Exp $
+# $Id: comment.rb,v 1.2 2008-08-22 04:18:53 francis Exp $
 
 class Comment < ActiveRecord::Base
     belongs_to :user
@@ -27,6 +27,8 @@ class Comment < ActiveRecord::Base
 
     validates_inclusion_of :comment_type, :in => [ 'request' ]
     belongs_to :info_request
+
+    has_many :info_request_events # in practice only ever has one
 
     def body
         ret = read_attribute(:body)
