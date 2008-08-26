@@ -4,15 +4,13 @@
     
     <h1>Now preview your annotation</h1>
 
-    <p class="comment_in_request">
-        <%= @comment.get_body_for_html_display %>
-        <%= f.hidden_field(:body) %>
-    </p>
+    <%= render :partial => 'comment/single_comment', :locals => { :comment => @comment } %>
 
     <p>
     Your name and annotation will appear in <strong>search engines</strong>.
 
     <p>
+    <%= f.hidden_field(:body) %>
     <%= hidden_field_tag(:submitted_comment, 1) %>
     <%= hidden_field_tag(:preview, 0 ) %>
     <%= submit_tag "Re-edit this annotation", :name => 'reedit' %>

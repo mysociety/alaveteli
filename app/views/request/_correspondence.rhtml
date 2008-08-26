@@ -70,15 +70,7 @@ elsif info_request_event.event_type == 'sent' || info_request_event.event_type =
 <% elsif info_request_event.event_type == 'comment' 
     comment = info_request_event.comment
 %>
-    <div class="comment_in_request" id="comment-<%=comment.id.to_s%>">
-        <p class=""> 
-            On <%= simple_date(info_request_event.created_at) %>,
-            <%= user_link(comment.user) %> added an annotation:
-        </p>
-        <p> 
-            "<%= comment.get_body_for_html_display %>"
-        </p>
-    </div>
+    <%= render :partial => 'comment/single_comment', :locals => { :comment => comment } %>
 <% 
 end 
 

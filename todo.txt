@@ -27,17 +27,14 @@ doing file RESPONSE/Internal documents/Briefing with Contact Islington/Contact I
 Search for other extensions that we have now
 
 Comments interleaved with body
-    - Improve display of preview, is rubbish
-    - "Add an annotation" text appears in sidebar :(
+    - Check CSS class/id names used in all comment HTML
+    - Annotation thing too far down when much sidebar e.g. http://localhost:3000/request/heya#outgoing-199
 
     - Email people when comments on their own request
     - Email people when responses to their own comment, or warn them they need to sign up
 
-    - Check CSS class/id names used in all comment HTML
-    - Think about the "nonsense" text a lot more
-
     - Test spell checker
-    - List all comments in admin interface? and/or flag bad comments
+    - Flag bad comments
     - Delete comments from admin interface
     - Check annotation email alerts are working (e.g. when subscribed to a request)
 
