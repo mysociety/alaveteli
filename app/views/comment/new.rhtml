@@ -1,5 +1,14 @@
 <% @title = "Make an annotation on '" + h(@info_request.title) + "'" %>
 
+<% if @existing_comment %>
+    <div class="errorExplanation" id="errorExplanation"><ul>
+    <li>
+    <%= user_or_you_capital(@existing_comment.user) %> already
+    made this annotation on <%=simple_date(@existing_comment.created_at)%>.
+    </li>
+    </ul></div>
+<% end %>
+
 <%= foi_error_messages_for :comment %>
 
 <h1>Add an annotation</h1>

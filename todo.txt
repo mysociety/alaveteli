@@ -27,13 +27,14 @@ doing file RESPONSE/Internal documents/Briefing with Contact Islington/Contact I
 Search for other extensions that we have now
 
 Comments interleaved with body
+    - Improve display of preview, is rubbish
+    - "Add an annotation" text appears in sidebar :(
+
     - Email people when comments on their own request
     - Email people when responses to their own comment, or warn them they need to sign up
 
-    - Don't allow double posting (submitting same comment twice, add spec test)
     - Check CSS class/id names used in all comment HTML
     - Think about the "nonsense" text a lot more
-    - Improve display of preview, is rubbish
 
     - Test spell checker
     - List all comments in admin interface? and/or flag bad comments

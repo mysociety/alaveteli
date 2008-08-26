@@ -5,7 +5,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: link_to_helper.rb,v 1.36 2008-08-13 01:39:41 francis Exp $
+# $Id: link_to_helper.rb,v 1.37 2008-08-26 22:54:46 francis Exp $
 
 module LinkToHelper
 
@@ -73,12 +73,15 @@ module LinkToHelper
             link_to h(user.name), user_url(user)
         end
     end
-    def user_or_you_capital_link(user)
+    def user_or_you_capital(user)
         if @user && user == @user
-            link_to h("You"), user_url(user)
+            return h("You")
         else
-            link_to h(user.name), user_url(user)
+            return h(user.name)
         end
+    end
+    def user_or_you_capital_link(user)
+        link_to user_or_you_capital(user), user_url(user)
     end
     def user_admin_url(user)
         return admin_url('user/show/' + user.id.to_s)

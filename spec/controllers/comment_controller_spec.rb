@@ -45,30 +45,15 @@ describe CommentController, "when commenting on a request" do
         response.should redirect_to(:controller => 'request', :action => 'show', :url_title => info_requests(:naughty_chicken_request).url_title, :anchor => 'comment-' + comment.id.to_s)
     end
 
-#    it "should give an error if the same request is submitted twice" do
-#        session[:user_id] = users(:bob_smith_user).id
-#
-#        # We use raw_body here, so white space is the same
-#        post :new, :info_request => { :public_body_id => info_requests(:fancy_dog_request).public_body_id, 
-#            :title => info_requests(:fancy_dog_request).title },
-#            :outgoing_message => { :body => info_requests(:fancy_dog_request).outgoing_messages[0].raw_body},
-#            :submitted_new_request => 1, :preview => 0, :mouse_house => 1
-#        response.should render_template('new')
-#    end
+    it "should give an error if the same request is submitted twice" do
+        session[:user_id] = users(:silly_name_user).id
 
-#    it "should give an error if the same request is submitted twice with extra whitespace in the body" do
-#        # This only works for PostgreSQL databases which have regexp_replace -
-#        # see model method InfoRequest.find_by_existing_request for more info
-#        if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"
-#            session[:user_id] = users(:bob_smith_user).id
-#
-#            post :new, :info_request => { :public_body_id => info_requests(:fancy_dog_request).public_body_id, 
-#                :title => info_requests(:fancy_dog_request).title },
-#                :outgoing_message => { :body => "\n" + info_requests(:fancy_dog_request).outgoing_messages[0].body + " "},
-#                :submitted_new_request => 1, :preview => 0, :mouse_house => 1
-#            response.should render_template('new')
-#        end
-#    end
+        post :new, :url_title => info_requests(:fancy_dog_request).url_title,
+            :comment => { :body => comments(:silly_comment).body },
+            :type => 'request', :submitted_comment => 1, :preview => 0
+
+        response.should render_template('new')
+    end
 
 end
 

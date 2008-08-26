@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: comment_controller.rb,v 1.2 2008-08-26 16:03:36 francis Exp $
+# $Id: comment_controller.rb,v 1.3 2008-08-26 22:54:45 francis Exp $
 
 class CommentController < ApplicationController
     
@@ -20,10 +20,10 @@ class CommentController < ApplicationController
         end
 
         # XXX this check should theoretically be a validation rule in the model
-        #@existing_comment = Comment.find_by_existing_comment(params[:info_request][:title], params[:info_request][:public_body_id], params[:outgoing_message][:body])
+        @existing_comment = Comment.find_by_existing_comment(@info_request.id, params[:comment][:body])
         
         # See if values were valid or not
-        if !@comment.valid? || params[:reedit]
+        if !@existing_comment.nil? || !@comment.valid? || params[:reedit]
             render :action => 'new'
             return
         end

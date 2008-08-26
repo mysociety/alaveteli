@@ -19,7 +19,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: comment.rb,v 1.2 2008-08-22 04:18:53 francis Exp $
+# $Id: comment.rb,v 1.3 2008-08-26 22:54:46 francis Exp $
 
 class Comment < ActiveRecord::Base
     belongs_to :user
@@ -58,6 +58,19 @@ class Comment < ActiveRecord::Base
         text = text.gsub(/\n/, '<br>')
         return text
     end
+
+    # When posting a new comment, use this to check user hasn't double submitted.
+    def Comment.find_by_existing_comment(info_request_id, body)
+        # XXX can add other databases here which have regexp_replace
+        if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"
+            # Exclude spaces from the body comparison using regexp_replace
+            return Comment.find(:first, :conditions => [ "info_request_id = ? and regexp_replace(body, '[[:space:]]', '', 'g') = regexp_replace(?, '[[:space:]]', '', 'g')", info_request_id, body ])
+        else
+            # For other databases (e.g. SQLite) not the end of the world being space-sensitive for this check
+            return Comment.find(:first, :conditions => [ "info_request_id = ? and body = ?", info_request_id, body ])
+        end
+    end
+
 end
 
 
