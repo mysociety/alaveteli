@@ -1,0 +1,10 @@
+<div class="comment_in_request" id="comment-<%=comment.id.to_s%>">
+    <p class=""> 
+        On <%= simple_date(comment.created_at || Time.now) %>,
+        <%= comment.user ? user_link(comment.user) : 'you' %> added an annotation:
+    </p>
+    <p> 
+        "<%= comment.get_body_for_html_display %>"
+    </p>
+</div>
+
