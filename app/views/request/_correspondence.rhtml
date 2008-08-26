@@ -18,7 +18,7 @@ if not incoming_message.nil?
 
         <p class="event_actions">
             <%= link_to "Link to this", incoming_message_url(incoming_message) %> |
-            <%= link_to "Reply", show_response_url(:id => incoming_message.info_request.id, :incoming_message_id => incoming_message.id) + "#show_response_followup" %>
+            <%= link_to "Reply", show_response_url(:id => incoming_message.info_request.id, :incoming_message_id => incoming_message.id) + "#followup" %>
         </p>
     </div>
 <%
@@ -46,7 +46,7 @@ elsif info_request_event.event_type == 'sent' || info_request_event.event_type =
             -->
 
             <%= link_to "Link to this", outgoing_message_url(outgoing_message) %> |
-            <%= link_to "Send follow up", show_response_no_followup_url(:id => outgoing_message.info_request.id, :incoming_message_id => nil) + "#show_response_followup" %>
+            <%= link_to "Send follow up", show_response_no_followup_url(:id => outgoing_message.info_request.id, :incoming_message_id => nil) + "#followup" %>
         </p>
     </div>
 <% elsif [ 'resent', 'followup_resent' ].include?(info_request_event.event_type) %>

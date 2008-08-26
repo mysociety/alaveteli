@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.42 2008-07-30 13:37:21 francis Exp $
+# $Id: request_mailer.rb,v 1.43 2008-08-26 23:43:42 francis Exp $
 
 class RequestMailer < ApplicationMailer
     
@@ -79,7 +79,7 @@ class RequestMailer < ApplicationMailer
         else
             respond_url = show_response_url(:id => info_request.id, :incoming_message_id => last_response.id)
         end
-        respond_url = respond_url + "#show_response_followup" 
+        respond_url = respond_url + "#followup" 
 
         post_redirect = PostRedirect.new(
             :uri => respond_url,
@@ -111,7 +111,7 @@ class RequestMailer < ApplicationMailer
     # Tell the requester that they need to clarify their request
     def not_clarified_alert(info_request, incoming_message)
         respond_url = show_response_url(:id => info_request.id, :incoming_message_id => incoming_message.id)
-        respond_url = respond_url + "#show_response_followup" 
+        respond_url = respond_url + "#followup" 
 
         post_redirect = PostRedirect.new(
             :uri => respond_url,
