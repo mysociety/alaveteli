@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.130 2008-08-21 00:41:44 francis Exp $
+# $Id: info_request.rb,v 1.131 2008-08-26 16:03:36 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -274,6 +274,8 @@ public
             self.log_event("comment", { :comment_id => comment.id })
             self.save!
         end
+
+        return comment
     end
 
     # The "holding pen" is a special request which stores incoming emails whose

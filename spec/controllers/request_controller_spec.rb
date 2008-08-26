@@ -112,7 +112,7 @@ describe RequestController, "when creating a new request" do
         post :new, :info_request => { :public_body_id => public_bodies(:geraldine_public_body).id },
             :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." },
             :submitted_new_request => 1, :preview => 1
-        # XXX how do I check the error message here?
+        assigns[:info_request].errors[:title].should_not be_nil
         response.should render_template('new')
     end
 

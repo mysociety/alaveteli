@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: comment_controller.rb,v 1.1 2008-08-13 01:39:41 francis Exp $
+# $Id: comment_controller.rb,v 1.2 2008-08-26 16:03:36 francis Exp $
 
 class CommentController < ApplicationController
     
@@ -15,7 +15,6 @@ class CommentController < ApplicationController
                 :comment_type => 'request', 
                 :user => @user
             }))
-
         else
             raise "Unknown type " + params[:type]
         end
@@ -40,11 +39,11 @@ class CommentController < ApplicationController
                 :email => "Then your annotation to " + @info_request.title + " will be posted.",
                 :email_subject => "Confirm your annotation to " + @info_request.title
             )
-            @info_request.add_comment(params[:comment][:body], authenticated_user)
+            @comment = @info_request.add_comment(params[:comment][:body], authenticated_user)
             # This automatically saves dependent objects in the same transaction
             @info_request.save!
             flash[:notice] = "Thank you for making an annotation!"
-            redirect_to request_url(@info_request)
+            redirect_to comment_url(@comment)
         else
             # do nothing - as "authenticated?" has done the redirect to signin page for us
         end

@@ -1,6 +1,3 @@
-XXX
-    Fix up that shows last resend as message?
-
 Site move:
     Install PostgresSQL 8.3
     Move database
@@ -13,6 +10,7 @@ Grrr - so here I wanted to clarify my request, but don't want the timer to be re
 http://www.whatdotheyknow.com/request/online_petitions_documents_from#incoming-3248
 
 Test: Check where followups are going to now
+Test: Check new .zips are being indexed
 
 "Then you will be emailed whenever 'Martin Stabe' requests something or gets a
 response" doesn't word wrap in confirmation email, and no full stop.
@@ -23,23 +21,24 @@ http://www.whatdotheyknow.com/request/4/response/866#show_response_followup
 Email subjects badly escaped
 Subject: Confirm you want to be emailed about requests to 'HM Revenue &amp; Customs'
 
+VSD files vsdump - example in zip file
+http://www.whatdotheyknow.com/request/dog_control_orders#incoming-3510
+doing file RESPONSE/Internal documents/Briefing with Contact Islington/Contact Islington Flowchart Jul 08.vsd content type 
+Search for other extensions that we have now
+
 Comments interleaved with body
-    - Add basic tests for comment controller
-
-    - Test email alerts for comments
-    - Email people subscribed to people about new comments that they make
-      ... and likewise to requests, public bodies
-
     - Email people when comments on their own request
     - Email people when responses to their own comment, or warn them they need to sign up
 
-    - Flag bad comments
-    - Delete comments from admin interface
-
-    - Test spell checker
-    - Don't allow double posting
+    - Don't allow double posting (submitting same comment twice, add spec test)
     - Check CSS class/id names used in all comment HTML
     - Think about the "nonsense" text a lot more
+    - Improve display of preview, is rubbish
+
+    - Test spell checker
+    - List all comments in admin interface? and/or flag bad comments
+    - Delete comments from admin interface
+    - Check annotation email alerts are working (e.g. when subscribed to a request)
 
 http://www.whatdotheyknow.com/request/communications_about_whatdotheyk
     Mask all emails from binary attachments
@@ -65,9 +64,9 @@ Clear out all the need admin attention requests
 Clear out all the need classifying requests
 
 Admin:
-Have internal links to different parts of request page
-Somehow fold up the enormous pages on many admin pages
-Make it easy to go from pages to admin page
+    Have internal links to different parts of request page
+    Somehow fold up the enormous pages on many admin pages
+    Make it easy to go from pages to admin page (perhaps via link as in PB?)
 
 Later
 =====
