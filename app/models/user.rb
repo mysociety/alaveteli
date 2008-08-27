@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user.rb,v 1.62 2008-08-27 00:39:03 francis Exp $
+# $Id: user.rb,v 1.63 2008-08-27 00:52:07 francis Exp $
 
 require 'digest/sha1'
 
@@ -51,6 +51,12 @@ class User < ActiveRecord::Base
         :terms => [ [ :variety, 'V', "variety" ] ]
     def variety
         "user"
+    end
+
+    def after_initialize
+        if self.admin_level.nil?
+            self.admin_level = 'none'
+        end
     end
 
     def validate
@@ -153,7 +159,7 @@ class User < ActiveRecord::Base
             u.save!
         end
 
-        return 
+        return u
     end
 
     # Does the user magically gain powers as if they owned every request?
