@@ -40,3 +40,6 @@
 <% end %>
 </table>
 
+<h2>Requests</h2>
+<%= render :partial => 'admin_request/some_requests', :locals => { :info_requests => @public_body.info_requests, :deep => true } %>
+

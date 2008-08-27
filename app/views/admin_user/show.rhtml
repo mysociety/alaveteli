@@ -39,7 +39,6 @@
 <% end %>
 </table>
 
-
 <h2>Post redirects</h2>
 
 <table>
@@ -63,5 +62,8 @@
   </tr>
 <% end %>
 </table>
+
+<h2>Requests</h2>
+<%= render :partial => 'admin_request/some_requests', :locals => { :info_requests => @admin_user.info_requests, :deep => true } %>
 
 
