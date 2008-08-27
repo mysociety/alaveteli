@@ -88,5 +88,23 @@
         Dedicated to <a href="http://mk.ucant.org/archives/000129.html">Chris Lightfoot</a>.
     </div>
 
+<% if MySociety::Config.get("DOMAIN", '127.0.0.1:3000') == 'www.whatdotheyknow.com'  %>
+<!-- Piwik -->
+<script type="text/javascript">
+var pkBaseURL = (("https:" == document.location.protocol) ? "https://piwik.mysociety.org/" : "http://piwik.mysociety.org/");
+document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+<!--
+piwik_action_name = '';
+piwik_idsite = 4;
+piwik_url = pkBaseURL + "piwik.php";
+piwik_log(piwik_action_name, piwik_idsite, piwik_url);
+//-->
+</script>
+<noscript><img src="http://piwik.mysociety.org/piwik.php?i=1" style="border:0" alt=""></noscript>
+<!-- /Piwik -->
+<% end %>
+
     </body>
 </html>
