@@ -15,7 +15,8 @@
 <% end %>
 </p>
 
-<p><%= link_to 'Public page', main_url(user_url(@admin_user)) %></p>
+<p><%= link_to 'Edit', '../edit/' + @admin_user.id.to_s %>
+| <%= link_to 'Public page', main_url(user_url(@admin_user)) %></p>
 
 <h2>Track things</h2>
 

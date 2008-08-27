@@ -10,6 +10,9 @@
 <p class="subtitle">
 <%=@public_body.type_of_authority(true)%> in the UK<% if not @public_body.short_name.empty? %>, also called <%= h(@public_body.short_name) %><% end %>
 (<%= link_to "home page", @public_body.calculated_home_page %>)
+<% if !@user.nil? && @user.owns_every_request? %>
+(<%= link_to "admin", public_body_admin_url(@public_body) %>)
+<% end %>
 </p>
 
 <% if @public_body.notes != "" %>

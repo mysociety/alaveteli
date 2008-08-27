@@ -1,0 +1,13 @@
+<%= error_messages_for 'admin_user' %>
+
+<!--[form:admin_user]-->
+
+<p><label for="admin_user_name">Name</label> (will change URL name and break URLs; unlike authorities, there is no history)<br/>
+<%= text_field 'admin_user', 'name', :size => 60  %></p>
+
+<p><label for="admin_user_email">Email</label> (<strong>you must</strong> first validate this)<br/>
+<%= text_field 'admin_user', 'email', :size => 60  %></p>
+
+<p><label for="admin_level">Admin level</label> (<strong>none</strong> or <strong>super</strong>; this is for admin features and links which are in the site proper)<br/>
+<%= text_field 'admin_user', 'admin_level', :size => 60  %></p>
+

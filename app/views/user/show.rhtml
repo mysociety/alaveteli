@@ -14,7 +14,12 @@
 
 <div class="single_user">
     <h1><%=@title%></h1>
-    <p class="subtitle">Joined WhatDoTheyKnow on <%= simple_date(@display_user.created_at) %></p>
+    <p class="subtitle">
+        Joined WhatDoTheyKnow on <%= simple_date(@display_user.created_at) %>
+        <% if !@user.nil? && @user.owns_every_request? %>
+        (<%= link_to "admin", user_admin_url(@display_user) %>)
+        <% end %>
+    </p>
 
     <p>
         <%= link_to "Send message to " + h(@display_user.name), contact_user_url(:id => @display_user.id) %>

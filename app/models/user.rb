@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user.rb,v 1.61 2008-08-09 15:19:01 francis Exp $
+# $Id: user.rb,v 1.62 2008-08-27 00:39:03 francis Exp $
 
 require 'digest/sha1'
 
@@ -40,6 +40,11 @@ class User < ActiveRecord::Base
 
     attr_accessor :password_confirmation
     validates_confirmation_of :password, :message =>"^Please enter the same password twice"
+
+    validates_inclusion_of :admin_level, :in => [ 
+        'none',
+        'super', 
+    ]
 
     acts_as_xapian :texts => [ :name ],
         :values => [ [ :created_at, 0, "created_at", :date ] ],
@@ -148,9 +153,14 @@ class User < ActiveRecord::Base
             u.save!
         end
 
-        return u
+        return 
     end
 
+    # Does the user magically gain powers as if they owned every request?
+    # e.g. Can classify it
+    def owns_every_request?
+        self.admin_level == 'super'
+    end
 
     private
 

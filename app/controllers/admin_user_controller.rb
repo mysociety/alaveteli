@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_user_controller.rb,v 1.5 2008-07-28 18:04:38 francis Exp $
+# $Id: admin_user_controller.rb,v 1.6 2008-08-27 00:39:03 francis Exp $
 
 class AdminUserController < ApplicationController
     layout "admin"
@@ -27,6 +27,27 @@ class AdminUserController < ApplicationController
         @admin_user = User.find(params[:id])
     end
 
+    def edit
+        @admin_user = User.find(params[:id])
+    end
+
+    def update
+        @admin_user = User.find(params[:id])
+
+        @admin_user.name = params[:admin_user][:name]
+        @admin_user.email = params[:admin_user][:email]
+        @admin_user.admin_level = params[:admin_user][:admin_level]
+
+        if @admin_user.valid?
+            @admin_user.save!
+            flash[:notice] = 'User successfully updated.'
+            redirect_to user_admin_url(@admin_user)
+        else
+            render :action => 'edit'
+        end
+    end 
+
+ 
     private
 
 end

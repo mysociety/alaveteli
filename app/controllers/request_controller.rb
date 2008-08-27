@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.95 2008-08-07 00:24:51 francis Exp $
+# $Id: request_controller.rb,v 1.96 2008-08-27 00:39:03 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -23,7 +23,7 @@ class RequestController < ApplicationController
         @info_request_events = @info_request.info_request_events
         @status = @info_request.calculate_status
         @collapse_quotes = params[:unfold] ? false : true
-        @is_owning_user = !authenticated_user.nil? && authenticated_user.id == @info_request.user_id
+        @is_owning_user = !authenticated_user.nil? && (authenticated_user.id == @info_request.user_id || authenticated_user.owns_every_request?)
         @events_needing_description = @info_request.events_needing_description
         last_event = @events_needing_description[-1]
         @last_info_request_event_id = last_event.nil? ? nil : last_event.id
@@ -273,7 +273,7 @@ class RequestController < ApplicationController
         end
         @info_request = InfoRequest.find(params[:id].to_i)
         @collapse_quotes = params[:unfold] ? false : true
-        @is_owning_user = !authenticated_user.nil? && authenticated_user.id == @info_request.user_id
+        @is_owning_user = !authenticated_user.nil? && (authenticated_user.id == @info_request.user_id || authenticated_user.owns_every_request?)
 
         params_outgoing_message = params[:outgoing_message]
         if params_outgoing_message.nil?

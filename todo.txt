@@ -66,6 +66,8 @@ Admin:
     Somehow fold up the enormous pages on many admin pages
     Make it easy to go from pages to admin page (perhaps via link as in PB?)
 
+Replace "deep" with admin_... URLs
+
 Later
 =====
 

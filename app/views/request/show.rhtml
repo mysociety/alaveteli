@@ -45,6 +45,9 @@
     <%= public_body_link(@info_request.public_body) %>
     by 
     <%= user_link(@info_request.user) %>
+    <% if !@user.nil? && @user.owns_every_request? %>
+    (<%= link_to "admin", request_admin_url(@info_request) %>)
+    <% end %>
     </p>
 
     <p id="request_status">
