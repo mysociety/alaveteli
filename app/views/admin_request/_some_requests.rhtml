@@ -1,6 +1,9 @@
 <table>
   <tr>
-  <% for column in InfoRequest.content_columns.map { |c| c.human_name } - [ "Url title" ] %>
+  <th>Title</th>
+  <th>Authority</th>
+  <th>User</th>
+  <% for column in InfoRequest.content_columns.map { |c| c.human_name } - [ "Url title", "Title" ] %>
     <th><%= column %></th>
   <% end %>
   </tr>
@@ -8,6 +11,8 @@
 <% for info_request in info_requests %>
   <tr class="<%= cycle('odd', 'even') %>">
     <td><%= link_to h(info_request.title), (deep ? '../../request/show/' : 'show/') + info_request.id.to_s %></td>
+    <td><%= link_to h(info_request.public_body.name), (deep ? '../../body/show/' : '../body/show/') + info_request.public_body.id.to_s %></td>
+    <td><%= link_to h(info_request.user.name), (deep ? '../../user/show/' : '../user/show/') + info_request.user.id.to_s %></td>
   <% for column in InfoRequest.content_columns.map { |c| c.name } - [ "title", "url_title" ] %>
     <td><%=h info_request.send(column) %></td>
   <% end %>
