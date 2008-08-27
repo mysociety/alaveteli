@@ -19,6 +19,9 @@
         <% if !@user.nil? && @user.owns_every_request? %>
         (<%= link_to "admin", user_admin_url(@display_user) %>)
         <% end %>
+        <% if false # @display_user.owns_every_request? # should this be public? %>
+        and is a site admin.
+        <% end %>
     </p>
 
     <p>
