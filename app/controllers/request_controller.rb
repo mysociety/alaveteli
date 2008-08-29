@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.98 2008-08-29 12:19:48 francis Exp $
+# $Id: request_controller.rb,v 1.99 2008-08-29 12:58:08 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -190,9 +190,9 @@ class RequestController < ApplicationController
         end
 
         if !params[:submitted_describe_state].nil?
-            # Check authenticated, and parameters set
-            
-            if not authenticated_as_user?(@info_request.user,
+            # Check authenticated, and parameters set. We check is_owning_user
+            # to get admin overrides (see owns_every_request? above)
+            if !@is_owning_user && !authenticated_as_user?(@info_request.user,
                     :web => "To classify the response to this FOI request",
                     :email => "Then you can classify the FOI response you have got from " + @info_request.public_body.name + ".",
                     :email_subject => "Classify an FOI response from " + @info_request.public_body.name
