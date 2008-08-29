@@ -675,7 +675,29 @@ div[id|="comment"] { }
 
 /*.event_bubble { margin: 3em 0 0 0; font-size: 0.9em;}*/
 
-a img.attachment_image {border: 0px;}
+.attachments { 
+    border-color: #010101;
+    border-width: 1px;
+    margin: 0 0 1em 0;
+}
+.attachment { 
+    clear: both;
+}
+a img.attachment_image {
+    float: left;
+    border: 0px; 
+    vertical-align: middle;
+    margin: 0 0.2em 0.2em 0;
+}
+.attachments hr.top {
+    margin: 0 0 1em 0;
+    clear: both;
+}
+.attachments hr.bottom {
+    margin: 1em 0 0 0;
+    clear: both;
+}
+
 
 .describe_state_form, 
 #followup
