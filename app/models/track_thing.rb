@@ -21,7 +21,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_thing.rb,v 1.36 2008-08-29 17:50:10 francis Exp $
+# $Id: track_thing.rb,v 1.37 2008-08-29 17:55:47 francis Exp $
 
 class TrackThing < ActiveRecord::Base
     belongs_to :tracking_user, :class_name => 'User'
@@ -109,7 +109,7 @@ class TrackThing < ActiveRecord::Base
                     # Authentication
                     :web => "To follow updates to the request '" + CGI.escapeHTML(self.info_request.title) + "'",
                     :email => "Then you will be emailed whenever the request '" + CGI.escapeHTML(self.info_request.title) + "' is updated.",
-                    :email_subject => "Confirm you want to follow updates to the request '" + CGI.escapeHTML(self.info_request.title) + "'",
+                    :email_subject => "Confirm you want to follow updates to the request '" + self.info_request.title + "'",
                     # RSS sorting
                     :feed_sortby => 'newest'
                 }
@@ -160,7 +160,7 @@ class TrackThing < ActiveRecord::Base
                     # Authentication
                     :web => "To be emailed about requests to the public authority '" + CGI.escapeHTML(self.public_body.name) + "'",
                     :email => "Then you will be emailed whenever someone requests something or gets a response from '" + CGI.escapeHTML(self.public_body.name) + "'.",
-                    :email_subject => "Confirm you want to be emailed about requests to '" + CGI.escapeHTML(self.public_body.name) + "'",
+                    :email_subject => "Confirm you want to be emailed about requests to '" + self.public_body.name + "'",
                     # RSS sorting
                     :feed_sortby => 'newest'
                 }
@@ -176,7 +176,7 @@ class TrackThing < ActiveRecord::Base
                     # Authentication
                     :web => "To be emailed about requests by '" + CGI.escapeHTML(self.tracked_user.name) + "'",
                     :email => "Then you will be emailed whenever '" + CGI.escapeHTML(self.tracked_user.name) + "' requests something or gets a response.",
-                    :email_subject => "Confirm you want to be emailed about requests by '" + CGI.escapeHTML(self.tracked_user.name) + "'",
+                    :email_subject => "Confirm you want to be emailed about requests by '" + self.tracked_user.name + "'",
                     # RSS sorting
                     :feed_sortby => 'newest'
                 }
@@ -192,7 +192,7 @@ class TrackThing < ActiveRecord::Base
                     # Authentication
                     :web => "To follow requests and responses matching '" + CGI.escapeHTML(self.track_query) + "'",
                     :email => "Then you will be emailed whenever a new request or response matches '" + CGI.escapeHTML(self.track_query) + "'.",
-                    :email_subject => "Confirm you want to be emailed about new requests or responses matching '" + CGI.escapeHTML(self.track_query) + "'",
+                    :email_subject => "Confirm you want to be emailed about new requests or responses matching '" + self.track_query + "'",
                     # RSS sorting - XXX hmmm, we don't really know which to use
                     # here for sorting. Might be a query term (e.g. 'cctv'), in
                     # which case newest is good, or might be something like
