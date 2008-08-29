@@ -29,9 +29,6 @@ Search for other extensions that we have now
 Comments interleaved with body
     - Annotation thing too far down when much sidebar e.g. http://localhost:3000/request/heya#outgoing-199
 
-    - Refactor track/_tracking_links.rhtml so existing_track not calculated there
-    - Do not show track checkbox if already tracking
-
     - Test spell checker
     - Flag bad comments
     - Delete comments from admin interface

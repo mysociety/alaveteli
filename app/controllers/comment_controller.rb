@@ -4,13 +4,14 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: comment_controller.rb,v 1.4 2008-08-29 11:57:57 francis Exp $
+# $Id: comment_controller.rb,v 1.5 2008-08-29 12:03:40 francis Exp $
 
 class CommentController < ApplicationController
     
     def new
         if params[:type] == 'request'
             @info_request = InfoRequest.find_by_url_title(params[:url_title])
+            @track_thing = TrackThing.create_track_for_request(@info_request)
             @comment = Comment.new(params[:comment].merge({
                 :comment_type => 'request', 
                 :user => @user
