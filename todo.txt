@@ -60,6 +60,8 @@ Admin:
     Have internal links to different parts of request page
     Somehow fold up the enormous pages on many admin pages
 
+Search FAQ etc.
+
 Later
 =====
 

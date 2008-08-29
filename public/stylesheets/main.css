@@ -647,10 +647,10 @@ div.comment_in_request
 	float: left;
 	padding: 0em 0.5em 0em 0.5em;
 	margin: 0 0 1em 0;
-	overflow: auto;
 	border-color: #5F5F5F;
 	border-width: 1px;
 	border-style: dotted;
+	overflow: auto;
 }
 div.comment_in_request h2
 { text-align: right; font-size: 1em; }
@@ -668,9 +668,10 @@ div[id|="incoming"] { background-color: #E7E7E7; font-family: Times New Roman, T
 	div[id|="incoming"] p { font-size: 1.08em;}
 
 div[id|="comment"] { }
-	div[id|="comment"] p { font-size: 0.95;}
+	div[id|="comment"] p { font-size: 0.95em;}
 	
 .correspondence_text { margin: 0 1.2em 0 0.8em; }
+.comment_in_request_text { margin: 0 1.2em 0 0.8em; }
 
 /*.event_bubble { margin: 3em 0 0 0; font-size: 0.9em;}*/
 
