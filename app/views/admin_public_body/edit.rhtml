@@ -4,7 +4,7 @@
 
 <% form_tag '../update/' + @public_body.id.to_s do %>
   <%= render :partial => 'form' %>
-  <p><%= submit_tag 'Save' %></p>
+  <p><%= submit_tag 'Save', :accesskey => 's' %></p>
 <% end %>
 
 <p>

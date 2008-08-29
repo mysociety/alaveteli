@@ -31,7 +31,7 @@
    <%= select('info_request', "awaiting_description", [["Yes - needs state updating",true],["No - state is up to date",false]]) %>
    </p>
 
-   <p><%= submit_tag 'Save changes' %>
+   <p><%= submit_tag 'Save changes', :accesskey => 's' %>
    </p>
 
   <p><strong>Note:</strong> To edit the actual request body text, click edit
