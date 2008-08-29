@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.43 2008-08-26 23:43:42 francis Exp $
+# $Id: request_mailer.rb,v 1.44 2008-08-29 09:44:31 francis Exp $
 
 class RequestMailer < ApplicationMailer
     
@@ -123,6 +123,20 @@ class RequestMailer < ApplicationMailer
         @recipients = info_request.user.name_and_email
         @subject = "Clarify your FOI request - " + info_request.title
         @body = { :incoming_message => incoming_message, :info_request => info_request, :url => url }
+    end
+
+    # Tell the requester that they need to clarify their request
+    def comment_on_alert(info_request, comment)
+        @from = contact_from_name_and_email
+        @recipients = info_request.user.name_and_email
+        @subject = "Somebody added a note to your FOI request - " + info_request.title
+        @body = { :comment => comment, :info_request => info_request, :url => main_url(comment_url(comment)) }
+    end
+    def comment_on_alert_plural(info_request, count, earliest_unalerted_comment)
+        @from = contact_from_name_and_email
+        @recipients = info_request.user.name_and_email
+        @subject = "Some notes have been added to your FOI request - " + info_request.title
+        @body = { :count => @count, :info_request => info_request, :url => main_url(comment_url(earliest_unalerted_comment)) }
     end
 
 
@@ -244,6 +258,58 @@ class RequestMailer < ApplicationMailer
             end
         end
     end
+
+    # Send email alert to request submitter for new comments on the request.
+    def self.alert_comment_on_request()
+        #STDERR.puts "alert_comment_on_request"
+        # We only check comments made in the last month - this means if the
+        # cron jobs broke fro more than a month events would be lost, but no
+        # matter. I suspect the performance gain will be needed (with an index on updated_at)
+        info_requests = InfoRequest.find(:all, :conditions => [ "(select count(*) from info_request_events where event_type = 'comment' and info_request_events.info_request_id = info_requests.id and updated_at > ?) > 0", Time.now() - 1.month ], :include => [ { :info_request_events => :user_info_request_sent_alerts } ], :order => "info_requests.id" )
+        for info_request in info_requests
+            #STDERR.puts "considering request " + info_request.id.to_s
+
+            # Find the last comment, which we use as id to mark alert done
+            last_comment_event = info_request.get_last_comment_event
+            raise "expected comment event but got none" if last_comment_event.nil?
+
+            # Count number of new comments to alert on
+            earliest_unalerted_comment_event = nil
+            count = 0
+            for e in info_request.info_request_events.reverse
+                if e.event_type == 'comment'
+                    alerted_for = e.user_info_request_sent_alerts.find(:first, :conditions => [ "alert_type = 'comment_1' and user_id = ?", info_request.user_id])
+                    if alerted_for.nil?
+                        count = count + 1
+                        earliest_unalerted_comment_event = e
+                    else
+                        break
+                    end
+                end
+            end
+
+            # Alert needs sending if there are new comments
+            if count > 0
+                store_sent = UserInfoRequestSentAlert.new
+                store_sent.info_request = info_request
+                store_sent.user = info_request.user
+                store_sent.alert_type = 'comment_1'
+                store_sent.info_request_event_id = last_comment_event.id
+                if count > 1
+                    STDERR.puts "sending multiple comment on request alert to info_request " + info_request.id.to_s + " user " + info_request.user_id.to_s + " count " + count.to_s
+                    RequestMailer.deliver_comment_on_alert_plural(info_request, count, earliest_unalerted_comment_event.comment)
+                elsif count == 1
+                    STDERR.puts "sending comment on request alert to info_request " + info_request.id.to_s + " user " + info_request.user_id.to_s + " event " + last_comment_event.id.to_s
+                    RequestMailer.deliver_comment_on_alert(info_request, last_comment_event.comment)
+                else
+                    raise "internal error"
+                end
+                store_sent.save!
+                STDERR.puts "sent " + info_request.user.email
+            end
+        end
+    end
+
 
 end
 

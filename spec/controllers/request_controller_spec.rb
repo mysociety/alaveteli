@@ -390,6 +390,48 @@ describe RequestController, "clarification required alerts" do
 
 end
 
+describe RequestController, "comment alerts" do
+    integrate_views
+    fixtures :info_requests, :info_request_events, :public_bodies, :users, :incoming_messages, :outgoing_messages, :comments # all needed as integrating views
+ 
+    it "should send an alert" do
+        RequestMailer.alert_comment_on_request
+
+        deliveries = ActionMailer::Base.deliveries
+        deliveries.size.should == 1
+        mail = deliveries[0]
+        mail.body.should =~ /has annotated your/
+        mail.to_addrs.to_s.should == info_requests(:fancy_dog_request).user.name_and_email
+        mail.body =~ /(http:\/\/.*)/
+        mail_url = $1
+
+        # XXX check mail_url here somehow, can't call comment_url like this:
+        # mail_url.should == comment_url(comments(:silly_comment))
+
+        #STDERR.puts mail.body
+    end
+
+    it "should send an alert when there are two new comments" do
+        new_comment = info_requests(:fancy_dog_request).add_comment('Not as daft as this one', users(:bob_smith_user))
+
+        RequestMailer.alert_comment_on_request
+
+        deliveries = ActionMailer::Base.deliveries
+        deliveries.size.should == 1
+        mail = deliveries[0]
+        mail.body.should =~ /There are new annotations/
+        mail.to_addrs.to_s.should == info_requests(:fancy_dog_request).user.name_and_email
+        mail.body =~ /(http:\/\/.*)/
+        mail_url = $1
+
+        # XXX check mail_url here somehow, can't call comment_url like this:
+        # mail_url.should == comment_url(comments(:silly_comment))
+
+        #STDERR.puts mail.body
+    end
+
+end
+
 
 
 

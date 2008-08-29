@@ -17,7 +17,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user_info_request_sent_alert.rb,v 1.20 2008-08-09 15:19:01 francis Exp $
+# $Id: user_info_request_sent_alert.rb,v 1.21 2008-08-29 09:44:31 francis Exp $
 
 class UserInfoRequestSentAlert < ActiveRecord::Base
     belongs_to :user
@@ -28,6 +28,7 @@ class UserInfoRequestSentAlert < ActiveRecord::Base
         'new_response_reminder_1', # reminder user to classify the recent response
         'new_response_reminder_2', # repeat reminder user to classify the recent response
         'not_clarified_1', # reminder that user has to explain part of the request
+        'comment_1', # tell user that info request has a new comment
     ]
 end
 

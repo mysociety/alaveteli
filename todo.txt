@@ -27,7 +27,6 @@ doing file RESPONSE/Internal documents/Briefing with Contact Islington/Contact I
 Search for other extensions that we have now
 
 Comments interleaved with body
-    - Check CSS class/id names used in all comment HTML
     - Annotation thing too far down when much sidebar e.g. http://localhost:3000/request/heya#outgoing-199
 
     - Email people when comments on their own request
@@ -47,6 +46,7 @@ Internal review status/marker?
     http://www.whatdotheyknow.com/request/crime_investigation_following_al
     http://www.whatdotheyknow.com/request/determination_of_pricing_for_pro#incoming-2902
     my own veolia request
+    http://www.whatdotheyknow.com/request/online_petitions_documents_from
     (search for it!)
 Request withdrawn by user status/marker?
 
@@ -62,11 +62,17 @@ Clear out all the need admin attention requests
 Clear out all the need classifying requests
 
 Admin:
+    Fix two things from Tony
+    Add accelerator keys  e.g. save public body with S
     Have internal links to different parts of request page
     Somehow fold up the enormous pages on many admin pages
     Make it easy to go from pages to admin page (perhaps via link as in PB?)
 
 Replace "deep" with admin_... URLs
+
+is_owning_user is wrong name
+move stuff from request_controller_spec.rb to request_mailer_spec.rb
+Remove get_last_response_event_id etc.
 
 Later
 =====

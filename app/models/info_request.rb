@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.131 2008-08-26 16:03:36 francis Exp $
+# $Id: info_request.rb,v 1.132 2008-08-29 09:44:31 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -496,6 +496,16 @@ public
         info_request_event.save!
     end
 
+    # The last comment made, for alerts
+    def get_last_comment_event
+        for e in self.info_request_events.reverse
+            if e.event_type == 'comment'
+                return e
+            end
+        end
+        return nil
+    end
+
     # The last response is the default one people might want to reply to
     def get_last_response_event_id
         for e in self.info_request_events.reverse
@@ -505,25 +515,21 @@ public
         end
         return nil
     end
-
-    # The last response is the default one people might want to reply to
     def get_last_response_event
-        info_request_event_id = get_last_response_event_id
-        if info_request_event_id.nil?
+        for e in self.info_request_events.reverse
+            if e.event_type == 'response'
+                return e
+            end
+        end
+        return nil
+    end
+    def get_last_response
+        last_response_event = self.get_last_response_event
+        if last_response_event.nil?
             return nil
         else
-            return InfoRequestEvent.find(info_request_event_id)
+            return last_response_event.incoming_message
         end
-    end
-
-    # The last response is the default one people might want to reply to
-    def get_last_response
-        event_id = self.get_last_response_event_id
-        if event_id.nil?
-            return nil
-        end
-        e = self.info_request_events.find(event_id)
-        return e.incoming_message
     end
 
     # The last outgoing message
