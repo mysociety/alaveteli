@@ -648,7 +648,7 @@ div.comment_in_request
 	margin: 0 0 0 0;
 	overflow: auto;
 }
-div#comment_container
+div#add_annotation
 {
     clear: both;
 }

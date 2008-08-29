@@ -1,20 +1,18 @@
 <% form_for(:comment, @comment, :url => { :controller => "comment", :action => "new", :type => "request" },  :html => { :id => 'comment_form' } ) do |f| %>
     <p>
         <%= f.text_area :body, :rows => 10, :cols => 55 %>
+        <br><script type="text/javascript">document.write('<input name="doSpell" type="button" value="Check spelling" onClick="openSpellChecker(document.getElementById(\'comment_form\').body);"/> (optional)')</script>
     </p>
 
     <p>
-        <script type="text/javascript">document.write('<input name="doSpell" type="button" value="Check spelling" onClick="openSpellChecker(document.getElementById(\'comment_form\').body);"/> (optional)')</script>
-    </p>
-
-    <p>
-        Don't bother annotating with nonsense (<a href="/help/about#moderation">like what sort of nonsense?</a>).
+        <%= check_box_tag 'subscribe_to_request', "1", params[:subscribe_to_request] ? true : false %> <label for="subscribe_to_request">Email me future updates to this request</label>
     </p>
 
     <p>
         <%= hidden_field_tag 'submitted_comment', 1 %>
         <%= hidden_field_tag 'preview', 1 %>
         <%= submit_tag "Preview your annotation" %>
+        (<strong>no ranty</strong> politics, read our <a href="/help/about#moderation">moderation policy</a>)
     </p>
 <% end %>
 

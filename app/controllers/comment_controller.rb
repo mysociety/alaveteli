@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: comment_controller.rb,v 1.3 2008-08-26 22:54:45 francis Exp $
+# $Id: comment_controller.rb,v 1.4 2008-08-29 11:57:57 francis Exp $
 
 class CommentController < ApplicationController
     
@@ -43,7 +43,23 @@ class CommentController < ApplicationController
             # This automatically saves dependent objects in the same transaction
             @info_request.save!
             flash[:notice] = "Thank you for making an annotation!"
-            redirect_to comment_url(@comment)
+
+            # Also subscribe to track for this request, so they get updates
+            if params[:subscribe_to_request]
+                @track_thing = TrackThing.create_track_for_request(@info_request)
+                @existing_track = TrackThing.find_by_existing_track(@user, @track_thing)
+                if not @existing_track
+                    @track_thing.track_medium = 'email_daily'
+                    @track_thing.tracking_user_id = @user.id
+                    @track_thing.save!
+                    flash[:notice] += " You will also be emailed updates about the request."
+                else
+                    flash[:notice] += " You are already being emailed updates about the request."
+                end
+            end
+
+            # we don't use comment_url here, as then you don't see the flash at top of page
+            redirect_to request_url(@info_request)
         else
             # do nothing - as "authenticated?" has done the redirect to signin page for us
         end
