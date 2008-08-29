@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.46 2008-08-29 16:52:33 francis Exp $
+# $Id: request_mailer.rb,v 1.47 2008-08-29 16:54:38 francis Exp $
 
 class RequestMailer < ApplicationMailer
     
@@ -287,9 +287,12 @@ class RequestMailer < ApplicationMailer
             earliest_unalerted_comment_event = nil
             count = 0
             for e in info_request.info_request_events.reverse
+                # STDERR.puts "event " + e.id.to_s + " type " + e.event_type
                 if e.event_type == 'comment'
                     alerted_for = e.user_info_request_sent_alerts.find(:first, :conditions => [ "alert_type = 'comment_1' and user_id = ?", info_request.user_id])
+                    # STDERR.puts "is comment, alerted_for " + alerted_for.to_s
                     if alerted_for.nil?
+                        # STDERR.puts "nil!"
                         count = count + 1
                         earliest_unalerted_comment_event = e
                     else
@@ -297,6 +300,7 @@ class RequestMailer < ApplicationMailer
                     end
                 end
             end
+            #STDERR.puts "earliest_unalerted_comment_event " + earliest_unalerted_comment_event.to_s
 
             # Alert needs sending if there are new comments
             if count > 0
@@ -306,7 +310,7 @@ class RequestMailer < ApplicationMailer
                 store_sent.alert_type = 'comment_1'
                 store_sent.info_request_event_id = last_comment_event.id
                 if count > 1
-                    STDERR.puts "sending multiple comment on request alert to info_request " + info_request.id.to_s + " user " + info_request.user_id.to_s + " count " + count.to_s
+                    STDERR.puts "sending multiple comment on request alert to info_request " + info_request.id.to_s + " user " + info_request.user_id.to_s + " count " + count.to_s + " earliest "  + earliest_unalerted_comment_event.id.to_s
                     RequestMailer.deliver_comment_on_alert_plural(info_request, count, earliest_unalerted_comment_event.comment)
                 elsif count == 1
                     STDERR.puts "sending comment on request alert to info_request " + info_request.id.to_s + " user " + info_request.user_id.to_s + " event " + last_comment_event.id.to_s
