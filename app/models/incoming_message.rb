@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.138 2008-08-29 22:39:36 francis Exp $
+# $Id: incoming_message.rb,v 1.139 2008-08-29 23:13:30 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -126,6 +126,16 @@ class FOIAttachment
             else
                 "attachment." + calc_ext
             end
+        end
+    end
+
+    def display_size
+        s = self.body.size
+
+        if s > 1024 * 1024
+            return  sprintf("%.1f", s.to_f / 1024 / 1024) + 'M'
+        else
+            return (s / 1024).to_s + 'K'
         end
     end
 end

@@ -16,7 +16,7 @@
                         <strong><%= h a.display_filename %></strong>
                         <!-- <%= link_to h(a.display_filename), attachment_url %> -->
                         <br>
-                        <%= (a.body.size > 1024 * 1024) ? ((a.body.size / 1024 / 1024).to_s + 'M') : ((a.body.size / 1024).to_s + 'K') %>
+                        <%= a.display_size %>
                         <%= link_to "Download", attachment_url %>
                         <!-- (<%= a.content_type %>) -->
                     </p>
