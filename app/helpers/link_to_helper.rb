@@ -5,7 +5,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: link_to_helper.rb,v 1.37 2008-08-26 22:54:46 francis Exp $
+# $Id: link_to_helper.rb,v 1.38 2008-08-29 12:52:25 francis Exp $
 
 module LinkToHelper
 
@@ -21,8 +21,8 @@ module LinkToHelper
     def request_admin_url(info_request)
         return admin_url('request/show/' + info_request.id.to_s)
     end
-    def request_admin_link(info_request)
-        link_to h(info_request.title), request_admin_url(info_request)
+    def request_both_links(info_request)
+        link_to(h(info_request.title), main_url(request_url(info_request))) + " (" + link_to("admin", request_admin_url(info_request)) + ")"
     end
     def request_similar_url(info_request)
         return similar_request_url(:url_title => info_request.url_title, :only_path => true)
@@ -52,11 +52,8 @@ module LinkToHelper
     def public_body_admin_url(public_body)
         return admin_url('body/show/' + public_body.id.to_s)
     end
-    def public_body_admin_link(public_body)
-        link_to h(public_body.name), public_body_admin_url(public_body)
-    end
-    def public_body_admin_link_short(public_body)
-        link_to h(public_body.short_or_long_name), public_body_admin_url(public_body)
+    def public_body_both_links(public_body)
+        link_to(h(public_body.name), main_url(public_body_url(public_body))) + " (" + link_to("admin", public_body_admin_url(public_body)) + ")"
     end
 
     # Users
@@ -86,8 +83,8 @@ module LinkToHelper
     def user_admin_url(user)
         return admin_url('user/show/' + user.id.to_s)
     end
-    def user_admin_link(user)
-        link_to h(user.name), user_admin_url(user)
+    def user_both_links(user)
+        link_to(h(user.name), main_url(user_url(user))) + " (" + link_to("admin", user_admin_url(user)) + ")"
     end
 
     # Tracks. feed can be 'track' or 'feed'

@@ -23,8 +23,7 @@
 
 
     <% if event.class.to_s == 'InfoRequestEvent' %>
-        '<%= link_to h(event.info_request.title), main_url(request_url(event.info_request)) %>'
-        (<%= link_to "admin", "request/show/" + event.info_request.id.to_s %>)
+        <%= request_both_links(event.info_request) %>
         <% if event.event_type == 'edit' %>
             was edited by administrator <strong><%=h event.params[:editor] %></strong>.
             <% for p in ['title', 'prominence', 'described_state', 'awaiting_description'] 
@@ -68,8 +67,7 @@
             had '<%=event.event_type%>' done to it, parameters <%=h event.params_yaml%>.
         <% end %>
     <% else %>
-        <%= link_to event.public_body.name, main_url(public_body_url(event.public_body)) %>
-        (<%= link_to "admin", "body/show/" + event.public_body_id.to_s %>)
+        <%= public_body_both_links(event.public_body) %>
         was created/updated by administrator <strong><%=h event.last_edit_editor %></strong>
     <% end %>
 <% end %>

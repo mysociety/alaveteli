@@ -7,14 +7,14 @@
   <strong><%= column.human_name %>:</strong> <%=h @info_request.send(column.name) %>
   <br/>
 <% end %>
-<strong>Created by:</strong> <%= user_admin_link(@info_request.user) %> <br>
-<strong>Public authority:</strong> <%= public_body_admin_link(@info_request.public_body) %> <br>
+<strong>Created by:</strong> <%= user_both_links(@info_request.user) %> <br>
+<strong>Public authority:</strong> <%= public_body_both_links(@info_request.public_body) %> <br>
 <strong>Incoming email address:</strong> <%=h @info_request.incoming_email %> <br>
 </p>
 
 <p>
-<%= link_to 'Public page', main_url(request_url(@info_request)) %>
-| <%= link_to "Edit", '../edit/' + @info_request.id.to_s %>
+    <%= link_to 'Public page', main_url(request_url(@info_request)) %>
+    | <%= link_to 'Edit', '../edit/' + @info_request.id.to_s %>
 </p>
 
 <h2>Events</h2>
@@ -124,7 +124,7 @@
 <% for comment in @info_request.comments.find(:all, :order => 'created_at') %>
   <tr class="<%= cycle('odd', 'even') %>">
   <td><%=h comment.id %></td>
-  <td><%= user_admin_link(comment.user) %></td>
+  <td><%= user_both_links(comment.user) %></td>
   <% for column in Comment.content_columns.map { |c| c.name } %>
     <td><%=h comment.send(column) %></td>
   <% end %>

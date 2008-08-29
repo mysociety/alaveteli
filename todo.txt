@@ -6,17 +6,11 @@ Site move:
 Next
 ====
 
-Grrr - so here I wanted to clarify my request, but don't want the timer to be reset!
-http://www.whatdotheyknow.com/request/online_petitions_documents_from#incoming-3248
-
 Test: Check where followups are going to now
 Test: Check new .zips are being indexed
 
 "Then you will be emailed whenever 'Martin Stabe' requests something or gets a
 response" doesn't word wrap in confirmation email, and no full stop.
-
-Reply links link to form rather than message, but don't actually work
-http://www.whatdotheyknow.com/request/4/response/866#show_response_followup
 
 Email subjects badly escaped
 Subject: Confirm you want to be emailed about requests to 'HM Revenue &amp; Customs'
@@ -46,8 +40,8 @@ Internal review status/marker?
     http://www.whatdotheyknow.com/request/online_petitions_documents_from
     (search for it!)
 Request withdrawn by user status/marker?
-
-Do something about shared spreadsheet
+Grrr - so here I wanted to clarify my request, but don't want the timer to be reset!
+    http://www.whatdotheyknow.com/request/online_petitions_documents_from#incoming-3248
 
 user/show.rhtml sidebar vs. generic sidebar? (ask Tommy)
 There is grey on grey text in header? bad idea?
@@ -59,7 +53,6 @@ Clear out all the need admin attention requests
 Clear out all the need classifying requests
 
 Admin:
-    Fix two things from Tony
     Add accelerator keys  e.g. save public body with S
     Have internal links to different parts of request page
     Somehow fold up the enormous pages on many admin pages
@@ -67,7 +60,6 @@ Admin:
 
 Replace "deep" with admin_... URLs
 
-is_owning_user is wrong name
 move stuff from request_controller_spec.rb to request_mailer_spec.rb
 Remove get_last_response_event_id etc.
 

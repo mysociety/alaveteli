@@ -19,7 +19,7 @@
     <ul>
     <% for message in @holding_pen_messages %>
         <li>
-            <%= link_to excerpt(message.get_body_for_quoting, "", 60), "request/show/" + InfoRequest.holding_pen_request.id.to_s + "#incoming-" + message.id.to_s %> 
+            <%= link_to excerpt(message.get_body_for_quoting, "", 60), request_admin_url(InfoRequest.holding_pen_request) + "#incoming-" + message.id.to_s %> 
             (<%=simple_date(message.sent_at)%>)
         </li>
     <% end %>
@@ -33,8 +33,8 @@
     <ul>
     <% for @request in @ten_days_old_unclassified %>
         <li>
-            <%= link_to h(@request.title), "request/show/" + @request.id.to_s %> 
-            (<%=simple_date(@request.get_last_event.created_at)%>)
+            <%= request_both_links(@request) %> 
+            &ndash; <%=simple_date(@request.get_last_event.created_at)%>
         </li>
     <% end %>
     </ul>
@@ -46,8 +46,8 @@
     <ul>
     <% for @request in @requires_admin_requests %>
         <li>
-            <%= link_to h(@request.title), "request/show/" + @request.id.to_s %>
-            (<%=simple_date(@request.get_last_event.created_at)%>)
+            <%= request_both_links(@request)%>
+            &ndash; <%=simple_date(@request.get_last_event.created_at)%>
         </li>
     <% end %>
     </ul>
@@ -58,8 +58,8 @@
     <ul>
     <% for @blank_contact in @blank_contacts %>
         <li>
-            <%= link_to h(@blank_contact.name), "body/show/" + @blank_contact.id.to_s %>
-            (<%=simple_date(@blank_contact.updated_at)%>)
+            <%= public_body_both_links(@blank_contact)%>
+            &ndash; <%=simple_date(@blank_contact.updated_at)%>
         </li>
     <% end %>
     </ul>

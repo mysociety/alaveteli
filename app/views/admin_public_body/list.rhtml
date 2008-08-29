@@ -25,7 +25,7 @@
       </tr>
     <% for public_body in @public_bodies_by_tag %>
       <tr class="<%= cycle('odd', 'even') %>">
-        <td><%= link_to h(public_body.name), 'show/' + public_body.id.to_s %></td>
+        <td><%= public_body_both_links(public_body) %></td>
       <% for column in PublicBody.content_columns.map { |c| c.name } - [ "name", "last_edit_comment" ] %>
         <td><%=h public_body.send(column) %></td>
       <% end %>
@@ -44,7 +44,7 @@
       </tr>
     <% for public_body in @public_bodies %>
       <tr class="<%= cycle('odd', 'even') %>">
-        <td><%= link_to h(public_body.name), 'show/' + public_body.id.to_s %></td>
+        <td><%= public_body_both_links(public_body) %></td>
       <% for column in PublicBody.content_columns.map { |c| c.name } - [ "name", "last_edit_comment" ] %>
         <td><%=h public_body.send(column) %></td>
       <% end %>

@@ -22,7 +22,7 @@
 <% for track_thing in @admin_tracks %>
   <tr class="<%= cycle('odd', 'even') %>">
   <td><%=h track_thing.id %></td>
-  <td><%= user_admin_link(track_thing.tracking_user) %></td>
+  <td><%= user_both_links(track_thing.tracking_user) %></td>
   <% for column in TrackThing.content_columns.map { |c| c.name } %>
     <% if column == 'track_medium' and track_thing.track_medium == 'feed'%>
          <td><%= link_to track_thing.track_medium, atom_feed_url(:track_id => track_thing.id) %></td>

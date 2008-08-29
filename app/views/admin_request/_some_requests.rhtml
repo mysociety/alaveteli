@@ -10,9 +10,9 @@
   
 <% for info_request in info_requests %>
   <tr class="<%= cycle('odd', 'even') %>">
-    <td><%= link_to h(info_request.title), (deep ? '../../request/show/' : 'show/') + info_request.id.to_s %></td>
-    <td><%= link_to h(info_request.public_body.name), (deep ? '../../body/show/' : '../body/show/') + info_request.public_body.id.to_s %></td>
-    <td><%= link_to h(info_request.user.name), (deep ? '../../user/show/' : '../user/show/') + info_request.user.id.to_s %></td>
+    <td><%= request_both_links(info_request) %></td>
+    <td><%= public_body_both_links(info_request.public_body) %></td>
+    <td><%= user_both_links(info_request.user) %></td>
   <% for column in InfoRequest.content_columns.map { |c| c.name } - [ "title", "url_title" ] %>
     <td><%=h info_request.send(column) %></td>
   <% end %>
