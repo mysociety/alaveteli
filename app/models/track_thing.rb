@@ -21,7 +21,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_thing.rb,v 1.35 2008-08-09 15:19:01 francis Exp $
+# $Id: track_thing.rb,v 1.36 2008-08-29 17:50:10 francis Exp $
 
 class TrackThing < ActiveRecord::Base
     belongs_to :tracking_user, :class_name => 'User'
@@ -124,7 +124,7 @@ class TrackThing < ActiveRecord::Base
                     :title_in_rss => "New Freedom of Information requests",
                     # Authentication
                     :web => "To be emailed about any new requests",
-                    :email => "Then you will be emailed whenever anyone makes a new FOI request",
+                    :email => "Then you will be emailed whenever anyone makes a new FOI request.",
                     :email_subject => "Confirm you want to be emailed about new requests",
                     # RSS sorting
                     :feed_sortby => 'newest'
@@ -140,7 +140,7 @@ class TrackThing < ActiveRecord::Base
                     :title_in_rss => "Successful Freedom of Information requests",
                     # Authentication
                     :web => "To be emailed about any successful requests",
-                    :email => "Then you will be emailed whenever an FOI request succeeds",
+                    :email => "Then you will be emailed whenever an FOI request succeeds.",
                     :email_subject => "Confirm you want to be emailed when an FOI request succeeds",
                     # RSS sorting - used described date, as newest would give a
                     # date for responses possibly days before description, so
@@ -175,7 +175,7 @@ class TrackThing < ActiveRecord::Base
                     :title_in_rss => "FOI requests by '" + self.tracked_user.name + "'",
                     # Authentication
                     :web => "To be emailed about requests by '" + CGI.escapeHTML(self.tracked_user.name) + "'",
-                    :email => "Then you will be emailed whenever '" + CGI.escapeHTML(self.tracked_user.name) + "' requests something or gets a response",
+                    :email => "Then you will be emailed whenever '" + CGI.escapeHTML(self.tracked_user.name) + "' requests something or gets a response.",
                     :email_subject => "Confirm you want to be emailed about requests by '" + CGI.escapeHTML(self.tracked_user.name) + "'",
                     # RSS sorting
                     :feed_sortby => 'newest'
