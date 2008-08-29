@@ -9,7 +9,7 @@
    </p>
 <% end %>
 
-<%= render :partial => 'some_requests', :locals => { :info_requests => @info_requests, :deep => false } %>
+<%= render :partial => 'some_requests', :locals => { :info_requests => @info_requests } %>
 
 <%= will_paginate(@info_requests) %>
 
