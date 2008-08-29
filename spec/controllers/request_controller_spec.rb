@@ -304,6 +304,9 @@ describe RequestController, "when sending a followup message" do
 
 end
 
+# XXX Stuff after here should probably be in request_mailer_spec.rb - but then
+# it can't check the URLs in the emails I don't think, ugh.
+
 describe RequestController, "sending overdue request alerts" do
     integrate_views
     fixtures :info_requests, :info_request_events, :public_bodies, :users, :incoming_messages, :outgoing_messages # all needed as integrating views
