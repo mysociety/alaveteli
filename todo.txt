@@ -1,3 +1,6 @@
+            for e in info_request.info_request_events.sort { |a,b| a.created_at <=> b.created_at}.reverse
+
+
 Site move:
     Install PostgresSQL 8.3
     Move database
@@ -9,12 +12,6 @@ Next
 Test: Check where followups are going to now
 Test: Check new .zips are being indexed
 
-"Then you will be emailed whenever 'Martin Stabe' requests something or gets a
-response" doesn't word wrap in confirmation email, and no full stop.
-
-Email subjects badly escaped
-Subject: Confirm you want to be emailed about requests to 'HM Revenue &amp; Customs'
-
 VSD files vsdump - example in zip file
 http://www.whatdotheyknow.com/request/dog_control_orders#incoming-3510
 doing file RESPONSE/Internal documents/Briefing with Contact Islington/Contact Islington Flowchart Jul 08.vsd content type 
@@ -24,7 +21,6 @@ Comments interleaved with body
     - Annotation thing too far down when much sidebar e.g. http://localhost:3000/request/heya#outgoing-199
     - Put classification box above annotation one?
 
-    - Test spell checker
     - Flag bad comments
     - Delete comments from admin interface
     - Check annotation email alerts are working (e.g. when subscribed to a request)
@@ -50,17 +46,17 @@ Grrr - so here I wanted to clarify my request, but don't want the timer to be re
 user/show.rhtml sidebar vs. generic sidebar? (ask Tommy)
 There is grey on grey text in header? bad idea?
 
-Make it clearer people should ask for documents
-http://www.whatdotheyknow.com/request/unusual_markings_in_the_uk_skies
-
 Clear out all the need admin attention requests
 Clear out all the need classifying requests
 
 Admin:
+    Optimise loading of front admin page
     Have internal links to different parts of request page
     Somehow fold up the enormous pages on many admin pages
 
 Search FAQ etc.
+
+Icon for annotations in search results
 
 Later
 =====

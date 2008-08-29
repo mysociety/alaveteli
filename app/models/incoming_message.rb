@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.134 2008-08-22 04:18:18 francis Exp $
+# $Id: incoming_message.rb,v 1.135 2008-08-29 18:22:54 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -73,6 +73,7 @@ $file_extension_to_mime_type = {
     "gif" => 'image/gif',
     "jpg" => 'image/jpeg', # XXX add jpeg
     "png" => 'image/png',
+    "bmp" => 'image/bmp',
     "html" => 'text/html', # XXX add htm
     "zip" => 'application/zip'
 }
@@ -803,6 +804,21 @@ class IncomingMessage < ActiveRecord::Base
             info_request_event.destroy
             self.destroy
         end
+    end
+
+    # Search all info requests for 
+    def IncomingMessage.find_all_unknown_mime_types
+        for incoming_message in IncomingMessage.find(:all)
+            for attachment in incoming_message.get_attachments_for_display
+                raise "internal error incoming_message " + incoming_message.id.to_s if attachment.content_type.nil?
+                if mimetype_to_extension(attachment.content_type).nil?
+                    STDERR.puts "Unknown type for /request/" + incoming_message.info_request.id.to_s + "#incoming-"+incoming_message.id.to_s
+                    STDERR.puts " " + attachment.filename.to_s + " " + attachment.content_type.to_s
+                end
+            end
+        end
+
+        return nil
     end
 end
 

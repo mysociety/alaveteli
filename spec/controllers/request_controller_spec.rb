@@ -401,7 +401,7 @@ describe RequestController, "comment alerts" do
         # updated created_at timestamp, so is in last month (as alerts are only
         # for comments in last month, see RequestMailer.alert_comment_on_request
         existing_comment = info_requests(:fancy_dog_request).comments[0]
-        existing_comment.created_at = Time.now()
+        existing_comment.created_at = Time.now() - 2.weeks
         existing_comment.save!
 
         # send comment alert
@@ -437,7 +437,7 @@ describe RequestController, "comment alerts" do
         # XXX check mail_url here somehow, can't call comment_url like this:
         # mail_url.should == comment_url(comments(:silly_comment))
 
-        #STDERR.puts mail.body
+        STDERR.puts mail.body
     end
 
 end

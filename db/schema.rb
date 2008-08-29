@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 63) do
+ActiveRecord::Schema.define(:version => 64) do
 
   create_table "acts_as_xapian_jobs", :force => true do |t|
     t.string  "model",    :null => false
@@ -50,6 +50,9 @@ ActiveRecord::Schema.define(:version => 63) do
     t.integer  "outgoing_message_id"
     t.integer  "comment_id"
   end
+
+  add_index "info_request_events", ["created_at"], :name => "index_info_request_events_on_created_at"
+  add_index "info_request_events", ["info_request_id"], :name => "index_info_request_events_on_info_request_id"
 
   create_table "info_requests", :force => true do |t|
     t.text     "title",                                      :null => false
