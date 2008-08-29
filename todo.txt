@@ -22,11 +22,15 @@ Search for other extensions that we have now
 
 Comments interleaved with body
     - Annotation thing too far down when much sidebar e.g. http://localhost:3000/request/heya#outgoing-199
+    - Put classification box above annotation one?
 
     - Test spell checker
     - Flag bad comments
     - Delete comments from admin interface
     - Check annotation email alerts are working (e.g. when subscribed to a request)
+
+    - Show them on user page
+    - Show them on public body pages
 
 http://www.whatdotheyknow.com/request/communications_about_whatdotheyk
     Mask all emails from binary attachments
@@ -53,15 +57,8 @@ Clear out all the need admin attention requests
 Clear out all the need classifying requests
 
 Admin:
-    Add accelerator keys  e.g. save public body with S
     Have internal links to different parts of request page
     Somehow fold up the enormous pages on many admin pages
-    Make it easy to go from pages to admin page (perhaps via link as in PB?)
-
-Replace "deep" with admin_... URLs
-
-move stuff from request_controller_spec.rb to request_mailer_spec.rb
-Remove get_last_response_event_id etc.
 
 Later
 =====
@@ -207,6 +204,7 @@ Quoting fixing TODO:
     http://www.whatdotheyknow.com/request/list_of_public_space_cctv_instal#incoming-2164
     http://www.whatdotheyknow.com/request/errors_in_list_of_postbox_locati#incoming-2272
     http://localhost:3000/request/cctv_data_retention_and_use#incoming-2093
+    http://www.whatdotheyknow.com/request/stasi_activity_at_climate_camp#incoming-3362
 
     http://www.whatdotheyknow.com/request/public_inspection_periods_for_lo_2#outgoing-1707 # square bracket in link
 
@@ -238,7 +236,9 @@ Use spelling correction for public bodies search (in addition to substring?)
 
 Editable user profile, including photo upload
 
-Show documents inline (word docs etc.)
+HTML versions of all attachments, so links like in GMail
+    Somthing.doc
+        20K   View as HTML   Open as a Google document   Download
 Julian's PDF excerpting thing for highlighting paragraphs
    and convert Word Docs to PDFs too
 

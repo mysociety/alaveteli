@@ -1,10 +1,16 @@
 <div class="comment_in_request" id="comment-<%=comment.id.to_s%>">
-    <p class=""> 
-        On <%= simple_date(comment.created_at || Time.now) %>,
-        <%= comment.user ? user_link(comment.user) : 'you' %> added an annotation:
-    </p>
-    <p> 
-        "<%= comment.get_body_for_html_display %>"
+    <h2>
+        Annotation by <%= comment.user ? user_link(comment.user) : 'you' %> 
+        <br><br><%= simple_date(comment.created_at || Time.now) %>
+    </h2>
+    <div> 
+        <%= comment.get_body_for_html_display %>
+    </div>
+    <p class="event_actions">
+        <% if !comment.id.nil? %>
+            <%= link_to "Link to this", comment_url(comment) %>
+            <!-- | <%= link_to "Report abuse", comment_url(comment) %> -->
+        <% end %>
     </p>
 </div>
 

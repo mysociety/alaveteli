@@ -637,6 +637,7 @@ div.correspondence
 }
 div.correspondence h2
 { text-align: right; font-size: 1em; }
+
 .event_actions
 { text-align: right} 
 
@@ -644,10 +645,16 @@ div.comment_in_request
 {
 	width: 37em;
 	float: left;
-	padding: 0em 0em 0em 0em;
-	margin: 0 0 0 0;
+	padding: 0em 0.5em 0em 0.5em;
+	margin: 0 0 1em 0;
 	overflow: auto;
+	border-color: #5F5F5F;
+	border-width: 1px;
+	border-style: dotted;
 }
+div.comment_in_request h2
+{ text-align: right; font-size: 1em; }
+
 div#add_annotation
 {
     clear: both;
@@ -661,7 +668,7 @@ div[id|="incoming"] { background-color: #E7E7E7; font-family: Times New Roman, T
 	div[id|="incoming"] p { font-size: 1.08em;}
 
 div[id|="comment"] { }
-	div[id|="comment"] p { font-size: 1.00em;}
+	div[id|="comment"] p { font-size: 0.95;}
 	
 .correspondence_text { margin: 0 1.2em 0 0.8em; }
 
