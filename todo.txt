@@ -9,13 +9,7 @@ Site move:
 Next
 ====
 
-Test: Check where followups are going to now
 Test: Check new .zips are being indexed
-
-VSD files vsdump - example in zip file
-http://www.whatdotheyknow.com/request/dog_control_orders#incoming-3510
-doing file RESPONSE/Internal documents/Briefing with Contact Islington/Contact Islington Flowchart Jul 08.vsd content type 
-Search for other extensions that we have now
 
 Comments interleaved with body
     - Annotation thing too far down when much sidebar e.g. http://localhost:3000/request/heya#outgoing-199
@@ -58,8 +52,18 @@ Search FAQ etc.
 
 Icon for annotations in search results
 
+Comments etc. do not sort in right order - by date, but not by time
+
 Later
 =====
+
+Random request :)
+
+VSD files vsdump - example in zip file
+    http://www.whatdotheyknow.com/request/dog_control_orders#incoming-3510
+    doing file RESPONSE/Internal documents/Briefing with Contact Islington/Contact Islington Flowchart Jul 08.vsd content type 
+Search for other extensions that we have now
+    (call IncomingMessage.find_all_unknown_mime_types to find them)
 
 From an email, isn't stripping spaces right.
     "Met Office  sent a response to Andrew Montford (14 August 2008)"

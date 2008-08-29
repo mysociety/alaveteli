@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.137 2008-08-29 21:40:55 francis Exp $
+# $Id: incoming_message.rb,v 1.138 2008-08-29 22:39:36 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -821,6 +821,22 @@ class IncomingMessage < ActiveRecord::Base
         end
 
         return nil
+    end
+
+    # Returns space separated list of file extensions of attachments to this message. Defaults to
+    # the normal extension for known mime type, otherwise uses other extensions.
+    def get_present_file_extensions
+        ret = {}
+        for attachment in self.get_attachments_for_display
+            ext = mimetype_to_extension(attachment.content_type)
+            ext = File.extname(attachment.filename).gsub(/^[.]/, "") if ext.nil? && !attachment.filename.nil?
+            ret[ext] = 1 if !ext.nil?
+        end
+        return ret.keys.join(" ")
+    end
+    # Return space separated list of all file extensions known
+    def IncomingMessage.get_all_file_extentions
+        return $file_extension_to_mime_type.keys.join(" ")
     end
 end
 

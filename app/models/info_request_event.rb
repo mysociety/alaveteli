@@ -20,7 +20,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request_event.rb,v 1.52 2008-08-20 23:56:21 francis Exp $
+# $Id: info_request_event.rb,v 1.53 2008-08-29 22:39:36 francis Exp $
 
 class InfoRequestEvent < ActiveRecord::Base
     belongs_to :info_request
@@ -69,7 +69,8 @@ class InfoRequestEvent < ActiveRecord::Base
                 [ :requested_by, 'B', "requested_by" ],
                 [ :requested_from, 'F', "requested_from" ],
                 [ :request, 'R', "request" ],
-                [ :variety, 'V', "variety" ]
+                [ :variety, 'V', "variety" ],
+                [ :filetype, 'T', "filetype" ]
         ],
         :if => :indexed_by_search,
         :eager_load => [ :incoming_message, :outgoing_message, :comment, { :info_request => [ :user, :public_body ] } ]
@@ -112,6 +113,12 @@ class InfoRequestEvent < ActiveRecord::Base
     def title
         if self.event_type == 'sent' 
             return self.info_request.title
+        end
+        return ''
+    end
+    def filetype
+        if self.event_type == 'response'
+            return self.incoming_message.get_present_file_extensions
         end
         return ''
     end

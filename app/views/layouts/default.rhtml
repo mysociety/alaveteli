@@ -40,7 +40,7 @@
     <div id="navigation_search">
         <% form_tag({:controller => "general", :action => "search_redirect"}, {:id => "navigation_search_form"}) do %>
            <p>
-               <%= text_field_tag 'query', params[:query], { :size => 25, :id => "navigation_search_query" } %>
+               <%= text_field_tag 'query', params[:query], { :size => 40, :id => "navigation_search_query" } %>
                <%= submit_tag "Search" %>
            </p>
         <% end %>
