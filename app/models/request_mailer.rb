@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.44 2008-08-29 09:44:31 francis Exp $
+# $Id: request_mailer.rb,v 1.45 2008-08-29 10:33:45 francis Exp $
 
 class RequestMailer < ApplicationMailer
     
@@ -263,9 +263,9 @@ class RequestMailer < ApplicationMailer
     def self.alert_comment_on_request()
         #STDERR.puts "alert_comment_on_request"
         # We only check comments made in the last month - this means if the
-        # cron jobs broke fro more than a month events would be lost, but no
+        # cron jobs broke for more than a month events would be lost, but no
         # matter. I suspect the performance gain will be needed (with an index on updated_at)
-        info_requests = InfoRequest.find(:all, :conditions => [ "(select count(*) from info_request_events where event_type = 'comment' and info_request_events.info_request_id = info_requests.id and updated_at > ?) > 0", Time.now() - 1.month ], :include => [ { :info_request_events => :user_info_request_sent_alerts } ], :order => "info_requests.id" )
+        info_requests = InfoRequest.find(:all, :conditions => [ "(select count(*) from info_request_events where event_type = 'comment' and info_request_events.info_request_id = info_requests.id and created_at > ?) > 0", Time.now() - 1.month ], :include => [ { :info_request_events => :user_info_request_sent_alerts } ], :order => "info_requests.id" )
         for info_request in info_requests
             #STDERR.puts "considering request " + info_request.id.to_s
 
