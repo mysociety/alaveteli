@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.135 2008-08-29 18:22:54 francis Exp $
+# $Id: incoming_message.rb,v 1.136 2008-08-29 19:59:13 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -75,6 +75,7 @@ $file_extension_to_mime_type = {
     "png" => 'image/png',
     "bmp" => 'image/bmp',
     "html" => 'text/html', # XXX add htm
+    "vcf" => 'text/x-vcard',
     "zip" => 'application/zip'
 }
 # XXX doesn't have way of choosing default for inverse map - might want to add
@@ -411,13 +412,13 @@ class IncomingMessage < ActiveRecord::Base
                 end
             end 
             # e.g. http://www.whatdotheyknow.com/request/93/response/250
-            if curr_mail.content_type == 'application/msexcel'
+            if curr_mail.content_type == 'application/msexcel' or curr_mail.content_type == 'application/x-ms-excel'
                 curr_mail.content_type = 'application/vnd.ms-excel'
             end
-            if curr_mail.content_type == 'application/mspowerpoint'
-                curr_mail.content_type = 'application/vnd.ms-powerpoint'
+            if curr_mail.content_type == 'application/mspowerpoint' or curr_mail.content_type == 'application/x-ms-powerpoint'
+                curr_mail.content_type = 'application/vnd.ms-powerpoint' 
             end
-            if curr_mail.content_type == 'application/msword'
+            if curr_mail.content_type == 'application/msword' or curr_mail.content_type == 'application/x-ms-word'
                 curr_mail.content_type = 'application/vnd.ms-word'
             end
             if curr_mail.content_type == 'application/x-zip-compressed'
