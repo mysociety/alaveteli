@@ -437,7 +437,7 @@ describe RequestController, "comment alerts" do
         # XXX check mail_url here somehow, can't call comment_url like this:
         # mail_url.should == comment_url(comments(:silly_comment))
 
-        STDERR.puts mail.body
+        #STDERR.puts mail.body
     end
 
 end
