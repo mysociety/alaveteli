@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.45 2008-08-29 10:33:45 francis Exp $
+# $Id: request_mailer.rb,v 1.46 2008-08-29 16:52:33 francis Exp $
 
 class RequestMailer < ApplicationMailer
     
@@ -262,10 +262,20 @@ class RequestMailer < ApplicationMailer
     # Send email alert to request submitter for new comments on the request.
     def self.alert_comment_on_request()
         #STDERR.puts "alert_comment_on_request"
+        
         # We only check comments made in the last month - this means if the
         # cron jobs broke for more than a month events would be lost, but no
         # matter. I suspect the performance gain will be needed (with an index on updated_at)
-        info_requests = InfoRequest.find(:all, :conditions => [ "(select count(*) from info_request_events where event_type = 'comment' and info_request_events.info_request_id = info_requests.id and created_at > ?) > 0", Time.now() - 1.month ], :include => [ { :info_request_events => :user_info_request_sent_alerts } ], :order => "info_requests.id" )
+        
+        # XXX the :order part info_request_events.created_at is a work around
+        # for a very old Rails bug which means eager loading does not respect
+        # association orders.
+        #   http://dev.rubyonrails.org/ticket/3438
+        #   http://lists.rubyonrails.org/pipermail/rails-core/2006-July/001798.html
+        # That that patch has not been applied, despite bribes of beer, is
+        # typical of the lack of quality of Rails.
+        
+        info_requests = InfoRequest.find(:all, :conditions => [ "(select count(*) from info_request_events where event_type = 'comment' and info_request_events.info_request_id = info_requests.id and created_at > ?) > 0", Time.now() - 1.month ], :include => [ { :info_request_events => :user_info_request_sent_alerts } ], :order => "info_requests.id, info_request_events.created_at" )
         for info_request in info_requests
             #STDERR.puts "considering request " + info_request.id.to_s
 
