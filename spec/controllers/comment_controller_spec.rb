@@ -42,7 +42,7 @@ describe CommentController, "when commenting on a request" do
 
         ActionMailer::Base.deliveries.size.should == 0
 
-        response.should redirect_to(:controller => 'request', :action => 'show', :url_title => info_requests(:naughty_chicken_request).url_title, :anchor => 'comment-' + comment.id.to_s)
+        response.should redirect_to(:controller => 'request', :action => 'show', :url_title => info_requests(:naughty_chicken_request).url_title)
     end
 
     it "should give an error if the same request is submitted twice" do
