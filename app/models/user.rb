@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user.rb,v 1.63 2008-08-27 00:52:07 francis Exp $
+# $Id: user.rb,v 1.64 2008-08-29 12:23:01 francis Exp $
 
 require 'digest/sha1'
 
@@ -165,6 +165,10 @@ class User < ActiveRecord::Base
     # Does the user magically gain powers as if they owned every request?
     # e.g. Can classify it
     def owns_every_request?
+        self.admin_level == 'super'
+    end
+    # Does the user get "(admin)" links on each page on the main site?
+    def admin_page_links?
         self.admin_level == 'super'
     end
 

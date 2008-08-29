@@ -16,11 +16,8 @@
     <h1><%=@title%></h1>
     <p class="subtitle">
         Joined WhatDoTheyKnow on <%= simple_date(@display_user.created_at) %>
-        <% if !@user.nil? && @user.owns_every_request? %>
+        <% if !@user.nil? && @user.admin_page_links? %>
         (<%= link_to "admin", user_admin_url(@display_user) %>)
-        <% end %>
-        <% if false # @display_user.owns_every_request? # should this be public? %>
-        and is a site admin.
         <% end %>
     </p>
 
