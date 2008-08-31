@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 62
+# Schema version: 64
 #
 # Table name: info_request_events
 #
@@ -13,6 +13,7 @@
 #  last_described_at   :datetime        
 #  incoming_message_id :integer         
 #  outgoing_message_id :integer         
+#  comment_id          :integer         
 #
 
 # models/info_request_event.rb:
@@ -20,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request_event.rb,v 1.53 2008-08-29 22:39:36 francis Exp $
+# $Id: info_request_event.rb,v 1.54 2008-08-31 12:46:52 francis Exp $
 
 class InfoRequestEvent < ActiveRecord::Base
     belongs_to :info_request

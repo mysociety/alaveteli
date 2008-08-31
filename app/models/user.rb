@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 62
+# Schema version: 64
 #
 # Table name: users
 #
@@ -13,6 +13,7 @@
 #  email_confirmed        :boolean         default(false), not null
 #  url_name               :text            not null
 #  last_daily_track_email :datetime        default(Sat Jan 01 00:00:00 UTC 2000)
+#  admin_level            :string(255)     default("none"), not null
 #
 
 # models/user.rb:
@@ -21,7 +22,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user.rb,v 1.64 2008-08-29 12:23:01 francis Exp $
+# $Id: user.rb,v 1.65 2008-08-31 12:46:53 francis Exp $
 
 require 'digest/sha1'
 

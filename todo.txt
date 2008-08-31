@@ -9,8 +9,6 @@ Site move:
 Next
 ====
 
-Test: Check new .zips are being indexed
-
 Comments interleaved with body
     - Annotation thing too far down when much sidebar e.g. http://localhost:3000/request/heya#outgoing-199
     - Put classification box above annotation one?
@@ -21,9 +19,6 @@ Comments interleaved with body
 
     - Show them on user page
     - Show them on public body pages
-
-http://www.whatdotheyknow.com/request/communications_about_whatdotheyk
-    Mask all emails from binary attachments
 
 Internal review status/marker?
     http://www.whatdotheyknow.com/request/search_engine_advertising_bought
@@ -44,6 +39,7 @@ Clear out all the need admin attention requests
 Clear out all the need classifying requests
 
 Admin:
+    Link to individual parts of FAQ
     Optimise loading of front admin page
     Have internal links to different parts of request page
     Somehow fold up the enormous pages on many admin pages
@@ -53,6 +49,9 @@ Search FAQ etc.
 Icon for annotations in search results
 
 Comments etc. do not sort in right order - by date, but not by time
+
+The form where you classify requests does not have bold highlighting on it in
+the key words. It is too verbose to read.
 
 Later
 =====
@@ -207,6 +206,7 @@ Quoting fixing TODO:
     http://www.whatdotheyknow.com/request/errors_in_list_of_postbox_locati#incoming-2272
     http://localhost:3000/request/cctv_data_retention_and_use#incoming-2093
     http://www.whatdotheyknow.com/request/stasi_activity_at_climate_camp#incoming-3362
+    http://www.whatdotheyknow.com/request/total_remuneration_and_benefits#incoming-2436
 
     http://www.whatdotheyknow.com/request/public_inspection_periods_for_lo_2#outgoing-1707 # square bracket in link
 
