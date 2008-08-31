@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.100 2008-08-31 12:46:15 francis Exp $
+# $Id: request_controller.rb,v 1.101 2008-08-31 16:02:25 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -293,7 +293,7 @@ class RequestController < ApplicationController
             raise sprintf("Incoming message %d does not belong to request %d", @incoming_message.info_request_id, @info_request.id)
         end
 
-        if !params[:submitted_followup].nil?
+        if !params[:submitted_followup].nil? && !params[:reedit]
             if @info_request.stop_new_responses
                 flash[:notice] = 'Your follow up has not been sent because this request has been stopped to prevent spam. Please <a href="/help/contact">contact us</a> if you really want to send a follow up message.'
             else
@@ -301,7 +301,13 @@ class RequestController < ApplicationController
                 @outgoing_message.info_request = @info_request
                 if !@outgoing_message.valid?
                     render :action => 'show_response'
-                elsif authenticated_as_user?(@info_request.user,
+                    return
+                end
+                if params[:preview].to_i == 1
+                    render :action => 'followup_preview'
+                    return
+                end
+                if authenticated_as_user?(@info_request.user,
                         :web => "To send your follow up message about your FOI request",
                         :email => "Then your follow up message to " + @info_request.public_body.name + " will be sent.",
                         :email_subject => "Confirm your FOI follow up message to " + @info_request.public_body.name

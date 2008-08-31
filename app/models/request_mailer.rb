@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.47 2008-08-29 16:54:38 francis Exp $
+# $Id: request_mailer.rb,v 1.48 2008-08-31 16:02:26 francis Exp $
 
 class RequestMailer < ApplicationMailer
     
@@ -29,9 +29,17 @@ class RequestMailer < ApplicationMailer
     # Separate function, so can be called from controller for logging
     def RequestMailer.name_and_email_for_followup(info_request, incoming_message_followup)
         if incoming_message_followup.nil?
-            @recipients = info_request.recipient_name_and_email
+            return info_request.recipient_name_and_email
         else
-            @recipients = incoming_message_followup.mail.from_addrs.to_s
+            return incoming_message_followup.mail.from_addrs.to_s
+        end
+    end
+    # Used in the preview of followup
+    def RequestMailer.name_for_followup(info_request, incoming_message_followup)
+        if incoming_message_followup.nil?
+            return info_request.public_body.name
+        else
+            return incoming_message_followup.safe_mail_from || info_request.recipient_name
         end
     end
 

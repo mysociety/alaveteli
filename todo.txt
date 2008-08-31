@@ -1,4 +1,5 @@
-Remove get_body_for_html_preview 
+Test with/ without followup message
+Check displays right name
 
 Site move:
     Install PostgresSQL 8.3
@@ -23,6 +24,8 @@ Grrr - so here I wanted to clarify my request, but don't want the timer to be re
 
 Clear out all the need admin attention requests
 Clear out all the need classifying requests
+
+Test data for Tony
 
 Admin:
     Have internal links to different parts of request page

@@ -49,7 +49,8 @@
 
             <p>
                 <%= hidden_field_tag 'submitted_followup', 1 %>
-                <%= submit_tag "Send public follow up message" %>
+                <%= hidden_field_tag(:preview, 1 ) %>
+                <%= submit_tag "Preview your follow up message" %>
             </p>
         <% end %>
 

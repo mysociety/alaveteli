@@ -1,0 +1,41 @@
+<% @title = "Preview follow up to '" + h(@info_request.public_body.name) + "'" %>
+
+<div id="followup">
+
+<% form_for(:outgoing_message, @outgoing_message, :html => { :id => 'preview_form' }, :url => (@incoming_message.nil? ? show_response_no_followup_url(:id => @info_request.id) : show_response_url(:id => @info_request.id, :incoming_message_id => @incoming_message.id)) + "#followup" ) do |o| %>
+    
+    <h1>Now preview your follow up</h1>
+    <ul>
+    <li>Check you haven't included any <strong>personal information</strong>.</li>
+    <li>Your follow up message will appear in <strong>search engines</strong></li>
+    </ul>
+
+    <% fields_for :outgoing_message do |o| %>
+
+        <div class="correspondence" id="outgoing-0">
+            <p class="preview_subject">
+                <strong>To:</strong> <%=h RequestMailer.name_for_followup(@info_request, @incoming_message) %>
+                <br><strong>Subject:</strong> <%=h @info_request.email_subject_followup %>
+            </p>
+
+            <div class="correspondence_text">
+                <p><%= @outgoing_message.get_body_for_html_display %></p>
+                <%= o.hidden_field(:body) %>
+            </div>
+
+            <p class="event_actions"> 
+            </p>
+        </div>
+    <% end %>
+
+    <p>
+    <%= hidden_field_tag(:submitted_followup, 1) %>
+    <%= hidden_field_tag(:preview, 0 ) %>
+    <%= submit_tag "Re-edit this follow up", :name => 'reedit' %>
+    <%= submit_tag "Send follow up message", :name => 'submit' %>
+    </p>
+
+<% end %>
+
+</div>
+
