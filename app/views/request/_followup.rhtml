@@ -37,11 +37,12 @@
             </p>
         <% end %>
 
-        <% form_for(:outgoing_message, @outgoing_message, :url => incoming_message.nil? ? show_response_no_followup_url(:id => @info_request.id) : show_response_url(:id => @info_request.id, :incoming_message_id => incoming_message.id)) do |o| %>
+        <% form_for(:outgoing_message, @outgoing_message, :html => { :id => 'followup_form' }, :url => incoming_message.nil? ? show_response_no_followup_url(:id => @info_request.id) : show_response_url(:id => @info_request.id, :incoming_message_id => incoming_message.id)) do |o| %>
             <p>
                 <%= o.text_area :body, :rows => 10, :cols => 55 %>
+                <br><script type="text/javascript">document.write('<input name="doSpell" type="button" value="Check spelling" onClick="openSpellChecker(document.getElementById(\'followup_form\').body);"/> (optional)')</script>
             </p>
-
+        
             <p>
                 <strong>Privacy warning:</strong> Your follow up message, and any response
                 to it, will also be displayed publically on this website.
