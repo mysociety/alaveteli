@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.99 2008-08-29 12:58:08 francis Exp $
+# $Id: request_controller.rb,v 1.100 2008-08-31 12:46:15 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -333,7 +333,7 @@ class RequestController < ApplicationController
 
         # Prevent spam to magic request address.
         # XXX Bit dodgy modifying a binary like this but hey. Maybe only do for some mime types?
-        @attachment.body = @incoming_message.binary_mask_special_emails(@attachment.body) 
+        @attachment.body = IncomingMessage.binary_mask_all_emails(@attachment.body) 
 
         response.content_type = 'application/octet-stream'
         if !@attachment.content_type.nil?

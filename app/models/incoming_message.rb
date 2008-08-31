@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 62
+# Schema version: 64
 #
 # Table name: incoming_messages
 #
@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.139 2008-08-29 23:13:30 francis Exp $
+# $Id: incoming_message.rb,v 1.140 2008-08-31 12:46:15 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -230,33 +230,32 @@ class IncomingMessage < ActiveRecord::Base
         return text
     end
 
-    # Replaces emails we know about in (possibly binary data) with equal length alternative ones.
-    def binary_mask_special_emails(text)
-        if info_request.public_body.is_requestable?
-            text = IncomingMessage.mask_string_multicharset(text, self.info_request.public_body.request_email)
+    # Replaces all email addresses in (possibly binary data) with equal length alternative ones.
+    def IncomingMessage.binary_mask_all_emails(text)
+        orig_size = text.size
+
+        # Replace ASCII email addresses...
+        text.gsub!(MySociety::Validate.email_find_regexp) do |email| 
+            email.gsub(/[^@.]/, 'x')
         end
-        text = IncomingMessage.mask_string_multicharset(text, self.info_request.incoming_email)
-        text = IncomingMessage.mask_string_multicharset(text, MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost'))
-        text = IncomingMessage.mask_string_multicharset(text, "foi" + "@" + "sandwich.ukcod.org.uk") # gets in some due to temporary bug
+
+        # And replace UCS-2 ones...
+        # Find emails, by finding them in parts of text that have ASCII
+        # equivalents to the UCS-2
+        ascii_chars = text.gsub(/\0/, "")
+        emails = ascii_chars.scan(MySociety::Validate.email_find_regexp)
+        # Convert back to UCS-2, making a mask at the same time
+        emails.map! {|email| [
+                Iconv.conv('ucs-2', 'ascii', email[0]), 
+                Iconv.conv('ucs-2', 'ascii', email[0].gsub(/[^@.]/, 'x'))
+        ] }
+        # Now search and replace the UCS-2 email with the UCS-2 mask
+        for email, mask in emails
+            text.gsub!(email, mask)
+        end
+
+        raise "internal error in binary_mask_all_emails" if text.size != orig_size
         return text
-    end
-    # Helper for binary_mask_special_emails. Masks out an email from some
-    # (binary) text, replacing with something of similar size. Does it for
-    # common fixed-width multibyte character sets used in word documents etc.
-    def IncomingMessage.mask_string_multicharset(text, email)
-        mask_with = email.gsub(/[^@.]/, 'X')
-        for encoding in ['ascii', 'ucs-2']
-            begin
-                email_enc = Iconv.conv(encoding, 'ascii', email)
-                mask_with_enc = Iconv.conv(encoding, 'ascii', mask_with)
-                # we musn't change size of the binary
-                raise "email/mask size mismatch in binary email mask" if email_enc.size != mask_with_enc.size
-                text = text.gsub(Regexp.new(email_enc, Regexp::IGNORECASE), mask_with_enc)
-            rescue Iconv::IllegalSequence, Iconv::InvalidEncoding
-                # just forget it, if not expressable in it
-            end
-        end
-        return text 
     end
 
     # Lotus notes quoting yeuch!
