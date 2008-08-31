@@ -1,6 +1,3 @@
-            for e in info_request.info_request_events.sort { |a,b| a.created_at <=> b.created_at}.reverse
-
-
 Site move:
     Install PostgresSQL 8.3
     Move database
@@ -9,17 +6,6 @@ Site move:
 Next
 ====
 
-Comments interleaved with body
-    - Annotation thing too far down when much sidebar e.g. http://localhost:3000/request/heya#outgoing-199
-    - Put classification box above annotation one?
-
-    - Flag bad comments
-    - Delete comments from admin interface
-    - Check annotation email alerts are working (e.g. when subscribed to a request)
-
-    - Show them on user page
-    - Show them on public body pages
-
 Internal review status/marker?
     http://www.whatdotheyknow.com/request/search_engine_advertising_bought
     http://www.whatdotheyknow.com/request/communications_from_home_office_
@@ -27,13 +13,11 @@ Internal review status/marker?
     http://www.whatdotheyknow.com/request/determination_of_pricing_for_pro#incoming-2902
     my own veolia request
     http://www.whatdotheyknow.com/request/online_petitions_documents_from
-    (search for it!)
+    http://www.whatdotheyknow.com/request/ombudsmans_case_load#comment-21
+    (search for phrase "internal review"!)
 Request withdrawn by user status/marker?
 Grrr - so here I wanted to clarify my request, but don't want the timer to be reset!
     http://www.whatdotheyknow.com/request/online_petitions_documents_from#incoming-3248
-
-user/show.rhtml sidebar vs. generic sidebar? (ask Tommy)
-There is grey on grey text in header? bad idea?
 
 Clear out all the need admin attention requests
 Clear out all the need classifying requests
@@ -52,6 +36,17 @@ Comments etc. do not sort in right order - by date, but not by time
 
 The form where you classify requests does not have bold highlighting on it in
 the key words. It is too verbose to read.
+
+Comments interleaved with body
+    - Annotation thing too far down when much sidebar e.g. http://localhost:3000/request/heya#outgoing-199
+    - Put classification box above annotation one?
+
+    - Flag bad comments
+    - Delete comments from admin interface
+    - Check annotation email alerts are working (e.g. when subscribed to a request)
+
+    - Show them on user page
+
 
 Later
 =====
@@ -207,6 +202,8 @@ Quoting fixing TODO:
     http://localhost:3000/request/cctv_data_retention_and_use#incoming-2093
     http://www.whatdotheyknow.com/request/stasi_activity_at_climate_camp#incoming-3362
     http://www.whatdotheyknow.com/request/total_remuneration_and_benefits#incoming-2436
+    http://www.whatdotheyknow.com/request/dual_british_and_israeli_nationa#incoming-3461
+    http://www.whatdotheyknow.com/request/council_functions_55#incoming-4099
 
     http://www.whatdotheyknow.com/request/public_inspection_periods_for_lo_2#outgoing-1707 # square bracket in link
 

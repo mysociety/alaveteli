@@ -22,7 +22,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user.rb,v 1.65 2008-08-31 12:46:53 francis Exp $
+# $Id: user.rb,v 1.66 2008-08-31 14:08:55 francis Exp $
 
 require 'digest/sha1'
 
@@ -38,6 +38,7 @@ class User < ActiveRecord::Base
     has_many :user_info_request_sent_alerts
     has_many :post_redirects
     has_many :track_things, :foreign_key => 'tracking_user_id', :order => 'created_at desc'
+    has_many :comments, :order => 'created_at desc'
 
     attr_accessor :password_confirmation
     validates_confirmation_of :password, :message =>"^Please enter the same password twice"

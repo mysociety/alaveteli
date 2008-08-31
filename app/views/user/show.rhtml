@@ -73,5 +73,19 @@
 
         <%= render :partial => 'request/request_listing', :locals => { :info_requests => @display_user.info_requests } %>
     <% end %>
+
+    <% if @display_user.comments.empty? %>
+        <h2><%= @is_you ? 'Your' : 'This person\'s' %> annotations</h2>
+        <p>None made.</p>
+    <% else %>
+        <h2>
+        <%= @is_you ? 'Your ' : "This person's " %>
+        <%=pluralize(@display_user.comments.size, "annotation") %>
+        </h2>
+
+        <% for comment in @display_user.comments %>
+            <%= render :partial => 'request/request_listing_via_event', :locals => { :event => comment.info_request_events[0], :info_request => comment.info_request } %>
+        <% end %>
+    <% end %>
 </div>
 
