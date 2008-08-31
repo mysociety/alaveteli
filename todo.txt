@@ -1,3 +1,5 @@
+Remove get_body_for_html_preview 
+
 Site move:
     Install PostgresSQL 8.3
     Move database
@@ -23,27 +25,21 @@ Clear out all the need admin attention requests
 Clear out all the need classifying requests
 
 Admin:
-    Link to individual parts of FAQ
-    Optimise loading of front admin page
     Have internal links to different parts of request page
     Somehow fold up the enormous pages on many admin pages
 
 Comments etc. do not sort in right order - by date, but not by time
 
-The form where you classify requests does not have bold highlighting on it in
-the key words. It is too verbose to read.
-
 CSS things
-    - Sidebar text overlapping on firefox
     - Annotation thing too far down when much sidebar e.g. http://localhost:3000/request/heya#outgoing-199
     - Put classification box above annotation one?
-    - Icon for annotations in search results
-
-Comments interleaved with body
-
-    - Flag bad comments
-    - Delete comments from admin interface
-
+    - Need Icon for annotations in search results
+    - Icon for government departments is too Parliamentary
+    - CSS error on all councils page on some browsers
+    - Right sidebar on requests page is too narrow
+    - Do what Richard suggested re. annotations look
+    - Sidebar text overlapping on Linux
+    - Login dialog CSS on Linux
 
 Merge workflow into one stream - find information, if you can't find it then request it.
     so just search is on front page, with popular stuff below a la Google Directory
@@ -55,13 +51,17 @@ Google search within website of authority.
 Show similar requests after you have filed yours - maybe on preview too.
 Use spelling correction for public bodies search (in addition to substring?)
 
+Flag bad comments, delete comments from admin interface
+
+Preview when sending followups - especially people need to see quoting/subject
+Spell checking for followups
 
 Later
 =====
 
 Search FAQ and other help pages with normal search
 
-Random request :)
+Jump to a random request :)
 
 VSD files vsdump - example in zip file
     http://www.whatdotheyknow.com/request/dog_control_orders#incoming-3510
@@ -88,12 +88,7 @@ Something to check which tags are used but aren't in PublicBody category lists
 When described state is edited in admin interface, automatically reset the flag
 for needs classification.
 
-Public body tags should perhaps be lowercase only :)
-
-.tif files are hard for people to view as multi page, consider automatically
-separating out the pages as separate links (to .png files or whatever)
-    http://www.whatdotheyknow.com/request/windsor_maidenhead_council_commo#incoming-1910
-Heck, may as well give thumbnails of all images, indeed all docs while you're at it :)
+Public body tags should perhaps be forced to be lowercase only :)
 
 In sidebar of request 
     Share this request on Facebook, by email etc.
@@ -109,8 +104,6 @@ Blog posts / Wikipedia articles about this request
     http://reportr.net/2008/04/24/bbc-spent-6m-to-develop-the-iplayer/
 Or just look at referrers as Julian says
 
-Alert you when someone you're tracking starts tracking another request
-
 Catch query parser error, e.g. for this query
     water NOT NEAR "water lane"
 Document such errors in acts_as_xapian
@@ -123,11 +116,10 @@ and "($days days to go)" to the due dates?  Saves people having to
 work out (in their heads or otherwise) how long they need to wait for
 a response. (Etienne) Use distance_of_time_in_words to do this
 
-Maybe set it up to email team@ website errors?
-
 Renaming public authorities will break alerts on them.
 
 Compress the emails in the database
+Don't store the cached text in backups
 
 Display current page (when not on first page), or perhaps range on both the
 /list pages, and on the /..../similar pages (maybe I missed it elsewhere too).
@@ -152,8 +144,6 @@ Offer option of one RSS feed with all things you are tracking in it. Maybe.
 
 Offer search on 404s
 
-Preview when sending followups - especially people need to see quoting/subject
-Spell checking for followups
 For followups, have radio button to say is it a new request or followup?
 
 Interface for when you change your email address - easier to do now with post_redirect.circumstance?
@@ -238,6 +228,12 @@ Editable user profile, including photo upload
 HTML versions of all attachments, so links like in GMail
     Somthing.doc
         20K   View as HTML   Open as a Google document   Download
+
+.tif files are hard for people to view as multi page, consider automatically
+separating out the pages as separate links (to .png files or whatever)
+    http://www.whatdotheyknow.com/request/windsor_maidenhead_council_commo#incoming-1910
+Heck, may as well give thumbnails of all images, indeed all docs while you're at it :)
+
 Julian's PDF excerpting thing for highlighting paragraphs
    and convert Word Docs to PDFs too
 

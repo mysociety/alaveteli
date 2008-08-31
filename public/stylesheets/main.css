@@ -610,20 +610,7 @@ div.pagination { text-align: center; padding-top: 0.3em;}
 	font-size: 0.9em;
 }
 
-	/* making the request preview look like the normal request view*/
-	p.outgoing_message_preview
-	{
-		display: block;
-		width: 36em;
-		float: left;
-		clear: both;
-		padding: 1em;
-		margin: 0 0.5em 1em 0;
-		border-color: #5F5F5F;
-		border-width: 1px;
-		border-style: solid;
-	}
-		#preview_form p {clear: both;}
+#preview_form p {clear: both;}
 
 div.correspondence
 {
@@ -673,6 +660,7 @@ div[id|="comment"] { }
 	
 .correspondence_text { margin: 0 1.2em 0 0.8em; }
 .comment_in_request_text { margin: 0 1.2em 0 0.8em; }
+.preview_subject { margin: 1em 1.2em 0 0.8em; }
 
 /*.event_bubble { margin: 3em 0 0 0; font-size: 0.9em;}*/
 

@@ -11,13 +11,21 @@
     </ul>
 
     <% fields_for :outgoing_message do |o| %>
-    <p class="outgoing_message_preview">
-        <strong>To:</strong> <%=h @info_request.public_body.name %>
-        <br><strong>Subject:</strong> <%=h @info_request.email_subject_request %>
-        <br><br>
-        <%= @outgoing_message.get_body_for_html_preview %>
-        <%= o.hidden_field(:body) %>
-    </p>
+
+        <div class="correspondence" id="outgoing-0">
+            <p class="preview_subject">
+                <strong>To:</strong> <%=h @info_request.public_body.name %>
+                <br><strong>Subject:</strong> <%=h @info_request.email_subject_request %>
+            </p>
+
+            <div class="correspondence_text">
+                <p><%= @outgoing_message.get_body_for_html_display %></p>
+                <%= o.hidden_field(:body) %>
+            </div>
+
+            <p class="event_actions"> 
+            </p>
+        </div>
     <% end %>
 
     <p><strong>Privacy note:</strong> If you want to request private information about
