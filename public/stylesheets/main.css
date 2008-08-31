@@ -598,6 +598,9 @@ div.pagination { text-align: center; padding-top: 0.3em;}
     font-size: 1.0em;
     color: #454545;
 }
+.requires_admin_details {
+    margin-left: 1.8em;
+}
 
 /*---------------- content : request detail pages */
 

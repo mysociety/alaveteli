@@ -1,6 +1,3 @@
-Test with/ without followup message
-Check displays right name
-
 Site move:
     Install PostgresSQL 8.3
     Move database
@@ -26,6 +23,11 @@ Clear out all the need admin attention requests
 Clear out all the need classifying requests
 
 Test data for Tony
+
+When forcing auth user for followups is a bit confusing/weird, does it really work?
+    Perhaps remove signout dialog and have signin instead?
+    Should we say auth for followups sooner as you have to be certain user?
+Display of login dialog to log in as particular user if you are logged out isn't centred nicely
 
 Admin:
     Have internal links to different parts of request page
@@ -56,8 +58,6 @@ Use spelling correction for public bodies search (in addition to substring?)
 
 Flag bad comments, delete comments from admin interface
 
-Preview when sending followups - especially people need to see quoting/subject
-Spell checking for followups
 
 Later
 =====

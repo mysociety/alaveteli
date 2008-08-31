@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.48 2008-08-31 16:02:26 francis Exp $
+# $Id: request_mailer.rb,v 1.49 2008-08-31 23:43:53 francis Exp $
 
 class RequestMailer < ApplicationMailer
     
@@ -56,13 +56,13 @@ class RequestMailer < ApplicationMailer
     end
 
     # An FOI response is outside the scope of the system, and needs admin attention
-    def requires_admin(info_request)
+    def requires_admin(info_request, details)
         @from = contact_from_name_and_email
         @recipients = @from
         @subject = "Unusual FOI response - " + info_request.title
         url = main_url(request_url(info_request))
         admin_url = request_admin_url(info_request)
-        @body = {:info_request => info_request, :url => url, :admin_url => admin_url }
+        @body = {:info_request => info_request, :url => url, :admin_url => admin_url, :details => details }
     end
 
     # Tell the requester that a new response has arrived

@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.134 2008-08-31 15:46:00 francis Exp $
+# $Id: info_request.rb,v 1.135 2008-08-31 23:43:53 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -308,7 +308,7 @@ public
     end
 
     # change status, including for last event for later historical purposes
-    def set_described_state(new_state)
+    def set_described_state(new_state, details = nil)
         ActiveRecord::Base.transaction do
             self.awaiting_description = false
             last_event = self.get_last_event
@@ -321,7 +321,10 @@ public
         self.calculate_event_states
 
         if new_state == 'requires_admin'
-            RequestMailer.deliver_requires_admin(self)
+            RequestMailer.deliver_requires_admin(self, details)
+        else
+            # XXX this chucks details if we are not moving to requires_admin -
+            # the user is not meant to have entered any.
         end
     end
 

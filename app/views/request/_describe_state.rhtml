@@ -21,7 +21,8 @@
             <label for="partially_successful<%=id_suffix%>">I've received <strong>some of the information</strong> that I asked for</label>
             <br>
             <%= radio_button "incoming_message", "described_state", "requires_admin", :id => 'requires_admin' + id_suffix %>
-            <label for="requires_admin<%=id_suffix%>"><strong>None</strong> of the above - e.g. add a new option here</label>
+            <label for="requires_admin<%=id_suffix%>"><strong>None</strong> of the above - enter quick summary here:</label>
+            <%= text_field "incoming_message", 'requires_admin_details', :class => 'requires_admin_details', :size => 60 %></p>
         </p>
         <p>Filling this in helps everyone track the progress of your request.
         </p>

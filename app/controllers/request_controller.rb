@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.101 2008-08-31 16:02:25 francis Exp $
+# $Id: request_controller.rb,v 1.102 2008-08-31 23:43:52 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -212,7 +212,7 @@ class RequestController < ApplicationController
             end
 
             # Make the state change
-            @info_request.set_described_state(params[:incoming_message][:described_state])
+            @info_request.set_described_state(params[:incoming_message][:described_state], params[:incoming_message][:requires_admin_details])
 
             # Display appropriate next page (e.g. help for complaint etc.)
             if @info_request.calculate_status == 'waiting_response'
@@ -241,7 +241,7 @@ class RequestController < ApplicationController
                 flash[:notice] = "Please write your follow up message containing the necessary clarifications below."
                 redirect_to show_response_url(:id => @info_request.id, :incoming_message_id => @events_needing_description[-1].params[:incoming_message_id])
             elsif @info_request.calculate_status == 'requires_admin'
-                flash[:notice] = "Thanks! The WhatDoTheyKnow team have been notified."
+                flash[:notice] = "Thanks! The WhatDoTheyKnow team have been notified. <a href=\"/help/contact\">Contact us</a> if you have more to say about how we should handle this."
                 redirect_to request_url(@info_request)
             else
                 raise "unknown calculate_status " + @info_request.calculate_status
