@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.133 2008-08-31 12:46:52 francis Exp $
+# $Id: info_request.rb,v 1.134 2008-08-31 15:46:00 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -151,7 +151,7 @@ public
         if self.public_body.url_name == 'general_register_office'
             'Re: ' + self.law_used_full + ' request GQ - ' + self.title
         else
-            self.law_used_full + ' request - ' + self.title
+            'Re: ' + self.law_used_full + ' request - ' + self.title
         end
     end
 
