@@ -829,6 +829,20 @@ div#about_sidebar
 	margin: 1.2em 0 1.2em 2em;
 }
 
+div#help_about dt a, div#help_about h1 a
+{
+    text-decoration: none;
+	font-size: 0.80em;
+    color: #fff;
+    background-color: #fff;
+}
+div#help_about dt:hover > a, div#help_about h1:hover > a {
+    color: #0000ee;
+}
+div#help_about dt:hover > a:hover, div#help_about h1:hover > a:hover {
+    text-decoration: underline;
+}
+
 /*---------------------------------- RSS and email alerts */
 
 div.feed_link img {

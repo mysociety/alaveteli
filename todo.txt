@@ -28,28 +28,38 @@ Admin:
     Have internal links to different parts of request page
     Somehow fold up the enormous pages on many admin pages
 
-Search FAQ etc.
-
-Icon for annotations in search results
-
 Comments etc. do not sort in right order - by date, but not by time
 
 The form where you classify requests does not have bold highlighting on it in
 the key words. It is too verbose to read.
 
-Comments interleaved with body
+CSS things
+    - Sidebar text overlapping on firefox
     - Annotation thing too far down when much sidebar e.g. http://localhost:3000/request/heya#outgoing-199
     - Put classification box above annotation one?
+    - Icon for annotations in search results
+
+Comments interleaved with body
 
     - Flag bad comments
     - Delete comments from admin interface
-    - Check annotation email alerts are working (e.g. when subscribed to a request)
 
-    - Show them on user page
+
+Merge workflow into one stream - find information, if you can't find it then request it.
+    so just search is on front page, with popular stuff below a la Google Directory
+Shamefully your incremental search, make it as nice as Matthew's i.e. 
+    - have actual space in layout for full list rather than pop down.
+    - show things beginning with the term first, separated visually
+    - highlight the parts which match
+Google search within website of authority.
+Show similar requests after you have filed yours - maybe on preview too.
+Use spelling correction for public bodies search (in addition to substring?)
 
 
 Later
 =====
+
+Search FAQ and other help pages with normal search
 
 Random request :)
 
@@ -222,16 +232,6 @@ we found largely by accident.
 
 Rate limit requests using Ratty, with a freeze thing WTT-style, to detect
 vexatious requests.
-
-Merge workflow into one stream - find information, if you can't find it then request it.
-    so just search is on front page, with popular stuff below a la Google Directory
-Shamefully your incremental search, make it as nice as Matthew's i.e. 
-    - have actual space in layout for full list rather than pop down.
-    - show things beginning with the term first, separated visually
-    - highlight the parts which match
-Google search within website of authority.
-Show similar requests after you have filed yours - maybe on preview too.
-Use spelling correction for public bodies search (in addition to substring?)
 
 Editable user profile, including photo upload
 
