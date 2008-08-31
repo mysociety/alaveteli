@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request_event.rb,v 1.54 2008-08-31 12:46:52 francis Exp $
+# $Id: info_request_event.rb,v 1.55 2008-08-31 13:08:24 francis Exp $
 
 class InfoRequestEvent < ActiveRecord::Base
     belongs_to :info_request
@@ -69,6 +69,7 @@ class InfoRequestEvent < ActiveRecord::Base
         :terms => [ [ :calculated_state, 'S', "status" ],
                 [ :requested_by, 'B', "requested_by" ],
                 [ :requested_from, 'F', "requested_from" ],
+                [ :commented_by, 'C', "commented_by" ],
                 [ :request, 'R', "request" ],
                 [ :variety, 'V', "variety" ],
                 [ :filetype, 'T', "filetype" ]
@@ -81,6 +82,13 @@ class InfoRequestEvent < ActiveRecord::Base
     end
     def requested_from
         self.info_request.public_body.url_name
+    end
+    def commented_by
+        if self.event_type == 'comment'
+            self.comment.user.url_name
+        else
+            return ''
+        end
     end
     def request
         self.info_request.url_title

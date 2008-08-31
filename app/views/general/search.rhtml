@@ -93,6 +93,7 @@
     <li>Type <strong>status:</strong> to select based on the status or historical status of the request, see table below.
     <li><strong>requested_from:home_office</strong> to restrict to requests from the <%= link_to "Home Office", show_public_body_url(:url_name => 'home_office') %>, typing the name as in the URL.
     <li><strong>requested_by:julian_todd</strong> to restrict to requests made by <%= link_to "Julian Todd", show_user_url(:url_name => 'julian_todd') %>, typing the name as in the URL.
+    <li><strong>commented_by:tony_bowden</strong> to search annotations made by <%= link_to "Tony Bowden", show_user_url(:url_name => 'tony_bowden') %>, typing the name as in the URL.
     <li><strong>request:</strong> to restrict to a specific request, typing the title as in the URL.
     <li><strong>filetype:pdf</strong> to find all responses with PDF attachments. Or try these: <%= IncomingMessage.get_all_file_extentions%>.
     <li>Type <strong>01/01/2008..14/01/2008</strong> to only show things that happened in the first two weeks of January.
