@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.49 2008-08-31 23:43:53 francis Exp $
+# $Id: request_mailer.rb,v 1.50 2008-09-01 15:10:17 francis Exp $
 
 class RequestMailer < ApplicationMailer
     
@@ -39,7 +39,7 @@ class RequestMailer < ApplicationMailer
         if incoming_message_followup.nil?
             return info_request.public_body.name
         else
-            return incoming_message_followup.safe_mail_from || info_request.recipient_name
+            return incoming_message_followup.safe_mail_from || info_request.public_body.name
         end
     end
 
