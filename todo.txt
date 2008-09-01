@@ -52,17 +52,13 @@ Comments etc. do not sort in right order - by date, but not by time
 Perhaps show grouping count?
 http://www.whatdotheyknow.com/search/variety:comment/newest
 
-Try changing "email me" link to something else?
+Try changing "email me" link to something else like "track by email"
 
 CSS things
-    - Annotation thing too far down when much sidebar e.g. http://localhost:3000/request/heya#outgoing-199
-    - Put classification box above annotation one?
     - Need Icon for annotations in search results
     - Icon for government departments is too Parliamentary
-    - CSS error on all councils page on some browsers
+    - CSS error on "all councils" page on some browsers
     - Right sidebar on requests page is too narrow
-    - Do what Richard suggested re. annotations look
-        see e.g. http://www.whatdotheyknow.com/request/excessive_use_of_speed_by_police
     - Sidebar text overlapping on Linux
     - Login dialog CSS on Linux
 
