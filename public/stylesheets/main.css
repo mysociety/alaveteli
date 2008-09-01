@@ -615,6 +615,10 @@ div.pagination { text-align: center; padding-top: 0.3em;}
 	margin: 0 0 0 0.6em;
 	font-size: 0.9em;
 }
+#request_main, #show_response_view
+{
+    width: 35em;
+}
 
 #preview_form p {clear: both;}
 
