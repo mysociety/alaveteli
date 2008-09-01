@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.50 2008-09-01 15:10:17 francis Exp $
+# $Id: request_mailer.rb,v 1.51 2008-09-01 16:09:18 francis Exp $
 
 class RequestMailer < ApplicationMailer
     
@@ -31,7 +31,7 @@ class RequestMailer < ApplicationMailer
         if incoming_message_followup.nil?
             return info_request.recipient_name_and_email
         else
-            return incoming_message_followup.mail.from_addrs.to_s
+            return incoming_message_followup.mail.from_addrs[0].quoted_full
         end
     end
     # Used in the preview of followup
@@ -46,7 +46,7 @@ class RequestMailer < ApplicationMailer
     # Incoming message arrived for a request, but new responses have been stopped.
     def stopped_responses(info_request, email)
         @from = contact_from_name_and_email
-        @recipients = email.from_addrs.to_s
+        @recipients = email.from_addrs[0].quoted_full
         @subject = "Your response to an FOI request was not delivered"
         email.setup_forward(self)
         @body = { 

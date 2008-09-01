@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.140 2008-08-31 12:46:15 francis Exp $
+# $Id: incoming_message.rb,v 1.141 2008-09-01 16:09:18 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -52,6 +52,28 @@ module TMail
                 return self.friendly_from
             else 
                 return nil
+            end
+        end
+
+    end
+
+    class Address
+        # Monkeypatch!
+        def Address.encode_quoted_string(text)
+            if text.match(/[^A-Za-z0-9!#\$%&'*+\-\/=?^_`{|}~]/)
+                # Contains characters which aren't valid in atoms, so make a
+                # quoted-pair instead.
+                text.gsub!(/(["\\])/, "\\\\\\1")
+                text = '"' + text + '"'
+            end
+            return text
+        end
+
+        def quoted_full
+            if self.name
+                Address.encode_quoted_string(self.name) + " <" + self.spec + ">"
+            else
+                self.spec
             end
         end
     end

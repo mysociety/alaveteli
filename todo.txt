@@ -1,5 +1,9 @@
-Test data for Tony
 Check email address of replies
+    - validate the email address itself
+    - and fix parser bug for @ in prefix
+    - maybe use subject in followup
+
+Test data for Tony
 
 Site move:
     Install PostgresSQL 8.3
@@ -8,6 +12,9 @@ Site move:
 
 Next
 ====
+
+Add no robots to requested similar to stop google scanning
+    use HTML meta 
 
 Internal review status/marker?
     http://www.whatdotheyknow.com/request/search_engine_advertising_bought
@@ -33,6 +40,7 @@ Payment required
 Request withdrawn by user status/marker?
 Grrr - so here I wanted to clarify my request, but don't want the timer to be reset!
     http://www.whatdotheyknow.com/request/online_petitions_documents_from#incoming-3248
+Perhaps encourage user to annotate what they learnt after getting information?
 
 Clear out all the need admin attention requests
 Clear out all the need classifying requests
@@ -55,12 +63,9 @@ http://www.whatdotheyknow.com/search/variety:comment/newest
 Try changing "email me" link to something else like "track by email"
 
 CSS things
+    - CSS error on "all councils" page on some browsers
     - Need Icon for annotations in search results
     - Icon for government departments is too Parliamentary
-    - CSS error on "all councils" page on some browsers
-    - Right sidebar on requests page is too narrow
-    - Sidebar text overlapping on Linux
-    - Login dialog CSS on Linux
 
 Merge workflow into one stream - find information, if you can't find it then request it.
     so just search is on front page, with popular stuff below a la Google Directory
@@ -79,6 +84,7 @@ Later
 =====
 
 Search FAQ and other help pages with normal search
+    - also the "notes" section on an authority
 
 Jump to a random request :)
 
@@ -144,6 +150,9 @@ Display current page (when not on first page), or perhaps range on both the
 /list pages, and on the /..../similar pages (maybe I missed it elsewhere too).
 Should make a general will_paginate like function to do this part, and call
 that from /search (which has this already) too.
+Paginate request listing (and other things!) on user page, and on public
+authority page.  
+http://www.whatdotheyknow.com/user/stuart_hardwicke_carruthers
 
 Check this again after a while, for dodgy states of events:
 s = InfoRequest.find(:all).select { |i| (not i.awaiting_description) and i.get_last_response_event_id and InfoRequestEvent.find(i.get_last_response_event_id).calculated_state != i.described_state }; s.size
@@ -224,6 +233,9 @@ Quoting fixing TODO:
     http://www.whatdotheyknow.com/request/dual_british_and_israeli_nationa#incoming-3461
     http://www.whatdotheyknow.com/request/council_functions_55#incoming-4099
     http://www.whatdotheyknow.com/request/public_safety_consequential_to_c#incoming-1586
+    http://www.whatdotheyknow.com/request/functions_council_43#incoming-4509
+    http://www.whatdotheyknow.com/request/york_road_tube_re_opening_feasib#incoming-3509
+    http://www.whatdotheyknow.com/request/controlled_drinking_zones_5#incoming-4210
 
     http://www.whatdotheyknow.com/request/public_inspection_periods_for_lo_2#outgoing-1707 # square bracket in link
 
