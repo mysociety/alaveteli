@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.51 2008-09-01 16:09:18 francis Exp $
+# $Id: request_mailer.rb,v 1.52 2008-09-01 16:14:01 francis Exp $
 
 class RequestMailer < ApplicationMailer
     
@@ -318,16 +318,16 @@ class RequestMailer < ApplicationMailer
                 store_sent.alert_type = 'comment_1'
                 store_sent.info_request_event_id = last_comment_event.id
                 if count > 1
-                    STDERR.puts "sending multiple comment on request alert to info_request " + info_request.id.to_s + " user " + info_request.user_id.to_s + " count " + count.to_s + " earliest "  + earliest_unalerted_comment_event.id.to_s
+                    #STDERR.puts "sending multiple comment on request alert to info_request " + info_request.id.to_s + " user " + info_request.user_id.to_s + " count " + count.to_s + " earliest "  + earliest_unalerted_comment_event.id.to_s
                     RequestMailer.deliver_comment_on_alert_plural(info_request, count, earliest_unalerted_comment_event.comment)
                 elsif count == 1
-                    STDERR.puts "sending comment on request alert to info_request " + info_request.id.to_s + " user " + info_request.user_id.to_s + " event " + last_comment_event.id.to_s
+                    #STDERR.puts "sending comment on request alert to info_request " + info_request.id.to_s + " user " + info_request.user_id.to_s + " event " + last_comment_event.id.to_s
                     RequestMailer.deliver_comment_on_alert(info_request, last_comment_event.comment)
                 else
                     raise "internal error"
                 end
                 store_sent.save!
-                STDERR.puts "sent " + info_request.user.email
+                #STDERR.puts "sent " + info_request.user.email
             end
         end
     end
