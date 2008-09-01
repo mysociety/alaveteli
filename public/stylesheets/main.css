@@ -221,7 +221,7 @@ body
 	top: 100px;
 	padding: 0px;
 	margin: 0px auto 1.2em auto;
-	width: 50em;
+	width: 53em;
 	/* = 800px at default size? so 1em = 16px*/
 	text-align: left;
 	overflow: auto;
@@ -267,7 +267,7 @@ dt
 	font-weight: bold;
 
 }
-dd { margin: 0.6em 0 2em 4em; width: 30em; }
+dd { margin: 0.6em 0 2em 4em; width: 33em; }
 
 /*---------------- content : recent requests sidebar */
 #find_information
@@ -357,7 +357,7 @@ dd { margin: 0.6em 0 2em 4em; width: 30em; }
 	#request_sidebar .request_listing span.desc
 	 /* sidebar request list only */
 	{
-		width: 9.9em;
+		width: 12.9em;
 		background-image: url(../images/navimg/quote-open-small.png);
 		background-repeat: no-repeat;
 		background-position: 0 0;
@@ -443,7 +443,7 @@ dd { margin: 0.6em 0 2em 4em; width: 30em; }
 		.request_listing span.bottomline
 		 /* full page request list only */
 		{
-			width: 30em;
+			width: 33em;
 			margin: 0 0 0.6em 0;
 			background-repeat: no-repeat;
 			background-position: left center;
@@ -602,7 +602,7 @@ div.pagination { text-align: center; padding-top: 0.3em;}
 }
 .requires_admin_details {
     margin-left: 1.8em;
-    width: 30em;
+    width: 40em;
 }
 
 /*---------------- content : request detail pages */
@@ -611,7 +611,7 @@ div.pagination { text-align: center; padding-top: 0.3em;}
 {
 	float: right;
 	clear: none;
-	width: 9em;
+	width: 12em;
 	margin: 0 0 0 0.6em;
 	font-size: 0.9em;
 }
