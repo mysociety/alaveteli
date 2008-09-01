@@ -659,7 +659,10 @@ div[id|="incoming"] { background-color: #E7E7E7; font-family: Times New Roman, T
 	div[id|="incoming"] p { font-size: 1.08em;}
 
 div[id|="comment"] { }
-	div[id|="comment"] p { font-size: 0.95em;}
+	div[id|="comment"] { margin-left: 2em; width: 35em; }
+	div[id|="comment"] p { font-size: 0.8em;}
+	div[id|="comment"] h2 { font-size: 0.8em; text-align: left; margin-left: 1em; }
+.comment_quote { float: left; margin-right: 0.6em; }
 	
 .correspondence_text { margin: 0 1.2em 0 0.8em; }
 .comment_in_request_text { margin: 0 1.2em 0 0.8em; }

@@ -1,10 +1,10 @@
 <div class="comment_in_request" id="comment-<%=comment.id.to_s%>">
     <h2>
-        Annotation by <%= comment.user ? user_link(comment.user) : 'you' %> 
-        <br><br><%= simple_date(comment.created_at || Time.now) %>
+        <%= comment.user ? user_link(comment.user) : 'You' %> 
+        left an annotation (<%= simple_date(comment.created_at || Time.now) %>)
     </h2>
     <div class="comment_in_request_text"> 
-        <%= comment.get_body_for_html_display %>
+        <p><img class="comment_quote" src="/images/quote.png" alt=""><%= comment.get_body_for_html_display %></p>
     </div>
     <p class="event_actions">
         <% if !comment.id.nil? %>

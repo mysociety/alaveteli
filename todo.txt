@@ -1,3 +1,6 @@
+Test data for Tony
+Check email address of replies
+
 Site move:
     Install PostgresSQL 8.3
     Move database
@@ -8,21 +11,31 @@ Next
 
 Internal review status/marker?
     http://www.whatdotheyknow.com/request/search_engine_advertising_bought
-    http://www.whatdotheyknow.com/request/communications_from_home_office_
+    http://www.whatdotheyknow.com/request/communications_from_home_office
     http://www.whatdotheyknow.com/request/crime_investigation_following_al
     http://www.whatdotheyknow.com/request/determination_of_pricing_for_pro#incoming-2902
     my own veolia request
     http://www.whatdotheyknow.com/request/online_petitions_documents_from
     http://www.whatdotheyknow.com/request/ombudsmans_case_load#comment-21
     (search for phrase "internal review"!)
+
+Request mailed by post to user (maybe), and not uploaded
+    http://www.whatdotheyknow.com/request/archaeology_south_easts_responsi
+    http://www.whatdotheyknow.com/request/contract_signed_with_donarbon_wa
+    http://www.whatdotheyknow.com/request/bradford_city_council_common_pur
+Postal address required, but not yet provided
+    http://www.whatdotheyknow.com/request/copies_of_foi_requests_000108_to
+    http://www.whatdotheyknow.com/request/re_issuing_of_foi_decision_notic (and partially successful)
+    http://www.whatdotheyknow.com/request/controlled_drinking_zones_21
+Payment required
+    http://www.whatdotheyknow.com/request/staff_absences_due_to_long_term
+
 Request withdrawn by user status/marker?
 Grrr - so here I wanted to clarify my request, but don't want the timer to be reset!
     http://www.whatdotheyknow.com/request/online_petitions_documents_from#incoming-3248
 
 Clear out all the need admin attention requests
 Clear out all the need classifying requests
-
-Test data for Tony
 
 When forcing auth user for followups is a bit confusing/weird, does it really work?
     Perhaps remove signout dialog and have signin instead?
@@ -35,6 +48,12 @@ Admin:
 
 Comments etc. do not sort in right order - by date, but not by time
 
+"Excessive use of speed by Police vehicles." appears only once, even though multiple annotations.
+Perhaps show grouping count?
+http://www.whatdotheyknow.com/search/variety:comment/newest
+
+Try changing "email me" link to something else?
+
 CSS things
     - Annotation thing too far down when much sidebar e.g. http://localhost:3000/request/heya#outgoing-199
     - Put classification box above annotation one?
@@ -43,6 +62,7 @@ CSS things
     - CSS error on all councils page on some browsers
     - Right sidebar on requests page is too narrow
     - Do what Richard suggested re. annotations look
+        see e.g. http://www.whatdotheyknow.com/request/excessive_use_of_speed_by_police
     - Sidebar text overlapping on Linux
     - Login dialog CSS on Linux
 
@@ -207,6 +227,7 @@ Quoting fixing TODO:
     http://www.whatdotheyknow.com/request/total_remuneration_and_benefits#incoming-2436
     http://www.whatdotheyknow.com/request/dual_british_and_israeli_nationa#incoming-3461
     http://www.whatdotheyknow.com/request/council_functions_55#incoming-4099
+    http://www.whatdotheyknow.com/request/public_safety_consequential_to_c#incoming-1586
 
     http://www.whatdotheyknow.com/request/public_inspection_periods_for_lo_2#outgoing-1707 # square bracket in link
 
