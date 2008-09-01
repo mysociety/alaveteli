@@ -26,7 +26,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: post_redirect.rb,v 1.38 2008-08-31 12:46:52 francis Exp $
+# $Id: post_redirect.rb,v 1.39 2008-09-01 03:44:18 francis Exp $
 
 require 'openssl' # for random bytes function
 
@@ -92,7 +92,7 @@ class PostRedirect < ActiveRecord::Base
 
     # Called from cron job delete-old-post-redirects
     def self.delete_old_post_redirects
-        PostRedirect.delete_all "now() - updated_at > '1 year'"        
+        PostRedirect.delete_all "now() - updated_at > '6 months'"        
     end
 
 end
