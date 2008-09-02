@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.135 2008-08-31 23:43:53 francis Exp $
+# $Id: info_request.rb,v 1.136 2008-09-02 17:59:40 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -237,9 +237,9 @@ public
     end
 
     # A new incoming email to this request
-    def receive(email, raw_email)
+    def receive(email, raw_email, override_stop_new_responses = false)
         # See if new responses are prevented for spam reasons
-        if self.stop_new_responses
+        if self.stop_new_responses && !override_stop_new_responses
             RequestMailer.deliver_stopped_responses(self, email)
             return
         end

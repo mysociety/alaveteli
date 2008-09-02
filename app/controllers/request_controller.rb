@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.104 2008-09-02 17:44:14 francis Exp $
+# $Id: request_controller.rb,v 1.105 2008-09-02 17:59:39 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -379,7 +379,7 @@ class RequestController < ApplicationController
             end
 
             mail = RequestMailer.create_fake_response(@info_request, @user, body, file_name, file_content)
-            @info_request.receive(mail, mail.encoded)
+            @info_request.receive(mail, mail.encoded, true)
             flash[:notice] = "Thank you for responding to this FOI request! Your response has been published below, and a link to your response has been emailed to " + CGI.escapeHTML(@info_request.user.name) + "."
             redirect_to request_url(@info_request)
             return

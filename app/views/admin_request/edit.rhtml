@@ -10,7 +10,7 @@
    <p><label for="info_request_prominence">Prominence</label> (whether is shown in lists of requests / search or not)<br/>
    <%= select( 'info_request', "prominence", { "normal" => "normal", "backpage" => "backpage"}) %>
 
-   <p><label for="info_request_stop_new_responses">Stop new responses</label> (use this on requests getting spam, but also work out how the email leaked and plug it)<br/>
+   <p><label for="info_request_stop_new_responses">Stop new responses</label> (by email; use this on requests getting spam, but also work out how the email leaked and plug it)<br/>
    <%= select('info_request', "stop_new_responses", [["Yes - stop new responses",true],["No - allow new responses",false]]) %>
    </p>
 
