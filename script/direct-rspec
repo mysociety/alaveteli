@@ -1,0 +1,8 @@
+#!/bin/bash
+
+./vendor/plugins/rspec/bin/spec $1
+
+# spec/controllers/request_controller_spec.rb
+
+#ruby -I/home/francis/keep/devel/mysociety/foi/vendor/plugins/rspec/lib /home/francis/keep/devel/mysociety/foi/vendor/plugins/rspec/bin/spec spec/controllers/admin_public_body_controller_spec.rb spec/controllers/application_spec.rb spec/controllers/request_controller_spec.rb spec/controllers/user_controller_spec.rb spec/controllers/admin_controller_spec.rb spec/controllers/body_controller_spec.rb spec/models/incoming_message_spec.rb spec/models/user_spec.rb spec/models/request_mailer_spec.rb spec/models/post_redirect_spec.rb spec/models/public_body_spec.rb spec/models/info_request_spec.rb spec/models/user_mailer_spec.rb spec/models/outgoing_message_spec.rb --options /home/francis/keep/devel/mysociety/foi/spec/spec.opts
+
