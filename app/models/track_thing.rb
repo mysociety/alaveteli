@@ -21,7 +21,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_thing.rb,v 1.38 2008-08-31 12:46:53 francis Exp $
+# $Id: track_thing.rb,v 1.39 2008-09-02 23:50:27 francis Exp $
 
 class TrackThing < ActiveRecord::Base
     belongs_to :tracking_user, :class_name => 'User'
@@ -47,6 +47,25 @@ class TrackThing < ActiveRecord::Base
         'email_daily', 
         'feed'
     ]
+
+    def TrackThing.track_type_description(track_type)
+        if track_type == 'request_updates'
+            "Individual requests"
+        elsif track_type == 'all_new_requests' || track_type == "all_successful_requests"
+            "Many requests"
+        elsif track_type == 'public_body_updates'
+            "Public authorities"
+        elsif track_type == 'user_updates'
+            "People"
+        elsif track_type == 'search_query'
+            "Search queries"
+        else
+            raise "internal error " + track_type
+        end
+    end
+    def track_type_description
+        TrackThing.track_type_description(self.track_type)
+    end
 
     def TrackThing.create_track_for_request(info_request)
         track_thing = TrackThing.new

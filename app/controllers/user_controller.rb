@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user_controller.rb,v 1.54 2008-08-21 01:26:11 francis Exp $
+# $Id: user_controller.rb,v 1.55 2008-09-02 23:50:27 francis Exp $
 
 class UserController < ApplicationController
     # Show page about a user
@@ -25,6 +25,10 @@ class UserController < ApplicationController
         # Track corresponding to this page
         @track_thing = TrackThing.create_track_for_user(@display_user)
         @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss] } ]
+
+        # All tracks for the user
+        @track_things = TrackThing.find(:all, :conditions => ["tracking_user_id = ? and track_medium = ?", @display_user.id, 'email_daily'], :order => 'created_at desc')
+        @track_things_grouped = @track_things.group_by(&:track_type_description)
     end
 
     # Login form

@@ -35,16 +35,20 @@
         </p>
     <% end %>
 
-    <% track_things = TrackThing.find(:all, :conditions => ["tracking_user_id = ? and track_medium = ?", @display_user.id, 'email_daily'], :order => 'created_at desc') %>
-    <% if @is_you and not track_things.empty? %>
+    <% if @is_you and not @track_things.empty? %>
         <h2>
-        Your <%=pluralize(track_things.size, "email subscription") %>
+            Your <%=pluralize(@track_things.size, "email subscription") %>
         </h2>
+        <% for track_type_description, track_things in @track_things_grouped %>
+            <% if @track_things_grouped.size > 1 %>
+            <h3>
+                <%=track_type_description%>
+            </h3>
+            <% end %>
 
-        <ul>
-        <% for track_thing in track_things %>
-            <li>
-                <% if @is_you %>
+            <ul>
+            <% for track_thing in track_things %>
+                <li>
                     <% form_tag :controller => 'track', :action => 'update', :track_id => track_thing.id do %>
                         <%= track_thing.params[:list_description] %> 
                         <%= hidden_field_tag 'track_medium', "delete" %>
@@ -52,12 +56,10 @@
                         <%= submit_tag "unsubscribe" %>
                     <% end %>
                     <!-- (<%= link_to "view latest updates", :controller => 'general', :action => 'search', :query => track_thing.track_query %>) -->
-                <% else %>
-                    <%= track_thing.params[:list_description] %>
-                <% end %>
-            </li>
+                </li>
+            <% end %>
+            </ul>
         <% end %>
-        </ul>
     <% end %>
 
     <% if @display_user.info_requests.empty? %>
