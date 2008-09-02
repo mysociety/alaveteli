@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_request_controller.rb,v 1.16 2008-07-28 18:04:38 francis Exp $
+# $Id: admin_request_controller.rb,v 1.17 2008-09-02 17:44:14 francis Exp $
 
 class AdminRequestController < ApplicationController
     layout "admin"
@@ -140,6 +140,42 @@ class AdminRequestController < ApplicationController
 
         flash[:notice] = "Message has been moved to this request"
         redirect_to request_admin_url(destination_request)
+    end
+
+    def generate_upload_url
+        info_request = InfoRequest.find(params[:id])
+
+        if params[:incoming_message_id]
+            incoming_message = IncomingMessage.find(params[:incoming_message_id])
+            email = incoming_message.mail.from_addrs[0].address
+            name = incoming_message.safe_mail_from || info_request.public_body.name
+        else
+            email = info_request.public_body.request_email
+            name = info_request.public_body.name
+        end
+
+        user = User.find_user_by_email(email)
+        if not user
+            user = User.new(:name => name, :email => email, :password => PostRedirect.generate_random_token)
+            user.save!
+        end
+
+        if !info_request.public_body.is_foi_officer?(user)
+            flash[:notice] = user.email + " is not an email at the domain @" + info_request.public_body.foi_officer_domain_required + ", so won't be able to upload."
+            redirect_to request_admin_url(info_request)
+            return
+        end
+
+        # Bejeeps, look, sometimes a URL is something that belongs in a model, jesus.
+        # XXX hammer this square peg into the round MVC hole - should be calling main_url(upload_response_url())
+        post_redirect = PostRedirect.new(
+            :uri => upload_response_url(:url_title => info_request.url_title),
+            :user_id => user.id)
+        post_redirect.save!
+        url = confirm_url(:email_token => post_redirect.email_token)
+
+        flash[:notice] = 'Send "' + name + '" &lt;<a href="mailto:' + email + '">' + email + '</a>&gt; this URL: <a href="' + url + '">' + url + "</a> - it will log them in and let them upload a response to this request."
+        redirect_to request_admin_url(info_request)
     end
 
     private

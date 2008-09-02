@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.102 2008-08-31 12:46:52 francis Exp $
+# $Id: public_body.rb,v 1.103 2008-09-02 17:44:14 francis Exp $
 
 require 'csv'
 require 'set'
@@ -364,6 +364,28 @@ class PublicBody < ActiveRecord::Base
         end
 
         return [errors, notes]
+    end
+
+    # Does this user have the power of FOI officer for this body?
+    def is_foi_officer?(user)
+        user_domain = user.email
+        user_domain =~ /@(.*)/
+        user_domain = $1
+
+        our_domain = self.request_email
+        our_domain =~ /@(.*)/
+        our_domain = $1
+
+        if user_domain.nil? or our_domain.nil?
+            return false
+        end
+
+        return our_domain == user_domain
+    end
+    def foi_officer_domain_required
+        our_domain = self.request_email
+        our_domain =~ /@(.*)/
+        return $1
     end
 
 end

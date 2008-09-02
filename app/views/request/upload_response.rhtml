@@ -1,0 +1,34 @@
+<% @title = "Upload a response to the FOI request '" + h(@info_request.title) + "' made by " + h(@info_request.user.name) %>
+
+<%= foi_error_messages_for :comment %>
+
+<h1>Upload a response to the FOI request '<%=request_link(@info_request)%>' made by <%=user_link(@info_request.user) %></h1>
+
+<% form_tag '', :html => { :id => 'upload_response_form' }, :multipart => true do %>
+    <p>
+        Your response will <strong>appear on the Internet</strong>, <a href="http://localhost:3000/help/about#officers">read why</a> and answers to other questions.
+    </p>
+
+    <p>
+        <label class="form_label" for="upload_response_body">Message (to go with file):</label> 
+        <%= text_area_tag :body, "", :size => "55x10" %>
+    </p>
+
+    <p>
+	    <label class="form_label" for="outgoing_message_body">File to upload (optional):</label> 
+        <%= file_field_tag :file_1, :size => 35 %>
+    </p>
+
+    <p>
+        <%= hidden_field_tag 'submitted_upload_response', 1 %>
+        <%= submit_tag "Upload FOI response" %>
+        (<strong>patience</strong>, especially for large files, it may take a while!)
+    </p>
+
+    <p>If you prefer, you may send responses to this FOI request by email to
+    <a href="mailto:<%=h @info_request.incoming_email%>"><%=h @info_request.incoming_email%></a>.
+    </p>
+
+<% end %>
+
+

@@ -15,6 +15,7 @@
 <p>
     <%= link_to 'Public page', main_url(request_url(@info_request)) %>
     | <%= link_to 'Edit', '../edit/' + @info_request.id.to_s %>
+    | <%= link_to 'FOI officer upload URL', '../generate_upload_url/' + @info_request.id.to_s %> (see also links on incoming messages below)
 </p>
 
 <h2>Events</h2>
@@ -104,6 +105,9 @@
               <%= submit_tag "Redeliver to another request" %>
           </div>
       <% end %>
+      <p>
+      <%= link_to 'FOI officer upload URL', '../generate_upload_url/' + @info_request.id.to_s + "?incoming_message_id=" + incoming_message.id.to_s %>
+      </p>
   </td>
   </tr>
 <% end %>

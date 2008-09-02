@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.103 2008-09-02 14:57:31 francis Exp $
+# $Id: request_controller.rb,v 1.104 2008-09-02 17:44:14 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -343,6 +343,47 @@ class RequestController < ApplicationController
             response.content_type = @attachment.content_type
         end
         render :text => @attachment.body
+    end
+
+    # FOI officers can upload a response
+    def upload_response
+        @info_request = InfoRequest.find_by_url_title(params[:url_title])
+
+        @reason_params = {
+                :web => "To upload a response, you must be logged in using an email address from " +  CGI.escapeHTML(@info_request.public_body.name),
+                :email => "Then you can upload an FOI response. ",
+                :email_subject => "Confirm your account on WhatDoTheyKnow.com"
+        }
+        if !authenticated?(@reason_params)
+            return
+        end
+
+        if !@info_request.public_body.is_foi_officer?(@user)
+            @reason_params[:user_name] = "an email @" + @info_request.public_body.foi_officer_domain_required
+            render :template => 'user/wrong_user'
+            return
+        end
+
+        if params[:submitted_upload_response]
+            file_name = nil
+            file_content = nil
+            if params[:file_1].class.to_s == "ActionController::UploadedTempfile"
+                file_name = params[:file_1].original_filename
+                file_content = params[:file_1].read
+            end
+            body = params[:body] || ""
+
+            if file_name.nil? && body.empty?
+                flash[:error] = "Please type a message and/or choose a file containing your response."
+                return
+            end
+
+            mail = RequestMailer.create_fake_response(@info_request, @user, body, file_name, file_content)
+            @info_request.receive(mail, mail.encoded)
+            flash[:notice] = "Thank you for responding to this FOI request! Your response has been published below, and a link to your response has been emailed to " + CGI.escapeHTML(@info_request.user.name) + "."
+            redirect_to request_url(@info_request)
+            return
+        end
     end
 
 end

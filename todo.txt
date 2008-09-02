@@ -1,9 +1,8 @@
-Check email address of replies
-    - validate the email address itself
-    - and fix parser bug for @ in prefix
-    - maybe use subject in followup
-
 Test data for Tony
+
+Check speed of upload
+Look for pass by value efficiencies
+
 
 Site move:
     Install PostgresSQL 8.3
@@ -12,6 +11,8 @@ Site move:
 
 Next
 ====
+
+Maybe move "send followup" into actions?
 
 Add no robots to requested similar to stop google scanning
     use HTML meta 
@@ -42,6 +43,8 @@ Grrr - so here I wanted to clarify my request, but don't want the timer to be re
     http://www.whatdotheyknow.com/request/online_petitions_documents_from#incoming-3248
 Perhaps encourage user to annotate what they learnt after getting information?
 
+When they say "successful", encourage them to make an annotation?
+
 Clear out all the need admin attention requests
 Clear out all the need classifying requests
 
@@ -66,6 +69,7 @@ CSS things
     - CSS error on "all councils" page on some browsers
     - Need Icon for annotations in search results
     - Icon for government departments is too Parliamentary
+    - Spacing on error boxes round form elements
 
 Merge workflow into one stream - find information, if you can't find it then request it.
     so just search is on front page, with popular stuff below a la Google Directory
@@ -79,9 +83,11 @@ Use spelling correction for public bodies search (in addition to substring?)
 
 Flag bad comments, delete comments from admin interface
 
-
 Later
 =====
+
+Look at quote_address_if_necessary in actionmailer's quoting.rb - why did it
+not work for the email address with "@" in its name part?
 
 Search FAQ and other help pages with normal search
     - also the "notes" section on an authority

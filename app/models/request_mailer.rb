@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.52 2008-09-01 16:14:01 francis Exp $
+# $Id: request_mailer.rb,v 1.53 2008-09-02 17:44:14 francis Exp $
 
 class RequestMailer < ApplicationMailer
     
@@ -40,6 +40,30 @@ class RequestMailer < ApplicationMailer
             return info_request.public_body.name
         else
             return incoming_message_followup.safe_mail_from || info_request.public_body.name
+        end
+    end
+
+    # Used when an FOI officer uploads a response from their web browser - this is
+    # the "fake" email used to store in the same format in the database as if they
+    # had emailed it.
+    def fake_response(info_request, from_user, body, attachment_name, attachment_content)
+        @from = from_user.name_and_email
+        @recipients = info_request.incoming_name_and_email
+        @body = {
+            :body => body
+        }
+        if !attachment_name.nil? && !attachment_content.nil?
+            IncomingMessage # load global filename_to_mimetype XXX should move filename_to_mimetype to proper namespace
+            calc_mime = filename_to_mimetype(attachment_name)
+            if calc_mime
+                content_type = calc_mime
+            else
+                content_type = 'application/octet-stream'
+            end
+
+            attachment :content_type => content_type,
+                :body => attachment_content,
+                :filename => attachment_name
         end
     end
 
@@ -146,7 +170,6 @@ class RequestMailer < ApplicationMailer
         @subject = "Some notes have been added to your FOI request - " + info_request.title
         @body = { :count => @count, :info_request => info_request, :url => main_url(comment_url(earliest_unalerted_comment)) }
     end
-
 
     # Class function, called by script/mailin with all incoming responses.
     # [ This is a copy (Monkeypatch!) of function from action_mailer/base.rb,

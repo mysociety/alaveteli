@@ -559,7 +559,7 @@ div.pagination { text-align: center; padding-top: 0.3em;}
 
 
 /*-------------------- Content : form errors */
-.errorExplanation
+#error, .errorExplanation
 {
 	color: #FF0606;
 	font-size: 1.4em;
@@ -568,7 +568,9 @@ div.pagination { text-align: center; padding-top: 0.3em;}
 	border-width: 1px;
 	border-style: solid;
 	background-color: #ffeeee;
-	padding-right: 0.3em;
+}
+#error {
+	padding: 0.5em;
 }
 .fieldWithErrors
 {
@@ -653,7 +655,7 @@ div.comment_in_request
 div.comment_in_request h2
 { text-align: right; font-size: 1em; }
 
-div#add_annotation
+div#after_actions
 {
     float: left;
     margin-bottom: 1em;

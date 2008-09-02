@@ -107,9 +107,13 @@
         </div>
     <% end %>
 
-    <div id="add_annotation">
+    <div id="after_actions">
+        <h2>Things to do with this request</h2>
         <%= link_to "Add an annotation", new_comment_url(:url_title => @info_request.url_title) %> (to help
-        the requester or others with this request)
+        the requester or others)
+        <br>
+        <%= link_to "Upload large response", upload_response_url(:url_title => @info_request.url_title) %> (FOI
+        officers only)
     </div>
 </div>
 
