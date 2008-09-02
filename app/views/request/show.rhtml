@@ -108,58 +108,8 @@
     <% end %>
 
     <div id="add_annotation">
-        <h2>Add an annotation</h2>
-
-        <p>
-        Annotations will be posted publically here, and are
-        <strong>not</strong> sent to the authority.
-        </p>
-
-        <p>
-        Help the requester with their request.
-        </p>
-
-        <ul>
-
-        <% if [ 'waiting_clarification' ].include?(@info_request.described_state) %>
-            <li> Advise on how to <strong>best clarify</strong> the request.</li>
-        <% end %>
-
-        <% if @info_request.awaiting_description %>
-        <% end %>
-
-        <% if not [ 'successful', 'partially_successful' ].include?(@info_request.described_state) %>
-            <li> Link to the information requested, if it is <strong>already available</strong> on the Internet. </li>
-            <li> Suggest <strong>where else</strong> the requester might find the information. </li>
-            <li> Offer better ways of <strong>wording the request</strong> to get the information. </li>
-        <% end %>
-
-        <% if [ 'successful', 'partially_successful' ].include?(@info_request.described_state) %>
-            <li> <strong>Summarise</strong> the content of any information returned. </li>
-            <li> Say how you've <strong>used the information</strong>, with links if possible. </li>
-            <li> <strong>Thank</strong> the public authority or <%=h @info_request.user.name %>. </li>
-        <% end %>
-        <% if [ 'partially_successful' ].include?(@info_request.described_state) %>
-            <li> Suggest how the requester can find the <strong>rest of the information</strong>. </li>
-        <% end %>
-        <% if [ 'successful', 'partially_successful' ].include?(@info_request.described_state) %>
-            <li> Point to <strong>related information</strong>, campaigns or forums which may be useful. </li>
-        <% end %>
-
-        <% if [ 'not_held' ].include?(@info_request.described_state) %>
-            <li> Ideas on what <strong>other documents to request</strong> which the authority may hold. </li>
-        <% end %>
-        <% if [ 'rejected' ].include?(@info_request.described_state) %>
-            <li> Advise on whether the <strong>rejection is legal</strong>, and how to complain about if not. </li>
-        <% end %>
-
-        <% if [ 'requires_admin' ].include?(@info_request.described_state) %>
-            <li> Your thoughts on what the WhatDoTheyKnow <strong>administrators</strong> should do about the request. </li>
-        <% end %>
-
-        </ul>
-
-        <%= render :partial => 'comment/comment_form', :locals => { :track_thing => @track_thing } %>
+        <%= link_to "Add an annotation", new_comment_url(:url_title => @info_request.url_title) %> (to help
+        the requester or others with this request)
     </div>
 </div>
 

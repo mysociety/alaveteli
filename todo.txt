@@ -191,6 +191,7 @@ Consider removing login links from notifications of new responses, now we have r
  thanks :) I won't do it now as there are more important things, I was just accidentally impressed
 
 Properly escape all name_and_email functions
+    call our new TMail.Address.encode_quoted_string monkeypatch function
 
 Including 'Request for information' in the subject line of your e-mail will assist us in prioritising your request.
 http://www.parliament.uk/parliamentary_publications_and_archives/freedom_of_information_in_the_house_of_lords/lords__foi___how_to_obtain_information.cfm

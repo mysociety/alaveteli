@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: comment_controller.rb,v 1.5 2008-08-29 12:03:40 francis Exp $
+# $Id: comment_controller.rb,v 1.6 2008-09-02 14:57:31 francis Exp $
 
 class CommentController < ApplicationController
     
@@ -12,19 +12,26 @@ class CommentController < ApplicationController
         if params[:type] == 'request'
             @info_request = InfoRequest.find_by_url_title(params[:url_title])
             @track_thing = TrackThing.create_track_for_request(@info_request)
-            @comment = Comment.new(params[:comment].merge({
-                :comment_type => 'request', 
-                :user => @user
-            }))
+            if params[:comment]
+                @comment = Comment.new(params[:comment].merge({
+                    :comment_type => 'request', 
+                    :user => @user
+                }))
+            end
         else
             raise "Unknown type " + params[:type]
         end
 
-        # XXX this check should theoretically be a validation rule in the model
-        @existing_comment = Comment.find_by_existing_comment(@info_request.id, params[:comment][:body])
+        if params[:comment]
+            # XXX this check should theoretically be a validation rule in the model
+            @existing_comment = Comment.find_by_existing_comment(@info_request.id, params[:comment][:body])
+        else
+            # Default to subscribing to request when first viewing form
+            params[:subscribe_to_request] = true
+        end
         
         # See if values were valid or not
-        if !@existing_comment.nil? || !@comment.valid? || params[:reedit]
+        if !params[:comment] || !@existing_comment.nil? || !@comment.valid? || params[:reedit]
             render :action => 'new'
             return
         end
