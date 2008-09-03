@@ -270,6 +270,32 @@ dt
 dd { margin: 0.6em 0 2em 4em; width: 33em; }
 
 /*---------------- content : recent requests sidebar */
+#frontpage_search
+{
+    text-align: center;
+    margin: 3em 0em 1em 0em;
+    padding: 1em;
+	background-color: #e0e0e0;
+}
+#frontpage_examples li
+{
+    list-style-type: none;
+}
+#frontpage_examples ul
+{
+    width: 34%;
+    margin: 0 0 0 0;
+    padding: 1em 0em 1em 0em;
+}
+#frontpage_examples ul#examples_0 {
+    float: left;
+    margin-left: 20%;
+}
+#frontpage_examples ul#examples_1 {
+    float: right;
+    margin-right: 10%;
+}
+
 #find_information
 {
 	width: 18em;

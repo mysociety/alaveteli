@@ -1,0 +1,26 @@
+<div id="frontpage_search">
+    <h1>Make or explore Freedom of Information requests</h1>
+
+    <% form_tag({:action => "search_redirect"}, {:id => "search_form"}) do %>
+       <p>
+           <strong>First, type in the name of the authority
+           <br>or anything to search for</strong>
+           <br>
+           <%= text_field_tag 'query', params[:query], { :size => 30 } %>
+           <%= submit_tag "Search" %>
+           <br>
+           e.g. <%=link_to 'Liverpool', search_url('liverpool')%>, <%=link_to 'MRSA', search_url('mrsa')%>, <%=link_to 'Treasury', search_url('treasury')%>
+       </p>
+    <% end %>
+</div>
+
+<div id="frontpage_examples">
+    <% for i in [0, 1] %>
+        <ul id="examples_<%=i%>">
+        <% for popular_body in @popular_bodies[i] %>
+            <li><%=public_body_link(popular_body)%></li>
+        <% end%>
+        </ul>
+    <% end %>
+</div>
+

@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: routes.rb,v 1.68 2008-09-02 17:44:15 francis Exp $
+# $Id: routes.rb,v 1.69 2008-09-03 00:48:55 francis Exp $
 
 ActionController::Routing::Routes.draw do |map|
 
@@ -16,6 +16,7 @@ ActionController::Routing::Routes.draw do |map|
     
     map.with_options :controller => 'general' do |general|
         general.frontpage           '/',            :action => 'frontpage'
+        general.new_frontpage           '/new_frontpage',            :action => 'new_frontpage'
         general.auto_complete_for_public_body_query 'auto_complete_for_public_body_query', :action => 'auto_complete_for_public_body_query'
 
         general.search_redirect '/search',      :action => 'search_redirect'

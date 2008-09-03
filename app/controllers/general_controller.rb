@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: general_controller.rb,v 1.32 2008-08-19 19:49:22 francis Exp $
+# $Id: general_controller.rb,v 1.33 2008-09-03 00:48:54 francis Exp $
 
 class GeneralController < ApplicationController
 
@@ -38,6 +38,10 @@ class GeneralController < ApplicationController
         @xapian_object = perform_search([InfoRequestEvent], query, sortby, 'request_collapse', 3)
     end
 
+    # New, improved front page!
+    def new_frontpage
+        @popular_bodies = PublicBody.find(:all, :select => "*, (select count(*) from info_requests where info_requests.public_body_id = id) as c", :order => "c desc", :limit => 16).in_groups_of(8)
+    end
 
     # Just does a redirect from ?query= search to /query
     def search_redirect
