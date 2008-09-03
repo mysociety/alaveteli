@@ -13,8 +13,8 @@ Next
 
 Maybe move "send followup" into actions?
 
-Add no robots to requested similar to stop google scanning
-    use HTML meta 
+This page very slow:
+http://www.whatdotheyknow.com/user/stuart_hardwicke_carruthers
 
 Internal review status/marker?
     http://www.whatdotheyknow.com/request/search_engine_advertising_bought
