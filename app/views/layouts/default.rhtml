@@ -10,12 +10,9 @@
             WhatDoTheyKnow - file and browse Freedom of Information (FOI) requests
         <% end %>
         </title>
-        <% 
-            # Angie, just change this to true / false :)
-            yucky = false
-        %>
-        <%= stylesheet_link_tag 'yucky-green', :title => "Yucky Green", :rel => yucky ? "stylesheet" : "alternate stylesheet" %>
-        <%= stylesheet_link_tag 'main', :title => "Main", :rel => yucky ? "alternate stylesheet" : "stylesheet"  %>
+
+        <%= stylesheet_link_tag 'main', :title => "Main", :rel => "stylesheet"  %>
+        <%= stylesheet_link_tag 'yucky-green', :title => "Yucky Green", :rel => "alternate stylesheet" %>
 
         <% if @feed_autodetect %>
             <% for feed in @feed_autodetect %>
