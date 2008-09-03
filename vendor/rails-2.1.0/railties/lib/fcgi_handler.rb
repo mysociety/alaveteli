@@ -7,7 +7,8 @@ class RailsFCGIHandler
   SIGNALS = {
     'HUP'     => :reload,
     'INT'     => :exit_now,
-    'TERM'    => :exit_now,
+    'TERM'    => :exit, # XXX was exit_now, changed by mySociety 2008-03-10
+                        # see also http://dev.rubyonrails.org/ticket/5399 - gah!
     'USR1'    => :exit,
     'USR2'    => :restart
   }
