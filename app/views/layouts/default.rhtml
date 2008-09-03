@@ -19,6 +19,11 @@
                 <link rel="alternate" type="application/atom+xml" title="<%=h feed[:title] %>" href="<%=h feed[:url]%>">
             <% end %>
         <% end %>
+
+        <% if @no_crawl %>
+            <meta name="robots" content="noindex, nofollow">
+        <% end %>
+
     </head>
     <body>
     <div id="banner">

@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: general_controller.rb,v 1.34 2008-09-03 00:56:40 francis Exp $
+# $Id: general_controller.rb,v 1.35 2008-09-03 09:03:57 francis Exp $
 
 class GeneralController < ApplicationController
 
@@ -88,6 +88,9 @@ class GeneralController < ApplicationController
 
         @track_thing = TrackThing.create_track_for_search_query(query)
         @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss] } ]
+
+        # No point bots crawling all the pages of search results.
+        @no_crawl = true
     end
 
     # For debugging

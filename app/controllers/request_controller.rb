@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.105 2008-09-02 17:59:39 francis Exp $
+# $Id: request_controller.rb,v 1.106 2008-09-03 09:03:57 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -48,6 +48,11 @@ class RequestController < ApplicationController
         @info_request = InfoRequest.find_by_url_title(params[:url_title])
         @xapian_object = ::ActsAsXapian::Similar.new([InfoRequestEvent], @info_request.info_request_events, 
             :offset => (@page - 1) * @per_page, :limit => @per_page, :collapse_by_prefix => 'request_collapse')
+        
+        # Stop robots crawling similar request lists. There is no point them
+        # doing so. Google bot was going dozens of pages in, and they are slow
+        # pages to generate, having an impact on server load.
+        @no_crawl = true 
     end
 
     def list

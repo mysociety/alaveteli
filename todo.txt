@@ -7,7 +7,6 @@ Look for pass by value efficiencies
 Site move:
     Install PostgresSQL 8.3
     Move database
-    Move email foibackup to a new server
 
 Next
 ====
@@ -244,6 +243,7 @@ Quoting fixing TODO:
     http://www.whatdotheyknow.com/request/functions_council_43#incoming-4509
     http://www.whatdotheyknow.com/request/york_road_tube_re_opening_feasib#incoming-3509
     http://www.whatdotheyknow.com/request/controlled_drinking_zones_5#incoming-4210
+    http://www.whatdotheyknow.com/request/road_and_junction_specifications#incoming-3598
 
     http://www.whatdotheyknow.com/request/public_inspection_periods_for_lo_2#outgoing-1707 # square bracket in link
 
