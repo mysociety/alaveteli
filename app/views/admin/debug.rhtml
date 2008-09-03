@@ -4,6 +4,14 @@
 
 <p>You are <%= h @http_auth_user %></p>
 
+<h2>Version numbers</h2>
+
+Rails::VERSION::STRING <%=Rails::VERSION::STRING%>
+<br>
+TMail::VERSION::STRING <%=TMail::VERSION::STRING%>
+<br>
+Xapian::version_string <%=Xapian::version_string%>
+
 <h2>Environment variables</h2>
 <pre>
 <%= @request_env.to_yaml %>
