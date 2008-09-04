@@ -162,7 +162,7 @@ describe UserController, "when signing up" do
 
         deliveries = ActionMailer::Base.deliveries
         deliveries.size.should  == 1
-        deliveries[0].body.should include("when you already") # have an account
+        deliveries[0].body.should include("have an account")
     end
 
     # XXX need to do bob@localhost signup and check that sends different email

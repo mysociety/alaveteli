@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.54 2008-09-04 05:19:07 francis Exp $
+# $Id: request_mailer.rb,v 1.55 2008-09-04 06:20:00 francis Exp $
 
 class RequestMailer < ApplicationMailer
     
@@ -72,7 +72,7 @@ class RequestMailer < ApplicationMailer
         @from = contact_from_name_and_email
         @recipients = email.from_addrs[0].quoted_full
         @subject = "Your response to an FOI request was not delivered"
-        email.setup_forward(self)
+        attachment :content_type => 'message/rfc822', :body => email.body
         @body = { 
             :info_request => info_request,
             :contact_email => MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost')     

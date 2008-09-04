@@ -1,5 +1,5 @@
 # This file is auto-generated from the current state of the database. Instead of editing this file, 
-# please use the migrations feature of ActiveRecord to incrementally modify your database, and
+# please use the migrations feature of Active Record to incrementally modify your database, and
 # then regenerate this schema definition.
 #
 # Note that this schema.rb definition is the authoritative source for your database schema. If you need
@@ -121,7 +121,7 @@ ActiveRecord::Schema.define(:version => 64) do
     t.datetime "created_at",     :null => false
   end
 
-  add_index "public_body_tags", ["public_body_id", "name"], :name => "index_public_body_tags_on_public_body_id_and_name", :unique => true
+  add_index "public_body_tags", ["name", "public_body_id"], :name => "index_public_body_tags_on_public_body_id_and_name", :unique => true
 
   create_table "public_body_versions", :force => true do |t|
     t.integer  "public_body_id"
@@ -149,7 +149,7 @@ ActiveRecord::Schema.define(:version => 64) do
     t.datetime "updated_at"
   end
 
-  add_index "track_things", ["tracking_user_id", "track_query"], :name => "index_track_things_on_tracking_user_id_and_track_query", :unique => true
+  add_index "track_things", ["track_query", "tracking_user_id"], :name => "index_track_things_on_tracking_user_id_and_track_query", :unique => true
 
   create_table "track_things_sent_emails", :force => true do |t|
     t.integer  "track_thing_id",        :null => false
@@ -167,7 +167,7 @@ ActiveRecord::Schema.define(:version => 64) do
     t.integer "info_request_event_id"
   end
 
-  add_index "user_info_request_sent_alerts", ["user_id", "info_request_id", "alert_type"], :name => "user_info_request_sent_alerts_unique_index", :unique => true
+  add_index "user_info_request_sent_alerts", ["alert_type", "info_request_id", "user_id"], :name => "user_info_request_sent_alerts_unique_index", :unique => true
 
   create_table "users", :force => true do |t|
     t.string   "email",                                                     :null => false

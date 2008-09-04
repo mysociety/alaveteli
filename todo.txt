@@ -1,3 +1,10 @@
+Rails migrate:
+- check emails are being wrapped (gah)
+- check all monkey patches
+
+Test anti-spam bounce
+
+
 Test data for Tony
 
 Check speed of upload
@@ -12,6 +19,11 @@ Next
 ====
 
 Maybe move "send followup" into actions?
+
+Call this
+  # See ActionController::RequestForgeryProtection for details
+    # Uncomment the :secret if you're not using the cookie session store
+      protect_from_forgery # :secret => '<%= app_secret %>'
 
 This page very slow:
 http://www.whatdotheyknow.com/user/stuart_hardwicke_carruthers
