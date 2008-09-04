@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: general_controller.rb,v 1.35 2008-09-03 09:03:57 francis Exp $
+# $Id: general_controller.rb,v 1.36 2008-09-04 17:59:08 francis Exp $
 
 class GeneralController < ApplicationController
 
@@ -40,7 +40,8 @@ class GeneralController < ApplicationController
 
     # New, improved front page!
     def new_frontpage
-        @popular_bodies = PublicBody.find(:all, :select => "*, (select count(*) from info_requests where info_requests.public_body_id = public_bodies.id) as c", :order => "c desc", :limit => 16).in_groups_of(8)
+        @popular_bodies = PublicBody.find(:all, :select => "*, (select count(*) from info_requests where info_requests.public_body_id = public_bodies.id) as c", :order => "c desc", :limit => 8)
+        @random_requests = InfoRequest.find(:all, :order => "random()", :limit => 8, :conditions => ["described_state = ? and prominence = ?", 'successful', 'normal'] )
     end
 
     # Just does a redirect from ?query= search to /query

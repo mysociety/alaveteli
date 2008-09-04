@@ -27,6 +27,7 @@
 <h1><%=@title%></h1>
 <p class="subtitle">
     <%= @public_bodies.size %> in total
+    (<a href="/help/about#missing_body">can't find the one you want?</a>)
 </p>
 
 <%= render :partial => 'body_listing', :locals => { :public_bodies => @public_bodies } %>

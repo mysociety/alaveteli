@@ -89,6 +89,8 @@ frontpage things:
     - browse public authorities gone
     - telling us public authority not found gone
     - doesn't have successful requests
+turning it off
+    - Remove javascript from default :)
 
 Add count of comments to admin summary page
 Flag bad comments, delete comments from admin interface

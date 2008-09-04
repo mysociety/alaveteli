@@ -277,22 +277,30 @@ dd { margin: 0.6em 0 2em 4em; width: 33em; }
     padding: 1em;
 	background-color: #e0e0e0;
 }
+#frontpage_examples div#examples_0 {
+    float: left;
+    margin-left: 0%;
+    width: 49%;
+}
+#frontpage_examples div#examples_1 {
+    float: right;
+    margin-right: 0%;
+    width: 49%;
+}
+#frontpage_examples p
+{
+    text-align: center;
+    clear: both;
+}
 #frontpage_examples li
 {
 }
 #frontpage_examples ul
 {
-    width: 34%;
     margin: 0 0 0 0;
     padding: 1em 0em 1em 0em;
-}
-#frontpage_examples ul#examples_0 {
-    float: left;
-    margin-left: 20%;
-}
-#frontpage_examples ul#examples_1 {
-    float: right;
-    margin-right: 10%;
+    text-align: center;
+    list-style: none;
 }
 
 #find_information

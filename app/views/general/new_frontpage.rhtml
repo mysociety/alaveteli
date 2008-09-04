@@ -15,12 +15,22 @@
 </div>
 
 <div id="frontpage_examples">
-    <% for i in [0, 1] %>
-        <ul id="examples_<%=i%>">
-        <% for popular_body in @popular_bodies[i] %>
-            <li><%=public_body_link(popular_body)%></li>
+    <div id="examples_0">
+        <ul>
+        <% for popular_body in @popular_bodies %>
+            <li><%=public_body_link(popular_body)%> </li>
         <% end%>
         </ul>
-    <% end %>
+        <p><strong><a href="/body/list/other">More authorities...</a></strong></p>
+    </div>
+
+    <div id="examples_1">
+        <ul
+        <% for request in @random_requests %>
+            <li><%=link_to h(excerpt(request.title, "", 35)), request_url(request)%> </li>
+        <% end%>
+        </ul
+        <p><strong><a href="/list/successful">More successful requests...</a></strong></p>
+    </div>
 </div>
 
