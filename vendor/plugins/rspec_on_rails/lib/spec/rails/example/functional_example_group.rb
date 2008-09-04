@@ -11,9 +11,9 @@ module Spec
           raise "Can't determine controller class for #{@controller_class_name}" if @controller_class.nil?
 
           @controller = @controller_class.new
-
           @request = ActionController::TestRequest.new
           @response = ActionController::TestResponse.new
+          @response.session = @request.session
         end
 
         def params
@@ -25,14 +25,14 @@ module Spec
         end
 
         def session
-          request.session
+          @response.session
         end
 
         # :call-seq:
         #   assigns()
         #
-        # Hash of instance variables to values that are made available to views.
-        # == Examples
+        # Hash of instance variables to values that are made available to
+        # views. == Examples
         #
         #   #in thing_controller.rb
         #   def new
@@ -43,22 +43,15 @@ module Spec
         #   get 'new'
         #   assigns[:registration].should == Thing.new
         #--
-        # NOTE - Even though docs say only use assigns[:key] format, but allowing assigns(:key)
-        # in order to avoid breaking old specs.
+        # NOTE - Even though docs only use assigns[:key] format, this supports
+        # assigns(:key) in order to avoid breaking old specs.
         #++
         def assigns(key = nil)
           if key.nil?
-            @controller.assigns
-            _controller_ivar_proxy
+            _assigns_hash_proxy
           else
-            @controller.assigns[key]
-            _controller_ivar_proxy[key]
+            _assigns_hash_proxy[key]
           end
-        end
-
-        protected
-        def _controller_ivar_proxy
-          @controller_ivar_proxy ||= IvarProxy.new @controller
         end
       end
     end

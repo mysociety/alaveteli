@@ -7,8 +7,6 @@ require 'rake/rdoctask'
 require 'rake/testtask'
 require 'spec/version'
 dir = File.dirname(__FILE__)
-$LOAD_PATH.unshift(File.expand_path("#{dir}/../pre_commit/lib"))
-require "pre_commit"
 
 # Some of the tasks are in separate files since they are also part of the website documentation
 load File.dirname(__FILE__) + '/rake_tasks/examples.rake'
@@ -22,10 +20,12 @@ PKG_FILE_NAME = "#{PKG_NAME}-#{PKG_VERSION}"
 PKG_FILES = FileList[
   '[A-Z]*',
   'lib/**/*.rb', 
-  'spec/**/*.rb', 
+  'spec/**/*',
   'examples/**/*',
+  'failing_examples/**/*',
   'plugins/**/*',
-  'stories/**/*'
+  'stories/**/*',
+  'rake_tasks/**/*'
 ]
 
 task :default => [:verify_rcov]
@@ -34,7 +34,7 @@ task :verify_rcov => [:spec, :stories]
 desc "Run all specs"
 Spec::Rake::SpecTask.new do |t|
   t.spec_files = FileList['spec/**/*_spec.rb']
-  t.spec_opts = ['--options', 'spec.opts']
+  t.spec_opts = ['--options', 'spec/spec.opts']
   unless ENV['NO_RCOV']
     t.rcov = true
     t.rcov_dir = '../doc/output/coverage'
@@ -53,8 +53,8 @@ end
 
 desc "Run all specs and store html output in doc/output/report.html"
 Spec::Rake::SpecTask.new('spec_html') do |t|
-  t.spec_files = FileList['spec/**/*_spec.rb', '../../RSpec.tmbundle/Support/spec/*_spec.rb']
-  t.spec_opts = ['--format html:../doc/output/report.html','--backtrace']
+  t.spec_files = FileList['spec/**/*_spec.rb']
+  t.spec_opts = ['--format html:../../../../doc/output/report.html', '--format progress','--backtrace']
 end
 
 desc "Run all failing examples"
@@ -155,14 +155,6 @@ task :tag do
   `#{create_current_cmd}` ; "ERROR: #{create_current_cmd}" unless $? == 0
 end
 
-desc "Run this task before you commit. You should see 'OK TO COMMIT'"
-task(:pre_commit) {core.pre_commit}
-
-desc "Build the website, but do not publish it"
-task(:website) {core.website}
-
-task(:rdoc_rails) {core.rdoc_rails}
-
 task :verify_user do
   raise "RUBYFORGE_USER environment variable not set!" unless ENV['RUBYFORGE_USER']
 end
@@ -194,10 +186,10 @@ end
 desc "Package the Rails plugin"
 task :package_rspec_on_rails do
   mkdir 'pkg' rescue nil
-  rm_rf 'pkg/rspec_on_rails' rescue nil
-  `svn export ../rspec_on_rails pkg/rspec_on_rails-#{PKG_VERSION}`
+  rm_rf 'pkg/rspec-rails' rescue nil
+  `svn export ../rspec-rails pkg/rspec_on_rails-#{PKG_VERSION}`
   Dir.chdir 'pkg' do
-    `tar cvzf rspec_on_rails-#{PKG_VERSION}.tgz rspec_on_rails-#{PKG_VERSION}`
+    `tar cvzf rspec-rails-#{PKG_VERSION}.tgz rspec-rails-#{PKG_VERSION}`
   end
 end
 task :pkg => :package_rspec_on_rails
@@ -218,7 +210,7 @@ task :publish_packages => [:verify_user, :package] do
   release_files = FileList[
     "pkg/#{PKG_FILE_NAME}.gem",
     "pkg/#{PKG_FILE_NAME}.tgz",
-    "pkg/rspec_on_rails-#{PKG_VERSION}.tgz",
+    "pkg/rspec-rails-#{PKG_VERSION}.tgz",
     "pkg/#{PKG_FILE_NAME}.zip",
     "pkg/RSpec-#{PKG_VERSION}.tmbundle.tgz"
   ]
