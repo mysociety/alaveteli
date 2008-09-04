@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.143 2008-09-04 12:44:07 francis Exp $
+# $Id: incoming_message.rb,v 1.144 2008-09-04 12:56:06 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -184,6 +184,8 @@ class IncomingMessage < ActiveRecord::Base
         if @mail.nil? && !self.raw_data.nil?
             # Hack round bug in TMail's MIME decoding. Example request which provokes it:
             # http://www.whatdotheyknow.com/request/reviews_of_unduly_lenient_senten#incoming-4830
+            # Report of TMail bug:
+            # http://rubyforge.org/tracker/index.php?func=detail&aid=21810&group_id=4512&atid=17370
             copy_of_raw_data = self.raw_data.gsub(/; boundary=\s+"/ims,'; boundary="') 
 
             @mail = TMail::Mail.parse(copy_of_raw_data)
