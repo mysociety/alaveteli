@@ -1,14 +1,4 @@
-Rails migrate:
-- check all monkey patches
-
-Test anti-spam bounce
-
-
 Test data for Tony
-
-Check speed of upload
-Look for pass by value efficiencies
-
 
 Site move:
     Install PostgresSQL 8.3
@@ -18,9 +8,6 @@ Next
 ====
 
 When tracking a person, send comments that they've made too?
-
-"The authority does not have the information (perhaps they suggest making the request elsewhere)  "
-- highlight only "not have", not "does"?
 
 Maybe move "send followup" into actions?
 
@@ -97,6 +84,11 @@ Shamefully your incremental search, make it as nice as Matthew's i.e.
 Google search within website of authority.
 Show similar requests after you have filed yours - maybe on preview too.
 Use spelling correction for public bodies search (in addition to substring?)
+
+frontpage things:
+    - browse public authorities gone
+    - telling us public authority not found gone
+    - doesn't have successful requests
 
 Add count of comments to admin summary page
 Flag bad comments, delete comments from admin interface
@@ -267,6 +259,7 @@ Quoting fixing TODO:
     http://www.whatdotheyknow.com/request/errors_in_list_of_postbox_locati#incoming-3577
 
     http://www.whatdotheyknow.com/request/public_inspection_periods_for_lo_2#outgoing-1707 # square bracket in link
+    http://www.whatdotheyknow.com/request/digital_tv_switchover_in_local_a#incoming-4931
 
     http://www.whatdotheyknow.com/request/415/response/1041/attach/3/CONF%20FOI%209508%20Ian%20Holton.doc
 
