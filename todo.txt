@@ -1,5 +1,4 @@
 Rails migrate:
-- check emails are being wrapped (gah)
 - check all monkey patches
 
 Test anti-spam bounce
@@ -17,6 +16,11 @@ Site move:
 
 Next
 ====
+
+When tracking a person, send comments that they've made too?
+
+"The authority does not have the information (perhaps they suggest making the request elsewhere)  "
+- highlight only "not have", not "does"?
 
 Maybe move "send followup" into actions?
 
@@ -82,6 +86,7 @@ CSS things
     - Need Icon for annotations in search results
     - Icon for government departments is too Parliamentary
     - Spacing on error boxes round form elements
+    - icons for "Things to do with this request" ?
 
 Merge workflow into one stream - find information, if you can't find it then request it.
     so just search is on front page, with popular stuff below a la Google Directory
@@ -93,7 +98,9 @@ Google search within website of authority.
 Show similar requests after you have filed yours - maybe on preview too.
 Use spelling correction for public bodies search (in addition to substring?)
 
+Add count of comments to admin summary page
 Flag bad comments, delete comments from admin interface
+    - perhaps via contact form, and form sending refering URL?
 
 Later
 =====
@@ -256,6 +263,8 @@ Quoting fixing TODO:
     http://www.whatdotheyknow.com/request/york_road_tube_re_opening_feasib#incoming-3509
     http://www.whatdotheyknow.com/request/controlled_drinking_zones_5#incoming-4210
     http://www.whatdotheyknow.com/request/road_and_junction_specifications#incoming-3598
+    http://www.whatdotheyknow.com/request/disused_live_stations#incoming-4898
+    http://www.whatdotheyknow.com/request/errors_in_list_of_postbox_locati#incoming-3577
 
     http://www.whatdotheyknow.com/request/public_inspection_periods_for_lo_2#outgoing-1707 # square bracket in link
 

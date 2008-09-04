@@ -94,39 +94,6 @@ end
 # Domain for URLs (so can work for scripts, not just web pages)
 ActionController::UrlWriter.default_url_options[:host] = MySociety::Config.get("DOMAIN", 'localhost:3000')
 
-# Monkeypatch! Set envelope from in ActionMailer. Code mostly taken from this
-# Rails patch, with addition of using mail.from for sendmail if sender not set
-# (the patch does that only for SMTP, when it clearly should consistently do it
-# for both)
-#   http://dev.rubyonrails.org/attachment/ticket/7697/action_mailer_base_sender.diff
-# Which is part of this ticket:
-#   http://dev.rubyonrails.org/ticket/7697
-module ActionMailer
-    class Base
-        def perform_delivery_smtp(mail)
-            destinations = mail.destinations
-            sender = mail.sender(nil) || mail.from 
-            mail.ready_to_send
-
-            Net::SMTP.start(smtp_settings[:address], smtp_settings[:port], smtp_settings[:domain],
-                smtp_settings[:user_name], smtp_settings[:password], smtp_settings[:authentication]) do |smtp|
-                smtp.sendmail(mail.encoded, sender, destinations)
-            end
-        end
-
-        def perform_delivery_sendmail(mail)
-            sender = mail.sender(nil) || mail.from 
-
-            arguments = sendmail_settings[:arguments].dup 
-            arguments += " -f \"#{sender}\""
-            IO.popen("#{sendmail_settings[:location]} #{arguments}","w+") do |sm| 
-                sm.print(mail.encoded.gsub(/\r/, ''))
-                sm.flush
-            end
-        end
-    end
-end
-
 # Monkeypatch! Method to remove individual error messages from an ActiveRecord.
 module ActiveRecord
     class Errors

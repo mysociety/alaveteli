@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: contact_mailer.rb,v 1.6 2008-03-21 14:04:29 francis Exp $
+# $Id: contact_mailer.rb,v 1.7 2008-09-04 08:37:26 francis Exp $
 
 class ContactMailer < ApplicationMailer
 
@@ -18,7 +18,7 @@ class ContactMailer < ApplicationMailer
         }
     end
 
-    # We always set Reply-To when we set Sender to be different from From,
+    # We always set Reply-To when we set Return-Path to be different from From,
     # since some email clients seem to erroneously use the envelope from when
     # they shouldn't, and this might help. (Have had mysterious cases of a
     # reply coming in duplicate from a public body to both From and envelope
@@ -29,7 +29,7 @@ class ContactMailer < ApplicationMailer
         @from = from_user.name_and_email
         # Do not set envelope from address to the from_user, so they can't get
         # someone's email addresses from transitory bounce messages.
-        headers 'Sender' => contact_from_name_and_email,  # XXX perhaps change to being a black hole
+        headers 'Return-Path' => contact_from_name_and_email,  # XXX perhaps change to being a black hole
                 'Reply-To' => @from
         @recipients = recipient_user.name_and_email
         @subject = subject
