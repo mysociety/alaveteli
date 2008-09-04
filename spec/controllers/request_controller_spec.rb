@@ -429,7 +429,7 @@ describe RequestController, "comment alerts" do
         deliveries = ActionMailer::Base.deliveries
         deliveries.size.should == 1
         mail = deliveries[0]
-        mail.body.should =~ /There are new annotations/
+        mail.body.should =~ /There are 2 new annotations/
         mail.to_addrs.to_s.should == info_requests(:fancy_dog_request).user.name_and_email
         mail.body =~ /(http:\/\/.*)/
         mail_url = $1

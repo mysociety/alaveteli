@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.53 2008-09-02 17:44:14 francis Exp $
+# $Id: request_mailer.rb,v 1.54 2008-09-04 05:19:07 francis Exp $
 
 class RequestMailer < ApplicationMailer
     
@@ -168,7 +168,7 @@ class RequestMailer < ApplicationMailer
         @from = contact_from_name_and_email
         @recipients = info_request.user.name_and_email
         @subject = "Some notes have been added to your FOI request - " + info_request.title
-        @body = { :count => @count, :info_request => info_request, :url => main_url(comment_url(earliest_unalerted_comment)) }
+        @body = { :count => count, :info_request => info_request, :url => main_url(comment_url(earliest_unalerted_comment)) }
     end
 
     # Class function, called by script/mailin with all incoming responses.
