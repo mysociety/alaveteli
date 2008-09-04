@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.141 2008-09-01 16:09:18 francis Exp $
+# $Id: incoming_message.rb,v 1.142 2008-09-04 11:11:38 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -69,6 +69,7 @@ module TMail
             return text
         end
 
+        # Monkeypatch!
         def quoted_full
             if self.name
                 Address.encode_quoted_string(self.name) + " <" + self.spec + ">"
