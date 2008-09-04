@@ -1,6 +1,16 @@
 # Don't change this file!
 # Configure your app in config/environment.rb and config/environments/*.rb
 
+# Hmmm, that's a bit daft - 'production' needs setting not only in the web
+# server, it also needs setting in all the scripts, so a central place seems
+# better. Look for a config/rails_env file, and read stuff from there if 
+# it exists. Put just a line like this in there:
+#   ENV['RAILS_ENV'] = 'production'
+rails_env_file = File.join(File.dirname(__FILE__), 'rails_env.rb')
+if File.exists?(rails_env_file)
+    require rails_env_file
+end
+
 RAILS_ROOT = "#{File.dirname(__FILE__)}/.." unless defined?(RAILS_ROOT)
 
 module Rails
