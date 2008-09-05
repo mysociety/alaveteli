@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: general_controller.rb,v 1.38 2008-09-05 09:16:23 francis Exp $
+# $Id: general_controller.rb,v 1.39 2008-09-05 09:30:23 francis Exp $
 
 class GeneralController < ApplicationController
 
@@ -40,7 +40,26 @@ class GeneralController < ApplicationController
 
     # New, improved front page!
     def new_frontpage
-        @popular_bodies = PublicBody.find(:all, :select => "*, (select count(*) from info_requests where info_requests.public_body_id = public_bodies.id) as c", :order => "c desc", :limit => 8)
+        # This is too slow
+        #@popular_bodies = PublicBody.find(:all, :select => "*, (select count(*) from info_requests where info_requests.public_body_id = public_bodies.id) as c", :order => "c desc", :limit => 32)
+
+        @popular_bodies = PublicBody.find(:all, :conditions => ["url_name in ('bbc', 'dwp', 'dh', 'local_government_ombudsmen', 'royal_mail_group', 'mod', 'lambeth_borough_council', 'edinburgh_council')"])
+
+#            <li><a href="/body/bbc">British Broadcasting Corporation</a> </li>
+ #       
+ #           <li><a href="/body/home_office">Home Office</a> </li>
+ #       
+ #           <li><a href="/body/dwp">Department for Work and Pensions</a> </li>
+ #       
+  #          <li><a href="/body/local_government_ombudsmen">Local Government Ombudsmen</a> </li>
+  #      
+  #          <li><a href="/body/cabinet_office">Cabinet Office</a> </li>
+  ##      
+  #          <li><a href="/body/mod">Ministry of Defence</a> </li>
+   #     
+   #         <li><a href="/body/dh">Department of Health</a> </li>
+   #     
+   ##         <li><a href="/body/fco">Foreign and Commonwealth Office</a> </li>
 
         # This is too slow
         #@random_requests = InfoRequest.find(:all, :order => "random()", :limit => 8, :conditions => ["described_state = ? and prominence = ?", 'successful', 'normal'] )
