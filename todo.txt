@@ -71,6 +71,7 @@ http://www.whatdotheyknow.com/search/variety:comment/newest
 Try changing "email me" link to something else like "track by email"
 
 CSS things
+    - http://localhost:3000/help/contact has gone ugly
     - CSS error on "all councils" page on some browsers
     - Need Icon for annotations in search results
     - Icon for government departments is too Parliamentary
@@ -79,13 +80,8 @@ CSS things
 
 Merge workflow into one stream - find information, if you can't find it then request it.
     so just search is on front page, with popular stuff below a la Google Directory
-Shamefully your incremental search, make it as nice as Matthew's i.e. 
-    - have actual space in layout for full list rather than pop down.
-    - show things beginning with the term first, separated visually
-    - highlight the parts which match
 Google search within website of authority.
 Show similar requests after you have filed yours - maybe on preview too.
-Use spelling correction for public bodies search (in addition to substring?)
 
 Turning off frontpage
     - Remove javascript from default :)
@@ -97,8 +93,16 @@ Flag bad comments, delete comments from admin interface
 Add "I have a large file" to FOI office FAQ
 Add "Who should I make my request to?"
 Add "I want to file squillions of requests"
+Add "I didn't get the email / spam question" and link to from FOI offcier upload page
+Add "Postal replies stuff" and link to from FOI officer upload page
 
 Simple initial bulk request prevention (see Tony's mail on this)
+Don't let somebody file a new request if they haven't classified all existing ones?
+     - nobody will logout and reconfirm email for each one, so can just make it
+       "can't file while already logged in"?
+     - and *after* filing get them to go classify existing ones
+
+Test code for FOI officer upload
 
 Later
 =====

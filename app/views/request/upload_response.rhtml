@@ -1,21 +1,36 @@
-<% @title = "Upload a response to the FOI request '" + h(@info_request.title) + "' made by " + h(@info_request.user.name) %>
+<% @title = "Respond to the FOI request '" + h(@info_request.title) + "' made by " + h(@info_request.user.name) %>
 
 <%= foi_error_messages_for :comment %>
 
-<h1>Upload a response to the FOI request '<%=request_link(@info_request)%>' made by <%=user_link(@info_request.user) %></h1>
+<h1>Respond to the FOI request '<%=request_link(@info_request)%>' made by <%=user_link(@info_request.user) %></h1>
+
+<p>
+    Your response will <strong>appear on the Internet</strong>, <a href="http://localhost:3000/help/about#officers">read why</a> and answers to other questions.
+</p>
+
+<h2>Respond by email</h2>
+
+<p>You should have received a copy of the request by email, and you can respond
+by <strong>simply replying</strong> to that email. For your convenience, here is the address:
+<a href="mailto:<%=h @info_request.incoming_email%>"><%=h @info_request.incoming_email%></a>.
+You may <strong>include attachments</strong>. If you would like to attach a
+file too large for email, use the form below.
+</p>
+
+
+<h2>Respond using the web</h2>
+
+<p>Enter your response below. You may attach one file (use email, or 
+<a href="/help/contact">contact us</a> if you need more).</p>
 
 <% form_tag '', :html => { :id => 'upload_response_form' }, :multipart => true do %>
     <p>
-        Your response will <strong>appear on the Internet</strong>, <a href="http://localhost:3000/help/about#officers">read why</a> and answers to other questions.
-    </p>
-
-    <p>
-        <label class="form_label" for="upload_response_body">Message (to go with file):</label> 
+        <label class="form_label" for="upload_response_body">Response:<label> 
         <%= text_area_tag :body, "", :size => "55x10" %>
     </p>
 
     <p>
-	    <label class="form_label" for="outgoing_message_body">File to upload (optional):</label> 
+	    <label class="form_label" for="outgoing_message_body">Attachment (optional):</label> 
         <%= file_field_tag :file_1, :size => 35 %>
     </p>
 
@@ -23,10 +38,6 @@
         <%= hidden_field_tag 'submitted_upload_response', 1 %>
         <%= submit_tag "Upload FOI response" %>
         (<strong>patience</strong>, especially for large files, it may take a while!)
-    </p>
-
-    <p>If you prefer, you may send responses to this FOI request by email to
-    <a href="mailto:<%=h @info_request.incoming_email%>"><%=h @info_request.incoming_email%></a>.
     </p>
 
 <% end %>
