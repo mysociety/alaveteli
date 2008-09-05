@@ -1,5 +1,7 @@
 Test data for Tony
 
+Check tracks still work with URL routing changes
+
 Site move:
     Install PostgresSQL 8.3
     Move database
@@ -85,16 +87,18 @@ Google search within website of authority.
 Show similar requests after you have filed yours - maybe on preview too.
 Use spelling correction for public bodies search (in addition to substring?)
 
-frontpage things:
-    - browse public authorities gone
-    - telling us public authority not found gone
-    - doesn't have successful requests
-turning it off
+Turning off frontpage
     - Remove javascript from default :)
 
 Add count of comments to admin summary page
 Flag bad comments, delete comments from admin interface
     - perhaps via contact form, and form sending refering URL?
+
+Add "I have a large file" to FOI office FAQ
+Add "Who should I make my request to?"
+Add "I want to file squillions of requests"
+
+Simple initial bulk request prevention (see Tony's mail on this)
 
 Later
 =====

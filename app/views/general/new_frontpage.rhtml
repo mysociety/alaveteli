@@ -7,9 +7,10 @@
            <br>or anything to search for</strong>
            <br>
            <%= text_field_tag 'query', params[:query], { :size => 30 } %>
+           <%= hidden_field_tag 'bodies', 1 %>
            <%= submit_tag "Search" %>
            <br>
-           e.g. <%=link_to 'Liverpool', search_url('liverpool')%>, <%=link_to 'MRSA', search_url('mrsa')%>, <%=link_to 'Treasury', search_url('treasury')%>
+           e.g. <%=link_to 'Liverpool', search_url('liverpool', 'bodies')%>, <%=link_to 'MRSA', search_url('mrsa', 'bodies')%>, <%=link_to 'Treasury', search_url('treasury', 'bodies')%>
        </p>
     <% end %>
 </div>
@@ -25,11 +26,11 @@
     </div>
 
     <div id="examples_1">
-        <ul
+        <ul>
         <% for request in @random_requests %>
             <li><%=link_to h(excerpt(request.title, "", 35)), request_url(request)%> </li>
-        <% end%>
-        </ul
+        <% end %>
+        </ul>
         <p><strong><a href="/list/successful">More successful requests...</a></strong></p>
     </div>
 </div>

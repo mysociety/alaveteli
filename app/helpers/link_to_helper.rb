@@ -5,7 +5,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: link_to_helper.rb,v 1.38 2008-08-29 12:52:25 francis Exp $
+# $Id: link_to_helper.rb,v 1.39 2008-09-05 09:05:05 francis Exp $
 
 module LinkToHelper
 
@@ -106,14 +106,14 @@ module LinkToHelper
         end
     end
 
-    # General pages
-    def search_url(query, sortby = nil)
-        if sortby.nil?
-            combined = query
-        else
-            combined = query + "/" + sortby
+    # General pages. postfix is either the sort order, or 'bodies' to show you
+    # came from the front page and are looking for public bodies
+    def search_url(query, postfix = nil)
+        url = search_general_url(:combined => query)
+        if !postfix.nil? && !postfix.empty?
+            url = url + "/" + postfix
         end
-        search_general_url(:combined => combined)
+        return url
     end
 
     # Admin pages

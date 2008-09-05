@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: general_controller.rb,v 1.36 2008-09-04 17:59:08 francis Exp $
+# $Id: general_controller.rb,v 1.37 2008-09-05 09:05:05 francis Exp $
 
 class GeneralController < ApplicationController
 
@@ -48,11 +48,17 @@ class GeneralController < ApplicationController
     def search_redirect
         @query = params[:query]
         @sortby = params[:sortby]
-        if @query.nil? or @query.empty?
+        @bodies = params[:bodies]
+        if @query.nil? || @query.empty?
             @query = nil
             render :action => "search"
         else
-            redirect_to search_url(@query, @sortby)
+            if (@bodies == '1') && (@sortby.nil? || @sortby.empty?)
+                @postfix = 'bodies'
+            else
+                @postfix = @sortby
+            end
+            redirect_to search_url(@query, @postfix)
         end
     end
 
@@ -61,23 +67,29 @@ class GeneralController < ApplicationController
         # XXX Why is this so complicated with arrays and stuff? Look at the route
         # in config/routes.rb for comments.
         combined = params[:combined]
-        sortby = nil
+        @sortby = nil
+        @bodies = false # searching from front page, largely for a public authority
         # XXX currently /described isn't linked to anywhere, just used in RSS and for /list/successful
         # This is because it's confusingly different from /newest - but still useful for power users.
-        if combined.size > 1 and (combined[-1] == 'newest' or combined[-1] == 'described')
-            sortby = combined[-1]
+        if combined.size > 1 && (['newest', 'described', 'bodies'].include?(combined[-1]))
+            @postfix = combined[-1]
             combined = combined[0..-2]
+            if @postfix == 'bodies'
+                @bodies = true
+            else
+                @sortby = @postfix
+            end
         end
-        query = combined.join("/")
+        @query = combined.join("/")
 
         # Query each type separately for separate display (XXX we are calling
         # perform_search multiple times and it clobbers per_page for each one,
         # so set as separate var)
-        @xapian_requests = perform_search([InfoRequestEvent], query, sortby, 'request_collapse', 25)
+        @xapian_requests = perform_search([InfoRequestEvent], @query, @sortby, 'request_collapse', 25)
         @requests_per_page = @per_page
-        @xapian_bodies = perform_search([PublicBody], query, sortby, nil, 5)
+        @xapian_bodies = perform_search([PublicBody], @query, @sortby, nil, 5)
         @bodies_per_page = @per_page
-        @xapian_users = perform_search([User], query, sortby, nil, 5)
+        @xapian_users = perform_search([User], @query, @sortby, nil, 5)
         @users_per_page = @per_page
 
         @this_page_hits = @xapian_requests.results.size + @xapian_bodies.results.size + @xapian_users.results.size
@@ -87,11 +99,16 @@ class GeneralController < ApplicationController
         @spelling_correction = @xapian_requests.spelling_correction
         @highlight_words = @xapian_requests.words_to_highlight
 
-        @track_thing = TrackThing.create_track_for_search_query(query)
+        @track_thing = TrackThing.create_track_for_search_query(@query)
         @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss] } ]
 
         # No point bots crawling all the pages of search results.
         @no_crawl = true
+
+        # If we came from the front page (@bodies is true) and found no bodies
+        #if @bodies && @xapian_bodies.results.size == 0
+        #    flash[:notice] = 'No authorities found with that name. <a href="/body/list/other">Browse all</a> or <a href="/help/about#missing_body">ask us to add one</a>.'
+        #end
     end
 
     # For debugging

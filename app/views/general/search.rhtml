@@ -9,10 +9,21 @@
     <% @title = "Results page " + @page.to_s %>
 <% end%>
 
+<% if @bodies %>
+    <div id="stepwise_instructions">
+        <p><strong>Next, select the public authority you'd like to make the request from.</strong></p>
+        <p>Can't find it? <a href="/body/list/other">Browse all</a> or <a href="/help/about#missing_body">ask us to add it</a>.</p>
+        <p>
+    </div>
+<% end %>
+
 <% form_tag({:action => "search_redirect"}, {:id => "search_form"}) do %>
    <p>
        <%= text_field_tag 'query', @query, { :size => 40 } %>
-       <%= hidden_field_tag 'sortby', params[:sortby] %>
+       <%= hidden_field_tag 'sortby', @sortby %>
+       <% if @bodies %>
+           <%= hidden_field_tag 'bodies', 1 %>
+       <% end %>
        <%= submit_tag "Search" %>
        <% if not @show_tips %>
            &nbsp;&nbsp;<a href="/search">Advanced tips</a>
@@ -31,16 +42,24 @@
     </p>
 <% end %>
 
+<% if @bodies && !@query.nil? && @xapian_bodies.results.size == 0 %>
+    <h1>No public authorities found</h1>
+    <% if @spelling_correction %>
+        <p id="did_you_mean">Did you mean: <%= link_to @spelling_correction, search_url(@spelling_correction, @postfix) %></p>
+    <% end %>
+    <p><a href="/body/list/other">Browse all</a> or <a href="/help/about#missing_body">ask us to add one</a>.</p>
+<% end %>
+
 <% if @total_hits == 0 %>
     <h1><%=@title %></h1>
 <% end %>
 
 <% if not @query.nil? %>
     <% if @spelling_correction %>
-        <p id="did_you_mean">Did you mean: <%= link_to @spelling_correction, search_url(@spelling_correction, @sortby) %></p>
+        <p id="did_you_mean">Did you mean: <%= link_to @spelling_correction, search_url(@spelling_correction, @postfix) %></p>
     <% end %>
 
-    <% if @track_thing and (@xapian_bodies.results.size > 0 or @xapian_users.results.size > 0 or @total_hits == 0)%>
+    <% if (!@bodies || @xapian_requests.results.size == 0) && @track_thing && (@xapian_bodies.results.size > 0 || @xapian_users.results.size > 0 || @total_hits == 0)%>
         <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => false, :location => 'main' } %>
     <% end %>
 
@@ -90,9 +109,9 @@
     <li>Use OR (in capital letters) where you don't mind which word,  e.g. <strong>commons OR lords</strong>
     <li>Use quotes when you want to find an exact phrase, e.g. <strong>"Liverpool City Council"</strong>
     <li><strong>variety:</strong> with value sent, followup_sent, response, comment, authority or user to select type of thing to search for.
-    <li>Type <strong>status:</strong> to select based on the status or historical status of the request, see table below.
-    <li><strong>requested_from:home_office</strong> to restrict to requests from the <%= link_to "Home Office", show_public_body_url(:url_name => 'home_office') %>, typing the name as in the URL.
-    <li><strong>requested_by:julian_todd</strong> to restrict to requests made by <%= link_to "Julian Todd", show_user_url(:url_name => 'julian_todd') %>, typing the name as in the URL.
+    <li><strong>status:</strong> to select based on the status or historical status of the request, see table below.
+    <li><strong>requested_from:home_office</strong> to search requests from the <%= link_to "Home Office", show_public_body_url(:url_name => 'home_office') %>, typing the name as in the URL.
+    <li><strong>requested_by:julian_todd</strong> to search requests made by <%= link_to "Julian Todd", show_user_url(:url_name => 'julian_todd') %>, typing the name as in the URL.
     <li><strong>commented_by:tony_bowden</strong> to search annotations made by <%= link_to "Tony Bowden", show_user_url(:url_name => 'tony_bowden') %>, typing the name as in the URL.
     <li><strong>request:</strong> to restrict to a specific request, typing the title as in the URL.
     <li><strong>filetype:pdf</strong> to find all responses with PDF attachments. Or try these: <%= IncomingMessage.get_all_file_extentions%>.
