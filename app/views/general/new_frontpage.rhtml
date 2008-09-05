@@ -4,7 +4,7 @@
     <% form_tag({:action => "search_redirect"}, {:id => "search_form"}) do %>
        <p>
            <strong>First, type in the name of the UK public authority
-           <br>or anything to search for</strong>
+           <br>you'd like information from OR anything to search for</strong>
            <br>
            <%= text_field_tag 'query', params[:query], { :size => 30 } %>
            <%= hidden_field_tag 'bodies', 1 %>
@@ -27,7 +27,7 @@
 
     <div id="examples_1">
         <ul>
-        <% for request in @random_requests %>
+        <% for request in @successful_requests %>
             <li><%=link_to h(excerpt(request.title, "", 35)), request_url(request)%> </li>
         <% end %>
         </ul>

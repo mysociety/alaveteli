@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: general_controller.rb,v 1.37 2008-09-05 09:05:05 francis Exp $
+# $Id: general_controller.rb,v 1.38 2008-09-05 09:16:23 francis Exp $
 
 class GeneralController < ApplicationController
 
@@ -41,7 +41,15 @@ class GeneralController < ApplicationController
     # New, improved front page!
     def new_frontpage
         @popular_bodies = PublicBody.find(:all, :select => "*, (select count(*) from info_requests where info_requests.public_body_id = public_bodies.id) as c", :order => "c desc", :limit => 8)
-        @random_requests = InfoRequest.find(:all, :order => "random()", :limit => 8, :conditions => ["described_state = ? and prominence = ?", 'successful', 'normal'] )
+
+        # This is too slow
+        #@random_requests = InfoRequest.find(:all, :order => "random()", :limit => 8, :conditions => ["described_state = ? and prominence = ?", 'successful', 'normal'] )
+        
+        # Get somesuccessful requests 
+        query = 'variety:response (status:successful OR status:partially_successful)'
+        sortby = "described"
+        @xapian_object = perform_search([InfoRequestEvent], query, sortby, 'request_collapse', 8)
+        @successful_requests = @xapian_object.results.map { |r| r[:model].info_request }
     end
 
     # Just does a redirect from ?query= search to /query
