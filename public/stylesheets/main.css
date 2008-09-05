@@ -892,6 +892,14 @@ div#help_about dt:hover > a:hover, div#help_about h1:hover > a:hover {
     text-decoration: underline;
 }
 
+#contact_preamble
+{
+	/*width: 224px;*/ width: 33em;
+	/*margin-left: 142px;*/ margin-left: 8em;
+}
+
+
+
 /*---------------------------------- RSS and email alerts */
 
 div.feed_link img {

@@ -9,6 +9,8 @@ Site move:
 Next
 ====
 
+Write code to make sure the Return-Path is never foi@sandwich grrr
+
 When tracking a person, send comments that they've made too?
 
 Maybe move "send followup" into actions?
@@ -44,14 +46,14 @@ Payment required
     http://www.whatdotheyknow.com/request/staff_absences_due_to_long_term
 
 Request withdrawn by user status/marker?
+
 Grrr - so here I wanted to clarify my request, but don't want the timer to be reset!
     http://www.whatdotheyknow.com/request/online_petitions_documents_from#incoming-3248
-Perhaps encourage user to annotate what they learnt after getting information?
 
+Perhaps encourage user to annotate what they learnt after getting information?
 When they say "successful", encourage them to make an annotation?
 
 Clear out all the need admin attention requests
-Clear out all the need classifying requests
 
 When forcing auth user for followups is a bit confusing/weird, does it really work?
     Perhaps remove signout dialog and have signin instead?
@@ -59,8 +61,8 @@ When forcing auth user for followups is a bit confusing/weird, does it really wo
 Display of login dialog to log in as particular user if you are logged out isn't centred nicely
 
 Admin:
-    Have internal links to different parts of request page
     Somehow fold up the enormous pages on many admin pages
+    Have internal links to different parts of request page
 
 Comments etc. do not sort in right order - by date, but not by time
 
@@ -73,7 +75,6 @@ Try changing "email me" link to something else like "track by email"
 CSS things
     - http://localhost:3000/help/contact has gone ugly
     - CSS error on "all councils" page on some browsers
-    - Need Icon for annotations in search results
     - Icon for government departments is too Parliamentary
     - Spacing on error boxes round form elements
     - icons for "Things to do with this request" ?
@@ -103,6 +104,12 @@ Don't let somebody file a new request if they haven't classified all existing on
      - and *after* filing get them to go classify existing ones
 
 Test code for FOI officer upload
+
+Check that initial requests have the Return-Path set to same address as From still
+after rails upgarde
+
+Completely prevent spaces at start of titles:
+http://www.whatdotheyknow.com/body/hblb
 
 Later
 =====
