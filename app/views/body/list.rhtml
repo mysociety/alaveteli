@@ -1,5 +1,12 @@
 <div id="body_sidebar">
+
 <h1>Show only...</h1>
+    <h2>Alphabet</h2>
+    <ul><li>
+        <%= render :partial => 'alphabet' %>
+    </li></ul>
+</h1>
+
 <% first_row = true %>
 <% for row in PublicBody.categories_with_headings %>
     <% if row.instance_of?(Array) %>
@@ -25,11 +32,18 @@
 <% @title = "Public authorities - " + @description %>
 
 <h1><%=@title%></h1>
+
 <p class="subtitle">
     <%= @public_bodies.size %> in total
     (<a href="/help/about#missing_body">can't find the one you want?</a>)
 </p>
 
+<% if @tag.size == 1 %>
+    <p><%= render :partial => 'alphabet' %></p>
+<% end %>
 <%= render :partial => 'body_listing', :locals => { :public_bodies => @public_bodies } %>
+<% if @tag.size == 1 && @public_bodies.size > 0 %>
+    <p><%= render :partial => 'alphabet' %></p>
+<% end %>
 
 <%= will_paginate(@public_bodies) %>

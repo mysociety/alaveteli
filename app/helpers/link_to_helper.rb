@@ -5,7 +5,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: link_to_helper.rb,v 1.39 2008-09-05 09:05:05 francis Exp $
+# $Id: link_to_helper.rb,v 1.40 2008-09-07 16:55:55 francis Exp $
 
 module LinkToHelper
 
@@ -54,6 +54,9 @@ module LinkToHelper
     end
     def public_body_both_links(public_body)
         link_to(h(public_body.name), main_url(public_body_url(public_body))) + " (" + link_to("admin", public_body_admin_url(public_body)) + ")"
+    end
+    def list_public_bodies_default
+        list_public_bodies_url(:tag => 'a') 
     end
 
     # Users

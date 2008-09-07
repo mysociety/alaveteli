@@ -12,7 +12,8 @@
 <% if @bodies %>
     <div id="stepwise_instructions">
         <p><strong>Next, select the public authority you'd like to make the request from.</strong></p>
-        <p>Can't find it? <a href="/body/list/other">Browse all</a> or <a href="/help/about#missing_body">ask us to add it</a>.</p>
+        <p>Can't find it?  <%= link_to "Browse all", list_public_bodies_default %> or
+            <a href="/help/about#missing_body">ask us to add it</a>.</p>
         <p>
     </div>
 <% end %>
@@ -47,7 +48,7 @@
     <% if @spelling_correction %>
         <p id="did_you_mean">Did you mean: <%= link_to @spelling_correction, search_url(@spelling_correction, @postfix) %></p>
     <% end %>
-    <p><a href="/body/list/other">Browse all</a> or <a href="/help/about#missing_body">ask us to add one</a>.</p>
+    <p><%=link_to "Browse all", list_public_bodies_default %> or <a href="/help/about#missing_body">ask us to add one</a>.</p>
 <% end %>
 
 <% if @total_hits == 0 %>

@@ -73,9 +73,7 @@ http://www.whatdotheyknow.com/search/variety:comment/newest
 Try changing "email me" link to something else like "track by email"
 
 CSS things
-    - http://localhost:3000/help/contact has gone ugly
     - CSS error on "all councils" page on some browsers
-    - Icon for government departments is too Parliamentary
     - Spacing on error boxes round form elements
     - icons for "Things to do with this request" ?
 
