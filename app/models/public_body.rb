@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.103 2008-09-02 17:44:14 francis Exp $
+# $Id: public_body.rb,v 1.104 2008-09-07 17:01:49 francis Exp $
 
 require 'csv'
 require 'set'
@@ -108,6 +108,13 @@ class PublicBody < ActiveRecord::Base
     end
     def self.category_singular_by_tag
         Hash[*self.categories_with_description.map() { |a| [a[0],a[2]] }.flatten]
+    end
+
+    # Strip whitespace for everything, see http://railsforum.com/viewtopic.php?id=969
+    before_save(:clean_whitespace)
+    def clean_whitespace
+        self.name = self.name.strip
+        self.short_name = self.short_name.strip
     end
 
 
