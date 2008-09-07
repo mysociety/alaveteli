@@ -45,7 +45,7 @@ describe BodyController, "when listing bodies" do
         response.should render_template('list')
 
         assigns[:public_bodies].should == [ public_bodies(:humpadink_public_body), public_bodies(:geraldine_public_body) ]
-        assigns[:tag].should == ""
+        assigns[:tag].should == "all"
         assigns[:description].should == "All"
     end
 
