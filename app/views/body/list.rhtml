@@ -1,11 +1,11 @@
 <div id="body_sidebar">
 
 <h1>Show only...</h1>
-    <h2>Alphabet</h2>
-    <ul><li>
-        <%= render :partial => 'alphabet' %>
-    </li></ul>
-</h1>
+
+<h2>Alphabet</h2>
+<ul><li>
+    <%= render :partial => 'alphabet' %>
+</li></ul>
 
 <% first_row = true %>
 <% for row in PublicBody.categories_with_headings %>
