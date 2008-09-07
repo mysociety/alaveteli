@@ -46,7 +46,7 @@ describe BodyController, "when listing bodies" do
 
         assigns[:public_bodies].should == [ public_bodies(:humpadink_public_body), public_bodies(:geraldine_public_body) ]
         assigns[:tag].should == "all"
-        assigns[:description].should == "All"
+        assigns[:description].should == "all"
     end
 
     it "should list a tagged thing on the appropriate list page, and others on the other page, and all still on the all page" do
