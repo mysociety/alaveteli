@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.145 2008-09-04 13:00:29 francis Exp $
+# $Id: incoming_message.rb,v 1.146 2008-09-07 17:26:35 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -445,6 +445,10 @@ class IncomingMessage < ActiveRecord::Base
                 end
             end
         else
+            # Don't allow nil content_types
+            if curr_mail.content_type.nil?
+                curr_mail.content_type = 'application/octet-stream'
+            end
             # PDFs often come with this mime type, fix it up for view code
             if curr_mail.content_type == 'application/octet-stream'
                 calc_mime = filename_to_mimetype(TMail::Mail.get_part_file_name(curr_mail))
