@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: body_controller.rb,v 1.15 2008-09-07 17:40:19 francis Exp $
+# $Id: body_controller.rb,v 1.16 2008-09-07 17:43:11 francis Exp $
 
 class BodyController < ApplicationController
     # XXX tidy this up with better error messages, and a more standard infrastructure for the redirect to canonical URL
@@ -40,7 +40,7 @@ class BodyController < ApplicationController
     def list
         @tag = params[:tag]
         if @tag.nil?
-            @tag = ""
+            @tag = "all"
             conditions = []
         elsif @tag == 'other'
             category_list = PublicBody.categories.map{|c| "'"+c+"'"}.join(",")
@@ -57,15 +57,12 @@ class BodyController < ApplicationController
             :order => "public_bodies.name", :page => params[:page], :per_page => 1000, # fit all councils on one page
             :conditions => conditions
             )
-        @description = "All"
-        if !@tag.nil?
-            if @tag.size == 1
-                @description = "beginning with '" + @tag + "'"
-            else
-                @description = PublicBody.categories_by_tag[@tag]
-                if @description.nil?
-                    @description = @tag
-                end
+        if @tag.size == 1
+            @description = "beginning with '" + @tag + "'"
+        else
+            @description = PublicBody.categories_by_tag[@tag]
+            if @description.nil?
+                @description = @tag
             end
         end
     end
