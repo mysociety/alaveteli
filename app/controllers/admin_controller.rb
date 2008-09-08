@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_controller.rb,v 1.19 2008-07-30 13:37:21 francis Exp $
+# $Id: admin_controller.rb,v 1.20 2008-09-08 01:49:57 francis Exp $
 
 class AdminController < ApplicationController
     layout "admin"
@@ -16,6 +16,7 @@ class AdminController < ApplicationController
         @public_body_count = PublicBody.count
         @info_request_count = InfoRequest.count
         @track_thing_count = TrackThing.count
+        @comment_count = Comment.count
 
         # Tasks to do
         last_event_time_clause = '(select created_at from info_request_events where info_request_events.info_request_id = info_requests.id order by created_at desc limit 1)'

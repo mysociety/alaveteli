@@ -13,11 +13,6 @@ Write code to make sure the Return-Path is never foi@sandwich grrr
 
 Maybe move "send followup" into actions?
 
-Call this
-  # See ActionController::RequestForgeryProtection for details
-    # Uncomment the :secret if you're not using the cookie session store
-      protect_from_forgery # :secret => '<%= app_secret %>'
-
 This page very slow:
 http://www.whatdotheyknow.com/user/stuart_hardwicke_carruthers
 
@@ -68,8 +63,6 @@ Comments etc. do not sort in right order - by date, but not by time
 Perhaps show grouping count?
 http://www.whatdotheyknow.com/search/variety:comment/newest
 
-Try changing "email me" link to something else like "track by email"
-
 CSS things
     - CSS error on "all councils" page on some browsers
     - Spacing on error boxes round form elements
@@ -83,7 +76,6 @@ Show similar requests after you have filed yours - maybe on preview too.
 Turning off frontpage
     - Remove javascript from default :)
 
-Add count of comments to admin summary page
 Flag bad comments, delete comments from admin interface
     - perhaps via contact form, and form sending refering URL?
 
@@ -109,6 +101,11 @@ http://www.whatdotheyknow.com/body/hblb
 
 Later
 =====
+
+Protect from CSRF with this in app controller (care it doesn't break anything):
+  # See ActionController::RequestForgeryProtection for details
+    # Uncomment the :secret if you're not using the cookie session store
+      protect_from_forgery # :secret => '<%= app_secret %>'
 
 Look at quote_address_if_necessary in actionmailer's quoting.rb - why did it
 not work for the email address with "@" in its name part?
