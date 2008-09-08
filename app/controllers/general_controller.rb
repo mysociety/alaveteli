@@ -5,16 +5,9 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: general_controller.rb,v 1.40 2008-09-08 01:58:55 francis Exp $
+# $Id: general_controller.rb,v 1.41 2008-09-08 02:00:17 francis Exp $
 
 class GeneralController < ApplicationController
-
-    # Fancy javascript smancy for auto complete search on front page
-    def auto_complete_for_public_body_query
-        @public_bodies = public_body_query(params[:public_body][:query])
-
-        render :partial => "public_body_query"
-    end
 
     # New, improved front page!
     def new_frontpage
