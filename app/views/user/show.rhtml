@@ -62,31 +62,35 @@
         <% end %>
     <% end %>
 
-    <% if @display_user.info_requests.empty? %>
+    <% if @xapian_requests.results.empty? %>
         <h2>Freedom of Information requests made by <%= @is_you ? 'you' : 'this person' %></h2>
         <p><%= @is_you ? 'You have' : 'This person has' %>
         made no Freedom of Information requests using this site.</p>
 
     <% else %>
         <h2>
-        <%= @is_you ? 'Your ' : "This person's " %>
-        <%=pluralize(@display_user.info_requests.size, "Freedom of Information request") %>
+            <%= @is_you ? 'Your ' : "This person's " %>
+            <%=pluralize(@xapian_requests.matches_estimated, "Freedom of Information request") %>
         </h2>
 
-        <%= render :partial => 'request/request_listing', :locals => { :info_requests => @display_user.info_requests } %>
+        <% for result in @xapian_requests.results %>
+            <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result[:model], :info_request => result[:model].info_request } %>
+        <% end %>
+
+        <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @xapian_requests.matches_estimated) %>
     <% end %>
 
-    <% if @display_user.comments.empty? %>
+    <% if @xapian_comments.results.empty? %>
         <h2><%= @is_you ? 'Your' : 'This person\'s' %> annotations</h2>
         <p>None made.</p>
     <% else %>
         <h2>
         <%= @is_you ? 'Your ' : "This person's " %>
-        <%=pluralize(@display_user.comments.size, "annotation") %>
+        <%=pluralize(@xapian_comments.matches_estimated, "annotation") %>
         </h2>
 
-        <% for comment in @display_user.comments %>
-            <%= render :partial => 'request/request_listing_via_event', :locals => { :event => comment.info_request_events[0], :info_request => comment.info_request } %>
+        <% for result in @xapian_comments.results %>
+            <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result[:model], :info_request => result[:model].info_request } %>
         <% end %>
     <% end %>
 </div>

@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user_controller.rb,v 1.55 2008-09-02 23:50:27 francis Exp $
+# $Id: user_controller.rb,v 1.56 2008-09-08 16:38:32 francis Exp $
 
 class UserController < ApplicationController
     # Show page about a user
@@ -22,13 +22,19 @@ class UserController < ApplicationController
 
         @is_you = !@user.nil? && @user.id == @display_user.id
 
+        # Use search query for this so can collapse and paginate easily
+        @xapian_requests = perform_search([InfoRequestEvent], 'requested_by:' + @display_user.url_name, 'newest', 'request_collapse')
+        @xapian_comments = perform_search([InfoRequestEvent], 'commented_by:' + @display_user.url_name, 'newest', nil)
+
         # Track corresponding to this page
         @track_thing = TrackThing.create_track_for_user(@display_user)
         @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss] } ]
 
         # All tracks for the user
-        @track_things = TrackThing.find(:all, :conditions => ["tracking_user_id = ? and track_medium = ?", @display_user.id, 'email_daily'], :order => 'created_at desc')
-        @track_things_grouped = @track_things.group_by(&:track_type_description)
+        if @is_you
+            @track_things = TrackThing.find(:all, :conditions => ["tracking_user_id = ? and track_medium = ?", @display_user.id, 'email_daily'], :order => 'created_at desc')
+            @track_things_grouped = @track_things.group_by(&:track_type_description)
+        end
     end
 
     # Login form

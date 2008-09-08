@@ -86,6 +86,7 @@ Add "Who should I make my request to?"
 Add "I want to file squillions of requests"
 Add "I didn't get the email / spam question" and link to from FOI offcier upload page
 Add "Postal replies stuff" and link to from FOI officer upload page
+Add "I'm not sure which authority to make my request to" - make flow better after first section, to abrupt now
 
 Simple initial bulk request prevention (see Tony's mail on this)
 Don't let somebody file a new request if they haven't classified all existing ones?
