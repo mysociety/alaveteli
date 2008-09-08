@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: routes.rb,v 1.72 2008-09-08 02:00:24 francis Exp $
+# $Id: routes.rb,v 1.73 2008-09-08 02:05:14 francis Exp $
 
 ActionController::Routing::Routes.draw do |map|
 
@@ -15,7 +15,7 @@ ActionController::Routing::Routes.draw do |map|
     # Keep in mind you can assign values other than :controller and :action
     
     map.with_options :controller => 'general' do |general|
-        general.new_frontpage           '/',            :action => 'new_frontpage'
+        general.frontpage           '/',            :action => 'frontpage'
 
         general.search_redirect '/search',      :action => 'search_redirect'
         # XXX combined is the search query, and then if sorted a "/newest" at the end.

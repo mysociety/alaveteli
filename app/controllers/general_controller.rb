@@ -5,12 +5,12 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: general_controller.rb,v 1.41 2008-09-08 02:00:17 francis Exp $
+# $Id: general_controller.rb,v 1.42 2008-09-08 02:05:13 francis Exp $
 
 class GeneralController < ApplicationController
 
     # New, improved front page!
-    def new_frontpage
+    def frontpage
         # This is too slow
         #@popular_bodies = PublicBody.find(:all, :select => "*, (select count(*) from info_requests where info_requests.public_body_id = public_bodies.id) as c", :order => "c desc", :limit => 32)
 
@@ -98,19 +98,6 @@ class GeneralController < ApplicationController
     def fai_test
         sleep 10
         render :text => "awake\n"
-    end
-
-    private
-
-    # Used in front page search for public body
-    def public_body_query(query)
-        # XXX try using search now we have spell correction?
-
-        criteria = '%' + query + '%'
-        @public_bodies = PublicBody.find(:all, 
-                    :conditions => ["lower(name) like lower(?) or lower(short_name) like lower(?)", criteria, criteria],
-                    :order => 'name', :limit=>10)  
-        return @public_bodies
     end
 
 end

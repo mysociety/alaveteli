@@ -22,17 +22,6 @@ describe GeneralController, "when searching" do
         response.should be_success
     end
 
-    it "when doing public body AJAX search should return list of matches" do
-        get :auto_complete_for_public_body_query, :public_body => { :query => "humpa" }
-        assigns[:public_bodies] = [ public_bodies(:humpadink_public_body) ]
-        response.should render_template('_public_body_query')
-    end
-
-    it "when front page public body search has exact name match, should redirect to public body page" do
-        post :frontpage, :public_body => { :query => public_bodies(:geraldine_public_body).name }
-        response.should redirect_to(:controller => 'body', :action => 'show', :url_name => public_bodies(:geraldine_public_body).url_name)
-    end
-
     it "should redirect from search query URL to pretty URL" do
         post :search_redirect, :query => "mouse" # query hidden in POST parameters
         response.should redirect_to(:action => 'search', :combined => "mouse") # URL /search/:query
