@@ -13,7 +13,12 @@ Write code to make sure the Return-Path is never foi@sandwich grrr
 
 Maybe move "send followup" into actions?
 
-This page very slow:
+Display current page (when not on first page), or perhaps range on both the
+/list pages, and on the /..../similar pages (maybe I missed it elsewhere too).
+Should make a general will_paginate like function to do this part, and call
+that from /search (which has this already) too.
+Paginate request listing (and other things!) on user page, and on public
+authority page.  
 http://www.whatdotheyknow.com/user/stuart_hardwicke_carruthers
 
 Internal review status/marker?
@@ -67,7 +72,7 @@ CSS things
     - CSS error on "all councils" page on some browsers
     - Spacing on error boxes round form elements
     - icons for "Things to do with this request" ?
-    - forms are tiny on firefox e.g. http://www.whatdotheyknow.com/new/50
+    - favicon.ico would be nice
 
 Wrapping of lines like this - are we taking few enough chars per line when wrapping annotations?
     http://www.whatdotheyknow.com/request/contract_with_thales_for_nationa#comment-95
@@ -89,6 +94,8 @@ Add "Postal replies stuff" and link to from FOI officer upload page
 Add "I'm not sure which authority to make my request to" - make flow better after first section, to abrupt now
 
 Simple initial bulk request prevention (see Tony's mail on this)
+This doesn't work:
+http://www.whatdotheyknow.com/search/status:waiting_classification/
 Don't let somebody file a new request if they haven't classified all existing ones?
      - nobody will logout and reconfirm email for each one, so can just make it
        "can't file while already logged in"?
@@ -122,9 +129,6 @@ From an email, isn't stripping spaces right.
     "Met Office  sent a response to Andrew Montford (14 August 2008)"
 Also should group by the request id for search queries (so all appear
 together when request and response mention same term)
-
-This doesn't work:
-http://www.whatdotheyknow.com/search/status:waiting_classification/
 
 Link the overdue date to an explanation of what bank holidays it skipped etc.
 :)
@@ -169,14 +173,6 @@ Renaming public authorities will break alerts on them.
 
 Compress the emails in the database
 Don't store the cached text in backups
-
-Display current page (when not on first page), or perhaps range on both the
-/list pages, and on the /..../similar pages (maybe I missed it elsewhere too).
-Should make a general will_paginate like function to do this part, and call
-that from /search (which has this already) too.
-Paginate request listing (and other things!) on user page, and on public
-authority page.  
-http://www.whatdotheyknow.com/user/stuart_hardwicke_carruthers
 
 Check this again after a while, for dodgy states of events:
 s = InfoRequest.find(:all).select { |i| (not i.awaiting_description) and i.get_last_response_event_id and InfoRequestEvent.find(i.get_last_response_event_id).calculated_state != i.described_state }; s.size

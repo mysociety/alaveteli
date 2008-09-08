@@ -23,6 +23,17 @@
 <p>You can only request information about the environment from this authority.</p>
 <% end %>
 
+<!--
+<% form_tag("http://www.google.co.uk/search", {:id => "search_body_website_form", :method => "get"} ) do %>
+   <p>
+       <strong>Search the authority's <%= link_to "web site", @public_body.calculated_home_page %>:</strong>
+       <%= text_field_tag 'q', params[:q], { :size => 20 } %>
+       <%= hidden_field_tag 'as_sitesearch', @public_body.calculated_home_page %>
+       <%= submit_tag "Search" %>
+   </p>
+<% end %>
+-->
+
 <p>
 <% if @public_body.eir_only? %>
 <%= link_to "Make a new EIR request to " + h(@public_body.name), new_request_to_body_url(:public_body_id => @public_body.id.to_s)%>
