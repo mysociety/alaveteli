@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: routes.rb,v 1.70 2008-09-05 09:05:06 francis Exp $
+# $Id: routes.rb,v 1.71 2008-09-08 01:58:55 francis Exp $
 
 ActionController::Routing::Routes.draw do |map|
 
@@ -15,7 +15,6 @@ ActionController::Routing::Routes.draw do |map|
     # Keep in mind you can assign values other than :controller and :action
     
     map.with_options :controller => 'general' do |general|
-        general.frontpage           '/old_frontpage',            :action => 'frontpage'
         general.new_frontpage           '/',            :action => 'new_frontpage'
         general.auto_complete_for_public_body_query 'auto_complete_for_public_body_query', :action => 'auto_complete_for_public_body_query'
 

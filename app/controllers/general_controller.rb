@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: general_controller.rb,v 1.39 2008-09-05 09:30:23 francis Exp $
+# $Id: general_controller.rb,v 1.40 2008-09-08 01:58:55 francis Exp $
 
 class GeneralController < ApplicationController
 
@@ -16,55 +16,18 @@ class GeneralController < ApplicationController
         render :partial => "public_body_query"
     end
 
-    # Actual front page
-    def frontpage
-        # Public body search on the left
-        @public_bodies = []
-        @query_made = false
-        if params[:public_body] and params[:public_body][:query]
-            # Try and do exact match - redirect if it is made
-            @public_body = PublicBody.find_by_name(params[:public_body][:query])
-            if not @public_body.nil?
-                redirect_to public_body_url(@public_body)
-            end
-            # Otherwise use search engine to find public body
-            @public_bodies = public_body_query(params[:public_body][:query])
-            @query_made = true
-        end
-
-        # Get all successful requests for display on the right  
-        query = 'variety:response (status:successful OR status:partially_successful)'
-        sortby = "described"
-        @xapian_object = perform_search([InfoRequestEvent], query, sortby, 'request_collapse', 3)
-    end
-
     # New, improved front page!
     def new_frontpage
         # This is too slow
         #@popular_bodies = PublicBody.find(:all, :select => "*, (select count(*) from info_requests where info_requests.public_body_id = public_bodies.id) as c", :order => "c desc", :limit => 32)
 
+        # Just hardcode some popular authorities for now
         @popular_bodies = PublicBody.find(:all, :conditions => ["url_name in ('bbc', 'dwp', 'dh', 'local_government_ombudsmen', 'royal_mail_group', 'mod', 'lambeth_borough_council', 'edinburgh_council')"])
-
-#            <li><a href="/body/bbc">British Broadcasting Corporation</a> </li>
- #       
- #           <li><a href="/body/home_office">Home Office</a> </li>
- #       
- #           <li><a href="/body/dwp">Department for Work and Pensions</a> </li>
- #       
-  #          <li><a href="/body/local_government_ombudsmen">Local Government Ombudsmen</a> </li>
-  #      
-  #          <li><a href="/body/cabinet_office">Cabinet Office</a> </li>
-  ##      
-  #          <li><a href="/body/mod">Ministry of Defence</a> </li>
-   #     
-   #         <li><a href="/body/dh">Department of Health</a> </li>
-   #     
-   ##         <li><a href="/body/fco">Foreign and Commonwealth Office</a> </li>
 
         # This is too slow
         #@random_requests = InfoRequest.find(:all, :order => "random()", :limit => 8, :conditions => ["described_state = ? and prominence = ?", 'successful', 'normal'] )
         
-        # Get somesuccessful requests 
+        # Get some successful requests 
         query = 'variety:response (status:successful OR status:partially_successful)'
         sortby = "described"
         @xapian_object = perform_search([InfoRequestEvent], query, sortby, 'request_collapse', 8)
