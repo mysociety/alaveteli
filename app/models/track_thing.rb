@@ -21,7 +21,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_thing.rb,v 1.40 2008-09-08 00:11:50 francis Exp $
+# $Id: track_thing.rb,v 1.41 2008-09-08 00:44:42 francis Exp $
 
 class TrackThing < ActiveRecord::Base
     belongs_to :tracking_user, :class_name => 'User'
@@ -120,8 +120,8 @@ class TrackThing < ActiveRecord::Base
                 @params = {
                     # Website
                     :list_description => "'<a href=\"/request/" + CGI.escapeHTML(self.info_request.url_title) + "\">" + CGI.escapeHTML(self.info_request.title) + "</a>', a request", # XXX yeuch, sometimes I just want to call view helpers from the model, sorry! can't work out how 
-                    :verb_on_page => "Email me updates to this request",
-                    :verb_on_page_already => "You are subscribed to this request",
+                    :verb_on_page => "Track this request by email",
+                    :verb_on_page_already => "You are already tracking this request by email",
                     # Email
                     :title_in_email => "New updates for the request '" + self.info_request.title + "'",
                     :title_in_rss => "New updates for the request '" + self.info_request.title + "'",
@@ -171,8 +171,8 @@ class TrackThing < ActiveRecord::Base
                 @params = {
                     # Website
                     :list_description => "'<a href=\"/body/" + CGI.escapeHTML(self.public_body.url_name) + "\">" + CGI.escapeHTML(self.public_body.name) + "</a>', a public authority", # XXX yeuch, sometimes I just want to call view helpers from the model, sorry! can't work out how 
-                    :verb_on_page => "Email me about requests to " + CGI.escapeHTML(self.public_body.name),
-                    :verb_on_page_already => "You are being emailed about requests to " + CGI.escapeHTML(self.public_body.name),
+                    :verb_on_page => "Track requests to " + CGI.escapeHTML(self.public_body.name) + " by email",
+                    :verb_on_page_already => "You are already tracking requests to " + CGI.escapeHTML(self.public_body.name) + " by email",
                     # Email
                     :title_in_email => self.public_body.law_only_short + " requests to '" + self.public_body.name + "'",
                     :title_in_rss => self.public_body.law_only_short + " requests to '" + self.public_body.name + "'",
@@ -187,8 +187,8 @@ class TrackThing < ActiveRecord::Base
                 @params = {
                     # Website
                     :list_description => "'<a href=\"/user/" + CGI.escapeHTML(self.tracked_user.url_name) + "\">" + CGI.escapeHTML(self.tracked_user.name) + "</a>', a person", # XXX yeuch, sometimes I just want to call view helpers from the model, sorry! can't work out how 
-                    :verb_on_page => "Email me about requests by this person",
-                    :verb_on_page_already => "You are being emailed about requests by this person",
+                    :verb_on_page => "Track this person by email",
+                    :verb_on_page_already => "You are already tracking this person by email",
                     # Email
                     :title_in_email => "FOI requests by '" + self.tracked_user.name + "'",
                     :title_in_rss => "FOI requests by '" + self.tracked_user.name + "'",
@@ -203,8 +203,8 @@ class TrackThing < ActiveRecord::Base
                 @params = {
                     # Website
                     :list_description => "'<a href=\"/search/" + CGI.escapeHTML(self.track_query) + "/newest\">" + CGI.escapeHTML(self.track_query) + "</a>' in new requests/responses", # XXX yeuch, sometimes I just want to call view helpers from the model, sorry! can't work out how 
-                    :verb_on_page => "Email me new requests/responses matching '" + CGI.escapeHTML(self.track_query) + "'",
-                    :verb_on_page_already => "You are being emailed about requests matching '" + CGI.escapeHTML(self.track_query) + "'",
+                    :verb_on_page => "Track things matching '" + CGI.escapeHTML(self.track_query) + "' by email",
+                    :verb_on_page_already => "You are already tracking things matching '" + CGI.escapeHTML(self.track_query) + "' by email",
                     # Email
                     :title_in_email => "Requests or responses matching '" + self.track_query + "'",
                     :title_in_rss => "Requests or responses matching '" + self.track_query + "'",

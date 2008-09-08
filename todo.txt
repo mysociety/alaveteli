@@ -148,7 +148,7 @@ Public body tags should perhaps be forced to be lowercase only :)
 In sidebar of request 
     Share this request on Facebook, by email etc.
     Email icon here: http://www.guardian.co.uk/news/video/2008/apr/03/mugabe
-    Simple Digg style "I lke this request" button (doesn't tracking do?)
+    Simple Digg style "I like this request" button 
 Show list of popular tracks somewhere (finds most popular requests in a way)
 
 Advertise WDTK search queries on TWFY
