@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: general_controller.rb,v 1.42 2008-09-08 02:05:13 francis Exp $
+# $Id: general_controller.rb,v 1.43 2008-09-08 11:33:10 francis Exp $
 
 class GeneralController < ApplicationController
 
@@ -23,7 +23,7 @@ class GeneralController < ApplicationController
         # Get some successful requests 
         query = 'variety:response (status:successful OR status:partially_successful)'
         sortby = "described"
-        @xapian_object = perform_search([InfoRequestEvent], query, sortby, 'request_collapse', 8)
+        @xapian_object = perform_search([InfoRequestEvent], query, sortby, 'request_title_collapse', 8)
         @successful_requests = @xapian_object.results.map { |r| r[:model].info_request }
     end
 

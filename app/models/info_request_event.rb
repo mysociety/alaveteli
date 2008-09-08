@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request_event.rb,v 1.55 2008-08-31 13:08:24 francis Exp $
+# $Id: info_request_event.rb,v 1.56 2008-09-08 11:33:11 francis Exp $
 
 class InfoRequestEvent < ActiveRecord::Base
     belongs_to :info_request
@@ -64,7 +64,8 @@ class InfoRequestEvent < ActiveRecord::Base
     acts_as_xapian :texts => [ :search_text_main, :title ],
         :values => [ [ :created_at, 0, "created_at", :date ],
                      [ :described_at_numeric, 1, "described_at", :number ], # XXX using :number for lack of :datetime support in Xapian values
-                     [ :request, 2, "request_collapse", :string ]
+                     [ :request, 2, "request_collapse", :string ],
+                     [ :request_title_collapse, 3, "request_title_collapse", :string ]
                    ],
         :terms => [ [ :calculated_state, 'S', "status" ],
                 [ :requested_by, 'B', "requested_by" ],
@@ -92,6 +93,13 @@ class InfoRequestEvent < ActiveRecord::Base
     end
     def request
         self.info_request.url_title
+    end
+    def request_title_collapse
+        url_title = self.info_request.url_title
+        # remove numeric section from the end, use this to group lots
+        # of similar requests by
+        url_title.gsub!(/[_0-9]+$/, "")
+        return url_title
     end
     def described_at
         # For responses, people might have RSS feeds on searches for type of

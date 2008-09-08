@@ -67,14 +67,16 @@ CSS things
     - CSS error on "all councils" page on some browsers
     - Spacing on error boxes round form elements
     - icons for "Things to do with this request" ?
+    - forms are tiny on firefox e.g. http://www.whatdotheyknow.com/new/50
+
+Wrapping of lines like this - are we taking few enough chars per line when wrapping annotations?
+    http://www.whatdotheyknow.com/request/contract_with_thales_for_nationa#comment-95
+    http://www.whatdotheyknow.com/request/marketing_budget_for_id_card_sch_2#outgoing-4110
 
 Merge workflow into one stream - find information, if you can't find it then request it.
     so just search is on front page, with popular stuff below a la Google Directory
 Google search within website of authority.
 Show similar requests after you have filed yours - maybe on preview too.
-
-Turning off frontpage
-    - Remove javascript from default :)
 
 Flag bad comments, delete comments from admin interface
     - perhaps via contact form, and form sending refering URL?
@@ -92,12 +94,6 @@ Don't let somebody file a new request if they haven't classified all existing on
      - and *after* filing get them to go classify existing ones
 
 Test code for FOI officer upload
-
-Check that initial requests have the Return-Path set to same address as From still
-after rails upgarde
-
-Completely prevent spaces at start of titles:
-http://www.whatdotheyknow.com/body/hblb
 
 Later
 =====
