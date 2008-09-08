@@ -315,53 +315,6 @@ dd { margin: 0.6em 0 2em 4em; width: 33em; }
     list-style: none;
 }
 
-#find_information
-{
-	width: 18em;
-	float: right;
-	clear: none;
-	background-color: #e0e0e0;
-	background-image: url(../images/navimg/sidebag-bg-wide2.png);
-	background-repeat: no-repeat;
-	background-position: center top;
-	padding: 105px 0.25em 0.25em 0.35em;
-}
-	#find_information h1
-	{ font-size: 1.2em; line-height: 0.9em; margin-top: 0px; }
-
-	#find_information p
-	{ font-size: 0.8em; line-height: 1.1em; }
-	
-	#find_information input#query
-	{ width: 12em; }
-	
-/*------ content : recent requests sidebar, overriding full-list  bits */
-#find_information .request_listing
-{
-	margin-top: 0;
-	clear: none;
-	padding: 0 0 0 0;
-	border: none;
-}	
-	#find_information span.bottomline
-	{
-		width: 22em;
-		background-image: none;
-		padding: 0em 0em 0em 0em;
-	}
-	
-	#find_information span.desc
-	{
-		float: none; background-image: none; padding: 0em 0em 0em 0em;
-	}
-
-	#find_information span.head /* make request page sidebar override (picking up .request_listing span.head) */
-	{ 
-		background-image: none;
-		padding: 12px 0 0 0px;
-		margin: 0 0 0em 0;
-	}
-
 /*-----------------------------list sidebars----------------*/
 #list_sidebar
 {
