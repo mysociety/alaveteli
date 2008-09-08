@@ -92,6 +92,8 @@
         <% for result in @xapian_comments.results %>
             <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result[:model], :info_request => result[:model].info_request } %>
         <% end %>
+
+        <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @xapian_comments.matches_estimated) %>
     <% end %>
 </div>
 
