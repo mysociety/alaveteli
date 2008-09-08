@@ -21,7 +21,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_thing.rb,v 1.39 2008-09-02 23:50:27 francis Exp $
+# $Id: track_thing.rb,v 1.40 2008-09-08 00:11:50 francis Exp $
 
 class TrackThing < ActiveRecord::Base
     belongs_to :tracking_user, :class_name => 'User'
@@ -101,7 +101,7 @@ class TrackThing < ActiveRecord::Base
         track_thing = TrackThing.new
         track_thing.track_type = 'user_updates'
         track_thing.tracked_user = user
-        track_thing.track_query = "requested_by:" + user.url_name
+        track_thing.track_query = "requested_by:" + user.url_name + " OR commented_by:" + user.url_name
         return track_thing
     end
 
