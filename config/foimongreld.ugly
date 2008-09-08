@@ -3,14 +3,24 @@
 # !!(*= $daemon_name *)!! Start the WhatDoTheyKnow web server daemon (mongrel)
 
 NAME=!!(*= $daemon_name *)!!
+RUNDIR=/data/vhost/!!(*= $vhost *)!!/mysociety/foi
 PIDFILE=/data/vhost/!!(*= $vhost *)!!/mysociety/foi/log/mongrel.pid
 DUSER=!!(*= $user *)!!
 
 function stop_mongrel {
     if [ -e $PIDFILE ]
     then
-        su -c "/usr/bin/ruby -I/usr/lib/ruby/ /usr/bin/mongrel_rails stop --force --wait 5"
-        # if --force kicks in, needs to remove the pidfile
+        su $DUSER -c "cd $RUNDIR; /usr/bin/ruby -I/usr/lib/ruby/ /usr/bin/mongrel_rails stop"
+        sleep 5s
+        if [ -e $PIDFILE ]
+            then
+            if ( ps h -p `cat $PIDFILE` )
+            then
+                echo "kill -9 ing `cat $PIDFILE` because it failed to stop"
+                kill -9 `cat $PIDFILE`
+                sleep 2s
+            fi
+        fi
         if [ -e $PIDFILE ]
         then
             rm $PIDFILE
@@ -27,7 +37,7 @@ function start_mongrel {
         echo " pidfile already exists, stop first "
         return 1
     else
-        su -c "/usr/bin/ruby -I/usr/lib/ruby/ /usr/bin/mongrel_rails start -d"
+        su $DUSER -c "cd $RUNDIR; /usr/bin/ruby -I/usr/lib/ruby/ /usr/bin/mongrel_rails start -d"
     fi
 }
 
