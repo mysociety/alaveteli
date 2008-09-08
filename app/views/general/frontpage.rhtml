@@ -16,24 +16,28 @@
 </div>
 
 <div id="frontpage_examples">
-    <div id="examples_0">
-        <ul>
-        <% for popular_body in @popular_bodies %>
-            <li><%=public_body_link(popular_body)%> </li>
-        <% end%>
-        </ul>
-        <p><strong>
-            <%= link_to "More authorities...", list_public_bodies_default %>
-        </strong></p>
-    </div>
+    <% if @popular_bodies.size > 0 %>
+        <div id="examples_0">
+            <ul>
+            <% for popular_body in @popular_bodies %>
+                <li><%=public_body_link(popular_body)%> </li>
+            <% end%>
+            </ul>
+            <p><strong>
+                <%= link_to "More authorities...", list_public_bodies_default %>
+            </strong></p>
+        </div>
+    <% end %>
 
-    <div id="examples_1">
-        <ul>
-        <% for request in @successful_requests %>
-            <li><%=link_to h(excerpt(request.title, "", 35)), request_url(request)%> </li>
-        <% end %>
-        </ul>
-        <p><strong><a href="/list/successful">More successful requests...</a></strong></p>
-    </div>
+    <% if @successful_requests.size > 0 %>
+        <div id="examples_1">
+            <ul>
+            <% for request in @successful_requests %>
+                <li><%=link_to h(excerpt(request.title, "", 35)), request_url(request)%> </li>
+            <% end %>
+            </ul>
+            <p><strong><a href="/list/successful">More successful requests...</a></strong></p>
+        </div>
+    <% end %>
 </div>
 
