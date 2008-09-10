@@ -50,12 +50,12 @@ case "$1" in
     ;;
 
   stop)
-    echo -n "Stopping WriteToThem web server daemon (mongrel): $NAME"
+    echo -n "Stopping WhatDoTheyKnow web server daemon (mongrel): $NAME"
     stop_mongrel
     ;;
 
   restart)
-    echo -n "Restarting WriteToThem web server daemon (mongrel): $NAME"
+    echo -n "Restarting WhatDoTheyKnow web server daemon (mongrel): $NAME"
     stop_mongrel
     start_mongrel
     ;;
