@@ -22,7 +22,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user.rb,v 1.66 2008-08-31 14:08:55 francis Exp $
+# $Id: user.rb,v 1.67 2008-09-11 10:37:37 francis Exp $
 
 require 'digest/sha1'
 
@@ -162,6 +162,16 @@ class User < ActiveRecord::Base
         end
 
         return u
+    end
+
+    # Returns list of requests which the user hasn't described.
+    def get_undescribed_requests
+        self.info_requests.find(
+            :all, 
+            :conditions => [ 'awaiting_description = ? and ' + InfoRequest.last_event_time_clause + ' < ?', 
+                true, Time.now() - 1.day 
+            ] 
+        )
     end
 
     # Does the user magically gain powers as if they owned every request?

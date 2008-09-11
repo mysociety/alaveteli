@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.136 2008-09-02 17:59:40 francis Exp $
+# $Id: info_request.rb,v 1.137 2008-09-11 10:37:37 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -677,6 +677,12 @@ public
             end
         end
     end
+
+    # Used to find when event last changed
+    def InfoRequest.last_event_time_clause 
+        '(select created_at from info_request_events where info_request_events.info_request_id = info_requests.id order by created_at desc limit 1)'
+    end
+
 
 end
 
