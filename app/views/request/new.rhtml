@@ -18,13 +18,15 @@
     <ul>
     <li>
         <% form_tag("http://www.google.co.uk/search", {:id => "search_body_website_form", :method => "get"} ) do %>
-           <strong>First, search</strong> the authority's web site ...
-           <br>
-           &nbsp; &nbsp; &nbsp; &nbsp; <%= text_field_tag 'q', params[:q], { :size => 20 } %>
-           <%= hidden_field_tag 'as_sitesearch', @info_request.public_body.calculated_home_page %>
-           <%= submit_tag "Search" %>
-           <br>
-           ... to check that the info isn't already published.
+            <p>
+               <strong>First, search</strong> the authority's web site ...
+               <br>
+               &nbsp; &nbsp; &nbsp; &nbsp; <%= text_field_tag 'q', params[:q], { :size => 20 } %>
+               <%= hidden_field_tag 'as_sitesearch', @info_request.public_body.calculated_home_page %>
+               <%= submit_tag "Search" %>
+               <br>
+               ... to check that the info isn't already published.
+            </p>
         <% end %>
     </li>
     <li>Write your request in <strong>simple, precise language</strong>.
