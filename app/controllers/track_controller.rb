@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_controller.rb,v 1.26 2008-08-09 00:25:28 francis Exp $
+# $Id: track_controller.rb,v 1.27 2008-09-11 09:36:10 francis Exp $
 
 class TrackController < ApplicationController
 
@@ -129,7 +129,6 @@ class TrackController < ApplicationController
             return
         end
 
-        STDOUT.puts(params.to_yaml)
         new_medium = params[:track_medium]
         if new_medium == 'delete'
             track_thing.destroy
