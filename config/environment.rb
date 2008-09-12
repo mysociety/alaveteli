@@ -82,6 +82,7 @@ ActiveRecord::Errors.default_error_messages[:blank] = "must be filled in"
 ActionView::Base.field_error_proc = Proc.new{ |html_tag, instance|  %(<span class="fieldWithErrors">#{html_tag}</span>)}
 
 # Include your application configuration below
+ActionController::Base.cache_store = :file_store, File.join(File.dirname(__FILE__), '../cache')
 
 # Monkeypatch! Output HTML 4.0 compliant code, using method described in this
 # ticket: http://dev.rubyonrails.org/ticket/6009

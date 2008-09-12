@@ -8,4 +8,5 @@ $LOC/runner "ActiveRecord::Base.connection.execute(\"update incoming_messages se
 
 # Remove page caches
 rm -fr $LOC/../public/request
+rm -fr $LOC/../cache
 
