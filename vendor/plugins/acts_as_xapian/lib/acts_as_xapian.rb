@@ -563,7 +563,13 @@ module ActsAsXapian
         def xapian_value(field, type = nil)
             value = self[field] || self.send(field.to_sym)
             if type == :date
-                value.utc.strftime("%Y%m%d")
+                if value.kind_of?(Time)
+                    value.utc.strftime("%Y%m%d")
+                elsif value.kind_f?(Date)
+                    value.to_time.utc.strftime("%Y%m%d")
+                else
+                    raise "Only Time or Date types supported by acts_as_xapian for :date fields, got " + value.class.to_s
+                end
             elsif type == :boolean
                 value ? true : false
             else
