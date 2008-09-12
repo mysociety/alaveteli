@@ -10,7 +10,8 @@ Contents
 * c. Comparison to acts_as_solr (as on 24 April 2008)
 * d. Documentation - indexing
 * e. Documentation - querying
-* f. Support
+* f. Configuration
+* g. Support
 
 
 a. Introduction to acts_as_xapian
@@ -146,10 +147,6 @@ A 'field' is a symbol referring to either an attribute or a function which
 returns the text, date or number to index. Both 'identifier' and 'char' must be
 the same for the same prefix in different models.
 
-Alternatively, 
-* :instead_index, a field which refers to another model that should be reindexed
-         instead of this one.
-
 Options may include:
 * :eager_load, added as an :include clause when looking up search results in
 database
@@ -163,7 +160,8 @@ object isn't indexed
 
 3. Call 'rake xapian:rebuild_index models="ModelName1 ModelName2"' to build the index
 the first time (you must specify all your indexed models). It's put in a
-development/test/production dir in acts_as_xapian/xapiandbs.
+development/test/production dir in acts_as_xapian/xapiandbs. See f. Configuration 
+below if you want to change this.
 
 4. Then from a cron job or a daemon, or by hand regularly!, call 'rake xapian:update_index'
 
@@ -224,7 +222,18 @@ for words_to_highlight. In addition has:
 You need the results methods to get the similar models.
 
 
-f. Support
+f. Configuration
+================
+
+If you want to customise the configuration of acts_as_xapian, it will look for a file called 'xapian.yml'
+under RAILS_ROOT/config. As is familiar from the format of the database.yml file, separate :development,
+:test and :production sections are expected.
+
+The following options are available:
+* base_db_path - specifies the directory, relative to RAILS_ROOT, in which acts_as_xapian stores its 
+search index databases. Default is the directory xapiandbs within the acts_as_xapian directory.
+
+g. Support
 ==========
 
 Please ask any questions on the 

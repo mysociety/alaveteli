@@ -30,9 +30,6 @@ module ActsAsXapian
     class NoXapianRubyBindingsError < StandardError
     end
 
-    def ActsAsXapian.db_path
-        @@db_path
-    end
     # XXX global class intializers here get loaded more than once, don't know why. Protect them.
     if not $acts_as_xapian_class_var_init 
         @@db = nil
@@ -44,6 +41,9 @@ module ActsAsXapian
     end
     def ActsAsXapian.db
         @@db
+    end
+    def ActsAsXapian.db_path
+        @@db_path
     end
     def ActsAsXapian.writable_db
         @@writable_db
@@ -63,6 +63,9 @@ module ActsAsXapian
     def ActsAsXapian.values_by_prefix
         @@values_by_prefix
     end
+    def ActsAsXapian.config
+      @@config
+    end
 
     ######################################################################
     # Initialisation
@@ -71,19 +74,35 @@ module ActsAsXapian
             # store class and options for use later, when we open the db in readable_init
             @@init_values.push([classname,options])
         end
+    end
 
-        # stop if we can't find out if we're in development/test/production
-        rails_env = (ENV['RAILS_ENV'] or RAILS_ENV)
-        raise "Set RAILS_ENV, so acts_as_xapian can find the right Xapian database" if not rails_env
+    # Reads the config file (if any) and sets up the path to the database we'll be using
+    def ActsAsXapian.prepare_environment
+      return unless @@db_path.nil?
 
-        # make the directory for the xapian databases to go in
+      # barf if we can't figure out the environment
+      environment = (ENV['RAILS_ENV'] or RAILS_ENV)
+      raise "Set RAILS_ENV, so acts_as_xapian can find the right Xapian database" if not environment
+
+      # check for a config file
+      config_file = RAILS_ROOT + "/config/xapian.yml"
+      @@config = File.exists?(config_file) ? YAML.load_file(config_file)[environment] : {}
+
+      # figure out where the DBs should go
+      if config['base_db_path']
+        db_parent_path = RAILS_ROOT + "/" + config['base_db_path']
+      else
         db_parent_path = File.join(File.dirname(__FILE__), '../xapiandbs/')
-        Dir.mkdir(db_parent_path) unless File.exists?(db_parent_path)
-        @@db_path = File.join(db_parent_path, rails_env) 
+      end
 
-        # make some things that don't depend on the db
-        # XXX this gets made once for each acts_as_xapian. Oh well.
-        @@stemmer = Xapian::Stem.new('english')
+      # make the directory for the xapian databases to go in
+      Dir.mkdir(db_parent_path) unless File.exists?(db_parent_path)
+
+      @@db_path = File.join(db_parent_path, environment) 
+
+      # make some things that don't depend on the db
+      # XXX this gets made once for each acts_as_xapian. Oh well.
+      @@stemmer = Xapian::Stem.new('english')
     end
 
     # Opens / reopens the db for reading
@@ -91,8 +110,13 @@ module ActsAsXapian
     # but db.reopen wasn't enough by itself, so just do everything it's easier.
     def ActsAsXapian.readable_init
         raise NoXapianRubyBindingsError.new("Xapian Ruby bindings not installed") unless ActsAsXapian.bindings_available
-        raise "acts_as_xapian hasn't been called in any models" unless @@db_path
+        raise "acts_as_xapian hasn't been called in any models" if @@init_values.empty?
+        
+        # if DB is not nil, then we're already initialised, so don't do it again
+        return unless @@db.nil?
 
+        prepare_environment
+        
         # basic Xapian objects
         begin
             @@db = Xapian::Database.new(@@db_path)
@@ -170,10 +194,12 @@ module ActsAsXapian
 
     def ActsAsXapian.writable_init(suffix = "")
         raise NoXapianRubyBindingsError.new("Xapian Ruby bindings not installed") unless ActsAsXapian.bindings_available
+        raise "acts_as_xapian hasn't been called in any models" if @@init_values.empty?
 
-        # XXX called so db_path is made, shouldn't really be calling .init here
-        # as will make it remake stemmer etc. excessively often.
-        ActsAsXapian.init 
+        # if DB is not nil, then we're already initialised, so don't do it again
+        return unless @@writable_db.nil?
+        
+        prepare_environment
 
         new_path = @@db_path + suffix
         raise "writable_suffix/suffix inconsistency" if @@writable_suffix && @@writable_suffix != suffix
@@ -469,6 +495,8 @@ module ActsAsXapian
     def ActsAsXapian.rebuild_index(model_classes, verbose = false)
         raise "when rebuilding all, please call as first and only thing done in process / task" if not ActsAsXapian.writable_db.nil?
 
+        prepare_environment
+        
         # Delete any existing .new database, and open a new one
         new_path = ActsAsXapian.db_path + ".new"
         if File.exist?(new_path)
