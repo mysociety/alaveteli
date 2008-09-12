@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.137 2008-09-11 10:37:37 francis Exp $
+# $Id: info_request.rb,v 1.138 2008-09-12 08:26:04 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -98,7 +98,7 @@ class InfoRequest < ActiveRecord::Base
             t = Time.now.usec - t
             secs = t / 1000000.0
             STDOUT.write secs.to_s + " query " + i.to_s + "\n"
-            results = InfoRequest.full_search([InfoRequestEvent], query, "created_at", false, nil, 25, 1).results
+            results = InfoRequest.full_search([InfoRequestEvent], query, "created_at", true, nil, 25, 1).results
         end
     end
 

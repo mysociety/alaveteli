@@ -69,9 +69,9 @@ describe TrackController, "when viewing RSS feed for a track" do
         
         assigns[:xapian_object].matches_estimated.should == 3
         assigns[:xapian_object].results.size.should == 3
-        assigns[:xapian_object].results[0][:model].should == info_request_events(:silly_comment_event)
-        assigns[:xapian_object].results[1][:model].should == info_request_events(:useless_incoming_message_event)
-        assigns[:xapian_object].results[2][:model].should == info_request_events(:useless_outgoing_message_event)
+        assigns[:xapian_object].results[0][:model].should == info_request_events(:silly_comment_event) # created_at 2008-08-12 23:05:12.500942
+        assigns[:xapian_object].results[1][:model].should == info_request_events(:useless_incoming_message_event) # created_at 2007-11-13 18:09:20.042061
+        assigns[:xapian_object].results[2][:model].should == info_request_events(:useless_outgoing_message_event) # created_at 2007-10-14 10:41:12.686264
     end
 
 end

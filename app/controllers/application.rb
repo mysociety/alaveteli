@@ -6,7 +6,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: application.rb,v 1.49 2008-06-12 13:43:29 francis Exp $
+# $Id: application.rb,v 1.50 2008-09-12 08:26:04 francis Exp $
 
 
 class ApplicationController < ActionController::Base
@@ -183,11 +183,11 @@ class ApplicationController < ActionController::Base
     # Convert URL name for sort by order, to Xapian query 
     def order_to_sort_by(sortby)
         if sortby.nil?
-            return [nil, true]
+            return [nil, nil]
         elsif sortby == 'newest'
-            return ['created_at', false]
+            return ['created_at', true]
         elsif sortby == 'described'
-            return ['described_at', false] # use this for some RSS
+            return ['described_at', true] # use this for some RSS
         else
             raise "Unknown sort order " + @sortby
         end

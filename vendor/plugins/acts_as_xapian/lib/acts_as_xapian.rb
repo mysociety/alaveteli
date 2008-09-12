@@ -215,7 +215,7 @@ module ActsAsXapian
             raise "please specifiy maximum number of results to return with parameter :limit" if not limit
             limit = limit.to_i 
             sort_by_prefix = options[:sort_by_prefix] || nil
-            sort_by_ascending = options[:sort_by_ascending] || true
+            sort_by_ascending = options[:sort_by_ascending].nil? ? true : options[:sort_by_ascending]
             collapse_by_prefix = options[:collapse_by_prefix] || nil
 
             ActsAsXapian.enquire.query = self.query

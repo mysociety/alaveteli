@@ -2,9 +2,7 @@ Test data for Tony
 
 Check tracks still work with URL routing changes
 
-Site move:
-    Install PostgresSQL 8.3
-    Move database
+Check foi backup
 
 Next
 ====
@@ -12,6 +10,7 @@ Next
 Write code to make sure the Return-Path is never foi@sandwich grrr
 
 Maybe move "send followup" into actions?
+Maybe make it so you need to log in to send follow up (i.e. before)
 
 Display current page (when not on first page), or perhaps range on both the
 /list pages, and on the /..../similar pages (maybe I missed it elsewhere too).
@@ -73,15 +72,13 @@ CSS things
     - Spacing on error boxes round form elements
     - icons for "Things to do with this request" ?
     - favicon.ico would be nice
-
 Wrapping of lines like this - are we taking few enough chars per line when wrapping annotations?
     http://www.whatdotheyknow.com/request/contract_with_thales_for_nationa#comment-95
     http://www.whatdotheyknow.com/request/marketing_budget_for_id_card_sch_2#outgoing-4110
 
 Merge workflow into one stream - find information, if you can't find it then request it.
-    so just search is on front page, with popular stuff below a la Google Directory
-Google search within website of authority.
 Show similar requests after you have filed yours - maybe on preview too.
+Fit google search and website search better into flow somehow, but how :(
 
 Flag bad comments, delete comments from admin interface
     - perhaps via contact form, and form sending refering URL?
