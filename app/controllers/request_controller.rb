@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.106 2008-09-03 09:03:57 francis Exp $
+# $Id: request_controller.rb,v 1.107 2008-09-12 19:07:28 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -329,6 +329,7 @@ class RequestController < ApplicationController
     end
 
     # Download an attachment
+    caches_page :get_attachment
     def get_attachment
         @incoming_message = IncomingMessage.find(params[:incoming_message_id])
         @info_request = @incoming_message.info_request

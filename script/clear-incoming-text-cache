@@ -6,4 +6,6 @@ LOC=`dirname $0`
 
 $LOC/runner "ActiveRecord::Base.connection.execute(\"update incoming_messages set cached_attachment_text = null, cached_main_body_text = null\")"
 
+# Remove page caches
+rm -fr $LOC/../public/request
 
