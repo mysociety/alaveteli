@@ -398,11 +398,13 @@ describe RequestController, "comment alerts" do
     fixtures :info_requests, :info_request_events, :public_bodies, :users, :incoming_messages, :outgoing_messages, :comments # all needed as integrating views
  
     it "should send an alert" do
-        # updated created_at timestamp, so is in last month (as alerts are only
-        # for comments in last month, see RequestMailer.alert_comment_on_request
+        # delete ficture comment and make new one, so is in last month (as
+        # alerts are only for comments in last month, see
+        # RequestMailer.alert_comment_on_request)
         existing_comment = info_requests(:fancy_dog_request).comments[0]
-        existing_comment.created_at = Time.now() - 2.weeks
-        existing_comment.save!
+        existing_comment.info_request_events[0].destroy
+        existing_comment.destroy
+        new_comment = info_requests(:fancy_dog_request).add_comment('I love making annotations.', users(:bob_smith_user))
 
         # send comment alert
         RequestMailer.alert_comment_on_request
@@ -422,6 +424,9 @@ describe RequestController, "comment alerts" do
     end
 
     it "should send an alert when there are two new comments" do
+        # add second comment - that one being new will be enough for
+        # RequestMailer.alert_comment_on_request to also find the one in the
+        # fixture.
         new_comment = info_requests(:fancy_dog_request).add_comment('Not as daft as this one', users(:bob_smith_user))
 
         RequestMailer.alert_comment_on_request
