@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_request_controller.rb,v 1.17 2008-09-02 17:44:14 francis Exp $
+# $Id: admin_request_controller.rb,v 1.18 2008-09-13 18:01:27 francis Exp $
 
 class AdminRequestController < ApplicationController
     layout "admin"
@@ -101,6 +101,27 @@ class AdminRequestController < ApplicationController
             render :action => 'edit_outgoing'
         end
     end 
+
+    def edit_comment
+        @comment = Comment.find(params[:id])
+    end
+
+    def update_comment
+        @comment = Comment.find(params[:id])
+
+        old_body = @comment.body
+
+        if @comment.update_attributes(params[:comment]) 
+            @comment.info_request.log_event("edit_comment", 
+                { :comment_if => @comment.id, :editor => admin_http_auth_user(), 
+                    :old_body => old_body, :body => @comment.body })
+            flash[:notice] = 'Comment successfully updated.'
+            redirect_to request_admin_url(@comment.info_request)
+        else
+            render :action => 'edit_comment'
+        end
+    end 
+
 
     def destroy_incoming
         @incoming_message = IncomingMessage.find(params[:incoming_message_id])

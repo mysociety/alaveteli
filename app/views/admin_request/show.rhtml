@@ -122,7 +122,7 @@
   <% for column in Comment.content_columns %>
     <th><%= column.human_name %></th>
   <% end %>
-  <!--<th>Actions</th>-->
+  <th>Actions</th>
   </tr>
   
 <% for comment in @info_request.comments.find(:all, :order => 'created_at') %>
@@ -132,6 +132,9 @@
   <% for column in Comment.content_columns.map { |c| c.name } %>
     <td><%=h comment.send(column) %></td>
   <% end %>
+  <td>
+      <%= link_to "Edit", '../edit_comment/' + comment.id.to_s %>
+  </td>
   </tr>
 <% end %>
 </table>

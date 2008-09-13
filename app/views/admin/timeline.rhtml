@@ -46,6 +46,20 @@
             <% else %>
                 Missing outgoing message, internal error.
             <% end %>
+        <% elsif event.event_type == 'edit_comment' %>
+            <% comments = Comment.find(:all, event.params[:comment_id].to_i) %>
+            had annotation edited by administrator <strong><%=h event.params[:editor] %></strong>.
+            <% if comments.size > 0 %>
+                <% comment = comments[0] %>
+                <% for p in ['body'] 
+                        if event.params[p.to_sym] != event.params[('old_'+p).to_sym]
+                            %> Changed <%=p%> from '<%=h event.params[('old_'+p).to_sym]%>' to '<%=h event.params[p.to_sym] %>'. <%
+                        end
+                   end
+                %>
+            <% else %>
+                Missing annotation, internal error.
+            <% end %>
         <% elsif event.event_type == 'destroy_incoming' %>
             had incoming message deleted by administrator <strong><%=h event.params[:editor] %></strong>.
          <% elsif event.event_type == 'response' %>
