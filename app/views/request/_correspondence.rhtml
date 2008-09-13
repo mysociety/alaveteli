@@ -11,6 +11,11 @@ end
 if !incoming_message.nil?
     cache_name = cache_name + "/incoming_message/" + incoming_message.id.to_s 
 end
+if !@collapse_quotes.nil? && !@collapse_quotes
+    cache_name = cache_name + "/collapse/false"
+else
+    cache_name = cache_name + "/collapse/true" # default is true
+end
 # yeuch, must be nicer way of telling cache just to use this cache_name, than
 # putting it falsely in list action
 cache(:controller => 'request', :action => 'list', :extra => cache_name) do
