@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request_event.rb,v 1.57 2008-09-13 18:01:27 francis Exp $
+# $Id: info_request_event.rb,v 1.58 2008-09-13 22:06:58 francis Exp $
 
 class InfoRequestEvent < ActiveRecord::Base
     belongs_to :info_request
@@ -63,10 +63,12 @@ class InfoRequestEvent < ActiveRecord::Base
 
     # Full text search indexing
     acts_as_xapian :texts => [ :search_text_main, :title ],
-        :values => [ [ :created_at, 0, "created_at", :date ],
-                     [ :described_at_numeric, 1, "described_at", :number ], # XXX using :number for lack of :datetime support in Xapian values
-                     [ :request, 2, "request_collapse", :string ],
-                     [ :request_title_collapse, 3, "request_title_collapse", :string ]
+        :values => [ 
+                     [ :created_at, 0, "range_search", :date ], # for QueryParser range searches e.g. 01/01/2008..14/01/2008
+                     [ :created_at_numeric, 1, "created_at", :number ], # for sorting
+                     [ :described_at_numeric, 2, "described_at", :number ], # XXX using :number for lack of :datetime support in Xapian values
+                     [ :request, 3, "request_collapse", :string ],
+                     [ :request_title_collapse, 4, "request_title_collapse", :string ]
                    ],
         :terms => [ [ :calculated_state, 'S', "status" ],
                 [ :requested_by, 'B', "requested_by" ],
@@ -112,6 +114,10 @@ class InfoRequestEvent < ActiveRecord::Base
     def described_at_numeric
         # format it here as no datetime support in Xapian's value ranges
         return self.described_at.strftime("%Y%m%d%H%M%S") 
+    end
+    def created_at_numeric
+        # format it here as no datetime support in Xapian's value ranges
+        return self.created_at.strftime("%Y%m%d%H%M%S") 
     end
     def search_text_main
         text = ''

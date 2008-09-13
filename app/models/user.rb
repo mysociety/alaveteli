@@ -22,7 +22,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user.rb,v 1.67 2008-09-11 10:37:37 francis Exp $
+# $Id: user.rb,v 1.68 2008-09-13 22:06:58 francis Exp $
 
 require 'digest/sha1'
 
@@ -49,8 +49,15 @@ class User < ActiveRecord::Base
     ]
 
     acts_as_xapian :texts => [ :name ],
-        :values => [ [ :created_at, 0, "created_at", :date ] ],
+        :values => [ 
+             [ :created_at, 0, "range_search", :date ], # for QueryParser range searches e.g. 01/01/2008..14/01/2008
+             [ :created_at_numeric, 1, "created_at", :number ] # for sorting
+        ],
         :terms => [ [ :variety, 'V', "variety" ] ]
+    def created_at_numeric
+        # format it here as no datetime support in Xapian's value ranges
+        return self.created_at.strftime("%Y%m%d%H%M%S") 
+    end
     def variety
         "user"
     end

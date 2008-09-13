@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.105 2008-09-13 15:35:37 francis Exp $
+# $Id: public_body.rb,v 1.106 2008-09-13 22:06:58 francis Exp $
 
 require 'csv'
 require 'set'
@@ -157,8 +157,15 @@ class PublicBody < ActiveRecord::Base
     end
 
     acts_as_xapian :texts => [ :name, :short_name ],
-        :values => [ [ :created_at, 0, "created_at", :date ] ],
+        :values => [ 
+             [ :created_at, 0, "range_search", :date ], # for QueryParser range searches e.g. 01/01/2008..14/01/2008
+             [ :created_at_numeric, 1, "created_at", :number ] # for sorting
+        ],
         :terms => [ [ :variety, 'V', "variety" ] ]
+    def created_at_numeric
+        # format it here as no datetime support in Xapian's value ranges
+        return self.created_at.strftime("%Y%m%d%H%M%S") 
+    end
     def variety
         "authority"
     end
