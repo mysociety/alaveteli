@@ -454,6 +454,13 @@ module ActsAsXapian
     # make sure that each index update is definitely saved to disk before
     # logging in the database that it has been.
     def ActsAsXapian.update_index(flush = false, verbose = false)
+        # Before calling writable_init we have to make sure every model class has been initialized.
+        # i.e. has had its class code loaded, so acts_as_xapian has been called inside it, and
+        # we have the info from acts_as_xapian.
+        model_classes = ActsAsXapianJob.find_by_sql("select model from acts_as_xapian_jobs group by model").map {|a| a.model.constantize}
+        # If there are no models in the queue, then nothing to do
+        return if model_classes.size == 0
+
         ActsAsXapian.writable_init
 
         ids_to_refresh = ActsAsXapianJob.find(:all).map() { |i| i.id }
