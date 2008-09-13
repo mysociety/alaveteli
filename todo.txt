@@ -64,8 +64,6 @@ Admin:
     Somehow fold up the enormous pages on many admin pages
     Have internal links to different parts of request page
 
-Comments etc. do not sort in right order - by date, but not by time
-
 "Excessive use of speed by Police vehicles." appears only once, even though multiple annotations.
 Perhaps show grouping count?
 http://www.whatdotheyknow.com/search/variety:comment/newest
@@ -189,8 +187,6 @@ Get Atom highlighting to include stylesheet for yellow somehow
 Offer option of one RSS feed with all things you are tracking in it. Maybe.
 
 "Some of the information" option should give you choice of complaining if you like.
-
-Offer search on 404s
 
 For followups, have radio button to say is it a new request or followup?
 
