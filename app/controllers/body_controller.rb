@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: body_controller.rb,v 1.16 2008-09-07 17:43:11 francis Exp $
+# $Id: body_controller.rb,v 1.17 2008-09-13 15:35:37 francis Exp $
 
 class BodyController < ApplicationController
     # XXX tidy this up with better error messages, and a more standard infrastructure for the redirect to canonical URL
@@ -48,7 +48,7 @@ class BodyController < ApplicationController
                 and public_body_tags.name in (' + category_list + ')) = 0']
         elsif @tag.size == 1
             @tag.upcase!
-            conditions = ['upper(substr(name, 1, 1)) = ?', @tag]
+            conditions = ['first_letter = ?', @tag]
         else
             conditions = ['(select count(*) from public_body_tags where public_body_tags.public_body_id = public_bodies.id
                 and public_body_tags.name = ?) > 0', @tag]

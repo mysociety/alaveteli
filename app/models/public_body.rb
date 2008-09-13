@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.104 2008-09-07 17:01:49 francis Exp $
+# $Id: public_body.rb,v 1.105 2008-09-13 15:35:37 francis Exp $
 
 require 'csv'
 require 'set'
@@ -110,6 +110,12 @@ class PublicBody < ActiveRecord::Base
         Hash[*self.categories_with_description.map() { |a| [a[0],a[2]] }.flatten]
     end
 
+    # Set the first letter, which is used for faster queries
+    before_save(:set_first_letter)
+    def set_first_letter
+        self.first_letter = self.name[0,1].upcase
+    end
+
     # Strip whitespace for everything, see http://railsforum.com/viewtopic.php?id=969
     before_save(:clean_whitespace)
     def clean_whitespace
@@ -145,7 +151,7 @@ class PublicBody < ActiveRecord::Base
     end
 
     acts_as_versioned
-    self.non_versioned_columns << 'created_at' << 'updated_at'
+    self.non_versioned_columns << 'created_at' << 'updated_at' << 'first_letter'
     class Version
         attr_accessor :created_at
     end
