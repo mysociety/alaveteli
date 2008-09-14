@@ -4,24 +4,15 @@ Profile it!
 Test data for Tony
 
 Check tracks still work with URL routing changes
+Check new comments are arriving in variety:comment/newest search first
 
 Check foi backup
 
 Next
 ====
 
-Write code to make sure the Return-Path is never foi@sandwich grrr
-
 Maybe move "send followup" into actions?
 Maybe make it so you need to log in to send follow up (i.e. before)
-
-Display current page (when not on first page), or perhaps range on both the
-/list pages, and on the /..../similar pages (maybe I missed it elsewhere too).
-Should make a general will_paginate like function to do this part, and call
-that from /search (which has this already) too.
-Paginate request listing (and other things!) on user page, and on public
-authority page.  
-http://www.whatdotheyknow.com/user/stuart_hardwicke_carruthers
 
 Internal review status/marker?
     http://www.whatdotheyknow.com/request/search_engine_advertising_bought
@@ -46,9 +37,6 @@ Payment required
     http://www.whatdotheyknow.com/request/staff_absences_due_to_long_term
 
 Request withdrawn by user status/marker?
-
-Grrr - so here I wanted to clarify my request, but don't want the timer to be reset!
-    http://www.whatdotheyknow.com/request/online_petitions_documents_from#incoming-3248
 
 Perhaps encourage user to annotate what they learnt after getting information?
 When they say "successful", encourage them to make an annotation?
@@ -81,9 +69,6 @@ Merge workflow into one stream - find information, if you can't find it then req
 Show similar requests after you have filed yours - maybe on preview too.
 Fit google search and website search better into flow somehow, but how :(
 
-Flag bad comments, delete comments from admin interface
-    - perhaps via contact form, and form sending refering URL?
-
 Add "I have a large file" to FOI office FAQ
 Add "Who should I make my request to?"
 Add "I want to file squillions of requests"
@@ -101,8 +86,18 @@ Don't let somebody file a new request if they haven't classified all existing on
 
 Test code for FOI officer upload
 
+Grrr - so here I wanted to clarify my request, but don't want the timer to be reset!
+    http://www.whatdotheyknow.com/request/online_petitions_documents_from#incoming-3248
+
+Write code to make sure the Return-Path is never foi@sandwich.org.uk (even if the
+  Rails code breaks for Sendmail case in future botched Rails upgrades :)
+
+
 Later
 =====
+
+Flag bad comments, delete comments from admin interface
+    - perhaps via contact form, and form sending refering URL?
 
 Protect from CSRF with this in app controller (care it doesn't break anything):
   # See ActionController::RequestForgeryProtection for details

@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.107 2008-09-12 19:07:28 francis Exp $
+# $Id: request_controller.rb,v 1.108 2008-09-14 01:40:29 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -53,6 +53,12 @@ class RequestController < ApplicationController
         # doing so. Google bot was going dozens of pages in, and they are slow
         # pages to generate, having an impact on server load.
         @no_crawl = true 
+
+        if (@page > 1)
+            @page_desc = " (page " + @page.to_s + ")" 
+        else    
+            @page_desc = ""
+        end
     end
 
     def list
@@ -72,6 +78,7 @@ class RequestController < ApplicationController
             raise "unknown request list view " + @view.to_s
         end
         @xapian_object = perform_search([InfoRequestEvent], query, sortby, 'request_collapse')
+        @title = @title + " (page " + @page.to_s + ")" if (@page > 1)
 
         @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss] } ]
     end

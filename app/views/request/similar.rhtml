@@ -1,5 +1,5 @@
-<% @title = "Requests similar to '" + h(@info_request.title) + "'"  %>
-<h1><%="Requests similar to '" + request_link(@info_request) + "'"%></h1>
+<% @title = "Requests similar to '" + h(@info_request.title) + "'" + @page_desc %>
+<h1><%="Requests similar to '" + request_link(@info_request) + "'" + @page_desc %></h1>
 
 <!-- Important terms: <%= @xapian_object.important_terms.join(" ") %>  -->
 
