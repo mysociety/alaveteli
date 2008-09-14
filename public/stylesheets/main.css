@@ -650,8 +650,6 @@ div.comment_in_request
 	border-style: dotted;
 	overflow: auto;
 }
-div.comment_in_request h2
-{ text-align: right; font-size: 1em; }
 
 div#after_actions
 {
