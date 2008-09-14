@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user_controller.rb,v 1.57 2008-09-14 01:40:29 francis Exp $
+# $Id: user_controller.rb,v 1.58 2008-09-14 01:44:49 francis Exp $
 
 class UserController < ApplicationController
     # Show page about a user
@@ -25,7 +25,11 @@ class UserController < ApplicationController
         # Use search query for this so can collapse and paginate easily
         @xapian_requests = perform_search([InfoRequestEvent], 'requested_by:' + @display_user.url_name, 'newest', 'request_collapse')
         @xapian_comments = perform_search([InfoRequestEvent], 'commented_by:' + @display_user.url_name, 'newest', nil)
-        @page_desc = " (page " + @page.to_s + ")" 
+        if (@page > 1)
+            @page_desc = " (page " + @page.to_s + ")" 
+        else    
+            @page_desc = ""
+        end
 
         # Track corresponding to this page
         @track_thing = TrackThing.create_track_for_user(@display_user)
