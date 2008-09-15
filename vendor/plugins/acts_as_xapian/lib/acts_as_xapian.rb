@@ -113,8 +113,10 @@ module ActsAsXapian
         raise "acts_as_xapian hasn't been called in any models" if @@init_values.empty?
         
         # if DB is not nil, then we're already initialised, so don't do it again
-        # XXX we need to reopen!
-        #return unless @@db.nil?
+        # XXX we need to reopen the database each time, so Xapian gets changes to it.
+        # Hopefully in later version of Xapian it will autodetect this, and this can
+        # be commented back in again.
+        # return unless @@db.nil?
 
         prepare_environment
         
