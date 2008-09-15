@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_user_controller.rb,v 1.6 2008-08-27 00:39:03 francis Exp $
+# $Id: admin_user_controller.rb,v 1.7 2008-09-15 11:11:13 francis Exp $
 
 class AdminUserController < ApplicationController
     layout "admin"
@@ -47,7 +47,13 @@ class AdminUserController < ApplicationController
         end
     end 
 
- 
+    def destroy_track
+        track_thing = TrackThing.find(params[:track_id].to_i)
+        track_thing.destroy
+        flash[:notice] = 'Track destroyed'
+        redirect_to user_admin_url(track_thing.tracking_user)
+    end
+
     private
 
 end

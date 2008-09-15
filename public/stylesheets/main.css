@@ -736,6 +736,7 @@ label.form_label
 	clear: none;
 	text-align: right;
 	padding: 0 10px 0 0;
+    margin: 0 0 0 0;
 }
 	#request_form h1 label
 	{

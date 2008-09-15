@@ -11,6 +11,14 @@ Check foi backup
 Next
 ====
 
+Simple initial bulk request prevention (see Tony's mail on this)
+This doesn't work:
+http://www.whatdotheyknow.com/search/status:waiting_classification/
+Don't let somebody file a new request if they haven't classified all existing ones?
+     - nobody will logout and reconfirm email for each one, so can just make it
+       "can't file while already logged in"?
+     - and *after* filing get them to go classify existing ones
+
 Maybe move "send followup" into actions?
 Maybe make it so you need to log in to send follow up (i.e. before)
 
@@ -48,10 +56,6 @@ When forcing auth user for followups is a bit confusing/weird, does it really wo
     Should we say auth for followups sooner as you have to be certain user?
 Display of login dialog to log in as particular user if you are logged out isn't centred nicely
 
-Admin:
-    Somehow fold up the enormous pages on many admin pages
-    Have internal links to different parts of request page
-
 "Excessive use of speed by Police vehicles." appears only once, even though multiple annotations.
 Perhaps show grouping count?
 http://www.whatdotheyknow.com/search/variety:comment/newest
@@ -60,10 +64,6 @@ CSS things
     - CSS error on "all councils" page on some browsers
     - Spacing on error boxes round form elements
     - icons for "Things to do with this request" ?
-    - favicon.ico would be nice
-Wrapping of lines like this - are we taking few enough chars per line when wrapping annotations?
-    http://www.whatdotheyknow.com/request/contract_with_thales_for_nationa#comment-95
-    http://www.whatdotheyknow.com/request/marketing_budget_for_id_card_sch_2#outgoing-4110
 
 Merge workflow into one stream - find information, if you can't find it then request it.
 Show similar requests after you have filed yours - maybe on preview too.
@@ -76,14 +76,6 @@ Add "I didn't get the email / spam question" and link to from FOI offcier upload
 Add "Postal replies stuff" and link to from FOI officer upload page
 Add "I'm not sure which authority to make my request to" - make flow better after first section, to abrupt now
 
-Simple initial bulk request prevention (see Tony's mail on this)
-This doesn't work:
-http://www.whatdotheyknow.com/search/status:waiting_classification/
-Don't let somebody file a new request if they haven't classified all existing ones?
-     - nobody will logout and reconfirm email for each one, so can just make it
-       "can't file while already logged in"?
-     - and *after* filing get them to go classify existing ones
-
 Test code for FOI officer upload
 
 Grrr - so here I wanted to clarify my request, but don't want the timer to be reset!
@@ -92,9 +84,16 @@ Grrr - so here I wanted to clarify my request, but don't want the timer to be re
 Write code to make sure the Return-Path is never foi@sandwich.org.uk (even if the
   Rails code breaks for Sendmail case in future botched Rails upgrades :)
 
+Admin:
+    Somehow fold up the enormous pages on many admin pages
+    Have internal links to different parts of request page
+
+
 
 Later
 =====
+
+favicon.ico would be nice
 
 Flag bad comments, delete comments from admin interface
     - perhaps via contact form, and form sending refering URL?
