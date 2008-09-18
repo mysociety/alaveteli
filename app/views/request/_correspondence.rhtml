@@ -26,7 +26,7 @@ if not incoming_message.nil?
 %>
     <div class="correspondence" id="incoming-<%=incoming_message.id.to_s%>">
         <h2>
-            <% if !incoming_message.safe_mail_from.nil? %>
+            <% if !incoming_message.safe_mail_from.nil? && incoming_message.safe_mail_from.strip != @info_request.public_body.name.strip %>
                 <%= incoming_message.safe_mail_from %><br>
             <% end %>
             <%=h @info_request.public_body.name %><br>
