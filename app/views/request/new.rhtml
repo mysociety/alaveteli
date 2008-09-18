@@ -20,10 +20,12 @@
         <% form_tag("http://www.google.co.uk/search", {:id => "search_body_website_form", :method => "get"} ) do %>
             <p>
                <strong>First, search</strong> the authority's web site ...
-               <br>
-               &nbsp; &nbsp; &nbsp; &nbsp; <%= text_field_tag 'q', params[:q], { :size => 20 } %>
-               <%= hidden_field_tag 'as_sitesearch', @info_request.public_body.calculated_home_page %>
-               <%= submit_tag "Search" %>
+               <% if !@info_request.public_body.calculated_home_page.nil? %>
+                   <br>
+                   &nbsp; &nbsp; &nbsp; &nbsp; <%= text_field_tag 'q', params[:q], { :size => 20 } %>
+                   <%= hidden_field_tag 'as_sitesearch', @info_request.public_body.calculated_home_page %>
+                   <%= submit_tag "Search" %>
+               <% end %>
                <br>
                ... to check that the info isn't already published.
             </p>

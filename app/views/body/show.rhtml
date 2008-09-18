@@ -9,7 +9,9 @@
 
 <p class="subtitle">
 <%=@public_body.type_of_authority(true)%> in the UK<% if not @public_body.short_name.empty? %>, also called <%= h(@public_body.short_name) %><% end %>
-(<%= link_to "home page", @public_body.calculated_home_page %>)
+<% if !@public_body.calculated_home_page.nil? %>
+    (<%= link_to "home page", @public_body.calculated_home_page %>)
+<% end %>
 <% if !@user.nil? && @user.admin_page_links? %>
 (<%= link_to "admin", public_body_admin_url(@public_body) %>)
 <% end %>
@@ -22,17 +24,6 @@
 <% if @public_body.eir_only? %>
 <p>You can only request information about the environment from this authority.</p>
 <% end %>
-
-<!--
-<% form_tag("http://www.google.co.uk/search", {:id => "search_body_website_form", :method => "get"} ) do %>
-   <p>
-       <strong>Search the authority's <%= link_to "web site", @public_body.calculated_home_page %>:</strong>
-       <%= text_field_tag 'q', params[:q], { :size => 20 } %>
-       <%= hidden_field_tag 'as_sitesearch', @public_body.calculated_home_page %>
-       <%= submit_tag "Search" %>
-   </p>
-<% end %>
--->
 
 <p>
 <% if @public_body.eir_only? %>
