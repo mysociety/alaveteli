@@ -11,6 +11,8 @@ Check foi backup
 Next
 ====
 
+Put name at bottom of request if you are signed in (so don't send them in others names!)
+
 Simple initial bulk request prevention (see Tony's mail on this)
 This doesn't work:
 http://www.whatdotheyknow.com/search/status:waiting_classification/
@@ -20,6 +22,7 @@ Don't let somebody file a new request if they haven't classified all existing on
      - and *after* filing get them to go classify existing ones
 
 Maybe move "send followup" into actions?
+    and make it so you can choose who to send followup to from dropdown
 Maybe make it so you need to log in to send follow up (i.e. before)
 
 Internal review status/marker?
@@ -92,6 +95,15 @@ Admin:
 
 Later
 =====
+
+Do conversion tracking on endpoints in WDTK, advertise perhaps TWFY, or perhaps
+    donations to mySociety.
+
+http://www.whatdotheyknow.com/list/successful - too many ombudsmans.
+    Radical would be to group by user, regardless of subject; less radical to
+    collate those with same/similar subject.
+http://www.whatdotheyknow.com/list?page=2 - too many monitoring officer
+    reports - similar to above, I reckon.
 
 favicon.ico would be nice
 

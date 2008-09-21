@@ -247,8 +247,23 @@ describe RequestController, "when classifying an individual response" do
         info_requests(:fancy_dog_request).get_last_response_event.calculated_state.should == 'rejected'
     end
 
-        #response.should redirect_to(:action => 'show', :id => info_requests(:fancy_dog_request))
-        #incoming_messages(:useless_incoming_message).user_classified.should == true
+    it "should send email when classified as requires_admin" do
+        info_requests(:fancy_dog_request).awaiting_description.should == true
+        session[:user_id] = users(:bob_smith_user).id
+        post :describe_state, :incoming_message => { :described_state => "requires_admin" }, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message), :last_info_request_event_id => info_request_events(:silly_comment_event).id, :submitted_describe_state => 1
+        response.should redirect_to(:action => 'show', :url_title => info_requests(:fancy_dog_request).url_title)
+
+        info_requests(:fancy_dog_request).reload
+        info_requests(:fancy_dog_request).awaiting_description.should == false
+        info_requests(:fancy_dog_request).described_state.should == 'requires_admin'
+        info_requests(:fancy_dog_request).get_last_response_event.calculated_state.should == 'requires_admin'
+
+        deliveries = ActionMailer::Base.deliveries
+        deliveries.size.should == 1
+        mail = deliveries[0]
+        mail.body.should =~ /as being unusual/
+        mail.from_addrs.to_s.should == users(:bob_smith_user).name_and_email
+    end
 end
 
 describe RequestController, "when sending a followup message" do
