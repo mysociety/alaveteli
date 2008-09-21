@@ -581,7 +581,7 @@ div.pagination { text-align: center; padding-top: 0.3em;}
 }
 
 /*-------------------- Content : action notice */
-#notice, .describe_state_form
+#notice, .describe_state_form, .undescribed_requests
 {
 	color: #16C132;
 	font-size: 1.4em;
@@ -592,7 +592,7 @@ div.pagination { text-align: center; padding-top: 0.3em;}
 	background-color: #D5FFD8;
 	padding: 0.5em;
 }
-.describe_state_form {
+.describe_state_form, .undescribed_requests {
 	font-weight: normal;
     margin-bottom: 1em;
     font-size: 1.0em;
@@ -600,9 +600,15 @@ div.pagination { text-align: center; padding-top: 0.3em;}
     float: left;
     width: 37em;
 }
+.undescribed_requests {
+    clear: both;
+}
 .requires_admin_details {
     margin-left: 1.8em;
     width: 35em;
+}
+.single_user {
+    clear: left;
 }
 
 /*---------------- content : request detail pages */

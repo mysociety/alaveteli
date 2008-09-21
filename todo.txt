@@ -11,8 +11,6 @@ Check foi backup
 Next
 ====
 
-Put name at bottom of request if you are signed in (so don't send them in others names!)
-
 Simple initial bulk request prevention (see Tony's mail on this)
 This doesn't work:
 http://www.whatdotheyknow.com/search/status:waiting_classification/
@@ -20,6 +18,8 @@ Don't let somebody file a new request if they haven't classified all existing on
      - nobody will logout and reconfirm email for each one, so can just make it
        "can't file while already logged in"?
      - and *after* filing get them to go classify existing ones
+
+Put name at bottom of request if you are signed in (so don't send them in others names!)
 
 Maybe move "send followup" into actions?
     and make it so you can choose who to send followup to from dropdown

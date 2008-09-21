@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user_controller.rb,v 1.59 2008-09-14 01:47:47 francis Exp $
+# $Id: user_controller.rb,v 1.60 2008-09-21 23:53:50 francis Exp $
 
 class UserController < ApplicationController
     # Show page about a user
@@ -42,6 +42,11 @@ class UserController < ApplicationController
         if @is_you
             @track_things = TrackThing.find(:all, :conditions => ["tracking_user_id = ? and track_medium = ?", @display_user.id, 'email_daily'], :order => 'created_at desc')
             @track_things_grouped = @track_things.group_by(&:track_type_description)
+        end
+
+        # Requests you need to describe
+        if @is_you
+            @undescribed_requests = @display_user.get_undescribed_requests 
         end
     end
 

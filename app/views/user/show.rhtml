@@ -7,6 +7,24 @@
     <% end %> 
 <% end%>
 
+<% if @is_you && @undescribed_requests.size > 0 %>
+    <div class="undescribed_requests">
+        <p>Please <strong>go to the following requests</strong>, and let us
+        know if there was information in the recent responses to them.</p>
+        <ul>
+        <% for undescribed_request in @undescribed_requests %>
+            <li><%=request_link(undescribed_request)%></li>
+        <% end %>
+        </ul>
+        <p>
+            Thanks very much - this will help others find useful stuff. We'll
+            also, if you need it, give advice on what to do next about your
+            requests.
+        </p>
+    </div>
+<% end %>
+
+
 <div id="request_sidebar">
     <h2>Track this person</h2>
     <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => false, :location => 'sidebar' } %>
@@ -50,10 +68,12 @@
             <% for track_thing in track_things %>
                 <li>
                     <% form_tag :controller => 'track', :action => 'update', :track_id => track_thing.id do %>
-                        <%= track_thing.params[:list_description] %> 
-                        <%= hidden_field_tag 'track_medium', "delete" %>
-                        <%= hidden_field_tag 'r', request.request_uri %>
-                        <%= submit_tag "unsubscribe" %>
+                        <div>
+                            <%= track_thing.params[:list_description] %> 
+                            <%= hidden_field_tag 'track_medium', "delete", { :id => 'track_medium_' + track_thing.id.to_s } %>
+                            <%= hidden_field_tag 'r', request.request_uri, { :id => 'r_' + track_thing.id.to_s }  %>
+                            <%= submit_tag "unsubscribe" %>
+                        </div>
                     <% end %>
                     <!-- (<%= link_to "view latest updates", :controller => 'general', :action => 'search', :query => track_thing.track_query %>) -->
                 </li>
