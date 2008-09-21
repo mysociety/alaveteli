@@ -1,6 +1,7 @@
-A user has reported an <%=@info_request.law_used_short%> response as being
-unusual, or out of the scope of the system. Take a look, and contact the user
-to let them know what you are going to do about it.
+---------------------------------------------------------------------
+<%=@info_request.user.name%> has reported an <%=@info_request.law_used_short%>
+response as being unusual, or out of the scope of the system. Take a look, and
+reply to this email to let them know what you are going to do about it.
 
 Request '<%=@info_request.title%>':
 <%= @url %>
@@ -9,3 +10,4 @@ Details: "<%= @details %>"
 
 Administration URL: 
 <%= @admin_url %>
+---------------------------------------------------------------------
