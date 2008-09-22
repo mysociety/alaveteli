@@ -11,12 +11,6 @@ Upload Julian's large Cambridgeshire contract
 
 Sort admin tag search by name rather than by modification date
 
-Maybe make it so you need to log in to send follow up (i.e. before)
-When forcing auth user for followups is a bit confusing/weird, does it really work?
-    Perhaps remove signout dialog and have signin instead?
-    Should we say auth for followups sooner as you have to be certain user?
-Display of login dialog to log in as particular user if you are logged out isn't centred nicely
-
 Internal review status/marker?
     http://www.whatdotheyknow.com/request/search_engine_advertising_bought
     http://www.whatdotheyknow.com/request/communications_from_home_office
