@@ -1,12 +1,4 @@
-Gah - fix caching regarding info_request that correspondence part belongs to
-Profile it!
-
 Test data for Tony
-
-Check tracks still work with URL routing changes
-Check new comments are arriving in variety:comment/newest search first
-
-Check foi backup
 
 Next
 ====
@@ -14,8 +6,11 @@ Next
 This doesn't work:
 http://www.whatdotheyknow.com/search/status:waiting_classification/
 
-Maybe move "send followup" into actions?
-    and make it so you can choose who to send followup to from dropdown
+Optimise so doesn't load raw_data in on every page
+Upload Julian's large Cambridgeshire contract
+
+Sort admin tag search by name rather than by modification date
+
 Maybe make it so you need to log in to send follow up (i.e. before)
 When forcing auth user for followups is a bit confusing/weird, does it really work?
     Perhaps remove signout dialog and have signin instead?
@@ -50,10 +45,6 @@ Perhaps encourage user to annotate what they learnt after getting information?
 When they say "successful", encourage them to make an annotation?
 
 Clear out all the need admin attention requests
-
-"Excessive use of speed by Police vehicles." appears only once, even though multiple annotations.
-Perhaps show grouping count?
-http://www.whatdotheyknow.com/search/variety:comment/newest
 
 CSS things
     - CSS error on "all councils" page on some browsers

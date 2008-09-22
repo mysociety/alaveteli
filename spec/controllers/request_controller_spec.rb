@@ -210,11 +210,18 @@ describe RequestController, "when creating a new request" do
 
 end
 
-describe RequestController, "when viewing an individual response" do
+describe RequestController, "when viewing an individual response for reply/followup" do
     integrate_views
     fixtures :info_requests, :info_request_events, :public_bodies, :users, :incoming_messages, :outgoing_messages, :comments # all needed as integrating views
   
-    it "should show the response" do
+    it "should ask for login if you are logged in as wrong person" do
+        session[:user_id] = users(:silly_name_user).id
+        get :show_response, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message)
+        response.should render_template('user/wrong_user')
+    end
+
+    it "should show the response if you are logged in as right person" do
+        session[:user_id] = users(:bob_smith_user).id
         get :show_response, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message)
         response.should render_template('show_response')
     end
