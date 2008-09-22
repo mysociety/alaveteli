@@ -14,12 +14,7 @@
 <h1>Add an annotation to '<%=request_link(@info_request)%>'</h1>
 
 <p>
-Annotations will be posted publically here, and are
-<strong>not</strong> sent to the authority.
-</p>
-
-<p>
-Help the requester with their request.
+Annotations are so anyone, including you, can help the requester with their request. For example:
 </p>
 
 <ul>
@@ -61,5 +56,10 @@ Help the requester with their request.
 <% end %>
 
 </ul>
+
+<p>
+    <big>Annotations will be posted publically here, and are
+    <strong>not</strong> sent to the authority.</big>
+</p>
 
 <%= render :partial => 'comment/comment_form', :locals => { :track_thing => @track_thing } %>
