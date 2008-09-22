@@ -83,10 +83,11 @@
     <% end %>
 
     <% if @xapian_requests.results.empty? %>
-        <h2>Freedom of Information requests made by <%= @is_you ? 'you' : 'this person' %> </h2>
-        <p><%= @is_you ? 'You have' : 'This person has' %>
-        made no Freedom of Information requests using this site.</p>
-
+        <% if @page == 1 %>
+            <h2>Freedom of Information requests made by <%= @is_you ? 'you' : 'this person' %> </h2>
+            <p><%= @is_you ? 'You have' : 'This person has' %>
+            made no Freedom of Information requests using this site.</p>
+        <% end %>
     <% else %>
         <h2>
             <%= @is_you ? 'Your ' : "This person's " %>
@@ -103,8 +104,10 @@
     <% end %>
 
     <% if @xapian_comments.results.empty? %>
-        <h2><%= @is_you ? 'Your' : 'This person\'s' %> annotations </h2>
-        <p>None made.</p>
+        <% if @page == 1 %>
+            <h2><%= @is_you ? 'Your' : 'This person\'s' %> annotations </h2>
+            <p>None made.</p>
+        <% end %>
     <% else %>
         <h2>
             <%= @is_you ? 'Your ' : "This person's " %>
