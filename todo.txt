@@ -11,19 +11,16 @@ Check foi backup
 Next
 ====
 
-Simple initial bulk request prevention (see Tony's mail on this)
 This doesn't work:
 http://www.whatdotheyknow.com/search/status:waiting_classification/
-Don't let somebody file a new request if they haven't classified all existing ones?
-     - nobody will logout and reconfirm email for each one, so can just make it
-       "can't file while already logged in"?
-     - and *after* filing get them to go classify existing ones
-
-Put name at bottom of request if you are signed in (so don't send them in others names!)
 
 Maybe move "send followup" into actions?
     and make it so you can choose who to send followup to from dropdown
 Maybe make it so you need to log in to send follow up (i.e. before)
+When forcing auth user for followups is a bit confusing/weird, does it really work?
+    Perhaps remove signout dialog and have signin instead?
+    Should we say auth for followups sooner as you have to be certain user?
+Display of login dialog to log in as particular user if you are logged out isn't centred nicely
 
 Internal review status/marker?
     http://www.whatdotheyknow.com/request/search_engine_advertising_bought
@@ -53,11 +50,6 @@ Perhaps encourage user to annotate what they learnt after getting information?
 When they say "successful", encourage them to make an annotation?
 
 Clear out all the need admin attention requests
-
-When forcing auth user for followups is a bit confusing/weird, does it really work?
-    Perhaps remove signout dialog and have signin instead?
-    Should we say auth for followups sooner as you have to be certain user?
-Display of login dialog to log in as particular user if you are logged out isn't centred nicely
 
 "Excessive use of speed by Police vehicles." appears only once, even though multiple annotations.
 Perhaps show grouping count?

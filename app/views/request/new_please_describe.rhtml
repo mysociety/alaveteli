@@ -1,0 +1,25 @@
+<% @title = "First, did your other requests succeed?" %>
+
+<h1><%=@title%></h1>
+
+<p>Please select each of these requests in turn, and <strong>let everyone know</strong>
+if they are successful yet or not.
+</p>
+
+<ul>
+<% for undescribed_request in @undescribed_requests %>
+    <li><%=request_link(undescribed_request)%></li>
+<% end %>
+</ul>
+
+<p>
+    When you're done, <strong>come back here</strong>,
+    <%= link_to "reload this page", new_request_to_body_url(:public_body_id => @public_body.id.to_s) %>
+    and file your new request.
+</p>
+
+<p>
+    Thanks very much for helping keep everything <strong>neat and organised</strong>.
+    We'll also, if you need it, give you advice on what to do next about each of your
+    requests.
+</p>

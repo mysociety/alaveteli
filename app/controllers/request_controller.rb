@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.109 2008-09-22 02:36:03 francis Exp $
+# $Id: request_controller.rb,v 1.110 2008-09-22 03:02:03 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -85,8 +85,22 @@ class RequestController < ApplicationController
 
     # Page new form posts to
     def new
+        # If we've just got here (so no writing to lose), and we're already
+        # logged in, force the user to describe any undescribed requests. Allow
+        # margin of 1 undescribed so it isn't too annoying - the function
+        # get_undescribed_requests also allows one day since the response
+        # arrived.
+        if !@user.nil? && params[:submitted_new_request].nil?
+            @undescribed_requests = @user.get_undescribed_requests 
+            @public_body = PublicBody.find(params[:public_body_id])
+            if @undescribed_requests.size > 1
+                render :action => 'new_please_describe'
+                return
+            end
+        end
+
         # First time we get to the page, just display it
-        if params[:submitted_new_request].nil? or params[:reedit]
+        if params[:submitted_new_request].nil? || params[:reedit]
             # Read parameters in - public body must be passed in
             if params[:public_body_id]
                 params[:info_request] = { :public_body_id => params[:public_body_id] }
