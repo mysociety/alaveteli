@@ -22,7 +22,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user.rb,v 1.68 2008-09-13 22:06:58 francis Exp $
+# $Id: user.rb,v 1.69 2008-09-22 02:29:14 francis Exp $
 
 require 'digest/sha1'
 
@@ -171,7 +171,8 @@ class User < ActiveRecord::Base
         return u
     end
 
-    # Returns list of requests which the user hasn't described.
+    # Returns list of requests which the user hasn't described (and last
+    # changed more than a day ago)
     def get_undescribed_requests
         self.info_requests.find(
             :all, 

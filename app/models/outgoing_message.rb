@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: outgoing_message.rb,v 1.62 2008-08-31 15:10:16 francis Exp $
+# $Id: outgoing_message.rb,v 1.63 2008-09-22 02:29:14 francis Exp $
 
 class OutgoingMessage < ActiveRecord::Base
     belongs_to :info_request
@@ -90,7 +90,7 @@ class OutgoingMessage < ActiveRecord::Base
 
     # Check have edited letter
     def validate
-        if self.body.empty? || self.body =~ /\A#{get_salutation}\s+#{get_signoff}\s+/
+        if self.body.empty? || self.body =~ /\A#{get_salutation}\s+#{get_signoff}/
             if self.message_type == 'followup'
                 errors.add(:body, "^Please enter your follow up message")
             elsif
@@ -99,7 +99,7 @@ class OutgoingMessage < ActiveRecord::Base
                 raise "Message id #{self.id} has type '#{self.message_type}' which validate can't handle"
             end
         end
-        if self.body =~ /#{get_signoff}\s+\Z/
+        if self.body =~ /#{get_signoff}\s*\Z/ms
             errors.add(:body, '^Please sign at the bottom with your name, or alter the "' + get_signoff + '" signature')
         end
     end
