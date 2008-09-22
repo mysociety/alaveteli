@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe TrackController, "when making a new track on a request" do
     integrate_views
-    fixtures :info_requests, :outgoing_messages, :incoming_messages, :info_request_events, :users
+    fixtures :info_requests, :outgoing_messages, :incoming_messages, :raw_emails, :info_request_events, :users
   
     it "should require login when making new track" do
         get :track_request, :url_title => info_requests(:fancy_dog_request).url_title, :feed => 'track'
@@ -22,7 +22,7 @@ end
 
 describe TrackController, "when sending alerts for a track" do
     integrate_views
-    fixtures :info_requests, :outgoing_messages, :incoming_messages, :info_request_events, :users, :track_things, :track_things_sent_emails
+    fixtures :info_requests, :outgoing_messages, :incoming_messages, :raw_emails, :info_request_events, :users, :track_things, :track_things_sent_emails
   
     it "should send alerts" do
         TrackMailer.alert_tracks
@@ -58,7 +58,7 @@ end
  
 describe TrackController, "when viewing RSS feed for a track" do
     integrate_views
-    fixtures :info_requests, :outgoing_messages, :incoming_messages, :info_request_events, :users, :track_things, :comments, :public_bodies
+    fixtures :info_requests, :outgoing_messages, :incoming_messages, :raw_emails, :info_request_events, :users, :track_things, :comments, :public_bodies
   
     it "should get the RSS feed" do
         track_thing = track_things(:track_fancy_dog_request)

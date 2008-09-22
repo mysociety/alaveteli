@@ -5,7 +5,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe UserController, "when showing a user" do
     integrate_views
-    fixtures :users, :outgoing_messages, :incoming_messages, :info_requests, :info_request_events
+    fixtures :users, :outgoing_messages, :incoming_messages, :raw_emails, :info_requests, :info_request_events
   
     it "should be successful" do
         get :show, :url_name => "bob_smith"

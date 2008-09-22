@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_request_controller.rb,v 1.18 2008-09-13 18:01:27 francis Exp $
+# $Id: admin_request_controller.rb,v 1.19 2008-09-22 22:08:43 francis Exp $
 
 class AdminRequestController < ApplicationController
     layout "admin"
@@ -127,12 +127,12 @@ class AdminRequestController < ApplicationController
         @incoming_message = IncomingMessage.find(params[:incoming_message_id])
         @info_request = @incoming_message.info_request
 
-        raw_data = @incoming_message
+        deleted_incoming_message = @incoming_message
         incoming_message_id = @incoming_message.id
 
         @incoming_message.fully_destroy
         @incoming_message.info_request.log_event("destroy_incoming", 
-            { :editor => admin_http_auth_user(), :raw_data => raw_data })
+            { :editor => admin_http_auth_user(), :deleted_incoming_message => deleted_incoming_message })
 
         flash[:notice] = 'Incoming message successfully destroyed.'
         redirect_to request_admin_url(@info_request)
@@ -152,10 +152,10 @@ class AdminRequestController < ApplicationController
             redirect_to request_admin_url(incoming_message.info_request)
         end
 
-        raw_email = incoming_message.raw_data
-        mail = TMail::Mail.parse(raw_email)
+        raw_email_data = incoming_message.raw_email.data
+        mail = TMail::Mail.parse(raw_email_data)
         mail.base64_decode
-        destination_request.receive(mail, raw_email)
+        destination_request.receive(mail, raw_email_data)
 
         incoming_message.fully_destroy
 

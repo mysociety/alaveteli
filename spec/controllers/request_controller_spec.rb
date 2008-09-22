@@ -30,7 +30,7 @@ end
 
 describe RequestController, "when showing one request" do
     integrate_views
-    fixtures :info_requests, :info_request_events, :public_bodies, :users, :incoming_messages, :outgoing_messages # all needed as integrating views
+    fixtures :info_requests, :info_request_events, :public_bodies, :users, :incoming_messages, :raw_emails, :outgoing_messages # all needed as integrating views
   
     it "should be successful" do
         get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
@@ -212,7 +212,7 @@ end
 
 describe RequestController, "when viewing an individual response for reply/followup" do
     integrate_views
-    fixtures :info_requests, :info_request_events, :public_bodies, :users, :incoming_messages, :outgoing_messages, :comments # all needed as integrating views
+    fixtures :info_requests, :info_request_events, :public_bodies, :users, :incoming_messages, :raw_emails, :outgoing_messages, :comments # all needed as integrating views
   
     it "should ask for login if you are logged in as wrong person" do
         session[:user_id] = users(:silly_name_user).id
@@ -229,7 +229,7 @@ end
 
 describe RequestController, "when classifying an individual response" do
     integrate_views
-    fixtures :info_requests, :info_request_events, :public_bodies, :users, :incoming_messages, :outgoing_messages, :comments # all needed as integrating views
+    fixtures :info_requests, :info_request_events, :public_bodies, :users, :incoming_messages, :raw_emails, :outgoing_messages, :comments # all needed as integrating views
 
     it "should require login" do
         post :describe_state, :incoming_message => { :described_state => "rejected" }, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message), :last_info_request_event_id => info_request_events(:useless_incoming_message_event).id, :submitted_describe_state => 1
@@ -275,7 +275,7 @@ end
 
 describe RequestController, "when sending a followup message" do
     integrate_views
-    fixtures :info_requests, :info_request_events, :public_bodies, :users, :incoming_messages, :outgoing_messages # all needed as integrating views
+    fixtures :info_requests, :info_request_events, :public_bodies, :users, :incoming_messages, :raw_emails, :outgoing_messages # all needed as integrating views
   
     it "should require login" do
         post :show_response, :outgoing_message => { :body => "What a useless response! You suck." }, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_followup => 1
@@ -331,7 +331,7 @@ end
 
 describe RequestController, "sending overdue request alerts" do
     integrate_views
-    fixtures :info_requests, :info_request_events, :public_bodies, :users, :incoming_messages, :outgoing_messages # all needed as integrating views
+    fixtures :info_requests, :info_request_events, :public_bodies, :users, :incoming_messages, :raw_emails, :outgoing_messages # all needed as integrating views
  
     it "should send an overdue alert mail to creators of overdue requests" do
         RequestMailer.alert_overdue_requests
@@ -358,7 +358,7 @@ end
 
 describe RequestController, "sending unclassified new response reminder alerts" do
     integrate_views
-    fixtures :info_requests, :info_request_events, :public_bodies, :users, :incoming_messages, :outgoing_messages, :comments # all needed as integrating views
+    fixtures :info_requests, :info_request_events, :public_bodies, :users, :incoming_messages, :raw_emails, :outgoing_messages, :comments # all needed as integrating views
  
     it "should send an alert" do
         RequestMailer.alert_new_response_reminders
@@ -384,7 +384,7 @@ end
 
 describe RequestController, "clarification required alerts" do
     integrate_views
-    fixtures :info_requests, :info_request_events, :public_bodies, :users, :incoming_messages, :outgoing_messages # all needed as integrating views
+    fixtures :info_requests, :info_request_events, :public_bodies, :users, :incoming_messages, :raw_emails, :outgoing_messages # all needed as integrating views
  
     it "should send an alert" do
         ir = info_requests(:fancy_dog_request)
@@ -417,7 +417,7 @@ end
 
 describe RequestController, "comment alerts" do
     integrate_views
-    fixtures :info_requests, :info_request_events, :public_bodies, :users, :incoming_messages, :outgoing_messages, :comments # all needed as integrating views
+    fixtures :info_requests, :info_request_events, :public_bodies, :users, :incoming_messages, :raw_emails, :outgoing_messages, :comments # all needed as integrating views
  
     it "should send an alert" do
         # delete ficture comment and make new one, so is in last month (as

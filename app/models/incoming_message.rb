@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.147 2008-09-22 14:22:30 francis Exp $
+# $Id: incoming_message.rb,v 1.148 2008-09-22 22:08:44 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -167,26 +167,23 @@ class IncomingMessage < ActiveRecord::Base
     belongs_to :info_request
     validates_presence_of :info_request
 
-    validates_presence_of :raw_data
+    validates_presence_of :raw_email
 
     has_many :outgoing_message_followups, :foreign_key => 'incoming_message_followup_id', :class_name => 'OutgoingMessage'
 
     has_many :info_request_events # never really has many, but could in theory
 
-    # Some emails are large (10Mb), making things like search results and the
-    # front page list of requests slow to display as the data is transferred from
-    # the database.
-    attr_lazy :raw_data
- 
+    belongs_to :raw_email
+
     # Return the structured TMail::Mail object
     # Documentation at http://i.loveruby.net/en/projects/tmail/doc/
     def mail
-        if @mail.nil? && !self.raw_data.nil?
+        if @mail.nil? && !self.raw_email.nil?
             # Hack round bug in TMail's MIME decoding. Example request which provokes it:
             # http://www.whatdotheyknow.com/request/reviews_of_unduly_lenient_senten#incoming-4830
             # Report of TMail bug:
             # http://rubyforge.org/tracker/index.php?func=detail&aid=21810&group_id=4512&atid=17370
-            copy_of_raw_data = self.raw_data.gsub(/; boundary=\s+"/ims,'; boundary="') 
+            copy_of_raw_data = self.raw_email.data.gsub(/; boundary=\s+"/ims,'; boundary="') 
 
             @mail = TMail::Mail.parse(copy_of_raw_data)
             @mail.base64_decode
@@ -484,7 +481,7 @@ class IncomingMessage < ActiveRecord::Base
 
     # Returns body text from main text part of email, converted to UTF-8, with uudecode removed
     def get_main_body_text
-        # Cached as loading raw_data can be quite huge, and need this for just
+        # Cached as loading raw_email can be quite huge, and need this for just
         # search results
         if self.cached_main_body_text.nil?
             text = self.get_main_body_text_internal
@@ -848,6 +845,9 @@ class IncomingMessage < ActiveRecord::Base
             info_request_event.track_things_sent_emails.each { |a| a.destroy }
             info_request_event.user_info_request_sent_alerts.each { |a| a.destroy }
             info_request_event.destroy
+            if !self.raw_email.nil?
+                self.raw_email.destroy 
+            end
             self.destroy
         end
     end

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 66) do
+ActiveRecord::Schema.define(:version => 67) do
 
   create_table "acts_as_xapian_jobs", :force => true do |t|
     t.string  "model",    :null => false
@@ -31,11 +31,11 @@ ActiveRecord::Schema.define(:version => 66) do
 
   create_table "incoming_messages", :force => true do |t|
     t.integer  "info_request_id",        :null => false
-    t.text     "raw_data",               :null => false
     t.datetime "created_at",             :null => false
     t.datetime "updated_at",             :null => false
     t.text     "cached_attachment_text"
     t.text     "cached_main_body_text"
+    t.integer  "raw_email_id",           :null => false
   end
 
   create_table "info_request_events", :force => true do |t|
@@ -137,6 +137,10 @@ ActiveRecord::Schema.define(:version => 66) do
     t.text     "url_name"
     t.text     "home_page"
     t.text     "notes"
+  end
+
+  create_table "raw_emails", :force => true do |t|
+    t.binary "data", :null => false
   end
 
   create_table "track_things", :force => true do |t|

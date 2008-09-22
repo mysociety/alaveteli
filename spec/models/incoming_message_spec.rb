@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe IncomingMessage, " when dealing with incoming mail" do
-    fixtures :incoming_messages
+    fixtures :incoming_messages, :raw_emails
 
     before do
         @im = incoming_messages(:useless_incoming_message)
