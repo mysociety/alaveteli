@@ -20,7 +20,7 @@
         <%= link_to 'Join others with a pledge', "http://www.pledgebank.com"%>
     </div>
 
-    <% if @xapian_similar.results.size > 0 %>
+    <% if !@xapian_similar.nil? && @xapian_similar.results.size > 0 %>
         <h2>Similar requests</h2>
         <% for result in @xapian_similar.results %>
             <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result[:model], :info_request => result[:model].info_request } %>
@@ -28,8 +28,8 @@
         <% if @xapian_similar_more %>
             <p><%= link_to "More similar requests", request_similar_url(@info_request) %></p>
         <% end %>
+        <!-- Important terms: <%= @xapian_similar.important_terms.join(" ") %>  -->
      <% end %>
-    <!-- Important terms: <%= @xapian_similar.important_terms.join(" ") %>  -->
 
     <!--<h2>Blog posts about this request</h2>
     <p>...
