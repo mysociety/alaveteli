@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.110 2008-09-22 03:02:03 francis Exp $
+# $Id: request_controller.rb,v 1.111 2008-09-22 03:06:43 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -312,6 +312,7 @@ class RequestController < ApplicationController
             :incoming_message_followup => @incoming_message
         })
         @outgoing_message = OutgoingMessage.new(params_outgoing_message)
+        @outgoing_message.set_signature_name(@user.name) if !@user.nil?
 
         if (not @incoming_message.nil?) and @info_request != @incoming_message.info_request
             raise sprintf("Incoming message %d does not belong to request %d", @incoming_message.info_request_id, @info_request.id)
