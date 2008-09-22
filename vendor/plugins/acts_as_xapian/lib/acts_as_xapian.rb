@@ -552,7 +552,7 @@ module ActsAsXapian
           model_class.transaction do
             0.step(model_class.count, batch_size) do |i|
               STDOUT.puts("ActsAsXapian: New batch. From #{i} to #{i + batch_size}") if verbose
-              models = model_class.find(:all, :limit => batch_size, :offset => i)
+              models = model_class.find(:all, :limit => batch_size, :offset => i, :order => :id)
               for model in models
                 STDOUT.puts("ActsAsXapian.rebuild_index #{model_class} #{model.id}") if verbose
                 model.xapian_index
