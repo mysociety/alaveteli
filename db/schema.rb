@@ -140,7 +140,7 @@ ActiveRecord::Schema.define(:version => 67) do
   end
 
   create_table "raw_emails", :force => true do |t|
-    t.binary "data", :null => false
+    t.text "data"
   end
 
   create_table "track_things", :force => true do |t|
