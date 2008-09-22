@@ -83,13 +83,16 @@
   <tr class="<%= cycle('odd', 'even') %>" id="incoming-<%=incoming_message.id.to_s%>">
   <td><%=h incoming_message.id %></td>
   <% for column in IncomingMessage.content_columns.map { |c| c.name } %>
-    <% if column == 'raw_data' %>
-        <td><%=h(incoming_message.send(column)).gsub!(/\n/, '<br>') %></td>
-    <% else %>
-        <td><%=h incoming_message.send(column) %></td>
-    <% end %>
+    <td><%=h incoming_message.send(column) %></td>
   <% end %>
   <td>
+      <% if !incoming_message.raw_email_id.nil? %>
+          <p>
+            
+            <%= link_to "View raw email", "../show_raw_email/" + incoming_message.raw_email_id.to_s %>
+          </p>
+      <% end %>
+
       <% form_tag '../destroy_incoming' do %>
           <div>
               <%= hidden_field_tag 'incoming_message_id', incoming_message.id %>

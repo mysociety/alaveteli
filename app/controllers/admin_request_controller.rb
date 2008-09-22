@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_request_controller.rb,v 1.19 2008-09-22 22:08:43 francis Exp $
+# $Id: admin_request_controller.rb,v 1.20 2008-09-22 22:25:37 francis Exp $
 
 class AdminRequestController < ApplicationController
     layout "admin"
@@ -197,6 +197,10 @@ class AdminRequestController < ApplicationController
 
         flash[:notice] = 'Send "' + name + '" &lt;<a href="mailto:' + email + '">' + email + '</a>&gt; this URL: <a href="' + url + '">' + url + "</a> - it will log them in and let them upload a response to this request."
         redirect_to request_admin_url(info_request)
+    end
+
+    def show_raw_email
+        @raw_email = RawEmail.find(params[:id])
     end
 
     private
