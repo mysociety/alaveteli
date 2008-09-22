@@ -5,7 +5,7 @@
         to '<%=h @info_request.public_body.name %>'
         </h2>
     <% else %>
-        <h2>Send a follow up message
+        <h2>Send a reply
             <% if !incoming_message.safe_mail_from.nil? %>
                 to <%= incoming_message.safe_mail_from %>
             <% end %>

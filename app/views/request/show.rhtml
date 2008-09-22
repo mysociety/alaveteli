@@ -112,6 +112,13 @@
         <%= link_to "Add an annotation", new_comment_url(:url_title => @info_request.url_title) %> (to help
         the requester or others)
         <br>
+        <% if @last_response.nil? %>
+            <%= link_to "Send follow up to " + RequestMailer.name_for_followup(@info_request, @last_response), show_response_no_followup_url(:id => @info_request.id, :incoming_message_id => nil) + "#followup" %> 
+        <% else %>
+            <%= link_to "Reply to " + RequestMailer.name_for_followup(@info_request, @last_response), show_response_url(:id => @info_request.id, :incoming_message_id => @last_response.id) + "#followup" %> 
+        <% end %>
+        (<%=h @info_request.user.name %> only)
+        <br>
         <%= link_to "Respond to request", upload_response_url(:url_title => @info_request.url_title) %> (FOI
         officers only)
     </div>

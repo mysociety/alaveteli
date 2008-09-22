@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.111 2008-09-22 03:06:43 francis Exp $
+# $Id: request_controller.rb,v 1.112 2008-09-22 13:57:44 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -39,6 +39,9 @@ class RequestController < ApplicationController
         # Track corresponding to this page
         @track_thing = TrackThing.create_track_for_request(@info_request)
         @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss] } ]
+
+        # For send followup link at bottom
+        @last_response = @info_request.get_last_response
     end
 
     # Requests similar to this one
