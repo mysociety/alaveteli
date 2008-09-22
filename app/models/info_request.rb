@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.138 2008-09-12 08:26:04 francis Exp $
+# $Id: info_request.rb,v 1.139 2008-09-22 04:06:37 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -683,6 +683,29 @@ public
         '(select created_at from info_request_events where info_request_events.info_request_id = info_requests.id order by created_at desc limit 1)'
     end
 
+    # List of incoming messages to followup, by unique email
+    def who_can_followup_to
+        ret = []
+        done = {}
+        for incoming_message in self.incoming_messages.reverse
+            incoming_message.safe_mail_from
+            
+            email = RequestMailer.email_for_followup(self, incoming_message)
+            name = RequestMailer.name_for_followup(self, incoming_message)
+
+            if !done.include?(email.downcase)
+                ret = ret + [[name, email, incoming_message.id]]
+            end
+            done[email.downcase] = 1
+        end
+
+        if !done.include?(self.public_body.request_email.downcase)
+            ret = ret + [[self.public_body.name, self.public_body.request_email, nil]]
+        end
+        done[self.public_body.request_email.downcase] = 1
+
+        return ret.reverse
+    end
 
 end
 

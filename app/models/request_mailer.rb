@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.57 2008-09-21 23:19:54 francis Exp $
+# $Id: request_mailer.rb,v 1.58 2008-09-22 04:06:37 francis Exp $
 
 class RequestMailer < ApplicationMailer
     
@@ -43,6 +43,15 @@ class RequestMailer < ApplicationMailer
             return incoming_message_followup.safe_mail_from || info_request.public_body.name
         end
     end
+    # Used when making list of followup places to remove duplicates
+    def RequestMailer.email_for_followup(info_request, incoming_message_followup)
+        if incoming_message_followup.nil?
+            return info_request.recipient_email
+        else
+            return incoming_message_followup.mail.from_addrs[0].spec
+        end
+    end
+
 
     # Used when an FOI officer uploads a response from their web browser - this is
     # the "fake" email used to store in the same format in the database as if they
