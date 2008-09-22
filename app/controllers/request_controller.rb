@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.108 2008-09-14 01:40:29 francis Exp $
+# $Id: request_controller.rb,v 1.109 2008-09-22 02:36:03 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -93,7 +93,8 @@ class RequestController < ApplicationController
             end
             @info_request = InfoRequest.new(params[:info_request])
             @outgoing_message = OutgoingMessage.new(params[:outgoing_message])
-
+            @outgoing_message.set_signature_name(@user.name) if !@user.nil?
+            
             if @info_request.public_body.nil?
                 redirect_to frontpage_url
             else 

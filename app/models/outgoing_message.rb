@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: outgoing_message.rb,v 1.63 2008-09-22 02:29:14 francis Exp $
+# $Id: outgoing_message.rb,v 1.64 2008-09-22 02:36:04 francis Exp $
 
 class OutgoingMessage < ActiveRecord::Base
     belongs_to :info_request
@@ -51,6 +51,15 @@ class OutgoingMessage < ActiveRecord::Base
             return "Yours sincerely,"
         else
             return "Yours faithfully,"
+        end
+    end
+    def get_default_message
+        get_salutation + "\n\n\n\n" + get_signoff + "\n\n"
+    end
+    def set_signature_name(name)
+        # XXX We use raw_body here to get unstripped one
+        if self.raw_body == self.get_default_message
+            self.body = self.raw_body + name 
         end
     end
 
@@ -84,7 +93,7 @@ class OutgoingMessage < ActiveRecord::Base
     # Set default letter
     def after_initialize
         if self.body.nil?
-            self.body = get_salutation + "\n\n\n\n" + get_signoff + "\n\n"
+            self.body = get_default_message
         end
     end
 
