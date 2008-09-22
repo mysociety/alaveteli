@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.112 2008-09-22 13:57:44 francis Exp $
+# $Id: request_controller.rb,v 1.113 2008-09-22 14:13:40 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -321,6 +321,23 @@ class RequestController < ApplicationController
             raise sprintf("Incoming message %d does not belong to request %d", @incoming_message.info_request_id, @info_request.id)
         end
 
+        # Force login early - this is really the "send followup" form. We want
+        # to make sure they're the right user first, before they start writing a
+        # message and wasting their time if they are not the requester.
+        if !authenticated_as_user?(@info_request.user,
+                :web => @incoming_message.nil? ? 
+                    "To send a follow up message to " + @info_request.public_body.name :
+                    "To reply to " + @info_request.public_body.name,
+                :email => @incoming_message.nil? ?
+                    "Then you can write follow up message to " + @info_request.public_body.name + "." :
+                    "Then you can write your reply to " + @info_request.public_body.name + ".",
+                :email_subject => @incoming_message.nil? ?
+                    "Write your FOI follow up message to " + @info_request.public_body.name :
+                    "Write a reply to " + @info_request.public_body.name
+            )
+            return
+        end
+
         if !params[:submitted_followup].nil? && !params[:reedit]
             if @info_request.stop_new_responses
                 flash[:notice] = 'Your follow up has not been sent because this request has been stopped to prevent spam. Please <a href="/help/contact">contact us</a> if you really want to send a follow up message.'
@@ -335,19 +352,11 @@ class RequestController < ApplicationController
                     render :action => 'followup_preview'
                     return
                 end
-                if authenticated_as_user?(@info_request.user,
-                        :web => "To send your follow up message about your FOI request",
-                        :email => "Then your follow up message to " + @info_request.public_body.name + " will be sent.",
-                        :email_subject => "Confirm your FOI follow up message to " + @info_request.public_body.name
-                    )
-                    # Send a follow up message
-                    @outgoing_message.send_message
-                    @outgoing_message.save!
-                    flash[:notice] = "Your follow up message has been created and sent on its way."
-                    redirect_to request_url(@info_request)
-                else
-                    # do nothing - as "authenticated?" has done the redirect to signin page for us
-                end
+                # Send a follow up message
+                @outgoing_message.send_message
+                @outgoing_message.save!
+                flash[:notice] = "Your follow up message has been created and sent on its way."
+                redirect_to request_url(@info_request)
             end
         else
             # render default show_response template
