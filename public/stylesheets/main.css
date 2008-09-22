@@ -789,6 +789,10 @@ p#sign_in_reason
 	{
 		float: left;		
 	}
+
+#sign_alone #signin {
+    margin-left: 25%;
+}
 	
 #signup .form_item_note,
 #signin .form_note
