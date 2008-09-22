@@ -11,7 +11,8 @@ Contents
 * d. Documentation - indexing
 * e. Documentation - querying
 * f. Configuration
-* g. Support
+* g. Performance
+* h. Support
 
 
 a. Introduction to acts_as_xapian
@@ -225,15 +226,33 @@ You need the results methods to get the similar models.
 f. Configuration
 ================
 
-If you want to customise the configuration of acts_as_xapian, it will look for a file called 'xapian.yml'
-under RAILS_ROOT/config. As is familiar from the format of the database.yml file, separate :development,
-:test and :production sections are expected.
+If you want to customise the configuration of acts_as_xapian, it will look for
+a file called 'xapian.yml' under RAILS_ROOT/config. As is familiar from the
+format of the database.yml file, separate :development, :test and :production
+sections are expected.
 
 The following options are available:
-* base_db_path - specifies the directory, relative to RAILS_ROOT, in which acts_as_xapian stores its 
-search index databases. Default is the directory xapiandbs within the acts_as_xapian directory.
+* base_db_path - specifies the directory, relative to RAILS_ROOT, in which 
+acts_as_xapian stores its search index databases. Default is the directory
+xapiandbs within the acts_as_xapian directory.
 
-g. Support
+
+g. Performance
+==============
+
+On development sites, acts_as_xapian automatically logs the time taken to do
+searches.  The time displayed is for the Xapian parts of the query; the Rails
+database model lookups will be logged separately by ActiveRecord. Example:
+
+    Xapian query (0.00029s) Search: hello
+
+To enable this, and other performance logging, on a production site,
+temporarily add this to the end of your config/environment.rb
+
+    ActiveRecord::Base.logger = Logger.new(STDOUT)
+
+
+h. Support
 ==========
 
 Please ask any questions on the 

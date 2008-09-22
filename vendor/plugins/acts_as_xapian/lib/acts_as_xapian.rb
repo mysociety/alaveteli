@@ -227,8 +227,12 @@ module ActsAsXapian
         attr_accessor :query
         attr_accessor :matches
         attr_accessor :query_models
+        attr_accessor :runtime
+        attr_accessor :cached_results
 
         def initialize_db
+            self.runtime = 0.0
+
             ActsAsXapian.readable_init
             if ActsAsXapian.db.nil?
                 raise "ActsAsXapian not initialized"
@@ -239,33 +243,35 @@ module ActsAsXapian
         def initialize_query(options)
             #raise options.to_yaml
             
-            offset = options[:offset] || 0; offset = offset.to_i
-            limit = options[:limit]
-            raise "please specifiy maximum number of results to return with parameter :limit" if not limit
-            limit = limit.to_i 
-            sort_by_prefix = options[:sort_by_prefix] || nil
-            sort_by_ascending = options[:sort_by_ascending].nil? ? true : options[:sort_by_ascending]
-            collapse_by_prefix = options[:collapse_by_prefix] || nil
+            self.runtime += Benchmark::realtime {
+                offset = options[:offset] || 0; offset = offset.to_i
+                limit = options[:limit]
+                raise "please specifiy maximum number of results to return with parameter :limit" if not limit
+                limit = limit.to_i 
+                sort_by_prefix = options[:sort_by_prefix] || nil
+                sort_by_ascending = options[:sort_by_ascending].nil? ? true : options[:sort_by_ascending]
+                collapse_by_prefix = options[:collapse_by_prefix] || nil
 
-            ActsAsXapian.enquire.query = self.query
+                ActsAsXapian.enquire.query = self.query
 
-            if sort_by_prefix.nil?
-                ActsAsXapian.enquire.sort_by_relevance!
-            else
-                value = ActsAsXapian.values_by_prefix[sort_by_prefix]
-                raise "couldn't find prefix '" + sort_by_prefix + "'" if value.nil?
-                ActsAsXapian.enquire.sort_by_value_then_relevance!(value, sort_by_ascending)
-            end
-            if collapse_by_prefix.nil?
-                ActsAsXapian.enquire.collapse_key = Xapian.BAD_VALUENO
-            else
-                value = ActsAsXapian.values_by_prefix[collapse_by_prefix]
-                raise "couldn't find prefix '" + collapse_by_prefix + "'" if value.nil?
-                ActsAsXapian.enquire.collapse_key = value
-            end
+                if sort_by_prefix.nil?
+                    ActsAsXapian.enquire.sort_by_relevance!
+                else
+                    value = ActsAsXapian.values_by_prefix[sort_by_prefix]
+                    raise "couldn't find prefix '" + sort_by_prefix + "'" if value.nil?
+                    ActsAsXapian.enquire.sort_by_value_then_relevance!(value, sort_by_ascending)
+                end
+                if collapse_by_prefix.nil?
+                    ActsAsXapian.enquire.collapse_key = Xapian.BAD_VALUENO
+                else
+                    value = ActsAsXapian.values_by_prefix[collapse_by_prefix]
+                    raise "couldn't find prefix '" + collapse_by_prefix + "'" if value.nil?
+                    ActsAsXapian.enquire.collapse_key = value
+                end
 
-            self.matches = ActsAsXapian.enquire.mset(offset, limit, 100)
-            @cached_results = nil
+                self.matches = ActsAsXapian.enquire.mset(offset, limit, 100)
+                self.cached_results = nil
+            }
         end
 
         # Return a description of the query
@@ -290,19 +296,26 @@ module ActsAsXapian
         # Return array of models found
         def results
             # If they've already pulled out the results, just return them.
-            if not @cached_results.nil?
-                return @cached_results
+            if !self.cached_results.nil?
+                return self.cached_results
             end
 
-            # Pull out all the results
             docs = []
-            iter = self.matches._begin
-            while not iter.equals(self.matches._end)
-                docs.push({:data => iter.document.data, 
-                        :percent => iter.percent, 
-                        :weight => iter.weight,
-                        :collapse_count => iter.collapse_count})
-                iter.next
+            self.runtime += Benchmark::realtime {
+                # Pull out all the results
+                iter = self.matches._begin
+                while not iter.equals(self.matches._end)
+                    docs.push({:data => iter.document.data, 
+                            :percent => iter.percent, 
+                            :weight => iter.weight,
+                            :collapse_count => iter.collapse_count})
+                    iter.next
+                end
+            }
+
+            # Log time taken, excluding database lookups below which will be displayed separately by ActiveRecord
+            if ActiveRecord::Base.logger
+                ActiveRecord::Base.logger.add(Logger::DEBUG, "  Xapian query (#{'%.5fs' % self.runtime}) #{self.log_description}")
             end
 
             # Look up without too many SQL queries
@@ -325,7 +338,7 @@ module ActsAsXapian
             results = []
             docs.each{|doc| k = doc[:data].split('-'); results << { :model => chash[[k[0], k[1].to_i]],
                     :percent => doc[:percent], :weight => doc[:weight], :collapse_count => doc[:collapse_count] } }
-            @cached_results = results
+            self.cached_results = results
             return results
         end
     end
@@ -387,6 +400,11 @@ module ActsAsXapian
             return words
         end
 
+        # Text for lines in log file
+        def log_description
+            "Search: " + self.query_string
+        end
+
     end
 
     # Search for models which contain theimportant terms taken from a specified
@@ -401,45 +419,52 @@ module ActsAsXapian
         def initialize(model_classes, query_models, options = {})
             self.initialize_db
 
-            # Case of an array, searching for models similar to those models in the array
-            self.query_models = query_models
+            self.runtime += Benchmark::realtime {
+                # Case of an array, searching for models similar to those models in the array
+                self.query_models = query_models
 
-            # Find the documents by their unique term
-            input_models_query = Xapian::Query.new(Xapian::Query::OP_OR, query_models.map{|m| "I" + m.xapian_document_term})
-            ActsAsXapian.enquire.query = input_models_query
-            matches = ActsAsXapian.enquire.mset(0, 100, 100) # XXX so this whole method will only work with 100 docs
+                # Find the documents by their unique term
+                input_models_query = Xapian::Query.new(Xapian::Query::OP_OR, query_models.map{|m| "I" + m.xapian_document_term})
+                ActsAsXapian.enquire.query = input_models_query
+                matches = ActsAsXapian.enquire.mset(0, 100, 100) # XXX so this whole method will only work with 100 docs
 
-            # Get set of relevant terms for those documents
-            selection = Xapian::RSet.new()
-            iter = matches._begin
-            while not iter.equals(matches._end)
-                selection.add_document(iter)
-                iter.next
-            end
+                # Get set of relevant terms for those documents
+                selection = Xapian::RSet.new()
+                iter = matches._begin
+                while not iter.equals(matches._end)
+                    selection.add_document(iter)
+                    iter.next
+                end
 
-            # Bit weird that the function to make esets is part of the enquire
-            # object. This explains what exactly it does, which is to exclude
-            # terms in the existing query.
-            # http://thread.gmane.org/gmane.comp.search.xapian.general/3673/focus=3681
-            eset = ActsAsXapian.enquire.eset(40, selection) 
+                # Bit weird that the function to make esets is part of the enquire
+                # object. This explains what exactly it does, which is to exclude
+                # terms in the existing query.
+                # http://thread.gmane.org/gmane.comp.search.xapian.general/3673/focus=3681
+                eset = ActsAsXapian.enquire.eset(40, selection) 
 
-            # Do main search for them
-            self.important_terms = []
-            iter = eset._begin
-            while not iter.equals(eset._end)
-                self.important_terms.push(iter.term)
-                iter.next
-            end
-            similar_query = Xapian::Query.new(Xapian::Query::OP_OR, self.important_terms)
-            # Exclude original
-            combined_query = Xapian::Query.new(Xapian::Query::OP_AND_NOT, similar_query, input_models_query)
+                # Do main search for them
+                self.important_terms = []
+                iter = eset._begin
+                while not iter.equals(eset._end)
+                    self.important_terms.push(iter.term)
+                    iter.next
+                end
+                similar_query = Xapian::Query.new(Xapian::Query::OP_OR, self.important_terms)
+                # Exclude original
+                combined_query = Xapian::Query.new(Xapian::Query::OP_AND_NOT, similar_query, input_models_query)
 
-            # Restrain to model classes
-            model_query = Xapian::Query.new(Xapian::Query::OP_OR, model_classes.map{|mc| "M" + mc.to_s})
-            self.query = Xapian::Query.new(Xapian::Query::OP_AND, model_query, combined_query)
+                # Restrain to model classes
+                model_query = Xapian::Query.new(Xapian::Query::OP_OR, model_classes.map{|mc| "M" + mc.to_s})
+                self.query = Xapian::Query.new(Xapian::Query::OP_AND, model_query, combined_query)
+            }
 
             # Call base class constructor
             self.initialize_query(options)
+        end
+
+        # Text for lines in log file
+        def log_description
+            "Similar: " + self.query_models.to_s
         end
     end
 
