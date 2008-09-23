@@ -86,31 +86,13 @@
     <td><%=h incoming_message.send(column) %></td>
   <% end %>
   <td>
-      <% if !incoming_message.raw_email_id.nil? %>
+        <% if !incoming_message.raw_email_id.nil? %>
           <p>
             
             <%= link_to "View raw email", "../show_raw_email/" + incoming_message.raw_email_id.to_s %>
           </p>
-      <% end %>
-
-      <% form_tag '../destroy_incoming' do %>
-          <div>
-              <%= hidden_field_tag 'incoming_message_id', incoming_message.id %>
-              <%= submit_tag "Destroy message" %>
-          </div>
-      <% end %>
-
-      <% form_tag '../redeliver_incoming' do %>
-          <div>
-              id or url_title of request:
-              <%= text_field_tag 'url_title', "", { :size => 20 } %>
-              <%= hidden_field_tag 'redeliver_incoming_message_id', incoming_message.id %>
-              <%= submit_tag "Redeliver to another request" %>
-          </div>
-      <% end %>
-      <p>
-      <%= link_to 'FOI officer upload URL', '../generate_upload_url/' + @info_request.id.to_s + "?incoming_message_id=" + incoming_message.id.to_s %>
-      </p>
+        <% end %>
+        <%= render :partial => 'incoming_message_actions', :locals => { :incoming_message => incoming_message } %>
   </td>
   </tr>
 <% end %>

@@ -1,6 +1,14 @@
-<% @title = 'Raw email for incoming message ' + @raw_email.incoming_message.id.to_s + ' of FOI request \'' + h(@raw_email.incoming_message.info_request.title) + "'" %>
+<% @title = 'Incoming message ' + @raw_email.incoming_message.id.to_s + ' of FOI request \'' + h(@raw_email.incoming_message.info_request.title) + "'" %>
 
 <h1><%=@title%></h1>
+
+<h2>Actions</h2>
+
+<div>
+    <%= render :partial => 'incoming_message_actions', :locals => { :incoming_message => @raw_email.incoming_message } %>
+</div>
+
+<h2>Raw email</h2>
 
 <pre><%=h(@raw_email.data).gsub!(/\n/, '<br>') %></pre>
 

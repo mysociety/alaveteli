@@ -1,0 +1,19 @@
+<% form_tag '../destroy_incoming' do %>
+  <div>
+      <%= hidden_field_tag 'incoming_message_id', incoming_message.id %>
+      <%= submit_tag "Destroy message" %>
+  </div>
+<% end %>
+
+<% form_tag '../redeliver_incoming' do %>
+  <div>
+      id or url_title of request:
+      <%= text_field_tag 'url_title', "", { :size => 20 } %>
+      <%= hidden_field_tag 'redeliver_incoming_message_id', incoming_message.id %>
+      <%= submit_tag "Redeliver to another request" %>
+  </div>
+<% end %>
+<p>
+<%= link_to 'FOI officer upload URL', '../generate_upload_url/' + incoming_message.info_request.id.to_s + "?incoming_message_id=" + incoming_message.id.to_s %>
+</p>
+
