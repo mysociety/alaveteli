@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.149 2008-09-22 22:16:37 francis Exp $
+# $Id: incoming_message.rb,v 1.150 2008-09-23 21:00:14 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -845,10 +845,9 @@ class IncomingMessage < ActiveRecord::Base
             info_request_event.track_things_sent_emails.each { |a| a.destroy }
             info_request_event.user_info_request_sent_alerts.each { |a| a.destroy }
             info_request_event.destroy
-            if !self.raw_email.nil?
-                self.raw_email.destroy 
-            end
+            raw_email = self.raw_email
             self.destroy
+            self.raw_email.destroy 
         end
     end
 

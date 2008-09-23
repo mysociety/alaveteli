@@ -6,7 +6,9 @@ Next
 This doesn't work:
 http://www.whatdotheyknow.com/search/status:waiting_classification/
 
-Optimise so doesn't load raw_data in on every page
+Performance:
+    Remove loading of public body tags from every info request load
+
 Upload Julian's large Cambridgeshire contract
 
 Sort admin tag search by name rather than by modification date

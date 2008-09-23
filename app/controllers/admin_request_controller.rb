@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_request_controller.rb,v 1.20 2008-09-22 22:25:37 francis Exp $
+# $Id: admin_request_controller.rb,v 1.21 2008-09-23 21:00:13 francis Exp $
 
 class AdminRequestController < ApplicationController
     layout "admin"
@@ -126,13 +126,11 @@ class AdminRequestController < ApplicationController
     def destroy_incoming
         @incoming_message = IncomingMessage.find(params[:incoming_message_id])
         @info_request = @incoming_message.info_request
-
-        deleted_incoming_message = @incoming_message
         incoming_message_id = @incoming_message.id
 
         @incoming_message.fully_destroy
         @incoming_message.info_request.log_event("destroy_incoming", 
-            { :editor => admin_http_auth_user(), :deleted_incoming_message => deleted_incoming_message })
+            { :editor => admin_http_auth_user(), :deleted_incoming_message_id => incoming_message_id })
 
         flash[:notice] = 'Incoming message successfully destroyed.'
         redirect_to request_admin_url(@info_request)
@@ -157,7 +155,13 @@ class AdminRequestController < ApplicationController
         mail.base64_decode
         destination_request.receive(mail, raw_email_data)
 
+        incoming_message_id = incoming_message.id
         incoming_message.fully_destroy
+        incoming_message.info_request.log_event("redeliver_incoming", { 
+                :editor => admin_http_auth_user(), 
+                :destination_request => destination_request.id, 
+                :deleted_incoming_message_id => incoming_message_id 
+        })
 
         flash[:notice] = "Message has been moved to this request"
         redirect_to request_admin_url(destination_request)

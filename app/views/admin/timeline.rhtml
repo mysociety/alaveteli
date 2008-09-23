@@ -62,6 +62,8 @@
             <% end %>
         <% elsif event.event_type == 'destroy_incoming' %>
             had incoming message deleted by administrator <strong><%=h event.params[:editor] %></strong>.
+        <% elsif event.event_type == 'redeliver_incoming' %>
+            had incoming message redelivered to another request by administrator <strong><%=h event.params[:editor] %></strong>.
          <% elsif event.event_type == 'response' %>
             <% incoming_message = event.incoming_message %>
             received 
