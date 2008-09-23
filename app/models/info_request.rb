@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.142 2008-09-22 22:16:37 francis Exp $
+# $Id: info_request.rb,v 1.143 2008-09-23 00:47:50 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -71,7 +71,7 @@ class InfoRequest < ActiveRecord::Base
             self.described_state = 'waiting_response'
         end
         # FOI or EIR?
-        if not self.public_body.nil? and self.public_body.eir_only?
+        if !self.public_body.nil? && self.public_body.eir_only?
             self.law_used = 'eir'
         end
     end
