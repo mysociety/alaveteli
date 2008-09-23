@@ -1,6 +1,10 @@
 <% @title = 'Incoming message ' + @raw_email.incoming_message.id.to_s + ' of FOI request \'' + h(@raw_email.incoming_message.info_request.title) + "'" %>
 
-<h1><%=@title%></h1>
+<h1>Incoming message <%=@raw_email.incoming_message.id.to_s %></h1>
+
+<p>
+    FOI request: <%= link_to request_both_links(@raw_email.incoming_message.info_request) %>
+</p>
 
 <h2>Actions</h2>
 

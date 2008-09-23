@@ -20,7 +20,7 @@
     <ul>
     <% for message in @holding_pen_messages %>
         <li>
-            <%= link_to excerpt(message.get_body_for_quoting, "", 60), request_admin_url(InfoRequest.holding_pen_request) + "#incoming-" + message.id.to_s %> 
+            <%= link_to excerpt(message.get_body_for_quoting, "", 60), "request/show_raw_email/" + message.raw_email_id.to_s %>
             (<%=simple_date(message.sent_at)%>)
         </li>
     <% end %>
