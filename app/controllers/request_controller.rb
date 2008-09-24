@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.114 2008-09-24 12:59:27 francis Exp $
+# $Id: request_controller.rb,v 1.115 2008-09-24 19:55:39 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -26,7 +26,7 @@ class RequestController < ApplicationController
         @is_owning_user = !authenticated_user.nil? && (authenticated_user.id == @info_request.user_id || authenticated_user.owns_every_request?)
         @events_needing_description = @info_request.events_needing_description
         last_event = @events_needing_description[-1]
-        @last_info_request_event_id = last_event.nil? ? nil : last_event.id
+        @last_info_request_event_id = last_event.nil? ? 0 : last_event.id
         @new_responses_count = @events_needing_description.select {|i| i.event_type == 'response'}.size
 
         # special case that an admin user can edit requires_admin requests
@@ -212,15 +212,9 @@ class RequestController < ApplicationController
         @collapse_quotes = params[:unfold] ? false : true
         @events_needing_description = @info_request.events_needing_description
         last_event = @events_needing_description[-1]
-        @last_info_request_event_id = last_event.nil? ? nil : last_event.id
+        @last_info_request_event_id = last_event.nil? ? 0 : last_event.id
         @is_owning_user = !authenticated_user.nil? && (authenticated_user.id == @info_request.user_id || authenticated_user.owns_every_request?)
         @new_responses_count = @events_needing_description.select {|i| i.event_type == 'response'}.size
-
-        if @last_info_request_event_id.nil?
-            flash[:notice] = "Internal error - awaiting description, but no event to describe"
-            redirect_to request_url(@info_request)
-            return
-        end
 
         if !params[:submitted_describe_state].nil?
             # Check authenticated, and parameters set. We check is_owning_user
@@ -238,7 +232,7 @@ class RequestController < ApplicationController
                 flash[:error] = "Please choose whether or not you got some of the information that you wanted."
                 return
             end
-            
+
             if params[:last_info_request_event_id].to_i != @last_info_request_event_id
                 flash[:error] = "The request has been updated since you originally loaded this page. Please check for any new incoming messages below, and try again."
                 return
