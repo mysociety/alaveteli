@@ -5,7 +5,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: link_to_helper.rb,v 1.40 2008-09-07 16:55:55 francis Exp $
+# $Id: link_to_helper.rb,v 1.41 2008-09-24 18:25:46 francis Exp $
 
 module LinkToHelper
 
@@ -113,6 +113,16 @@ module LinkToHelper
     # came from the front page and are looking for public bodies
     def search_url(query, postfix = nil)
         url = search_general_url(:combined => query)
+
+        # Here we can't escape the slashes, as RFC 2396 doesn't allow slashes
+        # within a path component. Rails is assuming when generating URLs that
+        # either there aren't slashes, or we are in a query part where you can
+        # have escaped slashes. Apache complains if you do include slashes
+        # within a path component.
+        # See http://www.webmasterworld.com/apache/3279075.htm
+        # and see 3.3 of http://www.ietf.org/rfc/rfc2396.txt
+        url.sub!("%2F", "/")
+
         if !postfix.nil? && !postfix.empty?
             url = url + "/" + postfix
         end
