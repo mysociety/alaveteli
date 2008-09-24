@@ -4,6 +4,12 @@
 
 <p>
     FOI request: <%= link_to request_both_links(@raw_email.incoming_message.info_request) %>
+    <% if @holding_pen && @public_bodies.size > 0 %>
+        <br>Guessed authority:
+        <% for public_body in @public_bodies %>
+            <%=public_body_both_links(public_body)%> 
+        <% end %>
+    <% end %>
 </p>
 
 <h2>Actions</h2>
