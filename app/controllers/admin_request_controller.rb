@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_request_controller.rb,v 1.22 2008-09-24 19:42:50 francis Exp $
+# $Id: admin_request_controller.rb,v 1.23 2008-09-24 19:43:21 francis Exp $
 
 class AdminRequestController < ApplicationController
     layout "admin"
@@ -211,13 +211,12 @@ class AdminRequestController < ApplicationController
             @holding_pen = true
 
             email = @raw_email.incoming_message.mail.from_addrs[0].spec
-            user_domain = email
-            user_domain =~ /@(.*)/
-            user_domain = $1
-            user_domain = 'localhost'
+            domain = email
+            domain =~ /@(.*)/
+            domain = $1
 
             @public_bodies = PublicBody.find(:all, :order => "name", 
-                :conditions => [ "lower(request_email) like lower('%'||?||'%')", user_domain ])
+                :conditions => [ "lower(request_email) like lower('%'||?||'%')", domain ])
         end
     end
 
