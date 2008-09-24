@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.113 2008-09-22 14:13:40 francis Exp $
+# $Id: request_controller.rb,v 1.114 2008-09-24 12:59:27 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -28,6 +28,9 @@ class RequestController < ApplicationController
         last_event = @events_needing_description[-1]
         @last_info_request_event_id = last_event.nil? ? nil : last_event.id
         @new_responses_count = @events_needing_description.select {|i| i.event_type == 'response'}.size
+
+        # special case that an admin user can edit requires_admin requests
+        @requires_admin_describe = (@info_request.described_state == 'requires_admin') && !authenticated_user.nil? && authenticated_user.requires_admin_power?
 
         # Sidebar stuff
         limit = 3
@@ -194,7 +197,10 @@ class RequestController < ApplicationController
     def describe_state
         @info_request = InfoRequest.find(params[:id])
 
-        if not @info_request.awaiting_description
+        # special case that an admin user can edit requires_admin requests
+        @requires_admin_describe = (@info_request.described_state == 'requires_admin') && !authenticated_user.nil? && authenticated_user.requires_admin_power?
+
+        if !@info_request.awaiting_description && !@requires_admin_describe
             flash[:notice] = "The status of this request is up to date."
             if !params[:submitted_describe_state].nil?
                 flash[:notice] = "The status of this request was made up to date elsewhere while you were filling in the form."

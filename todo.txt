@@ -6,8 +6,14 @@ Next
 This doesn't work:
 http://www.whatdotheyknow.com/search/status:waiting_classification/
 
+Gah, Apache hates slashes in search results, and in general %2F in URls:
+    http://whatdotheyknow.cat/x%2F
+It doesn't get through to rails at all.
+
 Performance:
     Remove loading of public body tags from every info request load
+    Completed in 15.53564 (0 reqs/sec) | Rendering: 1.03024 (6%) | DB: 14.46186 (93%) | 200 OK [http://www.whatdotheyknow.com/body/list/n]
+    Make it not single threaded
 
 Upload Julian's large Cambridgeshire contract
 

@@ -1,4 +1,4 @@
-<% if @is_owning_user %>
+<% if @is_owning_user || @requires_admin_describe %>
     <% form_for(:incoming_message, @info_request, :url => describe_state_url(:id => @info_request.id)) do |f| %>
         <h2>What is the status of this request now?</h2>
         <hr>
