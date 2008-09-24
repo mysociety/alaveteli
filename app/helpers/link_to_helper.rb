@@ -5,7 +5,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: link_to_helper.rb,v 1.42 2008-09-24 19:23:17 francis Exp $
+# $Id: link_to_helper.rb,v 1.43 2008-09-24 19:25:50 francis Exp $
 
 module LinkToHelper
 
@@ -123,7 +123,7 @@ module LinkToHelper
         # and also 3.3 of http://www.ietf.org/rfc/rfc2396.txt
         # It turns out this is a regression in Rails 2.1, caused by this bug fix:
         #   http://rails.lighthouseapp.com/projects/8994/tickets/144-patch-bug-in-rails-route-globbing
-        url.sub!("%2F", "/")
+        url.gsub!("%2F", "/")
 
         if !postfix.nil? && !postfix.empty?
             url = url + "/" + postfix
