@@ -27,9 +27,11 @@ end %>
         <% if event.event_type == 'sent' %>
             Request sent to <%= public_body_link(info_request.public_body) %>
             by <%= user_link(info_request.user) %>
+            on <%= simple_date(event.created_at) %>.
         <% elsif event.event_type == 'followup_sent' %>
             Follow up sent to <%= public_body_link(info_request.public_body) %>
             by <%= user_link(info_request.user) %>
+            on <%= simple_date(event.created_at) %>.
         <% elsif event.event_type == 'response' %>
             <% if event.calculated_state.nil? %>
                 Response 
@@ -38,14 +40,15 @@ end %>
             <% end %>
             by <%= public_body_link(info_request.public_body) %>
             to <%= user_link(info_request.user) %>
+            on <%= simple_date(event.created_at) %>.
         <% elsif event.event_type == 'comment' %>
-            Annotation by <%= user_link(event.comment.user) %>
-            on request to <%= public_body_link(info_request.public_body) %>
-            by <%= user_link(info_request.user) %>
+            Request to <%= public_body_link(info_request.public_body) %>
+            by <%= user_link(info_request.user) %>.
+            Annotated by <%= user_link(event.comment.user) %>
+            on <%= simple_date(event.created_at) %>.
         <% else %>
             <% raise "unknown event type indexed " + event.event_type %>
         <% end %>
-        on <%= simple_date(event.created_at) %>.
     </span>
 </div>
 
