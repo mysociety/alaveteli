@@ -40,6 +40,8 @@ end %>
             to <%= user_link(info_request.user) %>
         <% elsif event.event_type == 'comment' %>
             Annotation by <%= user_link(event.comment.user) %>
+            on request to <%= public_body_link(info_request.public_body) %>
+            by <%= user_link(info_request.user) %>
         <% else %>
             <% raise "unknown event type indexed " + event.event_type %>
         <% end %>
