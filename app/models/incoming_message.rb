@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.150 2008-09-23 21:00:14 francis Exp $
+# $Id: incoming_message.rb,v 1.151 2008-09-24 17:21:00 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -327,6 +327,9 @@ class IncomingMessage < ActiveRecord::Base
         text.gsub!(/Andy 079.*/, "Andy [mobile number]")
         # http://www.whatdotheyknow.com/request/how_do_the_pct_deal_with_retirin_113
         text.gsub!(/(Complaints and Corporate Affairs Officer)\s+Westminster Primary Care Trust.+/ms, "\\1")
+
+        # Remove WhatDoTheyKnow signup links
+        text.gsub!(/http:\/\/www.whatdotheyknow.com\/c\/[^\s]+/, "[WDTK login link]")
 
         return text
     end
