@@ -3,13 +3,6 @@ Test data for Tony
 Next
 ====
 
-This doesn't work:
-http://www.whatdotheyknow.com/search/status:waiting_classification/
-
-Gah, Apache hates slashes in search results, and in general %2F in URls:
-    http://whatdotheyknow.cat/x%2F
-It doesn't get through to rails at all.
-
 Performance:
     Remove loading of public body tags from every info request load
     Completed in 15.53564 (0 reqs/sec) | Rendering: 1.03024 (6%) | DB: 14.46186 (93%) | 200 OK [http://www.whatdotheyknow.com/body/list/n]
@@ -77,9 +70,11 @@ Admin:
     Have internal links to different parts of request page
 
 
-
 Later
 =====
+
+Detect councils that always send automatic acknowledgements, and notice if they
+do not for a particular request? (e.g. Leicestershire County Council)
 
 Do conversion tracking on endpoints in WDTK, advertise perhaps TWFY, or perhaps
     donations to mySociety.
@@ -253,6 +248,8 @@ Quoting fixing TODO:
     http://www.whatdotheyknow.com/request/local_government_ombudsman_58#incoming-5763
 
     http://www.whatdotheyknow.com/request/415/response/1041/attach/3/CONF%20FOI%209508%20Ian%20Holton.doc
+
+    http://www.whatdotheyknow.com/request/function_council_88#incoming-6258
 
 
 Larger new features
