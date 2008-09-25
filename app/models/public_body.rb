@@ -24,7 +24,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.108 2008-09-22 22:16:37 francis Exp $
+# $Id: public_body.rb,v 1.109 2008-09-25 12:58:04 francis Exp $
 
 require 'csv'
 require 'set'
@@ -222,7 +222,7 @@ class PublicBody < ActiveRecord::Base
 
     # Find all public bodies with a particular tag
     def self.find_by_tag(tag) 
-        return PublicBodyTag.find(:all, :conditions => ['name = ?', tag] ).map { |t| t.public_body }
+        return PublicBodyTag.find(:all, :conditions => ['name = ?', tag] ).map { |t| t.public_body }.sort { |a,b| a.name <=> b.name }
     end
 
     # Use tags to describe what type of thing this is
