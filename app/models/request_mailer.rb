@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.58 2008-09-22 04:06:37 francis Exp $
+# $Id: request_mailer.rb,v 1.59 2008-09-25 12:23:01 francis Exp $
 
 class RequestMailer < ApplicationMailer
     
@@ -248,7 +248,7 @@ class RequestMailer < ApplicationMailer
     end
     def self.alert_new_response_reminders_internal(days_since, type_code)
         #STDERR.puts "alert_new_response_reminders_internal days:" + days_since.to_s + " type: " + type_code
-        info_requests = InfoRequest.find(:all, :conditions => [ "awaiting_description = ? and info_requests.updated_at < ?", true, Time.now() - days_since.days ], :include => [ :user ], :order => "info_requests.id" )
+        info_requests = InfoRequest.find(:all, :conditions => [ "awaiting_description = ? and info_requests.updated_at < ? and url_title != 'holding_pen'", true, Time.now() - days_since.days ], :include => [ :user ], :order => "info_requests.id" )
         for info_request in info_requests
             alert_event_id = info_request.get_last_response_event_id
             last_response_message = info_request.get_last_response
