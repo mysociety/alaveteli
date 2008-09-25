@@ -9,7 +9,7 @@
     <% @title = "Results page " + @page.to_s %>
 <% end%>
 
-<% if @bodies %>
+<% if @bodies && (@page == 1 || @xapian_bodies.results.size > 0) %>
     <div id="stepwise_instructions">
         <p><strong>Next, select the public authority you'd like to make the request from.</strong></p>
         <p>Can't find it?  <%= link_to "Browse all", list_public_bodies_default %> or
@@ -32,7 +32,7 @@
    </p>
 <% end %>
 
-<% if not @query.nil? %>
+<% if !@query.nil? %>
     <p>
     <%=link_to_unless @sortby.nil?, "Show most relevant results first", search_url(@query, nil) %>
     |
@@ -43,7 +43,7 @@
     </p>
 <% end %>
 
-<% if @bodies && !@query.nil? && @xapian_bodies.results.size == 0 %>
+<% if @bodies && !@query.nil? && @xapian_bodies.results.size == 0 && @page == 1 %>
     <h1>No public authorities found</h1>
     <% if @spelling_correction %>
         <p id="did_you_mean">Did you mean: <%= link_to @spelling_correction, search_url(@spelling_correction, @postfix) %></p>
