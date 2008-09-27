@@ -24,7 +24,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.109 2008-09-25 12:58:04 francis Exp $
+# $Id: public_body.rb,v 1.110 2008-09-27 16:47:41 johncross Exp $
 
 require 'csv'
 require 'set'
@@ -53,11 +53,12 @@ class PublicBody < ActiveRecord::Base
                 [ "adhac", "Agricultural dwelling house advisory committees", "an agriculatural dwelling house advisory committee" ],
                 [ "newdeal", "New Deal for Communities partnership", "a New Deal for Communities partnership" ],
             "Local and regional",
-                [ "local_council", "Local councils", "a local council" ], 
-                [ "regional_assembly", "Regional assemblies", "a regional assembly"], 
+                [ "local_council", "Local councils", "a local council" ],
+                [ "parish_council", "Parish councils", "a parish council"], 
                 [ "nsbody", "North/south bodies", "a north/south body"],
+                [ "regional_assembly", "Regional assemblies", "a regional assembly"], 
                 [ "rda", "Regional development agencies", "a regional development agency" ], 
-            "Education",
+              "Education",
                 [ "university", "Universities", "a university" ], 
                 [ "hei", "Higher education institutions", "a higher educational institution" ],
                 [ "fei", "Further education institutions", "a further educational institution" ],
@@ -65,6 +66,7 @@ class PublicBody < ActiveRecord::Base
                 [ "lib_board", "Education and library boards", "an education and library board" ],
             "Environment",
                 [ "npa", "National park authorities", "a national park authority" ], 
+                [ "rpa", "Regional park authorities", "a national park authoriy" ],
                 [ "sea_fishery_committee", "Sea fisheries committees", "a sea fisheries committee" ], 
                 [ "watercompanies", "Water companies", "a water company" ],
                 [ "idb", "Internal drainage boards", "an internal drainage board" ],
