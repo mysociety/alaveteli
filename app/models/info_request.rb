@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.143 2008-09-23 00:47:50 francis Exp $
+# $Id: info_request.rb,v 1.144 2008-10-02 23:11:40 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -74,6 +74,10 @@ class InfoRequest < ActiveRecord::Base
         if !self.public_body.nil? && self.public_body.eir_only?
             self.law_used = 'eir'
         end
+    end
+
+    def visible_comments
+        self.comments.find(:all, :conditions => 'visible')
     end
 
     # Central function to do all searches

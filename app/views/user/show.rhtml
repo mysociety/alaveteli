@@ -111,7 +111,7 @@
     <% else %>
         <h2>
             <%= @is_you ? 'Your ' : "This person's " %>
-            <%=pluralize(@display_user.comments.size, "annotation") %>
+            <%=pluralize(@display_user.visible_comments.size, "annotation") %>
             <!-- matches_estimated <%=@xapian_comments.matches_estimated%> -->
             <%= @page_desc %>
         </h2>
@@ -120,7 +120,7 @@
             <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result[:model], :info_request => result[:model].info_request } %>
         <% end %>
 
-        <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @display_user.comments.size) %>
+        <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @display_user.visible_comments.size) %>
     <% end %>
 </div>
 

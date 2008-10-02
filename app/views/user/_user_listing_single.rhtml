@@ -8,7 +8,7 @@ end %>
 
     <span class="bottomline">
         <%= pluralize(display_user.info_requests.size, "request") %> made.
-        <%= pluralize(display_user.comments.size, "annotation") %> made.
+        <%= pluralize(display_user.visible_comments.size, "annotation") %> made.
         Joined on <%= simple_date(display_user.created_at) %>.
     </span>
 

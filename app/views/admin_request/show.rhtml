@@ -110,12 +110,16 @@
   <th>Actions</th>
   </tr>
   
-<% for comment in @info_request.comments.find(:all, :order => 'created_at') %>
+<% for comment in @info_request.comments %>
   <tr class="<%= cycle('odd', 'even') %>">
   <td><%=h comment.id %></td>
   <td><%= user_both_links(comment.user) %></td>
   <% for column in Comment.content_columns.map { |c| c.name } %>
-    <td><%=h comment.send(column) %></td>
+    <% if column == 'body' && !comment.visible %>
+        <td><s><%=h comment.send(column) %></s></td>
+    <% else %>
+        <td><%=h comment.send(column) %></td>
+    <% end %>
   <% end %>
   <td>
       <%= link_to "Edit", '../edit_comment/' + comment.id.to_s %>

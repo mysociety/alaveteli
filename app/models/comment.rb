@@ -19,7 +19,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: comment.rb,v 1.6 2008-09-22 22:16:37 francis Exp $
+# $Id: comment.rb,v 1.7 2008-10-02 23:11:40 francis Exp $
 
 class Comment < ActiveRecord::Base
     belongs_to :user
@@ -41,6 +41,14 @@ class Comment < ActiveRecord::Base
     end
     def raw_body
         read_attribute(:body)
+    end
+
+    # So when made invisble it vanishes
+    after_save :event_xapian_update
+    def event_xapian_update
+        for event in self.info_request_events
+            event.xapian_mark_needs_index
+        end
     end
 
     # Check have edited comment

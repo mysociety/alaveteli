@@ -98,7 +98,9 @@
     </p>
 
     <% for info_request_event in @info_request_events %>
-        <%= render :partial => 'correspondence', :locals => { :info_request_event => info_request_event } %>
+        <% if info_request_event.visible %>
+            <%= render :partial => 'correspondence', :locals => { :info_request_event => info_request_event } %>
+        <% end %>
     <% end %>
 
     <% if @info_request.awaiting_description %>

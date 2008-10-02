@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_request_controller.rb,v 1.23 2008-09-24 19:43:21 francis Exp $
+# $Id: admin_request_controller.rb,v 1.24 2008-10-02 23:11:40 francis Exp $
 
 class AdminRequestController < ApplicationController
     layout "admin"
@@ -110,11 +110,15 @@ class AdminRequestController < ApplicationController
         @comment = Comment.find(params[:id])
 
         old_body = @comment.body
+        old_visible = @comment.visible
+        @comment.visible = params[:comment][:visible] == "true" ? true : false
 
         if @comment.update_attributes(params[:comment]) 
             @comment.info_request.log_event("edit_comment", 
                 { :comment_if => @comment.id, :editor => admin_http_auth_user(), 
-                    :old_body => old_body, :body => @comment.body })
+                    :old_body => old_body, :body => @comment.body,
+                    :old_visible => old_visible, :visible => @comment.visible,
+                })
             flash[:notice] = 'Comment successfully updated.'
             redirect_to request_admin_url(@comment.info_request)
         else

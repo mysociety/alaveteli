@@ -3,14 +3,16 @@ Test data for Tony
 Next
 ====
 
+Make it so signin link from being emailed that you have new response
+goes to the # link on main page rather than the describe page that
+needs login
+
 Performance:
     Remove loading of public body tags from every info request load
     Completed in 15.53564 (0 reqs/sec) | Rendering: 1.03024 (6%) | DB: 14.46186 (93%) | 200 OK [http://www.whatdotheyknow.com/body/list/n]
     Make it not single threaded
 
 Upload Julian's large Cambridgeshire contract
-
-Sort admin tag search by name rather than by modification date
 
 Internal review status/marker?
     http://www.whatdotheyknow.com/request/search_engine_advertising_bought
@@ -38,6 +40,7 @@ Request withdrawn by user status/marker?
 
 Perhaps encourage user to annotate what they learnt after getting information?
 When they say "successful", encourage them to make an annotation?
+"Some of the information" option should give you choice of complaining if you like.
 
 Clear out all the need admin attention requests
 
@@ -57,8 +60,6 @@ Add "I didn't get the email / spam question" and link to from FOI offcier upload
 Add "Postal replies stuff" and link to from FOI officer upload page
 Add "I'm not sure which authority to make my request to" - make flow better after first section, to abrupt now
 
-Test code for FOI officer upload
-
 Grrr - so here I wanted to clarify my request, but don't want the timer to be reset!
     http://www.whatdotheyknow.com/request/online_petitions_documents_from#incoming-3248
 
@@ -69,9 +70,13 @@ Admin:
     Somehow fold up the enormous pages on many admin pages
     Have internal links to different parts of request page
 
+Consider removing login links from notifications of new responses, now we have remember me
+
 
 Later
 =====
+
+Test code for FOI officer upload
 
 Detect councils that always send automatic acknowledgements, and notice if they
 do not for a particular request? (e.g. Leicestershire County Council)
@@ -170,9 +175,6 @@ This does it all:
 $ ./script/clear-incoming-text-cache ; ./script/rebuild-xapian-index
 
 Get Atom highlighting to include stylesheet for yellow somehow
-Offer option of one RSS feed with all things you are tracking in it. Maybe.
-
-"Some of the information" option should give you choice of complaining if you like.
 
 For followups, have radio button to say is it a new request or followup?
 
@@ -184,8 +186,6 @@ updating
 Synthesise these tips into our handful of snappy snappy bullet points
     http://community.foe.co.uk/tools/right_to_know/tips.html
     http://www.justice.gov.uk/requestinginformation.htm
-
-Consider removing login links from notifications of new responses, now we have remember me
 
 (10:32:14) richard: you just need to count the number of rows of text and compare it to the number of rows in the textbox
 (10:32:29) richard: then increase the height of the textbox by 1em-ish
@@ -250,10 +250,15 @@ Quoting fixing TODO:
     http://www.whatdotheyknow.com/request/415/response/1041/attach/3/CONF%20FOI%209508%20Ian%20Holton.doc
 
     http://www.whatdotheyknow.com/request/function_council_88#incoming-6258
+    http://www.whatdotheyknow.com/request/please_submit_the_surveyors_repo#incoming-6334 # charset
+
+    http://www.whatdotheyknow.com/request/enforcement_forders_for_replacin#incoming-6277 # over zealous quoting
 
 
 Larger new features
 -------------------
+
+Offer option of one RSS feed with all things you are tracking in it. Maybe.
 
 Antispam on contact form
 

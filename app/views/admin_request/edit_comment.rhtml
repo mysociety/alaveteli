@@ -7,6 +7,11 @@
    <p><label for="comment_body">Body of annotation</label><br/>
    <%= text_area 'comment', 'body', :rows => 10, :cols => 60  %></p>
 
+   <p><label for="comment_visible">Visible</label> 
+   <%= select('comment', "visible", [["Yes - show comment",true],["No - hide comment",false]]) %>
+   </p>
+
+
   <p><%= submit_tag 'Save', :accesskey => 's' %></p>
 <% end %>
 

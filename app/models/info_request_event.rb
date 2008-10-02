@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request_event.rb,v 1.61 2008-09-23 21:00:14 francis Exp $
+# $Id: info_request_event.rb,v 1.62 2008-10-02 23:11:40 francis Exp $
 
 class InfoRequestEvent < ActiveRecord::Base
     belongs_to :info_request
@@ -149,7 +149,10 @@ class InfoRequestEvent < ActiveRecord::Base
     end
     def indexed_by_search
         if ['sent', 'followup_sent', 'response', 'comment'].include?(self.event_type)
-            if info_request.prominence == 'backpage'
+            if self.info_request.prominence == 'backpage'
+                return false
+            end
+            if self.event_type == 'comment' && !self.comment.visible
                 return false
             end
             return true
@@ -159,6 +162,13 @@ class InfoRequestEvent < ActiveRecord::Base
     end
     def variety
         self.event_type
+    end
+
+    def visible
+        if self.event_type == 'comment'
+            return self.comment.visible
+        end
+        return true
     end
 
     # We store YAML version of parameters in the database

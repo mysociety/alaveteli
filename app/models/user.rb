@@ -22,7 +22,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user.rb,v 1.72 2008-09-24 12:59:27 francis Exp $
+# $Id: user.rb,v 1.73 2008-10-02 23:11:40 francis Exp $
 
 require 'digest/sha1'
 
@@ -66,6 +66,10 @@ class User < ActiveRecord::Base
         if self.admin_level.nil?
             self.admin_level = 'none'
         end
+    end
+
+    def visible_comments
+        self.comments.find(:all, :conditions => 'visible')
     end
 
     def validate
