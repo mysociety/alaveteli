@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.115 2008-09-24 19:55:39 francis Exp $
+# $Id: request_controller.rb,v 1.116 2008-10-02 13:37:21 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -257,11 +257,11 @@ class RequestController < ApplicationController
                 flash[:notice] = "Oh no! Sorry to hear that your request was rejected. Here is what to do now."
                 redirect_to unhappy_url
             elsif @info_request.calculate_status == 'successful'
-                flash[:notice] = "We're glad you got all the information that you wanted. Thank you for using WhatDoTheyKnow."
+                flash[:notice] = "<p>We're glad you got all the information that you wanted. Thank you for using WhatDoTheyKnow.</p><p><a href=\"http://www.mysociety.org/donate/\">Make a donation</a> to the charity which runs this website.</p>"
                 # XXX quiz them here for a comment
                 redirect_to request_url(@info_request)
             elsif @info_request.calculate_status == 'partially_successful'
-                flash[:notice] = "We're glad you got some of the information that you wanted."
+                flash[:notice] = "<p>We're glad you got some of the information that you wanted.</p><p>If you found it useful, <a href=\"http://www.mysociety.org/donate/\">make a donation</a> to the charity which runs this website.</p>"
                 # XXX explain how to complain / quiz them for a comment
                 redirect_to request_url(@info_request)
             elsif @info_request.calculate_status == 'waiting_clarification'
