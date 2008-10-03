@@ -1,5 +1,6 @@
 <%= @message.strip %>
 
 ---------------------------------------------------------------------
-Message sent using WhatDoTheyKnow contact form, <%= @request_details %>
+Message sent using WhatDoTheyKnow contact form, 
+<%=(@logged_in_user ? ("logged in as user " + main_url(user_url(@logged_in_user))) : "not logged in")%>
 ---------------------------------------------------------------------

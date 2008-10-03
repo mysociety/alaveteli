@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: help_controller.rb,v 1.7 2008-07-09 14:12:56 francis Exp $
+# $Id: help_controller.rb,v 1.8 2008-10-03 17:48:37 francis Exp $
 
 class HelpController < ApplicationController
     
@@ -27,7 +27,7 @@ class HelpController < ApplicationController
                     params[:contact][:email],
                     params[:contact][:subject],
                     params[:contact][:message],
-                    (@user ? ("logged in as user " + @user.email) : "not logged in")
+                    @user
                 )
                 flash[:notice] = "Your message has been sent. Thank you for getting in touch! We'll get back to you soon."
                 redirect_to frontpage_url 

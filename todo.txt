@@ -30,17 +30,6 @@ Internal review status/marker?
     (search for phrase "internal review"!)
 Remember - internal reviews can be *aborted* if they just send the response :)
 
-Request mailed by post to user (maybe), and not uploaded
-    http://www.whatdotheyknow.com/request/archaeology_south_easts_responsi
-    http://www.whatdotheyknow.com/request/contract_signed_with_donarbon_wa
-    http://www.whatdotheyknow.com/request/bradford_city_council_common_pur
-Postal address required, but not yet provided
-    http://www.whatdotheyknow.com/request/copies_of_foi_requests_000108_to
-    http://www.whatdotheyknow.com/request/re_issuing_of_foi_decision_notic (and partially successful)
-    http://www.whatdotheyknow.com/request/controlled_drinking_zones_21
-Payment required
-    http://www.whatdotheyknow.com/request/staff_absences_due_to_long_term
-
 Request withdrawn by user status/marker?
 
 Perhaps encourage user to annotate what they learnt after getting information?
