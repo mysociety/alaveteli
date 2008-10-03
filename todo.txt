@@ -3,6 +3,8 @@ Test data for Tony
 Next
 ====
 
+Make "None of the above" box only apper when you select it.
+
 Make it so signin link from being emailed that you have new response
 goes to the # link on main page rather than the describe page that
 needs login
@@ -13,6 +15,9 @@ Performance:
     Make it not single threaded
 
 Upload Julian's large Cambridgeshire contract
+
+Respond to request (FOI officers only) ---> NAME_OF_AUTHORITY only
+Move "view raw email" further away from destroy message
 
 Internal review status/marker?
     http://www.whatdotheyknow.com/request/search_engine_advertising_bought
@@ -91,9 +96,6 @@ http://www.whatdotheyknow.com/list?page=2 - too many monitoring officer
     reports - similar to above, I reckon.
 
 favicon.ico would be nice
-
-Flag bad comments, delete comments from admin interface
-    - perhaps via contact form, and form sending refering URL?
 
 Protect from CSRF with this in app controller (care it doesn't break anything):
   # See ActionController::RequestForgeryProtection for details

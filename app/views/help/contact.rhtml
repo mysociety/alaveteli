@@ -53,6 +53,11 @@
         <%= f.text_area :message, :rows => 10, :cols => 60 %>
     </p>
 
+    <p class="form_note">
+        If you are referring to a specific request or authority, it would
+        be helpful if you could include a link to it in your message.
+    </p>
+
     <div class="form_button">
         <%= hidden_field_tag(:submitted_contact_form, 1) %>
         <%= submit_tag "Send message to the WhatDoTheyKnow team" %>

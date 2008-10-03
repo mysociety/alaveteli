@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.144 2008-10-02 23:11:40 francis Exp $
+# $Id: info_request.rb,v 1.145 2008-10-03 17:09:06 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -49,6 +49,7 @@ class InfoRequest < ActiveRecord::Base
     validates_inclusion_of :described_state, :in => [ 
         'waiting_response',
         'waiting_clarification', 
+        'gone_postal',
         'not_held',
         'rejected', 
         'successful', 
@@ -629,6 +630,8 @@ public
             "Successful."
         elsif status == 'waiting_clarification'
             "Waiting clarification."
+        elsif status == 'gone_postal'
+            "Handled by post."
         elsif status == 'requires_admin'
             "Unusual response."
         else

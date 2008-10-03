@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.59 2008-09-25 12:23:01 francis Exp $
+# $Id: request_mailer.rb,v 1.60 2008-10-03 17:09:06 francis Exp $
 
 class RequestMailer < ApplicationMailer
     
@@ -116,13 +116,7 @@ class RequestMailer < ApplicationMailer
 
     # Tell the requester that the public body is late in replying
     def overdue_alert(info_request, user)
-        last_response = info_request.get_last_response
-        if last_response.nil?
-            respond_url = show_response_no_followup_url(:id => info_request.id)
-        else
-            respond_url = show_response_url(:id => info_request.id, :incoming_message_id => last_response.id)
-        end
-        respond_url = respond_url + "#followup" 
+        respond_url = respond_to_last_url(info_request) + "#followup"
 
         post_redirect = PostRedirect.new(
             :uri => respond_url,

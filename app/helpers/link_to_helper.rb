@@ -5,7 +5,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: link_to_helper.rb,v 1.43 2008-09-24 19:25:50 francis Exp $
+# $Id: link_to_helper.rb,v 1.44 2008-10-03 17:09:06 francis Exp $
 
 module LinkToHelper
 
@@ -37,6 +37,17 @@ module LinkToHelper
     end
     def comment_url(comment)
         return request_url(comment.info_request)+"#comment-"+comment.id.to_s
+    end
+
+    # Respond to request
+    def respond_to_last_url(info_request)
+        last_response = info_request.get_last_response
+        if last_response.nil?
+            respond_url = show_response_no_followup_url(:id => info_request.id)
+        else
+            respond_url = show_response_url(:id => info_request.id, :incoming_message_id => last_response.id)
+        end
+        return respond_url
     end
   
     # Public bodies

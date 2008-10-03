@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.116 2008-10-02 13:37:21 francis Exp $
+# $Id: request_controller.rb,v 1.117 2008-10-03 17:09:05 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -267,6 +267,8 @@ class RequestController < ApplicationController
             elsif @info_request.calculate_status == 'waiting_clarification'
                 flash[:notice] = "Please write your follow up message containing the necessary clarifications below."
                 redirect_to show_response_url(:id => @info_request.id, :incoming_message_id => @events_needing_description[-1].params[:incoming_message_id])
+            elsif @info_request.calculate_status == 'gone_postal'
+                redirect_to respond_to_last_url(@info_request) + "?gone_postal=1"
             elsif @info_request.calculate_status == 'requires_admin'
                 flash[:notice] = "Thanks! The WhatDoTheyKnow team have been notified. <a href=\"/help/contact\">Contact us</a> if you have more to say about how we should handle this."
                 redirect_to request_url(@info_request)
@@ -304,6 +306,22 @@ class RequestController < ApplicationController
         @info_request = InfoRequest.find(params[:id].to_i)
         @collapse_quotes = params[:unfold] ? false : true
         @is_owning_user = !authenticated_user.nil? && (authenticated_user.id == @info_request.user_id || authenticated_user.owns_every_request?)
+        @gone_postal = params[:gone_postal] ? true : false
+        if !@is_owning_user
+            @gone_postal = false
+        end
+
+        if @gone_postal
+            who_can_followup_to = @info_request.who_can_followup_to
+            if who_can_followup_to.size == 0
+                @postal_email = @info_request.request_email
+                @postal_email_name = @info_request.name
+            else
+                @postal_email = who_can_followup_to[-1][1]
+                @postal_email_name = who_can_followup_to[-1][0]
+            end
+        end
+
 
         params_outgoing_message = params[:outgoing_message]
         if params_outgoing_message.nil?

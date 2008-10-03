@@ -8,6 +8,43 @@
 
 <%= foi_error_messages_for :incoming_message, :outgoing_message %>
 
+<% if @gone_postal %>
+    <div class="gone_postal_help">
+        <h1>What exactly is happening?</h1>
+
+        <dl>
+
+        <dt>
+            The authority say that they <strong>need a postal
+            address</strong>, not just an email, for it to be a valid FOI request
+        </dt>
+        <dd>
+            The law, the Ministry of Justice and the Information Commissioner
+            all say that an email is sufficient (<a href="/help/about#full_address">more details</a>).
+            At the bottom of this page, write a reply to the authority explaining this to them.
+        </dd>
+
+        <dt>
+            The authority only has a <strong>paper copy</strong> of the information.
+        </dt>
+        <dd>
+            At the bottom of this page, write a reply to them trying to persuade them to scan it in
+            (<a href="/help/about#postal_answer">more details</a>).
+        </dd>
+
+        <dt>
+            You want to <strong>give your postal address</strong> to the authority in private.
+        </dt>
+        <dd>
+            To do that please send a private email to <%=h(@postal_email_name)%> 
+            &lt;<%=link_to h(@postal_email), "mailto:" + @postal_email%>&gt;
+            containing your postal address, and asking them to reply to this request.
+        </dd>
+
+        </dl>
+    </div>
+<% end %>
+
 <div id="show_response_view">
     <% if @is_owning_user %>
         <% if @incoming_message.nil? %>

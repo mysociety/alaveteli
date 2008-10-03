@@ -92,6 +92,8 @@
             <%= user_link(@info_request.user) %>, please
             <%= link_to "sign in", signin_url(:r => request.request_uri) %> to send a follow up message.
         <% end %>
+    <% elsif @status == 'gone_postal' %>
+        The authority would like to / has <strong>responded by post</strong> to this request.
     <% elsif @status == 'requires_admin' %>
         This request has had an unusual response, and <strong>requires attention</strong> from the WhatDoTheyKnow team.
     <% else %>

@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request_event.rb,v 1.62 2008-10-02 23:11:40 francis Exp $
+# $Id: info_request_event.rb,v 1.63 2008-10-03 17:09:06 francis Exp $
 
 class InfoRequestEvent < ActiveRecord::Base
     belongs_to :info_request
@@ -55,6 +55,7 @@ class InfoRequestEvent < ActiveRecord::Base
         nil,
         'waiting_response',
         'waiting_clarification', 
+        'gone_postal',
         'not_held',
         'rejected', 
         'successful', 
@@ -200,6 +201,8 @@ class InfoRequestEvent < ActiveRecord::Base
             "Acknowledgement"
         elsif status == 'waiting_clarification'
             "Clarification required"
+        elsif status == 'gone_postal'
+            "Handled by post"
         elsif status == 'not_held'
             "Information not held"
         elsif status == 'rejected'
