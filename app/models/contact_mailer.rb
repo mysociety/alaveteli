@@ -4,17 +4,19 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: contact_mailer.rb,v 1.8 2008-10-03 17:48:37 francis Exp $
+# $Id: contact_mailer.rb,v 1.9 2008-10-07 22:05:06 francis Exp $
 
 class ContactMailer < ApplicationMailer
 
     # Send message to administrator
-    def message(name, email, subject, message, logged_in_user)
+    def message(name, email, subject, message, logged_in_user, last_request, last_body)
         @from = name + " <" + email + ">"
         @recipients = contact_from_name_and_email
         @subject = subject
         @body = { :message => message,
-            :logged_in_user => logged_in_user 
+            :logged_in_user => logged_in_user ,
+            :last_request => last_request,
+            :last_body => last_body
         }
     end
 

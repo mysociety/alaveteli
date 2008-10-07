@@ -2,5 +2,10 @@
 
 ---------------------------------------------------------------------
 Message sent using WhatDoTheyKnow contact form, 
-<%=(@logged_in_user ? ("logged in as user " + main_url(user_url(@logged_in_user))) : "not logged in")%>
----------------------------------------------------------------------
+<%=(@logged_in_user ? ("logged in as user " + main_url(user_url(@logged_in_user))) : "not logged in")%><% if !@last_request.nil? %>
+
+Last request viewed: <%= main_url(request_url(@last_request)) %>
+<% end %> <% if !@last_body.nil? %>
+
+Last authority viewed: <%= main_url(public_body_url(@last_body)) %>
+<% end %>---------------------------------------------------------------------

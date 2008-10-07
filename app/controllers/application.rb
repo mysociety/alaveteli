@@ -6,7 +6,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: application.rb,v 1.50 2008-09-12 08:26:04 francis Exp $
+# $Id: application.rb,v 1.51 2008-10-07 22:05:06 francis Exp $
 
 
 class ApplicationController < ActionController::Base
@@ -213,12 +213,19 @@ class ApplicationController < ActionController::Base
         return InfoRequest.full_search(models, @query, order, ascending, collapse, @per_page, @page) 
     end
 
+    # Store last visited pages, for contact form
+    def set_last_request(info_request)
+        session[:last_request_id] = info_request.id
+        session[:last_body_id] = nil
+    end
+    def set_last_body(public_body)
+        session[:last_request_id] = nil
+        session[:last_body_id] = public_body.id
+    end
+
     # URL generating functions are needed by all controllers (for redirects),
     # views (for links) and mailers (for use in emails), so include them into
     # all of all.
     include LinkToHelper
 
 end
-
-
-

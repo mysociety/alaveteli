@@ -1,5 +1,7 @@
 Test data for Tony
 
+XXX remove details from set_described_state 
+
 Next
 ====
 
@@ -244,6 +246,7 @@ Quoting fixing TODO:
     http://www.whatdotheyknow.com/request/please_submit_the_surveyors_repo#incoming-6334 # charset
 
     http://www.whatdotheyknow.com/request/enforcement_forders_for_replacin#incoming-6277 # over zealous quoting
+    http://www.whatdotheyknow.com/request/renewable_energy_consumption_by # over zealous
 
 
 Larger new features
@@ -266,6 +269,8 @@ Editable user profile, including photo upload
 HTML versions of all attachments, so links like in GMail
     Somthing.doc
         20K   View as HTML   Open as a Google document   Download
+Maybe use Google API for the open in Google link. Not sure though.
+    http://code.google.com/apis/documents/developers_guide_python.html#UploadingDocs
 
 .tif files are hard for people to view as multi page, consider automatically
 separating out the pages as separate links (to .png files or whatever)

@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.117 2008-10-03 17:09:05 francis Exp $
+# $Id: request_controller.rb,v 1.118 2008-10-07 22:05:06 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -15,9 +15,10 @@ class RequestController < ApplicationController
             redirect_to request_url(@info_request)
             return
         end
-    
+
         # Look up by new style text names 
         @info_request = InfoRequest.find_by_url_title(params[:url_title])
+        set_last_request(@info_request)
         
         # Other parameters
         @info_request_events = @info_request.info_request_events
@@ -195,7 +196,8 @@ class RequestController < ApplicationController
 
     # Describing state of messages post here
     def describe_state
-        @info_request = InfoRequest.find(params[:id])
+        @info_request = InfoRequest.find(params[:id].to_i)
+        set_last_request(@info_request)
 
         # special case that an admin user can edit requires_admin requests
         @requires_admin_describe = (@info_request.described_state == 'requires_admin') && !authenticated_user.nil? && authenticated_user.requires_admin_power?
@@ -270,8 +272,8 @@ class RequestController < ApplicationController
             elsif @info_request.calculate_status == 'gone_postal'
                 redirect_to respond_to_last_url(@info_request) + "?gone_postal=1"
             elsif @info_request.calculate_status == 'requires_admin'
-                flash[:notice] = "Thanks! The WhatDoTheyKnow team have been notified. <a href=\"/help/contact\">Contact us</a> if you have more to say about how we should handle this."
-                redirect_to request_url(@info_request)
+                flash[:notice] = "Please use the form below to tell us details about what is unusual about the response."
+                redirect_to help_general_url(:action => 'contact')
             else
                 raise "unknown calculate_status " + @info_request.calculate_status
             end
@@ -303,7 +305,10 @@ class RequestController < ApplicationController
         else
             @incoming_message = IncomingMessage.find(params[:incoming_message_id])
         end
+
         @info_request = InfoRequest.find(params[:id].to_i)
+        set_last_request(@info_request)
+
         @collapse_quotes = params[:unfold] ? false : true
         @is_owning_user = !authenticated_user.nil? && (authenticated_user.id == @info_request.user_id || authenticated_user.owns_every_request?)
         @gone_postal = params[:gone_postal] ? true : false

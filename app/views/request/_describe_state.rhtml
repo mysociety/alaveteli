@@ -34,8 +34,7 @@
         <hr>
         <div>
            <%= radio_button "incoming_message", "described_state", "requires_admin", :id => 'requires_admin' + id_suffix %>
-            <label for="requires_admin<%=id_suffix%>"><strong>None</strong> of the above - enter quick summary here:</label>
-            <%= text_field "incoming_message", 'requires_admin_details', :class => 'requires_admin_details', :id => 'requires_admin_details' + id_suffix, :size => 60 %>
+            <label for="requires_admin<%=id_suffix%>"><strong>None</strong> of the above (please read them first!)</label>
         </div>
         <hr>
         <p>Filling this in helps everyone track the progress of your request.

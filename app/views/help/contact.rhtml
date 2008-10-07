@@ -4,32 +4,35 @@
 
 <div id="contact_preamble">
 
-    <h1>Make a request for public, official information</h1>
-    <p>
-        <a href="/new">Go here</a> to make your request, in public, for information
-        from UK public authorities.
-    </p>
+    <% if !flash[:notice] %>
+        <h1>Make a request for public, official information</h1>
+        <p>
+            <a href="/new">Go here</a> to make your request, in public, for information
+            from UK public authorities.
+        </p>
 
-    <h1>Request information about yourself</h1>
-    <p>
-        Our help page about <a href="/help/about#data_protection">data protection</a>
-        explains how to request information about yourself from UK public authorities.
-    </p>
+        <h1>Request information about yourself</h1>
+        <p>
+            Our help page about <a href="/help/about#data_protection">data protection</a>
+            explains how to request information about yourself from UK public authorities.
+        </p>
+    <% end %>
 
     <h1>Contact the WhatDoTheyKnow team</h1>
-    <p>
-        We'd love to hear how you have found using this site.
-    </p>
-    <p>
-        Please read the  <a href="/help/about">about page</a> first, as it may
-        answer your question quicker. Then fill in this form, or send
-        an email to <a href="mailto:<%=@contact_email%>"><%=@contact_email%></a>
-    </p>
+    <% if !flash[:notice] %>
+        <p>
+            We'd love to hear how you have found using this site.
+        </p>
+        <p>
+            Please read the  <a href="/help/about">about page</a> first, as it may
+            answer your question quicker. Then fill in this form, or send
+            an email to <a href="mailto:<%=@contact_email%>"><%=@contact_email%></a>
+        </p>
+    <% end %>
 </div>
 
 <% form_for :contact do |f| %>
 
-   
     <% if not @user %>
         <p>
             <label class="form_label" for="contact_name">Your name:</label>
@@ -53,10 +56,21 @@
         <%= f.text_area :message, :rows => 10, :cols => 60 %>
     </p>
 
-    <p class="form_note">
-        If you are referring to a specific request or authority, it would
-        be helpful if you could include a link to it in your message.
-    </p>
+    <% if !@last_request.nil? %>
+        <p>
+            <label class="form_label" for="contact_message">Include link to request:</label> 
+            <%=request_link(@last_request) %>
+            <%= submit_tag "remove", :name => 'remove' %>
+        </p>
+    <% end %>
+    <% if !@last_body.nil? %>
+        <p>
+            <label class="form_label" for="contact_message">Include link to authority:</label> 
+            <%=public_body_link(@last_body) %>
+            <%= submit_tag "remove", :name => 'remove' %>
+        </p>
+    <% end %>
+
 
     <div class="form_button">
         <%= hidden_field_tag(:submitted_contact_form, 1) %>
