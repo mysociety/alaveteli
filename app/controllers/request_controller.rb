@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.118 2008-10-07 22:05:06 francis Exp $
+# $Id: request_controller.rb,v 1.119 2008-10-09 15:48:22 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -272,7 +272,7 @@ class RequestController < ApplicationController
             elsif @info_request.calculate_status == 'gone_postal'
                 redirect_to respond_to_last_url(@info_request) + "?gone_postal=1"
             elsif @info_request.calculate_status == 'requires_admin'
-                flash[:notice] = "Please use the form below to tell us details about what is unusual about the response."
+                flash[:notice] = "Please use the form below if you would like to tell us what is unusual about the response."
                 redirect_to help_general_url(:action => 'contact')
             else
                 raise "unknown calculate_status " + @info_request.calculate_status
