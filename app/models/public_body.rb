@@ -24,7 +24,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.112 2008-10-12 07:30:05 johncross Exp $
+# $Id: public_body.rb,v 1.113 2008-10-12 08:56:01 johncross Exp $
 
 require 'csv'
 require 'set'
@@ -86,10 +86,11 @@ class PublicBody < ActiveRecord::Base
                 [ "media", "Media", "a media organisation" ],
                 [ "rcc", "Cultural consortia", "a cultural consortium"],
                 [ "museum", "Museums and galleries", "a museum or gallery" ],
-            "Police, courts and security services",
+            "Police, fire, courts and security services",
                 [ "police", "Police forces", "a police force" ], 
                 [ "police_authority", "Police authorities", "a police authority" ], 
                 [ "dpp", "District policing partnerships", "a district policing partnership" ],
+                [ "fire_service", "Fire and rescue services", "a fire and rescue service" ],
                 [ "prob_board", "Probation boards", "a probation board" ],
                 [ "rules_committee", "Rules commitees", "a rules committee" ],
                 [ "security_services", "Security Services", "a security services body" ],
