@@ -24,7 +24,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.110 2008-09-27 16:47:41 johncross Exp $
+# $Id: public_body.rb,v 1.111 2008-10-12 07:26:32 johncross Exp $
 
 require 'csv'
 require 'set'
@@ -71,6 +71,7 @@ class PublicBody < ActiveRecord::Base
                 [ "watercompanies", "Water companies", "a water company" ],
                 [ "idb", "Internal drainage boards", "an internal drainage board" ],
                 [ "rfdc", "Regional flood defence committees", "a regional flood defence committee" ],
+                [ "wda", "Waste disposal authorities", "a Waste disposal authority" ],
                 [ "zoo", "Zoos", "a zoo" ],
             "Health",
                 [ "nhstrust", "NHS trusts", "an NHS trust" ],
