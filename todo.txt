@@ -16,8 +16,6 @@ Performance:
 
 Upload Julian's large Cambridgeshire contract
 
-Move "view raw email" further away from destroy message
-
 
 Internal review status/marker?
     Quote section 38 as per Julian's request
