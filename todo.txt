@@ -5,8 +5,6 @@ XXX remove details from set_described_state
 Next
 ====
 
-Make "None of the above" box only apper when you select it.
-
 Make it so signin link from being emailed that you have new response
 goes to the # link on main page rather than the describe page that
 needs login
@@ -18,14 +16,17 @@ Performance:
 
 Upload Julian's large Cambridgeshire contract
 
-Respond to request (FOI officers only) ---> NAME_OF_AUTHORITY only
 Move "view raw email" further away from destroy message
 
+
 Internal review status/marker?
+    Quote section 38 as per Julian's request
     http://www.whatdotheyknow.com/request/search_engine_advertising_bought
     http://www.whatdotheyknow.com/request/communications_from_home_office
     http://www.whatdotheyknow.com/request/crime_investigation_following_al
     http://www.whatdotheyknow.com/request/determination_of_pricing_for_pro#incoming-2902
+    http://www.whatdotheyknow.com/request/community_justice_centre_sentenc
+    http://www.whatdotheyknow.com/request/contracts_establishing_impact_pa
     my own veolia request
     http://www.whatdotheyknow.com/request/online_petitions_documents_from
     http://www.whatdotheyknow.com/request/ombudsmans_case_load#comment-21
@@ -42,6 +43,7 @@ Clear out all the need admin attention requests
 
 CSS things
     - CSS error on "all councils" page on some browsers
+        https://bugzilla.mozilla.org/show_bug.cgi?id=424194
     - Spacing on error boxes round form elements
     - icons for "Things to do with this request" ?
 
@@ -55,6 +57,7 @@ Add "I want to file squillions of requests"
 Add "I didn't get the email / spam question" and link to from FOI offcier upload page
 Add "Postal replies stuff" and link to from FOI officer upload page
 Add "I'm not sure which authority to make my request to" - make flow better after first section, to abrupt now
+Policy on officer names.
 
 Grrr - so here I wanted to clarify my request, but don't want the timer to be reset!
     http://www.whatdotheyknow.com/request/online_petitions_documents_from#incoming-3248
@@ -68,6 +71,8 @@ Admin:
 
 Consider removing login links from notifications of new responses, now we have remember me
 
+nhs is in lowercase here:
+http://www.whatdotheyknow.com/body/papworth_hospital_nhs_foundation_trust
 
 Later
 =====

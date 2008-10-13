@@ -125,8 +125,8 @@
         <% end %>
         (<%=h @info_request.user.name %> only)
         <br>
-        <%= link_to "Respond to request", upload_response_url(:url_title => @info_request.url_title) %> (FOI
-        officers only)
+        <%= link_to "Respond to request", upload_response_url(:url_title => @info_request.url_title) %> 
+        (<%=h @info_request.public_body.name %> only)
     </div>
 </div>
 
