@@ -1,6 +1,7 @@
 Test data for Tony
 
 XXX remove details from set_described_state 
+requires_admin_deatils
 
 Next
 ====
@@ -15,7 +16,6 @@ Performance:
     Make it not single threaded
 
 Upload Julian's large Cambridgeshire contract
-
 
 Internal review status/marker?
     Quote section 38 as per Julian's request
@@ -39,12 +39,6 @@ When they say "successful", encourage them to make an annotation?
 
 Clear out all the need admin attention requests
 
-CSS things
-    - CSS error on "all councils" page on some browsers
-        https://bugzilla.mozilla.org/show_bug.cgi?id=424194
-    - Spacing on error boxes round form elements
-    - icons for "Things to do with this request" ?
-
 Merge workflow into one stream - find information, if you can't find it then request it.
 Show similar requests after you have filed yours - maybe on preview too.
 Fit google search and website search better into flow somehow, but how :(
@@ -60,12 +54,14 @@ Policy on officer names.
 Grrr - so here I wanted to clarify my request, but don't want the timer to be reset!
     http://www.whatdotheyknow.com/request/online_petitions_documents_from#incoming-3248
 
+CSS things
+    - CSS error on "all councils" page on some browsers
+        https://bugzilla.mozilla.org/show_bug.cgi?id=424194
+    - Spacing on error boxes round form elements
+    - icons for "Things to do with this request" ?
+
 Write code to make sure the Return-Path is never foi@sandwich.org.uk (even if the
   Rails code breaks for Sendmail case in future botched Rails upgrades :)
-
-Admin:
-    Somehow fold up the enormous pages on many admin pages
-    Have internal links to different parts of request page
 
 Consider removing login links from notifications of new responses, now we have remember me
 
