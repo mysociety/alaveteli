@@ -838,7 +838,7 @@ div#about_sidebar
 	float: right;
 	clear: none;
 	width: 12em;
-	margin: 1.2em 0 1.2em 2em;
+	margin: 0 0 0 1em;
 }
 
 div#help_about dt a, div#help_about h1 a
