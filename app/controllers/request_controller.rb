@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.120 2008-10-14 12:48:48 francis Exp $
+# $Id: request_controller.rb,v 1.121 2008-10-16 14:27:06 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -263,7 +263,7 @@ class RequestController < ApplicationController
                 # XXX quiz them here for a comment
                 redirect_to request_url(@info_request)
             elsif @info_request.calculate_status == 'partially_successful'
-                flash[:notice] = "<p>We're glad you got some of the information that you wanted.</p><p>If you found it useful, <a href=\"http://www.mysociety.org/donate/\">make a donation</a> to the charity which runs this website.</p>"
+                flash[:notice] = "<p>We're glad you got some of the information that you wanted. We have details on what to do if you are <a href=\"/help/unhappy\">unhappy about the response you got</a>.</p><p>If you found WhatDoTheyKnow useful, <a href=\"http://www.mysociety.org/donate/\">make a donation</a> to the charity which runs it.</p>"
                 # XXX explain how to complain / quiz them for a comment
                 redirect_to request_url(@info_request)
             elsif @info_request.calculate_status == 'waiting_clarification'
