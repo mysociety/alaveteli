@@ -1,0 +1,16 @@
+<% @title = "View FOI email address for '" + h(@public_body.name) + "'" %>
+
+<h1>View FOI email address for '<%=public_body_link(@public_body)%>'</h1>
+
+<p>To view the email address that we use to send FOI requests to <%=h @public_body.name%>,
+please enter these words.<p>
+
+<% form_for :contact do |f| %>
+    <%= recaptcha_tags %>
+
+    <%= hidden_field_tag(:submitted_view_email, { :value => 1 } ) %>
+    
+    <p><%= submit_tag "View email" %></p>
+<% end %>
+
+

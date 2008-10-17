@@ -3,15 +3,17 @@
 <div id="request_sidebar">
     <h2>Track this authority</h2>
     <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => false, :location => 'sidebar' } %>
+    <h2>More about this authority</h2>
+    <% if !@public_body.calculated_home_page.nil? %>
+        <%= link_to "Home page", @public_body.calculated_home_page %><br>
+    <% end %>
+    <%= link_to "View FOI email address", view_public_body_email_url(@public_body.url_name) %>
 </div> 
 
 <h1><%=h(@public_body.name)%></h1>
 
 <p class="subtitle">
 <%=@public_body.type_of_authority(true)%> in the UK<% if not @public_body.short_name.empty? %>, also called <%= h(@public_body.short_name) %><% end %>
-<% if !@public_body.calculated_home_page.nil? %>
-    (<%= link_to "home page", @public_body.calculated_home_page %>)
-<% end %>
 <% if !@user.nil? && @user.admin_page_links? %>
 (<%= link_to "admin", public_body_admin_url(@public_body) %>)
 <% end %>

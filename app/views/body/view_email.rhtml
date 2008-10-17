@@ -1,0 +1,24 @@
+<% @title = "FOI email address for '" + h(@public_body.name) + "'" %>
+
+<h1>FOI email address for '<%=public_body_link(@public_body)%>'</h1>
+
+<p>
+    WhatDoTheyKnow sends new requests to <strong><%=h @public_body.request_email%></strong> for this authority.
+</p>
+
+<p>
+    If the address is wrong, or you know a better address, please <a href="/help/contact">contact us</a>.
+</p>
+
+<div id="stepwise_make_request_view_email">
+    <strong>
+        <% if @public_body.eir_only? %>
+        <%= link_to "Make a new EIR request", new_request_to_body_url(:public_body_id => @public_body.id.to_s)%>
+        <% else %>
+        <%= link_to "Make a new FOI request", new_request_to_body_url(:public_body_id => @public_body.id.to_s)%>
+        <% end %>
+        to <%= h(@public_body.name) %>
+    </strong>
+</div>
+
+

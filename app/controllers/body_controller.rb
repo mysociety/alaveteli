@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: body_controller.rb,v 1.18 2008-10-07 22:05:06 francis Exp $
+# $Id: body_controller.rb,v 1.19 2008-10-17 11:37:59 francis Exp $
 
 class BodyController < ApplicationController
     # XXX tidy this up with better error messages, and a more standard infrastructure for the redirect to canonical URL
@@ -14,8 +14,7 @@ class BodyController < ApplicationController
             return
         end
 
-        @public_bodies = PublicBody.find(:all,
-            :conditions => [ "url_name = ?", params[:url_name] ])
+        @public_bodies = PublicBody.find(:all, :conditions => [ "url_name = ?", params[:url_name] ])
         if @public_bodies.size > 1
             raise "Two bodies with the same URL name: " . params[:url_name]
         end
@@ -36,6 +35,21 @@ class BodyController < ApplicationController
 
         @track_thing = TrackThing.create_track_for_public_body(@public_body)
         @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss] } ]
+    end
+
+    def view_email
+        @public_bodies = PublicBody.find(:all, :conditions => [ "url_name = ?", params[:url_name] ])
+        @public_body = @public_bodies[0]
+
+        if params[:submitted_view_email]
+            if verify_recaptcha
+                flash[:error] = nil
+                render :template => "body/view_email"
+                return
+            end
+            flash[:error] = "There was an error with the words you entered, please try again."
+        end
+        render :template => "body/view_email_captcha"
     end
 
     def list

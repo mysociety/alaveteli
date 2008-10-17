@@ -19,7 +19,7 @@
  * Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
  * Email: francis@mysociety.org; WWW: http://www.mysociety.org
  *
- * $Id: general-example,v 1.15 2008-06-12 13:43:30 francis Exp $
+ * $Id: general-example,v 1.16 2008-10-17 11:38:00 francis Exp $
  * 
  */
 
@@ -41,5 +41,9 @@ define('OPTION_ADMIN_PUBLIC_URL', '/'); // where /stylesheets sits under for adm
 
 // Secret key for signing cookie_store sessions
 define('OPTION_COOKIE_STORE_SESSION_SECRET', 'your secret key here, make it long and random');
+
+// Recaptcha, for detecting humans. Get keys here: http://recaptcha.net/whyrecaptcha.html
+define('OPTION_RECAPTCHA_PUBLIC_KEY', '');
+define('OPTION_RECAPTCHA_PRIVATE_KEY', '');
 
 ?>
