@@ -293,7 +293,7 @@ dd { margin: 0.6em 0 2em 4em; width: 33em; }
 {
     text-align: center;
     margin: 0em 14em 0em 0em;
-    padding: 1em 0em 1em 0em;
+    padding: 1em 1em 1em 1em;
 	background-color: #e0e0e0;
 }
 #stepwise_make_request_view_email
