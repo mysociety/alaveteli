@@ -289,6 +289,13 @@ dd { margin: 0.6em 0 2em 4em; width: 33em; }
     margin: 0.5em 0em 0em 0em;
     padding: 0em 0em 0em 0em;
 }
+#stepwise_make_request
+{
+    text-align: center;
+    margin: 0em 14em 0em 0em;
+    padding: 1em 0em 1em 0em;
+	background-color: #e0e0e0;
+}
 #frontpage_examples div#examples_0 {
     float: left;
     margin-left: 0%;
