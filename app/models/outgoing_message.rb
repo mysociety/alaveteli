@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: outgoing_message.rb,v 1.66 2008-09-22 22:16:37 francis Exp $
+# $Id: outgoing_message.rb,v 1.67 2008-10-17 07:02:01 francis Exp $
 
 class OutgoingMessage < ActiveRecord::Base
     belongs_to :info_request
@@ -39,8 +39,8 @@ class OutgoingMessage < ActiveRecord::Base
     # How the default letter starts and ends
     def get_salutation
         ret = "Dear "
-        if self.message_type == 'followup' && !self.incoming_message_followup.nil? && !self.incoming_message_followup.safe_mail_from.nil?
-            ret = ret + self.incoming_message_followup.safe_mail_from
+        if self.message_type == 'followup' && !self.incoming_message_followup.nil? && !self.incoming_message_followup.safe_mail_from.nil? && self.incoming_message_followup.valid_to_reply_to?
+            ret = ret + RequestMailer.name_for_followup(self.info_request, self.incoming_message_followup)
         else
             ret = ret + "Sir or Madam"
         end

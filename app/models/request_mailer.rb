@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.61 2008-10-14 12:48:49 francis Exp $
+# $Id: request_mailer.rb,v 1.62 2008-10-17 07:02:01 francis Exp $
 
 class RequestMailer < ApplicationMailer
     
@@ -26,9 +26,13 @@ class RequestMailer < ApplicationMailer
             :incoming_message_followup => incoming_message_followup,
             :contact_email => MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost') }
     end
+
     # Separate function, so can be called from controller for logging
+    # XXX the condition checking valid_to_reply_to? also appears in views/request/_followup.rhtml,
+    # it shouldn't really, should call something here.
+    # XXX also OutgoingMessage.get_salutation
     def RequestMailer.name_and_email_for_followup(info_request, incoming_message_followup)
-        if incoming_message_followup.nil?
+        if incoming_message_followup.nil? || !incoming_message_followup.valid_to_reply_to?
             return info_request.recipient_name_and_email
         else
             IncomingMessage # get Monkeypatch!
@@ -37,7 +41,7 @@ class RequestMailer < ApplicationMailer
     end
     # Used in the preview of followup
     def RequestMailer.name_for_followup(info_request, incoming_message_followup)
-        if incoming_message_followup.nil?
+        if incoming_message_followup.nil? || !incoming_message_followup.valid_to_reply_to?
             return info_request.public_body.name
         else
             return incoming_message_followup.safe_mail_from || info_request.public_body.name
@@ -45,7 +49,7 @@ class RequestMailer < ApplicationMailer
     end
     # Used when making list of followup places to remove duplicates
     def RequestMailer.email_for_followup(info_request, incoming_message_followup)
-        if incoming_message_followup.nil?
+        if incoming_message_followup.nil? || !incoming_message_followup.valid_to_reply_to?
             return info_request.recipient_email
         else
             return incoming_message_followup.mail.from_addrs[0].spec

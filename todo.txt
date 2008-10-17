@@ -1,8 +1,5 @@
 Test data for Tony
 
-XXX remove details from set_described_state 
-requires_admin_deatils
-
 Next
 ====
 
@@ -32,10 +29,6 @@ Internal review status/marker?
 Remember - internal reviews can be *aborted* if they just send the response :)
 
 Request withdrawn by user status/marker?
-
-Perhaps encourage user to annotate what they learnt after getting information?
-When they say "successful", encourage them to make an annotation?
-"Some of the information" option should give you choice of complaining if you like.
 
 Clear out all the need admin attention requests
 

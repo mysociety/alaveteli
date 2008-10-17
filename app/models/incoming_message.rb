@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.151 2008-09-24 17:21:00 francis Exp $
+# $Id: incoming_message.rb,v 1.152 2008-10-17 07:02:01 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -883,6 +883,26 @@ class IncomingMessage < ActiveRecord::Base
     # Return space separated list of all file extensions known
     def IncomingMessage.get_all_file_extentions
         return $file_extension_to_mime_type.keys.join(" ")
+    end
+
+    # Return false if for some reason this is a message that we should let them reply to
+    def valid_to_reply_to?
+        # check validity of email
+        email = self.mail.from_addrs[0].spec
+        if !MySociety::Validate.is_valid_email(email)
+            return false
+        end
+
+        # reject postmaster - authorities seem to nearly always not respond to
+        # email to postmaster, and it tells to only happen after delivery failure.
+        prefix = email
+        prefix =~ /^(.*)@/
+        prefix = $1
+        if !prefix.nil? && prefix == 'postmaster'
+            return false
+        end
+
+        return true
     end
 end
 
