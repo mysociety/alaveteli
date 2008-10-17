@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.153 2008-10-17 20:32:42 francis Exp $
+# $Id: incoming_message.rb,v 1.154 2008-10-17 20:43:25 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -172,10 +172,10 @@ class FOIAttachment
             system("/usr/bin/wvHtml " + tempfile.path + " " + tempfile.path + ".html")
             html = File.read(tempfile.path + ".html")
             File.unlink(tempfile.path + ".html")
-#        elsif content_type == 'application/pdf'
-#            IO.popen("/usr/bin/pdftohtml " + tempfile.path + " -", "r") do |child|
-#                html = child.read() + "\n\n"
-#            end
+        elsif content_type == 'application/pdf'
+            IO.popen("/usr/bin/pdftohtml -stdout -enc UTF-8 -noframes " + tempfile.path + "", "r") do |child|
+                html = child.read() + "\n\n"
+            end
         else
             raise "No HTML conversion available for type " + content_type
         end
@@ -187,8 +187,8 @@ class FOIAttachment
     def has_body_as_html?
         if content_type == 'application/vnd.ms-word'
             return true
-#        elsif content_type == 'application/pdf'
-#            return true
+        elsif content_type == 'application/pdf'
+            return true
         end
         return false
     end

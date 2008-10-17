@@ -3,6 +3,8 @@ Test data for Tony
 Next
 ====
 
+Make HTML load read from cache file if present
+
 Performance:
     Remove loading of public body tags from every info request load
     Completed in 15.53564 (0 reqs/sec) | Rendering: 1.03024 (6%) | DB: 14.46186 (93%) | 200 OK [http://www.whatdotheyknow.com/body/list/n]

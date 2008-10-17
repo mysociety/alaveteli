@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.124 2008-10-17 20:32:42 francis Exp $
+# $Id: request_controller.rb,v 1.125 2008-10-17 20:43:25 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -405,13 +405,12 @@ class RequestController < ApplicationController
         html = @attachment.body_as_html
 
         view_html_stylesheet = render_to_string :partial => "request/view_html_stylesheet"
-        html.sub!("<head>", "<head>" + view_html_stylesheet)
+        html.sub!(/<head>/i, "<head>" + view_html_stylesheet)
+        html.sub!(/<body[^>]*>/i, '<body><prefix-here><div id="wrapper"><div id="view_html_content">' + view_html_stylesheet)
+        html.sub!(/<\/body[^>]*>/i, '</div></div></body>' + view_html_stylesheet)
 
         view_html_prefix = render_to_string :partial => "request/view_html_prefix"
-        html.sub!("<!--Section Begins-->", view_html_prefix + "<!--Section Begins-->")
-
-        html.sub!("<!--Section Begins-->", '<!--Section Begins--><div class="view_html_content">')
-        html.sub!("<!--Section Ends->", '</div><!--Section Begins-->')
+        html.sub!("<prefix-here>", view_html_prefix)
 
         # Mask any more emails that have now been exposed (e.g. in PDFs - ones in
         # .doc will have been got in get_attachment_internal below)
