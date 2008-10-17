@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.125 2008-10-17 20:43:25 francis Exp $
+# $Id: request_controller.rb,v 1.126 2008-10-17 23:00:21 skenaja Exp $
 
 class RequestController < ApplicationController
     
@@ -258,7 +258,7 @@ class RequestController < ApplicationController
             flash[:notice] = "<p>Thank you! Hope you don't have to wait much longer.</p> <p>By law, you should have got a response before the end of <strong>" + simple_date(@info_request.date_response_required_by) + "</strong>.</p>"
             redirect_to request_url(@info_request)
         elsif @info_request.calculate_status == 'not_held'
-            flash[:notice] = "Thank you! You may want to send your request to another public authority. To do so, first copy the text of your request below, then <a href=\"/new\">cick here</a> and find the other authority."
+            flash[:notice] = "Thank you! You may want to send your request to another public authority. To do so, first copy the text of your request below, then <a href=\"/new\">click here</a> and find the other authority."
             # XXX offer fancier option to duplicate request?
             redirect_to request_url(@info_request)
         elsif @info_request.calculate_status == 'rejected'
