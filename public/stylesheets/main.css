@@ -724,6 +724,23 @@ a img.attachment_image {
 #followup
 { clear: both; float: left; }
 
+/*------------------------------------------------ view attachment as HTML */
+
+.view_html_content {
+    margin-left: 1em;
+    margin-right: 1em;
+}
+
+.view_html_download_link {
+    float: right;
+}
+.view_html_prefix {
+    text-align: left;
+    background-color: #E7E7E7; 
+    border-bottom: 1px solid #5f5f5f; 
+    padding: 0.5em 1em 0.5em 1em; 
+}
+
 /*------------------------------------------------ authority listings */
 #body_sidebar {
 	font-size: 0.85em;

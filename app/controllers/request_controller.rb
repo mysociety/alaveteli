@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.123 2008-10-17 16:51:40 francis Exp $
+# $Id: request_controller.rb,v 1.124 2008-10-17 20:32:42 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -391,24 +391,51 @@ class RequestController < ApplicationController
     # Download an attachment
     caches_page :get_attachment
     def get_attachment
-        @incoming_message = IncomingMessage.find(params[:incoming_message_id])
-        @info_request = @incoming_message.info_request
-        if @incoming_message.info_request_id != params[:id].to_i
-            raise sprintf("Incoming message %d does not belong to request %d", @incoming_message.info_request_id, params[:id])
-        end
-        @part_number = params[:part].to_i
-        
-        @attachment = IncomingMessage.get_attachment_by_url_part_number(@incoming_message.get_attachments_for_display, @part_number)
-
-        # Prevent spam to magic request address.
-        # XXX Bit dodgy modifying a binary like this but hey. Maybe only do for some mime types?
-        @attachment.body = IncomingMessage.binary_mask_all_emails(@attachment.body) 
+        get_attachment_internal
 
         response.content_type = 'application/octet-stream'
         if !@attachment.content_type.nil?
             response.content_type = @attachment.content_type
         end
         render :text => @attachment.body
+    end
+
+    def get_attachment_as_html
+        get_attachment_internal
+        html = @attachment.body_as_html
+
+        view_html_stylesheet = render_to_string :partial => "request/view_html_stylesheet"
+        html.sub!("<head>", "<head>" + view_html_stylesheet)
+
+        view_html_prefix = render_to_string :partial => "request/view_html_prefix"
+        html.sub!("<!--Section Begins-->", view_html_prefix + "<!--Section Begins-->")
+
+        html.sub!("<!--Section Begins-->", '<!--Section Begins--><div class="view_html_content">')
+        html.sub!("<!--Section Ends->", '</div><!--Section Begins-->')
+
+        # Mask any more emails that have now been exposed (e.g. in PDFs - ones in
+        # .doc will have been got in get_attachment_internal below)
+        html = IncomingMessage.binary_mask_all_emails(html) 
+
+        response.content_type = 'text/html'
+        render :text => html
+    end
+
+    # Internal function
+    def get_attachment_internal
+        @incoming_message = IncomingMessage.find(params[:incoming_message_id])
+        @info_request = @incoming_message.info_request
+        if @incoming_message.info_request_id != params[:id].to_i
+            raise sprintf("Incoming message %d does not belong to request %d", @incoming_message.info_request_id, params[:id])
+        end
+        @part_number = params[:part].to_i
+        @filename = params[:file_name]
+        
+        @attachment = IncomingMessage.get_attachment_by_url_part_number(@incoming_message.get_attachments_for_display, @part_number)
+
+        # Prevent spam to magic request address.
+        # XXX Bit dodgy modifying a binary like this but hey. Maybe only do for some mime types?
+        @attachment.body = IncomingMessage.binary_mask_all_emails(@attachment.body) 
     end
 
     # FOI officers can upload a response

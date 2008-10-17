@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.152 2008-10-17 07:02:01 francis Exp $
+# $Id: incoming_message.rb,v 1.153 2008-10-17 20:32:42 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -160,6 +160,37 @@ class FOIAttachment
         else
             return (s / 1024).to_s + 'K'
         end
+    end
+
+    def body_as_html
+        tempfile = Tempfile.new('foiextract')
+        tempfile.print body
+        tempfile.flush
+
+        if content_type == 'application/vnd.ms-word'
+            # XXX do something with PNG files this spits out so they view too :)
+            system("/usr/bin/wvHtml " + tempfile.path + " " + tempfile.path + ".html")
+            html = File.read(tempfile.path + ".html")
+            File.unlink(tempfile.path + ".html")
+#        elsif content_type == 'application/pdf'
+#            IO.popen("/usr/bin/pdftohtml " + tempfile.path + " -", "r") do |child|
+#                html = child.read() + "\n\n"
+#            end
+        else
+            raise "No HTML conversion available for type " + content_type
+        end
+
+        tempfile.close
+        return html
+    end
+
+    def has_body_as_html?
+        if content_type == 'application/vnd.ms-word'
+            return true
+#        elsif content_type == 'application/pdf'
+#            return true
+        end
+        return false
     end
 end
 

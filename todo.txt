@@ -3,10 +3,6 @@ Test data for Tony
 Next
 ====
 
-Make it so signin link from being emailed that you have new response
-goes to the # link on main page rather than the describe page that
-needs login
-
 Performance:
     Remove loading of public body tags from every info request load
     Completed in 15.53564 (0 reqs/sec) | Rendering: 1.03024 (6%) | DB: 14.46186 (93%) | 200 OK [http://www.whatdotheyknow.com/body/list/n]
@@ -35,9 +31,7 @@ link on page when it is late?
 
 Clear out all the need admin attention requests
 
-Merge workflow into one stream - find information, if you can't find it then request it.
 Show similar requests after you have filed yours - maybe on preview too.
-Fit google search and website search better into flow somehow, but how :(
 
 Add "I have a large file" to FOI office FAQ
 Add "Who should I make my request to?"

@@ -4,8 +4,14 @@
                 <hr class="top">
                 <% attachments.each do |a| %>
                     <p class="attachment">
-                        <% attachment_url = get_attachment_url(:id => incoming_message.info_request_id,
-                                :incoming_message_id => incoming_message.id, :part => a.url_part_number, :file_name => a.display_filename) %>
+                        <% 
+                            attachment_url = get_attachment_url(:id => incoming_message.info_request_id,
+                                    :incoming_message_id => incoming_message.id, :part => a.url_part_number, 
+                                    :file_name => a.display_filename) 
+                            attachment_as_html_url = get_attachment_as_html_url(:id => incoming_message.info_request_id,
+                                    :incoming_message_id => incoming_message.id, :part => a.url_part_number, 
+                                    :file_name => a.display_filename) 
+                        %>
                         <% img_filename = "icon_" + a.content_type.sub('/', '_') + "_large.png"
                         full_filename = File.join(File.dirname(__FILE__), "../../../public/images", img_filename)
                         if File.exist?(full_filename) %>
@@ -18,6 +24,9 @@
                         <br>
                         <%= a.display_size %>
                         <%= link_to "Download", attachment_url %>
+                        <% if a.has_body_as_html? %>
+                            <%= link_to "View as HTML", attachment_as_html_url %>
+                        <% end %> 
                         <!-- (<%= a.content_type %>) -->
                     </p>
                 <% end %>

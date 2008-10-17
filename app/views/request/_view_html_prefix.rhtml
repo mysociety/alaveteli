@@ -1,0 +1,14 @@
+<%
+    attachment_url = get_attachment_url(:id => @incoming_message.info_request_id,
+        :incoming_message_id => @incoming_message.id, :part => @part_number,
+        :file_name => @filename )
+
+%>
+
+<div class="view_html_prefix">
+    <div class="view_html_download_link">
+        <%=link_to "Download original attachment", attachment_url %> 
+    </div>
+    Attachment to FOI request '<%=link_to h(@info_request.title), incoming_message_url(@incoming_message)%>' (HTML version)
+</div>
+
