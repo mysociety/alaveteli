@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.62 2008-10-17 07:02:01 francis Exp $
+# $Id: request_mailer.rb,v 1.63 2008-10-17 16:51:41 francis Exp $
 
 class RequestMailer < ApplicationMailer
     
@@ -107,7 +107,7 @@ class RequestMailer < ApplicationMailer
     # Tell the requester that a new response has arrived
     def new_response(info_request, incoming_message)
         post_redirect = PostRedirect.new(
-            :uri => describe_state_url(:id => info_request.id),
+            :uri => main_url(incoming_message_url(incoming_message)),
             :user_id => info_request.user.id)
         post_redirect.save!
         url = confirm_url(:email_token => post_redirect.email_token)
@@ -138,7 +138,7 @@ class RequestMailer < ApplicationMailer
     # contains info or not
     def new_response_reminder_alert(info_request, incoming_message)
         post_redirect = PostRedirect.new(
-            :uri => describe_state_url(:id => info_request.id),
+            :uri => main_url(incoming_message_url(incoming_message)),
             :user_id => info_request.user.id)
         post_redirect.save!
         url = confirm_url(:email_token => post_redirect.email_token)

@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.122 2008-10-16 14:33:17 francis Exp $
+# $Id: request_controller.rb,v 1.123 2008-10-17 16:51:40 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -194,10 +194,16 @@ class RequestController < ApplicationController
         end
     end
 
-    # Describing state of messages post here
+    # Submitted to the describing state of messages form
     def describe_state
         @info_request = InfoRequest.find(params[:id].to_i)
         set_last_request(@info_request)
+
+        # If this isn't a form submit, go to the request page
+        if params[:submitted_describe_state].nil?
+            redirect_to request_url(@info_request)
+            return
+        end
 
         # special case that an admin user can edit requires_admin requests
         @requires_admin_describe = (@info_request.described_state == 'requires_admin') && !authenticated_user.nil? && authenticated_user.requires_admin_power?
@@ -218,69 +224,65 @@ class RequestController < ApplicationController
         @is_owning_user = !authenticated_user.nil? && (authenticated_user.id == @info_request.user_id || authenticated_user.owns_every_request?)
         @new_responses_count = @events_needing_description.select {|i| i.event_type == 'response'}.size
 
-        if !params[:submitted_describe_state].nil?
-            # Check authenticated, and parameters set. We check is_owning_user
-            # to get admin overrides (see owns_every_request? above)
-            if !@is_owning_user && !authenticated_as_user?(@info_request.user,
-                    :web => "To classify the response to this FOI request",
-                    :email => "Then you can classify the FOI response you have got from " + @info_request.public_body.name + ".",
-                    :email_subject => "Classify an FOI response from " + @info_request.public_body.name
-                )
-                # do nothing - as "authenticated?" has done the redirect to signin page for us
-                return
-            end
-
-            if !params[:incoming_message]
-                flash[:error] = "Please choose whether or not you got some of the information that you wanted."
-                return
-            end
-
-            if params[:last_info_request_event_id].to_i != @last_info_request_event_id
-                flash[:error] = "The request has been updated since you originally loaded this page. Please check for any new incoming messages below, and try again."
-                return
-            end
-
-            # Make the state change
-            @info_request.set_described_state(params[:incoming_message][:described_state])
-
-            # Display appropriate next page (e.g. help for complaint etc.)
-            if @info_request.calculate_status == 'waiting_response'
-                flash[:notice] = "<p>Thank you! Hopefully your wait isn't too long.</p> <p>By law, you should get a response before the end of <strong>" + simple_date(@info_request.date_response_required_by) + "</strong>.</p>"
-                redirect_to request_url(@info_request)
-            elsif @info_request.calculate_status == 'waiting_response_overdue'
-                flash[:notice] = "<p>Thank you! Hope you don't have to wait much longer.</p> <p>By law, you should have got a response before the end of <strong>" + simple_date(@info_request.date_response_required_by) + "</strong>.</p>"
-                redirect_to request_url(@info_request)
-            elsif @info_request.calculate_status == 'not_held'
-                flash[:notice] = "Thank you! You may want to send your request to another public authority. To do so, first copy the text of your request below, then <a href=\"/new\">cick here</a> and find the other authority."
-                # XXX offer fancier option to duplicate request?
-                redirect_to request_url(@info_request)
-            elsif @info_request.calculate_status == 'rejected'
-                # XXX explain how to complain
-                flash[:notice] = "Oh no! Sorry to hear that your request was rejected. Here is what to do now."
-                redirect_to unhappy_url
-            elsif @info_request.calculate_status == 'successful'
-                flash[:notice] = "<p>We're glad you got all the information that you wanted. If you write about or make use of the information, please come back and add an annotation below saying what you did.</p><p>If you found WhatDoTheyKnow useful, <a href=\"http://www.mysociety.org/donate/\">make a donation</a> to the charity which runs it.</p>"
-                # XXX quiz them here for a comment
-                redirect_to request_url(@info_request)
-            elsif @info_request.calculate_status == 'partially_successful'
-                flash[:notice] = "<p>We're glad you got some of the information that you wanted. We have details on what to do if you are <a href=\"/help/unhappy\">unhappy about the response you got</a>.</p><p>If you found WhatDoTheyKnow useful, <a href=\"http://www.mysociety.org/donate/\">make a donation</a> to the charity which runs it.</p>"
-                # XXX explain how to complain / quiz them for a comment
-                redirect_to request_url(@info_request)
-            elsif @info_request.calculate_status == 'waiting_clarification'
-                flash[:notice] = "Please write your follow up message containing the necessary clarifications below."
-                redirect_to show_response_url(:id => @info_request.id, :incoming_message_id => @events_needing_description[-1].params[:incoming_message_id])
-            elsif @info_request.calculate_status == 'gone_postal'
-                redirect_to respond_to_last_url(@info_request) + "?gone_postal=1"
-            elsif @info_request.calculate_status == 'requires_admin'
-                flash[:notice] = "Please use the form below if you would like to tell us what is unusual about the response."
-                redirect_to help_general_url(:action => 'contact')
-            else
-                raise "unknown calculate_status " + @info_request.calculate_status
-            end
+        # Check authenticated, and parameters set. We check is_owning_user
+        # to get admin overrides (see owns_every_request? above)
+        if !@is_owning_user && !authenticated_as_user?(@info_request.user,
+                :web => "To classify the response to this FOI request",
+                :email => "Then you can classify the FOI response you have got from " + @info_request.public_body.name + ".",
+                :email_subject => "Classify an FOI response from " + @info_request.public_body.name
+            )
+            # do nothing - as "authenticated?" has done the redirect to signin page for us
             return
+        end
+
+        if !params[:incoming_message]
+            flash[:error] = "Please choose whether or not you got some of the information that you wanted."
+            redirect_to request_url(@info_request)
+            return
+        end
+
+        if params[:last_info_request_event_id].to_i != @last_info_request_event_id
+            flash[:error] = "The request has been updated since you originally loaded this page. Please check for any new incoming messages below, and try again."
+            redirect_to request_url(@info_request)
+            return
+        end
+
+        # Make the state change
+        @info_request.set_described_state(params[:incoming_message][:described_state])
+
+        # Display appropriate next page (e.g. help for complaint etc.)
+        if @info_request.calculate_status == 'waiting_response'
+            flash[:notice] = "<p>Thank you! Hopefully your wait isn't too long.</p> <p>By law, you should get a response before the end of <strong>" + simple_date(@info_request.date_response_required_by) + "</strong>.</p>"
+            redirect_to request_url(@info_request)
+        elsif @info_request.calculate_status == 'waiting_response_overdue'
+            flash[:notice] = "<p>Thank you! Hope you don't have to wait much longer.</p> <p>By law, you should have got a response before the end of <strong>" + simple_date(@info_request.date_response_required_by) + "</strong>.</p>"
+            redirect_to request_url(@info_request)
+        elsif @info_request.calculate_status == 'not_held'
+            flash[:notice] = "Thank you! You may want to send your request to another public authority. To do so, first copy the text of your request below, then <a href=\"/new\">cick here</a> and find the other authority."
+            # XXX offer fancier option to duplicate request?
+            redirect_to request_url(@info_request)
+        elsif @info_request.calculate_status == 'rejected'
+            # XXX explain how to complain
+            flash[:notice] = "Oh no! Sorry to hear that your request was rejected. Here is what to do now."
+            redirect_to unhappy_url
+        elsif @info_request.calculate_status == 'successful'
+            flash[:notice] = "<p>We're glad you got all the information that you wanted. If you write about or make use of the information, please come back and add an annotation below saying what you did.</p><p>If you found WhatDoTheyKnow useful, <a href=\"http://www.mysociety.org/donate/\">make a donation</a> to the charity which runs it.</p>"
+            # XXX quiz them here for a comment
+            redirect_to request_url(@info_request)
+        elsif @info_request.calculate_status == 'partially_successful'
+            flash[:notice] = "<p>We're glad you got some of the information that you wanted. We have details on what to do if you are <a href=\"/help/unhappy\">unhappy about the response you got</a>.</p><p>If you found WhatDoTheyKnow useful, <a href=\"http://www.mysociety.org/donate/\">make a donation</a> to the charity which runs it.</p>"
+            # XXX explain how to complain / quiz them for a comment
+            redirect_to request_url(@info_request)
+        elsif @info_request.calculate_status == 'waiting_clarification'
+            flash[:notice] = "Please write your follow up message containing the necessary clarifications below."
+            redirect_to show_response_url(:id => @info_request.id, :incoming_message_id => @events_needing_description[-1].params[:incoming_message_id])
+        elsif @info_request.calculate_status == 'gone_postal'
+            redirect_to respond_to_last_url(@info_request) + "?gone_postal=1"
+        elsif @info_request.calculate_status == 'requires_admin'
+            flash[:notice] = "Please use the form below if you would like to tell us what is unusual about the response."
+            redirect_to help_general_url(:action => 'contact')
         else
-            # Display default template
-            return
+            raise "unknown calculate_status " + @info_request.calculate_status
         end
     end
 

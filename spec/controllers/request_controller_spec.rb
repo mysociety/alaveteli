@@ -376,8 +376,9 @@ describe RequestController, "sending unclassified new response reminder alerts" 
         controller.test_code_redirect_by_email_token(mail_token, self) # XXX hack to avoid having to call User controller for email link
         session[:user_id].should == info_requests(:fancy_dog_request).user.id
 
-        response.should render_template('describe_state')
+        response.should render_template('show')
         assigns[:info_request].should == info_requests(:fancy_dog_request)
+        # XXX should check anchor tag here :) that it goes to last new response
     end
 
 end
