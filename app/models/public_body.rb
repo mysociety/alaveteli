@@ -24,7 +24,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.113 2008-10-12 08:56:01 johncross Exp $
+# $Id: public_body.rb,v 1.114 2008-10-19 09:46:36 johncross Exp $
 
 require 'csv'
 require 'set'
@@ -55,11 +55,16 @@ class PublicBody < ActiveRecord::Base
             "Local and regional",
                 [ "local_council", "Local councils", "a local council" ],
                 [ "parish_council", "Parish councils", "a parish council"], 
+                [ "housing_association", "Housing associations", "a housing association"],
                 [ "nsbody", "North/south bodies", "a north/south body"],
+                [ "pbo", "Professional buying organisations", "a professional buying organisation"],
                 [ "regional_assembly", "Regional assemblies", "a regional assembly"], 
                 [ "rda", "Regional development agencies", "a regional development agency" ], 
               "Education",
-                [ "university", "Universities", "a university" ], 
+                [ "university", "Universities", "a university" ],
+                [ "university_college", "Universitity colleges", "a university college" ], 
+                [ "cambridge_college", "Cambridge colleges", "a Cambridge college" ],
+                [ "oxford_college", "Oxford colleges", "an Oxford college" ],
                 [ "hei", "Higher education institutions", "a higher educational institution" ],
                 [ "fei", "Further education institutions", "a further educational institution" ],
                 [ "research_council", "Research councils", "a research council" ],
@@ -86,14 +91,16 @@ class PublicBody < ActiveRecord::Base
                 [ "media", "Media", "a media organisation" ],
                 [ "rcc", "Cultural consortia", "a cultural consortium"],
                 [ "museum", "Museums and galleries", "a museum or gallery" ],
-            "Police, fire, courts and security services",
+            "Military and security services",
+                [ "military_college", "Military colleges", "a military college" ],
+                [ "security_services", "Security Services", "a security services body" ],
+            "Emergency services and the courts",
                 [ "police", "Police forces", "a police force" ], 
                 [ "police_authority", "Police authorities", "a police authority" ], 
                 [ "dpp", "District policing partnerships", "a district policing partnership" ],
                 [ "fire_service", "Fire and rescue services", "a fire and rescue service" ],
                 [ "prob_board", "Probation boards", "a probation board" ],
                 [ "rules_committee", "Rules commitees", "a rules committee" ],
-                [ "security_services", "Security Services", "a security services body" ],
                 [ "tribunal", "Tribunals", "a tribunal"],
             "Transport",
                 [ "npte", "Passenger transport executives", "a passenger transport executive" ],
