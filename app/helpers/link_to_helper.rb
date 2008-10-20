@@ -5,7 +5,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: link_to_helper.rb,v 1.45 2008-10-17 20:32:42 francis Exp $
+# $Id: link_to_helper.rb,v 1.46 2008-10-20 10:20:57 francis Exp $
 
 module LinkToHelper
 
@@ -140,6 +140,9 @@ module LinkToHelper
             url = url + "/" + postfix
         end
         return url
+    end
+    def search_link(query, postfix = nil)
+        link_to h(query), search_url(query, postfix)
     end
 
     # Admin pages
