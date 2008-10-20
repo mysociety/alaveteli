@@ -46,7 +46,7 @@
 <% if @bodies && !@query.nil? && @xapian_bodies.results.size == 0 && @page == 1 %>
     <h1>No public authorities found</h1>
     <% if @spelling_correction %>
-        <p id="did_you_mean">Did you mean: <%= link_to @spelling_correction, search_url(@spelling_correction, @postfix) %></p>
+        <p id="did_you_mean">Did you mean: <%= search_link(@spelling_correction, @postfix) %></p>
     <% end %>
     <p><%=link_to "Browse all", list_public_bodies_default %> or <a href="/help/about#missing_body">ask us to add one</a>.</p>
 <% end %>
@@ -57,7 +57,7 @@
 
 <% if not @query.nil? %>
     <% if @spelling_correction %>
-        <p id="did_you_mean">Did you mean: <%= link_to @spelling_correction, search_url(@spelling_correction, @postfix) %></p>
+        <p id="did_you_mean">Did you mean: <%= search_link(@spelling_correction, @postfix) %></p>
     <% end %>
 
     <% if (!@bodies || @xapian_requests.results.size == 0) && @track_thing && (@xapian_bodies.results.size > 0 || @xapian_users.results.size > 0 || @total_hits == 0)%>
@@ -106,28 +106,30 @@
 <% if @show_tips %>
     <h2>Search tips</h2>
     <ul>
-    <li>Enter words that you want to find separated by spaces, e.g. <strong>climbing lane</strong></li>
-    <li>Use OR (in capital letters) where you don't mind which word,  e.g. <strong>commons OR lords</strong>
-    <li>Use quotes when you want to find an exact phrase, e.g. <strong>"Liverpool City Council"</strong>
+    <li>Enter words that you want to find separated by spaces, e.g. <strong><%=search_link('climbing lane')%></strong></li>
+    <li>Use OR (in capital letters) where you don't mind which word,  e.g. <strong><%=search_link('commons OR lords')%></strong>
+    <li>Use quotes when you want to find an exact phrase, e.g. <strong><%=search_link('"Liverpool City Council"')%></strong>
     <li><strong>variety:</strong> with value sent, followup_sent, response, comment, authority or user to select type of thing to search for.
     <li><strong>status:</strong> to select based on the status or historical status of the request, see table below.
-    <li><strong>requested_from:home_office</strong> to search requests from the <%= link_to "Home Office", show_public_body_url(:url_name => 'home_office') %>, typing the name as in the URL.
-    <li><strong>requested_by:julian_todd</strong> to search requests made by <%= link_to "Julian Todd", show_user_url(:url_name => 'julian_todd') %>, typing the name as in the URL.
-    <li><strong>commented_by:tony_bowden</strong> to search annotations made by <%= link_to "Tony Bowden", show_user_url(:url_name => 'tony_bowden') %>, typing the name as in the URL.
+    <li><strong><%=search_link('requested_from:home_office')%></strong> to search requests from the <%= link_to "Home Office", show_public_body_url(:url_name => 'home_office') %>, typing the name as in the URL.
+    <li><strong><%=search_link('requested_by:julian_todd')%></strong> to search requests made by <%= link_to "Julian Todd", show_user_url(:url_name => 'julian_todd') %>, typing the name as in the URL.
+    <li><strong><%=search_link('commented_by:tony_bowden')%></strong> to search annotations made by <%= link_to "Tony Bowden", show_user_url(:url_name => 'tony_bowden') %>, typing the name as in the URL.
     <li><strong>request:</strong> to restrict to a specific request, typing the title as in the URL.
-    <li><strong>filetype:pdf</strong> to find all responses with PDF attachments. Or try these: <%= IncomingMessage.get_all_file_extentions%>.
-    <li>Type <strong>01/01/2008..14/01/2008</strong> to only show things that happened in the first two weeks of January.
+    <li><strong><%=search_link('filetype:pdf')%></strong> to find all responses with PDF attachments. Or try these: <%= IncomingMessage.get_all_file_extentions%>.
+    <li>Type <strong><%=search_link('01/01/2008..14/01/2008')%></strong> to only show things that happened in the first two weeks of January.
     <li>Read about <a href="http://www.xapian.org/docs/queryparser.html">advanced search operators</a>, such as proximity and wildcards.
     </ul>
 
+    <h2>Table of statuses</h2>
+
     <table class="status_table">
-        <tr><td><strong>status:waiting_response</strong></td><td> Waiting for the public authority to reply </td></tr>
-        <tr><td><strong>status:not_held</strong></td><td> The public authority does not have the information requested </td></tr>
-        <tr><td><strong>status:rejected</strong></td><td> The request was rejected by the public authority </td></tr>
-        <tr><td><strong>status:partially_successful</strong></td><td> Some of the information requested has been received </td></tr>
-        <tr><td><strong>status:successful</strong></td><td> All of the information requested has been received </td></tr>
-        <tr><td><strong>status:waiting_clarification</strong></td><td> The public authority would like part of the request explained </td></tr>
-        <tr><td><strong>status:gone_postal</strong></td><td> The public authority would like to / has responded by post </td></tr>
-        <tr><td><strong>status:requires_admin</strong></td><td> A strange reponse, required attention by the WhatDoTheyKnow team </td></tr>
+        <tr><td><strong><%=search_link('status:waiting_response')%></strong></td><td> Waiting for the public authority to reply </td></tr>
+        <tr><td><strong><%=search_link('status:not_held')%></strong></td><td> The public authority does not have the information requested </td></tr>
+        <tr><td><strong><%=search_link('status:rejected')%></strong></td><td> The request was rejected by the public authority </td></tr>
+        <tr><td><strong><%=search_link('status:partially_successful')%></strong></td><td> Some of the information requested has been received </td></tr>
+        <tr><td><strong><%=search_link('status:successful')%></strong></td><td> All of the information requested has been received </td></tr>
+        <tr><td><strong><%=search_link('status:waiting_clarification')%></strong></td><td> The public authority would like part of the request explained </td></tr>
+        <tr><td><strong><%=search_link('status:gone_postal')%></strong></td><td> The public authority would like to / has responded by post </td></tr>
+        <tr><td><strong><%=search_link('status:requires_admin')%></strong></td><td> A strange reponse, required attention by the WhatDoTheyKnow team </td></tr>
     </table>
 <% end %>
