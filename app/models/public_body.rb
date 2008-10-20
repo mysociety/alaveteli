@@ -24,7 +24,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.114 2008-10-19 09:46:36 johncross Exp $
+# $Id: public_body.rb,v 1.115 2008-10-20 00:52:26 francis Exp $
 
 require 'csv'
 require 'set'
@@ -62,7 +62,7 @@ class PublicBody < ActiveRecord::Base
                 [ "rda", "Regional development agencies", "a regional development agency" ], 
               "Education",
                 [ "university", "Universities", "a university" ],
-                [ "university_college", "Universitity colleges", "a university college" ], 
+                [ "university_college", "University colleges", "a university college" ], 
                 [ "cambridge_college", "Cambridge colleges", "a Cambridge college" ],
                 [ "oxford_college", "Oxford colleges", "an Oxford college" ],
                 [ "hei", "Higher education institutions", "a higher educational institution" ],
@@ -93,7 +93,7 @@ class PublicBody < ActiveRecord::Base
                 [ "museum", "Museums and galleries", "a museum or gallery" ],
             "Military and security services",
                 [ "military_college", "Military colleges", "a military college" ],
-                [ "security_services", "Security Services", "a security services body" ],
+                [ "security_services", "Security services", "a security services body" ],
             "Emergency services and the courts",
                 [ "police", "Police forces", "a police force" ], 
                 [ "police_authority", "Police authorities", "a police authority" ], 
