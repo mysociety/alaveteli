@@ -1,9 +1,48 @@
+Where to offer button to enter internal review state:
+- always offer option on request to have internal review, except when in waiting_response
+earlier than 20 days, and except when in waiting_clarification (call button "make clarification"!)
+- offer optin more forcefully when in waiting_response and lots of days have gone by
+- when entering not_held, rejected, partially_successful offer internal review button clearly
+
+If you've already conducted an internal review, at all those places above offer
+link through to ICO submitting help page instead.
+
+Ask Julian which address is best to send internal reviews to?
+
+Search for text "internal review" in followups and add warning
+
+Let people change status at any point
+
+Fix up controllers/request_controller internal_review state
+
+Change wording of the status change dialog when coming out of itnernal
+review
+
+Clarification of internal review in outgoing message send_message runction
+might want to go back to internal review, not to general awaiting response?
+
+When you select "waiting_response" might want to convert to 
+internal_review in case where current state is already internal_review.
+
 Test data for Tony
+
 
 Next
 ====
 
+Display date in Cycle Path Bank.txt and post on blog
+http://www.whatdotheyknow.com/request/sale_of_bristol_city_council_lan
+
+Tweak footer - doesn't need mysociety link or get source link any more
+
+Awaiting internal review overdue?
+
 Make HTML load read from cache file if present
+Do something about <title> of views
+Knackered view as HTML:
+    http://www.whatdotheyknow.com/request/statistics_for_allocation_of_dut#incoming-4793
+    http://www.whatdotheyknow.com/request/post_lawrence_report_diversity_t_7#incoming-5483
+
 
 Performance:
     Remove loading of public body tags from every info request load
@@ -28,10 +67,13 @@ Remember - internal reviews can be *aborted* if they just send the response :)
 
 Request withdrawn by user status/marker?
 
-When people say still waiting, give link to unhappy if it is late? Or put
+- When you say rejected and go to /help/unhappy should have link to 
+do internal review.
+- When people say still waiting, give link to unhappy if it is late? Or put
 link on page when it is late?
 
 Clear out all the need admin attention requests
+Link to view raw email from the main page when you are super user logged in
 
 Show similar requests after you have filed yours - maybe on preview too.
 
