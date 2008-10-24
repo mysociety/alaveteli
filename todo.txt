@@ -30,6 +30,9 @@ Test data for Tony
 Next
 ====
 
+Consider putting the request email address in footer? So when
+forwarded about, address sticks there.
+
 Make it so you definitely don't get alert for the annotation that you just made
 
 Display date in Cycle Path Bank.txt and post on blog
@@ -165,6 +168,7 @@ Public body tags should perhaps be forced to be lowercase only :)
 
 In sidebar of request 
     Share this request on Facebook, by email etc.
+     Try using James Smith's plugin for this: http://github.com/Floppy/rubymarks/tree/master
     Email icon here: http://www.guardian.co.uk/news/video/2008/apr/03/mugabe
     Simple Digg style "I like this request" button 
 Show list of popular tracks somewhere (finds most popular requests in a way)
