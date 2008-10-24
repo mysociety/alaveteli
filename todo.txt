@@ -30,8 +30,13 @@ Test data for Tony
 Next
 ====
 
+Make it so you definitely don't get alert for the annotation that you just made
+
 Display date in Cycle Path Bank.txt and post on blog
 http://www.whatdotheyknow.com/request/sale_of_bristol_city_council_lan
+
+The Issue document here doesn't load - need to decect word docs from file content.
+http://www.whatdotheyknow.com/request/monitoring_of_foi_internal_revie
 
 Tweak footer - doesn't need mysociety link or get source link any more
 
@@ -284,6 +289,10 @@ Quoting fixing TODO:
 
 Larger new features
 -------------------
+
+Add to calendar links:
+like the add to calendar links on here: http://upcoming.yahoo.com/event/33391/
+.ics (outlook) would probably be most useful to people i'd guess
 
 Offer option of one RSS feed with all things you are tracking in it. Maybe.
 
