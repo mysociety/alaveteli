@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.128 2008-10-25 11:51:16 francis Exp $
+# $Id: request_controller.rb,v 1.129 2008-10-25 12:01:06 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -162,13 +162,15 @@ class RequestController < ApplicationController
         if params[:preview].to_i == 1
             message = ""
             if @outgoing_message.contains_email?
-                message += "Your request contains an <strong>email address</strong>. Unless it directly relates to the subject of your request, you should remove it, as it will <strong>appear publicly on the Internet</strong>.";
+                message += "<p>Your request contains an <strong>email address</strong>.</p><p>Unless the email directly relates to the subject of your request, you should remove it, as it will <strong>appear publicly on the Internet</strong>.</p>"
+                if @user.nil? 
+                    message += "<p>You do not need to include your email in order to get a reply, as we will ask for it on the next screen (<a href=\"/help/about#email_address\">details</a>).</p>";
+                else
+                    message += "<p>You do not need to include your email in order to get a reply (<a href=\"/help/about#email_address\">details</a>).</p>";
+                end
             end
             if @outgoing_message.contains_postcode?
-                if not message.empty?
-                    message += "<br><br>"
-                end
-                message += "Your request contains a <strong>postcode</strong>. Unless it directly relates to the subject of your request, please remove any address as it will <strong>appear publicly on the Internet</strong>.";
+                message += "<p>Your request contains a <strong>postcode</strong>. Unless it directly relates to the subject of your request, please remove any address as it will <strong>appear publicly on the Internet</strong>.</p>";
             end
             if not message.empty?
                 flash[:notice] = message
