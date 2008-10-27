@@ -30,6 +30,9 @@ Test data for Tony
 Next
 ====
 
+Can use track count to show interesting requests
+select info_request_id, title, count(*) as c from track_things, info_requests where track_things.info_request_id is not null and track_things.info_request_id = info_requests.id group by info_request_id, title order by c;
+
 Consider putting the request email address in footer? So when
 forwarded about, address sticks there.
 
