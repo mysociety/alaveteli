@@ -1,0 +1,16 @@
+<% @title = 'Edit censor rule' %>
+
+<h1><%=@title%></h1>
+
+<% form_tag '../update/' + @censor_rule.id.to_s do %>
+  <%= render :partial => 'form', :locals => { :info_request => @censor_rule.info_request } %>
+  <p><%= submit_tag 'Save', :accesskey => 's' %></p>
+<% end %>
+
+<% form_tag('../destroy/' + @censor_rule.id.to_s) do %>
+   <p>
+   <%= hidden_field_tag(:censor_rule_id, @censor_rule.id) %>
+   Permanent! --&gt; <%= submit_tag "Destroy rule" %>
+   </p>
+<% end %>
+

@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.129 2008-10-25 12:01:06 francis Exp $
+# $Id: request_controller.rb,v 1.130 2008-10-27 18:18:30 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -406,6 +406,10 @@ class RequestController < ApplicationController
         get_attachment_internal
         html = @attachment.body_as_html
 
+        # Mask any more emails that have now been exposed (e.g. in PDFs - ones in
+        # .doc will have been got in get_attachment_internal below)
+        html = @incoming_message.binary_mask_stuff(html) 
+
         view_html_stylesheet = render_to_string :partial => "request/view_html_stylesheet"
         html.sub!(/<head>/i, "<head>" + view_html_stylesheet)
         html.sub!(/<body[^>]*>/i, '<body><prefix-here><div id="wrapper"><div id="view_html_content">' + view_html_stylesheet)
@@ -413,10 +417,6 @@ class RequestController < ApplicationController
 
         view_html_prefix = render_to_string :partial => "request/view_html_prefix"
         html.sub!("<prefix-here>", view_html_prefix)
-
-        # Mask any more emails that have now been exposed (e.g. in PDFs - ones in
-        # .doc will have been got in get_attachment_internal below)
-        html = IncomingMessage.binary_mask_all_emails(html) 
 
         response.content_type = 'text/html'
         render :text => html
@@ -436,7 +436,7 @@ class RequestController < ApplicationController
 
         # Prevent spam to magic request address.
         # XXX Bit dodgy modifying a binary like this but hey. Maybe only do for some mime types?
-        @attachment.body = IncomingMessage.binary_mask_all_emails(@attachment.body) 
+        @attachment.body = @incoming_message.binary_mask_stuff(@attachment.body) 
     end
 
     # FOI officers can upload a response

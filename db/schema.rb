@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 67) do
+ActiveRecord::Schema.define(:version => 68) do
 
   create_table "acts_as_xapian_jobs", :force => true do |t|
     t.string  "model",    :null => false
@@ -18,6 +18,18 @@ ActiveRecord::Schema.define(:version => 67) do
   end
 
   add_index "acts_as_xapian_jobs", ["model", "model_id"], :name => "index_acts_as_xapian_jobs_on_model_and_model_id", :unique => true
+
+  create_table "censor_rules", :force => true do |t|
+    t.integer  "info_request_id"
+    t.integer  "user_id"
+    t.integer  "public_body_id"
+    t.text     "text",              :null => false
+    t.text     "replacement",       :null => false
+    t.string   "last_edit_editor",  :null => false
+    t.text     "last_edit_comment", :null => false
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
 
   create_table "comments", :force => true do |t|
     t.integer  "user_id",                                       :null => false

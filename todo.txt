@@ -1,3 +1,14 @@
+Test data for Tony
+
+Censor stuff
+============
+
+Thing about case insensitivity
+Add rules for users / bodies?
+
+Internal review
+===============
+
 Where to offer button to enter internal review state:
 - always offer option on request to have internal review, except when in waiting_response
 earlier than 20 days, and except when in waiting_clarification (call button "make clarification"!)
@@ -23,8 +34,6 @@ might want to go back to internal review, not to general awaiting response?
 
 When you select "waiting_response" might want to convert to 
 internal_review in case where current state is already internal_review.
-
-Test data for Tony
 
 
 Next

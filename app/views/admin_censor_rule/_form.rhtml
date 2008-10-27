@@ -1,0 +1,14 @@
+<%= error_messages_for 'censor_rule' %>
+
+<p><label for="censor_rule_text">Text</label> (that you want to remove)<br/>
+<%= text_field 'censor_rule', 'text', :size => 60  %></p>
+
+<p><label for="censor_rule_replacement">Replacement</label> (put is in <strong>[square brackets]</strong>, e.g. [personal information removed]. applies only to text in emails; binaries must stay the same length and the replacement is just a bunch of 'x's)<br/>
+<%= text_field 'censor_rule', 'replacement', :size => 60  %></p>
+
+<p><label for="censor_rule_last_edit_comment">Comment for this edit</label> (put purpose of the rule, and why the change)<br/>
+<%= text_area 'censor_rule', 'last_edit_comment', :rows => 2, :cols => 60  %></p>
+
+<p>Rule is for request '<%=request_link(info_request)%>'
+    <%= hidden_field 'censor_rule', 'info_request_id', { :value => info_request.id } %>
+</p>

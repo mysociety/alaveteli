@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.154 2008-10-17 20:43:25 francis Exp $
+# $Id: incoming_message.rb,v 1.155 2008-10-27 18:18:30 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -288,7 +288,8 @@ class IncomingMessage < ActiveRecord::Base
     end
 
     # Replaces all email addresses in (possibly binary data) with equal length alternative ones.
-    def IncomingMessage.binary_mask_all_emails(text)
+    # Also replaces censor items
+    def binary_mask_stuff(text)
         orig_size = text.size
 
         # Replace ASCII email addresses...
@@ -311,7 +312,12 @@ class IncomingMessage < ActiveRecord::Base
             text.gsub!(email, mask)
         end
 
-        raise "internal error in binary_mask_all_emails" if text.size != orig_size
+        # Replace censor items
+        for censor_rule in self.info_request.censor_rules
+            text = censor_rule.apply_to_binary(text)
+        end
+
+        raise "internal error in binary_mask_stuff" if text.size != orig_size
         return text
     end
 
@@ -337,7 +343,7 @@ class IncomingMessage < ActiveRecord::Base
     end
 
     # Remove emails, mobile phones and other details FOI officers ask us to remove.
-    def self.remove_privacy_sensitive_things(text)
+    def remove_privacy_sensitive_things(text)
         text = text.dup
 
         # Remove any email addresses - we don't want bounce messages to leak out
@@ -361,6 +367,11 @@ class IncomingMessage < ActiveRecord::Base
 
         # Remove WhatDoTheyKnow signup links
         text.gsub!(/http:\/\/www.whatdotheyknow.com\/c\/[^\s]+/, "[WDTK login link]")
+
+        # Remove things from censor rules
+        for censor_rule in self.info_request.censor_rules
+            text = censor_rule.apply_to_text(text)
+        end
 
         return text
     end
@@ -704,7 +715,7 @@ class IncomingMessage < ActiveRecord::Base
         # Find the body text and remove emails for privacy/anti-spam reasons
         text = get_main_body_text
         text = self.mask_special_emails(text)
-        text = IncomingMessage.remove_privacy_sensitive_things(text)
+        text = self.remove_privacy_sensitive_things(text)
 
         # Remove quoted sections, adding HTML. XXX The FOLDED_QUOTED_SECTION is
         # a nasty hack so we can escape other HTML before adding the unfold
@@ -745,7 +756,7 @@ class IncomingMessage < ActiveRecord::Base
         # Find the body text and remove emails for privacy/anti-spam reasons
         text = get_main_body_text
         text = self.mask_special_emails(text)
-        text = IncomingMessage.remove_privacy_sensitive_things(text)
+        text = self.remove_privacy_sensitive_things(text)
 
         # Remove existing quoted sections
         text = self.remove_lotus_quoting(text, '')
@@ -763,7 +774,7 @@ class IncomingMessage < ActiveRecord::Base
         # Remove any privacy things
         text = self.cached_attachment_text
         text = self.mask_special_emails(text)
-        text = IncomingMessage.remove_privacy_sensitive_things(text)
+        text = self.remove_privacy_sensitive_things(text)
         return text
     end
     def IncomingMessage.get_attachment_text_internal_one_file(content_type, body)

@@ -1,0 +1,9 @@
+<% @title = 'New censor rule' %>
+
+<h1><%=@title%></h1>
+
+<% form_tag 'create' do %>
+  <%= render :partial => 'form', :locals => { :info_request => @info_request } %>
+  <p><%= submit_tag "Create" %></p>
+<% end %>
+
