@@ -47,7 +47,6 @@ http://www.whatdotheyknow.com/request/monitoring_of_foi_internal_revie
 
 Awaiting internal review overdue?
 
-Make HTML load read from cache file if present
 Do something about <title> of views
 Knackered view as HTML:
     http://www.whatdotheyknow.com/request/statistics_for_allocation_of_dut#incoming-4793

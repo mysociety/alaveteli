@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.130 2008-10-27 18:18:30 francis Exp $
+# $Id: request_controller.rb,v 1.131 2008-10-28 17:58:48 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -402,13 +402,10 @@ class RequestController < ApplicationController
         render :text => @attachment.body
     end
 
+    caches_page :get_attachment_as_html
     def get_attachment_as_html
         get_attachment_internal
         html = @attachment.body_as_html
-
-        # Mask any more emails that have now been exposed (e.g. in PDFs - ones in
-        # .doc will have been got in get_attachment_internal below)
-        html = @incoming_message.binary_mask_stuff(html) 
 
         view_html_stylesheet = render_to_string :partial => "request/view_html_stylesheet"
         html.sub!(/<head>/i, "<head>" + view_html_stylesheet)
@@ -437,6 +434,10 @@ class RequestController < ApplicationController
         # Prevent spam to magic request address.
         # XXX Bit dodgy modifying a binary like this but hey. Maybe only do for some mime types?
         @attachment.body = @incoming_message.binary_mask_stuff(@attachment.body) 
+
+        @attachment_url = get_attachment_url(:id => @incoming_message.info_request_id,
+                :incoming_message_id => @incoming_message.id, :part => @part_number,
+                :file_name => @filename )
     end
 
     # FOI officers can upload a response
