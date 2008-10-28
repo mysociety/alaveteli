@@ -2,7 +2,7 @@
 
 <!--[form:admin_user]-->
 
-<p><label for="admin_user_name">Name</label> (will change URL name and break URLs; unlike authorities, there is no history)<br/>
+<p><label for="admin_user_name">Name</label> (will change URL name and break URLs; unlike authorities, there is no history; you will need to rebuild the search index afterwards)<br/>
 <%= text_field 'admin_user', 'name', :size => 60  %></p>
 
 <p><label for="admin_user_email">Email</label> (<strong>you must</strong> first validate this)<br/>
