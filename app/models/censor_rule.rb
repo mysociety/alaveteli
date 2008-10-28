@@ -1,10 +1,27 @@
+# == Schema Information
+# Schema version: 68
+#
+# Table name: censor_rules
+#
+#  id                :integer         not null, primary key
+#  info_request_id   :integer         
+#  user_id           :integer         
+#  public_body_id    :integer         
+#  text              :text            not null
+#  replacement       :text            not null
+#  last_edit_editor  :string(255)     not null
+#  last_edit_comment :text            not null
+#  created_at        :datetime        not null
+#  updated_at        :datetime        not null
+#
+
 # models/censor_rule.rb:
 # Stores alterations to remove specific data from requests.
 #
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: censor_rule.rb,v 1.1 2008-10-27 18:18:30 francis Exp $
+# $Id: censor_rule.rb,v 1.2 2008-10-28 13:04:20 francis Exp $
 
 class CensorRule < ActiveRecord::Base
     belongs_to :info_request

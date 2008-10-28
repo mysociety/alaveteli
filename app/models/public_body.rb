@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 67
+# Schema version: 68
 #
 # Table name: public_bodies
 #
@@ -24,7 +24,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.115 2008-10-20 00:52:26 francis Exp $
+# $Id: public_body.rb,v 1.116 2008-10-28 13:04:20 francis Exp $
 
 require 'csv'
 require 'set'

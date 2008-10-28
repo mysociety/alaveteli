@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 67
+# Schema version: 68
 #
 # Table name: post_redirects
 #
@@ -26,7 +26,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: post_redirect.rb,v 1.41 2008-09-22 22:16:37 francis Exp $
+# $Id: post_redirect.rb,v 1.42 2008-10-28 13:04:20 francis Exp $
 
 require 'openssl' # for random bytes function
 

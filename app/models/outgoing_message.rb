@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 67
+# Schema version: 68
 #
 # Table name: outgoing_messages
 #
@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: outgoing_message.rb,v 1.70 2008-10-28 10:08:08 francis Exp $
+# $Id: outgoing_message.rb,v 1.71 2008-10-28 13:04:20 francis Exp $
 
 class OutgoingMessage < ActiveRecord::Base
     belongs_to :info_request
