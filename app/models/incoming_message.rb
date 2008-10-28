@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.157 2008-10-28 13:04:20 francis Exp $
+# $Id: incoming_message.rb,v 1.158 2008-10-28 14:49:38 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -682,12 +682,13 @@ class IncomingMessage < ActiveRecord::Base
                 if leaf.within_rfc822_attachment
                     attachment.within_rfc822_subject = leaf.within_rfc822_attachment.subject
 
-                    # XXX Could add subject / from to content here. But should
-                    # only do for the first text part of the attached RFC822
-                    # message.
-                    #attachment.body = "Subject: " + CGI.escapeHTML(leaf.within_rfc822_attachment.subject) + "\n" + 
-                    #    "From: " + CGI.escapeHTML(leaf.within_rfc822_attachment.safe_from) + "\n\n" + 
-                    #    attachment.body
+                    # Test to see if we are in the first part of the attached
+                    # RFC822 message and it is text, if so add headers.
+                    # XXX should probably use hunting algorithm to find main text part, rather than
+                    # just expect it to be first. This will do for now though.
+                    if leaf.within_rfc822_attachment == leaf && leaf.content_type == 'text/plain'
+                        attachment.body = leaf.within_rfc822_attachment.port.to_s
+                    end
                 end
                 attachment.content_type = leaf.content_type
                 attachment.url_part_number = leaf.url_part_number
