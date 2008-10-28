@@ -1,10 +1,5 @@
 Test data for Tony
 
-Censor stuff
-============
-
-Thing about case insensitivity
-Add rules for users / bodies?
 
 Internal review
 ===============
@@ -39,21 +34,16 @@ internal_review in case where current state is already internal_review.
 Next
 ====
 
-Can use track count to show interesting requests
-select info_request_id, title, count(*) as c from track_things, info_requests where track_things.info_request_id is not null and track_things.info_request_id = info_requests.id group by info_request_id, title order by c;
+Make green box more visible when click reminder email link
+Check new wording in reminder email looks good
 
 Consider putting the request email address in footer? So when
 forwarded about, address sticks there.
 
 Make it so you definitely don't get alert for the annotation that you just made
 
-Display date in Cycle Path Bank.txt and post on blog
-http://www.whatdotheyknow.com/request/sale_of_bristol_city_council_lan
-
 The Issue document here doesn't load - need to decect word docs from file content.
 http://www.whatdotheyknow.com/request/monitoring_of_foi_internal_revie
-
-Tweak footer - doesn't need mysociety link or get source link any more
 
 Awaiting internal review overdue?
 
@@ -62,7 +52,8 @@ Do something about <title> of views
 Knackered view as HTML:
     http://www.whatdotheyknow.com/request/statistics_for_allocation_of_dut#incoming-4793
     http://www.whatdotheyknow.com/request/post_lawrence_report_diversity_t_7#incoming-5483
-
+    http://www.whatdotheyknow.com/request/3289/response/7810/attach/html/3/20081023ReplyLetter.pdf
+Make it show images properly
 
 Performance:
     Remove loading of public body tags from every info request load
@@ -124,6 +115,9 @@ http://www.whatdotheyknow.com/body/papworth_hospital_nhs_foundation_trust
 
 Later
 =====
+
+Can use track count to show interesting requests
+select info_request_id, title, count(*) as c from track_things, info_requests where track_things.info_request_id is not null and track_things.info_request_id = info_requests.id group by info_request_id, title order by c;
 
 Test code for FOI officer upload
 
