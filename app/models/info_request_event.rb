@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request_event.rb,v 1.63 2008-10-03 17:09:06 francis Exp $
+# $Id: info_request_event.rb,v 1.64 2008-10-28 10:08:47 francis Exp $
 
 class InfoRequestEvent < ActiveRecord::Base
     belongs_to :info_request
@@ -81,7 +81,7 @@ class InfoRequestEvent < ActiveRecord::Base
                 [ :filetype, 'T', "filetype" ]
         ],
         :if => :indexed_by_search,
-        :eager_load => [ :incoming_message, :outgoing_message, :comment, { :info_request => [ :user, :public_body ] } ]
+        :eager_load => [ :incoming_message, :outgoing_message, :comment, { :info_request => [ :user, :public_body, :censor_rules ] } ]
 
     def requested_by
         self.info_request.user.url_name
