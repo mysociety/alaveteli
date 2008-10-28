@@ -12,3 +12,16 @@
 <p>Rule is for request '<%=request_link(info_request)%>'
     <%= hidden_field 'censor_rule', 'info_request_id', { :value => info_request.id } %>
 </p>
+
+<p><strong>Warning and notes:</strong> This does replace text in binary files, but only
+in a naive way.  It doesn't even do UCS-2 (unicode sometimes used in Word). It
+should work for cases that aren't links and are in Word documents, but probably
+won't work for much else.  Please <strong>carefully check</strong> all
+attachments have changed in the way you expect. 
+</p>
+
+<p>You may need to manually rebuild the search index afterwards. If you need to
+redact things across a large number of requests, ask for code changes, should
+be easy enough to add this per user or per authority.
+</p>
+
