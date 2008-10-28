@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.63 2008-10-17 16:51:41 francis Exp $
+# $Id: request_mailer.rb,v 1.64 2008-10-28 12:37:32 francis Exp $
 
 class RequestMailer < ApplicationMailer
     
@@ -145,7 +145,7 @@ class RequestMailer < ApplicationMailer
 
         @from = contact_from_name_and_email
         @recipients = info_request.user.name_and_email
-        @subject = "Did the response you got contain what you wanted? - " + info_request.title
+        @subject = "Was the response you got the other day any good?"
         @body = { :incoming_message => incoming_message, :info_request => info_request, :url => url }
     end
 
