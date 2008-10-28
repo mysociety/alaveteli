@@ -52,7 +52,6 @@ Knackered view as HTML:
     http://www.whatdotheyknow.com/request/statistics_for_allocation_of_dut#incoming-4793
     http://www.whatdotheyknow.com/request/post_lawrence_report_diversity_t_7#incoming-5483
     http://www.whatdotheyknow.com/request/3289/response/7810/attach/html/3/20081023ReplyLetter.pdf
-Make it show images properly
 
 Performance:
     Remove loading of public body tags from every info request load

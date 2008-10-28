@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.159 2008-10-28 14:56:56 francis Exp $
+# $Id: incoming_message.rb,v 1.160 2008-10-28 18:23:31 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -162,9 +162,9 @@ class FOIAttachment
         end
     end
 
-    def body_as_html
-        tempfile = Tempfile.new('foiextract')
-        tempfile.print body
+    def body_as_html(dir)
+        tempfile = Tempfile.new('foiextract', dir)
+        tempfile.print self.body
         tempfile.flush
 
         if content_type == 'application/vnd.ms-word'
@@ -181,6 +181,7 @@ class FOIAttachment
         end
 
         tempfile.close
+        tempfile.delete
         return html
     end
 

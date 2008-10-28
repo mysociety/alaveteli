@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.131 2008-10-28 17:58:48 francis Exp $
+# $Id: request_controller.rb,v 1.132 2008-10-28 18:23:31 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -405,7 +405,10 @@ class RequestController < ApplicationController
     caches_page :get_attachment_as_html
     def get_attachment_as_html
         get_attachment_internal
-        html = @attachment.body_as_html
+
+        image_dir = File.dirname(Rails.public_path + url_for(params.merge(:only_path => true)))
+        FileUtils.mkdir_p(image_dir)
+        html = @attachment.body_as_html(image_dir)
 
         view_html_stylesheet = render_to_string :partial => "request/view_html_stylesheet"
         html.sub!(/<head>/i, "<head>" + view_html_stylesheet)
