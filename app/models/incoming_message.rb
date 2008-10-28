@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.158 2008-10-28 14:49:38 francis Exp $
+# $Id: incoming_message.rb,v 1.159 2008-10-28 14:56:56 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -686,6 +686,8 @@ class IncomingMessage < ActiveRecord::Base
                     # RFC822 message and it is text, if so add headers.
                     # XXX should probably use hunting algorithm to find main text part, rather than
                     # just expect it to be first. This will do for now though.
+                    # Example request that needs this:
+                    # http://www.whatdotheyknow.com/request/2923/response/7013/attach/2/Cycle%20Path%20Bank.txt
                     if leaf.within_rfc822_attachment == leaf && leaf.content_type == 'text/plain'
                         attachment.body = leaf.within_rfc822_attachment.port.to_s
                     end
