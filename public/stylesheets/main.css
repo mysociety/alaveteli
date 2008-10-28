@@ -399,8 +399,11 @@ dd { margin: 0.6em 0 2em 4em; width: 33em; }
 	border-width: 0 0 1px 0;
 	border-style: none none solid none;
 	overflow: hidden;
-		_width: 45em;
 }
+	.body_listing
+	{
+		_width: 45em;
+	}
 /*.body_listing,
 .user_listing
 { float: left; clear: none; width: 50%;}*/
