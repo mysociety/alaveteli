@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.155 2008-10-27 18:18:30 francis Exp $
+# $Id: incoming_message.rb,v 1.156 2008-10-28 10:08:08 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -313,9 +313,7 @@ class IncomingMessage < ActiveRecord::Base
         end
 
         # Replace censor items
-        for censor_rule in self.info_request.censor_rules
-            text = censor_rule.apply_to_binary(text)
-        end
+        text = self.info_request.apply_censor_rules_to_binary(text)
 
         raise "internal error in binary_mask_stuff" if text.size != orig_size
         return text
@@ -369,9 +367,7 @@ class IncomingMessage < ActiveRecord::Base
         text.gsub!(/http:\/\/www.whatdotheyknow.com\/c\/[^\s]+/, "[WDTK login link]")
 
         # Remove things from censor rules
-        for censor_rule in self.info_request.censor_rules
-            text = censor_rule.apply_to_text(text)
-        end
+        text = self.info_request.apply_censor_rules_to_text(text)
 
         return text
     end
@@ -658,7 +654,7 @@ class IncomingMessage < ActiveRecord::Base
             # Make attachment type from it, working out filename and mime type
             attachment = FOIAttachment.new()
             attachment.body = content
-            attachment.filename = uu.match(/^begin\s+[0-9]+\s+(.*)$/)[1]
+            attachment.filename = self.info_request.apply_censor_rules_to_text(uu.match(/^begin\s+[0-9]+\s+(.*)$/)[1])
             calc_mime = filename_to_mimetype(attachment.filename)
             if calc_mime
                 attachment.content_type = calc_mime
@@ -682,7 +678,7 @@ class IncomingMessage < ActiveRecord::Base
             if leaf != main_part
                 attachment = FOIAttachment.new
                 attachment.body = leaf.body
-                attachment.filename = TMail::Mail.get_part_file_name(leaf) 
+                attachment.filename = self.info_request.apply_censor_rules_to_text(TMail::Mail.get_part_file_name(leaf))
                 if leaf.within_rfc822_attachment
                     attachment.within_rfc822_subject = leaf.within_rfc822_attachment.subject
 

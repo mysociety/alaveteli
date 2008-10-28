@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.147 2008-10-27 18:18:30 francis Exp $
+# $Id: info_request.rb,v 1.148 2008-10-28 10:08:08 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -715,6 +715,19 @@ public
         return ret.reverse
     end
 
+    # Call groups of censor rules
+    def apply_censor_rules_to_text(text)
+        for censor_rule in self.censor_rules
+            text = censor_rule.apply_to_text(text)
+        end
+        return text
+    end
+    def apply_censor_rules_to_binary(binary)
+        for censor_rule in self.censor_rules
+            text = censor_rule.apply_to_binary(binary)
+        end
+        return text
+    end
 end
 
 

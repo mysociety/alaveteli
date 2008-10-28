@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: outgoing_message.rb,v 1.69 2008-10-28 09:15:57 francis Exp $
+# $Id: outgoing_message.rb,v 1.70 2008-10-28 10:08:08 francis Exp $
 
 class OutgoingMessage < ActiveRecord::Base
     belongs_to :info_request
@@ -73,9 +73,7 @@ class OutgoingMessage < ActiveRecord::Base
 
         # Remove things from censor rules
         if !self.info_request.nil?
-            for censor_rule in self.info_request.censor_rules
-                ret = censor_rule.apply_to_text(ret)
-            end
+            ret = self.info_request.apply_censor_rules_to_text(ret)
         end
 
         ret
