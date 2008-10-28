@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: outgoing_message.rb,v 1.67 2008-10-17 07:02:01 francis Exp $
+# $Id: outgoing_message.rb,v 1.68 2008-10-28 08:41:04 francis Exp $
 
 class OutgoingMessage < ActiveRecord::Base
     belongs_to :info_request
@@ -70,6 +70,12 @@ class OutgoingMessage < ActiveRecord::Base
         end
         ret = ret.strip
         ret = ret.gsub(/(?:\n\s*){2,}/, "\n\n") # remove excess linebreaks that unnecessarily space it out
+
+        # Remove things from censor rules
+        for censor_rule in self.info_request.censor_rules
+            ret = censor_rule.apply_to_text(ret)
+        end
+
         ret
     end
     def raw_body
