@@ -9,7 +9,7 @@
 <% end %>
 <strong>Created by:</strong> <%= user_both_links(@info_request.user) %> <br>
 <strong>Public authority:</strong> <%= public_body_both_links(@info_request.public_body) %> <br>
-<strong>Incoming email address:</strong> <%=h @info_request.incoming_email %> <br>
+<strong>Incoming email address:</strong> <%= link_to h(@info_request.incoming_email), "mailto:" + @info_request.incoming_email %> <br>
 </p>
 
 <p>
