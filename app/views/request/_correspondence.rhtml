@@ -36,8 +36,12 @@ if not incoming_message.nil?
         <%= render :partial => 'bubble', :locals => { :incoming_message => incoming_message, :body => incoming_message.get_body_for_html_display(@collapse_quotes), :attachments => incoming_message.get_attachments_for_display }  %>
 
         <p class="event_actions">
+            <% if !@user.nil? && @user.admin_page_links? %>
+                <%= link_to "Admin", admin_url("request/show_raw_email/" + incoming_message.raw_email_id.to_s) %> | 
+            <% end %>
             <%= link_to "Link to this", incoming_message_url(incoming_message) %> |
             <%= link_to "Reply to this message", show_response_url(:id => incoming_message.info_request.id, :incoming_message_id => incoming_message.id) + "#followup" %>
+
         </p>
     </div>
 <%
