@@ -51,7 +51,6 @@ Do something about <title> of views
 Knackered view as HTML:
     http://www.whatdotheyknow.com/request/statistics_for_allocation_of_dut#incoming-4793
     http://www.whatdotheyknow.com/request/post_lawrence_report_diversity_t_7#incoming-5483
-    http://www.whatdotheyknow.com/request/3289/response/7810/attach/html/3/20081023ReplyLetter.pdf
 
 Performance:
     Remove loading of public body tags from every info request load
@@ -102,6 +101,8 @@ CSS things
         https://bugzilla.mozilla.org/show_bug.cgi?id=424194
     - Spacing on error boxes round form elements
     - icons for "Things to do with this request" ?
+    - Improve CSS for large images in docs
+        http://www.whatdotheyknow.com/request/3289/response/7810/attach/html/3/20081023ReplyLetter.pdf.html
 
 Write code to make sure the Return-Path is never foi@sandwich.org.uk (even if the
   Rails code breaks for Sendmail case in future botched Rails upgrades :)

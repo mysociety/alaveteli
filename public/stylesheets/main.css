@@ -733,6 +733,10 @@ a img.attachment_image {
     margin-left: 1em;
     margin-right: 1em;
 }
+.view_html_content, img {
+    border: 1px solid red;
+    max-width: 50em;
+}
 
 .view_html_download_link {
     float: right;

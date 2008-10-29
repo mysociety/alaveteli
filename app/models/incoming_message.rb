@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.162 2008-10-29 11:13:04 francis Exp $
+# $Id: incoming_message.rb,v 1.163 2008-10-29 11:26:32 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -176,7 +176,7 @@ class FOIAttachment
                 html = File.read(tempfile.path + ".html")
                 File.unlink(tempfile.path + ".html")
             elsif content_type == 'application/pdf'
-                IO.popen("/usr/bin/pdftohtml -stdout -enc UTF-8 -noframes " + tempfile.path + "", "r") do |child|
+                IO.popen("/usr/bin/pdftohtml -zoom 1.0 -stdout -enc UTF-8 -noframes " + tempfile.path + "", "r") do |child|
                     html = child.read() + "\n\n"
                 end
             else
