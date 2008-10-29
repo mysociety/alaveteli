@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.160 2008-10-28 18:23:31 francis Exp $
+# $Id: incoming_message.rb,v 1.161 2008-10-29 11:07:38 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -163,25 +163,30 @@ class FOIAttachment
     end
 
     def body_as_html(dir)
-        tempfile = Tempfile.new('foiextract', dir)
-        tempfile.print self.body
-        tempfile.flush
+        html = nil
 
-        if content_type == 'application/vnd.ms-word'
-            # XXX do something with PNG files this spits out so they view too :)
-            system("/usr/bin/wvHtml " + tempfile.path + " " + tempfile.path + ".html")
-            html = File.read(tempfile.path + ".html")
-            File.unlink(tempfile.path + ".html")
-        elsif content_type == 'application/pdf'
-            IO.popen("/usr/bin/pdftohtml -stdout -enc UTF-8 -noframes " + tempfile.path + "", "r") do |child|
-                html = child.read() + "\n\n"
+        Dir.chdir(dir) do
+            tempfile = Tempfile.new('foiextract', dir)
+            tempfile.print self.body
+            tempfile.flush
+
+            if content_type == 'application/vnd.ms-word'
+                # XXX do something with PNG files this spits out so they view too :)
+                system("/usr/bin/wvHtml " + tempfile.path + " " + tempfile.path + ".html")
+                html = File.read(tempfile.path + ".html")
+                File.unlink(tempfile.path + ".html")
+            elsif content_type == 'application/pdf'
+                IO.popen("/usr/bin/pdftohtml -stdout -enc UTF-8 -noframes " + tempfile.path + "", "r") do |child|
+                    html = child.read() + "\n\n"
+                end
+            else
+                raise "No HTML conversion available for type " + content_type
             end
-        else
-            raise "No HTML conversion available for type " + content_type
+
+            tempfile.close
+            tempfile.delete
         end
 
-        tempfile.close
-        tempfile.delete
         return html
     end
 
