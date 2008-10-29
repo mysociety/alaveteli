@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_request_controller.rb,v 1.24 2008-10-02 23:11:40 francis Exp $
+# $Id: admin_request_controller.rb,v 1.25 2008-10-29 12:07:00 francis Exp $
 
 class AdminRequestController < ApplicationController
     layout "admin"
@@ -210,6 +210,8 @@ class AdminRequestController < ApplicationController
     def show_raw_email
         @raw_email = RawEmail.find(params[:id])
 
+        # For the holding pen, use domain of email to try and guess which public body it
+        # is associated with, so we can display that.
         @holding_pen = false
         if (@raw_email.incoming_message.info_request == InfoRequest.holding_pen_request)
             @holding_pen = true
@@ -222,6 +224,13 @@ class AdminRequestController < ApplicationController
             @public_bodies = PublicBody.find(:all, :order => "name", 
                 :conditions => [ "lower(request_email) like lower('%'||?||'%')", domain ])
         end
+    end
+
+    def download_raw_email
+        @raw_email = RawEmail.find(params[:id])
+
+        response.content_type = 'message/rfc822'
+        render :text => @raw_email.data
     end
 
     private

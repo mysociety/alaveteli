@@ -20,5 +20,7 @@
 
 <h2>Raw email</h2>
 
+<%= link_to "Download", "../download_raw_email/" + @raw_email.id.to_s %>
+
 <pre><%=h(@raw_email.data).gsub!(/\n/, '<br>') %></pre>
 
