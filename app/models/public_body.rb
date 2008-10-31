@@ -24,7 +24,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.117 2008-10-31 07:17:25 johncross Exp $
+# $Id: public_body.rb,v 1.118 2008-10-31 20:45:41 johncross Exp $
 
 require 'csv'
 require 'set'
@@ -64,6 +64,7 @@ class PublicBody < ActiveRecord::Base
                 [ "university", "Universities", "a university" ],
                 [ "university_college", "University colleges", "a university college" ], 
                 [ "cambridge_college", "Cambridge colleges", "a Cambridge college" ],
+                [ "durham_college", "Durham colleges", "a Durham college" ],
                 [ "oxford_college", "Oxford colleges", "an Oxford college or permanent private hall" ],
                 [ "york_college", "York colleges", "a college of the University of York" ],
                 [ "hei", "Higher education institutions", "a higher educational institution" ],
