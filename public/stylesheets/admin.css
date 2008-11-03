@@ -37,4 +37,12 @@ form {
     border: solid 1px red;
     padding: 1em;
 }
+#tag_help {
+    float: right;
+    width: 25%;
+}
+#tag_help, h2 {
+    margin-top: 0;
+}
+
 
