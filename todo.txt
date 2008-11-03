@@ -295,6 +295,8 @@ Quoting fixing TODO:
     http://www.whatdotheyknow.com/request/enforcement_forders_for_replacin#incoming-6277 # over zealous quoting
     http://www.whatdotheyknow.com/request/renewable_energy_consumption_by # over zealous
 
+Render HTML alternative rather than text (so tables look good) e.g.:
+    http://www.whatdotheyknow.com/request/parking_policy
 
 Larger new features
 -------------------

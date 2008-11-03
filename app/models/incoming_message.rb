@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.163 2008-10-29 11:26:32 francis Exp $
+# $Id: incoming_message.rb,v 1.164 2008-11-03 02:55:50 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -170,30 +170,47 @@ class FOIAttachment
             tempfile.print self.body
             tempfile.flush
 
-            if content_type == 'application/vnd.ms-word'
+            if self.content_type == 'application/vnd.ms-word'
                 # XXX do something with PNG files this spits out so they view too :)
                 system("/usr/bin/wvHtml --charset=UTF-8 " + tempfile.path + " " + tempfile.path + ".html")
                 html = File.read(tempfile.path + ".html")
                 File.unlink(tempfile.path + ".html")
-            elsif content_type == 'application/pdf'
+            elsif self.content_type == 'application/pdf'
                 IO.popen("/usr/bin/pdftohtml -zoom 1.0 -stdout -enc UTF-8 -noframes " + tempfile.path + "", "r") do |child|
-                    html = child.read() + "\n\n"
+                    html = child.read()
+                end
+
+                # if pdftohtml failed (size zero is only way to detect this, as doesn't return error codes)
+                # try converting to postscript and back, to strip problems such as this error:
+                # "Error: Copying of text from this document is not allowed"
+                if html.size == 0
+                    system("/usr/bin/pdf2ps " + tempfile.path + " " + tempfile.path + ".ps")
+                    system("/usr/bin/ps2pdf " + tempfile.path + ".ps " + tempfile.path)
+                    IO.popen("/usr/bin/pdftohtml -zoom 1.0 -stdout -enc UTF-8 -noframes " + tempfile.path + "", "r") do |child|
+                        html = child.read()
+                    end
                 end
             else
-                raise "No HTML conversion available for type " + content_type
+                raise "No HTML conversion available for type " + self.content_type
             end
 
             tempfile.close
             tempfile.delete
         end
 
+        # We need to look at the output size as well, as pdftohtml does not
+        # return an error code upon error.
+        if !$?.success? || html.size == 0
+            raise "No output from child process in body_as_html for mime " + self.content_type
+        end
+
         return html
     end
 
     def has_body_as_html?
-        if content_type == 'application/vnd.ms-word'
+        if self.content_type == 'application/vnd.ms-word'
             return true
-        elsif content_type == 'application/pdf'
+        elsif self.content_type == 'application/pdf'
             return true
         end
         return false
