@@ -48,9 +48,6 @@ http://www.whatdotheyknow.com/request/monitoring_of_foi_internal_revie
 Awaiting internal review overdue?
 
 Do something about <title> of views
-Knackered view as HTML:
-    http://www.whatdotheyknow.com/request/statistics_for_allocation_of_dut#incoming-4793
-    http://www.whatdotheyknow.com/request/post_lawrence_report_diversity_t_7#incoming-5483
 
 Performance:
     Remove loading of public body tags from every info request load
@@ -93,15 +90,12 @@ Add "Postal replies stuff" and link to from FOI officer upload page
 Add "I'm not sure which authority to make my request to" - make flow better after first section, to abrupt now
 Policy on officer names.
 
-Grrr - so here I wanted to clarify my request, but don't want the timer to be reset!
-    http://www.whatdotheyknow.com/request/online_petitions_documents_from#incoming-3248
-
 CSS things
     - CSS error on "all councils" page on some browsers
         https://bugzilla.mozilla.org/show_bug.cgi?id=424194
     - Spacing on error boxes round form elements
     - icons for "Things to do with this request" ?
-    - Improve CSS for large images in docs
+    - Improve CSS on IE7 for large images in docs
         http://www.whatdotheyknow.com/request/3289/response/7810/attach/html/3/20081023ReplyLetter.pdf.html
 
 Write code to make sure the Return-Path is never foi@sandwich.org.uk (even if the
@@ -111,9 +105,19 @@ Consider removing login links from notifications of new responses, now we have r
 
 nhs is in lowercase here:
 http://www.whatdotheyknow.com/body/papworth_hospital_nhs_foundation_trust
+And oxford here:
+http://www.whatdotheyknow.com/body/exeter_college
 
 Later
 =====
+
+Knackered view as HTML:
+    http://www.whatdotheyknow.com/request/statistics_for_allocation_of_dut#incoming-4793
+    http://www.whatdotheyknow.com/request/post_lawrence_report_diversity_t_7#incoming-5483
+They are copy protected PDFs. The code in the incoming_message model tries to fix
+that by converting them to ps and back, but the content is getting lost when doing, not
+sure why. Perhaps instead patch poppler-utils so pdftohtml doesn't respect protection
+either (code in pdftotext already has a #ifdef round it)
 
 Can use track count to show interesting requests
 select info_request_id, title, count(*) as c from track_things, info_requests where track_things.info_request_id is not null and track_things.info_request_id = info_requests.id group by info_request_id, title order by c;

@@ -7,7 +7,7 @@ irb
 mongrel
 wv
 poppler-utils
-ghostscript
+gs-gpl
 catdoc
 links
 lynx
