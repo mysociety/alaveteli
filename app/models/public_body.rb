@@ -24,7 +24,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.119 2008-11-03 21:34:52 francis Exp $
+# $Id: public_body.rb,v 1.120 2008-11-03 21:48:01 francis Exp $
 
 require 'csv'
 require 'set'
@@ -260,7 +260,10 @@ class PublicBody < ActiveRecord::Base
         end
         if types.size > 0
             ret = types[0, types.size - 1].join(", ")
-            ret = ret + " and " + types[-1]
+            if types.size > 1
+                ret = ret + " and " 
+            end
+            ret = ret + types[-1]
             return ret
         else
             return "A public authority"
