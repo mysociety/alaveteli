@@ -24,7 +24,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.118 2008-10-31 20:45:41 johncross Exp $
+# $Id: public_body.rb,v 1.119 2008-11-03 21:34:52 francis Exp $
 
 require 'csv'
 require 'set'
@@ -246,7 +246,9 @@ class PublicBody < ActiveRecord::Base
             if PublicBody.categories_by_tag.include?(tag.name)
                 desc = PublicBody.category_singular_by_tag[tag.name] 
                 if first
-                    desc = desc.capitalize
+                    # terrible that Ruby/Rails doesn't have an equivalent of ucfirst
+                    # (capitalize shockingly converts later characters to lowercase)
+                    desc = desc[0,1].capitalize + desc[1,desc.size]
                     first = false
                 end
                 if html
@@ -257,7 +259,9 @@ class PublicBody < ActiveRecord::Base
             end
         end
         if types.size > 0
-            types.join(", ")
+            ret = types[0, types.size - 1].join(", ")
+            ret = ret + " and " + types[-1]
+            return ret
         else
             return "A public authority"
         end

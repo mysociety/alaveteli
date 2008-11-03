@@ -37,15 +37,10 @@ Next
 Make green box more visible when click reminder email link
 Check new wording in reminder email looks good
 
-Consider putting the request email address in footer? So when
-forwarded about, address sticks there.
-
 Make it so you definitely don't get alert for the annotation that you just made
 
 The Issue document here doesn't load - need to decect word docs from file content.
 http://www.whatdotheyknow.com/request/monitoring_of_foi_internal_revie
-
-Awaiting internal review overdue?
 
 Do something about <title> of views
 
@@ -69,6 +64,8 @@ Internal review status/marker?
     http://www.whatdotheyknow.com/request/ombudsmans_case_load#comment-21
     (search for phrase "internal review"!)
 Remember - internal reviews can be *aborted* if they just send the response :)
+
+Awaiting internal review overdue state?
 
 Request withdrawn by user status/marker?
 
@@ -110,6 +107,9 @@ http://www.whatdotheyknow.com/body/exeter_college
 
 Later
 =====
+
+Consider putting the request email address in footer? So when
+forwarded about, address sticks there.
 
 Knackered view as HTML:
     http://www.whatdotheyknow.com/request/statistics_for_allocation_of_dut#incoming-4793
