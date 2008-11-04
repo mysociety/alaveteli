@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_censor_rule_controller.rb,v 1.3 2008-10-28 17:58:48 francis Exp $
+# $Id: admin_censor_rule_controller.rb,v 1.4 2008-11-04 15:07:49 francis Exp $
 
 class AdminCensorRuleController < ApplicationController
     layout "admin"
@@ -73,14 +73,6 @@ class AdminCensorRuleController < ApplicationController
                 expire_page :controller => 'request', :action => "get_attachment_as_html", :id => info_request.id,
                     :incoming_message_id => incoming_message.id, 
                     :part => attachment.url_part_number, :file_name => attachment.display_filename
-            end
-        end
-    end
-
-    private
-
-end
-
             end
         end
     end
