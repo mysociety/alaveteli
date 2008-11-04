@@ -20,7 +20,11 @@
     <ul>
     <% for message in @holding_pen_messages %>
         <li>
-            <%= link_to excerpt(message.get_body_for_quoting, "", 60), "request/show_raw_email/" + message.raw_email_id.to_s %>
+            <% if message.get_body_for_quoting.strip.size == 0 %>
+                <%= link_to "(no body)", "request/show_raw_email/" + message.raw_email_id.to_s %>
+            <% else %>
+                <%= link_to excerpt(message.get_body_for_quoting, "", 60), "request/show_raw_email/" + message.raw_email_id.to_s %>
+            <% end %>
             (<%=simple_date(message.sent_at)%>)
         </li>
     <% end %>
