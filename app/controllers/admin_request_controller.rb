@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_request_controller.rb,v 1.26 2008-11-04 00:10:26 francis Exp $
+# $Id: admin_request_controller.rb,v 1.27 2008-11-04 00:13:25 francis Exp $
 
 class AdminRequestController < ApplicationController
     layout "admin"
@@ -213,7 +213,7 @@ class AdminRequestController < ApplicationController
         # For the holding pen, use domain of email to try and guess which public body it
         # is associated with, so we can display that.
         @holding_pen = false
-        if (@raw_email.incoming_message.info_request == InfoRequest.holding_pen_request && !@raw_email.incoming_message.mail.from_addrs.size > 0)
+        if (@raw_email.incoming_message.info_request == InfoRequest.holding_pen_request && @raw_email.incoming_message.mail.from_addrs.size > 0)
             @holding_pen = true
 
             email = @raw_email.incoming_message.mail.from_addrs[0].spec
