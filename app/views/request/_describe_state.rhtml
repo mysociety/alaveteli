@@ -4,7 +4,7 @@
         <hr>
         <div>
             <%= radio_button "incoming_message", "described_state", "waiting_response", :id => 'waiting_response' + id_suffix %>
-            <label for="waiting_response<%=id_suffix%>">I'm still <strong>waiting</strong> for my information / a rejection (e.g. if the new response was just an acknowledgement)</label>
+            <label for="waiting_response<%=id_suffix%>">I'm still <strong>waiting</strong> for my information</label>
         </div>
         <div>
             <%= radio_button "incoming_message", "described_state", "waiting_clarification", :id => 'waiting_clarification' + id_suffix %>
@@ -12,20 +12,20 @@
         </div>
         <div>
             <%= radio_button "incoming_message", "described_state", "gone_postal", :id => 'gone_postal' + id_suffix %>
-            <label for="gone_postal<%=id_suffix%>">They would like to / are going to reply <strong>by post</strong></label>
+            <label for="gone_postal<%=id_suffix%>">They are going to reply <strong>by post</strong></label>
         </div>
         <hr>
         <div>
             <%= radio_button "incoming_message", "described_state", "not_held", :id => 'not_held' + id_suffix %>
-            <label for="not_held<%=id_suffix%>">The authority does <strong>not have</strong> the information (perhaps they suggest making the request elsewhere)</label>
+            <label for="not_held<%=id_suffix%>">They do <strong>not have</strong> the information <small>(maybe they say who does)</small></label>
         </div>
         <div>
             <%= radio_button "incoming_message", "described_state", "partially_successful", :id => 'partially_successful' + id_suffix %>
-            <label for="partially_successful<%=id_suffix%>">I've received <strong>some of the information</strong> that I asked for</label>
+            <label for="partially_successful<%=id_suffix%>">I've received <strong>some of the information</strong> </label>
         </div>
         <div>
             <%= radio_button "incoming_message", "described_state", "successful", :id => 'successful' + id_suffix %>
-            <label for="successful<%=id_suffix%>">I've received <strong>all the information</strong> (or equivalents) that I asked for</label>
+            <label for="successful<%=id_suffix%>">I've received <strong>all the information</strong> </label>
         </div>
         <div>
             <%= radio_button "incoming_message", "described_state", "rejected", :id => 'rejected' + id_suffix %>
@@ -34,16 +34,14 @@
         <hr>
         <div>
            <%= radio_button "incoming_message", "described_state", "requires_admin", :id => 'requires_admin' + id_suffix %>
-            <label for="requires_admin<%=id_suffix%>"><strong>None</strong> of the above (please read them first!)</label>
+            <label for="requires_admin<%=id_suffix%>"><strong>None</strong> of the above</label>
         </div>
         <hr>
-        <p>Filling this in helps everyone track the progress of your request.
-        </p>
 
         <p>
         <%= hidden_field_tag 'last_info_request_event_id', @last_info_request_event_id, :id => 'last_info_request_event_id' + id_suffix %>
         <%= hidden_field_tag 'submitted_describe_state', 1, :id => 'submitted_describe_state' + id_suffix %>
-        <%= submit_tag "Submit status" %> (and we'll advise you on <strong>what to do next</strong>)
+        <%= submit_tag "Submit status" %> (and we'll suggest <strong>what to do next</strong>)
         </p>
     <% end %>
 <% else %>
