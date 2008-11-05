@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request_event.rb,v 1.65 2008-10-28 13:04:20 francis Exp $
+# $Id: info_request_event.rb,v 1.66 2008-11-05 18:19:46 francis Exp $
 
 class InfoRequestEvent < ActiveRecord::Base
     belongs_to :info_request
@@ -60,6 +60,7 @@ class InfoRequestEvent < ActiveRecord::Base
         'rejected', 
         'successful', 
         'partially_successful',
+        'internal_review',
         'requires_admin'
     ]
 
@@ -211,6 +212,8 @@ class InfoRequestEvent < ActiveRecord::Base
             "Some information sent"
         elsif status == 'successful'
             "All information sent"
+        elsif status == 'internal review'
+            "Internal review acknowledgement"
         elsif status == 'requires_admin'
             "Unusual response"
         else

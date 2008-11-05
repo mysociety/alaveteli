@@ -29,6 +29,13 @@
     <% end %>
 
     <p>
+        <strong>Privacy warning:</strong> Your message, and any response
+        to it, will be displayed publicly on this website.
+
+        <%= o.hidden_field(:what_doing) %>
+    </p>
+
+    <p>
     <%= hidden_field_tag(:submitted_followup, 1) %>
     <%= hidden_field_tag(:preview, 0 ) %>
     <%= submit_tag "Re-edit this follow up", :name => 'reedit' %>

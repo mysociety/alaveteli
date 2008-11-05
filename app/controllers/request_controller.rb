@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.132 2008-10-28 18:23:31 francis Exp $
+# $Id: request_controller.rb,v 1.133 2008-11-05 18:19:46 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -280,6 +280,9 @@ class RequestController < ApplicationController
             redirect_to show_response_url(:id => @info_request.id, :incoming_message_id => @events_needing_description[-1].params[:incoming_message_id])
         elsif @info_request.calculate_status == 'gone_postal'
             redirect_to respond_to_last_url(@info_request) + "?gone_postal=1"
+        elsif @info_request.calculate_status == 'internal_review'
+            flash[:notice] = 'XXX message to give people entering internal review state to be done'
+            redirect_to request_url(@info_request)
         elsif @info_request.calculate_status == 'requires_admin'
             flash[:notice] = "Please use the form below if you would like to tell us what is unusual about the response."
             redirect_to help_general_url(:action => 'contact')
@@ -379,10 +382,15 @@ class RequestController < ApplicationController
                     render :action => 'followup_preview'
                     return
                 end
+
                 # Send a follow up message
                 @outgoing_message.send_message
                 @outgoing_message.save!
-                flash[:notice] = "Your follow up message has been created and sent on its way."
+                if @outgoing_message.what_doing == 'internal_review'
+                    flash[:notice] = "Your internal review request has been created and sent on its way."
+                else
+                    flash[:notice] = "Your follow up message has been created and sent on its way."
+                end
                 redirect_to request_url(@info_request)
             end
         else

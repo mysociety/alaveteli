@@ -94,6 +94,8 @@
         <% end %>
     <% elsif @status == 'gone_postal' %>
         The authority would like to / has <strong>responded by post</strong> to this request.
+    <% elsif @status == 'internal_review' %>
+        Waiting for an <strong>internal review</strong> by <%= public_body_link(@info_request.public_body) %> of their handling of this request.
     <% elsif @status == 'requires_admin' %>
         This request has had an unusual response, and <strong>requires attention</strong> from the WhatDoTheyKnow team.
     <% else %>
@@ -125,6 +127,9 @@
         <% end %>
         (<%=h @info_request.user.name %> only)
         <br>
+        <!-- <%= link_to "Request an internal review", show_response_no_followup_url(:id => @info_request.id, :incoming_message_id => nil) + "#followup" %> 
+        (<%=h @info_request.user.name %> only)
+        <br> -->
         <%= link_to "Respond to request", upload_response_url(:url_title => @info_request.url_title) %> 
         (<%=h @info_request.public_body.name %> only)
     </div>

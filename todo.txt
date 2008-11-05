@@ -1,8 +1,22 @@
 Test data for Tony
 
-
 Internal review
 ===============
+
+Change wording of the status change dialog when coming out of internal
+review
+
+Fix up controllers/request_controller internal_review state redirect
+in that case.
+
+When you select "waiting_response" might want to convert to 
+internal_review in case where current state is already internal_review.
+
+Clarification of internal review in outgoing message send_message function
+might want to go back to internal review, not to general awaiting response?
+    models/outgoing_message.rb line 144
+
+Send internal reviews to original main request address
 
 Where to offer button to enter internal review state:
 - always offer option on request to have internal review, except when in waiting_response
@@ -10,39 +24,42 @@ earlier than 20 days, and except when in waiting_clarification (call button "mak
 - offer optin more forcefully when in waiting_response and lots of days have gone by
 - when entering not_held, rejected, partially_successful offer internal review button clearly
 
+Make the internal review option default the radio button on the followup form
+
+
+Search for text "internal review" in followups and add warning if they aren't
+using the internal review mode.
+
+Change preview when asking for internal review
+
 If you've already conducted an internal review, at all those places above offer
 link through to ICO submitting help page instead.
 
-Ask Julian which address is best to send internal reviews to?
+Clock for internal review
 
-Search for text "internal review" in followups and add warning
-
-Let people change status at any point
-
-Fix up controllers/request_controller internal_review state
-
-Change wording of the status change dialog when coming out of itnernal
-review
-
-Clarification of internal review in outgoing message send_message runction
-might want to go back to internal review, not to general awaiting response?
-
-When you select "waiting_response" might want to convert to 
-internal_review in case where current state is already internal_review.
+Add the "passing on" text from Julian's requests as default for internal review
 
 
 Next
 ====
 
+Finish "new information" option when writing followup, so makes new request
+Let people change status at any point
+
 Make green box more visible when click reminder email link
 Check new wording in reminder email looks good
+Make the second and third reminder email for new responses go to the green bit
+Remove login link from first email
 
 Make it so you definitely don't get alert for the annotation that you just made
 
 The Issue document here doesn't load - need to decect word docs from file content.
-http://www.whatdotheyknow.com/request/monitoring_of_foi_internal_revie
-
-Do something about <title> of views
+    http://www.whatdotheyknow.com/request/monitoring_of_foi_internal_revie
+Maybe use mahoro-ruby - add that to config/packages
+        require 'mahoro'
+        @m = Mahoro.new
+        @m.flags = Mahoro::MIME
+        @m.buffer(File.read('mahoro.c'))
 
 Performance:
     Remove loading of public body tags from every info request load
@@ -98,10 +115,15 @@ CSS things
 Write code to make sure the Return-Path is never foi@sandwich.org.uk (even if the
   Rails code breaks for Sendmail case in future botched Rails upgrades :)
 
-Consider removing login links from notifications of new responses, now we have remember me
+Make the search link to the top of the page for requests
+    -- or at least for successful responses
 
 Make HTML attachments have view as HTML :)
 http://www.whatdotheyknow.com/request/enforced_medication#incoming-7395
+
+This one has wrong title when viewed as HTML "private patients". Perhaps
+should use attachment filename for title instead?
+http://www.whatdotheyknow.com/request/recycling_levels_in_the_winchest
 
 Include log files from exim in admin interface for each request
 
@@ -301,6 +323,8 @@ Quoting fixing TODO:
 
 Render HTML alternative rather than text (so tables look good) e.g.:
     http://www.whatdotheyknow.com/request/parking_policy
+And indeed so links work:
+    http://www.whatdotheyknow.com/request/recycling_levels_in_the_winchest
 
 Larger new features
 -------------------

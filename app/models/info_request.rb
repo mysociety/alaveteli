@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.150 2008-10-28 13:29:21 francis Exp $
+# $Id: info_request.rb,v 1.151 2008-11-05 18:19:46 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -55,6 +55,7 @@ class InfoRequest < ActiveRecord::Base
         'rejected', 
         'successful', 
         'partially_successful',
+        'internal_review',
         'requires_admin'
     ]
 
@@ -304,7 +305,8 @@ public
                 :status => 'ready',
                 :message_type => 'initial_request',
                 :body => 'This is the holding pen request. It shows responses that were sent to invalid addresses, and need moving to the correct request by an adminstrator.',
-                :last_sent_at => Time.now()
+                :last_sent_at => Time.now(),
+                :what_doing => 'normal_sort'
 
             })
             ir.outgoing_messages << om
@@ -386,10 +388,11 @@ public
                     event.save!
                 end
                 curr_state = nil
-            elsif !curr_state.nil? && event.event_type == 'followup_sent' && !event.described_state.nil? && event.described_state == 'waiting_response'
-                # followups can set the status to waiting response, which we don't
-                # want to propogate to the response itself, as that might already be
-                # set to waiting_clarification, which we want to know about.
+            elsif !curr_state.nil? && event.event_type == 'followup_sent' && !event.described_state.nil? && (event.described_state == 'waiting_response' || event.described_state == 'internal_review')
+                # followups can set the status to waiting response / internal
+                # review, which we don't want to propogate to the response
+                # itself, as that might already be set to waiting_clarification
+                # / a success status, which we want to know about.
                 curr_state = nil
             end
         end
@@ -630,6 +633,8 @@ public
             "Waiting clarification."
         elsif status == 'gone_postal'
             "Handled by post."
+        elsif status == 'internal review'
+            "Awaiting internal review."
         elsif status == 'requires_admin'
             "Unusual response."
         else

@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: outgoing_message.rb,v 1.71 2008-10-28 13:04:20 francis Exp $
+# $Id: outgoing_message.rb,v 1.72 2008-11-05 18:19:46 francis Exp $
 
 class OutgoingMessage < ActiveRecord::Base
     belongs_to :info_request
@@ -31,6 +31,8 @@ class OutgoingMessage < ActiveRecord::Base
     validates_inclusion_of :message_type, :in => ['initial_request', 'followup' ] #, 'complaint']
 
     belongs_to :incoming_message_followup, :foreign_key => 'incoming_message_followup_id', :class_name => 'IncomingMessage'
+
+    validates_inclusion_of :what_doing, :in => ['new_information', 'internal_review', 'normal_sort']
 
     # can have many events, for items which were resent by site admin e.g. if
     # contact address changed
@@ -117,6 +119,9 @@ class OutgoingMessage < ActiveRecord::Base
         if self.body =~ /#{get_signoff}\s*\Z/ms
             errors.add(:body, '^Please sign at the bottom with your name, or alter the "' + get_signoff + '" signature')
         end
+        if self.what_doing.nil?
+            errors.add(:what_doing_dummy, '^Please choose what sort of reply you are making.')
+        end
     end
 
     # Deliver outgoing message
@@ -138,6 +143,9 @@ class OutgoingMessage < ActiveRecord::Base
                 self.info_request.log_event('followup_' + log_event_type, { :email => RequestMailer.name_and_email_for_followup(self.info_request, self.incoming_message_followup), :outgoing_message_id => self.id })
                 if self.info_request.described_state == 'waiting_clarification'
                     self.info_request.set_described_state('waiting_response')
+                end
+                if self.what_doing == 'internal_review'
+                    self.info_request.set_described_state('internal_review')
                 end
             else
                 raise "Message id #{self.id} has type '#{self.message_type}' which send_message can't handle"

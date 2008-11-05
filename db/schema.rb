@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 68) do
+ActiveRecord::Schema.define(:version => 69) do
 
   create_table "acts_as_xapian_jobs", :force => true do |t|
     t.string  "model",    :null => false
@@ -93,7 +93,10 @@ ActiveRecord::Schema.define(:version => 68) do
     t.datetime "updated_at",                   :null => false
     t.datetime "last_sent_at"
     t.integer  "incoming_message_followup_id"
+    t.string   "what_doing",                   :null => false
   end
+
+  add_index "outgoing_messages", ["what_doing"], :name => "index_outgoing_messages_on_what_doing"
 
   create_table "post_redirects", :force => true do |t|
     t.text     "token",                                    :null => false
