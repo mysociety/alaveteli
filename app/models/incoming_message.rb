@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.164 2008-11-03 02:55:50 francis Exp $
+# $Id: incoming_message.rb,v 1.165 2008-11-05 13:53:25 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -949,9 +949,12 @@ class IncomingMessage < ActiveRecord::Base
         return $file_extension_to_mime_type.keys.join(" ")
     end
 
-    # Return false if for some reason this is a message that we should let them reply to
+    # Return false if for some reason this is a message that we shouldn't let them reply to
     def valid_to_reply_to?
         # check validity of email
+        if self.mail.from_addrs.nil? || self.mail.from_addrs.size == 0
+            return false
+        end
         email = self.mail.from_addrs[0].spec
         if !MySociety::Validate.is_valid_email(email)
             return false
