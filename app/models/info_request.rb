@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.151 2008-11-05 18:19:46 francis Exp $
+# $Id: info_request.rb,v 1.152 2008-11-06 14:53:07 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -633,7 +633,7 @@ public
             "Waiting clarification."
         elsif status == 'gone_postal'
             "Handled by post."
-        elsif status == 'internal review'
+        elsif status == 'internal_review'
             "Awaiting internal review."
         elsif status == 'requires_admin'
             "Unusual response."
