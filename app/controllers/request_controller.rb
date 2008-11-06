@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.133 2008-11-05 18:19:46 francis Exp $
+# $Id: request_controller.rb,v 1.134 2008-11-06 03:42:03 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -387,9 +387,9 @@ class RequestController < ApplicationController
                 @outgoing_message.send_message
                 @outgoing_message.save!
                 if @outgoing_message.what_doing == 'internal_review'
-                    flash[:notice] = "Your internal review request has been created and sent on its way."
+                    flash[:notice] = "Your internal review request has been sent on its way."
                 else
-                    flash[:notice] = "Your follow up message has been created and sent on its way."
+                    flash[:notice] = "Your follow up message has been sent on its way."
                 end
                 redirect_to request_url(@info_request)
             end
