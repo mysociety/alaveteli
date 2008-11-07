@@ -3,8 +3,6 @@ Test data for Tony
 Internal review
 ===============
 
-Improve look and text when you enter unhappy from choosing partial or rejection
-
 If you've already conducted an internal review, at all places offer
 link through to ICO submitting help page instead.
 
