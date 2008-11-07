@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.64 2008-10-28 12:37:32 francis Exp $
+# $Id: request_mailer.rb,v 1.65 2008-11-07 02:57:56 francis Exp $
 
 class RequestMailer < ApplicationMailer
     
@@ -21,7 +21,7 @@ class RequestMailer < ApplicationMailer
     def followup(info_request, outgoing_message, incoming_message_followup)
         @from = info_request.incoming_name_and_email
         @recipients = RequestMailer.name_and_email_for_followup(info_request, incoming_message_followup)
-        @subject    = info_request.email_subject_followup
+        @subject    = RequestMailer.subject_for_followup(info_request, outgoing_message)
         @body       = {:info_request => info_request, :outgoing_message => outgoing_message,
             :incoming_message_followup => incoming_message_followup,
             :contact_email => MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost') }
@@ -55,7 +55,13 @@ class RequestMailer < ApplicationMailer
             return incoming_message_followup.mail.from_addrs[0].spec
         end
     end
-
+    def RequestMailer.subject_for_followup(info_request, outgoing_message)
+        if outgoing_message.what_doing == 'internal_review'
+            return "Internal review of " + info_request.email_subject_request
+        else
+            return info_request.email_subject_followup 
+        end
+    end
 
     # Used when an FOI officer uploads a response from their web browser - this is
     # the "fake" email used to store in the same format in the database as if they
