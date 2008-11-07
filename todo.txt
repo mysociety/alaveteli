@@ -3,8 +3,8 @@ Test data for Tony
 Internal review
 ===============
 
-Add the "passing on" text from Julian's requests as default for internal review
-And the URL
+Change internal review request subject to something else
+    search for email_subject_followup
 
 Improve message on entering not_held - offer option of internal review.
 
@@ -12,9 +12,6 @@ If you've already conducted an internal review, at all places offer
 link through to ICO submitting help page instead.
 
 Improve look and text when you enter unhappy from choosing partial or rejection
-
-Change internal review request subject to something else
-    search for email_subject_followup
 
 Clock for internal review
 "The internal review should take 2-3 weeks for simple cases, and up to 6 weeks

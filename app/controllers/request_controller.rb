@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.136 2008-11-07 01:13:37 francis Exp $
+# $Id: request_controller.rb,v 1.137 2008-11-07 02:50:59 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -122,6 +122,7 @@ class RequestController < ApplicationController
                 params[:info_request] = { :public_body_id => params[:public_body_id] }
             end
             @info_request = InfoRequest.new(params[:info_request])
+            params[:info_request_id] = @info_request.id
             @outgoing_message = OutgoingMessage.new(params[:outgoing_message])
             @outgoing_message.set_signature_name(@user.name) if !@user.nil?
             
@@ -348,7 +349,8 @@ class RequestController < ApplicationController
         params_outgoing_message.merge!({ 
             :status => 'ready', 
             :message_type => 'followup',
-            :incoming_message_followup => @incoming_message
+            :incoming_message_followup => @incoming_message,
+            :info_request_id => @info_request.id
         })
         @internal_review = false
         @internal_review_pass_on = false

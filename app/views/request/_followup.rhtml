@@ -14,12 +14,6 @@
         </h2>
     <% end %>
 
-    <% if @internal_review %>
-        <p>Write a message asking the authority to conduct an internal review
-        of their handling of your request.
-        </p>
-    <% end %>
-
     <% if @info_request.stop_new_responses %>
         <p>Follow ups and new responses to this request have been stopped to prevent spam. Please
         <a href="/help/contact">contact us</a> if you are <%= user_link(@info_request.user) %>
@@ -77,6 +71,12 @@
                         <label for="sort_normal"><strong>Anything else</strong>, such as clarifying, prompting, thanking</label>
                     </div>
                 </div>
+            <% end %>
+
+            <% if @internal_review %>
+                <p>Edit and add <strong>more details</strong> to the message above,
+                explaining why you would like a review.
+                </p>
             <% end %>
 
             <p>
