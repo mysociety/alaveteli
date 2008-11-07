@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.134 2008-11-06 03:42:03 francis Exp $
+# $Id: request_controller.rb,v 1.135 2008-11-07 00:01:49 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -92,6 +92,11 @@ class RequestController < ApplicationController
 
     # Page new form posts to
     def new
+        # All new requests are of normal_sort
+        if !params[:outgoing_message].nil?
+            params[:outgoing_message][:what_doing] = 'normal_sort'
+        end
+
         # If we've just got here (so no writing to lose), and we're already
         # logged in, force the user to describe any undescribed requests. Allow
         # margin of 1 undescribed so it isn't too annoying - the function
@@ -99,6 +104,10 @@ class RequestController < ApplicationController
         # arrived.
         if !@user.nil? && params[:submitted_new_request].nil?
             @undescribed_requests = @user.get_undescribed_requests 
+            if params[:public_body_id].nil?
+                redirect_to frontpage_url
+                return
+            end
             @public_body = PublicBody.find(params[:public_body_id])
             if @undescribed_requests.size > 1
                 render :action => 'new_please_describe'
@@ -264,24 +273,21 @@ class RequestController < ApplicationController
             # XXX offer fancier option to duplicate request?
             redirect_to request_url(@info_request)
         elsif @info_request.calculate_status == 'rejected'
-            # XXX explain how to complain
             flash[:notice] = "Oh no! Sorry to hear that your request was rejected. Here is what to do now."
-            redirect_to unhappy_url
+            redirect_to unhappy_url(@info_request)
         elsif @info_request.calculate_status == 'successful'
             flash[:notice] = "<p>We're glad you got all the information that you wanted. If you write about or make use of the information, please come back and add an annotation below saying what you did.</p><p>If you found WhatDoTheyKnow useful, <a href=\"http://www.mysociety.org/donate/\">make a donation</a> to the charity which runs it.</p>"
-            # XXX quiz them here for a comment
             redirect_to request_url(@info_request)
         elsif @info_request.calculate_status == 'partially_successful'
-            flash[:notice] = "<p>We're glad you got some of the information that you wanted. We have details on what to do if you are <a href=\"/help/unhappy\">unhappy about the response you got</a>.</p><p>If you found WhatDoTheyKnow useful, <a href=\"http://www.mysociety.org/donate/\">make a donation</a> to the charity which runs it.</p>"
-            # XXX explain how to complain / quiz them for a comment
-            redirect_to request_url(@info_request)
+            flash[:notice] = "<p>We're glad you got some of the information that you wanted. If you found WhatDoTheyKnow useful, <a href=\"http://www.mysociety.org/donate/\">make a donation</a> to the charity which runs it.</p><p>If you want to try and get the rest of the information, here's what to do now.</p>"
+            redirect_to unhappy_url(@info_request)
         elsif @info_request.calculate_status == 'waiting_clarification'
             flash[:notice] = "Please write your follow up message containing the necessary clarifications below."
             redirect_to show_response_url(:id => @info_request.id, :incoming_message_id => @events_needing_description[-1].params[:incoming_message_id])
         elsif @info_request.calculate_status == 'gone_postal'
             redirect_to respond_to_last_url(@info_request) + "?gone_postal=1"
         elsif @info_request.calculate_status == 'internal_review'
-            flash[:notice] = 'XXX message to give people entering internal review state to be done'
+            flash[:notice] = "Thank you! Hopefully your wait isn't too long."
             redirect_to request_url(@info_request)
         elsif @info_request.calculate_status == 'requires_admin'
             flash[:notice] = "Please use the form below if you would like to tell us what is unusual about the response."
@@ -344,6 +350,11 @@ class RequestController < ApplicationController
             :message_type => 'followup',
             :incoming_message_followup => @incoming_message
         })
+        @internal_review = false
+        if !params[:internal_review].nil?
+            params_outgoing_message[:what_doing] = 'internal_review'
+            @internal_review = true
+        end
         @outgoing_message = OutgoingMessage.new(params_outgoing_message)
         @outgoing_message.set_signature_name(@user.name) if !@user.nil?
 
@@ -491,6 +502,5 @@ class RequestController < ApplicationController
             return
         end
     end
-
 end
 

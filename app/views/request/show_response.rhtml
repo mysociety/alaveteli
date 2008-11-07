@@ -47,28 +47,26 @@
 <% end %>
 
 <div id="show_response_view">
-    <% if @is_owning_user %>
-        <% if @incoming_message.nil? %>
-            <h2>Your last message sent for request '<%= request_link @info_request %>'</h2>
-        <% elsif @incoming_message.recently_arrived %>
-            <h2>New response to your request '<%= request_link @info_request %>'</h2>
+    <% if !@incoming_message.nil? %>
+        <% if @is_owning_user %>
+            <% if @incoming_message.recently_arrived %>
+                <h2>New response to your request '<%= request_link @info_request %>'</h2>
+            <% else %>
+                <h2>Response to your request '<%= request_link @info_request %>'</h2>
+            <% end %>
         <% else %>
-            <h2>Response to your request '<%= request_link @info_request %>'</h2>
+            <% if @incoming_message.recently_arrived %>
+                <h2>New response to <%=h(@info_request.law_used_short)%> request '<%= request_link @info_request %>'</h2>
+            <% else %>
+                <h2>Response to <%=h(@info_request.law_used_short)%> request '<%= request_link @info_request %>'</h2>
+            <% end %>
         <% end %>
-    <% else %>
+        
         <% if @incoming_message.nil? %>
-            <h2>Last message sent for <%=h(@info_request.law_used_short)%> request '<%= request_link @info_request %>'</h2>
-        <% elsif @incoming_message.recently_arrived %>
-            <h2>New response to <%=h(@info_request.law_used_short)%> request '<%= request_link @info_request %>'</h2>
+            <%= render :partial => 'correspondence', :locals => { :info_request_event => @info_request.get_last_outgoing_event, :incoming_message => nil } %>
         <% else %>
-            <h2>Response to <%=h(@info_request.law_used_short)%> request '<%= request_link @info_request %>'</h2>
+            <%= render :partial => 'correspondence', :locals => { :info_request_event => nil, :incoming_message => @incoming_message } %>
         <% end %>
-    <% end %>
-    
-    <% if @incoming_message.nil? %>
-        <%= render :partial => 'correspondence', :locals => { :info_request_event => @info_request.get_last_outgoing_event, :incoming_message => nil } %>
-    <% else %>
-        <%= render :partial => 'correspondence', :locals => { :info_request_event => nil, :incoming_message => @incoming_message } %>
     <% end %>
 
     <%= render :partial => 'followup', :locals => { :incoming_message => @incoming_message } %>

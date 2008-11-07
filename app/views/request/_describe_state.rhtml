@@ -1,20 +1,40 @@
 <% if @is_owning_user || @requires_admin_describe %>
     <% form_for(:incoming_message, @info_request, :url => describe_state_url(:id => @info_request.id)) do |f| %>
         <h2>What is the status of this request now?</h2>
-        <hr>
-        <div>
-            <%= radio_button "incoming_message", "described_state", "waiting_response", :id => 'waiting_response' + id_suffix %>
-            <label for="waiting_response<%=id_suffix%>">I'm still <strong>waiting</strong> for my information</label>
-        </div>
-        <div>
-            <%= radio_button "incoming_message", "described_state", "waiting_clarification", :id => 'waiting_clarification' + id_suffix %>
-            <label for="waiting_clarification<%=id_suffix%>">I'm about to <strong>clarify</strong> my request</label>
-        </div>
+
+        <hr> <!------------------------------------------------>
+
+        <% if @info_request.described_state != 'internal_review' %>
+            <div>
+                <%= radio_button "incoming_message", "described_state", "waiting_response", :id => 'waiting_response' + id_suffix %>
+                <label for="waiting_response<%=id_suffix%>">I'm still <strong>waiting</strong> for my information</label>
+            </div>
+        <% end %>
+        <% if @info_request.described_state == 'internal_review' %>
+            <div>
+                <%= radio_button "incoming_message", "described_state", "internal_review", :id => 'internal_review' + id_suffix %>
+                <label for="internal_review<%=id_suffix%>">I'm still <strong>waiting</strong> for the internal review</label>
+            </div>
+        <% end %>
+
+        <% if @info_request.described_state != 'internal_review' %>
+            <div>
+                <%= radio_button "incoming_message", "described_state", "waiting_clarification", :id => 'waiting_clarification' + id_suffix %>
+                <label for="waiting_clarification<%=id_suffix%>">I'm about to <strong>clarify</strong> my request</label>
+            </div>
+        <% end %>
+
         <div>
             <%= radio_button "incoming_message", "described_state", "gone_postal", :id => 'gone_postal' + id_suffix %>
             <label for="gone_postal<%=id_suffix%>">They are going to reply <strong>by post</strong></label>
         </div>
-        <hr>
+
+        <hr> <!------------------------------------------------>
+
+        <% if @info_request.described_state == 'internal_review' %>
+            <p>The <strong>review has finished</strong> and overall:</p>
+        <% end %>
+
         <div>
             <%= radio_button "incoming_message", "described_state", "not_held", :id => 'not_held' + id_suffix %>
             <label for="not_held<%=id_suffix%>">They do <strong>not have</strong> the information <small>(maybe they say who does)</small></label>
@@ -31,7 +51,9 @@
             <%= radio_button "incoming_message", "described_state", "rejected", :id => 'rejected' + id_suffix %>
             <label for="rejected<%=id_suffix%>">My request has been <strong>rejected</strong></label>
         </div>
-        <hr>
+
+        <hr> <!------------------------------------------------>
+
         <div>
            <%= radio_button "incoming_message", "described_state", "requires_admin", :id => 'requires_admin' + id_suffix %>
             <label for="requires_admin<%=id_suffix%>"><strong>None</strong> of the above</label>

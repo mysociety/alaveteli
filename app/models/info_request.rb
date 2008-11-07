@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.152 2008-11-06 14:53:07 francis Exp $
+# $Id: info_request.rb,v 1.153 2008-11-07 00:01:50 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -489,6 +489,10 @@ public
         end
 
         return response_required_by
+    end
+
+    def days_overdue
+        return (Time.now - self.date_response_required_by) / 3600 / 24
     end
 
     # Where the initial request is sent to

@@ -102,8 +102,14 @@ describe RequestController, "when creating a new request" do
         response.should redirect_to(:controller => 'general', :action => 'frontpage')
     end
 
-    it "should accept a public body parameter posted from the front page" do
-        post :new, :info_request => { :public_body_id => public_bodies(:geraldine_public_body).id } 
+    it "should redirect to front page if no public body specified, when logged in" do
+        session[:user_id] = users(:bob_smith_user).id
+        get :new
+        response.should redirect_to(:controller => 'general', :action => 'frontpage')
+    end
+
+    it "should accept a public body parameter" do
+        get :new, :info_request => { :public_body_id => public_bodies(:geraldine_public_body).id } 
         assigns[:info_request].public_body.should == public_bodies(:geraldine_public_body)    
         response.should render_template('new')
     end
@@ -278,20 +284,20 @@ describe RequestController, "when sending a followup message" do
     fixtures :info_requests, :info_request_events, :public_bodies, :users, :incoming_messages, :raw_emails, :outgoing_messages # all needed as integrating views
   
     it "should require login" do
-        post :show_response, :outgoing_message => { :body => "What a useless response! You suck." }, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_followup => 1
+        post :show_response, :outgoing_message => { :body => "What a useless response! You suck.", :what_doing => 'normal_sort' }, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_followup => 1
         post_redirect = PostRedirect.get_last_post_redirect
         response.should redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
     end
 
     it "should not let you if you are logged in as the wrong user" do
         session[:user_id] = users(:silly_name_user).id
-        post :show_response, :outgoing_message => { :body => "What a useless response! You suck." }, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_followup => 1
+        post :show_response, :outgoing_message => { :body => "What a useless response! You suck.", :what_doing => 'normal_sort' }, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_followup => 1
         response.should render_template('user/wrong_user')
     end
 
     it "should give an error and render 'show_response' template when a body isn't given" do
         session[:user_id] = users(:bob_smith_user).id
-        post :show_response, :outgoing_message => { :body => "" }, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_followup => 1
+        post :show_response, :outgoing_message => { :body => "", :what_doing => 'normal_sort'}, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_followup => 1
 
         # XXX how do I check the error message here?
         response.should render_template('show_response')
@@ -306,7 +312,7 @@ describe RequestController, "when sending a followup message" do
 
         # make the followup
         session[:user_id] = users(:bob_smith_user).id
-        post :show_response, :outgoing_message => { :body => "What a useless response! You suck." }, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_followup => 1
+        post :show_response, :outgoing_message => { :body => "What a useless response! You suck.", :what_doing => 'normal_sort' }, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_followup => 1
 
         # check it worked
         deliveries = ActionMailer::Base.deliveries

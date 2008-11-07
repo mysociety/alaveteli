@@ -73,6 +73,13 @@
         the response had to be
         <%= link_to "no later", about_url + "#quickly_response" %>
         than <strong><%= simple_date(@info_request.date_response_required_by) %></strong>.
+
+        <% if @info_request.days_overdue > 14 %>
+            They are <%= @info_request.days_overdue.to_i %> days late, you
+            can <strong>complain</strong> by
+            <%= link_to "requesting an internal review", show_response_no_followup_url(:id => @info_request.id, :incoming_message_id => nil) + "?internal_review=1#followup" %>.
+        <% end %>
+
     <% elsif @status == 'not_held' %>
         <%= public_body_link(@info_request.public_body) %> <strong>did not have</strong> the information requested.
     <% elsif @status == 'rejected' %>
@@ -117,21 +124,27 @@
 
     <div id="after_actions">
         <h2>Things to do with this request</h2>
-        <%= link_to "Add an annotation", new_comment_url(:url_title => @info_request.url_title) %> (to help
-        the requester or others)
-        <br>
-        <% if @last_response.nil? %>
-            <%= link_to "Send follow up to " + RequestMailer.name_for_followup(@info_request, @last_response), show_response_no_followup_url(:id => @info_request.id, :incoming_message_id => nil) + "#followup" %> 
-        <% else %>
-            <%= link_to "Reply to " + RequestMailer.name_for_followup(@info_request, @last_response), show_response_url(:id => @info_request.id, :incoming_message_id => @last_response.id) + "#followup" %> 
-        <% end %>
-        (<%=h @info_request.user.name %> only)
-        <br>
-        <!-- <%= link_to "Request an internal review", show_response_no_followup_url(:id => @info_request.id, :incoming_message_id => nil) + "#followup" %> 
-        (<%=h @info_request.user.name %> only)
-        <br> -->
-        <%= link_to "Respond to request", upload_response_url(:url_title => @info_request.url_title) %> 
-        (<%=h @info_request.public_body.name %> only)
+
+        <p>
+            <%= link_to "Add an annotation", new_comment_url(:url_title => @info_request.url_title) %> (to help
+            the requester or others)
+        </p>
+
+        <p>
+            <strong><%=h @info_request.user.name %> only:</strong>
+            <% if @last_response.nil? %>
+                <%= link_to "Send follow up to " + RequestMailer.name_for_followup(@info_request, @last_response), show_response_no_followup_url(:id => @info_request.id, :incoming_message_id => nil) + "#followup" %> 
+            <% else %>
+                <%= link_to "Reply to " + RequestMailer.name_for_followup(@info_request, @last_response), show_response_url(:id => @info_request.id, :incoming_message_id => @last_response.id) + "#followup" %> 
+            <% end %>
+            |
+            <%= link_to "Request an internal review", show_response_no_followup_url(:id => @info_request.id, :incoming_message_id => nil) + "?internal_review=1#followup" %> 
+
+            <br>
+
+            <strong><%=h @info_request.public_body.name %> only:</strong>
+            <%= link_to "Respond to request", upload_response_url(:url_title => @info_request.url_title) %> 
+        </p>
     </div>
 </div>
 

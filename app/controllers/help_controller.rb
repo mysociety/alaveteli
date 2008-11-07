@@ -4,11 +4,18 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: help_controller.rb,v 1.9 2008-10-07 22:05:06 francis Exp $
+# $Id: help_controller.rb,v 1.10 2008-11-07 00:01:49 francis Exp $
 
 class HelpController < ApplicationController
     
     def about
+    end
+
+    def unhappy
+        @info_request = nil
+        if params[:url_title]
+            @info_request = InfoRequest.find_by_url_title(params[:url_title])
+        end
     end
 
     def contact

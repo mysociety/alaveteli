@@ -1,6 +1,13 @@
 <% @title = "Unhappy about a Freedom of Information request?" %>
 
+
+<% if !@info_request.nil? %>
+<h1>Unhappy about the response you got 
+to your request '<%=request_link(@info_request) %>'?
+</h1>
+<% else %>
 <h1>Unhappy about the response you got?</h1>
+<% end %>
 
 <p>If ...</p>
 
@@ -20,10 +27,15 @@
 
 <h1 id="internal_review">1. Asking for an internal review</h1>
 
-<p>You can use WhatDoTheyKnow to request an internal review. Go to your
-request and choose "send follow up" message, then write a message asking
-for an internal review of your request. You may want to include a link to the request
-page, to make it clear which request you are talking about.
+<p>
+<% if !@info_request.nil? %>
+    Choose <%= link_to "request an internal review", show_response_no_followup_url(:id => @info_request.id, :incoming_message_id => nil) + "?internal_review=1#followup" %> and then write a message asking the authority to review your request.
+<% else %>
+    Go to your request on WhatDoTheyKnow and choose "request an internal review"
+    at the bottom of the page. Then write a message asking for an internal
+    review of your request. You may want to include a link to the request page,
+    to make it clear which request you are talking about.
+<% end %>
 </p>
 
 <p>The internal review should take 2-3 weeks for simple cases, and up to 6
@@ -32,52 +44,55 @@ you originally requested, or you will be told that the review upholds the
 original decision.
 </p>
 
-<!-- XXX need decent link to more detailed instructions -->
-
 <h1 id="complaining">2. Complaining to the Information Commissioner</h1>
-
-<!-- XXX should include brief instructions inline, and link to more detail -->
 
 <p>If you are still unhappy after the public authority has done their internal review,
 then you can complain to the Information Commisioner. To do this read
 <a href="http://www.ico.gov.uk/complaints/freedom_of_information.aspx">Complaints about Freedom of Information</a>
-on the Information Commisioner's website.
+on the Information Commisioner's website.</p>
 
-<p>Again, you can include a link to your request on WhatDoTheyKnow, or print
-out the whole page of your request, to make it easy to send the relevant
-information to the Information Commissioner.
+<p>To make it easier to send the relevant information to the 
+Information Commisioner, either
+<% if !@info_request.nil? %>
+    include a link to your request 
+    <strong><%=h main_url(request_url(@info_request)) %></strong>
+<% else %>
+    include a link to your request on WhatDoTheyKnow
+<% end %>
+in your complaint or print out the whole page of your request.
+</p>
 
-<p>There is a backlog of work at the Information Commissioner, and
+<p>A warning. There is a backlog of work at the Information Commissioner, and
 it can take literally years to get resolution from them. If you reach this point,
 you should accept that you won't get the information quickly by this means. Maybe
 you want to help the fight to improve Freedom of Information, or maybe
 getting the information slowly is still worthwhile. You can also try and
-get the information by other means...</p>
+get the information by <strong>other means...</strong></p>
 
 <h1 id="other_means">3. Using other means to answer your question</h1>
 
 <p>You can try persuing your problem or your research in other ways.
 
 <ul>
-<li>Make an FOI request for summary information, or for documentation relating
-indirectly to matters in your rejected request.  
+<li>Make a <strong>new FOI request</strong> for summary information, or for
+documentation relating indirectly to matters in your rejected request.  
 <a href="/help/contact">Ask us for ideas</a> if you're stuck.</li>
-<li>If any other public authorities or publicly owned companies are involved,
+<li>If any <strong>other public authorities</strong> or publicly owned companies are involved,
 then make FOI requests to them.</li>
-<li><a href="http://www.writetothem.com">Write to your MP or other politician</a>
-and ask for their help. Often MPs can find out information which individuals can't,
-by directly writing to ministers or departments, or by asking a written question in the
-House of Commons. Likewise, councillors in local authorities can go and talk directly
-to officers to try and find things out.</li>
-<li>Ask others researching the same or similar questions for ideas. Perhaps you
-can find them by browsing this site; you can contact any registered user from
-their page. Perhaps there is an Internet forum or group where there are people
-who know about the area you are researching.  If it is a local matter, use <a
+<li>Write to <strong>your MP</strong> or other politician using <a
+href="http://www.writetothem.com">WriteToThem</a> and ask for their help
+finding the answer. MPs can write directly to ministers or departments, and
+can ask written questions in the House of Commons. Councillors in local authorities
+can talk directly to council officers.</li>
+<li>Ask <strong>other researchers</strong> who are interested in a similar 
+issue to yours for ideas. You can sometimes find them by browsing this site;
+contact any registered user from their page. There may be an Internet
+forum or group that they hang out in. If it is a local matter, use <a
 href="http://www.groupsnearyou.com">GroupsNearYou</a> to find such a 
 forum.</li>
-<li><a href="http://www.pledgebank.com">Start a pledge</a> to get others 
-to act together with you. For example, you could arrange a meeting with staff
-from the authority. Or you could form a small local campaigns group.
+<li><strong>Start a pledge</strong> on <a href="http://www.pledgebank.com">PledgeBank</a> to get 
+others to act together with you. For example, you could arrange a meeting with
+staff from the authority. Or you could form a small local campaigns group.
 </ul>
 
 

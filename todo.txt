@@ -3,48 +3,35 @@ Test data for Tony
 Internal review
 ===============
 
-Change wording of the status change dialog when coming out of internal
-review
+Add the "passing on" text from Julian's requests as default for internal review
+Perhaps log that whole chain of ?internal_review=1 things to only be reviews
+and change heading etc.
 
-Fix up controllers/request_controller internal_review state redirect
-in that case.
+Improve message on entering not_held - offer option of internal review.
 
-When you select "waiting_response" might want to convert to 
-internal_review in case where current state is already internal_review.
+If you've already conducted an internal review, at all places offer
+link through to ICO submitting help page instead.
 
-Clarification of internal review in outgoing message send_message function
-might want to go back to internal review, not to general awaiting response?
-    models/outgoing_message.rb line 144
+Change preview when you've chosen the internal review radio button
 
-Send internal reviews to original main request address
 
-Where to offer button to enter internal review state:
-- always offer option on request to have internal review, except when in waiting_response
-earlier than 20 days, and except when in waiting_clarification (call button "make clarification"!)
-- offer optin more forcefully when in waiting_response and lots of days have gone by
-- when entering not_held, rejected, partially_successful offer internal review button clearly
-
-Make the internal review option default the radio button on the followup form
-
+Clock for internal review
+"The internal review should take 2-3 weeks for simple cases, and up to 6 weeks
+even for complex reviews."
 
 Search for text "internal review" in followups and add warning if they aren't
 using the internal review mode.
-
-Change preview when asking for internal review
-
-If you've already conducted an internal review, at all those places above offer
-link through to ICO submitting help page instead.
-
-Clock for internal review
-
-Add the "passing on" text from Julian's requests as default for internal review
 
 
 Next
 ====
 
+Rename show_response action to send followup?
+
 Finish "new information" option when writing followup, so makes new request
 Let people change status at any point
+
+Let admin users set things to internal review easily
 
 Make green box more visible when click reminder email link
 Check new wording in reminder email looks good
