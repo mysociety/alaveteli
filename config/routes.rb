@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: routes.rb,v 1.79 2008-11-07 00:01:51 francis Exp $
+# $Id: routes.rb,v 1.80 2008-11-07 00:47:23 francis Exp $
 
 ActionController::Routing::Routes.draw do |map|
 
@@ -83,7 +83,7 @@ ActionController::Routing::Routes.draw do |map|
     end
 
     map.with_options :controller => 'help' do |help|
-      help.help_general '/help/unhappy/:url_title', :action => 'unhappy'
+      help.help_unhappy '/help/unhappy/:url_title', :action => 'unhappy'
       help.help_general '/help/:action', :action => :action
     end
 

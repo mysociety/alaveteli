@@ -14,6 +14,8 @@ link through to ICO submitting help page instead.
 
 Change preview when you've chosen the internal review radio button
 
+Improve look and text when you enter unhappy from choosing partial or rejection
+
 
 Clock for internal review
 "The internal review should take 2-3 weeks for simple cases, and up to 6 weeks
