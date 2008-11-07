@@ -1,5 +1,4 @@
 ruby1.8
-postgresql
 libpgsql-ruby1.8
 libgems-ruby1.8
 rake
@@ -14,7 +13,6 @@ lynx
 libxapian-ruby1.8
 gnuplot-nox
 ttf-bitstream-vera
-rubygems
 sharutils
 unzip
 libzip-ruby1.8
