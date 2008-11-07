@@ -43,7 +43,7 @@
     <p>
         <%= hidden_field_tag(:submitted_followup, 1) %>
         <%= hidden_field_tag(:preview, 0 ) %>
-        <% if @internal_review %>
+        <% if @internal_review_pass_on %>
             <%= hidden_field_tag(:internal_review, 1 ) %>
         <% end %>
         <%= submit_tag "Re-edit this message", :name => 'reedit' %>

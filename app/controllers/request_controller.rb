@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.135 2008-11-07 00:01:49 francis Exp $
+# $Id: request_controller.rb,v 1.136 2008-11-07 01:13:37 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -351,9 +351,11 @@ class RequestController < ApplicationController
             :incoming_message_followup => @incoming_message
         })
         @internal_review = false
+        @internal_review_pass_on = false
         if !params[:internal_review].nil?
             params_outgoing_message[:what_doing] = 'internal_review'
             @internal_review = true
+            @internal_review_pass_on = true
         end
         @outgoing_message = OutgoingMessage.new(params_outgoing_message)
         @outgoing_message.set_signature_name(@user.name) if !@user.nil?
@@ -390,6 +392,9 @@ class RequestController < ApplicationController
                     return
                 end
                 if params[:preview].to_i == 1
+                    if @outgoing_message.what_doing == 'internal_review'
+                        @internal_review = true
+                    end
                     render :action => 'followup_preview'
                     return
                 end
