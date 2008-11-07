@@ -881,17 +881,17 @@ div#about_sidebar
 	margin: 0 0 0 1em;
 }
 
-div#help_about dt a, div#help_about h1 a
+div#help_about dt a, div#help_about h1 a, div#help_unhappy h1 a
 {
     text-decoration: none;
 	font-size: 0.80em;
     color: #fff;
     background-color: #fff;
 }
-div#help_about dt:hover > a, div#help_about h1:hover > a {
+div#help_about dt:hover > a, div#help_about h1:hover > a, div#help_unhappy h1:hover > a {
     color: #0000ee;
 }
-div#help_about dt:hover > a:hover, div#help_about h1:hover > a:hover {
+div#help_about dt:hover > a:hover, div#help_about h1:hover > a:hover, div#help_unhappy h1:hover > a:hover {
     text-decoration: underline;
 }
 
