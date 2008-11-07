@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.137 2008-11-07 02:50:59 francis Exp $
+# $Id: request_controller.rb,v 1.138 2008-11-07 16:52:30 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -270,8 +270,17 @@ class RequestController < ApplicationController
             flash[:notice] = "<p>Thank you! Hope you don't have to wait much longer.</p> <p>By law, you should have got a response before the end of <strong>" + simple_date(@info_request.date_response_required_by) + "</strong>.</p>"
             redirect_to request_url(@info_request)
         elsif @info_request.calculate_status == 'not_held'
-            flash[:notice] = "Thank you! You may want to send your request to another public authority. To do so, first copy the text of your request below, then <a href=\"/new\">find the other authority</a>."
-            # XXX offer fancier option to duplicate request?
+            flash[:notice] = "<p>Thank you! Here are some ideas on what to do next:</p>
+            <ul>
+            <li>To send your request to another authority, first copy the text of your request below, then <a href=\"/new\">find the other authority</a>.</li>
+            <li>If you would like to contest the authority's claim that they do not hold the information, 
+            <a href=\"" + CGI.escapeHTML(unhappy_url(@info_request)) + "\">request an internal review</a>.
+            </li>
+            <li>We have <a href=\"" + CGI.escapeHTML(unhappy_url(@info_request)) + "#other_means\">suggestions</a>
+            on other means to answer your question.
+            </li>
+            </ul>
+            "
             redirect_to request_url(@info_request)
         elsif @info_request.calculate_status == 'rejected'
             flash[:notice] = "Oh no! Sorry to hear that your request was rejected. Here is what to do now."

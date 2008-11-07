@@ -3,15 +3,11 @@ Test data for Tony
 Internal review
 ===============
 
-Change internal review request subject to something else
-    search for email_subject_followup
-
-Improve message on entering not_held - offer option of internal review.
+Improve look and text when you enter unhappy from choosing partial or rejection
 
 If you've already conducted an internal review, at all places offer
 link through to ICO submitting help page instead.
 
-Improve look and text when you enter unhappy from choosing partial or rejection
 
 Clock for internal review
 "The internal review should take 2-3 weeks for simple cases, and up to 6 weeks
