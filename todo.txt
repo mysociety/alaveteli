@@ -4,8 +4,7 @@ Internal review
 ===============
 
 Add the "passing on" text from Julian's requests as default for internal review
-Perhaps log that whole chain of ?internal_review=1 things to only be reviews
-and change heading etc.
+And the URL
 
 Improve message on entering not_held - offer option of internal review.
 
@@ -16,6 +15,8 @@ Change preview when you've chosen the internal review radio button
 
 Improve look and text when you enter unhappy from choosing partial or rejection
 
+Change internal review request subject to something else
+    search for email_subject_followup
 
 Clock for internal review
 "The internal review should take 2-3 weeks for simple cases, and up to 6 weeks

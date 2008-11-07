@@ -4,10 +4,15 @@
 
 <% form_for(:outgoing_message, @outgoing_message, :html => { :id => 'preview_form' }, :url => (@incoming_message.nil? ? show_response_no_followup_url(:id => @info_request.id) : show_response_url(:id => @info_request.id, :incoming_message_id => @incoming_message.id)) + "#followup" ) do |o| %>
     
-    <h1>Now preview your follow up</h1>
+    <% if @internal_review %>
+        <h1>Now preview your message asking for an internal review</h1>
+    <% else %>
+        <h1>Now preview your follow up</h1>
+    <% end %>
+
     <ul>
     <li>Check you haven't included any <strong>personal information</strong>.</li>
-    <li>Your follow up message will appear in <strong>search engines</strong></li>
+    <li>Your message will appear in <strong>search engines</strong></li>
     </ul>
 
     <% fields_for :outgoing_message do |o| %>
@@ -36,10 +41,13 @@
     </p>
 
     <p>
-    <%= hidden_field_tag(:submitted_followup, 1) %>
-    <%= hidden_field_tag(:preview, 0 ) %>
-    <%= submit_tag "Re-edit this follow up", :name => 'reedit' %>
-    <%= submit_tag "Send follow up message", :name => 'submit' %>
+        <%= hidden_field_tag(:submitted_followup, 1) %>
+        <%= hidden_field_tag(:preview, 0 ) %>
+        <% if @internal_review %>
+            <%= hidden_field_tag(:internal_review, 1 ) %>
+        <% end %>
+        <%= submit_tag "Re-edit this message", :name => 'reedit' %>
+        <%= submit_tag "Send message", :name => 'submit' %>
     </p>
 
 <% end %>

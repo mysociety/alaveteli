@@ -1,11 +1,16 @@
 <div id="followup">
 
-    <% if incoming_message.nil? || !incoming_message.valid_to_reply_to? %>
+    <% if @internal_review %>
+        <h1>Request an internal review
+        from <%=h RequestMailer.name_for_followup(@info_request, nil) %>
+        </h1>
+    <% elsif incoming_message.nil? || !incoming_message.valid_to_reply_to? %>
         <h2>Send a public follow up message 
-        to '<%=h RequestMailer.name_for_followup(@info_request, nil) %>'
+        to <%=h RequestMailer.name_for_followup(@info_request, nil) %>
         </h2>
     <% else %>
-        <h2>Send a public reply to <%=h RequestMailer.name_for_followup(@info_request, incoming_message) %>
+        <h2>Send a public reply to 
+        <%=h RequestMailer.name_for_followup(@info_request, incoming_message) %>
         </h2>
     <% end %>
 
@@ -45,35 +50,42 @@
                 <br><script type="text/javascript">document.write('<input name="doSpell" type="button" value="Check spelling" onClick="openSpellChecker(document.getElementById(\'followup_form\').body);"/> (optional)')</script>
             </p>
 
-            <h3>What are you doing?</h3>
-
-            <% if !@outgoing_message.errors[:what_doing_dummy].nil? %>
-            <div class="fieldWithErrors">
+            <% if @internal_review %>
+                <%= hidden_field_tag "outgoing_message[what_doing]", "internal_review" %>
             <% else %>
-            <div>
+                <h3>What are you doing?</h3>
+
+                <% if !@outgoing_message.errors[:what_doing_dummy].nil? %>
+                <div class="fieldWithErrors">
+                <% else %>
+                <div>
+                <% end %>
+                    <!--
+                    <div>
+                        <%= radio_button "outgoing_message", "what_doing", "new_information", :id => "new_information" %>
+                        <label for="new_information">I am asking for <strong>new information</strong> </label>
+                    </div>
+                    -->
+                    <div>
+                        <%= radio_button "outgoing_message", "what_doing", "internal_review", :id => "internal_review" %>
+                        <label for="internal_review">I am requesting an <strong>internal review</strong> 
+                        (<a href="/help/unhappy">what's that?</a>)
+                        </label>
+                    </div>
+                    <div>
+                        <%= radio_button "outgoing_message", "what_doing", "normal_sort", :id => "sort_normal" %>
+                        <label for="sort_normal"><strong>Anything else</strong>, such as clarifying, prompting, thanking</label>
+                    </div>
+                </div>
             <% end %>
-                <!--
-                <div>
-                    <%= radio_button "outgoing_message", "what_doing", "new_information", :id => "new_information" %>
-                    <label for="new_information">I am asking for <strong>new information</strong> </label>
-                </div>
-                -->
-                <div>
-                    <%= radio_button "outgoing_message", "what_doing", "internal_review", :id => "internal_review" %>
-                    <label for="internal_review">I am requesting an <strong>internal review</strong> 
-                    (<a href="/help/unhappy">what's that?</a>)
-                    </label>
-                </div>
-                <div>
-                    <%= radio_button "outgoing_message", "what_doing", "normal_sort", :id => "sort_normal" %>
-                    <label for="sort_normal"><strong>Anything else</strong>, such as clarifying, prompting, thanking</label>
-                </div>
-            </div>
 
             <p>
                 <%= hidden_field_tag 'submitted_followup', 1 %>
                 <%= hidden_field_tag(:preview, 1 ) %>
-                <%= submit_tag "Preview your follow up message" %>
+                <% if @internal_review %>
+                    <%= hidden_field_tag(:internal_review, 1 ) %>
+                <% end %>
+                <%= submit_tag "Preview your message" %>
             </p>
         <% end %>
 
