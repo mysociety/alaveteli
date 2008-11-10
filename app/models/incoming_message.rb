@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.167 2008-11-10 18:18:30 francis Exp $
+# $Id: incoming_message.rb,v 1.168 2008-11-10 18:25:12 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -609,6 +609,8 @@ class IncomingMessage < ActiveRecord::Base
             text_charset = main_part.charset
             if main_part.content_type == 'text/html'
                 # e.g. http://www.whatdotheyknow.com/request/35/response/177
+                # XXX This is a bit of a hack as it is calling a convert to text routine.
+                # Could instead call a sanitize HTML one.
                 text = IncomingMessage.get_attachment_text_internal_one_file(main_part.content_type, text)
             end
         end
