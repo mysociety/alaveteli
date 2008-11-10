@@ -1,8 +1,5 @@
 Test data for Tony
 
-
-grep for display_status
-
 Internal review
 ===============
 
@@ -20,12 +17,10 @@ Awaiting internal review overdue state?
 Search for text "internal review" in followups and add warning if they aren't
 using the internal review mode.
 
+Make the text of internal review have a bit that you have to edit.
 
 Next
 ====
-
-When writing initial request you have to put your name in the letter to sign it,
-but it only explains later about anonymous names, Hmmm.
 
 Rename show_response action to send followup?
 
@@ -43,11 +38,6 @@ Make it so you definitely don't get alert for the annotation that you just made
 
 The Issue document here doesn't load - need to decect word docs from file content.
     http://www.whatdotheyknow.com/request/monitoring_of_foi_internal_revie
-Maybe use mahoro-ruby - add that to config/packages
-        require 'mahoro'
-        @m = Mahoro.new
-        @m.flags = Mahoro::MIME
-        @m.buffer(File.read('mahoro.c'))
 
 Performance:
     Remove loading of public body tags from every info request load
@@ -102,6 +92,10 @@ set to not_apply or "" that it deals with it better :)
 
 I still type stuff into notes rather than comments on public body form - not
 sure what to do about it.
+
+When writing initial request you have to put your name in the letter to sign it,
+but it only explains later about anonymous names, Hmmm.
+
 
 Later
 =====

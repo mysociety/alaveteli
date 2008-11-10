@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.138 2008-11-07 16:52:30 francis Exp $
+# $Id: request_controller.rb,v 1.139 2008-11-10 18:08:29 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -432,6 +432,9 @@ class RequestController < ApplicationController
 
         response.content_type = 'application/octet-stream'
         if !@attachment.content_type.nil?
+            # Hmm, this is a bit rubbish as when cached won't cache the content
+            # type. We try to overcome it by setting the file extension right
+            # in FOIAttachment.
             response.content_type = @attachment.content_type
         end
         render :text => @attachment.body

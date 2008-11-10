@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.165 2008-11-05 13:53:25 francis Exp $
+# $Id: incoming_message.rb,v 1.166 2008-11-10 18:08:30 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -28,6 +28,7 @@
 require 'htmlentities'
 require 'rexml/document'
 require 'zip/zip'
+require 'mahoro'
 
 module TMail
     class Mail
@@ -106,9 +107,33 @@ $file_extension_to_mime_type = {
 # one when you need it
 $file_extension_to_mime_type_rev = $file_extension_to_mime_type.invert
 
+# Given file name and its content, return most likely type
+def filename_and_content_to_mimetype(filename, content)
+    # Try filename
+    ret = filename_to_mimetype(filename)
+    if !ret.nil?
+        return ret
+    end
+
+    # Otherwise look inside the file to work out the type.
+    # Mahoro is a Ruby binding for libmagic.
+    m = Mahoro.new(Mahoro::MIME)
+    mahoro_type = m.buffer(content)
+    #STDERR.puts("mahoro", mahoro_type, "xxxok")
+    if mahoro_type.nil?
+        return nil
+    end
+    # text/plain types sometimes come with a charset
+    mahoro_type.match(/^(.*);/)
+    if $1
+        return $1
+    end
+    return mahoro_type
+end
+
 # XXX clearly this shouldn't be a global function, or the above global vars.
 def filename_to_mimetype(filename)
-    if not filename
+    if !filename
         return nil
     end
     if filename.match(/\.([^.]+)$/i)
@@ -126,6 +151,24 @@ def mimetype_to_extension(mime)
     end
     return nil
 end
+
+def normalise_content_type(content_type)
+    # e.g. http://www.whatdotheyknow.com/request/93/response/250
+    if content_type == 'application/msexcel' or content_type == 'application/x-ms-excel'
+        content_type = 'application/vnd.ms-excel'
+    end
+    if content_type == 'application/mspowerpoint' or content_type == 'application/x-ms-powerpoint'
+        content_type = 'application/vnd.ms-powerpoint' 
+    end
+    if content_type == 'application/msword' or content_type == 'application/x-ms-word'
+        content_type = 'application/vnd.ms-word'
+    end
+    if content_type == 'application/x-zip-compressed'
+        content_type = 'application/zip'
+    end
+
+    return content_type
+end
  
 # This is the type which is used to send data about attachments to the view
 class FOIAttachment
@@ -136,14 +179,19 @@ class FOIAttachment
     attr_accessor :within_rfc822_subject # we use the subject as the filename for email attachments
 
     def display_filename
+        calc_ext = mimetype_to_extension(@content_type)
+
         if @filename 
-            @filename
+            # Put right extension on if missing
+            if !@filename.match(/\.#{calc_ext}$/) && calc_ext
+                @filename + "." + calc_ext
+            else
+                @filename
+            end
         else
-            calc_ext = mimetype_to_extension(@content_type)
-            if not calc_ext
+            if !calc_ext
                 calc_ext = "bin"
             end
-
             if @within_rfc822_subject
                 @within_rfc822_subject + "." + calc_ext
             else
@@ -512,24 +560,15 @@ class IncomingMessage < ActiveRecord::Base
             end
             # PDFs often come with this mime type, fix it up for view code
             if curr_mail.content_type == 'application/octet-stream'
-                calc_mime = filename_to_mimetype(TMail::Mail.get_part_file_name(curr_mail))
+                calc_mime = filename_and_content_to_mimetype(TMail::Mail.get_part_file_name(curr_mail), curr_mail.body)
                 if calc_mime
                     curr_mail.content_type = calc_mime
                 end
             end 
-            # e.g. http://www.whatdotheyknow.com/request/93/response/250
-            if curr_mail.content_type == 'application/msexcel' or curr_mail.content_type == 'application/x-ms-excel'
-                curr_mail.content_type = 'application/vnd.ms-excel'
-            end
-            if curr_mail.content_type == 'application/mspowerpoint' or curr_mail.content_type == 'application/x-ms-powerpoint'
-                curr_mail.content_type = 'application/vnd.ms-powerpoint' 
-            end
-            if curr_mail.content_type == 'application/msword' or curr_mail.content_type == 'application/x-ms-word'
-                curr_mail.content_type = 'application/vnd.ms-word'
-            end
-            if curr_mail.content_type == 'application/x-zip-compressed'
-                curr_mail.content_type = 'application/zip'
-            end
+
+            # Use standard content types for Word documents etc.
+            curr_mail.content_type = normalise_content_type(curr_mail.content_type)
+
             # If the part is an attachment of email in text form
             if curr_mail.content_type == 'message/rfc822'
                 ensure_parts_counted # fills in rfc822_attachment variable
@@ -678,8 +717,9 @@ class IncomingMessage < ActiveRecord::Base
             attachment = FOIAttachment.new()
             attachment.body = content
             attachment.filename = self.info_request.apply_censor_rules_to_text(uu.match(/^begin\s+[0-9]+\s+(.*)$/)[1])
-            calc_mime = filename_to_mimetype(attachment.filename)
+            calc_mime = filename_and_content_to_mimetype(attachment.filename, attachment.body)
             if calc_mime
+                calc_mime = normalise_content_type(calc_mime)
                 attachment.content_type = calc_mime
             else
                 attachment.content_type = 'application/octet-stream'
