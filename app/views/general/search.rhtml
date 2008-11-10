@@ -109,8 +109,8 @@
     <li>Enter words that you want to find separated by spaces, e.g. <strong><%=search_link('climbing lane')%></strong></li>
     <li>Use OR (in capital letters) where you don't mind which word,  e.g. <strong><%=search_link('commons OR lords')%></strong>
     <li>Use quotes when you want to find an exact phrase, e.g. <strong><%=search_link('"Liverpool City Council"')%></strong>
-    <li><strong>variety:</strong> to select type of thing to search for, see the <a href="#varieties">table of varieties</a> below.
     <li><strong>status:</strong> to select based on the status or historical status of the request, see the <a href="#statuses">table of statuses</a> below.
+    <li><strong>variety:</strong> to select type of thing to search for, see the <a href="#varieties">table of varieties</a> below.
     <li><strong><%=search_link('requested_from:home_office')%></strong> to search requests from the <%= link_to "Home Office", show_public_body_url(:url_name => 'home_office') %>, typing the name as in the URL.
     <li><strong><%=search_link('requested_by:julian_todd')%></strong> to search requests made by <%= link_to "Julian Todd", show_user_url(:url_name => 'julian_todd') %>, typing the name as in the URL.
     <li><strong><%=search_link('commented_by:tony_bowden')%></strong> to search annotations made by <%= link_to "Tony Bowden", show_user_url(:url_name => 'tony_bowden') %>, typing the name as in the URL.
@@ -119,17 +119,6 @@
     <li>Type <strong><%=search_link('01/01/2008..14/01/2008')%></strong> to only show things that happened in the first two weeks of January.
     <li>Read about <a href="http://www.xapian.org/docs/queryparser.html">advanced search operators</a>, such as proximity and wildcards.
     </ul>
-
-    <h2 id="varieties">Table of varieties</h2>
-
-    <table class="status_table">
-        <tr><td><strong><%=search_link('variety:sent')%></strong></td><td> Original request sent</td></tr>
-        <tr><td><strong><%=search_link('variety:followup_sent')%></strong></td><td> Follow up message sent by requester</td></tr>
-        <tr><td><strong><%=search_link('variety:response')%></strong></td><td> Response from a public authority </td></tr>
-        <tr><td><strong><%=search_link('variety:comment')%></strong></td><td> Annotation added to request</td></tr>
-        <tr><td><strong><%=search_link('variety:authority')%></strong></td><td> A public authority </td></tr>
-        <tr><td><strong><%=search_link('variety:user')%></strong></td><td> A WhatDoTheyKnow user </td></tr>
-    </table>
 
     <h2 id="statuses">Table of statuses</h2>
 
@@ -144,4 +133,16 @@
         <tr><td><strong><%=search_link('status:internal_review')%></strong></td><td> Waiting for the public authority to complete an internal review of their handling of the request</td></tr>
         <tr><td><strong><%=search_link('status:requires_admin')%></strong></td><td> A strange reponse, required attention by the WhatDoTheyKnow team </td></tr>
     </table>
+
+    <h2 id="varieties">Table of varieties</h2>
+
+    <table class="status_table">
+        <tr><td><strong><%=search_link('variety:sent')%></strong></td><td> Original request sent</td></tr>
+        <tr><td><strong><%=search_link('variety:followup_sent')%></strong></td><td> Follow up message sent by requester</td></tr>
+        <tr><td><strong><%=search_link('variety:response')%></strong></td><td> Response from a public authority </td></tr>
+        <tr><td><strong><%=search_link('variety:comment')%></strong></td><td> Annotation added to request</td></tr>
+        <tr><td><strong><%=search_link('variety:authority')%></strong></td><td> A public authority </td></tr>
+        <tr><td><strong><%=search_link('variety:user')%></strong></td><td> A WhatDoTheyKnow user </td></tr>
+    </table>
+
 <% end %>
