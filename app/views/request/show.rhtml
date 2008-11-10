@@ -70,7 +70,7 @@
     <% elsif @status == 'waiting_response_overdue' %>
         Currently <strong>overdue a response</strong> from <%=
         public_body_link(@info_request.public_body) %>. By law,
-        the response had to be
+        the response had to be prompt and
         <%= link_to "no later", about_url + "#quickly_response" %>
         than <strong><%= simple_date(@info_request.date_response_required_by) %></strong>.
 

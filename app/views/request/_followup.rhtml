@@ -30,7 +30,7 @@
         <% if @info_request.calculate_status == 'waiting_response_overdue' %>
             <p>This request is currently <strong>overdue a response</strong> from <%=
             public_body_link(@info_request.public_body) %>. 
-            By law, the response had to be made no later than
+            By law, the response had to be made promptly and no later than
             <strong><%= simple_date(@info_request.date_response_required_by) %></strong>
             (<%= link_to "more info", about_url + "#quickly_response" %>). You can say
             that under the <%=h(@info_request.law_used_act)%> they should have replied by now,
