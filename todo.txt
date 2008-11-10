@@ -29,11 +29,6 @@ Let people change status at any point
 
 Let admin users set things to internal review easily
 
-Make green box more visible when click reminder email link
-Check new wording in reminder email looks good
-Make the second and third reminder email for new responses go to the green bit
-Remove login link from first email
-
 Make it so you definitely don't get alert for the annotation that you just made
 
 The Issue document here doesn't load - need to decect word docs from file content.
@@ -97,8 +92,15 @@ When writing initial request you have to put your name in the letter to sign it,
 but it only explains later about anonymous names, Hmmm.
 
 
+
 Later
 =====
+
+Should probably remove the weekend rule, and be sterner with authorities about
+what "received" means. See thread about staff_numbers_and_costs on team@ ad
+these two requests:
+http://www.whatdotheyknow.com/request/staff_numbers_and_costs
+http://www.whatdotheyknow.com/request/policy_regarding_body_scans#incoming-1100
 
 Show similar requests after you have filed yours - maybe on preview too.
 

@@ -1,7 +1,7 @@
 <% @title = h(@info_request.title) %>
 
 <% if @info_request.awaiting_description || @requires_admin_describe %>
-    <div class="describe_state_form">
+    <div class="describe_state_form" id="describe_state_form_1">
     <%= render :partial => 'describe_state', :locals => { :id_suffix => "1" } %>
     </div>
 <% end %>
@@ -117,7 +117,7 @@
     <% end %>
 
     <% if @info_request.awaiting_description %>
-        <div class="describe_state_form">
+        <div class="describe_state_form" id="describe_state_form_2">
         <%= render :partial => 'describe_state', :locals => { :id_suffix => "2" } %>
         </div>
     <% end %>

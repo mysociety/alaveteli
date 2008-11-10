@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.65 2008-11-07 02:57:56 francis Exp $
+# $Id: request_mailer.rb,v 1.66 2008-11-10 20:05:28 francis Exp $
 
 class RequestMailer < ApplicationMailer
     
@@ -112,11 +112,9 @@ class RequestMailer < ApplicationMailer
 
     # Tell the requester that a new response has arrived
     def new_response(info_request, incoming_message)
-        post_redirect = PostRedirect.new(
-            :uri => main_url(incoming_message_url(incoming_message)),
-            :user_id => info_request.user.id)
-        post_redirect.save!
-        url = confirm_url(:email_token => post_redirect.email_token)
+        # Don't use login link here, just send actual URL. This is
+        # because people tend to forward these emails amongst themselves.
+        url = main_url(incoming_message_url(incoming_message))
 
         @from = contact_from_name_and_email
         @recipients = info_request.user.name_and_email
@@ -143,8 +141,10 @@ class RequestMailer < ApplicationMailer
     # Tell the requester that they need to say if the new response
     # contains info or not
     def new_response_reminder_alert(info_request, incoming_message)
+        # Make a link going to the form to describe state, and which logs the
+        # user in.
         post_redirect = PostRedirect.new(
-            :uri => main_url(incoming_message_url(incoming_message)),
+            :uri => main_url(request_url(info_request)) + "#describe_state_form_1",
             :user_id => info_request.user.id)
         post_redirect.save!
         url = confirm_url(:email_token => post_redirect.email_token)

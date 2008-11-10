@@ -16,6 +16,7 @@ describe RequestMailer, " when receiving incoming mail" do
 
         deliveries = ActionMailer::Base.deliveries
         deliveries.size.should == 1
+        mail = deliveries[0]
         deliveries.clear
     end
     
