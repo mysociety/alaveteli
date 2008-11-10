@@ -34,11 +34,7 @@ end %>
             by <%= user_link(info_request.user) %>
             on <%= simple_date(event.created_at) %>.
         <% elsif event.event_type == 'response' %>
-            <% if event.calculated_state.nil? %>
-                Response 
-            <% else %>
-                <%=event.display_status %>
-            <% end %>
+            <%=event.display_status %>
             by <%= public_body_link(info_request.public_body) %>
             to <%= user_link(info_request.user) %>
             on <%= simple_date(event.created_at) %>.

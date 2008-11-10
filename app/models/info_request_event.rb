@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request_event.rb,v 1.68 2008-11-10 11:18:39 francis Exp $
+# $Id: info_request_event.rb,v 1.69 2008-11-10 11:25:43 francis Exp $
 
 class InfoRequestEvent < ActiveRecord::Base
     belongs_to :info_request
@@ -196,26 +196,29 @@ class InfoRequestEvent < ActiveRecord::Base
     def display_status
         if !incoming_message.nil?
             status = self.calculated_state
-            if status == 'waiting_response'
-                return "Acknowledgement"
-            elsif status == 'waiting_clarification'
-                return "Clarification required"
-            elsif status == 'gone_postal'
-                return "Handled by post"
-            elsif status == 'not_held'
-                return "Information not held"
-            elsif status == 'rejected'
-                return "Rejection"
-            elsif status == 'partially_successful'
-                return "Some information sent"
-            elsif status == 'successful'
-                return "All information sent"
-            elsif status == 'internal_review'
-                return "Internal review acknowledgement"
-            elsif status == 'requires_admin'
-                return "Unusual response"
+            if !status.nil?
+                if status == 'waiting_response'
+                    return "Acknowledgement"
+                elsif status == 'waiting_clarification'
+                    return "Clarification required"
+                elsif status == 'gone_postal'
+                    return "Handled by post"
+                elsif status == 'not_held'
+                    return "Information not held"
+                elsif status == 'rejected'
+                    return "Rejection"
+                elsif status == 'partially_successful'
+                    return "Some information sent"
+                elsif status == 'successful'
+                    return "All information sent"
+                elsif status == 'internal_review'
+                    return "Internal review acknowledgement"
+                elsif status == 'requires_admin'
+                    return "Unusual response"
+                end
+                raise "unknown status " + status
             end
-            raise "unknown status " + status
+            return "Response"
         end
 
         if !outgoing_message.nil?
@@ -232,7 +235,7 @@ class InfoRequestEvent < ActiveRecord::Base
             return "Follow up"
         end
 
-    raise "display_status only works for incoming and outgoing messages right now"
+        raise "display_status only works for incoming and outgoing messages right now"
     end
 
     def is_sent_sort?
