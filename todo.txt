@@ -1,15 +1,21 @@
 Test data for Tony
 
+
+grep for display_status
+
 Internal review
 ===============
 
-If you've already conducted an internal review, at all places offer
-link through to ICO submitting help page instead.
-
+If you've already conducted an internal review, at all places 
+- when on unhappy/url
+- when on not held link
+- on the page for the request
+don't offer it again.
 
 Clock for internal review
 "The internal review should take 2-3 weeks for simple cases, and up to 6 weeks
 even for complex reviews."
+Awaiting internal review overdue state?
 
 Search for text "internal review" in followups and add warning if they aren't
 using the internal review mode.
@@ -17,6 +23,9 @@ using the internal review mode.
 
 Next
 ====
+
+When writing initial request you have to put your name in the letter to sign it,
+but it only explains later about anonymous names, Hmmm.
 
 Rename show_response action to send followup?
 
@@ -47,33 +56,14 @@ Performance:
 
 Upload Julian's large Cambridgeshire contract
 
-Internal review status/marker?
-    Quote section 38 as per Julian's request
-    http://www.whatdotheyknow.com/request/search_engine_advertising_bought
+Watch these requests that are in internal review state or have been:
     http://www.whatdotheyknow.com/request/communications_from_home_office
-    http://www.whatdotheyknow.com/request/crime_investigation_following_al
-    http://www.whatdotheyknow.com/request/determination_of_pricing_for_pro#incoming-2902
     http://www.whatdotheyknow.com/request/community_justice_centre_sentenc
-    http://www.whatdotheyknow.com/request/contracts_establishing_impact_pa
-    my own veolia request
-    http://www.whatdotheyknow.com/request/online_petitions_documents_from
-    http://www.whatdotheyknow.com/request/ombudsmans_case_load#comment-21
-    (search for phrase "internal review"!)
-Remember - internal reviews can be *aborted* if they just send the response :)
 
-Awaiting internal review overdue state?
-
-Request withdrawn by user status/marker?
-
-- When you say rejected and go to /help/unhappy should have link to 
-do internal review.
-- When people say still waiting, give link to unhappy if it is late? Or put
-link on page when it is late?
-
+Gone to information commissioner
+    http://www.whatdotheyknow.com/request/local_government_ombudsman_2 - appeal to infocom
+    http://www.whatdotheyknow.com/request/please_submit_the_surveyors_repo
 Clear out all the need admin attention requests
-Link to view raw email from the main page when you are super user logged in
-
-Show similar requests after you have filed yours - maybe on preview too.
 
 Add "I have a large file" to FOI office FAQ
 Add "Who should I make my request to?"
@@ -83,7 +73,8 @@ Add "Postal replies stuff" and link to from FOI officer upload page
 Add "I'm not sure which authority to make my request to" - make flow better after first section, to abrupt now
 Policy on officer names.
 
-CSS things
+CSS / design things
+    - Icon for internal_review
     - CSS error on "all councils" page on some browsers
         https://bugzilla.mozilla.org/show_bug.cgi?id=424194
     - Spacing on error boxes round form elements
@@ -106,8 +97,16 @@ http://www.whatdotheyknow.com/request/recycling_levels_in_the_winchest
 
 Include log files from exim in admin interface for each request
 
+Would be nice if you try and send or resend and original address is
+set to not_apply or "" that it deals with it better :)
+
+I still type stuff into notes rather than comments on public body form - not
+sure what to do about it.
+
 Later
 =====
+
+Show similar requests after you have filed yours - maybe on preview too.
 
 Consider putting the request email address in footer? So when
 forwarded about, address sticks there.
@@ -119,6 +118,10 @@ They are copy protected PDFs. The code in the incoming_message model tries to fi
 that by converting them to ps and back, but the content is getting lost when doing, not
 sure why. Perhaps instead patch poppler-utils so pdftohtml doesn't respect protection
 either (code in pdftotext already has a #ifdef round it)
+Another one knackered, and isn't copy protected, but is like the output of
+converted via pdf2ps ones I suspect (i.e. very scanned):
+    http://www.whatdotheyknow.com/request/sale_of_public_land#incoming-8146
+File a bug in pdftohtml :)
 
 Can use track count to show interesting requests
 select info_request_id, title, count(*) as c from track_things, info_requests where track_things.info_request_id is not null and track_things.info_request_id = info_requests.id group by info_request_id, title order by c;
@@ -296,6 +299,7 @@ Quoting fixing TODO:
 
     http://www.whatdotheyknow.com/request/function_council_88#incoming-6258
     http://www.whatdotheyknow.com/request/please_submit_the_surveyors_repo#incoming-6334 # charset
+    http://www.whatdotheyknow.com/request/archive_record#incoming-7514 # charset
 
     http://www.whatdotheyknow.com/request/enforcement_forders_for_replacin#incoming-6277 # over zealous quoting
     http://www.whatdotheyknow.com/request/renewable_energy_consumption_by # over zealous

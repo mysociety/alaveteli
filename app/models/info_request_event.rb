@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request_event.rb,v 1.67 2008-11-06 14:53:07 francis Exp $
+# $Id: info_request_event.rb,v 1.68 2008-11-10 11:18:39 francis Exp $
 
 class InfoRequestEvent < ActiveRecord::Base
     belongs_to :info_request
@@ -194,31 +194,45 @@ class InfoRequestEvent < ActiveRecord::Base
 
     # Display version of status
     def display_status
-        if incoming_message.nil?
-            raise "display_status only works for incoming messages right now"
-        end
-        status = self.calculated_state
-        if status == 'waiting_response'
-            "Acknowledgement"
-        elsif status == 'waiting_clarification'
-            "Clarification required"
-        elsif status == 'gone_postal'
-            "Handled by post"
-        elsif status == 'not_held'
-            "Information not held"
-        elsif status == 'rejected'
-            "Rejection"
-        elsif status == 'partially_successful'
-            "Some information sent"
-        elsif status == 'successful'
-            "All information sent"
-        elsif status == 'internal_review'
-            "Internal review acknowledgement"
-        elsif status == 'requires_admin'
-            "Unusual response"
-        else
+        if !incoming_message.nil?
+            status = self.calculated_state
+            if status == 'waiting_response'
+                return "Acknowledgement"
+            elsif status == 'waiting_clarification'
+                return "Clarification required"
+            elsif status == 'gone_postal'
+                return "Handled by post"
+            elsif status == 'not_held'
+                return "Information not held"
+            elsif status == 'rejected'
+                return "Rejection"
+            elsif status == 'partially_successful'
+                return "Some information sent"
+            elsif status == 'successful'
+                return "All information sent"
+            elsif status == 'internal_review'
+                return "Internal review acknowledgement"
+            elsif status == 'requires_admin'
+                return "Unusual response"
+            end
             raise "unknown status " + status
         end
+
+        if !outgoing_message.nil?
+            status = self.calculated_state
+            if !status.nil?
+                if status == 'internal_review'
+                    return "Internal review request"
+                end
+                if status == 'waiting_response'
+                    return "Clarification"
+                end
+                raise "unknown status " + status
+            end
+            return "Follow up"
+        end
+
+    raise "display_status only works for incoming and outgoing messages right now"
     end
 
     def is_sent_sort?

@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.153 2008-11-07 00:01:50 francis Exp $
+# $Id: info_request.rb,v 1.154 2008-11-10 11:18:39 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -372,7 +372,7 @@ public
     def calculate_event_states
         curr_state = nil
         for event in self.info_request_events.reverse
-            if not event.described_state.nil? and curr_state.nil?
+            if !event.described_state.nil? && curr_state.nil?
                 curr_state = event.described_state
                 #STDERR.puts "curr_state " + curr_state
             end
@@ -389,10 +389,20 @@ public
                 end
                 curr_state = nil
             elsif !curr_state.nil? && event.event_type == 'followup_sent' && !event.described_state.nil? && (event.described_state == 'waiting_response' || event.described_state == 'internal_review')
-                # followups can set the status to waiting response / internal
-                # review, which we don't want to propogate to the response
-                # itself, as that might already be set to waiting_clarification
-                # / a success status, which we want to know about.
+                # Followups can set the status to waiting response / internal
+                # review. 
+               
+                # We want to store that in calculated_state state so it gets
+                # indexed.
+                if event.calculated_state != event.described_state
+                    event.calculated_state = event.described_state
+                    event.last_described_at = Time.now()
+                    event.save!
+                end
+
+                # And we don't want to propogate it to the response itself,
+                # as that might already be set to waiting_clarification / a
+                # success status, which we want to know about.
                 curr_state = nil
             end
         end

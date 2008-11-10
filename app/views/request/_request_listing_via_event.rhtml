@@ -29,7 +29,8 @@ end %>
             by <%= user_link(info_request.user) %>
             on <%= simple_date(event.created_at) %>.
         <% elsif event.event_type == 'followup_sent' %>
-            Follow up sent to <%= public_body_link(info_request.public_body) %>
+            <%=event.display_status %>
+            sent to <%= public_body_link(info_request.public_body) %>
             by <%= user_link(info_request.user) %>
             on <%= simple_date(event.created_at) %>.
         <% elsif event.event_type == 'response' %>
