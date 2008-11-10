@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.166 2008-11-10 18:08:30 francis Exp $
+# $Id: incoming_message.rb,v 1.167 2008-11-10 18:18:30 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -608,14 +608,8 @@ class IncomingMessage < ActiveRecord::Base
             text = main_part.body
             text_charset = main_part.charset
             if main_part.content_type == 'text/html'
-                # XXX could use better HTML to text conversion than this!
-                # (it only matters for emails without a text part, so not a massive deal
-                # e.g. http://www.whatdotheyknow.com/request/35/response/177 )
-                text.gsub!(/<br[^>]+>/, "\n")
-                text.gsub!(/<p[^>]+>/, "\n\n")
-                text.gsub!(/<div[^>]+>/, "\n\n")
-                text.gsub!(/<\/?[^>]*>/, "")
-                text = HTMLEntities.decode_entities(text)
+                # e.g. http://www.whatdotheyknow.com/request/35/response/177
+                text = IncomingMessage.get_attachment_text_internal_one_file(main_part.content_type, text)
             end
         end
 
@@ -864,7 +858,7 @@ class IncomingMessage < ActiveRecord::Base
                     text += child.read() + "\n\n"
                 end
             elsif content_type == 'text/html'
-                IO.popen("/usr/bin/lynx -force_html -dump " + tempfile.path, "r") do |child|
+                IO.popen("/usr/bin/lynx -display_charset=UTF-8 -force_html -dump " + tempfile.path, "r") do |child|
                     text += child.read() + "\n\n"
                 end
             elsif content_type == 'application/vnd.ms-excel'
