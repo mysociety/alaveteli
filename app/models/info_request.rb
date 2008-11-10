@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.154 2008-11-10 11:18:39 francis Exp $
+# $Id: info_request.rb,v 1.155 2008-11-10 13:31:48 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -463,7 +463,7 @@ public
         # working days is the next day. We return the date of the last of the twenty.
         #
         # * See this response for example of a public authority complaining when we got
-        # that detail wrong: http://www.whatdotheyknow.com/request/364/response/1100
+        # that detail wrong: http://www.whatdotheyknow.com/request/policy_regarding_body_scans#incoming-1100
        
         # We have to skip non-working days at start to find day zero, so start at
         # day -1 and at yesterday, so we can do that.
