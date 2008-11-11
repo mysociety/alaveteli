@@ -17,7 +17,15 @@
     </div>
     <div class="act_link">
         <%= link_to '<img src="/images/pledgebank.png" alt="" class="rss">', "http://www.pledgebank.com"%> 
-        <%= link_to 'Join others with a pledge', "http://www.pledgebank.com"%>
+        <%= link_to 'Pledge with others', "http://www.pledgebank.com"%>
+    </div>
+    <div class="act_link">
+        <%= link_to '<img src="/images/petitions.png" alt="" class="rss">', "http://petitions.number10.gov.uk"%> 
+        <%= link_to 'Petition the PM', "http://petitions.number10.gov.uk"%>
+    </div>
+    <div class="act_link">
+        <%= link_to '<img src="/images/wordpress.png" alt="" class="rss">', "http://wordpress.com/"%> 
+        <%= link_to 'Start your own blog', "http://wordpress.com/"%>
     </div>
 
     <% if !@xapian_similar.nil? && @xapian_similar.results.size > 0 %>
