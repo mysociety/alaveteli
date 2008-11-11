@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.139 2008-11-10 18:08:29 francis Exp $
+# $Id: request_controller.rb,v 1.140 2008-11-11 13:59:26 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -199,7 +199,11 @@ class RequestController < ApplicationController
             @info_request.save!
             # XXX send_message needs the database id, so we send after saving, which isn't ideal if the request broke here.
             @outgoing_message.send_message
-            flash[:notice] = "Your " + @info_request.law_used_full + " request has been created and sent on its way!"
+            flash[:notice] = "<p>Your " + @info_request.law_used_full + " request has been <strong>sent on its way</strong>!</p>
+                <p><strong>We will email you</strong> when there is a response, or after 20 working days if the authority still hasn't
+                replied by then.</p>
+                <p>If you write about this request (for example in a forum or a blog) please link to this page, and add an 
+                annotation below telling people about your writing.</p>"
             redirect_to request_url(@info_request)
         else
             # do nothing - as "authenticated?" has done the redirect to signin page for us

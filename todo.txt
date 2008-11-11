@@ -10,8 +10,16 @@ If you've already conducted an internal review, at all places
 don't offer it again.
 
 Clock for internal review
-"The internal review should take 2-3 weeks for simple cases, and up to 6 weeks
-even for complex reviews."
+    The Information Commissioner has issued a "Good Practice Guidance" document:
+    http://www.ico.gov.uk/upload/documents/library/freedom_of_information/detailed_specialist_guides/foi_good_practice_guidance_5.pdf
+    Reviews are meant to be carried out "as quickly as possible", and they
+    suggest 20 working days as a reasonable limit. In exceptional cases they
+    accept it may take longer, but recommend informing the requester in such
+    a case as to why. They do not believe it should ever take longer than 40
+    days.
+Fix up the text: "The internal review should take 2-3 weeks for simple cases,
+and up to 6 weeks even for complex reviews."
+
 Awaiting internal review overdue state?
 
 Search for text "internal review" in followups and add warning if they aren't
@@ -54,6 +62,7 @@ CSS / design things
     - icons for "Things to do with this request" ?
     - Improve CSS on IE7 for large images in docs
         http://www.whatdotheyknow.com/request/3289/response/7810/attach/html/3/20081023ReplyLetter.pdf.html
+    - "fugly" (search email archive) in IE6/XP, Alex Skene can find it
 
 Write code to make sure the Return-Path is never foi@sandwich.org.uk (even if the
   Rails code breaks for Sendmail case in future botched Rails upgrades :)
@@ -86,6 +95,8 @@ Add "I want to file squillions of requests"
 Add "I didn't get the email / spam question" and link to from FOI officer upload page
 Add "Postal replies stuff" and link to from FOI officer upload page
 Add "I'm not sure which authority to make my request to" - make flow better after first section, to abrupt now
+I think the advice in this annotation could go into a nice comment:
+http://www.whatdotheyknow.com/request/berr_response_to_eu_on_phorm_bt#comment-356
 
 Link the overdue date to an explanation of what bank holidays it skipped etc.
 :)
