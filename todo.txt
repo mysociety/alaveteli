@@ -22,22 +22,18 @@ Make the text of internal review have a bit that you have to edit.
 Next
 ====
 
-Rename show_response action to send followup?
-
+For followups, have radio button to say is it a new request or followup?
 Finish "new information" option when writing followup, so makes new request
-Let people change status at any point
 
-Let admin users set things to internal review easily
+Let people change status at any point
+Let admin users set things to internal review more easily
 
 Make it so you definitely don't get alert for the annotation that you just made
 
-The Issue document here doesn't load - need to decect word docs from file content.
-    http://www.whatdotheyknow.com/request/monitoring_of_foi_internal_revie
-
 Performance:
     Remove loading of public body tags from every info request load
-    Completed in 15.53564 (0 reqs/sec) | Rendering: 1.03024 (6%) | DB: 14.46186 (93%) | 200 OK [http://www.whatdotheyknow.com/body/list/n]
-    Make it not single threaded
+        Completed in 15.53564 (0 reqs/sec) | Rendering: 1.03024 (6%) | DB: 14.46186 (93%) | 200 OK [http://www.whatdotheyknow.com/body/list/n]
+    Make mongrel not single threaded
 
 Upload Julian's large Cambridgeshire contract
 
@@ -49,14 +45,6 @@ Gone to information commissioner
     http://www.whatdotheyknow.com/request/local_government_ombudsman_2 - appeal to infocom
     http://www.whatdotheyknow.com/request/please_submit_the_surveyors_repo
 Clear out all the need admin attention requests
-
-Add "I have a large file" to FOI office FAQ
-Add "Who should I make my request to?"
-Add "I want to file squillions of requests"
-Add "I didn't get the email / spam question" and link to from FOI officer upload page
-Add "Postal replies stuff" and link to from FOI officer upload page
-Add "I'm not sure which authority to make my request to" - make flow better after first section, to abrupt now
-Policy on officer names.
 
 CSS / design things
     - Icon for internal_review
@@ -70,21 +58,6 @@ CSS / design things
 Write code to make sure the Return-Path is never foi@sandwich.org.uk (even if the
   Rails code breaks for Sendmail case in future botched Rails upgrades :)
 
-Make the search link to the top of the page for requests
-    -- or at least for successful responses
-
-Make HTML attachments have view as HTML :)
-http://www.whatdotheyknow.com/request/enforced_medication#incoming-7395
-
-This one has wrong title when viewed as HTML "private patients". Perhaps
-should use attachment filename for title instead?
-http://www.whatdotheyknow.com/request/recycling_levels_in_the_winchest
-
-Include log files from exim in admin interface for each request
-
-Would be nice if you try and send or resend and original address is
-set to not_apply or "" that it deals with it better :)
-
 I still type stuff into notes rather than comments on public body form - not
 sure what to do about it.
 
@@ -92,9 +65,30 @@ When writing initial request you have to put your name in the letter to sign it,
 but it only explains later about anonymous names, Hmmm.
 
 
-
 Later
 =====
+
+Rename show_response action to send_followup?
+
+Would be nice if you try and send or resend (from admin interface, or by sending
+followup as user) and original address is set to not_apply or "" that it deals
+with it better :) 
+
+Include log files from exim in admin interface for each request
+
+When doing search, people often just want it to show the whole page. Perhaps
+all listing should just link to top of page, rather than # links for outgoing
+incoming, or perhaps just some of them.
+
+Add "I have a large file" to FOI office FAQ
+Add "Who should I make my request to?"
+Add "I want to file squillions of requests"
+Add "I didn't get the email / spam question" and link to from FOI officer upload page
+Add "Postal replies stuff" and link to from FOI officer upload page
+Add "I'm not sure which authority to make my request to" - make flow better after first section, to abrupt now
+
+Link the overdue date to an explanation of what bank holidays it skipped etc.
+:)
 
 Should probably remove the weekend rule, and be sterner with authorities about
 what "received" means. See thread about staff_numbers_and_costs on team@ ad
@@ -119,10 +113,15 @@ converted via pdf2ps ones I suspect (i.e. very scanned):
     http://www.whatdotheyknow.com/request/sale_of_public_land#incoming-8146
 File a bug in pdftohtml :)
 
+Make HTML attachments have view as HTML :)
+http://www.whatdotheyknow.com/request/enforced_medication#incoming-7395
+
 Can use track count to show interesting requests
 select info_request_id, title, count(*) as c from track_things, info_requests where track_things.info_request_id is not null and track_things.info_request_id = info_requests.id group by info_request_id, title order by c;
 
 Test code for FOI officer upload
+Test code for rendering lots of different attachments and filetypes
+Test code for internal review submitting
 
 Detect councils that always send automatic acknowledgements, and notice if they
 do not for a particular request? (e.g. Leicestershire County Council)
@@ -162,9 +161,6 @@ From an email, isn't stripping spaces right.
 Also should group by the request id for search queries (so all appear
 together when request and response mention same term)
 
-Link the overdue date to an explanation of what bank holidays it skipped etc.
-:)
-
 When indexing .docx do you need to index docProps/custom.xml and docProps/app.xml
 as well as word/document.xml ? (thread on xapian-discuss does so)
 
@@ -180,6 +176,9 @@ In sidebar of request
      Try using James Smith's plugin for this: http://github.com/Floppy/rubymarks/tree/master
     Email icon here: http://www.guardian.co.uk/news/video/2008/apr/03/mugabe
     Simple Digg style "I like this request" button 
+(Hmm, I'm not sure requests in and of themselves are popular enough things for this
+to matter to be honest, but maybe I'm wrong)
+
 Show list of popular tracks somewhere (finds most popular requests in a way)
 
 Advertise WDTK search queries on TWFY
@@ -189,6 +188,7 @@ Blog posts / Wikipedia articles about this request
     e.g. http://socialreporter.wordpress.com/2008/04/14/costs-of-the-bbc-action-action-network/
     http://reportr.net/2008/04/24/bbc-spent-6m-to-develop-the-iplayer/
 Or just look at referrers as Julian says
+Or just don't automate this, keep posting annotations manually.
 
 Catch query parser error, e.g. for this query
     water NOT NEAR "water lane"
@@ -218,18 +218,13 @@ Edits to outgoing/incoming/title won't be reindexed in Xapian (maybe just reinde
 This does it all:
 $ ./script/clear-incoming-text-cache ; ./script/rebuild-xapian-index
 
-Get Atom highlighting to include stylesheet for yellow somehow
-
-For followups, have radio button to say is it a new request or followup?
+Get Atom feed of search results to include stylesheet for highlighting words in
+yellow somehow
 
 Interface for when you change your email address - easier to do now with post_redirect.circumstance?
 
 Tell application developer if working days table not up to date, and needs
 updating
-
-Synthesise these tips into our handful of snappy snappy bullet points
-    http://community.foe.co.uk/tools/right_to_know/tips.html
-    http://www.justice.gov.uk/requestinginformation.htm
 
 (10:32:14) richard: you just need to count the number of rows of text and compare it to the number of rows in the textbox
 (10:32:29) richard: then increase the height of the textbox by 1em-ish
@@ -325,12 +320,6 @@ Rate limit requests using Ratty, with a freeze thing WTT-style, to detect
 vexatious requests.
 
 Editable user profile, including photo upload
-
-HTML versions of all attachments, so links like in GMail
-    Somthing.doc
-        20K   View as HTML   Open as a Google document   Download
-Maybe use Google API for the open in Google link. Not sure though.
-    http://code.google.com/apis/documents/developers_guide_python.html#UploadingDocs
 
 .tif files are hard for people to view as multi page, consider automatically
 separating out the pages as separate links (to .png files or whatever)
