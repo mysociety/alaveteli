@@ -24,7 +24,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.121 2008-11-05 18:19:46 francis Exp $
+# $Id: public_body.rb,v 1.122 2008-11-12 22:15:00 johncross Exp $
 
 require 'csv'
 require 'set'
@@ -54,7 +54,7 @@ class PublicBody < ActiveRecord::Base
                 [ "newdeal", "New Deal for Communities partnership", "a New Deal for Communities partnership" ],
             "Local and regional",
                 [ "local_council", "Local councils", "a local council" ],
-                [ "parish_council", "Parish councils", "a parish council"], 
+                [ "parish_council", "Town and Parish councils", "a town/parish council"], 
                 [ "housing_association", "Housing associations", "a housing association"],
                 [ "nsbody", "North/south bodies", "a north/south body"],
                 [ "pbo", "Professional buying organisations", "a professional buying organisation"],
