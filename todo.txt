@@ -43,8 +43,6 @@ Performance:
         Completed in 15.53564 (0 reqs/sec) | Rendering: 1.03024 (6%) | DB: 14.46186 (93%) | 200 OK [http://www.whatdotheyknow.com/body/list/n]
     Make mongrel not single threaded
 
-Upload Julian's large Cambridgeshire contract
-
 Watch these requests that are in internal review state or have been:
     http://www.whatdotheyknow.com/request/communications_from_home_office
     http://www.whatdotheyknow.com/request/community_justice_centre_sentenc
@@ -62,7 +60,6 @@ CSS / design things
     - icons for "Things to do with this request" ?
     - Improve CSS on IE7 for large images in docs
         http://www.whatdotheyknow.com/request/3289/response/7810/attach/html/3/20081023ReplyLetter.pdf.html
-    - "fugly" (search email archive) in IE6/XP, Alex Skene can find it
 
 Write code to make sure the Return-Path is never foi@sandwich.org.uk (even if the
   Rails code breaks for Sendmail case in future botched Rails upgrades :)
@@ -73,6 +70,7 @@ sure what to do about it.
 When writing initial request you have to put your name in the letter to sign it,
 but it only explains later about anonymous names, Hmmm.
 
+Remove "tracks by medium"
 
 Later
 =====
