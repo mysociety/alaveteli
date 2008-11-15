@@ -24,7 +24,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.122 2008-11-12 22:15:00 johncross Exp $
+# $Id: public_body.rb,v 1.123 2008-11-15 17:39:43 johncross Exp $
 
 require 'csv'
 require 'set'
@@ -56,6 +56,7 @@ class PublicBody < ActiveRecord::Base
                 [ "local_council", "Local councils", "a local council" ],
                 [ "parish_council", "Town and Parish councils", "a town/parish council"], 
                 [ "housing_association", "Housing associations", "a housing association"],
+                [ "municipal_bank", "Municipal bank", "a municipal bank"],
                 [ "nsbody", "North/south bodies", "a north/south body"],
                 [ "pbo", "Professional buying organisations", "a professional buying organisation"],
                 [ "regional_assembly", "Regional assemblies", "a regional assembly"], 
@@ -67,6 +68,7 @@ class PublicBody < ActiveRecord::Base
                 [ "durham_college", "Durham colleges", "a Durham college" ],
                 [ "oxford_college", "Oxford colleges", "an Oxford college or permanent private hall" ],
                 [ "york_college", "York colleges", "a college of the University of York" ],
+                [ "university_owned_company", "University owned companies", "a university owned company" ],
                 [ "hei", "Higher education institutions", "a higher educational institution" ],
                 [ "fei", "Further education institutions", "a further educational institution" ],
                 [ "research_council", "Research councils", "a research council" ],
