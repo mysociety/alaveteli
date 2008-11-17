@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.141 2008-11-17 18:33:04 francis Exp $
+# $Id: request_controller.rb,v 1.142 2008-11-17 18:34:40 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -277,8 +277,8 @@ class RequestController < ApplicationController
             flash[:notice] = "<p>Thank you! Here are some ideas on what to do next:</p>
             <ul>
             <li>To send your request to another authority, first copy the text of your request below, then <a href=\"/new\">find the other authority</a>.</li>
-            <li>If you would like to contest the authority's claim that they do not hold the information, 
-            <a href=\"" + CGI.escapeHTML(unhappy_url(@info_request)) + "\">request an internal review</a>.
+            <li>If you would like to contest the authority's claim that they do not hold the information, here is 
+            <a href=\"" + CGI.escapeHTML(unhappy_url(@info_request)) + "\">how to complain</a>.
             </li>
             <li>We have <a href=\"" + CGI.escapeHTML(unhappy_url(@info_request)) + "#other_means\">suggestions</a>
             on other means to answer your question.
