@@ -1,0 +1,32 @@
+Mongrel process title plugin
+============================
+
+This is a simple plugin for Rails which changes Mongrel's process title to reflect what it's currently doing. You can then determine a given Mongrel server's status using "ps". For example:
+
+  mongrel_rails [10010/2/358]: handling 127.0.0.1: HEAD /feed/calendar/global/91/6de4
+                 |     | |     |        |          |
+                 |     | |     |        |          The current request (method and path)
+                 |     | |     |        |
+                 |     | |     |        The client IP
+                 |     | |     |
+                 |     | |     What it's doing
+                 |     | |     
+                 |     | The number of requests processed during the server's lifetime
+                 |     |
+                 |     The number of requests currently queued/being processed concurrently
+                 |
+                 The port that Mongrel is serving
+
+
+Installing into a Rails Mongrel app
+-----------------------------------
+
+Nothing special. Just drop the plugin in vendor/plugins.
+
+
+Installing into a non-Rails Mongrel app
+---------------------------------------
+
+Just require the module during startup:
+
+  require "mongrel_proctitle"
