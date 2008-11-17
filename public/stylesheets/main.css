@@ -318,6 +318,10 @@ dd { margin: 0.6em 0 2em 4em; width: 33em; }
     text-align: center;
     clear: both;
 }
+#frontpage_examples h2 {
+    text-align: center;
+    clear: both;
+}
 #frontpage_examples li
 {
 }

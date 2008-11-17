@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: comment_controller.rb,v 1.6 2008-09-02 14:57:31 francis Exp $
+# $Id: comment_controller.rb,v 1.7 2008-11-17 17:01:24 francis Exp $
 
 class CommentController < ApplicationController
     
@@ -47,16 +47,14 @@ class CommentController < ApplicationController
                 :email => "Then your annotation to " + @info_request.title + " will be posted.",
                 :email_subject => "Confirm your annotation to " + @info_request.title
             )
-            @comment = @info_request.add_comment(params[:comment][:body], authenticated_user)
-            # This automatically saves dependent objects in the same transaction
-            @info_request.save!
-            flash[:notice] = "Thank you for making an annotation!"
 
             # Also subscribe to track for this request, so they get updates
+            # (do this first, so definitely don't send alert)
+            flash[:notice] = "Thank you for making an annotation!"
             if params[:subscribe_to_request]
                 @track_thing = TrackThing.create_track_for_request(@info_request)
                 @existing_track = TrackThing.find_by_existing_track(@user, @track_thing)
-                if not @existing_track
+                if !@existing_track
                     @track_thing.track_medium = 'email_daily'
                     @track_thing.tracking_user_id = @user.id
                     @track_thing.save!
@@ -65,6 +63,10 @@ class CommentController < ApplicationController
                     flash[:notice] += " You are already being emailed updates about the request."
                 end
             end
+
+            # This automatically saves dependent objects in the same transaction
+            @comment = @info_request.add_comment(params[:comment][:body], authenticated_user)
+            @info_request.save!
 
             # we don't use comment_url here, as then you don't see the flash at top of page
             redirect_to request_url(@info_request)
