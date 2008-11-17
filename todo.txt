@@ -1,5 +1,3 @@
-Test data for Tony
-
 Internal review
 ===============
 
@@ -12,34 +10,34 @@ don't offer it again.
 Clock for internal review
     The Information Commissioner has issued a "Good Practice Guidance" document:
     http://www.ico.gov.uk/upload/documents/library/freedom_of_information/detailed_specialist_guides/foi_good_practice_guidance_5.pdf
-    Reviews are meant to be carried out "as quickly as possible", and they
-    suggest 20 working days as a reasonable limit. In exceptional cases they
-    accept it may take longer, but recommend informing the requester in such
-    a case as to why. They do not believe it should ever take longer than 40
-    days.
+    20 days is late
+    40 days max.
 Fix up the text: "The internal review should take 2-3 weeks for simple cases,
 and up to 6 weeks even for complex reviews."
 Awaiting internal review overdue state?
 
-Search for text "internal review" in followups and add warning if they aren't
-using the internal review mode.
-
-Make the text of internal review have a bit that you have to edit.
-
-Tips on using the law:
-- You can go up and down between local and national - ask local places what their policy is, and hwo they are implementing it. Ask national things what odcuments set local policies.
 
 Next
 ====
 
-Watch these requests that are in internal review state or have been:
-    http://www.whatdotheyknow.com/request/communications_from_home_office
-    http://www.whatdotheyknow.com/request/community_justice_centre_sentenc
+Write code to make sure the Return-Path is never foi@sandwich.org.uk (even if the
+  Rails code breaks for Sendmail case in future botched Rails upgrades :)
 
-Gone to information commissioner
-    http://www.whatdotheyknow.com/request/local_government_ombudsman_2 - appeal to infocom
-    http://www.whatdotheyknow.com/request/please_submit_the_surveyors_repo
-Clear out all the need admin attention requests
+
+Later
+=====
+
+Test data dumper that removes sensitive data, but lets trusted people play with
+whole database on their own machine without risk of compromise (for Tony)
+- can avoid rebuilding emails, attachments etc. sanitized provided we don't
+mind leaking out email address ot requests etc. to the trusted person (in contrast
+can easily totally remove private emails in the user table)
+
+Tips on using the law:
+- You can go up and down between local and national - ask local places what their policy is, and hwo they are implementing it. Ask national things what odcuments set local policies.
+
+Search for text "internal review" in followups and add warning if they aren't
+using the internal review mode.
 
 CSS / design things
     - Icon for internal_review
@@ -49,13 +47,6 @@ CSS / design things
     - icons for "Things to do with this request" ?
     - Improve CSS on IE7 for large images in docs
         http://www.whatdotheyknow.com/request/3289/response/7810/attach/html/3/20081023ReplyLetter.pdf.html
-
-Write code to make sure the Return-Path is never foi@sandwich.org.uk (even if the
-  Rails code breaks for Sendmail case in future botched Rails upgrades :)
-
-
-Later
-=====
 
 Let requesters change status to anything at any point
 - using same interface let admin users set things to internal review more

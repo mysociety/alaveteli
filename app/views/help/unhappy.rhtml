@@ -31,15 +31,19 @@ to your request '<%=request_link(@info_request) %>'?
 <% if !@info_request.nil? %>
     Choose <%= link_to "request an internal review", show_response_no_followup_url(:id => @info_request.id, :incoming_message_id => nil) + "?internal_review=1#followup" %> and then write a message asking the authority to review your request.
 <% else %>
-    Go to your request on WhatDoTheyKnow and choose "request an internal review"
-    at the bottom of the page. Then write a message asking for an internal
-    review of your request. You may want to include a link to the request page,
-    to make it clear which request you are talking about.
+    At the bottom of the relevant request page on WhatDoTheyKnow choose
+    "request an internal review". Then write a message asking for an internal
+    review of your request. You may want to include a link to the
+    request page, to make it clear which request you are talking about.
 <% end %>
 </p>
 
-<p>The internal review should take 2-3 weeks for simple cases, and up to 6
-weeks even for complex reviews. You will then either get the information that
+<p>Internal reviews should be quick. If one takes longer than 20 working days
+then the authority should write and let you know, and it should never take
+longer than 40 working days (see this
+<a href="http://www.ico.gov.uk/upload/documents/library/freedom_of_information/detailed_specialist_guides/foi_good_practice_guidance_5.pdf">good
+practice guide</a>).
+You will then either get the information that
 you originally requested, or you will be told that the review upholds the
 original decision.
 </p>
@@ -59,8 +63,12 @@ Information Commisioner, either
 <% else %>
     include a link to your request on WhatDoTheyKnow
 <% end %>
-in your complaint or print out the whole page of your request.
+in your complaint or print out the whole page of your request and all attachments.
 </p>
+
+<p>WhatDoTheyKnow has no special facilities for handling a request at this stage - it
+passes into the Information Commissioner's system. You can leave annotations on your
+request keeping people informed of progress.</p>
 
 <p>A warning. There is a backlog of work at the Information Commissioner, and
 it can take literally years to get resolution from them. If you reach this point,

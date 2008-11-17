@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.140 2008-11-11 13:59:26 francis Exp $
+# $Id: request_controller.rb,v 1.141 2008-11-17 18:33:04 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -301,7 +301,7 @@ class RequestController < ApplicationController
         elsif @info_request.calculate_status == 'gone_postal'
             redirect_to respond_to_last_url(@info_request) + "?gone_postal=1"
         elsif @info_request.calculate_status == 'internal_review'
-            flash[:notice] = "Thank you! Hopefully your wait isn't too long."
+            flash[:notice] = "<p>Thank you! Hopefully your wait isn't too long.</p><p>You should get a response within 20 days, or be told if it will take longer (<a href=\"" + unhappy_url(@info_request) + "#internal-review\").</p>"
             redirect_to request_url(@info_request)
         elsif @info_request.calculate_status == 'requires_admin'
             flash[:notice] = "Please use the form below if you would like to tell us what is unusual about the response."
