@@ -120,7 +120,11 @@ either (code in pdftotext already has a #ifdef round it)
 Another one knackered, and isn't copy protected, but is like the output of
 converted via pdf2ps ones I suspect (i.e. very scanned):
     http://www.whatdotheyknow.com/request/sale_of_public_land#incoming-8146
+    http://www.whatdotheyknow.com/request/childrens_database_compliance_wi#incoming-8088
 File a bug in pdftohtml :)
+
+Make tables prettier in view as HTMl, just normal thick borders.
+http://www.whatdotheyknow.com/request/1610/response/8093/attach/html/3/2008.10.29%20Reply.doc.html
 
 Make HTML attachments have view as HTML :)
 http://www.whatdotheyknow.com/request/enforced_medication#incoming-7395
