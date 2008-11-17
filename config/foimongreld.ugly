@@ -22,7 +22,7 @@ function stop_mongrel {
 
     if [ -e $PIDFILE ]
     then
-        su $DUSER -c "cd $RUNDIR; /usr/bin/ruby -I/usr/lib/ruby/ /usr/bin/mongrel_rails stop -d -p $PORT -P $PIDFILE"
+        su $DUSER -c "cd $RUNDIR; /usr/bin/ruby -I/usr/lib/ruby/ /usr/bin/mongrel_rails stop -p $PORT -P $PIDFILE"
         sleep 5s
         if [ -e $PIDFILE ]
             then
