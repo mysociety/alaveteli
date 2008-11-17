@@ -10,11 +10,25 @@ DUSER=!!(*= $user *)!!
 function stop_mongrels {
     PORT=3000 stop_mongrel
     PORT=3001 stop_mongrel
+    PORT=3002 stop_mongrel
+    PORT=3003 stop_mongrel
+    PORT=3004 stop_mongrel
+
+    sleep 5s
+
+    PORT=3000 check_stopped
+    PORT=3001 check_stopped
+    PORT=3002 check_stopped
+    PORT=3003 check_stopped
+    PORT=3004 check_stopped
 }
 
 function start_mongrels {
     PORT=3000 start_mongrel
     PORT=3001 start_mongrel
+    PORT=3002 start_mongrel
+    PORT=3003 start_mongrel
+    PORT=3004 start_mongrel
 }
 
 function stop_mongrel {
@@ -23,23 +37,27 @@ function stop_mongrel {
     if [ -e $PIDFILE ]
     then
         su $DUSER -c "cd $RUNDIR; /usr/bin/ruby -I/usr/lib/ruby/ /usr/bin/mongrel_rails stop -p $PORT -P $PIDFILE"
-        sleep 5s
-        if [ -e $PIDFILE ]
-            then
-            if ( ps h -p `cat $PIDFILE` )
-            then
-                echo "kill -9 ing `cat $PIDFILE` because it failed to stop"
-                kill -9 `cat $PIDFILE`
-                sleep 2s
-            fi
-        fi
-        if [ -e $PIDFILE ]
-        then
-            rm $PIDFILE
-        fi
     else
         echo " pidfile does not exist, start first "
         return 1
+    fi
+}
+
+function check_stopped {
+    PIDFILE=$PIDDIR/mongrel.$PORT.pid
+
+    if [ -e $PIDFILE ]
+        then
+        if ( ps h -p `cat $PIDFILE` )
+        then
+            echo "kill -9 ing `cat $PIDFILE` because it failed to stop"
+            kill -9 `cat $PIDFILE`
+            sleep 2s
+        fi
+    fi
+    if [ -e $PIDFILE ]
+    then
+        rm $PIDFILE
     fi
 }
 
