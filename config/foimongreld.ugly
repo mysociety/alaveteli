@@ -22,7 +22,7 @@ function stop_mongrel {
 
     if [ -e $PIDFILE ]
     then
-        su $DUSER -c "cd $RUNDIR; /usr/bin/ruby -I/usr/lib/ruby/ /usr/bin/mongrel_rails stop --port=$PORT --pid=$PIDFILE"
+        su $DUSER -c "cd $RUNDIR; /usr/bin/ruby -I/usr/lib/ruby/ /usr/bin/mongrel_rails stop -d -p $PORT -P $PIDFILE"
         sleep 5s
         if [ -e $PIDFILE ]
             then
@@ -51,7 +51,7 @@ function start_mongrel {
         echo " pidfile already exists, stop first "
         return 1
     else
-        su $DUSER -c "cd $RUNDIR; /usr/bin/ruby -I/usr/lib/ruby/ /usr/bin/mongrel_rails start -d --port=$PORT --pid=$PIDFILE"
+        su $DUSER -c "cd $RUNDIR; /usr/bin/ruby -I/usr/lib/ruby/ /usr/bin/mongrel_rails start -d -p $PORT -P $PIDFILE"
     fi
 }
 
