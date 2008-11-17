@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: general_controller.rb,v 1.43 2008-09-08 11:33:10 francis Exp $
+# $Id: general_controller.rb,v 1.44 2008-11-17 17:12:10 francis Exp $
 
 class GeneralController < ApplicationController
 
@@ -34,6 +34,7 @@ class GeneralController < ApplicationController
         @bodies = params[:bodies]
         if @query.nil? || @query.empty?
             @query = nil
+            @page = 1
             render :action => "search"
         else
             if (@bodies == '1') && (@sortby.nil? || @sortby.empty?)
