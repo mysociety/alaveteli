@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_controller.rb,v 1.21 2008-09-11 10:37:37 francis Exp $
+# $Id: admin_controller.rb,v 1.22 2008-11-17 16:08:22 francis Exp $
 
 class AdminController < ApplicationController
     layout "admin"
@@ -56,7 +56,6 @@ class AdminController < ApplicationController
     def stats
         @request_by_state = InfoRequest.count(:group => 'described_state')
         @tracks_by_type = TrackThing.count(:group => 'track_type')
-        @tracks_by_medium = TrackThing.count(:group => 'track_medium')
     end
 
     def debug
