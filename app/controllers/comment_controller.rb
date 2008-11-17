@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: comment_controller.rb,v 1.7 2008-11-17 17:01:24 francis Exp $
+# $Id: comment_controller.rb,v 1.8 2008-11-17 17:08:33 francis Exp $
 
 class CommentController < ApplicationController
     
@@ -54,7 +54,9 @@ class CommentController < ApplicationController
             if params[:subscribe_to_request]
                 @track_thing = TrackThing.create_track_for_request(@info_request)
                 @existing_track = TrackThing.find_by_existing_track(@user, @track_thing)
-                if !@existing_track
+                if @user && @info_request.user == @user
+                    # don't subscribe to own request!
+                elsif !@existing_track
                     @track_thing.track_medium = 'email_daily'
                     @track_thing.tracking_user_id = @user.id
                     @track_thing.save!
