@@ -4,13 +4,25 @@
 
 NAME=!!(*= $daemon_name *)!!
 RUNDIR=/data/vhost/!!(*= $vhost *)!!/mysociety/foi
-PIDFILE=/data/vhost/!!(*= $vhost *)!!/mysociety/foi/log/mongrel.pid
+PIDDIR=/data/vhost/!!(*= $vhost *)!!/mysociety/foi/log
 DUSER=!!(*= $user *)!!
 
+function stop_mongrels {
+    PORT=3000 stop_mongrel
+    PORT=3001 stop_mongrel
+}
+
+function start_mongrels {
+    PORT=3000 start_mongrel
+    PORT=3001 start_mongrel
+}
+
 function stop_mongrel {
+    PIDFILE=$PIDDIR/mongrel.$PORT.pid
+
     if [ -e $PIDFILE ]
     then
-        su $DUSER -c "cd $RUNDIR; /usr/bin/ruby -I/usr/lib/ruby/ /usr/bin/mongrel_rails stop"
+        su $DUSER -c "cd $RUNDIR; /usr/bin/ruby -I/usr/lib/ruby/ /usr/bin/mongrel_rails --port=$PORT stop"
         sleep 5s
         if [ -e $PIDFILE ]
             then
@@ -32,12 +44,14 @@ function stop_mongrel {
 }
 
 function start_mongrel {
+    PIDFILE=$PIDDIR/mongrel.$PORT.pid
+
     if [ -e $PIDFILE ]
     then
         echo " pidfile already exists, stop first "
         return 1
     else
-        su $DUSER -c "cd $RUNDIR; /usr/bin/ruby -I/usr/lib/ruby/ /usr/bin/mongrel_rails start -d"
+        su $DUSER -c "cd $RUNDIR; /usr/bin/ruby -I/usr/lib/ruby/ /usr/bin/mongrel_rails --port=$PORT start -d"
     fi
 }
 
@@ -45,19 +59,19 @@ trap "" 1
 
 case "$1" in
   start)
-    echo -n "Starting WhatDoTheyKnow web server daemon (mongrel): $NAME"
-    start_mongrel
+    echo -n "Starting WhatDoTheyKnow web server daemons (mongrel): $NAME"
+    start_mongrels
     ;;
 
   stop)
-    echo -n "Stopping WhatDoTheyKnow web server daemon (mongrel): $NAME"
-    stop_mongrel
+    echo -n "Stopping WhatDoTheyKnow web server daemons (mongrel): $NAME"
+    stop_mongrels
     ;;
 
   restart)
-    echo -n "Restarting WhatDoTheyKnow web server daemon (mongrel): $NAME"
-    stop_mongrel
-    start_mongrel
+    echo -n "Restarting WhatDoTheyKnow web server daemons (mongrel): $NAME"
+    stop_mongrels
+    start_mongrels
     ;;
 
   *)
