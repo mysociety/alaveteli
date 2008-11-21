@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.168 2008-11-10 18:25:12 francis Exp $
+# $Id: incoming_message.rb,v 1.169 2008-11-21 01:09:56 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -1002,6 +1002,10 @@ class IncomingMessage < ActiveRecord::Base
         prefix =~ /^(.*)@/
         prefix = $1
         if !prefix.nil? && prefix == 'postmaster'
+            return false
+        end
+        # likewise Mailer-Daemon
+        if !prefix.nil? && prefix == 'Mailer-Daemon'
             return false
         end
 
