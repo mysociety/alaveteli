@@ -120,6 +120,56 @@ module WillPaginate
     end
 end
 
+# These mainly used in app/models/incoming_message.rb
+module TMail
+    class Mail
+        # Monkeypatch! (check to see if this becomes a standard function in
+        # TMail::Mail, then use that, whatever it is called)
+        def self.get_part_file_name(part)
+            file_name = (part['content-location'] &&
+                          part['content-location'].body) ||
+                        part.sub_header("content-type", "name") ||
+                        part.sub_header("content-disposition", "filename")
+        end
+
+        # Monkeypatch! :)
+        # Returns the name of the person a message is from, or nil if there isn't
+        # one or if there is only an email address.
+        def safe_from
+            if self.from and (not self.friendly_from.include?('@'))
+                return self.friendly_from
+            else 
+                return nil
+            end
+        end
+
+    end
+
+    class Address
+        # Monkeypatch!
+        def Address.encode_quoted_string(text)
+            # XXX have added space to this, so we don't excessive quoting
+            if text.match(/[^A-Za-z0-9!#\$%&'*+\-\/=?^_`{|}~ ]/)
+                # Contains characters which aren't valid in atoms, so make a
+                # quoted-pair instead.
+                text.gsub!(/(["\\])/, "\\\\\\1")
+                text = '"' + text + '"'
+            end
+            return text
+        end
+
+        # Monkeypatch!
+        def quoted_full
+            if self.name
+                Address.encode_quoted_string(self.name) + " <" + self.spec + ">"
+            else
+                self.spec
+            end
+        end
+    end
+end
+
+
 # XXX temp debug for SQL logging production sites
 #ActiveRecord::Base.logger = Logger.new(STDOUT)
 

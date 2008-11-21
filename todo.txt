@@ -229,9 +229,6 @@ updating
 (10:32:52) Matthew: their function is called autogrow_textarea() by the way, if you just want to look at it...
  thanks :) I won't do it now as there are more important things, I was just accidentally impressed
 
-Properly escape all name_and_email functions
-    call our new TMail.Address.encode_quoted_string monkeypatch function
-
 Including 'Request for information' in the subject line of your e-mail will assist us in prioritising your request.
 http://www.parliament.uk/parliamentary_publications_and_archives/freedom_of_information_in_the_house_of_lords/lords__foi___how_to_obtain_information.cfm
 XXX do we need specifically that text, is it better than "Freedom of Information request" which we put now?

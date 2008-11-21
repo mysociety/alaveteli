@@ -11,6 +11,11 @@ describe IncomingMessage, " when dealing with incoming mail" do
         @im.sent_at.should == @im.mail.date
     end
 
+    it "should be able to parse emails with quoted commas in" do
+        em = "\"Clare College, Cambridge\" <test@test.test>"
+        TMail::Address.parse(em)
+    end
+
 end
 
 

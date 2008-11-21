@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.169 2008-11-21 01:09:56 francis Exp $
+# $Id: incoming_message.rb,v 1.170 2008-11-21 01:50:06 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -30,54 +30,12 @@ require 'rexml/document'
 require 'zip/zip'
 require 'mahoro'
 
+# Monkeypatch! Adding some extra members to store extra info in.
 module TMail
     class Mail
         attr_accessor :url_part_number
         attr_accessor :rfc822_attachment # when a whole email message is attached as text
         attr_accessor :within_rfc822_attachment # for parts within a message attached as text (for getting subject mainly)
-
-        # Monkeypatch! (check to see if this becomes a standard function in
-        # TMail::Mail, then use that, whatever it is called)
-        def self.get_part_file_name(part)
-            file_name = (part['content-location'] &&
-                          part['content-location'].body) ||
-                        part.sub_header("content-type", "name") ||
-                        part.sub_header("content-disposition", "filename")
-        end
-
-        # Monkeypatch! :)
-        # Returns the name of the person a message is from, or nil if there isn't
-        # one or if there is only an email address.
-        def safe_from
-            if self.from and (not self.friendly_from.include?('@'))
-                return self.friendly_from
-            else 
-                return nil
-            end
-        end
-
-    end
-
-    class Address
-        # Monkeypatch!
-        def Address.encode_quoted_string(text)
-            if text.match(/[^A-Za-z0-9!#\$%&'*+\-\/=?^_`{|}~]/)
-                # Contains characters which aren't valid in atoms, so make a
-                # quoted-pair instead.
-                text.gsub!(/(["\\])/, "\\\\\\1")
-                text = '"' + text + '"'
-            end
-            return text
-        end
-
-        # Monkeypatch!
-        def quoted_full
-            if self.name
-                Address.encode_quoted_string(self.name) + " <" + self.spec + ">"
-            else
-                self.spec
-            end
-        end
     end
 end
 
