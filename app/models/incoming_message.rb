@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.170 2008-11-21 01:50:06 francis Exp $
+# $Id: incoming_message.rb,v 1.171 2008-11-25 13:32:31 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -77,8 +77,11 @@ def filename_and_content_to_mimetype(filename, content)
     # Mahoro is a Ruby binding for libmagic.
     m = Mahoro.new(Mahoro::MIME)
     mahoro_type = m.buffer(content)
+    mahoro_type.strip!
     #STDERR.puts("mahoro", mahoro_type, "xxxok")
-    if mahoro_type.nil?
+    # XXX we shouldn't have to check empty? here, but Mahoro sometimes returns a blank line :(
+    # e.g. for InfoRequestEvent 17930
+    if mahoro_type.nil? || mahoro_type.empty?
         return nil
     end
     # text/plain types sometimes come with a charset
