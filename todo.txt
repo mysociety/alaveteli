@@ -7,6 +7,9 @@ If you've already conducted an internal review, at all places
 - on the page for the request
 don't offer it again.
 
+Example of completed review:
+http://www.whatdotheyknow.com/request/request_for_full_disclosure_of_b#incoming-9267
+
 Clock for internal review
     The Information Commissioner has issued a "Good Practice Guidance" document:
     http://www.ico.gov.uk/upload/documents/library/freedom_of_information/detailed_specialist_guides/foi_good_practice_guidance_5.pdf
