@@ -15,9 +15,11 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body_tag.rb,v 1.20 2008-10-28 13:04:20 francis Exp $
+# $Id: public_body_tag.rb,v 1.21 2008-12-02 12:41:33 francis Exp $
 
 class PublicBodyTag < ActiveRecord::Base
+    strip_attributes!
+
     validates_presence_of :public_body
     validates_presence_of :name
 

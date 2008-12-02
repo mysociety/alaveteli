@@ -13,9 +13,11 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: raw_email.rb,v 1.3 2008-10-28 13:04:20 francis Exp $
+# $Id: raw_email.rb,v 1.4 2008-12-02 12:41:33 francis Exp $
 
 class RawEmail < ActiveRecord::Base
+    # deliberately don't strip_attributes, so keeps raw email properly
+    
     has_one :incoming_message
 end
 

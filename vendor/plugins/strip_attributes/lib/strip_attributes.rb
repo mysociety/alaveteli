@@ -1,11 +1,12 @@
 module StripAttributes
-  # Strips whitespace from model fields and converts blank values to nil.
+  # Strips whitespace from model fields and leaves nil values as nil.
+  # XXX this differs from official StripAttributes, as it doesn't make blank cells null.
   def strip_attributes!(options = nil)
     before_validation do |record|
       attributes = StripAttributes.narrow(record.attributes, options)
       attributes.each do |attr, value|
         if value.respond_to?(:strip)
-          record[attr] = (value.blank?) ? nil : value.strip
+          record[attr] = (value.nil?) ? nil : value.strip
         end
       end
     end

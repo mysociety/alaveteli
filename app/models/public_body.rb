@@ -24,12 +24,14 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.123 2008-11-15 17:39:43 johncross Exp $
+# $Id: public_body.rb,v 1.124 2008-12-02 12:41:33 francis Exp $
 
 require 'csv'
 require 'set'
 
 class PublicBody < ActiveRecord::Base
+    strip_attributes!
+
     validates_presence_of :name
     validates_presence_of :url_name
 
@@ -131,14 +133,6 @@ class PublicBody < ActiveRecord::Base
     def set_first_letter
         self.first_letter = self.name[0,1].upcase
     end
-
-    # Strip whitespace for everything, see http://railsforum.com/viewtopic.php?id=969
-    before_save(:clean_whitespace)
-    def clean_whitespace
-        self.name = self.name.strip
-        self.short_name = self.short_name.strip
-    end
-
 
     def validate
         # Request_email can be blank, meaning we don't have details

@@ -15,9 +15,11 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: contact_validator.rb,v 1.23 2008-10-28 13:04:20 francis Exp $
+# $Id: contact_validator.rb,v 1.24 2008-12-02 12:41:33 francis Exp $
 
 class ContactValidator < ActiveRecord::BaseWithoutTable
+    strip_attributes!
+
     column :name, :string
     column :email, :string
     column :subject, :text

@@ -23,12 +23,14 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.156 2008-11-21 01:50:06 francis Exp $
+# $Id: info_request.rb,v 1.157 2008-12-02 12:41:33 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
 
 class InfoRequest < ActiveRecord::Base
+    strip_attributes!
+
     validates_presence_of :title, :message => "^Please enter a summary of your request"
     validates_format_of :title, :with => /[a-z]/, :message => "^Please write a summary with some text in it", :if => Proc.new { |info_request| !info_request.title.nil? && !info_request.title.empty? }
 
@@ -127,6 +129,7 @@ public
         write_attribute(:url_title, unique_url_title)
     end
     # Remove spaces from ends (for when used in emails etc.)
+    # Needed for legacy reasons, even though we call strip_attributes now
     def title
         title = read_attribute(:title)
         if title

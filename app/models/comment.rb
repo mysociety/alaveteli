@@ -19,9 +19,11 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: comment.rb,v 1.8 2008-10-28 13:04:20 francis Exp $
+# $Id: comment.rb,v 1.9 2008-12-02 12:41:33 francis Exp $
 
 class Comment < ActiveRecord::Base
+    strip_attributes!
+
     belongs_to :user
     #validates_presence_of :user # breaks during construction of new ones :(
 

@@ -22,11 +22,13 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user.rb,v 1.75 2008-11-21 01:50:06 francis Exp $
+# $Id: user.rb,v 1.76 2008-12-02 12:41:33 francis Exp $
 
 require 'digest/sha1'
 
 class User < ActiveRecord::Base
+    strip_attributes!
+
     validates_presence_of :email, :message => "^Please enter your email address"
 
     validates_presence_of :name, :message => "^Please enter your name"
@@ -93,6 +95,8 @@ class User < ActiveRecord::Base
     # The specific_user_login parameter says that login as a particular user is
     # expected, so no parallel registration form is being displayed.
     def self.authenticate_from_form(params, specific_user_login = false)
+        params[:email].strip!
+
         if specific_user_login
             auth_fail_message = "Either the email or password was not recognised, please try again."
         else
