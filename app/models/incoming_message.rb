@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.171 2008-11-25 13:32:31 francis Exp $
+# $Id: incoming_message.rb,v 1.172 2008-12-04 18:10:05 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -87,9 +87,22 @@ def filename_and_content_to_mimetype(filename, content)
     # text/plain types sometimes come with a charset
     mahoro_type.match(/^(.*);/)
     if $1
+        mahoro_type = $1
+    end
+    # special cases
+    if mahoro_type == "\\012- application/msword"
+        # e.g. for http://www.whatdotheyknow.com/request/gifted_and_talented_programme#incoming-9365
+        return 'application/vnd.ms-excel'
+    end
+    # see if looks like a content type, or has something in it that does
+    # and return that
+    # mahoro returns junk "\012- application/msword" as mime type.
+    mahoro_type.match(/([a-z0-9.-]+\/[a-z0-9.-]+)/)
+    if $1
         return $1
     end
-    return mahoro_type
+    # otherwise we got junk back from mahoro
+    return nil
 end
 
 # XXX clearly this shouldn't be a global function, or the above global vars.
