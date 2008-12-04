@@ -22,7 +22,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user.rb,v 1.76 2008-12-02 12:41:33 francis Exp $
+# $Id: user.rb,v 1.77 2008-12-04 15:03:42 francis Exp $
 
 require 'digest/sha1'
 
@@ -67,6 +67,21 @@ class User < ActiveRecord::Base
     def after_initialize
         if self.admin_level.nil?
             self.admin_level = 'none'
+        end
+    end
+
+    # requested_by: and commented_by: search queries also need updating after save
+    after_save :reindex_referencing_models
+    def reindex_referencing_models
+        for comment in self.comments
+            for info_request_event in comment.info_request_events
+                info_request_event.xapian_mark_needs_index
+            end
+        end
+        for info_request in self.info_requests
+            for info_request_event in info_request.info_request_events
+                info_request_event.xapian_mark_needs_index
+            end
         end
     end
 
