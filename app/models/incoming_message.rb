@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.174 2008-12-04 19:06:08 francis Exp $
+# $Id: incoming_message.rb,v 1.175 2008-12-04 20:03:47 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -64,6 +64,18 @@ $file_extension_to_mime_type = {
 # XXX doesn't have way of choosing default for inverse map - might want to add
 # one when you need it
 $file_extension_to_mime_type_rev = $file_extension_to_mime_type.invert
+
+# See binary_mask_stuff function below. It just test for inclusion
+# in this hash, not the value of the right hand side.
+$do_not_binary_mask = {
+    'application/pdf' => 1,
+    'image/tiff' => 1,
+    'image/gif' => 1,
+    'image/jpeg' => 1,
+    'image/png' => 1,
+    'image/bmp' => 1,
+    'application/zip' => 1,
+}
 
 # Given file name and its content, return most likely type
 def filename_and_content_to_mimetype(filename, content)
@@ -329,7 +341,15 @@ class IncomingMessage < ActiveRecord::Base
 
     # Replaces all email addresses in (possibly binary data) with equal length alternative ones.
     # Also replaces censor items
-    def binary_mask_stuff(text)
+    def binary_mask_stuff(text, content_type)
+        # See if content type is one that we mask - things like PDFs and images
+        # will get broken if we try to. We err on the side of masking too much,
+        # as many unknown types will really be text.
+        if $do_not_binary_mask.include?(content_type)
+            return text
+        end
+        
+        # Keep original size, so can check haven't resized it
         orig_size = text.size
 
         # Replace ASCII email addresses...
@@ -337,7 +357,7 @@ class IncomingMessage < ActiveRecord::Base
             email.gsub(/[^@.]/, 'x')
         end
 
-        # And replace UCS-2 ones...
+        # And replace UCS-2 ones (for Microsoft Office documents)...
         # Find emails, by finding them in parts of text that have ASCII
         # equivalents to the UCS-2
         ascii_chars = text.gsub(/\0/, "")
