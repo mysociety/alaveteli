@@ -21,7 +21,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: censor_rule.rb,v 1.3 2008-12-04 19:23:07 francis Exp $
+# $Id: censor_rule.rb,v 1.4 2008-12-04 21:36:58 francis Exp $
 
 class CensorRule < ActiveRecord::Base
     belongs_to :info_request
@@ -30,14 +30,14 @@ class CensorRule < ActiveRecord::Base
 
     def apply_to_text(text)
         if text.nil?
-            return nil?
+            return nil
         end
         text.gsub!(self.text, self.replacement)
         return text
     end
     def apply_to_binary(binary)
         if binary.nil?
-            return nil?
+            return nil
         end
         replacement = self.text.gsub(/./, 'x')
         binary.gsub!(self.text, replacement)
