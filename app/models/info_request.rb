@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.157 2008-12-02 12:41:33 francis Exp $
+# $Id: info_request.rb,v 1.158 2008-12-17 13:19:15 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -375,9 +375,11 @@ public
     def calculate_event_states
         curr_state = nil
         for event in self.info_request_events.reverse
-            if !event.described_state.nil? && curr_state.nil?
-                curr_state = event.described_state
-                #STDERR.puts "curr_state " + curr_state
+            if curr_state.nil? 
+                if !event.described_state.nil?
+                    curr_state = event.described_state
+                    #STDERR.puts "curr_state " + curr_state
+                end
             end
 
             if !curr_state.nil? && event.event_type == 'response' 
@@ -391,9 +393,9 @@ public
                     event.save!
                 end
                 curr_state = nil
-            elsif !curr_state.nil? && event.event_type == 'followup_sent' && !event.described_state.nil? && (event.described_state == 'waiting_response' || event.described_state == 'internal_review')
+            elsif !curr_state.nil? && (event.event_type == 'followup_sent' || event.event_type == 'sent') && !event.described_state.nil? && (event.described_state == 'waiting_response' || event.described_state == 'internal_review')
                 # Followups can set the status to waiting response / internal
-                # review. 
+                # review. Initial requests ('sent') set the status to waiting response.
                
                 # We want to store that in calculated_state state so it gets
                 # indexed.

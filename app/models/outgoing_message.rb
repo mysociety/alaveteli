@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: outgoing_message.rb,v 1.75 2008-12-02 12:41:33 francis Exp $
+# $Id: outgoing_message.rb,v 1.76 2008-12-17 13:19:15 francis Exp $
 
 class OutgoingMessage < ActiveRecord::Base
     strip_attributes!
@@ -151,6 +151,7 @@ class OutgoingMessage < ActiveRecord::Base
                 self.status = 'sent'
                 self.save!
                 self.info_request.log_event(log_event_type, { :email => self.info_request.recipient_name_and_email, :outgoing_message_id => self.id })
+                self.info_request.set_described_state('waiting_response')
             elsif self.message_type == 'followup'
                 RequestMailer.deliver_followup(self.info_request, self, self.incoming_message_followup)
                 self.last_sent_at = Time.now
