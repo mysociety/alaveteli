@@ -5,7 +5,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: link_to_helper.rb,v 1.48 2008-11-07 00:47:23 francis Exp $
+# $Id: link_to_helper.rb,v 1.49 2008-12-17 13:01:35 francis Exp $
 
 module LinkToHelper
 
@@ -60,6 +60,9 @@ module LinkToHelper
     def public_body_link(public_body)
         link_to h(public_body.name), public_body_url(public_body)
     end
+    def public_body_link_absolute(public_body) # e.g. for in RSS
+        link_to h(public_body.name), main_url(public_body_url(public_body))
+    end
     def public_body_admin_url(public_body)
         return admin_url('body/show/' + public_body.id.to_s)
     end
@@ -76,6 +79,9 @@ module LinkToHelper
     end
     def user_link(user)
         link_to h(user.name), user_url(user)
+    end
+    def user_link_absolute(user)
+        link_to h(user.name), main_url(user_url(user))
     end
     def user_or_you_link(user)
         if @user && user == @user

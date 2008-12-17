@@ -23,12 +23,15 @@ Awaiting internal review overdue state?
 Next
 ====
 
+Annotations are word wrapping the URL ugh
+
 Write code to make sure the Return-Path is never foi@sandwich.org.uk (even if the
   Rails code breaks for Sendmail case in future botched Rails upgrades :)
 
-
 Later
 =====
+
+Update annotation help text for new states like internal_review and gone_postal
 
 Test data dumper that removes sensitive data, but lets trusted people play with
 whole database on their own machine without risk of compromise (for Tony)
@@ -110,7 +113,9 @@ Another one knackered, and isn't copy protected, but is like the output of
 converted via pdf2ps ones I suspect (i.e. very scanned):
     http://www.whatdotheyknow.com/request/sale_of_public_land#incoming-8146
     http://www.whatdotheyknow.com/request/childrens_database_compliance_wi#incoming-8088
-File a bug in pdftohtml :)
+Weird formatting one:
+    http://www.whatdotheyknow.com/request/risk_log#incoming-8090
+File bugs in pdftohtml :)
 
 Make tables prettier in view as HTMl, just normal thick borders.
 http://www.whatdotheyknow.com/request/1610/response/8093/attach/html/3/2008.10.29%20Reply.doc.html
