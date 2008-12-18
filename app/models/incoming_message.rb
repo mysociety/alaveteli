@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.177 2008-12-18 19:21:09 francis Exp $
+# $Id: incoming_message.rb,v 1.178 2008-12-18 19:44:26 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -235,7 +235,7 @@ class FOIAttachment
         # We need to look at the output size as well, as pdftohtml does not
         # return an error code upon error.
         if !$?.success? || html.size == 0
-            raise "No output from child process in body_as_html for mime " + self.content_type
+            return "<html><head></head><body><p>Conversion to HTML failed (no output from child process). Please use the download link.</p></body></html>"
         end
 
         return html
