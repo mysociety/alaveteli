@@ -22,7 +22,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user.rb,v 1.77 2008-12-04 15:03:42 francis Exp $
+# $Id: user.rb,v 1.78 2008-12-18 18:55:22 francis Exp $
 
 require 'digest/sha1'
 
@@ -217,6 +217,11 @@ class User < ActiveRecord::Base
     # Does the user get "(admin)" links on each page on the main site?
     def admin_page_links?
         self.admin_level == 'super'
+    end
+
+    # Returns domain part of user's email address
+    def email_domain
+        return PublicBody.extract_domain_from_email(self.email)
     end
 
     private

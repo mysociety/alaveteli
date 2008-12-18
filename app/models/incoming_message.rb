@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.175 2008-12-04 20:03:47 francis Exp $
+# $Id: incoming_message.rb,v 1.176 2008-12-18 18:55:22 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -925,6 +925,11 @@ class IncomingMessage < ActiveRecord::Base
     def safe_mail_from
         return self.mail.safe_from
     end
+
+    def mail_from_domain
+        return PublicBody.extract_domain_from_email(self.mail.from_addrs[0].spec)
+    end
+
 
     # Has message arrived "recently"?
     def recently_arrived

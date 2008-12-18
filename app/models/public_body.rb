@@ -24,7 +24,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.124 2008-12-02 12:41:33 francis Exp $
+# $Id: public_body.rb,v 1.125 2008-12-18 18:55:22 francis Exp $
 
 require 'csv'
 require 'set'
@@ -275,17 +275,10 @@ class PublicBody < ActiveRecord::Base
         end
 
         # extract the domain name from the FOI request email
-        url = self.request_email
-        url =~ /@(.*)/
-        if $1.nil?
+        url = self.request_email_domain
+        if url.nil?
             return nil
         end
-        url = $1
-
-        # remove special email domains for UK Government addresses
-        url.sub!(".gsi.", ".")
-        url.sub!(".x.", ".")
-        url.sub!(".pnn.", ".")
 
         # add standard URL prefix
         return "http://www." + url
@@ -406,13 +399,8 @@ class PublicBody < ActiveRecord::Base
 
     # Does this user have the power of FOI officer for this body?
     def is_foi_officer?(user)
-        user_domain = user.email
-        user_domain =~ /@(.*)/
-        user_domain = $1
-
-        our_domain = self.request_email
-        our_domain =~ /@(.*)/
-        our_domain = $1
+        user_domain = user.email_domain
+        our_domain = self.request_email_domain
 
         if user_domain.nil? or our_domain.nil?
             return false
@@ -421,9 +409,31 @@ class PublicBody < ActiveRecord::Base
         return our_domain == user_domain
     end
     def foi_officer_domain_required
-        our_domain = self.request_email
-        our_domain =~ /@(.*)/
-        return $1
+        return self.request_email_domain
+    end
+
+    # Domain name of the request email
+    def request_email_domain
+        return PublicBody.extract_domain_from_email(self.request_email)
+    end
+
+    # Return the domain part of an email address, canonicalised and with common
+    # extra UK Government server name parts removed.
+    def PublicBody.extract_domain_from_email(email)
+        email =~ /@(.*)/
+        if $1.nil?
+            return nil
+        end
+
+        # take lower case
+        ret = $1.downcase
+
+        # remove special email domains for UK Government addresses
+        ret.sub!(".gsi.", ".")
+        ret.sub!(".x.", ".")
+        ret.sub!(".pnn.", ".")
+
+        return ret
     end
 
 end

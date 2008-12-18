@@ -29,7 +29,9 @@ if not incoming_message.nil?
             <% if !incoming_message.safe_mail_from.nil? && incoming_message.safe_mail_from.strip != @info_request.public_body.name.strip %>
                 <%= incoming_message.safe_mail_from %><br>
             <% end %>
-            <%=h @info_request.public_body.name %><br>
+            <% if incoming_message.safe_mail_from.nil? || (incoming_message.mail_from_domain == @info_request.public_body.request_email_domain) %>
+                <%=h @info_request.public_body.name %><br>
+            <% end %>
             <br><%= simple_date(incoming_message.sent_at) %>
         </h2>
 
