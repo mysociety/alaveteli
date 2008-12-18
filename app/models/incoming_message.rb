@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.176 2008-12-18 18:55:22 francis Exp $
+# $Id: incoming_message.rb,v 1.177 2008-12-18 19:21:09 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -146,6 +146,11 @@ def normalise_content_type(content_type)
     end
     if content_type == 'application/x-zip-compressed'
         content_type = 'application/zip'
+    end
+
+    # e.g. http://www.whatdotheyknow.com/request/copy_of_current_swessex_scr_opt#incoming-9928
+    if content_type == 'application/acrobat'
+        content_type = 'application/pdf'
     end
 
     return content_type
