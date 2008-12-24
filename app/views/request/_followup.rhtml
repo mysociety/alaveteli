@@ -27,6 +27,15 @@
         </p>
         -->
 
+        <% if @internal_review %>
+            <p>
+            If you are dissatisfied by the response you got from
+            the public authority, you have the right to
+            complain (<a href="http://foiwiki.com/foiwiki/index.php/Internal_reviews">details</a>). 
+            </p>
+
+        <% end %>
+
         <% if @info_request.calculate_status == 'waiting_response_overdue' %>
             <p>This request is currently <strong>overdue a response</strong> from <%=
             public_body_link(@info_request.public_body) %>. 
@@ -76,6 +85,11 @@
             <% if @internal_review %>
                 <p>Edit and add <strong>more details</strong> to the message above,
                 explaining why you would like a review.
+                    <ul>
+                        <li>Say that you are dissatisfied by their response</li>
+                        <li>Set out your reasons why</li>
+                        <li>Ask them to review their response</li>
+                    </ul>
                 </p>
             <% end %>
 
