@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe InfoRequest, " when emailing" do
-    fixtures :info_requests, :public_bodies, :users
+    fixtures :info_requests, :info_request_events, :public_bodies, :users
 
     before do
         @info_request = info_requests(:fancy_dog_request)
@@ -59,6 +59,19 @@ describe InfoRequest, " when emailing" do
         deleted_request_address = InfoRequest.magic_email_for_id("request-", 98765)  
         found_info_request = InfoRequest.find_by_incoming_email(deleted_request_address)
         found_info_request.should be_nil
+    end
+
+    it "should cope with indexing after item is deleted" do
+        # check can just update index
+        info_request_events(:useless_incoming_message_event).save!
+        ActsAsXapian.update_index(false, true)
+
+        # then delete it under it
+        info_request_events(:useless_incoming_message_event).save!
+        info_request_events(:useless_incoming_message_event).destroy
+        ActsAsXapian.update_index(false, true)
+
+       # raise ActsAsXapian::ActsAsXapianJob.find(:all).to_yaml
     end
 
 end

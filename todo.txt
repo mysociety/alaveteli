@@ -60,7 +60,13 @@ CSS / design things
     - Icon for internal_review
     - CSS error on "all councils" page on some browsers
         https://bugzilla.mozilla.org/show_bug.cgi?id=424194
-    - Spacing on error boxes round form elements
+    - Spacing on error boxes round form elements. Matthew says:
+            Well, the correct thing to do is have the class="fieldWithErrors" on the
+            <p> containing the Summary: label and text input box, not have the
+            pointless <span> at all, and then it all looks perfect and as you'd
+            expect. But I had a look at the code and haven't got the slightest clue
+            how you'd do that, sorry, given it appears new.rhtml is printing the <p>
+            but some magic Ruby thing is printing the error span.
     - icons for "Things to do with this request" ?
     - Improve CSS on IE7 for large images in docs
         http://www.whatdotheyknow.com/request/3289/response/7810/attach/html/3/20081023ReplyLetter.pdf.html
@@ -126,6 +132,7 @@ and display a better error?
     http://www.whatdotheyknow.com/request/childrens_database_compliance_wi#incoming-8088
     http://www.whatdotheyknow.com/request/3326/response/7701/attach/html/2/Scan001.PDF.html
     http://www.whatdotheyknow.com/request/risk_log#incoming-8090
+    http://www.whatdotheyknow.com/request/number_of_out_of_county_placemen_5#incoming-11248
 Orientation wrong:
     http://www.whatdotheyknow.com/request/3153/response/7726/attach/html/2/258850.pdf.html
 Bug in wvHtml, segfaults when converting this:
