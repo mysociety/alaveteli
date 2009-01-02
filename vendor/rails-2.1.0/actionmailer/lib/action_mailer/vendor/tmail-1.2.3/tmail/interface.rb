@@ -799,7 +799,7 @@ module TMail
       if h = @header['content-type']
         h.main_type = main
         h.sub_type  = sub
-        h.params.clear
+        h.params.clear if !h.params.nil? # XXX added by FAI for https://secure.mysociety.org/admin/foi/request/show_raw_email/11209
       else
         store 'Content-Type', "#{main}/#{sub}"
       end
