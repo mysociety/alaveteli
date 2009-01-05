@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: general_controller.rb,v 1.44 2008-11-17 17:12:10 francis Exp $
+# $Id: general_controller.rb,v 1.45 2009-01-05 16:24:23 francis Exp $
 
 class GeneralController < ApplicationController
 
