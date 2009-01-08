@@ -23,6 +23,9 @@ Awaiting internal review overdue state?
 Next
 ====
 
+Change text so that overdue covers qualified exemption of public interest test being
+valid reason for delay.
+
 Annotations are word wrapping the URL ugh
 
 Write code to make sure the Return-Path is never foi@sandwich.org.uk (even if the
@@ -95,15 +98,11 @@ When doing search, people often just want it to show the whole page. Perhaps
 all listing should just link to top of page, rather than # links for outgoing
 incoming, or perhaps just some of them.
 
-Add "A request got stuck in my spam filters" to tell authorities to whitelist us
-Add "I have a large file" to FOI office FAQ
 Add "Who should I make my request to?"
-Add "I want to file squillions of requests"
-Add "I didn't get the email / spam question" and link to from FOI officer upload page
-Add "Postal replies stuff" and link to from FOI officer upload page
 Add "I'm not sure which authority to make my request to" - make flow better after first section, to abrupt now
 I think the advice in this annotation could go into a nice comment:
 http://www.whatdotheyknow.com/request/berr_response_to_eu_on_phorm_bt#comment-356
+Add "I want to file squillions of requests"
 
 Link the overdue date to an explanation of what bank holidays it skipped etc.
 :)
