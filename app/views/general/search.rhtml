@@ -21,7 +21,7 @@
 <% form_tag({:action => "search_redirect"}, {:id => "search_form"}) do %>
    <p>
        <%= text_field_tag 'query', @query, { :size => 40 } %>
-       <%= hidden_field_tag 'sortby', @sortby %>
+       <%= hidden_field_tag 'sortby', @inputted_sortby %>
        <% if @bodies %>
            <%= hidden_field_tag 'bodies', 1 %>
        <% end %>
@@ -34,7 +34,7 @@
 
 <% if !@query.nil? %>
     <p>
-    <%=link_to_unless @sortby.nil?, "Show most relevant results first", search_url(@query, nil) %>
+    <%=link_to_unless @sortby == 'relevant', "Show most relevant results first", search_url(@query, 'relevant') %>
     |
     <%=link_to_unless @sortby == 'newest', "Newest results first", search_url(@query, 'newest') %>
     <% if @sortby == 'described' %>

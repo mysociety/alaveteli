@@ -279,6 +279,23 @@ module ActsAsXapian
             self.query.description
         end
 
+        # Does the query have non-prefixed search terms in it?
+        def has_normal_search_terms?
+            ret = false
+            #x = ''
+            for t in self.query.terms
+                term = t.term
+                #x = x + term.to_yaml + term.size.to_s + term[0..0] + "*"
+                if term.size >= 2 && term[0..0] == 'Z' 
+                    # normal terms begin Z (for stemmed), then have no capital letter prefix
+                    if term[1..1] == term[1..1].downcase
+                        ret = true
+                    end
+                end
+            end
+            return ret
+        end
+
         # Estimate total number of results
         def matches_estimated
             self.matches.matches_estimated

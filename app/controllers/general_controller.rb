@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: general_controller.rb,v 1.45 2009-01-05 16:24:23 francis Exp $
+# $Id: general_controller.rb,v 1.46 2009-01-08 16:57:16 francis Exp $
 
 class GeneralController < ApplicationController
 
@@ -55,7 +55,7 @@ class GeneralController < ApplicationController
         @bodies = false # searching from front page, largely for a public authority
         # XXX currently /described isn't linked to anywhere, just used in RSS and for /list/successful
         # This is because it's confusingly different from /newest - but still useful for power users.
-        if combined.size > 1 && (['newest', 'described', 'bodies'].include?(combined[-1]))
+        if combined.size > 1 && (['newest', 'described', 'bodies', 'relevant'].include?(combined[-1]))
             @postfix = combined[-1]
             combined = combined[0..-2]
             if @postfix == 'bodies'
@@ -65,6 +65,19 @@ class GeneralController < ApplicationController
             end
         end
         @query = combined.join("/")
+
+        @inputted_sortby = @sortby
+        if @sortby.nil?
+            # Parse query, so can work out if it has prefix terms only - if so then it is a
+            # structured query which should show newest first, rather than a free text search
+            # where we want most relevant as default.
+            dummy_query = ::ActsAsXapian::Search.new([InfoRequestEvent], @query, :limit => 1)
+            if dummy_query.has_normal_search_terms?
+                @sortby = 'relevant'
+            else
+                @sortby = 'newest'
+            end
+        end
 
         # Query each type separately for separate display (XXX we are calling
         # perform_search multiple times and it clobbers per_page for each one,
