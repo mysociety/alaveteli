@@ -1,7 +1,10 @@
 <div id="list_sidebar">
 <h1>Show only...</h1>
 <ul>
-<% for view, description in [ [nil, "Recently sent requests"], ['successful', "Successful responses"] ] %>
+<% for view, description in [ 
+    ['successful', "Successful responses"],
+    ['recent', "Recently sent requests"]
+] %>
 <li>
     <%= link_to_unless (@view == view), description, request_list_url(:view => view) %> 
 </li>

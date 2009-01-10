@@ -3,14 +3,20 @@
 
     <% form_tag({:action => "search_redirect"}, {:id => "search_form"}) do %>
        <p>
-           <strong>First, type in the name of the UK public authority
-           <br>you'd like information from OR anything to search for</strong>
+           First, type in the <strong>name of the UK public authority</strong> you'd 
+           <br>like information from. <strong>By law, they have to send it to you.</strong>
+           <br>
+            
            <br>
            <%= text_field_tag 'query', params[:query], { :size => 30 } %>
            <%= hidden_field_tag 'bodies', 1 %>
            <%= submit_tag "Search" %>
            <br>
            e.g. <%=link_to 'Liverpool', search_url('liverpool', 'bodies')%>, <%=link_to 'MRSA', search_url('mrsa', 'bodies')%>, <%=link_to 'Treasury', search_url('treasury', 'bodies')%>
+
+           <br>
+           <br>
+           OR, <strong>search</strong> for information others have requested.
        </p>
     <% end %>
 </div>

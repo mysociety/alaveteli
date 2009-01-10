@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.143 2008-12-04 20:03:46 francis Exp $
+# $Id: request_controller.rb,v 1.144 2009-01-10 13:51:04 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -72,6 +72,11 @@ class RequestController < ApplicationController
         @view = params[:view]
 
         if @view.nil?
+            redirect_to request_list_url(:view => 'successful')
+            return
+        end
+
+        if @view == 'recent'
             @title = "Recently sent Freedom of Information requests"
             query = "variety:sent";
             sortby = "newest"
