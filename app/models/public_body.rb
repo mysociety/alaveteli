@@ -24,7 +24,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.125 2008-12-18 18:55:22 francis Exp $
+# $Id: public_body.rb,v 1.126 2009-01-10 01:41:55 skenaja Exp $
 
 require 'csv'
 require 'set'
@@ -58,6 +58,7 @@ class PublicBody < ActiveRecord::Base
                 [ "local_council", "Local councils", "a local council" ],
                 [ "parish_council", "Town and Parish councils", "a town/parish council"], 
                 [ "housing_association", "Housing associations", "a housing association"],
+                [ "almo", "Housing ALMOs", "a housing ALMO"],
                 [ "municipal_bank", "Municipal bank", "a municipal bank"],
                 [ "nsbody", "North/south bodies", "a north/south body"],
                 [ "pbo", "Professional buying organisations", "a professional buying organisation"],
