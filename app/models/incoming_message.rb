@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.179 2008-12-29 22:51:10 francis Exp $
+# $Id: incoming_message.rb,v 1.180 2009-01-13 23:56:26 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -430,6 +430,13 @@ class IncomingMessage < ActiveRecord::Base
 
         # Remove WhatDoTheyKnow signup links
         text.gsub!(/http:\/\/www.whatdotheyknow.com\/c\/[^\s]+/, "[WDTK login link]")
+
+        # Remove Home Office survey links
+        # e.g. h[ttp://www.whatdotheyknow.com/request/serious_crime_act_2007_section_7#incoming-12650
+        if self.info_request.public_body.url_name == 'home_office'
+            text.gsub!(/Your password:-\s+[^\s]+/, '[password]')
+            text.gsub!(/Password=[^\s]+/, '[password]')
+        end
 
         # Remove things from censor rules
         text = self.info_request.apply_censor_rules_to_text(text)
