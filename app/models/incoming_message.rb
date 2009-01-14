@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.180 2009-01-13 23:56:26 francis Exp $
+# $Id: incoming_message.rb,v 1.181 2009-01-14 16:46:02 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -432,7 +432,7 @@ class IncomingMessage < ActiveRecord::Base
         text.gsub!(/http:\/\/www.whatdotheyknow.com\/c\/[^\s]+/, "[WDTK login link]")
 
         # Remove Home Office survey links
-        # e.g. h[ttp://www.whatdotheyknow.com/request/serious_crime_act_2007_section_7#incoming-12650
+        # e.g. http://www.whatdotheyknow.com/request/serious_crime_act_2007_section_7#incoming-12650
         if self.info_request.public_body.url_name == 'home_office'
             text.gsub!(/Your password:-\s+[^\s]+/, '[password]')
             text.gsub!(/Password=[^\s]+/, '[password]')

@@ -111,6 +111,9 @@
         Waiting for an <strong>internal review</strong> by <%= public_body_link(@info_request.public_body) %> of their handling of this request.
     <% elsif @status == 'requires_admin' %>
         This request has had an unusual response, and <strong>requires attention</strong> from the WhatDoTheyKnow team.
+    <% elsif @status == 'user_withdrawn' %>
+        This request has been <strong>withdrawn</strong> by the person who made it. 
+        There may be an explanation in an annotation below.
     <% else %>
         <% raise "unknown status " + @status %>
     <% end %>

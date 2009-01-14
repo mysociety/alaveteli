@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.159 2009-01-02 00:20:52 francis Exp $
+# $Id: info_request.rb,v 1.160 2009-01-14 16:46:02 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -58,7 +58,8 @@ class InfoRequest < ActiveRecord::Base
         'successful', 
         'partially_successful',
         'internal_review',
-        'requires_admin'
+        'requires_admin',
+        'user_withdrawn'
     ]
 
     validates_inclusion_of :prominence, :in => [ 
@@ -656,6 +657,8 @@ public
             "Awaiting internal review."
         elsif status == 'requires_admin'
             "Unusual response."
+        elsif status == 'user_withdrawn'
+            "Withdrawn by the requester."
         else
             raise "unknown status " + status
         end
