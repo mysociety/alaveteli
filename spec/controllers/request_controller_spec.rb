@@ -1,16 +1,16 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-describe RequestController, "when listing all requests" do
+describe RequestController, "when listing recent requests" do
     integrate_views
     fixtures :info_requests, :outgoing_messages, :info_request_events
   
     it "should be successful" do
-        get :list
+        get :list, :view => 'recent'
         response.should be_success
     end
 
     it "should render with 'list' template" do
-        get :list
+        get :list, :view => 'recent'
         response.should render_template('list')
     end
 
@@ -18,7 +18,7 @@ describe RequestController, "when listing all requests" do
         # XXX probably should load more than one page of requests into db here :)
         ActsAsXapian.update_index
         
-        get :list
+        get :list, :view => 'recent'
 
         # reverse-chronological order
         assigns[:xapian_object].matches_estimated.should == 2
