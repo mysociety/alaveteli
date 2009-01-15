@@ -121,9 +121,6 @@ http://www.whatdotheyknow.com/request/policy_regarding_body_scans#incoming-1100
 
 Show similar requests after you have filed yours - maybe on preview too.
 
-Consider putting the request email address in footer? So when
-forwarded about, address sticks there.
-
 Knackered view as HTML:
     http://www.whatdotheyknow.com/request/statistics_for_allocation_of_dut#incoming-4793
     http://www.whatdotheyknow.com/request/post_lawrence_report_diversity_t_7#incoming-5483
@@ -202,18 +199,6 @@ Something to check which tags are used but aren't in PublicBody category lists
 When described state is edited in admin interface, automatically reset the flag
 for needs classification.
 
-Public body tags should perhaps be forced to be lowercase only :)
-
-In sidebar of request 
-    Share this request on Facebook, by email etc.
-     Try using James Smith's plugin for this: http://github.com/Floppy/rubymarks/tree/master
-    Email icon here: http://www.guardian.co.uk/news/video/2008/apr/03/mugabe
-    Simple Digg style "I like this request" button 
-(Hmm, I'm not sure requests in and of themselves are popular enough things for this
-to matter to be honest, but maybe I'm wrong)
-
-Show list of popular tracks somewhere (finds most popular requests in a way)
-
 Advertise WDTK search queries on TWFY
 Advertise alerts on end pages with WDTK
 
@@ -259,6 +244,7 @@ Interface for when you change your email address - easier to do now with post_re
 Tell application developer if working days table not up to date, and needs
 updating
 
+Make text boxes autogrow as you type into them.
 (10:32:14) richard: you just need to count the number of rows of text and compare it to the number of rows in the textbox
 (10:32:29) richard: then increase the height of the textbox by 1em-ish
 (10:32:52) Matthew: their function is called autogrow_textarea() by the way, if you just want to look at it...
@@ -330,6 +316,7 @@ Render HTML alternative rather than text (so tables look good) e.g.:
     http://www.whatdotheyknow.com/request/parking_policy
 And indeed so links work:
     http://www.whatdotheyknow.com/request/recycling_levels_in_the_winchest
+
 
 Larger new features
 -------------------
