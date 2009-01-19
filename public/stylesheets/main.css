@@ -959,7 +959,8 @@ div.act_link img {
     opacity: 0.97;
     -moz-border-radius-bottomleft: 10px; -moz-border-radius-bottomright: 10px; /* Rounded bottom corners */
     padding: 4px;
-    position: fixed; width: 70%; left: 50%; margin-left: -35%; /* So centered on screen, always visible */
+    position: fixed; 
+    width: 70%; left: 15%; /* So centered on screen, always visible */
     z-index: 200; /* So on top */
     max-height: 95%; overflow: auto; /* So on e.g. 800x600 scrollbar appears */
 }

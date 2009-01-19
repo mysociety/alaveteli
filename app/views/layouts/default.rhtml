@@ -13,6 +13,9 @@
 
         <%= stylesheet_link_tag 'main', :title => "Main", :rel => "stylesheet"  %>
         <%= stylesheet_link_tag 'yucky-green', :title => "Yucky Green", :rel => "alternate stylesheet" %>
+        <!--[if LT IE 7]> 
+        <style type="text/css">@import url("/stylesheets/ie6.css");</style> 
+        <![endif]--> 
 
         <% if @feed_autodetect %>
             <% for feed in @feed_autodetect %>
