@@ -34,6 +34,11 @@ Write code to make sure the Return-Path is never foi@sandwich.org.uk (even if th
 Later
 =====
 
+
+I have several email alerts set up. Is there any chance they could include part
+(or, preferably, all) of the search criterion in the Subject: line? :o)
+(Perhaps do it in the case when only one search criterion makes the mail)
+
 Use Ruby msg
     http://code.google.com/p/ruby-msg/
 To decode Outlook .msg (.oft?) files, e.g.
