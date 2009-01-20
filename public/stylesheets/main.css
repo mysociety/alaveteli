@@ -218,13 +218,13 @@ body
 {
 	position: relative;
 	clear: both;
-	top: 100px;
-	padding: 0px;
+	top: 0px;
+	padding-top: 100px;
 	margin: 0px auto 1.2em auto;
 	width: 53em;
 	/* = 800px at default size? so 1em = 16px*/
 	text-align: left;
-	overflow: auto;
+	overflow: visible;
 }
 
 /*------------------------------------------------ content */
@@ -373,6 +373,8 @@ dd { margin: 0.6em 0 2em 4em; width: 33em; }
 	#request_sidebar .request_listing span.desc
 	 /* sidebar request list only */
 	{
+		float: left;
+		clear: both;
 		width: 12.9em;
 		background-image: url(../images/navimg/quote-open-small.png);
 		background-repeat: no-repeat;
@@ -382,7 +384,9 @@ dd { margin: 0.6em 0 2em 4em; width: 33em; }
 
 	#request_sidebar span.bottomline
 	{
-		width: auto;
+		float: left;
+		clear: both;
+		width: 100%;
 		margin: 0 0 0.6em 0;
 		background-image: none;
 		padding: 0px;
@@ -940,31 +944,14 @@ div.act_link img {
 {
 	position: relative;	
 	clear: both;
+	float: left;
 	width: 100%;
-	margin: 120px 0 0 0;
+	height: 2em;
+	margin: 0px 0 0px 0;
 	padding: 0.5em 0 0.5em 0;
 	font-size: 0.85em;
-	height: 2em;
 	background-color: #F0F0F0;
 	border-color: #993233;
 	border-width: 3px 0 0 0;
 	border-style: solid;
 }
-
-/*------------------------------------------------ interstitial advert */
-
-#everypage {
-    background-color: #ffcc99;
-    border: solid 2px #ff6600; border-top: none; /* No top border, so looks like coming out of top */
-    opacity: 0.97;
-    -moz-border-radius-bottomleft: 10px; -moz-border-radius-bottomright: 10px; /* Rounded bottom corners */
-    padding: 4px;
-    position: fixed; 
-    width: 70%; left: 15%; /* So centered on screen, always visible */
-    z-index: 200; /* So on top */
-    max-height: 95%; overflow: auto; /* So on e.g. 800x600 scrollbar appears */
-}
-#everypage h2, #everypage h3, #foi2009 h2, #foi2009 h3 {
-    margin: 0.5em 0;
-}
-

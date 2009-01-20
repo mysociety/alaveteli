@@ -1,6 +1,6 @@
  * Email: angie@mysociety.org; WWW: http://www.mysociety.org
  *
- * $Id: INSTALL.txt,v 1.1 2008-07-10 15:25:00 angie Exp $
+ * $Id: INSTALL.txt,v 1.2 2009-01-20 16:39:41 angie Exp $
  * 
 
 
@@ -41,10 +41,9 @@ NOTES:
 su to postgres as a user.
 psql to get into command tool
 \l to list databases
-create database foi encoding = 'SQL_ASCII';
+    create database foi encoding = 'SQL_ASCII';
 to change the password run 
-alter user postgres with password 'newpw';
-to import the data:
+    alter user postgres with password 'newpw';
 
 
 4: cd ../../mysociety
