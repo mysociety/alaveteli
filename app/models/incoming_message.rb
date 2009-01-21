@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.181 2009-01-14 16:46:02 francis Exp $
+# $Id: incoming_message.rb,v 1.182 2009-01-21 02:55:11 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -658,6 +658,11 @@ class IncomingMessage < ActiveRecord::Base
         # Fix DOS style linefeeds to Unix style ones (or other later regexps won't work)
         # Needed for e.g. http://www.whatdotheyknow.com/request/60/response/98
         text = text.gsub(/\r\n/, "\n")
+
+        # Compress extra spaces down to save space, and to stop regular expressions
+        # breaking in strange extreme cases. e.g. for
+        # http://www.whatdotheyknow.com/request/spending_on_consultants
+        text = text.gsub(/ +/, " ")
 
         return text
     end
