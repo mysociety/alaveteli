@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.182 2009-01-21 02:55:11 francis Exp $
+# $Id: incoming_message.rb,v 1.183 2009-01-22 15:00:59 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -135,7 +135,7 @@ end
 
 def normalise_content_type(content_type)
     # e.g. http://www.whatdotheyknow.com/request/93/response/250
-    if content_type == 'application/msexcel' or content_type == 'application/x-ms-excel'
+    if content_type == 'application/excel' or content_type == 'application/msexcel' or content_type == 'application/x-ms-excel'
         content_type = 'application/vnd.ms-excel'
     end
     if content_type == 'application/mspowerpoint' or content_type == 'application/x-ms-powerpoint'
