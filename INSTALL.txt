@@ -1,6 +1,6 @@
  * Email: angie@mysociety.org; WWW: http://www.mysociety.org
  *
- * $Id: INSTALL.txt,v 1.2 2009-01-20 16:39:41 angie Exp $
+ * $Id: INSTALL.txt,v 1.3 2009-01-23 00:42:15 francis Exp $
  * 
 
 
@@ -13,23 +13,7 @@ Firstly, in terminal, navigate to the foi folder where this install guide lives.
 
 1. Install the packages that are listed in config/packages using apt-get eg:
 
-sudo apt-get install ruby1.8
-sudo apt-get install postgresql
-sudo apt-get install libpgsql-ruby1.8
-sudo apt-get install libgems-ruby1.8
-sudo apt-get install rake
-sudo apt-get install irb
-sudo apt-get install mongrel
-sudo apt-get install wv
-sudo apt-get install poppler-utils
-sudo apt-get install catdoc
-sudo apt-get install links
-sudo apt-get install lynx
-sudo apt-get install libxapian-ruby1.8
-sudo apt-get install gnuplot-nox
-sudo apt-get install ttf-bitstream-vera
-sudo apt-get install rubygems
-sudo apt-get install sharutils
+sudo apt-get install `cat config/packages`
 
 Now we need to set up the database config file to contain the name, username and password of your postgres database.
 
