@@ -516,17 +516,23 @@ module ActsAsXapian
                 ActiveRecord::Base.transaction do
                     job = ActsAsXapianJob.find(id, :lock =>true)
                     STDOUT.puts("ActsAsXapian.update_index #{job.action} #{job.model} #{job.model_id.to_s}") if verbose
-                    if job.action == 'update'
-                        # XXX Index functions may reference other models, so we could eager load here too?
-                        model = job.model.constantize.find(job.model_id) # :include => cls.constantize.xapian_options[:include]
-                        model.xapian_index
-                    elsif job.action == 'destroy'
-                        # Make dummy model with right id, just for destruction
-                        model = job.model.constantize.new
-                        model.id = job.model_id
-                        model.xapian_destroy
-                    else
-                        raise "unknown ActsAsXapianJob action '" + job.action + "'"
+                    begin
+                        if job.action == 'update'
+                            # XXX Index functions may reference other models, so we could eager load here too?
+                            model = job.model.constantize.find(job.model_id) # :include => cls.constantize.xapian_options[:include]
+                            model.xapian_index
+                        elsif job.action == 'destroy'
+                            # Make dummy model with right id, just for destruction
+                            model = job.model.constantize.new
+                            model.id = job.model_id
+                            model.xapian_destroy
+                        else
+                            raise "unknown ActsAsXapianJob action '" + job.action + "'"
+                        end
+                    rescue ActiveRecord::RecordNotFound => e
+                        # this can happen if the record was hand deleted in the database
+                        job.action = 'destroy'
+                        retry
                     end
                     job.destroy
 
