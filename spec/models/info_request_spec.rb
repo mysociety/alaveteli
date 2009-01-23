@@ -62,18 +62,19 @@ describe InfoRequest, " when emailing" do
     end
 
     it "should cope with indexing after item is deleted" do
+        verbose = false
+
         # check can just update index
         info_request_events(:useless_incoming_message_event).save!
-        ActsAsXapian.update_index(false, true)
+        ActsAsXapian.update_index(false, verbose)
 
         # then delete it under it
         info_request_events(:useless_incoming_message_event).save!
         info_request_events(:useless_incoming_message_event).destroy
-        ActsAsXapian.update_index(false, true)
+        ActsAsXapian.update_index(false, verbose)
 
        # raise ActsAsXapian::ActsAsXapianJob.find(:all).to_yaml
     end
-
 end
 
 
