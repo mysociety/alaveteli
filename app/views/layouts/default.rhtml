@@ -27,8 +27,11 @@
             <meta name="robots" content="noindex, nofollow">
         <% end %>
 
+<% # code for popup advert for a campaign etc.
+=begin
         <script type="text/javascript" src="/javascripts/jquery.js"></script>
         <script type="text/javascript" src="/javascripts/jquery.cookie.js"></script>
+
         <script type="text/javascript">
 
         document.write('<style type="text/css">.jshide { display: none; }<'+'/style>');
@@ -41,11 +44,14 @@
         });
 
         </script>
-
+=end
+%>
 
     </head>
     <body>
 
+<% # code for popup advert for a campaign etc.
+=begin
     <div id="everypage" class="jshide">
     <p style="float:right"><a href="#top" onclick="$.cookie('seen_foi2', 1, { expires: 7, path: '/' }); $('#everypage').hide('slow'); return false;">Close</a></p>
     <h2>Blimey. It looks like the Internets won &ndash; <small>a message from WhatDoTheyKnow</small></h2>
@@ -77,6 +83,8 @@
     <p>Read <a href="http://www.mysociety.org/2009/01/21/blimey-it-looks-like-the-internets-won/">our victory blog post</a>. :-)
     <p style="text-align: right"><a href="#top" onclick="$.cookie('seen_foi2', 1, { expires: 7, path: '/' }); $('#everypage').hide('slow'); return false;">Close</a></p>
     </div>
+=end
+%>
 
     <div id="banner">
     </div>
