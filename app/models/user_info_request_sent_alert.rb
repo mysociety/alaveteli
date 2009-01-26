@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 68
+# Schema version: 70
 #
 # Table name: user_info_request_sent_alerts
 #
@@ -17,7 +17,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user_info_request_sent_alert.rb,v 1.25 2008-10-28 13:04:20 francis Exp $
+# $Id: user_info_request_sent_alert.rb,v 1.26 2009-01-26 12:12:17 francis Exp $
 
 class UserInfoRequestSentAlert < ActiveRecord::Base
     belongs_to :user

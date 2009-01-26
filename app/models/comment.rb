@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 68
+# Schema version: 70
 #
 # Table name: comments
 #
@@ -19,7 +19,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: comment.rb,v 1.9 2008-12-02 12:41:33 francis Exp $
+# $Id: comment.rb,v 1.10 2009-01-26 12:12:17 francis Exp $
 
 class Comment < ActiveRecord::Base
     strip_attributes!

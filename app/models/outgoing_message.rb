@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 68
+# Schema version: 70
 #
 # Table name: outgoing_messages
 #
@@ -12,6 +12,7 @@
 #  updated_at                   :datetime        not null
 #  last_sent_at                 :datetime        
 #  incoming_message_followup_id :integer         
+#  what_doing                   :string(255)     not null
 #
 
 # models/outgoing_message.rb:
@@ -21,7 +22,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: outgoing_message.rb,v 1.76 2008-12-17 13:19:15 francis Exp $
+# $Id: outgoing_message.rb,v 1.77 2009-01-26 12:12:17 francis Exp $
 
 class OutgoingMessage < ActiveRecord::Base
     strip_attributes!
