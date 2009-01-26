@@ -648,43 +648,48 @@ module ActsAsXapian
 
         # Store record in the Xapian database
         def xapian_index
-            # if we have a conditional function for indexing, call it and destory object if failed
-            if self.class.xapian_options.include?(:if)
-                if_value = xapian_value(self.class.xapian_options[:if], :boolean)
-                if not if_value
-                    self.xapian_destroy
-                    return
+            begin
+                # if we have a conditional function for indexing, call it and destory object if failed
+                if self.class.xapian_options.include?(:if)
+                    if_value = xapian_value(self.class.xapian_options[:if], :boolean)
+                    if not if_value
+                        self.xapian_destroy
+                        return
+                    end
                 end
-            end
 
-            # otherwise (re)write the Xapian record for the object
-            doc = Xapian::Document.new
-            ActsAsXapian.term_generator.document = doc
+                # otherwise (re)write the Xapian record for the object
+                doc = Xapian::Document.new
+                ActsAsXapian.term_generator.document = doc
 
-            doc.data = self.xapian_document_term
+                doc.data = self.xapian_document_term
 
-            doc.add_term("M" + self.class.to_s)
-            doc.add_term("I" + doc.data)
-            if self.xapian_options[:terms]
-              for term in self.xapian_options[:terms]
-                  ActsAsXapian.term_generator.increase_termpos # stop phrases spanning different text fields
-                  ActsAsXapian.term_generator.index_text(xapian_value(term[0]), 1, term[1])
-              end
-            end
-            if self.xapian_options[:values]
-              for value in self.xapian_options[:values]
-                  doc.add_value(value[1], xapian_value(value[0], value[3])) 
-              end
-            end
-            if self.xapian_options[:texts]
-              for text in self.xapian_options[:texts]
-                  ActsAsXapian.term_generator.increase_termpos # stop phrases spanning different text fields
-                  # XXX the "1" here is a weight that could be varied for a boost function
-                  ActsAsXapian.term_generator.index_text(xapian_value(text), 1) 
-              end
-            end
+                doc.add_term("M" + self.class.to_s)
+                doc.add_term("I" + doc.data)
+                if self.xapian_options[:terms]
+                  for term in self.xapian_options[:terms]
+                      ActsAsXapian.term_generator.increase_termpos # stop phrases spanning different text fields
+                      ActsAsXapian.term_generator.index_text(xapian_value(term[0]), 1, term[1])
+                  end
+                end
+                if self.xapian_options[:values]
+                  for value in self.xapian_options[:values]
+                      doc.add_value(value[1], xapian_value(value[0], value[3])) 
+                  end
+                end
+                if self.xapian_options[:texts]
+                  for text in self.xapian_options[:texts]
+                      ActsAsXapian.term_generator.increase_termpos # stop phrases spanning different text fields
+                      # XXX the "1" here is a weight that could be varied for a boost function
+                      ActsAsXapian.term_generator.index_text(xapian_value(text), 1) 
+                  end
+                end
 
-            ActsAsXapian.writable_db.replace_document("I" + doc.data, doc)
+                ActsAsXapian.writable_db.replace_document("I" + doc.data, doc)
+            rescue
+                STDERR.puts("Exception while updating Xapian index of object " + self.class.to_s + " id " + self.id.to_s)
+                raise
+            end
         end
 
         # Delete record from the Xapian database
