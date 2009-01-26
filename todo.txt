@@ -31,9 +31,11 @@ Annotations are word wrapping the URL ugh
 Write code to make sure the Return-Path is never foi@sandwich.org.uk (even if the
   Rails code breaks for Sendmail case in future botched Rails upgrades :)
 
+
 Later
 =====
 
+Ask people for annotation immediately after they have submitted their request
 
 I have several email alerts set up. Is there any chance they could include part
 (or, preferably, all) of the search criterion in the Subject: line? :o)
@@ -321,6 +323,12 @@ Render HTML alternative rather than text (so tables look good) e.g.:
     http://www.whatdotheyknow.com/request/parking_policy
 And indeed so links work:
     http://www.whatdotheyknow.com/request/recycling_levels_in_the_winchest
+
+Failed to detect attachments are emails and decode them:
+    http://www.whatdotheyknow.com/request/malicious_communication_act#incoming-12964
+
+Make it read the number in DSNs and decode it to describe problem?
+    http://www.whatdotheyknow.com/request/febrile_neutropenia_123#incoming-13165
 
 
 Larger new features
