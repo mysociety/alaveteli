@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.184 2009-01-26 12:12:17 francis Exp $
+# $Id: incoming_message.rb,v 1.185 2009-01-26 16:52:15 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -306,8 +306,16 @@ class IncomingMessage < ActiveRecord::Base
             if part.content_type == 'message/rfc822'
                 # An email attached as text
                 # e.g. http://www.whatdotheyknow.com/request/64/response/102
-                part.rfc822_attachment = TMail::Mail.parse(part.body)
-                count_parts_recursive(part.rfc822_attachment)
+                begin
+                    part.rfc822_attachment = TMail::Mail.parse(part.body)
+                rescue 
+                    # If attached mail doesn't parse, treat it as text part
+                    part.rfc822_attachment = nil
+                    @count_parts_count += 1
+                    part.url_part_number = @count_parts_count
+                else
+                    count_parts_recursive(part.rfc822_attachment)
+                end
             else
                 @count_parts_count += 1
                 part.url_part_number = @count_parts_count
@@ -569,6 +577,12 @@ class IncomingMessage < ActiveRecord::Base
 
             # Use standard content types for Word documents etc.
             curr_mail.content_type = normalise_content_type(curr_mail.content_type)
+            if curr_mail.content_type == 'message/rfc822'
+                if curr_mail.rfc822_attachment.nil?
+                    # Attached mail didn't parse, so treat as text
+                    curr_mail.content_type = 'text/plain'
+                end
+            end
 
             # If the part is an attachment of email in text form
             if curr_mail.content_type == 'message/rfc822'
