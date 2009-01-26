@@ -512,6 +512,7 @@ module ActsAsXapian
 
         ids_to_refresh = ActsAsXapianJob.find(:all).map() { |i| i.id }
         for id in ids_to_refresh
+            job = nil
             begin
                 ActiveRecord::Base.transaction do
                     begin
@@ -551,10 +552,7 @@ module ActsAsXapian
                 end
             rescue => detail
                 # print any error, and carry on so other things are indexed
-                # XXX If item is later deleted, this should give up, and it
-                # won't. It will keep trying (assuming update_index called from
-                # regular cron job) and mayhap cause trouble.
-                STDERR.puts(detail.backtrace.join("\n") + "\nFAILED ActsAsXapian.update_index job #{id} #{$!}")
+                STDERR.puts(detail.backtrace.join("\n") + "\nFAILED ActsAsXapian.update_index job #{id} #{$!} " + (job.nil? ? "" : "model " + job.model + " id " + job.model_id.to_s))
             end
         end
     end
