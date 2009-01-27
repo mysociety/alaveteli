@@ -13,7 +13,7 @@ fi
 LATEST=$( ls /var/log/exim4/exim-main-* 2>/dev/null | sort | tail -3 )
 for X in $LATEST
 do
-    echo "doing $X"
+    # echo "doing $X"
     $LOC/runner 'EximLog.load_file("'$X'")'
 done
 
