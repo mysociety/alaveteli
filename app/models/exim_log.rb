@@ -4,7 +4,7 @@
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: exim_log.rb,v 1.2 2009-01-27 17:50:14 francis Exp $
+# $Id: exim_log.rb,v 1.3 2009-01-27 18:01:41 francis Exp $
 
 class EximLog < ActiveRecord::Base
     belongs_to :info_request
@@ -43,7 +43,7 @@ class EximLog < ActiveRecord::Base
                 for email in emails
                     info_request = InfoRequest.find_by_incoming_email(email)
                     if !info_request.nil?
-                        STDERR.puts "adding log for " + info_request.url_title + " from " + file_name + " line " + line
+                        #STDERR.puts "adding log for " + info_request.url_title + " from " + file_name + " line " + line
                         exim_log = EximLog.new
                         exim_log.info_request = info_request
                         exim_log.exim_log_done = done
