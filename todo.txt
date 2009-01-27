@@ -73,7 +73,7 @@ Search for text "internal review" in followups and add warning if they aren't
 using the internal review mode.
 
 CSS / design things
-    - Icon for internal_review
+    - Icon for internal_review, user_withdrawn
     - CSS error on "all councils" page on some browsers
         https://bugzilla.mozilla.org/show_bug.cgi?id=424194
     - Spacing on error boxes round form elements. Matthew says:
@@ -83,7 +83,6 @@ CSS / design things
             expect. But I had a look at the code and haven't got the slightest clue
             how you'd do that, sorry, given it appears new.rhtml is printing the <p>
             but some magic Ruby thing is printing the error span.
-    - icons for "Things to do with this request" ?
     - Improve CSS on IE7 for large images in docs
         http://www.whatdotheyknow.com/request/3289/response/7810/attach/html/3/20081023ReplyLetter.pdf.html
 
@@ -104,8 +103,6 @@ Rename show_response action to send_followup?
 Would be nice if you try and send or resend (from admin interface, or by sending
 followup as user) and original address is set to not_apply or "" that it deals
 with it better :) 
-
-Include log files from exim in admin interface for each request
 
 When doing search, people often just want it to show the whole page. Perhaps
 all listing should just link to top of page, rather than # links for outgoing

@@ -1,0 +1,21 @@
+#!/bin/bash
+
+LOC=`dirname $0`
+
+# Specific file if specified
+if [ x$1 != x ]
+then
+    $LOC/runner 'EximLog.load_file("'$1'")'
+    exit
+fi
+
+# Load in last week's worth of logs (if they've been modified)
+LATEST=$( ls /var/log/exim4/mainlog-* 2>/dev/null | sort | tail -7 )
+for X in $LATEST
+do
+    echo "doing $X"
+    $LOC/runner 'EximLog.load_file("'$X'")'
+done
+
+
+

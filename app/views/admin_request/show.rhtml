@@ -128,6 +128,18 @@
 <% end %>
 </table>
 
+<h2>Exim delivery logs</h2>
+
+<p>Lines containing the request incoming email address, updated hourly.</p>
+
+<% for exim_log_done_id, exim_logs in @info_request.exim_logs.group_by(&:exim_log_done_id) %>
+    <!-- <h3><%=h exim_logs[0].exim_log_done.filename %></h3> -->
+    <pre><% for exim_log in exim_logs %><%=h exim_log.line%><% end %></pre>
+<% end %>
+<% if @info_request.exim_logs.size == 0 %>
+    <p>None (perhaps this is an old or a very new request)</p>
+<% end %>
+
 <h2>Censor rules</h2>
 <%= render :partial => 'admin_censor_rule/show', :locals => { :censor_rules => @info_request.censor_rules, :info_request => @info_request } %>
 

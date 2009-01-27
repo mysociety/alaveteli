@@ -1,7 +1,13 @@
 /* FOIFA admin CSS */
 
+h2 { 
+    margin-top: 0.2em;
+    margin-bottom: 0.5em;
+}
+
 table {
     border-collapse: collapse;
+    margin-bottom: 1em;
 }
 
 td, th {
@@ -41,7 +47,7 @@ form {
     float: right;
     width: 25%;
 }
-#tag_help, h2 {
+#tag_help {
     margin-top: 0;
 }
 

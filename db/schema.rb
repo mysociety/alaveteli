@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 70) do
+ActiveRecord::Schema.define(:version => 71) do
 
   create_table "acts_as_xapian_jobs", :force => true do |t|
     t.string  "model",    :null => false
@@ -39,6 +39,24 @@ ActiveRecord::Schema.define(:version => 70) do
     t.boolean  "visible",         :default => true,             :null => false
     t.datetime "created_at",                                    :null => false
     t.datetime "updated_at",                                    :null => false
+  end
+
+  create_table "exim_log_dones", :force => true do |t|
+    t.text     "filename",   :null => false
+    t.datetime "last_stat",  :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "exim_log_dones", ["last_stat"], :name => "index_exim_log_dones_on_last_stat"
+
+  create_table "exim_logs", :force => true do |t|
+    t.integer  "exim_log_done_id"
+    t.integer  "info_request_id"
+    t.integer  "order",            :null => false
+    t.text     "line",             :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
   end
 
   create_table "incoming_messages", :force => true do |t|

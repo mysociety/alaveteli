@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org. WWW: http://www.mysociety.org/
 #
-# $Id: crontab.ugly,v 1.18 2009-01-27 11:14:34 francis Exp $
+# $Id: crontab.ugly,v 1.19 2009-01-27 17:12:32 francis Exp $
 
 PATH=/usr/local/bin:/usr/bin:/bin
 MAILTO=team@whatdotheyknow.com
@@ -17,6 +17,9 @@ MAILTO=team@whatdotheyknow.com
 # Once an hour
 39 * * * * !!(*= $user *)!! run-with-lockfile -n /data/vhost/!!(*= $vhost *)!!/alert-overdue-requests.lock /data/vhost/!!(*= $vhost *)!!/mysociety/foi/script/alert-overdue-requests || echo "stalled?"
 09 * * * * !!(*= $user *)!! run-with-lockfile -n /data/vhost/!!(*= $vhost *)!!/alert-comment-on-request.lock /data/vhost/!!(*= $vhost *)!!/mysociety/foi/script/alert-comment-on-request || echo "stalled?"
+
+# Only root can read the exim log files
+#30 * * * * root run-with-lockfile -n /data/vhost/!!(*= $vhost *)!!/load-exim-logs.lock /data/vhost/!!(*= $vhost *)!!/mysociety/foi/script/load-exim-logs || echo "stalled?"
 
 # Once a day, early morning
 23 4 * * * !!(*= $user *)!! run-with-lockfile -n /data/vhost/!!(*= $vhost *)!!/delete-old-post-redirects.lock /data/vhost/!!(*= $vhost *)!!/mysociety/foi/script/delete-old-post-redirects || echo "stalled?"

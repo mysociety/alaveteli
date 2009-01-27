@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.161 2009-01-26 12:12:17 francis Exp $
+# $Id: info_request.rb,v 1.162 2009-01-27 17:12:31 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -47,6 +47,7 @@ class InfoRequest < ActiveRecord::Base
     has_many :track_things, :order => 'created_at desc'
     has_many :comments, :order => 'created_at'
     has_many :censor_rules, :order => 'created_at desc'
+    has_many :exim_logs, :order => 'exim_log_done_id'
 
     # user described state (also update in info_request_event, admin_request/edit.rhtml)
     validates_inclusion_of :described_state, :in => [ 
