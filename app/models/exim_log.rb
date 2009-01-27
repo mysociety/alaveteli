@@ -4,7 +4,7 @@
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: exim_log.rb,v 1.1 2009-01-27 17:12:31 francis Exp $
+# $Id: exim_log.rb,v 1.2 2009-01-27 17:50:14 francis Exp $
 
 class EximLog < ActiveRecord::Base
     belongs_to :info_request
@@ -21,11 +21,11 @@ class EximLog < ActiveRecord::Base
             # see if we already have it
             done = EximLogDone.find_by_filename(file_name)  
             if !done.nil?
-                if modified == done.last_stat 
+                if modified.utc == done.last_stat.utc
                     # already have that, nothing to do
                     return
                 end
-                ExmLog.delete_all "exim_log_dones.id = " + done.id
+                EximLog.delete_all "exim_log_done_id = " + done.id.to_s
             end
             if !done
                 done = EximLogDone.new
