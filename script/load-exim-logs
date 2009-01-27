@@ -10,7 +10,7 @@ then
 fi
 
 # Load in last week's worth of logs (if they've been modified)
-LATEST=$( ls /var/log/exim4/mainlog-* 2>/dev/null | sort | tail -7 )
+LATEST=$( ls /var/log/exim4/exim-main-* 2>/dev/null | sort | tail -7 )
 for X in $LATEST
 do
     echo "doing $X"
