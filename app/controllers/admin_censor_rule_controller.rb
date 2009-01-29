@@ -4,12 +4,9 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_censor_rule_controller.rb,v 1.4 2008-11-04 15:07:49 francis Exp $
+# $Id: admin_censor_rule_controller.rb,v 1.5 2009-01-29 12:10:10 francis Exp $
 
-class AdminCensorRuleController < ApplicationController
-    layout "admin"
-    before_filter :assign_http_auth_user
-
+class AdminCensorRuleController < AdminController
     def new
         @info_request = InfoRequest.find(params[:info_request_id])
     end
