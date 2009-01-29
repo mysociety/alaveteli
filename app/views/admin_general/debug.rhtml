@@ -1,0 +1,33 @@
+<% @title = "Debug" %>
+
+<h1><%=@title%></h1>
+
+<p>You are <%= h @http_auth_user %></p>
+
+<p><a href="balancer-manager">Apache load balancing configuration</a></p>
+
+<h2>Version numbers</h2>
+
+<p>Rails::VERSION::STRING <%=Rails::VERSION::STRING%>
+<br>
+TMail::VERSION::STRING <%=TMail::VERSION::STRING%>
+<br>
+Xapian::version_string <%=Xapian::version_string%>
+<br>
+Spec::VERSION::NAME/STRING <%=Spec::VERSION::NAME%> <%=Spec::VERSION::STRING%>
+</p>
+
+<h2>Environment variables</h2>
+<pre>
+<%= @request_env.to_yaml %>
+</pre>
+
+<h2>Parameters</h2>
+<pre>
+<%= params.to_yaml %>
+</pre>
+
+<h2>Session</h2>
+<pre>
+<%= session.to_yaml %>
+</pre>

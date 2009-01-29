@@ -1,0 +1,94 @@
+<% @title = "Timeline" %>
+
+<h1><%=h @events_title%></h1>
+
+<p>
+<a href="?">Two days</a>
+| <a href="?week=1">Week</a>
+| <a href="?month=1">Month</a>
+| <a href="?all=1">All time</a></p>
+
+<% last_date = nil %>
+<% for event in @events %>
+    <% if last_date != event.created_at.to_date %>
+        <% if last_date.nil? %>
+            <p>
+        <% end %>
+        <h3><%= simple_date(event.created_at) %></h3>
+        <p>
+    <% else %>
+        <br>
+    <% end %>
+    <% last_date = event.created_at.to_date %>
+
+
+    <% if event.class.to_s == 'InfoRequestEvent' %>
+        <%= request_both_links(event.info_request) %>
+        <% if event.event_type == 'edit' %>
+            was edited by administrator <strong><%=h event.params[:editor] %></strong>.
+            <% for p in ['title', 'prominence', 'described_state', 'awaiting_description'] 
+                    if event.params[p.to_sym] != event.params[('old_'+p).to_sym]
+                        %> Changed <%=p%> from '<%=h event.params[('old_'+p).to_sym]%>' to '<%=h event.params[p.to_sym] %>'. <%
+                    end
+               end
+            %>
+        <% elsif event.event_type == 'edit_outgoing' %>
+            <% outgoing_messages = OutgoingMessage.find(:all, event.params[:outgoing_message_id].to_i) %>
+            had outgoing message edited by administrator <strong><%=h event.params[:editor] %></strong>.
+            <% if outgoing_messages.size > 0 %>
+                <% outgoing_message = outgoing_messages[0] %>
+                <% for p in ['body'] 
+                        if event.params[p.to_sym] != event.params[('old_'+p).to_sym]
+                            %> Changed <%=p%> from '<%=h event.params[('old_'+p).to_sym]%>' to '<%=h event.params[p.to_sym] %>'. <%
+                        end
+                   end
+                %>
+            <% else %>
+                Missing outgoing message, internal error.
+            <% end %>
+        <% elsif event.event_type == 'edit_comment' %>
+            <% comments = Comment.find(:all, event.params[:comment_id].to_i) %>
+            had annotation edited by administrator <strong><%=h event.params[:editor] %></strong>.
+            <% if comments.size > 0 %>
+                <% comment = comments[0] %>
+                <% for p in ['body'] 
+                        if event.params[p.to_sym] != event.params[('old_'+p).to_sym]
+                            %> Changed <%=p%> from '<%=h event.params[('old_'+p).to_sym]%>' to '<%=h event.params[p.to_sym] %>'. <%
+                        end
+                   end
+                %>
+            <% else %>
+                Missing annotation, internal error.
+            <% end %>
+        <% elsif event.event_type == 'destroy_incoming' %>
+            had incoming message deleted by administrator <strong><%=h event.params[:editor] %></strong>.
+        <% elsif event.event_type == 'redeliver_incoming' %>
+            had incoming message redelivered to another request by administrator <strong><%=h event.params[:editor] %></strong>.
+         <% elsif event.event_type == 'response' %>
+            <% incoming_message = event.incoming_message %>
+            received 
+            <%= link_to 'a response', 
+                main_url(show_response_url(:id => incoming_message.info_request.id, :incoming_message_id => incoming_message.id, :only_path => true)) %>
+
+            from <%=h event.info_request.public_body.name %>.
+        <% elsif event.event_type == 'sent' %>
+            was initially sent to <%=h event.params[:email]%> at <%=h event.info_request.public_body.name %>.
+        <% elsif event.event_type == 'resent' %>
+            had the request resent to <%=h event.params[:email]%> at <%=h event.info_request.public_body.name %>.
+        <% elsif event.event_type == 'followup_sent' %>
+            had a follow up message sent to <%=h event.info_request.public_body.name %>.
+        <% elsif event.event_type == 'comment' %>
+            had an annotation posted by <%=h event.comment.user.name %>.
+        <% else %>
+            had '<%=event.event_type%>' done to it, parameters <%=h event.params_yaml%>.
+        <% end %>
+    <% else %>
+        <%= public_body_both_links(event.public_body) %>
+        was created/updated by administrator <strong><%=h event.last_edit_editor %></strong>
+    <% end %>
+<% end %>
+<% if not @events.empty? %>
+</p>
+<% end %>
+
+
