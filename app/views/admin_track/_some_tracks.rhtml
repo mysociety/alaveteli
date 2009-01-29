@@ -1,6 +1,7 @@
 <table>
   <tr>
   <th>Id</th>
+  <th>User</th>
   <% for column in TrackThing.content_columns %>
     <th><%= column.human_name %></th>
   <% end %>
@@ -11,6 +12,7 @@
 <% for track_thing in track_things %>
   <tr class="<%= cycle('odd', 'even') %>">
   <td><%=h track_thing.id %></td>
+  <td><%=user_both_links(track_thing.tracking_user) %></td>
   <% for column in TrackThing.content_columns.map { |c| c.name } %>
     <td><%=h track_thing.send(column) %></td>
   <% end %>
