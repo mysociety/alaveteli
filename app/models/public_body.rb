@@ -24,7 +24,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.127 2009-01-26 12:12:17 francis Exp $
+# $Id: public_body.rb,v 1.128 2009-01-29 11:48:46 francis Exp $
 
 require 'csv'
 require 'set'
@@ -40,6 +40,7 @@ class PublicBody < ActiveRecord::Base
     
     has_many :info_requests, :order => 'created_at desc'
     has_many :public_body_tags
+    has_many :track_things, :order => 'created_at desc'
 
     def self.categories_with_headings
         [

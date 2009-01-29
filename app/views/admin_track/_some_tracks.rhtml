@@ -1,0 +1,29 @@
+<table>
+  <tr>
+  <th>Id</th>
+  <% for column in TrackThing.content_columns %>
+    <th><%= column.human_name %></th>
+  <% end %>
+  <th>Items sent by email</th>
+  <th>Actions</th>
+  </tr>
+  
+<% for track_thing in track_things %>
+  <tr class="<%= cycle('odd', 'even') %>">
+  <td><%=h track_thing.id %></td>
+  <% for column in TrackThing.content_columns.map { |c| c.name } %>
+    <td><%=h track_thing.send(column) %></td>
+  <% end %>
+  <td><%= track_thing.track_things_sent_emails.size %></td>
+  <td>
+      <% form_tag '../../user/destroy_track' do %>
+          <div>
+              <%= hidden_field_tag 'track_id', track_thing.id %>
+              <%= submit_tag "Destroy track" %>
+          </div>
+      <% end %>
+  </td>
+  </tr>
+<% end %>
+</table>
+
