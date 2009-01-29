@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_user_controller.rb,v 1.7 2008-09-15 11:11:13 francis Exp $
+# $Id: admin_user_controller.rb,v 1.8 2009-01-29 11:18:01 francis Exp $
 
 class AdminUserController < ApplicationController
     layout "admin"
@@ -52,6 +52,16 @@ class AdminUserController < ApplicationController
         track_thing.destroy
         flash[:notice] = 'Track destroyed'
         redirect_to user_admin_url(track_thing.tracking_user)
+    end
+
+    def login_as
+        @admin_user = User.find(params[:id]) # check user does exist
+
+        post_redirect = PostRedirect.new( :uri => frontpage_url(), :user_id => @admin_user.id)
+        post_redirect.save!
+        url = confirm_url(:email_token => post_redirect.email_token)
+            
+        redirect_to url
     end
 
     private

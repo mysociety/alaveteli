@@ -18,6 +18,7 @@
 <p>
     <%= link_to 'Public page', main_url(user_url(@admin_user)) %>
     | <%= link_to 'Edit', '../edit/' + @admin_user.id.to_s %>
+    | <%= link_to 'Log in as this user', '../login_as/' + @admin_user.id.to_s %> (also confirms their email)
 </p>
 
 <h2>Track things</h2>
