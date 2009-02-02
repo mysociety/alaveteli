@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-describe AdminController, "when viewing front page of admin interface" do
+describe AdminGeneralController, "when viewing front page of admin interface" do
     integrate_views
   
     it "should render the front page" do
