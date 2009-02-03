@@ -278,9 +278,6 @@ And indeed so links work:
 Failed to detect attachments are emails and decode them:
     http://www.whatdotheyknow.com/request/malicious_communication_act#incoming-12964
 
-Make it read the number in DSNs and decode it to describe problem?
-    http://www.whatdotheyknow.com/request/febrile_neutropenia_123#incoming-13165
-
 
 Totally new features
 --------------------
