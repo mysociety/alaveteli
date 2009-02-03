@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.162 2009-01-27 17:12:31 francis Exp $
+# $Id: info_request.rb,v 1.163 2009-02-03 01:45:08 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -675,6 +675,9 @@ public
         self.info_request_events.each do |info_request_event| 
             info_request_event.track_things_sent_emails.each { |a| a.destroy }
             info_request_event.destroy
+        end
+        self.exim_logs.each do |exim_log| 
+            exim_log.destroy
         end
         self.outgoing_messages.each { |a| a.destroy }
         self.incoming_messages.each { |a| a.destroy }
