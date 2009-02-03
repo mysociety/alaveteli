@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.186 2009-02-03 03:43:00 francis Exp $
+# $Id: incoming_message.rb,v 1.187 2009-02-03 03:46:46 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -156,6 +156,8 @@ def normalise_content_type(content_type)
     return content_type
 end
 
+# List of DSN codes taken from RFC 3463
+# http://tools.ietf.org/html/rfc3463
 $dsn_to_message = {
          'X.1.0' => 'Other address status',
          'X.1.1' => 'Bad destination mailbox address',
