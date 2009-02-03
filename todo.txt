@@ -1,25 +1,3 @@
-Internal review
-===============
-
-If you've already conducted an internal review, at all places 
-- when on unhappy/url
-- when on not held link
-- on the page for the request
-don't offer it again.
-
-Example of completed review:
-http://www.whatdotheyknow.com/request/request_for_full_disclosure_of_b#incoming-9267
-
-Clock for internal review
-    The Information Commissioner has issued a "Good Practice Guidance" document:
-    http://www.ico.gov.uk/upload/documents/library/freedom_of_information/detailed_specialist_guides/foi_good_practice_guidance_5.pdf
-    20 days is late
-    40 days max.
-Fix up the text: "The internal review should take 2-3 weeks for simple cases,
-and up to 6 weeks even for complex reviews."
-Awaiting internal review overdue state?
-
-
 Next
 ====
 
@@ -34,6 +12,25 @@ Write code to make sure the Return-Path is never foi@sandwich.org.uk (even if th
 
 Later
 =====
+
+If you've already conducted an internal review, at all places 
+- when on unhappy/url
+- when on not held link
+- on the page for the request
+don't offer it again.
+Example of completed review:
+http://www.whatdotheyknow.com/request/request_for_full_disclosure_of_b#incoming-9267
+
+Clock for internal review
+    The Information Commissioner has issued a "Good Practice Guidance" document:
+    http://www.ico.gov.uk/upload/documents/library/freedom_of_information/detailed_specialist_guides/foi_good_practice_guidance_5.pdf
+    20 days is late
+    40 days max.
+Fix up the text: "The internal review should take 2-3 weeks for simple cases,
+and up to 6 weeks even for complex reviews."
+Awaiting internal review overdue state?
+
+Sort requests on user page by status
 
 Ask people for annotation immediately after they have submitted their request
 
@@ -66,9 +63,6 @@ whole database on their own machine without risk of compromise (for Tony)
 mind leaking out email address ot requests etc. to the trusted person (in contrast
 can easily totally remove private emails in the user table)
 
-Tips on using the law:
-- You can go up and down between local and national - ask local places what their policy is, and hwo they are implementing it. Ask national things what odcuments set local policies.
-
 Search for text "internal review" in followups and add warning if they aren't
 using the internal review mode.
 
@@ -85,6 +79,9 @@ CSS / design things
             but some magic Ruby thing is printing the error span.
     - Improve CSS on IE7 for large images in docs
         http://www.whatdotheyknow.com/request/3289/response/7810/attach/html/3/20081023ReplyLetter.pdf.html
+    - favicon.ico would be nice
+    - Get Atom feed of search results to include stylesheet for highlighting words in
+      yellow somehow
 
 Let requesters change status to anything at any point
 - using same interface let admin users set things to internal review more
@@ -95,11 +92,6 @@ For followups, have radio button to say is it a new request or followup
 Do by uncommenting the "new information" option when writing a followup, so
 that it makes a new request
 
-Performance:
-    Remove loading of public body tags from every info request load
-
-Rename show_response action to send_followup?
-
 Would be nice if you try and send or resend (from admin interface, or by sending
 followup as user) and original address is set to not_apply or "" that it deals
 with it better :) 
@@ -108,11 +100,13 @@ When doing search, people often just want it to show the whole page. Perhaps
 all listing should just link to top of page, rather than # links for outgoing
 incoming, or perhaps just some of them.
 
-Add "Who should I make my request to?"
-Add "I'm not sure which authority to make my request to" - make flow better after first section, to abrupt now
+Add "Who should I make my request to?" - make flow better after first section, to abrupt now
 I think the advice in this annotation could go into a nice comment:
 http://www.whatdotheyknow.com/request/berr_response_to_eu_on_phorm_bt#comment-356
 Add "I want to file squillions of requests"
+
+Tell application developer if working days table not up to date, and needs
+updating
 
 Link the overdue date to an explanation of what bank holidays it skipped etc.
 :)
@@ -160,16 +154,11 @@ Test code for internal review submitting
 Detect councils that always send automatic acknowledgements, and notice if they
 do not for a particular request? (e.g. Leicestershire County Council)
 
-Do conversion tracking on endpoints in WDTK, advertise perhaps TWFY, or perhaps
-    donations to mySociety.
-
 http://www.whatdotheyknow.com/list/successful - too many ombudsmans.
     Radical would be to group by user, regardless of subject; less radical to
     collate those with same/similar subject.
 http://www.whatdotheyknow.com/list?page=2 - too many monitoring officer
     reports - similar to above, I reckon.
-
-favicon.ico would be nice
 
 Protect from CSRF with this in app controller (care it doesn't break anything):
   # See ActionController::RequestForgeryProtection for details
@@ -178,11 +167,6 @@ Protect from CSRF with this in app controller (care it doesn't break anything):
 
 Look at quote_address_if_necessary in actionmailer's quoting.rb - why did it
 not work for the email address with "@" in its name part?
-
-Search FAQ and other help pages with normal search
-    - also the "notes" section on an authority
-
-Jump to a random request :)
 
 VSD files vsdump - example in zip file
     http://www.whatdotheyknow.com/request/dog_control_orders#incoming-3510
@@ -200,12 +184,6 @@ as well as word/document.xml ? (thread on xapian-discuss does so)
 
 Something to check which tags are used but aren't in PublicBody category lists
 
-When described state is edited in admin interface, automatically reset the flag
-for needs classification.
-
-Advertise WDTK search queries on TWFY
-Advertise alerts on end pages with WDTK
-
 Blog posts / Wikipedia articles about this request
     e.g. http://socialreporter.wordpress.com/2008/04/14/costs-of-the-bbc-action-action-network/
     http://reportr.net/2008/04/24/bbc-spent-6m-to-develop-the-iplayer/
@@ -216,22 +194,10 @@ Catch query parser error, e.g. for this query
     water NOT NEAR "water lane"
 Document such errors in acts_as_xapian
 
-It's looking very nice!  I had a look at the M27 request, as per your
-earlier email, but I was a bit thrown by the date - is it the 27th
-today, or last week, or more recently.  Do you think it would be
-worthwhile appending "($days days ago)" to the date of each message,
-and "($days days to go)" to the due dates?  Saves people having to
-work out (in their heads or otherwise) how long they need to wait for
-a response. (Etienne) Use distance_of_time_in_words to do this
-
 Renaming public authorities will break alerts on them.
 
 Compress the emails in the database
 Don't store the cached text in backups
-
-Check this again after a while, for dodgy states of events:
-s = InfoRequest.find(:all).select { |i| (not i.awaiting_description) and i.get_last_response_event_id and InfoRequestEvent.find(i.get_last_response_event_id).calculated_state != i.described_state }; s.size
-- XXXX so when somebody changes waiting description without changing described state doesn't log in event.
 
 Edits to outgoing/incoming/title won't be reindexed in Xapian (maybe just reindex all once a week)
     And maybe edits to prominence, which is more upsetting
@@ -240,19 +206,7 @@ Edits to outgoing/incoming/title won't be reindexed in Xapian (maybe just reinde
 This does it all:
 $ ./script/clear-incoming-text-cache ; ./script/rebuild-xapian-index
 
-Get Atom feed of search results to include stylesheet for highlighting words in
-yellow somehow
-
 Interface for when you change your email address - easier to do now with post_redirect.circumstance?
-
-Tell application developer if working days table not up to date, and needs
-updating
-
-Make text boxes autogrow as you type into them.
-(10:32:14) richard: you just need to count the number of rows of text and compare it to the number of rows in the textbox
-(10:32:29) richard: then increase the height of the textbox by 1em-ish
-(10:32:52) Matthew: their function is called autogrow_textarea() by the way, if you just want to look at it...
- thanks :) I won't do it now as there are more important things, I was just accidentally impressed
 
 Including 'Request for information' in the subject line of your e-mail will assist us in prioritising your request.
 http://www.parliament.uk/parliamentary_publications_and_archives/freedom_of_information_in_the_house_of_lords/lords__foi___how_to_obtain_information.cfm
@@ -328,8 +282,30 @@ Make it read the number in DSNs and decode it to describe problem?
     http://www.whatdotheyknow.com/request/febrile_neutropenia_123#incoming-13165
 
 
-Larger new features
--------------------
+Totally new features
+--------------------
+
+Tips on using the law:
+- You can go up and down between local and national - ask local places what their policy is, and hwo they are implementing it. Ask national things what odcuments set local policies.
+
+Jump to a random request :)
+
+Do conversion tracking on endpoints in WDTK, advertise perhaps TWFY, or perhaps
+    donations to mySociety.
+Advertise WDTK search queries on TWFY
+Advertise alerts on end pages with WDTK
+
+Search FAQ and other help pages with normal search
+    - also the "notes" section on an authority
+
+Make text boxes autogrow as you type into them.
+(10:32:14) richard: you just need to count the number of rows of text and compare it to the number of rows in the textbox
+(10:32:29) richard: then increase the height of the textbox by 1em-ish
+(10:32:52) Matthew: their function is called autogrow_textarea() by the way, if you just want to look at it...
+ thanks :) I won't do it now as there are more important things, I was just accidentally impressed
+
+Set arbitary alarms, to be alerted when a date set by authority for themselves
+is passed.
 
 Add to calendar links:
 like the add to calendar links on here: http://upcoming.yahoo.com/event/33391/
@@ -337,7 +313,7 @@ like the add to calendar links on here: http://upcoming.yahoo.com/event/33391/
 
 Offer option of one RSS feed with all things you are tracking in it. Maybe.
 
-Antispam on contact form
+Antispam on contact form (a recaptcha presumably, as we have them elsewhere)
 
 Find a way to get corrected email addresses from responses - somehow getting
 user to send them in?  
