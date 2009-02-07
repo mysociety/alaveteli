@@ -336,6 +336,8 @@ In "view as HTML" let people highlight paragraphs, and link to them
 
 Add geographical location of councils, PCTs etc.
 Have a single button to sign up to alerts on authorities for your postcode
+NHS postcode database: 
+    http://www.ons.gov.uk/about-statistics/geography/products/geog-products-postcode/nhspd/index.html
 
 Proposed request submission queue with comments - new requests don't get sent straight
     away, but are delayed while people help improve them.
