@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.67 2008-11-21 01:50:06 francis Exp $
+# $Id: request_mailer.rb,v 1.68 2009-02-09 10:37:12 francis Exp $
 
 class RequestMailer < ApplicationMailer
     
@@ -89,6 +89,7 @@ class RequestMailer < ApplicationMailer
     # Incoming message arrived for a request, but new responses have been stopped.
     def stopped_responses(info_request, email)
         @from = contact_from_name_and_email
+        headers 'Return-Path' => blackhole_email, 'Reply-To' => @from # we don't care about bounces, likely from spammers
         @recipients = email.from_addrs[0].quoted_full
         @subject = "Your response to an FOI request was not delivered"
         attachment :content_type => 'message/rfc822', :body => email.body
@@ -170,7 +171,7 @@ class RequestMailer < ApplicationMailer
         @body = { :incoming_message => incoming_message, :info_request => info_request, :url => url }
     end
 
-    # Tell the requester that they need to clarify their request
+    # Tell requester that somebody add an annotation to their request
     def comment_on_alert(info_request, comment)
         @from = contact_from_name_and_email
         @recipients = info_request.user.name_and_email

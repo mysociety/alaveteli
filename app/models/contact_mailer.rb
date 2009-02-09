@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: contact_mailer.rb,v 1.9 2008-10-07 22:05:06 francis Exp $
+# $Id: contact_mailer.rb,v 1.10 2009-02-09 10:37:12 francis Exp $
 
 class ContactMailer < ApplicationMailer
 
@@ -31,8 +31,7 @@ class ContactMailer < ApplicationMailer
         @from = from_user.name_and_email
         # Do not set envelope from address to the from_user, so they can't get
         # someone's email addresses from transitory bounce messages.
-        headers 'Return-Path' => contact_from_name_and_email,  # XXX perhaps change to being a black hole
-                'Reply-To' => @from
+        headers 'Return-Path' => blackhole_email, 'Reply-To' => @from
         @recipients = recipient_user.name_and_email
         @subject = subject
         @body = { 

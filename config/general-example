@@ -19,7 +19,7 @@
  * Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
  * Email: francis@mysociety.org; WWW: http://www.mysociety.org
  *
- * $Id: general-example,v 1.17 2008-10-17 11:46:11 francis Exp $
+ * $Id: general-example,v 1.18 2009-02-09 10:37:13 francis Exp $
  * 
  */
 
@@ -32,7 +32,8 @@ define('OPTION_DOMAIN', '127.0.0.1:3000');
 // Incoming email
 define('OPTION_INCOMING_EMAIL_DOMAIN', 'localhost'); // e.g. 'foifa.com'
 define('OPTION_INCOMING_EMAIL_PREFIX', ''); // e.g. 'foi+'
-define('OPTION_INCOMING_EMAIL_SECRET', 'xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx'); // Used for hash in request email address
+define('OPTION_INCOMING_EMAIL_SECRET', 'xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx'); // used for hash in request email address
+define('OPTION_BLACKHOLE_PREFIX', 'do-not-reply-to-this-address'); // used as envelope from at the incoming email domain for cases where we don't care about failure
 
 // Administration
 define('OPTION_CONTACT_EMAIL', 'admin@localhost');
