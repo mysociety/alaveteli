@@ -1,3 +1,5 @@
+check-recent-requests-sent works
+
 Next (things that will reduce admin time mainly)
 ====
 
@@ -94,6 +96,9 @@ CSS / design things
     - favicon.ico would be nice
     - Get Atom feed of search results to include stylesheet for highlighting words in
       yellow somehow
+
+What happens if you view an address with the captcha, and it is not_apply or
+blank?
 
 Would be nice if you try and send or resend (from admin interface, or by sending
 followup as user) and original address is set to not_apply or "" that it deals

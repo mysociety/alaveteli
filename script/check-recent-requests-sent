@@ -1,0 +1,8 @@
+#!/bin/bash
+
+LOC=`dirname $0`
+
+$LOC/runner 'EximLog.check_recent_requests_have_been_sent'
+
+
+
