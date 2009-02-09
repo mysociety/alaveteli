@@ -10,6 +10,10 @@ Next (things that will reduce admin time mainly)
 Change text so that overdue covers qualified exemption of public interest test being
 valid reason for delay.
 
+Disable bounce detection for tracks that are errant - make it central so TWFY
+can use it.
+
+
 Remove the generic unknown option so people don't overuse it
 
 Use maybe words for generated email address? Name of the person and a request
