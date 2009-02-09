@@ -1,16 +1,14 @@
 check-recent-requests-sent works
+Write code to make sure the Return-Path is never foi@sandwich.org.uk (even if the
+  Rails code breaks for Sendmail case in future botched Rails upgrades :)
+    Maybe can use exim delivery log lines to do this?
+
 
 Next (things that will reduce admin time mainly)
 ====
 
 Change text so that overdue covers qualified exemption of public interest test being
 valid reason for delay.
-
-Make return path a black hole for administrative emails so we don't get bounces
-
-Write code to make sure the Return-Path is never foi@sandwich.org.uk (even if the
-  Rails code breaks for Sendmail case in future botched Rails upgrades :)
-    Maybe can use exim delivery log lines to do this?
 
 Remove the generic unknown option so people don't overuse it
 
