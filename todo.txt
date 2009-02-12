@@ -15,6 +15,7 @@ can use it.
 
 
 Remove the generic unknown option so people don't overuse it
+- make sure there is a "delivery failure" option for that case
 
 Use maybe words for generated email address? Name of the person and a request
 number (i.e. number of that persons request, so there are few numbers)?
@@ -41,6 +42,11 @@ Just stop worrying about old requests which are unclassified in status, or
 make it a public wiki? At least improve usability a bit more for the alert
 emails reminding you to fill in status.
 
+Give authorities interface for editing their request email address.
+
+Enable SPF, to reduce number of requests lost to spam filters
+http://www.openspf.org/SPF_Record_Syntax#include
+
 
 Later
 =====
@@ -62,7 +68,8 @@ Fix up the text: "The internal review should take 2-3 weeks for simple cases,
 and up to 6 weeks even for complex reviews."
 Awaiting internal review overdue state?
 
-Sort requests on user page by status
+Sort requests on user page by status. "sort open requests in order of 'last
+action'" (and tell Paul Perrin when done!)
 
 Ask people for annotation immediately after they have submitted their request
 Ask for annotation about what they learnt from request?
@@ -83,6 +90,8 @@ Search for text "internal review" in followups and add warning if they aren't
 using the internal review mode.
 
 CSS / design things
+    - The stepwise instruction boxes "Next, select the public authority ... "
+      need to look better, and have icons associated with them etc.
     - Icon for internal_review, user_withdrawn
     - CSS error on "all councils" page on some browsers
         https://bugzilla.mozilla.org/show_bug.cgi?id=424194
@@ -363,6 +372,7 @@ Link to:
 e.g.
     http://www.ordnancesurvey.co.uk/oswebsite/aboutus/foi/index.html
     http://www.ordnancesurvey.co.uk/oswebsite/aboutus/foi/coiindex.html
+Maybe gather this data by letting authorities input it
 
 EU regulation 1049/2001 requests
 US requests (with Sunlight)

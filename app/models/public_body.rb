@@ -24,7 +24,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.129 2009-02-09 09:51:53 francis Exp $
+# $Id: public_body.rb,v 1.130 2009-02-12 17:24:48 francis Exp $
 
 require 'csv'
 require 'set'
@@ -166,6 +166,14 @@ class PublicBody < ActiveRecord::Base
     self.non_versioned_columns << 'created_at' << 'updated_at' << 'first_letter'
     class Version
         attr_accessor :created_at
+
+        def last_edit_comment_for_html_display
+            text = self.last_edit_comment.strip
+            text = CGI.escapeHTML(text)
+            text = MySociety::Format.make_clickable(text)
+            text = text.gsub(/\n/, '<br>')
+            return text
+        end
     end
 
     acts_as_xapian :texts => [ :name, :short_name ],
