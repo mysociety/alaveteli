@@ -24,7 +24,10 @@
 <% else %>
     *unknown*
 <% end %>
-<br/><b>Tags:</b> <%=h @public_body.tag_string %>
+<br/><b>Tags:</b> <%= @public_body.public_body_tags.map { |t|
+        link_to(h(t.name), list_public_bodies_url(:tag => t.name)) +
+        ' (<a href="' + admin_url('body/list') + "?query=" + h(t.name) + '">admin</a>)' }.join(' ') %>
+
 <br/>
 </p>
 
