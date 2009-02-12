@@ -477,7 +477,8 @@ dd { margin: 0.6em 0 2em 4em; width: 33em; }
 		/* Waiting */
 		span.bottomline.icon_waiting_response,
 		span.bottomline.icon_waiting_classification,
-		span.bottomline.icon_waiting_clarification
+		span.bottomline.icon_waiting_clarification,
+		span.bottomline.icon_internal_review
 		{ background-image: url(../images/navimg/status-icons-wait.png);}
 		/* Failed */
 		span.bottomline.icon_not_held,
