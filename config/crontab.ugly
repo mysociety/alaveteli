@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org. WWW: http://www.mysociety.org/
 #
-# $Id: crontab.ugly,v 1.21 2009-02-09 09:51:53 francis Exp $
+# $Id: crontab.ugly,v 1.22 2009-02-12 20:01:30 root Exp $
 
 PATH=/usr/local/bin:/usr/bin:/bin
 MAILTO=team@whatdotheyknow.com
@@ -29,4 +29,5 @@ MAILTO=team@whatdotheyknow.com
 
 # Once a day on all servers
 43 2 * * * !!(*= $user *)!! /data/vhost/!!(*= $vhost *)!!/mysociety/foi/script/request-creation-graph
+48 2 * * * !!(*= $user *)!! /data/vhost/!!(*= $vhost *)!!/mysociety/foi/script/user-use-graph
 
