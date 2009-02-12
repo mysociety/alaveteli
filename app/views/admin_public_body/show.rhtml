@@ -9,7 +9,13 @@
 
    for column in columns %>
   <b><%= column.human_name %>:</b> 
-  <%=h @public_body.send(column.name) %>
+  <% if column.name == 'home_page' and !column.name.empty? %>
+    <%= link_to(h(@public_body.send(column.name)), @public_body.send(column.name))  %>
+  <% elsif column.name == 'request_email' and !column.name.empty? %>
+    <%= link_to(h(@public_body.send(column.name)), "mailto:" + @public_body.send(column.name))  %>
+  <% else %>
+      <%=h @public_body.send(column.name) %>
+  <% end %>
   <br/>
 <% end %>
 <b>Calculated home page:</b> 
