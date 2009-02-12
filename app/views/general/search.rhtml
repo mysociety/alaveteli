@@ -9,6 +9,8 @@
     <% @title = "Results page " + @page.to_s %>
 <% end%>
 
+<% @include_request_link_in_authority_listing = true %>
+
 <% if @bodies && (@page == 1 || @xapian_bodies.results.size > 0) %>
     <div id="stepwise_instructions">
         <p><strong>Next, select the public authority you'd like to make the request from.</strong></p>

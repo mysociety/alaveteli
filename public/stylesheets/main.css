@@ -275,14 +275,14 @@ dd { margin: 0.6em 0 2em 4em; width: 33em; }
     text-align: center;
     margin: 3em 0em 1em 0em;
     padding: 1em;
-	background-color: #e0e0e0;
+	background-color: #d0d0d0;
 }
 #stepwise_instructions
 {
     text-align: center;
     margin: 0em 0em 0em 0em;
     padding: 0.2em 0em 0.2em 0em;
-	background-color: #e0e0e0;
+	background-color: #d0d0d0;
 }
 #stepwise_instructions p
 {
@@ -294,14 +294,14 @@ dd { margin: 0.6em 0 2em 4em; width: 33em; }
     text-align: center;
     margin: 0em 14em 0em 0em;
     padding: 1em 1em 1em 1em;
-	background-color: #e0e0e0;
+	background-color: #d0d0d0;
 }
 #stepwise_make_request_view_email
 {
     text-align: center;
     margin: 0em 0em 0em 0em;
     padding: 1em 0em 1em 0em;
-	background-color: #e0e0e0;
+	background-color: #d0d0d0;
 }
 #frontpage_examples div#examples_0 {
     float: left;

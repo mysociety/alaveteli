@@ -13,7 +13,11 @@
     <% end %>
 	</span>
     <span class="bottomline">
-        <%= pluralize(public_body.info_requests.size, "request") %> made. <br>
+        <%= pluralize(public_body.info_requests.size, "request") %> made. 
+        <% if !@include_request_link_in_authority_listing.nil? %>
+        <%= link_to "Make your own request", public_body_url(public_body) %>.
+        <% end %>
+        <br>
         Added on <%= simple_date(public_body.created_at) %>.
     </span>
 </div>
