@@ -47,9 +47,29 @@ Give authorities interface for editing their request email address.
 Enable SPF, to reduce number of requests lost to spam filters
 http://www.openspf.org/SPF_Record_Syntax#include
 
+Point all MX records to one server, so can see incoming messages in exim logs also.
+Hmmm, but less robust. Run the exim log grabber across all mail servers?
+
+Sort out your own track subscriptions, so many of them
+
+Lots of authorities are starting to complain about how their record looks on
+their page - e.g responses not classified by users, the sort of icon there is
+for information not held etc. That users may classify incorrectly. We need
+some kidn of general solution to make it clear what the states and icons mean,
+in terms of properly reflecting how the council is doing.
+
+Add FAQ / unhappy page which explains what you can do if you get no response
+at all and that it might be spam.
 
 Later
 =====
+
+When you move a response, you get an error on the source page until the search
+index updates, which is a pain.
+
+Should really make replies munge subject of last response, rather than start
+afresh with subject - authorities use FOI code in subject as here:
+http://www.whatdotheyknow.com/request/causes_of_the_financial_crisis#incoming-12779
 
 If you've already conducted an internal review, at all places 
 - when on unhappy/url
@@ -124,6 +144,7 @@ Help page improvements:
     I think the advice in this annotation could go into a nice comment:
     http://www.whatdotheyknow.com/request/berr_response_to_eu_on_phorm_bt#comment-356
     Add "I want to file squillions of requests"
+    Reassurance that fees don't happen much
 
 Tell application developer if working days table not up to date, and needs
 updating
