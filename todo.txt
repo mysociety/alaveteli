@@ -61,6 +61,8 @@ in terms of properly reflecting how the council is doing.
 Add FAQ / unhappy page which explains what you can do if you get no response
 at all and that it might be spam.
 
+Links to "a response" from timeline aren't to right page any more.
+
 Later
 =====
 
