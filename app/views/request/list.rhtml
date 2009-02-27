@@ -19,7 +19,7 @@
 <% end %>
 
 <% if @xapian_object.results.empty? %>
-    <p>No requests made yet.</p>
+    <p>No requests of this sort yet.</p>
 <% else %>
     <% for result in @xapian_object.results %>
         <% if result[:model].class.to_s == 'InfoRequestEvent' %>
