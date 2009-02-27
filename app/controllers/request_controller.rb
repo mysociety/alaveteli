@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.146 2009-01-23 12:53:38 francis Exp $
+# $Id: request_controller.rb,v 1.147 2009-02-27 17:14:57 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -36,9 +36,13 @@ class RequestController < ApplicationController
         # Sidebar stuff
         limit = 3
         # ... requests that have similar imporant terms
-        @xapian_similar = ::ActsAsXapian::Similar.new([InfoRequestEvent], @info_request.info_request_events, 
-            :limit => limit, :collapse_by_prefix => 'request_collapse')
-        @xapian_similar_more = (@xapian_similar.matches_estimated > limit)
+        begin
+            @xapian_similar = ::ActsAsXapian::Similar.new([InfoRequestEvent], @info_request.info_request_events, 
+              :limit => limit, :collapse_by_prefix => 'request_collapse')
+            @xapian_similar_more = (@xapian_similar.matches_estimated > limit)
+        rescue
+            @xapian_similar = nil
+        end
  
         # Track corresponding to this page
         @track_thing = TrackThing.create_track_for_request(@info_request)
