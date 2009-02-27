@@ -45,8 +45,21 @@
     </ul>
 <% end %>
 
+<% if @error_message_requests.size > 0 %>
+    <h3>Fix these delivery and other errors (<%=@error_message_requests.size%> total)</h3>
+
+    <ul>
+    <% for @request in @error_message_requests %>
+        <li>
+            <%= request_both_links(@request)%>
+            &ndash; <%=simple_date(@request.get_last_event.created_at)%>
+        </li>
+    <% end %>
+    </ul>
+<% end %>
+
 <% if @requires_admin_requests.size > 0 %>
-    <h3>Work out what to do with these unusual responses (a new category?) (<%=@requires_admin_requests.size%> total)</h3>
+    <h3>These require administrator attention (<%=@requires_admin_requests.size%> total)</h3>
 
     <ul>
     <% for @request in @requires_admin_requests %>

@@ -1,6 +1,6 @@
 <% if @is_owning_user || @requires_admin_describe %>
     <% form_for(:incoming_message, @info_request, :url => describe_state_url(:id => @info_request.id)) do |f| %>
-        <h2>What is the status of this request now?</h2>
+        <h2>What best describes the status of this request now?</h2>
 
         <hr> <!------------------------------------------------>
 
@@ -56,9 +56,19 @@
         <hr> <!------------------------------------------------>
 
         <div>
-           <%= radio_button "incoming_message", "described_state", "requires_admin", :id => 'requires_admin' + id_suffix %>
-            <label for="requires_admin<%=id_suffix%>"><strong>None</strong> of the above</label>
+           <%= radio_button "incoming_message", "described_state", "error_message", :id => 'error_message' + id_suffix %>
+            <label for="error_message<%=id_suffix%>">
+            I've received an <strong>error message</strong> 
+            </label>
         </div>
+<!--        <div>
+           <%= radio_button "incoming_message", "described_state", "requires_admin", :id => 'requires_admin' + id_suffix %>
+            <label for="requires_admin<%=id_suffix%>">
+            <strong>None</strong> of the above
+            </label>
+        </div> -->
+
+
         <hr>
 
         <p>

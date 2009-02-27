@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request_event.rb,v 1.72 2009-02-09 09:51:53 francis Exp $
+# $Id: info_request_event.rb,v 1.73 2009-02-27 22:32:13 francis Exp $
 
 class InfoRequestEvent < ActiveRecord::Base
     belongs_to :info_request
@@ -61,6 +61,7 @@ class InfoRequestEvent < ActiveRecord::Base
         'successful', 
         'partially_successful',
         'internal_review',
+        'error_message',
         'requires_admin',
         'user_withdrawn'
     ]
@@ -216,6 +217,8 @@ class InfoRequestEvent < ActiveRecord::Base
                     return "Internal review acknowledgement"
                 elsif status == 'user_withdrawn'
                     return "Withdrawn by requester"
+                elsif status == 'error_message'
+                    return "Delivery error"
                 elsif status == 'requires_admin'
                     return "Unusual response"
                 end

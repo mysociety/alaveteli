@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.147 2009-02-27 17:14:57 francis Exp $
+# $Id: request_controller.rb,v 1.148 2009-02-27 22:32:13 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -31,7 +31,7 @@ class RequestController < ApplicationController
         @new_responses_count = @events_needing_description.select {|i| i.event_type == 'response'}.size
 
         # special case that an admin user can edit requires_admin requests
-        @requires_admin_describe = (@info_request.described_state == 'requires_admin') && !authenticated_user.nil? && authenticated_user.requires_admin_power?
+        @requires_admin_describe = (InfoRequest.requires_admin_states.include?(@info_request.described_state)) && !authenticated_user.nil? && authenticated_user.requires_admin_power?
 
         # Sidebar stuff
         limit = 3
@@ -231,7 +231,7 @@ class RequestController < ApplicationController
         end
 
         # special case that an admin user can edit requires_admin requests
-        @requires_admin_describe = (@info_request.described_state == 'requires_admin') && !authenticated_user.nil? && authenticated_user.requires_admin_power?
+        @requires_admin_describe = (InfoRequest.requires_admin_states.include?(@info_request.described_state)) && !authenticated_user.nil? && authenticated_user.requires_admin_power?
 
         if !@info_request.awaiting_description && !@requires_admin_describe
             flash[:notice] = "The status of this request is up to date."
@@ -312,8 +312,11 @@ class RequestController < ApplicationController
         elsif @info_request.calculate_status == 'internal_review'
             flash[:notice] = "<p>Thank you! Hopefully your wait isn't too long.</p><p>You should get a response within 20 days, or be told if it will take longer (<a href=\"" + unhappy_url(@info_request) + "#internal_review\">details</a>).</p>"
             redirect_to request_url(@info_request)
+        elsif @info_request.calculate_status == 'error_message'
+            flash[:notice] = "<p>Thank you! We'll look into what happened and try and fix it up.</p><p>If the error was a delivery failure, and you can find an up to date FOI email address for the authority, please tell us using the form below.</p>"
+            redirect_to help_general_url(:action => 'contact')
         elsif @info_request.calculate_status == 'requires_admin'
-            flash[:notice] = "Please use the form below if you would like to tell us what is unusual about the response."
+            flash[:notice] = "Please use the form below to tell us more."
             redirect_to help_general_url(:action => 'contact')
         else
             raise "unknown calculate_status " + @info_request.calculate_status

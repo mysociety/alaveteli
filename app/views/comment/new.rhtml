@@ -51,9 +51,13 @@ Annotations are so anyone, including you, can help the requester with their requ
     <li> Advise on whether the <strong>rejection is legal</strong>, and how to complain about if not. </li>
 <% end %>
 
+<% if [ 'error_message' ].include?(@info_request.described_state) %>
+    <li> You know what caused the error, and can <strong>suggest a solution</strong>, such as a working email address. </li>
+<% end %>
 <% if [ 'requires_admin' ].include?(@info_request.described_state) %>
     <li> Your thoughts on what the WhatDoTheyKnow <strong>administrators</strong> should do about the request. </li>
 <% end %>
+
 
 </ul>
 

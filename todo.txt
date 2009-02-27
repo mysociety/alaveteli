@@ -1,4 +1,7 @@
-check-recent-requests-sent works
+
+requires_admin_requests
+
+check-recent-requests-sent works (mails "check_recent_requests_have_been_sent")
 Write code to make sure the Return-Path is never foi@sandwich.org.uk (even if the
   Rails code breaks for Sendmail case in future botched Rails upgrades :)
     Maybe can use exim delivery log lines to do this?
@@ -63,6 +66,7 @@ at all and that it might be spam.
 
 Links to "a response" from timeline aren't to right page any more.
 
+
 Later
 =====
 
@@ -100,7 +104,7 @@ I have several email alerts set up. Is there any chance they could include part
 (or, preferably, all) of the search criterion in the Subject: line? :o)
 (Perhaps do it in the case when only one search criterion makes the mail)
 
-Update annotation help text for new states like internal_review and gone_postal
+Update annotation help text for new states like internal_review and gone_postal ./views/comment/new.rhtml
 
 Test data dumper that removes sensitive data, but lets trusted people play with
 whole database on their own machine without risk of compromise (for Tony)

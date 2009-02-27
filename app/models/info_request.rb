@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.165 2009-02-27 16:50:53 francis Exp $
+# $Id: info_request.rb,v 1.166 2009-02-27 22:32:13 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -59,6 +59,7 @@ class InfoRequest < ActiveRecord::Base
         'successful', 
         'partially_successful',
         'internal_review',
+        'error_message',
         'requires_admin',
         'user_withdrawn'
     ]
@@ -323,6 +324,12 @@ public
         return ir
     end
 
+    # states which require administrator action (hence email administrators
+    # when they are entered, and offer state change dialog to them)
+    def self.requires_admin_states
+        return ['requires_admin', 'error_message']
+    end
+
     # change status, including for last event for later historical purposes
     def set_described_state(new_state)
         ActiveRecord::Base.transaction do
@@ -336,7 +343,7 @@ public
 
         self.calculate_event_states
 
-        if new_state == 'requires_admin'
+        if InfoRequest.requires_admin_states.include?(new_state)
             RequestMailer.deliver_requires_admin(self)
         end
     end
@@ -656,6 +663,8 @@ public
             "Handled by post."
         elsif status == 'internal_review'
             "Awaiting internal review."
+        elsif status == 'error_message'
+            "Delivery error"
         elsif status == 'requires_admin'
             "Unusual response."
         elsif status == 'user_withdrawn'
