@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.164 2009-02-09 09:51:53 francis Exp $
+# $Id: info_request.rb,v 1.165 2009-02-27 16:50:53 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -32,7 +32,7 @@ class InfoRequest < ActiveRecord::Base
     strip_attributes!
 
     validates_presence_of :title, :message => "^Please enter a summary of your request"
-    validates_format_of :title, :with => /[a-z]/, :message => "^Please write a summary with some text in it", :if => Proc.new { |info_request| !info_request.title.nil? && !info_request.title.empty? }
+    validates_format_of :title, :with => /[a-zA-Z]/, :message => "^Please write a summary with some text in it", :if => Proc.new { |info_request| !info_request.title.nil? && !info_request.title.empty? }
 
     belongs_to :user
     #validates_presence_of :user_id # breaks during construction of new ones :(
