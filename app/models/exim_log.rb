@@ -18,7 +18,7 @@
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: exim_log.rb,v 1.4 2009-02-09 09:51:53 francis Exp $
+# $Id: exim_log.rb,v 1.5 2009-02-27 18:52:57 francis Exp $
 
 class EximLog < ActiveRecord::Base
     belongs_to :info_request
@@ -97,7 +97,7 @@ class EximLog < ActiveRecord::Base
                         raise "unexpected parsing of exim line"
                     end
 
-                    STDERR.puts exim_log.line # debugging
+                    STDERR.puts "check_recent_requests_have_been_sent test: " + exim_log.line # debugging
                     found = true
                 end
             end
