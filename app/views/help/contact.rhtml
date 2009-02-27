@@ -5,29 +5,45 @@
 <div id="contact_preamble">
 
     <% if !flash[:notice] %>
-        <h1>Make a request for public, official information</h1>
-        <p>
-            <a href="/new">Go here</a> to make your request, in public, for information
-            from UK public authorities.
-        </p>
+        <h1>Contact an authority to get official information</h1>
+        <ul>
+            <li><a href="/new">Go here</a> to make a request, in public, for information
+            from UK public authorities.</li>
 
-        <h1>Request information about yourself</h1>
-        <p>
-            Our help page about <a href="/help/about#data_protection">data protection</a>
-            explains how to request information about yourself from UK public authorities.
-        </p>
+            <li>
+            Asking for private information about yourself?
+            Please read our help page about
+            <a href="/help/about#data_protection">data protection</a>.
+            </li>
+        </ul>
+
+        <h1>Take up an issue with Government</h1>
+
+        <ul>
+            <li><a href="http://www.writetothem.com">Write to your MP,
+            local councillor or other representative</a>.
+            <li><a href="http://www.number10.gov.uk/">Number 10</a> is a good place to start if you would like to take an issue up with central government. </li>
+        </ul>
+
+
     <% end %>
 
     <h1>Contact the WhatDoTheyKnow team</h1>
     <% if !flash[:notice] %>
-        <p>
-            We'd love to hear how you have found using this site.
-        </p>
-        <p>
-            Please read the  <a href="/help/about">about page</a> first, as it may
-            answer your question quicker. Then fill in this form, or send
-            an email to <a href="mailto:<%=@contact_email%>"><%=@contact_email%></a>
-        </p>
+            <ul>
+            <li>
+            Please read the  <a href="/help/about">help page</a> first, as it may
+            answer your question quicker. 
+            </li>
+            
+            <li>We'd love to hear how you've found using this site.
+               Either fill in this form, or send an email to <a
+               href="mailto:<%=@contact_email%>"><%=@contact_email%></a>
+            </li>
+
+            <li>We are a <strong>charity</strong> and not part of the
+            Government.</li>
+            </ul>
     <% end %>
 </div>
 
@@ -52,7 +68,7 @@
     </p>
 
     <p>
-        <label class="form_label" for="contact_message">Message:</label> 
+        <label class="form_label" for="contact_message">Message to website:</label> 
         <%= f.text_area :message, :rows => 10, :cols => 60 %>
     </p>
 
@@ -71,10 +87,17 @@
         </p>
     <% end %>
 
+    <p class="form_note">
+    We can only help you with <strong>technical problems</strong>, or questions
+    about Freedom of Information. See the top of this page if you would like to
+    contact the Government.
+    </P>
+
 
     <div class="form_button">
         <%= hidden_field_tag(:submitted_contact_form, 1) %>
-        <%= submit_tag "Send message to the WhatDoTheyKnow team" %>
+        <%= submit_tag "Send message to the charity" %>
+        &lt;-- we run this site, not the Government!
     </div>
 
 <% end %>
