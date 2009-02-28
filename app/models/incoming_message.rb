@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.188 2009-02-09 09:51:53 francis Exp $
+# $Id: incoming_message.rb,v 1.189 2009-02-28 01:28:22 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -1042,6 +1042,10 @@ class IncomingMessage < ActiveRecord::Base
 
     def fully_destroy
         ActiveRecord::Base.transaction do
+            for o in self.outgoing_message_followups
+                o.incoming_message_followup = nil
+                o.save!
+            end
             info_request_event = InfoRequestEvent.find_by_incoming_message_id(self.id)
             info_request_event.track_things_sent_emails.each { |a| a.destroy }
             info_request_event.user_info_request_sent_alerts.each { |a| a.destroy }
