@@ -274,7 +274,7 @@ describe RequestController, "when classifying an individual response" do
         deliveries = ActionMailer::Base.deliveries
         deliveries.size.should == 1
         mail = deliveries[0]
-        mail.body.should =~ /as being unusual/
+        mail.body.should =~ /as needing admin/
         mail.from_addrs.to_s.should == users(:bob_smith_user).name_and_email
     end
 end
