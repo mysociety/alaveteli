@@ -1,6 +1,6 @@
  * Email: angie@mysociety.org; WWW: http://www.mysociety.org
  *
- * $Id: INSTALL.txt,v 1.3 2009-01-23 00:42:15 francis Exp $
+ * $Id: INSTALL.txt,v 1.4 2009-03-03 17:30:48 tony Exp $
  * 
 
 
@@ -29,7 +29,6 @@ psql to get into command tool
 to change the password run 
     alter user postgres with password 'newpw';
 
-
 4: cd ../../mysociety
 
 5: ./bin/rails-post-deploy foi
@@ -49,6 +48,7 @@ rake db:migrate
 ./script/server  --environment=development
 
 or if you want the server to be available on the network and not just on localhost tell it your ip address by running
-./script/server --binding=10.0.0.11 --environment=development
+./script/server --environment=development --binding=10.0.0.11 
 
 Obviously change 10.0.0.11 to your own IP address
+
