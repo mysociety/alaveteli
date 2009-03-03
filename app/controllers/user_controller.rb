@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user_controller.rb,v 1.60 2008-09-21 23:53:50 francis Exp $
+# $Id: user_controller.rb,v 1.61 2009-03-03 22:37:58 francis Exp $
 
 class UserController < ApplicationController
     # Show page about a user
@@ -26,8 +26,13 @@ class UserController < ApplicationController
         # XXX really should just use SQL query here rather than Xapian. Partly
         # will be more accurate, as will include backpage'd requests which
         # don't appear in Xapian.
-        @xapian_requests = perform_search([InfoRequestEvent], 'requested_by:' + @display_user.url_name, 'newest', 'request_collapse')
-        @xapian_comments = perform_search([InfoRequestEvent], 'commented_by:' + @display_user.url_name, 'newest', nil)
+        begin
+            @xapian_requests = perform_search([InfoRequestEvent], 'requested_by:' + @display_user.url_name, 'newest', 'request_collapse')
+            @xapian_comments = perform_search([InfoRequestEvent], 'commented_by:' + @display_user.url_name, 'newest', nil)
+        rescue
+            @xapian_requests = nil
+            @xapian_comments = nil
+        end
         if (@page > 1)
             @page_desc = " (page " + @page.to_s + ")" 
         else    
