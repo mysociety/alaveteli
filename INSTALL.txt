@@ -1,11 +1,14 @@
  * Email: angie@mysociety.org; WWW: http://www.mysociety.org
  *
- * $Id: INSTALL.txt,v 1.4 2009-03-03 17:30:48 tony Exp $
+ * $Id: INSTALL.txt,v 1.5 2009-03-03 17:42:41 tony Exp $
  * 
 
 
-These instructions are based on getting the FOI site up and running on Ubuntu. 
-It was last run using the Hardy Heron version of Ubuntu.
+These instructions are based on getting the FOI site up and running on
+Ubuntu and/or Debian.
+
+It was last run using the Hardy Heron version of Ubuntu and on the
+Parallels debian instance (2.6.18-4-686).
 
 Commands are intended to be run via the terminal or over ssh.
 
@@ -15,6 +18,14 @@ Firstly, in terminal, navigate to the foi folder where this install guide lives.
 
 sudo apt-get install `cat config/packages`
 
+Some of the required packages only exist in the mysociety debian (or we
+have updated versions there), so you will want to add that to your
+/etc/apt/sources.list:
+  
+  deb http://debian.mysociety.org etch main non-free contrib
+  deb-src http://debian.mysociety.org etch main non-free contrib
+
+
 Now we need to set up the database config file to contain the name, username and password of your postgres database.
 
 2: copy database.yml-example to database.yml in foi/config
@@ -23,10 +34,14 @@ Now we need to set up the database config file to contain the name, username and
 
 NOTES:
 su to postgres as a user.
-psql to get into command tool
+
+psql template1
+   to get into command tool
+
 \l to list databases
     create database foi encoding = 'SQL_ASCII';
-to change the password run 
+
+if you want to change the password run 
     alter user postgres with password 'newpw';
 
 4: cd ../../mysociety
