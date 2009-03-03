@@ -27,8 +27,8 @@ class AddEximLog < ActiveRecord::Migration
     end
 
     def self.down
-        drop_table :exim_logs
         drop_table :exim_log_dones
+        drop_table :exim_logs
     end
 end
 
