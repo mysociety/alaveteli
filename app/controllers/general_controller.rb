@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: general_controller.rb,v 1.46 2009-01-08 16:57:16 francis Exp $
+# $Id: general_controller.rb,v 1.47 2009-03-03 22:36:01 francis Exp $
 
 class GeneralController < ApplicationController
 
@@ -21,10 +21,14 @@ class GeneralController < ApplicationController
         #@random_requests = InfoRequest.find(:all, :order => "random()", :limit => 8, :conditions => ["described_state = ? and prominence = ?", 'successful', 'normal'] )
         
         # Get some successful requests 
-        query = 'variety:response (status:successful OR status:partially_successful)'
-        sortby = "described"
-        @xapian_object = perform_search([InfoRequestEvent], query, sortby, 'request_title_collapse', 8)
-        @successful_requests = @xapian_object.results.map { |r| r[:model].info_request }
+        begin
+            query = 'variety:response (status:successful OR status:partially_successful)'
+            sortby = "described"
+            @xapian_object = perform_search([InfoRequestEvent], query, sortby, 'request_title_collapse', 8)
+            @successful_requests = @xapian_object.results.map { |r| r[:model].info_request }
+        rescue
+            @successful_requests = []
+        end
     end
 
     # Just does a redirect from ?query= search to /query
