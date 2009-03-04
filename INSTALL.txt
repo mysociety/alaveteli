@@ -1,6 +1,6 @@
  * Email: angie@mysociety.org; WWW: http://www.mysociety.org
  *
- * $Id: INSTALL.txt,v 1.5 2009-03-03 17:42:41 tony Exp $
+ * $Id: INSTALL.txt,v 1.6 2009-03-04 10:20:39 tony Exp $
  * 
 
 
@@ -12,13 +12,16 @@ Parallels debian instance (2.6.18-4-686).
 
 Commands are intended to be run via the terminal or over ssh.
 
+1. Package Installation
+-----------------------
+
 Firstly, in terminal, navigate to the foi folder where this install guide lives.
 
-1. Install the packages that are listed in config/packages using apt-get eg:
+Install the packages that are listed in config/packages using apt-get eg:
 
-sudo apt-get install `cat config/packages`
+> sudo apt-get install `cat config/packages`
 
-Some of the required packages only exist in the mysociety debian (or we
+Some of the required packages only exist in the mysociety debian archive (or we
 have updated versions there), so you will want to add that to your
 /etc/apt/sources.list:
   
@@ -26,11 +29,15 @@ have updated versions there), so you will want to add that to your
   deb-src http://debian.mysociety.org etch main non-free contrib
 
 
-Now we need to set up the database config file to contain the name, username and password of your postgres database.
+2. Configure Database 
+---------------------
 
-2: copy database.yml-example to database.yml in foi/config
+Now we need to set up the database config file to contain the name,
+username and password of your postgres database.
 
-3: edit it to point to your local postgresql database in the development section and create the databases
+* copy database.yml-example to database.yml in foi/config
+* edit it to point to your local postgresql database in the development
+  and test sections and create the databases
 
 NOTES:
 su to postgres as a user.
@@ -39,31 +46,72 @@ psql template1
    to get into command tool
 
 \l to list databases
-    create database foi encoding = 'SQL_ASCII';
+    CREATE DATABASE foi_development encoding = 'SQL_ASCII';
+    CREATE DATABASE foi_test encoding = 'SQL_ASCII';
 
-if you want to change the password run 
-    alter user postgres with password 'newpw';
+Make sure that the user specified in database.yml exists, and has full
+permissions on this database. As they need the ability to turn off
+constraints whilst running the tests they also need to be a superuser.
+  (See http://dev.rubyonrails.org/ticket/9981)
 
-4: cd ../../mysociety
+    CREATE USER <username> WITH CREATEUSER;
+    GRANT ALL PRIVILEGES ON foi_development TO <username>;
+    GRANT ALL PRIVILEGES ON foi_test TO <username>;
 
-5: ./bin/rails-post-deploy foi
+If you need to set a password for the user:
+    ALTER USER <username> WITH PASSWORD 'newpw';
 
-This will need execture privs so chmod 755 if necessary
+3. Deployment
+-------------
 
-6. cd foi/
+In the 'mysociety' directory above 'foi', run
 
-7 run the following to create the DB.
+> ./bin/rails-post-deploy foi
 
-rake db:migrate
+(This will need execute privs so chmod 755 if necessary)
 
-8. Next we need to create the index for the search engine (Xapian) or we'll get problems:
-./script/rebuild-xapian-index
+This sets up directory structures, creates logs, etc.
 
-9: run the following to get the server running  (may need to chmod 755 again)
-./script/server  --environment=development
+Next run the migrations to create the database:
 
-or if you want the server to be available on the network and not just on localhost tell it your ip address by running
-./script/server --environment=development --binding=10.0.0.11 
+> cd foi/
+> rake db:migrate
+
+Next we need to create the index for the search engine (Xapian):
+
+> ./script/rebuild-xapian-index
+
+If this fails, the site should still mostly run, but it's a core
+component so you should really try to get this working.
+
+4. Run the Tests
+----------------
+
+Make sure everything looks OK:
+
+> rake spec
+
+If there are failures here, something has gone wrong with the preceeding
+steps. You might be able to move on to the next step, depending on how
+serious they are, but ideally you should try to find out what's gone
+wrong.
+
+5. Run the Server
+-----------------
+
+run the following to get the server running  (may need to chmod 755 again)
+> ./script/server  --environment=development
+
+or if you want the server to be available on the network and not just
+on localhost tell it your ip address by running
+
+> ./script/server --environment=development --binding=10.0.0.11 
 
 Obviously change 10.0.0.11 to your own IP address
+
+5. Success
+----------
+
+The server should have told you the URL to access in your browser to see
+the site in action.
 
