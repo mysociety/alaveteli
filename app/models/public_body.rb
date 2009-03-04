@@ -1,21 +1,22 @@
 # == Schema Information
-# Schema version: 71
+# Schema version: 72
 #
 # Table name: public_bodies
 #
-#  id                :integer         not null, primary key
-#  name              :text            not null
-#  short_name        :text            not null
-#  request_email     :text            not null
-#  version           :integer         not null
-#  last_edit_editor  :string(255)     not null
-#  last_edit_comment :text            not null
-#  created_at        :datetime        not null
-#  updated_at        :datetime        not null
-#  url_name          :text            not null
-#  home_page         :text            default(""), not null
-#  notes             :text            default(""), not null
-#  first_letter      :string(255)     not null
+#  id                 :integer         not null, primary key
+#  name               :text            not null
+#  short_name         :text            not null
+#  request_email      :text            not null
+#  version            :integer         not null
+#  last_edit_editor   :string(255)     not null
+#  last_edit_comment  :text            not null
+#  created_at         :datetime        not null
+#  updated_at         :datetime        not null
+#  url_name           :text            not null
+#  home_page          :text            default(""), not null
+#  notes              :text            default(""), not null
+#  first_letter       :string(255)     not null
+#  publication_scheme :text            default(""), not null
 #
 
 # models/public_body.rb:
@@ -24,7 +25,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.130 2009-02-12 17:24:48 francis Exp $
+# $Id: public_body.rb,v 1.131 2009-03-04 11:26:35 tony Exp $
 
 require 'csv'
 require 'set'

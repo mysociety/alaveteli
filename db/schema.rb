@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 71) do
+ActiveRecord::Schema.define(:version => 72) do
 
   create_table "acts_as_xapian_jobs", :force => true do |t|
     t.string  "model",    :null => false
@@ -133,18 +133,19 @@ ActiveRecord::Schema.define(:version => 71) do
   add_index "post_redirects", ["updated_at"], :name => "index_post_redirects_on_updated_at"
 
   create_table "public_bodies", :force => true do |t|
-    t.text     "name",                              :null => false
-    t.text     "short_name",                        :null => false
-    t.text     "request_email",                     :null => false
-    t.integer  "version",                           :null => false
-    t.string   "last_edit_editor",                  :null => false
-    t.text     "last_edit_comment",                 :null => false
-    t.datetime "created_at",                        :null => false
-    t.datetime "updated_at",                        :null => false
-    t.text     "url_name",                          :null => false
-    t.text     "home_page",         :default => "", :null => false
-    t.text     "notes",             :default => "", :null => false
-    t.string   "first_letter",                      :null => false
+    t.text     "name",                               :null => false
+    t.text     "short_name",                         :null => false
+    t.text     "request_email",                      :null => false
+    t.integer  "version",                            :null => false
+    t.string   "last_edit_editor",                   :null => false
+    t.text     "last_edit_comment",                  :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
+    t.text     "url_name",                           :null => false
+    t.text     "home_page",          :default => "", :null => false
+    t.text     "notes",              :default => "", :null => false
+    t.string   "first_letter",                       :null => false
+    t.text     "publication_scheme", :default => "", :null => false
   end
 
   add_index "public_bodies", ["first_letter"], :name => "index_public_bodies_on_first_letter"
@@ -170,6 +171,7 @@ ActiveRecord::Schema.define(:version => 71) do
     t.text     "url_name"
     t.text     "home_page"
     t.text     "notes"
+    t.text     "publication_scheme", :default => "", :null => false
   end
 
   create_table "raw_emails", :force => true do |t|

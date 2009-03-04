@@ -33,6 +33,9 @@
 <p><label for="public_body_home_page">Home page <small>(of whole authority, not just their FOI page; set to <strong>blank</strong> (empty string) to guess it from the email)</small></label><br/>
 <%= text_field 'public_body', 'home_page', :size => 60  %></p>
 
+<p><label for="public_body_publication_scheme">Publication scheme URL</label><br/>
+<%= text_field 'public_body', 'publication_scheme', :size => 60  %></p>
+
 <p><label for="public_body_notes">Public notes</label> <small>(for users to consider when making FOI requests to the authority)</small><br/>
 <%= text_area 'public_body', 'notes', :rows => 3, :cols => 60  %></p>
 
