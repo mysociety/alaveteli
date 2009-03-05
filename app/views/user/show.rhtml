@@ -63,7 +63,9 @@
                         <%= hidden_field_tag 'track_type', @track_things[0].track_type %>
                         <%= hidden_field_tag 'user', @display_user.id %>
                         <%= hidden_field_tag 'r', request.request_uri %>
-                        <%= submit_tag "unsubscribe all" %>
+                        <% if @track_things.size > 1 %>
+                            <%= submit_tag "unsubscribe all" %>
+                        <% end %>
                     </h3>
                 <% end %>
             <% end %>
@@ -76,7 +78,9 @@
                         <%= hidden_field_tag 'track_type', track_type %>
                         <%= hidden_field_tag 'user', @display_user.id %>
                         <%= hidden_field_tag 'r', request.request_uri %>
-                        <%= submit_tag "unsubscribe all" %>
+                        <% if track_things.size > 1 %>
+                            <%= submit_tag "unsubscribe all" %>
+                        <% end %> 
                     </h3>
                 <% end %>
             <% end %>
