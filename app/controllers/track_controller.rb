@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_controller.rb,v 1.28 2009-03-05 19:09:47 francis Exp $
+# $Id: track_controller.rb,v 1.29 2009-03-05 19:30:52 francis Exp $
 
 class TrackController < ApplicationController
 
@@ -161,9 +161,8 @@ class TrackController < ApplicationController
 
         track_type = params[:track_type]
 
-        flash[:notice] = "<p>You will no longer be emailed updates about:</p> <ul>" 
+        flash[:notice] = "You will no longer be emailed updates for those alerts"
         for track_thing in TrackThing.find(:all, :conditions => [ "track_type = ? and tracking_user_id = ?", track_type, user_id ])
-            flash[:notice] += "<li>" + track_thing.params[:list_description] + " </li>"
             track_thing.destroy
         end
         flash[:notice] += "</ul>"
