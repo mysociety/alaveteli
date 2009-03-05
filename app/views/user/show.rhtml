@@ -56,12 +56,29 @@
     <% if @is_you and not @track_things.empty? %>
         <h2>
             Your <%=pluralize(@track_things.size, "email subscription") %>
+            <% if @track_things_grouped.size == 1 %>
+                <% form_tag :controller => 'track', :action => 'delete_all_type' do %>
+                    <h3>
+                        <%=TrackThing.track_type_description(@track_things[0].track_type)%>
+                        <%= hidden_field_tag 'track_type', @track_things[0].track_type %>
+                        <%= hidden_field_tag 'user', @display_user.id %>
+                        <%= hidden_field_tag 'r', request.request_uri %>
+                        <%= submit_tag "unsubscribe all" %>
+                    </h3>
+                <% end %>
+            <% end %>
         </h2>
-        <% for track_type_description, track_things in @track_things_grouped %>
+        <% for track_type, track_things in @track_things_grouped %>
             <% if @track_things_grouped.size > 1 %>
-            <h3>
-                <%=track_type_description%>
-            </h3>
+                <% form_tag :controller => 'track', :action => 'delete_all_type' do %>
+                    <h3>
+                        <%=TrackThing.track_type_description(track_type)%>
+                        <%= hidden_field_tag 'track_type', track_type %>
+                        <%= hidden_field_tag 'user', @display_user.id %>
+                        <%= hidden_field_tag 'r', request.request_uri %>
+                        <%= submit_tag "unsubscribe all" %>
+                    </h3>
+                <% end %>
             <% end %>
 
             <ul>
@@ -75,7 +92,6 @@
                             <%= submit_tag "unsubscribe" %>
                         </div>
                     <% end %>
-                    <!-- (<%= link_to "view latest updates", :controller => 'general', :action => 'search', :query => track_thing.track_query %>) -->
                 </li>
             <% end %>
             </ul>

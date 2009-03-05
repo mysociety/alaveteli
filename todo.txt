@@ -69,6 +69,12 @@ Add option for "misdelivered to the wrong request"
 Later
 =====
 
+When it prompts error_message people to send annotation, maybe just show them
+the email address of the error to check then and there?
+
+Graph on admin page is a bit knackered as doesn't cover all the statuses - I think
+this means "waiting_response" is unnecessarily stretched out
+
 Should really make replies munge subject of last response, rather than start
 afresh with subject - authorities use FOI code in subject as here:
 http://www.whatdotheyknow.com/request/causes_of_the_financial_crisis#incoming-12779

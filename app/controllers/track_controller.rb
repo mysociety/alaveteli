@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_controller.rb,v 1.27 2008-09-11 09:36:10 francis Exp $
+# $Id: track_controller.rb,v 1.28 2009-03-05 19:09:47 francis Exp $
 
 class TrackController < ApplicationController
 
@@ -145,6 +145,32 @@ class TrackController < ApplicationController
             raise "new medium not handled " + new_medium
         end
     end
+
+    # Remove all tracks of a certain type (e.g. requests / users / bodies)
+    def delete_all_type
+        user_id = User.find(params[:user].to_i)
+
+        if not authenticated_as_user?(user_id,
+                :web => "To cancel these alerts",
+                :email => "Then you can cancel the alerts.",
+                :email_subject => "Cancel some WhatDoTheyKnow alerts"
+            )
+            # do nothing - as "authenticated?" has done the redirect to signin page for us
+            return
+        end
+
+        track_type = params[:track_type]
+
+        flash[:notice] = "<p>You will no longer be emailed updates about:</p> <ul>" 
+        for track_thing in TrackThing.find(:all, :conditions => [ "track_type = ? and tracking_user_id = ?", track_type, user_id ])
+            flash[:notice] += "<li>" + track_thing.params[:list_description] + " </li>"
+            track_thing.destroy
+        end
+        flash[:notice] += "</ul>"
+
+        redirect_to params[:r]
+    end
+
 
 end
  
