@@ -50,8 +50,6 @@ http://www.openspf.org/SPF_Record_Syntax#include
 Point all MX records to one server, so can see incoming messages in exim logs also.
 Hmmm, but less robust. Run the exim log grabber across all mail servers?
 
-Sort out your own track subscriptions, so many of them
-
 Lots of authorities are starting to complain about how their record looks on
 their page - e.g responses not classified by users, the sort of icon there is
 for information not held etc. That users may classify incorrectly. We need
@@ -68,6 +66,16 @@ Add option for "misdelivered to the wrong request"
 
 Later
 =====
+
+Remove all show_response URLs, and replace with a special version of the
+request URL with a new input box at the bottom and a hash link to it?
+<< when following links such as "I'm about to send clarification", a
+form appears into which the reply can be typed. However, the
+previous correspondence in that thread is not shown.
+I usually open a new tab to see what was written previously before
+writing in the form. It might be useful if the previous
+correspondence were instead shown on the page in which the form
+appears. >>
 
 When it prompts error_message people to send annotation, maybe just show them
 the email address of the error to check then and there?
