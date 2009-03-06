@@ -76,9 +76,42 @@ describe InfoRequest, " when emailing" do
        # raise ActsAsXapian::ActsAsXapianJob.find(:all).to_yaml
     end
 
-    it "knows when it needs answered by" do
-        @info_request.date_response_required_by.strftime("%Y-%m-%d").should == '2007-11-22'
+end 
+
+describe InfoRequest, " when calculating due date" do
+    fixtures :info_requests, :info_request_events, :public_bodies, :users
+
+    before do
+        @ir = info_requests(:fancy_dog_request)
     end
+
+    it "knows when it needs answered by" do
+        @ir.date_response_required_by.strftime("%F").should == '2007-11-22'
+    end
+
+    # These ones should all move when the underlying method moves
+    # I'm not sure what the best way is in RSpec to do this sort of data
+    # driven test so that it reports which one is failing rather than
+    # breaking out on first failure
+
+    test_dates = {
+        'no_holidays'   => ['2008-10-01' , '2008-10-29' ],
+        'not_leap_year' => ['2007-02-01' , '2007-03-01' ],
+        'leap_year'     => ['2008-02-01' , '2008-02-29' ],
+        'on_thu'        => ['2009-03-12' , '2009-04-14' ],
+        'on_fri'        => ['2009-03-13' , '2009-04-15' ],
+        'on_sat'        => ['2009-03-14' , '2009-04-16' ],
+        'on_sun'        => ['2009-03-15' , '2009-04-16' ],
+        'on_mon'        => ['2009-03-16' , '2009-04-16' ],
+    }
+
+    it "gets it right" do
+        test_dates.each_pair do |name, date|
+            reqdate = Date.strptime(date[0])
+            @ir.due_date_for_request_date(reqdate).strftime("%F").should == date[1]
+        end
+    end
+
 end
 
 

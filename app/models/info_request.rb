@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.170 2009-03-06 12:10:21 tony Exp $
+# $Id: info_request.rb,v 1.171 2009-03-06 13:06:20 tony Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -451,27 +451,31 @@ public
     # and 10(6b) ? For clarifications this is covered by
     # last_event_forming_initial_request. There may be more obscure
     # things, e.g. fees, not properly covered.
+
     def date_response_required_by
-        # Find the ear
         last_sent = last_event_forming_initial_request
-        last_sent_at = last_sent.outgoing_message.last_sent_at
+        return due_date_for_request_date(last_sent.outgoing_message.last_sent_at)
+    end
 
+    # This needs extracted to somewhere else; it's too generic to live here, 
+    # and isn't really an instance method as just expects to be passed a date
+    # I don't really know where/how though (TB 2009-03-06)
+    def due_date_for_request_date(request_date)
         holidays = [
-                # Union of holidays from these places:
-                #   http://www.dti.gov.uk/employment/bank-public-holidays/
-                #   http://www.scotland.gov.uk/Publications/2005/01/bankholidays
+            # Union of holidays from these places:
+            #   http://www.dti.gov.uk/employment/bank-public-holidays/
+            #   http://www.scotland.gov.uk/Publications/2005/01/bankholidays
 
-                '2007-11-30', '2007-12-25', '2007-12-26',
+            '2007-11-30', '2007-12-25', '2007-12-26',
 
-                '2008-01-01', '2008-01-02', '2008-03-17', '2008-03-21', '2008-03-24', '2008-05-05', 
-                '2008-05-26', '2008-07-14', '2008-08-04', '2008-08-25', '2008-12-01', '2008-12-25', '2008-12-26',
+            '2008-01-01', '2008-01-02', '2008-03-17', '2008-03-21', '2008-03-24', '2008-05-05', 
+            '2008-05-26', '2008-07-14', '2008-08-04', '2008-08-25', '2008-12-01', '2008-12-25', '2008-12-26',
 
-                '2009-01-01', '2009-01-02', '2009-03-17', '2009-04-10', '2009-04-13', '2009-05-04',
-                '2009-05-25', '2009-07-13', '2009-08-03', '2009-08-31', '2009-11-30', '2009-12-25', '2009-12-28',
+            '2009-01-01', '2009-01-02', '2009-03-17', '2009-04-10', '2009-04-13', '2009-05-04',
+            '2009-05-25', '2009-07-13', '2009-08-03', '2009-08-31', '2009-11-30', '2009-12-25', '2009-12-28',
 
-                '2010-01-01', '2010-01-04', '2010-03-17', '2010-04-02', '2010-04-05', '2010-05-03', 
-                '2010-05-31', '2010-07-12', '2010-08-02', '2010-08-30', '2010-11-30', '2010-12-27', '2010-12-28'
-
+            '2010-01-01', '2010-01-04', '2010-03-17', '2010-04-02', '2010-04-05', '2010-05-03', 
+            '2010-05-31', '2010-07-12', '2010-08-02', '2010-08-30', '2010-11-30', '2010-12-27', '2010-12-28'
         ].to_set
 
         # Count forward 20 working days. We start with today (or if not a working day,
@@ -484,7 +488,7 @@ public
         # We have to skip non-working days at start to find day zero, so start at
         # day -1 and at yesterday, so we can do that.
         days_passed = -1 
-        response_required_by = last_sent_at - 1.day
+        response_required_by = request_date - 1.day
 
         # Now step forward into day zero, and then each of the 20 days.
         while days_passed < 20
