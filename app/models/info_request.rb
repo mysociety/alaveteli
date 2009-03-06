@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.168 2009-03-05 11:40:10 tony Exp $
+# $Id: info_request.rb,v 1.169 2009-03-06 12:07:05 tony Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -353,8 +353,8 @@ public
     #   waiting_classification
     #   waiting_response_overdue
     def calculate_status
-        return 'waiting_classification' if self.awaiting_description
-        return self.described_state unless self.described_state == "waiting_response"
+        return 'waiting_classification' if awaiting_description
+        return described_state unless described_state == "waiting_response"
         # Compare by date, so only overdue on next day, not if 1 second late
         return 'waiting_response_overdue' if
             Time.now.strftime("%Y-%m-%d") > date_response_required_by.strftime("%Y-%m-%d")
