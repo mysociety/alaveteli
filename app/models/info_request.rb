@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.169 2009-03-06 12:07:05 tony Exp $
+# $Id: info_request.rb,v 1.170 2009-03-06 12:10:21 tony Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -453,26 +453,10 @@ public
     # things, e.g. fees, not properly covered.
     def date_response_required_by
         # Find the ear
-        last_sent = self.last_event_forming_initial_request
+        last_sent = last_event_forming_initial_request
         last_sent_at = last_sent.outgoing_message.last_sent_at
 
-        # Count forward 20 working days. We start with today (or if not a working day,
-        # the next working day*) as "day zero". The first of the twenty full
-        # working days is the next day. We return the date of the last of the twenty.
-        #
-        # * See this response for example of a public authority complaining when we got
-        # that detail wrong: http://www.whatdotheyknow.com/request/policy_regarding_body_scans#incoming-1100
-       
-        # We have to skip non-working days at start to find day zero, so start at
-        # day -1 and at yesterday, so we can do that.
-        days_passed = -1 
-        response_required_by = last_sent_at - 1.day
-        # Now step forward into day zero, and then each of the 20 days.
-        while days_passed < 20
-            response_required_by = response_required_by + 1.day
-            if response_required_by.wday == 0 || response_required_by.wday == 6
-                # not working day, as weekend
-            elsif [
+        holidays = [
                 # Union of holidays from these places:
                 #   http://www.dti.gov.uk/employment/bank-public-holidays/
                 #   http://www.scotland.gov.uk/Publications/2005/01/bankholidays
@@ -488,12 +472,26 @@ public
                 '2010-01-01', '2010-01-04', '2010-03-17', '2010-04-02', '2010-04-05', '2010-05-03', 
                 '2010-05-31', '2010-07-12', '2010-08-02', '2010-08-30', '2010-11-30', '2010-12-27', '2010-12-28'
 
+        ].to_set
 
-                ].include?(response_required_by.strftime('%Y-%m-%d'))
-                # bank holiday
-            else
-                days_passed = days_passed + 1
-            end
+        # Count forward 20 working days. We start with today (or if not a working day,
+        # the next working day*) as "day zero". The first of the twenty full
+        # working days is the next day. We return the date of the last of the twenty.
+        #
+        # * See this response for example of a public authority complaining when we got
+        # that detail wrong: http://www.whatdotheyknow.com/request/policy_regarding_body_scans#incoming-1100
+       
+        # We have to skip non-working days at start to find day zero, so start at
+        # day -1 and at yesterday, so we can do that.
+        days_passed = -1 
+        response_required_by = last_sent_at - 1.day
+
+        # Now step forward into day zero, and then each of the 20 days.
+        while days_passed < 20
+            response_required_by += 1.day
+            next if response_required_by.wday == 0 || response_required_by.wday == 6 # weekend
+            next if holidays.include?(response_required_by.strftime('%Y-%m-%d'))     # holiday
+            days_passed += 1
         end
 
         return response_required_by
