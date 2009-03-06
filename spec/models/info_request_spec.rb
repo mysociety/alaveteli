@@ -75,6 +75,10 @@ describe InfoRequest, " when emailing" do
 
        # raise ActsAsXapian::ActsAsXapianJob.find(:all).to_yaml
     end
+
+    it "knows when it needs answered by" do
+        @info_request.date_response_required_by.strftime("%Y-%m-%d").should == '2007-11-22'
+    end
 end
 
 
