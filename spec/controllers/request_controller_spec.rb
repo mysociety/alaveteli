@@ -476,6 +476,25 @@ describe RequestController, "comment alerts" do
 
 end
 
+describe RequestController, "when viewing comments" do
+    integrate_views
+    fixtures :users
+
+    it "should link to the user who submitted it" do
+        session[:user_id] = users(:bob_smith_user).id
+        get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
+        response.should have_text(/silly_emnameem.*?>\s+left an annotation/)
+        response.should_not have_text(/You\s+left an annotation/)
+    end
+
+    it "should say if you were the user who submitted it" do
+        session[:user_id] = users(:silly_name_user).id
+        get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
+        response.should have_text(/You\s+left an annotation/)
+    end
+
+end
+
 
 
 

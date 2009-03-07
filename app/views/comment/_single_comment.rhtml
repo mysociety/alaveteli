@@ -1,6 +1,7 @@
 <div class="comment_in_request" id="comment-<%=comment.id.to_s%>">
     <h2>
-        <%= comment.user ? user_link(comment.user) : 'You' %> 
+        <%# When not logged in, but mid-comment-leaving, there'll be no comment.user %>
+        <%= !comment.user || (!@user.nil? && @user.id == comment.user.id) ? "You" : user_link(comment.user) %>
         left an annotation (<%= simple_date(comment.created_at || Time.now) %>)
     </h2>
     <div class="comment_in_request_text"> 
