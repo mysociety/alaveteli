@@ -7,6 +7,9 @@
     <% if !@public_body.calculated_home_page.nil? %>
         <%= link_to "Home page", @public_body.calculated_home_page %><br>
     <% end %>
+    <% if !@public_body.publication_scheme.empty? %>
+        <%= link_to "Publication scheme", @public_body.publication_scheme %><br>
+    <% end %>
     <%= link_to "View FOI email address", view_public_body_email_url(@public_body.url_name) %>
 </div> 
 
