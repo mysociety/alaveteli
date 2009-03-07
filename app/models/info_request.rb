@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.171 2009-03-06 13:06:20 tony Exp $
+# $Id: info_request.rb,v 1.172 2009-03-07 01:16:18 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -573,7 +573,7 @@ public
         if outgoing_messages.empty? # mainly for use with incomplete fixtures
             return ""
         end
-        excerpt = self.outgoing_messages[0].body_without_salutation
+        excerpt = self.outgoing_messages[0].get_text_for_indexing
         return excerpt
     end
 

@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request_event.rb,v 1.74 2009-03-04 11:26:35 tony Exp $
+# $Id: info_request_event.rb,v 1.75 2009-03-07 01:16:18 francis Exp $
 
 class InfoRequestEvent < ActiveRecord::Base
     belongs_to :info_request
@@ -127,9 +127,9 @@ class InfoRequestEvent < ActiveRecord::Base
     def search_text_main
         text = ''
         if self.event_type == 'sent' 
-            text = text + self.outgoing_message.body_without_salutation + "\n\n"
+            text = text + self.outgoing_message.get_text_for_indexing + "\n\n"
         elsif self.event_type == 'followup_sent'
-            text = text + self.outgoing_message.body_without_salutation + "\n\n"
+            text = text + self.outgoing_message.get_text_for_indexing + "\n\n"
         elsif self.event_type == 'response'
             text = text + self.incoming_message.get_text_for_indexing + "\n\n"
         elsif self.event_type == 'comment'

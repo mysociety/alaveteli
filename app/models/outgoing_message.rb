@@ -22,7 +22,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: outgoing_message.rb,v 1.79 2009-03-04 11:26:35 tony Exp $
+# $Id: outgoing_message.rb,v 1.80 2009-03-07 01:16:18 francis Exp $
 
 class OutgoingMessage < ActiveRecord::Base
     strip_attributes!
@@ -98,12 +98,6 @@ class OutgoingMessage < ActiveRecord::Base
     end
     def raw_body
         read_attribute(:body)
-    end
-
-    def body_without_salutation
-        ret = self.body
-        ret.sub!(/Dear .+,/, "")
-        return ret
     end
 
     # Used to give warnings when writing new messages
@@ -194,9 +188,30 @@ class OutgoingMessage < ActiveRecord::Base
         end
     end
 
+    # We hide emails from display in outgoing messages.
+    def remove_privacy_sensitive_things(text)
+        text = text.dup
+        text.gsub!(MySociety::Validate.email_find_regexp, "[email address]")
+        return text
+    end
+
+    # Returns text for indexing / text display
+    def get_text_for_indexing
+        text = self.body.strip
+
+        # Remove salutation
+        text.sub!(/Dear .+,/, "")
+
+        # Remove email addresses from display/index etc.
+        text = self.remove_privacy_sensitive_things(text)
+
+        return text
+    end
+
     # Return body for display as HTML
     def get_body_for_html_display
         text = self.body.strip
+        text = self.remove_privacy_sensitive_things(text)
         text = MySociety::Format.wrap_email_body(text) # reparagraph and wrap it so is good preview of emails
         text = CGI.escapeHTML(text)
         text = MySociety::Format.make_clickable(text, :contract => 1)

@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.149 2009-03-07 00:38:26 francis Exp $
+# $Id: request_controller.rb,v 1.150 2009-03-07 01:16:18 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -181,14 +181,13 @@ class RequestController < ApplicationController
         if params[:preview].to_i == 1
             message = ""
             if @outgoing_message.contains_email?
-                message += "<p>You've put an <strong>email address</strong> in your request.
-                            This is a warning that it will <strong>appear
-                            publicly on the Internet</strong>.</p>"
                 if @user.nil? 
-                    message += "<p>You do not need to include your own email in order to get a reply, as we will ask for it on the next screen (<a href=\"/help/about#email_address\">details</a>).</p>";
+                    message += "<p>You do not need to include your email in the request in order to get a reply, as we will ask for it on the next screen (<a href=\"/help/about#email_address\">details</a>).</p>";
                 else
-                    message += "<p>You do not need to include your own email in order to get a reply (<a href=\"/help/about#email_address\">details</a>).</p>";
+                    message += "<p>You do not need to include your email in the request in order to get a reply (<a href=\"/help/about#email_address\">details</a>).</p>";
                 end
+                message += "<p>We recommend that you edit your request and remove the email address.
+                If you leave it, the email address will be sent to the authority, but will not be displayed on the site.</p>"
             end
             if @outgoing_message.contains_postcode?
                 message += "<p>Your request contains a <strong>postcode</strong>. Unless it directly relates to the subject of your request, please remove any address as it will <strong>appear publicly on the Internet</strong>.</p>";

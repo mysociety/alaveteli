@@ -36,7 +36,7 @@
 
                 # Main text, wrapped, words highlighted with * and indented.
                 if not event.outgoing_message.nil?
-                    extract = highlight_and_excerpt(event.outgoing_message.body_without_salutation, @highlight_words, 150, false)
+                    extract = highlight_and_excerpt(event.outgoing_message.get_text_for_indexing, @highlight_words, 150, false)
                 elsif not event.incoming_message.nil?
                     extract = highlight_and_excerpt(event.incoming_message.get_text_for_indexing, @highlight_words, 150, false)
                 elsif not event.comment.nil?
