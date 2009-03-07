@@ -1,14 +1,11 @@
 
-requires_admin_requests
+Next (things that will reduce admin time mainly)
+====
 
 check-recent-requests-sent works (mails "check_recent_requests_have_been_sent")
 Write code to make sure the Return-Path is never foi@sandwich.org.uk (even if the
   Rails code breaks for Sendmail case in future botched Rails upgrades :)
     Maybe can use exim delivery log lines to do this?
-
-
-Next (things that will reduce admin time mainly)
-====
 
 Change text so that overdue covers qualified exemption of public interest test being
 valid reason for delay.
@@ -66,6 +63,13 @@ Add option for "misdelivered to the wrong request"
 
 Later
 =====
+
+Change it to store emails as files in the filesystem? For speed.
+Should have simpler system for us to upload files sent to us via CD etc.
+Currently I have to manually put them in the files directory on the vhost.
+Reconfigure Exim to accept larger messages than 50Mb.
+Make it so web upload interface copes gracefully with arbitarily large messages
+(it causes speed trouble having them in the database right now)
 
 Remove all show_response URLs, and replace with a special version of the
 request URL with a new input box at the bottom and a hash link to it?
