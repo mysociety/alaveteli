@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user_controller.rb,v 1.62 2009-03-05 19:09:47 francis Exp $
+# $Id: user_controller.rb,v 1.63 2009-03-09 01:17:04 francis Exp $
 
 class UserController < ApplicationController
     # Show page about a user
@@ -218,6 +218,13 @@ class UserController < ApplicationController
     # Send a message to another user
     def contact
         @recipient_user = User.find(params[:id])
+
+        # Banned from messaging users?
+        if !authenticated_user.nil? && !authenticated_user.can_contact_other_users?
+            @details = authenticated_user.can_fail_html
+            render :template => 'user/banned'
+            return
+        end
 
         # You *must* be logged into send a message to another user. (This is
         # partly to avoid spam, and partly to have some equanimity of openess

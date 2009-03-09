@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.150 2009-03-07 01:16:18 francis Exp $
+# $Id: request_controller.rb,v 1.151 2009-03-09 01:17:04 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -124,6 +124,13 @@ class RequestController < ApplicationController
             end
         end
 
+        # Banned from making new requests?
+        if !authenticated_user.nil? && !authenticated_user.can_file_requests?
+            @details = authenticated_user.can_fail_html
+            render :template => 'user/banned'
+            return
+        end
+
         # First time we get to the page, just display it
         if params[:submitted_new_request].nil? || params[:reedit]
             # Read parameters in - public body must be passed in
@@ -199,25 +206,26 @@ class RequestController < ApplicationController
             return
         end
 
-        if authenticated?(
+        if !authenticated?(
                 :web => "To send your FOI request",
                 :email => "Then your FOI request to " + @info_request.public_body.name + " will be sent.",
                 :email_subject => "Confirm your FOI request to " + @info_request.public_body.name
             )
-            @info_request.user = authenticated_user
-            # This automatically saves dependent objects, such as @outgoing_message, in the same transaction
-            @info_request.save!
-            # XXX send_message needs the database id, so we send after saving, which isn't ideal if the request broke here.
-            @outgoing_message.send_message
-            flash[:notice] = "<p>Your " + @info_request.law_used_full + " request has been <strong>sent on its way</strong>!</p>
-                <p><strong>We will email you</strong> when there is a response, or after 20 working days if the authority still hasn't
-                replied by then.</p>
-                <p>If you write about this request (for example in a forum or a blog) please link to this page, and add an 
-                annotation below telling people about your writing.</p>"
-            redirect_to request_url(@info_request)
-        else
             # do nothing - as "authenticated?" has done the redirect to signin page for us
+            return
         end
+
+        @info_request.user = authenticated_user
+        # This automatically saves dependent objects, such as @outgoing_message, in the same transaction
+        @info_request.save!
+        # XXX send_message needs the database id, so we send after saving, which isn't ideal if the request broke here.
+        @outgoing_message.send_message
+        flash[:notice] = "<p>Your " + @info_request.law_used_full + " request has been <strong>sent on its way</strong>!</p>
+            <p><strong>We will email you</strong> when there is a response, or after 20 working days if the authority still hasn't
+            replied by then.</p>
+            <p>If you write about this request (for example in a forum or a blog) please link to this page, and add an 
+            annotation below telling people about your writing.</p>"
+        redirect_to request_url(@info_request)
     end
 
     # Submitted to the describing state of messages form

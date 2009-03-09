@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_user_controller.rb,v 1.9 2009-01-29 12:10:10 francis Exp $
+# $Id: admin_user_controller.rb,v 1.10 2009-03-09 01:17:04 francis Exp $
 
 class AdminUserController < AdminController
     def index
@@ -34,6 +34,7 @@ class AdminUserController < AdminController
         @admin_user.name = params[:admin_user][:name]
         @admin_user.email = params[:admin_user][:email]
         @admin_user.admin_level = params[:admin_user][:admin_level]
+        @admin_user.ban_text = params[:admin_user][:ban_text]
 
         if @admin_user.valid?
             @admin_user.save!

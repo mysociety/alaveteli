@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: comment_controller.rb,v 1.8 2008-11-17 17:08:33 francis Exp $
+# $Id: comment_controller.rb,v 1.9 2009-03-09 01:17:04 francis Exp $
 
 class CommentController < ApplicationController
     
@@ -20,6 +20,13 @@ class CommentController < ApplicationController
             end
         else
             raise "Unknown type " + params[:type]
+        end
+
+        # Banned from adding comments?
+        if !authenticated_user.nil? && !authenticated_user.can_make_comments?
+            @details = authenticated_user.can_fail_html
+            render :template => 'user/banned'
+            return
         end
 
         if params[:comment]

@@ -11,3 +11,6 @@
 <p><label for="admin_level">Admin level</label> (<strong>none</strong> or <strong>super</strong>; this is for admin features and links which are in the site proper)<br/>
 <%= text_field 'admin_user', 'admin_level', :size => 60  %></p>
 
+<p><label for="ban_text">Ban text</label> <small>(if not blank will stop the user from filing new requests, making annotations or messaging other users; the text is used in the user/banned.rhtml template, e.g. put "Unfortunately, you have repeatedly broken our moderation policy."</small>)<br/>
+<%= text_area 'admin_user', 'ban_text', :cols => 60, :rows => 3  %></p>
+

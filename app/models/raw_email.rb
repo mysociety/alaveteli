@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 72
+# Schema version: 73
 #
 # Table name: raw_emails
 #
@@ -13,7 +13,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: raw_email.rb,v 1.7 2009-03-04 11:26:35 tony Exp $
+# $Id: raw_email.rb,v 1.8 2009-03-09 01:17:06 francis Exp $
 
 class RawEmail < ActiveRecord::Base
     # deliberately don't strip_attributes, so keeps raw email properly

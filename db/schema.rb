@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 72) do
+ActiveRecord::Schema.define(:version => 73) do
 
   create_table "acts_as_xapian_jobs", :force => true do |t|
     t.string  "model",    :null => false
@@ -221,6 +221,7 @@ ActiveRecord::Schema.define(:version => 72) do
     t.text     "url_name",                                                  :null => false
     t.datetime "last_daily_track_email", :default => '2000-01-01 00:00:00'
     t.string   "admin_level",            :default => "none",                :null => false
+    t.text     "ban_text",               :default => "",                    :null => false
   end
 
   add_index "users", ["url_name"], :name => "index_users_on_url_name", :unique => true

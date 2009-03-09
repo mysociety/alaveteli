@@ -9,6 +9,7 @@ bob_smith_user:
   created_at: 2007-10-31 10:39:15.491593
   email_confirmed: true
   admin_level: 'none'
+  ban_text: ''
 silly_name_user: 
   id: "2"
   name: "Silly <em>Name</em>"
@@ -20,4 +21,5 @@ silly_name_user:
   created_at: 2007-11-01 10:39:15.491593
   email_confirmed: false
   admin_level: 'none'
+  ban_text: ''
 

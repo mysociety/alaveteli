@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 72
+# Schema version: 73
 #
 # Table name: users
 #
@@ -14,6 +14,7 @@
 #  url_name               :text            not null
 #  last_daily_track_email :datetime        default(Sat Jan 01 00:00:00 UTC 2000)
 #  admin_level            :string(255)     default("none"), not null
+#  ban_text               :text            default(""), not null
 #
 
 # models/user.rb:
@@ -22,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user.rb,v 1.81 2009-03-04 11:26:35 tony Exp $
+# $Id: user.rb,v 1.82 2009-03-09 01:17:06 francis Exp $
 
 require 'digest/sha1'
 
@@ -217,6 +218,22 @@ class User < ActiveRecord::Base
     # Does the user get "(admin)" links on each page on the main site?
     def admin_page_links?
         self.admin_level == 'super'
+    end
+    # Various ways the user can be banned, and text to describe it if failed
+    def can_file_requests?
+        self.ban_text.empty?
+    end
+    def can_make_comments?
+        self.ban_text.empty?
+    end
+    def can_contact_other_users?
+        self.ban_text.empty?
+    end
+    def can_fail_html
+        text = self.ban_text.strip
+        text = CGI.escapeHTML(text)
+        text = MySociety::Format.make_clickable(text, :contract => 1)
+        return text
     end
 
     # Returns domain part of user's email address
