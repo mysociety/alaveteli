@@ -1,0 +1,168 @@
+date20071130:
+  id: '1'
+  day: '2007-11-30'
+  description: "St. Andrew's Day"
+date20071225:
+  id: '2'
+  day: '2007-12-25'
+  description: "Christmas Day"
+date20071226:
+  id: '3'
+  day: '2007-12-26'
+  description: "Boxing Day"
+date20080101:
+  id: '4'
+  day: '2008-01-01'
+  description: "New Year's Day"
+date20080102:
+  id: '5'
+  day: '2008-01-02'
+  description: "2nd January (Scotland)"
+date20080317:
+  id: '6'
+  day: '2008-03-17'
+  description: "St. Patrick's Day (NI)"
+date20080321:
+  id: '7'
+  day: '2008-03-21'
+  description: "Good Friday"
+date20080324:
+  id: '8'
+  day: '2008-03-24'
+  description: "Easter Monday"
+date20080505:
+  id: '9'
+  day: '2008-05-05'
+  description: "Early May Bank Holiday"
+date20080526:
+  id: '10'
+  day: '2008-05-26'
+  description: "Spring Bank Holiday"
+date20080714:
+  id: '11'
+  day: '2008-07-14'
+  description: "Battle of the Boyne (NI)"
+date20080804:
+  id: '12'
+  day: '2008-08-04'
+  description: "Summer Bank Holiday (Scotland)"
+date20080825:
+  id: '13'
+  day: '2008-08-25'
+  description: "Summer Bank Holiday (England + Wales)"
+date20081201:
+  id: '14'
+  day: '2008-12-01'
+  description: "St. Andrew's Day (Scotland)"
+date20081225:
+  id: '15'
+  day: '2008-12-25'
+  description: "Christmas Day"
+date20081226:
+  id: '16'
+  day: '2008-12-26'
+  description: "Boxing Day"
+date20090101:
+  id: '17'
+  day: '2009-01-01'
+  description: "New Year's Day"
+date20090102:
+  id: '18'
+  day: '2009-01-02'
+  description: "2nd January (Scotland)"
+date20090317:
+  id: '19'
+  day: '2009-03-17'
+  description: "St. Patrick's Day (NI)"
+date20090410:
+  id: '20'
+  day: '2009-04-10'
+  description: "Good Friday"
+date20090413:
+  id: '21'
+  day: '2009-04-13'
+  description: "Easter Monday"
+date20090504:
+  id: '22'
+  day: '2009-05-04'
+  description: "Early May Bank Holiday"
+date20090525:
+  id: '23'
+  day: '2009-05-25'
+  description: "Spring Bank Holiday"
+date20090713:
+  id: '24'
+  day: '2009-07-13'
+  description: "Battle of the Boyne (NI)"
+date20090803:
+  id: '25'
+  day: '2009-08-03'
+  description: "Summer Bank Holiday (Scotland)"
+date20090831:
+  id: '26'
+  day: '2009-08-31'
+  description: "Summer Bank Holiday (England + Wales)"
+date20091130:
+  id: '27'
+  day: '2009-11-30'
+  description: "St. Andrew's Day (Scotland)"
+date20091225:
+  id: '28'
+  day: '2009-12-25'
+  description: "Christmas Day"
+date20091228:
+  id: '29'
+  day: '2009-12-28'
+  description: "Boxing Day"
+date20100101:
+  id: '30'
+  day: '2010-01-01'
+  description: "New Year's Day"
+date20100104:
+  id: '31'
+  day: '2010-01-04'
+  description: "2nd January (Scotland)"
+date20100317:
+  id: '32'
+  day: '2010-03-17'
+  description: "St. Patrick's Day (NI)"
+date20100402:
+  id: '33'
+  day: '2010-04-02'
+  description: "Good Friday"
+date20100405:
+  id: '34'
+  day: '2010-04-05'
+  description: "Easter Monday"
+date20100503:
+  id: '35'
+  day: '2010-05-03'
+  description: "Early May Bank Holiday"
+date20100531:
+  id: '36'
+  day: '2010-05-31'
+  description: "Spring Bank Holiday"
+date20100712:
+  id: '37'
+  day: '2010-07-12'
+  description: "Battle of the Boyne (NI)"
+date20100802:
+  id: '38'
+  day: '2010-08-02'
+  description: "Summer Bank Holiday (Scotland)"
+date20100830:
+  id: '39'
+  day: '2010-08-30'
+  description: "Summer Bank Holiday (England + Wales)"
+date20101130:
+  id: '40'
+  day: '2010-11-30'
+  description: "St. Andrew's Day (Scotland)"
+date20101227:
+  id: '41'
+  day: '2010-12-27'
+  description: "Christmas Day"
+date20101228:
+  id: '42'
+  day: '2010-12-28'
+  description: "Boxing Day"
