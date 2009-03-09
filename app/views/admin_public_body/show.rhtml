@@ -47,7 +47,8 @@
 <% end %>
 <th>Updated at</th>
 </tr>
-<% for historic_public_body in @public_body.versions.sort { |a,b| b.id <=> a.id } %>
+<%# There may be an option to versions() to specify order, but I can't find it. TB 2009-03-09 %>
+<% for historic_public_body in @public_body.versions.sort { |a,b| b.version <=> a.version } %>
       <tr class="<%= cycle('odd', 'even') %>">
     <% for column in history_columns %>
       <% 
