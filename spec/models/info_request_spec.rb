@@ -114,4 +114,44 @@ describe InfoRequest, " when calculating due date" do
 
 end
 
+describe InfoRequest, "when calculating status" do
+    fixtures :public_bodies, :users
+
+    # We can't use fixtures as we need to control the date of a message
+    # See due_date_for_request_date tests for fine grained testing
+
+    def send_msg(date)
+        ir = InfoRequest.new(:title => "testing", :public_body => public_bodies(:geraldine_public_body),
+             :user => users(:bob_smith_user))
+        ir.save!
+        om = OutgoingMessage.new( 
+            :info_request_id => ir.id, 
+            :last_sent_at => date,
+            :body => '...',
+            :status => 'sent',
+            :message_type => 'initial_request',
+            :what_doing => 'new_information'
+        )
+        om.save!
+        e = InfoRequestEvent.new( 
+            :event_type => 'sent', 
+            :info_request_id => ir.id, 
+            :outgoing_message_id => om.id,
+            :params_yaml => { :outgoing_message_id => om.id }.to_yaml
+        )
+        e.save!
+        return ir
+    end
+
+    it "is awaiting response when recently new" do
+        ir = send_msg(Time.new - 5.days)
+        ir.calculate_status.should == 'waiting_response'
+    end 
+
+    it "is overdue when very old" do
+        ir = send_msg(Time.new - 50.days)
+        ir.calculate_status.should == 'waiting_response_overdue'
+    end 
+
+end
 
