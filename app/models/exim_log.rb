@@ -18,7 +18,7 @@
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: exim_log.rb,v 1.7 2009-03-09 01:17:06 francis Exp $
+# $Id: exim_log.rb,v 1.8 2009-03-09 12:46:05 francis Exp $
 
 class EximLog < ActiveRecord::Base
     belongs_to :info_request
@@ -77,6 +77,9 @@ class EximLog < ActiveRecord::Base
     # lines. Writes any errors to STDERR. This check is really mainly to
     # check the envelope from is the request address, as Ruby is quite
     # flaky with regard to that, and it is important for anti-spam reasons.
+    # XXX does this really check that, as the exim log just wouldn't pick
+    # up at all if the requests weren't sent that way as there would be
+    # no request- email in it?
     def EximLog.check_recent_requests_have_been_sent
         # Get all requests sent for a period of 24 hours, ending a day ago.
         # (the gap is because we load exim log lines via cron at best an hour
@@ -97,7 +100,7 @@ class EximLog < ActiveRecord::Base
                         raise "unexpected parsing of exim line"
                     end
 
-                    STDERR.puts "check_recent_requests_have_been_sent test: " + exim_log.line # debugging
+                    #STDERR.puts "check_recent_requests_have_been_sent test: " + exim_log.line # debugging
                     found = true
                 end
             end

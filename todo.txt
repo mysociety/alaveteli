@@ -2,11 +2,6 @@
 Next (things that will reduce admin time mainly)
 ====
 
-check-recent-requests-sent works (mails "check_recent_requests_have_been_sent")
-Write code to make sure the Return-Path is never foi@sandwich.org.uk (even if the
-  Rails code breaks for Sendmail case in future botched Rails upgrades :)
-    Maybe can use exim delivery log lines to do this?
-
 Change text so that overdue covers qualified exemption of public interest test being
 valid reason for delay.
 
@@ -41,6 +36,9 @@ http://www.openspf.org/SPF_Record_Syntax#include
 
 Point all MX records to one server, so can see incoming messages in exim logs also.
 Hmmm, but less robust. Run the exim log grabber across all mail servers?
+
+check-recent-requests-sent probably doesn't work, as exim log lines wouldn't
+be load in case where the envelope from gets broken?
 
 Lots of authorities are starting to complain about how their record looks on
 their page - e.g responses not classified by users, the sort of icon there is
