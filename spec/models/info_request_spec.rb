@@ -79,7 +79,7 @@ describe InfoRequest, " when emailing" do
 end 
 
 describe InfoRequest, " when calculating due date" do
-    fixtures :info_requests, :info_request_events, :public_bodies, :users
+    fixtures :info_requests, :info_request_events, :public_bodies, :users, :holidays
 
     before do
         @ir = info_requests(:fancy_dog_request)
