@@ -10,9 +10,6 @@ Write code to make sure the Return-Path is never foi@sandwich.org.uk (even if th
 Change text so that overdue covers qualified exemption of public interest test being
 valid reason for delay.
 
-Disable bounce detection for tracks that are errant - make it central so TWFY
-can use it.
-
 
 Use maybe words for generated email address? Name of the person and a request
 number (i.e. number of that persons request, so there are few numbers)?
@@ -39,8 +36,6 @@ Just stop worrying about old requests which are unclassified in status, or
 make it a public wiki? At least improve usability a bit more for the alert
 emails reminding you to fill in status.
 
-Give authorities interface for editing their request email address.
-
 Enable SPF, to reduce number of requests lost to spam filters
 http://www.openspf.org/SPF_Record_Syntax#include
 
@@ -54,11 +49,14 @@ some kidn of general solution to make it clear what the states and icons mean,
 in terms of properly reflecting how the council is doing.
 
 Add FAQ / unhappy page which explains what you can do if you get no response
-at all and that it might be spam.
+at all and that it might be spam. (err, or somehow reorganise FAQ for this
+in relation to existing mirror image FAQ for officers)
 
 Links to "a response" from timeline aren't to right page any more.
 
-Add option for "misdelivered to the wrong request"
+Add explicit option for "misdelivered to the wrong request"?
+
+Give authorities interface for editing their request email address.
 
 
 Later
