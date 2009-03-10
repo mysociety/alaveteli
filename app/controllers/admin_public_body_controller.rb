@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_public_body_controller.rb,v 1.19 2009-01-29 12:10:10 francis Exp $
+# $Id: admin_public_body_controller.rb,v 1.20 2009-03-10 10:33:52 tony Exp $
 
 class AdminPublicBodyController < AdminController
     def index
@@ -19,6 +19,18 @@ class AdminPublicBodyController < AdminController
                              lower(short_name) like lower('%'||?||'%') or 
                              lower(request_email) like lower('%'||?||'%')", @query, @query, @query]
         @public_bodies_by_tag = PublicBody.find_by_tag(@query) 
+    end
+
+    def missing_scheme
+        # There might be a way to do this in ActiveRecord, but I can't find it
+        @public_bodies = PublicBody.find_by_sql("
+            SELECT a.id, a.name, a.url_name, COUNT(*) AS howmany 
+              FROM public_bodies a JOIN info_requests r ON a.id = r.public_body_id 
+             WHERE a.publication_scheme = '' 
+             GROUP BY a.id, a.name, a.url_name 
+             ORDER BY howmany DESC 
+             LIMIT 20
+        ")
     end
 
     def show

@@ -1,0 +1,10 @@
+<% @title = 'Popular authorities without Publication Scheme' %>
+
+<h1><%=@title%></h1>
+
+<ol>
+    <% for public_body in @public_bodies %>
+        <li><%= public_body_both_links(public_body) %></li>
+    <% end %>
+</ul>
+
