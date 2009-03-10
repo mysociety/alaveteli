@@ -9,13 +9,49 @@
 #
 
 # models/holiday.rb:
-# Store details on public holidays on which the clock for answering FOI
-# requests do not run
+#
+# Store details on, and perform calculations with, public holidays on which 
+# the clock for answering FOI requests does not run:
+#
+#   ... "working day" means any day other than a Saturday, a Sunday, Christmas
+#   Day, Good Friday or a day which is a bank holiday under the [1971 c. 80.]
+#   Banking and Financial Dealings Act 1971 in any part of the United Kingdom.
+#    -- Freedom of Information Act 2000 section 10
 #
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: holiday.rb,v 1.2 2009-03-09 15:48:32 tony Exp $
+# $Id: holiday.rb,v 1.3 2009-03-10 08:16:43 tony Exp $
 
 class Holiday < ActiveRecord::Base
+
+  # Calculate the date on which a request made on a given date falls due.
+  def Holiday.due_date_from(start_date)
+
+      # TODO only fetch holidays after the start_date
+      holidays = self.all.collect { |h| h.day }.to_set
+
+      # Count forward 20 working days. We start with today (or if not a working day,
+      # the next working day*) as "day zero". The first of the twenty full
+      # working days is the next day. We return the date of the last of the twenty.
+      #
+      # * See this response for example of a public authority complaining when we got
+      # that detail wrong: http://www.whatdotheyknow.com/request/policy_regarding_body_scans#incoming-1100
+     
+      # We have to skip non-working days at start to find day zero, so start at
+      # day -1 and at yesterday, so we can do that.
+      days_passed = -1 
+      response_required_by = start_date - 1.day
+
+      # Now step forward into day zero, and then each of the 20 days.
+      while days_passed < 20
+          response_required_by += 1.day
+          next if response_required_by.wday == 0 || response_required_by.wday == 6 # weekend
+          next if holidays.include?(response_required_by)
+          days_passed += 1
+      end
+
+      return response_required_by
+  end
+
 end
