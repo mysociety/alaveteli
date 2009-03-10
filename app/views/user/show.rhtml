@@ -53,6 +53,54 @@
         </p>
     <% end %>
 
+    <% if !@xapian_requests.nil? %>
+        <% if @xapian_requests.results.empty? %>
+            <% if @page == 1 %>
+                <h2>Freedom of Information requests made by <%= @is_you ? 'you' : 'this person' %> </h2>
+                <p><%= @is_you ? 'You have' : 'This person has' %>
+                made no Freedom of Information requests using this site.</p>
+            <% end %>
+        <% else %>
+            <h2>
+                <%= @is_you ? 'Your ' : "This person's " %>
+                <%=pluralize(@display_user.info_requests.size, "Freedom of Information request") %>
+                <!-- matches_estimated <%=@xapian_requests.matches_estimated%> -->
+                <%= @page_desc %>
+            </h2>
+
+            <% for result in @xapian_requests.results %>
+                <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result[:model], :info_request => result[:model].info_request } %>
+            <% end %>
+
+            <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @display_user.info_requests.size) %>
+        <% end %>
+    <% else %> 
+        <h2>Freedom of Information requests made by <%= @is_you ? 'you' : 'this person' %> </h2>
+        <p>The search index is currently offline, so we can't show the Freedom of Information requests this person has made.</p>
+    <% end %> 
+
+    <% if !@xapian_comments.nil? %>
+        <% if @xapian_comments.results.empty? %>
+            <% if @page == 1 %>
+                <h2><%= @is_you ? 'Your' : 'This person\'s' %> annotations </h2>
+                <p>None made.</p>
+            <% end %>
+        <% else %>
+            <h2>
+                <%= @is_you ? 'Your ' : "This person's " %>
+                <%=pluralize(@display_user.visible_comments.size, "annotation") %>
+                <!-- matches_estimated <%=@xapian_comments.matches_estimated%> -->
+                <%= @page_desc %>
+            </h2>
+
+            <% for result in @xapian_comments.results %>
+                <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result[:model], :info_request => result[:model].info_request } %>
+            <% end %>
+
+            <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @display_user.visible_comments.size) %>
+        <% end %>
+    <% end %>
+
     <% if @is_you and not @track_things.empty? %>
         <h2>
             Your <%=pluralize(@track_things.size, "email subscription") %>
@@ -99,54 +147,6 @@
                 </li>
             <% end %>
             </ul>
-        <% end %>
-    <% end %>
-
-    <% if !@xapian_requests.nil? %>
-        <% if @xapian_requests.results.empty? %>
-            <% if @page == 1 %>
-                <h2>Freedom of Information requests made by <%= @is_you ? 'you' : 'this person' %> </h2>
-                <p><%= @is_you ? 'You have' : 'This person has' %>
-                made no Freedom of Information requests using this site.</p>
-            <% end %>
-        <% else %>
-            <h2>
-                <%= @is_you ? 'Your ' : "This person's " %>
-                <%=pluralize(@display_user.info_requests.size, "Freedom of Information request") %>
-                <!-- matches_estimated <%=@xapian_requests.matches_estimated%> -->
-                <%= @page_desc %>
-            </h2>
-
-            <% for result in @xapian_requests.results %>
-                <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result[:model], :info_request => result[:model].info_request } %>
-            <% end %>
-
-            <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @display_user.info_requests.size) %>
-        <% end %>
-    <% else %> 
-        <h2>Freedom of Information requests made by <%= @is_you ? 'you' : 'this person' %> </h2>
-        <p>The search index is currently offline, so we can't show the Freedom of Information requests this person has made.</p>
-    <% end %> 
-
-    <% if !@xapian_comments.nil? %>
-        <% if @xapian_comments.results.empty? %>
-            <% if @page == 1 %>
-                <h2><%= @is_you ? 'Your' : 'This person\'s' %> annotations </h2>
-                <p>None made.</p>
-            <% end %>
-        <% else %>
-            <h2>
-                <%= @is_you ? 'Your ' : "This person's " %>
-                <%=pluralize(@display_user.visible_comments.size, "annotation") %>
-                <!-- matches_estimated <%=@xapian_comments.matches_estimated%> -->
-                <%= @page_desc %>
-            </h2>
-
-            <% for result in @xapian_comments.results %>
-                <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result[:model], :info_request => result[:model].info_request } %>
-            <% end %>
-
-            <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @display_user.visible_comments.size) %>
         <% end %>
     <% end %>
 
