@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_general_controller.rb,v 1.2 2009-02-27 22:32:13 francis Exp $
+# $Id: admin_general_controller.rb,v 1.3 2009-03-10 12:04:55 tony Exp $
 
 class AdminGeneralController < AdminController
     def index
@@ -19,7 +19,7 @@ class AdminGeneralController < AdminController
         @requires_admin_requests = InfoRequest.find(:all, :select => '*, ' + InfoRequest.last_event_time_clause + ' as last_event_time', :conditions => ["described_state = 'requires_admin'"], :order => "last_event_time")
         @error_message_requests = InfoRequest.find(:all, :select => '*, ' + InfoRequest.last_event_time_clause + ' as last_event_time', :conditions => ["described_state = 'error_message'"], :order => "last_event_time")
         @blank_contacts = PublicBody.find(:all, :conditions => ["request_email = ''"], :order => "updated_at")
-        @ten_days_old_unclassified = InfoRequest.find(:all, :select => '*, ' + InfoRequest.last_event_time_clause + ' as last_event_time', :conditions => [ "awaiting_description = ? and " + InfoRequest.last_event_time_clause + " < ? and prominence != 'backpage'", true, Time.now() - 10.days ], :order => "last_event_time")
+        @ten_days_old_unclassified = InfoRequest.find(:all, :select => '*, ' + InfoRequest.last_event_time_clause + ' as last_event_time', :conditions => [ "awaiting_description = ? and " + InfoRequest.last_event_time_clause + " < ? and prominence != 'backpage'", true, Time.now() - 10.days ], :order => "last_event_time", :limit => 50)
         @holding_pen_messages = InfoRequest.holding_pen_request.incoming_messages
     end
 

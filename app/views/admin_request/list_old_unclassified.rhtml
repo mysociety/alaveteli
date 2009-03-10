@@ -1,0 +1,15 @@
+<% @title = "Unclassfied responses" %>
+
+<h1><%=@title%></h1>
+
+<p>Classify responses that are still unclassified ten days after response:</p>
+<ul>
+<% for @request in @info_requests %>
+    <li>
+        <%= request_both_links(@request) %> 
+        &ndash; <%=simple_date(@request.get_last_event.created_at)%>
+    </li>
+<% end %>
+</ul>
+
+

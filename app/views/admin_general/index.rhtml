@@ -33,7 +33,7 @@
 <% end %>
 
 <% if @ten_days_old_unclassified.size > 0 %>
-    <h3>Classify responses that are still unclassified ten days after response (<%=@ten_days_old_unclassified.size%> total)</h3>
+    <h3>Classify responses that are still unclassified ten days after response</h3>
 
     <ul>
     <% for @request in @ten_days_old_unclassified %>
@@ -43,6 +43,7 @@
         </li>
     <% end %>
     </ul>
+    <p>(<%= link_to "Full list", admin_url("unclassified") %>)
 <% end %>
 
 <% if @error_message_requests.size > 0 %>

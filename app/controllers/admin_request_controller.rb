@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_request_controller.rb,v 1.29 2009-01-29 12:10:10 francis Exp $
+# $Id: admin_request_controller.rb,v 1.30 2009-03-10 12:04:55 tony Exp $
 
 class AdminRequestController < AdminController
     def index
@@ -16,6 +16,18 @@ class AdminRequestController < AdminController
         @query = params[:query]
         @info_requests = InfoRequest.paginate :order => "created_at desc", :page => params[:page], :per_page => 100,
             :conditions =>  @query.nil? ? nil : ["lower(title) like lower('%'||?||'%')", @query]
+    end
+
+    def list_old_unclassified
+        @info_requests = InfoRequest.find(
+            :all, 
+            :select => '*, ' + InfoRequest.last_event_time_clause + ' as last_event_time', 
+            :conditions => [ 
+                "awaiting_description = ? and " + InfoRequest.last_event_time_clause + " < ? and prominence != 'backpage'", 
+                true, Time.now() - 10.days 
+            ], 
+            :order => "last_event_time"
+        )
     end
 
     def show
