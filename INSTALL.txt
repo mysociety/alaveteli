@@ -1,6 +1,6 @@
  * Email: angie@mysociety.org; WWW: http://www.mysociety.org
  *
- * $Id: INSTALL.txt,v 1.6 2009-03-04 10:20:39 tony Exp $
+ * $Id: INSTALL.txt,v 1.7 2009-03-12 11:13:25 tony Exp $
  * 
 
 
@@ -27,6 +27,9 @@ have updated versions there), so you will want to add that to your
   
   deb http://debian.mysociety.org etch main non-free contrib
   deb-src http://debian.mysociety.org etch main non-free contrib
+
+libgems-ruby1.8 has recently been replaced by rubygems1.8, so you may need to
+update the packages file to reflect this, depending on your version.
 
 
 2. Configure Database 
