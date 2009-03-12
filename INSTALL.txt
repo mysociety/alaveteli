@@ -1,6 +1,6 @@
  * Email: angie@mysociety.org; WWW: http://www.mysociety.org
  *
- * $Id: INSTALL.txt,v 1.8 2009-03-12 11:55:59 tony Exp $
+ * $Id: INSTALL.txt,v 1.9 2009-03-12 11:58:53 tony Exp $
  * 
 
 
@@ -78,10 +78,10 @@ In the 'mysociety' directory above 'foi', run
 
 This sets up directory structures, creates logs, etc.
 
-Next run the migrations to create the database:
-
-> cd foi/
-> rake db:migrate
+Next, if you have a foi/config/rails_env.rb file, delete it, so that
+tests run against our test database, rather than the development one.
+(Otherwise, any data you create in development will be blown away every
+time you run the tests.)
 
 Next we need to create the index for the search engine (Xapian):
 
