@@ -1,6 +1,6 @@
  * Email: angie@mysociety.org; WWW: http://www.mysociety.org
  *
- * $Id: INSTALL.txt,v 1.7 2009-03-12 11:13:25 tony Exp $
+ * $Id: INSTALL.txt,v 1.8 2009-03-12 11:55:59 tony Exp $
  * 
 
 
@@ -35,15 +35,20 @@ update the packages file to reflect this, depending on your version.
 2. Configure Database 
 ---------------------
 
+There has been a little work done in trying to make the code work with
+other databases (e.g. SQLite), but the preferred database is PostgreSQL.
+
+If you don't have it installed:
+  apt-get install postgresql postgresql-client
+
 Now we need to set up the database config file to contain the name,
 username and password of your postgres database.
 
 * copy database.yml-example to database.yml in foi/config
 * edit it to point to your local postgresql database in the development
-  and test sections and create the databases
+  and test sections and create the databases:
 
-NOTES:
-su to postgres as a user.
+Become the 'postgres' user (sudo su - postgres)
 
 psql template1
    to get into command tool
@@ -58,11 +63,9 @@ constraints whilst running the tests they also need to be a superuser.
   (See http://dev.rubyonrails.org/ticket/9981)
 
     CREATE USER <username> WITH CREATEUSER;
-    GRANT ALL PRIVILEGES ON foi_development TO <username>;
-    GRANT ALL PRIVILEGES ON foi_test TO <username>;
-
-If you need to set a password for the user:
-    ALTER USER <username> WITH PASSWORD 'newpw';
+    ALTER USER <username> WITH PASSWORD '<password>';
+    GRANT ALL PRIVILEGES ON DATABASE foi_development TO <username>;
+    GRANT ALL PRIVILEGES ON DATABASE foi_test TO <username>;
 
 3. Deployment
 -------------
