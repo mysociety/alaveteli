@@ -1,13 +1,13 @@
 # Database configuration. We're using PostgreSQL, but I guess it should work
-# with others.
+# with others. 
 
 development:
   adapter: postgresql
   database: foi_development
-  username: francis
-  password:
+  username: <username>
+  password: <password>
   host: localhost
-  port: 5433 # PostgreSQL 8.1 pretty please
+  port: 5432 # PostgreSQL 8.1 pretty please
 
 # Warning: The database defined as 'test' will be erased and
 # re-generated from your development database when you run 'rake'.
@@ -15,16 +15,16 @@ development:
 test:
   adapter: postgresql
   database: foi_test
-  username: francis
-  password:
+  username: <username>
+  password: <password>
   host: localhost
-  port: 5433
+  port: 5432
 
 production:
   adapter: postgresql
   database: foi_production
-  username: francis
-  password: 
+  username: <username>
+  password: <password>
   host: localhost
-  port: 5433
+  port: 5432
 
