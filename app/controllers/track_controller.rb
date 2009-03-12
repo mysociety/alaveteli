@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_controller.rb,v 1.29 2009-03-05 19:30:52 francis Exp $
+# $Id: track_controller.rb,v 1.30 2009-03-12 08:56:37 tony Exp $
 
 class TrackController < ApplicationController
 
@@ -101,14 +101,19 @@ class TrackController < ApplicationController
         return true
     end 
 
-    # Atom feed (like RSS) for the track
+    # Old-Style atom track. We're phasing this out, so for now issue a
+    # 301 Redirect. Most aggregators should honour this, but we should
+    # keep an eye on the logs to see which ones are still used before
+    # deleting this (or for safety, we may wish to move them to a new
+    # table)
     def atom_feed
         @track_thing = TrackThing.find(params[:track_id].to_i)
         if @track_thing.track_medium != 'feed'
             raise "can only view feeds for feed tracks, not email ones"
         end
-        atom_feed_internal
+        redirect_to do_track_url(@track_thing, 'feed'), :status=>:moved_permanently
     end
+
     def atom_feed_internal
         @xapian_object = perform_search([InfoRequestEvent], @track_thing.track_query, @track_thing.params[:feed_sortby], nil, 25, 1) 
         respond_to do |format|
