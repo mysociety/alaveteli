@@ -30,6 +30,11 @@ def receive_incoming_mail(email_name, email_to)
     RequestMailer.receive(content)
 end
 
+def rebuild_xapian_index
+    rebuild_name = File.dirname(__FILE__) + '/../script/rebuild-xapian-index'
+    Kernel.system(rebuild_name) or raise "failed to launch rebuild-xapian-index"
+end
+
 # Monkeypatch! Validate HTML in tests.
 $html_validation_script = "/usr/bin/validate" # from Debian package wdg-html-validator
 if $tempfilecount.nil?

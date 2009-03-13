@@ -1,10 +1,5 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-def rebuild_xapian_index
-    rebuild_name = File.dirname(__FILE__) + '/../../script/rebuild-xapian-index'
-    Kernel.system(rebuild_name) or raise "failed to launch rebuild-xapian-index"
-end
-
 describe GeneralController, "when searching" do
     integrate_views
     fixtures :users, :outgoing_messages, :incoming_messages, :raw_emails, :info_requests, :info_request_events, :public_bodies, :comments

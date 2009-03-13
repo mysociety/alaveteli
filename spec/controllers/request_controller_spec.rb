@@ -3,6 +3,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe RequestController, "when listing recent requests" do
     integrate_views
     fixtures :info_requests, :outgoing_messages, :info_request_events
+    rebuild_xapian_index
   
     it "should be successful" do
         get :list, :view => 'recent'
