@@ -59,9 +59,13 @@ end
 describe TrackController, "when viewing RSS feed for a track" do
     integrate_views
     fixtures :info_requests, :outgoing_messages, :incoming_messages, :raw_emails, :info_request_events, :users, :track_things, :comments, :public_bodies
-    rebuild_xapian_index
+
+    before do
+        rebuild_xapian_index
+    end
 
     it "should get the RSS feed" do
+
         track_thing = track_things(:track_fancy_dog_request)
 
         get :track_request, :feed => 'feed', :url_title => track_thing.info_request.url_title
