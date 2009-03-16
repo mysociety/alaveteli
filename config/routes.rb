@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: routes.rb,v 1.84 2009-03-10 12:04:55 tony Exp $
+# $Id: routes.rb,v 1.85 2009-03-16 15:55:05 tony Exp $
 
 ActionController::Routing::Routes.draw do |map|
 
@@ -86,6 +86,10 @@ ActionController::Routing::Routes.draw do |map|
     map.with_options :controller => 'help' do |help|
       help.help_unhappy '/help/unhappy/:url_title', :action => 'unhappy'
       help.help_general '/help/:action', :action => :action
+    end
+
+    map.with_options :controller => 'holiday' do |holiday|
+        holiday.due_date "/due_date/:holiday", :action => 'due_date'
     end
 
     # NB: We don't use routes to *construct* admin URLs, as they need to be relative
