@@ -117,5 +117,10 @@ describe InfoRequest, "when calculating status" do
         ir.calculate_status.should == 'waiting_response_overdue'
     end 
 
+    it "has correct due date" do
+        ir = send_msg(Time.utc(2009, 03, 16, 12, 0, 0))
+        ir.date_response_required_by.strftime("%F").should == '2009-04-16'
+    end 
+
 end
 
