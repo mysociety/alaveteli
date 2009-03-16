@@ -39,5 +39,9 @@ describe Holiday, " when calculating due date" do
       due_date('2009-03-16').should == '2009-04-16' 
     end
 
+    it "handles Time objects" do
+      Holiday.due_date_from(Time.utc(2009, 03, 16, 12, 0, 0)).strftime('%F').should == '2009-04-16' 
+    end
+
 end
 
