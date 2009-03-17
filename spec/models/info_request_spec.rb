@@ -124,21 +124,13 @@ describe InfoRequest, "when calculating status" do
 
     it "isn't overdue on due day" do
         ir = send_msg(Time.utc(2009, 03, 16, 12, 0, 0))
-        Time.class_eval do
-          def self.now
-            Time.utc(2009, 04, 16, 14, 0, 0)
-          end
-        end
+        Time.stub!(:now).and_return(Time.utc(2009, 04, 16, 14, 0, 0))
         ir.days_overdue.should == 0
     end 
 
     it "is overdue a day after due day" do
         ir = send_msg(Time.utc(2009, 03, 16, 12, 0, 0))
-        Time.class_eval do
-          def self.now
-            Time.utc(2009, 04, 17, 11, 0, 0)
-          end
-        end
+        Time.stub!(:now).and_return(Time.utc(2009, 04, 17, 11, 0, 0))
         ir.days_overdue.should == 1
     end 
 
