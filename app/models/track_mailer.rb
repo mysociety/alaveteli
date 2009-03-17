@@ -4,12 +4,12 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_mailer.rb,v 1.15 2009-03-06 19:50:25 francis Exp $
+# $Id: track_mailer.rb,v 1.16 2009-03-17 23:22:01 francis Exp $
 
 class TrackMailer < ApplicationMailer
     def event_digest(user, email_about_things)
         post_redirect = PostRedirect.new(
-            :uri => main_url(user_url(user)),
+            :uri => main_url(user_url(user)) + "#email_subscriptions",
             :user_id => user.id)
         post_redirect.save!
         unsubscribe_url = confirm_url(:email_token => post_redirect.email_token)

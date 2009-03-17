@@ -102,7 +102,7 @@
     <% end %>
 
     <% if @is_you and not @track_things.empty? %>
-        <h2>
+        <h2 id="email_subscriptions">
             Your <%=pluralize(@track_things.size, "email subscription") %>
             <% if @track_things_grouped.size == 1 %>
                 <% form_tag :controller => 'track', :action => 'delete_all_type' do %>
