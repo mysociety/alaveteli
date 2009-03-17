@@ -2,6 +2,8 @@
 Next (things that will reduce admin time mainly)
 ====
 
+Check #email_subscriptions in unsubscribe link
+
 Change text so that overdue covers qualified exemption of public interest test being
 valid reason for delay.
 

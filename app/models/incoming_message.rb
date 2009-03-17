@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.193 2009-03-17 23:36:41 francis Exp $
+# $Id: incoming_message.rb,v 1.194 2009-03-17 23:55:33 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -238,11 +238,18 @@ class FOIAttachment
     end
 
     def display_filename
+        filename = self._internal_display_filename
+
+        # Remove slashes, they mess with URLs
+        filename.gsub!(/\//, "-")
+
+        return filename
+    end
+
+    def _internal_display_filename
         calc_ext = mimetype_to_extension(@content_type)
 
         if @filename 
-            # Remove slashes, they mess with URLs
-            filename = @filename.gsub(/\//, "-")
             # Put right extension on if missing
             if !filename.match(/\.#{calc_ext}$/) && calc_ext
                 filename + "." + calc_ext
