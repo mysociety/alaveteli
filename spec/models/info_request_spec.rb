@@ -110,18 +110,36 @@ describe InfoRequest, "when calculating status" do
     it "is awaiting response when recently new" do
         ir = send_msg(Time.new - 5.days)
         ir.calculate_status.should == 'waiting_response'
-        ir.days_overdue.should <= 0
     end 
 
     it "is overdue when very old" do
         ir = send_msg(Time.new - 50.days)
         ir.calculate_status.should == 'waiting_response_overdue'
-        ir.days_overdue.should > 0
     end 
 
     it "has correct due date" do
         ir = send_msg(Time.utc(2009, 03, 16, 12, 0, 0))
         ir.date_response_required_by.strftime("%F").should == '2009-04-16'
+    end 
+
+    it "isn't overdue on due day" do
+        ir = send_msg(Time.utc(2009, 03, 16, 12, 0, 0))
+        Time.class_eval do
+          def self.now
+            Time.utc(2009, 04, 16, 14, 0, 0)
+          end
+        end
+        ir.days_overdue.should == 0
+    end 
+
+    it "is overdue a day after due day" do
+        ir = send_msg(Time.utc(2009, 03, 16, 12, 0, 0))
+        Time.class_eval do
+          def self.now
+            Time.utc(2009, 04, 17, 11, 0, 0)
+          end
+        end
+        ir.days_overdue.should == 1
     end 
 
 end
