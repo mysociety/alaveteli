@@ -110,11 +110,13 @@ describe InfoRequest, "when calculating status" do
     it "is awaiting response when recently new" do
         ir = send_msg(Time.new - 5.days)
         ir.calculate_status.should == 'waiting_response'
+        ir.days_overdue.should <= 0
     end 
 
     it "is overdue when very old" do
         ir = send_msg(Time.new - 50.days)
         ir.calculate_status.should == 'waiting_response_overdue'
+        ir.days_overdue.should > 0
     end 
 
     it "has correct due date" do
