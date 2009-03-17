@@ -18,4 +18,15 @@ describe IncomingMessage, " when dealing with incoming mail" do
 
 end
 
+describe IncomingMessage, " display attachments" do
+
+    it "should not show slashes in filenames" do
+        foi_attachment = FOIAttachment.new()
+        foi_attachment.filename = "FOI/09/066 RESPONSE TO FOI REQUEST RECEIVED 21st JANUARY 2009.txt"
+        expected_display_filename = foi_attachment.filename.gsub(/\//, "-")
+        foi_attachment.display_filename.should == expected_display_filename
+    end
+
+end
+
 
