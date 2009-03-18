@@ -25,7 +25,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.134 2009-03-18 01:55:23 francis Exp $
+# $Id: public_body.rb,v 1.135 2009-03-18 05:04:47 francis Exp $
 
 require 'csv'
 require 'set'
@@ -177,7 +177,7 @@ class PublicBody < ActiveRecord::Base
         end
     end
 
-    acts_as_xapian :texts => [ :name, :short_name ],
+    acts_as_xapian :texts => [ :name, :short_name, :notes ],
         :values => [ 
              [ :created_at_numeric, 1, "created_at", :number ] # for sorting
         ],

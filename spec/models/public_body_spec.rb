@@ -29,4 +29,26 @@ describe PublicBody, " when saving" do
 end
 
 
+describe PublicBody, " when indexing with Xapian" do
+    fixtures :public_bodies
+
+    before do
+        rebuild_xapian_index
+    end
+
+    it "should search index the main name field" do
+        xapian_object = InfoRequest.full_search([PublicBody], "humpadinking", 'created_at', true, nil, 100, 1)
+        xapian_object.results.size.should == 1
+        xapian_object.results[0][:model].should == public_bodies(:humpadink_public_body)
+    end
+
+    it "should search index the notes field" do
+        xapian_object = InfoRequest.full_search([PublicBody], "albatross", 'created_at', true, nil, 100, 1)
+        xapian_object.results.size.should == 1
+        xapian_object.results[0][:model].should == public_bodies(:humpadink_public_body)
+    end
+
+end
+
+
 

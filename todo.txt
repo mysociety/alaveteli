@@ -62,6 +62,12 @@ Give authorities interface for editing their request email address.
 Later
 =====
 
+There is some kind of workflow bug, where people send a follow
+up THEN mark as clarification needed, and so it emails to remind them when it
+doesn't really need to.
+e.g. https://secure.mysociety.org/admin/foi/request/show/8773
+
+
 Change it to store emails as files in the filesystem? For speed.
 Should have simpler system for us to upload files sent to us via CD etc.
 Currently I have to manually put them in the files directory on the vhost.

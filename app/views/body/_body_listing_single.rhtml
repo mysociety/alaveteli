@@ -9,6 +9,7 @@
     <span class="desc">
     <% if not public_body.short_name.empty? %>
         Also called <%=highlight_words(public_body.short_name, @highlight_words) %>.
+        <%= highlight_and_excerpt(public_body.notes, @highlight_words, 150) %>
         <br>
     <% end %>
 	</span>
