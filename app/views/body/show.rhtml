@@ -41,27 +41,40 @@
     </strong>
 </div>
 
-<% if @public_body.info_requests.empty? %>
+<% if !@xapian_requests.nil? %>
+    <% if @xapian_requests.results.empty? %>
+        <% if @public_body.eir_only? %>
+            <h2>Environmental Information Regulations requests made</h2>
+            <p>Nobody has made any Environmental Information Regulations requests to <%=h(@public_body.name)%> using this site yet.</p>
+        <% else %>
+            <h2>Freedom of Information requests made</h2>
+            <p>Nobody has made any Freedom of Information requests to <%=h(@public_body.name)%> using this site yet.</p>
+        <% end %>
+    <% else %>
+        <h2>
+        <% if @public_body.eir_only? %>
+            <%=pluralize(@public_body.info_requests.size, "Environmental Information Regulations request") %> made
+        <% else %>
+            <%=pluralize(@public_body.info_requests.size, "Freedom of Information request") %> made
+        <% end %>
+        <%= @page_desc %>
+        </h2>
+
+        <% for result in @xapian_requests.results %>
+            <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result[:model], :info_request => result[:model].info_request } %>
+        <% end %>
+
+        <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @public_body.info_requests.size) %>
+
+        <p>Only requests made using WhatDoTheyKnow.com are shown.</p>
+
+    <% end %>
+<% else %> 
     <% if @public_body.eir_only? %>
         <h2>Environmental Information Regulations requests made</h2>
-        <p>Nobody has made any Environmental Information Regulations requests to <%=h(@public_body.name)%> using this site.</p>
     <% else %>
         <h2>Freedom of Information requests made</h2>
-        <p>Nobody has made any Freedom of Information requests to <%=h(@public_body.name)%> using this site.</p>
     <% end %>
-
-<% else %>
-    <h2>
-    <% if @public_body.eir_only? %>
-        <%=pluralize(@public_body.info_requests.size, "Environmental Information Regulations request") %> made
-    <% else %>
-        <%=pluralize(@public_body.info_requests.size, "Freedom of Information request") %> made
-    <% end %>
-    </h2>
-
-    <%= render :partial => 'request/request_listing', :locals => { :info_requests => @public_body.info_requests } %>
-
-    <p>Only requests made using WhatDoTheyKnow.com are shown.</p>
-
-<% end %>
+    <p>The search index is currently offline, so we can't show the Freedom of Information requests that have been made to this authority.</p>
+<% end %> 
 

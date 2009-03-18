@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user_controller.rb,v 1.63 2009-03-09 01:17:04 francis Exp $
+# $Id: user_controller.rb,v 1.64 2009-03-18 02:37:42 francis Exp $
 
 class UserController < ApplicationController
     # Show page about a user
@@ -23,20 +23,19 @@ class UserController < ApplicationController
         @is_you = !@user.nil? && @user.id == @display_user.id
 
         # Use search query for this so can collapse and paginate easily
-        # XXX really should just use SQL query here rather than Xapian. Partly
-        # will be more accurate, as will include backpage'd requests which
-        # don't appear in Xapian.
+        # XXX really should just use SQL query here rather than Xapian.
         begin
             @xapian_requests = perform_search([InfoRequestEvent], 'requested_by:' + @display_user.url_name, 'newest', 'request_collapse')
             @xapian_comments = perform_search([InfoRequestEvent], 'commented_by:' + @display_user.url_name, 'newest', nil)
+
+            if (@page > 1)
+                @page_desc = " (page " + @page.to_s + ")" 
+            else    
+                @page_desc = ""
+            end
         rescue
             @xapian_requests = nil
             @xapian_comments = nil
-        end
-        if (@page > 1)
-            @page_desc = " (page " + @page.to_s + ")" 
-        else    
-            @page_desc = ""
         end
 
         # Track corresponding to this page
