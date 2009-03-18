@@ -4,7 +4,7 @@
 
 <p>
 <% 
-   columns = PublicBody.content_columns
+   columns = PublicBody.content_columns + [] # force dup
    columns.delete_if {|c| ['last_edit_comment'].include?(c.name)}
 
    for column in columns %>
@@ -40,7 +40,7 @@
 <table border="1">
 <tr>
 <% 
-    history_columns = PublicBody.content_columns
+    history_columns = PublicBody.content_columns + [] # force dup
     history_columns.delete_if {|c| ['created_at', 'updated_at', 'first_letter'].include?(c.name)}
     for column in history_columns %>
   <th><%= column.human_name %></th>
