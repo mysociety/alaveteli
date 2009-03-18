@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.151 2009-03-09 01:17:04 francis Exp $
+# $Id: request_controller.rb,v 1.152 2009-03-18 01:32:14 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -348,6 +348,13 @@ class RequestController < ApplicationController
 
     # Show an individual incoming message, and allow followup
     def show_response
+        # Banned from making new requests?
+        if !authenticated_user.nil? && !authenticated_user.can_make_followup?
+            @details = authenticated_user.can_fail_html
+            render :template => 'user/banned'
+            return
+        end
+
         if params[:incoming_message_id].nil?
             @incoming_message = nil
         else

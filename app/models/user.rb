@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user.rb,v 1.83 2009-03-09 15:48:32 tony Exp $
+# $Id: user.rb,v 1.84 2009-03-18 01:32:14 francis Exp $
 
 require 'digest/sha1'
 
@@ -221,6 +221,9 @@ class User < ActiveRecord::Base
     end
     # Various ways the user can be banned, and text to describe it if failed
     def can_file_requests?
+        self.ban_text.empty?
+    end
+    def can_make_followup?
         self.ban_text.empty?
     end
     def can_make_comments?
