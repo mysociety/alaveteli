@@ -62,6 +62,7 @@ describe InfoRequest, " when emailing" do
     end
 
     it "should cope with indexing after item is deleted" do
+        rebuild_xapian_index
         verbose = false
 
         # check can just update index
@@ -79,7 +80,7 @@ describe InfoRequest, " when emailing" do
 end 
 
 describe InfoRequest, "when calculating status" do
-    fixtures :public_bodies, :users
+    fixtures :public_bodies, :users, :holidays
 
     # We can't use fixtures as we need to control the date of a message
     # See due_date_for_request_date tests for fine grained testing
