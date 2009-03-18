@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user.rb,v 1.84 2009-03-18 01:32:14 francis Exp $
+# $Id: user.rb,v 1.85 2009-03-18 01:55:23 francis Exp $
 
 require 'digest/sha1'
 
@@ -53,7 +53,6 @@ class User < ActiveRecord::Base
 
     acts_as_xapian :texts => [ :name ],
         :values => [ 
-             [ :created_at, 0, "range_search", :date ], # for QueryParser range searches e.g. 01/01/2008..14/01/2008
              [ :created_at_numeric, 1, "created_at", :number ] # for sorting
         ],
         :terms => [ [ :variety, 'V', "variety" ] ]
