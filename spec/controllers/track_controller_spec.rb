@@ -11,10 +11,10 @@ describe TrackController, "when making a new track on a request" do
     end
 
     it "should make track and redirect if you are logged in " do
-        TrackThing.count.should == 2
+        old_count = TrackThing.count
         session[:user_id] = users(:bob_smith_user).id
         get :track_request, :url_title => info_requests(:fancy_dog_request).url_title, :feed => 'track'
-        TrackThing.count.should == 3
+        TrackThing.count.should == old_count + 1
         response.should redirect_to(:controller => 'request', :action => 'show', :url_title => info_requests(:fancy_dog_request).url_title)
     end
 
