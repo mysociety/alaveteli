@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 # XXX Use route_for or params_from to check /c/ links better
-# http://rspec.info/rdoc-rails/classes/Spec/Rails/Example/ControllerExampleGroup.html
+# http://rspec.rubyforge.org/rspec-rails/1.1.12/classes/Spec/Rails/Example/ControllerExampleGroup.html
 
 describe UserController, "when showing a user" do
     integrate_views
