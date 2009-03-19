@@ -1,12 +1,12 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe TrackController, "when making a new track on a request" do
-    integrate_views
-    fixtures :info_requests, :outgoing_messages, :incoming_messages, :raw_emails, :info_request_events, :users
-  
     before do
-        @ir = info_requests(:fancy_dog_request)
-        @user = users(:bob_smith_user)
+        @ir = mock_model(InfoRequest, :url_title => 'myrequest', :title => 'My request')
+        InfoRequest.stub!(:find_by_url_title).and_return(@ir)
+
+        @user = mock_model(User)
+        User.stub!(:find).and_return(@user)
     end
 
     it "should require login when making new track" do
