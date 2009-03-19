@@ -220,6 +220,37 @@ describe RequestController, "when creating a new request" do
 
 end
 
+# These go with the previous set, but use mocks instead of fixtures. 
+# TODO harmonise these
+describe RequestController, "when making a new request" do
+
+    before do
+        @user = mock_model(User, :id => 3481, :name => 'Testy')
+        @user.stub!(:can_file_requests?).and_return(true)
+        User.stub!(:find).and_return(@user)
+
+        @body = mock_model(PublicBody, :id => 314, :eir_only? => false, :is_requestable? => true)
+        PublicBody.stub!(:find).and_return(@body)
+    end
+
+    it "should allow you to have one undescribed request" do
+        @user.stub!(:get_undescribed_requests).and_return([ 1 ])
+
+        session[:user_id] = @user.id
+        get :new, :public_body_id => @body.id
+        response.should render_template('new')
+    end
+
+    it "should fail if more than one request undescribed" do
+        @user.stub!(:get_undescribed_requests).and_return([ 1, 2 ])
+
+        session[:user_id] = @user.id
+        get :new, :public_body_id => @body.id
+        response.should render_template('new_please_describe')
+    end
+
+end
+
 describe RequestController, "when viewing an individual response for reply/followup" do
     integrate_views
     fixtures :info_requests, :info_request_events, :public_bodies, :users, :incoming_messages, :raw_emails, :outgoing_messages, :comments # all needed as integrating views
