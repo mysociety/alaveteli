@@ -49,6 +49,9 @@ if $tempfilecount.nil?
                     # Call original process function
                     self.original_process(action, parameters, session, flash)
 
+                    # XXX Is there a better way to check this than calling a private method?
+                    return unless @response.template.controller.instance_eval { integrate_views? }
+
                     # And then if HTML, not a redirect (302), and not a partial template (something/_something, such as in AJAX partial results)
                     if @response.content_type == "text/html" and @response.response_code != 302 and not @response.rendered_file.include?("/_")
                         $tempfilecount = $tempfilecount + 1
