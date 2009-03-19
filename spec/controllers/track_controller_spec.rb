@@ -4,18 +4,23 @@ describe TrackController, "when making a new track on a request" do
     integrate_views
     fixtures :info_requests, :outgoing_messages, :incoming_messages, :raw_emails, :info_request_events, :users
   
+    before do
+        @ir = info_requests(:fancy_dog_request)
+        @user = users(:bob_smith_user)
+    end
+
     it "should require login when making new track" do
-        get :track_request, :url_title => info_requests(:fancy_dog_request).url_title, :feed => 'track'
+        get :track_request, :url_title => @ir.url_title, :feed => 'track'
         post_redirect = PostRedirect.get_last_post_redirect
         response.should redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
     end
 
     it "should make track and redirect if you are logged in " do
         old_count = TrackThing.count
-        session[:user_id] = users(:bob_smith_user).id
-        get :track_request, :url_title => info_requests(:fancy_dog_request).url_title, :feed => 'track'
+        session[:user_id] = @user.id
+        get :track_request, :url_title => @ir.url_title, :feed => 'track'
         TrackThing.count.should == old_count + 1
-        response.should redirect_to(:controller => 'request', :action => 'show', :url_title => info_requests(:fancy_dog_request).url_title)
+        response.should redirect_to(:controller => 'request', :action => 'show', :url_title => @ir.url_title)
     end
 
 end
