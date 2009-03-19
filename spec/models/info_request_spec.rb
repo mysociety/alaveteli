@@ -79,61 +79,25 @@ describe InfoRequest, " when emailing" do
 
 end 
 
-describe InfoRequest, "when calculating status" do
-    fixtures :public_bodies, :users, :holidays
+describe InfoRequest, "when calculating the status" do
+    fixtures :info_requests, :info_request_events, :holidays
 
-    # We can't use fixtures as we need to control the date of a message
-    # See due_date_for_request_date tests for fine grained testing
-
-    def send_msg(date)
-        ir = InfoRequest.new(:title => "testing", :public_body => public_bodies(:geraldine_public_body),
-             :user => users(:bob_smith_user))
-        ir.save!
-        om = OutgoingMessage.new( 
-            :info_request_id => ir.id, 
-            :last_sent_at => date,
-            :body => '...',
-            :status => 'sent',
-            :message_type => 'initial_request',
-            :what_doing => 'new_information'
-        )
-        om.save!
-        e = InfoRequestEvent.new( 
-            :event_type => 'sent', 
-            :info_request_id => ir.id, 
-            :outgoing_message_id => om.id,
-            :params_yaml => { :outgoing_message_id => om.id }.to_yaml
-        )
-        e.save!
-        return ir
+    before do
+        @ir = info_requests(:naughty_chicken_request)
     end
 
-    it "is awaiting response when recently new" do
-        ir = send_msg(Time.new - 5.days)
-        ir.calculate_status.should == 'waiting_response'
-    end 
-
-    it "is overdue when very old" do
-        ir = send_msg(Time.new - 50.days)
-        ir.calculate_status.should == 'waiting_response_overdue'
-    end 
-
     it "has correct due date" do
-        ir = send_msg(Time.utc(2009, 03, 16, 12, 0, 0))
-        ir.date_response_required_by.strftime("%F").should == '2009-04-16'
-    end 
+        @ir.date_response_required_by.strftime("%F").should == '2007-11-12'
+    end
 
-    it "isn't overdue on due day" do
-        ir = send_msg(Time.utc(2009, 03, 16, 12, 0, 0))
-        Time.stub!(:now).and_return(Time.utc(2009, 04, 16, 14, 0, 0))
-        ir.days_overdue.should == 0
-    end 
+    it "isn't overdue on due date" do
+        Time.stub!(:now).and_return(Time.utc(2007, 11, 12, 23, 59)) 
+        @ir.calculate_status.should == 'waiting_response'
+    end
 
-    it "is overdue a day after due day" do
-        ir = send_msg(Time.utc(2009, 03, 16, 12, 0, 0))
-        Time.stub!(:now).and_return(Time.utc(2009, 04, 17, 11, 0, 0))
-        ir.days_overdue.should == 1
-    end 
-
+    it "is overdue a day after due date " do
+        Time.stub!(:now).and_return(Time.utc(2007, 11, 13)) 
+        @ir.calculate_status.should == 'waiting_response_overdue'
+    end
 end
 
