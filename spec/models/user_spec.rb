@@ -38,7 +38,6 @@ end
 describe User, " when saving" do
     before do
         @user = User.new 
-        @user2 = User.new 
     end
 
     it "should not save without setting some parameters" do
@@ -49,6 +48,13 @@ describe User, " when saving" do
         @user.name = "Mr. Silly"
         @user.password = "insecurepassword"  
         @user.email = "mousefooble"
+        lambda { @user.save! }.should raise_error(ActiveRecord::RecordInvalid)
+    end
+
+    it "should not allow an email address as a name" do
+        @user.name = "silly@example.com"
+        @user.email = "silly@example.com"
+        @user.password = "insecurepassword"  
         lambda { @user.save! }.should raise_error(ActiveRecord::RecordInvalid)
     end
 
@@ -72,6 +78,7 @@ describe User, " when saving" do
         @user.email = "flobble@localhost"
         @user.save!
 
+        @user2 = User.new 
         @user2.name = "Mr. Flobble"
         @user2.password = "insecurepassword"  
         @user2.email = "flobble2@localhost"
