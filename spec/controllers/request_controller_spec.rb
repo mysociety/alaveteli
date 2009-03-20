@@ -1,13 +1,6 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe RequestController, "when listing recent requests" do
-    integrate_views
-    fixtures :info_requests, :outgoing_messages, :info_request_events
-
-    before do
-        rebuild_xapian_index
-    end
-  
     it "should be successful" do
         get :list, :view => 'recent'
         response.should be_success
@@ -19,16 +12,11 @@ describe RequestController, "when listing recent requests" do
     end
 
     it "should assign the first page of results" do
-        # XXX probably should load more than one page of requests into db here :)
-        ActsAsXapian.update_index
-        
+        InfoRequest.should_receive(:full_search).
+          with([InfoRequestEvent],"variety:sent", "created_at", anything, anything, anything, anything).
+          and_return((1..25).to_a)
         get :list, :view => 'recent'
-
-        # reverse-chronological order
-        assigns[:xapian_object].matches_estimated.should == 2
-        assigns[:xapian_object].results.size.should == 2
-        assigns[:xapian_object].results[0][:model].should == info_request_events(:silly_outgoing_message_event)
-        assigns[:xapian_object].results[1][:model].should == info_request_events(:useless_outgoing_message_event)
+        assigns[:xapian_object].size.should == 25
     end
 end
 
