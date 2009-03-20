@@ -101,25 +101,30 @@ describe RequestController, "when creating a new request" do
     integrate_views
     fixtures :info_requests, :outgoing_messages, :public_bodies, :users
 
+    before do
+        @user = users(:bob_smith_user)
+        @body = public_bodies(:geraldine_public_body)
+    end
+        
     it "should redirect to front page if no public body specified" do
         get :new
         response.should redirect_to(:controller => 'general', :action => 'frontpage')
     end
 
     it "should redirect to front page if no public body specified, when logged in" do
-        session[:user_id] = users(:bob_smith_user).id
+        session[:user_id] = @user.id
         get :new
         response.should redirect_to(:controller => 'general', :action => 'frontpage')
     end
 
     it "should accept a public body parameter" do
-        get :new, :info_request => { :public_body_id => public_bodies(:geraldine_public_body).id } 
-        assigns[:info_request].public_body.should == public_bodies(:geraldine_public_body)    
+        get :new, :info_request => { :public_body_id => @body.id } 
+        assigns[:info_request].public_body.should == @body    
         response.should render_template('new')
     end
 
     it "should give an error and render 'new' template when a summary isn't given" do
-        post :new, :info_request => { :public_body_id => public_bodies(:geraldine_public_body).id },
+        post :new, :info_request => { :public_body_id => @body.id },
             :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." },
             :submitted_new_request => 1, :preview => 1
         assigns[:info_request].errors[:title].should_not be_nil
@@ -127,7 +132,7 @@ describe RequestController, "when creating a new request" do
     end
 
     it "should show preview when input is good" do
-        post :new, { :info_request => { :public_body_id => public_bodies(:geraldine_public_body).id, 
+        post :new, { :info_request => { :public_body_id => @body.id, 
             :title => "Why is your quango called Geraldine?"},
             :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." },
             :submitted_new_request => 1, :preview => 1
@@ -136,7 +141,7 @@ describe RequestController, "when creating a new request" do
     end
 
     it "should redirect to sign in page when input is good and nobody is logged in" do
-        params = { :info_request => { :public_body_id => public_bodies(:geraldine_public_body).id, 
+        params = { :info_request => { :public_body_id => @body.id, 
             :title => "Why is your quango called Geraldine?"},
             :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." },
             :submitted_new_request => 1, :preview => 0
@@ -148,8 +153,8 @@ describe RequestController, "when creating a new request" do
     end
 
     it "should create the request and outgoing message, and send the outgoing message by email, and redirect to request page when input is good and somebody is logged in" do
-        session[:user_id] = users(:bob_smith_user).id
-        post :new, :info_request => { :public_body_id => public_bodies(:geraldine_public_body).id, 
+        session[:user_id] = @user.id
+        post :new, :info_request => { :public_body_id => @body.id, 
             :title => "Why is your quango called Geraldine?"},
             :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." },
             :submitted_new_request => 1, :preview => 0
@@ -170,7 +175,7 @@ describe RequestController, "when creating a new request" do
     end
 
     it "should give an error if the same request is submitted twice" do
-        session[:user_id] = users(:bob_smith_user).id
+        session[:user_id] = @user.id
 
         # We use raw_body here, so white space is the same
         post :new, :info_request => { :public_body_id => info_requests(:fancy_dog_request).public_body_id, 
@@ -184,7 +189,7 @@ describe RequestController, "when creating a new request" do
         # This only works for PostgreSQL databases which have regexp_replace -
         # see model method InfoRequest.find_by_existing_request for more info
         if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"
-            session[:user_id] = users(:bob_smith_user).id
+            session[:user_id] = @user.id
 
             post :new, :info_request => { :public_body_id => info_requests(:fancy_dog_request).public_body_id, 
                 :title => info_requests(:fancy_dog_request).title },
@@ -195,14 +200,14 @@ describe RequestController, "when creating a new request" do
     end
 
     it "should let you submit another request with the same title" do
-        session[:user_id] = users(:bob_smith_user).id
+        session[:user_id] = @user.id
 
-        post :new, :info_request => { :public_body_id => public_bodies(:geraldine_public_body).id, 
+        post :new, :info_request => { :public_body_id => @body.id, 
             :title => "Why is your quango called Geraldine?"},
             :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." },
             :submitted_new_request => 1, :preview => 0
 
-        post :new, :info_request => { :public_body_id => public_bodies(:geraldine_public_body).id, 
+        post :new, :info_request => { :public_body_id => @body.id, 
             :title => "Why is your quango called Geraldine?"},
             :outgoing_message => { :body => "This is a sensible letter. It is too long to be boring." },
             :submitted_new_request => 1, :preview => 0
