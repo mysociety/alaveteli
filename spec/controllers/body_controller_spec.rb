@@ -16,7 +16,7 @@ describe BodyController, "when showing a body" do
 
     it "should assign the body" do
         get :show, :url_name => "dfh"
-        assigns[:public_bodies].should == [ public_bodies(:humpadink_public_body) ]
+        assigns[:public_body].should == public_bodies(:humpadink_public_body)
     end
 
     it "should redirect to newest name if you use historic name of public body in URL" do
