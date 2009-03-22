@@ -28,11 +28,10 @@ describe PublicBody, " when saving" do
     end
 end
 
-
 describe PublicBody, " when indexing with Xapian" do
     fixtures :public_bodies
 
-    before do
+    before(:all) do
         rebuild_xapian_index
     end
 
