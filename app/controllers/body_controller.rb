@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: body_controller.rb,v 1.23 2009-03-22 10:31:20 tony Exp $
+# $Id: body_controller.rb,v 1.24 2009-03-22 14:21:56 tony Exp $
 
 class BodyController < ApplicationController
     # XXX tidy this up with better error messages, and a more standard infrastructure for the redirect to canonical URL
@@ -25,11 +25,15 @@ class BodyController < ApplicationController
 
         # Use search query for this so can collapse and paginate easily
         # XXX really should just use SQL query here rather than Xapian.
-        @xapian_requests = @public_body.xapian_requests
-        if (@page > 1)
-            @page_desc = " (page " + @page.to_s + ")" 
-        else    
-            @page_desc = ""
+        begin
+            @xapian_requests = perform_search([InfoRequestEvent], 'requested_from:' + @public_body.url_name, 'newest', 'request_collapse')
+            if (@page > 1)
+                @page_desc = " (page " + @page.to_s + ")" 
+            else    
+                @page_desc = ""
+            end
+        rescue
+            @xapian_requests = nil
         end
 
         @track_thing = TrackThing.create_track_for_public_body(@public_body)
@@ -81,5 +85,4 @@ class BodyController < ApplicationController
         end
     end
 end
-
 

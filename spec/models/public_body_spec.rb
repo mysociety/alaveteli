@@ -50,7 +50,7 @@ describe PublicBody, "when searching" do
 end
 
 describe PublicBody, " when indexing with Xapian" do
-    fixtures :public_bodies, :info_request_events, :info_requests
+    fixtures :public_bodies
 
     before(:all) do
         rebuild_xapian_index
@@ -65,13 +65,6 @@ describe PublicBody, " when indexing with Xapian" do
     it "should search index the notes field" do
         xapian_object = InfoRequest.full_search([PublicBody], "albatross", 'created_at', true, nil, 100, 1)
         xapian_object.results.size.should == 1
-        xapian_object.results[0][:model].should == public_bodies(:humpadink_public_body)
-    end
-
-    it "should find requests made to it" do
-        @body = public_bodies(:humpadink_public_body)
-        xapian_requests = @body.xapian_requests
-        xapian_object.results.size.should == 2
         xapian_object.results[0][:model].should == public_bodies(:humpadink_public_body)
     end
 
