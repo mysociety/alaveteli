@@ -25,7 +25,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.136 2009-03-22 09:03:18 tony Exp $
+# $Id: public_body.rb,v 1.137 2009-03-22 10:27:03 tony Exp $
 
 require 'csv'
 require 'set'
@@ -146,6 +146,15 @@ class PublicBody < ActiveRecord::Base
         return unless old.size == 1
         # does acts_as_versioned provide a method that returns the current version?
         return PublicBody.find(old.first.public_body_id)
+    end
+
+    # Requests made from this body, via Xapian
+    def xapian_requests
+        begin
+            perform_search([InfoRequestEvent], 'requested_from:' + self.url_name, 'newest', 'request_collapse')
+        rescue
+            return nil
+        end
     end
 
 
