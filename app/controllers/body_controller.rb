@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: body_controller.rb,v 1.21 2009-03-20 13:32:53 tony Exp $
+# $Id: body_controller.rb,v 1.22 2009-03-22 09:08:39 tony Exp $
 
 class BodyController < ApplicationController
     # XXX tidy this up with better error messages, and a more standard infrastructure for the redirect to canonical URL
@@ -14,24 +14,13 @@ class BodyController < ApplicationController
             return
         end
 
-        @public_bodies = PublicBody.find_all_by_url_name(params[:url_name])
-        # Shouldn't we just make url_name unique?
-        if @public_bodies.size > 1
-            raise "Two bodies with the same URL name: " . params[:url_name]
-        end
-        # If none found, then search the history of short names, and do a redirect
-        if @public_bodies.size == 0
-            @public_bodies = PublicBody.find(:all,
-                :conditions => [ "id in (select public_body_id from public_body_versions where url_name = ?)", params[:url_name] ])
-            if @public_bodies.size > 1
-                raise "Two bodies with the same historical URL name: " . params[:url_name]
-            end
-            if @public_bodies.size == 0
-                raise "None found" # XXX proper 404
-            end
-            redirect_to show_public_body_url(:url_name => @public_bodies[0].url_name)
-        end
-        @public_body = @public_bodies[0]
+        @public_body = PublicBody.find_by_urlname(params[:url_name])
+        raise "None found" if @public_body.nil? # XXX proper 404
+
+        # If found by historic name, redirect to new name
+        redirect_to show_public_body_url(:url_name => @public_body.url_name) if 
+            @public_body.url_name != params[:url_name]
+
         set_last_body(@public_body)
 
         # Use search query for this so can collapse and paginate easily
