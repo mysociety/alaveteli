@@ -48,21 +48,21 @@ describe User, " when saving" do
         @user.name = "Mr. Silly"
         @user.password = "insecurepassword"  
         @user.email = "mousefooble"
-        lambda { @user.save! }.should raise_error(ActiveRecord::RecordInvalid)
+        @user.should have(1).error_on(:email)
     end
 
     it "should not allow an email address as a name" do
         @user.name = "silly@example.com"
         @user.email = "silly@example.com"
         @user.password = "insecurepassword"  
-        lambda { @user.save! }.should raise_error(ActiveRecord::RecordInvalid)
+        @user.should have(1).error_on(:name)
     end
 
     it "should not save with no password" do
         @user.name = "Mr. Silly"
         @user.password = ""  
         @user.email = "silly@localhost"
-        lambda { @user.save! }.should raise_error(ActiveRecord::RecordInvalid)
+        @user.should have(1).error_on(:hashed_password)
     end
 
     it "should save with reasonable name, password and email" do
