@@ -5,17 +5,18 @@ describe PublicBody, " when saving" do
         @public_body = PublicBody.new 
     end
 
-    it "should not save without setting some parameters" do
-        lambda { @public_body.save! }.should raise_error(ActiveRecord::RecordInvalid)
+    it "should not be valid without setting some parameters" do
+        @public_body.should_not be_valid
     end
 
-    it "should not save with misformatted request email" do
+    it "should not be valid with misformatted request email" do
         @public_body.name = "Testing Public Body"
         @public_body.short_name = "TPB"
         @public_body.request_email = "requestBOOlocalhost"
         @public_body.last_edit_editor = "*test*"
         @public_body.last_edit_comment = "This is a test"
-        lambda { @public_body.save! }.should raise_error(ActiveRecord::RecordInvalid)
+        @public_body.should_not be_valid
+        @public_body.should have(1).errors_on(:request_email)
     end
 
     it "should save" do
