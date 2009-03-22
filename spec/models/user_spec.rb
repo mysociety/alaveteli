@@ -86,3 +86,21 @@ describe User, " when saving" do
     end
 end
 
+describe User, "when checking abilities" do
+    fixtures :users
+
+    before do
+        @user = users(:bob_smith_user)
+    end
+
+    it "should not get admin links" do
+        @user.admin_page_links?.should be_false
+    end
+
+    it "should be able to file requests" do
+        @user.can_file_requests?.should be_true
+    end
+
+end
+
+
