@@ -25,7 +25,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.135 2009-03-18 05:04:47 francis Exp $
+# $Id: public_body.rb,v 1.136 2009-03-22 09:03:18 tony Exp $
 
 require 'csv'
 require 'set'
@@ -130,6 +130,24 @@ class PublicBody < ActiveRecord::Base
     def self.category_singular_by_tag
         Hash[*self.categories_with_description.map() { |a| [a[0],a[2]] }.flatten]
     end
+
+    # like find_by_url_name but also search historic url_name if none found
+    def self.find_by_urlname(name)
+        found = PublicBody.find_all_by_url_name(name)
+        return found.first if found.size == 1
+        # Shouldn't we just make url_name unique?
+        raise "Two bodies with the same URL name: #{name}" if found.size > 1
+        # If none found, then search the history of short names
+        old = PublicBody::Version.find_all_by_url_name(name)
+        # :conditions => [ "id in (select public_body_id from public_body_versions where url_name = ?)", name ])
+        # Maybe return the first one, so we show something relevant,
+        # rather than throwing an error?
+        raise "Two bodies with the same historical URL name: #{name}" if old.size > 1
+        return unless old.size == 1
+        # does acts_as_versioned provide a method that returns the current version?
+        return PublicBody.find(old.first.public_body_id)
+    end
+
 
     # Set the first letter, which is used for faster queries
     before_save(:set_first_letter)

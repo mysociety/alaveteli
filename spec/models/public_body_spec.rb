@@ -28,6 +28,27 @@ describe PublicBody, " when saving" do
     end
 end
 
+describe PublicBody, "when searching" do
+    fixtures :public_bodies
+
+    it "should find by existing url name" do
+        body = PublicBody.find_by_urlname('dfh')
+        body.id.should == 3
+    end
+
+    it "should find by historic url name" do
+        body = PublicBody.find_by_urlname('hdink')
+        body.id.should == 3
+        body.class.to_s.should == 'PublicBody'
+    end
+
+    it "should cope with not finding any" do
+        body = PublicBody.find_by_urlname('idontexist')
+        body.should be_nil
+    end
+
+end
+
 describe PublicBody, " when indexing with Xapian" do
     fixtures :public_bodies
 
