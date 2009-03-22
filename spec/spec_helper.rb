@@ -35,6 +35,7 @@ def rebuild_xapian_index
     Kernel.system(rebuild_name) or raise "failed to launch rebuild-xapian-index"
 end
 
+# Validate an entire HTML page
 def validate_html(html)
     $tempfilecount = $tempfilecount + 1
     tempfilename = File.join(Dir::tmpdir, "railshtmlvalidate."+$$.to_s+"."+$tempfilecount.to_s+".html")
@@ -46,6 +47,12 @@ def validate_html(html)
     end
     File.unlink(tempfilename)
     return true
+end
+
+# Validate HTML fragment by wrapping it as the <body> of a page
+def validate_as_body(html)
+    validate_html('<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">' +
+        "<html><head><title>Test</title></head><body>#{html}</body></html>")
 end
 
 # Monkeypatch! Validate HTML in tests.

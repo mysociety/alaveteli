@@ -32,6 +32,11 @@ describe "when viewing a body" do
         response.should be_success
     end
 
+    it "should be valid HTML" do
+        render "body/show"
+        validate_as_body response.body 
+    end
+
     it "should show the body's name" do
         render "body/show"
         response.should have_tag("h1", "Test Quango")
