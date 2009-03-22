@@ -20,13 +20,19 @@ describe "when viewing a body" do
         ])
 
         assigns[:public_body] = @pb
-        assigns[:track_thing] = mock_model(TrackThing, :track_type => 'public_body_updates', :public_body => @pb )
+        assigns[:track_thing] = mock_model(TrackThing, 
+            :track_type => 'public_body_updates', :public_body => @pb, :params => {})
         assigns[:xapian_requests] = @xap
         assigns[:page] = 1
         assigns[:per_page] = 10
     end
 
     it "should be successful" do
+        render "body/show"
+        response.should be_success
+    end
+
+    it "should show the body's name" do
         render "body/show"
         response.should have_tag("h1", "Test Quango")
     end
