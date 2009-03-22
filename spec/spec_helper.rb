@@ -35,6 +35,19 @@ def rebuild_xapian_index
     Kernel.system(rebuild_name) or raise "failed to launch rebuild-xapian-index"
 end
 
+def validate_html(html)
+    $tempfilecount = $tempfilecount + 1
+    tempfilename = File.join(Dir::tmpdir, "railshtmlvalidate."+$$.to_s+"."+$tempfilecount.to_s+".html")
+    File.open(tempfilename, "w+") do |f|
+        f.puts html
+    end
+    if not system($html_validation_script, tempfilename)
+        raise "HTML validation error in " + tempfilename + " HTTP status: " + @response.response_code.to_s
+    end
+    File.unlink(tempfilename)
+    return true
+end
+
 # Monkeypatch! Validate HTML in tests.
 $html_validation_script = "/usr/bin/validate" # from Debian package wdg-html-validator
 if $tempfilecount.nil?
@@ -54,15 +67,7 @@ if $tempfilecount.nil?
 
                     # And then if HTML, not a redirect (302), and not a partial template (something/_something, such as in AJAX partial results)
                     if @response.content_type == "text/html" and @response.response_code != 302 and not @response.rendered_file.include?("/_")
-                        $tempfilecount = $tempfilecount + 1
-                        tempfilename = File.join(Dir::tmpdir, "railshtmlvalidate."+$$.to_s+"."+$tempfilecount.to_s+".html")
-                        File.open(tempfilename, "w+") do |f|
-                            f.puts @response.body
-                        end
-                        if not system($html_validation_script, tempfilename)
-                            raise "HTML validation error in " + tempfilename + " HTTP status: " + @response.response_code.to_s
-                        end
-                        File.unlink(tempfilename)
+                        validate_html(@response.body)
                     end
                 end
             end
@@ -71,5 +76,4 @@ if $tempfilecount.nil?
         puts "WARNING: HTML validation script " + $html_validation_script + " not found"
     end
 end
-
 
