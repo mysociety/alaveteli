@@ -4,12 +4,8 @@ describe GeneralController, "when searching" do
     integrate_views
     fixtures :users, :outgoing_messages, :incoming_messages, :raw_emails, :info_requests, :info_request_events, :public_bodies, :comments
 
-    before do
-        # XXX - what is proper way to do this only once?
-        if not $general_controller_built_xapian_index
-            rebuild_xapian_index
-            $general_controller_built_xapian_index = true
-        end
+    before(:all) do
+        rebuild_xapian_index
     end
 
     it "should render the front page successfully" do
