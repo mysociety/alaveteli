@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.152 2009-03-18 01:32:14 francis Exp $
+# $Id: request_controller.rb,v 1.153 2009-03-23 10:46:29 tony Exp $
 
 class RequestController < ApplicationController
     
@@ -200,7 +200,7 @@ class RequestController < ApplicationController
                 message += "<p>Your request contains a <strong>postcode</strong>. Unless it directly relates to the subject of your request, please remove any address as it will <strong>appear publicly on the Internet</strong>.</p>";
             end
             if not message.empty?
-                flash[:error] = message
+                flash.now[:error] = message
             end
             render :action => 'preview'
             return
