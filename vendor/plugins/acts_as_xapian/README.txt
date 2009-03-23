@@ -1,3 +1,12 @@
+The official page for acts_as_xapian is now the Google Groups page.
+
+http://groups.google.com/group/acts_as_xapian
+
+frabcus's github repository is no longer the official repository,
+find the official one from the Google Groups page.
+
+------------------------------------------------------------------------
+
 Do patch this file if there is documentation missing / wrong. It's called
 README.txt and is in git, using Textile formatting. The wiki page is just
 copied from the README.txt file.
