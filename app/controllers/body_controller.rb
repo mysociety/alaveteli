@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: body_controller.rb,v 1.24 2009-03-22 14:21:56 tony Exp $
+# $Id: body_controller.rb,v 1.25 2009-03-24 13:05:01 tony Exp $
 
 class BodyController < ApplicationController
     # XXX tidy this up with better error messages, and a more standard infrastructure for the redirect to canonical URL
@@ -46,11 +46,11 @@ class BodyController < ApplicationController
 
         if params[:submitted_view_email]
             if verify_recaptcha
-                flash[:error] = nil
+                flash.discard(:error)
                 render :template => "body/view_email"
                 return
             end
-            flash[:error] = "There was an error with the words you entered, please try again."
+            flash.now[:error] = "There was an error with the words you entered, please try again."
         end
         render :template => "body/view_email_captcha"
     end
