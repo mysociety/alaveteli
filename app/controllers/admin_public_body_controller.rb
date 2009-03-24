@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_public_body_controller.rb,v 1.20 2009-03-10 10:33:52 tony Exp $
+# $Id: admin_public_body_controller.rb,v 1.21 2009-03-24 09:01:28 tony Exp $
 
 class AdminPublicBodyController < AdminController
     def index
@@ -31,6 +31,10 @@ class AdminPublicBodyController < AdminController
              ORDER BY howmany DESC 
              LIMIT 20
         ")
+        @stats = {
+          "total" => PublicBody.count,
+          "entered" => PublicBody.count(:conditions => "publication_scheme != ''")
+        }
     end
 
     def show
