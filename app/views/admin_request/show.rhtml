@@ -1,4 +1,5 @@
 <% @title = "FOI request - " + h(@info_request.title) %>
+<%= javascript_include_tag :defaults %>
 
 <h1><%=@title%></h1>
 
@@ -61,7 +62,18 @@
   <tr class="<%= cycle('odd', 'even') %>">
   <td><%=h outgoing_message.id %></td>
   <% for column in OutgoingMessage.content_columns.map { |c| c.name } %>
-    <td><%= simple_format( outgoing_message.send(column) ) %></td>
+
+    <% if column == 'body' %>
+    <td>
+      <div><%= simple_format( truncate(outgoing_message.body, 400, 
+                  link_to_function("...", "$(this).up('td').childElements().invoke('toggle')") 
+            )) %></div>
+      <div style="display:none;"><%= simple_format( outgoing_message.body ) %></div>
+    </td>
+    <% else %>
+      <td><%= simple_format( outgoing_message.send(column) ) %></td>
+    <% end %>
+
   <% end %>
   <td>
   <% form_tag '../resend' do %>
@@ -91,7 +103,16 @@
   <tr class="<%= cycle('odd', 'even') %>" id="incoming-<%=incoming_message.id.to_s%>">
   <td><%=h incoming_message.id %></td>
   <% for column in IncomingMessage.content_columns.map { |c| c.name } %>
-    <td><%= simple_format( incoming_message.send(column) ) %></td>
+    <% if column =~ /^cached_.*?_text$/ %>
+    <td>
+      <div><%= simple_format( truncate(incoming_message.send(column), 400, 
+                  link_to_function("...", "$(this).up('td').childElements().invoke('toggle')") 
+            )) %></div>
+      <div style="display:none;"><%= simple_format( incoming_message.send(column) ) %></div>
+    </td>
+    <% else %>
+      <td><%= simple_format( incoming_message.send(column) ) %></td>
+    <% end %>
   <% end %>
   <td>
         <% if !incoming_message.raw_email_id.nil? %>
