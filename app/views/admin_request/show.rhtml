@@ -107,37 +107,43 @@
 
 <h2>Annotations</h2>
 
-<table>
-  <tr>
-  <th>Id</th>
-  <th>Posted by</th>
-  <% for column in Comment.content_columns %>
-    <th><%= column.human_name %></th>
-  <% end %>
-  <th>Actions</th>
-  </tr>
-  
-<% for comment in @info_request.comments %>
-  <tr class="<%= cycle('odd', 'even') %>">
-  <td><%=h comment.id %></td>
-  <td><%= user_both_links(comment.user) %></td>
-  <% for column in Comment.content_columns.map { |c| c.name } %>
-    <% if column == 'body' && !comment.visible %>
-        <td><s><%=h comment.send(column) %></s></td>
-    <% else %>
-        <td><%=h comment.send(column) %></td>
+<% if @info_request.comments.size > 0 %>
+  <table>
+    <tr>
+    <th>Id</th>
+    <th>Posted by</th>
+    <% for column in Comment.content_columns %>
+      <th><%= column.human_name %></th>
     <% end %>
+    <th>Actions</th>
+    </tr>
+    
+  <% for comment in @info_request.comments %>
+    <tr class="<%= cycle('odd', 'even') %>">
+    <td><%=h comment.id %></td>
+    <td><%= user_both_links(comment.user) %></td>
+    <% for column in Comment.content_columns.map { |c| c.name } %>
+      <% if column == 'body' && !comment.visible %>
+          <td><s><%=h comment.send(column) %></s></td>
+      <% else %>
+          <td><%=h comment.send(column) %></td>
+      <% end %>
+    <% end %>
+    <td>
+        <%= link_to "Edit", '../edit_comment/' + comment.id.to_s %>
+    </td>
+    </tr>
   <% end %>
-  <td>
-      <%= link_to "Edit", '../edit_comment/' + comment.id.to_s %>
-  </td>
-  </tr>
+  </table>
+<% else %>
+  <p>None yet.</p>
 <% end %>
-</table>
+
+
 
 <h2>Exim delivery logs</h2>
 
-<p>Lines containing the request incoming email address, updated hourly.</p>
+<p><i>(Lines containing the request incoming email address, updated hourly.)</i></p>
 
 <% for exim_log_done_id, exim_logs in @info_request.exim_logs.group_by(&:exim_log_done_id) %>
     <!-- <h3><%=h exim_logs[0].exim_log_done.filename %></h3> -->
