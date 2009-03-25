@@ -1,25 +1,29 @@
 
-<table>
-  <tr>
-  <th>Id</th>
-  <% for column in CensorRule.content_columns %>
-    <th><%= column.human_name %></th>
-  <% end %>
-  <th>Actions</th>
-  </tr>
+<% if censor_rules.size > 0 %>
+  <table>
+    <tr>
+      <th>Id</th>
+      <% for column in CensorRule.content_columns %>
+        <th><%= column.human_name %></th>
+      <% end %>
+      <th>Actions</th>
+    </tr>
 
-<% for censor_rule in censor_rules %>
-  <tr class="<%= cycle('odd', 'even') %>">
-  <td><%=h censor_rule.id %></td>
-  <% for column in CensorRule.content_columns.map { |c| c.name } %>
-    <td><%=h censor_rule.send(column) %></td>
+  <% for censor_rule in censor_rules %>
+    <tr class="<%= cycle('odd', 'even') %>">
+      <td><%=h censor_rule.id %></td>
+      <% for column in CensorRule.content_columns.map { |c| c.name } %>
+        <td><%=h censor_rule.send(column) %></td>
+      <% end %>
+      <td>
+        <%= link_to "Edit", '../../censor/edit/' + censor_rule.id.to_s %>
+      </td>
+    </tr>
   <% end %>
-  <td>
-      <%= link_to "Edit", '../../censor/edit/' + censor_rule.id.to_s %>
-  </td>
-  </tr>
+  </table>
+<% else %>
+  <p>None yet.</p>
 <% end %>
-</table>
 
 <p>
     <%= link_to "New censor rule", '../../censor/new?info_request_id=' + info_request.id.to_s %>
