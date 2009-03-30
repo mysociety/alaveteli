@@ -30,7 +30,7 @@ describe PublicBody, " when saving" do
 end
 
 describe PublicBody, "when searching" do
-    fixtures :public_bodies
+    fixtures :public_bodies, :public_body_versions
 
     it "should find by existing url name" do
         body = PublicBody.find_by_urlname('dfh')
