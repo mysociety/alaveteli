@@ -58,7 +58,7 @@
     <%= user_link(@info_request.user) %>
     </p>
 
-    <p id="request_status">
+    <p id="request_status" class="request_icon_line icon_<%= @info_request.calculate_status %>">
     <% if @info_request.awaiting_description %>
         <% if @is_owning_user %>
             Please <strong>answer the question above</strong> so we know whether the 

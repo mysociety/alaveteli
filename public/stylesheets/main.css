@@ -461,7 +461,7 @@ dd { margin: 0.6em 0 2em 4em; width: 33em; }
 	{
 		clear: left; 
 		display: block;
-			padding: 10px 0 0 42px;
+        padding: 10px 0 0 42px;
 
 	}
 		.request_listing span.bottomline
@@ -474,32 +474,52 @@ dd { margin: 0.6em 0 2em 4em; width: 33em; }
 			min-height: 42px;		
 		}
 
-		/* Waiting */
-		span.bottomline.icon_waiting_response,
-		span.bottomline.icon_waiting_classification,
-		span.bottomline.icon_waiting_clarification,
-		span.bottomline.icon_internal_review
-		{ background-image: url(../images/navimg/status-icons-wait.png);}
-		/* Failed */
-		span.bottomline.icon_not_held,
-		span.bottomline.icon_rejected
-		{ background-image: url(../images/navimg/status-icons-fail.png);}
-		/* successful */
-		span.bottomline.icon_successful, 
-		span.bottomline.icon_partially_successful
-		{ background-image: url(../images/navimg/status-icons-succeed.png);}
-		/* Alert */
-		span.bottomline.icon_requires_admin,	
-		span.bottomline.icon_waiting_response_overdue
-		{ background-image: url(../images/navimg/status-icons-attn.png);}
-		/* Postal */
-		span.bottomline.icon_gone_postal
-		{ background-image: url(../images/navimg/status-icons-post.png);}
-
-
 		span.bottomline a
 		{}
 	
+    .request_icon_line
+    {
+        background-repeat: no-repeat;
+        background-position: left center;
+        min-height: 42px;		
+        padding: 0 0 0 42px;
+    }
+
+    /* Waiting */
+    .icon_waiting_response,
+    .icon_waiting_classification,
+    .icon_waiting_clarification
+    { background-image: url(../images/navimg/status-icons-wait.png);}
+    /* Failed */
+    .icon_rejected
+    { background-image: url(../images/navimg/status-icons-fail.png);}
+    /* Not held */
+    .icon_not_held
+    { background-image: url(../images/navimg/status-icons-not-held.png);}
+    /* Successful */
+    .icon_successful, 
+    .icon_partially_successful
+    { background-image: url(../images/navimg/status-icons-succeed.png);}
+    /* Alert */
+    .icon_requires_admin,	
+    .icon_waiting_response_overdue
+    { background-image: url(../images/navimg/status-icons-attn.png);}
+    /* Postal */
+    .icon_gone_postal
+    { background-image: url(../images/navimg/status-icons-post.png);}
+    /* Error */
+    .icon_error_message
+    { background-image: url(../images/navimg/status-icons-error-message.png);}
+    /* Interal review */
+    .icon_internal_review
+    { background-image: url(../images/navimg/status-icons-internal-review.png);}
+    /* User withdrawn */
+    .icon_user_withdrawn
+    { background-image: url(../images/navimg/status-icons-user-withdrawn.png);}
+
+    /* span.bottomline.icon_requires_admin, 
+    span.bottomline.icon_user_withdrawn,  */
+
 	span.desc
 	{
 		display: block;
