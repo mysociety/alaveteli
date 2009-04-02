@@ -481,8 +481,8 @@ dd { margin: 0.6em 0 2em 4em; width: 33em; }
     {
         background-repeat: no-repeat;
         background-position: left center;
-        min-height: 42px;		
-        padding: 0 0 0 42px;
+        min-height: 24px;		
+        padding: 8px 0 10px 42px;
     }
 
     /* Waiting */
