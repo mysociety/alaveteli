@@ -27,6 +27,7 @@
   <% for column in InfoRequestEvent.content_columns %>
     <th><%= column.human_name %></th>
   <% end %>
+  <th>Actions</th>
   </tr>
   
 <% for info_request_event in @info_request.info_request_events.find(:all, :order => "created_at, id") %>
@@ -43,6 +44,16 @@
       <% end %>
     </td>
   <% end %>
+  <td>
+    <% if info_request_event.described_state != 'waiting_clarification' and info_request_event.event_type == 'response' %>
+        <% form_tag '../mark_event_as_clarification' do %>
+          <div>
+              <%= hidden_field_tag 'info_request_event_id', info_request_event.id %>
+              <%= submit_tag "Was clarification request" %>
+          </div>
+        <% end %>
+    <% end %>
+  </td>
   </tr>
 <% end %>
 </table>

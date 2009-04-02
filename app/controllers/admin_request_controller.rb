@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_request_controller.rb,v 1.30 2009-03-10 12:04:55 tony Exp $
+# $Id: admin_request_controller.rb,v 1.31 2009-04-02 11:25:43 francis Exp $
 
 class AdminRequestController < AdminController
     def index
@@ -242,6 +242,21 @@ class AdminRequestController < AdminController
 
         response.content_type = 'message/rfc822'
         render :text => @raw_email.data
+    end
+
+    # used so due dates get fixed
+    def mark_event_as_clarification
+        info_request_event = InfoRequestEvent.find(params[:info_request_event_id])
+        if info_request_event.event_type != 'response'
+            raise Exception("can only mark responses as requires clarification")
+        end
+        info_request_event.described_state = 'waiting_clarification'
+        info_request_event.calculated_state = 'waiting_clarification'
+        # XXX deliberately don't update described_at so doesn't reenter search?
+        info_request_event.save!
+
+        flash[:notice] = "Old response marked as having been a clarification"
+        redirect_to request_admin_url(info_request_event.info_request)
     end
 
     private

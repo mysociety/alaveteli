@@ -6,6 +6,8 @@ Check #email_subscriptions in unsubscribe link
 
 Change text so that overdue covers qualified exemption of public interest test being
 valid reason for delay.
+Allow admin override of overdue dates - probably an interface to let people set
+waiting clarification. Or maybe allow full override of due date.
 
 When moving request:
 ActionView::TemplateError (undefined method `info_request' for nil:NilClass) on line #34 of request/show.rhtml:
@@ -63,10 +65,9 @@ check-recent-requests-sent probably doesn't work, as exim log lines wouldn't
 be load in case where the envelope from gets broken?
 
 Lots of authorities are starting to complain about how their record looks on
-their page - e.g responses not classified by users, the sort of icon there is
-for information not held etc. That users may classify incorrectly. We need
-some kidn of general solution to make it clear what the states and icons mean,
-in terms of properly reflecting how the council is doing.
+their page - e.g responses not classified by users. That users may classify
+incorrectly. We need some kidn of general solution to make it clear what the
+states mean, in terms of properly reflecting how the council is doing.
 
 Add FAQ / unhappy page which explains what you can do if you get no response
 at all and that it might be spam. (err, or somehow reorganise FAQ for this
@@ -156,7 +157,6 @@ using the internal review mode.
 CSS / design things
     - The stepwise instruction boxes "Next, select the public authority ... "
       need to look better, and have icons associated with them etc.
-    - Icon for internal_review, user_withdrawn
     - CSS error on "all councils" page on some browsers
         https://bugzilla.mozilla.org/show_bug.cgi?id=424194
     - Spacing on error boxes round form elements. Matthew says:
