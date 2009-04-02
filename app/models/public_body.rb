@@ -25,7 +25,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.138 2009-03-22 14:21:56 tony Exp $
+# $Id: public_body.rb,v 1.139 2009-04-02 15:33:11 francis Exp $
 
 require 'csv'
 require 'set'
@@ -463,6 +463,14 @@ class PublicBody < ActiveRecord::Base
 
         return ret
     end
+
+    def reverse_sorted_versions
+        self.versions.sort { |a,b| b.version <=> a.version }
+    end
+    def sorted_versions
+        self.versions.sort { |a,b| a.version <=> b.version }
+    end
+
 
 end
 
