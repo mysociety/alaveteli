@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.194 2009-03-17 23:55:33 francis Exp $
+# $Id: incoming_message.rb,v 1.195 2009-04-02 13:04:02 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -268,6 +268,7 @@ class FOIAttachment
         end
     end
 
+    # Size to show next to the download link for the attachment
     def display_size
         s = self.body.size
 
@@ -278,6 +279,7 @@ class FOIAttachment
         end
     end
 
+    # For "View as HTML" of attachment
     def body_as_html(dir)
         html = nil
 
@@ -323,6 +325,7 @@ class FOIAttachment
         return html
     end
 
+    # Whether this type has a "View as HTML"
     def has_body_as_html?
         if self.content_type == 'application/vnd.ms-word'
             return true
@@ -698,17 +701,21 @@ class IncomingMessage < ActiveRecord::Base
     # Returns body text from main text part of email, converted to UTF-8
     def get_main_body_text_internal
         main_part = get_main_body_text_part
-        if main_part.nil?
+        return convert_part_body_to_text(main_part)
+    end
+    # Given a main text part, converts it to text
+    def convert_part_body_to_text(part)
+        if part.nil?
             text = "[ Email has no body, please see attachments ]"
             text_charset = "utf-8"
         else
-            text = main_part.body
-            text_charset = main_part.charset
-            if main_part.content_type == 'text/html'
+            text = part.body
+            text_charset = part.charset
+            if part.content_type == 'text/html'
                 # e.g. http://www.whatdotheyknow.com/request/35/response/177
                 # XXX This is a bit of a hack as it is calling a convert to text routine.
                 # Could instead call a sanitize HTML one.
-                text = IncomingMessage.get_attachment_text_internal_one_file(main_part.content_type, text)
+                text = IncomingMessage.get_attachment_text_internal_one_file(part.content_type, text)
             end
         end
 
@@ -744,7 +751,6 @@ class IncomingMessage < ActiveRecord::Base
                     text = Iconv.conv('utf-8//IGNORE', 'utf-8', text) + "\n\n[ WhatDoTheyKnow note: The above text was badly encoded, and has had strange characters removed. ]"
                 end
             end
-
         end
         
         # An assertion that we have ended up with UTF-8 XXX can remove as this should
@@ -850,7 +856,20 @@ class IncomingMessage < ActiveRecord::Base
                     # Example request that needs this:
                     # http://www.whatdotheyknow.com/request/2923/response/7013/attach/2/Cycle%20Path%20Bank.txt
                     if leaf.within_rfc822_attachment == leaf && leaf.content_type == 'text/plain'
-                        attachment.body = leaf.within_rfc822_attachment.port.to_s
+                        headers = ""
+                        for header in [ 'Date', 'Subject', 'From', 'To', 'Cc' ]
+                            if leaf.within_rfc822_attachment.header.include?(header.downcase)
+                                headers = headers + header + ": " + leaf.within_rfc822_attachment.header[header.downcase].to_s + "\n"
+                            end
+                        end
+                        # XXX call convert_part_body_to_text here, but need to get charset somehow
+                        # e.g. http://www.whatdotheyknow.com/request/1593/response/3088/attach/4/Freedom%20of%20Information%20request%20-%20car%20oval%20sticker:%20Article%2020,%20Convention%20on%20Road%20Traffic%201949.txt
+                        attachment.body = headers + "\n" + attachment.body
+
+                        # This is quick way of getting all headers, but instead we only add some a) to
+                        # make it more usable, b) as at least one authority accidentally leaked security
+                        # information into a header.
+                        #attachment.body = leaf.within_rfc822_attachment.port.to_s
                     end
                 end
                 attachment.content_type = leaf.content_type
@@ -966,10 +985,10 @@ class IncomingMessage < ActiveRecord::Base
                     text += child.read() + "\n\n"
                 end
             elsif content_type == 'application/vnd.ms-excel'
-                # Bit crazy using strings - but xls2csv, xlhtml and py_xls2txt
-                # only extract text from cells, not from floating notes. catdoc
-                # may be fooled by weird character sets, but will probably do for
-                # UK FOI requests.
+                # Bit crazy using /usr/bin/strings - but xls2csv, xlhtml and
+                # py_xls2txt only extract text from cells, not from floating
+                # notes. catdoc may be fooled by weird character sets, but will
+                # probably do for UK FOI requests.
                 IO.popen("/usr/bin/strings " + tempfile.path, "r") do |child|
                     text += child.read() + "\n\n"
                 end
