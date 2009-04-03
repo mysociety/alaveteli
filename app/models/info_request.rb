@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.178 2009-03-17 09:53:58 tony Exp $
+# $Id: info_request.rb,v 1.179 2009-04-03 15:28:58 louise Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -536,6 +536,11 @@ public
         end
         return nil
     end
+
+    def last_event_id_needing_description
+        last_event = events_needing_description[-1]
+        last_event.nil? ? 0 : last_event.id
+    end        
 
     # Returns all the events which the user hasn't described yet - an empty array if all described.
     def events_needing_description
