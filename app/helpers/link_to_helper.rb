@@ -5,25 +5,30 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: link_to_helper.rb,v 1.50 2009-02-12 19:50:56 francis Exp $
+# $Id: link_to_helper.rb,v 1.51 2009-04-03 14:07:46 louise Exp $
 
 module LinkToHelper
 
     # Links to various models
     
     # Requests
-    def request_url(info_request)
-        return show_request_url(:url_title => info_request.url_title, :only_path => true)
+    def request_url(info_request, extra_params={})
+        params = {:url_title => info_request.url_title, :only_path => true}
+        return show_request_url(params.merge(extra_params))
     end
+    
     def request_link(info_request)
         link_to h(info_request.title), request_url(info_request)
     end
+    
     def request_admin_url(info_request)
         return admin_url('request/show/' + info_request.id.to_s)
     end
+    
     def request_both_links(info_request)
         link_to(h(info_request.title), main_url(request_url(info_request))) + " (" + link_to("admin", request_admin_url(info_request)) + ")"
     end
+    
     def request_similar_url(info_request)
         return similar_request_url(:url_title => info_request.url_title, :only_path => true)
     end
