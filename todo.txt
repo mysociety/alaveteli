@@ -1,13 +1,9 @@
 
+
 Next (things that will reduce admin time mainly)
 ====
 
 Check #email_subscriptions in unsubscribe link
-
-Change text so that overdue covers qualified exemption of public interest test being
-valid reason for delay.
-Allow admin override of overdue dates - probably an interface to let people set
-waiting clarification. Or maybe allow full override of due date.
 
 When moving request:
 ActionView::TemplateError (undefined method `info_request' for nil:NilClass) on line #34 of request/show.rhtml:
@@ -19,14 +15,43 @@ ActionView::TemplateError (undefined method `info_request' for nil:NilClass) on 
 36:         <% if @xapian_similar_more %>
 37:             <p><%= link_to "More similar requests", request_similar_url(@info_request) %></p>
 
+Let requesters change status to anything at any point
+- using same interface let admin users set things to internal review more
+  easily (currently have to go to admin interface, as isn't on main describe
+  form)
 
-Julian things:
-Fold up the pages a bit more by default?
-Use FOI code from them
-Keep FOI code in subject to help them a bit
-Show requests by authority on user page
-Let the user refile ones that have arrived in wrong place
-Second request by same person - tell them to use this email
+Just stop worrying about old requests which are unclassified in status, or
+make it a public wiki? At least improve usability a bit more for the alert
+emails reminding you to fill in status.
+
+Enable SPF, to reduce number of requests lost to spam filters
+http://www.openspf.org/SPF_Record_Syntax#include
+
+For followups, have radio button to say is it a new request or followup
+Do by uncommenting the "new information" option when writing a followup, so
+that it makes a new request
+
+Point all MX records to one server, so can see incoming messages in exim logs also.
+Hmmm, but less robust. Run the exim log grabber across all mail servers?
+
+check-recent-requests-sent probably doesn't work, as exim log lines wouldn't
+be load in case where the envelope from gets broken?
+
+Lots of authorities are starting to complain about how their record looks on
+their page - e.g responses not classified by users. That users may classify
+incorrectly. We need some kind of general solution to make it clear what the
+states mean, in terms of properly reflecting how the council is doing.
+
+Add explicit option for "misdelivered to the wrong request"
+
+Give authorities interface for editing their request email address.
+
+Change text so that overdue covers qualified exemption of public interest test being
+valid reason for delay.
+
+Add FAQ / unhappy page which explains what you can do if you get no response
+at all and that it might be spam. (err, or somehow reorganise FAQ for this
+in relation to existing mirror image FAQ for officers)
 
 Use maybe words for generated email address? Name of the person and a request
 number (i.e. number of that persons request, so there are few numbers)?
@@ -42,52 +67,24 @@ Identify authority by who it is from.
     the reply-to: is unique.
 People seem to have trouble typing this
 
-For followups, have radio button to say is it a new request or followup
-Do by uncommenting the "new information" option when writing a followup, so
-that it makes a new request
-
-Let requesters change status to anything at any point
-- using same interface let admin users set things to internal review more
-  easily (currently have to go to admin interface, as isn't on main describe
-  form)
-
-Just stop worrying about old requests which are unclassified in status, or
-make it a public wiki? At least improve usability a bit more for the alert
-emails reminding you to fill in status.
-
-Enable SPF, to reduce number of requests lost to spam filters
-http://www.openspf.org/SPF_Record_Syntax#include
-
-Point all MX records to one server, so can see incoming messages in exim logs also.
-Hmmm, but less robust. Run the exim log grabber across all mail servers?
-
-check-recent-requests-sent probably doesn't work, as exim log lines wouldn't
-be load in case where the envelope from gets broken?
-
-Lots of authorities are starting to complain about how their record looks on
-their page - e.g responses not classified by users. That users may classify
-incorrectly. We need some kidn of general solution to make it clear what the
-states mean, in terms of properly reflecting how the council is doing.
-
-Add FAQ / unhappy page which explains what you can do if you get no response
-at all and that it might be spam. (err, or somehow reorganise FAQ for this
-in relation to existing mirror image FAQ for officers)
-
-Links to "a response" from timeline aren't to right page any more.
-
-Add explicit option for "misdelivered to the wrong request"?
-
-Give authorities interface for editing their request email address.
+Julian things:
+    Fold up the pages a bit more by default?
+    Use FOI code from them authority to work out where emails are to go
+    Keep FOI code in subject to help them a bit
+    Show requests by authority on user page
+    Let the user refile ones that have arrived in wrong place
+    Second request by same person - tell them to use this email
 
 
 Later
 =====
 
+Links to "a response" from timeline aren't to right page any more.
+
 There is some kind of workflow bug, where people send a follow
 up THEN mark as clarification needed, and so it emails to remind them when it
 doesn't really need to.
 e.g. https://secure.mysociety.org/admin/foi/request/show/8773
-
 
 Change it to store emails as files in the filesystem? For speed.
 Should have simpler system for us to upload files sent to us via CD etc.
