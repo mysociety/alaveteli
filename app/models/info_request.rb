@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.180 2009-04-06 08:34:35 louise Exp $
+# $Id: info_request.rb,v 1.181 2009-04-06 10:58:03 louise Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -330,6 +330,11 @@ public
         return ['requires_admin', 'error_message']
     end
 
+    def requires_admin?
+        return true if InfoRequest.requires_admin_states.include?(described_state)
+        return false
+    end
+
     # change status, including for last event for later historical purposes
     def set_described_state(new_state)
         ActiveRecord::Base.transaction do
@@ -343,7 +348,7 @@ public
 
         self.calculate_event_states
 
-        if InfoRequest.requires_admin_states.include?(new_state)
+        if self.requires_admin?
             RequestMailer.deliver_requires_admin(self)
         end
     end
@@ -711,6 +716,11 @@ public
     def is_owning_user?(user)
         !user.nil? && (user.id == user_id || user.owns_every_request?)
     end
+    
+    def is_real_owning_user?(user)
+        !user.nil? && (user.id == user_id)
+    end
+    
 end
 
 

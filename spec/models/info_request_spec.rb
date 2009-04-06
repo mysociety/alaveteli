@@ -136,7 +136,7 @@ describe InfoRequest do
             @info_request.is_owning_user?(nil).should be_false
         end
         
-        it 'should return true if the user is the request\'s user' do 
+        it 'should return true if the user is the request\'s owner' do 
             @info_request.is_owning_user?(@mock_user).should be_true
         end
         
@@ -145,9 +145,60 @@ describe InfoRequest do
             @info_request.is_owning_user?(@other_mock_user).should be_false
         end
         
-        it 'should return true if the user owns every request' do
+        it 'should return true if the user is not the owner but owns every request' do
             @other_mock_user.stub!(:owns_every_request?).and_return(true)
             @info_request.is_owning_user?(@other_mock_user).should be_true
+        end
+        
+    end
+    
+    describe 'when asked if a user is the real owner of this request' do 
+        
+        before do 
+            @mock_user = mock_model(User)
+            @info_request = InfoRequest.new(:user => @mock_user)
+            @other_mock_user = mock_model(User)
+        end
+        
+        it 'should return false if a nil object is passed to it' do 
+            @info_request.is_real_owning_user?(nil).should be_false
+        end
+        
+        it 'should return true if the user is the request\'s owner' do 
+            @info_request.is_real_owning_user?(@mock_user).should be_true
+        end
+        
+        it 'should return false for a user that is not the owner and does not own every request' do 
+            @other_mock_user.stub!(:owns_every_request?).and_return(false)
+            @info_request.is_real_owning_user?(@other_mock_user).should be_false
+        end
+        
+        it 'should return false if the user is not the owner but owns every request' do
+            @other_mock_user.stub!(:owns_every_request?).and_return(true)
+            @info_request.is_real_owning_user?(@other_mock_user).should be_false
+        end
+        
+    end
+    
+    describe 'when asked if it requires admin' do 
+    
+        before do 
+            @info_request = InfoRequest.new
+        end
+        
+        it 'should return true if it\'s described state is error_message' do 
+            @info_request.described_state = 'error_message'
+            @info_request.requires_admin?.should be_true
+        end
+        
+        it 'should return true if it\'s described state is requires_admin' do 
+            @info_request.described_state = 'requires_admin'
+            @info_request.requires_admin?.should be_true
+        end
+        
+        it 'should return false if it\'s described state is waiting_response' do 
+            @info_request.described_state = 'waiting_response'
+            @info_request.requires_admin?.should be_false
         end
         
     end
