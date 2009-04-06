@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.181 2009-04-06 10:58:03 louise Exp $
+# $Id: info_request.rb,v 1.182 2009-04-06 16:28:44 louise Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -716,11 +716,7 @@ public
     def is_owning_user?(user)
         !user.nil? && (user.id == user_id || user.owns_every_request?)
     end
-    
-    def is_real_owning_user?(user)
-        !user.nil? && (user.id == user_id)
-    end
-    
+
 end
 
 
