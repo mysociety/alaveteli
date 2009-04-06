@@ -123,4 +123,33 @@ describe InfoRequest do
             @ir.calculate_status.should == 'waiting_response_overdue'
         end
     end
+    
+    describe 'when asked if a user is the owning user for this request' do 
+    
+        before do 
+            @mock_user = mock_model(User)
+            @info_request = InfoRequest.new(:user => @mock_user)
+            @other_mock_user = mock_model(User)
+        end
+        
+        it 'should return false if a nil object is passed to it' do 
+            @info_request.is_owning_user?(nil).should be_false
+        end
+        
+        it 'should return true if the user is the request\'s user' do 
+            @info_request.is_owning_user?(@mock_user).should be_true
+        end
+        
+        it 'should return false for a user that is not the owner and does not own every request' do 
+            @other_mock_user.stub!(:owns_every_request?).and_return(false)
+            @info_request.is_owning_user?(@other_mock_user).should be_false
+        end
+        
+        it 'should return true if the user owns every request' do
+            @other_mock_user.stub!(:owns_every_request?).and_return(true)
+            @info_request.is_owning_user?(@other_mock_user).should be_true
+        end
+        
+    end
+    
 end
