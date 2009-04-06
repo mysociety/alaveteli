@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user.rb,v 1.85 2009-03-18 01:55:23 francis Exp $
+# $Id: user.rb,v 1.86 2009-04-06 09:30:26 louise Exp $
 
 require 'digest/sha1'
 
@@ -214,6 +214,11 @@ class User < ActiveRecord::Base
     def requires_admin_power?
         self.admin_level == 'super'
     end
+    
+    def self.requires_admin_power?(user)
+        !user.nil? && user.requires_admin_power?
+    end
+    
     # Does the user get "(admin)" links on each page on the main site?
     def admin_page_links?
         self.admin_level == 'super'
