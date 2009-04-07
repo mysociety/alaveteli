@@ -353,8 +353,16 @@ module ActsAsXapian
             end
             # now get them in right order again
             results = []
-            docs.each{|doc| k = doc[:data].split('-'); results << { :model => chash[[k[0], k[1].to_i]],
-                    :percent => doc[:percent], :weight => doc[:weight], :collapse_count => doc[:collapse_count] } }
+            docs.each do |doc| 
+                k = doc[:data].split('-')
+                model_instance = chash[[k[0], k[1].to_i]]
+                if model_instance
+                    results << { :model => model_instance,
+                                 :percent => doc[:percent], 
+                                 :weight => doc[:weight], 
+                                 :collapse_count => doc[:collapse_count] }     
+                end
+            end
             self.cached_results = results
             return results
         end
