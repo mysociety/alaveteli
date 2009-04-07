@@ -1,48 +1,12 @@
 <% @title = h(@info_request.title) %>
 
-<% if @info_request.awaiting_description || @requires_admin_describe %>
+<% if @update_status || @info_request.awaiting_description %>
     <div class="describe_state_form" id="describe_state_form_1">
     <%= render :partial => 'describe_state', :locals => { :id_suffix => "1" } %>
     </div>
 <% end %>
 
-<div id="request_sidebar">
-    <h2>Track this request</h2>
-     <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => @info_request.user == @user, :location => 'sidebar' } %>
-
-    <h2>Act on what you've learnt</h2>
-    <div class="act_link">
-        <%= link_to '<img src="/images/writetothem.png" alt="" class="rss">', "http://www.writetothem.com"%> 
-        <%= link_to 'Write to your politician', "http://www.writetothem.com"%>
-    </div>
-    <div class="act_link">
-        <%= link_to '<img src="/images/pledgebank.png" alt="" class="rss">', "http://www.pledgebank.com"%> 
-        <%= link_to 'Pledge with others', "http://www.pledgebank.com"%>
-    </div>
-    <div class="act_link">
-        <%= link_to '<img src="/images/petitions.png" alt="" class="rss">', "http://petitions.number10.gov.uk"%> 
-        <%= link_to 'Petition the PM', "http://petitions.number10.gov.uk"%>
-    </div>
-    <div class="act_link">
-        <%= link_to '<img src="/images/wordpress.png" alt="" class="rss">', "http://wordpress.com/"%> 
-        <%= link_to 'Start your own blog', "http://wordpress.com/"%>
-    </div>
-
-    <% if !@xapian_similar.nil? && @xapian_similar.results.size > 0 %>
-        <h2>Similar requests</h2>
-        <% for result in @xapian_similar.results %>
-            <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result[:model], :info_request => result[:model].info_request } %>
-        <% end %>
-        <% if @xapian_similar_more %>
-            <p><%= link_to "More similar requests", request_similar_url(@info_request) %></p>
-        <% end %>
-        <!-- Important terms: <%= @xapian_similar.important_terms.join(" ") %>  -->
-     <% end %>
-
-     <p><a href="/help/about#commercial">Are you the owner of
-     any commercial copyright on this page?</a></p>
-</div>
-
+<%= render :partial => 'sidebar' %>
 
 <div id="request_main">
     <h1><%=@title%></h1>
@@ -98,7 +62,7 @@
         <% if @is_owning_user %>
             <%=h @info_request.public_body.name %> is <strong>waiting for your clarification</strong>. 
             Please
-            <%= link_to "send a follow up message", show_response_url(:id => @info_request.id, :incoming_message_id => @info_request.get_last_response.id) + "#followup" %>.
+              <%= link_to "send a follow up message", respond_to_last_url(@info_request) + '#followup' %>.
         <% else %>
             The request is <strong>waiting for clarification</strong>. 
             If you are
@@ -133,29 +97,6 @@
         </div>
     <% end %>
 
-    <div id="after_actions">
-        <h2>Things to do with this request</h2>
-
-        <p>
-            <%= link_to "Add an annotation", new_comment_url(:url_title => @info_request.url_title) %> (to help
-            the requester or others)
-        </p>
-
-        <p>
-            <strong><%=h @info_request.user.name %> only:</strong>
-            <% if @last_response.nil? %>
-                <%= link_to "Send follow up to " + RequestMailer.name_for_followup(@info_request, @last_response), show_response_no_followup_url(:id => @info_request.id, :incoming_message_id => nil) + "#followup" %> 
-            <% else %>
-                <%= link_to "Reply to " + RequestMailer.name_for_followup(@info_request, @last_response), show_response_url(:id => @info_request.id, :incoming_message_id => @last_response.id) + "#followup" %> 
-            <% end %>
-            |
-            <%= link_to "Request an internal review", show_response_no_followup_url(:id => @info_request.id, :incoming_message_id => nil) + "?internal_review=1#followup" %> 
-
-            <br>
-
-            <strong><%=h @info_request.public_body.name %> only:</strong>
-            <%= link_to "Respond to request", upload_response_url(:url_title => @info_request.url_title) %> 
-        </p>
-    </div>
+    <%= render :partial => 'after_actions' %>
 </div>
 

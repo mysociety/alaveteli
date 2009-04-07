@@ -1,0 +1,28 @@
+<div id="after_actions">
+    
+    <h2>Things to do with this request</h2>
+
+    <div id="anyone_actions">
+        <%= link_to "Add an annotation", new_comment_url(:url_title => @info_request.url_title) %> (to help
+        the requester or others)
+    </div>
+
+    <div id="owner_actions">
+      <strong><%=h @info_request.user.name %> only:</strong>
+      <% if @last_response.nil? %>
+          <%= link_to "Send follow up to " + RequestMailer.name_for_followup(@info_request, @last_response), show_response_no_followup_url(:id => @info_request.id, :incoming_message_id => nil) + "#followup" %> 
+      <% else %>
+          <%= link_to "Reply to " + RequestMailer.name_for_followup(@info_request, @last_response), show_response_url(:id => @info_request.id, :incoming_message_id => @last_response.id) + "#followup" %> 
+      <% end %>
+      |
+      <%= link_to "Update the status of this request", request_url(@info_request, :update_status => 1) %>
+      |
+      <%= link_to "Request an internal review", show_response_no_followup_url(:id => @info_request.id, :incoming_message_id => nil) + "?internal_review=1#followup" %> 
+    </div>
+  
+    <div id="public_body_actions">
+      <strong><%=h @info_request.public_body.name %> only:</strong>
+      <%= link_to "Respond to request", upload_response_url(:url_title => @info_request.url_title) %> 
+    </div>
+  
+</div>

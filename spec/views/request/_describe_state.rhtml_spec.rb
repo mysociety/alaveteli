@@ -6,6 +6,11 @@ describe 'when showing the form for describing the state of a request' do
         do_render
         response.should have_tag("input[type=radio][value=#{value}]")
     end
+    
+    def expect_no_radio_button(value)
+        do_render
+        response.should_not have_tag("input[type=radio][value=#{value}]")
+    end
 
     def do_render
         render :partial => 'request/describe_state', :locals => {:id_suffix => '1'}
@@ -17,17 +22,22 @@ describe 'when showing the form for describing the state of a request' do
         assigns[:info_request] = @mock_request
     end
     
-    describe 'if showing the form to a regular user' do
+    describe 'if the user is a regular user' do
         
         before do 
             assigns[:is_owning_user] = false
+        end
+        
+        it 'should not show the form' do 
+            do_render
+            response.should_not have_tag('form')
         end
         
         it 'should give a link to login' do 
             do_render
             response.should have_tag('a', :text => 'sign in')
         end
-        
+            
     end
     
     describe 'if showing the form to the user owning the request' do 
@@ -49,7 +59,31 @@ describe 'when showing the form for describing the state of a request' do
             it 'should show a radio button to set the status to "waiting clarification"' do 
                 expect_radio_button('waiting_clarification')
             end
+            
+            it 'should not show a radio button to set the status to "internal_review"' do 
+                expect_no_radio_button('internal_review')
+            end
         
+        end
+        
+        describe 'when the user has asked to update the status of the request' do 
+            
+            before do 
+                assigns[:update_status] = true
+            end
+            
+            it 'should show a radio button to set the status to "internal_review"' do 
+                expect_radio_button('internal_review')
+            end
+
+            it 'should show a radio button to set the status to "requires_admin"' do 
+                expect_radio_button('requires_admin')
+            end
+
+            it 'should show a radio button to set the status to "user_withdrawn"' do 
+                expect_radio_button('user_withdrawn')
+            end
+            
         end
     
         describe 'when the request is in internal review' do 
@@ -67,6 +101,9 @@ describe 'when showing the form for describing the state of a request' do
                 response.should have_tag('p', :text => 'The review has finished and overall:')
             end
     
+        end
+        
+        describe 'when request is awaiting a description and the user has not asked to update the status' do 
         end
     
         it 'should show a radio button to set the status to "gone postal"' do 
@@ -93,5 +130,13 @@ describe 'when showing the form for describing the state of a request' do
             expect_radio_button('error_message') 
         end
     
+        it 'should not show a radio button to set the status to "requires_admin"' do 
+            expect_no_radio_button('requires_admin') 
+        end
+        
+        it 'should not show a radio button to set the status to "user_withdrawn"' do 
+            expect_no_radio_button('user_withdrawn')
+        end
+        
     end
 end

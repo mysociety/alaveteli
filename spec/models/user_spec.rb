@@ -103,24 +103,24 @@ describe User, "when checking abilities" do
 
 end
 
-describe User, 'when asked if a user has the ability to edit "requires admin" requests' do 
+describe User, 'when asked if a user owns every request' do 
     
     before do 
         @mock_user = mock_model(User)
     end
     
     it 'should return false if no user is passed' do 
-        User.requires_admin_power?(nil).should be_false
+        User.owns_every_request?(nil).should be_false
     end
     
     it 'should return true if the user has "requires admin" power' do 
-        @mock_user.stub!(:requires_admin_power?).and_return true
-        User.requires_admin_power?(@mock_user).should be_true
+        @mock_user.stub!(:owns_every_request?).and_return true
+        User.owns_every_request?(@mock_user).should be_true
     end
     
     it 'should return false if the user does not have "requires admin" power' do 
-        @mock_user.stub!(:requires_admin_power?).and_return false
-        User.requires_admin_power?(@mock_user).should be_false
+        @mock_user.stub!(:owns_every_request?).and_return false
+        User.owns_every_request?(@mock_user).should be_false
     end
     
 end

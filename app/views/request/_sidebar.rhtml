@@ -1,0 +1,36 @@
+<div id="request_sidebar">
+    <h2>Track this request</h2>
+     <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => @info_request.user == @user, :location => 'sidebar' } %>
+
+    <h2>Act on what you've learnt</h2>
+    <div class="act_link">
+        <%= link_to '<img src="/images/writetothem.png" alt="" class="rss">', "http://www.writetothem.com"%> 
+        <%= link_to 'Write to your politician', "http://www.writetothem.com"%>
+    </div>
+    <div class="act_link">
+        <%= link_to '<img src="/images/pledgebank.png" alt="" class="rss">', "http://www.pledgebank.com"%> 
+        <%= link_to 'Pledge with others', "http://www.pledgebank.com"%>
+    </div>
+    <div class="act_link">
+        <%= link_to '<img src="/images/petitions.png" alt="" class="rss">', "http://petitions.number10.gov.uk"%> 
+        <%= link_to 'Petition the PM', "http://petitions.number10.gov.uk"%>
+    </div>
+    <div class="act_link">
+        <%= link_to '<img src="/images/wordpress.png" alt="" class="rss">', "http://wordpress.com/"%> 
+        <%= link_to 'Start your own blog', "http://wordpress.com/"%>
+    </div>
+
+    <% if !@xapian_similar.nil? && @xapian_similar.results.size > 0 %>
+        <h2>Similar requests</h2>
+        <% for result in @xapian_similar.results %>
+            <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result[:model], :info_request => result[:model].info_request } %>
+        <% end %>
+        <% if @xapian_similar_more %>
+            <p><%= link_to "More similar requests", request_similar_url(@info_request) %></p>
+        <% end %>
+        <!-- Important terms: <%= @xapian_similar.important_terms.join(" ") %>  -->
+     <% end %>
+
+     <p><a href="/help/about#commercial">Are you the owner of
+     any commercial copyright on this page?</a></p>
+</div>

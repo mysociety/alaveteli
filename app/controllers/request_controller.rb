@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.154 2009-04-03 14:22:02 louise Exp $
+# $Id: request_controller.rb,v 1.155 2009-04-07 10:32:54 louise Exp $
 
 class RequestController < ApplicationController
     
@@ -24,15 +24,20 @@ class RequestController < ApplicationController
         @info_request_events = @info_request.info_request_events
         @status = @info_request.calculate_status
         @collapse_quotes = params[:unfold] ? false : true
-        @update_status = params[:update_status] ? true : false
-        @is_owning_user = !authenticated_user.nil? && (authenticated_user.id == @info_request.user_id || authenticated_user.owns_every_request?)
+        @update_status = params[:update_status] ? true : false    
+        @is_owning_user = @info_request.is_owning_user?(authenticated_user)
+        
+        if @update_status
+            return if !@is_owning_user && !authenticated_as_user?(@info_request.user,
+                    :web => "To update the status of this FOI request",
+                    :email => "Then you can update the status of your request to " + @info_request.public_body.name + ".",
+                    :email_subject => "Update the status of your request to " + @info_request.public_body.name
+                )
+        end
+        
         @events_needing_description = @info_request.events_needing_description
-        last_event = @events_needing_description[-1]
-        @last_info_request_event_id = last_event.nil? ? 0 : last_event.id
+        @last_info_request_event_id = @info_request.last_event_id_needing_description
         @new_responses_count = @events_needing_description.select {|i| i.event_type == 'response'}.size
-
-        # special case that an admin user can edit requires_admin requests
-        @requires_admin_describe = (InfoRequest.requires_admin_states.include?(@info_request.described_state)) && !authenticated_user.nil? && authenticated_user.requires_admin_power?
 
         # Sidebar stuff
         limit = 3
@@ -240,23 +245,9 @@ class RequestController < ApplicationController
             return
         end
 
-        # special case that an admin user can edit requires_admin requests
-        @requires_admin_describe = (InfoRequest.requires_admin_states.include?(@info_request.described_state)) && !authenticated_user.nil? && authenticated_user.requires_admin_power?
-
-        if !@info_request.awaiting_description && !@requires_admin_describe
-            flash[:notice] = "The status of this request is up to date."
-            if !params[:submitted_describe_state].nil?
-                flash[:notice] = "The status of this request was made up to date elsewhere while you were filling in the form."
-            end
-            redirect_to request_url(@info_request)
-            return
-        end
-
-        @collapse_quotes = params[:unfold] ? false : true
+        @is_owning_user = @info_request.is_owning_user?(authenticated_user)       
         @events_needing_description = @info_request.events_needing_description
-        last_event = @events_needing_description[-1]
-        @last_info_request_event_id = last_event.nil? ? 0 : last_event.id
-        @is_owning_user = !authenticated_user.nil? && (authenticated_user.id == @info_request.user_id || authenticated_user.owns_every_request?)
+        @last_info_request_event_id = @info_request.last_event_id_needing_description
         @new_responses_count = @events_needing_description.select {|i| i.event_type == 'response'}.size
 
         # Check authenticated, and parameters set. We check is_owning_user
@@ -284,6 +275,12 @@ class RequestController < ApplicationController
 
         # Make the state change
         @info_request.set_described_state(params[:incoming_message][:described_state])
+        
+        if User.owns_every_request?(authenticated_user)
+            flash[:notice] = '<p>The request status has been updated</p>'
+            redirect_to request_url(@info_request)
+            return
+        end
 
         # Display appropriate next page (e.g. help for complaint etc.)
         if @info_request.calculate_status == 'waiting_response'
@@ -316,7 +313,7 @@ class RequestController < ApplicationController
             redirect_to unhappy_url(@info_request)
         elsif @info_request.calculate_status == 'waiting_clarification'
             flash[:notice] = "Please write your follow up message containing the necessary clarifications below."
-            redirect_to show_response_url(:id => @info_request.id, :incoming_message_id => @events_needing_description[-1].params[:incoming_message_id])
+            redirect_to respond_to_last_url(@info_request)
         elsif @info_request.calculate_status == 'gone_postal'
             redirect_to respond_to_last_url(@info_request) + "?gone_postal=1"
         elsif @info_request.calculate_status == 'internal_review'
@@ -328,6 +325,9 @@ class RequestController < ApplicationController
         elsif @info_request.calculate_status == 'requires_admin'
             flash[:notice] = "Please use the form below to tell us more."
             redirect_to help_general_url(:action => 'contact')
+        elsif @info_request.calculate_status == 'user_withdrawn'
+            flash[:notice] = "Thanks for letting us know that you've withdrawn your request. Please add an annotation below to let other people know why you withdrew it."
+            redirect_to request_url(@info_request)
         else
             raise "unknown calculate_status " + @info_request.calculate_status
         end
@@ -366,7 +366,7 @@ class RequestController < ApplicationController
         set_last_request(@info_request)
 
         @collapse_quotes = params[:unfold] ? false : true
-        @is_owning_user = !authenticated_user.nil? && (authenticated_user.id == @info_request.user_id || authenticated_user.owns_every_request?)
+        @is_owning_user = @info_request.is_owning_user?(authenticated_user)
         @gone_postal = params[:gone_postal] ? true : false
         if !@is_owning_user
             @gone_postal = false

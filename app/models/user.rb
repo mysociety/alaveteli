@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user.rb,v 1.86 2009-04-06 09:30:26 louise Exp $
+# $Id: user.rb,v 1.87 2009-04-07 10:32:54 louise Exp $
 
 require 'digest/sha1'
 
@@ -60,6 +60,7 @@ class User < ActiveRecord::Base
         # format it here as no datetime support in Xapian's value ranges
         return self.created_at.strftime("%Y%m%d%H%M%S") 
     end
+    
     def variety
         "user"
     end
@@ -210,13 +211,9 @@ class User < ActiveRecord::Base
     def owns_every_request?
         self.admin_level == 'super'
     end
-    # Can the user edit status of requires_admin requests from main website?
-    def requires_admin_power?
-        self.admin_level == 'super'
-    end
     
-    def self.requires_admin_power?(user)
-        !user.nil? && user.requires_admin_power?
+    def self.owns_every_request?(user)
+      !user.nil? && user.owns_every_request?  
     end
     
     # Does the user get "(admin)" links on each page on the main site?

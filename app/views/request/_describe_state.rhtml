@@ -1,4 +1,5 @@
-<% if @is_owning_user || @requires_admin_describe %>
+<% if @is_owning_user %>
+
     <% form_for(:incoming_message, @info_request, :url => describe_state_url(:id => @info_request.id)) do |f| %>
         <h2>What best describes the status of this request now?</h2>
 
@@ -25,6 +26,13 @@
             </div>
         <% end %>
 
+        <% if @update_status && @info_request.described_state != 'internal_review' %>
+            <div>
+                <%= radio_button "incoming_message", "described_state", "internal_review", :id => 'internal_review' + id_suffix %>
+                <label for="internal_review<%=id_suffix%>">I'm waiting for an <strong>internal review</strong> response</label>
+            </div>
+        <% end %>
+        
         <div>
             <%= radio_button "incoming_message", "described_state", "gone_postal", :id => 'gone_postal' + id_suffix %>
             <label for="gone_postal<%=id_suffix%>">They are going to reply <strong>by post</strong></label>
@@ -61,14 +69,22 @@
             I've received an <strong>error message</strong> 
             </label>
         </div>
-<!--        <div>
-           <%= radio_button "incoming_message", "described_state", "requires_admin", :id => 'requires_admin' + id_suffix %>
-            <label for="requires_admin<%=id_suffix%>">
-            <strong>None</strong> of the above
-            </label>
-        </div> -->
-
-
+        <% if @update_status %>
+          <div>
+             <%= radio_button "incoming_message", "described_state", "requires_admin", :id => 'requires_admin' + id_suffix %>
+              <label for="error_message<%=id_suffix%>">
+              This request <strong>requires administrator attention</strong> 
+              </label>
+          </div>
+        
+          <div>
+             <%= radio_button "incoming_message", "described_state", "user_withdrawn", :id => 'user_withdrawn' + id_suffix %>
+              <label for="user_withdrawn<%=id_suffix%>">
+              I would like to <strong>withdraw this request</strong> 
+              </label>
+          </div>
+        <% end %>
+        
         <hr>
 
         <p>

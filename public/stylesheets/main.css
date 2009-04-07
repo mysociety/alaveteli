@@ -720,6 +720,11 @@ div#after_actions
     width: 37em;
 }
 
+div#anyone_actions
+{
+  margin-bottom: 1em;
+}
+
 /* id starts with... */
 div[id|="outgoing"] { }
 	div[id|="outgoing"] p { font-size: 0.95em;}
