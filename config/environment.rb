@@ -120,6 +120,9 @@ module WillPaginate
     end
 end
 
+# XXX all the monkey patches above should be moved into their own files in
+# lib/, and required below
+
 # Load monkey patches from lib/
 require 'tmail_extensions'
 
