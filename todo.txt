@@ -15,10 +15,6 @@ ActionView::TemplateError (undefined method `info_request' for nil:NilClass) on 
 36:         <% if @xapian_similar_more %>
 37:             <p><%= link_to "More similar requests", request_similar_url(@info_request) %></p>
 
-Let requesters change status to anything at any point
-- using same interface let admin users set things to internal review more
-  easily (currently have to go to admin interface, as isn't on main describe
-  form)
 
 Just stop worrying about old requests which are unclassified in status, or
 make it a public wiki? At least improve usability a bit more for the alert
