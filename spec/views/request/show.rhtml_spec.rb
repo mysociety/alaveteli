@@ -87,7 +87,6 @@ describe 'when viewing an information request' do
                 it 'should show a link to follow up the last response with clarification' do 
                     do_render
                     expected_url = "http://test.host/request/#{@mock_request.id}/response/#{@mock_response.id}#followup"
-                    puts response.body
                     response.should have_tag("a[href=#{expected_url}]", :text => 'send a follow up message')
                 end
             
