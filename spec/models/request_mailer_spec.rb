@@ -4,7 +4,6 @@ describe RequestMailer, " when receiving incoming mail" do
     fixtures :info_requests, :incoming_messages, :raw_emails, :users, :public_bodies
 
     before do
-
     end
 
     it "should append it to the appropriate request" do
@@ -67,5 +66,36 @@ And a paragraph afterwards."
     end
 end
 
+
+describe RequestMailer, " when working out follow up addresses" do
+    # doing this with fixtures as the code is a bit tangled with the way it
+    # calls TMail, and the TMail monkey patches in conf/environment.rb
+    # XXX untangle it and make these tests spread out and using mocks. Might
+    # mean properly patching TMail.
+    fixtures :info_requests, :incoming_messages, :raw_emails, :public_bodies
+
+    it "should parse them right" do
+        ir = info_requests(:fancy_dog_request) 
+        im = ir.incoming_messages[0]
+
+        # check the basic entry in the fixture is fine
+        RequestMailer.name_and_email_for_followup(ir, im).should == "FOI Person <foiperson@localhost>"
+        RequestMailer.name_for_followup(ir, im).should == "FOI Person"
+        RequestMailer.email_for_followup(ir, im).should == "foiperson@localhost"
+    end
+
+#    it "should escape funny characters" do
+#        ir = info_requests(:fancy_dog_request) 
+#        im = ir.incoming_messages[0]
+#
+#        im.raw_email.data.sub!("FOI Person", "FOI \\\" Person")
+#
+#        # check the basic entry in the fixture is fine
+#        RequestMailer.name_and_email_for_followup(ir, im).should == "\"FOI \\\" Person\" <foiperson@localhost>"
+#        RequestMailer.name_for_followup(ir, im).should == "FOI Person"
+#        RequestMailer.email_for_followup(ir, im).should == "foiperson@localhost"
+#    end
+
+end
 
 
