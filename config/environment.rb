@@ -131,18 +131,6 @@ module TMail
                         part.sub_header("content-type", "name") ||
                         part.sub_header("content-disposition", "filename")
         end
-
-        # Monkeypatch! :)
-        # Returns the name of the person a message is from, or nil if there isn't
-        # one or if there is only an email address.
-        def safe_from
-            if self.from and (not self.friendly_from.include?('@'))
-                return self.friendly_from
-            else 
-                return nil
-            end
-        end
-
     end
 
     class Address

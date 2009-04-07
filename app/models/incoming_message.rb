@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.195 2009-04-02 13:04:02 francis Exp $
+# $Id: incoming_message.rb,v 1.196 2009-04-07 16:01:55 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -1055,7 +1055,11 @@ class IncomingMessage < ActiveRecord::Base
     # Returns the name of the person the incoming message is from, or nil if there isn't one
     # or if there is only an email address.
     def safe_mail_from
-        return self.mail.safe_from
+        if self.mail.from && (!self.mail.friendly_from.include?('@'))
+            return self.mail.friendly_from
+        else
+            return nil
+        end
     end
 
     def mail_from_domain
@@ -1127,7 +1131,7 @@ class IncomingMessage < ActiveRecord::Base
         end
 
         # reject postmaster - authorities seem to nearly always not respond to
-        # email to postmaster, and it tells to only happen after delivery failure.
+        # email to postmaster, and it tends to only happen after delivery failure.
         prefix = email
         prefix =~ /^(.*)@/
         prefix = $1
