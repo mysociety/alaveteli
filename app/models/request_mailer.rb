@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.69 2009-02-28 00:53:43 francis Exp $
+# $Id: request_mailer.rb,v 1.70 2009-04-07 16:01:36 francis Exp $
 
 class RequestMailer < ApplicationMailer
     
@@ -31,6 +31,8 @@ class RequestMailer < ApplicationMailer
     # XXX the condition checking valid_to_reply_to? also appears in views/request/_followup.rhtml,
     # it shouldn't really, should call something here.
     # XXX also OutgoingMessage.get_salutation
+    # XXX these look like they should be members of IncomingMessage, but logically they
+    # need to work even when IncomingMessage is nil
     def RequestMailer.name_and_email_for_followup(info_request, incoming_message_followup)
         if incoming_message_followup.nil? || !incoming_message_followup.valid_to_reply_to?
             return info_request.recipient_name_and_email
