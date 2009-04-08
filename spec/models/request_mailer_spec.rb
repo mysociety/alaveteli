@@ -133,4 +133,82 @@ describe RequestMailer, " when working out follow up addresses" do
 
  end
 
+describe RequestMailer, "when sending reminders to requesters to classify a response to their request" do 
 
+    before do 
+        Time.stub!(:now).and_return(Time.utc(2007, 11, 12, 23, 59))
+        @mock_event = mock_model(InfoRequestEvent)
+        @mock_response = mock_model(IncomingMessage)
+        @mock_user = mock_model(User)
+        @mock_request = mock_model(InfoRequest, :get_last_response_event_id => @mock_event.id,
+                                                :get_last_response => @mock_response,
+                                                :user_id => 2, 
+                                                :url_title => 'test_title',
+                                                :user => @mock_user)
+        InfoRequest.stub!(:find).and_return([@mock_request])
+        RequestMailer.stub!(:deliver_new_response_reminder_alert)
+    end
+    
+    def send_alerts
+        RequestMailer.alert_new_response_reminders_internal(7, 'new_response_reminder_1')
+    end
+    
+    it 'should ask for all requests that are awaiting description and are not the holding pen and haven\'t been updated for the number of days given' do 
+        expected_params = {:conditions => [ "awaiting_description = ? and info_requests.updated_at < ? and url_title != 'holding_pen'", 
+                           true, Time.now() - 7.days ], 
+                           :include => [ :user ], 
+                           :order => "info_requests.id"}
+        InfoRequest.should_receive(:find).with(:all, expected_params).and_return([])
+        send_alerts
+    end
+    
+    it 'should raise an error if a request does not have a last response event id' do 
+        @mock_request.stub!(:get_last_response_event_id).and_return(nil)
+        expected_message = "internal error, no last response while making alert new response reminder, request id #{@mock_request.id}"
+        lambda{ send_alerts }.should raise_error(expected_message)
+    end
+    
+    it 'should check to see if an alert matching the attributes of the one to be sent has already been sent' do 
+        expected_params =  {:conditions => [ "alert_type = ? and user_id = ? and info_request_id = ? and info_request_event_id = ?", 
+                            'new_response_reminder_1', 2, @mock_request.id, @mock_event.id]}
+        UserInfoRequestSentAlert.should_receive(:find).with(:first, expected_params)
+        send_alerts
+    end
+    
+    describe 'if an alert matching the attributes of the reminder to be sent has already been sent' do 
+    
+        before do 
+            UserInfoRequestSentAlert.stub!(:find).and_return(mock_model(UserInfoRequestSentAlert))
+        end
+        
+        it 'should not send the reminder' do 
+            RequestMailer.should_not_receive(:deliver_new_response_reminder_alert)
+            send_alerts
+        end
+        
+    end
+    
+    describe 'if no alert matching the attributes of the reminder to be sent has already been sent' do 
+        
+        before do 
+            UserInfoRequestSentAlert.stub!(:find).and_return(nil)
+        end
+        
+        it 'should store the information that the reminder has been sent' do 
+            mock_sent_alert = mock_model(UserInfoRequestSentAlert)
+            UserInfoRequestSentAlert.stub!(:new).and_return(mock_sent_alert)
+            mock_sent_alert.should_receive(:info_request=).with(@mock_request)
+            mock_sent_alert.should_receive(:user=).with(@mock_user)
+            mock_sent_alert.should_receive(:alert_type=).with('new_response_reminder_1')
+            mock_sent_alert.should_receive(:info_request_event_id=).with(@mock_request.get_last_response_event_id)
+            mock_sent_alert.should_receive(:save!)
+            send_alerts
+        end
+        
+        it 'should send the reminder' do 
+            RequestMailer.should_receive(:deliver_new_response_reminder_alert)
+            send_alerts
+        end
+    end
+    
+end
