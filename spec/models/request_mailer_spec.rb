@@ -153,8 +153,8 @@ describe RequestMailer, "when sending reminders to requesters to classify a resp
         RequestMailer.alert_new_response_reminders_internal(7, 'new_response_reminder_1')
     end
     
-    it 'should ask for all requests that are awaiting description and are not the holding pen and haven\'t been updated for the number of days given' do 
-        expected_params = {:conditions => [ "awaiting_description = ? and info_requests.updated_at < ? and url_title != 'holding_pen'", 
+    it 'should ask for all requests that are awaiting description and whose latest response is older than the number of days given and that are not the holding pen' do 
+        expected_params = {:conditions => [ "awaiting_description = ? and (select created_at from info_request_events where info_request_events.info_request_id = info_requests.id and info_request_events.event_type = 'response' order by created_at desc limit 1) < ? and url_title != 'holding_pen'", 
                            true, Time.now() - 7.days ], 
                            :include => [ :user ], 
                            :order => "info_requests.id"}
