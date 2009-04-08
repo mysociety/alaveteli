@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_request_controller.rb,v 1.31 2009-04-02 11:25:43 francis Exp $
+# $Id: admin_request_controller.rb,v 1.32 2009-04-08 04:51:37 francis Exp $
 
 class AdminRequestController < AdminController
     def index
@@ -204,7 +204,7 @@ class AdminRequestController < AdminController
             return
         end
 
-        # Bejeeps, look, sometimes a URL is something that belongs in a model, jesus.
+        # Bejeeps, look, sometimes a URL is something that belongs in a controller, jesus.
         # XXX hammer this square peg into the round MVC hole - should be calling main_url(upload_response_url())
         post_redirect = PostRedirect.new(
             :uri => upload_response_url(:url_title => info_request.url_title),
