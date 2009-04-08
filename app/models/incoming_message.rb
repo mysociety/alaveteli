@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.197 2009-04-08 05:29:35 francis Exp $
+# $Id: incoming_message.rb,v 1.198 2009-04-08 05:34:52 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -241,7 +241,7 @@ class FOIAttachment
         filename = self._internal_display_filename
 
         # Remove slashes, they mess with URLs
-        filename.gsub!(/\//, "-")
+        filename = filename.gsub(/\//, "-")
 
         return filename
     end
@@ -619,7 +619,6 @@ class IncomingMessage < ActiveRecord::Base
         return text
     end
 
-    # Flattens all the attachments, picking only one part where there are alternatives.
     # (This risks losing info if the unchosen alternative is the only one to contain 
     # useful info, but let's worry about that another time)
     def get_attachment_leaves
@@ -724,7 +723,7 @@ class IncomingMessage < ActiveRecord::Base
             begin
                 # XXX specially convert unicode pound signs, was needed here
                 # http://www.whatdotheyknow.com/request/88/response/352
-                text.gsub!("£", Iconv.conv(text_charset, 'utf-8', '£')) 
+                text = text.gsub("£", Iconv.conv(text_charset, 'utf-8', '£')) 
                 # Try proper conversion
                 text = Iconv.conv('utf-8', text_charset, text)
             rescue Iconv::IllegalSequence, Iconv::InvalidEncoding

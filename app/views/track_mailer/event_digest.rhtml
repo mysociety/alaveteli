@@ -44,7 +44,7 @@
                 else
                     extract = highlight_and_excerpt(info_request.initial_request_text, @highlight_words, 150, false)
                 end
-                extract.gsub!(/\s+/, ' ')
+                extract = extract.gsub(/\s+/, ' ')
                 main_text += MySociety::Format.wrap_email_body('"' + extract + '"').gsub(/\n+$/, "") + "\n"
 
                 # Link to the request/response

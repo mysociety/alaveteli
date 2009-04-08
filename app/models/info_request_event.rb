@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request_event.rb,v 1.77 2009-03-09 15:48:32 tony Exp $
+# $Id: info_request_event.rb,v 1.78 2009-04-08 05:34:52 francis Exp $
 
 class InfoRequestEvent < ActiveRecord::Base
     belongs_to :info_request
@@ -106,7 +106,7 @@ class InfoRequestEvent < ActiveRecord::Base
         url_title = self.info_request.url_title
         # remove numeric section from the end, use this to group lots
         # of similar requests by
-        url_title.gsub!(/[_0-9]+$/, "")
+        url_title = url_title.gsub(/[_0-9]+$/, "")
         return url_title
     end
     def described_at
