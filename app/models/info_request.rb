@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.182 2009-04-06 16:28:44 louise Exp $
+# $Id: info_request.rb,v 1.183 2009-04-08 07:31:07 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -148,7 +148,7 @@ public
         return self.magic_email("request-")
     end
     def incoming_name_and_email
-        return TMail::Address.encode_quoted_string(self.user.name) + " <" + self.incoming_email + ">"
+        return TMail::Address.address_from_name_and_email(self.user.name, self.incoming_email).to_s
     end
 
     # Subject lines for emails about the request
@@ -462,7 +462,7 @@ public
         return self.public_body.request_email
     end
     def recipient_name_and_email
-        return TMail::Address.encode_quoted_string(self.law_used_short + " requests at " + self.public_body.short_or_long_name) + " <" + self.recipient_email + ">"
+        return TMail::Address.address_from_name_and_email(self.law_used_short + " requests at " + self.public_body.short_or_long_name, self.recipient_email).to_s
     end
 
     # History of some things that have happened

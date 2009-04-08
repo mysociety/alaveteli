@@ -34,6 +34,14 @@ describe InfoRequest do
             @info_request.incoming_email.should_not be_nil
         end
 
+        it "should have a sensible incoming name and email" do
+            @info_request.incoming_name_and_email.should == "Bob Smith <" + @info_request.incoming_email + ">"
+        end
+
+        it "should have a sensible recipient name and email" do
+            @info_request.recipient_name_and_email.should == "FOI requests at TGQ <geraldine-requests@localhost>"
+        end
+
         it "should recognise its own incoming email" do
             incoming_email = @info_request.incoming_email
             found_info_request = InfoRequest.find_by_incoming_email(incoming_email)

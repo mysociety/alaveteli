@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user.rb,v 1.87 2009-04-07 10:32:54 louise Exp $
+# $Id: user.rb,v 1.88 2009-04-08 07:31:07 francis Exp $
 
 require 'digest/sha1'
 
@@ -174,7 +174,7 @@ class User < ActiveRecord::Base
 
     # For use in to/from in email messages
     def name_and_email
-        return TMail::Address.encode_quoted_string(self.name) + " <" + self.email + ">"
+        return TMail::Address.address_from_name_and_email(self.name, self.email).to_s
     end
 
     # The "internal admin" is a special user for internal use.

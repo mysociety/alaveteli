@@ -124,3 +124,23 @@ describe User, 'when asked if a user owns every request' do
     end
     
 end
+
+describe User, " when making name and email address" do
+    it "should generate a name and email" do
+        @user = User.new
+        @user.name = "Sensible User"
+        @user.email = "sensible@localhost"
+
+        @user.name_and_email.should == "Sensible User <sensible@localhost>"
+    end
+
+    it "should quote name and email with funny characters in the name" do
+        @user = User.new
+        @user.name = "Silly @ User"
+        @user.email = "silly@localhost"
+
+        @user.name_and_email.should == "\"Silly @ User\" <silly@localhost>"
+    end
+end
+
+

@@ -119,14 +119,14 @@ describe RequestMailer, " when working out follow up addresses" do
         RequestMailer.email_for_followup(ir, im).should == "foiperson@localhost"
     end
 
-    it "should remove @ signs from name part in reply address as some mail servers hate it" do
+    it "should quote @ signs" do
         ir = info_requests(:fancy_dog_request) 
         im = ir.incoming_messages[0]
 
         im.raw_email.data.sub!("FOI Person", "FOI @ Person")
 
         # check the basic entry in the fixture is fine
-        RequestMailer.name_and_email_for_followup(ir, im).should == "FOI   Person <foiperson@localhost>"
+        RequestMailer.name_and_email_for_followup(ir, im).should == "\"FOI @ Person\" <foiperson@localhost>"
         RequestMailer.name_for_followup(ir, im).should == "FOI @ Person"
         RequestMailer.email_for_followup(ir, im).should == "foiperson@localhost"
     end

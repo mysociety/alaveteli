@@ -4,7 +4,7 @@
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: tmail_extensions.rb,v 1.2 2009-04-08 05:29:36 francis Exp $
+# $Id: tmail_extensions.rb,v 1.3 2009-04-08 07:31:08 francis Exp $
 
 # Monkeypatch!
 
@@ -32,27 +32,22 @@ module TMail
     end
 
     class Address
-        # Monkeypatch!
-        def Address.encode_quoted_string(text)
-            # XXX have added space to this, so we don't excessive quoting
-            if text.match(/[^A-Za-z0-9!#\$%&'*+\-\/=?^_`{|}~ ]/)
-                # Contains characters which aren't valid in atoms, so make a
-                # quoted-pair instead.
-                text = text.gsub(/(["\\])/, "\\\\\\1")
-                text = '"' + text + '"'
-            end
-            return text
+        # Monkeypatch! Constructor which makes a TMail::Address given
+        # a name and an email
+        def Address.address_from_name_and_email(name, email)
+            # Botch an always quoted RFC address, then parse it
+            name = name.gsub(/(["\\])/, "\\\\\\1")
+            TMail::Address.parse('"' + name + '" <' + email + '>')
         end
+    end
 
-        # Monkeypatch!
-        def full_quoted_address
-            if self.name
-                # sanitise name - some mail servers can't cope with @ in the name part
-                name = self.name.gsub(/@/, " ")
-                Address.encode_quoted_string(name) + " <" + self.spec + ">"
-            else
-                self.spec
-            end
+    module TextUtils
+        # Monkeypatch! Much more aggressive list of characters to cause quoting 
+        # than in normal TMail. e.g. Have found real cases where @ needs quoting.
+        # We list characters to allow, rather than characters not to allow.
+        NEW_PHRASE_UNSAFE=/[^A-Za-z0-9!#\$%&'*+\-\/=?^_`{|}~ ]/n
+        def quote_phrase( str )
+          (NEW_PHRASE_UNSAFE === str) ? dquote(str) : str
         end
     end
 end
