@@ -533,7 +533,7 @@ module ActsAsXapian
                         STDOUT.puts("job with #{id} vanished under foot") if verbose
                         next
                     end
-                    STDOUT.puts("ActsAsXapian.update_index #{job.action} #{job.model} #{job.model_id.to_s}") if verbose
+                    STDOUT.puts("ActsAsXapian.update_index #{job.action} #{job.model} #{job.model_id.to_s} #{Time.now.to_s}") if verbose
                     begin
                         if job.action == 'update'
                             # XXX Index functions may reference other models, so we could eager load here too?
