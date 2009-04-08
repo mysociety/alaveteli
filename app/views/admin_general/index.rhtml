@@ -39,10 +39,11 @@
     <% for @request in @ten_days_old_unclassified %>
         <li>
             <%= request_both_links(@request) %> 
-            &ndash; <%=simple_date(@request.get_last_event.created_at)%>
+            &ndash; <%=simple_date(@request.get_last_response_event.created_at)%>
         </li>
     <% end %>
     </ul>
+    
     <p>(<%= link_to "Full list", admin_url("unclassified") %>)
 <% end %>
 

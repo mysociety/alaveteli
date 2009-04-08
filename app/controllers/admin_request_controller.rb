@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_request_controller.rb,v 1.33 2009-04-08 10:45:33 louise Exp $
+# $Id: admin_request_controller.rb,v 1.34 2009-04-08 16:13:11 louise Exp $
 
 class AdminRequestController < AdminController
     def index
@@ -19,7 +19,8 @@ class AdminRequestController < AdminController
     end
 
     def list_old_unclassified
-        @info_requests = InfoRequest.find_old_unclassified
+        @info_requests = InfoRequest.find_old_unclassified(:conditions => ["prominence != 'backpage'"],
+                                                           :age_in_days => 10)
     end
 
     def show

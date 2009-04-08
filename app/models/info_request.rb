@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.184 2009-04-08 10:45:34 louise Exp $
+# $Id: info_request.rb,v 1.185 2009-04-08 16:13:11 louise Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -74,7 +74,7 @@ class InfoRequest < ActiveRecord::Base
         'eir', # Environmental Information Regulations
     ]
     
-    OLD_AGE_IN_DAYS = 10.days
+    OLD_AGE_IN_DAYS = 14.days
 
     def after_initialize
         if self.described_state.nil?
@@ -672,25 +672,39 @@ public
     end
 
     # Used to find when event last changed
-    def InfoRequest.last_event_time_clause 
-        '(select created_at from info_request_events where info_request_events.info_request_id = info_requests.id order by created_at desc limit 1)'
+    def InfoRequest.last_event_time_clause(event_type=nil)
+        event_type_clause = ''
+        event_type_clause = " and info_request_events.event_type = '#{event_type}'" if event_type
+        "(select created_at from info_request_events where info_request_events.info_request_id = info_requests.id#{event_type_clause} order by created_at desc limit 1)"
     end
-        
-    def InfoRequest.find_old_unclassified(limit=nil)
-        params = {:select => "*, #{last_event_time_clause} as last_event_time", 
-                  :conditions => ["awaiting_description = ? and #{last_event_time_clause} < ? and prominence != 'backpage'", 
-                                 true, Time.now() - OLD_AGE_IN_DAYS], 
-                                 :order => "last_event_time"}
-        params[:limit] = limit if limit 
+
+    def InfoRequest.find_old_unclassified(extra_params={})
+        last_response_created_at = last_event_time_clause('response')
+        age = extra_params[:age_in_days] ? extra_params[:age_in_days].days : OLD_AGE_IN_DAYS
+        params = {:select => "*, #{last_response_created_at} as last_response_time", 
+                  :conditions => ["awaiting_description = ? and #{last_response_created_at} < ? and url_title != 'holding_pen'", 
+                                 true, Time.now() - age], 
+                                 :order => "last_response_time"}
+        params[:limit] = extra_params[:limit] if extra_params[:limit]
+        params[:include] = extra_params[:include] if extra_params[:include]
+        if extra_params[:order]
+            params[:order] = extra_params[:order] 
+            params.delete(:select)
+        end
+        if extra_params[:conditions]
+            condition_string = extra_params[:conditions].shift
+            params[:conditions][0] += " and #{condition_string}"
+            params[:conditions] += extra_params[:conditions]
+        end
         find(:all, params)
     end
     
     def is_old_unclassified?
         return false if !awaiting_description
-        return false if prominence == 'backpage'
-        last_event = get_last_event
-        return false unless last_event
-        return false if last_event.created_at >= Time.now - OLD_AGE_IN_DAYS
+        return false if url_title == 'holding_pen'
+        last_response_event = get_last_response_event
+        return false unless last_response_event
+        return false if last_response_event.created_at >= Time.now - OLD_AGE_IN_DAYS
         return true
     end
 
