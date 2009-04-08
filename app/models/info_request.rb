@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.183 2009-04-08 07:31:07 francis Exp $
+# $Id: info_request.rb,v 1.184 2009-04-08 10:45:34 louise Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -73,6 +73,8 @@ class InfoRequest < ActiveRecord::Base
         'foi', # Freedom of Information Act
         'eir', # Environmental Information Regulations
     ]
+    
+    OLD_AGE_IN_DAYS = 10.days
 
     def after_initialize
         if self.described_state.nil?
@@ -672,6 +674,24 @@ public
     # Used to find when event last changed
     def InfoRequest.last_event_time_clause 
         '(select created_at from info_request_events where info_request_events.info_request_id = info_requests.id order by created_at desc limit 1)'
+    end
+        
+    def InfoRequest.find_old_unclassified(limit=nil)
+        params = {:select => "*, #{last_event_time_clause} as last_event_time", 
+                  :conditions => ["awaiting_description = ? and #{last_event_time_clause} < ? and prominence != 'backpage'", 
+                                 true, Time.now() - OLD_AGE_IN_DAYS], 
+                                 :order => "last_event_time"}
+        params[:limit] = limit if limit 
+        find(:all, params)
+    end
+    
+    def is_old_unclassified?
+        return false if !awaiting_description
+        return false if prominence == 'backpage'
+        last_event = get_last_event
+        return false unless last_event
+        return false if last_event.created_at >= Time.now - OLD_AGE_IN_DAYS
+        return true
     end
 
     # List of incoming messages to followup, by unique email

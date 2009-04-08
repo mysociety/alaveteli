@@ -184,4 +184,68 @@ describe InfoRequest do
         
     end
     
+    describe 'when asked for old unclassified requests' do 
+    
+        before do 
+            Time.stub!(:now).and_return(Time.utc(2007, 11, 12, 23, 59))
+        end
+        
+        it 'should ask for requests using any limit param supplied' do 
+            InfoRequest.should_receive(:find).with(:all, {:select => anything, 
+                                                          :order => anything, 
+                                                          :conditions=> anything, 
+                                                          :limit => 5})
+            InfoRequest.find_old_unclassified(limit=5)
+        end
+        
+        it 'should not limit the number of requests returned by default' do 
+            InfoRequest.should_not_receive(:find).with(:all, {:select => anything, 
+                                                              :order => anything, 
+                                                              :conditions=> anything, 
+                                                              :limit => anything})
+            InfoRequest.find_old_unclassified
+        end 
+        
+        it 'should ask the database for requests that are awaiting description, older than 10 days old and not backpaged' do 
+            InfoRequest.should_receive(:find).with(:all, 
+                  {:select=>"*, (select created_at from info_request_events where info_request_events.info_request_id = info_requests.id order by created_at desc limit 1) as last_event_time", 
+                   :order=>"last_event_time", 
+                   :conditions=>["awaiting_description = ? and (select created_at from info_request_events where info_request_events.info_request_id = info_requests.id order by created_at desc limit 1) < ? and prominence != 'backpage'", 
+                       true, Time.now - 10.days]})
+            InfoRequest.find_old_unclassified
+        end
+        
+    end
+    
+    describe 'when an instance is asked if it is old and unclassified' do 
+        
+        before do 
+            Time.stub!(:now).and_return(Time.utc(2007, 11, 12, 23, 59))
+            @mock_event = mock_model(InfoRequestEvent, :created_at => Time.now - 11.days)
+            @info_request = InfoRequest.new(:prominence => 'normal', 
+                                            :awaiting_description => true, 
+                                            :info_request_events => [@mock_event])
+        end
+        
+        it 'should return false if it is not awaiting description' do 
+            @info_request.stub!(:awaiting_description).and_return(false)
+            @info_request.is_old_unclassified?.should be_false
+        end
+        
+        it 'should return false if it\'s last event occurred less than 10 days ago' do 
+            @mock_event.stub!(:created_at).and_return(Time.now - 9.days)
+            @info_request.is_old_unclassified?.should be_false
+        end
+        
+        it 'should return false if it\'s backpaged' do 
+            @info_request.stub!(:prominence).and_return('backpage')
+            @info_request.is_old_unclassified?.should be_false  
+        end
+        
+        it 'should return true if it is awaiting description, hasn\'t had an event in 10 days and is not backpaged' do 
+            @info_request.is_old_unclassified?.should be_true
+        end
+        
+    end
+    
 end
