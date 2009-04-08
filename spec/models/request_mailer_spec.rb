@@ -68,10 +68,9 @@ end
 
 
 describe RequestMailer, " when working out follow up addresses" do
-    # doing this with fixtures as the code is a bit tangled with the way it
-    # calls TMail, and the TMail monkey patches in conf/environment.rb
-    # XXX untangle it and make these tests spread out and using mocks. Might
-    # mean properly patching TMail.
+    # This is done with fixtures as the code is a bit tangled with the way it
+    # calls TMail.  XXX untangle it and make these tests spread out and using
+    # mocks. Put parts of the tests in spec/lib/tmail_extensions.rb
     fixtures :info_requests, :incoming_messages, :raw_emails, :public_bodies
 
     it "should parse them right" do
@@ -84,18 +83,54 @@ describe RequestMailer, " when working out follow up addresses" do
         RequestMailer.email_for_followup(ir, im).should == "foiperson@localhost"
     end
 
-#    it "should escape funny characters" do
-#        ir = info_requests(:fancy_dog_request) 
-#        im = ir.incoming_messages[0]
-#
-#        im.raw_email.data.sub!("FOI Person", "FOI \\\" Person")
-#
-#        # check the basic entry in the fixture is fine
-#        RequestMailer.name_and_email_for_followup(ir, im).should == "\"FOI \\\" Person\" <foiperson@localhost>"
-#        RequestMailer.name_for_followup(ir, im).should == "FOI Person"
-#        RequestMailer.email_for_followup(ir, im).should == "foiperson@localhost"
-#    end
+    it "should work when there is only an email address" do
+        ir = info_requests(:fancy_dog_request) 
+        im = ir.incoming_messages[0]
 
-end
+        im.raw_email.data.sub!("\"FOI Person\" <foiperson@localhost>", "foiperson@localhost")
+
+        # check the basic entry in the fixture is fine
+        RequestMailer.name_and_email_for_followup(ir, im).should == "foiperson@localhost"
+        RequestMailer.name_for_followup(ir, im).should == "The Geraldine Quango"
+        RequestMailer.email_for_followup(ir, im).should == "foiperson@localhost"
+    end
+
+    it "should quote funny characters" do
+        ir = info_requests(:fancy_dog_request) 
+        im = ir.incoming_messages[0]
+
+        im.raw_email.data.sub!("FOI Person", "FOI [ Person")
+
+        # check the basic entry in the fixture is fine
+        RequestMailer.name_and_email_for_followup(ir, im).should == "\"FOI [ Person\" <foiperson@localhost>"
+        RequestMailer.name_for_followup(ir, im).should == "FOI [ Person"
+        RequestMailer.email_for_followup(ir, im).should == "foiperson@localhost"
+    end
+
+    it "should quote quotes" do
+        ir = info_requests(:fancy_dog_request) 
+        im = ir.incoming_messages[0]
+
+        im.raw_email.data.sub!("FOI Person", "FOI \\\" Person")
+
+        # check the basic entry in the fixture is fine
+        RequestMailer.name_and_email_for_followup(ir, im).should == "\"FOI \\\" Person\" <foiperson@localhost>"
+        RequestMailer.name_for_followup(ir, im).should == "FOI \" Person"
+        RequestMailer.email_for_followup(ir, im).should == "foiperson@localhost"
+    end
+
+    it "should remove @ signs from name part in reply address as some mail servers hate it" do
+        ir = info_requests(:fancy_dog_request) 
+        im = ir.incoming_messages[0]
+
+        im.raw_email.data.sub!("FOI Person", "FOI @ Person")
+
+        # check the basic entry in the fixture is fine
+        RequestMailer.name_and_email_for_followup(ir, im).should == "FOI   Person <foiperson@localhost>"
+        RequestMailer.name_for_followup(ir, im).should == "FOI @ Person"
+        RequestMailer.email_for_followup(ir, im).should == "foiperson@localhost"
+    end
+
+ end
 
 

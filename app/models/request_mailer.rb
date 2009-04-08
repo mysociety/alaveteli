@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.70 2009-04-07 16:01:36 francis Exp $
+# $Id: request_mailer.rb,v 1.71 2009-04-08 05:29:35 francis Exp $
 
 class RequestMailer < ApplicationMailer
     
@@ -37,7 +37,7 @@ class RequestMailer < ApplicationMailer
         if incoming_message_followup.nil? || !incoming_message_followup.valid_to_reply_to?
             return info_request.recipient_name_and_email
         else
-            return incoming_message_followup.mail.from_addrs[0].quoted_full
+            return incoming_message_followup.mail.from_addrs[0].full_quoted_address
         end
     end
     # Used in the preview of followup
@@ -45,7 +45,7 @@ class RequestMailer < ApplicationMailer
         if incoming_message_followup.nil? || !incoming_message_followup.valid_to_reply_to?
             return info_request.public_body.name
         else
-            return incoming_message_followup.safe_mail_from || info_request.public_body.name
+            return incoming_message_followup.mail.from_addrs[0].name || info_request.public_body.name
         end
     end
     # Used when making list of followup places to remove duplicates
@@ -92,7 +92,7 @@ class RequestMailer < ApplicationMailer
     def stopped_responses(info_request, email)
         @from = contact_from_name_and_email
         headers 'Return-Path' => blackhole_email, 'Reply-To' => @from # we don't care about bounces, likely from spammers
-        @recipients = email.from_addrs[0].quoted_full
+        @recipients = email.from_addrs[0].full_quoted_address
         @subject = "Your response to an FOI request was not delivered"
         attachment :content_type => 'message/rfc822', :body => email.body
         @body = { 

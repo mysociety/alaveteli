@@ -4,7 +4,7 @@
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: tmail_extensions.rb,v 1.1 2009-04-07 16:23:28 francis Exp $
+# $Id: tmail_extensions.rb,v 1.2 2009-04-08 05:29:36 francis Exp $
 
 # Monkeypatch!
 
@@ -13,12 +13,22 @@ module TMail
     class Mail
         # Monkeypatch! (check to see if this becomes a standard function in
         # TMail::Mail, then use that, whatever it is called)
-        def self.get_part_file_name(part)
+        def Mail.get_part_file_name(part)
             file_name = (part['content-location'] &&
                           part['content-location'].body) ||
                         part.sub_header("content-type", "name") ||
                         part.sub_header("content-disposition", "filename")
         end
+
+        # Monkeypatch! Return the name part of from address, or nil if there isn't one
+        def from_name_if_present
+            if self.from && self.from_addrs[0].name
+                return self.from_addrs[0].name
+            else
+                return nil
+            end
+        end 
+
     end
 
     class Address
@@ -28,16 +38,18 @@ module TMail
             if text.match(/[^A-Za-z0-9!#\$%&'*+\-\/=?^_`{|}~ ]/)
                 # Contains characters which aren't valid in atoms, so make a
                 # quoted-pair instead.
-                text.gsub!(/(["\\])/, "\\\\\\1")
+                text = text.gsub(/(["\\])/, "\\\\\\1")
                 text = '"' + text + '"'
             end
             return text
         end
 
         # Monkeypatch!
-        def quoted_full
+        def full_quoted_address
             if self.name
-                Address.encode_quoted_string(self.name) + " <" + self.spec + ">"
+                # sanitise name - some mail servers can't cope with @ in the name part
+                name = self.name.gsub(/@/, " ")
+                Address.encode_quoted_string(name) + " <" + self.spec + ">"
             else
                 self.spec
             end
