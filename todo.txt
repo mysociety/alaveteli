@@ -368,7 +368,6 @@ Advertise WDTK search queries on TWFY
 Advertise alerts on end pages with WDTK
 
 Search FAQ and other help pages with normal search
-    - also the "notes" section on an authority
 
 Make text boxes autogrow as you type into them.
 (10:32:14) richard: you just need to count the number of rows of text and compare it to the number of rows in the textbox
