@@ -27,7 +27,7 @@ if not incoming_message.nil?
     <div class="correspondence" id="incoming-<%=incoming_message.id.to_s%>">
         <h2>
             <% if !incoming_message.safe_mail_from.nil? && incoming_message.safe_mail_from.strip != @info_request.public_body.name.strip %>
-                <%= incoming_message.safe_mail_from %><br>
+                <%=h incoming_message.safe_mail_from %><br>
             <% end %>
             <% if incoming_message.safe_mail_from.nil? || (incoming_message.mail_from_domain == @info_request.public_body.request_email_domain) %>
                 <%=h @info_request.public_body.name %><br>
@@ -66,7 +66,7 @@ elsif info_request_event.event_type == 'sent' || info_request_event.event_type =
             <!-- Can use this to get name of who followup was too, if say you
                  play with proper from display, but not sure needed
             <% if outgoing_message.message_type == 'followup' && !outgoing_message.incoming_message_followup.nil? && !outgoing_message.incoming_message_followup.safe_mail_from.nil? %>
-                Follow up sent to: <%= outgoing_message.incoming_message_followup.safe_mail_from %> 
+                Follow up sent to: <%=h outgoing_message.incoming_message_followup.safe_mail_from %> 
             <% end %> 
             -->
 
