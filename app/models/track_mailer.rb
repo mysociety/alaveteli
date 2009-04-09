@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_mailer.rb,v 1.16 2009-03-17 23:22:01 francis Exp $
+# $Id: track_mailer.rb,v 1.17 2009-04-09 12:22:46 louise Exp $
 
 class TrackMailer < ApplicationMailer
     def event_digest(user, email_about_things)
@@ -95,6 +95,7 @@ class TrackMailer < ApplicationMailer
                 end
             end
             user.last_daily_track_email = now
+            user.no_reindex = true
             user.save!
         end
     end

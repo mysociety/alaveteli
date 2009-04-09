@@ -84,6 +84,48 @@ describe User, " when saving" do
         @user2.email = "flobble2@localhost"
         @user2.save!
     end
+
+
+end
+
+describe User, "when reindexing referencing models" do 
+
+    before do 
+        @request_event = mock_model(InfoRequestEvent, :xapian_mark_needs_index => true)
+        @request = mock_model(InfoRequest, :info_request_events => [@request_event])
+        @comment_event = mock_model(InfoRequestEvent, :xapian_mark_needs_index => true)
+        @comment = mock_model(Comment, :info_request_events => [@comment_event])
+        @user = User.new(:comments => [@comment], :info_requests => [@request])
+    end
+    
+    it 'should reindex events associated with that user\'s comments' do 
+        @comment_event.should_receive(:xapian_mark_needs_index)
+        @user.reindex_referencing_models
+    end
+    
+    it 'should reindex events associated with that user\'s requests' do 
+        @request_event.should_receive(:xapian_mark_needs_index)
+        @user.reindex_referencing_models
+    end
+    
+    describe 'when no_reindex is set' do 
+        
+        before do 
+            @user.no_reindex = true
+        end
+            
+        it 'should not reindex events associated with that user\'s comments' do 
+            @comment_event.should_not_receive(:xapian_mark_needs_index)
+            @user.reindex_referencing_models
+        end
+        
+        it 'should not reindex events associated with that user\'s requests' do 
+            @request_event.should_not_receive(:xapian_mark_needs_index)
+            @user.reindex_referencing_models
+        end
+    
+    end
+    
 end
 
 describe User, "when checking abilities" do

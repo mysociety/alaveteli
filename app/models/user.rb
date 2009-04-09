@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user.rb,v 1.88 2009-04-08 07:31:07 francis Exp $
+# $Id: user.rb,v 1.89 2009-04-09 12:22:46 louise Exp $
 
 require 'digest/sha1'
 
@@ -43,7 +43,7 @@ class User < ActiveRecord::Base
     has_many :track_things, :foreign_key => 'tracking_user_id', :order => 'created_at desc'
     has_many :comments, :order => 'created_at desc'
 
-    attr_accessor :password_confirmation
+    attr_accessor :password_confirmation, :no_reindex
     validates_confirmation_of :password, :message =>"^Please enter the same password twice"
 
     validates_inclusion_of :admin_level, :in => [ 
@@ -74,6 +74,7 @@ class User < ActiveRecord::Base
     # requested_by: and commented_by: search queries also need updating after save
     after_save :reindex_referencing_models
     def reindex_referencing_models
+        return if no_reindex == true
         for comment in self.comments
             for info_request_event in comment.info_request_events
                 info_request_event.xapian_mark_needs_index

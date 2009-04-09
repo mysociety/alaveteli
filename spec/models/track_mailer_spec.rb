@@ -18,9 +18,11 @@ describe TrackMailer do
         describe 'for each user' do 
         
             before do 
-                @user = mock_model(User, :last_daily_track_email= => true, 
-                                              :save! => true)
+                @user = mock_model(User, :no_reindex= => false,
+                                         :last_daily_track_email= => true, 
+                                         :save! => true)
                 User.stub!(:find).and_return([@user])
+                @user.stub!(:no_reindex=)
             end
             
             it 'should ask for any daily track things for the user' do 
@@ -28,6 +30,19 @@ describe TrackMailer do
                 TrackThing.should_receive(:find).with(:all, :conditions => expected_conditions).and_return([])
                 TrackMailer.alert_tracks
             end
+            
+            
+            it 'should set the no_reindex flag on the user' do 
+                @user.should_receive(:no_reindex=).with(true)
+                TrackMailer.alert_tracks
+            end
+            
+            it 'should update the time of the user\'s last daily tracking email' do 
+                @user.should_receive(:last_daily_track_email=).with(Time.now)
+                @user.should_receive(:save!)
+                TrackMailer.alert_tracks
+            end
+            
             
             describe 'for each tracked thing' do 
                 
@@ -83,12 +98,6 @@ describe TrackMailer do
                     sent_email.should_receive(:save!)
                     TrackMailer.alert_tracks
                 end
-            end
-            
-            it 'should update the time of the user\'s last daily tracking email' do 
-                @user.should_receive(:last_daily_track_email=).with(Time.now)
-                @user.should_receive(:save!)
-                TrackMailer.alert_tracks
             end
         
         end
