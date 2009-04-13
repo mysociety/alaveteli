@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 74
+# Schema version: 75
 #
 # Table name: exim_logs
 #
@@ -18,7 +18,7 @@
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: exim_log.rb,v 1.9 2009-03-09 15:48:32 tony Exp $
+# $Id: exim_log.rb,v 1.10 2009-04-13 09:18:48 tony Exp $
 
 class EximLog < ActiveRecord::Base
     belongs_to :info_request

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 74) do
+ActiveRecord::Schema.define(:version => 75) do
 
   create_table "acts_as_xapian_jobs", :force => true do |t|
     t.string  "model",    :null => false
@@ -153,6 +153,7 @@ ActiveRecord::Schema.define(:version => 74) do
     t.text     "notes",              :default => "", :null => false
     t.string   "first_letter",                       :null => false
     t.text     "publication_scheme", :default => "", :null => false
+    t.text     "charity_number",     :default => "", :null => false
   end
 
   add_index "public_bodies", ["first_letter"], :name => "index_public_bodies_on_first_letter"
@@ -179,6 +180,7 @@ ActiveRecord::Schema.define(:version => 74) do
     t.text     "home_page"
     t.text     "notes"
     t.text     "publication_scheme", :default => "", :null => false
+    t.text     "charity_number",     :default => "", :null => false
   end
 
   create_table "raw_emails", :force => true do |t|

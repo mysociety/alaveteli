@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 74
+# Schema version: 75
 #
 # Table name: public_bodies
 #
@@ -17,6 +17,7 @@
 #  notes              :text            default(""), not null
 #  first_letter       :string(255)     not null
 #  publication_scheme :text            default(""), not null
+#  charity_number     :text            default(""), not null
 #
 
 # models/public_body.rb:
@@ -25,7 +26,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.139 2009-04-02 15:33:11 francis Exp $
+# $Id: public_body.rb,v 1.140 2009-04-13 09:18:48 tony Exp $
 
 require 'csv'
 require 'set'

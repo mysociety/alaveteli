@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 74
+# Schema version: 75
 #
 # Table name: censor_rules
 #
@@ -21,7 +21,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: censor_rule.rb,v 1.10 2009-04-08 05:34:52 francis Exp $
+# $Id: censor_rule.rb,v 1.11 2009-04-13 09:18:48 tony Exp $
 
 class CensorRule < ActiveRecord::Base
     belongs_to :info_request

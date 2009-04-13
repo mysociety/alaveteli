@@ -36,6 +36,9 @@
 <p><label for="public_body_publication_scheme">Publication scheme URL</label><br/>
 <%= text_field 'public_body', 'publication_scheme', :size => 60  %></p>
 
+<p><label for="public_body_charity_number">Charity Registration Number <small>(if a registered charity)</small></label><br/>
+<%= text_field 'public_body', 'charity_number', :size => 60  %></p>
+
 <p><label for="public_body_notes">Public notes</label> <small>(for users to consider when making FOI requests to the authority)</small><br/>
 <%= text_area 'public_body', 'notes', :rows => 3, :cols => 60  %></p>
 

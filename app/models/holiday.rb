@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 74
+# Schema version: 75
 #
 # Table name: holidays
 #
@@ -21,7 +21,7 @@
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: holiday.rb,v 1.4 2009-03-16 21:06:07 francis Exp $
+# $Id: holiday.rb,v 1.5 2009-04-13 09:18:48 tony Exp $
 
 class Holiday < ActiveRecord::Base
 
