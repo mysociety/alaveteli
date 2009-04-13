@@ -167,17 +167,17 @@ describe InfoRequest do
             @info_request = InfoRequest.new
         end
         
-        it 'should return true if it\'s described state is error_message' do 
+        it 'should return true if its described state is error_message' do 
             @info_request.described_state = 'error_message'
             @info_request.requires_admin?.should be_true
         end
         
-        it 'should return true if it\'s described state is requires_admin' do 
+        it 'should return true if its described state is requires_admin' do 
             @info_request.described_state = 'requires_admin'
             @info_request.requires_admin?.should be_true
         end
         
-        it 'should return false if it\'s described state is waiting_response' do 
+        it 'should return false if its described state is waiting_response' do 
             @info_request.described_state = 'waiting_response'
             @info_request.requires_admin?.should be_false
         end
@@ -247,7 +247,7 @@ describe InfoRequest do
             @info_request.is_old_unclassified?.should be_false
         end
         
-        it 'should return false if it\'s last response event occurred less than 14 days ago' do 
+        it 'should return false if its last response event occurred less than 14 days ago' do 
             @mock_response_event.stub!(:created_at).and_return(Time.now - 13.days)
             @info_request.is_old_unclassified?.should be_false
         end
