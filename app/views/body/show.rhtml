@@ -10,6 +10,9 @@
     <% if !@public_body.publication_scheme.empty? %>
         <%= link_to "Publication scheme", @public_body.publication_scheme %><br>
     <% end %>
+    <% if !@public_body.charity_number.empty? %>
+        <%= link_to "Charity overview", 'http://www.charity-commission.gov.uk/SHOWCHARITY/RegisterOfCharities/CharityWithPartB.aspx?RegisteredCharityNumber=' + @public_body.charity_number %><br>
+    <% end %>
     <%= link_to "View FOI email address", view_public_body_email_url(@public_body.url_name) %>
 </div> 
 

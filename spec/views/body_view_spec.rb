@@ -8,6 +8,7 @@ describe "when viewing a body" do
                          :short_name => 'tq',
                          :url_name => 'testquango', 
                          :notes => '',
+                         :charity_number => '',
                          :type_of_authority => 'A public body',
                          :eir_only? => nil,
                          :info_requests => [1, 2, 3, 4], # out of sync with Xapian
@@ -58,6 +59,22 @@ describe "when viewing a body" do
         render "body/show"
         response.should have_tag("p", /The search index is currently offline/m)
     end
+
+    it "should link to Charity Commission site if we have a number" do
+        @pb.stub!(:charity_number).and_return('98765')
+        render "body/show"
+        response.should have_tag("div#request_sidebar") do
+            with_tag("a[href*=?]", /charity-commission.gov.uk.*RegisteredCharityNumber=98765$/)
+        end
+    end 
+
+    it "should not link to Charity Commission site if we don't have number" do
+        render "body/show"
+        response.should_not have_tag("div#request_sidebar") do
+            with_tag("a[href*=?]", /charity-commission.gov.uk/)
+        end
+    end 
+
 
 end
 
