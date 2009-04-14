@@ -22,20 +22,46 @@ describe 'when showing the form for describing the state of a request' do
         assigns[:info_request] = @mock_request
     end
     
-    describe 'if the user is a regular user' do
+    describe 'if the user is a regular user (not the request owner)' do
         
         before do 
             assigns[:is_owning_user] = false
         end
         
-        it 'should not show the form' do 
-            do_render
-            response.should_not have_tag('form')
-        end
+        describe 'if the request is not old and unclassified' do 
+            
+            it 'should not show the form' do 
+                do_render
+                response.should_not have_tag('h2', :text => 'What best describes the status of this request now?')
+            end
         
-        it 'should give a link to login' do 
-            do_render
-            response.should have_tag('a', :text => 'sign in')
+            it 'should give a link to login' do 
+                do_render
+                response.should have_tag('a', :text => 'sign in')
+            end
+            
+        end
+       
+        describe 'if the request is old and unclassified' do 
+            
+            before do
+                assigns[:old_unclassified] = true
+            end
+            
+            it 'should not show the form' do 
+                do_render
+                response.should_not have_tag('h2', :text => 'What best describes the status of this request now?')
+            end
+            
+            it 'should show the form for someone else to classify the request' do 
+                do_render
+                response.should have_tag('h2', :text => 'Can you help us by describing the status of this request now?')
+            end
+            
+            it 'should not give a link to login' do 
+                do_render
+                response.should_not have_tag('a', :text => 'sign in')
+            end
         end
             
     end

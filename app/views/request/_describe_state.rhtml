@@ -93,14 +93,17 @@
         <%= submit_tag "Submit status" %> (and we'll suggest <strong>what to do next</strong>)
         </p>
     <% end %>
+<% elsif @old_unclassified %>
+    <%= render :partial => 'other_describe_state', :locals => {:id_suffix => id_suffix } %>
 <% else %>
-        We don't know whether the most recent response to this request contains
-        information or not 
-            &ndash;
-        if you are
-            <%= user_link(@info_request.user) %>,
-        please 
-            <%= link_to "sign in", signin_url(:r => request.request_uri) %>
-        and let everyone know.
+    We don't know whether the most recent response to this request contains
+    information or not 
+        &ndash;
+    if you are
+        <%= user_link(@info_request.user) %>,
+    please 
+        <%= link_to "sign in", signin_url(:r => request.request_uri) %>
+    and let everyone know.    
+
 <% end %>
 

@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.155 2009-04-07 10:32:54 louise Exp $
+# $Id: request_controller.rb,v 1.156 2009-04-14 13:36:32 louise Exp $
 
 class RequestController < ApplicationController
     
@@ -26,6 +26,7 @@ class RequestController < ApplicationController
         @collapse_quotes = params[:unfold] ? false : true
         @update_status = params[:update_status] ? true : false    
         @is_owning_user = @info_request.is_owning_user?(authenticated_user)
+        @old_unclassified = @info_request.is_old_unclassified? && !authenticated_user.nil?
         
         if @update_status
             return if !@is_owning_user && !authenticated_as_user?(@info_request.user,
@@ -248,11 +249,11 @@ class RequestController < ApplicationController
         @is_owning_user = @info_request.is_owning_user?(authenticated_user)       
         @events_needing_description = @info_request.events_needing_description
         @last_info_request_event_id = @info_request.last_event_id_needing_description
-        @new_responses_count = @events_needing_description.select {|i| i.event_type == 'response'}.size
-
+        @old_unclassified = @info_request.is_old_unclassified? && !authenticated_user.nil?
+        
         # Check authenticated, and parameters set. We check is_owning_user
         # to get admin overrides (see owns_every_request? above)
-        if !@is_owning_user && !authenticated_as_user?(@info_request.user,
+        if !@old_unclassified && !@is_owning_user && !authenticated_as_user?(@info_request.user,
                 :web => "To classify the response to this FOI request",
                 :email => "Then you can classify the FOI response you have got from " + @info_request.public_body.name + ".",
                 :email_subject => "Classify an FOI response from " + @info_request.public_body.name
@@ -278,6 +279,13 @@ class RequestController < ApplicationController
         
         if User.owns_every_request?(authenticated_user)
             flash[:notice] = '<p>The request status has been updated</p>'
+            redirect_to request_url(@info_request)
+            return
+        end
+        
+        if @old_unclassified && !@is_owning_user
+            flash[:notice] = '<p>Thank you for updating this request!</p>'
+            RequestMailer.deliver_old_unclassified_updated(@info_request)
             redirect_to request_url(@info_request)
             return
         end

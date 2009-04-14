@@ -1,0 +1,72 @@
+
+
+<% form_for(:incoming_message, @info_request, :url => describe_state_url(:id => @info_request.id)) do |f| %>
+    <h2>Can you help us by describing the status of this request now?</h2>
+
+    <hr> <!------------------------------------------------>
+
+    <% if @info_request.described_state != 'internal_review' %>
+        <div>
+            <%= radio_button "incoming_message", "described_state", "waiting_response", :id => 'waiting_response' + id_suffix %>
+            <label for="waiting_response<%=id_suffix%>"> <strong>No response</strong> has been received</label>
+        </div>
+    <% end %>
+    <% if @info_request.described_state == 'internal_review' %>
+        <div>
+            <%= radio_button "incoming_message", "described_state", "internal_review", :id => 'internal_review' + id_suffix %>
+            <label for="internal_review<%=id_suffix%>">Still awaiting an <strong>internal review</strong></label>
+        </div>
+    <% end %>
+
+    <% if @info_request.described_state != 'internal_review' %>
+        <div>
+            <%= radio_button "incoming_message", "described_state", "waiting_clarification", :id => 'waiting_clarification' + id_suffix %>
+            <label for="waiting_clarification<%=id_suffix%>"><strong>Clarification</strong> has been requested</label>
+        </div>
+    <% end %>
+    
+    <div>
+        <%= radio_button "incoming_message", "described_state", "gone_postal", :id => 'gone_postal' + id_suffix %>
+        <label for="gone_postal<%=id_suffix%>">A response will be sent <strong>by post</strong></label>
+    </div>
+
+    <hr> <!------------------------------------------------>
+
+    <% if @info_request.described_state == 'internal_review' %>
+        <p>The <strong>review has finished</strong> and overall:</p>
+    <% end %>
+
+    <div>
+        <%= radio_button "incoming_message", "described_state", "not_held", :id => 'not_held' + id_suffix %>
+        <label for="not_held<%=id_suffix%>">The authority do <strong>not have</strong> the information <small>(maybe they say who does)</small></label>
+    </div>
+    <div>
+        <%= radio_button "incoming_message", "described_state", "partially_successful", :id => 'partially_successful' + id_suffix %>
+        <label for="partially_successful<%=id_suffix%>"><strong>Some of the information</strong> has been sent </label>
+    </div>
+    <div>
+        <%= radio_button "incoming_message", "described_state", "successful", :id => 'successful' + id_suffix %>
+        <label for="successful<%=id_suffix%>"><strong>All the information</strong> has been sent</label>
+    </div>
+    <div>
+        <%= radio_button "incoming_message", "described_state", "rejected", :id => 'rejected' + id_suffix %>
+        <label for="rejected<%=id_suffix%>">The request has been <strong>rejected</strong></label>
+    </div>
+
+    <hr> <!------------------------------------------------>
+
+    <div>
+       <%= radio_button "incoming_message", "described_state", "error_message", :id => 'error_message' + id_suffix %>
+        <label for="error_message<%=id_suffix%>">
+        An <strong>error message</strong> has been received
+        </label>
+    </div>
+    
+    <hr>
+
+    <p>
+    <%= hidden_field_tag 'last_info_request_event_id', @last_info_request_event_id, :id => 'last_info_request_event_id' + id_suffix %>
+    <%= hidden_field_tag 'submitted_describe_state', 1, :id => 'submitted_describe_state' + id_suffix %>
+    <%= submit_tag "Submit status" %>
+    </p>
+<% end %>
