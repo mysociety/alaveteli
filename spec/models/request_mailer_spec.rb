@@ -1,10 +1,8 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe RequestMailer, " when receiving incoming mail" do
+    
     fixtures :info_requests, :incoming_messages, :raw_emails, :users, :public_bodies
-
-    before do
-    end
 
     it "should append it to the appropriate request" do
         ir = info_requests(:fancy_dog_request) 
@@ -131,7 +129,7 @@ describe RequestMailer, " when working out follow up addresses" do
         RequestMailer.email_for_followup(ir, im).should == "foiperson@localhost"
     end
 
- end
+end
 
 describe RequestMailer, "when sending reminders to requesters to classify a response to their request" do 
 
@@ -209,6 +207,29 @@ describe RequestMailer, "when sending reminders to requesters to classify a resp
             RequestMailer.should_receive(:deliver_new_response_reminder_alert)
             send_alerts
         end
+    end
+    
+end
+
+describe RequestMailer, 'when sending mail when someone has updated an old unclassified request' do
+
+    before do 
+        @user = mock_model(User, :name_and_email => 'test name and email')
+        @public_body = mock_model(PublicBody, :name => 'Test public body')
+        @info_request = mock_model(InfoRequest, :user => @user,
+                                                :law_used_full => 'Freedom of Information', 
+                                                :title => 'Test request', 
+                                                :public_body => @public_body, 
+                                                :url_title => 'test_request')
+        @mail = RequestMailer.create_old_unclassified_updated(@info_request) 
+    end
+    
+    it 'should have the subject "Someone has updated the status of your request"' do 
+        @mail.subject.should == 'Someone has updated the status of your request'
+    end
+    
+    it 'should contain the request path' do 
+        @mail.body.should match(/request\/test_request/)
     end
     
 end

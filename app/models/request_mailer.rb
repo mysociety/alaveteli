@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.73 2009-04-08 16:41:52 louise Exp $
+# $Id: request_mailer.rb,v 1.74 2009-04-14 11:16:41 louise Exp $
 
 class RequestMailer < ApplicationMailer
     
@@ -154,6 +154,15 @@ class RequestMailer < ApplicationMailer
         @recipients = info_request.user.name_and_email
         @subject = "Was the response you got the other day any good?"
         @body = { :incoming_message => incoming_message, :info_request => info_request, :url => url }
+    end
+
+    # Tell the requester that someone updated their old unclassified request
+    def old_unclassified_updated(info_request)
+        @from = contact_from_name_and_email
+        @recipients = info_request.user.name_and_email
+        @subject = "Someone has updated the status of your request"
+        url = main_url(request_url(info_request))
+        @body = {:info_request => info_request, :url => url}
     end
 
     # Tell the requester that they need to clarify their request
