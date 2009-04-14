@@ -711,6 +711,13 @@ module ActsAsXapian
                 job.save!
             end
         end
+        
+        # Allow reindexing to be skipped if a flag is set
+        def xapian_mark_needs_index_if_reindex
+            return true if (self.respond_to?(:no_xapian_reindex) && self.no_xapian_reindex == true)
+            xapian_mark_needs_index
+        end
+        
         def xapian_mark_needs_destroy
             model = self.class.base_class.to_s
             model_id = self.id
@@ -743,7 +750,7 @@ module ActsAsXapian
 
             ActsAsXapian.init(self.class.to_s, options)
 
-            after_save :xapian_mark_needs_index
+            after_save :xapian_mark_needs_index_if_reindex
             after_destroy :xapian_mark_needs_destroy
         end
     end

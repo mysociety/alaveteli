@@ -18,11 +18,11 @@ describe TrackMailer do
         describe 'for each user' do 
         
             before do 
-                @user = mock_model(User, :no_reindex= => false,
+                @user = mock_model(User, :no_xapian_reindex= => false,
                                          :last_daily_track_email= => true, 
                                          :save! => true)
                 User.stub!(:find).and_return([@user])
-                @user.stub!(:no_reindex=)
+                @user.stub!(:no_xapian_reindex=)
             end
             
             it 'should ask for any daily track things for the user' do 
@@ -32,8 +32,8 @@ describe TrackMailer do
             end
             
             
-            it 'should set the no_reindex flag on the user' do 
-                @user.should_receive(:no_reindex=).with(true)
+            it 'should set the no_xapian_reindex flag on the user' do 
+                @user.should_receive(:no_xapian_reindex=).with(true)
                 TrackMailer.alert_tracks
             end
             
