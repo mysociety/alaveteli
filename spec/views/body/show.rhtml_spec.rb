@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require File.dirname(__FILE__) + '/../../spec_helper'
 
 describe "when viewing a body" do
 
@@ -70,8 +70,8 @@ describe "when viewing a body" do
 
     it "should not link to Charity Commission site if we don't have number" do
         render "body/show"
-        response.should_not have_tag("div#request_sidebar") do
-            with_tag("a[href*=?]", /charity-commission.gov.uk/)
+        response.should have_tag("div#request_sidebar") do
+            without_tag("a[href*=?]", /charity-commission.gov.uk/)
         end
     end 
 
