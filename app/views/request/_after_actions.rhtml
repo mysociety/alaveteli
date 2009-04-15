@@ -5,6 +5,9 @@
     <div id="anyone_actions">
         <%= link_to "Add an annotation", new_comment_url(:url_title => @info_request.url_title) %> (to help
         the requester or others)
+        <% if @old_unclassified %> 
+        |      <%= link_to "Update the status of this request", '#describe_state_form_1' %>
+        <% end %>
     </div>
 
     <div id="owner_actions">
@@ -14,8 +17,9 @@
       <% else %>
           <%= link_to "Reply to " + RequestMailer.name_for_followup(@info_request, @last_response), show_response_url(:id => @info_request.id, :incoming_message_id => @last_response.id) + "#followup" %> 
       <% end %>
-      |
-      <%= link_to "Update the status of this request", request_url(@info_request, :update_status => 1) %>
+      <% if !@old_unclassified %>
+      | <%= link_to "Update the status of this request", request_url(@info_request, :update_status => 1) %>
+      <% end %>
       |
       <%= link_to "Request an internal review", show_response_no_followup_url(:id => @info_request.id, :incoming_message_id => nil) + "?internal_review=1#followup" %> 
     </div>

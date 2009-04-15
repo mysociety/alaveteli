@@ -28,10 +28,17 @@
             Please <strong>answer the question above</strong> so we know whether the 
             <%= MySociety::Format.fancy_pluralize(@new_responses_count, 'recent response contains', 'recent responses contain') %> useful information.
         <% else %>
-            This request has an <strong>unknown status</strong>. We're waiting for
-            <%= user_link(@info_request.user) %> to read 
-            <%= MySociety::Format.fancy_pluralize(@new_responses_count, 'a recent response', 'recent responses') %> 
-            and update the status.
+            This request has an <strong>unknown status</strong>. 
+            <% if @old_unclassified %>
+              We're waiting for someone to read 
+              <%= MySociety::Format.fancy_pluralize(@new_responses_count, 'a recent response', 'recent responses') %>
+              and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?
+            <% else %>
+              We're waiting for
+              <%= user_link(@info_request.user) %> to read 
+              <%= MySociety::Format.fancy_pluralize(@new_responses_count, 'a recent response', 'recent responses') %> 
+              and update the status.
+            <% end %>
         <% end %>
     <% elsif @status == 'waiting_response' %>
         Currently <strong>waiting for a response</strong> from <%= public_body_link(@info_request.public_body) %>,
