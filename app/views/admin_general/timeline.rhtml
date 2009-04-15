@@ -79,6 +79,8 @@
             had a follow up message sent to <%=h event.info_request.public_body.name %>.
         <% elsif event.event_type == 'comment' %>
             had an annotation posted by <%=h event.comment.user.name %>.
+        <% elsif event.event_type == 'status_update' %>
+                had its status updated by <%=h User.find(event.params[:user_id]).name %> from '<%= h event.params[:old_described_state] %>' to '<%= h event.params[:described_state] %>'.
         <% else %>
             had '<%=event.event_type%>' done to it, parameters <%=h event.params_yaml%>.
         <% end %>

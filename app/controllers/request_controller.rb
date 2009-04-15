@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.156 2009-04-14 13:36:32 louise Exp $
+# $Id: request_controller.rb,v 1.157 2009-04-15 18:15:30 louise Exp $
 
 class RequestController < ApplicationController
     
@@ -275,7 +275,17 @@ class RequestController < ApplicationController
         end
 
         # Make the state change
+        old_described_state = @info_request.described_state
         @info_request.set_described_state(params[:incoming_message][:described_state])
+        
+        # Log it if not made by user
+        if authenticated_user != @info_request.user
+            @info_request.log_event("status_update", 
+                { :user_id => authenticated_user.id, 
+                  :old_described_state => old_described_state, 
+                  :described_state => @info_request.described_state,
+                })
+        end
         
         if User.owns_every_request?(authenticated_user)
             flash[:notice] = '<p>The request status has been updated</p>'

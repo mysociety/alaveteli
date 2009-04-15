@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request_event.rb,v 1.79 2009-04-13 09:18:48 tony Exp $
+# $Id: info_request_event.rb,v 1.80 2009-04-15 18:15:30 louise Exp $
 
 class InfoRequestEvent < ActiveRecord::Base
     belongs_to :info_request
@@ -47,7 +47,8 @@ class InfoRequestEvent < ActiveRecord::Base
         'redeliver_incoming', # redelivered an incoming message elsewhere
         'manual', # you did something in the db by hand
         'response',
-        'comment'
+        'comment', 
+        'status_update' 
     ]
 
     # user described state (also update in info_request)

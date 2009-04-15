@@ -365,6 +365,14 @@ describe RequestController, "when classifying an information request" do
                 post_status('rejected')
             end
         
+            it 'should log a status update event' do 
+                expected_params = {:user_id => users(:silly_name_user).id, 
+                                   :old_described_state => 'waiting_response', 
+                                   :described_state => 'rejected'}
+                @dog_request.should_receive(:log_event).with("status_update", expected_params)
+                post_status('rejected')
+            end
+            
             it 'should send an email to the requester letting them know someone has updated the status of their request' do 
                 RequestMailer.should_receive(:deliver_old_unclassified_updated)
                 post_status('rejected')
@@ -398,6 +406,14 @@ describe RequestController, "when classifying an information request" do
             post_status('rejected')
         end
         
+        it 'should log a status update event' do 
+            expected_params = {:user_id => @admin_user.id, 
+                               :old_described_state => 'waiting_response', 
+                               :described_state => 'rejected'}
+            @dog_request.should_receive(:log_event).with("status_update", expected_params)
+            post_status('rejected')
+        end
+        
         it 'should show the message "The request status has been updated"' do 
             post_status('rejected')
             flash[:notice].should == '<p>The request status has been updated</p>'
@@ -428,6 +444,11 @@ describe RequestController, "when classifying an information request" do
             @dog_request.get_last_response_event.calculated_state.should == 'rejected'
         end
 
+        it 'should not log a status update event' do 
+            @dog_request.should_not_receive(:log_event)
+            post_status('rejected')
+        end
+        
         it 'should not send an email to the requester letting them know someone has updated the status of their request' do 
             RequestMailer.should_not_receive(:deliver_old_unclassified_updated)
             post_status('rejected')
