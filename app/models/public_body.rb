@@ -26,7 +26,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.140 2009-04-13 09:18:48 tony Exp $
+# $Id: public_body.rb,v 1.141 2009-04-21 17:10:21 francis Exp $
 
 require 'csv'
 require 'set'
@@ -207,6 +207,20 @@ class PublicBody < ActiveRecord::Base
     end
     def variety
         "authority"
+    end
+
+    # if the URL name has changed, then all requested_from: queries
+    # will break unless we update index for every event for every
+    # request linked to it
+    after_save :reindex_requested_from
+    def reindex_requested_from
+        if self.changes.include?('url_name')
+            for info_request in self.info_requests
+                for info_request_event in info_request.info_request_events
+                    info_request_event.xapian_mark_needs_index
+                end
+            end
+        end
     end
 
     # When name or short name is changed, also change the url name

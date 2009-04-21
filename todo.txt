@@ -1,11 +1,20 @@
 
+When a InfoRequest's url_title changes:
+    [ :request, 'R', "request" ] - all events for that request
+
+When User's url_name changes:
+    [ :requested_by, 'B', "requested_by" ] - all events for all requests by that user
+    [ :commented_by, 'C', "commented_by" ] - all comments made by that user
+
+Rebuild all index - turn off cron meanwhile?
+
 
 Next (things that will reduce admin time mainly)
 ====
 
-Just stop worrying about old requests which are unclassified in status, or
-make it a public wiki? At least improve usability a bit more for the alert
-emails reminding you to fill in status.
+Check up on how the public old request status editing is being used in 
+practice. Think about UI a bit more to try and up rate, and UI of
+alerts to requester.
 
 Enable SPF, to reduce number of requests lost to spam filters
 http://www.openspf.org/SPF_Record_Syntax#include
