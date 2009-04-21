@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user.rb,v 1.91 2009-04-14 11:04:55 louise Exp $
+# $Id: user.rb,v 1.92 2009-04-21 22:48:41 francis Exp $
 
 require 'digest/sha1'
 
@@ -63,6 +63,20 @@ class User < ActiveRecord::Base
     
     def variety
         "user"
+    end
+
+    # if the URL name has changed, then all requested_by: queries
+    # will break unless we update index for every event for every
+    # request linked to it
+    after_save :reindex_requested_by
+    def reindex_requested_by
+        if self.changes.include?('url_name')
+            for info_request in self.info_requests
+                for info_request_event in info_request.info_request_events
+                    info_request_event.xapian_mark_needs_index
+                end
+            end
+        end
     end
 
     def after_initialize
