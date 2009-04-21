@@ -37,7 +37,26 @@ describe IncomingMessage, " display attachments" do
         foi_attachment.display_filename.should == expected_display_filename
     end
 
+end
+
+describe IncomingMessage, " folding quoted parts of emails" do
+
+    it "cope with [ in user names properly" do
+            @user = mock_model(User)
+            @user.stub!(:name).and_return("Sir [ Bobble")
+            @info_request = mock_model(InfoRequest)
+            @info_request.stub!(:user).and_return(@user)
+
+            @incoming_message = IncomingMessage.new()
+            @incoming_message.info_request = @info_request
+
+            # this gives a warning if [ is in the name
+            text = @incoming_message.remove_lotus_quoting("Sir [ Bobble \nSent by: \n")
+            text.should == "\n\nFOLDED_QUOTED_SECTION"
+    end
 
 end
+
+
 
 

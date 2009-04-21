@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.199 2009-04-13 09:18:48 tony Exp $
+# $Id: incoming_message.rb,v 1.200 2009-04-21 10:18:22 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -480,7 +480,7 @@ class IncomingMessage < ActiveRecord::Base
     # Lotus notes quoting yeuch!
     def remove_lotus_quoting(text, replacement = "FOLDED_QUOTED_SECTION")
         text = text.dup
-        name = self.info_request.user.name
+        name = Regexp.escape(self.info_request.user.name)
 
         # To end of message sections
         # http://www.whatdotheyknow.com/request/university_investment_in_the_arm
