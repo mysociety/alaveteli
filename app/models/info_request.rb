@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.186 2009-04-13 09:18:48 tony Exp $
+# $Id: info_request.rb,v 1.187 2009-04-22 01:10:33 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -104,6 +104,18 @@ class InfoRequest < ActiveRecord::Base
             :collapse_by_prefix => collapse
         )
     end
+
+    # if the URL name has changed, then all request: queries
+    # will break unless we update index for every event 
+    after_save :reindex_request_events
+    def reindex_request_events
+        if self.changes.include?('url_title')
+            for info_request_event in self.info_request_events
+                info_request_event.xapian_mark_needs_index
+            end
+        end
+    end
+
 
     # For debugging
     def InfoRequest.profile_search(query)

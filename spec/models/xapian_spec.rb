@@ -151,6 +151,38 @@ describe " when indexing comments by user they are by" do
     end
 end
 
+describe " when indexing requests by their title" do
+    fixtures :info_request_events, :info_requests
+
+    before(:all) do
+        rebuild_xapian_index
+    end
+
+    it "should find events for the request" do
+        xapian_object = InfoRequest.full_search([InfoRequestEvent], "request:how_much_public_money_is_wasted_o", 'created_at', true, nil, 100, 1)
+        xapian_object.results.size.should == 1
+        xapian_object.results[0][:model] == info_request_events(:silly_outgoing_message_event)
+    end
+
+    it "should update index correctly when URL title of request changes" do
+        verbose = false
+
+        # change the URL name of the body
+        ir = info_requests(:naughty_chicken_request)
+        ir.title = 'Really naughty'
+        ir.save!
+        ir.url_title.should == 'really_naughty'
+        ActsAsXapian.update_index(true, verbose) # true = flush to disk
+
+        # check we get results expected
+        xapian_object = InfoRequest.full_search([InfoRequestEvent], "request:how_much_public_money_is_wasted_o", 'created_at', true, nil, 100, 1)
+        xapian_object.results.size.should == 0
+        xapian_object = InfoRequest.full_search([InfoRequestEvent], "request:really_naughty", 'created_at', true, nil, 100, 1)
+        xapian_object.results.size.should == 1
+        xapian_object.results[0][:model] == info_request_events(:silly_outgoing_message_event)
+    end
+end
+
 
 
 

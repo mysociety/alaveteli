@@ -2,9 +2,6 @@
 When a InfoRequest's url_title changes:
     [ :request, 'R', "request" ] - all events for that request
 
-When User's url_name changes:
-    [ :commented_by, 'C', "commented_by" ] - all comments made by that user
-
 Rebuild all index - turn off cron meanwhile?
 
 
