@@ -37,14 +37,11 @@ describe PublicBody, " when indexing public bodies with Xapian" do
 
 end
 
-describe " when indexing requests by body they are to" do
+describe PublicBody, " when indexing requests by body they are to" do
     fixtures :public_bodies, :info_request_events, :info_requests
 
-    before(:all) do
-        rebuild_xapian_index
-    end
-
     it "should find requests to the body" do
+        rebuild_xapian_index
         xapian_object = InfoRequest.full_search([InfoRequestEvent], "requested_from:tgq", 'created_at', true, nil, 100, 1)
         xapian_object.results.size.should == 4
     end
@@ -53,6 +50,7 @@ describe " when indexing requests by body they are to" do
         verbose = false
 
         # initial search
+        rebuild_xapian_index
         xapian_object = InfoRequest.full_search([InfoRequestEvent], "requested_from:tgq", 'created_at', true, nil, 100, 1)
         xapian_object.results.size.should == 4
         models_found_before = xapian_object.results.map { |x| x[:model] }
@@ -75,14 +73,11 @@ describe " when indexing requests by body they are to" do
     end
 end
 
-describe " when indexing requests by user they are from" do
+describe User, " when indexing requests by user they are from" do
     fixtures :users, :info_request_events, :info_requests
 
-    before(:all) do
-        rebuild_xapian_index
-    end
-
     it "should find requests from the user" do
+        rebuild_xapian_index
         xapian_object = InfoRequest.full_search([InfoRequestEvent], "requested_by:bob_smith", 'created_at', true, nil, 100, 1)
         xapian_object.results.size.should == 4
     end
@@ -91,6 +86,7 @@ describe " when indexing requests by user they are from" do
         verbose = false
 
         # initial search
+        rebuild_xapian_index
         xapian_object = InfoRequest.full_search([InfoRequestEvent], "requested_by:bob_smith", 'created_at', true, nil, 100, 1)
         xapian_object.results.size.should == 4
         models_found_before = xapian_object.results.map { |x| x[:model] }
@@ -113,14 +109,11 @@ describe " when indexing requests by user they are from" do
     end
 end
 
-describe " when indexing comments by user they are by" do
+describe User, " when indexing comments by user they are by" do
     fixtures :users, :info_request_events, :info_requests, :comments
 
-    before(:all) do
-        rebuild_xapian_index
-    end
-
     it "should find requests from the user" do
+        rebuild_xapian_index
         xapian_object = InfoRequest.full_search([InfoRequestEvent], "commented_by:silly_emnameem", 'created_at', true, nil, 100, 1)
         xapian_object.results.size.should == 1
     end
@@ -129,6 +122,7 @@ describe " when indexing comments by user they are by" do
         verbose = false
 
         # initial search
+        rebuild_xapian_index
         xapian_object = InfoRequest.full_search([InfoRequestEvent], "commented_by:silly_emnameem", 'created_at', true, nil, 100, 1)
         xapian_object.results.size.should == 1
         models_found_before = xapian_object.results.map { |x| x[:model] }
@@ -151,14 +145,11 @@ describe " when indexing comments by user they are by" do
     end
 end
 
-describe " when indexing requests by their title" do
+describe InfoRequest, " when indexing requests by their title" do
     fixtures :info_request_events, :info_requests
 
-    before(:all) do
-        rebuild_xapian_index
-    end
-
     it "should find events for the request" do
+        rebuild_xapian_index
         xapian_object = InfoRequest.full_search([InfoRequestEvent], "request:how_much_public_money_is_wasted_o", 'created_at', true, nil, 100, 1)
         xapian_object.results.size.should == 1
         xapian_object.results[0][:model] == info_request_events(:silly_outgoing_message_event)
@@ -168,6 +159,7 @@ describe " when indexing requests by their title" do
         verbose = false
 
         # change the URL name of the body
+        rebuild_xapian_index
         ir = info_requests(:naughty_chicken_request)
         ir.title = 'Really naughty'
         ir.save!

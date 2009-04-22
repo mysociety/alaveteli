@@ -125,29 +125,32 @@ describe User, "when reindexing referencing models" do
         @user = User.new(:comments => [@comment], :info_requests => [@request])
     end
     
-    it 'should reindex events associated with that user\'s comments' do 
+    it 'should reindex events associated with that user\'s comments when URL changes' do 
+        @user.stub!(:changes).and_return({'url_name' => 1})
         @comment_event.should_receive(:xapian_mark_needs_index)
         @user.reindex_referencing_models
     end
     
-    it 'should reindex events associated with that user\'s requests' do 
+    it 'should reindex events associated with that user\'s requests when URL changes' do 
+        @user.stub!(:changes).and_return({'url_name' => 1})
         @request_event.should_receive(:xapian_mark_needs_index)
         @user.reindex_referencing_models
     end
     
     describe 'when no_xapian_reindex is set' do 
-        
         before do 
             @user.no_xapian_reindex = true
         end
             
-        it 'should not reindex events associated with that user\'s comments' do 
+        it 'should not reindex events associated with that user\'s comments when URL changes' do 
+            @user.stub!(:changes).and_return({'url_name' => 1})
             @comment_event.should_not_receive(:xapian_mark_needs_index)
             @user.reindex_referencing_models
         end
         
-        it 'should not reindex events associated with that user\'s requests' do 
-            @request_event.should_not_receive(:xapian_mark_needs_index)
+        it 'should not reindex events associated with that user\'s requests when URL changes' do 
+        @user.stub!(:changes).and_return({'url_name' => 1})
+        @request_event.should_not_receive(:xapian_mark_needs_index)
             @user.reindex_referencing_models
         end
     

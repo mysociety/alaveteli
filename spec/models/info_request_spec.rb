@@ -96,16 +96,10 @@ describe InfoRequest do
             rebuild_xapian_index
             verbose = false
 
-            # check can just update index
-            info_request_events(:useless_incoming_message_event).save!
-            ActsAsXapian.update_index(false, verbose)
-
-            # then delete it under it
+            # delete event from underneath indexing; shouldn't cause error
             info_request_events(:useless_incoming_message_event).save!
             info_request_events(:useless_incoming_message_event).destroy
-            ActsAsXapian.update_index(false, verbose)
-
-           # raise ActsAsXapian::ActsAsXapianJob.find(:all).to_yaml
+            ActsAsXapian.update_index(true, verbose)
         end
 
     end 
