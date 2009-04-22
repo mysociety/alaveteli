@@ -206,11 +206,11 @@ module ActsAsXapian
         
         prepare_environment
 
-        new_path = @@db_path + suffix
+        full_path = @@db_path + suffix
         raise "writable_suffix/suffix inconsistency" if @@writable_suffix && @@writable_suffix != suffix
 
         # for indexing
-        @@writable_db = Xapian::WritableDatabase.new(new_path, Xapian::DB_CREATE_OR_OPEN)
+        @@writable_db = Xapian::WritableDatabase.new(full_path, Xapian::DB_CREATE_OR_OPEN)
         @@term_generator = Xapian::TermGenerator.new()
         @@term_generator.set_flags(Xapian::TermGenerator::FLAG_SPELLING, 0)
         @@term_generator.database = @@writable_db
@@ -509,7 +509,7 @@ module ActsAsXapian
     # logging in the database that it has been.
     def ActsAsXapian.update_index(flush = false, verbose = false)
         # STDOUT.puts("start of ActsAsXapian.update_index") if verbose
-
+        
         # Before calling writable_init we have to make sure every model class has been initialized.
         # i.e. has had its class code loaded, so acts_as_xapian has been called inside it, and
         # we have the info from acts_as_xapian.
@@ -518,6 +518,12 @@ module ActsAsXapian
         return if model_classes.size == 0
 
         ActsAsXapian.writable_init
+
+        # Abort if full rebuild is going on
+        new_path = ActsAsXapian.db_path + ".new"
+        if File.exist?(new_path)
+            raise "aborting incremental index update while full index rebuild happens; found existing " + new_path
+        end
 
         ids_to_refresh = ActsAsXapianJob.find(:all).map() { |i| i.id }
         for id in ids_to_refresh
@@ -566,8 +572,12 @@ module ActsAsXapian
         end
     end
         
-    # You must specify *all* the models here, this totally rebuilds the Xapian database.
-    # You'll want any readers to reopen the database after this.
+    # You must specify *all* the models here, this totally rebuilds the Xapian
+    # database.  You'll want any readers to reopen the database after this.
+    #
+    # Incremental update_index calls above are suspended while this rebuild
+    # happens (i.e. while the .new database is there) - any index update jobs
+    # are left in the database, and will run after the rebuild has finished.
     def ActsAsXapian.rebuild_index(model_classes, verbose = false)
         raise "when rebuilding all, please call as first and only thing done in process / task" if not ActsAsXapian.writable_db.nil?
 
@@ -582,12 +592,6 @@ module ActsAsXapian
         ActsAsXapian.writable_init(".new")
 
         # Index everything 
-        # XXX not a good place to do this destroy, as unindexed list is lost if
-        # process is aborted and old database carries on being used. Perhaps do in
-        # transaction and commit after rename below? Not sure if thenlocking is then bad
-        # for live website running at same time.
-        
-        ActsAsXapianJob.destroy_all 
         batch_size = 1000
         for model_class in model_classes
           model_class.transaction do
