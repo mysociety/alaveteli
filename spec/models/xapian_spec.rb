@@ -113,6 +113,48 @@ describe " when indexing requests by user they are from" do
     end
 end
 
+describe " when indexing comments by user they are by" do
+    fixtures :users, :info_request_events, :info_requests, :comments
+
+    before(:all) do
+        rebuild_xapian_index
+    end
+
+    it "should find requests from the user" do
+        xapian_object = InfoRequest.full_search([InfoRequestEvent], "commented_by:silly_emnameem", 'created_at', true, nil, 100, 1)
+        xapian_object.results.size.should == 1
+    end
+
+    it "should update index correctly when URL name of user changes" do
+        verbose = false
+
+        # initial search
+        xapian_object = InfoRequest.full_search([InfoRequestEvent], "commented_by:silly_emnameem", 'created_at', true, nil, 100, 1)
+        xapian_object.results.size.should == 1
+        models_found_before = xapian_object.results.map { |x| x[:model] }
+
+        # change the URL name of the body
+        u = users(:silly_name_user)
+        u.name = 'Silly Name'
+        u.save!
+        u.url_name.should == 'silly_name'
+        ActsAsXapian.update_index(true, verbose) # true = flush to disk
+
+        # check we get results expected
+        xapian_object = InfoRequest.full_search([InfoRequestEvent], "commented_by:silly_emnameem", 'created_at', true, nil, 100, 1)
+        xapian_object.results.size.should == 0
+        xapian_object = InfoRequest.full_search([InfoRequestEvent], "commented_by:silly_name", 'created_at', true, nil, 100, 1)
+        xapian_object.results.size.should == 1
+        models_found_after = xapian_object.results.map { |x| x[:model] }
+
+        models_found_before.should == models_found_after
+    end
+end
+
+
+
+
+
 
 
 
