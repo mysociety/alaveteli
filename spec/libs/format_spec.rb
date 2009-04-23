@@ -12,12 +12,14 @@ describe "when making clickable" do
     it "should make wrapped URLs in angle brackets clickable" do
         text = """<http://www.flou
 rish.org/bl
-og>"""
+og>
+
+More stuff and then another angle bracket >"""
         text = CGI.escapeHTML(text)
 
         formatted = MySociety::Format.make_clickable(text)
 
-        formatted.should == "&lt;<a href='http://www.flourish.org/blog'>http://www.flourish.org/blog</a>&gt;"
+        formatted.should == "&lt;<a href='http://www.flourish.org/blog'>http://www.flourish.org/blog</a>&gt;\n\nMore stuff and then another angle bracket &gt;"
     end
 
 end
