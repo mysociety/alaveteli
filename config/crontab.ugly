@@ -4,13 +4,13 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org. WWW: http://www.mysociety.org/
 #
-# $Id: crontab.ugly,v 1.24 2009-04-15 08:45:08 louise Exp $
+# $Id: crontab.ugly,v 1.25 2009-04-23 10:28:10 francis Exp $
 
 PATH=/usr/local/bin:/usr/bin:/bin
 MAILTO=team@whatdotheyknow.com
 
-# Every 10 minutes
-*/10 * * * * !!(*= $user *)!! run-with-lockfile -n /data/vhost/!!(*= $vhost *)!!/update-xapian-index.lock /data/vhost/!!(*= $vhost *)!!/mysociety/foi/script/update-xapian-index || echo "stalled?"
+# Every 5 minutes
+*/5 * * * * !!(*= $user *)!! run-with-lockfile -n /data/vhost/!!(*= $vhost *)!!/update-xapian-index.lock /data/vhost/!!(*= $vhost *)!!/mysociety/foi/script/update-xapian-index || echo "stalled?"
 # Every 20 minutes
 5,25,45 * * * * !!(*= $user *)!! run-with-lockfile -n /data/vhost/!!(*= $vhost *)!!/alert-tracks.lock /data/vhost/!!(*= $vhost *)!!/mysociety/foi/script/alert-tracks || echo "stalled?"
 
