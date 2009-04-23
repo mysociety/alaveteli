@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.188 2009-04-23 09:20:50 tony Exp $
+# $Id: info_request.rb,v 1.189 2009-04-23 14:20:47 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -105,11 +105,11 @@ class InfoRequest < ActiveRecord::Base
         )
     end
 
-    # if the URL name has changed, then all request: queries
-    # will break unless we update index for every event 
+    # If the URL name has changed, then all request: queries will break unless
+    # we update index for every event. Also reindex if prominence changes.
     after_update :reindex_request_events
     def reindex_request_events
-        if self.changes.include?('url_title')
+        if self.changes.include?('url_title') || self.changes.include?('prominence')
             for info_request_event in self.info_request_events
                 info_request_event.xapian_mark_needs_index
             end
