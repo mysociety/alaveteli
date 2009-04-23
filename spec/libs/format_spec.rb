@@ -10,7 +10,8 @@ describe "when making clickable" do
     end
 
     it "should make wrapped URLs in angle brackets clickable" do
-        text = """<http://www.flourish.org/bl
+        text = """<http://www.flou
+rish.org/bl
 og>"""
         text = CGI.escapeHTML(text)
 
