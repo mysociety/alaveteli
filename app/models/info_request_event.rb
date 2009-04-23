@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request_event.rb,v 1.80 2009-04-15 18:15:30 louise Exp $
+# $Id: info_request_event.rb,v 1.81 2009-04-23 13:08:49 tony Exp $
 
 class InfoRequestEvent < ActiveRecord::Base
     belongs_to :info_request
@@ -194,6 +194,10 @@ class InfoRequestEvent < ActiveRecord::Base
     def params
         YAML.load(self.params_yaml)
     end
+
+    def is_incoming_message?()  not self.incoming_message.nil?  end 
+    def is_outgoing_message?()  not self.outgoing_message.nil?  end 
+    def is_comment?()           not self.comment.nil?           end 
 
     # Display version of status
     def display_status
