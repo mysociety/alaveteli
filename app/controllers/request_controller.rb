@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.157 2009-04-15 18:15:30 louise Exp $
+# $Id: request_controller.rb,v 1.158 2009-04-23 13:32:21 tony Exp $
 
 class RequestController < ApplicationController
     
@@ -355,9 +355,9 @@ class RequestController < ApplicationController
     # proper URL for the message the event refers to
     def show_request_event
         @info_request_event = InfoRequestEvent.find(params[:info_request_event_id])
-        if not @info_request_event.incoming_message.nil?
+        if @info_request_event.is_incoming_message?
             redirect_to incoming_message_url(@info_request_event.incoming_message)
-        elsif not @info_request_event.outgoing_message.nil?
+        elsif @info_request_event.is_outgoing_message?
             redirect_to outgoing_message_url(@info_request_event.outgoing_message)
         else
             # XXX maybe there are better URLs for some events than this

@@ -88,9 +88,9 @@ def mock_event
             :public_body => @pb,
             :user => mock_model(User, :name => 'Test User', :url_name => 'testuser')
         ),
-        :incoming_message => nil,
-        :outgoing_message => nil,
-        :comment => nil,
+        :incoming_message => nil, :is_incoming_message? => false,
+        :outgoing_message => nil, :is_outgoing_message? => false,
+        :comment => nil,          :is_comment? => false,
         :event_type => 'sent',
         :created_at => Time.now - 4.days,
         :search_text_main => ''

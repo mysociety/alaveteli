@@ -35,11 +35,11 @@
                 main_text += " (" + simple_date(event.created_at) + ")\n"
 
                 # Main text, wrapped, words highlighted with * and indented.
-                if not event.outgoing_message.nil?
+                if event.is_outgoing_message?
                     extract = highlight_and_excerpt(event.outgoing_message.get_text_for_indexing, @highlight_words, 150, false)
-                elsif not event.incoming_message.nil?
+                elsif event.is_incoming_message?
                     extract = highlight_and_excerpt(event.incoming_message.get_text_for_indexing, @highlight_words, 150, false)
-                elsif not event.comment.nil?
+                elsif event.is_comment?
                     extract = highlight_and_excerpt(event.comment.body, @highlight_words, 150, false)
                 else
                     extract = highlight_and_excerpt(info_request.initial_request_text, @highlight_words, 150, false)

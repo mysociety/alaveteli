@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request_event.rb,v 1.81 2009-04-23 13:08:49 tony Exp $
+# $Id: info_request_event.rb,v 1.82 2009-04-23 13:32:21 tony Exp $
 
 class InfoRequestEvent < ActiveRecord::Base
     belongs_to :info_request
@@ -201,7 +201,7 @@ class InfoRequestEvent < ActiveRecord::Base
 
     # Display version of status
     def display_status
-        if !incoming_message.nil?
+        if is_incoming_message?
             status = self.calculated_state
             if !status.nil?
                 if status == 'waiting_response'
@@ -232,7 +232,7 @@ class InfoRequestEvent < ActiveRecord::Base
             return "Response"
         end
 
-        if !outgoing_message.nil?
+        if is_outgoing_message?
             status = self.calculated_state
             if !status.nil?
                 if status == 'internal_review'

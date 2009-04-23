@@ -4,11 +4,11 @@ end %>
 
 <div class="request_listing">
 	<span class="head">
-        <% if not event.incoming_message.nil? %>
+        <% if event.is_incoming_message? %>
             <%= link_to highlight_words(info_request.title, @highlight_words), incoming_message_url(event.incoming_message) %>
-        <% elsif not event.outgoing_message.nil? and event.event_type == 'followup_sent' %>
+        <% elsif event.is_outgoing_message? and event.event_type == 'followup_sent' %>
             <%= link_to highlight_words(info_request.title, @highlight_words), outgoing_message_url(event.outgoing_message) %>
-        <% elsif not event.comment.nil? %>
+        <% elsif event.is_comment? %>
             <%= link_to highlight_words(info_request.title, @highlight_words), comment_url(event.comment) %>
         <% else %>
             <%= link_to highlight_words(info_request.title, @highlight_words), request_url(info_request) %>
