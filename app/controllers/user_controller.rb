@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user_controller.rb,v 1.65 2009-04-14 14:51:00 tony Exp $
+# $Id: user_controller.rb,v 1.66 2009-04-23 12:17:06 tony Exp $
 
 class UserController < ApplicationController
     # Show page about a user
@@ -263,7 +263,7 @@ class UserController < ApplicationController
 
     # River of News: What's happening with your tracked things
     def river
-        @results = @user.track_things.collect { |thing|
+        @results = @user.nil? ? [] : @user.track_things.collect { |thing|
           perform_search([InfoRequestEvent], thing.track_query, thing.params[:feed_sortby], nil).results
         }.flatten.sort { |a,b| b[:model].created_at <=> a[:model].created_at }.first(20)
     end
