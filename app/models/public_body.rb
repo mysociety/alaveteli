@@ -26,7 +26,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.141 2009-04-21 17:10:21 francis Exp $
+# $Id: public_body.rb,v 1.142 2009-04-23 10:22:10 francis Exp $
 
 require 'csv'
 require 'set'
@@ -212,7 +212,7 @@ class PublicBody < ActiveRecord::Base
     # if the URL name has changed, then all requested_from: queries
     # will break unless we update index for every event for every
     # request linked to it
-    after_save :reindex_requested_from
+    after_update :reindex_requested_from
     def reindex_requested_from
         if self.changes.include?('url_name')
             for info_request in self.info_requests

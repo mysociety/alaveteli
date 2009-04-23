@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user.rb,v 1.93 2009-04-22 01:00:23 francis Exp $
+# $Id: user.rb,v 1.94 2009-04-23 10:22:10 francis Exp $
 
 require 'digest/sha1'
 
@@ -72,7 +72,7 @@ class User < ActiveRecord::Base
     end
 
     # requested_by: and commented_by: search queries also need updating after save
-    after_save :reindex_referencing_models
+    after_update :reindex_referencing_models
     def reindex_referencing_models
         return if no_xapian_reindex == true
 
