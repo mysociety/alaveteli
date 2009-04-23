@@ -1,7 +1,3 @@
-
-When a InfoRequest's url_title changes:
-    [ :request, 'R', "request" ] - all events for that request
-
 Rebuild all index - turn off cron meanwhile?
 
 
@@ -318,9 +314,8 @@ Quoting fixing TODO:
 
     http://www.whatdotheyknow.com/request/123/response/184 # nasty nasty formatted quoting 
     http://www.whatdotheyknow.com/request/155/response/552 # nasty nasty formatted quoting
-    http://www.whatdotheyknow.com/request/51/response/93 # tough quoting with <
     http://www.whatdotheyknow.com/request/how_do_the_pct_deal_with_retirin_87#incoming-1847
-    http://www.whatdotheyknow.com/request/265/response/688 # word wrapping of <
+    http://www.whatdotheyknow.com/request/complaints_about_jobcentres#incoming-688 # word wrapping of <
 
     http://www.whatdotheyknow.com/request/224/response/589 # have knackered the apostrophes here
 
