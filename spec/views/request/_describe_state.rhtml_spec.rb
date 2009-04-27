@@ -55,7 +55,7 @@ describe 'when showing the form for describing the state of a request' do
             
             it 'should show the form for someone else to classify the request' do 
                 do_render
-                response.should have_tag('h2', :text => 'Can you help us by describing the status of this request now?')
+                response.should have_tag('h2', :text => /We need your help/)
             end
             
             it 'should not give a link to login' do 

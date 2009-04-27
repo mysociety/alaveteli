@@ -96,7 +96,7 @@ describe User, " when indexing requests by user they are from" do
         u.name = 'Robert Smith'
         u.save!
         u.url_name.should == 'robert_smith'
-        ActsAsXapian.update_index(true, verbose) # true = flush to disk
+        ActsAsXapian.update_index(flush_to_disk=true, verbose) 
 
         # check we get results expected
         xapian_object = InfoRequest.full_search([InfoRequestEvent], "requested_by:bob_smith", 'created_at', true, nil, 100, 1)

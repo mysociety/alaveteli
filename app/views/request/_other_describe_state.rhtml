@@ -1,11 +1,11 @@
 
 
 <% form_for(:incoming_message, @info_request, :url => describe_state_url(:id => @info_request.id)) do |f| %>
-    <h2>Can you help us by describing the status of this request now?</h2>
-    <div class="form_explanation">
-      <%= user_link(@info_request.user) %> hasn't yet let us know whether this request was
-      successful or not. Perhaps you could help us out by doing so?
-    </div>
+    <h2>Hi! We need your help. The person who made the following request
+    hasn't told us whether or not it was successful. Would you mind taking
+    a moment to read it and help us keep the place tidy for everyone?
+    Thanks.</h2>
+
     <hr> <!------------------------------------------------>
 
     <% if @info_request.described_state != 'internal_review' %>
