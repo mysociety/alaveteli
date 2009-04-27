@@ -22,7 +22,7 @@
         <% if @info_request.described_state != 'internal_review' %>
             <div>
                 <%= radio_button "incoming_message", "described_state", "waiting_clarification", :id => 'waiting_clarification' + id_suffix %>
-                <label for="waiting_clarification<%=id_suffix%>">I'm about to <strong>clarify</strong> my request</label>
+                <label for="waiting_clarification<%=id_suffix%>">I've been asked to <strong>clarify</strong> my request</label>
             </div>
         <% end %>
 
