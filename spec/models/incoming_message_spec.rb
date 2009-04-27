@@ -57,6 +57,56 @@ describe IncomingMessage, " folding quoted parts of emails" do
 
 end
 
+describe IncomingMessage, " checking validity to reply to" do
+    it "says a valid email is fine" do
+        @mail = mock("mail")
+        @mail.stub!(:from_addrs).and_return( [ TMail::Address.parse("team@mysociety.org") ] )
+        @incoming_message = IncomingMessage.new()
+        @incoming_message.stub!(:mail).and_return(@mail)
 
+        @incoming_message.valid_to_reply_to?.should be_true
+    end
+
+    it "says postmaster email is bad" do
+        @mail = mock("mail")
+        @mail.stub!(:from_addrs).and_return( [ TMail::Address.parse("postmaster@mysociety.org") ] )
+        @incoming_message = IncomingMessage.new()
+        @incoming_message.stub!(:mail).and_return(@mail)
+
+        @incoming_message.valid_to_reply_to?.should be_false
+    end
+
+    it "says Mailer-Daemon email is bad" do
+        @mail = mock("mail")
+        @mail.stub!(:from_addrs).and_return( [ TMail::Address.parse("Mailer-Daemon@mysociety.org") ] )
+        @incoming_message = IncomingMessage.new()
+        @incoming_message.stub!(:mail).and_return(@mail)
+
+        @incoming_message.valid_to_reply_to?.should be_false
+    end
+
+    it "says case mangled MaIler-DaemOn email is bad" do
+        @mail = mock("mail")
+        @mail.stub!(:from_addrs).and_return( [ TMail::Address.parse("MaIler-DaemOn@mysociety.org") ] )
+        @incoming_message = IncomingMessage.new()
+        @incoming_message.stub!(:mail).and_return(@mail)
+
+        @incoming_message.valid_to_reply_to?.should be_false
+    end
+
+    it "says Auto_Reply email is bad" do
+        @mail = mock("mail")
+        @mail.stub!(:from_addrs).and_return( [ TMail::Address.parse("Auto_Reply@mysociety.org") ] )
+        @incoming_message = IncomingMessage.new()
+        @incoming_message.stub!(:mail).and_return(@mail)
+
+        @incoming_message.valid_to_reply_to?.should be_false
+    end
+
+
+
+
+
+end
 
 

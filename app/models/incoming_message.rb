@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.200 2009-04-21 10:18:22 francis Exp $
+# $Id: incoming_message.rb,v 1.201 2009-04-27 02:07:42 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -1129,14 +1129,11 @@ class IncomingMessage < ActiveRecord::Base
 
         # reject postmaster - authorities seem to nearly always not respond to
         # email to postmaster, and it tends to only happen after delivery failure.
+        # likewise Mailer-Daemon, Auto_Reply...
         prefix = email
         prefix =~ /^(.*)@/
         prefix = $1
-        if !prefix.nil? && prefix == 'postmaster'
-            return false
-        end
-        # likewise Mailer-Daemon
-        if !prefix.nil? && prefix == 'Mailer-Daemon'
+        if !prefix.nil? && ['postmaster', 'mailer-daemon', 'auto_reply'].include?(prefix.downcase)
             return false
         end
 
