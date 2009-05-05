@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_mailer.rb,v 1.18 2009-04-14 11:04:55 louise Exp $
+# $Id: track_mailer.rb,v 1.19 2009-05-05 08:52:41 louise Exp $
 
 class TrackMailer < ApplicationMailer
     def event_digest(user, email_about_things)
@@ -69,13 +69,13 @@ class TrackMailer < ApplicationMailer
             # If we have anything to send, then send everything for the user in one mail
             if email_about_things.size > 0
                 # Debugging
-                #STDERR.puts "sending email alert for user " + user.url_name
-                #for track_thing, alert_results, xapian_object in email_about_things
-                #    STDERR.puts "  tracking " + track_thing.track_query
-                #    for result in alert_results.reverse
-                #        STDERR.puts "    result " + result[:model].class.to_s + " id " + result[:model].id.to_s
-                #    end
-                #end
+                STDERR.puts "sending email alert for user " + user.url_name
+                for track_thing, alert_results, xapian_object in email_about_things
+                   STDERR.puts "  tracking " + track_thing.track_query
+                   for result in alert_results.reverse
+                       STDERR.puts "    result " + result[:model].class.to_s + " id " + result[:model].id.to_s
+                   end
+                end
 
                 # Send the email
                 TrackMailer.deliver_event_digest(user, email_about_things)
