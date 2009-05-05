@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe GeneralController, "when searching" do
     integrate_views
-    fixtures :users, :outgoing_messages, :incoming_messages, :raw_emails, :info_requests, :info_request_events, :public_bodies, :comments
+    fixtures :info_requests, :info_request_events, :public_bodies, :users
 
     before(:all) do
         rebuild_xapian_index
