@@ -20,7 +20,8 @@ describe TrackMailer do
             before do 
                 @user = mock_model(User, :no_xapian_reindex= => false,
                                          :last_daily_track_email= => true, 
-                                         :save! => true)
+                                         :save! => true,
+                                         :url_name => 'test-name')
                 User.stub!(:find).and_return([@user])
                 @user.stub!(:no_xapian_reindex=)
             end
