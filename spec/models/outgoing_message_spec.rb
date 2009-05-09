@@ -20,6 +20,10 @@ describe OutgoingMessage, " when making an outgoing message" do
         @outgoing_message.get_body_for_html_display.should_not include("foo@bar.com")
     end
 
+    it "should link to help page where email address was" do
+        @outgoing_message.get_body_for_html_display.should have_tag('a[href="/help/about#mobiles"]', :text => 'email address')
+    end
+
     it "should include email addresses in outgoing messages" do
         @outgoing_message.body.should include("foo@bar.com")
     end

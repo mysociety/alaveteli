@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.202 2009-04-27 02:25:31 francis Exp $
+# $Id: incoming_message.rb,v 1.203 2009-05-09 07:46:59 tony Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -908,6 +908,7 @@ class IncomingMessage < ActiveRecord::Base
         text = MySociety::Format.simplify_angle_bracketed_urls(text)
         text = CGI.escapeHTML(text)
         text = MySociety::Format.make_clickable(text, :contract => 1)
+        text.gsub!(/\[(email address|mobile number)\]/, '[<a href="/help/about#mobiles">\1</a>]')
         if collapse_quoted_sections
             text = text.gsub(/(\s*FOLDED_QUOTED_SECTION\s*)+/m, "FOLDED_QUOTED_SECTION")
             text.strip!
