@@ -5,8 +5,6 @@ Check up on how the public old request status editing is being used in
 practice. Think about UI a bit more to try and up rate, and UI of
 alerts to requester.
 
-Enable SPF, to reduce number of requests lost to spam filters
-http://www.openspf.org/SPF_Record_Syntax#include
 
 
 For followups, have radio button to say is it a new request or followup
