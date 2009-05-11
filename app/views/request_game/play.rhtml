@@ -1,0 +1,20 @@
+
+<h2>Help Us!</h2>
+
+<p>Hi! We need your help. We have <%= @missing %>  requests where the person who
+made them hasn't told us whether or not they were successful. We would
+be exceedingly grateful if you could choose one of these requests, read
+it, and let everyone know whether or not the information has been
+provided.</p>
+
+<%= render :partial => 'request/request_listing', :locals => { :info_requests => @requests } %>
+
+<hr />
+<ul>
+  <li><%= link_to "I don't like these ones &mdash; give me some more!", play_url %></li>
+  <li><%= link_to "I don't want to do any more tidying now!", stop_url %></li>
+</ul>
+
+
+
+

@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.158 2009-04-23 13:32:21 tony Exp $
+# $Id: request_controller.rb,v 1.159 2009-05-11 13:06:33 tony Exp $
 
 class RequestController < ApplicationController
     
@@ -287,16 +287,17 @@ class RequestController < ApplicationController
                 })
         end
         
+        # TODO harmonise the next two methods?
         if User.owns_every_request?(authenticated_user)
             flash[:notice] = '<p>The request status has been updated</p>'
-            redirect_to request_url(@info_request)
+            redirect_to session[:request_game] ? play_url : request_url(@info_request)
             return
         end
         
         if @old_unclassified && !@is_owning_user
             flash[:notice] = '<p>Thank you for updating this request!</p>'
             RequestMailer.deliver_old_unclassified_updated(@info_request)
-            redirect_to request_url(@info_request)
+            redirect_to session[:request_game] ? play_url : request_url(@info_request)
             return
         end
 
