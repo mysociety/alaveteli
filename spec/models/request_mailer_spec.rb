@@ -220,16 +220,21 @@ describe RequestMailer, 'when sending mail when someone has updated an old uncla
                                                 :law_used_full => 'Freedom of Information', 
                                                 :title => 'Test request', 
                                                 :public_body => @public_body, 
+                                                :display_status => 'Rejected.',
                                                 :url_title => 'test_request')
         @mail = RequestMailer.create_old_unclassified_updated(@info_request) 
     end
-    
+
     it 'should have the subject "Someone has updated the status of your request"' do 
         @mail.subject.should == 'Someone has updated the status of your request'
     end
-    
+
+    it 'should tell them what status was picked' do 
+        @mail.body.should match(/"rejected."/)
+    end
+
     it 'should contain the request path' do 
         @mail.body.should match(/request\/test_request/)
     end
-    
+
 end

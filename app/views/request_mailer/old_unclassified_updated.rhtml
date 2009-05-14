@@ -1,6 +1,11 @@
-Someone has updated the status of the <%= @info_request.law_used_full %> request 
-'<%= @info_request.title %>' that you made to 
-<%= @info_request.public_body.name %>. Follow this link to see the request. 
+To help us keep the site tidy, someone else has updated the status of the 
+<%= @info_request.law_used_full %> request '<%= @info_request.title %>' 
+that you made to <%= @info_request.public_body.name %>, to 
+"<%= @info_request.display_status.downcase %>" If you disagree with 
+their categorisation, please update the status again yourself to what
+you believe to be more accurate.
+
+Follow this link to see the request:
 
 <%= @url %>
 
