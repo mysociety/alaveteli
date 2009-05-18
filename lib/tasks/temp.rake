@@ -6,7 +6,6 @@ namespace :temp do
     messages.each do |message|
       puts message.info_request.title
       message.get_body_for_quoting
-      sleep 2
     end
   end
   
