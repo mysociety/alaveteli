@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.203 2009-05-09 07:46:59 tony Exp $
+# $Id: incoming_message.rb,v 1.204 2009-05-19 01:13:48 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -1134,7 +1134,7 @@ class IncomingMessage < ActiveRecord::Base
         prefix = email
         prefix =~ /^(.*)@/
         prefix = $1
-        if !prefix.nil? && prefix.downcase.match(/^(postmaster|mailer-daemon|auto_reply)$/)
+        if !prefix.nil? && prefix.downcase.match(/^(postmaster|mailer-daemon|auto_reply|donotreply)$/)
             return false
         end
 

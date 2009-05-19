@@ -89,6 +89,10 @@ describe IncomingMessage, " checking validity to reply to" do
         test_email("Auto_Reply@mysociety.org", false)
     end
 
+    it "says DoNotReply email is bad" do
+        test_email("DoNotReply@tube.tfl.gov.uk", false)
+    end
+
 
 
 
