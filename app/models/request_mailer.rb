@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.74 2009-04-14 11:16:41 louise Exp $
+# $Id: request_mailer.rb,v 1.75 2009-05-21 01:18:45 francis Exp $
 
 class RequestMailer < ApplicationMailer
     
@@ -37,7 +37,8 @@ class RequestMailer < ApplicationMailer
         if incoming_message_followup.nil? || !incoming_message_followup.valid_to_reply_to?
             return info_request.recipient_name_and_email
         else
-            return incoming_message_followup.mail.from_addrs[0].to_s
+            # calling safe_mail_from from so censor rules are run
+            return TMail::Address.address_from_name_and_email(incoming_message_followup.safe_mail_from, incoming_message_followup.mail.from_addrs[0].spec).to_s
         end
     end
     # Used in the preview of followup
@@ -45,7 +46,8 @@ class RequestMailer < ApplicationMailer
         if incoming_message_followup.nil? || !incoming_message_followup.valid_to_reply_to?
             return info_request.public_body.name
         else
-            return incoming_message_followup.mail.from_addrs[0].name || info_request.public_body.name
+            # calling safe_mail_from from so censor rules are run
+            return incoming_message_followup.safe_mail_from || info_request.public_body.name
         end
     end
     # Used when making list of followup places to remove duplicates

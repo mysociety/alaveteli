@@ -4,7 +4,7 @@
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: tmail_extensions.rb,v 1.3 2009-04-08 07:31:08 francis Exp $
+# $Id: tmail_extensions.rb,v 1.4 2009-05-21 01:18:45 francis Exp $
 
 # Monkeypatch!
 
@@ -35,9 +35,12 @@ module TMail
         # Monkeypatch! Constructor which makes a TMail::Address given
         # a name and an email
         def Address.address_from_name_and_email(name, email)
+            if name.nil?
+                return TMail::Address.parse(email)
+            end
             # Botch an always quoted RFC address, then parse it
             name = name.gsub(/(["\\])/, "\\\\\\1")
-            TMail::Address.parse('"' + name + '" <' + email + '>')
+            return TMail::Address.parse('"' + name + '" <' + email + '>')
         end
     end
 

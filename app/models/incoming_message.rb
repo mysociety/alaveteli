@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.204 2009-05-19 01:13:48 francis Exp $
+# $Id: incoming_message.rb,v 1.205 2009-05-21 01:18:45 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -1054,10 +1054,12 @@ class IncomingMessage < ActiveRecord::Base
 
     # Returns the name of the person the incoming message is from, or nil if
     # there isn't one or if there is only an email address. XXX can probably
-    # remove this and from_name_if_present (which is a monkey patch) by just
-    # calling .from_addrs[0].name instead? (as RequestMailer.name_for_followup etc. do)
+    # remove from_name_if_present (which is a monkey patch) by just calling
+    # .from_addrs[0].name here instead? 
     def safe_mail_from
-        self.mail.from_name_if_present
+        name = self.mail.from_name_if_present
+        name = self.info_request.apply_censor_rules_to_text(name)
+        return name
     end
 
     def mail_from_domain
