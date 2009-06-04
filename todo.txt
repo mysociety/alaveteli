@@ -66,6 +66,7 @@ Julian things:
 check-recent-requests-sent probably doesn't work, as exim log lines wouldn't
 be load in case where the envelope from gets broken?
 
+Admin button to resend request one off to particular address
 
 Later
 =====
