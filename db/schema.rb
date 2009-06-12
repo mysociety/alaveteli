@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 76) do
+ActiveRecord::Schema.define(:version => 77) do
 
   create_table "acts_as_xapian_jobs", :force => true do |t|
     t.string  "model",    :null => false
@@ -58,6 +58,8 @@ ActiveRecord::Schema.define(:version => 76) do
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
   end
+
+  add_index "exim_logs", ["exim_log_done_id"], :name => "index_exim_logs_on_exim_log_done_id"
 
   create_table "holidays", :force => true do |t|
     t.date "day"
