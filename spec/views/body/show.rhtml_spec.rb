@@ -14,6 +14,8 @@ describe "when viewing a body" do
                          :info_requests => [1, 2, 3, 4], # out of sync with Xapian
                          :publication_scheme => '',
                          :calculated_home_page => '')
+        @pb.stub!(:is_requestable?).and_return(true)
+        @pb.stub!(:has_notes?).and_return(false)
         @xap = mock_model(ActsAsXapian::Search, :matches_estimated => 2)
         @xap.stub!(:results).and_return([
           { :model => mock_event },
