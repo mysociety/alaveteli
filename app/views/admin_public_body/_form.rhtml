@@ -39,7 +39,7 @@
 <p><label for="public_body_charity_number">Charity Registration Number <small>(if a registered charity)</small></label><br/>
 <%= text_field 'public_body', 'charity_number', :size => 60  %></p>
 
-<p><label for="public_body_notes">Public notes</label> <small>(for users to consider when making FOI requests to the authority)</small><br/>
+<p><label for="public_body_notes">Public notes</label> <small>(HTML, for users to consider when making FOI requests to the authority)</small><br/>
 <%= text_area 'public_body', 'notes', :rows => 3, :cols => 60  %></p>
 
 <p><label for="public_body_tag_string">Tags <small>(space separated; see list of tags on the right)</small></label><br/>

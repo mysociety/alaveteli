@@ -26,7 +26,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.143 2009-06-12 13:53:45 francis Exp $
+# $Id: public_body.rb,v 1.144 2009-06-12 15:40:18 francis Exp $
 
 require 'csv'
 require 'set'
@@ -492,7 +492,7 @@ class PublicBody < ActiveRecord::Base
         return self.notes != ""
     end
     def notes_as_html
-        MySociety::Format.make_clickable(self.notes)
+        self.notes
     end
 
 end
