@@ -26,7 +26,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.142 2009-04-23 10:22:10 francis Exp $
+# $Id: public_body.rb,v 1.143 2009-06-12 13:53:45 francis Exp $
 
 require 'csv'
 require 'set'
@@ -170,13 +170,15 @@ class PublicBody < ActiveRecord::Base
         if self.request_email.nil?
             return false
         end
-        return !self.request_email.empty? && self.request_email != 'blank' && self.request_email != 'not_apply'
+        return !self.request_email.empty? && self.request_email != 'blank' && self.request_email != 'not_apply' && self.request_email != 'defunct'
     end
     def not_requestable_reason
         if self.request_email.empty? or self.request_email == 'blank'
             return 'bad_contact'
         elsif self.request_email == 'not_apply'
             return 'not_apply'
+        elsif self.request_email == 'defunct'
+            return 'defunct'
         else
             raise "requestable_failure_reason called with type that has no reason"
         end
@@ -486,6 +488,12 @@ class PublicBody < ActiveRecord::Base
         self.versions.sort { |a,b| a.version <=> b.version }
     end
 
+    def has_notes?
+        return self.notes != ""
+    end
+    def notes_as_html
+        MySociety::Format.make_clickable(self.notes)
+    end
 
 end
 

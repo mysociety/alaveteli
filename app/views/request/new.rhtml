@@ -54,10 +54,10 @@
     <li>This site is <strong>public</strong>. Everything you type and any response will be published.</li>
     </ul>
 
-    <% if @info_request.public_body.notes != "" %>
+    <% if @info_request.public_body.has_notes? %>
         <h1>Special note for this authority!</h1>
         <ul>
-            <li><%=MySociety::Format.make_clickable(@info_request.public_body.notes) %></li>
+            <li><p><%= @info_request.public_body.notes_as_html %></p></li>
         </ul>
     <% end %>
 

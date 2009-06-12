@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 75) do
+ActiveRecord::Schema.define(:version => 76) do
 
   create_table "acts_as_xapian_jobs", :force => true do |t|
     t.string  "model",    :null => false
@@ -209,6 +209,8 @@ ActiveRecord::Schema.define(:version => 75) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "track_things_sent_emails", ["track_thing_id"], :name => "index_track_things_sent_emails_on_track_thing_id"
 
   create_table "user_info_request_sent_alerts", :force => true do |t|
     t.integer "user_id",               :null => false

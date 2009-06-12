@@ -27,7 +27,7 @@
 <p><label for="public_body_short_name">Short name <small>(only put in abbreviations which are really used, otherwise leave blank. Short or long name is used in the URL - don't worry about breaking URLs through renaming, as the history is used to redirect)</small></label><br/>
 <%= text_field 'public_body', 'short_name', :size => 60  %></p>
 
-<p><label for="public_body_request_email">Request email <small>(set to <strong>blank</strong> (empty string) if can't find an address; to <strong>not_apply</strong> if FOI no longer / never did apply to authority; these emails are <strong>public</strong> as anyone can view with a CAPTCHA)</small></label><br/>
+<p><label for="public_body_request_email">Request email <small>(set to <strong>blank</strong> (empty string) if can't find an address; to <strong>not_apply</strong> if FOI no longer / never did apply to authority; to <strong>defunct</strong> if the authority no longer exists; these emails are <strong>public</strong> as anyone can view with a CAPTCHA)</small></label><br/>
 <%= text_field 'public_body', 'request_email', :size => 40  %></p>
 
 <p><label for="public_body_home_page">Home page <small>(of whole authority, not just their FOI page; set to <strong>blank</strong> (empty string) to guess it from the email)</small></label><br/>

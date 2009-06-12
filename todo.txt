@@ -1,12 +1,17 @@
 Next (things that will reduce admin time mainly)
 ====
 
-Private policy wiki with stock emails etc. in it
+Private policy wiki to put administrative documentation e.g. what to do with a
+notification of possibly libelous material, how to handle common support email
+types etc.
 
 
 Check up on how the public old request status editing is being used in 
 practice. Think about UI a bit more to try and up rate, and UI of
 alerts to requester.
+
+Button for people to say "this status is really quite wrong please
+fix it"?
 
 Automatically close requests which have email addresses in their PDF?
 
@@ -21,10 +26,6 @@ and let people move them to the right place.
 Give authorities interface for editing their request email address
 and resend messages to them?
 
-
-Find a place to put administrative documentation e.g. what to do with a
-notification of possibly libelous material, how to handle common support email
-types etc.
 
 
 Lots of authorities are starting to complain about how their record looks on

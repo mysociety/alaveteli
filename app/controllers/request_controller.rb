@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.159 2009-05-11 13:06:33 tony Exp $
+# $Id: request_controller.rb,v 1.160 2009-06-12 13:53:45 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -155,7 +155,13 @@ class RequestController < ApplicationController
                 if @info_request.public_body.is_requestable?
                     render :action => 'new'
                 else
-                    render :action => 'new_' + @info_request.public_body.not_requestable_reason
+                    if @info_request.public_body.not_requestable_reason == 'bad_contact'
+                        render :action => 'new_bad_contact'
+                    else
+                        # if not requestable because defunct or not_apply, redirect to main page
+                        # (which doesn't link to the /new/ URL)
+                        redirect_to public_body_url(@info_request.public_body)
+                    end
                 end
             end
             return
