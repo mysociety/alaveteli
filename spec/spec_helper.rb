@@ -23,10 +23,11 @@ Spec::Runner.configure do |config|
 end
 
 # XXX No idea what namespace/class/module to put this in 
-def receive_incoming_mail(email_name, email_to)
+def receive_incoming_mail(email_name, email_to, email_from = 'geraldinequango@localhost')
     email_name = File.join(Spec::Runner.configuration.fixture_path, email_name)
     content = File.read(email_name)
     content.gsub!('EMAIL_TO', email_to)
+    content.gsub!('EMAIL_FROM', email_from)
     RequestMailer.receive(content)
 end
 

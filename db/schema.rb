@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 77) do
+ActiveRecord::Schema.define(:version => 78) do
 
   create_table "acts_as_xapian_jobs", :force => true do |t|
     t.string  "model",    :null => false
@@ -94,17 +94,18 @@ ActiveRecord::Schema.define(:version => 77) do
   add_index "info_request_events", ["info_request_id"], :name => "index_info_request_events_on_info_request_id"
 
   create_table "info_requests", :force => true do |t|
-    t.text     "title",                                      :null => false
-    t.integer  "user_id",                                    :null => false
-    t.integer  "public_body_id",                             :null => false
-    t.datetime "created_at",                                 :null => false
-    t.datetime "updated_at",                                 :null => false
-    t.string   "described_state",                            :null => false
-    t.boolean  "awaiting_description", :default => false,    :null => false
-    t.string   "prominence",           :default => "normal", :null => false
-    t.text     "url_title",                                  :null => false
-    t.boolean  "stop_new_responses",   :default => false,    :null => false
-    t.string   "law_used",             :default => "foi",    :null => false
+    t.text     "title",                                            :null => false
+    t.integer  "user_id",                                          :null => false
+    t.integer  "public_body_id",                                   :null => false
+    t.datetime "created_at",                                       :null => false
+    t.datetime "updated_at",                                       :null => false
+    t.string   "described_state",                                  :null => false
+    t.boolean  "awaiting_description",      :default => false,     :null => false
+    t.string   "prominence",                :default => "normal",  :null => false
+    t.text     "url_title",                                        :null => false
+    t.string   "law_used",                  :default => "foi",     :null => false
+    t.string   "allow_new_responses_from",  :default => "anybody", :null => false
+    t.string   "handle_rejected_responses", :default => "bounce",  :null => false
   end
 
   add_index "info_requests", ["created_at"], :name => "index_info_requests_on_created_at"

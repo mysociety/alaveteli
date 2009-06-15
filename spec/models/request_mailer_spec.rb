@@ -14,6 +14,7 @@ describe RequestMailer, " when receiving incoming mail" do
         deliveries = ActionMailer::Base.deliveries
         deliveries.size.should == 1
         mail = deliveries[0]
+        mail.to.should == [ 'bob@localhost' ] # to the user who sent fancy_dog_request
         deliveries.clear
     end
     
@@ -32,10 +33,11 @@ describe RequestMailer, " when receiving incoming mail" do
         deliveries.clear
     end
 
-    it "should return incoming mail to sender when a request is stopped for spam" do
+    it "should return incoming mail to sender when a request is stopped fully for spam" do
         # mark request as anti-spam
         ir = info_requests(:fancy_dog_request) 
-        ir.stop_new_responses = true
+        ir.allow_new_responses_from = 'nobody'
+        ir.handle_rejected_responses = 'bounce'
         ir.save!
 
         # test what happens if something arrives
@@ -49,6 +51,81 @@ describe RequestMailer, " when receiving incoming mail" do
         mail = deliveries[0]
         mail.to.should == [ 'geraldinequango@localhost' ]
         deliveries.clear
+    end
+
+    it "should return incoming mail to sender if not authority when a request is stopped for non-authority spam" do
+        # mark request as anti-spam
+        ir = info_requests(:fancy_dog_request) 
+        ir.allow_new_responses_from = 'authority_only'
+        ir.handle_rejected_responses = 'bounce'
+        ir.save!
+
+        # Test what happens if something arrives from authority domain (@localhost)
+        ir.incoming_messages.size.should == 1 # in the fixture
+        receive_incoming_mail('incoming-request-plain.email', ir.incoming_email)
+        ir.incoming_messages.size.should == 2 # one more arrives
+
+        # ... should get "responses arrived" message for original requester
+        deliveries = ActionMailer::Base.deliveries
+        deliveries.size.should == 1
+        mail = deliveries[0]
+        mail.to.should == [ 'bob@localhost' ] # to the user who sent fancy_dog_request
+        deliveries.clear
+
+        # Test what happens if something arrives from another domain
+        ir.incoming_messages.size.should == 2 # in fixture and above
+        receive_incoming_mail('incoming-request-plain.email', ir.incoming_email, "dummy-address@dummy.localhost")
+        ir.incoming_messages.size.should == 2 # nothing should arrive
+
+        # ... should be a bounce message back to sender
+        deliveries = ActionMailer::Base.deliveries
+        deliveries.size.should == 1
+        mail = deliveries[0]
+        mail.to.should == [ 'dummy-address@dummy.localhost' ]
+        deliveries.clear
+    end
+
+    it "should send all new responses to holding pen if a request is marked to do so" do
+        # mark request as anti-spam
+        ir = info_requests(:fancy_dog_request) 
+        ir.allow_new_responses_from = 'nobody'
+        ir.handle_rejected_responses = 'holding_pen'
+        ir.save!
+
+        # test what happens if something arrives
+        ir = info_requests(:fancy_dog_request) 
+        ir.incoming_messages.size.should == 1
+        InfoRequest.holding_pen_request.incoming_messages.size.should == 0
+        receive_incoming_mail('incoming-request-plain.email', ir.incoming_email)
+        ir.incoming_messages.size.should == 1
+        InfoRequest.holding_pen_request.incoming_messages.size.should == 1 # arrives in holding pen
+
+        # should be a message to admin regarding holding pen
+        deliveries = ActionMailer::Base.deliveries
+        deliveries.size.should == 1
+        mail = deliveries[0]
+        mail.to.should == [ MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost') ]
+        deliveries.clear
+    end
+
+    it "should dump messages to a request if marked to do so" do
+        # mark request as anti-spam
+        ir = info_requests(:fancy_dog_request) 
+        ir.allow_new_responses_from = 'nobody'
+        ir.handle_rejected_responses = 'blackhole'
+        ir.save!
+
+        # test what happens if something arrives - should be nothing
+        ir = info_requests(:fancy_dog_request) 
+        ir.incoming_messages.size.should == 1
+        InfoRequest.holding_pen_request.incoming_messages.size.should == 0
+        receive_incoming_mail('incoming-request-plain.email', ir.incoming_email)
+        ir.incoming_messages.size.should == 1
+        InfoRequest.holding_pen_request.incoming_messages.size.should == 0
+
+        # should be no messages to anyone
+        deliveries = ActionMailer::Base.deliveries
+        deliveries.size.should == 0
     end
 
 

@@ -14,7 +14,7 @@
         </h2>
     <% end %>
 
-    <% if @info_request.stop_new_responses %>
+    <% if @info_request.allow_new_responses_from == 'nobody' %>
         <p>Follow ups and new responses to this request have been stopped to prevent spam. Please
         <a href="/help/contact">contact us</a> if you are <%= user_link(@info_request.user) %>
         and need to send a follow up.</p>

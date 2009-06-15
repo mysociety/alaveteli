@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.160 2009-06-12 13:53:45 francis Exp $
+# $Id: request_controller.rb,v 1.161 2009-06-15 14:42:11 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -451,7 +451,7 @@ class RequestController < ApplicationController
         end
 
         if !params[:submitted_followup].nil? && !params[:reedit]
-            if @info_request.stop_new_responses
+            if @info_request.allow_new_responses_from == 'nobody'
                 flash[:error] = 'Your follow up has not been sent because this request has been stopped to prevent spam. Please <a href="/help/contact">contact us</a> if you really want to send a follow up message.'
             else
                 # See if values were valid or not

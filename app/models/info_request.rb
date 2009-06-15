@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.189 2009-04-23 14:20:47 francis Exp $
+# $Id: info_request.rb,v 1.190 2009-06-15 14:42:11 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -72,6 +72,19 @@ class InfoRequest < ActiveRecord::Base
     validates_inclusion_of :law_used, :in => [ 
         'foi', # Freedom of Information Act
         'eir', # Environmental Information Regulations
+    ]
+
+    # who can send new responses
+    validates_inclusion_of :allow_new_responses_from, :in => [
+        'anybody', # anyone who knows the request email address
+        'authority_only', # only people from authority domains
+        'nobody'
+    ]
+    # what to do with rejected new responses
+    validates_inclusion_of :handle_rejected_responses, :in => [
+        'bounce', # return them to sender
+        'holding_pen', # put them in the holding pen
+        'blackhole' # just dump them
     ]
     
     OLD_AGE_IN_DAYS = 14.days
@@ -265,10 +278,47 @@ public
 
     # A new incoming email to this request
     def receive(email, raw_email_data, override_stop_new_responses = false)
-        # See if new responses are prevented for spam reasons
-        if self.stop_new_responses && !override_stop_new_responses
-            RequestMailer.deliver_stopped_responses(self, email)
-            return
+        if !override_stop_new_responses
+            allow = nil
+
+            # See if new responses are prevented for spam reasons
+            if self.allow_new_responses_from == 'nobody'
+                allow = false
+            elsif self.allow_new_responses_from == 'anybody'
+                allow = true
+            elsif self.allow_new_responses_from == 'authority_only'
+                if email.from_addrs.nil? || email.from_addrs.size == 0
+                    allow = false
+                else
+                    sender_email = email.from_addrs[0].to_s
+                    sender_domain = PublicBody.extract_domain_from_email(sender_email)
+                    allow = false
+                    # Allow any domain that has already sent reply
+                    for row in self.who_can_followup_to
+                        request_domain = PublicBody.extract_domain_from_email(row[1])
+                        if request_domain == sender_domain
+                            allow = true
+                        end
+                    end
+                end
+            else
+                raise "Unknown allow_new_responses_from '" + self.allow_new_responses_from + "'"
+            end
+
+            if !allow
+                if self.handle_rejected_responses == 'bounce'
+                    RequestMailer.deliver_stopped_responses(self, email)
+                elsif self.handle_rejected_responses == 'holding_pen'
+                    InfoRequest.holding_pen_request.receive(email, raw_email_data)
+                elsif self.handle_rejected_responses == 'blackhole'
+                    # do nothing - just lose the message (Note: a copy will be
+                    # in the backup mailbox if the server is configured to send
+                    # new incoming messages there as well as this script)
+                else
+                    raise "Unknown handle_rejected_responses '" + self.handle_rejected_responses + "'"
+                end
+                return
+            end
         end
 
         # Otherwise log the message
@@ -763,6 +813,13 @@ public
         !user.nil? && (user.id == user_id || user.owns_every_request?)
     end
 
+    # XXX to be called from a cron job later
+    def self.stop_new_responses_on_old_requests
+        # 6 months since last change to request, only allow new incoming messages from authority domains
+        InfoRequest.update_all "allow_new_responses_from = 'authority_only' where updated_at < (now() - interval '6 months') and allow_new_responses_from = 'anybody'"
+        # 1 year since last change requests, don't allow any new incoming messages
+        PostRedirect.update_all "allow_new_responses_from = 'nobody' where updated_at < (now() - interval '1 year') and allow_new_responses_from in ('anybody', 'authority_only')"
+    end
 end
 
 

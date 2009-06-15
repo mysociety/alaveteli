@@ -4,17 +4,24 @@
 
 <% form_tag '../update/' + @info_request.id.to_s do %>
 
-   <p><label for="info_request_title">Title</label> (warning: editing this will break URLs right now)<br/>
+   <p><label for="info_request_title"><strong>Title</strong></label> (warning: editing this will break URLs right now)<br/>
    <%= text_field 'info_request', 'title', :size => 50  %></p>
 
-   <p><label for="info_request_prominence">Prominence</label> (whether is shown in lists of requests / search or not)<br/>
+   <p><label for="info_request_prominence"><strong>Prominence</strong></label> 
    <%= select( 'info_request', "prominence", { "normal" => "normal", "backpage" => "backpage"}) %>
-
-   <p><label for="info_request_stop_new_responses">Stop new responses</label> (by email; use this on requests getting spam, but also work out how the email leaked and plug it)<br/>
-   <%= select('info_request', "stop_new_responses", [["Yes - stop new responses",true],["No - allow new responses",false]]) %>
+   (whether request is shown in lists / search or not)
    </p>
 
-   <p><label for="info_request_described_state">Described state</label> (don't forget to change 'awaiting description' below too if necessary)<br/>
+   <p>
+   <label for="info_request_allow_new_responses_from"><strong>Allow new responses</strong> from</label> 
+   <%= select( 'info_request', "allow_new_responses_from", [ "anybody", "authority_only", "nobody" ] ) %>;
+   <label for="info_request_handle_rejected_responses"><strong>Handle rejected responses</strong> with</label> 
+   <%= select( 'info_request', "handle_rejected_responses", [ "bounce", "holding_pen", "blackhole" ] ) %>
+   <br>
+   ('authority_only' means email From: domain of authority request email or any domain that has previously sent a response; 'nobody' also stops requester making followups; take care when using 'blackhole' which just drops mail)
+   </p>
+
+   <p><label for="info_request_described_state"><strong>Described state</strong></label> 
    <%= select( 'info_request', "described_state",
        [ 
         'waiting_response',
@@ -28,11 +35,10 @@
         'error_message',
         'requires_admin',
         'user_withdrawn'
-    ]) %>
-    </p>
-
-   <p><label for="info_request_awaiting_description">Awaiting description</label><br/>
+    ]) %>;
+    <label for="info_request_awaiting_description"><strong>Awaiting description</strong></label>
    <%= select('info_request', "awaiting_description", [["Yes - needs state updating",true],["No - state is up to date",false]]) %>
+   <br/>(don't forget to change 'awaiting description' when you set described state)<br/>
    </p>
 
    <p><%= submit_tag 'Save changes', :accesskey => 's' %>
