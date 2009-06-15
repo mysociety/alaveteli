@@ -50,6 +50,13 @@ describe RequestMailer, " when receiving incoming mail" do
         deliveries.size.should == 1
         mail = deliveries[0]
         mail.to.should == [ 'geraldinequango@localhost' ]
+        # check attached bounce is good copy of incoming-request-plain.email
+        mail.multipart?.should == true
+        mail.parts.size.should == 2
+        bounced_mail = TMail::Mail.parse(mail.parts[1].body)
+        bounced_mail.to.should == [ ir.incoming_email ] 
+        bounced_mail.from.should == [ 'geraldinequango@localhost' ]
+        bounced_mail.body.include?("That's so totally a rubbish question")
         deliveries.clear
     end
 
