@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.191 2009-06-15 15:43:19 francis Exp $
+# $Id: info_request.rb,v 1.192 2009-06-15 16:25:14 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -307,7 +307,7 @@ public
 
             if !allow
                 if self.handle_rejected_responses == 'bounce'
-                    RequestMailer.deliver_stopped_responses(self, email)
+                    RequestMailer.deliver_stopped_responses(self, email, raw_email_data)
                 elsif self.handle_rejected_responses == 'holding_pen'
                     InfoRequest.holding_pen_request.receive(email, raw_email_data)
                 elsif self.handle_rejected_responses == 'blackhole'
