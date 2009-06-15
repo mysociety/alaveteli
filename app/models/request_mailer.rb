@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.77 2009-06-15 16:25:14 francis Exp $
+# $Id: request_mailer.rb,v 1.78 2009-06-15 23:52:44 francis Exp $
 
 class RequestMailer < ApplicationMailer
     
@@ -96,7 +96,8 @@ class RequestMailer < ApplicationMailer
         headers 'Return-Path' => blackhole_email, 'Reply-To' => @from # we don't care about bounces, likely from spammers
         @recipients = email.from_addrs[0].to_s
         @subject = "Your response to an FOI request was not delivered"
-        attachment :content_type => 'message/rfc822', :body => raw_email_data
+        attachment :content_type => 'message/rfc822', :body => raw_email_data,
+            :filename => "original.eml", :transfer_encoding => '7bit', :content_disposition => 'inline'
         @body = { 
             :info_request => info_request,
             :contact_email => MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost')     
