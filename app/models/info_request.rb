@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.190 2009-06-15 14:42:11 francis Exp $
+# $Id: info_request.rb,v 1.191 2009-06-15 15:43:19 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -290,7 +290,7 @@ public
                 if email.from_addrs.nil? || email.from_addrs.size == 0
                     allow = false
                 else
-                    sender_email = email.from_addrs[0].to_s
+                    sender_email = email.from_addrs[0].spec
                     sender_domain = PublicBody.extract_domain_from_email(sender_email)
                     allow = false
                     # Allow any domain that has already sent reply

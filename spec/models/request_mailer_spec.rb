@@ -62,7 +62,7 @@ describe RequestMailer, " when receiving incoming mail" do
 
         # Test what happens if something arrives from authority domain (@localhost)
         ir.incoming_messages.size.should == 1 # in the fixture
-        receive_incoming_mail('incoming-request-plain.email', ir.incoming_email)
+        receive_incoming_mail('incoming-request-plain.email', ir.incoming_email, "Geraldine <geraldinequango@localhost>")
         ir.incoming_messages.size.should == 2 # one more arrives
 
         # ... should get "responses arrived" message for original requester
