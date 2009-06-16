@@ -18,7 +18,7 @@
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: exim_log.rb,v 1.10 2009-04-13 09:18:48 tony Exp $
+# $Id: exim_log.rb,v 1.11 2009-06-16 10:10:50 francis Exp $
 
 class EximLog < ActiveRecord::Base
     belongs_to :info_request
@@ -81,12 +81,13 @@ class EximLog < ActiveRecord::Base
     # up at all if the requests weren't sent that way as there would be
     # no request- email in it?
     def EximLog.check_recent_requests_have_been_sent
-        # Get all requests sent for a period of 24 hours, ending a day ago.
-        # (the gap is because we load exim log lines via cron at best an hour
-        # after they are made)
-        irs = InfoRequest.find(:all, :conditions => [ "created_at < ? and created_at > ?", Time.now() - 1.day, Time.now() - 2.days ] )
+        # Get all requests sent for from 2 to 10 days ago. The 2 day gap is
+        # because we load exim log lines via cron at best an hour after they
+        # are made)
+        irs = InfoRequest.find(:all, :conditions => [ "created_at < ? and created_at > ?", Time.now() - 2.day, Time.now() - 10.days ] )
 
         # Go through each request and check it
+        ok = true
         for ir in irs
             # Look for line showing request was sent
             found = false
@@ -108,8 +109,11 @@ class EximLog < ActiveRecord::Base
                 # It's very important the envelope from is set for avoiding spam filter reasons - this
                 # effectively acts as a check for that.
                 STDERR.puts("failed to find request sending Exim line for request id " + ir.id.to_s + " " + ir.url_title + " (check envelope from is being set to request address in Ruby, and load-exim-logs crontab is working)") # *** don't comment out this STDERR line, it is the point of the function!
+                ok = false
             end
         end
+
+        return ok
     end
     
 end
