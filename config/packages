@@ -17,5 +17,6 @@ ttf-bitstream-vera
 sharutils
 unzip
 libzip-ruby1.8
+libzlib-ruby
 mahoro-ruby1.8
 wdg-html-validator

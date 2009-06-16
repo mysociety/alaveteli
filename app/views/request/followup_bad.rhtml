@@ -1,0 +1,24 @@
+<% if @incoming_message.nil? || !@incoming_message.valid_to_reply_to? %>
+    <% @title = "Unable to send follow up message to " + RequestMailer.name_for_followup(@info_request, nil) %>
+<% else %>
+    <% @title = "Unable to send a reply to " + RequestMailer.name_for_followup(@info_request, @incoming_message) %>
+<% end %>
+
+<h1><%=@title%></h1>
+
+<% if @reason == 'not_apply' %>
+    <!-- we should never get here, but just in case give a sensible message -->
+    <p>Freedom of Information law no longer applies to <%=h @info_request.public_body.name %>.</p>
+<% elsif @reason == 'defunct' %>
+    <!-- we should never get here, but just in case give a sensible message -->
+    <p><%=h @info_request.public_body.name %> no longer exists.</p>
+<% elsif @reason == 'bad_contact' %>
+    <p>We do not have a working <%=h @info_request.law_used_full %>
+    address for <%=h @info_request.public_body.name %>. You may be able to find
+    one on their website, or by phoning them up and asking. If you manage
+    to find one, then please <a href="/help/contact">send it to us</a>.
+    </p>
+<% else %>
+    <% raise "unknown reason " + @reason %>
+<% end %>
+

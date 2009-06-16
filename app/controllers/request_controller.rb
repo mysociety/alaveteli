@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.161 2009-06-15 14:42:11 francis Exp $
+# $Id: request_controller.rb,v 1.162 2009-06-16 17:28:16 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -431,6 +431,13 @@ class RequestController < ApplicationController
 
         if (not @incoming_message.nil?) and @info_request != @incoming_message.info_request
             raise sprintf("Incoming message %d does not belong to request %d", @incoming_message.info_request_id, @info_request.id)
+        end
+
+        if !RequestMailer.is_followupable?(@info_request, @incoming_message)
+            raise "unexpected followupable inconsistency" if @info_request.public_body.is_requestable?
+            @reason = @info_request.public_body.not_requestable_reason
+            render :action => 'followup_bad'
+            return
         end
 
         # Force login early - this is really the "send followup" form. We want

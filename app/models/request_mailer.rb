@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.78 2009-06-15 23:52:44 francis Exp $
+# $Id: request_mailer.rb,v 1.79 2009-06-16 17:28:17 francis Exp $
 
 class RequestMailer < ApplicationMailer
     
@@ -58,6 +58,7 @@ class RequestMailer < ApplicationMailer
             return incoming_message_followup.mail.from_addrs[0].spec
         end
     end
+    # Subject to use for followup
     def RequestMailer.subject_for_followup(info_request, outgoing_message)
         if outgoing_message.what_doing == 'internal_review'
             return "Internal review of " + info_request.email_subject_request
@@ -65,6 +66,16 @@ class RequestMailer < ApplicationMailer
             return info_request.email_subject_followup 
         end
     end
+    # Whether we have a valid email address for a followup
+    def RequestMailer.is_followupable?(info_request, incoming_message_followup)
+        if incoming_message_followup.nil? || !incoming_message_followup.valid_to_reply_to?
+            return info_request.recipient_email_valid?
+        else
+            # email has been checked in incoming_message_followup.valid_to_reply_to? above
+            return true
+        end
+    end
+    
 
     # Used when an FOI officer uploads a response from their web browser - this is
     # the "fake" email used to store in the same format in the database as if they
