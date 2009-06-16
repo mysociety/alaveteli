@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: body_controller.rb,v 1.25 2009-03-24 13:05:01 tony Exp $
+# $Id: body_controller.rb,v 1.26 2009-06-16 22:21:13 francis Exp $
 
 class BodyController < ApplicationController
     # XXX tidy this up with better error messages, and a more standard infrastructure for the redirect to canonical URL
@@ -14,7 +14,7 @@ class BodyController < ApplicationController
             return
         end
 
-        @public_body = PublicBody.find_by_urlname(params[:url_name])
+        @public_body = PublicBody.find_by_url_name_with_historic(params[:url_name])
         raise "None found" if @public_body.nil? # XXX proper 404
 
         # If found by historic name, redirect to new name

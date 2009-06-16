@@ -33,20 +33,39 @@ describe PublicBody, "when searching" do
     fixtures :public_bodies, :public_body_versions
 
     it "should find by existing url name" do
-        body = PublicBody.find_by_urlname('dfh')
+        body = PublicBody.find_by_url_name_with_historic('dfh')
         body.id.should == 3
     end
 
     it "should find by historic url name" do
-        body = PublicBody.find_by_urlname('hdink')
+        body = PublicBody.find_by_url_name_with_historic('hdink')
         body.id.should == 3
         body.class.to_s.should == 'PublicBody'
     end
 
     it "should cope with not finding any" do
-        body = PublicBody.find_by_urlname('idontexist')
+        body = PublicBody.find_by_url_name_with_historic('idontexist')
         body.should be_nil
     end
 
+    it "should cope with duplicate historic names" do
+        body = PublicBody.find_by_url_name_with_historic('dfh')
+
+        # create history with short name "mouse" twice in it
+        body.short_name = 'Mouse'
+        body.url_name.should == 'mouse'
+        body.save!
+        body.request_email = 'dummy@localhost'
+        body.save!
+        # but a different name now
+        body.short_name = 'Stilton'
+        body.url_name.should == 'stilton'
+        body.save!
+
+        # try and find by it
+        body = PublicBody.find_by_url_name_with_historic('mouse')
+        body.id.should == 3
+        body.class.to_s.should == 'PublicBody'
+    end
 end
 
