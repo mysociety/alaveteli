@@ -18,7 +18,7 @@
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: exim_log.rb,v 1.11 2009-06-16 10:10:50 francis Exp $
+# $Id: exim_log.rb,v 1.12 2009-06-16 16:57:27 francis Exp $
 
 class EximLog < ActiveRecord::Base
     belongs_to :info_request
@@ -28,12 +28,19 @@ class EximLog < ActiveRecord::Base
     # Assumes files are named with date, rather than cyclically.
     # Doesn't do anything if file hasn't been modified since it was last loaded.
     def EximLog.load_file(file_name)
+        file_name_db = file_name
+        is_gz = false
+        if file_name.include?(".gz")
+            is_gz = true
+            file_name_db = file_name.gsub(".gz", "")
+        end
+
         modified = File::stat(file_name).mtime
         raise "EximLog.load_file: file not found " + file_name if modified.nil?
 
         ActiveRecord::Base.transaction do
             # see if we already have it
-            done = EximLogDone.find_by_filename(file_name)  
+            done = EximLogDone.find_by_filename(file_name_db)  
             if !done.nil?
                 if modified.utc == done.last_stat.utc
                     # already have that, nothing to do
@@ -43,12 +50,16 @@ class EximLog < ActiveRecord::Base
             end
             if !done
                 done = EximLogDone.new
-                done.filename = file_name
+                done.filename = file_name_db
             end
             done.last_stat = modified
 
             # scan the file
-            f = File.open(file_name, 'r')
+            if is_gz
+                f = Zlib::GzipReader.open(file_name)
+            else
+                f = File.open(file_name, 'r')
+            end
             order = 0
             for line in f
                 order = order + 1
