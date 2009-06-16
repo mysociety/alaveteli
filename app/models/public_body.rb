@@ -26,7 +26,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.145 2009-06-16 22:21:13 francis Exp $
+# $Id: public_body.rb,v 1.146 2009-06-16 22:31:46 francis Exp $
 
 require 'csv'
 require 'set'
@@ -495,6 +495,10 @@ class PublicBody < ActiveRecord::Base
     end
     def notes_as_html
         self.notes
+    end
+    def notes_without_html
+        # assume notes are reasonably behaved HTML, so just use simple regexp on this
+        self.notes.gsub(/<\/?[^>]*>/, "")
     end
 
 end
