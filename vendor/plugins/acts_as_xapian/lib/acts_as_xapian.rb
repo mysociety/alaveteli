@@ -140,6 +140,11 @@ module ActsAsXapian
         @@query_parser.database = @@db
         @@query_parser.default_op = Xapian::Query::OP_AND
 
+        @@stopper = Xapian::SimpleStopper.new
+        @@stopper.add("and")
+        @@stopper.add("&")
+        @@query_parser.stopper = @@stopper
+
         @@terms_by_capital = {}
         @@values_by_number = {}
         @@values_by_prefix = {}

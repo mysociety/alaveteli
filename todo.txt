@@ -5,6 +5,8 @@ Private policy wiki to put administrative documentation e.g. what to do with a
 notification of possibly libelous material, how to handle common support email
 types etc.
 
+Factor out "defunct/not_apply" from request_email into own field.
+
 
 Check up on how the public old request status editing is being used in 
 practice. Think about UI a bit more to try and up rate, and UI of
