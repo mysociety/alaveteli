@@ -31,47 +31,47 @@ describe "when viewing a body" do
     end
 
     it "should be successful" do
-        render "body/show"
+        render "public_body/show"
         response.should be_success
     end
 
     it "should be valid HTML" do
-        render "body/show"
+        render "public_body/show"
         validate_as_body response.body 
     end
 
     it "should show the body's name" do
-        render "body/show"
+        render "public_body/show"
         response.should have_tag("h1", "Test Quango")
     end
 
     it "should tell total number of requests" do
-        render "body/show"
+        render "public_body/show"
         response.should have_tag("h2", "4 Freedom of Information requests made")
     end
 
     it "should cope with no results" do
         @xap.stub!(:results).and_return([])
-        render "body/show"
+        render "public_body/show"
         response.should have_tag("p", /Nobody has made any Freedom of Information requests/m)
     end
 
     it "should cope with Xapian being down" do
         assigns[:xapian_requests] = nil
-        render "body/show"
+        render "public_body/show"
         response.should have_tag("p", /The search index is currently offline/m)
     end
 
     it "should link to Charity Commission site if we have a number" do
         @pb.stub!(:charity_number).and_return('98765')
-        render "body/show"
+        render "public_body/show"
         response.should have_tag("div#request_sidebar") do
             with_tag("a[href*=?]", /charity-commission.gov.uk.*RegisteredCharityNumber=98765$/)
         end
     end 
 
     it "should not link to Charity Commission site if we don't have number" do
-        render "body/show"
+        render "public_body/show"
         response.should have_tag("div#request_sidebar") do
             without_tag("a[href*=?]", /charity-commission.gov.uk/)
         end

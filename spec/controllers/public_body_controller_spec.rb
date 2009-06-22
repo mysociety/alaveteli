@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-describe BodyController, "when showing a body" do
+describe PublicBodyController, "when showing a body" do
     integrate_views
     fixtures :public_bodies, :public_body_versions
   
@@ -21,16 +21,16 @@ describe BodyController, "when showing a body" do
 
     it "should redirect to newest name if you use historic name of public body in URL" do
         get :show, :url_name => "hdink"
-        response.should redirect_to(:controller => 'body', :action => 'show', :url_name => "dfh")
+        response.should redirect_to(:controller => 'public_body', :action => 'show', :url_name => "dfh")
     end
     
     it "should redirect to lower case name if you use mixed case name in URL" do
         get :show, :url_name => "dFh"
-        response.should redirect_to(:controller => 'body', :action => 'show', :url_name => "dfh")
+        response.should redirect_to(:controller => 'public_body', :action => 'show', :url_name => "dfh")
     end
 end
 
-describe BodyController, "when listing bodies" do
+describe PublicBodyController, "when listing bodies" do
     integrate_views
     fixtures :public_bodies, :public_body_versions
     

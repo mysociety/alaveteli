@@ -4,9 +4,9 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: body_controller.rb,v 1.26 2009-06-16 22:21:13 francis Exp $
+# $Id: public_body_controller.rb,v 1.1 2009-06-22 12:54:44 francis Exp $
 
-class BodyController < ApplicationController
+class PublicBodyController < ApplicationController
     # XXX tidy this up with better error messages, and a more standard infrastructure for the redirect to canonical URL
     def show
         if MySociety::Format.simplify_url_part(params[:url_name]) != params[:url_name]
@@ -47,12 +47,12 @@ class BodyController < ApplicationController
         if params[:submitted_view_email]
             if verify_recaptcha
                 flash.discard(:error)
-                render :template => "body/view_email"
+                render :template => "public_body/view_email"
                 return
             end
             flash.now[:error] = "There was an error with the words you entered, please try again."
         end
-        render :template => "body/view_email_captcha"
+        render :template => "public_body/view_email_captcha"
     end
 
     def list

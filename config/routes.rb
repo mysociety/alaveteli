@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: routes.rb,v 1.87 2009-05-11 13:06:34 tony Exp $
+# $Id: routes.rb,v 1.88 2009-06-22 12:54:45 francis Exp $
 
 ActionController::Routing::Routes.draw do |map|
 
@@ -58,7 +58,7 @@ ActionController::Routing::Routes.draw do |map|
         user.river '/river', :action => 'river'
     end
 
-    map.with_options :controller => 'body' do |body|
+    map.with_options :controller => 'public_body' do |body|
         body.list_public_bodies "/body", :action => 'list'
         body.list_public_bodies "/body/list/:tag", :action => 'list'
         body.show_public_body "/body/:url_name", :action => 'show'
