@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.193 2009-06-16 17:28:17 francis Exp $
+# $Id: info_request.rb,v 1.194 2009-06-23 13:52:26 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -67,6 +67,7 @@ class InfoRequest < ActiveRecord::Base
     validates_inclusion_of :prominence, :in => [ 
         'normal', 
         'backpage',
+        'hidden'
     ]
 
     validates_inclusion_of :law_used, :in => [ 
@@ -814,6 +815,13 @@ public
     
     def is_owning_user?(user)
         !user.nil? && (user.id == user_id || user.owns_every_request?)
+    end
+
+    def user_can_view?(user)
+        return self.prominence != 'hidden'
+        # || self.is_owning_user?(user) # XXX this doesn't work, as have to
+        # mess with caching of HTML versions - need to change from using
+        # caches_pages in the request controller first.
     end
 
     # XXX to be called from a cron job later

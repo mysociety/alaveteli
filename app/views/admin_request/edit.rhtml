@@ -8,8 +8,8 @@
    <%= text_field 'info_request', 'title', :size => 50  %></p>
 
    <p><label for="info_request_prominence"><strong>Prominence</strong></label> 
-   <%= select( 'info_request', "prominence", { "normal" => "normal", "backpage" => "backpage"}) %>
-   (whether request is shown in lists / search or not)
+   <%= select( 'info_request', "prominence", { "normal" => "normal", "backpage" => "backpage", "hidden" => "hidden"}) %>
+   (backpage means hidden from lists/search; hidden means completely hidden)
    </p>
 
    <p>

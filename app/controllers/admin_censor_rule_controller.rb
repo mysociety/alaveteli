@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_censor_rule_controller.rb,v 1.5 2009-01-29 12:10:10 francis Exp $
+# $Id: admin_censor_rule_controller.rb,v 1.6 2009-06-23 13:52:25 francis Exp $
 
 class AdminCensorRuleController < AdminController
     def new
@@ -54,24 +54,6 @@ class AdminCensorRuleController < AdminController
         flash[:notice] = "CensorRule was successfully destroyed."
 
         redirect_to admin_url('request/show/' + info_request.id.to_s)
-    end
-
- 
-    def expire_for_request(info_request)
-        # So is using latest censor rules
-        info_request.reload
-
-        # clear out cached entries
-        for incoming_message in info_request.incoming_messages
-            for attachment in incoming_message.get_attachments_for_display
-                expire_page :controller => 'request', :action => "get_attachment", :id => info_request.id,
-                    :incoming_message_id => incoming_message.id, 
-                    :part => attachment.url_part_number, :file_name => attachment.display_filename
-                expire_page :controller => 'request', :action => "get_attachment_as_html", :id => info_request.id,
-                    :incoming_message_id => incoming_message.id, 
-                    :part => attachment.url_part_number, :file_name => attachment.display_filename
-            end
-        end
     end
 
     private

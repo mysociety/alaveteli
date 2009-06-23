@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request_event.rb,v 1.82 2009-04-23 13:32:21 tony Exp $
+# $Id: info_request_event.rb,v 1.83 2009-06-23 13:52:26 francis Exp $
 
 class InfoRequestEvent < ActiveRecord::Base
     belongs_to :info_request
@@ -154,7 +154,7 @@ class InfoRequestEvent < ActiveRecord::Base
     end
     def indexed_by_search
         if ['sent', 'followup_sent', 'response', 'comment'].include?(self.event_type)
-            if self.info_request.prominence == 'backpage'
+            if self.info_request.prominence == 'backpage' || self.info_request.prominence == 'hidden'
                 return false
             end
             if self.event_type == 'comment' && !self.comment.visible

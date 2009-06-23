@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.162 2009-06-16 17:28:16 francis Exp $
+# $Id: request_controller.rb,v 1.163 2009-06-23 13:52:25 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -19,7 +19,13 @@ class RequestController < ApplicationController
         # Look up by new style text names 
         @info_request = InfoRequest.find_by_url_title(params[:url_title])
         set_last_request(@info_request)
-        
+
+        # Test for hidden
+        if !@info_request.user_can_view?(authenticated_user)
+            render :template => 'request/hidden'
+            return
+        end
+       
         # Other parameters
         @info_request_events = @info_request.info_request_events
         @status = @info_request.calculate_status
@@ -493,7 +499,9 @@ class RequestController < ApplicationController
     # Download an attachment
     caches_page :get_attachment
     def get_attachment
-        get_attachment_internal
+        if !get_attachment_internal
+            return
+        end
 
         response.content_type = 'application/octet-stream'
         if !@attachment.content_type.nil?
@@ -507,7 +515,9 @@ class RequestController < ApplicationController
 
     caches_page :get_attachment_as_html
     def get_attachment_as_html
-        get_attachment_internal
+        if !get_attachment_internal
+            return
+        end
 
         image_dir = File.dirname(Rails.public_path + url_for(params.merge(:only_path => true)))
         FileUtils.mkdir_p(image_dir)
@@ -534,7 +544,13 @@ class RequestController < ApplicationController
         end
         @part_number = params[:part].to_i
         @filename = params[:file_name]
-        
+       
+        # Test for hidden
+        if !@info_request.user_can_view?(authenticated_user)
+            render :template => 'request/hidden'
+            return false
+        end
+  
         @attachment = IncomingMessage.get_attachment_by_url_part_number(@incoming_message.get_attachments_for_display, @part_number)
 
         # Prevent spam to magic request address.
@@ -544,6 +560,8 @@ class RequestController < ApplicationController
         @attachment_url = get_attachment_url(:id => @incoming_message.info_request_id,
                 :incoming_message_id => @incoming_message.id, :part => @part_number,
                 :file_name => @filename )
+
+        return true
     end
 
     # FOI officers can upload a response
