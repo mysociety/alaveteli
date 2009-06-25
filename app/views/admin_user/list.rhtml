@@ -6,28 +6,10 @@
    <p>
        <%= text_field_tag 'query', params[:query], { :size => 30 } %>
        <%= submit_tag "Search" %> (substring search, names and emails)
+       <%= link_to 'Banned users', 'list_banned' %></p>
    </p>
 <% end %>
 
-<table>
-  <tr>
-    <th>Id</th>
-  <% for column in ['Name', 'Email', 'Created at', 'Updated at', 'Email confirmed', 'Admin'] %>
-    <th><%= column %></th>
-  <% end %>
-  </tr>
-  
-<% for user in @admin_users %>
-  <tr class="<%= cycle('odd', 'even') %>">
-    <td><%= user.id.to_s %></td>
-    <td><%= user_both_links(user) %></td>
-    <td><a href="mailto:<%=h user.email %>"><%=h user.email%></a></td>
-  <% for column in ['created_at', 'updated_at', 'email_confirmed', 'admin_level'] %>
-    <td><%=h user.send(column) %></td>
-  <% end %>
-  </tr>
-<% end %>
-</table>
+<%= render :partial => 'user_table', :locals => { :users => @admin_users, :banned_column => false } %>
 
-<%= will_paginate(@admin_users) %>
 

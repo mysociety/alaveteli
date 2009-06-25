@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_user_controller.rb,v 1.10 2009-03-09 01:17:04 francis Exp $
+# $Id: admin_user_controller.rb,v 1.11 2009-06-25 16:51:38 francis Exp $
 
 class AdminUserController < AdminController
     def index
@@ -17,6 +17,11 @@ class AdminUserController < AdminController
         @admin_users = User.paginate :order => "name", :page => params[:page], :per_page => 100,
             :conditions =>  @query.nil? ? nil : ["lower(name) like lower('%'||?||'%') or 
                              lower(email) like lower('%'||?||'%')", @query, @query]
+    end
+
+    def list_banned
+        @banned_users = User.paginate :order => "name", :page => params[:page], :per_page => 100,
+            :conditions =>  ["ban_text <> ''"]
     end
 
     def show
