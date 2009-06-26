@@ -1,20 +1,21 @@
 # == Schema Information
-# Schema version: 75
+# Schema version: 78
 #
 # Table name: info_requests
 #
-#  id                   :integer         not null, primary key
-#  title                :text            not null
-#  user_id              :integer         not null
-#  public_body_id       :integer         not null
-#  created_at           :datetime        not null
-#  updated_at           :datetime        not null
-#  described_state      :string(255)     not null
-#  awaiting_description :boolean         default(false), not null
-#  prominence           :string(255)     default("normal"), not null
-#  url_title            :text            not null
-#  stop_new_responses   :boolean         default(false), not null
-#  law_used             :string(255)     default("foi"), not null
+#  id                        :integer         not null, primary key
+#  title                     :text            not null
+#  user_id                   :integer         not null
+#  public_body_id            :integer         not null
+#  created_at                :datetime        not null
+#  updated_at                :datetime        not null
+#  described_state           :string(255)     not null
+#  awaiting_description      :boolean         default(false), not null
+#  prominence                :string(255)     default("normal"), not null
+#  url_title                 :text            not null
+#  law_used                  :string(255)     default("foi"), not null
+#  allow_new_responses_from  :string(255)     default("anybody"), not null
+#  handle_rejected_responses :string(255)     default("bounce"), not null
 #
 
 # models/info_request.rb:
@@ -23,7 +24,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.194 2009-06-23 13:52:26 francis Exp $
+# $Id: info_request.rb,v 1.195 2009-06-26 14:28:38 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
