@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org. WWW: http://www.mysociety.org/
 #
-# $Id: crontab.ugly,v 1.29 2009-06-07 23:49:12 francis Exp $
+# $Id: crontab.ugly,v 1.30 2009-06-27 02:28:26 francis Exp $
 
 PATH=/usr/local/bin:/usr/bin:/bin
 MAILTO=team@whatdotheyknow.com
@@ -26,6 +26,7 @@ MAILTO=team@whatdotheyknow.com
 0 8 * * * !!(*= $user *)!! run-with-lockfile -n /data/vhost/!!(*= $vhost *)!!/alert-new-response-reminders.lock /data/vhost/!!(*= $vhost *)!!/mysociety/foi/script/alert-new-response-reminders || echo "stalled?"
 0 8 * * * !!(*= $user *)!! run-with-lockfile -n /data/vhost/!!(*= $vhost *)!!/alert-not-clarified-request.lock /data/vhost/!!(*= $vhost *)!!/mysociety/foi/script/alert-not-clarified-request || echo "stalled?"
 2 4 * * * !!(*= $user *)!! run-with-lockfile -n /data/vhost/!!(*= $vhost *)!!/check-recent-requests-sent.lock /data/vhost/!!(*= $vhost *)!!/mysociety/foi/script/check-recent-requests-sent || echo "stalled?"
+45 3 * * * !!(*= $user *)!! run-with-lockfile -n /data/vhost/!!(*= $vhost *)!!/stop-new-responses-on-old-requests.lock /data/vhost/!!(*= $vhost *)!!/mysociety/foi/script/stop-new-responses-on-old-requests || echo "stalled?"
 
 # Once a day on all servers
 43 2 * * * !!(*= $user *)!! /data/vhost/!!(*= $vhost *)!!/mysociety/foi/script/request-creation-graph
