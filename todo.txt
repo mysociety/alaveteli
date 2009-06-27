@@ -4,33 +4,11 @@ Next (things that will reduce admin time mainly)
 Add Auto-Submitted: auto-generated/auto-replied headers in all appropriate places
 Make sure done according to RFC: http://tools.ietf.org/html/rfc3834
 
-Private policy wiki to put administrative documentation e.g. what to do with a
-notification of possibly libelous material, how to handle common support email
-types etc.
-
 Factor out "defunct/not_apply" from request_email into own field.
 
-Check up on how the public old request status editing is being used in 
-practice. Think about UI a bit more to try and up rate, and UI of
-alerts to requester.
 
 Button for people to say "this status is really quite wrong please
 fix it"?
-
-Automatically close requests which have email addresses in their PDF?
-
-
-For followups, have radio button to say is it a new request or followup
-Do by uncommenting the "new information" option when writing a followup, so
-that it makes a new request
-
-Add explicit option for user to select "misdelivered to the wrong request"
-and let people move them to the right place.
-
-Give authorities interface for editing their request email address
-and resend messages to them?
-
-
 
 Lots of authorities are starting to complain about how their record looks on
 their page - e.g responses not classified by users. That users may classify
@@ -38,12 +16,16 @@ incorrectly. Change wording to make it clear statuses are users opinion ?.
 * Meanwhile mention in help that authorities can do this
 * And ask that they include URL of requests in emails when talking about them
 
+Check up on how the public old request status editing is being used in 
+practice. Think about UI a bit more to try and up rate, and UI of
+alerts to requester.
+
+
 Change text so that overdue covers qualified exemption of public interest test being
 valid reason for delay.
 
-Add FAQ / unhappy page which explains what you can do if you get no response
-at all and that it might be spam. (err, or somehow reorganise FAQ for this
-in relation to existing mirror image FAQ for officers)
+Allow for deadline extension for schools.
+
 
 Put the request from address in the database, then change the rule for making it.
 * Use maybe words for generated email address? Name of the person and a request
@@ -74,14 +56,24 @@ be load in case where the envelope from gets broken?
 
 Admin button to resend request one off to particular address
 
+Add explicit option for user to select "misdelivered to the wrong request"
+and let people move them to the right place.
+
+Give authorities interface for editing their request email address
+and resend messages to them
+
+
+
 Later
 =====
+
+For followups, have radio button to say is it a new request or followup
+Do by uncommenting the "new information" option when writing a followup, so
+that it makes a new request
 
 Don't allow sending internal review text twice (although make sure they 
 can write followups to internal review)
 e.g. http://www.whatdotheyknow.com/request/reply_to_letter_from_historic_ro
-
-Redeliver outgoing messages (not needed so often)
 
 Point all MX records to one server, so can see incoming messages in exim logs also.
 Hmmm, but less robust. Run the exim log grabber across all mail servers?
@@ -137,8 +129,10 @@ Fix up the text: "The internal review should take 2-3 weeks for simple cases,
 and up to 6 weeks even for complex reviews."
 Awaiting internal review overdue state?
 
-Sort requests on user page by status. "sort open requests in order of 'last
-action'" (and tell Paul Perrin when done!)
+Sort requests on user page by status. 
+    "For sorting I was just thinking of a generic sort/filter by clicking
+    on the header or some such -- I'd probably want to sort open requests
+    in order of 'last action'... to quickly see what was most overdue."
 
 Ask people for annotation immediately after they have submitted their request
 Ask for annotation about what they learnt from request?
@@ -180,9 +174,8 @@ CSS / design things
 What happens if you view an address with the captcha, and it is not_apply or
 blank?
 
-Would be nice if you try and send or resend (from admin interface, or by sending
-followup as user) and original address is set to not_apply or "" that it deals
-with it better :) 
+Would be nice if you try and send or resend from admin interface and address is
+set to not_apply, defunct or "" that it deals with it better :) 
 
 When doing search, people often just want it to show the whole page. Perhaps
 all listing should just link to top of page, rather than # links for outgoing
@@ -191,9 +184,12 @@ incoming, or perhaps just some of them.
 Help page improvements:
     Add "Who should I make my request to?" - make flow better after first section, to abrupt now
     I think the advice in this annotation could go into a nice comment:
-    http://www.whatdotheyknow.com/request/berr_response_to_eu_on_phorm_bt#comment-356
+      http://www.whatdotheyknow.com/request/berr_response_to_eu_on_phorm_bt#comment-356
     Add "I want to file squillions of requests"
     Reassurance that fees don't happen much
+    Add FAQ / unhappy page which explains what you can do if you get no response
+      at all and that it might be spam. (err, or somehow reorganise FAQ for this
+     in relation to existing mirror image FAQ for officers)
 
 Tell application developer if working days table not up to date, and needs
 updating
@@ -204,8 +200,10 @@ Link the overdue date to an explanation of what bank holidays it skipped etc.
 Should probably remove the weekend rule, and be sterner with authorities about
 what "received" means. See thread about staff_numbers_and_costs on team@ ad
 these two requests:
-http://www.whatdotheyknow.com/request/staff_numbers_and_costs
-http://www.whatdotheyknow.com/request/policy_regarding_body_scans#incoming-1100
+    http://www.whatdotheyknow.com/request/staff_numbers_and_costs
+    http://www.whatdotheyknow.com/request/policy_regarding_body_scans#incoming-1100
+Remember to update help:
+    http://www.whatdotheyknow.com/help/about/#days
 
 Show similar requests after you have filed yours - maybe on preview too.
 
@@ -253,6 +251,8 @@ Remove request email address from PDFs (we already do from docs)
    - maybe if text contains email, refuse to show full PDF just show conversion
      to text/HTML?
     http://www.whatdotheyknow.com/request/5353/response/11911/attach/html/2/Freedom%20of%20Information%20-%20Letter%20Accepting%20Request%20-%2072057594037995214.pdf.html
+Take care here, sometimes emails are found by spammers by Google's OCR of
+images in PDFs
 
 Renaming public authorities will break alerts on them. For basic alerts the
 structured info is there so this should just be fixed. For searches, perhaps
