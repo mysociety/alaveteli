@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_mailer.rb,v 1.20 2009-05-21 08:13:01 louise Exp $
+# $Id: track_mailer.rb,v 1.21 2009-06-27 03:21:23 francis Exp $
 
 class TrackMailer < ApplicationMailer
     def event_digest(user, email_about_things)
@@ -15,9 +15,11 @@ class TrackMailer < ApplicationMailer
         unsubscribe_url = confirm_url(:email_token => post_redirect.email_token)
 
         @from = contact_from_name_and_email
-        # We let it return bounces for now, so we can manually kill the tracks that bounce so Yahoo
-        # etc. don't decide we are spammers.
-        #headers 'Return-Path' => blackhole_email, 'Reply-To' => @from # we don't care about bounces for tracks
+        headers 'Auto-Submitted' => 'auto-generated' # http://tools.ietf.org/html/rfc3834
+        # 'Return-Path' => blackhole_email, 'Reply-To' => @from # we don't care about bounces for tracks
+        # (We let it return bounces for now, so we can manually kill the tracks that bounce so Yahoo
+        # etc. don't decide we are spammers.)
+
         @recipients = user.name_and_email
         @subject = "Your WhatDoTheyKnow.com email alert"
         @body = { :user => user, :email_about_things => email_about_things, :unsubscribe_url => unsubscribe_url }
