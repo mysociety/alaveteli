@@ -1,8 +1,11 @@
 Next (things that will reduce admin time mainly)
 ====
 
-Add Auto-Submitted: auto-generated/auto-replied headers in all appropriate places
-Make sure done according to RFC: http://tools.ietf.org/html/rfc3834
+Emails sent to stopped requests should follow RFC: http://tools.ietf.org/html/rfc3834
+    Shouldn't bounce message back to Auto-Submitted 
+    Should check from address being replied to is valid
+    Should set In-Reply-To and References fields
+    Reconsider message content given that section in RFC
 
 Factor out "defunct/not_apply" from request_email into own field.
 

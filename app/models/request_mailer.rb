@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.79 2009-06-16 17:28:17 francis Exp $
+# $Id: request_mailer.rb,v 1.80 2009-06-27 03:59:48 francis Exp $
 
 class RequestMailer < ApplicationMailer
     
@@ -104,7 +104,8 @@ class RequestMailer < ApplicationMailer
     # Incoming message arrived for a request, but new responses have been stopped.
     def stopped_responses(info_request, email, raw_email_data)
         @from = contact_from_name_and_email
-        headers 'Return-Path' => blackhole_email, 'Reply-To' => @from # we don't care about bounces, likely from spammers
+        headers 'Return-Path' => blackhole_email, 'Reply-To' => @from, # we don't care about bounces, likely from spammers
+                'Auto-Submitted' => 'auto-replied' # http://tools.ietf.org/html/rfc3834
         @recipients = email.from_addrs[0].to_s
         @subject = "Your response to an FOI request was not delivered"
         attachment :content_type => 'message/rfc822', :body => raw_email_data,
@@ -132,6 +133,8 @@ class RequestMailer < ApplicationMailer
         url = main_url(incoming_message_url(incoming_message))
 
         @from = contact_from_name_and_email
+        headers 'Return-Path' => blackhole_email, 'Reply-To' => @from, # not much we can do if the user's email is broken
+                'Auto-Submitted' => 'auto-generated' # http://tools.ietf.org/html/rfc3834
         @recipients = info_request.user.name_and_email
         @subject = "New response to your FOI request - " + info_request.title
         @body = { :incoming_message => incoming_message, :info_request => info_request, :url => url }
@@ -148,6 +151,8 @@ class RequestMailer < ApplicationMailer
         url = confirm_url(:email_token => post_redirect.email_token)
 
         @from = contact_from_name_and_email
+        headers 'Return-Path' => blackhole_email, 'Reply-To' => @from, # not much we can do if the user's email is broken
+                'Auto-Submitted' => 'auto-generated' # http://tools.ietf.org/html/rfc3834
         @recipients = user.name_and_email
         @subject = "You're overdue a response to your FOI request - " + info_request.title
         @body = { :info_request => info_request, :url => url }
@@ -165,6 +170,8 @@ class RequestMailer < ApplicationMailer
         url = confirm_url(:email_token => post_redirect.email_token)
 
         @from = contact_from_name_and_email
+        headers 'Return-Path' => blackhole_email, 'Reply-To' => @from, # not much we can do if the user's email is broken
+                'Auto-Submitted' => 'auto-generated' # http://tools.ietf.org/html/rfc3834
         @recipients = info_request.user.name_and_email
         @subject = "Was the response you got the other day any good?"
         @body = { :incoming_message => incoming_message, :info_request => info_request, :url => url }
@@ -173,6 +180,8 @@ class RequestMailer < ApplicationMailer
     # Tell the requester that someone updated their old unclassified request
     def old_unclassified_updated(info_request)
         @from = contact_from_name_and_email
+        headers 'Return-Path' => blackhole_email, 'Reply-To' => @from, # not much we can do if the user's email is broken
+                'Auto-Submitted' => 'auto-generated' # http://tools.ietf.org/html/rfc3834
         @recipients = info_request.user.name_and_email
         @subject = "Someone has updated the status of your request"
         url = main_url(request_url(info_request))
@@ -191,6 +200,8 @@ class RequestMailer < ApplicationMailer
         url = confirm_url(:email_token => post_redirect.email_token)
 
         @from = contact_from_name_and_email
+        headers 'Return-Path' => blackhole_email, 'Reply-To' => @from, # not much we can do if the user's email is broken
+                'Auto-Submitted' => 'auto-generated' # http://tools.ietf.org/html/rfc3834
         @recipients = info_request.user.name_and_email
         @subject = "Clarify your FOI request - " + info_request.title
         @body = { :incoming_message => incoming_message, :info_request => info_request, :url => url }
@@ -199,12 +210,16 @@ class RequestMailer < ApplicationMailer
     # Tell requester that somebody add an annotation to their request
     def comment_on_alert(info_request, comment)
         @from = contact_from_name_and_email
+        headers 'Return-Path' => blackhole_email, 'Reply-To' => @from, # not much we can do if the user's email is broken
+                'Auto-Submitted' => 'auto-generated' # http://tools.ietf.org/html/rfc3834
         @recipients = info_request.user.name_and_email
         @subject = "Somebody added a note to your FOI request - " + info_request.title
         @body = { :comment => comment, :info_request => info_request, :url => main_url(comment_url(comment)) }
     end
     def comment_on_alert_plural(info_request, count, earliest_unalerted_comment)
         @from = contact_from_name_and_email
+        headers 'Return-Path' => blackhole_email, 'Reply-To' => @from, # not much we can do if the user's email is broken
+                'Auto-Submitted' => 'auto-generated' # http://tools.ietf.org/html/rfc3834
         @recipients = info_request.user.name_and_email
         @subject = "Some notes have been added to your FOI request - " + info_request.title
         @body = { :count => count, :info_request => info_request, :url => main_url(comment_url(earliest_unalerted_comment)) }
