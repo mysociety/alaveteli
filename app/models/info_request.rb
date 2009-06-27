@@ -24,7 +24,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.195 2009-06-26 14:28:38 francis Exp $
+# $Id: info_request.rb,v 1.196 2009-06-27 02:25:31 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -825,12 +825,12 @@ public
         # caches_pages in the request controller first.
     end
 
-    # XXX to be called from a cron job later
+    # This is called from cron regularly.
     def self.stop_new_responses_on_old_requests
         # 6 months since last change to request, only allow new incoming messages from authority domains
         InfoRequest.update_all "allow_new_responses_from = 'authority_only' where updated_at < (now() - interval '6 months') and allow_new_responses_from = 'anybody'"
         # 1 year since last change requests, don't allow any new incoming messages
-        PostRedirect.update_all "allow_new_responses_from = 'nobody' where updated_at < (now() - interval '1 year') and allow_new_responses_from in ('anybody', 'authority_only')"
+        InfoRequest.update_all "allow_new_responses_from = 'nobody' where updated_at < (now() - interval '1 year') and allow_new_responses_from in ('anybody', 'authority_only')"
     end
 end
 
