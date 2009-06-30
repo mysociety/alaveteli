@@ -13,7 +13,8 @@ describe 'when viewing an information request' do
                                                 :public_body => @mock_body,
                                                 :user => @mock_user, 
                                                 :calculate_status => 'waiting_response', 
-                                                :date_response_required_by => Date.today)
+                                                :date_response_required_by => Date.today,
+                                                :prominence => 'normal')
     end
     
     def do_render
