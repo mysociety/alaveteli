@@ -22,7 +22,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: outgoing_message.rb,v 1.85 2009-06-26 14:28:38 francis Exp $
+# $Id: outgoing_message.rb,v 1.86 2009-06-30 16:30:28 francis Exp $
 
 class OutgoingMessage < ActiveRecord::Base
     strip_attributes!
@@ -50,7 +50,7 @@ class OutgoingMessage < ActiveRecord::Base
         return ret + ","
     end
     def get_signoff
-        if self.message_type == 'followup'
+        if self.message_type == 'followup' && !self.incoming_message_followup.nil? && !self.incoming_message_followup.safe_mail_from.nil? && self.incoming_message_followup.valid_to_reply_to?
             return "Yours sincerely,"
         else
             return "Yours faithfully,"
