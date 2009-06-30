@@ -607,7 +607,7 @@ div.pagination { text-align: center; padding-top: 0.3em;}
 
 
 /*-------------------- Content : form errors */
-#error, .errorExplanation
+#error, .errorExplanation, #hidden_request
 {
 	color: #FF0606;
 	font-size: 1.4em;
@@ -617,7 +617,7 @@ div.pagination { text-align: center; padding-top: 0.3em;}
 	border-style: solid;
 	background-color: #ffeeee;
 }
-#error {
+#error, #hidden_request {
 	padding: 0.5em;
 }
 .fieldWithErrors

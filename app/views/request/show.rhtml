@@ -1,5 +1,12 @@
 <% @title = h(@info_request.title) %>
 
+<% if @info_request.prominence == 'hidden' %>
+    <p id="hidden_request">
+    This request has prominence 'hidden'. You can only see it because you are logged
+    in as a super user.
+    </p>
+<% end %>
+
 <% if @update_status || @info_request.awaiting_description %>
     <div class="describe_state_form" id="describe_state_form_1">
     <%= render :partial => 'describe_state', :locals => { :id_suffix => "1" } %>
