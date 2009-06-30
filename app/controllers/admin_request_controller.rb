@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_request_controller.rb,v 1.36 2009-06-23 13:52:25 francis Exp $
+# $Id: admin_request_controller.rb,v 1.37 2009-06-30 14:28:25 francis Exp $
 
 class AdminRequestController < AdminController
     def index
@@ -48,12 +48,6 @@ class AdminRequestController < AdminController
         old_allow_new_responses_from = @info_request.allow_new_responses_from
         old_handle_rejected_responses = @info_request.handle_rejected_responses
 
-        expire = false
-        if @info_request.prominence != params[:info_request][:prominence]
-            # in case it has become hidden, clear cache after saving
-            expire = true
-        end
-
         @info_request.title = params[:info_request][:title]
         @info_request.prominence = params[:info_request][:prominence]
         if @info_request.described_state != params[:info_request][:described_state]
@@ -65,9 +59,6 @@ class AdminRequestController < AdminController
 
         if @info_request.valid?
             @info_request.save!
-            if expire
-                expire_for_request(@info_request)
-            end
             @info_request.log_event("edit", 
                 { :editor => admin_http_auth_user(), 
                     :old_title => old_title, :title => @info_request.title, 

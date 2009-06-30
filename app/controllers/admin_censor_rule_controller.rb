@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_censor_rule_controller.rb,v 1.6 2009-06-23 13:52:25 francis Exp $
+# $Id: admin_censor_rule_controller.rb,v 1.7 2009-06-30 14:28:25 francis Exp $
 
 class AdminCensorRuleController < AdminController
     def new
@@ -14,7 +14,6 @@ class AdminCensorRuleController < AdminController
     def create
         params[:censor_rule][:last_edit_editor] = admin_http_auth_user()
         @censor_rule = CensorRule.new(params[:censor_rule])
-        expire_for_request(@censor_rule.info_request)
         if @censor_rule.save
             expire_for_request(@censor_rule.info_request)
             flash[:notice] = 'CensorRule was successfully created.'
@@ -31,8 +30,6 @@ class AdminCensorRuleController < AdminController
     def update
         params[:censor_rule][:last_edit_editor] = admin_http_auth_user()
         @censor_rule = CensorRule.find(params[:id])
-        # expire before and after change, in case filename changes
-        expire_for_request(@censor_rule.info_request)
         if @censor_rule.update_attributes(params[:censor_rule])
             expire_for_request(@censor_rule.info_request)
             flash[:notice] = 'CensorRule was successfully updated.'
@@ -46,13 +43,10 @@ class AdminCensorRuleController < AdminController
         censor_rule = CensorRule.find(params[:censor_rule_id])
         info_request = censor_rule.info_request
 
-        # expire before and after change, in case filename changes
-        expire_for_request(info_request)
         censor_rule.destroy
         expire_for_request(info_request)
 
         flash[:notice] = "CensorRule was successfully destroyed."
-
         redirect_to admin_url('request/show/' + info_request.id.to_s)
     end
 

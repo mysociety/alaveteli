@@ -49,6 +49,15 @@ describe RequestController, "when showing one request" do
         get :show, :url_title => info_requests(:naughty_chicken_request).id
         response.should redirect_to(:action => 'show', :url_title => info_requests(:naughty_chicken_request).url_title)
     end
+
+    it "should not show hidden requests" do
+        ir = info_requests(:fancy_dog_request)
+        ir.prominence = 'hidden'
+        ir.save!
+
+        get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
+        response.should render_template('hidden')
+    end
     
     describe 'when handling an update_status parameter' do
         
@@ -107,6 +116,22 @@ describe RequestController, "when showing one request" do
             get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 3
             response.content_type.should == "text/plain"
             response.should have_text(/First hello/)        
+        end
+
+        it "should not download attachments if hidden" do
+            ir = info_requests(:fancy_dog_request) 
+            ir.prominence = 'hidden'
+            ir.save!
+            receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
+
+            get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2
+            response.content_type.should == "text/html"
+            response.should_not have_text(/Second hello/)        
+            response.should render_template('request/hidden')
+            get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 3
+            response.content_type.should == "text/html"
+            response.should_not have_text(/First hello/)        
+            response.should render_template('request/hidden')
         end
     end
 end

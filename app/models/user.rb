@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user.rb,v 1.95 2009-06-26 14:28:38 francis Exp $
+# $Id: user.rb,v 1.96 2009-06-30 14:28:26 francis Exp $
 
 require 'digest/sha1'
 
@@ -219,7 +219,11 @@ class User < ActiveRecord::Base
     def self.owns_every_request?(user)
       !user.nil? && user.owns_every_request?  
     end
-    
+
+    def self.view_hidden_requests?(user)
+      !user.nil? && user.admin_level == 'super'
+    end
+     
     # Does the user get "(admin)" links on each page on the main site?
     def admin_page_links?
         self.admin_level == 'super'

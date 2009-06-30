@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.163 2009-06-23 13:52:25 francis Exp $
+# $Id: request_controller.rb,v 1.164 2009-06-30 14:28:25 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -497,7 +497,20 @@ class RequestController < ApplicationController
     end
 
     # Download an attachment
-    caches_page :get_attachment
+
+    before_filter :authenticate_attachment, :only => [ :get_attachment, :get_attachment_as_html ]
+    def authenticate_attachment
+        # Test for hidden
+        incoming_message = IncomingMessage.find(params[:incoming_message_id])
+        if !incoming_message.info_request.user_can_view?(authenticated_user)
+            render :template => 'request/hidden'
+        end
+    end
+
+    # use :cache_path here so domain doesn't appear in filename, as /admin
+    # interface runs on separate domain (so can use HTTPS without its own
+    # certificate) in mySociety server configuration.
+    caches_action :get_attachment, :cache_path => { :only_path => true }
     def get_attachment
         if !get_attachment_internal
             return
@@ -513,7 +526,7 @@ class RequestController < ApplicationController
         render :text => @attachment.body
     end
 
-    caches_page :get_attachment_as_html
+    caches_action :get_attachment_as_html, :cache_path => { :only_path => true }
     def get_attachment_as_html
         if !get_attachment_internal
             return
@@ -545,11 +558,8 @@ class RequestController < ApplicationController
         @part_number = params[:part].to_i
         @filename = params[:file_name]
        
-        # Test for hidden
-        if !@info_request.user_can_view?(authenticated_user)
-            render :template => 'request/hidden'
-            return false
-        end
+        # check permissions
+        raise "internal error, pre-auth filter should have caught this" if !@info_request.user_can_view?(authenticated_user)
   
         @attachment = IncomingMessage.get_attachment_by_url_part_number(@incoming_message.get_attachments_for_display, @part_number)
 

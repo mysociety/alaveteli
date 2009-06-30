@@ -24,7 +24,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.196 2009-06-27 02:25:31 francis Exp $
+# $Id: info_request.rb,v 1.197 2009-06-30 14:28:26 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -819,10 +819,10 @@ public
     end
 
     def user_can_view?(user)
-        return self.prominence != 'hidden'
-        # || self.is_owning_user?(user) # XXX this doesn't work, as have to
-        # mess with caching of HTML versions - need to change from using
-        # caches_pages in the request controller first.
+        if self.prominence == 'hidden' 
+            return User.view_hidden_requests?(user)
+        end
+        return true
     end
 
     # This is called from cron regularly.
