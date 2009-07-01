@@ -1,10 +1,10 @@
-# models/request_mailer.rb:
+# lib/tmail_extensions.rb:
 # Extensions / fixes to TMail.
 #
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: tmail_extensions.rb,v 1.4 2009-05-21 01:18:45 francis Exp $
+# $Id: tmail_extensions.rb,v 1.5 2009-07-01 11:07:20 francis Exp $
 
 # Monkeypatch!
 

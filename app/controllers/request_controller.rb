@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.164 2009-06-30 14:28:25 francis Exp $
+# $Id: request_controller.rb,v 1.165 2009-07-01 11:07:19 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -507,32 +507,37 @@ class RequestController < ApplicationController
         end
     end
 
-    # use :cache_path here so domain doesn't appear in filename, as /admin
-    # interface runs on separate domain (so can use HTTPS without its own
-    # certificate) in mySociety server configuration.
-    caches_action :get_attachment, :cache_path => { :only_path => true }
-    def get_attachment
-        if !get_attachment_internal
+    # special caching code so mime types are handled right
+    around_filter :cache_attachments, :only => [ :get_attachment, :get_attachment_as_html ]
+    def cache_attachments
+        key = params.merge(:only_path => true)
+        if cached = read_fragment(key)
+            IncomingMessage # load global filename_to_mimetype XXX should move filename_to_mimetype to proper namespace
+            response.content_type = filename_to_mimetype(params[:file_name].join("/")) or 'application/octet-stream'
+            render_for_text(cached)
             return
         end
 
-        response.content_type = 'application/octet-stream'
-        if !@attachment.content_type.nil?
-            # Hmm, this is a bit rubbish as when cached won't cache the content
-            # type. We try to overcome it by setting the file extension right
-            # in FOIAttachment.
-            response.content_type = @attachment.content_type
-        end
+        yield
+
+        write_fragment(key, response.body)
+    end
+
+    def get_attachment
+        get_attachment_internal
+
+        # we don't use @attachment.content_type here, as we want same mime type when cached in cache_attachments above
+        response.content_type = filename_to_mimetype(params[:file_name].join("/")) or 'application/octet-stream'
+
         render :text => @attachment.body
     end
 
-    caches_action :get_attachment_as_html, :cache_path => { :only_path => true }
     def get_attachment_as_html
-        if !get_attachment_internal
-            return
-        end
+        get_attachment_internal
 
-        image_dir = File.dirname(Rails.public_path + url_for(params.merge(:only_path => true)))
+        # images made during conversion (e.g. images in PDF files) are put in the cache directory, so
+        # the same cache code in cache_attachments above will display them.
+        image_dir = File.dirname(ActionController::Base.cache_store.cache_path + "/views" + url_for(params.merge(:only_path => true)))
         FileUtils.mkdir_p(image_dir)
         html = @attachment.body_as_html(image_dir)
 
@@ -556,7 +561,8 @@ class RequestController < ApplicationController
             raise sprintf("Incoming message %d does not belong to request %d", @incoming_message.info_request_id, params[:id])
         end
         @part_number = params[:part].to_i
-        @filename = params[:file_name]
+        @filename = params[:file_name].join("/")
+        @original_filename = @filename.gsub(/\.html$/, "")
        
         # check permissions
         raise "internal error, pre-auth filter should have caught this" if !@info_request.user_can_view?(authenticated_user)
@@ -569,9 +575,7 @@ class RequestController < ApplicationController
 
         @attachment_url = get_attachment_url(:id => @incoming_message.info_request_id,
                 :incoming_message_id => @incoming_message.id, :part => @part_number,
-                :file_name => @filename )
-
-        return true
+                :file_name => @original_filename )
     end
 
     # FOI officers can upload a response

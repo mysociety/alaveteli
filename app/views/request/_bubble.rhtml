@@ -10,7 +10,7 @@
                                     :file_name => a.display_filename) 
                             attachment_as_html_url = get_attachment_as_html_url(:id => incoming_message.info_request_id,
                                     :incoming_message_id => incoming_message.id, :part => a.url_part_number, 
-                                    :file_name => a.display_filename) 
+                                    :file_name => a.display_filename + '.html') 
                         %>
                         <% img_filename = "icon_" + a.content_type.sub('/', '_') + "_large.png"
                         full_filename = File.join(File.dirname(__FILE__), "../../../public/images", img_filename)

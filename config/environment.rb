@@ -125,6 +125,7 @@ end
 
 # Load monkey patches from lib/
 require 'tmail_extensions'
+require 'activesupport_cache_extensions.rb'
 
 # XXX temp debug for SQL logging production sites
 #ActiveRecord::Base.logger = Logger.new(STDOUT)

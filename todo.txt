@@ -428,6 +428,9 @@ Have a single button to sign up to alerts on authorities for your postcode
 NHS postcode database: 
     http://www.ons.gov.uk/about-statistics/geography/products/geog-products-postcode/nhspd/index.html
 
+Make request preview have a URL so you can show it to someone else before
+sending it :)
+
 Proposed request submission queue with comments - new requests don't get sent straight
     away, but are delayed while people help improve them.
 
