@@ -110,10 +110,10 @@ describe RequestController, "when showing one request" do
             get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
             (assigns[:info_request_events].size - size_before).should == 1
 
-            get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2
+            get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => ['foo.txt']
             response.content_type.should == "text/plain"
             response.should have_text(/Second hello/)        
-            get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 3
+            get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 3, :file_name => ['bar.txt']
             response.content_type.should == "text/plain"
             response.should have_text(/First hello/)        
         end
