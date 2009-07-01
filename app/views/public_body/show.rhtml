@@ -36,13 +36,17 @@
 <div id="stepwise_make_request">
     <strong>
     <% if @public_body.is_requestable? || @public_body.not_requestable_reason == 'bad_contact' %>
-        Next, 
-            <% if @public_body.eir_only? %>
-            <%= link_to "make a new Environmental Information request", new_request_to_body_url(:public_body_id => @public_body.id.to_s)%>
-            <% else %>
-            <%= link_to "make a new Freedom of Information request", new_request_to_body_url(:public_body_id => @public_body.id.to_s)%>
-            <% end %>
-            to <%= h(@public_body.name) %>
+        <% make = 'Make' %>
+        <% if @searched_to_send_request %>
+            Next, 
+            <% make = 'make' %>
+        <% end %>
+        <% if @public_body.eir_only? %>
+            <%= link_to make + " a new Environmental Information request", new_request_to_body_url(:public_body_id => @public_body.id.to_s)%>
+        <% else %>
+            <%= link_to make + " a new Freedom of Information request", new_request_to_body_url(:public_body_id => @public_body.id.to_s)%>
+        <% end %>
+        to <%= h(@public_body.name) %>
     <% elsif @public_body.has_notes? %>
         <%= @public_body.notes_as_html %>
     <% elsif @public_body.not_requestable_reason == 'not_apply' %>

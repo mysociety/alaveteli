@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body_controller.rb,v 1.1 2009-06-22 12:54:44 francis Exp $
+# $Id: public_body_controller.rb,v 1.2 2009-07-01 18:16:33 francis Exp $
 
 class PublicBodyController < ApplicationController
     # XXX tidy this up with better error messages, and a more standard infrastructure for the redirect to canonical URL
@@ -22,6 +22,13 @@ class PublicBodyController < ApplicationController
             @public_body.url_name != params[:url_name]
 
         set_last_body(@public_body)
+
+        top_url = main_url("/")
+        @searched_to_send_request = false
+        referrer = request.env['HTTP_REFERER']
+        if !referrer.nil? && referrer.match(%r{^#{top_url}search/.*/bodies$})
+            @searched_to_send_request = true
+        end
 
         # Use search query for this so can collapse and paginate easily
         # XXX really should just use SQL query here rather than Xapian.
