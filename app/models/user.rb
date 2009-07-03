@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user.rb,v 1.96 2009-06-30 14:28:26 francis Exp $
+# $Id: user.rb,v 1.97 2009-07-03 11:43:37 francis Exp $
 
 require 'digest/sha1'
 
@@ -220,6 +220,7 @@ class User < ActiveRecord::Base
       !user.nil? && user.owns_every_request?  
     end
 
+    # Can the user see every request, even hidden ones?
     def self.view_hidden_requests?(user)
       !user.nil? && user.admin_level == 'super'
     end

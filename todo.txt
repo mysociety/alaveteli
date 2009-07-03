@@ -7,8 +7,11 @@ Emails sent to stopped requests should follow RFC: http://tools.ietf.org/html/rf
     Should set In-Reply-To and References fields
     Reconsider message content given that section in RFC
 
-Factor out "defunct/not_apply" from request_email into own field.
+Factor out "defunct/not_apply" from request_email into own field so defunct
+authorities can still have followups to existing requests.
 
+Add help about not adding extraneous or possibly libelous content to
+requests or followups. Explain how to write things to avoid libel law.
 
 Button for people to say "this status is really quite wrong please
 fix it"?
@@ -193,6 +196,9 @@ Help page improvements:
     Add FAQ / unhappy page which explains what you can do if you get no response
       at all and that it might be spam. (err, or somehow reorganise FAQ for this
      in relation to existing mirror image FAQ for officers)
+    Some more traditional help such as:
+        * Information about how to track requests and RSS feeds 
+        * Information about how to contacting other users
 
 Tell application developer if working days table not up to date, and needs
 updating
@@ -270,6 +276,9 @@ Failed to detect attachments are emails and decode them:
 
 When indexing .docx do you need to index docProps/custom.xml and docProps/app.xml
 as well as word/document.xml ? (thread on xapian-discuss does so)
+
+Mime type / extension wrong on these .docx's
+http://www.whatdotheyknow.com/request/bridleway_classifications
 
 VSD files vsdump - example in zip file
     http://www.whatdotheyknow.com/request/dog_control_orders#incoming-3510

@@ -50,15 +50,7 @@ describe RequestController, "when showing one request" do
         response.should redirect_to(:action => 'show', :url_title => info_requests(:naughty_chicken_request).url_title)
     end
 
-    it "should not show hidden requests" do
-        ir = info_requests(:fancy_dog_request)
-        ir.prominence = 'hidden'
-        ir.save!
-
-        get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-        response.should render_template('hidden')
-    end
-    
+     
     describe 'when handling an update_status parameter' do
         
         before do 
@@ -118,24 +110,86 @@ describe RequestController, "when showing one request" do
             response.should have_text(/First hello/)        
         end
 
-        it "should not download attachments if hidden" do
-            ir = info_requests(:fancy_dog_request) 
-            ir.prominence = 'hidden'
-            ir.save!
-            receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
-
-            get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2
-            response.content_type.should == "text/html"
-            response.should_not have_text(/Second hello/)        
-            response.should render_template('request/hidden')
-            get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 3
-            response.content_type.should == "text/html"
-            response.should_not have_text(/First hello/)        
-            response.should render_template('request/hidden')
-        end
     end
 end
 
+describe RequestController, "when changing prominence of a request" do
+    fixtures :info_requests, :info_request_events, :public_bodies, :users, :incoming_messages, :raw_emails, :outgoing_messages # all needed as integrating views
+
+    it "should not show hidden requests" do
+        ir = info_requests(:fancy_dog_request)
+        ir.prominence = 'hidden'
+        ir.save!
+
+        get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
+        response.should render_template('hidden')
+    end
+
+    it "should not show hidden requests even if logged in as their owner" do
+        ir = info_requests(:fancy_dog_request)
+        ir.prominence = 'hidden'
+        ir.save!
+
+        session[:user_id] = ir.user.id # bob_smith_user
+        get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
+        response.should render_template('hidden')
+    end
+
+    it "should show hidden requests if logged in as super user" do
+        ir = info_requests(:fancy_dog_request)
+        ir.prominence = 'hidden'
+        ir.save!
+
+        session[:user_id] = users(:admin_user)
+        get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
+        response.should render_template('show')
+    end
+
+    it "should not show requester_only requests if you're not logged in" do
+        ir = info_requests(:fancy_dog_request)
+        ir.prominence = 'requester_only'
+        ir.save!
+
+        get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
+        response.should render_template('hidden')
+    end
+
+    it "should show requester_only requests to requester and admin if logged in" do
+        ir = info_requests(:fancy_dog_request)
+        ir.prominence = 'requester_only'
+        ir.save!
+
+        session[:user_id] = users(:silly_name_user).id
+        get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
+        response.should render_template('hidden')
+
+        session[:user_id] = ir.user.id # bob_smith_user
+        get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
+        response.should render_template('show')
+
+        session[:user_id] = users(:admin_user).id
+        get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
+        response.should render_template('show')
+
+    end
+
+    it "should not download attachments if hidden" do
+        ir = info_requests(:fancy_dog_request) 
+        ir.prominence = 'hidden'
+        ir.save!
+        receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
+
+        get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2
+        response.content_type.should == "text/html"
+        response.should_not have_text(/Second hello/)        
+        response.should render_template('request/hidden')
+        get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 3
+        response.content_type.should == "text/html"
+        response.should_not have_text(/First hello/)        
+        response.should render_template('request/hidden')
+    end
+end
+ 
 # XXX do this for invalid ids
 #  it "should render 404 file" do
 #    response.should render_template("#{RAILS_ROOT}/public/404.html")

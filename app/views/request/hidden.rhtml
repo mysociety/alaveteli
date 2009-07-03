@@ -11,4 +11,12 @@ various reasons why we might have done this, sorry we can't
 be more specific here. Please <a
     href="/help/contact">contact us</a> if you have any questions.
 </p>
+<% if @info_request.prominence == 'requester_only' %>
+    <p>
+    If you are the requester, then you may
+    <%= link_to "sign in", signin_url(:r => request.request_uri) %>
+    to view the request.
+    </p>
+<% end %>
+
 

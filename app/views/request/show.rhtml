@@ -6,6 +6,13 @@
     in as a super user.
     </p>
 <% end %>
+<% if @info_request.prominence == 'requester_only' %>
+    <p id="hidden_request">
+    This request is hidden, so that only you the requester can see it. Please
+    <a href="/help/contact">contact us</a> if you are not sure why.
+    </p>
+<% end %>
+
 
 <% if @update_status || @info_request.awaiting_description %>
     <div class="describe_state_form" id="describe_state_form_1">

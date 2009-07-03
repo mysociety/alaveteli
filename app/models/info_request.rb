@@ -24,7 +24,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.197 2009-06-30 14:28:26 francis Exp $
+# $Id: info_request.rb,v 1.198 2009-07-03 11:43:37 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -68,7 +68,8 @@ class InfoRequest < ActiveRecord::Base
     validates_inclusion_of :prominence, :in => [ 
         'normal', 
         'backpage',
-        'hidden'
+        'hidden',
+        'requester_only'
     ]
 
     validates_inclusion_of :law_used, :in => [ 
@@ -821,6 +822,16 @@ public
     def user_can_view?(user)
         if self.prominence == 'hidden' 
             return User.view_hidden_requests?(user)
+        end
+        if self.prominence == 'requester_only' 
+            return self.is_owning_user?(user)
+        end
+        return true
+    end
+
+    def indexed_by_search?
+        if self.prominence == 'backpage' || self.prominence == 'hidden' || self.prominence == 'requester_only'
+            return false
         end
         return true
     end
