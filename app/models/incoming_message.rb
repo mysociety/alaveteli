@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.206 2009-06-26 14:28:37 francis Exp $
+# $Id: incoming_message.rb,v 1.207 2009-07-09 18:36:50 louise Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -1017,7 +1017,11 @@ class IncomingMessage < ActiveRecord::Base
                 for entry in zip_file
                     if entry.file?
                         filename = entry.to_s
-                        body = entry.get_input_stream.read
+                        begin 
+                          body = entry.get_input_stream.read
+                        rescue
+                          next
+                        end
                         calc_mime = filename_to_mimetype(filename)
                         if calc_mime
                             content_type = calc_mime

@@ -18,6 +18,19 @@ describe IncomingMessage, " when dealing with incoming mail" do
 
 end
 
+
+describe IncomingMessage, "when getting the attachment text" do 
+
+  it "should not raise an error if the expansion of a zip file raises an error" do 
+    mock_entry = mock('ZipFile entry', :file? => true)
+    mock_entry.stub!(:get_input_stream).and_raise("invalid distance too far back")
+    Zip::ZipFile.stub!(:open).and_return([mock_entry])
+    IncomingMessage.get_attachment_text_internal_one_file('application/zip', "some string")
+  end
+  
+end
+
+
 describe IncomingMessage, " display attachments" do
 
     it "should not show slashes in filenames" do
