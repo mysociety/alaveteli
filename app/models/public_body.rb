@@ -26,7 +26,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.147 2009-06-26 14:28:38 francis Exp $
+# $Id: public_body.rb,v 1.148 2009-07-14 11:29:12 francis Exp $
 
 require 'csv'
 require 'set'
@@ -67,7 +67,7 @@ class PublicBody < ActiveRecord::Base
                 [ "pbo", "Professional buying organisations", "a professional buying organisation"],
                 [ "regional_assembly", "Regional assemblies", "a regional assembly"], 
                 [ "rda", "Regional development agencies", "a regional development agency" ], 
-              "Education",
+            "Education",
                 [ "university", "Universities", "a university" ],
                 [ "university_college", "University colleges", "a university college" ], 
                 [ "cambridge_college", "Cambridge colleges", "a Cambridge college" ],
@@ -77,6 +77,7 @@ class PublicBody < ActiveRecord::Base
                 [ "university_owned_company", "University owned companies", "a university owned company" ],
                 [ "hei", "Higher education institutions", "a higher educational institution" ],
                 [ "fei", "Further education institutions", "a further educational institution" ],
+                [ "school", "Schools", "a school" ],
                 [ "research_council", "Research councils", "a research council" ],
                 [ "lib_board", "Education and library boards", "an education and library board" ],
             "Environment",
