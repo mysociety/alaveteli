@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.165 2009-07-01 11:07:19 francis Exp $
+# $Id: request_controller.rb,v 1.166 2009-07-14 22:48:50 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -103,6 +103,7 @@ class RequestController < ApplicationController
             query = 'variety:response (status:successful OR status:partially_successful)'
             sortby = "described"
             @track_thing = TrackThing.create_track_for_all_successful_requests
+            expires_in 10.minutes, :private => false  
         else
             raise "unknown request list view " + @view.to_s
         end

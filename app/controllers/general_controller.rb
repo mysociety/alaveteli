@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: general_controller.rb,v 1.47 2009-03-03 22:36:01 francis Exp $
+# $Id: general_controller.rb,v 1.48 2009-07-14 22:48:50 francis Exp $
 
 class GeneralController < ApplicationController
 
@@ -29,6 +29,8 @@ class GeneralController < ApplicationController
         rescue
             @successful_requests = []
         end
+
+        expires_in 10.minutes, :private => false  
     end
 
     # Just does a redirect from ?query= search to /query
