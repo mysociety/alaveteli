@@ -7,28 +7,29 @@ RUNDIR=/data/vhost/!!(*= $vhost *)!!/mysociety/foi
 PIDDIR=/data/vhost/!!(*= $vhost *)!!/mysociety/foi/log
 DUSER=!!(*= $user *)!!
 
+# number of ports = number of instances - also need to change Apache config though.
+PORTS="3000 3001 3002 3003 3004 3005 3006 3007"
+
 function stop_mongrels {
-    PORT=3000 stop_mongrel
-    PORT=3001 stop_mongrel
-    PORT=3002 stop_mongrel
-    PORT=3003 stop_mongrel
-    PORT=3004 stop_mongrel
+
+    for PORT in $PORTS
+    do
+        stop_mongrel
+    done
 
     sleep 5s
 
-    PORT=3000 check_stopped
-    PORT=3001 check_stopped
-    PORT=3002 check_stopped
-    PORT=3003 check_stopped
-    PORT=3004 check_stopped
+    for PORT in $PORTS
+    do
+        check_stopped
+    done
 }
 
 function start_mongrels {
-    PORT=3000 start_mongrel
-    PORT=3001 start_mongrel
-    PORT=3002 start_mongrel
-    PORT=3003 start_mongrel
-    PORT=3004 start_mongrel
+    for PORT in $PORTS
+    do
+        start_mongrel
+    done
 }
 
 function stop_mongrel {
