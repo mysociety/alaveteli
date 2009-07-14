@@ -48,7 +48,7 @@ Annotations are so anyone, including you, can help the requester with their requ
     <li> Ideas on what <strong>other documents to request</strong> which the authority may hold. </li>
 <% end %>
 <% if [ 'rejected' ].include?(@info_request.described_state) %>
-    <li> Advise on whether the <strong>rejection is legal</strong>, and how to complain about if not. </li>
+    <li> Advise on whether the <strong>rejection is legal</strong>, and how to complain about it if not. </li>
 <% end %>
 
 <% if [ 'error_message' ].include?(@info_request.described_state) %>
