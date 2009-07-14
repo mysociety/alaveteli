@@ -4,11 +4,12 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: help_controller.rb,v 1.10 2008-11-07 00:01:49 francis Exp $
+# $Id: help_controller.rb,v 1.11 2009-07-14 23:02:06 francis Exp $
 
 class HelpController < ApplicationController
     
     def about
+        expires_in 10.minutes, :private => false # cache via squid reverse proxy
     end
 
     def unhappy

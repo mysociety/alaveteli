@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: general_controller.rb,v 1.48 2009-07-14 22:48:50 francis Exp $
+# $Id: general_controller.rb,v 1.49 2009-07-14 23:02:06 francis Exp $
 
 class GeneralController < ApplicationController
 
@@ -30,7 +30,7 @@ class GeneralController < ApplicationController
             @successful_requests = []
         end
 
-        expires_in 10.minutes, :private => false  
+        expires_in 10.minutes, :private => false # cache via squid reverse proxy
     end
 
     # Just does a redirect from ?query= search to /query

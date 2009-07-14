@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body_controller.rb,v 1.2 2009-07-01 18:16:33 francis Exp $
+# $Id: public_body_controller.rb,v 1.3 2009-07-14 23:02:06 francis Exp $
 
 class PublicBodyController < ApplicationController
     # XXX tidy this up with better error messages, and a more standard infrastructure for the redirect to canonical URL
@@ -90,6 +90,8 @@ class PublicBodyController < ApplicationController
                 @description = @tag
             end
         end
+
+        expires_in 10.minutes, :private => false # cache via squid reverse proxy
     end
 end
 
