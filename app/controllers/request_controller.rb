@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.167 2009-07-14 23:02:06 francis Exp $
+# $Id: request_controller.rb,v 1.168 2009-07-14 23:30:37 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -111,7 +111,7 @@ class RequestController < ApplicationController
 
         @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss] } ]
 
-        expires_in 10.minutes, :private => false # cache via squid reverse proxy
+        cache_in_squid
     end
 
     # Page new form posts to

@@ -6,7 +6,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: application.rb,v 1.52 2009-01-08 16:57:16 francis Exp $
+# $Id: application.rb,v 1.53 2009-07-14 23:30:37 francis Exp $
 
 
 class ApplicationController < ActionController::Base
@@ -223,6 +223,12 @@ class ApplicationController < ActionController::Base
     def set_last_body(public_body)
         session[:last_request_id] = nil
         session[:last_body_id] = public_body.id
+    end
+
+    # Set cache headers for Squid reverse proxy in front of application
+    def cache_in_squid(max_age = 10)
+        response.headers["Vary"] = 'Cookie, Accept-Encoding'
+        expires_in max_age.minutes, :private => false 
     end
 
     # URL generating functions are needed by all controllers (for redirects),
