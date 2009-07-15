@@ -4,7 +4,6 @@ libgems-ruby1.8
 libopenssl-ruby1.8
 rake
 irb
-mongrel
 wv
 poppler-utils
 gs-gpl
@@ -20,3 +19,4 @@ libzip-ruby1.8
 libzlib-ruby
 mahoro-ruby1.8
 wdg-html-validator
+libapache2-mod-passenger
