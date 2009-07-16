@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_general_controller.rb,v 1.7 2009-06-23 13:52:25 francis Exp $
+# $Id: admin_general_controller.rb,v 1.8 2009-07-16 11:29:02 francis Exp $
 
 class AdminGeneralController < AdminController
     def index
@@ -29,6 +29,14 @@ class AdminGeneralController < AdminController
         # Recent events
         @events_title = "Events in last two days"
         date_back_to = Time.now - 2.days
+        if params[:hour]
+            @events_title = "Events in last hour"
+            date_back_to = Time.now - 1.hour
+        end
+        if params[:day]
+            @events_title = "Events in last day"
+            date_back_to = Time.now - 1.day
+        end
         if params[:week]
             @events_title = "Events in last week"
             date_back_to = Time.now - 1.week
