@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.208 2009-07-16 16:33:37 francis Exp $
+# $Id: incoming_message.rb,v 1.209 2009-07-16 16:36:01 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -1020,6 +1020,9 @@ class IncomingMessage < ActiveRecord::Base
                         begin 
                             body = entry.get_input_stream.read
                         rescue
+                            # move to next attachment silently if there were problems
+                            # XXX really should reduce this to specific exceptions?
+                            # e.g. password protected
                             next
                         end
                         calc_mime = filename_to_mimetype(filename)
