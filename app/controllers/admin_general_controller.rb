@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_general_controller.rb,v 1.8 2009-07-16 11:29:02 francis Exp $
+# $Id: admin_general_controller.rb,v 1.9 2009-07-16 15:46:08 francis Exp $
 
 class AdminGeneralController < AdminController
     def index
@@ -50,9 +50,9 @@ class AdminGeneralController < AdminController
             date_back_to = Time.now - 1000.years
         end
         @events = InfoRequestEvent.find(:all, :order => "created_at desc, id desc",
-                :conditions => ["created_at > ? ", date_back_to])
+                :conditions => ["created_at > ? ", date_back_to.getutc])
         @public_body_history = PublicBody.versioned_class.find(:all, :order => "updated_at desc, id desc",
-                :conditions => ["updated_at > ? ", date_back_to])
+                :conditions => ["updated_at > ? ", date_back_to.getutc])
         for pbh in @public_body_history
             pbh.created_at = pbh.updated_at
         end
