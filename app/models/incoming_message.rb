@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.209 2009-07-16 16:36:01 francis Exp $
+# $Id: incoming_message.rb,v 1.210 2009-07-17 14:04:34 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -284,7 +284,7 @@ class FOIAttachment
         html = nil
 
         Dir.chdir(dir) do
-            tempfile = Tempfile.new('foiextract', dir)
+            tempfile = Tempfile.new('foiextract', '.')
             tempfile.print self.body
             tempfile.flush
 
