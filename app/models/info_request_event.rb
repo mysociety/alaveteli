@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request_event.rb,v 1.85 2009-07-03 11:43:37 francis Exp $
+# $Id: info_request_event.rb,v 1.86 2009-07-21 12:09:30 francis Exp $
 
 class InfoRequestEvent < ActiveRecord::Base
     belongs_to :info_request
@@ -44,6 +44,7 @@ class InfoRequestEvent < ActiveRecord::Base
         'edit_outgoing', # outgoing message edited in admin interface
         'edit_comment', # comment edited in admin interface
         'destroy_incoming', # deleted an incoming message
+        'destroy_outgoing', # deleted an outgoing message
         'redeliver_incoming', # redelivered an incoming message elsewhere
         'manual', # you did something in the db by hand
         'response',

@@ -22,7 +22,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: outgoing_message.rb,v 1.86 2009-06-30 16:30:28 francis Exp $
+# $Id: outgoing_message.rb,v 1.87 2009-07-21 12:09:30 francis Exp $
 
 class OutgoingMessage < ActiveRecord::Base
     strip_attributes!
@@ -219,6 +219,17 @@ class OutgoingMessage < ActiveRecord::Base
         text = text.gsub(/\n/, '<br>')
         return text
     end
+
+    def fully_destroy
+        ActiveRecord::Base.transaction do
+            info_request_event = InfoRequestEvent.find_by_outgoing_message_id(self.id)
+            info_request_event.track_things_sent_emails.each { |a| a.destroy }
+            info_request_event.user_info_request_sent_alerts.each { |a| a.destroy }
+            info_request_event.destroy
+            self.destroy
+        end
+    end
+
 
 end
 

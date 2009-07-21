@@ -2,6 +2,8 @@
 #
 # !!(*= $daemon_name *)!! Start the WhatDoTheyKnow web server daemon (mongrel)
 
+# XXX remove this after a while - no longer used now we use Passenger
+
 NAME=!!(*= $daemon_name *)!!
 RUNDIR=/data/vhost/!!(*= $vhost *)!!/mysociety/foi
 PIDDIR=/data/vhost/!!(*= $vhost *)!!/mysociety/foi/log

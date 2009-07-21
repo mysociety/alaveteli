@@ -1,6 +1,9 @@
 Next (things that will reduce admin time mainly)
 ====
 
+Cache some common pages, such as "view requests":
+    http://www.whatdotheyknow.com/list/successful
+
 Emails sent to stopped requests should follow RFC: http://tools.ietf.org/html/rfc3834
     Shouldn't bounce message back to Auto-Submitted 
     Should check from address being replied to is valid
@@ -12,6 +15,8 @@ authorities can still have followups to existing requests.
 
 Add help about not adding extraneous or possibly libelous content to
 requests or followups. Explain how to write things to avoid libel law.
+Perhaps use these house rules:
+    http://www.theyworkforyou.com/houserules/
 
 Button for people to say "this status is really quite wrong please
 fix it"?
@@ -68,10 +73,16 @@ and let people move them to the right place.
 Give authorities interface for editing their request email address
 and resend messages to them
 
+Page cacheing - the cookie setting stops the expires_on caching working well,
+as even when not logged in second page you go to isnt serverd from Squid cache.
+Maybe change to fragment caching for things like the "view requests" page?
+Then will help logged in users too.
 
 
 Later
 =====
+
+Test for duplicate followups, as we do requests.
 
 For followups, have radio button to say is it a new request or followup
 Do by uncommenting the "new information" option when writing a followup, so
@@ -374,6 +385,11 @@ Quoting fixing TODO:
 
     http://www.whatdotheyknow.com/request/enforcement_forders_for_replacin#incoming-6277 # over zealous quoting
     http://www.whatdotheyknow.com/request/renewable_energy_consumption_by # over zealous
+
+    http://www.whatdotheyknow.com/request/can_my_mp_ask_questions_on_my_be#incoming-33112 # hyperlink broken
+
+Display pasted quotes in annotations better:
+http://www.whatdotheyknow.com/request/scientology_incidents#comment-3352
 
 
 Totally new features

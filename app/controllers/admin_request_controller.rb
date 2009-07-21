@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_request_controller.rb,v 1.37 2009-06-30 14:28:25 francis Exp $
+# $Id: admin_request_controller.rb,v 1.38 2009-07-21 12:09:29 francis Exp $
 
 class AdminRequestController < AdminController
     def index
@@ -90,6 +90,19 @@ class AdminRequestController < AdminController
     def edit_outgoing
         @outgoing_message = OutgoingMessage.find(params[:id])
     end
+
+    def destroy_outgoing
+        @outgoing_message = OutgoingMessage.find(params[:outgoing_message_id])
+        @info_request = @outgoing_message.info_request
+        outgoing_message_id = @outgoing_message.id
+
+        @outgoing_message.fully_destroy
+        @outgoing_message.info_request.log_event("destroy_outgoing", 
+            { :editor => admin_http_auth_user(), :deleted_outgoing_message_id => outgoing_message_id })
+
+        flash[:notice] = 'Outgoing message successfully destroyed.'
+        redirect_to request_admin_url(@info_request)
+    end 
 
     def update_outgoing
         @outgoing_message = OutgoingMessage.find(params[:id])

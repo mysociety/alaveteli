@@ -24,3 +24,12 @@
 <%= link_to 'List all', '../list' %>
 </p>
 
+<% form_tag '../destroy_outgoing' do %>
+  <div>
+      <%= hidden_field_tag 'outgoing_message_id', @outgoing_message.id %>
+      Warning, this is permanent! ---&gt; 
+      <%= submit_tag "Destroy outgoing message" %>
+  </div>
+<% end %>
+
+
