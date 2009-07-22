@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_user_controller.rb,v 1.11 2009-06-25 16:51:38 francis Exp $
+# $Id: admin_user_controller.rb,v 1.12 2009-07-22 08:23:18 francis Exp $
 
 class AdminUserController < AdminController
     def index
@@ -62,7 +62,7 @@ class AdminUserController < AdminController
 
         post_redirect = PostRedirect.new( :uri => frontpage_url(), :user_id => @admin_user.id)
         post_redirect.save!
-        url = confirm_url(:email_token => post_redirect.email_token)
+        url = main_url(confirm_url(:email_token => post_redirect.email_token, :only_path => true))
             
         redirect_to url
     end
