@@ -11,7 +11,8 @@
     <% if @info_request.described_state != 'internal_review' %>
         <div>
             <%= radio_button "incoming_message", "described_state", "waiting_response", :id => 'waiting_response' + id_suffix %>
-            <label for="waiting_response<%=id_suffix%>"> <strong>No response</strong> has been received</label>
+            <label for="waiting_response<%=id_suffix%>"><strong>No response</strong> has been received
+                <small>(maybe there's just an acknowledgement)</small></label>
         </div>
     <% end %>
     <% if @info_request.described_state == 'internal_review' %>
