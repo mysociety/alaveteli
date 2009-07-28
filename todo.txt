@@ -82,7 +82,10 @@ Then will help logged in users too.
 Later
 =====
 
-Test for duplicate followups, as we do requests.
+Let requesters view the uncensored versions of their correspondence (e.g. with
+emails in it). Let other people do so with a CAPTCHA?
+
+Test for duplicate followups, as we do for requests.
 
 For followups, have radio button to say is it a new request or followup
 Do by uncommenting the "new information" option when writing a followup, so
@@ -230,12 +233,6 @@ Show similar requests after you have filed yours - maybe on preview too.
 Test code for FOI officer upload
 Test code for rendering lots of different attachments and filetypes
 Test code for internal review submitting
-
-http://www.whatdotheyknow.com/list/successful - too many ombudsmans.
-    Radical would be to group by user, regardless of subject; less radical to
-    collate those with same/similar subject.
-http://www.whatdotheyknow.com/list?page=2 - too many monitoring officer
-    reports - similar to above, I reckon.
 
 Protect from CSRF with this in app controller (care it doesn't break anything):
   # See ActionController::RequestForgeryProtection for details
