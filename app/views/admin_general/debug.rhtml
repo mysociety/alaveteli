@@ -17,6 +17,13 @@ Xapian::version_string <%=Xapian::version_string%>
 Spec::VERSION::NAME/STRING <%=Spec::VERSION::NAME%> <%=Spec::VERSION::STRING%>
 </p>
 
+<h2>Configuration</h2>
+
+<p>environment: <%= Rails::configuration.environment %>
+<br>environment_path: <%= Rails::configuration.environment_path %>
+<br>framework_paths: <%= Rails::configuration.framework_paths.to_yaml %>
+</p>
+
 <h2>Environment variables</h2>
 <pre>
 <%= @request_env.to_yaml %>
