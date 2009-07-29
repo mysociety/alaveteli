@@ -39,17 +39,18 @@
 <h2>History</h2>
 <table border="1">
 <tr>
+<th>Updated at</th>
 <% 
     history_columns = PublicBody.content_columns + [] # force dup
     history_columns.delete_if {|c| ['created_at', 'updated_at', 'first_letter'].include?(c.name)}
     for column in history_columns %>
   <th><%= column.human_name %></th>
 <% end %>
-<th>Updated at</th>
 </tr>
 <%# There may be an option to versions() to specify order, but I can't find it. TB 2009-03-09 %>
 <% for historic_public_body in @public_body.reverse_sorted_versions %>
       <tr class="<%= cycle('odd', 'even') %>">
+      <td><%=h historic_public_body.updated_at %></td>
     <% for column in history_columns %>
       <% 
         value = h(historic_public_body.send(column.name))
@@ -62,7 +63,6 @@
       <%=value%>
       </td>
     <% end %>
-      <td><%=h historic_public_body.updated_at %></td>
     </tr>
 <% end %>
 </table>
