@@ -4,6 +4,6 @@ class AddFollowupToOutgoingMessage < ActiveRecord::Migration
   end
 
   def self.down
-    drop_column :outgoing_messages, :incoming_message_followup_id
+    remove_column :outgoing_messages, :incoming_message_followup_id
   end
 end
