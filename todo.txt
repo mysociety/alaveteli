@@ -82,6 +82,9 @@ Then will help logged in users too.
 Later
 =====
 
+Have an interface for users to be able to suggest new authorities and give
+their email address (perhaps just have admins validate / approve it)
+
 Let requesters view the uncensored versions of their correspondence (e.g. with
 emails in it). Let other people do so with a CAPTCHA?
 
@@ -153,6 +156,9 @@ Sort requests on user page by status.
     "For sorting I was just thinking of a generic sort/filter by clicking
     on the header or some such -- I'd probably want to sort open requests
     in order of 'last action'... to quickly see what was most overdue."
+
+Make search know about uncategorised requests and timed out requests. 
+And make search able to do *current* status in general as operator.
 
 Ask people for annotation immediately after they have submitted their request
 Ask for annotation about what they learnt from request?
@@ -330,6 +336,9 @@ Orientation wrong:
     http://www.whatdotheyknow.com/request/3153/response/7726/attach/html/2/258850.pdf.html
 Bug in wvHtml, segfaults when converting this:
     http://www.whatdotheyknow.com/request/subject_access_request_guide_sar#incoming-10242
+
+Doesn't detect doc type of a few garbage results in this list right:
+    http://www.whatdotheyknow.com/search/UWE
 
 Quoting fixing TODO:
     http://www.whatdotheyknow.com/request/35/response/191 # Funny disclaimer
