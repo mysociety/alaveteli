@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user.rb,v 1.97 2009-07-03 11:43:37 francis Exp $
+# $Id: user.rb,v 1.98 2009-08-05 16:31:11 francis Exp $
 
 require 'digest/sha1'
 
@@ -42,6 +42,7 @@ class User < ActiveRecord::Base
     has_many :post_redirects
     has_many :track_things, :foreign_key => 'tracking_user_id', :order => 'created_at desc'
     has_many :comments, :order => 'created_at desc'
+    has_one :profile_photo
 
     attr_accessor :password_confirmation, :no_xapian_reindex
     validates_confirmation_of :password, :message =>"^Please enter the same password twice"
@@ -252,6 +253,16 @@ class User < ActiveRecord::Base
     # Returns domain part of user's email address
     def email_domain
         return PublicBody.extract_domain_from_email(self.email)
+    end
+
+    def set_profile_photo(new_profile_photo)
+        ActiveRecord::Base.transaction do
+            if !self.profile_photo.nil?
+                self.profile_photo.destroy
+            end
+            new_profile_photo.user = self
+            self.profile_photo = new_profile_photo
+        end
     end
 
     private

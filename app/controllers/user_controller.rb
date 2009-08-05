@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user_controller.rb,v 1.66 2009-04-23 12:17:06 tony Exp $
+# $Id: user_controller.rb,v 1.67 2009-08-05 16:31:10 francis Exp $
 
 class UserController < ApplicationController
     # Show page about a user
@@ -314,4 +314,10 @@ class UserController < ApplicationController
         render :action => 'confirm' # must be same as for send_confirmation_mail above to avoid leak of presence of email in db
     end
 
+    def set_profile_photo
+        @photo_user = User.find(params[:id])
+        new_profile_photo = ProfilePhoto.new(:data => data)
+        @photo_user.set_profile_photo(new_profile_photo)
+    end
 end
+

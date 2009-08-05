@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 78) do
+ActiveRecord::Schema.define(:version => 79) do
 
   create_table "acts_as_xapian_jobs", :force => true do |t|
     t.string  "model",    :null => false
@@ -142,6 +142,11 @@ ActiveRecord::Schema.define(:version => 78) do
   add_index "post_redirects", ["token"], :name => "index_post_redirects_on_token"
   add_index "post_redirects", ["updated_at"], :name => "index_post_redirects_on_updated_at"
 
+  create_table "profile_photos", :force => true do |t|
+    t.binary  "data",    :null => false
+    t.integer "user_id", :null => false
+  end
+
   create_table "public_bodies", :force => true do |t|
     t.text     "name",                               :null => false
     t.text     "short_name",                         :null => false
@@ -236,6 +241,7 @@ ActiveRecord::Schema.define(:version => 78) do
     t.datetime "last_daily_track_email", :default => '2000-01-01 00:00:00'
     t.string   "admin_level",            :default => "none",                :null => false
     t.text     "ban_text",               :default => "",                    :null => false
+    t.integer  "profile_photo_id"
   end
 
   add_index "users", ["url_name"], :name => "index_users_on_url_name", :unique => true

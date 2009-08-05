@@ -216,3 +216,35 @@ describe User, " when making name and email address" do
 end
 
 
+describe User, " when setting a profile photo" do
+    before do
+        @user = User.new
+        @user.name = "Sensible User"
+        @user.email = "sensible@localhost"
+        @user.password = "sensiblepassword"
+    end
+
+    it "should attach it to the user" do
+        data = load_image_fixture("parrot.png")
+        profile_photo = ProfilePhoto.new(:data => data)
+        @user.set_profile_photo(profile_photo)
+        profile_photo.user.should == @user
+    end
+
+#    it "should destroy old photos being replaced" do
+#        ProfilePhoto.count.should == 0
+#
+#        data_1 = load_image_fixture("parrot.png")
+#        profile_photo_1 = ProfilePhoto.new(:data => data_1)
+#        data_2 = load_image_fixture("parrot.jpg")
+#        profile_photo_2 = ProfilePhoto.new(:data => data_2)
+#
+#        @user.set_profile_photo(profile_photo_1)
+#        @user.save!
+#        ProfilePhoto.count.should == 1
+#        @user.set_profile_photo(profile_photo_2)
+#        @user.save!
+#        ProfilePhoto.count.should == 1
+#    end
+end
+

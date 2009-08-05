@@ -31,6 +31,12 @@ def receive_incoming_mail(email_name, email_to, email_from = 'geraldinequango@lo
     RequestMailer.receive(content)
 end
 
+def load_image_fixture(image_name)
+    image_name = File.join(Spec::Runner.configuration.fixture_path, image_name)
+    content = File.read(image_name)
+    return content
+end
+
 def rebuild_xapian_index
     rebuild_name = File.dirname(__FILE__) + '/../script/rebuild-xapian-index'
     Kernel.system(rebuild_name) or raise "failed to launch rebuild-xapian-index"
