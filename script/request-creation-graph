@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org. WWW: http://www.mysociety.org/
 # 
-# $Id: request-creation-graph,v 1.7 2009-08-11 16:50:50 francis Exp $
+# $Id: request-creation-graph,v 1.8 2009-08-11 16:56:23 francis Exp $
 
 GPLOT_OUTPUT="set terminal png font 'Vera.ttf' 9 size 1200,400"
 EXTENSION=".png"
@@ -88,22 +88,35 @@ cat >$GPSCRIPT <<END
 #    set label 1 'launch of beta' at '2005-02-17', 900
 
     n = 0
-    plot "$SOURCEA" using 1:2 with impulses lt 8 lw 15 title "waiting_response", # dark blue \
-         "$SOURCEB" using 1:2 with impulses lt 3 lw 15 title "waiting_clarification", # light blue \
-         "$SOURCEC" using 1:2 with impulses lt 9 lw 15 title "not_held", # yellow \
-         "$SOURCED" using 1:2 with impulses lt 6 lw 15 title "rejected", # red \
-         "$SOURCEE" using 1:2 with impulses lt 2 lw 15 title "successful", # light green \
-         "$SOURCEF" using 1:2 with impulses lt 10 lw 15 title "partially_successful", # dark green \
-         "$SOURCEG" using 1:2 with impulses lt 5 lw 15 title "requires_admin", # cyan \
-         "$SOURCEH" using 1:2 with impulses lt 7 lw 15 title "gone_postal", # dark yellow \
-         "$SOURCEI" using 1:2 with impulses lt 4 lw 15 title "internal_review", # mauve\
-         "$SOURCEJ" using 1:2 with impulses lt 12 lw 15 title "error_message", # dark redy brown \
-         "$SOURCEK" using 1:2 with impulses lt 13 lw 15 title "user_withdrawn", # pink \
+    plot "$SOURCEA" using 1:2 with impulses lt 8 lw 15 title "waiting_response", \
+         "$SOURCEB" using 1:2 with impulses lt 3 lw 15 title "waiting_clarification", \
+         "$SOURCEC" using 1:2 with impulses lt 9 lw 15 title "not_held", \
+         "$SOURCED" using 1:2 with impulses lt 6 lw 15 title "rejected", \
+         "$SOURCEE" using 1:2 with impulses lt 2 lw 15 title "successful", \
+         "$SOURCEF" using 1:2 with impulses lt 10 lw 15 title "partially_successful", \
+         "$SOURCEG" using 1:2 with impulses lt 5 lw 15 title "requires_admin", \
+         "$SOURCEH" using 1:2 with impulses lt 7 lw 15 title "gone_postal", \
+         "$SOURCEI" using 1:2 with impulses lt 4 lw 15 title "internal_review", \
+         "$SOURCEJ" using 1:2 with impulses lt 12 lw 15 title "error_message", \
+         "$SOURCEK" using 1:2 with impulses lt 13 lw 15 title "user_withdrawn", \
     "< awk 'BEGIN { n = 0 } { n += \$2; print \$1, \$2, n; }' $SOURCEA" using 1:3 axes x1y2 with lines lt 2 title "cumulative total number of requests"
 END
+# lt 8 dark blue
+# lt 3 light blue
+# lt 9 yellow
+# lt 6 red
+# lt 2 light green
+# lt 10 dark green
+# lt 5 cyan
+# lt 7 dark yellow
+# lt 4 mauve
+# lt 12 dark reddy brown
+# lt 13 pink
+# unused:
+# lt 11 bluey mauve
+# lt 14 lime green
+
 #echo "gpscript $GPSCRIPT"
-# 11 bluey mauve
-# 14 lime green
 
 export GDFONTPATH=/usr/share/fonts/truetype/ttf-bitstream-vera
 gnuplot < $GPSCRIPT > foi/public/foi-live-creation$EXTENSION
