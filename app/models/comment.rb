@@ -19,7 +19,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: comment.rb,v 1.16 2009-06-26 14:28:37 francis Exp $
+# $Id: comment.rb,v 1.17 2009-08-18 20:51:26 francis Exp $
 
 class Comment < ActiveRecord::Base
     strip_attributes!
@@ -57,6 +57,9 @@ class Comment < ActiveRecord::Base
     def validate
         if self.body.empty? || self.body =~ /^\s+$/
             errors.add(:body, "^Please enter your annotation")
+        end
+        if !MySociety::Validate.uses_mixed_capitals(self.body)
+            errors.add(:body, '^Please write your annotation using a mixture of capital and lower case letters. This makes it easier for others to read.')
         end
     end
 

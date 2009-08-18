@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.168 2009-07-14 23:30:37 francis Exp $
+# $Id: request_controller.rb,v 1.169 2009-08-18 20:51:25 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -469,6 +469,12 @@ class RequestController < ApplicationController
             if @info_request.allow_new_responses_from == 'nobody'
                 flash[:error] = 'Your follow up has not been sent because this request has been stopped to prevent spam. Please <a href="/help/contact">contact us</a> if you really want to send a follow up message.'
             else
+                if @info_request.find_existing_outgoing_message(params[:outgoing_message][:body])
+                    flash[:error] = 'You previously submitted that exact follow up message for this request.'
+                    render :action => 'show_response'
+                    return
+                end
+
                 # See if values were valid or not
                 @outgoing_message.info_request = @info_request
                 if !@outgoing_message.valid?

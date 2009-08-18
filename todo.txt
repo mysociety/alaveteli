@@ -88,8 +88,6 @@ their email address (perhaps just have admins validate / approve it)
 Let requesters view the uncensored versions of their correspondence (e.g. with
 emails in it). Let other people do so with a CAPTCHA?
 
-Test for duplicate followups, as we do for requests.
-
 For followups, have radio button to say is it a new request or followup
 Do by uncommenting the "new information" option when writing a followup, so
 that it makes a new request
@@ -208,6 +206,8 @@ all listing should just link to top of page, rather than # links for outgoing
 incoming, or perhaps just some of them.
 
 Help page improvements:
+    Needs to say somewhere in flow that you can make a request privately (I think quite a 
+       few people get to us via Google and don't realise that they can)
     Add "Who should I make my request to?" - make flow better after first section, to abrupt now
     I think the advice in this annotation could go into a nice comment:
       http://www.whatdotheyknow.com/request/berr_response_to_eu_on_phorm_bt#comment-356

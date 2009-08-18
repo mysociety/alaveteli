@@ -681,6 +681,18 @@ describe RequestController, "when sending a followup message" do
         info_requests(:fancy_dog_request).get_last_response_event.calculated_state.should == 'waiting_clarification'
     end
 
+    it "should give an error if the same followup is submitted twice" do
+        session[:user_id] = users(:bob_smith_user).id
+
+        # make the followup once
+        post :show_response, :outgoing_message => { :body => "Stop repeating yourself!", :what_doing => 'normal_sort' }, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_followup => 1
+        response.should redirect_to(:action => 'show', :url_title => info_requests(:fancy_dog_request).url_title)
+        
+        # second time should give an error
+        post :show_response, :outgoing_message => { :body => "Stop repeating yourself!", :what_doing => 'normal_sort' }, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_followup => 1
+        # XXX how do I check the error message here?
+        response.should render_template('show_response')
+    end
 
 end
 

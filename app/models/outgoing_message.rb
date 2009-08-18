@@ -22,7 +22,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: outgoing_message.rb,v 1.87 2009-07-21 12:09:30 francis Exp $
+# $Id: outgoing_message.rb,v 1.88 2009-08-18 20:51:26 francis Exp $
 
 class OutgoingMessage < ActiveRecord::Base
     strip_attributes!
@@ -129,8 +129,10 @@ class OutgoingMessage < ActiveRecord::Base
         if self.body =~ /#{get_signoff}\s*\Z/ms
             errors.add(:body, '^Please sign at the bottom with your name, or alter the "' + get_signoff + '" signature')
         end
+        if !MySociety::Validate.uses_mixed_capitals(self.body)
+            errors.add(:body, '^Please write your message using a mixture of capital and lower case letters. This makes it easier for others to read.')
+        end
         if self.what_doing.nil? || !['new_information', 'internal_review', 'normal_sort'].include?(self.what_doing)
-
             errors.add(:what_doing_dummy, '^Please choose what sort of reply you are making.')
         end
     end
