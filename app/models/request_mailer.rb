@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.80 2009-06-27 03:59:48 francis Exp $
+# $Id: request_mailer.rb,v 1.81 2009-08-18 21:32:23 francis Exp $
 
 class RequestMailer < ApplicationMailer
     
@@ -375,10 +375,11 @@ class RequestMailer < ApplicationMailer
             earliest_unalerted_comment_event = nil
             count = 0
             for e in info_request.info_request_events.reverse
-                # STDERR.puts "event " + e.id.to_s + " type " + e.event_type
-                if e.event_type == 'comment'
+                #STDERR.puts "event " + e.id.to_s + " type " + e.event_type
+                # alert on comments, which were not made by the user who originally made the request
+                if e.event_type == 'comment' && e.comment.user_id != info_request.user_id
                     alerted_for = e.user_info_request_sent_alerts.find(:first, :conditions => [ "alert_type = 'comment_1' and user_id = ?", info_request.user_id])
-                    # STDERR.puts "is comment, alerted_for " + alerted_for.to_s
+                    #STDERR.puts "is comment by other user, alerted_for " + alerted_for.to_s + " comment user " + e.comment.user_id.to_s + " request user " + info_request.user_id.to_s + " body: " + e.comment.body
                     if alerted_for.nil?
                         # STDERR.puts "nil!"
                         count = count + 1

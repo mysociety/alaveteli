@@ -797,7 +797,7 @@ describe RequestController, "comment alerts" do
         existing_comment = info_requests(:fancy_dog_request).comments[0]
         existing_comment.info_request_events[0].destroy
         existing_comment.destroy
-        new_comment = info_requests(:fancy_dog_request).add_comment('I love making annotations.', users(:bob_smith_user))
+        new_comment = info_requests(:fancy_dog_request).add_comment('I really love making annotations.', users(:silly_name_user))
 
         # send comment alert
         RequestMailer.alert_comment_on_request
@@ -816,11 +816,27 @@ describe RequestController, "comment alerts" do
         #STDERR.puts mail.body
     end
 
+    it "should not send an alert when you comment on your own request" do
+        # delete ficture comment and make new one, so is in last month (as
+        # alerts are only for comments in last month, see
+        # RequestMailer.alert_comment_on_request)
+        existing_comment = info_requests(:fancy_dog_request).comments[0]
+        existing_comment.info_request_events[0].destroy
+        existing_comment.destroy
+        new_comment = info_requests(:fancy_dog_request).add_comment('I also love making annotations.', users(:bob_smith_user))
+
+        # try to send comment alert
+        RequestMailer.alert_comment_on_request
+
+        deliveries = ActionMailer::Base.deliveries
+        deliveries.size.should == 0
+    end
+
     it "should send an alert when there are two new comments" do
-        # add second comment - that one being new will be enough for
-        # RequestMailer.alert_comment_on_request to also find the one in the
-        # fixture.
-        new_comment = info_requests(:fancy_dog_request).add_comment('Not as daft as this one', users(:bob_smith_user))
+        # add two comments - the second one sould be ignored, as is by the user who made the request.
+        # the new comment here, will cause the one in the fixture to be picked up as a new comment by alert_comment_on_request also.
+        new_comment = info_requests(:fancy_dog_request).add_comment('Not as daft as this one', users(:silly_name_user))
+        new_comment = info_requests(:fancy_dog_request).add_comment('Or this one!!!', users(:bob_smith_user))
 
         RequestMailer.alert_comment_on_request
 
