@@ -24,7 +24,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.199 2009-08-18 20:51:26 francis Exp $
+# $Id: info_request.rb,v 1.200 2009-08-19 00:22:49 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -553,16 +553,6 @@ public
         info_request_event.params = params
         info_request_event.info_request = self
         info_request_event.save!
-    end
-
-    # The last comment made, for alerts
-    def get_last_comment_event
-        for e in self.info_request_events.reverse
-            if e.event_type == 'comment'
-                return e
-            end
-        end
-        return nil
     end
 
     # The last response is the default one people might want to reply to

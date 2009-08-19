@@ -790,7 +790,7 @@ describe RequestController, "comment alerts" do
     integrate_views
     fixtures :info_requests, :info_request_events, :public_bodies, :users, :incoming_messages, :raw_emails, :outgoing_messages, :comments # all needed as integrating views
  
-    it "should send an alert" do
+    it "should send an alert (once and once only)" do
         # delete ficture comment and make new one, so is in last month (as
         # alerts are only for comments in last month, see
         # RequestMailer.alert_comment_on_request)
@@ -801,9 +801,7 @@ describe RequestController, "comment alerts" do
 
         # send comment alert
         RequestMailer.alert_comment_on_request
-
         deliveries = ActionMailer::Base.deliveries
-        deliveries.size.should == 1
         mail = deliveries[0]
         mail.body.should =~ /has annotated your/
         mail.to_addrs.to_s.should == info_requests(:fancy_dog_request).user.name_and_email
@@ -814,6 +812,12 @@ describe RequestController, "comment alerts" do
         # mail_url.should == comment_url(comments(:silly_comment))
 
         #STDERR.puts mail.body
+        
+        # check if we send again, no more go out
+        deliveries.clear
+        RequestMailer.alert_comment_on_request
+        deliveries = ActionMailer::Base.deliveries
+        deliveries.size.should == 0
     end
 
     it "should not send an alert when you comment on your own request" do
