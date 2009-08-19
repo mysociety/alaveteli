@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user_controller.rb,v 1.67 2009-08-05 16:31:10 francis Exp $
+# $Id: user_controller.rb,v 1.68 2009-08-19 23:20:39 francis Exp $
 
 class UserController < ApplicationController
     # Show page about a user
@@ -58,11 +58,22 @@ class UserController < ApplicationController
     def signin
         work_out_post_redirect
 
+        # make sure we have cookies
         if session.instance_variable_get(:@dbman)
             if not session.instance_variable_get(:@dbman).instance_variable_get(:@original)
+                # try and set them if we don't
+                if !params[:again]
+                    redirect_to signin_url(:r => params[:r], :again => 1)
+                    return
+                end
                 render :action => 'no_cookies'
                 return
             end
+        end
+        # remove "cookie setting attempt has happened" parameter if there is one and cookies worked
+        if params[:again]
+            redirect_to signin_url(:r => params[:r], :again => nil)
+            return
         end
         
         if not params[:user_signin] 
