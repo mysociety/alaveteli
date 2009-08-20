@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.210 2009-07-17 14:04:34 francis Exp $
+# $Id: incoming_message.rb,v 1.211 2009-08-20 11:05:27 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -68,7 +68,6 @@ $file_extension_to_mime_type_rev = $file_extension_to_mime_type.invert
 # See binary_mask_stuff function below. It just test for inclusion
 # in this hash, not the value of the right hand side.
 $do_not_binary_mask = {
-    'application/pdf' => 1,
     'image/tiff' => 1,
     'image/gif' => 1,
     'image/jpeg' => 1,
@@ -444,6 +443,37 @@ class IncomingMessage < ActiveRecord::Base
         # will get broken if we try to. We err on the side of masking too much,
         # as many unknown types will really be text.
         if $do_not_binary_mask.include?(content_type)
+            return text
+        end
+
+        # Special cases for some content types
+        if content_type == 'application/pdf'
+            # XXX currently just applies censor rules - change this if we apply email rules too
+            if self.info_request.censor_rules.count > 0
+                uncompressed_text = nil
+                IO.popen("/usr/bin/pdftk - output - uncompress", "r+") do |child|
+                    child.write(text)
+                    child.close_write()
+                    uncompressed_text = child.read()
+                end
+                # if we managed to uncompress the PDF...
+                if !uncompressed_text.nil? 
+                    censored_uncompressed_text = self.info_request.apply_censor_rules_to_binary(uncompressed_text)
+                    # and the censor rule removed something...
+                    if censored_uncompressed_text != uncompressed_text
+                        # then use the altered file (recompressed)
+                        recompressed_text = nil
+                        IO.popen("/usr/bin/pdftk - output - compress", "r+") do |child|
+                            child.write(censored_uncompressed_text)
+                            child.close_write()
+                            recompressed_text = child.read()
+                        end
+                        if !recompressed_text.nil?
+                            text = recompressed_text
+                        end
+                    end
+                end
+            end
             return text
         end
         

@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.169 2009-08-18 20:51:25 francis Exp $
+# $Id: request_controller.rb,v 1.170 2009-08-20 11:05:24 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -578,7 +578,7 @@ class RequestController < ApplicationController
         @attachment = IncomingMessage.get_attachment_by_url_part_number(@incoming_message.get_attachments_for_display, @part_number)
 
         # Prevent spam to magic request address.
-        # XXX Bit dodgy modifying a binary like this but hey. Maybe only do for some mime types?
+        # It's a bit dodgy modifying a binary like this but hey. Some mime types are excluded for that reason.
         @attachment.body = @incoming_message.binary_mask_stuff(@attachment.body, @attachment.content_type) 
 
         @attachment_url = get_attachment_url(:id => @incoming_message.info_request_id,

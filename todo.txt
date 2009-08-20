@@ -269,10 +269,8 @@ Edits to outgoing/incoming/title won't be reindexed in Xapian (maybe just reinde
 This does it all:
 $ ./script/clear-incoming-text-cache ; ./script/rebuild-xapian-index
 
-Remove request email address from PDFs (we already do from docs)
+Remove request email address from PDFs (we already do from docs, and we run censor rules on PDFs now)
    http://www.whatdotheyknow.com/request/cost_of_policing_the_oxford_unio_3
-   - maybe if text contains email, refuse to show full PDF just show conversion
-     to text/HTML?
     http://www.whatdotheyknow.com/request/5353/response/11911/attach/html/2/Freedom%20of%20Information%20-%20Letter%20Accepting%20Request%20-%2072057594037995214.pdf.html
 Take care here, sometimes emails are found by spammers by Google's OCR of
 images in PDFs

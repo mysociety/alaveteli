@@ -6,6 +6,7 @@ rake
 irb
 wv
 poppler-utils
+pdftk
 gs-gpl
 catdoc
 links
