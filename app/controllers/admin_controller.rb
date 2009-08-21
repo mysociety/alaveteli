@@ -4,7 +4,7 @@
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_controller.rb,v 1.26 2009-06-30 14:28:25 francis Exp $
+# $Id: admin_controller.rb,v 1.27 2009-08-21 17:43:33 francis Exp $
 
 
 class AdminController < ApplicationController
@@ -32,6 +32,8 @@ class AdminController < ApplicationController
         # the URL, the regular expression makes sure the cache is
         # cleared even if someone did that.
         expire_fragment /views\/request\/#{info_request.id}.*/
+        # also force a search reindexing (so changed text reflected in search)
+        info_request.reindex_request_events
     end
 end
 
