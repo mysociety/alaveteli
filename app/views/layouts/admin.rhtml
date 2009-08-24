@@ -3,10 +3,7 @@
     <head>
       <meta http-equiv="content-type" content="text/html;charset=UTF-8" >
       <title>WhatDoTheyKnow admin<%= @title ? ":" : "" %> <%=@title%></title>
-      <% 
-        # Have to do explicit tag for stylesheet, to get absolute path on main server
-      %>
-      <%= tag("link", { "rel" => "Stylesheet", "type" => "text/css", "media" => "screen", "href" => admin_public_url(stylesheet_path('admin')) }) %>
+      <%= stylesheet_link_tag 'admin', :title => "Main", :rel => "stylesheet"  %>
     </head>
     <body>
 

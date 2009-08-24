@@ -97,6 +97,11 @@ end
 # Domain for URLs (so can work for scripts, not just web pages)
 ActionController::UrlWriter.default_url_options[:host] = MySociety::Config.get("DOMAIN", 'localhost:3000')
 
+# So that javascript assets use full URL, so proxied admin URLs read javascript OK
+if (MySociety::Config.get("DOMAIN", "") != "")
+    ActionController::Base.asset_host = MySociety::Config.get("DOMAIN", 'localhost:3000')
+end
+
 # Monkeypatch! Method to remove individual error messages from an ActiveRecord.
 module ActiveRecord
     class Errors
