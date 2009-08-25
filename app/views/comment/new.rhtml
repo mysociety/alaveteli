@@ -63,7 +63,7 @@ Annotations are so anyone, including you, can help the requester with their requ
 
 <p>
     <big>Annotations will be posted publicly here, and are
-    <strong>not</strong> sent to the authority.</big>
+        <strong>not</strong> sent to <%=h @info_request.public_body.name %>.</big>
 </p>
 
 <%= render :partial => 'comment/comment_form', :locals => { :track_thing => @track_thing } %>
