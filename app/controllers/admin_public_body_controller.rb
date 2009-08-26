@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_public_body_controller.rb,v 1.22 2009-08-26 00:45:38 francis Exp $
+# $Id: admin_public_body_controller.rb,v 1.23 2009-08-26 00:58:29 francis Exp $
 
 class AdminPublicBodyController < AdminController
     def index
@@ -17,7 +17,11 @@ class AdminPublicBodyController < AdminController
         if @query == ""
             @query = nil
         end
-        @public_bodies = PublicBody.paginate :order => "name", :page => params[:page], :per_page => 100,
+        @page = params[:page]
+        if @page == ""
+            @page = nil
+        end
+        @public_bodies = PublicBody.paginate :order => "name", :page => @page, :per_page => 100,
             :conditions =>  @query.nil? ? nil : ["lower(name) like lower('%'||?||'%') or 
                              lower(short_name) like lower('%'||?||'%') or 
                              lower(request_email) like lower('%'||?||'%')", @query, @query, @query]
@@ -45,7 +49,7 @@ class AdminPublicBodyController < AdminController
             flash[:notice] = "Added tag to table of bodies."
         end
 
-        redirect_to admin_url('body/list') + "?query=" + @query # XXX construct this URL properly
+        redirect_to admin_url('body/list') + "?query=" + @query + (@page.nil? ? "" : "&page=" + @page) # XXX construct this URL properly
     end
 
     def missing_scheme

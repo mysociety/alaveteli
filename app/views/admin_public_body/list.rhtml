@@ -23,7 +23,7 @@
 
 
 <% if @public_bodies_by_tag.size > 0 %>
-    <h2>Exact tag matches</h2>
+    <h2>Exact tag matches (<%= @public_bodies_by_tag.size %> total)</h2>
     <%= render :partial => 'one_list', :locals => { :bodies => @public_bodies_by_tag, :table_name => 'exact' } %>
 <% end %>
 
@@ -31,7 +31,7 @@
     <% if @query.nil? %>
         <h2>All authorities</h2>
     <% else %>
-        <h2>Substring search matches</h2>
+        <h2>Substring search matches (<%= @public_bodies.total_entries %> total)</h2>
     <% end %>
     <%= render :partial => 'one_list', :locals => { :bodies => @public_bodies, :table_name => 'substring' } %>
 <% end %>
