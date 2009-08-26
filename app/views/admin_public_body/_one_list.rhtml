@@ -22,7 +22,7 @@
        <%= text_field_tag 'new_tag', params[:new_tag], { :size => 15, :id => "mass_add_tag_new_tag_" + table_name } %>
        <%= hidden_field_tag(:query, params[:query], { :id => "mass_add_tag_query_" + table_name } ) %>
        <%= hidden_field_tag(:table_name, table_name, { :id => "mass_add_tag_table_name_" + table_name } ) %>
-       <%= submit_tag "Add tag to all" %> (in table just above)
+       <%= submit_tag "Add tag to all" %> (in every page of table just above)
     </p>
 <% end %>
 
