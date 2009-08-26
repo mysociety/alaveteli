@@ -209,7 +209,11 @@ body
 	padding: 0.20em 10px 0.25em 1em;
 	color: #FFF;
 }
-	#logged_in_bar a, #logged_in_bar a:visited { color: #92B3FF; }
+
+#logged_in_bar a, #logged_in_bar a:visited 
+{ 
+    color: #92B3FF; 
+}
 
 
 /*------------------------------------------------ wrapper*/
@@ -864,6 +868,7 @@ p#sign_in_reason
 {
 	clear: none;
 	width: 23em;
+    margin-bottom: 1em;
 }
 	#signup h2,
 	#signin h2
@@ -1006,4 +1011,12 @@ div.act_link img {
 #everypage h2, #everypage h3, #foi2009 h2, #foi2009 h3 {
     margin: 0.5em 0;
 }
+
+
+/*------------------------------------------------ request categorisation game */
+
+#game_buttons {
+}
+
+
 
