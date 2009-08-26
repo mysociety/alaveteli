@@ -51,4 +51,7 @@ form {
     margin-top: 0;
 }
 
+.forms_on_one_line {
+    display: inline;
+}
 

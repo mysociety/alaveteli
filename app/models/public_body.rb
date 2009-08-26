@@ -26,7 +26,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.148 2009-07-14 11:29:12 francis Exp $
+# $Id: public_body.rb,v 1.149 2009-08-26 00:45:38 francis Exp $
 
 require 'csv'
 require 'set'
@@ -275,6 +275,9 @@ class PublicBody < ActiveRecord::Base
             end
         end 
         return false
+    end
+    def add_tag_if_not_already_present(tag)
+        self.tag_string = self.tag_string + " " + tag
     end
 
     # Find all public bodies with a particular tag

@@ -1,0 +1,41 @@
+<table>
+  <tr>
+     <th>Name</th>
+     <th>Tags</th>
+      <% for column in PublicBody.content_columns.map { |c| c.human_name } - [ "Name", "Last edit comment" ] %>
+        <th><%= column %></th>
+      <% end %>
+  </tr>
+<% for public_body in bodies %>
+  <tr class="<%= cycle('odd', 'even') %>">
+    <td><%= public_body_both_links(public_body) %></td>
+    <td><%= render :partial => 'tags', :locals => { :body => public_body} %></td>
+  <% for column in PublicBody.content_columns.map { |c| c.name } - [ "name", "last_edit_comment" ] %>
+    <td><%=h public_body.send(column) %></td>
+  <% end %>
+  </tr>
+<% end %>
+</table>
+
+<% form_tag(admin_url("body/mass_tag_add"), :method => "post", :class => "forms_on_one_line" ) do %>
+    <p>
+       <%= text_field_tag 'new_tag', params[:new_tag], { :size => 15, :id => "mass_add_tag_new_tag_" + table_name } %>
+       <%= hidden_field_tag(:query, params[:query], { :id => "mass_add_tag_query_" + table_name } ) %>
+       <%= hidden_field_tag(:table_name, table_name, { :id => "mass_add_tag_table_name_" + table_name } ) %>
+       <%= submit_tag "Add tag to all" %> (in table just above)
+    </p>
+<% end %>
+
+<!-- Not sure we need this remove tag option, so not coding it yet. Also worried it might be a
+bit dangerous / annoying to clear it (as search will fail so you won't even be able to see what
+you remove the tag from. 
+<% if table_name == 'exact' %>
+    <% form_tag(admin_url("body/mass_tag_remove"), :method => "post", :class => "forms_on_one_line" ) do %>
+           <%= hidden_field_tag(:remove_tag, params[:query] ) %>
+           <%= hidden_field_tag(:query, params[:query] ) %>
+           <%= hidden_field_tag(:table_name, table_name ) %>
+           <%= submit_tag "Remove tag '" + h(params[:query]) + "' from all" %> (that have it, i.e. in table just above)
+    <% end %>
+<% end %> -->
+
+

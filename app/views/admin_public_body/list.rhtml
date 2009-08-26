@@ -1,8 +1,15 @@
-<% @title = 'Listing public authorities' %>
+<% if @query.nil? %>
+    <% @title = 'Listing public authorities' %>
+<% else %>
+    <% @title = "Listing public authorities matching '" + @query + "'" %>
+<% end %>
 
 <h1><%=@title%></h1>
 
 <p>
+    <% if !@query.nil? %>
+        <%= link_to 'Show all', 'list' %> |
+    <% end %>
     <%= link_to 'New public authority', 'new' %>
     | <%= link_to 'Import from CSV file', 'import_csv' %>
 </p>
@@ -17,40 +24,16 @@
 
 <% if @public_bodies_by_tag.size > 0 %>
     <h2>Exact tag matches</h2>
-    <table>
-      <tr>
-      <% for column in PublicBody.content_columns.map { |c| c.human_name } - [ "Last edit comment" ] %>
-        <th><%= column %></th>
-      <% end %>
-      </tr>
-    <% for public_body in @public_bodies_by_tag %>
-      <tr class="<%= cycle('odd', 'even') %>">
-        <td><%= public_body_both_links(public_body) %></td>
-      <% for column in PublicBody.content_columns.map { |c| c.name } - [ "name", "last_edit_comment" ] %>
-        <td><%=h public_body.send(column) %></td>
-      <% end %>
-      </tr>
-    <% end %>
-    </table>
+    <%= render :partial => 'one_list', :locals => { :bodies => @public_bodies_by_tag, :table_name => 'exact' } %>
 <% end %>
 
 <% if @public_bodies.size > 0 %>
-    <h2>Substring search matches</h2>
-    <table>
-      <tr>
-      <% for column in PublicBody.content_columns.map { |c| c.human_name } - [ "Last edit comment" ] %>
-        <th><%= column %></th>
-      <% end %>
-      </tr>
-    <% for public_body in @public_bodies %>
-      <tr class="<%= cycle('odd', 'even') %>">
-        <td><%= public_body_both_links(public_body) %></td>
-      <% for column in PublicBody.content_columns.map { |c| c.name } - [ "name", "last_edit_comment" ] %>
-        <td><%=h public_body.send(column) %></td>
-      <% end %>
-      </tr>
+    <% if @query.nil? %>
+        <h2>All authorities</h2>
+    <% else %>
+        <h2>Substring search matches</h2>
     <% end %>
-    </table>
+    <%= render :partial => 'one_list', :locals => { :bodies => @public_bodies, :table_name => 'substring' } %>
 <% end %>
 
 <%= will_paginate(@public_bodies) %>

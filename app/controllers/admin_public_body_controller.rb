@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_public_body_controller.rb,v 1.21 2009-03-24 09:01:28 tony Exp $
+# $Id: admin_public_body_controller.rb,v 1.22 2009-08-26 00:45:38 francis Exp $
 
 class AdminPublicBodyController < AdminController
     def index
@@ -12,13 +12,40 @@ class AdminPublicBodyController < AdminController
         render :action => 'list'
     end
 
-    def list
+    def _lookup_query_internal
         @query = params[:query]
+        if @query == ""
+            @query = nil
+        end
         @public_bodies = PublicBody.paginate :order => "name", :page => params[:page], :per_page => 100,
             :conditions =>  @query.nil? ? nil : ["lower(name) like lower('%'||?||'%') or 
                              lower(short_name) like lower('%'||?||'%') or 
                              lower(request_email) like lower('%'||?||'%')", @query, @query, @query]
         @public_bodies_by_tag = PublicBody.find_by_tag(@query) 
+    end
+
+    def list
+        self._lookup_query_internal
+    end
+
+    def mass_tag_add
+        self._lookup_query_internal
+
+        if params[:new_tag] and params[:new_tag] != ""
+            if params[:table_name] == 'exact':
+                bodies = @public_bodies_by_tag
+            elsif params[:table_name] == 'substring':
+                bodies = @public_bodies
+            else
+                raise "Unknown table_name " + params[:table_name]
+            end
+            for body in bodies
+                body.add_tag_if_not_already_present(params[:new_tag])
+            end
+            flash[:notice] = "Added tag to table of bodies."
+        end
+
+        redirect_to admin_url('body/list') + "?query=" + @query # XXX construct this URL properly
     end
 
     def missing_scheme
