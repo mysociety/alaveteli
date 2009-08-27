@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user.rb,v 1.98 2009-08-05 16:31:11 francis Exp $
+# $Id: user.rb,v 1.99 2009-08-27 15:41:54 francis Exp $
 
 require 'digest/sha1'
 
@@ -33,7 +33,6 @@ class User < ActiveRecord::Base
     validates_presence_of :email, :message => "^Please enter your email address"
 
     validates_presence_of :name, :message => "^Please enter your name"
-    validates_presence_of :url_name
 
     validates_presence_of :hashed_password, :message => "^Please enter a password"
 
