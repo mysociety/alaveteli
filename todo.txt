@@ -65,7 +65,9 @@ Julian things:
 check-recent-requests-sent probably doesn't work, as exim log lines wouldn't
 be load in case where the envelope from gets broken?
 
-Admin button to resend request one off to particular address
+Admin button to resend request one off to particular address 
+(OR If the address has been cited in correspondence from the authority
+let the user send a follow up to it without admin approval.)
 
 Add explicit option for user to select "misdelivered to the wrong request"
 and let people move them to the right place.
