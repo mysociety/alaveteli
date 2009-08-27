@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user.rb,v 1.99 2009-08-27 15:41:54 francis Exp $
+# $Id: user.rb,v 1.100 2009-08-27 15:44:23 francis Exp $
 
 require 'digest/sha1'
 
@@ -95,7 +95,9 @@ class User < ActiveRecord::Base
     end
 
     def validate
-        errors.add(:email, "doesn't look like a valid address") unless MySociety::Validate.is_valid_email(self.email)
+        if self.email != "" && !MySociety::Validate.is_valid_email(self.email)
+            errors.add(:email, "^Please enter a valid email address") 
+        end
         if MySociety::Validate.is_valid_email(self.name)
             errors.add(:name, "^Please enter your name, not your email address, in the name field.") 
         end
