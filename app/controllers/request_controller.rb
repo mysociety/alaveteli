@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.171 2009-09-02 14:10:37 francis Exp $
+# $Id: request_controller.rb,v 1.172 2009-09-02 17:00:51 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -371,9 +371,9 @@ class RequestController < ApplicationController
     def show_request_event
         @info_request_event = InfoRequestEvent.find(params[:info_request_event_id])
         if @info_request_event.is_incoming_message?
-            redirect_to incoming_message_url(@info_request_event.incoming_message)
+            redirect_to incoming_message_url(@info_request_event.incoming_message), :status => :moved_permanently
         elsif @info_request_event.is_outgoing_message?
-            redirect_to outgoing_message_url(@info_request_event.outgoing_message)
+            redirect_to outgoing_message_url(@info_request_event.outgoing_message), :status => :moved_permanently
         else
             # XXX maybe there are better URLs for some events than this
             redirect_to request_url(@info_request_event.info_request), :status => :moved_permanently 
