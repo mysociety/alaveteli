@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_controller.rb,v 1.30 2009-03-12 08:56:37 tony Exp $
+# $Id: track_controller.rb,v 1.31 2009-09-02 14:18:26 francis Exp $
 
 class TrackController < ApplicationController
 
@@ -111,7 +111,7 @@ class TrackController < ApplicationController
         if @track_thing.track_medium != 'feed'
             raise "can only view feeds for feed tracks, not email ones"
         end
-        redirect_to do_track_url(@track_thing, 'feed'), :status=>:moved_permanently
+        redirect_to do_track_url(@track_thing, 'feed'), :status => :moved_permanently
     end
 
     def atom_feed_internal
