@@ -1,17 +1,21 @@
 Next (things that will reduce admin time mainly)
 ====
 
+holding_pen - detect ones with just bad checksum
+
+Things to make bots not crawl:
+    /request/13683/response?internal_review=1
+    /request/febrile_neutropenia_154?unfold=1
+
+
 Cache some common pages, such as "view requests":
     http://www.whatdotheyknow.com/list/successful
+And all individual requests.
 
-Emails sent to stopped requests should follow RFC: http://tools.ietf.org/html/rfc3834
-    Shouldn't bounce message back to Auto-Submitted 
-    Should check from address being replied to is valid
-    Should set In-Reply-To and References fields
-    Reconsider message content given that section in RFC
+/request/13683/response?internal_review=1
 
 Factor out "defunct/not_apply" from request_email into own field so defunct
-authorities can still have followups to existing requests.
+authorities can still have followups to existing requests. Probably into tags.
 
 Add help about not adding extraneous or possibly libelous content to
 requests or followups. Explain how to write things to avoid libel law.
@@ -65,9 +69,7 @@ Julian things:
 check-recent-requests-sent probably doesn't work, as exim log lines wouldn't
 be load in case where the envelope from gets broken?
 
-Admin button to resend request one off to particular address 
-(OR If the address has been cited in correspondence from the authority
-let the user send a follow up to it without admin approval.)
+Admin button to resend request one off to particular address
 
 Add explicit option for user to select "misdelivered to the wrong request"
 and let people move them to the right place.
@@ -83,6 +85,16 @@ Then will help logged in users too.
 
 Later
 =====
+
+Emails sent to stopped requests should follow RFC: http://tools.ietf.org/html/rfc3834
+    Shouldn't bounce message back to Auto-Submitted 
+    Should check from address being replied to is valid
+    Should set In-Reply-To and References fields
+    Reconsider message content given that section in RFC
+
+When registering a new user, give a warning if they only enter one name. Link
+to the help about pseudonymous requests, that you need at least initial
+as well.
 
 Have an interface for users to be able to suggest new authorities and give
 their email address (perhaps just have admins validate / approve it)
