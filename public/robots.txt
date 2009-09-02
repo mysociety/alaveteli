@@ -4,6 +4,10 @@
 # searches. We also block /feed/, as RSS readers (rightly, I think) don't seem
 # to check robots.txt.
 
+# Note: Can delay Bing's crawler with:
+#       Crawl-delay: 1
+# http://www.bing.com/community/blogs/webmaster/archive/2009/08/10/crawl-delay-and-the-bing-crawler-msnbot.aspx
+
 User-agent: *
 Disallow: /annotate/
 Disallow: /new/
@@ -14,4 +18,5 @@ Disallow: /upload/
 Disallow: /user/contact/
 Disallow: /feed/
 Disallow: /signin
+Crawl-delay: 1
 
