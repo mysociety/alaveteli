@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.82 2009-08-19 00:22:49 francis Exp $
+# $Id: request_mailer.rb,v 1.83 2009-09-02 09:39:34 francis Exp $
 
 class RequestMailer < ApplicationMailer
     
@@ -363,7 +363,7 @@ class RequestMailer < ApplicationMailer
         # That that patch has not been applied, despite bribes of beer, is
         # typical of the lack of quality of Rails.
         
-        info_requests = InfoRequest.find(:all, :conditions => [ "(select count(*) from info_request_events where event_type = 'comment' and info_request_events.info_request_id = info_requests.id and created_at > ?) > 0", Time.now() - 1.month ], :include => [ { :info_request_events => :user_info_request_sent_alerts } ], :order => "info_requests.id, info_request_events.created_at" )
+        info_requests = InfoRequest.find(:all, :conditions => [ "(select id from info_request_events where event_type = 'comment' and info_request_events.info_request_id = info_requests.id and created_at > ? limit 1) is not null", Time.now() - 1.month ], :include => [ { :info_request_events => :user_info_request_sent_alerts } ], :order => "info_requests.id, info_request_events.created_at" )
         for info_request in info_requests
             #STDERR.puts "considering request " + info_request.id.to_s
 
