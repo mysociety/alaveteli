@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.170 2009-08-20 11:05:24 francis Exp $
+# $Id: request_controller.rb,v 1.171 2009-09-02 14:10:37 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -376,7 +376,7 @@ class RequestController < ApplicationController
             redirect_to outgoing_message_url(@info_request_event.outgoing_message)
         else
             # XXX maybe there are better URLs for some events than this
-            redirect_to request_url(@info_request_event.info_request)
+            redirect_to request_url(@info_request_event.info_request), :status => :moved_permanently 
         end 
     end
 

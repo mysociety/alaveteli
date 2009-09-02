@@ -1,16 +1,16 @@
-# app/controllers/body_controller.rb:
+# app/controllers/public_body_controller.rb:
 # Show information about a public body.
 #
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body_controller.rb,v 1.4 2009-07-14 23:30:37 francis Exp $
+# $Id: public_body_controller.rb,v 1.5 2009-09-02 14:10:37 francis Exp $
 
 class PublicBodyController < ApplicationController
     # XXX tidy this up with better error messages, and a more standard infrastructure for the redirect to canonical URL
     def show
         if MySociety::Format.simplify_url_part(params[:url_name]) != params[:url_name]
-            redirect_to :url_name =>  MySociety::Format.simplify_url_part(params[:url_name])
+            redirect_to :url_name =>  MySociety::Format.simplify_url_part(params[:url_name]), :status => :moved_permanently 
             return
         end
 
