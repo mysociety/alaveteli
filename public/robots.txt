@@ -1,5 +1,9 @@
 # See http://www.robotstxt.org/wc/norobots.html for documentation on how to use the robots.txt file
 
+# Mainly to reduce server load from bots, we block pages which are actions, and
+# searches. We also block /feed/, as RSS readers (rightly, I think) don't seem
+# to check robots.txt.
+
 User-agent: *
 Disallow: /annotate/
 Disallow: /new/
@@ -7,5 +11,7 @@ Disallow: /search/
 Disallow: /similar/
 Disallow: /track/
 Disallow: /upload/
+Disallow: /user/contact/
+Disallow: /feed/
 Disallow: /signin
 
