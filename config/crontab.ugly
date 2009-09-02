@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org. WWW: http://www.mysociety.org/
 #
-# $Id: crontab.ugly,v 1.30 2009-06-27 02:28:26 francis Exp $
+# $Id: crontab.ugly,v 1.31 2009-09-02 15:42:26 francis Exp $
 
 PATH=/usr/local/bin:/usr/bin:/bin
 MAILTO=team@whatdotheyknow.com
@@ -32,8 +32,9 @@ MAILTO=team@whatdotheyknow.com
 43 2 * * * !!(*= $user *)!! /data/vhost/!!(*= $vhost *)!!/mysociety/foi/script/request-creation-graph
 48 2 * * * !!(*= $user *)!! /data/vhost/!!(*= $vhost *)!!/mysociety/foi/script/user-use-graph
 
-# Restart mongrels on live site once a day to make sure RAM freed
-30 3 * * * root [ -e /etc/init.d/foimongreld ] && /etc/init.d/foimongreld restart >/dev/null
+# Kick Apache, so that Passenger restarts Rails processes at least once a day
+# (this was needed with mongrel, and seems worth leaving in now too)
+30 3 * * * root apache2ctl graceful
 
 
 
