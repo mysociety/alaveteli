@@ -2,4 +2,6 @@
 
 User-agent: *
 Disallow: /similar/
+Disallow: /upload/
+Disallow: /signin
 
