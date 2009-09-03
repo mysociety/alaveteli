@@ -3,29 +3,10 @@ if !info_request_event.nil? && info_request_event.event_type == 'response'
     incoming_message = info_request_event.incoming_message
 end
 
-# XXX disable this caching for now until we invalidate it properly - maybe do
-# it at a higher level anyway.
-# cache against all the parameters that there are to this partial
-#cache_name = ""
-#if !info_request_event.nil?
-#    cache_name = cache_name + "correspondence/" + info_request_event.id.to_s
-#end
-#if !incoming_message.nil?
-#    cache_name = cache_name + "/incoming_message/" + incoming_message.id.to_s 
-#end
-#if !@collapse_quotes.nil? && !@collapse_quotes
-#    cache_name = cache_name + "/collapse/false"
-#else
-#    cache_name = cache_name + "/collapse/true" # default is true
-#end
-## yeuch, must be nicer way of telling cache just to use this cache_name, than
-## putting it falsely in list action
-#cache(:controller => 'request', :action => 'list', :extra => cache_name) do
-
 if not incoming_message.nil?
 %>
     <div class="correspondence" id="incoming-<%=incoming_message.id.to_s%>">
-        <% cache(:controller => "request", :action => "show_response", :id => @info_request.id, :incoming_message_id => incoming_message.id, :only_path => true, :template => "_correspondence", :section => "incoming_message_bubble") do %>
+        <% cache(:controller => "request", :action => "show_response", :id => @info_request.id, :incoming_message_id => incoming_message.id, :only_path => true, :template => "_correspondence", :section => "incoming_message_bubble", :collapse => @collapse_quotes ? nil : 'no' ) do %>
         <h2>
             <% if !incoming_message.safe_mail_from.nil? && incoming_message.safe_mail_from.strip != @info_request.public_body.name.strip %>
                 <%=h incoming_message.safe_mail_from %><br>
