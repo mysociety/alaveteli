@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org. WWW: http://www.mysociety.org/
 #
-# $Id: crontab.ugly,v 1.31 2009-09-02 15:42:26 francis Exp $
+# $Id: crontab.ugly,v 1.32 2009-09-03 07:50:40 francis Exp $
 
 PATH=/usr/local/bin:/usr/bin:/bin
 MAILTO=team@whatdotheyknow.com
@@ -34,7 +34,7 @@ MAILTO=team@whatdotheyknow.com
 
 # Kick Apache, so that Passenger restarts Rails processes at least once a day
 # (this was needed with mongrel, and seems worth leaving in now too)
-30 3 * * * root apache2ctl graceful
+30 3 * * * root /usr/sbin/apache2ctl graceful
 
 
 
