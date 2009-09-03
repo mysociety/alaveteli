@@ -27,7 +27,9 @@
         <div id="examples_0">
             <ul>
             <% for popular_body in @popular_bodies %>
-                <li><%=public_body_link(popular_body)%> </li>
+                <li><%=public_body_link(popular_body)%> 
+                <%=h popular_body.info_requests.count%> requests
+                </li>
             <% end%>
             </ul>
             <p><strong>
@@ -36,11 +38,13 @@
         </div>
     <% end %>
 
-    <% if @successful_requests.size > 0 %>
+    <% if @successful_request_events.size > 0 %>
         <div id="examples_1">
             <ul>
-            <% for request in @successful_requests %>
-                <li><%=link_to h(excerpt(request.title, "", 35)), request_url(request)%> </li>
+            <% for event in @successful_request_events %>
+                <li><%=link_to h(excerpt(event.info_request.title, "", 35)), request_url(event.info_request)%> 
+                <%=h time_ago_in_words(event.described_at)%> ago
+                </li>
             <% end %>
             </ul>
             <p><strong><a href="/list/successful">More successful requests...</a></strong></p>

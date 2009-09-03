@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: general_controller.rb,v 1.50 2009-07-14 23:30:37 francis Exp $
+# $Id: general_controller.rb,v 1.51 2009-09-03 23:15:51 francis Exp $
 
 class GeneralController < ApplicationController
 
@@ -15,19 +15,28 @@ class GeneralController < ApplicationController
         #@popular_bodies = PublicBody.find(:all, :select => "*, (select count(*) from info_requests where info_requests.public_body_id = public_bodies.id) as c", :order => "c desc", :limit => 32)
 
         # Just hardcode some popular authorities for now
-        @popular_bodies = PublicBody.find(:all, :conditions => ["url_name in ('bbc', 'dwp', 'dh', 'local_government_ombudsmen', 'royal_mail_group', 'mod', 'lambeth_borough_council', 'edinburgh_council')"])
+        # ('tgq' is for debugging on Francis's development environment)
+        @popular_bodies = PublicBody.find(:all, :conditions => ["url_name in (
+              'bbc', 
+              'dwp', 
+              'dh', 
+              'snh',
+              'royal_mail_group', 
+              'mod', 
+              'kent_county_council', 
+              'wirral_borough_council'
+              /* ,'tgq' */
+        )"])
 
-        # This is too slow
-        #@random_requests = InfoRequest.find(:all, :order => "random()", :limit => 8, :conditions => ["described_state = ? and prominence = ?", 'successful', 'normal'] )
-        
-        # Get some successful requests 
+        # Get some successful requests #
         begin
             query = 'variety:response (status:successful OR status:partially_successful)'
+            #query = 'variety:response' # XXX debug
             sortby = "described"
             @xapian_object = perform_search([InfoRequestEvent], query, sortby, 'request_title_collapse', 8)
-            @successful_requests = @xapian_object.results.map { |r| r[:model].info_request }
+            @successful_request_events = @xapian_object.results.map { |r| r[:model] }
         rescue
-            @successful_requests = []
+            @successful_request_events = []
         end
 
         cache_in_squid
