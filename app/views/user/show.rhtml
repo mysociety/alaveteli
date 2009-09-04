@@ -30,10 +30,10 @@
     <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => false, :location => 'sidebar' } %>
 
     <h2>On this page</h2>
-    <a href="#foi_requests">FOI requests by <%=h @display_user.name%></a>
-    <br><a href="#annotations">Annotations by <%=h @display_user.name%></a>
+    <a href="#foi_requests">FOI requests</a>
+    <br><a href="#annotations">Annotations</a>
     <% if @is_you %>
-        <br><a href="#email_subscriptions">Your email subscriptions</a>
+        <br><a href="#email_subscriptions">Email subscriptions</a>
     <% end %>
 </div> 
 
@@ -68,7 +68,7 @@
                 made no Freedom of Information requests using this site.</p>
             <% end %>
         <% else %>
-            <h2>
+            <h2 id="foi_requests">
                 <%= @is_you ? 'Your ' : "This person's " %>
                 <%=pluralize(@display_user.info_requests.size, "Freedom of Information request") %>
                 <!-- matches_estimated <%=@xapian_requests.matches_estimated%> -->
