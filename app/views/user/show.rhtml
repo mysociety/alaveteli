@@ -28,6 +28,13 @@
 <div id="request_sidebar">
     <h2>Track this person</h2>
     <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => false, :location => 'sidebar' } %>
+
+    <h2>On this page</h2>
+    <a href="#foi_requests">FOI requests by <%=h @display_user.name%></a>
+    <br><a href="#annotations">Annotations by <%=h @display_user.name%></a>
+    <% if @is_you %>
+        <br><a href="#email_subscriptions">Your email subscriptions</a>
+    <% end %>
 </div> 
 
 <div class="single_user">
@@ -56,7 +63,7 @@
     <% if !@xapian_requests.nil? %>
         <% if @xapian_requests.results.empty? %>
             <% if @page == 1 %>
-                <h2>Freedom of Information requests made by <%= @is_you ? 'you' : 'this person' %> </h2>
+                <h2 id="foi_requests">Freedom of Information requests made by <%= @is_you ? 'you' : 'this person' %> </h2>
                 <p><%= @is_you ? 'You have' : 'This person has' %>
                 made no Freedom of Information requests using this site.</p>
             <% end %>
@@ -75,7 +82,7 @@
             <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @display_user.info_requests.size) %>
         <% end %>
     <% else %> 
-        <h2>Freedom of Information requests made by <%= @is_you ? 'you' : 'this person' %> </h2>
+        <h2 id="foi_requests">Freedom of Information requests made by <%= @is_you ? 'you' : 'this person' %> </h2>
         <p>The search index is currently offline, so we can't show the Freedom of Information requests this person has made.</p>
     <% end %> 
 
@@ -86,7 +93,7 @@
                 <p>None made.</p>
             <% end %>
         <% else %>
-            <h2>
+            <h2 id="annotations">
                 <%= @is_you ? 'Your ' : "This person's " %>
                 <%=pluralize(@display_user.visible_comments.size, "annotation") %>
                 <!-- matches_estimated <%=@xapian_comments.matches_estimated%> -->
