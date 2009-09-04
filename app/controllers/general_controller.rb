@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: general_controller.rb,v 1.52 2009-09-04 13:32:43 francis Exp $
+# $Id: general_controller.rb,v 1.53 2009-09-04 13:44:39 francis Exp $
 
 class GeneralController < ApplicationController
 
@@ -15,7 +15,7 @@ class GeneralController < ApplicationController
         #@popular_bodies = PublicBody.find(:all, :select => "*, (select count(*) from info_requests where info_requests.public_body_id = public_bodies.id) as c", :order => "c desc", :limit => 32)
 
         # Just hardcode some popular authorities for now
-        # ('tgq' is for debugging on Francis's development environment)
+        # ('tgq', 'atbra' is for debugging on Francis's development environment)
         @popular_bodies = PublicBody.find(:all, :conditions => ["url_name in (
               'bbc', 
               'dwp', 
@@ -25,8 +25,8 @@ class GeneralController < ApplicationController
               'mod', 
               'kent_county_council', 
               'wirral_borough_council'
-              /* ,'tgq' */
-        )"])
+              /* , 'tgq', 'atbra' */
+        )"]).sort_by { |pb| pb.url_name }.reverse # just an order that looks better
 
         # Get some successful requests #
         begin
