@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.214 2009-09-07 19:37:45 francis Exp $
+# $Id: incoming_message.rb,v 1.215 2009-09-07 19:47:18 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -456,8 +456,8 @@ class IncomingMessage < ActiveRecord::Base
             end
             # if we managed to uncompress the PDF...
             if !uncompressed_text.nil? 
-                # then censor stuff
-                censored_uncompressed_text = self._binary_mask_stuff_internal(uncompressed_text) 
+                # then censor stuff (making a copy so can compare again in a bit)
+                censored_uncompressed_text = self._binary_mask_stuff_internal(uncompressed_text.dup) 
                 # if the censor rule removed something...
                 if censored_uncompressed_text != uncompressed_text
                     # then use the altered file (recompressed)
@@ -478,7 +478,7 @@ class IncomingMessage < ActiveRecord::Base
         return self._binary_mask_stuff_internal(text) 
     end
 
-    # Used by binary_mask_stuff
+    # Used by binary_mask_stuff - replace text in place
     def _binary_mask_stuff_internal(text)
         # Keep original size, so can check haven't resized it
         orig_size = text.size
