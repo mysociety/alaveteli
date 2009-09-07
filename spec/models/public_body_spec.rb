@@ -1,5 +1,21 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
+ describe PublicBody, "making up the URL name" do 
+    before do
+        @public_body = PublicBody.new
+    end
+
+    it 'should remove spaces, and make lower case' do 
+        @public_body.name = 'Some Authority'
+        @public_body.url_name.should == 'some_authority'
+    end
+
+    it 'should not allow a numeric name' do 
+        @public_body.name = '1234'
+        @public_body.url_name.should == 'body'
+    end
+end
+ 
 describe PublicBody, " when saving" do
     before do
         @public_body = PublicBody.new 

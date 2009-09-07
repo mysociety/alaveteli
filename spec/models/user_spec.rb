@@ -1,5 +1,21 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
+describe User, "making up the URL name" do 
+    before do
+        @user = User.new
+    end
+
+    it 'should remove spaces, and make lower case' do 
+        @user.name = 'Some Name'
+        @user.url_name.should == 'some_name'
+    end
+
+    it 'should not allow a numeric name' do 
+        @user.name = '1234'
+        @user.url_name.should == 'user'
+    end
+end
+ 
 describe User, " when authenticating" do
     before do
         @empty_user = User.new 

@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe InfoRequest do 
 
-    describe "making up the URL name" do 
+    describe "making up the URL title" do 
         before do
             @info_request = InfoRequest.new
         end
@@ -12,7 +12,7 @@ describe InfoRequest do
             @info_request.url_title.should == 'something_true'
         end
 
-        it 'should not allow a numeric name' do 
+        it 'should not allow a numeric title' do 
             @info_request.title = '1234'
             @info_request.url_title.should == 'request'
         end
