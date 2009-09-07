@@ -1,7 +1,23 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe InfoRequest do 
-    
+
+    describe "making up the URL name" do 
+        before do
+            @info_request = InfoRequest.new
+        end
+
+        it 'should remove spaces, and make lower case' do 
+            @info_request.title = 'Something True'
+            @info_request.url_title.should == 'something_true'
+        end
+
+        it 'should not allow a numeric name' do 
+            @info_request.title = '1234'
+            @info_request.url_title.should == 'request'
+        end
+    end
+     
     describe "when asked for the last event id that needs description" do 
     
         before do

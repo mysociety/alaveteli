@@ -26,7 +26,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.149 2009-08-26 00:45:38 francis Exp $
+# $Id: public_body.rb,v 1.150 2009-09-07 17:31:38 francis Exp $
 
 require 'csv'
 require 'set'
@@ -238,7 +238,7 @@ class PublicBody < ActiveRecord::Base
         self.update_url_name
     end
     def update_url_name
-        url_name = MySociety::Format.simplify_url_part(self.short_or_long_name)
+        url_name = MySociety::Format.simplify_url_part(self.short_or_long_name, 'body')
         write_attribute(:url_name, url_name)
     end
     # Return the short name if present, or else long name

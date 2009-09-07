@@ -24,7 +24,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.202 2009-09-07 16:35:06 francis Exp $
+# $Id: info_request.rb,v 1.203 2009-09-07 17:31:38 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -154,7 +154,7 @@ public
         self.update_url_title
     end
     def update_url_title
-        url_title = MySociety::Format.simplify_url_part(self.title, 32)
+        url_title = MySociety::Format.simplify_url_part(self.title, 'request', 32)
         # For request with same title as others, add on arbitary numeric identifier
         unique_url_title = url_title
         suffix_num = 2 # as there's already one without numeric suffix

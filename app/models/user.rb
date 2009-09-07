@@ -23,7 +23,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user.rb,v 1.100 2009-08-27 15:44:23 francis Exp $
+# $Id: user.rb,v 1.101 2009-09-07 17:31:38 francis Exp $
 
 require 'digest/sha1'
 
@@ -153,7 +153,7 @@ class User < ActiveRecord::Base
         self.update_url_name
     end
     def update_url_name
-        url_name = MySociety::Format.simplify_url_part(self.name, 32)
+        url_name = MySociety::Format.simplify_url_part(self.name, 'user', 32)
         # For user with same name as others, add on arbitary numeric identifier
         unique_url_name = url_name
         suffix_num = 2 # as there's already one without numeric suffix

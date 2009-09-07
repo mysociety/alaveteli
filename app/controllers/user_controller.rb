@@ -4,13 +4,13 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user_controller.rb,v 1.69 2009-09-02 14:10:38 francis Exp $
+# $Id: user_controller.rb,v 1.70 2009-09-07 17:31:38 francis Exp $
 
 class UserController < ApplicationController
     # Show page about a user
     def show
-        if MySociety::Format.simplify_url_part(params[:url_name], 32) != params[:url_name]
-            redirect_to :url_name =>  MySociety::Format.simplify_url_part(params[:url_name], 32), :status => :moved_permanently 
+        if MySociety::Format.simplify_url_part(params[:url_name], 'user', 32) != params[:url_name]
+            redirect_to :url_name =>  MySociety::Format.simplify_url_part(params[:url_name], 'user', 32), :status => :moved_permanently 
             return
         end
 
