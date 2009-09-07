@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.211 2009-08-20 11:05:27 francis Exp $
+# $Id: incoming_message.rb,v 1.212 2009-09-07 18:28:40 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -458,8 +458,9 @@ class IncomingMessage < ActiveRecord::Base
                 end
                 # if we managed to uncompress the PDF...
                 if !uncompressed_text.nil? 
-                    censored_uncompressed_text = self.info_request.apply_censor_rules_to_binary(uncompressed_text)
-                    # and the censor rule removed something...
+                    # then censor stuff
+                    censored_uncompressed_text = self._binary_mask_stuff_internal(uncompressed_text) 
+                    # if the censor rule removed something...
                     if censored_uncompressed_text != uncompressed_text
                         # then use the altered file (recompressed)
                         recompressed_text = nil
@@ -476,7 +477,12 @@ class IncomingMessage < ActiveRecord::Base
             end
             return text
         end
-        
+
+        return self._binary_mask_stuff_internal(text) 
+    end
+
+    # Used by binary_mask_stuff
+    def _binary_mask_stuff_internal(text)
         # Keep original size, so can check haven't resized it
         orig_size = text.size
 
@@ -505,6 +511,14 @@ class IncomingMessage < ActiveRecord::Base
 
         raise "internal error in binary_mask_stuff" if text.size != orig_size
         return text
+    end
+
+    # Removes censored stuff from from HTML conversion of downloaded binaries
+    def html_mask_stuff(html)
+        html = self.mask_special_emails(html)
+        html = self.remove_privacy_sensitive_things(html)
+
+        return html
     end
 
     # Lotus notes quoting yeuch!

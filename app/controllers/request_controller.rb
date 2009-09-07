@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.175 2009-09-07 10:50:29 francis Exp $
+# $Id: request_controller.rb,v 1.176 2009-09-07 18:28:39 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -534,6 +534,10 @@ class RequestController < ApplicationController
     def get_attachment
         get_attachment_internal(false)
 
+        # Prevent spam to magic request address. Note that the binary
+        # subsitution method used depends on the content type
+        @attachment.body = @incoming_message.binary_mask_stuff(@attachment.body, @attachment.content_type) 
+
         # we don't use @attachment.content_type here, as we want same mime type when cached in cache_attachments above
         response.content_type = filename_to_mimetype(params[:file_name].join("/")) or 'application/octet-stream'
 
@@ -556,6 +560,8 @@ class RequestController < ApplicationController
 
         view_html_prefix = render_to_string :partial => "request/view_html_prefix"
         html.sub!("<prefix-here>", view_html_prefix)
+
+        html= @incoming_message.html_mask_stuff(html) 
 
         response.content_type = 'text/html'
         render :text => html
@@ -583,10 +589,6 @@ class RequestController < ApplicationController
 
         # check filename in URL matches that in database (use a censor rule if you want to change a filename)
         raise "please use same filename as original file has, display: " + @attachment.display_filename + " original: " + @original_filename if @attachment.display_filename != @original_filename
-
-        # Prevent spam to magic request address. Note that the binary
-        # subsitution method used depends on the content type
-        @attachment.body = @incoming_message.binary_mask_stuff(@attachment.body, @attachment.content_type) 
 
         @attachment_url = get_attachment_url(:id => @incoming_message.info_request_id,
                 :incoming_message_id => @incoming_message.id, :part => @part_number,

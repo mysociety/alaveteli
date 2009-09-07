@@ -79,6 +79,9 @@ and resend messages to them
 Later
 =====
 
+Maybe don't email you in alert subscriptions about annotations you made on
+other people's requests?
+
 Renaming of a body, or changing its domain, should clear the cached bubbles of
 all requests to that body.
 
