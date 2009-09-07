@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.213 2009-09-07 19:34:06 francis Exp $
+# $Id: incoming_message.rb,v 1.214 2009-09-07 19:37:45 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -439,9 +439,9 @@ class IncomingMessage < ActiveRecord::Base
     # Replaces all email addresses in (possibly binary data) with equal length alternative ones.
     # Also replaces censor items
     def binary_mask_stuff(text, content_type)
-        # See if content type is one that we mask - things like PDFs and images
-        # will get broken if we try to. We err on the side of masking too much,
-        # as many unknown types will really be text.
+        # See if content type is one that we mask - things like zip files and
+        # images may get broken if we try to. We err on the side of masking too
+        # much, as many unknown types will really be text.
         if $do_not_binary_mask.include?(content_type)
             return text
         end
