@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.173 2009-09-02 23:21:27 francis Exp $
+# $Id: request_controller.rb,v 1.174 2009-09-07 10:44:01 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -578,7 +578,7 @@ class RequestController < ApplicationController
         @attachment = IncomingMessage.get_attachment_by_url_part_number(@incoming_message.get_attachments_for_display, @part_number)
 
         # check filename in URL matches that in database (use a censor rule if you want to change a filename)
-        raise "please use same filename as original file has" if @attachment.display_filename != @original_filename
+        raise "please use same filename as original file has, display: " + @attachment.display_filename + " original " + @original_filename if @attachment.display_filename != @original_filename
 
         # Prevent spam to magic request address. Note that the binary
         # subsitution method used depends on the content type
