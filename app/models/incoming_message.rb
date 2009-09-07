@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.212 2009-09-07 18:28:40 francis Exp $
+# $Id: incoming_message.rb,v 1.213 2009-09-07 19:34:06 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -448,30 +448,27 @@ class IncomingMessage < ActiveRecord::Base
 
         # Special cases for some content types
         if content_type == 'application/pdf'
-            # XXX currently just applies censor rules - change this if we apply email rules too
-            if self.info_request.censor_rules.count > 0
-                uncompressed_text = nil
-                IO.popen("/usr/bin/pdftk - output - uncompress", "r+") do |child|
-                    child.write(text)
-                    child.close_write()
-                    uncompressed_text = child.read()
-                end
-                # if we managed to uncompress the PDF...
-                if !uncompressed_text.nil? 
-                    # then censor stuff
-                    censored_uncompressed_text = self._binary_mask_stuff_internal(uncompressed_text) 
-                    # if the censor rule removed something...
-                    if censored_uncompressed_text != uncompressed_text
-                        # then use the altered file (recompressed)
-                        recompressed_text = nil
-                        IO.popen("/usr/bin/pdftk - output - compress", "r+") do |child|
-                            child.write(censored_uncompressed_text)
-                            child.close_write()
-                            recompressed_text = child.read()
-                        end
-                        if !recompressed_text.nil?
-                            text = recompressed_text
-                        end
+            uncompressed_text = nil
+            IO.popen("/usr/bin/pdftk - output - uncompress", "r+") do |child|
+                child.write(text)
+                child.close_write()
+                uncompressed_text = child.read()
+            end
+            # if we managed to uncompress the PDF...
+            if !uncompressed_text.nil? 
+                # then censor stuff
+                censored_uncompressed_text = self._binary_mask_stuff_internal(uncompressed_text) 
+                # if the censor rule removed something...
+                if censored_uncompressed_text != uncompressed_text
+                    # then use the altered file (recompressed)
+                    recompressed_text = nil
+                    IO.popen("/usr/bin/pdftk - output - compress", "r+") do |child|
+                        child.write(censored_uncompressed_text)
+                        child.close_write()
+                        recompressed_text = child.read()
+                    end
+                    if !recompressed_text.nil?
+                        text = recompressed_text
                     end
                 end
             end
