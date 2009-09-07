@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.174 2009-09-07 10:44:01 francis Exp $
+# $Id: request_controller.rb,v 1.175 2009-09-07 10:50:29 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -532,7 +532,7 @@ class RequestController < ApplicationController
     end
 
     def get_attachment
-        get_attachment_internal
+        get_attachment_internal(false)
 
         # we don't use @attachment.content_type here, as we want same mime type when cached in cache_attachments above
         response.content_type = filename_to_mimetype(params[:file_name].join("/")) or 'application/octet-stream'
@@ -541,7 +541,7 @@ class RequestController < ApplicationController
     end
 
     def get_attachment_as_html
-        get_attachment_internal
+        get_attachment_internal(true)
 
         # images made during conversion (e.g. images in PDF files) are put in the cache directory, so
         # the same cache code in cache_attachments above will display them.
@@ -562,7 +562,7 @@ class RequestController < ApplicationController
     end
 
     # Internal function
-    def get_attachment_internal
+    def get_attachment_internal(html_conversion)
         @incoming_message = IncomingMessage.find(params[:incoming_message_id])
         @info_request = @incoming_message.info_request
         if @incoming_message.info_request_id != params[:id].to_i
@@ -570,7 +570,11 @@ class RequestController < ApplicationController
         end
         @part_number = params[:part].to_i
         @filename = params[:file_name].join("/")
-        @original_filename = @filename.gsub(/\.html$/, "")
+        if html_conversion
+            @original_filename = @filename.gsub(/\.html$/, "")
+        else
+            @original_filename = @filename
+        end
        
         # check permissions
         raise "internal error, pre-auth filter should have caught this" if !@info_request.user_can_view?(authenticated_user)
@@ -578,7 +582,7 @@ class RequestController < ApplicationController
         @attachment = IncomingMessage.get_attachment_by_url_part_number(@incoming_message.get_attachments_for_display, @part_number)
 
         # check filename in URL matches that in database (use a censor rule if you want to change a filename)
-        raise "please use same filename as original file has, display: " + @attachment.display_filename + " original " + @original_filename if @attachment.display_filename != @original_filename
+        raise "please use same filename as original file has, display: " + @attachment.display_filename + " original: " + @original_filename if @attachment.display_filename != @original_filename
 
         # Prevent spam to magic request address. Note that the binary
         # subsitution method used depends on the content type
