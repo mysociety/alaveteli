@@ -4,10 +4,20 @@
 
 <p>
     FOI request: <%= link_to request_both_links(@raw_email.incoming_message.info_request) %>
-    <% if @holding_pen && @public_bodies.size > 0 %>
-        <br>Guessed authority:
-        <% for public_body in @public_bodies %>
-            <%=public_body_both_links(public_body)%> 
+    <% if @holding_pen %> 
+        <% if @public_bodies.size > 0 %>
+            <br>Guessed authority:
+            <% for public_body in @public_bodies %>
+                <%=public_body_both_links(public_body)%> 
+            <% end %>
+            (based on From: email domain)
+        <% end %>
+        <% if @info_requests.size > 0 %>
+            <br>Guessed request:
+            <% for info_request in @info_requests %>
+                <%=request_both_links(info_request)%> 
+            <% end %>
+            (based on id, not hash, in To/Cc email)
         <% end %>
     <% end %>
 </p>

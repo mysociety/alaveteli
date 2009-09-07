@@ -24,7 +24,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.201 2009-08-21 17:43:33 francis Exp $
+# $Id: info_request.rb,v 1.202 2009-09-07 16:35:06 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -246,6 +246,23 @@ public
     # the prefix and domain, as sometimes those change, or might be elided by
     # copying an email, and that doesn't matter)
     def InfoRequest.find_by_incoming_email(incoming_email)
+        id, hash = InfoRequest._extract_id_hash_from_email(incoming_email)
+        return self.find_by_magic_email(id, hash)
+    end
+
+    # Return list of info requests which *might* be right given email address
+    # e.g. For the id-hash email addresses, don't match the hash.
+    def InfoRequest.guess_by_incoming_email(incoming_email)
+        id, hash = InfoRequest._extract_id_hash_from_email(incoming_email)
+        begin
+            return [InfoRequest.find(id)]
+        rescue ActiveRecord::RecordNotFound
+            return []
+        end
+    end
+
+    # Internal function used by find_by_magic_email and guess_by_incoming_email
+    def InfoRequest._extract_id_hash_from_email(incoming_email)
         # Match case insensitively, FOI officers often write Request with capital R.
         incoming_email = incoming_email.downcase
 
@@ -263,8 +280,9 @@ public
             hash.gsub!(/o/, "0")
         end
 
-        return self.find_by_magic_email(id, hash)
+        return [id, hash]
     end
+
 
     # When constructing a new request, use this to check user hasn't double submitted.
     # XXX could have a date range here, so say only check last month's worth of new requests. If somebody is making

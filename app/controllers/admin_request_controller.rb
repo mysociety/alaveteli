@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_request_controller.rb,v 1.38 2009-07-21 12:09:29 francis Exp $
+# $Id: admin_request_controller.rb,v 1.39 2009-09-07 16:35:05 francis Exp $
 
 class AdminRequestController < AdminController
     def index
@@ -228,12 +228,13 @@ class AdminRequestController < AdminController
     def show_raw_email
         @raw_email = RawEmail.find(params[:id])
 
-        # For the holding pen, use domain of email to try and guess which public body it
-        # is associated with, so we can display that.
+        # For the holding pen, try to guess where it should be ...
         @holding_pen = false
         if (@raw_email.incoming_message.info_request == InfoRequest.holding_pen_request && @raw_email.incoming_message.mail.from_addrs.size > 0)
             @holding_pen = true
 
+            # 1. Use domain of email to try and guess which public body it
+            # is associated with, so we can display that.
             email = @raw_email.incoming_message.mail.from_addrs[0].spec
             domain = PublicBody.extract_domain_from_email(email)
 
@@ -242,6 +243,12 @@ class AdminRequestController < AdminController
             else
                 @public_bodies = PublicBody.find(:all, :order => "name", 
                     :conditions => [ "lower(request_email) like lower('%'||?||'%')", domain ])
+            end
+            
+            # 2. Match the email address in the message without matching the hash
+            @info_requests = []
+            for address in (@raw_email.incoming_message.mail.to || []) + (@raw_email.incoming_message.mail.cc || [])
+                @info_requests += InfoRequest.guess_by_incoming_email(address)
             end
         end
     end
