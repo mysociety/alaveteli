@@ -4,15 +4,20 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_general_controller.rb,v 1.9 2009-07-16 15:46:08 francis Exp $
+# $Id: admin_general_controller.rb,v 1.10 2009-09-07 18:56:44 francis Exp $
 
 class AdminGeneralController < AdminController
     def index
         # Overview counts of things
-        @user_count = User.count
         @public_body_count = PublicBody.count
+
         @info_request_count = InfoRequest.count
+        @outgoing_message_count = OutgoingMessage.count
+        @incoming_message_count = IncomingMessage.count
+
+        @user_count = User.count
         @track_thing_count = TrackThing.count
+
         @comment_count = Comment.count
 
         # Tasks to do
