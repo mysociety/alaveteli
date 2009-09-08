@@ -3,11 +3,34 @@
 <h1>FOI email address for '<%=public_body_link(@public_body)%>'</h1>
 
 <p>
+<% if @public_body.is_requestable? %>
     WhatDoTheyKnow sends new requests to <strong><%=h @public_body.request_email%></strong> for this authority.
+<% else %>
+    <% if @public_body.not_requestable_reason == 'not_apply' %>
+        <p>Freedom of Information law no longer applies to this authority.
+        Follow up messages to existing requests are sent to <strong><%=h @public_body.request_email%></strong>.
+        </p>
+    <% elsif @public_body.not_requestable_reason == 'defunct' %>
+        <p><%=h @public_body.name %> no longer exists.
+        Follow up messages to existing requests are sent to <strong><%=h @public_body.request_email%></strong>.
+        </p>
+    <% elsif @public_body.not_requestable_reason == 'bad_contact' %>
+        <p>We do not have a working request email address for this authority.
+        </p>
+    <% else %>
+        <% raise "unknown reason " + @reason %>
+    <% end %>
+
+<% end %>
 </p>
 
 <p>
-    If the address is wrong, or you know a better address, please <a href="/help/contact">contact us</a>.
+    <% if @public_body.is_requestable? || @public_body.not_requestable_reason != 'bad_contact' %>
+        If the address is wrong, or you know a better address, please <a href="/help/contact">contact us</a>.
+    <% else %>
+        If you know the address to use, then please <a href="/help/contact">send it to us</a>.
+        You may be able to find the address on their website, or by phoning them up and asking. 
+    <% end %>
 </p>
 
 <div id="stepwise_make_request_view_email">

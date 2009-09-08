@@ -13,6 +13,10 @@ Next (things that will reduce admin time mainly)
 
 Factor out "defunct/not_apply" from request_email into own field so defunct
 authorities can still have followups to existing requests. Probably into tags.
+* When you do follow up to authority that is defunct/not_apply explain this
+http://www.whatdotheyknow.com/request/14960/response/39838#followup
+* Fix up text when you send follow up and it no longer exists
+http://www.whatdotheyknow.com/request/14960/response#followup
 
 Have proper house rules / site terms and conditions page.
 Perhaps borrow from these house rules:
@@ -284,12 +288,6 @@ Edits to outgoing/incoming/title won't be reindexed in Xapian (maybe just reinde
     might matter with software updates, or code changes)
 This does it all:
 $ ./script/clear-incoming-text-cache ; ./script/rebuild-xapian-index
-
-Remove request email address from PDFs (we already do from docs, and we run censor rules on PDFs now)
-   http://www.whatdotheyknow.com/request/cost_of_policing_the_oxford_unio_3
-    http://www.whatdotheyknow.com/request/5353/response/11911/attach/html/2/Freedom%20of%20Information%20-%20Letter%20Accepting%20Request%20-%2072057594037995214.pdf.html
-Take care here, sometimes emails are found by spammers by Google's OCR of
-images in PDFs
 
 Renaming public authorities will break alerts on them. For basic alerts the
 structured info is there so this should just be fixed. For searches, perhaps
