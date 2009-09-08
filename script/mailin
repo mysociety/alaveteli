@@ -1,6 +1,6 @@
 #!/bin/bash
 
-OUTPUT=/tmp/wdtk-malin-$RANDOM$RANDOM$RANDOM$RANDOM.txt
+OUTPUT=/tmp/foi-malin-$RANDOM$RANDOM$RANDOM$RANDOM.txt
 
 cd `dirname $0`
 cd ../../
@@ -18,8 +18,11 @@ then
     echo "$BODY" | /usr/bin/mutt -s "$SUBJ" -a $OUTPUT $OPTION_CONTACT_EMAIL
 
     # tell exim error was temporary, so try again later (no point bouncing message to authority)
+    rm -f $OUTPUT
     exit 75 
 fi
 
+cat $OUTPUT
+rm -f $OUTPUT
 exit 0
 
