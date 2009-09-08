@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.84 2009-09-08 04:12:09 francis Exp $
+# $Id: request_mailer.rb,v 1.85 2009-09-08 23:48:29 francis Exp $
 
 class RequestMailer < ApplicationMailer
     
@@ -69,7 +69,7 @@ class RequestMailer < ApplicationMailer
     # Whether we have a valid email address for a followup
     def RequestMailer.is_followupable?(info_request, incoming_message_followup)
         if incoming_message_followup.nil? || !incoming_message_followup.valid_to_reply_to?
-            return info_request.recipient_email_valid?
+            return info_request.recipient_email_valid_for_followup?
         else
             # email has been checked in incoming_message_followup.valid_to_reply_to? above
             return true

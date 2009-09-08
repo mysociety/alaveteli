@@ -8,10 +8,18 @@
 
 <% if @reason == 'not_apply' %>
     <!-- we should never get here, but just in case give a sensible message -->
-    <p>Freedom of Information law no longer applies to <%=h @info_request.public_body.name %>.</p>
+    <p>Freedom of Information law no longer applies to <%=h @info_request.public_body.name %>.
+    From the request page, try replying to a particular message, rather than sending
+    a general followup. If you need to make a general followup, and know
+    an email which will go to the right place, please <a href="/help/contact">send it to us</a>.
+    </p>
 <% elsif @reason == 'defunct' %>
     <!-- we should never get here, but just in case give a sensible message -->
-    <p><%=h @info_request.public_body.name %> no longer exists.</p>
+    <p><%=h @info_request.public_body.name %> no longer exists. If you are trying to make
+    From the request page, try replying to a particular message, rather than sending
+    a general followup. If you need to make a general followup, and know
+    an email which will go to the right place, please <a href="/help/contact">send it to us</a>.
+    </p>
 <% elsif @reason == 'bad_contact' %>
     <p>We do not have a working <%=h @info_request.law_used_full %>
     address for <%=h @info_request.public_body.name %>. You may be able to find

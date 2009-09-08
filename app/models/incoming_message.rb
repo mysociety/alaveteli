@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.215 2009-09-07 19:47:18 francis Exp $
+# $Id: incoming_message.rb,v 1.216 2009-09-08 23:48:29 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -428,7 +428,7 @@ class IncomingMessage < ActiveRecord::Base
         # XXX can later display some of these special emails as actual emails,
         # if they are public anyway.  For now just be precautionary and only
         # put in descriptions of them in square brackets.
-        if self.info_request.public_body.is_requestable?
+        if self.info_request.public_body.is_followupable?
             text = text.gsub(self.info_request.public_body.request_email, "[" + self.info_request.public_body.short_or_long_name + " request email]")
         end
         text = text.gsub(self.info_request.incoming_email, "[FOI #" + self.info_request.id.to_s + " email]")

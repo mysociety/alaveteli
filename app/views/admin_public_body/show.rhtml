@@ -14,7 +14,7 @@
   <% elsif column.name == 'request_email' and !column.name.empty? %>
     <%= link_to(h(@public_body.send(column.name)), "mailto:" + @public_body.send(column.name))  %>
       <% if !@public_body.is_requestable? %>
-          (not requestable due to: <%=h @public_body.not_requestable_reason %>)
+          (not requestable due to: <%=h @public_body.not_requestable_reason %><% if @public_body.is_followupable? %>; but followupable<% end %>)
       <% end %>
   <% else %>
       <%=h @public_body.send(column.name) %>

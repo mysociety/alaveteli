@@ -24,7 +24,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.203 2009-09-07 17:31:38 francis Exp $
+# $Id: info_request.rb,v 1.204 2009-09-08 23:48:29 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -560,8 +560,8 @@ public
     def recipient_email
         return self.public_body.request_email
     end
-    def recipient_email_valid?
-        return self.public_body.is_requestable?
+    def recipient_email_valid_for_followup?
+        return self.public_body.is_followupable?
     end
     def recipient_name_and_email
         return TMail::Address.address_from_name_and_email(self.law_used_short + " requests at " + self.public_body.short_or_long_name, self.recipient_email).to_s

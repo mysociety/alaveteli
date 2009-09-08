@@ -26,7 +26,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.152 2009-09-08 03:07:06 francis Exp $
+# $Id: public_body.rb,v 1.153 2009-09-08 23:48:29 francis Exp $
 
 require 'csv'
 require 'set'
@@ -190,6 +190,14 @@ class PublicBody < ActiveRecord::Base
         end
         return !self.request_email.empty? && self.request_email != 'blank'
     end
+    # Strict superset of is_requestable?
+    def is_followupable?
+        if self.request_email.nil?
+            return false
+        end
+        return !self.request_email.empty? && self.request_email != 'blank'
+    end
+    # Also used as not_followable_reason
     def not_requestable_reason
         if self.defunct?
             return 'defunct'
