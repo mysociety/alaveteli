@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.176 2009-09-07 18:28:39 francis Exp $
+# $Id: request_controller.rb,v 1.177 2009-09-08 22:48:55 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -22,7 +22,7 @@ class RequestController < ApplicationController
 
         # Test for hidden
         if !@info_request.user_can_view?(authenticated_user)
-            render :template => 'request/hidden'
+            render :template => 'request/hidden', :status => 410 # gone
             return
         end
        
