@@ -16,6 +16,10 @@ td, th {
 td {
     vertical-align: top
 }
+td {
+    max-width: 30em;
+    overflow: auto;
+}
 
 tr.odd {
     background-color: #bbbbbb;

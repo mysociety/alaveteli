@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request_event.rb,v 1.86 2009-07-21 12:09:30 francis Exp $
+# $Id: info_request_event.rb,v 1.87 2009-09-08 00:02:34 francis Exp $
 
 class InfoRequestEvent < ActiveRecord::Base
     belongs_to :info_request
@@ -195,7 +195,43 @@ class InfoRequestEvent < ActiveRecord::Base
     def params
         YAML.load(self.params_yaml)
     end
+    def params_yaml_as_html
+        ret = ''
+        # split out parameters into old/new diffs, and other ones
+        old_params = {}
+        new_params = {}
+        other_params = {}
+        for key, value in self.params
+            key = key.to_s
+            old_key = ("old_" + key).to_sym
+            if key.match(/^old_(.*)$/)
+                old_params[$1] = value
+            elsif self.params.include?(("old_" + key).to_sym)
+                new_params[key] = value
+            else
+                other_params[key] = value
+            end
+        end
+        # loop through
+        for key, value in new_params
+            old_value = old_params[key].to_s
+            new_value = new_params[key].to_s
+            if old_value != new_value:
+                ret = ret + "<em>" + CGI.escapeHTML(key) + ":</em> " 
+                ret = ret + CGI.escapeHTML(old_value) + " => " + CGI.escapeHTML(new_value)
+                ret = ret + "<br>"
+            end
+        end
+        for key, value in other_params
+            ret = ret + "<em>" + CGI.escapeHTML(key.to_s) + ":</em> " 
+            ret = ret + CGI.escapeHTML(value.to_s) 
+            ret = ret + "<br>"
+        end
+        # ret = ret + CGI.escapeHTML(a.to_s) + ":" + CGI.escapeHTML(b.to_s) + "<br>"
+        return ret
+    end
 
+ 
     def is_incoming_message?()  not self.incoming_message.nil?  end 
     def is_outgoing_message?()  not self.outgoing_message.nil?  end 
     def is_comment?()           not self.comment.nil?           end 

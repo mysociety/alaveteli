@@ -36,7 +36,7 @@
   <% for column in InfoRequestEvent.content_columns %>
     <td>
       <% if column.name == 'params_yaml' %>
-        <pre><%=h info_request_event.params_yaml.gsub(/-/,' ').strip %></pre>
+        <%= info_request_event.params_yaml_as_html %>
       <% elsif column.text? %>
         <%=h (info_request_event.send(column.name) || '').gsub(/_/,' ') %>
       <% else %>
