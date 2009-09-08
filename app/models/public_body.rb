@@ -26,7 +26,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.150 2009-09-07 17:31:38 francis Exp $
+# $Id: public_body.rb,v 1.151 2009-09-08 02:47:55 francis Exp $
 
 require 'csv'
 require 'set'
@@ -168,18 +168,26 @@ class PublicBody < ActiveRecord::Base
         end
     end
 
+    # If tagged "not_apply", then FOI/EIR no longer applies to authority at all
+    def not_apply?
+        return self.has_tag?('not_apply')
+    end
+
     # Can an FOI (etc.) request be made to this body, and if not why not?
     def is_requestable?
         if self.request_email.nil?
             return false
         end
-        return !self.request_email.empty? && self.request_email != 'blank' && self.request_email != 'not_apply' && self.request_email != 'defunct'
+        if self.not_apply?
+            return false
+        end
+        return !self.request_email.empty? && self.request_email != 'blank' && self.request_email != 'defunct'
     end
     def not_requestable_reason
-        if self.request_email.empty? or self.request_email == 'blank'
-            return 'bad_contact'
-        elsif self.request_email == 'not_apply'
+        if self.not_apply?
             return 'not_apply'
+        elsif self.request_email.empty? or self.request_email == 'blank'
+            return 'bad_contact'
         elsif self.request_email == 'defunct'
             return 'defunct'
         else
