@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_request_controller.rb,v 1.39 2009-09-07 16:35:05 francis Exp $
+# $Id: admin_request_controller.rb,v 1.40 2009-09-08 04:12:08 francis Exp $
 
 class AdminRequestController < AdminController
     def index
@@ -247,7 +247,12 @@ class AdminRequestController < AdminController
             
             # 2. Match the email address in the message without matching the hash
             @info_requests = []
-            for address in (@raw_email.incoming_message.mail.to || []) + (@raw_email.incoming_message.mail.cc || [])
+            addresses =
+                    (@raw_email.incoming_message.mail.to || []) + 
+                    (@raw_email.incoming_message.mail.cc || []) +
+                    (@raw_email.incoming_message.mail.envelope_to || [])
+            addresses.uniq!
+            for address in addresses
                 @info_requests += InfoRequest.guess_by_incoming_email(address)
             end
         end

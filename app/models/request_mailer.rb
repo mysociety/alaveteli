@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.83 2009-09-02 09:39:34 francis Exp $
+# $Id: request_mailer.rb,v 1.84 2009-09-08 04:12:09 francis Exp $
 
 class RequestMailer < ApplicationMailer
     
@@ -239,7 +239,9 @@ class RequestMailer < ApplicationMailer
     # Member function, called on the new class made in self.receive above
     def receive(email, raw_email)
         # Find which info requests the email is for
-        reply_info_requests = []
+        # We deliberately don't use Envelope-to here, so ones that are BCC
+        # drop into the holding pen for checking.
+        reply_info_requests = [] # XXX should be set?
         for address in (email.to || []) + (email.cc || [])
             reply_info_request = InfoRequest.find_by_incoming_email(address)
             reply_info_requests.push(reply_info_request) if reply_info_request

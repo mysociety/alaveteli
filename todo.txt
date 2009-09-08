@@ -11,11 +11,10 @@ Things to make bots not crawl:
 Next (things that will reduce admin time mainly)
 ====
 
-Factor out "defunct/not_apply" from request_email into own field so defunct
-authorities can still have followups to existing requests. Probably into tags.
-* When you do follow up to authority that is defunct/not_apply explain this
+defunct/not_apply stuff
+* When you do reply / follow up to authority that is defunct/not_apply mention it
 http://www.whatdotheyknow.com/request/14960/response/39838#followup
-* Fix up text when you send follow up and it no longer exists
+* Fix up text when you send follow up and the authority no longer exists
 http://www.whatdotheyknow.com/request/14960/response#followup
 
 Have proper house rules / site terms and conditions page.

@@ -4,7 +4,7 @@
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: tmail_extensions.rb,v 1.5 2009-07-01 11:07:20 francis Exp $
+# $Id: tmail_extensions.rb,v 1.6 2009-09-08 04:12:09 francis Exp $
 
 # Monkeypatch!
 
@@ -29,6 +29,12 @@ module TMail
             end
         end 
 
+        # Generalisation of To:, Cc:
+        def envelope_to(default = nil)
+            # XXX assumes only one envelope-to, and no parsing needed
+            val = self.header_string('envelope-to')
+            return val ? [val,] : []
+        end
     end
 
     class Address
