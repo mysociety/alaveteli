@@ -1,7 +1,25 @@
 #!/bin/bash
 
-LOC=`dirname $0`
+OUTPUT=/tmp/wdtk-malin-$RANDOM$RANDOM$RANDOM$RANDOM.txt
 
-$LOC/runner 'RequestMailer.receive(STDIN.read)'
+cd `dirname $0`
+cd ../../
+source shlib/deployfns
 
+read_conf foi/config/general
+
+if ! ./foi/script/runner 'RequestMailer.receive(STDIN.read)' >$OUTPUT 2>$OUTPUT
+then
+    # we should never get an error here, unless the database is down or similar
+
+    # send error to administators (use mutt for MIME encoding)
+    SUBJ="Mail import error for $OPTION_DOMAIN"
+    BODY="There was an error running the RequestMailer.receive command in script/foi/mailin. See attached for details. This might be quite serious, such as the database was down, or might be an email with corrupt headers that Rails is choking on. The email was returned with an exit code 75, which for Exim at least means the MTA will try again later. A well configured installation of this code will separately have had Exim make a backup copy of the email in a separate mailbox, just in case."
+    echo "$BODY" | /usr/bin/mutt -s "$SUBJ" -a $OUTPUT $OPTION_CONTACT_EMAIL
+
+    # tell exim error was temporary, so try again later (no point bouncing message to authority)
+    exit 75 
+fi
+
+exit 0
 
