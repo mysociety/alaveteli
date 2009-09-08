@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request_event.rb,v 1.87 2009-09-08 00:02:34 francis Exp $
+# $Id: info_request_event.rb,v 1.88 2009-09-08 00:28:15 francis Exp $
 
 class InfoRequestEvent < ActiveRecord::Base
     belongs_to :info_request
@@ -218,13 +218,16 @@ class InfoRequestEvent < ActiveRecord::Base
             new_value = new_params[key].to_s
             if old_value != new_value:
                 ret = ret + "<em>" + CGI.escapeHTML(key) + ":</em> " 
-                ret = ret + CGI.escapeHTML(old_value) + " => " + CGI.escapeHTML(new_value)
+                ret = ret + 
+                      CGI.escapeHTML(MySociety::Format.wrap_email_body(old_value).strip).gsub(/\n/, '<br>') + 
+                        " => " + 
+                      CGI.escapeHTML(MySociety::Format.wrap_email_body(new_value).strip).gsub(/\n/, '<br>')
                 ret = ret + "<br>"
             end
         end
         for key, value in other_params
             ret = ret + "<em>" + CGI.escapeHTML(key.to_s) + ":</em> " 
-            ret = ret + CGI.escapeHTML(value.to_s) 
+            ret = ret + CGI.escapeHTML(value.to_s.strip) 
             ret = ret + "<br>"
         end
         # ret = ret + CGI.escapeHTML(a.to_s) + ":" + CGI.escapeHTML(b.to_s) + "<br>"
