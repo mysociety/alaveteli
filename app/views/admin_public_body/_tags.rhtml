@@ -1,5 +1,5 @@
 <%= body.public_body_tags.map { |t|
-        link_to(h(t.name), list_public_bodies_url(:tag => t.name)) +
+        link_to(h(t.name), main_url(list_public_bodies_url(:tag => t.name, :only_path => true))) +
             ' (<a href="' + admin_url('body/list') + "?query=" + h(t.name) + '">admin</a>)' 
     }.join(' ') %>
 
