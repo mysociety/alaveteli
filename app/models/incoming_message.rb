@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.216 2009-09-08 23:48:29 francis Exp $
+# $Id: incoming_message.rb,v 1.217 2009-09-09 14:40:31 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -332,6 +332,15 @@ class FOIAttachment
             return true
         end
         return false
+    end
+
+    # Name of type of attachment type - only valid for things that has_body_as_html?
+    def name_of_content_type
+        if self.content_type == 'application/vnd.ms-word'
+            return "Word document"
+        elsif self.content_type == 'application/pdf'
+            return "PDF file"
+        end
     end
 end
 

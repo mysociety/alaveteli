@@ -1,7 +1,12 @@
 <div class="view_html_prefix">
+    <div class="view_html_logo">
+        <a href="/"><img src="/images/navimg/logo-trans-small.png" alt="WhatDotheyKnow?"></a>
+    </div>
     <div class="view_html_download_link">
         <%=link_to "Download original attachment", @attachment_url %> 
+        <br>(<%=h @attachment.name_of_content_type %>)
     </div>
-    Attachment to FOI request '<%=link_to h(@info_request.title), incoming_message_url(@incoming_message)%>' (HTML version)
+    This is an HTML version of an attachment to the Freedom of Information request
+    '<%=link_to h(@info_request.title), incoming_message_url(@incoming_message)%>'.
 </div>
 
