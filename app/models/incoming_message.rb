@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.218 2009-09-09 15:19:06 francis Exp $
+# $Id: incoming_message.rb,v 1.219 2009-09-09 17:01:47 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -236,11 +236,32 @@ class FOIAttachment
         return ""
     end
 
+    # Called by controller so old filenames still work
+    def old_display_filename
+        filename = self._internal_display_filename
+
+        # Convert weird spaces (e.g. \n) to normal ones
+        filename = filename.gsub(/\s/, " ")
+        # Remove slashes, they mess with URLs
+        filename = filename.gsub(/\//, "-")
+
+        return filename
+    end 
+
+    # XXX changing this will break existing URLs, so have a care - maybe
+    # make another old_display_filename see above
     def display_filename
         filename = self._internal_display_filename
 
-        # Remove slashes, they mess with URLs
-        filename = filename.gsub(/\//, "-")
+        # Remove weird spaces
+        filename = filename.gsub(/\s+/, " ")
+        # Remove non-alphabetic characters
+        filename = filename.gsub(/[^A-Za-z0-9.]/, " ")
+        # Remove spaces near dots
+        filename = filename.gsub(/\s*\.\s*/, ".")
+        # Compress adjacent spaces down to a single one
+        filename = filename.gsub(/\s+/, " ")
+        filename = filename.strip
 
         return filename
     end
