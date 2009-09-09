@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: general_controller.rb,v 1.53 2009-09-04 13:44:39 francis Exp $
+# $Id: general_controller.rb,v 1.54 2009-09-09 00:03:09 francis Exp $
 
 class GeneralController < ApplicationController
 
@@ -114,14 +114,6 @@ class GeneralController < ApplicationController
 
         @track_thing = TrackThing.create_track_for_search_query(@query)
         @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss] } ]
-
-        # No point bots crawling all the pages of search results.
-        @no_crawl = true
-
-        # If we came from the front page (@bodies is true) and found no bodies
-        #if @bodies && @xapian_bodies.results.size == 0
-        #    flash[:notice] = 'No authorities found with that name. <a href="/body/list/other">Browse all</a> or <a href="/help/about#missing_body">ask us to add one</a>.'
-        #end
     end
 
     # For debugging

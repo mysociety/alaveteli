@@ -5,17 +5,10 @@ And email admins
 Things to make bots not crawl:
     /request/13683/response?internal_review=1
     /request/febrile_neutropenia_154?unfold=1
-    /list/recent?page=671
 
 
 Next (things that will reduce admin time mainly)
 ====
-
-defunct/not_apply stuff
-* When you do reply / follow up to authority that is defunct/not_apply mention it
-http://www.whatdotheyknow.com/request/14960/response/39838#followup
-* Fix up text when you send follow up and the authority no longer exists
-http://www.whatdotheyknow.com/request/14960/response#followup
 
 Have proper house rules / site terms and conditions page.
 Perhaps borrow from these house rules:

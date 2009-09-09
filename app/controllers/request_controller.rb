@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.177 2009-09-08 22:48:55 francis Exp $
+# $Id: request_controller.rb,v 1.178 2009-09-09 00:03:10 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -73,11 +73,6 @@ class RequestController < ApplicationController
         @xapian_object = ::ActsAsXapian::Similar.new([InfoRequestEvent], @info_request.info_request_events, 
             :offset => (@page - 1) * @per_page, :limit => @per_page, :collapse_by_prefix => 'request_collapse')
         
-        # Stop robots crawling similar request lists. There is no point them
-        # doing so. Google bot was going dozens of pages in, and they are slow
-        # pages to generate, having an impact on server load.
-        @no_crawl = true 
-
         if (@page > 1)
             @page_desc = " (page " + @page.to_s + ")" 
         else    
@@ -110,6 +105,11 @@ class RequestController < ApplicationController
         @title = @title + " (page " + @page.to_s + ")" if (@page > 1)
 
         @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss] } ]
+
+        # Don't let robots go more than 20 pages in
+        if @page > 20
+            @no_crawl = true
+        end
 
         cache_in_squid
     end
