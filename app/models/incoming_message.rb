@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.217 2009-09-09 14:40:31 francis Exp $
+# $Id: incoming_message.rb,v 1.218 2009-09-09 15:19:06 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -315,10 +315,19 @@ class FOIAttachment
             tempfile.delete
         end
 
-        # We need to look at the output size as well, as pdftohtml does not
-        # return an error code upon error.
-        if !$?.success? || html.size == 0
-            return "<html><head></head><body><p>Conversion to HTML failed (no output from child process). Please use the download link.</p></body></html>"
+        # We need to look at:
+        # a) Any error code
+        # b) The output size, as pdftohtml does not return an error code upon error.
+        # c) For cases when there is no text in the body of the HTML, or
+        # images, so nothing will be rendered. This is to detect some bug in
+        # pdftohtml, which sometimes makes it return just <hr>s and no other
+        # content.
+        html.match(/(\<body[^>]*\>.*)/mi)
+        body = $1.to_s
+        body_without_tags = body.gsub(/\s+/,"").gsub(/\<[^\>]*\>/, "")
+        contains_images = html.match(/<img/mi) ? true : false
+        if !$?.success? || html.size == 0 || (body_without_tags.size == 0 && !contains_images)
+            return "<html><head></head><body><p>Sorry, the conversion to HTML failed. Please use the download link at the top right.</p></body></html>"
         end
 
         return html
