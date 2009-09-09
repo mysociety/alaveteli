@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.219 2009-09-09 17:01:47 francis Exp $
+# $Id: incoming_message.rb,v 1.220 2009-09-09 17:23:14 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -252,6 +252,10 @@ class FOIAttachment
     # make another old_display_filename see above
     def display_filename
         filename = self._internal_display_filename
+
+        # Sometimes filenames have e.g. %20 in - no point butchering that
+        # (without unescaping it, this would remove the % and leave 20s in there)
+        filename = CGI.unescape(filename)
 
         # Remove weird spaces
         filename = filename.gsub(/\s+/, " ")
