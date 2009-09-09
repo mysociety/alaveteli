@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_request_controller.rb,v 1.40 2009-09-08 04:12:08 francis Exp $
+# $Id: admin_request_controller.rb,v 1.41 2009-09-09 00:19:20 francis Exp $
 
 class AdminRequestController < AdminController
     def index
@@ -133,7 +133,7 @@ class AdminRequestController < AdminController
 
         if @comment.update_attributes(params[:comment]) 
             @comment.info_request.log_event("edit_comment", 
-                { :comment_if => @comment.id, :editor => admin_http_auth_user(), 
+                { :comment_id => @comment.id, :editor => admin_http_auth_user(), 
                     :old_body => old_body, :body => @comment.body,
                     :old_visible => old_visible, :visible => @comment.visible,
                 })
