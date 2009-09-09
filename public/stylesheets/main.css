@@ -336,6 +336,12 @@ dd { margin: 0.6em 0 2em 4em; width: 33em; }
     list-style: none;
 }
 
+/*-----------------------------blog----------------*/
+
+.blog_post {
+    margin-bottom: 2em;
+}
+
 /*-----------------------------list sidebars----------------*/
 #list_sidebar
 {

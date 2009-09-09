@@ -5,7 +5,10 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: general_controller.rb,v 1.54 2009-09-09 00:03:09 francis Exp $
+# $Id: general_controller.rb,v 1.55 2009-09-09 23:52:05 francis Exp $
+
+require 'xmlsimple'
+require 'open-uri'
 
 class GeneralController < ApplicationController
 
@@ -41,6 +44,19 @@ class GeneralController < ApplicationController
         end
 
         cache_in_squid
+    end
+
+    # Display WhatDoTheyKnow category from mySociety blog
+    def blog
+        feed_url = 'http://www.mysociety.org/category/projects/whatdotheyknow/feed/'
+        all_url = 'http://www.mysociety.org/category/projects/whatdotheyknow/'
+        @output = ''
+        content = open(feed_url).read
+        @data = XmlSimple.xml_in(content)
+        @channel = @data['channel'][0]
+        @items = @channel['item']
+
+        @feed_autodetect = [ { :url => @channel['link'][0]['href'], :title => "WhatDoTheyKnow blog"} ]
     end
 
     # Just does a redirect from ?query= search to /query

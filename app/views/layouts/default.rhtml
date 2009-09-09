@@ -115,6 +115,7 @@
 			<% if @user %>
 				<li><%=link_to "My requests", user_url(@user) %></li>
 			<% end %>
+			<li><%= link_to "Read blog", blog_url %></li>
 			<li><%= link_to "Help", about_url %></li>
 		</ul>
 		<% if not (controller.action_name == 'signin' or controller.action_name == 'signup') %>

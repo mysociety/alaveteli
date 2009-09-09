@@ -1,0 +1,23 @@
+<% @title = "WhatDoTheyKnow blog" %>
+
+<h1><%=@title %></h1>
+
+<div id="blog">
+
+<%=@output%>
+
+<% for item in @items: %>
+    <div class="blog_post">
+        <h2><a href="<%=item['link']%>"><%=h item['title'] %></a></h2>
+        <p class="subtitle">Posted on <%= simple_date(Time.parse(item['pubDate'][0])) %> by <%=h item['creator'] %></p>
+        <div><%= item['encoded'] %></div>
+        <p><em>
+            <a href="<%=item['comments'][0]%>"><%=item['comments'][1]%> comments</a>
+        </em>
+        </p>
+    </div>
+<% end   %>
+
+<p><a href="<%=@all_url%>">See all posts</a></p>
+
+</div>

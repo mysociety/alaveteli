@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: routes.rb,v 1.89 2009-07-01 11:07:19 francis Exp $
+# $Id: routes.rb,v 1.90 2009-09-09 23:52:06 francis Exp $
 
 ActionController::Routing::Routes.draw do |map|
 
@@ -16,6 +16,7 @@ ActionController::Routing::Routes.draw do |map|
     
     map.with_options :controller => 'general' do |general|
         general.frontpage           '/',            :action => 'frontpage'
+        general.blog '/blog', :action => 'blog'
 
         general.search_redirect '/search',      :action => 'search_redirect'
         # XXX combined is the search query, and then if sorted a "/newest" at the end.
