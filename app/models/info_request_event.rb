@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request_event.rb,v 1.88 2009-09-08 00:28:15 francis Exp $
+# $Id: info_request_event.rb,v 1.89 2009-09-09 00:30:28 francis Exp $
 
 class InfoRequestEvent < ActiveRecord::Base
     belongs_to :info_request
@@ -203,7 +203,6 @@ class InfoRequestEvent < ActiveRecord::Base
         other_params = {}
         for key, value in self.params
             key = key.to_s
-            old_key = ("old_" + key).to_sym
             if key.match(/^old_(.*)$/)
                 old_params[$1] = value
             elsif self.params.include?(("old_" + key).to_sym)
@@ -231,6 +230,7 @@ class InfoRequestEvent < ActiveRecord::Base
             ret = ret + "<br>"
         end
         # ret = ret + CGI.escapeHTML(a.to_s) + ":" + CGI.escapeHTML(b.to_s) + "<br>"
+        # ret = ret + self.params.to_yaml
         return ret
     end
 
