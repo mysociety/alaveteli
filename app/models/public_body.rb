@@ -26,7 +26,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.153 2009-09-08 23:48:29 francis Exp $
+# $Id: public_body.rb,v 1.154 2009-09-10 13:34:34 francis Exp $
 
 require 'csv'
 require 'set'
@@ -44,8 +44,7 @@ class PublicBody < ActiveRecord::Base
     has_many :public_body_tags
     has_many :track_things, :order => 'created_at desc'
 
-    def self.categories_with_headings
-        [
+    categories_with_headings = [
             "Miscellaneous",
                 [ "other", "Miscellaneous", "miscellaneous" ],
             "Central government",
@@ -119,19 +118,10 @@ class PublicBody < ActiveRecord::Base
                 [ "scp", "Safety Camera Partnerships", "a safety camera partnership" ],
                 [ "srp", "Safer Roads Partnership", "a safer roads partnership" ]
         ]
-    end
-    def self.categories_with_description
-        self.categories_with_headings.select() { |a| a.instance_of?(Array) } 
-    end
-    def self.categories
-        self.categories_with_description.map() { |a| a[0] }
-    end
-    def self.categories_by_tag
-        Hash[*self.categories_with_description.map() { |a| a[0..1] }.flatten]
-    end
-    def self.category_singular_by_tag
-        Hash[*self.categories_with_description.map() { |a| [a[0],a[2]] }.flatten]
-    end
+    categories_with_description = categories_with_headings.select() { |a| a.instance_of?(Array) } 
+    categories = categories_with_description.map() { |a| a[0] }
+    categories_by_tag = Hash[*categories_with_description.map() { |a| a[0..1] }.flatten]
+    category_singular_by_tag = Hash[*categories_with_description.map() { |a| [a[0],a[2]] }.flatten]
 
     # like find_by_url_name but also search historic url_name if none found
     def self.find_by_url_name_with_historic(name)
