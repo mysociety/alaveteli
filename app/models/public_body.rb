@@ -26,7 +26,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.154 2009-09-10 13:34:34 francis Exp $
+# $Id: public_body.rb,v 1.155 2009-09-10 14:59:35 francis Exp $
 
 require 'csv'
 require 'set'
@@ -44,7 +44,7 @@ class PublicBody < ActiveRecord::Base
     has_many :public_body_tags
     has_many :track_things, :order => 'created_at desc'
 
-    categories_with_headings = [
+    CATEGORIES_WITH_HEADINGS = [
             "Miscellaneous",
                 [ "other", "Miscellaneous", "miscellaneous" ],
             "Central government",
@@ -118,10 +118,10 @@ class PublicBody < ActiveRecord::Base
                 [ "scp", "Safety Camera Partnerships", "a safety camera partnership" ],
                 [ "srp", "Safer Roads Partnership", "a safer roads partnership" ]
         ]
-    categories_with_description = categories_with_headings.select() { |a| a.instance_of?(Array) } 
-    categories = categories_with_description.map() { |a| a[0] }
-    categories_by_tag = Hash[*categories_with_description.map() { |a| a[0..1] }.flatten]
-    category_singular_by_tag = Hash[*categories_with_description.map() { |a| [a[0],a[2]] }.flatten]
+    CATEGORIES_WITH_DESCRIPTION = CATEGORIES_WITH_HEADINGS.select() { |a| a.instance_of?(Array) } 
+    CATEGORIES = CATEGORIES_WITH_DESCRIPTION.map() { |a| a[0] }
+    CATEGORIES_BY_TAG = Hash[*CATEGORIES_WITH_DESCRIPTION.map() { |a| a[0..1] }.flatten]
+    CATEGORY_SINGULAR_BY_TAG = Hash[*CATEGORIES_WITH_DESCRIPTION.map() { |a| [a[0],a[2]] }.flatten]
 
     # like find_by_url_name but also search historic url_name if none found
     def self.find_by_url_name_with_historic(name)
@@ -303,8 +303,8 @@ class PublicBody < ActiveRecord::Base
         types = []
         first = true
         for tag in self.public_body_tags
-            if PublicBody.categories_by_tag.include?(tag.name)
-                desc = PublicBody.category_singular_by_tag[tag.name] 
+            if PublicBody::CATEGORIES_BY_TAG.include?(tag.name)
+                desc = PublicBody::CATEGORY_SINGULAR_BY_TAG[tag.name] 
                 if first
                     # terrible that Ruby/Rails doesn't have an equivalent of ucfirst
                     # (capitalize shockingly converts later characters to lowercase)

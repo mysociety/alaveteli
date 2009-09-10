@@ -135,4 +135,3 @@ require 'activesupport_cache_extensions.rb'
 # XXX temp debug for SQL logging production sites
 #ActiveRecord::Base.logger = Logger.new(STDOUT)
 
-
