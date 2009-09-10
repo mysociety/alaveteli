@@ -6,12 +6,19 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: application.rb,v 1.53 2009-07-14 23:30:37 francis Exp $
+# $Id: application.rb,v 1.54 2009-09-10 14:07:36 francis Exp $
 
 
 class ApplicationController < ActionController::Base
     # Standard headers, footers and navigation for whole site
     layout "default"
+
+    # Help work out which request causes RAM spike
+    # http://stackoverflow.com/questions/161315/ruby-ruby-on-rails-memory-leak-detection
+    before_filter :log_ram # or use after_filter
+    def log_ram
+        logger.warn "PID: #{Process.pid} RAM USAGE: " + `pmap #{Process.pid} | tail -1`[10,40].strip
+    end
 
     # Set cookie expiry according to "remember me" checkbox, as per "An easier
     # and more flexible hack" on this page:
