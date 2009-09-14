@@ -8,7 +8,7 @@
 </li></ul>
 
 <% first_row = true %>
-<% for row in PublicBody::CATEGORIES_WITH_HEADINGS %>
+<% for row in PublicBodyCategories::CATEGORIES_WITH_HEADINGS %>
     <% if row.instance_of?(Array) %>
         <li>
         <%= link_to_unless (@tag == row[0]), row[1], list_public_bodies_url(:tag => row[0]) %> 

@@ -5,7 +5,7 @@
 <div id="tag_help">
     <h2>List of tags</h2>
     <% first_row = true %>
-    <% for row in PublicBody::CATEGORIES_WITH_HEADINGS %>
+    <% for row in PublicBodyCategories::CATEGORIES_WITH_HEADINGS %>
         <% if row.instance_of?(Array) %>
             <% if row[0] != 'other' %>
                 <strong><%= row[0] %></strong>=<%= row[1] %>

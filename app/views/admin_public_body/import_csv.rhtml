@@ -13,7 +13,7 @@
 <% form_tag 'import_csv', :multipart => true do %>
     <p>
     <label for="tag">Tag to add entries to (maybe you want:
-    <% for category, description in PublicBody::CATEGORIES_BY_TAG %>
+    <% for category, description in PublicBodyCategories::CATEGORIES_BY_TAG %>
         <% if category != "other" %>
             <strong><%= category %></strong>=<%= description %>;
         <% end %>
