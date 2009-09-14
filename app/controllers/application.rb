@@ -6,7 +6,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: application.rb,v 1.55 2009-09-10 14:09:36 francis Exp $
+# $Id: application.rb,v 1.56 2009-09-14 12:57:14 francis Exp $
 
 
 class ApplicationController < ActionController::Base
@@ -14,14 +14,19 @@ class ApplicationController < ActionController::Base
     layout "default"
 
     # Help work out which request causes RAM spike
-    # http://stackoverflow.com/questions/161315/ruby-ruby-on-rails-memory-leak-detection
-    before_filter :log_ram_before
-    after_filter :log_ram_after
-    def log_ram_before
-        logger.warn "Before: PID: #{Process.pid} RAM USAGE: " + `pmap #{Process.pid} | tail -1`[10,40].strip
-    def log_ram_after
-        logger.warn "After: PID: #{Process.pid} RAM USAGE: " + `pmap #{Process.pid} | tail -1`[10,40].strip
-    end
+    # http://www.codeweblog.com/rails-to-monitor-the-process-of-memory-leaks-skills/
+    around_filter :record_memory
+    def record_memory
+        process_status = File.open("/proc/#{Process.pid}/status")
+        13.times { process_status.gets }
+        rss_before_action = process_status.gets.split[1].to_i
+        process_status.close
+        yield
+        process_status = File.open("/proc/#{Process.pid}/status")
+        13.times { process_status.gets }
+        rss_after_action = process_status.gets.split[1].to_i
+        process_status.close
+        logger.info("CONSUME MEMORY: #{rss_after_action - rss_before_action} KB\tNow: #{rss_after_action} KB\t#{request.url}")
     end
 
     # Set cookie expiry according to "remember me" checkbox, as per "An easier
@@ -246,5 +251,6 @@ class ApplicationController < ActionController::Base
     # views (for links) and mailers (for use in emails), so include them into
     # all of all.
     include LinkToHelper
-
 end
+
+
