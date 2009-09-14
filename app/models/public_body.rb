@@ -26,7 +26,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.156 2009-09-14 09:15:00 francis Exp $
+# $Id: public_body.rb,v 1.157 2009-09-14 09:16:25 francis Exp $
 
 require 'csv'
 require 'set'
@@ -58,7 +58,7 @@ class PublicBody < ActiveRecord::Base
             [ "newdeal", "New Deal for Communities partnership", "a New Deal for Communities partnership" ],
         "Local and regional",
             [ "local_council", "Local councils", "a local council" ],
-            [ "parish_council", "Town and Parish councils", "a town/parish council"], 
+            [ "parish_council", "Town and Parish councils", "a town or parish council"], 
             [ "housing_association", "Housing associations", "a housing association"],
             [ "almo", "Housing ALMOs", "a housing ALMO"],
             [ "municipal_bank", "Municipal bank", "a municipal bank"],
@@ -81,7 +81,7 @@ class PublicBody < ActiveRecord::Base
             [ "lib_board", "Education and library boards", "an education and library board" ],
         "Environment",
             [ "npa", "National park authorities", "a national park authority" ], 
-            [ "rpa", "Regional park authorities", "a national park authoriy" ],
+            [ "rpa", "Regional park authorities", "a regional park authority" ],
             [ "sea_fishery_committee", "Sea fisheries committees", "a sea fisheries committee" ], 
             [ "watercompanies", "Water companies", "a water company" ],
             [ "idb", "Internal drainage boards", "an internal drainage board" ],
