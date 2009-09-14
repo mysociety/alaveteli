@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.180 2009-09-09 17:14:35 francis Exp $
+# $Id: request_controller.rb,v 1.181 2009-09-14 13:16:18 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -520,6 +520,7 @@ class RequestController < ApplicationController
     def cache_attachments
         key = params.merge(:only_path => true)
         if cached = read_fragment(key)
+        #if cached = 'zzz***zzz'
             IncomingMessage # load global filename_to_mimetype XXX should move filename_to_mimetype to proper namespace
             response.content_type = filename_to_mimetype(params[:file_name].join("/")) or 'application/octet-stream'
             render_for_text(cached)
