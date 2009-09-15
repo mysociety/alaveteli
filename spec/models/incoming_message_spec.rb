@@ -188,4 +188,40 @@ describe IncomingMessage, " when censoring data" do
 
 end
 
+describe IncomingMessage, " when uudecoding bad messages" do
+    it "should be able to do it at all" do
+        mail_body = load_file_fixture('incoming-request-bad-uuencoding.email')
+
+        im = IncomingMessage.new
+        im.stub!(:get_main_body_text_internal).and_return(mail_body)
+        ir = InfoRequest.new
+        im.info_request = ir
+
+        attachments = im.get_main_body_text_uudecode_attachments
+        attachments.size.should == 1
+        attachments[0].filename.should == 'moo.txt'
+    end
+
+    it "should apply censor rules" do
+        mail_body = load_file_fixture('incoming-request-bad-uuencoding.email')
+
+        im = IncomingMessage.new
+        im.stub!(:get_main_body_text_internal).and_return(mail_body)
+        ir = InfoRequest.new
+        im.info_request = ir
+
+        @censor_rule = CensorRule.new()
+        @censor_rule.text = "moo"
+        @censor_rule.replacement = "bah"
+        @censor_rule.last_edit_editor = "unknown"
+        @censor_rule.last_edit_comment = "none"
+        ir.censor_rules << @censor_rule
+
+        attachments = im.get_main_body_text_uudecode_attachments
+        attachments.size.should == 1
+        attachments[0].filename.should == 'bah.txt'
+    end
+
+end
+
 
