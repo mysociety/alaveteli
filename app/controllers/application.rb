@@ -6,7 +6,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: application.rb,v 1.56 2009-09-14 12:57:14 francis Exp $
+# $Id: application.rb,v 1.57 2009-09-15 11:47:20 francis Exp $
 
 
 class ApplicationController < ActionController::Base
@@ -17,16 +17,12 @@ class ApplicationController < ActionController::Base
     # http://www.codeweblog.com/rails-to-monitor-the-process-of-memory-leaks-skills/
     around_filter :record_memory
     def record_memory
-        process_status = File.open("/proc/#{Process.pid}/status")
-        13.times { process_status.gets }
-        rss_before_action = process_status.gets.split[1].to_i
-        process_status.close
+        File.read("/proc/#{Process.pid}/status").match(/VmRSS:\s+(\d+)/)
+        rss_before_action = $1.to_i
         yield
-        process_status = File.open("/proc/#{Process.pid}/status")
-        13.times { process_status.gets }
-        rss_after_action = process_status.gets.split[1].to_i
-        process_status.close
-        logger.info("CONSUME MEMORY: #{rss_after_action - rss_before_action} KB\tNow: #{rss_after_action} KB\t#{request.url}")
+        File.read("/proc/#{Process.pid}/status").match(/VmRSS:\s+(\d+)/)
+        rss_after_action = $1.to_i
+        logger.info("PID: #{Process.pid}\tCONSUME MEMORY: #{rss_after_action - rss_before_action} KB\tNow: #{rss_after_action} KB\t#{request.url}")
     end
 
     # Set cookie expiry according to "remember me" checkbox, as per "An easier
