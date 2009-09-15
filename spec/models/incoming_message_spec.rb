@@ -173,7 +173,7 @@ describe IncomingMessage, " when censoring data" do
 
     it "should apply censor rules to HTML files" do
         data = @test_data.dup
-        data = @im.html_mask_stuff(data)
+        @im.html_mask_stuff!(data)
         data.should == "There was a mouse called Jarlsberg, he wished that he was yellow."
     end
 

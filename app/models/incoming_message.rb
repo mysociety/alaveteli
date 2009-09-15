@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.221 2009-09-15 17:45:51 francis Exp $
+# $Id: incoming_message.rb,v 1.222 2009-09-15 18:26:23 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -467,16 +467,15 @@ class IncomingMessage < ActiveRecord::Base
     end
 
     # Converts email addresses we know about into textual descriptions of them
-    def mask_special_emails(text)
+    def mask_special_emails!(text)
         # XXX can later display some of these special emails as actual emails,
         # if they are public anyway.  For now just be precautionary and only
         # put in descriptions of them in square brackets.
         if self.info_request.public_body.is_followupable?
-            text = text.gsub(self.info_request.public_body.request_email, "[" + self.info_request.public_body.short_or_long_name + " request email]")
+            text.gsub!(self.info_request.public_body.request_email, "[" + self.info_request.public_body.short_or_long_name + " request email]")
         end
-        text = text.gsub(self.info_request.incoming_email, "[FOI #" + self.info_request.id.to_s + " email]")
-        text = text.gsub(MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost'), "[WhatDoTheyKnow contact email]")
-        return text
+        text.gsub!(self.info_request.incoming_email, "[FOI #" + self.info_request.id.to_s + " email]")
+        text.gsub!(MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost'), "[WhatDoTheyKnow contact email]")
     end
 
     # Replaces all email addresses in (possibly binary data) with equal length alternative ones.
@@ -554,11 +553,9 @@ class IncomingMessage < ActiveRecord::Base
     end
 
     # Removes censored stuff from from HTML conversion of downloaded binaries
-    def html_mask_stuff(html)
-        html = self.mask_special_emails(html)
-        html = self.remove_privacy_sensitive_things(html)
-
-        return html
+    def html_mask_stuff!(html)
+        self.mask_special_emails!(html)
+        self.remove_privacy_sensitive_things!(html)
     end
 
     # Lotus notes quoting yeuch!
@@ -583,9 +580,7 @@ class IncomingMessage < ActiveRecord::Base
     end
 
     # Remove emails, mobile phones and other details FOI officers ask us to remove.
-    def remove_privacy_sensitive_things(text)
-        text = text.dup
-
+    def remove_privacy_sensitive_things!(text)
         # Remove any email addresses - we don't want bounce messages to leak out
         # either the requestor's email address or the request's response email
         # address out onto the internet
@@ -617,8 +612,6 @@ class IncomingMessage < ActiveRecord::Base
 
         # Remove things from censor rules
         self.info_request.apply_censor_rules_to_text!(text)
-
-        return text
     end
 
 
@@ -778,6 +771,7 @@ class IncomingMessage < ActiveRecord::Base
     end
 
     # Returns body text from main text part of email, converted to UTF-8, with uudecode removed
+    # XXX returns a .dup of the text, so calling functions can in place modify it
     def get_main_body_text
         # Cached as loading raw_email can be quite huge, and need this for just
         # search results
@@ -789,6 +783,7 @@ class IncomingMessage < ActiveRecord::Base
         text = self.cached_main_body_text
 
         # Strip the uudecode parts from main text
+        # - this also effectively does a .dup as well, so text mods don't alter original
         text = text.split(/^begin.+^`\n^end\n/sm).join(" ")
 
         return text
@@ -989,8 +984,8 @@ class IncomingMessage < ActiveRecord::Base
     def get_body_for_html_display(collapse_quoted_sections = true)
         # Find the body text and remove emails for privacy/anti-spam reasons
         text = get_main_body_text
-        text = self.mask_special_emails(text)
-        text = self.remove_privacy_sensitive_things(text)
+        self.mask_special_emails!(text)
+        self.remove_privacy_sensitive_things!(text)
 
         # Remove quoted sections, adding HTML. XXX The FOLDED_QUOTED_SECTION is
         # a nasty hack so we can escape other HTML before adding the unfold
@@ -1031,8 +1026,8 @@ class IncomingMessage < ActiveRecord::Base
     def get_body_for_quoting
         # Find the body text and remove emails for privacy/anti-spam reasons
         text = get_main_body_text
-        text = self.mask_special_emails(text)
-        text = self.remove_privacy_sensitive_things(text)
+        self.mask_special_emails!(text)
+        self.remove_privacy_sensitive_things!(text)
 
         # Remove existing quoted sections
         text = self.remove_lotus_quoting(text, '')
@@ -1048,11 +1043,11 @@ class IncomingMessage < ActiveRecord::Base
         end
 
         # Remove any privacy things
-        text = self.cached_attachment_text
+        text = self.cached_attachment_text.dup
         #STDOUT.puts 'before mask_special_emails ' + MySociety::DebugHelpers::allocated_string_size_around_gc
-        text = self.mask_special_emails(text)
+        self.mask_special_emails!(text)
         #STDOUT.puts 'after mask_special_emails ' + MySociety::DebugHelpers::allocated_string_size_around_gc
-        text = self.remove_privacy_sensitive_things(text)
+        self.remove_privacy_sensitive_things!(text)
         #STDOUT.puts 'after remove_privacy_sensitive_things ' + MySociety::DebugHelpers::allocated_string_size_around_gc
         return text
     end

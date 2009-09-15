@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.182 2009-09-15 17:45:50 francis Exp $
+# $Id: request_controller.rb,v 1.183 2009-09-15 18:26:23 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -562,7 +562,7 @@ class RequestController < ApplicationController
         view_html_prefix = render_to_string :partial => "request/view_html_prefix"
         html.sub!("<prefix-here>", view_html_prefix)
 
-        html= @incoming_message.html_mask_stuff(html) 
+        @incoming_message.html_mask_stuff!(html) 
 
         response.content_type = 'text/html'
         render :text => html

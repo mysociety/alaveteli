@@ -1,10 +1,5 @@
-Make incoming mail script tell exim to hold messages and try redelivery when
-    it goes wrong
-And email admins
-
-Things to make bots not crawl:
-    /request/13683/response?internal_review=1
-    /request/febrile_neutropenia_154?unfold=1
+mask_special_emails
+html_mask_stuff
 
 
 Next (things that will reduce admin time mainly)
@@ -74,6 +69,10 @@ and resend messages to them
 
 Later
 =====
+
+Things to make bots not crawl somehow:
+    /request/13683/response?internal_review=1
+    /request/febrile_neutropenia_154?unfold=1
 
 Maybe don't email you in alert subscriptions about annotations you made on
 other people's requests?
