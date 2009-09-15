@@ -19,7 +19,7 @@ describe ProfilePhoto, "when constructing a new photo" do
     end
 
     it 'should accept and convert a PNG to right size' do 
-        data = load_image_fixture("parrot.png")
+        data = load_file_fixture("parrot.png")
         profile_photo = ProfilePhoto.new(:data => data, :user => mock_model(User, :valid? => true))
         profile_photo.valid?.should == true
         profile_photo.image.format.should == 'PNG'
@@ -28,7 +28,7 @@ describe ProfilePhoto, "when constructing a new photo" do
     end
 
     it 'should accept and convert a JPEG to right format and size' do 
-        data = load_image_fixture("parrot.jpg")
+        data = load_file_fixture("parrot.jpg")
         profile_photo = ProfilePhoto.new(:data => data, :user => mock_model(User, :valid? => true))
         profile_photo.valid?.should == true
         profile_photo.image.format.should == 'PNG'

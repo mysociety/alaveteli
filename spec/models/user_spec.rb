@@ -241,7 +241,7 @@ describe User, " when setting a profile photo" do
     end
 
     it "should attach it to the user" do
-        data = load_image_fixture("parrot.png")
+        data = load_file_fixture("parrot.png")
         profile_photo = ProfilePhoto.new(:data => data)
         @user.set_profile_photo(profile_photo)
         profile_photo.user.should == @user
@@ -250,9 +250,9 @@ describe User, " when setting a profile photo" do
 #    it "should destroy old photos being replaced" do
 #        ProfilePhoto.count.should == 0
 #
-#        data_1 = load_image_fixture("parrot.png")
+#        data_1 = load_file_fixture("parrot.png")
 #        profile_photo_1 = ProfilePhoto.new(:data => data_1)
-#        data_2 = load_image_fixture("parrot.jpg")
+#        data_2 = load_file_fixture("parrot.jpg")
 #        profile_photo_2 = ProfilePhoto.new(:data => data_2)
 #
 #        @user.set_profile_photo(profile_photo_1)

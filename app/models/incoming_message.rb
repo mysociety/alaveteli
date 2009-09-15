@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.220 2009-09-09 17:23:14 francis Exp $
+# $Id: incoming_message.rb,v 1.221 2009-09-15 17:45:51 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -481,12 +481,12 @@ class IncomingMessage < ActiveRecord::Base
 
     # Replaces all email addresses in (possibly binary data) with equal length alternative ones.
     # Also replaces censor items
-    def binary_mask_stuff(text, content_type)
+    def binary_mask_stuff!(text, content_type)
         # See if content type is one that we mask - things like zip files and
         # images may get broken if we try to. We err on the side of masking too
         # much, as many unknown types will really be text.
         if $do_not_binary_mask.include?(content_type)
-            return text
+            return
         end
 
         # Special cases for some content types
@@ -500,7 +500,8 @@ class IncomingMessage < ActiveRecord::Base
             # if we managed to uncompress the PDF...
             if !uncompressed_text.nil? 
                 # then censor stuff (making a copy so can compare again in a bit)
-                censored_uncompressed_text = self._binary_mask_stuff_internal(uncompressed_text.dup) 
+                censored_uncompressed_text = uncompressed_text.dup
+                self._binary_mask_stuff_internal!(censored_uncompressed_text)
                 # if the censor rule removed something...
                 if censored_uncompressed_text != uncompressed_text
                     # then use the altered file (recompressed)
@@ -511,18 +512,18 @@ class IncomingMessage < ActiveRecord::Base
                         recompressed_text = child.read()
                     end
                     if !recompressed_text.nil?
-                        text = recompressed_text
+                        text[0..-1] = recompressed_text # [0..-1] makes it change the 'text' string in place
                     end
                 end
             end
-            return text
+            return 
         end
 
-        return self._binary_mask_stuff_internal(text) 
+        self._binary_mask_stuff_internal!(text) 
     end
 
     # Used by binary_mask_stuff - replace text in place
-    def _binary_mask_stuff_internal(text)
+    def _binary_mask_stuff_internal!(text)
         # Keep original size, so can check haven't resized it
         orig_size = text.size
 
@@ -547,10 +548,9 @@ class IncomingMessage < ActiveRecord::Base
         end
 
         # Replace censor items
-        text = self.info_request.apply_censor_rules_to_binary(text)
+        self.info_request.apply_censor_rules_to_binary!(text)
 
         raise "internal error in binary_mask_stuff" if text.size != orig_size
-        return text
     end
 
     # Removes censored stuff from from HTML conversion of downloaded binaries
@@ -597,7 +597,7 @@ class IncomingMessage < ActiveRecord::Base
         # http://www.whatdotheyknow.com/request/common_purpose_training_graduate#incoming-774
         text.gsub!(/(Mobile|Mob)([\s\/]*(Fax|Tel))*\s*:?[\s\d]*\d/, "[mobile number]")
 
-        # Specific removals
+        # Specific removals # XXX remove these and turn them into censor rules in database
         # http://www.whatdotheyknow.com/request/total_number_of_objects_in_the_n_6
         text.gsub!(/\*\*\*+\nPolly Tucker.*/ms, "")
         # http://www.whatdotheyknow.com/request/cctv_data_retention_and_use
@@ -616,7 +616,7 @@ class IncomingMessage < ActiveRecord::Base
         end
 
         # Remove things from censor rules
-        text = self.info_request.apply_censor_rules_to_text(text)
+        self.info_request.apply_censor_rules_to_text!(text)
 
         return text
     end
@@ -703,6 +703,17 @@ class IncomingMessage < ActiveRecord::Base
         return text
     end
 
+    # Internal function
+    def _get_censored_part_file_name(mail)
+        part_file_name = TMail::Mail.get_part_file_name(mail)
+        if part_file_name.nil?
+            return nil
+        end
+        part_file_name = part_file_name.dup
+        self.info_request.apply_censor_rules_to_text!(part_file_name)
+        return part_file_name
+    end
+
     # (This risks losing info if the unchosen alternative is the only one to contain 
     # useful info, but let's worry about that another time)
     def get_attachment_leaves
@@ -737,7 +748,8 @@ class IncomingMessage < ActiveRecord::Base
             end
             # PDFs often come with this mime type, fix it up for view code
             if curr_mail.content_type == 'application/octet-stream'
-                calc_mime = filename_and_content_to_mimetype(self.info_request.apply_censor_rules_to_text(TMail::Mail.get_part_file_name(curr_mail)), curr_mail.body)
+                part_file_name = self._get_censored_part_file_name(curr_mail)
+                calc_mime = filename_and_content_to_mimetype(part_file_name, curr_mail.body)
                 if calc_mime
                     curr_mail.content_type = calc_mime
                 end
@@ -903,7 +915,8 @@ class IncomingMessage < ActiveRecord::Base
             # Make attachment type from it, working out filename and mime type
             attachment = FOIAttachment.new()
             attachment.body = content
-            attachment.filename = self.info_request.apply_censor_rules_to_text(uu.match(/^begin\s+[0-9]+\s+(.*)$/)[1])
+            attachment.filename = uu.match(/^begin\s+[0-9]+\s+(.*)$/)[1]
+            self.info_request.apply_censor_rules_to_text!(attachment.filename)
             calc_mime = filename_and_content_to_mimetype(attachment.filename, attachment.body)
             if calc_mime
                 calc_mime = normalise_content_type(calc_mime)
@@ -928,7 +941,7 @@ class IncomingMessage < ActiveRecord::Base
             if leaf != main_part
                 attachment = FOIAttachment.new
                 attachment.body = leaf.body
-                attachment.filename = self.info_request.apply_censor_rules_to_text(TMail::Mail.get_part_file_name(leaf))
+                attachment.filename = _get_censored_part_file_name(leaf)
                 if leaf.within_rfc822_attachment
                     attachment.within_rfc822_subject = leaf.within_rfc822_attachment.subject
 
@@ -1036,8 +1049,11 @@ class IncomingMessage < ActiveRecord::Base
 
         # Remove any privacy things
         text = self.cached_attachment_text
+        #STDOUT.puts 'before mask_special_emails ' + MySociety::DebugHelpers::allocated_string_size_around_gc
         text = self.mask_special_emails(text)
+        #STDOUT.puts 'after mask_special_emails ' + MySociety::DebugHelpers::allocated_string_size_around_gc
         text = self.remove_privacy_sensitive_things(text)
+        #STDOUT.puts 'after remove_privacy_sensitive_things ' + MySociety::DebugHelpers::allocated_string_size_around_gc
         return text
     end
     def IncomingMessage.get_attachment_text_internal_one_file(content_type, body)
@@ -1149,7 +1165,11 @@ class IncomingMessage < ActiveRecord::Base
     # .from_addrs[0].name here instead? 
     def safe_mail_from
         name = self.mail.from_name_if_present
-        name = self.info_request.apply_censor_rules_to_text(name)
+        if name.nil?
+            return nil
+        end
+        name = name.dup
+        self.info_request.apply_censor_rules_to_text!(name)
         return name
     end
 

@@ -18,6 +18,7 @@ $:.push(File.join(File.dirname(__FILE__), '../../rblib'))
 load "validate.rb"
 load "config.rb"
 load "format.rb"
+load "debug_helpers.rb"
 
 Rails::Initializer.run do |config|
   # Load intial mySociety config

@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.181 2009-09-14 13:16:18 francis Exp $
+# $Id: request_controller.rb,v 1.182 2009-09-15 17:45:50 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -537,7 +537,7 @@ class RequestController < ApplicationController
 
         # Prevent spam to magic request address. Note that the binary
         # subsitution method used depends on the content type
-        @attachment.body = @incoming_message.binary_mask_stuff(@attachment.body, @attachment.content_type) 
+        @incoming_message.binary_mask_stuff!(@attachment.body, @attachment.content_type) 
 
         # we don't use @attachment.content_type here, as we want same mime type when cached in cache_attachments above
         response.content_type = filename_to_mimetype(params[:file_name].join("/")) or 'application/octet-stream'

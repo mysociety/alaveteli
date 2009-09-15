@@ -30,3 +30,25 @@ describe OutgoingMessage, " when making an outgoing message" do
 end
 
 
+describe IncomingMessage, " when censoring data" do
+    fixtures :outgoing_messages
+
+    before do
+        @om = outgoing_messages(:useless_outgoing_message)
+
+        @censor_rule = CensorRule.new()
+        @censor_rule.text = "dog"
+        @censor_rule.replacement = "cat"
+        @censor_rule.last_edit_editor = "unknown"
+        @censor_rule.last_edit_comment = "none"
+
+        @om.info_request.censor_rules << @censor_rule
+    end
+
+    it "should apply censor rules to outgoing messages" do
+        @om.read_attribute(:body).should match(/fancy dog/)
+        @om.body.should match(/fancy cat/)
+    end
+end
+
+

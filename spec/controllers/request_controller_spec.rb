@@ -120,6 +120,40 @@ describe RequestController, "when showing one request" do
             }.should raise_error(RuntimeError)
         end
 
+        it "should censor attachments downloaded as binary" do
+            ir = info_requests(:fancy_dog_request) 
+
+            censor_rule = CensorRule.new()
+            censor_rule.text = "Second"
+            censor_rule.replacement = "Mouse"
+            censor_rule.last_edit_editor = "unknown"
+            censor_rule.last_edit_comment = "none"
+            ir.censor_rules << censor_rule
+
+            receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
+
+            get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => ['hello.txt']
+            response.content_type.should == "text/plain"
+            response.should have_text(/xxxxxx hello/)        
+        end
+
+        it "should censor attachment names" do
+            ir = info_requests(:fancy_dog_request) 
+            receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
+
+            get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
+            response.body.should have_tag("p.attachment strong", /hello.txt/m) 
+
+            censor_rule = CensorRule.new()
+            censor_rule.text = "hello.txt"
+            censor_rule.replacement = "goodbye.txt"
+            censor_rule.last_edit_editor = "unknown"
+            censor_rule.last_edit_comment = "none"
+            ir.censor_rules << censor_rule
+
+            get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
+            response.body.should have_tag("p.attachment strong", /goodbye.txt/m) 
+        end
 
     end
 end

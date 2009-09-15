@@ -22,7 +22,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: outgoing_message.rb,v 1.88 2009-08-18 20:51:26 francis Exp $
+# $Id: outgoing_message.rb,v 1.89 2009-09-15 17:45:51 francis Exp $
 
 class OutgoingMessage < ActiveRecord::Base
     strip_attributes!
@@ -86,12 +86,14 @@ class OutgoingMessage < ActiveRecord::Base
         if ret.nil?
             return ret
         end
-        ret = ret.strip
-        ret = ret.gsub(/(?:\n\s*){2,}/, "\n\n") # remove excess linebreaks that unnecessarily space it out
+
+        ret = ret.dup
+        ret.strip!
+        ret.gsub!(/(?:\n\s*){2,}/, "\n\n") # remove excess linebreaks that unnecessarily space it out
 
         # Remove things from censor rules
         if !self.info_request.nil?
-            ret = self.info_request.apply_censor_rules_to_text(ret)
+            self.info_request.apply_censor_rules_to_text!(ret)
         end
 
         ret
