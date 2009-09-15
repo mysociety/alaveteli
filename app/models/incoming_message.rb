@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.222 2009-09-15 18:26:23 francis Exp $
+# $Id: incoming_message.rb,v 1.223 2009-09-15 21:30:39 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -926,6 +926,7 @@ class IncomingMessage < ActiveRecord::Base
     end
 
     # Returns all attachments for use in display code
+    # XXX is this called multiple times and should be cached?
     def get_attachments_for_display
         ensure_parts_counted
 
@@ -935,7 +936,13 @@ class IncomingMessage < ActiveRecord::Base
         for leaf in leaves
             if leaf != main_part
                 attachment = FOIAttachment.new
+
                 attachment.body = leaf.body
+                # As leaf.body causes MIME decoding which uses lots of RAM, do garbage collection here
+                # to prevent excess memory use. XXX not really sure if this helps reduce
+                # peak RAM use overall. Anyway, maybe there is something better to do than this.
+                GC.start 
+
                 attachment.filename = _get_censored_part_file_name(leaf)
                 if leaf.within_rfc822_attachment
                     attachment.within_rfc822_subject = leaf.within_rfc822_attachment.subject
@@ -1036,13 +1043,19 @@ class IncomingMessage < ActiveRecord::Base
 
     # Returns text version of attachment text
     def get_attachment_text
+        #STDOUT.puts 'start ' + MySociety::DebugHelpers::allocated_string_size_around_gc
         if self.cached_attachment_text.nil?
             attachment_text = self.get_attachment_text_internal
+            #STDOUT.puts 'after get_attachment_text_internal ' + MySociety::DebugHelpers::allocated_string_size_around_gc
             self.cached_attachment_text = attachment_text
+            #STDOUT.puts 'after assign to cached_attachment_text ' + MySociety::DebugHelpers::allocated_string_size_around_gc
             self.save!
+            #STDOUT.puts 'after save!' + MySociety::DebugHelpers::allocated_string_size_around_gc
         end
+        #STDOUT.puts 'after cache ' + MySociety::DebugHelpers::allocated_string_size_around_gc
 
         # Remove any privacy things
+        #STDOUT.puts 'before dup ' + MySociety::DebugHelpers::allocated_string_size_around_gc
         text = self.cached_attachment_text.dup
         #STDOUT.puts 'before mask_special_emails ' + MySociety::DebugHelpers::allocated_string_size_around_gc
         self.mask_special_emails!(text)
@@ -1152,6 +1165,10 @@ class IncomingMessage < ActiveRecord::Base
     # Returns text for indexing
     def get_text_for_indexing
         return get_body_for_quoting + "\n\n" + get_attachment_text
+    end
+    # Used when there are no highlight words, so full attachment text not required
+    def get_text_for_indexing_quick
+        return get_body_for_quoting
     end
 
     # Returns the name of the person the incoming message is from, or nil if
