@@ -1,4 +1,21 @@
-get_attachments_for_display multiple calls
+test if get_attachments_for_display called multiple times in one request?
+
+(MyModel.column_names - ['column_to_exclude']).join(', ')
+
+get_text_for_indexing(quick) could be used in ./views/track_mailer/event_digest.rhtml
+
+This is pretty good:
+ c = IncomingMessage.find(40315).cached_attachment_text; p c.size; c.gsub!(/[^\w\s]+/, ' '); c.gsub!(/\s+/, ' '); p c.size; p c[0,2000]
+Can we somehow reduce attachment cache size?
+
+This is good test too:
+egrep "CONSUME MEMORY: [0-9]{7} KB" production.log
+
+blackpool seems slow;
+cat:~/keep/devel/mysociety/foi/cache$ time lynx -source http://www.whatdotheyknow.com/body/blackpool_borough_council?page=2 > /dev/null
+real    0m1.542s
+
+
 
 Next (things that will reduce admin time mainly)
 ====
@@ -28,6 +45,8 @@ Allow for deadline extension for schools.
 Put the request from address in the database, 
     XXX not so sure about that, as need fuzzy rule for matching/guessing according to type
 then change the rule for making it.
+* Change holding pen to lookup hash e.g. 1bd8ea of the request address in database
+ (so gives good guess it the hash is right, but the number is wrong)
 * Use maybe words for generated email address? Name of the person and a request
 number (i.e. number of that persons request, so there are few numbers)?
 julian.todd@section44.whatdotheyknow.com
@@ -91,9 +110,6 @@ When registering a new user, give a warning if they only enter one name. Link
 to the help about pseudonymous requests, that you need at least initial
 as well.
 
-Have an interface for users to be able to suggest new authorities and give
-their email address (perhaps just have admins validate / approve it)
-
 Let requesters view the uncensored versions of their correspondence (e.g. with
 emails in it). Let other people do so with a CAPTCHA?
 
@@ -101,24 +117,14 @@ For followups, have radio button to say is it a new request or followup
 Do by uncommenting the "new information" option when writing a followup, so
 that it makes a new request
 
-Don't allow sending internal review text twice (although make sure they 
-can write followups to internal review)
-e.g. http://www.whatdotheyknow.com/request/reply_to_letter_from_historic_ro
-
 Point all MX records to one server, so can see incoming messages in exim logs also.
 Hmmm, but less robust. Run the exim log grabber across all mail servers?
 
 Links to "a response" from timeline aren't to right page any more.
 
-There is some kind of workflow bug, where people send a follow
-up THEN mark as clarification needed, and so it emails to remind them when it
-doesn't really need to.
-e.g. https://secure.mysociety.org/admin/foi/request/show/8773
-
 Change it to store emails as files in the filesystem? For speed.
 Should have simpler system for us to upload files sent to us via CD etc.
 Currently I have to manually put them in the files directory on the vhost.
-Reconfigure Exim to accept larger messages than 50Mb.
 Make it so web upload interface copes gracefully with arbitarily large messages
 (it causes speed trouble having them in the database right now)
 
@@ -135,9 +141,6 @@ appears. >>
 When it prompts error_message people to send annotation, maybe just show them
 the email address of the error to check then and there?
 
-Graph on admin page is a bit knackered as doesn't cover all the statuses - I think
-this means "waiting_response" is unnecessarily stretched out
-
 Should really make replies munge subject of last response, rather than start
 afresh with subject - authorities use FOI code in subject as here:
 http://www.whatdotheyknow.com/request/causes_of_the_financial_crisis#incoming-12779
@@ -149,6 +152,10 @@ If you've already conducted an internal review, at all places
 don't offer it again.
 Example of completed review:
 http://www.whatdotheyknow.com/request/request_for_full_disclosure_of_b#incoming-9267
+
+Don't allow sending internal review text twice (although make sure they 
+can write followups to internal review)
+e.g. http://www.whatdotheyknow.com/request/reply_to_letter_from_historic_ro
 
 Clock for internal review
     The Information Commissioner has issued a "Good Practice Guidance" document:
@@ -202,10 +209,6 @@ CSS / design things
     - favicon.ico would be nice
     - Get Atom feed of search results to include stylesheet for highlighting words in
       yellow somehow
-    - The sign in as a particular user form has the button too flush with bottom of page
-
-What happens if you view an address with the captcha, and it is not_apply or
-blank?
 
 Would be nice if you try and send or resend from admin interface and address is
 set to not_apply, defunct or "" that it deals with it better :) 
@@ -220,11 +223,6 @@ Help page improvements:
     Add "Who should I make my request to?" - make flow better after first section, to abrupt now
     I think the advice in this annotation could go into a nice comment:
       http://www.whatdotheyknow.com/request/berr_response_to_eu_on_phorm_bt#comment-356
-    Add "I want to file squillions of requests"
-    Reassurance that fees don't happen much
-    Add FAQ / unhappy page which explains what you can do if you get no response
-      at all and that it might be spam. (err, or somehow reorganise FAQ for this
-     in relation to existing mirror image FAQ for officers)
     Some more traditional help such as:
         * Information about how to track requests and RSS feeds 
         * Information about how to contacting other users
@@ -277,6 +275,7 @@ Edits to outgoing/incoming/title won't be reindexed in Xapian (maybe just reinde
     might matter with software updates, or code changes)
 This does it all:
 $ ./script/clear-incoming-text-cache ; ./script/rebuild-xapian-index
+Well, except nowday has to clear the disk file cache in mysociety/foi/cache also
 
 Renaming public authorities will break alerts on them. For basic alerts the
 structured info is there so this should just be fixed. For searches, perhaps
@@ -294,6 +293,8 @@ as well as word/document.xml ? (thread on xapian-discuss does so)
 
 Mime type / extension wrong on these .docx's
 http://www.whatdotheyknow.com/request/bridleway_classifications
+
+Worth doing View as HTML for .docx probably
 
 VSD files vsdump - example in zip file
     http://www.whatdotheyknow.com/request/dog_control_orders#incoming-3510
@@ -330,7 +331,7 @@ Some other pdftohtml bugs (fix them or file about them) - possibly can detect so
 and display a better error?
     http://www.whatdotheyknow.com/request/sale_of_public_land#incoming-8146
     http://www.whatdotheyknow.com/request/childrens_database_compliance_wi#incoming-8088
-    http://www.whatdotheyknow.com/request/3326/response/7701/attach/html/2/Scan001.PDF.html
+    http://www.whatdotheyknow.com/request/3326/response/7701/attach/html/2/Scan001.PDF.pdf.html
     http://www.whatdotheyknow.com/request/risk_log#incoming-8090
     http://www.whatdotheyknow.com/request/number_of_out_of_county_placemen_5#incoming-11248
 Orientation wrong:
@@ -356,6 +357,8 @@ Quoting fixing TODO:
     http://www.whatdotheyknow.com/request/224/response/589 # have knackered the apostrophes here
 
     http://www.whatdotheyknow.com/request/operation_oasis_protester_databa#incoming-20922
+
+    http://www.whatdotheyknow.com/request/new_bristol_city_stadium_plansci#incoming-44114 # funny forward not detected
 
     Unclassified:
     http://www.whatdotheyknow.com/request/666/response/1020
@@ -401,6 +404,9 @@ http://www.whatdotheyknow.com/request/scientology_incidents#comment-3352
 
 Totally new features
 --------------------
+
+Have an interface for users to be able to suggest new authorities and give
+their email address (perhaps just have admins validate / approve it)
 
 Detect councils that always send automatic acknowledgements, and notice if they
 do not for a particular request? (e.g. Leicestershire County Council)
