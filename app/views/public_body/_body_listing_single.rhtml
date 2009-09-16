@@ -7,9 +7,13 @@
     <%= link_to highlight_words(public_body.name, @highlight_words), public_body_url(public_body) %>
    	</span>
     <span class="desc">
-    <% if not public_body.short_name.empty? %>
-        Also called <%=highlight_words(public_body.short_name, @highlight_words) %>.
-        <%= highlight_and_excerpt(public_body.notes_without_html, @highlight_words, 150) %>
+    <% if !public_body.short_name.empty? || !public_body.notes_without_html.empty? %>
+        <% if !public_body.short_name.empty? %>
+            Also called <%=highlight_words(public_body.short_name, @highlight_words) %>.
+        <% end %>
+        <% if !public_body.notes_without_html.empty? %>
+            <%= highlight_and_excerpt(public_body.notes_without_html, @highlight_words, 150) %>
+        <% end %>
         <br>
     <% end %>
 	</span>
