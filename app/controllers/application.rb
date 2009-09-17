@@ -6,7 +6,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: application.rb,v 1.58 2009-09-17 10:24:35 francis Exp $
+# $Id: application.rb,v 1.59 2009-09-17 13:01:56 francis Exp $
 
 
 class ApplicationController < ActionController::Base
@@ -21,6 +21,9 @@ class ApplicationController < ActionController::Base
     # Ruby also grabs memory from the OS in variously sized jumps, so the extra
     # consumption of a request shown by this function will only appear in such
     # jumps.
+    #
+    # To find things that are using causing LOTS of peak memory, then do something like:
+    # egrep "CONSUME MEMORY: [0-9]{7} KB" production.log
     around_filter :record_memory
     def record_memory
         File.read("/proc/#{Process.pid}/status").match(/VmRSS:\s+(\d+)/)
