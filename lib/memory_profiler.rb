@@ -1,6 +1,17 @@
 # Taken from
 # http://scottstuff.net/blog/2006/08/17/memory-leak-profiling-with-rails
 
+# This is useful for finding memory leaks of the sort where a reference has
+# been accidentally kept to an object when it wasn't intended to be. It
+# is particularly useful if the leaking objects contain strings. 
+#
+# You can enable it in config/environments/development.rb It then writes
+# to log files in logs/memory_profiler*
+#
+# If you have :string_debug enabled, you might find this one liner useful. It
+# compares the two most recent string dumps.
+# strings `ls -1t *profiler_strings* | head --lines=1` |sort > a; strings `ls -1t *profiler_strings* | head --lines=2 | tail --lines=1` |sort > b; diff b a |less
+
 class MemoryProfiler
   DEFAULTS = {:delay => 10, :string_debug => false}
 
