@@ -17,7 +17,9 @@ config.action_view.debug_rjs                         = true
 config.action_mailer.raise_delivery_errors = false
 config.action_mailer.delivery_method = :sendmail # so is queued, rather than giving immediate errors
 
-require 'memory_profiler'
-MemoryProfiler.start :string_debug => true, :delay => 10
+# Writes useful log files to debug memory leaks, of the sort where have
+# unintentionally kept references to objects, especially strings.
+# require 'memory_profiler'
+# MemoryProfiler.start :string_debug => true, :delay => 10
 
 
