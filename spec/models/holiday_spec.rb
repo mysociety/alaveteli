@@ -27,12 +27,15 @@ describe Holiday, " when calculating due date" do
       due_date('2009-03-13').should == '2009-04-15'
     end
 
+    # Delivery at the weekend ends up the same due day as if it had arrived on
+    # the Friday before. This is because the next working day (Monday) counts
+    # as day 1.
+    # See http://www.whatdotheyknow.com/help/about#days
     it "handles Saturday start" do
-      due_date('2009-03-14').should == '2009-04-16'
+      due_date('2009-03-14').should == '2009-04-15'
     end
-
     it "handles Sunday start" do
-      due_date('2009-03-15').should == '2009-04-16'
+      due_date('2009-03-15').should == '2009-04-15'
     end
 
     it "handles Monday start" do

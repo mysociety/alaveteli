@@ -21,11 +21,12 @@
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: holiday.rb,v 1.7 2009-09-17 21:10:05 francis Exp $
+# $Id: holiday.rb,v 1.8 2009-09-17 21:30:15 francis Exp $
 
 class Holiday < ActiveRecord::Base
 
     # Calculate the date on which a request made on a given date falls due.
+    # i.e. it is due by the end of that day.
     def Holiday.due_date_from(start_date)
         # convert date/times into dates
         start_date = start_date.to_date
@@ -33,19 +34,19 @@ class Holiday < ActiveRecord::Base
         # TODO only fetch holidays after the start_date
         holidays = self.all.collect { |h| h.day }.to_set
 
-        # Count forward 20 working days. We start with today (or if not a working day,
-        # the next working day*) as "day zero". The first of the twenty full
-        # working days is the next day. We return the date of the last of the twenty.
-        #
-        # * See this response for example of a public authority complaining when we got
-        # that detail wrong: http://www.whatdotheyknow.com/request/policy_regarding_body_scans#incoming-1100
+        # Count forward 20 working days. We start with today as "day zero". The
+        # first of the twenty full working days is the next day. We return the
+        # date of the last of the twenty.
+        
+        # This response for example of a public authority complains that we had
+        # it wrong.  We didn't (even thought I changed the code for a while,
+        # it's changed back now). A day is a day, our lawyer tells us.
+        # http://www.whatdotheyknow.com/request/policy_regarding_body_scans#incoming-1100
 
-        # We have to skip non-working days at start to find day zero, so start at
-        # day -1 and at yesterday, so we can do that.
-        days_passed = -1 
-        response_required_by = start_date - 1.day
+        days_passed = 0
+        response_required_by = start_date
 
-        # Now step forward into day zero, and then each of the 20 days.
+        # Now step forward into each of the 20 days.
         while days_passed < 20
             response_required_by += 1.day
             next if response_required_by.wday == 0 || response_required_by.wday == 6 # weekend
