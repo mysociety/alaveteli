@@ -25,7 +25,7 @@ describe IncomingMessage, "when getting the attachment text" do
     mock_entry = mock('ZipFile entry', :file? => true)
     mock_entry.stub!(:get_input_stream).and_raise("invalid distance too far back")
     Zip::ZipFile.stub!(:open).and_return([mock_entry])
-    IncomingMessage.get_attachment_text_internal_one_file('application/zip', "some string")
+    IncomingMessage._get_attachment_text_internal_one_file('application/zip', "some string")
   end
   
 end
@@ -161,12 +161,12 @@ describe IncomingMessage, " when censoring data" do
         orig_pdf = load_file_fixture('tfl.pdf')
         pdf = orig_pdf.dup
 
-        orig_text = IncomingMessage.get_attachment_text_internal_one_file('application/pdf', pdf)
+        orig_text = IncomingMessage._get_attachment_text_internal_one_file('application/pdf', pdf)
         orig_text.should match(/foi@tfl.gov.uk/)
 
         @im.binary_mask_stuff!(pdf, "application/pdf")
 
-        masked_text = IncomingMessage.get_attachment_text_internal_one_file('application/pdf', pdf)
+        masked_text = IncomingMessage._get_attachment_text_internal_one_file('application/pdf', pdf)
         masked_text.should_not match(/foi@tfl.gov.uk/)
         masked_text.should match(/xxx@xxx.xxx.xx/)
     end
