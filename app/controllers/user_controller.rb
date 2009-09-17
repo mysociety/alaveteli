@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user_controller.rb,v 1.70 2009-09-07 17:31:38 francis Exp $
+# $Id: user_controller.rb,v 1.71 2009-09-17 07:51:47 francis Exp $
 
 class UserController < ApplicationController
     # Show page about a user
@@ -18,7 +18,7 @@ class UserController < ApplicationController
         if not @display_user
             raise "user not found, url_name=" + params[:url_name]
         end
-        @same_name_users = User.find(:all, :conditions => [ "name = ? and email_confirmed = ? and id <> ?", @display_user.name, true, @display_user.id ], :order => "created_at")
+        @same_name_users = User.find(:all, :conditions => [ "name ilike ? and email_confirmed = ? and id <> ?", @display_user.name, true, @display_user.id ], :order => "created_at")
 
         @is_you = !@user.nil? && @user.id == @display_user.id
 
