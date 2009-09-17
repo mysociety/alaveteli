@@ -4,9 +4,10 @@
 
 LOC=`dirname $0`
 
-$LOC/runner "ActiveRecord::Base.connection.execute(\"update incoming_messages set cached_attachment_text = null, cached_main_body_text = null\")"
+$LOC/runner "ActiveRecord::Base.connection.execute(\"update incoming_messages set cached_attachment_text_clipped = null, cached_main_body_text = null\")"
 
-# Remove page caches
-rm -fr $LOC/../public/request
-rm -fr $LOC/../cache
+# Remove page cache (do it in two stages so live site gets cache cleared faster)
+rm -fr $LOC/../old-cache
+mv $LOC/../cache $LOC/../old-cache
+rm -fr $LOC/../old-cache
 

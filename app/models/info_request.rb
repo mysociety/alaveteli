@@ -24,7 +24,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.205 2009-09-15 17:45:51 francis Exp $
+# $Id: info_request.rb,v 1.206 2009-09-17 10:24:35 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -135,6 +135,12 @@ class InfoRequest < ActiveRecord::Base
         end
     end
 
+    # Removes anything cached about the object in the database, and saves
+    def clear_in_database_caches!
+        for incoming_message in self.incoming_messages
+            incoming_message.clear_in_database_caches!
+        end
+    end
 
     # For debugging
     def InfoRequest.profile_search(query)

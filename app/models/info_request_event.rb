@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request_event.rb,v 1.90 2009-09-15 21:30:39 francis Exp $
+# $Id: info_request_event.rb,v 1.91 2009-09-17 10:24:35 francis Exp $
 
 class InfoRequestEvent < ActiveRecord::Base
     belongs_to :info_request
@@ -126,17 +126,19 @@ class InfoRequestEvent < ActiveRecord::Base
         # format it here as no datetime support in Xapian's value ranges
         return self.created_at.strftime("%Y%m%d%H%M%S") 
     end
-    def search_text_main(quick = false)
+    # clipped = true - means return shorter text. It is used for snippets for
+    # performance reasons. Xapian will take the full text.
+    def search_text_main(clipped = false)
         text = ''
         if self.event_type == 'sent' 
             text = text + self.outgoing_message.get_text_for_indexing + "\n\n"
         elsif self.event_type == 'followup_sent'
             text = text + self.outgoing_message.get_text_for_indexing + "\n\n"
         elsif self.event_type == 'response'
-            if quick
-                text = text + self.incoming_message.get_text_for_indexing_quick + "\n\n"
+            if clipped
+                text = text + self.incoming_message.get_text_for_indexing_clipped + "\n\n"
             else
-                text = text + self.incoming_message.get_text_for_indexing + "\n\n"
+                text = text + self.incoming_message.get_text_for_indexing_full + "\n\n"
             end
         elsif self.event_type == 'comment'
             text = text + self.comment.body + "\n\n"

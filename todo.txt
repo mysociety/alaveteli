@@ -1,3 +1,4 @@
+
 test if get_attachments_for_display called multiple times in one request?
 
 (MyModel.column_names - ['column_to_exclude']).join(', ')
@@ -86,6 +87,9 @@ and resend messages to them
 
 Later
 =====
+
+cached_main_body_text could store the privacy censored versions now, since
+cached_attachment_text_clipped does (and clears it when censor rules are edited)
 
 Things to make bots not crawl somehow:
     /request/13683/response?internal_review=1
@@ -275,7 +279,8 @@ Edits to outgoing/incoming/title won't be reindexed in Xapian (maybe just reinde
     might matter with software updates, or code changes)
 This does it all:
 $ ./script/clear-incoming-text-cache ; ./script/rebuild-xapian-index
-Well, except nowday has to clear the disk file cache in mysociety/foi/cache also
+(clear-incoming-text-cache needs renaming to make it clearer it does clear the disk cache too,
+and that code testing)
 
 Renaming public authorities will break alerts on them. For basic alerts the
 structured info is there so this should just be fixed. For searches, perhaps
@@ -307,7 +312,8 @@ To decode Outlook .msg (.oft?) files, e.g.
 
 Search for other file extensions that we have now and look for ones we could
 and should be indexing
-    (call IncomingMessage.find_all_unknown_mime_types to find them)
+    (call IncomingMessage.find_all_unknown_mime_types to find them - needs
+    updating to do it in clumps as all requests won't load in RAM now )
 
 Make tables prettier in view as HTMl, just normal thick borders.
 http://www.whatdotheyknow.com/request/1610/response/8093/attach/html/3/2008.10.29%20Reply.doc.html

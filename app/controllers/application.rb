@@ -6,15 +6,21 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: application.rb,v 1.57 2009-09-15 11:47:20 francis Exp $
+# $Id: application.rb,v 1.58 2009-09-17 10:24:35 francis Exp $
 
 
 class ApplicationController < ActionController::Base
     # Standard headers, footers and navigation for whole site
     layout "default"
 
-    # Help work out which request causes RAM spike
+    # Help work out which request causes RAM spike.
     # http://www.codeweblog.com/rails-to-monitor-the-process-of-memory-leaks-skills/
+    # This shows the memory use increase of the Ruby process due to the request.
+    # Since Ruby never returns memory to the OS, if the existing process previously
+    # served a larger request, this won't show any consumption for the later request.
+    # Ruby also grabs memory from the OS in variously sized jumps, so the extra
+    # consumption of a request shown by this function will only appear in such
+    # jumps.
     around_filter :record_memory
     def record_memory
         File.read("/proc/#{Process.pid}/status").match(/VmRSS:\s+(\d+)/)

@@ -15,11 +15,7 @@ end %>
         <% end %>
 	</span>
     <span class="desc">	
-        <% if @highlight_words == [] %>
-            <%= highlight_and_excerpt(event.search_text_main(quick = true), @highlight_words, 150) %>
-        <% else %>
-            <%= highlight_and_excerpt(event.search_text_main, @highlight_words, 150) %>
-        <% end %>
+        <%= highlight_and_excerpt(event.search_text_main(true), @highlight_words, 150) %>
 	</span>
 
     <span class="bottomline icon_<%= info_request.calculate_status %>">

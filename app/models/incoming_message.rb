@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.223 2009-09-15 21:30:39 francis Exp $
+# $Id: incoming_message.rb,v 1.224 2009-09-17 10:24:35 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -770,6 +770,13 @@ class IncomingMessage < ActiveRecord::Base
         return leaves_found
     end
 
+    # Removes anything cached about the object in the database, and saves
+    def clear_in_database_caches!
+        self.cached_attachment_text_clipped = nil
+        self.cached_main_body_text = nil
+        self.save!
+    end
+
     # Returns body text from main text part of email, converted to UTF-8, with uudecode removed
     # XXX returns a .dup of the text, so calling functions can in place modify it
     def get_main_body_text
@@ -791,10 +798,10 @@ class IncomingMessage < ActiveRecord::Base
     # Returns body text from main text part of email, converted to UTF-8
     def get_main_body_text_internal
         main_part = get_main_body_text_part
-        return convert_part_body_to_text(main_part)
+        return _convert_part_body_to_text(main_part)
     end
     # Given a main text part, converts it to text
-    def convert_part_body_to_text(part)
+    def _convert_part_body_to_text(part)
         if part.nil?
             text = "[ Email has no body, please see attachments ]"
             text_charset = "utf-8"
@@ -805,7 +812,7 @@ class IncomingMessage < ActiveRecord::Base
                 # e.g. http://www.whatdotheyknow.com/request/35/response/177
                 # XXX This is a bit of a hack as it is calling a convert to text routine.
                 # Could instead call a sanitize HTML one.
-                text = IncomingMessage.get_attachment_text_internal_one_file(part.content_type, text)
+                text = IncomingMessage._get_attachment_text_internal_one_file(part.content_type, text)
             end
         end
 
@@ -960,7 +967,7 @@ class IncomingMessage < ActiveRecord::Base
                                 headers = headers + header + ": " + leaf.within_rfc822_attachment.header[header.downcase].to_s + "\n"
                             end
                         end
-                        # XXX call convert_part_body_to_text here, but need to get charset somehow
+                        # XXX call _convert_part_body_to_text here, but need to get charset somehow
                         # e.g. http://www.whatdotheyknow.com/request/1593/response/3088/attach/4/Freedom%20of%20Information%20request%20-%20car%20oval%20sticker:%20Article%2020,%20Convention%20on%20Road%20Traffic%201949.txt
                         attachment.body = headers + "\n" + attachment.body
 
@@ -1041,30 +1048,36 @@ class IncomingMessage < ActiveRecord::Base
         text = IncomingMessage.remove_quoted_sections(text, "")
     end
 
-    # Returns text version of attachment text
-    def get_attachment_text
-        #STDOUT.puts 'start ' + MySociety::DebugHelpers::allocated_string_size_around_gc
-        if self.cached_attachment_text.nil?
-            attachment_text = self.get_attachment_text_internal
-            #STDOUT.puts 'after get_attachment_text_internal ' + MySociety::DebugHelpers::allocated_string_size_around_gc
-            self.cached_attachment_text = attachment_text
-            #STDOUT.puts 'after assign to cached_attachment_text ' + MySociety::DebugHelpers::allocated_string_size_around_gc
-            self.save!
-            #STDOUT.puts 'after save!' + MySociety::DebugHelpers::allocated_string_size_around_gc
-        end
-        #STDOUT.puts 'after cache ' + MySociety::DebugHelpers::allocated_string_size_around_gc
+    MAX_ATTACHMENT_TEXT_CLIPPED = 1000000 # 1Mb ish
 
-        # Remove any privacy things
-        #STDOUT.puts 'before dup ' + MySociety::DebugHelpers::allocated_string_size_around_gc
-        text = self.cached_attachment_text.dup
-        #STDOUT.puts 'before mask_special_emails ' + MySociety::DebugHelpers::allocated_string_size_around_gc
+    # Returns text version of attachment text
+    def get_attachment_text_full
+        text = self._get_attachment_text_internal
         self.mask_special_emails!(text)
-        #STDOUT.puts 'after mask_special_emails ' + MySociety::DebugHelpers::allocated_string_size_around_gc
         self.remove_privacy_sensitive_things!(text)
-        #STDOUT.puts 'after remove_privacy_sensitive_things ' + MySociety::DebugHelpers::allocated_string_size_around_gc
+        # This can be useful for memory debugging
+        #STDOUT.puts 'xxx '+ MySociety::DebugHelpers::allocated_string_size_around_gc
+        
+        # Save clipped version for snippets
+        if self.cached_attachment_text_clipped.nil?
+            self.cached_attachment_text_clipped = text[0..MAX_ATTACHMENT_TEXT_CLIPPED]
+            self.save!
+        end
+        
         return text
     end
-    def IncomingMessage.get_attachment_text_internal_one_file(content_type, body)
+    # Returns a version reduced to a sensible maximum size - this
+    # is for performance reasons when showing snippets in search results.
+    def get_attachment_text_clipped
+        if self.cached_attachment_text_clipped.nil?
+            # As side effect, get_attachment_text_full makes snippet text
+            attachment_text = self.get_attachment_text_full
+            raise "internal error" if self.cached_attachment_text_clipped.nil?
+        end
+
+        return self.cached_attachment_text_clipped
+    end
+    def IncomingMessage._get_attachment_text_internal_one_file(content_type, body)
         text = ''
         # XXX - tell all these command line tools to return utf-8
         if content_type == 'text/plain'
@@ -1141,7 +1154,7 @@ class IncomingMessage < ActiveRecord::Base
                         end
                     
                         #STDERR.puts("doing file " + filename + " content type " + content_type)
-                        text += IncomingMessage.get_attachment_text_internal_one_file(content_type, body)
+                        text += IncomingMessage._get_attachment_text_internal_one_file(content_type, body)
                     end
                 end
             end
@@ -1150,12 +1163,12 @@ class IncomingMessage < ActiveRecord::Base
 
         return text
     end
-    def get_attachment_text_internal
+    def _get_attachment_text_internal
         # Extract text from each attachment
         text = ''
         attachments = self.get_attachments_for_display
         for attachment in attachments
-            text += IncomingMessage.get_attachment_text_internal_one_file(attachment.content_type, attachment.body)
+            text += IncomingMessage._get_attachment_text_internal_one_file(attachment.content_type, attachment.body)
         end
         # Remove any bad characters
         text = Iconv.conv('utf-8//IGNORE', 'utf-8', text)
@@ -1163,12 +1176,12 @@ class IncomingMessage < ActiveRecord::Base
     end
 
     # Returns text for indexing
-    def get_text_for_indexing
-        return get_body_for_quoting + "\n\n" + get_attachment_text
+    def get_text_for_indexing_full
+        return get_body_for_quoting + "\n\n" + get_attachment_text_full
     end
-    # Used when there are no highlight words, so full attachment text not required
-    def get_text_for_indexing_quick
-        return get_body_for_quoting
+    # Used for excerpts in search results, when loading full text would be too slow
+    def get_text_for_indexing_clipped
+        return get_body_for_quoting + "\n\n" + get_attachment_text_clipped
     end
 
     # Returns the name of the person the incoming message is from, or nil if
