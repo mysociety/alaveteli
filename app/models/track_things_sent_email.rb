@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 78
+# Schema version: 80
 #
 # Table name: track_things_sent_emails
 #
@@ -18,7 +18,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_things_sent_email.rb,v 1.21 2009-06-26 14:28:38 francis Exp $
+# $Id: track_things_sent_email.rb,v 1.22 2009-09-17 21:10:05 francis Exp $
 
 class TrackThingsSentEmail < ActiveRecord::Base
     belongs_to :info_request_event

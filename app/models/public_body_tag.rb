@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 78
+# Schema version: 80
 #
 # Table name: public_body_tags
 #
@@ -15,7 +15,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body_tag.rb,v 1.28 2009-06-26 14:28:38 francis Exp $
+# $Id: public_body_tag.rb,v 1.29 2009-09-17 21:10:05 francis Exp $
 
 class PublicBodyTag < ActiveRecord::Base
     strip_attributes!
