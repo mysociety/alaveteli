@@ -222,9 +222,6 @@ Help page improvements:
         * Information about how to track requests and RSS feeds 
         * Information about how to contacting other users
 
-Tell application developer if working days table not up to date, and needs
-updating
-
 Link the overdue date to an explanation of what bank holidays it skipped etc.
 :)
 
