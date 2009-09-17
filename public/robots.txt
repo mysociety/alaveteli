@@ -18,5 +18,3 @@ Disallow: /upload/
 Disallow: /user/contact/
 Disallow: /feed/
 Disallow: /signin
-Crawl-delay: 1
-
