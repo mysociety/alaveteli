@@ -128,16 +128,16 @@ describe InfoRequest do
         end
 
         it "has correct due date" do
-            @ir.date_response_required_by.strftime("%F").should == '2007-11-12'
+            @ir.date_response_required_by.strftime("%F").should == '2007-11-09'
         end
 
         it "isn't overdue on due date" do
-            Time.stub!(:now).and_return(Time.utc(2007, 11, 12, 23, 59)) 
+            Time.stub!(:now).and_return(Time.utc(2007, 11, 9, 23, 59)) 
             @ir.calculate_status.should == 'waiting_response'
         end
 
         it "is overdue a day after due date " do
-            Time.stub!(:now).and_return(Time.utc(2007, 11, 13)) 
+            Time.stub!(:now).and_return(Time.utc(2007, 11, 10)) 
             @ir.calculate_status.should == 'waiting_response_overdue'
         end
     end
@@ -197,7 +197,7 @@ describe InfoRequest do
     describe 'when asked for old unclassified requests' do 
     
         before do 
-            Time.stub!(:now).and_return(Time.utc(2007, 11, 12, 23, 59))
+            Time.stub!(:now).and_return(Time.utc(2007, 11, 9, 23, 59))
         end
         
         it 'should ask for requests using any limit param supplied' do 
@@ -239,7 +239,7 @@ describe InfoRequest do
     describe 'when an instance is asked if it is old and unclassified' do 
         
         before do 
-            Time.stub!(:now).and_return(Time.utc(2007, 11, 12, 23, 59))
+            Time.stub!(:now).and_return(Time.utc(2007, 11, 9, 23, 59))
             @mock_comment_event = mock_model(InfoRequestEvent, :created_at => Time.now - 16.days, :event_type => 'comment')
             @mock_response_event = mock_model(InfoRequestEvent, :created_at => Time.now - 15.days, :event_type => 'response')
             @info_request = InfoRequest.new(:prominence => 'normal', 
