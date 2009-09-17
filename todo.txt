@@ -1,25 +1,19 @@
-
 test if get_attachments_for_display called multiple times in one request?
 
-(MyModel.column_names - ['column_to_exclude']).join(', ')
+Some requests to lower memory use of still:
+PID: 676    CONSUME MEMORY: 16968 KB    Now: 102604 KB  http://www.whatdotheyknow.com/request/parking_ticket_data_81
 
-get_text_for_indexing(quick) could be used in ./views/track_mailer/event_digest.rhtml
-
-This is pretty good:
- c = IncomingMessage.find(40315).cached_attachment_text; p c.size; c.gsub!(/[^\w\s]+/, ' '); c.gsub!(/\s+/, ' '); p c.size; p c[0,2000]
-Can we somehow reduce attachment cache size?
-
-This is good test too:
-egrep "CONSUME MEMORY: [0-9]{7} KB" production.log
-
-blackpool seems slow;
-cat:~/keep/devel/mysociety/foi/cache$ time lynx -source http://www.whatdotheyknow.com/body/blackpool_borough_council?page=2 > /dev/null
-real    0m1.542s
+PID: 2036       CONSUME MEMORY: 129368 KB       Now: 179652 KB  http://www.whatdotheyknow.com/request/14186/response/33740
+- search engines shouldn't be going for those URLs. and do they really need to
+  unpack so much? could use snippet cache.
 
 
 
 Next (things that will reduce admin time mainly)
 ====
+
+Ask people for annotation immediately after they have submitted their request
+Ask for annotation about what they learnt from request?
 
 Have proper house rules / site terms and conditions page.
 Perhaps borrow from these house rules:
@@ -177,9 +171,6 @@ Sort requests on user page by status.
 
 Make search know about uncategorised requests and timed out requests. 
 And make search able to do *current* status in general as operator.
-
-Ask people for annotation immediately after they have submitted their request
-Ask for annotation about what they learnt from request?
 
 I have several email alerts set up. Is there any chance they could include part
 (or, preferably, all) of the search criterion in the Subject: line? :o)
