@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.183 2009-09-15 18:26:23 francis Exp $
+# $Id: request_controller.rb,v 1.184 2009-09-18 02:50:47 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -610,7 +610,12 @@ class RequestController < ApplicationController
         end
 
         if !@info_request.public_body.is_foi_officer?(@user)
-            @reason_params[:user_name] = "an email @" + @info_request.public_body.foi_officer_domain_required
+            domain_required = @info_request.public_body.foi_officer_domain_required
+            if domain_required.nil?
+                render :template => 'user/wrong_user_unknown_email'
+                return
+            end
+            @reason_params[:user_name] = "an email @" + domain_required
             render :template => 'user/wrong_user'
             return
         end
