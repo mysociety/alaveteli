@@ -25,12 +25,12 @@ file too large for email, use the form below.
 
 <% form_tag '', :html => { :id => 'upload_response_form' }, :multipart => true do %>
     <p>
-        <label class="form_label" for="upload_response_body">Response:<label> 
-        <%= text_area_tag :body, "", :size => "55x10" %>
+        <label class="form_label" for="body">Response:</label> 
+                <%= text_area_tag :body, "", :rows => 10, :cols => 55 %>
     </p>
 
     <p>
-	    <label class="form_label" for="outgoing_message_body">Attachment (optional):</label> 
+	    <label class="form_label" for="file_1">Attachment (optional):</label> 
         <%= file_field_tag :file_1, :size => 35 %>
     </p>
 
