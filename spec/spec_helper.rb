@@ -39,7 +39,7 @@ end
 
 def rebuild_xapian_index
     rebuild_name = File.dirname(__FILE__) + '/../script/rebuild-xapian-index'
-    Kernel.system(rebuild_name) or raise "failed to launch rebuild-xapian-index"
+    Kernel.system(rebuild_name) or raise "failed to launch #{rebuild_name}, error bitcode #{$?}, exit status: #{$?.exitstatus}"
 end
 
 # Validate an entire HTML page
