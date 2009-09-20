@@ -352,7 +352,7 @@ dd { margin: 0.6em 0 2em 4em; width: 33em; }
 	border-width: 1px;
 	border-style: solid;
 	background-color: #EAEAEA;
-	padding: 0.25em;
+	padding: 0.5em;
 	margin: 0 0 0 1em;
 }
 	#list_sidebar h1, #list_sidebar h2
@@ -945,7 +945,13 @@ div#about_sidebar
 	float: right;
 	clear: none;
 	width: 12em;
+	background-color: #EAEAEA;
+	padding: 0.5em;
 	margin: 0 0 0 1em;
+
+	border-color: #AEAEAE;
+	border-width: 1px;
+	border-style: solid;
 }
 
 div#help_about dt a, div#help_about h1 a, div#help_unhappy h1 a.hover_a
