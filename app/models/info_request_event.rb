@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request_event.rb,v 1.92 2009-09-17 21:10:05 francis Exp $
+# $Id: info_request_event.rb,v 1.93 2009-09-20 12:17:14 francis Exp $
 
 class InfoRequestEvent < ActiveRecord::Base
     belongs_to :info_request
@@ -155,6 +155,9 @@ class InfoRequestEvent < ActiveRecord::Base
     end
     def filetype
         if self.event_type == 'response'
+            if self.incoming_message.nil?
+                raise "event type is 'response' but no incoming message for event id #{self.id}"
+            end
             return self.incoming_message.get_present_file_extensions
         end
         return ''
