@@ -1,3 +1,36 @@
+waiting_response_overdue
+date_response_required_by
+
+
+1. ./views/request/show.rhtml - 
+    Currently overdue a response from House of Commons. By law, the response had to
+    be prompt but no later than 17 September 2008. They are 365 days late, you can
+    complain by requesting an internal review.
+
+2. ./views/request/_followup.rhtml -
+    ... You can say that under the FOI act they should have replied by now, and
+    are breaking the law.
+
+3. ./controllers/request_controller.rb -
+    Thank you! Hopefully your wait isn't too long. By law, you should get a
+    response before the end of  ...
+
+4. ./models/info_request.rb
+    Short description on search results etc.
+        "Response overdue."
+
+5. ./models/request_mailer.rb
+    Subject: You're overdue a response to your FOI request
+
+6. ./views/request_mailer/overdue_alert.rhtml
+    They have not replied to your FOI request 'blah blah' within the 20 working
+    days they are allowed by law.
+
+    Click on the link below to send a message to XXX reminding them to reply to
+    your request.
+
+
+
 test if get_attachments_for_display called multiple times in one request?
 
 Some requests to lower memory use of still:
@@ -29,6 +62,7 @@ Finish up the request game, and market it a bit more.
 Check up on how the public old request status editing is being used in 
 practice. Think about UI a bit more to try and up rate, and UI of
 alerts to requester.
+Offer user_withdrawn as option in many GUI?
 
 
 Change text so that overdue covers qualified exemption of public interest test being
