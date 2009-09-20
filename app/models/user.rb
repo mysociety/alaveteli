@@ -24,7 +24,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user.rb,v 1.102 2009-09-17 21:10:05 francis Exp $
+# $Id: user.rb,v 1.103 2009-09-20 10:01:31 francis Exp $
 
 require 'digest/sha1'
 
@@ -117,7 +117,7 @@ class User < ActiveRecord::Base
     #  
     # The specific_user_login parameter says that login as a particular user is
     # expected, so no parallel registration form is being displayed.
-    def self.authenticate_from_form(params, specific_user_login = false)
+    def User.authenticate_from_form(params, specific_user_login = false)
         params[:email].strip!
 
         if specific_user_login
@@ -144,7 +144,7 @@ class User < ActiveRecord::Base
     end
 
     # Case-insensitively find a user from their email
-    def self.find_user_by_email(email)
+    def User.find_user_by_email(email)
         return self.find(:first, :conditions => [ 'lower(email) = lower(?)', email ] )
     end
 
@@ -219,12 +219,12 @@ class User < ActiveRecord::Base
         self.admin_level == 'super'
     end
     
-    def self.owns_every_request?(user)
+    def User.owns_every_request?(user)
       !user.nil? && user.owns_every_request?  
     end
 
     # Can the user see every request, even hidden ones?
-    def self.view_hidden_requests?(user)
+    def User.view_hidden_requests?(user)
       !user.nil? && user.admin_level == 'super'
     end
      
@@ -257,6 +257,7 @@ class User < ActiveRecord::Base
         return PublicBody.extract_domain_from_email(self.email)
     end
 
+    # XXX profile photos not fully implemented yet
     def set_profile_photo(new_profile_photo)
         ActiveRecord::Base.transaction do
             if !self.profile_photo.nil?
@@ -267,9 +268,27 @@ class User < ActiveRecord::Base
         end
     end
 
+    # Alters last_daily_track_email for every user, so alerts will be sent
+    # spread out fairly evenly throughout the day, balancing load on the
+    # server. This is intended to be called by hand from the Ruby console.  It
+    # will mean quite a few users may get more than one email alert the day you
+    # do it, so have a care and run it rarely.
+    #
+    # This SQL statement is useful for seeing how spread out users are at the moment:
+    # select extract(hour from last_daily_track_email) as h, count(*) from users group by extract(hour from last_daily_track_email) order by h;
+    def User.spread_alert_times_across_day
+        for user in self.find(:all)
+            earliest_time = Time.now() - 1.day
+            latest_time = Time.now
+            random_time = earliest_time + rand(latest_time - earliest_time).seconds
+            user.last_daily_track_email = random_time
+            user.save!
+        end
+    end
+
     private
 
-    def self.encrypted_password(password, salt)
+    def User.encrypted_password(password, salt)
         string_to_hash = password + salt # XXX need to add a secret here too?
         Digest::SHA1.hexdigest(string_to_hash)
     end
