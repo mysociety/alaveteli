@@ -24,7 +24,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user.rb,v 1.103 2009-09-20 10:01:31 francis Exp $
+# $Id: user.rb,v 1.104 2009-09-20 10:09:06 francis Exp $
 
 require 'digest/sha1'
 
@@ -284,6 +284,7 @@ class User < ActiveRecord::Base
             user.last_daily_track_email = random_time
             user.save!
         end
+        nil # so doesn't print all users on console
     end
 
     private
