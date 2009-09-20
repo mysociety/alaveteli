@@ -146,7 +146,7 @@ describe User, " when indexing comments by user they are by" do
 end
 
 describe InfoRequest, " when indexing requests by their title" do
-    fixtures :info_request_events, :info_requests
+    fixtures :info_request_events, :info_requests, :incoming_messages
 
     it "should find events for the request" do
         rebuild_xapian_index
