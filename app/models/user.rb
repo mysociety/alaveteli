@@ -24,7 +24,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user.rb,v 1.104 2009-09-20 10:09:06 francis Exp $
+# $Id: user.rb,v 1.105 2009-09-20 10:25:13 francis Exp $
 
 require 'digest/sha1'
 
@@ -69,6 +69,11 @@ class User < ActiveRecord::Base
     def after_initialize
         if self.admin_level.nil?
             self.admin_level = 'none'
+        end
+        if self.new_record?
+            # make alert emails go out at a random time for each new user, so
+            # overall they are spread out throughout the day.
+            self.last_daily_track_email = User.random_time_in_last_day    
         end
     end
 
@@ -268,6 +273,13 @@ class User < ActiveRecord::Base
         end
     end
 
+    # Used for default values of last_daily_track_email
+    def User.random_time_in_last_day
+        earliest_time = Time.now() - 1.day
+        latest_time = Time.now
+        return earliest_time + rand(latest_time - earliest_time).seconds
+    end
+
     # Alters last_daily_track_email for every user, so alerts will be sent
     # spread out fairly evenly throughout the day, balancing load on the
     # server. This is intended to be called by hand from the Ruby console.  It
@@ -278,10 +290,7 @@ class User < ActiveRecord::Base
     # select extract(hour from last_daily_track_email) as h, count(*) from users group by extract(hour from last_daily_track_email) order by h;
     def User.spread_alert_times_across_day
         for user in self.find(:all)
-            earliest_time = Time.now() - 1.day
-            latest_time = Time.now
-            random_time = earliest_time + rand(latest_time - earliest_time).seconds
-            user.last_daily_track_email = random_time
+            user.last_daily_track_email = User.random_time_in_last_day
             user.save!
         end
         nil # so doesn't print all users on console
