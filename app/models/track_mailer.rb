@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_mailer.rb,v 1.21 2009-06-27 03:21:23 francis Exp $
+# $Id: track_mailer.rb,v 1.22 2009-09-20 10:24:56 francis Exp $
 
 class TrackMailer < ApplicationMailer
     def event_digest(user, email_about_things)
@@ -25,7 +25,9 @@ class TrackMailer < ApplicationMailer
         @body = { :user => user, :email_about_things => email_about_things, :unsubscribe_url => unsubscribe_url }
     end
 
-    # Send email alerts for tracked things
+    # Send email alerts for tracked things.
+    # Useful query to run by hand to see how many alerts are due:
+    #   User.find(:all, :conditions => [ "last_daily_track_email < ?", Time.now - 1.day ]).size
     def self.alert_tracks
         now = Time.now()
         users = User.find(:all, :conditions => [ "last_daily_track_email < ?", now - 1.day ])
