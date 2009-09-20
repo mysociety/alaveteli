@@ -1,6 +1,3 @@
-waiting_response_overdue
-date_response_required_by
-
 
 1. ./views/request/show.rhtml - 
     Currently overdue a response from House of Commons. By law, the response had to
