@@ -33,21 +33,6 @@
 
 <% end %>
 
-<% if @old_unclassified.size > 0 %>
-    <h3>Classify responses that are still unclassified ten days after response</h3>
-
-    <ul>
-    <% for @request in @old_unclassified %>
-        <li>
-            <%= request_both_links(@request) %> 
-            &ndash; <%=simple_date(@request.get_last_response_event.created_at)%>
-        </li>
-    <% end %>
-    </ul>
-    
-    <p>(<%= link_to "Full list", admin_url("unclassified") %>)
-<% end %>
-
 <% if @error_message_requests.size > 0 %>
     <h3>Fix these delivery and other errors (<%=@error_message_requests.size%> total)</h3>
 
@@ -84,6 +69,23 @@
         </li>
     <% end %>
     </ul>
+<% end %>
+
+<% if @old_unclassified.size > 0 %>
+    <h3>Classify responses that are still unclassified ten days after response</h3>
+
+    <ul>
+    <% for @request in @old_unclassified %>
+        <li>
+            <%= request_both_links(@request) %> 
+            &ndash; <%=simple_date(@request.get_last_response_event.created_at)%>
+        </li>
+    <% end %>
+    </ul>
+    
+    <p>(<%= link_to "Full list", admin_url("unclassified") %>, or play public
+    <%= link_to "Categorisation game", main_url(play_url(:only_path => true)) %>)
+    </p>
 <% end %>
 
 <% if @holding_pen_messages.size == 0 && @old_unclassified.size == 0 && @requires_admin_requests.size == 0 && @blank_contacts.size == 0 %>
