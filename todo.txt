@@ -18,7 +18,6 @@
 
 5. ./models/request_mailer.rb
     Subject: You're overdue a response to your FOI request
-
 6. ./views/request_mailer/overdue_alert.rhtml
     They have not replied to your FOI request 'blah blah' within the 20 working
     days they are allowed by law.
@@ -29,6 +28,10 @@
 
 
 test if get_attachments_for_display called multiple times in one request?
+
+sending an email alert for this query takes crazy long
+    query = 'variety:response (status:successful OR status:partially_successful)'
+something to do with the way event_digest loops with lots of responses?
 
 Some requests to lower memory use of still:
 PID: 676    CONSUME MEMORY: 16968 KB    Now: 102604 KB  http://www.whatdotheyknow.com/request/parking_ticket_data_81
@@ -41,6 +44,12 @@ PID: 2036       CONSUME MEMORY: 129368 KB       Now: 179652 KB  http://www.whatd
 
 Next (things that will reduce admin time mainly)
 ====
+
+Install more recent poppler-utils
+    e.g. 0.12.0 can definitely convert this to HTML, extacting the images:
+    http://www.whatdotheyknow.com/request/13903/response/36117/attach/html/4/FOI%20beaver%20site%20species%20audit%20SNH%20review%20of%20proposal%20redact.pdf.html
+Really need a "pdftk -nodrm" to remove compression from encrypted PDFs, so strips emails from e.g.:
+    http://www.whatdotheyknow.com/request/14414/response/38590/attach/html/3/090807%20FOI.pdf.html
 
 Ask people for annotation immediately after they have submitted their request
 Ask for annotation about what they learnt from request?
@@ -334,7 +343,7 @@ and should be indexing
     (call IncomingMessage.find_all_unknown_mime_types to find them - needs
     updating to do it in clumps as all requests won't load in RAM now )
 
-Make tables prettier in view as HTMl, just normal thick borders.
+Make tables prettier in view as HTML, just normal thick borders.
 http://www.whatdotheyknow.com/request/1610/response/8093/attach/html/3/2008.10.29%20Reply.doc.html
 
 Render HTML alternative rather than text (so tables look good) e.g.:
@@ -346,19 +355,13 @@ Make HTML attachments have view as HTML :)
 http://www.whatdotheyknow.com/request/enforced_medication#incoming-7395
 
 Knackered view as HTML:
-    http://www.whatdotheyknow.com/request/statistics_for_allocation_of_dut#incoming-4793
-    http://www.whatdotheyknow.com/request/post_lawrence_report_diversity_t_7#incoming-5483
-They are copy protected PDFs. The code in the incoming_message model tries to fix
-that by converting them to ps and back, but the content is getting lost when doing, not
-sure why. Perhaps instead patch poppler-utils so pdftohtml doesn't respect protection
-either (code in pdftotext already has a #ifdef round it)
-Some other pdftohtml bugs (fix them or file about them) - possibly can detect some of these
-and display a better error?
+    http://www.whatdotheyknow.com/request/1385/response/5483/attach/html/3/Response%20465.2008.pdf.html
+Some other pdftohtml bugs (fix them or file about them) 
     http://www.whatdotheyknow.com/request/sale_of_public_land#incoming-8146
     http://www.whatdotheyknow.com/request/childrens_database_compliance_wi#incoming-8088
     http://www.whatdotheyknow.com/request/3326/response/7701/attach/html/2/Scan001.PDF.pdf.html
     http://www.whatdotheyknow.com/request/risk_log#incoming-8090
-    http://www.whatdotheyknow.com/request/number_of_out_of_county_placemen_5#incoming-11248
+    http://www.whatdotheyknow.com/request/4635/response/11248/attach/html/4/FOI%20request.pdf.html
 Orientation wrong:
     http://www.whatdotheyknow.com/request/3153/response/7726/attach/html/2/258850.pdf.html
 Bug in wvHtml, segfaults when converting this:
@@ -424,7 +427,7 @@ Quoting fixing TODO:
     http://www.whatdotheyknow.com/request/can_my_mp_ask_questions_on_my_be#incoming-33112 # hyperlink broken
 
 Display pasted quotes in annotations better:
-http://www.whatdotheyknow.com/request/scientology_incidents#comment-3352
+    http://www.whatdotheyknow.com/request/scientology_incidents#comment-3352
 
 
 Totally new features
