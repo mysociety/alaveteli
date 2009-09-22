@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.226 2009-09-22 18:28:39 francis Exp $
+# $Id: incoming_message.rb,v 1.227 2009-09-22 19:16:35 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -320,17 +320,6 @@ class FOIAttachment
             elsif self.content_type == 'application/pdf'
                 IO.popen("/usr/bin/pdftohtml -nodrm -zoom 1.0 -stdout -enc UTF-8 -noframes " + tempfile.path + "", "r") do |child|
                     html = child.read()
-                end
-
-                # if pdftohtml failed (size zero is only way to detect this, as doesn't return error codes)
-                # try converting to postscript and back, to strip problems such as this error:
-                # "Error: Copying of text from this document is not allowed"
-                if html.size == 0
-                    system("/usr/bin/pdf2ps " + tempfile.path + " " + tempfile.path + ".ps")
-                    system("/usr/bin/ps2pdf " + tempfile.path + ".ps " + tempfile.path)
-                    IO.popen("/usr/bin/pdftohtml -nodrm -zoom 1.0 -stdout -enc UTF-8 -noframes " + tempfile.path + "", "r") do |child|
-                        html = child.read()
-                    end
                 end
             else
                 raise "No HTML conversion available for type " + self.content_type
