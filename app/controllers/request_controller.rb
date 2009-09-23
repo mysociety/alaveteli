@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.184 2009-09-18 02:50:47 francis Exp $
+# $Id: request_controller.rb,v 1.185 2009-09-23 22:22:20 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -302,7 +302,7 @@ class RequestController < ApplicationController
         end
         
         # TODO harmonise the next two methods?
-        if User.owns_every_request?(authenticated_user)
+        if User.owns_every_request?(authenticated_user) && !@is_owning_user
             flash[:notice] = '<p>The request status has been updated</p>'
             redirect_to session[:request_game] ? play_url : request_url(@info_request)
             return
