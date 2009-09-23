@@ -17,8 +17,7 @@ sharutils
 unzip
 libzip-ruby1.8
 libzlib-ruby
-mahoro-ruby1.8
-#libmahoro-ruby1.8
+mahoro-ruby1.8 | libmahoro-ruby1.8
 wdg-html-validator
 #libapache2-mod-passenger
 mutt
