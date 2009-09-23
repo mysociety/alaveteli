@@ -4,7 +4,8 @@ libopenssl-ruby1.8
 rake
 irb
 wv
-poppler-utils (>= 0.12.0)
+poppler-utils
+# poppler-utils (>= 0.12.0)
 pdftk
 gs-gpl
 catdoc
