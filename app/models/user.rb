@@ -24,7 +24,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: user.rb,v 1.105 2009-09-20 10:25:13 francis Exp $
+# $Id: user.rb,v 1.106 2009-10-01 01:43:36 francis Exp $
 
 require 'digest/sha1'
 
@@ -216,6 +216,15 @@ class User < ActiveRecord::Base
                 true, Time.now() - 1.day 
             ] 
         )
+    end
+
+    # Can the user make new requests, without having to describe state of (most) existing ones?
+    def can_leave_requests_undescribed?
+        # XXX should be flag in database really
+        if self.url_name == "heather_brooke" || self.url_name == "heather_brooke_2"
+            return true
+        end
+        return false
     end
 
     # Does the user magically gain powers as if they owned every request?

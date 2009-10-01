@@ -376,6 +376,7 @@ describe RequestController, "when making a new request" do
     before do
         @user = mock_model(User, :id => 3481, :name => 'Testy')
         @user.stub!(:get_undescribed_requests).and_return([])
+        @user.stub!(:can_leave_requests_undescribed?).and_return(false)
         @user.stub!(:can_file_requests?).and_return(true)
         User.stub!(:find).and_return(@user)
 
@@ -385,6 +386,7 @@ describe RequestController, "when making a new request" do
 
     it "should allow you to have one undescribed request" do
         @user.stub!(:get_undescribed_requests).and_return([ 1 ])
+        @user.stub!(:can_leave_requests_undescribed?).and_return(false)
         session[:user_id] = @user.id
         get :new, :public_body_id => @body.id
         response.should render_template('new')
@@ -392,9 +394,18 @@ describe RequestController, "when making a new request" do
 
     it "should fail if more than one request undescribed" do
         @user.stub!(:get_undescribed_requests).and_return([ 1, 2 ])
+        @user.stub!(:can_leave_requests_undescribed?).and_return(false)
         session[:user_id] = @user.id
         get :new, :public_body_id => @body.id
         response.should render_template('new_please_describe')
+    end
+
+    it "should allow you if more than one request undescribed but are allowed to leave requests undescribed" do
+        @user.stub!(:get_undescribed_requests).and_return([ 1, 2 ])
+        @user.stub!(:can_leave_requests_undescribed?).and_return(true)
+        session[:user_id] = @user.id
+        get :new, :public_body_id => @body.id
+        response.should render_template('new')
     end
 
     it "should fail if user is banned" do
