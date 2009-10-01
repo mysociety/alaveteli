@@ -526,7 +526,7 @@ describe RequestController, "when classifying an information request" do
         end
     end
     
-    describe 'when logged in as an admin user' do 
+    describe 'when logged in as an admin user who is not the actual requester' do 
     
         before do 
             @admin_user = users(:admin_user)
@@ -548,19 +548,62 @@ describe RequestController, "when classifying an information request" do
             @dog_request.should_receive(:log_event).with("status_update", expected_params)
             post_status('rejected')
         end
-        
-        it 'should show the message "The request status has been updated"' do 
+
+        it 'should send an email to the requester letting them know someone has updated the status of their request' do 
+            RequestMailer.should_receive(:deliver_old_unclassified_updated)
             post_status('rejected')
-            flash[:notice].should == '<p>The request status has been updated</p>'
         end
-        
-        it 'should redirect to the page that shows the request' do 
+
+        it 'should redirect to the request page' do 
             post_status('rejected')
             response.should redirect_to(:action => 'show', :controller => 'request', :url_title => @dog_request.url_title)
         end
 
-    end
+        it 'should show a message thanking the user for a good deed' do 
+            post_status('rejected')
+            flash[:notice].should == '<p>Thank you for updating this request!</p>'
+        end
+     end
+
+    describe 'when logged in as an admin user who is also the actual requester' do 
     
+        before do 
+            @admin_user = users(:admin_user)
+            session[:user_id] = @admin_user.id
+            @dog_request = info_requests(:fancy_dog_request)
+            @dog_request.user = @admin_user
+            @dog_request.save!
+            InfoRequest.stub!(:find).and_return(@dog_request)
+        end
+
+        it 'should update the status of the request' do 
+            @dog_request.stub!(:calculate_status).and_return('rejected')
+            @dog_request.should_receive(:set_described_state).with('rejected')
+            post_status('rejected')
+        end
+       
+        it 'should not log a status update event' do 
+            @dog_request.should_not_receive(:log_event)
+            post_status('rejected')
+        end
+
+        it 'should not send an email to the requester letting them know someone has updated the status of their request' do 
+            RequestMailer.should_not_receive(:deliver_old_unclassified_updated)
+            post_status('rejected')
+        end
+ 
+        it 'should say it is showing advice as to what to do next' do 
+            post_status('rejected')
+            flash[:notice].should match(/Here is what to do now/) 
+        end
+        
+        it 'should redirect to the unhappy page' do 
+            post_status('rejected')
+            response.should redirect_to(:controller => 'help', :action => 'unhappy', :url_title => @dog_request.url_title)
+        end
+
+    end
+ 
     describe 'when logged in as the requestor' do 
     
         before do 
@@ -604,7 +647,16 @@ describe RequestController, "when classifying an information request" do
             mail.body.should =~ /as needing admin/
             mail.from_addrs.to_s.should == @request_owner.name_and_email
         end
+
+        it 'should say it is showing advice as to what to do next' do 
+            post_status('rejected')
+            flash[:notice].should match(/Here is what to do now/) 
+        end
         
+        it 'should redirect to the unhappy page' do 
+            post_status('rejected')
+            response.should redirect_to(:controller => 'help', :action => 'unhappy', :url_title => @dog_request.url_title)
+        end
     end
     
     describe 'when redirecting after a successful status update by the request owner' do 

@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.186 2009-10-01 01:43:38 francis Exp $
+# $Id: request_controller.rb,v 1.187 2009-10-01 12:01:26 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -266,7 +266,7 @@ class RequestController < ApplicationController
         @old_unclassified = @info_request.is_old_unclassified? && !authenticated_user.nil?
         
         # Check authenticated, and parameters set. We check is_owning_user
-        # to get admin overrides (see owns_every_request? above)
+        # to get admin overrides (see is_owning_user? above)
         if !@old_unclassified && !@is_owning_user && !authenticated_as_user?(@info_request.user,
                 :web => "To classify the response to this FOI request",
                 :email => "Then you can classify the FOI response you have got from " + @info_request.public_body.name + ".",
@@ -292,30 +292,28 @@ class RequestController < ApplicationController
         old_described_state = @info_request.described_state
         @info_request.set_described_state(params[:incoming_message][:described_state])
         
-        # Log it if not made by user
-        if authenticated_user != @info_request.user
+        # If you're not the *actual* requester owner. e.g. you are playing the
+        # classification game, or you're doing this just because you are an
+        # admin user (not because you also own the request).
+        if !@info_request.is_actual_owning_user?(authenticated_user)
+            # Log what you did, for classification game score purposes. We
+            # don't log if you were the requester XXX This is presumably so you
+            # don't score for classifying your own requests. Could instead
+            # always log and filter at display time.
             @info_request.log_event("status_update", 
                 { :user_id => authenticated_user.id, 
                   :old_described_state => old_described_state, 
                   :described_state => @info_request.described_state,
                 })
-        end
-        
-        # TODO harmonise the next two methods?
-        if User.owns_every_request?(authenticated_user) && !@is_owning_user
-            flash[:notice] = '<p>The request status has been updated</p>'
-            redirect_to session[:request_game] ? play_url : request_url(@info_request)
-            return
-        end
-        
-        if @old_unclassified && !@is_owning_user
+            
+            # Don't give advice on what to do next, as it isn't their request
             flash[:notice] = '<p>Thank you for updating this request!</p>'
             RequestMailer.deliver_old_unclassified_updated(@info_request)
             redirect_to session[:request_game] ? play_url : request_url(@info_request)
             return
         end
 
-        # Display appropriate next page (e.g. help for complaint etc.)
+        # Display advice for requester on what to do next, as appropriate
         if @info_request.calculate_status == 'waiting_response'
             flash[:notice] = "<p>Thank you! Hopefully your wait isn't too long.</p> <p>By law, you should get a response before the end of <strong>" + simple_date(@info_request.date_response_required_by) + "</strong>.</p>"
             redirect_to request_url(@info_request)
