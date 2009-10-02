@@ -45,6 +45,9 @@ PID: 2036       CONSUME MEMORY: 129368 KB       Now: 179652 KB  http://www.whatd
 Next (things that will reduce admin time mainly)
 ====
 
+Somehow make clear that a "rejection because referring to info already
+in public domain" should really be marked sucessful.
+
 Install more recent poppler-utils
     e.g. 0.12.0 can definitely convert this to HTML, extacting the images:
     http://www.whatdotheyknow.com/request/13903/response/36117/attach/html/4/FOI%20beaver%20site%20species%20audit%20SNH%20review%20of%20proposal%20redact.pdf.html
@@ -387,6 +390,7 @@ Quoting fixing TODO:
     http://www.whatdotheyknow.com/request/operation_oasis_protester_databa#incoming-20922
 
     http://www.whatdotheyknow.com/request/new_bristol_city_stadium_plansci#incoming-44114 # funny forward not detected
+    http://www.whatdotheyknow.com/request/the_facts_about_side_effects_cau#incoming-6754 # "Communications via the GSi" should be stripped, so then subject would get shown
 
     Unclassified:
     http://www.whatdotheyknow.com/request/666/response/1020
