@@ -69,6 +69,7 @@
             I've received an <strong>error message</strong> 
             </label>
         </div>
+
         <% if @update_status %>
           <div>
              <%= radio_button "incoming_message", "described_state", "requires_admin", :id => 'requires_admin' + id_suffix %>
