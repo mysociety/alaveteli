@@ -23,9 +23,6 @@ Annotations are so anyone, including you, can help the requester with their requ
     <li> Advise on how to <strong>best clarify</strong> the request.</li>
 <% end %>
 
-<% if @info_request.awaiting_description %>
-<% end %>
-
 <% if not [ 'successful', 'partially_successful' ].include?(@info_request.described_state) %>
     <li> Link to the information requested, if it is <strong>already available</strong> on the Internet. </li>
     <li> Suggest <strong>where else</strong> the requester might find the information. </li>
@@ -44,6 +41,10 @@ Annotations are so anyone, including you, can help the requester with their requ
     <li> Point to <strong>related information</strong>, campaigns or forums which may be useful. </li>
 <% end %>
 
+<% if [ 'gone_postal' ].include?(@info_request.described_state) %>
+    <li> A <strong>summary</strong> of the response if you have received it by post. </li>
+<% end %>
+
 <% if [ 'not_held' ].include?(@info_request.described_state) %>
     <li> Ideas on what <strong>other documents to request</strong> which the authority may hold. </li>
 <% end %>
@@ -51,6 +52,9 @@ Annotations are so anyone, including you, can help the requester with their requ
     <li> Advise on whether the <strong>rejection is legal</strong>, and how to complain about it if not. </li>
 <% end %>
 
+<% if [ 'internal_review' ].include?(@info_request.described_state) %>
+    <li> <strong>Advice</strong> on how to get a response that will satisfy the requester. </li>
+<% end %>
 <% if [ 'error_message' ].include?(@info_request.described_state) %>
     <li> You know what caused the error, and can <strong>suggest a solution</strong>, such as a working email address. </li>
 <% end %>
