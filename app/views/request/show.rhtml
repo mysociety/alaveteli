@@ -59,16 +59,25 @@
         they <%= link_to "must respond", about_url + "#quickly_response" %> 
         promptly but no later than <strong><%= simple_date(@info_request.date_response_required_by) %></strong>.
     <% elsif @status == 'waiting_response_overdue' %>
-        Currently <strong>overdue a response</strong> from <%=
-        public_body_link(@info_request.public_body) %>. By law,
-        the response had to be prompt but
-        <%= link_to "no later", about_url + "#quickly_response" %>
-        than <strong><%= simple_date(@info_request.date_response_required_by) %></strong>.
-
-        <% if @info_request.days_overdue > 14 %>
-            They are <%= @info_request.days_overdue.to_i %> days late, you
-            can <strong>complain</strong> by
+        <% if @info_request.working_days_20_overdue? %>
+            This request is <strong>long overdue a response</strong>.
+            By law, <%= public_body_link(@info_request.public_body) %>
+            should normally have answered by 
+            <strong><%= simple_date(@info_request.date_response_required_by) %></strong>
+            (<%= link_to "more details", about_url + "#quickly_response" %>).
+            You can <strong>complain</strong> by
             <%= link_to "requesting an internal review", show_response_no_followup_url(:id => @info_request.id, :incoming_message_id => nil) + "?internal_review=1#followup" %>.
+        <% else %>
+            This request is <strong>overdue a response</strong>.
+            By law, <%= public_body_link(@info_request.public_body) %>
+            should normally have answered by 
+            <strong><%= simple_date(@info_request.date_response_required_by) %></strong>. 
+            If they need extra time they should have told you
+            why (<%= link_to "more details", about_url + "#quickly_response" %>).
+        <% end %>
+        <% if @info_request.public_body.is_school? %>
+            This is a school, so legally they get lots of extra slack if it is 
+            holiday time.
         <% end %>
 
     <% elsif @status == 'not_held' %>

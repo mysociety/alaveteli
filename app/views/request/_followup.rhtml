@@ -37,14 +37,23 @@
         <% end %>
 
         <% if @info_request.calculate_status == 'waiting_response_overdue' %>
-            <p>This request is currently <strong>overdue a response</strong> from <%=
-            public_body_link(@info_request.public_body) %>. 
-            By law, the response had to be prompt but no later than
-            <strong><%= simple_date(@info_request.date_response_required_by) %></strong>
-            (<%= link_to "more info", about_url + "#quickly_response" %>). You can say
-            that under the <%=h(@info_request.law_used_act)%> they should have replied by now,
-            and are breaking the law.
-            </p>
+            <p>
+            <% if @info_request.working_days_20_overdue? %>             
+                This request is <strong>long overdue a response</strong>.
+            <% else %>
+                This request is <strong>overdue a response</strong>.
+            <% end %>
+            You can say that, by law, the authority should have answered
+            <strong>promptly</strong>. If they have not given you a legal
+            reason why they need extra time
+            (<%= link_to "more details", about_url + "#quickly_response" %>), then
+            you can say they are breaking the law to have not replied by
+            <strong><%= simple_date(@info_request.date_response_required_by) %></strong>.
+            <% if @info_request.public_body.is_school? %>
+                This is a school, so legally they get lots of extra slack if it is 
+                holiday time.
+            <% end %>
+       </p>
         <% end %>
 
         <% form_for(:outgoing_message, @outgoing_message, :html => { :id => 'followup_form' }, :url => incoming_message.nil? ? show_response_no_followup_url(:id => @info_request.id) : show_response_url(:id => @info_request.id, :incoming_message_id => incoming_message.id)) do |o| %>

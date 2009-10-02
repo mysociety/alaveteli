@@ -817,7 +817,7 @@ describe RequestController, "sending overdue request alerts" do
         deliveries = ActionMailer::Base.deliveries
         deliveries.size.should == 1
         mail = deliveries[0]
-        mail.body.should =~ /20 working days/
+        mail.body.should =~ /promptly, as required by law/
         mail.to_addrs.to_s.should == info_requests(:naughty_chicken_request).user.name_and_email
 
         mail.body =~ /(http:\/\/.*\/c\/(.*))/

@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.187 2009-10-01 12:01:26 francis Exp $
+# $Id: request_controller.rb,v 1.188 2009-10-02 22:56:34 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -315,10 +315,10 @@ class RequestController < ApplicationController
 
         # Display advice for requester on what to do next, as appropriate
         if @info_request.calculate_status == 'waiting_response'
-            flash[:notice] = "<p>Thank you! Hopefully your wait isn't too long.</p> <p>By law, you should get a response before the end of <strong>" + simple_date(@info_request.date_response_required_by) + "</strong>.</p>"
+            flash[:notice] = "<p>Thank you! Hopefully your wait isn't too long.</p> <p>By law, you should get a response promptly, and normally before the end of <strong>" + simple_date(@info_request.date_response_required_by) + "</strong>.</p>"
             redirect_to request_url(@info_request)
         elsif @info_request.calculate_status == 'waiting_response_overdue'
-            flash[:notice] = "<p>Thank you! Hope you don't have to wait much longer.</p> <p>By law, you should have got a response before the end of <strong>" + simple_date(@info_request.date_response_required_by) + "</strong>.</p>"
+            flash[:notice] = "<p>Thank you! Hope you don't have to wait much longer.</p> <p>By law, you should have got a response promptly, and normally before the end of <strong>" + simple_date(@info_request.date_response_required_by) + "</strong>.</p>"
             redirect_to request_url(@info_request)
         elsif @info_request.calculate_status == 'not_held'
             flash[:notice] = "<p>Thank you! Here are some ideas on what to do next:</p>

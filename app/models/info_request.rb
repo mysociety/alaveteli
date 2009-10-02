@@ -24,7 +24,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.208 2009-10-01 12:01:26 francis Exp $
+# $Id: info_request.rb,v 1.209 2009-10-02 22:56:35 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -558,8 +558,9 @@ public
         return Holiday.due_date_from(last_sent.outgoing_message.last_sent_at)
     end
 
-    def days_overdue
-        return Time.now.to_date - date_response_required_by.to_date
+    # Are we more than 20 working days overdue?
+    def working_days_20_overdue?
+        return Holiday.due_date_from(date_response_required_by.to_date, 20) <= Time.now.to_date
     end
 
     # Where the initial request is sent to

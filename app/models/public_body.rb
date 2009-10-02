@@ -26,7 +26,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: public_body.rb,v 1.159 2009-09-17 21:10:05 francis Exp $
+# $Id: public_body.rb,v 1.160 2009-10-02 22:56:35 francis Exp $
 
 require 'csv'
 require 'set'
@@ -279,6 +279,11 @@ class PublicBody < ActiveRecord::Base
         else
             return "FOI"
         end
+    end
+
+    # Schools are allowed more time in holidays, so we change some wordings
+    def is_school?
+        return self.has_tag?('school')
     end
 
     # The "internal admin" is a special body for internal use.

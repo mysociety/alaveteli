@@ -21,20 +21,20 @@
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: holiday.rb,v 1.8 2009-09-17 21:30:15 francis Exp $
+# $Id: holiday.rb,v 1.9 2009-10-02 22:56:35 francis Exp $
 
 class Holiday < ActiveRecord::Base
 
     # Calculate the date on which a request made on a given date falls due.
     # i.e. it is due by the end of that day.
-    def Holiday.due_date_from(start_date)
+    def Holiday.due_date_from(start_date, working_days = 20)
         # convert date/times into dates
         start_date = start_date.to_date
 
         # TODO only fetch holidays after the start_date
         holidays = self.all.collect { |h| h.day }.to_set
 
-        # Count forward 20 working days. We start with today as "day zero". The
+        # Count forward (20) working days. We start with today as "day zero". The
         # first of the twenty full working days is the next day. We return the
         # date of the last of the twenty.
         
@@ -47,7 +47,7 @@ class Holiday < ActiveRecord::Base
         response_required_by = start_date
 
         # Now step forward into each of the 20 days.
-        while days_passed < 20
+        while days_passed < working_days
             response_required_by += 1.day
             next if response_required_by.wday == 0 || response_required_by.wday == 6 # weekend
             next if holidays.include?(response_required_by)
