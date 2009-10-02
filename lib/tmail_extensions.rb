@@ -4,7 +4,7 @@
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: tmail_extensions.rb,v 1.6 2009-09-08 04:12:09 francis Exp $
+# $Id: tmail_extensions.rb,v 1.7 2009-10-02 23:31:01 francis Exp $
 
 # Monkeypatch!
 
@@ -41,6 +41,9 @@ module TMail
         # Monkeypatch! Constructor which makes a TMail::Address given
         # a name and an email
         def Address.address_from_name_and_email(name, email)
+            if !MySociety::Validate.is_valid_email(email)
+                raise "invalid email " + email + " passed to address_from_name_and_email"    
+            end
             if name.nil?
                 return TMail::Address.parse(email)
             end
