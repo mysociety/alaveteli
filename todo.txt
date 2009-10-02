@@ -45,12 +45,6 @@ alerts to requester.
 Offer user_withdrawn as option in many GUI?
 
 
-Change text so that overdue covers qualified exemption of public interest test being
-valid reason for delay.
-
-Allow for deadline extension for schools.
-
-
 Put the request from address in the database, 
     XXX not so sure about that, as need fuzzy rule for matching/guessing according to type
 then change the rule for making it.
@@ -219,9 +213,6 @@ CSS / design things
     - Get Atom feed of search results to include stylesheet for highlighting words in
       yellow somehow
 
-Would be nice if you try and send or resend from admin interface and address is
-set to not_apply, defunct or "" that it deals with it better :) 
-
 When doing search, people often just want it to show the whole page. Perhaps
 all listing should just link to top of page, rather than # links for outgoing
 incoming, or perhaps just some of them.
@@ -230,22 +221,9 @@ Help page improvements:
     Needs to say somewhere in flow that you can make a request privately (I think quite a 
        few people get to us via Google and don't realise that they can)
     Add "Who should I make my request to?" - make flow better after first section, to abrupt now
-    I think the advice in this annotation could go into a nice comment:
-      http://www.whatdotheyknow.com/request/berr_response_to_eu_on_phorm_bt#comment-356
     Some more traditional help such as:
         * Information about how to track requests and RSS feeds 
         * Information about how to contacting other users
-
-Link the overdue date to an explanation of what bank holidays it skipped etc.
-:)
-
-Should probably remove the weekend rule, and be sterner with authorities about
-what "received" means. See thread about staff_numbers_and_costs on team@ ad
-these two requests:
-    http://www.whatdotheyknow.com/request/staff_numbers_and_costs
-    http://www.whatdotheyknow.com/request/policy_regarding_body_scans#incoming-1100
-Remember to update help:
-    http://www.whatdotheyknow.com/help/about/#days
 
 Show similar requests after you have filed yours - maybe on preview too.
 
@@ -267,10 +245,6 @@ Also should group by the request id for search queries (so all appear
 together when request and response mention same term)
 
 Something to check which tags are used but aren't in PublicBody category lists
-
-Catch query parser error, e.g. for this query
-    water NOT NEAR "water lane"
-Document such errors in acts_as_xapian
 
 Compress the emails in the database
 Don't store the cached text in backups

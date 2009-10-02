@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: general_controller.rb,v 1.55 2009-09-09 23:52:05 francis Exp $
+# $Id: general_controller.rb,v 1.56 2009-10-02 23:44:45 francis Exp $
 
 require 'xmlsimple'
 require 'open-uri'
@@ -103,7 +103,13 @@ class GeneralController < ApplicationController
             # Parse query, so can work out if it has prefix terms only - if so then it is a
             # structured query which should show newest first, rather than a free text search
             # where we want most relevant as default.
-            dummy_query = ::ActsAsXapian::Search.new([InfoRequestEvent], @query, :limit => 1)
+            begin
+                dummy_query = ::ActsAsXapian::Search.new([InfoRequestEvent], @query, :limit => 1)
+            rescue => e
+                flash[:error] = "Your query was not quite right. " + CGI.escapeHTML(e.to_str)
+                redirect_to search_url("")
+                return
+            end
             if dummy_query.has_normal_search_terms?
                 @sortby = 'relevant'
             else
