@@ -1,6 +1,6 @@
  * Email: angie@mysociety.org; WWW: http://www.mysociety.org
  *
- * $Id: INSTALL.txt,v 1.9 2009-03-12 11:58:53 tony Exp $
+ * $Id: INSTALL.txt,v 1.10 2009-10-02 13:17:59 francis Exp $
  * 
 
 
@@ -120,4 +120,21 @@ Obviously change 10.0.0.11 to your own IP address
 
 The server should have told you the URL to access in your browser to see
 the site in action.
+
+6. Administrator privileges
+---------------------------
+
+By default, anyone can access the administrator pages without authentication.
+They are under the URL /admin.
+
+At mySociety, we use a separate layer of HTTP basic authentication, proxied
+over HTTPS, to check who is allowed to use the administrator pages. You might
+like to do something similar.
+
+Alternatively, update the code so that
+* By default, admin pages use normal site authentication (checking user admin
+level 'super').
+* Create an option in config/general which lest mySociety override that
+behaviour.
+And send us the patch!
 
