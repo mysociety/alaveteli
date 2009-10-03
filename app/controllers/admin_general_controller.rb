@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: admin_general_controller.rb,v 1.11 2009-10-01 00:20:56 francis Exp $
+# $Id: admin_general_controller.rb,v 1.12 2009-10-03 01:28:33 francis Exp $
 
 class AdminGeneralController < AdminController
     def index
@@ -25,8 +25,7 @@ class AdminGeneralController < AdminController
         @error_message_requests = InfoRequest.find(:all, :select => '*, ' + InfoRequest.last_event_time_clause + ' as last_event_time', :conditions => ["described_state = 'error_message'"], :order => "last_event_time")
         @blank_contacts = PublicBody.find(:all, :conditions => ["request_email = ''"], :order => "updated_at")
         @old_unclassified = InfoRequest.find_old_unclassified(:limit => 20, 
-                                                                       :conditions => ["prominence = 'normal'"],
-                                                                       :age_in_days => 10)
+                                                                       :conditions => ["prominence = 'normal'"])
         @holding_pen_messages = InfoRequest.holding_pen_request.incoming_messages
     end
 

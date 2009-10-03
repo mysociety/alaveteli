@@ -4,7 +4,7 @@
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_game_controller.rb,v 1.3 2009-08-26 23:13:28 francis Exp $
+# $Id: request_game_controller.rb,v 1.4 2009-10-03 01:28:33 francis Exp $
 
 class RequestGameController < ApplicationController
     
@@ -20,7 +20,7 @@ class RequestGameController < ApplicationController
 
         session[:request_game] = Time.now
 
-        old = InfoRequest.find_old_unclassified(:conditions => ["prominence = 'normal'"], :age_in_days => 10)
+        old = InfoRequest.find_old_unclassified(:conditions => ["prominence = 'normal'"])
         @missing = old.size
         @requests = old.sort_by{ rand }.slice(0..2)
 
