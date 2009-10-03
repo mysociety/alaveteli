@@ -2,9 +2,10 @@
 
 <h2>Play the request categorisation game!</h2>
 
-<p>Hi! We need your help. We have <%= @missing %> requests which have had a
-response, but where the person who made them hasn't told us whether or not they
-were successful. </p>
+<p>Hi! We need your help. We have <%= pluralize(@missing, "request") %> which had a
+response more than <%=InfoRequest::OLD_AGE_IN_DAYS.inspect %> ago, but where
+the person who made them hasn't told us whether or not they were successful.
+</p>
 
 <p>We would be exceedingly grateful if you could choose one of these requests,
 read it, and let everyone know whether or not the information has been

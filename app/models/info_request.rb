@@ -24,7 +24,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.209 2009-10-02 22:56:35 francis Exp $
+# $Id: info_request.rb,v 1.210 2009-10-03 01:22:30 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -90,7 +90,7 @@ class InfoRequest < ActiveRecord::Base
         'blackhole' # just dump them
     ]
     
-    OLD_AGE_IN_DAYS = 14.days
+    OLD_AGE_IN_DAYS = 21.days
 
     def after_initialize
         if self.described_state.nil?

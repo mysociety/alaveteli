@@ -72,7 +72,7 @@
 <% end %>
 
 <% if @old_unclassified.size > 0 %>
-    <h3>Classify responses that are still unclassified ten days after response</h3>
+    <h3>Classify responses that are still unclassified <%=InfoRequest::OLD_AGE_IN_DAYS.inspect %> after response</h3>
 
     <ul>
     <% for @request in @old_unclassified %>
