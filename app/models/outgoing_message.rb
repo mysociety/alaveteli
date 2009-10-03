@@ -22,7 +22,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: outgoing_message.rb,v 1.92 2009-10-03 10:04:06 francis Exp $
+# $Id: outgoing_message.rb,v 1.93 2009-10-03 10:05:55 francis Exp $
 
 class OutgoingMessage < ActiveRecord::Base
     strip_attributes!
@@ -225,7 +225,7 @@ class OutgoingMessage < ActiveRecord::Base
     def new_get_body_for_html_display
         text = self.body.strip
         self.remove_privacy_sensitive_things!(text)
-        #text = MySociety::Format.wrap_email_body(text, 67, "     ", "\n") # reparagraph and wrap it so is good preview of emails
+        text = MySociety::Format.wrap_email_body(text, 67, "     ", "\n") # reparagraph and wrap it so is good preview of emails
         text = CGI.escapeHTML(text)
         text = MySociety::Format.make_clickable(text, :contract => 1)
         text.gsub!(/\[(email address|mobile number)\]/, '[<a href="/help/about#mobiles">\1</a>]')
