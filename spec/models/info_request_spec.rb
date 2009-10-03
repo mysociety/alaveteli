@@ -221,16 +221,16 @@ describe InfoRequest do
                   {:select=> anything, 
                    :order=> anything, 
                    :conditions=>["awaiting_description = ? and (select created_at from info_request_events where info_request_events.info_request_id = info_requests.id and info_request_events.event_type = 'response' order by created_at desc limit 1) < ? and url_title != 'holding_pen' and prominence != 'backpage'", 
-                    true, Time.now - 14.days]})
+                    true, Time.now - 21.days]})
             InfoRequest.find_old_unclassified({:conditions => ["prominence != 'backpage'"]})
         end
         
-        it 'should ask the database for requests that are awaiting description, have a last response older than 14 days old, are not the holding pen and are not backpaged' do 
+        it 'should ask the database for requests that are awaiting description, have a last response older than 21 days old, are not the holding pen and are not backpaged' do 
             InfoRequest.should_receive(:find).with(:all, 
                   {:select=>"*, (select created_at from info_request_events where info_request_events.info_request_id = info_requests.id and info_request_events.event_type = 'response' order by created_at desc limit 1) as last_response_time", 
                    :order=>"last_response_time", 
                    :conditions=>["awaiting_description = ? and (select created_at from info_request_events where info_request_events.info_request_id = info_requests.id and info_request_events.event_type = 'response' order by created_at desc limit 1) < ? and url_title != 'holding_pen'", 
-                    true, Time.now - 14.days]})
+                    true, Time.now - 21.days]})
             InfoRequest.find_old_unclassified
         end
         
@@ -240,8 +240,8 @@ describe InfoRequest do
         
         before do 
             Time.stub!(:now).and_return(Time.utc(2007, 11, 9, 23, 59))
-            @mock_comment_event = mock_model(InfoRequestEvent, :created_at => Time.now - 16.days, :event_type => 'comment')
-            @mock_response_event = mock_model(InfoRequestEvent, :created_at => Time.now - 15.days, :event_type => 'response')
+            @mock_comment_event = mock_model(InfoRequestEvent, :created_at => Time.now - 23.days, :event_type => 'comment')
+            @mock_response_event = mock_model(InfoRequestEvent, :created_at => Time.now - 22.days, :event_type => 'response')
             @info_request = InfoRequest.new(:prominence => 'normal', 
                                             :awaiting_description => true, 
                                             :info_request_events => [@mock_response_event, @mock_comment_event])
@@ -257,12 +257,12 @@ describe InfoRequest do
             @info_request.is_old_unclassified?.should be_false
         end
         
-        it 'should return false if its last response event occurred less than 14 days ago' do 
-            @mock_response_event.stub!(:created_at).and_return(Time.now - 13.days)
+        it 'should return false if its last response event occurred less than 21 days ago' do 
+            @mock_response_event.stub!(:created_at).and_return(Time.now - 20.days)
             @info_request.is_old_unclassified?.should be_false
         end
         
-        it 'should return true if it is awaiting description, isn\'t the holding pen and hasn\'t had an event in 14 days' do 
+        it 'should return true if it is awaiting description, isn\'t the holding pen and hasn\'t had an event in 21 days' do 
             @info_request.is_old_unclassified?.should be_true
         end
         

@@ -4,7 +4,7 @@
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_game_controller.rb,v 1.4 2009-10-03 01:28:33 francis Exp $
+# $Id: request_game_controller.rb,v 1.5 2009-10-03 01:42:01 francis Exp $
 
 class RequestGameController < ApplicationController
     
@@ -30,7 +30,6 @@ class RequestGameController < ApplicationController
         end
     end
 
-    # Requests similar to this one
     def stop
         session[:request_game] = nil
         flash[:notice] = 'Thank you for helping us keep the site tidy!'
