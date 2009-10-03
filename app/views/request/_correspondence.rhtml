@@ -40,6 +40,10 @@ elsif info_request_event.event_type == 'sent' || info_request_event.event_type =
         </h2>
 
         <%= render :partial => 'bubble', :locals => { :body => outgoing_message.get_body_for_html_display(), :attachments => nil }  %>
+        <% if params[:test_new_format] %>
+        <hr>
+        <%= render :partial => 'bubble', :locals => { :body => outgoing_message.new_get_body_for_html_display(), :attachments => nil }  %>
+        <% end %>
 
         <p class="event_actions"> 
             <% if outgoing_message.status == 'ready' %>
