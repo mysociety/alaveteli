@@ -29,7 +29,7 @@
        <% end %>
        <%= submit_tag "Search" %>
        <% if not @show_tips %>
-           &nbsp;&nbsp;<a href="/search">Search tips</a>
+           &nbsp;&nbsp;<a href="/search">Advanced search tips</a>
        <% end %>
    </p>
 <% end %>
@@ -106,7 +106,7 @@
 <% end %>
 
 <% if @show_tips %>
-    <h2>Search tips</h2>
+    <h2>Advanced search tips</h2>
     <ul>
     <li>Enter words that you want to find separated by spaces, e.g. <strong><%=search_link('climbing lane')%></strong></li>
     <li>Use OR (in capital letters) where you don't mind which word,  e.g. <strong><%=search_link('commons OR lords')%></strong>
