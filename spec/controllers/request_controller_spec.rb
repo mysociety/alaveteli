@@ -832,6 +832,17 @@ describe RequestController, "sending overdue request alerts" do
         assigns[:info_request].should == info_requests(:naughty_chicken_request)
     end
 
+    it "should send not actualy send the overdue alert if the user is banned" do
+        user = info_requests(:naughty_chicken_request).user
+        user.ban_text = 'Banned'
+        user.save!
+
+        RequestMailer.alert_overdue_requests
+
+        deliveries = ActionMailer::Base.deliveries
+        deliveries.size.should == 0
+    end
+
 end
 
 describe RequestController, "sending unclassified new response reminder alerts" do
@@ -842,7 +853,7 @@ describe RequestController, "sending unclassified new response reminder alerts" 
         RequestMailer.alert_new_response_reminders
 
         deliveries = ActionMailer::Base.deliveries
-        deliveries.size.should == 2 # sufficiently late it sends reminder too
+        deliveries.size.should == 3 # sufficiently late it sends reminders too
         mail = deliveries[0]
         mail.body.should =~ /To let us know/
         mail.to_addrs.to_s.should == info_requests(:fancy_dog_request).user.name_and_email
@@ -890,6 +901,24 @@ describe RequestController, "clarification required alerts" do
 
         response.should render_template('show_response')
         assigns[:info_request].should == info_requests(:fancy_dog_request)
+    end
+
+    it "should not send an alert if you are banned" do
+        ir = info_requests(:fancy_dog_request)
+        ir.set_described_state('waiting_clarification')
+
+        ir.user.ban_text = 'Banned'
+        ir.user.save!
+
+        # this is pretty horrid, but will do :) need to make it waiting
+        # clarification more than 3 days ago for the alerts to go out.
+        ActiveRecord::Base.connection.update "update info_requests set updated_at = '" + (Time.now - 5.days).strftime("%Y-%m-%d %H:%M:%S") + "' where id = " + ir.id.to_s
+        ir.reload
+
+        RequestMailer.alert_not_clarified_request
+
+        deliveries = ActionMailer::Base.deliveries
+        deliveries.size.should == 0
     end
 
 end

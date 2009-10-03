@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.86 2009-10-03 02:22:18 francis Exp $
+# $Id: request_mailer.rb,v 1.87 2009-10-03 09:47:16 francis Exp $
 
 class RequestMailer < ApplicationMailer
     
@@ -270,14 +270,18 @@ class RequestMailer < ApplicationMailer
                 # For now, just to the user who created the request
                 sent_already = UserInfoRequestSentAlert.find(:first, :conditions => [ "alert_type = 'overdue_1' and user_id = ? and info_request_id = ? and info_request_event_id = ?", info_request.user_id, info_request.id, alert_event_id])
                 if sent_already.nil?
-                    # Alert not yet sent for this user
+                    # Alert not yet sent for this user, so send it
                     #STDERR.puts "sending overdue alert to info_request " + info_request.id.to_s + " user " + info_request.user_id.to_s + " event " + alert_event_id
                     store_sent = UserInfoRequestSentAlert.new
                     store_sent.info_request = info_request
                     store_sent.user = info_request.user
                     store_sent.alert_type = 'overdue_1'
                     store_sent.info_request_event_id = alert_event_id
-                    RequestMailer.deliver_overdue_alert(info_request, info_request.user)
+                    # Only send the alert if the user can act on it by making a followup
+                    # (otherwise they are banned, and there is no point sending it)
+                    if info_request.user.can_make_followup?
+                        RequestMailer.deliver_overdue_alert(info_request, info_request.user)
+                    end
                     store_sent.save!
                     #STDERR.puts "sent " + info_request.user.email
                 end
@@ -343,7 +347,11 @@ class RequestMailer < ApplicationMailer
                 store_sent.user = info_request.user
                 store_sent.alert_type = 'not_clarified_1'
                 store_sent.info_request_event_id = alert_event_id
-                RequestMailer.deliver_not_clarified_alert(info_request, last_response_message)
+                # Only send the alert if the user can act on it by making a followup
+                # (otherwise they are banned, and there is no point sending it)
+                if info_request.user.can_make_followup?
+                    RequestMailer.deliver_not_clarified_alert(info_request, last_response_message)
+                end
                 store_sent.save!
                 #STDERR.puts "sent " + info_request.user.email
             end

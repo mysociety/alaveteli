@@ -118,6 +118,7 @@ describe TrackMailer do
             mail = deliveries[0]
 
             mail['Auto-Submitted'].to_s.should == 'auto-generated'
+            mail['Precedence'].to_s.should == 'bulk'
         end
     end
 

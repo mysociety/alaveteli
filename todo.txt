@@ -59,6 +59,7 @@ julian.todd@section44.whatdotheyknow.com
 * Use FOI code allocated by authority to work out where emails are to go
 * Second request to same authority by same person - tell them to be sure
 to use the right email
+* Improve routing from Exim so copes with addresses not having request- prefix.
 
 check-recent-requests-sent probably doesn't work, as exim log lines wouldn't
 be load in case where the envelope from gets broken?
@@ -78,6 +79,9 @@ and resend messages to them
 
 Perhaps fold up request pages more by default - don't show known acknowledgements until
 you click and some (javascript) expands them.
+
+Some people want the fold/unfold of quoted sections to be javascripty as well.
+Esp. when filling in a form on the same page.
 
 Somehow make clear that a "rejection because referring to info already
 in public domain" should really be marked sucessful.
@@ -403,6 +407,8 @@ Do conversion tracking on endpoints in WDTK, advertise perhaps TWFY, or perhaps
     donations to mySociety.
 Advertise WDTK search queries on TWFY
 Advertise alerts on end pages with WDTK
+
+Forms to search this user, this request, and this authority on their pages
 
 Search FAQ and other help pages with normal search
 
