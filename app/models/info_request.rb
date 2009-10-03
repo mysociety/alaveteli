@@ -24,7 +24,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.211 2009-10-03 10:23:44 francis Exp $
+# $Id: info_request.rb,v 1.212 2009-10-03 10:32:32 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -876,7 +876,7 @@ public
 
     # Returns a random FOI request
     def InfoRequest.random
-        max_id = InfoRequest.connection.execute('select max(id) from info_requests')[0]['max'].to_i
+        max_id = InfoRequest.connection.select_value('select max(id) as a from info_requests').to_i
         info_request = nil
         count = 0
         while info_request.nil?:
