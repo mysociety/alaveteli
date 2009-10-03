@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: track_mailer.rb,v 1.22 2009-09-20 10:24:56 francis Exp $
+# $Id: track_mailer.rb,v 1.23 2009-10-03 02:50:11 francis Exp $
 
 class TrackMailer < ApplicationMailer
     def event_digest(user, email_about_things)
@@ -15,7 +15,8 @@ class TrackMailer < ApplicationMailer
         unsubscribe_url = confirm_url(:email_token => post_redirect.email_token)
 
         @from = contact_from_name_and_email
-        headers 'Auto-Submitted' => 'auto-generated' # http://tools.ietf.org/html/rfc3834
+        headers 'Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
+                'Precedence' => 'bulk' # http://www.vbulletin.com/forum/project.php?issueid=27687 (Exchange hack)
         # 'Return-Path' => blackhole_email, 'Reply-To' => @from # we don't care about bounces for tracks
         # (We let it return bounces for now, so we can manually kill the tracks that bounce so Yahoo
         # etc. don't decide we are spammers.)
