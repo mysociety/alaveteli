@@ -24,7 +24,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.210 2009-10-03 01:22:30 francis Exp $
+# $Id: info_request.rb,v 1.211 2009-10-03 10:23:44 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -431,7 +431,7 @@ public
 
     # states which require administrator action (hence email administrators
     # when they are entered, and offer state change dialog to them)
-    def self.requires_admin_states
+    def InfoRequest.requires_admin_states
         return ['requires_admin', 'error_message']
     end
 
@@ -867,11 +867,30 @@ public
     end
 
     # This is called from cron regularly.
-    def self.stop_new_responses_on_old_requests
+    def InfoRequest.stop_new_responses_on_old_requests
         # 6 months since last change to request, only allow new incoming messages from authority domains
         InfoRequest.update_all "allow_new_responses_from = 'authority_only' where updated_at < (now() - interval '6 months') and allow_new_responses_from = 'anybody'"
         # 1 year since last change requests, don't allow any new incoming messages
         InfoRequest.update_all "allow_new_responses_from = 'nobody' where updated_at < (now() - interval '1 year') and allow_new_responses_from in ('anybody', 'authority_only')"
+    end
+
+    # Returns a random FOI request
+    def InfoRequest.random
+        max_id = InfoRequest.connection.execute('select max(id) from info_requests')[0]['max'].to_i
+        info_request = nil
+        count = 0
+        while info_request.nil?:
+            if count > 100
+                return nil
+            end
+            id = rand(max_id) + 1
+            begin
+                count += 1
+                info_request = find(id, :conditions => ["prominence = 'normal'"])
+            rescue ActiveRecord::RecordNotFound
+            end
+        end
+        return info_request
     end
 end
 

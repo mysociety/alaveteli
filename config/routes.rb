@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: routes.rb,v 1.90 2009-09-09 23:52:06 francis Exp $
+# $Id: routes.rb,v 1.91 2009-10-03 10:23:44 francis Exp $
 
 ActionController::Routing::Routes.draw do |map|
 
@@ -24,6 +24,8 @@ ActionController::Routing::Routes.draw do |map|
         # and dots and other characters that can appear in search query. So we sort it all
         # out in the controller.
         general.search_general '/search/*combined',      :action => 'search'
+
+        general.random_request '/random', :action => 'random_request'
 
         general.fai_test '/test', :action => 'fai_test'
     end
@@ -46,6 +48,7 @@ ActionController::Routing::Routes.draw do |map|
         request.info_request_event '/request_event/:info_request_event_id', :action => 'show_request_event'
 
         request.upload_response "/upload/request/:url_title", :action => 'upload_response'
+
     end
 
     map.with_options :controller => 'user' do |user|

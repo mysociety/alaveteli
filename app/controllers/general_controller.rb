@@ -5,7 +5,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: general_controller.rb,v 1.56 2009-10-02 23:44:45 francis Exp $
+# $Id: general_controller.rb,v 1.57 2009-10-03 10:23:43 francis Exp $
 
 require 'xmlsimple'
 require 'open-uri'
@@ -136,6 +136,12 @@ class GeneralController < ApplicationController
 
         @track_thing = TrackThing.create_track_for_search_query(@query)
         @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss] } ]
+    end
+
+    # Jump to a random request
+    def random_request
+        info_request = InfoRequest.random
+        redirect_to request_url(info_request)
     end
 
     # For debugging
