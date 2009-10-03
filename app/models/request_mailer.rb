@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.85 2009-09-08 23:48:29 francis Exp $
+# $Id: request_mailer.rb,v 1.86 2009-10-03 02:22:18 francis Exp $
 
 class RequestMailer < ApplicationMailer
     
@@ -173,7 +173,7 @@ class RequestMailer < ApplicationMailer
         headers 'Return-Path' => blackhole_email, 'Reply-To' => @from, # not much we can do if the user's email is broken
                 'Auto-Submitted' => 'auto-generated' # http://tools.ietf.org/html/rfc3834
         @recipients = info_request.user.name_and_email
-        @subject = "Was the response you got the other day any good?"
+        @subject = "Was the response you got to your FOI request any good?"
         @body = { :incoming_message => incoming_message, :info_request => info_request, :url => url }
     end
 
@@ -286,10 +286,11 @@ class RequestMailer < ApplicationMailer
     end
 
     # Send email alerts for new responses which haven't been classified. Goes
-    # out 3 days after last update of event, then after 7.
+    # out 3 days after last update of event, then after 7, then after 24.
     def self.alert_new_response_reminders
         self.alert_new_response_reminders_internal(3, 'new_response_reminder_1')
-        self.alert_new_response_reminders_internal(7, 'new_response_reminder_2')
+        self.alert_new_response_reminders_internal(10, 'new_response_reminder_2')
+        self.alert_new_response_reminders_internal(24, 'new_response_reminder_3')
     end
     def self.alert_new_response_reminders_internal(days_since, type_code)
         #STDERR.puts "alert_new_response_reminders_internal days:" + days_since.to_s + " type: " + type_code
