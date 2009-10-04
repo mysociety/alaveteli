@@ -15,6 +15,7 @@ describe RequestMailer, " when receiving incoming mail" do
         deliveries.size.should == 1
         mail = deliveries[0]
         mail.to.should == [ 'bob@localhost' ] # to the user who sent fancy_dog_request
+        STDERR.puts "=====" + mail.body + "======"
         deliveries.clear
     end
     
@@ -144,7 +145,7 @@ describe RequestMailer, " when receiving incoming mail" do
 #{long_url}
 
 And a paragraph afterwards."
-        wrapped = MySociety::Format.wrap_email_body(body)
+        wrapped = MySociety::Format.wrap_email_body_by_paragraphs(body)
         wrapped.should include(long_url)
     end
 end

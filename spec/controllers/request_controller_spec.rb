@@ -314,6 +314,7 @@ describe RequestController, "when creating a new request" do
         deliveries.size.should == 1
         mail = deliveries[0]
         mail.body.should =~ /This is a silly letter. It is too short to be interesting./
+        STDERR.puts "=====" + mail.body + "======"
 
         response.should redirect_to(:action => 'show', :url_title => ir.url_title)
     end

@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request_event.rb,v 1.93 2009-09-20 12:17:14 francis Exp $
+# $Id: info_request_event.rb,v 1.94 2009-10-04 21:42:07 francis Exp $
 
 class InfoRequestEvent < ActiveRecord::Base
     belongs_to :info_request
@@ -227,9 +227,9 @@ class InfoRequestEvent < ActiveRecord::Base
             if old_value != new_value:
                 ret = ret + "<em>" + CGI.escapeHTML(key) + ":</em> " 
                 ret = ret + 
-                      CGI.escapeHTML(MySociety::Format.wrap_email_body(old_value).strip).gsub(/\n/, '<br>') + 
+                      CGI.escapeHTML(MySociety::Format.wrap_email_body_by_lines(old_value).strip).gsub(/\n/, '<br>') + 
                         " => " + 
-                      CGI.escapeHTML(MySociety::Format.wrap_email_body(new_value).strip).gsub(/\n/, '<br>')
+                      CGI.escapeHTML(MySociety::Format.wrap_email_body_by_lines(new_value).strip).gsub(/\n/, '<br>')
                 ret = ret + "<br>"
             end
         end
@@ -238,8 +238,6 @@ class InfoRequestEvent < ActiveRecord::Base
             ret = ret + CGI.escapeHTML(value.to_s.strip) 
             ret = ret + "<br>"
         end
-        # ret = ret + CGI.escapeHTML(a.to_s) + ":" + CGI.escapeHTML(b.to_s) + "<br>"
-        # ret = ret + self.params.to_yaml
         return ret
     end
 

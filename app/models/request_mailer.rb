@@ -4,12 +4,13 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.87 2009-10-03 09:47:16 francis Exp $
+# $Id: request_mailer.rb,v 1.88 2009-10-04 21:42:07 francis Exp $
 
 class RequestMailer < ApplicationMailer
     
     # Email to public body requesting info
     def initial_request(info_request, outgoing_message)
+        @wrap_lines_as_paragraphs = true
         @from = info_request.incoming_name_and_email
         @recipients = info_request.recipient_name_and_email
         @subject    = info_request.email_subject_request
@@ -19,6 +20,7 @@ class RequestMailer < ApplicationMailer
 
     # Later message to public body regarding existing request
     def followup(info_request, outgoing_message, incoming_message_followup)
+        @wrap_lines_as_paragraphs = true
         @from = info_request.incoming_name_and_email
         @recipients = RequestMailer.name_and_email_for_followup(info_request, incoming_message_followup)
         @subject    = RequestMailer.subject_for_followup(info_request, outgoing_message)
