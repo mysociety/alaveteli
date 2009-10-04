@@ -15,7 +15,7 @@ describe RequestMailer, " when receiving incoming mail" do
         deliveries.size.should == 1
         mail = deliveries[0]
         mail.to.should == [ 'bob@localhost' ] # to the user who sent fancy_dog_request
-        STDERR.puts "=====" + mail.body + "======"
+        #STDERR.puts "=====" + mail.body + "======"
         deliveries.clear
     end
     

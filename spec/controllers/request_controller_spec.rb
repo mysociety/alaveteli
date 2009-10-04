@@ -314,7 +314,7 @@ describe RequestController, "when creating a new request" do
         deliveries.size.should == 1
         mail = deliveries[0]
         mail.body.should =~ /This is a silly letter. It is too short to be interesting./
-        STDERR.puts "=====" + mail.body + "======"
+        #STDERR.puts "=====" + mail.body + "======"
 
         response.should redirect_to(:action => 'show', :url_title => ir.url_title)
     end
@@ -781,6 +781,7 @@ describe RequestController, "when sending a followup message" do
         mail = deliveries[0]
         mail.body.should =~ /What a useless response! You suck./
         mail.to_addrs.to_s.should == "FOI Person <foiperson@localhost>"
+        #STDERR.puts "=====" + mail.body + "======"
 
         response.should redirect_to(:action => 'show', :url_title => info_requests(:fancy_dog_request).url_title)
 
