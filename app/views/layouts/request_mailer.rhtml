@@ -1,1 +1,1 @@
-<% if @wrap_lines_as_paragraphs %><%= MySociety::Format.wrap_email_body_by_lines(yield)  %><% else %><%= MySociety::Format.wrap_email_body_by_paragraphs(yield)  %><% end %>
+<%= MySociety::Format.wrap_email_body_by_paragraphs(yield)  %>

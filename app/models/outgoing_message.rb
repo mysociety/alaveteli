@@ -22,7 +22,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: outgoing_message.rb,v 1.94 2009-10-04 21:42:07 francis Exp $
+# $Id: outgoing_message.rb,v 1.95 2009-10-04 21:53:54 francis Exp $
 
 class OutgoingMessage < ActiveRecord::Base
     strip_attributes!
@@ -43,7 +43,7 @@ class OutgoingMessage < ActiveRecord::Base
     def get_salutation
         ret = "Dear "
         if self.message_type == 'followup' && !self.incoming_message_followup.nil? && !self.incoming_message_followup.safe_mail_from.nil? && self.incoming_message_followup.valid_to_reply_to?
-            ret = ret + RequestMailer.name_for_followup(self.info_request, self.incoming_message_followup)
+            ret = ret + OutgoingMailer.name_for_followup(self.info_request, self.incoming_message_followup)
         else
             ret = ret + "Sir or Madam"
         end
@@ -145,18 +145,18 @@ class OutgoingMessage < ActiveRecord::Base
     def send_message(log_event_type = 'sent')
         if self.status == 'ready'
             if self.message_type == 'initial_request'
-                RequestMailer.deliver_initial_request(self.info_request, self)
+                OutgoingMailer.deliver_initial_request(self.info_request, self)
                 self.last_sent_at = Time.now
                 self.status = 'sent'
                 self.save!
                 self.info_request.log_event(log_event_type, { :email => self.info_request.recipient_name_and_email, :outgoing_message_id => self.id })
                 self.info_request.set_described_state('waiting_response')
             elsif self.message_type == 'followup'
-                RequestMailer.deliver_followup(self.info_request, self, self.incoming_message_followup)
+                OutgoingMailer.deliver_followup(self.info_request, self, self.incoming_message_followup)
                 self.last_sent_at = Time.now
                 self.status = 'sent'
                 self.save!
-                self.info_request.log_event('followup_' + log_event_type, { :email => RequestMailer.name_and_email_for_followup(self.info_request, self.incoming_message_followup), :outgoing_message_id => self.id })
+                self.info_request.log_event('followup_' + log_event_type, { :email => OutgoingMailer.name_and_email_for_followup(self.info_request, self.incoming_message_followup), :outgoing_message_id => self.id })
                 if self.info_request.described_state == 'waiting_clarification'
                     self.info_request.set_described_state('waiting_response')
                 end

@@ -1,84 +1,13 @@
 # models/request_mailer.rb:
-# Emails which go to public bodies on behalf of users.
+# Alerts relating to requests.
 #
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_mailer.rb,v 1.88 2009-10-04 21:42:07 francis Exp $
+# $Id: request_mailer.rb,v 1.89 2009-10-04 21:53:54 francis Exp $
 
 class RequestMailer < ApplicationMailer
     
-    # Email to public body requesting info
-    def initial_request(info_request, outgoing_message)
-        @wrap_lines_as_paragraphs = true
-        @from = info_request.incoming_name_and_email
-        @recipients = info_request.recipient_name_and_email
-        @subject    = info_request.email_subject_request
-        @body       = {:info_request => info_request, :outgoing_message => outgoing_message,
-            :contact_email => MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost') }
-    end
-
-    # Later message to public body regarding existing request
-    def followup(info_request, outgoing_message, incoming_message_followup)
-        @wrap_lines_as_paragraphs = true
-        @from = info_request.incoming_name_and_email
-        @recipients = RequestMailer.name_and_email_for_followup(info_request, incoming_message_followup)
-        @subject    = RequestMailer.subject_for_followup(info_request, outgoing_message)
-        @body       = {:info_request => info_request, :outgoing_message => outgoing_message,
-            :incoming_message_followup => incoming_message_followup,
-            :contact_email => MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost') }
-    end
-
-    # Separate function, so can be called from controller for logging
-    # XXX the condition checking valid_to_reply_to? also appears in views/request/_followup.rhtml,
-    # it shouldn't really, should call something here.
-    # XXX also OutgoingMessage.get_salutation
-    # XXX these look like they should be members of IncomingMessage, but logically they
-    # need to work even when IncomingMessage is nil
-    def RequestMailer.name_and_email_for_followup(info_request, incoming_message_followup)
-        if incoming_message_followup.nil? || !incoming_message_followup.valid_to_reply_to?
-            return info_request.recipient_name_and_email
-        else
-            # calling safe_mail_from from so censor rules are run
-            return TMail::Address.address_from_name_and_email(incoming_message_followup.safe_mail_from, incoming_message_followup.mail.from_addrs[0].spec).to_s
-        end
-    end
-    # Used in the preview of followup
-    def RequestMailer.name_for_followup(info_request, incoming_message_followup)
-        if incoming_message_followup.nil? || !incoming_message_followup.valid_to_reply_to?
-            return info_request.public_body.name
-        else
-            # calling safe_mail_from from so censor rules are run
-            return incoming_message_followup.safe_mail_from || info_request.public_body.name
-        end
-    end
-    # Used when making list of followup places to remove duplicates
-    def RequestMailer.email_for_followup(info_request, incoming_message_followup)
-        if incoming_message_followup.nil? || !incoming_message_followup.valid_to_reply_to?
-            return info_request.recipient_email
-        else
-            return incoming_message_followup.mail.from_addrs[0].spec
-        end
-    end
-    # Subject to use for followup
-    def RequestMailer.subject_for_followup(info_request, outgoing_message)
-        if outgoing_message.what_doing == 'internal_review'
-            return "Internal review of " + info_request.email_subject_request
-        else
-            return info_request.email_subject_followup 
-        end
-    end
-    # Whether we have a valid email address for a followup
-    def RequestMailer.is_followupable?(info_request, incoming_message_followup)
-        if incoming_message_followup.nil? || !incoming_message_followup.valid_to_reply_to?
-            return info_request.recipient_email_valid_for_followup?
-        else
-            # email has been checked in incoming_message_followup.valid_to_reply_to? above
-            return true
-        end
-    end
-    
-
     # Used when an FOI officer uploads a response from their web browser - this is
     # the "fake" email used to store in the same format in the database as if they
     # had emailed it.

@@ -2,15 +2,15 @@
 
     <% if @internal_review %>
         <h1>Request an internal review
-        from <%=h RequestMailer.name_for_followup(@info_request, nil) %>
+        from <%=h OutgoingMailer.name_for_followup(@info_request, nil) %>
         </h1>
     <% elsif incoming_message.nil? || !incoming_message.valid_to_reply_to? %>
         <h2>Send a public follow up message 
-        to <%=h RequestMailer.name_for_followup(@info_request, nil) %>
+        to <%=h OutgoingMailer.name_for_followup(@info_request, nil) %>
         </h2>
     <% else %>
         <h2>Send a public reply to 
-        <%=h RequestMailer.name_for_followup(@info_request, incoming_message) %>
+        <%=h OutgoingMailer.name_for_followup(@info_request, incoming_message) %>
         </h2>
     <% end %>
 

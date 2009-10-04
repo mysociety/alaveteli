@@ -24,7 +24,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.212 2009-10-03 10:32:32 francis Exp $
+# $Id: info_request.rb,v 1.213 2009-10-04 21:53:54 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -812,8 +812,8 @@ public
         for incoming_message in self.incoming_messages.reverse
             incoming_message.safe_mail_from
             
-            email = RequestMailer.email_for_followup(self, incoming_message)
-            name = RequestMailer.name_for_followup(self, incoming_message)
+            email = OutgoingMailer.email_for_followup(self, incoming_message)
+            name = OutgoingMailer.name_for_followup(self, incoming_message)
 
             if !done.include?(email.downcase)
                 ret = ret + [[name, email, incoming_message.id]]

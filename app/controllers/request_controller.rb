@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.189 2009-10-03 01:42:01 francis Exp $
+# $Id: request_controller.rb,v 1.190 2009-10-04 21:53:53 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -444,7 +444,7 @@ class RequestController < ApplicationController
             raise sprintf("Incoming message %d does not belong to request %d", @incoming_message.info_request_id, @info_request.id)
         end
 
-        if !RequestMailer.is_followupable?(@info_request, @incoming_message)
+        if !OutgoingMailer.is_followupable?(@info_request, @incoming_message)
             raise "unexpected followupable inconsistency" if @info_request.public_body.is_requestable?
             @reason = @info_request.public_body.not_requestable_reason
             render :action => 'followup_bad'
