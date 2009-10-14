@@ -4,7 +4,7 @@
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_game_controller.rb,v 1.7 2009-10-14 22:10:45 francis Exp $
+# $Id: request_game_controller.rb,v 1.8 2009-10-14 22:24:16 francis Exp $
 
 class RequestGameController < ApplicationController
     
@@ -14,7 +14,8 @@ class RequestGameController < ApplicationController
         old = InfoRequest.find_old_unclassified(:conditions => ["prominence = 'normal'"])
         @missing = old.size
         @total = InfoRequest.count
-        @percentage = ((@total - @missing).to_f / @total.to_f * 10000).round / 100.0
+        @done = @total - @missing
+        @percentage = (@done.to_f / @total.to_f * 10000).round / 100.0
 
         @requests = old.sort_by{ rand }.slice(0..2)
 

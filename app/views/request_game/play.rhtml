@@ -1,8 +1,9 @@
 <% @title = 'Play the request categorisation game!' %>
 
 <div id="game_sidebar">
-    <p>
-        <img width=200 height=100 src="http://chart.apis.google.com/chart?chs=200x100&cht=gom&chd=t:<%=@percentage%>" alt="<%=@percentage%>% of requests have been categorised">
+    <p style="text-align: center">
+        <img width=250 height=125 src="http://chart.apis.google.com/chart?chs=250x125&cht=gom&chd=t:<%=@percentage%>" alt="<%=@percentage%>% of requests have been categorised">
+        <br><%=@done%>/<%=@total%> requests categorised
     </p>
 
     <h2>Top recent players</h2>
@@ -10,7 +11,7 @@
     <% for user, count in @league_table %>
         <tr>
             <td> <%= user_link(user) %> </td>
-            <td> <%= count %> requests </td>
+            <td> <%=pluralize(count, 'request').gsub(" ", "&nbsp;")%> </td>
         </tr>
     <% end %>
     </table>
