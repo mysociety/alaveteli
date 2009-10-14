@@ -521,7 +521,7 @@ describe RequestController, "when classifying an information request" do
             
             it 'should show a message thanking the user for a good deed' do 
                 post_status('rejected')
-                flash[:notice].should == '<p>Thank you for updating this request!</p>'
+                flash[:notice].should == 'Thank you for updating this request!'
             end
             
         end
@@ -562,7 +562,7 @@ describe RequestController, "when classifying an information request" do
 
         it 'should show a message thanking the user for a good deed' do 
             post_status('rejected')
-            flash[:notice].should == '<p>Thank you for updating this request!</p>'
+            flash[:notice].should == 'Thank you for updating this request!'
         end
      end
 

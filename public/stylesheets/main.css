@@ -1038,5 +1038,12 @@ div.act_link img {
 #game_buttons {
 }
 
-
+#game_sidebar
+{
+	float: right;
+	clear: none;
+	width: 12em;
+	margin: 0 0 0 2em;
+	font-size: 0.8em;
+}
 

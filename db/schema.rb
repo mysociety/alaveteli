@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 80) do
+ActiveRecord::Schema.define(:version => 81) do
 
   create_table "acts_as_xapian_jobs", :force => true do |t|
     t.string  "model",    :null => false
@@ -78,16 +78,17 @@ ActiveRecord::Schema.define(:version => 80) do
   end
 
   create_table "info_request_events", :force => true do |t|
-    t.integer  "info_request_id",     :null => false
-    t.text     "event_type",          :null => false
-    t.text     "params_yaml",         :null => false
-    t.datetime "created_at",          :null => false
+    t.integer  "info_request_id",                           :null => false
+    t.text     "event_type",                                :null => false
+    t.text     "params_yaml",                               :null => false
+    t.datetime "created_at",                                :null => false
     t.string   "described_state"
     t.string   "calculated_state"
     t.datetime "last_described_at"
     t.integer  "incoming_message_id"
     t.integer  "outgoing_message_id"
     t.integer  "comment_id"
+    t.string   "prominence",          :default => "normal", :null => false
   end
 
   add_index "info_request_events", ["created_at"], :name => "index_info_request_events_on_created_at"

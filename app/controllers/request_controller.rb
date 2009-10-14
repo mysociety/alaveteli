@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.190 2009-10-04 21:53:53 francis Exp $
+# $Id: request_controller.rb,v 1.191 2009-10-14 22:01:27 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -309,10 +309,10 @@ class RequestController < ApplicationController
             # Don't give advice on what to do next, as it isn't their request
             RequestMailer.deliver_old_unclassified_updated(@info_request)
             if session[:request_game] 
-                flash[:notice] = '<p>Thank you for updating the status of the request \'<a href="' + CGI.escapeHTML(request_url(@info_request)) + '">' + CGI.escapeHTML(@info_request.title) + '</a>\'. There are some more requests below for you to classify.</p>'
+                flash[:notice] = 'Thank you for updating the status of the request \'<a href="' + CGI.escapeHTML(request_url(@info_request)) + '">' + CGI.escapeHTML(@info_request.title) + '</a>\'. There are some more requests below for you to classify.'
                 redirect_to play_url 
             else
-                flash[:notice] = '<p>Thank you for updating this request!</p>'
+                flash[:notice] = 'Thank you for updating this request!'
                 redirect_to request_url(@info_request)
             end
             return

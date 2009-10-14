@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: routes.rb,v 1.91 2009-10-03 10:23:44 francis Exp $
+# $Id: routes.rb,v 1.92 2009-10-14 22:01:27 francis Exp $
 
 ActionController::Routing::Routes.draw do |map|
 
@@ -98,8 +98,9 @@ ActionController::Routing::Routes.draw do |map|
     end
 
     map.with_options :controller => 'request_game' do |game|
-        game.play "/categorise/play", :action => 'play'
-        game.stop "/categorise/stop", :action => 'stop'
+        game.play '/categorise/play', :action => 'play'
+        game.request '/categorise/request/:url_title', :action => 'show'
+        game.stop '/categorise/stop', :action => 'stop'
     end
 
     # NB: We don't use routes to *construct* admin URLs, as they need to be relative

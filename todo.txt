@@ -1,3 +1,10 @@
+prominence code is gnarly - somehow make sure more reliably that you can never see requests
+which are hidden.
+    render :partial => 'correspondence'
+
+remove show_response?
+
+
 test if get_attachments_for_display called multiple times in one request?
 
 sending an email alert for this query takes crazy long
@@ -30,6 +37,10 @@ incorrectly. Change wording to make it clear statuses are users opinion ?.
 * And ask that they include URL of requests in emails when talking about them
 
 Finish up the request game, and market it a bit more.
+    * Let you see main page without login
+    * Or you can do it yourself (if you are not logged in and request isn't classified)
+    * Market it from every request that isn't categorised
+      (and when you categorise one)
 Check up on how the public old request status editing is being used in 
 practice. Think about UI a bit more to try and up rate, and UI of
 alerts to requester.

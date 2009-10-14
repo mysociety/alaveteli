@@ -1,17 +1,31 @@
 <% @title = 'Play the request categorisation game!' %>
 
+<div id="game_sidebar">
+    <p>
+        <img width=200 height=100 src="http://chart.apis.google.com/chart?chs=200x100&cht=gom&chd=t:<%=@percentage%>" alt="<%=@percentage%>% of requests have been categorised">
+    </p>
+
+    <h2>Top recent players</h2>
+    <table>
+    <% for user, count in @league_table %>
+        <tr>
+            <td> <%= user_link(user) %> </td>
+            <td> <%= count %> requests </td>
+        </tr>
+    <% end %>
+    </table>
+</div>
+
 <h2>Play the request categorisation game!</h2>
 
-<p>Hi! We need your help. We have <%= pluralize(@missing, "request") %> which had a
-response more than <%=InfoRequest::OLD_AGE_IN_DAYS.inspect %> ago, but where
-the person who made them hasn't told us whether or not they were successful.
-</p>
+<p>Some people who've made requests haven't let us know whether they were
+successful or not.  We need <strong>your</strong> help &ndash;
+choose one of these requests, read it, and let everyone know whether or not the
+information has been provided. Everyone'll be exceedingly grateful.</p>
 
-<p>We would be exceedingly grateful if you could choose one of these requests,
-read it, and let everyone know whether or not the information has been
-provided.</p>
-
-<%= render :partial => 'request/request_listing', :locals => { :info_requests => @requests } %>
+<% for info_request in @requests %>
+    <%= render :partial => 'request/request_listing_single', :locals => { :info_request => info_request } %>
+<% end %>
 
 <p id="game_buttons">
 <%= button_to "I don't like these ones &mdash; give me some more!", play_url %>
