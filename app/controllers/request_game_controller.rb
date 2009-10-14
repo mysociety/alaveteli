@@ -4,7 +4,7 @@
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_game_controller.rb,v 1.6 2009-10-14 22:01:27 francis Exp $
+# $Id: request_game_controller.rb,v 1.7 2009-10-14 22:10:45 francis Exp $
 
 class RequestGameController < ApplicationController
     
@@ -25,7 +25,7 @@ class RequestGameController < ApplicationController
 
         # Work out league table
         status_update_events = InfoRequestEvent.find(:all, 
-            :conditions => [ "event_type = 'status_update' and current_date - created_at < 28" ])
+            :conditions => [ "event_type = 'status_update' and created_at >= ?", Time.now() - 28.days ])
         table = Hash.new { |h,k| h[k] = 0 }
         for event in status_update_events
             user_id = event.params[:user_id]
