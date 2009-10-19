@@ -30,7 +30,7 @@ if not incoming_message.nil?
         </p>
     </div>
 <%
-elsif info_request_event.event_type == 'sent' || info_request_event.event_type == 'followup_sent'
+elsif [ 'sent', 'followup_sent' ].include?(info_request_event.event_type)
     outgoing_message = info_request_event.outgoing_message
     %>
     <div class="correspondence" id="outgoing-<%=outgoing_message.id.to_s%>">
@@ -58,7 +58,7 @@ elsif info_request_event.event_type == 'sent' || info_request_event.event_type =
         </p>
     </div>
 <% elsif [ 'resent', 'followup_resent' ].include?(info_request_event.event_type) %>
-    <div class="correspondence">
+    <div class="correspondence" id="outgoing-<%=outgoing_message.id.to_s%>">
         <h2>
             <%= simple_date(info_request_event.created_at) %>
         </h2>
@@ -79,10 +79,5 @@ elsif info_request_event.event_type == 'sent' || info_request_event.event_type =
     comment = info_request_event.comment
 %>
     <%= render :partial => 'comment/single_comment', :locals => { :comment => comment } %>
-<% 
-end 
-
-%>
-
-<% # end %>
+<% end %>
 
