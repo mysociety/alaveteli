@@ -1,8 +1,8 @@
-prominence code is gnarly - somehow make sure more reliably that you can never see requests
-which are hidden.
-    render :partial => 'correspondence'
 
-remove show_response?
+Show message to signed in user that others can't see this part
+Make sure hidden things don't show in search snippets
+    in models/comment.rb: # So when made invisble it vanishes
+Remove comments visible
 
 
 test if get_attachments_for_display called multiple times in one request?
@@ -13,7 +13,6 @@ something to do with the way event_digest loops with lots of responses?
 
 Some requests to lower memory use of still:
 PID: 676    CONSUME MEMORY: 16968 KB    Now: 102604 KB  http://www.whatdotheyknow.com/request/parking_ticket_data_81
-
 PID: 2036       CONSUME MEMORY: 129368 KB       Now: 179652 KB  http://www.whatdotheyknow.com/request/14186/response/33740
 - search engines shouldn't be going for those URLs. and do they really need to
   unpack so much? could use snippet cache.
@@ -37,13 +36,12 @@ incorrectly. Change wording to make it clear statuses are users opinion ?.
 * And ask that they include URL of requests in emails when talking about them
 
 Finish up the request game, and market it a bit more.
-    * Let you see main page without login
     * Or you can do it yourself (if you are not logged in and request isn't classified)
     * Market it from every request that isn't categorised
       (and when you categorise one)
 Check up on how the public old request status editing is being used in 
-practice. Think about UI a bit more to try and up rate, and UI of
-alerts to requester.
+practice. Think about UI a bit more to try and up rate, and UI of alerts to
+requester.
 Offer user_withdrawn as option in many GUI?
 
 Put the request from address in the database, 
@@ -102,6 +100,8 @@ Install more recent poppler-utils
     http://www.whatdotheyknow.com/request/13903/response/36117/attach/html/4/FOI%20beaver%20site%20species%20audit%20SNH%20review%20of%20proposal%20redact.pdf.html
 Really need a "pdftk -nodrm" to remove compression from encrypted PDFs, so strips emails from e.g.:
     http://www.whatdotheyknow.com/request/14414/response/38590/attach/html/3/090807%20FOI.pdf.html
+    ... this misses a whole page out (someone emailed us)
+    http://www.whatdotheyknow.com/request/unredacted_expense_claims_for_jo#incoming-49674
 
 cached_main_body_text could store the privacy censored versions now, since
 cached_attachment_text_clipped does (and clears it when censor rules are edited)
