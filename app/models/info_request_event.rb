@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request_event.rb,v 1.94 2009-10-04 21:42:07 francis Exp $
+# $Id: info_request_event.rb,v 1.95 2009-10-19 19:27:24 francis Exp $
 
 class InfoRequestEvent < ActiveRecord::Base
     belongs_to :info_request
@@ -67,6 +67,28 @@ class InfoRequestEvent < ActiveRecord::Base
         'requires_admin',
         'user_withdrawn'
     ]
+
+    # whether event is publicly visible
+    validates_inclusion_of :prominence, :in => [ 
+        'normal', 
+        'hidden',
+        'requester_only'
+    ]
+
+    def user_can_view?(user)
+        if !self.info_request.user_can_view?(user)
+            raise "internal error, called user_can_view? on event when there is not permission to view entire request"
+        end
+
+        if self.prominence == 'hidden' 
+            return User.view_hidden_requests?(user)
+        end
+        if self.prominence == 'requester_only' 
+            return self.info_request.is_owning_user?(user)
+        end
+        return true
+    end
+
 
     # Full text search indexing
     acts_as_xapian :texts => [ :search_text_main, :title ],
