@@ -233,6 +233,7 @@ describe RequestController, "when changing prominence of a request" do
         response.should_not have_text(/First hello/)        
         response.should render_template('request/hidden')
     end
+
 end
  
 # XXX do this for invalid ids
@@ -433,6 +434,16 @@ describe RequestController, "when viewing an individual response for reply/follo
         session[:user_id] = users(:bob_smith_user).id
         get :show_response, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message)
         response.should render_template('show_response')
+    end
+
+    it "should not show individual responses if request hidden, even if request owner" do
+        ir = info_requests(:fancy_dog_request) 
+        ir.prominence = 'hidden'
+        ir.save!
+
+        session[:user_id] = users(:bob_smith_user).id
+        get :show_response, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message)
+        response.should render_template('request/hidden')
     end
 end
 
