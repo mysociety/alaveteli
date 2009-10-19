@@ -114,7 +114,7 @@
   <tr class="<%= cycle('odd', 'even') %>" id="incoming-<%=incoming_message.id.to_s%>">
   <td><%=h incoming_message.id %></td>
   <% for column in IncomingMessage.content_columns.map { |c| c.name } %>
-    <% if column =~ /^cached_.*?_text$/ %>
+    <% if column =~ /^cached_.*?$/ %>
     <td>
       <div><%= simple_format( truncate(incoming_message.send(column), 400, 
                   link_to_function("...", "$(this).up('td').childElements().invoke('toggle')") 
