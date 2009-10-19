@@ -4,7 +4,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: request_controller.rb,v 1.191 2009-10-14 22:01:27 francis Exp $
+# $Id: request_controller.rb,v 1.192 2009-10-19 19:26:40 francis Exp $
 
 class RequestController < ApplicationController
     
@@ -20,7 +20,7 @@ class RequestController < ApplicationController
         @info_request = InfoRequest.find_by_url_title(params[:url_title])
         set_last_request(@info_request)
 
-        # Test for hidden
+        # Test for whole request being hidden
         if !@info_request.user_can_view?(authenticated_user)
             render :template => 'request/hidden', :status => 410 # gone
             return
@@ -42,9 +42,8 @@ class RequestController < ApplicationController
                 )
         end
         
-        @events_needing_description = @info_request.events_needing_description
         @last_info_request_event_id = @info_request.last_event_id_needing_description
-        @new_responses_count = @events_needing_description.select {|i| i.event_type == 'response'}.size
+        @new_responses_count = @info_request.events_needing_description.select {|i| i.event_type == 'response'}.size
 
         # Sidebar stuff
         limit = 3
@@ -261,7 +260,6 @@ class RequestController < ApplicationController
         end
 
         @is_owning_user = @info_request.is_owning_user?(authenticated_user)       
-        @events_needing_description = @info_request.events_needing_description
         @last_info_request_event_id = @info_request.last_event_id_needing_description
         @old_unclassified = @info_request.is_old_unclassified? && !authenticated_user.nil?
         
@@ -444,6 +442,13 @@ class RequestController < ApplicationController
             raise sprintf("Incoming message %d does not belong to request %d", @incoming_message.info_request_id, @info_request.id)
         end
 
+        # Test for hidden requests
+        if !authenticated_user.nil? && !@info_request.user_can_view?(authenticated_user)
+            render :template => 'request/hidden', :status => 410 # gone
+            return
+        end
+ 
+        # Check address is good
         if !OutgoingMailer.is_followupable?(@info_request, @incoming_message)
             raise "unexpected followupable inconsistency" if @info_request.public_body.is_requestable?
             @reason = @info_request.public_body.not_requestable_reason
