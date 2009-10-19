@@ -21,7 +21,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request_event.rb,v 1.95 2009-10-19 19:27:24 francis Exp $
+# $Id: info_request_event.rb,v 1.96 2009-10-19 22:06:55 francis Exp $
 
 class InfoRequestEvent < ActiveRecord::Base
     belongs_to :info_request
@@ -342,6 +342,25 @@ class InfoRequestEvent < ActiveRecord::Base
         end
         return TMail::Address.parse(prev_addr).address == TMail::Address.parse(curr_addr).address
     end
+
+    # Given a find condition clause, creates a league table of users who made those events.
+    # XXX this isn't very generic yet, it is just used for the categorisation game tables.
+    def InfoRequestEvent.make_league_table(conditions)
+        status_update_events = InfoRequestEvent.find(:all, :conditions => conditions)
+        table = Hash.new { |h,k| h[k] = 0 }
+        for event in status_update_events
+            user_id = event.params[:user_id]
+            table[user_id] += 1
+        end
+        league_table = []
+        for user_id, count in table
+            user = User.find(user_id)
+            league_table.push([user, count])
+        end
+        league_table.sort! { |a,b| b[1] <=> a[1] }
+        return league_table
+    end
+
 
 end
 
