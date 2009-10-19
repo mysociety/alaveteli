@@ -24,7 +24,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.213 2009-10-04 21:53:54 francis Exp $
+# $Id: info_request.rb,v 1.214 2009-10-19 22:20:48 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -89,6 +89,12 @@ class InfoRequest < ActiveRecord::Base
         'holding_pen', # put them in the holding pen
         'blackhole' # just dump them
     ]
+
+    def validate
+        if !MySociety::Validate.uses_mixed_capitals(self.title, 10)
+            errors.add(:title, '^Please write the summary using a mixture of capital and lower case letters. This makes it easier for others to read.')
+        end
+    end
     
     OLD_AGE_IN_DAYS = 21.days
 
