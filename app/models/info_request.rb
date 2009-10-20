@@ -24,7 +24,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.215 2009-10-19 23:29:03 francis Exp $
+# $Id: info_request.rb,v 1.216 2009-10-20 10:45:51 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -90,7 +90,8 @@ class InfoRequest < ActiveRecord::Base
         'blackhole' # just dump them
     ]
 
-    def validate
+    # only check on create, so existing models with mixed case are allowed
+    def validate_on_create
         if !self.title.nil? && !MySociety::Validate.uses_mixed_capitals(self.title, 10)
             errors.add(:title, '^Please write the summary using a mixture of capital and lower case letters. This makes it easier for others to read.')
         end
