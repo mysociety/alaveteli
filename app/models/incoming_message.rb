@@ -19,7 +19,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: incoming_message.rb,v 1.227 2009-09-22 19:16:35 francis Exp $
+# $Id: incoming_message.rb,v 1.228 2009-10-21 11:24:14 francis Exp $
 
 # TODO
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
@@ -407,16 +407,16 @@ class IncomingMessage < ActiveRecord::Base
     def ensure_parts_counted
         if not @parts_counted
             @count_parts_count = 0
-            count_parts_recursive(self.mail)
+            _count_parts_recursive(self.mail)
             # we carry on using these numeric ids for attachments uudecoded from within text parts
             @count_first_uudecode_count = @count_parts_count
             @parts_counted = true
         end
     end
-    def count_parts_recursive(part)
+    def _count_parts_recursive(part)
         if part.multipart?
             part.parts.each do |p|
-                count_parts_recursive(p)
+                _count_parts_recursive(p)
             end
         else
             if part.content_type == 'message/rfc822'
@@ -430,7 +430,7 @@ class IncomingMessage < ActiveRecord::Base
                     @count_parts_count += 1
                     part.url_part_number = @count_parts_count
                 else
-                    count_parts_recursive(part.rfc822_attachment)
+                    _count_parts_recursive(part.rfc822_attachment)
                 end
             else
                 @count_parts_count += 1
@@ -699,9 +699,9 @@ class IncomingMessage < ActiveRecord::Base
     # (This risks losing info if the unchosen alternative is the only one to contain 
     # useful info, but let's worry about that another time)
     def get_attachment_leaves
-        return get_attachment_leaves_recursive(self.mail)
+        return _get_attachment_leaves_recursive(self.mail)
     end
-    def get_attachment_leaves_recursive(curr_mail, within_rfc822_attachment = nil)
+    def _get_attachment_leaves_recursive(curr_mail, within_rfc822_attachment = nil)
         leaves_found = []
         if curr_mail.multipart?
             if curr_mail.sub_type == 'alternative'
@@ -716,11 +716,11 @@ class IncomingMessage < ActiveRecord::Base
                         best_part = m
                     end
                 end
-                leaves_found += get_attachment_leaves_recursive(best_part, within_rfc822_attachment)
+                leaves_found += _get_attachment_leaves_recursive(best_part, within_rfc822_attachment)
             else
                 # Add all parts
                 curr_mail.parts.each do |m|
-                    leaves_found += get_attachment_leaves_recursive(m, within_rfc822_attachment)
+                    leaves_found += _get_attachment_leaves_recursive(m, within_rfc822_attachment)
                 end
             end
         else
@@ -740,6 +740,7 @@ class IncomingMessage < ActiveRecord::Base
             # Use standard content types for Word documents etc.
             curr_mail.content_type = normalise_content_type(curr_mail.content_type)
             if curr_mail.content_type == 'message/rfc822'
+                ensure_parts_counted # fills in rfc822_attachment variable
                 if curr_mail.rfc822_attachment.nil?
                     # Attached mail didn't parse, so treat as text
                     curr_mail.content_type = 'text/plain'
@@ -749,7 +750,7 @@ class IncomingMessage < ActiveRecord::Base
             # If the part is an attachment of email in text form
             if curr_mail.content_type == 'message/rfc822'
                 ensure_parts_counted # fills in rfc822_attachment variable
-                leaves_found += get_attachment_leaves_recursive(curr_mail.rfc822_attachment, curr_mail.rfc822_attachment)
+                leaves_found += _get_attachment_leaves_recursive(curr_mail.rfc822_attachment, curr_mail.rfc822_attachment)
             else
                 # Store leaf
                 curr_mail.within_rfc822_attachment = within_rfc822_attachment
