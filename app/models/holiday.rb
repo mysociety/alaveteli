@@ -21,13 +21,13 @@
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: holiday.rb,v 1.9 2009-10-02 22:56:35 francis Exp $
+# $Id: holiday.rb,v 1.10 2009-10-26 17:52:39 francis Exp $
 
 class Holiday < ActiveRecord::Base
 
     # Calculate the date on which a request made on a given date falls due.
     # i.e. it is due by the end of that day.
-    def Holiday.due_date_from(start_date, working_days = 20)
+    def Holiday.due_date_from(start_date, working_days)
         # convert date/times into dates
         start_date = start_date.to_date
 

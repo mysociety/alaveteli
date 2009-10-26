@@ -4,7 +4,7 @@
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: holiday_controller.rb,v 1.1 2009-03-16 15:55:03 tony Exp $
+# $Id: holiday_controller.rb,v 1.2 2009-10-26 17:52:39 francis Exp $
 
 class HolidayController < ApplicationController
 
@@ -14,7 +14,7 @@ class HolidayController < ApplicationController
     def due_date
         if params[:holiday]
             @request_date = Date.strptime(params[:holiday]) or raise "Invalid date"
-            @due_date = Holiday.due_date_from(@request_date)
+            @due_date = Holiday.due_date_from(@request_date, 20)
             @skipped = Holiday.all(
                 :conditions => [ 'day >= ? AND day <= ?', 
                     @request_date.strftime("%F"), @due_date.strftime("%F")

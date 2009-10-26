@@ -24,7 +24,7 @@
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
-# $Id: info_request.rb,v 1.216 2009-10-20 10:45:51 francis Exp $
+# $Id: info_request.rb,v 1.217 2009-10-26 17:52:39 francis Exp $
 
 require 'digest/sha1'
 require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
@@ -470,11 +470,11 @@ public
     #   waiting_classification
     #   waiting_response_overdue
     def calculate_status
-        return 'waiting_classification' if awaiting_description
-        return described_state unless described_state == "waiting_response"
+        return 'waiting_classification' if self.awaiting_description
+        return described_state unless self.described_state == "waiting_response"
         # Compare by date, so only overdue on next day, not if 1 second late
         return 'waiting_response_overdue' if
-            Time.now.strftime("%Y-%m-%d") > date_response_required_by.strftime("%Y-%m-%d")
+            Time.now.strftime("%Y-%m-%d") > self.date_response_required_by.strftime("%Y-%m-%d")
         return 'waiting_response'
     end
 
@@ -562,7 +562,7 @@ public
     # things, e.g. fees, not properly covered.
     def date_response_required_by
         last_sent = last_event_forming_initial_request
-        return Holiday.due_date_from(last_sent.outgoing_message.last_sent_at)
+        return Holiday.due_date_from(last_sent.outgoing_message.last_sent_at, 20)
     end
 
     # Are we more than 20 working days overdue?

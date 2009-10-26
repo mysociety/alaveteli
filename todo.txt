@@ -1,9 +1,16 @@
+overdue
+date_response_required_by
+waiting_response_overdue => waiting_response_slow, waiting_response_overdue
+
+
 Move comments to use new system first
 Show message to signed in user that others can't see this part
 Make sure hidden things don't show in search snippets
     in models/comment.rb: # So when made invisble it vanishes
 Remove comments visible
 
+
+Finish profile photo
 
 
 test if get_attachments_for_display called multiple times in one request?
