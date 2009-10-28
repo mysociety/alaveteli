@@ -16,9 +16,6 @@ set -e
 
 MYSOCIETY_DIR=`pwd`
 
-# $1 should be the directory of the rails app
-cd $1
-
 # make sure that there is an app directory, so are in a rails app tree
 cd app/..
 
