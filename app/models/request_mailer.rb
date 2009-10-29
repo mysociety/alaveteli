@@ -192,6 +192,12 @@ class RequestMailer < ApplicationMailer
 
         # Send the message to each request, to be archived with it
         for reply_info_request in reply_info_requests
+            # If environment variable STOP_DUPLICATES is set, don't send message with same id again
+            if ENV['STOP_DUPLICATES'] 
+                if reply_info_request.already_received?(email, raw_email)
+                    raise "message " + email.message_id + " already received by request"
+                end
+            end
             reply_info_request.receive(email, raw_email)
         end
     end

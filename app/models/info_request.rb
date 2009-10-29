@@ -324,6 +324,23 @@ public
         end
     end
 
+    # Has this email already been received here? Based just on message id.
+    def already_received?(email, raw_email_data)
+        message_id = email.message_id
+        if message_id.nil?
+            raise "No message id for this message"
+        end
+
+        for im in self.incoming_messages
+            other_message_id = im.mail.message_id
+            if message_id == other_message_id
+                return true
+            end
+        end
+
+        return false
+    end
+
     # A new incoming email to this request
     def receive(email, raw_email_data, override_stop_new_responses = false)
         if !override_stop_new_responses
@@ -387,6 +404,7 @@ public
 
         RequestMailer.deliver_new_response(self, incoming_message)
     end
+
 
     # An annotation (comment) is made
     def add_comment(body, user)
