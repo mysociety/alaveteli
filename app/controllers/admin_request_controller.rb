@@ -229,7 +229,7 @@ class AdminRequestController < AdminController
 
         # For the holding pen, try to guess where it should be ...
         @holding_pen = false
-        if (@raw_email.incoming_message.info_request == InfoRequest.holding_pen_request && @raw_email.incoming_message.mail.from_addrs.size > 0)
+        if (@raw_email.incoming_message.info_request == InfoRequest.holding_pen_request && !@raw_email.incoming_message.mail.from_addrs.nil? && @raw_email.incoming_message.mail.from_addrs.size > 0)
             @holding_pen = true
 
             # 1. Use domain of email to try and guess which public body it
