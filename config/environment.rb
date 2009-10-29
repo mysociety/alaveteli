@@ -12,7 +12,7 @@ RAILS_GEM_VERSION = '2.1.0' unless defined? RAILS_GEM_VERSION
 require File.join(File.dirname(__FILE__), 'boot')
 
 # MySociety specific helper functions
-$:.push(File.join(File.dirname(__FILE__), '../../rblib'))
+$:.push(File.join(File.dirname(__FILE__), '../commonlib/rblib'))
 # ... if these fail to include, you need the rblib directory from
 # mySociety CVS, put it at the same level as the foi directory.
 load "validate.rb"
