@@ -167,9 +167,8 @@ class RequestMailer < ApplicationMailer
         new.receive(mail, raw_email)
     end
 
-    # Member function, called on the new class made in self.receive above
-    def receive(email, raw_email)
-        # Find which info requests the email is for
+    # Find which info requests the email is for
+    def requests_matching_email(email)
         # We deliberately don't use Envelope-to here, so ones that are BCC
         # drop into the holding pen for checking.
         reply_info_requests = [] # XXX should be set?
@@ -177,6 +176,13 @@ class RequestMailer < ApplicationMailer
             reply_info_request = InfoRequest.find_by_incoming_email(address)
             reply_info_requests.push(reply_info_request) if reply_info_request
         end
+        return reply_info_requests
+    end
+
+    # Member function, called on the new class made in self.receive above
+    def receive(email, raw_email)
+        # Find which info requests the email is for
+        reply_info_requests = self.requests_matching_email(email)
 
         # Nothing found, so save in holding pen
         if reply_info_requests.size == 0 
