@@ -15,14 +15,14 @@ EXTENSION=".png"
 #EXTENSION=".svg"
 
 cd `dirname $0`
-cd ../../
-source shlib/deployfns
+cd ../
+source commonlib/shlib/deployfns
 
 # XXX this is nasty :)
-OPTION_FOI_DB_HOST=`grep "host:" foi/config/database.yml | head --lines=1 | cut -d ":" -f 2`
-OPTION_FOI_DB_PORT=`grep "port:" foi/config/database.yml | head --lines=1 | cut -d ":" -f 2`
-OPTION_FOI_DB_NAME=`grep "database:" foi/config/database.yml | head --lines=1 | cut -d ":" -f 2`
-OPTION_FOI_DB_USER=`grep "username:" foi/config/database.yml | head --lines=1 | cut -d ":" -f 2`
+OPTION_FOI_DB_HOST=`grep "host:" config/database.yml | head --lines=1 | cut -d ":" -f 2`
+OPTION_FOI_DB_PORT=`grep "port:" config/database.yml | head --lines=1 | cut -d ":" -f 2`
+OPTION_FOI_DB_NAME=`grep "database:" config/database.yml | head --lines=1 | cut -d ":" -f 2`
+OPTION_FOI_DB_USER=`grep "username:" config/database.yml | head --lines=1 | cut -d ":" -f 2`
 
 SOURCEA=/tmp/foi-creation-rate-graph-data-$RANDOM$RANDOM
 SOURCEB=/tmp/foi-creation-rate-graph-data-$RANDOM$RANDOM
@@ -79,5 +79,5 @@ END
 #echo "gpscript $GPSCRIPT"
 
 export GDFONTPATH=/usr/share/fonts/truetype/ttf-bitstream-vera
-gnuplot < $GPSCRIPT > foi/public/foi-user-use$EXTENSION
+gnuplot < $GPSCRIPT > public/foi-user-use$EXTENSION
 

@@ -22,7 +22,7 @@ cd app/..
 # read config file in for later (STAGING_SITE)
 if [ -e "config/general" ]
 then
-    . ../shlib/deployfns
+    . commonlib/shlib/deployfns
     read_conf config/general
 else
     OPTION_DOMAIN=127.0.0.1:3000
