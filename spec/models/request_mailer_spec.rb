@@ -1,7 +1,6 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe RequestMailer, " when receiving incoming mail" do
-    
     fixtures :info_requests, :incoming_messages, :raw_emails, :users, :public_bodies
 
     it "should append it to the appropriate request" do
