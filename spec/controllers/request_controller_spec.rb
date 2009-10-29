@@ -1021,11 +1021,11 @@ describe RequestController, "when viewing comments" do
         response.body.should_not have_tag("div#comment-1 h2", /You.*left an annotation/m) 
     end
 
-    it "should say if you were the user who submitted it" do
+    it "should link to the user who submitted to it, even if it is you" do
         session[:user_id] = users(:silly_name_user).id
         get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-        response.body.should_not have_tag("div#comment-1 h2", /Silly.*left an annotation/m) 
-        response.body.should have_tag("div#comment-1 h2", /You.*left an annotation/m) 
+        response.body.should have_tag("div#comment-1 h2", /Silly.*left an annotation/m) 
+        response.body.should_not have_tag("div#comment-1 h2", /You.*left an annotation/m) 
     end
 
 end
