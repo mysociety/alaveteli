@@ -396,6 +396,9 @@ Quoting fixing TODO:
     http://www.whatdotheyknow.com/request/renewable_energy_consumption_by # over zealous
 
     http://www.whatdotheyknow.com/request/can_my_mp_ask_questions_on_my_be#incoming-33112 # hyperlink broken
+    http://www.whatdotheyknow.com/request/clarification_of_the_igs_to_psw # wrapped link
+    http://www.whatdotheyknow.com/request/request_for_details_from_consult # wrapped link
+
 
 Display pasted quotes in annotations better:
     http://www.whatdotheyknow.com/request/scientology_incidents#comment-3352
