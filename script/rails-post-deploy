@@ -53,6 +53,7 @@ done
 rm -f rails
 ln -s $LN_PATH rails
 rm -f actionwebservice
+cd ..
 
 # create initial log files
 if [ -e $APP_DIR/../logs ]
