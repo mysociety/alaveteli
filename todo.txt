@@ -399,6 +399,8 @@ Quoting fixing TODO:
     http://www.whatdotheyknow.com/request/clarification_of_the_igs_to_psw # wrapped link
     http://www.whatdotheyknow.com/request/request_for_details_from_consult # wrapped link
 
+    http://www.whatdotheyknow.com/request/independent_psychological_assess#incoming-52956 # shows text as attachment when could be inline due to multipart nature?
+
 
 Display pasted quotes in annotations better:
     http://www.whatdotheyknow.com/request/scientology_incidents#comment-3352
