@@ -19,6 +19,31 @@ class RawEmail < ActiveRecord::Base
     # deliberately don't strip_attributes, so keeps raw email properly
     
     has_one :incoming_message
+
+
+    # We keep the old data_text field (which is of type text) for backwards
+    # compatibility. We use the new data_binary field because only it works
+    # properly in recent versions of PostgreSQL (get seg faults escaping
+    # some binary strings).
+
+    def data=(d)
+        write_attribute(:data_binary, d)
+    end
+
+    def data
+        d = read_attribute(:data_binary)
+        if !d.nil?
+            return d
+        end
+
+        d = read_attribute(:data_text)
+        if !d.nil?
+            return d
+        end
+
+        raise "internal error, double nil value in RawEmail"
+    end
+
 end
 
 

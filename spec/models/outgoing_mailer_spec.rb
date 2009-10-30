@@ -20,7 +20,7 @@ describe OutgoingMailer, " when working out follow up addresses" do
         ir = info_requests(:fancy_dog_request) 
         im = ir.incoming_messages[0]
 
-        im.raw_email.data.sub!("\"FOI Person\" <foiperson@localhost>", "foiperson@localhost")
+        im.raw_email.data = im.raw_email.data.sub("\"FOI Person\" <foiperson@localhost>", "foiperson@localhost")
 
         # check the basic entry in the fixture is fine
         OutgoingMailer.name_and_email_for_followup(ir, im).should == "foiperson@localhost"
@@ -32,7 +32,7 @@ describe OutgoingMailer, " when working out follow up addresses" do
         ir = info_requests(:fancy_dog_request) 
         im = ir.incoming_messages[0]
 
-        im.raw_email.data.sub!("FOI Person", "FOI [ Person")
+        im.raw_email.data = im.raw_email.data.sub("FOI Person", "FOI [ Person")
 
         # check the basic entry in the fixture is fine
         OutgoingMailer.name_and_email_for_followup(ir, im).should == "\"FOI [ Person\" <foiperson@localhost>"
@@ -44,7 +44,7 @@ describe OutgoingMailer, " when working out follow up addresses" do
         ir = info_requests(:fancy_dog_request) 
         im = ir.incoming_messages[0]
 
-        im.raw_email.data.sub!("FOI Person", "FOI \\\" Person")
+        im.raw_email.data = im.raw_email.data.sub("FOI Person", "FOI \\\" Person")
 
         # check the basic entry in the fixture is fine
         OutgoingMailer.name_and_email_for_followup(ir, im).should == "\"FOI \\\" Person\" <foiperson@localhost>"
@@ -56,7 +56,7 @@ describe OutgoingMailer, " when working out follow up addresses" do
         ir = info_requests(:fancy_dog_request) 
         im = ir.incoming_messages[0]
 
-        im.raw_email.data.sub!("FOI Person", "FOI @ Person")
+        im.raw_email.data = im.raw_email.data.sub("FOI Person", "FOI @ Person")
 
         # check the basic entry in the fixture is fine
         OutgoingMailer.name_and_email_for_followup(ir, im).should == "\"FOI @ Person\" <foiperson@localhost>"

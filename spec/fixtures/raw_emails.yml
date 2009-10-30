@@ -1,6 +1,6 @@
 useless_raw_email: 
   id: 1
-  data: |
+  data_binary: |
     From: "FOI Person" <foiperson@localhost>
     To: "Bob Smith" <bob@localhost>
     Date: Tue, 13 Nov 2007 11:39:55 +0000

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 81) do
+ActiveRecord::Schema.define(:version => 82) do
 
   create_table "acts_as_xapian_jobs", :force => true do |t|
     t.string  "model",    :null => false
@@ -193,17 +193,18 @@ ActiveRecord::Schema.define(:version => 81) do
   end
 
   create_table "raw_emails", :force => true do |t|
-    t.text "data", :null => false
+    t.text   "data_text"
+    t.binary "data_binary"
   end
 
   create_table "track_things", :force => true do |t|
-    t.integer  "tracking_user_id", :null => false
-    t.string   "track_query",      :null => false
+    t.integer  "tracking_user_id",                               :null => false
+    t.string   "track_query",                                    :null => false
     t.integer  "info_request_id"
     t.integer  "tracked_user_id"
     t.integer  "public_body_id"
-    t.string   "track_medium",     :null => false
-    t.string   "track_type",       :null => false
+    t.string   "track_medium",                                   :null => false
+    t.string   "track_type",       :default => "internal_error", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
