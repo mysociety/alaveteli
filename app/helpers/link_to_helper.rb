@@ -191,6 +191,10 @@ module LinkToHelper
         return date.strftime("%e %B %Y").strip
     end
 
+    def simple_time(date)
+        return date.strftime("%H:%M:%S").strip
+    end
+
     def year_from_date(date)
         return date.strftime("%Y").strip
     end

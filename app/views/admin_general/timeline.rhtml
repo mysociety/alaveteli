@@ -22,7 +22,8 @@
         <br>
     <% end %>
     <% last_date = event.created_at.to_date %>
-
+    
+    <%= simple_time(event.created_at) %>
 
     <% if event.class.to_s == 'InfoRequestEvent' %>
         <%= request_both_links(event.info_request) %>
