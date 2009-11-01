@@ -1,0 +1,28 @@
+<% @title = "Change profile photo" %>
+
+<pre><%= params.to_yaml %></pre>
+
+<% raise "internal error" if not @user %>
+
+<h2>Change your profile photo</h2>
+
+<div id="profile_photo">
+
+<% form_tag '', :html => { :id => 'profile_photo_form' }, :multipart => true do %>
+    <p>
+	    <label class="form_label" for="file_1">Photo of you:</label> 
+        <%= file_field_tag :file, :size => 35 %>
+    </p>
+
+    <p><strong>Privacy note:</strong> Your photo will be shown in public on the Internet, 
+    everywhere you do something on WhatDoTheyKnow.
+
+    <p>
+        <%= hidden_field_tag 'submitted_profile_photo', 1 %>
+        <%= submit_tag "Change profile photo" %>
+    </p>
+
+<% end %>
+
+
+</div>

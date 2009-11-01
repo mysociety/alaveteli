@@ -60,6 +60,7 @@ ActionController::Routing::Routes.draw do |map|
         user.show_user '/user/:url_name', :action => 'show'
         user.contact_user '/user/contact/:id', :action => 'contact'
         user.river '/river', :action => 'river'
+        user.profile_photo '/profile_photo', :action => 'profile_photo'
     end
 
     map.with_options :controller => 'public_body' do |body|

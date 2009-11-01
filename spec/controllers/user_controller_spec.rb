@@ -297,6 +297,16 @@ describe UserController, "when changing password" do
 
 end
 
+describe UserController, "when using profile photos" do
+    integrate_views
+    fixtures :users
+    
+    it "should not let you change profile photo if you're not logged in as the user"
+        user = users(:bob_smith_user)
+        data = load_file_fixture("parrot.png")
+        post :profile_photo, { :id => user.id, :data => data } 
+    end
 
+end
 
 

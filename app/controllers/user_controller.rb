@@ -107,7 +107,7 @@ class UserController < ApplicationController
 
         # Make the user and try to save it
         @user_signup = User.new(params[:user_signup])
-        if not @user_signup.valid?
+        if !@user_signup.valid?
             # Show the form
             render :action => 'sign'
         else
@@ -325,10 +325,41 @@ class UserController < ApplicationController
         render :action => 'confirm' # must be same as for send_confirmation_mail above to avoid leak of presence of email in db
     end
 
-    def set_profile_photo
-        @photo_user = User.find(params[:id])
-        new_profile_photo = ProfilePhoto.new(:data => data)
-        @photo_user.set_profile_photo(new_profile_photo)
+    def profile_photo
+        raise 'boo"
+        # check they are logged in (the upload photo option is anyway only available when logged in)
+        if authenticated_user.nil?
+            flash[:error] = "You need to be logged in to change your profile photo."
+            redirect_to frontpage_url
+            return
+        end
+        if params[:submitted_profile_photo].nil?
+            # default page
+            return
+        end
+
+        # check for uploaded image
+        file_name = nil
+        file_content = nil
+        if params[:file].class.to_s == "ActionController::UploadedTempfile"
+            file_name = params[:file].original_filename
+            file_content = params[:file].read
+        end
+        if file_name.nil?
+            flash[:error] = "Please type a message and/or choose a file containing your response."
+            return
+        end
+
+        # change user's photo
+        new_profile_photo = ProfilePhoto.new(:data => params[:data])
+        if !new_profile_photo.valid?
+            # error page
+            return
+        end
+        @user.set_profile_photo(new_profile_photo)
+
+        flash[:notice] = "Thank you for updating your profile photo"
+        redirect_to user_url(@user)
     end
 end
 
