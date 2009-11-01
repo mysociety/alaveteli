@@ -274,9 +274,25 @@ describe UserController, "when changing password" do
     end
 
     it "should not change the password, if you're not logged in" do
+        session[:user_circumstance] = "change_password"
+
+        old_hash = users(:bob_smith_user).hashed_password
+        post :signchange, { :user => { :password => 'ooo', :password_confirmation => 'ooo' },
+            :submitted_signchange_password => 1
+        }
+        users(:bob_smith_user).hashed_password.should == old_hash
     end
 
     it "should not change the password, if you're just logged in normally" do
+        session[:user_id] = users(:bob_smith_user).id
+        session[:user_circumstance] = nil
+
+        old_hash = users(:bob_smith_user).hashed_password
+        post :signchange, { :user => { :password => 'ooo', :password_confirmation => 'ooo' },
+            :submitted_signchange_password => 1
+        }
+
+        users(:bob_smith_user).hashed_password.should == old_hash
     end
 
 end
