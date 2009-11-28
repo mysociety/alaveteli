@@ -120,7 +120,8 @@ class GeneralController < ApplicationController
         # Query each type separately for separate display (XXX we are calling
         # perform_search multiple times and it clobbers per_page for each one,
         # so set as separate var)
-        @xapian_requests = perform_search([InfoRequestEvent], @query, @sortby, 'request_collapse', 25)
+        requests_per_page = params[:requests_per_page].to_i || 25;
+        @xapian_requests = perform_search([InfoRequestEvent], @query, @sortby, 'request_collapse', requests_per_page)
         @requests_per_page = @per_page
         @xapian_bodies = perform_search([PublicBody], @query, @sortby, nil, 5)
         @bodies_per_page = @per_page
