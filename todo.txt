@@ -294,6 +294,8 @@ as well as word/document.xml ? (thread on xapian-discuss does so)
 
 Mime type / extension wrong on these .docx's
 http://www.whatdotheyknow.com/request/bridleway_classifications
+http://www.whatdotheyknow.com/request/19976/response/51468/attach/3/TU%20MembershipTeachers%20SolidarityTU%20231009.docx.doc (thinks it is doc when it is docx)
+Search for "OIC" for some more examples
 
 Worth doing View as HTML for .docx probably
 
