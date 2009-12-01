@@ -774,16 +774,20 @@ class IncomingMessage < ActiveRecord::Base
         # search results
         if self.cached_main_body_text.nil?
             text = self.get_main_body_text_internal
+
+            # Strip the uudecode parts from main text
+            # - this also effectively does a .dup as well, so text mods don't alter original
+            text = text.split(/^begin.+^`\n^end\n/sm).join(" ")
+
+            if text.size > 1000000 # 1 MB ish
+                raise "main body text more than 1 MB, need to implement clipping like for attachment text, or there is some other MIME decoding problem or similar"
+            end
+
             self.cached_main_body_text = text
             self.save!
         end
-        text = self.cached_main_body_text
 
-        # Strip the uudecode parts from main text
-        # - this also effectively does a .dup as well, so text mods don't alter original
-        text = text.split(/^begin.+^`\n^end\n/sm).join(" ")
-
-        return text
+        return self.cached_main_body_text
     end
     # Returns body text from main text part of email, converted to UTF-8
     def get_main_body_text_internal
