@@ -1,3 +1,9 @@
+Segmentation fault:
+IncomingMessage.find(24705).info_equest_events[0].search_text_main(true)
+
+s = IncomingMessage.find(2); text = s.get_main_body_text_internal; s.cached_main_body_text = text; s.save!
+
+
 overdue
 date_response_required_by
 waiting_response_overdue => waiting_response_slow, waiting_response_overdue

@@ -893,7 +893,16 @@ class IncomingMessage < ActiveRecord::Base
     end
     # Returns attachments that are uuencoded in main body part
     def get_main_body_text_uudecode_attachments
-        text = get_main_body_text_internal
+        # we don't use get_main_body_text_internal, as we want to avoid charset
+        # conversions, since /usr/bin/uudecode needs to deal with those.
+        # e.g. for https://secure.mysociety.org/admin/foi/request/show_raw_email/24550
+        main_part = get_main_body_text_part
+        if main_part.nil?
+            return
+        end
+        text = main_part.body
+        STDERR.puts(text[0..10000])
+        raise "boo"
 
         # Find any uudecoded things buried in it, yeuchly
         uus = text.scan(/^begin.+^`\n^end\n/sm)
@@ -907,6 +916,8 @@ class IncomingMessage < ActiveRecord::Base
             IO.popen("/usr/bin/uudecode " + tempfile.path + " -o -", "r") do |child|
                 content = child.read()
             end
+            STDERR.puts(tempfile.to_s)
+            raise "stop"
             tempfile.close
             # Make attachment type from it, working out filename and mime type
             attachment = FOIAttachment.new()
