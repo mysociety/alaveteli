@@ -198,13 +198,13 @@ ActiveRecord::Schema.define(:version => 82) do
   end
 
   create_table "track_things", :force => true do |t|
-    t.integer  "tracking_user_id", :null => false
-    t.string   "track_query",      :null => false
+    t.integer  "tracking_user_id",                               :null => false
+    t.string   "track_query",                                    :null => false
     t.integer  "info_request_id"
     t.integer  "tracked_user_id"
     t.integer  "public_body_id"
-    t.string   "track_medium",     :null => false
-    t.string   "track_type",       :null => false
+    t.string   "track_medium",                                   :null => false
+    t.string   "track_type",       :default => "internal_error", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
