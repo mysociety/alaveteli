@@ -76,6 +76,21 @@ cd ..
 
 # Force appropriate environment (via a hack in config/boot.rb which needs
 # applying to your rails app, see foi/config/boot.rb)
+if [ ! -e "config/rails_env.rb" ]
+then
+    cat <<END
+
+***************************************************************** 
+WARNING: About to make config/rails_env.rb which, via special
+code in config/boot.rb, forces the Rails environment to be a
+particular one - this is used for the mySociety deployment
+system. You don't want it for local development, because it will 
+not work in a confusing way you try and use two environments
+(e.g. development and test) in the same working directory.
+***************************************************************** 
+
+END
+fi
 if [ "$OPTION_STAGING_SITE" = "0" ]
 then
     echo "ENV['RAILS_ENV'] = 'production'" > config/rails_env.rb
