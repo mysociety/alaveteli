@@ -131,6 +131,7 @@ end
 require 'tmail_extensions.rb'
 require 'activesupport_cache_extensions.rb'
 require 'public_body_categories.rb'
+require 'timezone_fixes.rb'
 
 # XXX temp debug for SQL logging production sites
 #ActiveRecord::Base.logger = Logger.new(STDOUT)
