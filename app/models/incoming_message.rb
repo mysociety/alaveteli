@@ -901,8 +901,6 @@ class IncomingMessage < ActiveRecord::Base
             return
         end
         text = main_part.body
-        STDERR.puts(text[0..10000])
-        raise "boo"
 
         # Find any uudecoded things buried in it, yeuchly
         uus = text.scan(/^begin.+^`\n^end\n/sm)
