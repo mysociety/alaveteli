@@ -1,25 +1,10 @@
-# Taken from 
-# https://rails.lighthouseapp.com/projects/8994/tickets/2946
-# http://github.com/rails/rails/commit/6f97ad07ded847f29159baf71050c63f04282170
+# Changed by mySociety 2008-03-10 to get dynamic FastCGI working.
+# See also http://dev.rubyonrails.org/ticket/5399 - gah!
 
-# Otherwise times get stored wrong during British Summer Time
+# Hopefully fixed in later Rails. There is a test in spec/libs/fcgi_handler.rb
 
-# Hopefully fixed in later Rails. There is a test in spec/libs/timezone_fixes.rb
+require 'railties/lib/fcgi_handler.rb'
 
 # Monkeypatch!
-module ActiveRecord
-  module ConnectionAdapters # :nodoc:
-    module Quoting
-       def quoted_date(value)
-        value.to_s(:db)
-        if value.acts_like?(:time)
-          zone_conversion_method = ActiveRecord::Base.default_timezone == :utc ? :getutc : :getlocal
-          value.respond_to?(zone_conversion_method) ? value.send(zone_conversion_method) : value
-        else
-          value
-        end.to_s(:db)
-       end
-    end
-  end
-end
+RailsFCGIHandler::SIGNALS['TERM'] = :exit
 
