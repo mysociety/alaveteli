@@ -1,0 +1,21 @@
+2008-06-03
+* Added support for Rails 2.0 and 2.1. Thanks to Scott Windsor.
+
+2008-02-08
+* Added support for *.<format>.erb layouts and templates. Thanks to Eric Wollensen.
+
+2007-12-20
+* Fixed a bug present when specifying the layout with a string (eg: layout 'subdir/layout_template') in a multipart mail, which caused the plugin to only render one part and not the other. Thanks to Andres Koetsier.
+
+2007-12-12
+* Now works with Rails 2.0.
+
+2007-11-27
+* Now supports helpers defined in the mailer class. Thanks to Marshall Roch.
+
+2007-24-07
+* Now requires actionmailer-1.3.3.
+
+2007-05-07
+* No longer have to specify a :layout. The layout name is now inferred from the mailer class name. Thanks to Peter Boctor.
+* Helper methods are now available to action mailer layouts.  Thanks to Peter Boctor.
