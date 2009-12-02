@@ -12,7 +12,9 @@ TMail::VERSION::STRING <%=TMail::VERSION::STRING%>
 <br>
 Xapian::version_string <%=Xapian::version_string%>
 <br>
-Spec::VERSION::NAME/STRING <%=Spec::VERSION::NAME%> <%=Spec::VERSION::STRING%>
+Spec::VERSION::STRING <%=Spec::VERSION::STRING%>
+<br>
+Spec::Rails::VERSION::STRING <%=Spec::Rails::VERSION::STRING%>
 </p>
 
 <h2>Configuration</h2>
@@ -23,16 +25,23 @@ Spec::VERSION::NAME/STRING <%=Spec::VERSION::NAME%> <%=Spec::VERSION::STRING%>
 </p>
 
 <h2>Environment variables</h2>
-<pre>
-<%= @request_env.to_yaml %>
-</pre>
+<table>
+<% for k,v in @request_env %>
+    <tr><td><%=k%></td><td><%=v%></td></tr>
+<% end %>
+</table>
 
 <h2>Parameters</h2>
-<pre>
-<%= params.to_yaml %>
-</pre>
+<table>
+<% for k,v in params %>
+    <tr><td><%=k%></td><td><%=v%></td></tr>
+<% end %>
+</table>
 
 <h2>Session</h2>
-<pre>
-<%= session.to_yaml %>
-</pre>
+<table>
+<% for k,v in session %>
+    <tr><td><%=k%></td><td><%=v%></td></tr>
+<% end %>
+</table>
+

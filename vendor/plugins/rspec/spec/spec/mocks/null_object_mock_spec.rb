@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../../spec_helper.rb'
+require 'spec_helper'
 
 module Spec
   module Mocks
@@ -34,6 +34,20 @@ module Spec
         @mock.should_receive(:message).with(:expected_arg)
         @mock.message(:expected_arg)
         @mock.message(:unexpected_arg)
+      end
+    end
+
+    describe "#null_object?" do
+      it "should default to false" do
+        obj = mock('anything')
+        obj.should_not be_null_object
+      end
+    end
+    
+    describe "#as_null_object" do
+      it "should set the object to null_object" do
+        obj = mock('anything').as_null_object
+        obj.should be_null_object
       end
     end
   end

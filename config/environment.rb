@@ -96,7 +96,7 @@ ActionView::Helpers::TagHelper.module_eval do
 end
 
 # Domain for URLs (so can work for scripts, not just web pages)
-ActionController::UrlWriter.default_url_options[:host] = MySociety::Config.get("DOMAIN", 'localhost:3000')
+ActionMailer::Base.default_url_options[:host] = MySociety::Config.get("DOMAIN", 'localhost:3000')
 
 # So that javascript assets use full URL, so proxied admin URLs read javascript OK
 if (MySociety::Config.get("DOMAIN", "") != "")

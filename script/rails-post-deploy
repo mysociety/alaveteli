@@ -34,9 +34,9 @@ mkdir -p vendor
 cd vendor
 
 # see if rails is frozen or not
-if [ -d "rails-2.1.0" ]
+if [ -d "rails-2.3.2" ]
 then
-    LN_PATH=rails-2.1.0
+    LN_PATH=rails-2.3.2
 elif [ -d "rails" ]
 then
     LN_PATH=rails
@@ -45,7 +45,7 @@ else
 fi
 
 # make symlinks to global rails installation
-for X in actionmailer actionpack activerecord activesupport railties
+for X in actionmailer actionpack activerecord activeresource activesupport railties
 do
     rm -f $X
     ln -s $LN_PATH/$X $X
@@ -87,6 +87,6 @@ else
 fi
 
 # upgrade database
-rake db:migrate
+rake db:migrate #--trace
 
 

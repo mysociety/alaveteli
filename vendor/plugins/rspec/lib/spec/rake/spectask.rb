@@ -48,7 +48,6 @@ module Spec
     # This task can also be used to run existing Test::Unit tests and get RSpec
     # output, for example like this:
     #
-    #   require 'rubygems'
     #   require 'spec/rake/spectask'
     #   Spec::Rake::SpecTask.new do |t|
     #     t.ruby_opts = ['-rtest/unit']
@@ -56,12 +55,10 @@ module Spec
     #   end
     #
     class SpecTask < ::Rake::TaskLib
-      class << self
-        def attr_accessor(*names)
-          super(*names)
-          names.each do |name|
-            module_eval "def #{name}() evaluate(@#{name}) end" # Allows use of procs
-          end
+      def self.attr_accessor(*names)
+        super(*names)
+        names.each do |name|
+          module_eval "def #{name}() evaluate(@#{name}) end" # Allows use of procs
         end
       end
 
@@ -107,7 +104,7 @@ module Spec
       # A message to print to stderr when there are failures.
       attr_accessor :failure_message
 
-      # Where RSpec's output is written. Defaults to STDOUT.
+      # Where RSpec's output is written. Defaults to $stdout.
       # DEPRECATED. Use --format FORMAT:WHERE in spec_opts.
       attr_accessor :out
 
@@ -122,10 +119,13 @@ module Spec
       # the executed spec command to stdout. Defaults to false.
       attr_accessor :verbose
 
+      # Explicitly define the path to the ruby binary, or its proxy (e.g. multiruby)
+      attr_accessor :ruby_cmd
+
       # Defines a new task, using the name +name+.
       def initialize(name=:spec)
         @name = name
-        @libs = [File.expand_path(File.dirname(__FILE__) + '/../../../lib')]
+        @libs = ['lib']
         @pattern = nil
         @spec_files = nil
         @spec_opts = []
@@ -142,7 +142,7 @@ module Spec
       end
 
       def define # :nodoc:
-        spec_script = File.expand_path(File.dirname(__FILE__) + '/../../../bin/spec')
+        spec_script = File.expand_path(File.join(File.dirname(__FILE__),"..","..","..","bin","spec"))
 
         lib_path = libs.join(File::PATH_SEPARATOR)
         actual_name = Hash === name ? name.keys.first : name
@@ -155,30 +155,23 @@ module Spec
               # ruby [ruby_opts] -Ilib -S rcov [rcov_opts] bin/spec -- examples [spec_opts]
               # or
               # ruby [ruby_opts] -Ilib bin/spec examples [spec_opts]
-              cmd = "#{File.join(Config::CONFIG['bindir'], Config::CONFIG['ruby_install_name'])} "
-
-              rb_opts = ruby_opts.clone
-              rb_opts << "-I\"#{lib_path}\""
-              rb_opts << "-S rcov" if rcov
-              rb_opts << "-w" if warning
-              cmd << rb_opts.join(" ")
-              cmd << " "
-              cmd << rcov_option_list
-              cmd << %[ -o "#{rcov_dir}" ] if rcov
-              cmd << %Q|"#{spec_script}"|
-              cmd << " "
-              cmd << "-- " if rcov
-              cmd << spec_file_list.collect { |fn| %["#{fn}"] }.join(' ')
-              cmd << " "
-              cmd << spec_option_list
+              cmd_parts = [ruby_cmd || RUBY]
+              cmd_parts += ruby_opts
+              cmd_parts << %[-I"#{lib_path}"]
+              cmd_parts << "-S rcov" if rcov
+              cmd_parts << "-w" if warning
+              cmd_parts << rcov_option_list
+              cmd_parts << %[-o "#{rcov_dir}"] if rcov
+              cmd_parts << %["#{spec_script}"]
+              cmd_parts << "--" if rcov
+              cmd_parts += spec_file_list.collect { |fn| %["#{fn}"] }
+              cmd_parts << spec_option_list
               if out
-                cmd << " "
-                cmd << %Q| > "#{out}"|
+                cmd_parts << %[> "#{out}"]
                 STDERR.puts "The Spec::Rake::SpecTask#out attribute is DEPRECATED and will be removed in a future version. Use --format FORMAT:WHERE instead."
               end
-              if verbose
-                puts cmd
-              end
+              cmd = cmd_parts.join(" ")
+              puts cmd if verbose
               unless system(cmd)
                 STDERR.puts failure_message if failure_message
                 raise("Command #{cmd} failed") if fail_on_error
@@ -202,8 +195,11 @@ module Spec
       end
 
       def rcov_option_list # :nodoc:
-        return "" unless rcov
-        ENV['RCOV_OPTS'] || rcov_opts.join(" ") || ""
+        if rcov
+          ENV['RCOV_OPTS'] || rcov_opts.join(" ") || ""
+        else
+          ""
+        end
       end
 
       def spec_option_list # :nodoc:
@@ -232,4 +228,3 @@ module Spec
     end
   end
 end
-

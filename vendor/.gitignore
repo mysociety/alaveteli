@@ -2,5 +2,6 @@ actionmailer
 actionpack
 activerecord
 activesupport
+activeresource
 rails
 railties

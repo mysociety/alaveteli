@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../../spec_helper'
+require 'spec_helper'
 
 module Spec
   module Mocks
@@ -36,7 +36,7 @@ module Spec
         @mock.should_receive(:two).ordered
         lambda do
           @mock.two
-        end.should raise_error(MockExpectationError, "Mock 'test mock' received :two out of order")
+        end.should raise_error(MockExpectationError, "Mock \"test mock\" received :two out of order")
       end
 
       it "should fail if third call comes first" do
@@ -46,7 +46,7 @@ module Spec
         @mock.one
         lambda do
           @mock.three
-        end.should raise_error(MockExpectationError, "Mock 'test mock' received :three out of order")
+        end.should raise_error(MockExpectationError, "Mock \"test mock\" received :three out of order")
       end
       
       it "should fail if third call comes second" do
@@ -56,7 +56,7 @@ module Spec
         @mock.one
         lambda do
           @mock.three
-        end.should raise_error(MockExpectationError, "Mock 'test mock' received :three out of order")
+        end.should raise_error(MockExpectationError, "Mock \"test mock\" received :three out of order")
       end
 
       it "should ignore order of non ordered calls" do
@@ -77,6 +77,16 @@ module Spec
         @mock.ordered_3
         @mock.ignored_1
         @mock.rspec_verify
+      end
+      
+      it "should pass when duplicates exist" do
+        @mock.should_receive(:a).ordered
+        @mock.should_receive(:b).ordered
+        @mock.should_receive(:a).ordered
+        
+        @mock.a
+        @mock.b
+        @mock.a
       end
             
     end
