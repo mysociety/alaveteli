@@ -90,23 +90,6 @@ if (MySociety::Config.get("DOMAIN", "") != "")
     ActionController::Base.asset_host = MySociety::Config.get("DOMAIN", 'localhost:3000')
 end
 
-# Monkeypatch! Hack for admin pages, when proxied via https on mySociety servers, they
-# need a relative URL.
-module WillPaginate
-    class LinkRenderer
-        def page_link(page, text, attributes = {})
-            url = url_for(page)
-            if url.match(/^\/admin.*(\?.*)/)
-                url = $1
-            end
-            @template.link_to text, url, attributes
-        end
-    end
-end
-
-# XXX all the monkey patches above should be moved into their own files in
-# lib/, and required below
-
 # Load monkey patches from lib/
 require 'tmail_extensions.rb'
 require 'activesupport_cache_extensions.rb'
@@ -116,6 +99,7 @@ require 'fcgi_fixes.rb'
 require 'use_spans_for_errors.rb'
 require 'make_html_4_compliant.rb'
 require 'activerecord_errors_extensions.rb'
+require 'willpaginate_hack.rb'
 
 # XXX temp debug for SQL logging production sites
 #ActiveRecord::Base.logger = Logger.new(STDOUT)
