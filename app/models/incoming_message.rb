@@ -914,8 +914,6 @@ class IncomingMessage < ActiveRecord::Base
             IO.popen("/usr/bin/uudecode " + tempfile.path + " -o -", "r") do |child|
                 content = child.read()
             end
-            STDERR.puts(tempfile.to_s)
-            raise "stop"
             tempfile.close
             # Make attachment type from it, working out filename and mime type
             attachment = FOIAttachment.new()
