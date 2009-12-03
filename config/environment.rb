@@ -79,9 +79,6 @@ end
 # Mime::Type.register "text/richtext", :rtf
 # Mime::Type.register "application/x-mobile", :mobile
 
-# Monkeypatch! Use SPAN instead of DIV. See http://dev.rubyonrails.org/ticket/2210
-ActionView::Base.field_error_proc = Proc.new{ |html_tag, instance|  %(<span class="fieldWithErrors">#{html_tag}</span>)}
-
 # Include your application configuration below
 ActionController::Base.cache_store = :file_store, File.join(File.dirname(__FILE__), '../cache')
 
@@ -133,6 +130,7 @@ require 'activesupport_cache_extensions.rb'
 require 'public_body_categories.rb'
 require 'timezone_fixes.rb'
 require 'fcgi_fixes.rb'
+require 'use_spans_for_errors.rb'
 
 # XXX temp debug for SQL logging production sites
 #ActiveRecord::Base.logger = Logger.new(STDOUT)
