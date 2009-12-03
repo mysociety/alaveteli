@@ -29,10 +29,6 @@ else
     OPTION_STAGING_SITE=1
 fi
 
-# Go into vendor
-mkdir -p vendor
-cd vendor
-
 # create initial log files
 if [ -e $APP_DIR/../logs ]
 then
