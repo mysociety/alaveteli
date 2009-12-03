@@ -53,13 +53,15 @@ module TMail
           if h = @header['content-type']
             h.main_type = main
             h.sub_type  = sub
-            h.params.clear # if !h.params.nil? # XXX this if statement is the fix # XXX disabled until works with test
+            h.params.clear if !h.params.nil? # XXX this if statement is the fix # XXX disabled until works with test
           else
             store 'Content-Type', "#{main}/#{sub}"
           end
           @header['content-type'].params.replace param if param
           str
         end
+        # Need to make sure this alias calls the Monkeypatch too
+        alias content_type= set_content_type
 
     end
 
