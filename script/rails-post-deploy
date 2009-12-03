@@ -34,25 +34,16 @@ mkdir -p vendor
 cd vendor
 
 # see if rails is frozen or not
-if [ -d "rails-2.3.2" ]
-then
-    LN_PATH=rails-2.3.2
-elif [ -d "rails" ]
-then
-    LN_PATH=rails
-else
-    LN_PATH=/usr/share/rails
-fi
+LN_PATH=rails-2.3.2
+rm -f rails
+ln -s $LN_PATH rails
 
 # make symlinks to global rails installation
 for X in actionmailer actionpack activerecord activeresource activesupport railties
 do
     rm -f $X
-    ln -s $LN_PATH/$X $X
+    ln -s rails/$X $X
 done
-rm -f rails
-ln -s $LN_PATH rails
-rm -f actionwebservice
 cd ..
 
 # create initial log files
