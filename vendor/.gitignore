@@ -3,5 +3,4 @@ actionpack
 activerecord
 activesupport
 activeresource
-rails
 railties
