@@ -33,19 +33,6 @@ fi
 mkdir -p vendor
 cd vendor
 
-# see if rails is frozen or not
-LN_PATH=rails-2.3.2
-rm -f rails
-ln -s $LN_PATH rails
-
-# make symlinks to global rails installation
-for X in actionmailer actionpack activerecord activeresource activesupport railties
-do
-    rm -f $X
-    ln -s rails/$X $X
-done
-cd ..
-
 # create initial log files
 if [ -e $APP_DIR/../logs ]
 then

@@ -1,0 +1,483 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>Performance Testing Rails Applications</title>
+
+<link rel="stylesheet" type="text/css" href="files/stylesheets/style.css" />
+<link rel="stylesheet" type="text/css" href="files/stylesheets/syntax.css" />
+<link rel="stylesheet" type="text/css" href="files/stylesheets/print.css" media="print" />
+
+<script type="text/javascript" src="files/javascripts/guides.js"></script>
+<script type="text/javascript" src="files/javascripts/code_highlighter.js"></script>
+<script type="text/javascript" src="files/javascripts/highlighters.js"></script>
+
+</head>
+<body class="guide">
+  <div id="topNav">
+    <div class="wrapper">
+      <strong>More at <a href="http://www.rubyonrails.org/">rubyonrails.org:</a> </strong>
+      <a href="http://www.rubyonrails.org/">Overview</a> |
+      <a href="http://www.rubyonrails.org/download">Download</a> |
+      <a href="http://www.rubyonrails.org/deploy">Deploy</a> |
+      <a href="http://rails.lighthouseapp.com/projects/8994-ruby-on-rails/overview">Code</a> |
+      <a href="http://www.rubyonrails.org/screencasts">Screencasts</a> |
+      <a href="http://www.rubyonrails.org/documentation">Documentation</a> |
+      <a href="http://www.rubyonrails.org/ecosystem">Ecosystem</a> |
+      <a href="http://www.rubyonrails.org/community">Community</a> |
+      <a href="http://weblog.rubyonrails.org/">Blog</a>
+    </div>
+  </div>
+  <div id="header">
+    <div class="wrapper clearfix">
+      <h1><a href="index.html" title="Return to home page">Guides.rubyonrails.org</a></h1>
+      <p class="hide"><a href="#mainCol">Skip navigation</a>.</p>
+      <ul class="nav">
+        <li><a href="index.html">Home</a></li>
+        <li class="index"><a href="index.html" onclick="guideMenu(); return false;" id="guidesMenu">Guides Index</a>
+          <div id="guides" class="clearfix" style="display: none;">
+            <hr />
+            <dl class="L">
+              <dt>Start Here</dt>
+              <dd><a href="getting_started.html">Getting Started with Rails</a></dd>
+              <dt>Models</dt>
+              <dd><a href="migrations.html">Rails Database Migrations</a></dd>
+              <dd><a href="activerecord_validations_callbacks.html">Active Record Validations and Callbacks</a></dd>
+              <dd><a href="association_basics.html">Active Record Associations</a></dd>
+              <dd><a href="active_record_querying.html">Active Record Query Interface</a></dd>
+              <dt>Views</dt>
+              <dd><a href="layouts_and_rendering.html">Layouts and Rendering in Rails</a></dd>
+              <dd><a href="form_helpers.html">Action View Form Helpers</a></dd>
+              <dt>Controllers</dt>
+              <dd><a href="action_controller_overview.html">Action Controller Overview</a></dd>
+              <dd><a href="routing.html">Rails Routing from the Outside In</a></dd>
+            </dl>
+            <dl class="R">
+              <dt>Digging Deeper</dt>
+              <dd><a href="i18n.html">Rails Internationalization API</a></dd>
+              <dd><a href="action_mailer_basics.html">Action Mailer Basics</a></dd>
+              <dd><a href="testing.html">Testing Rails Applications</a></dd>
+              <dd><a href="security.html">Securing Rails Applications</a></dd>
+              <dd><a href="debugging_rails_applications.html">Debugging Rails Applications</a></dd>
+              <dd><a href="performance_testing.html">Performance Testing Rails Applications</a></dd>
+              <dd><a href="plugins.html">The Basics of Creating Rails Plugins</a></dd>
+              <dd><a href="configuring.html">Configuring Rails Applications</a></dd>
+              <dd><a href="rails_on_rack.html">Rails on Rack</a></dd>
+            </dl>
+          </div>
+        </li>
+        <li><a href="contribute.html">Contribute</a></li>
+        <li><a href="credits.html">Credits</a></li>
+      </ul>
+    </div>
+  </div>
+  <hr class="hide" />
+
+  <div id="feature">
+    <div class="wrapper">
+      <h2>Performance Testing Rails Applications</h2>
+<p>This guide covers the various ways of performance testing a Ruby on Rails application. By referring to this guide, you will be able to:</p>
+<ul>
+	<li>Understand the various types of benchmarking and profiling metrics</li>
+	<li>Generate performance and benchmarking tests</li>
+	<li>Use a GC-patched Ruby binary to measure memory usage and object allocation</li>
+	<li>Understand the benchmarking information provided by Rails inside the log files</li>
+	<li>Learn about various tools facilitating benchmarking and profiling</li>
+</ul>
+<p>Performance testing is an integral part of the development cycle. It is very important that you don&#8217;t make your end users wait for too long before the page is completely loaded. Ensuring a pleasant browsing experience for end users and cutting the cost of unnecessary hardware is important for any non-trivial web application.</p>
+
+            <div id="subCol">
+        <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
+        <ol class="chapters">
+<li><a href="#performance-test-cases">Performance Test Cases</a><ul><li><a href="#generatingperformancetests">Generating performance tests</a></li><li><a href="#examples">Examples</a></li><li><a href="#modes">Modes</a></li><li><a href="#metrics">Metrics</a></li><li><a href="#understandingtheoutput">Understanding the output</a></li><li><a href="#tuningtestruns">Tuning test runs</a></li><li><a href="#performancetestenvironment">Performance test environment</a></li><li><a href="#installing-gc-patched-ruby">Installing GC-patched Ruby</a></li></ul></li><li><a href="#command-line-tools">Command Line Tools</a><ul><li><a href="#benchmarker"><tt>benchmarker</tt></a></li><li><a href="#profiler"><tt>profiler</tt></a></li></ul></li><li><a href="#helper-methods">Helper Methods</a><ul><li><a href="#model">Model</a></li><li><a href="#controller">Controller</a></li><li><a href="#view">View</a></li></ul></li><li><a href="#request-logging">Request Logging</a><ul></ul></li><li><a href="#useful-links">Useful Links</a><ul><li><a href="#railspluginsandgems">Rails plugins and gems</a></li><li><a href="#generictools">Generic tools</a></li><li><a href="#tutorialsanddocumentation">Tutorials and documentation</a></li></ul></li><li><a href="#commercial-products">Commercial Products</a><ul></ul></li><li><a href="#changelog">Changelog</a><ul></ul></li></ol></div>
+    </div>
+  </div>
+
+  <div id="container">
+    <div class="wrapper">
+      <div id="mainCol">
+        <h3 id="performance-test-cases">1 Performance Test Cases</h3>
+<p>Rails performance tests are a special type of integration tests, designed for benchmarking and profiling the test code. With performance tests, you can determine where your application&#8217;s memory or speed problems are coming from, and get a more in-depth picture of those problems.</p>
+<p>In a freshly generated Rails application, <tt>test/performance/browsing_test.rb</tt> contains an example of a performance test:</p>
+<div class="code_container"><code class="ruby">
+require 'test_helper'
+require 'performance_test_help'
+
+# Profiling results for each test method are written to tmp/performance.
+class BrowsingTest &lt; ActionController::PerformanceTest
+  def test_homepage
+    get '/'
+  end
+end
+</code></div>
+<p>This example is a simple performance test case for profiling a <span class="caps">GET</span> request to the application&#8217;s homepage.</p>
+<h4 id="generatingperformancetests">1.1 Generating performance tests</h4>
+<p>Rails provides a generator called <tt>performance_test</tt> for creating new performance tests:</p>
+<div class="code_container"><code class="html">
+script/generate performance_test homepage
+</code></div>
+<p>This generates <tt>homepage_test.rb</tt> in the <tt>test/performance</tt> directory:</p>
+<div class="code_container"><code class="ruby">
+require 'test_helper'
+require 'performance_test_help'
+
+class HomepageTest &lt; ActionController::PerformanceTest
+  # Replace this with your real tests.
+  def test_homepage
+    get '/'
+  end
+end
+</code></div>
+<h4 id="examples">1.2 Examples</h4>
+<p>Let&#8217;s assume your application has the following controller and model:</p>
+<div class="code_container"><code class="ruby">
+# routes.rb
+map.root :controller =&gt; 'home'
+map.resources :posts
+
+# home_controller.rb
+class HomeController &lt; ApplicationController
+  def dashboard
+    @users = User.last_ten(:include =&gt; :avatars)
+    @posts = Post.all_today
+  end
+end
+
+# posts_controller.rb
+class PostsController &lt; ApplicationController
+  def create
+    @post = Post.create(params[:post])
+    redirect_to(@post)
+  end
+end
+
+# post.rb
+class Post &lt; ActiveRecord::Base
+  before_save :recalculate_costly_stats
+
+  def slow_method
+    # I fire gallzilion queries sleeping all around
+  end
+
+  private
+
+  def recalculate_costly_stats
+    # CPU heavy calculations
+  end
+end
+</code></div>
+<h5 id="controllerexample">1.2.1 Controller example</h5>
+<p>Because performance tests are a special kind of integration test, you can use the <tt>get</tt> and <tt>post</tt> methods in them.</p>
+<p>Here&#8217;s the performance test for <tt>HomeController#dashboard</tt> and <tt>PostsController#create</tt>:</p>
+<div class="code_container"><code class="ruby">
+require 'test_helper'
+require 'performance_test_help'
+
+class PostPerformanceTest &lt; ActionController::PerformanceTest
+  def setup
+    # Application requires logged-in user
+    login_as(:lifo)
+  end
+
+  def test_homepage
+    get '/dashboard'
+  end
+
+  def test_creating_new_post
+    post '/posts', :post =&gt; { :body =&gt; 'lifo is fooling you' }
+  end
+end
+</code></div>
+<p>You can find more details about the <tt>get</tt> and <tt>post</tt> methods in the link:../testing_rails_applications.html#mgunderloy[Testing Rails Applications] guide.</p>
+<h5 id="modelexample">1.2.2 Model example</h5>
+<p>Even though the performance tests are integration tests and hence closer to the request/response cycle by nature, you can still performance test pure model code.</p>
+<p>Performance test for <tt>Post</tt> model:</p>
+<div class="code_container"><code class="ruby">
+require 'test_helper'
+require 'performance_test_help'
+
+class PostModelTest &lt; ActionController::PerformanceTest
+  def test_creation
+    Post.create :body =&gt; 'still fooling you', :cost =&gt; '100'
+  end
+
+  def test_slow_method
+    # Using posts(:awesome) fixture
+    posts(:awesome).slow_method
+  end
+end
+</code></div>
+<h4 id="modes">1.3 Modes</h4>
+<p>Performance tests can be run in two modes: Benchmarking and Profiling.</p>
+<h5 id="benchmarking">1.3.1 Benchmarking</h5>
+<p>Benchmarking helps find out how fast each performance test runs. Each test case is run <tt>4 times</tt> in benchmarking mode.</p>
+<p>To run performance tests in benchmarking mode:</p>
+<div class="code_container"><code class="html">
+$ rake test:benchmark
+</code></div>
+<h5 id="profiling">1.3.2 Profiling</h5>
+<p>Profiling helps you see the details of a performance test and provide an in-depth picture of the slow and memory hungry parts. Each test case is run <tt>1 time</tt> in profiling mode.</p>
+<p>To run performance tests in profiling mode:</p>
+<div class="code_container"><code class="html">
+$ rake test:profile
+</code></div>
+<h4 id="metrics">1.4 Metrics</h4>
+<p>Benchmarking and profiling run performance tests in various modes described below.</p>
+<h5 id="walltime">1.4.1 Wall time</h5>
+<p>Wall time measures the real world time elapsed during the test run. It is affected by any other processes concurrently running on the system.</p>
+<p>Mode: Benchmarking</p>
+<h5 id="processtime">1.4.2 Process time</h5>
+<p>Process time measures the time taken by the process. It is unaffected by any other processes running concurrently on the same system. Hence, process time is likely to be constant for any given performance test, irrespective of the machine load.</p>
+<p>Mode: Profiling</p>
+<h5 id="memory">1.4.3 Memory</h5>
+<p>Memory measures the amount of memory used for the performance test case.</p>
+<p>Mode: Benchmarking, Profiling <a href="#installing-gc-patched-ruby">Requires GC Patched Ruby</a></p>
+<h5 id="objects">1.4.4 Objects</h5>
+<p>Objects measures the number of objects allocated for the performance test case.</p>
+<p>Mode: Benchmarking, Profiling <a href="#installing-gc-patched-ruby">Requires GC Patched Ruby</a></p>
+<h5 id="g-cruns">1.4.5 GC runs</h5>
+<p>GC Runs measures the number of times GC was invoked for the performance test case.</p>
+<p>Mode: Benchmarking <a href="#installing-gc-patched-ruby">Requires GC Patched Ruby</a></p>
+<h5 id="g-ctime">1.4.6 GC time</h5>
+<p>GC Time measures the amount of time spent in GC for the performance test case.</p>
+<p>Mode: Benchmarking <a href="#installing-gc-patched-ruby">Requires GC Patched Ruby</a></p>
+<h4 id="understandingtheoutput">1.5 Understanding the output</h4>
+<p>Performance tests generate different outputs inside <tt>tmp/performance</tt> directory depending on their mode and metric.</p>
+<h5 id="benchmarking">1.5.1 Benchmarking</h5>
+<p>In benchmarking mode, performance tests generate two types of outputs:</p>
+<h6 id="commandline">1.5.1.1 Command line</h6>
+<p>This is the primary form of output in benchmarking mode. Example:</p>
+<div class="code_container"><code class="html">
+BrowsingTest#test_homepage (31 ms warmup)
+           wall_time: 6 ms
+              memory: 437.27 KB
+             objects: 5514
+             gc_runs: 0
+             gc_time: 19 ms
+</code></div>
+<h6 id="cs-vfiles">1.5.1.2 <span class="caps">CSV</span> files</h6>
+<p>Performance test results are also appended to <tt>.csv</tt> files inside <tt>tmp/performance</tt>. For example, running the default <tt>BrowsingTest#test_homepage</tt> will generate following five files:</p>
+<ul>
+	<li>BrowsingTest#test_homepage_gc_runs.csv</li>
+	<li>BrowsingTest#test_homepage_gc_time.csv</li>
+	<li>BrowsingTest#test_homepage_memory.csv</li>
+	<li>BrowsingTest#test_homepage_objects.csv</li>
+	<li>BrowsingTest#test_homepage_wall_time.csv</li>
+</ul>
+<p>As the results are appended to these files each time the performance tests are run in benchmarking mode, you can collect data over a period of time. This can be very helpful in analyzing the effects of code changes.</p>
+<p>Sample output of <tt>BrowsingTest#test_homepage_wall_time.csv</tt>:</p>
+<div class="code_container"><code class="html">
+measurement,created_at,app,rails,ruby,platform
+0.00738224999999992,2009-01-08T03:40:29Z,,2.3.0.master.0744148,ruby-1.8.6.110,i686-darwin9.0.0
+0.00755874999999984,2009-01-08T03:46:18Z,,2.3.0.master.0744148,ruby-1.8.6.110,i686-darwin9.0.0
+0.00762099999999993,2009-01-08T03:49:25Z,,2.3.0.master.0744148,ruby-1.8.6.110,i686-darwin9.0.0
+0.00603075000000008,2009-01-08T04:03:29Z,,2.3.0.master.0744148,ruby-1.8.6.111,i686-darwin9.1.0
+0.00619899999999995,2009-01-08T04:03:53Z,,2.3.0.master.0744148,ruby-1.8.6.111,i686-darwin9.1.0
+0.00755449999999991,2009-01-08T04:04:55Z,,2.3.0.master.0744148,ruby-1.8.6.110,i686-darwin9.0.0
+0.00595999999999997,2009-01-08T04:05:06Z,,2.3.0.master.0744148,ruby-1.8.6.111,i686-darwin9.1.0
+0.00740450000000004,2009-01-09T03:54:47Z,,2.3.0.master.859e150,ruby-1.8.6.110,i686-darwin9.0.0
+0.00603150000000008,2009-01-09T03:54:57Z,,2.3.0.master.859e150,ruby-1.8.6.111,i686-darwin9.1.0
+0.00771250000000012,2009-01-09T15:46:03Z,,2.3.0.master.859e150,ruby-1.8.6.110,i686-darwin9.0.0
+</code></div>
+<h5 id="profiling">1.5.2 Profiling</h5>
+<p>In profiling mode, you can choose from four types of output.</p>
+<h6 id="commandline">1.5.2.1 Command line</h6>
+<p>This is a very basic form of output in profiling mode:</p>
+<div class="code_container"><code class="html">
+BrowsingTest#test_homepage (58 ms warmup)
+        process_time: 63 ms
+              memory: 832.13 KB
+             objects: 7882
+</code></div>
+<h6 id="flat">1.5.2.2 Flat</h6>
+<p>Flat output shows the total amount of time spent in each method. <a href="http://ruby-prof.rubyforge.org/files/examples/flat_txt.html">Check ruby prof documentation for a better explanation</a>.</p>
+<h6 id="graph">1.5.2.3 Graph</h6>
+<p>Graph output shows how long each method takes to run, which methods call it and which methods it calls. <a href="http://ruby-prof.rubyforge.org/files/examples/graph_txt.html">Check ruby prof documentation for a better explanation</a>.</p>
+<h6 id="tree">1.5.2.4 Tree</h6>
+<p>Tree output is profiling information in calltree format for use by http://kcachegrind.sourceforge.net/html/Home.html[kcachegrind] and similar tools.</p>
+<h4 id="tuningtestruns">1.6 Tuning test runs</h4>
+<p>By default, each performance test is run <tt>4 times</tt> in benchmarking mode and <tt>1 time</tt> in profiling. However, test runs can easily be configured.</p>
+<div class='warning'><p>Performance test configurability is not yet enabled in Rails. But it will be soon.</p></div>
+<h4 id="performancetestenvironment">1.7 Performance test environment</h4>
+<p>Performance tests are run in the <tt>development</tt> environment. But running performance tests will set the following configuration parameters:</p>
+<div class="code_container"><code class="html">
+ActionController::Base.perform_caching = true
+ActiveSupport::Dependencies.mechanism = :require
+Rails.logger.level = ActiveSupport::BufferedLogger::INFO
+</code></div>
+<p>As <tt>ActionController::Base.perform_caching</tt> is set to <tt>true</tt>, performance tests will behave much as they do in the <tt>production</tt> environment.</p>
+<h4 id="installing-gc-patched-ruby">1.8 Installing GC-patched Ruby</h4>
+<p>To get the best from Rails performance tests, you need to build a special Ruby binary with some super powers &#8211; <a href="http://rubyforge.org/tracker/download.php/1814/7062/17676/3291/ruby186gc.patch">GC patch</a> for measuring GC Runs/Time and memory/object allocation.</p>
+<p>The process is fairly straightforward. If you&#8217;ve never compiled a Ruby binary before, follow these steps to build a ruby binary inside your home directory:</p>
+<h5 id="installation">1.8.1 Installation</h5>
+<p>Compile Ruby and apply this <a href="http://rubyforge.org/tracker/download.php/1814/7062/17676/3291/ruby186gc.patch">GC Patch</a>.</p>
+<h5 id="downloadandextract">1.8.2 Download and extract</h5>
+<div class="code_container"><code class="html">
+[lifo@null ~]$ mkdir rubygc
+[lifo@null ~]$ wget &lt;download the latest stable ruby from ftp://ftp.ruby-lang.org/pub/ruby&gt;
+[lifo@null ~]$ tar -xzvf &lt;ruby-version.tar.gz&gt;
+[lifo@null ~]$ cd &lt;ruby-version&gt;
+</code></div>
+<h5 id="applythepatch">1.8.3 Apply the patch</h5>
+<div class="code_container"><code class="html">
+[lifo@null ruby-version]$ curl http://rubyforge.org/tracker/download.php/1814/7062/17676/3291/ruby186gc.patch | patch -p0
+</code></div>
+<h5 id="configureandinstall">1.8.4 Configure and install</h5>
+<p>The following will install ruby in your home directory&#8217;s <tt>/rubygc</tt> directory. Make sure to replace <tt><homedir></tt> with a full patch to your actual home directory.</p>
+<div class="code_container"><code class="html">
+[lifo@null ruby-version]$ ./configure --prefix=/&lt;homedir&gt;/rubygc
+[lifo@null ruby-version]$ make &amp;&amp; make install
+</code></div>
+<h5 id="preparealiases">1.8.5 Prepare aliases</h5>
+<p>For convenience, add the following lines in your <tt>~/.profile</tt>:</p>
+<div class="code_container"><code class="html">
+alias gcruby='~/rubygc/bin/ruby'
+alias gcrake='~/rubygc/bin/rake'
+alias gcgem='~/rubygc/bin/gem'
+alias gcirb='~/rubygc/bin/irb'
+alias gcrails='~/rubygc/bin/rails'
+</code></div>
+<h5 id="install-rubygemsanddependencygems">1.8.6 Install Rubygems and dependency gems</h5>
+<p>Download <a href="http://rubyforge.org/projects/rubygems">Rubygems</a> and install it from source. Rubygem&#8217;s <span class="caps">README</span> file should have necessary installation instructions.</p>
+<p>Additionally, install the following gems:</p>
+<ul>
+	<li><tt>rake</tt></li>
+	<li><tt>rails</tt></li>
+	<li><tt>ruby-prof</tt></li>
+	<li><tt>rack</tt></li>
+	<li><tt>mysql</tt></li>
+</ul>
+<p>If installing <tt>mysql</tt> fails, you can try to install it manually:</p>
+<div class="code_container"><code class="html">
+[lifo@null mysql]$ gcruby extconf.rb --with-mysql-config
+[lifo@null mysql]$ make &amp;&amp; make install
+</code></div>
+<p>And you&#8217;re ready to go. Don&#8217;t forget to use <tt>gcruby</tt> and <tt>gcrake</tt> aliases when running the performance tests.</p>
+<h3 id="command-line-tools">2 Command Line Tools</h3>
+<p>Writing performance test cases could be an overkill when you are looking for one time tests. Rails ships with two command line tools that enable quick and dirty performance testing:</p>
+<h4 id="benchmarker">2.1 <tt>benchmarker</tt></h4>
+<tt>benchmarker</tt>is a wrapper around Ruby&#8217;s <a href="http://ruby-doc.org/core/classes/Benchmark.html">Benchmark</a> standard library.
+<p>Usage:</p>
+<div class="code_container"><code class="html">
+$ script/performance/benchmarker [times] 'Person.expensive_way' 'Person.another_expensive_way' ...
+</code></div>
+<p>Examples:</p>
+<div class="code_container"><code class="html">
+$ script/performance/benchmarker 10 'Item.all' 'CouchItem.all'
+</code></div>
+<p>If the <tt>[times]</tt> argument is omitted, supplied methods are run just once:</p>
+<div class="code_container"><code class="html">
+$ script/performance/benchmarker 'Item.first' 'Item.last'
+</code></div>
+<h4 id="profiler">2.2 <tt>profiler</tt></h4>
+<tt>profiler</tt>is a wrapper around http://ruby-prof.rubyforge.org/[ruby-prof] gem.
+<p>Usage:</p>
+<div class="code_container"><code class="html">
+$ script/performance/profiler 'Person.expensive_method(10)' [times] [flat|graph|graph_html]
+</code></div>
+<p>Examples:</p>
+<div class="code_container"><code class="html">
+$ script/performance/profiler 'Item.all'
+</code></div>
+<p>This will profile <tt>Item.all</tt> in <tt>RubyProf::WALL_TIME</tt> measure mode. By default, it prints flat output to the shell.</p>
+<div class="code_container"><code class="html">
+$ script/performance/profiler 'Item.all' 10 graph
+</code></div>
+<p>This will profile <tt>10.times { Item.all }</tt> with <tt>RubyProf::WALL_TIME</tt> measure mode and print graph output to the shell.</p>
+<p>If you want to store the output in a file:</p>
+<div class="code_container"><code class="html">
+$ script/performance/profiler 'Item.all' 10 graph 2&gt; graph.txt
+</code></div>
+<h3 id="helper-methods">3 Helper Methods</h3>
+<p>Rails provides various helper methods inside Active Record, Action Controller and Action View to measure the time taken by a given piece of code. The method is called <tt>benchmark()</tt> in all the three components.</p>
+<h4 id="model">3.1 Model</h4>
+<div class="code_container"><code class="ruby">
+Project.benchmark(&quot;Creating project&quot;) do
+  project = Project.create(&quot;name&quot; =&gt; &quot;stuff&quot;)
+  project.create_manager(&quot;name&quot; =&gt; &quot;David&quot;)
+  project.milestones &lt;&lt; Milestone.find(:all)
+end
+</code></div>
+<p>This benchmarks the code enclosed in the <tt>Project.benchmark("Creating project") do...end</tt> block and prints the result to the log file:</p>
+<div class="code_container"><code class="ruby">
+Creating project (185.3ms)
+</code></div>
+<p>Please refer to the <a href="http://api.rubyonrails.com/classes/ActiveRecord/Base.html#M001336"><span class="caps">API</span> docs</a> for additional options to <tt>benchmark()</tt></p>
+<h4 id="controller">3.2 Controller</h4>
+<p>Similarly, you could use this helper method inside <a href="http://api.rubyonrails.com/classes/ActionController/Benchmarking/ClassMethods.html#M000715">controllers</a></p>
+<div class="code_container"><code class="ruby">
+def process_projects
+  self.class.benchmark(&quot;Processing projects&quot;) do
+    Project.process(params[:project_ids])
+    Project.update_cached_projects
+  end
+end
+</code></div>
+<div class='note'><p><tt>benchmark</tt> is a class method inside controllers</p></div>
+<h4 id="view">3.3 View</h4>
+<p>And in <a href="http://api.rubyonrails.com/classes/ActionController/Benchmarking/ClassMethods.html#M000715">views</a>:</p>
+<div class="code_container"><code class="html">
+&lt;% benchmark(&quot;Showing projects partial&quot;) do %&gt;
+  &lt;%= render :partial =&gt; @projects %&gt;
+&lt;% end %&gt;
+</code></div>
+<h3 id="request-logging">4 Request Logging</h3>
+<p>Rails log files contain very useful information about the time taken to serve each request. Here&#8217;s a typical log file entry:</p>
+<div class="code_container"><code class="html">
+Processing ItemsController#index (for 127.0.0.1 at 2009-01-08 03:06:39) [GET]
+Rendering template within layouts/items
+Rendering items/index
+Completed in 5ms (View: 2, DB: 0) | 200 OK [http://0.0.0.0/items]
+</code></div>
+<p>For this section, we&#8217;re only interested in the last line:</p>
+<div class="code_container"><code class="html">
+Completed in 5ms (View: 2, DB: 0) | 200 OK [http://0.0.0.0/items]
+</code></div>
+<p>This data is fairly straightforward to understand. Rails uses millisecond(ms) as the metric to measure the time taken. The complete request spent 5 ms inside Rails, out of which 2 ms were spent rendering views and none was spent communication with the database. It&#8217;s safe to assume that the remaining 3 ms were spent inside the controller.</p>
+<p>Michael Koziarski has an <a href="http://www.therailsway.com/2009/1/6/requests-per-second">interesting blog post</a> explaining the importance of using milliseconds as the metric.</p>
+<h3 id="useful-links">5 Useful Links</h3>
+<h4 id="railspluginsandgems">5.1 Rails plugins and gems</h4>
+<ul>
+	<li><a href="http://rails-analyzer.rubyforge.org">Rails Analyzer</a></li>
+	<li><a href="http://www.flyingmachinestudios.com/projects">Palmist</a></li>
+	<li><a href="http://github.com/josevalim/rails-footnotes/tree/master">Rails Footnotes</a></li>
+	<li><a href="http://github.com/dsboulder/query_reviewer/tree/master">Query Reviewer</a></li>
+</ul>
+<h4 id="generictools">5.2 Generic tools</h4>
+<ul>
+	<li><a href="http://www.hpl.hp.com/research/linux/httperf">httperf</a></li>
+	<li><a href="http://httpd.apache.org/docs/2.2/programs/ab.html">ab</a></li>
+	<li><a href="http://jakarta.apache.org/jmeter">JMeter</a></li>
+	<li><a href="http://kcachegrind.sourceforge.net/html/Home.html">kcachegrind</a></li>
+</ul>
+<h4 id="tutorialsanddocumentation">5.3 Tutorials and documentation</h4>
+<ul>
+	<li><a href="http://ruby-prof.rubyforge.org">ruby-prof <span class="caps">API</span> Documentation</a></li>
+	<li><a href="http://railscasts.com/episodes/98-request-profiling">Request Profiling Railscast</a> &#8211; Outdated, but useful for understanding call graphs</li>
+</ul>
+<h3 id="commercial-products">6 Commercial Products</h3>
+<p>Rails has been lucky to have three startups dedicated to Rails specific performance tools:</p>
+<ul>
+	<li><a href="http://www.newrelic.com">New Relic</a></li>
+	<li><a href="http://www.fiveruns.com">Fiveruns</a></li>
+	<li><a href="http://scoutapp.com">Scout</a></li>
+</ul>
+<h3 id="changelog">7 Changelog</h3>
+<p><a href="http://rails.lighthouseapp.com/projects/16213-rails-guides/tickets/4">Lighthouse ticket</a></p>
+<ul>
+	<li>January 9, 2009: Complete rewrite by <a href="credits.html#lifo">Pratik</a></li>
+	<li>September 6, 2008: Initial version by Matthew Bergman</li>
+</ul>
+      </div>
+    </div>
+  </div>
+
+  <hr class="hide" />
+  <div id="footer">
+    <div class="wrapper">
+      <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by-sa/3.0">Creative Commons Attribution-Share Alike 3.0</a> License</a></p>
+      <p>"Rails", "Ruby on Rails", and the Rails logo are trademarks of David Heinemeier Hansson. All rights reserved.</p>
+    </div>
+  </div>
+</body>
+</html>

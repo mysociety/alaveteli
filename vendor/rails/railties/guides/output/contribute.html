@@ -1,0 +1,170 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>Contribute to the Rails Guides</title>
+
+<link rel="stylesheet" type="text/css" href="files/stylesheets/style.css" />
+<link rel="stylesheet" type="text/css" href="files/stylesheets/syntax.css" />
+<link rel="stylesheet" type="text/css" href="files/stylesheets/print.css" media="print" />
+
+<script type="text/javascript" src="files/javascripts/guides.js"></script>
+<script type="text/javascript" src="files/javascripts/code_highlighter.js"></script>
+<script type="text/javascript" src="files/javascripts/highlighters.js"></script>
+
+</head>
+<body class="guide">
+  <div id="topNav">
+    <div class="wrapper">
+      <strong>More at <a href="http://www.rubyonrails.org/">rubyonrails.org:</a> </strong>
+      <a href="http://www.rubyonrails.org/">Overview</a> |
+      <a href="http://www.rubyonrails.org/download">Download</a> |
+      <a href="http://www.rubyonrails.org/deploy">Deploy</a> |
+      <a href="http://rails.lighthouseapp.com/projects/8994-ruby-on-rails/overview">Code</a> |
+      <a href="http://www.rubyonrails.org/screencasts">Screencasts</a> |
+      <a href="http://www.rubyonrails.org/documentation">Documentation</a> |
+      <a href="http://www.rubyonrails.org/ecosystem">Ecosystem</a> |
+      <a href="http://www.rubyonrails.org/community">Community</a> |
+      <a href="http://weblog.rubyonrails.org/">Blog</a>
+    </div>
+  </div>
+  <div id="header">
+    <div class="wrapper clearfix">
+      <h1><a href="index.html" title="Return to home page">Guides.rubyonrails.org</a></h1>
+      <p class="hide"><a href="#mainCol">Skip navigation</a>.</p>
+      <ul class="nav">
+        <li><a href="index.html">Home</a></li>
+        <li class="index"><a href="index.html" onclick="guideMenu(); return false;" id="guidesMenu">Guides Index</a>
+          <div id="guides" class="clearfix" style="display: none;">
+            <hr />
+            <dl class="L">
+              <dt>Start Here</dt>
+              <dd><a href="getting_started.html">Getting Started with Rails</a></dd>
+              <dt>Models</dt>
+              <dd><a href="migrations.html">Rails Database Migrations</a></dd>
+              <dd><a href="activerecord_validations_callbacks.html">Active Record Validations and Callbacks</a></dd>
+              <dd><a href="association_basics.html">Active Record Associations</a></dd>
+              <dd><a href="active_record_querying.html">Active Record Query Interface</a></dd>
+              <dt>Views</dt>
+              <dd><a href="layouts_and_rendering.html">Layouts and Rendering in Rails</a></dd>
+              <dd><a href="form_helpers.html">Action View Form Helpers</a></dd>
+              <dt>Controllers</dt>
+              <dd><a href="action_controller_overview.html">Action Controller Overview</a></dd>
+              <dd><a href="routing.html">Rails Routing from the Outside In</a></dd>
+            </dl>
+            <dl class="R">
+              <dt>Digging Deeper</dt>
+              <dd><a href="i18n.html">Rails Internationalization API</a></dd>
+              <dd><a href="action_mailer_basics.html">Action Mailer Basics</a></dd>
+              <dd><a href="testing.html">Testing Rails Applications</a></dd>
+              <dd><a href="security.html">Securing Rails Applications</a></dd>
+              <dd><a href="debugging_rails_applications.html">Debugging Rails Applications</a></dd>
+              <dd><a href="performance_testing.html">Performance Testing Rails Applications</a></dd>
+              <dd><a href="plugins.html">The Basics of Creating Rails Plugins</a></dd>
+              <dd><a href="configuring.html">Configuring Rails Applications</a></dd>
+              <dd><a href="rails_on_rack.html">Rails on Rack</a></dd>
+            </dl>
+          </div>
+        </li>
+        <li><a href="contribute.html">Contribute</a></li>
+        <li><a href="credits.html">Credits</a></li>
+      </ul>
+    </div>
+  </div>
+  <hr class="hide" />
+
+  <div id="feature">
+    <div class="wrapper">
+      <h2>Contribute to the Rails Guides</h2>
+<p>Rails Guides aim to improve the Rails documentation and to make the barrier to entry as low as possible. A reasonably experienced developer should be able to use the Guides to come up to speed on Rails quickly. You can track the overall effort at the <a href="http://rails.lighthouseapp.com/projects/16213-rails-guides/tickets">Rails Guides Lighthouse</a>. Our sponsors have contributed prizes for those who write an entire guide, but there are many other ways to contribute.</p>
+
+            <div id="subCol">
+        <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
+        <ol class="chapters">
+<li><a href="#howto-contribute">How to Contribute?</a><ul></ul></li><li><a href="#whatto-contribute">What to Contribute?</a><ul></ul></li><li><a href="#howto-commit">How to Commit</a><ul></ul></li><li><a href="#prizes">Prizes</a><ul></ul></li><li><a href="#rules">Rules</a><ul></ul></li><li><a href="#reviewers">Reviewers</a><ul></ul></li><li><a href="#translations">Translations</a><ul></ul></li><li><a href="#irc-channel"><span class="caps">IRC</span> Channel</a><ul></ul></li><li><a href="#contact">Contact</a><ul></ul></li></ol></div>
+    </div>
+  </div>
+
+  <div id="container">
+    <div class="wrapper">
+      <div id="mainCol">
+        <h3 id="howto-contribute">1 How to Contribute?</h3>
+<ul>
+	<li>We have an open commit policy: anyone is welcome to contribute, but you&#8217;ll need to ask for commit access.</li>
+	<li>PM lifo at <a href="http://github.om">GitHub</a> asking for <a href="http://github.com/lifo/docrails">docrails</a> commit access.</li>
+	<li>Guides are written in Textile, and reside at railties/guides/source in the docrails project.</li>
+	<li>All images are in the railties/guides/images directory.</li>
+	<li>Sample format : <a href="http://github.com/lifo/docrails/blob/3e56a3832415476fdd1cb963980d0ae390ac1ed3/railties/guides/source/association_basics.textile">Active Record Associations</a></li>
+	<li>Sample output : <a href="http://guides.rails.info/association_basics.html">Active Record Associations</a></li>
+	<li>You can build the Guides during testing by running railties/guides/rails_guides.rb.</li>
+</ul>
+<h3 id="whatto-contribute">2 What to Contribute?</h3>
+<ul>
+	<li>We need authors, editors, proofreaders, and translators. Adding a single paragraph of quality content to a guide is a good way to get started.</li>
+	<li>The easiest way to start is by improving an existing guide:
+	<ul>
+		<li>Improve the structure to make it more coherent</li>
+		<li>Add missing information</li>
+		<li>Correct any factual errors</li>
+		<li>Fix typos or improve style</li>
+		<li>Bring it up to date with the latest Edge Rails</li>
+	</ul></li>
+	<li>We&#8217;re also open to suggestions for entire new guides
+	<ul>
+		<li>Contact lifo or mikeg1a in <span class="caps">IRC</span> or via <a href="mailto:MikeG1@larkfarm.com">email</a> to get your idea approved</li>
+		<li>If you&#8217;re the main author on a significant guide, you&#8217;re eligible for the prizes</li>
+	</ul></li>
+</ul>
+<h3 id="howto-commit">3 How to Commit</h3>
+<ul>
+	<li>If you have a small change or typo fix, just ask lifo for commit access and commit it to the project.</li>
+	<li>If your change is more significant, post a patch or a message on Lighthouse, and commit after you get a +1 from lifo or mikeg1a.</li>
+	<li>If the guide is already marked done, you should get a +1 before pushing your changes.</li>
+	<li>Put [#&lt;ticket number&gt;] in your commit message to enable GitHub/Lighthouse integration.</li>
+</ul>
+<h3 id="prizes">4 Prizes</h3>
+<p>For each completed guide, the lead contributor will receive all of the following prizes:</p>
+<ul>
+	<li>$200 from Caboose Rails Documentation Project.</li>
+	<li>1 year of GitHub Micro account worth $84.</li>
+	<li>1 year of <span class="caps">RPM</span> Basic (Production performance management) for up to 10 hosts worth 12 months x $40 per host x $10 hosts = $4800. And also, savings of $45 per host per month over list price to upgrade to advanced product.</li>
+</ul>
+<h3 id="rules">5 Rules</h3>
+<ul>
+	<li>Guides are licensed under a Creative Commons Attribution-Noncommercial-Share Alike 3.0 License.</li>
+	<li>If you&#8217;re not sure whether a guide is actively being worked on, stop by <span class="caps">IRC</span> and ask.</li>
+	<li>If the same guide writer wants to write multiple guides, that&#8217;s ideally the situation we&#8217;d love to be in! However, that guide writer will only receive the cash prize for all the subsequent guides (and not the GitHub or <span class="caps">RPM</span> prizes).</li>
+	<li>Our review team will have the final say on whether the guide is complete and of good enough quality.</li>
+</ul>
+<h3 id="reviewers">6 Reviewers</h3>
+<p>These are the main reviewers and editors for the guides:</p>
+<ul>
+	<li>Hongli Lai</li>
+	<li>Mike Gunderloy</li>
+	<li>Pratik Naik</li>
+	<li>Xavier Noria</li>
+</ul>
+<p>All authors should read and follow the <a href="http://wiki.github.com/lifo/docrails/rails-guides-conventions">Rails Guides Conventions</a> and the <a href="http://wiki.github.com/lifo/docrails/rails-api-documentation-conventions">Rails <span class="caps">API</span> Documentation Conventions</a>.</p>
+<h3 id="translations">7 Translations</h3>
+<p>The translation effort for the Rails Guides is just getting underway. We know about projects to translate the Guides into Spanish, Portuguese, Polish, and French. For more details or to get involved see the <a href="http://wiki.github.com/lifo/docrails/translating-rails-guides">Translating Rails Guides</a> page.</p>
+<h3 id="irc-channel">8 <span class="caps">IRC</span> Channel</h3>
+<p>#docrails @ irc.freenode.net</p>
+<h3 id="contact">9 Contact</h3>
+<p>If you have any questions or need any clarification, feel free to contact:</p>
+<ul>
+	<li><span class="caps">IRC</span> : lifo, mikeg1a, fxn, or FooBarWidget in #docrails</li>
+	<li>Email : pratiknaik aT gmail</li>
+</ul>
+      </div>
+    </div>
+  </div>
+
+  <hr class="hide" />
+  <div id="footer">
+    <div class="wrapper">
+      <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by-sa/3.0">Creative Commons Attribution-Share Alike 3.0</a> License</a></p>
+      <p>"Rails", "Ruby on Rails", and the Rails logo are trademarks of David Heinemeier Hansson. All rights reserved.</p>
+    </div>
+  </div>
+</body>
+</html>

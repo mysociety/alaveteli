@@ -1,0 +1,1231 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>Getting Started With Rails</title>
+
+<link rel="stylesheet" type="text/css" href="files/stylesheets/style.css" />
+<link rel="stylesheet" type="text/css" href="files/stylesheets/syntax.css" />
+<link rel="stylesheet" type="text/css" href="files/stylesheets/print.css" media="print" />
+
+<script type="text/javascript" src="files/javascripts/guides.js"></script>
+<script type="text/javascript" src="files/javascripts/code_highlighter.js"></script>
+<script type="text/javascript" src="files/javascripts/highlighters.js"></script>
+
+</head>
+<body class="guide">
+  <div id="topNav">
+    <div class="wrapper">
+      <strong>More at <a href="http://www.rubyonrails.org/">rubyonrails.org:</a> </strong>
+      <a href="http://www.rubyonrails.org/">Overview</a> |
+      <a href="http://www.rubyonrails.org/download">Download</a> |
+      <a href="http://www.rubyonrails.org/deploy">Deploy</a> |
+      <a href="http://rails.lighthouseapp.com/projects/8994-ruby-on-rails/overview">Code</a> |
+      <a href="http://www.rubyonrails.org/screencasts">Screencasts</a> |
+      <a href="http://www.rubyonrails.org/documentation">Documentation</a> |
+      <a href="http://www.rubyonrails.org/ecosystem">Ecosystem</a> |
+      <a href="http://www.rubyonrails.org/community">Community</a> |
+      <a href="http://weblog.rubyonrails.org/">Blog</a>
+    </div>
+  </div>
+  <div id="header">
+    <div class="wrapper clearfix">
+      <h1><a href="index.html" title="Return to home page">Guides.rubyonrails.org</a></h1>
+      <p class="hide"><a href="#mainCol">Skip navigation</a>.</p>
+      <ul class="nav">
+        <li><a href="index.html">Home</a></li>
+        <li class="index"><a href="index.html" onclick="guideMenu(); return false;" id="guidesMenu">Guides Index</a>
+          <div id="guides" class="clearfix" style="display: none;">
+            <hr />
+            <dl class="L">
+              <dt>Start Here</dt>
+              <dd><a href="getting_started.html">Getting Started with Rails</a></dd>
+              <dt>Models</dt>
+              <dd><a href="migrations.html">Rails Database Migrations</a></dd>
+              <dd><a href="activerecord_validations_callbacks.html">Active Record Validations and Callbacks</a></dd>
+              <dd><a href="association_basics.html">Active Record Associations</a></dd>
+              <dd><a href="active_record_querying.html">Active Record Query Interface</a></dd>
+              <dt>Views</dt>
+              <dd><a href="layouts_and_rendering.html">Layouts and Rendering in Rails</a></dd>
+              <dd><a href="form_helpers.html">Action View Form Helpers</a></dd>
+              <dt>Controllers</dt>
+              <dd><a href="action_controller_overview.html">Action Controller Overview</a></dd>
+              <dd><a href="routing.html">Rails Routing from the Outside In</a></dd>
+            </dl>
+            <dl class="R">
+              <dt>Digging Deeper</dt>
+              <dd><a href="i18n.html">Rails Internationalization API</a></dd>
+              <dd><a href="action_mailer_basics.html">Action Mailer Basics</a></dd>
+              <dd><a href="testing.html">Testing Rails Applications</a></dd>
+              <dd><a href="security.html">Securing Rails Applications</a></dd>
+              <dd><a href="debugging_rails_applications.html">Debugging Rails Applications</a></dd>
+              <dd><a href="performance_testing.html">Performance Testing Rails Applications</a></dd>
+              <dd><a href="plugins.html">The Basics of Creating Rails Plugins</a></dd>
+              <dd><a href="configuring.html">Configuring Rails Applications</a></dd>
+              <dd><a href="rails_on_rack.html">Rails on Rack</a></dd>
+            </dl>
+          </div>
+        </li>
+        <li><a href="contribute.html">Contribute</a></li>
+        <li><a href="credits.html">Credits</a></li>
+      </ul>
+    </div>
+  </div>
+  <hr class="hide" />
+
+  <div id="feature">
+    <div class="wrapper">
+      <h2>Getting Started With Rails</h2>
+<p>This guide covers getting up and running with Ruby on Rails. After reading it, you should be familiar with:</p>
+<ul>
+	<li>Installing Rails, creating a new Rails application, and connecting your application to a database</li>
+	<li>The general layout of a Rails application</li>
+	<li>The basic principles of <span class="caps">MVC</span> (Model, View Controller) and RESTful design</li>
+	<li>How to quickly generate the starting pieces of a Rails application.</li>
+</ul>
+
+            <div id="subCol">
+        <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
+        <ol class="chapters">
+<li><a href="#this-guide-assumes">This Guide Assumes</a><ul></ul></li><li><a href="#whatis-rails">What is Rails?</a><ul><li><a href="#the-mvc-architecture">The <span class="caps">MVC</span> Architecture</a></li><li><a href="#the-componentsof-rails">The Components of Rails</a></li><li><a href="#rest"><span class="caps">REST</span></a></li></ul></li><li><a href="#creatinga-new-rails-project">Creating a New Rails Project</a><ul><li><a href="#installing-rails">Installing Rails</a></li><li><a href="#creatingthe-blog-application">Creating the Blog Application</a></li><li><a href="#configuringa-database">Configuring a Database</a></li><li><a href="#creatingthe-database">Creating the Database</a></li></ul></li><li><a href="#hello-rails">Hello, Rails!</a><ul><li><a href="#startingupthe-web-server">Starting up the Web Server</a></li><li><a href="#settingthe-application-home-page">Setting the Application Home Page</a></li></ul></li><li><a href="#getting-upand-running-quickly-with-scaffolding">Getting Up and Running Quickly With Scaffolding</a><ul></ul></li><li><a href="#creatinga-resource">Creating a Resource</a><ul><li><a href="#runninga-migration">Running a Migration</a></li><li><a href="#addinga-link">Adding a Link</a></li><li><a href="#workingwith-postsinthe-browser">Working with Posts in the Browser</a></li><li><a href="#the-model">The Model</a></li><li><a href="#adding-some-validation">Adding Some Validation</a></li><li><a href="#usingthe-console">Using the Console</a></li><li><a href="#listing-all-posts">Listing All Posts</a></li><li><a href="#customizingthe-layout">Customizing the Layout</a></li><li><a href="#creating-new-posts">Creating New Posts</a></li><li><a href="#showingan-individual-post">Showing an Individual Post</a></li><li><a href="#editing-posts">Editing Posts</a></li><li><a href="#destroyinga-post">Destroying a Post</a></li></ul></li><li><a href="#dr-yingupthe-code">DRYing up the Code</a><ul><li><a href="#using-partialsto-eliminate-view-duplication">Using Partials to Eliminate View Duplication</a></li><li><a href="#using-filtersto-eliminate-controller-duplication">Using Filters to Eliminate Controller Duplication</a></li></ul></li><li><a href="#addinga-second-model">Adding a Second Model</a><ul><li><a href="#generatinga-model">Generating a Model</a></li><li><a href="#associating-models">Associating Models</a></li><li><a href="#addinga-route">Adding a Route</a></li><li><a href="#generatinga-controller">Generating a Controller</a></li><li><a href="#building-views">Building Views</a></li><li><a href="#hooking-commentsto-posts">Hooking Comments to Posts</a></li></ul></li><li><a href="#buildinga-multi-model-form">Building a Multi-Model Form</a><ul></ul></li><li><a href="#whats-next">What&#8217;s Next?</a><ul></ul></li><li><a href="#changelog">Changelog</a><ul></ul></li></ol></div>
+    </div>
+  </div>
+
+  <div id="container">
+    <div class="wrapper">
+      <div id="mainCol">
+        <div class='warning'><p>This Guide is based on Rails 2.3. Some of the code shown here will not work in older versions of Rails.</p></div>
+<h3 id="this-guide-assumes">1 This Guide Assumes</h3>
+<p>This guide is designed for beginners who want to get started with a Rails application from scratch. It does not assume that you have any prior experience with Rails. However, to get the most out of it, you need to have some prerequisites installed:</p>
+<ul>
+	<li>The <a href="http://www.ruby-lang.org/en/downloads">Ruby</a> language</li>
+	<li>The <a href="http://rubyforge.org/frs/?group_id=126">RubyGems</a> packaging system</li>
+	<li>A working installation of <a href="http://www.sqlite.org">SQLite</a> (preferred), <a href="http://www.mysql.com">MySQL</a>, or <a href="http://www.postgresql.org">PostgreSQL</a></li>
+</ul>
+<p>It is highly recommended that you <strong>familiarize yourself with Ruby before diving into Rails</strong>. You will find it much easier to follow what’s going on with a Rails application if you understand basic Ruby syntax. Rails isn’t going to magically revolutionize the way you write web applications if you have no experience with the language it uses. There are some good free resources on the internet for learning Ruby, including:</p>
+<ul>
+	<li><a href="http://www.humblelittlerubybook.com">Mr. Neighborly’s Humble Little Ruby Book</a></li>
+	<li><a href="http://www.rubycentral.com/book">Programming Ruby</a></li>
+	<li><a href="http://poignantguide.net/ruby">Why’s (Poignant) Guide to Ruby</a></li>
+</ul>
+<h3 id="whatis-rails">2 What is Rails?</h3>
+<p>Rails is a web development framework written in the Ruby language. It is designed to make programming web applications easier by making several assumptions about what every developer needs to get started. It allows you to write less code while accomplishing more than many other languages and frameworks. Longtime Rails developers also report that it makes web application development more fun.</p>
+<p>Rails is opinionated software. That is, it assumes that there is a best way to do things, and it’s designed to encourage that best way &#8211; and in some cases to discourage alternatives. If you learn &#8220;The Rails Way&#8221; you’ll probably discover a tremendous increase in productivity. If you persist in bringing old habits from other languages to your Rails development, and trying to use patterns you learned elsewhere, you may have a less happy experience.</p>
+<p>The Rails philosophy includes several guiding principles:</p>
+<ul>
+	<li><span class="caps">DRY</span> &#8211; &#8220;Don’t Repeat Yourself&#8221; &#8211; suggests that writing the same code over and over again is a bad thing.</li>
+	<li>Convention Over Configuration &#8211; means that Rails makes assumptions about what you want to do and how you’re going to do it, rather than letting you tweak every little thing through endless configuration files.</li>
+	<li><span class="caps">REST</span> is the best pattern for web applications &#8211; organizing your application around resources and standard <span class="caps">HTTP</span> verbs is the fastest way to go.</li>
+</ul>
+<h4 id="the-mvc-architecture">2.1 The <span class="caps">MVC</span> Architecture</h4>
+<p>Rails is organized around the Model, View, Controller architecture, usually just called <span class="caps">MVC</span>. <span class="caps">MVC</span> benefits include:</p>
+<ul>
+	<li>Isolation of business logic from the user interface</li>
+	<li>Ease of keeping code <span class="caps">DRY</span></li>
+	<li>Making it clear where different types of code belong for easier maintenance</li>
+</ul>
+<h5 id="models">2.1.1 Models</h5>
+<p>A model represents the information (data) of the application and the rules to manipulate that data. In the case of Rails, models are primarily used for managing the rules of interaction with a corresponding database table. In most cases, one table in your database will correspond to one model in your application. The bulk of your application’s business logic will be concentrated in the models.</p>
+<h5 id="views">2.1.2 Views</h5>
+<p>Views represent the user interface of your application. In Rails, views are often <span class="caps">HTML</span> files with embedded Ruby code that performs tasks related solely to the presentation of the data. Views handle the job of providing data to the web browser or other tool that is used to make requests from your application.</p>
+<h5 id="controllers">2.1.3 Controllers</h5>
+<p>Controllers provide the &#8220;glue&#8221; between models and views. In Rails, controllers are responsible for processing the incoming requests from the web browser, interrogating the models for data, and passing that data on to the views for presentation.</p>
+<h4 id="the-componentsof-rails">2.2 The Components of Rails</h4>
+<p>Rails provides a full stack of components for creating web applications, including:</p>
+<ul>
+	<li>Action Controller</li>
+	<li>Action View</li>
+	<li>Active Record</li>
+	<li>Action Mailer</li>
+	<li>Active Resource</li>
+	<li>Railties</li>
+	<li>Active Support</li>
+</ul>
+<h5 id="action-controller">2.2.1 Action Controller</h5>
+<p>Action Controller is the component that manages the controllers in a Rails application. The Action Controller framework processes incoming requests to a Rails application, extracts parameters, and dispatches them to the intended action. Services provided by Action Controller include session management, template rendering, and redirect management.</p>
+<h5 id="action-view">2.2.2 Action View</h5>
+<p>Action View manages the views of your Rails application. It can create both <span class="caps">HTML</span> and <span class="caps">XML</span> output by default. Action View manages rendering templates, including nested and partial templates, and includes built-in <span class="caps">AJAX</span> support.</p>
+<h5 id="active-record">2.2.3 Active Record</h5>
+<p>Active Record is the base for the models in a Rails application. It provides database independence, basic <span class="caps">CRUD</span> functionality, advanced finding capabilities, and the ability to relate models to one another, among other services.</p>
+<h5 id="action-mailer">2.2.4 Action Mailer</h5>
+<p>Action Mailer is a framework for building e-mail services. You can use Action Mailer to send emails based on flexible templates, or to receive and process incoming email.</p>
+<h5 id="active-resource">2.2.5 Active Resource</h5>
+<p>Active Resource provides a framework for managing the connection between business objects an RESTful web services. It implements a way to map web-based resources to local objects with <span class="caps">CRUD</span> semantics.</p>
+<h5 id="railties">2.2.6 Railties</h5>
+<p>Railties is the core Rails code that builds new Rails applications and glues the various frameworks together in any Rails application.</p>
+<h5 id="active-support">2.2.7 Active Support</h5>
+<p>Active Support is an extensive collection of utility classes and standard Ruby library extensions that are used in the Rails, both by the core code and by your applications.</p>
+<h4 id="rest">2.3 <span class="caps">REST</span></h4>
+<p>The foundation of the RESTful architecture is generally considered to be Roy Fielding’s doctoral thesis, <a href="http://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm">Architectural Styles and the Design of Network-based Software Architectures</a>. Fortunately, you need not read this entire document to understand how <span class="caps">REST</span> works in Rails. <span class="caps">REST</span>, an acronym for Representational State Transfer, boils down to two main principles for our purposes:</p>
+<ul>
+	<li>Using resource identifiers (which, for the purposes of discussion, you can think of as URLs) to represent resources</li>
+	<li>Transferring representations of the state of that resource between system components.</li>
+</ul>
+<p>For example, to a Rails application a request such as this:</p>
+<p><tt><span class="caps">DELETE</span> /photos/17</tt></p>
+<p>would be understood to refer to a photo resource with the ID of 17, and to indicate a desired action &#8211; deleting that resource. <span class="caps">REST</span> is a natural style for the architecture of web applications, and Rails makes it even more natural by using conventions to shield you from some of the RESTful complexities and browser quirks.</p>
+<p>If you’d like more details on <span class="caps">REST</span> as an architectural style, these resources are more approachable than Fielding’s thesis:</p>
+<ul>
+	<li><a href="http://www.infoq.com/articles/rest-introduction">A Brief Introduction to <span class="caps">REST</span></a> by Stefan Tilkov</li>
+	<li><a href="http://bitworking.org/news/373/An-Introduction-to-REST">An Introduction to <span class="caps">REST</span></a> (video tutorial) by Joe Gregorio</li>
+	<li><a href="http://en.wikipedia.org/wiki/Representational_State_Transfer">Representational State Transfer</a> article in Wikipedia</li>
+</ul>
+<h3 id="creatinga-new-rails-project">3 Creating a New Rails Project</h3>
+<p>If you follow this guide, you’ll create a Rails project called <tt>blog</tt>, a (very) simple weblog. Before you can start building the application, you need to make sure that you have Rails itself installed.</p>
+<h4 id="installing-rails">3.1 Installing Rails</h4>
+<p>In most cases, the easiest way to install Rails is to take advantage of RubyGems:</p>
+<div class="code_container"><code class="html">
+$ gem install rails
+</code></div>
+<div class='note'><p>There are some special circumstances in which you might want to use an alternate installation strategy:</p></div>
+<ul>
+	<li>If you’re working on Windows, you may find it easier to install Instant Rails. Be aware, though, that <a href="http://instantrails.rubyforge.org/wiki/wiki.pl">Instant Rails</a> releases tend to lag seriously behind the actual Rails version. Also, you will find that Rails development on Windows is overall less pleasant than on other operating systems. If at all possible, we suggest that you install a Linux virtual machine and use that for Rails development, instead of using Windows.</li>
+	<li>If you want to keep up with cutting-edge changes to Rails, you’ll want to clone the <a href="http://github.com/rails/rails/tree/master">Rails source code</a> from github. This is not recommended as an option for beginners, though.</li>
+</ul>
+<h4 id="creatingthe-blog-application">3.2 Creating the Blog Application</h4>
+<p>Open a terminal, navigate to a folder where you have rights to create files, and type:</p>
+<div class="code_container"><code class="html">
+$ rails blog
+</code></div>
+<p>This will create a Rails application that uses a SQLite database for data storage. If you prefer to use MySQL, run this command instead:</p>
+<div class="code_container"><code class="html">
+$ rails blog -d mysql
+</code></div>
+<p>And if you’re using PostgreSQL for data storage, run this command:</p>
+<div class="code_container"><code class="html">
+$ rails blog -d postgresql
+</code></div>
+<p>TIP. You can see all of the switches that the Rails application builder accepts by running <tt>rails -h</tt>.</p>
+<p>After you create the blog application, switch to its folder to continue work directly in that application:</p>
+<div class="code_container"><code class="html">
+$ cd blog
+</code></div>
+<p>In any case, Rails will create a folder in your working directory called <tt>blog</tt>. Open up that folder and explore its contents. Most of the work in this tutorial will happen in the <tt>app/</tt> folder, but here’s a basic rundown on the function of each folder that Rails creates in a new application by default:</p>
+<table>
+	<tr>
+		<th>File/Folder</th>
+		<th>Purpose</th>
+	</tr>
+	<tr>
+		<td><span class="caps">README</span></td>
+		<td>This is a brief instruction manual for your application. Use it to tell others what your application does, how to set it up, and so on.</td>
+	</tr>
+	<tr>
+		<td>Rakefile</td>
+		<td>This file contains batch jobs that can be run from the terminal.</td>
+	</tr>
+	<tr>
+		<td>app/</td>
+		<td>Contains the controllers, models, and views for your application. You&#8217;ll focus on this folder for the remainder of this guide.</td>
+	</tr>
+	<tr>
+		<td>config/</td>
+		<td>Configure your application&#8217;s runtime rules, routes, database, and more.</td>
+	</tr>
+	<tr>
+		<td>db/</td>
+		<td>Shows your current database schema, as well as the database migrations. You&#8217;ll learn about migrations shortly.</td>
+	</tr>
+	<tr>
+		<td>doc/</td>
+		<td>In-depth documentation for your application.</td>
+	</tr>
+	<tr>
+		<td>lib/</td>
+		<td>Extended modules for your application (not covered in this guide).</td>
+	</tr>
+	<tr>
+		<td>log/</td>
+		<td>Application log files.</td>
+	</tr>
+	<tr>
+		<td>public/</td>
+		<td>The only folder seen to the world as-is.  This is where your images, javascript, stylesheets (<span class="caps">CSS</span>), and other static files go.</td>
+	</tr>
+	<tr>
+		<td>script/</td>
+		<td>Scripts provided by Rails to do recurring tasks, such as benchmarking, plugin installation, and starting the console or the web server.</td>
+	</tr>
+	<tr>
+		<td>test/</td>
+		<td>Unit tests, fixtures, and other test apparatus. These are covered in <a href="testing_rails_applications.html">Testing Rails Applications</a></td>
+	</tr>
+	<tr>
+		<td>tmp/</td>
+		<td>Temporary files</td>
+	</tr>
+	<tr>
+		<td>vendor/</td>
+		<td>A place for third-party code. In a typical Rails application, this includes Ruby Gems, the Rails source code (if you install it into your project) and plugins containing additional prepackaged functionality.</td>
+	</tr>
+</table>
+<h4 id="configuringa-database">3.3 Configuring a Database</h4>
+<p>Just about every Rails application will interact with a database. The database to use is specified in a configuration file, <tt>config/database.yml</tt>.
+If you open this file in a new Rails application, you&#8217;ll see a default database configuration using SQLite. The file contains sections for three different environments in which Rails can run by default:</p>
+<ul>
+	<li>The <tt>development</tt> environment is used on your development computer as you interact manually with the application</li>
+	<li>The <tt>test</tt> environment is used to run automated tests</li>
+	<li>The <tt>production</tt> environment is used when you deploy your application for the world to use.</li>
+</ul>
+<h5 id="configuringa-sq-lite-database">3.3.1 Configuring a SQLite Database</h5>
+<p>Rails comes with built-in support for <a href="http://www.sqlite.org">SQLite</a>, which is a lightweight serverless database application. While a busy production environment may overload SQLite, it works well for development and testing. Rails defaults to using a SQLite database when creating a new project, but you can always change it later.</p>
+<p>Here&#8217;s the section of the default configuration file with connection information for the development environment:</p>
+<div class="code_container"><code class="yaml">
+development:
+adapter: sqlite3
+database: db/development.sqlite3
+pool: 5
+timeout: 5000
+</code></div>
+<p>If you don&#8217;t have any database set up, SQLite is the easiest to get installed. If you&#8217;re on OS X 10.5 or greater on a Mac, you already have it. Otherwise, you can install it using RubyGems:</p>
+<div class="code_container"><code class="html">
+$ gem install sqlite3-ruby
+</code></div>
+<h5 id="configuringa-my-sql-database">3.3.2 Configuring a MySQL Database</h5>
+<p>If you choose to use MySQL, your <tt>config/database.yml</tt> will look a little different. Here&#8217;s the development section:</p>
+<div class="code_container"><code class="yaml">
+development:
+adapter: mysql
+encoding: utf8
+database: blog_development
+pool: 5
+username: root
+password:
+socket: /tmp/mysql.sock
+</code></div>
+<p>If your development computer&#8217;s MySQL installation includes a root user with an empty password, this configuration should work for you. Otherwise, change the username and password in the <tt>development</tt> section as appropriate.</p>
+<h5 id="configuringa-postgre-sql-database">3.3.3 Configuring a PostgreSQL Database</h5>
+<p>If you choose to use PostgreSQL, your <tt>config/database.yml</tt> will be customized to use PostgreSQL databases:</p>
+<div class="code_container"><code class="yaml">
+development:
+adapter: postgresql
+encoding: unicode
+database: blog_development
+pool: 5
+username: blog
+password:
+</code></div>
+<p>Change the username and password in the <tt>development</tt> section as appropriate.</p>
+<h4 id="creatingthe-database">3.4 Creating the Database</h4>
+<p>Now that you have your database configured, it&#8217;s time to have Rails create an empty database for you. You can do this by running a rake command:</p>
+<div class="code_container"><code class="html">
+$ rake db:create
+</code></div>
+<div class='note'><p>Rake is a general-purpose command-runner that Rails uses for many things. You can see the list of available rake commands in your application by running <tt>rake -T</tt>.</p></div>
+<h3 id="hello-rails">4 Hello, Rails!</h3>
+<p>One of the traditional places to start with a new language is by getting some text up on screen quickly. To do that in Rails, you need to create at minimum a controller and a view. Fortunately, you can do that in a single command. Enter this command in your terminal:</p>
+<div class="code_container"><code class="html">
+$ script/generate controller home index
+</code></div>
+<p>TIP. If you&#8217;re on Windows, or your Ruby is set up in some non-standard fashion, you may need to explicitly pass Rails <tt>script</tt> commands to Ruby: <tt>ruby script/generate controller home index</tt>.</p>
+<p>Rails will create several files for you, including <tt>app/views/home/index.html.erb</tt>. This is the template that will be used to display the results of the <tt>index</tt> action (method) in the <tt>home</tt> controller. Open this file in your text editor and edit it to contain a single line of code:</p>
+<p><code class="html">
+&lt;h1&gt;Hello, Rails!&lt;/h1&gt;
+</code></p>
+<h4 id="startingupthe-web-server">4.1 Starting up the Web Server</h4>
+<p>You actually have a functional Rails application already &#8211; after running only two commands! To see it, you need to start a web server on your development machine. You can do this by running another command:</p>
+<div class="code_container"><code class="html">
+$ script/server
+</code></div>
+<p>This will fire up an instance of the Mongrel web server by default (Rails can also use several other web servers). To see your application in action, open a browser window and navigate to <tt>http://localhost:3000</tt>. You should see Rails&#8217; default information page:</p>
+<p><img src="images/rails_welcome.png" title="Welcome Aboard screenshot" alt="Welcome Aboard screenshot" /></p>
+<p>TIP. To stop the web server, hit Ctrl+C in the terminal window where it&#8217;s running. In development mode, Rails does not generally require you to stop the server; changes you make in files will be automatically picked up by the server.</p>
+<p>The &#8220;Welcome Aboard&#8221; page is the <em>smoke test</em> for a new Rails application: it makes sure that you have your software configured correctly enough to serve a page. To view the page you just created, navigate to <tt>http://localhost:3000/home/index</tt>.</p>
+<h4 id="settingthe-application-home-page">4.2 Setting the Application Home Page</h4>
+<p>You&#8217;d probably like to replace the &#8220;Welcome Aboard&#8221; page with your own application&#8217;s home page. The first step to doing this is to delete the default page from your application:</p>
+<div class="code_container"><code class="html">
+$ rm public/index.html
+</code></div>
+<p>Now, you have to tell Rails where your actual home page is located. Open the file <tt>config/routes.rb</tt> in your editor. This is your application&#8217;s, <em>routing file</em>, which holds entries in a special <span class="caps">DSL</span> (domain-specific language) that tells Rails how to connect incoming requests to controllers and actions. At the bottom of the file you&#8217;ll see the <em>default routes</em>:</p>
+<div class="code_container"><code class="ruby">
+map.connect ':controller/:action/:id'
+map.connect ':controller/:action/:id.:format'
+</code></div>
+<p>The default routes handle simple requests such as <tt>/home/index</tt>: Rails translates that into a call to the <tt>index</tt> action in the <tt>home</tt> controller. As another example, <tt>/posts/edit/1</tt> would run the <tt>edit</tt> action in the <tt>posts</tt> controller with an <tt>id</tt> of 1.</p>
+<p>To hook up your home page, you need to add another line to the routing file, above the default routes:</p>
+<div class="code_container"><code class="ruby">
+map.root :controller =&gt; &quot;home&quot;
+</code></div>
+<p>This line illustrates one tiny bit of the &#8220;convention over configuration&#8221; approach: if you don&#8217;t specify an action, Rails assumes the <tt>index</tt> action.</p>
+<p>Now if you navigate to <tt>http://localhost:3000</tt> in your browser, you&#8217;ll see the <tt>home/index</tt> view.</p>
+<div class='note'><p>For more information about routing, refer to <a href="routing_outside_in.html">Rails Routing from the Outside In</a>.</p></div>
+<h3 id="getting-upand-running-quickly-with-scaffolding">5 Getting Up and Running Quickly With Scaffolding</h3>
+<p>Rails <em>scaffolding</em> is a quick way to generate some of the major pieces of an application. If you want to create the models, views, and controllers for a new resource in a single operation, scaffolding is the tool for the job.</p>
+<h3 id="creatinga-resource">6 Creating a Resource</h3>
+<p>In the case of the blog application, you can start by generating a scaffolded Post resource: this will represent a single blog posting. To do this, enter this command in your terminal:</p>
+<div class="code_container"><code class="html">
+$ script/generate scaffold Post name:string title:string content:text
+</code></div>
+<div class='note'><p>While scaffolding will get you up and running quickly, the &#8220;one size fits all&#8221; code that it generates is unlikely to be a perfect fit for your application. In most cases, you&#8217;ll need to customize the generated code. Many experienced Rails developers avoid scaffolding entirely, preferring to write all or most of their source code from scratch.</p></div>
+<p>The scaffold generator will build 14 files in your application, along with some folders, and edit one more. Here&#8217;s a quick overview of what it creates:</p>
+<table>
+	<tr>
+		<th>File                                        </th>
+		<th>Purpose</th>
+	</tr>
+	<tr>
+		<td>app/models/post.rb                            </td>
+		<td>The Post model</td>
+	</tr>
+	<tr>
+		<td>db/migrate/20090113124235_create_posts.rb     </td>
+		<td>Migration to create the posts table in your database (your name will include a different timestamp)</td>
+	</tr>
+	<tr>
+		<td>app/views/posts/index.html.erb                </td>
+		<td>A view to display an index of all posts </td>
+	</tr>
+	<tr>
+		<td>app/views/posts/show.html.erb                 </td>
+		<td>A view to display a single post</td>
+	</tr>
+	<tr>
+		<td>app/views/posts/new.html.erb                  </td>
+		<td>A view to create a new post</td>
+	</tr>
+	<tr>
+		<td>app/views/posts/edit.html.erb                 </td>
+		<td>A view to edit an existing post</td>
+	</tr>
+	<tr>
+		<td>app/views/layouts/posts.html.erb              </td>
+		<td>A view to control the overall look and feel of the other posts views</td>
+	</tr>
+	<tr>
+		<td>public/stylesheets/scaffold.css               </td>
+		<td>Cascading style sheet to make the scaffolded views look better</td>
+	</tr>
+	<tr>
+		<td>app/controllers/posts_controller.rb           </td>
+		<td>The Posts controller</td>
+	</tr>
+	<tr>
+		<td>test/functional/posts_controller_test.rb      </td>
+		<td>Functional testing harness for the posts controller</td>
+	</tr>
+	<tr>
+		<td>app/helpers/posts_helper.rb                   </td>
+		<td>Helper functions to be used from the posts views</td>
+	</tr>
+	<tr>
+		<td>config/routes.rb                              </td>
+		<td>Edited to include routing information for posts</td>
+	</tr>
+	<tr>
+		<td>test/fixtures/posts.yml                       </td>
+		<td>Dummy posts for use in testing</td>
+	</tr>
+	<tr>
+		<td>test/unit/post_test.rb                        </td>
+		<td>Unit testing harness for the posts model</td>
+	</tr>
+	<tr>
+		<td>test/unit/helpers/posts_helper_test.rb        </td>
+		<td>Unit testing harness for the posts helper</td>
+	</tr>
+</table>
+<h4 id="runninga-migration">6.1 Running a Migration</h4>
+<p>One of the products of the <tt>script/generate scaffold</tt> command is a <em>database migration</em>. Migrations are Ruby classes that are designed to make it simple to create and modify database tables. Rails uses rake commands to run migrations, and it&#8217;s possible to undo a migration after it&#8217;s been applied to your database. Migration filenames include a timestamp to ensure that they&#8217;re processed in the order that they were created.</p>
+<p>If you look in the <tt>db/migrate/20090113124235_create_posts.rb</tt> file (remember, yours will have a slightly different name), here&#8217;s what you&#8217;ll find:</p>
+<div class="code_container"><code class="ruby">
+class CreatePosts &lt; ActiveRecord::Migration
+  def self.up
+    create_table :posts do |t|
+      t.string :name
+      t.string :title
+      t.text :content
+
+      t.timestamps
+    end
+  end
+
+  def self.down
+    drop_table :posts
+  end
+end
+</code></div>
+<p>If you were to translate that into words, it says something like: when this migration is run, create a table named <tt>posts</tt> with two string columns (<tt>name</tt> and <tt>title</tt>) and a text column (<tt>content</tt>), and generate timestamp fields to track record creation and updating. You can learn the detailed syntax for migrations in the <a href="migrations.html">Rails Database Migrations</a> guide.</p>
+<p>At this point, you can use a rake command to run the migration:</p>
+<div class="code_container"><code class="html">
+$ rake db:migrate
+</code></div>
+<p>Remember, you can&#8217;t run migrations before running <tt>rake db:create</tt> to create your database, as we covered earlier.</p>
+<div class='note'><p>Because you&#8217;re working in the development environment by default, this command will apply to the database defined in the <tt>development</tt> section of your <tt>config/database.yml</tt> file.</p></div>
+<h4 id="addinga-link">6.2 Adding a Link</h4>
+<p>To hook the posts up to the home page you&#8217;ve already created, you can add a link to the home page. Open <tt>/app/views/home/index.html.erb</tt> and modify it as follows:</p>
+<p><code lang="ruby">
+&lt;h1&gt;Hello, Rails!&lt;/h1&gt;
+&lt;%= link_to "My Blog", posts_path %&gt;
+</code></p>
+<p>The <tt>link_to</tt> method is one of Rails&#8217; built-in view helpers. It creates a hyperlink based on text to display and where to go &#8211; in this case, to the path for posts.</p>
+<h4 id="workingwith-postsinthe-browser">6.3 Working with Posts in the Browser</h4>
+<p>Now you&#8217;re ready to start working with posts. To do that, navigate to <tt>http://localhost:3000</tt> and then click the &#8220;My Blog&#8221; link:</p>
+<p><img src="images/posts_index.png" title="Posts Index screenshot" alt="Posts Index screenshot" /></p>
+<p>This is the result of Rails rendering the <tt>index</tt> view of your posts. There aren&#8217;t currently any posts in the database, but if you click the <tt>New Post</tt> link you can create one. After that, you&#8217;ll find that you can edit posts, look at their details, or destroy them. All of the logic and <span class="caps">HTML</span> to handle this was built by the single <tt>script/generate scaffold</tt> command.</p>
+<p>TIP. In development mode (which is what you&#8217;re working in by default), Rails reloads your application with every browser request, so there&#8217;s no need to stop and restart the web server.</p>
+<p>Congratulations, you&#8217;re riding the rails! Now it&#8217;s time to see how it all works.</p>
+<h4 id="the-model">6.4 The Model</h4>
+<p>The model file, <tt>app/models/post.rb</tt> is about as simple as it can get:</p>
+<div class="code_container"><code class="ruby">
+class Post &lt; ActiveRecord::Base
+end
+</code></div>
+<p>There isn&#8217;t much to this file &#8211; but note that the <tt>Post</tt> class inherits from <tt>ActiveRecord::Base</tt>. Active Record supplies a great deal of functionality to your Rails models for free, including basic database <span class="caps">CRUD</span> (Create, Read, Update, Destroy) operations, data validation, as well as sophisticated search support and the ability to relate multiple models to one another.</p>
+<h4 id="adding-some-validation">6.5 Adding Some Validation</h4>
+<p>Rails includes methods to help you validate the data that you send to models. Open the <tt>app/models/post.rb</tt> file and edit it:</p>
+<div class="code_container"><code class="ruby">
+class Post &lt; ActiveRecord::Base
+  validates_presence_of :name, :title
+  validates_length_of :title, :minimum =&gt; 5
+end
+</code></div>
+<p>These changes will ensure that all posts have a name and a title, and that the title is at least five characters long. Rails can validate a variety of conditions in a model, including the presence or uniqueness of columns, their format, and the existence of associated objects.</p>
+<h4 id="usingthe-console">6.6 Using the Console</h4>
+<p>To see your validations in action, you can use the console. The console is a command-line tool that lets you execute Ruby code in the context of your application:</p>
+<div class="code_container"><code class="html">
+$ script/console
+</code></div>
+<p>After the console loads, you can use it to work with your application&#8217;s models:</p>
+<div class="code_container"><code class="html">
+&gt;&gt; p = Post.create(:content =&gt; &quot;A new post&quot;)
+=&gt; #&lt;Post id: nil, name: nil, title: nil, content: &quot;A new post&quot;,
+created_at: nil, updated_at: nil&gt;
+&gt;&gt; p.save
+=&gt; false
+&gt;&gt; p.errors
+=&gt; #&lt;ActiveRecord::Errors:0x23bcf0c @base=#&lt;Post id: nil, name: nil,
+title: nil, content: &quot;A new post&quot;, created_at: nil, updated_at: nil&gt;,
+@errors={&quot;name&quot;=&gt;[&quot;can't be blank&quot;], &quot;title&quot;=&gt;[&quot;can't be blank&quot;,
+&quot;is too short (minimum is 5 characters)&quot;]}&gt;
+</code></div>
+<p>This code shows creating a new <tt>Post</tt> instance, attempting to save it and getting <tt>false</tt> for a return value (indicating that the save failed), and inspecting the <tt>errors</tt> of the post.</p>
+<div class='info'><p>Unlike the development web server, the console does not automatically load your code afresh for each line. If you make changes to your models while the console is open, type <tt>reload!</tt> at the console prompt to load them.</p></div>
+<h4 id="listing-all-posts">6.7 Listing All Posts</h4>
+<p>The easiest place to start looking at functionality is with the code that lists all posts. Open the file <tt>app/controllers/posts_controller.rb </tt> and look at the <tt>index</tt> action:</p>
+<div class="code_container"><code class="ruby">
+def index
+  @posts = Post.find(:all)
+
+  respond_to do |format|
+    format.html # index.html.erb
+    format.xml  { render :xml =&gt; @posts }
+  end
+end
+</code></div>
+<p>This code sets the <tt>@posts</tt> instance variable to an array of all posts in the database. <tt>Post.find(:all)</tt> or <tt>Post.all</tt> calls the <tt>Post</tt> model to return all of the posts that are currently in the database, with no limiting conditions.</p>
+<div class='info'><p>For more information on finding records with Active Record, see <a href="finders.html">Active Record Finders</a>.</p></div>
+<p>The <tt>respond_to</tt> block handles both <span class="caps">HTML</span> and <span class="caps">XML</span> calls to this action. If you browse to <tt>http://localhost:3000/posts.xml</tt>, you&#8217;ll see all of the posts in <span class="caps">XML</span> format. The <span class="caps">HTML</span> format looks for a view in <tt>app/views/posts/</tt> with a name that corresponds to the action name. Rails makes all of the instance variables from the action available to the view. Here&#8217;s <tt>app/view/posts/index.html.erb</tt>:</p>
+<div class="code_container"><code class="html">
+&lt;h1&gt;Listing posts&lt;/h1&gt;
+
+&lt;table&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Name&lt;/th&gt;
+    &lt;th&gt;Title&lt;/th&gt;
+    &lt;th&gt;Content&lt;/th&gt;
+  &lt;/tr&gt;
+
+&lt;% for post in @posts %&gt;
+  &lt;tr&gt;
+    &lt;td&gt;&lt;%=h post.name %&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;%=h post.title %&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;%=h post.content %&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;%= link_to 'Show', post %&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;%= link_to 'Edit', edit_post_path(post) %&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;%= link_to 'Destroy', post, :confirm =&gt; 'Are you sure?',
+            :method =&gt; :delete %&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;% end %&gt;
+&lt;/table&gt;
+
+&lt;br /&gt;
+
+&lt;%= link_to 'New post', new_post_path %&gt;
+</code></div>
+<p>This view iterates over the contents of the <tt>@posts</tt> array to display content and links. A few things to note in the view:</p>
+<ul>
+	<li><tt>h</tt> is a Rails helper method to sanitize displayed data, preventing cross-site scripting attacks</li>
+	<li><tt>link_to</tt> builds a hyperlink to a particular destination</li>
+	<li><tt>edit_post_path</tt> is a helper that Rails provides as part of RESTful routing. You’ll see a variety of these helpers for the different actions that the controller includes.</li>
+</ul>
+<p>TIP. For more details on the rendering process, see <a href="layouts_and_rendering.html">Layouts and Rendering in Rails</a>.</p>
+<h4 id="customizingthe-layout">6.8 Customizing the Layout</h4>
+<p>The view is only part of the story of how <span class="caps">HTML</span> is displayed in your web browser. Rails also has the concept of <tt>layouts</tt>, which are containers for views. When Rails renders a view to the browser, it does so by putting the view&#8217;s <span class="caps">HTML</span> into a layout&#8217;s <span class="caps">HTML</span>. The <tt>script/generate scaffold</tt> command automatically created a default layout, <tt>app/views/layouts/posts.html.erb</tt>, for the posts. Open this layout in your editor and modify the <tt>body</tt> tag:</p>
+<div class="code_container"><code class="html">
+&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot;
+       &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;
+
+&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot; xml:lang=&quot;en&quot; lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta http-equiv=&quot;content-type&quot;
+        content=&quot;text/html;charset=UTF-8&quot; /&gt;
+  &lt;title&gt;Posts: &lt;%= controller.action_name %&gt;&lt;/title&gt;
+  &lt;%= stylesheet_link_tag 'scaffold' %&gt;
+&lt;/head&gt;
+&lt;body style=&quot;background: #EEEEEE;&quot;&gt;
+
+&lt;p style=&quot;color: green&quot;&gt;&lt;%= flash[:notice] %&gt;&lt;/p&gt;
+
+&lt;%= yield  %&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></div>
+<p>Now when you refresh the <tt>/posts</tt> page, you&#8217;ll see a gray background to the page. This same gray background will be used throughout all the views for posts.</p>
+<h4 id="creating-new-posts">6.9 Creating New Posts</h4>
+<p>Creating a new post involves two actions. The first is the <tt>new</tt> action, which instantiates an empty <tt>Post</tt> object:</p>
+<div class="code_container"><code class="ruby">
+def new
+  @post = Post.new
+
+  respond_to do |format|
+    format.html # new.html.erb
+    format.xml  { render :xml =&gt; @post }
+  end
+end
+</code></div>
+<p>The <tt>new.html.erb</tt> view displays this empty Post to the user:</p>
+<div class="code_container"><code class="html">
+&lt;h1&gt;New post&lt;/h1&gt;
+
+&lt;% form_for(@post) do |f| %&gt;
+  &lt;%= f.error_messages %&gt;
+
+  &lt;p&gt;
+    &lt;%= f.label :name %&gt;&lt;br /&gt;
+    &lt;%= f.text_field :name %&gt;
+  &lt;/p&gt;
+  &lt;p&gt;
+    &lt;%= f.label :title %&gt;&lt;br /&gt;
+    &lt;%= f.text_field :title %&gt;
+  &lt;/p&gt;
+  &lt;p&gt;
+    &lt;%= f.label :content %&gt;&lt;br /&gt;
+    &lt;%= f.text_area :content %&gt;
+  &lt;/p&gt;
+  &lt;p&gt;
+    &lt;%= f.submit &quot;Create&quot; %&gt;
+  &lt;/p&gt;
+&lt;% end %&gt;
+
+&lt;%= link_to 'Back', posts_path %&gt;
+</code></div>
+<p>The <tt>form_for</tt> block is used to create an <span class="caps">HTML</span> form. Within this block, you have access to methods to build various controls on the form. For example, <tt>f.text_field :name</tt> tells Rails to create a text input on the form, and to hook it up to the <tt>name</tt> attribute of the instance being displayed. You can only use these methods with attributes of the model that the form is based on (in this case <tt>name</tt>, <tt>title</tt>, and <tt>content</tt>). Rails uses <tt>form_for</tt> in preference to having your write raw <span class="caps">HTML</span> because the code is more succinct, and because it explicitly ties the form to a particular model instance.</p>
+<div class='info'><p>If you need to create an <span class="caps">HTML</span> form that displays arbitrary fields, not tied to a model, you should use the <tt>form_tag</tt> method, which provides shortcuts for building forms that are not necessarily tied to a model instance.</p></div>
+<p>When the user clicks the <tt>Create</tt> button on this form, the browser will send information back to the <tt>create</tt> method of the controller (Rails knows to call the <tt>create</tt> method because the form is sent with an <span class="caps">HTTP</span> <span class="caps">POST</span> request; that&#8217;s one of the conventions that I mentioned earlier):</p>
+<div class="code_container"><code class="ruby">
+def create
+  @post = Post.new(params[:post])
+
+  respond_to do |format|
+    if @post.save
+      flash[:notice] = 'Post was successfully created.'
+      format.html { redirect_to(@post) }
+      format.xml  { render :xml =&gt; @post, :status =&gt; :created,
+	                :location =&gt; @post }
+    else
+      format.html { render :action =&gt; &quot;new&quot; }
+      format.xml  { render :xml =&gt; @post.errors,
+	                :status =&gt; :unprocessable_entity }
+    end
+  end
+end
+</code></div>
+<p>The <tt>create</tt> action instantiates a new Post object from the data supplied by the user on the form, which Rails makes available in the <tt>params</tt> hash. After saving the new post, it uses <tt>flash[:notice]</tt> to create an informational message for the user, and redirects to the show action for the post. If there&#8217;s any problem, the <tt>create</tt> action just shows the <tt>new</tt> view a second time, with any error messages.</p>
+<p>Rails provides the <tt>flash</tt> hash (usually just called the Flash) so that messages can be carried over to another action, providing the user with useful information on the status of their request.  In the case of <tt>create</tt>, the user never actually sees any page rendered during the Post creation process, because it immediately redirects to the new Post as soon Rails saves the record. The Flash carries over a message to the next action, so that when the user is redirected back to the <tt>show</tt> action, they are presented with a message saying &#8220;Post was successfully created.&#8221;</p>
+<h4 id="showingan-individual-post">6.10 Showing an Individual Post</h4>
+<p>When you click the <tt>show</tt> link for a post on the index page, it will bring you to a <span class="caps">URL</span> like <tt>http://localhost:3000/posts/1</tt>. Rails interprets this as a call to the <tt>show</tt> action for the resource, and passes in <tt>1</tt> as the <tt>:id</tt> parameter. Here&#8217;s the <tt>show</tt> action:</p>
+<div class="code_container"><code class="ruby">
+def show
+  @post = Post.find(params[:id])
+
+  respond_to do |format|
+    format.html # show.html.erb
+    format.xml  { render :xml =&gt; @post }
+  end
+end
+</code></div>
+<p>The <tt>show</tt> action uses <tt>Post.find</tt> to search for a single record in the database by its id value. After finding the record, Rails displays it by using <tt>show.html.erb</tt>:</p>
+<div class="code_container"><code class="html">
+&lt;p&gt;
+  &lt;b&gt;Name:&lt;/b&gt;
+  &lt;%=h @post.name %&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+  &lt;b&gt;Title:&lt;/b&gt;
+  &lt;%=h @post.title %&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+  &lt;b&gt;Content:&lt;/b&gt;
+  &lt;%=h @post.content %&gt;
+&lt;/p&gt;
+
+
+&lt;%= link_to 'Edit', edit_post_path(@post) %&gt; |
+&lt;%= link_to 'Back', posts_path %&gt;
+</code></div>
+<h4 id="editing-posts">6.11 Editing Posts</h4>
+<p>Like creating a new post, editing a post is a two-part process. The first step is a request to <tt>edit_post_path(@post)</tt> with a particular post. This calls the <tt>edit</tt> action in the controller:</p>
+<div class="code_container"><code class="ruby">
+def edit
+  @post = Post.find(params[:id])
+end
+</code></div>
+<p>After finding the requested post, Rails uses the <tt>edit.html.erb</tt> view to display it:</p>
+<div class="code_container"><code class="html">
+&lt;h1&gt;Editing post&lt;/h1&gt;
+
+&lt;% form_for(@post) do |f| %&gt;
+  &lt;%= f.error_messages %&gt;
+
+  &lt;p&gt;
+    &lt;%= f.label :name %&gt;&lt;br /&gt;
+    &lt;%= f.text_field :name %&gt;
+  &lt;/p&gt;
+  &lt;p&gt;
+    &lt;%= f.label :title %&gt;&lt;br /&gt;
+    &lt;%= f.text_field :title %&gt;
+  &lt;/p&gt;
+  &lt;p&gt;
+    &lt;%= f.label :content %&gt;&lt;br /&gt;
+    &lt;%= f.text_area :content %&gt;
+  &lt;/p&gt;
+  &lt;p&gt;
+    &lt;%= f.submit &quot;Update&quot; %&gt;
+  &lt;/p&gt;
+&lt;% end %&gt;
+
+&lt;%= link_to 'Show', @post %&gt; |
+&lt;%= link_to 'Back', posts_path %&gt;
+</code></div>
+<p>Submitting the form created by this view will invoke the <tt>update</tt> action within the controller:</p>
+<div class="code_container"><code class="ruby">
+def update
+  @post = Post.find(params[:id])
+
+  respond_to do |format|
+    if @post.update_attributes(params[:post])
+      flash[:notice] = 'Post was successfully updated.'
+      format.html { redirect_to(@post) }
+      format.xml  { head :ok }
+    else
+      format.html { render :action =&gt; &quot;edit&quot; }
+      format.xml  { render :xml =&gt; @post.errors,
+	                :status =&gt; :unprocessable_entity }
+    end
+  end
+end
+</code></div>
+<p>In the <tt>update</tt> action, Rails first uses the <tt>:id</tt> parameter passed back from the edit view to locate the database record that&#8217;s being edited. The <tt>update_attributes</tt> call then takes the rest of the parameters from the request and applies them to this record. If all goes well, the user is redirected to the post&#8217;s <tt>show</tt> view. If there are any problems, it&#8217;s back to <tt>edit</tt> to correct them.</p>
+<div class='note'><p>Sharp-eyed readers will have noticed that the <tt>form_for</tt> declaration is identical for the <tt>new</tt> and <tt>edit</tt> views. Rails generates different code for the two forms because it&#8217;s smart enough to notice that in the one case it&#8217;s being passed a new record that has never been saved, and in the other case an existing record that has already been saved to the database. In a production Rails application, you would ordinarily eliminate this duplication by moving identical code to a <em>partial template</em>, which you could then include in both parent templates. But the scaffold generator tries not to make too many assumptions, and generates code that’s easy to modify if you want different forms for <tt>create</tt> and <tt>edit</tt>.</p></div>
+<h4 id="destroyinga-post">6.12 Destroying a Post</h4>
+<p>Finally, clicking one of the <tt>destroy</tt> links sends the associated id to the <tt>destroy</tt> action:</p>
+<div class="code_container"><code class="ruby">
+def destroy
+  @post = Post.find(params[:id])
+  @post.destroy
+
+  respond_to do |format|
+    format.html { redirect_to(posts_url) }
+    format.xml  { head :ok }
+  end
+end
+</code></div>
+<p>The <tt>destroy</tt> method of an Active Record model instance removes the corresponding record from the database. After that&#8217;s done, there isn&#8217;t any record to display, so Rails redirects the user&#8217;s browser to the index view for the model.</p>
+<h3 id="dr-yingupthe-code">7 DRYing up the Code</h3>
+<p>At this point, it’s worth looking at some of the tools that Rails provides to eliminate duplication in your code. In particular, you can use <em>partials</em> to clean up duplication in views and <em>filters</em> to help with duplication in controllers.</p>
+<h4 id="using-partialsto-eliminate-view-duplication">7.1 Using Partials to Eliminate View Duplication</h4>
+<p>As you saw earlier, the scaffold-generated views for the <tt>new</tt> and <tt>edit</tt> actions are largely identical. You can pull the shared code out into a partial template. This requires editing the new and edit views, and adding a new template. The new <tt>_form.html.erb</tt> template should be saved in the same <tt>app/views/posts</tt> folder as the files from which it is being extracted. Note that the name of this file begins with an underscore; that&#8217;s the Rails naming convention for partial templates.</p>
+<p><tt>new.html.erb</tt>:</p>
+<div class="code_container"><code class="html">
+&lt;h1&gt;New post&lt;/h1&gt;
+
+&lt;%= render :partial =&gt; &quot;form&quot; %&gt;
+
+&lt;%= link_to 'Back', posts_path %&gt;
+</code></div>
+<p><tt>edit.html.erb</tt>:</p>
+<div class="code_container"><code class="html">
+&lt;h1&gt;Editing post&lt;/h1&gt;
+
+&lt;%= render :partial =&gt; &quot;form&quot; %&gt;
+
+&lt;%= link_to 'Show', @post %&gt; |
+&lt;%= link_to 'Back', posts_path %&gt;
+</code></div>
+<p><tt>_form.html.erb</tt>:</p>
+<div class="code_container"><code class="html">
+&lt;% form_for(@post) do |f| %&gt;
+  &lt;%= f.error_messages %&gt;
+
+  &lt;p&gt;
+    &lt;%= f.label :name %&gt;&lt;br /&gt;
+    &lt;%= f.text_field :name %&gt;
+  &lt;/p&gt;
+  &lt;p&gt;
+    &lt;%= f.label :title, &quot;title&quot; %&gt;&lt;br /&gt;
+    &lt;%= f.text_field :title %&gt;
+  &lt;/p&gt;
+  &lt;p&gt;
+    &lt;%= f.label :content %&gt;&lt;br /&gt;
+    &lt;%= f.text_area :content %&gt;
+  &lt;/p&gt;
+  &lt;p&gt;
+    &lt;%= f.submit &quot;Save&quot; %&gt;
+  &lt;/p&gt;
+&lt;% end %&gt;
+</code></div>
+<p>Now, when Rails renders the <tt>new</tt> or <tt>edit</tt> view, it will insert the <tt>_form</tt> partial at the indicated point. Note the naming convention for partials: if you refer to a partial named <tt>form</tt> inside of a view, the corresponding file is <tt>_form.html.erb</tt>, with a leading underscore.</p>
+<p>For more information on partials, refer to the <a href="layouts_and_rendering.html">Layouts and Rending in Rails</a> guide.</p>
+<h4 id="using-filtersto-eliminate-controller-duplication">7.2 Using Filters to Eliminate Controller Duplication</h4>
+<p>At this point, if you look at the controller for posts, you’ll see some duplication:</p>
+<div class="code_container"><code class="ruby">
+class PostsController &lt; ApplicationController
+  # ...
+  def show
+    @post = Post.find(params[:id])
+  # ...
+  end
+
+  def edit
+    @post = Post.find(params[:id])
+  end
+
+  def update
+    @post = Post.find(params[:id])
+    # ...
+  end
+
+  def destroy
+    @post = Post.find(params[:id])
+    # ...
+  end
+end
+</code></div>
+<p>Four instances of the exact same line of code doesn’t seem very <span class="caps">DRY</span>. Rails provides <em>filters</em> as a way to address this sort of repeated code. In this case, you can <span class="caps">DRY</span> things up by using a <tt>before_filter</tt>:</p>
+<div class="code_container"><code class="ruby">
+class PostsController &lt; ApplicationController
+  before_filter :find_post,
+    :only =&gt; [:show, :edit, :update, :destroy]
+  # ...
+  def show
+  # ...
+  end
+
+  def edit
+  end
+
+  def update
+    # ...
+  end
+
+  def destroy
+    # ...
+  end
+
+  private
+    def find_post
+      @post = Post.find(params[:id])
+    end
+end
+</code></div>
+<p>Rails runs <em>before filters</em> before any action in the controller. You can use the <tt>:only</tt> clause to limit a before filter to only certain actions, or an <tt>:except</tt> clause to specifically skip a before filter for certain actions. Rails also allows you to define <em>after filters</em> that run after processing an action, as well as <em>around filters</em> that surround the processing of actions. Filters can also be defined in external classes to make it easy to share them between controllers.</p>
+<p>For more information on filters, see the <a href="actioncontroller_basics.html">Action Controller Basics</a> guide.</p>
+<h3 id="addinga-second-model">8 Adding a Second Model</h3>
+<p>Now that you&#8217;ve seen what&#8217;s in a model built with scaffolding, it&#8217;s time to add a second model to the application. The second model will handle comments on blog posts.</p>
+<h4 id="generatinga-model">8.1 Generating a Model</h4>
+<p>Models in Rails use a singular name, and their corresponding database tables use a plural name. For the model to hold comments, the convention is to use the name Comment. Even if you don&#8217;t want to use the entire apparatus set up by scaffolding, most Rails developers still use generators to make things like models and controllers. To create the new model, run this command in your terminal:</p>
+<div class="code_container"><code class="html">
+$ script/generate model Comment commenter:string body:text
+    post:references
+</code></div>
+<p>This command will generate four files:</p>
+<ul>
+	<li><tt>app/models/comment.rb</tt> &#8211; The model</li>
+	<li><tt>db/migrate/20091013214407_create_comments.rb</tt> &#8211; The migration</li>
+	<li><tt>test/unit/comment_test.rb</tt> and <tt>test/fixtures/comments.yml</tt> &#8211; The test harness.</li>
+</ul>
+<p>First, take a look at <tt>comment.rb</tt>:</p>
+<div class="code_container"><code class="ruby">
+class Comment &lt; ActiveRecord::Base
+  belongs_to :post
+end
+</code></div>
+<p>This is very similar to the <tt>post.rb</tt> model that you saw earlier. The difference is the line <tt>belongs_to :post</tt>, which sets up an Active Record <em>association</em>. You&#8217;ll learn a little about associations in the next section of this guide.</p>
+<p>In addition to the model, Rails has also made a migration to create the corresponding database table:</p>
+<div class="code_container"><code class="ruby">
+class CreateComments &lt; ActiveRecord::Migration
+  def self.up
+    create_table :comments do |t|
+      t.string :commenter
+      t.text :body
+      t.references :post
+
+      t.timestamps
+    end
+  end
+
+  def self.down
+    drop_table :comments
+  end
+end
+</code></div>
+<p>The <tt>t.references</tt> line sets up a foreign key column for the association between the two models. Go ahead and run the migration:</p>
+<div class="code_container"><code class="html">
+$ rake db:migrate
+</code></div>
+<p>Rails is smart enough to only execute the migrations that have not already been run against the current database.</p>
+<h4 id="associating-models">8.2 Associating Models</h4>
+<p>Active Record associations let you easily declare the relationship between two models. In the case of comments and posts, you could write out the relationships this way:</p>
+<ul>
+	<li>Each comment belongs to one post</li>
+	<li>One post can have many comments</li>
+</ul>
+<p>In fact, this is very close to the syntax that Rails uses to declare this association. You&#8217;ve already seen the line of code inside the Comment model that makes each comment belong to a Post:</p>
+<div class="code_container"><code class="ruby">
+class Comment &lt; ActiveRecord::Base
+  belongs_to :post
+end
+</code></div>
+<p>You&#8217;ll need to edit the <tt>post.rb</tt> file to add the other side of the association:</p>
+<div class="code_container"><code class="ruby">
+class Post &lt; ActiveRecord::Base
+  validates_presence_of :name, :title
+  validates_length_of :title, :minimum =&gt; 5
+  has_many :comments
+end
+</code></div>
+<p>These two declarations enable a good bit of automatic behavior. For example, if you have an instance variable <tt>@post</tt> containing a post, you can retrieve all the comments belonging to that post as the array <tt>@post.comments</tt>.</p>
+<div class='info'><p>For more information on Active Record associations, see the <a href="association_basics.html">Active Record Associations</a> guide.</p></div>
+<h4 id="addinga-route">8.3 Adding a Route</h4>
+<p><em>Routes</em> are entries in the <tt>config/routes.rb</tt> file that tell Rails how to match incoming <span class="caps">HTTP</span> requests to controller actions. Open up that file and find the existing line referring to <tt>posts</tt> (it will be right at the top of the file). Then edit it as follows:</p>
+<div class="code_container"><code class="ruby">
+map.resources :posts, :has_many =&gt; :comments
+</code></div>
+<p>This creates <tt>comments</tt> as a <em>nested resource</em> within <tt>posts</tt>. This is another part of capturing the hierarchical relationship that exists between posts and comments.</p>
+<div class='info'><p>For more information on routing, see the <a href="routing_outside_in.html">Rails Routing from the Outside In</a> guide.</p></div>
+<h4 id="generatinga-controller">8.4 Generating a Controller</h4>
+<p>With the model in hand, you can turn your attention to creating a matching controller. Again, there&#8217;s a generator for this:</p>
+<div class="code_container"><code class="html">
+$ script/generate controller Comments index show new edit
+</code></div>
+<p>This creates seven files:</p>
+<ul>
+	<li><tt>app/controllers/comments_controller.rb</tt> &#8211; The controller</li>
+	<li><tt>app/helpers/comments_helper.rb</tt> &#8211; A view helper file</li>
+	<li><tt>app/views/comments/index.html.erb</tt> &#8211; The view for the index action</li>
+	<li><tt>app/views/comments/show.html.erb</tt> &#8211; The view for the show action</li>
+	<li><tt>app/views/comments/new.html.erb</tt> &#8211; The view for the new action</li>
+	<li><tt>app/views/comments/edit.html.erb</tt> &#8211; The view for the edit action</li>
+	<li><tt>test/functional/comments_controller_test.rb</tt> &#8211; The functional tests for the controller</li>
+</ul>
+<p>The controller will be generated with empty methods and views for each action that you specified in the call to <tt>script/generate controller</tt>:</p>
+<div class="code_container"><code class="ruby">
+class CommentsController &lt; ApplicationController
+  def index
+  end
+
+  def show
+  end
+
+  def new
+  end
+
+  def edit
+  end
+
+end
+</code></div>
+<p>You&#8217;ll need to flesh this out with code to actually process requests appropriately in each method. Here&#8217;s a version that (for simplicity&#8217;s sake) only responds to requests that require <span class="caps">HTML</span>:</p>
+<div class="code_container"><code class="ruby">
+class CommentsController &lt; ApplicationController
+  def index
+    @post = Post.find(params[:post_id])
+    @comments = @post.comments
+  end
+
+  def show
+    @post = Post.find(params[:post_id])
+    @comment = @post.comments.find(params[:id])
+  end
+
+  def new
+    @post = Post.find(params[:post_id])
+    @comment = @post.comments.build
+  end
+
+  def create
+    @post = Post.find(params[:post_id])
+    @comment = @post.comments.build(params[:comment])
+    if @comment.save
+      redirect_to post_comment_url(@post, @comment)
+    else
+      render :action =&gt; &quot;new&quot;
+    end
+  end
+
+  def edit
+    @post = Post.find(params[:post_id])
+    @comment = @post.comments.find(params[:id])
+  end
+
+  def update
+    @post = Post.find(params[:post_id])
+    @comment = Comment.find(params[:id])
+    if @comment.update_attributes(params[:comment])
+      redirect_to post_comment_url(@post, @comment)
+    else
+      render :action =&gt; &quot;edit&quot;
+    end
+  end
+
+  def destroy
+    @post = Post.find(params[:post_id])
+    @comment = Comment.find(params[:id])
+    @comment.destroy
+
+    respond_to do |format|
+      format.html { redirect_to post_comments_path(@post) }
+      format.xml  { head :ok }
+    end
+  end
+
+end
+</code></div>
+<p>You&#8217;ll see a bit more complexity here than you did in the controller for posts. That&#8217;s a side-effect of the nesting that you&#8217;ve set up; each request for a comment has to keep track of the post to which the comment is attached.</p>
+<p>In addition, the code takes advantage of some of the methods available for an association. For example, in the <tt>new</tt> method, it calls</p>
+<div class="code_container"><code class="ruby">
+@comment = @post.comments.build
+</code></div>
+<p>This creates a new <tt>Comment</tt> object <em>and</em> sets up the <tt>post_id</tt> field to have the <tt>id</tt> from the specified <tt>Post</tt> object in a single operation.</p>
+<h4 id="building-views">8.5 Building Views</h4>
+<p>Because you skipped scaffolding, you&#8217;ll need to build views for comments &#8220;by hand.&#8221; Invoking <tt>script/generate controller</tt> will give you skeleton views, but they&#8217;ll be devoid of actual content. Here&#8217;s a first pass at fleshing out the comment views.</p>
+<p>The <tt>views/comments/index.html.erb</tt> view:</p>
+<div class="code_container"><code class="html">
+&lt;h1&gt;Comments for &lt;%= @post.title %&gt;&lt;/h1&gt;
+
+&lt;table&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Commenter&lt;/th&gt;
+    &lt;th&gt;Body&lt;/th&gt;
+  &lt;/tr&gt;
+
+&lt;% for comment in @comments %&gt;
+  &lt;tr&gt;
+    &lt;td&gt;&lt;%=h comment.commenter %&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;%=h comment.body %&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;%= link_to 'Show', post_comment_path(@post, comment) %&gt;&lt;/td&gt;
+    &lt;td&gt;
+        &lt;%= link_to 'Edit', edit_post_comment_path(@post, comment) %&gt;
+    &lt;/td&gt;
+    &lt;td&gt;
+        &lt;%= link_to 'Destroy', post_comment_path(@post, comment),
+            :confirm =&gt; 'Are you sure?', :method =&gt; :delete %&gt;
+    &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;% end %&gt;
+&lt;/table&gt;
+
+&lt;br /&gt;
+
+&lt;%= link_to 'New comment', new_post_comment_path(@post) %&gt;
+&lt;%= link_to 'Back to Post', @post %&gt;
+</code></div>
+<p>The <tt>views/comments/new.html.erb</tt> view:</p>
+<div class="code_container"><code class="html">
+&lt;h1&gt;New comment&lt;/h1&gt;
+
+&lt;% form_for([@post, @comment]) do |f| %&gt;
+  &lt;%= f.error_messages %&gt;
+
+  &lt;p&gt;
+    &lt;%= f.label :commenter %&gt;&lt;br /&gt;
+    &lt;%= f.text_field :commenter %&gt;
+  &lt;/p&gt;
+  &lt;p&gt;
+    &lt;%= f.label :body %&gt;&lt;br /&gt;
+    &lt;%= f.text_area :body %&gt;
+  &lt;/p&gt;
+  &lt;p&gt;
+    &lt;%= f.submit &quot;Create&quot; %&gt;
+  &lt;/p&gt;
+&lt;% end %&gt;
+
+&lt;%= link_to 'Back', post_comments_path(@post) %&gt;
+</code></div>
+<p>The <tt>views/comments/show.html.erb</tt> view:</p>
+<div class="code_container"><code class="html">
+&lt;h1&gt;Comment on &lt;%= @post.title %&gt;&lt;/h1&gt;
+
+&lt;p&gt;
+  &lt;b&gt;Commenter:&lt;/b&gt;
+  &lt;%=h @comment.commenter %&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+  &lt;b&gt;Comment:&lt;/b&gt;
+  &lt;%=h @comment.body %&gt;
+&lt;/p&gt;
+
+&lt;%= link_to 'Edit', edit_post_comment_path(@post, @comment) %&gt; |
+&lt;%= link_to 'Back', post_comments_path(@post) %&gt;
+</code></div>
+<p>The <tt>views/comments/edit.html.erb</tt> view:</p>
+<div class="code_container"><code class="html">
+&lt;h1&gt;Editing comment&lt;/h1&gt;
+
+&lt;% form_for([@post, @comment]) do |f| %&gt;
+  &lt;%= f.error_messages %&gt;
+
+  &lt;p&gt;
+    &lt;%= f.label :commenter %&gt;&lt;br /&gt;
+    &lt;%= f.text_field :commenter %&gt;
+  &lt;/p&gt;
+  &lt;p&gt;
+    &lt;%= f.label :body %&gt;&lt;br /&gt;
+    &lt;%= f.text_area :body %&gt;
+  &lt;/p&gt;
+  &lt;p&gt;
+    &lt;%= f.submit &quot;Update&quot; %&gt;
+  &lt;/p&gt;
+&lt;% end %&gt;
+
+&lt;%= link_to 'Show', post_comment_path(@post, @comment) %&gt; |
+&lt;%= link_to 'Back', post_comments_path(@post) %&gt;
+</code></div>
+<p>Again, the added complexity here (compared to the views you saw for managing posts) comes from the necessity of juggling a post and its comments at the same time.</p>
+<h4 id="hooking-commentsto-posts">8.6 Hooking Comments to Posts</h4>
+<p>As a next step, I&#8217;ll modify the <tt>views/posts/show.html.erb</tt> view to show the comments on that post, and to allow managing those comments:</p>
+<div class="code_container"><code class="html">
+&lt;p&gt;
+  &lt;b&gt;Name:&lt;/b&gt;
+  &lt;%=h @post.name %&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+  &lt;b&gt;Title:&lt;/b&gt;
+  &lt;%=h @post.title %&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+  &lt;b&gt;Content:&lt;/b&gt;
+  &lt;%=h @post.content %&gt;
+&lt;/p&gt;
+
+&lt;h2&gt;Comments&lt;/h2&gt;
+&lt;% @post.comments.each do |c| %&gt;
+  &lt;p&gt;
+    &lt;b&gt;Commenter:&lt;/b&gt;
+    &lt;%=h c.commenter %&gt;
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    &lt;b&gt;Comment:&lt;/b&gt;
+    &lt;%=h c.body %&gt;
+  &lt;/p&gt;
+&lt;% end %&gt;
+
+&lt;%= link_to 'Edit Post', edit_post_path(@post) %&gt; |
+&lt;%= link_to 'Back to Posts', posts_path %&gt; |
+&lt;%= link_to 'Manage Comments', post_comments_path(@post) %&gt;
+</code></div>
+<p>Note that each post has its own individual comments collection, accessible as <tt>@post.comments</tt>. That&#8217;s a consequence of the declarative associations in the models. Path helpers such as <tt>post_comments_path</tt> come from the nested route declaration in <tt>config/routes.rb</tt>.</p>
+<h3 id="buildinga-multi-model-form">9 Building a Multi-Model Form</h3>
+<p>Comments and posts are edited on two separate forms &#8211; which makes sense, given the flow of this mini-application. But what if you want to edit more than one thing on a single form? Rails 2.3 offers new support for nested forms. Let&#8217;s add support for giving each post multiple tags, right in the form where you create the post. First, create a new model to hold the tags:</p>
+<div class="code_container"><code class="html">
+$ script/generate model tag name:string post:references
+</code></div>
+<p>Run the migration to create the database table:</p>
+<div class="code_container"><code class="html">
+$ rake db:migrate
+</code></div>
+<p>Next, edit the <tt>post.rb</tt> file to create the other side of the association, and to tell Rails that you intend to edit tags via posts:</p>
+<div class="code_container"><code class="ruby">
+class Post &lt; ActiveRecord::Base
+  validates_presence_of :name, :title
+  validates_length_of :title, :minimum =&gt; 5
+  has_many :comments
+  has_many :tags
+
+  accepts_nested_attributes_for :tags, :allow_destroy =&gt; :true  ,
+    :reject_if =&gt; proc { |attrs| attrs.all? { |k, v| v.blank? } }
+end
+</code></div>
+<p>The <tt>:allow_destroy</tt> option on the nested attribute declaration tells Rails to display a &#8220;remove&#8221; checkbox on the view that you&#8217;ll build shortly. The <tt>:reject_if</tt> option prevents saving new tags that do not have any attributes filled in.</p>
+<p>You&#8217;ll also need to modify <tt>views/posts/_form.html.erb</tt> to include the tags:</p>
+<div class="code_container"><code class="html">
+&lt;% @post.tags.build if @post.tags.empty? %&gt;
+&lt;% form_for(@post) do |post_form| %&gt;
+  &lt;%= post_form.error_messages %&gt;
+
+  &lt;p&gt;
+    &lt;%= post_form.label :name %&gt;&lt;br /&gt;
+    &lt;%= post_form.text_field :name %&gt;
+  &lt;/p&gt;
+  &lt;p&gt;
+    &lt;%= post_form.label :title, &quot;title&quot; %&gt;&lt;br /&gt;
+    &lt;%= post_form.text_field :title %&gt;
+  &lt;/p&gt;
+  &lt;p&gt;
+    &lt;%= post_form.label :content %&gt;&lt;br /&gt;
+    &lt;%= post_form.text_area :content %&gt;
+  &lt;/p&gt;
+  &lt;h2&gt;Tags&lt;/h2&gt;
+  &lt;% post_form.fields_for :tags do |tag_form| %&gt;
+    &lt;p&gt;
+      &lt;%= tag_form.label :name, 'Tag:' %&gt;
+      &lt;%= tag_form.text_field :name %&gt;
+    &lt;/p&gt;
+    &lt;% unless tag_form.object.nil? || tag_form.object.new_record? %&gt;
+      &lt;p&gt;
+        &lt;%= tag_form.label :_delete, 'Remove:' %&gt;
+        &lt;%= tag_form.check_box :_delete %&gt;
+      &lt;/p&gt;
+    &lt;% end %&gt;
+  &lt;% end %&gt;
+
+  &lt;p&gt;
+    &lt;%= post_form.submit &quot;Save&quot; %&gt;
+  &lt;/p&gt;
+&lt;% end %&gt;
+</code></div>
+<p>With these changes in place, you&#8217;ll find that you can edit a post and its tags directly on the same view.</p>
+<div class='note'><p>You may want to use javascript to dynamically add additional tags on a single form. For an example of this and other advanced techniques, see the <a href="http://github.com/alloy/complex-form-examples/tree/nested_attributes">nested model sample application</a>.</p></div>
+<h3 id="whats-next">10 What&#8217;s Next?</h3>
+<p>Now that you&#8217;ve seen your first Rails application, you should feel free to update it and experiment on your own. But you don&#8217;t have to do everything without help. As you need assistance getting up and running with Rails, feel free to consult these support resources:</p>
+<ul>
+	<li>The <a href="http://guides.rubyonrails.org">Ruby On Rails guides</a></li>
+	<li>The <a href="http://groups.google.com/group/rubyonrails-talk">Ruby on Rails mailing list</a></li>
+	<li>The #rubyonrails channel on irc.freenode.net</li>
+</ul>
+<p>Rails also comes with built-in help that you can generate using the rake command-line utility:</p>
+<ul>
+	<li>Running <tt>rake doc:guides</tt> will put a full copy of the Rails Guides in the <tt>/doc/guides</tt> folder of your application. Open <tt>/doc/guides/index.html</tt> in your web browser to explore the Guides.</li>
+	<li>Running <tt>rake doc:rails</tt> will put a full copy of the <span class="caps">API</span> documentation for Rails in the <tt>/doc/api</tt> folder of your application. Open <tt>/doc/api/index.html</tt> in your web browser to explore the <span class="caps">API</span> documentation.</li>
+</ul>
+<h3 id="changelog">11 Changelog</h3>
+<p><a href="http://rails.lighthouseapp.com/projects/16213-rails-guides/tickets/2">Lighthouse ticket</a></p>
+<ul>
+	<li>February 1, 2009: Updated for Rails 2.3 by <a href="credits.html#mgunderloy">Mike Gunderloy</a></li>
+	<li>November 3, 2008: Formatting patch from Dave Rothlisberger</li>
+	<li>November 1, 2008: First approved version by <a href="credits.html#mgunderloy">Mike Gunderloy</a></li>
+	<li>October 16, 2008: Revised based on feedback from Pratik Naik by <a href="credits.html#mgunderloy">Mike Gunderloy</a> (not yet approved for publication)</li>
+	<li>October 13, 2008: First complete draft by <a href="credits.html#mgunderloy">Mike Gunderloy</a> (not yet approved for publication)</li>
+	<li>October 12, 2008: More detail, rearrangement, editing by <a href="credits.html#mgunderloy">Mike Gunderloy</a> (not yet approved for publication)</li>
+	<li>September 8, 2008: initial version by James Miller (not yet approved for publication)</li>
+</ul>
+      </div>
+    </div>
+  </div>
+
+  <hr class="hide" />
+  <div id="footer">
+    <div class="wrapper">
+      <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by-sa/3.0">Creative Commons Attribution-Share Alike 3.0</a> License</a></p>
+      <p>"Rails", "Ruby on Rails", and the Rails logo are trademarks of David Heinemeier Hansson. All rights reserved.</p>
+    </div>
+  </div>
+</body>
+</html>
