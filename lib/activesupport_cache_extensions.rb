@@ -6,7 +6,7 @@
 #
 # $Id: activesupport_cache_extensions.rb,v 1.1 2009-07-01 11:07:32 francis Exp $
 
-# Monkeypatch!
+# Monkeypatch! ./activesupport/lib/active_support/cache/file_store.rb
 
 module ActiveSupport
     module Cache

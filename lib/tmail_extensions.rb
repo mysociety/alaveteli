@@ -32,13 +32,14 @@ module TMail
             end
         end 
 
-        # Generalisation of To:, Cc:
+        # Monkeypatch! Generalisation of To:, Cc:
         def envelope_to(default = nil)
             # XXX assumes only one envelope-to, and no parsing needed
             val = self.header_string('envelope-to')
             return val ? [val,] : []
         end
 
+        # Monkeypatch!
         # Bug fix to this function - is for message in humberside-police-odd-mime-type.email
         # Which was originally: https://secure.mysociety.org/admin/foi/request/show_raw_email/11209
         # See test in spec/lib/tmail_extensions.rb
