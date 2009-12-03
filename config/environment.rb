@@ -82,14 +82,6 @@ end
 # Include your application configuration below
 ActionController::Base.cache_store = :file_store, File.join(File.dirname(__FILE__), '../cache')
 
-# Monkeypatch! Output HTML 4.0 compliant code, using method described in this
-# ticket: http://dev.rubyonrails.org/ticket/6009
-ActionView::Helpers::TagHelper.module_eval do
-  def tag(name, options = nil, open = false, escape = true)
-    "<#{name}#{tag_options(options, escape) if options}" + (open ? ">" : ">")
-  end
-end
-
 # Domain for URLs (so can work for scripts, not just web pages)
 ActionMailer::Base.default_url_options[:host] = MySociety::Config.get("DOMAIN", 'localhost:3000')
 
@@ -131,6 +123,7 @@ require 'public_body_categories.rb'
 require 'timezone_fixes.rb'
 require 'fcgi_fixes.rb'
 require 'use_spans_for_errors.rb'
+require 'make_html_4_compliant.rb'
 
 # XXX temp debug for SQL logging production sites
 #ActiveRecord::Base.logger = Logger.new(STDOUT)
