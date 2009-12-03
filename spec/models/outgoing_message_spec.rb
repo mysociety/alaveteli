@@ -21,7 +21,7 @@ describe OutgoingMessage, " when making an outgoing message" do
     end
 
     it "should link to help page where email address was" do
-        @outgoing_message.get_body_for_html_display.should have_tag('a[href="/help/about#mobiles"]', :text => 'email address')
+        @outgoing_message.get_body_for_html_display.should include('<a href="/help/about#mobiles">')
     end
 
     it "should include email addresses in outgoing messages" do
