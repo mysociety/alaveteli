@@ -57,13 +57,17 @@ describe "when sending email with an altered return path" do
     end
 
     # By default, we can't stub popen, presumably because it is a builtin written in C.
-    # Replace it entirely with a dummy function that just returns nil, so we can stub it.
+    # Replace it entirely with a normal method that just calls the C one, so we can stub it -
+    # this leaves IO working afterwards (for other tests that run in the same instance).
     def with_stub_popen()
-        old_popen = IO.method(:popen).unbind
-        IO.class_eval "def self.popen(a, b); nil; end"
-        yield
-    ensure
-        old_popen.bind(IO)
+        IO.class_eval "@orig_popen = self.method(:popen); def self.popen(a, b, &c); @orig_popen.call(a, b, &c); end"
+        begin
+            yield
+        ensure
+            # in theory would undo the popen alterations and return IO to a pristine state, but
+            # don't know how to (much fiddling with alias bind and the like didn't help). It
+            # doesn't matter - the new popen should behave just the same.
+        end
     end
 
 
