@@ -7,7 +7,7 @@
 #
 # $Id: general_controller.rb,v 1.57 2009-10-03 10:23:43 francis Exp $
 
-require 'xmlsimple'
+require 'lib/xmlsimple'
 require 'open-uri'
 
 class GeneralController < ApplicationController
