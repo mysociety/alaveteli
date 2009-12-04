@@ -6,33 +6,42 @@
 
 <h2>Version numbers</h2>
 
-<p>Rails::VERSION::STRING <%=Rails::VERSION::STRING%>
+<p>Rails::VERSION::STRING <%=h Rails::VERSION::STRING%>
 <br>
-TMail::VERSION::STRING <%=TMail::VERSION::STRING%>
+TMail::VERSION::STRING <%=h TMail::VERSION::STRING%>
 <br>
-Xapian::version_string <%=Xapian::version_string%>
+Xapian::version_string <%=h Xapian::version_string%>
 <br>
-Spec::VERSION::NAME/STRING <%=Spec::VERSION::NAME%> <%=Spec::VERSION::STRING%>
+Spec::VERSION::STRING <%=h Spec::VERSION::STRING%>
+<br>
+Spec::Rails::VERSION::STRING <%=h Spec::Rails::VERSION::STRING%>
 </p>
 
 <h2>Configuration</h2>
 
-<p>environment: <%= Rails::configuration.environment %>
-<br>environment_path: <%= Rails::configuration.environment_path %>
-<br>framework_paths: <%= Rails::configuration.framework_paths.to_yaml %>
+<p>environment: <%=h Rails::configuration.environment %>
+<br>environment_path: <%=h Rails::configuration.environment_path %>
+<br>framework_paths: <%=h Rails::configuration.framework_paths.to_yaml %>
 </p>
 
 <h2>Environment variables</h2>
-<pre>
-<%= @request_env.to_yaml %>
-</pre>
+<table>
+<% for k,v in @request_env %>
+    <tr><td><%=h k%></td><td><%=h v%></td></tr>
+<% end %>
+</table>
 
 <h2>Parameters</h2>
-<pre>
-<%= params.to_yaml %>
-</pre>
+<table>
+<% for k,v in params %>
+    <tr><td><%=h k%></td><td><%=h v%></td></tr>
+<% end %>
+</table>
 
 <h2>Session</h2>
-<pre>
-<%= session.to_yaml %>
-</pre>
+<table>
+<% for k,v in session %>
+    <tr><td><%=h k%></td><td><%=h v%></td></tr>
+<% end %>
+</table>
+

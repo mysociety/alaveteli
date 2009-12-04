@@ -79,60 +79,28 @@ end
 # Mime::Type.register "text/richtext", :rtf
 # Mime::Type.register "application/x-mobile", :mobile
 
-# Validation error messages
-ActiveRecord::Errors.default_error_messages[:blank] = "must be filled in"
-# Monkeypatch! Use SPAN instead of DIV. See http://dev.rubyonrails.org/ticket/2210
-ActionView::Base.field_error_proc = Proc.new{ |html_tag, instance|  %(<span class="fieldWithErrors">#{html_tag}</span>)}
-
 # Include your application configuration below
 ActionController::Base.cache_store = :file_store, File.join(File.dirname(__FILE__), '../cache')
 
-# Monkeypatch! Output HTML 4.0 compliant code, using method described in this
-# ticket: http://dev.rubyonrails.org/ticket/6009
-ActionView::Helpers::TagHelper.module_eval do
-  def tag(name, options = nil, open = false, escape = true)
-    "<#{name}#{tag_options(options, escape) if options}" + (open ? ">" : ">")
-  end
-end
-
 # Domain for URLs (so can work for scripts, not just web pages)
-ActionController::UrlWriter.default_url_options[:host] = MySociety::Config.get("DOMAIN", 'localhost:3000')
+ActionMailer::Base.default_url_options[:host] = MySociety::Config.get("DOMAIN", 'localhost:3000')
 
 # So that javascript assets use full URL, so proxied admin URLs read javascript OK
 if (MySociety::Config.get("DOMAIN", "") != "")
     ActionController::Base.asset_host = MySociety::Config.get("DOMAIN", 'localhost:3000')
 end
 
-# Monkeypatch! Method to remove individual error messages from an ActiveRecord.
-module ActiveRecord
-    class Errors
-        def delete(key)
-            @errors.delete(key)
-        end
-    end
-end
-
-# Monkeypatch! Hack for admin pages, when proxied via https on mySociety servers, they
-# need a relative URL.
-module WillPaginate
-    class LinkRenderer
-        def page_link(page, text, attributes = {})
-            url = url_for(page)
-            if url.match(/^\/admin.*(\?.*)/)
-                url = $1
-            end
-            @template.link_to text, url, attributes
-        end
-    end
-end
-
-# XXX all the monkey patches above should be moved into their own files in
-# lib/, and required below
-
 # Load monkey patches from lib/
 require 'tmail_extensions.rb'
 require 'activesupport_cache_extensions.rb'
 require 'public_body_categories.rb'
+require 'timezone_fixes.rb'
+require 'fcgi_fixes.rb'
+require 'use_spans_for_errors.rb'
+require 'make_html_4_compliant.rb'
+require 'activerecord_errors_extensions.rb'
+require 'willpaginate_hack.rb'
+require 'sendmail_return_path.rb'
 
 # XXX temp debug for SQL logging production sites
 #ActiveRecord::Base.logger = Logger.new(STDOUT)

@@ -6,6 +6,9 @@
 #
 # $Id: tmail_extensions.rb,v 1.7 2009-10-02 23:31:01 francis Exp $
 
+require 'tmail'
+require 'tmail/interface'
+
 # Monkeypatch!
 
 # These mainly used in app/models/incoming_message.rb
@@ -29,12 +32,37 @@ module TMail
             end
         end 
 
-        # Generalisation of To:, Cc:
+        # Monkeypatch! Generalisation of To:, Cc:
         def envelope_to(default = nil)
             # XXX assumes only one envelope-to, and no parsing needed
             val = self.header_string('envelope-to')
             return val ? [val,] : []
         end
+
+        # Monkeypatch!
+        # Bug fix to this function - is for message in humberside-police-odd-mime-type.email
+        # Which was originally: https://secure.mysociety.org/admin/foi/request/show_raw_email/11209
+        # See test in spec/lib/tmail_extensions.rb
+        def set_content_type( str, sub = nil, param = nil )
+          if sub
+            main, sub = str, sub
+          else
+            main, sub = str.split(%r</>, 2)
+            raise ArgumentError, "sub type missing: #{str.inspect}" unless sub
+          end
+          if h = @header['content-type']
+            h.main_type = main
+            h.sub_type  = sub
+            h.params.clear if !h.params.nil? # XXX this if statement is the fix # XXX disabled until works with test
+          else
+            store 'Content-Type', "#{main}/#{sub}"
+          end
+          @header['content-type'].params.replace param if param
+          str
+        end
+        # Need to make sure this alias calls the Monkeypatch too
+        alias content_type= set_content_type
+
     end
 
     class Address

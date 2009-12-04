@@ -1,15 +1,30 @@
-require File.dirname(__FILE__) + '/../../spec_helper.rb'
+require 'spec_helper'
 
-module HaveSpecHelper
+share_as :HaveSpecHelper do
   def create_collection_owner_with(n)
     owner = Spec::Expectations::Helper::CollectionOwner.new
-    (1..n).each do |n|
-      owner.add_to_collection_with_length_method(n)
-      owner.add_to_collection_with_size_method(n)
+    (1..n).each do |number|
+      owner.add_to_collection_with_length_method(number)
+      owner.add_to_collection_with_size_method(number)
     end
     owner
   end
+  before(:each) do
+    if defined?(::ActiveSupport::Inflector)
+      @active_support_was_defined = true
+    else
+      @active_support_was_defined = false
+      module ::ActiveSupport
+        class Inflector
+          def self.pluralize(string)
+            string.to_s + 's'
+          end
+        end
+      end
+    end
+  end
 end
+
 
 describe "should have(n).items" do
   include HaveSpecHelper
@@ -47,12 +62,30 @@ describe "should have(n).items" do
   end
 end
 
+describe 'should have(1).item when ActiveSupport::Inflector is defined' do
+  include HaveSpecHelper
+  
+  it 'should pluralize the collection name' do
+    owner = create_collection_owner_with(1)
+    owner.should have(1).item
+  end
+  
+  after(:each) do
+    unless @active_support_was_defined
+      Object.__send__ :remove_const, :ActiveSupport
+    end
+  end
+end
+
 describe 'should have(1).item when Inflector is defined' do
   include HaveSpecHelper
   
-  before do
-    unless Object.const_defined?(:Inflector)
-      class Inflector
+  before(:each) do
+    if defined?(Inflector)
+      @inflector_was_defined = true
+    else
+      @inflector_was_defined = false
+      class ::Inflector
         def self.pluralize(string)
           string.to_s + 's'
         end
@@ -63,6 +96,12 @@ describe 'should have(1).item when Inflector is defined' do
   it 'should pluralize the collection name' do
     owner = create_collection_owner_with(1)
     owner.should have(1).item
+  end
+
+  after(:each) do
+    unless @inflector_was_defined
+      Object.__send__ :remove_const, :Inflector
+    end
   end
 end
 
@@ -177,7 +216,7 @@ describe "should have_at_least(n).items" do
     size_matcher.matches?(owner)
     
     #then
-    length_matcher.negative_failure_message.should == <<-EOF
+    length_matcher.failure_message_for_should_not.should == <<-EOF
 Isn't life confusing enough?
 Instead of having to figure out the meaning of this:
   should_not have_at_least(3).items_in_collection_with_length_method
@@ -185,7 +224,7 @@ We recommend that you use this instead:
   should have_at_most(2).items_in_collection_with_length_method
 EOF
 
-    size_matcher.negative_failure_message.should == <<-EOF
+    size_matcher.failure_message_for_should_not.should == <<-EOF
 Isn't life confusing enough?
 Instead of having to figure out the meaning of this:
   should_not have_at_least(3).items_in_collection_with_size_method
@@ -231,7 +270,7 @@ describe "should have_at_most(n).items" do
     size_matcher.matches?(owner)
     
     #then
-    length_matcher.negative_failure_message.should == <<-EOF
+    length_matcher.failure_message_for_should_not.should == <<-EOF
 Isn't life confusing enough?
 Instead of having to figure out the meaning of this:
   should_not have_at_most(3).items_in_collection_with_length_method
@@ -239,7 +278,7 @@ We recommend that you use this instead:
   should have_at_least(4).items_in_collection_with_length_method
 EOF
     
-    size_matcher.negative_failure_message.should == <<-EOF
+    size_matcher.failure_message_for_should_not.should == <<-EOF
 Isn't life confusing enough?
 Instead of having to figure out the meaning of this:
   should_not have_at_most(3).items_in_collection_with_size_method
@@ -287,5 +326,71 @@ end
 describe "have(n).things on an object which is not a collection nor contains one" do
   it "should fail" do
     lambda { Object.new.should have(2).things }.should raise_error(NoMethodError, /undefined method `things' for #<Object:/)
+  end
+end
+
+describe Spec::Matchers::Have, "for a collection owner that implements #send" do
+  include HaveSpecHelper
+  
+  before(:each) do
+    @collection = Object.new
+    def @collection.floozles; [1,2] end
+    def @collection.send(*args); raise "DOH! Library developers shouldn't use #send!" end
+  end
+  
+  it "should work in the straightforward case" do
+    lambda {
+      @collection.should have(2).floozles
+    }.should_not raise_error
+  end
+
+  it "should work when doing automatic pluralization" do
+    lambda {
+      @collection.should have_at_least(1).floozle
+    }.should_not raise_error
+  end
+
+  it "should blow up when the owner doesn't respond to that method" do
+    lambda {
+      @collection.should have(99).problems
+    }.should raise_error(NoMethodError, /problems/)
+  end
+end
+
+module Spec
+  module Matchers
+    describe Have do
+      treats_method_missing_as_private :noop => false
+      
+      describe "respond_to?" do
+        before :each do
+          @have = Have.new(:foo)
+          @a_method_which_have_defines = Have.instance_methods.first
+          @a_method_which_object_defines = Object.instance_methods.first
+        end
+        
+        it "should be true for a method which Have defines" do
+          @have.should respond_to(@a_method_which_have_defines)
+        end
+        
+        it "should be true for a method that it's superclass (Object) defines" do
+          @have.should respond_to(@a_method_which_object_defines)
+        end
+        
+        it "should be false for a method which neither Object nor nor Have defines" do
+          @have.should_not respond_to(:foo_bar_baz)
+        end
+        
+        it "should be false if the owner doesn't respond to the method" do
+          have = Have.new(99)
+          have.should_not respond_to(:problems)
+        end
+        
+        it "should be true if the owner responds to the method" do
+          have = Have.new(:a_symbol)
+          have.should respond_to(:to_sym)
+        end
+      end
+    end
   end
 end

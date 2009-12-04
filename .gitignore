@@ -1,7 +1,7 @@
-tmp
-log
-coverage
-sqlitedbs
-cache
+/tmp
+/log
+/coverage
+/sqlitedbs
+/cache
 .*.swp
 *~

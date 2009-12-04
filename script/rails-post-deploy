@@ -29,32 +29,6 @@ else
     OPTION_STAGING_SITE=1
 fi
 
-# Go into vendor
-mkdir -p vendor
-cd vendor
-
-# see if rails is frozen or not
-if [ -d "rails-2.1.0" ]
-then
-    LN_PATH=rails-2.1.0
-elif [ -d "rails" ]
-then
-    LN_PATH=rails
-else
-    LN_PATH=/usr/share/rails
-fi
-
-# make symlinks to global rails installation
-for X in actionmailer actionpack activerecord activesupport railties
-do
-    rm -f $X
-    ln -s $LN_PATH/$X $X
-done
-rm -f rails
-ln -s $LN_PATH rails
-rm -f actionwebservice
-cd ..
-
 # create initial log files
 if [ -e $APP_DIR/../logs ]
 then
@@ -76,6 +50,21 @@ cd ..
 
 # Force appropriate environment (via a hack in config/boot.rb which needs
 # applying to your rails app, see foi/config/boot.rb)
+if [ ! -e "config/rails_env.rb" ]
+then
+    cat <<END
+
+***************************************************************** 
+WARNING: About to make config/rails_env.rb which, via special
+code in config/boot.rb, forces the Rails environment to be a
+particular one - this is used for the mySociety deployment
+system. You don't want it for local development, because it will 
+not work in a confusing way you try and use two environments
+(e.g. development and test) in the same working directory.
+***************************************************************** 
+
+END
+fi
 if [ "$OPTION_STAGING_SITE" = "0" ]
 then
     echo "ENV['RAILS_ENV'] = 'production'" > config/rails_env.rb
@@ -87,6 +76,6 @@ else
 fi
 
 # upgrade database
-rake db:migrate
+rake db:migrate #--trace
 
 

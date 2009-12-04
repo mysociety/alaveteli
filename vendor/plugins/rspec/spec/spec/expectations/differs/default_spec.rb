@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../../../spec_helper.rb'
+require 'spec_helper'
 
 module Spec
   module Fixtures
@@ -73,6 +73,73 @@ EOD
     diff = @differ.diff_as_object(expected,actual)
     diff.should == expected_diff
   end
+  
+  it "should output a friendly message if comparing simple hashes" do
+    expected = { "foo" => "bar" }
+    actual   = { "foo" => "baz" }
+    
+    expected_diff = <<'EOD'
+
+Expected the key "foo" to be "bar", but was "baz"
+
+EOD
+
+
+    diff = @differ.diff_as_hash(actual, expected)
+    diff.should == expected_diff
+  end
+  
+  
+  it "should output a friendly message if comparing simple hashes that contain different keys" do
+    expected = { "bar" => "foo" }
+    actual   = { "foo" => "baz" }
+
+    expected_diff = <<'EOD'
+
+Expected hash contains keys that target hash does not: ["bar"]
+Target hash contains keys that expected hash does not: ["foo"]
+Expected the key "bar" to be "foo", but was nil
+
+EOD
+
+
+    diff = @differ.diff_as_hash(actual, expected)
+    diff.should == expected_diff
+  end
+  
+  it "should output diff message if the hash is complex (containing Array or Hash)" do
+    expected = { "foo" => "bar", "fizz" => [1, 2, 3] }
+    actual   = { "foo" => "baz", "fizz" => [1, 2] }
+
+    # UGH - 1.8.7 seems to order hash keys differently than the others
+    if RUBY_VERSION =~ /^1.8.7/
+      expected_diff = <<'EOD'
+
+Expected the key "fizz" to be [1, 2, 3], but was [1, 2]
+Expected the key "foo" to be "bar", but was "baz"
+
+
+@@ -1,2 +1,2 @@
+-{"fizz"=>[1, 2, 3], "foo"=>"bar"}
++{"fizz"=>[1, 2], "foo"=>"baz"}
+EOD
+    else
+      expected_diff = <<'EOD'
+
+Expected the key "fizz" to be [1, 2, 3], but was [1, 2]
+Expected the key "foo" to be "bar", but was "baz"
+
+
+@@ -1,2 +1,2 @@
+-{"foo"=>"bar", "fizz"=>[1, 2, 3]}
++{"foo"=>"baz", "fizz"=>[1, 2]}
+EOD
+    end
+
+    diff = @differ.diff_as_hash(actual, expected)
+    diff.should == expected_diff
+  end
+  
 
   it "should output unified diff message of two objects" do
     expected = Spec::Fixtures::Animal.new "bob", "giraffe"

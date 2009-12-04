@@ -774,16 +774,20 @@ class IncomingMessage < ActiveRecord::Base
         # search results
         if self.cached_main_body_text.nil?
             text = self.get_main_body_text_internal
+
+            # Strip the uudecode parts from main text
+            # - this also effectively does a .dup as well, so text mods don't alter original
+            text = text.split(/^begin.+^`\n^end\n/sm).join(" ")
+
+            if text.size > 1000000 # 1 MB ish
+                raise "main body text more than 1 MB, need to implement clipping like for attachment text, or there is some other MIME decoding problem or similar"
+            end
+
             self.cached_main_body_text = text
             self.save!
         end
-        text = self.cached_main_body_text
 
-        # Strip the uudecode parts from main text
-        # - this also effectively does a .dup as well, so text mods don't alter original
-        text = text.split(/^begin.+^`\n^end\n/sm).join(" ")
-
-        return text
+        return self.cached_main_body_text
     end
     # Returns body text from main text part of email, converted to UTF-8
     def get_main_body_text_internal
@@ -889,7 +893,14 @@ class IncomingMessage < ActiveRecord::Base
     end
     # Returns attachments that are uuencoded in main body part
     def get_main_body_text_uudecode_attachments
-        text = get_main_body_text_internal
+        # we don't use get_main_body_text_internal, as we want to avoid charset
+        # conversions, since /usr/bin/uudecode needs to deal with those.
+        # e.g. for https://secure.mysociety.org/admin/foi/request/show_raw_email/24550
+        main_part = get_main_body_text_part
+        if main_part.nil?
+            return
+        end
+        text = main_part.body
 
         # Find any uudecoded things buried in it, yeuchly
         uus = text.scan(/^begin.+^`\n^end\n/sm)

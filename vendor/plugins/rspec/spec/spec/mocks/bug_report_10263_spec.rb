@@ -7,7 +7,10 @@ describe "Mock" do
     @mock.should_receive(:msg) do |b|
       b.should be_true #this call exposes the problem
     end
-    @mock.msg(false) rescue nil
+    begin
+      @mock.msg(false)
+    rescue Exception
+    end
   end
   
   specify "then the next example should behave as expected instead of saying" do
@@ -17,7 +20,7 @@ describe "Mock" do
     begin
       @mock.foobar
     rescue Exception => e
-      e.message.should == "Mock 'test mock' received unexpected message :foobar with (no args)"
+      e.message.should == "Mock \"test mock\" received unexpected message :foobar with (no args)"
     end
   end 
 end

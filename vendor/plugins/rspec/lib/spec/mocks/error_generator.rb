@@ -3,7 +3,8 @@ module Spec
     class ErrorGenerator
       attr_writer :opts
       
-      def initialize(target, name)
+      def initialize(target, name, options={})
+        @declared_as = options[:__declared_as] || 'Mock'
         @target = target
         @name = name
       end
@@ -19,7 +20,7 @@ module Spec
       def raise_unexpected_message_args_error(expectation, *args)
         expected_args = format_args(*expectation.expected_args)
         actual_args = args.empty? ? "(no args)" : format_args(*args)
-        __raise "#{intro} expected #{expectation.sym.inspect} with #{expected_args} but received it with #{actual_args}"
+        __raise "#{intro} received #{expectation.sym.inspect} with unexpected arguments\n  expected: #{expected_args}\n       got: #{actual_args}"
       end
       
       def raise_expectation_error(sym, expected_received_count, actual_received_count, *args)
@@ -42,9 +43,20 @@ module Spec
         __raise "#{intro} yielded |#{arg_list(*args_to_yield)}| to block with arity of #{arity}"
       end
       
-      private
+    private
+
       def intro
-        @name ? "Mock '#{@name}'" : @target.inspect
+        if @name
+          "#{@declared_as} #{@name.inspect}"
+        elsif Mock === @target
+          @declared_as
+        elsif Class === @target
+          "<#{@target.inspect} (class)>"
+        elsif @target
+          @target
+        else
+          "nil"
+        end
       end
       
       def __raise(message)
@@ -57,15 +69,11 @@ module Spec
       end
       
       def format_args(*args)
-        return "(no args)" if args.empty? || args == [:no_args]
-        return "(any args)" if args == [:any_args]
-        "(" + arg_list(*args) + ")"
+        args.empty? ? "(no args)" : "(" + arg_list(*args) + ")"
       end
 
       def arg_list(*args)
-        args.collect do |arg|
-          arg.respond_to?(:description) ? arg.description : arg.inspect
-        end.join(", ")
+        args.collect {|arg| arg.respond_to?(:description) ? arg.description : arg.inspect}.join(", ")
       end
       
       def count_message(count)

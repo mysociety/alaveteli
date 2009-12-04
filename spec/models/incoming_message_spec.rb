@@ -191,9 +191,11 @@ end
 describe IncomingMessage, " when uudecoding bad messages" do
     it "should be able to do it at all" do
         mail_body = load_file_fixture('incoming-request-bad-uuencoding.email')
+        mail = TMail::Mail.parse(mail_body)
+        mail.base64_decode
 
         im = IncomingMessage.new
-        im.stub!(:get_main_body_text_internal).and_return(mail_body)
+        im.stub!(:mail).and_return(mail)
         ir = InfoRequest.new
         im.info_request = ir
 
@@ -204,9 +206,11 @@ describe IncomingMessage, " when uudecoding bad messages" do
 
     it "should apply censor rules" do
         mail_body = load_file_fixture('incoming-request-bad-uuencoding.email')
+        mail = TMail::Mail.parse(mail_body)
+        mail.base64_decode
 
         im = IncomingMessage.new
-        im.stub!(:get_main_body_text_internal).and_return(mail_body)
+        im.stub!(:mail).and_return(mail)
         ir = InfoRequest.new
         im.info_request = ir
 

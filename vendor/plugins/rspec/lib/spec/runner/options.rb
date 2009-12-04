@@ -1,3 +1,5 @@
+require 'ostruct'
+
 module Spec
   module Runner
     class Options
@@ -6,9 +8,11 @@ module Spec
       }
 
       EXAMPLE_FORMATTERS = { # Load these lazily for better speed
+                'silent' => ['spec/runner/formatter/silent_formatter',                 'Formatter::SilentFormatter'],
+                     'l' => ['spec/runner/formatter/silent_formatter',                 'Formatter::SilentFormatter'],
                'specdoc' => ['spec/runner/formatter/specdoc_formatter',                'Formatter::SpecdocFormatter'],
                      's' => ['spec/runner/formatter/specdoc_formatter',                'Formatter::SpecdocFormatter'],
-                'nested' => ['spec/runner/formatter/nested_text_formatter',          'Formatter::NestedTextFormatter'],
+                'nested' => ['spec/runner/formatter/nested_text_formatter',            'Formatter::NestedTextFormatter'],
                      'n' => ['spec/runner/formatter/nested_text_formatter',            'Formatter::NestedTextFormatter'],
                   'html' => ['spec/runner/formatter/html_formatter',                   'Formatter::HtmlFormatter'],
                      'h' => ['spec/runner/formatter/html_formatter',                   'Formatter::HtmlFormatter'],
@@ -23,22 +27,16 @@ module Spec
               'textmate' => ['spec/runner/formatter/text_mate_formatter',              'Formatter::TextMateFormatter']
       }
 
-      STORY_FORMATTERS = {
-        'plain' => ['spec/runner/formatter/story/plain_text_formatter', 'Formatter::Story::PlainTextFormatter'],
-            'p' => ['spec/runner/formatter/story/plain_text_formatter', 'Formatter::Story::PlainTextFormatter'],
-         'html' => ['spec/runner/formatter/story/html_formatter',       'Formatter::Story::HtmlFormatter'],
-            'h' => ['spec/runner/formatter/story/html_formatter',       'Formatter::Story::HtmlFormatter']
-      }
-
       attr_accessor(
+        :autospec, # hack to tell
         :filename_pattern,
         :backtrace_tweaker,
         :context_lines,
         :diff_format,
         :dry_run,
         :profile,
-        :examples,
         :heckle_runner,
+        :debug,
         :line_number,
         :loadby,
         :reporter,
@@ -48,12 +46,10 @@ module Spec
         :user_input_for_runner,
         :error_stream,
         :output_stream,
-        :before_suite_parts,
-        :after_suite_parts,
         # TODO: BT - Figure out a better name
         :argv
       )
-      attr_reader :colour, :differ_class, :files, :example_groups
+      attr_reader :colour, :differ_class, :files, :examples, :example_groups
 
       def initialize(error_stream, output_stream)
         @error_stream = error_stream
@@ -64,6 +60,7 @@ module Spec
         @colour = false
         @profile = false
         @dry_run = false
+        @debug = false
         @reporter = Reporter.new(self)
         @context_lines = 3
         @diff_format  = :unified
@@ -73,31 +70,79 @@ module Spec
         @examples_run = false
         @examples_should_be_run = nil
         @user_input_for_runner = nil
-        @before_suite_parts = []
         @after_suite_parts = []
+        @files_loaded = false
+        @out_used = nil
       end
 
       def add_example_group(example_group)
         @example_groups << example_group
       end
 
+      def line_number_requested?
+        !!line_number
+      end
+
+      def example_line
+        Spec::Runner::LineNumberQuery.new(self).example_line_for(files.first, line_number)
+      end
+
       def remove_example_group(example_group)
         @example_groups.delete(example_group)
       end
 
+      def require_ruby_debug
+        require 'rubygems' unless ENV['NO_RUBYGEMS']
+        require 'ruby-debug'
+      end
+
+      def project_root # :nodoc:
+        require 'pathname'
+        @project_root ||= determine_project_root
+      end
+
+      def determine_project_root # :nodoc:
+        # This is borrowed (slightly modified) from Scott Taylors
+        # project_path project:
+        #   http://github.com/smtlaissezfaire/project_path
+        Pathname(File.expand_path('.')).ascend do |path|
+          if File.exists?(File.join(path, "spec"))
+            return path
+          end
+        end
+      end
+
+      def add_dir_from_project_root_to_load_path(dir, load_path=$LOAD_PATH) # :nodoc:
+        return if project_root.nil?
+        full_dir = File.join(project_root, dir)
+        load_path.unshift full_dir unless load_path.include?(full_dir)
+      end
+
       def run_examples
+        require_ruby_debug if debug
         return true unless examples_should_be_run?
         success = true
         begin
-          before_suite_parts.each do |part|
-            part.call
-          end
           runner = custom_runner || ExampleGroupRunner.new(self)
 
           unless @files_loaded
+            ['spec','lib'].each do |dir|
+              add_dir_from_project_root_to_load_path(dir)
+            end
             runner.load_files(files_to_load)
             @files_loaded = true
           end
+
+          define_predicate_matchers
+          plugin_mock_framework
+          ignore_backtrace_patterns
+
+          # TODO - this has to happen after the files get loaded,
+          # otherwise the before_suite_parts are not populated
+          # from the configuration. There is no spec for this
+          # directly, but features/before_and_after_blocks/before_and_after_blocks.story
+          # will fail if this happens before the files are loaded.
+          before_suite_parts.each { |part| part.call }
 
           if example_groups.empty?
             true
@@ -110,9 +155,17 @@ module Spec
           end
         ensure
           after_suite_parts.each do |part|
-            part.call(success)
+            part.arity < 1 ? part.call : part.call(success)
           end
         end
+      end
+
+      def before_suite_parts
+        Spec::Example::BeforeAndAfterHooks.before_suite_parts
+      end
+
+      def after_suite_parts
+        Spec::Example::BeforeAndAfterHooks.after_suite_parts
       end
 
       def examples_run?
@@ -121,14 +174,21 @@ module Spec
 
       def examples_should_not_be_run
         @examples_should_be_run = false
-      end      
+      end
+
+      def mock_framework
+        # TODO - don't like this dependency - perhaps store this in here instead?
+        Spec::Runner.configuration.mock_framework
+      end
 
       def colour=(colour)
         @colour = colour
-        if @colour && RUBY_PLATFORM =~ /win32/ ;\
+        if @colour && RUBY_PLATFORM =~ /mswin|mingw/ ;\
           begin ;\
-            require 'rubygems' ;\
+            replace_output = @output_stream.equal?($stdout) ;\
+            require 'rubygems' unless ENV['NO_RUBYGEMS'] ;\
             require 'Win32/Console/ANSI' ;\
+            @output_stream = $stdout if replace_output ;\
           rescue LoadError ;\
             warn "You must 'gem install win32console' to use colour on Windows" ;\
             @colour = false ;\
@@ -152,7 +212,7 @@ module Spec
 
       def parse_example(example)
         if(File.file?(example))
-          @examples = File.open(example).read.split("\n")
+          @examples = [File.open(example).read.split("\n")].flatten
         else
           @examples = [example]
         end
@@ -168,17 +228,12 @@ module Spec
         @format_options ||= []
         @format_options << [format, where]
       end
-      
+
       def formatters
         @format_options ||= [['progress', @output_stream]]
         @formatters ||= load_formatters(@format_options, EXAMPLE_FORMATTERS)
       end
 
-      def story_formatters
-        @format_options ||= [['plain', @output_stream]]
-        @formatters ||= load_formatters(@format_options, STORY_FORMATTERS)
-      end
-      
       def load_formatters(format_options, formatters)
         format_options.map do |format, where|
           formatter_type = if formatters[format]
@@ -187,22 +242,31 @@ module Spec
           else
             load_class(format, 'formatter', '--format')
           end
-          formatter_type.new(self, where)
+          formatter_type.new(formatter_options, where)
         end
+      end
+
+      def formatter_options
+        @formatter_options ||= OpenStruct.new(
+          :colour   => colour,
+          :autospec => autospec,
+          :dry_run  => dry_run
+        )
+      end
+
+      def which_heckle_runner
+        ([/mswin/, /java/].detect{|p| p =~ RUBY_PLATFORM} || Spec::Ruby.version.to_f == 1.9) ? "spec/runner/heckle_runner_unsupported" : "spec/runner/heckle_runner"
       end
 
       def load_heckle_runner(heckle)
-        suffix = [/mswin/, /java/].detect{|p| p =~ RUBY_PLATFORM} ? '_unsupported' : ''
-        require "spec/runner/heckle_runner#{suffix}"
-        @heckle_runner = HeckleRunner.new(heckle)
+        @format_options ||= [['silent', @output_stream]]
+        require which_heckle_runner
+        @heckle_runner = ::Spec::Runner::HeckleRunner.new(heckle)
       end
 
       def number_of_examples
-        total = 0
-        @example_groups.each do |example_group|
-          total += example_group.number_of_examples
-        end
-        total
+        return examples.size unless examples.empty?
+        @example_groups.inject(0) {|sum, group| sum + group.number_of_examples}
       end
 
       def files_to_load
@@ -220,13 +284,40 @@ module Spec
         end
         result
       end
-      
-      protected
+
+      def dry_run?
+        @dry_run == true
+      end
+
+    protected
+
+      def define_predicate_matchers
+        Spec::Runner.configuration.predicate_matchers.each_pair do |matcher_method, method_on_object|
+          Spec::Example::ExampleMethods::__send__ :define_method, matcher_method do |*args|
+            eval("be_#{method_on_object.to_s.gsub('?','')}(*args)")
+          end
+        end
+      end
+
+      def plugin_mock_framework
+        case mock_framework
+        when Module
+          Spec::Example::ExampleMethods.__send__ :include, mock_framework
+        else
+          require mock_framework
+          Spec::Example::ExampleMethods.__send__ :include, Spec::Adapters::MockFramework
+        end
+      end
+
+      def ignore_backtrace_patterns
+        @backtrace_tweaker.ignore_patterns Spec::Runner.configuration.ignored_backtrace_patterns
+      end
+
       def examples_should_be_run?
         return @examples_should_be_run unless @examples_should_be_run.nil?
         @examples_should_be_run = true
       end
-      
+
       def differ_class=(klass)
         return unless klass
         @differ_class = klass
@@ -250,24 +341,24 @@ module Spec
           if $_spec_spec ; raise e ; else exit(1) ; end
         end
       end
-      
+
       def custom_runner
         return nil unless custom_runner?
         klass_name, arg = ClassAndArgumentsParser.parse(user_input_for_runner)
-        runner_type = load_class(klass_name, 'behaviour runner', '--runner')
+        runner_type = load_class(klass_name, 'example group runner', '--runner')
         return runner_type.new(self, arg)
       end
 
       def custom_runner?
         return user_input_for_runner ? true : false
       end
-      
+
       def heckle
         heckle_runner = self.heckle_runner
         self.heckle_runner = nil
         heckle_runner.heckle_with
       end
-      
+
       def sorted_files
         return sorter ? files.sort(&sorter) : files
       end
@@ -277,26 +368,26 @@ module Spec
       end
 
       def default_differ
-        require 'spec/expectations/differs/default'
-        self.differ_class = Spec::Expectations::Differs::Default
+        require 'spec/runner/differs/default'
+        self.differ_class = ::Spec::Expectations::Differs::Default
       end
 
       def set_spec_from_line_number
         if examples.empty?
           if files.length == 1
             if File.directory?(files[0])
-              error_stream.puts "You must specify one file, not a directory when using the --line option"
+              error_stream.puts "You must specify one file, not a directory when providing a line number"
               exit(1) if stderr?
             else
-              example = SpecParser.new.spec_name_for(files[0], line_number)
+              example = LineNumberQuery.new(self).spec_name_for(files[0], line_number)
               @examples = [example]
             end
           else
-            error_stream.puts "Only one file can be specified when using the --line option: #{files.inspect}"
+            error_stream.puts "Only one file can be specified when providing a line number: #{files.inspect}"
             exit(3) if stderr?
           end
         else
-          error_stream.puts "You cannot use both --line and --example"
+          error_stream.puts "You cannot use --example and specify a line number"
           exit(4) if stderr?
         end
       end

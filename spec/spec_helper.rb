@@ -72,15 +72,15 @@ if $tempfilecount.nil?
                 # Hook into the process function, so can automatically get HTML after each request
                 alias :original_process :process
 
-                def process(action, parameters = nil, session = nil, flash = nil)
+                def process(action, parameters = nil, session = nil, flash = nil, http_method = 'GET')
                     # Call original process function
-                    self.original_process(action, parameters, session, flash)
+                    self.original_process(action, parameters, session, flash, http_method)
 
                     # XXX Is there a better way to check this than calling a private method?
                     return unless @response.template.controller.instance_eval { integrate_views? }
 
-                    # And then if HTML, not a redirect (302, 301), and not a partial template (something/_something, such as in AJAX partial results)
-                    if @response.content_type == "text/html" && (@response.response_code != 302) && (@response.response_code != 301) && (@response.rendered_file.nil? || !@response.rendered_file.include?("/_"))
+                    # And then if HTML, not a redirect (302, 301)
+                    if @response.content_type == "text/html" && (@response.response_code != 302) && (@response.response_code != 301) 
                         validate_html(@response.body)
                     end
                 end

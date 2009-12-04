@@ -76,8 +76,8 @@
 
     <% if column == 'body' %>
     <td>
-      <div><%= simple_format( truncate(outgoing_message.body, 400, 
-                  link_to_function("...", "$(this).up('td').childElements().invoke('toggle')") 
+        <div><%= simple_format( truncate(outgoing_message.body, :length => 400, 
+                 :omission => link_to_function("...", "$(this).up('td').childElements().invoke('toggle')") 
             )) %></div>
       <div style="display:none;"><%= simple_format( outgoing_message.body ) %></div>
     </td>
@@ -116,8 +116,8 @@
   <% for column in IncomingMessage.content_columns.map { |c| c.name } %>
     <% if column =~ /^cached_.*?$/ %>
     <td>
-      <div><%= simple_format( truncate(incoming_message.send(column), 400, 
-                  link_to_function("...", "$(this).up('td').childElements().invoke('toggle')") 
+      <div><%= simple_format( truncate(incoming_message.send(column), :length => 400, 
+               :omission => link_to_function("...", "$(this).up('td').childElements().invoke('toggle')") 
             )) %></div>
       <div style="display:none;"><%= simple_format( incoming_message.send(column) ) %></div>
     </td>

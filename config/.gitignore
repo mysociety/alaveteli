@@ -1,5 +1,5 @@
-general
-general.deployed
-database.yml
-database.yml.deployed
-rails_env.rb
+/general
+/general.deployed
+/database.yml
+/database.yml.deployed
+/rails_env.rb

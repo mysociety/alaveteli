@@ -1,0 +1,1405 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>A Guide to Active Record Associations</title>
+
+<link rel="stylesheet" type="text/css" href="files/stylesheets/style.css" />
+<link rel="stylesheet" type="text/css" href="files/stylesheets/syntax.css" />
+<link rel="stylesheet" type="text/css" href="files/stylesheets/print.css" media="print" />
+
+<script type="text/javascript" src="files/javascripts/guides.js"></script>
+<script type="text/javascript" src="files/javascripts/code_highlighter.js"></script>
+<script type="text/javascript" src="files/javascripts/highlighters.js"></script>
+
+</head>
+<body class="guide">
+  <div id="topNav">
+    <div class="wrapper">
+      <strong>More at <a href="http://www.rubyonrails.org/">rubyonrails.org:</a> </strong>
+      <a href="http://www.rubyonrails.org/">Overview</a> |
+      <a href="http://www.rubyonrails.org/download">Download</a> |
+      <a href="http://www.rubyonrails.org/deploy">Deploy</a> |
+      <a href="http://rails.lighthouseapp.com/projects/8994-ruby-on-rails/overview">Code</a> |
+      <a href="http://www.rubyonrails.org/screencasts">Screencasts</a> |
+      <a href="http://www.rubyonrails.org/documentation">Documentation</a> |
+      <a href="http://www.rubyonrails.org/ecosystem">Ecosystem</a> |
+      <a href="http://www.rubyonrails.org/community">Community</a> |
+      <a href="http://weblog.rubyonrails.org/">Blog</a>
+    </div>
+  </div>
+  <div id="header">
+    <div class="wrapper clearfix">
+      <h1><a href="index.html" title="Return to home page">Guides.rubyonrails.org</a></h1>
+      <p class="hide"><a href="#mainCol">Skip navigation</a>.</p>
+      <ul class="nav">
+        <li><a href="index.html">Home</a></li>
+        <li class="index"><a href="index.html" onclick="guideMenu(); return false;" id="guidesMenu">Guides Index</a>
+          <div id="guides" class="clearfix" style="display: none;">
+            <hr />
+            <dl class="L">
+              <dt>Start Here</dt>
+              <dd><a href="getting_started.html">Getting Started with Rails</a></dd>
+              <dt>Models</dt>
+              <dd><a href="migrations.html">Rails Database Migrations</a></dd>
+              <dd><a href="activerecord_validations_callbacks.html">Active Record Validations and Callbacks</a></dd>
+              <dd><a href="association_basics.html">Active Record Associations</a></dd>
+              <dd><a href="active_record_querying.html">Active Record Query Interface</a></dd>
+              <dt>Views</dt>
+              <dd><a href="layouts_and_rendering.html">Layouts and Rendering in Rails</a></dd>
+              <dd><a href="form_helpers.html">Action View Form Helpers</a></dd>
+              <dt>Controllers</dt>
+              <dd><a href="action_controller_overview.html">Action Controller Overview</a></dd>
+              <dd><a href="routing.html">Rails Routing from the Outside In</a></dd>
+            </dl>
+            <dl class="R">
+              <dt>Digging Deeper</dt>
+              <dd><a href="i18n.html">Rails Internationalization API</a></dd>
+              <dd><a href="action_mailer_basics.html">Action Mailer Basics</a></dd>
+              <dd><a href="testing.html">Testing Rails Applications</a></dd>
+              <dd><a href="security.html">Securing Rails Applications</a></dd>
+              <dd><a href="debugging_rails_applications.html">Debugging Rails Applications</a></dd>
+              <dd><a href="performance_testing.html">Performance Testing Rails Applications</a></dd>
+              <dd><a href="plugins.html">The Basics of Creating Rails Plugins</a></dd>
+              <dd><a href="configuring.html">Configuring Rails Applications</a></dd>
+              <dd><a href="rails_on_rack.html">Rails on Rack</a></dd>
+            </dl>
+          </div>
+        </li>
+        <li><a href="contribute.html">Contribute</a></li>
+        <li><a href="credits.html">Credits</a></li>
+      </ul>
+    </div>
+  </div>
+  <hr class="hide" />
+
+  <div id="feature">
+    <div class="wrapper">
+      <h2>A Guide to Active Record Associations</h2>
+<p>This guide covers the association features of Active Record. By referring to this guide, you will be able to:</p>
+<ul>
+	<li>Declare associations between Active Record models</li>
+	<li>Understand the various types of Active Record associations</li>
+	<li>Use the methods added to your models by creating associations</li>
+</ul>
+
+            <div id="subCol">
+        <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
+        <ol class="chapters">
+<li><a href="#why-associations">Why Associations?</a><ul></ul></li><li><a href="#the-typesof-associations">The Types of Associations</a><ul><li><a href="#thebelongs-toassociation">The <tt>belongs_to</tt> association</a></li><li><a href="#thehas-oneassociation">The <tt>has_one</tt> association</a></li><li><a href="#thehas-manyassociation">The <tt>has_many</tt> association</a></li><li><a href="#thehas-manythroughassociation">The <tt>has_many :through</tt> association</a></li><li><a href="#thehas-onethroughassociation">The <tt>has_one :through</tt> association</a></li><li><a href="#thehas-and-belongs-to-manyassociation">The <tt>has_and_belongs_to_many</tt> association</a></li><li><a href="#choosingbetweenbelongs-toandhas-one">Choosing between <tt>belongs_to</tt> and <tt>has_one</tt></a></li><li><a href="#choosingbetweenhas-manythroughandhas-and-belongs-to-many">Choosing between <tt>has_many :through</tt> and <tt>has_and_belongs_to_many</tt></a></li><li><a href="#polymorphicassociations">Polymorphic associations</a></li><li><a href="#selfjoins">Self joins</a></li></ul></li><li><a href="#tips-tricksand-warnings">Tips, Tricks, and Warnings</a><ul><li><a href="#controllingcaching">Controlling caching</a></li><li><a href="#avoidingnamecollisions">Avoiding name collisions</a></li><li><a href="#updatingtheschema">Updating the schema</a></li><li><a href="#controllingassociationscope">Controlling association scope</a></li></ul></li><li><a href="#detailed-association-reference">Detailed Association Reference</a><ul><li><a href="#belongs-toassociationreference"><tt>belongs_to</tt> association reference</a></li><li><a href="#has-oneassociationreference"><tt>has_one</tt> association reference</a></li><li><a href="#has-manyassociationreference"><tt>has_many</tt> association reference</a></li><li><a href="#has-and-belongs-to-manyassociationreference"><tt>has_and_belongs_to_many</tt> association reference</a></li><li><a href="#associationcallbacks">Association callbacks</a></li><li><a href="#associationextensions">Association extensions</a></li></ul></li><li><a href="#changelog">Changelog</a><ul></ul></li></ol></div>
+    </div>
+  </div>
+
+  <div id="container">
+    <div class="wrapper">
+      <div id="mainCol">
+        <h3 id="why-associations">1 Why Associations?</h3>
+<p>Why do we need associations between models? Because they make common operations simpler and easier in your code. For example, consider a simple Rails application that includes a model for customers and a model for orders. Each customer can have many orders. Without associations, the model declarations would look like this:</p>
+<div class="code_container"><code class="ruby">
+class Customer &lt; ActiveRecord::Base
+end
+
+class Order &lt; ActiveRecord::Base
+end
+</code></div>
+<p>Now, suppose we wanted to add a new order for an existing customer. We&#8217;d need to do something like this:</p>
+<div class="code_container"><code class="ruby">
+@order = Order.create(:order_date =&gt; Time.now,
+  :customer_id =&gt; @customer.id)
+</code></div>
+<p>Or consider deleting a customer, and ensuring that all of its orders get deleted as well:</p>
+<div class="code_container"><code class="ruby">
+@orders = Order.find_by_customer_id(@customer.id)
+@orders.each do |order|
+  order.destroy
+end
+@customer.destroy
+</code></div>
+<p>With Active Record associations, we can streamline these &#8212; and other &#8212; operations by declaratively telling Rails that there is a connection between the two models. Here&#8217;s the revised code for setting up customers and orders:</p>
+<div class="code_container"><code class="ruby">
+class Customer &lt; ActiveRecord::Base
+  has_many :orders, :dependent =&gt; :destroy
+end
+
+class Order &lt; ActiveRecord::Base
+  belongs_to :customer
+end
+</code></div>
+<p>With this change, creating a new order for a particular customer is easier:</p>
+<div class="code_container"><code class="ruby">
+@order = @customer.orders.create(:order_date =&gt; Time.now)
+</code></div>
+<p>Deleting a customer and all of its orders is <em>much</em> easier:</p>
+<div class="code_container"><code class="ruby">
+@customer.destroy
+</code></div>
+<p>To learn more about the different types of associations, read the next section of this guide. That&#8217;s followed by some tips and tricks for working with associations, and then by a complete reference to the methods and options for associations in Rails.</p>
+<h3 id="the-typesof-associations">2 The Types of Associations</h3>
+<p>In Rails, an <em>association</em> is a connection between two Active Record models. Associations are implemented using macro-style calls, so that you can declaratively add features to your models. For example, by declaring that one model <tt>belongs_to</tt> another, you instruct Rails to maintain Primary Key–Foreign Key information between instances of the two models, and you also get a number of utility methods added to your model. Rails supports six types of association:</p>
+<ul>
+	<li><tt>belongs_to</tt></li>
+	<li><tt>has_one</tt></li>
+	<li><tt>has_many</tt></li>
+	<li><tt>has_many :through</tt></li>
+	<li><tt>has_one :through</tt></li>
+	<li><tt>has_and_belongs_to_many</tt></li>
+</ul>
+<p>In the remainder of this guide, you&#8217;ll learn how to declare and use the various forms of associations. But first, a quick introduction to the situations where each association type is appropriate.</p>
+<h4 id="thebelongs-toassociation">2.1 The <tt>belongs_to</tt> association</h4>
+<p>A <tt>belongs_to</tt> association sets up a one-to-one connection with another model, such that each instance of the declaring model &#8220;belongs to&#8221; one instance of the other model. For example, if your application includes customers and orders, and each order can be assigned to exactly one customer, you&#8217;d declare the order model this way:</p>
+<div class="code_container"><code class="ruby">
+class Order &lt; ActiveRecord::Base
+  belongs_to :customer
+end
+</code></div>
+<p><img src="images/belongs_to.png" title="belongs_to Association Diagram" alt="belongs_to Association Diagram" /></p>
+<h4 id="thehas-oneassociation">2.2 The <tt>has_one</tt> association</h4>
+<p>A <tt>has_one</tt> association also sets up a one-to-one connection with another model, but with somewhat different semantics (and consequences). This association indicates that each instance of a model contains or possesses one instance of another model. For example, if each supplier in your application has only one account, you&#8217;d declare the supplier model like this:</p>
+<div class="code_container"><code class="ruby">
+class Supplier &lt; ActiveRecord::Base
+  has_one :account
+end
+</code></div>
+<p><img src="images/has_one.png" title="has_one Association Diagram" alt="has_one Association Diagram" /></p>
+<h4 id="thehas-manyassociation">2.3 The <tt>has_many</tt> association</h4>
+<p>A <tt>has_many</tt> association indicates a one-to-many connection with another model. You&#8217;ll often find this association on the &#8220;other side&#8221; of a <tt>belongs_to</tt> association. This association indicates that each instance of the model has zero or more instances of another model. For example, in an application containing customers and orders, the customer model could be declared like this:</p>
+<div class="code_container"><code class="ruby">
+class Customer &lt; ActiveRecord::Base
+  has_many :orders
+end
+</code></div>
+<div class='note'><p>The name of the other model is pluralized when declaring a <tt>has_many</tt> association.</p></div>
+<p><img src="images/has_many.png" title="has_many Association Diagram" alt="has_many Association Diagram" /></p>
+<h4 id="thehas-manythroughassociation">2.4 The <tt>has_many :through</tt> association</h4>
+<p>A <tt>has_many :through</tt> association is often used to set up a many-to-many connection with another model. This association indicates that the declaring model can be matched with zero or more instances of another model by proceeding <em>through</em> a third model. For example, consider a medical practice where patients make appointments to see physicians. The relevant association declarations could look like this:</p>
+<div class="code_container"><code class="ruby">
+class Physician &lt; ActiveRecord::Base
+  has_many :appointments
+  has_many :patients, :through =&gt; :appointments
+end
+
+class Appointment &lt; ActiveRecord::Base
+  belongs_to :physician
+  belongs_to :patient
+end
+
+class Patient &lt; ActiveRecord::Base
+  has_many :appointments
+  has_many :physicians, :through =&gt; :appointments
+end
+</code></div>
+<p><img src="images/has_many_through.png" title="has_many :through Association Diagram" alt="has_many :through Association Diagram" /></p>
+<p>The <tt>has_many :through</tt> association is also useful for setting up &#8220;shortcuts&#8221; through nested <tt>has_many</tt> associations. For example, if a document has many sections, and a section has many paragraphs, you may sometimes want to get a simple collection of all paragraphs in the document. You could set that up this way:</p>
+<div class="code_container"><code class="ruby">
+class Document &lt; ActiveRecord::Base
+  has_many :sections
+  has_many :paragraphs, :through =&gt; :sections
+end
+
+class Section &lt; ActiveRecord::Base
+  belongs_to :document
+  has_many :paragraphs
+end
+
+class Paragraph &lt; ActiveRecord::Base
+  belongs_to :section
+end
+</code></div>
+<h4 id="thehas-onethroughassociation">2.5 The <tt>has_one :through</tt> association</h4>
+<p>A <tt>has_one :through</tt> association sets up a one-to-one connection with another model. This association indicates that the declaring model can be matched with one instance of another model by proceeding <em>through</em> a third model. For example, if each supplier has one account, and each account is associated with one account history, then the customer model could look like this:</p>
+<div class="code_container"><code class="ruby">
+class Supplier &lt; ActiveRecord::Base
+  has_one :account
+  has_one :account_history, :through =&gt; :account
+end
+
+class Account &lt; ActiveRecord::Base
+  belongs_to :supplier
+  has_one :account_history
+end
+
+class AccountHistory &lt; ActiveRecord::Base
+  belongs_to :account
+end
+</code></div>
+<p><img src="images/has_one_through.png" title="has_one :through Association Diagram" alt="has_one :through Association Diagram" /></p>
+<h4 id="thehas-and-belongs-to-manyassociation">2.6 The <tt>has_and_belongs_to_many</tt> association</h4>
+<p>A <tt>has_and_belongs_to_many</tt> association creates a direct many-to-many connection with another model, with no intervening model. For example, if your application includes assemblies and parts, with each assembly having many parts and each part appearing in many assemblies, you could declare the models this way:</p>
+<div class="code_container"><code class="ruby">
+class Assembly &lt; ActiveRecord::Base
+  has_and_belongs_to_many :parts
+end
+
+class Part &lt; ActiveRecord::Base
+  has_and_belongs_to_many :assemblies
+end
+</code></div>
+<p><img src="images/habtm.png" title="has_and_belongs_to_many Association Diagram" alt="has_and_belongs_to_many Association Diagram" /></p>
+<h4 id="choosingbetweenbelongs-toandhas-one">2.7 Choosing between <tt>belongs_to</tt> and <tt>has_one</tt></h4>
+<p>If you want to set up a 1–1 relationship between two models, you&#8217;ll need to add <tt>belongs_to</tt> to one, and <tt>has_one</tt> to the other. How do you know which is which?</p>
+<p>The distinction is in where you place the foreign key (it goes on the table for the class declaring the <tt>belongs_to</tt> association), but you should give some thought to the actual meaning of the data as well. The <tt>has_one</tt> relationship says that one of something is yours &#8211; that is, that something points back to you. For example, it makes more sense to say that a supplier owns an account than that an account owns a supplier. This suggests that the correct relationships are like this:</p>
+<div class="code_container"><code class="ruby">
+class Supplier &lt; ActiveRecord::Base
+  has_one :account
+end
+
+class Account &lt; ActiveRecord::Base
+  belongs_to :supplier
+end
+</code></div>
+<p>The corresponding migration might look like this:</p>
+<div class="code_container"><code class="ruby">
+class CreateSuppliers &lt; ActiveRecord::Migration
+  def self.up
+    create_table :suppliers do |t|
+      t.string  :name
+      t.timestamps
+    end
+
+    create_table :accounts do |t|
+      t.integer :supplier_id
+      t.string  :account_number
+      t.timestamps
+    end
+  end
+
+  def self.down
+    drop_table :accounts
+    drop_table :suppliers
+  end
+end
+</code></div>
+<div class='note'><p>Using <tt>t.integer :supplier_id</tt> makes the foreign key naming obvious and explicit. In current versions of Rails, you can abstract away this implementation detail by using <tt>t.references :supplier</tt> instead.</p></div>
+<h4 id="choosingbetweenhas-manythroughandhas-and-belongs-to-many">2.8 Choosing between <tt>has_many :through</tt> and <tt>has_and_belongs_to_many</tt></h4>
+<p>Rails offers two different ways to declare a many-to-many relationship between models. The simpler way is to use <tt>has_and_belongs_to_many</tt>, which allows you to make the association directly:</p>
+<div class="code_container"><code class="ruby">
+class Assembly &lt; ActiveRecord::Base
+  has_and_belongs_to_many :parts
+end
+
+class Part &lt; ActiveRecord::Base
+  has_and_belongs_to_many :assemblies
+end
+</code></div>
+<p>The second way to declare a many-to-many relationship is to use <tt>has_many :through</tt>. This makes the association indirectly, through a join model:</p>
+<div class="code_container"><code class="ruby">
+class Assembly &lt; ActiveRecord::Base
+  has_many :manifests
+  has_many :parts, :through =&gt; :manifests
+end
+
+class Manifest &lt; ActiveRecord::Base
+  belongs_to :assembly
+  belongs_to :part
+end
+
+class Part &lt; ActiveRecord::Base
+  has_many :manifests
+  has_many :assemblies, :through =&gt; :manifests
+end
+</code></div>
+<p>The simplest rule of thumb is that you should set up a <tt>has_many :through</tt> relationship if you need to work with the relationship model as an independent entity. If you don&#8217;t need to do anything with the relationship model, it may be simpler to set up a <tt>has_and_belongs_to_many</tt> relationship (though you&#8217;ll need to remember to create the joining table in the database).</p>
+<p>You should use <tt>has_many :through</tt> if you need validations, callbacks, or extra attributes on the join model.</p>
+<h4 id="polymorphicassociations">2.9 Polymorphic associations</h4>
+<p>A slightly more advanced twist on associations is the <em>polymorphic association</em>. With polymorphic associations, a model can belong to more than one other model, on a single association. For example, you might have a picture model that belongs to either an employee model or a product model. Here&#8217;s how this could be declared:</p>
+<div class="code_container"><code class="ruby">
+class Picture &lt; ActiveRecord::Base
+  belongs_to :imageable, :polymorphic =&gt; true
+end
+
+class Employee &lt; ActiveRecord::Base
+  has_many :pictures, :as =&gt; :imageable
+end
+
+class Product &lt; ActiveRecord::Base
+  has_many :pictures, :as =&gt; :imageable
+end
+</code></div>
+<p>You can think of a polymorphic <tt>belongs_to</tt> declaration as setting up an interface that any other model can use. From an instance of the <tt>Employee</tt> model, you can retrieve a collection of pictures: <tt>@employee.pictures</tt>.</p>
+<p>Similarly, you can retrieve <tt>@product.pictures</tt>.</p>
+<p>If you have an instance of the <tt>Picture</tt> model, you can get to its parent via <tt>@picture.imageable</tt>. To make this work, you need to declare both a foreign key column and a type column in the model that declares the polymorphic interface:</p>
+<div class="code_container"><code class="ruby">
+class CreatePictures &lt; ActiveRecord::Migration
+  def self.up
+    create_table :pictures do |t|
+      t.string  :name
+      t.integer :imageable_id
+      t.string  :imageable_type
+      t.timestamps
+    end
+  end
+
+  def self.down
+    drop_table :pictures
+  end
+end
+</code></div>
+<p>This migration can be simplified by using the <tt>t.references</tt> form:</p>
+<div class="code_container"><code class="ruby">
+class CreatePictures &lt; ActiveRecord::Migration
+  def self.up
+    create_table :pictures do |t|
+      t.string :name
+      t.references :imageable, :polymorphic =&gt; true
+      t.timestamps
+    end
+  end
+
+  def self.down
+    drop_table :pictures
+  end
+end
+</code></div>
+<p><img src="images/polymorphic.png" title="Polymorphic Association Diagram" alt="Polymorphic Association Diagram" /></p>
+<h4 id="selfjoins">2.10 Self joins</h4>
+<p>In designing a data model, you will sometimes find a model that should have a relation to itself. For example, you may want to store all employees in a single database model, but be able to trace relationships such as between manager and subordinates. This situation can be modeled with self-joining associations:</p>
+<div class="code_container"><code class="ruby">
+class Employee &lt; ActiveRecord::Base
+  has_many :subordinates, :class_name =&gt; &quot;Employee&quot;,
+    :foreign_key =&gt; &quot;manager_id&quot;
+  belongs_to :manager, :class_name =&gt; &quot;Employee&quot;
+end
+</code></div>
+<p>With this setup, you can retrieve <tt>@employee.subordinates</tt> and <tt>@employee.manager</tt>.</p>
+<h3 id="tips-tricksand-warnings">3 Tips, Tricks, and Warnings</h3>
+<p>Here are a few things you should know to make efficient use of Active Record associations in your Rails applications:</p>
+<ul>
+	<li>Controlling caching</li>
+	<li>Avoiding name collisions</li>
+	<li>Updating the schema</li>
+	<li>Controlling association scope</li>
+</ul>
+<h4 id="controllingcaching">3.1 Controlling caching</h4>
+<p>All of the association methods are built around caching, which keeps the result of the most recent query available for further operations. The cache is even shared across methods. For example:</p>
+<div class="code_container"><code class="ruby">
+customer.orders                 # retrieves orders from the database
+customer.orders.size            # uses the cached copy of orders
+customer.orders.empty?          # uses the cached copy of orders
+</code></div>
+<p>But what if you want to reload the cache, because data might have been changed by some other part of the application? Just pass <tt>true</tt> to the association call:</p>
+<div class="code_container"><code class="ruby">
+customer.orders                 # retrieves orders from the database
+customer.orders.size            # uses the cached copy of orders
+customer.orders(true).empty?    # discards the cached copy of orders
+                                # and goes back to the database
+</code></div>
+<h4 id="avoidingnamecollisions">3.2 Avoiding name collisions</h4>
+<p>You are not free to use just any name for your associations. Because creating an association adds a method with that name to the model, it is a bad idea to give an association a name that is already used for an instance method of <tt>ActiveRecord::Base</tt>. The association method would override the base method and break things. For instance, <tt>attributes</tt> or <tt>connection</tt> are bad names for associations.</p>
+<h4 id="updatingtheschema">3.3 Updating the schema</h4>
+<p>Associations are extremely useful, but they are not magic. You are responsible for maintaining your database schema to match your associations. In practice, this means two things, depending on what sort of associations you are creating. For <tt>belongs_to</tt> associations you need to create foreign keys, and for <tt>has_and_belongs_to_many</tt> associations you need to create the appropriate join table.</p>
+<h5 id="creatingforeign-keysforbelongs-toassociations">3.3.1 Creating foreign Keys for <tt>belongs_to</tt> associations</h5>
+<p>When you declare a <tt>belongs_to</tt> association, you need to create foreign keys as appropriate. For example, consider this model:</p>
+<div class="code_container"><code class="ruby">
+class Order &lt; ActiveRecord::Base
+  belongs_to :customer
+end
+</code></div>
+<p>This declaration needs to be backed up by the proper foreign key declaration on the orders table:</p>
+<div class="code_container"><code class="ruby">
+class CreateOrders &lt; ActiveRecord::Migration
+  def self.up
+    create_table :orders do |t|
+      t.datetime :order_date
+      t.string   :order_number
+      t.integer  :customer_id
+    end
+  end
+
+  def self.down
+    drop_table :orders
+  end
+end
+</code></div>
+<p>If you create an association some time after you build the underlying model, you need to remember to create an <tt>add_column</tt> migration to provide the necessary foreign key.</p>
+<h5 id="creatingjointablesforhas-and-belongs-to-manyassociations">3.3.2 Creating join tables for <tt>has_and_belongs_to_many</tt> associations</h5>
+<p>If you create a <tt>has_and_belongs_to_many</tt> association, you need to explicitly create the joining table. Unless the name of the join table is explicitly specified by using the <tt>:join_table</tt> option, Active Record creates the name by using the lexical order of the class names. So a join between customer and order models will give the default join table name of &#8220;customers_orders&#8221; because &#8220;c&#8221; outranks &#8220;o&#8221; in lexical ordering.</p>
+<div class='warning'><p>The precedence between model names is calculated using the <tt><</tt> operator for <tt>String</tt>. This means that if the strings are of different lengths, and the strings are equal when compared up to the shortest length, then the longer string is considered of higher lexical precedence than the shorter one. For example, one would expect the tables &#8220;paper_boxes&#8221; and &#8220;papers&#8221; to generate a join table name of &#8220;papers_paper_boxes&#8221; because of the length of the name &#8220;paper_boxes&#8221;, but it in fact generates a join table name of &#8220;paper_boxes_papers&#8221; (because the underscore &#8216;_&#8217; is lexicographically <em>less</em> than &#8216;s&#8217; in common encodings).</p></div>
+<p>Whatever the name, you must manually generate the join table with an appropriate migration. For example, consider these associations:</p>
+<div class="code_container"><code class="ruby">
+class Assembly &lt; ActiveRecord::Base
+  has_and_belongs_to_many :parts
+end
+
+class Part &lt; ActiveRecord::Base
+  has_and_belongs_to_many :assemblies
+end
+</code></div>
+<p>These need to be backed up by a migration to create the <tt>assemblies_parts</tt> table. This table should be created without a primary key:</p>
+<div class="code_container"><code class="ruby">
+class CreateAssemblyPartJoinTable &lt; ActiveRecord::Migration
+  def self.up
+    create_table :assemblies_parts, :id =&gt; false do |t|
+      t.integer :assembly_id
+      t.integer :part_id
+    end
+  end
+
+  def self.down
+    drop_table :assemblies_parts
+  end
+end
+</code></div>
+<p>We pass <tt>:id => false</tt> to <tt>create_table</tt> because that table does not represent a model. That&#8217;s required for the association to work properly. If you observe any strange behaviour in a <tt>has_and_belongs_to_many</tt> association like mangled models IDs, or exceptions about conflicting IDs chances are you forgot that bit.</p>
+<h4 id="controllingassociationscope">3.4 Controlling association scope</h4>
+<p>By default, associations look for objects only within the current module&#8217;s scope. This can be important when you declare Active Record models within a module. For example:</p>
+<div class="code_container"><code class="ruby">
+module MyApplication
+  module Business
+    class Supplier &lt; ActiveRecord::Base
+       has_one :account
+    end
+
+    class Account &lt; ActiveRecord::Base
+       belongs_to :supplier
+    end
+  end
+end
+</code></div>
+<p>This will work fine, because both the <tt>Supplier</tt> and the <tt>Account</tt> class are defined within the same scope. But the following will <em>not</em> work, because <tt>Supplier</tt> and <tt>Account</tt> are defined in different scopes:</p>
+<div class="code_container"><code class="ruby">
+module MyApplication
+  module Business
+    class Supplier &lt; ActiveRecord::Base
+       has_one :account
+    end
+  end
+
+  module Billing
+    class Account &lt; ActiveRecord::Base
+       belongs_to :supplier
+    end
+  end
+end
+</code></div>
+<p>To associate a model with a model in a different namespace, you must specify the complete class name in your association declaration:</p>
+<div class="code_container"><code class="ruby">
+module MyApplication
+  module Business
+    class Supplier &lt; ActiveRecord::Base
+       has_one :account,
+        :class_name =&gt; &quot;MyApplication::Billing::Account&quot;
+    end
+  end
+
+  module Billing
+    class Account &lt; ActiveRecord::Base
+       belongs_to :supplier,
+        :class_name =&gt; &quot;MyApplication::Business::Supplier&quot;
+    end
+  end
+end
+</code></div>
+<h3 id="detailed-association-reference">4 Detailed Association Reference</h3>
+<p>The following sections give the details of each type of association, including the methods that they add and the options that you can use when declaring an association.</p>
+<h4 id="belongs-toassociationreference">4.1 <tt>belongs_to</tt> association reference</h4>
+<p>The <tt>belongs_to</tt> association creates a one-to-one match with another model. In database terms, this association says that this class contains the foreign key. If the other class contains the foreign key, then you should use <tt>has_one</tt> instead.</p>
+<h5 id="methodsaddedbybelongs-to">4.1.1 Methods added by <tt>belongs_to</tt></h5>
+<p>When you declare a <tt>belongs_to</tt> association, the declaring class automatically gains four methods related to the association:</p>
+<ul>
+	<li><tt><em>association</em>(force_reload = false)</tt></li>
+	<li><tt><em>association</em>=(associate)</tt></li>
+	<li><tt>build_<em>association</em>(attributes = {})</tt></li>
+	<li><tt>create_<em>association</em>(attributes = {})</tt></li>
+</ul>
+<p>In all of these methods, <tt><em>association</em></tt> is replaced with the symbol passed as the first argument to <tt>belongs_to</tt>. For example, given the declaration:</p>
+<div class="code_container"><code class="ruby">
+class Order &lt; ActiveRecord::Base
+  belongs_to :customer
+end
+</code></div>
+<p>Each instance of the order model will have these methods:</p>
+<div class="code_container"><code class="ruby">
+customer
+customer=
+build_customer
+create_customer
+</code></div>
+<h6 id="-association-force-reloadfalse">4.1.1.1 <em>association</em>(force_reload = false)</h6>
+<p>The <tt><em>association</em></tt> method returns the associated object, if any. If no associated object is found, it returns <tt>nil</tt>.</p>
+<div class="code_container"><code class="ruby">
+@customer = @order.customer
+</code></div>
+<p>If the associated object has already been retrieved from the database for this object, the cached version will be returned. To override this behavior (and force a database read), pass <tt>true</tt> as the <tt>force_reload</tt> argument.</p>
+<h6 id="-association-associate">4.1.1.2 <em>association</em>=(associate)</h6>
+<p>The <tt><em>association</em>=</tt> method assigns an associated object to this object. Behind the scenes, this means extracting the primary key from the associate object and setting this object&#8217;s foreign key to the same value.</p>
+<div class="code_container"><code class="ruby">
+@order.customer = @customer
+</code></div>
+<h6 id="build-emassociationemattributes">4.1.1.3 build_<em>association</em>(attributes = {})</h6>
+<p>The <tt>build_<em>association</em></tt> method returns a new object of the associated type. This object will be instantiated from the passed attributes, and the link through this object&#8217;s foreign key will be set, but the associated object will <em>not</em> yet be saved.</p>
+<div class="code_container"><code class="ruby">
+@customer = @order.build_customer(:customer_number =&gt; 123,
+  :customer_name =&gt; &quot;John Doe&quot;)
+</code></div>
+<h6 id="create-emassociationemattributes">4.1.1.4 create_<em>association</em>(attributes = {})</h6>
+<p>The <tt>create_<em>association</em></tt> method returns a new object of the associated type. This object will be instantiated from the passed attributes, and the link through this object&#8217;s foreign key will be set. In addition, the associated object <em>will</em> be saved (assuming that it passes any validations).</p>
+<div class="code_container"><code class="ruby">
+@customer = @order.create_customer(:customer_number =&gt; 123,
+  :customer_name =&gt; &quot;John Doe&quot;)
+</code></div>
+<h5 id="optionsforbelongs-to">4.1.2 Options for <tt>belongs_to</tt></h5>
+<p>In many situations, you can use the default behavior of <tt>belongs_to</tt> without any customization. But despite Rails&#8217; emphasis of convention over customization, you can alter that behavior in a number of ways. This section covers the options that you can pass when you create a <tt>belongs_to</tt> association. For example, an association with several options might look like this:</p>
+<div class="code_container"><code class="ruby">
+class Order &lt; ActiveRecord::Base
+  belongs_to :customer, :counter_cache =&gt; true,
+    :conditions =&gt; &quot;active = 1&quot;
+end
+</code></div>
+<p>The <tt>belongs_to</tt> association supports these options:</p>
+<ul>
+	<li><tt>:autosave</tt></li>
+	<li><tt>:class_name</tt></li>
+	<li><tt>:conditions</tt></li>
+	<li><tt>:counter_cache</tt></li>
+	<li><tt>:dependent</tt></li>
+	<li><tt>:foreign_key</tt></li>
+	<li><tt>:include</tt></li>
+	<li><tt>:polymorphic</tt></li>
+	<li><tt>:readonly</tt></li>
+	<li><tt>:select</tt></li>
+	<li><tt>:validate</tt></li>
+</ul>
+<h6 id="autosave">4.1.2.1 <tt>:autosave</tt></h6>
+<p>If you set the <tt>:autosave</tt> option to <tt>true</tt>, Rails will save any loaded members and destroy members that are marked for destruction whenever you save the parent object.</p>
+<h6 id="class-name">4.1.2.2 <tt>:class_name</tt></h6>
+<p>If the name of the other model cannot be derived from the association name, you can use the <tt>:class_name</tt> option to supply the model name. For example, if an order belongs to a customer, but the actual name of the model containing customers is <tt>Patron</tt>, you&#8217;d set things up this way:</p>
+<div class="code_container"><code class="ruby">
+class Order &lt; ActiveRecord::Base
+  belongs_to :customer, :class_name =&gt; &quot;Patron&quot;
+end
+</code></div>
+<h6 id="conditions">4.1.2.3 <tt>:conditions</tt></h6>
+<p>The <tt>:conditions</tt> option lets you specify the conditions that the associated object must meet (in the syntax used by a <span class="caps">SQL</span> <tt>WHERE</tt> clause).</p>
+<div class="code_container"><code class="ruby">
+class Order &lt; ActiveRecord::Base
+  belongs_to :customer, :conditions =&gt; &quot;active = 1&quot;
+end
+</code></div>
+<h6 id="counter-cache">4.1.2.4 <tt>:counter_cache</tt></h6>
+<p>The <tt>:counter_cache</tt> option can be used to make finding the number of belonging objects more efficient. Consider these models:</p>
+<div class="code_container"><code class="ruby">
+class Order &lt; ActiveRecord::Base
+  belongs_to :customer
+end
+class Customer &lt; ActiveRecord::Base
+  has_many :orders
+end
+</code></div>
+<p>With these declarations, asking for the value of <tt>@customer.orders.size</tt> requires making a call to the database to perform a <tt>COUNT(*)</tt> query. To avoid this call, you can add a counter cache to the <em>belonging</em> model:</p>
+<div class="code_container"><code class="ruby">
+class Order &lt; ActiveRecord::Base
+  belongs_to :customer, :counter_cache =&gt; true
+end
+class Customer &lt; ActiveRecord::Base
+  has_many :orders
+end
+</code></div>
+<p>With this declaration, Rails will keep the cache value up to date, and then return that value in response to the <tt>size</tt> method.</p>
+<p>Although the <tt>:counter_cache</tt> option is specified on the model that includes the <tt>belongs_to</tt> declaration, the actual column must be added to the <em>associated</em> model. In the case above, you would need to add a column named <tt>orders_count</tt> to the <tt>Customer</tt> model. You can override the default column name if you need to:</p>
+<div class="code_container"><code class="ruby">
+class Order &lt; ActiveRecord::Base
+  belongs_to :customer, :counter_cache =&gt; :count_of_orders
+end
+class Customer &lt; ActiveRecord::Base
+  has_many :orders
+end
+</code></div>
+<p>Counter cache columns are added to the containing model&#8217;s list of read-only attributes through <tt>attr_readonly</tt>.</p>
+<h6 id="dependent">4.1.2.5 <tt>:dependent</tt></h6>
+<p>If you set the <tt>:dependent</tt> option to <tt>:destroy</tt>, then deleting this object will call the <tt>destroy</tt> method on the associated object to delete that object. If you set the <tt>:dependent</tt> option to <tt>:delete</tt>, then deleting this object will delete the associated object <em>without</em> calling its <tt>destroy</tt> method.</p>
+<div class='warning'><p>You should not specify this option on a <tt>belongs_to</tt> association that is connected with a <tt>has_many</tt> association on the other class. Doing so can lead to orphaned records in your database.</p></div>
+<h6 id="foreign-key">4.1.2.6 <tt>:foreign_key</tt></h6>
+<p>By convention, Rails guesses that the column used to hold the foreign key on this model is the name of the association with the suffix <tt>_id</tt> added. The <tt>:foreign_key</tt> option lets you set the name of the foreign key directly:</p>
+<div class="code_container"><code class="ruby">
+class Order &lt; ActiveRecord::Base
+  belongs_to :customer, :class_name =&gt; &quot;Patron&quot;,
+    :foreign_key =&gt; &quot;patron_id&quot;
+end
+</code></div>
+<div class='info'><p>In any case, Rails will not create foreign key columns for you. You need to explicitly define them as part of your migrations.</p></div>
+<h6 id="include">4.1.2.7 <tt>:include</tt></h6>
+<p>You can use the <tt>:include</tt> option to specify second-order associations that should be eager-loaded when this association is used. For example, consider these models:</p>
+<div class="code_container"><code class="ruby">
+class LineItem &lt; ActiveRecord::Base
+  belongs_to :order
+end
+
+class Order &lt; ActiveRecord::Base
+  belongs_to :customer
+  has_many :line_items
+end
+
+class Customer &lt; ActiveRecord::Base
+  has_many :orders
+end
+</code></div>
+<p>If you frequently retrieve customers directly from line items (<tt>@line_item.order.customer</tt>), then you can make your code somewhat more efficient by including customers in the association from line items to orders:</p>
+<div class="code_container"><code class="ruby">
+class LineItem &lt; ActiveRecord::Base
+  belongs_to :order, :include =&gt; :customer
+end
+
+class Order &lt; ActiveRecord::Base
+  belongs_to :customer
+  has_many :line_items
+end
+
+class Customer &lt; ActiveRecord::Base
+  has_many :orders
+end
+</code></div>
+<div class='note'><p>There&#8217;s no need to use <tt>:include</tt> for immediate associations &#8211; that is, if you have <tt>Order belongs_to :customer</tt>, then the customer is eager-loaded automatically when it&#8217;s needed.</p></div>
+<h6 id="polymorphic">4.1.2.8 <tt>:polymorphic</tt></h6>
+<p>Passing <tt>true</tt> to the <tt>:polymorphic</tt> option indicates that this is a polymorphic association. Polymorphic associations were discussed in detail <a href="#polymorphicassociations">earlier in this guide</a>.</p>
+<h6 id="readonly">4.1.2.9 <tt>:readonly</tt></h6>
+<p>If you set the <tt>:readonly</tt> option to <tt>true</tt>, then the associated object will be read-only when retrieved via the association.</p>
+<h6 id="select">4.1.2.10 <tt>:select</tt></h6>
+<p>The <tt>:select</tt> option lets you override the <span class="caps">SQL</span> <tt>SELECT</tt> clause that is used to retrieve data about the associated object. By default, Rails retrieves all columns.</p>
+<div class='info'><p>If you set the <tt>:select</tt> option on a <tt>belongs_to</tt> association, you should also set the <tt>foreign_key</tt> option to guarantee the correct results.</p></div>
+<h6 id="validate">4.1.2.11 <tt>:validate</tt></h6>
+<p>If you set the <tt>:validate</tt> option to <tt>true</tt>, then associated objects will be validated whenever you save this object. By default, this is <tt>false</tt>: associated objects will not be validated when this object is saved.</p>
+<h5 id="howtoknowwhethertheresanassociatedobject">4.1.3 How to know whether there&#8217;s an associated object?</h5>
+<p>To know whether there&#8217;s and associated object just check <tt><em>association</em>.nil?</tt>:</p>
+<div class="code_container"><code class="ruby">
+if @order.customer.nil?
+  @msg = &quot;No customer found for this order&quot;
+end
+</code></div>
+<h5 id="whenareobjectssaved">4.1.4 When are objects saved?</h5>
+<p>Assigning an object to a <tt>belongs_to</tt> association does <em>not</em> automatically save the object. It does not save the associated object either.</p>
+<h4 id="has-oneassociationreference">4.2 <tt>has_one</tt> association reference</h4>
+<p>The <tt>has_one</tt> association creates a one-to-one match with another model. In database terms, this association says that the other class contains the foreign key. If this class contains the foreign key, then you should use <tt>belongs_to</tt> instead.</p>
+<h5 id="methodsaddedbyhas-one">4.2.1 Methods added by <tt>has_one</tt></h5>
+<p>When you declare a <tt>has_one</tt> association, the declaring class automatically gains four methods related to the association:</p>
+<ul>
+	<li><tt><em>association</em>(force_reload = false)</tt></li>
+	<li><tt><em>association</em>=(associate)</tt></li>
+	<li><tt>build_<em>association</em>(attributes = {})</tt></li>
+	<li><tt>create_<em>association</em>(attributes = {})</tt></li>
+</ul>
+<p>In all of these methods, <tt><em>association</em></tt> is replaced with the symbol passed as the first argument to <tt>has_one</tt>. For example, given the declaration:</p>
+<div class="code_container"><code class="ruby">
+class Supplier &lt; ActiveRecord::Base
+  has_one :account
+end
+</code></div>
+<p>Each instance of the <tt>Supplier</tt> model will have these methods:</p>
+<div class="code_container"><code class="ruby">
+account
+account=
+build_account
+create_account
+</code></div>
+<h6 id="ttemassociationemforce-reloadfalsett">4.2.1.1 <tt><em>association</em>(force_reload = false)</tt></h6>
+<p>The <tt><em>association</em></tt> method returns the associated object, if any. If no associated object is found, it returns <tt>nil</tt>.</p>
+<div class="code_container"><code class="ruby">
+@account = @supplier.account
+</code></div>
+<p>If the associated object has already been retrieved from the database for this object, the cached version will be returned. To override this behavior (and force a database read), pass <tt>true</tt> as the <tt>force_reload</tt> argument.</p>
+<h6 id="ttemassociationemassociatett">4.2.1.2 <tt><em>association</em>=(associate)</tt></h6>
+<p>The <tt><em>association</em>=</tt> method assigns an associated object to this object. Behind the scenes, this means extracting the primary key from this object and setting the associate object&#8217;s foreign key to the same value.</p>
+<div class="code_container"><code class="ruby">
+@supplier.account = @account
+</code></div>
+<h6 id="ttbuild-emassociationemattributestt">4.2.1.3 <tt>build_<em>association</em>(attributes = {})</tt></h6>
+<p>The <tt>build_<em>association</em></tt> method returns a new object of the associated type. This object will be instantiated from the passed attributes, and the link through its foreign key will be set, but the associated object will <em>not</em> yet be saved.</p>
+<div class="code_container"><code class="ruby">
+@account = @supplier.build_account(:terms =&gt; &quot;Net 30&quot;)
+</code></div>
+<h6 id="ttcreate-emassociationemattributestt">4.2.1.4 <tt>create_<em>association</em>(attributes = {})</tt></h6>
+<p>The <tt>create_<em>association</em></tt> method returns a new object of the associated type. This object will be instantiated from the passed attributes, and the link through its foreign key will be set. In addition, the associated object <em>will</em> be saved (assuming that it passes any validations).</p>
+<div class="code_container"><code class="ruby">
+@account = @supplier.create_account(:terms =&gt; &quot;Net 30&quot;)
+</code></div>
+<h5 id="optionsforhas-one">4.2.2 Options for <tt>has_one</tt></h5>
+<p>In many situations, you can use the default behavior of <tt>has_one</tt> without any customization. But despite Rails&#8217; emphasis of convention over customization, you can alter that behavior in a number of ways. This section covers the options that you can pass when you create a <tt>has_one</tt> association. For example, an association with several options might look like this:</p>
+<div class="code_container"><code class="ruby">
+class Supplier &lt; ActiveRecord::Base
+  has_one :account, :class_name =&gt; &quot;Billing&quot;, :dependent =&gt; :nullify
+end
+</code></div>
+<p>The <tt>has_one</tt> association supports these options:</p>
+<ul>
+	<li><tt>:as</tt></li>
+	<li><tt>:autosave</tt></li>
+	<li><tt>:class_name</tt></li>
+	<li><tt>:conditions</tt></li>
+	<li><tt>:dependent</tt></li>
+	<li><tt>:foreign_key</tt></li>
+	<li><tt>:include</tt></li>
+	<li><tt>:order</tt></li>
+	<li><tt>:primary_key</tt></li>
+	<li><tt>:readonly</tt></li>
+	<li><tt>:select</tt></li>
+	<li><tt>:source</tt></li>
+	<li><tt>:source_type</tt></li>
+	<li><tt>:through</tt></li>
+	<li><tt>:validate</tt></li>
+</ul>
+<h6 id="as">4.2.2.1 <tt>:as</tt></h6>
+<p>Setting the <tt>:as</tt> option indicates that this is a polymorphic association. Polymorphic associations were discussed in detail <a href="#polymorphicassociations">earlier in this guide</a>.</p>
+<h6 id="autosave">4.2.2.2 <tt>:autosave</tt></h6>
+<p>If you set the <tt>:autosave</tt> option to <tt>true</tt>, Rails will save any loaded members and destroy members that are marked for destruction whenever you save the parent object.</p>
+<h6 id="class-name">4.2.2.3 <tt>:class_name</tt></h6>
+<p>If the name of the other model cannot be derived from the association name, you can use the <tt>:class_name</tt> option to supply the model name. For example, if a supplier has an account, but the actual name of the model containing accounts is <tt>Billing</tt>, you&#8217;d set things up this way:</p>
+<div class="code_container"><code class="ruby">
+class Supplier &lt; ActiveRecord::Base
+  has_one :account, :class_name =&gt; &quot;Billing&quot;
+end
+</code></div>
+<h6 id="conditions">4.2.2.4 <tt>:conditions</tt></h6>
+<p>The <tt>:conditions</tt> option lets you specify the conditions that the associated object must meet (in the syntax used by a <span class="caps">SQL</span> <tt>WHERE</tt> clause).</p>
+<div class="code_container"><code class="ruby">
+class Supplier &lt; ActiveRecord::Base
+  has_one :account, :conditions =&gt; &quot;confirmed = 1&quot;
+end
+</code></div>
+<h6 id="dependent">4.2.2.5 <tt>:dependent</tt></h6>
+<p>If you set the <tt>:dependent</tt> option to <tt>:destroy</tt>, then deleting this object will call the <tt>destroy</tt> method on the associated object to delete that object. If you set the <tt>:dependent</tt> option to <tt>:delete</tt>, then deleting this object will delete the associated object <em>without</em> calling its <tt>destroy</tt> method. If you set the <tt>:dependent</tt> option to <tt>:nullify</tt>, then deleting this object will set the foreign key in the association object to <tt>NULL</tt>.</p>
+<h6 id="foreign-key">4.2.2.6 <tt>:foreign_key</tt></h6>
+<p>By convention, Rails guesses that the column used to hold the foreign key on the other model is the name of this model with the suffix <tt>_id</tt> added. The <tt>:foreign_key</tt> option lets you set the name of the foreign key directly:</p>
+<div class="code_container"><code class="ruby">
+class Supplier &lt; ActiveRecord::Base
+  has_one :account, :foreign_key =&gt; &quot;supp_id&quot;
+end
+</code></div>
+<div class='info'><p>In any case, Rails will not create foreign key columns for you. You need to explicitly define them as part of your migrations.</p></div>
+<h6 id="include">4.2.2.7 <tt>:include</tt></h6>
+<p>You can use the <tt>:include</tt> option to specify second-order associations that should be eager-loaded when this association is used. For example, consider these models:</p>
+<div class="code_container"><code class="ruby">
+class Supplier &lt; ActiveRecord::Base
+  has_one :account
+end
+
+class Account &lt; ActiveRecord::Base
+  belongs_to :supplier
+  belongs_to :representative
+end
+
+class Representative &lt; ActiveRecord::Base
+  has_many :accounts
+end
+</code></div>
+<p>If you frequently retrieve representatives directly from suppliers (<tt>@supplier.account.representative</tt>), then you can make your code somewhat more efficient by including representatives in the association from suppliers to accounts:</p>
+<div class="code_container"><code class="ruby">
+class Supplier &lt; ActiveRecord::Base
+  has_one :account, :include =&gt; :representative
+end
+
+class Account &lt; ActiveRecord::Base
+  belongs_to :supplier
+  belongs_to :representative
+end
+
+class Representative &lt; ActiveRecord::Base
+  has_many :accounts
+end
+</code></div>
+<h6 id="order">4.2.2.8 <tt>:order</tt></h6>
+<p>The <tt>:order</tt> option dictates the order in which associated objects will be received (in the syntax used by a <span class="caps">SQL</span> <tt>ORDER BY</tt> clause). Because a <tt>has_one</tt> association will only retrieve a single associated object, this option should not be needed.</p>
+<h6 id="primary-key">4.2.2.9 <tt>:primary_key</tt></h6>
+<p>By convention, Rails guesses that the column used to hold the primary key of this model is <tt>id</tt>. You can override this and explicitly specify the primary key with the <tt>:primary_key</tt> option.</p>
+<h6 id="readonly">4.2.2.10 <tt>:readonly</tt></h6>
+<p>If you set the <tt>:readonly</tt> option to <tt>true</tt>, then the associated object will be read-only when retrieved via the association.</p>
+<h6 id="select">4.2.2.11 <tt>:select</tt></h6>
+<p>The <tt>:select</tt> option lets you override the <span class="caps">SQL</span> <tt>SELECT</tt> clause that is used to retrieve data about the associated object. By default, Rails retrieves all columns.</p>
+<h6 id="source">4.2.2.12 <tt>:source</tt></h6>
+<p>The <tt>:source</tt> option specifies the source association name for a <tt>has_one :through</tt> association.</p>
+<h6 id="source-type">4.2.2.13 <tt>:source_type</tt></h6>
+<p>The <tt>:source_type</tt> option specifies the source association type for a <tt>has_one :through</tt> association that proceeds through a polymorphic association.</p>
+<h6 id="through">4.2.2.14 :through</h6>
+<p>The <tt>:through</tt> option specifies a join model through which to perform the query. <tt>has_one :through</tt> associations were discussed in detail <a href="#thehas-onethroughassociation">earlier in this guide</a>.</p>
+<h6 id="validate">4.2.2.15 <tt>:validate</tt></h6>
+<p>If you set the <tt>:validate</tt> option to <tt>true</tt>, then associated objects will be validated whenever you save this object. By default, this is <tt>false</tt>: associated objects will not be validated when this object is saved.</p>
+<h5 id="howtoknowwhethertheresanassociatedobject">4.2.3 How to know whether there&#8217;s an associated object?</h5>
+<p>To know whether there&#8217;s and associated object just check <tt><em>association</em>.nil?</tt>:</p>
+<div class="code_container"><code class="ruby">
+if @supplier.account.nil?
+  @msg = &quot;No account found for this supplier&quot;
+end
+</code></div>
+<h5 id="whenareobjectssaved">4.2.4 When are objects saved?</h5>
+<p>When you assign an object to a <tt>has_one</tt> association, that object is automatically saved (in order to update its foreign key). In addition, any object being replaced is also automatically saved, because its foreign key will change too.</p>
+<p>If either of these saves fails due to validation errors, then the assignment statement returns <tt>false</tt> and the assignment itself is cancelled.</p>
+<p>If the parent object (the one declaring the <tt>has_one</tt> association) is unsaved (that is, <tt>new_record?</tt> returns <tt>true</tt>) then the child objects are not saved. They will automatically when the parent object is saved.</p>
+<p>If you want to assign an object to a <tt>has_one</tt> association without saving the object, use the <tt><em>association</em>.build</tt> method.</p>
+<h4 id="has-manyassociationreference">4.3 <tt>has_many</tt> association reference</h4>
+<p>The <tt>has_many</tt> association creates a one-to-many relationship with another model. In database terms, this association says that the other class will have a foreign key that refers to instances of this class.</p>
+<h5 id="methodsadded">4.3.1 Methods added</h5>
+<p>When you declare a <tt>has_many</tt> association, the declaring class automatically gains 13 methods related to the association:</p>
+<ul>
+	<li><tt><em>collection</em>(force_reload = false)</tt></li>
+	<li><tt><em>collection</em>&lt;&lt;(object, &#8230;)</tt></li>
+	<li><tt><em>collection</em>.delete(object, &#8230;)</tt></li>
+	<li><tt><em>collection</em>=objects</tt></li>
+	<li><tt><em>collection_singular</em>_ids</tt></li>
+	<li><tt><em>collection_singular</em>_ids=ids</tt></li>
+	<li><tt><em>collection</em>.clear</tt></li>
+	<li><tt><em>collection</em>.empty?</tt></li>
+	<li><tt><em>collection</em>.size</tt></li>
+	<li><tt><em>collection</em>.find(&#8230;)</tt></li>
+	<li><tt><em>collection</em>.exist?(&#8230;)</tt></li>
+	<li><tt><em>collection</em>.build(attributes = {}, &#8230;)</tt></li>
+	<li><tt><em>collection</em>.create(attributes = {})</tt></li>
+</ul>
+<p>In all of these methods, <tt><em>collection</em></tt> is replaced with the symbol passed as the first argument to <tt>has_many</tt>, and <tt><em>collection_singular</em></tt> is replaced with the singularized version of that symbol.. For example, given the declaration:</p>
+<div class="code_container"><code class="ruby">
+class Customer &lt; ActiveRecord::Base
+  has_many :orders
+end
+</code></div>
+<p>Each instance of the customer model will have these methods:</p>
+<div class="code_container"><code class="ruby">
+orders(force_reload = false)
+orders&lt;&lt;(object, ...)
+orders.delete(object, ...)
+orders=objects
+order_ids
+order_ids=ids
+orders.clear
+orders.empty?
+orders.size
+orders.find(...)
+orders.exist?(...)
+orders.build(attributes = {}, ...)
+orders.create(attributes = {})
+</code></div>
+<h6 id="ttemcollectionemforce-reloadfalsett">4.3.1.1 <tt><em>collection</em>(force_reload = false)</tt></h6>
+<p>The <tt><em>collection</em></tt> method returns an array of all of the associated objects. If there are no associated objects, it returns an empty array.</p>
+<div class="code_container"><code class="ruby">
+@orders = @customer.orders
+</code></div>
+<h6 id="ttemcollectionemobjecttt">4.3.1.2 <tt><em>collection</em>&lt;&lt;(object, &#8230;)</tt></h6>
+<p>The <tt><em>collection</em>&lt;&lt;</tt> method adds one or more objects to the collection by setting their foreign keys to the primary key of the calling model.</p>
+<div class="code_container"><code class="ruby">
+@customer.orders &lt;&lt; @order1
+</code></div>
+<h6 id="ttemcollectionemdeleteobjecttt">4.3.1.3 <tt><em>collection</em>.delete(object, &#8230;)</tt></h6>
+<p>The <tt><em>collection</em>.delete</tt> method removes one or more objects from the collection by setting their foreign keys to <tt>NULL</tt>.</p>
+<div class="code_container"><code class="ruby">
+@customer.orders.delete(@order1)
+</code></div>
+<div class='warning'><p>Objects will be in addition destroyed if they&#8217;re associated with <tt>:dependent => :destroy</tt>, and deleted if they&#8217;re associated with <tt>:dependent => :delete_all</tt>.</p></div>
+<h6 id="ttemcollectionemobjectstt">4.3.1.4 <tt><em>collection</em>=objects</tt></h6>
+<p>The <tt><em>collection</em>=</tt> method makes the collection contain only the supplied objects, by adding and deleting as appropriate.</p>
+<h6 id="ttemcollection-singularem-idstt">4.3.1.5 <tt><em>collection_singular</em>_ids</tt></h6>
+<p>The <tt><em>collection_singular</em>_ids</tt> method returns an array of the ids of the objects in the collection.</p>
+<div class="code_container"><code class="ruby">
+@order_ids = @customer.order_ids
+</code></div>
+<h6 id="ttemcollection-singularem-idsidstt">4.3.1.6 <tt><em>collection_singular</em>_ids=ids</tt></h6>
+<p>The <tt><em>collection_singular</em>_ids=</tt> method makes the collection contain only the objects identified by the supplied primary key values, by adding and deleting as appropriate.</p>
+<h6 id="ttemcollectionemcleartt">4.3.1.7 <tt><em>collection</em>.clear</tt></h6>
+<p>The <tt><em>collection</em>.clear</tt> method removes every object from the collection. This destroys the associated objects if they are associated with <tt>:dependent => :destroy</tt>, deletes them directly from the database if <tt>:dependent => :delete_all</tt>, and otherwise sets their foreign keys to <tt>NULL</tt>.</p>
+<h6 id="ttemcollectionememptytt">4.3.1.8 <tt><em>collection</em>.empty?</tt></h6>
+<p>The <tt><em>collection</em>.empty?</tt> method returns <tt>true</tt> if the collection does not contain any associated objects.</p>
+<div class="code_container"><code class="ruby">
+&lt;% if @customer.orders.empty? %&gt;
+  No Orders Found
+&lt;% end %&gt;
+</code></div>
+<h6 id="ttemcollectionemsizett">4.3.1.9 <tt><em>collection</em>.size</tt></h6>
+<p>The <tt><em>collection</em>.size</tt> method returns the number of objects in the collection.</p>
+<div class="code_container"><code class="ruby">
+@order_count = @customer.orders.size
+</code></div>
+<h6 id="ttemcollectionemfindtt">4.3.1.10 <tt><em>collection</em>.find(&#8230;)</tt></h6>
+<p>The <tt><em>collection</em>.find</tt> method finds objects within the collection. It uses the same syntax and options as <tt>ActiveRecord::Base.find</tt>.</p>
+<div class="code_container"><code class="ruby">
+@open_orders = @customer.orders.find(:all, :conditions =&gt; &quot;open = 1&quot;)
+</code></div>
+<h6 id="ttemcollectionemexisttt">4.3.1.11 <tt><em>collection</em>.exist?(&#8230;)</tt></h6>
+<p>The <tt><em>collection</em>.exist?</tt> method checks whether an object meeting the supplied conditions exists in the collection. It uses the same syntax and options as <tt>ActiveRecord::Base.exists?</tt>.</p>
+<h6 id="ttemcollectionembuildattributestt">4.3.1.12 <tt><em>collection</em>.build(attributes = {}, &#8230;)</tt></h6>
+<p>The <tt><em>collection</em>.build</tt> method returns one or more new objects of the associated type. These objects will be instantiated from the passed attributes, and the link through their foreign key will be created, but the associated objects will <em>not</em> yet be saved.</p>
+<div class="code_container"><code class="ruby">
+@order = @customer.orders.build(:order_date =&gt; Time.now,
+  :order_number =&gt; &quot;A12345&quot;)
+</code></div>
+<h6 id="ttemcollectionemcreateattributestt">4.3.1.13 <tt><em>collection</em>.create(attributes = {})</tt></h6>
+<p>The <tt><em>collection</em>.create</tt> method returns a new object of the associated type. This object will be instantiated from the passed attributes, the link through its foreign key will be created, and the associated object <em>will</em> be saved (assuming that it passes any validations).</p>
+<div class="code_container"><code class="ruby">
+@order = @customer.orders.create(:order_date =&gt; Time.now,
+  :order_number =&gt; &quot;A12345&quot;)
+</code></div>
+<h5 id="optionsforhas-many">4.3.2 Options for <tt>has_many</tt></h5>
+<p>In many situations, you can use the default behavior for <tt>has_many</tt> without any customization. But you can alter that behavior in a number of ways. This section covers the options that you can pass when you create a <tt>has_many</tt> association. For example, an association with several options might look like this:</p>
+<div class="code_container"><code class="ruby">
+class Customer &lt; ActiveRecord::Base
+  has_many :orders, :dependent =&gt; :delete_all, :validate =&gt; :false
+end
+</code></div>
+<p>The <tt>has_many</tt> association supports these options:</p>
+<ul>
+	<li><tt>:as</tt></li>
+	<li><tt>:autosave</tt></li>
+	<li><tt>:class_name</tt></li>
+	<li><tt>:conditions</tt></li>
+	<li><tt>:counter_sql</tt></li>
+	<li><tt>:dependent</tt></li>
+	<li><tt>:extend</tt></li>
+	<li><tt>:finder_sql</tt></li>
+	<li><tt>:foreign_key</tt></li>
+	<li><tt>:group</tt></li>
+	<li><tt>:include</tt></li>
+	<li><tt>:limit</tt></li>
+	<li><tt>:offset</tt></li>
+	<li><tt>:order</tt></li>
+	<li><tt>:primary_key</tt></li>
+	<li><tt>:readonly</tt></li>
+	<li><tt>:select</tt></li>
+	<li><tt>:source</tt></li>
+	<li><tt>:source_type</tt></li>
+	<li><tt>:through</tt></li>
+	<li><tt>:uniq</tt></li>
+	<li><tt>:validate</tt></li>
+</ul>
+<h6 id="as">4.3.2.1 <tt>:as</tt></h6>
+<p>Setting the <tt>:as</tt> option indicates that this is a polymorphic association, as discussed <a href="#polymorphicassociations">earlier in this guide</a>.</p>
+<h6 id="autosave">4.3.2.2 <tt>:autosave</tt></h6>
+<p>If you set the <tt>:autosave</tt> option to <tt>true</tt>, Rails will save any loaded members and destroy members that are marked for destruction whenever you save the parent object.</p>
+<h6 id="class-name">4.3.2.3 <tt>:class_name</tt></h6>
+<p>If the name of the other model cannot be derived from the association name, you can use the <tt>:class_name</tt> option to supply the model name. For example, if a customer has many orders, but the actual name of the model containing orders is <tt>Transaction</tt>, you&#8217;d set things up this way:</p>
+<div class="code_container"><code class="ruby">
+class Customer &lt; ActiveRecord::Base
+  has_many :orders, :class_name =&gt; &quot;Transaction&quot;
+end
+</code></div>
+<h6 id="conditions">4.3.2.4 <tt>:conditions</tt></h6>
+<p>The <tt>:conditions</tt> option lets you specify the conditions that the associated object must meet (in the syntax used by a <span class="caps">SQL</span> <tt>WHERE</tt> clause).</p>
+<div class="code_container"><code class="ruby">
+class Customer &lt; ActiveRecord::Base
+  has_many :confirmed_orders, :class_name =&gt; &quot;Order&quot;,
+    :conditions =&gt; &quot;confirmed = 1&quot;
+end
+</code></div>
+<p>You can also set conditions via a hash:</p>
+<div class="code_container"><code class="ruby">
+class Customer &lt; ActiveRecord::Base
+  has_many :confirmed_orders, :class_name =&gt; &quot;Order&quot;,
+    :conditions =&gt; { :confirmed =&gt; true }
+end
+</code></div>
+<p>If you use a hash-style <tt>:conditions</tt> option, then record creation via this association will be automatically scoped using the hash. In this case, using <tt>@customer.confirmed_orders.create</tt> or <tt>@customer.confirmed_orders.build</tt> will create orders where the confirmed column has the value <tt>true</tt>.</p>
+<h6 id="counter-sql">4.3.2.5 <tt>:counter_sql</tt></h6>
+<p>Normally Rails automatically generates the proper <span class="caps">SQL</span> to count the association members. With the <tt>:counter_sql</tt> option, you can specify a complete <span class="caps">SQL</span> statement to count them yourself.</p>
+<div class='note'><p>If you specify <tt>:finder_sql</tt> but not <tt>:counter_sql</tt>, then the counter <span class="caps">SQL</span> will be generated by substituting <tt>SELECT COUNT(*) FROM</tt> for the <tt>SELECT ... FROM</tt> clause of your <tt>:finder_sql</tt> statement.</p></div>
+<h6 id="dependent">4.3.2.6 <tt>:dependent</tt></h6>
+<p>If you set the <tt>:dependent</tt> option to <tt>:destroy</tt>, then deleting this object will call the <tt>destroy</tt> method on the associated objects to delete those objects. If you set the <tt>:dependent</tt> option to <tt>:delete_all</tt>, then deleting this object will delete the associated objects <em>without</em> calling their <tt>destroy</tt> method. If you set the <tt>:dependent</tt> option to <tt>:nullify</tt>, then deleting this object will set the foreign key in the associated objects to <tt>NULL</tt>.</p>
+<div class='note'><p>This option is ignored when you use the <tt>:through</tt> option on the association.</p></div>
+<h6 id="extend">4.3.2.7 <tt>:extend</tt></h6>
+<p>The <tt>:extend</tt> option specifies a named module to extend the association proxy. Association extensions are discussed in detail <a href="#associationextensions">later in this guide</a>.</p>
+<h6 id="finder-sql">4.3.2.8 <tt>:finder_sql</tt></h6>
+<p>Normally Rails automatically generates the proper <span class="caps">SQL</span> to fetch the association members. With the <tt>:finder_sql</tt> option, you can specify a complete <span class="caps">SQL</span> statement to fetch them yourself. If fetching objects requires complex multi-table <span class="caps">SQL</span>, this may be necessary.</p>
+<h6 id="foreign-key">4.3.2.9 <tt>:foreign_key</tt></h6>
+<p>By convention, Rails guesses that the column used to hold the foreign key on the other model is the name of this model with the suffix <tt>_id</tt> added. The <tt>:foreign_key</tt> option lets you set the name of the foreign key directly:</p>
+<div class="code_container"><code class="ruby">
+class Customer &lt; ActiveRecord::Base
+  has_many :orders, :foreign_key =&gt; &quot;cust_id&quot;
+end
+</code></div>
+<div class='info'><p>In any case, Rails will not create foreign key columns for you. You need to explicitly define them as part of your migrations.</p></div>
+<h6 id="group">4.3.2.10 <tt>:group</tt></h6>
+<p>The <tt>:group</tt> option supplies an attribute name to group the result set by, using a <tt>GROUP BY</tt> clause in the finder <span class="caps">SQL</span>.</p>
+<div class="code_container"><code class="ruby">
+class Customer &lt; ActiveRecord::Base
+  has_many :line_items, :through =&gt; :orders, :group =&gt; &quot;orders.id&quot;
+end
+</code></div>
+<h6 id="include">4.3.2.11 <tt>:include</tt></h6>
+<p>You can use the <tt>:include</tt> option to specify second-order associations that should be eager-loaded when this association is used. For example, consider these models:</p>
+<div class="code_container"><code class="ruby">
+class Customer &lt; ActiveRecord::Base
+  has_many :orders
+end
+
+class Order &lt; ActiveRecord::Base
+  belongs_to :customer
+  has_many :line_items
+end
+
+class LineItem &lt; ActiveRecord::Base
+  belongs_to :order
+end
+</code></div>
+<p>If you frequently retrieve line items directly from customers (<tt>@customer.orders.line_items</tt>), then you can make your code somewhat more efficient by including line items in the association from customers to orders:</p>
+<div class="code_container"><code class="ruby">
+class Customer &lt; ActiveRecord::Base
+  has_many :orders, :include =&gt; :line_items
+end
+
+class Order &lt; ActiveRecord::Base
+  belongs_to :customer
+  has_many :line_items
+end
+
+class LineItem &lt; ActiveRecord::Base
+  belongs_to :order
+end
+</code></div>
+<h6 id="limit">4.3.2.12 <tt>:limit</tt></h6>
+<p>The <tt>:limit</tt> option lets you restrict the total number of objects that will be fetched through an association.</p>
+<div class="code_container"><code class="ruby">
+class Customer &lt; ActiveRecord::Base
+  has_many :recent_orders, :class_name =&gt; &quot;Order&quot;,
+    :order =&gt; &quot;order_date DESC&quot;, :limit =&gt; 100
+end
+</code></div>
+<h6 id="offset">4.3.2.13 <tt>:offset</tt></h6>
+<p>The <tt>:offset</tt> option lets you specify the starting offset for fetching objects via an association. For example, if you set <tt>:offset => 11</tt>, it will skip the first 11 records.</p>
+<h6 id="order">4.3.2.14 <tt>:order</tt></h6>
+<p>The <tt>:order</tt> option dictates the order in which associated objects will be received (in the syntax used by a <span class="caps">SQL</span> <tt>ORDER BY</tt> clause).</p>
+<div class="code_container"><code class="ruby">
+class Customer &lt; ActiveRecord::Base
+  has_many :orders, :order =&gt; &quot;date_confirmed DESC&quot;
+end
+</code></div>
+<h6 id="primary-key">4.3.2.15 <tt>:primary_key</tt></h6>
+<p>By convention, Rails guesses that the column used to hold the primary key of the association is <tt>id</tt>. You can override this and explicitly specify the primary key with the <tt>:primary_key</tt> option.</p>
+<h6 id="readonly">4.3.2.16 <tt>:readonly</tt></h6>
+<p>If you set the <tt>:readonly</tt> option to <tt>true</tt>, then the associated objects will be read-only when retrieved via the association.</p>
+<h6 id="select">4.3.2.17 <tt>:select</tt></h6>
+<p>The <tt>:select</tt> option lets you override the <span class="caps">SQL</span> <tt>SELECT</tt> clause that is used to retrieve data about the associated objects. By default, Rails retrieves all columns.</p>
+<div class='warning'><p>If you specify your own <tt>:select</tt>, be sure to include the primary key and foreign key columns of the associated model. If you do not, Rails will throw an error.</p></div>
+<h6 id="source">4.3.2.18 <tt>:source</tt></h6>
+<p>The <tt>:source</tt> option specifies the source association name for a <tt>has_many :through</tt> association. You only need to use this option if the name of the source association cannot be automatically inferred from the association name.</p>
+<h6 id="source-type">4.3.2.19 <tt>:source_type</tt></h6>
+<p>The <tt>:source_type</tt> option specifies the source association type for a <tt>has_many :through</tt> association that proceeds through a polymorphic association.</p>
+<h6 id="through">4.3.2.20 <tt>:through</tt></h6>
+<p>The <tt>:through</tt> option specifies a join model through which to perform the query. <tt>has_many :through</tt> associations provide a way to implement many-to-many relationships, as discussed <a href="#thehas-manythroughassociation">earlier in this guide</a>.</p>
+<h6 id="uniq">4.3.2.21 <tt>:uniq</tt></h6>
+<p>Specify the <tt>:uniq => true</tt> option to remove duplicates from the collection. This is most useful in conjunction with the <tt>:through</tt> option.</p>
+<h6 id="validate">4.3.2.22 <tt>:validate</tt></h6>
+<p>If you set the <tt>:validate</tt> option to <tt>false</tt>, then associated objects will not be validated whenever you save this object. By default, this is <tt>true</tt>: associated objects will be validated when this object is saved.</p>
+<h5 id="whenareobjectssaved">4.3.3 When are objects saved?</h5>
+<p>When you assign an object to a <tt>has_many</tt> association, that object is automatically saved (in order to update its foreign key). If you assign multiple objects in one statement, then they are all saved.</p>
+<p>If any of these saves fails due to validation errors, then the assignment statement returns <tt>false</tt> and the assignment itself is cancelled.</p>
+<p>If the parent object (the one declaring the <tt>has_many</tt> association) is unsaved (that is, <tt>new_record?</tt> returns <tt>true</tt>) then the child objects are not saved when they are added. All unsaved members of the association will automatically be saved when the parent is saved.</p>
+<p>If you want to assign an object to a <tt>has_many</tt> association without saving the object, use the <tt><em>collection</em>.build</tt> method.</p>
+<h4 id="has-and-belongs-to-manyassociationreference">4.4 <tt>has_and_belongs_to_many</tt> association reference</h4>
+<p>The <tt>has_and_belongs_to_many</tt> association creates a many-to-many relationship with another model. In database terms, this associates two classes via an intermediate join table that includes foreign keys referring to each of the classes.</p>
+<h5 id="methodsadded">4.4.1 Methods added</h5>
+<p>When you declare a <tt>has_and_belongs_to_many</tt> association, the declaring class automatically gains 13 methods related to the association:</p>
+<ul>
+	<li><tt><em>collection</em>(force_reload = false)</tt></li>
+	<li><tt><em>collection</em>&lt;&lt;(object, &#8230;)</tt></li>
+	<li><tt><em>collection</em>.delete(object, &#8230;)</tt></li>
+	<li><tt><em>collection</em>=objects</tt></li>
+	<li><tt><em>collection_singular</em>_ids</tt></li>
+	<li><tt><em>collection_singular</em>_ids=ids</tt></li>
+	<li><tt><em>collection</em>.clear</tt></li>
+	<li><tt><em>collection</em>.empty?</tt></li>
+	<li><tt><em>collection</em>.size</tt></li>
+	<li><tt><em>collection</em>.find(&#8230;)</tt></li>
+	<li><tt><em>collection</em>.exist?(&#8230;)</tt></li>
+	<li><tt><em>collection</em>.build(attributes = {})</tt></li>
+	<li><tt><em>collection</em>.create(attributes = {})</tt></li>
+</ul>
+<p>In all of these methods, <tt><em>collection</em></tt> is replaced with the symbol passed as the first argument to <tt>has_and_belongs_to_many</tt>, and <tt><em>collection_singular</em></tt> is replaced with the singularized version of that symbol.. For example, given the declaration:</p>
+<div class="code_container"><code class="ruby">
+class Part &lt; ActiveRecord::Base
+  has_and_belongs_to_many :assemblies
+end
+</code></div>
+<p>Each instance of the part model will have these methods:</p>
+<div class="code_container"><code class="ruby">
+assemblies(force_reload = false)
+assemblies&lt;&lt;(object, ...)
+assemblies.delete(object, ...)
+assemblies=objects
+assembly_ids
+assembly_ids=ids
+assemblies.clear
+assemblies.empty?
+assemblies.size
+assemblies.find(...)
+assemblies.exist?(...)
+assemblies.build(attributes = {}, ...)
+assemblies.create(attributes = {})
+</code></div>
+<h6 id="additionalcolumnmethods">4.4.1.1 Additional column methods</h6>
+<p>If the join table for a <tt>has_and_belongs_to_many</tt> association has additional columns beyond the two foreign keys, these columns will be added as attributes to records retrieved via that association. Records returned with additional attributes will always be read-only, because Rails cannot save changes to those attributes.</p>
+<div class='warning'><p>The use of extra attributes on the join table in a <tt>has_and_belongs_to_many</tt> association is deprecated. If you require this sort of complex behavior on the table that joins two models in a many-to-many relationship, you should use a <tt>has_many :through</tt> association instead of <tt>has_and_belongs_to_many</tt>.</p></div>
+<h6 id="ttemcollectionemforce-reloadfalsett">4.4.1.2 <tt><em>collection</em>(force_reload = false)</tt></h6>
+<p>The <tt><em>collection</em></tt> method returns an array of all of the associated objects. If there are no associated objects, it returns an empty array.</p>
+<div class="code_container"><code class="ruby">
+@assemblies = @part.assemblies
+</code></div>
+<h6 id="ttemcollectionemobjecttt">4.4.1.3 <tt><em>collection</em>&lt;&lt;(object, &#8230;)</tt></h6>
+<p>The <tt><em>collection</em>&lt;&lt;</tt> method adds one or more objects to the collection by creating records in the join table.</p>
+<div class="code_container"><code class="ruby">
+@part.assemblies &lt;&lt; @assembly1
+</code></div>
+<div class='note'><p>This method is aliased as <tt><em>collection</em>.concat</tt> and <tt><em>collection</em>.push</tt>.</p></div>
+<h6 id="ttemcollectionemdeleteobjecttt">4.4.1.4 <tt><em>collection</em>.delete(object, &#8230;)</tt></h6>
+<p>The <tt><em>collection</em>.delete</tt> method removes one or more objects from the collection by deleting records in the join table. This does not destroy the objects.</p>
+<div class="code_container"><code class="ruby">
+@part.assemblies.delete(@assembly1)
+</code></div>
+<h6 id="ttemcollectionemobjectstt">4.4.1.5 <tt><em>collection</em>=objects</tt></h6>
+<p>The <tt><em>collection</em>=</tt> method makes the collection contain only the supplied objects, by adding and deleting as appropriate.</p>
+<h6 id="ttemcollection-singularem-idstt">4.4.1.6 <tt><em>collection_singular</em>_ids</tt></h6>
+<p>The <tt><em>collection_singular</em>_ids</tt> method returns an array of the ids of the objects in the collection.</p>
+<div class="code_container"><code class="ruby">
+@assembly_ids = @part.assembly_ids
+</code></div>
+<h6 id="ttemcollection-singularem-idsidstt">4.4.1.7 <tt><em>collection_singular</em>_ids=ids</tt></h6>
+<p>The <tt><em>collection_singular</em>_ids=</tt> method makes the collection contain only the objects identified by the supplied primary key values, by adding and deleting as appropriate.</p>
+<h6 id="ttemcollectionemcleartt">4.4.1.8 <tt><em>collection</em>.clear</tt></h6>
+<p>The <tt><em>collection</em>.clear</tt> method removes every object from the collection by deleting the rows from the joining table. This does not destroy the associated objects.</p>
+<h6 id="ttemcollectionememptytt">4.4.1.9 <tt><em>collection</em>.empty?</tt></h6>
+<p>The <tt><em>collection</em>.empty?</tt> method returns <tt>true</tt> if the collection does not contain any associated objects.</p>
+<div class="code_container"><code class="ruby">
+&lt;% if @part.assemblies.empty? %&gt;
+  This part is not used in any assemblies
+&lt;% end %&gt;
+</code></div>
+<h6 id="ttemcollectionemsizett">4.4.1.10 <tt><em>collection</em>.size</tt></h6>
+<p>The <tt><em>collection</em>.size</tt> method returns the number of objects in the collection.</p>
+<div class="code_container"><code class="ruby">
+@assembly_count = @part.assemblies.size
+</code></div>
+<h6 id="ttemcollectionemfindtt">4.4.1.11 <tt><em>collection</em>.find(&#8230;)</tt></h6>
+<p>The <tt><em>collection</em>.find</tt> method finds objects within the collection. It uses the same syntax and options as <tt>ActiveRecord::Base.find</tt>. It also adds the additional condition that the object must be in the collection.</p>
+<div class="code_container"><code class="ruby">
+@new_assemblies = @part.assemblies.find(:all,
+  :conditions =&gt; [&quot;created_at &gt; ?&quot;, 2.days.ago])
+</code></div>
+<h6 id="ttemcollectionemexisttt">4.4.1.12 <tt><em>collection</em>.exist?(&#8230;)</tt></h6>
+<p>The <tt><em>collection</em>.exist?</tt> method checks whether an object meeting the supplied conditions exists in the collection. It uses the same syntax and options as <tt>ActiveRecord::Base.exists?</tt>.</p>
+<h6 id="ttemcollectionembuildattributestt">4.4.1.13 <tt><em>collection</em>.build(attributes = {})</tt></h6>
+<p>The <tt><em>collection</em>.build</tt> method returns a new object of the associated type. This object will be instantiated from the passed attributes, and the link through the join table will be created, but the associated object will <em>not</em> yet be saved.</p>
+<div class="code_container"><code class="ruby">
+@assembly = @part.assemblies.build(
+  {:assembly_name =&gt; &quot;Transmission housing&quot;})
+</code></div>
+<h6 id="ttemcollectionemcreateattributestt">4.4.1.14 <tt><em>collection</em>.create(attributes = {})</tt></h6>
+<p>The <tt><em>collection</em>.create</tt> method returns a new object of the associated type. This object will be instantiated from the passed attributes, the link through the join table will be created, and the associated object <em>will</em> be saved (assuming that it passes any validations).</p>
+<div class="code_container"><code class="ruby">
+@assembly = @part.assemblies.create(
+  {:assembly_name =&gt; &quot;Transmission housing&quot;})
+</code></div>
+<h5 id="optionsforhas-and-belongs-to-many">4.4.2 Options for <tt>has_and_belongs_to_many</tt></h5>
+<p>In many situations, you can use the default behavior for <tt>has_and_belongs_to_many</tt> without any customization. But you can alter that behavior in a number of ways. This section covers the options that you can pass when you create a <tt>has_and_belongs_to_many</tt> association. For example, an association with several options might look like this:</p>
+<div class="code_container"><code class="ruby">
+class Parts &lt; ActiveRecord::Base
+  has_and_belongs_to_many :assemblies, :uniq =&gt; true,
+    :read_only =&gt; true
+end
+</code></div>
+<p>The <tt>has_and_belongs_to_many</tt> association supports these options:</p>
+<ul>
+	<li><tt>:association_foreign_key</tt></li>
+	<li><tt>:autosave</tt></li>
+	<li><tt>:class_name</tt></li>
+	<li><tt>:conditions</tt></li>
+	<li><tt>:counter_sql</tt></li>
+	<li><tt>:delete_sql</tt></li>
+	<li><tt>:extend</tt></li>
+	<li><tt>:finder_sql</tt></li>
+	<li><tt>:foreign_key</tt></li>
+	<li><tt>:group</tt></li>
+	<li><tt>:include</tt></li>
+	<li><tt>:insert_sql</tt></li>
+	<li><tt>:join_table</tt></li>
+	<li><tt>:limit</tt></li>
+	<li><tt>:offset</tt></li>
+	<li><tt>:order</tt></li>
+	<li><tt>:readonly</tt></li>
+	<li><tt>:select</tt></li>
+	<li><tt>:uniq</tt></li>
+	<li><tt>:validate</tt></li>
+</ul>
+<h6 id="association-foreign-key">4.4.2.1 <tt>:association_foreign_key</tt></h6>
+<p>By convention, Rails guesses that the column in the join table used to hold the foreign key pointing to the other model is the name of that model with the suffix <tt>_id</tt> added. The <tt>:association_foreign_key</tt> option lets you set the name of the foreign key directly:</p>
+<div class='info'><p>The <tt>:foreign_key</tt> and <tt>:association_foreign_key</tt> options are useful when setting up a many-to-many self-join. For example:</p></div>
+<div class="code_container"><code class="ruby">
+class User &lt; ActiveRecord::Base
+  has_and_belongs_to_many :friends, :class_name =&gt; &quot;User&quot;,
+    :foreign_key =&gt; &quot;this_user_id&quot;,
+    :association_foreign_key =&gt; &quot;other_user_id&quot;
+end
+</code></div>
+<h6 id="autosave">4.4.2.2 <tt>:autosave</tt></h6>
+<p>If you set the <tt>:autosave</tt> option to <tt>true</tt>, Rails will save any loaded members and destroy members that are marked for destruction whenever you save the parent object.</p>
+<h6 id="class-name">4.4.2.3 <tt>:class_name</tt></h6>
+<p>If the name of the other model cannot be derived from the association name, you can use the <tt>:class_name</tt> option to supply the model name. For example, if a part has many assemblies, but the actual name of the model containing assemblies is <tt>Gadget</tt>, you&#8217;d set things up this way:</p>
+<div class="code_container"><code class="ruby">
+class Parts &lt; ActiveRecord::Base
+  has_and_belongs_to_many :assemblies, :class_name =&gt; &quot;Gadget&quot;
+end
+</code></div>
+<h6 id="conditions">4.4.2.4 <tt>:conditions</tt></h6>
+<p>The <tt>:conditions</tt> option lets you specify the conditions that the associated object must meet (in the syntax used by a <span class="caps">SQL</span> <tt>WHERE</tt> clause).</p>
+<div class="code_container"><code class="ruby">
+class Parts &lt; ActiveRecord::Base
+  has_and_belongs_to_many :assemblies,
+    :conditions =&gt; &quot;factory = 'Seattle'&quot;
+end
+</code></div>
+<p>You can also set conditions via a hash:</p>
+<div class="code_container"><code class="ruby">
+class Parts &lt; ActiveRecord::Base
+  has_and_belongs_to_many :assemblies,
+    :conditions =&gt; { :factory =&gt; 'Seattle' }
+end
+</code></div>
+<p>If you use a hash-style <tt>:conditions</tt> option, then record creation via this association will be automatically scoped using the hash. In this case, using <tt>@parts.assemblies.create</tt> or <tt>@parts.assemblies.build</tt> will create orders where the <tt>factory</tt> column has the value &#8220;Seattle&#8221;.</p>
+<h6 id="counter-sql">4.4.2.5 <tt>:counter_sql</tt></h6>
+<p>Normally Rails automatically generates the proper <span class="caps">SQL</span> to count the association members. With the <tt>:counter_sql</tt> option, you can specify a complete <span class="caps">SQL</span> statement to count them yourself.</p>
+<div class='note'><p>If you specify <tt>:finder_sql</tt> but not <tt>:counter_sql</tt>, then the counter <span class="caps">SQL</span> will be generated by substituting <tt>SELECT COUNT(*) FROM</tt> for the <tt>SELECT ... FROM</tt> clause of your <tt>:finder_sql</tt> statement.</p></div>
+<h6 id="delete-sql">4.4.2.6 <tt>:delete_sql</tt></h6>
+<p>Normally Rails automatically generates the proper <span class="caps">SQL</span> to remove links between the associated classes. With the <tt>:delete_sql</tt> option, you can specify a complete <span class="caps">SQL</span> statement to delete them yourself.</p>
+<h6 id="extend">4.4.2.7 <tt>:extend</tt></h6>
+<p>The <tt>:extend</tt> option specifies a named module to extend the association proxy. Association extensions are discussed in detail <a href="#associationextensions">later in this guide</a>.</p>
+<h6 id="finder-sql">4.4.2.8 <tt>:finder_sql</tt></h6>
+<p>Normally Rails automatically generates the proper <span class="caps">SQL</span> to fetch the association members. With the <tt>:finder_sql</tt> option, you can specify a complete <span class="caps">SQL</span> statement to fetch them yourself. If fetching objects requires complex multi-table <span class="caps">SQL</span>, this may be necessary.</p>
+<h6 id="foreign-key">4.4.2.9 <tt>:foreign_key</tt></h6>
+<p>By convention, Rails guesses that the column in the join table used to hold the foreign key pointing to this model is the name of this model with the suffix <tt>_id</tt> added. The <tt>:foreign_key</tt> option lets you set the name of the foreign key directly:</p>
+<div class="code_container"><code class="ruby">
+class User &lt; ActiveRecord::Base
+  has_and_belongs_to_many :friends, :class_name =&gt; &quot;User&quot;,
+    :foreign_key =&gt; &quot;this_user_id&quot;,
+    :association_foreign_key =&gt; &quot;other_user_id&quot;
+end
+</code></div>
+<h6 id="group">4.4.2.10 <tt>:group</tt></h6>
+<p>The <tt>:group</tt> option supplies an attribute name to group the result set by, using a <tt>GROUP BY</tt> clause in the finder <span class="caps">SQL</span>.</p>
+<div class="code_container"><code class="ruby">
+class Parts &lt; ActiveRecord::Base
+  has_and_belongs_to_many :assemblies, :group =&gt; &quot;factory&quot;
+end
+</code></div>
+<h6 id="include">4.4.2.11 <tt>:include</tt></h6>
+<p>You can use the <tt>:include</tt> option to specify second-order associations that should be eager-loaded when this association is used.</p>
+<h6 id="insert-sql">4.4.2.12 <tt>:insert_sql</tt></h6>
+<p>Normally Rails automatically generates the proper <span class="caps">SQL</span> to create links between the associated classes. With the <tt>:insert_sql</tt> option, you can specify a complete <span class="caps">SQL</span> statement to insert them yourself.</p>
+<h6 id="join-table">4.4.2.13 <tt>:join_table</tt></h6>
+<p>If the default name of the join table, based on lexical ordering, is not what you want, you can use the <tt>:join_table</tt> option to override the default.</p>
+<h6 id="limit">4.4.2.14 <tt>:limit</tt></h6>
+<p>The <tt>:limit</tt> option lets you restrict the total number of objects that will be fetched through an association.</p>
+<div class="code_container"><code class="ruby">
+class Parts &lt; ActiveRecord::Base
+  has_and_belongs_to_many :assemblies, :order =&gt; &quot;created_at DESC&quot;,
+    :limit =&gt; 50
+end
+</code></div>
+<h6 id="offset">4.4.2.15 <tt>:offset</tt></h6>
+<p>The <tt>:offset</tt> option lets you specify the starting offset for fetching objects via an association. For example, if you set <tt>:offset => 11</tt>, it will skip the first 11 records.</p>
+<h6 id="order">4.4.2.16 <tt>:order</tt></h6>
+<p>The <tt>:order</tt> option dictates the order in which associated objects will be received (in the syntax used by a <span class="caps">SQL</span> <tt>ORDER BY</tt> clause).</p>
+<div class="code_container"><code class="ruby">
+class Parts &lt; ActiveRecord::Base
+  has_and_belongs_to_many :assemblies, :order =&gt; &quot;assembly_name ASC&quot;
+end
+</code></div>
+<h6 id="readonly">4.4.2.17 <tt>:readonly</tt></h6>
+<p>If you set the <tt>:readonly</tt> option to <tt>true</tt>, then the associated objects will be read-only when retrieved via the association.</p>
+<h6 id="select">4.4.2.18 <tt>:select</tt></h6>
+<p>The <tt>:select</tt> option lets you override the <span class="caps">SQL</span> <tt>SELECT</tt> clause that is used to retrieve data about the associated objects. By default, Rails retrieves all columns.</p>
+<h6 id="uniq">4.4.2.19 <tt>:uniq</tt></h6>
+<p>Specify the <tt>:uniq => true</tt> option to remove duplicates from the collection.</p>
+<h6 id="validate">4.4.2.20 <tt>:validate</tt></h6>
+<p>If you set the <tt>:validate</tt> option to <tt>false</tt>, then associated objects will not be validated whenever you save this object. By default, this is <tt>true</tt>: associated objects will be validated when this object is saved.</p>
+<h5 id="whenareobjectssaved">4.4.3 When are objects saved?</h5>
+<p>When you assign an object to a <tt>has_and_belongs_to_many</tt> association, that object is automatically saved (in order to update the join table). If you assign multiple objects in one statement, then they are all saved.</p>
+<p>If any of these saves fails due to validation errors, then the assignment statement returns <tt>false</tt> and the assignment itself is cancelled.</p>
+<p>If the parent object (the one declaring the <tt>has_and_belongs_to_many</tt> association) is unsaved (that is, <tt>new_record?</tt> returns <tt>true</tt>) then the child objects are not saved when they are added. All unsaved members of the association will automatically be saved when the parent is saved.</p>
+<p>If you want to assign an object to a <tt>has_and_belongs_to_many</tt> association without saving the object, use the <tt><em>collection</em>.build</tt> method.</p>
+<h4 id="associationcallbacks">4.5 Association callbacks</h4>
+<p>Normal callbacks hook into the lifecycle of Active Record objects, allowing you to work with those objects at various points. For example, you can use a <tt>:before_save</tt> callback to cause something to happen just before an object is saved.</p>
+<p>Association callbacks are similar to normal callbacks, but they are triggered by events in the lifecycle of a collection. There are four available association callbacks:</p>
+<ul>
+	<li><tt>before_add</tt></li>
+	<li><tt>after_add</tt></li>
+	<li><tt>before_remove</tt></li>
+	<li><tt>after_remove</tt></li>
+</ul>
+<p>You define association callbacks by adding options to the association declaration. For example:</p>
+<div class="code_container"><code class="ruby">
+class Customer &lt; ActiveRecord::Base
+  has_many :orders, :before_add =&gt; :check_credit_limit
+
+  def check_credit_limit(order)
+    ...
+  end
+end
+</code></div>
+<p>Rails passes the object being added or removed to the callback.</p>
+<p>You can stack callbacks on a single event by passing them as an array:</p>
+<div class="code_container"><code class="ruby">
+class Customer &lt; ActiveRecord::Base
+  has_many :orders,
+    :before_add =&gt; [:check_credit_limit, :calculate_shipping_charges]
+
+  def check_credit_limit(order)
+    ...
+  end
+
+  def calculate_shipping_charges(order)
+    ...
+  end
+end
+</code></div>
+<p>If a <tt>before_add</tt> callback throws an exception, the object does not get added to the collection. Similarly, if a <tt>before_remove</tt> callback throws an exception, the object does not get removed from the collection.</p>
+<h4 id="associationextensions">4.6 Association extensions</h4>
+<p>You&#8217;re not limited to the functionality that Rails automatically builds into association proxy objects. You can also extend these objects through anonymous modules, adding new finders, creators, or other methods. For example:</p>
+<div class="code_container"><code class="ruby">
+class Customer &lt; ActiveRecord::Base
+  has_many :orders do
+    def find_by_order_prefix(order_number)
+      find_by_region_id(order_number[0..2])
+    end
+  end
+end
+</code></div>
+<p>If you have an extension that should be shared by many associations, you can use a named extension module. For example:</p>
+<div class="code_container"><code class="ruby">
+module FindRecentExtension
+  def find_recent
+    find(:all, :conditions =&gt; [&quot;created_at &gt; ?&quot;, 5.days.ago])
+  end
+end
+
+class Customer &lt; ActiveRecord::Base
+  has_many :orders, :extend =&gt; FindRecentExtension
+end
+
+class Supplier &lt; ActiveRecord::Base
+  has_many :deliveries, :extend =&gt; FindRecentExtension
+end
+</code></div>
+<p>To include more than one extension module in a single association, specify an array of modules:</p>
+<div class="code_container"><code class="ruby">
+class Customer &lt; ActiveRecord::Base
+  has_many :orders,
+    :extend =&gt; [FindRecentExtension, FindActiveExtension]
+end
+</code></div>
+<p>Extensions can refer to the internals of the association proxy using these three accessors:</p>
+<ul>
+	<li><tt>proxy_owner</tt> returns the object that the association is a part of.</li>
+	<li><tt>proxy_reflection</tt> returns the reflection object that describes the association.</li>
+	<li><tt>proxy_target</tt> returns the associated object for <tt>belongs_to</tt> or <tt>has_one</tt>, or the collection of associated objects for <tt>has_many</tt> or <tt>has_and_belongs_to_many</tt>.</li>
+</ul>
+<h3 id="changelog">5 Changelog</h3>
+<p><a href="http://rails.lighthouseapp.com/projects/16213-rails-guides/tickets/11">Lighthouse ticket</a></p>
+<ul>
+	<li>February 1, 2009: Added <tt>:autosave</tt> option <a href="credits.html#mgunderloy">Mike Gunderloy</a></li>
+	<li>September 28, 2008: Corrected <tt>has_many :through</tt> diagram, added polymorphic diagram, some reorganization by <a href="credits.html#mgunderloy">Mike Gunderloy</a> . First release version.</li>
+	<li>September 22, 2008: Added diagrams, misc. cleanup by <a href="credits.html#mgunderloy">Mike Gunderloy</a> (not yet approved for publication)</li>
+	<li>September 14, 2008: initial version by <a href="credits.html#mgunderloy">Mike Gunderloy</a> (not yet approved for publication)</li>
+</ul>
+      </div>
+    </div>
+  </div>
+
+  <hr class="hide" />
+  <div id="footer">
+    <div class="wrapper">
+      <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by-sa/3.0">Creative Commons Attribution-Share Alike 3.0</a> License</a></p>
+      <p>"Rails", "Ruby on Rails", and the Rails logo are trademarks of David Heinemeier Hansson. All rights reserved.</p>
+    </div>
+  </div>
+</body>
+</html>

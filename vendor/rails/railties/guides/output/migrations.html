@@ -1,0 +1,486 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>Migrations</title>
+
+<link rel="stylesheet" type="text/css" href="files/stylesheets/style.css" />
+<link rel="stylesheet" type="text/css" href="files/stylesheets/syntax.css" />
+<link rel="stylesheet" type="text/css" href="files/stylesheets/print.css" media="print" />
+
+<script type="text/javascript" src="files/javascripts/guides.js"></script>
+<script type="text/javascript" src="files/javascripts/code_highlighter.js"></script>
+<script type="text/javascript" src="files/javascripts/highlighters.js"></script>
+
+</head>
+<body class="guide">
+  <div id="topNav">
+    <div class="wrapper">
+      <strong>More at <a href="http://www.rubyonrails.org/">rubyonrails.org:</a> </strong>
+      <a href="http://www.rubyonrails.org/">Overview</a> |
+      <a href="http://www.rubyonrails.org/download">Download</a> |
+      <a href="http://www.rubyonrails.org/deploy">Deploy</a> |
+      <a href="http://rails.lighthouseapp.com/projects/8994-ruby-on-rails/overview">Code</a> |
+      <a href="http://www.rubyonrails.org/screencasts">Screencasts</a> |
+      <a href="http://www.rubyonrails.org/documentation">Documentation</a> |
+      <a href="http://www.rubyonrails.org/ecosystem">Ecosystem</a> |
+      <a href="http://www.rubyonrails.org/community">Community</a> |
+      <a href="http://weblog.rubyonrails.org/">Blog</a>
+    </div>
+  </div>
+  <div id="header">
+    <div class="wrapper clearfix">
+      <h1><a href="index.html" title="Return to home page">Guides.rubyonrails.org</a></h1>
+      <p class="hide"><a href="#mainCol">Skip navigation</a>.</p>
+      <ul class="nav">
+        <li><a href="index.html">Home</a></li>
+        <li class="index"><a href="index.html" onclick="guideMenu(); return false;" id="guidesMenu">Guides Index</a>
+          <div id="guides" class="clearfix" style="display: none;">
+            <hr />
+            <dl class="L">
+              <dt>Start Here</dt>
+              <dd><a href="getting_started.html">Getting Started with Rails</a></dd>
+              <dt>Models</dt>
+              <dd><a href="migrations.html">Rails Database Migrations</a></dd>
+              <dd><a href="activerecord_validations_callbacks.html">Active Record Validations and Callbacks</a></dd>
+              <dd><a href="association_basics.html">Active Record Associations</a></dd>
+              <dd><a href="active_record_querying.html">Active Record Query Interface</a></dd>
+              <dt>Views</dt>
+              <dd><a href="layouts_and_rendering.html">Layouts and Rendering in Rails</a></dd>
+              <dd><a href="form_helpers.html">Action View Form Helpers</a></dd>
+              <dt>Controllers</dt>
+              <dd><a href="action_controller_overview.html">Action Controller Overview</a></dd>
+              <dd><a href="routing.html">Rails Routing from the Outside In</a></dd>
+            </dl>
+            <dl class="R">
+              <dt>Digging Deeper</dt>
+              <dd><a href="i18n.html">Rails Internationalization API</a></dd>
+              <dd><a href="action_mailer_basics.html">Action Mailer Basics</a></dd>
+              <dd><a href="testing.html">Testing Rails Applications</a></dd>
+              <dd><a href="security.html">Securing Rails Applications</a></dd>
+              <dd><a href="debugging_rails_applications.html">Debugging Rails Applications</a></dd>
+              <dd><a href="performance_testing.html">Performance Testing Rails Applications</a></dd>
+              <dd><a href="plugins.html">The Basics of Creating Rails Plugins</a></dd>
+              <dd><a href="configuring.html">Configuring Rails Applications</a></dd>
+              <dd><a href="rails_on_rack.html">Rails on Rack</a></dd>
+            </dl>
+          </div>
+        </li>
+        <li><a href="contribute.html">Contribute</a></li>
+        <li><a href="credits.html">Credits</a></li>
+      </ul>
+    </div>
+  </div>
+  <hr class="hide" />
+
+  <div id="feature">
+    <div class="wrapper">
+      <h2>Migrations</h2>
+<p>Migrations are a convenient way for you to alter your database in a structured and organised manner. You could edit fragments of <span class="caps">SQL</span> by hand but you would then be responsible for telling other developers that they need to go and run it. You&#8217;d also have to keep track of which changes need to be run against the production machines next time you deploy.</p>
+<p>Active Record tracks which migrations have already been run so all you have to do is update your source and run <tt>rake db:migrate</tt>. Active Record will work out which migrations should be run. It will also update your <tt>db/schema.rb</tt> file to match the structure of your database.</p>
+<p>Migrations also allow you to describe these transformations using Ruby. The great thing about this is that (like most of Active Record&#8217;s functionality) it is database independent: you don&#8217;t need to worry about the precise syntax of <tt>CREATE TABLE</tt> any more that you worry about variations on <tt>SELECT *</tt> (you can drop down to raw <span class="caps">SQL</span> for database specific features). For example you could use SQLite3 in development, but MySQL in production.</p>
+<p>You&#8217;ll learn all about migrations including:</p>
+<ul>
+	<li>The generators you can use to create them</li>
+	<li>The methods Active Record provides to manipulate your database</li>
+	<li>The Rake tasks that manipulate them</li>
+	<li>How they relate to <tt>schema.rb</tt></li>
+</ul>
+
+            <div id="subCol">
+        <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
+        <ol class="chapters">
+<li><a href="#anatomy-of-a-migration">Anatomy Of A Migration</a><ul><li><a href="#migrationsareclasses">Migrations are classes</a></li><li><a href="#whatsinaname">What&#8217;s in a name</a></li><li><a href="#changingmigrations">Changing migrations</a></li></ul></li><li><a href="#creating-a-migration">Creating A Migration</a><ul><li><a href="#creatingamodel">Creating a model</a></li><li><a href="#creatingastandalonemigration">Creating a standalone migration</a></li></ul></li><li><a href="#writinga-migration">Writing a Migration</a><ul><li><a href="#creatingatable">Creating a table</a></li><li><a href="#changingtables">Changing tables</a></li><li><a href="#specialhelpers">Special helpers</a></li><li><a href="#writingyourdownmethod">Writing your down method</a></li></ul></li><li><a href="#running-migrations">Running Migrations</a><ul><li><a href="#rollingback">Rolling back</a></li><li><a href="#being-specific">Being Specific</a></li><li><a href="#beingtalkative">Being talkative</a></li></ul></li><li><a href="#using-models-in-your-migrations">Using Models In Your Migrations</a><ul><li><a href="#dealingwithchangingmodels">Dealing with changing models</a></li></ul></li><li><a href="#schemadumpingandyou">Schema dumping and you</a><ul><li><a href="#whatareschemafilesfor">What are schema files for?</a></li><li><a href="#typesofschemadumps">Types of schema dumps</a></li><li><a href="#schemadumpsandsourcecontrol">Schema dumps and source control</a></li></ul></li><li><a href="#active-recordand-referential-integrity">Active Record and Referential Integrity</a><ul></ul></li><li><a href="#changelog">Changelog</a><ul></ul></li></ol></div>
+    </div>
+  </div>
+
+  <div id="container">
+    <div class="wrapper">
+      <div id="mainCol">
+        <h3 id="anatomy-of-a-migration">1 Anatomy Of A Migration</h3>
+<p>Before I dive into the details of a migration, here are a few examples of the sorts of things you can do:</p>
+<div class="code_container"><code class="ruby">
+class CreateProducts &lt; ActiveRecord::Migration
+  def self.up
+    create_table :products do |t|
+      t.string :name
+      t.text :description
+
+      t.timestamps
+    end
+  end
+
+  def self.down
+    drop_table :products
+  end
+end
+</code></div>
+<p>This migration adds a table called <tt>products</tt> with a string column called <tt>name</tt> and a text column called <tt>description</tt>. A primary key column called <tt>id</tt> will also be added, however since this is the default we do not need to ask for this. The timestamp columns <tt>created_at</tt> and <tt>updated_at</tt> which Active Record populates automatically will also be added. Reversing this migration is as simple as dropping the table.</p>
+<p>Migrations are not limited to changing the schema. You can also use them to fix bad data in the database or populate new fields:</p>
+<div class="code_container"><code class="ruby">
+class AddReceiveNewsletterToUsers &lt; ActiveRecord::Migration
+  def self.up
+    change_table :users do |t|
+      t.boolean :receive_newsletter, :default =&gt; false
+    end
+    User.update_all [&quot;receive_newsletter = ?&quot;, true]
+  end
+
+  def self.down
+    remove_column :users, :receive_newsletter
+  end
+end
+</code></div>
+<p>This migration adds a <tt>receive_newsletter</tt> column to the <tt>users</tt> table. We want it to default to <tt>false</tt> for new users, but existing users are considered
+to have already opted in, so we use the User model to set the flag to <tt>true</tt> for existing users.</p>
+<div class='note'><p>Some <a href="#using-models-in-your-migrations">caveats</a> apply to using models in your migrations.</p></div>
+<h4 id="migrationsareclasses">1.1 Migrations are classes</h4>
+<p>A migration is a subclass of <tt>ActiveRecord::Migration</tt> that implements two class methods: <tt>up</tt> (perform the required transformations) and <tt>down</tt> (revert them).</p>
+<p>Active Record provides methods that perform common data definition tasks in a database independent way (you&#8217;ll read about them in detail later):</p>
+<ul>
+	<li><tt>create_table</tt></li>
+	<li><tt>change_table</tt></li>
+	<li><tt>drop_table</tt></li>
+	<li><tt>add_column</tt></li>
+	<li><tt>change_column</tt></li>
+	<li><tt>rename_column</tt></li>
+	<li><tt>remove_column</tt></li>
+	<li><tt>add_index</tt></li>
+	<li><tt>remove_index</tt></li>
+</ul>
+<p>If you need to perform tasks specific to your database (for example create a <a href="#active-recordand-referential-integrity">foreign key</a> constraint) then the <tt>execute</tt> function allows you to execute arbitrary <span class="caps">SQL</span>. A migration is just a regular Ruby class so you&#8217;re not limited to these functions. For example after adding a column you could write code to set the value of that column for existing records (if necessary using your models).</p>
+<p>On databases that support transactions with statements that change the schema (such as PostgreSQL), migrations are wrapped in a transaction. If the database does not support this (for example MySQL and SQLite) then when a migration fails the parts of it that succeeded will not be rolled back. You will have to unpick the changes that were made by hand.</p>
+<h4 id="whatsinaname">1.2 What&#8217;s in a name</h4>
+<p>Migrations are stored in files in <tt>db/migrate</tt>, one for each migration class. The name of the file is of the form <tt>YYYYMMDDHHMMSS_create_products.rb</tt>, that is to say a <span class="caps">UTC</span> timestamp identifying the migration followed by an underscore followed by the name of the migration. The migration class&#8217; name must match (the camelcased version of) the latter part of the file name. For example <tt>20080906120000_create_products.rb</tt> should define <tt>CreateProducts</tt> and <tt>20080906120001_add_details_to_products.rb</tt> should define <tt>AddDetailsToProducts</tt>. If you do feel the need to change the file name then you <em>have to</em> update the name of the class inside or Rails will complain about a missing class.</p>
+<p>Internally Rails only uses the migration&#8217;s number (the timestamp) to identify them. Prior to Rails 2.1 the migration number started at 1 and was incremented each time a migration was generated. With multiple developers it was easy for these to clash requiring you to rollback migrations and renumber them. With Rails 2.1 this is largely avoided by using the creation time of the migration to identify them. You can revert to the old numbering scheme by setting <tt>config.active_record.timestamped_migrations</tt> to <tt>false</tt> in <tt>config/environment.rb</tt>.</p>
+<p>The combination of timestamps and recording which migrations have been run allows Rails to handle common situations that occur with multiple developers.</p>
+<p>For example Alice adds migrations <tt>20080906120000</tt> and <tt>20080906123000</tt> and Bob adds <tt>20080906124500</tt> and runs it. Alice finishes her changes and checks in her migrations and Bob pulls down the latest changes. Rails knows that it has not run Alice&#8217;s two migrations so <tt>rake db:migrate</tt> would run them (even though Bob&#8217;s migration with a later timestamp has been run), and similarly migrating down would not run their <tt>down</tt> methods.</p>
+<p>Of course this is no substitution for communication within the team. For example, if Alice&#8217;s migration removed a table that Bob&#8217;s migration assumed to exist, then trouble would certainly strike.</p>
+<h4 id="changingmigrations">1.3 Changing migrations</h4>
+<p>Occasionally you will make a mistake when writing a migration. If you have already run the migration then you cannot just edit the migration and run the migration again: Rails thinks it has already run the migration and so will do nothing when you run <tt>rake db:migrate</tt>. You must rollback the migration (for example with <tt>rake db:rollback</tt>), edit your migration and then run <tt>rake db:migrate</tt> to run the corrected version.</p>
+<p>In general editing existing migrations is not a good idea: you will be creating extra work for yourself and your co-workers and cause major headaches if the existing version of the migration has already been run on production machines. Instead you should write a new migration that performs the changes you require. Editing a freshly generated migration that has not yet been committed to source control (or more generally which has not been propagated beyond your development machine) is relatively harmless. Just use some common sense.</p>
+<h3 id="creating-a-migration">2 Creating A Migration</h3>
+<h4 id="creatingamodel">2.1 Creating a model</h4>
+<p>The model and scaffold generators will create migrations appropriate for adding a new model. This migration will already contain instructions for creating the relevant table. If you tell Rails what columns you want then statements for adding those will also be created. For example, running</p>
+<div class="code_container"><code class="html">
+ruby script/generate model Product name:string description:text
+</code></div>
+<p>will create a migration that looks like this</p>
+<div class="code_container"><code class="ruby">
+class CreateProducts &lt; ActiveRecord::Migration
+  def self.up
+    create_table :products do |t|
+      t.string :name
+      t.text :description
+
+      t.timestamps
+    end
+  end
+
+  def self.down
+    drop_table :products
+  end
+end
+</code></div>
+<p>You can append as many column name/type pairs as you want. By default <tt>t.timestamps</tt> (which creates the <tt>updated_at</tt> and <tt>created_at</tt> columns that
+are automatically populated by Active Record) will be added for you.</p>
+<h4 id="creatingastandalonemigration">2.2 Creating a standalone migration</h4>
+<p>If you are creating migrations for other purposes (for example to add a column to an existing table) then you can use the migration generator:</p>
+<div class="code_container"><code class="html">
+ruby script/generate migration AddPartNumberToProducts
+</code></div>
+<p>This will create an empty but appropriately named migration:</p>
+<div class="code_container"><code class="ruby">
+class AddPartNumberToProducts &lt; ActiveRecord::Migration
+  def self.up
+  end
+
+  def self.down
+  end
+end
+</code></div>
+<p>If the migration name is of the form &#8220;AddXXXToYYY&#8221; or &#8220;RemoveXXXFromYYY&#8221; and is followed by a list of column names and types then a migration containing the appropriate <tt>add_column</tt> and <tt>remove_column</tt> statements will be created.</p>
+<div class="code_container"><code class="html">
+ruby script/generate migration AddPartNumberToProducts part_number:string
+</code></div>
+<p>will generate</p>
+<div class="code_container"><code class="ruby">
+class AddPartNumberToProducts &lt; ActiveRecord::Migration
+  def self.up
+    add_column :products, :part_number, :string
+  end
+
+  def self.down
+    remove_column :products, :part_number
+  end
+end
+</code></div>
+<p>Similarly,</p>
+<div class="code_container"><code class="html">
+ruby script/generate migration RemovePartNumberFromProducts part_number:string
+</code></div>
+<p>generates</p>
+<div class="code_container"><code class="ruby">
+class RemovePartNumberFromProducts &lt; ActiveRecord::Migration
+  def self.up
+    remove_column :products, :part_number
+  end
+
+  def self.down
+    add_column :products, :part_number, :string
+  end
+end
+</code></div>
+<p>You are not limited to one magically generated column, for example</p>
+<div class="code_container"><code class="html">
+ruby script/generate migration AddDetailsToProducts part_number:string price:decimal
+</code></div>
+<p>generates</p>
+<div class="code_container"><code class="ruby">
+class AddDetailsToProducts &lt; ActiveRecord::Migration
+  def self.up
+    add_column :products, :part_number, :string
+    add_column :products, :price, :decimal
+  end
+
+  def self.down
+    remove_column :products, :price
+    remove_column :products, :part_number
+  end
+end
+</code></div>
+<p>As always, what has been generated for you is just a starting point. You can add or remove from it as you see fit.</p>
+<h3 id="writinga-migration">3 Writing a Migration</h3>
+<p>Once you have created your migration using one of the generators it&#8217;s time to get to work!</p>
+<h4 id="creatingatable">3.1 Creating a table</h4>
+<p>Migration method <tt>create_table</tt> will be one of your workhorses. A typical use would be</p>
+<div class="code_container"><code class="ruby">
+create_table :products do |t|
+  t.string :name
+end
+</code></div>
+<p>which creates a <tt>products</tt> table with a column called <tt>name</tt> (and as discussed below, an implicit <tt>id</tt> column).</p>
+<p>The object yielded to the block allows you create columns on the table. There are two ways of doing this: The first (traditional) form looks like</p>
+<div class="code_container"><code class="ruby">
+create_table :products do |t|
+  t.column :name, :string, :null =&gt; false
+end
+</code></div>
+<p>the second form, the so called &#8220;sexy&#8221; migration, drops the somewhat redundant <tt>column</tt> method. Instead, the <tt>string</tt>, <tt>integer</tt>, etc. methods create a column of that type. Subsequent parameters are the same.</p>
+<div class="code_container"><code class="ruby">
+create_table :products do |t|
+  t.string :name, :null =&gt; false
+end
+</code></div>
+<p>By default <tt>create_table</tt> will create a primary key called <tt>id</tt>. You can change the name of the primary key with the <tt>:primary_key</tt> option (don&#8217;t forget to update the corresponding model) or if you don&#8217;t want a primary key at all (for example for a <span class="caps">HABTM</span> join table) you can pass <tt>:id => false</tt>. If you need to pass database specific options you can place an <span class="caps">SQL</span> fragment in the <tt>:options</tt> option. For example</p>
+<div class="code_container"><code class="ruby">
+create_table :products, :options =&gt; &quot;ENGINE=BLACKHOLE&quot; do |t|
+  t.string :name, :null =&gt; false
+end
+</code></div>
+<p>will append <tt>ENGINE=BLACKHOLE</tt> to the <span class="caps">SQL</span> statement used to create the table (when using MySQL the default is <tt>ENGINE=InnoDB</tt>).</p>
+<p>The types supported by Active Record are <tt>:primary_key</tt>, <tt>:string</tt>, <tt>:text</tt>, <tt>:integer</tt>, <tt>:float</tt>, <tt>:decimal</tt>, <tt>:datetime</tt>, <tt>:timestamp</tt>, <tt>:time</tt>, <tt>:date</tt>, <tt>:binary</tt>, <tt>:boolean</tt>.</p>
+<p>These will be mapped onto an appropriate underlying database type, for example with MySQL <tt>:string</tt> is mapped to <tt>VARCHAR(255)</tt>. You can create columns of types not supported by Active Record when using the non-sexy syntax, for example</p>
+<div class="code_container"><code class="ruby">
+create_table :products do |t|
+  t.column :name, 'polygon', :null =&gt; false
+end
+</code></div>
+<p>This may however hinder portability to other databases.</p>
+<h4 id="changingtables">3.2 Changing tables</h4>
+<p>A close cousin of <tt>create_table</tt> is <tt>change_table</tt>, used for changing existing tables. It is used in a similar fashion to <tt>create_table</tt> but the object yielded to the block knows more tricks. For example</p>
+<p>dirty_workaround_for_nontextile_17
+removes the <tt>description</tt> and <tt>name</tt> columns, creates a <tt>part_number</tt> column and adds an index on it. Finally it renames the <tt>upccode</tt> column.   This is the same as doing</p>
+<div class="code_container"><code class="ruby">
+remove_column :products, :description
+remove_column :products, :name
+add_column :products, :part_number, :string
+add_index :products, :part_number
+rename_column :products, :upccode, :upc_code
+</code></div>
+<p>You don&#8217;t have to keep repeating the table name and it groups all the statements related to modifying one particular table. The individual transformation names are also shorter, for example <tt>remove_column</tt> becomes just <tt>remove</tt> and <tt>add_index</tt> becomes just <tt>index</tt>.</p>
+<h4 id="specialhelpers">3.3 Special helpers</h4>
+<p>Active Record provides some shortcuts for common functionality. It is for example very common to add both the <tt>created_at</tt> and <tt>updated_at</tt> columns and so there is a method that does exactly that:</p>
+<p>dirty_workaround_for_nontextile_19
+will create a new products table with those two columns (plus the <tt>id</tt> column) whereas</p>
+<p>dirty_workaround_for_nontextile_20
+adds those columns to an existing table.</p>
+<p>The other helper is called <tt>references</tt> (also available as <tt>belongs_to</tt>). In its simplest form it just adds some readability</p>
+<div class="code_container"><code class="ruby">
+create_table :products do |t|
+  t.references :category
+end
+</code></div>
+<p>will create a <tt>category_id</tt> column of the appropriate type. Note that you pass the model name, not the column name. Active Record adds the <tt>_id</tt> for you. If you have polymorphic <tt>belongs_to</tt> associations then <tt>references</tt> will add both of the columns required:</p>
+<p>dirty_workaround_for_nontextile_22
+will add an <tt>attachment_id</tt> column and a string <tt>attachment_type</tt> column with a default value of &#8216;Photo&#8217;.</p>
+<div class='note'><p>The <tt>references</tt> helper does not actually create foreign key constraints for you. You will need to use <tt>execute</tt> for that or a plugin that adds <a href="#active-recordand-referential-integrity">foreign key support</a>.</p></div>
+<p>If the helpers provided by Active Record aren&#8217;t enough you can use the <tt>execute</tt> function to execute arbitrary <span class="caps">SQL</span>.</p>
+<p>For more details and examples of individual methods check the <span class="caps">API</span> documentation, in particular the documentation for <a href="http://api.rubyonrails.com/classes/ActiveRecord/ConnectionAdapters/SchemaStatements.html"><tt>ActiveRecord::ConnectionAdapters::SchemaStatements</tt></a> (which provides the methods available in the <tt>up</tt> and <tt>down</tt> methods),  <a href="http://api.rubyonrails.com/classes/ActiveRecord/ConnectionAdapters/TableDefinition.html"><tt>ActiveRecord::ConnectionAdapters::TableDefinition</tt></a> (which provides the methods available on the object yielded by <tt>create_table</tt>) and <a href="http://api.rubyonrails.com/classes/ActiveRecord/ConnectionAdapters/Table.html"><tt>ActiveRecord::ConnectionAdapters::Table</tt></a> (which provides the methods available on the object yielded by <tt>change_table</tt>).</p>
+<h4 id="writingyourdownmethod">3.4 Writing your down method</h4>
+<p>The <tt>down</tt> method of your migration should revert the transformations done by the <tt>up</tt> method. In other words the database schema should be unchanged if you do an <tt>up</tt> followed by a <tt>down</tt>. For example if you create a table in the <tt>up</tt> method you should drop it in the <tt>down</tt> method. It is wise to do things in precisely the reverse order to in the <tt>up</tt> method. For example</p>
+<p>dirty_workaround_for_nontextile_23
+Sometimes your migration will do something which is just plain irreversible, for example it might destroy some data. In cases like those when you can&#8217;t reverse the migration you can raise <tt>IrreversibleMigration</tt> from your <tt>down</tt> method. If someone tries to revert your migration an error message will be
+displayed saying that it can&#8217;t be done.</p>
+<h3 id="running-migrations">4 Running Migrations</h3>
+<p>Rails provides a set of rake tasks to work with migrations which boils down to running certain sets of migrations. The very first migration related rake task you use will probably be <tt>db:migrate</tt>. In its most basic form it just runs the <tt>up</tt> method for all the migrations that have not yet been run. If there are no such migrations it exits.</p>
+<p>Note that running the <tt>db:migrate</tt> also invokes the <tt>db:schema:dump</tt> task, which will update your db/schema.rb file to match the structure of your database.</p>
+<p>If you specify a target version, Active Record will run the required migrations (up or down) until it has reached the specified version. The
+version is the numerical prefix on the migration&#8217;s filename. For example to migrate to version 20080906120000 run</p>
+<div class="code_container"><code class="html">
+rake db:migrate VERSION=20080906120000
+</code></div>
+<p>If this is greater than the current version (i.e. it is migrating upwards) this will run the <tt>up</tt> method on all migrations up to and including 20080906120000, if migrating downwards this will run the <tt>down</tt> method on all the migrations down to, but not including, 20080906120000.</p>
+<h4 id="rollingback">4.1 Rolling back</h4>
+<p>A common task is to rollback the last migration, for example if you made a mistake in it and wish to correct it. Rather than tracking down the version number associated with the previous migration you can run</p>
+<div class="code_container"><code class="html">
+rake db:rollback
+</code></div>
+<p>This will run the <tt>down</tt> method from the latest migration. If you need to undo several migrations you can provide a <tt>STEP</tt> parameter:</p>
+<div class="code_container"><code class="html">
+rake db:rollback STEP=3
+</code></div>
+<p>will run the <tt>down</tt> method from the last 3 migrations.</p>
+<p>The <tt>db:migrate:redo</tt> task is a shortcut for doing a rollback and then migrating back up again. As with the <tt>db:rollback</tt> task you can use the <tt>STEP</tt> parameter if you need to go more than one version back, for example</p>
+<div class="code_container"><code class="html">
+rake db:migrate:redo STEP=3
+</code></div>
+<p>Neither of these Rake tasks do anything you could not do with <tt>db:migrate</tt>, they are simply more convenient since you do not need to explicitly specify the version to migrate to.</p>
+<p>Lastly, the <tt>db:reset</tt> task will drop the database, recreate it and load the current schema into it.</p>
+<div class='note'><p>This is not the same as running all the migrations &#8211; see the section on <a href="#schemadumpingandyou">schema.rb</a>.</p></div>
+<h4 id="being-specific">4.2 Being Specific</h4>
+<p>If you need to run a specific migration up or down the <tt>db:migrate:up</tt> and <tt>db:migrate:down</tt> tasks will do that. Just specify the appropriate version and the corresponding migration will have its <tt>up</tt> or <tt>down</tt> method invoked, for example</p>
+<div class="code_container"><code class="html">
+rake db:migrate:up VERSION=20080906120000
+</code></div>
+<p>will run the <tt>up</tt> method from the 20080906120000 migration. These tasks check whether the migration has already run, so for example <tt>db:migrate:up VERSION=20080906120000</tt> will do nothing if Active Record believes that 20080906120000 has already been run.</p>
+<h4 id="beingtalkative">4.3 Being talkative</h4>
+<p>By default migrations tell you exactly what they&#8217;re doing and how long it took. A migration creating a table and adding an index might produce output like this</p>
+<div class="code_container"><code class="html">
+20080906170109 CreateProducts: migrating
+-- create_table(:products)
+   -&gt; 0.0021s
+-- add_index(:products, :name)
+   -&gt; 0.0026s
+20080906170109 CreateProducts: migrated (0.0059s)
+</code></div>
+<p>Several methods are provided that allow you to control all this:</p>
+<ul>
+	<li><tt>suppress_messages</tt> suppresses any output generated by its block</li>
+	<li><tt>say</tt> outputs text (the second argument controls whether it is indented or not)</li>
+	<li><tt>say_with_time</tt> outputs text along with how long it took to run its block. If the block returns an integer it assumes it is the number of rows affected.</li>
+</ul>
+<p>For example, this migration</p>
+<div class="code_container"><code class="ruby">
+class CreateProducts &lt; ActiveRecord::Migration
+  def self.up
+    suppress_messages do
+      create_table :products do |t|
+        t.string :name
+        t.text :description
+        t.timestamps
+      end
+    end
+    say &quot;Created a table&quot;
+    suppress_messages {add_index :products, :name}
+    say &quot;and an index!&quot;, true
+    say_with_time 'Waiting for a while' do
+      sleep 10
+      250
+    end
+  end
+
+  def self.down
+    drop_table :products
+  end
+end
+</code></div>
+<p>generates the following output</p>
+<div class="code_container"><code class="html">
+20080906170109 CreateProducts: migrating
+  Created a table
+   -&gt; and an index!
+  Waiting for a while
+   -&gt; 10.0001s
+   -&gt; 250 rows
+20080906170109 CreateProducts: migrated (10.0097s)
+</code></div>
+<p>If you just want Active Record to shut up then running <tt>rake db:migrate VERBOSE=false</tt> will suppress any output.</p>
+<h3 id="using-models-in-your-migrations">5 Using Models In Your Migrations</h3>
+<p>When creating or updating data in a migration it is often tempting to use one of your models. After all they exist to provide easy access to the underlying data. This can be done but some caution should be observed.</p>
+<p>Consider for example a migration that uses the <tt>Product</tt> model to update a row in the corresponding table. Alice later updates the <tt>Product</tt> model, adding a new column and a validation on it. Bob comes back from holiday, updates the source and runs outstanding migrations with <tt>rake db:migrate</tt>, including the one that used the <tt>Product</tt> model. When the migration runs the source is up to date and so the <tt>Product</tt> model has the validation added by Alice. The database however is still old and so does not have that column and an error ensues because that validation is on a column that does not yet exist.</p>
+<p>Frequently I just want to update rows in the database without writing out the <span class="caps">SQL</span> by hand: I&#8217;m not using anything specific to the model. One pattern for this is to define a copy of the model inside the migration itself, for example:</p>
+<p>dirty_workaround_for_nontextile_32
+The migration has its own minimal copy of the <tt>Product</tt> model and no longer cares about the <tt>Product</tt> model defined in the application.</p>
+<h4 id="dealingwithchangingmodels">5.1 Dealing with changing models</h4>
+<p>For performance reasons information about the columns a model has is cached. For example if you add a column to a table and then try and use the corresponding model to insert a new row it may try and use the old column information. You can force Active Record to re-read the column information with the <tt>reset_column_information</tt> method, for example</p>
+<div class="code_container"><code class="ruby">
+class AddPartNumberToProducts &lt; ActiveRecord::Migration
+  class Product &lt; ActiveRecord::Base
+  end
+
+  def self.up
+    add_column :product, :part_number, :string
+    Product.reset_column_information
+    ...
+  end
+
+  def self.down
+    ...
+  end
+end
+</code></div>
+<h3 id="schemadumpingandyou">6 Schema dumping and you</h3>
+<h4 id="whatareschemafilesfor">6.1 What are schema files for?</h4>
+<p>Migrations, mighty as they may be, are not the authoritative source for your database schema. That role falls to either <tt>db/schema.rb</tt> or an <span class="caps">SQL</span> file which Active Record generates by examining the database. They are not designed to be edited, they just represent the current state of the database.</p>
+<p>There is no need (and it is error prone) to deploy a new instance of an app by replaying the entire migration history. It is much simpler and faster to just load into the database a description of the current schema.</p>
+<p>For example, this is how the test database is created: the current development database is dumped (either to <tt>db/schema.rb</tt> or <tt>db/development.sql</tt>) and then loaded into the test database.</p>
+<p>Schema files are also useful if you want a quick look at what attributes an Active Record object has. This information is not in the model&#8217;s code and is frequently spread across several migrations but is all summed up in the schema file. The <a href="http://agilewebdevelopment.com/plugins/annotate_models">annotate_models</a> plugin, which automatically adds (and updates) comments at the top of each model summarising the schema, may also be of interest.</p>
+<h4 id="typesofschemadumps">6.2 Types of schema dumps</h4>
+<p>There are two ways to dump the schema. This is set in <tt>config/environment.rb</tt> by the <tt>config.active_record.schema_format</tt> setting, which may be either <tt>:sql</tt> or <tt>:ruby</tt>.</p>
+<p>If <tt>:ruby</tt> is selected then the schema is stored in <tt>db/schema.rb</tt>. If you look at this file you&#8217;ll find that it looks an awful lot like one very big migration:</p>
+<div class="code_container"><code class="ruby">
+ActiveRecord::Schema.define(:version =&gt; 20080906171750) do
+  create_table &quot;authors&quot;, :force =&gt; true do |t|
+    t.string   &quot;name&quot;
+    t.datetime &quot;created_at&quot;
+    t.datetime &quot;updated_at&quot;
+  end
+
+  create_table &quot;products&quot;, :force =&gt; true do |t|
+    t.string   &quot;name&quot;
+    t.text     &quot;description&quot;
+    t.datetime &quot;created_at&quot;
+    t.datetime &quot;updated_at&quot;
+    t.string   &quot;part_number&quot;
+  end
+end
+</code></div>
+<p>In many ways this is exactly what it is. This file is created by inspecting the database and expressing its structure using <tt>create_table</tt>, <tt>add_index</tt>, and so on. Because this is database independent it could be loaded into any database that Active Record supports. This could be very useful if you were to distribute an application that is able to run against multiple databases.</p>
+<p>There is however a trade-off: <tt>db/schema.rb</tt> cannot express database specific items such as foreign key constraints, triggers or stored procedures. While in a migration you can execute custom <span class="caps">SQL</span> statements, the schema dumper cannot reconstitute those statements from the database. If you are using features like this then you should set the schema format to <tt>:sql</tt>.</p>
+<p>Instead of using Active Record&#8217;s schema dumper the database&#8217;s structure will be dumped using a tool specific to that database (via the <tt>db:structure:dump</tt> Rake task) into <tt>db/#{RAILS_ENV}_structure.sql</tt>. For example for PostgreSQL the <tt>pg_dump</tt> utility is used and for MySQL this file will contain the output of <tt>SHOW CREATE TABLE</tt> for the various tables. Loading this schema is simply a question of executing the <span class="caps">SQL</span> statements contained inside.</p>
+<p>By definition this will be a perfect copy of the database&#8217;s structure but this will usually prevent loading the schema into a database other than the one used to create it.</p>
+<h4 id="schemadumpsandsourcecontrol">6.3 Schema dumps and source control</h4>
+<p>Because schema dumps are the authoritative source for your database schema, it is strongly recommended that you check them into source control.</p>
+<h3 id="active-recordand-referential-integrity">7 Active Record and Referential Integrity</h3>
+<p>The Active Record way claims that intelligence belongs in your models, not in the database. As such, features such as triggers or foreign key constraints, which push some of that intelligence back into the database, are not heavily used.</p>
+<p>Validations such as <tt>validates_uniqueness_of</tt> are one way in which models can enforce data integrity. The <tt>:dependent</tt> option on associations allows models to automatically destroy child objects when the parent is destroyed. Like anything which operates at the application level these cannot guarantee referential integrity and so some people augment them with foreign key constraints.</p>
+<p>Although Active Record does not provide any tools for working directly with such features, the <tt>execute</tt> method can be used to execute arbitrary <span class="caps">SQL</span>. There are also a number of plugins such as <a href="http://agilewebdevelopment.com/plugins/search?search=redhillonrails">redhillonrails</a> which add foreign key support to Active Record (including support for dumping foreign keys in <tt>db/schema.rb</tt>).</p>
+<h3 id="changelog">8 Changelog</h3>
+<p><a href="http://rails.lighthouseapp.com/projects/16213-rails-guides/tickets/6">Lighthouse ticket</a></p>
+<ul>
+	<li>September 14, 2008: initial version by <a href="credits.html#fcheung">Frederick Cheung</a></li>
+</ul>
+      </div>
+    </div>
+  </div>
+
+  <hr class="hide" />
+  <div id="footer">
+    <div class="wrapper">
+      <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by-sa/3.0">Creative Commons Attribution-Share Alike 3.0</a> License</a></p>
+      <p>"Rails", "Ruby on Rails", and the Rails logo are trademarks of David Heinemeier Hansson. All rights reserved.</p>
+    </div>
+  </div>
+</body>
+</html>

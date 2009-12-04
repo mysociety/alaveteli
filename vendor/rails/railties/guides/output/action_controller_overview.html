@@ -1,0 +1,770 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>Action Controller Overview</title>
+
+<link rel="stylesheet" type="text/css" href="files/stylesheets/style.css" />
+<link rel="stylesheet" type="text/css" href="files/stylesheets/syntax.css" />
+<link rel="stylesheet" type="text/css" href="files/stylesheets/print.css" media="print" />
+
+<script type="text/javascript" src="files/javascripts/guides.js"></script>
+<script type="text/javascript" src="files/javascripts/code_highlighter.js"></script>
+<script type="text/javascript" src="files/javascripts/highlighters.js"></script>
+
+</head>
+<body class="guide">
+  <div id="topNav">
+    <div class="wrapper">
+      <strong>More at <a href="http://www.rubyonrails.org/">rubyonrails.org:</a> </strong>
+      <a href="http://www.rubyonrails.org/">Overview</a> |
+      <a href="http://www.rubyonrails.org/download">Download</a> |
+      <a href="http://www.rubyonrails.org/deploy">Deploy</a> |
+      <a href="http://rails.lighthouseapp.com/projects/8994-ruby-on-rails/overview">Code</a> |
+      <a href="http://www.rubyonrails.org/screencasts">Screencasts</a> |
+      <a href="http://www.rubyonrails.org/documentation">Documentation</a> |
+      <a href="http://www.rubyonrails.org/ecosystem">Ecosystem</a> |
+      <a href="http://www.rubyonrails.org/community">Community</a> |
+      <a href="http://weblog.rubyonrails.org/">Blog</a>
+    </div>
+  </div>
+  <div id="header">
+    <div class="wrapper clearfix">
+      <h1><a href="index.html" title="Return to home page">Guides.rubyonrails.org</a></h1>
+      <p class="hide"><a href="#mainCol">Skip navigation</a>.</p>
+      <ul class="nav">
+        <li><a href="index.html">Home</a></li>
+        <li class="index"><a href="index.html" onclick="guideMenu(); return false;" id="guidesMenu">Guides Index</a>
+          <div id="guides" class="clearfix" style="display: none;">
+            <hr />
+            <dl class="L">
+              <dt>Start Here</dt>
+              <dd><a href="getting_started.html">Getting Started with Rails</a></dd>
+              <dt>Models</dt>
+              <dd><a href="migrations.html">Rails Database Migrations</a></dd>
+              <dd><a href="activerecord_validations_callbacks.html">Active Record Validations and Callbacks</a></dd>
+              <dd><a href="association_basics.html">Active Record Associations</a></dd>
+              <dd><a href="active_record_querying.html">Active Record Query Interface</a></dd>
+              <dt>Views</dt>
+              <dd><a href="layouts_and_rendering.html">Layouts and Rendering in Rails</a></dd>
+              <dd><a href="form_helpers.html">Action View Form Helpers</a></dd>
+              <dt>Controllers</dt>
+              <dd><a href="action_controller_overview.html">Action Controller Overview</a></dd>
+              <dd><a href="routing.html">Rails Routing from the Outside In</a></dd>
+            </dl>
+            <dl class="R">
+              <dt>Digging Deeper</dt>
+              <dd><a href="i18n.html">Rails Internationalization API</a></dd>
+              <dd><a href="action_mailer_basics.html">Action Mailer Basics</a></dd>
+              <dd><a href="testing.html">Testing Rails Applications</a></dd>
+              <dd><a href="security.html">Securing Rails Applications</a></dd>
+              <dd><a href="debugging_rails_applications.html">Debugging Rails Applications</a></dd>
+              <dd><a href="performance_testing.html">Performance Testing Rails Applications</a></dd>
+              <dd><a href="plugins.html">The Basics of Creating Rails Plugins</a></dd>
+              <dd><a href="configuring.html">Configuring Rails Applications</a></dd>
+              <dd><a href="rails_on_rack.html">Rails on Rack</a></dd>
+            </dl>
+          </div>
+        </li>
+        <li><a href="contribute.html">Contribute</a></li>
+        <li><a href="credits.html">Credits</a></li>
+      </ul>
+    </div>
+  </div>
+  <hr class="hide" />
+
+  <div id="feature">
+    <div class="wrapper">
+      <h2>Action Controller Overview</h2>
+<p>In this guide you will learn how controllers work and how they fit into the request cycle in your application. After reading this guide, you will be able to:</p>
+<ul>
+	<li>Follow the flow of a request through a controller</li>
+	<li>Understand why and how to store data in the session or cookies</li>
+	<li>Work with filters to execute code during request processing</li>
+	<li>Use Action Controller&#8217;s built-in <span class="caps">HTTP</span> authentication</li>
+	<li>Stream data directly to the user&#8217;s browser</li>
+	<li>Filter sensitive parameters so they do not appear in the application&#8217;s log</li>
+	<li>Deal with exceptions that may be raised during request processing</li>
+</ul>
+
+            <div id="subCol">
+        <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
+        <ol class="chapters">
+<li><a href="#what-doesa-controller-do">What Does a Controller Do?</a><ul></ul></li><li><a href="#methodsand-actions">Methods and Actions</a><ul></ul></li><li><a href="#parameters">Parameters</a><ul><li><a href="#hashandarrayparameters">Hash and array parameters</a></li><li><a href="#routing-parameters">Routing Parameters</a></li><li><a href="#default-url-options">default_url_options</a></li></ul></li><li><a href="#session">Session</a><ul><li><a href="#accessingthesession">Accessing the session</a></li><li><a href="#theflash">The flash</a></li></ul></li><li><a href="#cookies">Cookies</a><ul></ul></li><li><a href="#filters">Filters</a><ul><li><a href="#afterfiltersandaroundfilters">After filters and around filters</a></li><li><a href="#otherwaystousefilters">Other ways to use filters</a></li></ul></li><li><a href="#verification">Verification</a><ul></ul></li><li><a href="#request-forgery-protection">Request Forgery Protection</a><ul></ul></li><li><a href="#the-requestand-response-objects">The Request and Response Objects</a><ul><li><a href="#therequestobject">The <tt>request</tt> object</a></li><li><a href="#theresponseobject">The response object</a></li></ul></li><li><a href="#http-authentications"><span class="caps">HTTP</span> Authentications</a><ul><li><a href="#htt-pbasicauthentication"><span class="caps">HTTP</span> basic authentication</a></li><li><a href="#htt-pdigestauthentication"><span class="caps">HTTP</span> digest authentication</a></li></ul></li><li><a href="#streamingand-file-downloads">Streaming and File Downloads</a><ul><li><a href="#sendingfiles">Sending files</a></li><li><a href="#res-tfuldownloads">RESTful downloads</a></li></ul></li><li><a href="#parameter-filtering">Parameter Filtering</a><ul></ul></li><li><a href="#rescue">Rescue</a><ul><li><a href="#thedefault500and404templates">The default 500 and 404 templates</a></li><li><a href="#rescue-from"><tt>rescue_from</tt></a></li></ul></li><li><a href="#changelog">Changelog</a><ul></ul></li></ol></div>
+    </div>
+  </div>
+
+  <div id="container">
+    <div class="wrapper">
+      <div id="mainCol">
+        <h3 id="what-doesa-controller-do">1 What Does a Controller Do?</h3>
+<p>Action Controller is the C in <span class="caps">MVC</span>. After routing has determined which controller to use for a request, your controller is responsible for making sense of the request and producing the appropriate output. Luckily, Action Controller does most of the groundwork for you and uses smart conventions to make this as straightforward as possible.</p>
+<p>For most conventional RESTful applications, the controller will receive the request (this is invisible to you as the developer), fetch or save data from a model and use a view to create <span class="caps">HTML</span> output. If your controller needs to do things a little differently, that&#8217;s not a problem, this is just the most common way for a controller to work.</p>
+<p>A controller can thus be thought of as a middle man between models and views. It makes the model data available to the view so it can display that data to the user, and it saves or updates data from the user to the model.</p>
+<div class='note'><p>For more details on the routing process, see <a href="routing_outside_in.html">Rails Routing from the Outside In</a>.</p></div>
+<h3 id="methodsand-actions">2 Methods and Actions</h3>
+<p>A controller is a Ruby class which inherits from <tt>ApplicationController</tt> and has methods just like any other class. When your application receives a request, the routing will determine which controller and action to run, then Rails creates an instance of that controller and runs the method with the same name as the action.</p>
+<div class="code_container"><code class="ruby">
+class ClientsController &lt; ApplicationController
+  def new
+  end
+end
+</code></div>
+<p>As an example, if a user goes to <tt>/clients/new</tt> in your application to add a new client, Rails will create an instance of <tt>ClientsController</tt> and run the <tt>new</tt> method. Note that the empty method from the example above could work just fine because Rails will by default render the <tt>new.html.erb</tt> view unless the action says otherwise. The <tt>new</tt> method could make available to the view a <tt>@client</tt> instance variable by creating a new <tt>Client</tt>:</p>
+<div class="code_container"><code class="ruby">
+def new
+  @client = Client.new
+end
+</code></div>
+<p>The <a href="layouts_and_rendering.html">Layouts &amp; rendering guide</a> explains this in more detail.</p>
+<tt>ApplicationController</tt>inherits from <tt>ActionController::Base</tt>, which defines a number of helpful methods. This guide will cover some of these, but if you&#8217;re curious to see what&#8217;s in there, you can see all of them in the <span class="caps">API</span> documentation or in the source itself.
+<p>Only public methods are callable as actions. It is a best practice to lower the visibility of methods which are not intended to be actions, like auxiliary methods or filters.</p>
+<h3 id="parameters">3 Parameters</h3>
+<p>You will probably want to access data sent in by the user or other parameters in your controller actions. There are two kinds of parameters possible in a web application. The first are parameters that are sent as part of the <span class="caps">URL</span>, called query string parameters. The query string is everything after &#8220;?&#8221; in the <span class="caps">URL</span>. The second type of parameter is usually referred to as <span class="caps">POST</span> data. This information usually comes from an <span class="caps">HTML</span> form which has been filled in by the user. It&#8217;s called <span class="caps">POST</span> data because it can only be sent as part of an <span class="caps">HTTP</span> <span class="caps">POST</span> request. Rails does not make any distinction between query string parameters and <span class="caps">POST</span> parameters, and both are available in the <tt>params</tt> hash in your controller:</p>
+<div class="code_container"><code class="ruby">
+class ClientsController &lt; ActionController::Base
+  # This action uses query string parameters because it gets run
+  # by an HTTP GET request, but this does not make any difference
+  # to the way in which the parameters are accessed. The URL for
+  # this action would look like this in order to list activated
+  # clients: /clients?status=activated
+  def index
+    if params[:status] == &quot;activated&quot;
+      @clients = Client.activated
+    else
+      @clients = Client.unactivated
+    end
+  end
+
+  # This action uses POST parameters. They are most likely coming
+  # from an HTML form which the user has submitted. The URL for
+  # this RESTful request will be &quot;/clients&quot;, and the data will be
+  # sent as part of the request body.
+  def create
+    @client = Client.new(params[:client])
+    if @client.save
+      redirect_to @client
+    else
+      # This line overrides the default rendering behavior, which
+      # would have been to render the &quot;create&quot; view.
+      render :action =&gt; &quot;new&quot;
+    end
+  end
+end
+</code></div>
+<h4 id="hashandarrayparameters">3.1 Hash and array parameters</h4>
+<p>The <tt>params</tt> hash is not limited to one-dimensional keys and values. It can contain arrays and (nested) hashes. To send an array of values, append an empty pair of square brackets &#8220;[]&#8221; to the key name:</p>
+<pre>
+GET /clients?ids[]=1&amp;ids[]=2&amp;ids[]=3
+</pre>
+<div class='note'><p>The actual <span class="caps">URL</span> in this example will be encoded as &#8220;/clients?ids%5b%5d=1&amp;ids%5b%5d=2&amp;ids%5b%5b=3&#8221; as &#8220;[&#8221; and &#8220;]&#8221; are not allowed in URLs. Most of the time you don&#8217;t have to worry about this because the browser will take care of it for you, and Rails will decode it back when it receives it, but if you ever find yourself having to send those requests to the server manually you have to keep this in mind.</p></div>
+<p>The value of <tt>params[:ids]</tt> will now be <tt>["1", "2", "3"]</tt>. Note that parameter values are always strings; Rails makes no attempt to guess or cast the type.</p>
+<p>To send a hash you include the key name inside the brackets:</p>
+<div class="code_container"><code class="html">
+&lt;form action=&quot;/clients&quot; method=&quot;post&quot;&gt;
+  &lt;input type=&quot;text&quot; name=&quot;client[name]&quot; value=&quot;Acme&quot; /&gt;
+  &lt;input type=&quot;text&quot; name=&quot;client[phone]&quot; value=&quot;12345&quot; /&gt;
+  &lt;input type=&quot;text&quot; name=&quot;client[address][postcode]&quot; value=&quot;12345&quot; /&gt;
+  &lt;input type=&quot;text&quot; name=&quot;client[address][city]&quot; value=&quot;Carrot City&quot; /&gt;
+&lt;/form&gt;
+</code></div>
+<p>When this form is submitted, the value of <tt>params[:client]</tt> will be <tt>{&quot;name&quot; =&gt; &#8220;Acme&#8221;, &#8220;phone&#8221; =&gt; &#8220;12345&#8221;, &#8220;address&#8221; =&gt; {&quot;postcode&quot; =&gt; &#8220;12345&#8221;, &#8220;city&#8221; =&gt; &#8220;Carrot City&#8221;}}</tt>. Note the nested hash in <tt>params[:client][:address]</tt>.</p>
+<p>Note that the <tt>params</tt> hash is actually an instance of <tt>HashWithIndifferentAccess</tt> from Active Support, which acts like a hash that lets you use symbols and strings interchangeably as keys.</p>
+<h4 id="routing-parameters">3.2 Routing Parameters</h4>
+<p>The <tt>params</tt> hash will always contain the <tt>:controller</tt> and <tt>:action</tt> keys, but you should use the methods <tt>controller_name</tt> and <tt>action_name</tt> instead to access these values. Any other parameters defined by the routing, such as <tt>:id</tt> will also be available. As an example, consider a listing of clients where the list can show either active or inactive clients. We can add a route which captures the <tt>:status</tt> parameter in a &#8220;pretty&#8221; <span class="caps">URL</span>:</p>
+<div class="code_container"><code class="ruby">
+map.connect &quot;/clients/:status&quot;, 
+  :controller =&gt; &quot;clients&quot;,
+  :action =&gt; &quot;index&quot;,
+  :foo =&gt; &quot;bar&quot;
+</code></div>
+<p>In this case, when a user opens the <span class="caps">URL</span> <tt>/clients/active</tt>, <tt>params[:status]</tt> will be set to &#8220;active&#8221;. When this route is used, <tt>params[:foo]</tt> will also be set to &#8220;bar&#8221; just like it was passed in the query string. In the same way <tt>params[:action]</tt> will contain &#8220;index&#8221;.</p>
+<h4 id="default-url-options">3.3 default_url_options</h4>
+<p>You can set global default parameters that will be used when generating URLs with <tt>default_url_options</tt>. To do this, define a method with that name in your controller:</p>
+<div class="code_container"><code class="ruby">
+class ApplicationController &lt; ActionController::Base
+  # The options parameter is the hash passed in to 'url_for'
+  def default_url_options(options)
+    {:locale =&gt; I18n.locale}
+  end
+end
+</code></div>
+<p>These options will be used as a starting-point when generating URLs, so it&#8217;s possible they&#8217;ll be overridden by <tt>url_for</tt>. Because this method is defined in the controller, you can define it on <tt>ApplicationController</tt> so it would be used for all <span class="caps">URL</span> generation, or you could define it on only one controller for all URLs generated there.</p>
+<h3 id="session">4 Session</h3>
+<p>Your application has a session for each user in which you can store small amounts of data that will be persisted between requests. The session is only available in the controller and the view and can use one of a number of different storage mechanisms:</p>
+<ul>
+	<li>CookieStore &#8211; Stores everything on the client.</li>
+	<li>DRbStore &#8211; Stores the data on a DRb server.</li>
+	<li>MemCacheStore &#8211; Stores the data in a memcache.</li>
+	<li>ActiveRecordStore &#8211; Stores the data in a database using Active Record.</li>
+</ul>
+<p>All session stores use a cookie to store a unique ID for each session (you must use a cookie, Rails will not allow you to pass the session ID in the <span class="caps">URL</span> as this is less secure).</p>
+<p>For most stores this ID is used to look up the session data on the server, e.g. in a database table. There is one exception, and that is the default and recommended session store &#8211; the CookieStore &#8211; which stores all session data in the cookie itself (the ID is still available to you if you need it). This has the advantage of being very lightweight and it requires zero setup in a new application in order to use the session. The cookie data is cryptographically signed to make it tamper-proof, but it is not encrypted, so anyone with access to it can read its contents but not edit it (Rails will not accept it if it has been edited).</p>
+<p>The CookieStore can store around 4kB of data &#8212; much less than the others &#8212; but this is usually enough. Storing large amounts of data in the session is discouraged no matter which session store your application uses. You should especially avoid storing complex objects (anything other than basic Ruby objects, the most common example being model instances) in the session, as the server might not be able to reassemble them between requests, which will result in an error.</p>
+<p>Read more about session storage in the <a href="security.html">Security Guide</a>.</p>
+<p>If you need a different session storage mechanism, you can change it in the <tt>config/initializers/session_store.rb</tt> file:</p>
+<div class="code_container"><code class="ruby">
+# Use the database for sessions instead of the cookie-based default,
+# which shouldn't be used to store highly confidential information
+# (create the session table with &quot;rake db:sessions:create&quot;)
+# ActionController::Base.session_store = :active_record_store
+</code></div>
+<p>Rails sets up a session key (the name of the cookie) and (for the CookieStore) a secret key used when signing the session data. These can also be changed in <tt>config/initializers/session_store.rb</tt>:</p>
+<div class="code_container"><code class="ruby">
+# Your secret key for verifying cookie session data integrity.
+# If you change this key, all old sessions will become invalid!
+# Make sure the secret is at least 30 characters and all random, 
+# no regular words or you'll be exposed to dictionary attacks.
+ActionController::Base.session = {
+  :key         =&gt; '_yourappname_session',
+  :secret      =&gt; '4f50711b8f0f49572...'
+}
+</code></div>
+<div class='note'><p>Changing the secret when using the CookieStore will invalidate all existing sessions.</p></div>
+<h4 id="accessingthesession">4.1 Accessing the session</h4>
+<p>In your controller you can access the session through the <tt>session</tt> instance method.</p>
+<div class='note'><p>Sessions are lazily loaded. If you don&#8217;t access sessions in your action&#8217;s code, they will not be loaded. Hence you will never need to disable sessions, just not accessing them will do the job.</p></div>
+<p>Session values are stored using key/value pairs like a hash:</p>
+<div class="code_container"><code class="ruby">
+class ApplicationController &lt; ActionController::Base
+
+private
+
+  # Finds the User with the ID stored in the session with the key
+  # :current_user_id This is a common way to handle user login in
+  # a Rails application; logging in sets the session value and
+  # logging out removes it.
+  def current_user
+    @_current_user ||= session[:current_user_id] &amp;&amp;
+      User.find(session[:current_user_id])
+  end
+end
+</code></div>
+<p>To store something in the session, just assign it to the key like a hash:</p>
+<div class="code_container"><code class="ruby">
+class LoginsController &lt; ApplicationController
+  # &quot;Create&quot; a login, aka &quot;log the user in&quot;
+  def create
+    if user = User.authenticate(params[:username], params[:password])
+      # Save the user ID in the session so it can be used in
+      # subsequent requests
+      session[:current_user_id] = user.id
+      redirect_to root_url
+    end
+  end
+end
+</code></div>
+<p>To remove something from the session, assign that key to be <tt>nil</tt>:</p>
+<div class="code_container"><code class="ruby">
+class LoginsController &lt; ApplicationController
+  # &quot;Delete&quot; a login, aka &quot;log the user out&quot;
+  def destroy
+    # Remove the user id from the session
+    session[:current_user_id] = nil
+    redirect_to root_url
+  end
+end
+</code></div>
+<p>To reset the entire session, use <tt>reset_session</tt>.</p>
+<h4 id="theflash">4.2 The flash</h4>
+<p>The flash is a special part of the session which is cleared with each request. This means that values stored there will only be available in the next request, which is useful for storing error messages etc. It is accessed in much the same way as the session, like a hash. Let&#8217;s use the act of logging out as an example. The controller can send a message which will be displayed to the user on the next request:</p>
+<div class="code_container"><code class="ruby">
+class LoginsController &lt; ApplicationController
+  def destroy
+    session[:current_user_id] = nil
+    flash[:notice] = &quot;You have successfully logged out&quot;
+    redirect_to root_url
+  end
+end
+</code></div>
+<p>The <tt>destroy</tt> action redirects to the application&#8217;s <tt>root_url</tt>, where the message will be displayed. Note that it&#8217;s entirely up to the next action to decide what, if anything, it will do with what the previous action put in the flash. It&#8217;s conventional to display eventual errors or notices from the flash in the application&#8217;s layout:</p>
+<div class="code_container"><code class="ruby">
+&lt;html&gt;
+  &lt;!-- &lt;head/&gt; --&gt;
+  &lt;body&gt;
+    &lt;% if flash[:notice] -%&gt;
+      &lt;p class=&quot;notice&quot;&gt;&lt;%= flash[:notice] %&gt;&lt;/p&gt;
+    &lt;% end -%&gt;
+    &lt;% if flash[:error] -%&gt;
+      &lt;p class=&quot;error&quot;&gt;&lt;%= flash[:error] %&gt;&lt;/p&gt;
+    &lt;% end -%&gt;
+    &lt;!-- more content --&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></div>
+<p>This way, if an action sets an error or a notice message, the layout will display it automatically.</p>
+<p>If you want a flash value to be carried over to another request, use the <tt>keep</tt> method:</p>
+<div class="code_container"><code class="ruby">
+class MainController &lt; ApplicationController
+  # Let's say this action corresponds to root_url, but you want
+  # all requests here to be redirected to UsersController#index.
+  # If an action sets the flash and redirects here, the values
+  # would normally be lost when another redirect happens, but you
+  # can use 'keep' to make it persist for another request.
+  def index
+    # Will persist all flash values.
+    flash.keep
+
+    # You can also use a key to keep only some kind of value. 
+    # flash.keep(:notice)
+    redirect_to users_url
+  end
+end
+</code></div>
+<h5 id="flashnow">4.2.1 flash.now</h5>
+<p>By default, adding values to the flash will make them available to the next request, but sometimes you may want to access those values in the same request. For example, if the <tt>create</tt> action fails to save a resource and you render the <tt>new</tt> template directly, that&#8217;s not going to result in a new request, but you may still want to display a message using the flash. To do this, you can use <tt>flash.now</tt> in the same way you use the normal <tt>flash</tt>:</p>
+<div class="code_container"><code class="ruby">
+class ClientsController &lt; ApplicationController
+  def create
+    @client = Client.new(params[:client])
+    if @client.save
+      # ...
+    else
+      flash.now[:error] = &quot;Could not save client&quot;
+      render :action =&gt; &quot;new&quot;
+    end
+  end
+end
+</code></div>
+<h3 id="cookies">5 Cookies</h3>
+<p>Your application can store small amounts of data on the client &#8212; called cookies &#8212; that will be persisted across requests and even sessions. Rails provides easy access to cookies via the <tt>cookies</tt> method, which &#8212; much like the <tt>session</tt> &#8212; works like a hash:</p>
+<div class="code_container"><code class="ruby">
+class CommentsController &lt; ApplicationController
+  def new
+    # Auto-fill the commenter's name if it has been stored in a cookie
+    @comment = Comment.new(:name =&gt; cookies[:commenter_name])
+  end
+
+  def create
+    @comment = Comment.new(params[:comment])
+    if @comment.save
+      flash[:notice] = &quot;Thanks for your comment!&quot;
+      if params[:remember_name]
+        # Remember the commenter's name.
+        cookies[:commenter_name] = @comment.name
+      else
+        # Delete cookie for the commenter's name cookie, if any.
+        cookies.delete(:commenter_name)
+      end
+      redirect_to @comment.article
+    else
+      render :action =&gt; &quot;new&quot;
+    end
+  end
+end
+</code></div>
+<p>Note that while for session values you set the key to <tt>nil</tt>, to delete a cookie value you should use <tt>cookies.delete(:key)</tt>.</p>
+<h3 id="filters">6 Filters</h3>
+<p>Filters are methods that are run before, after or &#8220;around&#8221; a controller action.</p>
+<p>Filters are inherited, so if you set a filter on <tt>ApplicationController</tt>, it will be run on every controller in your application.</p>
+<p>Before filters may halt the request cycle. A common before filter is one which requires that a user is logged in for an action to be run. You can define the filter method this way:</p>
+<div class="code_container"><code class="ruby">
+class ApplicationController &lt; ActionController::Base
+  before_filter :require_login
+
+private
+  def require_login
+    unless logged_in?
+      flash[:error] = &quot;You must be logged in to access this section&quot;
+      redirect_to new_login_url # halts request cycle
+    end
+  end
+
+  # The logged_in? method simply returns true if the user is logged
+  # in and false otherwise. It does this by &quot;booleanizing&quot; the
+  # current_user method we created previously using a double ! operator.
+  # Note that this is not common in Ruby and is discouraged unless you
+  # really mean to convert something into true or false.
+  def logged_in?
+    !!current_user
+  end
+end
+</code></div>
+<p>The method simply stores an error message in the flash and redirects to the login form if the user is not logged in. If a before filter renders or redirects, the action will not run. If there are additional filters scheduled to run after that filter they are also cancelled.</p>
+<p>In this example the filter is added to <tt>ApplicationController</tt> and thus all controllers in the application inherit it. This will make everything in the application require the user to be logged in in order to use it. For obvious reasons (the user wouldn&#8217;t be able to log in in the first place!), not all controllers or actions should require this. You can prevent this filter from running before particular actions with <tt>skip_before_filter</tt>:</p>
+<div class="code_container"><code class="ruby">
+class LoginsController &lt; Application
+  skip_before_filter :require_login, :only =&gt; [:new, :create]
+end
+</code></div>
+<p>Now, the <tt>LoginsController</tt>&#8217;s <tt>new</tt> and <tt>create</tt> actions will work as before without requiring the user to be logged in. The <tt>:only</tt> option is used to only skip this filter for these actions, and there is also an <tt>:except</tt> option which works the other way. These options can be used when adding filters too, so you can add a filter which only runs for selected actions in the first place.</p>
+<h4 id="afterfiltersandaroundfilters">6.1 After filters and around filters</h4>
+<p>In addition to before filters, you can run filters after an action has run or both before and after. The after filter is similar to the before filter, but because the action has already been run it has access to the response data that&#8217;s about to be sent to the client. Obviously, after filters can not stop the action from running.</p>
+<p>Around filters are responsible for running the action, but they can choose not to, which is the around filter&#8217;s way of stopping it.</p>
+<div class="code_container"><code class="ruby">
+# Example taken from the Rails API filter documentation:
+# http://api.rubyonrails.org/classes/ActionController/Filters/ClassMethods.html
+class ApplicationController &lt; Application
+  around_filter :catch_exceptions
+
+private
+  def catch_exceptions
+    yield
+  rescue =&gt; exception
+    logger.debug &quot;Caught exception! #{exception}&quot;
+    raise
+  end
+end
+</code></div>
+<h4 id="otherwaystousefilters">6.2 Other ways to use filters</h4>
+<p>While the most common way to use filters is by creating private methods and using *_filter to add them, there are two other ways to do the same thing.</p>
+<p>The first is to use a block directly with the *_filter methods. The block receives the controller as an argument, and the <tt>require_login</tt> filter from above could be rewritten to use a block:</p>
+<div class="code_container"><code class="ruby">
+class ApplicationController &lt; ActionController::Base
+  before_filter do |controller|
+    redirect_to new_login_url unless controller.send(:logged_in?)
+  end
+end
+</code></div>
+<p>Note that the filter in this case uses <tt>send</tt> because the <tt>logged_in?</tt> method is private and the filter is not run in the scope of the controller. This is not the recommended way to implement this particular filter, but in more simple cases it might be useful.</p>
+<p>The second way is to use a class (actually, any object that responds to the right methods will do) to handle the filtering. This is useful in cases that are more complex and can not be implemented in a readable and reusable way using the two other methods. As an example, you could rewrite the login filter again to use a class:</p>
+<div class="code_container"><code class="ruby">
+class ApplicationController &lt; ActionController::Base
+  before_filter LoginFilter
+end
+
+class LoginFilter
+  def self.filter(controller)
+    unless controller.send(:logged_in?)
+      controller.flash[:error] = &quot;You must be logged in&quot;
+      controller.redirect_to controller.new_login_url
+    end
+  end
+end
+</code></div>
+<p>Again, this is not an ideal example for this filter, because it&#8217;s not run in the scope of the controller but gets the controller passed as an argument. The filter class has a class method <tt>filter</tt> which gets run before or after the action, depending on if it&#8217;s a before or after filter. Classes used as around filters can also use the same <tt>filter</tt> method, which will get run in the same way. The method must <tt>yield</tt> to execute the action. Alternatively, it can have both a <tt>before</tt> and an <tt>after</tt> method that are run before and after the action.</p>
+<p>The Rails <span class="caps">API</span> documentation has <a href="http://api.rubyonrails.org/classes/ActionController/Filters/ClassMethods.html">more information on using filters</a>.</p>
+<h3 id="verification">7 Verification</h3>
+<p>Verifications make sure certain criteria are met in order for a controller or action to run. They can specify that a certain key (or several keys in the form of an array) is present in the <tt>params</tt>, <tt>session</tt> or <tt>flash</tt> hashes or that a certain <span class="caps">HTTP</span> method was used or that the request was made using <tt>XMLHTTPRequest</tt> (Ajax). The default action taken when these criteria are not met is to render a 400 Bad Request response, but you can customize this by specifying a redirect <span class="caps">URL</span> or rendering something else and you can also add flash messages and <span class="caps">HTTP</span> headers to the response. It is described in the <a href="http://api.rubyonrails.org/classes/ActionController/Verification/ClassMethods.html"><span class="caps">API</span> documentation</a> as &#8220;essentially a special kind of before_filter&#8221;.</p>
+<p>Here&#8217;s an example of using verification to make sure the user supplies a username and a password in order to log in:</p>
+<div class="code_container"><code class="ruby">
+class LoginsController &lt; ApplicationController
+  verify :params =&gt; [:username, :password],
+         :render =&gt; {:action =&gt; &quot;new&quot;},
+         :add_flash =&gt; {
+           :error =&gt; &quot;Username and password required to log in&quot;
+         }
+
+  def create
+    @user = User.authenticate(params[:username], params[:password])
+    if @user
+      flash[:notice] = &quot;You're logged in&quot;
+      redirect_to root_url
+    else
+      render :action =&gt; &quot;new&quot;
+    end
+  end
+end
+</code></div>
+<p>Now the <tt>create</tt> action won&#8217;t run unless the &#8220;username&#8221; and &#8220;password&#8221; parameters are present, and if they&#8217;re not, an error message will be added to the flash and the <tt>new</tt> action will be rendered. But there&#8217;s something rather important missing from the verification above: It will be used for <strong>every</strong> action in LoginsController, which is not what we want. You can limit which actions it will be used for with the <tt>:only</tt> and <tt>:except</tt> options just like a filter:</p>
+<div class="code_container"><code class="ruby">
+class LoginsController &lt; ApplicationController
+  verify :params =&gt; [:username, :password],
+         :render =&gt; {:action =&gt; &quot;new&quot;},
+         :add_flash =&gt; {
+           :error =&gt; &quot;Username and password required to log in&quot;
+         },
+         :only =&gt; :create # Run only for the &quot;create&quot; action
+end
+</code></div>
+<h3 id="request-forgery-protection">8 Request Forgery Protection</h3>
+<p>Cross-site request forgery is a type of attack in which a site tricks a user into making requests on another site, possibly adding, modifying or deleting data on that site without the user&#8217;s knowledge or permission.</p>
+<p>The first step to avoid this is to make sure all &#8220;destructive&#8221; actions (create, update and destroy) can only be accessed with non-<span class="caps">GET</span> requests. If you&#8217;re following RESTful conventions you&#8217;re already doing this. However, a malicious site can still send a non-<span class="caps">GET</span> request to your site quite easily, and that&#8217;s where the request forgery protection comes in. As the name says, it protects from forged requests.</p>
+<p>The way this is done is to add a non-guessable token which is only known to your server to each request. This way, if a request comes in without the proper token, it will be denied access.</p>
+<p>If you generate a form like this:</p>
+<div class="code_container"><code class="ruby">
+&lt;% form_for @user do |f| -%&gt;
+  &lt;%= f.text_field :username %&gt;
+  &lt;%= f.text_field :password -%&gt;
+&lt;% end -%&gt;
+</code></div>
+<p>You will see how the token gets added as a hidden field:</p>
+<div class="code_container"><code class="html">
+&lt;form action=&quot;/users/1&quot; method=&quot;post&quot;&gt;
+&lt;input type=&quot;hidden&quot; 
+       value=&quot;67250ab105eb5ad10851c00a5621854a23af5489&quot;
+       name=&quot;authenticity_token&quot;/&gt;
+&lt;!-- fields --&gt;
+&lt;/form&gt;
+</code></div>
+<p>Rails adds this token to every form that&#8217;s generated using the <a href="form_helpers.html">form helpers</a>, so most of the time you don&#8217;t have to worry about it. If you&#8217;re writing a form manually or need to add the token for another reason, it&#8217;s available through the method <tt>form_authenticity_token</tt>:</p>
+<p>The <tt>form_authenticity_token</tt> generates a valid authentication token. That&#8217;s useful in places where Rails does not add it automatically, like in custom Ajax calls.</p>
+<p>The <a href="security.html">Security Guide</a> has more about this and a lot of other security-related issues that you should be aware of when developing a web application.</p>
+<h3 id="the-requestand-response-objects">9 The Request and Response Objects</h3>
+<p>In every controller there are two accessor methods pointing to the request and the response objects associated with the request cycle that is currently in execution. The <tt>request</tt> method contains an instance of <tt>AbstractRequest</tt> and the <tt>response</tt> method returns a response object representing what is going to be sent back to the client.</p>
+<h4 id="therequestobject">9.1 The <tt>request</tt> object</h4>
+<p>The request object contains a lot of useful information about the request coming in from the client. To get a full list of the available methods, refer to the <a href="http://api.rubyonrails.org/classes/ActionController/AbstractRequest.html"><span class="caps">API</span> documentation</a>. Among the properties that you can access on this object are:</p>
+<table>
+	<tr>
+		<th>Property of <tt>request</tt></th>
+		<th>Purpose</th>
+	</tr>
+	<tr>
+		<td>host</td>
+		<td>The hostname used for this request.</td>
+	</tr>
+	<tr>
+		<td>domain(n=2)</td>
+		<td>The hostname&#8217;s first <tt>n</tt> segments, starting from the right (the <span class="caps">TLD</span>).</td>
+	</tr>
+	<tr>
+		<td>format</td>
+		<td>The content type requested by the client.</td>
+	</tr>
+	<tr>
+		<td>method</td>
+		<td>The <span class="caps">HTTP</span> method used for the request.</td>
+	</tr>
+	<tr>
+		<td>get?, post?, put?, delete?, head?</td>
+		<td>Returns true if the <span class="caps">HTTP</span> method is <span class="caps">GET</span>/<span class="caps">POST</span>/<span class="caps">PUT</span>/<span class="caps">DELETE</span>/<span class="caps">HEAD</span>.</td>
+	</tr>
+	<tr>
+		<td>headers</td>
+		<td>Returns a hash containing the headers associated with the request.</td>
+	</tr>
+	<tr>
+		<td>port</td>
+		<td>The port number (integer) used for the request.</td>
+	</tr>
+	<tr>
+		<td>protocol</td>
+		<td>Returns a string containing the protocol used plus &#8220;://&#8221;, for example &#8220;http://&#8221;.</td>
+	</tr>
+	<tr>
+		<td>query_string</td>
+		<td>The query string part of the <span class="caps">URL</span>, i.e., everything after &#8220;?&#8221;.</td>
+	</tr>
+	<tr>
+		<td>remote_ip</td>
+		<td>The IP address of the client.</td>
+	</tr>
+	<tr>
+		<td>url</td>
+		<td>The entire <span class="caps">URL</span> used for the request.</td>
+	</tr>
+</table>
+<h5 id="path-parametersquery-parametersandrequest-parameters">9.1.1 <tt>path_parameters</tt>, <tt>query_parameters</tt>, and <tt>request_parameters</tt></h5>
+<p>Rails collects all of the parameters sent along with the request in the <tt>params</tt> hash, whether they are sent as part of the query string or the post body. The request object has three accessors that give you access to these parameters depending on where they came from. The <tt>query_parameters</tt> hash contains parameters that were sent as part of the query string while the <tt>request_parameters</tt> hash contains parameters sent as part of the post body. The <tt>path_parameters</tt> hash contains parameters that were recognized by the routing as being part of the path leading to this particular controller and action.</p>
+<h4 id="theresponseobject">9.2 The response object</h4>
+<p>The response object is not usually used directly, but is built up during the execution of the action and rendering of the data that is being sent back to the user, but sometimes &#8211; like in an after filter &#8211; it can be useful to access the response directly. Some of these accessor methods also have setters, allowing you to change their values.</p>
+<table>
+	<tr>
+		<th>Property of <tt>response</tt></th>
+		<th>Purpose</th>
+	</tr>
+	<tr>
+		<td>body</td>
+		<td>This is the string of data being sent back to the client. This is most often <span class="caps">HTML</span>.</td>
+	</tr>
+	<tr>
+		<td>status</td>
+		<td>The <span class="caps">HTTP</span> status code for the response, like 200 for a successful request or 404 for file not found.</td>
+	</tr>
+	<tr>
+		<td>location</td>
+		<td>The <span class="caps">URL</span> the client is being redirected to, if any.</td>
+	</tr>
+	<tr>
+		<td>content_type</td>
+		<td>The content type of the response.</td>
+	</tr>
+	<tr>
+		<td>charset</td>
+		<td>The character set being used for the response. Default is &#8220;utf-8&#8221;.</td>
+	</tr>
+	<tr>
+		<td>headers</td>
+		<td>Headers used for the response.</td>
+	</tr>
+</table>
+<h5 id="settingcustomheaders">9.2.1 Setting custom headers</h5>
+<p>If you want to set custom headers for a response then <tt>response.headers</tt> is the place to do it. The headers attribute is a hash which maps header names to their values, and Rails will set some of them automatically. If you want to add or change a header, just assign it to <tt>response.headers</tt> this way:</p>
+<div class="code_container"><code class="ruby">
+response.headers[&quot;Content-Type&quot;] = &quot;application/pdf&quot;
+</code></div>
+<h3 id="http-authentications">10 <span class="caps">HTTP</span> Authentications</h3>
+<p>Rails comes with two built-in <span class="caps">HTTP</span> authentication mechanisms:</p>
+<ul>
+	<li>Basic Authentication</li>
+	<li>Digest Authentication</li>
+</ul>
+<h4 id="htt-pbasicauthentication">10.1 <span class="caps">HTTP</span> basic authentication</h4>
+<p><span class="caps">HTTP</span> basic authentication is an authentication scheme that is supported by the majority of browsers and other <span class="caps">HTTP</span> clients. As an example, consider an administration section which will only be available by entering a username and a password into the browser&#8217;s <span class="caps">HTTP</span> basic dialog window. Using the built-in authentication is quite easy and only requires you to use one method, <tt>authenticate_or_request_with_http_basic</tt>.</p>
+<div class="code_container"><code class="ruby">
+class AdminController &lt; ApplicationController
+  USERNAME, PASSWORD = &quot;humbaba&quot;, &quot;5baa61e4&quot;
+
+  before_filter :authenticate
+
+private
+  def authenticate
+    authenticate_or_request_with_http_basic do |username, password|
+      username == USERNAME &amp;&amp;
+      Digest::SHA1.hexdigest(password) == PASSWORD
+    end
+  end
+end
+</code></div>
+<p>With this in place, you can create namespaced controllers that inherit from <tt>AdminController</tt>. The before filter will thus be run for all actions in those controllers, protecting them with <span class="caps">HTTP</span> basic authentication.</p>
+<h4 id="htt-pdigestauthentication">10.2 <span class="caps">HTTP</span> digest authentication</h4>
+<p><span class="caps">HTTP</span> digest authentication is superior to the basic authentication as it does not require the client to send an unencrypted password over the network (though <span class="caps">HTTP</span> basic authentication is safe over <span class="caps">HTTPS</span>). Using digest authentication with Rails is quite easy and only requires using one method, <tt>authenticate_or_request_with_http_digest</tt>.</p>
+<div class="code_container"><code class="ruby">
+class AdminController &lt; ApplicationController
+  USERS = { &quot;lifo&quot; =&gt; &quot;world&quot; }
+
+  before_filter :authenticate
+
+private
+  def authenticate
+    authenticate_or_request_with_http_digest do |username|
+      USERS[username]
+    end
+  end
+end
+</code></div>
+<p>As seen in the example above, the <tt>authenticate_or_request_with_http_digest</tt> block takes only one argument &#8211; the username. And the block returns the password. Returning <tt>false</tt> or <tt>nil</tt> from the <tt>authenticate_or_request_with_http_digest</tt> will cause authentication failure.</p>
+<h3 id="streamingand-file-downloads">11 Streaming and File Downloads</h3>
+<p>Sometimes you may want to send a file to the user instead of rendering an <span class="caps">HTML</span> page. All controllers in Rails have the <tt>send_data</tt> and the <tt>send_file</tt> methods, which will both stream data to the client. <tt>send_file</tt> is a convenience method that lets you provide the name of a file on the disk and it will stream the contents of that file for you.</p>
+<p>To stream data to the client, use <tt>send_data</tt>:</p>
+<div class="code_container"><code class="ruby">
+require &quot;prawn&quot;
+class ClientsController &lt; ApplicationController
+  # Generates a PDF document with information on the client and
+  # returns it. The user will get the PDF as a file download.
+  def download_pdf
+    client = Client.find(params[:id])
+    send_data(generate_pdf, 
+              :filename =&gt; &quot;#{client.name}.pdf&quot;,
+              :type =&gt; &quot;application/pdf&quot;)
+  end
+
+private
+
+  def generate_pdf(client)
+    Prawn::Document.new do
+      text client.name, :align =&gt; :center
+      text &quot;Address: #{client.address}&quot;
+      text &quot;Email: #{client.email}&quot;
+    end.render
+  end
+end
+</code></div>
+<p>The <tt>download_pdf</tt> action in the example above will call a private method which actually generates the <span class="caps">PDF</span> document and returns it as a string. This string will then be streamed to the client as a file download and a filename will be suggested to the user. Sometimes when streaming files to the user, you may not want them to download the file. Take images, for example, which can be embedded into <span class="caps">HTML</span> pages. To tell the browser a file is not meant to be downloaded, you can set the <tt>:disposition</tt> option to &#8220;inline&#8221;. The opposite and default value for this option is &#8220;attachment&#8221;.</p>
+<h4 id="sendingfiles">11.1 Sending files</h4>
+<p>If you want to send a file that already exists on disk, use the <tt>send_file</tt> method.</p>
+<div class="code_container"><code class="ruby">
+class ClientsController &lt; ApplicationController
+  # Stream a file that has already been generated and stored on disk.
+  def download_pdf
+    client = Client.find(params[:id])
+    send_data(&quot;#{RAILS_ROOT}/files/clients/#{client.id}.pdf&quot;,
+              :filename =&gt; &quot;#{client.name}.pdf&quot;,
+              :type =&gt; &quot;application/pdf&quot;)
+  end
+end
+</code></div>
+<p>This will read and stream the file 4kB at the time, avoiding loading the entire file into memory at once. You can turn off streaming with the <tt>:stream</tt> option or adjust the block size with the <tt>:buffer_size</tt> option.</p>
+<div class='warning'><p>Be careful when using data coming from the client (params, cookies, etc.) to locate the file on disk, as this is a security risk that might allow someone to gain access to files they are not meant to see.</p></div>
+<div class='info'><p>It is not recommended that you stream static files through Rails if you can instead keep them in a public folder on your web server. It is much more efficient to let the user download the file directly using Apache or another web server, keeping the request from unnecessarily going through the whole Rails stack. Although if you do need the request to go through Rails for some reason, you can set the <tt>:x_sendfile</tt> option to true, and Rails will let the web server handle sending the file to the user, freeing up the Rails process to do other things. Note that your web server needs to support the <tt>X-Sendfile</tt> header for this to work.</p></div>
+<h4 id="res-tfuldownloads">11.2 RESTful downloads</h4>
+<p>While <tt>send_data</tt> works just fine, if you are creating a RESTful application having separate actions for file downloads is usually not necessary. In <span class="caps">REST</span> terminology, the <span class="caps">PDF</span> file from the example above can be considered just another representation of the client resource. Rails provides an easy and quite sleek way of doing &#8220;RESTful downloads&#8221;. Here&#8217;s how you can rewrite the example so that the <span class="caps">PDF</span> download is a part of the <tt>show</tt> action, without any streaming:</p>
+<div class="code_container"><code class="ruby">
+class ClientsController &lt; ApplicationController
+  # The user can request to receive this resource as HTML or PDF.
+  def show
+    @client = Client.find(params[:id])
+
+    respond_to do |format|
+      format.html
+      format.pdf { render :pdf =&gt; generate_pdf(@client) }
+    end
+  end
+end
+</code></div>
+<p>In order for this example to work, you have to add the <span class="caps">PDF</span> <span class="caps">MIME</span> type to Rails. This can be done by adding the following line to the file <tt>config/initializers/mime_types.rb</tt>:</p>
+<div class="code_container"><code class="ruby">
+Mime::Type.register &quot;application/pdf&quot;, :pdf
+</code></div>
+<div class='note'><p>Configuration files are not reloaded on each request, so you have to restart the server in order for their changes to take effect.</p></div>
+<p>Now the user can request to get a <span class="caps">PDF</span> version of a client just by adding &#8220;.pdf&#8221; to the <span class="caps">URL</span>:</p>
+<div class="code_container"><code class="html">
+GET /clients/1.pdf
+</code></div>
+<h3 id="parameter-filtering">12 Parameter Filtering</h3>
+<p>Rails keeps a log file for each environment in the <tt>log</tt> folder. These are extremely useful when debugging what&#8217;s actually going on in your application, but in a live application you may not want every bit of information to be stored in the log file. The <tt>filter_parameter_logging</tt> method can be used to filter out sensitive information from the log. It works by replacing certain values in the <tt>params</tt> hash with &#8220;[<span class="caps">FILTERED</span>]&#8221; as they are written to the log. As an example, let&#8217;s see how to filter all parameters with keys that include &#8220;password&#8221;:</p>
+<div class="code_container"><code class="ruby">
+class ApplicationController &lt; ActionController::Base
+  filter_parameter_logging :password
+end
+</code></div>
+<p>The method works recursively through all levels of the <tt>params</tt> hash and takes an optional second parameter which is used as the replacement string if present. It can also take a block which receives each key in turn and replaces those for which the block returns true.</p>
+<h3 id="rescue">13 Rescue</h3>
+<p>Most likely your application is going to contain bugs or otherwise throw an exception that needs to be handled. For example, if the user follows a link to a resource that no longer exists in the database, Active Record will throw the <tt>ActiveRecord::RecordNotFound</tt> exception.</p>
+<p>Rails&#8217; default exception handling displays a &#8220;500 Server Error&#8221; message for all exceptions. If the request was made locally, a nice traceback and some added information gets displayed so you can figure out what went wrong and deal with it. If the request was remote Rails will just display a simple &#8220;500 Server Error&#8221; message to the user, or a &#8220;404 Not Found&#8221; if there was a routing error or a record could not be found. Sometimes you might want to customize how these errors are caught and how they&#8217;re displayed to the user. There are several levels of exception handling available in a Rails application:</p>
+<h4 id="thedefault500and404templates">13.1 The default 500 and 404 templates</h4>
+<p>By default a production application will render either a 404 or a 500 error message. These messages are contained in static <span class="caps">HTML</span> files in the <tt>public</tt> folder, in <tt>404.html</tt> and <tt>500.html</tt> respectively. You can customize these files to add some extra information and layout, but remember that they are static; i.e. you can&#8217;t use <span class="caps">RHTML</span> or layouts in them, just plain <span class="caps">HTML</span>.</p>
+<h4 id="rescue-from">13.2 <tt>rescue_from</tt></h4>
+<p>If you want to do something a bit more elaborate when catching errors, you can use <tt>rescue_from</tt>, which handles exceptions of a certain type (or multiple types) in an entire controller and its subclasses.</p>
+<p>When an exception occurs which is caught by a <tt>rescue_from</tt> directive, the exception object is passed to the handler. The handler can be a method or a <tt>Proc</tt> object passed to the <tt>:with</tt> option. You can also use a block directly instead of an explicit <tt>Proc</tt> object.</p>
+<p>Here&#8217;s how you can use <tt>rescue_from</tt> to intercept all <tt>ActiveRecord::RecordNotFound</tt> errors and do something with them.</p>
+<div class="code_container"><code class="ruby">
+class ApplicationController &lt; ActionController::Base
+  rescue_from ActiveRecord::RecordNotFound, :with =&gt; :record_not_found
+
+private
+  def record_not_found
+    render :text =&gt; &quot;404 Not Found&quot;, :status =&gt; 404
+  end
+end
+</code></div>
+<p>Of course, this example is anything but elaborate and doesn&#8217;t improve on the default exception handling at all, but once you can catch all those exceptions you&#8217;re free to do whatever you want with them. For example, you could create custom exception classes that will be thrown when a user doesn&#8217;t have access to a certain section of your application:</p>
+<div class="code_container"><code class="ruby">
+class ApplicationController &lt; ActionController::Base
+  rescue_from User::NotAuthorized, :with =&gt; :user_not_authorized
+
+private
+  def user_not_authorized
+    flash[:error] = &quot;You don't have access to this section.&quot;
+    redirect_to :back
+  end
+end
+
+class ClientsController &lt; ApplicationController
+  # Check that the user has the right authorization to access clients.
+  before_filter :check_authorization
+
+  # Note how the actions don't have to worry about all the auth stuff.
+  def edit
+    @client = Client.find(params[:id])
+  end
+
+private
+  # If the user is not authorized, just throw the exception.
+  def check_authorization
+    raise User::NotAuthorized unless current_user.admin?
+  end
+end
+</code></div>
+<div class='note'><p>Certain exceptions are only rescuable from the <tt>ApplicationController</tt> class, as they are raised before the controller gets initialized and the action gets executed. See Pratik Naik&#8217;s <a href="http://m.onkey.org/2008/7/20/rescue-from-dispatching">article</a> on the subject for more information.</p></div>
+<h3 id="changelog">14 Changelog</h3>
+<p><a href="http://rails.lighthouseapp.com/projects/16213-rails-guides/tickets/17">Lighthouse Ticket</a></p>
+<ul>
+	<li>February 17, 2009: Yet another proofread by Xavier Noria.</li>
+</ul>
+<ul>
+	<li>November 4, 2008: First release version by Tore Darell</li>
+</ul>
+      </div>
+    </div>
+  </div>
+
+  <hr class="hide" />
+  <div id="footer">
+    <div class="wrapper">
+      <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by-sa/3.0">Creative Commons Attribution-Share Alike 3.0</a> License</a></p>
+      <p>"Rails", "Ruby on Rails", and the Rails logo are trademarks of David Heinemeier Hansson. All rights reserved.</p>
+    </div>
+  </div>
+</body>
+</html>

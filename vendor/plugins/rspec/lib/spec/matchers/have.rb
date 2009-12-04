@@ -1,10 +1,10 @@
 module Spec
   module Matchers
-    
     class Have #:nodoc:
       def initialize(expected, relativity=:exactly)
         @expected = (expected == :no ? 0 : expected)
         @relativity = relativity
+        @actual = nil
       end
     
       def relativities
@@ -15,23 +15,15 @@ module Spec
         }
       end
     
-      def method_missing(sym, *args, &block)
-        @collection_name = sym
-        @plural_collection_name = Inflector.pluralize(sym.to_s) if Object.const_defined?(:Inflector)
-        @args = args
-        @block = block
-        self
-      end
-    
       def matches?(collection_owner)
         if collection_owner.respond_to?(@collection_name)
-          collection = collection_owner.send(@collection_name, *@args, &@block)
+          collection = collection_owner.__send__(@collection_name, *@args, &@block)
         elsif (@plural_collection_name && collection_owner.respond_to?(@plural_collection_name))
-          collection = collection_owner.send(@plural_collection_name, *@args, &@block)
+          collection = collection_owner.__send__(@plural_collection_name, *@args, &@block)
         elsif (collection_owner.respond_to?(:length) || collection_owner.respond_to?(:size))
           collection = collection_owner
         else
-          collection_owner.send(@collection_name, *@args, &@block)
+          collection_owner.__send__(@collection_name, *@args, &@block)
         end
         @actual = collection.size if collection.respond_to?(:size)
         @actual = collection.length if collection.respond_to?(:length)
@@ -45,11 +37,11 @@ module Spec
         "expected #{@collection_name} to be a collection but it does not respond to #length or #size"
       end
     
-      def failure_message
+      def failure_message_for_should
         "expected #{relative_expectation} #{@collection_name}, got #{@actual}"
       end
 
-      def negative_failure_message
+      def failure_message_for_should_not
         if @relativity == :exactly
           return "expected target not to have #{@expected} #{@collection_name}, got #{@actual}"
         elsif @relativity == :at_most
@@ -75,7 +67,21 @@ EOF
         "have #{relative_expectation} #{@collection_name}"
       end
       
+      def respond_to?(sym)
+        @expected.respond_to?(sym) || super
+      end
+    
       private
+      
+      def method_missing(sym, *args, &block)
+        @collection_name = sym
+        if inflector = (defined?(ActiveSupport::Inflector) ? ActiveSupport::Inflector : (defined?(Inflector) ? Inflector : nil))
+          @plural_collection_name = inflector.pluralize(sym.to_s)
+        end
+        @args = args
+        @block = block
+        self
+      end
       
       def relative_expectation
         "#{relativities[@relativity]}#{@expected}"

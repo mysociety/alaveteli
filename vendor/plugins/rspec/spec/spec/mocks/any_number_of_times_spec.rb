@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../../spec_helper.rb'
+require 'spec_helper'
 
 module Spec
   module Mocks
@@ -22,6 +22,13 @@ module Spec
       
       it "should pass if any number of times method is not called" do
         @mock.should_receive(:random_call).any_number_of_times
+      end
+
+      it "should return the mocked value when called after a similar stub" do
+        @mock.stub!(:message).and_return :stub_value
+        @mock.should_receive(:message).any_number_of_times.and_return(:mock_value)
+        @mock.message.should == :mock_value
+        @mock.message.should == :mock_value
       end
     end
 

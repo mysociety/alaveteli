@@ -1,0 +1,1433 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>The Basics of Creating Rails Plugins</title>
+
+<link rel="stylesheet" type="text/css" href="files/stylesheets/style.css" />
+<link rel="stylesheet" type="text/css" href="files/stylesheets/syntax.css" />
+<link rel="stylesheet" type="text/css" href="files/stylesheets/print.css" media="print" />
+
+<script type="text/javascript" src="files/javascripts/guides.js"></script>
+<script type="text/javascript" src="files/javascripts/code_highlighter.js"></script>
+<script type="text/javascript" src="files/javascripts/highlighters.js"></script>
+
+</head>
+<body class="guide">
+  <div id="topNav">
+    <div class="wrapper">
+      <strong>More at <a href="http://www.rubyonrails.org/">rubyonrails.org:</a> </strong>
+      <a href="http://www.rubyonrails.org/">Overview</a> |
+      <a href="http://www.rubyonrails.org/download">Download</a> |
+      <a href="http://www.rubyonrails.org/deploy">Deploy</a> |
+      <a href="http://rails.lighthouseapp.com/projects/8994-ruby-on-rails/overview">Code</a> |
+      <a href="http://www.rubyonrails.org/screencasts">Screencasts</a> |
+      <a href="http://www.rubyonrails.org/documentation">Documentation</a> |
+      <a href="http://www.rubyonrails.org/ecosystem">Ecosystem</a> |
+      <a href="http://www.rubyonrails.org/community">Community</a> |
+      <a href="http://weblog.rubyonrails.org/">Blog</a>
+    </div>
+  </div>
+  <div id="header">
+    <div class="wrapper clearfix">
+      <h1><a href="index.html" title="Return to home page">Guides.rubyonrails.org</a></h1>
+      <p class="hide"><a href="#mainCol">Skip navigation</a>.</p>
+      <ul class="nav">
+        <li><a href="index.html">Home</a></li>
+        <li class="index"><a href="index.html" onclick="guideMenu(); return false;" id="guidesMenu">Guides Index</a>
+          <div id="guides" class="clearfix" style="display: none;">
+            <hr />
+            <dl class="L">
+              <dt>Start Here</dt>
+              <dd><a href="getting_started.html">Getting Started with Rails</a></dd>
+              <dt>Models</dt>
+              <dd><a href="migrations.html">Rails Database Migrations</a></dd>
+              <dd><a href="activerecord_validations_callbacks.html">Active Record Validations and Callbacks</a></dd>
+              <dd><a href="association_basics.html">Active Record Associations</a></dd>
+              <dd><a href="active_record_querying.html">Active Record Query Interface</a></dd>
+              <dt>Views</dt>
+              <dd><a href="layouts_and_rendering.html">Layouts and Rendering in Rails</a></dd>
+              <dd><a href="form_helpers.html">Action View Form Helpers</a></dd>
+              <dt>Controllers</dt>
+              <dd><a href="action_controller_overview.html">Action Controller Overview</a></dd>
+              <dd><a href="routing.html">Rails Routing from the Outside In</a></dd>
+            </dl>
+            <dl class="R">
+              <dt>Digging Deeper</dt>
+              <dd><a href="i18n.html">Rails Internationalization API</a></dd>
+              <dd><a href="action_mailer_basics.html">Action Mailer Basics</a></dd>
+              <dd><a href="testing.html">Testing Rails Applications</a></dd>
+              <dd><a href="security.html">Securing Rails Applications</a></dd>
+              <dd><a href="debugging_rails_applications.html">Debugging Rails Applications</a></dd>
+              <dd><a href="performance_testing.html">Performance Testing Rails Applications</a></dd>
+              <dd><a href="plugins.html">The Basics of Creating Rails Plugins</a></dd>
+              <dd><a href="configuring.html">Configuring Rails Applications</a></dd>
+              <dd><a href="rails_on_rack.html">Rails on Rack</a></dd>
+            </dl>
+          </div>
+        </li>
+        <li><a href="contribute.html">Contribute</a></li>
+        <li><a href="credits.html">Credits</a></li>
+      </ul>
+    </div>
+  </div>
+  <hr class="hide" />
+
+  <div id="feature">
+    <div class="wrapper">
+      <h2>The Basics of Creating Rails Plugins</h2>
+<p>A Rails plugin is either an extension or a modification of the core framework. Plugins provide:</p>
+<ul>
+	<li>a way for developers to share bleeding-edge ideas without hurting the stable code base</li>
+	<li>a segmented architecture so that units of code can be fixed or updated on their own release schedule</li>
+	<li>an outlet for the core developers so that they don’t have to include every cool new feature under the sun</li>
+</ul>
+<p>After reading this guide you should be familiar with:</p>
+<ul>
+	<li>Creating a plugin from scratch</li>
+	<li>Writing and running tests for the plugin</li>
+	<li>Storing models, views, controllers, helpers and even other plugins in your plugins</li>
+	<li>Writing generators</li>
+	<li>Writing custom Rake tasks in your plugin</li>
+	<li>Generating RDoc documentation for your plugin</li>
+	<li>Avoiding common pitfalls with &#8216;init.rb&#8217;</li>
+</ul>
+<p>This guide describes how to build a test-driven plugin that will:</p>
+<ul>
+	<li>Extend core ruby classes like Hash and String</li>
+	<li>Add methods to ActiveRecord::Base in the tradition of the &#8216;acts_as&#8217; plugins</li>
+	<li>Add a view helper that can be used in erb templates</li>
+	<li>Add a new generator that will generate a migration</li>
+	<li>Add a custom generator command</li>
+	<li>A custom route method that can be used in routes.rb</li>
+</ul>
+<p>For the purpose of this guide pretend for a moment that you are an avid bird watcher.  Your favorite bird is the Yaffle, and you want to create a plugin that allows other developers to share in the Yaffle goodness.  First, you need to get setup for development.</p>
+
+            <div id="subCol">
+        <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
+        <ol class="chapters">
+<li><a href="#setup">Setup</a><ul><li><a href="#createthebasicapp">Create the basic app</a></li><li><a href="#generatethepluginskeleton">Generate the plugin skeleton</a></li><li><a href="#organizeyourfiles">Organize your files</a></li></ul></li><li><a href="#tests">Tests</a><ul><li><a href="#test-setup">Test Setup</a></li><li><a href="#runtheplugintests">Run the plugin tests</a></li></ul></li><li><a href="#extendingcoreclasses">Extending core classes</a><ul><li><a href="#workingwithinitrb">Working with init.rb</a></li></ul></li><li><a href="#addanacts-asmethodto-active-record">Add an &#8216;acts_as&#8217; method to Active Record</a><ul><li><a href="#addaclassmethod">Add a class method</a></li><li><a href="#addaninstancemethod">Add an instance method</a></li></ul></li><li><a href="#models">Models</a><ul></ul></li><li><a href="#controllers">Controllers</a><ul></ul></li><li><a href="#helpers">Helpers</a><ul></ul></li><li><a href="#routes">Routes</a><ul></ul></li><li><a href="#generators">Generators</a><ul><li><a href="#testinggenerators">Testing generators</a></li><li><a href="#the-usag-efile">The <span class="caps">USAGE</span> file</a></li></ul></li><li><a href="#addacustomgeneratorcommand">Add a custom generator command</a><ul></ul></li><li><a href="#generator-commands">Generator Commands</a><ul></ul></li><li><a href="#migrations">Migrations</a><ul><li><a href="#createacustomraketask">Create a custom rake task</a></li><li><a href="#callmigrationsdirectly">Call migrations directly</a></li><li><a href="#generatemigrations">Generate migrations</a></li></ul></li><li><a href="#raketasks">Rake tasks</a><ul></ul></li><li><a href="#plugin-gems">PluginGems</a><ul></ul></li><li><a href="#r-doc-documentation">RDoc Documentation</a><ul></ul></li><li><a href="#appendix">Appendix</a><ul><li><a href="#references">References</a></li><li><a href="#contentsoflibyafflerb">Contents of &#8216;lib/yaffle.rb&#8217;</a></li><li><a href="#finalplugindirectorystructure">Final plugin directory structure</a></li></ul></li><li><a href="#changelog">Changelog</a><ul></ul></li></ol></div>
+    </div>
+  </div>
+
+  <div id="container">
+    <div class="wrapper">
+      <div id="mainCol">
+        <h3 id="setup">1 Setup</h3>
+<h4 id="createthebasicapp">1.1 Create the basic app</h4>
+<p>The examples in this guide require that you have a working rails application.  To create a simple rails app execute:</p>
+<pre>
+gem install rails
+rails yaffle_guide
+cd yaffle_guide
+script/generate scaffold bird name:string
+rake db:migrate
+script/server
+</pre>
+<p>Then navigate to http://localhost:3000/birds.  Make sure you have a functioning rails app before continuing.</p>
+<div class='note'><p>The aforementioned instructions will work for sqlite3.  For more detailed instructions on how to create a rails app for other databases see the <span class="caps">API</span> docs.</p></div>
+<h4 id="generatethepluginskeleton">1.2 Generate the plugin skeleton</h4>
+<p>Rails ships with a plugin generator which creates a basic plugin skeleton. Pass the plugin name, either &#8216;CamelCased&#8217; or &#8216;under_scored&#8217;, as an argument. Pass <tt>--with-generator</tt> to add an example generator also.</p>
+<p>This creates a plugin in &#8216;vendor/plugins&#8217; including an &#8216;init.rb&#8217; and &#8216;<span class="caps">README</span>&#8217; as well as standard &#8216;lib&#8217;, &#8216;task&#8217;, and &#8216;test&#8217; directories.</p>
+<p>Examples:
+<pre>
+./script/generate plugin yaffle
+./script/generate plugin yaffle &#8212;with-generator
+</pre></p>
+<p>To get more detailed help on the plugin generator, type <tt>./script/generate plugin</tt>.</p>
+<p>Later on this guide will describe how to work with generators, so go ahead and generate your plugin with the <tt>--with-generator</tt> option now:</p>
+<pre>
+./script/generate plugin yaffle --with-generator
+</pre>
+<p>You should see the following output:</p>
+<pre>
+create  vendor/plugins/yaffle/lib
+create  vendor/plugins/yaffle/tasks
+create  vendor/plugins/yaffle/test
+create  vendor/plugins/yaffle/README
+create  vendor/plugins/yaffle/MIT-LICENSE
+create  vendor/plugins/yaffle/Rakefile
+create  vendor/plugins/yaffle/init.rb
+create  vendor/plugins/yaffle/install.rb
+create  vendor/plugins/yaffle/uninstall.rb
+create  vendor/plugins/yaffle/lib/yaffle.rb
+create  vendor/plugins/yaffle/tasks/yaffle_tasks.rake
+create  vendor/plugins/yaffle/test/core_ext_test.rb
+create  vendor/plugins/yaffle/generators
+create  vendor/plugins/yaffle/generators/yaffle
+create  vendor/plugins/yaffle/generators/yaffle/templates
+create  vendor/plugins/yaffle/generators/yaffle/yaffle_generator.rb
+create  vendor/plugins/yaffle/generators/yaffle/USAGE
+</pre>
+<h4 id="organizeyourfiles">1.3 Organize your files</h4>
+<p>To make it easy to organize your files and to make the plugin more compatible with GemPlugins, start out by altering your file system to look like this:</p>
+<pre>
+|-- lib
+|   |-- yaffle
+|   `-- yaffle.rb
+`-- rails
+    |
+    `-- init.rb
+</pre>
+<p><strong>vendor/plugins/yaffle/rails/init.rb</strong></p>
+<div class="code_container"><code class="ruby">
+require 'yaffle'
+</code></div>
+<p>Now you can add any &#8216;require&#8217; statements to &#8216;lib/yaffle.rb&#8217; and keep &#8216;init.rb&#8217; clean.</p>
+<h3 id="tests">2 Tests</h3>
+<p>In this guide you will learn how to test your plugin against multiple different database adapters using Active Record.  To setup your plugin to allow for easy testing you&#8217;ll need to add 3 files:</p>
+* A &#8216;database.yml&#8217; file with all of your connection strings
+* A &#8216;schema.rb&#8217; file with your table definitions
+* A test helper method that sets up the database
+<h4 id="test-setup">2.1 Test Setup</h4>
+<p><strong>vendor/plugins/yaffle/test/database.yml:</strong></p>
+<pre>
+sqlite:
+  :adapter: sqlite
+  :dbfile: vendor/plugins/yaffle/test/yaffle_plugin.sqlite.db
+
+sqlite3:
+  :adapter: sqlite3
+  :dbfile: vendor/plugins/yaffle/test/yaffle_plugin.sqlite3.db
+
+postgresql:
+  :adapter: postgresql
+  :username: postgres
+  :password: postgres
+  :database: yaffle_plugin_test
+  :min_messages: ERROR
+
+mysql:
+  :adapter: mysql
+  :host: localhost
+  :username: root
+  :password: password
+  :database: yaffle_plugin_test
+</pre>
+<p>For this guide you&#8217;ll need 2 tables/models, Hickwalls and Wickwalls, so add the following:</p>
+<p><strong>vendor/plugins/yaffle/test/schema.rb:</strong></p>
+<div class="code_container"><code class="ruby">
+ActiveRecord::Schema.define(:version =&gt; 0) do
+  create_table :hickwalls, :force =&gt; true do |t|
+    t.string :name
+    t.string :last_squawk
+    t.datetime :last_squawked_at
+  end
+  create_table :wickwalls, :force =&gt; true do |t|
+    t.string :name
+    t.string :last_tweet
+    t.datetime :last_tweeted_at
+  end
+  create_table :woodpeckers, :force =&gt; true do |t|
+    t.string :name
+  end
+end
+</code></div>
+<p><strong>vendor/plugins/yaffle/test/test_helper.rb:</strong></p>
+<div class="code_container"><code class="ruby">
+ENV['RAILS_ENV'] = 'test'
+ENV['RAILS_ROOT'] ||= File.dirname(__FILE__) + '/../../../..'
+
+require 'test/unit'
+require File.expand_path(File.join(ENV['RAILS_ROOT'], 'config/environment.rb'))
+
+def load_schema
+  config = YAML::load(IO.read(File.dirname(__FILE__) + '/database.yml'))
+  ActiveRecord::Base.logger = Logger.new(File.dirname(__FILE__) + &quot;/debug.log&quot;)
+
+  db_adapter = ENV['DB']
+
+  # no db passed, try one of these fine config-free DBs before bombing.
+  db_adapter ||=
+    begin
+      require 'rubygems'
+      require 'sqlite'
+      'sqlite'
+    rescue MissingSourceFile
+      begin
+        require 'sqlite3'
+        'sqlite3'
+      rescue MissingSourceFile
+      end
+    end
+
+  if db_adapter.nil?
+    raise &quot;No DB Adapter selected. Pass the DB= option to pick one, or install Sqlite or Sqlite3.&quot;
+  end
+
+  ActiveRecord::Base.establish_connection(config[db_adapter])
+  load(File.dirname(__FILE__) + &quot;/schema.rb&quot;)
+  require File.dirname(__FILE__) + '/../rails/init.rb'
+end
+</code></div>
+<p>Now whenever you write a test that requires the database, you can call &#8216;load_schema&#8217;.</p>
+<h4 id="runtheplugintests">2.2 Run the plugin tests</h4>
+<p>Once you have these files in place, you can write your first test to ensure that your plugin-testing setup is correct.  By default rails generates a file in &#8216;vendor/plugins/yaffle/test/yaffle_test.rb&#8217; with a sample test.  Replace the contents of that file with:</p>
+<p><strong>vendor/plugins/yaffle/test/yaffle_test.rb:</strong></p>
+<div class="code_container"><code class="ruby">
+require File.dirname(__FILE__) + '/test_helper.rb'
+
+class YaffleTest &lt; Test::Unit::TestCase
+  load_schema
+
+  class Hickwall &lt; ActiveRecord::Base
+  end
+
+  class Wickwall &lt; ActiveRecord::Base
+  end
+
+  def test_schema_has_loaded_correctly
+    assert_equal [], Hickwall.all
+    assert_equal [], Wickwall.all
+  end
+
+end
+</code></div>
+<p>To run this, go to the plugin directory and run <tt>rake</tt>:</p>
+<pre>
+cd vendor/plugins/yaffle
+rake
+</pre>
+<p>You should see output like:</p>
+<div class="code_container"><code class="html">
+/opt/local/bin/ruby -Ilib:lib &quot;/opt/local/lib/ruby/gems/1.8/gems/rake-0.8.3/lib/rake/rake_test_loader.rb&quot; &quot;test/yaffle_test.rb&quot;
+  create_table(:hickwalls, {:force=&gt;true})
+   -&gt; 0.0220s
+-- create_table(:wickwalls, {:force=&gt;true})
+   -&gt; 0.0077s
+-- initialize_schema_migrations_table()
+   -&gt; 0.0007s
+-- assume_migrated_upto_version(0)
+   -&gt; 0.0007s
+Loaded suite /opt/local/lib/ruby/gems/1.8/gems/rake-0.8.3/lib/rake/rake_test_loader
+Started
+.
+Finished in 0.002236 seconds.
+
+1 test, 1 assertion, 0 failures, 0 errors
+</code></div>
+<p>By default the setup above runs your tests with sqlite or sqlite3.  To run tests with one of the other connection strings specified in database.yml, pass the DB environment variable to rake:</p>
+<div class="code_container"><code class="html">
+rake DB=sqlite
+rake DB=sqlite3
+rake DB=mysql
+rake DB=postgresql
+</code></div>
+<p>Now you are ready to test-drive your plugin!</p>
+<h3 id="extendingcoreclasses">3 Extending core classes</h3>
+<p>This section will explain how to add a method to String that will be available anywhere in your rails app.</p>
+<p>In this example you will add a method to String named <tt>to_squawk</tt>.  To begin, create a new test file with a few assertions:</p>
+<ul>
+	<li><strong>vendor/plugins/yaffle/test/core_ext_test.rb</strong></li>
+</ul>
+<div class="code_container"><code class="ruby">
+require File.dirname(__FILE__) + '/test_helper.rb'
+
+class CoreExtTest &lt; Test::Unit::TestCase
+  def test_to_squawk_prepends_the_word_squawk
+    assert_equal &quot;squawk! Hello World&quot;, &quot;Hello World&quot;.to_squawk
+  end
+end
+</code></div>
+<p>Navigate to your plugin directory and run <tt>rake test</tt>:</p>
+<div class="code_container"><code class="html">
+cd vendor/plugins/yaffle
+rake test
+</code></div>
+<p>The test above should fail with the message:</p>
+<div class="code_container"><code class="html">
+ 1) Error:
+test_to_squawk_prepends_the_word_squawk(CoreExtTest):
+NoMethodError: undefined method `to_squawk' for &quot;Hello World&quot;:String
+    ./test/core_ext_test.rb:5:in `test_to_squawk_prepends_the_word_squawk'
+</code></div>
+<p>Great &#8211; now you are ready to start development.</p>
+<p>Then in &#8216;lib/yaffle.rb&#8217; require &#8216;lib/core_ext.rb&#8217;:</p>
+<ul>
+	<li><strong>vendor/plugins/yaffle/lib/yaffle.rb</strong></li>
+</ul>
+<div class="code_container"><code class="ruby">
+require &quot;yaffle/core_ext&quot;
+</code></div>
+<p>Finally, create the &#8216;core_ext.rb&#8217; file and add the &#8216;to_squawk&#8217; method:</p>
+<ul>
+	<li><strong>vendor/plugins/yaffle/lib/yaffle/core_ext.rb</strong></li>
+</ul>
+<div class="code_container"><code class="ruby">
+String.class_eval do
+  def to_squawk
+    &quot;squawk! #{self}&quot;.strip
+  end
+end
+</code></div>
+<p>To test that your method does what it says it does, run the unit tests with <tt>rake</tt> from your plugin directory.  To see this in action, fire up a console and start squawking:</p>
+<div class="code_container"><code class="html">
+$ ./script/console
+&gt;&gt; &quot;Hello World&quot;.to_squawk
+=&gt; &quot;squawk! Hello World&quot;
+</code></div>
+<h4 id="workingwithinitrb">3.1 Working with init.rb</h4>
+<p>When rails loads plugins it looks for the file named &#8216;init.rb&#8217; or &#8216;rails/init.rb&#8217;.  However, when the plugin is initialized, &#8216;init.rb&#8217; is invoked via <tt>eval</tt> (not <tt>require</tt>) so it has slightly different behavior.</p>
+<p>Under certain circumstances if you reopen classes or modules in &#8216;init.rb&#8217; you may inadvertently create a new class, rather than reopening an existing class.  A better alternative is to reopen the class in a different file, and require that file from <tt>init.rb</tt>, as shown above.</p>
+<p>If you must reopen a class in <tt>init.rb</tt> you can use <tt>module_eval</tt> or <tt>class_eval</tt> to avoid any issues:</p>
+<ul>
+	<li><strong>vendor/plugins/yaffle/rails/init.rb</strong></li>
+</ul>
+<div class="code_container"><code class="ruby">
+Hash.class_eval do
+  def is_a_special_hash?
+    true
+  end
+end
+</code></div>
+<p>Another way is to explicitly define the top-level module space for all modules and classes, like <tt>::Hash</tt>:</p>
+<ul>
+	<li><strong>vendor/plugins/yaffle/rails/init.rb</strong></li>
+</ul>
+<div class="code_container"><code class="ruby">
+class ::Hash
+  def is_a_special_hash?
+    true
+  end
+end
+</code></div>
+<h3 id="addanacts-asmethodto-active-record">4 Add an &#8216;acts_as&#8217; method to Active Record</h3>
+<p>A common pattern in plugins is to add a method called &#8216;acts_as_something&#8217; to models.  In this case, you want to write a method called &#8216;acts_as_yaffle&#8217; that adds a &#8216;squawk&#8217; method to your models.</p>
+<p>To begin, set up your files so that you have:</p>
+<ul>
+	<li><strong>vendor/plugins/yaffle/test/acts_as_yaffle_test.rb</strong></li>
+</ul>
+<div class="code_container"><code class="ruby">
+require File.dirname(__FILE__) + '/test_helper.rb'
+
+class ActsAsYaffleTest &lt; Test::Unit::TestCase
+end
+</code></div>
+<ul>
+	<li><strong>vendor/plugins/yaffle/lib/yaffle.rb</strong></li>
+</ul>
+<div class="code_container"><code class="ruby">
+require 'yaffle/acts_as_yaffle'
+</code></div>
+<ul>
+	<li><strong>vendor/plugins/yaffle/lib/yaffle/acts_as_yaffle.rb</strong></li>
+</ul>
+<div class="code_container"><code class="ruby">
+module Yaffle
+  # your code will go here
+end
+</code></div>
+<p>Note that after requiring &#8216;acts_as_yaffle&#8217; you also have to include it into ActiveRecord::Base so that your plugin methods will be available to the rails models.</p>
+<p>One of the most common plugin patterns for &#8216;acts_as_yaffle&#8217; plugins is to structure your file like so:</p>
+<ul>
+	<li><strong>vendor/plugins/yaffle/lib/yaffle/acts_as_yaffle.rb</strong></li>
+</ul>
+<div class="code_container"><code class="ruby">
+module Yaffle
+  def self.included(base)
+    base.send :extend, ClassMethods
+  end
+
+  module ClassMethods
+    # any method placed here will apply to classes, like Hickwall
+    def acts_as_something
+      send :include, InstanceMethods
+    end
+  end
+
+  module InstanceMethods
+    # any method placed here will apply to instaces, like @hickwall
+  end
+end
+</code></div>
+<p>With structure you can easily separate the methods that will be used for the class (like <tt>Hickwall.some_method</tt>) and the instance (like <tt>@hickwell.some_method</tt>).</p>
+<h4 id="addaclassmethod">4.1 Add a class method</h4>
+<p>This plugin will expect that you&#8217;ve added a method to your model named &#8216;last_squawk&#8217;.  However, the plugin users might have already defined a method on their model named &#8216;last_squawk&#8217; that they use for something else.  This plugin will allow the name to be changed by adding a class method called &#8216;yaffle_text_field&#8217;.</p>
+<p>To start out, write a failing test that shows the behavior you&#8217;d like:</p>
+<ul>
+	<li><strong>vendor/plugins/yaffle/test/acts_as_yaffle_test.rb</strong></li>
+</ul>
+<div class="code_container"><code class="ruby">
+require File.dirname(__FILE__) + '/test_helper.rb'
+
+class Hickwall &lt; ActiveRecord::Base
+  acts_as_yaffle
+end
+
+class Wickwall &lt; ActiveRecord::Base
+  acts_as_yaffle :yaffle_text_field =&gt; :last_tweet
+end
+
+class ActsAsYaffleTest &lt; Test::Unit::TestCase
+  load_schema
+
+  def test_a_hickwalls_yaffle_text_field_should_be_last_squawk
+    assert_equal &quot;last_squawk&quot;, Hickwall.yaffle_text_field
+  end
+
+  def test_a_wickwalls_yaffle_text_field_should_be_last_tweet
+    assert_equal &quot;last_tweet&quot;, Wickwall.yaffle_text_field
+  end
+end
+</code></div>
+<p>To make these tests pass, you could modify your <tt>acts_as_yaffle</tt> file like so:</p>
+<ul>
+	<li><strong>vendor/plugins/yaffle/lib/yaffle/acts_as_yaffle.rb</strong></li>
+</ul>
+<div class="code_container"><code class="ruby">
+module Yaffle
+  def self.included(base)
+    base.send :extend, ClassMethods
+  end
+
+  module ClassMethods
+    def acts_as_yaffle(options = {})
+      cattr_accessor :yaffle_text_field
+      self.yaffle_text_field = (options[:yaffle_text_field] || :last_squawk).to_s
+    end
+  end
+end
+
+ActiveRecord::Base.send :include, Yaffle
+</code></div>
+<h4 id="addaninstancemethod">4.2 Add an instance method</h4>
+<p>This plugin will add a method named &#8216;squawk&#8217; to any Active Record objects that call &#8216;acts_as_yaffle&#8217;.  The &#8216;squawk&#8217; method will simply set the value of one of the fields in the database.</p>
+<p>To start out, write a failing test that shows the behavior you&#8217;d like:</p>
+<ul>
+	<li><strong>vendor/plugins/yaffle/test/acts_as_yaffle_test.rb</strong></li>
+</ul>
+<div class="code_container"><code class="ruby">
+require File.dirname(__FILE__) + '/test_helper.rb'
+
+class Hickwall &lt; ActiveRecord::Base
+  acts_as_yaffle
+end
+
+class Wickwall &lt; ActiveRecord::Base
+  acts_as_yaffle :yaffle_text_field =&gt; :last_tweet
+end
+
+class ActsAsYaffleTest &lt; Test::Unit::TestCase
+  load_schema
+
+  def test_a_hickwalls_yaffle_text_field_should_be_last_squawk
+    assert_equal &quot;last_squawk&quot;, Hickwall.yaffle_text_field
+  end
+
+  def test_a_wickwalls_yaffle_text_field_should_be_last_tweet
+    assert_equal &quot;last_tweet&quot;, Wickwall.yaffle_text_field
+  end
+
+  def test_hickwalls_squawk_should_populate_last_squawk
+    hickwall = Hickwall.new
+    hickwall.squawk(&quot;Hello World&quot;)
+    assert_equal &quot;squawk! Hello World&quot;, hickwall.last_squawk
+  end
+
+  def test_wickwalls_squawk_should_populate_last_tweeted_at
+    wickwall = Wickwall.new
+    wickwall.squawk(&quot;Hello World&quot;)
+    assert_equal &quot;squawk! Hello World&quot;, wickwall.last_tweet
+  end
+end
+</code></div>
+<p>Run this test to make sure the last two tests fail, then update &#8216;acts_as_yaffle.rb&#8217; to look like this:</p>
+<ul>
+	<li><strong>vendor/plugins/yaffle/lib/yaffle/acts_as_yaffle.rb</strong></li>
+</ul>
+<div class="code_container"><code class="ruby">
+module Yaffle
+  def self.included(base)
+    base.send :extend, ClassMethods
+  end
+
+  module ClassMethods
+    def acts_as_yaffle(options = {})
+      cattr_accessor :yaffle_text_field
+      self.yaffle_text_field = (options[:yaffle_text_field] || :last_squawk).to_s
+      send :include, InstanceMethods
+    end
+  end
+
+  module InstanceMethods
+    def squawk(string)
+      write_attribute(self.class.yaffle_text_field, string.to_squawk)
+    end
+  end
+end
+
+ActiveRecord::Base.send :include, Yaffle
+</code></div>
+<div class='note'><p>The use of <tt>write_attribute</tt> to write to the field in model is just one example of how a plugin can interact with the model, and will not always be the right method to use.  For example, you could also use <tt>send("#{self.class.yaffle_text_field}=", string.to_squawk)</tt>.</p></div>
+<h3 id="models">5 Models</h3>
+<p>This section describes how to add a model named &#8216;Woodpecker&#8217; to your plugin that will behave the same as a model in your main app.  When storing models, controllers, views and helpers in your plugin, it&#8217;s customary to keep them in directories that match the rails directories.  For this example, create a file structure like this:</p>
+<div class="code_container"><code class="html">
+vendor/plugins/yaffle/
+|-- lib
+|   |-- app
+|   |   |-- controllers
+|   |   |-- helpers
+|   |   |-- models
+|   |   |   `-- woodpecker.rb
+|   |   `-- views
+|   |-- yaffle
+|   |   |-- acts_as_yaffle.rb
+|   |   |-- commands.rb
+|   |   `-- core_ext.rb
+|   `-- yaffle.rb
+</code></div>
+<p>As always, start with a test:</p>
+<ul>
+	<li><strong>vendor/plugins/yaffle/test/woodpecker_test.rb:</strong></li>
+</ul>
+<div class="code_container"><code class="ruby">
+require File.dirname(__FILE__) + '/test_helper.rb'
+
+class WoodpeckerTest &lt; Test::Unit::TestCase
+  load_schema
+
+  def test_woodpecker
+    assert_kind_of Woodpecker, Woodpecker.new
+  end
+end
+</code></div>
+<p>This is just a simple test to make sure the class is being loaded correctly.  After watching it fail with <tt>rake</tt>, you can make it pass like so:</p>
+<ul>
+	<li><strong>vendor/plugins/yaffle/lib/yaffle.rb:</strong></li>
+</ul>
+<div class="code_container"><code class="ruby">
+%w{ models }.each do |dir|
+  path = File.join(File.dirname(__FILE__), 'app', dir)
+  $LOAD_PATH &lt;&lt; path
+  ActiveSupport::Dependencies.load_paths &lt;&lt; path
+  ActiveSupport::Dependencies.load_once_paths.delete(path)
+end
+</code></div>
+<p>Adding directories to the load path makes them appear just like files in the the main app directory &#8211; except that they are only loaded once, so you have to restart the web server to see the changes in the browser.  Removing directories from the &#8216;load_once_paths&#8217; allow those changes to picked up as soon as you save the file &#8211; without having to restart the web server.  This is particularly useful as you develop the plugin.</p>
+<ul>
+	<li><strong>vendor/plugins/yaffle/lib/app/models/woodpecker.rb:</strong></li>
+</ul>
+<div class="code_container"><code class="ruby">
+class Woodpecker &lt; ActiveRecord::Base
+end
+</code></div>
+<p>Finally, add the following to your plugin&#8217;s &#8216;schema.rb&#8217;:</p>
+<ul>
+	<li><strong>vendor/plugins/yaffle/test/schema.rb:</strong></li>
+</ul>
+<div class="code_container"><code class="ruby">
+create_table :woodpeckers, :force =&gt; true do |t|
+  t.string :name
+end
+</code></div>
+<p>Now your test should be passing, and you should be able to use the Woodpecker model from within your rails app, and any changes made to it are reflected immediately when running in development mode.</p>
+<h3 id="controllers">6 Controllers</h3>
+<p>This section describes how to add a controller named &#8216;woodpeckers&#8217; to your plugin that will behave the same as a controller in your main app.  This is very similar to adding a model.</p>
+<p>You can test your plugin&#8217;s controller as you would test any other controller:</p>
+<ul>
+	<li><strong>vendor/plugins/yaffle/test/woodpeckers_controller_test.rb:</strong></li>
+</ul>
+<div class="code_container"><code class="ruby">
+require File.dirname(__FILE__) + '/test_helper.rb'
+require 'woodpeckers_controller'
+require 'action_controller/test_process'
+
+class WoodpeckersController; def rescue_action(e) raise e end; end
+
+class WoodpeckersControllerTest &lt; Test::Unit::TestCase
+  def setup
+    @controller = WoodpeckersController.new
+    @request = ActionController::TestRequest.new
+    @response = ActionController::TestResponse.new
+
+    ActionController::Routing::Routes.draw do |map|
+      map.resources :woodpeckers
+    end
+  end
+
+  def test_index
+    get :index
+    assert_response :success
+  end
+end
+</code></div>
+<p>This is just a simple test to make sure the controller is being loaded correctly.  After watching it fail with <tt>rake</tt>, you can make it pass like so:</p>
+<ul>
+	<li><strong>vendor/plugins/yaffle/lib/yaffle.rb:</strong></li>
+</ul>
+<div class="code_container"><code class="ruby">
+%w{ models controllers }.each do |dir|
+  path = File.join(File.dirname(__FILE__), 'app', dir)
+  $LOAD_PATH &lt;&lt; path
+  ActiveSupport::Dependencies.load_paths &lt;&lt; path
+  ActiveSupport::Dependencies.load_once_paths.delete(path)
+end
+</code></div>
+<ul>
+	<li><strong>vendor/plugins/yaffle/lib/app/controllers/woodpeckers_controller.rb:</strong></li>
+</ul>
+<div class="code_container"><code class="ruby">
+class WoodpeckersController &lt; ActionController::Base
+
+  def index
+    render :text =&gt; &quot;Squawk!&quot;
+  end
+
+end
+</code></div>
+<p>Now your test should be passing, and you should be able to use the Woodpeckers controller in your app.  If you add a route for the woodpeckers controller you can start up your server and go to http://localhost:3000/woodpeckers to see your controller in action.</p>
+<h3 id="helpers">7 Helpers</h3>
+<p>This section describes how to add a helper named &#8216;WoodpeckersHelper&#8217; to your plugin that will behave the same as a helper in your main app.  This is very similar to adding a model and a controller.</p>
+<p>You can test your plugin&#8217;s helper as you would test any other helper:</p>
+<ul>
+	<li><strong>vendor/plugins/yaffle/test/woodpeckers_helper_test.rb</strong></li>
+</ul>
+<div class="code_container"><code class="ruby">
+require File.dirname(__FILE__) + '/test_helper.rb'
+include WoodpeckersHelper
+
+class WoodpeckersHelperTest &lt; Test::Unit::TestCase
+  def test_tweet
+    assert_equal &quot;Tweet! Hello&quot;, tweet(&quot;Hello&quot;)
+  end
+end
+</code></div>
+<p>This is just a simple test to make sure the helper is being loaded correctly.  After watching it fail with <tt>rake</tt>, you can make it pass like so:</p>
+<ul>
+	<li><strong>vendor/plugins/yaffle/lib/yaffle.rb:</strong></li>
+</ul>
+<div class="code_container"><code class="ruby">
+%w{ models controllers helpers }.each do |dir|
+  path = File.join(File.dirname(__FILE__), 'app', dir)
+  $LOAD_PATH &lt;&lt; path
+  ActiveSupport::Dependencies.load_paths &lt;&lt; path
+  ActiveSupport::Dependencies.load_once_paths.delete(path)
+end
+</code></div>
+<ul>
+	<li><strong>vendor/plugins/yaffle/lib/app/helpers/woodpeckers_helper.rb:</strong></li>
+</ul>
+<div class="code_container"><code class="ruby">
+module WoodpeckersHelper
+
+  def tweet(text)
+    &quot;Tweet! #{text}&quot;
+  end
+
+end
+</code></div>
+<p>Now your test should be passing, and you should be able to use the Woodpeckers helper in your app.</p>
+<h3 id="routes">8 Routes</h3>
+<p>In a standard &#8216;routes.rb&#8217; file you use routes like &#8216;map.connect&#8217; or &#8216;map.resources&#8217;.  You can add your own custom routes from a plugin.  This section will describe how to add a custom method called that can be called with &#8216;map.yaffles&#8217;.</p>
+<p>Testing routes from plugins is slightly different from testing routes in a standard rails app.  To begin, add a test like this:</p>
+<ul>
+	<li><strong>vendor/plugins/yaffle/test/routing_test.rb</strong></li>
+</ul>
+<div class="code_container"><code class="ruby">
+require &quot;#{File.dirname(__FILE__)}/test_helper&quot;
+
+class RoutingTest &lt; Test::Unit::TestCase
+
+  def setup
+    ActionController::Routing::Routes.draw do |map|
+      map.yaffles
+    end
+  end
+
+  def test_yaffles_route
+    assert_recognition :get, &quot;/yaffles&quot;, :controller =&gt; &quot;yaffles_controller&quot;, :action =&gt; &quot;index&quot;
+  end
+
+  private
+
+    def assert_recognition(method, path, options)
+      result = ActionController::Routing::Routes.recognize_path(path, :method =&gt; method)
+      assert_equal options, result
+    end
+end
+</code></div>
+<p>Once you see the tests fail by running &#8216;rake&#8217;, you can make them pass with:</p>
+<ul>
+	<li><strong>vendor/plugins/yaffle/lib/yaffle.rb</strong></li>
+</ul>
+<div class="code_container"><code class="ruby">
+require &quot;yaffle/routing&quot;
+</code></div>
+<ul>
+	<li><strong>vendor/plugins/yaffle/lib/yaffle/routing.rb</strong></li>
+</ul>
+<div class="code_container"><code class="ruby">
+module Yaffle #:nodoc:
+  module Routing #:nodoc:
+    module MapperExtensions
+      def yaffles
+        @set.add_route(&quot;/yaffles&quot;, {:controller =&gt; &quot;yaffles_controller&quot;, :action =&gt; &quot;index&quot;})
+      end
+    end
+  end
+end
+
+ActionController::Routing::RouteSet::Mapper.send :include, Yaffle::Routing::MapperExtensions
+</code></div>
+<ul>
+	<li><strong>config/routes.rb</strong></li>
+</ul>
+<div class="code_container"><code class="ruby">
+ActionController::Routing::Routes.draw do |map|
+  map.yaffles
+end
+</code></div>
+<p>You can also see if your routes work by running <tt>rake routes</tt> from your app directory.</p>
+<h3 id="generators">9 Generators</h3>
+<p>Many plugins ship with generators.  When you created the plugin above, you specified the <tt>--with-generator</tt> option, so you already have the generator stubs in &#8216;vendor/plugins/yaffle/generators/yaffle&#8217;.</p>
+<p>Building generators is a complex topic unto itself and this section will cover one small aspect of generators: generating a simple text file.</p>
+<h4 id="testinggenerators">9.1 Testing generators</h4>
+<p>Many rails plugin authors do not test their generators, however testing generators is quite simple.  A typical generator test does the following:</p>
+* Creates a new fake rails root directory that will serve as destination
+* Runs the generator
+* Asserts that the correct files were generated
+* Removes the fake rails root
+<p>This section will describe how to create a simple generator that adds a file.  For the generator in this section, the test could look something like this:</p>
+<ul>
+	<li><strong>vendor/plugins/yaffle/test/definition_generator_test.rb</strong></li>
+</ul>
+<div class="code_container"><code class="ruby">
+require File.dirname(__FILE__) + '/test_helper.rb'
+require 'rails_generator'
+require 'rails_generator/scripts/generate'
+
+class DefinitionGeneratorTest &lt; Test::Unit::TestCase
+
+  def setup
+    FileUtils.mkdir_p(fake_rails_root)
+    @original_files = file_list
+  end
+
+  def teardown
+    FileUtils.rm_r(fake_rails_root)
+  end
+
+  def test_generates_correct_file_name
+    Rails::Generator::Scripts::Generate.new.run([&quot;yaffle_definition&quot;], :destination =&gt; fake_rails_root)
+    new_file = (file_list - @original_files).first
+    assert_equal &quot;definition.txt&quot;, File.basename(new_file)
+  end
+
+  private
+
+    def fake_rails_root
+      File.join(File.dirname(__FILE__), 'rails_root')
+    end
+
+    def file_list
+      Dir.glob(File.join(fake_rails_root, &quot;*&quot;))
+    end
+
+end
+</code></div>
+<p>You can run &#8216;rake&#8217; from the plugin directory to see this fail.  Unless you are doing more advanced generator commands it typically suffices to just test the Generate script, and trust that rails will handle the Destroy and Update commands for you.</p>
+<p>To make it pass, create the generator:</p>
+<ul>
+	<li><strong>vendor/plugins/yaffle/generators/yaffle_definition/yaffle_definition_generator.rb</strong></li>
+</ul>
+<div class="code_container"><code class="ruby">
+class YaffleDefinitionGenerator &lt; Rails::Generator::Base
+  def manifest
+    record do |m|
+      m.file &quot;definition.txt&quot;, &quot;definition.txt&quot;
+    end
+  end
+end
+</code></div>
+<h4 id="the-usag-efile">9.2 The <span class="caps">USAGE</span> file</h4>
+<p>If you plan to distribute your plugin, developers will expect at least a minimum of documentation.  You can add simple documentation to the generator by updating the <span class="caps">USAGE</span> file.</p>
+<p>Rails ships with several built-in generators.  You can see all of the generators available to you by typing the following at the command line:</p>
+<div class="code_container"><code class="html">
+./script/generate
+</code></div>
+<p>You should see something like this:</p>
+<div class="code_container"><code class="html">
+Installed Generators
+  Plugins (vendor/plugins): yaffle_definition
+  Builtin: controller, integration_test, mailer, migration, model, observer, plugin, resource, scaffold, session_migration
+</code></div>
+<p>When you run <tt>script/generate yaffle_definition -h</tt> you should see the contents of your &#8216;vendor/plugins/yaffle/generators/yaffle_definition/<span class="caps">USAGE</span>&#8217;.</p>
+<p>For this plugin, update the <span class="caps">USAGE</span> file could look like this:</p>
+<div class="code_container"><code class="html">
+Description:
+    Adds a file with the definition of a Yaffle to the app's main directory
+</code></div>
+<h3 id="addacustomgeneratorcommand">10 Add a custom generator command</h3>
+<p>You may have noticed above that you can used one of the built-in rails migration commands <tt>migration_template</tt>.  If your plugin needs to add and remove lines of text from existing files you will need to write your own generator methods.</p>
+<p>This section describes how you you can create your own commands to add and remove a line of text from &#8216;routes.rb&#8217;.  This example creates a very simple method that adds or removes a text file.</p>
+<p>To start, add the following test method:</p>
+<ul>
+	<li><strong>vendor/plugins/yaffle/test/generator_test.rb</strong></li>
+</ul>
+<div class="code_container"><code class="ruby">
+def test_generates_definition
+  Rails::Generator::Scripts::Generate.new.run([&quot;yaffle&quot;, &quot;bird&quot;], :destination =&gt; fake_rails_root)
+  definition = File.read(File.join(fake_rails_root, &quot;definition.txt&quot;))
+  assert_match /Yaffle\:/, definition
+end
+</code></div>
+<p>Run <tt>rake</tt> to watch the test fail, then make the test pass add the following:</p>
+<ul>
+	<li><strong>vendor/plugins/yaffle/generators/yaffle/templates/definition.txt</strong></li>
+</ul>
+<div class="code_container"><code class="html">
+Yaffle: A bird
+</code></div>
+<ul>
+	<li><strong>vendor/plugins/yaffle/lib/yaffle.rb</strong></li>
+</ul>
+<div class="code_container"><code class="ruby">
+require &quot;yaffle/commands&quot;
+</code></div>
+<ul>
+	<li><strong>vendor/plugins/yaffle/lib/commands.rb</strong></li>
+</ul>
+<div class="code_container"><code class="ruby">
+require 'rails_generator'
+require 'rails_generator/commands'
+
+module Yaffle #:nodoc:
+  module Generator #:nodoc:
+    module Commands #:nodoc:
+      module Create
+        def yaffle_definition
+          file(&quot;definition.txt&quot;, &quot;definition.txt&quot;)
+        end
+      end
+
+      module Destroy
+        def yaffle_definition
+          file(&quot;definition.txt&quot;, &quot;definition.txt&quot;)
+        end
+      end
+
+      module List
+        def yaffle_definition
+          file(&quot;definition.txt&quot;, &quot;definition.txt&quot;)
+        end
+      end
+
+      module Update
+        def yaffle_definition
+          file(&quot;definition.txt&quot;, &quot;definition.txt&quot;)
+        end
+      end
+    end
+  end
+end
+
+Rails::Generator::Commands::Create.send   :include,  Yaffle::Generator::Commands::Create
+Rails::Generator::Commands::Destroy.send  :include,  Yaffle::Generator::Commands::Destroy
+Rails::Generator::Commands::List.send     :include,  Yaffle::Generator::Commands::List
+Rails::Generator::Commands::Update.send   :include,  Yaffle::Generator::Commands::Update
+</code></div>
+<p>Finally, call your new method in the manifest:</p>
+<ul>
+	<li><strong>vendor/plugins/yaffle/generators/yaffle/yaffle_generator.rb</strong></li>
+</ul>
+<div class="code_container"><code class="ruby">
+class YaffleGenerator &lt; Rails::Generator::NamedBase
+  def manifest
+    m.yaffle_definition
+  end
+end
+</code></div>
+<h3 id="generator-commands">11 Generator Commands</h3>
+<p>You may have noticed above that you can used one of the built-in rails migration commands <tt>migration_template</tt>.  If your plugin needs to add and remove lines of text from existing files you will need to write your own generator methods.</p>
+<p>This section describes how you you can create your own commands to add and remove a line of text from &#8216;config/routes.rb&#8217;.</p>
+<p>To start, add the following test method:</p>
+<ul>
+	<li><strong>vendor/plugins/yaffle/test/route_generator_test.rb</strong></li>
+</ul>
+<div class="code_container"><code class="ruby">
+require File.dirname(__FILE__) + '/test_helper.rb'
+require 'rails_generator'
+require 'rails_generator/scripts/generate'
+require 'rails_generator/scripts/destroy'
+
+class RouteGeneratorTest &lt; Test::Unit::TestCase
+
+  def setup
+    FileUtils.mkdir_p(File.join(fake_rails_root, &quot;config&quot;))
+  end
+
+  def teardown
+    FileUtils.rm_r(fake_rails_root)
+  end
+
+  def test_generates_route
+    content = &lt;&lt;-END
+      ActionController::Routing::Routes.draw do |map|
+        map.connect ':controller/:action/:id'
+        map.connect ':controller/:action/:id.:format'
+      end
+    END
+    File.open(routes_path, 'wb') {|f| f.write(content) }
+
+    Rails::Generator::Scripts::Generate.new.run([&quot;yaffle_route&quot;], :destination =&gt; fake_rails_root)
+    assert_match /map\.yaffles/, File.read(routes_path)
+  end
+
+  def test_destroys_route
+    content = &lt;&lt;-END
+      ActionController::Routing::Routes.draw do |map|
+        map.yaffles
+        map.connect ':controller/:action/:id'
+        map.connect ':controller/:action/:id.:format'
+      end
+    END
+    File.open(routes_path, 'wb') {|f| f.write(content) }
+
+    Rails::Generator::Scripts::Destroy.new.run([&quot;yaffle_route&quot;], :destination =&gt; fake_rails_root)
+    assert_no_match /map\.yaffles/, File.read(routes_path)
+  end
+
+  private
+
+    def fake_rails_root
+      File.join(File.dirname(__FILE__), &quot;rails_root&quot;)
+    end
+
+    def routes_path
+      File.join(fake_rails_root, &quot;config&quot;, &quot;routes.rb&quot;)
+    end
+
+end
+</code></div>
+<p>Run <tt>rake</tt> to watch the test fail, then make the test pass add the following:</p>
+<ul>
+	<li><strong>vendor/plugins/yaffle/lib/yaffle.rb</strong></li>
+</ul>
+<div class="code_container"><code class="ruby">
+require &quot;yaffle/commands&quot;
+</code></div>
+<ul>
+	<li><strong>vendor/plugins/yaffle/lib/yaffle/commands.rb</strong></li>
+</ul>
+<div class="code_container"><code class="ruby">
+require 'rails_generator'
+require 'rails_generator/commands'
+
+module Yaffle #:nodoc:
+  module Generator #:nodoc:
+    module Commands #:nodoc:
+      module Create
+        def yaffle_route
+          logger.route &quot;map.yaffle&quot;
+          look_for = 'ActionController::Routing::Routes.draw do |map|'
+          unless options[:pretend]
+            gsub_file('config/routes.rb', /(#{Regexp.escape(look_for)})/mi){|match| &quot;#{match}\n  map.yaffles\n&quot;}
+          end
+        end
+      end
+
+      module Destroy
+        def yaffle_route
+          logger.route &quot;map.yaffle&quot;
+          gsub_file 'config/routes.rb', /\n.+?map\.yaffles/mi, ''
+        end
+      end
+
+      module List
+        def yaffle_route
+        end
+      end
+
+      module Update
+        def yaffle_route
+        end
+      end
+    end
+  end
+end
+
+Rails::Generator::Commands::Create.send   :include,  Yaffle::Generator::Commands::Create
+Rails::Generator::Commands::Destroy.send  :include,  Yaffle::Generator::Commands::Destroy
+Rails::Generator::Commands::List.send     :include,  Yaffle::Generator::Commands::List
+Rails::Generator::Commands::Update.send   :include,  Yaffle::Generator::Commands::Update
+</code></div>
+<ul>
+	<li><strong>vendor/plugins/yaffle/generators/yaffle_route/yaffle_route_generator.rb</strong></li>
+</ul>
+<div class="code_container"><code class="ruby">
+class YaffleRouteGenerator &lt; Rails::Generator::Base
+  def manifest
+    record do |m|
+      m.yaffle_route
+    end
+  end
+end
+</code></div>
+<p>To see this work, type:</p>
+<div class="code_container"><code class="html">
+./script/generate yaffle_route
+./script/destroy yaffle_route
+</code></div>
+<div class='note'><p>If you haven&#8217;t set up the custom route from above, &#8216;script/destroy&#8217; will fail and you&#8217;ll have to remove it manually.</p></div>
+<h3 id="migrations">12 Migrations</h3>
+<p>If your plugin requires changes to the app&#8217;s database you will likely want to somehow add migrations.  Rails does not include any built-in support for calling migrations from plugins, but you can still make it easy for developers to call migrations from plugins.</p>
+<p>If you have a very simple needs, like creating a table that will always have the same name and columns, then you can use a more simple solution, like creating a custom rake task or method.  If your migration needs user input to supply table names or other options, you probably want to opt for generating a migration.</p>
+<p>Let&#8217;s say you have the following migration in your plugin:</p>
+<ul>
+	<li><strong>vendor/plugins/yaffle/lib/db/migrate/20081116181115_create_birdhouses.rb:</strong></li>
+</ul>
+<div class="code_container"><code class="ruby">
+class CreateBirdhouses &lt; ActiveRecord::Migration
+  def self.up
+    create_table :birdhouses, :force =&gt; true do |t|
+      t.string :name
+      t.timestamps
+    end
+  end
+
+  def self.down
+    drop_table :birdhouses
+  end
+end
+</code></div>
+<p>Here are a few possibilities for how to allow developers to use your plugin migrations:</p>
+<h4 id="createacustomraketask">12.1 Create a custom rake task</h4>
+<ul>
+	<li><strong>vendor/plugins/yaffle/tasks/yaffle_tasks.rake:</strong></li>
+</ul>
+<div class="code_container"><code class="ruby">
+namespace :db do
+  namespace :migrate do
+    description = &quot;Migrate the database through scripts in vendor/plugins/yaffle/lib/db/migrate&quot;
+    description &lt;&lt; &quot;and update db/schema.rb by invoking db:schema:dump.&quot;
+    description &lt;&lt; &quot;Target specific version with VERSION=x. Turn off output with VERBOSE=false.&quot;
+
+    desc description
+    task :yaffle =&gt; :environment do
+      ActiveRecord::Migration.verbose = ENV[&quot;VERBOSE&quot;] ? ENV[&quot;VERBOSE&quot;] == &quot;true&quot; : true
+      ActiveRecord::Migrator.migrate(&quot;vendor/plugins/yaffle/lib/db/migrate/&quot;, ENV[&quot;VERSION&quot;] ? ENV[&quot;VERSION&quot;].to_i : nil)
+      Rake::Task[&quot;db:schema:dump&quot;].invoke if ActiveRecord::Base.schema_format == :ruby
+    end
+  end
+end
+</code></div>
+<h4 id="callmigrationsdirectly">12.2 Call migrations directly</h4>
+<ul>
+	<li><strong>vendor/plugins/yaffle/lib/yaffle.rb:</strong></li>
+</ul>
+<div class="code_container"><code class="ruby">
+Dir.glob(File.join(File.dirname(__FILE__), &quot;db&quot;, &quot;migrate&quot;, &quot;*&quot;)).each do |file|
+  require file
+end
+</code></div>
+<ul>
+	<li><strong>db/migrate/20081116181115_create_birdhouses.rb:</strong></li>
+</ul>
+<div class="code_container"><code class="ruby">
+class CreateBirdhouses &lt; ActiveRecord::Migration
+  def self.up
+    Yaffle::CreateBirdhouses.up
+  end
+
+  def self.down
+    Yaffle::CreateBirdhouses.down
+  end
+end
+</code></div>
+<div class='note'><p>several plugin frameworks such as Desert and Engines provide more advanced plugin functionality.</p></div>
+<h4 id="generatemigrations">12.3 Generate migrations</h4>
+<p>Generating migrations has several advantages over other methods.  Namely, you can allow other developers to more easily customize the migration.  The flow looks like this:</p>
+* call your script/generate script and pass in whatever options they need
+* examine the generated migration, adding/removing columns or other options as necessary
+<p>This example will demonstrate how to use one of the built-in generator methods named &#8216;migration_template&#8217; to create a migration file.  Extending the rails migration generator requires a somewhat intimate knowledge of the migration generator internals, so it&#8217;s best to write a test first:</p>
+<ul>
+	<li><strong>vendor/plugins/yaffle/test/yaffle_migration_generator_test.rb</strong></li>
+</ul>
+<div class="code_container"><code class="ruby">
+require File.dirname(__FILE__) + '/test_helper.rb'
+require 'rails_generator'
+require 'rails_generator/scripts/generate'
+
+class MigrationGeneratorTest &lt; Test::Unit::TestCase
+
+  def setup
+    FileUtils.mkdir_p(fake_rails_root)
+    @original_files = file_list
+  end
+
+  def teardown
+    ActiveRecord::Base.pluralize_table_names = true
+    FileUtils.rm_r(fake_rails_root)
+  end
+
+  def test_generates_correct_file_name
+    Rails::Generator::Scripts::Generate.new.run([&quot;yaffle_migration&quot;, &quot;some_name_nobody_is_likely_to_ever_use_in_a_real_migration&quot;],
+      :destination =&gt; fake_rails_root)
+    new_file = (file_list - @original_files).first
+    assert_match /add_yaffle_fields_to_some_name_nobody_is_likely_to_ever_use_in_a_real_migrations/, new_file
+    assert_match /add_column :some_name_nobody_is_likely_to_ever_use_in_a_real_migrations do |t|/, File.read(new_file)
+  end
+
+  def test_pluralizes_properly
+    ActiveRecord::Base.pluralize_table_names = false
+    Rails::Generator::Scripts::Generate.new.run([&quot;yaffle_migration&quot;, &quot;some_name_nobody_is_likely_to_ever_use_in_a_real_migration&quot;],
+      :destination =&gt; fake_rails_root)
+    new_file = (file_list - @original_files).first
+    assert_match /add_yaffle_fields_to_some_name_nobody_is_likely_to_ever_use_in_a_real_migration/, new_file
+    assert_match /add_column :some_name_nobody_is_likely_to_ever_use_in_a_real_migration do |t|/, File.read(new_file)
+  end
+
+  private
+    def fake_rails_root
+      File.join(File.dirname(__FILE__), 'rails_root')
+    end
+
+    def file_list
+      Dir.glob(File.join(fake_rails_root, &quot;db&quot;, &quot;migrate&quot;, &quot;*&quot;))
+    end
+
+end
+</code></div>
+<div class='note'><p>the migration generator checks to see if a migation already exists, and it&#8217;s hard-coded to check the &#8216;db/migrate&#8217; directory.  As a result, if your test tries to generate a migration that already exists in the app, it will fail.  The easy workaround is to make sure that the name you generate in your test is very unlikely to actually appear in the app.</p></div>
+<p>After running the test with &#8216;rake&#8217; you can make it pass with:</p>
+<ul>
+	<li><strong>vendor/plugins/yaffle/generators/yaffle_migration/yaffle_migration_generator.rb</strong></li>
+</ul>
+<div class="code_container"><code class="ruby">
+class YaffleMigrationGenerator &lt; Rails::Generator::NamedBase
+  def manifest
+    record do |m|
+      m.migration_template 'migration:migration.rb', &quot;db/migrate&quot;, {:assigns =&gt; yaffle_local_assigns,
+        :migration_file_name =&gt; &quot;add_yaffle_fields_to_#{custom_file_name}&quot;
+      }
+    end
+  end
+
+  private
+    def custom_file_name
+      custom_name = class_name.underscore.downcase
+      custom_name = custom_name.pluralize if ActiveRecord::Base.pluralize_table_names
+      custom_name
+    end
+
+    def yaffle_local_assigns
+      returning(assigns = {}) do
+        assigns[:migration_action] = &quot;add&quot;
+        assigns[:class_name] = &quot;add_yaffle_fields_to_#{custom_file_name}&quot;
+        assigns[:table_name] = custom_file_name
+        assigns[:attributes] = [Rails::Generator::GeneratedAttribute.new(&quot;last_squawk&quot;, &quot;string&quot;)]
+      end
+    end
+end
+</code></div>
+<p>The generator creates a new file in &#8216;db/migrate&#8217; with a timestamp and an &#8216;add_column&#8217; statement.  It reuses the built in rails <tt>migration_template</tt> method, and reuses the built-in rails migration template.</p>
+<p>It&#8217;s courteous to check to see if table names are being pluralized whenever you create a generator that needs to be aware of table names.  This way people using your generator won&#8217;t have to manually change the generated files if they&#8217;ve turned pluralization off.</p>
+<p>To run the generator, type the following at the command line:</p>
+<div class="code_container"><code class="html">
+./script/generate yaffle_migration bird
+</code></div>
+<p>and you will see a new file:</p>
+<ul>
+	<li><strong>db/migrate/20080529225649_add_yaffle_fields_to_birds.rb</strong></li>
+</ul>
+<div class="code_container"><code class="ruby">
+class AddYaffleFieldsToBirds &lt; ActiveRecord::Migration
+  def self.up
+    add_column :birds, :last_squawk, :string
+  end
+
+  def self.down
+    remove_column :birds, :last_squawk
+  end
+end
+</code></div>
+<h3 id="raketasks">13 Rake tasks</h3>
+<p>When you created the plugin with the built-in rails generator, it generated a rake file for you in &#8216;vendor/plugins/yaffle/tasks/yaffle_tasks.rake&#8217;.  Any rake task you add here will be available to the app.</p>
+<p>Many plugin authors put all of their rake tasks into a common namespace that is the same as the plugin, like so:</p>
+<ul>
+	<li><strong>vendor/plugins/yaffle/tasks/yaffle_tasks.rake</strong></li>
+</ul>
+<div class="code_container"><code class="ruby">
+namespace :yaffle do
+  desc &quot;Prints out the word 'Yaffle'&quot;
+  task :squawk =&gt; :environment do
+    puts &quot;squawk!&quot;
+  end
+end
+</code></div>
+<p>When you run <tt>rake -T</tt> from your plugin you will see:</p>
+<div class="code_container"><code class="html">
+yaffle:squawk             # Prints out the word 'Yaffle'
+</code></div>
+<p>You can add as many files as you want in the tasks directory, and if they end in .rake Rails will pick them up.</p>
+<p>Note that tasks from &#8216;vendor/plugins/yaffle/Rakefile&#8217; are not available to the main app.</p>
+<h3 id="plugin-gems">14 PluginGems</h3>
+<p>Turning your rails plugin into a gem is a simple and straightforward task.  This section will cover how to turn your plugin into a gem.  It will not cover how to distribute that gem.</p>
+<p>Historically rails plugins loaded the plugin&#8217;s &#8216;init.rb&#8217; file.  In fact some plugins contain all of their code in that one file.  To be compatible with plugins, &#8216;init.rb&#8217; was moved to &#8216;rails/init.rb&#8217;.</p>
+<p>It&#8217;s common practice to put any developer-centric rake tasks (such as tests, rdoc and gem package tasks) in &#8216;Rakefile&#8217;.  A rake task that packages the gem might look like this:</p>
+<ul>
+	<li><strong>vendor/plugins/yaffle/Rakefile:</strong></li>
+</ul>
+<div class="code_container"><code class="ruby">
+PKG_FILES = FileList[
+  '[a-zA-Z]*',
+  'generators/**/*',
+  'lib/**/*',
+  'rails/**/*',
+  'tasks/**/*',
+  'test/**/*'
+]
+
+spec = Gem::Specification.new do |s|
+  s.name = &quot;yaffle&quot;
+  s.version = &quot;0.0.1&quot;
+  s.author = &quot;Gleeful Yaffler&quot;
+  s.email = &quot;yaffle@example.com&quot;
+  s.homepage = &quot;http://yafflers.example.com/&quot;
+  s.platform = Gem::Platform::RUBY
+  s.summary = &quot;Sharing Yaffle Goodness&quot;
+  s.files = PKG_FILES.to_a
+  s.require_path = &quot;lib&quot;
+  s.has_rdoc = false
+  s.extra_rdoc_files = [&quot;README&quot;]
+end
+
+desc 'Turn this plugin into a gem.'
+Rake::GemPackageTask.new(spec) do |pkg|
+  pkg.gem_spec = spec
+end
+</code></div>
+<p>To build and install the gem locally, run the following commands:</p>
+<div class="code_container"><code class="html">
+cd vendor/plugins/yaffle
+rake gem
+sudo gem install pkg/yaffle-0.0.1.gem
+</code></div>
+<p>To test this, create a new rails app, add &#8216;config.gem &#8220;yaffle&#8221;&#8217; to environment.rb and all of your plugin&#8217;s functionality will be available to you.</p>
+<h3 id="r-doc-documentation">15 RDoc Documentation</h3>
+<p>Once your plugin is stable and you are ready to deploy do everyone else a favor and document it!  Luckily, writing documentation for your plugin is easy.</p>
+<p>The first step is to update the <span class="caps">README</span> file with detailed information about how to use your plugin.  A few key things to include are:</p>
+<ul>
+	<li>Your name</li>
+	<li>How to install</li>
+	<li>How to add the functionality to the app (several examples of common use cases)</li>
+	<li>Warning, gotchas or tips that might help save users time</li>
+</ul>
+<p>Once your <span class="caps">README</span> is solid, go through and add rdoc comments to all of the methods that developers will use.  It&#8217;s also customary to add &#8216;#:nodoc:&#8217; comments to those parts of the code that are not part of the public api.</p>
+<p>Once your comments are good to go, navigate to your plugin directory and run:</p>
+<div class="code_container"><code class="html">
+rake rdoc
+</code></div>
+<h3 id="appendix">16 Appendix</h3>
+<p>If you prefer to use RSpec instead of Test::Unit, you may be interested in the <a href="http://github.com/pat-maddox/rspec-plugin-generator/tree/master">RSpec Plugin Generator</a>.</p>
+<h4 id="references">16.1 References</h4>
+<ul>
+	<li>http://nubyonrails.com/articles/the-complete-guide-to-rails-plugins-part-i</li>
+	<li>http://nubyonrails.com/articles/the-complete-guide-to-rails-plugins-part-ii</li>
+	<li>http://github.com/technoweenie/attachment_fu/tree/master</li>
+	<li>http://daddy.platte.name/2007/05/rails-plugins-keep-initrb-thin.html</li>
+	<li>http://www.mbleigh.com/2008/6/11/gemplugins-a-brief-introduction-to-the-future-of-rails-plugins</li>
+	<li>http://weblog.jamisbuck.org/2006/10/26/monkey-patching-rails-extending-routes-2.</li>
+</ul>
+<h4 id="contentsoflibyafflerb">16.2 Contents of &#8216;lib/yaffle.rb&#8217;</h4>
+<ul>
+	<li><strong>vendor/plugins/yaffle/lib/yaffle.rb:</strong></li>
+</ul>
+<div class="code_container"><code class="ruby">
+require &quot;yaffle/core_ext&quot;
+require &quot;yaffle/acts_as_yaffle&quot;
+require &quot;yaffle/commands&quot;
+require &quot;yaffle/routing&quot;
+
+%w{ models controllers helpers }.each do |dir|
+  path = File.join(File.dirname(__FILE__), 'app', dir)
+  $LOAD_PATH &lt;&lt; path
+  ActiveSupport::Dependencies.load_paths &lt;&lt; path
+  ActiveSupport::Dependencies.load_once_paths.delete(path)
+end
+
+# optionally:
+# Dir.glob(File.join(File.dirname(__FILE__), &quot;db&quot;, &quot;migrate&quot;, &quot;*&quot;)).each do |file|
+#   require file
+# end
+</code></div>
+<h4 id="finalplugindirectorystructure">16.3 Final plugin directory structure</h4>
+<p>The final plugin should have a directory structure that looks something like this:</p>
+<div class="code_container"><code class="html">
+|-- MIT-LICENSE
+|-- README
+|-- Rakefile
+|-- generators
+|   |-- yaffle_definition
+|   |   |-- USAGE
+|   |   |-- templates
+|   |   |   `-- definition.txt
+|   |   `-- yaffle_definition_generator.rb
+|   |-- yaffle_migration
+|   |   |-- USAGE
+|   |   |-- templates
+|   |   `-- yaffle_migration_generator.rb
+|   `-- yaffle_route
+|       |-- USAGE
+|       |-- templates
+|       `-- yaffle_route_generator.rb
+|-- install.rb
+|-- lib
+|   |-- app
+|   |   |-- controllers
+|   |   |   `-- woodpeckers_controller.rb
+|   |   |-- helpers
+|   |   |   `-- woodpeckers_helper.rb
+|   |   `-- models
+|   |       `-- woodpecker.rb
+|   |-- db
+|   |   `-- migrate
+|   |       `-- 20081116181115_create_birdhouses.rb
+|   |-- yaffle
+|   |   |-- acts_as_yaffle.rb
+|   |   |-- commands.rb
+|   |   |-- core_ext.rb
+|   |   `-- routing.rb
+|   `-- yaffle.rb
+|-- pkg
+|   `-- yaffle-0.0.1.gem
+|-- rails
+|   `-- init.rb
+|-- tasks
+|   `-- yaffle_tasks.rake
+|-- test
+|   |-- acts_as_yaffle_test.rb
+|   |-- core_ext_test.rb
+|   |-- database.yml
+|   |-- debug.log
+|   |-- definition_generator_test.rb
+|   |-- migration_generator_test.rb
+|   |-- route_generator_test.rb
+|   |-- routes_test.rb
+|   |-- schema.rb
+|   |-- test_helper.rb
+|   |-- woodpecker_test.rb
+|   |-- woodpeckers_controller_test.rb
+|   |-- wookpeckers_helper_test.rb
+|   |-- yaffle_plugin.sqlite3.db
+|   `-- yaffle_test.rb
+`-- uninstall.rb
+</code></div>
+<h3 id="changelog">17 Changelog</h3>
+<p><a href="http://rails.lighthouseapp.com/projects/16213/tickets/32-update-plugins-guide">Lighthouse ticket</a></p>
+<ul>
+	<li>November 17, 2008: Major revision by Jeff Dean</li>
+</ul>
+      </div>
+    </div>
+  </div>
+
+  <hr class="hide" />
+  <div id="footer">
+    <div class="wrapper">
+      <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by-sa/3.0">Creative Commons Attribution-Share Alike 3.0</a> License</a></p>
+      <p>"Rails", "Ruby on Rails", and the Rails logo are trademarks of David Heinemeier Hansson. All rights reserved.</p>
+    </div>
+  </div>
+</body>
+</html>
