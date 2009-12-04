@@ -360,8 +360,8 @@ class RequestController < ApplicationController
             flash[:notice] = "Please use the form below to tell us more."
             redirect_to help_general_url(:action => 'contact')
         elsif @info_request.calculate_status == 'user_withdrawn'
-            flash[:notice] = "Thanks for letting us know that you've withdrawn your request. Please add an annotation below to let other people know why you withdrew it."
-            redirect_to request_url(@info_request)
+            flash[:notice] = "If you have not done so already, please write a message below telling the authority that you have withdrawn your request. Otherwise they will not know it has been withdrawn."
+            redirect_to respond_to_last_url(@info_request)
         else
             raise "unknown calculate_status " + @info_request.calculate_status
         end
