@@ -19,19 +19,18 @@
         <a href="/help/contact">contact us</a> if you are <%= user_link(@info_request.user) %>
         and need to send a follow up.</p>
     <% else %>
-        <p>Please <strong>only</strong> write messages directly relating to your 
-        request '<%= request_link(@info_request) %>'. If you would like to ask for information
-        that was not in your original request, then
-        <%= link_to "file a new request", new_request_to_body_url(:public_body_id => @info_request.public_body.id.to_s) %>.
-
         <% if @internal_review %>
             <p>
             If you are dissatisfied by the response you got from
             the public authority, you have the right to
             complain (<a href="http://foiwiki.com/foiwiki/index.php/Internal_reviews">details</a>). 
             </p>
-
         <% end %>
+
+        <p>Please <strong>only</strong> write messages directly relating to your 
+        request '<%= request_link(@info_request) %>'. If you would like to ask for information
+        that was not in your original request, then
+        <%= link_to "file a new request", new_request_to_body_url(:public_body_id => @info_request.public_body.id.to_s) %>.
 
         <% if @info_request.calculate_status == 'waiting_response_overdue' %>
             <p>
