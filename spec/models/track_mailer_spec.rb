@@ -114,6 +114,13 @@ describe TrackMailer do
 
             TrackMailer.deliver_event_digest(@user, []) # no items in it email for minimal test
             deliveries = ActionMailer::Base.deliveries
+            if deliveries.size > 1 # debugging if there is an error
+                deliveries.each do |d|
+                    STDERR.puts "------------------------------"
+                    STDERR.puts d.body
+                    STDERR.puts "------------------------------"
+                end
+            end
             deliveries.size.should == 1
             mail = deliveries[0]
 

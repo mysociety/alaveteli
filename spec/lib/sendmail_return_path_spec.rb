@@ -32,6 +32,9 @@ describe "when sending email with an altered return path" do
                 "This is just a test for a test script", nil, nil, nil
             )
         end
+
+        deliveries = ActionMailer::Base.deliveries
+        deliveries.size.should == 0
     end
 
     it "should set the return path when sending email using sendmail" do
@@ -44,6 +47,9 @@ describe "when sending email with an altered return path" do
                 )
             end
         end
+
+        deliveries = ActionMailer::Base.deliveries
+        deliveries.size.should == 0
     end
 
 
