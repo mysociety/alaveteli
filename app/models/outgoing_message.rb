@@ -56,6 +56,9 @@ class OutgoingMessage < ActiveRecord::Base
             return "Yours faithfully,"
         end
     end
+    def get_internal_review_insert_here_note
+        return "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
+    end
     def get_default_letter
         if self.what_doing == 'internal_review'
             "Please pass this on to the person who conducts Freedom of Information reviews." +
@@ -64,7 +67,7 @@ class OutgoingMessage < ActiveRecord::Base
             self.info_request.public_body.name +
             "'s handling of my FOI request " + 
             "'" + self.info_request.title + "'." + 
-            "\n\n" +
+            "\n\n\n\n [ " + self.get_internal_review_insert_here_note + " ] \n\n\n\n" +
             "A full history of my FOI request and all correspondence is available on the Internet at this address:\n" +
             "http://" + MySociety::Config.get("DOMAIN", '127.0.0.1:3000') + "/request/" + self.info_request.url_title 
         else
@@ -119,9 +122,13 @@ class OutgoingMessage < ActiveRecord::Base
 
     # Check have edited letter
     def validate
-        if self.body.empty? || self.body =~ /\A#{get_salutation}\s+#{get_signoff}/
+        if self.body.empty? || self.body =~ /\A#{get_salutation}\s+#{get_signoff}/ || self.body =~ /#{get_internal_review_insert_here_note}/
             if self.message_type == 'followup'
-                errors.add(:body, "^Please enter your follow up message")
+                if self.what_doing == 'internal_review'
+                    errors.add(:body, "^Please give details explaining why you want a review")
+                else
+                    errors.add(:body, "^Please enter your follow up message")
+                end
             elsif
                 errors.add(:body, "^Please enter your letter requesting information")
             else
