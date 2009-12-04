@@ -148,27 +148,27 @@ class RequestController < ApplicationController
         # First time we get to the page, just display it
         if params[:submitted_new_request].nil? || params[:reedit]
             # Read parameters in - public body must be passed in
-            if params[:public_body_id]
-                params[:info_request] = { :public_body_id => params[:public_body_id] }
+            if !params[:public_body_id] 
+                redirect_to frontpage_url
+                return
             end
+            params[:info_request] = { :public_body_id => params[:public_body_id] }
             @info_request = InfoRequest.new(params[:info_request])
             params[:info_request_id] = @info_request.id
+            params[:outgoing_message] = {} if !params[:outgoing_message]
+            params[:outgoing_message][:info_request] = @info_request
             @outgoing_message = OutgoingMessage.new(params[:outgoing_message])
             @outgoing_message.set_signature_name(@user.name) if !@user.nil?
             
-            if @info_request.public_body.nil?
-                redirect_to frontpage_url
-            else 
-                if @info_request.public_body.is_requestable?
-                    render :action => 'new'
+            if @info_request.public_body.is_requestable?
+                render :action => 'new'
+            else
+                if @info_request.public_body.not_requestable_reason == 'bad_contact'
+                    render :action => 'new_bad_contact'
                 else
-                    if @info_request.public_body.not_requestable_reason == 'bad_contact'
-                        render :action => 'new_bad_contact'
-                    else
-                        # if not requestable because defunct or not_apply, redirect to main page
-                        # (which doesn't link to the /new/ URL)
-                        redirect_to public_body_url(@info_request.public_body)
-                    end
+                    # if not requestable because defunct or not_apply, redirect to main page
+                    # (which doesn't link to the /new/ URL)
+                    redirect_to public_body_url(@info_request.public_body)
                 end
             end
             return

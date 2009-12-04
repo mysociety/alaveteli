@@ -263,7 +263,7 @@ describe RequestController, "when creating a new request" do
     end
 
     it "should accept a public body parameter" do
-        get :new, :info_request => { :public_body_id => @body.id } 
+        get :new, :public_body_id => @body.id
         assigns[:info_request].public_body.should == @body    
         response.should render_template('new')
     end
@@ -382,7 +382,7 @@ describe RequestController, "when making a new request" do
         @user.stub!(:can_file_requests?).and_return(true)
         User.stub!(:find).and_return(@user)
 
-        @body = mock_model(PublicBody, :id => 314, :eir_only? => false, :is_requestable? => true)
+        @body = mock_model(PublicBody, :id => 314, :eir_only? => false, :is_requestable? => true, :name => "Test Quango")
         PublicBody.stub!(:find).and_return(@body)
     end
 
@@ -729,7 +729,7 @@ describe RequestController, "when classifying an information request" do
         end
 
         it 'should redirect to the "respond to last url" when status is updated to "gone postal"' do 
-            expect_redirect('gone_postal', "request/#{@dog_request.id}/response/1?gone_postal=1")
+            expect_redirect('gone_postal', "request/#{@dog_request.id}/response/#{@dog_request.get_last_response.id}?gone_postal=1")
         end
         
         it 'should redirect to the "request url" when status is updated to "internal review"' do 
@@ -744,8 +744,8 @@ describe RequestController, "when classifying an information request" do
             expect_redirect('error_message', "help/contact")
         end
         
-        it 'should redirect to the "request url" when status is updated to "user_withdrawn"' do 
-            expect_redirect('user_withdrawn', request_url)
+        it 'should redirect to the "respond to last url url" when status is updated to "user_withdrawn"' do 
+            expect_redirect('user_withdrawn', "request/#{@dog_request.id}/response/#{@dog_request.get_last_response.id}")
         end
          
     end
