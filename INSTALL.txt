@@ -134,7 +134,7 @@ like to do something similar.
 Alternatively, update the code so that
 * By default, admin pages use normal site authentication (checking user admin
 level 'super').
-* Create an option in config/general which lest mySociety override that
+* Create an option in config/general which lets mySociety override that
 behaviour.
 And send us the patch!
 
