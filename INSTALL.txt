@@ -113,7 +113,7 @@ on localhost tell it your IP address by running
 
 > ./script/server --environment=development --binding=10.0.0.11 
 
-Obviously change 10.0.0.11 to your own IP address
+Obviously, change 10.0.0.11 to your own IP address.
 
 5. Success
 ----------
