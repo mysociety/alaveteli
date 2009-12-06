@@ -97,7 +97,7 @@ Make sure everything looks OK:
 
 > rake spec
 
-If there are failures here, something has gone wrong with the preceeding
+If there are failures here, something has gone wrong with the preceding
 steps. You might be able to move on to the next step, depending on how
 serious they are, but ideally you should try to find out what's gone
 wrong.
