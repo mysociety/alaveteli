@@ -17,22 +17,22 @@ describe 'when viewing an information request' do
                                                 :prominence => 'normal')
     end
     
-    def do_render
+    def request_page
         assigns[:info_request] = @mock_request
         assigns[:info_request_events] = []
         assigns[:status] = @mock_request.calculate_status
-        template.stub!(:render)
+        template.stub!(:render_partial)
         render 'request/show'
     end
     
     it 'should show the sidebar' do 
-        template.should_receive(:render).with(:partial => 'sidebar')
-        do_render
+        template.should_receive(:render_partial).with(:partial => 'sidebar', :locals => {})
+        request_page
     end
     
     it 'should show the actions people can take' do
-        template.should_receive(:render).with(:partial => 'after_actions')
-        do_render
+        template.should_receive(:render_partial).with(:partial => 'after_actions', :locals => {})
+        request_page
     end
     
     describe 'when a status update has been requested' do 
@@ -42,7 +42,7 @@ describe 'when viewing an information request' do
         end
         
         it 'should show the first form for describing the state of the request' do
-            do_render
+            request_page
             response.should have_tag("div.describe_state_form#describe_state_form_1")
         end    
         
@@ -55,12 +55,12 @@ describe 'when viewing an information request' do
         end
         
         it 'should show the first form for describing the state of the request' do
-            do_render
+            request_page
             response.should have_tag("div.describe_state_form#describe_state_form_1")
         end
         
         it 'should show the second form for describing the state of the request' do 
-            do_render
+            request_page
             response.should have_tag("div.describe_state_form#describe_state_form_2")
         end
     
@@ -86,7 +86,7 @@ describe 'when viewing an information request' do
                 end
             
                 it 'should show a link to follow up the last response with clarification' do 
-                    do_render
+                    request_page
                     expected_url = "http://test.host/request/#{@mock_request.id}/response/#{@mock_response.id}#followup"
                     response.should have_tag("a[href=#{expected_url}]", :text => 'send a follow up message')
                 end
@@ -100,7 +100,7 @@ describe 'when viewing an information request' do
                 end
             
                 it 'should show a link to follow up the request without reference to a specific response' do 
-                    do_render
+                    request_page
                     expected_url = "http://test.host/request/#{@mock_request.id}/response#followup"
                     response.should have_tag("a[href=#{expected_url}]", :text => 'send a follow up message')
                 end
