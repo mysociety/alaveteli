@@ -109,7 +109,7 @@ run the following to get the server running  (may need to chmod 755 again)
 > ./script/server  --environment=development
 
 or if you want the server to be available on the network and not just
-on localhost tell it your ip address by running
+on localhost tell it your IP address by running
 
 > ./script/server --environment=development --binding=10.0.0.11 
 
