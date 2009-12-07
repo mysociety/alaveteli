@@ -231,8 +231,8 @@ describe User, " when making name and email address" do
     end
 end
 
-
-describe User, " when setting a profile photo" do
+# XXX not finished
+describe User, "when setting a profile photo" do
     before do
         @user = User.new
         @user.name = "Sensible User"
