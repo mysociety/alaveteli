@@ -42,6 +42,11 @@ def rebuild_xapian_index
     Kernel.system(rebuild_name) or raise "failed to launch #{rebuild_name}, error bitcode #{$?}, exit status: #{$?.exitstatus}"
 end
 
+def update_xapian_index
+    update_name = File.dirname(__FILE__) + '/../script/update-xapian-index'
+    Kernel.system(update_name) or raise "failed to launch #{update_name}, error bitcode #{$?}, exit status: #{$?.exitstatus}"
+end
+
 # Validate an entire HTML page
 def validate_html(html)
     $tempfilecount = $tempfilecount + 1
