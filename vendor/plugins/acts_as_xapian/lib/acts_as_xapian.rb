@@ -507,10 +507,10 @@ module ActsAsXapian
     class ActsAsXapianJob < ActiveRecord::Base
     end
 
-    # Update index with any changes needed, call this offline. Only call it
+    # Update index with any changes needed, call this offline. Usually call it
     # from a script that exits - otherwise Xapian's writable database won't
-    # flush your changes. Specifying flush will reduce performance, but 
-    # make sure that each index update is definitely saved to disk before
+    # flush your changes. Specifying flush will reduce performance, but make
+    # sure that each index update is definitely saved to disk before
     # logging in the database that it has been.
     def ActsAsXapian.update_index(flush = false, verbose = false)
         # STDOUT.puts("start of ActsAsXapian.update_index") if verbose

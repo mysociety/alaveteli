@@ -110,12 +110,11 @@ describe InfoRequest do
 
         it "should cope with indexing after item is deleted" do
             rebuild_xapian_index
-            verbose = false
 
             # delete event from underneath indexing; shouldn't cause error
             info_request_events(:useless_incoming_message_event).save!
             info_request_events(:useless_incoming_message_event).destroy
-            ActsAsXapian.update_index(true, verbose)
+            update_xapian_index
         end
 
     end 

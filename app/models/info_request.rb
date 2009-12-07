@@ -132,7 +132,7 @@ class InfoRequest < ActiveRecord::Base
     # we update index for every event. Also reindex if prominence changes.
     after_update :reindex_some_request_events
     def reindex_some_request_events
-        if self.changes.include?('url_title') || self.changes.include?('prominence')
+        if self.changes.include?('url_title') || self.changes.include?('prominence') || self.changes.include?('user_id')
             self.reindex_request_events
         end
     end

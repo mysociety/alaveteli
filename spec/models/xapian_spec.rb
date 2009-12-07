@@ -3,17 +3,13 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe User, " when indexing users with Xapian" do
     fixtures :users
 
-    before(:all) do
-        rebuild_xapian_index
-    end
-
     it "should search by name" do
+        rebuild_xapian_index
           # def InfoRequest.full_search(models, query, order, ascending, collapse, per_page, page)
         xapian_object = InfoRequest.full_search([User], "Silly", 'created_at', true, nil, 100, 1)
         xapian_object.results.size.should == 1
         xapian_object.results[0][:model].should == users(:silly_name_user)
     end
-
 end
 
 describe PublicBody, " when indexing public bodies with Xapian" do
@@ -47,8 +43,6 @@ describe PublicBody, " when indexing requests by body they are to" do
     end
 
     it "should update index correctly when URL name of body changes" do
-        verbose = false
-
         # initial search
         rebuild_xapian_index
         xapian_object = InfoRequest.full_search([InfoRequestEvent], "requested_from:tgq", 'created_at', true, nil, 100, 1)
@@ -60,7 +54,7 @@ describe PublicBody, " when indexing requests by body they are to" do
         body.short_name = 'GQ'
         body.save!
         body.url_name.should == 'gq'
-        ActsAsXapian.update_index(true, verbose) # true = flush to disk
+        update_xapian_index
 
         # check we get results expected
         xapian_object = InfoRequest.full_search([InfoRequestEvent], "requested_from:tgq", 'created_at', true, nil, 100, 1)
@@ -82,9 +76,52 @@ describe User, " when indexing requests by user they are from" do
         xapian_object.results.size.should == 4
     end
 
-    it "should update index correctly when URL name of user changes" do
-        verbose = false
+    it "should find just the sent message events from a particular user" do
+        rebuild_xapian_index
+          # def InfoRequest.full_search(models, query, order, ascending, collapse, per_page, page)
+        xapian_object = InfoRequest.full_search([InfoRequestEvent], "requested_by:bob_smith variety:sent", 'created_at', true, nil, 100, 1)
+        xapian_object.results.size.should == 2
+        xapian_object.results[1][:model].should == info_request_events(:useless_outgoing_message_event)
+        xapian_object.results[0][:model].should == info_request_events(:silly_outgoing_message_event)
+    end
 
+    it "should not find it when one of the request's users is changed" do
+        rebuild_xapian_index
+        silly_user = users(:silly_name_user)
+        naughty_chicken_request = info_requests(:naughty_chicken_request)
+        naughty_chicken_request.user = silly_user
+        naughty_chicken_request.save!
+
+        update_xapian_index
+
+          # def InfoRequest.full_search(models, query, order, ascending, collapse, per_page, page)
+        xapian_object = InfoRequest.full_search([InfoRequestEvent], "requested_by:bob_smith variety:sent", 'created_at', true, nil, 100, 1)
+        xapian_object.results.size.should == 1
+        xapian_object.results[0][:model].should == info_request_events(:useless_outgoing_message_event)
+    end
+
+    it "should not find it when one of the request's users is changed to a name which is a substring of the other request" do
+        rebuild_xapian_index
+        silly_user = users(:silly_name_user)
+
+        silly_user.name = "Bob S"
+        silly_user.url_name.should == 'bob_s'
+        silly_user.save!
+
+        naughty_chicken_request = info_requests(:naughty_chicken_request)
+        naughty_chicken_request.user = silly_user
+        naughty_chicken_request.save!
+
+        update_xapian_index
+
+          # def InfoRequest.full_search(models, query, order, ascending, collapse, per_page, page)
+        xapian_object = InfoRequest.full_search([InfoRequestEvent], "requested_by:bob_s variety:sent", 'created_at', true, nil, 100, 1)
+        xapian_object.results.size.should == 1
+        xapian_object.results[0][:model].should == info_request_events(:silly_outgoing_message_event)
+    end
+
+
+    it "should update index correctly when URL name of user changes" do
         # initial search
         rebuild_xapian_index
         xapian_object = InfoRequest.full_search([InfoRequestEvent], "requested_by:bob_smith", 'created_at', true, nil, 100, 1)
@@ -96,7 +133,7 @@ describe User, " when indexing requests by user they are from" do
         u.name = 'Robert Smith'
         u.save!
         u.url_name.should == 'robert_smith'
-        ActsAsXapian.update_index(flush_to_disk=true, verbose) 
+        update_xapian_index
 
         # check we get results expected
         xapian_object = InfoRequest.full_search([InfoRequestEvent], "requested_by:bob_smith", 'created_at', true, nil, 100, 1)
@@ -119,8 +156,6 @@ describe User, " when indexing comments by user they are by" do
     end
 
     it "should update index correctly when URL name of user changes" do
-        verbose = false
-
         # initial search
         rebuild_xapian_index
         xapian_object = InfoRequest.full_search([InfoRequestEvent], "commented_by:silly_emnameem", 'created_at', true, nil, 100, 1)
@@ -132,7 +167,7 @@ describe User, " when indexing comments by user they are by" do
         u.name = 'Silly Name'
         u.save!
         u.url_name.should == 'silly_name'
-        ActsAsXapian.update_index(true, verbose) # true = flush to disk
+        update_xapian_index
 
         # check we get results expected
         xapian_object = InfoRequest.full_search([InfoRequestEvent], "commented_by:silly_emnameem", 'created_at', true, nil, 100, 1)
@@ -156,15 +191,13 @@ describe InfoRequest, " when indexing requests by their title" do
     end
 
     it "should update index correctly when URL title of request changes" do
-        verbose = false
-
         # change the URL name of the body
         rebuild_xapian_index
         ir = info_requests(:naughty_chicken_request)
         ir.title = 'Really naughty'
         ir.save!
         ir.url_title.should == 'really_naughty'
-        ActsAsXapian.update_index(true, verbose) # true = flush to disk
+        update_xapian_index
 
         # check we get results expected
         xapian_object = InfoRequest.full_search([InfoRequestEvent], "request:how_much_public_money_is_wasted_o", 'created_at', true, nil, 100, 1)
