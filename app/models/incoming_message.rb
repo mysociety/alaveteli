@@ -898,7 +898,7 @@ class IncomingMessage < ActiveRecord::Base
         # e.g. for https://secure.mysociety.org/admin/foi/request/show_raw_email/24550
         main_part = get_main_body_text_part
         if main_part.nil?
-            return
+            return []
         end
         text = main_part.body
 
