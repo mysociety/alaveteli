@@ -20,6 +20,8 @@ date_response_required_by
 working_days_20_overdue?
 waiting_response_overdue => waiting_response_slow, waiting_response_overdue
 
+Remove working_days_20_overdue?
+
 
 Send email at 40 days
 
