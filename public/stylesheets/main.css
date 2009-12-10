@@ -511,7 +511,8 @@ dd { margin: 0.6em 0 2em 4em; width: 33em; }
     { background-image: url(../images/navimg/status-icons-succeed.png);}
     /* Alert */
     .icon_requires_admin,	
-    .icon_waiting_response_overdue
+    .icon_waiting_response_overdue,
+    .icon_waiting_response_very_overdue
     { background-image: url(../images/navimg/status-icons-attn.png);}
     /* Postal */
     .icon_gone_postal
