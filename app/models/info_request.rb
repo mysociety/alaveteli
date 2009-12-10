@@ -487,6 +487,7 @@ public
     # self.described_state, can take these two values:
     #   waiting_classification
     #   waiting_response_overdue
+    #   waiting_response_very_overdue
     def calculate_status
         return 'waiting_classification' if self.awaiting_description
         return described_state unless self.described_state == "waiting_response"
@@ -729,6 +730,8 @@ public
             "Awaiting response."
         elsif status == 'waiting_response_overdue'
             "Response overdue."
+        elsif status == 'waiting_response_very_overdue'
+            "Response long overdue."
         elsif status == 'not_held'
             "Information not held."
         elsif status == 'rejected'

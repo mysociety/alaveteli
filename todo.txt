@@ -23,7 +23,11 @@ waiting_response_overdue => waiting_response_slow, waiting_response_overdue
 Remove working_days_20_overdue?
 
 
+Go through waiting_response_very_overdue/waiting_response_overdue and tighten wording
+
 Send email at 40 days
+models/request_mailer.rb self.alert_overdue_requests
+
 
 
 Environmental Information Regulations allow for an extension but not an

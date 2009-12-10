@@ -32,9 +32,9 @@
         that was not in your original request, then
         <%= link_to "file a new request", new_request_to_body_url(:public_body_id => @info_request.public_body.id.to_s) %>.
 
-        <% if @info_request.calculate_status == 'waiting_response_overdue' %>
+        <% if @info_request.calculate_status == 'waiting_response_overdue' || @info_request.calculate_status == 'waiting_response_very_overdue' %>
             <p>
-            <% if @info_request.working_days_20_overdue? %>             
+            <% if @info_request.calculate_status == 'waiting_response_very_overdue' %>             
                 This request is <strong>long overdue a response</strong>.
             <% else %>
                 This request is <strong>overdue a response</strong>.
