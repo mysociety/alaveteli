@@ -1,13 +1,49 @@
-Segmentation fault:
-IncomingMessage.find(24705).info_equest_events[0].search_text_main(true)
+Search for PICT crash
+=====================
 
+Incoming message 24705 has a badly uuencoded thing due to the bug in escaping
+backslashes in the database.
+
+You can unhide the request from search now it is fixed
+
+Check this works still:
 s = IncomingMessage.find(2); text = s.get_main_body_text_internal; s.cached_main_body_text = text; s.save!
+
+
+Public interest test
+====================
+Send extra strong overdue email after 40 days?
 
 
 overdue
 date_response_required_by
+working_days_20_overdue?
 waiting_response_overdue => waiting_response_slow, waiting_response_overdue
 
+
+Send email at 40 days
+
+
+Environmental Information Regulations allow for an extension but not an
+indefinite extension:
+"Where a request is made under regulation 5, the public authority may
+extend the period of 20 working days referred to in the provisions in
+paragraph (2) to 40 working days if it reasonably believes that the
+complexity and volume of the information requested means that it is
+impracticable either to comply with the request within the earlier
+period or to make a decision to refuse to do so."
+
+Public interest test
+"The Scottish Act requires public authorities claiming an exemption to exercise
+the public-interest test, where applicable, within the 20 working day response
+period.  The UK Act does not give a time limit."
+
+There is something in Scottish act about Keeper of Records too that
+can create extension, not sure what that is.
+
+
+Letting you hide individual things
+==================================
 
 Move comments to use new system first
 Show message to signed in user that others can't see this part
@@ -15,9 +51,10 @@ Make sure hidden things don't show in search snippets
     in models/comment.rb: # So when made invisble it vanishes
 Remove comments visible
 
+More
+====
 
 Finish profile photo
-
 
 test if get_attachments_for_display called multiple times in one request?
 
@@ -30,7 +67,6 @@ PID: 676    CONSUME MEMORY: 16968 KB    Now: 102604 KB  http://www.whatdotheykno
 PID: 2036       CONSUME MEMORY: 129368 KB       Now: 179652 KB  http://www.whatdotheyknow.com/request/14186/response/33740
 - search engines shouldn't be going for those URLs. and do they really need to
   unpack so much? could use snippet cache.
-
 
 
 Next (things that will reduce admin time mainly)
