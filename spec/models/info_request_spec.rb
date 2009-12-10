@@ -140,7 +140,7 @@ describe InfoRequest do
         end
 
         it "is overdue a day after due date " do
-            Time.stub!(:now).and_return(Time.utc(2007, 11, 10)) 
+            Time.stub!(:now).and_return(Time.utc(2007, 11, 10, 00, 01)) 
             @ir.calculate_status.should == 'waiting_response_overdue'
         end
     end
