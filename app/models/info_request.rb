@@ -570,7 +570,7 @@ public
             end
         end
         if last_sent.nil?
-            raise "internal error, date_response_required_by gets nil for request " + self.id.to_s + " outgoing messages count " + self.outgoing_messages.size.to_s + " all events: " + self.info_request_events.to_yaml
+            raise "internal error, last_event_forming_initial_request gets nil for request " + self.id.to_s + " outgoing messages count " + self.outgoing_messages.size.to_s + " all events: " + self.info_request_events.to_yaml
         end
         return last_sent
     end
