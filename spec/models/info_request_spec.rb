@@ -134,14 +134,28 @@ describe InfoRequest do
             @ir.date_response_required_by.strftime("%F").should == '2007-11-09'
         end
 
-        it "isn't overdue on due date" do
+        it "has correct very overdue after date" do
+            @ir.date_very_overdue_after.strftime("%F").should == '2007-12-10'
+        end
+
+        it "isn't overdue on due date (20 working days after request sent)" do
             Time.stub!(:now).and_return(Time.utc(2007, 11, 9, 23, 59)) 
             @ir.calculate_status.should == 'waiting_response'
         end
 
-        it "is overdue a day after due date " do
+        it "is overdue a day after due date (20 working days after request sent)" do
             Time.stub!(:now).and_return(Time.utc(2007, 11, 10, 00, 01)) 
             @ir.calculate_status.should == 'waiting_response_overdue'
+        end
+
+        it "is still overdue 40 working days after request sent" do
+            Time.stub!(:now).and_return(Time.utc(2007, 12, 10, 23, 59)) 
+            @ir.calculate_status.should == 'waiting_response_overdue'
+        end
+
+        it "is very overdue the day after 40 working days after request sent" do
+            Time.stub!(:now).and_return(Time.utc(2007, 12, 11, 00, 01)) 
+            @ir.calculate_status.should == 'waiting_response_very_overdue'
         end
     end
     

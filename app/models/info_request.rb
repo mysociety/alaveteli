@@ -491,6 +491,8 @@ public
         return 'waiting_classification' if self.awaiting_description
         return described_state unless self.described_state == "waiting_response"
         # Compare by date, so only overdue on next day, not if 1 second late
+        return 'waiting_response_very_overdue' if
+            Time.now.strftime("%Y-%m-%d") > self.date_very_overdue_after.strftime("%Y-%m-%d")
         return 'waiting_response_overdue' if
             Time.now.strftime("%Y-%m-%d") > self.date_response_required_by.strftime("%Y-%m-%d")
         return 'waiting_response'
@@ -582,6 +584,13 @@ public
         last_sent = last_event_forming_initial_request
         return Holiday.due_date_from(last_sent.outgoing_message.last_sent_at, 20)
     end
+    # This is a long stop - even with UK public interest test extensions, 40
+    # days is a very long time.
+    def date_very_overdue_after
+        last_sent = last_event_forming_initial_request
+        return Holiday.due_date_from(last_sent.outgoing_message.last_sent_at, 40)
+    end
+
 
     # Are we more than 20 working days overdue?
     def working_days_20_overdue?
