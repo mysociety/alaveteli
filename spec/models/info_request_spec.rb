@@ -126,6 +126,10 @@ describe InfoRequest do
             @ir = info_requests(:naughty_chicken_request)
         end
 
+        it "has expected sent date" do
+            @ir.last_event_forming_initial_request.outgoing_message.last_sent_at.strftime("%F").should == '2007-10-14'
+        end
+
         it "has correct due date" do
             @ir.date_response_required_by.strftime("%F").should == '2007-11-09'
         end
