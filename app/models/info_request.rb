@@ -596,12 +596,6 @@ public
         return Holiday.due_date_from(self.date_initial_request_last_sent_at, 40)
     end
 
-
-    # Are we more than 20 working days overdue?
-    def working_days_20_overdue?
-        return Holiday.due_date_from(date_response_required_by.to_date, 20) <= Time.now.to_date
-    end
-
     # Where the initial request is sent to
     def recipient_email
         return self.public_body.request_email
