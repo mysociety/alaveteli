@@ -575,20 +575,24 @@ public
         return last_sent
     end
 
+    # The last time that the initial request was sent/resent
+    def date_initial_request_last_sent_at
+        last_sent = last_event_forming_initial_request
+        return last_sent.outgoing_message.last_sent_at
+    end
     # How do we cope with case where extra info was required from the requester
     # by the public body in order to fulfill the request, as per sections 1(3)
     # and 10(6b) ? For clarifications this is covered by
     # last_event_forming_initial_request. There may be more obscure
     # things, e.g. fees, not properly covered.
     def date_response_required_by
-        last_sent = last_event_forming_initial_request
-        return Holiday.due_date_from(last_sent.outgoing_message.last_sent_at, 20)
+        return Holiday.due_date_from(self.date_initial_request_last_sent_at, 20)
     end
     # This is a long stop - even with UK public interest test extensions, 40
     # days is a very long time.
     def date_very_overdue_after
         last_sent = last_event_forming_initial_request
-        return Holiday.due_date_from(last_sent.outgoing_message.last_sent_at, 40)
+        return Holiday.due_date_from(self.date_initial_request_last_sent_at, 40)
     end
 
 
