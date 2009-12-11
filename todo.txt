@@ -14,65 +14,20 @@ Public interest test
 ====================
 
 Go through 
-    waiting_response_very_overdue
-    waiting_response_overdue 
-    date_response_required_by
-    the overdue email
-and tighten wording
-    - Make sure it is clear when clarification was included
+    ./views/request/_followup.rhtml
+    ./controllers/request_controller.rb - make it so it uses right date display
+
+Do tests
 
 Check display for schools
 Strip "normally" for Scotland
-
-Update FAQ (in #quickly_response simple version, #days full details)
-    - Talk about 40 day being upper limit under various guidances / laws
-    - Note that as well as Scottish act, the opposition Labour/Conservative
-      also opposed public interest extension
-    - Split #quickly_response into a 20 day and 40 day link?
 
 Send email at 40 days
     models/request_mailer.rb self.alert_overdue_requests
     models/request_mailer.rb overdue_alert
     ./models/user_info_request_sent_alert.rb - add very_overdue_1
 
-Table 12 here apparently justifies "delayed" wording
-    http://www.justice.gov.uk/publications/freedomofinformationquarterly.htm
 
-The ICO's "Good Practice Guide 4"
-    Whilst the current version of the Section 45 Code of Practice makes no
-    reference to consideration of the public interest, our view is that public
-    authorities should aim to respond fully to all requests within 20 working days.
-    In cases where the public interest considerations are exceptionally complex it
-    may be reasonable to take longer but, in our view, in no case should the total
-    time exceed 40 working days.
-    Where any additional time beyond the initial 20 working days is required to
-    consider the public interest, the public authority must still serve a “refusal
-    notice” under section 17 of FOIA within 20 working days of a request even in
-    those cases where it is relying on a qualified exemption and has not yet
-    completed the public interest test. That notice must state the exemption(s)
-    being relied on and, if not apparent, why. The notice must include an
-    estimate of the time by which this decision will be made. If the final decision
-    is to withhold the information requested, a second notice must then be issued
-    providing the reasons for the decision on the public interest. No further notice
-    is required if the final decision is to disclose the information.
-http://www.ico.gov.uk/upload/documents/library/freedom_of_information/detailed_specialist_guides/foi_good_practice_guidance_4.pdf
-
-"add something to our help section on this that says that late shouldn't be
-read as meaning "breaking the law": there are circumstances in which they can
-legally take extra time, but the overriding test is still "promptly" so they
-might be acceptably late or they might be unacceptably late, but that's a
-subjective test we can't make."
-
-However, I do agree with the argument that if authorities didn't have
-a longer period for the PIT then that would almost certainly lead to
-information being withheld that might otherwise be released. Under
-correct usage, this extension should only ever be triggered where a
-body has decided that information falls under one of the exemptions
-that would preclude disclosure, and this extra time is solely for
-deciding whether or not the public interest outweighs that. So if (and
-only if) a body has done the first part correctly, I don't think we
-want to discourage them from taking time to properly decide whether or
-not they can release the information after all.
 
 Environmental Information Regulations allow for an extension but not an
 indefinite extension:
@@ -82,11 +37,6 @@ paragraph (2) to 40 working days if it reasonably believes that the
 complexity and volume of the information requested means that it is
 impracticable either to comply with the request within the earlier
 period or to make a decision to refuse to do so."
-
-Public interest test
-"The Scottish Act requires public authorities claiming an exemption to exercise
-the public-interest test, where applicable, within the 20 working day response
-period.  The UK Act does not give a time limit."
 
 There is something in Scottish act about Keeper of Records too that
 can create extension, not sure what that is.
