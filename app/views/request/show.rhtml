@@ -65,22 +65,22 @@
         no later than <strong><%= simple_date(@info_request.date_response_required_by) %></strong>
         (<%= link_to "details", about_url + "#quickly_response" %>).
     <% elsif @status == 'waiting_response_overdue' %>
-        Response to this request is <strong>late</strong>.
-            By law, <%= public_body_link(@info_request.public_body) %> should
-            have responded <strong>promptly</strong>, 
-        <% if @info_request.public_body.is_school? %>
-            and in term time by
-            <strong><%= simple_date(@info_request.date_response_required_by) %></strong>
-        <% else %>
-            and normally by
-            <strong><%= simple_date(@info_request.date_response_required_by) %></strong>
-        <% end %>
+        Response to this request is <strong>delayed</strong>.
+            By law, <%= public_body_link(@info_request.public_body) %> 
+            <% if @info_request.public_body.is_school? %>
+                in term time should
+            <% else %>
+                should normally 
+            <% end %>
+            have responded by
+           <strong><%= simple_date(@info_request.date_response_required_by) %></strong>
         (<%= link_to "details", about_url + "#quickly_response" %>).
     <% elsif @status == 'waiting_response_very_overdue' %>
-        <%= public_body_link(@info_request.public_body) %> are <strong>extremely late</strong>. 
-        By law, they should have responded to this request promptly, and under all
-        circumstances by <%= simple_date(@info_request.date_very_overdue_after) %>
-        (<%= link_to "more details", about_url + "#quickly_response" %>).
+        Response to this request is <strong>overdue</strong>. 
+        By law, under all circumstances, <%= public_body_link(@info_request.public_body) %> 
+        should have responded by
+        <%= simple_date(@info_request.date_very_overdue_after) %>
+        (<%= link_to "details", about_url + "#quickly_response" %>).
         You can <strong>complain</strong> by
         <%= link_to "requesting an internal review", show_response_no_followup_url(:id => @info_request.id, :incoming_message_id => nil) + "?internal_review=1#followup" %>.
     <% elsif @status == 'not_held' %>
