@@ -593,7 +593,13 @@ public
     # days is a very long time.
     def date_very_overdue_after
         last_sent = last_event_forming_initial_request
-        return Holiday.due_date_from(self.date_initial_request_last_sent_at, 40)
+        if self.public_body.is_school?
+            # schools have 60 working days maximum (even over a long holiday)
+            return Holiday.due_date_from(self.date_initial_request_last_sent_at, 60)
+        else
+            # public interest test ICO guidance gives 40 working maximum
+            return Holiday.due_date_from(self.date_initial_request_last_sent_at, 40)
+        end
     end
 
     # Where the initial request is sent to
@@ -723,9 +729,9 @@ public
         elsif status == 'waiting_response'
             "Awaiting response."
         elsif status == 'waiting_response_overdue'
-            "Response overdue."
+            "Response delayed."
         elsif status == 'waiting_response_very_overdue'
-            "Response long overdue."
+            "Long overdue."
         elsif status == 'not_held'
             "Information not held."
         elsif status == 'rejected'
