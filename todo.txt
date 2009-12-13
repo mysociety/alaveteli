@@ -13,9 +13,6 @@ s = IncomingMessage.find(2); text = s.get_main_body_text_internal; s.cached_main
 Public interest test
 ====================
 
-Go through cases in both these and fix up to reflect main ones:
-    ./controllers/request_controller.rb - make it so it uses right date display
-
 Do tests
 
 Check display for schools (of i) request pages, ii) search pages, iii) followup, iv) status set confirmation )
@@ -29,17 +26,6 @@ Send email at 40 days
     models/request_mailer.rb overdue_alert
     ./models/user_info_request_sent_alert.rb - add very_overdue_1
 
-Environmental Information Regulations allow for an extension but not an
-indefinite extension:
-"Where a request is made under regulation 5, the public authority may
-extend the period of 20 working days referred to in the provisions in
-paragraph (2) to 40 working days if it reasonably believes that the
-complexity and volume of the information requested means that it is
-impracticable either to comply with the request within the earlier
-period or to make a decision to refuse to do so."
-
-There is something in Scottish act about Keeper of Records too that
-can create extension, not sure what that is.
 
 
 Letting you hide individual things
@@ -53,6 +39,9 @@ Remove comments visible
 
 More
 ====
+
+This is broken uudecode
+http://www.whatdotheyknow.com/request/section_44_terrorism_act_areas#incoming-5217
 
 Finish profile photo
 
