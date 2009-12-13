@@ -729,9 +729,9 @@ public
         elsif status == 'waiting_response'
             "Awaiting response."
         elsif status == 'waiting_response_overdue'
-            "Response delayed."
+            "Delayed."
         elsif status == 'waiting_response_very_overdue'
-            "Response overdue."
+            "Long overdue."
         elsif status == 'not_held'
             "Information not held."
         elsif status == 'rejected'

@@ -31,25 +31,25 @@
         request '<%= request_link(@info_request) %>'. If you would like to ask for information
         that was not in your original request, then
         <%= link_to "file a new request", new_request_to_body_url(:public_body_id => @info_request.public_body.id.to_s) %>.
+        </p>
 
-        <% if @info_request.calculate_status == 'waiting_response_overdue' || @info_request.calculate_status == 'waiting_response_very_overdue' %>
-            <p>
-            <% if @info_request.calculate_status == 'waiting_response_very_overdue' %>             
-                This request is <strong>long overdue a response</strong>.
-            <% else %>
-                This request is <strong>overdue a response</strong>.
-            <% end %>
-            You can say that, by law, the authority should have answered
-            <strong>promptly</strong>. If they have not given you a legal
-            reason why they need extra time
-            (<%= link_to "more details", about_url + "#quickly_response" %>), then
-            you can say they are breaking the law to have not replied by
-            <strong><%= simple_date(@info_request.date_response_required_by) %></strong>.
+        <% status = @info_request.calculate_status %>
+        <% if status == 'waiting_response_overdue' %>
+            <p>The response to your request has been <strong>delayed</strong>.  You can say that, 
+            by law, the authority should normally have responded
+            <strong>promptly</strong> and
             <% if @info_request.public_body.is_school? %>
-                This is a school, so legally they get lots of extra slack if it is 
-                holiday time.
+                in term time 
             <% end %>
-       </p>
+            by <strong><%= simple_date(@info_request.date_response_required_by) %></strong>
+            (<%= link_to "details", about_url + "#quickly_response" %>).
+            </p>
+        <% elsif status == 'waiting_response_very_overdue' %>
+            <p>
+            The response to your request is <strong>long overdue</strong>.   You can say that, by 
+            law, under all circumstances, the authority should have responded
+            by now (<%= link_to "details", about_url + "#quickly_response" %>).
+            </p>
         <% end %>
 
         <% form_for(:outgoing_message, @outgoing_message, :html => { :id => 'followup_form' }, :url => incoming_message.nil? ? show_response_no_followup_url(:id => @info_request.id) : show_response_url(:id => @info_request.id, :incoming_message_id => incoming_message.id)) do |o| %>

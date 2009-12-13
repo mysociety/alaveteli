@@ -13,21 +13,21 @@ s = IncomingMessage.find(2); text = s.get_main_body_text_internal; s.cached_main
 Public interest test
 ====================
 
-Go through 
-    ./views/request/_followup.rhtml
+Go through cases in both these and fix up to reflect main ones:
     ./controllers/request_controller.rb - make it so it uses right date display
 
 Do tests
 
-Check display for schools
-Strip "normally" for Scotland
+Check display for schools (of i) request pages, ii) search pages, iii) followup, iv) status set confirmation )
+    i) ./request/show.rhtml
+    ii) ./models/info_request.rb
+    iii) ./views/request/_followup.rhtml
+    iv) ./controllers/request_controller.rb 
 
 Send email at 40 days
     models/request_mailer.rb self.alert_overdue_requests
     models/request_mailer.rb overdue_alert
     ./models/user_info_request_sent_alert.rb - add very_overdue_1
-
-
 
 Environmental Information Regulations allow for an extension but not an
 indefinite extension:
@@ -71,6 +71,9 @@ PID: 2036       CONSUME MEMORY: 129368 KB       Now: 179652 KB  http://www.whatd
 
 Next (things that will reduce admin time mainly)
 ====
+
+For Scotland, don't need to say "normally" equivocally when it is taking more than 20 days
+(as there is no public interest test).
 
 Ask people for annotation immediately after they have submitted their request
 Ask for annotation about what they learnt from request?

@@ -66,20 +66,17 @@
         (<%= link_to "details", about_url + "#quickly_response" %>).
     <% elsif @status == 'waiting_response_overdue' %>
         Response to this request is <strong>delayed</strong>.
-            By law, <%= public_body_link(@info_request.public_body) %> 
+        By law, <%= public_body_link(@info_request.public_body) %> should
+        normally have responded <strong>promptly</strong> and
             <% if @info_request.public_body.is_school? %>
-                in term time should
-            <% else %>
-                should normally 
+                in term time 
             <% end %>
-            have responded by
-           <strong><%= simple_date(@info_request.date_response_required_by) %></strong>
+            by <strong><%= simple_date(@info_request.date_response_required_by) %></strong>
         (<%= link_to "details", about_url + "#quickly_response" %>).
     <% elsif @status == 'waiting_response_very_overdue' %>
-        Response to this request is <strong>overdue</strong>. 
+        Response to this request is <strong>long overdue</strong>. 
         By law, under all circumstances, <%= public_body_link(@info_request.public_body) %> 
-        should have responded by
-        <%= simple_date(@info_request.date_very_overdue_after) %>
+        should have responded by now
         (<%= link_to "details", about_url + "#quickly_response" %>).
         You can <strong>complain</strong> by
         <%= link_to "requesting an internal review", show_response_no_followup_url(:id => @info_request.id, :incoming_message_id => nil) + "?internal_review=1#followup" %>.
