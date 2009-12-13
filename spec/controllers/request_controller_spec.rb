@@ -683,7 +683,11 @@ describe RequestController, "when classifying an information request" do
         def request_url
             "request/#{@dog_request.url_title}"
         end
-        
+
+        def unhappy_url
+            "help/unhappy/#{@dog_request.url_title}"
+        end
+         
         def expect_redirect(status, redirect_path)
             post_status(status)
             response.should redirect_to("http://test.host/#{redirect_path}")
@@ -691,16 +695,26 @@ describe RequestController, "when classifying an information request" do
         
         it 'should redirect to the "request url" with a message in the right tense when status is updated to "waiting response" and the response is not overdue' do
             @dog_request.stub!(:date_response_required_by).and_return(Time.now.to_date+1)
+            @dog_request.stub!(:date_very_overdue_after).and_return(Time.now.to_date+40)
+
             expect_redirect("waiting_response", "request/#{@dog_request.url_title}")
             flash[:notice].should match(/should get a response/)
         end
     
         it 'should redirect to the "request url" with a message in the right tense when status is updated to "waiting response" and the response is overdue' do 
             @dog_request.stub!(:date_response_required_by).and_return(Time.now.to_date-1)
+            @dog_request.stub!(:date_very_overdue_after).and_return(Time.now.to_date+40)
             expect_redirect('waiting_response', request_url)
             flash[:notice].should match(/should have got a response/)
         end
-        
+
+        it 'should redirect to the "request url" with a message in the right tense when status is updated to "waiting response" and the response is overdue' do 
+            @dog_request.stub!(:date_response_required_by).and_return(Time.now.to_date-2)
+            @dog_request.stub!(:date_very_overdue_after).and_return(Time.now.to_date-1)
+            expect_redirect('waiting_response', unhappy_url)
+            flash[:notice].should match(/is long overdue/)
+        end
+         
         it 'should redirect to the "request url" when status is updated to "not held"' do 
             expect_redirect('not_held', request_url)
         end
@@ -825,6 +839,10 @@ describe RequestController, "sending overdue request alerts" do
     fixtures :info_requests, :info_request_events, :public_bodies, :users, :incoming_messages, :raw_emails, :outgoing_messages # all needed as integrating views
  
     it "should send an overdue alert mail to creators of overdue requests" do
+        chicken_request = info_requests(:naughty_chicken_request)
+        chicken_request.outgoing_messages[0].last_sent_at = Time.now() - 30.days
+        chicken_request.save!
+
         RequestMailer.alert_overdue_requests
 
         deliveries = ActionMailer::Base.deliveries
