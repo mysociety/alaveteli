@@ -3,20 +3,10 @@ Search for PICT crash
 
 Incoming message 24705 has a badly uuencoded thing due to the bug in escaping
 backslashes in the database.
-- Upgrad Rails to a newer version even still
-- You can unhide the request from search now it is fixed
+- Upgrade Rails to a newer version even still
 - Check this works still:
 s = IncomingMessage.find(2); text = s.get_main_body_text_internal; s.cached_main_body_text = text; s.save!
-
-
-Public interest test
-====================
-
-Send email at 40 days
-    models/request_mailer.rb self.alert_overdue_requests
-    models/request_mailer.rb overdue_alert
-    ./models/user_info_request_sent_alert.rb - add very_overdue_1
-
+- You can unhide the bad request from search now it is fixed
 
 
 Letting you hide individual things
@@ -34,9 +24,11 @@ More
 This is broken uudecode
 http://www.whatdotheyknow.com/request/section_44_terrorism_act_areas#incoming-5217
 
-Finish profile photo
-
 test if get_attachments_for_display called multiple times in one request?
+
+
+Next (things that will reduce admin time mainly)
+====
 
 sending an email alert for this query takes crazy long
     query = 'variety:response (status:successful OR status:partially_successful)'
@@ -48,9 +40,7 @@ PID: 2036       CONSUME MEMORY: 129368 KB       Now: 179652 KB  http://www.whatd
 - search engines shouldn't be going for those URLs. and do they really need to
   unpack so much? could use snippet cache.
 
-
-Next (things that will reduce admin time mainly)
-====
+Finish profile photo
 
 For Scotland, don't need to say "normally" equivocally when it is taking more than 20 days
 (as there is no public interest test).
@@ -61,21 +51,6 @@ Ask for annotation about what they learnt from request?
 Have proper house rules / site terms and conditions page.
 Perhaps borrow from these house rules:
     http://www.theyworkforyou.com/houserules/
-
-Lots of authorities are starting to complain about how their record looks on
-their page - e.g responses not classified by users. That users may classify
-incorrectly. Change wording to make it clear statuses are users opinion ?.
-* Meanwhile mention in help that authorities can do this
-* And ask that they include URL of requests in emails when talking about them
-
-Finish up the request game, and market it a bit more.
-    * Or you can do it yourself (if you are not logged in and request isn't classified)
-    * Market it from every request that isn't categorised
-      (and when you categorise one)
-Check up on how the public old request status editing is being used in 
-practice. Think about UI a bit more to try and up rate, and UI of alerts to
-requester.
-Offer user_withdrawn as option in many GUI?
 
 Put the request from address in the database, 
     XXX not so sure about that, as need fuzzy rule for matching/guessing according to type
@@ -108,13 +83,13 @@ be load in case where the envelope from gets broken?
 
 Admin button to resend request one off to particular address
 
-Add explicit option for user to select "misdelivered to the wrong request"
-and let people move them to the right place.
-(Julian wants that too)
-
 
 Later
 =====
+
+Add explicit option for user to select "misdelivered to the wrong request"
+and let people move them to the right place.
+(Julian wants that too)
 
 Give authorities interface for editing their request email address
 and resend messages to them
