@@ -841,7 +841,7 @@ describe RequestController, "sending overdue request alerts" do
     it "should send an overdue alert mail to creators of overdue requests" do
         chicken_request = info_requests(:naughty_chicken_request)
         chicken_request.outgoing_messages[0].last_sent_at = Time.now() - 30.days
-        chicken_request.save!
+        chicken_request.outgoing_messages[0].save!
 
         RequestMailer.alert_overdue_requests
 
