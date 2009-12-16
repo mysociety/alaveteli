@@ -4,7 +4,8 @@ describe 'when viewing an information request' do
     
     before do 
         @mock_body = mock_model(PublicBody, :name => 'test body',
-                                            :url_name => 'test_body')
+                                            :url_name => 'test_body',
+                                            :is_school? => false)
         @mock_user = mock_model(User, :name => 'test user',
                                       :url_name => 'test_user')
         @mock_request = mock_model(InfoRequest, :title => 'test request',
