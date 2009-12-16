@@ -318,10 +318,10 @@ class RequestController < ApplicationController
 
         # Display advice for requester on what to do next, as appropriate
         if @info_request.calculate_status == 'waiting_response'
-            flash[:notice] = "<p>Thank you! Hopefully your wait isn't too long.</p> <p>By law, you should get a response promptly, and normally before the end of <strong>" + simple_date(@info_request.date_response_required_by) + "</strong>.</p>"
+            flash[:notice] = "<p>Thank you! Hopefully your wait isn't too long.</p> <p>By law, you should get a response promptly, and " + (@info_request.public_body.is_school? ? "in term time" : "") + " normally before the end of <strong>" + simple_date(@info_request.date_response_required_by) + "</strong>.</p>"
             redirect_to request_url(@info_request)
         elsif @info_request.calculate_status == 'waiting_response_overdue'
-            flash[:notice] = "<p>Thank you! Hope you don't have to wait much longer.</p> <p>By law, you should have got a response promptly, and normally before the end of <strong>" + simple_date(@info_request.date_response_required_by) + "</strong>.</p>"
+            flash[:notice] = "<p>Thank you! Hope you don't have to wait much longer.</p> <p>By law, you should have got a response promptly, and " + (@info_request.public_body.is_school? ? "in term time" : "") + " normally before the end of <strong>" + simple_date(@info_request.date_response_required_by) + "</strong>.</p>"
             redirect_to request_url(@info_request)
         elsif @info_request.calculate_status == 'waiting_response_very_overdue'
             flash[:notice] = "<p>Thank you! Your request is long overdue, by more than 40 working days. Most requests should be answered within 20 working days. You might like to complain about this, see below.</p>"

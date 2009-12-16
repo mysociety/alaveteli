@@ -3,23 +3,14 @@ Search for PICT crash
 
 Incoming message 24705 has a badly uuencoded thing due to the bug in escaping
 backslashes in the database.
-
-You can unhide the request from search now it is fixed
-
-Check this works still:
+- Upgrad Rails to a newer version even still
+- You can unhide the request from search now it is fixed
+- Check this works still:
 s = IncomingMessage.find(2); text = s.get_main_body_text_internal; s.cached_main_body_text = text; s.save!
 
 
 Public interest test
 ====================
-
-Do tests
-
-Check display for schools (of i) request pages, ii) search pages, iii) followup, iv) status set confirmation )
-    i) ./request/show.rhtml
-    ii) ./models/info_request.rb
-    iii) ./views/request/_followup.rhtml
-    iv) ./controllers/request_controller.rb 
 
 Send email at 40 days
     models/request_mailer.rb self.alert_overdue_requests
