@@ -1,10 +1,11 @@
-<%= @info_request.public_body.name %> are late. 
+<%= @info_request.public_body.name %> have delayed. 
 
 They have not replied to your <%=@info_request.law_used_short%> request '<%= @info_request.title %>' 
-promptly, as normally required by law <% if @info_request.public_body.is_school? %>during term time<% end %>.
+promptly, as normally required by law<% if @info_request.public_body.is_school? %> during term time<% end %>.
 
 Click on the link below to send a message to <%= @info_request.public_body.name
 %> reminding them to reply to your request. 
+
 <%=@url%>
 
 -- the WhatDoTheyKnow team

@@ -25,6 +25,7 @@ class UserInfoRequestSentAlert < ActiveRecord::Base
 
     validates_inclusion_of :alert_type, :in => [ 
         'overdue_1', # tell user that info request has become overdue
+        'very_overdue_1', # tell user that info request has become very overdue
         'new_response_reminder_1', # reminder user to classify the recent response
         'new_response_reminder_2', # repeat reminder user to classify the recent response
         'new_response_reminder_3', # repeat reminder user to classify the recent response

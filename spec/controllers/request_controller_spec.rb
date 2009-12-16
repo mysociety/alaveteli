@@ -891,6 +891,31 @@ describe RequestController, "sending overdue request alerts" do
         deliveries.size.should == 0
     end
 
+    it "should send a very overdue alert mail to creators of very overdue requests" do
+        chicken_request = info_requests(:naughty_chicken_request)
+        chicken_request.outgoing_messages[0].last_sent_at = Time.now() - 60.days
+        chicken_request.outgoing_messages[0].save!
+
+        RequestMailer.alert_overdue_requests
+
+        deliveries = ActionMailer::Base.deliveries
+        deliveries.size.should == 1
+        mail = deliveries[0]
+        mail.body.should =~ /as required by law/
+        mail.to_addrs.to_s.should == info_requests(:naughty_chicken_request).user.name_and_email
+
+        mail.body =~ /(http:\/\/.*\/c\/(.*))/
+        mail_url = $1
+        mail_token = $2
+
+        session[:user_id].should be_nil
+        controller.test_code_redirect_by_email_token(mail_token, self) # XXX hack to avoid having to call User controller for email link
+        session[:user_id].should == info_requests(:naughty_chicken_request).user.id
+
+        response.should render_template('show_response')
+        assigns[:info_request].should == info_requests(:naughty_chicken_request)
+    end
+
 end
 
 describe RequestController, "sending unclassified new response reminder alerts" do

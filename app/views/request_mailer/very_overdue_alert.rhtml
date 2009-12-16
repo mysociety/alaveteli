@@ -1,0 +1,14 @@
+<%= @info_request.public_body.name %> are long overdue. 
+
+They have not replied to your <%=@info_request.law_used_short%> request '<%= @info_request.title %>', 
+as required by law<% if @info_request.public_body.is_school? %> even during holidays<% end %>.
+
+Click on the link below to send a message to <%= @info_request.public_body.name
+%> telling them to reply to your request. You might like to ask for an internal
+review, asking them to find out why response to the request has been so slow.
+
+<%=@url%>
+
+-- the WhatDoTheyKnow team
+
+
