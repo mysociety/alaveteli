@@ -848,7 +848,7 @@ describe RequestController, "sending overdue request alerts" do
         deliveries = ActionMailer::Base.deliveries
         deliveries.size.should == 1
         mail = deliveries[0]
-        mail.body.should =~ /promptly, as required by law/
+        mail.body.should =~ /promptly, as normally\s+required by law/
         mail.to_addrs.to_s.should == info_requests(:naughty_chicken_request).user.name_and_email
 
         mail.body =~ /(http:\/\/.*\/c\/(.*))/
@@ -863,7 +863,24 @@ describe RequestController, "sending overdue request alerts" do
         assigns[:info_request].should == info_requests(:naughty_chicken_request)
     end
 
-    it "should send not actualy send the overdue alert if the user is banned" do
+    it "should include clause for schools when sending an overdue alert mail to creators of overdue requests" do
+        chicken_request = info_requests(:naughty_chicken_request)
+        chicken_request.outgoing_messages[0].last_sent_at = Time.now() - 30.days
+        chicken_request.outgoing_messages[0].save!
+
+        chicken_request.public_body.tag_string = "school"
+        chicken_request.public_body.save!
+
+        RequestMailer.alert_overdue_requests
+
+        deliveries = ActionMailer::Base.deliveries
+        deliveries.size.should == 1
+        mail = deliveries[0]
+        mail.body.should =~ /promptly, as normally\s+required by law during term time/
+        mail.to_addrs.to_s.should == info_requests(:naughty_chicken_request).user.name_and_email
+    end
+
+    it "should send not actually send the overdue alert if the user is banned" do
         user = info_requests(:naughty_chicken_request).user
         user.ban_text = 'Banned'
         user.save!

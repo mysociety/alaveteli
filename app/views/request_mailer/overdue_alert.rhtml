@@ -1,11 +1,10 @@
 <%= @info_request.public_body.name %> are late. 
 
 They have not replied to your <%=@info_request.law_used_short%> request '<%= @info_request.title %>' 
-promptly, as required by law.
+promptly, as normally required by law <% if @info_request.public_body.is_school? %>during term time<% end %>.
 
 Click on the link below to send a message to <%= @info_request.public_body.name
-%> reminding them to reply to your request. <% if @info_request.public_body.is_school? %> This is a school, so legally they get lots of extra slack if it is holiday time. <% end %>
-
+%> reminding them to reply to your request. 
 <%=@url%>
 
 -- the WhatDoTheyKnow team
