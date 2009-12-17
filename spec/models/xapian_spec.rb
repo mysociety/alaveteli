@@ -95,12 +95,12 @@ describe User, " when indexing requests by user they are from" do
         update_xapian_index
 
           # def InfoRequest.full_search(models, query, order, ascending, collapse, per_page, page)
-        xapian_object = InfoRequest.full_search([InfoRequestEvent], "requested_by:bob_smith variety:sent", 'created_at', true, nil, 100, 1)
+        xapian_object = InfoRequest.full_search([InfoRequestEvent], "requested_by:bob_smith", 'created_at', true, 'request_collapse', 100, 1)
         xapian_object.results.size.should == 1
-        xapian_object.results[0][:model].should == info_request_events(:useless_outgoing_message_event)
+        xapian_object.results[0][:model].should == info_request_events(:silly_comment_event)
     end
 
-    it "should not find it when one of the request's users is changed to a name which is a substring of the other request" do
+    it "should not get confused searching for requests when one user has a name which is a substring of another" do
         rebuild_xapian_index
         silly_user = users(:silly_name_user)
 
@@ -115,7 +115,7 @@ describe User, " when indexing requests by user they are from" do
         update_xapian_index
 
           # def InfoRequest.full_search(models, query, order, ascending, collapse, per_page, page)
-        xapian_object = InfoRequest.full_search([InfoRequestEvent], "requested_by:bob_s variety:sent", 'created_at', true, nil, 100, 1)
+        xapian_object = InfoRequest.full_search([InfoRequestEvent], "requested_by:bob_s", 'created_at', true, 'request_collapse', 100, 1)
         xapian_object.results.size.should == 1
         xapian_object.results[0][:model].should == info_request_events(:silly_outgoing_message_event)
     end
