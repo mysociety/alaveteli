@@ -3,10 +3,13 @@ Search for PICT crash
 
 Incoming message 24705 has a badly uuencoded thing due to the bug in escaping
 backslashes in the database.
+http://www.whatdotheyknow.com/request/dates_of_meetings_between_home_o#incoming-24705
 - Upgrade Rails to a newer version even still
 - Check this works still:
-s = IncomingMessage.find(2); text = s.get_main_body_text_internal; s.cached_main_body_text = text; s.save!
+s = IncomingMessage.find(24705); text = s.get_main_body_text_internal; s.cached_main_body_text = text; s.save!
 - You can unhide the bad request from search now it is fixed
+http://blog.aradine.com/2009/09/rubys-marshal-and-activerecord-and.html
+https://rails.lighthouseapp.com/projects/8994/tickets/1063-binary-data-broken-with-postgresql-adapter
 
 
 Letting you hide individual things
