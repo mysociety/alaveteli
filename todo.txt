@@ -1,17 +1,3 @@
-Search for PICT crash
-=====================
-
-Incoming message 24705 has a badly uuencoded thing due to the bug in escaping
-backslashes in the database.
-http://www.whatdotheyknow.com/request/dates_of_meetings_between_home_o#incoming-24705
-- Upgrade Rails to a newer version even still
-- Check this works still:
-s = IncomingMessage.find(24705); text = s.get_main_body_text_internal; s.cached_main_body_text = text; s.save!
-- You can unhide the bad request from search now it is fixed
-http://blog.aradine.com/2009/09/rubys-marshal-and-activerecord-and.html
-https://rails.lighthouseapp.com/projects/8994/tickets/1063-binary-data-broken-with-postgresql-adapter
-
-
 Letting you hide individual things
 ==================================
 
@@ -21,17 +7,11 @@ Make sure hidden things don't show in search snippets
     in models/comment.rb: # So when made invisble it vanishes
 Remove comments visible
 
-More
-====
-
-This is broken uudecode
-http://www.whatdotheyknow.com/request/section_44_terrorism_act_areas#incoming-5217
-
-test if get_attachments_for_display called multiple times in one request?
-
 
 Next (things that will reduce admin time mainly)
 ====
+
+test if get_attachments_for_display called multiple times in one request?
 
 sending an email alert for this query takes crazy long
     query = 'variety:response (status:successful OR status:partially_successful)'
