@@ -93,5 +93,11 @@ class PublicBodyController < ApplicationController
 
         cache_in_squid
     end
+
+    # Used so URLs like /local/islington work, for use e.g. writing to a local paper.
+    def list_redirect
+        @tag = params[:tag]
+        redirect_to list_public_bodies_url(:tag => @tag)
+    end
 end
 
