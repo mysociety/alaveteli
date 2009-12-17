@@ -120,7 +120,7 @@ class AdminPublicBodyController < AdminController
 
     def import_csv
         if params[:csv_file]
-            if not params[:tag].empty?
+            if !params[:tag].empty?
                 # Try with dry run first
                 csv_contents = params[:csv_file].read
                 en = PublicBody.import_csv(csv_contents, params[:tag], true, admin_http_auth_user())
