@@ -95,6 +95,9 @@ class InfoRequest < ActiveRecord::Base
         if !self.title.nil? && !MySociety::Validate.uses_mixed_capitals(self.title, 10)
             errors.add(:title, '^Please write the summary using a mixture of capital and lower case letters. This makes it easier for others to read.')
         end
+        if !self.title.nil? && title.size > 200
+            errors.add(:title, '^Please keep the summary short, like in the subject of an email. You can use a phrase, rather than a full sentence.')
+        end
     end
     
     OLD_AGE_IN_DAYS = 21.days
