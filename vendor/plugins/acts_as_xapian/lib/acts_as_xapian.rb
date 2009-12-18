@@ -166,7 +166,11 @@ module ActsAsXapian
                   raise "Z is reserved for stemming terms" if term[1] == "Z"
                   raise "Already have code '" + term[1] + "' in another model but with different prefix '" + @@terms_by_capital[term[1]] + "'" if @@terms_by_capital.include?(term[1]) && @@terms_by_capital[term[1]] != term[2]
                   @@terms_by_capital[term[1]] = term[2]
-                  @@query_parser.add_prefix(term[2], term[1])
+                  # XXX use boolean here so doesn't stem our URL names in WhatDoTheyKnow
+                  # If making acts_as_xapian generic, would really need to make the :terms have
+                  # another option that lets people choose non-boolean for terms that need it
+                  # (i.e. searching explicitly within a free text field)
+                  @@query_parser.add_boolean_prefix(term[2], term[1]) 
               end
             end
             if options[:values]

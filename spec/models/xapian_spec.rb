@@ -100,12 +100,17 @@ describe User, " when indexing requests by user they are from" do
         xapian_object.results[0][:model].should == info_request_events(:silly_comment_event)
     end
 
-    it "should not get confused searching for requests when one user has a name which is a substring of another" do
+    it "should not get confused searching for requests when one user has a name which has same stem as another" do
         rebuild_xapian_index
-        silly_user = users(:silly_name_user)
 
-        silly_user.name = "Bob S"
-        silly_user.url_name.should == 'bob_s'
+        bob_smith_user = users(:bob_smith_user)
+        bob_smith_user.name = "John King"
+        bob_smith_user.url_name.should == 'john_king'
+        bob_smith_user.save!
+
+        silly_user = users(:silly_name_user)
+        silly_user.name = "John K"
+        silly_user.url_name.should == 'john_k'
         silly_user.save!
 
         naughty_chicken_request = info_requests(:naughty_chicken_request)
@@ -115,7 +120,7 @@ describe User, " when indexing requests by user they are from" do
         update_xapian_index
 
           # def InfoRequest.full_search(models, query, order, ascending, collapse, per_page, page)
-        xapian_object = InfoRequest.full_search([InfoRequestEvent], "requested_by:bob_s", 'created_at', true, 'request_collapse', 100, 1)
+        xapian_object = InfoRequest.full_search([InfoRequestEvent], "requested_by:john_k", 'created_at', true, 'request_collapse', 100, 1)
         xapian_object.results.size.should == 1
         xapian_object.results[0][:model].should == info_request_events(:silly_outgoing_message_event)
     end
