@@ -40,21 +40,12 @@ class ApplicationController < ActionController::Base
     before_filter :session_remember_me
     def session_remember_me
         # Reset the "sliding window" session expiry time.
-        if session[:remember_me]
-            expire_time = 1.month.from_now
-            # "Why is session[:force_new_cookie] set to Time.now? In order for the “sliding window”
-            # concept to work, a fresh cookie must be sent with every response. Rails only
-            # sends a cookie when the session data has changed so using a value like Time.now
-            # ensures that it changes every time. What I have actually found is that some
-            # internal voodoo causes the session data to change slightly anyway but it’s best
-            # to be sure!"
-            session[:force_new_cookie] = Time.now
-        else
-            expire_time = nil
-        end
-        # if statement here is so test code runs
-        if session.instance_variable_get(:@dbman)
-            session.instance_variable_get(:@dbman).instance_variable_get(:@cookie_options)['expires'] = expire_time
+        if request.env['rack.session.options']
+          if session[:remember_me]
+              request.env['rack.session.options'][:expire_after] = 1.month
+          else
+              request.env['rack.session.options'][:expire_after] = nil
+          end
         end
     end
 

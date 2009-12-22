@@ -84,6 +84,15 @@ describe UserController, "when signing in" do
         response.should_not send_email
     end
 
+# No idea how to test this in the test framework :(
+#    it "should have set a long lived cookie if they picked remember me, session cookie if they didn't" do
+#        get :signin, :r => "/list"
+#        response.should render_template('sign')
+#        post :signin, { :user_signin => { :email => 'bob@localhost', :password => 'jonespassword' } }
+#        session[:user_id].should == users(:bob_smith_user).id
+#        raise session.options.to_yaml # check cookie lasts a month
+#    end
+
     it "should ask you to confirm your email if it isn't confirmed, after log in" do
         get :signin, :r => "/list"
         response.should render_template('sign')
