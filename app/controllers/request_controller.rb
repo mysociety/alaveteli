@@ -148,11 +148,11 @@ class RequestController < ApplicationController
         # First time we get to the page, just display it
         if params[:submitted_new_request].nil? || params[:reedit]
             # Read parameters in - public body must be passed in
-            if !params[:public_body_id] 
+            params[:info_request] = { :public_body_id => params[:public_body_id] } if !params[:info_request]
+            if !params[:info_request][:public_body_id] 
                 redirect_to frontpage_url
                 return
             end
-            params[:info_request] = { :public_body_id => params[:public_body_id] }
             @info_request = InfoRequest.new(params[:info_request])
             params[:info_request_id] = @info_request.id
             params[:outgoing_message] = {} if !params[:outgoing_message]

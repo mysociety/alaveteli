@@ -285,6 +285,15 @@ describe RequestController, "when creating a new request" do
         response.should render_template('preview')
     end
 
+    it "should allow re-editing of a request" do
+        post :new, :info_request => { :public_body_id => @body.id,
+            :title => "Why is your quango called Geraldine?"},
+            :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." },
+            :submitted_new_request => 1, :preview => 0,
+            :reedit => "Re-edit this request"
+        response.should render_template('new')
+    end
+
     it "should redirect to sign in page when input is good and nobody is logged in" do
         params = { :info_request => { :public_body_id => @body.id, 
             :title => "Why is your quango called Geraldine?"},
