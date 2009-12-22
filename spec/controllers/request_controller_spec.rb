@@ -798,7 +798,18 @@ describe RequestController, "when sending a followup message" do
         response.should render_template('show_response')
     end
 
+    it "should show preview when input is good" do
+        session[:user_id] = users(:bob_smith_user).id
+        post :show_response, :outgoing_message => { :body => "What a useless response! You suck.", :what_doing => 'normal_sort'}, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_followup => 1, :preview => 1
+        response.should render_template('followup_preview')
+    end
 
+    it "should allow re-editing of a preview" do
+        session[:user_id] = users(:bob_smith_user).id
+        post :show_response, :outgoing_message => { :body => "What a useless response! You suck.", :what_doing => 'normal_sort'}, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_followup => 1, :preview => 0, :reedit => "Re-edit this request"
+        response.should render_template('show_response')
+    end
+ 
     it "should send the follow up message if you are the right user" do
         # fake that this is a clarification
         info_requests(:fancy_dog_request).set_described_state('waiting_clarification')
