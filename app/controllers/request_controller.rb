@@ -598,6 +598,7 @@ class RequestController < ApplicationController
         raise "internal error, pre-auth filter should have caught this" if !@info_request.user_can_view?(authenticated_user)
   
         @attachment = IncomingMessage.get_attachment_by_url_part_number(@incoming_message.get_attachments_for_display, @part_number)
+        raise "attachment not found part number " + @part_number.to_s + " incoming_message " + @incoming_message.id.to_s if @attachment.nil?
 
         # check filename in URL matches that in database (use a censor rule if you want to change a filename)
         raise "please use same filename as original file has, display: '" + @attachment.display_filename + "' old_display: '" + @attachment.old_display_filename + "' original: '" + @original_filename + "'" if @attachment.display_filename != @original_filename && @attachment.old_display_filename != @original_filename
