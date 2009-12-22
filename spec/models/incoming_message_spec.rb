@@ -228,4 +228,24 @@ describe IncomingMessage, " when uudecoding bad messages" do
 
 end
 
+describe IncomingMessage, "when messages are attached to messages" do
+    it "should flatten all the attachments out" do
+        mail_body = load_file_fixture('incoming-request-attach-attachments.email')
+        mail = TMail::Mail.parse(mail_body)
+        mail.base64_decode
+
+        im = IncomingMessage.new
+        im.stub!(:mail).and_return(mail)
+        ir = InfoRequest.new
+        im.info_request = ir
+
+        attachments = im.get_attachments_for_display
+        attachments.size.should == 3
+        attachments[0].display_filename.should == 'Same attachment twice.txt'
+        attachments[1].display_filename.should == 'hello.txt'
+        attachments[2].display_filename.should == 'hello.txt'
+    end
+end
+
+
 

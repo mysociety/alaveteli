@@ -936,10 +936,10 @@ class IncomingMessage < ActiveRecord::Base
     # Returns all attachments for use in display code
     # XXX is this called multiple times and should be cached?
     def get_attachments_for_display
-        ensure_parts_counted
-
         main_part = get_main_body_text_part
         leaves = get_attachment_leaves
+        ensure_parts_counted
+
         attachments = []
         for leaf in leaves
             if leaf != main_part
