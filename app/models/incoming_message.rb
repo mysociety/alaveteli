@@ -724,6 +724,11 @@ class IncomingMessage < ActiveRecord::Base
                 end
             end
         else
+            # XXX Yuck. this section alters various content_type's. That puts
+            # it into conflict with ensure_parts_counted which it has to be
+            # called both before and after.  It will fail with cases of
+            # attachments of attachments etc.
+
             # Don't allow nil content_types
             if curr_mail.content_type.nil?
                 curr_mail.content_type = 'application/octet-stream'
@@ -938,6 +943,9 @@ class IncomingMessage < ActiveRecord::Base
     def get_attachments_for_display
         main_part = get_main_body_text_part
         leaves = get_attachment_leaves
+
+        # XXX we have to call ensure_parts_counted after get_attachment_leaves
+        # which is really messy.
         ensure_parts_counted
 
         attachments = []
