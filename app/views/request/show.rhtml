@@ -58,9 +58,9 @@
         Currently <strong>waiting for a response</strong> from <%= public_body_link(@info_request.public_body) %>,
         they must respond promptly and 
         <% if @info_request.public_body.is_school? %>
-            normally 
-        <% else %>
             in term time
+        <% else %>
+            normally 
         <% end %>
         no later than <strong><%= simple_date(@info_request.date_response_required_by) %></strong>
         (<%= link_to "details", about_url + "#quickly_response" %>).
