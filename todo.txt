@@ -389,6 +389,8 @@ Quoting fixing TODO:
 
     http://www.whatdotheyknow.com/request/independent_psychological_assess#incoming-52956 # shows text as attachment when could be inline due to multipart nature?
 
+    http://www.whatdotheyknow.com/request/bnp_membership_list_43#incoming-59204 # not detecting original message
+
 
 Display pasted quotes in annotations better:
     http://www.whatdotheyknow.com/request/scientology_incidents#comment-3352
