@@ -24,6 +24,7 @@ way authorities use it. Plus you'll need to be an elite statistician.  Please
   <% for column in @columns%>
     <th><%= column %></th>
   <% end %>
+  <th>link</th>
   </tr>
   
 <% for info_request_event in @info_request.info_request_events.find(:all, :order => "created_at, id") %>
@@ -33,6 +34,14 @@ way authorities use it. Plus you'll need to be an elite statistician.  Please
       <%=h info_request_event.send(column) %>
     </td>
   <% end %>
+  <td>
+  <% if info_request_event.outgoing_message %>
+    <%= link_to "outgoing", outgoing_message_url(info_request_event.outgoing_message) %>
+  <% end %>
+  <% if info_request_event.incoming_message %>
+    <%= link_to "incoming", incoming_message_url(info_request_event.incoming_message) %>
+  <% end %>
+  </td>
   </tr>
 <% end %>
 </table>
