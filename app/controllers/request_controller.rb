@@ -64,11 +64,26 @@ class RequestController < ApplicationController
         @last_response = @info_request.get_last_response
     end
 
+    # Extra info about a request, such as event history
+    def details
+        @info_request = InfoRequest.find_by_url_title(params[:url_title])
+        if !@info_request.user_can_view?(authenticated_user)
+            render :template => 'request/hidden', :status => 410 # gone
+            return
+        end
+
+        @columns = ['id', 'event_type', 'created_at', 'described_state', 'last_described_at', 'calculated_state' ]
+    end
+
     # Requests similar to this one
     def similar
         @per_page = 25
         @page = (params[:page] || "1").to_i
         @info_request = InfoRequest.find_by_url_title(params[:url_title])
+        if !@info_request.user_can_view?(authenticated_user)
+            render :template => 'request/hidden', :status => 410 # gone
+            return
+        end
         @xapian_object = ::ActsAsXapian::Similar.new([InfoRequestEvent], @info_request.info_request_events, 
             :offset => (@page - 1) * @per_page, :limit => @per_page, :collapse_by_prefix => 'request_collapse')
         
@@ -522,7 +537,7 @@ class RequestController < ApplicationController
         # Test for hidden
         incoming_message = IncomingMessage.find(params[:incoming_message_id])
         if !incoming_message.info_request.user_can_view?(authenticated_user)
-            render :template => 'request/hidden'
+            render :template => 'request/hidden', :status => 410 # gone
         end
     end
 

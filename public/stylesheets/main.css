@@ -1048,3 +1048,27 @@ div.act_link img {
 	font-size: 0.8em;
 }
 
+/*------------------------------------------------ request details */
+
+#request_details table {
+    border-collapse: collapse;
+    margin-bottom: 1em;
+}
+#request_details td, th {
+    border: solid 1px #000000;
+}
+#request_details td {
+    vertical-align: top
+}
+#request_details td {
+    max-width: 30em;
+    overflow: auto;
+}
+#request_details tr.odd {
+    background-color: #bbbbbb;
+}
+#request_details tr.even {
+    background-color: #dddddd;
+}
+
+
