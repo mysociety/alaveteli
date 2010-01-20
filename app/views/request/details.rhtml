@@ -1,0 +1,45 @@
+<% @title = "Details of request '" + h(@info_request.title) + "'" %>
+<h1><%="Details of request '" + request_link(@info_request) + "'" %></h1>
+
+<h2>Event history</h2>
+
+<p>This table shows the technical details of the internal events that happened
+to this request on WhatDoTheyKnow. This could be used to generate information about
+the speed with which authorities respond to requests, the number of requests
+which require a postal response and much more.
+</p>
+
+<p><strong>Caveat emptor!</strong> To use this data in an honourable way, you will need 
+a good internal knowledge of user behaviour on WhatDoTheyKnow. How, 
+why and by whom requests are categorised is not straightforward, and there will
+be user error and ambiguity. You will also need to understand FOI law, and the
+way authorities use it. Plus you'll need to be an elite statistician.  Please
+<a href="/help/contact">contact us</a> with questions.
+</p>
+
+<% columns = ['id', 'event_type', 'created_at', 'described_state', 'calculated_state', 'last_described_at' ] %>
+
+<table>
+  <tr>
+  <% for column in @columns%>
+    <th><%= column %></th>
+  <% end %>
+  </tr>
+  
+<% for info_request_event in @info_request.info_request_events.find(:all, :order => "created_at, id") %>
+  <tr class="<%= cycle('odd', 'even') %>">
+  <% for column in @columns %>
+    <td>
+      <%=h info_request_event.send(column) %>
+    </td>
+  <% end %>
+  </tr>
+<% end %>
+</table>
+
+<p>Here <strong>described</strong> means when a user selected a status for the request, and
+the most recent event had its status updated to that value. <strong>calculated</strong> is then inferred by
+WhatDoTheyKnow for intermediate events, which weren't given an explicit
+description by a user. See the <a href="/search">search tips</a> for description of the states.</p>
+
+
