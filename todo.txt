@@ -16,6 +16,8 @@ Remove comments visible
 Next (things that will reduce admin time mainly)
 ====
 
+Change subject of replies to use the same subject (in case it has a case code in it)
+
 test if get_attachments_for_display called multiple times in one request?
 
 sending an email alert for this query takes crazy long
@@ -389,6 +391,7 @@ Quoting fixing TODO:
     http://www.whatdotheyknow.com/request/independent_psychological_assess#incoming-52956 # shows text as attachment when could be inline due to multipart nature?
 
     http://www.whatdotheyknow.com/request/bnp_membership_list_43#incoming-59204 # not detecting original message
+    http://www.whatdotheyknow.com/request/maximum_pedestrian_crossing_wait#incoming-34094 # not detecting original message
 
 
 Display pasted quotes in annotations better:
