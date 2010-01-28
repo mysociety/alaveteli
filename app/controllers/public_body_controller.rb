@@ -103,7 +103,7 @@ class PublicBodyController < ApplicationController
     end
 
     def list_all_csv
-        public_bodies = PublicBody.find(:all)
+        public_bodies = PublicBody.find(:all, :order => 'url_name')
         report = StringIO.new
         CSV::Writer.generate(report, ',') do |title|
             title << [
