@@ -6,6 +6,8 @@
 #
 # $Id: public_body_controller.rb,v 1.8 2009-09-14 13:27:00 francis Exp $
 
+require 'csv'
+
 class PublicBodyController < ApplicationController
     # XXX tidy this up with better error messages, and a more standard infrastructure for the redirect to canonical URL
     def show
@@ -98,6 +100,43 @@ class PublicBodyController < ApplicationController
     def list_redirect
         @tag = params[:tag]
         redirect_to list_public_bodies_url(:tag => @tag)
+    end
+
+    def list_all_csv
+        public_bodies = PublicBody.find(:all)
+        report = StringIO.new
+        CSV::Writer.generate(report, ',') do |title|
+            title << [
+                    'Name', 
+                    'Short name',
+                    'URL name', 
+                    'Tags',
+                    'Home page',
+                    'Publication scheme',
+                    'Charity number',
+                    'Created at',
+                    'Updated at',
+                    'Version',
+            ]
+            public_bodies.each do |public_body|
+                title << [ 
+                    public_body.name, 
+                    public_body.short_name, 
+                    public_body.url_name, 
+                    public_body.tag_string,
+                    public_body.calculated_home_page,
+                    public_body.publication_scheme,
+                    public_body.charity_number,
+                    public_body.created_at,
+                    public_body.updated_at,
+                    public_body.version,
+                ]
+            end
+        end
+        report.rewind
+        send_data(report.read, :type=> 'text/csv; charset=utf-8; header=present',
+                  :filename => 'all-authorities.csv', 
+                  :disposition =>'attachment', :encoding => 'utf8')
     end
 end
 

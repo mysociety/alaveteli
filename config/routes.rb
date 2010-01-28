@@ -69,6 +69,7 @@ ActionController::Routing::Routes.draw do |map|
         body.list_public_bodies_redirect "/local/:tag", :action => 'list_redirect'
         body.show_public_body "/body/:url_name", :action => 'show'
         body.view_public_body_email "/body/:url_name/view_email", :action => 'view_email'
+        body.all_public_bodies_csv "/body/all-authorities.csv", :action => 'list_all_csv'
     end
 
     map.with_options :controller => 'comment' do |comment|
