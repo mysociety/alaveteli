@@ -1,15 +1,3 @@
-
-
-Letting you hide individual things
-==================================
-
-Move comments to use new system first
-Show message to signed in user that others can't see this part
-Make sure hidden things don't show in search snippets
-    in models/comment.rb: # So when made invisble it vanishes
-Remove comments visible
-
-
 Next (things that will reduce admin time mainly)
 ====
 
@@ -88,6 +76,19 @@ cached_attachment_text_clipped does (and clears it when censor rules are edited)
 
 Renaming of a body, or changing its domain, should clear the cached bubbles of
 all requests to that body.
+
+
+Letting you hide individual events (incoming/outgoing messages, annotations)
+==================================
+
+*** this needs either removing or finishing, it is half done. Has the
+database entries but doesn't use them yet.
+
+Move comments to use new system first
+Show message to signed in user that others can't see this part
+Make sure hidden things don't show in search snippets
+    in models/comment.rb: # So when made invisble it vanishes
+Remove comments visible
 
 
 Later
