@@ -1,7 +1,4 @@
 
-Private request premium feature
-http://www.activemerchant.org/
-
 
 Letting you hide individual things
 ==================================
@@ -19,18 +16,6 @@ Next (things that will reduce admin time mainly)
 Should really make replies munge subject of last response, rather than start
 afresh with subject - authorities use FOI code in subject as here:
 http://www.whatdotheyknow.com/request/causes_of_the_financial_crisis#incoming-12779
-
-test if get_attachments_for_display called multiple times in one request?
-
-sending an email alert for this query takes crazy long
-    query = 'variety:response (status:successful OR status:partially_successful)'
-something to do with the way event_digest loops with lots of responses?
-
-Some requests to lower memory use of still:
-PID: 676    CONSUME MEMORY: 16968 KB    Now: 102604 KB  http://www.whatdotheyknow.com/request/parking_ticket_data_81
-PID: 2036       CONSUME MEMORY: 129368 KB       Now: 179652 KB  http://www.whatdotheyknow.com/request/14186/response/33740
-- search engines shouldn't be going for those URLs. and do they really need to
-  unpack so much? could use snippet cache.
 
 Finish profile photo
 
@@ -72,9 +57,24 @@ be load in case where the envelope from gets broken?
 
 Admin button to resend request one off to particular address
 
+Private request premium feature
+http://www.activemerchant.org/
+
 
 Performance
 ===========
+
+test if get_attachments_for_display called multiple times in one request?
+
+sending an email alert for this query takes crazy long
+    query = 'variety:response (status:successful OR status:partially_successful)'
+something to do with the way event_digest loops with lots of responses?
+
+Some requests to lower memory use of still:
+PID: 676    CONSUME MEMORY: 16968 KB    Now: 102604 KB  http://www.whatdotheyknow.com/request/parking_ticket_data_81
+PID: 2036       CONSUME MEMORY: 129368 KB       Now: 179652 KB  http://www.whatdotheyknow.com/request/14186/response/33740
+- search engines shouldn't be going for those URLs. and do they really need to
+  unpack so much? could use snippet cache.
 
 Page cacheing - the cookie setting stops the expires_on caching working well,
 as even when not logged in second page you go to isnt serverd from Squid cache.
