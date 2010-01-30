@@ -4,6 +4,8 @@ Next (things that will reduce admin time mainly)
 Should really make replies munge subject of last response, rather than start
 afresh with subject - authorities use FOI code in subject as here:
 http://www.whatdotheyknow.com/request/causes_of_the_financial_crisis#incoming-12779
+* write some tests first, of every kind of followup
+* grep for subject_for_followup and email_subject_request
 
 Finish profile photo
 
