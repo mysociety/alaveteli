@@ -3,9 +3,6 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe ProfilePhoto, "when constructing a new photo" do 
 
     before do 
-        #@request_event = mock_model(InfoRequestEvent, :xapian_mark_needs_index => true)
-        #@request = mock_model(InfoRequest, :info_request_events => [@request_event])
-        #@user = mock_model(User)
     end
     
     it 'should take no image as invalid' do

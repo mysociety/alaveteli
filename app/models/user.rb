@@ -275,7 +275,9 @@ class User < ActiveRecord::Base
     def set_profile_photo(new_profile_photo)
         ActiveRecord::Base.transaction do
             if !self.profile_photo.nil?
-                self.profile_photo.destroy
+                old_profile_photo = self.profile_photo
+                self.profile_photo = nil
+                old_profile_photo.destroy
             end
             new_profile_photo.user = self
             self.profile_photo = new_profile_photo

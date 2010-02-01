@@ -279,6 +279,42 @@ class UserController < ApplicationController
         }.flatten.sort { |a,b| b[:model].created_at <=> a[:model].created_at }.first(20)
     end
 
+    def profile_photo
+        # check they are logged in (the upload photo option is anyway only available when logged in)
+        if authenticated_user.nil?
+            flash[:error] = "You need to be logged in to change your profile photo."
+            redirect_to frontpage_url
+            return
+        end
+        if params[:submitted_profile_photo].nil?
+            # default page
+            return
+        end
+
+        # check for uploaded image
+        file_name = nil
+        file_content = nil
+        if !params[:file].nil?
+            file_name = params[:file].original_filename
+            file_content = params[:file].read
+        end
+        if file_name.nil?
+            flash[:error] = "Please choose a file containing your photo"
+            return
+        end
+
+        # change user's photo
+        @profile_photo = ProfilePhoto.new(:data => file_content)
+        @user.set_profile_photo(@profile_photo)
+        if !@profile_photo.valid?
+            # error page (uses @profile_photo's error fields in view to show errors)
+            return
+        end
+
+        flash[:notice] = "Thank you for updating your profile photo"
+        redirect_to user_url(@user)
+    end
+
     private
 
     # Decide where we are going to redirect back to after signin/signup, and record that
@@ -325,41 +361,5 @@ class UserController < ApplicationController
         render :action => 'confirm' # must be same as for send_confirmation_mail above to avoid leak of presence of email in db
     end
 
-    def profile_photo
-        raise 'boo"
-        # check they are logged in (the upload photo option is anyway only available when logged in)
-        if authenticated_user.nil?
-            flash[:error] = "You need to be logged in to change your profile photo."
-            redirect_to frontpage_url
-            return
-        end
-        if params[:submitted_profile_photo].nil?
-            # default page
-            return
-        end
-
-        # check for uploaded image
-        file_name = nil
-        file_content = nil
-        if params[:file].class.to_s == "ActionController::UploadedTempfile"
-            file_name = params[:file].original_filename
-            file_content = params[:file].read
-        end
-        if file_name.nil?
-            flash[:error] = "Please type a message and/or choose a file containing your response."
-            return
-        end
-
-        # change user's photo
-        new_profile_photo = ProfilePhoto.new(:data => params[:data])
-        if !new_profile_photo.valid?
-            # error page
-            return
-        end
-        @user.set_profile_photo(new_profile_photo)
-
-        flash[:notice] = "Thank you for updating your profile photo"
-        redirect_to user_url(@user)
-    end
 end
 
