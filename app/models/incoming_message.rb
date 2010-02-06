@@ -303,6 +303,16 @@ class FOIAttachment
         end
     end
 
+    # Whether this type has a "View as HTML"
+    def has_body_as_html?
+        if self.content_type == 'application/vnd.ms-word'
+            return true
+        elsif self.content_type == 'application/pdf'
+            return true
+        end
+        return false
+    end
+
     # For "View as HTML" of attachment
     def body_as_html(dir)
         html = nil
@@ -345,16 +355,6 @@ class FOIAttachment
         end
 
         return html
-    end
-
-    # Whether this type has a "View as HTML"
-    def has_body_as_html?
-        if self.content_type == 'application/vnd.ms-word'
-            return true
-        elsif self.content_type == 'application/pdf'
-            return true
-        end
-        return false
     end
 
     # Name of type of attachment type - only valid for things that has_body_as_html?
