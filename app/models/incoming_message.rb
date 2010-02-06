@@ -305,11 +305,13 @@ class FOIAttachment
 
     # Whether this type has a "View as HTML"
     def has_body_as_html?
-        if self.content_type == 'application/vnd.ms-word'
+        if self.content_type == 'text/plain'
             return true
         elsif self.content_type == 'application/pdf'
             return true
         elsif self.content_type == 'application/rtf'
+            return true
+        elsif self.content_type == 'application/vnd.ms-word'
             return true
         end
         return false
@@ -318,6 +320,15 @@ class FOIAttachment
     # For "View as HTML" of attachment
     def body_as_html(dir)
         html = nil
+
+        # simple cases, can never fail
+        if self.content_type == 'text/plain'
+            text = self.body.strip
+            text = CGI.escapeHTML(text)
+            text = MySociety::Format.make_clickable(text)
+            html = text.gsub(/\n/, '<br>')
+            return "<html><head></head><body>" + html + "</body></html>"
+        end
 
         # the extractions will also produce image files, which go in the
         # current directory, so change to the directory the function caller
