@@ -309,6 +309,8 @@ class FOIAttachment
             return true
         elsif self.content_type == 'application/pdf'
             return true
+        elsif self.content_type == 'application/rtf'
+            return true
         end
         return false
     end
@@ -317,6 +319,9 @@ class FOIAttachment
     def body_as_html(dir)
         html = nil
 
+        # the extractions will also produce image files, which go in the
+        # current directory, so change to the directory the function caller
+        # wants everything in
         Dir.chdir(dir) do
             tempfile = Tempfile.new('foiextract', '.')
             tempfile.print self.body
@@ -329,6 +334,10 @@ class FOIAttachment
                 File.unlink(tempfile.path + ".html")
             elsif self.content_type == 'application/pdf'
                 IO.popen("/usr/bin/pdftohtml -nodrm -zoom 1.0 -stdout -enc UTF-8 -noframes " + tempfile.path + "", "r") do |child|
+                    html = child.read()
+                end
+            elsif self.content_type == 'application/rtf'
+                IO.popen("/usr/bin/unrtf --html " + tempfile.path + "", "r") do |child|
                     html = child.read()
                 end
             else
@@ -1107,6 +1116,7 @@ class IncomingMessage < ActiveRecord::Base
                     File.unlink(tempfile.path + ".txt")
                 end
             elsif content_type == 'application/rtf'
+                # catdoc on RTF prodcues less comments and extra bumf than --text option to unrtf
                 IO.popen("/usr/bin/catdoc " + tempfile.path, "r") do |child|
                     text += child.read() + "\n\n"
                 end
