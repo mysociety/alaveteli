@@ -3,5 +3,6 @@
 /coverage
 /sqlitedbs
 /cache
+/old-cache
 .*.swp
 *~
