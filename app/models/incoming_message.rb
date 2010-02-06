@@ -307,14 +307,27 @@ class FOIAttachment
     def has_body_as_html?
         if self.content_type == 'text/plain'
             return true
+        elsif self.content_type == 'application/vnd.ms-word'
+            return true
         elsif self.content_type == 'application/pdf'
             return true
         elsif self.content_type == 'application/rtf'
             return true
-        elsif self.content_type == 'application/vnd.ms-word'
-            return true
         end
         return false
+    end
+
+    # Name of type of attachment type - only valid for things that has_body_as_html?
+    def name_of_content_type
+        if self.content_type == 'text/plain'
+            return "Text file"
+        elsif self.content_type == 'application/vnd.ms-word'
+            return "Word document"
+        elsif self.content_type == 'application/pdf'
+            return "PDF file"
+        elsif self.content_type == 'application/rtf'
+            return "RTF file"
+        end
     end
 
     # For "View as HTML" of attachment
@@ -377,14 +390,6 @@ class FOIAttachment
         return html
     end
 
-    # Name of type of attachment type - only valid for things that has_body_as_html?
-    def name_of_content_type
-        if self.content_type == 'application/vnd.ms-word'
-            return "Word document"
-        elsif self.content_type == 'application/pdf'
-            return "PDF file"
-        end
-    end
 end
 
 class IncomingMessage < ActiveRecord::Base
