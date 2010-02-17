@@ -1137,7 +1137,9 @@ class IncomingMessage < ActiveRecord::Base
                     text += child.read() + "\n\n"
                 end
             elsif content_type == 'text/html'
-                IO.popen("/usr/bin/lynx -display_charset=UTF-8 -force_html -dump " + tempfile.path, "r") do |child|
+                # lynx wordwraps links in its output, which then don't get formatted properly
+                # by WhatDoTheyKnow. We use elinks instead, which doesn't do that.
+                IO.popen("/usr/bin/elinks -dump-charset utf-8 -force-html -dump " + tempfile.path, "r") do |child|
                     text += child.read() + "\n\n"
                 end
             elsif content_type == 'application/vnd.ms-excel'

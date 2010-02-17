@@ -11,6 +11,7 @@ gs-gpl
 catdoc
 links
 lynx
+elinks
 unrtf
 libxapian-ruby1.8
 gnuplot-nox
