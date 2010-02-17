@@ -394,6 +394,9 @@ Display pasted quotes in annotations better:
 Totally new features
 --------------------
 
+Telephone numbers. Add advice in workflow to call authority first to check
+form they have info in. Store telephone numbers in database.
+
 Give authorities interface for editing their request email address
 and resend messages to them
 
