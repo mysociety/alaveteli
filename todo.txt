@@ -1,12 +1,6 @@
 Next (things that will reduce admin time mainly)
 ====
 
-Should really make replies munge subject of last response, rather than start
-afresh with subject - authorities use FOI code in subject as here:
-http://www.whatdotheyknow.com/request/causes_of_the_financial_crisis#incoming-12779
-* write some tests first, of every kind of followup
-* grep for subject_for_followup and email_subject_request
-
 Make it so when you make followups the whole request is shown on the page.
 
 Finish profile photo
@@ -97,6 +91,10 @@ Remove comments visible
 
 Later
 =====
+
+Show the Subject: lines on request pages. Perhaps only show them where they are
+substantively different (modulo Re: and Fwd:) from the title and other subjects
+- so you can see any FOI code number the authority has put in the subject.
 
 For Scotland, don't need to say "normally" equivocally when it is taking more than 20 days
 (as there is no public interest test).
