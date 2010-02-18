@@ -202,6 +202,8 @@ public
 
     # Subject lines for emails about the request
     def email_subject_request
+        # XXX pull out this general_register_office specialisation
+        # into some sort of separate jurisdiction dependent file
         if self.public_body.url_name == 'general_register_office'
             # without GQ in the subject, you just get an auto response
             self.law_used_full + ' request GQ - ' + self.title
@@ -209,11 +211,15 @@ public
             self.law_used_full + ' request - ' + self.title
         end
     end
-    def email_subject_followup
-        if self.public_body.url_name == 'general_register_office'
-            'Re: ' + self.law_used_full + ' request GQ - ' + self.title
+    def email_subject_followup(incoming_message = nil)
+        if incoming_message.nil?
+            'Re: ' + self.email_subject_request
         else
-            'Re: ' + self.law_used_full + ' request - ' + self.title
+            if incoming_message.mail.subject.match(/^Re:/i)
+                incoming_message.mail.subject
+            else
+                'Re: ' + incoming_message.mail.subject
+            end
         end
     end
 

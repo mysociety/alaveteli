@@ -66,4 +66,51 @@ describe OutgoingMailer, " when working out follow up addresses" do
 
 end
 
+describe OutgoingMailer, "when working out follow up subjects" do
+    fixtures :info_requests, :incoming_messages, :outgoing_messages
+    
+    it "should prefix the title with 'Freedom of Information request -' for initial requests" do
+        ir = info_requests(:fancy_dog_request) 
+        im = ir.incoming_messages[0]
+
+        ir.email_subject_request.should == "Freedom of Information request - Why do you have & such a fancy dog?"
+    end
+
+    it "should use 'Re:' and inital request subject for followups which aren't replies to particular messages" do
+        ir = info_requests(:fancy_dog_request) 
+        om = outgoing_messages(:useless_outgoing_message)
+
+        OutgoingMailer.subject_for_followup(ir, om).should == "Re: Freedom of Information request - Why do you have & such a fancy dog?"
+    end
+
+    it "should prefix with Re: the subject of the message being replied to" do
+        ir = info_requests(:fancy_dog_request) 
+        im = ir.incoming_messages[0]
+        om = outgoing_messages(:useless_outgoing_message)
+        om.incoming_message_followup = im
+
+        OutgoingMailer.subject_for_followup(ir, om).should == "Re: Geraldine FOI Code AZXB421"
+    end
+
+    it "should not add Re: prefix if there already is such a prefix" do
+        ir = info_requests(:fancy_dog_request) 
+        im = ir.incoming_messages[0]
+        om = outgoing_messages(:useless_outgoing_message)
+        om.incoming_message_followup = im
+
+        im.raw_email.data = im.raw_email.data.sub("Subject: Geraldine FOI Code AZXB421", "Subject: Re: Geraldine FOI Code AZXB421")
+        OutgoingMailer.subject_for_followup(ir, om).should == "Re: Geraldine FOI Code AZXB421"
+    end
+
+    it "should not add Re: prefix if there already is a lower case re: prefix" do
+        ir = info_requests(:fancy_dog_request) 
+        im = ir.incoming_messages[0]
+        om = outgoing_messages(:useless_outgoing_message)
+        om.incoming_message_followup = im
+
+        im.raw_email.data = im.raw_email.data.sub("Subject: Geraldine FOI Code AZXB421", "Subject: re: Geraldine FOI Code AZXB421")
+        OutgoingMailer.subject_for_followup(ir, om).should == "re: Geraldine FOI Code AZXB421"
+    end
+end
+
 

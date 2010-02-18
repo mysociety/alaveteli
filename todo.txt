@@ -7,6 +7,8 @@ http://www.whatdotheyknow.com/request/causes_of_the_financial_crisis#incoming-12
 * write some tests first, of every kind of followup
 * grep for subject_for_followup and email_subject_request
 
+Make it so when you make followups the whole request is shown on the page.
+
 Finish profile photo
 
 Ask people for annotation immediately after they have submitted their request
