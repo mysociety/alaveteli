@@ -394,6 +394,10 @@ Display pasted quotes in annotations better:
 Totally new features
 --------------------
 
+Scribd embedded version of documents
+
+Read reply - ask for exchange read receipts, and show if mail was read.
+
 Telephone numbers. Add advice in workflow to call authority first to check
 form they have info in. Store telephone numbers in database.
 
