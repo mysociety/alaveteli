@@ -15,6 +15,11 @@ require File.join(File.dirname(__FILE__), 'boot')
 $:.push(File.join(File.dirname(__FILE__), '../commonlib/rblib'))
 # ... if these fail to include, you need the rblib directory from
 # mySociety CVS, put it at the same level as the foi directory.
+
+# ruby-ole and ruby-msg.  We use a custom ruby-msg to avoid a name conflict
+$:.unshift(File.join(File.dirname(__FILE__), '../vendor/ruby-ole/lib'))
+$:.unshift(File.join(File.dirname(__FILE__), '../vendor/ruby-msg/lib'))
+
 load "validate.rb"
 load "config.rb"
 load "format.rb"
