@@ -5,7 +5,7 @@
     <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => false, :location => 'sidebar' } %>
     <h2>More about this authority</h2>
     <% if !@public_body.calculated_home_page.nil? %>
-        <%= link_to "Home page", @public_body.calculated_home_page %><br>
+        <%= link_to "Home page of authority", @public_body.calculated_home_page %><br>
     <% end %>
     <% if !@public_body.publication_scheme.empty? %>
         <%= link_to "Publication scheme", @public_body.publication_scheme %><br>
