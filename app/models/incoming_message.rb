@@ -896,7 +896,8 @@ class IncomingMessage < ActiveRecord::Base
         # Find first part which is text/plain or text/html
         # (We have to include HTML, as increasingly there are mail clients that
         # include no text alternative for the main part, and we don't want to
-        # instead use the first text attachment)
+        # instead use the first text attachment 
+        # e.g. http://www.whatdotheyknow.com/request/list_of_public_authorties)
         leaves.each do |p|
             if p.content_type == 'text/plain' or p.content_type == 'text/html'
                 return p
