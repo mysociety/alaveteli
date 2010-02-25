@@ -13,8 +13,8 @@ require File.join(File.dirname(__FILE__), 'boot')
 
 # MySociety specific helper functions
 $:.push(File.join(File.dirname(__FILE__), '../commonlib/rblib'))
-# ... if these fail to include, you need the rblib directory from
-# mySociety CVS, put it at the same level as the foi directory.
+# ... if these fail to include, you need the commonlib submodule from git
+
 load "validate.rb"
 load "config.rb"
 load "format.rb"
