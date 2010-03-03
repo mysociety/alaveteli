@@ -1193,6 +1193,7 @@ describe RequestController, "authority uploads a response from the web interface
         attachments = new_im.get_attachments_for_display
         attachments.size.should == 1
         attachments[0].filename.should == "parrot.png"
+        attachments[0].display_size.should == "94K"
     end
 end
 
