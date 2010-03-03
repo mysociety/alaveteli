@@ -650,7 +650,7 @@ class RequestController < ApplicationController
         if params[:submitted_upload_response]
             file_name = nil
             file_content = nil
-            if params[:file_1].class.to_s == "ActionController::UploadedTempfile"
+            if !params[:file_1].nil?
                 file_name = params[:file_1].original_filename
                 file_content = params[:file_1].read
             end
