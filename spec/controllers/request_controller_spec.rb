@@ -1111,6 +1111,91 @@ describe RequestController, "when viewing comments" do
 end
 
 
+describe RequestController, "authority uploads a response from the web interface" do
+    fixtures :info_requests, :info_request_events, :public_bodies, :users
+
+    before(:all) do
+        # domain after the @ is used for authentication of FOI officers, so to test it
+        # we need a user which isn't at localhost.
+        @normal_user = User.new(:name => "Mr. Normal", :email => "normal-user@flourish.org",  
+                                      :password => PostRedirect.generate_random_token)
+        @normal_user.save!
+
+        @foi_officer_user = User.new(:name => "The Geraldine Quango", :email => "geraldine-requests@localhost", 
+                                      :password => PostRedirect.generate_random_token)
+        @foi_officer_user.save!
+    end
+  
+    it "should require login to view the form to upload" do
+        @ir = info_requests(:fancy_dog_request) 
+        @ir.public_body.is_foi_officer?(@normal_user).should == false
+        session[:user_id] = @normal_user.id
+
+        get :upload_response, :url_title => 'why_do_you_have_such_a_fancy_dog'
+        response.should render_template('user/wrong_user')
+    end
+
+   it "should let you view upload form if you are an FOI officer" do
+        @ir = info_requests(:fancy_dog_request) 
+        @ir.public_body.is_foi_officer?(@foi_officer_user).should == true
+        session[:user_id] = @foi_officer_user.id
+
+        get :upload_response, :url_title => 'why_do_you_have_such_a_fancy_dog'
+        response.should render_template('request/upload_response')
+    end
+
+    it "should prevent uploads if you are not a requester" do
+        @ir = info_requests(:fancy_dog_request) 
+        incoming_before = @ir.incoming_messages.size
+        session[:user_id] = @normal_user.id
+
+        # post up a photo of the parrot
+        parrot_upload = fixture_file_upload('parrot.png','image/png')
+        post :upload_response, :url_title => 'why_do_you_have_such_a_fancy_dog',
+            :body => "Find attached a picture of a parrot",
+            :file_1 => parrot_upload,
+            :submitted_upload_response => 1
+        response.should render_template('user/wrong_user')
+    end
+
+    it "should prevent entirely blank uploads" do
+        session[:user_id] = @foi_officer_user.id
+
+        post :upload_response, :url_title => 'why_do_you_have_such_a_fancy_dog', :body => "", :submitted_upload_response => 1
+        response.should render_template('request/upload_response')
+        flash[:error].should match(/Please type a message/)
+    end
+
+    # How do I test a file upload in rails?
+    # http://stackoverflow.com/questions/1178587/how-do-i-test-a-file-upload-in-rails
+    it "should let the requester upload a file" do
+        @ir = info_requests(:fancy_dog_request) 
+        incoming_before = @ir.incoming_messages.size
+        session[:user_id] = @foi_officer_user.id
+
+        # post up a photo of the parrot
+        parrot_upload = fixture_file_upload('parrot.png','image/png')
+        post :upload_response, :url_title => 'why_do_you_have_such_a_fancy_dog',
+            :body => "Find attached a picture of a parrot",
+            :file_1 => parrot_upload,
+            :submitted_upload_response => 1
+
+        response.should redirect_to(:action => 'show', :url_title => 'why_do_you_have_such_a_fancy_dog')
+        flash[:notice].should match(/Thank you for responding to this FOI request/)
+
+        # check there is a new attachment
+        incoming_after = @ir.incoming_messages.size
+        incoming_after.should == incoming_before + 1
+
+        # check new attachment looks vaguely OK
+        new_im = @ir.incoming_messages[-1]
+        new_im.mail.body.should match(/Find attached a picture of a parrot/)
+        attachments = new_im.get_attachments_for_display
+        attachments.size.should == 1
+        attachments[0].filename.should == "parrot.png"
+    end
+end
+
 
 
 

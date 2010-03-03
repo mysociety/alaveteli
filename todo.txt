@@ -215,7 +215,6 @@ Help page improvements:
 
 Show similar requests after you have filed yours - maybe on preview too.
 
-Test code for FOI officer upload
 Test code for rendering lots of different attachments and filetypes
 Test code for internal review submitting
 
