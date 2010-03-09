@@ -5,8 +5,8 @@ rake (>= 0.8.4-1)
 irb
 wv
 poppler-utils
-# poppler-utils (>= 0.12.0)
-pdftk
+# poppler-utils (>= 0.12.0) # this is much better when it is available in Debian stable
+pdftk (> 1.41+dfsg-1) | pdftk (< 1.41+dfsg-1) # that version has a non-functionining uncompress option
 gs-gpl
 catdoc
 links
@@ -21,7 +21,7 @@ libzip-ruby1.8
 libzlib-ruby
 mahoro-ruby1.8 | libmahoro-ruby1.8
 wdg-html-validator
-#libapache2-mod-passenger
+# libapache2-mod-passenger
 mutt
 librack-ruby1.8 (>= 1.0.1-1)
 librmagick-ruby1.8
