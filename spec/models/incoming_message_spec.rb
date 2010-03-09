@@ -157,6 +157,9 @@ describe IncomingMessage, " when censoring data" do
         data.should == "His email was x\000x\000x\000@\000x\000x\000x\000.\000x\000x\000x\000, indeed"
     end
 
+    # As at March 9th 2010: This test fails with pdftk 1.41+dfsg-1 installed
+    # which is in Ubuntu Karmic. It works again for the lasest version
+    # 1.41+dfsg-7 in Debian unstable. And it works for Debian stable.
     it "should replace everything in PDF files" do
         orig_pdf = load_file_fixture('tfl.pdf')
         pdf = orig_pdf.dup
