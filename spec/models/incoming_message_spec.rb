@@ -263,7 +263,7 @@ describe IncomingMessage, "when Outlook messages are attached to messages" do
 
         attachments = im.get_attachments_for_display
         attachments.size.should == 2
-        attachments[0].display_filename.should == 'test.txt'
+        attachments[0].display_filename.should == 'test.html' # picks HTML rather than text by default, as likely to render better
         attachments[1].display_filename.should == 'attach.txt'
     end
 end

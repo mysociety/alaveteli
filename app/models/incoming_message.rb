@@ -751,12 +751,19 @@ class IncomingMessage < ActiveRecord::Base
             if curr_mail.sub_type == 'alternative'
                 # Choose best part from alternatives
                 best_part = nil
+                # Take the last text/plain one, or else the first one
                 curr_mail.parts.each do |m|
-                    # Take the first one, or the last text/plain one
-                    # XXX - could do better!
                     if not best_part
                         best_part = m
                     elsif m.content_type == 'text/plain'
+                        best_part = m
+                    end
+                end
+                # Take an HTML one as even higher priority. (They tend
+                # to render better than text/plain, e.g. don't wrap links here:
+                # http://www.whatdotheyknow.com/request/amount_and_cost_of_freedom_of_in#incoming-72238 )
+                curr_mail.parts.each do |m|
+                    if m.content_type == 'text/html'
                         best_part = m
                     end
                 end
