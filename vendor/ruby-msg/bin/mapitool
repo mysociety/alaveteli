@@ -1,0 +1,195 @@
+#! /usr/bin/ruby
+
+$:.unshift File.dirname(__FILE__) + '/../lib'
+
+require 'optparse'
+require 'rubygems'
+require 'mapi/msg'
+require 'mapi/pst'
+require 'mapi/convert'
+require 'time'
+
+class Mapitool
+	attr_reader :files, :opts
+	def initialize files, opts
+		@files, @opts = files, opts
+		seen_pst = false
+		raise ArgumentError, 'Must specify 1 or more input files.' if files.empty?
+		files.map! do |f|
+			ext = File.extname(f.downcase)[1..-1]
+			raise ArgumentError, 'Unsupported file type - %s' % f unless ext =~ /^(msg|pst)$/
+			raise ArgumentError, 'Expermiental pst support not enabled' if ext == 'pst' and !opts[:enable_pst]
+			[ext.to_sym, f]
+		end
+		if dir = opts[:output_dir]
+			Dir.mkdir(dir) unless File.directory?(dir)
+		end
+	end
+
+	def each_message(&block)
+		files.each do |format, filename|
+			if format == :pst
+				if filter_path = opts[:filter_path]
+					filter_path = filter_path.tr("\\", '/').gsub(/\/+/, '/').sub(/^\//, '').sub(/\/$/, '')
+				end
+				open filename do |io|
+					pst = Mapi::Pst.new io
+					pst.each do |message|
+						next unless message.type == :message
+						if filter_path
+							next unless message.path =~ /^#{Regexp.quote filter_path}(\/|$)/i
+						end
+						yield message
+					end
+				end
+			else
+				Mapi::Msg.open filename, &block
+			end
+		end
+	end
+
+	def run
+		each_message(&method(:process_message))
+	end
+
+	def make_unique filename
+		@map ||= {}
+		return @map[filename] if !opts[:individual] and @map[filename]
+		try = filename
+		i = 1
+		try = filename.gsub(/(\.[^.]+)$/, ".#{i += 1}\\1") while File.exist?(try)
+		@map[filename] = try
+		try
+	end
+
+	def process_message message
+		# TODO make this more informative
+		mime_type = message.mime_type
+		return unless pair = Mapi::Message::CONVERSION_MAP[mime_type]
+
+		combined_map = {
+			'eml' => 'Mail.mbox',
+			'vcf' => 'Contacts.vcf',
+			'txt' => 'Posts.txt'
+		}
+
+		# TODO handle merged mode, pst, etc etc...
+		case message
+		when Mapi::Msg
+			if opts[:individual]
+				filename = message.root.ole.io.path.gsub(/msg$/i, pair.last)
+			else
+				filename = combined_map[pair.last] or raise NotImplementedError
+			end
+		when Mapi::Pst::Item
+			if opts[:individual]
+				filename = "#{message.subject.tr ' ', '_'}.#{pair.last}".gsub(/[^A-Za-z0-9.()\[\]{}-]/, '_')
+			else
+				filename = combined_map[pair.last] or raise NotImplementedError
+				filename = (message.path.tr(' /', '_.').gsub(/[^A-Za-z0-9.()\[\]{}-]/, '_') + '.' + File.extname(filename)).squeeze('.')
+			end
+			dir = File.dirname(message.instance_variable_get(:@desc).pst.io.path)
+			filename = File.join dir, filename
+		else
+			raise
+		end
+
+		if dir = opts[:output_dir]
+			filename = File.join dir, File.basename(filename)
+		end
+
+		filename = make_unique filename
+
+		write_message = proc do |f|
+			data = message.send(pair.first).to_s
+			if !opts[:individual] and pair.last == 'eml'
+				# we do the append > style mbox quoting (mboxrd i think its called), as it
+				# is the only one that can be robuslty un-quoted. evolution doesn't use this!
+				f.puts "From mapitool@localhost #{Time.now.rfc2822}"
+				#munge_headers mime, opts
+				data.each do |line|
+					if line =~ /^>*From /o
+						f.print '>' + line
+					else
+						f.print line
+					end
+				end
+			else
+				f.write data
+			end
+		end
+
+		if opts[:stdout]
+			write_message[STDOUT]
+		else
+			open filename, 'a', &write_message
+		end
+	end
+
+	def munge_headers mime, opts
+		opts[:header_defaults].each do |s|
+			key, val = s.match(/(.*?):\s+(.*)/)[1..-1]
+			mime.headers[key] = [val] if mime.headers[key].empty?
+		end
+	end
+end
+
+def mapitool
+	opts = {:verbose => false, :action => :convert, :header_defaults => []}
+	op = OptionParser.new do |op|
+		op.banner = "Usage: mapitool [options] [files]"
+		#op.separator ''
+		#op.on('-c', '--convert', 'Convert input files (default)') { opts[:action] = :convert }
+		op.separator ''
+		op.on('-o', '--output-dir DIR', 'Put all output files in DIR') { |d| opts[:output_dir] = d }
+		op.on('-i', '--[no-]individual', 'Do not combine converted files') { |i| opts[:individual] = i }
+		op.on('-s', '--stdout', 'Write all data to stdout') { opts[:stdout] = true }
+		op.on('-f', '--filter-path PATH', 'Only process pst items in PATH') { |path| opts[:filter_path] = path }
+		op.on(      '--enable-pst', 'Turn on experimental PST support') { opts[:enable_pst] = true }
+		#op.on('-d', '--header-default STR', 'Provide a default value for top level mail header') { |hd| opts[:header_defaults] << hd }
+		# --enable-pst
+		op.separator ''
+		op.on('-v', '--[no-]verbose', 'Run verbosely') { |v| opts[:verbose] = v }
+		op.on_tail('-h', '--help', 'Show this message') { puts op; exit }
+	end
+
+	files = op.parse ARGV
+
+	# for windows. see issue #2
+	STDOUT.binmode
+
+	Mapi::Log.level = Ole::Log.level = opts[:verbose] ? Logger::WARN : Logger::FATAL
+
+	tool = begin
+		Mapitool.new(files, opts)
+	rescue ArgumentError
+		puts $!
+		puts op
+		exit 1
+	end
+	
+	tool.run
+end
+
+mapitool
+
+__END__
+
+mapitool [options] [files]
+
+files is a list of *.msg & *.pst files.
+
+one of the options should be some sort of path filter to apply to pst items.
+
+--filter-path=
+--filter-type=eml,vcf
+
+with that out of the way, the entire list of files can be converted into a
+list of items (with meta data about the source).
+
+--convert
+--[no-]separate one output file per item or combined output
+--stdout
+--output-dir=.
+
+

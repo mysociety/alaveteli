@@ -1,0 +1,56 @@
+FIXES
+
+recent fixes based on importing results into evolution
+
+1. was running into some issue with base64 encoded message/rfc822 attachments displaying
+   as empty. encoding them as plain solved the issue (odd).
+
+2. problem with a large percentage of emails, not displaying as mime. turned out to be
+   all received from blackberry. further, turned out there was 2 content-type headers,
+	 "Content-Type", which I add, and "Content-type". normally my override works, but I
+	 need to handle it case insensitvely it would appear. more tricky, whats the story
+	 with these. fixing that will probably fix that whole class of issues there.
+	 evolution was renaming my second content type as X-Invalid-Content-Type or something.
+
+3. another interesting one. had content-transfer-encoding set in the transport message
+   headers. it was set to base64. i didn't override that, so evolution "decoded" my
+	 plaintext message into complete garbage.
+	 fix - delete content-transfer-encoding.
+
+4. added content-location and content-id output in the mime handling of attachments
+   to get some inline html/image mails to work properly.
+   further, the containing mime content-type must be multipart/related, not multipart/mixed,
+	 at least for evolution, in order for the images to appear inline.
+   could still improve in this area. if someone drags and drops in an image, it may
+	 be inline in the rtf version, but exchanges generates crappy html such that the image
+	 doesn't display inline. maybe i should correct the html output in these cases as i'm
+	 throwing away the rtf version.
+
+5. note you may need wingdings installed. i had a lot of L and J appear in messages from
+   outlook users. turns out its smilies in wingdings. i think its only if word is used
+	 as email editor and has autotext messing things up.
+
+6. still unsure about how to do my "\r" handling.
+
+7. need to join addresses with , instead of ; i think. evolution only shows the
+   first one otherwise it appears, but all when they are , separated.
+
+8. need to solve ole storage issues with the very large file using extra bat
+   stuff.
+
+9. retest a bit on evolution and thunderbird, and release. tested on a corups
+   of >1000 msg files, so should be starting to get pretty good quality.
+
+10. longer term, things fall into a few basic categories:
+
+- non mail conversions (look further into vcard, ical et al support for other
+  types of msg)
+- further tests and robustness for what i handle now. ie, look into corner
+  cases covered so far, and work on the mime code. fix random charset encoding
+  issues, in the various weird mime ways, do header wrapping etc etc.
+  check fidelity of conversions, and capture some more properties as headers,
+  such as importance which i don't do yet.
+- fix that named property bug. tidy up warnings, exceptions.
+- extend conversion to make better html.
+  this is longer term. as i don't use the rtf, i need to make my html better.
+  emulating some rtf things. harder, not important atm.

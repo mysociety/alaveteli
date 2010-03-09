@@ -1,0 +1,184 @@
+= Newer Msg
+
+* a lot of the doc is out of sync given the Mapi:: changes lately. need to
+  fix.
+
+* extend msgtool with support for the other kinds of msg files. things like, 
+  - dump properties to yaml / xml (with option on how the keys should be dumped).
+    should be fairly easy to implement. hash, with array of attach & recips.
+  - just write out the mime type
+  - convert to the automatically guessed output type, also allowing an override
+    of some sort. have a batch mode that converts all arguments, using automatic
+    extensions, eg .vcf, .eml etc.
+  - options regarding preferring rtf / html / txt output for things. like, eg
+    the output for note conversion, will be one of them i guess.
+
+* fix nameid handling for sub Properties objects. needs to inherit top-level @nameid.
+
+* better handling for "Untitled Attachments", or attachments with no filename at all.
+  maybe better handling in general for attached messages. maybe re-write filename with
+  subject.
+
+* do the above 2, then go for a new release.
+  for this release, i want it to be pretty robust, and have better packaging.
+  have the gem install 2 tools - oletool (--tree, --read, --write, --repack)
+  and msgtool (--convert, --dump-attachments etc)
+  fix docs, add option parsing etc etc.
+  submit to the usual gem repositories etc, announce project as usable.
+
+* better handling for other types of embedded ole attachments. try to recognise .wmf to
+  start with. etc. 2 goals, form .eml, and for .rtf output.
+
+* rtf to text support, initially. just simple strip all the crap out approach. maybe html
+  later on. sometimes the only body is rtf, which is problematic. is rtf an allowed body
+  type?
+
+* better encoding support (i'm thinking, check some things like m-dash in the non-wide
+  string type. is it windows codepage?. how to know code page in general? change
+  ENCODER[] to convert these to utf8 i think). I'm trying to just move everything to utf8.
+  then i need to make sure the mime side of that holds up.
+
+* certain parsing still not correct, especially small properties directory, 
+  things like bools, multiavlue shorts etc.
+
+* test cases for msg/properties.rb msg/rtf.rb and mime.rb
+* regarding the mime fix ups. check out:
+
+- http://rubyforge.org/projects/rubymail/, and
+- http://rubyforge.org/projects/mime-alt-lite/
+
+both haven't been touched in 2 years though.
+
+* get some sort of working From: header
+  there doesn't appear to be a way to get an smtp address for the sender in an
+  internal mail. you need to query the exchanger server, using the sender_entryid
+  as far as i can tell.
+  you may also get these so called "X.400" addresses for external recipients
+  that are on the GAL (Global Address List), as custom recipients.
+  (mostly complete. better way?)
+* check lots of little details: encoding issues with code pages etc other
+  than ascii stuff. consider Msg, Mime, Vcard etc, to check its clean. check
+  timezones, inaccuracies in date handling.
+* http://msdn2.microsoft.com/en-us/library/ms526761.aspx
+  import guids for these?
+PS_ROUTING_EMAIL_ADDRESSES
+PS_ROUTING_ADDRTYPE
+PS_ROUTING_SEARCH_KEY
+PS_ROUTING_DISPLAY_NAME
+PS_ROUTING_ENTRYID
+* check this thing i wrote:
+  creating ones in ps_mapi works strangely, as ps_mapi is the top levels ones.
+  don't get entries in nameid. as should match the definitions.
+  however still get allocated an 8 number. that number becomes permanent...
+* do something about the message class-specific range, 0x6800 through 0x7FFF.
+* multivalue encoding may explain some of the unknown data in properties objs
+* get some clean test msgs from somewhere
+* tackle other types of msgs, such as appointments, contacts etc, converting
+  to their appropriate standard types too.
+  would like to look at this next. see about the content specific range
+  http://en.wikipedia.org/wiki/ICalendar
+  is it better/easier to go through micro formats? there are libraries for ruby
+  already i think. check this out. although using IMC standards seem to make
+  more sense. encoding issues?
+  try contact => vcf,
+  note => ?? icalendar. VTODO? / VJOURNAL?
+  appointment => VEVENT?
+  (initial try done. really basic vcard output supported. not difficult)
+* ole code is suppopsed to be able to return guids for something too. supporting
+  all this probably means creating a new file for ole/types.rb, containing all
+  the various classes, and binary conversion code.
+* some dubiously useful info about some unknown codes i wrote:
+unknown property 5ff6
+ * appears to be equal to display_name, and transmitable_display_name
+unknown property 5ff7
+ * recipient.properties[0x5ff7].upcase == recipient.properties.entryid
+   is equivalent, but not all uppercase.
+	 everything else is upper though. maybe a displayname kind of thing.
+* common relationship
+	CGI.escape(msg.properties.subject.strip).tr('+', ' ') + '.EML' == msg.properties.url_comp_name
+
+(28 bytes binary data and msg.properties.sender_email_address and "\000")
+entryids are a strange format. for internal or from exchange whatever, they have that
+EX:/O=XXXXXX/...
+otherwise, they may have SMTP in them.
+  such as msg.properties.sent_representing_search_key
+	  == "SMTP:SOMEGUY@XXX.COM\000"
+	but Ole::UTF16_TO_UTF8[msg2.properties.sender_entryid[/.*\000\000(.+)\000/, 1][0..-2]]
+	  == "SomeGuy@XXX.COM"
+	for external people, entry ids have displayname and address.
+
+longer term, i want to investigate the overlap with PST stuff, like libpst,
+which seems to be another kind of mapi tag property storage, and try to
+understand the relationship with existing TNEF work also.
+
+hmmmm for future work:
+http://blogs.msdn.com/stephen_griffin/archive/2005/10/25/484656.aspx
+
+
+= Older
+
+- set 'From' in Msg#populate_headers.
+	Notes:
+		# ways to get the sender of a mail.
+		# if external, you can do this (different for internal).
+		name, protocol, email = Ole::UTF16_TO_UTF8[msg.props.sender_entryid[24..-1]].split(/\x00/)
+		# here is an excerpt from a yaml dump.
+		# need to consider how to get it. also when its a draft, and other stuff.
+		creator_name:
+		sent_representing_name:
+		last_modifier_name:
+		sender_email_address:
+		sent_representing_email_address:
+		sender_name:
+- fill out some of the tag holes. mostly done
+- properly integrate rtf decompression, and the html conversion from rtf
+- figure out some things, like entryids, and the properties directories,
+  and the ntsecurity data 0e27.
+	http://peach.ease.lsoft.com/scripts/wa.exe?A2=ind0207&L=mapi-l&P=24515
+	"In case anybody is interested, Exchange stores PR_NT_SECURITY_DESCRIPTOR as a header plus the regular self=-relative SECURITY_DESCRIPTOR structure. The first two bytes of the header (WORD) is the length of the header; Read these two bytes to find out how many bytes you must skip to get to the real data. Many thanks to Stephen Griffin for this info."
+	using outlook spy gives an actual dump. for example:
+	<<
+	Control: SE_DACL_AUTO_INHERITED | SE_DACL_DEFAULTED | SE_DACL_PRESENT | SE_GROUP_DEFAULTED | SE_OWNER_DEFAULTED | SE_SACL_AUTO_INHERITED | SE_SACL_DEFAULTED | SE_SELF_RELATIVE
+	Owner: 
+		SID: S-1-5-21-1004336348-602609370-725345543-44726
+		Name: lowecha
+		DomainName: XXX
+	Group: 
+		SID: S-1-5-21-1004336348-602609370-725345543-513
+		Name: Domain Users
+		DomainName: XXX
+	Dacl: 
+			Header:
+				AceType: ACCESS_DENIED_ACE_TYPE
+				AceFlags: INHERITED_ACE
+			Mask: fsdrightReadBody (fsdrightListContents) | fsdrightWriteBody (fsdrightCreateItem) | fsdrightAppendMsg (fsdrightCreateContainer) | fsdrightReadProperty | fsdrightWriteProperty | fsdrightExecute | fsdrightReadAttributes | fsdrightWriteAttributes | fsdrightWriteOwnProperty | fsdrightDeleteOwnItem | fsdrightViewItem | fsdrightWriteSD | fsdrightDelete | fsdrightWriteOwner | fsdrightReadControl | fsdrightSynchronize
+			Sid:
+				SID: S-1-5-7
+				Name: ANONYMOUS LOGON
+				DomainName: NT AUTHORITY
+	>>
+	Not something i care about at the moment.
+
+- conversion of inline images.
+  Content-Location, cid: urls etc etc.
+	what would be cool, is conversion of outlooks text/rtf's only real "feature" over
+	text/html - convert inline attachments to be <a href> links, using cid: urls to the
+	actual content data, and using an <img with cid: url to a converted image from the
+	attach_rendering property (image data), along with the text itself. (although i think
+	the rendering may actually include the text ??. that would explain why its always clipped.
+  can these be used for contact pictures too?
+- entryid format cf. entry_id.h. another serialized structure.
+  entryids are for the addressbook connection. EMS (exchange message something), AB
+	address book. MUIDEMSAB. makes sense.
+
+mapidefs.h:
+
+  174 /* Types of message receivers */
+  175 #ifndef MAPI_ORIG
+  176 #define MAPI_ORIG      0          /* The original author */
+  177 #define MAPI_TO        1          /* The primary message receiver */
+  178 #define MAPI_CC        2          /* A carbon copy receiver */
+  179 #define MAPI_BCC       3          /* A blind carbon copy receiver */
+  180 #define MAPI_P1        0x10000000 /* A message resend */
+  181 #define MAPI_SUBMITTED 0x80000000 /* This message has already been sent */
+  182 #endif

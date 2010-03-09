@@ -29,6 +29,8 @@ require 'htmlentities'
 require 'rexml/document'
 require 'zip/zip'
 require 'mahoro'
+require 'mapi/msg'
+require 'mapi/convert'
 
 # Monkeypatch! Adding some extra members to store extra info in.
 module TMail
@@ -51,6 +53,8 @@ $file_extension_to_mime_type = {
     "xlsx" => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
     "ppt" => 'application/vnd.ms-powerpoint',
     "pptx" => 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+    "oft" => 'application/vnd.ms-outlook',
+    "msg" => 'application/vnd.ms-outlook',
     "tif" => 'image/tiff',
     "gif" => 'image/gif',
     "jpg" => 'image/jpeg', # XXX add jpeg
@@ -444,12 +448,27 @@ class IncomingMessage < ActiveRecord::Base
                 _count_parts_recursive(p)
             end
         else
+            part_filename = TMail::Mail.get_part_file_name(part)
             if part.content_type == 'message/rfc822'
                 # An email attached as text
                 # e.g. http://www.whatdotheyknow.com/request/64/response/102
                 begin
                     part.rfc822_attachment = TMail::Mail.parse(part.body)
                 rescue 
+                    # If attached mail doesn't parse, treat it as text part
+                    part.rfc822_attachment = nil
+                    @count_parts_count += 1
+                    part.url_part_number = @count_parts_count
+                else
+                    _count_parts_recursive(part.rfc822_attachment)
+                end
+            elsif part.content_type == 'application/vnd.ms-outlook' || part_filename && filename_to_mimetype(part_filename) == 'application/vnd.ms-outlook'
+                # An email attached as an Outlook file
+                # e.g. http://www.whatdotheyknow.com/request/chinese_names_for_british_politi
+                begin
+                    msg = Mapi::Msg.open(StringIO.new(part.body))
+                    part.rfc822_attachment = TMail::Mail.parse(msg.to_mime.to_s)
+                rescue
                     # If attached mail doesn't parse, treat it as text part
                     part.rfc822_attachment = nil
                     @count_parts_count += 1
@@ -776,9 +795,16 @@ class IncomingMessage < ActiveRecord::Base
                     curr_mail.content_type = 'text/plain'
                 end
             end
+            if curr_mail.content_type == 'application/vnd.ms-outlook'
+                ensure_parts_counted # fills in rfc822_attachment variable
+                if curr_mail.rfc822_attachment.nil?
+                    # Attached mail didn't parse, so treat as binary
+                    curr_mail.content_type = 'application/octet-stream'
+                end
+            end
 
-            # If the part is an attachment of email in text form
-            if curr_mail.content_type == 'message/rfc822'
+            # If the part is an attachment of email
+            if curr_mail.content_type == 'message/rfc822' || curr_mail.content_type == 'application/vnd.ms-outlook'
                 ensure_parts_counted # fills in rfc822_attachment variable
                 leaves_found += _get_attachment_leaves_recursive(curr_mail.rfc822_attachment, curr_mail.rfc822_attachment)
             else

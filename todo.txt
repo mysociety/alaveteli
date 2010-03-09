@@ -283,11 +283,6 @@ winmail.dat (use /usr/bin/tnef)
 VSD files vsdump - example in zip file
     http://www.whatdotheyknow.com/request/dog_control_orders#incoming-3510
     doing file RESPONSE/Internal documents/Briefing with Contact Islington/Contact Islington Flowchart Jul 08.vsd content type 
-Use Ruby msg
-    http://code.google.com/p/ruby-msg/
-To decode Outlook .msg (.oft?) files, e.g.
-    http://www.whatdotheyknow.com/request/immediate_response_team_deployme
-    http://www.whatdotheyknow.com/request/chinese_names_for_british_politi
 
 Search for other file extensions that we have now and look for ones we could
 and should be indexing
