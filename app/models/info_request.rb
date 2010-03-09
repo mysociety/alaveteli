@@ -212,7 +212,7 @@ public
         end
     end
     def email_subject_followup(incoming_message = nil)
-        if incoming_message.nil?
+        if incoming_message.nil? || !incoming_message.valid_to_reply_to?
             'Re: ' + self.email_subject_request
         else
             if incoming_message.mail.subject.match(/^Re:/i)
