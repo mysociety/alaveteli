@@ -70,6 +70,15 @@ describe "when viewing a body" do
         end
     end 
 
+    it "should link to Scottish Charity Regulator site if we have an SC number" do
+        @pb.stub!(:charity_number).and_return('SC1234')
+        render "public_body/show"
+        response.should have_tag("div#request_sidebar") do
+            with_tag("a[href*=?]", /www.oscr.org.uk.*id=SC1234$/)
+        end
+    end 
+
+
     it "should not link to Charity Commission site if we don't have number" do
         render "public_body/show"
         response.should have_tag("div#request_sidebar") do
