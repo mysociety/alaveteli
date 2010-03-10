@@ -231,37 +231,55 @@ class UserController < ApplicationController
     # Change your email
     def signchangeemail
         if not authenticated?(
-                :web => "To change your email address",
-                :email => "Then you can change your email address",
-                :email_subject => "Change your email address"
+                :web => "To change your email address used on WhatDoTheyKnow.com",
+                :email => "Then you can change your email address used on WhatDoTheyKnow.com",
+                :email_subject => "Change your email address used on WhatDoTheyKnow.com"
             )
             # "authenticated?" has done the redirect to signin page for us
             return
         end
 
-        work_out_post_redirect
-
-        if params[:submitted_signchangeemail_do]
-            @signchangeemail = ChangeEmailValidator.new(params[:signchangeemail])
-            @signchangeemail.logged_in_user = @user
-
-            if @signchangeemail.valid?
-                user_alreadyexists = User.find_user_by_email(@signchangeemail.new_email)
-                if user_alreadyexists
-                    already_registered_mail user_alreadyexists
-                    return
-                end
-
-                @user.email = @signchangeemail.new_email
-                @user.email_confirmed = false
-                @user.save!
-                self._do_signout
-                send_confirmation_mail @user
-                return
-            end
+        if !params[:submitted_signchangeemail_do]
+            render :action => 'signchangeemail'
+            return
         end
 
-        render :action => 'signchangeemail'
+        @signchangeemail = ChangeEmailValidator.new(params[:signchangeemail])
+        @signchangeemail.logged_in_user = @user
+
+        if !@signchangeemail.valid?
+            render :action => 'signchangeemail'
+            return
+        end
+
+        # if new email already in use, send email there saying what happened
+        user_alreadyexists = User.find_user_by_email(@signchangeemail.new_email)
+        if user_alreadyexists
+            UserMailer.deliver_changeemail_already_used(@user.email, @signchangeemail.new_email)
+            render :action => 'signchangeemail_confirm'
+            return
+        end
+
+        # if not already, send a confirmation link to the new email address which logs
+        # them into the old email's user account, but with special user_circumstance
+        if (not session[:user_circumstance]) or (session[:user_circumstance] != "change_email")
+            post_redirect = PostRedirect.new(:uri => signchangeemail_url(), :post_params => params,
+                :circumstance => "change_email" # special login that lets you change your email
+            )
+            post_redirect.user = @user
+            post_redirect.save!
+
+            url = confirm_url(:email_token => post_redirect.email_token)
+            UserMailer.deliver_changeemail_confirm(@user, @signchangeemail.new_email, url)
+            render :action => 'signchangeemail_confirm'
+            return
+        end
+
+        # circumstance is 'change_email', so can actually change the email
+        @user.email = @signchangeemail.new_email
+        @user.save!
+        flash[:notice] = "You have now changed your email address used on WhatDoTheyKnow.com"
+        redirect_to user_url(@user)
     end
 
     # Send a message to another user

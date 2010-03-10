@@ -1,4 +1,4 @@
-<% @title = "Change your email address" %>
+<% @title = "Change your email address used on WhatDoTheyKnow.com" %>
 
 <% raise "internal error" if not @user %>
 
@@ -8,7 +8,7 @@
     <%= foi_error_messages_for :signchangeemail %>
 
     <div class="form_note">
-    <h1>Change your email address</h1>
+    <h1>Change your email address used on WhatDoTheyKnow.com</h1>
     </div>
 
     <p>
@@ -34,8 +34,7 @@
 
     <div class="form_button">
     <%= hidden_field_tag 'submitted_signchangeemail_do', 1 %>
-    <%= hidden_field_tag 'token', params[:token], { :id => 'signin_token' } %>
-    <%= submit_tag "Change email" %>
+    <%= submit_tag "Change email on WhatDoTheyKnow.com" %>
     </div>
 <% end %>
 

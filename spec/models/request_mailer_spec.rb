@@ -115,7 +115,7 @@ describe RequestMailer, " when receiving incoming mail" do
         deliveries.clear
     end
 
-    it "should dump messages to a request if marked to do so" do
+    it "should destroy the messages sent to a request if marked to do so" do
         ActionMailer::Base.deliveries.clear
         # mark request as anti-spam
         ir = info_requests(:fancy_dog_request) 

@@ -346,7 +346,7 @@ describe UserController, "when changing email address" do
         deliveries.size.should  == 0
     end
 
-    it "should change your email if you get all the details right, and send confirmation email" do
+    it "should send confirmation email if you get all the details right" do
         @user = users(:bob_smith_user)
         session[:user_id] = @user.id
         
@@ -356,17 +356,49 @@ describe UserController, "when changing email address" do
         }
 
         @user.reload
-        @user.email.should == 'newbob@localhost'
-        @user.email_confirmed.should == false
+        @user.email.should == 'bob@localhost'
+        @user.email_confirmed.should == true
 
-        response.should render_template('confirm')
+        response.should render_template('signchangeemail_confirm')
 
         deliveries = ActionMailer::Base.deliveries
         deliveries.size.should  == 1
         mail = deliveries[0]
-
-        mail.body.should include("not reveal your email")
+        mail.body.should include("confirm that you want to change")
         mail.to.should == [ 'newbob@localhost' ]
+
+        mail.body =~ /(http:\/\/.*(\/c\/(.*)))/
+        mail_url = $1
+        mail_path = $2
+        mail_token = $3
+
+        # Check confirmation URL works
+        session[:user_id] = nil
+        session[:user_circumstance].should == nil
+        get :confirm, :email_token => mail_token
+        session[:user_id].should == users(:bob_smith_user).id
+        session[:user_circumstance].should == 'change_email'
+        response.should redirect_to(:controller => 'user', :action => 'signchangeemail', :post_redirect => 1)
+
+        # Would be nice to do a follow_redirect! here, but rspec-rails doesn't
+        # have one. Instead do an equivalent manually.
+        post_redirect = PostRedirect.find_by_email_token(mail_token)
+        post_redirect.circumstance.should == 'change_email'
+        post_redirect.user.should == users(:bob_smith_user)
+        post_redirect.post_params.should == {"submitted_signchangeemail_do"=>"1", 
+                "action"=>"signchangeemail", 
+                "signchangeemail"=>{
+                    "old_email"=>"bob@localhost", 
+                    "new_email"=>"newbob@localhost", 
+                    "password"=>"jonespassword"}, 
+                "controller"=>"user"}
+        post :signchangeemail, post_redirect.post_params
+
+        response.should redirect_to(:controller => 'user', :action => 'show', :url_name => 'bob_smith')
+        flash[:notice].should match(/You have now changed your email address/) 
+        @user.reload
+        @user.email.should == 'newbob@localhost'
+        @user.email_confirmed.should == true
     end
 
     it "should send special 'already signed up' mail if you try to change your email to one already used" do
@@ -374,7 +406,7 @@ describe UserController, "when changing email address" do
         session[:user_id] = @user.id
         
         post :signchangeemail, { :signchangeemail => { :old_email => 'bob@localhost', 
-                :password => 'jonespassword', :new_email => 'bob@localhost' },
+                :password => 'jonespassword', :new_email => 'silly@localhost' },
             :submitted_signchangeemail_do => 1
         }
 
@@ -382,16 +414,15 @@ describe UserController, "when changing email address" do
         @user.email.should == 'bob@localhost'
         @user.email_confirmed.should == true
 
-        response.should render_template('confirm')
+        response.should render_template('signchangeemail_confirm')
 
         deliveries = ActionMailer::Base.deliveries
         deliveries.size.should  == 1
         mail = deliveries[0]
 
-        mail.body.should include("have an account")
-        mail.to.should == [ 'bob@localhost' ]
+        mail.body.should include("perhaps you, just tried to change their")
+        mail.to.should == [ 'silly@localhost' ]
     end
-
 end
 
 

@@ -51,7 +51,7 @@
         <% if @is_you %>
             (just to see how it works)
             <br><%= link_to "Change your password", signchangepassword_url() %> |
-            <%= link_to "Change your email", signchangeemail_url(:r => request.request_uri) %>
+            <%= link_to "Change your email", signchangeemail_url() %>
         <% end %>
     </p>
 
