@@ -31,7 +31,7 @@ end
 
 
 describe IncomingMessage, " when censoring data" do
-    fixtures :outgoing_messages
+    fixtures :outgoing_messages, :info_requests
 
     before do
         @om = outgoing_messages(:useless_outgoing_message)
