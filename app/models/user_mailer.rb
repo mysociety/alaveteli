@@ -42,7 +42,7 @@ class UserMailer < ApplicationMailer
         @from = contact_from_name_and_email
         headers 'Return-Path' => blackhole_email, 'Reply-To' => @from # we don't care about bounces when people are fiddling with their account
         @recipients = new_email
-        @subject    = "New email address already in use on WhatDoTheyKnow.com"
+        @subject    = "Unable to change email address on WhatDoTheyKnow.com"
         @body[:old_email] = old_email
         @body[:new_email] = new_email
     end
