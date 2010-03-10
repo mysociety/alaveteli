@@ -313,6 +313,8 @@ class FOIAttachment
             return true
         elsif self.content_type == 'application/vnd.ms-word'
             return true
+        elsif self.content_type == 'application/vnd.ms-excel'
+            return true
         elsif self.content_type == 'application/pdf'
             return true
         elsif self.content_type == 'application/rtf'
@@ -327,6 +329,8 @@ class FOIAttachment
             return "Text file"
         elsif self.content_type == 'application/vnd.ms-word'
             return "Word document"
+        elsif self.content_type == 'application/vnd.ms-excel'
+            return "Excel spreadsheet"
         elsif self.content_type == 'application/pdf'
             return "PDF file"
         elsif self.content_type == 'application/rtf'
@@ -337,6 +341,7 @@ class FOIAttachment
     # For "View as HTML" of attachment
     def body_as_html(dir)
         html = nil
+        wrapper_class = "default_output"
 
         # simple cases, can never fail
         if self.content_type == 'text/plain'
@@ -344,7 +349,7 @@ class FOIAttachment
             text = CGI.escapeHTML(text)
             text = MySociety::Format.make_clickable(text)
             html = text.gsub(/\n/, '<br>')
-            return "<html><head></head><body>" + html + "</body></html>"
+            return "<html><head></head><body>" + html + "</body></html>", wrapper_class
         end
 
         # the extractions will also produce image files, which go in the
@@ -360,6 +365,11 @@ class FOIAttachment
                 system("/usr/bin/wvHtml --charset=UTF-8 " + tempfile.path + " " + tempfile.path + ".html")
                 html = File.read(tempfile.path + ".html")
                 File.unlink(tempfile.path + ".html")
+            elsif self.content_type == 'application/vnd.ms-excel'
+                IO.popen("/usr/bin/xlhtml -a " + tempfile.path + "", "r") do |child|
+                    html = child.read()
+                    wrapper_class = "xhtml_output"
+                end
             elsif self.content_type == 'application/pdf'
                 IO.popen("/usr/bin/pdftohtml -nodrm -zoom 1.0 -stdout -enc UTF-8 -noframes " + tempfile.path + "", "r") do |child|
                     html = child.read()
@@ -391,7 +401,7 @@ class FOIAttachment
             return "<html><head></head><body><p>Sorry, the conversion to HTML failed. Please use the download link at the top right.</p></body></html>"
         end
 
-        return html
+        return html, wrapper_class
     end
 
 end

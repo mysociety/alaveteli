@@ -578,12 +578,12 @@ class RequestController < ApplicationController
         # the same cache code in cache_attachments above will display them.
         image_dir = File.dirname(ActionController::Base.cache_store.cache_path + "/views" + url_for(params.merge(:only_path => true)))
         FileUtils.mkdir_p(image_dir)
-        html = @attachment.body_as_html(image_dir)
+        html, wrapper_class = @attachment.body_as_html(image_dir)
 
         view_html_stylesheet = render_to_string :partial => "request/view_html_stylesheet"
         html.sub!(/<head>/i, "<head>" + view_html_stylesheet)
-        html.sub!(/<body[^>]*>/i, '<body><prefix-here><div id="wrapper"><div id="view_html_content">' + view_html_stylesheet)
-        html.sub!(/<\/body[^>]*>/i, '</div></div></body>' + view_html_stylesheet)
+        html.sub!(/<body[^>]*>/i, '<body><prefix-here><div id="wrapper" class="' + wrapper_class + '"><div id="view_html_content">')
+        html.sub!(/<\/body[^>]*>/i, '</div></div></body>')
 
         view_html_prefix = render_to_string :partial => "request/view_html_prefix"
         html.sub!("<prefix-here>", view_html_prefix)
