@@ -366,7 +366,10 @@ class FOIAttachment
                 html = File.read(tempfile.path + ".html")
                 File.unlink(tempfile.path + ".html")
             elsif self.content_type == 'application/vnd.ms-excel'
-                IO.popen("/usr/bin/xlhtml -a " + tempfile.path + "", "r") do |child|
+                # Don't colorise, e.g. otherwise this one comes out with white
+                # text which is nasty:
+                # http://www.whatdotheyknow.com/request/30485/response/74705/attach/html/2/Empty%20premises%20Sefton.xls.html
+                IO.popen("/usr/bin/xlhtml -nc -a " + tempfile.path + "", "r") do |child|
                     html = child.read()
                     wrapper_id = "wrapper_xlhtml"
                 end
