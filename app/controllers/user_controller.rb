@@ -256,6 +256,9 @@ class UserController < ApplicationController
         user_alreadyexists = User.find_user_by_email(@signchangeemail.new_email)
         if user_alreadyexists
             UserMailer.deliver_changeemail_already_used(@user.email, @signchangeemail.new_email)
+            # it is important this screen looks the same as the one below, so
+            # you can't change to someone's email in order to tell if they are
+            # registered with that email on the site
             render :action => 'signchangeemail_confirm'
             return
         end
@@ -271,6 +274,9 @@ class UserController < ApplicationController
 
             url = confirm_url(:email_token => post_redirect.email_token)
             UserMailer.deliver_changeemail_confirm(@user, @signchangeemail.new_email, url)
+            # it is important this screen looks the same as the one above, so
+            # you can't change to someone's email in order to tell if they are
+            # registered with that email on the site
             render :action => 'signchangeemail_confirm'
             return
         end
