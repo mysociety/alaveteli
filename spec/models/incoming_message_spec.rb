@@ -268,5 +268,23 @@ describe IncomingMessage, "when Outlook messages are attached to messages" do
     end
 end
 
+describe IncomingMessage, "when TNEF attachments are attached to messages" do
+    it "should flatten all the attachments out" do
+        mail_body = load_file_fixture('incoming-request-tnef-attachments.email')
+        mail = TMail::Mail.parse(mail_body)
+        mail.base64_decode
+
+        im = IncomingMessage.new
+        im.stub!(:mail).and_return(mail)
+        ir = InfoRequest.new
+        im.info_request = ir
+
+        attachments = im.get_attachments_for_display
+        attachments.size.should == 2
+        attachments[0].display_filename.should == 'FOI 09 02976i.doc'
+        attachments[1].display_filename.should == 'FOI 09 02976iii.doc'
+    end
+end
+
 
 

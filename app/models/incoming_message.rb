@@ -472,6 +472,9 @@ class IncomingMessage < ActiveRecord::Base
                     # e.g. http://www.whatdotheyknow.com/request/chinese_names_for_british_politi
                     msg = Mapi::Msg.open(StringIO.new(part.body))
                     part.rfc822_attachment = TMail::Mail.parse(msg.to_mime.to_s)
+                elsif part.content_type == 'application/ms-tnef' 
+                    # A set of attachments in a TNEF file
+                    part.rfc822_attachment = TNEF.as_tmail(part.body)
                 end
             rescue
                 # If attached mail doesn't parse, treat it as text part
@@ -807,7 +810,7 @@ class IncomingMessage < ActiveRecord::Base
                     curr_mail.content_type = 'text/plain'
                 end
             end
-            if curr_mail.content_type == 'application/vnd.ms-outlook'
+            if curr_mail.content_type == 'application/vnd.ms-outlook' || curr_mail.content_type == 'application/ms-tnef'
                 ensure_parts_counted # fills in rfc822_attachment variable
                 if curr_mail.rfc822_attachment.nil?
                     # Attached mail didn't parse, so treat as binary
@@ -816,7 +819,7 @@ class IncomingMessage < ActiveRecord::Base
             end
 
             # If the part is an attachment of email
-            if curr_mail.content_type == 'message/rfc822' || curr_mail.content_type == 'application/vnd.ms-outlook'
+            if curr_mail.content_type == 'message/rfc822' || curr_mail.content_type == 'application/vnd.ms-outlook' || curr_mail.content_type == 'application/ms-tnef'
                 ensure_parts_counted # fills in rfc822_attachment variable
                 leaves_found += _get_attachment_leaves_recursive(curr_mail.rfc822_attachment, curr_mail.rfc822_attachment)
             else
