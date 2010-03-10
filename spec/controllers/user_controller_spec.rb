@@ -338,7 +338,7 @@ describe UserController, "when changing email address" do
         assigns[:signchangeemail].errors[:old_email].should_not be_nil
     end
 
-    it "should change your email if you get all the details right, and require confirmation" do
+    it "should change your email if you get all the details right, and send confirmation email" do
         @user = users(:silly_name_user)
         session[:user_id] = @user.id
         
