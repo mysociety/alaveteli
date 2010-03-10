@@ -159,24 +159,24 @@ class UserController < ApplicationController
     end
 
     # Change password (XXX and perhaps later email) - requires email authentication
-    def signchange
+    def signchangepassword
         if @user and ((not session[:user_circumstance]) or (session[:user_circumstance] != "change_password"))
             # Not logged in via email, so send confirmation
-            params[:submitted_signchange_send_confirm] = true
-            params[:signchange] = { :email => @user.email }
+            params[:submitted_signchangepassword_send_confirm] = true
+            params[:signchangepassword] = { :email => @user.email }
         end
 
-        if params[:submitted_signchange_send_confirm]
+        if params[:submitted_signchangepassword_send_confirm]
             # They've entered the email, check it is OK and user exists
-            if not MySociety::Validate.is_valid_email(params[:signchange][:email])
+            if not MySociety::Validate.is_valid_email(params[:signchangepassword][:email])
                 flash[:error] = "That doesn't look like a valid email address. Please check you have typed it correctly."
-                render :action => 'signchange_send_confirm'
+                render :action => 'signchangepassword_send_confirm'
                 return
             end
-            user_signchange = User.find_user_by_email(params[:signchange][:email])
-            if user_signchange
-                # Send email with login link to go to signchange page
-                url = signchange_url
+            user_signchangepassword = User.find_user_by_email(params[:signchangepassword][:email])
+            if user_signchangepassword
+                # Send email with login link to go to signchangepassword page
+                url = signchangepassword_url
                 if params[:pretoken]
                     url += "?pretoken=" + params[:pretoken]
                 end
@@ -188,27 +188,27 @@ class UserController < ApplicationController
                     },
                     :circumstance => "change_password" # special login that lets you change your password
                 )
-                post_redirect.user = user_signchange
+                post_redirect.user = user_signchangepassword
                 post_redirect.save!
                 url = confirm_url(:email_token => post_redirect.email_token)
-                UserMailer.deliver_confirm_login(user_signchange, post_redirect.reason_params, url)
+                UserMailer.deliver_confirm_login(user_signchangepassword, post_redirect.reason_params, url)
             else
                 # User not found, but still show confirm page to not leak fact user exists
             end
 
-            render :action => 'signchange_confirm'
+            render :action => 'signchangepassword_confirm'
         elsif not @user
             # Not logged in, prompt for email
-            render :action => 'signchange_send_confirm'
+            render :action => 'signchangepassword_send_confirm'
         else
             # Logged in via special email change password link, so can offer form to change password
             raise "internal error" unless (session[:user_circumstance] == "change_password")
 
-            if params[:submitted_signchange_password]
+            if params[:submitted_signchangepassword_do]
                 @user.password = params[:user][:password]
                 @user.password_confirmation = params[:user][:password_confirmation]
                 if not @user.valid?
-                    render :action => 'signchange'
+                    render :action => 'signchangepassword'
                 else
                     @user.save!
                     flash[:notice] = "Your password has been changed."
@@ -220,7 +220,7 @@ class UserController < ApplicationController
                     end
                 end
             else
-                render :action => 'signchange'
+                render :action => 'signchangepassword'
             end
         end
     end

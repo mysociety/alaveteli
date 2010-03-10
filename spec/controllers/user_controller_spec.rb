@@ -240,14 +240,14 @@ describe UserController, "when changing password" do
     fixtures :users
 
     it "should show the email form when not logged in" do
-        get :signchange
-        response.should render_template('signchange_send_confirm')
+        get :signchangepassword
+        response.should render_template('signchangepassword_send_confirm')
     end
 
     it "should send a confirmation email when logged in normally" do
         session[:user_id] = users(:bob_smith_user).id
-        get :signchange
-        response.should render_template('signchange_confirm')
+        get :signchangepassword
+        response.should render_template('signchangepassword_confirm')
 
         deliveries = ActionMailer::Base.deliveries
         deliveries.size.should  == 1
@@ -258,15 +258,15 @@ describe UserController, "when changing password" do
     it "should send a confirmation email when have wrong login circumstance" do
         session[:user_id] = users(:bob_smith_user).id
         session[:user_circumstance] = "bogus"
-        get :signchange
-        response.should render_template('signchange_confirm')
+        get :signchangepassword
+        response.should render_template('signchangepassword_confirm')
     end
 
     it "should show the password change screen when logged in as special password change mode" do
         session[:user_id] = users(:bob_smith_user).id
         session[:user_circumstance] = "change_password"
-        get :signchange
-        response.should render_template('signchange')
+        get :signchangepassword
+        response.should render_template('signchangepassword')
     end
  
     it "should change the password, if you have right to do so" do
@@ -274,8 +274,8 @@ describe UserController, "when changing password" do
         session[:user_circumstance] = "change_password"
 
         old_hash = users(:bob_smith_user).hashed_password
-        post :signchange, { :user => { :password => 'ooo', :password_confirmation => 'ooo' },
-            :submitted_signchange_password => 1
+        post :signchangepassword, { :user => { :password => 'ooo', :password_confirmation => 'ooo' },
+            :submitted_signchangepassword_do => 1
         }
         users(:bob_smith_user).hashed_password.should != old_hash
 
