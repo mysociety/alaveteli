@@ -341,7 +341,7 @@ class FOIAttachment
     # For "View as HTML" of attachment
     def body_as_html(dir)
         html = nil
-        wrapper_class = "default_output"
+        wrapper_id = "wrapper"
 
         # simple cases, can never fail
         if self.content_type == 'text/plain'
@@ -349,7 +349,7 @@ class FOIAttachment
             text = CGI.escapeHTML(text)
             text = MySociety::Format.make_clickable(text)
             html = text.gsub(/\n/, '<br>')
-            return "<html><head></head><body>" + html + "</body></html>", wrapper_class
+            return "<html><head></head><body>" + html + "</body></html>", wrapper_id
         end
 
         # the extractions will also produce image files, which go in the
@@ -368,7 +368,7 @@ class FOIAttachment
             elsif self.content_type == 'application/vnd.ms-excel'
                 IO.popen("/usr/bin/xlhtml -a " + tempfile.path + "", "r") do |child|
                     html = child.read()
-                    wrapper_class = "xhtml_output"
+                    wrapper_id = "wrapper_xlhtml"
                 end
             elsif self.content_type == 'application/pdf'
                 IO.popen("/usr/bin/pdftohtml -nodrm -zoom 1.0 -stdout -enc UTF-8 -noframes " + tempfile.path + "", "r") do |child|
@@ -398,10 +398,10 @@ class FOIAttachment
         body_without_tags = body.gsub(/\s+/,"").gsub(/\<[^\>]*\>/, "")
         contains_images = html.match(/<img/mi) ? true : false
         if !$?.success? || html.size == 0 || (body_without_tags.size == 0 && !contains_images)
-            return "<html><head></head><body><p>Sorry, the conversion to HTML failed. Please use the download link at the top right.</p></body></html>"
+            return "<html><head></head><body><p>Sorry, the conversion to HTML failed. Please use the download link at the top right.</p></body></html>", wrapper_id
         end
 
-        return html, wrapper_class
+        return html, wrapper_id
     end
 
 end

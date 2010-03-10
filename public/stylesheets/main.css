@@ -215,7 +215,7 @@ body
 }
 
 
-/*------------------------------------------------ wrapper round view HTML version of attachments */
+/*------------------------------------------------ wrapper round content */
 
 #wrapper
 {
@@ -223,35 +223,45 @@ body
 	clear: both;
 	top: 0px;
 	padding-top: 100px;
+	width: 53em;
 	margin: 0px auto 1.2em auto;
 	/* = 800px at default size? so 1em = 16px*/
 	text-align: left;
 	overflow: visible;
 }
-.default_output {
-	width: 53em;
-}
-.xhtml_output {
+
+/*------------------------------------------------ view as HTML */
+/* XXX this copies lines from #wrapper above, as didn't want to break wrapper
+ * right now */
+#wrapper_xlhtml {
+	position: relative;
+	clear: both;
+	top: 0px;
+	padding-top: 100px;
     width: 90%;
+	margin: 0px auto 1.2em auto;
+	/* = 800px at default size? so 1em = 16px*/
+	text-align: left;
+	overflow: visible;
 }
-#wrapper table {
+#view_html_content table {
     border-collapse: collapse;
     margin-bottom: 1em;
 }
-#wrapper td, th {
+#view_html_content td, th {
     border: solid 1px #000000;
 }
-#wrapper td {
+#view_html_content td {
     vertical-align: top
 }
-#wrapper td {
+#view_html_content td {
     max-width: 30em;
     overflow: auto;
 }
-#wrapper tr:nth-child(odd) {
+#view_html_content tr:nth-child(odd) {
     background-color: #bbbbbb;
 }
-#wrapper tr:nth-child(even) {
+#view_html_content tr:nth-child(even) {
     background-color: #dddddd;
 }
 
