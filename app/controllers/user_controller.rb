@@ -147,10 +147,13 @@ class UserController < ApplicationController
     end
 
     # Logout form
-    def signout
+    def _do_signout
         session[:user_id] = nil
         session[:user_circumstance] = nil
         session[:remember_me] = false
+    end
+    def signout
+        self._do_signout
         if params[:r]
             redirect_to params[:r]
         else
@@ -223,6 +226,37 @@ class UserController < ApplicationController
                 render :action => 'signchangepassword'
             end
         end
+    end
+
+    # Change your email
+    def signchangeemail
+        if not authenticated?(
+                :web => "To change your email address",
+                :email => "Then you can change your email address",
+                :email_subject => "Change your email address"
+            )
+            # "authenticated?" has done the redirect to signin page for us
+            return
+        end
+
+        work_out_post_redirect
+
+        if params[:submitted_signchangeemail_do]
+            @signchangeemail = ChangeEmailValidator.new(params[:signchangeemail])
+            @signchangeemail.logged_in_user = @user
+
+            if @signchangeemail.valid?
+                @user.email = @signchangeemail.new_email
+                @user.email_confirmed = false
+                @user.save!
+                self._do_signout
+                flash[:notice] = "Your email has been changed."
+                send_confirmation_mail @user
+                return
+            end
+        end
+
+        render :action => 'signchangeemail'
     end
 
     # Send a message to another user

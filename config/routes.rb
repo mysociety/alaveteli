@@ -57,6 +57,7 @@ ActionController::Routing::Routes.draw do |map|
         user.signup '/signup',        :action => 'signup'
         user.signout '/signout',      :action => 'signout'
         user.signchangepassword '/signchangepassword',      :action => 'signchangepassword'
+        user.signchangeemail '/signchangeemail',      :action => 'signchangeemail'
         user.confirm '/c/:email_token', :action => 'confirm'
         user.show_user '/user/:url_name', :action => 'show'
         user.contact_user '/user/contact/:id', :action => 'contact'

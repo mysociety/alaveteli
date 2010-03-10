@@ -290,6 +290,76 @@ describe UserController, "when changing password" do
 
 end
 
+describe UserController, "when changing email address" do
+    integrate_views
+    fixtures :users
 
+    it "should require login" do
+        get :signchangeemail
+
+        post_redirect = PostRedirect.get_last_post_redirect
+        response.should redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
+    end
+
+    it "should show form for changing email if logged in" do
+        session[:user_id] = users(:silly_name_user).id
+        get :signchangeemail
+
+        response.should render_template('signchangeemail')
+    end
+
+    it "should be an error if the password is wrong, everything else right" do
+        @user = users(:silly_name_user)
+        session[:user_id] = @user.id
+        
+        post :signchangeemail, { :signchangeemail => { :old_email => 'silly@localhost', 
+                :password => 'donotknowpassword', :new_email => 'newsilly@localhost' },
+            :submitted_signchangeemail_do => 1
+        }
+
+        @user.reload
+        @user.email.should == 'silly@localhost'
+        response.should render_template('signchangeemail')
+        assigns[:signchangeemail].errors[:password].should_not be_nil
+    end
+
+    it "should be an error if old email is wrong, everything else right" do
+        @user = users(:silly_name_user)
+        session[:user_id] = @user.id
+        
+        post :signchangeemail, { :signchangeemail => { :old_email => 'silly@moo', 
+                :password => 'jonespassword', :new_email => 'newsilly@localhost' },
+            :submitted_signchangeemail_do => 1
+        }
+
+        @user.reload
+        @user.email.should == 'silly@localhost'
+        response.should render_template('signchangeemail')
+        assigns[:signchangeemail].errors[:old_email].should_not be_nil
+    end
+
+    it "should change your email if you get all the details right, and require confirmation" do
+        @user = users(:silly_name_user)
+        session[:user_id] = @user.id
+        
+        post :signchangeemail, { :signchangeemail => { :old_email => 'silly@localhost', 
+                :password => 'jonespassword', :new_email => 'newsilly@localhost' },
+            :submitted_signchangeemail_do => 1
+        }
+
+        @user.reload
+        @user.email.should == 'newsilly@localhost'
+        @user.email_confirmed.should == false
+
+        response.flash[:notice].should include('Your email has been changed')
+        response.should render_template('confirm')
+
+        deliveries = ActionMailer::Base.deliveries
+        deliveries.size.should  == 1
+        deliveries[0].body.should include("not reveal your email")
+    end
+
+
+end
 
 

@@ -1,0 +1,42 @@
+<% @title = "Change your email address" %>
+
+<% raise "internal error" if not @user %>
+
+<div id="change_email">
+
+<% form_tag({:action => "signchangeemail"}, {:id => "signchangeemail_form"}) do %>
+    <%= foi_error_messages_for :signchangeemail %>
+
+    <div class="form_note">
+    <h1>Change your email address</h1>
+    </div>
+
+    <p>
+    <label class="form_label" for="signchangeemail_old_email">Old e-mail:</label>
+    <%= text_field 'signchangeemail', 'old_email', { :size => 20 } %>
+    </p>
+
+    <p>
+    <label class="form_label" for="signchangeemail_new_email">New e-mail:</label>
+    <%= text_field 'signchangeemail', 'new_email', { :size => 20 } %>
+    </p>
+
+    <p>
+    <label class="form_label" for="signchangeemail_password">Your password:</label>
+    <%= password_field 'signchangeemail', 'password', { :size => 15 } %>
+    </p>
+
+    <p class="form_note">
+    <strong>Note:</strong>
+    We will send an email to your new email address, which you must follow the
+    link in to confirm, before you can use the account again.
+    </p>
+
+    <div class="form_button">
+    <%= hidden_field_tag 'submitted_signchangeemail_do', 1 %>
+    <%= hidden_field_tag 'token', params[:token], { :id => 'signin_token' } %>
+    <%= submit_tag "Change email" %>
+    </div>
+<% end %>
+
+</div>

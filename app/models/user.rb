@@ -134,8 +134,7 @@ class User < ActiveRecord::Base
         user = self.find_user_by_email(params[:email])
         if user
             # There is user with email, check password
-            expected_password = encrypted_password(params[:password], user.salt)
-            if user.hashed_password != expected_password
+            if !user.has_this_password?(params[:password])
                 user.errors.add_to_base(auth_fail_message)
             end
         else
@@ -184,7 +183,12 @@ class User < ActiveRecord::Base
         self.hashed_password = User.encrypted_password(self.password, self.salt)
     end
 
-    # For use in to/from in email messages
+    def has_this_password?(password)
+        expected_password = User.encrypted_password(password, self.salt)
+        return self.hashed_password == expected_password
+    end
+
+# For use in to/from in email messages
     def name_and_email
         return TMail::Address.address_from_name_and_email(self.name, self.email).to_s
     end
