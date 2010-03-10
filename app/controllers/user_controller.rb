@@ -246,11 +246,16 @@ class UserController < ApplicationController
             @signchangeemail.logged_in_user = @user
 
             if @signchangeemail.valid?
+                user_alreadyexists = User.find_user_by_email(@signchangeemail.new_email)
+                if user_alreadyexists
+                    already_registered_mail user_alreadyexists
+                    return
+                end
+
                 @user.email = @signchangeemail.new_email
                 @user.email_confirmed = false
                 @user.save!
                 self._do_signout
-                flash[:notice] = "Your email has been changed."
                 send_confirmation_mail @user
                 return
             end

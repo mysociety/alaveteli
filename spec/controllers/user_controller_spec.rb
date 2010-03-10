@@ -302,63 +302,95 @@ describe UserController, "when changing email address" do
     end
 
     it "should show form for changing email if logged in" do
-        session[:user_id] = users(:silly_name_user).id
+        @user = users(:bob_smith_user)
+        session[:user_id] = @user.id
+
         get :signchangeemail
 
         response.should render_template('signchangeemail')
     end
 
     it "should be an error if the password is wrong, everything else right" do
-        @user = users(:silly_name_user)
+        @user = users(:bob_smith_user)
         session[:user_id] = @user.id
         
-        post :signchangeemail, { :signchangeemail => { :old_email => 'silly@localhost', 
-                :password => 'donotknowpassword', :new_email => 'newsilly@localhost' },
+        post :signchangeemail, { :signchangeemail => { :old_email => 'bob@localhost', 
+                :password => 'donotknowpassword', :new_email => 'newbob@localhost' },
             :submitted_signchangeemail_do => 1
         }
 
         @user.reload
-        @user.email.should == 'silly@localhost'
+        @user.email.should == 'bob@localhost'
         response.should render_template('signchangeemail')
         assigns[:signchangeemail].errors[:password].should_not be_nil
+
+        deliveries = ActionMailer::Base.deliveries
+        deliveries.size.should  == 0
     end
 
     it "should be an error if old email is wrong, everything else right" do
-        @user = users(:silly_name_user)
+        @user = users(:bob_smith_user)
         session[:user_id] = @user.id
         
-        post :signchangeemail, { :signchangeemail => { :old_email => 'silly@moo', 
-                :password => 'jonespassword', :new_email => 'newsilly@localhost' },
+        post :signchangeemail, { :signchangeemail => { :old_email => 'bob@moo', 
+                :password => 'jonespassword', :new_email => 'newbob@localhost' },
             :submitted_signchangeemail_do => 1
         }
 
         @user.reload
-        @user.email.should == 'silly@localhost'
+        @user.email.should == 'bob@localhost'
         response.should render_template('signchangeemail')
         assigns[:signchangeemail].errors[:old_email].should_not be_nil
+
+        deliveries = ActionMailer::Base.deliveries
+        deliveries.size.should  == 0
     end
 
     it "should change your email if you get all the details right, and send confirmation email" do
-        @user = users(:silly_name_user)
+        @user = users(:bob_smith_user)
         session[:user_id] = @user.id
         
-        post :signchangeemail, { :signchangeemail => { :old_email => 'silly@localhost', 
-                :password => 'jonespassword', :new_email => 'newsilly@localhost' },
+        post :signchangeemail, { :signchangeemail => { :old_email => 'bob@localhost', 
+                :password => 'jonespassword', :new_email => 'newbob@localhost' },
             :submitted_signchangeemail_do => 1
         }
 
         @user.reload
-        @user.email.should == 'newsilly@localhost'
+        @user.email.should == 'newbob@localhost'
         @user.email_confirmed.should == false
 
-        response.flash[:notice].should include('Your email has been changed')
         response.should render_template('confirm')
 
         deliveries = ActionMailer::Base.deliveries
         deliveries.size.should  == 1
-        deliveries[0].body.should include("not reveal your email")
+        mail = deliveries[0]
+
+        mail.body.should include("not reveal your email")
+        mail.to.should == [ 'newbob@localhost' ]
     end
 
+    it "should send special 'already signed up' mail if you try to change your email to one already used" do
+        @user = users(:bob_smith_user)
+        session[:user_id] = @user.id
+        
+        post :signchangeemail, { :signchangeemail => { :old_email => 'bob@localhost', 
+                :password => 'jonespassword', :new_email => 'bob@localhost' },
+            :submitted_signchangeemail_do => 1
+        }
+
+        @user.reload
+        @user.email.should == 'bob@localhost'
+        @user.email_confirmed.should == true
+
+        response.should render_template('confirm')
+
+        deliveries = ActionMailer::Base.deliveries
+        deliveries.size.should  == 1
+        mail = deliveries[0]
+
+        mail.body.should include("have an account")
+        mail.to.should == [ 'bob@localhost' ]
+    end
 
 end
 
