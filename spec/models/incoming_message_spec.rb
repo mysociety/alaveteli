@@ -174,6 +174,13 @@ describe IncomingMessage, " when censoring data" do
         masked_text.should match(/xxx@xxx.xxx.xx/)
     end
 
+    it "should not produce zero length output if pdftk silently fails" do
+        orig_pdf = load_file_fixture('psni.pdf')
+        pdf = orig_pdf.dup
+        @im.binary_mask_stuff!(pdf, "application/pdf")
+        pdf.should_not == ""
+    end
+
     it "should apply censor rules to HTML files" do
         data = @test_data.dup
         @im.html_mask_stuff!(data)

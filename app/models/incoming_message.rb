@@ -543,7 +543,7 @@ class IncomingMessage < ActiveRecord::Base
                 uncompressed_text = child.read()
             end
             # if we managed to uncompress the PDF...
-            if !uncompressed_text.nil? 
+            if !uncompressed_text.nil? && !uncompressed_text.empty?
                 # then censor stuff (making a copy so can compare again in a bit)
                 censored_uncompressed_text = uncompressed_text.dup
                 self._binary_mask_stuff_internal!(censored_uncompressed_text)
@@ -556,7 +556,7 @@ class IncomingMessage < ActiveRecord::Base
                         child.close_write()
                         recompressed_text = child.read()
                     end
-                    if !recompressed_text.nil?
+                    if !recompressed_text.nil? && !recompressed_text.empty?
                         text[0..-1] = recompressed_text # [0..-1] makes it change the 'text' string in place
                     end
                 end
