@@ -462,34 +462,26 @@ class IncomingMessage < ActiveRecord::Base
             end
         else
             part_filename = TMail::Mail.get_part_file_name(part)
-            if part.content_type == 'message/rfc822'
-                # An email attached as text
-                # e.g. http://www.whatdotheyknow.com/request/64/response/102
-                begin
+            begin
+                if part.content_type == 'message/rfc822'
+                    # An email attached as text
+                    # e.g. http://www.whatdotheyknow.com/request/64/response/102
                     part.rfc822_attachment = TMail::Mail.parse(part.body)
-                rescue 
-                    # If attached mail doesn't parse, treat it as text part
-                    part.rfc822_attachment = nil
-                    @count_parts_count += 1
-                    part.url_part_number = @count_parts_count
-                else
-                    _count_parts_recursive(part.rfc822_attachment)
-                end
-            elsif part.content_type == 'application/vnd.ms-outlook' || part_filename && filename_to_mimetype(part_filename) == 'application/vnd.ms-outlook'
-                # An email attached as an Outlook file
-                # e.g. http://www.whatdotheyknow.com/request/chinese_names_for_british_politi
-                begin
+                elsif part.content_type == 'application/vnd.ms-outlook' || part_filename && filename_to_mimetype(part_filename) == 'application/vnd.ms-outlook'
+                    # An email attached as an Outlook file
+                    # e.g. http://www.whatdotheyknow.com/request/chinese_names_for_british_politi
                     msg = Mapi::Msg.open(StringIO.new(part.body))
                     part.rfc822_attachment = TMail::Mail.parse(msg.to_mime.to_s)
-                rescue
-                    # If attached mail doesn't parse, treat it as text part
-                    part.rfc822_attachment = nil
-                    @count_parts_count += 1
-                    part.url_part_number = @count_parts_count
-                else
+                end
+            rescue
+                # If attached mail doesn't parse, treat it as text part
+                part.rfc822_attachment = nil
+            else
+                unless part.rfc822_attachment.nil?
                     _count_parts_recursive(part.rfc822_attachment)
                 end
-            else
+            end
+            if part.rfc822_attachment.nil?
                 @count_parts_count += 1
                 part.url_part_number = @count_parts_count
             end
