@@ -19,6 +19,7 @@ class TNEF
                     raise IOError, "tnef exited with status #{$?.exitstatus}"
                 end
             end
+            found = 0
             Dir.new(dir).sort.each do |file| # sort for deterministic behaviour
                 if file != "." && file != ".."
                     file_content = File.open("#{dir}/#{file}", "r").read
@@ -26,7 +27,11 @@ class TNEF
                     attachment['content-location'] = file
                     attachment.body = file_content
                     main.parts << attachment
+                    found += 1
                 end
+            end
+            if found == 0
+                raise IOError, "tnef produced no attachments"
             end
         end
         main
