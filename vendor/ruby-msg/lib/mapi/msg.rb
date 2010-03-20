@@ -173,7 +173,7 @@ module Mapi
 				# parse guids
 				# this is the guids for named properities (other than builtin ones)
 				# i think PS_PUBLIC_STRINGS, and PS_MAPI are builtin.
-				guids = [PS_PUBLIC_STRINGS] + guids_obj.read.scan(/.{16}/m).map do |str|
+				guids = [PS_PUBLIC_STRINGS] + guids_obj.read.scan(/.{16}/mn).map do |str|
 					Ole::Types.load_guid str
 				end
 
@@ -187,7 +187,7 @@ module Mapi
 				# parse actual props.
 				# not sure about any of this stuff really.
 				# should flip a few bits in the real msg, to get a better understanding of how this works.
-				props = props_obj.read.scan(/.{8}/m).map do |str|
+				props = props_obj.read.scan(/.{8}/mn).map do |str|
 					flags, offset = str[4..-1].unpack 'v2'
 					# the property will be serialised as this pseudo property, mapping it to this named property
 					pseudo_prop = 0x8000 + offset
@@ -253,7 +253,7 @@ module Mapi
 				unless (pad == 0 || pad == 8) and data[0...pad] == "\000" * pad
 					Log.warn "padding was not as expected #{pad} (#{data.length}) -> #{data[0...pad].inspect}"
 				end
-				data[pad..-1].scan(/.{16}/m).each do |data|
+				data[pad..-1].scan(/.{16}/mn).each do |data|
 					property, encoding = ('%08x' % data.unpack('V')).scan /.{4}/
 					key = property.hex
 					# doesn't make any sense to me. probably because its a serialization of some internal
