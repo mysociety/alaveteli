@@ -8,6 +8,9 @@ Finish profile photo
 Ask people for annotation immediately after they have submitted their request
 Ask for annotation about what they learnt from request?
 
+Rebuild search index is too large (takes ages, process runs out of memory) -
+make a refresh one that does it incrementally.
+
 Have proper house rules / site terms and conditions page.
 Perhaps borrow from these house rules:
     http://www.theyworkforyou.com/houserules/
