@@ -55,6 +55,7 @@ $file_extension_to_mime_type = {
     "pptx" => 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
     "oft" => 'application/vnd.ms-outlook',
     "msg" => 'application/vnd.ms-outlook',
+    "tnef" => 'application/ms-tnef',
     "tif" => 'image/tiff',
     "gif" => 'image/gif',
     "jpg" => 'image/jpeg', # XXX add jpeg
