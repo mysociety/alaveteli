@@ -346,6 +346,18 @@ describe UserController, "when changing email address" do
         deliveries.size.should  == 0
     end
 
+    it "should work even if the old email had a case difference" do
+        @user = users(:bob_smith_user)
+        session[:user_id] = @user.id
+        
+        post :signchangeemail, { :signchangeemail => { :old_email => 'BOB@localhost', 
+                :password => 'jonespassword', :new_email => 'newbob@localhost' },
+            :submitted_signchangeemail_do => 1
+        }
+
+        response.should render_template('signchangeemail_confirm')
+    end
+
     it "should send confirmation email if you get all the details right" do
         @user = users(:bob_smith_user)
         session[:user_id] = @user.id
