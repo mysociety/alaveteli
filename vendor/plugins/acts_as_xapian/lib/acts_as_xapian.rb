@@ -142,6 +142,7 @@ module ActsAsXapian
 
         @@stopper = Xapian::SimpleStopper.new
         @@stopper.add("and")
+        @@stopper.add("of")
         @@stopper.add("&")
         @@query_parser.stopper = @@stopper
 
