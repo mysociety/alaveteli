@@ -12,12 +12,12 @@
     <% end %>
     <% if !@public_body.charity_number.empty? %>
         <% if @public_body.charity_number.match(/^SC/) %>
-            <%= link_to "Charity overview", "http://www.oscr.org.uk/CharityIndexDetails.aspx?id=" + @public_body.charity_number %>
+            <%= link_to "Charity overview", "http://www.oscr.org.uk/CharityIndexDetails.aspx?id=" + @public_body.charity_number %><br>
         <% else %>
-            <%= link_to "Charity overview", "http://www.charity-commission.gov.uk/SHOWCHARITY/RegisterOfCharities/CharityFramework.aspx?RegisteredCharityNumber=" + @public_body.charity_number %>
+            <%= link_to "Charity overview", "http://www.charity-commission.gov.uk/SHOWCHARITY/RegisterOfCharities/CharityFramework.aspx?RegisteredCharityNumber=" + @public_body.charity_number %><br>
         <% end %>
     <% end %>
-    <%= link_to "View FOI email address", view_public_body_email_url(@public_body.url_name) %>
+    <%= link_to "View FOI email address", view_public_body_email_url(@public_body.url_name) %><br>
 </div> 
 
 <h1><%=h(@public_body.name)%></h1>
