@@ -1,6 +1,11 @@
 Next (things that will reduce admin time mainly)
 ====
 
+sending an email alert for this query takes crazy long
+    query = 'variety:response (status:successful OR status:partially_successful)'
+something to do with the way event_digest loops with lots of responses?
+This is causing cron spam so needs fixing
+
 Make it so when you make followups the whole request is shown on the page.
 
 Finish profile photo
@@ -54,10 +59,6 @@ Performance
 ===========
 
 test if get_attachments_for_display called multiple times in one request?
-
-sending an email alert for this query takes crazy long
-    query = 'variety:response (status:successful OR status:partially_successful)'
-something to do with the way event_digest loops with lots of responses?
 
 Some requests to lower memory use of still:
 PID: 676    CONSUME MEMORY: 16968 KB    Now: 102604 KB  http://www.whatdotheyknow.com/request/parking_ticket_data_81
