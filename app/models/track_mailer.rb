@@ -33,12 +33,12 @@ class TrackMailer < ApplicationMailer
         now = Time.now()
         users = User.find(:all, :conditions => [ "last_daily_track_email < ?", now - 1.day ])
         for user in users
-            STDERR.puts Time.now.to_s + " user " + user.url_name
+            # STDERR.puts Time.now.to_s + " user " + user.url_name
 
             email_about_things = []
             track_things = TrackThing.find(:all, :conditions => [ "tracking_user_id = ? and track_medium = ?", user.id, 'email_daily' ])
             for track_thing in track_things
-                STDERR.puts Time.now.to_s + "   track " + track_thing.track_query
+                # STDERR.puts Time.now.to_s + "   track " + track_thing.track_query
 
                 # What have we alerted on already?
                 done_info_request_events = {}
