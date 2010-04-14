@@ -1045,8 +1045,8 @@ class IncomingMessage < ActiveRecord::Base
                         for header in [ 'Date', 'Subject', 'From', 'To', 'Cc' ]
                             if leaf.within_rfc822_attachment.header.include?(header.downcase)
                                 header_value = leaf.within_rfc822_attachment.header[header.downcase]
-                                # Example which has a blank Date header:
-                                # http://whatdotheyknow.cat/request/109/response/32/attach/html/17/Common%20Purpose%20Advisory%20Group%20Meeting%20Tuesday%202nd%20March.txt.html
+                                # Example message which has a blank Date header:
+                                # http://www.whatdotheyknow.com/request/30747/response/80253/attach/html/17/Common%20Purpose%20Advisory%20Group%20Meeting%20Tuesday%202nd%20March.txt.html
                                 if !header_value.blank?
                                     headers = headers + header + ": " + header_value.to_s + "\n"
                                 end
