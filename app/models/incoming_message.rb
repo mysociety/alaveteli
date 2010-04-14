@@ -1044,7 +1044,8 @@ class IncomingMessage < ActiveRecord::Base
                         headers = ""
                         for header in [ 'Date', 'Subject', 'From', 'To', 'Cc' ]
                             if leaf.within_rfc822_attachment.header.include?(header.downcase)
-                                headers = headers + header + ": " + leaf.within_rfc822_attachment.header[header.downcase].to_s + "\n"
+                                header_value = leaf.within_rfc822_attachment.header[header.downcase]
+                                headers = headers + header + ": " + header_value.to_s + "\n"
                             end
                         end
                         # XXX call _convert_part_body_to_text here, but need to get charset somehow
