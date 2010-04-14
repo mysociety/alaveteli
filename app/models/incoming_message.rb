@@ -1045,7 +1045,11 @@ class IncomingMessage < ActiveRecord::Base
                         for header in [ 'Date', 'Subject', 'From', 'To', 'Cc' ]
                             if leaf.within_rfc822_attachment.header.include?(header.downcase)
                                 header_value = leaf.within_rfc822_attachment.header[header.downcase]
-                                headers = headers + header + ": " + header_value.to_s + "\n"
+                                # Example which has a blank Date header:
+                                # http://whatdotheyknow.cat/request/109/response/32/attach/html/17/Common%20Purpose%20Advisory%20Group%20Meeting%20Tuesday%202nd%20March.txt.html
+                                if !header_value.blank?
+                                    headers = headers + header + ": " + header_value.to_s + "\n"
+                                end
                             end
                         end
                         # XXX call _convert_part_body_to_text here, but need to get charset somehow
