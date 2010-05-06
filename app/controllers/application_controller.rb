@@ -175,6 +175,16 @@ class ApplicationController < ActionController::Base
         end
     end
 
+    # 
+    def check_read_only
+        read_only = MySociety::Config.get('READ_ONLY')
+        if read_only
+            flash[:notice] = "<p>WhatDoTheyKnow is currently in maintenance. You can only view existing requests. You cannot make new ones, add followups or annotations, or otherwise change the database.</p> <p>" + read_only + "</p>"
+            redirect_to frontpage_url
+        end
+
+    end
+
     # For administration interface, return display name of authenticated user
     def admin_http_auth_user
         # This needs special magic in mongrel: http://www.ruby-forum.com/topic/83067

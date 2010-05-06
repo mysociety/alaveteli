@@ -47,4 +47,9 @@ define('OPTION_COOKIE_STORE_SESSION_SECRET', 'your secret key here, make it long
 define('OPTION_RECAPTCHA_PUBLIC_KEY', 'x');
 define('OPTION_RECAPTCHA_PRIVATE_KEY', 'x');
 
+// If present, puts the site in read only mode, and uses the text as reason
+// (whole paragraph). Please use a read-only database user as well, as it only
+// checks in a few obvious places.
+define('OPTION_READ_ONLY', '');
+
 ?>

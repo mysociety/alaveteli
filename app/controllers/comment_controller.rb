@@ -7,6 +7,7 @@
 # $Id: comment_controller.rb,v 1.9 2009-03-09 01:17:04 francis Exp $
 
 class CommentController < ApplicationController
+    before_filter :check_read_only, :only => [ :new ]
     
     def new
         if params[:type] == 'request'
