@@ -1,6 +1,9 @@
 Next (things that will reduce admin time mainly)
 ====
 
+Make outgoing requests and follow ups get CCed to storage place, so that can do
+data recovery more easily
+
 sending an email alert for this query takes crazy long
     query = 'variety:response (status:successful OR status:partially_successful)'
 something to do with the way event_digest loops with lots of responses?
@@ -319,6 +322,9 @@ Orientation wrong:
     http://www.whatdotheyknow.com/request/3153/response/7726/attach/html/2/258850.pdf.html
 Bug in wvHtml, segfaults when converting this:
     http://www.whatdotheyknow.com/request/subject_access_request_guide_sar#incoming-10242
+
+Images aren't coming out here
+    http://www.whatdotheyknow.com/request/33682/response/83455/attach/html/3/100428%20Reply%201519%2010.doc.html
 
 Doesn't detect doc type of a few garbage results in this list right:
     http://www.whatdotheyknow.com/search/UWE
