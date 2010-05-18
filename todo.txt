@@ -1,6 +1,10 @@
 Next (things that will reduce admin time mainly)
 ====
 
+Merge with New Zealand code base properly
+
+Handle bounce messages from alerts automatically
+
 Make outgoing requests and follow ups get CCed to storage place, so that can do
 data recovery more easily
 
