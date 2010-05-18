@@ -31,7 +31,7 @@ class AdminController < ApplicationController
         # change the URL.
         # * We could use expire_fragment with a Regexp, but it walks the whole
         # cache which is insanely slow
-        cache_subpath = File.join(self.cache_store.cache_path, "views/request/#{info_request.id}")
+        cache_subpath = File.join(self.cache_store.cache_path, foi_fragment_cache_all_for_request(info_request))
         FileUtils.rm_rf(cache_subpath)
 
         # Remove the database caches of body / attachment text (the attachment text

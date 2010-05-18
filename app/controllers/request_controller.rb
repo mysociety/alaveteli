@@ -546,8 +546,9 @@ class RequestController < ApplicationController
     around_filter :cache_attachments, :only => [ :get_attachment, :get_attachment_as_html ]
     def cache_attachments
         key = params.merge(:only_path => true)
-        if cached = read_fragment(key)
-        #if cached = 'zzz***zzz'
+        key_path = foi_fragment_cache_path(key)
+
+        if cached = read_fragment(key_path)
             IncomingMessage # load global filename_to_mimetype XXX should move filename_to_mimetype to proper namespace
             response.content_type = filename_to_mimetype(params[:file_name].join("/")) or 'application/octet-stream'
             render_for_text(cached)
@@ -556,7 +557,7 @@ class RequestController < ApplicationController
 
         yield
 
-        write_fragment(key, response.body)
+        write_fragment(key_path, response.body)
     end
 
     def get_attachment

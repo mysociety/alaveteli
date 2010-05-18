@@ -253,6 +253,14 @@ class ApplicationController < ActionController::Base
         expires_in max_age.minutes, :private => false 
     end
 
+    # Used to work out where to cache fragments
+    def foi_fragment_cache_path(param)
+        return url_for(param)
+    end
+    def foi_fragment_cache_all_for_request(info_request)
+        return "views/request/#{info_request.id}"
+    end
+
     # URL generating functions are needed by all controllers (for redirects),
     # views (for links) and mailers (for use in emails), so include them into
     # all of all.
