@@ -253,12 +253,17 @@ class ApplicationController < ActionController::Base
         expires_in max_age.minutes, :private => false 
     end
 
-    # Used to work out where to cache fragments
+    # Used to work out where to cache fragments. We add an extra path to the
+    # URL using the first three digits of the info request id, because we can't
+    # have more than 32,000 entries in one directory on an ext3 filesystem.
     def foi_fragment_cache_path(param)
-        return url_for(param)
+        path = url_for(param)
+        first_three_digits = param['id'].to_s()[0..2]
+        path = path.sub("/request/", "/request/" + first_three_digits + "/")
     end
     def foi_fragment_cache_all_for_request(info_request)
-        return "views/request/#{info_request.id}"
+        first_three_digits = info_request.id.to_s()[0..2]
+        return "views/request/#{first_three_digits}/#{info_request.id}"
     end
 
     # URL generating functions are needed by all controllers (for redirects),
