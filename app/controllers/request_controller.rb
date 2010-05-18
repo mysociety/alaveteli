@@ -578,7 +578,9 @@ class RequestController < ApplicationController
 
         # images made during conversion (e.g. images in PDF files) are put in the cache directory, so
         # the same cache code in cache_attachments above will display them.
-        image_dir = File.dirname(ActionController::Base.cache_store.cache_path + "/views" + url_for(params.merge(:only_path => true)))
+        key = params.merge(:only_path => true)
+        key_path = foi_fragment_cache_path(key)
+        image_dir = File.dirname(ActionController::Base.cache_store.cache_path + "/views" + key_path)
         FileUtils.mkdir_p(image_dir)
         html, wrapper_id = @attachment.body_as_html(image_dir)
 
