@@ -260,6 +260,7 @@ class ApplicationController < ActionController::Base
         path = url_for(param)
         first_three_digits = param['id'].to_s()[0..2]
         path = path.sub("/request/", "/request/" + first_three_digits + "/")
+        path = path.sub(/^\//, "") # remove initial slash
     end
     def foi_fragment_cache_all_for_request(info_request)
         first_three_digits = info_request.id.to_s()[0..2]
