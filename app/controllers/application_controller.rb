@@ -91,6 +91,27 @@ class ApplicationController < ActionController::Base
         controller_example_group.get params[:action], params
     end
 
+    # Used to work out where to cache fragments. We add an extra path to the
+    # URL using the first three digits of the info request id, because we can't
+    # have more than 32,000 entries in one directory on an ext3 filesystem.
+    def foi_fragment_cache_part_path(param)
+        path = url_for(param)
+        id = param['id'] || param[:id]
+        first_three_digits = id.to_s()[0..2]
+        path = path.sub("/request/", "/request/" + first_three_digits + "/")
+        return path
+    end
+    def foi_fragment_cache_path(param)
+        path = foi_fragment_cache_part_path(param)
+        path = "/views" + path
+        return File.join(self.cache_store.cache_path, path)
+    end
+    def foi_fragment_cache_all_for_request(info_request)
+        first_three_digits = info_request.id.to_s()[0..2]
+        path = "views/request/#{first_three_digits}/#{info_request.id}"
+        return File.join(self.cache_store.cache_path, path)
+    end
+
     private
 
     # Check the user is logged in
@@ -251,22 +272,6 @@ class ApplicationController < ActionController::Base
     def cache_in_squid(max_age = 10)
         response.headers["Vary"] = 'Cookie, Accept-Encoding'
         expires_in max_age.minutes, :private => false 
-    end
-
-    # Used to work out where to cache fragments. We add an extra path to the
-    # URL using the first three digits of the info request id, because we can't
-    # have more than 32,000 entries in one directory on an ext3 filesystem.
-    def foi_fragment_cache_path(param)
-        path = url_for(param)
-        first_three_digits = param['id'].to_s()[0..2]
-        path = path.sub("/request/", "/request/" + first_three_digits + "/")
-        path = "/views" + path
-        return File.join(self.cache_store.cache_path, path)
-    end
-    def foi_fragment_cache_all_for_request(info_request)
-        first_three_digits = info_request.id.to_s()[0..2]
-        path = "views/request/#{first_three_digits}/#{info_request.id}"
-        return File.join(self.cache_store.cache_path, path)
     end
 
     # URL generating functions are needed by all controllers (for redirects),

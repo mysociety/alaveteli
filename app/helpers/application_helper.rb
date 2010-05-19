@@ -59,5 +59,11 @@ module ApplicationHelper
         t = highlight_words(t, words, html)
         return t
     end
+
+    # Use our own algorithm for finding path of cache
+    def foi_cache(name = {}, options = nil, &block)
+        name = @controller.foi_fragment_cache_part_path(name) 
+        @controller.fragment_for(output_buffer, name, options, &block)
+    end
 end
 
