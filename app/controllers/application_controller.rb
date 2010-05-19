@@ -260,11 +260,13 @@ class ApplicationController < ActionController::Base
         path = url_for(param)
         first_three_digits = param['id'].to_s()[0..2]
         path = path.sub("/request/", "/request/" + first_three_digits + "/")
-        path = path.sub(/^\//, "") # remove initial slash
+        path = "/views" + path
+        return File.join(self.cache_store.cache_path, path)
     end
     def foi_fragment_cache_all_for_request(info_request)
         first_three_digits = info_request.id.to_s()[0..2]
-        return "views/request/#{first_three_digits}/#{info_request.id}"
+        path = "views/request/#{first_three_digits}/#{info_request.id}"
+        return File.join(self.cache_store.cache_path, path)
     end
 
     # URL generating functions are needed by all controllers (for redirects),

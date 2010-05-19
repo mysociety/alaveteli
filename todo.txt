@@ -68,6 +68,10 @@ http://www.activemerchant.org/
 Performance
 ===========
 
+Enable Directory Indexing, and disable atime (@glynwintle suggests)
+http://www.softpanorama.org/Internals/Filesystems/linux_ext2_ext3.shtml 
+(as/if we have caches with lots of files in a direcory)
+
 test if get_attachments_for_display called multiple times in one request?
 
 Some requests to lower memory use of still:

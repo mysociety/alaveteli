@@ -19,19 +19,9 @@ class AdminController < ApplicationController
 
     # Expire cached attachment files for a request
     def expire_for_request(info_request)
-        # Clear out cached entries - use low level disk removal, even though we
-        # are clearing results from caches_action, for several reasons:
-        # * We can't use expire_action here, as it doesn't seem to be
-        # compatible with the :only_path we used in the caches_action
-        # call. 
-        # * Removing everything is simpler than having to get all the
-        # parameters right for the path, and calling for HTML version vs. raw
-        # attachment version.
-        # * We cope properly with filenames changed by censor rules, which
-        # change the URL.
-        # * We could use expire_fragment with a Regexp, but it walks the whole
-        # cache which is insanely slow
-        cache_subpath = File.join(self.cache_store.cache_path, foi_fragment_cache_all_for_request(info_request))
+        # Clear out cached entries, by removing files from disk (the built in
+        # Rails fragment cache made doing this and other things too hard)
+        cache_subpath = foi_fragment_cache_all_for_request(info_request)
         FileUtils.rm_rf(cache_subpath)
 
         # Remove the database caches of body / attachment text (the attachment text
