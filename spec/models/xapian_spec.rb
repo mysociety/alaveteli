@@ -13,7 +13,7 @@ describe User, " when indexing users with Xapian" do
 end
 
 describe PublicBody, " when indexing public bodies with Xapian" do
-    fixtures :public_bodies
+    fixtures :public_bodies, :incoming_messages, :outgoing_messages
 
     before(:all) do
         rebuild_xapian_index
@@ -68,7 +68,7 @@ describe PublicBody, " when indexing requests by body they are to" do
 end
 
 describe User, " when indexing requests by user they are from" do
-    fixtures :users, :info_request_events, :info_requests
+    fixtures :users, :info_request_events, :info_requests, :incoming_messages, :outgoing_messages
 
     it "should find requests from the user" do
         rebuild_xapian_index
@@ -152,7 +152,7 @@ describe User, " when indexing requests by user they are from" do
 end
 
 describe User, " when indexing comments by user they are by" do
-    fixtures :users, :info_request_events, :info_requests, :comments
+    fixtures :users, :info_request_events, :info_requests, :comments, :incoming_messages, :outgoing_messages
 
     it "should find requests from the user" do
         rebuild_xapian_index
