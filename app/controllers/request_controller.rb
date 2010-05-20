@@ -563,7 +563,9 @@ class RequestController < ApplicationController
         # which adds a header, so isnt compatible with images that have been
         # extracted elsewhere from PDFs)
         FileUtils.mkdir_p(File.dirname(key_path))
-        File.open(key_path, 'wb') {|f| f.write(response.body) }
+        File.atomic_write(key_path) do |f|
+            f.write(response.body)
+        end
     end
 
     def get_attachment
