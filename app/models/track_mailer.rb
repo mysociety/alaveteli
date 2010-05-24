@@ -41,6 +41,9 @@ class TrackMailer < ApplicationMailer
                 # STDERR.puts Time.now.to_s + "   track " + track_thing.track_query
 
                 # What have we alerted on already?
+                # XXX this is pretty inefficient, should be restricting amount of objects returned
+                # with track_things_sent_emails by a date range. Or, better, deleting old entries
+                # from the database entirely.
                 done_info_request_events = {}
                 for t in track_thing.track_things_sent_emails
                     if not t.info_request_event_id.nil?
@@ -52,7 +55,6 @@ class TrackMailer < ApplicationMailer
                 # ordering, so we catch anything new (before described), or
                 # anything whose new status has been described.
                 xapian_object = InfoRequest.full_search([InfoRequestEvent], track_thing.track_query, 'described_at', true, nil, 200, 1) 
-
                 # Go through looking for unalerted things
                 alert_results = []
                 for result in xapian_object.results
