@@ -68,6 +68,9 @@ http://www.activemerchant.org/
 Performance
 ===========
 
+When sending alerts, alter way track_thing.track_things_sent_emails so it
+doesn't get *all* previously sent items.
+
 Enable Directory Indexing, and disable atime (@glynwintle suggests)
 http://www.softpanorama.org/Internals/Filesystems/linux_ext2_ext3.shtml 
 (as/if we have caches with lots of files in a direcory)
