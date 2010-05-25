@@ -43,7 +43,8 @@ class TrackMailer < ApplicationMailer
                 # What have we alerted on already?
                 # XXX this is pretty inefficient, should be restricting amount of objects returned
                 # with track_things_sent_emails by a date range. Or, better, deleting old entries
-                # from the database entirely.
+                # from the database entirely. Make sure that the date range for the actual search
+                # means we aren't resending results.
                 done_info_request_events = {}
                 for t in track_thing.track_things_sent_emails
                     if not t.info_request_event_id.nil?
