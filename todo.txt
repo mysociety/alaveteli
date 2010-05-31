@@ -412,6 +412,9 @@ Display pasted quotes in annotations better:
 Totally new features
 --------------------
 
+Tag your own requests so you can keep track of them more easily (Lisa asked for
+this - is definitely only whole requests needed)
+
 Scribd embedded version of documents
 
 Read reply - ask for exchange read receipts, and show if mail was read.
