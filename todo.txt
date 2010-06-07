@@ -447,6 +447,10 @@ Add tips on using the law, e.g.:
   their policy is, and hwo they are implementing it. Ask national things what
   odcuments set local policies.
 
+Add note by any exemption to the page on FOI Wiki Add note on mention of
+"Re-Use of Public Sector Information Regulations 2005"
+to the appropriate FAQ.
+
 Hyperlink Section 1(3) to the act
     http://www.whatdotheyknow.com/request/university_investment_in_the_arm#incoming-86
 and to guidance notes
