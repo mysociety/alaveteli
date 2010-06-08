@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe User, " when indexing users with Xapian" do
-    fixtures :users
+    fixtures :public_bodies, :incoming_messages, :outgoing_messages, :raw_emails, :comments
 
     it "should search by name" do
         rebuild_xapian_index
