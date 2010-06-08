@@ -24,6 +24,7 @@ load "validate.rb"
 load "config.rb"
 load "format.rb"
 load "debug_helpers.rb"
+load "util.rb"
 
 Rails::Initializer.run do |config|
   # Load intial mySociety config
