@@ -47,7 +47,7 @@ describe "when viewing a body" do
 
     it "should tell total number of requests" do
         render "public_body/show"
-        response.should have_tag("h2", "4 Freedom of Information requests made")
+        response.should include_text("4 Freedom of Information requests made")
     end
 
     it "should cope with no results" do
