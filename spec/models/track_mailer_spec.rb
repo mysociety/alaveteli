@@ -59,7 +59,7 @@ describe TrackMailer do
                 end
                 
                 it 'should ask for the events returned by the tracking query' do 
-                    InfoRequest.should_receive(:full_search).with([InfoRequestEvent], 'test query', 'described_at', true, nil, 200, 1).and_return(@xapian_search)
+                    InfoRequest.should_receive(:full_search).with([InfoRequestEvent], 'test query', 'described_at', true, nil, 100, 1).and_return(@xapian_search)
                     TrackMailer.alert_tracks 
                 end
                 
