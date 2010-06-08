@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe User, " when indexing users with Xapian" do
-    fixtures :public_bodies, :incoming_messages, :outgoing_messages, :raw_emails, :comments
+    fixtures :users
 
     it "should search by name" do
         rebuild_xapian_index
@@ -15,17 +15,17 @@ end
 describe PublicBody, " when indexing public bodies with Xapian" do
     fixtures :public_bodies, :incoming_messages, :outgoing_messages, :raw_emails, :comments
 
-    before(:all) do
-        rebuild_xapian_index
-    end
-
     it "should search index the main name field" do
+        rebuild_xapian_index
+
         xapian_object = InfoRequest.full_search([PublicBody], "humpadinking", 'created_at', true, nil, 100, 1)
         xapian_object.results.size.should == 1
         xapian_object.results[0][:model].should == public_bodies(:humpadink_public_body)
     end
 
     it "should search index the notes field" do
+        rebuild_xapian_index
+
         xapian_object = InfoRequest.full_search([PublicBody], "albatross", 'created_at', true, nil, 100, 1)
         xapian_object.results.size.should == 1
         xapian_object.results[0][:model].should == public_bodies(:humpadink_public_body)
