@@ -33,20 +33,23 @@ class TrackMailer < ApplicationMailer
         now = Time.now()
         users = User.find(:all, :conditions => [ "last_daily_track_email < ?", now - 1.day ])
         for user in users
-            # STDERR.puts Time.now.to_s + " user " + user.url_name
+            STDERR.puts Time.now.to_s + " user " + user.url_name
 
             email_about_things = []
             track_things = TrackThing.find(:all, :conditions => [ "tracking_user_id = ? and track_medium = ?", user.id, 'email_daily' ])
             for track_thing in track_things
-                # STDERR.puts Time.now.to_s + "   track " + track_thing.track_query
+                STDERR.puts Time.now.to_s + "   track " + track_thing.track_query
 
                 # What have we alerted on already?
-                # XXX this is pretty inefficient, should be restricting amount of objects returned
-                # with track_things_sent_emails by a date range. Or, better, deleting old entries
-                # from the database entirely. Make sure that the date range for the actual search
-                # means we aren't resending results.
+                #
+                # We only use track_things_sent_emails records which are less than 14 days old.
+                # In the search query loop below, we also only use items described in last 7 days.
+                # An item described that recently definitely can't appear in track_things_sent_emails 
+                # earlier, so this is safe (with a week long margin of error). If the alerts break
+                # for a whole week, then they will miss some items. Tough.
                 done_info_request_events = {}
-                for t in track_thing.track_things_sent_emails
+                tt_sent = track_thing.track_things_sent_emails.find(:all, :conditions => ['created_at > ?', now - 14.days])
+                for t in tt_sent
                     if not t.info_request_event_id.nil?
                         done_info_request_events[t.info_request_event_id] = 1
                     end
@@ -55,18 +58,20 @@ class TrackMailer < ApplicationMailer
                 # Query for things in this track. We use described_at for the
                 # ordering, so we catch anything new (before described), or
                 # anything whose new status has been described.
-                xapian_object = InfoRequest.full_search([InfoRequestEvent], track_thing.track_query, 'described_at', true, nil, 100, 1) 
+                xapian_object = InfoRequest.full_search([InfoRequestEvent], track_thing.track_query, 'described_at', true, nil, 200, 1) 
                 # Go through looking for unalerted things
                 alert_results = []
                 for result in xapian_object.results
-                    if result[:model].class.to_s == "InfoRequestEvent"
-                        if not done_info_request_events.include?(result[:model].id) and track_thing.created_at < result[:model].described_at
-                            # OK alert this one
-                            alert_results.push(result)
-                        end
-                    else
+                    if result[:model].class.to_s != "InfoRequestEvent"
                         raise "need to add other types to TrackMailer.alert_tracks (unalerted)"
                     end
+
+                    next if track_thing.created_at >= result[:model].described_at # made before the track was created
+                    next if result[:model].described_at < now - 7.days # older than 1 week (see 14 days / 7 days in comment above)
+                    next if done_info_request_events.include?(result[:model].id) # definitely already done
+
+                    # OK alert this one
+                    alert_results.push(result)
                 end
                 # If there were more alerts for this track, then store them
                 if alert_results.size > 0 
