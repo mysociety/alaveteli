@@ -45,8 +45,9 @@ describe TrackController, "when sending alerts for a track" do
         mail.body.should_not =~ /&amp;/
 
         # Check subscription managing link
-# XXX We can't do this, as it is redirecting to another control, so this is a
-# functional test. Bah, I so don't care, bit of an obsessive constraint.
+# XXX We can't do this, as it is redirecting to another controller. I'm
+# apparently meant to be writing controller unit tests here, not functional
+# tests.  Bah, I so don't care, bit of an obsessive constraint.
 #        session[:user_id].should be_nil
 #        controller.test_code_redirect_by_email_token(mail_token, self) # XXX hack to avoid having to call User controller for email link
 #        session[:user_id].should == users(:silly_name_user).id
