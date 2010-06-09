@@ -31,6 +31,11 @@ describe TrackController, "when sending alerts for a track" do
     include LinkToHelper # for main_url
   
     it "should send alerts" do
+        # set the time the comment event happened at to within the last week
+        ire = info_request_events(:silly_comment_event)
+        ire.created_at = Time.now - 3.days
+        ire.save!
+
         TrackMailer.alert_tracks
 
         deliveries = ActionMailer::Base.deliveries
@@ -41,8 +46,14 @@ describe TrackController, "when sending alerts for a track" do
         mail.body =~ /(http:\/\/.*\/c\/(.*))/
         mail_url = $1
         mail_token = $2
-        
+       
         mail.body.should_not =~ /&amp;/
+
+        mail.body.should_not include('sent a request') # request not included
+        mail.body.should_not include('sent a response') # response not included
+        mail.body.should include('added an annotation') # comment included
+
+        mail.body.should =~ /This a the daftest comment the world has ever seen/ # comment text included
 
         # Check subscription managing link
 # XXX We can't do this, as it is redirecting to another controller. I'm
