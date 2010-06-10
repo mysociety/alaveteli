@@ -113,6 +113,8 @@ Remove comments visible
 Later
 =====
 
+Completely remove the "feed" option from tracks
+
 Show the Subject: lines on request pages. Perhaps only show them where they are
 substantively different (modulo Re: and Fwd:) from the title and other subjects
 - so you can see any FOI code number the authority has put in the subject.
