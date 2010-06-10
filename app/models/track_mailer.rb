@@ -58,7 +58,7 @@ class TrackMailer < ApplicationMailer
                 # Query for things in this track. We use described_at for the
                 # ordering, so we catch anything new (before described), or
                 # anything whose new status has been described.
-                xapian_object = InfoRequest.full_search([InfoRequestEvent], track_thing.track_query, 'described_at', true, nil, 200, 1) 
+                xapian_object = InfoRequest.full_search([InfoRequestEvent], track_thing.track_query, 'described_at', true, nil, 100, 1) 
                 # Go through looking for unalerted things
                 alert_results = []
                 for result in xapian_object.results
