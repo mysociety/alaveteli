@@ -56,7 +56,7 @@ class InfoRequest < ActiveRecord::Base
         'waiting_clarification', 
         'gone_postal',
         'not_held',
-        'rejected', 
+        'rejected', # this is called 'refused' in UK FOI law and the user interface, but 'rejected' internally for historic reasons
         'successful', 
         'partially_successful',
         'internal_review',
@@ -83,7 +83,7 @@ class InfoRequest < ActiveRecord::Base
         'authority_only', # only people from authority domains
         'nobody'
     ]
-    # what to do with rejected new responses
+    # what to do with refused new responses
     validates_inclusion_of :handle_rejected_responses, :in => [
         'bounce', # return them to sender
         'holding_pen', # put them in the holding pen
@@ -744,7 +744,7 @@ public
         elsif status == 'not_held'
             "Information not held."
         elsif status == 'rejected'
-            "Rejected."
+            "Refused."
         elsif status == 'partially_successful'
             "Partially successful."
         elsif status == 'successful'

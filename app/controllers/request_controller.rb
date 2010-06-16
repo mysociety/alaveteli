@@ -356,7 +356,7 @@ class RequestController < ApplicationController
             "
             redirect_to request_url(@info_request)
         elsif @info_request.calculate_status == 'rejected'
-            flash[:notice] = "Oh no! Sorry to hear that your request was rejected. Here is what to do now."
+            flash[:notice] = "Oh no! Sorry to hear that your request was refused. Here is what to do now."
             redirect_to unhappy_url(@info_request)
         elsif @info_request.calculate_status == 'successful'
             flash[:notice] = "<p>We're glad you got all the information that you wanted. If you write about or make use of the information, please come back and add an annotation below saying what you did.</p><p>If you found WhatDoTheyKnow useful, <a href=\"http://www.mysociety.org/donate/\">make a donation</a> to the charity which runs it.</p>"
