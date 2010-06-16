@@ -688,8 +688,7 @@ module ActsAsXapian
             doc.add_term("I" + doc.data)
             if self.xapian_options[:terms]
               for term in self.xapian_options[:terms]
-                  ActsAsXapian.term_generator.increase_termpos # stop phrases spanning different text fields
-                  ActsAsXapian.term_generator.index_text(xapian_value(term[0]), 1, term[1])
+                  doc.add_term(term[1] + xapian_value(term[0]))
               end
             end
             if self.xapian_options[:values]
