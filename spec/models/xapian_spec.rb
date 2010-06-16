@@ -65,6 +65,28 @@ describe PublicBody, " when indexing requests by body they are to" do
 
         models_found_before.should == models_found_after
     end
+
+    # if you index via the Xapian TermGenerator, it ignores terms of this length,
+    # this checks we're using Document:::add_term() instead
+    it "should work with URL names that are longer than 64 characters" do
+        rebuild_xapian_index
+
+        # change the URL name of the body
+        body = public_bodies(:geraldine_public_body)
+        body.short_name = 'The Uncensored, Complete Name of the Quasi-Autonomous Public Body Also Known As Geraldine'
+        body.save!
+        body.url_name.size.should > 70
+        update_xapian_index
+
+        # check we get results expected
+        xapian_object = InfoRequest.full_search([InfoRequestEvent], "requested_from:tgq", 'created_at', true, nil, 100, 1)
+        xapian_object.results.size.should == 0
+        xapian_object = InfoRequest.full_search([InfoRequestEvent], "requested_from:gq", 'created_at', true, nil, 100, 1)
+        xapian_object.results.size.should == 0
+        xapian_object = InfoRequest.full_search([InfoRequestEvent], "requested_from:" + body.url_name, 'created_at', true, nil, 100, 1)
+        xapian_object.results.size.should == 4
+        models_found_after = xapian_object.results.map { |x| x[:model] }
+    end
 end
 
 describe User, " when indexing requests by user they are from" do
