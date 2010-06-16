@@ -603,7 +603,8 @@ module ActsAsXapian
         # Index everything 
         batch_size = 1000
         for model_class in model_classes
-            0.step(model_class.count, batch_size) do |i|
+            model_class_count = model_class.count
+            0.step(model_class_count, batch_size) do |i|
               # We fork here, so each batch is run in a different process. This is
               # because otherwise we get a memory "leak" and you can't rebuild very
               # large databases (however long you have!)
@@ -613,17 +614,23 @@ module ActsAsXapian
                     if not $?.success?
                         raise "batch fork child failed, exiting also"
                     end
+                    # database connection doesn't survive a fork, rebuild it
                     ActiveRecord::Base.connection.reconnect!
               else
+                    # fully reopen the database each time (with a new object)
+                    # (so doc ids and so on aren't preserved across the fork)
                     ActsAsXapian.writable_init(".new")
-                    STDOUT.puts("ActsAsXapian: New batch. #{model_class.to_s} from #{i} to #{i + batch_size} pid #{Process.pid.to_s}") if verbose
+                    STDOUT.puts("ActsAsXapian.rebuild_index: New batch. #{model_class.to_s} from #{i} to #{i + batch_size} of #{model_class_count} pid #{Process.pid.to_s}") if verbose
                     models = model_class.find(:all, :limit => batch_size, :offset => i, :order => :id)
                     for model in models
-                      STDOUT.puts("ActsAsXapian.rebuild_index #{model_class} #{model.id}") if verbose
+                      STDOUT.puts("ActsAsXapian.rebuild_index      #{model_class} #{model.id}") if verbose
                       model.xapian_index
                     end
+                    # make sure everything is written
                     ActsAsXapian.writable_db.flush
+                    # database connection won't survive a fork, so shut it down
                     ActiveRecord::Base.connection.disconnect!
+                    # brutal exit, so other shutdown code not run (for speed and safety)
                     Kernel.exit! 0
               end
 
