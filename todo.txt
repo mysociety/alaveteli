@@ -1,3 +1,11 @@
+Froze during reindex:
+
+    ActsAsXapian.rebuild_index      InfoRequestEvent 16061
+
+    foi      23175  0.0  0.0   5176  1472 pts/1    S+   14:16   0:00 /bin/sh /usr/bin/wvText /tmp/foiextract20100619-20578-1gcbuqz-0 /tmp/foiextract20100619-20578-1gcbuqz-0.txt
+    foi      23180  0.0  0.0   4664  1220 pts/1    S+   14:16   0:00 /bin/sh /usr/bin/wvHtml -1 /tmp/foiextract20100619-20578-1gcbuqz-0 --targetdir=/tmp wv-XeJwGT
+
+
 Next (things that will reduce admin time mainly)
 ====
 
@@ -5,8 +13,8 @@ Merge with New Zealand code base properly
 
 Handle bounce messages from alerts automatically
 
-Make outgoing requests and follow ups get CCed to storage place, so that can do
-data recovery more easily
+Make outgoing requests and follow ups get CCed to our backup mailbox, so that
+can do data recovery more easily
 
 sending an email alert for this query takes crazy long
     query = 'variety:response (status:successful OR status:partially_successful)'
@@ -22,9 +30,6 @@ Finish profile photo
 
 Ask people for annotation immediately after they have submitted their request
 Ask for annotation about what they learnt from request?
-
-Rebuild search index is too large (takes ages, process runs out of memory) -
-make a refresh one that does it incrementally.
 
 Have proper house rules / site terms and conditions page.
 Perhaps borrow from these house rules:
@@ -262,12 +267,16 @@ Something to check which tags are used but aren't in PublicBody category lists
 Compress the emails in the database
 Don't store the cached text in backups
 
-Edits to outgoing/incoming/title won't be reindexed in Xapian (maybe just reindex all once a week)
-    And maybe edits to prominence, which is more upsetting
-    Never updates cached attachment text unless cache is explicitly cleared (which
-    might matter with software updates, or code changes)
-This does it all:
-$ ./script/clear-caches ; ./script/rebuild-xapian-index
+*Edits* to comments won't be reindexed in Xapian
+Note that censor rules does an update, but it should update when you do admin *edits* too.
+    What about other references to the title field, e.g when use name changes?
+Maybe just reindex all once a week, but it is a bit slow now:
+$ ./script/rebuild-xapian-index
+
+Never updates cached attachment text unless cache is explicitly cleared (which
+    might matter with software updates, or code changes). Should we clear the
+    cache automatically every month in the middle of the night or something?
+$ ./script/clear-caches
 
 Renaming public authorities will break alerts on them. For basic alerts the
 structured info is there so this should just be fixed. For searches, perhaps
