@@ -164,12 +164,6 @@ For followups, have radio button to say is it a new request or followup
 Do by uncommenting the "new information" option when writing a followup, so
 that it makes a new request
 
-Change it to store emails as files in the filesystem? For speed of backup if nothing else.
-Should have simpler system for us to upload files sent to us via CD etc.
-Currently we have to manually put them in the files directory on the vhost.
-Make it so web upload interface copes gracefully with arbitarily large messages
-(it causes speed trouble having them in the database right now)
-
 When it prompts error_message people to send annotation, maybe just show them
 the email address of the error to check then and there?
 
@@ -251,23 +245,29 @@ together when request and response mention same term)
 
 Something to check which tags are used but aren't in PublicBody category lists
 
+Change it to store emails as files in the filesystem? For speed of backup if nothing else.
+Should have simpler system for us to upload files sent to us via CD etc.
+Currently we have to manually put them in the files directory on the vhost.
+Make it so web upload interface copes gracefully with arbitarily large messages
+(it causes speed trouble having them in the database right now)
+
 Compress the emails in the database
-Don't store the cached text in backups
+Don't store the cached text in backups - maybe keep it in its own table to avoid that?
 
 Other references to title field changes don't get search index updated when title is altered
     (e.g. when a public body is renamed)
 Maybe just reindex all once a week, but it is a bit slow now, so perhaps do it properly.
 $ ./script/rebuild-xapian-index
 
+Renaming public authorities will break alerts on them. For basic alerts the
+structured info is there so this should just be fixed. For searches, perhaps
+Xapian index should search url_name history as well?
+We have a policy of not renaming them in some cases, which helps a bit.
+
 Never updates cached attachment text unless cache is explicitly cleared (which
     might matter with software updates, or code changes). Should we clear the
     cache automatically every month in the middle of the night or something?
 $ ./script/clear-caches
-
-Renaming public authorities will break alerts on them. For basic alerts the
-structured info is there so this should just be fixed. For searches, perhaps
-Xapian index should search url_name history as well?
-XXX should we have a policy of not renaming them (except early typos)?
 
 
 Display and indexing of response emails/attachments
@@ -295,9 +295,6 @@ Search for "OIC" for some more examples
 Worth doing View as HTML for .docx probably
 View as HTML for .txt requested
 
-RTF requested (use unrtf)
-winmail.dat (use /usr/bin/tnef)
-
 VSD files vsdump - example in zip file
     http://www.whatdotheyknow.com/request/dog_control_orders#incoming-3510
     doing file RESPONSE/Internal documents/Briefing with Contact Islington/Contact Islington Flowchart Jul 08.vsd content type 
@@ -307,13 +304,8 @@ and should be indexing
     (call IncomingMessage.find_all_unknown_mime_types to find them - needs
     updating to do it in clumps as all requests won't load in RAM now )
 
-Make tables prettier in view as HTML, just normal thick borders.
-http://www.whatdotheyknow.com/request/1610/response/8093/attach/html/3/2008.10.29%20Reply.doc.html
-
 Render HTML alternative rather than text (so tables look good) e.g.:
     http://www.whatdotheyknow.com/request/parking_policy
-And indeed so links work:
-    http://www.whatdotheyknow.com/request/recycling_levels_in_the_winchest
 
 Make HTML attachments have view as HTML :)
 http://www.whatdotheyknow.com/request/enforced_medication#incoming-7395
