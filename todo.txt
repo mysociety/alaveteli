@@ -246,11 +246,6 @@ Protect from CSRF with this in app controller (care it doesn't break anything):
 Look at quote_address_if_necessary in actionmailer's quoting.rb - why did it
 not work for the email address with "@" in its name part?
 
-From an email, isn't stripping spaces right.
-    "Met Office  sent a response to Andrew Montford (14 August 2008)"
-- there is a strip_attributes! use in public_body.rb
-- check to see if Met Office has extra space in the live database
-
 Should group by the request id for search queries (so all appear
 together when request and response mention same term)
 
