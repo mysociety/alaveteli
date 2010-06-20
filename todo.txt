@@ -267,10 +267,9 @@ Something to check which tags are used but aren't in PublicBody category lists
 Compress the emails in the database
 Don't store the cached text in backups
 
-*Edits* to comments won't be reindexed in Xapian
-Note that censor rules does an update, but it should update when you do admin *edits* too.
-    What about other references to the title field, e.g when use name changes?
-Maybe just reindex all once a week, but it is a bit slow now:
+Other references to title field changes don't get search index updated when title is altered
+    (e.g. when a public body is renamed)
+Maybe just reindex all once a week, but it is a bit slow now, so perhaps do it properly.
 $ ./script/rebuild-xapian-index
 
 Never updates cached attachment text unless cache is explicitly cleared (which
