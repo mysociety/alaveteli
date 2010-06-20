@@ -45,7 +45,7 @@ class Comment < ActiveRecord::Base
         read_attribute(:body)
     end
 
-    # So when made invisble it vanishes
+    # So when takes changes it updates, or when made invisble it vanishes
     after_save :event_xapian_update
     def event_xapian_update
         for event in self.info_request_events
