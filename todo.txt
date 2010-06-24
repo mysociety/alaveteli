@@ -215,7 +215,6 @@ CSS / design things
             but some magic Ruby thing is printing the error span.
     - Improve CSS on IE7 for large images in docs
         http://www.whatdotheyknow.com/request/3289/response/7810/attach/html/3/20081023ReplyLetter.pdf.html
-    - favicon.ico would be nice, maybe the ? from the logo
     - Get Atom feed of search results to include stylesheet for highlighting words in
       yellow somehow
 
