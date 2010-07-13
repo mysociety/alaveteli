@@ -47,7 +47,7 @@ describe "when viewing a body" do
 
     it "should tell total number of requests" do
         render "public_body/show"
-        response.should have_tag("h2", "4 Freedom of Information requests made")
+        response.should include_text("4 Freedom of Information requests made")
     end
 
     it "should cope with no results" do
@@ -69,6 +69,15 @@ describe "when viewing a body" do
             with_tag("a[href*=?]", /charity-commission.gov.uk.*RegisteredCharityNumber=98765$/)
         end
     end 
+
+    it "should link to Scottish Charity Regulator site if we have an SC number" do
+        @pb.stub!(:charity_number).and_return('SC1234')
+        render "public_body/show"
+        response.should have_tag("div#request_sidebar") do
+            with_tag("a[href*=?]", /www.oscr.org.uk.*id=SC1234$/)
+        end
+    end 
+
 
     it "should not link to Charity Commission site if we don't have number" do
         render "public_body/show"

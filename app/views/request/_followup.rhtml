@@ -19,46 +19,42 @@
         <a href="/help/contact">contact us</a> if you are <%= user_link(@info_request.user) %>
         and need to send a follow up.</p>
     <% else %>
-
-<!--        <p>Please do <strong>not</strong> make new requests here.
-        If you are asking for information which was not in your original request, then
-        <%= link_to "file a new request", new_request_to_body_url(:public_body_id => @info_request.public_body.id.to_s) %>
-        instead.
-        </p>
-        -->
-
         <% if @internal_review %>
             <p>
             If you are dissatisfied by the response you got from
             the public authority, you have the right to
             complain (<a href="http://foiwiki.com/foiwiki/index.php/Internal_reviews">details</a>). 
             </p>
-
         <% end %>
 
-        <% if @info_request.calculate_status == 'waiting_response_overdue' %>
-            <p>
-            <% if @info_request.working_days_20_overdue? %>             
-                This request is <strong>long overdue a response</strong>.
-            <% else %>
-                This request is <strong>overdue a response</strong>.
-            <% end %>
-            You can say that, by law, the authority should have answered
-            <strong>promptly</strong>. If they have not given you a legal
-            reason why they need extra time
-            (<%= link_to "more details", about_url + "#quickly_response" %>), then
-            you can say they are breaking the law to have not replied by
-            <strong><%= simple_date(@info_request.date_response_required_by) %></strong>.
+        <p>Please <strong>only</strong> write messages directly relating to your 
+        request '<%= request_link(@info_request) %>'. If you would like to ask for information
+        that was not in your original request, then
+        <%= link_to "file a new request", new_request_to_body_url(:public_body_id => @info_request.public_body.id.to_s) %>.
+        </p>
+
+        <% status = @info_request.calculate_status %>
+        <% if status == 'waiting_response_overdue' %>
+            <p>The response to your request has been <strong>delayed</strong>.  You can say that, 
+            by law, the authority should normally have responded
+            <strong>promptly</strong> and
             <% if @info_request.public_body.is_school? %>
-                This is a school, so legally they get lots of extra slack if it is 
-                holiday time.
+                in term time 
             <% end %>
-       </p>
+            by <strong><%= simple_date(@info_request.date_response_required_by) %></strong>
+            (<%= link_to "details", about_url + "#quickly_response" %>).
+            </p>
+        <% elsif status == 'waiting_response_very_overdue' %>
+            <p>
+            The response to your request is <strong>long overdue</strong>.   You can say that, by 
+            law, under all circumstances, the authority should have responded
+            by now (<%= link_to "details", about_url + "#quickly_response" %>).
+            </p>
         <% end %>
 
         <% form_for(:outgoing_message, @outgoing_message, :html => { :id => 'followup_form' }, :url => incoming_message.nil? ? show_response_no_followup_url(:id => @info_request.id) : show_response_url(:id => @info_request.id, :incoming_message_id => incoming_message.id)) do |o| %>
             <p>
-                <%= o.text_area :body, :rows => 10, :cols => 55 %>
+                <%= o.text_area :body, :rows => 15, :cols => 55 %>
                 <br><script type="text/javascript">document.write('<input name="doSpell" type="button" value="Check spelling" onClick="openSpellChecker(document.getElementById(\'followup_form\').body);"/> (optional)')</script>
             </p>
 
@@ -93,12 +89,7 @@
 
             <% if @internal_review %>
                 <p>Edit and add <strong>more details</strong> to the message above,
-                explaining why you would like a review.
-                    <ul>
-                        <li>Say that you are dissatisfied by their response</li>
-                        <li>Set out your reasons why</li>
-                        <li>Ask them to review their response</li>
-                    </ul>
+                explaining why you are dissatisfied with their response.
                 </p>
             <% end %>
 

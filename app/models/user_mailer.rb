@@ -27,5 +27,26 @@ class UserMailer < ApplicationMailer
         @body[:url] = url
     end
 
+    def changeemail_confirm(user, new_email, url)
+        @from = contact_from_name_and_email
+        headers 'Return-Path' => blackhole_email, 'Reply-To' => @from # we don't care about bounces when people are fiddling with their account
+        @recipients = new_email
+        @subject    = "Confirm your new email address on WhatDoTheyKnow.com"
+        @body[:name] = user.name
+        @body[:url] = url
+        @body[:old_email] = user.email
+        @body[:new_email] = new_email
+    end
+
+    def changeemail_already_used(old_email, new_email)
+        @from = contact_from_name_and_email
+        headers 'Return-Path' => blackhole_email, 'Reply-To' => @from # we don't care about bounces when people are fiddling with their account
+        @recipients = new_email
+        @subject    = "Unable to change email address on WhatDoTheyKnow.com"
+        @body[:old_email] = old_email
+        @body[:new_email] = new_email
+    end
+
+
 end
 

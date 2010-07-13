@@ -6,7 +6,15 @@
 <p>
 <% for column in InfoRequest.content_columns %>
   <strong><%= column.human_name %>:</strong> <%=h @info_request.send(column.name) %>
-  <br/>
+  <% if column.name == 'described_state' %>
+    <strong>Calculated status:</strong> <%= @info_request.calculate_status %>
+    <br/><strong>Initial request last sent at:</strong> <%=@info_request.date_initial_request_last_sent_at.to_date %>
+        <strong>Date response required by:</strong> <%= @info_request.date_response_required_by %> 
+        <strong>Very overdue after:</strong> <%= @info_request.date_very_overdue_after %>
+  <% end %>
+  <% if ![ 'allow_new_responses_from' ].include?(column.name) %>
+      <br/>
+  <% end %>
 <% end %>
 <strong>Created by:</strong> <%= user_both_links(@info_request.user) %> <br>
 <strong>Public authority:</strong> <%= public_body_both_links(@info_request.public_body) %> <br>

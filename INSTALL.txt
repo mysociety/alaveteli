@@ -15,11 +15,16 @@ Commands are intended to be run via the terminal or over ssh.
 1. Package Installation
 -----------------------
 
-Firstly, in terminal, navigate to the foi folder where this install guide lives.
+Firstly, in a terminal, navigate to the whatdotheyknow folder where this
+install guide lives.
 
-Install the packages that are listed in config/packages using apt-get eg:
+Install the packages that are listed in config/packages using apt-get e.g.:
 
-> sudo apt-get install `cat config/packages`
+> sudo apt-get install `cut -d " " -f 1 config/packages`
+
+Some of the files also have a version number listed in config/packages - check
+that you have appropriate versions installed. Some also list "|" and offer
+a choice of packages.
 
 Some of the required packages only exist in the mysociety debian archive (or we
 have updated versions there), so you will want to add that to your
@@ -27,9 +32,6 @@ have updated versions there), so you will want to add that to your
   
   deb http://debian.mysociety.org etch main non-free contrib
   deb-src http://debian.mysociety.org etch main non-free contrib
-
-libgems-ruby1.8 has recently been replaced by rubygems1.8, so you may need to
-update the packages file to reflect this, depending on your version.
 
 
 2. Configure Database 
@@ -44,7 +46,7 @@ If you don't have it installed:
 Now we need to set up the database config file to contain the name,
 username and password of your postgres database.
 
-* copy database.yml-example to database.yml in foi/config
+* copy database.yml-example to database.yml in whatdotheyknow/config
 * edit it to point to your local postgresql database in the development
   and test sections and create the databases:
 
@@ -70,15 +72,14 @@ constraints whilst running the tests they also need to be a superuser.
 3. Deployment
 -------------
 
-In the 'mysociety' directory above 'foi', run
-
-> ./bin/rails-post-deploy foi
+In the 'whatdotheyknow' directory, run:
+> ./script/rails-post-deploy 
 
 (This will need execute privs so chmod 755 if necessary)
 
 This sets up directory structures, creates logs, etc.
 
-Next, if you have a foi/config/rails_env.rb file, delete it, so that
+Next, if you have a whatdotheyknow/config/rails_env.rb file, delete it, so that
 tests run against our test database, rather than the development one.
 (Otherwise, any data you create in development will be blown away every
 time you run the tests.)
@@ -97,7 +98,7 @@ Make sure everything looks OK:
 
 > rake spec
 
-If there are failures here, something has gone wrong with the preceeding
+If there are failures here, something has gone wrong with the preceding
 steps. You might be able to move on to the next step, depending on how
 serious they are, but ideally you should try to find out what's gone
 wrong.
@@ -109,11 +110,11 @@ run the following to get the server running  (may need to chmod 755 again)
 > ./script/server  --environment=development
 
 or if you want the server to be available on the network and not just
-on localhost tell it your ip address by running
+on localhost tell it your IP address by running
 
 > ./script/server --environment=development --binding=10.0.0.11 
 
-Obviously change 10.0.0.11 to your own IP address
+Obviously, change 10.0.0.11 to your own IP address.
 
 5. Success
 ----------
@@ -134,7 +135,7 @@ like to do something similar.
 Alternatively, update the code so that
 * By default, admin pages use normal site authentication (checking user admin
 level 'super').
-* Create an option in config/general which lest mySociety override that
+* Create an option in config/general which lets mySociety override that
 behaviour.
 And send us the patch!
 

@@ -6,7 +6,7 @@ end
 if not incoming_message.nil?
 %>
     <div class="correspondence" id="incoming-<%=incoming_message.id.to_s%>">
-        <% cache(:controller => "request", :action => "show_response", :id => @info_request.id, :incoming_message_id => incoming_message.id, :only_path => true, :template => "_correspondence", :section => "incoming_message_bubble", :collapse => @collapse_quotes ? nil : 'no' ) do %>
+        <% foi_cache(:controller => "request", :action => "show_response", :id => @info_request.id, :incoming_message_id => incoming_message.id, :only_path => true, :template => "_correspondence", :section => "incoming_message_bubble", :collapse => @collapse_quotes ? nil : 'no' ) do %>
         <h2>
             <% if !incoming_message.safe_mail_from.nil? && incoming_message.safe_mail_from.strip != @info_request.public_body.name.strip %>
                 <%=h incoming_message.safe_mail_from %><br>

@@ -7,7 +7,7 @@ require 'spec/rails'
 Spec::Runner.configure do |config|
   config.use_transactional_fixtures = true
   config.use_instantiated_fixtures  = false
-  config.fixture_path = RAILS_ROOT + '/spec/fixtures'
+  config.fixture_path = RAILS_ROOT + '/spec/fixtures/'
 
   # You can declare fixtures for each behaviour like this:
   #   describe "...." do
@@ -38,8 +38,16 @@ def load_file_fixture(file_name)
 end
 
 def rebuild_xapian_index
+    # XXX could for speed call ActsAsXapian.rebuild_index directly, but would
+    # need model name list, and would need to fix acts_as_xapian so can call writes
+    # and reads mixed up (it asserts where it thinks it can't do this)
     rebuild_name = File.dirname(__FILE__) + '/../script/rebuild-xapian-index'
     Kernel.system(rebuild_name) or raise "failed to launch #{rebuild_name}, error bitcode #{$?}, exit status: #{$?.exitstatus}"
+end
+
+def update_xapian_index
+    verbose = false
+    ActsAsXapian.update_index(flush_to_disk=true, verbose) 
 end
 
 # Validate an entire HTML page

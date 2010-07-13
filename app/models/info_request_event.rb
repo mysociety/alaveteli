@@ -282,7 +282,7 @@ class InfoRequestEvent < ActiveRecord::Base
                 elsif status == 'not_held'
                     return "Information not held"
                 elsif status == 'rejected'
-                    return "Rejection"
+                    return "Refused"
                 elsif status == 'partially_successful'
                     return "Some information sent"
                 elsif status == 'successful'

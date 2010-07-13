@@ -33,6 +33,10 @@ module LinkToHelper
         return similar_request_url(:url_title => info_request.url_title, :only_path => true)
     end
 
+    def request_details_url(info_request)
+        return details_request_url(:url_title => info_request.url_title, :only_path => true)
+    end
+
     # Incoming / outgoing messages
     def incoming_message_url(incoming_message)
         return request_url(incoming_message.info_request)+"#incoming-"+incoming_message.id.to_s

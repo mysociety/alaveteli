@@ -56,7 +56,7 @@ class InfoRequest < ActiveRecord::Base
         'waiting_clarification', 
         'gone_postal',
         'not_held',
-        'rejected', 
+        'rejected', # this is called 'refused' in UK FOI law and the user interface, but 'rejected' internally for historic reasons
         'successful', 
         'partially_successful',
         'internal_review',
@@ -83,7 +83,7 @@ class InfoRequest < ActiveRecord::Base
         'authority_only', # only people from authority domains
         'nobody'
     ]
-    # what to do with rejected new responses
+    # what to do with refused new responses
     validates_inclusion_of :handle_rejected_responses, :in => [
         'bounce', # return them to sender
         'holding_pen', # put them in the holding pen
@@ -94,6 +94,9 @@ class InfoRequest < ActiveRecord::Base
     def validate_on_create
         if !self.title.nil? && !MySociety::Validate.uses_mixed_capitals(self.title, 10)
             errors.add(:title, '^Please write the summary using a mixture of capital and lower case letters. This makes it easier for others to read.')
+        end
+        if !self.title.nil? && title.size > 200
+            errors.add(:title, '^Please keep the summary short, like in the subject of an email. You can use a phrase, rather than a full sentence.')
         end
     end
     
@@ -132,7 +135,7 @@ class InfoRequest < ActiveRecord::Base
     # we update index for every event. Also reindex if prominence changes.
     after_update :reindex_some_request_events
     def reindex_some_request_events
-        if self.changes.include?('url_title') || self.changes.include?('prominence')
+        if self.changes.include?('url_title') || self.changes.include?('prominence') || self.changes.include?('user_id')
             self.reindex_request_events
         end
     end
@@ -199,6 +202,8 @@ public
 
     # Subject lines for emails about the request
     def email_subject_request
+        # XXX pull out this general_register_office specialisation
+        # into some sort of separate jurisdiction dependent file
         if self.public_body.url_name == 'general_register_office'
             # without GQ in the subject, you just get an auto response
             self.law_used_full + ' request GQ - ' + self.title
@@ -206,11 +211,15 @@ public
             self.law_used_full + ' request - ' + self.title
         end
     end
-    def email_subject_followup
-        if self.public_body.url_name == 'general_register_office'
-            'Re: ' + self.law_used_full + ' request GQ - ' + self.title
+    def email_subject_followup(incoming_message = nil)
+        if incoming_message.nil? || !incoming_message.valid_to_reply_to?
+            'Re: ' + self.email_subject_request
         else
-            'Re: ' + self.law_used_full + ' request - ' + self.title
+            if incoming_message.mail.subject.match(/^Re:/i)
+                incoming_message.mail.subject
+            else
+                'Re: ' + incoming_message.mail.subject
+            end
         end
     end
 
@@ -487,10 +496,13 @@ public
     # self.described_state, can take these two values:
     #   waiting_classification
     #   waiting_response_overdue
+    #   waiting_response_very_overdue
     def calculate_status
         return 'waiting_classification' if self.awaiting_description
         return described_state unless self.described_state == "waiting_response"
         # Compare by date, so only overdue on next day, not if 1 second late
+        return 'waiting_response_very_overdue' if
+            Time.now.strftime("%Y-%m-%d") > self.date_very_overdue_after.strftime("%Y-%m-%d")
         return 'waiting_response_overdue' if
             Time.now.strftime("%Y-%m-%d") > self.date_response_required_by.strftime("%Y-%m-%d")
         return 'waiting_response'
@@ -568,24 +580,35 @@ public
             end
         end
         if last_sent.nil?
-            raise "internal error, date_response_required_by gets nil for request " + self.id.to_s + " outgoing messages count " + self.outgoing_messages.size.to_s + " all events: " + self.info_request_events.to_yaml
+            raise "internal error, last_event_forming_initial_request gets nil for request " + self.id.to_s + " outgoing messages count " + self.outgoing_messages.size.to_s + " all events: " + self.info_request_events.to_yaml
         end
         return last_sent
     end
 
+    # The last time that the initial request was sent/resent
+    def date_initial_request_last_sent_at
+        last_sent = last_event_forming_initial_request
+        return last_sent.outgoing_message.last_sent_at
+    end
     # How do we cope with case where extra info was required from the requester
     # by the public body in order to fulfill the request, as per sections 1(3)
     # and 10(6b) ? For clarifications this is covered by
     # last_event_forming_initial_request. There may be more obscure
     # things, e.g. fees, not properly covered.
     def date_response_required_by
-        last_sent = last_event_forming_initial_request
-        return Holiday.due_date_from(last_sent.outgoing_message.last_sent_at, 20)
+        return Holiday.due_date_from(self.date_initial_request_last_sent_at, 20)
     end
-
-    # Are we more than 20 working days overdue?
-    def working_days_20_overdue?
-        return Holiday.due_date_from(date_response_required_by.to_date, 20) <= Time.now.to_date
+    # This is a long stop - even with UK public interest test extensions, 40
+    # days is a very long time.
+    def date_very_overdue_after
+        last_sent = last_event_forming_initial_request
+        if self.public_body.is_school?
+            # schools have 60 working days maximum (even over a long holiday)
+            return Holiday.due_date_from(self.date_initial_request_last_sent_at, 60)
+        else
+            # public interest test ICO guidance gives 40 working maximum
+            return Holiday.due_date_from(self.date_initial_request_last_sent_at, 40)
+        end
     end
 
     # Where the initial request is sent to
@@ -715,11 +738,13 @@ public
         elsif status == 'waiting_response'
             "Awaiting response."
         elsif status == 'waiting_response_overdue'
-            "Response overdue."
+            "Delayed."
+        elsif status == 'waiting_response_very_overdue'
+            "Long overdue."
         elsif status == 'not_held'
             "Information not held."
         elsif status == 'rejected'
-            "Rejected."
+            "Refused."
         elsif status == 'partially_successful'
             "Partially successful."
         elsif status == 'successful'
@@ -894,9 +919,9 @@ public
     # This is called from cron regularly.
     def InfoRequest.stop_new_responses_on_old_requests
         # 6 months since last change to request, only allow new incoming messages from authority domains
-        InfoRequest.update_all "allow_new_responses_from = 'authority_only' where updated_at < (now() - interval '6 months') and allow_new_responses_from = 'anybody'"
+        InfoRequest.update_all "allow_new_responses_from = 'authority_only' where updated_at < (now() - interval '6 months') and allow_new_responses_from = 'anybody' and url_title <> 'holding_pen'"
         # 1 year since last change requests, don't allow any new incoming messages
-        InfoRequest.update_all "allow_new_responses_from = 'nobody' where updated_at < (now() - interval '1 year') and allow_new_responses_from in ('anybody', 'authority_only')"
+        InfoRequest.update_all "allow_new_responses_from = 'nobody' where updated_at < (now() - interval '1 year') and allow_new_responses_from in ('anybody', 'authority_only') and url_title <> 'holding_pen'"
     end
 
     # Returns a random FOI request

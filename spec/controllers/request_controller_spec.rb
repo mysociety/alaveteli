@@ -263,7 +263,7 @@ describe RequestController, "when creating a new request" do
     end
 
     it "should accept a public body parameter" do
-        get :new, :info_request => { :public_body_id => @body.id } 
+        get :new, :public_body_id => @body.id
         assigns[:info_request].public_body.should == @body    
         response.should render_template('new')
     end
@@ -283,6 +283,15 @@ describe RequestController, "when creating a new request" do
             :submitted_new_request => 1, :preview => 1
         }
         response.should render_template('preview')
+    end
+
+    it "should allow re-editing of a request" do
+        post :new, :info_request => { :public_body_id => @body.id,
+            :title => "Why is your quango called Geraldine?"},
+            :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." },
+            :submitted_new_request => 1, :preview => 0,
+            :reedit => "Re-edit this request"
+        response.should render_template('new')
     end
 
     it "should redirect to sign in page when input is good and nobody is logged in" do
@@ -382,7 +391,7 @@ describe RequestController, "when making a new request" do
         @user.stub!(:can_file_requests?).and_return(true)
         User.stub!(:find).and_return(@user)
 
-        @body = mock_model(PublicBody, :id => 314, :eir_only? => false, :is_requestable? => true)
+        @body = mock_model(PublicBody, :id => 314, :eir_only? => false, :is_requestable? => true, :name => "Test Quango")
         PublicBody.stub!(:find).and_return(@body)
     end
 
@@ -683,7 +692,11 @@ describe RequestController, "when classifying an information request" do
         def request_url
             "request/#{@dog_request.url_title}"
         end
-        
+
+        def unhappy_url
+            "help/unhappy/#{@dog_request.url_title}"
+        end
+         
         def expect_redirect(status, redirect_path)
             post_status(status)
             response.should redirect_to("http://test.host/#{redirect_path}")
@@ -691,16 +704,26 @@ describe RequestController, "when classifying an information request" do
         
         it 'should redirect to the "request url" with a message in the right tense when status is updated to "waiting response" and the response is not overdue' do
             @dog_request.stub!(:date_response_required_by).and_return(Time.now.to_date+1)
+            @dog_request.stub!(:date_very_overdue_after).and_return(Time.now.to_date+40)
+
             expect_redirect("waiting_response", "request/#{@dog_request.url_title}")
             flash[:notice].should match(/should get a response/)
         end
     
         it 'should redirect to the "request url" with a message in the right tense when status is updated to "waiting response" and the response is overdue' do 
             @dog_request.stub!(:date_response_required_by).and_return(Time.now.to_date-1)
+            @dog_request.stub!(:date_very_overdue_after).and_return(Time.now.to_date+40)
             expect_redirect('waiting_response', request_url)
             flash[:notice].should match(/should have got a response/)
         end
-        
+
+        it 'should redirect to the "request url" with a message in the right tense when status is updated to "waiting response" and the response is overdue' do 
+            @dog_request.stub!(:date_response_required_by).and_return(Time.now.to_date-2)
+            @dog_request.stub!(:date_very_overdue_after).and_return(Time.now.to_date-1)
+            expect_redirect('waiting_response', unhappy_url)
+            flash[:notice].should match(/is long overdue/)
+        end
+         
         it 'should redirect to the "request url" when status is updated to "not held"' do 
             expect_redirect('not_held', request_url)
         end
@@ -729,7 +752,7 @@ describe RequestController, "when classifying an information request" do
         end
 
         it 'should redirect to the "respond to last url" when status is updated to "gone postal"' do 
-            expect_redirect('gone_postal', "request/#{@dog_request.id}/response/1?gone_postal=1")
+            expect_redirect('gone_postal', "request/#{@dog_request.id}/response/#{@dog_request.get_last_response.id}?gone_postal=1")
         end
         
         it 'should redirect to the "request url" when status is updated to "internal review"' do 
@@ -744,8 +767,8 @@ describe RequestController, "when classifying an information request" do
             expect_redirect('error_message', "help/contact")
         end
         
-        it 'should redirect to the "request url" when status is updated to "user_withdrawn"' do 
-            expect_redirect('user_withdrawn', request_url)
+        it 'should redirect to the "respond to last url url" when status is updated to "user_withdrawn"' do 
+            expect_redirect('user_withdrawn', "request/#{@dog_request.id}/response/#{@dog_request.get_last_response.id}")
         end
          
     end
@@ -775,7 +798,18 @@ describe RequestController, "when sending a followup message" do
         response.should render_template('show_response')
     end
 
+    it "should show preview when input is good" do
+        session[:user_id] = users(:bob_smith_user).id
+        post :show_response, :outgoing_message => { :body => "What a useless response! You suck.", :what_doing => 'normal_sort'}, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_followup => 1, :preview => 1
+        response.should render_template('followup_preview')
+    end
 
+    it "should allow re-editing of a preview" do
+        session[:user_id] = users(:bob_smith_user).id
+        post :show_response, :outgoing_message => { :body => "What a useless response! You suck.", :what_doing => 'normal_sort'}, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_followup => 1, :preview => 0, :reedit => "Re-edit this request"
+        response.should render_template('show_response')
+    end
+ 
     it "should send the follow up message if you are the right user" do
         # fake that this is a clarification
         info_requests(:fancy_dog_request).set_described_state('waiting_clarification')
@@ -825,12 +859,16 @@ describe RequestController, "sending overdue request alerts" do
     fixtures :info_requests, :info_request_events, :public_bodies, :users, :incoming_messages, :raw_emails, :outgoing_messages # all needed as integrating views
  
     it "should send an overdue alert mail to creators of overdue requests" do
+        chicken_request = info_requests(:naughty_chicken_request)
+        chicken_request.outgoing_messages[0].last_sent_at = Time.now() - 30.days
+        chicken_request.outgoing_messages[0].save!
+
         RequestMailer.alert_overdue_requests
 
         deliveries = ActionMailer::Base.deliveries
         deliveries.size.should == 1
         mail = deliveries[0]
-        mail.body.should =~ /promptly, as required by law/
+        mail.body.should =~ /promptly, as normally\s+required by law/
         mail.to_addrs.to_s.should == info_requests(:naughty_chicken_request).user.name_and_email
 
         mail.body =~ /(http:\/\/.*\/c\/(.*))/
@@ -845,7 +883,24 @@ describe RequestController, "sending overdue request alerts" do
         assigns[:info_request].should == info_requests(:naughty_chicken_request)
     end
 
-    it "should send not actualy send the overdue alert if the user is banned" do
+    it "should include clause for schools when sending an overdue alert mail to creators of overdue requests" do
+        chicken_request = info_requests(:naughty_chicken_request)
+        chicken_request.outgoing_messages[0].last_sent_at = Time.now() - 30.days
+        chicken_request.outgoing_messages[0].save!
+
+        chicken_request.public_body.tag_string = "school"
+        chicken_request.public_body.save!
+
+        RequestMailer.alert_overdue_requests
+
+        deliveries = ActionMailer::Base.deliveries
+        deliveries.size.should == 1
+        mail = deliveries[0]
+        mail.body.should =~ /promptly, as normally\s+required by law during term time/
+        mail.to_addrs.to_s.should == info_requests(:naughty_chicken_request).user.name_and_email
+    end
+
+    it "should send not actually send the overdue alert if the user is banned" do
         user = info_requests(:naughty_chicken_request).user
         user.ban_text = 'Banned'
         user.save!
@@ -854,6 +909,31 @@ describe RequestController, "sending overdue request alerts" do
 
         deliveries = ActionMailer::Base.deliveries
         deliveries.size.should == 0
+    end
+
+    it "should send a very overdue alert mail to creators of very overdue requests" do
+        chicken_request = info_requests(:naughty_chicken_request)
+        chicken_request.outgoing_messages[0].last_sent_at = Time.now() - 60.days
+        chicken_request.outgoing_messages[0].save!
+
+        RequestMailer.alert_overdue_requests
+
+        deliveries = ActionMailer::Base.deliveries
+        deliveries.size.should == 1
+        mail = deliveries[0]
+        mail.body.should =~ /required by law/
+        mail.to_addrs.to_s.should == info_requests(:naughty_chicken_request).user.name_and_email
+
+        mail.body =~ /(http:\/\/.*\/c\/(.*))/
+        mail_url = $1
+        mail_token = $2
+
+        session[:user_id].should be_nil
+        controller.test_code_redirect_by_email_token(mail_token, self) # XXX hack to avoid having to call User controller for email link
+        session[:user_id].should == info_requests(:naughty_chicken_request).user.id
+
+        response.should render_template('show_response')
+        assigns[:info_request].should == info_requests(:naughty_chicken_request)
     end
 
 end
@@ -1030,6 +1110,92 @@ describe RequestController, "when viewing comments" do
 
 end
 
+
+describe RequestController, "authority uploads a response from the web interface" do
+    fixtures :info_requests, :info_request_events, :public_bodies, :users
+
+    before(:all) do
+        # domain after the @ is used for authentication of FOI officers, so to test it
+        # we need a user which isn't at localhost.
+        @normal_user = User.new(:name => "Mr. Normal", :email => "normal-user@flourish.org",  
+                                      :password => PostRedirect.generate_random_token)
+        @normal_user.save!
+
+        @foi_officer_user = User.new(:name => "The Geraldine Quango", :email => "geraldine-requests@localhost", 
+                                      :password => PostRedirect.generate_random_token)
+        @foi_officer_user.save!
+    end
+  
+    it "should require login to view the form to upload" do
+        @ir = info_requests(:fancy_dog_request) 
+        @ir.public_body.is_foi_officer?(@normal_user).should == false
+        session[:user_id] = @normal_user.id
+
+        get :upload_response, :url_title => 'why_do_you_have_such_a_fancy_dog'
+        response.should render_template('user/wrong_user')
+    end
+
+   it "should let you view upload form if you are an FOI officer" do
+        @ir = info_requests(:fancy_dog_request) 
+        @ir.public_body.is_foi_officer?(@foi_officer_user).should == true
+        session[:user_id] = @foi_officer_user.id
+
+        get :upload_response, :url_title => 'why_do_you_have_such_a_fancy_dog'
+        response.should render_template('request/upload_response')
+    end
+
+    it "should prevent uploads if you are not a requester" do
+        @ir = info_requests(:fancy_dog_request) 
+        incoming_before = @ir.incoming_messages.size
+        session[:user_id] = @normal_user.id
+
+        # post up a photo of the parrot
+        parrot_upload = fixture_file_upload('parrot.png','image/png')
+        post :upload_response, :url_title => 'why_do_you_have_such_a_fancy_dog',
+            :body => "Find attached a picture of a parrot",
+            :file_1 => parrot_upload,
+            :submitted_upload_response => 1
+        response.should render_template('user/wrong_user')
+    end
+
+    it "should prevent entirely blank uploads" do
+        session[:user_id] = @foi_officer_user.id
+
+        post :upload_response, :url_title => 'why_do_you_have_such_a_fancy_dog', :body => "", :submitted_upload_response => 1
+        response.should render_template('request/upload_response')
+        flash[:error].should match(/Please type a message/)
+    end
+
+    # How do I test a file upload in rails?
+    # http://stackoverflow.com/questions/1178587/how-do-i-test-a-file-upload-in-rails
+    it "should let the requester upload a file" do
+        @ir = info_requests(:fancy_dog_request) 
+        incoming_before = @ir.incoming_messages.size
+        session[:user_id] = @foi_officer_user.id
+
+        # post up a photo of the parrot
+        parrot_upload = fixture_file_upload('parrot.png','image/png')
+        post :upload_response, :url_title => 'why_do_you_have_such_a_fancy_dog',
+            :body => "Find attached a picture of a parrot",
+            :file_1 => parrot_upload,
+            :submitted_upload_response => 1
+
+        response.should redirect_to(:action => 'show', :url_title => 'why_do_you_have_such_a_fancy_dog')
+        flash[:notice].should match(/Thank you for responding to this FOI request/)
+
+        # check there is a new attachment
+        incoming_after = @ir.incoming_messages.size
+        incoming_after.should == incoming_before + 1
+
+        # check new attachment looks vaguely OK
+        new_im = @ir.incoming_messages[-1]
+        new_im.mail.body.should match(/Find attached a picture of a parrot/)
+        attachments = new_im.get_attachments_for_display
+        attachments.size.should == 1
+        attachments[0].filename.should == "parrot.png"
+        attachments[0].display_size.should == "94K"
+    end
+end
 
 
 

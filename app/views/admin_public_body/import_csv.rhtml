@@ -12,15 +12,7 @@
 
 <% form_tag 'import_csv', :multipart => true do %>
     <p>
-    <label for="tag">Tag to add entries to (maybe you want:
-    <% for category, description in PublicBodyCategories::CATEGORIES_BY_TAG %>
-        <% if category != "other" %>
-            <strong><%= category %></strong>=<%= description %>;
-        <% end %>
-    <% end %>
-    )
-    </label>
-    <br/>
+    <label for="tag">Tag to add entries to / alter entries for:</label>
     <%= text_field_tag 'tag', params[:tag] %>
     </p>
 
@@ -30,10 +22,23 @@
     <%= file_field_tag :csv_file, :size => 60 %> 
     </p>
 
-    <p><strong>Note:</strong> This will report errors in the CSV file. If there are no errors, it will make updates.
-    Any changes since last import will be overwritten - e.g. email addresses changed back. Changes and additions
-    are reported on a successful import for you to check.
+    <p><strong>Note:</strong> Choose <strong>dry run</strong> to test, without
+    actually altering the database. Choose <strong>upload</strong> to actually
+    make the changes. In either case, you will be shown any errors, or details
+    of the changes.  When uploading, any changes since last import will be
+    overwritten - e.g.  email addresses changed back.
+    </p>
 
-    <p><%= submit_tag 'Upload' %></p>
+    <p><%= submit_tag 'Dry run' %> <%= submit_tag 'Upload' %></p>
 <% end %>
+
+<hr>
+
+<p>Standard tags: 
+    <% for category, description in PublicBodyCategories::CATEGORIES_BY_TAG %>
+        <% if category != "other" %>
+            <strong><%= category %></strong>=<%= description %>;
+        <% end %>
+    <% end %>
+    </p>
 

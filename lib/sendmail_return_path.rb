@@ -1,7 +1,7 @@
 # Monkeypatch!
 # Grrr, semantics of smtp and sendmail send should be the same with regard to setting return path
 
-# See test in spec/lib/sendmail_return_path.rb
+# See test in spec/lib/sendmail_return_path_spec.rb
 
 module ActionMailer
    class Base

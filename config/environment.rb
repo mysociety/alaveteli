@@ -6,19 +6,25 @@
 # ENV['RAILS_ENV'] ||= 'production'
 
 # Specifies gem version of Rails to use when vendor/rails is not present
-RAILS_GEM_VERSION = '2.1.0' unless defined? RAILS_GEM_VERSION
+RAILS_GEM_VERSION = '2.3.2' unless defined? RAILS_GEM_VERSION
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
 
 # MySociety specific helper functions
 $:.push(File.join(File.dirname(__FILE__), '../commonlib/rblib'))
-# ... if these fail to include, you need the rblib directory from
-# mySociety CVS, put it at the same level as the foi directory.
+# ... if these fail to include, you need the commonlib submodule from git
+# (type "git submodule update --init" in the whatdotheyknow directory)
+
+# ruby-ole and ruby-msg.  We use a custom ruby-msg to avoid a name conflict
+$:.unshift(File.join(File.dirname(__FILE__), '../vendor/ruby-ole/lib'))
+$:.unshift(File.join(File.dirname(__FILE__), '../vendor/ruby-msg/lib'))
+
 load "validate.rb"
 load "config.rb"
 load "format.rb"
 load "debug_helpers.rb"
+load "util.rb"
 
 Rails::Initializer.run do |config|
   # Load intial mySociety config
@@ -45,8 +51,8 @@ Rails::Initializer.run do |config|
   # Make sure the secret is at least 30 characters and all random, 
   # no regular words or you'll be exposed to dictionary attacks.
   config.action_controller.session = {
-    :session_key => '_foi_cookie_session',
-    :secret => MySociety::Config.get("COOKIE_STORE_SESSION_SECRET", 'this default is insecure as code is open source, please override for live sites in config/general; this will do for local development'),
+    :session_key => '_wdtk_cookie_session',
+    :secret => MySociety::Config.get("COOKIE_STORE_SESSION_SECRET", 'this default is insecure as code is open source, please override for live sites in config/general; this will do for local development')
   }
   config.action_controller.session_store = :cookie_store
 
@@ -101,6 +107,7 @@ require 'make_html_4_compliant.rb'
 require 'activerecord_errors_extensions.rb'
 require 'willpaginate_hack.rb'
 require 'sendmail_return_path.rb'
+require 'tnef.rb'
 
 # XXX temp debug for SQL logging production sites
 #ActiveRecord::Base.logger = Logger.new(STDOUT)

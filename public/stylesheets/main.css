@@ -215,7 +215,7 @@ body
 }
 
 
-/*------------------------------------------------ wrapper*/
+/*------------------------------------------------ wrapper round content */
 
 #wrapper
 {
@@ -223,12 +223,49 @@ body
 	clear: both;
 	top: 0px;
 	padding-top: 100px;
-	margin: 0px auto 1.2em auto;
 	width: 53em;
+	margin: 0px auto 1.2em auto;
 	/* = 800px at default size? so 1em = 16px*/
 	text-align: left;
 	overflow: visible;
 }
+
+/*------------------------------------------------ view as HTML */
+/* XXX this copies lines from #wrapper above, as didn't want to break wrapper
+ * right now */
+#wrapper_xlhtml {
+	position: relative;
+	clear: both;
+	top: 0px;
+	padding-top: 100px;
+    width: 90%;
+	margin: 0px auto 1.2em auto;
+	/* = 800px at default size? so 1em = 16px*/
+	text-align: left;
+	overflow: visible;
+}
+#view_html_content table {
+    border-collapse: collapse;
+    margin-bottom: 1em;
+}
+#view_html_content td, th {
+    border: solid 1px #000000;
+}
+#view_html_content td {
+    vertical-align: top
+}
+#view_html_content td {
+    max-width: 30em;
+    overflow: auto;
+}
+#view_html_content tr:nth-child(odd) {
+    background-color: #bbbbbb;
+}
+#view_html_content tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+
 
 /*------------------------------------------------ content */
 
@@ -511,7 +548,8 @@ dd { margin: 0.6em 0 2em 4em; width: 33em; }
     { background-image: url(../images/navimg/status-icons-succeed.png);}
     /* Alert */
     .icon_requires_admin,	
-    .icon_waiting_response_overdue
+    .icon_waiting_response_overdue,
+    .icon_waiting_response_very_overdue
     { background-image: url(../images/navimg/status-icons-attn.png);}
     /* Postal */
     .icon_gone_postal
@@ -1046,4 +1084,28 @@ div.act_link img {
 	margin: 0 0 2em 2em;
 	font-size: 0.8em;
 }
+
+/*------------------------------------------------ request details */
+
+#request_details table {
+    border-collapse: collapse;
+    margin-bottom: 1em;
+}
+#request_details td, th {
+    border: solid 1px #000000;
+}
+#request_details td {
+    vertical-align: top
+}
+#request_details td {
+    max-width: 30em;
+    overflow: auto;
+}
+#request_details tr.odd {
+    background-color: #bbbbbb;
+}
+#request_details tr.even {
+    background-color: #dddddd;
+}
+
 

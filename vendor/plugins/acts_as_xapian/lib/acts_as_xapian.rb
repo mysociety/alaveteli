@@ -142,6 +142,7 @@ module ActsAsXapian
 
         @@stopper = Xapian::SimpleStopper.new
         @@stopper.add("and")
+        @@stopper.add("of")
         @@stopper.add("&")
         @@query_parser.stopper = @@stopper
 
@@ -166,7 +167,11 @@ module ActsAsXapian
                   raise "Z is reserved for stemming terms" if term[1] == "Z"
                   raise "Already have code '" + term[1] + "' in another model but with different prefix '" + @@terms_by_capital[term[1]] + "'" if @@terms_by_capital.include?(term[1]) && @@terms_by_capital[term[1]] != term[2]
                   @@terms_by_capital[term[1]] = term[2]
-                  @@query_parser.add_prefix(term[2], term[1])
+                  # XXX use boolean here so doesn't stem our URL names in WhatDoTheyKnow
+                  # If making acts_as_xapian generic, would really need to make the :terms have
+                  # another option that lets people choose non-boolean for terms that need it
+                  # (i.e. searching explicitly within a free text field)
+                  @@query_parser.add_boolean_prefix(term[2], term[1]) 
               end
             end
             if options[:values]
@@ -507,10 +512,10 @@ module ActsAsXapian
     class ActsAsXapianJob < ActiveRecord::Base
     end
 
-    # Update index with any changes needed, call this offline. Only call it
+    # Update index with any changes needed, call this offline. Usually call it
     # from a script that exits - otherwise Xapian's writable database won't
-    # flush your changes. Specifying flush will reduce performance, but 
-    # make sure that each index update is definitely saved to disk before
+    # flush your changes. Specifying flush will reduce performance, but make
+    # sure that each index update is definitely saved to disk before
     # logging in the database that it has been.
     def ActsAsXapian.update_index(flush = false, verbose = false)
         # STDOUT.puts("start of ActsAsXapian.update_index") if verbose
@@ -594,24 +599,43 @@ module ActsAsXapian
             raise "found existing " + new_path + " which is not Xapian flint database, please delete for me" if not File.exist?(File.join(new_path, "iamflint"))
             FileUtils.rm_r(new_path)
         end
-        ActsAsXapian.writable_init(".new")
 
         # Index everything 
         batch_size = 1000
         for model_class in model_classes
-          model_class.transaction do
-            0.step(model_class.count, batch_size) do |i|
-              STDOUT.puts("ActsAsXapian: New batch. From #{i} to #{i + batch_size}") if verbose
-              models = model_class.find(:all, :limit => batch_size, :offset => i, :order => :id)
-              for model in models
-                STDOUT.puts("ActsAsXapian.rebuild_index #{model_class} #{model.id}") if verbose
-                model.xapian_index
+            model_class_count = model_class.count
+            0.step(model_class_count, batch_size) do |i|
+              # We fork here, so each batch is run in a different process. This is
+              # because otherwise we get a memory "leak" and you can't rebuild very
+              # large databases (however long you have!)
+              pid = Process.fork # XXX this will only work on Unix, tough
+              if pid
+                    Process.waitpid(pid)
+                    if not $?.success?
+                        raise "batch fork child failed, exiting also"
+                    end
+                    # database connection doesn't survive a fork, rebuild it
+                    ActiveRecord::Base.connection.reconnect!
+              else
+                    # fully reopen the database each time (with a new object)
+                    # (so doc ids and so on aren't preserved across the fork)
+                    ActsAsXapian.writable_init(".new")
+                    STDOUT.puts("ActsAsXapian.rebuild_index: New batch. #{model_class.to_s} from #{i} to #{i + batch_size} of #{model_class_count} pid #{Process.pid.to_s}") if verbose
+                    models = model_class.find(:all, :limit => batch_size, :offset => i, :order => :id)
+                    for model in models
+                      STDOUT.puts("ActsAsXapian.rebuild_index      #{model_class} #{model.id}") if verbose
+                      model.xapian_index
+                    end
+                    # make sure everything is written
+                    ActsAsXapian.writable_db.flush
+                    # database connection won't survive a fork, so shut it down
+                    ActiveRecord::Base.connection.disconnect!
+                    # brutal exit, so other shutdown code not run (for speed and safety)
+                    Kernel.exit! 0
               end
+
             end
-          end
         end
-        
-        ActsAsXapian.writable_db.flush
 
         # Rename into place
         old_path = ActsAsXapian.db_path
@@ -683,8 +707,7 @@ module ActsAsXapian
             doc.add_term("I" + doc.data)
             if self.xapian_options[:terms]
               for term in self.xapian_options[:terms]
-                  ActsAsXapian.term_generator.increase_termpos # stop phrases spanning different text fields
-                  ActsAsXapian.term_generator.index_text(xapian_value(term[0]), 1, term[1])
+                  doc.add_term(term[1] + xapian_value(term[0]))
               end
             end
             if self.xapian_options[:values]

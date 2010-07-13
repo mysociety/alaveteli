@@ -1,13 +1,79 @@
-Segmentation fault:
-IncomingMessage.find(24705).info_equest_events[0].search_text_main(true)
+Next (things that will reduce admin time mainly)
+====
 
-s = IncomingMessage.find(2); text = s.get_main_body_text_internal; s.cached_main_body_text = text; s.save!
+Merge with New Zealand code base properly
+
+Handle bounce messages from alerts automatically
+
+Make outgoing requests and follow ups get CCed to our backup mailbox, so that
+can do data recovery more easily
+
+Make it so when you make followups the whole request is shown on the page.
+Remove all show_response URLs, and replace with a special version of the
+request URL with a new input box at the bottom and a hash link to it?
+<< when following links such as "I'm about to send clarification", a
+form appears into which the reply can be typed. However, the
+previous correspondence in that thread is not shown.
+I usually open a new tab to see what was written previously before
+writing in the form. It might be useful if the previous
+correspondence were instead shown on the page in which the form
+appears. >>
+
+Word doc conversion never works for Lisa, maybe use more software to try 
+to convert her docs.
+
+Finish profile photo - maybe use Gravatar, but opt in for existing users?
+
+Ask people for annotation immediately after they have submitted their request
+Ask for annotation about what they learnt from request?
+
+Admin button to resend request one off to particular address
+
+Private request premium feature
+http://www.activemerchant.org/
+
+Froze during reindex, is the doc files inside the .zip here:
+    http://www.whatdotheyknow.com/request/last_collection_times#incoming-8405
+    ActsAsXapian.rebuild_index      InfoRequestEvent 16061
+    foi      23175  0.0  0.0   5176  1472 pts/1    S+   14:16   0:00 /bin/sh /usr/bin/wvText /tmp/foiextract20100619-20578-1gcbuqz-0 /tmp/foiextract20100619-20578-1gcbuqz-0.txt
+    foi      23180  0.0  0.0   4664  1220 pts/1    S+   14:16   0:00 /bin/sh /usr/bin/wvHtml -1 /tmp/foiextract20100619-20578-1gcbuqz-0 --targetdir=/tmp wv-XeJwGT
+Also freezes Abiword, but not catdoc
 
 
-overdue
-date_response_required_by
-waiting_response_overdue => waiting_response_slow, waiting_response_overdue
+Performance
+===========
 
+Enable Directory Indexing, and disable atime (@glynwintle suggests)
+http://www.softpanorama.org/Internals/Filesystems/linux_ext2_ext3.shtml 
+(as/if we have caches with lots of files in a direcory)
+
+test if get_attachments_for_display called multiple times in one request?
+
+Some requests to lower memory use of still:
+PID: 676    CONSUME MEMORY: 16968 KB    Now: 102604 KB  http://www.whatdotheyknow.com/request/parking_ticket_data_81
+PID: 2036       CONSUME MEMORY: 129368 KB       Now: 179652 KB  http://www.whatdotheyknow.com/request/14186/response/33740
+- search engines shouldn't be going for those URLs. and do they really need to
+  unpack so much? could use snippet cache.
+
+Page cacheing - the cookie setting stops the expires_on caching working well,
+as even when not logged in second page you go to isnt serverd from Squid cache.
+
+Things to make bots not crawl somehow:
+    /request/13683/response?internal_review=1
+    /request/febrile_neutropenia_154?unfold=1
+
+cached_main_body_text could store the privacy censored versions now, since
+cached_attachment_text_clipped does (and clears it when censor rules are edited)
+
+Renaming of a body, or changing its domain, should clear the cached bubbles of
+all requests to that body.
+
+
+Letting you hide individual events (incoming/outgoing messages, annotations)
+==================================
+
+*** this needs either removing or finishing, it is half done. Has the
+database entries but doesn't use them yet.
 
 Move comments to use new system first
 Show message to signed in user that others can't see this part
@@ -16,50 +82,19 @@ Make sure hidden things don't show in search snippets
 Remove comments visible
 
 
-Finish profile photo
+Later
+=====
 
+check-recent-requests-sent probably doesn't work, as exim log lines wouldn't
+be load in case where the envelope from gets broken?
 
-test if get_attachments_for_display called multiple times in one request?
+Point all MX records to one server, so can see incoming messages in exim logs also.
+Hmmm, but less robust. Run the exim log grabber across all mail servers?
 
-sending an email alert for this query takes crazy long
-    query = 'variety:response (status:successful OR status:partially_successful)'
-something to do with the way event_digest loops with lots of responses?
-
-Some requests to lower memory use of still:
-PID: 676    CONSUME MEMORY: 16968 KB    Now: 102604 KB  http://www.whatdotheyknow.com/request/parking_ticket_data_81
-PID: 2036       CONSUME MEMORY: 129368 KB       Now: 179652 KB  http://www.whatdotheyknow.com/request/14186/response/33740
-- search engines shouldn't be going for those URLs. and do they really need to
-  unpack so much? could use snippet cache.
-
-
-
-Next (things that will reduce admin time mainly)
-====
-
-Ask people for annotation immediately after they have submitted their request
-Ask for annotation about what they learnt from request?
-
-Have proper house rules / site terms and conditions page.
-Perhaps borrow from these house rules:
-    http://www.theyworkforyou.com/houserules/
-
-Lots of authorities are starting to complain about how their record looks on
-their page - e.g responses not classified by users. That users may classify
-incorrectly. Change wording to make it clear statuses are users opinion ?.
-* Meanwhile mention in help that authorities can do this
-* And ask that they include URL of requests in emails when talking about them
-
-Finish up the request game, and market it a bit more.
-    * Or you can do it yourself (if you are not logged in and request isn't classified)
-    * Market it from every request that isn't categorised
-      (and when you categorise one)
-Check up on how the public old request status editing is being used in 
-practice. Think about UI a bit more to try and up rate, and UI of alerts to
-requester.
-Offer user_withdrawn as option in many GUI?
-
-Put the request from address in the database, 
-    XXX not so sure about that, as need fuzzy rule for matching/guessing according to type
+XXX Not sure all this matters really, requests seems to be getting through better these days?
+Make request addresses easier to type in again, and routing work better:
+* Put the request from address in the database, 
+    XXX make sure it knows the type, as need fuzzy rule for matching/guessing according to type
 then change the rule for making it.
 * Change holding pen to lookup hash e.g. 1bd8ea of the request address in database
  (so gives good guess it the hash is right, but the number is wrong)
@@ -69,7 +104,6 @@ julian.todd@section44.whatdotheyknow.com
 * Use words from a dictionary, e.g. cat, mouse, rat, hat etc.
 * Use single words from the request, e.g. section, terrorism, allotment
 * Make sure avoid FROM_ENDS_IN_NUMS rule in Spam Assassin
-* Identify authority by who it is from.
 * It looks like an error generated by GFI MailEssentials, see p62 of chapter
     11 of the manual at http://www.gfi.com/mes/me11manual.pdf which states:
     7. Check if emails contain more than X numbers in the MIME from:
@@ -78,27 +112,31 @@ julian.todd@section44.whatdotheyknow.com
     automatically create reply-to: addresses on hotmail and other free email
     services. Frequently they use 3 or more numbers in the name to make sure
     the reply-to: is unique.
-* People seem to have trouble typing in the request address again
 * Use FOI code allocated by authority to work out where emails are to go
 * Second request to same authority by same person - tell them to be sure
 to use the right email
 * Improve routing from Exim so copes with addresses not having request- prefix.
 
-check-recent-requests-sent probably doesn't work, as exim log lines wouldn't
-be load in case where the envelope from gets broken?
+When on a small screen, the actual form when making a new request is below
+the fold, and it isn't obvious what you need to do. (Seen while watching 
+a new user try to make a request)
 
-Admin button to resend request one off to particular address
+Put public body name in search text for each info request, so that people
+typing in a word and a body name in the search (have seen people new
+to the site doing that) do find things
+
+Completely remove the "feed" option from tracks
+
+Show the Subject: lines on request pages. Perhaps only show them where they are
+substantively different (modulo Re: and Fwd:) from the title and other subjects
+- so you can see any FOI code number the authority has put in the subject.
+
+For Scotland, don't need to say "normally" equivocally when it is taking more than 20 days
+(as there is no public interest test).
 
 Add explicit option for user to select "misdelivered to the wrong request"
 and let people move them to the right place.
 (Julian wants that too)
-
-
-Later
-=====
-
-Give authorities interface for editing their request email address
-and resend messages to them
 
 Perhaps fold up request pages more by default - don't show known acknowledgements until
 you click and some (javascript) expands them.
@@ -108,30 +146,6 @@ Esp. when filling in a form on the same page.
 
 Somehow make clear that a "rejection because referring to info already
 in public domain" should really be marked sucessful.
-
-Install more recent poppler-utils
-    e.g. 0.12.0 can definitely convert this to HTML, extacting the images:
-    http://www.whatdotheyknow.com/request/13903/response/36117/attach/html/4/FOI%20beaver%20site%20species%20audit%20SNH%20review%20of%20proposal%20redact.pdf.html
-Really need a "pdftk -nodrm" to remove compression from encrypted PDFs, so strips emails from e.g.:
-    http://www.whatdotheyknow.com/request/14414/response/38590/attach/html/3/090807%20FOI.pdf.html
-    ... this misses a whole page out (someone emailed us)
-    http://www.whatdotheyknow.com/request/unredacted_expense_claims_for_jo#incoming-49674
-
-cached_main_body_text could store the privacy censored versions now, since
-cached_attachment_text_clipped does (and clears it when censor rules are edited)
-
-Things to make bots not crawl somehow:
-    /request/13683/response?internal_review=1
-    /request/febrile_neutropenia_154?unfold=1
-
-Maybe don't email you in alert subscriptions about annotations you made on
-other people's requests?
-
-Renaming of a body, or changing its domain, should clear the cached bubbles of
-all requests to that body.
-
-Page cacheing - the cookie setting stops the expires_on caching working well,
-as even when not logged in second page you go to isnt serverd from Squid cache.
 
 Emails sent to stopped requests should follow RFC: http://tools.ietf.org/html/rfc3834
     Shouldn't bounce message back to Auto-Submitted 
@@ -150,39 +164,14 @@ For followups, have radio button to say is it a new request or followup
 Do by uncommenting the "new information" option when writing a followup, so
 that it makes a new request
 
-Point all MX records to one server, so can see incoming messages in exim logs also.
-Hmmm, but less robust. Run the exim log grabber across all mail servers?
-
-Links to "a response" from timeline aren't to right page any more.
-
-Change it to store emails as files in the filesystem? For speed.
-Should have simpler system for us to upload files sent to us via CD etc.
-Currently we have to manually put them in the files directory on the vhost.
-Make it so web upload interface copes gracefully with arbitarily large messages
-(it causes speed trouble having them in the database right now)
-
-Remove all show_response URLs, and replace with a special version of the
-request URL with a new input box at the bottom and a hash link to it?
-<< when following links such as "I'm about to send clarification", a
-form appears into which the reply can be typed. However, the
-previous correspondence in that thread is not shown.
-I usually open a new tab to see what was written previously before
-writing in the form. It might be useful if the previous
-correspondence were instead shown on the page in which the form
-appears. >>
-
 When it prompts error_message people to send annotation, maybe just show them
 the email address of the error to check then and there?
-
-Should really make replies munge subject of last response, rather than start
-afresh with subject - authorities use FOI code in subject as here:
-http://www.whatdotheyknow.com/request/causes_of_the_financial_crisis#incoming-12779
 
 If you've already conducted an internal review, at all places 
     - when on unhappy/url
     - when on not held link
     - on the page for the request
-don't offer it again.
+don't offer it again, as they've already done it.
 Example of completed review:
 http://www.whatdotheyknow.com/request/request_for_full_disclosure_of_b#incoming-9267
 
@@ -205,18 +194,9 @@ Sort requests on user page by status.
     in order of 'last action'... to quickly see what was most overdue."
 Group list on user page by authority 
 
-Make search know about uncategorised requests and timed out requests. 
-And make search able to do *current* status in general as operator.
-
 I have several email alerts set up. Is there any chance they could include part
 (or, preferably, all) of the search criterion in the Subject: line? :o)
 (Perhaps do it in the case when only one search criterion makes the mail)
-
-Test data dumper that removes sensitive data, but lets trusted people play with
-whole database on their own machine without risk of compromise (for Tony)
-- can avoid rebuilding emails, attachments etc. sanitized provided we don't
-mind leaking out email address ot requests etc. to the trusted person (in contrast
-can easily totally remove private emails in the user table)
 
 Search for text "internal review" in followups and add warning if they aren't
 using the internal review mode.
@@ -235,7 +215,6 @@ CSS / design things
             but some magic Ruby thing is printing the error span.
     - Improve CSS on IE7 for large images in docs
         http://www.whatdotheyknow.com/request/3289/response/7810/attach/html/3/20081023ReplyLetter.pdf.html
-    - favicon.ico would be nice
     - Get Atom feed of search results to include stylesheet for highlighting words in
       yellow somehow
 
@@ -243,17 +222,12 @@ When doing search, people often just want it to show the whole page. Perhaps
 all listing should just link to top of page, rather than # links for outgoing
 incoming, or perhaps just some of them.
 
-Help page improvements:
-    Needs to say somewhere in flow that you can make a request privately (I think quite a 
-       few people get to us via Google and don't realise that they can)
-    Add "Who should I make my request to?" - make flow better after first section, to abrupt now
-    Some more traditional help such as:
-        * Information about how to track requests and RSS feeds 
-        * Information about how to contacting other users
+Some more traditional help (in a new section in the help) such as:
+    * Information about how to track requests and RSS feeds 
+    * Information about how to contacting other users
 
 Show similar requests after you have filed yours - maybe on preview too.
 
-Test code for FOI officer upload
 Test code for rendering lots of different attachments and filetypes
 Test code for internal review submitting
 
@@ -265,32 +239,46 @@ Protect from CSRF with this in app controller (care it doesn't break anything):
 Look at quote_address_if_necessary in actionmailer's quoting.rb - why did it
 not work for the email address with "@" in its name part?
 
-From an email, isn't stripping spaces right.
-    "Met Office  sent a response to Andrew Montford (14 August 2008)"
-Also should group by the request id for search queries (so all appear
+Should group by the request id for search queries (so all appear
 together when request and response mention same term)
 
 Something to check which tags are used but aren't in PublicBody category lists
 
-Compress the emails in the database
-Don't store the cached text in backups
+Change it to store emails as files in the filesystem? For speed of backup if nothing else.
+Should have simpler system for us to upload files sent to us via CD etc.
+Currently we have to manually put them in the files directory on the vhost.
+Make it so web upload interface copes gracefully with arbitarily large messages
+(it causes speed trouble having them in the database right now)
 
-Edits to outgoing/incoming/title won't be reindexed in Xapian (maybe just reindex all once a week)
-    And maybe edits to prominence, which is more upsetting
-    Never updates cached attachment text unless cache is explicitly cleared (which
-    might matter with software updates, or code changes)
-This does it all:
-$ ./script/clear-incoming-text-cache ; ./script/rebuild-xapian-index
-(clear-incoming-text-cache needs renaming to make it clearer it does clear the disk cache too,
-and that code testing)
+Compress the emails in the database
+Don't store the cached text in backups - maybe keep it in its own table to avoid that?
+
+Other references to title field changes don't get search index updated when title is altered
+    (e.g. when a public body is renamed)
+Maybe just reindex all once a week, but it is a bit slow now, so perhaps do it properly.
+$ ./script/rebuild-xapian-index
 
 Renaming public authorities will break alerts on them. For basic alerts the
 structured info is there so this should just be fixed. For searches, perhaps
 Xapian index should search url_name history as well?
+We have a policy of not renaming them in some cases, which helps a bit.
+
+Never updates cached attachment text unless cache is explicitly cleared (which
+    might matter with software updates, or code changes). Should we clear the
+    cache automatically every month in the middle of the night or something?
+$ ./script/clear-caches
 
 
 Display and indexing of response emails/attachments
 ---------------------------------------------------
+
+Install more recent poppler-utils
+    e.g. 0.12.0 can definitely convert this to HTML, extacting the images:
+    http://www.whatdotheyknow.com/request/13903/response/36117/attach/html/4/FOI%20beaver%20site%20species%20audit%20SNH%20review%20of%20proposal%20redact.pdf.html
+Really need a "pdftk -nodrm" to remove compression from encrypted PDFs, so strips emails from e.g.:
+    http://www.whatdotheyknow.com/request/14414/response/38590/attach/html/3/090807%20FOI.pdf.html
+    ... this misses a whole page out (someone emailed us)
+    http://www.whatdotheyknow.com/request/unredacted_expense_claims_for_jo#incoming-49674
 
 Failed to detect attachments are emails and decode them:
     http://www.whatdotheyknow.com/request/malicious_communication_act#incoming-12964
@@ -304,28 +292,19 @@ http://www.whatdotheyknow.com/request/19976/response/51468/attach/3/TU%20Members
 Search for "OIC" for some more examples
 
 Worth doing View as HTML for .docx probably
+View as HTML for .txt requested
 
 VSD files vsdump - example in zip file
     http://www.whatdotheyknow.com/request/dog_control_orders#incoming-3510
     doing file RESPONSE/Internal documents/Briefing with Contact Islington/Contact Islington Flowchart Jul 08.vsd content type 
-Use Ruby msg
-    http://code.google.com/p/ruby-msg/
-To decode Outlook .msg (.oft?) files, e.g.
-    http://www.whatdotheyknow.com/request/immediate_response_team_deployme
-    http://www.whatdotheyknow.com/request/chinese_names_for_british_politi
 
 Search for other file extensions that we have now and look for ones we could
 and should be indexing
     (call IncomingMessage.find_all_unknown_mime_types to find them - needs
     updating to do it in clumps as all requests won't load in RAM now )
 
-Make tables prettier in view as HTML, just normal thick borders.
-http://www.whatdotheyknow.com/request/1610/response/8093/attach/html/3/2008.10.29%20Reply.doc.html
-
 Render HTML alternative rather than text (so tables look good) e.g.:
     http://www.whatdotheyknow.com/request/parking_policy
-And indeed so links work:
-    http://www.whatdotheyknow.com/request/recycling_levels_in_the_winchest
 
 Make HTML attachments have view as HTML :)
 http://www.whatdotheyknow.com/request/enforced_medication#incoming-7395
@@ -342,6 +321,9 @@ Orientation wrong:
     http://www.whatdotheyknow.com/request/3153/response/7726/attach/html/2/258850.pdf.html
 Bug in wvHtml, segfaults when converting this:
     http://www.whatdotheyknow.com/request/subject_access_request_guide_sar#incoming-10242
+
+Images aren't coming out here
+    http://www.whatdotheyknow.com/request/33682/response/83455/attach/html/3/100428%20Reply%201519%2010.doc.html
 
 Doesn't detect doc type of a few garbage results in this list right:
     http://www.whatdotheyknow.com/search/UWE
@@ -407,6 +389,9 @@ Quoting fixing TODO:
 
     http://www.whatdotheyknow.com/request/independent_psychological_assess#incoming-52956 # shows text as attachment when could be inline due to multipart nature?
 
+    http://www.whatdotheyknow.com/request/bnp_membership_list_43#incoming-59204 # not detecting original message
+    http://www.whatdotheyknow.com/request/maximum_pedestrian_crossing_wait#incoming-34094 # not detecting original message
+
 
 Display pasted quotes in annotations better:
     http://www.whatdotheyknow.com/request/scientology_incidents#comment-3352
@@ -414,6 +399,28 @@ Display pasted quotes in annotations better:
 
 Totally new features
 --------------------
+
+Tag your own requests so you can keep track of them more easily (Lisa asked for
+this - is definitely only whole requests needed)
+
+Scribd embedded version of documents
+
+Read reply - ask for exchange read receipts, and show if mail was read.
+
+Telephone numbers. Add advice in workflow to call authority first to check
+form they have info in. Store telephone numbers in database.
+
+Give authorities interface for editing their request email address
+and resend messages to them
+
+Make search know about uncategorised requests and timed out requests. 
+And make search able to do *current* status in general as operator.
+
+Test data dumper that removes sensitive data, but lets trusted people play with
+whole database on their own machine without risk of compromise (for Tony)
+- can avoid rebuilding emails, attachments etc. sanitized provided we don't
+mind leaking out email address ot requests etc. to the trusted person (in contrast
+can easily totally remove private emails in the user table)
 
 Have an interface for users to be able to suggest new authorities and give
 their email address (perhaps just have admins validate / approve it)
@@ -428,12 +435,16 @@ Add tips on using the law, e.g.:
   their policy is, and hwo they are implementing it. Ask national things what
   odcuments set local policies.
 
+Add note by any exemption to the page on FOI Wiki Add note on mention of
+"Re-Use of Public Sector Information Regulations 2005"
+to the appropriate FAQ.
+
 Hyperlink Section 1(3) to the act
     http://www.whatdotheyknow.com/request/university_investment_in_the_arm#incoming-86
 and to guidance notes
     http://www.ico.gov.uk/what_we_cover/freedom_of_information/guidance.aspx
 
-Jump to a random request :)
+Link to /random jump to a random request somewhere
 
 Do conversion tracking on endpoints in WDTK, advertise perhaps TWFY, or perhaps
     donations to mySociety.
@@ -450,19 +461,6 @@ Make text boxes autogrow as you type into them.
 (10:32:52) Matthew: their function is called autogrow_textarea() by the way, if you just want to look at it...
  thanks :) I won't do it now as there are more important things, I was just accidentally impressed
 
-Set arbitary alarms, to be alerted when a date set by authority for themselves
-is passed.
-
-Antispam on contact form (a recaptcha presumably, as we have them elsewhere)
-
-Find a way to get corrected email addresses from responses - somehow getting
-user to send them in?  "For future FOI requests please email ..."
-e.g. as in http://www.whatdotheyknow.com/request/cost_of_council_website_17#incoming-1870
-we found largely by accident.
-
-Rate limit requests using Ratty, with a freeze thing WTT-style, to detect
-vexatious requests.
-
 Editable user profile, including photo upload
 
 .tif files are hard for people to view as multi page, consider automatically
@@ -470,17 +468,12 @@ separating out the pages as separate links (to .png files or whatever)
     http://www.whatdotheyknow.com/request/windsor_maidenhead_council_commo#incoming-1910
 Heck, may as well give thumbnails of all images, indeed all docs while you're at it :)
 
-In "view as HTML" let people highlight paragraphs, and link to them 
-(like Julian's UN PDF highlighting thing)
-
 Add geographical location of councils, PCTs etc.
 Have a single button to sign up to alerts on authorities for your postcode
 NHS postcode database: 
     http://www.ons.gov.uk/about-statistics/geography/products/geog-products-postcode/nhspd/index.html
 
-Make request preview have a URL so you can show it to someone else before
-sending it :)
-
+Make request preview have a URL so you can show it to someone else before sending it :)
 Proposed request submission queue with comments - new requests don't get sent straight
     away, but are delayed while people help improve them.
 
@@ -489,6 +482,7 @@ http://www.ico.gov.uk/Home/tools_and_resources/decision_notices.aspx
 
 Description for each body as to what info it holds
 Link to:
+    Company number
     Aliases (not just short name, but multiple real names e.g. for museums)
     Disclosure logs
     Publication schemes (http://www.ico.gov.uk/what_we_cover/freedom_of_information/publication_schemes.aspx)

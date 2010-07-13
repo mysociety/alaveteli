@@ -73,7 +73,7 @@ class OutgoingMailer < ApplicationMailer
         if outgoing_message.what_doing == 'internal_review'
             return "Internal review of " + info_request.email_subject_request
         else
-            return info_request.email_subject_followup 
+            return info_request.email_subject_followup(outgoing_message.incoming_message_followup)
         end
     end
     # Whether we have a valid email address for a followup

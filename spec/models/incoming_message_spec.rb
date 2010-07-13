@@ -109,7 +109,7 @@ describe IncomingMessage, " checking validity to reply to" do
 end
 
 describe IncomingMessage, " when censoring data" do
-    fixtures :incoming_messages, :raw_emails
+    fixtures :incoming_messages, :raw_emails, :public_bodies, :info_requests
 
     before do
         @test_data = "There was a mouse called Stilton, he wished that he was blue."
@@ -157,6 +157,9 @@ describe IncomingMessage, " when censoring data" do
         data.should == "His email was x\000x\000x\000@\000x\000x\000x\000.\000x\000x\000x\000, indeed"
     end
 
+    # As at March 9th 2010: This test fails with pdftk 1.41+dfsg-1 installed
+    # which is in Ubuntu Karmic. It works again for the lasest version
+    # 1.41+dfsg-7 in Debian unstable. And it works for Debian stable.
     it "should replace everything in PDF files" do
         orig_pdf = load_file_fixture('tfl.pdf')
         pdf = orig_pdf.dup
@@ -169,6 +172,13 @@ describe IncomingMessage, " when censoring data" do
         masked_text = IncomingMessage._get_attachment_text_internal_one_file('application/pdf', pdf)
         masked_text.should_not match(/foi@tfl.gov.uk/)
         masked_text.should match(/xxx@xxx.xxx.xx/)
+    end
+
+    it "should not produce zero length output if pdftk silently fails" do
+        orig_pdf = load_file_fixture('psni.pdf')
+        pdf = orig_pdf.dup
+        @im.binary_mask_stuff!(pdf, "application/pdf")
+        pdf.should_not == ""
     end
 
     it "should apply censor rules to HTML files" do
@@ -227,5 +237,61 @@ describe IncomingMessage, " when uudecoding bad messages" do
     end
 
 end
+
+describe IncomingMessage, "when messages are attached to messages" do
+    it "should flatten all the attachments out" do
+        mail_body = load_file_fixture('incoming-request-attach-attachments.email')
+        mail = TMail::Mail.parse(mail_body)
+        mail.base64_decode
+
+        im = IncomingMessage.new
+        im.stub!(:mail).and_return(mail)
+        ir = InfoRequest.new
+        im.info_request = ir
+
+        attachments = im.get_attachments_for_display
+        attachments.size.should == 3
+        attachments[0].display_filename.should == 'Same attachment twice.txt'
+        attachments[1].display_filename.should == 'hello.txt'
+        attachments[2].display_filename.should == 'hello.txt'
+    end
+end
+
+describe IncomingMessage, "when Outlook messages are attached to messages" do
+    it "should flatten all the attachments out" do
+        mail_body = load_file_fixture('incoming-request-oft-attachments.email')
+        mail = TMail::Mail.parse(mail_body)
+        mail.base64_decode
+
+        im = IncomingMessage.new
+        im.stub!(:mail).and_return(mail)
+        ir = InfoRequest.new
+        im.info_request = ir
+
+        attachments = im.get_attachments_for_display
+        attachments.size.should == 2
+        attachments[0].display_filename.should == 'test.html' # picks HTML rather than text by default, as likely to render better
+        attachments[1].display_filename.should == 'attach.txt'
+    end
+end
+
+describe IncomingMessage, "when TNEF attachments are attached to messages" do
+    it "should flatten all the attachments out" do
+        mail_body = load_file_fixture('incoming-request-tnef-attachments.email')
+        mail = TMail::Mail.parse(mail_body)
+        mail.base64_decode
+
+        im = IncomingMessage.new
+        im.stub!(:mail).and_return(mail)
+        ir = InfoRequest.new
+        im.info_request = ir
+
+        attachments = im.get_attachments_for_display
+        attachments.size.should == 2
+        attachments[0].display_filename.should == 'FOI 09 02976i.doc'
+        attachments[1].display_filename.should == 'FOI 09 02976iii.doc'
+    end
+end
+
 
 

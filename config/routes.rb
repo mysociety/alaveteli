@@ -37,6 +37,7 @@ ActionController::Routing::Routes.draw do |map|
         request.new_request_to_body    '/new/:public_body_id',         :action => 'new'
 
         request.show_request     '/request/:url_title', :action => 'show'
+        request.details_request     '/details/request/:url_title', :action => 'details'
         request.similar_request     '/similar/request/:url_title', :action => 'similar'
 
         request.describe_state   '/request/:id/describe', :action => 'describe_state'
@@ -55,7 +56,8 @@ ActionController::Routing::Routes.draw do |map|
         user.signin '/signin',        :action => 'signin'
         user.signup '/signup',        :action => 'signup'
         user.signout '/signout',      :action => 'signout'
-        user.signchange '/signchange',      :action => 'signchange'
+        user.signchangepassword '/signchangepassword',      :action => 'signchangepassword'
+        user.signchangeemail '/signchangeemail',      :action => 'signchangeemail'
         user.confirm '/c/:email_token', :action => 'confirm'
         user.show_user '/user/:url_name', :action => 'show'
         user.contact_user '/user/contact/:id', :action => 'contact'
@@ -66,8 +68,10 @@ ActionController::Routing::Routes.draw do |map|
     map.with_options :controller => 'public_body' do |body|
         body.list_public_bodies "/body", :action => 'list'
         body.list_public_bodies "/body/list/:tag", :action => 'list'
+        body.list_public_bodies_redirect "/local/:tag", :action => 'list_redirect'
         body.show_public_body "/body/:url_name", :action => 'show'
         body.view_public_body_email "/body/:url_name/view_email", :action => 'view_email'
+        body.all_public_bodies_csv "/body/all-authorities.csv", :action => 'list_all_csv'
     end
 
     map.with_options :controller => 'comment' do |comment|

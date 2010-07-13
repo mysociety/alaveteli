@@ -5,15 +5,19 @@
     <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => false, :location => 'sidebar' } %>
     <h2>More about this authority</h2>
     <% if !@public_body.calculated_home_page.nil? %>
-        <%= link_to "Home page", @public_body.calculated_home_page %><br>
+        <%= link_to "Home page of authority", @public_body.calculated_home_page %><br>
     <% end %>
     <% if !@public_body.publication_scheme.empty? %>
         <%= link_to "Publication scheme", @public_body.publication_scheme %><br>
     <% end %>
     <% if !@public_body.charity_number.empty? %>
-        <%= link_to "Charity overview", 'http://www.charity-commission.gov.uk/SHOWCHARITY/RegisterOfCharities/CharityFramework.aspx?RegisteredCharityNumber=' + @public_body.charity_number %><br>
+        <% if @public_body.charity_number.match(/^SC/) %>
+            <%= link_to "Charity overview", "http://www.oscr.org.uk/CharityIndexDetails.aspx?id=" + @public_body.charity_number %><br>
+        <% else %>
+            <%= link_to "Charity overview", "http://www.charity-commission.gov.uk/SHOWCHARITY/RegisterOfCharities/CharityFramework.aspx?RegisteredCharityNumber=" + @public_body.charity_number %><br>
+        <% end %>
     <% end %>
-    <%= link_to "View FOI email address", view_public_body_email_url(@public_body.url_name) %>
+    <%= link_to "View FOI email address", view_public_body_email_url(@public_body.url_name) %><br>
 </div> 
 
 <h1><%=h(@public_body.name)%></h1>
@@ -63,18 +67,18 @@
 <% if !@xapian_requests.nil? %>
     <% if @xapian_requests.results.empty? %>
         <% if @public_body.eir_only? %>
-            <h2>Environmental Information Regulations requests made</h2>
+            <h2>Environmental Information Regulations requests made using this site</h2>
             <p>Nobody has made any Environmental Information Regulations requests to <%=h(@public_body.name)%> using this site yet.</p>
         <% else %>
-            <h2>Freedom of Information requests made</h2>
+            <h2>Freedom of Information requests made using this site</h2>
             <p>Nobody has made any Freedom of Information requests to <%=h(@public_body.name)%> using this site yet.</p>
         <% end %>
     <% else %>
         <h2>
         <% if @public_body.eir_only? %>
-            <%=pluralize(@public_body.info_requests.size, "Environmental Information Regulations request") %> made
+            <%=pluralize(@public_body.info_requests.size, "Environmental Information Regulations request") %> made using this site
         <% else %>
-            <%=pluralize(@public_body.info_requests.size, "Freedom of Information request") %> made
+            <%=pluralize(@public_body.info_requests.size, "Freedom of Information request") %> made using this site
         <% end %>
         <%= @page_desc %>
         </h2>

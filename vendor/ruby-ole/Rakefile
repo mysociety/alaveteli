@@ -1,0 +1,209 @@
+require 'rake/rdoctask'
+require 'rake/testtask'
+require 'rake/packagetask'
+require 'rake/gempackagetask'
+
+require 'rbconfig'
+require 'fileutils'
+
+$:.unshift 'lib'
+
+require 'ole/storage'
+
+PKG_NAME = 'ruby-ole'
+PKG_VERSION = Ole::Storage::VERSION
+
+task :default => [:test]
+
+Rake::TestTask.new do |t|
+	t.test_files = FileList["test/test_*.rb"]
+	t.warning = true
+	t.verbose = true
+end
+
+begin
+	require 'rcov/rcovtask'
+	# NOTE: this will not do anything until you add some tests
+	desc "Create a cross-referenced code coverage report"
+	Rcov::RcovTask.new do |t|
+		t.test_files = FileList['test/test*.rb']
+		t.ruby_opts << "-Ilib" # in order to use this rcov
+		t.rcov_opts << "--xrefs"  # comment to disable cross-references
+		t.verbose = true
+	end
+rescue LoadError
+	# Rcov not available
+end
+
+Rake::RDocTask.new do |t|
+	t.rdoc_dir = 'doc'
+	t.rdoc_files.include 'lib/**/*.rb'
+	t.rdoc_files.include 'README', 'ChangeLog'
+	t.title    = "#{PKG_NAME} documentation"
+	t.options += %w[--line-numbers --inline-source --tab-width 2]
+	t.main	   = 'README'
+end
+
+spec = Gem::Specification.new do |s|
+	s.name = PKG_NAME
+	s.version = PKG_VERSION
+	s.summary = %q{Ruby OLE library.}
+	s.description = %q{A library for easy read/write access to OLE compound documents for Ruby.}
+	s.authors = ['Charles Lowe']
+	s.email = %q{aquasync@gmail.com}
+	s.homepage = %q{http://code.google.com/p/ruby-ole}
+	s.rubyforge_project = %q{ruby-ole}
+
+	s.executables = ['oletool']
+	s.files  = ['README', 'Rakefile', 'ChangeLog', 'data/propids.yaml']
+	s.files += FileList['lib/**/*.rb']
+	s.files += FileList['test/test_*.rb', 'test/*.doc']
+	s.files += FileList['test/oleWithDirs.ole', 'test/test_SummaryInformation']
+	s.files += FileList['bin/*']
+	s.test_files = FileList['test/test_*.rb']
+
+	s.has_rdoc = true
+	s.extra_rdoc_files = ['README', 'ChangeLog']
+	s.rdoc_options += [
+		'--main', 'README',
+		'--title', "#{PKG_NAME} documentation",
+		'--tab-width', '2'
+	]
+end
+
+Rake::GemPackageTask.new(spec) do |t|
+	t.gem_spec = spec
+	t.need_tar = true
+	t.need_zip = false
+	t.package_dir = 'build'
+end
+
+desc 'Run various benchmarks'
+task :benchmark do
+	require 'benchmark'
+	require 'tempfile'
+	require 'ole/file_system'
+
+	# should probably add some read benchmarks too
+	def write_benchmark opts={}
+		files, size = opts[:files], opts[:size]
+		block_size = opts[:block_size] || 100_000
+		block = 0.chr * block_size
+		blocks, remaining = size.divmod block_size
+		remaining = 0.chr * remaining
+		Tempfile.open 'ole_storage_benchmark' do |temp|
+			Ole::Storage.open temp do |ole|
+				files.times do |i|
+					ole.file.open "file_#{i}", 'w' do |f|
+						blocks.times { f.write block }
+						f.write remaining
+					end
+				end
+			end
+		end
+	end
+
+	Benchmark.bm do |bm|
+		bm.report 'write_1mb_1x5' do
+			5.times { write_benchmark :files => 1, :size => 1_000_000 }
+		end
+
+		bm.report 'write_1mb_2x5' do
+			5.times { write_benchmark :files => 1_000, :size => 1_000 }
+		end
+	end
+end
+
+=begin
+
+1.2.1:
+
+      user     system      total        real
+write_1mb_1x5 73.920000   8.400000  82.320000 ( 91.893138)
+
+revision 17 (speed up AllocationTable#free_block by using
+@sparse attribute, and using Array#index otherwise):
+
+      user     system      total        real
+write_1mb_1x5 57.910000   6.190000  64.100000 ( 66.207993)
+write_1mb_2x5266.310000  31.750000 298.060000 (305.877203)
+
+add in extra resize_chain fix (return blocks to avoid calling
+AllocationTable#chain twice):
+
+      user     system      total        real
+write_1mb_1x5 43.140000   5.480000  48.620000 ( 51.835942)
+
+add in RangesIOResizeable fix (cache @blocks, to avoid calling
+AllocationTable#chain at all when resizing now, just pass it
+to AllocationTable#resize_chain):
+
+      user     system      total        real
+write_1mb_1x5 29.770000   5.180000  34.950000 ( 39.916747)
+
+40 seconds is still a really long time to write out 5 megs.
+of course, this is all with a 1_000 byte block size, which is
+a very small wite. upping this to 100_000 bytes:
+
+      user     system      total        real
+write_1mb_1x5  0.540000   0.130000   0.670000 (  1.051862)
+
+so it seems that that makes a massive difference. so i really
+need buffering in RangesIO if I don't want it to really hurt
+for small writes, as all the resize code is kind of expensive.
+
+one of the costly things at the moment, is RangesIO#offset_and_size,
+which is called for each write, and re-finds which range we are in.
+that should obviously be changed, to a fixed one that is invalidated
+on seeks. buffering would hide that problem to some extent, but i
+should fix it anyway.
+
+re-running the original 1.2.1 with 100_000 byte block size:
+
+      user     system      total        real
+write_1mb_1x5 15.590000   2.230000  17.820000 ( 18.704910)
+
+so there the really badly non-linear AllocationTable#resize_chain is
+being felt. 
+
+back to current working copy, running full benchmark:
+
+      user     system      total        real
+write_1mb_1x5  0.530000   0.150000   0.680000 (  0.708919)
+write_1mb_2x5227.940000  31.260000 259.200000 (270.200960)
+
+not surprisingly, the second case hasn't been helped much by the fixes
+so far, as they only really help multiple resizes and writes for a file.
+this could be pain in the new file system code - potentially searching
+through Dirent#children at creation time.
+
+to test, i'll profile creating 1_000 files, without writing anything:
+
+      user     system      total        real
+write_1mb_2x5 16.990000   1.830000  18.820000 ( 19.900568)
+
+hmmm, so thats not all of it. maybe its the initial chain calls, etc?
+writing 1 byte:
+
+      user     system      total        real
+write_1mb_1x5  0.520000   0.120000   0.640000 (  0.660638)
+write_1mb_2x5 19.810000   2.280000  22.090000 ( 22.696214)
+
+weird.
+
+100 bytes:
+
+      user     system      total        real
+write_1mb_1x5  0.560000   0.140000   0.700000 (  1.424974)
+write_1mb_2x5 22.940000   2.840000  25.780000 ( 26.556346)
+
+500 bytes:
+
+      user     system      total        real
+write_1mb_1x5  0.530000   0.150000   0.680000 (  1.139738)
+write_1mb_2x5 77.260000  10.130000  87.390000 ( 91.671086)
+
+what happens there? very strange. 
+
+=end
+

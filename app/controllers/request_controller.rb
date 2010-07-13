@@ -7,6 +7,7 @@
 # $Id: request_controller.rb,v 1.192 2009-10-19 19:26:40 francis Exp $
 
 class RequestController < ApplicationController
+    before_filter :check_read_only, :only => [ :new, :show_response, :describe_state ]
     
     def show
         # Look up by old style numeric identifiers
@@ -64,11 +65,26 @@ class RequestController < ApplicationController
         @last_response = @info_request.get_last_response
     end
 
+    # Extra info about a request, such as event history
+    def details
+        @info_request = InfoRequest.find_by_url_title(params[:url_title])
+        if !@info_request.user_can_view?(authenticated_user)
+            render :template => 'request/hidden', :status => 410 # gone
+            return
+        end
+
+        @columns = ['id', 'event_type', 'created_at', 'described_state', 'last_described_at', 'calculated_state' ]
+    end
+
     # Requests similar to this one
     def similar
         @per_page = 25
         @page = (params[:page] || "1").to_i
         @info_request = InfoRequest.find_by_url_title(params[:url_title])
+        if !@info_request.user_can_view?(authenticated_user)
+            render :template => 'request/hidden', :status => 410 # gone
+            return
+        end
         @xapian_object = ::ActsAsXapian::Similar.new([InfoRequestEvent], @info_request.info_request_events, 
             :offset => (@page - 1) * @per_page, :limit => @per_page, :collapse_by_prefix => 'request_collapse')
         
@@ -148,27 +164,27 @@ class RequestController < ApplicationController
         # First time we get to the page, just display it
         if params[:submitted_new_request].nil? || params[:reedit]
             # Read parameters in - public body must be passed in
-            if params[:public_body_id]
-                params[:info_request] = { :public_body_id => params[:public_body_id] }
+            params[:info_request] = { :public_body_id => params[:public_body_id] } if !params[:info_request]
+            if !params[:info_request][:public_body_id] 
+                redirect_to frontpage_url
+                return
             end
             @info_request = InfoRequest.new(params[:info_request])
             params[:info_request_id] = @info_request.id
+            params[:outgoing_message] = {} if !params[:outgoing_message]
+            params[:outgoing_message][:info_request] = @info_request
             @outgoing_message = OutgoingMessage.new(params[:outgoing_message])
             @outgoing_message.set_signature_name(@user.name) if !@user.nil?
             
-            if @info_request.public_body.nil?
-                redirect_to frontpage_url
-            else 
-                if @info_request.public_body.is_requestable?
-                    render :action => 'new'
+            if @info_request.public_body.is_requestable?
+                render :action => 'new'
+            else
+                if @info_request.public_body.not_requestable_reason == 'bad_contact'
+                    render :action => 'new_bad_contact'
                 else
-                    if @info_request.public_body.not_requestable_reason == 'bad_contact'
-                        render :action => 'new_bad_contact'
-                    else
-                        # if not requestable because defunct or not_apply, redirect to main page
-                        # (which doesn't link to the /new/ URL)
-                        redirect_to public_body_url(@info_request.public_body)
-                    end
+                    # if not requestable because defunct or not_apply, redirect to main page
+                    # (which doesn't link to the /new/ URL)
+                    redirect_to public_body_url(@info_request.public_body)
                 end
             end
             return
@@ -318,11 +334,14 @@ class RequestController < ApplicationController
 
         # Display advice for requester on what to do next, as appropriate
         if @info_request.calculate_status == 'waiting_response'
-            flash[:notice] = "<p>Thank you! Hopefully your wait isn't too long.</p> <p>By law, you should get a response promptly, and normally before the end of <strong>" + simple_date(@info_request.date_response_required_by) + "</strong>.</p>"
+            flash[:notice] = "<p>Thank you! Hopefully your wait isn't too long.</p> <p>By law, you should get a response promptly, and " + (@info_request.public_body.is_school? ? "in term time" : "") + " normally before the end of <strong>" + simple_date(@info_request.date_response_required_by) + "</strong>.</p>"
             redirect_to request_url(@info_request)
         elsif @info_request.calculate_status == 'waiting_response_overdue'
-            flash[:notice] = "<p>Thank you! Hope you don't have to wait much longer.</p> <p>By law, you should have got a response promptly, and normally before the end of <strong>" + simple_date(@info_request.date_response_required_by) + "</strong>.</p>"
+            flash[:notice] = "<p>Thank you! Hope you don't have to wait much longer.</p> <p>By law, you should have got a response promptly, and " + (@info_request.public_body.is_school? ? "in term time" : "") + " normally before the end of <strong>" + simple_date(@info_request.date_response_required_by) + "</strong>.</p>"
             redirect_to request_url(@info_request)
+        elsif @info_request.calculate_status == 'waiting_response_very_overdue'
+            flash[:notice] = "<p>Thank you! Your request is long overdue, by more than 40 working days. Most requests should be answered within 20 working days. You might like to complain about this, see below.</p>"
+            redirect_to unhappy_url(@info_request)
         elsif @info_request.calculate_status == 'not_held'
             flash[:notice] = "<p>Thank you! Here are some ideas on what to do next:</p>
             <ul>
@@ -337,7 +356,7 @@ class RequestController < ApplicationController
             "
             redirect_to request_url(@info_request)
         elsif @info_request.calculate_status == 'rejected'
-            flash[:notice] = "Oh no! Sorry to hear that your request was rejected. Here is what to do now."
+            flash[:notice] = "Oh no! Sorry to hear that your request was refused. Here is what to do now."
             redirect_to unhappy_url(@info_request)
         elsif @info_request.calculate_status == 'successful'
             flash[:notice] = "<p>We're glad you got all the information that you wanted. If you write about or make use of the information, please come back and add an annotation below saying what you did.</p><p>If you found WhatDoTheyKnow useful, <a href=\"http://www.mysociety.org/donate/\">make a donation</a> to the charity which runs it.</p>"
@@ -360,8 +379,8 @@ class RequestController < ApplicationController
             flash[:notice] = "Please use the form below to tell us more."
             redirect_to help_general_url(:action => 'contact')
         elsif @info_request.calculate_status == 'user_withdrawn'
-            flash[:notice] = "Thanks for letting us know that you've withdrawn your request. Please add an annotation below to let other people know why you withdrew it."
-            redirect_to request_url(@info_request)
+            flash[:notice] = "If you have not done so already, please write a message below telling the authority that you have withdrawn your request. Otherwise they will not know it has been withdrawn."
+            redirect_to respond_to_last_url(@info_request)
         else
             raise "unknown calculate_status " + @info_request.calculate_status
         end
@@ -519,7 +538,7 @@ class RequestController < ApplicationController
         # Test for hidden
         incoming_message = IncomingMessage.find(params[:incoming_message_id])
         if !incoming_message.info_request.user_can_view?(authenticated_user)
-            render :template => 'request/hidden'
+            render :template => 'request/hidden', :status => 410 # gone
         end
     end
 
@@ -527,8 +546,10 @@ class RequestController < ApplicationController
     around_filter :cache_attachments, :only => [ :get_attachment, :get_attachment_as_html ]
     def cache_attachments
         key = params.merge(:only_path => true)
-        if cached = read_fragment(key)
-        #if cached = 'zzz***zzz'
+        key_path = foi_fragment_cache_path(key)
+
+        if File.exists?(key_path)
+            cached = File.read(key_path)
             IncomingMessage # load global filename_to_mimetype XXX should move filename_to_mimetype to proper namespace
             response.content_type = filename_to_mimetype(params[:file_name].join("/")) or 'application/octet-stream'
             render_for_text(cached)
@@ -537,7 +558,14 @@ class RequestController < ApplicationController
 
         yield
 
-        write_fragment(key, response.body)
+        # write it to the fileystem ourselves, so is just a plain file. (The
+        # various fragment cache functions using Ruby Marshall to write the file
+        # which adds a header, so isnt compatible with images that have been
+        # extracted elsewhere from PDFs)
+        FileUtils.mkdir_p(File.dirname(key_path))
+        File.atomic_write(key_path) do |f|
+            f.write(response.body)
+        end
     end
 
     def get_attachment
@@ -558,14 +586,16 @@ class RequestController < ApplicationController
 
         # images made during conversion (e.g. images in PDF files) are put in the cache directory, so
         # the same cache code in cache_attachments above will display them.
-        image_dir = File.dirname(ActionController::Base.cache_store.cache_path + "/views" + url_for(params.merge(:only_path => true)))
+        key = params.merge(:only_path => true)
+        key_path = foi_fragment_cache_path(key)
+        image_dir = File.dirname(key_path)
         FileUtils.mkdir_p(image_dir)
-        html = @attachment.body_as_html(image_dir)
+        html, wrapper_id = @attachment.body_as_html(image_dir)
 
         view_html_stylesheet = render_to_string :partial => "request/view_html_stylesheet"
         html.sub!(/<head>/i, "<head>" + view_html_stylesheet)
-        html.sub!(/<body[^>]*>/i, '<body><prefix-here><div id="wrapper"><div id="view_html_content">' + view_html_stylesheet)
-        html.sub!(/<\/body[^>]*>/i, '</div></div></body>' + view_html_stylesheet)
+        html.sub!(/<body[^>]*>/i, '<body><prefix-here><div id="' + wrapper_id + '"><div id="view_html_content">')
+        html.sub!(/<\/body[^>]*>/i, '</div></div></body>')
 
         view_html_prefix = render_to_string :partial => "request/view_html_prefix"
         html.sub!("<prefix-here>", view_html_prefix)
@@ -595,6 +625,7 @@ class RequestController < ApplicationController
         raise "internal error, pre-auth filter should have caught this" if !@info_request.user_can_view?(authenticated_user)
   
         @attachment = IncomingMessage.get_attachment_by_url_part_number(@incoming_message.get_attachments_for_display, @part_number)
+        raise "attachment not found part number " + @part_number.to_s + " incoming_message " + @incoming_message.id.to_s if @attachment.nil?
 
         # check filename in URL matches that in database (use a censor rule if you want to change a filename)
         raise "please use same filename as original file has, display: '" + @attachment.display_filename + "' old_display: '" + @attachment.old_display_filename + "' original: '" + @original_filename + "'" if @attachment.display_filename != @original_filename && @attachment.old_display_filename != @original_filename
@@ -631,7 +662,7 @@ class RequestController < ApplicationController
         if params[:submitted_upload_response]
             file_name = nil
             file_content = nil
-            if params[:file_1].class.to_s == "ActionController::UploadedTempfile"
+            if !params[:file_1].nil?
                 file_name = params[:file_1].original_filename
                 file_content = params[:file_1].read
             end

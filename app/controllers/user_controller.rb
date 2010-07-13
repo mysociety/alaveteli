@@ -147,10 +147,13 @@ class UserController < ApplicationController
     end
 
     # Logout form
-    def signout
+    def _do_signout
         session[:user_id] = nil
         session[:user_circumstance] = nil
         session[:remember_me] = false
+    end
+    def signout
+        self._do_signout
         if params[:r]
             redirect_to params[:r]
         else
@@ -159,24 +162,24 @@ class UserController < ApplicationController
     end
 
     # Change password (XXX and perhaps later email) - requires email authentication
-    def signchange
+    def signchangepassword
         if @user and ((not session[:user_circumstance]) or (session[:user_circumstance] != "change_password"))
             # Not logged in via email, so send confirmation
-            params[:submitted_signchange_send_confirm] = true
-            params[:signchange] = { :email => @user.email }
+            params[:submitted_signchangepassword_send_confirm] = true
+            params[:signchangepassword] = { :email => @user.email }
         end
 
-        if params[:submitted_signchange_send_confirm]
+        if params[:submitted_signchangepassword_send_confirm]
             # They've entered the email, check it is OK and user exists
-            if not MySociety::Validate.is_valid_email(params[:signchange][:email])
+            if not MySociety::Validate.is_valid_email(params[:signchangepassword][:email])
                 flash[:error] = "That doesn't look like a valid email address. Please check you have typed it correctly."
-                render :action => 'signchange_send_confirm'
+                render :action => 'signchangepassword_send_confirm'
                 return
             end
-            user_signchange = User.find_user_by_email(params[:signchange][:email])
-            if user_signchange
-                # Send email with login link to go to signchange page
-                url = signchange_url
+            user_signchangepassword = User.find_user_by_email(params[:signchangepassword][:email])
+            if user_signchangepassword
+                # Send email with login link to go to signchangepassword page
+                url = signchangepassword_url
                 if params[:pretoken]
                     url += "?pretoken=" + params[:pretoken]
                 end
@@ -188,27 +191,27 @@ class UserController < ApplicationController
                     },
                     :circumstance => "change_password" # special login that lets you change your password
                 )
-                post_redirect.user = user_signchange
+                post_redirect.user = user_signchangepassword
                 post_redirect.save!
                 url = confirm_url(:email_token => post_redirect.email_token)
-                UserMailer.deliver_confirm_login(user_signchange, post_redirect.reason_params, url)
+                UserMailer.deliver_confirm_login(user_signchangepassword, post_redirect.reason_params, url)
             else
                 # User not found, but still show confirm page to not leak fact user exists
             end
 
-            render :action => 'signchange_confirm'
+            render :action => 'signchangepassword_confirm'
         elsif not @user
             # Not logged in, prompt for email
-            render :action => 'signchange_send_confirm'
+            render :action => 'signchangepassword_send_confirm'
         else
             # Logged in via special email change password link, so can offer form to change password
             raise "internal error" unless (session[:user_circumstance] == "change_password")
 
-            if params[:submitted_signchange_password]
+            if params[:submitted_signchangepassword_do]
                 @user.password = params[:user][:password]
                 @user.password_confirmation = params[:user][:password_confirmation]
                 if not @user.valid?
-                    render :action => 'signchange'
+                    render :action => 'signchangepassword'
                 else
                     @user.save!
                     flash[:notice] = "Your password has been changed."
@@ -220,9 +223,69 @@ class UserController < ApplicationController
                     end
                 end
             else
-                render :action => 'signchange'
+                render :action => 'signchangepassword'
             end
         end
+    end
+
+    # Change your email
+    def signchangeemail
+        if not authenticated?(
+                :web => "To change your email address used on WhatDoTheyKnow.com",
+                :email => "Then you can change your email address used on WhatDoTheyKnow.com",
+                :email_subject => "Change your email address used on WhatDoTheyKnow.com"
+            )
+            # "authenticated?" has done the redirect to signin page for us
+            return
+        end
+
+        if !params[:submitted_signchangeemail_do]
+            render :action => 'signchangeemail'
+            return
+        end
+
+        @signchangeemail = ChangeEmailValidator.new(params[:signchangeemail])
+        @signchangeemail.logged_in_user = @user
+
+        if !@signchangeemail.valid?
+            render :action => 'signchangeemail'
+            return
+        end
+
+        # if new email already in use, send email there saying what happened
+        user_alreadyexists = User.find_user_by_email(@signchangeemail.new_email)
+        if user_alreadyexists
+            UserMailer.deliver_changeemail_already_used(@user.email, @signchangeemail.new_email)
+            # it is important this screen looks the same as the one below, so
+            # you can't change to someone's email in order to tell if they are
+            # registered with that email on the site
+            render :action => 'signchangeemail_confirm'
+            return
+        end
+
+        # if not already, send a confirmation link to the new email address which logs
+        # them into the old email's user account, but with special user_circumstance
+        if (not session[:user_circumstance]) or (session[:user_circumstance] != "change_email")
+            post_redirect = PostRedirect.new(:uri => signchangeemail_url(), :post_params => params,
+                :circumstance => "change_email" # special login that lets you change your email
+            )
+            post_redirect.user = @user
+            post_redirect.save!
+
+            url = confirm_url(:email_token => post_redirect.email_token)
+            UserMailer.deliver_changeemail_confirm(@user, @signchangeemail.new_email, url)
+            # it is important this screen looks the same as the one above, so
+            # you can't change to someone's email in order to tell if they are
+            # registered with that email on the site
+            render :action => 'signchangeemail_confirm'
+            return
+        end
+
+        # circumstance is 'change_email', so can actually change the email
+        @user.email = @signchangeemail.new_email
+        @user.save!
+        flash[:notice] = "You have now changed your email address used on WhatDoTheyKnow.com"
+        redirect_to user_url(@user)
     end
 
     # Send a message to another user

@@ -110,38 +110,107 @@ describe InfoRequest do
 
         it "should cope with indexing after item is deleted" do
             rebuild_xapian_index
-            verbose = false
 
             # delete event from underneath indexing; shouldn't cause error
             info_request_events(:useless_incoming_message_event).save!
             info_request_events(:useless_incoming_message_event).destroy
-            ActsAsXapian.update_index(true, verbose)
+            update_xapian_index
         end
 
     end 
 
     describe "when calculating the status" do
-        fixtures :info_requests, :info_request_events, :holidays
+        fixtures :info_requests, :info_request_events, :holidays, :public_bodies
 
         before do
             @ir = info_requests(:naughty_chicken_request)
+        end
+
+        it "has expected sent date" do
+            @ir.last_event_forming_initial_request.outgoing_message.last_sent_at.strftime("%F").should == '2007-10-14'
         end
 
         it "has correct due date" do
             @ir.date_response_required_by.strftime("%F").should == '2007-11-09'
         end
 
-        it "isn't overdue on due date" do
+        it "has correct very overdue after date" do
+            @ir.date_very_overdue_after.strftime("%F").should == '2007-12-10'
+        end
+
+        it "isn't overdue on due date (20 working days after request sent)" do
             Time.stub!(:now).and_return(Time.utc(2007, 11, 9, 23, 59)) 
             @ir.calculate_status.should == 'waiting_response'
         end
 
-        it "is overdue a day after due date " do
-            Time.stub!(:now).and_return(Time.utc(2007, 11, 10)) 
+        it "is overdue a day after due date (20 working days after request sent)" do
+            Time.stub!(:now).and_return(Time.utc(2007, 11, 10, 00, 01)) 
             @ir.calculate_status.should == 'waiting_response_overdue'
         end
+
+        it "is still overdue 40 working days after request sent" do
+            Time.stub!(:now).and_return(Time.utc(2007, 12, 10, 23, 59)) 
+            @ir.calculate_status.should == 'waiting_response_overdue'
+        end
+
+        it "is very overdue the day after 40 working days after request sent" do
+            Time.stub!(:now).and_return(Time.utc(2007, 12, 11, 00, 01)) 
+            @ir.calculate_status.should == 'waiting_response_very_overdue'
+        end
     end
-    
+
+    describe "when calculating the status for a school" do
+        fixtures :info_requests, :info_request_events, :holidays, :public_bodies
+
+        before do
+            @ir = info_requests(:naughty_chicken_request)
+            @ir.public_body.tag_string = "school"
+            @ir.public_body.is_school?.should == true
+        end
+
+        it "has expected sent date" do
+            @ir.last_event_forming_initial_request.outgoing_message.last_sent_at.strftime("%F").should == '2007-10-14'
+        end
+
+        it "has correct due date" do
+            @ir.date_response_required_by.strftime("%F").should == '2007-11-09'
+        end
+
+        it "has correct very overdue after date" do
+            @ir.date_very_overdue_after.strftime("%F").should == '2008-01-11' # 60 working days for schools
+        end
+
+        it "isn't overdue on due date (20 working days after request sent)" do
+            Time.stub!(:now).and_return(Time.utc(2007, 11, 9, 23, 59)) 
+            @ir.calculate_status.should == 'waiting_response'
+        end
+
+        it "is overdue a day after due date (20 working days after request sent)" do
+            Time.stub!(:now).and_return(Time.utc(2007, 11, 10, 00, 01)) 
+            @ir.calculate_status.should == 'waiting_response_overdue'
+        end
+
+        it "is still overdue 40 working days after request sent" do
+            Time.stub!(:now).and_return(Time.utc(2007, 12, 10, 23, 59)) 
+            @ir.calculate_status.should == 'waiting_response_overdue'
+        end
+
+        it "is still overdue the day after 40 working days after request sent" do
+            Time.stub!(:now).and_return(Time.utc(2007, 12, 11, 00, 01)) 
+            @ir.calculate_status.should == 'waiting_response_overdue'
+        end
+
+        it "is still overdue 60 working days after request sent" do
+            Time.stub!(:now).and_return(Time.utc(2008, 01, 11, 23, 59)) 
+            @ir.calculate_status.should == 'waiting_response_overdue'
+        end
+
+        it "is very overdue the day after 60 working days after request sent" do
+            Time.stub!(:now).and_return(Time.utc(2008, 01, 12, 00, 01)) 
+            @ir.calculate_status.should == 'waiting_response_very_overdue'
+        end
+    end
+  
     describe 'when asked if a user is the owning user for this request' do 
     
         before do 

@@ -120,7 +120,15 @@ class AdminPublicBodyController < AdminController
 
     def import_csv
         if params[:csv_file]
-            if not params[:tag].empty?
+            if !params[:tag].empty?
+                if params['commit'] == 'Dry run'
+                    dry_run_only = true
+                elsif params['commit'] == 'Upload'
+                    dry_run_only = false
+                else
+                    raise "internal error, unknown button label"
+                end
+
                 # Try with dry run first
                 csv_contents = params[:csv_file].read
                 en = PublicBody.import_csv(csv_contents, params[:tag], true, admin_http_auth_user())
@@ -128,14 +136,18 @@ class AdminPublicBodyController < AdminController
                 notes = en[1]
 
                 if errors.size == 0
-                    # And if OK, with real run
-                    en = PublicBody.import_csv(csv_contents, params[:tag], false, admin_http_auth_user())
-                    errors = en[0]
-                    notes = en[1]
-                    if errors.size != 0
-                        raise "dry run mismatched real run"
+                    if dry_run_only
+                        notes.push("Dry run was successful, real run would do as above.")
+                    else
+                        # And if OK, with real run
+                        en = PublicBody.import_csv(csv_contents, params[:tag], false, admin_http_auth_user())
+                        errors = en[0]
+                        notes = en[1]
+                        if errors.size != 0
+                            raise "dry run mismatched real run"
+                        end
+                        notes.push("Import was successful.")
                     end
-                    notes.push("Import was successful.")
                 end
                 @errors = errors.join("\n")
                 @notes = notes.join("\n")

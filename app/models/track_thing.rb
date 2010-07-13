@@ -215,7 +215,7 @@ class TrackThing < ActiveRecord::Base
                     # RSS sorting - XXX hmmm, we don't really know which to use
                     # here for sorting. Might be a query term (e.g. 'cctv'), in
                     # which case newest is good, or might be something like
-                    # all rejected requests in which case want to sort by
+                    # all refused requests in which case want to sort by
                     # described (when we discover criteria is met). Rather
                     # conservatively am picking described, as that will make
                     # things appear in feed more than the should, rather than less.

@@ -1,0 +1,15 @@
+---
+# grep ' PT_' mapitags.yaml | sort -u > types.yaml
+- PT_BINARY
+- PT_BOOLEAN
+- PT_CLSID
+- PT_I8
+- PT_LONG
+- PT_MV_BINARY
+- PT_MV_LONG
+- PT_MV_TSTRING
+- PT_OBJECT
+- PT_SHORT
+- PT_STRING8
+- PT_SYSTIME
+- PT_TSTRING

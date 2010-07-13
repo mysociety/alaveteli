@@ -115,7 +115,7 @@ describe RequestMailer, " when receiving incoming mail" do
         deliveries.clear
     end
 
-    it "should dump messages to a request if marked to do so" do
+    it "should destroy the messages sent to a request if marked to do so" do
         ActionMailer::Base.deliveries.clear
         # mark request as anti-spam
         ir = info_requests(:fancy_dog_request) 
@@ -239,7 +239,7 @@ describe RequestMailer, 'when sending mail when someone has updated an old uncla
                                                 :law_used_full => 'Freedom of Information', 
                                                 :title => 'Test request', 
                                                 :public_body => @public_body, 
-                                                :display_status => 'Rejected.',
+                                                :display_status => 'Refused.',
                                                 :url_title => 'test_request')
         @mail = RequestMailer.create_old_unclassified_updated(@info_request) 
     end
@@ -249,7 +249,7 @@ describe RequestMailer, 'when sending mail when someone has updated an old uncla
     end
 
     it 'should tell them what status was picked' do 
-        @mail.body.should match(/"rejected."/)
+        @mail.body.should match(/"refused."/)
     end
 
     it 'should contain the request path' do 

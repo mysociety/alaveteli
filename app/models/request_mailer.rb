@@ -85,7 +85,25 @@ class RequestMailer < ApplicationMailer
         headers 'Return-Path' => blackhole_email, 'Reply-To' => @from, # not much we can do if the user's email is broken
                 'Auto-Submitted' => 'auto-generated' # http://tools.ietf.org/html/rfc3834
         @recipients = user.name_and_email
-        @subject = "You're overdue a response to your FOI request - " + info_request.title
+        @subject = "Delayed response to your FOI request - " + info_request.title
+        @body = { :info_request => info_request, :url => url }
+    end
+
+    # Tell the requester that the public body is very late in replying
+    def very_overdue_alert(info_request, user)
+        respond_url = respond_to_last_url(info_request) + "#followup"
+
+        post_redirect = PostRedirect.new(
+            :uri => respond_url,
+            :user_id => user.id)
+        post_redirect.save!
+        url = confirm_url(:email_token => post_redirect.email_token)
+
+        @from = contact_from_name_and_email
+        headers 'Return-Path' => blackhole_email, 'Reply-To' => @from, # not much we can do if the user's email is broken
+                'Auto-Submitted' => 'auto-generated' # http://tools.ietf.org/html/rfc3834
+        @recipients = user.name_and_email
+        @subject = "You're long overdue a response to your FOI request - " + info_request.title
         @body = { :info_request => info_request, :url => url }
     end
 
@@ -209,21 +227,35 @@ class RequestMailer < ApplicationMailer
         for info_request in info_requests
             alert_event_id = info_request.last_event_forming_initial_request.id
             # Only overdue requests
-            if info_request.calculate_status == 'waiting_response_overdue'
+            if ['waiting_response_overdue', 'waiting_response_very_overdue'].include?(info_request.calculate_status)
+                if info_request.calculate_status == 'waiting_response_overdue'
+                    alert_type = 'overdue_1'
+                elsif info_request.calculate_status == 'waiting_response_very_overdue'
+                    alert_type = 'very_overdue_1'
+                else
+                    raise "unknown request status"
+                end
+
                 # For now, just to the user who created the request
-                sent_already = UserInfoRequestSentAlert.find(:first, :conditions => [ "alert_type = 'overdue_1' and user_id = ? and info_request_id = ? and info_request_event_id = ?", info_request.user_id, info_request.id, alert_event_id])
+                sent_already = UserInfoRequestSentAlert.find(:first, :conditions => [ "alert_type = ? and user_id = ? and info_request_id = ? and info_request_event_id = ?", alert_type, info_request.user_id, info_request.id, alert_event_id])
                 if sent_already.nil?
                     # Alert not yet sent for this user, so send it
                     #STDERR.puts "sending overdue alert to info_request " + info_request.id.to_s + " user " + info_request.user_id.to_s + " event " + alert_event_id
                     store_sent = UserInfoRequestSentAlert.new
                     store_sent.info_request = info_request
                     store_sent.user = info_request.user
-                    store_sent.alert_type = 'overdue_1'
+                    store_sent.alert_type = alert_type
                     store_sent.info_request_event_id = alert_event_id
                     # Only send the alert if the user can act on it by making a followup
                     # (otherwise they are banned, and there is no point sending it)
                     if info_request.user.can_make_followup?
-                        RequestMailer.deliver_overdue_alert(info_request, info_request.user)
+                        if info_request.calculate_status == 'waiting_response_overdue'
+                            RequestMailer.deliver_overdue_alert(info_request, info_request.user)
+                        elsif info_request.calculate_status == 'waiting_response_very_overdue'
+                            RequestMailer.deliver_very_overdue_alert(info_request, info_request.user)
+                        else
+                            raise "unknown request status"
+                        end
                     end
                     store_sent.save!
                     #STDERR.puts "sent " + info_request.user.email

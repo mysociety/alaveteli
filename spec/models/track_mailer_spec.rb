@@ -48,9 +48,11 @@ describe TrackMailer do
             describe 'for each tracked thing' do 
                 
                 before do 
+                    @track_things_sent_emails_array = []
+                    @track_things_sent_emails_array.stub!(:find).and_return([]) # this is for the date range find (created in last 14 days)
                     @track_thing = mock_model(TrackThing, :track_query => 'test query', 
-                                                          :track_things_sent_emails => [], 
-                                                          :created_at => Time.utc(2007, 4, 12, 23, 59))
+                                                          :track_things_sent_emails => @track_things_sent_emails_array, 
+                                                          :created_at => Time.utc(2007, 11, 9, 23, 59))
                     TrackThing.stub!(:find).and_return([@track_thing])
                     @xapian_search = mock('xapian search', :results => [])
                     @found_event = mock_model(InfoRequestEvent, :described_at => @track_thing.created_at + 1.day)
@@ -59,13 +61,13 @@ describe TrackMailer do
                 end
                 
                 it 'should ask for the events returned by the tracking query' do 
-                    InfoRequest.should_receive(:full_search).with([InfoRequestEvent], 'test query', 'described_at', true, nil, 200, 1).and_return(@xapian_search)
+                    InfoRequest.should_receive(:full_search).with([InfoRequestEvent], 'test query', 'described_at', true, nil, 100, 1).and_return(@xapian_search)
                     TrackMailer.alert_tracks 
                 end
                 
                 it 'should not include in the email any events that the user has already been sent a tracking email about' do 
                     sent_email = mock_model(TrackThingsSentEmail, :info_request_event_id => @found_event.id)
-                    @track_thing.stub!(:track_things_sent_emails).and_return([sent_email])
+                    @track_things_sent_emails_array.stub!(:find).and_return([sent_email]) # this is for the date range find (created in last 14 days)
                     @xapian_search.stub!(:results).and_return([@search_result])
                     TrackMailer.should_not_receive(:deliver_event_digest)
                     TrackMailer.alert_tracks

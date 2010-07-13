@@ -29,6 +29,8 @@ require 'htmlentities'
 require 'rexml/document'
 require 'zip/zip'
 require 'mahoro'
+require 'mapi/msg'
+require 'mapi/convert'
 
 # Monkeypatch! Adding some extra members to store extra info in.
 module TMail
@@ -51,6 +53,9 @@ $file_extension_to_mime_type = {
     "xlsx" => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
     "ppt" => 'application/vnd.ms-powerpoint',
     "pptx" => 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+    "oft" => 'application/vnd.ms-outlook',
+    "msg" => 'application/vnd.ms-outlook',
+    "tnef" => 'application/ms-tnef',
     "tif" => 'image/tiff',
     "gif" => 'image/gif',
     "jpg" => 'image/jpeg', # XXX add jpeg
@@ -303,10 +308,54 @@ class FOIAttachment
         end
     end
 
+    # Whether this type has a "View as HTML"
+    def has_body_as_html?
+        if self.content_type == 'text/plain'
+            return true
+        elsif self.content_type == 'application/vnd.ms-word'
+            return true
+        elsif self.content_type == 'application/vnd.ms-excel'
+            return true
+        elsif self.content_type == 'application/pdf'
+            return true
+        elsif self.content_type == 'application/rtf'
+            return true
+        end
+        return false
+    end
+
+    # Name of type of attachment type - only valid for things that has_body_as_html?
+    def name_of_content_type
+        if self.content_type == 'text/plain'
+            return "Text file"
+        elsif self.content_type == 'application/vnd.ms-word'
+            return "Word document"
+        elsif self.content_type == 'application/vnd.ms-excel'
+            return "Excel spreadsheet"
+        elsif self.content_type == 'application/pdf'
+            return "PDF file"
+        elsif self.content_type == 'application/rtf'
+            return "RTF file"
+        end
+    end
+
     # For "View as HTML" of attachment
     def body_as_html(dir)
         html = nil
+        wrapper_id = "wrapper"
 
+        # simple cases, can never fail
+        if self.content_type == 'text/plain'
+            text = self.body.strip
+            text = CGI.escapeHTML(text)
+            text = MySociety::Format.make_clickable(text)
+            html = text.gsub(/\n/, '<br>')
+            return "<html><head></head><body>" + html + "</body></html>", wrapper_id
+        end
+
+        # the extractions will also produce image files, which go in the
+        # current directory, so change to the directory the function caller
+        # wants everything in
         Dir.chdir(dir) do
             tempfile = Tempfile.new('foiextract', '.')
             tempfile.print self.body
@@ -317,8 +366,20 @@ class FOIAttachment
                 system("/usr/bin/wvHtml --charset=UTF-8 " + tempfile.path + " " + tempfile.path + ".html")
                 html = File.read(tempfile.path + ".html")
                 File.unlink(tempfile.path + ".html")
+            elsif self.content_type == 'application/vnd.ms-excel'
+                # Don't colorise, e.g. otherwise this one comes out with white
+                # text which is nasty:
+                # http://www.whatdotheyknow.com/request/30485/response/74705/attach/html/2/Empty%20premises%20Sefton.xls.html
+                IO.popen("/usr/bin/xlhtml -nc -a " + tempfile.path + "", "r") do |child|
+                    html = child.read()
+                    wrapper_id = "wrapper_xlhtml"
+                end
             elsif self.content_type == 'application/pdf'
                 IO.popen("/usr/bin/pdftohtml -nodrm -zoom 1.0 -stdout -enc UTF-8 -noframes " + tempfile.path + "", "r") do |child|
+                    html = child.read()
+                end
+            elsif self.content_type == 'application/rtf'
+                IO.popen("/usr/bin/unrtf --html " + tempfile.path + "", "r") do |child|
                     html = child.read()
                 end
             else
@@ -341,30 +402,12 @@ class FOIAttachment
         body_without_tags = body.gsub(/\s+/,"").gsub(/\<[^\>]*\>/, "")
         contains_images = html.match(/<img/mi) ? true : false
         if !$?.success? || html.size == 0 || (body_without_tags.size == 0 && !contains_images)
-            return "<html><head></head><body><p>Sorry, the conversion to HTML failed. Please use the download link at the top right.</p></body></html>"
+            return "<html><head></head><body><p>Sorry, the conversion to HTML failed. Please use the download link at the top right.</p></body></html>", wrapper_id
         end
 
-        return html
+        return html, wrapper_id
     end
 
-    # Whether this type has a "View as HTML"
-    def has_body_as_html?
-        if self.content_type == 'application/vnd.ms-word'
-            return true
-        elsif self.content_type == 'application/pdf'
-            return true
-        end
-        return false
-    end
-
-    # Name of type of attachment type - only valid for things that has_body_as_html?
-    def name_of_content_type
-        if self.content_type == 'application/vnd.ms-word'
-            return "Word document"
-        elsif self.content_type == 'application/pdf'
-            return "PDF file"
-        end
-    end
 end
 
 class IncomingMessage < ActiveRecord::Base
@@ -419,20 +462,30 @@ class IncomingMessage < ActiveRecord::Base
                 _count_parts_recursive(p)
             end
         else
-            if part.content_type == 'message/rfc822'
-                # An email attached as text
-                # e.g. http://www.whatdotheyknow.com/request/64/response/102
-                begin
+            part_filename = TMail::Mail.get_part_file_name(part)
+            begin
+                if part.content_type == 'message/rfc822'
+                    # An email attached as text
+                    # e.g. http://www.whatdotheyknow.com/request/64/response/102
                     part.rfc822_attachment = TMail::Mail.parse(part.body)
-                rescue 
-                    # If attached mail doesn't parse, treat it as text part
-                    part.rfc822_attachment = nil
-                    @count_parts_count += 1
-                    part.url_part_number = @count_parts_count
-                else
+                elsif part.content_type == 'application/vnd.ms-outlook' || part_filename && filename_to_mimetype(part_filename) == 'application/vnd.ms-outlook'
+                    # An email attached as an Outlook file
+                    # e.g. http://www.whatdotheyknow.com/request/chinese_names_for_british_politi
+                    msg = Mapi::Msg.open(StringIO.new(part.body))
+                    part.rfc822_attachment = TMail::Mail.parse(msg.to_mime.to_s)
+                elsif part.content_type == 'application/ms-tnef' 
+                    # A set of attachments in a TNEF file
+                    part.rfc822_attachment = TNEF.as_tmail(part.body)
+                end
+            rescue
+                # If attached mail doesn't parse, treat it as text part
+                part.rfc822_attachment = nil
+            else
+                unless part.rfc822_attachment.nil?
                     _count_parts_recursive(part.rfc822_attachment)
                 end
-            else
+            end
+            if part.rfc822_attachment.nil?
                 @count_parts_count += 1
                 part.url_part_number = @count_parts_count
             end
@@ -486,7 +539,7 @@ class IncomingMessage < ActiveRecord::Base
                 uncompressed_text = child.read()
             end
             # if we managed to uncompress the PDF...
-            if !uncompressed_text.nil? 
+            if !uncompressed_text.nil? && !uncompressed_text.empty?
                 # then censor stuff (making a copy so can compare again in a bit)
                 censored_uncompressed_text = uncompressed_text.dup
                 self._binary_mask_stuff_internal!(censored_uncompressed_text)
@@ -499,7 +552,7 @@ class IncomingMessage < ActiveRecord::Base
                         child.close_write()
                         recompressed_text = child.read()
                     end
-                    if !recompressed_text.nil?
+                    if !recompressed_text.nil? && !recompressed_text.empty?
                         text[0..-1] = recompressed_text # [0..-1] makes it change the 'text' string in place
                     end
                 end
@@ -707,12 +760,19 @@ class IncomingMessage < ActiveRecord::Base
             if curr_mail.sub_type == 'alternative'
                 # Choose best part from alternatives
                 best_part = nil
+                # Take the last text/plain one, or else the first one
                 curr_mail.parts.each do |m|
-                    # Take the first one, or the last text/plain one
-                    # XXX - could do better!
                     if not best_part
                         best_part = m
                     elsif m.content_type == 'text/plain'
+                        best_part = m
+                    end
+                end
+                # Take an HTML one as even higher priority. (They tend
+                # to render better than text/plain, e.g. don't wrap links here:
+                # http://www.whatdotheyknow.com/request/amount_and_cost_of_freedom_of_in#incoming-72238 )
+                curr_mail.parts.each do |m|
+                    if m.content_type == 'text/html'
                         best_part = m
                     end
                 end
@@ -724,6 +784,11 @@ class IncomingMessage < ActiveRecord::Base
                 end
             end
         else
+            # XXX Yuck. this section alters various content_type's. That puts
+            # it into conflict with ensure_parts_counted which it has to be
+            # called both before and after.  It will fail with cases of
+            # attachments of attachments etc.
+
             # Don't allow nil content_types
             if curr_mail.content_type.nil?
                 curr_mail.content_type = 'application/octet-stream'
@@ -746,9 +811,16 @@ class IncomingMessage < ActiveRecord::Base
                     curr_mail.content_type = 'text/plain'
                 end
             end
+            if curr_mail.content_type == 'application/vnd.ms-outlook' || curr_mail.content_type == 'application/ms-tnef'
+                ensure_parts_counted # fills in rfc822_attachment variable
+                if curr_mail.rfc822_attachment.nil?
+                    # Attached mail didn't parse, so treat as binary
+                    curr_mail.content_type = 'application/octet-stream'
+                end
+            end
 
-            # If the part is an attachment of email in text form
-            if curr_mail.content_type == 'message/rfc822'
+            # If the part is an attachment of email
+            if curr_mail.content_type == 'message/rfc822' || curr_mail.content_type == 'application/vnd.ms-outlook' || curr_mail.content_type == 'application/ms-tnef'
                 ensure_parts_counted # fills in rfc822_attachment variable
                 leaves_found += _get_attachment_leaves_recursive(curr_mail.rfc822_attachment, curr_mail.rfc822_attachment)
             else
@@ -863,9 +935,13 @@ class IncomingMessage < ActiveRecord::Base
     def get_main_body_text_part
         leaves = get_attachment_leaves
         
-        # Find first part which is text/plain
+        # Find first part which is text/plain or text/html
+        # (We have to include HTML, as increasingly there are mail clients that
+        # include no text alternative for the main part, and we don't want to
+        # instead use the first text attachment 
+        # e.g. http://www.whatdotheyknow.com/request/list_of_public_authorties)
         leaves.each do |p|
-            if p.content_type == 'text/plain'
+            if p.content_type == 'text/plain' or p.content_type == 'text/html'
                 return p
             end
         end
@@ -898,7 +974,7 @@ class IncomingMessage < ActiveRecord::Base
         # e.g. for https://secure.mysociety.org/admin/foi/request/show_raw_email/24550
         main_part = get_main_body_text_part
         if main_part.nil?
-            return
+            return []
         end
         text = main_part.body
 
@@ -936,10 +1012,13 @@ class IncomingMessage < ActiveRecord::Base
     # Returns all attachments for use in display code
     # XXX is this called multiple times and should be cached?
     def get_attachments_for_display
-        ensure_parts_counted
-
         main_part = get_main_body_text_part
         leaves = get_attachment_leaves
+
+        # XXX we have to call ensure_parts_counted after get_attachment_leaves
+        # which is really messy.
+        ensure_parts_counted
+
         attachments = []
         for leaf in leaves
             if leaf != main_part
@@ -965,7 +1044,12 @@ class IncomingMessage < ActiveRecord::Base
                         headers = ""
                         for header in [ 'Date', 'Subject', 'From', 'To', 'Cc' ]
                             if leaf.within_rfc822_attachment.header.include?(header.downcase)
-                                headers = headers + header + ": " + leaf.within_rfc822_attachment.header[header.downcase].to_s + "\n"
+                                header_value = leaf.within_rfc822_attachment.header[header.downcase]
+                                # Example message which has a blank Date header:
+                                # http://www.whatdotheyknow.com/request/30747/response/80253/attach/html/17/Common%20Purpose%20Advisory%20Group%20Meeting%20Tuesday%202nd%20March.txt.html
+                                if !header_value.blank?
+                                    headers = headers + header + ": " + header_value.to_s + "\n"
+                                end
                             end
                         end
                         # XXX call _convert_part_body_to_text here, but need to get charset somehow
@@ -1099,11 +1183,14 @@ class IncomingMessage < ActiveRecord::Base
                     File.unlink(tempfile.path + ".txt")
                 end
             elsif content_type == 'application/rtf'
+                # catdoc on RTF prodcues less comments and extra bumf than --text option to unrtf
                 IO.popen("/usr/bin/catdoc " + tempfile.path, "r") do |child|
                     text += child.read() + "\n\n"
                 end
             elsif content_type == 'text/html'
-                IO.popen("/usr/bin/lynx -display_charset=UTF-8 -force_html -dump " + tempfile.path, "r") do |child|
+                # lynx wordwraps links in its output, which then don't get formatted properly
+                # by WhatDoTheyKnow. We use elinks instead, which doesn't do that.
+                IO.popen("/usr/bin/elinks -dump-charset utf-8 -force-html -dump " + tempfile.path, "r") do |child|
                     text += child.read() + "\n\n"
                 end
             elsif content_type == 'application/vnd.ms-excel'
@@ -1273,7 +1360,7 @@ class IncomingMessage < ActiveRecord::Base
         prefix = email
         prefix =~ /^(.*)@/
         prefix = $1
-        if !prefix.nil? && prefix.downcase.match(/^(postmaster|mailer-daemon|auto_reply|donotreply)$/)
+        if !prefix.nil? && prefix.downcase.match(/^(postmaster|mailer-daemon|auto_reply|donotreply|no-reply)$/)
             return false
         end
 

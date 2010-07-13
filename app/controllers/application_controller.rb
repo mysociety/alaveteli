@@ -40,21 +40,12 @@ class ApplicationController < ActionController::Base
     before_filter :session_remember_me
     def session_remember_me
         # Reset the "sliding window" session expiry time.
-        if session[:remember_me]
-            expire_time = 1.month.from_now
-            # "Why is session[:force_new_cookie] set to Time.now? In order for the “sliding window”
-            # concept to work, a fresh cookie must be sent with every response. Rails only
-            # sends a cookie when the session data has changed so using a value like Time.now
-            # ensures that it changes every time. What I have actually found is that some
-            # internal voodoo causes the session data to change slightly anyway but it’s best
-            # to be sure!"
-            session[:force_new_cookie] = Time.now
-        else
-            expire_time = nil
-        end
-        # if statement here is so test code runs
-        if session.instance_variable_get(:@dbman)
-            session.instance_variable_get(:@dbman).instance_variable_get(:@cookie_options)['expires'] = expire_time
+        if request.env['rack.session.options']
+          if session[:remember_me]
+              request.env['rack.session.options'][:expire_after] = 1.month
+          else
+              request.env['rack.session.options'][:expire_after] = nil
+          end
         end
     end
 
@@ -98,6 +89,27 @@ class ApplicationController < ActionController::Base
         params = controller_example_group.params_from(:get, post_redirect.local_part_uri)
         params.merge(post_redirect.post_params)
         controller_example_group.get params[:action], params
+    end
+
+    # Used to work out where to cache fragments. We add an extra path to the
+    # URL using the first three digits of the info request id, because we can't
+    # have more than 32,000 entries in one directory on an ext3 filesystem.
+    def foi_fragment_cache_part_path(param)
+        path = url_for(param)
+        id = param['id'] || param[:id]
+        first_three_digits = id.to_s()[0..2]
+        path = path.sub("/request/", "/request/" + first_three_digits + "/")
+        return path
+    end
+    def foi_fragment_cache_path(param)
+        path = foi_fragment_cache_part_path(param)
+        path = "/views" + path
+        return File.join(self.cache_store.cache_path, path)
+    end
+    def foi_fragment_cache_all_for_request(info_request)
+        first_three_digits = info_request.id.to_s()[0..2]
+        path = "views/request/#{first_three_digits}/#{info_request.id}"
+        return File.join(self.cache_store.cache_path, path)
     end
 
     private
@@ -182,6 +194,16 @@ class ApplicationController < ActionController::Base
         if session[:user_id]
             @user = authenticated_user
         end
+    end
+
+    # 
+    def check_read_only
+        read_only = MySociety::Config.get('READ_ONLY')
+        if !read_only.empty?
+            flash[:notice] = "<p>WhatDoTheyKnow is currently in maintenance. You can only view existing requests. You cannot make new ones, add followups or annotations, or otherwise change the database.</p> <p>" + read_only + "</p>"
+            redirect_to frontpage_url
+        end
+
     end
 
     # For administration interface, return display name of authenticated user

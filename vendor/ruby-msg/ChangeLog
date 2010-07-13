@@ -1,0 +1,82 @@
+== 1.4.0 / 2008-10-12
+
+- Initial simple msg test case.
+- Update TODO, stripping out all the redundant ole stuff.
+- Fix property set guids to use the new Ole::Types::Clsid type.
+- Add block form of Msg.open
+- Fix file requires for running tests individually.
+- Update pst RangesIO subclasses for changes in ruby-ole.
+- Merge initial pst reading code (converted from libpst).
+- Pretty big pst refactoring, adding initial outlook 2003 pst support.
+- Flesh out move to mapi to clean up the way pst hijacks the msg
+  classes currently.
+- Add a ChangeLog :).
+- Update README, by converting Home.wiki with wiki2rdoc converter.
+- Separate out generic mapi object code from msg code, and separate out
+  conversion code.
+- Add decent set of Mapi and Msg unit tests, approaching ~55% code coverage,
+  not including pst.
+- Add TMail note conversion alternative, to eventually allow removal of
+  custom Mime class.
+- Expose experimental pst support through renamed mapitool program.
+
+== 1.3.1 / 2007-08-21
+
+- Add fix for issue #2, and #4.
+- Move ole code to ruby-ole project, and depend on it.
+
+== 1.2.17 / 2007-05-13
+
+(This was last release before splitting out ruby-ole. subsequent bug fix
+point releases 1-3 were made directly on the gem, not reflected in the
+repository, though the fixes were also forward-ported.)
+
+- Update Ole::Storage backend, finalising api for split to separate 
+  library.
+
+== 1.2.16 / 2007-04-28
+
+- Some minor fixes to msg parser.
+- Extending RTF and body conversion support.
+- Initial look at possible wmf conversion for embedded images.
+- Add initial cli converter tool
+- Add rdoc to ole/storage, and msg/properties
+- Add streaming IO support to Ole::Storage, and use it in Msg::Properties
+- Updates to test cases
+- Add README, and update TODO
+- Convert rtf support tools in c to small ruby class.
+- Merge preliminary write support for Ole::Storage, as well as preliminary
+  filesystem api.
+
+== 1.2.13 / 2007-01-22
+
+- Nested msg support
+
+== 1.2.10 / 2007-01-21
+
+- Add initial vcard support.
+- Implement a named properties map, for vcard conversion.
+- Add orderedhash to Mime for keeping header order
+- Fix line endings in lib/mime
+- First released version
+
+== <= 1.2.9 / 2007-01-11..2007-01-19
+
+(Haven't bothered to note exact versions and dates - nothing here was released.
+can look at history of lib/msg.rb to see exact VERSION at each commit.)
+
+- Merged most of the named property work.
+- Added some test files.
+- Update svn:ignore, to exclude test messages and ole files which I can't
+  release. Need to get some clean files for use in test cases.
+  Also excluding source to the mapitags files for the moment.
+  A lot of it is not redistributable
+- Added a converter to extract embedded html in rtf. Downloaded somewhere,
+  source unknown.
+- Minor fix to ole/storage.rb, after new OleDir#type behaviour
+- Imported support.rb, replacing previously required std.rb
+- Added initial support for parsing times in Msg::Properties.
+- Imported some rtf decompression code and minor updates.
+- Cleaned up the ole class a bit
+- Fixed OleDir#data method using sb_blocks map (see POLE).
+
