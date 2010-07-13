@@ -462,5 +462,17 @@ describe UserController, "when using profile photos" do
         data = load_file_fixture("parrot.png")
         post :profile_photo, { :id => user.id, :data => data } 
     end
+
+    it "should let you change profile photo if you're logged in as the user" do
+        user = users(:bob_smith_user)
+        user.profile_photo.should be_nil
+
+        session[:user_id] = user.id
+        data = load_file_fixture("parrot.png")
+        post :profile_photo, { :id => user.id, :data => data } 
+
+        response.should redirect_to(:controller => 'user', :action => 'show', :url_name => "bob_smith")
+        user.profile_photo.should_not be_nil
+    end
 end
 

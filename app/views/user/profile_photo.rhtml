@@ -8,10 +8,10 @@
 
 <div id="profile_photo">
 
-<% form_tag 'profile_photo', :html => { :id => 'profile_photo_form' }, :multipart => true do %>
+<% form_tag 'profile_photo', :id => 'profile_photo_form', :multipart => true do %>
     <p>
 	    <label class="form_label" for="file_1">Photo of you:</label> 
-        <%= file_field_tag :file, :size => 35 %>
+        <%= file_field_tag :file, :size => 35, :id => 'file_1' %>
     </p>
 
     <p><strong>Privacy note:</strong> Your photo will be shown in public on the Internet, 
