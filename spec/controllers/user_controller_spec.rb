@@ -286,7 +286,7 @@ describe UserController, "when changing password" do
         session[:user_circumstance] = "change_password"
 
         old_hash = users(:bob_smith_user).hashed_password
-        post :signchange, { :user => { :password => 'ooo', :password_confirmation => 'ooo' },
+        post :signchangepassword, { :user => { :password => 'ooo', :password_confirmation => 'ooo' },
             :submitted_signchange_password => 1
         }
         users(:bob_smith_user).hashed_password.should == old_hash
@@ -297,7 +297,7 @@ describe UserController, "when changing password" do
         session[:user_circumstance] = nil
 
         old_hash = users(:bob_smith_user).hashed_password
-        post :signchange, { :user => { :password => 'ooo', :password_confirmation => 'ooo' },
+        post :signchangepassword, { :user => { :password => 'ooo', :password_confirmation => 'ooo' },
             :submitted_signchange_password => 1
         }
 
