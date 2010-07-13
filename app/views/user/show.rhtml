@@ -51,8 +51,8 @@
         <% if @is_you %>
             (just to see how it works)
             <br><%= link_to "Change your password", signchangepassword_url() %> |
-            <br><%= link_to "Change your email", signchangeemail_url() %> |
-            <br><%= link_to "Set profile photo", profile_photo_url() %>
+            <%= link_to "Change your email", signchangeemail_url() %> |
+            <%= link_to "Set profile photo", profile_photo_url() %>
         <% end %>
     </p>
 
