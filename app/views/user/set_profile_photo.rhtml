@@ -4,11 +4,11 @@
 
 <h2>Change your profile photo</h2>
 
-<%= foi_error_messages_for :profile_photo %>
+<%= foi_error_messages_for :set_profile_photo %>
 
-<div id="profile_photo">
+<div id="set_profile_photo">
 
-<% form_tag 'profile_photo', :id => 'profile_photo_form', :multipart => true do %>
+<% form_tag 'set_profile_photo', :id => 'set_profile_photo_form', :multipart => true do %>
     <p>
 	    <label class="form_label" for="file_1">Photo of you:</label> 
         <%= file_field_tag :file, :size => 35, :id => 'file_1' %>

@@ -342,7 +342,7 @@ class UserController < ApplicationController
         }.flatten.sort { |a,b| b[:model].created_at <=> a[:model].created_at }.first(20)
     end
 
-    def profile_photo
+    def set_profile_photo
         # check they are logged in (the upload photo option is anyway only available when logged in)
         if authenticated_user.nil?
             flash[:error] = "You need to be logged in to change your profile photo."
