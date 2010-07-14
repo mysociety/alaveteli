@@ -462,6 +462,9 @@ describe UserController, "when using profile photos" do
 
         @uploadedfile = File.open(file_fixture_name("parrot.png"))
         @uploadedfile.stub!(:original_filename).and_return('parrot.png')
+
+        @uploadedfile_2 = File.open(file_fixture_name("parrot.jpg"))
+        @uploadedfile_2.stub!(:original_filename).and_return('parrot.jpg')
     end
     
     it "should not let you change profile photo if you're not logged in as the user" do
@@ -477,8 +480,24 @@ describe UserController, "when using profile photos" do
         response.should redirect_to(:controller => 'user', :action => 'show', :url_name => "bob_smith")
         flash[:notice].should match(/Thank you for updating your profile photo/) 
 
-        user.reload
-        user.profile_photo.should_not be_nil
+        @user.reload
+        @user.profile_photo.should_not be_nil
+    end
+
+    it "should let you change profile photo twice" do
+        @user.profile_photo.should be_nil
+        session[:user_id] = @user.id
+
+        post :profile_photo, { :id => @user.id, :file => @uploadedfile, :submitted_profile_photo => 1 } 
+        response.should redirect_to(:controller => 'user', :action => 'show', :url_name => "bob_smith")
+        flash[:notice].should match(/Thank you for updating your profile photo/) 
+
+        post :profile_photo, { :id => @user.id, :file => @uploadedfile_2, :submitted_profile_photo => 1 } 
+        response.should redirect_to(:controller => 'user', :action => 'show', :url_name => "bob_smith")
+        flash[:notice].should match(/Thank you for updating your profile photo/) 
+
+        @user.reload
+        @user.profile_photo.should_not be_nil
     end
 end
 
