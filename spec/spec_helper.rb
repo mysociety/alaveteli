@@ -31,8 +31,12 @@ def receive_incoming_mail(email_name, email_to, email_from = 'geraldinequango@lo
     RequestMailer.receive(content)
 end
 
+def file_fixture_name(file_name)
+    return File.join(Spec::Runner.configuration.fixture_path, file_name)
+end
+
 def load_file_fixture(file_name)
-    file_name = File.join(Spec::Runner.configuration.fixture_path, file_name)
+    file_name = file_fixture_name(file_name)
     content = File.read(file_name)
     return content
 end
