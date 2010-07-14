@@ -456,21 +456,23 @@ end
 describe UserController, "when using profile photos" do
     integrate_views
     fixtures :users
+
+    before do
+        @user = users(:bob_smith_user)
+
+        @uploadedfile = File.open(file_fixture_name("parrot.png"))
+        @uploadedfile.stub!(:original_filename).and_return('parrot.png')
+    end
     
     it "should not let you change profile photo if you're not logged in as the user" do
-        user = users(:bob_smith_user)
-        data = load_file_fixture("parrot.png")
-        post :profile_photo, { :id => user.id, :file => data } 
+        post :profile_photo, { :id => @user.id, :file => @uploadedfile, :submitted_profile_photo => 1 } 
     end
 
     it "should let you change profile photo if you're logged in as the user" do
-        user = users(:bob_smith_user)
-        user.profile_photo.should be_nil
+        @user.profile_photo.should be_nil
+        session[:user_id] = @user.id
 
-        session[:user_id] = user.id
-        tempfile = File.open(file_fixture_name("parrot.png"))
-        tempfile.stub!(:original_filename).and_return('parrot.png')
-        post :profile_photo, { :id => user.id, :file => tempfile, :submitted_profile_photo => 1 } 
+        post :profile_photo, { :id => @user.id, :file => @uploadedfile, :submitted_profile_photo => 1 } 
 
         response.should redirect_to(:controller => 'user', :action => 'show', :url_name => "bob_smith")
         flash[:notice].should match(/Thank you for updating your profile photo/) 
