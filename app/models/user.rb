@@ -275,16 +275,22 @@ class User < ActiveRecord::Base
         return PublicBody.extract_domain_from_email(self.email)
     end
 
-    # XXX profile photos not fully implemented yet
+    # A photograph of the user (to make it all more human)
     def set_profile_photo(new_profile_photo)
+        old_profile_photo = nil
         ActiveRecord::Base.transaction do
             if !self.profile_photo.nil?
                 old_profile_photo = self.profile_photo
                 self.profile_photo = nil
-                old_profile_photo.destroy
             end
             new_profile_photo.user = self
             self.profile_photo = new_profile_photo
+        end
+        if !old_profile_photo.nil?
+            # This doesn't work in the transaction, as destroy starts
+            # a new transaction immediately (the database foreign key
+            # constraint detects it). Yuck.
+            old_profile_photo.destroy
         end
     end
 
