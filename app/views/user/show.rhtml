@@ -38,7 +38,12 @@
 </div> 
 
 <div class="single_user">
+    <p id="user_photo_on_profile">
+        <img src="<%= get_profile_photo_url(:url_name => @display_user.url_name) %>">
+    </p>
+
     <h1><%=@title%></h1>
+
     <p class="subtitle">
         Joined WhatDoTheyKnow in <%= year_from_date(@display_user.created_at) %>
         <% if !@user.nil? && @user.admin_page_links? %>

@@ -378,6 +378,19 @@ class UserController < ApplicationController
         redirect_to user_url(@user)
     end
 
+    def get_profile_photo
+        @display_user = User.find(:first, :conditions => [ "url_name = ? and email_confirmed = ?", params[:url_name], true ])
+        if !@display_user
+            raise "user not found, url_name=" + params[:url_name]
+        end
+        if !@display_user.profile_photo
+            raise "user has no profile photo, url_name=" + params[:url_name]
+        end
+
+        response.content_type = "image/png"
+        render_for_text(@display_user.profile_photo.data)
+    end
+
     private
 
     # Decide where we are going to redirect back to after signin/signup, and record that

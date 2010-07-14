@@ -1109,3 +1109,19 @@ div.act_link img {
 }
 
 
+/*------------------------------------------------ users */
+
+#user_photo_on_profile {
+}
+
+#user_photo_on_profile img {
+    width: 96px;
+    height: 96px;
+    float: left;
+    vertical-align: middle;
+    border: 1px solid #dddddd;
+    margin-right: 5px;
+    padding: 2px;
+}
+
+
