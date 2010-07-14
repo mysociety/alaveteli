@@ -39,7 +39,15 @@
 
 <div class="single_user">
     <p id="user_photo_on_profile">
-        <img src="<%= get_profile_photo_url(:url_name => @display_user.url_name) %>">
+        <% if @display_user.profile_photo_id %> 
+            <img src="<%= get_profile_photo_url(:url_name => @display_user.url_name) %>">
+        <% else %>
+            <% if @is_you %>
+                <span id="set_photo">
+                    <%= link_to "Set your profile photo", set_profile_photo_url() %>
+                </span>
+            <% end %>
+        <% end %>
     </p>
 
     <h1><%=@title%></h1>
@@ -55,9 +63,9 @@
         <%= link_to "Send message to " + h(@display_user.name), contact_user_url(:id => @display_user.id) %>
         <% if @is_you %>
             (just to see how it works)
-            <br><%= link_to "Change your password", signchangepassword_url() %> |
-            <%= link_to "Change your email", signchangeemail_url() %> |
-            <%= link_to "Set profile photo", set_profile_photo_url() %>
+            <p id="user_change_password_email"><%= link_to "Change your password", signchangepassword_url() %> |
+            <%= link_to "Change your email", signchangeemail_url() %>
+            </p>
         <% end %>
     </p>
 

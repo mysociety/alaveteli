@@ -1114,14 +1114,19 @@ div.act_link img {
 #user_photo_on_profile {
 }
 
-#user_photo_on_profile img {
+#user_photo_on_profile img, #user_photo_on_profile #set_photo {
     width: 96px;
     height: 96px;
     float: left;
     vertical-align: middle;
+    text-align: center;
     border: 1px solid #dddddd;
     margin-right: 5px;
     padding: 2px;
+}
+
+#user_change_password_email {
+    clear: left;
 }
 
 
