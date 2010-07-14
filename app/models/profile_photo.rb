@@ -23,8 +23,7 @@ class ProfilePhoto < ActiveRecord::Base
     WIDTH = 96
     HEIGHT = 96
 
-    has_one :user
-    validates_presence_of :user
+    # has_one :user
 
     # deliberately don't strip_attributes, so keeps raw photo properly
     

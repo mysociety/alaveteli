@@ -283,7 +283,6 @@ class User < ActiveRecord::Base
                 old_profile_photo = self.profile_photo
                 self.profile_photo = nil
             end
-            new_profile_photo.user = self
             self.profile_photo = new_profile_photo
         end
         if !old_profile_photo.nil?
