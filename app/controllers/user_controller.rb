@@ -375,8 +375,12 @@ class UserController < ApplicationController
             render :template => 'user/set_crop_profile_photo.rhtml'
             return
         elsif !params[:submitted_crop_profile_photo].nil?
-            # change user's photo
+            # crop the draft photo according to jquery parameters and set it as the users photo
+            draft_profile_photo = ProfilePhoto.find(params[:draft_profile_photo_id])
+            @profile_photo = ProfilePhoto.new(:data => draft_profile_photo.data, :draft => false, 
+                :x => params[:x], :y => params[:y], :w => params[:w], :h => params[:h])
             @user.set_profile_photo(@profile_photo)
+            draft_profile_photo.destroy
             flash[:notice] = "Thank you for updating your profile photo"
             redirect_to user_url(@user)
         else

@@ -39,6 +39,11 @@ function showPreview(coords)
             marginLeft: '-' + Math.round(rx * coords.x) + 'px',
             marginTop: '-' + Math.round(ry * coords.y) + 'px'
         });
+
+        $('#x').val(coords.x);
+        $('#y').val(coords.y);
+        $('#w').val(coords.w);
+        $('#h').val(coords.h);
     }
 }
 

@@ -30,6 +30,8 @@ class ProfilePhoto < ActiveRecord::Base
 
     # deliberately don't strip_attributes, so keeps raw photo properly
     
+    attr_accessor :x, :y, :w, :h
+    
     # convert binary data blob into ImageMagick image when assigned
     attr_accessor :image
     def after_initialize
@@ -68,6 +70,11 @@ class ProfilePhoto < ActiveRecord::Base
         end
         # draft images are before the user has cropped them
         if !self.draft && (image.columns != WIDTH || image.rows != HEIGHT)
+            # do any exact cropping (taken from Jcrop interface)
+            if self.w && self.h 
+                image.crop!(self.x.to_i, self.y.to_i, self.w.to_i, self.h.to_i)
+            end
+            # do any further cropping
             image.resize_to_fill!(WIDTH, HEIGHT)
             altered = true
         end
