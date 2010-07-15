@@ -19,7 +19,14 @@
 
     <p>
         <%= hidden_field_tag 'submitted_draft_profile_photo', 1 %>
-        <%= submit_tag "Next, crop your photo &gt;&gt;" %>
+
+        <script type="text/javascript" charset="utf-8">
+            document.write('<%= submit_tag "Next, crop your photo &gt;&gt;" %>');
+        </script>
+        <noscript>
+            <%= hidden_field_tag 'automatically_crop', 1 %>
+            <%= submit_tag "Done &gt;&gt;" %>
+        </noscript>
     </p>
 
 <% end %>

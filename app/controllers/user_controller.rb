@@ -372,6 +372,16 @@ class UserController < ApplicationController
             end
             @draft_profile_photo.save
 
+            if params[:automatically_crop]
+                # no javascript, crop automatically
+                @profile_photo = ProfilePhoto.new(:data => @draft_profile_photo.data, :draft => false)
+                @user.set_profile_photo(@profile_photo)
+                @draft_profile_photo.destroy
+                flash[:notice] = "Thank you for updating your profile photo"
+                redirect_to user_url(@user)
+                return
+            end
+
             render :template => 'user/set_crop_profile_photo.rhtml'
             return
         elsif !params[:submitted_crop_profile_photo].nil?
