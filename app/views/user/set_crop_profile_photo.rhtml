@@ -1,0 +1,26 @@
+<% @title = "Change profile photo" %>
+
+<% raise "internal error" if not @user %>
+
+<h2>2. Crop your profile photo</h2>
+
+<%= foi_error_messages_for :set_profile_photo %>
+
+<div id="set_crop_profile_photo">
+
+<% form_tag 'set_profile_photo', :id => 'set_crop_profile_photo_form', :multipart => true do %>
+
+    <img src="<%= get_draft_profile_photo_url(:id => @draft_profile_photo.id) %>">
+
+    <p><strong>Privacy note:</strong> Your photo will be shown in public on the Internet, 
+    wherever you do something on WhatDoTheyKnow.
+
+    <p>
+        <%= hidden_field_tag 'submitted_crop_profile_photo', 1 %>
+        <%= submit_tag "Set my profile photo" %>
+    </p>
+
+<% end %>
+
+
+</div>

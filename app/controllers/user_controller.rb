@@ -349,35 +349,49 @@ class UserController < ApplicationController
             redirect_to frontpage_url
             return
         end
-        if params[:submitted_profile_photo].nil?
-            # default page
-            return
-        end
+        if !params[:submitted_draft_profile_photo].nil?
+            # check for uploaded image
+            file_name = nil
+            file_content = nil
+            if !params[:file].nil?
+                file_name = params[:file].original_filename
+                file_content = params[:file].read
+            end
+            if file_name.nil?
+                flash[:error] = "Please choose a file containing your photo"
+                render :template => 'user/set_draft_profile_photo.rhtml'
+                return
+            end
 
-        # check for uploaded image
-        file_name = nil
-        file_content = nil
-        if !params[:file].nil?
-            file_name = params[:file].original_filename
-            file_content = params[:file].read
-        end
-        if file_name.nil?
-            flash[:error] = "Please choose a file containing your photo"
-            return
-        end
+            # validate it
+            @draft_profile_photo = ProfilePhoto.new(:data => file_content, :draft => true)
+            if !@draft_profile_photo.valid?
+                # error page (uses @profile_photo's error fields in view to show errors)
+                render :template => 'user/set_draft_profile_photo.rhtml'
+                return
+            end
+            @draft_profile_photo.save
 
-        # change user's photo
-        @profile_photo = ProfilePhoto.new(:data => file_content)
-        @user.set_profile_photo(@profile_photo)
-        if !@profile_photo.valid?
-            # error page (uses @profile_photo's error fields in view to show errors)
+            render :template => 'user/set_crop_profile_photo.rhtml'
             return
+        elsif !params[:submitted_crop_profile_photo].nil?
+            # change user's photo
+            @user.set_profile_photo(@profile_photo)
+            flash[:notice] = "Thank you for updating your profile photo"
+            redirect_to user_url(@user)
+        else
+            render :template => 'user/set_draft_profile_photo.rhtml'
         end
-
-        flash[:notice] = "Thank you for updating your profile photo"
-        redirect_to user_url(@user)
     end
 
+    # before they've cropped it
+    def get_draft_profile_photo
+        profile_photo = ProfilePhoto.find(params[:id])
+        response.content_type = "image/png"
+        render_for_text(profile_photo.data)
+    end
+
+    # actual profile photo of a user
     def get_profile_photo
         @display_user = User.find(:first, :conditions => [ "url_name = ? and email_confirmed = ?", params[:url_name], true ])
         if !@display_user
