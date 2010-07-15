@@ -23,7 +23,9 @@ class ProfilePhoto < ActiveRecord::Base
     WIDTH = 96
     HEIGHT = 96
 
-    # has_one :user
+    belongs_to :user
+
+    attr_accessor :draft
 
     # deliberately don't strip_attributes, so keeps raw photo properly
     

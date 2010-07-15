@@ -39,7 +39,7 @@
 
 <div class="single_user">
     <p id="user_photo_on_profile">
-        <% if @display_user.profile_photo_id %> 
+        <% if @display_user.profile_photo %> 
             <img src="<%= get_profile_photo_url(:url_name => @display_user.url_name) %>">
         <% else %>
             <% if @is_you %>
@@ -63,8 +63,12 @@
         <%= link_to "Send message to " + h(@display_user.name), contact_user_url(:id => @display_user.id) %>
         <% if @is_you %>
             (just to see how it works)
-            <p id="user_change_password_email"><%= link_to "Change your password", signchangepassword_url() %> |
-            <%= link_to "Change your email", signchangeemail_url() %>
+            <p id="user_change_password_email">
+                <% if @display_user.profile_photo %> 
+                    <%= link_to "Change profile photo", set_profile_photo_url() %> |
+                <% end %>
+                <%= link_to "Change your password", signchangepassword_url() %> |
+                <%= link_to "Change your email", signchangeemail_url() %>
             </p>
         <% end %>
     </p>

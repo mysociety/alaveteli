@@ -1,9 +1,9 @@
 class AlterProfilePhoto < ActiveRecord::Migration
     def self.up
-        remove_column :profile_photos, :user_id
+        remove_column :users, :profile_photo_id
     end
 
     def self.down
-        raise "Reverse migrations not supported"
+        raise "No reverse migration"
     end
 end
