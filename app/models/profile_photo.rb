@@ -1,11 +1,12 @@
 # == Schema Information
-# Schema version: 84
+# Schema version: 85
 #
 # Table name: profile_photos
 #
 #  id      :integer         not null, primary key
 #  data    :binary          not null
 #  user_id :integer         
+#  draft   :boolean         default(false), not null
 #
 
 # models/profile_photo.rb:
@@ -25,14 +26,11 @@ class ProfilePhoto < ActiveRecord::Base
 
     belongs_to :user
 
-    attr_accessor :draft
-
     # deliberately don't strip_attributes, so keeps raw photo properly
     
     # convert binary data blob into ImageMagick image when assigned
     attr_accessor :image
-    def data=(data)
-        write_attribute(:data, data)
+    def after_initialize
         if data.nil?
             self.image = nil
             return
@@ -66,7 +64,8 @@ class ProfilePhoto < ActiveRecord::Base
             self.image.format = 'PNG'
             altered = true
         end
-        if image.columns != WIDTH || image.rows != HEIGHT
+        # draft images are before the user has cropped them
+        if !self.draft && (image.columns != WIDTH || image.rows != HEIGHT)
             image.resize_to_fill!(WIDTH, HEIGHT)
             altered = true
         end
@@ -90,8 +89,16 @@ class ProfilePhoto < ActiveRecord::Base
             errors.add(:data, "^Failed to convert image to a PNG")
         end
         
-        if self.image.columns != WIDTH || self.image.rows != HEIGHT
+        if !self.draft && (self.image.columns != WIDTH || self.image.rows != HEIGHT)
             errors.add(:data, "^Failed to convert image to the correct size: at #{self.image.columns}x#{self.image.rows}, need #{WIDTH}x#{HEIGHT}")
+        end
+
+        if self.draft && self.user_id
+            raise "Internal error, draft pictures must not have a user"
+        end
+
+        if !self.draft && !self.user_id
+            raise "Internal error, real pictures must have a user"
         end
     end
 end

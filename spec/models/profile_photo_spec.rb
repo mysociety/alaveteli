@@ -35,7 +35,7 @@ describe ProfilePhoto, "when constructing a new photo" do
 
     it 'should accept a draft PNG and not resize it' do 
         data = load_file_fixture("parrot.png")
-        profile_photo = ProfilePhoto.new(:draft => true, :data => data)
+        profile_photo = ProfilePhoto.new(:data => data, :draft => true)
         profile_photo.valid?.should == true
         profile_photo.image.format.should == 'PNG'
         profile_photo.image.columns.should == 198
