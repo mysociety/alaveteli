@@ -468,14 +468,14 @@ describe UserController, "when using profile photos" do
     end
     
     it "should not let you change profile photo if you're not logged in as the user" do
-        post :set_profile_photo, { :id => @user.id, :file => @uploadedfile, :submitted_profile_photo => 1, :automatically_crop => 1 } 
+        post :set_profile_photo, { :id => @user.id, :file => @uploadedfile, :submitted_draft_profile_photo => 1, :automatically_crop => 1 } 
     end
 
     it "should let you change profile photo if you're logged in as the user" do
         @user.profile_photo.should be_nil
         session[:user_id] = @user.id
 
-        post :set_profile_photo, { :id => @user.id, :file => @uploadedfile, :submitted_profile_photo => 1, :automatically_crop => 1 } 
+        post :set_profile_photo, { :id => @user.id, :file => @uploadedfile, :submitted_draft_profile_photo => 1, :automatically_crop => 1 } 
 
         response.should redirect_to(:controller => 'user', :action => 'show', :url_name => "bob_smith")
         flash[:notice].should match(/Thank you for updating your profile photo/) 
