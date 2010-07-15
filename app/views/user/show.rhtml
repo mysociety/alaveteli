@@ -66,6 +66,11 @@
         <% end %>
     </p>
 
+    <!--<div class="user_about_me">
+        <p><img class="comment_quote" src="/images/quote.png" alt="">I like to make requests about dogs. I'm obsessed with
+        them! Check out my doggy house at http://www.doggyplace.com</p>
+    </div>-->
+
     <% if @is_you %>
         <p id="user_change_password_email">
             <% if @display_user.profile_photo %> 
@@ -77,7 +82,7 @@
     <% end %>
 
     <% if not @is_you %>
-        <p>
+        <p id="user_not_logged_in">
             If you are <%=h @display_user.name %>, <%= link_to "sign in", signin_url(:r => request.request_uri) %> to change your password or alter your subscriptions.
         </p>
     <% end %>

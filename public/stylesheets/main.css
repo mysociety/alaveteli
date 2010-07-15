@@ -1125,8 +1125,21 @@ div.act_link img {
     padding: 2px;
 }
 
-#user_change_password_email {
+#user_change_password_email, #user_not_logged_in {
     clear: left;
+}
+
+div.user_about_me
+{
+	width: 37em;
+	float: left;
+	padding: 0em 0.5em 0em 0.5em;
+	margin: 0 0 1em 0;
+	/*border-color: #5F5F5F;
+	border-width: 1px;
+	border-style: dotted;
+    */
+	overflow: auto;
 }
 
 
