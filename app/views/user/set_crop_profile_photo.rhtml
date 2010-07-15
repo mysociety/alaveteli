@@ -1,4 +1,5 @@
 <% @title = "Change profile photo" %>
+<% @profile_photo_javascript = true %>
 
 <% raise "internal error" if not @user %>
 
@@ -10,7 +11,20 @@
 
 <% form_tag 'set_profile_photo', :id => 'set_crop_profile_photo_form', :multipart => true do %>
 
-    <img src="<%= get_draft_profile_photo_url(:id => @draft_profile_photo.id) %>">
+    <table>
+    <tr>
+    <td>
+    <img src="<%= get_draft_profile_photo_url(:id => @draft_profile_photo.id) %>" id="profile_photo_cropbox">
+    </td>
+    <td>
+    <div style="width:96px;height:96px;overflow:hidden;">
+        <img src="<%= get_draft_profile_photo_url(:id => @draft_profile_photo.id) %>" id="profile_photo_preview" />
+    </div>
+    
+    </td>
+    </tr>
+    </table>
+
 
     <p><strong>Privacy note:</strong> Your photo will be shown in public on the Internet, 
     wherever you do something on WhatDoTheyKnow.

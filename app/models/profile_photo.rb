@@ -24,6 +24,8 @@ class ProfilePhoto < ActiveRecord::Base
     WIDTH = 96
     HEIGHT = 96
 
+    MAX_DRAFT = 500 # keep even pre-cropped images reasonably small
+
     belongs_to :user
 
     # deliberately don't strip_attributes, so keeps raw photo properly
@@ -67,6 +69,10 @@ class ProfilePhoto < ActiveRecord::Base
         # draft images are before the user has cropped them
         if !self.draft && (image.columns != WIDTH || image.rows != HEIGHT)
             image.resize_to_fill!(WIDTH, HEIGHT)
+            altered = true
+        end
+        if self.draft && (image.columns > MAX_DRAFT || image.rows > MAX_DRAFT)
+            image.resize_to_fit!(MAX_DRAFT, MAX_DRAFT)
             altered = true
         end
         if altered
