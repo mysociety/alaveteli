@@ -23,11 +23,14 @@
         <script type="text/javascript" charset="utf-8">
             document.write('<%= submit_tag "Next, crop your photo &gt;&gt;" %>');
         </script>
-        <noscript>
+    </p>
+
+    <noscript>
+        <div>
             <%= hidden_field_tag 'automatically_crop', 1 %>
             <%= submit_tag "Done &gt;&gt;" %>
-        </noscript>
-    </p>
+        </div>
+    </noscript>
 
 <% end %>
 
