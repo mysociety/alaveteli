@@ -1,10 +1,11 @@
 # == Schema Information
-# Schema version: 80
+# Schema version: 84
 #
 # Table name: raw_emails
 #
-#  id   :integer         not null, primary key
-#  data :text            not null
+#  id          :integer         not null, primary key
+#  data_text   :text            
+#  data_binary :binary          
 #
 
 # models/raw_email.rb:

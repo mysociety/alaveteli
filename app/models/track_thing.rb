@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 80
+# Schema version: 84
 #
 # Table name: track_things
 #
@@ -10,7 +10,7 @@
 #  tracked_user_id  :integer         
 #  public_body_id   :integer         
 #  track_medium     :string(255)     not null
-#  track_type       :string(255)     not null
+#  track_type       :string(255)     default("internal_error"), not null
 #  created_at       :datetime        
 #  updated_at       :datetime        
 #

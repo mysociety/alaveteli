@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 80
+# Schema version: 84
 #
 # Table name: info_request_events
 #
@@ -14,6 +14,7 @@
 #  incoming_message_id :integer         
 #  outgoing_message_id :integer         
 #  comment_id          :integer         
+#  prominence          :string(255)     default("normal"), not null
 #
 
 # models/info_request_event.rb:
