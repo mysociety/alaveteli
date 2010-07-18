@@ -7,10 +7,12 @@ describe 'when viewing an information request' do
                                             :url_name => 'test_body',
                                             :is_school? => false)
         @mock_user = mock_model(User, :name => 'test user',
-                                      :url_name => 'test_user')
+                                      :url_name => 'test_user',
+                                      :profile_photo => nil)
         @mock_request = mock_model(InfoRequest, :title => 'test request',
                                                 :awaiting_description => false, 
-                                                :law_used_with_a => '',
+                                                :law_used_with_a => 'A Freedom of Information request',
+                                                :law_used_full => 'Freedom of Information',
                                                 :public_body => @mock_body,
                                                 :user => @mock_user, 
                                                 :calculate_status => 'waiting_response', 
