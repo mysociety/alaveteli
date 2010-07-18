@@ -529,6 +529,7 @@ dd { margin: 0.6em 0 2em 4em; width: 33em; }
         background-position: left center;
         min-height: 24px;		
         padding: 8px 0 10px 42px;
+        clear: left;
     }
 
     /* Waiting */
@@ -1125,14 +1126,13 @@ div.act_link img {
     padding: 2px;
 }
 
-.user_photo_on_correspondence img {
-    width: 48px;
-    height: 48px;
-    float: right;
+.user_photo_on_request img { 
+    width: 48px; 
+    height: 48px; 
+    float: left; 
     vertical-align: middle;
-    text-align: center;
     border: 1px solid #dddddd;
-    margin-left: 5px;
+    margin-right: 5px;
     padding: 2px;
 }
 

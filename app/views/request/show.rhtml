@@ -25,15 +25,19 @@
 <div id="request_main">
     <h1><%=@title%></h1>
 
+    <% if @info_request.user.profile_photo %>
+        <p class="user_photo_on_request">
+            <img src="<%= get_profile_photo_url(:url_name => @info_request.user.url_name) %>">
+        </p>
+    <% end %>
+
     <p class="subtitle">
-    <%=h @info_request.law_used_with_a%> 
+    <%= user_link(@info_request.user) %> made this
     <% if !@user.nil? && @user.admin_page_links? %>
         (<%= link_to "admin", request_admin_url(@info_request) %>)
     <% end %>
-    to 
-    <%= public_body_link(@info_request.public_body) %>
-    by 
-    <%= user_link(@info_request.user) %>
+    <%=h @info_request.law_used_full%> 
+    request to <%= public_body_link(@info_request.public_body) %>
     </p>
 
     <p id="request_status" class="request_icon_line icon_<%= @info_request.calculate_status %>">

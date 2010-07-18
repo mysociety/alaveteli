@@ -35,12 +35,6 @@ elsif [ 'sent', 'followup_sent' ].include?(info_request_event.event_type)
     %>
     <div class="correspondence" id="outgoing-<%=outgoing_message.id.to_s%>">
 
-        <% if @info_request.user.profile_photo %>
-        <p class="user_photo_on_correspondence">
-            <img src="<%= get_profile_photo_url(:url_name => @info_request.user.url_name) %>">
-        </p>
-        <% end %>
-
         <h2>
         <%=h @info_request.user.name %><br>
         <br><%= simple_date(info_request_event.created_at) %>
