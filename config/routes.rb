@@ -65,6 +65,7 @@ ActionController::Routing::Routes.draw do |map|
         user.set_profile_photo '/set_profile_photo', :action => 'set_profile_photo'
         user.get_profile_photo '/user/:url_name/photo.png', :action => 'get_profile_photo'
         user.get_draft_profile_photo '/draft_profile_photo/:id.png', :action => 'get_draft_profile_photo'
+        user.set_profile_about_me '/set_profile_about_me', :action => 'set_profile_about_me'
     end
 
     map.with_options :controller => 'public_body' do |body|

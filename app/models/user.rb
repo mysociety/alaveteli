@@ -109,6 +109,8 @@ class User < ActiveRecord::Base
     end
 
     # Don't display any leading/trailing spaces
+    # XXX we have strip_attributes! now, so perhaps this can be removed (might
+    # be still needed for existing cases)
     def name
         name = read_attribute(:name)
         if not name.nil?
@@ -307,6 +309,16 @@ class User < ActiveRecord::Base
         end
         nil # so doesn't print all users on console
     end
+
+    # Return about me text for display as HTML
+    def get_about_me_for_html_display
+        text = self.about_me.strip
+        text = CGI.escapeHTML(text)
+        text = MySociety::Format.make_clickable(text, :contract => 1)
+        text = text.gsub(/\n/, '<br>')
+        return text
+    end
+
 
     private
 

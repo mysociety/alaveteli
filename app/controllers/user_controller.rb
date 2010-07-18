@@ -419,6 +419,34 @@ class UserController < ApplicationController
         render_for_text(@display_user.profile_photo.data)
     end
 
+    # Change about me text on your profile page
+    def set_profile_about_me
+        if authenticated_user.nil?
+            flash[:error] = "You need to be logged in to change the text about you on your profile."
+            redirect_to frontpage_url
+            return
+        end
+
+        if !params[:submitted_about_me]
+            params[:about_me] = {}
+            params[:about_me][:about_me] = @user.about_me
+            @about_me = AboutMeValidator.new(params[:about_me])
+            render :action => 'set_profile_about_me'
+            return
+        end
+
+        @about_me = AboutMeValidator.new(params[:about_me])
+        if !@about_me.valid?
+            render :action => 'set_profile_about_me'
+            return
+        end
+
+        @user.about_me = @about_me.about_me
+        @user.save!
+        flash[:notice] = "You have now changed the text about you on your profile."
+        redirect_to user_url(@user)
+    end
+
     private
 
     # Decide where we are going to redirect back to after signin/signup, and record that

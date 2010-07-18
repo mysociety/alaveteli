@@ -66,10 +66,15 @@
         <% end %>
     </p>
 
-    <!--<div class="user_about_me">
-        <img class="comment_quote" src="/images/quote.png" alt="">I like to make requests about bees. I'm obsessed with
-        them! Check out all the ace bees at http://www.britishbee.org.uk/
-    </div>-->
+    <% if !@display_user.get_about_me_for_html_display.empty? || @is_you %>
+        <div class="user_about_me">
+            <img class="comment_quote" src="/images/quote.png" alt="">
+            <%= @display_user.get_about_me_for_html_display %>
+            <% if @is_you %>
+                (<%= link_to "edit text about you", set_profile_about_me_url() %>)
+            <% end %>
+        </div>
+    <% end %>
 
     <% if @is_you %>
         <p id="user_change_password_email">

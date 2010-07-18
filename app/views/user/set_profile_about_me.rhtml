@@ -1,0 +1,37 @@
+<% @title = "Change the text about you on your profile at WhatDoTheyKnow.com" %>
+
+<% raise "internal error" if not @user %>
+
+<%= foi_error_messages_for :about_me %>
+
+<% form_for :about_me do |f| %>
+    <div class="form_note">
+        <h1>Edit text about you</h1>
+        <p> 
+            What you are investigating using Freedom of Information?  
+        </p>
+        <p>
+            This will appear on your WhatDoTheyKnow profile, to make it
+            easier for others to get involved with what you're doing.
+        </p>
+    </div>
+
+    <p>
+    <label class="form_label" for="set_profile_about_me">About you:</label>
+    <%= f.text_area :about_me, :rows => 5, :cols => 55 %>
+    </p>
+
+    <div class="form_note">
+        <p>
+            Include relevant links, such as to a campaign page, your blog or a
+            twitter account. They will be made clickable. 
+            e.g.
+            <a href="http://www.twitter.com/whatdotheyknow">http://www.twitter.com/whatdotheyknow</a>
+        </p>
+    </div>
+
+    <div class="form_button">
+    <%= hidden_field_tag 'submitted_about_me', 1 %>
+    <%= submit_tag "Save" %>
+    </div>
+<% end %>
