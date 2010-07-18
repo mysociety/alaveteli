@@ -51,7 +51,7 @@ class User < ActiveRecord::Base
         'super', 
     ]
 
-    acts_as_xapian :texts => [ :name ],
+    acts_as_xapian :texts => [ :name, :about_me ],
         :values => [ 
              [ :created_at_numeric, 1, "created_at", :number ] # for sorting
         ],

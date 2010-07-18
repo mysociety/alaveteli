@@ -1,3 +1,8 @@
+Profile photo:
+* Check tests all run fine
+* Add search indexing of the text
+
+
 Next (things that will reduce admin time mainly)
 ====
 

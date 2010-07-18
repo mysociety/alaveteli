@@ -10,6 +10,27 @@ describe User, " when indexing users with Xapian" do
         xapian_object.results.size.should == 1
         xapian_object.results[0][:model].should == users(:silly_name_user)
     end
+
+    it "should search by 'about me' text" do
+        user = users(:bob_smith_user)
+
+        rebuild_xapian_index
+          # def InfoRequest.full_search(models, query, order, ascending, collapse, per_page, page)
+        xapian_object = InfoRequest.full_search([User], "stuff", 'created_at', true, nil, 100, 1)
+        xapian_object.results.size.should == 1
+        xapian_object.results[0][:model].should == user
+        
+        user.about_me = "I am really an aardvark, true story."
+        user.save!
+        update_xapian_index
+
+        xapian_object = InfoRequest.full_search([User], "stuff", 'created_at', true, nil, 100, 1)
+        xapian_object.results.size.should == 0
+
+        xapian_object = InfoRequest.full_search([User], "aardvark", 'created_at', true, nil, 100, 1)
+        xapian_object.results.size.should == 1
+        xapian_object.results[0][:model].should == user
+    end
 end
 
 describe PublicBody, " when indexing public bodies with Xapian" do
