@@ -1147,6 +1147,16 @@ div.act_link img {
     padding: 2px;
 }
 
+.user_photo_on_search img { 
+    width: 48px; 
+    height: 48px; 
+    float: left; 
+    vertical-align: middle;
+    border: 1px solid #dddddd;
+    margin-right: 5px;
+    padding: 2px;
+}
+
 #user_change_password_email, #user_not_logged_in {
     clear: left;
 }
