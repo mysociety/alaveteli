@@ -83,7 +83,8 @@
 
     <% if not @is_you %>
         <p id="user_not_logged_in">
-            If you are <%=h @display_user.name %>, <%= link_to "sign in", signin_url(:r => request.request_uri) %> to change your password or alter your subscriptions.
+            <%= link_to "Sign in", signin_url(:r => request.request_uri) %> to change password, 
+            subscriptions and more (<%=h @display_user.name %> only)
         </p>
     <% end %>
 
