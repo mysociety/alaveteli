@@ -52,23 +52,27 @@ ActionController::Routing::Routes.draw do |map|
 
     end
 
+    # Use /profile for things to do with the currently signed in user.
+    # Use /user/XXXX for things that anyone can see about that user.
+    # Note that /profile isn't indexe by search (see robots.txt)
     map.with_options :controller => 'user' do |user|
-        user.signin '/signin',        :action => 'signin'
-        user.signup '/signup',        :action => 'signup'
-        user.signout '/signout',      :action => 'signout'
-        user.signchangepassword '/signchangepassword',      :action => 'signchangepassword'
-        user.signchangeemail '/signchangeemail',      :action => 'signchangeemail'
+        user.signin '/profile/sign_in',        :action => 'signin'
+        user.signup '/profile/sign_up',        :action => 'signup'
+        user.signout '/profile/sign_out',      :action => 'signout'
 
         user.confirm '/c/:email_token', :action => 'confirm'
         user.show_user '/user/:url_name', :action => 'show'
         user.contact_user '/user/contact/:id', :action => 'contact'
+
+        user.signchangepassword '/profile/change_password',      :action => 'signchangepassword'
+        user.signchangeemail '/profile/change_email',      :action => 'signchangeemail'
 
         user.set_profile_photo '/profile/set_photo', :action => 'set_profile_photo'
         user.get_profile_photo '/user/:url_name/photo.png', :action => 'get_profile_photo'
         user.get_draft_profile_photo '/profile/draft_photo/:id.png', :action => 'get_draft_profile_photo'
         user.set_profile_about_me '/profile/set_about_me', :action => 'set_profile_about_me'
 
-        user.river '/river', :action => 'river'
+        user.river '/profile/river', :action => 'river'
     end
 
     map.with_options :controller => 'public_body' do |body|
