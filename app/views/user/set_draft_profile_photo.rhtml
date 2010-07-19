@@ -8,7 +8,7 @@
 
 <div id="set_draft_profile_photo">
 
-<% form_tag 'set_profile_photo', :id => 'set_draft_profile_photo_form', :multipart => true do %>
+<% form_tag 'set_photo', :id => 'set_draft_profile_photo_form', :multipart => true do %>
     <p>
 	    <label class="form_label" for="file_1">Photo of you:</label> 
         <%= file_field_tag :file, :size => 35, :id => 'file_1' %>
