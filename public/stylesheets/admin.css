@@ -59,3 +59,17 @@ form {
     display: inline;
 }
 
+.user_photo_on_admin {
+    float: right; 
+}
+
+.user_photo_on_admin img { 
+    width: 96px; 
+    height: 96px; 
+    vertical-align: middle;
+    border: 1px solid #dddddd;
+    margin-right: 5px;
+    padding: 2px;
+}
+
+
