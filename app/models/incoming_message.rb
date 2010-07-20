@@ -402,7 +402,7 @@ class FOIAttachment
         body_without_tags = body.gsub(/\s+/,"").gsub(/\<[^\>]*\>/, "")
         contains_images = html.match(/<img/mi) ? true : false
         if !$?.success? || html.size == 0 || (body_without_tags.size == 0 && !contains_images)
-            return "<html><head></head><body><p>Sorry, the conversion to HTML failed. Please use the download link at the top right.</p></body></html>", wrapper_id
+            return "<html><head></head><body><p>Sorry, we were unable to convert this file to HTML. Please use the download link at the top right.</p></body></html>", wrapper_id
         end
 
         return html, wrapper_id
