@@ -72,6 +72,14 @@
         <% end %>
     </p>
 
+    <% if @display_user.public_banned? %>
+        <p id="user_public_banned">
+            <strong>
+                This user has been banned from WhatDoTheyKnow.com
+            </strong>
+        </p>
+    <% end %>
+
     <% if !@display_user.get_about_me_for_html_display.empty? || @is_you %>
         <div class="user_about_me">
             <img class="comment_quote" src="/images/quote.png" alt="">

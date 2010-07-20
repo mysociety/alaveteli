@@ -116,6 +116,9 @@ class User < ActiveRecord::Base
         if not name.nil?
             name.strip!
         end
+        if self.public_banned?
+            name = name + " (Banned)"
+        end
         name
     end
 
@@ -250,6 +253,10 @@ class User < ActiveRecord::Base
     # Does the user get "(admin)" links on each page on the main site?
     def admin_page_links?
         self.admin_level == 'super'
+    end
+    # Is it public that they are banned?
+    def public_banned?
+        !self.ban_text.empty?
     end
     # Various ways the user can be banned, and text to describe it if failed
     def can_file_requests?

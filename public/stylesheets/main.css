@@ -1168,14 +1168,16 @@ div.act_link img {
 
 div.user_about_me
 {
-	width: 37em;
 	padding: 0em 0.5em 0em 0.5em;
-	margin: 0em 0em 1em 1.5em;
-	/*border-color: #5F5F5F;
-	border-width: 1px;
-	border-style: dotted;
-    */
+	margin: 1em 1.5em 1em 1.5em;
 	overflow: auto;
 }
 
+#user_public_banned
+{
+    text-align: center;
+    margin: 0em 14em 0em 0em;
+    padding: 1em 1em 1em 1em;
+	background-color: #d0d0d0;
+}
 
