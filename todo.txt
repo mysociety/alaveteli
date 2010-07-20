@@ -85,6 +85,22 @@ Remove comments visible
 Later
 =====
 
+Ability to move requests to other bodies. Useful here - anywhere else?
+http://www.whatdotheyknow.com/body/suffolk_primary_care_trust_pct_duplicate
+
+In admin interface, move a response from the holding pen to a request which is
+closed to new responses. The message disappears into the ether. Should either
+stop or allow such moves.
+
+PDF that gets corrupted by email censoring - have only seen this once, watch for it again
+    http://www.whatdotheyknow.com/request/information_on_traffic_flows_in
+The image in a "stream" section get corrupted:
+    _#p!/DB]eER4cPAPm&W7;-]L!e(*U=7"h^X7hYXqSI][9UZJV+>hr2:&c@S.lRr.ndm)2]b$-lU+#lg
+    _#p!/DB]eER4cPAPm&W7;-]L!e(*U=7"h^X7hYXqSI][9UZJV+>hr2:&x@x.xxx.xxx)2]b$-lU+#lg
+Needs a fancy PDF library (which doesn't exist yet) that can tell when it is
+binary or text stream within the file. See thread in email "corrupted pdf" for
+more details. Maybe have option in admin to turn off censoring on a particular file.
+
 check-recent-requests-sent probably doesn't work, as exim log lines wouldn't
 be load in case where the envelope from gets broken?
 
