@@ -45,7 +45,6 @@ class ProfilePhoto < ActiveRecord::Base
             image_list.from_blob(data)
         rescue Magick::ImageMagickError
             self.image = nil
-            write_attribute(:data, nil)
             return
         end
     
@@ -89,12 +88,12 @@ class ProfilePhoto < ActiveRecord::Base
 
     def validate
         if self.data.nil?
-            errors.add(:data, "^No image specified")
+            errors.add(:data, "^Please choose a file containing your photo.")
             return
         end
 
         if self.image.nil?
-            errors.add(:data, "^Couldn't read the image that you uploaded, please try again.")
+            errors.add(:data, "^Couldn't understand the image file that you uploaded. PNG, JPEG, GIF and many other common image file formats are supported.")
             return
         end
 

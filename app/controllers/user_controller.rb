@@ -357,11 +357,6 @@ class UserController < ApplicationController
                 file_name = params[:file].original_filename
                 file_content = params[:file].read
             end
-            if file_name.nil?
-                flash[:error] = "Please choose a file containing your photo"
-                render :template => 'user/set_draft_profile_photo.rhtml'
-                return
-            end
 
             # validate it
             @draft_profile_photo = ProfilePhoto.new(:data => file_content, :draft => true)
