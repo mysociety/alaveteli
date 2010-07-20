@@ -2,7 +2,7 @@
 
 <% raise "internal error" if not @user %>
 
-<h2>1. Choose your profile photo</h2>
+<h2>Choose your profile photo</h2>
 
 <%= foi_error_messages_for :set_profile_photo %>
 
@@ -34,5 +34,14 @@
 
 <% end %>
 
+<% if @user.profile_photo %>
+
+    <h2>OR remove the existing photo</h2>
+
+    <% form_tag 'clear_photo', :id => 'clear_profile_photo_form', :multipart => true do %>
+        <%= submit_tag "Clear photo" %>
+    <% end %>
+
+<% end %>
 
 </div>

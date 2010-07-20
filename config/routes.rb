@@ -68,6 +68,7 @@ ActionController::Routing::Routes.draw do |map|
         user.signchangeemail '/profile/change_email',      :action => 'signchangeemail'
 
         user.set_profile_photo '/profile/set_photo', :action => 'set_profile_photo'
+        user.clear_profile_photo '/profile/clear_photo', :action => 'clear_profile_photo'
         user.get_profile_photo '/user/:url_name/photo.png', :action => 'get_profile_photo'
         user.get_draft_profile_photo '/profile/draft_photo/:id.png', :action => 'get_draft_profile_photo'
         user.set_profile_about_me '/profile/set_about_me', :action => 'set_profile_about_me'

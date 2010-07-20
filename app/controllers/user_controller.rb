@@ -398,6 +398,22 @@ class UserController < ApplicationController
         end
     end
 
+    def clear_profile_photo
+        # check they are logged in (the upload photo option is anyway only available when logged in)
+        if authenticated_user.nil?
+            flash[:error] = "You need to be logged in to clear your profile photo."
+            redirect_to frontpage_url
+            return
+        end
+
+        if @user.profile_photo
+            @user.profile_photo.destroy
+        end
+
+        flash[:notice] = "You've now cleared your profile photo"
+        redirect_to user_url(@user)
+    end
+
     # before they've cropped it
     def get_draft_profile_photo
         profile_photo = ProfilePhoto.find(params[:id])
