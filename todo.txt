@@ -1,6 +1,8 @@
 Next (things that will reduce admin time mainly)
 ====
 
+Enable Chris Taggert's clever link up idea to open local Government finance data
+
 Merge with New Zealand code base properly
 
 Handle bounce messages from alerts automatically
@@ -84,6 +86,9 @@ Remove comments visible
 
 Later
 =====
+
+Make zip file contents browseable, so each document in them "appears in Google".
+http://www.whatdotheyknow.com/request/transport_direct_cycle_journey_p#incoming-78421
 
 Ability to move requests to other bodies. Useful here - anywhere else?
 http://www.whatdotheyknow.com/body/suffolk_primary_care_trust_pct_duplicate
