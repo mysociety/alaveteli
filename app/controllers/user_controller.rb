@@ -399,6 +399,10 @@ class UserController < ApplicationController
     end
 
     def clear_profile_photo
+        if !request.post?
+            raise "Can only clear profile photo from POST request"
+        end
+
         # check they are logged in (the upload photo option is anyway only available when logged in)
         if authenticated_user.nil?
             flash[:error] = "You need to be logged in to clear your profile photo."
