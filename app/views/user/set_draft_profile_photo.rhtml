@@ -31,7 +31,6 @@
             <%= submit_tag "Done &gt;&gt;" %>
         </div>
     </noscript>
-
 <% end %>
 
 <% if @user.profile_photo %>
@@ -43,5 +42,9 @@
     <% end %>
 
 <% end %>
+
+<p>
+    <%= link_to h("Cancel, return to your profile page"), user_url(@user) %>
+</p>
 
 </div>
