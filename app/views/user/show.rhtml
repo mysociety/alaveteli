@@ -43,7 +43,7 @@
             <% if @is_you %>
             <a href="<%= set_profile_photo_url() %>">
             <% end %>
-                <img src="<%= get_profile_photo_url(:url_name => @display_user.url_name) %>">
+                <img src="<%= get_profile_photo_url(:url_name => @display_user.url_name) %>" alt="">
             <% if @is_you %>
             </a>
             <% end %>
