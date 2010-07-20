@@ -375,8 +375,31 @@ dd { margin: 0.6em 0 2em 4em; width: 33em; }
 
 /*-----------------------------blog----------------*/
 
+div#blog_sidebar
+{
+	float: right;
+	clear: none;
+	width: 18em;
+	background-color: #EAEAEA;
+	padding: 0.5em;
+	margin: 0 0 1em 1em;
+
+	border-color: #AEAEAE;
+	border-width: 1px;
+	border-style: solid;
+}
+div#blog_sidebar h1
+{
+}
+div#blog_sidebar img
+{
+    vertical-align: middle;
+}
+
 .blog_post {
     margin-bottom: 2em;
+}
+.twitter_post {
 }
 
 /*-----------------------------list sidebars----------------*/
