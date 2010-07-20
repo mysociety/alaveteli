@@ -501,7 +501,10 @@ dd { margin: 0.6em 0 2em 4em; width: 33em; }
 			background-repeat: no-repeat;
 			background-position: 4px 0px;
 		}
-
+		.user_listing span.no_icon /* full page request list only */
+		{
+            background-image: none;
+		}
 		
 	span.bottomline
 	{
@@ -1147,10 +1150,12 @@ div.act_link img {
     padding: 2px;
 }
 
+.user_photo_on_search { 
+    float: left;
+}
 .user_photo_on_search img { 
     width: 48px; 
     height: 48px; 
-    float: left; 
     vertical-align: middle;
     border: 1px solid #dddddd;
     margin-right: 5px;

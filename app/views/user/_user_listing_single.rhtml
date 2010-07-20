@@ -1,6 +1,7 @@
 <% if @highlight_words.nil? 
       @highlight_words = []
 end %>
+
 <div class="user_listing">
     <% if display_user.profile_photo %>
         <div class="user_photo_on_search">
@@ -10,7 +11,7 @@ end %>
         </div>
     <% end %>
 
-	<span class="head">
+    <span class="head <% if display_user.profile_photo %>no_icon<% end %>">
         <%= link_to highlight_words(display_user.name, @highlight_words), user_url(display_user) %>
     </span>
 
