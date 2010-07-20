@@ -1,12 +1,11 @@
-<% @title = "WhatDoTheyKnow blog" %>
+<% @title = "WhatDoTheyKnow blog and tweets" %>
 
 <h1><%=@title %></h1>
 
 <div id="blog">
 
-<%=@output%>
-
 <% for item in @items: %>
+    <% if item['comments'] %>
     <div class="blog_post">
         <h2><a href="<%=item['link']%>"><%=h item['title'] %></a></h2>
         <p class="subtitle">Posted on <%= simple_date(Time.parse(item['pubDate'][0])) %> by <%=h item['creator'] %></p>
@@ -16,8 +15,18 @@
         </em>
         </p>
     </div>
+    <% else %>
+    <div class="twitter_post">
+        <h2><a href="<%=item['link']%>">@whatdotheyknow on <%= simple_date(Time.parse(item['pubDate'][0])) %></a></h2>
+        <p><%=MySociety::Format.make_clickable(h(item['title'][0].sub("WhatDoTheyKnow: ", ""))) %></a></p>
+    <div>
+    <% end %>
+
 <% end   %>
 
-<p><a href="<%=@all_url%>">See all posts</a></p>
+<p>
+    <a href="http://www.mysociety.org/category/projects/whatdotheyknow/">All blog posts</a> |
+    <a href="http://www.twitter.com/whatdotheyknow">@whatdotheyknow on twitter</a>
+</p>
 
 </div>
