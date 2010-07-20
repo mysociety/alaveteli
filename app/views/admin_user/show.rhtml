@@ -5,7 +5,7 @@
 <% if @admin_user.profile_photo %>
     <div class="user_photo_on_admin">
         <% form_tag '../clear_profile_photo/' + @admin_user.id.to_s, :multipart => true do %>
-            <img src="<%= get_profile_photo_url(:url_name => @admin_user.url_name) %>">
+            <img src="<%= main_url(get_profile_photo_url(:url_name => @admin_user.url_name)) %>">
             <br>
             <%= submit_tag "Clear photo" %>
         <% end %>
