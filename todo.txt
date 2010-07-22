@@ -146,7 +146,9 @@ Put public body name in search text for each info request, so that people
 typing in a word and a body name in the search (have seen people new
 to the site doing that) do find things
 
-Completely remove the "feed" option from tracks
+Completely remove the "feed" option in the database from tracks (it is only
+there for historical reasons, as feeds used to have to be explicitly in the 
+database)
 
 Show the Subject: lines on request pages. Perhaps only show them where they are
 substantively different (modulo Re: and Fwd:) from the title and other subjects
@@ -420,6 +422,9 @@ Display pasted quotes in annotations better:
 
 Totally new features
 --------------------
+
+Publish statistics (stats) on how long it takes bodies to respond. And other
+things (like the WriteToThem pages).
 
 Tag your own requests so you can keep track of them more easily (Lisa asked for
 this - is definitely only whole requests needed)
