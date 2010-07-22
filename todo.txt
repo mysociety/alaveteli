@@ -301,6 +301,9 @@ Really need a "pdftk -nodrm" to remove compression from encrypted PDFs, so strip
     ... this misses a whole page out (someone emailed us)
     http://www.whatdotheyknow.com/request/unredacted_expense_claims_for_jo#incoming-49674
 
+Worth doing View as HTML ourselves for .docx, .ppt, .tif (covered now by Google Docs)
+View as HTML for .txt requested
+
 Failed to detect attachments are emails and decode them:
     http://www.whatdotheyknow.com/request/malicious_communication_act#incoming-12964
 
@@ -311,9 +314,6 @@ Mime type / extension wrong on these .docx's
 http://www.whatdotheyknow.com/request/bridleway_classifications
 http://www.whatdotheyknow.com/request/19976/response/51468/attach/3/TU%20MembershipTeachers%20SolidarityTU%20231009.docx.doc (thinks it is doc when it is docx)
 Search for "OIC" for some more examples
-
-Worth doing View as HTML for .docx probably
-View as HTML for .txt requested
 
 VSD files vsdump - example in zip file
     http://www.whatdotheyknow.com/request/dog_control_orders#incoming-3510
@@ -423,8 +423,6 @@ Totally new features
 
 Tag your own requests so you can keep track of them more easily (Lisa asked for
 this - is definitely only whole requests needed)
-
-Scribd embedded version of documents
 
 Read reply - ask for exchange read receipts, and show if mail was read.
 
