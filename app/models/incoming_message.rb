@@ -350,7 +350,7 @@ class FOIAttachment
     def name_of_content_type
         if self.content_type == 'text/plain'
             return "Text file"
-        elsif self.content_type == 'application/vnd.ms-word'
+        elsif self.content_type == 'application/vnd.ms-word' or self.content_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
             return "Word document"
         elsif self.content_type == 'application/vnd.ms-excel'
             return "Excel spreadsheet"
@@ -358,6 +358,10 @@ class FOIAttachment
             return "PDF file"
         elsif self.content_type == 'application/rtf'
             return "RTF file"
+        elsif self.content_type == 'application/vnd.ms-powerpoint'
+            return "PowerPoint presentation"
+        elsif self.content_type == 'image/tiff'
+            return "TIFF image"
         end
     end
 
