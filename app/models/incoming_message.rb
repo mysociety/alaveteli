@@ -308,6 +308,23 @@ class FOIAttachment
         end
     end
 
+    # Whether this type can be shown in the Google Docs Viewer.
+    # PDF, PowerPoint and TIFF are listed on https://docs.google.com/viewer
+    # .doc and .docx were added later http://gmailblog.blogspot.com/2010/06/view-doc-attachments-right-in-your.html
+    def has_google_docs_viewer?
+        if self.content_type == 'application/vnd.ms-word':
+            return true
+        elsif self.content_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
+            return true
+        elsif self.content_type == 'application/pdf'
+            return true
+        elsif self.content_type == 'image/tiff'
+            return true
+        elsif self.content_type == 'application/vnd.ms-powerpoint'
+            return true
+        end
+    end
+
     # Whether this type has a "View as HTML"
     def has_body_as_html?
         if self.content_type == 'text/plain'
@@ -319,6 +336,11 @@ class FOIAttachment
         elsif self.content_type == 'application/pdf'
             return true
         elsif self.content_type == 'application/rtf'
+            return true
+        end
+        # We use the same "View as HTML" link to embed the Google Doc Viewer
+        # (when it can't do a conversion locally)
+        if self.has_google_docs_viewer?
             return true
         end
         return false
@@ -382,6 +404,8 @@ class FOIAttachment
                 IO.popen("/usr/bin/unrtf --html " + tempfile.path + "", "r") do |child|
                     html = child.read()
                 end
+            elsif self.has_google_docs_viewer?
+                html = '' # force error and using Google docs viewer
             else
                 raise "No HTML conversion available for type " + self.content_type
             end
@@ -402,7 +426,15 @@ class FOIAttachment
         body_without_tags = body.gsub(/\s+/,"").gsub(/\<[^\>]*\>/, "")
         contains_images = html.match(/<img/mi) ? true : false
         if !$?.success? || html.size == 0 || (body_without_tags.size == 0 && !contains_images)
-            return "<html><head></head><body><p>Sorry, we were unable to convert this file to HTML. Please use the download link at the top right.</p></body></html>", wrapper_id
+            ret = "<html><head></head><body>";
+            if self.has_google_docs_viewer?
+                wrapper_id = "wrapper_google_embed"
+                ret = ret + "<iframe src='http://docs.google.com/viewer?url=<attachment-url-here>&embedded=true' width='100%' height='100%' style='border: none;'></iframe>";
+            else 
+                ret = ret + "<p>Sorry, we were unable to convert this file to HTML. Please use the download link at the top right.</p>"
+            end
+            ret = ret + "</body></html>"
+            return ret, wrapper_id
         end
 
         return html, wrapper_id

@@ -244,6 +244,15 @@ body
 	text-align: left;
 	overflow: visible;
 }
+#wrapper_google_embed {
+	position: relative;
+	clear: both;
+    width: 100%;
+    height: 90%;
+	margin: 0 0 0 0;
+	text-align: left;
+	overflow: visible;
+}
 #view_html_content table {
     border-collapse: collapse;
     margin-bottom: 1em;
@@ -863,7 +872,7 @@ a img.attachment_image {
     background-color: #E7E7E7; 
     border-bottom: 1px solid #5f5f5f; 
     padding: 0.5em 1em 0.5em 1em; 
-    height: 34px;
+    height: 6%;
 }
 .view_html_logo {
     float: left;

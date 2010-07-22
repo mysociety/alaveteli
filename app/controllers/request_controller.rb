@@ -599,6 +599,7 @@ class RequestController < ApplicationController
 
         view_html_prefix = render_to_string :partial => "request/view_html_prefix"
         html.sub!("<prefix-here>", view_html_prefix)
+        html.sub!("<attachment-url-here>", CGI.escape(@attachment_url))
 
         @incoming_message.html_mask_stuff!(html) 
 
