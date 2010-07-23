@@ -33,11 +33,12 @@
 
     <p class="subtitle">
     <%= user_link(@info_request.user) %> made this
+    <%=h @info_request.law_used_full%> 
+    request 
     <% if !@user.nil? && @user.admin_page_links? %>
         (<%= link_to "admin", request_admin_url(@info_request) %>)
     <% end %>
-    <%=h @info_request.law_used_full%> 
-    request to <%= public_body_link(@info_request.public_body) %>
+    to <%= public_body_link(@info_request.public_body) %>
     </p>
 
     <p id="request_status" class="request_icon_line icon_<%= @info_request.calculate_status %>">
