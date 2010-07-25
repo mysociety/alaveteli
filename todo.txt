@@ -7,9 +7,6 @@ Merge with New Zealand code base properly
 
 Handle bounce messages from alerts automatically
 
-Make outgoing requests and follow ups get CCed to our backup mailbox, so that
-can do data recovery more easily
-
 Make it so when you make followups the whole request is shown on the page.
 Remove all show_response URLs, and replace with a special version of the
 request URL with a new input box at the bottom and a hash link to it?
@@ -21,15 +18,10 @@ writing in the form. It might be useful if the previous
 correspondence were instead shown on the page in which the form
 appears. >>
 
-Word doc conversion never works for Lisa, maybe use more software to try 
-to convert her docs.
-
-Finish profile photo - maybe use Gravatar, but opt in for existing users?
+Make profile photo on comments slightly larger
 
 Ask people for annotation immediately after they have submitted their request
 Ask for annotation about what they learnt from request?
-
-Admin button to resend request one off to particular address
 
 Private request premium feature
 http://www.activemerchant.org/
@@ -86,6 +78,11 @@ Remove comments visible
 
 Later
 =====
+
+Make outgoing requests and follow ups get CCed to our backup mailbox, so that
+can do data recovery more easily
+
+Admin button to resend request one off to particular address
 
 Stop search for users working on unconfirmed accounts
 
