@@ -1207,9 +1207,16 @@ div.user_about_me
 
 #user_public_banned
 {
-    text-align: center;
     margin: 0em 14em 0em 0em;
-    padding: 1em 1em 1em 1em;
+    padding: 0.5em 1em 0.5em 1em;
 	background-color: #d0d0d0;
 }
+#user_public_banned .details
+{
+    margin-left: 4em;
+    margin-right: 4em;
+    font-size: 0.8em;
+    font-style: italic;
+}
+
 

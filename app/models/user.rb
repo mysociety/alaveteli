@@ -116,9 +116,6 @@ class User < ActiveRecord::Base
         if not name.nil?
             name.strip!
         end
-        if self.public_banned?
-            name = name + " (Banned)"
-        end
         name
     end
 
@@ -275,6 +272,7 @@ class User < ActiveRecord::Base
         text = self.ban_text.strip
         text = CGI.escapeHTML(text)
         text = MySociety::Format.make_clickable(text, :contract => 1)
+        text = text.gsub(/\n/, '<br>')
         return text
     end
 

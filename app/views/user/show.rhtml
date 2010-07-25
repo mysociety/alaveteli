@@ -73,11 +73,19 @@
     </p>
 
     <% if @display_user.public_banned? %>
-        <p id="user_public_banned">
-            <strong>
-                This user has been banned from WhatDoTheyKnow.com
-            </strong>
-        </p>
+        <div id="user_public_banned">
+            <p>
+                <strong>
+                    This user has been banned from WhatDoTheyKnow.com
+                </strong>
+            </p>
+            <p>
+                They have been given the following explanation:
+            </p>
+            <p class="details">
+                <%= @display_user.can_fail_html %>
+            </p>
+        </div>
     <% end %>
 
     <% if !@display_user.get_about_me_for_html_display.empty? || @is_you %>
