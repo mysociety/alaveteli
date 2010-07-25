@@ -87,6 +87,8 @@ Remove comments visible
 Later
 =====
 
+Stop search for users working on unconfirmed accounts
+
 Make zip file contents browseable, so each document in them "appears in Google".
 http://www.whatdotheyknow.com/request/transport_direct_cycle_journey_p#incoming-78421
 
@@ -329,6 +331,11 @@ and should be indexing
 
 Render HTML alternative rather than text (so tables look good) e.g.:
     http://www.whatdotheyknow.com/request/parking_policy
+
+These attachment.bin files should come out as winmail.dat and be parsed
+by existing TNEF code. For some reason though TMail doesn't get the right
+content-type out of them. Not sure why.
+    http://www.whatdotheyknow.com/request/acting_up_in_a_higher_rank
 
 Make HTML attachments have view as HTML :)
 http://www.whatdotheyknow.com/request/enforced_medication#incoming-7395
