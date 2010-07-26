@@ -1,6 +1,16 @@
 Next (things that will reduce admin time mainly)
 ====
 
+Some tags are used to hold keys from other databases to make cross-referencing easier.
+
+    ch:* - Bodies that appear on the Register of Companies. '*' is replaced by the company number, which is eight characters long and consists of optional upper-case letters followed by digits.
+    coins:* Bodies appearing in COINS database followed by reference code e.g. coins:BRL048 (British Library)
+    dpr:* - Bodies that appear on the Register of Data Controllers. '*' is replaced by the registration number.
+    urn:* - Bodies that appear on EduBase. '*' is replaced by the institution's Unique Reference Number.
+    VAT:* - Bodies with a VAT (UK Value Added Tax) registration number. '*' is replaced by the VAT registration number (no spaces) e.g. VAT:895108987
+
+http://foiwiki.com/foiwiki/index.php/WhatDoTheyKnow.com_Tags
+
 Enable Chris Taggert's clever link up idea to open local Government finance data
 
 Merge with New Zealand code base properly
