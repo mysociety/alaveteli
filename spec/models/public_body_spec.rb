@@ -23,6 +23,11 @@ describe PublicBody, " using tags" do
         @public_body.tag_string.should == 'chesire lancashire'
     end
 
+    it 'should work with other white space' do
+        @public_body.tag_string = "chesire\n\tlancashire"
+        @public_body.tag_string.should == 'chesire lancashire'
+    end
+
     it 'should remove tags when changing them' do
         @public_body.tag_string = 'stilton'
         @public_body.tag_string.should == 'stilton'

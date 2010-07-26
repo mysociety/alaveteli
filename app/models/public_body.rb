@@ -192,7 +192,7 @@ class PublicBody < ActiveRecord::Base
 
         ActiveRecord::Base.transaction do
             for public_body_tag in self.public_body_tags
-                STDERR.puts("destroying tag " + public_body_tag.name)
+                # STDERR.puts("destroying tag " + public_body_tag.name)
                 public_body_tag.destroy
             end
             for tag in tags
