@@ -188,6 +188,7 @@ class PublicBody < ActiveRecord::Base
     # XXX This immediately saves the new tags.
     def tag_string=(tag_string)
         tag_string = tag_string.strip
+        # split tags apart
         tags = tag_string.split(/\s+/).uniq
 
         ActiveRecord::Base.transaction do
@@ -196,19 +197,36 @@ class PublicBody < ActiveRecord::Base
             end
             self.public_body_tags = []
             for tag in tags
-                public_body_tag = PublicBodyTag.new(:name => tag)
+                # see if is a machine tags (i.e. a tag which has a value)
+                sections = tag.split(/:/)
+                name = sections[0]
+                if sections[1]
+                    value = sections[1,sections.size].join(":")
+                else
+                    value = nil
+                end
+
+                public_body_tag = PublicBodyTag.new(:name => name, :value => value)
                 self.public_body_tags << public_body_tag
                 public_body_tag.public_body = self
             end
         end
     end
     def tag_string
-        return self.public_body_tags.map { |t| t.name }.join(' ')
+        return self.public_body_tags.map { |t| t.name_and_value }.join(' ')
     end
     def has_tag?(tag)
         for public_body_tag in self.public_body_tags
             if public_body_tag.name == tag
                 return true
+            end
+        end 
+        return false
+    end
+    def get_tag_value(tag)
+        for public_body_tag in self.public_body_tags
+            if public_body_tag.name == tag
+                return public_body_tag.value
             end
         end 
         return false

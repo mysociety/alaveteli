@@ -50,6 +50,32 @@ describe PublicBody, " using tags" do
         @public_body.has_tag?('cheddar').should be_true
     end
 
+    it 'should ignore repeat tags' do
+        @public_body.tag_string = 'stilton stilton'
+        @public_body.tag_string.should == 'stilton'
+    end
+end
+
+describe PublicBody, " using machine tags" do 
+    before do
+        @public_body = PublicBody.new(:name => 'Aardvark Monitoring Service',
+                                    :short_name => 'AMS',
+                                    :request_email => 'foo@flourish.org',
+                                    :last_edit_editor => 'test',
+                                    :last_edit_comment => '')
+    end
+
+    it 'should parse machine tags' do
+        @public_body.tag_string = 'wondrous cheese:green'
+        @public_body.tag_string.should == 'wondrous cheese:green'
+
+        @public_body.has_tag?('cheese:green').should be_false
+        @public_body.has_tag?('cheese').should be_true
+        @public_body.get_tag_value('cheese').should == 'green'
+
+        @public_body.get_tag_value('wondrous').should == nil
+        @public_body.get_tag_value('notthere').should == false
+    end
 end
 
 describe PublicBody, " when making up the URL name" do 

@@ -24,5 +24,13 @@ class PublicBodyTag < ActiveRecord::Base
     validates_presence_of :name
 
     belongs_to :public_body
+
+    def name_and_value
+        ret = self.name
+        if !self.value.nil?
+            ret += ":" + self.value
+        end
+        return ret
+    end
 end
 

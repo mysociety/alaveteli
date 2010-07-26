@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 87) do
+ActiveRecord::Schema.define(:version => 88) do
 
   create_table "acts_as_xapian_jobs", :force => true do |t|
     t.string  "model",    :null => false
@@ -173,9 +173,11 @@ ActiveRecord::Schema.define(:version => 87) do
     t.integer  "public_body_id", :null => false
     t.text     "name",           :null => false
     t.datetime "created_at",     :null => false
+    t.text     "value"
   end
 
   add_index "public_body_tags", ["name", "public_body_id"], :name => "index_public_body_tags_on_public_body_id_and_name", :unique => true
+  add_index "public_body_tags", ["name"], :name => "index_public_body_tags_on_name"
 
   create_table "public_body_versions", :force => true do |t|
     t.integer  "public_body_id"
