@@ -10,11 +10,11 @@
     <% if !@public_body.publication_scheme.empty? %>
         <%= link_to "Publication scheme", @public_body.publication_scheme %><br>
     <% end %>
-    <% if !@public_body.charity_number.empty? %>
-        <% if @public_body.charity_number.match(/^SC/) %>
-            <%= link_to "Charity overview", "http://www.oscr.org.uk/CharityIndexDetails.aspx?id=" + @public_body.charity_number %><br>
+    <% if !@public_body.has_tag?("charity") %>
+        <% if @public_body.get_tag_value("charity").match(/^SC/) %>
+            <%= link_to "Charity overview", "http://www.oscr.org.uk/CharityIndexDetails.aspx?id=" + @public_body.get_tag_value("charity") %><br>
         <% else %>
-            <%= link_to "Charity overview", "http://www.charity-commission.gov.uk/SHOWCHARITY/RegisterOfCharities/CharityFramework.aspx?RegisteredCharityNumber=" + @public_body.charity_number %><br>
+            <%= link_to "Charity overview", "http://www.charity-commission.gov.uk/SHOWCHARITY/RegisterOfCharities/CharityFramework.aspx?RegisteredCharityNumber=" + @public_body.get_tag_value("charity") %><br>
         <% end %>
     <% end %>
     <%= link_to "View FOI email address", view_public_body_email_url(@public_body.url_name) %><br>
