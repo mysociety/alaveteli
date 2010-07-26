@@ -184,12 +184,15 @@ class PublicBody < ActiveRecord::Base
         end
     end
 
-    # Given an input string of tags, sets all tags to that string
+    # Given an input string of tags, sets all tags to that string.
+    # XXX This immediately saves the new tags.
     def tag_string=(tag_string)
+        tag_string = tag_string.strip
         tags = tag_string.split(/\s+/).uniq
 
         ActiveRecord::Base.transaction do
             for public_body_tag in self.public_body_tags
+                STDERR.puts("destroying tag " + public_body_tag.name)
                 public_body_tag.destroy
             end
             for tag in tags

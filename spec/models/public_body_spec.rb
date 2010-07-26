@@ -1,6 +1,52 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
- describe PublicBody, "making up the URL name" do 
+describe PublicBody, " using tags" do 
+    before do
+        @public_body = PublicBody.new(:name => 'Aardvark Monitoring Service',
+                                    :short_name => 'AMS',
+                                    :request_email => 'foo@flourish.org',
+                                    :last_edit_editor => 'test',
+                                    :last_edit_comment => '')
+    end
+
+    it 'should correctly convert a tag string into tags' do 
+        @public_body.tag_string = 'stilton emmental'
+        @public_body.tag_string.should == 'stilton emmental'
+
+        @public_body.has_tag?('stilton').should be_true
+        @public_body.has_tag?('emmental').should be_true
+        @public_body.has_tag?('jarlsberg').should be_false
+    end
+
+    it 'should strip spaces from tag strings' do
+        @public_body.tag_string = ' chesire  lancashire'
+        @public_body.tag_string.should == 'chesire lancashire'
+    end
+
+    it 'should remove tags when changing them' do
+        @public_body.tag_string = 'stilton'
+        @public_body.tag_string.should == 'stilton'
+
+        @public_body.has_tag?('stilton').should be_true
+        @public_body.has_tag?('jarlsberg').should be_false
+
+        @public_body.tag_string = 'jarlsberg'
+
+        @public_body.has_tag?('stilton').should be_false
+        @public_body.has_tag?('jarlsberg').should be_true
+    end
+
+    it 'should be able to append tags' do
+        @public_body.tag_string.should == ''
+        @public_body.add_tag_if_not_already_present('cheddar')
+
+        @public_body.tag_string.should == 'cheddar'
+        @public_body.has_tag?('cheddar').should be_true
+    end
+
+end
+
+describe PublicBody, " when making up the URL name" do 
     before do
         @public_body = PublicBody.new
     end
