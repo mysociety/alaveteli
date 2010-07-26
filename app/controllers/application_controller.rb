@@ -271,7 +271,7 @@ class ApplicationController < ActionController::Base
     # Set cache headers for Squid reverse proxy in front of application
     def cache_in_squid(max_age = 10)
         response.headers["Vary"] = 'Cookie, Accept-Encoding'
-        expires_in max_age.minutes, :private => false 
+        expires_in max_age.minutes, :public => true 
     end
 
     # URL generating functions are needed by all controllers (for redirects),
