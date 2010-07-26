@@ -23,12 +23,12 @@ describe PublicBody, " using tags" do
         @public_body.tag_string.should == 'chesire lancashire'
     end
 
-    it 'should work with other white space' do
+    it 'should work with other white space, such as tabs and new lines' do
         @public_body.tag_string = "chesire\n\tlancashire"
         @public_body.tag_string.should == 'chesire lancashire'
     end
 
-    it 'should remove tags when changing them' do
+    it 'changing tags should remove presence of the old ones' do
         @public_body.tag_string = 'stilton'
         @public_body.tag_string.should == 'stilton'
 
@@ -36,6 +36,7 @@ describe PublicBody, " using tags" do
         @public_body.has_tag?('jarlsberg').should be_false
 
         @public_body.tag_string = 'jarlsberg'
+        @public_body.tag_string.should == 'jarlsberg'
 
         @public_body.has_tag?('stilton').should be_false
         @public_body.has_tag?('jarlsberg').should be_true
