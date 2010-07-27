@@ -1,8 +1,7 @@
 Next (things that will reduce admin time mainly)
 ====
 
-Some tags are used to hold keys from other databases to make cross-referencing easier.
-
+Add links to these tags where possible:
     ch:* - Bodies that appear on the Register of Companies. '*' is replaced by the company number, which is eight characters long and consists of optional upper-case letters followed by digits.
     coins:* Bodies appearing in COINS database followed by reference code e.g. coins:BRL048 (British Library)
     dpr:* - Bodies that appear on the Register of Data Controllers. '*' is replaced by the registration number.
