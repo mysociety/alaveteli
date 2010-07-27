@@ -8,7 +8,6 @@ describe "when viewing a body" do
                          :short_name => 'tq',
                          :url_name => 'testquango', 
                          :notes => '',
-                         :charity_number => '',
                          :type_of_authority => 'A public body',
                          :eir_only? => nil,
                          :info_requests => [1, 2, 3, 4], # out of sync with Xapian
@@ -16,6 +15,7 @@ describe "when viewing a body" do
                          :calculated_home_page => '')
         @pb.stub!(:is_requestable?).and_return(true)
         @pb.stub!(:has_notes?).and_return(false)
+        @pb.stub!(:has_tag?).and_return(false)
         @xap = mock_model(ActsAsXapian::Search, :matches_estimated => 2)
         @xap.stub!(:results).and_return([
           { :model => mock_event },
@@ -63,7 +63,9 @@ describe "when viewing a body" do
     end
 
     it "should link to Charity Commission site if we have a number" do
-        @pb.stub!(:charity_number).and_return('98765')
+        @pb.stub!(:has_tag?).and_return(true)
+        @pb.stub!(:get_tag_value).and_return('98765')
+
         render "public_body/show"
         response.should have_tag("div#request_sidebar") do
             with_tag("a[href*=?]", /charity-commission.gov.uk.*RegisteredCharityNumber=98765$/)
@@ -71,7 +73,9 @@ describe "when viewing a body" do
     end 
 
     it "should link to Scottish Charity Regulator site if we have an SC number" do
-        @pb.stub!(:charity_number).and_return('SC1234')
+        @pb.stub!(:has_tag?).and_return(true)
+        @pb.stub!(:get_tag_value).and_return('SC1234')
+
         render "public_body/show"
         response.should have_tag("div#request_sidebar") do
             with_tag("a[href*=?]", /www.oscr.org.uk.*id=SC1234$/)
