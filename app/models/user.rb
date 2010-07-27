@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 85
+# Schema version: 89
 #
 # Table name: users
 #
@@ -15,6 +15,7 @@
 #  last_daily_track_email :datetime        default(Sat Jan 01 00:00:00 UTC 2000)
 #  admin_level            :string(255)     default("none"), not null
 #  ban_text               :text            default(""), not null
+#  about_me               :text            default(""), not null
 #
 
 # models/user.rb:

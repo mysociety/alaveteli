@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 85
+# Schema version: 89
 #
 # Table name: public_body_tags
 #
@@ -7,6 +7,7 @@
 #  public_body_id :integer         not null
 #  name           :text            not null
 #  created_at     :datetime        not null
+#  value          :text            
 #
 
 # models/public_body_tag.rb:

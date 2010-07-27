@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 85
+# Schema version: 89
 #
 # Table name: user_info_request_sent_alerts
 #

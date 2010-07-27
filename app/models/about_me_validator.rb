@@ -1,3 +1,11 @@
+# == Schema Information
+# Schema version: 89
+#
+# Table name: about_me_validators
+#
+#  about_me :text            default("I..."), not null
+#
+
 # models/about_me_validator.rb:
 # Validates editing about me text on user profile pages.
 #

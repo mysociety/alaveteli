@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 85
+# Schema version: 89
 #
 # Table name: public_bodies
 #
@@ -17,7 +17,6 @@
 #  notes              :text            default(""), not null
 #  first_letter       :string(255)     not null
 #  publication_scheme :text            default(""), not null
-#  charity_number     :text            default(""), not null
 #
 
 # models/public_body.rb:
