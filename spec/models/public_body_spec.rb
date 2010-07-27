@@ -76,6 +76,14 @@ describe PublicBody, " using machine tags" do
         @public_body.get_tag_value('wondrous').should == nil
         @public_body.get_tag_value('notthere').should == false
     end
+
+    it 'should cope with colons in value' do
+        @public_body.tag_string = 'url:http://www.flourish.org'
+        @public_body.tag_string.should == 'url:http://www.flourish.org'
+
+        @public_body.has_tag?('url').should be_true
+        @public_body.get_tag_value('url').should == 'http://www.flourish.org'
+    end
 end
 
 describe PublicBody, " when making up the URL name" do 
