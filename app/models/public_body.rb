@@ -197,13 +197,7 @@ class PublicBody < ActiveRecord::Base
             self.public_body_tags = []
             for tag in tags
                 # see if is a machine tags (i.e. a tag which has a value)
-                sections = tag.split(/:/)
-                name = sections[0]
-                if sections[1]
-                    value = sections[1,sections.size].join(":")
-                else
-                    value = nil
-                end
+                name, value = PublicBodyTag.split_tag_into_name_value(tag)
 
                 public_body_tag = PublicBodyTag.new(:name => name, :value => value)
                 self.public_body_tags << public_body_tag

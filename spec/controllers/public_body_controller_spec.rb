@@ -68,6 +68,27 @@ describe PublicBodyController, "when listing bodies" do
 
     end
 
+    it "should list a machine tagged thing, should get it in both ways" do
+        public_bodies(:humpadink_public_body).tag_string = "eats_cheese:stilton"
+
+        get :list, :tag => "eats_cheese"
+        response.should render_template('list')
+        assigns[:public_bodies].should == [ public_bodies(:humpadink_public_body) ]
+        assigns[:tag].should == "eats_cheese"
+
+        get :list, :tag => "eats_cheese:jarlsberg"
+        response.should render_template('list')
+        assigns[:public_bodies].should == [ ]
+        assigns[:tag].should == "eats_cheese:jarlsberg"
+
+        get :list, :tag => "eats_cheese:stilton"
+        response.should render_template('list')
+        assigns[:public_bodies].should == [ public_bodies(:humpadink_public_body) ]
+        assigns[:tag].should == "eats_cheese:stilton"
+
+
+    end
+
 end
 
 

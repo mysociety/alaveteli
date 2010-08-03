@@ -131,6 +131,12 @@ class RequestController < ApplicationController
 
     # Page new form posts to
     def new
+        # Allow url_name 
+        if !params[:public_body_url_name].nil? && params
+        end
+        if params[:submitted_new_request].nil?
+        end
+
         # All new requests are of normal_sort
         if !params[:outgoing_message].nil?
             params[:outgoing_message][:what_doing] = 'normal_sort'

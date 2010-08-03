@@ -33,5 +33,16 @@ class PublicBodyTag < ActiveRecord::Base
         end
         return ret
     end
+
+    def PublicBodyTag.split_tag_into_name_value(tag)
+        sections = tag.split(/:/)
+        name = sections[0]
+        if sections[1]
+            value = sections[1,sections.size].join(":")
+        else
+            value = nil
+        end
+        return name, value
+    end
 end
 

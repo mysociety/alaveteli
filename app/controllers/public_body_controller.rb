@@ -76,6 +76,10 @@ class PublicBodyController < ApplicationController
         elsif @tag.size == 1
             @tag.upcase!
             conditions = ['first_letter = ?', @tag]
+        elsif @tag.include?(":")
+            name, value = PublicBodyTag.split_tag_into_name_value(@tag)
+            conditions = ['(select count(*) from public_body_tags where public_body_tags.public_body_id = public_bodies.id
+                and public_body_tags.name = ? and public_body_tags.value = ?) > 0', name, value]
         else
             conditions = ['(select count(*) from public_body_tags where public_body_tags.public_body_id = public_bodies.id
                 and public_body_tags.name = ?) > 0', @tag]
