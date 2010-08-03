@@ -62,19 +62,22 @@ describe "when viewing a body" do
         response.should have_tag("p", /The search index is currently offline/m)
     end
 
-    it "should link to Charity Commission site if we have a number" do
+    it "should link to Charity Commission site if we have numbers to do so" do
         @pb.stub!(:has_tag?).and_return(true)
-        @pb.stub!(:get_tag_value).and_return('98765')
+        @pb.stub!(:get_tag_values).and_return(['98765', '12345'])
 
         render "public_body/show"
         response.should have_tag("div#request_sidebar") do
             with_tag("a[href*=?]", /charity-commission.gov.uk.*RegisteredCharityNumber=98765$/)
         end
+        response.should have_tag("div#request_sidebar") do
+            with_tag("a[href*=?]", /charity-commission.gov.uk.*RegisteredCharityNumber=12345$/)
+        end
     end 
 
     it "should link to Scottish Charity Regulator site if we have an SC number" do
         @pb.stub!(:has_tag?).and_return(true)
-        @pb.stub!(:get_tag_value).and_return('SC1234')
+        @pb.stub!(:get_tag_values).and_return(['SC1234'])
 
         render "public_body/show"
         response.should have_tag("div#request_sidebar") do
