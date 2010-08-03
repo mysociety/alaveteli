@@ -71,10 +71,12 @@ describe PublicBody, " using machine tags" do
 
         @public_body.has_tag?('cheese:green').should be_false
         @public_body.has_tag?('cheese').should be_true
-        @public_body.get_tag_value('cheese').should == 'green'
+        @public_body.get_tag_values('cheese').should == ['green']
 
-        @public_body.get_tag_value('wondrous').should == nil
-        @public_body.get_tag_value('notthere').should == false
+        @public_body.get_tag_values('wondrous').should == []
+        lambda {
+            @public_body.get_tag_values('notthere').should raise_error(PublicBody::TagNotFound)
+        }
     end
 
     it 'should cope with colons in value' do
@@ -82,7 +84,13 @@ describe PublicBody, " using machine tags" do
         @public_body.tag_string.should == 'url:http://www.flourish.org'
 
         @public_body.has_tag?('url').should be_true
-        @public_body.get_tag_value('url').should == 'http://www.flourish.org'
+        @public_body.get_tag_values('url').should == ['http://www.flourish.org']
+    end
+
+    it 'should allow multiple tags of the same sort' do
+        @public_body.tag_string = 'url:http://www.theyworkforyou.com/ url:http://www.fixmystreet.com/'
+        @public_body.has_tag?('url').should be_true
+        @public_body.get_tag_values('url').should == ['http://www.theyworkforyou.com/', 'http://www.fixmystreet.com/']
     end
 end
 

@@ -216,13 +216,23 @@ class PublicBody < ActiveRecord::Base
         end 
         return false
     end
-    def get_tag_value(tag)
+    class TagNotFound < StandardError
+    end
+    def get_tag_values(tag)
+        found = false
+        results = []
         for public_body_tag in self.public_body_tags
             if public_body_tag.name == tag
-                return public_body_tag.value
+                found = true
+                if !public_body_tag.value.nil?
+                    results << public_body_tag.value
+                end
             end
         end 
-        return false
+        if !found
+            raise TagNotFound
+        end
+        return results
     end
     def add_tag_if_not_already_present(tag)
         self.tag_string = self.tag_string + " " + tag
