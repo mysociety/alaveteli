@@ -31,5 +31,12 @@ class AdminController < ApplicationController
         # also force a search reindexing (so changed text reflected in search)
         info_request.reindex_request_events
     end
+
+    # Expire cached attachment files for a user
+    def expire_requests_for_user(user)
+        for info_request in user.info_requests
+            expire_for_request(info_request)
+        end
+    end
 end
 

@@ -3,7 +3,7 @@
 <h1><%=@title%></h1>
 
 <% form_tag '../update/' + @censor_rule.id.to_s do %>
-  <%= render :partial => 'form', :locals => { :info_request => @censor_rule.info_request } %>
+   <%= render :partial => 'form', :locals => { :info_request => @censor_rule.info_request, :user => @censor_rule.user } %>
   <p><%= submit_tag 'Save', :accesskey => 's' %></p>
 <% end %>
 

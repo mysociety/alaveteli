@@ -25,7 +25,15 @@
   <p>None yet.</p>
 <% end %>
 
-<p>
-    <%= link_to "New censor rule", '../../censor/new?info_request_id=' + info_request.id.to_s %>
-</p>
+<% if defined? info_request %>
+    <p>
+        <%= link_to "New censor rule", '../../censor/new?info_request_id=' + info_request.id.to_s %> (for this request only)
+    </p>
+<% end %>
+
+<% if defined? user %>
+    <p>
+        <%= link_to "New censor rule", '../../censor/new?user_id=' + user.id.to_s %> (for all requests by this user)
+    </p>
+<% end %>
 

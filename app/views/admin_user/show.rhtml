@@ -62,4 +62,6 @@
 <h2>Requests</h2>
 <%= render :partial => 'admin_request/some_requests', :locals => { :info_requests => @admin_user.info_requests } %>
 
+<h2>Censor rules</h2>
+<%= render :partial => 'admin_censor_rule/show', :locals => { :censor_rules => @admin_user.censor_rules, :user => @admin_user } %>
 

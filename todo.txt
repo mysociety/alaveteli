@@ -1,3 +1,5 @@
+Fix link in view, censor rules, _form.rhtml to request/user
+
 Next (things that will reduce admin time mainly)
 ====
 
