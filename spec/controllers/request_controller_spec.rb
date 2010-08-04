@@ -137,6 +137,23 @@ describe RequestController, "when showing one request" do
             response.should have_text(/xxxxxx hello/)        
         end
 
+        it "should censor with rules on the user (rather than the request)" do
+            ir = info_requests(:fancy_dog_request) 
+
+            censor_rule = CensorRule.new()
+            censor_rule.text = "Second"
+            censor_rule.replacement = "Mouse"
+            censor_rule.last_edit_editor = "unknown"
+            censor_rule.last_edit_comment = "none"
+            ir.user.censor_rules << censor_rule
+
+            receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
+
+            get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => ['hello.txt']
+            response.content_type.should == "text/plain"
+            response.should have_text(/xxxxxx hello/)        
+        end
+
         it "should censor attachment names" do
             ir = info_requests(:fancy_dog_request) 
             receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
@@ -155,6 +172,7 @@ describe RequestController, "when showing one request" do
             response.body.should have_tag("p.attachment strong", /goodbye.txt/m) 
         end
 
+ 
     end
 end
 
