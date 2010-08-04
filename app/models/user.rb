@@ -43,6 +43,7 @@ class User < ActiveRecord::Base
     has_many :track_things, :foreign_key => 'tracking_user_id', :order => 'created_at desc'
     has_many :comments, :order => 'created_at desc'
     has_one :profile_photo
+    has_many :censor_rules, :order => 'created_at desc'
 
     attr_accessor :password_confirmation, :no_xapian_reindex
     validates_confirmation_of :password, :message =>"^Please enter the same password twice"

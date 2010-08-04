@@ -884,10 +884,16 @@ public
         for censor_rule in self.censor_rules
             censor_rule.apply_to_text!(text)
         end
+        for censor_rule in self.user.censor_rules
+            censor_rule.apply_to_text!(text)
+        end
     end
     
     def apply_censor_rules_to_binary!(binary)
         for censor_rule in self.censor_rules
+            censor_rule.apply_to_binary!(binary)
+        end
+        for censor_rule in self.user.censor_rules
             censor_rule.apply_to_binary!(binary)
         end
     end

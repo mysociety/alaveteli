@@ -109,7 +109,7 @@ describe IncomingMessage, " checking validity to reply to" do
 end
 
 describe IncomingMessage, " when censoring data" do
-    fixtures :incoming_messages, :raw_emails, :public_bodies, :info_requests
+    fixtures :incoming_messages, :raw_emails, :public_bodies, :info_requests, :users
 
     before do
         @test_data = "There was a mouse called Stilton, he wished that he was blue."
@@ -198,6 +198,36 @@ describe IncomingMessage, " when censoring data" do
 
 end
 
+describe IncomingMessage, " when censoring whole users" do
+    fixtures :incoming_messages, :raw_emails, :public_bodies, :info_requests, :users
+
+    before do
+        @test_data = "There was a mouse called Stilton, he wished that he was blue."
+
+        @im = incoming_messages(:useless_incoming_message)
+
+        @censor_rule_1 = CensorRule.new()
+        @censor_rule_1.text = "Stilton"
+        @censor_rule_1.replacement = "Gorgonzola"
+        @censor_rule_1.last_edit_editor = "unknown"
+        @censor_rule_1.last_edit_comment = "none"
+        @im.info_request.user.censor_rules << @censor_rule_1
+    end
+
+    it "should apply censor rules to HTML files" do
+        data = @test_data.dup
+        @im.html_mask_stuff!(data)
+        data.should == "There was a mouse called Jarlsberg, he wished that he was blue."
+    end
+
+    it "should replace censor text to Word documents" do
+        data = @test_data.dup
+        @im.binary_mask_stuff!(data, "application/vnd.ms-word")
+        data.should == "There was a mouse called xxxxxxx, he wished that he was xxxx."
+    end
+end
+
+
 describe IncomingMessage, " when uudecoding bad messages" do
     it "should be able to do it at all" do
         mail_body = load_file_fixture('incoming-request-bad-uuencoding.email')
@@ -208,6 +238,8 @@ describe IncomingMessage, " when uudecoding bad messages" do
         im.stub!(:mail).and_return(mail)
         ir = InfoRequest.new
         im.info_request = ir
+        u = User.new
+        ir.user = u
 
         attachments = im.get_main_body_text_uudecode_attachments
         attachments.size.should == 1
@@ -223,6 +255,8 @@ describe IncomingMessage, " when uudecoding bad messages" do
         im.stub!(:mail).and_return(mail)
         ir = InfoRequest.new
         im.info_request = ir
+        u = User.new
+        ir.user = u
 
         @censor_rule = CensorRule.new()
         @censor_rule.text = "moo"
@@ -248,6 +282,8 @@ describe IncomingMessage, "when messages are attached to messages" do
         im.stub!(:mail).and_return(mail)
         ir = InfoRequest.new
         im.info_request = ir
+        u = User.new
+        ir.user = u
 
         attachments = im.get_attachments_for_display
         attachments.size.should == 3
@@ -267,6 +303,8 @@ describe IncomingMessage, "when Outlook messages are attached to messages" do
         im.stub!(:mail).and_return(mail)
         ir = InfoRequest.new
         im.info_request = ir
+        u = User.new
+        ir.user = u
 
         attachments = im.get_attachments_for_display
         attachments.size.should == 2
@@ -285,6 +323,8 @@ describe IncomingMessage, "when TNEF attachments are attached to messages" do
         im.stub!(:mail).and_return(mail)
         ir = InfoRequest.new
         im.info_request = ir
+        u = User.new
+        ir.user = u
 
         attachments = im.get_attachments_for_display
         attachments.size.should == 2
