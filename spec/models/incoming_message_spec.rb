@@ -217,7 +217,7 @@ describe IncomingMessage, " when censoring whole users" do
     it "should apply censor rules to HTML files" do
         data = @test_data.dup
         @im.html_mask_stuff!(data)
-        data.should == "There was a mouse called Jarlsberg, he wished that he was blue."
+        data.should == "There was a mouse called Gorgonzola, he wished that he was blue."
     end
 
     it "should replace censor text to Word documents" do
