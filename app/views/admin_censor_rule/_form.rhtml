@@ -1,16 +1,15 @@
 <%= error_messages_for 'censor_rule' %>
 
-<% if !info_request.nil? %>
-    <p>Rule is for request '<%=request_link(info_request)%>'
-        <%= hidden_field 'censor_rule', 'info_request_id', { :value => info_request.id } %>
-    </p>
-<% end %>
-
-<% if !user.nil? %>
-    <p>Rule is for user '<%=user_link(user)%>'
-        <%= hidden_field 'censor_rule', 'user_id', { :value => user.id } %>
-    </p>
-<% end %>
+<p>Applies to:
+    <% if !info_request.nil? %>
+            <%=request_both_links(info_request)%> request
+            <%= hidden_field 'censor_rule', 'info_request_id', { :value => info_request.id } %>
+    <% end %>
+    <% if !user.nil? %>
+        <%=user_both_links(user)%> user
+       <%= hidden_field 'censor_rule', 'user_id', { :value => user.id } %>
+    <% end %>
+</p>
 
 <p><label for="censor_rule_text">Text</label> (that you want to remove, case sensitive)<br/>
 <%= text_field 'censor_rule', 'text', :size => 60  %></p>
@@ -29,7 +28,8 @@ changed in the way you expect, and haven't become corrupted.
 </p>
 
 <p>You may need to manually rebuild the search index afterwards. You can redact
-things by individual request or by user. If you need to redact across a whole
-authority, shoudl be easy enough to make code changes to add it, so ask.
+things by individual request or by user by adding the censor rule from the
+appropriate page.  If you need to redact across a whole
+authority, it will be easy enough to make code changes to add it, so do ask.
 </p>
 
