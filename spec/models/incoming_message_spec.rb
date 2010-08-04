@@ -223,7 +223,7 @@ describe IncomingMessage, " when censoring whole users" do
     it "should replace censor text to Word documents" do
         data = @test_data.dup
         @im.binary_mask_stuff!(data, "application/vnd.ms-word")
-        data.should == "There was a mouse called xxxxxxx, he wished that he was xxxx."
+        data.should == "There was a mouse called xxxxxxx, he wished that he was blue."
     end
 end
 
