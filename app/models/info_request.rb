@@ -884,8 +884,10 @@ public
         for censor_rule in self.censor_rules
             censor_rule.apply_to_text!(text)
         end
-        for censor_rule in self.user.censor_rules
-            censor_rule.apply_to_text!(text)
+        if self.user # requests during construction have no user
+            for censor_rule in self.user.censor_rules
+                censor_rule.apply_to_text!(text)
+            end
         end
     end
     
@@ -893,8 +895,10 @@ public
         for censor_rule in self.censor_rules
             censor_rule.apply_to_binary!(binary)
         end
-        for censor_rule in self.user.censor_rules
-            censor_rule.apply_to_binary!(binary)
+        if self.user # requests during construction have no user
+            for censor_rule in self.user.censor_rules
+                censor_rule.apply_to_binary!(binary)
+            end
         end
     end
     
