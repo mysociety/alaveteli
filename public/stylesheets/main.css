@@ -1172,8 +1172,8 @@ div.act_link img {
 }
 
 .user_photo_on_comment img { 
-    width: 24px; 
-    height: 24px; 
+    width: 36px; 
+    height: 36px; 
     float: left; 
     vertical-align: middle;
     border: 1px solid #dddddd;
