@@ -192,23 +192,37 @@ class AdminRequestController < AdminController
     def move_request
         info_request = InfoRequest.find(params[:info_request_id])
         if params[:commit] == 'Move request to user' && !params[:user_url_name].blank?
+            old_user = info_request.user
             destination_user = User.find_by_url_name(params[:user_url_name])
             if destination_user.nil?
                 flash[:error] = "Couldn't find user '" + params[:user_url_name] + "'"
             else
                 info_request.user = destination_user
                 info_request.save!
+                info_request.log_event("move_request", { 
+                        :editor => admin_http_auth_user(), 
+                        :old_user_url_name => old_user.url_name, 
+                        :new_user_url_name => destination_user.url_name 
+                })
+
                 info_request.reindex_request_events
                 flash[:notice] = "Message has been moved to new user"
             end
             redirect_to request_admin_url(info_request)
         elsif params[:commit] == 'Move request to authority' && !params[:public_body_url_name].blank?
+            old_public_body = info_request.public_body
             destination_public_body = PublicBody.find_by_url_name(params[:public_body_url_name])
             if destination_public_body.nil?
                 flash[:error] = "Couldn't find public body '" + params[:public_body_url_name] + "'"
             else
                 info_request.public_body = destination_public_body
                 info_request.save!
+                info_request.log_event("move_request", { 
+                        :editor => admin_http_auth_user(), 
+                        :old_public_body_url_name => old_public_body.url_name, 
+                        :new_public_body_url_name => destination_public_body.url_name 
+                })
+
                 info_request.reindex_request_events
                 flash[:notice] = "Request has been moved to new body"
             end

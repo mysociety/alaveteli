@@ -41,13 +41,16 @@ class InfoRequestEvent < ActiveRecord::Base
         'resent', 
         'followup_sent', 
         'followup_resent', 
-        'edit', # title etc. edited in admin interface
-        'edit_outgoing', # outgoing message edited in admin interface
-        'edit_comment', # comment edited in admin interface
-        'destroy_incoming', # deleted an incoming message
-        'destroy_outgoing', # deleted an outgoing message
-        'redeliver_incoming', # redelivered an incoming message elsewhere
+
+        'edit', # title etc. edited (in admin interface)
+        'edit_outgoing', # outgoing message edited (in admin interface)
+        'edit_comment', # comment edited (in admin interface)
+        'destroy_incoming', # deleted an incoming message (in admin interface)
+        'destroy_outgoing', # deleted an outgoing message (in admin interface)
+        'redeliver_incoming', # redelivered an incoming message elsewhere (in admin interface)
+        'move_request', # changed user or public body (in admin interface)
         'manual', # you did something in the db by hand
+
         'response',
         'comment', 
         'status_update' 
