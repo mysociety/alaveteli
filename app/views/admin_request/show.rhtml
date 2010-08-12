@@ -3,6 +3,8 @@
 
 <h1><%=@title%></h1>
 
+<% form_tag '../move_request', { :class => "inline" } do %>
+<%= hidden_field_tag 'info_request_id', @info_request.id %>
 <p>
 <% for column in InfoRequest.content_columns %>
   <strong><%= column.human_name %>:</strong> <%=h @info_request.send(column.name) %>
@@ -16,10 +18,33 @@
       <br/>
   <% end %>
 <% end %>
-<strong>Created by:</strong> <%= user_both_links(@info_request.user) %> <br>
-<strong>Public authority:</strong> <%= public_body_both_links(@info_request.public_body) %> <br>
+  <strong>Created by:</strong> <%= user_both_links(@info_request.user) %> 
+  <span>
+      <span>
+            (<%= link_to_function("move...", "$(this).up(1).childElements().invoke('toggle')") %>)
+      </span>
+      <span style="display:none;">
+          <strong>url_name of new user:</strong>
+          <%= text_field_tag 'user_url_name', "", { :size => 20 } %>
+          <%= submit_tag "Move request to user" %>
+     </span>
+  </span>
+  <br>
+<strong>Public authority:</strong> <%= public_body_both_links(@info_request.public_body) %> 
+  <span>
+      <span>
+            (<%= link_to_function("move...", "$(this).up(1).childElements().invoke('toggle')") %>)
+      </span>
+      <span style="display:none;">
+          <strong>url_name of new authority:</strong>
+          <%= text_field_tag 'public_body_url_name', "", { :size => 20 } %>
+          <%= submit_tag "Move request to authority" %>
+     </span>
+  </span>
+  <br>
 <strong>Incoming email address:</strong> <%= link_to h(@info_request.incoming_email), "mailto:" + @info_request.incoming_email %> <br>
 </p>
+<% end %>
 
 <p>
     <%= link_to 'Public page', main_url(request_url(@info_request)) %>
