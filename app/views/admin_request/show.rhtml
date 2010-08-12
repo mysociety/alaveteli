@@ -4,8 +4,8 @@
 <h1><%=@title%></h1>
 
 <% form_tag '../move_request', { :class => "inline" } do %>
-<%= hidden_field_tag 'info_request_id', @info_request.id %>
 <p>
+<%= hidden_field_tag 'info_request_id', @info_request.id %>
 <% for column in InfoRequest.content_columns %>
   <strong><%= column.human_name %>:</strong> <%=h @info_request.send(column.name) %>
   <% if column.name == 'described_state' %>
