@@ -202,7 +202,7 @@ class AdminRequestController < AdminController
                 info_request.log_event("move_request", { 
                         :editor => admin_http_auth_user(), 
                         :old_user_url_name => old_user.url_name, 
-                        :new_user_url_name => destination_user.url_name 
+                        :user_url_name => destination_user.url_name 
                 })
 
                 info_request.reindex_request_events
@@ -220,7 +220,7 @@ class AdminRequestController < AdminController
                 info_request.log_event("move_request", { 
                         :editor => admin_http_auth_user(), 
                         :old_public_body_url_name => old_public_body.url_name, 
-                        :new_public_body_url_name => destination_public_body.url_name 
+                        :public_body_url_name => destination_public_body.url_name 
                 })
 
                 info_request.reindex_request_events
