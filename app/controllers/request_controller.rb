@@ -19,6 +19,9 @@ class RequestController < ApplicationController
 
         # Look up by new style text names 
         @info_request = InfoRequest.find_by_url_title(params[:url_title])
+        if @info_request.nil?
+            raise "Request not found" 
+        end
         set_last_request(@info_request)
 
         # Test for whole request being hidden
