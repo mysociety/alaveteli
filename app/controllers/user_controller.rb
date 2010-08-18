@@ -386,8 +386,15 @@ class UserController < ApplicationController
                 :x => params[:x], :y => params[:y], :w => params[:w], :h => params[:h])
             @user.set_profile_photo(@profile_photo)
             draft_profile_photo.destroy
-            flash[:notice] = "Thank you for updating your profile photo"
-            redirect_to user_url(@user)
+            
+            if !@user.get_about_me_for_html_display.empty?
+                flash[:notice] = "Thank you for updating your profile photo"
+                redirect_to user_url(@user)
+            else
+                flash[:notice] = "<p>Thanks for updating your profile photo.</p>
+                <p><strong>Next...</strong> You can put some text about you and your research on your profile.</p>"
+                redirect_to set_profile_about_me_url()
+            end
         else
             render :template => 'user/set_draft_profile_photo.rhtml'
         end
@@ -458,8 +465,14 @@ class UserController < ApplicationController
 
         @user.about_me = @about_me.about_me
         @user.save!
-        flash[:notice] = "You have now changed the text about you on your profile."
-        redirect_to user_url(@user)
+        if @user.profile_photo
+            flash[:notice] = "You have now changed the text about you on your profile."
+            redirect_to user_url(@user)
+        else
+            flash[:notice] = "<p>Thanks for changing the text about you on your profile.</p>
+            <p><strong>Next...</strong> You can upload a profile photograph too.</p>"
+            redirect_to set_profile_photo_url()
+        end
     end
 
     private
