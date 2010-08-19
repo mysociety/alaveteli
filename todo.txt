@@ -96,6 +96,11 @@ Remove comments visible
 Later
 =====
 
+Spelling correction not working if you search for "comission", as described here:
+    http://comments.gmane.org/gmane.comp.search.xapian.general/8384
+When this patch from Xapian is in stable version, check that it all works.
+    http://trac.xapian.org/changeset/14859
+
 Make outgoing requests and follow ups get CCed to our backup mailbox, so that
 can do data recovery more easily
 
