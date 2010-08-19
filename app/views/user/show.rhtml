@@ -1,4 +1,4 @@
-<% @title = h(@display_user.name) + (@is_you ? " (you)" : "") %>
+<% @title = h(@display_user.name) + " - Freedom of Information requests" %>
 
 <% if (@same_name_users.size >= 1) %>
     <p>There is <strong>more than one person</strong> who uses this site and has this name. 
@@ -56,7 +56,7 @@
         <% end %>
     </p>
 
-    <h1><%=@title%></h1>
+    <h1> <%= h(@display_user.name) + (@is_you ? " (you)" : "") %> </h1>
 
     <p class="subtitle">
         Joined WhatDoTheyKnow in <%= year_from_date(@display_user.created_at) %>
