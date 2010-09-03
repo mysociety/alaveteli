@@ -1,0 +1,20 @@
+Steps to run the tests.
+
+  $ mkdir test/integration/app/log
+  $ RAILS_ENV=development; export RAILS_ENV 
+  
+If you don't run mysql as root, edit the user in test/integration/app/config/database.yml, 
+and grant him permissions to create new tables (/opt/local/lib/mysql5/bin/mysql -u root -p).
+
+  $ sudo gem install multi_rails echoe
+  $ rake
+
+To run an individual suite, first run:
+
+  $ ruby test/setup.rb
+  
+Then:
+
+  $ ruby test/unit/finder_test.rb
+  
+etc.

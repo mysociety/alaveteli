@@ -1,0 +1,11 @@
+defaults:
+  namespace: myapp
+  sessions: false
+  client: memcache-client
+development:
+  servers:
+    - 127.0.0.1:11211
+production:
+  servers
+    - 10.12.128.1
+    - 10.12.128.2

@@ -1,0 +1,24 @@
+
+development:
+  adapter: mysql
+  encoding: utf8
+  database: interlock_development
+  username: root
+  password:
+  socket: /tmp/mysql.sock
+
+test:
+  adapter: mysql
+  encoding: utf8
+  database: interlock_test
+  username: root
+  password:
+  socket: /tmp/mysql.sock
+
+production:
+  adapter: mysql
+  encoding: utf8
+  database: interlock_production
+  username: root
+  password: 
+  socket: /tmp/mysql.sock

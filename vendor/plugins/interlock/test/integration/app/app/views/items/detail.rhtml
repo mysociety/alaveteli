@@ -1,0 +1,20 @@
+
+<% view_cache :tag => :outer do %>  
+  <div style="border: 1px solid black; padding: 5px;">
+    <p>I invalidate quickly.</p>
+    <h1><%= @items.size %> total items</h1>
+
+    <% content_for :title do %>Outer: <% end %>
+    
+    <% view_cache :tag => :inner do %>
+      <div style="margin: 20px; padding: 5px; border: 1px solid black;">
+        <p>I invalidate slowly.</p>
+        <h2>Item <%= @item.id %> is <%= @item.name %>.</h2>
+
+         <% content_for :title do %>Inner<% end %>
+
+      </div>
+    <% end %>
+    
+  </div>  
+<% end %>

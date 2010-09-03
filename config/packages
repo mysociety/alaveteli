@@ -30,3 +30,4 @@ libxml-simple-ruby
 libfcgi-ruby1.8
 vpim
 tnef (>= 1.4.5)
+libmemcache-client-ruby

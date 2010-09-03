@@ -20,6 +20,8 @@ $:.push(File.join(File.dirname(__FILE__), '../commonlib/rblib'))
 $:.unshift(File.join(File.dirname(__FILE__), '../vendor/ruby-ole/lib'))
 $:.unshift(File.join(File.dirname(__FILE__), '../vendor/ruby-msg/lib'))
 
+require 'memcache'
+
 load "validate.rb"
 load "config.rb"
 load "format.rb"

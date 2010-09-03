@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+one:
+  id: 1
+  name: Artichoke
+  description: The Globe Artichoke (Cynara scolymus) is a perennial thistle originating in southern Europe around the Mediterranean.
+  created_at: 2007-12-04 13:47:27
+  updated_at: 2007-12-04 13:47:27
+two:
+  id: 2
+  name: Fire Apparatus
+  description: A fire apparatus, fire engine, fire truck, or fire appliance is a vehicle designed to assist in fighting fires, by transporting firefighters to the scene, and providing them with access, water or other equipment.
+  created_at: 2007-12-04 13:47:27
+  updated_at: 2007-12-04 13:47:27

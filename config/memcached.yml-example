@@ -1,0 +1,11 @@
+defaults:
+    namespace: whatdotheyknow
+    sessions: false
+    client: memcache-client
+development:
+    servers:
+      - 127.0.0.1:11211 # Default host and port
+production:
+    servers:
+      - 127.0.0.1:11211 # Default host and port
+

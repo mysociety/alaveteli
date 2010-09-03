@@ -14,36 +14,36 @@ class GeneralController < ApplicationController
 
     # New, improved front page!
     def frontpage
-        # This is too slow
-        #@popular_bodies = PublicBody.find(:all, :select => "*, (select count(*) from info_requests where info_requests.public_body_id = public_bodies.id) as c", :order => "c desc", :limit => 32)
+        behavior_cache do
+            # This is too slow
+            #@popular_bodies = PublicBody.find(:all, :select => "*, (select count(*) from info_requests where info_requests.public_body_id = public_bodies.id) as c", :order => "c desc", :limit => 32)
 
-        # Just hardcode some popular authorities for now
-        # ('tgq', 'atbra' is for debugging on Francis's development environment)
-        @popular_bodies = PublicBody.find(:all, :conditions => ["url_name in (
-              'bbc', 
-              'dwp', 
-              'dh', 
-              'snh',
-              'royal_mail_group', 
-              'mod', 
-              'kent_county_council', 
-              'wirral_borough_council'
-              /* , 'tgq', 'atbra' */
-        )"]).sort_by { |pb| pb.url_name }.reverse # just an order that looks better
+            # Just hardcode some popular authorities for now
+            # ('tgq', 'atbra' is for debugging on Francis's development environment)
+            @popular_bodies = PublicBody.find(:all, :conditions => ["url_name in (
+                  'bbc', 
+                  'dwp', 
+                  'dh', 
+                  'snh',
+                  'royal_mail_group', 
+                  'mod', 
+                  'kent_county_council', 
+                  'wirral_borough_council'
+                  /* , 'tgq', 'atbra' */
+            )"]).sort_by { |pb| pb.url_name }.reverse # just an order that looks better
 
-        # Get some successful requests #
-        begin
-            query = 'variety:response (status:successful OR status:partially_successful)'
-            # query = 'variety:response' # XXX debug
-            sortby = "described"
-            @xapian_object = perform_search([InfoRequestEvent], query, sortby, 'request_title_collapse', 8)
-            @successful_request_events = @xapian_object.results.map { |r| r[:model] }
-            @successful_request_events = @successful_request_events.sort_by { |e| e.described_at }.reverse
-        rescue
-            @successful_request_events = []
+            # Get some successful requests #
+            begin
+                query = 'variety:response (status:successful OR status:partially_successful)'
+                # query = 'variety:response' # XXX debug
+                sortby = "described"
+                @xapian_object = perform_search([InfoRequestEvent], query, sortby, 'request_title_collapse', 8)
+                @successful_request_events = @xapian_object.results.map { |r| r[:model] }
+                @successful_request_events = @successful_request_events.sort_by { |e| e.described_at }.reverse
+            rescue
+                @successful_request_events = []
+            end
         end
-
-        cache_in_squid
     end
 
     # Display WhatDoTheyKnow category from mySociety blog

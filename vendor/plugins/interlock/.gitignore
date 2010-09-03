@@ -1,0 +1,10 @@
+# MacOSX temp files
+.DS_Store
+
+# Vim swap files
+*.swp
+
+# test throwaway files
+test/integration/app/db/schema.rb
+test/integration/app/log/
+

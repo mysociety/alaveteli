@@ -1,0 +1,10 @@
+
+v1.4. Rails 2.1 compatibility. Store dependency trees per object, when possible. Use shorter namespaces for Memcached.
+
+v1.3. Add basic finder memoization.
+
+v1.2. Add compatibility with Memcached client.
+
+v1.1. Add :perform => false option. Cache :content_for. Test nested view_cache blocks. Don't assign conventional dependency when called from the view, because we don't know what the controller might have already specified.
+
+v1.0. First release.

@@ -1,0 +1,12 @@
+one:
+  guid: 1137
+  name: Book of Shred
+  description: The epic and definitive guide to shredding.
+  created_at: 2007-12-04 13:47:27
+  updated_at: 2007-12-04 13:47:27
+two:
+  guid: 2001
+  name: Red Hot and Rollin
+  description: Rip City Baby!
+  created_at: 2007-12-04 13:47:27
+  updated_at: 2007-12-04 13:47:27
