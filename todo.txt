@@ -1,6 +1,8 @@
 Next (things that will reduce admin time mainly)
 ====
 
+Remove Petitions sidebar link, add one to HelpMeInvestigate.
+
 Richard says he wants the internationalisation to be so it could be one site
 with combined search. Why obey the notion of a country? I'm not sure, but
 it might be prudent to write it so it can run multiple jurisdictions in 
