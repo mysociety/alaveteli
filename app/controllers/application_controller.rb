@@ -37,7 +37,6 @@ class ApplicationController < ActionController::Base
     # Set cookie expiry according to "remember me" checkbox, as per "An easier
     # and more flexible hack" on this page:
     #   http://wiki.rubyonrails.org/rails/pages/HowtoChangeSessionOptions
-    # Note: This is skipped in TrackController
     before_filter :session_remember_me
     def session_remember_me
         # Reset the "sliding window" session expiry time.
@@ -190,7 +189,6 @@ class ApplicationController < ActionController::Base
     end
 
     # Default layout shows user in corner, so needs access to it
-    # Note: This is skipped in TrackController
     before_filter :authentication_check
     def authentication_check
         if session[:user_id]

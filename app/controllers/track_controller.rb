@@ -8,9 +8,6 @@
 # $Id: track_controller.rb,v 1.31 2009-09-02 14:18:26 francis Exp $
 
 class TrackController < ApplicationController
-    # Don't do authentication checks, so we don't set cookie headers for feeds
-    # (so they can be cached by a reverse proxy)
-    skip_before_filter :session_remember_me, :authentication_check
 
     # Track all updates to a particular request
     def track_request
