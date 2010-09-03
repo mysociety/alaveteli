@@ -56,6 +56,9 @@ Also freezes Abiword, but not catdoc
 Performance
 ===========
 
+Varnish config
+http://www.varnish-cache.org/wiki/VCLExampleCachingLoggedInUsers
+
 Enable Directory Indexing, and disable atime (@glynwintle suggests)
 http://www.softpanorama.org/Internals/Filesystems/linux_ext2_ext3.shtml 
 (as/if we have caches with lots of files in a direcory)
