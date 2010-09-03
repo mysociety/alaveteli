@@ -251,11 +251,14 @@ class ApplicationController < ActionController::Base
         # Peform the search
         @per_page = per_page
         if this_page.nil?
-            @page = (params[:page] || "1").to_i
+            @page = get_search_page_from_params
         else
             @page = this_page
         end
         return InfoRequest.full_search(models, @query, order, ascending, collapse, @per_page, @page) 
+    end
+    def get_search_page_from_params
+        return (params[:page] || "1").to_i
     end
 
     # Store last visited pages, for contact form

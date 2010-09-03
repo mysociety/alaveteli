@@ -37,8 +37,8 @@ class GeneralController < ApplicationController
                 query = 'variety:response (status:successful OR status:partially_successful)'
                 # query = 'variety:response' # XXX debug
                 sortby = "described"
-                @xapian_object = perform_search([InfoRequestEvent], query, sortby, 'request_title_collapse', 8)
-                @successful_request_events = @xapian_object.results.map { |r| r[:model] }
+                xapian_object = perform_search([InfoRequestEvent], query, sortby, 'request_title_collapse', 8)
+                @successful_request_events = xapian_object.results.map { |r| r[:model] }
                 @successful_request_events = @successful_request_events.sort_by { |e| e.described_at }.reverse
             rescue
                 @successful_request_events = []

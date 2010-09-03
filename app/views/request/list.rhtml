@@ -18,19 +18,21 @@
     <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => false, :location => 'main' } %>
 <% end %>
 
-<% if @xapian_object.results.empty? %>
-    <p>No requests of this sort yet.</p>
-<% else %>
-    <% for result in @xapian_object.results %>
-        <% if result[:model].class.to_s == 'InfoRequestEvent' %>
-            <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result[:model], :info_request => result[:model].info_request } %>
-        <% else %>
-            <p><strong>Unexpected search result type <%=result[:model].class.to_s%></strong></p>
+<% # view_cache :ttl => 5.minutes do %>
+    <% if @list_results.empty? %>
+        <p>No requests of this sort yet.</p>
+    <% else %>
+        <% for result in @list_results%>
+            <% if result.class.to_s == 'InfoRequestEvent' %>
+                <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result, :info_request => result.info_request } %>
+            <% else %>
+                <p><strong>Unexpected search result type <%=result.class.to_s%></strong></p>
+            <% end %>
         <% end %>
     <% end %>
-<% end %>
 
-<%= will_paginate WillPaginate::Collection.new(@page, @per_page, @xapian_object.matches_estimated) %>
+    <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @matches_estimated) %>
+<% # end %>
 
 <% if @track_thing %>
     <p></p>

@@ -119,7 +119,15 @@ class RequestController < ApplicationController
         else
             raise "unknown request list view " + @view.to_s
         end
-        @xapian_object = perform_search([InfoRequestEvent], query, sortby, 'request_collapse')
+        
+        #behavior_cache do
+        xapian_object = perform_search([InfoRequestEvent], query, sortby, 'request_collapse')
+        @list_results = xapian_object.results.map { |r| r[:model] }
+        @matches_estimated = xapian_object.matches_estimated
+
+        #end
+        #@page = get_search_page_from_params if !@page # used in cache case, as perform_search sets @page as side effect
+        
         @title = @title + " (page " + @page.to_s + ")" if (@page > 1)
 
         @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss] } ]
@@ -128,8 +136,6 @@ class RequestController < ApplicationController
         if @page > 20
             @no_crawl = true
         end
-
-        cache_in_squid
     end
 
     # Page new form posts to
