@@ -44,7 +44,7 @@
         <div id="examples_1">
             <ul>
             <% for event in @successful_request_events %>
-                <li><%=link_to h(excerpt(event.info_request.title, "", 35)), request_url(event.info_request)%> 
+                <li><%=link_to h(excerpt(event.info_request.title, "", 32)), request_url(event.info_request)%> 
                 <%=h time_ago_in_words(event.described_at).gsub("about ", "") %> ago
                 </li>
             <% end %>
