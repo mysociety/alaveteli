@@ -63,9 +63,6 @@ module ApplicationHelper
     # Use our own algorithm for finding path of cache
     def foi_cache(name = {}, options = nil, &block)
         if @controller.perform_caching
-            #name = @controller.foi_fragment_cache_part_path(name) 
-            #@controller.fragment_for(output_buffer, name, options, &block)
-
             key = name.merge(:only_path => true)
             key_path = @controller.foi_fragment_cache_path(key)
 
