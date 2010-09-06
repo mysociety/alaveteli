@@ -120,13 +120,12 @@ class RequestController < ApplicationController
             raise "unknown request list view " + @view.to_s
         end
         
-        #behavior_cache do
-        xapian_object = perform_search([InfoRequestEvent], query, sortby, 'request_collapse')
-        @list_results = xapian_object.results.map { |r| r[:model] }
-        @matches_estimated = xapian_object.matches_estimated
-
-        #end
-        #@page = get_search_page_from_params if !@page # used in cache case, as perform_search sets @page as side effect
+        @page = get_search_page_from_params if !@page # used in cache case, as perform_search sets @page as side effect
+        behavior_cache :tag => [@view, @page] do
+            xapian_object = perform_search([InfoRequestEvent], query, sortby, 'request_collapse')
+            @list_results = xapian_object.results.map { |r| r[:model] }
+            @matches_estimated = xapian_object.matches_estimated
+        end
         
         @title = @title + " (page " + @page.to_s + ")" if (@page > 1)
 

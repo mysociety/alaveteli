@@ -18,7 +18,7 @@
     <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => false, :location => 'main' } %>
 <% end %>
 
-<% # view_cache :ttl => 5.minutes do %>
+<% view_cache :ttl => 5.minutes, :tag => [@view, @page] do %>
     <% if @list_results.empty? %>
         <p>No requests of this sort yet.</p>
     <% else %>
@@ -32,7 +32,7 @@
     <% end %>
 
     <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @matches_estimated) %>
-<% # end %>
+<% end %>
 
 <% if @track_thing %>
     <p></p>
