@@ -55,6 +55,8 @@ Also freezes Abiword, but not catdoc
 Performance
 ===========
 
+Cache /feed/list/successful
+
 Varnish config
 http://www.varnish-cache.org/wiki/VCLExampleCachingLoggedInUsers
 
