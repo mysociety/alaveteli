@@ -50,16 +50,18 @@ class RequestController < ApplicationController
         @new_responses_count = @info_request.events_needing_description.select {|i| i.event_type == 'response'}.size
 
         # Sidebar stuff
-        limit = 3
         # ... requests that have similar imporant terms
-        begin
-            @xapian_similar = ::ActsAsXapian::Similar.new([InfoRequestEvent], @info_request.info_request_events, 
-              :limit => limit, :collapse_by_prefix => 'request_collapse')
-            @xapian_similar_more = (@xapian_similar.matches_estimated > limit)
-        rescue
-            @xapian_similar = nil
+        behavior_cache :tag => ['similar', @info_request.id] do
+            begin
+                limit = 3
+                @xapian_similar = ::ActsAsXapian::Similar.new([InfoRequestEvent], @info_request.info_request_events, 
+                  :limit => limit, :collapse_by_prefix => 'request_collapse')
+                @xapian_similar_more = (@xapian_similar.matches_estimated > limit)
+            rescue
+                @xapian_similar = nil
+            end
         end
- 
+     
         # Track corresponding to this page
         @track_thing = TrackThing.create_track_for_request(@info_request)
         @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss] } ]

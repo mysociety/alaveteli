@@ -1050,6 +1050,7 @@ class IncomingMessage < ActiveRecord::Base
     # Returns all attachments for use in display code
     # XXX is this called multiple times and should be cached?
     def get_attachments_for_display
+        STDERR.puts(">>>>> get_attachments_for_display")
         main_part = get_main_body_text_part
         leaves = get_attachment_leaves
 

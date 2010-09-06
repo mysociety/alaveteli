@@ -20,7 +20,8 @@
         <%= link_to 'Start your own blog', "http://wordpress.com/"%>
     </div>
 
-    <% if !@xapian_similar.nil? && @xapian_similar.results.size > 0 %>
+    <% view_cache :ttl => 1.day, :tag => ['similar', @info_request.id] do %>
+     <% if !@xapian_similar.nil? && @xapian_similar.results.size > 0 %>
         <h2>Similar requests</h2>
         <% for result in @xapian_similar.results %>
             <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result[:model], :info_request => result[:model].info_request } %>
@@ -30,8 +31,9 @@
         <% end %>
         <!-- Important terms: <%= @xapian_similar.important_terms.join(" ") %>  -->
      <% end %>
+    <% end %>
 
-     <p><%= link_to "Event history details", request_details_url(@info_request) %></p>
-     <p><a href="/help/about#commercial">Are you the owner of
-     any commercial copyright on this page?</a></p>
+    <p><%= link_to "Event history details", request_details_url(@info_request) %></p>
+    <p><a href="/help/about#commercial">Are you the owner of
+    any commercial copyright on this page?</a></p>
 </div>
