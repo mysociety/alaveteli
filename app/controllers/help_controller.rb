@@ -9,7 +9,6 @@
 class HelpController < ApplicationController
     
     def about
-        set_http_header_cache_expiry
     end
 
     def unhappy

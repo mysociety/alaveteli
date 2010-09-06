@@ -96,8 +96,6 @@ class PublicBodyController < ApplicationController
                 @description = @tag
             end
         end
-
-        set_http_header_cache_expiry
     end
 
     # Used so URLs like /local/islington work, for use e.g. writing to a local paper.
