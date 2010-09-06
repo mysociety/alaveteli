@@ -4,3 +4,4 @@
 /database.yml.deployed
 /rails_env.rb
 /memcached.yml
+/memcached.yml.deployed
