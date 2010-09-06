@@ -59,9 +59,10 @@ Performance
 Varnish config
 http://www.varnish-cache.org/wiki/VCLExampleCachingLoggedInUsers
 
-Enable Directory Indexing, and disable atime (@glynwintle suggests)
-http://www.softpanorama.org/Internals/Filesystems/linux_ext2_ext3.shtml 
-(as/if we have caches with lots of files in a direcory)
+Disable atime (@glynwintle suggests)
+    http://www.softpanorama.org/Internals/Filesystems/linux_ext2_ext3.shtml 
+    (as/if we have caches with lots of files in a direcory)
+tune2fs -l /dev/mapper/sandwich-root
 
 test if get_attachments_for_display called multiple times in one request?
 
