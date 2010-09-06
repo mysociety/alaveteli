@@ -21,7 +21,7 @@ describe RequestController, "when listing recent requests" do
           with([InfoRequestEvent],"variety:sent", "created_at", anything, anything, anything, anything).
           and_return((1..25).to_a)
         get :list, :view => 'recent'
-        assigns[:xapian_object].size.should == 25
+        assigns[:list_results].size.should == 25
     end
 end
 
