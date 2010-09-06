@@ -101,17 +101,32 @@ class ApplicationController < ActionController::Base
         path = path.sub("/request/", "/request/" + first_three_digits + "/")
         return path
     end
+
     def foi_fragment_cache_path(param)
         path = foi_fragment_cache_part_path(param)
         path = "/views" + path
-        return File.join(self.cache_store.cache_path, path)
+        foi_cache_path = File.join(File.dirname(__FILE__), '../../cache')
+        return File.join(foi_cache_path, path)
     end
     def foi_fragment_cache_all_for_request(info_request)
+        # return stub path so admin can expire it
         first_three_digits = info_request.id.to_s()[0..2]
         path = "views/request/#{first_three_digits}/#{info_request.id}"
-        return File.join(self.cache_store.cache_path, path)
+        foi_cache_path = File.join(File.dirname(__FILE__), '../../cache')
+        return File.join(foi_cache_path, path)
     end
-
+    def foi_fragment_cache_exists?(key_path)
+        return File.exists?(key_path)
+    end
+    def foi_fragment_cache_read(key_path)
+        cached = File.read(key_path)
+    end
+    def foi_fragment_cache_write(key_path, content)
+        FileUtils.mkdir_p(File.dirname(key_path))
+        File.atomic_write(key_path) do |f|
+            f.write(content)
+        end
+    end
     private
 
     # Check the user is logged in

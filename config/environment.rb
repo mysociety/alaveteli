@@ -87,8 +87,7 @@ end
 # Mime::Type.register "text/richtext", :rtf
 # Mime::Type.register "application/x-mobile", :mobile
 
-# Include your application configuration below
-ActionController::Base.cache_store = :file_store, File.join(File.dirname(__FILE__), '../cache')
+# The Rails cache is set up by the Interlock plugin to use memcached
 
 # Domain for URLs (so can work for scripts, not just web pages)
 ActionMailer::Base.default_url_options[:host] = MySociety::Config.get("DOMAIN", 'localhost:3000')

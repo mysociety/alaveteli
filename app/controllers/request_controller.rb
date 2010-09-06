@@ -563,8 +563,8 @@ class RequestController < ApplicationController
         key = params.merge(:only_path => true)
         key_path = foi_fragment_cache_path(key)
 
-        if File.exists?(key_path)
-            cached = File.read(key_path)
+        if foi_fragment_cache_exists?(key_path)
+            cached = foi_fragment_cache_read(key_path)
             IncomingMessage # load global filename_to_mimetype XXX should move filename_to_mimetype to proper namespace
             response.content_type = filename_to_mimetype(params[:file_name].join("/")) or 'application/octet-stream'
             render_for_text(cached)
@@ -577,10 +577,7 @@ class RequestController < ApplicationController
         # various fragment cache functions using Ruby Marshall to write the file
         # which adds a header, so isnt compatible with images that have been
         # extracted elsewhere from PDFs)
-        FileUtils.mkdir_p(File.dirname(key_path))
-        File.atomic_write(key_path) do |f|
-            f.write(response.body)
-        end
+        foi_fragment_cache_write(key_path, response.body)
     end
 
     def get_attachment
