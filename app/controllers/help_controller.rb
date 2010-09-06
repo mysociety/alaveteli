@@ -9,7 +9,7 @@
 class HelpController < ApplicationController
     
     def about
-        cache_in_squid
+        set_http_header_cache_expiry
     end
 
     def unhappy

@@ -97,7 +97,7 @@ class PublicBodyController < ApplicationController
             end
         end
 
-        cache_in_squid
+        set_http_header_cache_expiry
     end
 
     # Used so URLs like /local/islington work, for use e.g. writing to a local paper.
