@@ -56,8 +56,6 @@ Also freezes Abiword, but not catdoc
 Performance
 ===========
 
-Doesn't need to have foi_fragment_cache_part_path in special foi_cache any more?
-
 Varnish config
 http://www.varnish-cache.org/wiki/VCLExampleCachingLoggedInUsers
 
@@ -72,9 +70,6 @@ PID: 676    CONSUME MEMORY: 16968 KB    Now: 102604 KB  http://www.whatdotheykno
 PID: 2036       CONSUME MEMORY: 129368 KB       Now: 179652 KB  http://www.whatdotheyknow.com/request/14186/response/33740
 - search engines shouldn't be going for those URLs. and do they really need to
   unpack so much? could use snippet cache.
-
-Page cacheing - the cookie setting stops the expires_on caching working well,
-as even when not logged in second page you go to isnt serverd from Squid cache.
 
 Things to make bots not crawl somehow:
     /request/13683/response?internal_review=1
