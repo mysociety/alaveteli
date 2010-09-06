@@ -17,7 +17,6 @@ Add links to these tags where possible:
     dpr:* - Bodies that appear on the Register of Data Controllers. '*' is replaced by the registration number.
     urn:* - Bodies that appear on EduBase. '*' is replaced by the institution's Unique Reference Number.
     VAT:* - Bodies with a VAT (UK Value Added Tax) registration number. '*' is replaced by the VAT registration number (no spaces) e.g. VAT:895108987
-
 http://foiwiki.com/foiwiki/index.php/WhatDoTheyKnow.com_Tags
 
 Enable Chris Taggert's clever link up idea to open local Government finance data
