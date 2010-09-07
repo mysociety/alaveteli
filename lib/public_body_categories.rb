@@ -43,6 +43,7 @@ module PublicBodyCategories
             [ "school", "Schools", "a school" ],
             [ "research_council", "Research councils", "a research council" ],
             [ "lib_board", "Education and library boards", "an education and library board" ],
+            [ "rbc", "Regional Broadband Consortia", "a Regional Broadband Consortium" ],
         "Environment",
             [ "npa", "National park authorities", "a national park authority" ], 
             [ "rpa", "Regional park authorities", "a regional park authority" ],
