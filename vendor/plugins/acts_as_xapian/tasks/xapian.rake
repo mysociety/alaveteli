@@ -9,7 +9,7 @@ namespace :xapian do
     # after each model that is updated. This is safer, but slower. Specify
     # "verbose=true" to print model name as it is run.
     desc 'Updates Xapian search index with changes to models since last call'
-    task (:update_index => :environment) do
+    task :update_index => :environment do
         ActsAsXapian.update_index(ENV['flush'] ? true : false, ENV['verbose'] ? true : false)
     end
 
@@ -20,7 +20,7 @@ namespace :xapian do
     # still pointing to the old deleted database. Specify "verbose=true" to
     # print model name as it is run.
     desc 'Completely rebuilds Xapian search index (must specify all models)'
-    task (:rebuild_index => :environment) do
+    task :rebuild_index => :environment do
         raise "specify ALL your models with models=\"ModelName1 ModelName2\" as parameter" if ENV['models'].nil?
         ActsAsXapian.rebuild_index(ENV['models'].split(" ").map{|m| m.constantize}, ENV['verbose'] ? true : false)
     end
@@ -28,7 +28,7 @@ namespace :xapian do
     # Parameters - are models, query, offset, limit, sort_by_prefix,
     # collapse_by_prefix
     desc 'Run a query, return YAML of results'
-    task (:query => :environment) do
+    task :query => :environment do
         raise "specify models=\"ModelName1 ModelName2\" as parameter" if ENV['models'].nil?
         raise "specify query=\"your terms\" as parameter" if ENV['query'].nil?
         s = ActsAsXapian::Search.new(ENV['models'].split(" ").map{|m| m.constantize}, 
