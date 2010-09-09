@@ -250,7 +250,7 @@ class InfoRequestEvent < ActiveRecord::Base
         for key, value in new_params
             old_value = old_params[key].to_s
             new_value = new_params[key].to_s
-            if old_value != new_value:
+            if old_value != new_value
                 ret = ret + "<em>" + CGI.escapeHTML(key) + ":</em> " 
                 ret = ret + 
                       CGI.escapeHTML(MySociety::Format.wrap_email_body_by_lines(old_value).strip).gsub(/\n/, '<br>') + 

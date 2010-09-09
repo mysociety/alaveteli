@@ -939,7 +939,7 @@ public
         max_id = InfoRequest.connection.select_value('select max(id) as a from info_requests').to_i
         info_request = nil
         count = 0
-        while info_request.nil?:
+        while info_request.nil?
             if count > 100
                 return nil
             end
