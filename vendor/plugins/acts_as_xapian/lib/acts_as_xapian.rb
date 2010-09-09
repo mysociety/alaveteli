@@ -398,7 +398,7 @@ module ActsAsXapian
             # Check parameters, convert to actual array of model classes
             new_model_classes = []
             model_classes = [model_classes] if model_classes.class != Array
-            for model_class in model_classes:
+            for model_class in model_classes
                 raise "pass in the model class itself, or a string containing its name" if model_class.class != Class && model_class.class != String
                 model_class = model_class.constantize if model_class.class == String
                 new_model_classes.push(model_class)
