@@ -224,7 +224,7 @@ class FOIAttachment
     def extra_note
         # For delivery status notification attachments, extract the status and
         # look up what it means in the DSN table.
-        if @content_type == 'message/delivery-status':
+        if @content_type == 'message/delivery-status'
             if !@body.match(/Status:\s+([0-9]+\.([0-9]+\.[0-9]+))\s+/)
                 return ""
             end
@@ -312,9 +312,9 @@ class FOIAttachment
     # PDF, PowerPoint and TIFF are listed on https://docs.google.com/viewer
     # .doc and .docx were added later http://gmailblog.blogspot.com/2010/06/view-doc-attachments-right-in-your.html
     def has_google_docs_viewer?
-        if self.content_type == 'application/vnd.ms-word':
+        if self.content_type == 'application/vnd.ms-word'
             return true
-        elsif self.content_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
+        elsif self.content_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
             return true
         elsif self.content_type == 'application/pdf'
             return true
