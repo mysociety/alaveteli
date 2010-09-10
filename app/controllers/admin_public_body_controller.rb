@@ -36,9 +36,9 @@ class AdminPublicBodyController < AdminController
         self._lookup_query_internal
 
         if params[:new_tag] and params[:new_tag] != ""
-            if params[:table_name] == 'exact':
+            if params[:table_name] == 'exact'
                 bodies = @public_bodies_by_tag
-            elsif params[:table_name] == 'substring':
+            elsif params[:table_name] == 'substring'
                 bodies = @public_bodies
             else
                 raise "Unknown table_name " + params[:table_name]
