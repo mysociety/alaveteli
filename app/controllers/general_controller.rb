@@ -7,7 +7,13 @@
 #
 # $Id: general_controller.rb,v 1.57 2009-10-03 10:23:43 francis Exp $
 
-require 'lib/xmlsimple'
+begin
+  require 'xmlsimple'
+rescue LoadError
+  # Debian maintainers put their xmlsimple in a different location :(
+  require 'lib/xmlsimple'
+end
+
 require 'open-uri'
 
 class GeneralController < ApplicationController
