@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 90) do
+ActiveRecord::Schema.define(:version => 91) do
 
   create_table "acts_as_xapian_jobs", :force => true do |t|
     t.string  "model",    :null => false
@@ -30,6 +30,10 @@ ActiveRecord::Schema.define(:version => 90) do
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
   end
+
+  add_index "censor_rules", ["info_request_id"], :name => "index_censor_rules_on_info_request_id"
+  add_index "censor_rules", ["public_body_id"], :name => "index_censor_rules_on_public_body_id"
+  add_index "censor_rules", ["user_id"], :name => "index_censor_rules_on_user_id"
 
   create_table "comments", :force => true do |t|
     t.integer  "user_id",                                       :null => false
