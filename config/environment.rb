@@ -46,7 +46,9 @@ Rails::Initializer.run do |config|
 
   # Force all environments to use the same logger level 
   # (by default production uses :info, the others :debug)
+  # TEMP: uncomment this to turn on logging in production environments
   # config.log_level = :debug
+  #
 
   # Your secret key for verifying cookie session data integrity.
   # If you change this key, all old sessions will become invalid!
@@ -110,6 +112,4 @@ require 'willpaginate_hack.rb'
 require 'sendmail_return_path.rb'
 require 'tnef.rb'
 
-# XXX temp debug for SQL logging production sites
-#ActiveRecord::Base.logger = Logger.new(STDOUT)
 
