@@ -17,9 +17,13 @@ describe RequestController, "when listing recent requests" do
     end
 
     it "should assign the first page of results" do
+        xap_results = mock_model(ActsAsXapian::Search, 
+                   :results => (1..25).to_a.map { |m| { :model => m } },
+                   :matches_estimated => 103)
+
         InfoRequest.should_receive(:full_search).
           with([InfoRequestEvent],"variety:sent", "created_at", anything, anything, anything, anything).
-          and_return((1..25).to_a)
+          and_return(xap_results)
         get :list, :view => 'recent'
         assigns[:list_results].size.should == 25
     end
