@@ -58,7 +58,7 @@ Performance
 Regular expression library - change to faster one. Oniguruma isn't enough.
 This shows slowness:
     e = InfoRequestEvent.find(213700)
-    text = e.incoming_message.get_main_body_text
+    text = e.incoming_message.get_main_body_text (XXX alter to call internal not cache)
     IncomingMessage.remove_quoted_sections(text, "")
 
 
