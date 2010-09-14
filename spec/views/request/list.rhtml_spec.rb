@@ -3,18 +3,14 @@ require File.dirname(__FILE__) + '/../../spec_helper'
 describe "when listing recent requests" do
   
     before do
-        @xap = mock_model(ActsAsXapian::Search)
-        @xap.stub!(:matches_estimated).and_return(2)
-        @xap.stub!(:results).and_return([
-          { :model => mock_event },
-          { :model => mock_event }
-        ])
-        assigns[:xapian_object] = @xap
         assigns[:page] = 1
         assigns[:per_page] = 10
+
+        # we're not testing the interlock plugin's cache
+        template.stub!(:view_cache).and_yield
     end
       
-    def mock_event 
+    def make_mock_event 
         return mock_model(InfoRequestEvent, 
             :info_request => mock_model(InfoRequest, 
                 :title => 'Title', 
@@ -34,13 +30,19 @@ describe "when listing recent requests" do
     end
 
     it "should be successful" do
+        assigns[:list_results] = [ make_mock_event, make_mock_event ]
+        assigns[:matches_estimated] = 2
+
         render "request/list"
+
         response.should have_tag("div.request_listing")
         response.should_not have_tag("p", /No requests of this sort yet/m)
     end
 
     it "should cope with no results" do
-        @xap.stub!(:results).and_return([])
+        assigns[:list_results] = [ ]
+        assigns[:matches_estimated] = 0
+
         render "request/list"
         response.should have_tag("p", /No requests of this sort yet/m)
         response.should_not have_tag("div.request_listing")
