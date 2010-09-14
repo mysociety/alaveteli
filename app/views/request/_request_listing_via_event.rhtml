@@ -15,7 +15,7 @@ end %>
         <% end %>
 	</span>
     <span class="desc">	
-        <%= highlight_and_excerpt(event.Search_text_main(true), @highlight_words, 150) %>
+        <%= highlight_and_excerpt(event.search_text_main(true), @highlight_words, 150) %>
 	</span>
 
     <span class="bottomline icon_<%= info_request.calculate_status %>">
