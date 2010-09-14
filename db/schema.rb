@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 91) do
+ActiveRecord::Schema.define(:version => 92) do
 
   create_table "acts_as_xapian_jobs", :force => true do |t|
     t.string  "model",    :null => false
@@ -76,9 +76,10 @@ ActiveRecord::Schema.define(:version => 91) do
     t.integer  "info_request_id",                :null => false
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
-    t.text     "cached_main_body_text"
     t.integer  "raw_email_id",                   :null => false
     t.text     "cached_attachment_text_clipped"
+    t.text     "cached_main_body_text_folded"
+    t.text     "cached_main_body_text_unfolded"
   end
 
   create_table "info_request_events", :force => true do |t|

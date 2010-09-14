@@ -875,31 +875,51 @@ class IncomingMessage < ActiveRecord::Base
     # Removes anything cached about the object in the database, and saves
     def clear_in_database_caches!
         self.cached_attachment_text_clipped = nil
-        self.cached_main_body_text = nil
+        self.cached_main_body_text_marked = nil
         self.save!
     end
 
-    # Returns body text from main text part of email, converted to UTF-8, with uudecode removed
-    # XXX returns a .dup of the text, so calling functions can in place modify it
-    def get_main_body_text
-        # Cached as loading raw_email can be quite huge, and need this for just
-        # search results
-        if self.cached_main_body_text.nil?
-            text = self.get_main_body_text_internal
+    # Internal function to cache two sorts of main body text.
+    # Cached as loading raw_email can be quite huge, and need this for just
+    # search results
+    def _cache_main_body_text
+        text = self.get_main_body_text_internal
 
-            # Strip the uudecode parts from main text
-            # - this also effectively does a .dup as well, so text mods don't alter original
-            text = text.split(/^begin.+^`\n^end\n/sm).join(" ")
+        # Strip the uudecode parts from main text
+        # - this also effectively does a .dup as well, so text mods don't alter original
+        text = text.split(/^begin.+^`\n^end\n/sm).join(" ")
 
-            if text.size > 1000000 # 1 MB ish
-                raise "main body text more than 1 MB, need to implement clipping like for attachment text, or there is some other MIME decoding problem or similar"
-            end
-
-            self.cached_main_body_text = text
-            self.save!
+        if text.size > 1000000 # 1 MB ish
+            raise "main body text more than 1 MB, need to implement clipping like for attachment text, or there is some other MIME decoding problem or similar"
         end
 
-        return self.cached_main_body_text
+        # remove emails for privacy/anti-spam reasons
+        self.mask_special_emails!(text)
+        self.remove_privacy_sensitive_things!(text)
+
+        # Remove existing quoted sections
+        folded_quoted_text = self.remove_lotus_quoting(text, 'FOLDED_QUOTED_SECTION')
+        folded_quoted_text = IncomingMessage.remove_quoted_sections(text, "FOLDED_QUOTED_SECTION")
+
+        self.cached_main_body_text_unfolded = text
+        self.cached_main_body_text_folded = folded_quoted_text
+        self.save!
+    end
+    # Returns body text from main text part of email, converted to UTF-8, with uudecode removed,
+    # emails and privacy sensitive things remove, censored, and folded to remove excess quoted text
+    # (marked with FOLDED_QUOTED_SECTION)
+    # XXX returns a .dup of the text, so calling functions can in place modify it
+    def get_main_body_text_folded
+        if self.cached_main_body_text_folded.nil?
+            self._cache_main_body_text
+        end
+        return self.cached_main_body_text_folded
+    end
+    def get_main_body_text_unfolded
+        if self.cached_main_body_text_unfolded.nil?
+            self._cache_main_body_text
+        end
+        return self.cached_main_body_text_unfolded
     end
     # Returns body text from main text part of email, converted to UTF-8
     def get_main_body_text_internal
@@ -1122,17 +1142,14 @@ class IncomingMessage < ActiveRecord::Base
     # Returns body text as HTML with quotes flattened, and emails removed.
     def get_body_for_html_display(collapse_quoted_sections = true)
         # Find the body text and remove emails for privacy/anti-spam reasons
-        text = get_main_body_text
-        self.mask_special_emails!(text)
-        self.remove_privacy_sensitive_things!(text)
+        text = get_main_body_text_unfolded
+        folded_quoted_text = get_main_body_text_folded
 
         # Remove quoted sections, adding HTML. XXX The FOLDED_QUOTED_SECTION is
         # a nasty hack so we can escape other HTML before adding the unfold
         # links, without escaping them. Rather than using some proper parser
         # making a tree structure (I don't know of one that is to hand, that
         # works well in this kind of situation, such as with regexps).
-        folded_quoted_text = self.remove_lotus_quoting(text, 'FOLDED_QUOTED_SECTION')
-        folded_quoted_text = IncomingMessage.remove_quoted_sections(folded_quoted_text, 'FOLDED_QUOTED_SECTION')
         if collapse_quoted_sections
             text = folded_quoted_text
         end
@@ -1163,14 +1180,10 @@ class IncomingMessage < ActiveRecord::Base
 
     # Returns text of email for using in quoted section when replying
     def get_body_for_quoting
-        # Find the body text and remove emails for privacy/anti-spam reasons
-        text = get_main_body_text
-        self.mask_special_emails!(text)
-        self.remove_privacy_sensitive_things!(text)
-
-        # Remove existing quoted sections
-        text = self.remove_lotus_quoting(text, '')
-        text = IncomingMessage.remove_quoted_sections(text, "")
+        # Get the body text with emails and quoted sections removed
+        text = get_main_body_text_folded
+        text.gsub!("FOLDED_QUOTED_SECTION", " ")
+        text.strip!
     end
 
     MAX_ATTACHMENT_TEXT_CLIPPED = 1000000 # 1Mb ish

@@ -55,7 +55,15 @@ Also freezes Abiword, but not catdoc
 Performance
 ===========
 
+Regular expression library - change to faster one. Oniguruma isn't enough.
+This shows slowness:
+    e = InfoRequestEvent.find(213700)
+    text = e.incoming_message.get_main_body_text
+    IncomingMessage.remove_quoted_sections(text, "")
+
+
 Cache /feed/list/successful
+Cache /body/list/a
 
 Varnish config
 http://www.varnish-cache.org/wiki/VCLExampleCachingLoggedInUsers
@@ -64,8 +72,6 @@ Disable atime (@glynwintle suggests)
     http://www.softpanorama.org/Internals/Filesystems/linux_ext2_ext3.shtml 
     (as/if we have caches with lots of files in a direcory)
 tune2fs -l /dev/mapper/sandwich-root
-
-test if get_attachments_for_display called multiple times in one request?
 
 Some requests to lower memory use of still:
 PID: 676    CONSUME MEMORY: 16968 KB    Now: 102604 KB  http://www.whatdotheyknow.com/request/parking_ticket_data_81
