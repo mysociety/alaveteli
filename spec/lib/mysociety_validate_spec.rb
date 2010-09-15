@@ -1,7 +1,7 @@
 # This is tests for the code in commonlib/rblib/validate.rb
 # XXX move the tests into commonlib
 
-require File.dirname(__FILE__) + '/../spec_helper'
+require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe "when checking text uses mixed capitals" do
 

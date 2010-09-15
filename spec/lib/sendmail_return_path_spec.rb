@@ -1,6 +1,6 @@
 # This is a test of the monkey patches in sendmail_return_path.rb
 
-require File.dirname(__FILE__) + '/../spec_helper'
+require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe "when sending email with an altered return path" do
 

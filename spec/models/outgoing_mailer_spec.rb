@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe OutgoingMailer, " when working out follow up addresses" do
     # This is done with fixtures as the code is a bit tangled with the way it
