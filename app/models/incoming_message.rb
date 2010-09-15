@@ -1184,6 +1184,8 @@ class IncomingMessage < ActiveRecord::Base
         text = get_main_body_text_folded
         text.gsub!("FOLDED_QUOTED_SECTION", " ")
         text.strip!
+        raise "internal error" if text.nil?
+        return text
     end
 
     MAX_ATTACHMENT_TEXT_CLIPPED = 1000000 # 1Mb ish
