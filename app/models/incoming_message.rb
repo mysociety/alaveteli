@@ -876,7 +876,8 @@ class IncomingMessage < ActiveRecord::Base
     # Removes anything cached about the object in the database, and saves
     def clear_in_database_caches!
         self.cached_attachment_text_clipped = nil
-        self.cached_main_body_text_marked = nil
+        self.cached_main_body_text_unfolded = nil
+        self.cached_main_body_text_folded = nil
         self.save!
     end
 
