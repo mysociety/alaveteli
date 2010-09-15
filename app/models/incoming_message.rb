@@ -1,7 +1,5 @@
-# encoding: UTF-8
-
 # == Schema Information
-# Schema version: 89
+# Schema version: 92
 #
 # Table name: incoming_messages
 #
@@ -9,10 +7,13 @@
 #  info_request_id                :integer         not null
 #  created_at                     :datetime        not null
 #  updated_at                     :datetime        not null
-#  cached_main_body_text          :text            
 #  raw_email_id                   :integer         not null
 #  cached_attachment_text_clipped :text            
+#  cached_main_body_text_folded   :text            
+#  cached_main_body_text_unfolded :text            
 #
+
+# encoding: UTF-8
 
 # models/incoming_message.rb:
 # An (email) message from really anybody to be logged with a request. e.g. A

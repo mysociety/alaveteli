@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 89
+# Schema version: 92
 #
 # Table name: public_body_tags
 #

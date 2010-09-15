@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 89
+# Schema version: 92
 #
 # Table name: exim_log_dones
 #
