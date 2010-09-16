@@ -74,6 +74,8 @@ Disable atime (@glynwintle suggests)
     http://www.softpanorama.org/Internals/Filesystems/linux_ext2_ext3.shtml 
     (as/if we have caches with lots of files in a direcory)
 tune2fs -l /dev/mapper/sandwich-root
+Add to /etc/fstab
+mount -o remount /dev/mapper/sandwich-root
 
 Some requests to lower memory use of still:
 PID: 676    CONSUME MEMORY: 16968 KB    Now: 102604 KB  http://www.whatdotheyknow.com/request/parking_ticket_data_81
