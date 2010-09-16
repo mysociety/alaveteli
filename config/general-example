@@ -38,7 +38,10 @@ define('OPTION_BLACKHOLE_PREFIX', 'do-not-reply-to-this-address'); // used as en
 // Administration
 define('OPTION_CONTACT_EMAIL', 'admin@localhost');
 define('OPTION_ADMIN_BASE_URL', '/admin/');
-define('OPTION_ADMIN_PUBLIC_URL', '/'); // where /stylesheets sits under for admin pages
+// Where /stylesheets sits under for pages served over SSL, see asset_host in
+// config/environment.rb. This is to serve the stylesheets from SSL as well in
+// mySociety's proxied admin system.
+define('OPTION_ADMIN_PUBLIC_URL', '/'); 
 
 // Secret key for signing cookie_store sessions
 define('OPTION_COOKIE_STORE_SESSION_SECRET', 'your secret key here, make it long and random');

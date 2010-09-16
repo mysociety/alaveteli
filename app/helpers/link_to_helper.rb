@@ -179,12 +179,6 @@ module LinkToHelper
     end
 
 
-    # Where stylesheets used by admin page sit under
-    def admin_public_url(relative_path)
-        admin_url_prefix = MySociety::Config.get("ADMIN_PUBLIC_URL", "/")
-        return admin_url_prefix + relative_path.sub(/^\//, "") # stylesheet relative paths start with /
-    end
-
     def main_url(relative_path)
         url_prefix = "http://" + MySociety::Config.get("DOMAIN", '127.0.0.1:3000')
         return url_prefix + relative_path

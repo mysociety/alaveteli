@@ -96,7 +96,13 @@ ActionMailer::Base.default_url_options[:host] = MySociety::Config.get("DOMAIN", 
 
 # So that javascript assets use full URL, so proxied admin URLs read javascript OK
 if (MySociety::Config.get("DOMAIN", "") != "")
-    ActionController::Base.asset_host = MySociety::Config.get("DOMAIN", 'localhost:3000')
+    ActionController::Base.asset_host = Proc.new { |source, request|
+        if request.ssl? # for mySociety proxying
+            MySociety::Config.get("ADMIN_PUBLIC_URL", "/")
+        else
+            MySociety::Config.get("DOMAIN", 'localhost:3000')
+        end
+    }
 end
 
 # Load monkey patches from lib/
