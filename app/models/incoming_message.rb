@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # == Schema Information
 # Schema version: 92
 #
@@ -12,8 +13,6 @@
 #  cached_main_body_text_folded   :text            
 #  cached_main_body_text_unfolded :text            
 #
-
-# encoding: UTF-8
 
 # models/incoming_message.rb:
 # An (email) message from really anybody to be logged with a request. e.g. A
