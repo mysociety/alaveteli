@@ -61,6 +61,8 @@ This shows slowness:
     text = e.incoming_message.get_main_body_text (XXX alter to call internal not cache)
     IncomingMessage.remove_quoted_sections(text, "")
 
+This is slow:
+http://www.whatdotheyknow.com/request/renumeration_committee
 
 Cache /feed/list/successful
 Cache /body/list/a
