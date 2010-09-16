@@ -55,6 +55,14 @@ Also freezes Abiword, but not catdoc
 Performance
 ===========
 
+Cache /feed/list/successful
+Cache /body/list/a
+
+Cache parts of /body/xxxxx
+Cache parts of /user/xxxxx
+
+Finish migration to Rails 1.9 - for uncached requests, seems to be twice as fast.
+
 Regular expression library - change to faster one. Oniguruma isn't enough.
 This shows slowness:
     e = InfoRequestEvent.find(213700)
@@ -64,18 +72,8 @@ This shows slowness:
 This is slow:
 http://www.whatdotheyknow.com/request/renumeration_committee
 
-Cache /feed/list/successful
-Cache /body/list/a
-
 Varnish config
 http://www.varnish-cache.org/wiki/VCLExampleCachingLoggedInUsers
-
-Disable atime (@glynwintle suggests)
-    http://www.softpanorama.org/Internals/Filesystems/linux_ext2_ext3.shtml 
-    (as/if we have caches with lots of files in a direcory)
-tune2fs -l /dev/mapper/sandwich-root
-Add to /etc/fstab
-mount -o remount /dev/mapper/sandwich-root
 
 Some requests to lower memory use of still:
 PID: 676    CONSUME MEMORY: 16968 KB    Now: 102604 KB  http://www.whatdotheyknow.com/request/parking_ticket_data_81
@@ -86,9 +84,6 @@ PID: 2036       CONSUME MEMORY: 129368 KB       Now: 179652 KB  http://www.whatd
 Things to make bots not crawl somehow:
     /request/13683/response?internal_review=1
     /request/febrile_neutropenia_154?unfold=1
-
-cached_main_body_text could store the privacy censored versions now, since
-cached_attachment_text_clipped does (and clears it when censor rules are edited)
 
 Renaming of a body, or changing its domain, should clear the cached bubbles of
 all requests to that body.
