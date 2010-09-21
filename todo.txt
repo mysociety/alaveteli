@@ -55,6 +55,8 @@ Also freezes Abiword, but not catdoc
 Performance
 ===========
 
+Receiving email can be resource drain starting app instance each time - use daemon instead
+
 Cache /feed/list/successful
 Cache /body/list/a
 
