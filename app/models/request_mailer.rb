@@ -177,7 +177,15 @@ class RequestMailer < ApplicationMailer
     # Class function, called by script/mailin with all incoming responses.
     # [ This is a copy (Monkeypatch!) of function from action_mailer/base.rb,
     # but which additionally passes the raw_email to the member function, as we
-    # want to record it. ]
+    # want to record it. 
+    #
+    # That is because we want to be sure we properly record the actual message
+    # received in its raw form - so any information won't be lost in a round
+    # trip via TMail, or by bugs in it, and so we can use something other than
+    # TMail at a later date. And so we can offer an option to download the
+    # actual original mail sent by the authority in the admin interface (so
+    # can check that attachment decoding failures are problems in the message,
+    # not in our code). ]
     def self.receive(raw_email)
         logger.info "Received mail:\n #{raw_email}" unless logger.nil?
         mail = TMail::Mail.parse(raw_email)
