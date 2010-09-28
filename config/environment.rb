@@ -105,7 +105,7 @@ if (MySociety::Config.get("DOMAIN", "") != "")
     }
 end
 
-# Load monkey patches from lib/
+# Load monkey patches and other things from lib/
 require 'tmail_extensions.rb'
 require 'activesupport_cache_extensions.rb'
 require 'public_body_categories.rb'
