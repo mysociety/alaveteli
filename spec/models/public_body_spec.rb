@@ -94,6 +94,27 @@ describe PublicBody, " using machine tags" do
     end
 end
 
+describe PublicBody, "when finding_by_tags" do
+    fixtures :public_bodies
+
+    before do
+         @geraldine = public_bodies(:geraldine_public_body)
+         @geraldine.tag_string = 'rabbit'
+         @humpadink = public_bodies(:humpadink_public_body)
+         @humpadink.tag_string = 'coney:5678 coney:1234'
+    end
+
+    it 'should be able to find bodies by string' do
+        found = PublicBody.find_by_tag('rabbit')
+        found.should == [ @geraldine ]
+    end
+
+    it 'should be able to find when there are multiple tags in one body, without returning duplicates' do
+        found = PublicBody.find_by_tag('coney')
+        found.should == [ @humpadink ]
+    end
+end
+
 describe PublicBody, " when making up the URL name" do 
     before do
         @public_body = PublicBody.new
