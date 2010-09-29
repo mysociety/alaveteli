@@ -43,6 +43,7 @@
   </span>
   <br>
 <strong>Incoming email address:</strong> <%= link_to h(@info_request.incoming_email), "mailto:" + @info_request.incoming_email %> <br>
+<b>Tags:</b> <%= render :partial => 'tags', :locals => { :info_request => @info_request} %> <br>
 </p>
 <% end %>
 

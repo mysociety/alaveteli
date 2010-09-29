@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 93) do
+ActiveRecord::Schema.define(:version => 94) do
 
   create_table "acts_as_xapian_jobs", :force => true do |t|
     t.string  "model",    :null => false
@@ -73,9 +73,9 @@ ActiveRecord::Schema.define(:version => 93) do
     t.string   "model",      :null => false
   end
 
+  add_index "has_tag_string_tags", ["model", "model_id", "name", "value"], :name => "index_has_tag_string_tags_on_model_and_model_id_and_name_and_va"
   add_index "has_tag_string_tags", ["model", "model_id"], :name => "index_has_tag_string_tags_on_model_and_model_id"
-  add_index "has_tag_string_tags", ["model_id", "name", "value"], :name => "index_public_body_tags_on_public_body_id_and_name_and_value", :unique => true
-  add_index "has_tag_string_tags", ["name"], :name => "index_public_body_tags_on_name"
+  add_index "has_tag_string_tags", ["name"], :name => "index_has_tag_string_tags_on_name"
 
   create_table "holidays", :force => true do |t|
     t.date "day"
