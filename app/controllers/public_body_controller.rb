@@ -65,24 +65,28 @@ class PublicBodyController < ApplicationController
     end
 
     def list
+        # XXX move some of these tag SQL queries into has_tag_string.rb
         @tag = params[:tag]
         if @tag.nil?
             @tag = "all"
             conditions = []
         elsif @tag == 'other'
             category_list = PublicBodyCategories::CATEGORIES.map{|c| "'"+c+"'"}.join(",")
-            conditions = ['(select count(*) from public_body_tags where public_body_tags.public_body_id = public_bodies.id
-                and public_body_tags.name in (' + category_list + ')) = 0']
+            conditions = ['(select count(*) from has_tag_string_tags where has_tag_string_tags.model_id = public_bodies.id
+                and has_tag_string_tags.model = \'PublicBody\'
+                and has_tag_string_tags.name in (' + category_list + ')) = 0']
         elsif @tag.size == 1
             @tag.upcase!
             conditions = ['first_letter = ?', @tag]
         elsif @tag.include?(":")
-            name, value = PublicBodyTag.split_tag_into_name_value(@tag)
-            conditions = ['(select count(*) from public_body_tags where public_body_tags.public_body_id = public_bodies.id
-                and public_body_tags.name = ? and public_body_tags.value = ?) > 0', name, value]
+            name, value = HasTagString::HasTagStringTag.split_tag_into_name_value(@tag)
+            conditions = ['(select count(*) from has_tag_string_tags where has_tag_string_tags.model_id = public_bodies.id
+                and has_tag_string_tags.model = \'PublicBody\'
+                and has_tag_string_tags.name = ? and has_tag_string_tags.value = ?) > 0', name, value]
         else
-            conditions = ['(select count(*) from public_body_tags where public_body_tags.public_body_id = public_bodies.id
-                and public_body_tags.name = ?) > 0', @tag]
+            conditions = ['(select count(*) from has_tag_string_tags where has_tag_string_tags.model_id = public_bodies.id
+                and has_tag_string_tags.model = \'PublicBody\'
+                and has_tag_string_tags.name = ?) > 0', @tag]
         end
         @public_bodies = PublicBody.paginate(
             :order => "public_bodies.name", :page => params[:page], :per_page => 1000, # fit all councils on one page

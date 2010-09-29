@@ -42,7 +42,6 @@ class PublicBody < ActiveRecord::Base
     has_many :info_requests, :order => 'created_at desc'
     has_many :track_things, :order => 'created_at desc'
 
-    has_many :public_body_tags
     has_tag_string
 
     # like find_by_url_name but also search historic url_name if none found
@@ -190,7 +189,7 @@ class PublicBody < ActiveRecord::Base
     def type_of_authority(html = false)
         types = []
         first = true
-        for tag in self.public_body_tags
+        for tag in self.tags
             if PublicBodyCategories::CATEGORIES_BY_TAG.include?(tag.name)
                 desc = PublicBodyCategories::CATEGORY_SINGULAR_BY_TAG[tag.name] 
                 if first

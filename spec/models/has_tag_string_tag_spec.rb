@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-describe PublicBodyTag, " when fiddling with public body tags " do
+describe PublicBodyTag, " when fiddling with tag strings " do
     fixtures :public_bodies
 
     it "should be able to make a new tag and save it" do
