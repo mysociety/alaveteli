@@ -29,6 +29,8 @@ module HasTagString
             return ret
         end
 
+        # Parses a text version of one single tag, such as "a:b" and returns
+        # the name and value, with nil for value if there isn't one.
         def HasTagStringTag.split_tag_into_name_value(tag)
             sections = tag.split(/:/)
             name = sections[0]
@@ -46,6 +48,10 @@ module HasTagString
         # Given an input string of tags, sets all tags to that string.
         # XXX This immediately saves the new tags.
         def tag_string=(tag_string)
+            if tag_string.nil?
+                tag_string = ""
+            end
+
             tag_string = tag_string.strip
             # split tags apart
             tags = tag_string.split(/\s+/).uniq
