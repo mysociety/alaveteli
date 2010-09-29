@@ -4,6 +4,10 @@
 
     <h2>Act on what you've learnt</h2>
     <div class="act_link">
+        <%= link_to '<img src="/images/helpmeinvestigate.png" alt="" class="rss">', "http://helpmeinvestigate.com/"%> 
+        <%= link_to 'Get help investigating', "http://helpmeinvestigate.com/"%>
+    </div>
+    <div class="act_link">
         <%= link_to '<img src="/images/writetothem.png" alt="" class="rss">', "http://www.writetothem.com"%> 
         <%= link_to 'Write to your politician', "http://www.writetothem.com"%>
     </div>
@@ -19,6 +23,7 @@
         <%= link_to '<img src="/images/wordpress.png" alt="" class="rss">', "http://wordpress.com/"%> 
         <%= link_to 'Start your own blog', "http://wordpress.com/"%>
     </div>
+
 
     <% view_cache :ttl => 1.day, :tag => ['similar', @info_request.id] do %>
      <% if !@xapian_similar.nil? && @xapian_similar.results.size > 0 %>
