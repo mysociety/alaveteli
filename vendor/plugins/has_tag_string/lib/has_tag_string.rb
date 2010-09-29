@@ -19,6 +19,8 @@ module HasTagString
             return self.model.constantize.find(self.model_id)
         end
 
+        # For display purposes, returns the name and value as a:b, or 
+        # if there is no value just the name a
         def name_and_value
             ret = self.name
             if !self.value.nil?
