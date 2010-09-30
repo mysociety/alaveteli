@@ -346,6 +346,9 @@ Failed to detect attachments are emails and decode them:
 When indexing .docx do you need to index docProps/custom.xml and docProps/app.xml
 as well as word/document.xml ? (thread on xapian-discuss does so)
 
+Consider using odt2txt or unoconv
+http://www-verimag.imag.fr/~moy/opendocument/
+
 Mime type / extension wrong on these .docx's
 http://www.whatdotheyknow.com/request/bridleway_classifications
 http://www.whatdotheyknow.com/request/19976/response/51468/attach/3/TU%20MembershipTeachers%20SolidarityTU%20231009.docx.doc (thinks it is doc when it is docx)
