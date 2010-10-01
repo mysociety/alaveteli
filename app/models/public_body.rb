@@ -40,8 +40,9 @@ class PublicBody < ActiveRecord::Base
     validates_uniqueness_of :name
     
     has_many :info_requests, :order => 'created_at desc'
-    has_many :public_body_tags
     has_many :track_things, :order => 'created_at desc'
+
+    has_tag_string
 
     # like find_by_url_name but also search historic url_name if none found
     def self.find_by_url_name_with_historic(name)
@@ -183,71 +184,12 @@ class PublicBody < ActiveRecord::Base
         end
     end
 
-    # Given an input string of tags, sets all tags to that string.
-    # XXX This immediately saves the new tags.
-    def tag_string=(tag_string)
-        tag_string = tag_string.strip
-        # split tags apart
-        tags = tag_string.split(/\s+/).uniq
-
-        ActiveRecord::Base.transaction do
-            for public_body_tag in self.public_body_tags
-                public_body_tag.destroy
-            end
-            self.public_body_tags = []
-            for tag in tags
-                # see if is a machine tags (i.e. a tag which has a value)
-                name, value = PublicBodyTag.split_tag_into_name_value(tag)
-
-                public_body_tag = PublicBodyTag.new(:name => name, :value => value)
-                self.public_body_tags << public_body_tag
-                public_body_tag.public_body = self
-            end
-        end
-    end
-    def tag_string
-        return self.public_body_tags.map { |t| t.name_and_value }.join(' ')
-    end
-    def has_tag?(tag)
-        for public_body_tag in self.public_body_tags
-            if public_body_tag.name == tag
-                return true
-            end
-        end 
-        return false
-    end
-    class TagNotFound < StandardError
-    end
-    def get_tag_values(tag)
-        found = false
-        results = []
-        for public_body_tag in self.public_body_tags
-            if public_body_tag.name == tag
-                found = true
-                if !public_body_tag.value.nil?
-                    results << public_body_tag.value
-                end
-            end
-        end 
-        if !found
-            raise TagNotFound
-        end
-        return results
-    end
-    def add_tag_if_not_already_present(tag)
-        self.tag_string = self.tag_string + " " + tag
-    end
-
-    # Find all public bodies with a particular tag
-    def self.find_by_tag(tag) 
-        return PublicBodyTag.find(:all, :conditions => ['name = ?', tag] ).map { |t| t.public_body }.sort { |a,b| a.name <=> b.name }
-    end
 
     # Use tags to describe what type of thing this is
     def type_of_authority(html = false)
         types = []
         first = true
-        for tag in self.public_body_tags
+        for tag in self.tags
             if PublicBodyCategories::CATEGORIES_BY_TAG.include?(tag.name)
                 desc = PublicBodyCategories::CATEGORY_SINGULAR_BY_TAG[tag.name] 
                 if first

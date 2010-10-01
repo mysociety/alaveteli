@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 92) do
+ActiveRecord::Schema.define(:version => 94) do
 
   create_table "acts_as_xapian_jobs", :force => true do |t|
     t.string  "model",    :null => false
@@ -64,6 +64,18 @@ ActiveRecord::Schema.define(:version => 92) do
   end
 
   add_index "exim_logs", ["exim_log_done_id"], :name => "index_exim_logs_on_exim_log_done_id"
+
+  create_table "has_tag_string_tags", :force => true do |t|
+    t.integer  "model_id",   :null => false
+    t.text     "name",       :null => false
+    t.datetime "created_at", :null => false
+    t.text     "value"
+    t.string   "model",      :null => false
+  end
+
+  add_index "has_tag_string_tags", ["model", "model_id", "name", "value"], :name => "index_has_tag_string_tags_on_model_and_model_id_and_name_and_va"
+  add_index "has_tag_string_tags", ["model", "model_id"], :name => "index_has_tag_string_tags_on_model_and_model_id"
+  add_index "has_tag_string_tags", ["name"], :name => "index_has_tag_string_tags_on_name"
 
   create_table "holidays", :force => true do |t|
     t.date "day"
@@ -172,16 +184,6 @@ ActiveRecord::Schema.define(:version => 92) do
 
   add_index "public_bodies", ["first_letter"], :name => "index_public_bodies_on_first_letter"
   add_index "public_bodies", ["url_name"], :name => "index_public_bodies_on_url_name", :unique => true
-
-  create_table "public_body_tags", :force => true do |t|
-    t.integer  "public_body_id", :null => false
-    t.text     "name",           :null => false
-    t.datetime "created_at",     :null => false
-    t.text     "value"
-  end
-
-  add_index "public_body_tags", ["name", "public_body_id", "value"], :name => "index_public_body_tags_on_public_body_id_and_name_and_value", :unique => true
-  add_index "public_body_tags", ["name"], :name => "index_public_body_tags_on_name"
 
   create_table "public_body_versions", :force => true do |t|
     t.integer  "public_body_id"

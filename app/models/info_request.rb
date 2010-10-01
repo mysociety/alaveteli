@@ -50,6 +50,8 @@ class InfoRequest < ActiveRecord::Base
     has_many :censor_rules, :order => 'created_at desc'
     has_many :exim_logs, :order => 'exim_log_done_id'
 
+    has_tag_string
+
     # user described state (also update in info_request_event, admin_request/edit.rhtml)
     validates_inclusion_of :described_state, :in => [ 
         'waiting_response',

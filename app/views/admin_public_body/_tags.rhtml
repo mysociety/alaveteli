@@ -1,4 +1,4 @@
-<% for t in body.public_body_tags %>
+<% for t in body.tags %>
     <% if t.value %>
         <%= link_to(h(t.name), main_url(list_public_bodies_url(:tag => t.name, :only_path => true))) %>:<%= link_to(h(t.value), main_url(list_public_bodies_url(:tag => t.name_and_value, :only_path => true))) %>
     <% else %>

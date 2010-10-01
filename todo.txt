@@ -1,7 +1,8 @@
+destroy request
+
+
 Next (things that will reduce admin time mainly)
 ====
-
-Remove Petitions sidebar link, add one to HelpMeInvestigate.
 
 Richard says he wants the internationalisation to be so it could be one site
 with combined search. Why obey the notion of a country? I'm not sure, but
@@ -344,6 +345,9 @@ Failed to detect attachments are emails and decode them:
 
 When indexing .docx do you need to index docProps/custom.xml and docProps/app.xml
 as well as word/document.xml ? (thread on xapian-discuss does so)
+
+Consider using odt2txt or unoconv
+http://www-verimag.imag.fr/~moy/opendocument/
 
 Mime type / extension wrong on these .docx's
 http://www.whatdotheyknow.com/request/bridleway_classifications

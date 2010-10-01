@@ -115,8 +115,8 @@
 			<%= o.text_area :body, :rows => 20, :cols => 60 %>
 		</p>
 		<% end %>
-	
-		<div class="form_button">
+
+    	<div class="form_button">
 			<script type="text/javascript">document.write('<input name="doSpell" type="button" value="Check spelling" onClick="openSpellChecker(document.getElementById(\'write_form\').body);"/> (optional)')</script>
 		</div>
 	
@@ -147,7 +147,18 @@
 			<%= hidden_field_tag(:preview, 1 ) %>
 			<%= submit_tag "Preview your public request" %>
 		</div>
-	</div>
+
+        <% if !@info_request.tag_string.empty? %>
+            <p class="form_note">
+                <!-- <label class="form_label" for="info_request_tag_string">Tags:</label> 
+                <%= f.text_field :tag_string, :size => 50 %> -->
+
+                <%= f.hidden_field(:tag_string) %>
+                <strong>Tags:</strong> <%=h @info_request.tag_string %>
+            </p>
+        <% end %>
+	
+		</div>
 <% end %>
 
 
