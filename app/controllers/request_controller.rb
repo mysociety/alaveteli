@@ -175,7 +175,10 @@ class RequestController < ApplicationController
         if params[:submitted_new_request].nil? || params[:reedit]
             # Read parameters in - public body must be passed in
             if !params[:info_request]
-                params[:info_request] = { :public_body_id => params[:public_body_id], :tag_string => params[:tags] } 
+                params[:info_request] = { 
+                    :public_body_id => params[:public_body_id], 
+                    :tag_string => params[:tags] 
+                } 
             end
             if !params[:info_request][:public_body_id] 
                 redirect_to frontpage_url
