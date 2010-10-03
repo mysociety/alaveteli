@@ -141,12 +141,6 @@ class RequestController < ApplicationController
 
     # Page new form posts to
     def new
-        # Allow url_name 
-        if !params[:public_body_url_name].nil? && params
-        end
-        if params[:submitted_new_request].nil?
-        end
-
         # All new requests are of normal_sort
         if !params[:outgoing_message].nil?
             params[:outgoing_message][:what_doing] = 'normal_sort'
@@ -180,7 +174,9 @@ class RequestController < ApplicationController
         # First time we get to the page, just display it
         if params[:submitted_new_request].nil? || params[:reedit]
             # Read parameters in - public body must be passed in
-            params[:info_request] = { :public_body_id => params[:public_body_id], :tag_string => params[:tags] } if !params[:info_request]
+            if !params[:info_request]
+                params[:info_request] = { :public_body_id => params[:public_body_id], :tag_string => params[:tags] } 
+            end
             if !params[:info_request][:public_body_id] 
                 redirect_to frontpage_url
                 return
