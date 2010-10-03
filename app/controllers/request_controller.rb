@@ -153,11 +153,6 @@ class RequestController < ApplicationController
         # arrived.
         if !@user.nil? && params[:submitted_new_request].nil? && !@user.can_leave_requests_undescribed?
             @undescribed_requests = @user.get_undescribed_requests 
-            if params[:public_body_id].nil?
-                redirect_to frontpage_url
-                return
-            end
-            @public_body = PublicBody.find(params[:public_body_id])
             if @undescribed_requests.size > 1
                 render :action => 'new_please_describe'
                 return
