@@ -216,7 +216,7 @@ class RequestController < ApplicationController
         @outgoing_message.info_request = @info_request
 
         # Maybe we lost the address while they're writing it
-        if not @info_request.public_body.is_requestable?
+        if !@info_request.public_body.is_requestable?
             render :action => 'new_' + @info_request.public_body.not_requestable_reason
             return
         end
