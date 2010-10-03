@@ -1,8 +1,11 @@
-destroy request
+Allow URL name in new request API
+Tag search
 
 
 Next (things that will reduce admin time mainly)
 ====
+
+Destroy request - does it remove the tags?
 
 Richard says he wants the internationalisation to be so it could be one site
 with combined search. Why obey the notion of a country? I'm not sure, but
