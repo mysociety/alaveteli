@@ -1028,18 +1028,23 @@ div#about_sidebar
 	border-style: solid;
 }
 
-div#help_about dt a, div#help_about h1 a, div#help_unhappy h1 a.hover_a
+div.controller_help dt a, div.controller_help h1 a, div#help_unhappy h1 a.hover_a
 {
     text-decoration: none;
 	font-size: 0.80em;
     color: #fff;
     background-color: #fff;
 }
-div#help_about dt:hover > a, div#help_about h1:hover > a, div#help_unhappy h1:hover > a.hover_a {
+div.controller_help dt:hover > a, div.controller_help h1:hover > a, div#help_unhappy h1:hover > a.hover_a {
     color: #0000ee;
 }
-div#help_about dt:hover > a:hover, div#help_about h1:hover > a:hover, div#help_unhappy h1:hover > a.hover_a:hover {
+div.controller_help dt:hover > a:hover, div.controller_help h1:hover > a:hover, div#help_unhappy h1:hover > a.hover_a:hover {
     text-decoration: underline;
+}
+
+#hash_link_padding 
+{
+    margin-bottom: 10em;
 }
 
 #contact_preamble
