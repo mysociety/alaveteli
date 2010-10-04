@@ -250,9 +250,9 @@ class RequestController < ApplicationController
             message = ""
             if @outgoing_message.contains_email?
                 if @user.nil? 
-                    message += "<p>You do not need to include your email in the request in order to get a reply, as we will ask for it on the next screen (<a href=\"/help/about#email_address\">details</a>).</p>";
+                    message += "<p>You do not need to include your email in the request in order to get a reply, as we will ask for it on the next screen (<a href=\"/help/privacy#email_address\">details</a>).</p>";
                 else
-                    message += "<p>You do not need to include your email in the request in order to get a reply (<a href=\"/help/about#email_address\">details</a>).</p>";
+                    message += "<p>You do not need to include your email in the request in order to get a reply (<a href=\"/help/privacy#email_address\">details</a>).</p>";
                 end
                 message += "<p>We recommend that you edit your request and remove the email address.
                 If you leave it, the email address will be sent to the authority, but will not be displayed on the site.</p>"
