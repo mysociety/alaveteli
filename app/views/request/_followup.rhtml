@@ -30,7 +30,7 @@
         <p>Please <strong>only</strong> write messages directly relating to your 
         request '<%= request_link(@info_request) %>'. If you would like to ask for information
         that was not in your original request, then
-        <%= link_to "file a new request", new_request_to_body_url(:public_body_id => @info_request.public_body.id.to_s) %>.
+        <%= link_to "file a new request", new_request_to_body_url(:url_name => @info_request.public_body.url_name) %>.
         </p>
 
         <% status = @info_request.calculate_status %>

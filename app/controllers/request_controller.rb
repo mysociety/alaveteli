@@ -168,17 +168,31 @@ class RequestController < ApplicationController
 
         # First time we get to the page, just display it
         if params[:submitted_new_request].nil? || params[:reedit]
-            # Read parameters in - public body must be passed in
-            if !params[:info_request]
-                params[:info_request] = { 
-                    :public_body_id => params[:public_body_id], 
-                    :tag_string => params[:tags] 
-                } 
+            params[:info_request] = { } if !params[:info_request]
+
+            # Read parameters in - first the public body (by URL name or id)
+            if params[:url_name]
+                if params[:url_name].match(/^[0-9]+$/)
+                    params[:info_request][:public_body_id] = params[:url_name]
+                else
+                    public_body = PublicBody.find_by_url_name_with_historic(params[:url_name])
+                    raise "None found" if public_body.nil? # XXX proper 404
+                    params[:info_request][:public_body_id] = public_body.id
+                end
+            elsif params[:public_body_id]
+                params[:info_request][:public_body_id] = params[:public_body_id]
             end
             if !params[:info_request][:public_body_id] 
+                # compulsory to have a body by here, or go to front page which is start of process
                 redirect_to frontpage_url
                 return
             end
+
+            # ... next any tags
+            if params[:tags]
+                params[:info_request][:tag_string] = params[:tags]
+            end
+
             @info_request = InfoRequest.new(params[:info_request])
             params[:info_request_id] = @info_request.id
             params[:outgoing_message] = {} if !params[:outgoing_message]

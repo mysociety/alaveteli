@@ -34,7 +34,7 @@ ActionController::Routing::Routes.draw do |map|
         request.request_list   '/list/:view',        :action => 'list', :view => nil
 
         request.new_request    '/new',         :action => 'new'
-        request.new_request_to_body    '/new/:public_body_id',         :action => 'new'
+        request.new_request_to_body    '/new/:url_name',         :action => 'new'
 
         request.show_request     '/request/:url_title', :action => 'show'
         request.details_request     '/details/request/:url_title', :action => 'details'
