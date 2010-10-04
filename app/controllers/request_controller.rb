@@ -53,7 +53,7 @@ class RequestController < ApplicationController
         # ... requests that have similar imporant terms
         behavior_cache :tag => ['similar', @info_request.id] do
             begin
-                limit = 3
+                limit = 5
                 @xapian_similar = ::ActsAsXapian::Similar.new([InfoRequestEvent], @info_request.info_request_events, 
                   :limit => limit, :collapse_by_prefix => 'request_collapse')
                 @xapian_similar_more = (@xapian_similar.matches_estimated > limit)

@@ -625,8 +625,32 @@ div#blog_sidebar img
 	.body_listing span.desc
 	{ background-image: none; float: left; clear: both; padding: 0px 0 0 42px;}
 
+/*--------------------------------- content : short lists */
+
+.request_short_listing
+{
+    margin-top: 1em;
+}
+
+.request_short_listing h3
+{
+	font-size: 1.2em;
+}
+.request_short_listing p
+{
+	font-size: 0.8em;
+    margin-top: -0.8em;
+    margin-bottom: 0;
+}
 
 
+.request_short_listing a
+{ text-decoration: none; }
+
+.request_short_listing
+{
+}
+	
 /*---------------- content : lists back/next */
 
 div.pagination { text-align: center; padding-top: 0.3em;}
