@@ -6,6 +6,8 @@ Link to API help
 - "Can I help out" a bit invisible
 - Remove slashes on end of help URLs
 
+Clear all caches to upgrade mobile phone help links
+
 Keep URL through funnel for Louise
 
 
