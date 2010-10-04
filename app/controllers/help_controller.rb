@@ -7,10 +7,9 @@
 # $Id: help_controller.rb,v 1.12 2009-07-14 23:30:37 francis Exp $
 
 class HelpController < ApplicationController
-    
-    def about
-    end
 
+    # we don't even have a control subroutine for most help pages, just see their templates
+    
     def unhappy
         @info_request = nil
         if params[:url_title]
@@ -69,9 +68,6 @@ class HelpController < ApplicationController
             end
         end
          
-    end
-
-    def api
     end
 
 end
