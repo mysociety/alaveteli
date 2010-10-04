@@ -188,14 +188,14 @@ class RequestController < ApplicationController
                 return
             end
 
-            # ... next any tags
-            if params[:tags]
-                params[:info_request][:tag_string] = params[:tags]
-            end
+            # ... next any tags or other things
+            params[:info_request][:title] = params[:title] if params[:title]
+            params[:info_request][:tag_string] = params[:tags] if params[:tags]
 
             @info_request = InfoRequest.new(params[:info_request])
             params[:info_request_id] = @info_request.id
             params[:outgoing_message] = {} if !params[:outgoing_message]
+            params[:outgoing_message][:body] = params[:body] if params[:body]
             params[:outgoing_message][:info_request] = @info_request
             @outgoing_message = OutgoingMessage.new(params[:outgoing_message])
             @outgoing_message.set_signature_name(@user.name) if !@user.nil?
