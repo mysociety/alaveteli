@@ -42,13 +42,13 @@
                 in term time 
             <% end %>
             by <strong><%= simple_date(@info_request.date_response_required_by) %></strong>
-            (<%= link_to "details", about_url + "#quickly_response" %>).
+            (<%= link_to "details", "/help/requesting#quickly_response" %>).
             </p>
         <% elsif status == 'waiting_response_very_overdue' %>
             <p>
             The response to your request is <strong>long overdue</strong>.   You can say that, by 
             law, under all circumstances, the authority should have responded
-            by now (<%= link_to "details", about_url + "#quickly_response" %>).
+            by now (<%= link_to "details", "/help/requesting#quickly_response" %>).
             </p>
         <% end %>
 
