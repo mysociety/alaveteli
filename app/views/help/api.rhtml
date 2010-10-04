@@ -1,0 +1,37 @@
+<% @title = "Application Programming Interface - API" %>
+
+<h1><%=@title %></h1>
+
+<h2> Introduction </h2>
+
+<p>WhatDoTheyKnow does not have a full API yet, but we are gradually
+adding lots of things that are similar in use to an API as they are requested.
+</p>
+
+<h2> Linking to new requests </h2>
+
+<p>To encourage your users to make links to a particular public authority, use URLs of the form
+<%= link_to new_request_to_body_url(:url_name => "liverpool_city_council") , new_request_to_body_url(:url_name => "liverpool_city_council") %>. 
+These are the parameters you can add to those URLs, either in the URL or from a form.
+
+<ul>
+    <li> <strong>title</strong> - default summary </li>
+    <li> <strong>body</strong> - default text of request </li>
+    <li> <strong>tags</strong> - space separated list of tags, so you can find and link up any requests made later, e.g. <em>openlylocal spending_id:12345</em>. The : indicates it is a machine tag. The values of machine tags may also include colons, useful for URIs.
+</ul>
+
+<h2> RSS (actually, Atom) feeds </h2>
+
+<p>There are Atom feeds throughout the site, which you can use to get updates
+and links in XML format.
+
+<p>In particular, search queries, however complicated, all have Atom feeds.
+You can do all sorts of things with them, such as query by authority, by file
+type, by date range, by status. See the <a href="/search">advanced search
+tips</a> for details.
+
+<dl>
+
+
+
+

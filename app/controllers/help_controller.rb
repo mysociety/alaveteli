@@ -71,4 +71,7 @@ class HelpController < ApplicationController
          
     end
 
+    def api
+    end
+
 end
