@@ -21,7 +21,7 @@ describe OutgoingMessage, " when making an outgoing message" do
     end
 
     it "should link to help page where email address was" do
-        @outgoing_message.get_body_for_html_display.should include('<a href="/help/about#mobiles">')
+        @outgoing_message.get_body_for_html_display.should include('<a href="/help/officers#mobiles">')
     end
 
     it "should include email addresses in outgoing messages" do
