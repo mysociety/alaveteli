@@ -39,6 +39,9 @@ class OutgoingMessage < ActiveRecord::Base
     # contact address changed
     has_many :info_request_events 
 
+    # To override the default letter
+    attr_accessor :default_letter
+
     # reindex if body text is edited (e.g. by admin interface)
     after_update :xapian_reindex_after_update
     def xapian_reindex_after_update
@@ -70,6 +73,10 @@ class OutgoingMessage < ActiveRecord::Base
         return "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
     end
     def get_default_letter
+        if self.default_letter
+            return self.default_letter
+        end
+
         if self.what_doing == 'internal_review'
             "Please pass this on to the person who conducts Freedom of Information reviews." +
             "\n\n" +

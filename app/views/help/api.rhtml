@@ -15,8 +15,9 @@ adding lots of things that are similar in use to an API as they are requested.
 These are the parameters you can add to those URLs, either in the URL or from a form.
 
 <ul>
-    <li> <strong>title</strong> - default summary </li>
-    <li> <strong>body</strong> - default text of request </li>
+    <li> <strong>title</strong> - default summary of the new request.</li>
+    <li> <strong>default_letter</strong> - default text of the body of the letter. The salutation (Dear...) and signoff (Yours...) are wrapped round this. </li>
+    <li> <strong>body</strong> - as an alternative to default_letter, this sets the default entire text of the request, so you can customise the salutation and signoff. </li>
     <li> <strong>tags</strong> - space separated list of tags, so you can find and link up any requests made later, e.g. <em>openlylocal spending_id:12345</em>. The : indicates it is a machine tag. The values of machine tags may also include colons, useful for URIs.
 </ul>
 

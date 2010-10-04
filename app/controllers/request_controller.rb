@@ -196,6 +196,7 @@ class RequestController < ApplicationController
             params[:info_request_id] = @info_request.id
             params[:outgoing_message] = {} if !params[:outgoing_message]
             params[:outgoing_message][:body] = params[:body] if params[:body]
+            params[:outgoing_message][:default_letter] = params[:default_letter] if params[:default_letter]
             params[:outgoing_message][:info_request] = @info_request
             @outgoing_message = OutgoingMessage.new(params[:outgoing_message])
             @outgoing_message.set_signature_name(@user.name) if !@user.nil?
