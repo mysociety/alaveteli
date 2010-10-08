@@ -7,7 +7,7 @@
 # $Id: crontab.ugly,v 1.36 2009-09-20 10:29:36 francis Exp $
 
 PATH=/usr/local/bin:/usr/bin:/bin
-MAILTO=team@whatdotheyknow.com
+MAILTO=cron-!!(*= $site *)!!@mysociety.org
 
 # Every 5 minutes
 */5 * * * * !!(*= $user *)!! run-with-lockfile -n /data/vhost/!!(*= $vhost *)!!/update-xapian-index.lock /data/vhost/!!(*= $vhost *)!!/whatdotheyknow/script/update-xapian-index || echo "stalled?"
