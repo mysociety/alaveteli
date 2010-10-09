@@ -86,9 +86,25 @@ class RequestController < ApplicationController
                     :law_used => @info_request.law_used,
                     :tags => @info_request.tag_array,
 
-                    # not sure we need to make these admin params public
-                    # :allow_new_responses_from => @info_request.allow_new_responses_from, 
-                    # :handle_rejected_responses => @info_request.handle_rejected_responses,
+                    # not sure we need to make these, mainly anti-spam, admin params public
+                    # allow_new_responses_from
+                    # handle_rejected_responses
+
+                    :info_request_events => @info_request_events.map { |e| { 
+                        :id => e.id,
+                        :event_type => e.event_type,
+                        # params_yaml has possibly sensitive data in it, don't include it
+                        :created_at => e.created_at,
+                        :described_state => e.described_state,
+                        :calculated_state => e.calculated_state,
+                        :last_described_at => e.last_described_at,
+                        :incoming_message_id => e.incoming_message_id,
+                        :outgoing_message_id => e.outgoing_message_id,
+                        :comment_id => e.comment_id,
+                        # XXX would be nice to add links here, but alas the
+                        # code to make them is in views only. See views/request/details.rhtml
+                    } }
+
                 }
             }
         end
