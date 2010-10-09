@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 92
+# Schema version: 95
 #
 # Table name: track_things_sent_emails
 #

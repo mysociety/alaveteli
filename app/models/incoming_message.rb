@@ -1,6 +1,7 @@
 # encoding: UTF-8
+
 # == Schema Information
-# Schema version: 92
+# Schema version: 95
 #
 # Table name: incoming_messages
 #

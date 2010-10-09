@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 92
+# Schema version: 95
 #
 # Table name: outgoing_messages
 #
