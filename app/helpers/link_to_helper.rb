@@ -121,7 +121,7 @@ module LinkToHelper
         if track_thing.track_type == 'request_updates'
             track_request_url(:url_title => track_thing.info_request.url_title, :feed => feed)
         elsif track_thing.track_type == 'all_new_requests' 
-            track_list_url(:view => nil, :feed => feed)
+            track_list_url(:view => 'recent', :feed => feed)
         elsif track_thing.track_type == 'all_successful_requests' 
             track_list_url(:view => 'successful', :feed => feed)
         elsif track_thing.track_type == 'public_body_updates' 

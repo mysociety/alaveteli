@@ -93,6 +93,13 @@ ActionController::Routing::Routes.draw do |map|
     end
 
     map.with_options :controller => 'track' do |track|
+        track.track_request '/:feed/request/:url_title.:format', :action => 'track_request', :feed => /(track|feed)/
+        track.track_list '/:feed/list/:view.:format', :action => 'track_list', :view => nil, :feed => /(track|feed)/
+        track.track_public_body "/:feed/body/:url_name.:format", :action => 'track_public_body', :feed => /(track|feed)/
+        track.track_user "/:feed/user/:url_name.:format", :action => 'track_user', :feed => /(track|feed)/
+        # XXX must be better way of getting dots and slashes in search queries to work than this *query_array
+        track.track_search "/:feed/search/*query_array.:format", :action => 'track_search_query' , :feed => /(track|feed)/
+
         # /track/ is for setting up an email alert for the item
         # /feed/ is a direct RSS feed of the item
         track.track_request '/:feed/request/:url_title', :action => 'track_request', :feed => /(track|feed)/

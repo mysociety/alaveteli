@@ -91,6 +91,7 @@ class RequestController < ApplicationController
                     # handle_rejected_responses
 
                     :info_request_events => @info_request_events.map { |e| { 
+                        # XXX this code is partly duplicated with the track controller
                         :id => e.id,
                         :event_type => e.event_type,
                         # params_yaml has possibly sensitive data in it, don't include it
