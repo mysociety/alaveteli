@@ -1,11 +1,4 @@
-
-Link to API help
 - "Can I help out" a bit invisible
-
-Clear all caches to upgrade mobile phone help links
-
-Keep URL through funnel for Louise
-
 
 Tag search
 
@@ -13,6 +6,8 @@ Tag search
 
 Next (things that will reduce admin time mainly)
 ====
+
+Keep URL through funnel for Louise
 
 Destroy request - does it remove the tags?
 
