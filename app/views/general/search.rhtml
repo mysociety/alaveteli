@@ -118,9 +118,10 @@
     <li><strong><%=search_link('commented_by:tony_bowden')%></strong> to search annotations made by <%= link_to "Tony Bowden", show_user_url(:url_name => 'tony_bowden') %>, typing the name as in the URL.
     <li><strong>request:</strong> to restrict to a specific request, typing the title as in the URL.
     <li><strong><%=search_link('filetype:pdf')%></strong> to find all responses with PDF attachments. Or try these: <%= IncomingMessage.get_all_file_extentions%>.
-    <li><strong><%=search_link('tag:charity')%></strong> to find all public bodies or requests with a given tag. You can include multiple tags, 
-    and tag values, e.g. <%=search_link('openlylocal financial_transaction:335633')%>.
     <li>Type <strong><%=search_link('01/01/2008..14/01/2008')%></strong> to only show things that happened in the first two weeks of January.
+    <li><strong><%=search_link('tag:charity')%></strong> to find all public bodies or requests with a given tag. You can include multiple tags, 
+    and tag values, e.g. <%=search_link('tag:openlylocal AND tag:financial_transaction:335633')%>. Note that by default any of the tags
+    can be present, you have to put AND explicitly if you only want results them all present.
     <li>Read about <a href="http://www.xapian.org/docs/queryparser.html">advanced search operators</a>, such as proximity and wildcards.
     </ul>
 
