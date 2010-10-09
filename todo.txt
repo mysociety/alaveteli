@@ -1,9 +1,6 @@
 
 Link to API help
 - "Can I help out" a bit invisible
-- Remove slashes on end of help URLs
-
-- "and you" link to #helpus is broken
 
 Clear all caches to upgrade mobile phone help links
 
