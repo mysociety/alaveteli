@@ -1,11 +1,7 @@
-Rebuild index for tag search?
-
-Get all the tags for a given request
-
 Displayable status as parameter on info requests
 Put clips of text in RSS feeds JSONs
+Get all the tags for a given request in RSS feed JSONs
 
-Reduce the number of bogus post redirects that aren't people
 
 
 Next (things that will reduce admin time mainly)
@@ -32,8 +28,6 @@ Add links to these tags where possible:
     urn:* - Bodies that appear on EduBase. '*' is replaced by the institution's Unique Reference Number.
     VAT:* - Bodies with a VAT (UK Value Added Tax) registration number. '*' is replaced by the VAT registration number (no spaces) e.g. VAT:895108987
 http://foiwiki.com/foiwiki/index.php/WhatDoTheyKnow.com_Tags
-
-Enable Chris Taggert's clever link up idea to open local Government finance data
 
 Merge with New Zealand code base properly
 
@@ -68,6 +62,8 @@ Also freezes Abiword, but not catdoc
 
 Performance
 ===========
+
+Reduce storing the number of bogus post redirects that aren't people
 
 Receiving email can be resource drain starting app instance each time - use daemon instead
 
@@ -487,8 +483,10 @@ Totally new features
 Publish statistics (stats) on how long it takes bodies to respond. And other
 things (like the WriteToThem pages).
 
-Tag your own requests so you can keep track of them more easily (Lisa asked for
-this - is definitely only whole requests needed)
+Add interface for editing tags on your own requests so you can keep track of them more easily. 
+Lisa asked for this - is definitely only whole requests needed. Tony says
+anyone should be able to edit the tags, but requester should have last say (so
+can prevent a tag being added that they removed).
 
 Read reply - ask for exchange read receipts, and show if mail was read.
 
