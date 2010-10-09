@@ -289,6 +289,30 @@ describe InfoRequest, " when indexing requests by tag" do
     end
 end
 
+describe PublicBody, " when indexing authorities by tag" do
+    fixtures :public_bodies, :incoming_messages, :outgoing_messages, :raw_emails, :comments
+
+    it "should find request by tag, even when changes" do
+        rebuild_xapian_index
+        body = public_bodies(:geraldine_public_body)
+        body.tag_string = 'mice:3'
+        body.save!
+        update_xapian_index
+
+        xapian_object = InfoRequest.full_search([PublicBody], "tag:mice", 'created_at', true, nil, 100, 1)
+        xapian_object.results.size.should == 1
+        xapian_object.results[0][:model] == public_bodies(:geraldine_public_body)
+
+        xapian_object = InfoRequest.full_search([PublicBody], "tag:mice:3", 'created_at', true, nil, 100, 1)
+        xapian_object.results.size.should == 1
+        xapian_object.results[0][:model] == public_bodies(:geraldine_public_body)
+
+        xapian_object = InfoRequest.full_search([PublicBody], "tag:orangeaardvark", 'created_at', true, nil, 100, 1)
+        xapian_object.results.size.should == 0
+    end
+end
+
+
 
 
 

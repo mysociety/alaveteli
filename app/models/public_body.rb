@@ -139,7 +139,9 @@ class PublicBody < ActiveRecord::Base
         :values => [ 
              [ :created_at_numeric, 1, "created_at", :number ] # for sorting
         ],
-        :terms => [ [ :variety, 'V', "variety" ] ]
+        :terms => [ [ :variety, 'V', "variety" ],
+                [ :tag_array_for_search, 'U', "tag" ] 
+        ]
     def created_at_numeric
         # format it here as no datetime support in Xapian's value ranges
         return self.created_at.strftime("%Y%m%d%H%M%S") 
