@@ -153,7 +153,7 @@ class GeneralController < ApplicationController
         @highlight_words = @xapian_requests.words_to_highlight
 
         @track_thing = TrackThing.create_track_for_search_query(@query)
-        @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss] } ]
+        @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss], :has_json => true } ]
     end
 
     # Jump to a random request

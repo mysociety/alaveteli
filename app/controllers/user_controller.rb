@@ -40,7 +40,7 @@ class UserController < ApplicationController
 
         # Track corresponding to this page
         @track_thing = TrackThing.create_track_for_user(@display_user)
-        @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss] } ]
+        @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss], :has_json => true } ]
 
         # All tracks for the user
         if @is_you

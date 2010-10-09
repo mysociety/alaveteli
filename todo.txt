@@ -1,3 +1,7 @@
+More pagination options in RSS feeds (for use in the JSON version)
+Put clips of text in RSS feeds JSONs
+Information about attachments in event JSON
+
 Convert user just to a full user json thing each time?
 
 Tag search

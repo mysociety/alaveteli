@@ -64,7 +64,7 @@ class RequestController < ApplicationController
      
         # Track corresponding to this page
         @track_thing = TrackThing.create_track_for_request(@info_request)
-        @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss] } ]
+        @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss], :has_json => true } ]
 
         # For send followup link at bottom
         @last_response = @info_request.get_last_response
@@ -172,7 +172,7 @@ class RequestController < ApplicationController
         
         @title = @title + " (page " + @page.to_s + ")" if (@page > 1)
 
-        @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss] } ]
+        @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss], :has_json => true } ]
 
         # Don't let robots go more than 20 pages in
         if @page > 20

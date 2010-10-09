@@ -46,7 +46,7 @@ class PublicBodyController < ApplicationController
         end
 
         @track_thing = TrackThing.create_track_for_public_body(@public_body)
-        @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss] } ]
+        @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss], :has_json => true } ]
 
         respond_to do |format|
             format.html { @has_json = true }
