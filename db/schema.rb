@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 94) do
+ActiveRecord::Schema.define(:version => 95) do
 
   create_table "acts_as_xapian_jobs", :force => true do |t|
     t.string  "model",    :null => false
@@ -159,6 +159,7 @@ ActiveRecord::Schema.define(:version => 94) do
   add_index "post_redirects", ["email_token"], :name => "index_post_redirects_on_email_token"
   add_index "post_redirects", ["token"], :name => "index_post_redirects_on_token"
   add_index "post_redirects", ["updated_at"], :name => "index_post_redirects_on_updated_at"
+  add_index "post_redirects", ["user_id"], :name => "index_post_redirects_on_user_id"
 
   create_table "profile_photos", :force => true do |t|
     t.binary  "data",                       :null => false
