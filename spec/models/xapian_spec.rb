@@ -270,6 +270,25 @@ describe InfoRequest, " when indexing requests by their title" do
     end
 end
 
+describe InfoRequest, " when indexing requests by tag" do
+    fixtures :info_request_events, :info_requests, :incoming_messages, :raw_emails, :comments
+
+    it "should find request by tag, even when changes" do
+        rebuild_xapian_index
+        ir = info_requests(:naughty_chicken_request)
+        ir.tag_string = 'bunnyrabbit'
+        ir.save!
+        update_xapian_index
+
+        xapian_object = InfoRequest.full_search([InfoRequestEvent], "tag:bunnyrabbit", 'created_at', true, nil, 100, 1)
+        xapian_object.results.size.should == 1
+        xapian_object.results[0][:model] == info_request_events(:silly_outgoing_message_event)
+
+        xapian_object = InfoRequest.full_search([InfoRequestEvent], "tag:orangeaardvark", 'created_at', true, nil, 100, 1)
+        xapian_object.results.size.should == 0
+    end
+end
+
 
 
 

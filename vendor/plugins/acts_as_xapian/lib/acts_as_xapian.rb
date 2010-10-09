@@ -682,7 +682,12 @@ module ActsAsXapian
             elsif type == :boolean
                 value ? true : false
             else
-                value.to_s
+                # Arrays are for terms which require multiple of them, e.g. tags
+                if value.kind_of?(Array)
+                    value.map {|v| v.to_s}
+                else
+                    value.to_s
+                end
             end
         end
 
@@ -707,7 +712,14 @@ module ActsAsXapian
             doc.add_term("I" + doc.data)
             if self.xapian_options[:terms]
               for term in self.xapian_options[:terms]
-                  doc.add_term(term[1] + xapian_value(term[0]))
+                  value = xapian_value(term[0])
+                  if value.kind_of?(Array)
+                    for v in value
+                      doc.add_term(term[1] + v)
+                    end
+                  else
+                    doc.add_term(term[1] + value)
+                  end
               end
             end
             if self.xapian_options[:values]

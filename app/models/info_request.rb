@@ -146,6 +146,13 @@ class InfoRequest < ActiveRecord::Base
             info_request_event.xapian_mark_needs_index
         end
     end
+    # Force reindex when tag string changes
+    alias_method :orig_tag_string=, :tag_string= 
+    def tag_string=(tag_string)
+        ret = self.orig_tag_string=(tag_string)
+        reindex_request_events
+        return ret
+    end
 
     # Removes anything cached about the object in the database, and saves
     def clear_in_database_caches!

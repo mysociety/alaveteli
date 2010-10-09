@@ -1,7 +1,18 @@
 Tag search
+- works with multiple tags
+- reindex upon change
+- find by first part of machine tag
+- tag search public bodies
+- document
+
+Rebuild index for tag search?
+
+Get all the tags for a given request
 
 Displayable status as parameter on info requests
 Put clips of text in RSS feeds JSONs
+
+Reduce the number of bogus post redirects that aren't people
 
 
 Next (things that will reduce admin time mainly)

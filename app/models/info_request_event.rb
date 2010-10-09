@@ -109,7 +109,8 @@ class InfoRequestEvent < ActiveRecord::Base
                 [ :commented_by, 'C', "commented_by" ],
                 [ :request, 'R', "request" ],
                 [ :variety, 'V', "variety" ],
-                [ :filetype, 'T', "filetype" ]
+                [ :filetype, 'T', "filetype" ],
+                [ :tags, 'U', "tag" ] 
         ],
         :if => :indexed_by_search?,
         :eager_load => [ :incoming_message, :outgoing_message, :comment, { :info_request => [ :user, :public_body, :censor_rules ] } ]
@@ -187,6 +188,10 @@ class InfoRequestEvent < ActiveRecord::Base
             return self.incoming_message.get_present_file_extensions
         end
         return ''
+    end
+    def tags
+        # this returns an array of strings, each gets indexed as separate term by acts_as_xapian
+        return self.info_request.tag_array_for_search
     end
     def indexed_by_search?
         if ['sent', 'followup_sent', 'response', 'comment'].include?(self.event_type)

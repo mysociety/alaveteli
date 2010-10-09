@@ -80,9 +80,25 @@ module HasTagString
             return self.tags.map { |t| t.name_and_value }.join(' ')
         end
 
-        # Returns the tags the model has, as an array of strings
+        # Returns the tags the model has, as an array of pairs of key/value
+        # (this can't be a dictionary as you can have multiple instances of a
+        # key with different values)
         def tag_array
             return self.tags.map { |t| [t.name, t.value] }
+        end
+
+        # Returns a list of all the strings someone might want to search for.
+        # So that is the key by itself, or the key and value.
+        # e.g. if a request was tagged openlylocal_id:12345, they might
+        # want to search for "openlylocal_id" or for "openlylocal_id:12345" to find it.
+        def tag_array_for_search
+            ret = {}
+            for tag in self.tags
+                ret[tag.name] = 1
+                ret[tag.name_and_value] = 1
+            end
+
+            return ret.keys
         end
 
         # Test to see if class is tagged with the given tag
