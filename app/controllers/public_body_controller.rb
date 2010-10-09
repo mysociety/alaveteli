@@ -47,6 +47,26 @@ class PublicBodyController < ApplicationController
 
         @track_thing = TrackThing.create_track_for_public_body(@public_body)
         @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss] } ]
+
+        respond_to do |format|
+            format.html { @has_json = true }
+            format.json { 
+                render :json => { 
+                    :id => @public_body.id,
+                    :url_name => @public_body.url_name,
+                    :name => @public_body.name,
+                    :short_name => @public_body.short_name,
+                    # :request_email  # we hide this behind a captcha, to stop people doing bulk requests easily
+                    :created_at => @public_body.created_at,
+                    :updated_at => @public_body.updated_at,
+                    # :version, :last_edit_editor, :last_edit_comment # history, not done yet
+                    :home_page => @public_body.calculated_home_page,
+                    :notes => @public_body.notes,
+                    :publication_scheme => @public_body.publication_scheme,
+                    :tags => @public_body.tag_array,
+                }
+            }
+        end
     end
 
     def view_email
