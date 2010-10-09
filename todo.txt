@@ -1,11 +1,7 @@
-More pagination options in RSS feeds (for use in the JSON version)
-Put clips of text in RSS feeds JSONs
-Information about attachments in event JSON
-
-Convert user just to a full user json thing each time?
-
 Tag search
 
+Displayable status as parameter on info requests
+Put clips of text in RSS feeds JSONs
 
 
 Next (things that will reduce admin time mainly)
@@ -120,6 +116,11 @@ Remove comments visible
 
 Later
 =====
+
+JSON API:
+    More pagination options in RSS feeds (for use in the JSON version)
+    Information about attachments in event JSON
+    Convert user just to a full user json thing each time?
 
 Spelling correction not working if you search for "comission", as described here:
     http://comments.gmane.org/gmane.comp.search.xapian.general/8384
