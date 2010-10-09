@@ -1,8 +1,5 @@
 
 Link to API help
-- mention history on it 
-
-- Chain links to next help page
 - "Can I help out" a bit invisible
 - Remove slashes on end of help URLs
 
