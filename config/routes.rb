@@ -63,6 +63,7 @@ ActionController::Routing::Routes.draw do |map|
 
         user.confirm '/c/:email_token', :action => 'confirm'
         user.show_user '/user/:url_name', :action => 'show'
+        user.show_user '/user/:url_name.:format', :action => 'show'
         user.contact_user '/user/contact/:id', :action => 'contact'
 
         user.signchangepassword '/profile/change_password',      :action => 'signchangepassword'

@@ -52,6 +52,22 @@ class UserController < ApplicationController
         if @is_you
             @undescribed_requests = @display_user.get_undescribed_requests 
         end
+
+        respond_to do |format|
+            format.html { @has_json = true }
+            format.json { 
+                render :json => { 
+                    :id => @display_user.id,
+                    :url_name => @display_user.url_name,
+                    :name => @display_user.name,
+                    :ban_text => @display_user.ban_text,
+                    :about_me => @display_user.about_me,
+                    # :profile_photo => @display_user.profile_photo # ought to have this, but too hard to get URL out for now
+                    # created_at / updated_at we only show the year on the main page for privacy reasons, so don't put here
+                }
+            }
+        end
+
     end
 
     # Login form
