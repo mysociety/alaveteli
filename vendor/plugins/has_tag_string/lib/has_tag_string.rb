@@ -80,6 +80,11 @@ module HasTagString
             return self.tags.map { |t| t.name_and_value }.join(' ')
         end
 
+        # Returns the tags the model has, as an array of strings
+        def tag_array
+            return self.tags.map { |t| [t.name, t.value] }
+        end
+
         # Test to see if class is tagged with the given tag
         def has_tag?(tag_as_string)
             for tag in self.tags

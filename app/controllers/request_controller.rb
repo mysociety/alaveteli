@@ -68,6 +68,30 @@ class RequestController < ApplicationController
 
         # For send followup link at bottom
         @last_response = @info_request.get_last_response
+
+        respond_to do |format|
+            format.html { @has_json = true }
+            format.json { 
+                render :json => { 
+                    :id => @info_request.id,
+                    :url_title => @info_request.url_title,
+                    :title => @info_request.title,
+                    :user => @info_request.user.url_name,
+                    :public_body => @info_request.public_body.url_name,
+                    :created_at => @info_request.created_at,
+                    :updated_at => @info_request.updated_at,
+                    :described_state => @info_request.described_state,
+                    :awaiting_description => @info_request.awaiting_description ,
+                    :prominence => @info_request.prominence,
+                    :law_used => @info_request.law_used,
+                    :tags => @info_request.tag_array,
+
+                    # not sure we need to make these admin params public
+                    # :allow_new_responses_from => @info_request.allow_new_responses_from, 
+                    # :handle_rejected_responses => @info_request.handle_rejected_responses,
+                }
+            }
+        end
     end
 
     # Extra info about a request, such as event history
