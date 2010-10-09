@@ -59,7 +59,8 @@ class PublicBodyController < ApplicationController
                     # :request_email  # we hide this behind a captcha, to stop people doing bulk requests easily
                     :created_at => @public_body.created_at,
                     :updated_at => @public_body.updated_at,
-                    # :version, :last_edit_editor, :last_edit_comment # history, not done yet
+                    # don't add the history as some edit comments contain sensitive information 
+                    # :version, :last_edit_editor, :last_edit_comment
                     :home_page => @public_body.calculated_home_page,
                     :notes => @public_body.notes,
                     :publication_scheme => @public_body.publication_scheme,
