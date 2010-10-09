@@ -36,7 +36,6 @@ ActionController::Routing::Routes.draw do |map|
         request.new_request    '/new',         :action => 'new'
         request.new_request_to_body    '/new/:url_name',         :action => 'new'
 
-        request.show_request     '/request/:url_title', :action => 'show'
         request.show_request     '/request/:url_title.:format', :action => 'show'
         request.details_request     '/details/request/:url_title', :action => 'details'
         request.similar_request     '/similar/request/:url_title', :action => 'similar'
@@ -62,7 +61,6 @@ ActionController::Routing::Routes.draw do |map|
         user.signout '/profile/sign_out',      :action => 'signout'
 
         user.confirm '/c/:email_token', :action => 'confirm'
-        user.show_user '/user/:url_name', :action => 'show'
         user.show_user '/user/:url_name.:format', :action => 'show'
         user.contact_user '/user/contact/:id', :action => 'contact'
 
@@ -83,7 +81,6 @@ ActionController::Routing::Routes.draw do |map|
         body.list_public_bodies "/body/list/:tag", :action => 'list'
         body.list_public_bodies_redirect "/local/:tag", :action => 'list_redirect'
         body.all_public_bodies_csv "/body/all-authorities.csv", :action => 'list_all_csv'
-        body.show_public_body "/body/:url_name", :action => 'show'
         body.show_public_body "/body/:url_name.:format", :action => 'show'
         body.view_public_body_email "/body/:url_name/view_email", :action => 'view_email'
     end
@@ -93,21 +90,15 @@ ActionController::Routing::Routes.draw do |map|
     end
 
     map.with_options :controller => 'track' do |track|
+        # /track/ is for setting up an email alert for the item
+        # /feed/ is a direct RSS feed of the item
         track.track_request '/:feed/request/:url_title.:format', :action => 'track_request', :feed => /(track|feed)/
         track.track_list '/:feed/list/:view.:format', :action => 'track_list', :view => nil, :feed => /(track|feed)/
         track.track_public_body "/:feed/body/:url_name.:format", :action => 'track_public_body', :feed => /(track|feed)/
         track.track_user "/:feed/user/:url_name.:format", :action => 'track_user', :feed => /(track|feed)/
         # XXX must be better way of getting dots and slashes in search queries to work than this *query_array
+        # Also, the :format doesn't work. See hacky code in the controller that makes up for this.
         track.track_search "/:feed/search/*query_array.:format", :action => 'track_search_query' , :feed => /(track|feed)/
-
-        # /track/ is for setting up an email alert for the item
-        # /feed/ is a direct RSS feed of the item
-        track.track_request '/:feed/request/:url_title', :action => 'track_request', :feed => /(track|feed)/
-        track.track_list '/:feed/list/:view', :action => 'track_list', :view => nil, :feed => /(track|feed)/
-        track.track_public_body "/:feed/body/:url_name", :action => 'track_public_body', :feed => /(track|feed)/
-        track.track_user "/:feed/user/:url_name", :action => 'track_user', :feed => /(track|feed)/
-        # XXX must be better way of getting dots and slashes in search queries to work than this *query_array
-        track.track_search "/:feed/search/*query_array", :action => 'track_search_query' , :feed => /(track|feed)/
 
         track.update '/track/update/:track_id', :action => 'update'
         track.delete_all_type '/track/delete_all_type', :action => 'delete_all_type'
@@ -143,23 +134,8 @@ ActionController::Routing::Routes.draw do |map|
     map.connect '/admin/track/:action/:id', :controller => 'admin_track'
     map.connect '/admin/censor/:action/:id', :controller => 'admin_censor_rule'
 
-    # Sample of named route:
-    # map.purchase 'products/:id/purchase', :controller => 'catalog', :action => 'purchase'
-    # This route can be invoked with purchase_url(:id => product.id)
-
-    # You can have the root of your site routed by hooking up '' 
-    # -- just remember to delete public/index.html.
-    # map.connect '', :controller => "welcome"
-
     # Allow downloading Web Service WSDL as a file with an extension
     # instead of a file named 'wsdl'
-    map.connect ':controller/service.wsdl', :action => 'wsdl'
-
-    # Install the default route as the lowest priority.
-    # FAI: Turned off for now, as to be honest I don't trust it from a security point of view.
-    # Somebody is bound to leave a method public in a controller that shouldn't be.
-    #map.connect ':controller/:action/:id.:format'
-    #map.connect ':controller/:action/:id'
-    # map.connect '/:controller/:action'
+    # map.connect ':controller/service.wsdl', :action => 'wsdl'
 end
 

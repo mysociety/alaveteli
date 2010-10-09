@@ -70,6 +70,13 @@ class TrackController < ApplicationController
         # join just to get / and . to work in a query.
         query_array = params[:query_array]
         @query = query_array.join("/")
+
+        # XXX more hackery to make alternate formats still work with query_array
+        if /^(.*)\.json$/.match(@query)
+            @query = $1
+            params[:format] = "json"
+        end
+
         @track_thing = TrackThing.create_track_for_search_query(@query)
 
         return atom_feed_internal if params[:feed] == 'feed'
