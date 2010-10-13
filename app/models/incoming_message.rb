@@ -796,8 +796,13 @@ class IncomingMessage < ActiveRecord::Base
         return _get_attachment_leaves_recursive(self.mail)
     end
     def _get_attachment_leaves_recursive(curr_mail, within_rfc822_attachment = nil)
+        STDERR.puts "_get_attachment_leaves_recursive", curr_mail.content_type, curr_mail.sub_type, curr_mail.multipart?, "\n"
         leaves_found = []
         if curr_mail.multipart?
+            if curr_mail.parts.size == 0
+                raise "no parts on multipart mail"
+            end
+
             if curr_mail.sub_type == 'alternative'
                 # Choose best part from alternatives
                 best_part = nil
