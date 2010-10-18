@@ -1,5 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
+require 'json'
+
 describe TrackController, "when making a new track on a request" do
     before do
         @ir = mock_model(InfoRequest, :url_title => 'myrequest', :title => 'My request')
@@ -89,7 +91,6 @@ describe TrackController, "when viewing RSS feed for a track" do
     end
 
     it "should get the RSS feed" do
-
         track_thing = track_things(:track_fancy_dog_request)
 
         get :track_request, :feed => 'feed', :url_title => track_thing.info_request.url_title
@@ -105,4 +106,48 @@ describe TrackController, "when viewing RSS feed for a track" do
 
 end
  
+describe TrackController, "when viewing JSON version of a track feed" do
+    
+    integrate_views
+    fixtures :info_requests, :outgoing_messages, :incoming_messages, :raw_emails, :info_request_events, :users, :track_things, :comments, :public_bodies
+
+    before do
+        rebuild_xapian_index
+    end
+
+    it "should get the feed" do
+        track_thing = track_things(:track_fancy_dog_request)
+
+        get :track_request, :feed => 'feed', :url_title => track_thing.info_request.url_title, :format => "json"
+
+        a = JSON.parse(response.body)
+        a.class.to_s.should == 'Array'
+        a.size.should == 3
+
+        a[0]['id'].should == info_request_events(:silly_comment_event).id
+        a[1]['id'].should == info_request_events(:useless_incoming_message_event).id
+        a[2]['id'].should == info_request_events(:useless_outgoing_message_event).id
+
+        a[0]['info_request'].should == 'why_do_you_have_such_a_fancy_dog'
+        a[1]['info_request'].should == 'why_do_you_have_such_a_fancy_dog'
+        a[2]['info_request'].should == 'why_do_you_have_such_a_fancy_dog'
+
+        a[0]['public_body'].should == 'tgq'
+        a[1]['public_body'].should == 'tgq'
+        a[2]['public_body'].should == 'tgq'
+
+        a[0]['user'].should == 'bob_smith'
+        a[1]['user'].should == 'bob_smith'
+        a[2]['user'].should == 'bob_smith'
+
+        a[0]['event_type'].should == 'comment'
+        a[1]['event_type'].should == 'response'
+        a[2]['event_type'].should == 'sent'
+
+    end
+
+end
+
+
+
 
