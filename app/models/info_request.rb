@@ -633,12 +633,7 @@ public
 
     # History of some things that have happened
     def log_event(type, params)
-        info_request_event = InfoRequestEvent.new
-        info_request_event.event_type = type 
-        info_request_event.params = params
-        info_request_event.info_request = self
-        info_request_event.save!
-        self.reload # so it knows about the new info_request_event
+        self.info_request_events.create!(:event_type => type, :params => params)
     end
 
     # The last response is the default one people might want to reply to
