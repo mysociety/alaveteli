@@ -638,6 +638,7 @@ public
         info_request_event.params = params
         info_request_event.info_request = self
         info_request_event.save!
+        self.reload # so it knows about the new info_request_event
     end
 
     # The last response is the default one people might want to reply to
