@@ -1,5 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
+require 'json'
+
 # XXX Use route_for or params_from to check /c/ links better
 # http://rspec.rubyforge.org/rspec-rails/1.1.12/classes/Spec/Rails/Example/ControllerExampleGroup.html
 
@@ -502,4 +504,23 @@ describe UserController, "when using profile photos" do
 
     # XXX todo check the two stage javascript cropping (above only tests one stage non-javascript one)
 end
+
+describe UserController, "when showing JSON version for API" do
+    
+    fixtures :users
+  
+    it "should be successful" do
+        get :show, :url_name => "bob_smith", :format => "json"
+
+        u = JSON.parse(response.body)
+        u.class.to_s.should == 'Hash'
+
+        u['url_name'].should == 'bob_smith'
+        u['name'].should == 'Bob Smith'
+    end
+
+end
+
+
+
 
