@@ -1,6 +1,10 @@
-Displayable status as parameter on info requests
-Put clips of text in RSS feeds JSONs
-Get all the tags for a given request in RSS feed JSONs
+
+API:
+* Displayable status (i.e. text not code) as parameter on info requests
+* Put clips of text in RSS feeds JSONs
+* Get all the tags for a given request in RSS feed JSONs
+* Add stuff to allow AJAX callbacks
+* Pagination on the Atom feed JSON, so you can get later pages, and/or choose > 25 items
 
 
 
