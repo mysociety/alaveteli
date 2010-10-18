@@ -302,7 +302,7 @@ describe RequestController, "when creating a new request" do
 
     it "should show preview when input is good" do
         post :new, { :info_request => { :public_body_id => @body.id, 
-            :title => "Why is your quango called Geraldine?"},
+            :title => "Why is your quango called Geraldine?", :tag_string => "" },
             :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." },
             :submitted_new_request => 1, :preview => 1
         }
@@ -311,7 +311,7 @@ describe RequestController, "when creating a new request" do
 
     it "should allow re-editing of a request" do
         post :new, :info_request => { :public_body_id => @body.id,
-            :title => "Why is your quango called Geraldine?"},
+            :title => "Why is your quango called Geraldine?", :tag_string => "" },
             :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." },
             :submitted_new_request => 1, :preview => 0,
             :reedit => "Re-edit this request"
@@ -320,7 +320,7 @@ describe RequestController, "when creating a new request" do
 
     it "should redirect to sign in page when input is good and nobody is logged in" do
         params = { :info_request => { :public_body_id => @body.id, 
-            :title => "Why is your quango called Geraldine?"},
+            :title => "Why is your quango called Geraldine?", :tag_string => "" },
             :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." },
             :submitted_new_request => 1, :preview => 0
         }
@@ -333,7 +333,7 @@ describe RequestController, "when creating a new request" do
     it "should create the request and outgoing message, and send the outgoing message by email, and redirect to request page when input is good and somebody is logged in" do
         session[:user_id] = @user.id
         post :new, :info_request => { :public_body_id => @body.id, 
-            :title => "Why is your quango called Geraldine?"},
+            :title => "Why is your quango called Geraldine?", :tag_string => "" },
             :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." },
             :submitted_new_request => 1, :preview => 0
 
@@ -382,12 +382,12 @@ describe RequestController, "when creating a new request" do
         session[:user_id] = @user.id
 
         post :new, :info_request => { :public_body_id => @body.id, 
-            :title => "Why is your quango called Geraldine?"},
+            :title => "Why is your quango called Geraldine?", :tag_string => "" },
             :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." },
             :submitted_new_request => 1, :preview => 0
 
         post :new, :info_request => { :public_body_id => @body.id, 
-            :title => "Why is your quango called Geraldine?"},
+            :title => "Why is your quango called Geraldine?", :tag_string => "" },
             :outgoing_message => { :body => "This is a sensible letter. It is too long to be boring." },
             :submitted_new_request => 1, :preview => 0
 
