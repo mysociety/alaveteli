@@ -1,5 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
+require 'json'
+
 describe PublicBodyController, "when showing a body" do
     integrate_views
     fixtures :public_bodies, :public_body_versions
@@ -90,6 +92,23 @@ describe PublicBodyController, "when listing bodies" do
     end
 
 end
+
+describe PublicBodyController, "when showing JSON version for API" do
+    
+    fixtures :public_bodies
+  
+    it "should be successful" do
+        get :show, :url_name => "dfh", :format => "json"
+
+        pb = JSON.parse(response.body)
+        pb.class.to_s.should == 'Hash'
+
+        pb['url_name'].should == 'dfh'
+        pb['notes'].should == 'An albatross told me!!!'
+    end
+
+end
+
 
 
 
