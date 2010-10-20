@@ -412,6 +412,24 @@ class PublicBody < ActiveRecord::Base
         self.notes.gsub(/<\/?[^>]*>/, "")
     end
 
+    def json_for_api
+        return { 
+            :id => self.id,
+            :url_name => self.url_name,
+            :name => self.name,
+            :short_name => self.short_name,
+            # :request_email  # we hide this behind a captcha, to stop people doing bulk requests easily
+            :created_at => self.created_at,
+            :updated_at => self.updated_at,
+            # don't add the history as some edit comments contain sensitive information 
+            # :version, :last_edit_editor, :last_edit_comment
+            :home_page => self.calculated_home_page,
+            :notes => self.notes,
+            :publication_scheme => self.publication_scheme,
+            :tags => self.tag_array,
+        }
+    end
+
 end
 
 

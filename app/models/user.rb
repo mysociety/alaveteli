@@ -326,6 +326,17 @@ class User < ActiveRecord::Base
         return text
     end
 
+    def json_for_api
+        return { 
+            :id => self.id,
+            :url_name => self.url_name,
+            :name => self.name,
+            :ban_text => self.ban_text,
+            :about_me => self.about_me,
+            # :profile_photo => self.profile_photo # ought to have this, but too hard to get URL out for now
+            # created_at / updated_at we only show the year on the main page for privacy reasons, so don't put here
+        }
+    end
 
     private
 

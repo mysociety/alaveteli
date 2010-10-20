@@ -50,23 +50,7 @@ class PublicBodyController < ApplicationController
 
         respond_to do |format|
             format.html { @has_json = true }
-            format.json { 
-                render :json => { 
-                    :id => @public_body.id,
-                    :url_name => @public_body.url_name,
-                    :name => @public_body.name,
-                    :short_name => @public_body.short_name,
-                    # :request_email  # we hide this behind a captcha, to stop people doing bulk requests easily
-                    :created_at => @public_body.created_at,
-                    :updated_at => @public_body.updated_at,
-                    # don't add the history as some edit comments contain sensitive information 
-                    # :version, :last_edit_editor, :last_edit_comment
-                    :home_page => @public_body.calculated_home_page,
-                    :notes => @public_body.notes,
-                    :publication_scheme => @public_body.publication_scheme,
-                    :tags => @public_body.tag_array,
-                }
-            }
+            format.json { render :json => @public_body.json_for_api }
         end
     end
 
