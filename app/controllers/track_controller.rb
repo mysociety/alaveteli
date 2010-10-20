@@ -142,6 +142,8 @@ class TrackController < ApplicationController
                         :incoming_message_id => r[:model].incoming_message_id,
                         :outgoing_message_id => r[:model].outgoing_message_id,
                         :comment_id => r[:model].comment_id,
+
+                        :snippet => @template.highlight_and_excerpt(r[:model].search_text_main(true), @xapian_object.words_to_highlight, 150)
                         # XXX would be nice to add links here, but alas the
                         # code to make them is in views only. See views/request/details.rhtml
                     }
