@@ -117,7 +117,6 @@ JSON API:
     Pagination on the Atom feed JSON, so you can get later pages, and/or choose > 25 items
     Information about attachments in event JSON
     Allow Javascript callbacks (JSONP)
-    Displayable status (i.e. text not code) as parameter on info requests
 
 Spelling correction not working if you search for "comission", as described here:
     http://comments.gmane.org/gmane.comp.search.xapian.general/8384

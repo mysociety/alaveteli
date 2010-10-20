@@ -377,6 +377,7 @@ class InfoRequestEvent < ActiveRecord::Base
             # params_yaml has possibly sensitive data in it, don't include it
             :created_at => self.created_at,
             :described_state => self.described_state,
+            :display_status => self.display_status,
             :calculated_state => self.calculated_state,
             :last_described_at => self.last_described_at,
             :incoming_message_id => self.incoming_message_id,
