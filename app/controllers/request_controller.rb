@@ -71,43 +71,7 @@ class RequestController < ApplicationController
 
         respond_to do |format|
             format.html { @has_json = true }
-            format.json { 
-                render :json => { 
-                    :id => @info_request.id,
-                    :url_title => @info_request.url_title,
-                    :title => @info_request.title,
-                    :user => @info_request.user.url_name,
-                    :public_body => @info_request.public_body.url_name,
-                    :created_at => @info_request.created_at,
-                    :updated_at => @info_request.updated_at,
-                    :described_state => @info_request.described_state,
-                    :awaiting_description => @info_request.awaiting_description ,
-                    :prominence => @info_request.prominence,
-                    :law_used => @info_request.law_used,
-                    :tags => @info_request.tag_array,
-
-                    # not sure we need to make these, mainly anti-spam, admin params public
-                    # allow_new_responses_from
-                    # handle_rejected_responses
-
-                    :info_request_events => @info_request_events.map { |e| { 
-                        # XXX this code is partly duplicated with the track controller
-                        :id => e.id,
-                        :event_type => e.event_type,
-                        # params_yaml has possibly sensitive data in it, don't include it
-                        :created_at => e.created_at,
-                        :described_state => e.described_state,
-                        :calculated_state => e.calculated_state,
-                        :last_described_at => e.last_described_at,
-                        :incoming_message_id => e.incoming_message_id,
-                        :outgoing_message_id => e.outgoing_message_id,
-                        :comment_id => e.comment_id,
-                        # XXX would be nice to add links here, but alas the
-                        # code to make them is in views only. See views/request/details.rhtml
-                    } }
-
-                }
-            }
+            format.json { render :json => @info_request.json_for_api }
         end
     end
 

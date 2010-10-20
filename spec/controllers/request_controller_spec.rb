@@ -1225,15 +1225,15 @@ describe RequestController, "when showing JSON version for API" do
     
     fixtures :info_requests, :info_request_events, :public_bodies, :users, :incoming_messages, :raw_emails, :outgoing_messages, :comments 
 
-    it "should be successful" do
+    it "should return data in JSON form" do
         get :show, :url_title => 'why_do_you_have_such_a_fancy_dog', :format => 'json'
 
         ir = JSON.parse(response.body)
         ir.class.to_s.should == 'Hash'
 
         ir['url_title'].should == 'why_do_you_have_such_a_fancy_dog'
-        ir['public_body'].should == 'tgq'
-        ir['user'].should == 'bob_smith'
+        ir['public_body']['url_name'].should == 'tgq'
+        ir['user']['url_name'].should == 'bob_smith'
     end
 
 end

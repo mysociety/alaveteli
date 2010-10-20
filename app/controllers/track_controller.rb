@@ -127,7 +127,9 @@ class TrackController < ApplicationController
             format.atom { render :template => 'track/atom_feed' }
             format.json { 
                 render :json => 
-                    @xapian_object.results.map { |r| { 
+                    @xapian_object.results.map { |r| r[:model].
+                        
+                        { 
                         # XXX this code is partly duplicated with the request controller
                         :id => r[:model].id,
                         :event_type => r[:model].event_type,

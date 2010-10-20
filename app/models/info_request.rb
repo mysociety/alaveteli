@@ -957,6 +957,44 @@ public
         end
         return info_request
     end
+
+    def json_for_api
+        return { 
+            :id => self.id,
+            :url_title => self.url_title,
+            :title => self.title,
+            :user => self.user.json_for_api,
+            :public_body => self.public_body.json_for_api,
+            :created_at => self.created_at,
+            :updated_at => self.updated_at,
+            :described_state => self.described_state,
+            :awaiting_description => self.awaiting_description ,
+            :prominence => self.prominence,
+            :law_used => self.law_used,
+            :tags => self.tag_array,
+
+            # not sure we need to make these, mainly anti-spam, admin params public
+            # allow_new_responses_from
+            # handle_rejected_responses
+
+            :info_request_events => self.info_request_events.map { |e| { 
+                # XXX this code is partly duplicated with the track controller
+                :id => e.id,
+                :event_type => e.event_type,
+                # params_yaml has possibly sensitive data in it, don't include it
+                :created_at => e.created_at,
+                :described_state => e.described_state,
+                :calculated_state => e.calculated_state,
+                :last_described_at => e.last_described_at,
+                :incoming_message_id => e.incoming_message_id,
+                :outgoing_message_id => e.outgoing_message_id,
+                :comment_id => e.comment_id,
+                # XXX would be nice to add links here, but alas the
+                # code to make them is in views only. See views/request/details.rhtml
+            } }
+
+        }
+    end
 end
 
 

@@ -2,7 +2,7 @@
 API:
 * Displayable status (i.e. text not code) as parameter on info requests
 * Get all the tags for a given request in RSS feed JSONs
-* Add stuff to allow AJAX callbacks
+* Add stuff to allow Javascript callbacks (JSONP)
 * Pagination on the Atom feed JSON, so you can get later pages, and/or choose > 25 items
 
 
