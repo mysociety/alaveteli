@@ -1,11 +1,4 @@
 
-API:
-* Displayable status (i.e. text not code) as parameter on info requests
-* Get all the tags for a given request in RSS feed JSONs
-* Add stuff to allow Javascript callbacks (JSONP)
-* Pagination on the Atom feed JSON, so you can get later pages, and/or choose > 25 items
-
-
 
 Next (things that will reduce admin time mainly)
 ====
@@ -121,9 +114,10 @@ Later
 =====
 
 JSON API:
-    More pagination options in RSS feeds (for use in the JSON version)
+    Pagination on the Atom feed JSON, so you can get later pages, and/or choose > 25 items
     Information about attachments in event JSON
-    Convert user just to a full user json thing each time?
+    Allow Javascript callbacks (JSONP)
+    Displayable status (i.e. text not code) as parameter on info requests
 
 Spelling correction not working if you search for "comission", as described here:
     http://comments.gmane.org/gmane.comp.search.xapian.general/8384
