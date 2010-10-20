@@ -377,7 +377,6 @@ class InfoRequestEvent < ActiveRecord::Base
             # params_yaml has possibly sensitive data in it, don't include it
             :created_at => self.created_at,
             :described_state => self.described_state,
-            :display_status => self.display_status,
             :calculated_state => self.calculated_state,
             :last_described_at => self.last_described_at,
             :incoming_message_id => self.incoming_message_id,
@@ -388,6 +387,10 @@ class InfoRequestEvent < ActiveRecord::Base
             # code to make them is in views only. See views/request/details.rhtml
             # perhaps can call with @template somehow
         }
+
+        if self.is_incoming_message? || self.is_outgoing_message?
+            ret[:display_status] = self.display_status
+        end
 
         if !snippet_highlight_proc.nil?
             ret[:snippet] = snippet_highlight_proc.call(self.search_text_main(true))
