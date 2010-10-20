@@ -370,6 +370,37 @@ class InfoRequestEvent < ActiveRecord::Base
         return league_table
     end
 
+    def json_for_api(deep, snippet_highlight_proc = nil)
+        ret = { 
+            :id => self.id,
+            :event_type => self.event_type,
+            # params_yaml has possibly sensitive data in it, don't include it
+            :created_at => self.created_at,
+            :described_state => self.described_state,
+            :calculated_state => self.calculated_state,
+            :last_described_at => self.last_described_at,
+            :incoming_message_id => self.incoming_message_id,
+            :outgoing_message_id => self.outgoing_message_id,
+            :comment_id => self.comment_id,
+
+            # XXX would be nice to add links here, but alas the
+            # code to make them is in views only. See views/request/details.rhtml
+            # perhaps can call with @template somehow
+        }
+
+        if !snippet_highlight_proc.nil?
+            ret[:snippet] = snippet_highlight_proc.call(self.search_text_main(true))
+        end
+
+        if deep 
+            ret[:info_request] = self.info_request.json_for_api(false)
+            ret[:public_body] = self.info_request.public_body.json_for_api
+            ret[:user] = self.info_request.user.json_for_api
+        end
+
+        return ret
+    end
+
 
 end
 

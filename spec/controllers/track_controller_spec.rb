@@ -128,17 +128,17 @@ describe TrackController, "when viewing JSON version of a track feed" do
         a[1]['id'].should == info_request_events(:useless_incoming_message_event).id
         a[2]['id'].should == info_request_events(:useless_outgoing_message_event).id
 
-        a[0]['info_request'].should == 'why_do_you_have_such_a_fancy_dog'
-        a[1]['info_request'].should == 'why_do_you_have_such_a_fancy_dog'
-        a[2]['info_request'].should == 'why_do_you_have_such_a_fancy_dog'
+        a[0]['info_request']['url_title'].should == 'why_do_you_have_such_a_fancy_dog'
+        a[1]['info_request']['url_title'].should == 'why_do_you_have_such_a_fancy_dog'
+        a[2]['info_request']['url_title'].should == 'why_do_you_have_such_a_fancy_dog'
 
-        a[0]['public_body'].should == 'tgq'
-        a[1]['public_body'].should == 'tgq'
-        a[2]['public_body'].should == 'tgq'
+        a[0]['public_body']['url_name'].should == 'tgq'
+        a[1]['public_body']['url_name'].should == 'tgq'
+        a[2]['public_body']['url_name'].should == 'tgq'
 
-        a[0]['user'].should == 'bob_smith'
-        a[1]['user'].should == 'bob_smith'
-        a[2]['user'].should == 'bob_smith'
+        a[0]['user']['url_name'].should == 'bob_smith'
+        a[1]['user']['url_name'].should == 'bob_smith'
+        a[2]['user']['url_name'].should == 'bob_smith'
 
         a[0]['event_type'].should == 'comment'
         a[1]['event_type'].should == 'response'

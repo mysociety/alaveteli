@@ -125,33 +125,10 @@ class TrackController < ApplicationController
         @xapian_object = perform_search([InfoRequestEvent], @track_thing.track_query, @track_thing.params[:feed_sortby], nil, 25, 1) 
         respond_to do |format|
             format.atom { render :template => 'track/atom_feed' }
-            format.json { 
-                render :json => 
-                    @xapian_object.results.map { |r| r[:model].
-                        
-                        { 
-                        # XXX this code is partly duplicated with the request controller
-                        :id => r[:model].id,
-                        :event_type => r[:model].event_type,
-                        :info_request => r[:model].info_request.url_title,
-                        :public_body => r[:model].info_request.public_body.url_name,
-                        :user => r[:model].info_request.user.url_name,
-                        # params_yaml has possibly sensitive data in it, don't include it
-                        :created_at => r[:model].created_at,
-                        :described_state => r[:model].described_state,
-                        :calculated_state => r[:model].calculated_state,
-                        :last_described_at => r[:model].last_described_at,
-                        :incoming_message_id => r[:model].incoming_message_id,
-                        :outgoing_message_id => r[:model].outgoing_message_id,
-                        :comment_id => r[:model].comment_id,
-
-                        :snippet => @template.highlight_and_excerpt(r[:model].search_text_main(true), @xapian_object.words_to_highlight, 150)
-                        # XXX would be nice to add links here, but alas the
-                        # code to make them is in views only. See views/request/details.rhtml
-                    }
-                }
-            }
-         end
+            format.json { render :json => @xapian_object.results.map { |r| r[:model].json_for_api(true,
+                    lambda { |t| @template.highlight_and_excerpt(t, @xapian_object.words_to_highlight, 150) }
+                ) } }
+        end
     end
 
     # Change or delete a track

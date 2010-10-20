@@ -71,7 +71,7 @@ class RequestController < ApplicationController
 
         respond_to do |format|
             format.html { @has_json = true }
-            format.json { render :json => @info_request.json_for_api }
+            format.json { render :json => @info_request.json_for_api(true) }
         end
     end
 
