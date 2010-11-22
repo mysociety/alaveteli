@@ -32,3 +32,6 @@ vpim
 tnef (>= 1.4.5)
 libmemcache-client-ruby (>= 1.7.8-2)
 memcached
+rubygems
+rails
+libjson-ruby

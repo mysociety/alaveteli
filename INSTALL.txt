@@ -20,7 +20,7 @@ install guide lives.
 
 Install the packages that are listed in config/packages using apt-get e.g.:
 
-> sudo apt-get install `cut -d " " -f 1 config/packages`
+> sudo apt-get install `cut -d " " -f 1 config/packages | grep -v "^#"`
 
 Some of the files also have a version number listed in config/packages - check
 that you have appropriate versions installed. Some also list "|" and offer
@@ -33,6 +33,11 @@ have updated versions there), so you will want to add that to your
   deb http://debian.mysociety.org etch main non-free contrib
   deb-src http://debian.mysociety.org etch main non-free contrib
 
+You will also want to install mySociety's common ruby libraries.  Run:
+
+  git submodule update --init
+
+to fetch the contents of the commonlib submodule. 
 
 2. Configure Database 
 ---------------------
