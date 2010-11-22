@@ -213,7 +213,7 @@ class ApplicationController < ActionController::Base
 
     # 
     def check_read_only
-        read_only = MySociety::Config.get('READ_ONLY')
+        read_only = MySociety::Config.get('READ_ONLY', nil)
         if !read_only.empty?
             flash[:notice] = "<p>WhatDoTheyKnow is currently in maintenance. You can only view existing requests. You cannot make new ones, add followups or annotations, or otherwise change the database.</p> <p>" + read_only + "</p>"
             redirect_to frontpage_url
