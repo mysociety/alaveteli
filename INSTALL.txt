@@ -7,7 +7,7 @@
 These instructions are based on getting the FOI site up and running on
 Ubuntu and/or Debian.
 
-It was last run using the Hardy Heron version of Ubuntu and on the
+It was last run using the Lucid Lynx version of Ubuntu and on the
 Parallels debian instance (2.6.18-4-686).
 
 Commands are intended to be run via the terminal or over ssh.
@@ -144,3 +144,40 @@ level 'super').
 behaviour.
 And send us the patch!
 
+7. Set up configs
+-----------------
+
+copy config/general-example to config/general and edit to your taste.
+
+8. Mailer setup
+---------------
+
+When an authority receives an email, its reply-to address is a magic
+email which is parsed and consumed by the Rails app.
+
+Currently, this is done by calling script/mailin and piping in the raw
+email.  You will need to configure your MTA to accept emails to magic addresses, and to pipe such emails to this script.
+
+Magic email addresses are of the form:
+
+  <foi+request-3-691c8388@example.com>
+
+The respective parts of this address are controlled with options in
+options/general, thus:
+
+  $OPTION_INCOMING_EMAIL_PREFIX = 'foi+'
+  $OPTION_INCOMING_EMAIL_DOMAIN = 'example.com'
+
+INSTALL-exim.txt describes one possible configuration for Exim 1.9.
+
+When you set up your MTA, note that if there is some error inside
+Rails, the email is returned with an exit code 75, which for Exim at
+least means the MTA will try again later.  Additionally, a stacktrace
+is emailed to $OPTION_CONTACT_EMAIL.
+
+A well-configured installation of this code will separately have had
+Exim make a backup copy of the email in a separate mailbox, just in
+case.
+
+This setup isn't very scaleable, as it spawns a new Ruby process for
+each email received; patches welcome!
