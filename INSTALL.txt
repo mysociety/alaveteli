@@ -147,7 +147,12 @@ And send us the patch!
 7. Set up configs
 -----------------
 
-copy config/general-example to config/general and edit to your taste.
+For overall application settings, copy config/general-example to config/general and edit to your taste.
+
+You'll also want to copy config/memcached.yml-example to
+config/memcached.yml. The application is configured, via the Interlock
+Rails plugin, to cache content using memcached.  You probably don't
+want this in your development profile.
 
 8. Mailer setup
 ---------------
