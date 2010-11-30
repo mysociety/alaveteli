@@ -1,3 +1,6 @@
+# please note that this package list currently forms part of the
+# mysociety deployment infrastructure -- please discuss on the
+# alavateli mailing list if you want to change it
 ruby1.8
 libpgsql-ruby1.8
 libopenssl-ruby1.8
@@ -33,5 +36,3 @@ tnef (>= 1.4.5)
 libmemcache-client-ruby (>= 1.7.8-2)
 memcached
 rubygems
-rails
-libjson-ruby
