@@ -10,27 +10,27 @@ PATH=/usr/local/bin:/usr/bin:/bin
 MAILTO=cron-!!(*= $site *)!!@mysociety.org
 
 # Every 5 minutes
-*/5 * * * * !!(*= $user *)!! run-with-lockfile -n /data/vhost/!!(*= $vhost *)!!/update-xapian-index.lock /data/vhost/!!(*= $vhost *)!!/whatdotheyknow/script/update-xapian-index || echo "stalled?"
+*/5 * * * * !!(*= $user *)!! run-with-lockfile -n /data/vhost/!!(*= $vhost *)!!/update-xapian-index.lock /data/vhost/!!(*= $vhost *)!!/!!(*= $vcspath *)!!/script/update-xapian-index || echo "stalled?"
 # Every 10 minutes
-5,15,25,35,45,55 * * * * !!(*= $user *)!! run-with-lockfile -n /data/vhost/!!(*= $vhost *)!!/alert-tracks.lock /data/vhost/!!(*= $vhost *)!!/whatdotheyknow/script/alert-tracks || echo "stalled?"
+5,15,25,35,45,55 * * * * !!(*= $user *)!! run-with-lockfile -n /data/vhost/!!(*= $vhost *)!!/alert-tracks.lock /data/vhost/!!(*= $vhost *)!!/!!(*= $vcspath *)!!/script/alert-tracks || echo "stalled?"
 
 # Once an hour
-39 * * * * !!(*= $user *)!! run-with-lockfile -n /data/vhost/!!(*= $vhost *)!!/alert-overdue-requests.lock /data/vhost/!!(*= $vhost *)!!/whatdotheyknow/script/alert-overdue-requests || echo "stalled?"
-09 * * * * !!(*= $user *)!! run-with-lockfile -n /data/vhost/!!(*= $vhost *)!!/alert-comment-on-request.lock /data/vhost/!!(*= $vhost *)!!/whatdotheyknow/script/alert-comment-on-request || echo "stalled?"
+39 * * * * !!(*= $user *)!! run-with-lockfile -n /data/vhost/!!(*= $vhost *)!!/alert-overdue-requests.lock /data/vhost/!!(*= $vhost *)!!/!!(*= $vcspath *)!!/script/alert-overdue-requests || echo "stalled?"
+09 * * * * !!(*= $user *)!! run-with-lockfile -n /data/vhost/!!(*= $vhost *)!!/alert-comment-on-request.lock /data/vhost/!!(*= $vhost *)!!/!!(*= $vcspath *)!!/script/alert-comment-on-request || echo "stalled?"
 
 # Only root can read the exim log files
-31 * * * * root run-with-lockfile -n /data/vhost/!!(*= $vhost *)!!/load-exim-logs.lock /data/vhost/!!(*= $vhost *)!!/whatdotheyknow/script/load-exim-logs || echo "stalled?"
+31 * * * * root run-with-lockfile -n /data/vhost/!!(*= $vhost *)!!/load-exim-logs.lock /data/vhost/!!(*= $vhost *)!!/!!(*= $vcspath *)!!/script/load-exim-logs || echo "stalled?"
 
 # Once a day, early morning
-23 4 * * * !!(*= $user *)!! run-with-lockfile -n /data/vhost/!!(*= $vhost *)!!/delete-old-things.lock /data/vhost/!!(*= $vhost *)!!/whatdotheyknow/script/delete-old-things || echo "stalled?"
-0 8 * * * !!(*= $user *)!! run-with-lockfile -n /data/vhost/!!(*= $vhost *)!!/alert-new-response-reminders.lock /data/vhost/!!(*= $vhost *)!!/whatdotheyknow/script/alert-new-response-reminders || echo "stalled?"
-0 8 * * * !!(*= $user *)!! run-with-lockfile -n /data/vhost/!!(*= $vhost *)!!/alert-not-clarified-request.lock /data/vhost/!!(*= $vhost *)!!/whatdotheyknow/script/alert-not-clarified-request || echo "stalled?"
-2 4 * * * !!(*= $user *)!! run-with-lockfile -n /data/vhost/!!(*= $vhost *)!!/check-recent-requests-sent.lock /data/vhost/!!(*= $vhost *)!!/whatdotheyknow/script/check-recent-requests-sent || echo "stalled?"
-45 3 * * * !!(*= $user *)!! run-with-lockfile -n /data/vhost/!!(*= $vhost *)!!/stop-new-responses-on-old-requests.lock /data/vhost/!!(*= $vhost *)!!/whatdotheyknow/script/stop-new-responses-on-old-requests || echo "stalled?"
+23 4 * * * !!(*= $user *)!! run-with-lockfile -n /data/vhost/!!(*= $vhost *)!!/delete-old-things.lock /data/vhost/!!(*= $vhost *)!!/!!(*= $vcspath *)!!/script/delete-old-things || echo "stalled?"
+0 8 * * * !!(*= $user *)!! run-with-lockfile -n /data/vhost/!!(*= $vhost *)!!/alert-new-response-reminders.lock /data/vhost/!!(*= $vhost *)!!/!!(*= $vcspath *)!!/script/alert-new-response-reminders || echo "stalled?"
+0 8 * * * !!(*= $user *)!! run-with-lockfile -n /data/vhost/!!(*= $vhost *)!!/alert-not-clarified-request.lock /data/vhost/!!(*= $vhost *)!!/!!(*= $vcspath *)!!/script/alert-not-clarified-request || echo "stalled?"
+2 4 * * * !!(*= $user *)!! run-with-lockfile -n /data/vhost/!!(*= $vhost *)!!/check-recent-requests-sent.lock /data/vhost/!!(*= $vhost *)!!/!!(*= $vcspath *)!!/script/check-recent-requests-sent || echo "stalled?"
+45 3 * * * !!(*= $user *)!! run-with-lockfile -n /data/vhost/!!(*= $vhost *)!!/stop-new-responses-on-old-requests.lock /data/vhost/!!(*= $vhost *)!!/!!(*= $vcspath *)!!/script/stop-new-responses-on-old-requests || echo "stalled?"
 
 # Once a day on all servers
-43 2 * * * !!(*= $user *)!! /data/vhost/!!(*= $vhost *)!!/whatdotheyknow/script/request-creation-graph
-48 2 * * * !!(*= $user *)!! /data/vhost/!!(*= $vhost *)!!/whatdotheyknow/script/user-use-graph
+43 2 * * * !!(*= $user *)!! /data/vhost/!!(*= $vhost *)!!/!!(*= $vcspath *)!!/script/request-creation-graph
+48 2 * * * !!(*= $user *)!! /data/vhost/!!(*= $vhost *)!!/!!(*= $vcspath *)!!/script/user-use-graph
 
 # Once a year :)
 @yearly !!(*= $user *)!! /bin/echo "A year has passed, please update the bank holidays for the Freedom of Information site, thank you."
