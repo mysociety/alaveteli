@@ -186,3 +186,13 @@ case.
 
 This setup isn't very scaleable, as it spawns a new Ruby process for
 each email received; patches welcome!
+
+9. Cron jobs
+------------
+
+config/cron.ugly contains the cronjobs we run on WhatDoTheyKnow.  It's
+in a strange templating format we use in mySociety, but you should be
+able to work out the syntax and variables fairly easily :)
+
+We render the "ugly" file to reference absolute paths, and then drop
+it in /etc/cron.d/ on the server.
