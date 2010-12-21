@@ -71,8 +71,11 @@ constraints whilst running the tests they also need to be a superuser.
 
     CREATE USER <username> WITH CREATEUSER;
     ALTER USER <username> WITH PASSWORD '<password>';
+    ALTER USER <username> WITH CREATEDB;
     GRANT ALL PRIVILEGES ON DATABASE foi_development TO <username>;
-    GRANT ALL PRIVILEGES ON DATABASE foi_test TO <username>;
+    GRANT ALL PRIVILEGES ON DATABASE foi_test TO <username>;    	
+    ALTER DATABASE foi_development OWNER TO <username>;
+    ALTER DATABASE foi_test OWNER TO <username>;
 
 3. Deployment
 -------------
