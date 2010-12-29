@@ -14,6 +14,8 @@ Commands are intended to be run via the terminal or over ssh.
 
 1. Package Installation
 -----------------------
+(i.e. Install git (sudo apt-get install git-core), 
+ to get whatdotheyknow code from alaveteli: git clone https://github.com/sebbacon/alaveteli.git)
 
 Firstly, in a terminal, navigate to the whatdotheyknow folder where this
 install guide lives.
