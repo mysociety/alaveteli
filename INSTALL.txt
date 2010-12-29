@@ -61,8 +61,8 @@ psql template1
    to get into command tool
 
 \l to list databases
-    CREATE DATABASE foi_development encoding = 'SQL_ASCII';
-    CREATE DATABASE foi_test encoding = 'SQL_ASCII';
+    CREATE DATABASE foi_development encoding = 'UTF8';
+    CREATE DATABASE foi_test encoding = 'UTF8';
 
 Make sure that the user specified in database.yml exists, and has full
 permissions on this database. As they need the ability to turn off
