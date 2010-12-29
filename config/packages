@@ -18,6 +18,7 @@ unrtf
 xlhtml
 libxapian-ruby1.8
 gnuplot-nox
+php5-cli
 # ttf-bitstream-vera 
 sharutils
 unzip
