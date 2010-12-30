@@ -7,8 +7,8 @@ require 'json'
 
 describe UserController, "when showing a user" do
     integrate_views
-    fixtures :users, :outgoing_messages, :incoming_messages, :raw_emails, :info_requests, :info_request_events, :comments
-  
+    fixtures :users, :outgoing_messages, :incoming_messages, :raw_emails, :info_requests, :info_request_events, :comments, :public_bodies
+   
     it "should be successful" do
         get :show, :url_name => "bob_smith"
         response.should be_success
