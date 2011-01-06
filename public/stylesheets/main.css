@@ -92,6 +92,15 @@ body
 	border-style: solid;
 	background-color: #f0f0f0;
 }
+
+#downtime {
+    border: 2px dashed #993233;
+    background-color: #ffcc99;
+    padding: 4px;
+    margin: 0 auto;
+    width: 80%;
+    text-align: center;
+}
 	
 /*------------------------------------------------ mysoc logo */
 	#mysoclogo
