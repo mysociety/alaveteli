@@ -1,13 +1,13 @@
 <% view_cache :ttl => 5.minutes do %>
 
 <div id="frontpage_search">
-    <h1>Make or explore Freedom of Information requests</h1>
+    <h1><%= _('Make or explore Freedom of Information requests') %></h1>
 
     <% form_tag({:action => "search_redirect"}, {:id => "search_form"}) do %>
        <p>
-           First, type in the <strong>name of the UK public authority</strong> you'd 
+           <%= _('First, type in the <strong>name of the UK public authority</strong> you\'d 
            <br>like information from. <strong>By law, they have to respond</strong>
-           (<a href="/help/about">why?</a>).
+           (<a href="/help/about">why?</a>).') %>
            <br>
             
            <br>

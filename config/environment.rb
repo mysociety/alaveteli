@@ -6,7 +6,7 @@
 # ENV['RAILS_ENV'] ||= 'production'
 
 # Specifies gem version of Rails to use when vendor/rails is not present
-RAILS_GEM_VERSION = '2.3.11' unless defined? RAILS_GEM_VERSION
+RAILS_GEM_VERSION = '2.3.2' unless defined? RAILS_GEM_VERSION
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
@@ -17,7 +17,7 @@ $:.push(File.join(File.dirname(__FILE__), '../commonlib/rblib'))
 # (type "git submodule update --init" in the whatdotheyknow directory)
 
 # ruby-ole and ruby-msg.  We use a custom ruby-msg to avoid a name conflict
-$:.unshift(File.join(File.dirname(__FILE__), '../commonlib/rblib/ruby-ole/lib'))
+$:.unshift(File.join(File.dirname(__FILE__), '../vendor/ruby-ole/lib'))
 $:.unshift(File.join(File.dirname(__FILE__), '../vendor/ruby-msg/lib'))
 
 require 'memcache'
@@ -51,18 +51,13 @@ Rails::Initializer.run do |config|
   #
   # Specify gems that this application depends on and have them installed with rake gems:install
   config.gem "fast_gettext", :version => '>=0.4.8'
-  config.gem "rack", :version => '1.1.0'
-  config.gem "recaptcha", :lib => "recaptcha/rails"
-  config.gem 'rspec', :lib => false, :version => '1.3.1'
-  config.gem 'rspec-rails', :lib => false, :version => '1.3.3'
-  config.gem 'will_paginate', :version => '~> 2.3.11', :source => 'http://gemcutter.org'
-
+  #GettextI18nRails.translations_are_html_safe = true
   # Your secret key for verifying cookie session data integrity.
   # If you change this key, all old sessions will become invalid!
   # Make sure the secret is at least 30 characters and all random, 
   # no regular words or you'll be exposed to dictionary attacks.
   config.action_controller.session = {
-    :key => '_wdtk_cookie_session',
+    :session_key => '_wdtk_cookie_session',
     :secret => MySociety::Config.get("COOKIE_STORE_SESSION_SECRET", 'this default is insecure as code is open source, please override for live sites in config/general; this will do for local development')
   }
   config.action_controller.session_store = :cookie_store
@@ -70,7 +65,7 @@ Rails::Initializer.run do |config|
   # Use SQL instead of Active Record's schema dumper when creating the test database.
   # This is necessary if your schema can't be completely dumped by the schema dumper, 
   # like if you have constraints or database-specific column types
-  config.active_record.schema_format = :sql
+  # config.active_record.schema_format = :sql
 
   # Activate observers that should always be running
   # config.active_record.observers = :cacher, :garbage_collector
@@ -117,6 +112,7 @@ require 'tmail_extensions.rb'
 require 'activesupport_cache_extensions.rb'
 require 'public_body_categories.rb'
 require 'timezone_fixes.rb'
+require 'fcgi_fixes.rb'
 require 'use_spans_for_errors.rb'
 require 'make_html_4_compliant.rb'
 require 'activerecord_errors_extensions.rb'

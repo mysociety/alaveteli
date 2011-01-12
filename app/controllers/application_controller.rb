@@ -12,7 +12,7 @@
 class ApplicationController < ActionController::Base
     # Standard headers, footers and navigation for whole site
     layout "default"
-    # set locale
+    include FastGettext::Translation # make functions like _, n_, N_ etc available)
     before_filter :set_gettext_locale
     # scrub sensitive parameters from the logs
     filter_parameter_logging :password

@@ -151,4 +151,3 @@ msgstr ""
 
 msgid "activerecord.errors.full_messages.format"
 msgstr "%{message}"
-
