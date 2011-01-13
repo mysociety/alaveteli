@@ -4,3 +4,6 @@
 [submodule "vendor/rails"]
 	path = vendor/rails
 	url = https://github.com/rails/rails.git
+[submodule "vendor/rails-locales"]
+	path = vendor/rails-locales
+	url = https://github.com/svenfuchs/rails-i18n.git
