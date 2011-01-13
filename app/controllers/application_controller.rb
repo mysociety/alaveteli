@@ -27,6 +27,16 @@ class ApplicationController < ActionController::Base
 
     include FastGettext::Translation # make functions like _, n_, N_ etc available)
 
+    before_filter :set_gettext_locale
+
+    helper_method :site_name
+    def site_name
+      # XXX should come from database:
+      site_name = "WhatDoTheyKnow"
+      return site_name      
+    end
+
+
     # Help work out which request causes RAM spike.
     # http://www.codeweblog.com/rails-to-monitor-the-process-of-memory-leaks-skills/
     # This shows the memory use increase of the Ruby process due to the request.
