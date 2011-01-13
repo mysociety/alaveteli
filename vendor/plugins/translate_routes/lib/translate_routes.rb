@@ -1,4 +1,4 @@
-from_# Author: Raul Murciano [http://raul.murciano.net] for Domestika [http://domestika.org]
+# Author: Raul Murciano [http://raul.murciano.net] for Domestika [http://domestika.org]
 # Copyright (c) 2007, Released under the MIT license (see MIT-LICENSE)
 
 module ActionController
