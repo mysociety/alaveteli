@@ -314,6 +314,7 @@ class FOIAttachment
     # Whether this type can be shown in the Google Docs Viewer.
     # PDF, PowerPoint and TIFF are listed on https://docs.google.com/viewer
     # .doc and .docx were added later http://gmailblog.blogspot.com/2010/06/view-doc-attachments-right-in-your.html
+    # .xls appears to work fine too
     def has_google_docs_viewer?
         if self.content_type == 'application/vnd.ms-word'
             return true
@@ -324,6 +325,8 @@ class FOIAttachment
         elsif self.content_type == 'image/tiff'
             return true
         elsif self.content_type == 'application/vnd.ms-powerpoint'
+            return true
+        elsif self.content_type == 'application/vnd.ms-excel'
             return true
         end
     end
@@ -397,14 +400,14 @@ class FOIAttachment
                 system("/usr/bin/wvHtml --charset=UTF-8 " + tempfile.path + " " + tempfile.path + ".html")
                 html = File.read(tempfile.path + ".html")
                 File.unlink(tempfile.path + ".html")
-            elsif self.content_type == 'application/vnd.ms-excel'
-                # Don't colorise, e.g. otherwise this one comes out with white
-                # text which is nasty:
-                # http://www.whatdotheyknow.com/request/30485/response/74705/attach/html/2/Empty%20premises%20Sefton.xls.html
-                IO.popen("/usr/bin/xlhtml -nc -a " + tempfile.path + "", "r") do |child|
-                    html = child.read()
-                    wrapper_id = "wrapper_xlhtml"
-                end
+#            elsif self.content_type == 'application/vnd.ms-excel'
+#                # Don't colorise, e.g. otherwise this one comes out with white
+#                # text which is nasty:
+#                # http://www.whatdotheyknow.com/request/30485/response/74705/attach/html/2/Empty%20premises%20Sefton.xls.html
+#                IO.popen("/usr/bin/xlhtml -nc -a " + tempfile.path + "", "r") do |child|
+#                    html = child.read()
+#                    wrapper_id = "wrapper_xlhtml"
+#                end
             elsif self.content_type == 'application/pdf'
                 IO.popen("/usr/bin/pdftohtml -nodrm -zoom 1.0 -stdout -enc UTF-8 -noframes " + tempfile.path + "", "r") do |child|
                     html = child.read()
