@@ -13,8 +13,16 @@ class ApplicationController < ActionController::Base
     # Standard headers, footers and navigation for whole site
     layout "default"
     before_filter :set_gettext_locale
+
     # scrub sensitive parameters from the logs
     filter_parameter_logging :password
+
+    helper_method :site_name
+    def site_name
+      # XXX should come from database:
+      site_name = "WhatDoTheyKnow"
+      return site_name      
+    end
 
     # Help work out which request causes RAM spike.
     # http://www.codeweblog.com/rails-to-monitor-the-process-of-memory-leaks-skills/

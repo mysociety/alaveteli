@@ -7,19 +7,22 @@
        <p>
            <%= _('First, type in the <strong>name of the UK public authority</strong> you\'d 
            <br>like information from. <strong>By law, they have to respond</strong>
-           (<a href="/help/about">why?</a>).') %>
+           (<a href="%s">why?</a>).') % help_about_url %>
            <br>
             
            <br>
            <%= text_field_tag 'query', params[:query], { :size => 30 } %>
            <%= hidden_field_tag 'bodies', 1 %>
-           <%= submit_tag "Search" %>
+           <%= submit_tag _('Search') %>
            <br>
-           e.g. <%=link_to 'Liverpool', search_url('liverpool', 'bodies')%>, <%=link_to 'MRSA', search_url('mrsa', 'bodies')%>, <%=link_to 'Treasury', search_url('treasury', 'bodies')%>
+           <%= _('e.g.') %>
+	   <% @popular_bodies.each_with_index do |body, i| %>
+             <%=link_to body.name, search_url(body.name, 'bodies')%><% if i < 2 %>, <% else %>. <% break %><% end %>
+	   <% end %>
 
            <br>
            <br>
-           OR, <strong>search</strong> for information others have requested using WhatDoTheyKnow.com
+           <%= _('OR, <strong>search</strong> for information others have requested using {{site_name}}', :site_name => site_name) %>
        </p>
     <% end %>
 </div>
@@ -27,15 +30,15 @@
 <div id="frontpage_examples">
     <% if @popular_bodies.size > 0 %>
         <div id="examples_0">
-            <ul>
+          <ul>
             <% for popular_body in @popular_bodies %>
                 <li><%=public_body_link(popular_body)%> 
-                <%=h popular_body.info_requests.count%> requests
+                 <%= n_('%d request', '%d requests', popular_body.info_requests.count) % popular_body.info_requests.count %> 
                 </li>
             <% end%>
             </ul>
             <p><strong>
-                <%= link_to "More authorities...", list_public_bodies_default %>
+                <%= link_to _('More authorities...'), list_public_bodies_default %>
             </strong></p>
         </div>
     <% end %>
@@ -45,11 +48,11 @@
             <ul>
             <% for event in @successful_request_events %>
                 <li><%=link_to h(excerpt(event.info_request.title, "", 30)), request_url(event.info_request)%> 
-                <%=h time_ago_in_words(event.described_at).gsub("about ", "") %> ago
+                <%= _('{{length_of_time}} ago', :length_of_time => time_ago_in_words(event.described_at)) %> 
                 </li>
             <% end %>
             </ul>
-            <p><strong><a href="/list/successful">More successful requests...</a></strong></p>
+            <p><strong><%=link_to _('More successful requests...'), request_list_successful_url %></strong></p>
         </div>
     <% end %>
 </div>

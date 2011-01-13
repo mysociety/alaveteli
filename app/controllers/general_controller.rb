@@ -22,22 +22,7 @@ class GeneralController < ApplicationController
     def frontpage
         behavior_cache do
             # This is too slow
-            #@popular_bodies = PublicBody.find(:all, :select => "*, (select count(*) from info_requests where info_requests.public_body_id = public_bodies.id) as c", :order => "c desc", :limit => 32)
-
-            # Just hardcode some popular authorities for now
-            # ('tgq', 'atbra' is for debugging on Francis's development environment)
-            @popular_bodies = PublicBody.find(:all, :conditions => ["url_name in (
-                  'bbc', 
-                  'dwp', 
-                  'dh', 
-                  'snh',
-                  'royal_mail_group', 
-                  'mod', 
-                  'kent_county_council', 
-                  'wirral_borough_council'
-                  /* , 'tgq', 'atbra' */
-            )"]).sort_by { |pb| pb.url_name }.reverse # just an order that looks better
-
+            @popular_bodies = PublicBody.find(:all, :select => "*, (select count(*) from info_requests where info_requests.public_body_id = public_bodies.id) as c", :order => "c desc", :limit => 32)
             # Get some successful requests #
             begin
                 query = 'variety:response (status:successful OR status:partially_successful)'
