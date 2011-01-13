@@ -12,6 +12,7 @@
 class ApplicationController < ActionController::Base
     # Standard headers, footers and navigation for whole site
     layout "default"
+
     before_filter :set_gettext_locale
 
     # scrub sensitive parameters from the logs
@@ -23,6 +24,8 @@ class ApplicationController < ActionController::Base
       site_name = "WhatDoTheyKnow"
       return site_name      
     end
+
+    include FastGettext::Translation # make functions like _, n_, N_ etc available)
 
     # Help work out which request causes RAM spike.
     # http://www.codeweblog.com/rails-to-monitor-the-process-of-memory-leaks-skills/
