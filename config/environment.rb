@@ -119,5 +119,5 @@ require 'activerecord_errors_extensions.rb'
 require 'willpaginate_hack.rb'
 require 'sendmail_return_path.rb'
 require 'tnef.rb'
-
+require 'i18n_fixes.rb'
 
