@@ -35,4 +35,6 @@ module I18n
       self.locale = current_locale if tmp_locale
     end
   end
+
 end
+

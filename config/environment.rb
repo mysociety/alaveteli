@@ -33,6 +33,9 @@ Rails::Initializer.run do |config|
   MySociety::Config.set_file(File.join(config.root_path, 'config', 'general'), true)
   MySociety::Config.load_default
 
+  # fallback locale
+  I18n.default_locale = :en
+
   # Settings in config/environments/* take precedence over those specified here
   
   # Skip frameworks you're not going to use (only works if using vendor/rails)
@@ -120,4 +123,3 @@ require 'willpaginate_hack.rb'
 require 'sendmail_return_path.rb'
 require 'tnef.rb'
 require 'i18n_fixes.rb'
-

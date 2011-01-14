@@ -44,6 +44,9 @@ class PublicBody < ActiveRecord::Base
 
     has_tag_string
 
+    translates :name, :short_name, :request_email, :url_name, :notes
+    translates :first_letter, :publication_scheme
+
     # like find_by_url_name but also search historic url_name if none found
     def self.find_by_url_name_with_historic(name)
         found = PublicBody.find_all_by_url_name(name)
@@ -67,7 +70,8 @@ class PublicBody < ActiveRecord::Base
     # Set the first letter, which is used for faster queries
     before_save(:set_first_letter)
     def set_first_letter
-        self.first_letter = self.name[0,1].upcase
+        # we use a regex to ensure it works with utf-8/multi-byte
+        self.first_letter = self.name.scan(/./mu)[0].upcase
     end
 
     def validate
@@ -166,16 +170,21 @@ class PublicBody < ActiveRecord::Base
 
     # When name or short name is changed, also change the url name
     def short_name=(short_name)
-        write_attribute(:short_name, short_name)
+        globalize.write(self.class.locale || I18n.locale, :short_name, short_name)
+        self[:short_name] = short_name
+        globalize.save_translations!
         self.update_url_name
     end
     def name=(name)
-        write_attribute(:name, name)
+        globalize.write(self.class.locale || I18n.locale, :name, name)
+        self[:name] = short_name
+        globalize.save_translations!
         self.update_url_name
     end
+
     def update_url_name
         url_name = MySociety::Format.simplify_url_part(self.short_or_long_name, 'body')
-        write_attribute(:url_name, url_name)
+        self.url_name = url_name
     end
     # Return the short name if present, or else long name
     def short_or_long_name
