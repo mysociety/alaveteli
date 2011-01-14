@@ -102,8 +102,8 @@ body
     text-align: center;
 }
 	
-/*------------------------------------------------ mysoc logo */
-	#mysoclogo
+/*------------------------------------------------ org logo */
+	#orglogo
 	{
 		position: absolute;
 		width: 100%;
@@ -115,7 +115,7 @@ body
 		height: 40px;
 		z-index: 100;
 	}
-		#mysoclogo a
+		#orglogo a
 		{
 			color: #f0f0f0;
 			display: block;

@@ -1,0 +1,18 @@
+/* drop your local CSS overrides in here */
+#banner
+{
+ // background-image: url(../images/navimg/somebanner.jpg); 
+}
+
+
+
+#header h1 a
+{ 
+    background-image: url(../images/navimg/alaveteli-logo.png);
+}
+
+
+#orglogo a 
+{
+    background-image: url(../images/navimg/alaveteli-logo-header.png);
+}

@@ -24,6 +24,10 @@
         <!--[if LT IE 7]> 
         <style type="text/css">@import url("/stylesheets/ie6.css");</style> 
         <![endif]-->
+        <%= stylesheet_link_tag 'main-custom', :title => "Main", :rel => "stylesheet"  %>
+        <!--[if LT IE 7]> 
+        <style type="text/css">@import url("/stylesheets/ie6-custom.css");</style> 
+        <![endif]-->
 
         <% if @feed_autodetect %>
             <% for feed in @feed_autodetect %>
@@ -84,8 +88,8 @@
             <%= _('Make and explore Freedom of Information requests') %>
         </div>
     </div>
-	<div id="mysoclogo">
-		<a href="http://www.mysociety.org">a site by mysociety.org</a>
+	<div id="orglogo">
+	  <%= render :partial => 'general/orglink' %>
 	</div>
     <div id="navigation_search">
         <% form_tag({:controller => "general", :action => "search_redirect"}, {:id => "navigation_search_form"}) do %>
