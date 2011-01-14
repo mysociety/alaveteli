@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html lang="en-gb">
+<html lang="<%= I18n.locale %>">
     <head>
         <script type="text/javascript" src="/jslib/spell/spellChecker.js"></script>
 
@@ -12,9 +12,9 @@
 
         <title>
         <% if @title %>
-            <%=@title%> - WhatDoTheyKnow
+            <%=@title%> - <%= site_name %>
         <% else %>
-            WhatDoTheyKnow - make and browse Freedom of Information (FOI) requests
+            <%= site_name %> - <%= _('Make and browse Freedom of Information (FOI) requests') %>
         <% end %>
         </title>
 
@@ -23,7 +23,7 @@
         <%= stylesheet_link_tag 'main', :title => "Main", :rel => "stylesheet"  %>
         <!--[if LT IE 7]> 
         <style type="text/css">@import url("/stylesheets/ie6.css");</style> 
-        <![endif]--> 
+        <![endif]-->
 
         <% if @feed_autodetect %>
             <% for feed in @feed_autodetect %>
@@ -78,10 +78,10 @@
     </div>
     <div id="header">
         <h1>
-            <a href="/">WhatDoTheyKnow?</a> 
+            <a href="/"><%= site_name %></a> 
         </h1>
         <div id="tagline">
-            Make and explore Freedom of Information requests
+            <%= _('Make and explore Freedom of Information requests') %>
         </div>
     </div>
 	<div id="mysoclogo">
@@ -91,28 +91,29 @@
         <% form_tag({:controller => "general", :action => "search_redirect"}, {:id => "navigation_search_form"}) do %>
            <p>
                <%= text_field_tag 'query', params[:query], { :size => 40, :id => "navigation_search_query" } %>
-               <%= submit_tag "Search" %>
+               <%= submit_tag _("Search") %>
            </p>
         <% end %>
     </div>
 	<div id="topnav">
-		<ul id="navigation">p/SOURCEp
-            <li><%= link_to "Make request", frontpage_url %></li>
-			<li><%= link_to "View requests", request_list_url(:view => 'successful') %></li>
-			<li><%= link_to "View authorities", list_public_bodies_default %></li>
+		<ul id="navigation">
+            <li><%= link_to _("Make request"), frontpage_url %></li>
+			<li><%= link_to _("View requests"), request_list_successful_url %></li>
+			<li><%= link_to _("View authorities"), list_public_bodies_default %></li>
 			<% if @user %>
-				<li><%=link_to "My requests", user_url(@user) %></li>
+				<li><%=link_to _("My requests"), user_url(@user) %></li>
 			<% end %>
-			<li><%= link_to "Read blog", blog_url %></li>
-			<li><%= link_to "Help", about_url %></li>
+			<li><%= link_to _("Read blog"), blog_url %></li>
+			<li><%= link_to _("Help"), help_about_url %></li>
 		</ul>
 		<% if not (controller.action_name == 'signin' or controller.action_name == 'signup') %>
 			<div id="logged_in_bar">
 			<% if @user %>
-				Hello, <%=h(@user.name)%>! 
-				(<%= link_to "Sign out", signout_url(:r => request.request_uri) %>)
+				<%= _('Hello, {{username}}!', :username => h(@user.name))%>
+				(<%= link_to _("Sign out"), signout_url(:r => request.request_uri) %>)
 			<% else %>
-				Hello! (<%= link_to "Sign in or sign up", signin_url(:r => request.request_uri) %>)
+			        <%= _('Hello!') %>
+				(<%= link_to _("Sign in or sign up"), signin_url(:r => request.request_uri) %>)
 			<% end %>
 			</div>
 		<% end %>
@@ -135,28 +136,11 @@
     </div>
 
     <div id="footer">
-        <a href="/help/contact">Contact WhatDoTheyKnow</a> 
-        |
-        Built by <a href="http://www.mysociety.org/">mySociety</a> ... 
-        <a href="/help/credits#helpus">and you</a>
-        |
-        Dedicated to <a href="http://mk.ucant.org/archives/000129.html">Chris Lightfoot</a>
+        <%= link_to _("Contact {{site_name}}", :site_name => site_name), help_contact_url %>
+	<%= render :partial => 'general/credits' %>
     </div>
 
-<% if MySociety::Config.get("DOMAIN", '127.0.0.1:3000') == 'www.whatdotheyknow.com'  %>
-<!-- Piwik -->
-<script type="text/javascript">
-var pkBaseURL = (("https:" == document.location.protocol) ? "https://piwik.mysociety.org/" : "http://piwik.mysociety.org/");
-document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
-</script><script type="text/javascript">
-try {
-var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", 4);
-piwikTracker.trackPageView();
-piwikTracker.enableLinkTracking();
-} catch( err ) {}
-</script><noscript><p><img src="http://piwik.mysociety.org/piwik.php?idsite=4" style="border:0" alt=""/></p></noscript>
-<!-- End Piwik Tag -->
-<% end %>
+	<%= render :partial => 'general/before_body_end' %>
 
     </body>
 </html>
