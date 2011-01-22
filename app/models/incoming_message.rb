@@ -1425,7 +1425,7 @@ class IncomingMessage < ActiveRecord::Base
         prefix = email
         prefix =~ /^(.*)@/
         prefix = $1
-        if !prefix.nil? && prefix.downcase.match(/^(postmaster|mailer-daemon|auto_reply|donotreply|no-reply)$/)
+        if !prefix.nil? && prefix.downcase.match(/^(postmaster|mailer-daemon|auto_reply|donotreply|no-reply|no.reply)$/)
             return false
         end
 
