@@ -12,6 +12,8 @@
 class ApplicationController < ActionController::Base
     # Standard headers, footers and navigation for whole site
     layout "default"
+    # scrub sensitive parameters from the logs
+    filter_parameter_logging :password
 
     # Help work out which request causes RAM spike.
     # http://www.codeweblog.com/rails-to-monitor-the-process-of-memory-leaks-skills/
