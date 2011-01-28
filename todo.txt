@@ -15,6 +15,7 @@ it might be prudent to write it so it can run multiple jurisdictions in
 one deploy, if only for administrative reasoins.
     - path maybe: lib/juris/uk, lib/juris/eu etc.
     - consider Single Table Inheritance (harder to back out of though)
+      - http://code.alexreisner.com/articles/single-table-inheritance-in-rails.html
     - use mixins with explicit include otherwise
 
 Add links to these tags where possible:
