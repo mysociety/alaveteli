@@ -140,7 +140,7 @@ module Globalize
           locales = Globalize.fallbacks(locale || I18n.locale).map(&:to_s)
           find(
                :all,
-u               :joins => :translations,
+               :joins => :translations,
                :conditions => [query, value, locales],
                :readonly => false
                )
