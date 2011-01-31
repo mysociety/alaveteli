@@ -3,5 +3,8 @@
 /database.yml
 /database.yml.deployed
 /rails_env.rb
+/logrotate
+/logrotate.deployed
 /memcached.yml
 /memcached.yml.deployed
+
