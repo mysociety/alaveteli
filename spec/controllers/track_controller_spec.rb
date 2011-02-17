@@ -31,6 +31,10 @@ describe TrackController, "when sending alerts for a track" do
     integrate_views
     fixtures :info_requests, :outgoing_messages, :incoming_messages, :raw_emails, :info_request_events, :users, :track_things, :track_things_sent_emails
     include LinkToHelper # for main_url
+    
+    before do
+        rebuild_xapian_index
+    end
   
     it "should send alerts" do
         # set the time the comment event happened at to within the last week
