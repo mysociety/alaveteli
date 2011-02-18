@@ -6,7 +6,7 @@
 # ENV['RAILS_ENV'] ||= 'production'
 
 # Specifies gem version of Rails to use when vendor/rails is not present
-RAILS_GEM_VERSION = '2.3.2' unless defined? RAILS_GEM_VERSION
+RAILS_GEM_VERSION = '2.3.11' unless defined? RAILS_GEM_VERSION
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
@@ -19,6 +19,15 @@ $:.push(File.join(File.dirname(__FILE__), '../commonlib/rblib'))
 # ruby-ole and ruby-msg.  We use a custom ruby-msg to avoid a name conflict
 $:.unshift(File.join(File.dirname(__FILE__), '../vendor/ruby-ole/lib'))
 $:.unshift(File.join(File.dirname(__FILE__), '../vendor/ruby-msg/lib'))
+
+# FIXME: These gems needed to be installed using 'sude gem install ...' -
+# apt-get install does not seem to install them where they can be found:
+#
+#    fcgi
+#    memcache-client
+#    mongrel
+#    thin
+
 
 require 'memcache'
 
