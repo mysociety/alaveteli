@@ -24,6 +24,7 @@ describe HelpController, "when using help" do
         deliveries = ActionMailer::Base.deliveries
         deliveries.size.should  == 1
         deliveries[0].body.should include("really should know")
+        deliveries.clear
     end
 
 end
