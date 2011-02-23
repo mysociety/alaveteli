@@ -58,6 +58,8 @@ Rails::Initializer.run do |config|
   # TEMP: uncomment this to turn on logging in production environments
   # config.log_level = :debug
   #
+  # Specify gems that this application depends on and have them installed with rake gems:install
+  config.gem "rack", :version => '1.1.0'
 
   # Your secret key for verifying cookie session data integrity.
   # If you change this key, all old sessions will become invalid!
