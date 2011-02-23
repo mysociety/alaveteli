@@ -20,15 +20,6 @@ $:.push(File.join(File.dirname(__FILE__), '../commonlib/rblib'))
 $:.unshift(File.join(File.dirname(__FILE__), '../vendor/ruby-ole/lib'))
 $:.unshift(File.join(File.dirname(__FILE__), '../vendor/ruby-msg/lib'))
 
-# FIXME: These gems needed to be installed using 'sude gem install ...' -
-# apt-get install does not seem to install them where they can be found:
-#
-#    fcgi
-#    memcache-client
-#    mongrel
-#    thin
-
-
 require 'memcache'
 
 load "validate.rb"
