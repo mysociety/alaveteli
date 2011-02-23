@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'rake'
 require 'rake/testtask'
-require 'activerecord'
+require 'active_record'
 require File.dirname(__FILE__) + '/../acts_as_xapian.rb'
 
 namespace :xapian do
