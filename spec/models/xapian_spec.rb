@@ -52,14 +52,14 @@ describe PublicBody, " when indexing public bodies with Xapian" do
         xapian_object.results[0][:model].should == public_bodies(:humpadink_public_body)
     end
 
-    it "should delete public bodies from the index when they are deleted" do
+    it "should delete public bodies from the index when they are destroyed" do
         rebuild_xapian_index
 
         xapian_object = InfoRequest.full_search([PublicBody], "albatross", 'created_at', true, nil, 100, 1)
         xapian_object.results.size.should == 1
         xapian_object.results[0][:model].should == public_bodies(:humpadink_public_body)
 
-        public_bodies(:humpadink_public_body).delete
+        public_bodies(:humpadink_public_body).destroy
 
         update_xapian_index
         xapian_object = InfoRequest.full_search([PublicBody], "albatross", 'created_at', true, nil, 100, 1)
