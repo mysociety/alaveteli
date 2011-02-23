@@ -4,7 +4,14 @@ require 'json'
 
 describe TrackController, "when making a new track on a request" do
     before do
-        @ir = mock_model(InfoRequest, :url_title => 'myrequest', :title => 'My request')
+        @ir = mock_model(InfoRequest, :url_title => 'myrequest',
+                                      :title => 'My request')
+        @track_thing = mock_model(TrackThing, :save! => true,
+                                              :params => {:list_description => 'list description'},
+                                              :track_medium= => nil,
+                                              :tracking_user_id= => nil)
+        TrackThing.stub!(:create_track_for_request).and_return(@track_thing)
+        TrackThing.stub!(:find_by_existing_track).and_return(nil)
         InfoRequest.stub!(:find_by_url_title).and_return(@ir)
 
         @user = mock_model(User)
@@ -17,11 +24,10 @@ describe TrackController, "when making a new track on a request" do
         response.should redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
     end
 
-    it "should make track and redirect if you are logged in " do
-        old_count = TrackThing.count
+    it "should save the track and redirect if you are logged in " do
         session[:user_id] = @user.id
+        @track_thing.should_receive(:save!)
         get :track_request, :url_title => @ir.url_title, :feed => 'track'
-        TrackThing.count.should == old_count + 1
         response.should redirect_to(:controller => 'request', :action => 'show', :url_title => @ir.url_title)
     end
 
@@ -31,11 +37,11 @@ describe TrackController, "when sending alerts for a track" do
     integrate_views
     fixtures :info_requests, :outgoing_messages, :incoming_messages, :raw_emails, :info_request_events, :users, :track_things, :track_things_sent_emails
     include LinkToHelper # for main_url
-    
+
     before do
         rebuild_xapian_index
     end
-  
+
     it "should send alerts" do
         # set the time the comment event happened at to within the last week
         ire = info_request_events(:silly_comment_event)
@@ -52,7 +58,7 @@ describe TrackController, "when sending alerts for a track" do
         mail.body =~ /(http:\/\/.*\/c\/(.*))/
         mail_url = $1
         mail_token = $2
-       
+
         mail.body.should_not =~ /&amp;/
 
         mail.body.should_not include('sent a request') # request not included
@@ -72,7 +78,7 @@ describe TrackController, "when sending alerts for a track" do
 #        response.should render_template('users/show')
 #        assigns[:display_user].should == users(:silly_name_user)
 
-        # Given we can't click the link, check the token is right instead      
+        # Given we can't click the link, check the token is right instead
         post_redirect = PostRedirect.find_by_email_token(mail_token)
         expected_url = main_url("/user/" + users(:silly_name_user).url_name + "#email_subscriptions") # XXX can't call URL making functions here, what is correct way to do this?
         post_redirect.uri.should == expected_url
@@ -85,7 +91,7 @@ describe TrackController, "when sending alerts for a track" do
     end
 
 end
- 
+
 describe TrackController, "when viewing RSS feed for a track" do
     integrate_views
     fixtures :info_requests, :outgoing_messages, :incoming_messages, :raw_emails, :info_request_events, :users, :track_things, :comments, :public_bodies
@@ -100,7 +106,7 @@ describe TrackController, "when viewing RSS feed for a track" do
         get :track_request, :feed => 'feed', :url_title => track_thing.info_request.url_title
         response.should render_template('track/atom_feed')
         # XXX should check it is an atom.builder type being rendered, not sure how to
-        
+
         assigns[:xapian_object].matches_estimated.should == 3
         assigns[:xapian_object].results.size.should == 3
         assigns[:xapian_object].results[0][:model].should == info_request_events(:silly_comment_event) # created_at 2008-08-12 23:05:12.500942
@@ -109,9 +115,9 @@ describe TrackController, "when viewing RSS feed for a track" do
     end
 
 end
- 
+
 describe TrackController, "when viewing JSON version of a track feed" do
-    
+
     integrate_views
     fixtures :info_requests, :outgoing_messages, :incoming_messages, :raw_emails, :info_request_events, :users, :track_things, :comments, :public_bodies
 
