@@ -1,0 +1,43 @@
+geraldine_public_body_translation: 
+  name: El Geraldine Quango
+  first_letter: E
+  request_email: geraldine-requests@localhost
+  id: "1"
+  public_body_id: "2"
+  short_name: eTGQ
+  url_name: etgq
+  locale: es
+  notes: ""
+
+geraldine_public_body_translation: 
+  name: Geraldine Quango
+  first_letter: G
+  request_email: geraldine-requests@localhost
+  id: "2"
+  public_body_id: "2"
+  short_name: TGQ
+  url_name: tgq
+  locale: en
+  notes: ""
+
+humpadink_public_body_translation: 
+  name: "El Department for Humpadinking"
+  first_letter: E
+  request_email: humpadink-requests@localhost
+  id: "3"
+  public_body_id: "3"
+  short_name: eDfH
+  url_name: edfh
+  locale: es
+  notes: An albatross told me!!!
+
+humpadink_public_body_translation: 
+  name: "Department for Humpadinking"
+  first_letter: D
+  request_email: humpadink-requests@localhost
+  id: "4"
+  public_body_id: "3"
+  short_name: DfH
+  url_name: dfh
+  locale: en
+  notes: An albatross told me!!!
