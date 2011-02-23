@@ -62,6 +62,7 @@ Rails::Initializer.run do |config|
   config.gem "rack", :version => '1.1.0'
   config.gem 'rspec-rails', :lib => false, :version => '1.3.3'
   config.gem "recaptcha", :lib => "recaptcha/rails"
+  config.gem 'will_paginate', :version => '~> 2.3.11', :source => 'http://gemcutter.org'
 
   # Your secret key for verifying cookie session data integrity.
   # If you change this key, all old sessions will become invalid!
