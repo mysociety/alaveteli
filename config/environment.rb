@@ -60,6 +60,8 @@ Rails::Initializer.run do |config|
   #
   # Specify gems that this application depends on and have them installed with rake gems:install
   config.gem "rack", :version => '1.1.0'
+  config.gem 'rspec', :lib => false, :version => '1.3.1'
+  config.gem 'rspec-rails', :lib => false, :version => '1.3.3'
 
   # Your secret key for verifying cookie session data integrity.
   # If you change this key, all old sessions will become invalid!
