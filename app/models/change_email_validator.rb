@@ -3,9 +3,9 @@
 #
 # Table name: change_email_validators
 #
-#  old_email :string          
-#  new_email :string          
-#  password  :string          
+#  old_email :string
+#  new_email :string
+#  password  :string
 #
 
 # models/changeemail_validator.rb:
@@ -25,27 +25,27 @@ class ChangeEmailValidator < ActiveRecord::BaseWithoutTable
 
     attr_accessor :logged_in_user
 
-    validates_presence_of :old_email, :message => "^Please enter your old email address"
-    validates_presence_of :new_email, :message => "^Please enter your new email address"
-    validates_presence_of :password, :message => "^Please enter your password"
+    validates_presence_of :old_email, :message => N_("Please enter your old email address")
+    validates_presence_of :new_email, :message => N_("Please enter your new email address")
+    validates_presence_of :password, :message => N_("Please enter your password")
 
     def validate
         if !self.old_email.blank? && !MySociety::Validate.is_valid_email(self.old_email)
-            errors.add(:old_email, "doesn't look like a valid address") 
+            errors.add(:old_email, "Old email doesn't look like a valid address")
         end
 
-        if !errors[:old_email] 
+        if !errors[:old_email]
             if self.old_email.downcase != self.logged_in_user.email.downcase
-                errors.add(:old_email, "address isn't the same as the address of the account you are logged in with") 
+                errors.add(:old_email, "Old email address isn't the same as the address of the account you are logged in with")
             elsif !self.logged_in_user.has_this_password?(self.password)
                 if !errors[:password]
-                    errors.add(:password, "is not correct") 
+                    errors.add(:password, "Password is not correct")
                 end
             end
         end
 
         if !self.new_email.blank? && !MySociety::Validate.is_valid_email(self.new_email)
-            errors.add(:new_email, "doesn't look like a valid address") 
+            errors.add(:new_email, "New email doesn't look like a valid address")
         end
     end
 

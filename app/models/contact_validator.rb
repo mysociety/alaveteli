@@ -3,10 +3,10 @@
 #
 # Table name: contact_validators
 #
-#  name    :string          
-#  email   :string          
-#  subject :text            
-#  message :text            
+#  name    :string
+#  email   :string
+#  subject :text
+#  message :text
 #
 
 # models/contact_validator.rb:
@@ -25,13 +25,13 @@ class ContactValidator < ActiveRecord::BaseWithoutTable
     column :subject, :text
     column :message, :text
 
-    validates_presence_of :name, :message => "^Please enter your name"
-    validates_presence_of :email, :message => "^Please enter your email address"
-    validates_presence_of :subject, :message => "^Please enter a subject"
-    validates_presence_of :message, :message => "^Please enter the message you want to send"
+    validates_presence_of :name, :message => N_("Please enter your name")
+    validates_presence_of :email, :message => N_("Please enter your email address")
+    validates_presence_of :subject, :message => N_("Please enter a subject")
+    validates_presence_of :message, :message => N_("Please enter the message you want to send")
 
     def validate
-        errors.add(:email, "doesn't look like a valid address") unless MySociety::Validate.is_valid_email(self.email)
+        errors.add(:email, "Email doesn't look like a valid address") unless MySociety::Validate.is_valid_email(self.email)
     end
 
 end

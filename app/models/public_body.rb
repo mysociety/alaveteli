@@ -74,7 +74,7 @@ class PublicBody < ActiveRecord::Base
         # Request_email can be blank, meaning we don't have details
         if self.is_requestable?
             unless MySociety::Validate.is_valid_email(self.request_email)
-                errors.add(:request_email, "doesn't look like a valid email address")
+                errors.add(:request_email, "Request email doesn't look like a valid email address")
             end
         end
     end

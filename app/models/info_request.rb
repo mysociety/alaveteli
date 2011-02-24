@@ -32,8 +32,8 @@ require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/li
 class InfoRequest < ActiveRecord::Base
     strip_attributes!
 
-    validates_presence_of :title, :message => "^Please enter a summary of your request"
-    validates_format_of :title, :with => /[a-zA-Z]/, :message => "^Please write a summary with some text in it", :if => Proc.new { |info_request| !info_request.title.nil? && !info_request.title.empty? }
+    validates_presence_of :title, :message => N_("Please enter a summary of your request")
+    validates_format_of :title, :with => /[a-zA-Z]/, :message => N_("Please write a summary with some text in it"), :if => Proc.new { |info_request| !info_request.title.nil? && !info_request.title.empty? }
 
     belongs_to :user
     #validates_presence_of :user_id # breaks during construction of new ones :(
@@ -95,13 +95,13 @@ class InfoRequest < ActiveRecord::Base
     # only check on create, so existing models with mixed case are allowed
     def validate_on_create
         if !self.title.nil? && !MySociety::Validate.uses_mixed_capitals(self.title, 10)
-            errors.add(:title, '^Please write the summary using a mixture of capital and lower case letters. This makes it easier for others to read.')
+            errors.add(:title, N_('Please write the summary using a mixture of capital and lower case letters. This makes it easier for others to read.'))
         end
         if !self.title.nil? && title.size > 200
-            errors.add(:title, '^Please keep the summary short, like in the subject of an email. You can use a phrase, rather than a full sentence.')
+            errors.add(:title, N_('Please keep the summary short, like in the subject of an email. You can use a phrase, rather than a full sentence.'))
         end
         if !self.title.nil? && self.title =~ /^(FOI|Freedom of Information)\s*requests?$/i
-            errors.add(:title, '^Please describe more what the request is about in the subject. There is no need to say it is an FOI request, we add that on anyway.')
+            errors.add(:title, N_('Please describe more what the request is about in the subject. There is no need to say it is an FOI request, we add that on anyway.'))
         end
     end
     

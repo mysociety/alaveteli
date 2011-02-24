@@ -88,21 +88,21 @@ class ProfilePhoto < ActiveRecord::Base
 
     def validate
         if self.data.nil?
-            errors.add(:data, "^Please choose a file containing your photo.")
+            errors.add(:data, N_("Please choose a file containing your photo."))
             return
         end
 
         if self.image.nil?
-            errors.add(:data, "^Couldn't understand the image file that you uploaded. PNG, JPEG, GIF and many other common image file formats are supported.")
+            errors.add(:data, N_("Couldn't understand the image file that you uploaded. PNG, JPEG, GIF and many other common image file formats are supported."))
             return
         end
 
         if self.image.format != 'PNG'
-            errors.add(:data, "^Failed to convert image to a PNG")
+            errors.add(:data, N_("Failed to convert image to a PNG"))
         end
         
         if !self.draft && (self.image.columns != WIDTH || self.image.rows != HEIGHT)
-            errors.add(:data, "^Failed to convert image to the correct size: at #{self.image.columns}x#{self.image.rows}, need #{WIDTH}x#{HEIGHT}")
+            errors.add(:data, N_("Failed to convert image to the correct size: at %{cols}x%{rows}, need %{width}x%{height}" % { :cols => self.image.columns, :rows => self.image.rows, :width => WIDTH, :height => HEIGHT }))
         end
 
         if self.draft && self.user_id
