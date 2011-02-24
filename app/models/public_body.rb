@@ -33,11 +33,11 @@ require 'set'
 class PublicBody < ActiveRecord::Base
     strip_attributes!
 
-    validates_presence_of :name
-    validates_presence_of :url_name
+    validates_presence_of :name, :message => N_("Name can't be blank")
+    validates_presence_of :url_name, :message => N_("URL name can't be blank")
 
-    validates_uniqueness_of :short_name, :if => Proc.new { |pb| pb.short_name != "" }
-    validates_uniqueness_of :name
+    validates_uniqueness_of :short_name, :message => N_("Short name is already taken"), :if => Proc.new { |pb| pb.short_name != "" }
+    validates_uniqueness_of :name, :message => N_("Name is already taken")
     
     has_many :info_requests, :order => 'created_at desc'
     has_many :track_things, :order => 'created_at desc'

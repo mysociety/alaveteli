@@ -51,7 +51,7 @@ class User < ActiveRecord::Base
     validates_inclusion_of :admin_level, :in => [ 
         'none',
         'super', 
-    ]
+    ], :message => N_('Admin level is not included in list')
 
     acts_as_xapian :texts => [ :name, :about_me ],
         :values => [ 
