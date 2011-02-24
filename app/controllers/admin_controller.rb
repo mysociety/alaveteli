@@ -11,10 +11,15 @@ require 'fileutils'
 class AdminController < ApplicationController
     layout "admin"
     before_filter :assign_http_auth_user
+    protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
     # Always give full stack trace for admin interface
     def local_request?
         true
+    end
+
+    def handle_unverified_request
+      raise(ActionController::InvalidAuthenticityToken)
     end
 
     # Expire cached attachment files for a request
