@@ -55,7 +55,6 @@ Rails::Initializer.run do |config|
   config.gem "recaptcha", :lib => "recaptcha/rails"
   config.gem 'rspec', :lib => false, :version => '1.3.1'
   config.gem 'rspec-rails', :lib => false, :version => '1.3.3'
-  config.gem 'ruby-ole', :lib => 'ole/base', :version => '1.2.10.1'
   config.gem 'will_paginate', :version => '~> 2.3.11', :source => 'http://gemcutter.org'
 
   # Your secret key for verifying cookie session data integrity.
