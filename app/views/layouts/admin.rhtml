@@ -20,6 +20,7 @@
     | <%= link_to 'Users', admin_url('user/list') %>
     | <%= link_to 'Tracks', admin_url('track/list') %>
     </p>
+    <%= render :partial => 'general/locale_switcher' %>
 
     <% if flash[:error] %>
         <p id="error"><%= flash[:error] %></p>
