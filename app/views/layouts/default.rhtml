@@ -87,10 +87,24 @@
         <div id="tagline">
             <%= _('Make and explore Freedom of Information requests') %>
         </div>
+     <% if FastGettext.default_available_locales.length > 1 %>
+     <div id="user_locale_switcher">
+       Language:
+       <% for possible_locale in FastGettext.default_available_locales %>
+        <% if possible_locale == I18n.locale.to_s %>
+          <%= possible_locale %>
+        <% else %>
+          <a href="<%= locale_switcher(possible_locale, params) %>"><%= possible_locale %></a>
+        <% end %>
+         <% end %>
+     </div>
+     <% end %>
+
     </div>
 	<div id="orglogo">
 	  <%= render :partial => 'general/orglink' %>
 	</div>
+          
     <div id="navigation_search">
         <% form_tag({:controller => "general", :action => "search_redirect"}, {:id => "navigation_search_form"}) do %>
            <p>
