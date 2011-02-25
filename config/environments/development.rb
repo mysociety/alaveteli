@@ -21,5 +21,3 @@ config.action_mailer.delivery_method = :sendmail # so is queued, rather than giv
 # unintentionally kept references to objects, especially strings.
 # require 'memory_profiler'
 # MemoryProfiler.start :string_debug => true, :delay => 10
-
-
