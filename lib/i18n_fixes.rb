@@ -1,3 +1,7 @@
+# Some of the monkeypatches in this file should possibly be submitted
+# as patches, but most are here because they should go away when we
+# upgrade to Rails 3.x
+
 # override behaviour in fast_gettext/translation.rb
 # so that we can interpolate our translation strings nicely
 
@@ -138,6 +142,18 @@ module I18n
       end
     end
     autoload :Fallbacks, 'i18n/locale/fallbacks'
+  end
+end
+
+
+# this monkeypatch corrects inconsistency with gettext_i18n_rails
+# where the latter deals with strings but rails i18n deals with
+# symbols for locales
+module GettextI18nRails
+  class Backend
+      def available_locales
+          FastGettext.available_locales.map{|l| l.to_sym} || []
+      end 
   end
 end
 
