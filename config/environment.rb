@@ -19,6 +19,7 @@ $:.push(File.join(File.dirname(__FILE__), '../commonlib/rblib'))
 # ruby-ole and ruby-msg.  We use a custom ruby-msg to avoid a name conflict
 $:.unshift(File.join(File.dirname(__FILE__), '../vendor/ruby-ole/lib'))
 $:.unshift(File.join(File.dirname(__FILE__), '../vendor/ruby-msg/lib'))
+$:.unshift(File.join(File.dirname(__FILE__), '../vendor/plugins/globalize2/lib'))
 
 require 'memcache'
 
@@ -109,6 +110,11 @@ if (MySociety::Config.get("DOMAIN", "") != "")
         end
     }
 end
+
+# fallback locale and available locales
+I18n.default_locale = :en
+available_locales = MySociety::Config.get('AVAILABLE_LOCALES', 'en')
+FastGettext.default_available_locales = available_locales.split(/ /)
 
 # Load monkey patches and other things from lib/
 require 'tmail_extensions.rb'
