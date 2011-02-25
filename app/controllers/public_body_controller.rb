@@ -16,87 +16,96 @@ class PublicBodyController < ApplicationController
             return
         end
 
-        @public_body = PublicBody.find_by_url_name_with_historic(params[:url_name])
-        raise "None found" if @public_body.nil? # XXX proper 404
+        @locale = self.locale_from_params()
+        PublicBody.with_locale(@locale) do 
+            @public_body = PublicBody.find_by_url_name_with_historic(params[:url_name])
+            raise "None found" if @public_body.nil? # XXX proper 404
 
-        # If found by historic name, redirect to new name
-        redirect_to show_public_body_url(:url_name => @public_body.url_name) if 
-            @public_body.url_name != params[:url_name]
+            # If found by historic name, redirect to new name
+            redirect_to show_public_body_url(:url_name => @public_body.url_name) if 
+                @public_body.url_name != params[:url_name]
 
-        set_last_body(@public_body)
+            set_last_body(@public_body)
 
-        top_url = main_url("/")
-        @searched_to_send_request = false
-        referrer = request.env['HTTP_REFERER']
-        if !referrer.nil? && referrer.match(%r{^#{top_url}search/.*/bodies$})
-            @searched_to_send_request = true
-        end
-
-        # Use search query for this so can collapse and paginate easily
-        # XXX really should just use SQL query here rather than Xapian.
-        begin
-            @xapian_requests = perform_search([InfoRequestEvent], 'requested_from:' + @public_body.url_name, 'newest', 'request_collapse')
-            if (@page > 1)
-                @page_desc = " (page " + @page.to_s + ")" 
-            else    
-                @page_desc = ""
+            top_url = main_url("/")
+            @searched_to_send_request = false
+            referrer = request.env['HTTP_REFERER']
+            if !referrer.nil? && referrer.match(%r{^#{top_url}search/.*/bodies$})
+                @searched_to_send_request = true
             end
-        rescue
-            @xapian_requests = nil
-        end
 
-        @track_thing = TrackThing.create_track_for_public_body(@public_body)
-        @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss], :has_json => true } ]
+            # Use search query for this so can collapse and paginate easily
+            # XXX really should just use SQL query here rather than Xapian.
+            begin
+                @xapian_requests = perform_search([InfoRequestEvent], 'requested_from:' + @public_body.url_name, 'newest', 'request_collapse')
+                if (@page > 1)
+                    @page_desc = " (page " + @page.to_s + ")" 
+                else    
+                    @page_desc = ""
+                end
+            rescue
+                @xapian_requests = nil
+            end
 
-        respond_to do |format|
-            format.html { @has_json = true }
-            format.json { render :json => @public_body.json_for_api }
+            @track_thing = TrackThing.create_track_for_public_body(@public_body)
+            @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss], :has_json => true } ]
+
+            respond_to do |format|
+                format.html { @has_json = true }
+                format.json { render :json => @public_body.json_for_api }
+            end
         end
     end
 
     def view_email
         @public_bodies = PublicBody.find(:all, :conditions => [ "url_name = ?", params[:url_name] ])
         @public_body = @public_bodies[0]
-
-        if params[:submitted_view_email]
-            if verify_recaptcha
-                flash.discard(:error)
-                render :template => "public_body/view_email"
-                return
+        PublicBody.with_locale(self.locale_from_params()) do
+            if params[:submitted_view_email]
+                if verify_recaptcha
+                    flash.discard(:error)
+                    render :template => "public_body/view_email"
+                    return
+                end
+                flash.now[:error] = "There was an error with the words you entered, please try again."
             end
-            flash.now[:error] = "There was an error with the words you entered, please try again."
+            render :template => "public_body/view_email_captcha"
         end
-        render :template => "public_body/view_email_captcha"
     end
 
     def list
         # XXX move some of these tag SQL queries into has_tag_string.rb
         @tag = params[:tag]
+        @locale = self.locale_from_params()
+        locale_condition = 'public_body_translations.locale = ?'
         if @tag.nil?
             @tag = "all"
-            conditions = []
+            conditions = [locale_condition, @locale]
         elsif @tag == 'other'
             category_list = PublicBodyCategories::CATEGORIES.map{|c| "'"+c+"'"}.join(",")
-            conditions = ['(select count(*) from has_tag_string_tags where has_tag_string_tags.model_id = public_bodies.id
+            conditions = [locale_condition + ' AND (select count(*) from has_tag_string_tags where has_tag_string_tags.model_id = public_bodies.id
                 and has_tag_string_tags.model = \'PublicBody\'
-                and has_tag_string_tags.name in (' + category_list + ')) = 0']
+                and has_tag_string_tags.name in (' + category_list + ')) = 0', @locale]
         elsif @tag.size == 1
             @tag.upcase!
-            conditions = ['first_letter = ?', @tag]
+            conditions = [locale_condition + ' AND first_letter = ?', @locale, @tag]
         elsif @tag.include?(":")
             name, value = HasTagString::HasTagStringTag.split_tag_into_name_value(@tag)
-            conditions = ['(select count(*) from has_tag_string_tags where has_tag_string_tags.model_id = public_bodies.id
+            conditions = [locale_condition + ' AND (select count(*) from has_tag_string_tags where has_tag_string_tags.model_id = public_bodies.id
                 and has_tag_string_tags.model = \'PublicBody\'
-                and has_tag_string_tags.name = ? and has_tag_string_tags.value = ?) > 0', name, value]
+                and has_tag_string_tags.name = ? and has_tag_string_tags.value = ?) > 0', @locale, name, value]
         else
-            conditions = ['(select count(*) from has_tag_string_tags where has_tag_string_tags.model_id = public_bodies.id
+            conditions = [locale_condition + ' AND (select count(*) from has_tag_string_tags where has_tag_string_tags.model_id = public_bodies.id
                 and has_tag_string_tags.model = \'PublicBody\'
-                and has_tag_string_tags.name = ?) > 0', @tag]
+                and has_tag_string_tags.name = ?) > 0', @locale, @tag]
         end
-        @public_bodies = PublicBody.paginate(
-            :order => "public_bodies.name", :page => params[:page], :per_page => 1000, # fit all councils on one page
-            :conditions => conditions
+        PublicBody.with_locale(@locale) do 
+            @public_bodies = PublicBody.paginate(
+              :order => "public_body_translations.name", :page => params[:page], :per_page => 1000, # fit all councils on one page
+              :conditions => conditions,
+              :joins => :translations
             )
+        end
         if @tag.size == 1
             @description = "beginning with '" + @tag + "'"
         else

@@ -1,5 +1,5 @@
-geraldine_public_body_translation: 
-  name: El Geraldine Quango
+geraldine_es_public_body_translation: 
+  name: El A Geraldine Quango
   first_letter: E
   request_email: geraldine-requests@localhost
   id: "1"
@@ -9,7 +9,7 @@ geraldine_public_body_translation:
   locale: es
   notes: ""
 
-geraldine_public_body_translation: 
+geraldine_en_public_body_translation: 
   name: Geraldine Quango
   first_letter: G
   request_email: geraldine-requests@localhost
@@ -20,7 +20,7 @@ geraldine_public_body_translation:
   locale: en
   notes: ""
 
-humpadink_public_body_translation: 
+humpadink_es_public_body_translation: 
   name: "El Department for Humpadinking"
   first_letter: E
   request_email: humpadink-requests@localhost
@@ -29,9 +29,9 @@ humpadink_public_body_translation:
   short_name: eDfH
   url_name: edfh
   locale: es
-  notes: An albatross told me!!!
+  notes: Baguette
 
-humpadink_public_body_translation: 
+humpadink_en_public_body_translation: 
   name: "Department for Humpadinking"
   first_letter: D
   request_email: humpadink-requests@localhost
