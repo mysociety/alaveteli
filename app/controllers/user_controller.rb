@@ -7,10 +7,17 @@
 # $Id: user_controller.rb,v 1.71 2009-09-17 07:51:47 francis Exp $
 
 class UserController < ApplicationController
+
+    protect_from_forgery :only => [ :contact,
+                                    :set_profile_photo,
+                                    :signchangeemail,
+                                    :clear_profile_photo,
+                                    :set_profile_about_me ] # See ActionController::RequestForgeryProtection for details
+
     # Show page about a user
     def show
         if MySociety::Format.simplify_url_part(params[:url_name], 'user', 32) != params[:url_name]
-            redirect_to :url_name =>  MySociety::Format.simplify_url_part(params[:url_name], 'user', 32), :status => :moved_permanently 
+            redirect_to :url_name =>  MySociety::Format.simplify_url_part(params[:url_name], 'user', 32), :status => :moved_permanently
             return
         end
 
@@ -29,8 +36,8 @@ class UserController < ApplicationController
             @xapian_comments = perform_search([InfoRequestEvent], 'commented_by:' + @display_user.url_name, 'newest', nil)
 
             if (@page > 1)
-                @page_desc = " (page " + @page.to_s + ")" 
-            else    
+                @page_desc = " (page " + @page.to_s + ")"
+            else
                 @page_desc = ""
             end
         rescue
@@ -50,7 +57,7 @@ class UserController < ApplicationController
 
         # Requests you need to describe
         if @is_you
-            @undescribed_requests = @display_user.get_undescribed_requests 
+            @undescribed_requests = @display_user.get_undescribed_requests
         end
 
         respond_to do |format|
@@ -81,16 +88,16 @@ class UserController < ApplicationController
             redirect_to signin_url(:r => params[:r], :again => nil)
             return
         end
-        
-        if not params[:user_signin] 
+
+        if not params[:user_signin]
             # First time page is shown
-            render :action => 'sign' 
+            render :action => 'sign'
             return
         else
             @user_signin = User.authenticate_from_form(params[:user_signin], @post_redirect.reason_params[:user_name] ? true : false)
             if @user_signin.errors.size > 0
                 # Failed to authenticate
-                render :action => 'sign' 
+                render :action => 'sign'
                 return
             else
                 # Successful login
@@ -121,7 +128,7 @@ class UserController < ApplicationController
             if user_alreadyexists
                 already_registered_mail user_alreadyexists
                 return
-            else 
+            else
                 # New unconfirmed user
                 @user_signup.email_confirmed = false
                 @user_signup.save!
@@ -224,7 +231,7 @@ class UserController < ApplicationController
                     if params[:pretoken] and not params[:pretoken].empty?
                         post_redirect = PostRedirect.find_by_token(params[:pretoken])
                         do_post_redirect post_redirect
-                    else    
+                    else
                         redirect_to user_url(@user)
                     end
                 end
@@ -338,7 +345,7 @@ class UserController < ApplicationController
                 { :message => "" + @recipient_user.name + ",\n\n\n\nYours,\n\n" + @user.name }
             )
         end
-  
+
     end
 
     # River of News: What's happening with your tracked things
@@ -388,11 +395,11 @@ class UserController < ApplicationController
         elsif !params[:submitted_crop_profile_photo].nil?
             # crop the draft photo according to jquery parameters and set it as the users photo
             draft_profile_photo = ProfilePhoto.find(params[:draft_profile_photo_id])
-            @profile_photo = ProfilePhoto.new(:data => draft_profile_photo.data, :draft => false, 
+            @profile_photo = ProfilePhoto.new(:data => draft_profile_photo.data, :draft => false,
                 :x => params[:x], :y => params[:y], :w => params[:w], :h => params[:h])
             @user.set_profile_photo(@profile_photo)
             draft_profile_photo.destroy
-            
+
             if !@user.get_about_me_for_html_display.empty?
                 flash[:notice] = "Thank you for updating your profile photo"
                 redirect_to user_url(@user)
@@ -487,7 +494,7 @@ class UserController < ApplicationController
     def work_out_post_redirect
         # Redirect to front page later if nothing else specified
         if not params[:r] and not params[:token]
-            params[:r] = "/"  
+            params[:r] = "/"
         end
         # The explicit "signin" link uses this to specify where to go back to
         if params[:r]

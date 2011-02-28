@@ -9,6 +9,8 @@
 
 class TrackController < ApplicationController
 
+    protect_from_forgery # See ActionController::RequestForgeryProtection for details
+
     # Track all updates to a particular request
     def track_request
         @info_request = InfoRequest.find_by_url_title(params[:url_title])
@@ -106,7 +108,7 @@ class TrackController < ApplicationController
 
         flash[:notice] = "You will now be emailed updates about " + @track_thing.params[:list_description]
         return true
-    end 
+    end
 
     # Old-Style atom track. We're phasing this out, so for now issue a
     # 301 Redirect. Most aggregators should honour this, but we should
@@ -122,7 +124,7 @@ class TrackController < ApplicationController
     end
 
     def atom_feed_internal
-        @xapian_object = perform_search([InfoRequestEvent], @track_thing.track_query, @track_thing.params[:feed_sortby], nil, 25, 1) 
+        @xapian_object = perform_search([InfoRequestEvent], @track_thing.track_query, @track_thing.params[:feed_sortby], nil, 25, 1)
         respond_to do |format|
             format.atom { render :template => 'track/atom_feed' }
             format.json { render :json => @xapian_object.results.map { |r| r[:model].json_for_api(true,
@@ -187,4 +189,4 @@ class TrackController < ApplicationController
 
 
 end
- 
+

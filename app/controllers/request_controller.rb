@@ -7,7 +7,8 @@
 # $Id: request_controller.rb,v 1.192 2009-10-19 19:26:40 francis Exp $
 
 class RequestController < ApplicationController
-    before_filter :check_read_only, :only => [ :new, :show_response, :describe_state ]
+    before_filter :check_read_only, :only => [ :new, :show_response, :describe_state, :upload_response ]
+    protect_from_forgery :only => [ :new, :show_response, :describe_state, :upload_response ] # See ActionController::RequestForgeryProtection for details
     
     def show
         # Look up by old style numeric identifiers

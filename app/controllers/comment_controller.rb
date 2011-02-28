@@ -8,6 +8,7 @@
 
 class CommentController < ApplicationController
     before_filter :check_read_only, :only => [ :new ]
+    protect_from_forgery :only => [ :new ]
     
     def new
         if params[:type] == 'request'
