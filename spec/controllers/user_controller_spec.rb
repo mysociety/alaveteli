@@ -144,7 +144,7 @@ describe UserController, "when signing up" do
         post :signup, { :user_signup => { :email => 'new@localhost', :name => 'New Person',
             :password => 'sillypassword', :password_confirmation => 'sillypasswordtwo' } 
         }
-        assigns[:user_signup].errors[:password].should_not be_nil
+        assigns[:user_signup].errors[:password].should == 'Please enter the same password twice'
     end
 
     it "should be an error to sign up with a misformatted email" do

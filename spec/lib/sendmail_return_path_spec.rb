@@ -22,7 +22,7 @@ describe "when sending email with an altered return path" do
 
         mock_smtp.should_receive(:start).once.and_yield(mock_smtp_session)
         # the second parameter to the SMTP session is the sender (return path)
-        mock_smtp_session.should_receive(:sendmail).once.with(anything(), ["test@localhost"], anything())
+        mock_smtp_session.should_receive(:sendmail).once.with(anything(), "test@localhost", anything())
 
         Net::SMTP.stub!(:new).and_return(mock_smtp)
 

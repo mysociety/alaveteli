@@ -1,0 +1,154 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: version 0.0.1\n"
+"POT-Creation-Date: 2011-02-24 11:48-0000\n"
+"PO-Revision-Date: 2011-02-24 07:11-0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: app/models/profile_photo.rb:96
+msgid ""
+"Couldn't understand the image file that you uploaded. PNG, JPEG, GIF and "
+"many other common image file formats are supported."
+msgstr ""
+
+#: app/models/profile_photo.rb:101
+msgid "Failed to convert image to a PNG"
+msgstr ""
+
+#: app/models/profile_photo.rb:105
+msgid ""
+"Failed to convert image to the correct size: at %{cols}x%{rows}, need "
+"%{width}x%{height}"
+msgstr ""
+
+#: app/models/profile_photo.rb:91
+msgid "Please choose a file containing your photo."
+msgstr ""
+
+#: app/models/outgoing_message.rb:162
+msgid "Please choose what sort of reply you are making."
+msgstr ""
+
+#: app/models/info_request.rb:104
+msgid ""
+"Please describe more what the request is about in the subject. There is no "
+"need to say it is an FOI request, we add that on anyway."
+msgstr ""
+
+#: app/models/user.rb:38
+msgid "Please enter a password"
+msgstr ""
+
+#: app/models/contact_validator.rb:30
+msgid "Please enter a subject"
+msgstr ""
+
+#: app/models/info_request.rb:35
+msgid "Please enter a summary of your request"
+msgstr ""
+
+#: app/models/user.rb:106
+msgid "Please enter a valid email address"
+msgstr ""
+
+#: app/models/contact_validator.rb:31
+msgid "Please enter the message you want to send"
+msgstr ""
+
+#: app/models/user.rb:49
+msgid "Please enter the same password twice"
+msgstr ""
+
+#: app/models/comment.rb:59
+msgid "Please enter your annotation"
+msgstr ""
+
+#: app/models/contact_validator.rb:29 app/models/user.rb:34
+msgid "Please enter your email address"
+msgstr ""
+
+#: app/models/outgoing_message.rb:147
+msgid "Please enter your follow up message"
+msgstr ""
+
+#: app/models/outgoing_message.rb:150
+msgid "Please enter your letter requesting information"
+msgstr ""
+
+#: app/models/contact_validator.rb:28 app/models/user.rb:36
+msgid "Please enter your name"
+msgstr ""
+
+#: app/models/user.rb:109
+msgid "Please enter your name, not your email address, in the name field."
+msgstr ""
+
+#: app/models/change_email_validator.rb:29
+msgid "Please enter your new email address"
+msgstr ""
+
+#: app/models/change_email_validator.rb:28
+msgid "Please enter your old email address"
+msgstr ""
+
+#: app/models/change_email_validator.rb:30
+msgid "Please enter your password"
+msgstr ""
+
+#: app/models/outgoing_message.rb:145
+msgid "Please give details explaining why you want a review"
+msgstr ""
+
+#: app/models/about_me_validator.rb:24
+msgid "Please keep it shorter than 500 characters"
+msgstr ""
+
+#: app/models/info_request.rb:101
+msgid ""
+"Please keep the summary short, like in the subject of an email. You can use "
+"a phrase, rather than a full sentence."
+msgstr ""
+
+#: app/models/outgoing_message.rb:156
+msgid ""
+"Please sign at the bottom with your name, or alter the \"%{signoff}\" "
+"signature"
+msgstr ""
+
+#: app/models/info_request.rb:36
+msgid "Please write a summary with some text in it"
+msgstr ""
+
+#: app/models/info_request.rb:98
+msgid ""
+"Please write the summary using a mixture of capital and lower case letters. "
+"This makes it easier for others to read."
+msgstr ""
+
+#: app/models/comment.rb:62
+msgid ""
+"Please write your annotation using a mixture of capital and lower case "
+"letters. This makes it easier for others to read."
+msgstr ""
+
+#: app/models/outgoing_message.rb:159
+msgid ""
+"Please write your message using a mixture of capital and lower case letters. "
+"This makes it easier for others to read."
+msgstr ""
+
+msgid "activerecord.errors.full_messages.format"
+msgstr "%{message}"
+

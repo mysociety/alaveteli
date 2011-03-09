@@ -11,6 +11,12 @@ require 'fileutils'
 class AdminController < ApplicationController
     layout "admin"
     before_filter :assign_http_auth_user
+    protect_from_forgery # See ActionController::RequestForgeryProtection for details
+
+    # action to take if expecting an authenticity token and one isn't received
+    def handle_unverified_request
+        raise(ActionController::InvalidAuthenticityToken)
+    end
 
     # Always give full stack trace for admin interface
     def local_request?

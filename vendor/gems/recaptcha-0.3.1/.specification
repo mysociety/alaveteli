@@ -1,0 +1,111 @@
+--- !ruby/object:Gem::Specification 
+name: recaptcha
+version: !ruby/object:Gem::Version 
+  hash: 17
+  prerelease: false
+  segments: 
+  - 0
+  - 3
+  - 1
+  version: 0.3.1
+platform: ruby
+authors: 
+- Jason L. Perry
+autorequire: 
+bindir: bin
+cert_chain: []
+
+date: 2010-12-20 00:00:00 +00:00
+default_executable: 
+dependencies: 
+- !ruby/object:Gem::Dependency 
+  name: mocha
+  prerelease: false
+  requirement: &id001 !ruby/object:Gem::Requirement 
+    none: false
+    requirements: 
+    - - ">="
+      - !ruby/object:Gem::Version 
+        hash: 3
+        segments: 
+        - 0
+        version: "0"
+  type: :development
+  version_requirements: *id001
+- !ruby/object:Gem::Dependency 
+  name: activesupport
+  prerelease: false
+  requirement: &id002 !ruby/object:Gem::Requirement 
+    none: false
+    requirements: 
+    - - ">="
+      - !ruby/object:Gem::Version 
+        hash: 3
+        segments: 
+        - 0
+        version: "0"
+  type: :development
+  version_requirements: *id002
+description: "This plugin adds helpers for the reCAPTCHA API "
+email: jasper@ambethia.com
+executables: []
+
+extensions: []
+
+extra_rdoc_files: 
+- LICENSE
+- README.rdoc
+files: 
+- CHANGELOG
+- LICENSE
+- README.rdoc
+- Rakefile
+- VERSION
+- init.rb
+- lib/recaptcha.rb
+- lib/recaptcha/client_helper.rb
+- lib/recaptcha/configuration.rb
+- lib/recaptcha/merb.rb
+- lib/recaptcha/rails.rb
+- lib/recaptcha/verify.rb
+- recaptcha.gemspec
+- tasks/recaptcha_tasks.rake
+- test/recaptcha_test.rb
+- test/verify_recaptcha_test.rb
+has_rdoc: true
+homepage: http://ambethia.com/recaptcha
+licenses: []
+
+post_install_message: 
+rdoc_options: []
+
+require_paths: 
+- lib
+required_ruby_version: !ruby/object:Gem::Requirement 
+  none: false
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      hash: 3
+      segments: 
+      - 0
+      version: "0"
+required_rubygems_version: !ruby/object:Gem::Requirement 
+  none: false
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      hash: 3
+      segments: 
+      - 0
+      version: "0"
+requirements: []
+
+rubyforge_project: 
+rubygems_version: 1.3.7
+signing_key: 
+specification_version: 3
+summary: Helpers for the reCAPTCHA API
+test_files: 
+- test/recaptcha_test.rb
+- test/verify_recaptcha_test.rb

@@ -1,3 +1,6 @@
 [submodule "commonlib"]
 	path = commonlib
 	url = git://git.mysociety.org/commonlib
+[submodule "vendor/rails"]
+	path = vendor/rails
+	url = https://github.com/rails/rails.git

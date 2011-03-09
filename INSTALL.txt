@@ -35,11 +35,12 @@ have updated versions there), so you will want to add that to your
   deb http://debian.mysociety.org etch main non-free contrib
   deb-src http://debian.mysociety.org etch main non-free contrib
 
-You will also want to install mySociety's common ruby libraries.  Run:
+You will also want to install mySociety's common ruby libraries and the Rails
+code. Run:
 
   git submodule update --init
 
-to fetch the contents of the commonlib submodule. 
+to fetch the contents of the submodule s. 
 
 2. Configure Database 
 ---------------------

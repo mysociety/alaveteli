@@ -21,6 +21,8 @@ module TMail
                           part['content-location'].body) ||
                         part.sub_header("content-type", "name") ||
                         part.sub_header("content-disposition", "filename")
+            file_name = file_name.strip if file_name
+            file_name
         end
 
         # Monkeypatch! Return the name part of from address, or nil if there isn't one

@@ -6,3 +6,6 @@
 /old-cache
 .*.swp
 *~
+._*
+/db/test_structure.sql
+moo.txt

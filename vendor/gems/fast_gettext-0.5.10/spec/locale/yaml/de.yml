@@ -1,0 +1,25 @@
+de:
+  simple: einfach
+  date:
+    relative: "vor %{relative_time}"
+
+  cars:
+    axis:
+      one: "Achse"
+      other: "Achsen"
+    silly:
+      one: '0'
+      other: '1'
+      plural2: '2'
+      plural3: '3'
+    model: "Modell"
+    wheel_count: "Räderzahl"
+    created: "Erstellt"
+    month: "Monat"
+    car: "Auto"
+    messages:
+      created: "Auto wurde erfolgreich gespeichert"
+      updated: "Auto wurde erfolgreich aktualisiert"
+
+  test_log:
+    phrases: "Dies ist eine dynamische Übersetzung, die durch gettext_test_log gefunden wurde!"

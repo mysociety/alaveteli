@@ -21,7 +21,7 @@ class AboutMeValidator < ActiveRecord::BaseWithoutTable
 
     def validate
         if !self.about_me.blank? && self.about_me.size > 500
-            errors.add(:about_me, "^Please keep it shorter than 500 characters") 
+            errors.add(:about_me, N_("Please keep it shorter than 500 characters"))
         end
     end
 
