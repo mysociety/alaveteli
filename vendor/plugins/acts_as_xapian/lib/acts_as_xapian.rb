@@ -668,9 +668,34 @@ module ActsAsXapian
             self.class.to_s + "-" + self.id.to_s
         end
 
-        # Extract value of a field from the model
         def xapian_value(field, type = nil)
-            value = self[field] || self.send(field.to_sym)
+            if self.respond_to?("translations")
+                if type == :date or type == :boolean
+                    value = single_xapian_value(field, type = type)
+                else
+                    values = []
+                    for locale in self.translations.map{|x| x.locale}
+                        self.class.with_locale(locale) do 
+                            values << single_xapian_value(field, type=type)
+                        end
+                    end
+                    if values[0].kind_of?(String)
+                        values = values.reject{|x| x.nil?}
+                        value = values.join(" ")
+                    else
+                        values = values.map{|x| x[0]}
+                        value = values.reject{|x| x.nil?}
+                    end
+                end
+            else
+                value = single_xapian_value(field, type = type)
+            end
+            return value
+        end
+
+        # Extract value of a field from the model
+        def single_xapian_value(field, type = nil)
+            value = self.send(field.to_sym) || self[field]
             if type == :date
                 if value.kind_of?(Time)
                     value.utc.strftime("%Y%m%d")
