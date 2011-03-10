@@ -55,6 +55,11 @@ Rails::Initializer.run do |config|
   #
   # Specify gems that this application depends on and have them installed with rake gems:install
   config.gem "fast_gettext", :version => '>=0.4.8'
+  config.gem "rack", :version => '1.1.0'
+  config.gem "recaptcha", :lib => "recaptcha/rails"
+  config.gem 'rspec', :lib => false, :version => '1.3.1'
+  config.gem 'rspec-rails', :lib => false, :version => '1.3.3'
+  config.gem 'will_paginate', :version => '~> 2.3.11', :source => 'http://gemcutter.org'
   #GettextI18nRails.translations_are_html_safe = true
   # Your secret key for verifying cookie session data integrity.
   # If you change this key, all old sessions will become invalid!
@@ -121,7 +126,6 @@ require 'tmail_extensions.rb'
 require 'activesupport_cache_extensions.rb'
 require 'public_body_categories.rb'
 require 'timezone_fixes.rb'
-require 'fcgi_fixes.rb'
 require 'use_spans_for_errors.rb'
 require 'make_html_4_compliant.rb'
 require 'activerecord_errors_extensions.rb'

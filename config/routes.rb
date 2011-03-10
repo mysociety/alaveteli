@@ -109,6 +109,8 @@ ActionController::Routing::Routes.draw do |map|
 
     map.with_options :controller => 'help' do |help|
       help.help_unhappy '/help/unhappy/:url_title', :action => 'unhappy'
+      help.help_about '/help/about', :action => 'about'
+      help.help_contact '/help/contact', :action => 'contact'
       help.help_general '/help/:action', :action => :action
     end
 

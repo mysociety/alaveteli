@@ -7,3 +7,6 @@
 [submodule "vendor/rails-locales"]
 	path = vendor/rails-locales
 	url = https://github.com/svenfuchs/rails-i18n.git
+[submodule "vendor/plugins/alavetelitheme"]
+	path = vendor/plugins/alavetelitheme
+	url = https://github.com/sebbacon/alavetelitheme.git

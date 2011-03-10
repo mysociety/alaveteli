@@ -88,7 +88,7 @@ class PublicBodyController < ApplicationController
                 and has_tag_string_tags.name in (' + category_list + ')) = 0', @locale]
         elsif @tag.size == 1
             @tag.upcase!
-            conditions = [locale_condition + ' AND first_letter = ?', @locale, @tag]
+            conditions = [locale_condition + ' AND public_body_translations.first_letter = ?', @locale, @tag]
         elsif @tag.include?(":")
             name, value = HasTagString::HasTagStringTag.split_tag_into_name_value(@tag)
             conditions = [locale_condition + ' AND (select count(*) from has_tag_string_tags where has_tag_string_tags.model_id = public_bodies.id
