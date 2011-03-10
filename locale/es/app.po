@@ -7,42 +7,68 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
-"POT-Creation-Date: 2011-01-12 15:14-0000\n"
-"PO-Revision-Date: 2011-01-12 13:06-0000\n"
+"POT-Creation-Date: 2011-02-08 12:36-0000\n"
+"PO-Revision-Date: 2011-03-10 12:27+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Plural-Forms: nplurals=3; plural=n==0 ? 0 : n==1 ? 1 : 2;\n"
 
-#: locale/model_attributes.rb:45
+#: app/views/general/frontpage.rhtml:36
+msgid "%d request"
+msgid_plural "%d requests"
+msgstr[0] "nonna requesti"
+msgstr[1] "%d una requestos"
+msgstr[2] "%d multissimo requestos"
+
+#: app/views/admin_public_body/list.rhtml:28
+msgid "%d result with exact tag matches"
+msgid_plural "%d results with exact tag matches"
+msgstr[0] "%d resulto con exacto tag matche"
+msgstr[1] "compte de %d resulti con exacto tag matche"
+msgstr[2] "compte de %d resultori con exacto tag matche"
+
+#: app/views/admin_public_body/list.rhtml:38
+#, fuzzy
+msgid "%d result with substring matches"
+msgid_plural "%d results with substring matches"
+msgstr[0] "%d resulto con exacto tag matche"
+msgstr[1] "compte de %d resulti con exacto tag matche"
+msgstr[2] "compte de %d resultori con exacto tag matche"
+
+#: locale/model_attributes.rb:38
 msgid "CensorRule|Last edit comment"
 msgstr ""
 
-#: locale/model_attributes.rb:44
+#: locale/model_attributes.rb:37
 msgid "CensorRule|Last edit editor"
 msgstr ""
 
-#: locale/model_attributes.rb:43
+#: locale/model_attributes.rb:36
 msgid "CensorRule|Replacement"
 msgstr ""
 
-#: locale/model_attributes.rb:42
+#: locale/model_attributes.rb:35
 msgid "CensorRule|Text"
 msgstr ""
 
-#: locale/model_attributes.rb:28
+#: locale/model_attributes.rb:22
 msgid "Comment|Body"
 msgstr ""
 
-#: locale/model_attributes.rb:27
+#: locale/model_attributes.rb:21
 msgid "Comment|Comment type"
 msgstr ""
 
-#: locale/model_attributes.rb:29
+#: locale/model_attributes.rb:23
 msgid "Comment|Visible"
 msgstr ""
+
+#: app/views/layouts/default.rhtml:143
+msgid "Contact {{site_name}}"
+msgstr "Engager con la {{site_name}}"
 
 #: locale/model_attributes.rb:64
 msgid "EximLogDone|Filename"
@@ -65,12 +91,25 @@ msgid ""
 "First, type in the <strong>name of the UK public authority</strong> you'd \n"
 "           <br>like information from. <strong>By law, they have to respond</"
 "strong>\n"
-"           (<a href=\"/help/about\">why?</a>)."
+"           (<a href=\"%s\">why?</a>)."
 msgstr ""
-"Firsto, si poco <strong>nomo de the Espanic public authoritita</strong> tu \n"
-"           <br>amo informatia. <strong>Par legal, se obligado respondre</"
-"strong>\n"
-"           (<a href=\"/help/about\">por acqui?</a>)."
+"Premiero, si poco <strong>nomo de Seblando publicus authoritita</strong> "
+"tu \n"
+"           <br>amo informatia. <strong>Con legalando, se obligandus "
+"respondre</strong>\n"
+"           (<a href=\"%s\">pour acqui?</a>)."
+
+#: app/views/layouts/default.rhtml:119
+msgid "Hello!"
+msgstr "Salutat!"
+
+#: app/views/layouts/default.rhtml:116
+msgid "Hello, {{username}}!"
+msgstr "{{username}} salutato!"
+
+#: app/views/layouts/default.rhtml:111
+msgid "Help"
+msgstr "Ayuder moi"
 
 #: locale/model_attributes.rb:61
 msgid "Holiday|Day"
@@ -78,6 +117,10 @@ msgstr ""
 
 #: locale/model_attributes.rb:62
 msgid "Holiday|Description"
+msgstr ""
+
+#: app/views/admin_public_body/list.rhtml:16
+msgid "Import from CSV file"
 msgstr ""
 
 #: locale/model_attributes.rb:57
@@ -92,27 +135,27 @@ msgstr ""
 msgid "IncomingMessage|Cached main body text unfolded"
 msgstr ""
 
-#: locale/model_attributes.rb:38
+#: locale/model_attributes.rb:43
 msgid "InfoRequestEvent|Calculated state"
 msgstr ""
 
-#: locale/model_attributes.rb:37
+#: locale/model_attributes.rb:42
 msgid "InfoRequestEvent|Described state"
 msgstr ""
 
-#: locale/model_attributes.rb:35
+#: locale/model_attributes.rb:40
 msgid "InfoRequestEvent|Event type"
 msgstr ""
 
-#: locale/model_attributes.rb:39
+#: locale/model_attributes.rb:44
 msgid "InfoRequestEvent|Last described at"
 msgstr ""
 
-#: locale/model_attributes.rb:36
+#: locale/model_attributes.rb:41
 msgid "InfoRequestEvent|Params yaml"
 msgstr ""
 
-#: locale/model_attributes.rb:40
+#: locale/model_attributes.rb:45
 msgid "InfoRequestEvent|Prominence"
 msgstr ""
 
@@ -148,37 +191,93 @@ msgstr ""
 msgid "InfoRequest|Url title"
 msgstr ""
 
+#: app/views/admin_public_body/list.rhtml:36
+#, fuzzy
+msgid "List of all authorities"
+msgstr "Mas autorita"
+
+#: app/views/admin_public_body/list.rhtml:4
+#, fuzzy
+msgid "Listing public authorities"
+msgstr "Mas autorita"
+
+#: app/views/admin_public_body/list.rhtml:6
+msgid "Listing public authorities matching '{{query}}'"
+msgstr ""
+
+#: app/views/layouts/default.rhtml:17
+msgid "Make and browse Freedom of Information (FOI) requests"
+msgstr "Makando ou exploratre los Libera de Information requesti"
+
+#: app/views/layouts/default.rhtml:88
+msgid "Make and explore Freedom of Information requests"
+msgstr "Makando ou exploratre los Libera de Information requesti"
+
 #: app/views/general/frontpage.rhtml:4
 msgid "Make or explore Freedom of Information requests"
-msgstr "Un grande informationo qui reparare"
+msgstr "Makando ou exploratre los Libera de Information requesti"
 
-#: locale/model_attributes.rb:21
-msgid "OutgoingMessage|Body"
-msgstr ""
+#: app/views/layouts/default.rhtml:104
+msgid "Make request"
+msgstr "Creer requesto"
 
-#: locale/model_attributes.rb:24
-msgid "OutgoingMessage|Last sent at"
-msgstr ""
+#: app/views/general/frontpage.rhtml:41
+msgid "More authorities..."
+msgstr "Mas autorita"
 
-#: locale/model_attributes.rb:23
-msgid "OutgoingMessage|Message type"
-msgstr ""
+#: app/views/general/frontpage.rhtml:55
+msgid "More successful requests..."
+msgstr "Mas requesti excellendi"
 
-#: locale/model_attributes.rb:22
-msgid "OutgoingMessage|Status"
+#: app/views/layouts/default.rhtml:108
+msgid "My requests"
+msgstr "Mes requesti"
+
+#: app/views/admin_public_body/_one_list.rhtml:3
+#, fuzzy
+msgid "Name"
+msgstr "Nom de user"
+
+#: app/views/admin_public_body/list.rhtml:15
+#, fuzzy
+msgid "New public authority"
+msgstr "Mas autorita"
+
+#: app/views/general/frontpage.rhtml:25
+msgid ""
+"OR, <strong>search</strong> for information others have requested using "
+"{{site_name}}"
 msgstr ""
+"OU, <strong>busqar</strong> de informationas requestando par los autros avec "
+"{{site_name}}"
 
 #: locale/model_attributes.rb:25
+msgid "OutgoingMessage|Body"
+msgstr "corpus de messago"
+
+#: locale/model_attributes.rb:28
+msgid "OutgoingMessage|Last sent at"
+msgstr "ultimato envoya"
+
+#: locale/model_attributes.rb:27
+msgid "OutgoingMessage|Message type"
+msgstr "etypa de messago"
+
+#: locale/model_attributes.rb:26
+msgid "OutgoingMessage|Status"
+msgstr "estatus"
+
+#: locale/model_attributes.rb:29
 msgid "OutgoingMessage|What doing"
-msgstr ""
+msgstr "Faire que"
 
 #: locale/model_attributes.rb:55
 msgid "PostRedirect|Circumstance"
-msgstr ""
+msgstr "Circumstancio"
 
 #: locale/model_attributes.rb:53
 msgid "PostRedirect|Email token"
-msgstr ""
+msgstr "Token de email"
 
 #: locale/model_attributes.rb:52
 msgid "PostRedirect|Post params yaml"
@@ -198,23 +297,29 @@ msgstr ""
 
 #: locale/model_attributes.rb:15
 msgid "ProfilePhoto|Data"
-msgstr ""
+msgstr "la data"
 
 #: locale/model_attributes.rb:16
 msgid "ProfilePhoto|Draft"
-msgstr ""
+msgstr "premerio attemptu"
+
+#: app/views/admin_public_body/_one_list.rhtml:6
+#: app/views/admin_public_body/show.rhtml:14
+#, fuzzy
+msgid "PublicBody|"
+msgstr "PublicBody|Nom"
 
 #: locale/model_attributes.rb:12
 msgid "PublicBody|First letter"
-msgstr ""
+msgstr "premier sentu"
 
 #: locale/model_attributes.rb:10
 msgid "PublicBody|Home page"
-msgstr ""
+msgstr "El maison pago"
 
 #: locale/model_attributes.rb:8
 msgid "PublicBody|Last edit comment"
-msgstr ""
+msgstr "ultimate commento de edite"
 
 #: locale/model_attributes.rb:7
 msgid "PublicBody|Last edit editor"
@@ -222,27 +327,27 @@ msgstr ""
 
 #: locale/model_attributes.rb:3
 msgid "PublicBody|Name"
-msgstr ""
+msgstr "PublicBody|Nom"
 
 #: locale/model_attributes.rb:11
 msgid "PublicBody|Notes"
-msgstr ""
+msgstr "Les notios"
 
 #: locale/model_attributes.rb:13
 msgid "PublicBody|Publication scheme"
-msgstr ""
+msgstr "Pubiquation escheme"
 
 #: locale/model_attributes.rb:5
 msgid "PublicBody|Request email"
-msgstr ""
+msgstr "requesto emaili"
 
 #: locale/model_attributes.rb:4
 msgid "PublicBody|Short name"
-msgstr ""
+msgstr "Nom brevis"
 
 #: locale/model_attributes.rb:9
 msgid "PublicBody|Url name"
-msgstr ""
+msgstr "Nom de URL"
 
 #: locale/model_attributes.rb:6
 msgid "PublicBody|Version"
@@ -256,17 +361,38 @@ msgstr ""
 msgid "RawEmail|Data text"
 msgstr ""
 
+#: app/views/layouts/default.rhtml:110
+msgid "Read blog"
+msgstr "Lire bloggus"
+
+#: app/views/admin_public_body/list.rhtml:22
+#: app/views/layouts/default.rhtml:98 app/views/general/frontpage.rhtml:16
+msgid "Search"
+msgstr "Busquar"
+
+#: app/views/admin_public_body/list.rhtml:13
+msgid "Show all"
+msgstr ""
+
+#: app/views/layouts/default.rhtml:120
+msgid "Sign in or sign up"
+msgstr "Entranter ou ensigner"
+
+#: app/views/layouts/default.rhtml:117
+msgid "Sign out"
+msgstr "Designater"
+
 #: locale/model_attributes.rb:32
 msgid "TrackThing|Track medium"
-msgstr ""
+msgstr "Traq media"
 
 #: locale/model_attributes.rb:31
 msgid "TrackThing|Track query"
-msgstr ""
+msgstr "Traq quera"
 
 #: locale/model_attributes.rb:33
 msgid "TrackThing|Track type"
-msgstr ""
+msgstr "Etypa de traq"
 
 #: locale/model_attributes.rb:67
 msgid "UserInfoRequestSentAlert|Alert type"
@@ -274,7 +400,7 @@ msgstr ""
 
 #: locale/model_attributes.rb:78
 msgid "User|About me"
-msgstr ""
+msgstr "Sobre moi"
 
 #: locale/model_attributes.rb:76
 msgid "User|Admin level"
@@ -290,7 +416,7 @@ msgstr ""
 
 #: locale/model_attributes.rb:73
 msgid "User|Email confirmed"
-msgstr ""
+msgstr "Email econfirmata"
 
 #: locale/model_attributes.rb:71
 msgid "User|Hashed password"
@@ -298,11 +424,11 @@ msgstr ""
 
 #: locale/model_attributes.rb:75
 msgid "User|Last daily track email"
-msgstr ""
+msgstr "La ultimate email de traq quotidiano"
 
 #: locale/model_attributes.rb:70
 msgid "User|Name"
-msgstr ""
+msgstr "Nom de user"
 
 #: locale/model_attributes.rb:72
 msgid "User|Salt"
@@ -312,13 +438,29 @@ msgstr ""
 msgid "User|Url name"
 msgstr ""
 
-#: locale/model_attributes.rb:41
+#: app/views/layouts/default.rhtml:106
+msgid "View authorities"
+msgstr "Mas autorita"
+
+#: app/views/layouts/default.rhtml:105
+msgid "View requests"
+msgstr "Vider requesti"
+
+#: app/helpers/link_to_helper.rb:77
+msgid "admin"
+msgstr ""
+
+#: locale/model_attributes.rb:34
 msgid "censor rule"
 msgstr ""
 
-#: locale/model_attributes.rb:26
+#: locale/model_attributes.rb:20
 msgid "comment"
 msgstr ""
+
+#: app/views/general/frontpage.rhtml:18
+msgid "e.g."
+msgstr "par exemplo"
 
 #: locale/model_attributes.rb:17
 msgid "exim log"
@@ -327,10 +469,6 @@ msgstr ""
 #: locale/model_attributes.rb:63
 msgid "exim log done"
 msgstr ""
-
-#: app/controllers/general_controller.rb:40
-msgid "foo"
-msgstr "foolo"
 
 #: locale/model_attributes.rb:60
 msgid "holiday"
@@ -341,14 +479,15 @@ msgid "incoming message"
 msgstr ""
 
 #: locale/model_attributes.rb:79
+#, fuzzy
 msgid "info request"
-msgstr ""
+msgstr "nonna requesti"
 
-#: locale/model_attributes.rb:34
+#: locale/model_attributes.rb:39
 msgid "info request event"
 msgstr ""
 
-#: locale/model_attributes.rb:20
+#: locale/model_attributes.rb:24
 msgid "outgoing message"
 msgstr ""
 
@@ -368,6 +507,12 @@ msgstr ""
 msgid "raw email"
 msgstr ""
 
+#: app/views/admin_public_body/list.rhtml:22
+msgid ""
+"this function searches substrings of names and emails, and for tags, it "
+"returns exact matches only"
+msgstr ""
+
 #: locale/model_attributes.rb:30
 msgid "track thing"
 msgstr ""
@@ -379,3 +524,7 @@ msgstr ""
 #: locale/model_attributes.rb:66
 msgid "user info request sent alert"
 msgstr ""
+
+#: app/views/general/frontpage.rhtml:51
+msgid "{{length_of_time}} ago"
+msgstr "depuis {{length_of_time}}"
