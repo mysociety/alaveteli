@@ -177,7 +177,7 @@ class PublicBody < ActiveRecord::Base
     end
     def name=(name)
         globalize.write(self.class.locale || I18n.locale, :name, name)
-        self[:name] = short_name
+        self[:name] = name
         globalize.save_translations!
         self.update_url_name
     end

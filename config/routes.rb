@@ -147,6 +147,7 @@ ActionController::Routing::Routes.draw do |map|
 
     map.with_options :controller => 'admin_request' do |admin|
         admin.admin_request_list_old_unclassified '/admin/unclassified', :action => 'list_old_unclassified'
+        admin.admin_request_index '/admin/request', :action => 'index'
         admin.admin_request_list '/admin/request/list', :action => 'list'
         admin.admin_request_show '/admin/request/show/:id', :action => 'show'
         admin.admin_request_resend '/admin/request/resend', :action => 'resend'

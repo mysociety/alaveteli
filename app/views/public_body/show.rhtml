@@ -78,7 +78,7 @@
         <% if @public_body.eir_only? %>
             <%=pluralize(@public_body.info_requests.size, "Environmental Information Regulations request") %> made using this site
         <% else %>
-            <%= n_('Freedom of Information request', 'Freedom if Information requests', @public_body.info_requests.size) %> made using this site
+            <%= n_('%d Freedom of Information request', '%d Freedom of Information requests', @public_body.info_requests.size) % @public_body.info_requests.size %> made using this site
         <% end %>
         <%= @page_desc %>
         </h2>
@@ -89,7 +89,7 @@
 
         <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @public_body.info_requests.size) %>
 
-        <p> <%= _('Only requests made using {{site_name}} are shown.', site_name => @site_name) %></p>
+        <p> <%= _('Only requests made using {{site_name}} are shown.', :site_name => site_name) %></p>
 
     <% end %>
 <% else %> 

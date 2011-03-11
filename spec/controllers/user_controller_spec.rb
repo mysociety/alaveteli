@@ -125,7 +125,7 @@ describe UserController, "when signing in" do
 
         # check is right confirmation URL
         mail_token.should == post_redirect.email_token
-        params_from(:get, mail_path).should == { :controller => 'user', :action => 'confirm', :email_token => mail_token }
+        params_from(:get, mail_path).should == { :controller => 'user', :action => 'confirm', :email_token => mail_token, :locale => "en" }
 
         # check confirmation URL works
         session[:user_id].should be_nil
@@ -421,7 +421,8 @@ describe UserController, "when changing email address" do
                     "old_email"=>"bob@localhost", 
                     "new_email"=>"newbob@localhost", 
                     "password"=>"jonespassword"}, 
-                "controller"=>"user"}
+                "controller"=>"user",
+                "locale"=>"en"}
         post :signchangeemail, post_redirect.post_params
 
         response.should redirect_to(:controller => 'user', :action => 'show', :url_name => 'bob_smith')
