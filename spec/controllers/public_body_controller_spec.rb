@@ -4,7 +4,7 @@ require 'json'
 
 describe PublicBodyController, "when showing a body" do
     integrate_views
-    fixtures :public_bodies, :public_body_versions
+    fixtures :public_bodies, :public_body_versions, :public_body_translations
   
     it "should be successful" do
         get :show, :url_name => "dfh"
@@ -19,6 +19,16 @@ describe PublicBodyController, "when showing a body" do
     it "should assign the body" do
         get :show, :url_name => "dfh"
         assigns[:public_body].should == public_bodies(:humpadink_public_body)
+    end
+
+    it "should assign the body using different locale from that used for url_name" do
+        get :show, {:url_name => "dfh", :locale => 'es'}
+        assigns[:public_body].notes.should == "Baguette"
+    end
+
+    it "should assign the body using same locale as that used in url_name" do
+        get :show, {:url_name => "edfh", :locale => 'es'}
+        assigns[:public_body].notes.should == "Baguette"
     end
 
     it "should redirect to newest name if you use historic name of public body in URL" do
@@ -47,6 +57,16 @@ describe PublicBodyController, "when listing bodies" do
         response.should render_template('list')
 
         assigns[:public_bodies].should == [ public_bodies(:humpadink_public_body), public_bodies(:geraldine_public_body) ]
+        assigns[:tag].should == "all"
+        assigns[:description].should == "all"
+    end
+
+    it "should list bodies in alphabetical order with different locale" do
+        get :list, :locale => "es"
+
+        response.should render_template('list')
+
+        assigns[:public_bodies].should == [ public_bodies(:geraldine_public_body), public_bodies(:humpadink_public_body) ]
         assigns[:tag].should == "all"
         assigns[:description].should == "all"
     end

@@ -6,6 +6,14 @@ Next (things that will reduce admin time mainly)
 - "Can I help out" a bit invisible
 
 Destroy request - does it remove the tags?
+Richard says he wants the internationalisation to be so it could be one site
+with combined search. Why obey the notion of a country? I'm not sure, but
+it might be prudent to write it so it can run multiple jurisdictions in 
+one deploy, if only for administrative reasoins.
+    - path maybe: lib/juris/uk, lib/juris/eu etc.
+    - consider Single Table Inheritance (harder to back out of though)
+      - http://code.alexreisner.com/articles/single-table-inheritance-in-rails.html
+    - use mixins with explicit include otherwise
 
 Add links to these tags where possible:
     ch:* - Bodies that appear on the Register of Companies. '*' is replaced by the company number, which is eight characters long and consists of optional upper-case letters followed by digits.

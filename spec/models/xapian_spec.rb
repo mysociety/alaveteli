@@ -302,7 +302,6 @@ describe PublicBody, " when indexing authorities by tag" do
         xapian_object = InfoRequest.full_search([PublicBody], "tag:mice", 'created_at', true, nil, 100, 1)
         xapian_object.results.size.should == 1
         xapian_object.results[0][:model] == public_bodies(:geraldine_public_body)
-
         xapian_object = InfoRequest.full_search([PublicBody], "tag:mice:3", 'created_at', true, nil, 100, 1)
         xapian_object.results.size.should == 1
         xapian_object.results[0][:model] == public_bodies(:geraldine_public_body)

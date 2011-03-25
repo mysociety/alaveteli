@@ -40,7 +40,7 @@ code. Run:
 
   git submodule update --init
 
-to fetch the contents of the submodule s. 
+to fetch the contents of the submodules. 
 
 2. Configure Database 
 ---------------------

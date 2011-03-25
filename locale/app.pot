@@ -7,20 +7,140 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
-"POT-Creation-Date: 2011-02-24 11:48-0000\n"
-"PO-Revision-Date: 2011-02-24 07:11-0000\n"
+"POT-Creation-Date: 2011-03-11 13:38-0000\n"
+"PO-Revision-Date: 2011-01-13 16:23-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
+#: app/views/public_body/show.rhtml:81
+msgid "%d Freedom of Information request"
+msgid_plural "%d Freedom of Information requests"
+msgstr[0] ""
+msgstr[1] ""
+
+#: app/views/general/frontpage.rhtml:36
+msgid "%d request"
+msgid_plural "%d requests"
+msgstr[0] ""
+msgstr[1] ""
+
+#: app/views/general/search.rhtml:53
+msgid "<a href=\"%s\">Browse all</a> or <a href=\"%s\">ask us to add one</a>."
+msgstr ""
+
+#: app/views/public_body/show.rhtml:50
+msgid ""
+"<a href=\"%s\">Make a new Freedom of Information request</a> to "
+"{{public_body_name}}"
+msgstr ""
+
+#: app/views/general/search.rhtml:118
+msgid ""
+"<strong><code>commented_by:tony_bowden</code></strong> to search annotations "
+"made by Tony Bowden, typing the name as in the URL."
+msgstr ""
+
+#: app/views/general/search.rhtml:120
+msgid ""
+"<strong><code>filetype:pdf</code></strong> to find all responses with PDF "
+"attachments. Or try these: <code>{{list_of_file_extensions}}</code>"
+msgstr ""
+
+#: app/views/general/search.rhtml:119
+msgid ""
+"<strong><code>request:</code></strong> to restrict to a specific request, "
+"typing the title as in the URL."
+msgstr ""
+
+#: app/views/general/search.rhtml:117
+msgid ""
+"<strong><code>requested_by:julian_todd</code></strong> to search requests "
+"made by Julian Todd, typing the name as in the URL."
+msgstr ""
+
+#: app/views/general/search.rhtml:116
+msgid ""
+"<strong><code>requested_from:home_office</code></strong> to search requests "
+"from the Home Office, typing the name as in the URL."
+msgstr ""
+
+#: app/views/general/search.rhtml:114
+msgid ""
+"<strong><code>status:</code></strong> to select based on the status or "
+"historical status of the request, see the <a href=\"%s\">table of statuses</"
+"a> below."
+msgstr ""
+
+#: app/views/general/search.rhtml:122
+msgid ""
+"<strong><code>tag:charity</code></strong> to find all public bodies or "
+"requests with a given tag. You can include multiple tags, \n"
+"    and tag values, e.g. <code>tag:openlylocal AND tag:"
+"financial_transaction:335633</code>. Note that by default any of the tags\n"
+"    can be present, you have to put <code>AND</code> explicitly if you only "
+"want results them all present."
+msgstr ""
+
+#: app/views/general/search.rhtml:115
+msgid ""
+"<strong><code>variety:</code></strong> to select type of thing to search "
+"for, see the <a href=\"%s\">table of varieties</a> below."
+msgstr ""
+
+#: app/models/user.rb:54
+msgid "Admin level is not included in list"
+msgstr ""
+
+#: app/views/general/search.rhtml:31 app/views/general/search.rhtml:109
+msgid "Advanced search tips"
+msgstr ""
+
+#: app/views/general/search.rhtml:17
+msgid ""
+"Can't find it? <a href=\"%s\">Browse all</a> or <a href=\"%s\">ask us to add "
+"it</a>."
+msgstr ""
+
+#: app/views/public_body/show.rhtml:17 app/views/public_body/show.rhtml:19
+msgid "Charity registration"
+msgstr ""
+
+#: app/views/layouts/default.rhtml:147
+msgid "Contact {{site_name}}"
+msgstr ""
+
 #: app/models/profile_photo.rb:96
 msgid ""
 "Couldn't understand the image file that you uploaded. PNG, JPEG, GIF and "
 "many other common image file formats are supported."
+msgstr ""
+
+#: app/views/general/search.rhtml:50 app/views/general/search.rhtml:62
+msgid "Did you mean: {{correction}}"
+msgstr ""
+
+#: app/views/admin_public_body/_locale_selector.rhtml:2
+msgid "Edit language version:"
+msgstr ""
+
+#: app/views/comment/_comment_form.rhtml:9
+msgid "Email me future updates to this request"
+msgstr ""
+
+#: app/views/general/search.rhtml:111
+msgid ""
+"Enter words that you want to find separated by spaces, e.g. <strong>climbing "
+"lane</strong>"
+msgstr ""
+
+#: app/views/general/search.rhtml:90
+msgid ""
+"FOI requests  {{start_count}} to {{end_count}} of {{total_count}} for "
+"{{user_search_query}}"
 msgstr ""
 
 #: app/models/profile_photo.rb:101
@@ -29,8 +149,131 @@ msgstr ""
 
 #: app/models/profile_photo.rb:105
 msgid ""
-"Failed to convert image to the correct size: at %{cols}x%{rows}, need "
-"%{width}x%{height}"
+"Failed to convert image to the correct size: at %{cols}x%{rows}, need %"
+"{width}x%{height}"
+msgstr ""
+
+#: app/views/general/frontpage.rhtml:8
+msgid ""
+"First, type in the <strong>name of the UK public authority</strong> you'd \n"
+"           <br>like information from. <strong>By law, they have to respond</"
+"strong>\n"
+"           (<a href=\"%s\">why?</a>)."
+msgstr ""
+
+#: app/views/public_body/show.rhtml:61
+msgid ""
+"For an unknown reason, it is not possible to make a request to this "
+"authority."
+msgstr ""
+
+#: app/views/public_body/show.rhtml:56
+msgid ""
+"Freedom of Information law does not apply to this authority, so you cannot "
+"make\n"
+"        a request to it."
+msgstr ""
+
+#: app/views/public_body/show.rhtml:99
+msgid "Freedom of Information requests made"
+msgstr ""
+
+#: app/views/public_body/show.rhtml:73
+msgid "Freedom of Information requests made using this site"
+msgstr ""
+
+#: app/views/layouts/default.rhtml:123
+msgid "Hello!"
+msgstr ""
+
+#: app/views/layouts/default.rhtml:120
+msgid "Hello, {{username}}!"
+msgstr ""
+
+#: app/views/layouts/default.rhtml:115
+msgid "Help"
+msgstr ""
+
+#: app/views/public_body/show.rhtml:8
+msgid "Home page of authority"
+msgstr ""
+
+#: app/views/layouts/default.rhtml:17
+msgid "Make and browse Freedom of Information (FOI) requests"
+msgstr ""
+
+#: app/views/layouts/default.rhtml:89
+msgid "Make and explore Freedom of Information requests"
+msgstr ""
+
+#: app/views/general/frontpage.rhtml:4
+msgid "Make or explore Freedom of Information requests"
+msgstr ""
+
+#: app/views/layouts/default.rhtml:108
+msgid "Make request"
+msgstr ""
+
+#: app/views/public_body/show.rhtml:6
+msgid "More about this authority"
+msgstr ""
+
+#: app/views/general/frontpage.rhtml:41
+msgid "More authorities..."
+msgstr ""
+
+#: app/views/general/frontpage.rhtml:55
+msgid "More successful requests..."
+msgstr ""
+
+#: app/views/layouts/default.rhtml:112
+msgid "My requests"
+msgstr ""
+
+#: app/models/public_body.rb:36
+msgid "Name can't be blank"
+msgstr ""
+
+#: app/models/public_body.rb:40
+msgid "Name is already taken"
+msgstr ""
+
+#: app/views/general/search.rhtml:40
+msgid "Newest results first"
+msgstr ""
+
+#: app/views/general/search.rhtml:16
+msgid "Next, select the public authority you'd like to make the request from."
+msgstr ""
+
+#: app/views/general/search.rhtml:48
+msgid "No public authorities found"
+msgstr ""
+
+#: app/views/public_body/show.rhtml:74
+msgid ""
+"Nobody has made any Freedom of Information requests to {{public_body_name}} "
+"using this site yet."
+msgstr ""
+
+#: app/views/general/search.rhtml:7
+msgid "Nothing found for '{{search_terms}}'"
+msgstr ""
+
+#: app/views/general/frontpage.rhtml:25
+msgid ""
+"OR, <strong>search</strong> for information others have requested using "
+"{{site_name}}"
+msgstr ""
+
+#: app/views/public_body/show.rhtml:92
+msgid "Only requests made using {{site_name}} are shown."
+msgstr ""
+
+#: app/views/general/search.rhtml:80
+msgid ""
+"People {{start_count}} to {{end_count}} of {{total_count}} for "
+"{{user_search_query}}"
 msgstr ""
 
 #: app/models/profile_photo.rb:91
@@ -149,6 +392,131 @@ msgid ""
 "This makes it easier for others to read."
 msgstr ""
 
-msgid "activerecord.errors.full_messages.format"
-msgstr "%{message}"
+#: app/views/general/search.rhtml:70
+msgid ""
+"Public authorities {{start_count}} to {{end_count}} of {{total_count}} for "
+"{{user_search_query}}"
+msgstr ""
 
+#: app/views/public_body/show.rhtml:11
+msgid "Publication scheme"
+msgstr ""
+
+#: app/views/general/search.rhtml:125
+msgid ""
+"Read about <a href=\"%s\">advanced search operators</a>, such as proximity "
+"and wildcards."
+msgstr ""
+
+#: app/views/layouts/default.rhtml:114
+msgid "Read blog"
+msgstr ""
+
+#: app/views/general/search.rhtml:42
+msgid "Recently described results first"
+msgstr ""
+
+#: app/views/general/search.rhtml:9
+msgid "Results page {{page_number}}"
+msgstr ""
+
+#: app/views/layouts/default.rhtml:102 app/views/general/frontpage.rhtml:16
+#: app/views/general/search.rhtml:29
+msgid "Search"
+msgstr ""
+
+#: app/views/general/search.rhtml:4
+msgid "Search Freedom of Information requests, public authorities and users"
+msgstr ""
+
+#: app/models/public_body.rb:39
+msgid "Short name is already taken"
+msgstr ""
+
+#: app/views/general/search.rhtml:38
+msgid "Show most relevant results first"
+msgstr ""
+
+#: app/views/layouts/default.rhtml:124
+msgid "Sign in or sign up"
+msgstr ""
+
+#: app/views/layouts/default.rhtml:121
+msgid "Sign out"
+msgstr ""
+
+#: app/views/general/search.rhtml:128
+msgid "Table of statuses"
+msgstr ""
+
+#: app/views/public_body/show.rhtml:101
+msgid ""
+"The search index is currently offline, so we can't show the Freedom of "
+"Information requests that have been made to this authority."
+msgstr ""
+
+#: app/views/public_body/show.rhtml:59
+msgid "This authority no longer exists, so you cannot make a request to it."
+msgstr ""
+
+#: app/views/public_body/show.rhtml:4
+msgid "Track this authority"
+msgstr ""
+
+#: app/views/general/search.rhtml:121
+msgid ""
+"Type <strong><code>01/01/2008..14/01/2008</code></strong> to only show "
+"things that happened in the first two weeks of January."
+msgstr ""
+
+#: app/models/public_body.rb:37
+msgid "URL name can't be blank"
+msgstr ""
+
+#: app/views/general/search.rhtml:112
+msgid ""
+"Use OR (in capital letters) where you don't mind which word,  e.g. "
+"<strong><code>commons OR lords</code></strong>"
+msgstr ""
+
+#: app/views/general/search.rhtml:113
+msgid ""
+"Use quotes when you want to find an exact phrase, e.g. <strong><code>"
+"\"Liverpool City Council\"</code></strong>"
+msgstr ""
+
+#: app/views/public_body/show.rhtml:23
+msgid "View FOI email address"
+msgstr ""
+
+#: app/views/layouts/default.rhtml:110
+msgid "View authorities"
+msgstr ""
+
+#: app/views/layouts/default.rhtml:109
+msgid "View requests"
+msgstr ""
+
+#: app/views/public_body/show.rhtml:40
+msgid ""
+"You can only request information about the environment from this authority."
+msgstr ""
+
+#: app/views/public_body/show.rhtml:31
+msgid "admin"
+msgstr ""
+
+#: app/views/public_body/show.rhtml:29
+msgid "also called {{public_body_short_name}}"
+msgstr ""
+
+#: app/views/general/frontpage.rhtml:18
+msgid "e.g."
+msgstr ""
+
+#: app/views/general/frontpage.rhtml:51
+msgid "{{length_of_time}} ago"
+msgstr ""
+
+#~ msgid "activerecord.errors.full_messages.format"
+#~ msgstr "%{message}"

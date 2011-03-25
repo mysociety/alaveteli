@@ -12,10 +12,27 @@
 class ApplicationController < ActionController::Base
     # Standard headers, footers and navigation for whole site
     layout "default"
-    # set locale
+    include FastGettext::Translation # make functions like _, n_, N_ etc available)
     before_filter :set_gettext_locale
+
     # scrub sensitive parameters from the logs
     filter_parameter_logging :password
+
+
+    def set_gettext_locale
+        requested_locale = params[:locale] || session[:locale] || cookies[:locale] ||  request.env['HTTP_ACCEPT_LANGUAGE']
+        session[:locale] = FastGettext.set_locale(requested_locale)
+    end
+
+    # scrub sensitive parameters from the logs
+    filter_parameter_logging :password
+
+    helper_method :site_name, :locale_from_params
+    def site_name
+      # XXX should come from database:
+      site_name = "WhatDoTheyKnow"
+      return site_name      
+    end
 
     # Help work out which request causes RAM spike.
     # http://www.codeweblog.com/rails-to-monitor-the-process-of-memory-leaks-skills/
@@ -131,6 +148,16 @@ class ApplicationController < ActionController::Base
             f.write(content)
         end
     end
+
+    # get the local locale 
+    def locale_from_params(*args)
+      if params[:show_locale]
+        params[:show_locale]
+      else
+        I18n.locale.to_s
+      end
+    end
+
     private
 
     # Check the user is logged in

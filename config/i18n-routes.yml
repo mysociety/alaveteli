@@ -1,0 +1,6 @@
+en:
+  # default from routes.rb
+es:
+  search: busquedas
+  help: ayuda
+  about: sobre

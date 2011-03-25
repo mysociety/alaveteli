@@ -1,0 +1,6 @@
+/* drop your local IE-specific CSS overrides in here */
+
+#banner
+{
+	background-image: url(../images/navimg/alaveteli-100pxd.jpg); 
+}
