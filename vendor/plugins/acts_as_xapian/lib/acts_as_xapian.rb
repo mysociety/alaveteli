@@ -683,7 +683,7 @@ module ActsAsXapian
                         values = values.reject{|x| x.nil?}
                         value = values.join(" ")
                     else
-                        values = values.map{|x| x[0]}
+                        values = values.flatten
                         value = values.reject{|x| x.nil?}
                     end
                 end
