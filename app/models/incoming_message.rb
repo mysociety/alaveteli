@@ -395,11 +395,12 @@ class FOIAttachment
             tempfile.print self.body
             tempfile.flush
 
-            if self.content_type == 'application/vnd.ms-word'
-                # XXX do something with PNG files this spits out so they view too :)
-                system("/usr/bin/wvHtml --charset=UTF-8 " + tempfile.path + " " + tempfile.path + ".html")
-                html = File.read(tempfile.path + ".html")
-                File.unlink(tempfile.path + ".html")
+            # Use google docs for the view for these - hanging server
+            # if self.content_type == 'application/vnd.ms-word'
+            #     # XXX do something with PNG files this spits out so they view too :)
+            #     system("/usr/bin/wvHtml --charset=UTF-8 " + tempfile.path + " " + tempfile.path + ".html")
+            #     html = File.read(tempfile.path + ".html")
+            #     File.unlink(tempfile.path + ".html")
 #            elsif self.content_type == 'application/vnd.ms-excel'
 #                # Don't colorise, e.g. otherwise this one comes out with white
 #                # text which is nasty:
@@ -408,7 +409,7 @@ class FOIAttachment
 #                    html = child.read()
 #                    wrapper_id = "wrapper_xlhtml"
 #                end
-            elsif self.content_type == 'application/pdf'
+            if self.content_type == 'application/pdf'
                 IO.popen("/usr/bin/pdftohtml -nodrm -zoom 1.0 -stdout -enc UTF-8 -noframes " + tempfile.path + "", "r") do |child|
                     html = child.read()
                 end
