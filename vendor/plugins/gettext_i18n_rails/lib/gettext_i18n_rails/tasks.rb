@@ -61,7 +61,7 @@ namespace :gettext do
   # require 'gettext_activerecord/parser'
   desc "write the model attributes to <locale_path>/model_attributes.rb"
   task :store_model_attributes => :environment do
-    FastGettext.silence_errors
+    #FastGettext.silence_errors
 
     require 'gettext_i18n_rails/model_attributes_finder'
     require 'gettext_i18n_rails/active_record'

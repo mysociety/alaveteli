@@ -7,13 +7,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
-"POT-Creation-Date: 2011-03-11 13:38-0000\n"
-"PO-Revision-Date: 2011-01-13 16:23-0000\n"
+"POT-Creation-Date: 2011-03-31 08:59+0100\n"
+"PO-Revision-Date: 2011-02-24 07:11-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
 #: app/views/public_body/show.rhtml:81
@@ -105,8 +106,40 @@ msgid ""
 "it</a>."
 msgstr ""
 
+#: locale/model_attributes.rb:46
+msgid "CensorRule|Last edit comment"
+msgstr ""
+
+#: locale/model_attributes.rb:45
+msgid "CensorRule|Last edit editor"
+msgstr ""
+
+#: locale/model_attributes.rb:44
+msgid "CensorRule|Replacement"
+msgstr ""
+
+#: locale/model_attributes.rb:43
+msgid "CensorRule|Text"
+msgstr ""
+
 #: app/views/public_body/show.rhtml:17 app/views/public_body/show.rhtml:19
 msgid "Charity registration"
+msgstr ""
+
+#: locale/model_attributes.rb:22
+msgid "Comment|Body"
+msgstr ""
+
+#: locale/model_attributes.rb:21
+msgid "Comment|Comment type"
+msgstr ""
+
+#: locale/model_attributes.rb:24
+msgid "Comment|Locale"
+msgstr ""
+
+#: locale/model_attributes.rb:23
+msgid "Comment|Visible"
 msgstr ""
 
 #: app/views/layouts/default.rhtml:147
@@ -135,6 +168,22 @@ msgstr ""
 msgid ""
 "Enter words that you want to find separated by spaces, e.g. <strong>climbing "
 "lane</strong>"
+msgstr ""
+
+#: locale/model_attributes.rb:61
+msgid "EximLogDone|Filename"
+msgstr ""
+
+#: locale/model_attributes.rb:62
+msgid "EximLogDone|Last stat"
+msgstr ""
+
+#: locale/model_attributes.rb:19
+msgid "EximLog|Line"
+msgstr ""
+
+#: locale/model_attributes.rb:18
+msgid "EximLog|Order"
 msgstr ""
 
 #: app/views/general/search.rhtml:90
@@ -194,8 +243,84 @@ msgstr ""
 msgid "Help"
 msgstr ""
 
+#: locale/model_attributes.rb:58
+msgid "Holiday|Day"
+msgstr ""
+
+#: locale/model_attributes.rb:59
+msgid "Holiday|Description"
+msgstr ""
+
 #: app/views/public_body/show.rhtml:8
 msgid "Home page of authority"
+msgstr ""
+
+#: locale/model_attributes.rb:64
+msgid "IncomingMessage|Cached attachment text clipped"
+msgstr ""
+
+#: locale/model_attributes.rb:65
+msgid "IncomingMessage|Cached main body text folded"
+msgstr ""
+
+#: locale/model_attributes.rb:66
+msgid "IncomingMessage|Cached main body text unfolded"
+msgstr ""
+
+#: locale/model_attributes.rb:39
+msgid "InfoRequestEvent|Calculated state"
+msgstr ""
+
+#: locale/model_attributes.rb:38
+msgid "InfoRequestEvent|Described state"
+msgstr ""
+
+#: locale/model_attributes.rb:36
+msgid "InfoRequestEvent|Event type"
+msgstr ""
+
+#: locale/model_attributes.rb:40
+msgid "InfoRequestEvent|Last described at"
+msgstr ""
+
+#: locale/model_attributes.rb:37
+msgid "InfoRequestEvent|Params yaml"
+msgstr ""
+
+#: locale/model_attributes.rb:41
+msgid "InfoRequestEvent|Prominence"
+msgstr ""
+
+#: locale/model_attributes.rb:87
+msgid "InfoRequest|Allow new responses from"
+msgstr ""
+
+#: locale/model_attributes.rb:83
+msgid "InfoRequest|Awaiting description"
+msgstr ""
+
+#: locale/model_attributes.rb:82
+msgid "InfoRequest|Described state"
+msgstr ""
+
+#: locale/model_attributes.rb:88
+msgid "InfoRequest|Handle rejected responses"
+msgstr ""
+
+#: locale/model_attributes.rb:86
+msgid "InfoRequest|Law used"
+msgstr ""
+
+#: locale/model_attributes.rb:84
+msgid "InfoRequest|Prominence"
+msgstr ""
+
+#: locale/model_attributes.rb:81
+msgid "InfoRequest|Title"
+msgstr ""
+
+#: locale/model_attributes.rb:85
+msgid "InfoRequest|Url title"
 msgstr ""
 
 #: app/views/layouts/default.rhtml:17
@@ -268,6 +393,26 @@ msgstr ""
 
 #: app/views/public_body/show.rhtml:92
 msgid "Only requests made using {{site_name}} are shown."
+msgstr ""
+
+#: locale/model_attributes.rb:26
+msgid "OutgoingMessage|Body"
+msgstr ""
+
+#: locale/model_attributes.rb:29
+msgid "OutgoingMessage|Last sent at"
+msgstr ""
+
+#: locale/model_attributes.rb:28
+msgid "OutgoingMessage|Message type"
+msgstr ""
+
+#: locale/model_attributes.rb:27
+msgid "OutgoingMessage|Status"
+msgstr ""
+
+#: locale/model_attributes.rb:30
+msgid "OutgoingMessage|What doing"
 msgstr ""
 
 #: app/views/general/search.rhtml:80
@@ -392,14 +537,98 @@ msgid ""
 "This makes it easier for others to read."
 msgstr ""
 
+#: locale/model_attributes.rb:56
+msgid "PostRedirect|Circumstance"
+msgstr ""
+
+#: locale/model_attributes.rb:54
+msgid "PostRedirect|Email token"
+msgstr ""
+
+#: locale/model_attributes.rb:53
+msgid "PostRedirect|Post params yaml"
+msgstr ""
+
+#: locale/model_attributes.rb:55
+msgid "PostRedirect|Reason params yaml"
+msgstr ""
+
+#: locale/model_attributes.rb:51
+msgid "PostRedirect|Token"
+msgstr ""
+
+#: locale/model_attributes.rb:52
+msgid "PostRedirect|Uri"
+msgstr ""
+
+#: locale/model_attributes.rb:15
+msgid "ProfilePhoto|Data"
+msgstr ""
+
+#: locale/model_attributes.rb:16
+msgid "ProfilePhoto|Draft"
+msgstr ""
+
 #: app/views/general/search.rhtml:70
 msgid ""
 "Public authorities {{start_count}} to {{end_count}} of {{total_count}} for "
 "{{user_search_query}}"
 msgstr ""
 
+#: locale/model_attributes.rb:12
+msgid "PublicBody|First letter"
+msgstr ""
+
+#: locale/model_attributes.rb:10
+msgid "PublicBody|Home page"
+msgstr ""
+
+#: locale/model_attributes.rb:8
+msgid "PublicBody|Last edit comment"
+msgstr ""
+
+#: locale/model_attributes.rb:7
+msgid "PublicBody|Last edit editor"
+msgstr ""
+
+#: locale/model_attributes.rb:3
+msgid "PublicBody|Name"
+msgstr ""
+
+#: locale/model_attributes.rb:11
+msgid "PublicBody|Notes"
+msgstr ""
+
+#: locale/model_attributes.rb:13
+msgid "PublicBody|Publication scheme"
+msgstr ""
+
+#: locale/model_attributes.rb:5
+msgid "PublicBody|Request email"
+msgstr ""
+
+#: locale/model_attributes.rb:4
+msgid "PublicBody|Short name"
+msgstr ""
+
+#: locale/model_attributes.rb:9
+msgid "PublicBody|Url name"
+msgstr ""
+
+#: locale/model_attributes.rb:6
+msgid "PublicBody|Version"
+msgstr ""
+
 #: app/views/public_body/show.rhtml:11
 msgid "Publication scheme"
+msgstr ""
+
+#: locale/model_attributes.rb:49
+msgid "RawEmail|Data binary"
+msgstr ""
+
+#: locale/model_attributes.rb:48
+msgid "RawEmail|Data text"
 msgstr ""
 
 #: app/views/general/search.rhtml:125
@@ -463,6 +692,18 @@ msgstr ""
 msgid "Track this authority"
 msgstr ""
 
+#: locale/model_attributes.rb:33
+msgid "TrackThing|Track medium"
+msgstr ""
+
+#: locale/model_attributes.rb:32
+msgid "TrackThing|Track query"
+msgstr ""
+
+#: locale/model_attributes.rb:34
+msgid "TrackThing|Track type"
+msgstr ""
+
 #: app/views/general/search.rhtml:121
 msgid ""
 "Type <strong><code>01/01/2008..14/01/2008</code></strong> to only show "
@@ -483,6 +724,50 @@ msgstr ""
 msgid ""
 "Use quotes when you want to find an exact phrase, e.g. <strong><code>"
 "\"Liverpool City Council\"</code></strong>"
+msgstr ""
+
+#: locale/model_attributes.rb:68
+msgid "UserInfoRequestSentAlert|Alert type"
+msgstr ""
+
+#: locale/model_attributes.rb:79
+msgid "User|About me"
+msgstr ""
+
+#: locale/model_attributes.rb:77
+msgid "User|Admin level"
+msgstr ""
+
+#: locale/model_attributes.rb:78
+msgid "User|Ban text"
+msgstr ""
+
+#: locale/model_attributes.rb:70
+msgid "User|Email"
+msgstr ""
+
+#: locale/model_attributes.rb:74
+msgid "User|Email confirmed"
+msgstr ""
+
+#: locale/model_attributes.rb:72
+msgid "User|Hashed password"
+msgstr ""
+
+#: locale/model_attributes.rb:76
+msgid "User|Last daily track email"
+msgstr ""
+
+#: locale/model_attributes.rb:71
+msgid "User|Name"
+msgstr ""
+
+#: locale/model_attributes.rb:73
+msgid "User|Salt"
+msgstr ""
+
+#: locale/model_attributes.rb:75
+msgid "User|Url name"
 msgstr ""
 
 #: app/views/public_body/show.rhtml:23
@@ -510,8 +795,72 @@ msgstr ""
 msgid "also called {{public_body_short_name}}"
 msgstr ""
 
+#: locale/model_attributes.rb:42
+msgid "censor rule"
+msgstr ""
+
+#: locale/model_attributes.rb:20
+msgid "comment"
+msgstr ""
+
 #: app/views/general/frontpage.rhtml:18
 msgid "e.g."
+msgstr ""
+
+#: locale/model_attributes.rb:17
+msgid "exim log"
+msgstr ""
+
+#: locale/model_attributes.rb:60
+msgid "exim log done"
+msgstr ""
+
+#: locale/model_attributes.rb:57
+msgid "holiday"
+msgstr ""
+
+#: locale/model_attributes.rb:63
+msgid "incoming message"
+msgstr ""
+
+#: locale/model_attributes.rb:80
+msgid "info request"
+msgstr ""
+
+#: locale/model_attributes.rb:35
+msgid "info request event"
+msgstr ""
+
+#: locale/model_attributes.rb:25
+msgid "outgoing message"
+msgstr ""
+
+#: locale/model_attributes.rb:50
+msgid "post redirect"
+msgstr ""
+
+#: locale/model_attributes.rb:14
+msgid "profile photo"
+msgstr ""
+
+#: locale/model_attributes.rb:2
+msgid "public body"
+msgstr ""
+
+#: locale/model_attributes.rb:47
+msgid "raw email"
+msgstr ""
+
+#: locale/model_attributes.rb:31
+msgid "track thing"
+msgstr ""
+
+#: locale/model_attributes.rb:69
+msgid "user"
+msgstr ""
+
+#: locale/model_attributes.rb:67
+msgid "user info request sent alert"
 msgstr ""
 
 #: app/views/general/frontpage.rhtml:51

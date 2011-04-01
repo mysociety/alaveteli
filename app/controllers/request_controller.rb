@@ -11,69 +11,73 @@ class RequestController < ApplicationController
     protect_from_forgery :only => [ :new, :show_response, :describe_state, :upload_response ] # See ActionController::RequestForgeryProtection for details
     
     def show
-        # Look up by old style numeric identifiers
-        if params[:url_title].match(/^[0-9]+$/)
-            @info_request = InfoRequest.find(params[:url_title].to_i)
-            redirect_to request_url(@info_request)
-            return
-        end
+        @locale = self.locale_from_params()
+        PublicBody.with_locale(@locale) do  
 
-        # Look up by new style text names 
-        @info_request = InfoRequest.find_by_url_title(params[:url_title])
-        if @info_request.nil?
-            raise "Request not found" 
-        end
-        set_last_request(@info_request)
-
-        # Test for whole request being hidden
-        if !@info_request.user_can_view?(authenticated_user)
-            render :template => 'request/hidden', :status => 410 # gone
-            return
-        end
-       
-        # Other parameters
-        @info_request_events = @info_request.info_request_events
-        @status = @info_request.calculate_status
-        @collapse_quotes = params[:unfold] ? false : true
-        @update_status = params[:update_status] ? true : false    
-        @is_owning_user = @info_request.is_owning_user?(authenticated_user)
-        @old_unclassified = @info_request.is_old_unclassified? && !authenticated_user.nil?
-        
-        if @update_status
-            return if !@is_owning_user && !authenticated_as_user?(@info_request.user,
-                    :web => "To update the status of this FOI request",
-                    :email => "Then you can update the status of your request to " + @info_request.public_body.name + ".",
-                    :email_subject => "Update the status of your request to " + @info_request.public_body.name
-                )
-        end
-        
-        @last_info_request_event_id = @info_request.last_event_id_needing_description
-        @new_responses_count = @info_request.events_needing_description.select {|i| i.event_type == 'response'}.size
-
-        # Sidebar stuff
-        # ... requests that have similar imporant terms
-        behavior_cache :tag => ['similar', @info_request.id] do
-            begin
-                limit = 10
-                @xapian_similar = ::ActsAsXapian::Similar.new([InfoRequestEvent], @info_request.info_request_events, 
-                  :limit => limit, :collapse_by_prefix => 'request_collapse')
-                @xapian_similar_more = (@xapian_similar.matches_estimated > limit)
-            rescue
-                @xapian_similar = nil
+            # Look up by old style numeric identifiers
+            if params[:url_title].match(/^[0-9]+$/)
+                @info_request = InfoRequest.find(params[:url_title].to_i)
+                redirect_to request_url(@info_request)
+                return
             end
-        end
-     
-        # Track corresponding to this page
-        @track_thing = TrackThing.create_track_for_request(@info_request)
-        @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss], :has_json => true } ]
 
-        # For send followup link at bottom
-        @last_response = @info_request.get_last_response
+            # Look up by new style text names 
+            @info_request = InfoRequest.find_by_url_title(params[:url_title])
+            if @info_request.nil?
+                raise "Request not found" 
+            end
+            set_last_request(@info_request)
 
-        respond_to do |format|
-            format.html { @has_json = true }
-            format.json { render :json => @info_request.json_for_api(true) }
-        end
+            # Test for whole request being hidden
+            if !@info_request.user_can_view?(authenticated_user)
+                render :template => 'request/hidden', :status => 410 # gone
+                return
+            end
+           
+            # Other parameters
+            @info_request_events = @info_request.info_request_events
+            @status = @info_request.calculate_status
+            @collapse_quotes = params[:unfold] ? false : true
+            @update_status = params[:update_status] ? true : false    
+            @is_owning_user = @info_request.is_owning_user?(authenticated_user)
+            @old_unclassified = @info_request.is_old_unclassified? && !authenticated_user.nil?
+            
+            if @update_status
+                return if !@is_owning_user && !authenticated_as_user?(@info_request.user,
+                        :web => "To update the status of this FOI request",
+                        :email => "Then you can update the status of your request to " + @info_request.public_body.name + ".",
+                        :email_subject => "Update the status of your request to " + @info_request.public_body.name
+                    )
+            end
+            
+            @last_info_request_event_id = @info_request.last_event_id_needing_description
+            @new_responses_count = @info_request.events_needing_description.select {|i| i.event_type == 'response'}.size
+
+            # Sidebar stuff
+            # ... requests that have similar imporant terms
+            behavior_cache :tag => ['similar', @info_request.id] do
+                begin
+                    limit = 10
+                    @xapian_similar = ::ActsAsXapian::Similar.new([InfoRequestEvent], @info_request.info_request_events, 
+                      :limit => limit, :collapse_by_prefix => 'request_collapse')
+                    @xapian_similar_more = (@xapian_similar.matches_estimated > limit)
+                rescue
+                    @xapian_similar = nil
+                end
+            end
+         
+            # Track corresponding to this page
+            @track_thing = TrackThing.create_track_for_request(@info_request)
+            @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss], :has_json => true } ]
+
+            # For send followup link at bottom
+            @last_response = @info_request.get_last_response
+
+            respond_to do |format|
+                format.html { @has_json = true }
+                format.json { render :json => @info_request.json_for_api(true) }
+            end
+            end
     end
 
     # Extra info about a request, such as event history
@@ -666,28 +670,30 @@ class RequestController < ApplicationController
 
     # FOI officers can upload a response
     def upload_response
-        @info_request = InfoRequest.find_by_url_title(params[:url_title])
+        @locale = self.locale_from_params()
+        PublicBody.with_locale(@locale) do 
+            @info_request = InfoRequest.find_by_url_title(params[:url_title])
 
-        @reason_params = {
-                :web => "To upload a response, you must be logged in using an email address from " +  CGI.escapeHTML(@info_request.public_body.name),
-                :email => "Then you can upload an FOI response. ",
-                :email_subject => "Confirm your account on WhatDoTheyKnow.com"
-        }
-        if !authenticated?(@reason_params)
-            return
-        end
-
-        if !@info_request.public_body.is_foi_officer?(@user)
-            domain_required = @info_request.public_body.foi_officer_domain_required
-            if domain_required.nil?
-                render :template => 'user/wrong_user_unknown_email'
+            @reason_params = {
+                    :web => "To upload a response, you must be logged in using an email address from " +  CGI.escapeHTML(@info_request.public_body.name),
+                    :email => "Then you can upload an FOI response. ",
+                    :email_subject => "Confirm your account on WhatDoTheyKnow.com"
+            }
+            if !authenticated?(@reason_params)
                 return
             end
-            @reason_params[:user_name] = "an email @" + domain_required
-            render :template => 'user/wrong_user'
-            return
-        end
 
+            if !@info_request.public_body.is_foi_officer?(@user)
+                domain_required = @info_request.public_body.foi_officer_domain_required
+                if domain_required.nil?
+                    render :template => 'user/wrong_user_unknown_email'
+                    return
+                end
+                @reason_params[:user_name] = "an email @" + domain_required
+                render :template => 'user/wrong_user'
+                return
+            end
+        end
         if params[:submitted_upload_response]
             file_name = nil
             file_content = nil

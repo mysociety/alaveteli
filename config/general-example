@@ -54,4 +54,6 @@ define('OPTION_READ_ONLY', '');
 define('OPTION_RECAPTCHA_PUBLIC_KEY', 'x');
 define('OPTION_RECAPTCHA_PRIVATE_KEY', 'x');
 
+// Locales we wish to support in this app
+define('OPTION_AVAILABLE_LOCALES', 'en es')
 ?>

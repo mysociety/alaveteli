@@ -13,19 +13,22 @@ class AdminPublicBodyController < AdminController
     end
 
     def _lookup_query_internal
-        @query = params[:query]
-        if @query == ""
-            @query = nil
+        @locale = self.locale_from_params()
+        PublicBody.with_locale(@locale) do 
+            @query = params[:query]
+            if @query == ""
+                @query = nil
+            end
+            @page = params[:page]
+            if @page == ""
+                @page = nil
+            end
+            @public_bodies = PublicBody.paginate :order => "name", :page => @page, :per_page => 100,
+                :conditions =>  @query.nil? ? nil : ["lower(name) like lower('%'||?||'%') or 
+                                 lower(short_name) like lower('%'||?||'%') or 
+                                 lower(request_email) like lower('%'||?||'%')", @query, @query, @query]
+            @public_bodies_by_tag = PublicBody.find_by_tag(@query) 
         end
-        @page = params[:page]
-        if @page == ""
-            @page = nil
-        end
-        @public_bodies = PublicBody.paginate :order => "name", :page => @page, :per_page => 100,
-            :conditions =>  @query.nil? ? nil : ["lower(name) like lower('%'||?||'%') or 
-                             lower(short_name) like lower('%'||?||'%') or 
-                             lower(request_email) like lower('%'||?||'%')", @query, @query, @query]
-        @public_bodies_by_tag = PublicBody.find_by_tag(@query) 
     end
 
     def list
@@ -69,51 +72,69 @@ class AdminPublicBodyController < AdminController
     end
 
     def show
-        @public_body = PublicBody.find(params[:id])
+        @locale = self.locale_from_params()
+        PublicBody.with_locale(@locale) do 
+            @public_body = PublicBody.find(params[:id])
+        end
     end
 
     def new
-        @public_body = PublicBody.new
+        @locale = self.locale_from_params()
+        PublicBody.with_locale(@locale) do 
+            @public_body = PublicBody.new
+        end
     end
 
     def create
-        params[:public_body][:last_edit_editor] = admin_http_auth_user()
-        @public_body = PublicBody.new(params[:public_body])
-        if @public_body.save
-            flash[:notice] = 'PublicBody was successfully created.'
-            redirect_to admin_url('body/show/' + @public_body.id.to_s)
-        else
-            render :action => 'new'
+        @locale = self.locale_from_params()
+        PublicBody.with_locale(@locale) do 
+            params[:public_body][:last_edit_editor] = admin_http_auth_user()
+            @public_body = PublicBody.new(params[:public_body])
+            if @public_body.save
+                flash[:notice] = 'PublicBody was successfully created.'
+                redirect_to admin_url('body/show/' + @public_body.id.to_s)
+            else
+                render :action => 'new'
+            end
         end
     end
 
     def edit
-        @public_body = PublicBody.find(params[:id])
-        @public_body.last_edit_comment = ""
+        @locale = self.locale_from_params()
+        PublicBody.with_locale(@locale) do 
+            @public_body = PublicBody.find(params[:id])
+            @public_body.last_edit_comment = ""
+        end
     end
 
     def update
-        params[:public_body][:last_edit_editor] = admin_http_auth_user()
-        @public_body = PublicBody.find(params[:id])
-        if @public_body.update_attributes(params[:public_body])
-            flash[:notice] = 'PublicBody was successfully updated.'
-            redirect_to admin_url('body/show/' + @public_body.id.to_s)
-        else
-            render :action => 'edit'
+        @locale = self.locale_from_params()
+        PublicBody.with_locale(@locale) do 
+            params[:public_body][:last_edit_editor] = admin_http_auth_user()
+            @public_body = PublicBody.find(params[:id])
+            if @public_body.update_attributes(params[:public_body])
+                flash[:notice] = 'PublicBody was successfully updated.'
+                redirect_to admin_url('body/show/' + @public_body.id.to_s)
+            else
+                render :action => 'edit'
+            end
         end
     end
 
     def destroy
-        public_body = PublicBody.find(params[:id])
+        @locale = self.locale_from_params()
+        PublicBody.with_locale(@locale) do 
+            public_body = PublicBody.find(params[:id])
 
-        if public_body.info_requests.size > 0
-            flash[:notice] = "There are requests associated with the authority, so can't destroy it"
-            redirect_to admin_url('body/show/' + public_body.id.to_s)
-            return
+            if public_body.info_requests.size > 0
+                flash[:notice] = "There are requests associated with the authority, so can't destroy it"
+                redirect_to admin_url('body/show/' + public_body.id.to_s)
+                return
+            end
+
+            public_body.tag_string = ""
+            public_body.destroy
         end
-
-        public_body.tag_string = ""
-        public_body.destroy
         flash[:notice] = "PublicBody was successfully destroyed."
         redirect_to admin_url('body/list')
     end

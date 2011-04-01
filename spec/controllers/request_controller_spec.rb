@@ -1,3 +1,7 @@
+# £2k p/a
+# talk about margins
+# 
+
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 require 'json'
@@ -34,7 +38,7 @@ end
 
 describe RequestController, "when showing one request" do
     
-    fixtures :info_requests, :info_request_events, :public_bodies, :users, :incoming_messages, :raw_emails, :outgoing_messages, :comments # all needed as integrating views
+    fixtures :info_requests, :info_request_events, :public_bodies, :public_body_translations, :users, :incoming_messages, :raw_emails, :outgoing_messages, :comments # all needed as integrating views
   
     it "should be successful" do
         get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'

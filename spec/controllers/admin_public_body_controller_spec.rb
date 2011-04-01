@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe AdminPublicBodyController, "when administering public bodies" do
     integrate_views
-    fixtures :public_bodies
+    fixtures :public_bodies, :public_body_translations
   
     it "shows the index page" do
         get :index

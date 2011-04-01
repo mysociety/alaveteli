@@ -95,7 +95,8 @@ CREATE TABLE comments (
     body text NOT NULL,
     visible boolean DEFAULT true NOT NULL,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    locale text DEFAULT ''::text NOT NULL
 );
 
 
@@ -508,6 +509,45 @@ ALTER SEQUENCE public_body_tags_id_seq OWNED BY has_tag_string_tags.id;
 
 
 --
+-- Name: public_body_translations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE public_body_translations (
+    id integer NOT NULL,
+    public_body_id integer,
+    locale character varying(255),
+    short_name text,
+    request_email text,
+    notes text,
+    publication_scheme text,
+    url_name text,
+    first_letter character varying(255),
+    name text,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: public_body_translations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public_body_translations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- Name: public_body_translations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public_body_translations_id_seq OWNED BY public_body_translations.id;
+
+
+--
 -- Name: public_body_versions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -832,6 +872,13 @@ ALTER TABLE public_bodies ALTER COLUMN id SET DEFAULT nextval('public_bodies_id_
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE public_body_translations ALTER COLUMN id SET DEFAULT nextval('public_body_translations_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE public_body_versions ALTER COLUMN id SET DEFAULT nextval('public_body_versions_id_seq'::regclass);
 
 
@@ -980,6 +1027,14 @@ ALTER TABLE ONLY public_bodies
 
 ALTER TABLE ONLY has_tag_string_tags
     ADD CONSTRAINT public_body_tags_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: public_body_translations_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY public_body_translations
+    ADD CONSTRAINT public_body_translations_pkey PRIMARY KEY (id);
 
 
 --
@@ -1192,6 +1247,13 @@ CREATE UNIQUE INDEX index_public_body_tags_on_public_body_id_and_name_and_value 
 
 
 --
+-- Name: index_public_body_translations_on_public_body_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_public_body_translations_on_public_body_id ON public_body_translations USING btree (public_body_id);
+
+
+--
 -- Name: index_track_things_on_tracking_user_id_and_track_query; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1245,30 +1307,6 @@ CREATE UNIQUE INDEX users_email_index ON users USING btree (lower((email)::text)
 --
 
 CREATE INDEX users_lower_email_index ON users USING btree (lower((email)::text));
-
-
---
--- Name: fk_censor_rules_info_request; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY censor_rules
-    ADD CONSTRAINT fk_censor_rules_info_request FOREIGN KEY (info_request_id) REFERENCES info_requests(id);
-
-
---
--- Name: fk_censor_rules_public_body; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY censor_rules
-    ADD CONSTRAINT fk_censor_rules_public_body FOREIGN KEY (public_body_id) REFERENCES public_bodies(id);
-
-
---
--- Name: fk_censor_rules_user; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY censor_rules
-    ADD CONSTRAINT fk_censor_rules_user FOREIGN KEY (user_id) REFERENCES users(id);
 
 
 --
@@ -1674,3 +1712,7 @@ INSERT INTO schema_migrations (version) VALUES ('93');
 INSERT INTO schema_migrations (version) VALUES ('94');
 
 INSERT INTO schema_migrations (version) VALUES ('95');
+
+INSERT INTO schema_migrations (version) VALUES ('96');
+
+INSERT INTO schema_migrations (version) VALUES ('97');

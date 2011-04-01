@@ -679,12 +679,12 @@ module ActsAsXapian
                             values << single_xapian_value(field, type=type)
                         end
                     end
-                    if values[0].kind_of?(String)
-                        values = values.reject{|x| x.nil?}
-                        value = values.join(" ")
-                    else
+                    if values[0].kind_of?(Array)
                         values = values.flatten
                         value = values.reject{|x| x.nil?}
+                    else
+                        values = values.reject{|x| x.nil?}
+                        value = values.join(" ")
                     end
                 end
             else

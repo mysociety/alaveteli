@@ -35,7 +35,7 @@ end
 
 describe TrackController, "when sending alerts for a track" do
     integrate_views
-    fixtures :info_requests, :outgoing_messages, :incoming_messages, :raw_emails, :info_request_events, :users, :track_things, :track_things_sent_emails
+    fixtures :info_requests, :outgoing_messages, :incoming_messages, :raw_emails, :info_request_events, :users, :track_things, :track_things_sent_emails, :public_bodies, :public_body_translations
     include LinkToHelper # for main_url
     
     before do
@@ -94,7 +94,7 @@ end
 
 describe TrackController, "when viewing RSS feed for a track" do
     integrate_views
-    fixtures :info_requests, :outgoing_messages, :incoming_messages, :raw_emails, :info_request_events, :users, :track_things, :comments, :public_bodies
+    fixtures :info_requests, :outgoing_messages, :incoming_messages, :raw_emails, :info_request_events, :users, :track_things, :comments, :public_bodies, :public_body_translations
 
     before do
         rebuild_xapian_index
