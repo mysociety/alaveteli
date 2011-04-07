@@ -5,7 +5,7 @@ require 'json'
 describe PublicBodyController, "when showing a body" do
     integrate_views
     fixtures :public_bodies, :public_body_versions, :public_body_translations
-  
+
     it "should be successful" do
         get :show, :url_name => "dfh"
         response.should be_success
@@ -35,7 +35,7 @@ describe PublicBodyController, "when showing a body" do
         get :show, :url_name => "hdink"
         response.should redirect_to(:controller => 'public_body', :action => 'show', :url_name => "dfh")
     end
-    
+
     it "should redirect to lower case name if you use mixed case name in URL" do
         get :show, :url_name => "dFh"
         response.should redirect_to(:controller => 'public_body', :action => 'show', :url_name => "dfh")
@@ -44,8 +44,8 @@ end
 
 describe PublicBodyController, "when listing bodies" do
     integrate_views
-    fixtures :public_bodies, :public_body_versions
-    
+    fixtures :public_bodies, :public_body_versions, :public_body_translations
+
     it "should be successful" do
         get :list
         response.should be_success
@@ -63,7 +63,6 @@ describe PublicBodyController, "when listing bodies" do
 
     it "should list bodies in alphabetical order with different locale" do
         get :list, :locale => "es"
-
         response.should render_template('list')
 
         assigns[:public_bodies].should == [ public_bodies(:geraldine_public_body), public_bodies(:humpadink_public_body) ]
@@ -114,9 +113,9 @@ describe PublicBodyController, "when listing bodies" do
 end
 
 describe PublicBodyController, "when showing JSON version for API" do
-    
+
     fixtures :public_bodies
-  
+
     it "should be successful" do
         get :show, :url_name => "dfh", :format => "json"
 
