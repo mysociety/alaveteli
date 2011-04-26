@@ -16,9 +16,9 @@ end %>
     </span>
 
     <span class="bottomline">
-        <%= pluralize(display_user.info_requests.size, "request") %> made.
-        <%= pluralize(display_user.visible_comments.size, "annotation") %> made.
-        Joined in <%= year_from_date(display_user.created_at) %>.
+        <%= pluralize(display_user.info_requests.size, "request") %> <%= _('made.')%>
+        <%= pluralize(display_user.visible_comments.size, "annotation") %> <%= _('made.')%>
+        <%= _('Joined in')%> <%= year_from_date(display_user.created_at) %>.
     </span>
 
 </div>

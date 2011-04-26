@@ -1,9 +1,9 @@
 <div id="list_sidebar">
-<h1>Show only...</h1>
+<h1><%= _('Show only...')%></h1>
 <ul>
 <% for view, description, target in [ 
-    ['successful', "Successful responses", request_list_successful_url(:view => 'successful')],
-    ['recent', "Recently sent requests", request_list_recent_url(:view => 'recent')]
+    ['successful', _('Successful responses'), request_list_successful_url(:view => 'successful')],
+    ['recent', _('Recently sent requests'), request_list_recent_url(:view => 'recent')]
 ] %>
 <li>  
     <%= link_to_unless (@view == view), description, target %> 
@@ -20,13 +20,13 @@
 
 <% view_cache :ttl => 5.minutes, :tag => [@view, @page] do %>
     <% if @list_results.empty? %>
-        <p>No requests of this sort yet.</p>
+        <p> <%= _('No requests of this sort yet.')%></p>
     <% else %>
         <% for result in @list_results%>
             <% if result.class.to_s == 'InfoRequestEvent' %>
                 <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result, :info_request => result.info_request } %>
             <% else %>
-                <p><strong>Unexpected search result type <%=result.class.to_s%></strong></p>
+                <p><strong><%= ('Unexpected search result type') %> <%=result.class.to_s%></strong></p>
             <% end %>
         <% end %>
     <% end %>

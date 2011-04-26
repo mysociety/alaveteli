@@ -1,10 +1,9 @@
-<%=@info_request.public_body.name%> has asked you to explain
-part of your <%=@info_request.law_used_short%> request. 
-To do this, first click on the link below.
+<%=@info_request.public_body.name%> <%=('has asked you to explain part of your')%> <%=@info_request.law_used_short%> <%= _('request.')%> 
+<%= _('To do this, first click on the link below.')%>
 
 <%=@url%>
 
-You will only get an answer to your request if you follow up
-with the clarification.
+<%= _('You will only get an answer to your request if you follow up
+with the clarification.')%>
 
 -- the WhatDoTheyKnow team

@@ -1,50 +1,50 @@
 <div id="after_actions">
     
-    <h2>Things to do with this request</h2>
+    <h2><%= _('Things to do with this request') %></h2>
 
     <div id="anyone_actions">
-        <strong>Anyone:</strong>
+        <strong><%= _('Anyone:') %></strong>
         <ul>
         <li>
-            <%= link_to "Add an annotation", new_comment_url(:url_title => @info_request.url_title) %> (to help
-        the requester or others)
+            <%= link_to _('Add an annotation'), new_comment_url(:url_title => @info_request.url_title) %> 
+			(<%= _('to help the requester or others') %>)
         </li>
         <% if @old_unclassified %> 
             <li>
-                <%= link_to "Update the status of this request", '#describe_state_form_1' %>
+                <%= link_to _('Update the status of this request'), '#describe_state_form_1' %>
             </li>
         <% end %>
     </ul>
     </div>
 
     <div id="owner_actions">
-      <strong><%=h @info_request.user.name %> only:</strong>
+      <strong><%=h @info_request.user.name %> <%= _('only:') %></strong>
       <ul>
       <li>
           <% if @last_response.nil? %>
-              <%= link_to "Send follow up to " + OutgoingMailer.name_for_followup(@info_request, @last_response), show_response_no_followup_url(:id => @info_request.id, :incoming_message_id => nil) + "#followup" %> 
+              <%= link_to _("Send follow up to ") + OutgoingMailer.name_for_followup(@info_request, @last_response), show_response_no_followup_url(:id => @info_request.id, :incoming_message_id => nil) + "#followup" %> 
           <% else %>
               <% foi_cache(:controller => "request", :action => "show_response", :id => @info_request.id, :incoming_message_id => @last_response.id, :only_path => true, :template => "_after_actions", :section => "reply_to_link") do %>
-              <%= link_to "Reply to " + OutgoingMailer.name_for_followup(@info_request, @last_response), show_response_url(:id => @info_request.id, :incoming_message_id => @last_response.id) + "#followup" %> 
+              <%= link_to _("Reply to ") + OutgoingMailer.name_for_followup(@info_request, @last_response), show_response_url(:id => @info_request.id, :incoming_message_id => @last_response.id) + "#followup" %> 
               <% end %>
           <% end %>
       </li>
       <% if !@old_unclassified %>
           <li>
-          <%= link_to "Update the status of this request", request_url(@info_request, :update_status => 1) %>
+          <%= link_to _("Update the status of this request"), request_url(@info_request, :update_status => 1) %>
           </li>
       <% end %>
       <li>
-          <%= link_to "Request an internal review", show_response_no_followup_url(:id => @info_request.id, :incoming_message_id => nil) + "?internal_review=1#followup" %> 
+          <%= link_to _("Request an internal review"), show_response_no_followup_url(:id => @info_request.id, :incoming_message_id => nil) + "?internal_review=1#followup" %> 
       </li>
   </ul>
     </div>
   
     <div id="public_body_actions">
-      <strong><%=h @info_request.public_body.name %> only:</strong>
+      <strong><%=h @info_request.public_body.name %> <%= _('only:') %></strong>
       <ul>
       <li>
-          <%= link_to "Respond to request", upload_response_url(:url_title => @info_request.url_title) %> 
+          <%= link_to _("Respond to request"), upload_response_url(:url_title => @info_request.url_title) %> 
       </li>
       </ul>
     </div>

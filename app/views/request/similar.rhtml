@@ -4,7 +4,7 @@
 <!-- Important terms: <%= @xapian_object.important_terms.join(" ") %>  -->
 
 <% if @xapian_object.results.empty? %>
-    <p>No similar requests found.</p>
+    <p><%= _('No similar requests found.')%></p>
 <% else %>
     <!--
     <p class="subtitle">
@@ -15,7 +15,7 @@
         <% if result[:model].class.to_s == 'InfoRequestEvent' %>
             <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result[:model], :info_request => result[:model].info_request } %>
         <% else %>
-            <p><strong>Unexpected search result type <%=result[:model].class.to_s%></strong></p>
+            <p><strong><% _('Unexpected search result type ')%><%=result[:model].class.to_s%></strong></p>
         <% end %>
     <% end %>
 <% end %>

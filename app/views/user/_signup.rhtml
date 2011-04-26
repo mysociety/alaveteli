@@ -3,43 +3,42 @@
 <% form_tag({:action => "signup"}, {:id => "signup_form"}) do %>
     <%= foi_error_messages_for :user_signup %>
 
-    <h2>If you're new to WhatDoTheyKnow</h2>
+    <h2><%= _('If you\'re new to WhatDoTheyKnow')%></h2>
 
     <p>
-        <label class="form_label" for="user_signup_email">Your e-mail:</label>
+        <label class="form_label" for="user_signup_email"><%= _('Your e-mail:')%></label>
         <%= text_field 'user_signup', 'email', { :size => 20 } %>
     </p>
     <div class="form_item_note">
-        We will not reveal your email address to anybody unless you or
-        the law tell us to
-        (<a href="/help/privacy">details</a>).
+        <%= ('We will not reveal your email address to anybody unless you or
+        the law tell us to (<a href="%s">_details</a>). ') %[help_privacy_path] %>
     </div>
 
     <p>
-        <label class="form_label" for="user_signup_name">Your name:</label>
+        <label class="form_label" for="user_signup_name"> <%= _('Your name:')%></label>
         <%= text_field 'user_signup', 'name', { :size => 20 } %>
     </p>
     <div class="form_item_note">
-        Your <strong>name will appear publicly</strong> 
-        (<a href="/help/privacy#public_request">why?</a>)
+         <%= _('Your <strong>name will appear publicly</strong> 
+        (<a href="%s">why?</a>)
         on this website and in search engines. If you
         are thinking of using a pseudonym, please 
-        <a href="/help/privacy#real_name">read this first</a>.
+        <a href="%s">read this first</a>.') % [help_privacy_path+"#public_request", help_privacy_path+"#real_name"] %>
     </div>
 
     <p>
-        <label class="form_label" for="user_signup_password">Password:</label>
+        <label class="form_label" for="user_signup_password"> <%= _('Password:')%></label>
         <%= password_field 'user_signup', 'password', { :size => 15 } %>
     </p>
 
     <p>
-        <label class="form_label" for="user_signup_password_confirmation">Password: (again)</label>
+        <label class="form_label" for="user_signup_password_confirmation"> <%= _('Password: (again)')%></label>
         <%= password_field 'user_signup', 'password_confirmation', { :size => 15 } %>
     </p>
 
     <div class="form_button">
         <%= hidden_field_tag 'token', params[:token], { :id => 'signup_token' } %>
-        <%= submit_tag "Sign up" %>
+        <%= submit_tag _('Sign up') %>
     </div>
 
 <% end %>

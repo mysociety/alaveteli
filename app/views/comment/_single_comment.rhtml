@@ -22,7 +22,7 @@
             <% if !@user.nil? && @user.admin_page_links? %>
                 | <%= link_to "Admin", admin_url("request/edit_comment/" + comment.id.to_s) %>
             <% end %>
-            <!-- | <%= link_to "Report abuse", comment_url(comment) %> -->
+            <!-- | <%= link_to _('Report abuse'), comment_url(comment) %> -->
         <% end %>
     </p>
 </div>

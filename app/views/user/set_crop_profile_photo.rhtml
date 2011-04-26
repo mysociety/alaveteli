@@ -32,8 +32,8 @@
 
     <%= hidden_field_tag 'draft_profile_photo_id', @draft_profile_photo.id %>
 
-    <p><strong>Privacy note:</strong> Your photo will be shown in public on the Internet, 
-    wherever you do something on WhatDoTheyKnow.
+    <p><%= _('<strong>Privacy note:</strong> Your photo will be shown in public on the Internet, 
+    wherever you do something on WhatDoTheyKnow.')%>
 
     <p>
         <%= hidden_field_tag 'submitted_crop_profile_photo', 1 %>

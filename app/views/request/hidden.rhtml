@@ -1,4 +1,4 @@
-<% @title = "Request has been removed" %>
+<% @title = _("Request has been removed") %>
 
 <h1><%=@title%></h1>
 
@@ -6,16 +6,15 @@
 <%=@details%>
 </p>
 
-<p>The request you have tried to view has been removed. There are
-various reasons why we might have done this, sorry we can't
-be more specific here. Please <a
-    href="/help/contact">contact us</a> if you have any questions.
+<p><%= _('The request you have tried to view has been removed. There are
+various reasons why we might have done this, sorry we can\'t be more specific here. Please <a
+    href="%s">contact us</a> if you have any questions.') % [help_contact_path] %>
 </p>
 <% if @info_request.prominence == 'requester_only' %>
     <p>
-    If you are the requester, then you may
+    <%= _('If you are the requester, then you may') %>
     <%= link_to "sign in", signin_url(:r => request.request_uri) %>
-    to view the request.
+    <%= _('to view the request.') %>
     </p>
 <% end %>
 

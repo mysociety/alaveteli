@@ -1,6 +1,6 @@
-<% @title = "Change your email address used on WhatDoTheyKnow.com" %>
+<% @title = _('Change your email address used on WhatDoTheyKnow.com') %>
 
-<% raise "internal error" if not @user %>
+<% raise _('internal error') if not @user %>
 
 <div id="change_email">
 
@@ -8,28 +8,28 @@
     <%= foi_error_messages_for :signchangeemail %>
 
     <div class="form_note">
-    <h1>Change your email address used on WhatDoTheyKnow.com</h1>
+    <h1> <%= _('Change your email address used on WhatDoTheyKnow.com')%></h1>
     </div>
 
     <p>
-    <label class="form_label" for="signchangeemail_old_email">Old e-mail:</label>
+    <label class="form_label" for="signchangeemail_old_email"> <%= _('Old e-mail:')%></label>
     <%= text_field 'signchangeemail', 'old_email', { :size => 20 } %>
     </p>
 
     <p>
-    <label class="form_label" for="signchangeemail_new_email">New e-mail:</label>
+    <label class="form_label" for="signchangeemail_new_email"> <%= _('New e-mail:')%></label>
     <%= text_field 'signchangeemail', 'new_email', { :size => 20 } %>
     </p>
 
     <p>
-    <label class="form_label" for="signchangeemail_password">Your password:</label>
+    <label class="form_label" for="signchangeemail_password"> <%= _('Your password:')%></label>
     <%= password_field 'signchangeemail', 'password', { :size => 15 } %>
     </p>
 
     <p class="form_note">
-    <strong>Note:</strong>
+     <%= _('<strong>Note:</strong>
     We will send an email to your new email address. Follow the
-    instructions in it to confirm changing your email.
+    instructions in it to confirm changing your email.')%>
     </p>
 
     <div class="form_button">

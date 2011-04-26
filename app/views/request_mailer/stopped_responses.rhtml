@@ -1,14 +1,20 @@
-The email that you, on behalf of <%= @info_request.public_body.name%>, sent to
-<%= @info_request.user.name %> to reply to an <%= @info_request.law_used_short %>
-request has not been delivered. 
+<%= _('The email that you, on behalf of {{public_body}}, sent to
+{{user}} to reply to an {{law_used_short}}
+request has not been delivered.': public_body=>@info_request.public_body.name,:user=>@info_request.user.name:law_used_short@info_request.law_used_short)%>
 
-This is because '<%= @info_request.title %>' is an old request that has been
-marked to no longer receive responses.
+<%= _('This is because {{title}} is an old request that has been
+marked to no longer receive responses.',:title=>@info_request.title)%>
 
-If this is incorrect, or you would like to send a late response to the request
-or an email on another subject to <%= @info_request.user.name %>, then please
-email <%=@contact_email%> for help.
 
-Your original message is attached.
+
+<%= _('If this is incorrect, or you would like to send a late response to the request
+or an email on another subject to {{user}}, then please
+email {{contact_email}} for help.',:user=>@info_request.user.name,:contact_email=>@contact_email)%>
+
+<%= _('Your original message is attached.')%>
 
 -- the WhatDoTheyKnow team
+
+
+
+

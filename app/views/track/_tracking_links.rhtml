@@ -6,7 +6,7 @@
 
 
 <% if own_request %> 
-    <p>This is your own request, so you will be automatically emailed when new responses arrive.</p>
+    <p><%= _('This is your own request, so you will be automatically emailed when new responses arrive.')%></p>
 <% elsif existing_track %> 
         <% form_tag({:controller => 'track', :action => 'update', :track_id => existing_track.id}, :class => "feed_form_" + location) do %>
             <p>
