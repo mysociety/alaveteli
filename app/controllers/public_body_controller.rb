@@ -107,7 +107,7 @@ class PublicBodyController < ApplicationController
             )
         end
         if @tag.size == 1
-            @description = "beginning with '" + @tag + "'"
+            @description = _("beginning with") + " '" + @tag + "'"
         else
             @description = PublicBodyCategories::CATEGORIES_BY_TAG[@tag]
             if @description.nil?
