@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
-"POT-Creation-Date: 2011-04-26 12:29-0000\n"
+"POT-Creation-Date: 2011-04-29 07:29-0000\n"
 "PO-Revision-Date: 2011-02-24 07:11-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,6 +37,13 @@ msgstr ""
 
 #: app/views/user/show.rhtml:59
 msgid " (you)"
+msgstr ""
+
+#: app/views/user/signchangepassword_send_confirm.rhtml:18
+msgid ""
+" <strong>Note:</strong>\n"
+"    We will send you an email. Follow the instructions in it to change\n"
+"    your password."
 msgstr ""
 
 #: app/views/user/contact.rhtml:35
@@ -437,7 +444,7 @@ msgid "CensorRule|Text"
 msgstr ""
 
 #: app/views/user/signchangepassword.rhtml:27
-msgid "Change password on WhatDoTheyKnow.com"
+msgid "Change password on {{site_name}}"
 msgstr ""
 
 #: app/views/user/show.rhtml:104
@@ -454,7 +461,7 @@ msgstr ""
 
 #: app/views/user/signchangeemail.rhtml:1
 #: app/views/user/signchangeemail.rhtml:11
-msgid "Change your email address used on WhatDoTheyKnow.com"
+msgid "Change your email address used on {{site_name}}"
 msgstr ""
 
 #: app/views/user/show.rhtml:106
@@ -462,7 +469,15 @@ msgid "Change your password"
 msgstr ""
 
 #: app/views/user/signchangepassword_send_confirm.rhtml:1
-msgid "Change your password on WhatDoTheyKnow.com"
+#: app/views/user/signchangepassword_send_confirm.rhtml:9
+#: app/views/user/signchangepassword.rhtml:11
+msgid "Change your password on {{site_name}}"
+msgstr ""
+
+#: app/views/user/signchangepassword.rhtml:1
+msgid ""
+"Change your password on {{site_name}}', :site_name => site_name) ; _erbout."
+"concat "
 msgstr ""
 
 #: app/views/public_body/show.rhtml:16 app/views/public_body/show.rhtml:18
@@ -862,6 +877,7 @@ msgid ""
 msgstr ""
 
 #: app/views/user/signchangeemail_confirm.rhtml:11
+#: app/views/user/signchangepassword_confirm.rhtml:10
 msgid ""
 "If you use web-based email or have \"junk mail\" filters, also check your\n"
 "bulk/spam mail folders. Sometimes, our messages are marked that way."
@@ -881,6 +897,10 @@ msgstr ""
 
 #: app/views/user/_signup.rhtml:6
 msgid "If you're new to WhatDoTheyKnow"
+msgstr ""
+
+#: app/views/user/_signin.rhtml:7
+msgid "If you've used WhatDoTheyKnow before"
 msgstr ""
 
 #: app/views/user/no_cookies.rhtml:12
@@ -1068,6 +1088,14 @@ msgstr ""
 msgid "New e-mail:"
 msgstr ""
 
+#: app/views/user/signchangepassword.rhtml:15
+msgid "New password:"
+msgstr ""
+
+#: app/views/user/signchangepassword.rhtml:20
+msgid "New password: (again)"
+msgstr ""
+
 #: app/views/request/show_response.rhtml:62
 msgid "New response to your request"
 msgstr ""
@@ -1102,6 +1130,10 @@ msgid ""
 "using this site yet."
 msgstr ""
 
+#: app/controllers/public_body_controller.rb:22
+msgid "None found"
+msgstr ""
+
 #: app/views/request/_request_listing.rhtml:2
 #: app/views/public_body/_body_listing.rhtml:2
 msgid "None found."
@@ -1113,6 +1145,7 @@ msgstr ""
 
 #: app/views/user/signchangeemail_confirm.rhtml:3
 #: app/views/user/signchangepassword_confirm.rhtml:1
+#: app/views/user/signchangepassword_confirm.rhtml:3
 msgid "Now check your email!"
 msgstr ""
 
@@ -1170,7 +1203,7 @@ msgstr ""
 msgid "OutgoingMessage|What doing"
 msgstr ""
 
-#: app/views/user/_signup.rhtml:30
+#: app/views/user/_signup.rhtml:30 app/views/user/_signin.rhtml:16
 msgid "Password:"
 msgstr ""
 
@@ -1549,6 +1582,12 @@ msgstr ""
 msgid "Recently successful responses"
 msgstr ""
 
+#: app/views/user/_signin.rhtml:26
+msgid ""
+"Remember me</label> (keeps you signed in longer;\n"
+"    do not use on a public computer) "
+msgstr ""
+
 #: app/views/request/_after_actions.rhtml:28
 msgid "Reply to "
 msgstr ""
@@ -1569,12 +1608,24 @@ msgstr ""
 msgid "Request has been removed"
 msgstr ""
 
+#: app/views/request/_request_listing_via_event.rhtml:28
+msgid ""
+"Request sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
+msgstr ""
+
+#: app/views/request/_request_listing_via_event.rhtml:36
+msgid ""
+"Request to {{public_body_name}} by {{info_request_user}}. Annotated by "
+"{{event_comment_user}} on {{date}}."
+msgstr ""
+
 #: app/views/request/_request_listing_single.rhtml:12
-msgid "Requested from"
+msgid ""
+"Requested from {{public_body_name}} by {{info_request_user}} on {{date}}"
 msgstr ""
 
 #: app/views/request/_sidebar_request_listing.rhtml:13
-msgid "Requested on "
+msgid "Requested on {{date}}"
 msgstr ""
 
 #: app/views/request/upload_response.rhtml:11
@@ -2109,11 +2160,15 @@ msgid "URL name can't be blank"
 msgstr ""
 
 #: app/views/request/followup_bad.rhtml:4
-msgid "Unable to send a reply to "
+msgid "Unable to send a reply to {{username}}"
 msgstr ""
 
 #: app/views/request/followup_bad.rhtml:2
-msgid "Unable to send follow up message to "
+msgid "Unable to send follow up message to {{username}}"
+msgstr ""
+
+#: app/views/request/list.rhtml:29
+msgid "Unexpected search result type"
 msgstr ""
 
 #: app/views/request/similar.rhtml:18
@@ -2198,6 +2253,10 @@ msgstr ""
 msgid "View FOI email address"
 msgstr ""
 
+#: app/views/public_body/view_email_captcha.rhtml:3
+msgid "View FOI email address for {{public_body_name}}"
+msgstr ""
+
 #: app/views/contact_mailer/user_message.rhtml:10
 msgid "View Freedom of Information requests made by"
 msgstr ""
@@ -2266,6 +2325,12 @@ msgid ""
 "We've sent you an email, and you'll need to click the link in it before you "
 "can\n"
 "continue."
+msgstr ""
+
+#: app/views/user/signchangepassword_confirm.rhtml:6
+msgid ""
+"We've sent you an email, click the link in it, then you can change your "
+"password."
 msgstr ""
 
 #: app/views/request/_followup.rhtml:64
@@ -2413,7 +2478,8 @@ msgid ""
 "message, which will then go directly to the person who wrote the message."
 msgstr ""
 
-#: app/views/user/_signup.rhtml:9
+#: app/views/user/signchangepassword_send_confirm.rhtml:13
+#: app/views/user/_signup.rhtml:9 app/views/user/_signin.rhtml:11
 msgid "Your e-mail:"
 msgstr ""
 
@@ -2542,14 +2608,17 @@ msgid "are long overdue."
 msgstr ""
 
 #: app/controllers/public_body_controller.rb:110
-msgid "beginning with"
+msgid "beginning with '{{letter}}'"
 msgstr ""
 
 #: app/views/request/show.rhtml:77
 #: app/views/request/_request_listing_short_via_event.rhtml:9
 #: app/views/request/_followup.rhtml:43
-#: app/views/request/_request_listing_single.rhtml:13
 msgid "by"
+msgstr ""
+
+#: app/views/request/_request_listing_via_event.rhtml:34
+msgid "by {{public_body_name}} to {{info_request_user}} on {{date}}."
 msgstr ""
 
 #: locale/model_attributes.rb:42
@@ -2683,10 +2752,6 @@ msgstr ""
 msgid "normally"
 msgstr ""
 
-#: app/views/request/_request_listing_single.rhtml:14
-msgid "on"
-msgstr ""
-
 #: app/views/user/show.rhtml:114
 msgid "only"
 msgstr ""
@@ -2752,6 +2817,10 @@ msgstr ""
 
 #: app/views/request/show.rhtml:97
 msgid "send a follow up message"
+msgstr ""
+
+#: app/views/request/_request_listing_via_event.rhtml:31
+msgid "sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr ""
 
 #: app/views/request/show.rhtml:101
@@ -2828,7 +2897,7 @@ msgstr ""
 msgid "unexpected prominence on request event"
 msgstr ""
 
-#: app/views/request/_request_listing_via_event.rhtml:47
+#: app/views/request/_request_listing_via_event.rhtml:38
 msgid "unknown event type indexed "
 msgstr ""
 
