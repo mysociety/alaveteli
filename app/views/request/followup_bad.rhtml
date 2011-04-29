@@ -1,7 +1,7 @@
 <% if @incoming_message.nil? || !@incoming_message.valid_to_reply_to? %>
-    <% @title = _("Unable to send follow up message to ") + OutgoingMailer.name_for_followup(@info_request, nil) %>
+    <% @title = _("Unable to send follow up message to {{username}}",:username=>OutgoingMailer.name_for_followup(@info_request, nil)) %>
 <% else %>
-    <% @title = _("Unable to send a reply to ") + OutgoingMailer.name_for_followup(@info_request, @incoming_message) %>
+    <% @title = _("Unable to send a reply to {{username}}",:username=>OutgoingMailer.name_for_followup(@info_request, @incoming_message)) %>
 <% end %>
 
 <h1><%=@title%></h1>

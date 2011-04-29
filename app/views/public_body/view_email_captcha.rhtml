@@ -1,6 +1,6 @@
 <% @title = "View FOI email address for '" + h(@public_body.name) + "'" %>
 
-<h1><%= _('View FOI email address for')%> '<%=public_body_link(@public_body)%>'</h1>
+<h1><%= _('View FOI email address for {{public_body_name}}',:public_body_name=>public_body_link(@public_body))%></h1>
 
 <p><%= _('To view the email address that we use to send FOI requests to ')%><%=h @public_body.name%>,
 <%= _('please enter these words.')%><p>
