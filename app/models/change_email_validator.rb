@@ -22,12 +22,17 @@ class ChangeEmailValidator < ActiveRecord::BaseWithoutTable
     column :old_email, :string
     column :new_email, :string
     column :password, :string
+    column :user_circumstance, :string
 
     attr_accessor :logged_in_user
 
     validates_presence_of :old_email, :message => N_("Please enter your old email address")
     validates_presence_of :new_email, :message => N_("Please enter your new email address")
-    validates_presence_of :password, :message => N_("Please enter your password")
+    validates_presence_of :password, :message => N_("Please enter your password"), :unless => :changing_email
+    
+    def changing_email()
+      self.user_circumstance == 'change_email'
+    end
 
     def validate
         if !self.old_email.blank? && !MySociety::Validate.is_valid_email(self.old_email)
@@ -37,7 +42,7 @@ class ChangeEmailValidator < ActiveRecord::BaseWithoutTable
         if !errors[:old_email]
             if self.old_email.downcase != self.logged_in_user.email.downcase
                 errors.add(:old_email, "Old email address isn't the same as the address of the account you are logged in with")
-            elsif !self.logged_in_user.has_this_password?(self.password)
+            elsif (!self.changing_email) && (!self.logged_in_user.has_this_password?(self.password))
                 if !errors[:password]
                     errors.add(:password, "Password is not correct")
                 end
