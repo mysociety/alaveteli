@@ -257,7 +257,10 @@ class UserController < ApplicationController
             return
         end
 
-        @signchangeemail = ChangeEmailValidator.new(params[:signchangeemail])
+        # validate taking into account the user_circumstance
+        validator_params = params[:signchangeemail].clone
+        validator_params[:user_circumstance] = session[:user_circumstance]
+        @signchangeemail = ChangeEmailValidator.new(validator_params)
         @signchangeemail.logged_in_user = @user
 
         if !@signchangeemail.valid?
@@ -279,8 +282,11 @@ class UserController < ApplicationController
         # if not already, send a confirmation link to the new email address which logs
         # them into the old email's user account, but with special user_circumstance
         if (not session[:user_circumstance]) or (session[:user_circumstance] != "change_email")
-            post_redirect = PostRedirect.new(:uri => signchangeemail_url(), :post_params => params,
-                :circumstance => "change_email" # special login that lets you change your email
+            # don't store the password in the db
+            params[:signchangeemail].delete(:password)
+            post_redirect = PostRedirect.new(:uri => signchangeemail_url(), 
+                                             :post_params => params,
+                                             :circumstance => "change_email" # special login that lets you change your email
             )
             post_redirect.user = @user
             post_redirect.save!
@@ -297,6 +303,9 @@ class UserController < ApplicationController
         # circumstance is 'change_email', so can actually change the email
         @user.email = @signchangeemail.new_email
         @user.save!
+
+        # Now clear the circumstance
+        session[:user_circumstance] = nil
         flash[:notice] = "You have now changed your email address used on WhatDoTheyKnow.com"
         redirect_to user_url(@user)
     end

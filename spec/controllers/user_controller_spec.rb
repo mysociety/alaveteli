@@ -419,8 +419,7 @@ describe UserController, "when changing email address" do
                 "action"=>"signchangeemail", 
                 "signchangeemail"=>{
                     "old_email"=>"bob@localhost", 
-                    "new_email"=>"newbob@localhost", 
-                    "password"=>"jonespassword"}, 
+                    "new_email"=>"newbob@localhost"}, 
                 "controller"=>"user",
                 "locale"=>"en"}
         post :signchangeemail, post_redirect.post_params
