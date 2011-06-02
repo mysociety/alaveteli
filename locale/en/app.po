@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
-"POT-Creation-Date: 2011-04-29 07:29-0000\n"
+"POT-Creation-Date: 2011-06-01 09:03-0000\n"
 "PO-Revision-Date: 2011-02-24 07:11-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -64,7 +64,7 @@ msgid ""
 "authority may hold. "
 msgstr ""
 
-#: app/views/public_body/view_email.rhtml:31
+#: app/views/public_body/view_email.rhtml:30
 msgid ""
 " If you know the address to use, then please <a href=\"%s\">send it to us</"
 "a>.\n"
@@ -111,20 +111,12 @@ msgstr ""
 msgid " What are you investigating using Freedom of Information? "
 msgstr ""
 
-#: app/views/public_body/view_email.rhtml:7
-msgid " for this authority."
-msgstr ""
-
 #: app/views/request/upload_response.rhtml:5
 msgid " made by "
 msgstr ""
 
 #: app/views/user/show.rhtml:123
 msgid " made no Freedom of Information requests using this site."
-msgstr ""
-
-#: app/views/request/new.rhtml:1
-msgid " request to '"
 msgstr ""
 
 #: app/views/track_mailer/event_digest.rhtml:28
@@ -135,24 +127,28 @@ msgstr ""
 msgid " when you send this message."
 msgstr ""
 
-#: app/views/public_body/show.rhtml:80
+#: app/views/public_body/show.rhtml:82
 msgid "%d Freedom of Information request"
 msgid_plural "%d Freedom of Information requests"
 msgstr[0] ""
 msgstr[1] ""
 
-#: app/views/general/frontpage.rhtml:36
+#: app/views/general/frontpage.rhtml:35
 msgid "%d request"
 msgid_plural "%d requests"
 msgstr[0] ""
 msgstr[1] ""
 
-#: app/views/request/new.rhtml:107
+#: app/views/request/new.rhtml:102
 msgid "'Crime statistics by ward level for Wales'"
 msgstr ""
 
-#: app/views/request/new.rhtml:105
+#: app/views/request/new.rhtml:100
 msgid "'Pollution levels over time for the River Tyne'"
+msgstr ""
+
+#: app/views/request/_after_actions.rhtml:9
+msgid "<a href=\"%s\">Add an annotation</a> (to help the requester or others)"
 msgstr ""
 
 #: app/views/public_body/list.rhtml:29
@@ -169,7 +165,7 @@ msgstr ""
 msgid "<a href=\"%s\">Browse all</a> or <a href=\"%s\">ask us to add one</a>."
 msgstr ""
 
-#: app/views/public_body/show.rhtml:49
+#: app/views/public_body/show.rhtml:51
 msgid ""
 "<a href=\"%s\">Make a new Freedom of Information request</a> to "
 "{{public_body_name}}"
@@ -179,12 +175,12 @@ msgstr ""
 msgid "<a href=\"%s\">can't find the one you want?</a>"
 msgstr ""
 
-#: app/views/request/show.rhtml:78 app/views/request/show.rhtml:82
-#: app/views/request/_followup.rhtml:44 app/views/request/_followup.rhtml:51
+#: app/views/request/show.rhtml:76 app/views/request/show.rhtml:80
+#: app/views/request/_followup.rhtml:42 app/views/request/_followup.rhtml:49
 msgid "<a href=\"%s\">details</a>"
 msgstr ""
 
-#: app/views/request/_followup.rhtml:80
+#: app/views/request/_followup.rhtml:78
 msgid "<a href=\"%s\">what's that?</a>"
 msgstr ""
 
@@ -197,7 +193,7 @@ msgid ""
 "</p>"
 msgstr ""
 
-#: app/views/request/new.rhtml:140
+#: app/views/request/new.rhtml:135
 msgid ""
 "<strong> Can I request information about myself?</strong>\n"
 "\t\t\t<a href=\"%s\">No! (Click here for details)</a>"
@@ -256,7 +252,7 @@ msgid ""
 "for, see the <a href=\"%s\">table of varieties</a> below."
 msgstr ""
 
-#: app/views/request/_followup.rhtml:85
+#: app/views/request/_followup.rhtml:83
 msgid "<strong>Anything else</strong>, such as clarifying, prompting, thanking"
 msgstr ""
 
@@ -307,15 +303,25 @@ msgid ""
 "        to it, will be displayed publicly on this website."
 msgstr ""
 
+#: app/views/general/exception_caught.rhtml:18
+msgid "<strong>Technical details:</strong>"
+msgstr ""
+
 #: app/views/comment/new.rhtml:35
 msgid "<strong>Thank</strong> the public authority or "
 msgstr ""
 
-#: app/views/request/show.rhtml:86
+#: app/views/request/new.rhtml:23
+msgid ""
+"<strong>browse</strong> the authority's <a href=\"%s\">publication scheme</"
+"a> or <strong>search</strong> their web site ..."
+msgstr ""
+
+#: app/views/request/show.rhtml:84
 msgid "<strong>did not have</strong> the information requested."
 msgstr ""
 
-#: app/views/request/new.rhtml:28
+#: app/views/request/new.rhtml:25
 msgid "<strong>search</strong> the authority's web site ..."
 msgstr ""
 
@@ -330,10 +336,6 @@ msgstr ""
 
 #: app/views/request/_sidebar.rhtml:5
 msgid "Act on what you've learnt"
-msgstr ""
-
-#: app/views/request/_after_actions.rhtml:9
-msgid "Add an annotation"
 msgstr ""
 
 #: app/views/comment/new.rhtml:14
@@ -354,7 +356,7 @@ msgstr ""
 msgid "Advanced search tips"
 msgstr ""
 
-#: app/views/request/new.rhtml:74
+#: app/views/request/new.rhtml:69
 msgid ""
 "Air, water, soil, land, flora and fauna (including how these effect\n"
 "        human beings)"
@@ -382,7 +384,7 @@ msgstr ""
 msgid "Anyone:"
 msgstr ""
 
-#: app/views/request/new.rhtml:52
+#: app/views/request/new.rhtml:47
 msgid ""
 "Ask for <strong>specific</strong> documents or information, this site is not "
 "suitable for general enquiries."
@@ -399,23 +401,35 @@ msgstr ""
 msgid "Attachment (optional):"
 msgstr ""
 
-#: app/views/request/new.rhtml:44
-msgid "Browse"
+#: app/views/request/_describe_state.rhtml:70
+msgid ""
+"Authority has replied but the response <strong>does not correspond to the "
+"request</strong>"
 msgstr ""
 
-#: app/views/request/new.rhtml:48
+#: app/views/request/_describe_state.rhtml:43
+msgid "Authority has requested <strong>extension of the deadline.</strong>"
+msgstr ""
+
+#: app/views/request/new.rhtml:43
 msgid ""
 "Browse  <a href=\"%s\">other requests</a> for examples of how to word your "
 "request."
 msgstr ""
 
-#: app/views/request/show.rhtml:81
+#: app/views/request/new.rhtml:41
+msgid ""
+"Browse <a href='%s'>other requests</a> to '{{public_body_name}}' for "
+"examples of how to word your request."
+msgstr ""
+
+#: app/views/request/show.rhtml:79
 msgid ""
 "By law, under all circumstances, {{public_body_link}} should have responded "
 "by now"
 msgstr ""
 
-#: app/views/request/show.rhtml:73
+#: app/views/request/show.rhtml:71
 msgid ""
 "By law, {{public_body_link}} should normally have responded "
 "<strong>promptly</strong> and"
@@ -441,6 +455,11 @@ msgstr ""
 
 #: locale/model_attributes.rb:43
 msgid "CensorRule|Text"
+msgstr ""
+
+#: lib/public_body_categories_sq.rb:14 lib/public_body_categories_sr.rb:14
+#: lib/public_body_categories_en.rb:14
+msgid "Central government"
 msgstr ""
 
 #: app/views/user/signchangepassword.rhtml:27
@@ -470,18 +489,17 @@ msgstr ""
 
 #: app/views/user/signchangepassword_send_confirm.rhtml:1
 #: app/views/user/signchangepassword_send_confirm.rhtml:9
+#: app/views/user/signchangepassword.rhtml:1
 #: app/views/user/signchangepassword.rhtml:11
 msgid "Change your password on {{site_name}}"
 msgstr ""
 
-#: app/views/user/signchangepassword.rhtml:1
-msgid ""
-"Change your password on {{site_name}}', :site_name => site_name) ; _erbout."
-"concat "
-msgstr ""
-
 #: app/views/public_body/show.rhtml:16 app/views/public_body/show.rhtml:18
 msgid "Charity registration"
+msgstr ""
+
+#: app/views/general/exception_caught.rhtml:6
+msgid "Check for mistakes if you typed or copied the address."
 msgstr ""
 
 #: app/views/request/followup_preview.rhtml:14
@@ -528,13 +546,13 @@ msgid ""
 "many other common image file formats are supported."
 msgstr ""
 
-#: app/views/request/new.rhtml:79
+#: app/views/request/new.rhtml:74
 msgid ""
 "Cultural sites and built structures (as they may be affected by the\n"
 "        environmental factors listed above)"
 msgstr ""
 
-#: app/views/request/show.rhtml:63
+#: app/views/request/show.rhtml:61
 msgid ""
 "Currently <strong>waiting for a response</strong> from {{public_body_link}}, "
 "they must respond promptly and"
@@ -548,11 +566,18 @@ msgstr ""
 msgid "Did you mean: {{correction}}"
 msgstr ""
 
+#: app/views/outgoing_mailer/followup.rhtml:6
+#: app/views/outgoing_mailer/initial_request.rhtml:4
+msgid ""
+"Disclaimer: This message and any reply that you make will be published on "
+"the internet. Our privacy and copyright policies:"
+msgstr ""
+
 #: app/views/request/_view_html_prefix.rhtml:6
 msgid "Download original attachment"
 msgstr ""
 
-#: app/views/request/_followup.rhtml:91
+#: app/views/request/_followup.rhtml:89
 msgid ""
 "Edit and add <strong>more details</strong> to the message above,\n"
 "                explaining why you are dissatisfied with their response."
@@ -586,6 +611,14 @@ msgid ""
 "<a href=\"%s\">contact us</a> if you need more)."
 msgstr ""
 
+#: app/views/public_body/show.rhtml:98
+msgid "Environmental Information Regulations requests made"
+msgstr ""
+
+#: app/views/public_body/show.rhtml:70
+msgid "Environmental Information Regulations requests made using this site"
+msgstr ""
+
 #: app/views/request/details.rhtml:4
 msgid "Event history"
 msgstr ""
@@ -594,14 +627,14 @@ msgstr ""
 msgid "Event history details"
 msgstr ""
 
-#: app/views/request/new.rhtml:133
+#: app/views/request/new.rhtml:128
 msgid ""
 "Everything that you enter on this page \n"
 "                will be <strong>displayed publicly</strong> on\n"
 "                this website forever (<a href=\"%s\">why?</a>)."
 msgstr ""
 
-#: app/views/request/new.rhtml:125
+#: app/views/request/new.rhtml:120
 msgid ""
 "Everything that you enter on this page, including <strong>your name</"
 "strong>, \n"
@@ -625,6 +658,10 @@ msgstr ""
 msgid "EximLog|Order"
 msgstr ""
 
+#: app/views/public_body/view_email.rhtml:3
+msgid "FOI email address for {{public_body}}"
+msgstr ""
+
 #: app/views/user/show.rhtml:33
 msgid "FOI requests"
 msgstr ""
@@ -645,6 +682,10 @@ msgid ""
 "{width}x%{height}"
 msgstr ""
 
+#: app/views/request/new.rhtml:21
+msgid "First,"
+msgstr ""
+
 #: app/views/general/frontpage.rhtml:8
 msgid ""
 "First, type in the <strong>name of the UK public authority</strong> you'd \n"
@@ -657,7 +698,7 @@ msgstr ""
 msgid "Follow this link to see the request:"
 msgstr ""
 
-#: app/views/public_body/view_email.rhtml:15
+#: app/views/public_body/view_email.rhtml:14
 msgid "Follow up messages to existing requests are sent to "
 msgstr ""
 
@@ -665,10 +706,11 @@ msgstr ""
 msgid ""
 "Follow ups and new responses to this request have been stopped to prevent "
 "spam. Please\n"
-"        <a href=\"%s\">contact us</a> if you are"
+"        <a href=\"%s\">contact us</a> if you are {{user_link}} and need to "
+"send a follow up."
 msgstr ""
 
-#: app/views/public_body/show.rhtml:60
+#: app/views/public_body/show.rhtml:62
 msgid ""
 "For an unknown reason, it is not possible to make a request to this "
 "authority."
@@ -678,7 +720,7 @@ msgstr ""
 msgid "Forgotten your password?"
 msgstr ""
 
-#: app/views/public_body/show.rhtml:55
+#: app/views/public_body/show.rhtml:57
 msgid ""
 "Freedom of Information law does not apply to this authority, so you cannot "
 "make\n"
@@ -691,15 +733,15 @@ msgstr ""
 
 #: app/views/public_body/view_email.rhtml:10
 msgid ""
-"Freedom of Information law no longer applies to this authority.\n"
-"        Follow up messages to existing requests are sent to "
+"Freedom of Information law no longer applies to this authority.Follow up "
+"messages to existing requests are sent to "
 msgstr ""
 
 #: app/views/user/show.rhtml:128
 msgid "Freedom of Information request"
 msgstr ""
 
-#: app/views/public_body/show.rhtml:98
+#: app/views/public_body/show.rhtml:100
 msgid "Freedom of Information requests made"
 msgstr ""
 
@@ -707,7 +749,7 @@ msgstr ""
 msgid "Freedom of Information requests made by"
 msgstr ""
 
-#: app/views/public_body/show.rhtml:72
+#: app/views/public_body/show.rhtml:74
 msgid "Freedom of Information requests made using this site"
 msgstr ""
 
@@ -755,21 +797,21 @@ msgstr ""
 msgid "Home page of authority"
 msgstr ""
 
-#: app/views/request/new.rhtml:68
+#: app/views/request/new.rhtml:63
 msgid ""
 "However, you have the right to request environmental\n"
 "        information under a different law"
 msgstr ""
 
-#: app/views/request/new.rhtml:78
+#: app/views/request/new.rhtml:73
 msgid "Human health and safety"
 msgstr ""
 
-#: app/views/request/_followup.rhtml:74
+#: app/views/request/_followup.rhtml:72
 msgid "I am asking for <strong>new information</strong>"
 msgstr ""
 
-#: app/views/request/_followup.rhtml:79
+#: app/views/request/_followup.rhtml:77
 msgid "I am requesting an <strong>internal review</strong>"
 msgstr ""
 
@@ -781,7 +823,7 @@ msgstr ""
 msgid "I don't want to do any more tidying now!"
 msgstr ""
 
-#: app/views/request/_describe_state.rhtml:84
+#: app/views/request/_describe_state.rhtml:92
 msgid "I would like to <strong>withdraw this request</strong>"
 msgstr ""
 
@@ -803,19 +845,19 @@ msgstr ""
 msgid "I've been asked to <strong>clarify</strong> my request"
 msgstr ""
 
-#: app/views/request/_describe_state.rhtml:57
+#: app/views/request/_describe_state.rhtml:62
 msgid "I've received <strong>all the information"
 msgstr ""
 
-#: app/views/request/_describe_state.rhtml:53
+#: app/views/request/_describe_state.rhtml:58
 msgid "I've received <strong>some of the information</strong>"
 msgstr ""
 
-#: app/views/request/_describe_state.rhtml:69
+#: app/views/request/_describe_state.rhtml:77
 msgid "I've received an <strong>error message</strong>"
 msgstr ""
 
-#: app/views/public_body/view_email.rhtml:29
+#: app/views/public_body/view_email.rhtml:28
 msgid ""
 "If the address is wrong, or you know a better address, please <a href=\"%s"
 "\">contact us</a>."
@@ -829,7 +871,7 @@ msgid ""
 "email {{contact_email}} for help."
 msgstr ""
 
-#: app/views/request/_followup.rhtml:22
+#: app/views/request/_followup.rhtml:21
 msgid ""
 "If you are dissatisfied by the response you got from\n"
 "            the public authority, you have the right to\n"
@@ -841,16 +883,18 @@ msgid "If you are still having trouble, please <a href=\"%s\">contact us</a>."
 msgstr ""
 
 #: app/views/request/hidden.rhtml:15
-msgid "If you are the requester, then you may"
+msgid ""
+"If you are the requester, then you may <a href=\"%s\">sign in</a> to view "
+"the request."
 msgstr ""
 
-#: app/views/request/new.rhtml:128
+#: app/views/request/new.rhtml:123
 msgid ""
 "If you are thinking of using a pseudonym,\n"
 "                please <a href=\"%s\">read this first</a>."
 msgstr ""
 
-#: app/views/request/show.rhtml:100
+#: app/views/request/show.rhtml:104
 msgid "If you are {{user_link}}, please"
 msgstr ""
 
@@ -869,6 +913,18 @@ msgid ""
 "                    a copy to upload</strong>."
 msgstr ""
 
+#: app/views/outgoing_mailer/initial_request.rhtml:13
+msgid ""
+"If you find WhatDoTheyKnow useful as an FOI officer, please ask your web "
+"manager to suggest us on your organisation"
+msgstr ""
+
+#: app/views/outgoing_mailer/followup.rhtml:12
+msgid ""
+"If you find WhatDoTheyKnow useful as an FOI officer, please ask your web "
+"manager to suggest us on your organisation's FOI page."
+msgstr ""
+
 #: app/views/user/bad_token.rhtml:13
 msgid ""
 "If you got the email <strong>more than six months ago</strong>, then this "
@@ -881,12 +937,6 @@ msgstr ""
 msgid ""
 "If you use web-based email or have \"junk mail\" filters, also check your\n"
 "bulk/spam mail folders. Sometimes, our messages are marked that way."
-msgstr ""
-
-#: app/views/request/_followup.rhtml:30
-msgid ""
-"If you would like to ask for information\n"
-"        that was not in your original request, then"
 msgstr ""
 
 #: app/views/user/banned.rhtml:15
@@ -977,7 +1027,7 @@ msgstr ""
 msgid "InfoRequest|Url title"
 msgstr ""
 
-#: app/views/request/new.rhtml:76
+#: app/views/request/new.rhtml:71
 msgid ""
 "Information on emissions and discharges (e.g. noise, energy,\n"
 "        radiation, waste materials)"
@@ -1000,7 +1050,7 @@ msgstr ""
 msgid "Joined in"
 msgstr ""
 
-#: app/views/request/new.rhtml:53
+#: app/views/request/new.rhtml:48
 msgid ""
 "Keep it <strong>focused</strong>, you'll be more likely to get what you want "
 "(<a href=\"%s\">why?</a>)."
@@ -1024,8 +1074,16 @@ msgstr ""
 msgid "List of all authorities (CSV)"
 msgstr ""
 
+#: lib/public_body_categories_en.rb:23
+msgid "Local and regional"
+msgstr ""
+
+#: app/views/public_body/show.rhtml:48
+msgid "Make a new Environmental Information request"
+msgstr ""
+
 #: app/views/request/new.rhtml:1
-msgid "Make an "
+msgid "Make an {{law_used_short}} request to '{{public_body_name}}'"
 msgstr ""
 
 #: app/views/layouts/default.rhtml:17
@@ -1060,15 +1118,15 @@ msgstr ""
 msgid "More about this authority"
 msgstr ""
 
-#: app/views/general/frontpage.rhtml:41
+#: app/views/general/frontpage.rhtml:39
 msgid "More authorities..."
 msgstr ""
 
-#: app/views/general/frontpage.rhtml:55
+#: app/views/general/frontpage.rhtml:53
 msgid "More successful requests..."
 msgstr ""
 
-#: app/views/request/_describe_state.rhtml:61
+#: app/views/request/_describe_state.rhtml:66
 msgid "My request has been <strong>refused</strong>"
 msgstr ""
 
@@ -1100,6 +1158,10 @@ msgstr ""
 msgid "New response to your request"
 msgstr ""
 
+#: app/views/request/show_response.rhtml:68
+msgid "New response to {{law_used_short}} request"
+msgstr ""
+
 #: app/views/general/search.rhtml:40
 msgid "Newest results first"
 msgstr ""
@@ -1124,14 +1186,10 @@ msgstr ""
 msgid "No similar requests found."
 msgstr ""
 
-#: app/views/public_body/show.rhtml:73
+#: app/views/public_body/show.rhtml:75
 msgid ""
 "Nobody has made any Freedom of Information requests to {{public_body_name}} "
 "using this site yet."
-msgstr ""
-
-#: app/controllers/public_body_controller.rb:22
-msgid "None found"
 msgstr ""
 
 #: app/views/request/_request_listing.rhtml:2
@@ -1179,7 +1237,7 @@ msgstr ""
 msgid "On this page"
 msgstr ""
 
-#: app/views/public_body/show.rhtml:91
+#: app/views/public_body/show.rhtml:93
 msgid "Only requests made using {{site_name}} are shown."
 msgstr ""
 
@@ -1221,7 +1279,7 @@ msgstr ""
 msgid "Photo of you:"
 msgstr ""
 
-#: app/views/request/new.rhtml:81
+#: app/views/request/new.rhtml:76
 msgid "Plans and administrative measures that affect these matters"
 msgstr ""
 
@@ -1229,7 +1287,7 @@ msgstr ""
 msgid "Play the request categorisation game!"
 msgstr ""
 
-#: app/views/request/show.rhtml:96
+#: app/views/request/show.rhtml:100
 msgid "Please"
 msgstr ""
 
@@ -1237,7 +1295,7 @@ msgstr ""
 msgid "Please <a href=\"%s\">get in touch</a> with us so we can fix it."
 msgstr ""
 
-#: app/views/request/show.rhtml:47
+#: app/views/request/show.rhtml:45
 msgid ""
 "Please <strong>answer the question above</strong> so we know whether the "
 msgstr ""
@@ -1248,13 +1306,15 @@ msgid ""
 "        know if there was information in the recent responses to them."
 msgstr ""
 
-#: app/views/request/_followup.rhtml:29
+#: app/views/request/_followup.rhtml:28
 msgid ""
 "Please <strong>only</strong> write messages directly relating to your \n"
-"        request"
+"\t\t\t\trequest {{request_link}}. If you would like to ask for information\n"
+"\t\t\t\tthat was not in your original request, then <a href=\"%s\">file a "
+"new request</a>."
 msgstr ""
 
-#: app/views/request/new.rhtml:65
+#: app/views/request/new.rhtml:60
 msgid "Please ask for environmental information only"
 msgstr ""
 
@@ -1287,7 +1347,7 @@ msgstr ""
 msgid "Please click on the link below to confirm your email address."
 msgstr ""
 
-#: app/models/info_request.rb:104
+#: app/models/info_request.rb:106
 msgid ""
 "Please describe more what the request is about in the subject. There is no "
 "need to say it is an FOI request, we add that on anyway."
@@ -1371,13 +1431,13 @@ msgstr ""
 msgid "Please keep it shorter than 500 characters"
 msgstr ""
 
-#: app/models/info_request.rb:101
+#: app/models/info_request.rb:103
 msgid ""
 "Please keep the summary short, like in the subject of an email. You can use "
 "a phrase, rather than a full sentence."
 msgstr ""
 
-#: app/views/request/new.rhtml:84
+#: app/views/request/new.rhtml:79
 msgid ""
 "Please only request information that comes under those categories, "
 "<strong>do not waste your\n"
@@ -1402,11 +1462,16 @@ msgstr ""
 msgid "Please sign in as "
 msgstr ""
 
+#: app/views/outgoing_mailer/followup.rhtml:9
+#: app/views/outgoing_mailer/initial_request.rhtml:7
+msgid "Please use this email address for all replies to this request:"
+msgstr ""
+
 #: app/models/info_request.rb:36
 msgid "Please write a summary with some text in it"
 msgstr ""
 
-#: app/models/info_request.rb:98
+#: app/models/info_request.rb:100
 msgid ""
 "Please write the summary using a mixture of capital and lower case letters. "
 "This makes it easier for others to read."
@@ -1462,11 +1527,11 @@ msgstr ""
 msgid "Preview your annotation"
 msgstr ""
 
-#: app/views/request/_followup.rhtml:102
+#: app/views/request/_followup.rhtml:100
 msgid "Preview your message"
 msgstr ""
 
-#: app/views/request/new.rhtml:148
+#: app/views/request/new.rhtml:143
 msgid "Preview your public request"
 msgstr ""
 
@@ -1562,7 +1627,7 @@ msgstr ""
 msgid "Read blog"
 msgstr ""
 
-#: app/views/request/new.rhtml:17
+#: app/views/request/new.rhtml:16
 msgid "Read this before writing your {{info_request_law_used_full}} request"
 msgstr ""
 
@@ -1588,15 +1653,15 @@ msgid ""
 "    do not use on a public computer) "
 msgstr ""
 
-#: app/views/request/_after_actions.rhtml:28
+#: app/views/request/_after_actions.rhtml:27
 msgid "Reply to "
 msgstr ""
 
-#: app/views/comment/_single_comment.rhtml:25
+#: app/views/comment/_single_comment.rhtml:24
 msgid "Report abuse"
 msgstr ""
 
-#: app/views/request/_after_actions.rhtml:38
+#: app/views/request/_after_actions.rhtml:37
 msgid "Request an internal review"
 msgstr ""
 
@@ -1632,7 +1697,7 @@ msgstr ""
 msgid "Respond by email"
 msgstr ""
 
-#: app/views/request/_after_actions.rhtml:47
+#: app/views/request/_after_actions.rhtml:46
 msgid "Respond to request"
 msgstr ""
 
@@ -1644,11 +1709,11 @@ msgstr ""
 msgid "Respond using the web"
 msgstr ""
 
-#: app/views/request/show.rhtml:72
+#: app/views/request/show.rhtml:70
 msgid "Response to this request is <strong>delayed</strong>."
 msgstr ""
 
-#: app/views/request/show.rhtml:80
+#: app/views/request/show.rhtml:78
 msgid "Response to this request is <strong>long overdue</strong>."
 msgstr ""
 
@@ -1669,12 +1734,17 @@ msgid "Save"
 msgstr ""
 
 #: app/views/general/search.rhtml:29 app/views/general/frontpage.rhtml:16
-#: app/views/request/new.rhtml:34 app/views/layouts/default.rhtml:102
+#: app/views/general/exception_caught.rhtml:10 app/views/request/new.rhtml:31
+#: app/views/layouts/default.rhtml:102
 msgid "Search"
 msgstr ""
 
 #: app/views/general/search.rhtml:4
 msgid "Search Freedom of Information requests, public authorities and users"
+msgstr ""
+
+#: app/views/general/exception_caught.rhtml:7
+msgid "Search the site to find what you were looking for."
 msgstr ""
 
 #: app/views/request/_followup.rhtml:7
@@ -1685,7 +1755,7 @@ msgstr ""
 msgid "Send a public reply to"
 msgstr ""
 
-#: app/views/request/_after_actions.rhtml:25
+#: app/views/request/_after_actions.rhtml:24
 msgid "Send follow up to "
 msgstr ""
 
@@ -1756,7 +1826,11 @@ msgid ""
 "WhatDoTheyKnow.com from "
 msgstr ""
 
-#: app/views/request/new.rhtml:58
+#: app/views/general/exception_caught.rhtml:1
+msgid "Sorry, we couldn't find that page"
+msgstr ""
+
+#: app/views/request/new.rhtml:53
 msgid "Special note for this authority!"
 msgstr ""
 
@@ -1769,7 +1843,7 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
-#: app/views/request/_describe_state.rhtml:94
+#: app/views/request/_describe_state.rhtml:102
 msgid "Submit status"
 msgstr ""
 
@@ -1783,7 +1857,7 @@ msgid ""
 "strong>."
 msgstr ""
 
-#: app/views/request/new.rhtml:98
+#: app/views/request/new.rhtml:93
 msgid "Summary:"
 msgstr ""
 
@@ -1809,7 +1883,7 @@ msgid ""
 "            requests."
 msgstr ""
 
-#: app/views/request/new_please_describe.rhtml:22
+#: app/views/request/new_please_describe.rhtml:20
 msgid ""
 "Thanks very much for helping keep everything <strong>neat and organised</"
 "strong>.\n"
@@ -1818,11 +1892,11 @@ msgid ""
 "    requests."
 msgstr ""
 
-#: app/views/request/_describe_state.rhtml:44
+#: app/views/request/_describe_state.rhtml:49
 msgid "The <strong>review has finished</strong> and overall:"
 msgstr ""
 
-#: app/views/request/new.rhtml:67
+#: app/views/request/new.rhtml:62
 msgid "The Freedom of Information Act <strong>does not apply</strong> to"
 msgstr ""
 
@@ -1842,7 +1916,7 @@ msgid ""
 "request"
 msgstr ""
 
-#: app/views/request/show.rhtml:104
+#: app/views/request/show.rhtml:108
 msgid ""
 "The authority would like to / has <strong>responded by post</strong> to this "
 "request."
@@ -1864,19 +1938,23 @@ msgid ""
 "explaining this to them."
 msgstr ""
 
-#: app/views/request/show.rhtml:99
+#: app/views/general/exception_caught.rhtml:3
+msgid "The page either doesn't exist, or is broken. Things you can try now:"
+msgstr ""
+
+#: app/views/request/show.rhtml:103
 msgid "The request is <strong>waiting for clarification</strong>."
 msgstr ""
 
-#: app/views/request/show.rhtml:92
+#: app/views/request/show.rhtml:96
 msgid "The request was <strong>partially successful</strong>."
 msgstr ""
 
-#: app/views/request/show.rhtml:88
+#: app/views/request/show.rhtml:86
 msgid "The request was <strong>refused</strong> by"
 msgstr ""
 
-#: app/views/request/show.rhtml:90
+#: app/views/request/show.rhtml:88
 msgid "The request was <strong>successful</strong>."
 msgstr ""
 
@@ -1888,7 +1966,7 @@ msgid ""
 "    href=\"%s\">contact us</a> if you have any questions."
 msgstr ""
 
-#: app/views/request/_followup.rhtml:37
+#: app/views/request/_followup.rhtml:35
 msgid ""
 "The response to your request has been <strong>delayed</strong>.  You can say "
 "that, \n"
@@ -1896,7 +1974,7 @@ msgid ""
 "            <strong>promptly</strong> and"
 msgstr ""
 
-#: app/views/request/_followup.rhtml:49
+#: app/views/request/_followup.rhtml:47
 msgid ""
 "The response to your request is <strong>long overdue</strong>.   You can say "
 "that, by \n"
@@ -1905,7 +1983,7 @@ msgid ""
 "            by now"
 msgstr ""
 
-#: app/views/public_body/show.rhtml:100
+#: app/views/public_body/show.rhtml:102
 msgid ""
 "The search index is currently offline, so we can't show the Freedom of "
 "Information requests that have been made to this authority."
@@ -1930,7 +2008,7 @@ msgid ""
 "    One of them is shown below, you may mean a different one:"
 msgstr ""
 
-#: app/views/request/show.rhtml:108
+#: app/views/request/show.rhtml:112
 msgid ""
 "There was a <strong>delivery error</strong> or similar, which needs fixing "
 "by the WhatDoTheyKnow team."
@@ -1940,7 +2018,7 @@ msgstr ""
 msgid "They are going to reply <strong>by post</strong>"
 msgstr ""
 
-#: app/views/request/_describe_state.rhtml:49
+#: app/views/request/_describe_state.rhtml:54
 msgid ""
 "They do <strong>not have</strong> the information <small>(maybe they say who "
 "does)</small>"
@@ -1966,17 +2044,18 @@ msgstr ""
 msgid "Things to do with this request"
 msgstr ""
 
-#: app/views/public_body/show.rhtml:58
+#: app/views/public_body/show.rhtml:60
 msgid "This authority no longer exists, so you cannot make a request to it."
 msgstr ""
 
-#: app/views/request/_hidden_correspondence.rhtml:27
+#: app/views/request/_hidden_correspondence.rhtml:23
 msgid ""
 "This comment has been hidden. See annotations to\n"
-"            find out why.  If you are the requester, then you may"
+"            find out why.  If you are the requester, then you may <a href=\"%"
+"s\">sign in</a> to view the response."
 msgstr ""
 
-#: app/views/request/new.rhtml:70
+#: app/views/request/new.rhtml:65
 msgid ""
 "This covers a very wide spectrum of information about the state of\n"
 "        the <strong>natural and built environment</strong>, such as:"
@@ -2000,10 +2079,11 @@ msgid ""
 "responses arrive."
 msgstr ""
 
-#: app/views/request/_hidden_correspondence.rhtml:19
+#: app/views/request/_hidden_correspondence.rhtml:17
 msgid ""
 "This outgoing message has been hidden. See annotations to\n"
-"            find out why.  If you are the requester, then you may"
+"\t\t\t\t\t\tfind out why.  If you are the requester, then you may <a href=\"%"
+"s\">sign in</a> to view the response."
 msgstr ""
 
 #: app/views/user/show.rhtml:122
@@ -2014,22 +2094,22 @@ msgstr ""
 msgid "This person's"
 msgstr ""
 
-#: app/views/request/_describe_state.rhtml:77
+#: app/views/request/_describe_state.rhtml:85
 msgid "This request <strong>requires administrator attention</strong>"
 msgstr ""
 
-#: app/views/request/show.rhtml:50
+#: app/views/request/show.rhtml:48
 msgid "This request has an <strong>unknown status</strong>."
 msgstr ""
 
-#: app/views/request/show.rhtml:112
+#: app/views/request/show.rhtml:116
 msgid ""
 "This request has been <strong>withdrawn</strong> by the person who made "
 "it. \n"
 "        \t   There may be an explanation in the correspondence below."
 msgstr ""
 
-#: app/views/request/show.rhtml:110
+#: app/views/request/show.rhtml:114
 msgid ""
 "This request has had an unusual response, and <strong>requires attention</"
 "strong> from the WhatDoTheyKnow team."
@@ -2051,10 +2131,11 @@ msgstr ""
 #: app/views/request/_hidden_correspondence.rhtml:10
 msgid ""
 "This response has been hidden. See annotations to find out why.\n"
-"            If you are the requester, then you may"
+"            If you are the requester, then you may <a href=\"%s\">sign in</"
+"a> to view the response."
 msgstr ""
 
-#: app/views/request/new.rhtml:54
+#: app/views/request/new.rhtml:49
 msgid ""
 "This site is <strong>public</strong>. Everything you type and any response "
 "will be published."
@@ -2078,10 +2159,6 @@ msgstr ""
 msgid ""
 "This was not possible because there is already an account using \n"
 "the email address "
-msgstr ""
-
-#: app/views/request/_request_listing_short_via_event.rhtml:8
-msgid "To"
 msgstr ""
 
 #: app/views/user/no_cookies.rhtml:5
@@ -2113,14 +2190,20 @@ msgid "To let us know, follow this link and then select the appropriate box."
 msgstr ""
 
 #: app/views/public_body/view_email_captcha.rhtml:5
-msgid "To view the email address that we use to send FOI requests to "
+msgid ""
+"To view the email address that we use to send FOI requests to "
+"{{@public_body_name}}, please enter these words."
 msgstr ""
 
 #: app/views/request_mailer/new_response.rhtml:5
 msgid "To view the response, click on the link below."
 msgstr ""
 
-#: app/views/request/new.rhtml:93 app/views/request/followup_preview.rhtml:22
+#: app/views/request/_request_listing_short_via_event.rhtml:9
+msgid "To {{public_body_link_absolute}}"
+msgstr ""
+
+#: app/views/request/new.rhtml:88 app/views/request/followup_preview.rhtml:22
 #: app/views/request/preview.rhtml:17
 msgid "To:"
 msgstr ""
@@ -2188,8 +2271,12 @@ msgid ""
 "address for"
 msgstr ""
 
-#: app/views/request/_after_actions.rhtml:14
-#: app/views/request/_after_actions.rhtml:34
+#: app/views/general/exception_caught.rhtml:18
+msgid "Unknown"
+msgstr ""
+
+#: app/views/request/_after_actions.rhtml:13
+#: app/views/request/_after_actions.rhtml:33
 msgid "Update the status of this request"
 msgstr ""
 
@@ -2253,6 +2340,10 @@ msgstr ""
 msgid "View FOI email address"
 msgstr ""
 
+#: app/views/public_body/view_email_captcha.rhtml:1
+msgid "View FOI email address for '{{public_body_name}}'"
+msgstr ""
+
 #: app/views/public_body/view_email_captcha.rhtml:3
 msgid "View FOI email address for {{public_body_name}}"
 msgstr ""
@@ -2265,7 +2356,7 @@ msgstr ""
 msgid "View authorities"
 msgstr ""
 
-#: app/views/public_body/view_email_captcha.rhtml:13
+#: app/views/public_body/view_email_captcha.rhtml:12
 msgid "View email"
 msgstr ""
 
@@ -2273,7 +2364,7 @@ msgstr ""
 msgid "View requests"
 msgstr ""
 
-#: app/views/request/show.rhtml:106
+#: app/views/request/show.rhtml:110
 msgid ""
 "Waiting for an <strong>internal review</strong> by {{public_body_link}} of "
 "their handling of this request."
@@ -2283,14 +2374,17 @@ msgstr ""
 msgid "We do not have a working"
 msgstr ""
 
-#: app/views/public_body/view_email.rhtml:18
+#: app/views/public_body/view_email.rhtml:17
 msgid "We do not have a working request email address for this authority."
 msgstr ""
 
-#: app/views/request/_describe_state.rhtml:100
+#: app/views/request/_describe_state.rhtml:108
 msgid ""
 "We don't know whether the most recent response to this request contains\n"
-"    information or not"
+"    information or not\n"
+"        &ndash;\n"
+"\tif you are {{user_link}} please <a href=\"%s\">sign in</a> and let "
+"everyone know."
 msgstr ""
 
 #: app/views/user_mailer/confirm_login.rhtml:8
@@ -2305,11 +2399,11 @@ msgid ""
 "or the law tell us to."
 msgstr ""
 
-#: app/views/request/show.rhtml:56
+#: app/views/request/show.rhtml:54
 msgid "We're waiting for"
 msgstr ""
 
-#: app/views/request/show.rhtml:52
+#: app/views/request/show.rhtml:50
 msgid "We're waiting for someone to read"
 msgstr ""
 
@@ -2333,7 +2427,7 @@ msgid ""
 "password."
 msgstr ""
 
-#: app/views/request/_followup.rhtml:64
+#: app/views/request/_followup.rhtml:62
 msgid "What are you doing?"
 msgstr ""
 
@@ -2342,7 +2436,9 @@ msgid "What best describes the status of this request now?"
 msgstr ""
 
 #: app/views/public_body/view_email.rhtml:7
-msgid "WhatDoTheyKnow sends new requests to"
+msgid ""
+"WhatDoTheyKnow sends new requests to <strong>{{request_email}}</strong> for "
+"this authority."
 msgstr ""
 
 #: app/views/request_mailer/new_response.rhtml:9
@@ -2358,26 +2454,30 @@ msgid ""
 msgstr ""
 
 #: app/views/request/new_please_describe.rhtml:16
-msgid "When you're done, <strong>come back here</strong>"
+msgid ""
+"When you're done, <strong>come back here</strong>, <a href=\"%s\">reload "
+"this page</a> and file your new request."
 msgstr ""
 
 #: app/views/request/show_response.rhtml:13
 msgid "Which of these is happening?"
 msgstr ""
 
-#: app/views/request/new.rhtml:51
+#: app/views/request/new.rhtml:46
 msgid "Write your request in <strong>simple, precise language</strong>."
 msgstr ""
 
-#: app/views/request/show.rhtml:83
-msgid "You can <strong>complain</strong> by"
+#: app/views/public_body/show.rhtml:71
+msgid ""
+"XXX this section needs localising re EIR as these are specific to UK law"
 msgstr ""
 
-#: app/views/request/new.rhtml:8
-msgid ""
-"You can either view the <a href=\"{{existing_request}}\">existing request</"
-"a>,\n"
-"    or edit the details below to make a new but similar request."
+#: app/views/comment/_single_comment.rhtml:10
+msgid "You"
+msgstr ""
+
+#: app/views/request/show.rhtml:81
+msgid "You can <strong>complain</strong> by"
 msgstr ""
 
 #: app/views/request/details.rhtml:57
@@ -2386,7 +2486,7 @@ msgid ""
 "page for the request.  See the <a href=\"%s\">API documentation</a>."
 msgstr ""
 
-#: app/views/public_body/show.rhtml:39
+#: app/views/public_body/show.rhtml:41
 msgid ""
 "You can only request information about the environment from this authority."
 msgstr ""
@@ -2527,7 +2627,7 @@ msgid ""
 "got the information will help us keep tabs on"
 msgstr ""
 
-#: app/views/request/new.rhtml:114
+#: app/views/request/new.rhtml:109
 msgid "Your request:"
 msgstr ""
 
@@ -2537,7 +2637,7 @@ msgid ""
 "\">read why</a> and answers to other questions."
 msgstr ""
 
-#: app/views/request/new.rhtml:102
+#: app/views/request/new.rhtml:97
 msgid ""
 "a one line summary of the information you are requesting, \n"
 "\t\t\te.g."
@@ -2551,47 +2651,29 @@ msgstr ""
 msgid "address for"
 msgstr ""
 
-#: app/views/public_body/show.rhtml:30
+#: app/views/public_body/show.rhtml:32
 msgid "admin"
 msgstr ""
 
-#: app/views/request/new.rhtml:6
-msgid ""
-"already\n"
-"    created the same request on"
-msgstr ""
-
-#: app/views/public_body/show.rhtml:28
+#: app/views/public_body/show.rhtml:30
 msgid "also called {{public_body_short_name}}"
-msgstr ""
-
-#: app/views/request/new_please_describe.rhtml:18
-msgid "and file your new request."
-msgstr ""
-
-#: app/views/request/_describe_state.rhtml:105
-msgid "and let everyone know."
-msgstr ""
-
-#: app/views/request/_followup.rhtml:18
-msgid "and need to send a follow up."
 msgstr ""
 
 #: app/views/user/wrong_user.rhtml:5
 msgid "and sign in as "
 msgstr ""
 
-#: app/views/request/show.rhtml:54
+#: app/views/request/show.rhtml:52
 msgid ""
 "and update the status accordingly. Perhaps <strong>you</strong> might like "
 "to help out by doing that?"
 msgstr ""
 
-#: app/views/request/show.rhtml:59
+#: app/views/request/show.rhtml:57
 msgid "and update the status."
 msgstr ""
 
-#: app/views/request/_describe_state.rhtml:94
+#: app/views/request/_describe_state.rhtml:102
 msgid "and we'll suggest <strong>what to do next</strong>"
 msgstr ""
 
@@ -2608,17 +2690,23 @@ msgid "are long overdue."
 msgstr ""
 
 #: app/controllers/public_body_controller.rb:110
-msgid "beginning with '{{letter}}'"
+msgid "beginning with"
 msgstr ""
 
-#: app/views/request/show.rhtml:77
-#: app/views/request/_request_listing_short_via_event.rhtml:9
-#: app/views/request/_followup.rhtml:43
+#: app/views/request/show.rhtml:75
 msgid "by"
+msgstr ""
+
+#: app/views/request/_followup.rhtml:41
+msgid "by <strong>{{date}}</strong>"
 msgstr ""
 
 #: app/views/request/_request_listing_via_event.rhtml:34
 msgid "by {{public_body_name}} to {{info_request_user}} on {{date}}."
+msgstr ""
+
+#: app/views/request/_request_listing_short_via_event.rhtml:10
+msgid "by {{user_link_absolute}}"
 msgstr ""
 
 #: locale/model_attributes.rb:42
@@ -2663,14 +2751,6 @@ msgstr ""
 msgid "exim log done"
 msgstr ""
 
-#: app/views/request/_followup.rhtml:32
-msgid "file a new request"
-msgstr ""
-
-#: app/views/request/new.rhtml:46
-msgid "for examples of how to word your request."
-msgstr ""
-
 #: app/views/request_mailer/requires_admin.rhtml:2
 msgid "has reported an"
 msgstr ""
@@ -2683,12 +2763,8 @@ msgstr ""
 msgid "holiday"
 msgstr ""
 
-#: app/views/request/_describe_state.rhtml:103
-msgid "if you are {{user_link}} please"
-msgstr ""
-
-#: app/views/request/show.rhtml:65 app/views/request/show.rhtml:75
-#: app/views/request/_followup.rhtml:41
+#: app/views/request/show.rhtml:63 app/views/request/show.rhtml:73
+#: app/views/request/_followup.rhtml:39
 msgid "in term time"
 msgstr ""
 
@@ -2713,7 +2789,7 @@ msgstr ""
 msgid "internal error"
 msgstr ""
 
-#: app/views/request/show.rhtml:95
+#: app/views/request/show.rhtml:99
 msgid "is <strong>waiting for your clarification</strong>."
 msgstr ""
 
@@ -2721,8 +2797,8 @@ msgstr ""
 msgid "just to see how it works"
 msgstr ""
 
-#: app/views/request/show.rhtml:35
-msgid "made this"
+#: app/views/comment/_single_comment.rhtml:10
+msgid "left an annotation"
 msgstr ""
 
 #: app/views/user/_user_listing_single.rhtml:19
@@ -2734,7 +2810,7 @@ msgstr ""
 msgid "need to add other types to TrackMailer.event_digest"
 msgstr ""
 
-#: app/views/request/show.rhtml:69
+#: app/views/request/show.rhtml:67
 msgid "no later than"
 msgstr ""
 
@@ -2748,7 +2824,7 @@ msgid ""
 "to us</a>."
 msgstr ""
 
-#: app/views/request/show.rhtml:67
+#: app/views/request/show.rhtml:65
 msgid "normally"
 msgstr ""
 
@@ -2756,21 +2832,8 @@ msgstr ""
 msgid "only"
 msgstr ""
 
-#: app/views/request/_after_actions.rhtml:21
-#: app/views/request/_after_actions.rhtml:44
-msgid "only:"
-msgstr ""
-
-#: app/views/request/new.rhtml:26
-msgid "or <strong>search</strong> their web site ..."
-msgstr ""
-
 #: locale/model_attributes.rb:20
 msgid "outgoing message"
-msgstr ""
-
-#: app/views/public_body/view_email_captcha.rhtml:6
-msgid "please enter these words."
 msgstr ""
 
 #: app/views/user/sign.rhtml:11
@@ -2797,15 +2860,11 @@ msgstr ""
 msgid "raw email"
 msgstr ""
 
-#: app/views/request/show.rhtml:37
-msgid "request"
-msgstr ""
-
 #: app/views/request_mailer/not_clarified_alert.rhtml:1
 msgid "request."
 msgstr ""
 
-#: app/views/request/show.rhtml:84
+#: app/views/request/show.rhtml:82
 msgid "requesting an internal review"
 msgstr ""
 
@@ -2815,7 +2874,7 @@ msgid ""
 "email to let them know what you are going to do about it."
 msgstr ""
 
-#: app/views/request/show.rhtml:97
+#: app/views/request/show.rhtml:101
 msgid "send a follow up message"
 msgstr ""
 
@@ -2823,7 +2882,7 @@ msgstr ""
 msgid "sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr ""
 
-#: app/views/request/show.rhtml:101
+#: app/views/request/show.rhtml:105
 msgid "sign in"
 msgstr ""
 
@@ -2835,16 +2894,11 @@ msgstr ""
 msgid "that you made to"
 msgstr ""
 
-#: app/views/request/new.rhtml:24
-msgid "the authority's"
-msgstr ""
-
 #: app/views/user/show.rhtml:140
 msgid "this person"
 msgstr ""
 
 #: app/views/user_mailer/changeemail_already_used.rhtml:2
-#: app/views/request/show.rhtml:41 app/views/request/new.rhtml:45
 msgid "to"
 msgstr ""
 
@@ -2858,42 +2912,27 @@ msgid ""
 "            subscriptions and more"
 msgstr ""
 
-#: app/views/request/new.rhtml:37
+#: app/views/request/new.rhtml:34
 msgid "to check that the info isn't already published."
 msgstr ""
 
-#: app/views/request/_after_actions.rhtml:10
-msgid "to help the requester or others"
-msgstr ""
-
-#: app/views/request/show.rhtml:57
+#: app/views/request/show.rhtml:55
 msgid "to read"
 msgstr ""
 
-#: app/views/request/show.rhtml:101
+#: app/views/request/show.rhtml:105
 msgid "to send a follow up message."
 msgstr ""
 
-#: app/views/request/_hidden_correspondence.rhtml:21
-#: app/views/request/_hidden_correspondence.rhtml:29
-msgid ""
-"to view the\n"
-"            response."
-msgstr ""
-
-#: app/views/request/hidden.rhtml:17
-msgid "to view the request."
-msgstr ""
-
-#: app/views/request/_hidden_correspondence.rhtml:13
-msgid "to view the response."
+#: app/views/request/show.rhtml:39
+msgid "to {{public_body}}"
 msgstr ""
 
 #: locale/model_attributes.rb:31
 msgid "track thing"
 msgstr ""
 
-#: app/views/request/_hidden_correspondence.rhtml:38
+#: app/views/request/_hidden_correspondence.rhtml:32
 msgid "unexpected prominence on request event"
 msgstr ""
 
@@ -2905,11 +2944,15 @@ msgstr ""
 msgid "unknown reason "
 msgstr ""
 
+#: app/views/user/show.rhtml:208
+msgid "unsubscribe"
+msgstr ""
+
 #: app/views/user/show.rhtml:180 app/views/user/show.rhtml:194
 msgid "unsubscribe all"
 msgstr ""
 
-#: app/views/request/show.rhtml:48
+#: app/views/request/show.rhtml:46
 msgid "useful information."
 msgstr ""
 
@@ -2925,9 +2968,35 @@ msgstr ""
 msgid "you"
 msgstr ""
 
-#: app/views/general/frontpage.rhtml:51
+#: app/views/request/new.rhtml:6
+msgid ""
+"{{existing_request_user}} already\n"
+"    created the same request on {{date}}. You can either view the <a href="
+"\"{{existing_request}}\">existing request</a>,\n"
+"    or edit the details below to make a new but similar request."
+msgstr ""
+
+#: app/views/request/_after_actions.rhtml:20
+msgid "{{info_request_user_name}} only:"
+msgstr ""
+
+#: app/views/general/frontpage.rhtml:49
 msgid "{{length_of_time}} ago"
 msgstr ""
+
+#: app/views/request/_after_actions.rhtml:43
+msgid "{{public_body_name}} only:"
+msgstr ""
+
+#: app/views/request/show.rhtml:35
+msgid "{{user}} made this {{law_used_full}} request"
+msgstr ""
+
+#~ msgid "Ministerial departments"
+#~ msgstr "Ministerial departments d"
+
+#~ msgid "Miscellaneous"
+#~ msgstr "Miscellaneous d"
 
 #~ msgid "activerecord.errors.full_messages.format"
 #~ msgstr "%{message}"
