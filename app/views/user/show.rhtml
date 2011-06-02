@@ -101,7 +101,7 @@
     <% if @is_you %>
         <p id="user_change_password_email">
             <% if @display_user.profile_photo %> 
-                <%= link_to _('Change profile photo')%>, set_profile_photo_url() %> |
+                <%= link_to _('Change profile photo'), set_profile_photo_url() %> |
             <% end %>
             <%= link_to _('Change your password'), signchangepassword_url() %> |
             <%= link_to _('Change your email'), signchangeemail_url() %>
@@ -205,7 +205,7 @@
                                 <%= track_thing.params[:list_description] %> 
                                 <%= hidden_field_tag 'track_medium', "delete", { :id => 'track_medium_' + track_thing.id.to_s } %>
                                 <%= hidden_field_tag 'r', request.request_uri, { :id => 'r_' + track_thing.id.to_s }  %>
-                                <%= submit_tag <%= _('unsubscribe') %>
+                                <%= submit_tag _('unsubscribe') %>
                             </div>
                         <% end %>
                     </li>

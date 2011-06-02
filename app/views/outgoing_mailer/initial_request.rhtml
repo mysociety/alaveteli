@@ -1,14 +1,14 @@
 <%= @outgoing_message.body.strip %>
 
 -------------------------------------------------------------------
-Disclaimer: This message and any reply that you make will be published on the internet. Our privacy and copyright policies:
+<%= _('Disclaimer: This message and any reply that you make will be published on the internet. Our privacy and copyright policies:')%>
 http://www.whatdotheyknow.com/help/officers
 
-Please use this email address for all replies to this request:
+<%= _('Please use this email address for all replies to this request:')%>
 <%= @info_request.incoming_email %>
 
 Is <%= @info_request.public_body.request_email%> the wrong address for <%= @info_request.law_used_full %> requests to <%= @info_request.public_body.name%>? If so please contact us using this form:
 http://www.whatdotheyknow.com/help/contact
 
-If you find WhatDoTheyKnow useful as an FOI officer, please ask your web manager to suggest us on your organisation's FOI page.
+<%= _('If you find WhatDoTheyKnow useful as an FOI officer, please ask your web manager to suggest us on your organisation's FOI page.')%>
 -------------------------------------------------------------------

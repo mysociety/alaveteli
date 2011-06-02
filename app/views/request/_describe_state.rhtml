@@ -98,10 +98,8 @@
     <%= render :partial => 'other_describe_state', :locals => {:id_suffix => id_suffix } %>
 <% else %>
 <%=  _('We don\'t know whether the most recent response to this request contains
-    information or not') %> 
+    information or not
         &ndash;
-<%=  _('if you are {{user_link}} please',:user_link=>user_link(@info_request.user)) %> 
-        <%= link_to "sign in", signin_url(:r => request.request_uri) %>
-    <%= _('and let everyone know.') %>
+	if you are {{user_link}} please <a href="%s">sign in</a> and let everyone know.',:user_link=>user_link(@info_request.user)) % [signin_url(:r => request.request_uri)] %>
 <% end %>
 

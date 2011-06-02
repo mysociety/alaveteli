@@ -32,13 +32,11 @@
     <% end %>
 
     <p class="subtitle">
-    <%= user_link(@info_request.user) %> <%= _('made this') %>
-    <%=h @info_request.law_used_full%> 
-    <%= _('request') %>
+	 <%= _('{{user}} made this {{law_used_full}} request',:user=>user_link(@info_request.user), :law_used_full=>h(@info_request.law_used_full)) %>
     <% if !@user.nil? && @user.admin_page_links? %>
         (<%= link_to "admin", request_admin_url(@info_request) %>)
     <% end %>
-    <%= _('to') %> <%= public_body_link(@info_request.public_body) %>
+    <%= _('to {{public_body}}',:public_body=>public_body_link(@info_request.public_body)) %> 
     </p>
 
     <p id="request_status" class="request_icon_line icon_<%= @info_request.calculate_status %>">

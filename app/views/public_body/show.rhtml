@@ -25,7 +25,9 @@
 <h1><%=h(@public_body.name)%></h1>
 
 <p class="subtitle">
-<%=@public_body.type_of_authority(true)%><% if not @public_body.short_name.empty? %>, <%= _('also called {{public_body_short_name}}', :public_body_short_name =>  h(@public_body.short_name))%><% end %>
+<%=@public_body.type_of_authority(true)%>
+<% if not @public_body.short_name.empty? %>, 
+<%= _('also called {{public_body_short_name}}', :public_body_short_name =>  h(@public_body.short_name))%><% end %>
 <% if !@user.nil? && @user.admin_page_links? %>
 (<%= link_to _("admin"), public_body_admin_url(@public_body) %>)
 <% end %>
@@ -43,7 +45,7 @@
     <strong>
     <% if @public_body.is_requestable? || @public_body.not_requestable_reason == 'bad_contact' %>
         <% if @public_body.eir_only? %>
-            <%= link_to "Make a new Environmental Information request", new_request_to_body_url(:url_name => @public_body.url_name)%>  to <%= h(@public_body.name) %>
+            <%= link_to _("Make a new Environmental Information request"), new_request_to_body_url(:url_name => @public_body.url_name)%>  to <%= h(@public_body.name) %>
 
         <% else %>
             <%= _('<a href="%s">Make a new Freedom of Information request</a> to {{public_body_name}}',
@@ -65,19 +67,19 @@
 <% if !@xapian_requests.nil? %>
    <% if @xapian_requests.results.empty? %>
         <% if @public_body.eir_only? %>
-            <h2>Environmental Information Regulations requests made using this site</h2>
-            <h4>XXX this section needs localising re EIR as these are specific to UK law</h4>
+            <h2><%= _('Environmental Information Regulations requests made using this site') %></h2>
+            <h4><%= _('XXX this section needs localising re EIR as these are specific to UK law') %></h4>
             <p>Nobody has made any Environmental Information Regulations requests to <%=h(@public_body.name)%> using this site yet.</p>
         <% else %>
-            <h2> <%= _('Freedom of Information requests made using this site')%></h2>
-            <p> <%= _('Nobody has made any Freedom of Information requests to {{public_body_name}} using this site yet.', :public_body_name => h(@public_body.name))%></p>
+            <h2><%= _('Freedom of Information requests made using this site')%></h2>
+            <p><%= _('Nobody has made any Freedom of Information requests to {{public_body_name}} using this site yet.', :public_body_name => h(@public_body.name))%></p>
         <% end %>
     <% else %>
         <h2>
         <% if @public_body.eir_only? %>
-            <%=pluralize(@public_body.info_requests.size, "Environmental Information Regulations request") %> made using this site
+            <%= pluralize(@public_body.info_requests.size, "Environmental Information Regulations request made using this site") %>
         <% else %>
-            <%= n_('%d Freedom of Information request', '%d Freedom of Information requests', @public_body.info_requests.size) % @public_body.info_requests.size %> made using this site
+		<%= n_('%d Freedom of Information request', '%d Freedom of Information requests', @public_body.info_requests.size) % @public_body.info_requests.size %> made using this site
         <% end %>
         <%= @page_desc %>
         </h2>
@@ -93,7 +95,7 @@
     <% end %>
 <% else %> 
     <% if @public_body.eir_only? %>
-        <h2>Environmental Information Regulations requests made</h2>
+        <h2><%= _('Environmental Information Regulations requests made') %></h2>
     <% else %>
         <h2> <%= _('Freedom of Information requests made')%></h2>
     <% end %>

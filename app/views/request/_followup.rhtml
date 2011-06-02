@@ -14,8 +14,7 @@
 
     <% if @info_request.allow_new_responses_from == 'nobody' %>
         <p><%= _('Follow ups and new responses to this request have been stopped to prevent spam. Please
-        <a href="%s">contact us</a> if you are') % [help_contact_path] %> <%= user_link(@info_request.user) %>
-        <%= _('and need to send a follow up.') %></p>
+        <a href="%s">contact us</a> if you are {{user_link}} and need to send a follow up.',:user_link=>user_link(@info_request.user) ) % [help_contact_path] %></p>
     <% else %>
         <% if @internal_review %>
             <p>
@@ -27,9 +26,8 @@
 
         <p>
 		<%= _('Please <strong>only</strong> write messages directly relating to your 
-        request') %> '<%= request_link(@info_request) %>'. <%= _('If you would like to ask for information
-        that was not in your original request, then') %>
-        <%= link_to _("file a new request"), new_request_to_body_url(:url_name => @info_request.public_body.url_name) %>.
+				request {{request_link}}. If you would like to ask for information
+				that was not in your original request, then <a href="%s">file a new request</a>.',:request_link=>request_link(@info_request)) % [new_request_to_body_url(:url_name => @info_request.public_body.url_name)] %>
         </p>
 
         <% status = @info_request.calculate_status %>
@@ -40,7 +38,7 @@
             <% if @info_request.public_body.is_school? %>
             <%= _('in term time') %> 
             <% end %>
-            <%= _('by') %> <strong><%= simple_date(@info_request.date_response_required_by) %></strong>
+            <%= _('by <strong>{{date}}</strong>',:date=>simple_date(@info_request.date_response_required_by)) %>
             (<%= _('<a href="%s">details</a>') % ["#{help_requesting_path}#quickly_response"] %>).
 			
             </p>

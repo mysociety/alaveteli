@@ -5,8 +5,9 @@ end %>
 <div class="request_short_listing">
     <h3><%= link_to highlight_words(info_request.title, @highlight_words), request_url(info_request) %></h3>
     <p>
-    <%= _('To') %> <%= public_body_link_absolute(info_request.public_body) %>
-    <%= _('by') %> <%= user_link_absolute(info_request.user) %>,
+
+<%= _('To {{public_body_link_absolute}}',:public_body_link_absolute => public_body_link_absolute(info_request.public_body))%>
+<%= _('by {{user_link_absolute}}',:user_link_absolute => user_link_absolute(info_request.user))%>
     <%= simple_date(info_request.created_at) %>
     </p>
 </div>

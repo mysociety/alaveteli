@@ -6,8 +6,7 @@
         <strong><%= _('Anyone:') %></strong>
         <ul>
         <li>
-            <%= link_to _('Add an annotation'), new_comment_url(:url_title => @info_request.url_title) %> 
-			(<%= _('to help the requester or others') %>)
+			<%= _('<a href="%s">Add an annotation</a> (to help the requester or others)') % [new_comment_url(:url_title => @info_request.url_title)] %>
         </li>
         <% if @old_unclassified %> 
             <li>
@@ -18,7 +17,7 @@
     </div>
 
     <div id="owner_actions">
-      <strong><%=h @info_request.user.name %> <%= _('only:') %></strong>
+		<strong><%= _('{{info_request_user_name}} only:',:info_request_user_name=>h(@info_request.user.name)) %></strong>
       <ul>
       <li>
           <% if @last_response.nil? %>
@@ -41,12 +40,11 @@
     </div>
   
     <div id="public_body_actions">
-      <strong><%=h @info_request.public_body.name %> <%= _('only:') %></strong>
+		<strong><%= _('{{public_body_name}} only:',:public_body_name=>h(@info_request.public_body.name) ) %> </strong>
       <ul>
       <li>
           <%= link_to _("Respond to request"), upload_response_url(:url_title => @info_request.url_title) %> 
       </li>
       </ul>
     </div>
-  
 </div>

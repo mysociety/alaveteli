@@ -14,7 +14,7 @@
         <%= hidden_field_tag 'submitted_comment', 1 %>
         <%= hidden_field_tag 'preview', 1 %>
         <%= submit_tag _('Preview your annotation') %>
-       <%= _(' (<strong>no ranty</strong> politics, read our <a href="%s">moderation policy</a>)' % [help_requesting '#moderation'] %>
+       <%= _(' (<strong>no ranty</strong> politics, read our <a href="%s">moderation policy</a>)') % [help_requesting_path+'#moderation'] %>
     </p>
 <% end %>
 

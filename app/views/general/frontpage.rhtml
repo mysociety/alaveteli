@@ -30,13 +30,11 @@
 <div id="frontpage_examples">
     <% if @popular_bodies.size > 0 %>
         <div id="examples_0">
-          <ul>
             <% for popular_body in @popular_bodies %>
-                <li><%=public_body_link(popular_body)%> 
-                 <%= n_('%d request', '%d requests', popular_body.info_requests.count) % popular_body.info_requests.count %> 
+                <li><%=public_body_link(popular_body)%>
+                 <%= n_('%d request', '%d requests', popular_body.info_requests.count) % popular_body.info_requests.count %>
                 </li>
             <% end%>
-            </ul>
             <p><strong>
                 <%= link_to _('More authorities...'), list_public_bodies_default %>
             </strong></p>

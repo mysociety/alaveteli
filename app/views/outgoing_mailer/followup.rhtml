@@ -3,11 +3,11 @@
 <%= @outgoing_message.quoted_part_to_append_to_email.strip %>
 
 -------------------------------------------------------------------
-Disclaimer: This message and any reply that you make will be published on the internet. Our privacy and copyright policies:
+<%= _('Disclaimer: This message and any reply that you make will be published on the internet. Our privacy and copyright policies:')%>
 http://www.whatdotheyknow.com/help/officers
 
-Please use this email address for all replies to this request:
+<%= _('Please use this email address for all replies to this request:')%>
 <%= @info_request.incoming_email %>
 
-If you find WhatDoTheyKnow useful as an FOI officer, please ask your web manager to suggest us on your organisation's FOI page.
+<%= _('If you find WhatDoTheyKnow useful as an FOI officer, please ask your web manager to suggest us on your organisation\'s FOI page.')%>
 -------------------------------------------------------------------

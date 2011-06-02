@@ -1,12 +1,11 @@
-<% @title = _("Make an ") + h(@info_request.law_used_short) + _(" request to '") + h(@info_request.public_body.name) + "'" %>
+<% @title = _("Make an {{law_used_short}} request to '{{public_body_name}}'",:law_used_short=>h(@info_request.law_used_short),:public_body_name=>h(@info_request.public_body.name))  %>
 
 <% if @existing_request %>
     <div class="errorExplanation" id="errorExplanation"><ul>
     <li>
-    <%= user_or_you_capital_link(@existing_request.user) %> <%= _('already
-    created the same request on') %> <%=simple_date(@existing_request.created_at)%>.
-    <%= _('You can either view the <a href="{{existing_request}}">existing request</a>,
-    or edit the details below to make a new but similar request.',:existing_request=>request_url(@existing_request)) %> 
+     <%= _('{{existing_request_user}} already
+    created the same request on {{date}}. You can either view the <a href="{{existing_request}}">existing request</a>,
+    or edit the details below to make a new but similar request.',:existing_request_user=>user_or_you_capital_link(@existing_request.user), :date=>simple_date(@existing_request.created_at), :existing_request=>request_url(@existing_request)) %> 
     </li>
     </ul></div>
 <% end %>
@@ -19,11 +18,9 @@
     <li>
         <% form_tag("http://www.google.co.uk/search", {:id => "search_body_website_form", :method => "get"} ) do %>
             <p>
-                First, 
+                <%= _('First,') %> 
                 <% if !@info_request.public_body.publication_scheme.empty? %>
-                    <strong>browse</strong> <%= _('the authority\'s') %> 
-                    <%= link_to "publication scheme", @info_request.public_body.publication_scheme %> 
-                    <%= _('or <strong>search</strong> their web site ...') %>
+                    <%= _('<strong>browse</strong> the authority\'s <a href="%s">publication scheme</a> or <strong>search</strong> their web site ...') % [@info_request.public_body.publication_scheme] %> 
                 <% else %>
                 <%= _('<strong>search</strong> the authority\'s web site ...') %>
                 <% end %>
@@ -41,9 +38,7 @@
 
     <li> 
         <% if @info_request.public_body.info_requests.size > 0 %>
-            <%= _('Browse') %> <%= link_to "other requests", public_body_url(@info_request.public_body)  %> 
-            <%= _('to') %> '<%= h(@info_request.public_body.name) %>'
-            <%= _('for examples of how to word your request.') %>
+            <%= _("Browse <a href='%s'>other requests</a> to '{{public_body_name}}' for examples of how to word your request.", :public_body_name=>h(@info_request.public_body.name)) % [public_body_url(@info_request.public_body)] %>
         <% else %>
 	    <%= _('Browse  <a href="%s">other requests</a> for examples of how to word your request.') % [request_list_url] %>
         <% end %>

@@ -13,9 +13,7 @@ if they are successful yet or not.') %>
 </ul>
 
 <p>
-    <%= _('When you\'re done, <strong>come back here</strong>') %>,
-    <%= link_to "reload this page", request.request_uri %>
-    <%= _('and file your new request.') %>
+   <%= _('When you\'re done, <strong>come back here</strong>, <a href="%s">reload this page</a> and file your new request.') % [request.request_uri] %>
 </p>
 
 <p>
