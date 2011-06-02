@@ -3,19 +3,20 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
+"Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
 "POT-Creation-Date: 2011-06-01 09:03-0000\n"
-"PO-Revision-Date: 2011-02-24 07:11-0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2011-04-02 00:05+0000\n"
+"Last-Translator: vbrestovci <vbrestovci@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Language: sr@latin\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
 #: app/views/user/set_profile_about_me.rhtml:14
 msgid ""
@@ -120,8 +121,9 @@ msgid " made no Freedom of Information requests using this site."
 msgstr ""
 
 #: app/views/track_mailer/event_digest.rhtml:28
+#, fuzzy
 msgid " sent a request to"
-msgstr ""
+msgstr "Napravi zahtev"
 
 #: app/views/user/contact.rhtml:36
 msgid " when you send this message."
@@ -132,12 +134,14 @@ msgid "%d Freedom of Information request"
 msgid_plural "%d Freedom of Information requests"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
 
 #: app/views/general/frontpage.rhtml:35
 msgid "%d request"
 msgid_plural "%d requests"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
 
 #: app/views/request/new.rhtml:102
 msgid "'Crime statistics by ward level for Wales'"
@@ -460,11 +464,12 @@ msgstr ""
 #: lib/public_body_categories_sq.rb:14 lib/public_body_categories_sr.rb:14
 #: lib/public_body_categories_en.rb:14
 msgid "Central government"
-msgstr ""
+msgstr "Centralna Govermenta"
 
 #: app/views/user/signchangepassword.rhtml:27
+#, fuzzy
 msgid "Change password on {{site_name}}"
-msgstr ""
+msgstr "Kontakt {{site_name}}"
 
 #: app/views/user/show.rhtml:104
 msgid "Change profile photo"
@@ -484,8 +489,9 @@ msgid "Change your email address used on {{site_name}}"
 msgstr ""
 
 #: app/views/user/show.rhtml:106
+#, fuzzy
 msgid "Change your password"
-msgstr ""
+msgstr "Molimo Vas da unesete vaš pasvord"
 
 #: app/views/user/signchangepassword_send_confirm.rhtml:1
 #: app/views/user/signchangepassword_send_confirm.rhtml:9
@@ -538,7 +544,7 @@ msgstr ""
 
 #: app/views/layouts/default.rhtml:147
 msgid "Contact {{site_name}}"
-msgstr ""
+msgstr "Kontakt {{site_name}}"
 
 #: app/models/profile_photo.rb:96
 msgid ""
@@ -663,8 +669,9 @@ msgid "FOI email address for {{public_body}}"
 msgstr ""
 
 #: app/views/user/show.rhtml:33
+#, fuzzy
 msgid "FOI requests"
-msgstr ""
+msgstr "Moji zahtevi"
 
 #: app/views/general/search.rhtml:90
 msgid ""
@@ -717,8 +724,9 @@ msgid ""
 msgstr ""
 
 #: app/views/user/_signin.rhtml:21
+#, fuzzy
 msgid "Forgotten your password?"
-msgstr ""
+msgstr "Molimo Vas da unesete vaš pasvord"
 
 #: app/views/public_body/show.rhtml:57
 msgid ""
@@ -772,7 +780,7 @@ msgstr ""
 
 #: app/views/layouts/default.rhtml:115
 msgid "Help"
-msgstr ""
+msgstr "Pomoć"
 
 #: app/views/request/details.rhtml:50
 msgid ""
@@ -1076,7 +1084,7 @@ msgstr ""
 
 #: lib/public_body_categories_en.rb:23
 msgid "Local and regional"
-msgstr ""
+msgstr "Lokalna da Regionalna"
 
 #: app/views/public_body/show.rhtml:48
 msgid "Make a new Environmental Information request"
@@ -1100,11 +1108,12 @@ msgstr ""
 
 #: app/views/layouts/default.rhtml:108
 msgid "Make request"
-msgstr ""
+msgstr "Napravi zahtev"
 
 #: app/views/public_body/_body_listing_single.rhtml:23
+#, fuzzy
 msgid "Make your own request"
-msgstr ""
+msgstr "Napravi zahtev"
 
 #: app/views/contact_mailer/message.rhtml:4
 msgid "Message sent using WhatDoTheyKnow contact form, "
@@ -1132,11 +1141,11 @@ msgstr ""
 
 #: app/views/layouts/default.rhtml:112
 msgid "My requests"
-msgstr ""
+msgstr "Moji zahtevi"
 
 #: app/models/public_body.rb:36
 msgid "Name can't be blank"
-msgstr ""
+msgstr "Ime ne može biti prazno"
 
 #: app/models/public_body.rb:40
 msgid "Name is already taken"
@@ -1155,12 +1164,14 @@ msgid "New password: (again)"
 msgstr ""
 
 #: app/views/request/show_response.rhtml:62
+#, fuzzy
 msgid "New response to your request"
-msgstr ""
+msgstr "Molimo Vas da unesete opis vaseg zahteva"
 
 #: app/views/request/show_response.rhtml:68
+#, fuzzy
 msgid "New response to {{law_used_short}} request"
-msgstr ""
+msgstr "Molimo Vas da unesete opis vaseg zahteva"
 
 #: app/views/general/search.rhtml:40
 msgid "Newest results first"
@@ -1195,7 +1206,7 @@ msgstr ""
 #: app/views/request/_request_listing.rhtml:2
 #: app/views/public_body/_body_listing.rhtml:2
 msgid "None found."
-msgstr ""
+msgstr "Asnje su gjet (serbisht)"
 
 #: app/views/general/search.rhtml:7
 msgid "Nothing found for '{{search_terms}}'"
@@ -1369,11 +1380,11 @@ msgstr ""
 
 #: app/models/contact_validator.rb:30
 msgid "Please enter a subject"
-msgstr ""
+msgstr "Molimo Vas da unesete naslov"
 
 #: app/models/info_request.rb:35
 msgid "Please enter a summary of your request"
-msgstr ""
+msgstr "Molimo Vas da unesete opis vaseg zahteva"
 
 #: app/models/user.rb:106
 msgid "Please enter a valid email address"
@@ -1385,7 +1396,7 @@ msgstr ""
 
 #: app/models/user.rb:49
 msgid "Please enter the same password twice"
-msgstr ""
+msgstr "Molimo Vas da unesete dva puta isti pasvord"
 
 #: app/models/comment.rb:59
 msgid "Please enter your annotation"
@@ -1405,7 +1416,7 @@ msgstr ""
 
 #: app/models/user.rb:36 app/models/contact_validator.rb:28
 msgid "Please enter your name"
-msgstr ""
+msgstr "Molimo Vas da unesete svoje ime"
 
 #: app/models/user.rb:109
 msgid "Please enter your name, not your email address, in the name field."
@@ -1421,7 +1432,7 @@ msgstr ""
 
 #: app/models/change_email_validator.rb:30
 msgid "Please enter your password"
-msgstr ""
+msgstr "Molimo Vas da unesete vaš pasvord"
 
 #: app/models/outgoing_message.rb:145
 msgid "Please give details explaining why you want a review"
@@ -1640,8 +1651,9 @@ msgid "Recently sent Freedom of Information requests"
 msgstr ""
 
 #: app/views/request/list.rhtml:6
+#, fuzzy
 msgid "Recently sent requests"
-msgstr ""
+msgstr "Moji zahtevi"
 
 #: app/controllers/request_controller.rb:127
 msgid "Recently successful responses"
@@ -1698,8 +1710,9 @@ msgid "Respond by email"
 msgstr ""
 
 #: app/views/request/_after_actions.rhtml:46
+#, fuzzy
 msgid "Respond to request"
-msgstr ""
+msgstr "Napravi zahtev"
 
 #: app/views/request/upload_response.rhtml:5
 msgid "Respond to the FOI request"
@@ -1718,8 +1731,9 @@ msgid "Response to this request is <strong>long overdue</strong>."
 msgstr ""
 
 #: app/views/request/show_response.rhtml:64
+#, fuzzy
 msgid "Response to your request"
-msgstr ""
+msgstr "Molimo Vas da unesete opis vaseg zahteva"
 
 #: app/views/request/upload_response.rhtml:28
 msgid "Response:"
@@ -1737,7 +1751,7 @@ msgstr ""
 #: app/views/general/exception_caught.rhtml:10 app/views/request/new.rhtml:31
 #: app/views/layouts/default.rhtml:102
 msgid "Search"
-msgstr ""
+msgstr "Pretraga"
 
 #: app/views/general/search.rhtml:4
 msgid "Search Freedom of Information requests, public authorities and users"
@@ -1808,8 +1822,9 @@ msgid "Sign up"
 msgstr ""
 
 #: app/views/request/_sidebar.rhtml:30
+#, fuzzy
 msgid "Similar requests"
-msgstr ""
+msgstr "Moji zahtevi"
 
 #: app/views/request_game/play.rhtml:31
 msgid ""
@@ -2217,8 +2232,9 @@ msgid "Track this person"
 msgstr ""
 
 #: app/views/request/_sidebar.rhtml:2
+#, fuzzy
 msgid "Track this request"
-msgstr ""
+msgstr "Napravi zahtev"
 
 #: locale/model_attributes.rb:33
 msgid "TrackThing|Track medium"
@@ -2612,8 +2628,9 @@ msgid "Your original message is attached."
 msgstr ""
 
 #: app/views/user/signchangeemail.rhtml:25
+#, fuzzy
 msgid "Your password:"
-msgstr ""
+msgstr "Molimo Vas da unesete vaš pasvord"
 
 #: app/views/user/set_draft_profile_photo.rhtml:18
 msgid ""
@@ -2628,8 +2645,9 @@ msgid ""
 msgstr ""
 
 #: app/views/request/new.rhtml:109
+#, fuzzy
 msgid "Your request:"
-msgstr ""
+msgstr "Moji zahtevi"
 
 #: app/views/request/upload_response.rhtml:8
 msgid ""
@@ -2653,7 +2671,7 @@ msgstr ""
 
 #: app/views/public_body/show.rhtml:32
 msgid "admin"
-msgstr ""
+msgstr "admin"
 
 #: app/views/public_body/show.rhtml:30
 msgid "also called {{public_body_short_name}}"
@@ -2861,8 +2879,9 @@ msgid "raw email"
 msgstr ""
 
 #: app/views/request_mailer/not_clarified_alert.rhtml:1
+#, fuzzy
 msgid "request."
-msgstr ""
+msgstr "Moji zahtevi"
 
 #: app/views/request/show.rhtml:82
 msgid "requesting an internal review"
@@ -2982,7 +3001,7 @@ msgstr ""
 
 #: app/views/general/frontpage.rhtml:49
 msgid "{{length_of_time}} ago"
-msgstr ""
+msgstr "{{length_of_time}} pre"
 
 #: app/views/request/_after_actions.rhtml:43
 msgid "{{public_body_name}} only:"
@@ -2991,6 +3010,12 @@ msgstr ""
 #: app/views/request/show.rhtml:35
 msgid "{{user}} made this {{law_used_full}} request"
 msgstr ""
+
+#~ msgid "Ministerial departments"
+#~ msgstr "Minisrija"
+
+#~ msgid "Miscellaneous"
+#~ msgstr "Tjera serbisht"
 
 #~ msgid "activerecord.errors.full_messages.format"
 #~ msgstr "%{message}"

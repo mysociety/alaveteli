@@ -10,9 +10,8 @@
            <%= submit_tag _("Search") %>
     <% end %>
 </li>
-<li><a href="/help/contact">Contact us</a> to tell us about
-    the problem</li>
-<li>Go to our <a href="/">front page</a></li>
+<li><%= _('<a href="%s">Contact us</a> to tell us about the problem</li>') % [help_contact_path] %>
+<li><%= _('Go to our <a href="%s">front page</a></li>') % ["/"] %>
 </ul>
 
 <p id="error_technical_details"><%= _("<strong>Technical details:</strong>")%> <%=@exception_class ? @exception_class : _("Unknown")%></p>

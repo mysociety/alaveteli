@@ -20,7 +20,7 @@ class PublicBodyController < ApplicationController
         PublicBody.with_locale(@locale) do 
             @public_body = PublicBody.find_by_url_name_with_historic(params[:url_name])
             raise "None found" if @public_body.nil? # XXX proper 404
-
+			return redirect_to :back if @public_body.url_name.nil?
             # If found by historic name, redirect to new name
             redirect_to show_public_body_url(:url_name => @public_body.url_name) if 
                 @public_body.url_name != params[:url_name]

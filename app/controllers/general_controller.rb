@@ -20,9 +20,19 @@ class GeneralController < ApplicationController
 
     # New, improved front page!
     def frontpage
-        behavior_cache do
             # This is too slow
-            @popular_bodies = PublicBody.find(:all, :select => "*, (select count(*) from info_requests where info_requests.public_body_id = public_bodies.id) as c", :order => "c desc", :limit => 32)
+		    @locale = self.locale_from_params()
+		    locale_condition = 'public_body_translations.locale = ?'
+            conditions = [locale_condition, @locale]
+	        PublicBody.with_locale(@locale) do 
+            @popular_bodies = PublicBody.find(:all, 
+				:select => "public_bodies.*, (select count(*) from info_requests where info_requests.public_body_id = public_bodies.id) as c", 
+				:order => "c desc", 
+				:limit => 32,
+				  :conditions => conditions,
+				  :joins => :translations
+				)
+			end
             # Get some successful requests #
             begin
                 query = 'variety:response (status:successful OR status:partially_successful)'
@@ -34,7 +44,6 @@ class GeneralController < ApplicationController
             rescue
                 @successful_request_events = []
             end
-        end
     end
 
     # Display WhatDoTheyKnow category from mySociety blog
