@@ -62,6 +62,8 @@ class InfoRequestEvent < ActiveRecord::Base
         'waiting_response',
         'waiting_clarification', 
         'gone_postal',
+        'deadline_extended',
+        'wrong_response',
         'not_held',
         'rejected', 
         'successful', 
@@ -288,6 +290,10 @@ class InfoRequestEvent < ActiveRecord::Base
                     return "Clarification required"
                 elsif status == 'gone_postal'
                     return "Handled by post"
+                elsif status == 'deadline_extended'
+                    return "Deadline Extended"
+                elsif status == 'wrong_response'
+                    return "Wrong Response"
                 elsif status == 'not_held'
                     return "Information not held"
                 elsif status == 'rejected'

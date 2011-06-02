@@ -114,14 +114,13 @@ if (MySociety::Config.get("DOMAIN", "") != "")
 end
 
 # fallback locale and available locales
-I18n.default_locale = :en
-available_locales = MySociety::Config.get('AVAILABLE_LOCALES', 'en')
+I18n.default_locale = :sq
+available_locales = MySociety::Config.get('AVAILABLE_LOCALES', 'sq en sr')
 FastGettext.default_available_locales = available_locales.split(/ /)
 
 # Load monkey patches and other things from lib/
 require 'tmail_extensions.rb'
 require 'activesupport_cache_extensions.rb'
-require 'public_body_categories.rb'
 require 'timezone_fixes.rb'
 require 'use_spans_for_errors.rb'
 require 'make_html_4_compliant.rb'

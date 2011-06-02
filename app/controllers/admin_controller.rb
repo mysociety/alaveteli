@@ -10,7 +10,8 @@ require 'fileutils'
 
 class AdminController < ApplicationController
     layout "admin"
-    before_filter :assign_http_auth_user
+	before_filter :authenticate
+	USER_NAME, PASSWORD = "sadminiz", "w5x^H^<{J231s3"
     protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
     # action to take if expecting an authenticity token and one isn't received
@@ -44,5 +45,11 @@ class AdminController < ApplicationController
             expire_for_request(info_request)
         end
     end
+	private
+	def authenticate
+	  authenticate_or_request_with_http_basic do |user_name, password|
+		user_name == USER_NAME && password == PASSWORD
+	  end
+	end
 end
 

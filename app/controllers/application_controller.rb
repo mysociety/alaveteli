@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
     helper_method :site_name, :locale_from_params
     def site_name
       # XXX should come from database:
-      site_name = "WhatDoTheyKnow"
+      site_name = "Informata Zyrtare"
       return site_name      
     end
 

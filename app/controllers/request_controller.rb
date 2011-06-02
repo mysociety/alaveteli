@@ -404,6 +404,12 @@ class RequestController < ApplicationController
             redirect_to respond_to_last_url(@info_request)
         elsif @info_request.calculate_status == 'gone_postal'
             redirect_to respond_to_last_url(@info_request) + "?gone_postal=1"
+		elsif @info_request.calculate_status == 'deadline_extended'
+			flash[:notice] = "Authority has requested extension of the deadline."
+            redirect_to unhappy_url(@info_request)
+		elsif @info_request.calculate_status == 'wrong_response'
+			flash[:notice] = "Oh no! Sorry to hear that your request was wrong. Here is what to do now."
+            redirect_to unhappy_url(@info_request)
         elsif @info_request.calculate_status == 'internal_review'
             flash[:notice] = "<p>Thank you! Hopefully your wait isn't too long.</p><p>You should get a response within 20 days, or be told if it will take longer (<a href=\"" + unhappy_url(@info_request) + "#internal_review\">details</a>).</p>"
             redirect_to request_url(@info_request)

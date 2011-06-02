@@ -57,6 +57,8 @@ class InfoRequest < ActiveRecord::Base
         'waiting_response',
         'waiting_clarification', 
         'gone_postal',
+        'deadline_extended',
+		'wrong_response',
         'not_held',
         'rejected', # this is called 'refused' in UK FOI law and the user interface, but 'rejected' internally for historic reasons
         'successful', 
@@ -511,6 +513,9 @@ public
     #   waiting_response_very_overdue
     def calculate_status
         return 'waiting_classification' if self.awaiting_description
+        # if deadline_extended expired do waiting_response_overdue
+        return 'waiting_response_overdue' if
+          self.described_state == "deadline_extended" && Time.now.strftime("%Y-%m-%d") > self.date_deadline_extended.strftime("%Y-%m-%d")
         return described_state unless self.described_state == "waiting_response"
         # Compare by date, so only overdue on next day, not if 1 second late
         return 'waiting_response_very_overdue' if
@@ -608,7 +613,7 @@ public
     # last_event_forming_initial_request. There may be more obscure
     # things, e.g. fees, not properly covered.
     def date_response_required_by
-        return Holiday.due_date_from(self.date_initial_request_last_sent_at, 20)
+        return Holiday.due_date_from(self.date_initial_request_last_sent_at, 7)
     end
     # This is a long stop - even with UK public interest test extensions, 40
     # days is a very long time.
@@ -622,7 +627,10 @@ public
             return Holiday.due_date_from(self.date_initial_request_last_sent_at, 40)
         end
     end
-
+    # deadline_extended
+    def date_deadline_extended
+        return Holiday.due_date_from(self.date_initial_request_last_sent_at, 15)
+    end
     # Where the initial request is sent to
     def recipient_email
         return self.public_body.request_email
@@ -761,6 +769,10 @@ public
             "Waiting clarification."
         elsif status == 'gone_postal'
             "Handled by post."
+        elsif status == 'deadline_extended'
+            "Deadline extended."
+        elsif status == 'wrong_response'
+            "Wrong Response."
         elsif status == 'internal_review'
             "Awaiting internal review."
         elsif status == 'error_message'
