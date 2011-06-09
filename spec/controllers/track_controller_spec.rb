@@ -119,7 +119,7 @@ end
 describe TrackController, "when viewing JSON version of a track feed" do
 
     integrate_views
-    fixtures :info_requests, :outgoing_messages, :incoming_messages, :raw_emails, :info_request_events, :users, :track_things, :comments, :public_bodies
+    fixtures :info_requests, :outgoing_messages, :incoming_messages, :raw_emails, :info_request_events, :users, :track_things, :comments, :public_bodies, :public_body_translations
 
     before do
         rebuild_xapian_index

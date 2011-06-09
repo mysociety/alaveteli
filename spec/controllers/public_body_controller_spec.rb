@@ -4,7 +4,7 @@ require 'json'
 
 describe PublicBodyController, "when showing a body" do
     integrate_views
-    fixtures :public_bodies, :public_body_versions, :public_body_translations
+    fixtures :public_bodies, :public_body_translations, :public_body_versions
 
     it "should be successful" do
         get :show, :url_name => "dfh"
@@ -44,7 +44,7 @@ end
 
 describe PublicBodyController, "when listing bodies" do
     integrate_views
-    fixtures :public_bodies, :public_body_versions, :public_body_translations
+    fixtures :public_bodies, :public_body_translations, :public_body_versions
 
     it "should be successful" do
         get :list
@@ -114,7 +114,7 @@ end
 
 describe PublicBodyController, "when showing JSON version for API" do
 
-    fixtures :public_bodies
+    fixtures :public_bodies, :public_body_translations
 
     it "should be successful" do
         get :show, :url_name => "dfh", :format => "json"

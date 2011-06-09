@@ -38,7 +38,7 @@ end
 
 describe RequestController, "when showing one request" do
     
-    fixtures :info_requests, :info_request_events, :public_bodies, :public_body_translations, :users, :incoming_messages, :raw_emails, :outgoing_messages, :comments # all needed as integrating views
+    fixtures :info_requests, :info_request_events, :public_bodies, :public_body_translations, :public_body_translations, :users, :incoming_messages, :raw_emails, :outgoing_messages, :comments # all needed as integrating views
   
     it "should be successful" do
         get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
@@ -187,7 +187,7 @@ describe RequestController, "when showing one request" do
 end
 
 describe RequestController, "when changing prominence of a request" do
-    fixtures :info_requests, :info_request_events, :public_bodies, :users, :incoming_messages, :raw_emails, :outgoing_messages # all needed as integrating views
+    fixtures :info_requests, :info_request_events, :public_bodies, :public_body_translations, :users, :incoming_messages, :raw_emails, :outgoing_messages # all needed as integrating views
 
     it "should not show hidden requests" do
         ir = info_requests(:fancy_dog_request)
@@ -272,7 +272,7 @@ end
 
 describe RequestController, "when creating a new request" do
     integrate_views
-    fixtures :info_requests, :outgoing_messages, :public_bodies, :users
+    fixtures :info_requests, :outgoing_messages, :public_bodies, :public_body_translations, :users
 
     before do
         @user = users(:bob_smith_user)
@@ -459,7 +459,7 @@ end
 
 describe RequestController, "when viewing an individual response for reply/followup" do
     integrate_views
-    fixtures :info_requests, :info_request_events, :public_bodies, :users, :incoming_messages, :raw_emails, :outgoing_messages, :comments # all needed as integrating views
+    fixtures :info_requests, :info_request_events, :public_bodies, :public_body_translations, :users, :incoming_messages, :raw_emails, :outgoing_messages, :comments # all needed as integrating views
   
     it "should ask for login if you are logged in as wrong person" do
         session[:user_id] = users(:silly_name_user).id
@@ -486,7 +486,7 @@ end
 
 describe RequestController, "when classifying an information request" do
 
-    fixtures :info_requests, :info_request_events, :public_bodies, :users, :incoming_messages, :raw_emails, :outgoing_messages, :comments # all needed as integrating views
+    fixtures :info_requests, :info_request_events, :public_bodies, :public_body_translations, :users, :incoming_messages, :raw_emails, :outgoing_messages, :comments # all needed as integrating views
 
     before do 
         @dog_request = info_requests(:fancy_dog_request)
@@ -804,7 +804,7 @@ end
 
 describe RequestController, "when sending a followup message" do
     integrate_views
-    fixtures :info_requests, :info_request_events, :public_bodies, :users, :incoming_messages, :raw_emails, :outgoing_messages # all needed as integrating views
+    fixtures :info_requests, :info_request_events, :public_bodies, :public_body_translations, :users, :incoming_messages, :raw_emails, :outgoing_messages # all needed as integrating views
   
     it "should require login" do
         post :show_response, :outgoing_message => { :body => "What a useless response! You suck.", :what_doing => 'normal_sort' }, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_followup => 1
@@ -884,7 +884,7 @@ end
 
 describe RequestController, "sending overdue request alerts" do
     integrate_views
-    fixtures :info_requests, :info_request_events, :public_bodies, :users, :incoming_messages, :raw_emails, :outgoing_messages # all needed as integrating views
+    fixtures :info_requests, :info_request_events, :public_bodies, :public_body_translations, :users, :incoming_messages, :raw_emails, :outgoing_messages # all needed as integrating views
  
     it "should send an overdue alert mail to creators of overdue requests" do
         chicken_request = info_requests(:naughty_chicken_request)
@@ -968,7 +968,7 @@ end
 
 describe RequestController, "sending unclassified new response reminder alerts" do
     integrate_views
-    fixtures :info_requests, :info_request_events, :public_bodies, :users, :incoming_messages, :raw_emails, :outgoing_messages, :comments # all needed as integrating views
+    fixtures :info_requests, :info_request_events, :public_bodies, :public_body_translations, :users, :incoming_messages, :raw_emails, :outgoing_messages, :comments # all needed as integrating views
  
     it "should send an alert" do
         RequestMailer.alert_new_response_reminders
@@ -995,7 +995,7 @@ end
 
 describe RequestController, "clarification required alerts" do
     integrate_views
-    fixtures :info_requests, :info_request_events, :public_bodies, :users, :incoming_messages, :raw_emails, :outgoing_messages # all needed as integrating views
+    fixtures :info_requests, :info_request_events, :public_bodies, :public_body_translations, :users, :incoming_messages, :raw_emails, :outgoing_messages # all needed as integrating views
  
     it "should send an alert" do
         ir = info_requests(:fancy_dog_request)
@@ -1046,7 +1046,7 @@ end
 
 describe RequestController, "comment alerts" do
     integrate_views
-    fixtures :info_requests, :info_request_events, :public_bodies, :users, :incoming_messages, :raw_emails, :outgoing_messages, :comments # all needed as integrating views
+    fixtures :info_requests, :info_request_events, :public_bodies, :public_body_translations, :users, :incoming_messages, :raw_emails, :outgoing_messages, :comments # all needed as integrating views
  
     it "should send an alert (once and once only)" do
         # delete ficture comment and make new one, so is in last month (as
@@ -1140,7 +1140,7 @@ end
 
 
 describe RequestController, "authority uploads a response from the web interface" do
-    fixtures :info_requests, :info_request_events, :public_bodies, :users
+    fixtures :info_requests, :info_request_events, :public_bodies, :public_body_translations, :users
 
     before(:all) do
         # domain after the @ is used for authentication of FOI officers, so to test it
@@ -1227,7 +1227,7 @@ end
 
 describe RequestController, "when showing JSON version for API" do
     
-    fixtures :info_requests, :info_request_events, :public_bodies, :users, :incoming_messages, :raw_emails, :outgoing_messages, :comments 
+    fixtures :info_requests, :info_request_events, :public_bodies, :public_body_translations, :users, :incoming_messages, :raw_emails, :outgoing_messages, :comments 
 
     it "should return data in JSON form" do
         get :show, :url_title => 'why_do_you_have_such_a_fancy_dog', :format => 'json'

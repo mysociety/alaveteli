@@ -34,7 +34,7 @@ describe User, " when indexing users with Xapian" do
 end
 
 describe PublicBody, " when indexing public bodies with Xapian" do
-    fixtures :public_bodies, :incoming_messages, :outgoing_messages, :raw_emails, :comments
+    fixtures :public_bodies, :public_body_translations, :incoming_messages, :outgoing_messages, :raw_emails, :comments
 
     it "should search index the main name field" do
         rebuild_xapian_index
@@ -69,7 +69,7 @@ describe PublicBody, " when indexing public bodies with Xapian" do
 end
 
 describe PublicBody, " when indexing requests by body they are to" do
-    fixtures :public_bodies, :info_request_events, :info_requests, :raw_emails, :comments
+    fixtures :public_bodies, :public_body_translations, :info_request_events, :info_requests, :raw_emails, :comments
 
     it "should find requests to the body" do
         rebuild_xapian_index
@@ -290,7 +290,7 @@ describe InfoRequest, " when indexing requests by tag" do
 end
 
 describe PublicBody, " when indexing authorities by tag" do
-    fixtures :public_bodies, :incoming_messages, :outgoing_messages, :raw_emails, :comments
+    fixtures :public_bodies, :public_body_translations, :incoming_messages, :outgoing_messages, :raw_emails, :comments
 
     it "should find request by tag, even when changes" do
         rebuild_xapian_index

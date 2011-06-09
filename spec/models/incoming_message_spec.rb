@@ -109,7 +109,7 @@ describe IncomingMessage, " checking validity to reply to" do
 end
 
 describe IncomingMessage, " when censoring data" do
-    fixtures :incoming_messages, :raw_emails, :public_bodies, :info_requests, :users
+    fixtures :incoming_messages, :raw_emails, :public_bodies, :public_body_translations, :info_requests, :users
 
     before do
         @test_data = "There was a mouse called Stilton, he wished that he was blue."
@@ -199,7 +199,7 @@ describe IncomingMessage, " when censoring data" do
 end
 
 describe IncomingMessage, " when censoring whole users" do
-    fixtures :incoming_messages, :raw_emails, :public_bodies, :info_requests, :users
+    fixtures :incoming_messages, :raw_emails, :public_bodies, :public_body_translations, :info_requests, :users
 
     before do
         @test_data = "There was a mouse called Stilton, he wished that he was blue."

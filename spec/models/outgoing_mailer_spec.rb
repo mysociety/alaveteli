@@ -4,7 +4,7 @@ describe OutgoingMailer, " when working out follow up addresses" do
     # This is done with fixtures as the code is a bit tangled with the way it
     # calls TMail.  XXX untangle it and make these tests spread out and using
     # mocks. Put parts of the tests in spec/lib/tmail_extensions.rb
-    fixtures :info_requests, :incoming_messages, :raw_emails, :public_bodies
+    fixtures :info_requests, :incoming_messages, :raw_emails, :public_bodies, :public_body_translations
 
     it "should parse them right" do
         ir = info_requests(:fancy_dog_request) 
