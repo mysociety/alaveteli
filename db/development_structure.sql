@@ -2,7 +2,6 @@
 -- PostgreSQL database dump
 --
 
-SET statement_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = off;
 SET check_function_bodies = false;
@@ -215,7 +214,6 @@ CREATE TABLE holidays (
 --
 
 CREATE SEQUENCE holidays_id_seq
-    START WITH 1
     INCREMENT BY 1
     NO MAXVALUE
     NO MINVALUE
@@ -516,12 +514,12 @@ CREATE TABLE public_body_translations (
     id integer NOT NULL,
     public_body_id integer,
     locale character varying(255),
-    short_name text,
     request_email text,
-    notes text,
-    publication_scheme text,
     url_name text,
+    publication_scheme text,
+    notes text,
     first_letter character varying(255),
+    short_name text,
     name text,
     created_at timestamp without time zone,
     updated_at timestamp without time zone
@@ -1307,6 +1305,30 @@ CREATE UNIQUE INDEX users_email_index ON users USING btree (lower((email)::text)
 --
 
 CREATE INDEX users_lower_email_index ON users USING btree (lower((email)::text));
+
+
+--
+-- Name: fk_censor_rules_info_request; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY censor_rules
+    ADD CONSTRAINT fk_censor_rules_info_request FOREIGN KEY (info_request_id) REFERENCES info_requests(id);
+
+
+--
+-- Name: fk_censor_rules_public_body; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY censor_rules
+    ADD CONSTRAINT fk_censor_rules_public_body FOREIGN KEY (public_body_id) REFERENCES public_bodies(id);
+
+
+--
+-- Name: fk_censor_rules_user; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY censor_rules
+    ADD CONSTRAINT fk_censor_rules_user FOREIGN KEY (user_id) REFERENCES users(id);
 
 
 --
