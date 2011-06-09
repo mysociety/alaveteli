@@ -120,12 +120,12 @@ wrong.
 run the following to get the server running  (may need to chmod 755 again)
 > ./script/server  --environment=development
 
-or if you want the server to be available on the network and not just
-on localhost tell it your IP address by running
+By default the server listens on all interfaces. You can restrict it to the
+localhost interface by adding --binding=127.0.0.1
 
-> ./script/server --environment=development --binding=10.0.0.11 
+You’ll probably need to install various things to make this work. The server
+script will tell you about any missing dependencies.
 
-Obviously, change 10.0.0.11 to your own IP address.
 
 5. Success
 ----------
