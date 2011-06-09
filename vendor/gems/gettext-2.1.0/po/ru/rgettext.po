@@ -1,0 +1,135 @@
+# translation of rgettext.po to Russian
+# a po-file for Ruby-GetText-Package
+#
+# Copyright (C) 2004-2008 Masao Mutoh
+#
+# This file is distributed under the same license as the Ruby-GetText-Package.
+#
+# Yuri Kozlov <kozlov.y@gmail.com>, 2006-2008.
+msgid ""
+msgstr ""
+"Project-Id-Version: ruby-gettext 2.1.0\n"
+"POT-Creation-Date: 2009-11-08 22:43+0900\n"
+"PO-Revision-Date: 2008-07-13 10:08+0400\n"
+"Last-Translator: Yuri Kozlov <kozlov.y@gmail.com>\n"
+"Language-Team: Russian <debian-l10n-russian@lists.debian.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: KBabel 1.11.4\n"
+
+#: lib/gettext/tools/rmsgmerge.rb:402
+msgid "Usage: %s def.po ref.pot [-o output.pot]"
+msgstr "Использование: %s def.po ref.pot [-o output.pot]"
+
+#: lib/gettext/tools/rmsgmerge.rb:405
+msgid ""
+"Merges two Uniforum style .po files together. The def.po file is an existing "
+"PO file with translations. The ref.pot file is the last created PO file with "
+"up-to-date source references. ref.pot is generally created by rgettext."
+msgstr ""
+"Объединяет файлы .po Uniforum формата вместе. В файле def.po содержатся уже "
+"переведённые строки. Файл ref.pot является обновлённой версией PO файла из "
+"исходных текстов и не содержит переводов. ref.pot обычно создаётся с помощью "
+"программы rgettext."
+
+#: lib/gettext/tools/rmsgmerge.rb:407 lib/gettext/tools/rgettext.rb:149
+#: lib/gettext/tools/rmsgfmt.rb:50
+msgid "Specific options:"
+msgstr "Дополнительные параметры:"
+
+#: lib/gettext/tools/rmsgmerge.rb:409 lib/gettext/tools/rgettext.rb:151
+#: lib/gettext/tools/rmsgfmt.rb:52
+msgid "write output to specified file"
+msgstr "записать результат в указанный файл"
+
+#: lib/gettext/tools/rmsgmerge.rb:420 lib/gettext/tools/rgettext.rb:168
+#: lib/gettext/tools/rmsgfmt.rb:56
+msgid "display version information and exit"
+msgstr "показать информацию о версии и закончить работу"
+
+#: lib/gettext/tools/rmsgmerge.rb:446
+msgid "definition po is not given."
+msgstr "не указан файл def.po."
+
+#: lib/gettext/tools/rmsgmerge.rb:448
+msgid "reference pot is not given."
+msgstr "не указан файл ref.po."
+
+#: lib/gettext/tools/parser/glade.rb:73
+msgid "`%{file}' is not glade-2.0 format."
+msgstr "`%{file}' не в формате glade-2.0."
+
+#: lib/gettext/tools/rgettext.rb:40
+msgid "'%{klass}' is ignored."
+msgstr "проигнорирован '%{klass}'."
+
+#: lib/gettext/tools/rgettext.rb:134
+msgid "Error parsing %{path}"
+msgstr ""
+
+#: lib/gettext/tools/rgettext.rb:145
+msgid "Usage: %s input.rb [-r parser.rb] [-o output.pot]"
+msgstr "Использование: %s input.rb [-r parser.rb] [-o output.pot]"
+
+#: lib/gettext/tools/rgettext.rb:147
+msgid "Extract translatable strings from given input files."
+msgstr "Извлекает строки для перевода из указанных входных файлов."
+
+#: lib/gettext/tools/rgettext.rb:155
+msgid "File '%s' already exists."
+msgstr "Файл '%s' уже существует."
+
+#: lib/gettext/tools/rgettext.rb:160
+msgid "require the library before executing rgettext"
+msgstr "для выполнения rgettext требуется библиотека"
+
+#: lib/gettext/tools/rgettext.rb:164
+msgid "run in debugging mode"
+msgstr "запуск в режиме отладки"
+
+#: lib/gettext/tools/rgettext.rb:192 lib/gettext/tools/rmsgfmt.rb:29
+msgid "no input files"
+msgstr "не заданы входные файлы"
+
+#: lib/gettext/tools/rmsgfmt.rb:46
+msgid "Usage: %s input.po [-o output.mo]"
+msgstr "Использование: %s input.po [-o output.mo]"
+
+#: lib/gettext/tools/rmsgfmt.rb:48
+msgid "Generate binary message catalog from textual translation description."
+msgstr "Генерирует бинарный каталог сообщений из перевода."
+
+#: lib/gettext/tools.rb:68
+msgid "Failed to merge with %{defpo}"
+msgstr "Не удалось объединить с %{defpo}"
+
+#: lib/gettext/tools.rb:69
+msgid "New .pot was copied to %{failed_filename}"
+msgstr "Новый .pot скопирован в %{failed_filename}"
+
+#: lib/gettext/tools.rb:70
+msgid "Check these po/pot-files. It may have syntax errors or something wrong."
+msgstr ""
+"Проверьте данные po/pot-файлы. В них могут быть синтаксические и другие "
+"ошибки."
+
+#: lib/gettext/tools.rb:173
+msgid ""
+"`%{cmd}' can not be found. \n"
+"Install GNU Gettext then set PATH or MSGMERGE_PATH correctly."
+msgstr ""
+
+#: lib/gettext/runtime/textdomain_manager.rb:147
+msgid "3rd parmeter is wrong: value = %{number}"
+msgstr "Ошибка в третьем параметре: value = %{number}"
+
+#: src/poparser.ry:38 src/poparser.ry:55
+msgid "Warning: fuzzy message was ignored.\n"
+msgstr "Предупреждение: игнорирован неточный перевод сообщения.\n"
+
+#: src/poparser.ry:148
+msgid "Warning: obsolete msgid exists.\n"
+msgstr "Предупреждение: присутствует устаревшая msgid.\n"

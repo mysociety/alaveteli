@@ -1,0 +1,46 @@
+# Japanese translations for PACKAGE package
+# PACKAGE パッケージに対する英訳.
+# Copyright (C) 2008 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Masao Mutoh <mutomasa at gmail.com>, 2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2008-08-06 02:36+0900\n"
+"PO-Revision-Date: 2008-08-06 02:36+0900\n"
+"Last-Translator: Masao Mutoh <mutomasa at gmail.com>\n"
+"Language-Team: Japanese\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: testlib/npgettext.rb:10 testlib/npgettext.rb:11 testlib/npgettext.rb:15
+#: testlib/npgettext.rb:16
+msgctxt "Magazine"
+msgid "a book"
+msgid_plural "%{num} books"
+msgstr[0] "一つの本"
+msgstr[1] "%{num}の本たち"
+
+#: testlib/npgettext.rb:20 testlib/npgettext.rb:21
+msgctxt "Hardcover"
+msgid "a book"
+msgid_plural "%{num} books"
+msgstr[0] "一つのハードカバー本"
+msgstr[1] "%{num}のハードカバー本たち"
+
+#: testlib/npgettext.rb:25 testlib/npgettext.rb:26
+msgctxt "Magaine"
+msgid "I have a magazine"
+msgid_plural "I have %{num} magazines"
+msgstr[0] "マガジンを1冊持ってます。"
+msgstr[0] "マガジンたちを%{num}冊持ってます。"
+
+#: testlib/npgettext.rb:30 testlib/npgettext.rb:31
+msgctxt "Hardcover"
+msgid "a picture"
+msgid_plural "%{num} pictures"
+msgstr[0] ""
+msgstr[1] ""

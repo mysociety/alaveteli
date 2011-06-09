@@ -1,0 +1,23 @@
+#! /usr/bin/ruby
+=begin
+  rgettext - ruby version of xgettext
+
+  Copyright (C) 2005-2009  Masao Mutoh
+  
+  You may redistribute it and/or modify it under the same
+  license terms as Ruby.
+
+=end
+
+begin
+  require 'gettext/rgettext'
+rescue LoadError
+  begin
+    require 'rubygems'
+    require 'gettext/tools/rgettext'
+  rescue LoadError
+    raise 'Ruby-GetText-Package are not installed.'
+  end
+end
+
+GetText.rgettext

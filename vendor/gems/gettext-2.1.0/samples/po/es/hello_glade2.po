@@ -1,0 +1,28 @@
+# hello_glade2.po - sample for Ruby/Libglade2
+#
+# Copyright (C) 2004 Masao Mutoh
+#
+# David Espada <davinci@escomposlinux.org>, 2004.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ruby-gettext 0.8.0\n"
+"POT-Creation-Date: 2004-11-05 10:15+0900\n"
+"PO-Revision-Date: 2004-11-05 10:32+0100\n"
+"Last-Translator: David Espada <davinci@escomposlinux.org\n"
+"Language-Team: Spanish\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: hello_glade2.glade:8
+msgid "window1"
+msgstr "ventana1"
+
+#: hello_glade2.glade:29
+msgid "first line\nsecond line\nthird line"
+msgstr "primera línea\nsegunda línea\ntercera línea"
+
+#: hello_glade2.glade:53
+msgid "<Hello world>"
+msgstr "<Hola mundo>"

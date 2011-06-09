@@ -1,0 +1,29 @@
+# hello_glade2.po - sample for Ruby/Libglade2
+#
+# Copyright (C) 2004 Masao Mutoh
+#
+# Joao Pedrosa <joaopedrosa@gmail.com>, 2004, 2005.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ruby-gettext 1.1.0\n"
+"POT-Creation-Date: 2005-12-17 14:56+0900\n"
+"PO-Revision-Date: 2005-12-17 10:12-0300\n"
+"Last-Translator: Joao Pedrosa <joaopedrosa@gmail.com>\n"
+"Language-Team: Portuguese(Brazil)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: hello_glade2.glade:8
+msgid "window1"
+msgstr "Janela1"
+
+#: hello_glade2.glade:29
+msgid "first line\nsecond line\nthird line"
+msgstr "primeira linha\nsegunda linha\nterceira linha"
+
+#: hello_glade2.glade:53
+msgid "<Hello world>"
+msgstr "<Olá, mundo>"

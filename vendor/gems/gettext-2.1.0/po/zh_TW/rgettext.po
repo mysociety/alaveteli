@@ -1,0 +1,132 @@
+#
+# a po-file for Ruby-GetText-Package
+#
+# Copyright (C) 2004-2008 Masao Mutoh
+# This file is distributed under the same license as the Ruby-GetText-Package.
+#
+# Yang Bob <bob.yang.dev at gmail.com>, 2006-2008.
+# LIN CHUNG-YI <xmarsh at gmail.com>, 2006.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ruby-gettext 2.1.0\n"
+"POT-Creation-Date: 2009-11-08 22:43+0900\n"
+"PO-Revision-Date: 2006-08-21 09:39+0800\n"
+"Last-Translator: Yang Bob <bob.yang.dev at gmail.com>\n"
+"Language-Team: zh_TW <xmarsh at gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Poedit-Language: Chinese\n"
+"X-Poedit-Country: TAIWAN\n"
+
+#: lib/gettext/tools/rmsgmerge.rb:402
+msgid "Usage: %s def.po ref.pot [-o output.pot]"
+msgstr "使用: %s def.po ref.pot [-o output.pot]"
+
+#: lib/gettext/tools/rmsgmerge.rb:405
+msgid ""
+"Merges two Uniforum style .po files together. The def.po file is an existing "
+"PO file with translations. The ref.pot file is the last created PO file with "
+"up-to-date source references. ref.pot is generally created by rgettext."
+msgstr ""
+"合併兩同樣形式的 po 檔， def.po 檔是原來有翻譯的檔案，ref.pot 檔是經過原始碼"
+"更新過的新檔，ref.pot 一般是由rgettext 建立。"
+
+#: lib/gettext/tools/rmsgmerge.rb:407 lib/gettext/tools/rgettext.rb:149
+#: lib/gettext/tools/rmsgfmt.rb:50
+msgid "Specific options:"
+msgstr "特殊選項:"
+
+#: lib/gettext/tools/rmsgmerge.rb:409 lib/gettext/tools/rgettext.rb:151
+#: lib/gettext/tools/rmsgfmt.rb:52
+msgid "write output to specified file"
+msgstr "輸出到指定檔案"
+
+#: lib/gettext/tools/rmsgmerge.rb:420 lib/gettext/tools/rgettext.rb:168
+#: lib/gettext/tools/rmsgfmt.rb:56
+msgid "display version information and exit"
+msgstr "秀出版本資訊後退出"
+
+#: lib/gettext/tools/rmsgmerge.rb:446
+msgid "definition po is not given."
+msgstr "沒有指定PO檔"
+
+#: lib/gettext/tools/rmsgmerge.rb:448
+msgid "reference pot is not given."
+msgstr "沒指定參考pot檔"
+
+#: lib/gettext/tools/parser/glade.rb:73
+msgid "`%{file}' is not glade-2.0 format."
+msgstr "`%{file}' 不是 glade-2.0 格式"
+
+#: lib/gettext/tools/rgettext.rb:40
+msgid "'%{klass}' is ignored."
+msgstr "'%{klass}' 忽略"
+
+#: lib/gettext/tools/rgettext.rb:134
+msgid "Error parsing %{path}"
+msgstr ""
+
+#: lib/gettext/tools/rgettext.rb:145
+msgid "Usage: %s input.rb [-r parser.rb] [-o output.pot]"
+msgstr "使用: %s input.rb [-r parser.rb] [-o output.pot]"
+
+#: lib/gettext/tools/rgettext.rb:147
+msgid "Extract translatable strings from given input files."
+msgstr "從輸入檔中取出翻譯字串"
+
+#: lib/gettext/tools/rgettext.rb:155
+msgid "File '%s' already exists."
+msgstr "檔案 '%s' 已經存在"
+
+#: lib/gettext/tools/rgettext.rb:160
+msgid "require the library before executing rgettext"
+msgstr "在執行 rgettext 之前需要一個庫"
+
+#: lib/gettext/tools/rgettext.rb:164
+msgid "run in debugging mode"
+msgstr "執行除錯模式"
+
+#: lib/gettext/tools/rgettext.rb:192 lib/gettext/tools/rmsgfmt.rb:29
+msgid "no input files"
+msgstr "無輸入檔"
+
+#: lib/gettext/tools/rmsgfmt.rb:46
+msgid "Usage: %s input.po [-o output.mo]"
+msgstr "使用: %s input.po [-o output.mo]"
+
+#: lib/gettext/tools/rmsgfmt.rb:48
+msgid "Generate binary message catalog from textual translation description."
+msgstr "從textual translation description產生二進位訊息 catalog"
+
+#: lib/gettext/tools.rb:68
+msgid "Failed to merge with %{defpo}"
+msgstr "不能與 %{defpo} 合併"
+
+#: lib/gettext/tools.rb:69
+msgid "New .pot was copied to %{failed_filename}"
+msgstr "新的 .pot 被复制為 %{failed_filename} 了"
+
+#: lib/gettext/tools.rb:70
+msgid "Check these po/pot-files. It may have syntax errors or something wrong."
+msgstr "檢査这些 po/pot-文件。它们可能有語法或者其他錯誤。"
+
+#: lib/gettext/tools.rb:173
+msgid ""
+"`%{cmd}' can not be found. \n"
+"Install GNU Gettext then set PATH or MSGMERGE_PATH correctly."
+msgstr ""
+
+#: lib/gettext/runtime/textdomain_manager.rb:147
+msgid "3rd parmeter is wrong: value = %{number}"
+msgstr "第三个参数錯誤：value = %{number}"
+
+#: src/poparser.ry:38 src/poparser.ry:55
+msgid "Warning: fuzzy message was ignored.\n"
+msgstr "警告: fuzzy 訊息被忽略\n"
+
+#: src/poparser.ry:148
+msgid "Warning: obsolete msgid exists.\n"
+msgstr "警告: 存在過時的 msgid.\n"

@@ -1,0 +1,24 @@
+# CGI/ERB sample for Ruby-GetText-Package.
+#
+# Copyright (C) 2005,2006 Masao Mutoh
+#
+# This file is distributed under the same license as the Ruby-GetText-Package.
+#
+# Malte Milatz <malte@gmx-topmail.de>, 2006.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: cgi-sample 1.1.1\n"
+"POT-Creation-Date: 2006-01-07 14:53+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Malte Milatz <malte@gmx-topmail.de>\n"
+"Language-Team: Esperanto\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: hellolib.rb:19
+msgid "This message is from hellolib."
+msgstr "Ĉi tiu frazo devenas de hellolib."

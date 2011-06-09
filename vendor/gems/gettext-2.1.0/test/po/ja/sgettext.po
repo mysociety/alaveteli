@@ -1,0 +1,47 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR ORGANIZATION
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2004-08-12 03:31+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: sgettext.rb:10 sgettext.rb:14
+msgid "AAA|BBB"
+msgstr "MATCHED"
+
+#: sgettext.rb:18
+msgid "AAA"
+msgstr ""
+
+#: sgettext.rb:22
+msgid "AAA|CCC"
+msgstr ""
+
+#: sgettext.rb:26
+msgid "AAA|BBB|CCC"
+msgstr ""
+
+#: sgettext.rb:30
+msgid "AAA$BBB"
+msgstr ""
+
+#: sgettext.rb:34
+msgid "AAA$B|BB"
+msgstr ""
+
+#: sgettext.rb:38
+msgid "AAA$B|CC"
+msgstr "MATCHED"
+
+#: sgettext.rb:42
+msgid "AAA|CCC|BBB"
+msgstr ""

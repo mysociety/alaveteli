@@ -1,0 +1,31 @@
+# hello_glade2.po - sample for Ruby/Libglade2
+#
+# Copyright (C) 2005,2006 Masao Mutoh
+#
+# This file is distributed under the same license as the Ruby-GetText-Package.
+#
+# Georgi Stoimenov <georgistoimenov@abv.bg>, 2008
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ruby-gettext 1.1.1\n"
+"POT-Creation-Date: 2004-07-03 23:38+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Sava Chankov <sava.chankov@gmail.com>\n"
+"Language-Team: Bulgarian <ruby-on-rails-bulgaria@googlegroups.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: hello_glade2.glade:8
+msgid "window1"
+msgstr "прозорец1"
+
+#: hello_glade2.glade:29
+msgid "first line\nsecond line\nthird line"
+msgstr "първи ред\nвтори ред\nтрети ред"
+
+#: hello_glade2.glade:53
+msgid "<Hello world>"
+msgstr "<Гепи копеле>"

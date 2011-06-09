@@ -1,0 +1,133 @@
+#
+# po-file for Ruby-GetText-Package
+#
+# Copyright (C) 2004-2008 Masao Mutoh
+# This file is distributed under the same license as the Ruby-GetText-Package.
+#
+# Ramon Salvadó <rsalvado at gnuine.com>, 2006-2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ruby-gettext 2.1.0\n"
+"POT-Creation-Date: 2009-11-08 22:43+0900\n"
+"PO-Revision-Date: 2005-12-20 10:33+0900E\n"
+"Last-Translator: Ramon Salvadó <rsalvado at gnuine.com>\n"
+"Language-Team: Catalan\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: lib/gettext/tools/rmsgmerge.rb:402
+msgid "Usage: %s def.po ref.pot [-o output.pot]"
+msgstr "Ús: %s def.po ref.pot [-o sortida.pot]"
+
+#: lib/gettext/tools/rmsgmerge.rb:405
+msgid ""
+"Merges two Uniforum style .po files together. The def.po file is an existing "
+"PO file with translations. The ref.pot file is the last created PO file with "
+"up-to-date source references. ref.pot is generally created by rgettext."
+msgstr ""
+"Combina dos fitxers .po d'estil Uniforum. El fitxer def.po és un fitxer PO "
+"existent amb traduccions. El fitxer ref.pot és l'últim fitxer PO amb "
+"referències actualitzades. Normalment qui ha creat ref.pot és rgettext"
+
+#: lib/gettext/tools/rmsgmerge.rb:407 lib/gettext/tools/rgettext.rb:149
+#: lib/gettext/tools/rmsgfmt.rb:50
+msgid "Specific options:"
+msgstr "Opcions específiques:"
+
+#: lib/gettext/tools/rmsgmerge.rb:409 lib/gettext/tools/rgettext.rb:151
+#: lib/gettext/tools/rmsgfmt.rb:52
+msgid "write output to specified file"
+msgstr "escriu la sortida en un fitxer especificat"
+
+#: lib/gettext/tools/rmsgmerge.rb:420 lib/gettext/tools/rgettext.rb:168
+#: lib/gettext/tools/rmsgfmt.rb:56
+msgid "display version information and exit"
+msgstr "mostra informació de la versió i surt"
+
+#: lib/gettext/tools/rmsgmerge.rb:446
+msgid "definition po is not given."
+msgstr "no s'ha donat una definició po"
+
+#: lib/gettext/tools/rmsgmerge.rb:448
+msgid "reference pot is not given."
+msgstr "no s'ha donat una referència pot"
+
+#: lib/gettext/tools/parser/glade.rb:73
+msgid "`%{file}' is not glade-2.0 format."
+msgstr "El fitxer `%{file}' no té el format glade-2.0."
+
+#: lib/gettext/tools/rgettext.rb:40
+msgid "'%{klass}' is ignored."
+msgstr "'%{klass}' ignorat"
+
+#: lib/gettext/tools/rgettext.rb:134
+msgid "Error parsing %{path}"
+msgstr ""
+
+#: lib/gettext/tools/rgettext.rb:145
+msgid "Usage: %s input.rb [-r parser.rb] [-o output.pot]"
+msgstr "Ús: %s entrada.po [-r parser.rb] [-o sortida.pot]"
+
+#: lib/gettext/tools/rgettext.rb:147
+msgid "Extract translatable strings from given input files."
+msgstr "Extreu les cadenes de paraules traduïbles dels fitxers d'entrada."
+
+#: lib/gettext/tools/rgettext.rb:155
+msgid "File '%s' already exists."
+msgstr "El fitxer '%s' ja existeix"
+
+#: lib/gettext/tools/rgettext.rb:160
+msgid "require the library before executing rgettext"
+msgstr "requereix la llibreria abans d'executar rgettext"
+
+#: lib/gettext/tools/rgettext.rb:164
+msgid "run in debugging mode"
+msgstr "executa en mode debug"
+
+#: lib/gettext/tools/rgettext.rb:192 lib/gettext/tools/rmsgfmt.rb:29
+msgid "no input files"
+msgstr "no hi ha fitxers d'entrada"
+
+#: lib/gettext/tools/rmsgfmt.rb:46
+msgid "Usage: %s input.po [-o output.mo]"
+msgstr "Ús: %s entrada.po [-o sortida.mo]"
+
+#: lib/gettext/tools/rmsgfmt.rb:48
+msgid "Generate binary message catalog from textual translation description."
+msgstr ""
+"Genera un catàleg de missatges binaris a partir d'un fitxer de traducció "
+"textual."
+
+#: lib/gettext/tools.rb:68
+msgid "Failed to merge with %{defpo}"
+msgstr "Ha fallat al fer el merge amb %{defpo}"
+
+#: lib/gettext/tools.rb:69
+msgid "New .pot was copied to %{failed_filename}"
+msgstr "S'ha copiat el nou .pot a %{failed_filename}"
+
+#: lib/gettext/tools.rb:70
+msgid "Check these po/pot-files. It may have syntax errors or something wrong."
+msgstr ""
+"Revisa aquestes po/pot-files. Poden contenir errors o quelcom malament."
+
+#: lib/gettext/tools.rb:173
+msgid ""
+"`%{cmd}' can not be found. \n"
+"Install GNU Gettext then set PATH or MSGMERGE_PATH correctly."
+msgstr ""
+
+#: lib/gettext/runtime/textdomain_manager.rb:147
+msgid "3rd parmeter is wrong: value = %{number}"
+msgstr "El tercer paràmetre es erroni: valor = %{number}"
+
+#: src/poparser.ry:38 src/poparser.ry:55
+msgid "Warning: fuzzy message was ignored.\n"
+msgstr "Avís: s'ha ignorat el missatge ambigu.\n"
+
+#: src/poparser.ry:148
+msgid "Warning: obsolete msgid exists.\n"
+msgstr "Avís: existeix un msgid obsolet.\n"

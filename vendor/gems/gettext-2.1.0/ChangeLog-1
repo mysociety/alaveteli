@@ -1,0 +1,2016 @@
+(OBSOLETE: Move to ChangeLog since 2.0.0)
+
+2009-02-05  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* bin/*: Apply all changes.
+
+2009-02-04  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/parser/ruby.rb: Removed "\000" of plural messages.
+
+2009-01-22  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/rails_compat.rb, container.rb: Removed.
+	* lib/gettext/erb.rb: Removed.
+	* samples/cgi/*.cgi: Updated.
+	* test/test_parser.rb: Removed the part of active_record.
+
+2009-01-17  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* README, *: Remove files for rails. They will move to gettext_rails.
+
+2008-12-31  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/*.rb: Reimplemented.
+	* lib/gettext/tools.rb: Added for replacing lib/gettext/utils.rb
+	* lib/gettext/utils.rb: Deprecated. Use tools.rb instead.
+	* lib/gettext/tools/rgettext.rb, rmsgfmt.rb: Move from 
+	lib/gettext/rgettext.rb, rmsgfmt.rb.
+
+2008-12-30  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext.rb: Reimplemented.
+	* lib/gettext/textdomain_manager.rb: Reimplemented.
+	* lib/gettext/class_info.rb: Move from lib/gettext.rb.
+	* lib/gettext/core_ext/string.rb, iconv.rb: 
+	Move from lib/gettext/string.rb, iconv.rb.
+	
+2008-12-12  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/textdomain.rb: Reimplemented.
+
+2008-12-07  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/mofile.rb: Rename mo.rb to mofile.rb.
+
+2008-12-06  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/locale.rb, lib/locale/*: Removed(Move to locale.rubyforge.org).
+
+2008-12-02  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* po/de/rails.po, po/ru/rails.po: Improve translations.
+	By Vladimir Dobriakov
+
+2008-12-01  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/parser/ruby.rb: exit 1 if it occurs parsing error.
+	Reported by Morus Walter.
+
+2008-11-13  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/rails.rb: Fixed error_messages_for with Array argument.
+	By Tuptus.
+
+2008-11-02  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/rails.rb: Fixed GetText::Rails::normalized_locale returns
+	wrong value. Bug#22651. Reported by Fabio M.A.
+	* test/test_rails.rb: Add the test for normalized_locale.
+
+2008-10-11  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/rails.rb: Fixed (before|after)_init_gettext to work under
+	production mode. Reported by Kazuhiro NISHIYAMA.
+
+2008-09-14  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/rails.rb: Fixed expire_fragment with rails < 2.1.(Bug#21712).
+	* lib/gettext.rb: Remove p_ method when xx("double x") library is loaded
+	because of conflicting the method name.(Bug#21532) Reported by 
+	Rémy-Christophe Schermesser, Donald Piret.
+	* lib/gettext/utils.rb: Remove UTF-8 BOM from po-file before executeing
+	msgmerge which doesn't accept BOM. Suggested by César Duque Calle.
+	* po/eo/rgettext.po: Fixed a typo.
+
+2008-09-13  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/utils.rb: Use msgmerge --help instead of --version to
+	check msgmerge is existed. Suggested by César Duque Calle.
+	* **/po/bg/*.po: Added by Sava Chankov.
+
+2008-08-24  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/rails.rb: render_file_with_gettext catch Exception and use
+	render_file_without_gettext if render_file_with_gettext is failed.
+	Suggested by Vladimir Dobriakov.
+
+	* lib/locale/posix.rb: Call "locale charmap" to get the system locale charset. 
+	Reported by Tatsuki Sugiura.
+
+2008-08-20  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/locale/object.rb: Locale::Object.parse accept nil or "" as locale_name.
+	It replaces to "en". By Vladimir Dobriakov. 
+	* test/test_locale.rb: Add the test above.
+
+2008-08-16  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* po/ja/rails.po: Fixed a wrong translation.
+
+2008-08-10  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* po/et/rails.po: Updated by Erkki Eilonen. 
+	* po/et/rgettext.po: Added by Erkki Eilonen. 
+
+2008-08-07  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* README: Updated.
+	* po/fr/*.po: Updated by Vincent Isambart.
+	* test/test_gettext.rb, test/testlib/npgettext.rb, test/po/ja/test_npgettext.po:
+	Add test for np_(npgettext).
+
+2008-08-03  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/rgettext.rb, lib/gettext/parser/ruby.rb: 
+	Add npgettext support.
+
+2008-07-31  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/rails.rb: Works on rails-2.0.2 again.
+
+2008-07-27  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* src/poparser.ry: msgctxt/pgettext support.
+	* test/test_gettext.rb: Add pgettext test.
+
+2008-07-26  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/utils.rb: Improve create_mofiles to show the file which has errors.
+	* lib/gettext/parser/ruby.rb,
+	  lib/gettext/rgettext.rb: msgctxt/pgettext support.
+	* test/testlib/pgettext.rb, test/po/ja/test_pgettext.po: Added for msgctxt/pgettext.
+	* **/po/lv/*.po: Added lv locales by Aivars Akots.
+
+2008-07-25  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/rails.rb: Fixed render_partial localization.
+	(Localize ActionView::TemplateFinder#pick_template) [Bug #20248]
+	* test/rails/config/boot.rb, environment.rb: Follow rails-2.1.0.
+	* test/rails/app/views/articles/_form_fr.html.erb: Added for
+	render_partial.
+	* test/rails/test/result/fr/new.html: Ditto.
+	* samples/rails/*: Update to rails-2.1.0.
+
+2008-07-20  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* test/test_active_record.rb: Add tests for activerecord-2.1.0.
+
+2008-07-17  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/active_record.rb: validates_(format|inclusion)_of accepts %{val} as the value
+	(ex) 
+	User.validates_inclusion_of :name, :in => %w(a, b), :message => N_("%{fn} can't be %{val}")
+	* test/test_active_record.rb: Added test for rails-2.1.0.
+	* lib/gettext/active_record.rb: Works localization with ActiveRecord::Errors#[]
+	* po/el/rails.po, rgettext.po: Updated by damphyr.
+	* po/ca/rails.po, rgettext.po: Updated by Ramon Salvadó.
+	* **/po/**/ua/*.po: Updated by Alex Rootoff.
+
+2008-07-15  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* po/hu/rails.po, rgettext.po: Updated by Tamás Tompa.
+	* po/zh/rails.po, rgettext.po: Updated by Yang Bob.
+	* po/zh_TW/rails.po, rgettext.po: Updated by Yang Bob.
+	* test/fixtures/wizard.rb, inept_wizard.rb: Added.
+
+2008-07-14  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* README: Updated. 
+	* lib/gettext/parser/active_record.rb: Support ActiveRecord::Base.abstract_class.
+	* po/pt_BR/rails.po, rgettext.po: Updated by Antonio S. de A. Terceiro.
+	* po/es/rails.po: Updated by David Espada.
+	* **/po/**/nb/*.po: Updated by Runar Ingebrigtsen.
+
+2008-07-13  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* po/ru/rails.po, rgettext.po: Updated by Yuri Kozlov.
+	* po/de/rails.po, rgettext.po: Updated by Patrick Lenz.
+	* po/eo/rails.po, rgettext.po: Updated by Malte Milatz.
+	* po/vi/rails.po, rgettext.po: Updated by Ngoc DAO Thanh.
+	* po/es/rgettext.po: Updated by David Espada.
+	* po/ja/rgettext.po: Updated.
+
+2008-07-11  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* test/test_active_record.rb, test/fixtures/people.yml, warehouse-thing.rb: 
+	Add rails-2.1.0 tests. 
+	(ValidationsTest::test_validate_uniqueness_with_non_standard_table_names): 
+
+	* po/ja/rails.po: Apply rails-2.1.0 messages.
+
+2008-07-09  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/rails.rb: Fixed ActionController::Caching::Fragments.expire_fragment
+	to work with rails-2.1.0 by Loiseleur Michel.
+	* lib/gettext/active_record.rb: Added validation options for activerecord-2.1.0.
+	(:greater_than, :greater_than_or_equal_to, :equal_to, :less_than, :less_than_or_equal_to, 
+	 :odd, :even)
+	* test/*: Apply rails-2.1.0.
+
+2008-06-30  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/rails.rb: Works with rails-2.1.0.
+	Reported by Andreas Neuhaus(Bug #17990)
+	
+
+2008-06-28  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* bin/*: Fixed shebang line. (Bug: #20150)
+
+2008-06-25  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext.rb: Fixed cache algorithm of bound_targets again. 
+
+2008-06-18  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/mo.rb: Support revision 1 of mo-file format. 
+	* lib/gettext/mo.rb, test/test_gettext.rb: 
+	Freeze msgstrs by Tatsuki Sugiura (Bug: #19193)
+	* **/po/sr/*.po: Replace sr locales to Cyrillic script 
+	from Latin script by Slobodan Paunović.
+
+2008-05-24  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* README: update to support Rails-1.2.x to Rails-2.0.x(Rails-1.2.x aren't 
+	not supported now). Reported by Hans de Graaff.
+
+2008-05-11  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/rails.rb: Localize ActionView::Helpers::FormBuilder#label.
+	The idea from craccho (http://d.hatena.ne.jp/craccho/20071211/1197398747).
+	* lib/gettext/version.rb: Increment minor version.
+	* README, **/po/sr/*.po: Added sr locales by Slobodan Paunović.
+	* NEWS: Updated.
+
+2008-05-07  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/utils.rb: Check msgmerge command is existed. And show error
+	messages more helpful.
+
+2008-05-06  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* test/test_locale.rb: Removed the condition for OpenBSD
+	by Bernd Ahlers.
+	* lib/gettext.rb: Fixed that bindtextdomain doesn't work on toplevel.
+	Reported by Tatsuki Sugiura (Bug: #19056).
+	* test/test_gettext.rb: Follow the change.
+	* test/test_gettext_toplevel.rb: Added.
+
+2008-05-05  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext.rb: Add GetText.remove_all_textdomains for testing.
+	inspired a test code by Tatsuki Sugiura (Bug #19056)
+	* lib/gettext/active_record.rb, test/test_active_record.rb: 
+	Fixed validates_length_of by Karl Palmskog (Bug: #19761)
+
+2008-04-15  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* test/test_gettext.rb, lib/gettext.rb, lib/gettext/textdomain.rb,
+	lib/gettext/rails.rb: Fixed distance_of_time_in_words. Reported by Dao Ngoc (Bug: #17808)
+	* po/*/rails.po: Updated.
+
+2008-04-13  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext.rb, lib/gettext/textdomain.rb: Fixed memory leaks. 
+	Reported by Simone Carletti(#18392) 
+
+2008-03-21  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/locale/win32.rb, win32_table.rb, jruby.rb: Rename SystemWin32Table to 
+	SystemWin32 again. Reported by Locomotyphus (Bug: #18938)
+
+2008-02-02  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* po/ja/rails.po: Revised. Reported by Paul Clegg.
+
+2008-01-30  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/locale/win32.rb, win32_table.rb: Rename SystemWin32Table to SystemWin32.
+	* samples/cgi/http.rb, index.cgi: Works on Windows.
+	
+2008-01-28  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext.rb: Fixed GetText.output_charset to return current
+	locale's charset not nil.
+	Fixed to work with JRuby.(Bug: http://jira.codehaus.org/browse/JRUBY-1281)
+
+2008-01-27  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/string.rb: String#% doesn't raise an ArgumentError in Debug mode. 
+	Because String#% method shouldn't raise ArgumentError in Debug mode.
+	* lib/gettext/rgettext.rb: rgettext fixed to work with similer messages in n_().
+	Reported by Toine Diepstraten.
+	* samples/cgi/*: Works again. Set CGI object explicit.
+	* lib/gettext/textdomainmanager.rb: GetText::TextDomainManager.output_charset returns
+	system locale when nil is set.
+
+2008-01-24  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/locale/object.rb: Speedup (cache messages and object hash value) 
+
+2008-01-21  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext.rb: Fixed to reload messages in debug mode
+	(development mode in rails). Reported by Reynard, 
+	Ernesto Jiménez Caballero
+
+2008-01-19  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* **/po/hu/*.po: Added hu locales by Tamás Tompa.
+	* Rakefile: Add deploypo task(for me).
+
+2008-01-18  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/locale/win32.rb: Removed duplicated function.
+
+2008-01-16  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* samples/rails/*: Rewrite to work on Rails-2.0.
+	* lib/gettext/string.rb: Raises ArgumentError when the format are wrong.
+	Bug #16959 by Stephan.
+
+2007-12-25  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/rails.rb: Fixed an error when expire_fragment_with_gettext
+	is called with the name as a Regexp object.Bug #12803 by Hans de Graaff.
+
+2007-12-24  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* **/po/ua/*.po: Added ua locales by Alex Rootoff.
+
+2007-12-16  Masao Mutoh  <mutoh@highway.ne.jp>
+	* NEWS: Updated.
+	* README: Updated.
+
+2007-12-15  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* test/rails/*: Updated to work with Rails-2.0.
+	Add the test for custom error messages/titles.
+	* lib/gettext/rails.rb: Fixed 
+	ActionView::Helpers::ActiveRecordHelper::L10n::error_messages_for 
+	that plural messages didn't translated.
+	ActionView::Helpers::ActiveRecordHelper.error_messages_for can accept
+	:message_title, :message_explanation as the error dialog messages. 
+	You can set the error dialog messages in the each pages.
+	Add GetText::Rails.normalized_locale.
+
+2007-12-08  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/rails.rb: Add GetText::Rails::available_locales.
+	It returns the locales in RAILS_ROOT/locale directory.
+	fragment_cache_key_with_gettext and expire_fragment_with_gettext uses
+	GetText::Rails::available_locales to select the current locale string.
+	The cache files are created for available locales only.
+
+2007-11-10  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext.rb: Fix to work :charset option.
+	[Bug #15513] Reoported by boud indymedia.
+	* lib/gettext/mo.rb: Works with JRuby.
+
+2007-11-09  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/locale/cgi.rb: Removed Locale::SystemCGI.default=, set_default. 
+	* lib/locale/win32_table.rb: Rename SystemWin32 to SystemWin32Table.
+	* lib/locale/win32.rb, win32_table.rb: Move get_charset to win32_table.rb.
+	* lib/locale/jruby.rb: Require win32_table.rb on Win32.
+	* lib/locale/base.rb: Added as the common module of other LocaleSystem classes.
+	* lib/locale/posix.rb, win32.rb, jruby.rb, cgi.rb: Require locale/base.rb.
+	And Remove the common methods.
+
+2007-11-08  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/iconv.rb: Support JRuby. 
+	* lib/locale/jruby.rb: Added. Support JRuby.
+	* test/*.rb: Rename files.
+	* lib/locale/object.rb: Add fallback attribute(a fallback locale).
+	* ext/*: Removed.
+	* Rakefile: Remove tasks for ext.
+	* lib/locale/win32.rb: Removed Locale::SystemWin32.set_default_locale,
+	default_locale=, default_locale.
+	Use Win32API instead of locale_system.so.
+	* lib/locale/posix.rb: Removed Locale::SystemPosix.get_charset, .set_default_locale
+	default_locale=, default_locale and all LC types. 
+	Now Posix localed doesn't depend on locale_system.so.
+	# UTF-8 is set as the default charset.
+	* lib/gettext/locale.rb: Move to lib/locale.rb. Now locale class starts to
+	prepare to be separated from gettext.
+	* lib/gettext/locale_*.rb: Move to lib/locale/*.rb. Removed deprecated methods.
+	* Start preparing to release 2.0.
+	  - System locales become "read only"(Locale module keeps the current
+	  locale).
+	  - Don't depend locale_system.so.
+
+2007-08-01  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/utils.rb: Raise exception when msgmerge aren't found.
+	And show error message more helpful. Reported by Vít Ondruch (Bug#12737)
+	* lib/gettext/parser/erb.rb: Add ".erb" as the extname.
+	Reported by Andreas Neuhaus (Bug#12721)
+	* test/gettext_benchmark.rb: Added.
+
+2007-07-29  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext.rb: Replace .keys.include? to .has_key? to reduce
+	CPU usage and speed up. Reported by olivier ruffin.
+
+2007-07-22  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/locale_cgi.rb: Fixed to break rails(r7116).
+	Reported by OZAWA Sakuro.
+
+2007-07-16  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext.rb: Fixed to support anonymous classes/modules, again. 
+
+2007-07-11  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext.rb: Support anonymous classes/modules.
+	Pointed out by Yaohan Chen.
+	* test/gettext_test.rb: Add test for anonmous classes/modules.
+
+2007-07-08  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* README, Rakefile: Add RDoc support. 
+
+2007-07-06  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/rails.rb: Add to support Action/Fragment caching.
+	* test/gettext_test_rails_caching.rb, test.sh: Added the test for caching.
+	* NEWS: Updated.
+
+2007-07-05  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* src/poparser.ry, lib/gettext/poparser.rb: 
+	Fixed a bug of previous change.
+
+2007-07-04  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* NEWS: Updated.
+	* lib/gettext/version.rb: Increment minor version.
+	* lib/gettext/active_record.rb: Work with script/generate 
+	scaffold_resource. Reported by Bart ten Brinke(Bug#8308)
+	* lib/gettext/utils.rb: On the Win32 default environment, 
+	use "msgmerge" program provided by Ruby-GNOME2 Win32 Installer.
+	* lib/gettext/locale_win32.rb: Fix to find a charset from a locale.
+
+2007-07-03  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/rails.rb:error_messages_for accept plural models.
+	Reported by Florian Hufsky.
+	Fixed set_error_message_title|explanation.
+	* test/rails/app/model/users.rb, test/rails/test/*: Add tests for 
+	error_messages_for with plural models.
+	* lib/gettext/parser/active_record.rb:
+	remove to require 'application.rb' to avoid the effect
+	of application.rb when parse models. Pointed out by Michel Loiseleur.
+	* po/ca/rails.po: Updated by Ramon Salvadﾃｳ.
+	* src/poparser.ry, lib/gettext/poparser.rb: Don't append 
+	msgids/msgstrs if the msgstrs don't set.
+	* lib/gettext.rb, lib/gettext/parser/ruby.rb: 
+	Added GetText.nsgettext, ns_. This method has n_ + s_ function. 
+	(e.g.) ns_("File|A file", "%{num} files", i).
+	* test/test_nsgettext.rb, test/po/ja/test_nsgettext.po: Added for
+	the test ns_(), nsgettext.
+	* lib/gettext/rgettext.rb: Normalize msgids.
+	_("Foo") and n_("Foo", "Foos", i) become same msgid "Foo\000Foos".
+	This is the same behavior with xgettext.
+	Reported by Sava Chankov.
+	* lib/gettext/textdomain.rb: Follow above changes.
+	_("Foo") matches the single msgid of n_("Foo", "Foos", i).
+
+2007-06-29  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext.rb: Add GetText.cached=, .cached?, clear_cache.
+	messages are cached in default. If the value is false 
+	or $DEBUG = true then messages are not cached.
+	_ and n_ become 1.2-1.9 times faster than older versions. 
+	* lib/gettext/textdomain.rb, rails.rb: follow the changes 
+	below.
+
+2007-06-28  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* README: Updated.
+	* po/vi/rails.po: Updated by Ngoc Dao.
+	* po/(zh|zh_TW)/rails.po: Updated by Yang Bob.
+
+2007-06-27  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* po/nl/rails.po: Updated by Menno Jonker
+	* po/(bs|hr)/rails.po: Updated by Sanjin Sehic.
+	* po/pt_BR/rails.po: Updated by Joao Pedrosa.
+	* po/eo/rails.po: Updated by Malte Milatz.
+	* po/de/rails.po: Updated by Patrick Lenz.
+	* po/fr/rgettext.po, rails.po: Updated by David Sulc.
+	* po/et/rails.po: Updated by Erkki Eilonen .
+	*
+2007-06-26  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* test/rails/*: Added tests for ActionMailer.
+	
+2007-04-17  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* test/rails/* : Added tests for rails.
+
+2007-04-16  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/rails.rb: TestRequest#cgi returns GetTextMockGGI, not CGI. 
+
+2007-04-08  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/active_record.rb: Work ActiveRecord::Base::Validation
+	with non ActiveRecord::Base object again. Reported by Maksim Bartenev.
+	* test/gettext_test_activerecord.rb: Add a test for the above change.
+
+2007-04-07  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* **/po/nb/*.po: Added nb locales by Runar Ingebrigtsen.
+
+2007-03-24  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* **/po/(bs|hr)/*.po: Added bs/hr locales by Sanjin Sehic.
+
+2007-03-23  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* **/po/vi/*.po: Added vi locale by Ngoc Dao.
+
+2007-02-11  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/rails_compat.rb: Added for Rails-1.1.6.
+	(Works with both Rails-1.1.6 and 1.2.2)
+
+2007-02-09  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* po/nl/rails.po: Fixed wrong translations. 
+	Reported by Bart ten Brinke [Bug #8449]
+
+2007-01-30  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* po/nl/rails.po: Fixed wrong translations. 
+	Reported by Dirkjan Bussink 
+
+2007-01-25  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/active_record.rb: Fixed #columns again.
+	[Feature Requests #7428]
+
+2007-01-22  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* NEWS: Updated.
+	* lib/gettext/active_record.rb: Use alias_method_chain not to 
+	override original methods directly(again). [Feature Requests #7428]
+	* test/gettext_test_parser.rb: Add tests for activerecord parser. 
+	* lib/gettext/rails.rb: Require action_controller instead of activesupport
+	for Rails-1.2.1.
+	* po/el/*.po: Updated by Vassilis Rizopoulos.
+	* po/ja/rails.po: Fixed typos by NANKI Haruo.
+
+2007-01-16  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/parser/active_record.rb: Don't duplicate "file:-".
+
+2007-01-14  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/active_record.rb: Use alias_method_chain not to 
+	override original methods directly. [Feature Requests #7428]
+	* test/gettext_test_active_record.rb: Update to work Rails-1.2RC2.
+	
+2006-12-26  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* po/zh/*.po, po/zh_TW/*.po: Updated by Yang Bob.
+
+2006-12-22  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* samples/rails/po/eo/blog.po: Fixed some typos by Malte Milatz.
+
+2006-12-22  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* **/po/ca/*.po: Added ca(Catalan) locale by Ramon Salvad蝮ｦ.
+
+2006-12-17  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* po/cs/*.po: Updated by Karel Miarka.
+	* **/po/eo/*.po: Added eo(Esperanto) locale by Malte Milatz.
+
+2006-12-15  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* po/ko/*.po: Updated by Gyoung-Yoon Noh.
+
+2006-12-10  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* po/de/*.po: Updated by Patrick Lenz.
+	* po/nl/*.po: Updated by Menno Jonkers.
+	* po/es/*.po: Updated by David Espada.
+
+2006-12-09  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* po/pt_BR/*.po: Updated by Joao Pedrosa.
+	* po/ru/*.po: Updated by Yuri Kozlov.
+	* po/ja/*.po: Updated.
+
+2006-12-08  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/rgettext.rb: Improve option messages. 
+
+2006-12-07  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/erb.rb: Removed the dependency to GetText::Container which was 
+	deprecated.
+
+2006-12-05  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/poparser.rb: Added.
+
+2006-12-03  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext.rb: Changed GetText.locale= to set not only current locale
+	to all Textdomains but also default locale.
+	* lib/gettext/locale.rb: Locale.set_default accept locale as String.
+	* test/gettext_test_active_record.rb: Update to test activerecord-1.14.4.6657.
+
+2006-12-02  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/rails.rb: Unit test works on 1.2RC1. Reported by KAKUTANI Shintaro.
+	* lib/gettext.rb: Updates default locale when using GetText.set_locale_all 
+	* po/**/rails.po[t]: Updated.
+
+2006-11-27  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/rails.rb: Fix the deprecated accessing to instance variables
+	directly for rails 1.2RC1. 
+
+2006-11-06  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/utils.rb: Skip to create new po-files.
+	It avoids the po-files become empty when GNU msgmerge was failed.
+	By Fabian Kreutz.
+
+2006-10-21  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* po/fr/rails.po: Improved by David Sulc.
+
+2006-10-15  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/parser/active_record.rb: Work updatepo task with rails_edge.
+
+2006-10-08  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/parser/active_record.rb: Fixed an error using hbtm.
+	Reported by Mihnea Capraru.
+
+2006-10-04  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* README, lib/gettext/rgettext.rb: Changed the author e-mail address.
+
+2006-09-24  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/active_record.rb: Re-fix to work rails_edge again. 
+	Reported by Isak Hansen.
+	* po/pt_BR/rails.po: Updated by Antonio S. de A. Terceiro.
+
+2006-09-21  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/rails.rb: Fixed a bug init_gettext can't accept
+	any options correctly and locale_path was set wrong value.
+	Reported by pedro palazon.
+
+2006-09-12  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/textdomain.rb: Fixed a bug of add_default_locale_path.
+	* lib/gettext/parser/ruby.rb: Improve to output error messages.
+
+2006-09-11  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/active_record.rb: Works rails_edge again. 
+	Reported by Donald Piret. (http://dev.rubyonrails.org/ticket/5810)
+
+2006-09-07  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/locale_cgi.rb, locale_object.rb: Speed up.
+	* lib/gettext.rb: Fixed to extract correct textdomains in each_textdomain.
+
+2006-09-05  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* README, NEWS: Updated.
+
+2006-09-04  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/rgettext.rb: Raise error when parsing was failed.
+	* lib/gettext.rb: GetText.locale= is the alias of GetText.set_locale_all instead 
+	of GetText.set_locale.
+	* test/gettext_test_active_record.rb: Added tests.
+	* test/fixtures/*.rb: updated.
+	* test/po/active_record.pot, test/po/ja/active_record.po: updated.
+
+2006-09-01  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* test/gettext_test_active_record.rb: Added tests.
+
+2006-08-31  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/active_record.rb: Fix the custom messages of validates_length_of
+	with :too_long, :too_short, :wrong_length.
+
+2006-08-30  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* test/Rakefile, test/db/*sql: Added.
+
+2006-08-29  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* test/gettext_test_active_record.rb, test/fixtures/*, test/po/active_record.pot,
+	test/po/ja/active_record.po: Added tests for ActiveRecord with GetText.
+	* lib/gettext/active_record.rb: Messages updated.
+	* po/*/rails.po[t]: ditto.
+
+2006-08-22  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* samples/rails/db/schema.rb: Added.
+	* samples/rails/db/*.sql: Removed. Use rake db:schema:load instead.
+	* samples/rails/README: Follow above changes.
+	* samples/rails/po/*: Updated.
+	* lib/gettext/active_record.rb: Fixed the problem of untranslate(_all).
+	Reported by Tsutomu Kuroda.
+
+2006-08-21  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* README: Updated.
+	* **/po/zh_TW/*.po: Added zh_TW locale by LIN CHUNG-YI.
+
+2006-08-18  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/version.rb: Increment minor version.
+	* po/et/rails.po: Added Estonian by Erkki Eilonen.
+	* README: ditto.
+	* lib/gettext/rails.rb: Add ActionController::Base.(before|after)_init_gettext.
+
+2006-08-15  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* po/de/rails.po, rgettext.po: Updated by Partick Lenz.
+
+2006-08-13  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/locale.rb: Add Locale.system_module.
+	* lib/gettext/rails.rb: Remove ActionController::Base.textdomainname
+	* lib/gettext.rb, lib/gettext/rails.rb, locale_cgi.rb, 
+	locale_object.rb, string.rb: 
+	Speed up. Improve CPU usages.
+
+2006-08-10  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/parser/active_record.rb: Improved to find ActiveRecord class
+	by steve dp.
+
+2006-08-09  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/rails.rb: Code clean up.
+	* lib/gettext.rb: Code clean up.
+	* lib/gettext/active_record.rb: Removed to call bindtextdomain in Validations.
+	It's called in bindtextdomain of init_gettext.
+	* lib/gettext/parser/active_record.rb: Rename from activerecord.rb.
+
+2006-08-08  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/active_record.rb: Fixed on, error_messages_for.
+	by Andreas Neuhaus.
+
+2006-08-04  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/rails.rb: Move bindtextdomain_to to lib/gettext.rb.
+	New overrideable callback methods (before|after)_init_gettext(cgi).
+	These methods is called on the each WWW request.
+	* lib/gettext.rb: Add bindtextdomain_to, textdomain_to.
+	* samples/rails/app/controllers/application.rb: Add a sample of 
+	(before|after)_init_gettext(cgi).
+
+2006-07-29  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/rgettext.rb: Added -r, -d options.
+	-r is to set an option parser. -d is for debugging mode.
+	  (e.g.) $ rgettext -r fooparser test.foo
+	The idea is from Kobayashi Noritada.
+	Fix a trivial bug by Kobayashi Noritada.
+
+2006-07-25  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/active_record.rb: Separate from rails.rb.
+
+2006-07-23  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/rails.rb: init_gettext manages plural textdomains.
+	bindtextdomain binds a domainname to ActionMailer::Base and ActionView::Base.
+
+2006-07-22  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/rails.rb: init_gettext finds the locale path with caller
+	not RAILS_ROOT now for supporting plugins which has app/controller directory
+	such as Rails Engines.
+	And init_gettext accepts :locale_path option to be able to set the locale
+	path manually.
+	* po/pt_BR/rails.po, rgettext.po: Updated by Joao Pedrosa.
+
+2006-07-17  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/rails.rb: bind the textdomain same with ApplictionController 
+	to the class which includes ActiveRecord::Validations.
+
+2006-07-16  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/rails.rb: Code cleanup.
+	ActiveRecord::Base.set_error_message_(title|explanation) have been deprecated.
+	Use ActionView::Helpers::ActiveRecordHelper::L10n.set_error_message_(title|explanation)
+	instead. Suggested by Kouhei Sutou
+	* po/zh/rails.po, rgettext.po: Updated by Yingfeng.
+	* NEWS: Updated.
+
+2006-07-15  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/rails.rb: Localize ActiveRecord::Errors#on.
+	Now error_message_on is localized.
+	Reported by kdmsnr.
+
+2006-07-14  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/parser/activerecord.rb: Add "untranslate" feature.
+	* lib/gettext/rails.rb: ditto. Add ActiveRecord::Base.untranslate
+	.untranslate_all, .unstranslate?
+	The idea is from Gyoung-Yoon Noh.
+
+2006-07-13  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* po/nl/rails.po, rgettext.po: Updated by Menno Jonkers.
+	* lib/gettext/rails.rb: Support ActiveRecord::Migration.
+	Suggested by OZAWA Sakuro.
+
+2006-07-12  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* po/ko/rails.po, rgettext.po: Updated by Gyoung-Yoon Noh.
+
+2006-07-11  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* po/ru/rails.po, rgettext.po: Updated by Yuri Kozlov.
+	* po/fr/rails.po, rgettext.po: Updated by Laurent Sansonetti.
+	* po/cs/rails.po, rgettext.po: Updated by Karel Miarka.
+
+2006-07-09  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* po/es/rails.po, rgettext.po: Updated by David Espada.
+	* lib/gettext/rails.rb: Increment minor version.
+	* README: Updated.
+
+2006-06-14  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/rails.rb: Fix a problem N_() isn't found in 
+	ActiveRecord. Reported by arton.
+
+2006-06-12  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/parser/glade.rb: Show error message correctly.
+	* Rakefile: Added src/poparse.ry as the target for updatepo.
+	* po/rgettext.pot, po/*/rgettext.po: Updated.
+
+2006-06-11  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/parser/ruby.rb: Fixed to extract duplicated messages when "\n"
+	was used in msgid.
+	* lib/gettext/rails.rb, po/rails.pot, po/*/rails.po: Localize 
+	ActionView::Helpers::DateHelper.distance_of_time_in_words.
+	* lib/gettext.rb: Added GetText.current_textdomain_info for debuging.
+	* lib/gettext/textdomain.rb: Break if the first mo-file found.
+	* lib/gettext/mo.rb: Added to accessor(r) to filename.
+
+2006-06-09  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* samples/*.rb, samples/po/*: Code cleanup 2. 
+
+2006-06-08  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/version.rb: Increment minor version.
+	* lib/gettext/locale_posix.rb: Code cleanup.
+	* test/testlib5.rb: Added.
+
+2006-06-07  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext.rb: GetText.set_locale accept 2nd parameter.
+	* test/testlib6.rb, test/po/{ja|fr}/test6.po: Added previous test.
+	* samples/*.rb, samples/po/*: Code cleanup. 
+
+2006-06-05  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* samples/hello.rb: Code cleanup.
+	* lib/gettext/rgettext.rb: Show ruby version with -v option.
+	* lib/gettext/rmsgfmt.rb: ditto.
+	* lib/gettext/rmsgmerge.rb: ditto.
+
+2006-06-04  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext.rb: Fixed a bug when options is set nil.
+	* lib/gettext/locale_posix.rb: Fixed the search order of environment
+	variables. Reported by markus koller.
+	* ext/gettext/locale_system.c: Returns nil if locale is not set.
+	* Rakefile: Added makemo task for samples/rails/vendor/plugins/gettext/po.
+	* test/gettext_test_multi_textdomain.rb: Added.
+
+2006-05-31  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* samples/rails/vendor/plugins/gettext/lib/gettext_plugin.rb: Rewrite
+	to support new bindtextdomain.
+	* samples/rails/vendor/plugins/gettext/{po|locale}/*: Move gettext_plugin.{po|mo}
+	from samples/rails/{po|locale}/*. Now Rails plugins can release their po/mo-files
+	under their own directory(/vendor/plugins/plugindir/{po|locale}).
+	* samples/rails/vendor/plugins/gettext/Rakefile, README: Added.
+	* samples/rails/lib/tasks/gettext.rake. Move gettext_plugin target to 
+	/vendor/plugins/gettext/Rakefile.
+	* samples/rails/README: Updated.
+
+2006-05-30  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext.rb: The scope of a textdomain becomes a class/module base
+	  instead of a file base.
+	  Accept plural textdomains in a class/module.
+  	  Changed bindtextdomain arguments with backward compatibility.
+	* lib/gettext/textdomainmanager.rb: Added for manage plural textdomains.
+	* lib/gettext/textdomain.rb: Fix wrong DEFAULT_LOCALE_PATHS if ruby is 
+	  installed non-standard path.
+	* lib/gettext/rails.rb: Changed arguments of bindtextdomain, init_gettext 
+	  with backward compatibility.
+
+2006-05-29  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/rails.rb: 
+	Remove GetText::Rails.use_localized_templates.
+
+2006-05-24  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/locale_win32.rb: Fix to work with environment 
+	variables.
+
+2006-05-22  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext.rb, lib/gettext/textdomain.rb: Keep a textdomain 
+	per a class instead of per a file.
+
+2006-05-21  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/rails.rb: Problem when ActionMailer isn't defined.
+	Reported by Gudao Luo.
+
+2006-05-20  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/mo.rb: Improved to compare the file time stamps. 
+	by Nobu Nakada.
+	
+2006-05-18  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/mo.rb: Fix MOFile#update! works on MS Windows.
+	* po/it/rails.po, samples/rails/po/it/*.po: Added by Marco Lazzeri. 
+
+2006-05-16  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* Rakefile: Remove dependency - makemo => poparser.
+	Reported by Marco Lazzeri.
+
+2006-05-14  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* README: Updated.
+	* **/po/zh/*.po: Added zh_CN locale by Yingfeng.
+	* pre-setup.rb: Remove to call "rails setup" now needless.
+	Reported by Hiroyuki Iwatsuki.
+
+2006-05-11  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* Rakefile: Make samples/rails/log if it's not exisited in
+	makemo task.
+	* lib/gettext/parser/activerecord.rb: Fixed to work
+	Gem-less environment.
+	Reported by Nobuhiro IMAI.
+
+2006-05-10  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/rails.rb: Fixed custom messages was not
+	translated of validation_length_of.
+	Reported by babie, charlie.
+	* po/ja/rails.po: Separate plural/single messages.
+
+2006-05-07  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/version.rb: Increment revision number.
+	* NEWS: Updated.
+
+2006-05-06  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/rails.rb: error_messages_for works same as
+	actionpack-1.12.1 when nil or symbol are given as @object_name.
+	By arton.
+	* test/gettext_test_rails.rb: Works again.
+
+2006-05-05  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/parser/activerecord.rb: Fixed again.
+
+2006-05-04  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/parser/activerecord.rb: Fixed "duplicate message definition" 
+	error in rake updatepo task using ActiveRecord::Base.set_table_name.
+	Reported by Karel Miarka.
+
+2006-05-02  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/rails.rb: Fixed an abort when Rails::Info isn't 
+	required like as Typo. Reported by Masayoshi Takahashi.
+
+2006-04-30  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/textdomain.rb: Added GetText::TextDomain#check_mo=, 
+	#check_mo?. When the value is true, check the MOFile and if it's 
+	updated, reload MOFile again. This is usefule for development 
+	time.
+	* lib/gettext/rails.rb: When development mode, check mo files
+	and reload it if it's updated.
+	* lib/gettext/mo.rb: Added MOFile#update!.
+	* lib/gettext/string.rb: String#% doesn't raise ArgumentError
+	when execute ruby with -d option.
+
+2006-04-21  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* samples/po/ru/*.po, samples/cgi/po/ru/*.po, 
+	samples/rails/po/ru/*.po, po/rgettext.po, 
+	rails.po: Added Russian locale by Yuri Kozlov.
+	* README: Revised.
+
+2006-04-15  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* NEWS: Updated.
+	* lib/gettext/version.rb: Increment minor version.
+	* test/gettext_test_rails.rb: Works with Rails-1.1.2.
+	* test/gettext_test_locale.rb: Works on OpenBSD 3.8.
+	* ext/gettext/locale_system.c: Set nil instead of "UTF-8" 
+        when nl_langinfo is not found.
+	* samples/rails/README: Updated.
+
+2006-04-05  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* ext/gettext/locale_system.c: Fix compilation problem
+	when /usr/include/langinfo.h doesn't have CODESET such as OpenBSD.
+	You may need to set OUTPUT_CHARSET to ENV variable in such
+	environment.
+	Reported by Johan Allard.
+
+2006-03-25  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/rails.rb: Revised docs.
+
+2006-03-24  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/rails.rb: Support ActionWebService.
+	Reported by Nick Snels.
+
+2006-03-19  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/rails.rb: Improve multipart-mail in ja locale by Nobuhiro IMAI.
+
+2006-03-16  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/rails.rb: ActiveMailer works with multipart-mail in ja locale.
+	Reported by Nobuhiro IMAI.
+	* lib/gettext/textdomain.rb: GetText::TextDomain.gettext returns "" when
+	arg is "" or nil.
+	* lib/gettext.rb, locale.rb: Fix the problem to switch the locale again.
+	* test/gettext_test.rb: Add the test for above problem.
+	* test/gettext_test_rails.rb: Added, too.
+	* test/test.sh: ditto.
+	
+2006-03-12  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext.rb: GetText.locale= reset Locale's default locale.
+	Reported by Donald Piret.
+
+2006-03-11  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/rails.rb: ActiveRecord::Column.human_name translates 
+	the column name using s_("Model|fieldname").
+	Pointed out by Kazuhiro NISHIYAMA.
+	* samples/rails/lib/tasks/gettext.rake: Move from Rakefile.
+	Pointed out by Kazuhiro NISHIYAMA.
+	* samples/rails/Rakefile: Move gettext tasks to lib/tasks/gettext.rake.
+	* samples/rails/*: Updates files to which generated with rails 1.0.
+	* NEWS: Updated.
+
+2006-03-10  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/rails.rb: Localized ActiveRecord::Base.validates_* works correctly
+	under production mode.
+	Reported by Nickolay Kolev.
+	ActionView::Base#render_file supports localized template such as 
+	foo_ja.rhml, foo_ja_JP.rhtml. Revert Action::Controller::Base#render.
+	* NEWS: follow this change.
+
+2006-03-09  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/rails.rb: ActiveRecord::Base.error_message_(title|explanation)
+	works production mode.
+	
+2006-03-08  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* NEWS: Updated.
+	* lib/gettext/rails.rb: Fix a problem of ActionMailer in "ja".
+	* lib/gettext/version.rb: Incremented version number.
+
+2006-03-04  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/rails.rb: @params["lang"] is treated as cgi["lang"].
+	Reported by Erkki Eilonen.
+
+2006-03-03  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/locale_cgi.rb: Remove debug code.
+	* lib/gettext/locale_object.rb: 
+	  - Fix a memory leak. Reported by Jonas Schwertfeger.
+	  - Locale::Object.parser improved.
+	  - Rename Locale::Object#sort_order to #variant.
+	  - "POSIX" and "C" locale strings are converted to "en".
+	  - Add Locale::Object#to_general.
+	* test/gettext_test_locale.rb: Add tests follow the changes.
+	* lib/gettext/rails.rb: 
+	  - ActionMailer sends a mail 
+	  - in ISO-2022-JP if the language is japanese. The idea from 
+	    Iso2022Mailer by drawnboy.
+	  - ActionController::Base.render_text is overrided to find
+	    localized templates such as foo_ja.rhml, foo_ja_JP.rhtml.
+	    You can reject this to set false to 
+	    GetText::Rails.use_localized_templates.
+	    The idea is from Yugui.
+
+2006-03-02  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* samples/rails/app/models/article.rb: Add a sample of 
+        ActiveRecord::Base.set_error_message_(title|explanation).
+	* lib/gettext/rails.rb: Fix a non-translated problem on production mode.
+	ActionMailer supported by Albert Ramstedt.
+	ActiveRecord::Base.set_error_message_(title|explanation) accepts Nn_() 
+	value(Array).
+
+2006-02-25  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/locale.rb: Fix to return system value when @@default is unset.
+	* lib/gettext/rails.rb: Fix a problem with Locale.default=.
+
+2006-02-24  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext.rb: Fix a typo.
+
+2006-02-23  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* Rakefile: Fix a problem to make package on Win32.
+	* lib/gettext/textdomain.rb: Rename @mo to @current_mo
+	and add a attr_reader for @current_mo.
+	* README, NEWS: updated.
+	* lib/gettext/rails.rb: Fix to translate error message 
+	title/explanation.
+	* lib/gettext/parser/activerecord.rb: Fix an abort when 
+	config/database.xml is not defined.
+
+2006-02-22  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/rmsgfmt.rb, string.rb, iconv.rb, utils.rb, rgettext.rb,
+	lib/gettext/parser/*.rb: Apply RDoc.
+	* lib/gettext/version.rb: Increment minor version.
+
+2006-02-21  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* test/test.bat: Added for Win32.
+	* test/gettext_test_locale.rb: Added Win32 tests.
+	* lib/gettext/locale_win32.rb: Fix problems.
+	* lib/gettext/locale_object.rb: Added Locale::Object#to_win
+
+2006-02-20  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* src/poparser.ry: Added ignore_fuzzy as the 3rd parameter 
+	of GetText::PoParser#parse to parse fuzzy comments.
+	Pointed out by speakillof.
+	* lib/gettext/rmsgmerge.rb: Follow the PoParser change below.
+	* test/gettext_test_locale.rb: Apply Locale.clear.
+	* lib/gettext/locale.rb: Added Locale.clear.
+
+2006-02-18  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/locale_cgi.rb: Separate from cgi.rb.
+	* lib/gettext/locale_posix.rb: Rename from locale_default.rb.
+
+2006-02-16  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/textdomain.rb: Add comments.
+	* lib/gettext.rb: Apply Locale::Object. Code cleanup. Add RDoc.
+	* test/gettext_test.rb: Apply gettext.rb changes
+	* test/test.sh: Remove OUTPUT_CHARSET setting.
+
+2006-02-15  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/locale_win32.rb, locale_default.rb, locale.rb: A first argument
+	of Locale::System.get_charset becomes Locale::Object.
+	* lib/gettext/textdomain.rb: Apply Locale::Object, Code cleanup.
+	* lib/gettext.rb: Add GetText.add_default_locale_path.
+	* lib/gettext/locale_object.rb: Add Locale::Object#==.
+	* lib/gettext/textdomain.rb: Add GetText::TextDomain.add_default_locale_path.
+          Pointed out at Bug#3510.
+
+2006-02-14  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* Rakefile: Fix compilation problems on mswin32.
+	* ext/gettext/locale_system.c: locale_id returns language ID not LCID.
+	
+2006-02-13  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/locale_table_win32.rb: Replace the table and add charset info.
+	* lib/gettext/locale_win32.rb: ditto.
+
+2006-02-10  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/locale_object.rb: Add script, sort_order properties.
+
+2006-02-09  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* test/gettext_test_locale.rb: Added modifier test.
+	* lib/gettext/locale_object.rb: Added to parse modifier.
+	* lib/gettext/locale.rb: Fixed bug of Locale#set_current.
+	* test/gettext_test_cgi.rb: Added tests.
+	* lib/gettext/cgi.rb: Apply RDoc.
+	* lib/gettext/locale_default.rb, locale.rb: Modify RDoc.
+	* lib/gettext/locale_win32.rb: Imprement pseudo Locale::System.get_charset().
+
+2006-02-07  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* test/gettext_test_locale.rb: Added for new Locale.
+	* lib/gettext/locale.rb: Refactored. Follow to support Locale::Object.
+	Add Locale.set_default, .default=, .system, .default, .current, 
+	.set_current, .current=, .current_charset. Reimplemented .get/.set.
+	Locale.set(loctype, localestr) is deprecated. Use Locale.set(localestr) instead.
+	Locale.setlocale(loctype, localestr) is deprecated. Use Locale.set(localestr) instead.
+	Locale.get(loctype) is deprecated. Use Locale.get instead.
+
+2006-02-05  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* test/test_rubyparser_n_.rb: Rename from test/test_rubyparser_n.rb.
+	This has a problem on Windows with test/test_rubyparser_N.rb.
+
+2006-02-04  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* pre-setup.rb: Remove previous installed files first.
+	* ext/gettext/gettext: Removed. 
+	* ext/gettext/locale_system.c: Added as Accessor to system(win32/posix).
+	(Move from ext/gettext/gettext/_locale.c)
+	* ext/gettext/extconf.rb: ditto.
+	* lib/gettext/locale_default.rb: Follow above changes. Apply RDoc.
+	* lib/gettext/locale_win32.rb: Follow above changes. Apply RDoc.
+	* lib/gettext/locale.rb: Code cleanup. Apply RDoc.
+	* lib/gettext/locale_object.rb: Added Locale::Object. Apply RDoc.
+	* setup.rb: Update to 3.4.1.
+
+2006-01-25  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/rmsgmerge.rb: Fixed bugs.
+	Follow the comment messages to GNU GetText. By speakillof.
+
+2006-01-20  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/rails.rb: Added ActiveRecord::Base#error_message_(title|explanation).
+	 Reimplement ActionView::Helpers::ActiveRecordHelper::L10n.error_messages_for to
+	separate error_message_(title|explanation) to be able to be overrided by user.
+	The idea is from Trung Tran.
+	* samples/rails/app/models/article.rb: Add a sample of 
+	ActiveRecord::Base#error_message_(title|explanation).
+	
+2006-01-19  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext.rb: n_() accepts first arguments as an Array([msgid, msgid_plural]).
+	* test/gettext_test.rb: Add tests for n_(ary, n), Nn_().
+	* lib/gettext/parser/ruby.rb: Added Nn_() is same purpose with N_, but for n_.
+	* lib/gettext.rb: Added Nn_(msgid, msgid_plural).
+
+2006-01-14  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* samples/rails/po/*/blog.po: Updated.
+	* NEWS: Updated.
+
+2006-01-10  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/parser/activerecord.rb: Fixed to fail loading YAML file.
+	By Karel Miarka.
+
+2006-01-08  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* *po/el/*.po: Convert to UTF-8. By damphyr.
+
+2006-01-07  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* test/gettext_test_parser.rb: Add test_rgettext_parse.
+	* test/test_erb.rxml: Added.
+	* lib/gettext/rails.rb: Added ActionController::TestRequest for testing.
+	Reported by Nick Snels.	
+	* samples/rails/README: Added test information.
+	* samples/rails/test/functional/blog_controller_test.rb: Implemented.
+	* **/*po[t]: Revised headers.
+	* samples/po/el/*.po, samples/cgi/po/el/*.po, 
+	samples/rails/po/el/*.po, po/el/rgettext.po, 
+	rails.po: Added Greek locale by damphyr.
+	* README: Updated.
+	* lib/gettext/version.rb: Increment micro version.
+	 
+2006-01-02  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/parser/activerecord.rb: Fixed to read configuration
+	correctly. Reported by Donald Piret.
+	Prevent to output duplicate msgid. Reported by Nick Snels.
+
+2005-12-31  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/rails.rb: Check @@gettext_domainname is set first
+	to avoid set the wrong value to the Content-Type when init_gettext
+	is not called. Pointed out by Kazuhiro NISHIYAMA.
+
+2005-12-29  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/locale_win32.rb: Fixed a syntax error.
+	* po/{it,sv}/rgettext.po: Updated.
+	* samples/rails/po/ja/blog.po: Fixed a fuzzy message.
+	* po/de/rgettext.po: Fixed a compilingproblem.
+	* README, NEWS: Updated.
+	* lib/gettext/rails.rb: Fix a problem when 
+	http://localhost:3000/rails_info/properties is called.
+	Pointed out by Kazuhiro NISHIYAMA.
+	* po/de/rails.po: Added by Sasa Ebach.
+	* po/de/rgettext.po, samples/rails/po/de/*.po: 
+	Updated by Sasa Ebach.
+
+2005-12-28  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* NEWS: Updated.
+	* README: Updated.
+	* po/es/rails.po: Added by David Espada.
+	* po/es/rgettext.po, samples/rails/po/es/*.po: 
+	Updated by David Espada.
+
+2005-12-27  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* test/gettext_test_string.rb: Add a test.
+
+2005-12-26  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* samples/rails/app/controllers/blog_controller.rb: Updated.
+
+2005-12-25  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* NEWS: Updated.
+	* README: Updated.
+	* lib/gettext/parser/activerecord.rb: Don't show the messages
+	when ActiveRecord and its subclasses are not found.
+	* po/ja/rgettext.po: Updated.
+
+2005-12-24  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* samples/po/nl/*.po, samples/cgi/po/nl/*.po, 
+	samples/rails/po/nl/*.po, po/nl/rgettext.po, 
+	rails.po: Added Dutch locale by Menno Jonkers.
+
+2005-12-23  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* README: Updated.
+	* README.ja: Removed.
+	* po/ko/rails.po: Added by Gyoung-Yoon Noh.
+	* po/ko/rgettext.po, samples/po/ko/*.po, samples/cgi/po/ko/*.po,
+	samples/rails/po/ko/*.po: Updated by Gyoung-Yoon Noh.
+	* lib/gettext/textdomain.rb: Fixed a bug when mo-files are not found.
+	* samples/rails/po/en/blog.po: Added for English. 
+	You can change the table names, field names of ActiveRecord even you use English.
+	* lib/gettext/textdomain.rb: Code cleanup.
+	* samples/rails/vendor/plugins/gettext/lib/gettext_plugin.rb: begin a new line
+	each 6 language.
+	* samples/rails/vendor/plugins/gettext/po/*: Update version info.
+	
+2005-12-21  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* samples/rails/README: Updated.
+	* lib/gettext/utils.rb: Added. GetText.update_pofiles.
+	* Rakefile, samples/rails/Rakefile: Use GetText.update_pofiles.
+
+2005-12-20  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/utils.rb: Added. Implement GetText.updatepo.
+	* Rakefile: 
+
+2005-12-19  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* samples/po/cs/*.po, samples/cgi/po/cs/*.po, 
+	samples/rails/po/cs/*.po, po/cs/rgettext.po, 
+	rails.po: Added Czech locale by Karel Miarka.
+
+2005-12-18  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* po/fr/rgettext.po, samples/cgi/po/fr/main.po: 
+	Updated by Laurent Sansonetti.
+	* po/fr/rails.po: Added by Laurent Sansonetti.
+	* po/pt_BR/rails.po, samples/cgi/po/pt_BR/*.po,
+	samples/rails/po/pt_BR/*.po: 
+	Added by Joao Pedrosa.
+	* po/pt_BR/rgettext.po, samples/po/pt_BR/*.po: 
+	Updated by Joao Pedrosa.
+
+2005-12-17  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* po/rails.pot, po/ja/rails.po: Added.
+	* test/gettext_test_string.rb: Added.
+
+2005-12-12  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* samples/rails/Rakefile: Added "updatepo" task.
+	* lib/gettext/parser/activerecord.rb: Added a parser for 
+	ActiveRecord.
+
+2005-12-10  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/rails.rb: Added GetText information to 
+	Rails::Info.
+
+2005-12-08  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* test/gettext_test_cgi.rb: Added tests for Locale.normalize.
+	* lib/gettext/cgi.rb: Fix a problem of Locale.normalize.
+
+2005-12-07  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/cgi.rb: Separate Locale.normalize.
+
+2005-12-06  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* test/gettext_test.rb, test/po/{da,fr}/plural_error.po: 
+	Fix test_plural_format_invalid.
+
+2005-12-05  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* test/gettext_test.rb, test/po/*/plural.po: Fix test case.
+
+2005-12-04  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* samples/rails/vendor/plugins/gettext/lib/gettext_plugin.rb: Revised comments.
+
+2005-12-01  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/rails.rb: Improved to support L10n for ActiveRecord::Errors.
+	  Improve ActionController::Base.init_gettext(_main).
+	* samples/rails/app/controller/application.rb: Improved comments.
+	* samples/rails/app/views/blog/_form.rhtml: Add information to validate.
+	
+2005-11-27  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/string.rb: Added. New syntax ":{foo} is bar." % {:foo => "foo"} 
+	  is supported.
+	* lib/gettext/rmsgmerge.rb: Added.
+	* lib/gettext.rb, lib/gettext/textdomain.rb: Fix a bug of GetText.ngettext.
+
+2005-11-25  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* samples/rails/app/*: Rewrite for RoR 0.14.x. 
+	* lib/gettext/rails.rb: Added ActionController::Base.init_gettext.
+	* samples/rails/app/controllers/application.rb: ditto.
+
+2005-11-23  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* samples/rails/app/controllers/application.rb: Use 
+	GetText.output_charset to set the Content-Type.
+	* lib/gettext/rails.rb: Call bindtextdomain in models(ActiveRecord)
+	when bindtextdomain is called in before_filter of ActionController.
+	Inspired from Simon Santoro.
+	* samples/rails/app/models/article.rb: Added to validate description
+	with localized message.
+
+2005-10-22  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* po/*: Merge rmsgfmt to rgettext.
+	* po/**/rmsgfmt.po[t]: Removed(merge to rgettext.po[t]).
+	* lib/gettext/rmsgmerge.rb: Added by speakillof.
+	* bin/rmsgmerge: Added.
+	* src/poparser.ry: Renamed rmsgfmt.ry to poparser.ry.
+	* lib/gettext/rmsgfmt.rb: Added. Separate code from rmsgfmt.ry.
+	* Rakefile: Check racc is existed or not.
+	* lib/gettext/mo.rb: Follow poparser.ry changes.
+
+2005-09-16  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/rgettext.rb: Fixed a header of time strings.
+	Reported by Karel Miarka.
+
+2005-09-12  speakillof <speakillof@yahoo.co.jp>
+
+	* lib/gettext/parser/ruby.rb: Added "here document" support.
+
+2005-09-05  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext.rb: Added GetText.locale. Both of GetText.locale= and
+	GetText.locale behaves "global". If you set this once, follow bindtextdomain(s)
+	use this value.
+	* lib/gettext/cgi.rb: Added Locale.set. 
+	* lib/gettext/locale_win32.rb: ENV value is prior to native locale.
+	Added Locale.set.
+	* test/gettext_test.rb: Follow above changes.
+
+2005-09-04  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* Rakefile: move test task to testunit task.
+	* samples/cgi/*.cgi: Support rubygems.
+	* lib/gettext/rails.rb: The default of "charset" parameter becomes nil
+	instead of "UTF-8". You need to call GetText.output_charset=() first.
+	* samples/rails/app/controllers/application.rb: 
+	Call GetText.output_charset = "UTF-8" first.
+
+2005-09-03  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* src/rmsgfmt.ry: Fixed VERSION info.
+	* Rakefile: Update to make package correctly. Call create_mofiles 
+	for test/po/
+	Add test task.
+	Create win32 package correctly on Win32.
+	* test/makemo.rb: Removed. Use rake makemo instead.
+	* NEWS: Added.
+	* 1.0.0 released.
+
+2005-08-31  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* samples/cgi/Rakefile: Added.
+	* samples/cgi/README: Modified.
+	* samples/README: Modified.
+	* samples/po/ko/*.po: Added Korean by Gyoung-Yoon Noh.
+	* src/rmsgfmt.ry, po/**/rmsgfmt.po: Fix a typo.
+	* samples/makemo.rb: Re-add for creating mo-files.
+	* po/es/*.po: Updated by David Espada.
+	* po/samples/rails/es/*.po: Added by David Espada.
+	* po/de/*.po: Updated by Sven Herzberg.
+	* po/samples/rails/de/*.po: Added by Sven Herzberg.
+	* po/fr/*.po: Updated by Laurent Sansonetti.
+	* po/samples/rails/fr/*.po: Added by Laurent Sansonetti.
+	* README, README.ja: Updated.
+	* samples/rails/*.[rb|rhtml]: Modified header informations.
+	* lib/gettext/version.rb: Modified header information.
+	* samples/rails/README: Revised.
+	* samples/rails/db/postgresql.sql: Added.
+
+2005-08-30  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* po/ko/*.po, samples/cgi/po/ko/*.po, samples/rails/po/ko/*.po:
+	Added Korean by Gyoung-Yoon Noh.
+	* lib/gettext/textdomain.rb: Improve to print error message when
+	No mo files were found.
+
+2005-08-28  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* samples/rails/*: Added a sample for Ruby on Rails.
+
+2005-08-27  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/textdomain.rb: Added search mo-path: 
+	#{gems_path}/#{app}/locale/#{lang}/
+	* lib/gettext/cgi.rb: Fix an alias bug(set_cgi is an 
+	alias of cgi=, not cgi).
+
+2005-08-23  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* samples/cgi/helloerb1.cgi, helloerb2.cgi: 
+	Set @domainname obviously.
+	* pre-clean.rb: Removed. 
+	* samples/makemo.rb, samples/cgi/makemo.rb: 
+	Removed. Use "rake makemo" instead.
+	* post-setup.rb: Added "lib" to library path.
+	* lib/gettext/locale.rb: Added pseudo Locale module when
+	no _locale.so is found.(installation time by rake only)
+
+2005-08-21  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* src/rmsgfmt.ry: Added GetText.create_mofiles.
+	* test/gettext_test.rb, testlib4.rb: Added tests for 
+	GetText.textdomain.
+	* samples/hello_textdomain.rb: Added a sample for
+	GetText.textdomain.
+	* lib/gettext/locale_default.rb: Call setlocale first.
+	* lib/gettext.rb: Added GetText.textdomain.
+	Added NoboundTextDomainError.
+	* lib/gettext/textdomain.rb: Added TextDomain#charset.
+	* lib/gettext/container.rb: Rename @domainname to 
+	@gettext_container_domainname.
+	Pointed out by speakillof.
+	* pre-setup.rb: call rake setup.
+
+2005-08-20  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/locale.rb: require '_locale' if 'gettext/_locale' 
+	failed to load(for rubygems).
+
+2005-08-18  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/textdomain.rb: Add Gem paths as search paths.
+
+2005-08-15  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* bin/rmsgfmt: Move methods to src/rmsgfmt.ry.
+	* src/rmsgfmt.ry: Improved. Added GetText.rmsgfmt.
+
+2005-08-14  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* Rakefile: Added.
+	* lib/gettext/version.rb: Added.
+	* lib/pre-setup.rb: Removed.
+	* lib/gettext/rgettext.rb: Added. Added GetText.rgettext.
+
+2005-08-13  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* README, REAMDE.ja: Updated informations.
+	* The project moves to rubyforge.
+
+2005-05-01  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/locale_win32.rb: Added pseudo constants of setlocale.
+	* samples/cgi/ruby.bat: Added for Win32.
+	* samples/cgi/README: Modified.
+	* samples/cgi/http.rb: Support Win32.
+	* 0.9.0 released.
+
+2005-04-30  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/cgi.rb: Added Locale.set_cgi() as alias of .cgi=.
+
+2005-04-25  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* samples/cgi/po/de/: Translated by Detlef Reichl.
+	* samples/cgi/po/es/: Translated by David Moreno Garza.
+	* samples/cgi/po/it/: Translated by Gabriele Renzi.
+	* samples/po/it/: Translated by Gabriele Renzi.
+
+2005-04-24  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* po/de/*.po : Translated by Detlef Reichl.
+	* po/it/*.po : Translated by Gabriele Renzi.
+
+2005-04-23  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* src/rmsgfmt.ry: Fix a bug not to unesacpe '"'.
+	Support new transltations.
+	* samples/cgi/*: Updated.
+	* samples/cgi/po/fr/*: Translated by Laurent Sansonetti.
+
+2005-04-22  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/cgi.rb: Locale.get checks the cookie value.
+	The search priority is: 
+	query_string(lang) > cookie(lang) > HTTP_ACCEPT_LANGUAGE > "en".
+
+2005-04-21  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/cgi.rb: Added Locale.cgi=, .cgi, 
+	GetText.cgi=, .cgi, .set_cgi.
+
+2005-04-20  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext.rb: Defined domain name as @domainname.
+	Added GetText.set_output_charset as alias of .output_charset=.
+	* lib/gettext/container.rb: Added.
+	* lib/gettext/erb.rb: Make ErbContainer a module not a class 
+	and includes GetText::Container.
+	* samples/erb/*: Follow this changes.
+	* samples/cgi/, erb/: Move erb/ to cgi/.
+
+2005-04-19  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* samples/erb/*: Added sample for CGI/ERB.
+
+2005-04-18  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/erb.rb: Added for ERB support.
+	* lib/gettext/cgi.rb: Added for CGI support.
+	* lib/gettext.rb: Add GetText.output_charset=. 
+
+2005-04-11  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext.rb: Add GetText.set_locale, set_charset.
+
+2005-04-10  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* src/rmsgfmt.ry: Remove comment_old which isn't used anymore.
+
+2005-04-09  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/gettext.rb, locale.rb, locale_default.rb: 
+	Fix bugs that Locale.get, Locale.codeset return wrong values.
+	* test/gettext_text.rb: Add test for Locale module.
+
+2005-04-02  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* test/gettext_test_parser.rb, test_erb.rhtml: 
+	Added tests for erb parser.
+	* lib/gettext/textdomain.rb: print debug message to 
+	$stderr, not $stdout.
+	* lib/gettext/parser/erb.rb: Added. 
+	rgettext support ERB. Inspired by Sascha Ebach.
+	* lib/gettext/parser/*.rb, bin/rgettext: Code clean up. 
+
+2005-03-31  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext.rb, lib/gettext/textdomain.rb: 
+	reimplement sgettext.
+	* lib/gettext.rb: Improve GetText.bindtextdomain
+	* test/makemo.rb, samples/makemo.rb: Improve to run rmsgfmt.
+	* pre-setup.rb: Improve to run racc.
+
+2005-03-28  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* ext/gettext/gettext/_locale.c: Locale.codeset calls 
+	setlocale(LC_CTYPE, "") not LC_ALL.
+	* lib/gettext.rb: Update VERSION info.
+	* lib/gettext/locale.rb: Remove to read LC_CTYPE.
+	Now, this uses the environment variables LC_ALL, 
+	LC_MESSAGES and LANG (in that order) same as GNU GetText.
+	Point outed by Dafydd Harries.
+	* samples/helloglade2.rb: Run correctly on the samples directory.
+	* 0.8.1 released.
+
+2005-03-20  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* src/rmsgfmt.ry: Fix a problem with \r, \t, \n. 
+	Reported by Guillaume Cottenceau.
+
+2004-11-27  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* src/rmsgfmt.ry: Fix an error when #~ lines are existed. 
+	Pointed out by Patrick GUNDLACH.
+	* lib/gettext/parser/ruby.rb: Fix rgettext ignore "\#" by Kazuhiro NISHIYAMA.
+	* test/test_rubyparser.rb, gettext_test_parser.rb: Added test for "\#".
+	
+2004-11-07  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* po/pt_BR/*.po, samples/po/pt_BR/*.po: Added. Translated by Joao Pedrosa.
+
+2004-11-06  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* README, README.ja: Revised. 
+	* po/sv/*.po, samples/po/sv/*.po: Added. Translated by Nikolai Weibull.
+	* po/es/*.po, samples/po/es/*.po: Added. Translated by David Espada.
+	* 0.8.0 released.
+	
+2004-11-05  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* po/fr/*.po, samples/po/fr/*.po: Added. Translated by Laurent Sansonetti.
+	* test/test_rubyparser_N.rb: Added.
+	* test/test_rubyparser.rb: Added a test.
+	* lib/gettext.rb: Increment minor version.
+
+2004-11-04  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* test/gettext_test_parser.rb: Added test for n_().
+	* lib/gettext/parser/ruby.rb: Improved to parse n_().
+	* test/test_rubyparser_n.rb: Added.
+
+2004-11-03  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/parser/ruby.rb: Support _("a" + "b") pattern as "ab".
+
+2004-10-23  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* setup.rb: Update to setup.rb-3.3.1.
+	* README, README.ja: Modified.
+	* 0.7.0 released.
+
+2004-10-22  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/iconv.rb: Added.
+	* lib/gettext/mo.rb: Requires 'gettext/iconv' instead of 'iconv'.
+
+2004-10-21  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext.rb: every methods don't raise error when 
+	GetText.bindtextdomain isn't called first.
+
+2004-10-12  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* bin/rgettext: Modified header like as GNU GetText.
+	Escape double quote correctly.
+	* test/gettext_test_parser.rb: Added tests for GetText::GladeParser.
+	* test/test_gladeparser.rb: Added.
+
+2004-10-11  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/textdomain.rb: Added GETTEXT_PATH environment variable
+	for searching path. This is for testing/debugging.
+	Improved GetText::TextDomain#set_locale.
+	Reported by Dafydd Harries from Debian Bug Tracking System #275010.
+	* lib/gettext.rb, lib/gettext/textdomain.rb: Separate 
+	GetText::Domain to lib/gettext/textdomain.rb.
+	* lib/gettext.rb: Increment GetText::VERSION.
+
+2004-08-12  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext.rb: Add GetText.sgettext(msgid), .s_(msgid) .
+	* bin/rgettext: Support GetText.sgettext, .s_.
+	* test/gettext_test.rb, test_sgettext.rb, test/po/ja/test_sgettext.po: 
+	Added for GetText.sgettext, .s_ tests.
+	
+2004-07-21  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* README, README.ja: Modified some old descriptions.
+	* lib/gettext.rb: Incremented revision.
+	* 0.6.1 released.
+
+2004-07-11  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/parser/glade.rb: Fixed a bug for empty-string value.
+	* post-setup.rb: Fixed a install problem reported by wwp.
+
+2004-07-04  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* post-setup.rb, pre-clean.rb, pre-setup.rb: Improved 
+	by Nobu Nakada.
+	* setup.rb: Replaced install.rb. Pointed out by Nobu Nakada.
+	* README, README.ja: Follow above changes.
+
+2004-07-03  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* test/gettext_test.rb: Added some complex cases.
+	* test/gettext_runner.rb: Added.
+	* test/po/ja/test_rubyparser.po: Added.
+	* lib/gettext.rb: Added GetText::VERSION.
+	* docs/*: Removed. See website instead.
+	* 0.6.0 released.
+
+2004-06-27  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* bin/rgettext: Support Glade-2 XML file.
+	* po/ja/rgettext.po: Ditto.
+	* lib/gettext/parser/ruby.rb, glade.rb: Added.
+	* test/gettext_test_parser.rb, test_rubyparser.rb: Added.
+	* lib/gettext/parser/ruby.rb: Improved to parse complex strings.
+
+2004-06-23  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/mo.rb: Fix a bug to save data to a file.
+
+2004-06-15  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* src/rmsgfmt.ry: Force override if the file exist. This is the same 
+	behavior as GNU msgfmt.
+	* lib/gettext/mo.rb: Fixed a bug that  "Plural-Forms" 
+	part isn't defined in po-file but has plural part. 
+	Reported by Dafydd Harries.
+	* test/po/[fr|ja|de]/plural_error.po: Added for a test of plural forms.
+	* test/gettext_test.rb: ditto.
+
+2004-03-26  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext.rb: Fixed to return empty strings 
+	when translated strings are empty.
+	* 0.5.5 released.
+
+2004-02-14  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext/locale.rb: Changes PLATFORM to RUBY_PLATFORM for ruby-1.9.
+	* 0.5.4 released.
+
+2003-12-02  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext.rb: Improve the initial speed.
+	* 0.5.3 released.
+
+2003-11-27  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* bin/rgettext: Fix bugs when \M or \C are given.
+
+2003-11-12  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* ext/gettext/gettext/_locale.c: Fix bugs for Win32.
+	Pointed out by Nobu Nakada.
+	* docs/config.rb: Removed.
+	* docs/rd/*/ruby-gettext.rd: Modified.
+	* 0.5.2 released.
+
+2003-07-05  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* ext/gettext/gettext/_locale.c: Define Locale.setlocale() and LC_* constants.
+	* lib/gettext.rb, lib/gettext/*.rb: Code cleanup.
+	* post-setup.rb: Fix mo files had not been compiled.
+	* 0.5.1 released.
+
+2003-07-04  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* samples/hello2.rb: Fix warning for ruby-1.8.x.
+	* ext/gettext/gettext/_locale.c: Call setlocale(LC_NUMERIC, "C") 
+	for some locales which doesn't use "." as decimal-point.
+	* pre-setup.rb: Removed.
+	* post-setup.rb: Fix some bugs.
+
+2003-01-07  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* samples/hellogtk2.rb: Support Ruby/GTK2.
+	* gettext/mo.rb: Fix for bad mo files which don't include header part.
+	* bin/rgettext: Remove ",fuzzy" for header part. Set default charset to UTF-8.
+	* src/rmsgfmt.ry, po/rmsgfmt.pot, po/ja/rmsgfmt.po: Add files.
+	* 0.5.0 released.
+
+2002-10-21  Masao Mutoh <mutoh@highway.ne.jp>
+
+	* Support ngettext(alias name is n_).
+	* Change directory structure.
+	* Remove *.mo from tar-ball(they are created automatically in installing).
+	* bin/rgettext, po/rgettext.pot, po/ja/rgettext.po: Revise help message.
+	* bin/rgettext: Fix POT-Creation-Date was localized.
+	* samples/hello_plural.rb: Add a sample.
+	* test/*: Add test for ngettext.
+	* 0.4.0 released.
+
+2002-10-18  Masao Mutoh <mutoh@highway.ne.jp>
+
+	* lib/gettext/mo.rb: Fix bad return value when msgstr is not existed.
+   Pointed out by Shinobu TAKANASHI <sino@e-turi.net>
+	* test/*: Change RubyUnit to Test::Unit.
+	* 0.3.2 released.
+
+2002-07-06  Masao Mutoh <mutoh@highway.ne.jp>
+
+	* lib/locale.rb: Support MinGW.
+	* lib/mo.rb: Support platforms which do not support Iconv.
+	* 0.3.1 released.
+	
+2002-07-02  WATANABE Hirofumi <eban@os.rim.or.jp>
+
+	* ext/gettext/gettext/extconf.rb:Support MinGW.
+
+2002-07-01  Nobuyoshi Nakada  <nobu.nakada@nifty.ne.jp>
+
+	* ext/gettext/gettext/_locale.c: Code cleanup.
+	* po/ja.po: Fix typo.
+	* pre-install.rb: Code cleanup.
+
+2002-06-30  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* Support to convert output strings with charset(codeset).
+	  - Add 4th parameter to GetText.bindtextdomain for charset
+	  - Add GetText.charset=().
+	  - Support Environment variable OUTPUT_CHARSET.
+	* samples/po/makemo.rb: support Ruby-1.6.x.
+	  Reported by KUMAGAI Hidetake <ggb03124@nifty.ne.jp>
+	* 0.3.0 released.
+
+2002-02-22  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* docs/rd/[ja|en]/ruby-gettext.rd: Some modified.
+	* lib/gettext.rb: show more informations in debug mode(-d)
+	* bin/rgettext: BugFix for bad implementation of GetText.N_(msg).
+	                         by Masahiro Sakai<zvm01052@nifty.ne.jp>
+	* po/ja.po: change charset from iso-2022-jp to euc-jp.
+	                         by Masahiro Sakai<zvm01052@nifty.ne.jp>
+	* 0.2.1 released.
+
+2002-02-21  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext.rb: Implement GetText.N_(msg)
+	* bin/rgettext: Apply to GetText.N_(msg)
+	* samples/hello_noop.rb: Add a sample for GetText.N_(msg).
+	* test/gettext_test.rb: Add test_noop.
+	* docs/rd/[ja|en]/ruby-gettext.rd: Add an explanation of GetText.N_(msg).
+	* 0.2.0 released.
+
+2002-02-13  Masao Mutoh  <mutoh@highway.ne.jp>
+	* ruby-gettext-package:
+	  Move pre-clean.rb to pre-install.rb.
+	  Reported by Yoshifumi Hiramatsu<hiramatu@boreas.dti.ne.jp>
+	* lib/gettext.rb: Improve search-path(@locale_dirs).
+	* bin/rgettext, samples/*.rb:
+	  Improve first line(Add #! line or change #!/usr/bin/env ruby to 
+	                                           #!/usr/local/bin/ruby).
+	* samples/hellotk.rb: add new sample for Ruby/Tk
+	* 0.1.2 released.
+
+2002-02-03  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* lib/gettext.rb: BugFix to occur an error 
+	            when all of locale is not set.
+	* README, README.ja: Modified about Bad explanation 
+	  in Install section. Reported by 
+	  Yoshifumi Hiramatsu<hiramatu@boreas.dti.ne.jp>
+	* docs/rd/*/ruby-gettext.rd: Some improvements.
+	* docs/yard2html.rb: Some improvements.
+	* 0.1.1 released.
+
+2002-01-06  Masao Mutoh  <mutoh@highway.ne.jp>
+	
+	* lib/gettext.rb: Bugfix for bad scope.
+	* bin/rgettext: Sort by file, lineno.
+	* test/: Add one test.  
+	* docs/rd/*/ruby-gettext.rd: Modified about rgettext.
+	* 0.1.0 released.
+
+2002-01-01  Masao Mutoh  <mutoh@highway.ne.jp>
+
+	* docs/: Add english document and some improvements.
+	* test/: Add one test.  
+	* samples/: Add hello2.rb.  
+	* 0.0.2 released.
+
+2001-12-24  Masao Mutoh  <mutoh@highway.ne.jp>
+	
+	* test release
+

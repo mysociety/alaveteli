@@ -51,6 +51,8 @@ Rails::Initializer.run do |config|
   # config.log_level = :debug
   #
   # Specify gems that this application depends on and have them installed with rake gems:install
+  config.gem "locale", :version => '>=2.0.5'
+  config.gem "gettext", :version => '>=1.9.3'
   config.gem "fast_gettext", :version => '>=0.4.8'
   config.gem "rack", :version => '1.1.0'
   config.gem "recaptcha", :lib => "recaptcha/rails"

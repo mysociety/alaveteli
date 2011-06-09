@@ -1,0 +1,80 @@
+# CGI/ERB sample for Ruby-GetText-Package.
+#
+# Copyright (C) 2005,2006 Masao Mutoh
+#
+# This file is distributed under the same license as the Ruby-GetText-Package.
+#
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: cgi-sample 1.1.1\n"
+"POT-Creation-Date: 2006-01-07 14:55+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: index.cgi:36
+msgid "an ERB/CGI sample (UTF-8)."
+msgstr ""
+
+#: index.cgi:37
+msgid ""
+"an ERB/CGI sample (UTF-8). This sample uses the same container as sample 1 "
+"but has a different rhtml file."
+msgstr ""
+
+#: index.cgi:38
+msgid "an ERB/CGI sample (Auto-Detect charset)."
+msgstr ""
+
+#: index.cgi:50 cookie.cgi:44
+msgid "Sample script for CGI/ERB and Ruby-GetText-Package"
+msgstr ""
+
+#: index.cgi:55
+msgid "Ruby-GetText CGI sample scripts"
+msgstr ""
+
+#: index.cgi:57
+msgid "Supported Locales:"
+msgstr ""
+
+#: index.cgi:58
+msgid "Auto-Detect a locale from the WWW browser"
+msgstr ""
+
+#: index.cgi:66
+msgid "Set locale as a \"lang\" parameter"
+msgstr ""
+
+#: index.cgi:82
+msgid "Set \"lang\" to cookie."
+msgstr ""
+
+#: index.cgi:83
+msgid ""
+"Click one of the link below, and then click \"Auto-Detect a locale from the "
+"WWW browser\" samples."
+msgstr ""
+
+#: index.cgi:92
+msgid "Source codes"
+msgstr ""
+
+#: index.cgi:103
+msgid "index.cgi is also a Ruby-GetText sample script using CGI(not ERB)."
+msgstr ""
+
+#: cookie.cgi:50
+msgid "Set [%s] as the cookie of your WWW Browser."
+msgstr ""
+
+#: cookie.cgi:54
+msgid "Back"
+msgstr ""

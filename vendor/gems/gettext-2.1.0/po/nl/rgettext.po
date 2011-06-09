@@ -1,0 +1,134 @@
+#
+# a po-file for Ruby-GetText-Package
+#
+# Copyright (C) 2005,2006 Masao Mutoh
+#
+# This file is distributed under the same license as the Ruby-GetText-Package.
+#
+# Menno Jonkers <ruby-gettext at jonkers.com>, 2005,2006.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ruby-gettext 2.1.0\n"
+"POT-Creation-Date: 2009-11-08 22:43+0900\n"
+"PO-Revision-Date: 2006-12-10 15:03+0100\n"
+"Last-Translator: Menno Jonkers <ruby_gettext jonkers.com>\n"
+"Language-Team: Dutch <ruby_gettext@jonkers.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#: lib/gettext/tools/rmsgmerge.rb:402
+msgid "Usage: %s def.po ref.pot [-o output.pot]"
+msgstr "Gebruik: %s def.po ref.pot [-o uitvoer.pot]"
+
+#: lib/gettext/tools/rmsgmerge.rb:405
+msgid ""
+"Merges two Uniforum style .po files together. The def.po file is an existing "
+"PO file with translations. The ref.pot file is the last created PO file with "
+"up-to-date source references. ref.pot is generally created by rgettext."
+msgstr ""
+"Voegt twee gelijksoortige .po-bestanden samen. Het def.po-bestand is een "
+"bestaand PO-bestand met vertalingen. Het ref.pot-bestand is het meest "
+"recente POT-bestand met actuele bronverwijzingen. ref.pot wordt over het "
+"algemeen aangemaakt door rgettext."
+
+#: lib/gettext/tools/rmsgmerge.rb:407 lib/gettext/tools/rgettext.rb:149
+#: lib/gettext/tools/rmsgfmt.rb:50
+msgid "Specific options:"
+msgstr "Specifieke opties:"
+
+#: lib/gettext/tools/rmsgmerge.rb:409 lib/gettext/tools/rgettext.rb:151
+#: lib/gettext/tools/rmsgfmt.rb:52
+msgid "write output to specified file"
+msgstr "schrijf uitvoer naar opgegeven bestand"
+
+#: lib/gettext/tools/rmsgmerge.rb:420 lib/gettext/tools/rgettext.rb:168
+#: lib/gettext/tools/rmsgfmt.rb:56
+msgid "display version information and exit"
+msgstr "toon versie-informatie en stop"
+
+#: lib/gettext/tools/rmsgmerge.rb:446
+msgid "definition po is not given."
+msgstr "definitie po is niet opgegeven."
+
+#: lib/gettext/tools/rmsgmerge.rb:448
+msgid "reference pot is not given."
+msgstr "referentie pot is niet opgegeven."
+
+#: lib/gettext/tools/parser/glade.rb:73
+msgid "`%{file}' is not glade-2.0 format."
+msgstr "`%{file}' is niet in glade-2.0 formaat."
+
+#: lib/gettext/tools/rgettext.rb:40
+msgid "'%{klass}' is ignored."
+msgstr "'%{klass}' is genegeerd."
+
+#: lib/gettext/tools/rgettext.rb:134
+msgid "Error parsing %{path}"
+msgstr ""
+
+#: lib/gettext/tools/rgettext.rb:145
+msgid "Usage: %s input.rb [-r parser.rb] [-o output.pot]"
+msgstr "Gebruik: %s invoer.rb [-r parser.rb] [-o uitvoer.pot]"
+
+#: lib/gettext/tools/rgettext.rb:147
+msgid "Extract translatable strings from given input files."
+msgstr "Haalt vertaalbare strings uit gegeven invoerbestanden."
+
+#: lib/gettext/tools/rgettext.rb:155
+msgid "File '%s' already exists."
+msgstr "Bestand '%s' bestond al."
+
+#: lib/gettext/tools/rgettext.rb:160
+msgid "require the library before executing rgettext"
+msgstr "vereis de bibliotheek voordat rgettext uitgevoerd wordt"
+
+#: lib/gettext/tools/rgettext.rb:164
+msgid "run in debugging mode"
+msgstr "draai in debug mode"
+
+#: lib/gettext/tools/rgettext.rb:192 lib/gettext/tools/rmsgfmt.rb:29
+msgid "no input files"
+msgstr "geen invoerbestanden"
+
+#: lib/gettext/tools/rmsgfmt.rb:46
+msgid "Usage: %s input.po [-o output.mo]"
+msgstr "Gebruik: %s invoer.po [-o uitvoer.mo]"
+
+#: lib/gettext/tools/rmsgfmt.rb:48
+msgid "Generate binary message catalog from textual translation description."
+msgstr "Genereer binaire berichtencatalogus uit vertalingen in tekstvorm."
+
+#: lib/gettext/tools.rb:68
+#, fuzzy
+msgid "Failed to merge with %{defpo}"
+msgstr "Samenvoegen met %{defpo} mislukt - overgeslagen!"
+
+#: lib/gettext/tools.rb:69
+#, fuzzy
+msgid "New .pot was copied to %{failed_filename}"
+msgstr "Controleer nieuwe .pot in %{failed_filename}"
+
+#: lib/gettext/tools.rb:70
+msgid "Check these po/pot-files. It may have syntax errors or something wrong."
+msgstr ""
+
+#: lib/gettext/tools.rb:173
+msgid ""
+"`%{cmd}' can not be found. \n"
+"Install GNU Gettext then set PATH or MSGMERGE_PATH correctly."
+msgstr ""
+
+#: lib/gettext/runtime/textdomain_manager.rb:147
+msgid "3rd parmeter is wrong: value = %{number}"
+msgstr ""
+
+#: src/poparser.ry:38 src/poparser.ry:55
+msgid "Warning: fuzzy message was ignored.\n"
+msgstr "Waarschuwing: fuzzy bericht is genegeerd.\n"
+
+#: src/poparser.ry:148
+msgid "Warning: obsolete msgid exists.\n"
+msgstr "Waarschuwing: overtollig msgid bestaat.\n"

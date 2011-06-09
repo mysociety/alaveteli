@@ -1,0 +1,51 @@
+# CGI/ERB sample for Ruby-GetText-Package.
+#
+# Copyright (C) 2005,2006 Masao Mutoh
+#
+# This file is distributed under the same license as the Ruby-GetText-Package.
+#
+# Ramon Salvadó <rsalvado at gnuine.com>, 2006.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cgi-sample 1.1.1\n"
+"POT-Creation-Date: 2006-01-07 14:51+0900\n"
+"PO-Revision-Date: 2005-12-20 10:33+0900E\n"
+"Last-Translator: Ramon Salvadó <rsalvado at gnuine.com>\n"
+"Language-Team: Catalan\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: helloerb2.cgi:34
+msgid "Sample script for CGI/ERB (Auto-Detect charset)."
+msgstr "Script d'exemple per a CGI/ERB (Auto-detecció de charset)"
+
+#: helloerb.rhtml:5
+msgid "Sample script for CGI/ERB and Ruby-GetText-Package"
+msgstr "Script d'exemple per a CGI/ERB i Ruby-GetText-Package"
+
+#: helloerb.rhtml:12
+msgid "Hello World"
+msgstr "Hola Món"
+
+#: helloerb.rhtml:15
+msgid "locale"
+msgstr ""
+
+#: helloerb.rhtml:16
+msgid "output_charset"
+msgstr ""
+
+#: helloerb.rhtml:17
+msgid "QUERY_STRING"
+msgstr ""
+
+#: helloerb.rhtml:19
+msgid "Call a library method which has another textdomain."
+msgstr "Crida a un mètode d'una llibreria que té un altre textdomain."
+
+#: helloerb.rhtml:21
+msgid "Back"
+msgstr "Enrere"

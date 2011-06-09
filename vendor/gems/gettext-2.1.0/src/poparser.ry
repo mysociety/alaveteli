@@ -1,0 +1,217 @@
+#
+#  poparser.ry - ruby version of msgfmt
+#
+#  Copyright (C) 2002-2008 Masao Mutoh <mutomasa at gmail.com>
+# 
+#  You may redistribute it and/or modify it under the same
+#  license terms as Ruby.
+
+class GetText::PoParser 
+  token COMMENT MSGID MSGCTXT MSGID_PLURAL MSGSTR STRING PLURAL_NUM
+
+  rule
+
+  msgfmt
+  : /* empty */
+  | msgfmt comment
+  | msgfmt msgctxt
+  | msgfmt message
+  ;
+
+  msgctxt
+  : MSGCTXT string_list
+  {
+    @msgctxt = unescape(val[1]) + "\004"
+  }
+  ;
+
+  message
+  : single_message
+  | plural_message
+  ;
+
+  single_message
+  : MSGID string_list MSGSTR string_list
+  {
+    if @fuzzy and $ignore_fuzzy 
+      if val[1] != ""
+        $stderr.print _("Warning: fuzzy message was ignored.\n")
+        $stderr.print "  #{@po_file}: msgid '#{val[1]}'\n"
+      else
+        on_message('', unescape(val[3]))
+      end
+      @fuzzy = false
+    else
+      on_message(@msgctxt + unescape(val[1]), unescape(val[3]))
+    end
+    result = ""
+  }
+
+  plural_message
+  : MSGID string_list MSGID_PLURAL string_list msgstr_plural
+  {
+    if @fuzzy and $ignore_fuzzy
+      if val[1] != ""
+        $stderr.print _("Warning: fuzzy message was ignored.\n")
+        $stderr.print "msgid = '#{val[1]}\n"
+      else
+        on_message('', unescape(val[3]))
+      end
+      @fuzzy = false
+    else
+      on_message(@msgctxt + unescape(val[1]) + "\000" + unescape(val[3]), unescape(val[4]))
+    end
+    result = ""
+  }
+  ;
+
+  msgstr_plural
+  : msgstr_plural msgstr_plural_line
+  {
+    if val[0].size > 0
+      result = val[0] + "\000" + val[1]
+    else
+      result = ""
+    end
+  }
+  | msgstr_plural_line
+  ;
+  
+  msgstr_plural_line
+  : MSGSTR PLURAL_NUM string_list
+  {
+    result = val[2]
+  }
+  ;
+
+  comment
+  : COMMENT 
+  {
+    on_comment(val[0])
+  }
+  #| COMMENT
+  #;
+
+  string_list
+  : string_list STRING
+  {
+    result = val.delete_if{|item| item == ""}.join
+  }
+  | STRING
+  {
+    result = val[0]
+  }
+  ;
+end
+
+---- inner
+  include GetText
+  GetText.bindtextdomain("rgettext")
+
+  def unescape(orig)
+    ret = orig.gsub(/\\n/, "\n")
+    ret.gsub!(/\\t/, "\t")
+    ret.gsub!(/\\r/, "\r")
+    ret.gsub!(/\\"/, "\"")
+    ret
+  end
+  
+  def parse(str, data, ignore_fuzzy = true)
+    @comments = []
+    @data = data
+    @fuzzy = false
+    @msgctxt = ""
+    $ignore_fuzzy = ignore_fuzzy
+
+    str.strip!
+    @q = []
+    until str.empty? do
+      case str
+      when /\A\s+/
+	str = $'
+      when /\Amsgctxt/
+	@q.push [:MSGCTXT, $&]
+	str = $'
+      when /\Amsgid_plural/
+	@q.push [:MSGID_PLURAL, $&]
+	str = $'
+      when /\Amsgid/
+	@q.push [:MSGID, $&]
+	str = $'
+      when /\Amsgstr/
+	@q.push [:MSGSTR, $&]
+	str = $'
+      when /\A\[(\d+)\]/
+	@q.push [:PLURAL_NUM, $1]
+	str = $'
+      when /\A\#~(.*)/
+	$stderr.print _("Warning: obsolete msgid exists.\n")
+	$stderr.print "         #{$&}\n"
+	@q.push [:COMMENT, $&]
+	str = $'
+      when /\A\#(.*)/
+	@q.push [:COMMENT, $&]
+	str = $'      
+      when /\A\"(.*)\"/
+	@q.push [:STRING, $1]
+	str = $'
+      else
+	#c = str[0,1]
+	#@q.push [:STRING, c]
+	str = str[1..-1]
+      end
+    end 
+    @q.push [false, '$end']
+    if $DEBUG
+      @q.each do |a,b|
+      puts "[#{a}, #{b}]"
+      end
+    end
+    @yydebug = true if $DEBUG
+    do_parse
+
+    if @comments.size > 0
+      @data.set_comment(:last, @comments.join("\n"))
+    end
+    @data
+  end
+  
+  def next_token
+    @q.shift
+  end
+
+  def on_message(msgid, msgstr)
+    if msgstr.size > 0
+      @data[msgid] = msgstr
+      @data.set_comment(msgid, @comments.join("\n"))
+    end
+    @comments.clear
+    @msgctxt = ""
+  end
+      
+  def on_comment(comment)
+    @fuzzy = true if (/fuzzy/ =~ comment)
+    @comments << comment
+  end 
+
+  def parse_file(po_file, data, ignore_fuzzy = true)
+    args = [ po_file ]
+    # In Ruby 1.9, we must detect proper encoding of a PO file.
+    if String.instance_methods.include?(:encode)
+      encoding = detect_file_encoding(po_file)
+      args << "r:#{encoding}"
+    end
+    @po_file = po_file
+    parse(File.open(*args) {|io| io.read }, data, ignore_fuzzy)
+  end
+
+  def detect_file_encoding(po_file)
+    open(po_file, :encoding => 'ASCII-8BIT') do |input|
+      input.lines.each do |line|
+        return Encoding.find($1) if %r["Content-Type:.*\scharset=(.*)\\n"] =~ line
+      end
+    end
+    Encoding.default_external
+  end
+  private :detect_file_encoding
+---- footer
