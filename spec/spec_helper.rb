@@ -56,7 +56,7 @@ end
 
 # XXX No idea what namespace/class/module to put this in 
 def receive_incoming_mail(email_name, email_to, email_from = 'geraldinequango@localhost')
-    email_name = File.join(Spec::Runner.configuration.fixture_path, email_name)
+    email_name = file_fixture_name(email_name)
     content = File.read(email_name)
     content.gsub!('EMAIL_TO', email_to)
     content.gsub!('EMAIL_FROM', email_from)
@@ -64,7 +64,7 @@ def receive_incoming_mail(email_name, email_to, email_from = 'geraldinequango@lo
 end
 
 def file_fixture_name(file_name)
-    return File.join(Spec::Runner.configuration.fixture_path, file_name)
+    return File.join(Spec::Runner.configuration.fixture_path, "files", file_name)
 end
 
 def load_file_fixture(file_name)
