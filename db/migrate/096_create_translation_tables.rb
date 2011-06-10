@@ -14,10 +14,11 @@ class CreateTranslationTables < ActiveRecord::Migration
       publicbody.translated_attributes.each do |a, default|
         value = publicbody.read_attribute(a)
         unless value.nil?
-          publicbody.send(:"#{a}=", publicbody.read_attribute(a))
+          publicbody.send(:"#{a}=", value)
         end
       end
-    end    
+      publicbody.save!
+    end
   end
 
 
