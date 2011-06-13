@@ -108,7 +108,7 @@ ActionMailer::Base.default_url_options[:host] = MySociety::Config.get("DOMAIN", 
 if (MySociety::Config.get("DOMAIN", "") != "")
     ActionController::Base.asset_host = Proc.new { |source, request|
         if request.fullpath.match(/^\/admin\//)
-            MySociety::Config.get("ADMIN_PUBLIC_URL", "/")
+            MySociety::Config.get("ADMIN_PUBLIC_URL", "")
         else
             MySociety::Config.get("DOMAIN", 'localhost:3000')
         end

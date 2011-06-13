@@ -39,8 +39,8 @@ define('OPTION_BLACKHOLE_PREFIX', 'do-not-reply-to-this-address'); // used as en
 define('OPTION_CONTACT_EMAIL', 'admin@localhost');
 define('OPTION_ADMIN_BASE_URL', '/admin/');
 // Where /stylesheets sits under for admin pages. See asset_host in 
-// config/environment.rb. Can be full domain or relative path.
-define('OPTION_ADMIN_PUBLIC_URL', '/'); 
+// config/environment.rb. Can be full domain or relative path (not an absolute path beginning with /).
+define('OPTION_ADMIN_PUBLIC_URL', ''); 
 
 // Secret key for signing cookie_store sessions
 define('OPTION_COOKIE_STORE_SESSION_SECRET', 'your secret key here, make it long and random');
