@@ -31,6 +31,13 @@ describe PublicBodyController, "when showing a body" do
         assigns[:public_body].notes.should == "Baguette"
     end
 
+    it "should assign the body using same locale as that used in url_name even with wrongly set locale" do
+        PublicBody.with_locale(:en) do 
+            get :show, {:url_name => "edfh", :locale => 'es'}
+            response.body.should include('Baguette')
+        end
+    end
+ 
     it "should redirect to newest name if you use historic name of public body in URL" do
         get :show, :url_name => "hdink"
         response.should redirect_to(:controller => 'public_body', :action => 'show', :url_name => "dfh")

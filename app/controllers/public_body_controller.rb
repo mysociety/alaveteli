@@ -21,10 +21,12 @@ class PublicBodyController < ApplicationController
             @public_body = PublicBody.find_by_url_name_with_historic(params[:url_name])
             raise "None found" if @public_body.nil? # XXX proper 404
 
-            # If found by historic name, redirect to new name
-            redirect_to show_public_body_url(:url_name => @public_body.url_name) if 
-                @public_body.url_name != params[:url_name]
-
+            # If found by historic name, or alternate locale name, redirect to new name
+            if  @public_body.url_name != params[:url_name]
+                redirect_to show_public_body_url(:url_name => @public_body.url_name) 
+                return
+            end
+               
             set_last_body(@public_body)
 
             top_url = main_url("/")
@@ -51,9 +53,10 @@ class PublicBodyController < ApplicationController
             @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss], :has_json => true } ]
 
             respond_to do |format|
-                format.html { @has_json = true }
+                format.html { @has_json = true; render :template => "public_body/show"}
                 format.json { render :json => @public_body.json_for_api }
             end
+            
         end
     end
 
