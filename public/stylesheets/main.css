@@ -51,10 +51,10 @@ body
 		color: #f0f0f0;
 		display: block;
 		height: 55px;
-		background-image: url(../images/navimg/logo-trans.png);
+		background-image: url(../images/navimg/alaveteli-logo.png);
 		background-repeat: no-repeat;
 	}
-	
+
 	#header #tagline
 	{
 		font-size: 0.8em;
@@ -134,7 +134,7 @@ body
 			clear: none;
 			height: 55px;
 			width: 265px;
-			background-image: url(../images/navimg/mysoc-logo-header.png);
+			background-image: url(../images/navimg/alaveteli-logo-header.png);
 			background-repeat: no-repeat;
 			background-position: 125px 15px;
 		}
