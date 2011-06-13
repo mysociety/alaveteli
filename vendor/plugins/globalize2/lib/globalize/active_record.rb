@@ -88,9 +88,12 @@ module Globalize
       delegate :set_translation_table_name, :to => :translation_class
 
       def with_locale(locale)
-        previous_locale, self.locale = self.locale, locale
-        result = yield
-        self.locale = previous_locale
+        begin
+            previous_locale, self.locale = self.locale, locale
+            result = yield          
+        ensure
+            self.locale = previous_locale
+        end
         result
       end
 
