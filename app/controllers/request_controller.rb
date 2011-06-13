@@ -52,7 +52,7 @@ class RequestController < ApplicationController
             
             @last_info_request_event_id = @info_request.last_event_id_needing_description
             @new_responses_count = @info_request.events_needing_description.select {|i| i.event_type == 'response'}.size
-
+1
             # Sidebar stuff
             # ... requests that have similar imporant terms
             behavior_cache :tag => ['similar', @info_request.id] do
@@ -74,10 +74,10 @@ class RequestController < ApplicationController
             @last_response = @info_request.get_last_response
 
             respond_to do |format|
-                format.html { @has_json = true }
+                format.html { @has_json = true; render :template => 'request/show'}
                 format.json { render :json => @info_request.json_for_api(true) }
             end
-            end
+        end
     end
 
     # Extra info about a request, such as event history

@@ -9,47 +9,50 @@
 class AdminPublicBodyController < AdminController
     def index
         list
-        render :action => 'list'
     end
 
     def _lookup_query_internal
-        @locale = self.locale_from_params()
-        PublicBody.with_locale(@locale) do 
-            @query = params[:query]
-            if @query == ""
-                @query = nil
-            end
-            @page = params[:page]
-            if @page == ""
-                @page = nil
-            end
-            @public_bodies = PublicBody.paginate :order => "name", :page => @page, :per_page => 100,
-                :conditions =>  @query.nil? ? nil : ["lower(name) like lower('%'||?||'%') or 
-                                 lower(short_name) like lower('%'||?||'%') or 
-                                 lower(request_email) like lower('%'||?||'%')", @query, @query, @query]
-            @public_bodies_by_tag = PublicBody.find_by_tag(@query) 
+        @query = params[:query]
+        if @query == ""
+            @query = nil
         end
+        @page = params[:page]
+        if @page == ""
+            @page = nil
+        end
+        @public_bodies = PublicBody.paginate :order => "name", :page => @page, :per_page => 100,
+            :conditions =>  @query.nil? ? nil : ["lower(name) like lower('%'||?||'%') or 
+                             lower(short_name) like lower('%'||?||'%') or 
+                             lower(request_email) like lower('%'||?||'%')", @query, @query, @query]
+        @public_bodies_by_tag = PublicBody.find_by_tag(@query) 
     end
 
     def list
-        self._lookup_query_internal
+        @locale = self.locale_from_params()
+        PublicBody.with_locale(@locale) do 
+            self._lookup_query_internal
+            render :action => 'list'
+        end
     end
 
     def mass_tag_add
-        self._lookup_query_internal
+        @locale = self.locale_from_params()
+        PublicBody.with_locale(@locale) do 
+          self._lookup_query_internal
 
-        if params[:new_tag] and params[:new_tag] != ""
-            if params[:table_name] == 'exact'
-                bodies = @public_bodies_by_tag
-            elsif params[:table_name] == 'substring'
-                bodies = @public_bodies
-            else
-                raise "Unknown table_name " + params[:table_name]
-            end
-            for body in bodies
-                body.add_tag_if_not_already_present(params[:new_tag])
-            end
-            flash[:notice] = "Added tag to table of bodies."
+          if params[:new_tag] and params[:new_tag] != ""
+              if params[:table_name] == 'exact'
+                  bodies = @public_bodies_by_tag
+              elsif params[:table_name] == 'substring'
+                  bodies = @public_bodies
+              else
+                  raise "Unknown table_name " + params[:table_name]
+              end
+              for body in bodies
+                  body.add_tag_if_not_already_present(params[:new_tag])
+              end
+              flash[:notice] = "Added tag to table of bodies."
+          end
         end
 
         redirect_to admin_url('body/list') + "?query=" + @query + (@page.nil? ? "" : "&page=" + @page) # XXX construct this URL properly
@@ -75,6 +78,7 @@ class AdminPublicBodyController < AdminController
         @locale = self.locale_from_params()
         PublicBody.with_locale(@locale) do 
             @public_body = PublicBody.find(params[:id])
+            render
         end
     end
 
@@ -82,6 +86,7 @@ class AdminPublicBodyController < AdminController
         @locale = self.locale_from_params()
         PublicBody.with_locale(@locale) do 
             @public_body = PublicBody.new
+            render
         end
     end
 
@@ -104,6 +109,7 @@ class AdminPublicBodyController < AdminController
         PublicBody.with_locale(@locale) do 
             @public_body = PublicBody.find(params[:id])
             @public_body.last_edit_comment = ""
+            render
         end
     end
 
@@ -134,9 +140,9 @@ class AdminPublicBodyController < AdminController
 
             public_body.tag_string = ""
             public_body.destroy
+            flash[:notice] = "PublicBody was successfully destroyed."
+            redirect_to admin_url('body/list')
         end
-        flash[:notice] = "PublicBody was successfully destroyed."
-        redirect_to admin_url('body/list')
     end
 
     def import_csv

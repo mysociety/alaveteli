@@ -102,13 +102,6 @@ class PublicBodyController < ApplicationController
                 and has_tag_string_tags.model = \'PublicBody\'
                 and has_tag_string_tags.name = ?) > 0', @locale, @tag]
         end
-        PublicBody.with_locale(@locale) do 
-            @public_bodies = PublicBody.paginate(
-              :order => "public_body_translations.name", :page => params[:page], :per_page => 1000, # fit all councils on one page
-              :conditions => conditions,
-              :joins => :translations
-            )
-        end
         if @tag.size == 1
             @description = "beginning with '" + @tag + "'"
         else
@@ -116,6 +109,14 @@ class PublicBodyController < ApplicationController
             if @description.nil?
                 @description = @tag
             end
+        end
+        PublicBody.with_locale(@locale) do 
+            @public_bodies = PublicBody.paginate(
+              :order => "public_body_translations.name", :page => params[:page], :per_page => 1000, # fit all councils on one page
+              :conditions => conditions,
+              :joins => :translations
+            )
+            render :template => "public_body/list"
         end
     end
 
