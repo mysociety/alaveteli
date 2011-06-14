@@ -3,10 +3,10 @@
 	url = git://git.mysociety.org/commonlib
 [submodule "vendor/rails"]
 	path = vendor/rails
-	url = https://github.com/rails/rails.git
+	url = git://github.com/rails/rails.git
 [submodule "vendor/rails-locales"]
 	path = vendor/rails-locales
-	url = https://github.com/svenfuchs/rails-i18n.git
+	url = git://github.com/svenfuchs/rails-i18n.git
 [submodule "vendor/plugins/alavetelitheme"]
 	path = vendor/plugins/alavetelitheme
-	url = https://github.com/sebbacon/alavetelitheme.git
+	url = git://github.com/sebbacon/alavetelitheme.git
