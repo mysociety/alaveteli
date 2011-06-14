@@ -12,7 +12,6 @@
     <% end %>
     <% if @public_body.has_tag?("charity") %>
         <% for tag_value in @public_body.get_tag_values("charity") %>
-	   XXX UK-specific
             <% if tag_value.match(/^SC/) %>
                 <%= link_to _('Charity registration'), "http://www.oscr.org.uk/CharityIndexDetails.aspx?id=" + tag_value %><br>
             <% else %>
@@ -67,7 +66,6 @@
    <% if @xapian_requests.results.empty? %>
         <% if @public_body.eir_only? %>
             <h2>Environmental Information Regulations requests made using this site</h2>
-            <h4>XXX this section needs localising re EIR as these are specific to UK law</h4>
             <p>Nobody has made any Environmental Information Regulations requests to <%=h(@public_body.name)%> using this site yet.</p>
         <% else %>
             <h2> <%= _('Freedom of Information requests made using this site')%></h2>
