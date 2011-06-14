@@ -180,7 +180,7 @@ module LinkToHelper
 
 
     def main_url(relative_path)
-        url_prefix = "http://" + MySociety::Config.get("DOMAIN", '127.0.0.1:3000')
+        url_prefix = "http://" + MySociety::Config.get("DOMAIN", 'informatazyrtare.org')
         return url_prefix + relative_path
     end
 
