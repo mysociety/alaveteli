@@ -1178,7 +1178,7 @@ describe RequestController, "authority uploads a response from the web interface
         session[:user_id] = @normal_user.id
 
         # post up a photo of the parrot
-        parrot_upload = fixture_file_upload('parrot.png','image/png')
+        parrot_upload = fixture_file_upload('files/parrot.png','image/png')
         post :upload_response, :url_title => 'why_do_you_have_such_a_fancy_dog',
             :body => "Find attached a picture of a parrot",
             :file_1 => parrot_upload,
@@ -1202,7 +1202,7 @@ describe RequestController, "authority uploads a response from the web interface
         session[:user_id] = @foi_officer_user.id
 
         # post up a photo of the parrot
-        parrot_upload = fixture_file_upload('parrot.png','image/png')
+        parrot_upload = fixture_file_upload('files/parrot.png','image/png')
         post :upload_response, :url_title => 'why_do_you_have_such_a_fancy_dog',
             :body => "Find attached a picture of a parrot",
             :file_1 => parrot_upload,
