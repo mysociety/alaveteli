@@ -75,6 +75,11 @@ else
     echo "ENV['RAILS_ENV'] = 'development'" > config/rails_env.rb
 fi
 
+if [ -n "$OPTION_THEME_URL" ]
+then
+    script/plugin install --force $OPTION_THEME_URL
+fi
+
 # upgrade database
 rake db:migrate #--trace
 
