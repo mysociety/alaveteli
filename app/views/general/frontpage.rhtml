@@ -16,8 +16,8 @@
            <%= submit_tag _('Search') %>
            <br>
            <%= _('e.g.') %>
-	   <% @popular_bodies.each_with_index do |body, i| %>
-             <%=link_to body.name, search_url(body.name, 'bodies')%><% if i < 2 %>, <% else %>. <% break %><% end %>
+	   <% @search_examples.each_with_index do |name, i| %>
+             <%=link_to name, search_url(name, 'bodies')%><% if i < 2 %>, <% else %>. <% break %><% end %>
 	   <% end %>
 
            <br>

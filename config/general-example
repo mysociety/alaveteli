@@ -55,5 +55,12 @@ define('OPTION_RECAPTCHA_PUBLIC_KEY', 'x');
 define('OPTION_RECAPTCHA_PRIVATE_KEY', 'x');
 
 // Locales we wish to support in this app
-define('OPTION_AVAILABLE_LOCALES', 'en es')
+define('OPTION_AVAILABLE_LOCALES', 'en es');
+
+// example searches for the home page, semicolon delimited
+define('OPTION_FRONTPAGE_SEARCH_EXAMPLES', 'Geraldine Quango; Department for Humpadinking');
+
+// example public bodies for the home page, semicolon delimited - short_names
+define('OPTION_FRONTPAGE_PUBLICBODY_EXAMPLES', 'tgq');
+
 ?>

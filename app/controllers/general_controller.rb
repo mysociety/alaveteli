@@ -21,8 +21,22 @@ class GeneralController < ApplicationController
     # New, improved front page!
     def frontpage
         behavior_cache do
+
+            # get some example searches and public bodies to display
+            # either from config, or based on a (slow!) query if not set
+            body_short_names = MySociety::Config.get('FRONTPAGE_PUBLICBODY_EXAMPLES', '').split(/\s*;\s*/).map{|s| "'%s'" % s.gsub(/'/, "''") }.join(", ")
+            if body_short_names.empty?
             # This is too slow
-            @popular_bodies = PublicBody.find(:all, :select => "*, (select count(*) from info_requests where info_requests.public_body_id = public_bodies.id) as c", :order => "c desc", :limit => 32)
+                @popular_bodies = PublicBody.find(:all, :select => "*, (select count(*) from info_requests where info_requests.public_body_id = public_bodies.id) as c", :order => "c desc", :limit => 32)
+            else
+                @popular_bodies = PublicBody.find(:all, :conditions => ["url_name in (" + body_short_names + ")"])
+            end
+            @search_examples = MySociety::Config.get('FRONTPAGE_SEARCH_EXAMPLES', '').split(/\s*;\s*/)
+            if @search_examples.empty?
+                @search_examples = @popular_bodies.map { |body| body.name }
+            end
+
+
             # Get some successful requests #
             begin
                 query = 'variety:response (status:successful OR status:partially_successful)'
