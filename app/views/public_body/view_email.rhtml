@@ -4,7 +4,7 @@
 
 <p>
 <% if @public_body.is_requestable? %>
-<%= _('WhatDoTheyKnow sends new requests to <strong>{{request_email}}</strong> for this authority.':request_email=> h(@public_body.request_email))%>
+<%= _('WhatDoTheyKnow sends new requests to <strong>{{request_email}}</strong> for this authority.',:request_email=> h(@public_body.request_email))%>
 <% else %>
     <% if @public_body.not_requestable_reason == 'not_apply' %>
         <p><%= _('Freedom of Information law no longer applies to this authority.Follow up messages to existing requests are sent to ')%><strong><%=h @public_body.request_email%></strong>.

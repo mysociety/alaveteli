@@ -21,10 +21,10 @@
       <ul>
       <li>
           <% if @last_response.nil? %>
-              <%= link_to _("Send follow up to ") + OutgoingMailer.name_for_followup(@info_request, @last_response), show_response_no_followup_url(:id => @info_request.id, :incoming_message_id => nil) + "#followup" %> 
+              <%= link_to "Send follow up to " + OutgoingMailer.name_for_followup(@info_request, @last_response), show_response_no_followup_url(:id => @info_request.id, :incoming_message_id => nil) + "#followup" %>
           <% else %>
               <% foi_cache(:controller => "request", :action => "show_response", :id => @info_request.id, :incoming_message_id => @last_response.id, :only_path => true, :template => "_after_actions", :section => "reply_to_link") do %>
-              <%= link_to _("Reply to ") + OutgoingMailer.name_for_followup(@info_request, @last_response), show_response_url(:id => @info_request.id, :incoming_message_id => @last_response.id) + "#followup" %> 
+              <%= link_to "Reply to " + OutgoingMailer.name_for_followup(@info_request, @last_response), show_response_url(:id => @info_request.id, :incoming_message_id => @last_response.id) + "#followup" %>
               <% end %>
           <% end %>
       </li>

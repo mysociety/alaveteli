@@ -1,8 +1,8 @@
 <%= @info_request.public_body.name %> <%= _('have delayed.')%>
 
-<%=_ ('They have not replied to your {{law_used_short}} request {{title}} promptly, as normally required by law':law_used_short=>@info_request.law_used_short,:title=>@info_request.title)%><% if @info_request.public_body.is_school? %> <%=_ ('during term time')%> <% end %>.
+<%=_ ('They have not replied to your {{law_used_short}} request {{title}} promptly, as normally required by law',:law_used_short=>@info_request.law_used_short,:title=>@info_request.title)%><% if @info_request.public_body.is_school? %> <%=_ ('during term time')%> <% end %>.
 
-<%= _('Click on the link below to send a message to {{public_body}} reminding them to reply to your request.':public_body=>@info_request.public_body.name)%>
+<%= _('Click on the link below to send a message to {{public_body}} reminding them to reply to your request.',:public_body=>@info_request.public_body.name)%>
 
 <%=@url%>
 

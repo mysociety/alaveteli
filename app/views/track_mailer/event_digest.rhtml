@@ -1,4 +1,4 @@
-<%  
+<%
     # Construct the main text of the mail
     main_text = ''
     for track_thing, alert_results, xapian_object in @email_about_things
@@ -18,17 +18,17 @@
                 # e.g. Julian Burgess sent a request to Royal Mail Group (15 May 2008)
                 if event.event_type == 'response'
                     url = main_url(incoming_message_url(event.incoming_message))
-                    main_text += event.info_request.public_body.name + <%= _('sent a response to')%>+ event.info_request.user.name 
+                    main_text += event.info_request.public_body.name + " sent a response to " + event.info_request.user.name
                 elsif event.event_type == 'followup_sent'
                     url = main_url(outgoing_message_url(event.outgoing_message))
-                    main_text += event.info_request.user.name + <%= _('sent a follow up message to')%> + event.info_request.public_body.name 
+                    main_text += event.info_request.user.name + " sent a follow up message to " + event.info_request.public_body.name
                 elsif event.event_type == 'sent'
                     # this is unlikely to happen in real life, but happens in the test code
                     url = main_url(outgoing_message_url(event.outgoing_message))
-                    main_text += event.info_request.user.name +  <%= _(' sent a request to')%>  + event.info_request.public_body.name 
+                    main_text += event.info_request.user.name + " sent a request to " + event.info_request.public_body.name
                 elsif event.event_type == 'comment'
                     url = main_url(comment_url(event.comment))
-                    main_text += event.comment.user.name + <%= _('added an annotation')%>
+                    main_text += event.comment.user.name + " added an annotation"
                 else
                     raise "unknown type in event_digest " + event.event_type
                 end
@@ -51,7 +51,7 @@
                 main_text += url + "\n"
                 main_text += "\n"
             else
-                raise <%= _('need to add other types to TrackMailer.event_digest')%>
+                raise "need to add other types to TrackMailer.event_digest"
             end
         end
         main_text += "\n"
@@ -59,11 +59,10 @@
 
     #STDERR.puts main_text
     #STDERR.puts @unsubscribe_url
-%>
-<%=main_text%><%= _('Alter your subscription')%>
+%><%=main_text%>Alter your subscription
 =======================
 
-<%= _('Please click on the link below to cancel or alter these emails.')%>
+Please click on the link below to cancel or alter these emails.
 <%=@unsubscribe_url%>
 
 -- the WhatDoTheyKnow team
