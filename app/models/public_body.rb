@@ -44,8 +44,7 @@ class PublicBody < ActiveRecord::Base
 
     has_tag_string
 
-    translates :name, :short_name, :request_email, :url_name, :notes
-    translates :first_letter, :publication_scheme
+    translates :name, :short_name, :request_email, :url_name, :notes, :first_letter, :publication_scheme
 
     # like find_by_url_name but also search historic url_name if none found
     def self.find_by_url_name_with_historic(name)
