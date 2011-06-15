@@ -11,4 +11,5 @@
 moo.txt
 *#*#
 TAGS
-vendor/plugins/*theme
+/vendor/plugins/*theme
+/locale/model_attributes.rb
