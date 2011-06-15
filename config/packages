@@ -38,3 +38,4 @@ libmemcache-client-ruby (>= 1.7.8-2)
 memcached
 rubygems
 libfcgi-dev
+gettext
