@@ -133,7 +133,7 @@ end
  
 describe PublicBody, " when saving" do
     before do
-        @public_body = PublicBody.new 
+        @public_body = PublicBody.new
     end
 
     it "should not be valid without setting some parameters" do
@@ -157,6 +157,18 @@ describe PublicBody, " when saving" do
         @public_body.last_edit_editor = "*test*"
         @public_body.last_edit_comment = "This is a test"
         @public_body.save!
+    end
+    
+    it "should update first_letter" do
+        @public_body.name = "Testing Public Body"
+        @public_body.short_name = "TPB"
+        @public_body.request_email = "request@localhost"
+        @public_body.last_edit_editor = "*test*"
+        @public_body.last_edit_comment = "This is a test"
+        
+        @public_body.first_letter.should be_nil
+        @public_body.save!
+        @public_body.first_letter.should == 'T'
     end
 end
 
