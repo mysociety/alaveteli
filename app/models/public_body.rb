@@ -46,6 +46,12 @@ class PublicBody < ActiveRecord::Base
 
     translates :name, :short_name, :request_email, :url_name, :notes, :first_letter, :publication_scheme
 
+    # Make sure publication_scheme gets the correct default value.
+    # (This would work automatically, were publication_scheme not a translated attribute)
+    def after_initialize
+      self.publication_scheme = "" if self.publication_scheme.nil?
+    end
+
     # like find_by_url_name but also search historic url_name if none found
     def self.find_by_url_name_with_historic(name)
         found = PublicBody.find_all_by_url_name(name)
