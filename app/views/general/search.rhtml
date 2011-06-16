@@ -67,7 +67,11 @@
     <% end %>
 
     <% if @xapian_bodies.results.size > 0 %>
-        <h1><%= _('Public authorities {{start_count}} to {{end_count}} of {{total_count}} for {{user_search_query}}', :start_count => ((@page-1)*@bodies_per_page+1).to_s, :end_count => [@page*@bodies_per_page, @xapian_bodies.matches_estimated].min.to_s, :total_count => @xapian_bodies.matches_estimated.to_s, :user_search_query => h(@query)) %></h1>
+        <% if @xapian_bodies.results.size == 1 && @page == 1 %>
+            <h1><%= _('One public authority matching {{user_search_query}}', :user_search_query => h(@query)) %></h1>
+        <% else %>
+            <h1><%= _('Public authorities {{start_count}} to {{end_count}} of {{total_count}} for {{user_search_query}}', :start_count => ((@page-1)*@bodies_per_page+1).to_s, :end_count => [@page*@bodies_per_page, @xapian_bodies.matches_estimated].min.to_s, :total_count => @xapian_bodies.matches_estimated.to_s, :user_search_query => h(@query)) %></h1>
+        <% end %>
 
         <% for result in @xapian_bodies.results %>
             <%= render :partial => 'public_body/body_listing_single', :locals => { :public_body => result[:model] }  %>
@@ -77,7 +81,11 @@
     <% end %>
 
     <% if @xapian_users.results.size > 0 %>
-        <h1><%= _("People {{start_count}} to {{end_count}} of {{total_count}} for {{user_search_query}}", :start_count => ((@page-1)*@users_per_page+1).to_s, :end_count =>  [@page*@users_per_page, @xapian_users.matches_estimated].min.to_s, :total_count =>  @xapian_users.matches_estimated.to_s, :user_search_query => h(@query)) %></h1>
+        <% if @xapian_users.results.size == 1 && @page == 1 %>
+            <h1><%= _("One person matching {{user_search_query}}", :user_search_query => h(@query)) %></h1>
+        <% else %>
+            <h1><%= _("People {{start_count}} to {{end_count}} of {{total_count}} for {{user_search_query}}", :start_count => ((@page-1)*@users_per_page+1).to_s, :end_count =>  [@page*@users_per_page, @xapian_users.matches_estimated].min.to_s, :total_count =>  @xapian_users.matches_estimated.to_s, :user_search_query => h(@query)) %></h1>
+        <% end %>
 
         <% for result in @xapian_users.results %>
             <%= render :partial => 'user/user_listing_single', :locals => { :display_user => result[:model] } %>
@@ -87,7 +95,11 @@
     <% end %>
 
     <% if @xapian_requests.results.size > 0 %>
-        <h1><%= _("FOI requests  {{start_count}} to {{end_count}} of {{total_count}} for {{user_search_query}}", :start_count => ((@page-1)*@requests_per_page+1).to_s, :end_count => [@page*@requests_per_page, @xapian_requests.matches_estimated].min.to_s, :total_count =>  @xapian_requests.matches_estimated.to_s, :user_search_query => h(@query)) %></h1>
+        <% if @xapian_requests.results.size == 1 && @page == 1 %>
+            <h1><%= _("One FOI request matching {{user_search_query}}", :user_search_query => h(@query)) %></h1>
+        <% else %>
+            <h1><%= _("FOI requests  {{start_count}} to {{end_count}} of {{total_count}} for {{user_search_query}}", :start_count => ((@page-1)*@requests_per_page+1).to_s, :end_count => [@page*@requests_per_page, @xapian_requests.matches_estimated].min.to_s, :total_count =>  @xapian_requests.matches_estimated.to_s, :user_search_query => h(@query)) %></h1>
+        <% end %>
 
         <% if @track_thing %>
             <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => false, :location => 'main' } %>

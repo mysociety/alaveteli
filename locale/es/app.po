@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
-"POT-Creation-Date: 2011-03-31 08:59+0100\n"
+"POT-Creation-Date: 2011-06-16 00:36+0100\n"
 "PO-Revision-Date: 2011-06-14 09:18+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,9 +15,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: \n"
-"Plural-Forms: nplurals=2; plural=n>1;"
+"Plural-Forms: nplurals=2; plural=n>1;\n"
 
-#: app/views/public_body/show.rhtml:81
+#: app/views/public_body/show.rhtml:79
 msgid "%d Freedom of Information request"
 msgid_plural "%d Freedom of Information requests"
 msgstr[0] "%d Libera de Information requesto"
@@ -31,54 +31,58 @@ msgstr[1] "%d multissimo requestos"
 
 #: app/views/general/search.rhtml:53
 msgid "<a href=\"%s\">Browse all</a> or <a href=\"%s\">ask us to add one</a>."
-msgstr "<a href=\"%s\">Browso tutto</a> ou <a href=\"%s\">demandus adder une</a>."
+msgstr ""
+"<a href=\"%s\">Browso tutto</a> ou <a href=\"%s\">demandus adder une</a>."
 
-#: app/views/public_body/show.rhtml:50
+#: app/views/public_body/show.rhtml:49
 msgid ""
 "<a href=\"%s\">Make a new Freedom of Information request</a> to "
 "{{public_body_name}}"
-msgstr "<a href=\"%s\">Makando une Libera de Information requesti</a> a {{public_body_name}}"
+msgstr ""
+"<a href=\"%s\">Makando une Libera de Information requesti</a> a "
+"{{public_body_name}}"
 
-#: app/views/general/search.rhtml:118
+#: app/views/general/search.rhtml:130
 msgid ""
 "<strong><code>commented_by:tony_bowden</code></strong> to search annotations "
 "made by Tony Bowden, typing the name as in the URL."
 msgstr ""
-"<strong><code>commented_by:tony_bowden</code></strong> a busquar annotationi \n"
+"<strong><code>commented_by:tony_bowden</code></strong> a busquar "
+"annotationi \n"
 "makando para Tony Bowden, typar la nom con en el URL."
 
-#: app/views/general/search.rhtml:120
+#: app/views/general/search.rhtml:132
 msgid ""
 "<strong><code>filetype:pdf</code></strong> to find all responses with PDF "
 "attachments. Or try these: <code>{{list_of_file_extensions}}</code>"
 msgstr ""
 
-#: app/views/general/search.rhtml:119
+#: app/views/general/search.rhtml:131
 msgid ""
 "<strong><code>request:</code></strong> to restrict to a specific request, "
 "typing the title as in the URL."
 msgstr ""
 
-#: app/views/general/search.rhtml:117
+#: app/views/general/search.rhtml:129
 msgid ""
 "<strong><code>requested_by:julian_todd</code></strong> to search requests "
 "made by Julian Todd, typing the name as in the URL."
 msgstr ""
 
-#: app/views/general/search.rhtml:116
+#: app/views/general/search.rhtml:128
 msgid ""
 "<strong><code>requested_from:home_office</code></strong> to search requests "
 "from the Home Office, typing the name as in the URL."
 msgstr ""
 
-#: app/views/general/search.rhtml:114
+#: app/views/general/search.rhtml:126
 msgid ""
 "<strong><code>status:</code></strong> to select based on the status or "
 "historical status of the request, see the <a href=\"%s\">table of statuses</"
 "a> below."
 msgstr ""
 
-#: app/views/general/search.rhtml:122
+#: app/views/general/search.rhtml:134
 msgid ""
 "<strong><code>tag:charity</code></strong> to find all public bodies or "
 "requests with a given tag. You can include multiple tags, \n"
@@ -88,7 +92,7 @@ msgid ""
 "want results them all present."
 msgstr ""
 
-#: app/views/general/search.rhtml:115
+#: app/views/general/search.rhtml:127
 msgid ""
 "<strong><code>variety:</code></strong> to select type of thing to search "
 "for, see the <a href=\"%s\">table of varieties</a> below."
@@ -98,7 +102,7 @@ msgstr ""
 msgid "Admin level is not included in list"
 msgstr ""
 
-#: app/views/general/search.rhtml:31 app/views/general/search.rhtml:109
+#: app/views/general/search.rhtml:31 app/views/general/search.rhtml:121
 msgid "Advanced search tips"
 msgstr ""
 
@@ -107,26 +111,27 @@ msgid ""
 "Can't find it? <a href=\"%s\">Browse all</a> or <a href=\"%s\">ask us to add "
 "it</a>."
 msgstr ""
-"No busquara? <a href=\"%s\">Browse tutti</a> ou <a href=\"%s\">demanda a nous a addare \"\n"
+"No busquara? <a href=\"%s\">Browse tutti</a> ou <a href=\"%s\">demanda a "
+"nous a addare \"\n"
 "\"la</a> "
 
-#: locale/model_attributes.rb:46
+#: locale/model_attributes.rb:39
 msgid "CensorRule|Last edit comment"
 msgstr ""
 
-#: locale/model_attributes.rb:45
+#: locale/model_attributes.rb:38
 msgid "CensorRule|Last edit editor"
 msgstr ""
 
-#: locale/model_attributes.rb:44
+#: locale/model_attributes.rb:37
 msgid "CensorRule|Replacement"
 msgstr ""
 
-#: locale/model_attributes.rb:43
+#: locale/model_attributes.rb:36
 msgid "CensorRule|Text"
 msgstr ""
 
-#: app/views/public_body/show.rhtml:17 app/views/public_body/show.rhtml:19
+#: app/views/public_body/show.rhtml:16 app/views/public_body/show.rhtml:18
 msgid "Charity registration"
 msgstr ""
 
@@ -146,7 +151,7 @@ msgstr ""
 msgid "Comment|Visible"
 msgstr ""
 
-#: app/views/layouts/default.rhtml:147
+#: app/views/layouts/default.rhtml:144
 msgid "Contact {{site_name}}"
 msgstr ""
 
@@ -164,11 +169,11 @@ msgstr ""
 msgid "Edit language version:"
 msgstr ""
 
-#: app/views/comment/_comment_form.rhtml:9
+#: app/views/comment/_comment_form.rhtml:8
 msgid "Email me future updates to this request"
 msgstr ""
 
-#: app/views/general/search.rhtml:111
+#: app/views/general/search.rhtml:123
 msgid ""
 "Enter words that you want to find separated by spaces, e.g. <strong>climbing "
 "lane</strong>"
@@ -190,7 +195,7 @@ msgstr ""
 msgid "EximLog|Order"
 msgstr ""
 
-#: app/views/general/search.rhtml:90
+#: app/views/general/search.rhtml:101
 msgid ""
 "FOI requests  {{start_count}} to {{end_count}} of {{total_count}} for "
 "{{user_search_query}}"
@@ -214,38 +219,39 @@ msgid ""
 "           (<a href=\"%s\">why?</a>)."
 msgstr ""
 "Premiero, si poco <strong>nomo de Seblando publicus authoritita</strong> \n"
-"tu <br>amo informatia. <strong>Con legalando, se obligandus respondre</strong> (<a href=\"%s\">pour acqui?</a>)."
+"tu <br>amo informatia. <strong>Con legalando, se obligandus respondre</"
+"strong> (<a href=\"%s\">pour acqui?</a>)."
 
-#: app/views/public_body/show.rhtml:61
+#: app/views/public_body/show.rhtml:60
 msgid ""
 "For an unknown reason, it is not possible to make a request to this "
 "authority."
 msgstr ""
 
-#: app/views/public_body/show.rhtml:56
+#: app/views/public_body/show.rhtml:55
 msgid ""
 "Freedom of Information law does not apply to this authority, so you cannot "
 "make\n"
 "        a request to it."
 msgstr ""
 
-#: app/views/public_body/show.rhtml:99
+#: app/views/public_body/show.rhtml:97
 msgid "Freedom of Information requests made"
 msgstr "Makando Libera de Information requesti"
 
-#: app/views/public_body/show.rhtml:73
+#: app/views/public_body/show.rhtml:71
 msgid "Freedom of Information requests made using this site"
 msgstr "Makando Libera de Information requesti con la site isto"
 
-#: app/views/layouts/default.rhtml:123
+#: app/views/layouts/default.rhtml:120
 msgid "Hello!"
 msgstr "Nomjour!"
 
-#: app/views/layouts/default.rhtml:120
+#: app/views/layouts/default.rhtml:117
 msgid "Hello, {{username}}!"
 msgstr "¡{{username}} hola!"
 
-#: app/views/layouts/default.rhtml:115
+#: app/views/layouts/default.rhtml:112
 msgid "Help"
 msgstr "Aider"
 
@@ -273,27 +279,27 @@ msgstr ""
 msgid "IncomingMessage|Cached main body text unfolded"
 msgstr ""
 
-#: locale/model_attributes.rb:39
+#: locale/model_attributes.rb:44
 msgid "InfoRequestEvent|Calculated state"
 msgstr ""
 
-#: locale/model_attributes.rb:38
+#: locale/model_attributes.rb:43
 msgid "InfoRequestEvent|Described state"
 msgstr ""
 
-#: locale/model_attributes.rb:36
+#: locale/model_attributes.rb:41
 msgid "InfoRequestEvent|Event type"
 msgstr ""
 
-#: locale/model_attributes.rb:40
+#: locale/model_attributes.rb:45
 msgid "InfoRequestEvent|Last described at"
 msgstr ""
 
-#: locale/model_attributes.rb:37
+#: locale/model_attributes.rb:42
 msgid "InfoRequestEvent|Params yaml"
 msgstr ""
 
-#: locale/model_attributes.rb:41
+#: locale/model_attributes.rb:46
 msgid "InfoRequestEvent|Prominence"
 msgstr ""
 
@@ -329,11 +335,11 @@ msgstr ""
 msgid "InfoRequest|Url title"
 msgstr ""
 
-#: app/views/layouts/default.rhtml:17
+#: app/views/layouts/default.rhtml:15
 msgid "Make and browse Freedom of Information (FOI) requests"
 msgstr "Makando et browser los Libera de Information requesti"
 
-#: app/views/layouts/default.rhtml:89
+#: app/views/layouts/default.rhtml:86
 msgid "Make and explore Freedom of Information requests"
 msgstr "Makando et explorator los Libera de Information requesti"
 
@@ -341,7 +347,7 @@ msgstr "Makando et explorator los Libera de Information requesti"
 msgid "Make or explore Freedom of Information requests"
 msgstr "\"Makando ou explorator los Libera de Information requesti"
 
-#: app/views/layouts/default.rhtml:108
+#: app/views/layouts/default.rhtml:105
 msgid "Make request"
 msgstr "Creer requesto"
 
@@ -357,13 +363,9 @@ msgstr "Mas autorititatas..."
 msgid "More successful requests..."
 msgstr "Mas requestos de suces"
 
-#: app/views/layouts/default.rhtml:112
+#: app/views/layouts/default.rhtml:109
 msgid "My requests"
 msgstr "Mes requestos"
-
-#: app/models/public_body.rb:36
-msgid "Name can't be blank"
-msgstr "Nom ne possiblo emptar"
 
 #: app/models/public_body.rb:40
 msgid "Name is already taken"
@@ -381,11 +383,13 @@ msgstr "Maintena, shala el authoritas publicas que tu aimer requestar por"
 msgid "No public authorities found"
 msgstr "Nulla authoritas publiqua trouves"
 
-#: app/views/public_body/show.rhtml:74
+#: app/views/public_body/show.rhtml:72
 msgid ""
 "Nobody has made any Freedom of Information requests to {{public_body_name}} "
 "using this site yet."
-msgstr "Nonna persona crear los requestos Libras Informatias a {{public_body_name}} con esto sita"
+msgstr ""
+"Nonna persona crear los requestos Libras Informatias a {{public_body_name}} "
+"con esto sita"
 
 #: app/views/general/search.rhtml:7
 msgid "Nothing found for '{{search_terms}}'"
@@ -395,9 +399,22 @@ msgstr "Rien por {{search_terms}}"
 msgid ""
 "OR, <strong>search</strong> for information others have requested using "
 "{{site_name}}"
-msgstr "Ou <strong>busqar</strong> per infos los autros requesta com {{site_name}}"
+msgstr ""
+"Ou <strong>busqar</strong> per infos los autros requesta com {{site_name}}"
 
-#: app/views/public_body/show.rhtml:92
+#: app/views/general/search.rhtml:99
+msgid "One FOI request matching {{user_search_query}}"
+msgstr ""
+
+#: app/views/general/search.rhtml:85
+msgid "One person matching {{user_search_query}}"
+msgstr ""
+
+#: app/views/general/search.rhtml:71
+msgid "One public authority matching {{user_search_query}}"
+msgstr ""
+
+#: app/views/public_body/show.rhtml:90
 msgid "Only requests made using {{site_name}} are shown."
 msgstr "Seul los requestos crear con {{site_name}} heerro"
 
@@ -421,11 +438,13 @@ msgstr ""
 msgid "OutgoingMessage|What doing"
 msgstr ""
 
-#: app/views/general/search.rhtml:80
+#: app/views/general/search.rhtml:87
 msgid ""
 "People {{start_count}} to {{end_count}} of {{total_count}} for "
 "{{user_search_query}}"
-msgstr "Peuples {{start_count}} a {{end_count}} de {{total_count}} pour {{user_search_query}}"
+msgstr ""
+"Peuples {{start_count}} a {{end_count}} de {{total_count}} pour "
+"{{user_search_query}}"
 
 #: app/models/profile_photo.rb:91
 msgid "Please choose a file containing your photo."
@@ -469,7 +488,7 @@ msgstr ""
 msgid "Please enter your annotation"
 msgstr ""
 
-#: app/models/contact_validator.rb:29 app/models/user.rb:34
+#: app/models/user.rb:34 app/models/contact_validator.rb:29
 msgid "Please enter your email address"
 msgstr ""
 
@@ -481,7 +500,7 @@ msgstr ""
 msgid "Please enter your letter requesting information"
 msgstr ""
 
-#: app/models/contact_validator.rb:28 app/models/user.rb:36
+#: app/models/user.rb:36 app/models/contact_validator.rb:28
 msgid "Please enter your name"
 msgstr ""
 
@@ -489,15 +508,15 @@ msgstr ""
 msgid "Please enter your name, not your email address, in the name field."
 msgstr ""
 
-#: app/models/change_email_validator.rb:29
+#: app/models/change_email_validator.rb:30
 msgid "Please enter your new email address"
 msgstr ""
 
-#: app/models/change_email_validator.rb:28
+#: app/models/change_email_validator.rb:29
 msgid "Please enter your old email address"
 msgstr ""
 
-#: app/models/change_email_validator.rb:30
+#: app/models/change_email_validator.rb:31
 msgid "Please enter your password"
 msgstr ""
 
@@ -575,7 +594,7 @@ msgstr ""
 msgid "ProfilePhoto|Draft"
 msgstr ""
 
-#: app/views/general/search.rhtml:70
+#: app/views/general/search.rhtml:73
 msgid ""
 "Public authorities {{start_count}} to {{end_count}} of {{total_count}} for "
 "{{user_search_query}}"
@@ -637,13 +656,13 @@ msgstr ""
 msgid "RawEmail|Data text"
 msgstr ""
 
-#: app/views/general/search.rhtml:125
+#: app/views/general/search.rhtml:137
 msgid ""
 "Read about <a href=\"%s\">advanced search operators</a>, such as proximity "
 "and wildcards."
 msgstr ""
 
-#: app/views/layouts/default.rhtml:114
+#: app/views/layouts/default.rhtml:111
 msgid "Read blog"
 msgstr "Lire bloggo"
 
@@ -655,7 +674,7 @@ msgstr "Los resultas recentas decriba au premier"
 msgid "Results page {{page_number}}"
 msgstr "Page de resultas numero {{page_number}}"
 
-#: app/views/layouts/default.rhtml:102 app/views/general/frontpage.rhtml:16
+#: app/views/layouts/default.rhtml:99 app/views/general/frontpage.rhtml:16
 #: app/views/general/search.rhtml:29
 msgid "Search"
 msgstr "Busquar"
@@ -672,25 +691,25 @@ msgstr ""
 msgid "Show most relevant results first"
 msgstr ""
 
-#: app/views/layouts/default.rhtml:124
+#: app/views/layouts/default.rhtml:121
 msgid "Sign in or sign up"
 msgstr "Enregister au signin"
 
-#: app/views/layouts/default.rhtml:121
+#: app/views/layouts/default.rhtml:118
 msgid "Sign out"
 msgstr "Exito"
 
-#: app/views/general/search.rhtml:128
+#: app/views/general/search.rhtml:140
 msgid "Table of statuses"
 msgstr ""
 
-#: app/views/public_body/show.rhtml:101
+#: app/views/public_body/show.rhtml:99
 msgid ""
 "The search index is currently offline, so we can't show the Freedom of "
 "Information requests that have been made to this authority."
 msgstr ""
 
-#: app/views/public_body/show.rhtml:59
+#: app/views/public_body/show.rhtml:58
 msgid "This authority no longer exists, so you cannot make a request to it."
 msgstr ""
 
@@ -710,23 +729,19 @@ msgstr ""
 msgid "TrackThing|Track type"
 msgstr ""
 
-#: app/views/general/search.rhtml:121
+#: app/views/general/search.rhtml:133
 msgid ""
 "Type <strong><code>01/01/2008..14/01/2008</code></strong> to only show "
 "things that happened in the first two weeks of January."
 msgstr ""
 
-#: app/models/public_body.rb:37
-msgid "URL name can't be blank"
-msgstr ""
-
-#: app/views/general/search.rhtml:112
+#: app/views/general/search.rhtml:124
 msgid ""
 "Use OR (in capital letters) where you don't mind which word,  e.g. "
 "<strong><code>commons OR lords</code></strong>"
 msgstr ""
 
-#: app/views/general/search.rhtml:113
+#: app/views/general/search.rhtml:125
 msgid ""
 "Use quotes when you want to find an exact phrase, e.g. <strong><code>"
 "\"Liverpool City Council\"</code></strong>"
@@ -776,32 +791,37 @@ msgstr ""
 msgid "User|Url name"
 msgstr ""
 
-#: app/views/public_body/show.rhtml:23
+#: app/views/public_body/show.rhtml:22
 msgid "View FOI email address"
 msgstr ""
 
-#: app/views/layouts/default.rhtml:110
+#: app/views/layouts/default.rhtml:107
 msgid "View authorities"
 msgstr ""
 
-#: app/views/layouts/default.rhtml:109
+#: app/views/layouts/default.rhtml:106
 msgid "View requests"
 msgstr ""
 
-#: app/views/public_body/show.rhtml:40
+#: app/views/public_body/show.rhtml:39
 msgid ""
 "You can only request information about the environment from this authority."
 msgstr ""
 
-#: app/views/public_body/show.rhtml:31
+#: app/views/public_body/show.rhtml:30
 msgid "admin"
 msgstr ""
 
-#: app/views/public_body/show.rhtml:29
+#: app/views/public_body/show.rhtml:28
 msgid "also called {{public_body_short_name}}"
 msgstr "en additionado, nomme {{public_body_short_name}}"
 
-#: locale/model_attributes.rb:42
+#: app/models/public_body.rb:36 app/models/public_body.rb:37
+#, fuzzy
+msgid "can't be blank"
+msgstr "Nom ne possiblo emptar"
+
+#: locale/model_attributes.rb:35
 msgid "censor rule"
 msgstr ""
 
@@ -833,7 +853,7 @@ msgstr ""
 msgid "info request"
 msgstr ""
 
-#: locale/model_attributes.rb:35
+#: locale/model_attributes.rb:40
 msgid "info request event"
 msgstr ""
 
