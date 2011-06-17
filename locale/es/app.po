@@ -196,7 +196,6 @@ msgid "EximLog|Order"
 msgstr ""
 
 #: app/views/general/search.rhtml:101
-#, fuzzy
 msgid ""
 "FOI requests  {{start_count}} to {{end_count}} of {{total_count}} for "
 "‘{{user_search_query}}’"
@@ -395,7 +394,6 @@ msgstr ""
 "con esto sita"
 
 #: app/views/general/search.rhtml:7
-#, fuzzy
 msgid "Nothing found for ‘{{search_terms}}’"
 msgstr "Rien por {{search_terms}}"
 
@@ -443,7 +441,6 @@ msgid "OutgoingMessage|What doing"
 msgstr ""
 
 #: app/views/general/search.rhtml:87
-#, fuzzy
 msgid ""
 "People {{start_count}} to {{end_count}} of {{total_count}} for "
 "‘{{user_search_query}}’"
@@ -822,7 +819,6 @@ msgid "also called {{public_body_short_name}}"
 msgstr "en additionado, nomme {{public_body_short_name}}"
 
 #: app/models/public_body.rb:36 app/models/public_body.rb:37
-#, fuzzy
 msgid "can't be blank"
 msgstr "Nom ne possiblo emptar"
 
