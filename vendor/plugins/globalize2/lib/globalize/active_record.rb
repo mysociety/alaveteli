@@ -53,10 +53,16 @@ module Globalize
         extend  ClassMethods, Migration
 
         after_save :save_translations!
-        has_many :translations, :class_name  => translation_class.name,
-                                :foreign_key => class_name.foreign_key,
-                                :dependent   => :delete_all,
-                                :extend      => HasManyExtensions
+        ActiveSupport::Deprecation.silence do
+            # Silence the warning that :class_name is deprecated and will be
+            # removed in Rails 3, since it clutters up e.g. test output, and
+            # there is nothing obvious that we can replace it with in Rails 2.
+
+	    has_many :translations, :class_name  => translation_class.name,
+				    :foreign_key => class_name.foreign_key,
+				    :dependent   => :delete_all,
+				    :extend      => HasManyExtensions
+        end
 
         named_scope :with_translations, lambda { |locale|
           conditions = required_attributes.map do |attribute|
