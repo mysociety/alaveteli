@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
-"POT-Creation-Date: 2011-06-16 00:36+0100\n"
+"POT-Creation-Date: 2011-06-16 19:20+0100\n"
 "PO-Revision-Date: 2011-06-14 09:06+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -189,7 +189,7 @@ msgstr ""
 #: app/views/general/search.rhtml:101
 msgid ""
 "FOI requests  {{start_count}} to {{end_count}} of {{total_count}} for "
-"{{user_search_query}}"
+"‘{{user_search_query}}’"
 msgstr ""
 
 #: app/models/profile_photo.rb:101
@@ -378,7 +378,7 @@ msgid ""
 msgstr ""
 
 #: app/views/general/search.rhtml:7
-msgid "Nothing found for '{{search_terms}}'"
+msgid "Nothing found for ‘{{search_terms}}’"
 msgstr ""
 
 #: app/views/general/frontpage.rhtml:25
@@ -388,15 +388,15 @@ msgid ""
 msgstr ""
 
 #: app/views/general/search.rhtml:99
-msgid "One FOI request matching {{user_search_query}}"
+msgid "One FOI request matching ‘{{user_search_query}}’"
 msgstr ""
 
 #: app/views/general/search.rhtml:85
-msgid "One person matching {{user_search_query}}"
+msgid "One person matching ‘{{user_search_query}}’"
 msgstr ""
 
 #: app/views/general/search.rhtml:71
-msgid "One public authority matching {{user_search_query}}"
+msgid "One public authority matching ‘{{user_search_query}}’"
 msgstr ""
 
 #: app/views/public_body/show.rhtml:90
@@ -426,7 +426,7 @@ msgstr ""
 #: app/views/general/search.rhtml:87
 msgid ""
 "People {{start_count}} to {{end_count}} of {{total_count}} for "
-"{{user_search_query}}"
+"‘{{user_search_query}}’"
 msgstr ""
 
 #: app/models/profile_photo.rb:91

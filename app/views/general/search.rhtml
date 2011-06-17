@@ -4,7 +4,7 @@
     <% @title = _("Search Freedom of Information requests, public authorities and users") %>
     <h1><%=@title%></h1>
 <% elsif @total_hits == 0 %>
-    <%= _("Nothing found for '{{search_terms}}'", :search_terms => h(@query)) %>
+    <%= _("Nothing found for ‘{{search_terms}}’", :search_terms => h(@query)) %>
 <% else %>
     <% @title = _("Results page {{page_number}}", :page_number => @page.to_s) %>
 <% end%>
@@ -68,7 +68,7 @@
 
     <% if @xapian_bodies.results.size > 0 %>
         <% if @xapian_bodies.results.size == 1 && @page == 1 %>
-            <h1><%= _('One public authority matching {{user_search_query}}', :user_search_query => h(@query)) %></h1>
+            <h1><%= _('One public authority matching ‘{{user_search_query}}’', :user_search_query => h(@query)) %></h1>
         <% else %>
             <h1><%= _('Public authorities {{start_count}} to {{end_count}} of {{total_count}} for {{user_search_query}}', :start_count => ((@page-1)*@bodies_per_page+1).to_s, :end_count => [@page*@bodies_per_page, @xapian_bodies.matches_estimated].min.to_s, :total_count => @xapian_bodies.matches_estimated.to_s, :user_search_query => h(@query)) %></h1>
         <% end %>
@@ -82,9 +82,9 @@
 
     <% if @xapian_users.results.size > 0 %>
         <% if @xapian_users.results.size == 1 && @page == 1 %>
-            <h1><%= _("One person matching {{user_search_query}}", :user_search_query => h(@query)) %></h1>
+            <h1><%= _("One person matching ‘{{user_search_query}}’", :user_search_query => h(@query)) %></h1>
         <% else %>
-            <h1><%= _("People {{start_count}} to {{end_count}} of {{total_count}} for {{user_search_query}}", :start_count => ((@page-1)*@users_per_page+1).to_s, :end_count =>  [@page*@users_per_page, @xapian_users.matches_estimated].min.to_s, :total_count =>  @xapian_users.matches_estimated.to_s, :user_search_query => h(@query)) %></h1>
+            <h1><%= _("People {{start_count}} to {{end_count}} of {{total_count}} for ‘{{user_search_query}}’", :start_count => ((@page-1)*@users_per_page+1).to_s, :end_count =>  [@page*@users_per_page, @xapian_users.matches_estimated].min.to_s, :total_count =>  @xapian_users.matches_estimated.to_s, :user_search_query => h(@query)) %></h1>
         <% end %>
 
         <% for result in @xapian_users.results %>
@@ -96,9 +96,9 @@
 
     <% if @xapian_requests.results.size > 0 %>
         <% if @xapian_requests.results.size == 1 && @page == 1 %>
-            <h1><%= _("One FOI request matching {{user_search_query}}", :user_search_query => h(@query)) %></h1>
+            <h1><%= _("One FOI request matching ‘{{user_search_query}}’", :user_search_query => h(@query)) %></h1>
         <% else %>
-            <h1><%= _("FOI requests  {{start_count}} to {{end_count}} of {{total_count}} for {{user_search_query}}", :start_count => ((@page-1)*@requests_per_page+1).to_s, :end_count => [@page*@requests_per_page, @xapian_requests.matches_estimated].min.to_s, :total_count =>  @xapian_requests.matches_estimated.to_s, :user_search_query => h(@query)) %></h1>
+            <h1><%= _("FOI requests  {{start_count}} to {{end_count}} of {{total_count}} for ‘{{user_search_query}}’", :start_count => ((@page-1)*@requests_per_page+1).to_s, :end_count => [@page*@requests_per_page, @xapian_requests.matches_estimated].min.to_s, :total_count =>  @xapian_requests.matches_estimated.to_s, :user_search_query => h(@query)) %></h1>
         <% end %>
 
         <% if @track_thing %>
