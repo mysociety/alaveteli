@@ -28,6 +28,7 @@
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
 # general not specific to IncomingMessage.
 
+require 'external_command'
 require 'htmlentities'
 require 'rexml/document'
 require 'zip/zip'
@@ -161,6 +162,33 @@ def normalise_content_type(content_type)
     end
 
     return content_type
+end
+
+def external_command(program_name, *args)
+    # Run an external program, and return its output.
+    # Standard error is suppressed unless the program
+    # fails (i.e. returns a non-zero exit status).
+    opts = {}
+    if !args.empty? && args[-1].is_a?(Hash)
+        opts = args.pop
+    end
+    
+    xc = ExternalCommand.new(program_name, *args)
+    if opts.has_key? :append_to
+        xc.out = opts[:append_to]
+    end
+    xc.run()
+    if xc.status != 0
+        # Error
+        $stderr.print(xc.err)
+        return nil
+    else
+        if opts.has_key? :append_to
+            opts[:append_to] << "\n\n"
+        else
+            return xc.out
+        end
+    end
 end
 
 # List of DSN codes taken from RFC 3463
@@ -1241,51 +1269,39 @@ class IncomingMessage < ActiveRecord::Base
                 system("/usr/bin/wvText " + tempfile.path + " " + tempfile.path + ".txt")
                 # Try catdoc if we get into trouble (e.g. for InfoRequestEvent 2701)
                 if not File.exists?(tempfile.path + ".txt")
-                    IO.popen("/usr/bin/catdoc " + tempfile.path, "r") do |child|
-                        text += child.read() + "\n\n"
-                    end
+                    external_command("/usr/bin/catdoc", tempfile.path, :append_to => text)
                 else
                     text += File.read(tempfile.path + ".txt") + "\n\n"
                     File.unlink(tempfile.path + ".txt")
                 end
             elsif content_type == 'application/rtf'
                 # catdoc on RTF prodcues less comments and extra bumf than --text option to unrtf
-                IO.popen("/usr/bin/catdoc " + tempfile.path, "r") do |child|
-                    text += child.read() + "\n\n"
-                end
+                external_command("/usr/bin/catdoc", tempfile.path, :append_to => text)
             elsif content_type == 'text/html'
                 # lynx wordwraps links in its output, which then don't get formatted properly
                 # by WhatDoTheyKnow. We use elinks instead, which doesn't do that.
-                IO.popen("/usr/bin/elinks -dump-charset utf-8 -force-html -dump " + tempfile.path, "r") do |child|
-                    text += child.read() + "\n\n"
-                end
+                external_command("/usr/bin/elinks", "-dump-charset", "utf-8", "-force-html", "-dump",
+                    tempfile.path, :append_to => text)
             elsif content_type == 'application/vnd.ms-excel'
                 # Bit crazy using /usr/bin/strings - but xls2csv, xlhtml and
                 # py_xls2txt only extract text from cells, not from floating
                 # notes. catdoc may be fooled by weird character sets, but will
                 # probably do for UK FOI requests.
-                IO.popen("/usr/bin/strings " + tempfile.path, "r") do |child|
-                    text += child.read() + "\n\n"
-                end
+                external_command("/usr/bin/strings", tempfile.path, :append_to => text)
             elsif content_type == 'application/vnd.ms-powerpoint'
                 # ppthtml seems to catch more text, but only outputs HTML when
                 # we want text, so just use catppt for now
-                IO.popen("/usr/bin/catppt " + tempfile.path, "r") do |child|
-                    text += child.read() + "\n\n"
-                end
+                external_command("/usr/bin/catppt", tempfile.path, :append_to => text)
             elsif content_type == 'application/pdf'
-                IO.popen("/usr/bin/pdftotext " + tempfile.path + " -", "r") do |child|
-                    text += child.read() + "\n\n"
-                end
+                external_command("/usr/bin/pdftotext", tempfile.path, "-", :append_to => text)
             elsif content_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
                 # This is Microsoft's XML office document format.
                 # Just pull out the main XML file, and strip it of text.
-                xml = ''
-                IO.popen("/usr/bin/unzip -qq -c " + tempfile.path + " word/document.xml", "r") do |child|
-                    xml += child.read() + "\n\n"
+                xml = external_command("/usr/bin/unzip", "-qq", "-c", tempfile.path, "word/document.xml")
+                if !xml.nil?
+                    doc = REXML::Document.new(xml)
+                    text += doc.each_element( './/text()' ){}.join(" ")
                 end
-                doc = REXML::Document.new(xml)
-                text += doc.each_element( './/text()' ){}.join(" ")
             elsif content_type == 'application/zip'
                 # recurse into zip files
                 zip_file = Zip::ZipFile.open(tempfile.path)
