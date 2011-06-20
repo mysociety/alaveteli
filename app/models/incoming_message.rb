@@ -180,7 +180,7 @@ def external_command(program_name, *args)
     xc.run()
     if xc.status != 0
         # Error
-        $stderr.puts("Error from #{program_name} #{args.join(' '):}")
+        $stderr.puts("Error from #{program_name} #{args.join(' ')}:")
         $stderr.print(xc.err)
         return nil
     else
