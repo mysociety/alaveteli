@@ -5,6 +5,7 @@ describe GeneralController, "when searching" do
     fixtures [ :info_requests,
                :info_request_events,
                :public_bodies,
+               :public_body_translations,
                :users,
                :raw_emails,
                :outgoing_messages,
