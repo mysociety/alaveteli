@@ -3,7 +3,6 @@ class IncludeEventForeignReferences < ActiveRecord::Migration
         add_column :info_request_events, :incoming_message_id, :integer
         add_column :info_request_events, :outgoing_message_id, :integer
         for event in InfoRequestEvent.find(:all)
-            #STDERR.puts "event " + event.id.to_s
             incoming_message = event.incoming_message_via_params
             if not incoming_message.nil?
                 event.incoming_message_id = incoming_message.id

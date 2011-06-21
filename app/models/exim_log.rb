@@ -68,7 +68,6 @@ class EximLog < ActiveRecord::Base
                 for email in emails
                     info_request = InfoRequest.find_by_incoming_email(email)
                     if !info_request.nil?
-                        #STDERR.puts "adding log for " + info_request.url_title + " from " + file_name + " line " + line
                         exim_log = EximLog.new
                         exim_log.info_request = info_request
                         exim_log.exim_log_done = done
@@ -112,7 +111,6 @@ class EximLog < ActiveRecord::Base
                         raise "unexpected parsing of exim line"
                     end
 
-                    #STDERR.puts "check_recent_requests_have_been_sent test: " + exim_log.line # debugging
                     found = true
                 end
             end

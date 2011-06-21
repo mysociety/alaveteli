@@ -530,7 +530,6 @@ public
             if curr_state.nil? 
                 if !event.described_state.nil?
                     curr_state = event.described_state
-                    #STDERR.puts "curr_state " + curr_state
                 end
             end
 

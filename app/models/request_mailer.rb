@@ -226,7 +226,6 @@ class RequestMailer < ApplicationMailer
 
     # Send email alerts for overdue requests
     def self.alert_overdue_requests()
-        #STDERR.puts "alert_overdue_requests"
         info_requests = InfoRequest.find(:all, :conditions => [ "described_state = 'waiting_response' and awaiting_description = ?", false ], :include => [ :user ] )
         for info_request in info_requests
             alert_event_id = info_request.last_event_forming_initial_request.id
@@ -244,7 +243,6 @@ class RequestMailer < ApplicationMailer
                 sent_already = UserInfoRequestSentAlert.find(:first, :conditions => [ "alert_type = ? and user_id = ? and info_request_id = ? and info_request_event_id = ?", alert_type, info_request.user_id, info_request.id, alert_event_id])
                 if sent_already.nil?
                     # Alert not yet sent for this user, so send it
-                    #STDERR.puts "sending overdue alert to info_request " + info_request.id.to_s + " user " + info_request.user_id.to_s + " event " + alert_event_id
                     store_sent = UserInfoRequestSentAlert.new
                     store_sent.info_request = info_request
                     store_sent.user = info_request.user
@@ -262,7 +260,6 @@ class RequestMailer < ApplicationMailer
                         end
                     end
                     store_sent.save!
-                    #STDERR.puts "sent " + info_request.user.email
                 end
             end
         end
@@ -276,7 +273,6 @@ class RequestMailer < ApplicationMailer
         self.alert_new_response_reminders_internal(24, 'new_response_reminder_3')
     end
     def self.alert_new_response_reminders_internal(days_since, type_code)
-        #STDERR.puts "alert_new_response_reminders_internal days:" + days_since.to_s + " type: " + type_code
         info_requests = InfoRequest.find_old_unclassified(:order => 'info_requests.id', 
                                                           :include => [:user], 
                                                           :age_in_days => days_since)
@@ -291,7 +287,6 @@ class RequestMailer < ApplicationMailer
             sent_already = UserInfoRequestSentAlert.find(:first, :conditions => [ "alert_type = ? and user_id = ? and info_request_id = ? and info_request_event_id = ?", type_code, info_request.user_id, info_request.id, alert_event_id])
             if sent_already.nil?
                 # Alert not yet sent for this user
-                #STDERR.puts "sending " + type_code + " alert to info_request " + info_request.url_title + " user " + info_request.user.url_name + " event " + alert_event_id.to_s
                 store_sent = UserInfoRequestSentAlert.new
                 store_sent.info_request = info_request
                 store_sent.user = info_request.user
@@ -300,7 +295,6 @@ class RequestMailer < ApplicationMailer
                 # XXX uses same template for reminder 1 and reminder 2 right now. 
                 RequestMailer.deliver_new_response_reminder_alert(info_request, last_response_message)
                 store_sent.save!
-                #STDERR.puts "sent " + info_request.user.email
             end
         end
     end
@@ -308,7 +302,6 @@ class RequestMailer < ApplicationMailer
     # Send email alerts for requests which need clarification. Goes out 3 days
     # after last update of event.
     def self.alert_not_clarified_request()
-        #STDERR.puts "alert_not_clarified_request"
         info_requests = InfoRequest.find(:all, :conditions => [ "awaiting_description = ? and described_state = 'waiting_clarification' and info_requests.updated_at < ?", false, Time.now() - 3.days ], :include => [ :user ], :order => "info_requests.id" )
         for info_request in info_requests
             alert_event_id = info_request.get_last_response_event_id
@@ -320,7 +313,6 @@ class RequestMailer < ApplicationMailer
             sent_already = UserInfoRequestSentAlert.find(:first, :conditions => [ "alert_type = 'not_clarified_1' and user_id = ? and info_request_id = ? and info_request_event_id = ?", info_request.user_id, info_request.id, alert_event_id])
             if sent_already.nil?
                 # Alert not yet sent for this user
-                #STDERR.puts "sending clarification reminder alert to info_request " + info_request.id.to_s + " user " + info_request.user_id.to_s + " event " + alert_event_id.to_s
                 store_sent = UserInfoRequestSentAlert.new
                 store_sent.info_request = info_request
                 store_sent.user = info_request.user
@@ -332,14 +324,12 @@ class RequestMailer < ApplicationMailer
                     RequestMailer.deliver_not_clarified_alert(info_request, last_response_message)
                 end
                 store_sent.save!
-                #STDERR.puts "sent " + info_request.user.email
             end
         end
     end
 
     # Send email alert to request submitter for new comments on the request.
     def self.alert_comment_on_request()
-        #STDERR.puts "alert_comment_on_request"
         
         # We only check comments made in the last month - this means if the
         # cron jobs broke for more than a month events would be lost, but no
@@ -355,22 +345,18 @@ class RequestMailer < ApplicationMailer
         
         info_requests = InfoRequest.find(:all, :conditions => [ "(select id from info_request_events where event_type = 'comment' and info_request_events.info_request_id = info_requests.id and created_at > ? limit 1) is not null", Time.now() - 1.month ], :include => [ { :info_request_events => :user_info_request_sent_alerts } ], :order => "info_requests.id, info_request_events.created_at" )
         for info_request in info_requests
-            #STDERR.puts "considering request " + info_request.id.to_s
 
             # Count number of new comments to alert on
             earliest_unalerted_comment_event = nil
             last_comment_event = nil
             count = 0
             for e in info_request.info_request_events.reverse
-                #STDERR.puts "event " + e.id.to_s + " type " + e.event_type
                 # alert on comments, which were not made by the user who originally made the request
                 if e.event_type == 'comment' && e.comment.user_id != info_request.user_id
                     last_comment_event = e if last_comment_event.nil?
 
                     alerted_for = e.user_info_request_sent_alerts.find(:first, :conditions => [ "alert_type = 'comment_1' and user_id = ?", info_request.user_id])
-                    #STDERR.puts "is comment by other user, alerted_for " + alerted_for.to_s + " comment user " + e.comment.user_id.to_s + " request user " + info_request.user_id.to_s + " body: " + e.comment.body
                     if alerted_for.nil?
-                        # STDERR.puts "nil!"
                         count = count + 1
                         earliest_unalerted_comment_event = e
                     else
@@ -378,7 +364,6 @@ class RequestMailer < ApplicationMailer
                     end
                 end
             end
-            #STDERR.puts "earliest_unalerted_comment_event " + earliest_unalerted_comment_event.to_s
 
             # Alert needs sending if there are new comments
             if count > 0
@@ -388,16 +373,13 @@ class RequestMailer < ApplicationMailer
                 store_sent.alert_type = 'comment_1'
                 store_sent.info_request_event_id = last_comment_event.id
                 if count > 1
-                    #STDERR.puts "sending multiple comment on request alert to info_request " + info_request.id.to_s + " user " + info_request.user_id.to_s + " count " + count.to_s + " earliest "  + earliest_unalerted_comment_event.id.to_s
                     RequestMailer.deliver_comment_on_alert_plural(info_request, count, earliest_unalerted_comment_event.comment)
                 elsif count == 1
-                    #STDERR.puts "sending comment on request alert to info_request " + info_request.id.to_s + " user " + info_request.user_id.to_s + " event " + last_comment_event.id.to_s
                     RequestMailer.deliver_comment_on_alert(info_request, last_comment_event.comment)
                 else
                     raise "internal error"
                 end
                 store_sent.save!
-                #STDERR.puts "sent " + info_request.user.email
             end
         end
     end
