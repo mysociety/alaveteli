@@ -2,6 +2,6 @@
 
 LOC=`dirname $0`
 
-$LOC/runner 'RequestMailer.alert_new_response_reminders'
+"$LOC/runner" 'RequestMailer.alert_new_response_reminders'
 
 

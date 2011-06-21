@@ -2,8 +2,8 @@
 
 LOC=`dirname $0`
 
-$LOC/runner 'PostRedirect.delete_old_post_redirects()'
+"$LOC/runner" 'PostRedirect.delete_old_post_redirects()'
 
-$LOC/runner 'TrackThingsSentEmail.delete_old_track_things_sent_email()'
+"$LOC/runner" 'TrackThingsSentEmail.delete_old_track_things_sent_email()'
 
 

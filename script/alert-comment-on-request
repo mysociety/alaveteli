@@ -2,6 +2,6 @@
 
 LOC=`dirname $0`
 
-$LOC/runner 'RequestMailer.alert_comment_on_request'
+"$LOC/runner" 'RequestMailer.alert_comment_on_request'
 
 
