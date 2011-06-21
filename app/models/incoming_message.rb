@@ -1250,8 +1250,8 @@ class IncomingMessage < ActiveRecord::Base
             for attachment in incoming_message.get_attachments_for_display
                 raise "internal error incoming_message " + incoming_message.id.to_s if attachment.content_type.nil?
                 if AlaveteliFileTypes.mimetype_to_extension(attachment.content_type).nil?
-                    STDERR.puts "Unknown type for /request/" + incoming_message.info_request.id.to_s + "#incoming-"+incoming_message.id.to_s
-                    STDERR.puts " " + attachment.filename.to_s + " " + attachment.content_type.to_s
+                    $stderr.puts "Unknown type for /request/" + incoming_message.info_request.id.to_s + "#incoming-"+incoming_message.id.to_s
+                    $stderr.puts " " + attachment.filename.to_s + " " + attachment.content_type.to_s
                 end
             end
         end

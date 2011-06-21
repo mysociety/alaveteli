@@ -23,8 +23,8 @@ describe User, "manipulating a raw email" do
 #        @raw_email.data = "This \\ that"
 #        @raw_email.save!
 #        @raw_email.reload
-#        STDERR.puts @raw_email.data
-#        STDERR.puts "This \\ that"
+#        $stderr.puts @raw_email.data
+#        $stderr.puts "This \\ that"
 #        @raw_email.data.should == "This \\ that"
 #    end
 

@@ -65,7 +65,7 @@ class MemoryProfiler
           prev.update curr
           GC.start
         rescue Exception => err
-          STDERR.puts "** memory_profiler error: #{err}"
+          $stderr.puts "** memory_profiler error: #{err}"
         end
         sleep opt[:delay]
       end

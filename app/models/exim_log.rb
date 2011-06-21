@@ -117,7 +117,7 @@ class EximLog < ActiveRecord::Base
             if !found
                 # It's very important the envelope from is set for avoiding spam filter reasons - this
                 # effectively acts as a check for that.
-                STDERR.puts("failed to find request sending Exim line for request id " + ir.id.to_s + " " + ir.url_title + " (check envelope from is being set to request address in Ruby, and load-exim-logs crontab is working)") # *** don't comment out this STDERR line, it is the point of the function!
+                $stderr.puts("failed to find request sending Exim line for request id " + ir.id.to_s + " " + ir.url_title + " (check envelope from is being set to request address in Ruby, and load-exim-logs crontab is working)") # *** don't comment out this STDERR line, it is the point of the function!
                 ok = false
             end
         end

@@ -129,9 +129,9 @@ describe TrackMailer do
             deliveries = ActionMailer::Base.deliveries
             if deliveries.size > 1 # debugging if there is an error
                 deliveries.each do |d|
-                    STDERR.puts "------------------------------"
-                    STDERR.puts d.body
-                    STDERR.puts "------------------------------"
+                    $stderr.puts "------------------------------"
+                    $stderr.puts d.body
+                    $stderr.puts "------------------------------"
                 end
             end
             deliveries.size.should == 1
