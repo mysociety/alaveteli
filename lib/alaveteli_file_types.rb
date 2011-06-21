@@ -82,9 +82,9 @@ class AlaveteliFileTypes
             return nil
         end
 
-        def mimetype_to_extension(mime)
-            if FileExtensionToMimeTypeRev.include?(mime)
-                return FileExtensionToMimeTypeRev[mime]
+        def mimetype_to_extension(mimetype)
+            if FileExtensionToMimeTypeRev.include?(mimetype)
+                return FileExtensionToMimeTypeRev[mimetype]
             end
             return nil
         end
