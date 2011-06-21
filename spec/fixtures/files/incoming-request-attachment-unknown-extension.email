@@ -1,0 +1,20 @@
+From: EMAIL_FROM
+To: FOI Person <EMAIL_TO>
+Subject: Same attachment twice
+Content-Type: multipart/mixed; boundary="Q68bSM7Ycu6FN28Q"
+Content-Disposition: inline
+
+
+--Q68bSM7Ycu6FN28Q
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+
+
+
+--Q68bSM7Ycu6FN28Q
+Content-Type: application/x-nonsense
+Content-Disposition: attachment; filename="hello.qwglhm"
+
+This is an unusual sort of file.
+
+--Q68bSM7Ycu6FN28Q

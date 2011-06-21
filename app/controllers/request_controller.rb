@@ -587,7 +587,7 @@ class RequestController < ApplicationController
 
         if foi_fragment_cache_exists?(key_path)
             cached = foi_fragment_cache_read(key_path)
-            response.content_type = AlaveteliFileTypes.filename_to_mimetype(params[:file_name].join("/")) or 'application/octet-stream'
+            response.content_type = AlaveteliFileTypes.filename_to_mimetype(params[:file_name].join("/")) || 'application/octet-stream'
             render_for_text(cached)
             return
         end
@@ -609,7 +609,7 @@ class RequestController < ApplicationController
         @incoming_message.binary_mask_stuff!(@attachment.body, @attachment.content_type) 
 
         # we don't use @attachment.content_type here, as we want same mime type when cached in cache_attachments above
-        response.content_type = AlaveteliFileTypes.filename_to_mimetype(params[:file_name].join("/")) or 'application/octet-stream'
+        response.content_type = AlaveteliFileTypes.filename_to_mimetype(params[:file_name].join("/")) || 'application/octet-stream'
 
         render :text => @attachment.body
     end
