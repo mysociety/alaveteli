@@ -2,6 +2,10 @@
 
 LOC=`dirname $0`
 
-$LOC/runner 'TrackMailer.alert_tracks'
-
+if [ "$1" == "--loop" ]
+then
+  "$LOC/runner" 'TrackMailer.alert_tracks_loop'
+else
+  "$LOC/runner" 'TrackMailer.alert_tracks'
+fi
 

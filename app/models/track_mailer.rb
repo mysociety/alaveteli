@@ -101,6 +101,19 @@ class TrackMailer < ApplicationMailer
             user.no_xapian_reindex = true
             user.save!
         end
+        return true
+    end
+
+    def self.alert_tracks_loop
+        # Run alert_tracks in an endless loop, sleeping when there is nothing to do
+        while true
+            sleep_seconds = 1
+            while !alert_tracks
+                sleep sleep_seconds
+                sleep_seconds *= 2
+                sleep_seconds = 300 if sleep_seconds > 300
+            end
+        end
     end
 
 end
