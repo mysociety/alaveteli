@@ -1117,7 +1117,7 @@ class IncomingMessage < ActiveRecord::Base
             tempfile.print body
             tempfile.flush
             if content_type == 'application/vnd.ms-word'
-                system("/usr/bin/wvText " + tempfile.path + " " + tempfile.path + ".txt")
+                external_command("/usr/bin/wvText", tempfile.path, tempfile.path + ".txt")
                 # Try catdoc if we get into trouble (e.g. for InfoRequestEvent 2701)
                 if not File.exists?(tempfile.path + ".txt")
                     external_command("/usr/bin/catdoc", tempfile.path, :append_to => text)
