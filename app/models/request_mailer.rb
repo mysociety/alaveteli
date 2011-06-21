@@ -6,6 +6,8 @@
 #
 # $Id: request_mailer.rb,v 1.89 2009-10-04 21:53:54 francis Exp $
 
+require 'alaveteli_file_types'
+
 class RequestMailer < ApplicationMailer
     
     # Used when an FOI officer uploads a response from their web browser - this is
@@ -18,13 +20,7 @@ class RequestMailer < ApplicationMailer
             :body => body
         }
         if !attachment_name.nil? && !attachment_content.nil?
-            IncomingMessage # load global filename_to_mimetype XXX should move filename_to_mimetype to proper namespace
-            calc_mime = filename_to_mimetype(attachment_name)
-            if calc_mime
-                content_type = calc_mime
-            else
-                content_type = 'application/octet-stream'
-            end
+            content_type = AlaveteliFileTypes.filename_to_mimetype(attachment_name) || 'application/octet-stream'
 
             attachment :content_type => content_type,
                 :body => attachment_content,

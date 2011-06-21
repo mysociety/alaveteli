@@ -28,11 +28,11 @@
 # Move some of the (e.g. quoting) functions here into rblib, as they feel
 # general not specific to IncomingMessage.
 
+require 'alaveteli_file_types'
 require 'external_command'
 require 'htmlentities'
 require 'rexml/document'
 require 'zip/zip'
-require 'mahoro'
 require 'mapi/msg'
 require 'mapi/convert'
 
@@ -45,156 +45,17 @@ module TMail
     end
 end
 
-# To add an image, create a file with appropriate name corresponding to the
-# mime type in public/images e.g. icon_image_tiff_large.png
-$file_extension_to_mime_type = {
-    "txt" => 'text/plain',
-    "pdf" => 'application/pdf',
-    "rtf" => 'application/rtf',
-    "doc" => 'application/vnd.ms-word',
-    "docx" => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-    "xls" => 'application/vnd.ms-excel',
-    "xlsx" => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-    "ppt" => 'application/vnd.ms-powerpoint',
-    "pptx" => 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
-    "oft" => 'application/vnd.ms-outlook',
-    "msg" => 'application/vnd.ms-outlook',
-    "tnef" => 'application/ms-tnef',
-    "tif" => 'image/tiff',
-    "gif" => 'image/gif',
-    "jpg" => 'image/jpeg', # XXX add jpeg
-    "png" => 'image/png',
-    "bmp" => 'image/bmp',
-    "html" => 'text/html', # XXX add htm
-    "vcf" => 'text/x-vcard',
-    "zip" => 'application/zip',
-    "delivery-status" => 'message/delivery-status'
-}
-# XXX doesn't have way of choosing default for inverse map - might want to add
-# one when you need it
-$file_extension_to_mime_type_rev = $file_extension_to_mime_type.invert
+# This is the type which is used to send data about attachments to the view
+class FOIAttachment
+    attr_accessor :body
+    attr_accessor :content_type
+    attr_accessor :filename
+    attr_accessor :url_part_number
+    attr_accessor :within_rfc822_subject # we use the subject as the filename for email attachments
 
-# See binary_mask_stuff function below. It just test for inclusion
-# in this hash, not the value of the right hand side.
-$do_not_binary_mask = {
-    'image/tiff' => 1,
-    'image/gif' => 1,
-    'image/jpeg' => 1,
-    'image/png' => 1,
-    'image/bmp' => 1,
-    'application/zip' => 1,
-}
-
-# Given file name and its content, return most likely type
-def filename_and_content_to_mimetype(filename, content)
-    # Try filename
-    ret = filename_to_mimetype(filename)
-    if !ret.nil?
-        return ret
-    end
-
-    # Otherwise look inside the file to work out the type.
-    # Mahoro is a Ruby binding for libmagic.
-    m = Mahoro.new(Mahoro::MIME)
-    mahoro_type = m.buffer(content)
-    mahoro_type.strip!
-    #STDERR.puts("mahoro", mahoro_type, "xxxok")
-    # XXX we shouldn't have to check empty? here, but Mahoro sometimes returns a blank line :(
-    # e.g. for InfoRequestEvent 17930
-    if mahoro_type.nil? || mahoro_type.empty?
-        return nil
-    end
-    # text/plain types sometimes come with a charset
-    mahoro_type.match(/^(.*);/)
-    if $1
-        mahoro_type = $1
-    end
-    # see if looks like a content type, or has something in it that does
-    # and return that
-    # mahoro returns junk "\012- application/msword" as mime type.
-    mahoro_type.match(/([a-z0-9.-]+\/[a-z0-9.-]+)/)
-    if $1
-        return $1
-    end
-    # otherwise we got junk back from mahoro
-    return nil
-end
-
-# XXX clearly this shouldn't be a global function, or the above global vars.
-def filename_to_mimetype(filename)
-    if !filename
-        return nil
-    end
-    if filename.match(/\.([^.]+)$/i)
-        lext = $1.downcase
-        if $file_extension_to_mime_type.include?(lext)
-            return $file_extension_to_mime_type[lext]
-        end
-    end
-    return nil
-end
-
-def mimetype_to_extension(mime)
-    if $file_extension_to_mime_type_rev.include?(mime)
-        return $file_extension_to_mime_type_rev[mime]
-    end
-    return nil
-end
-
-def normalise_content_type(content_type)
-    # e.g. http://www.whatdotheyknow.com/request/93/response/250
-    if content_type == 'application/excel' or content_type == 'application/msexcel' or content_type == 'application/x-ms-excel'
-        content_type = 'application/vnd.ms-excel'
-    end
-    if content_type == 'application/mspowerpoint' or content_type == 'application/x-ms-powerpoint'
-        content_type = 'application/vnd.ms-powerpoint' 
-    end
-    if content_type == 'application/msword' or content_type == 'application/x-ms-word'
-        content_type = 'application/vnd.ms-word'
-    end
-    if content_type == 'application/x-zip-compressed'
-        content_type = 'application/zip'
-    end
-
-    # e.g. http://www.whatdotheyknow.com/request/copy_of_current_swessex_scr_opt#incoming-9928
-    if content_type == 'application/acrobat'
-        content_type = 'application/pdf'
-    end
-
-    return content_type
-end
-
-def external_command(program_name, *args)
-    # Run an external program, and return its output.
-    # Standard error is suppressed unless the program
-    # fails (i.e. returns a non-zero exit status).
-    opts = {}
-    if !args.empty? && args[-1].is_a?(Hash)
-        opts = args.pop
-    end
-    
-    xc = ExternalCommand.new(program_name, *args)
-    if opts.has_key? :append_to
-        xc.out = opts[:append_to]
-    end
-    xc.run()
-    if xc.status != 0
-        # Error
-        $stderr.puts("Error from #{program_name} #{args.join(' ')}:")
-        $stderr.print(xc.err)
-        return nil
-    else
-        if opts.has_key? :append_to
-            opts[:append_to] << "\n\n"
-        else
-            return xc.out
-        end
-    end
-end
-
-# List of DSN codes taken from RFC 3463
-# http://tools.ietf.org/html/rfc3463
-$dsn_to_message = {
+    # List of DSN codes taken from RFC 3463
+    # http://tools.ietf.org/html/rfc3463
+    DsnToMessage = {
          'X.1.0' => 'Other address status',
          'X.1.1' => 'Bad destination mailbox address',
          'X.1.2' => 'Bad destination system address',
@@ -242,15 +103,7 @@ $dsn_to_message = {
          'X.7.5' => 'Cryptographic failure',
          'X.7.6' => 'Cryptographic algorithm not supported',
          'X.7.7' => 'Message integrity failure'
-}
- 
-# This is the type which is used to send data about attachments to the view
-class FOIAttachment
-    attr_accessor :body
-    attr_accessor :content_type
-    attr_accessor :filename
-    attr_accessor :url_part_number
-    attr_accessor :within_rfc822_subject # we use the subject as the filename for email attachments
+     }
 
     # Returns HTML, of extra comment to put by attachment
     def extra_note
@@ -264,8 +117,8 @@ class FOIAttachment
             dsn_part = 'X.' + $2
 
             dsn_message = ""
-            if $dsn_to_message.include?(dsn_part)
-                dsn_message = " (" + $dsn_to_message[dsn_part] + ")"
+            if DsnToMessage.include?(dsn_part)
+                dsn_message = " (" + DsnToMessage[dsn_part] + ")"
             end
 
             return "<br><em>DSN: " + dsn + dsn_message + "</em>"
@@ -308,7 +161,7 @@ class FOIAttachment
     end
 
     def _internal_display_filename
-        calc_ext = mimetype_to_extension(@content_type)
+        calc_ext = AlaveteliFileTypes.mimetype_to_extension(@content_type)
 
         if @filename 
             # Put right extension on if missing
@@ -424,20 +277,6 @@ class FOIAttachment
             tempfile.print self.body
             tempfile.flush
 
-            # Use google docs for the view for these - hanging server
-            # if self.content_type == 'application/vnd.ms-word'
-            #     # XXX do something with PNG files this spits out so they view too :)
-            #     system("/usr/bin/wvHtml --charset=UTF-8 " + tempfile.path + " " + tempfile.path + ".html")
-            #     html = File.read(tempfile.path + ".html")
-            #     File.unlink(tempfile.path + ".html")
-#            elsif self.content_type == 'application/vnd.ms-excel'
-#                # Don't colorise, e.g. otherwise this one comes out with white
-#                # text which is nasty:
-#                # http://www.whatdotheyknow.com/request/30485/response/74705/attach/html/2/Empty%20premises%20Sefton.xls.html
-#                IO.popen("/usr/bin/xlhtml -nc -a " + tempfile.path + "", "r") do |child|
-#                    html = child.read()
-#                    wrapper_id = "wrapper_xlhtml"
-#                end
             if self.content_type == 'application/pdf'
                 IO.popen("/usr/bin/pdftohtml -nodrm -zoom 1.0 -stdout -enc UTF-8 -noframes " + tempfile.path + "", "r") do |child|
                     html = child.read()
@@ -484,6 +323,7 @@ class FOIAttachment
 
 end
 
+
 class IncomingMessage < ActiveRecord::Base
     belongs_to :info_request
     validates_presence_of :info_request
@@ -495,6 +335,17 @@ class IncomingMessage < ActiveRecord::Base
     has_many :info_request_events # never really has many, but could in theory
 
     belongs_to :raw_email
+
+    # See binary_mask_stuff function below. It just test for inclusion
+    # in this hash, not the value of the right hand side.
+    DoNotBinaryMask = {
+        'image/tiff' => 1,
+        'image/gif' => 1,
+        'image/jpeg' => 1,
+        'image/png' => 1,
+        'image/bmp' => 1,
+        'application/zip' => 1,
+    }
 
     # Return the structured TMail::Mail object
     # Documentation at http://i.loveruby.net/en/projects/tmail/doc/
@@ -542,7 +393,7 @@ class IncomingMessage < ActiveRecord::Base
                     # An email attached as text
                     # e.g. http://www.whatdotheyknow.com/request/64/response/102
                     part.rfc822_attachment = TMail::Mail.parse(part.body)
-                elsif part.content_type == 'application/vnd.ms-outlook' || part_filename && filename_to_mimetype(part_filename) == 'application/vnd.ms-outlook'
+                elsif part.content_type == 'application/vnd.ms-outlook' || part_filename && AlaveteliFileTypes.filename_to_mimetype(part_filename) == 'application/vnd.ms-outlook'
                     # An email attached as an Outlook file
                     # e.g. http://www.whatdotheyknow.com/request/chinese_names_for_british_politi
                     msg = Mapi::Msg.open(StringIO.new(part.body))
@@ -600,7 +451,7 @@ class IncomingMessage < ActiveRecord::Base
         # See if content type is one that we mask - things like zip files and
         # images may get broken if we try to. We err on the side of masking too
         # much, as many unknown types will really be text.
-        if $do_not_binary_mask.include?(content_type)
+        if DoNotBinaryMask.include?(content_type)
             return
         end
 
@@ -829,7 +680,6 @@ class IncomingMessage < ActiveRecord::Base
         return _get_attachment_leaves_recursive(self.mail)
     end
     def _get_attachment_leaves_recursive(curr_mail, within_rfc822_attachment = nil)
-        # STDERR.puts "_get_attachment_leaves_recursive", curr_mail.content_type, curr_mail.sub_type, curr_mail.multipart?, "\n"
         leaves_found = []
         if curr_mail.multipart?
             if curr_mail.parts.size == 0
@@ -875,7 +725,7 @@ class IncomingMessage < ActiveRecord::Base
             # PDFs often come with this mime type, fix it up for view code
             if curr_mail.content_type == 'application/octet-stream'
                 part_file_name = self._get_censored_part_file_name(curr_mail)
-                calc_mime = filename_and_content_to_mimetype(part_file_name, curr_mail.body)
+                calc_mime = AlaveteliFileTypes.filename_and_content_to_mimetype(part_file_name, curr_mail.body)
                 if calc_mime
                     curr_mail.content_type = calc_mime
                 end
@@ -978,7 +828,7 @@ class IncomingMessage < ActiveRecord::Base
                 # e.g. http://www.whatdotheyknow.com/request/35/response/177
                 # XXX This is a bit of a hack as it is calling a convert to text routine.
                 # Could instead call a sanitize HTML one.
-                text = IncomingMessage._get_attachment_text_internal_one_file(part.content_type, text)
+                text = _get_attachment_text_internal_one_file(part.content_type, text)
             end
         end
 
@@ -1056,7 +906,7 @@ class IncomingMessage < ActiveRecord::Base
         # ... or if none, consider first part 
         p = leaves[0]
         # if it is a known type then don't use it, return no body (nil)
-        if mimetype_to_extension(p.content_type)
+        if AlaveteliFileTypes.mimetype_to_extension(p.content_type)
             # this is guess of case where there are only attachments, no body text
             # e.g. http://www.whatdotheyknow.com/request/cost_benefit_analysis_for_real_n
             return nil
@@ -1096,7 +946,7 @@ class IncomingMessage < ActiveRecord::Base
             attachment.body = content
             attachment.filename = uu.match(/^begin\s+[0-9]+\s+(.*)$/)[1]
             self.info_request.apply_censor_rules_to_text!(attachment.filename)
-            calc_mime = filename_and_content_to_mimetype(attachment.filename, attachment.body)
+            calc_mime = AlaveteliFileTypes.filename_and_content_to_mimetype(attachment.filename, attachment.body)
             if calc_mime
                 calc_mime = normalise_content_type(calc_mime)
                 attachment.content_type = calc_mime
@@ -1317,15 +1167,14 @@ class IncomingMessage < ActiveRecord::Base
                             # e.g. password protected
                             next
                         end
-                        calc_mime = filename_to_mimetype(filename)
+                        calc_mime = AlaveteliFileTypes.filename_to_mimetype(filename)
                         if calc_mime
                             content_type = calc_mime
                         else
                             content_type = 'application/octet-stream'
                         end
                     
-                        #STDERR.puts("doing file " + filename + " content type " + content_type)
-                        text += IncomingMessage._get_attachment_text_internal_one_file(content_type, body)
+                        text += _get_attachment_text_internal_one_file(content_type, body)
                     end
                 end
             end
@@ -1400,7 +1249,7 @@ class IncomingMessage < ActiveRecord::Base
         for incoming_message in IncomingMessage.find(:all)
             for attachment in incoming_message.get_attachments_for_display
                 raise "internal error incoming_message " + incoming_message.id.to_s if attachment.content_type.nil?
-                if mimetype_to_extension(attachment.content_type).nil?
+                if AlaveteliFileTypes.mimetype_to_extension(attachment.content_type).nil?
                     STDERR.puts "Unknown type for /request/" + incoming_message.info_request.id.to_s + "#incoming-"+incoming_message.id.to_s
                     STDERR.puts " " + attachment.filename.to_s + " " + attachment.content_type.to_s
                 end
@@ -1415,15 +1264,15 @@ class IncomingMessage < ActiveRecord::Base
     def get_present_file_extensions
         ret = {}
         for attachment in self.get_attachments_for_display
-            ext = mimetype_to_extension(attachment.content_type)
+            ext = AlaveteliFileTypes.mimetype_to_extension(attachment.content_type)
             ext = File.extname(attachment.filename).gsub(/^[.]/, "") if ext.nil? && !attachment.filename.nil?
             ret[ext] = 1 if !ext.nil?
         end
         return ret.keys.join(" ")
     end
     # Return space separated list of all file extensions known
-    def IncomingMessage.get_all_file_extentions
-        return $file_extension_to_mime_type.keys.join(" ")
+    def IncomingMessage.get_all_file_extensions
+        return AlaveteliFileTypes.all_extensions.join(" ")
     end
 
     # Return false if for some reason this is a message that we shouldn't let them reply to
@@ -1449,6 +1298,59 @@ class IncomingMessage < ActiveRecord::Base
 
         return true
     end
+
+    def normalise_content_type(content_type)
+        # e.g. http://www.whatdotheyknow.com/request/93/response/250
+        if content_type == 'application/excel' or content_type == 'application/msexcel' or content_type == 'application/x-ms-excel'
+            content_type = 'application/vnd.ms-excel'
+        end
+        if content_type == 'application/mspowerpoint' or content_type == 'application/x-ms-powerpoint'
+            content_type = 'application/vnd.ms-powerpoint' 
+        end
+        if content_type == 'application/msword' or content_type == 'application/x-ms-word'
+            content_type = 'application/vnd.ms-word'
+        end
+        if content_type == 'application/x-zip-compressed'
+            content_type = 'application/zip'
+        end
+
+        # e.g. http://www.whatdotheyknow.com/request/copy_of_current_swessex_scr_opt#incoming-9928
+        if content_type == 'application/acrobat'
+            content_type = 'application/pdf'
+        end
+
+        return content_type
+    end
+    private :normalise_content_type
+
+    def self.external_command(program_name, *args)
+        # Run an external program, and return its output.
+        # Standard error is suppressed unless the program
+        # fails (i.e. returns a non-zero exit status).
+        opts = {}
+        if !args.empty? && args[-1].is_a?(Hash)
+            opts = args.pop
+        end
+    
+        xc = ExternalCommand.new(program_name, *args)
+        if opts.has_key? :append_to
+            xc.out = opts[:append_to]
+        end
+        xc.run()
+        if xc.status != 0
+            # Error
+            $stderr.puts("Error from #{program_name} #{args.join(' ')}:")
+            $stderr.print(xc.err)
+            return nil
+        else
+            if opts.has_key? :append_to
+                opts[:append_to] << "\n\n"
+            else
+                return xc.out
+            end
+        end
+    end
+    private_class_method :external_command
 end
 
 

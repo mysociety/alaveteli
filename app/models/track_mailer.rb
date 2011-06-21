@@ -32,14 +32,13 @@ class TrackMailer < ApplicationMailer
     def self.alert_tracks
         now = Time.now()
         users = User.find(:all, :conditions => [ "last_daily_track_email < ?", now - 1.day ])
+        if users.empty?
+            return false
+        end
         for user in users
-            #STDERR.puts Time.now.to_s + " user " + user.url_name
-
             email_about_things = []
             track_things = TrackThing.find(:all, :conditions => [ "tracking_user_id = ? and track_medium = ?", user.id, 'email_daily' ])
             for track_thing in track_things
-                #STDERR.puts Time.now.to_s + "   track " + track_thing.track_query
-
                 # What have we alerted on already?
                 #
                 # We only use track_things_sent_emails records which are less than 14 days old.
@@ -81,15 +80,6 @@ class TrackMailer < ApplicationMailer
 
             # If we have anything to send, then send everything for the user in one mail
             if email_about_things.size > 0
-                # Debugging
-                # STDERR.puts "sending email alert for user " + user.url_name
-                # for track_thing, alert_results, xapian_object in email_about_things
-                #    STDERR.puts "  tracking " + track_thing.track_query
-                #    for result in alert_results.reverse
-                #        STDERR.puts "    result " + result[:model].class.to_s + " id " + result[:model].id.to_s
-                #    end
-                # end
-
                 # Send the email
                 TrackMailer.deliver_event_digest(user, email_about_things)
             end

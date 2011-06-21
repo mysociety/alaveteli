@@ -6,6 +6,8 @@
 #
 # $Id: request_controller.rb,v 1.192 2009-10-19 19:26:40 francis Exp $
 
+require 'alaveteli_file_types'
+
 class RequestController < ApplicationController
     before_filter :check_read_only, :only => [ :new, :show_response, :describe_state, :upload_response ]
     protect_from_forgery :only => [ :new, :show_response, :describe_state, :upload_response ] # See ActionController::RequestForgeryProtection for details
@@ -585,8 +587,7 @@ class RequestController < ApplicationController
 
         if foi_fragment_cache_exists?(key_path)
             cached = foi_fragment_cache_read(key_path)
-            IncomingMessage # load global filename_to_mimetype XXX should move filename_to_mimetype to proper namespace
-            response.content_type = filename_to_mimetype(params[:file_name].join("/")) or 'application/octet-stream'
+            response.content_type = AlaveteliFileTypes.filename_to_mimetype(params[:file_name].join("/")) or 'application/octet-stream'
             render_for_text(cached)
             return
         end
@@ -608,7 +609,7 @@ class RequestController < ApplicationController
         @incoming_message.binary_mask_stuff!(@attachment.body, @attachment.content_type) 
 
         # we don't use @attachment.content_type here, as we want same mime type when cached in cache_attachments above
-        response.content_type = filename_to_mimetype(params[:file_name].join("/")) or 'application/octet-stream'
+        response.content_type = AlaveteliFileTypes.filename_to_mimetype(params[:file_name].join("/")) or 'application/octet-stream'
 
         render :text => @attachment.body
     end
