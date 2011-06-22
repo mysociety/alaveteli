@@ -104,10 +104,14 @@ class ExternalCommand
         @fhs = {@out_read => @out, @err_read => @err, @fin_read => @fin}
 
         while @fin.empty?
-           r = read_data
-           if r.nil?
+           ok = read_data
+           if !ok
                raise "select() timed out even with a nil (infinite) timeout"
             end
+        end
+
+        while read_data(0)
+            # Pull out any data that’s left in the pipes
         end
 
         Process::waitpid(@pid)
@@ -116,8 +120,8 @@ class ExternalCommand
         @err_read.close
     end
 
-    def read_data()
-        ready_array = IO.select(@fhs.keys, [], [], nil)
+    def read_data(timeout=nil)
+        ready_array = IO.select(@fhs.keys, [], [], timeout)
         return false if ready_array.nil?
         ready_array[0].each do |fh|
             begin
