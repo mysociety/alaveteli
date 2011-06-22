@@ -828,7 +828,7 @@ class IncomingMessage < ActiveRecord::Base
                 # e.g. http://www.whatdotheyknow.com/request/35/response/177
                 # XXX This is a bit of a hack as it is calling a convert to text routine.
                 # Could instead call a sanitize HTML one.
-                text = _get_attachment_text_internal_one_file(part.content_type, text)
+                text = self.class._get_attachment_text_internal_one_file(part.content_type, text)
             end
         end
 
