@@ -19,6 +19,8 @@ DUSER=!!(*= $user *)!!
 
 trap "" 1
 
+export PIDFILE
+
 case "$1" in
   start)
     echo -n "Starting WhatDoTheyKnow alert daemon: $NAME"
