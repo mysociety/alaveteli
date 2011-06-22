@@ -1,0 +1,6 @@
+#!/bin/bash
+
+LOC=`dirname $0`
+
+"$LOC/runner" 'TrackMailer.alert_tracks_loop'
+
