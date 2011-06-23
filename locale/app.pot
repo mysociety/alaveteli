@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
-"POT-Creation-Date: 2011-06-01 09:03-0000\n"
+"POT-Creation-Date: 2011-06-23 10:06+0200\n"
 "PO-Revision-Date: 2011-02-24 07:11-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -119,10 +119,6 @@ msgstr ""
 msgid " made no Freedom of Information requests using this site."
 msgstr ""
 
-#: app/views/track_mailer/event_digest.rhtml:28
-msgid " sent a request to"
-msgstr ""
-
 #: app/views/user/contact.rhtml:36
 msgid " when you send this message."
 msgstr ""
@@ -165,6 +161,10 @@ msgstr ""
 msgid "<a href=\"%s\">Browse all</a> or <a href=\"%s\">ask us to add one</a>."
 msgstr ""
 
+#: app/views/general/exception_caught.rhtml:13
+msgid "<a href=\"%s\">Contact us</a> to tell us about the problem</li>"
+msgstr ""
+
 #: app/views/public_body/show.rhtml:51
 msgid ""
 "<a href=\"%s\">Make a new Freedom of Information request</a> to "
@@ -175,13 +175,82 @@ msgstr ""
 msgid "<a href=\"%s\">can't find the one you want?</a>"
 msgstr ""
 
-#: app/views/request/show.rhtml:76 app/views/request/show.rhtml:80
 #: app/views/request/_followup.rhtml:42 app/views/request/_followup.rhtml:49
+#: app/views/request/show.rhtml:76 app/views/request/show.rhtml:80
 msgid "<a href=\"%s\">details</a>"
 msgstr ""
 
 #: app/views/request/_followup.rhtml:78
 msgid "<a href=\"%s\">what's that?</a>"
+msgstr ""
+
+#: app/controllers/request_controller.rb:414
+msgid ""
+"<p>Thank you! Hopefully your wait isn't too long.</p><p>You should get a "
+"response within 20 days, or be told if it will take longer (<a href=\"%s"
+"\">details</a>).</p>"
+msgstr ""
+
+#: app/controllers/request_controller.rb:417
+msgid ""
+"<p>Thank you! We'll look into what happened and try and fix it up.</p><p>If "
+"the error was a delivery failure, and you can find an up to date FOI email "
+"address for the authority, please tell us using the form below.</p>"
+msgstr ""
+
+#: app/controllers/request_controller.rb:267
+msgid ""
+"<p>We recommend that you edit your request and remove the email address.\n"
+"                If you leave it, the email address will be sent to the "
+"authority, but will not be displayed on the site.</p>"
+msgstr ""
+
+#: app/controllers/request_controller.rb:397
+msgid ""
+"<p>We're glad you got all the information that you wanted. If you write "
+"about or make use of the information, please come back and add an annotation "
+"below saying what you did.</p><p>If you found WhatDoTheyKnow useful, <a href="
+"\"%s\">make a donation</a> to the charity which runs it.</p>"
+msgstr ""
+
+#: app/controllers/request_controller.rb:400
+msgid ""
+"<p>We're glad you got some of the information that you wanted. If you found "
+"WhatDoTheyKnow useful, <a href=\"%s\">make a donation</a> to the charity "
+"which runs it.</p><p>If you want to try and get the rest of the information, "
+"here's what to do now.</p>"
+msgstr ""
+
+#: app/controllers/request_controller.rb:265
+msgid ""
+"<p>You do not need to include your email in the request in order to get a "
+"reply (<a href=\"%s\">details</a>).</p>"
+msgstr ""
+
+#: app/controllers/request_controller.rb:263
+msgid ""
+"<p>You do not need to include your email in the request in order to get a "
+"reply, as we will ask for it on the next screen (<a href=\"%s\">details</a>)."
+"</p>"
+msgstr ""
+
+#: app/controllers/request_controller.rb:271
+msgid ""
+"<p>Your request contains a <strong>postcode</strong>. Unless it directly "
+"relates to the subject of your request, please remove any address as it will "
+"<strong>appear publicly on the Internet</strong>.</p>"
+msgstr ""
+
+#: app/controllers/request_controller.rb:294
+msgid ""
+"<p>Your {{law_used_full}} request has been <strong>sent on its way</strong>!"
+"</p>\n"
+"            <p><strong>We will email you</strong> when there is a response, "
+"or after 20 working days if the authority still hasn't\n"
+"            replied by then.</p>\n"
+"            <p>If you write about this request (for example in a forum or a "
+"blog) please link to this page, and add an \n"
+"            annotation below telling people about your writing.</p>"
 msgstr ""
 
 #: app/views/user/confirm.rhtml:11
@@ -252,6 +321,10 @@ msgid ""
 "for, see the <a href=\"%s\">table of varieties</a> below."
 msgstr ""
 
+#: app/views/request/_other_describe_state.rhtml:53
+msgid "<strong>All the information</strong> has been sent"
+msgstr ""
+
 #: app/views/request/_followup.rhtml:83
 msgid "<strong>Anything else</strong>, such as clarifying, prompting, thanking"
 msgstr ""
@@ -268,6 +341,16 @@ msgid ""
 "way authorities use it. Plus you'll need to be an elite statistician.  "
 "Please\n"
 "<a href=\"%s\">contact us</a> with questions."
+msgstr ""
+
+#: app/views/request/_other_describe_state.rhtml:28
+msgid "<strong>Clarification</strong> has been requested"
+msgstr ""
+
+#: app/views/request/_other_describe_state.rhtml:14
+msgid ""
+"<strong>No response</strong> has been received\n"
+"                <small>(maybe there's just an acknowledgement)</small>"
 msgstr ""
 
 #: app/views/user/signchangeemail.rhtml:30
@@ -303,7 +386,11 @@ msgid ""
 "        to it, will be displayed publicly on this website."
 msgstr ""
 
-#: app/views/general/exception_caught.rhtml:18
+#: app/views/request/_other_describe_state.rhtml:49
+msgid "<strong>Some of the information</strong> has been sent "
+msgstr ""
+
+#: app/views/general/exception_caught.rhtml:17
 msgid "<strong>Technical details:</strong>"
 msgstr ""
 
@@ -330,8 +417,16 @@ msgid ""
 "A <strong>summary</strong> of the response if you have received it by post. "
 msgstr ""
 
+#: app/views/request/_other_describe_state.rhtml:34
+msgid "A response will be sent <strong>by post</strong>"
+msgstr ""
+
 #: app/views/user/set_profile_about_me.rhtml:20
 msgid "About you:"
+msgstr ""
+
+#: app/models/info_request_event.rb:288
+msgid "Acknowledgement"
 msgstr ""
 
 #: app/views/request/_sidebar.rhtml:5
@@ -352,6 +447,10 @@ msgstr ""
 msgid "Admin level is not included in list"
 msgstr ""
 
+#: app/views/request_mailer/requires_admin.rhtml:9
+msgid "Administration URL:"
+msgstr ""
+
 #: app/views/general/search.rhtml:31 app/views/general/search.rhtml:109
 msgid "Advanced search tips"
 msgstr ""
@@ -362,12 +461,22 @@ msgid ""
 "        human beings)"
 msgstr ""
 
+#: app/models/info_request_event.rb:304
+msgid "All information sent"
+msgstr ""
+
 #: app/views/public_body/list.rhtml:5
 msgid "Alphabet"
 msgstr ""
 
-#: app/views/track_mailer/event_digest.rhtml:63
-msgid "Alter your subscription"
+#: app/views/request_mailer/new_response.rhtml:12
+msgid ""
+"Although all responses are automatically published, we depend on\n"
+"you, the original requester, to evaluate them."
+msgstr ""
+
+#: app/views/request/_other_describe_state.rhtml:65
+msgid "An <strong>error message</strong> has been received"
 msgstr ""
 
 #: app/views/user/show.rhtml:34
@@ -409,6 +518,22 @@ msgstr ""
 
 #: app/views/request/_describe_state.rhtml:43
 msgid "Authority has requested <strong>extension of the deadline.</strong>"
+msgstr ""
+
+#: app/controllers/request_controller.rb:408
+msgid "Authority has requested extension of the deadline."
+msgstr ""
+
+#: app/models/info_request.rb:753
+msgid "Awaiting classification."
+msgstr ""
+
+#: app/models/info_request.rb:777
+msgid "Awaiting internal review."
+msgstr ""
+
+#: app/models/info_request.rb:755
+msgid "Awaiting response."
 msgstr ""
 
 #: app/views/request/new.rhtml:43
@@ -457,7 +582,7 @@ msgstr ""
 msgid "CensorRule|Text"
 msgstr ""
 
-#: lib/public_body_categories_sq.rb:14 lib/public_body_categories_sr.rb:14
+#: lib/public_body_categories_sr.rb:14 lib/public_body_categories_sq.rb:14
 #: lib/public_body_categories_en.rb:14
 msgid "Central government"
 msgstr ""
@@ -466,7 +591,7 @@ msgstr ""
 msgid "Change password on {{site_name}}"
 msgstr ""
 
-#: app/views/user/show.rhtml:104
+#: app/views/user/show.rhtml:104 app/views/user/set_crop_profile_photo.rhtml:1
 msgid "Change profile photo"
 msgstr ""
 
@@ -487,10 +612,10 @@ msgstr ""
 msgid "Change your password"
 msgstr ""
 
-#: app/views/user/signchangepassword_send_confirm.rhtml:1
-#: app/views/user/signchangepassword_send_confirm.rhtml:9
 #: app/views/user/signchangepassword.rhtml:1
 #: app/views/user/signchangepassword.rhtml:11
+#: app/views/user/signchangepassword_send_confirm.rhtml:1
+#: app/views/user/signchangepassword_send_confirm.rhtml:9
 msgid "Change your password on {{site_name}}"
 msgstr ""
 
@@ -502,14 +627,22 @@ msgstr ""
 msgid "Check for mistakes if you typed or copied the address."
 msgstr ""
 
-#: app/views/request/followup_preview.rhtml:14
 #: app/views/request/preview.rhtml:7
+#: app/views/request/followup_preview.rhtml:14
 msgid "Check you haven't included any <strong>personal information</strong>."
+msgstr ""
+
+#: app/models/info_request_event.rb:326
+msgid "Clarification"
+msgstr ""
+
+#: app/models/info_request_event.rb:290
+msgid "Clarification required"
 msgstr ""
 
 #: app/views/request_mailer/very_overdue_alert.rhtml:6
 msgid ""
-"Click on the link below to send a message to {{public_body.name}} telling "
+"Click on the link below to send a message to {{public_body_name}} telling "
 "them to reply to your request. You might like to ask for an internal\n"
 "review, asking them to find out why response to the request has been so slow."
 msgstr ""
@@ -536,7 +669,11 @@ msgstr ""
 msgid "Comment|Visible"
 msgstr ""
 
-#: app/views/layouts/default.rhtml:147
+#: app/models/track_thing.rb:163
+msgid "Confirm you want to be emailed when an FOI request succeeds"
+msgstr ""
+
+#: app/views/layouts/default.rhtml:143
 msgid "Contact {{site_name}}"
 msgstr ""
 
@@ -544,6 +681,10 @@ msgstr ""
 msgid ""
 "Couldn't understand the image file that you uploaded. PNG, JPEG, GIF and "
 "many other common image file formats are supported."
+msgstr ""
+
+#: app/views/user/set_crop_profile_photo.rhtml:6
+msgid "Crop your profile photo"
 msgstr ""
 
 #: app/views/request/new.rhtml:74
@@ -558,6 +699,26 @@ msgid ""
 "they must respond promptly and"
 msgstr ""
 
+#: app/models/info_request_event.rb:294
+msgid "Deadline Extended"
+msgstr ""
+
+#: app/models/info_request.rb:773
+msgid "Deadline extended."
+msgstr ""
+
+#: app/models/outgoing_message.rb:57
+msgid "Dear "
+msgstr ""
+
+#: app/models/info_request.rb:757
+msgid "Delayed."
+msgstr ""
+
+#: app/models/info_request.rb:779 app/models/info_request_event.rb:310
+msgid "Delivery error"
+msgstr ""
+
 #: app/views/request/details.rhtml:1 app/views/request/details.rhtml:2
 msgid "Details of request '"
 msgstr ""
@@ -566,8 +727,8 @@ msgstr ""
 msgid "Did you mean: {{correction}}"
 msgstr ""
 
-#: app/views/outgoing_mailer/followup.rhtml:6
 #: app/views/outgoing_mailer/initial_request.rhtml:4
+#: app/views/outgoing_mailer/followup.rhtml:6
 msgid ""
 "Disclaimer: This message and any reply that you make will be published on "
 "the internet. Our privacy and copyright policies:"
@@ -593,6 +754,10 @@ msgstr ""
 
 #: app/views/comment/_comment_form.rhtml:9
 msgid "Email me future updates to this request"
+msgstr ""
+
+#: app/models/track_thing.rb:155
+msgid "Email me new successful responses "
 msgstr ""
 
 #: app/views/user/show.rhtml:36
@@ -698,6 +863,10 @@ msgstr ""
 msgid "Follow this link to see the request:"
 msgstr ""
 
+#: app/models/info_request_event.rb:330
+msgid "Follow up"
+msgstr ""
+
 #: app/views/public_body/view_email.rhtml:14
 msgid "Follow up messages to existing requests are sent to "
 msgstr ""
@@ -762,15 +931,31 @@ msgid ""
 "to us</a>."
 msgstr ""
 
-#: app/views/layouts/default.rhtml:123
+#: app/models/outgoing_message.rb:73
+msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
+msgstr ""
+
+#: app/views/general/exception_caught.rhtml:14
+msgid "Go to our <a href=\"%s\">front page</a></li>"
+msgstr ""
+
+#: app/models/info_request_event.rb:292
+msgid "Handled by post"
+msgstr ""
+
+#: app/models/info_request.rb:771
+msgid "Handled by post."
+msgstr ""
+
+#: app/views/layouts/default.rhtml:119
 msgid "Hello!"
 msgstr ""
 
-#: app/views/layouts/default.rhtml:120
+#: app/views/layouts/default.rhtml:116
 msgid "Hello, {{username}}!"
 msgstr ""
 
-#: app/views/layouts/default.rhtml:115
+#: app/views/layouts/default.rhtml:111
 msgid "Help"
 msgstr ""
 
@@ -783,6 +968,14 @@ msgid ""
 "WhatDoTheyKnow for intermediate events, which weren't given an explicit\n"
 "description by a user. See the <a href=\"%s\">search tips</a> for "
 "description of the states."
+msgstr ""
+
+#: app/views/request/_other_describe_state.rhtml:4
+msgid ""
+"Hi! We need your help. The person who made the following request\n"
+"    hasn't told us whether or not it was successful. Would you mind taking\n"
+"    a moment to read it and help us keep the place tidy for everyone?\n"
+"    Thanks."
 msgstr ""
 
 #: locale/model_attributes.rb:58
@@ -823,7 +1016,7 @@ msgstr ""
 msgid "I don't want to do any more tidying now!"
 msgstr ""
 
-#: app/views/request/_describe_state.rhtml:92
+#: app/views/request/_describe_state.rhtml:93
 msgid "I would like to <strong>withdraw this request</strong>"
 msgstr ""
 
@@ -845,15 +1038,15 @@ msgstr ""
 msgid "I've been asked to <strong>clarify</strong> my request"
 msgstr ""
 
-#: app/views/request/_describe_state.rhtml:62
+#: app/views/request/_describe_state.rhtml:61
 msgid "I've received <strong>all the information"
 msgstr ""
 
-#: app/views/request/_describe_state.rhtml:58
+#: app/views/request/_describe_state.rhtml:57
 msgid "I've received <strong>some of the information</strong>"
 msgstr ""
 
-#: app/views/request/_describe_state.rhtml:77
+#: app/views/request/_describe_state.rhtml:78
 msgid "I've received an <strong>error message</strong>"
 msgstr ""
 
@@ -914,11 +1107,6 @@ msgid ""
 msgstr ""
 
 #: app/views/outgoing_mailer/initial_request.rhtml:13
-msgid ""
-"If you find WhatDoTheyKnow useful as an FOI officer, please ask your web "
-"manager to suggest us on your organisation"
-msgstr ""
-
 #: app/views/outgoing_mailer/followup.rhtml:12
 msgid ""
 "If you find WhatDoTheyKnow useful as an FOI officer, please ask your web "
@@ -932,8 +1120,15 @@ msgid ""
 "more. Please try doing what you were doing from the beginning."
 msgstr ""
 
-#: app/views/user/signchangeemail_confirm.rhtml:11
+#: app/controllers/request_controller.rb:423
+msgid ""
+"If you have not done so already, please write a message below telling the "
+"authority that you have withdrawn your request. Otherwise they will not know "
+"it has been withdrawn."
+msgstr ""
+
 #: app/views/user/signchangepassword_confirm.rhtml:10
+#: app/views/user/signchangeemail_confirm.rhtml:11
 msgid ""
 "If you use web-based email or have \"junk mail\" filters, also check your\n"
 "bulk/spam mail folders. Sometimes, our messages are marked that way."
@@ -1027,10 +1222,26 @@ msgstr ""
 msgid "InfoRequest|Url title"
 msgstr ""
 
+#: app/models/info_request_event.rb:298
+msgid "Information not held"
+msgstr ""
+
+#: app/models/info_request.rb:761
+msgid "Information not held."
+msgstr ""
+
 #: app/views/request/new.rhtml:71
 msgid ""
 "Information on emissions and discharges (e.g. noise, energy,\n"
 "        radiation, waste materials)"
+msgstr ""
+
+#: app/models/info_request_event.rb:306
+msgid "Internal review acknowledgement"
+msgstr ""
+
+#: app/models/info_request_event.rb:323
+msgid "Internal review request"
 msgstr ""
 
 #: app/views/user/no_cookies.rhtml:8
@@ -1043,7 +1254,7 @@ msgid ""
 msgstr ""
 
 #: app/views/user/show.rhtml:62
-msgid "Joined WhatDoTheyKnow"
+msgid "Joined WhatDoTheyKnow in"
 msgstr ""
 
 #: app/views/user/_user_listing_single.rhtml:21
@@ -1078,6 +1289,10 @@ msgstr ""
 msgid "Local and regional"
 msgstr ""
 
+#: app/models/info_request.rb:759
+msgid "Long overdue."
+msgstr ""
+
 #: app/views/public_body/show.rhtml:48
 msgid "Make a new Environmental Information request"
 msgstr ""
@@ -1090,7 +1305,7 @@ msgstr ""
 msgid "Make and browse Freedom of Information (FOI) requests"
 msgstr ""
 
-#: app/views/layouts/default.rhtml:89
+#: app/views/layouts/default.rhtml:88
 msgid "Make and explore Freedom of Information requests"
 msgstr ""
 
@@ -1098,7 +1313,7 @@ msgstr ""
 msgid "Make or explore Freedom of Information requests"
 msgstr ""
 
-#: app/views/layouts/default.rhtml:108
+#: app/views/layouts/default.rhtml:104
 msgid "Make request"
 msgstr ""
 
@@ -1126,11 +1341,11 @@ msgstr ""
 msgid "More successful requests..."
 msgstr ""
 
-#: app/views/request/_describe_state.rhtml:66
+#: app/views/request/_describe_state.rhtml:65
 msgid "My request has been <strong>refused</strong>"
 msgstr ""
 
-#: app/views/layouts/default.rhtml:112
+#: app/views/layouts/default.rhtml:108
 msgid "My requests"
 msgstr ""
 
@@ -1201,9 +1416,9 @@ msgstr ""
 msgid "Nothing found for '{{search_terms}}'"
 msgstr ""
 
-#: app/views/user/signchangeemail_confirm.rhtml:3
 #: app/views/user/signchangepassword_confirm.rhtml:1
 #: app/views/user/signchangepassword_confirm.rhtml:3
+#: app/views/user/signchangeemail_confirm.rhtml:3
 msgid "Now check your email!"
 msgstr ""
 
@@ -1227,6 +1442,16 @@ msgstr ""
 msgid ""
 "OR, <strong>search</strong> for information others have requested using "
 "{{site_name}}"
+msgstr ""
+
+#: app/controllers/request_controller.rb:394
+msgid ""
+"Oh no! Sorry to hear that your request was refused. Here is what to do now."
+msgstr ""
+
+#: app/controllers/request_controller.rb:411
+msgid ""
+"Oh no! Sorry to hear that your request was wrong. Here is what to do now."
 msgstr ""
 
 #: app/views/user/signchangeemail.rhtml:15
@@ -1261,7 +1486,11 @@ msgstr ""
 msgid "OutgoingMessage|What doing"
 msgstr ""
 
-#: app/views/user/_signup.rhtml:30 app/views/user/_signin.rhtml:16
+#: app/models/info_request.rb:765
+msgid "Partially successful."
+msgstr ""
+
+#: app/views/user/_signin.rhtml:16 app/views/user/_signup.rhtml:30
 msgid "Password:"
 msgstr ""
 
@@ -1332,8 +1561,9 @@ msgstr ""
 msgid "Please choose what sort of reply you are making."
 msgstr ""
 
-#: app/views/track_mailer/event_digest.rhtml:66
-msgid "Please click on the link below to cancel or alter these emails."
+#: app/controllers/request_controller.rb:329
+msgid ""
+"Please choose whether or not you got some of the information that you wanted."
 msgstr ""
 
 #: app/views/user_mailer/changeemail_confirm.rhtml:3
@@ -1391,7 +1621,7 @@ msgstr ""
 msgid "Please enter your annotation"
 msgstr ""
 
-#: app/models/user.rb:34 app/models/contact_validator.rb:29
+#: app/models/contact_validator.rb:29 app/models/user.rb:34
 msgid "Please enter your email address"
 msgstr ""
 
@@ -1403,7 +1633,7 @@ msgstr ""
 msgid "Please enter your letter requesting information"
 msgstr ""
 
-#: app/models/user.rb:36 app/models/contact_validator.rb:28
+#: app/models/contact_validator.rb:28 app/models/user.rb:36
 msgid "Please enter your name"
 msgstr ""
 
@@ -1462,8 +1692,16 @@ msgstr ""
 msgid "Please sign in as "
 msgstr ""
 
-#: app/views/outgoing_mailer/followup.rhtml:9
+#: app/controllers/request_controller.rb:713
+msgid "Please type a message and/or choose a file containing your response."
+msgstr ""
+
+#: app/controllers/request_controller.rb:420
+msgid "Please use the form below to tell us more."
+msgstr ""
+
 #: app/views/outgoing_mailer/initial_request.rhtml:7
+#: app/views/outgoing_mailer/followup.rhtml:9
 msgid "Please use this email address for all replies to this request:"
 msgstr ""
 
@@ -1481,6 +1719,12 @@ msgstr ""
 msgid ""
 "Please write your annotation using a mixture of capital and lower case "
 "letters. This makes it easier for others to read."
+msgstr ""
+
+#: app/controllers/request_controller.rb:403
+msgid ""
+"Please write your follow up message containing the necessary clarifications "
+"below."
 msgstr ""
 
 #: app/models/outgoing_message.rb:159
@@ -1623,7 +1867,7 @@ msgid ""
 "and wildcards."
 msgstr ""
 
-#: app/views/layouts/default.rhtml:114
+#: app/views/layouts/default.rhtml:110
 msgid "Read blog"
 msgstr ""
 
@@ -1647,14 +1891,18 @@ msgstr ""
 msgid "Recently successful responses"
 msgstr ""
 
+#: app/models/info_request_event.rb:300
+msgid "Refused"
+msgstr ""
+
+#: app/models/info_request.rb:763
+msgid "Refused."
+msgstr ""
+
 #: app/views/user/_signin.rhtml:26
 msgid ""
 "Remember me</label> (keeps you signed in longer;\n"
 "    do not use on a public computer) "
-msgstr ""
-
-#: app/views/request/_after_actions.rhtml:27
-msgid "Reply to "
 msgstr ""
 
 #: app/views/comment/_single_comment.rhtml:24
@@ -1733,9 +1981,9 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: app/views/general/search.rhtml:29 app/views/general/frontpage.rhtml:16
-#: app/views/general/exception_caught.rhtml:10 app/views/request/new.rhtml:31
-#: app/views/layouts/default.rhtml:102
+#: app/views/layouts/default.rhtml:98 app/views/request/new.rhtml:31
+#: app/views/general/exception_caught.rhtml:10
+#: app/views/general/frontpage.rhtml:16 app/views/general/search.rhtml:29
 msgid "Search"
 msgstr ""
 
@@ -1753,10 +2001,6 @@ msgstr ""
 
 #: app/views/request/_followup.rhtml:10
 msgid "Send a public reply to"
-msgstr ""
-
-#: app/views/request/_after_actions.rhtml:24
-msgid "Send follow up to "
 msgstr ""
 
 #: app/views/request/followup_preview.rhtml:50
@@ -1787,7 +2031,7 @@ msgstr ""
 msgid "Show only..."
 msgstr ""
 
-#: app/views/user/show.rhtml:113 app/views/user/_signin.rhtml:31
+#: app/views/user/_signin.rhtml:31 app/views/user/show.rhtml:113
 msgid "Sign in"
 msgstr ""
 
@@ -1795,11 +2039,11 @@ msgstr ""
 msgid "Sign in or make a new account"
 msgstr ""
 
-#: app/views/layouts/default.rhtml:124
+#: app/views/layouts/default.rhtml:120
 msgid "Sign in or sign up"
 msgstr ""
 
-#: app/views/layouts/default.rhtml:121
+#: app/views/layouts/default.rhtml:117
 msgid "Sign out"
 msgstr ""
 
@@ -1809,6 +2053,10 @@ msgstr ""
 
 #: app/views/request/_sidebar.rhtml:30
 msgid "Similar requests"
+msgstr ""
+
+#: app/models/info_request_event.rb:302
+msgid "Some information sent"
 msgstr ""
 
 #: app/views/request_game/play.rhtml:31
@@ -1834,8 +2082,12 @@ msgstr ""
 msgid "Special note for this authority!"
 msgstr ""
 
-#: app/views/request/followup_preview.rhtml:23
+#: app/views/request/_other_describe_state.rhtml:21
+msgid "Still awaiting an <strong>internal review</strong>"
+msgstr ""
+
 #: app/views/request/preview.rhtml:18
+#: app/views/request/followup_preview.rhtml:23
 msgid "Subject:"
 msgstr ""
 
@@ -1843,12 +2095,20 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
-#: app/views/request/_describe_state.rhtml:102
+#: app/views/request/_describe_state.rhtml:103
 msgid "Submit status"
+msgstr ""
+
+#: app/models/track_thing.rb:158 app/models/track_thing.rb:159
+msgid "Successful Freedom of Information requests"
 msgstr ""
 
 #: app/views/request/list.rhtml:5
 msgid "Successful responses"
+msgstr ""
+
+#: app/models/info_request.rb:767
+msgid "Successful."
 msgstr ""
 
 #: app/views/comment/new.rhtml:38
@@ -1867,6 +2127,16 @@ msgstr ""
 
 #: app/views/request/preview.rhtml:45
 msgid "Tags:"
+msgstr ""
+
+#: app/controllers/request_controller.rb:719
+msgid ""
+"Thank you for responding to this FOI request! Your response has been "
+"published below, and a link to your response has been emailed to "
+msgstr ""
+
+#: app/controllers/request_controller.rb:364
+msgid "Thank you for updating this request!"
 msgstr ""
 
 #: app/views/request_game/play.rhtml:42
@@ -1892,7 +2162,8 @@ msgid ""
 "    requests."
 msgstr ""
 
-#: app/views/request/_describe_state.rhtml:49
+#: app/views/request/_other_describe_state.rhtml:40
+#: app/views/request/_describe_state.rhtml:48
 msgid "The <strong>review has finished</strong> and overall:"
 msgstr ""
 
@@ -1902,6 +2173,12 @@ msgstr ""
 
 #: app/views/user_mailer/changeemail_already_used.rhtml:7
 msgid "The accounts have been left as they previously were."
+msgstr ""
+
+#: app/views/request/_other_describe_state.rhtml:45
+msgid ""
+"The authority do <strong>not have</strong> the information <small>(maybe "
+"they say who does)"
 msgstr ""
 
 #: app/views/request/show_response.rhtml:28
@@ -1940,6 +2217,16 @@ msgstr ""
 
 #: app/views/general/exception_caught.rhtml:3
 msgid "The page either doesn't exist, or is broken. Things you can try now:"
+msgstr ""
+
+#: app/views/request/_other_describe_state.rhtml:57
+msgid "The request has been <strong>refused</strong>"
+msgstr ""
+
+#: app/controllers/request_controller.rb:335
+msgid ""
+"The request has been updated since you originally loaded this page. Please "
+"check for any new incoming messages below, and try again."
 msgstr ""
 
 #: app/views/request/show.rhtml:103
@@ -1995,6 +2282,10 @@ msgid ""
 "Information requests this person has made."
 msgstr ""
 
+#: app/models/track_thing.rb:162
+msgid "Then you will be emailed whenever an FOI request succeeds."
+msgstr ""
+
 #: app/views/request_mailer/comment_on_alert_plural.rhtml:1
 msgid ""
 "There are {{count}} new annotations on your {{info_request}} request. Follow "
@@ -2018,7 +2309,7 @@ msgstr ""
 msgid "They are going to reply <strong>by post</strong>"
 msgstr ""
 
-#: app/views/request/_describe_state.rhtml:54
+#: app/views/request/_describe_state.rhtml:53
 msgid ""
 "They do <strong>not have</strong> the information <small>(maybe they say who "
 "does)</small>"
@@ -2094,7 +2385,7 @@ msgstr ""
 msgid "This person's"
 msgstr ""
 
-#: app/views/request/_describe_state.rhtml:85
+#: app/views/request/_describe_state.rhtml:86
 msgid "This request <strong>requires administrator attention</strong>"
 msgstr ""
 
@@ -2161,6 +2452,10 @@ msgid ""
 "the email address "
 msgstr ""
 
+#: app/models/track_thing.rb:161
+msgid "To be emailed about any successful requests"
+msgstr ""
+
 #: app/views/user/no_cookies.rhtml:5
 msgid ""
 "To carry on, you need to sign in or make an account. Unfortunately, there\n"
@@ -2192,7 +2487,7 @@ msgstr ""
 #: app/views/public_body/view_email_captcha.rhtml:5
 msgid ""
 "To view the email address that we use to send FOI requests to "
-"{{@public_body_name}}, please enter these words."
+"{{public_body_name}}, please enter these words."
 msgstr ""
 
 #: app/views/request_mailer/new_response.rhtml:5
@@ -2203,9 +2498,13 @@ msgstr ""
 msgid "To {{public_body_link_absolute}}"
 msgstr ""
 
-#: app/views/request/new.rhtml:88 app/views/request/followup_preview.rhtml:22
 #: app/views/request/preview.rhtml:17
+#: app/views/request/followup_preview.rhtml:22 app/views/request/new.rhtml:88
 msgid "To:"
+msgstr ""
+
+#: app/models/track_thing.rb:174
+msgid "Track requests to {{public_body_name}} by email"
 msgstr ""
 
 #: app/views/public_body/show.rhtml:3
@@ -2271,8 +2570,16 @@ msgid ""
 "address for"
 msgstr ""
 
-#: app/views/general/exception_caught.rhtml:18
+#: app/views/general/exception_caught.rhtml:17
 msgid "Unknown"
+msgstr ""
+
+#: app/models/info_request_event.rb:312
+msgid "Unusual response"
+msgstr ""
+
+#: app/models/info_request.rb:781
+msgid "Unusual response."
 msgstr ""
 
 #: app/views/request/_after_actions.rhtml:13
@@ -2352,7 +2659,7 @@ msgstr ""
 msgid "View Freedom of Information requests made by"
 msgstr ""
 
-#: app/views/layouts/default.rhtml:110
+#: app/views/layouts/default.rhtml:106
 msgid "View authorities"
 msgstr ""
 
@@ -2360,8 +2667,12 @@ msgstr ""
 msgid "View email"
 msgstr ""
 
-#: app/views/layouts/default.rhtml:109
+#: app/views/layouts/default.rhtml:105
 msgid "View requests"
+msgstr ""
+
+#: app/models/info_request.rb:769
+msgid "Waiting clarification."
 msgstr ""
 
 #: app/views/request/show.rhtml:110
@@ -2370,15 +2681,16 @@ msgid ""
 "their handling of this request."
 msgstr ""
 
-#: app/views/request/followup_bad.rhtml:24
-msgid "We do not have a working"
-msgstr ""
-
 #: app/views/public_body/view_email.rhtml:17
 msgid "We do not have a working request email address for this authority."
 msgstr ""
 
-#: app/views/request/_describe_state.rhtml:108
+#: app/views/request/followup_bad.rhtml:24
+msgid ""
+"We do not have a working {{law_used_full}} address for {{public_body_name}}."
+msgstr ""
+
+#: app/views/request/_describe_state.rhtml:109
 msgid ""
 "We don't know whether the most recent response to this request contains\n"
 "    information or not\n"
@@ -2463,8 +2775,24 @@ msgstr ""
 msgid "Which of these is happening?"
 msgstr ""
 
+#: app/models/info_request_event.rb:308
+msgid "Withdrawn by requester"
+msgstr ""
+
+#: app/models/info_request.rb:783
+msgid "Withdrawn by the requester."
+msgstr ""
+
 #: app/views/request/new.rhtml:46
 msgid "Write your request in <strong>simple, precise language</strong>."
+msgstr ""
+
+#: app/models/info_request_event.rb:296
+msgid "Wrong Response"
+msgstr ""
+
+#: app/models/info_request.rb:775
+msgid "Wrong Response."
 msgstr ""
 
 #: app/views/public_body/show.rhtml:71
@@ -2474,6 +2802,10 @@ msgstr ""
 
 #: app/views/comment/_single_comment.rhtml:10
 msgid "You"
+msgstr ""
+
+#: app/models/track_thing.rb:156
+msgid "You are being emailed about any new successful responses"
 msgstr ""
 
 #: app/views/request/show.rhtml:81
@@ -2514,7 +2846,7 @@ msgid ""
 "file too large for email, use the form below."
 msgstr ""
 
-#: app/views/request/followup_bad.rhtml:25
+#: app/views/request/followup_bad.rhtml:24
 msgid ""
 "You may be able to find\n"
 "    one on their website, or by phoning them up and asking. If you manage\n"
@@ -2526,6 +2858,10 @@ msgid ""
 "You may be able to find\n"
 "one on their website, or by phoning them up and asking. If you manage\n"
 "to find one, then please <a href=\"%s\">send it to us</a>."
+msgstr ""
+
+#: app/controllers/request_controller.rb:541
+msgid "You previously submitted that exact follow up message for this request."
 msgstr ""
 
 #: app/views/request/upload_response.rhtml:13
@@ -2578,13 +2914,28 @@ msgid ""
 "message, which will then go directly to the person who wrote the message."
 msgstr ""
 
+#: app/views/user/_signin.rhtml:11 app/views/user/_signup.rhtml:9
 #: app/views/user/signchangepassword_send_confirm.rhtml:13
-#: app/views/user/_signup.rhtml:9 app/views/user/_signin.rhtml:11
 msgid "Your e-mail:"
 msgstr ""
 
 #: app/views/user/show.rhtml:168
 msgid "Your email subscriptions"
+msgstr ""
+
+#: app/controllers/request_controller.rb:538
+msgid ""
+"Your follow up has not been sent because this request has been stopped to "
+"prevent spam. Please <a href=\"/help/contact\">contact us</a> if you really "
+"want to send a follow up message."
+msgstr ""
+
+#: app/controllers/request_controller.rb:566
+msgid "Your follow up message has been sent on its way."
+msgstr ""
+
+#: app/controllers/request_controller.rb:564
+msgid "Your internal review request has been sent on its way."
 msgstr ""
 
 #: app/views/request/followup_preview.rhtml:15
@@ -2637,18 +2988,18 @@ msgid ""
 "\">read why</a> and answers to other questions."
 msgstr ""
 
+#: app/models/outgoing_message.rb:69
+msgid "Yours faithfully,"
+msgstr ""
+
+#: app/models/outgoing_message.rb:67
+msgid "Yours sincerely,"
+msgstr ""
+
 #: app/views/request/new.rhtml:97
 msgid ""
 "a one line summary of the information you are requesting, \n"
 "\t\t\te.g."
-msgstr ""
-
-#: app/views/track_mailer/event_digest.rhtml:31
-msgid "added an annotation"
-msgstr ""
-
-#: app/views/request/followup_bad.rhtml:25
-msgid "address for"
 msgstr ""
 
 #: app/views/public_body/show.rhtml:32
@@ -2673,7 +3024,7 @@ msgstr ""
 msgid "and update the status."
 msgstr ""
 
-#: app/views/request/_describe_state.rhtml:102
+#: app/views/request/_describe_state.rhtml:103
 msgid "and we'll suggest <strong>what to do next</strong>"
 msgstr ""
 
@@ -2723,6 +3074,10 @@ msgid ""
 "            Or you could phone them."
 msgstr ""
 
+#: app/models/info_request_event.rb:333
+msgid "display_status only works for incoming and outgoing messages right now"
+msgstr ""
+
 #: app/views/request_mailer/overdue_alert.rhtml:3
 msgid "during term time"
 msgstr ""
@@ -2763,8 +3118,8 @@ msgstr ""
 msgid "holiday"
 msgstr ""
 
-#: app/views/request/show.rhtml:63 app/views/request/show.rhtml:73
-#: app/views/request/_followup.rhtml:39
+#: app/views/request/_followup.rhtml:39 app/views/request/show.rhtml:63
+#: app/views/request/show.rhtml:73
 msgid "in term time"
 msgstr ""
 
@@ -2804,10 +3159,6 @@ msgstr ""
 #: app/views/user/_user_listing_single.rhtml:19
 #: app/views/user/_user_listing_single.rhtml:20
 msgid "made."
-msgstr ""
-
-#: app/views/track_mailer/event_digest.rhtml:54
-msgid "need to add other types to TrackMailer.event_digest"
 msgstr ""
 
 #: app/views/request/show.rhtml:67
@@ -2894,6 +3245,22 @@ msgstr ""
 msgid "that you made to"
 msgstr ""
 
+#: app/views/user_mailer/changeemail_already_used.rhtml:9
+#: app/views/user_mailer/changeemail_confirm.rhtml:12
+#: app/views/user_mailer/already_registered.rhtml:11
+#: app/views/user_mailer/confirm_login.rhtml:11
+#: app/views/request_mailer/comment_on_alert_plural.rhtml:5
+#: app/views/request_mailer/new_response_reminder_alert.rhtml:8
+#: app/views/request_mailer/not_clarified_alert.rhtml:9
+#: app/views/request_mailer/old_unclassified_updated.rhtml:12
+#: app/views/request_mailer/new_response.rhtml:15
+#: app/views/request_mailer/stopped_responses.rhtml:16
+#: app/views/request_mailer/overdue_alert.rhtml:9
+#: app/views/request_mailer/comment_on_alert.rhtml:6
+#: app/views/request_mailer/very_overdue_alert.rhtml:11
+msgid "the WhatDoTheyKnow team"
+msgstr ""
+
 #: app/views/user/show.rhtml:140
 msgid "this person"
 msgstr ""
@@ -2940,8 +3307,12 @@ msgstr ""
 msgid "unknown event type indexed "
 msgstr ""
 
-#: app/views/request/followup_bad.rhtml:30
+#: app/views/request/followup_bad.rhtml:29
 msgid "unknown reason "
+msgstr ""
+
+#: app/models/info_request.rb:785 app/models/info_request_event.rb:328
+msgid "unknown status "
 msgstr ""
 
 #: app/views/user/show.rhtml:208
@@ -2986,6 +3357,12 @@ msgstr ""
 
 #: app/views/request/_after_actions.rhtml:43
 msgid "{{public_body_name}} only:"
+msgstr ""
+
+#: app/views/request_mailer/comment_on_alert.rhtml:1
+msgid ""
+"{{user_name}} has annotated your {{law_used_short}} \n"
+"request. Follow this link to see what they wrote."
 msgstr ""
 
 #: app/views/request/show.rhtml:35
