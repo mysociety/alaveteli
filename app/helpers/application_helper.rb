@@ -19,22 +19,29 @@ module ApplicationHelper
         objects = params.collect {|object_name| instance_variable_get("@#{object_name}") }.compact
         count   = objects.inject(0) {|sum, object| sum + object.errors.count }
         unless count.zero?
-          html = {}
-          [:id, :class].each do |key|
-            if options.include?(key)
-              value = options[key]
-              html[key] = value unless value.blank?
-            else
-              html[key] = 'errorExplanation'
-            end
+            html = {}
+            [:id, :class].each do |key|
+              if options.include?(key)
+                  value = options[key]
+                  html[key] = value unless value.blank?
+              else
+                  html[key] = 'errorExplanation'
+              end
           end
-          error_messages = objects.map {|object| object.errors.full_messages.map {|msg| content_tag(:li, msg) } }
+          
+          error_messages = []
+          for object in objects
+              object.errors.each do |attr, message|
+                  error_messages << content_tag(:li, message)
+              end
+          end
+          
           content_tag(:div,
               content_tag(:ul, error_messages),
             html
           )
         else
-          ''
+            ''
         end
     end
 
