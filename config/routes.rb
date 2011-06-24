@@ -165,7 +165,7 @@ ActionController::Routing::Routes.draw do |map|
         admin.admin_request_generate_upload_url '/admin/request/generate_upload_url/:id', :action => 'generate_upload_url'
         admin.admin_request_show_raw_email '/admin/request/show_raw_email/:id', :action => 'show_raw_email'
         admin.admin_request_download_raw_email '/admin/request/download_raw_email/:id', :action => 'download_raw_email'
-        admin.admin_request_clarification '/admin/request/clarification', :action => 'mark_event_as_clarification'
+        admin.admin_request_clarification '/admin/request/mark_event_as_clarification', :action => 'mark_event_as_clarification'
     end
 
     map.with_options :controller => 'admin_user' do |user|
