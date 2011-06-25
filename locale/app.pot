@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
-"POT-Creation-Date: 2011-06-25 12:41+0200\n"
+"POT-Creation-Date: 2011-06-25 15:32+0200\n"
 "PO-Revision-Date: 2011-02-24 07:11-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -799,6 +799,10 @@ msgstr ""
 msgid "Confirm your annotation to {{info_request_title}}"
 msgstr ""
 
+#: app/models/user_mailer.rb:34
+msgid "Confirm your new email address on WhatDoTheyKnow.com"
+msgstr ""
+
 #: app/views/layouts/default.rhtml:143
 msgid "Contact {{site_name}}"
 msgstr ""
@@ -886,6 +890,10 @@ msgstr ""
 msgid ""
 "Either the email or password was not recognised, please try again. Or create "
 "a new account using the form on the right."
+msgstr ""
+
+#: app/models/contact_validator.rb:34
+msgid "Email doesn't look like a valid address"
 msgstr ""
 
 #: app/views/comment/_comment_form.rhtml:9
@@ -1502,6 +1510,10 @@ msgstr ""
 msgid "New e-mail:"
 msgstr ""
 
+#: app/models/change_email_validator.rb:48
+msgid "New email doesn't look like a valid address"
+msgstr ""
+
 #: app/views/user/signchangepassword.rhtml:15
 msgid "New password:"
 msgstr ""
@@ -1603,6 +1615,16 @@ msgstr ""
 msgid "Old e-mail:"
 msgstr ""
 
+#: app/models/change_email_validator.rb:39
+msgid ""
+"Old email address isn't the same as the address of the account you are "
+"logged in with"
+msgstr ""
+
+#: app/models/change_email_validator.rb:34
+msgid "Old email doesn't look like a valid address"
+msgstr ""
+
 #: app/views/user/show.rhtml:32
 msgid "On this page"
 msgstr ""
@@ -1633,6 +1655,10 @@ msgstr ""
 
 #: app/models/info_request.rb:765
 msgid "Partially successful."
+msgstr ""
+
+#: app/models/change_email_validator.rb:42
+msgid "Password is not correct"
 msgstr ""
 
 #: app/views/user/_signin.rhtml:16 app/views/user/_signup.rhtml:30
@@ -2847,6 +2873,10 @@ msgstr ""
 
 #: app/models/public_body.rb:37
 msgid "URL name can't be blank"
+msgstr ""
+
+#: app/models/user_mailer.rb:45
+msgid "Unable to change email address on WhatDoTheyKnow.com"
 msgstr ""
 
 #: app/views/request/followup_bad.rhtml:4
