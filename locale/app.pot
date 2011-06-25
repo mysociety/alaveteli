@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
-"POT-Creation-Date: 2011-06-23 10:06+0200\n"
+"POT-Creation-Date: 2011-06-25 12:41+0200\n"
 "PO-Revision-Date: 2011-02-24 07:11-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -111,6 +111,14 @@ msgstr ""
 msgid " What are you investigating using Freedom of Information? "
 msgstr ""
 
+#: app/controllers/comment_controller.rb:75
+msgid " You are already being emailed updates about the request."
+msgstr ""
+
+#: app/controllers/comment_controller.rb:73
+msgid " You will also be emailed updates about the request."
+msgstr ""
+
 #: app/views/request/upload_response.rhtml:5
 msgid " made by "
 msgstr ""
@@ -141,6 +149,17 @@ msgstr ""
 
 #: app/views/request/new.rhtml:100
 msgid "'Pollution levels over time for the River Tyne'"
+msgstr ""
+
+#: app/controllers/user_controller.rb:345
+msgid ""
+",\n"
+"\n"
+"\n"
+"\n"
+"Yours,\n"
+"\n"
+"{{user_name}}"
 msgstr ""
 
 #: app/views/request/_after_actions.rhtml:9
@@ -184,18 +203,77 @@ msgstr ""
 msgid "<a href=\"%s\">what's that?</a>"
 msgstr ""
 
-#: app/controllers/request_controller.rb:414
+#: app/controllers/request_game_controller.rb:23
+msgid ""
+"<p>All done! Thank you very much for your help.</p><p>There are <a href=\"%s"
+"\">more things you can do</a> to help WhatDoTheyKnow.</p>"
+msgstr ""
+
+#: app/controllers/request_controller.rb:382
+msgid ""
+"<p>Thank you! Here are some ideas on what to do next:</p>\n"
+"            <ul>\n"
+"            <li>To send your request to another authority, first copy the "
+"text of your request below, then <a href=\"%s\">find the other authority</a>."
+"</li>\n"
+"            <li>If you would like to contest the authority's claim that they "
+"do not hold the information, here is \n"
+"            <a href=\"%s\">how to complain</a>.\n"
+"            </li>\n"
+"            <li>We have <a href=\"%s\">suggestions</a>\n"
+"            on other means to answer your question.\n"
+"            </li>\n"
+"            </ul>\n"
+"            "
+msgstr ""
+
+#: app/controllers/request_controller.rb:376
+msgid ""
+"<p>Thank you! Hope you don't have to wait much longer.</p> <p>By law, you "
+"should have got a response promptly, and normally before the end of <strong>"
+"{{date_response_required_by}}</strong>.</p>"
+msgstr ""
+
+#: app/controllers/request_controller.rb:372
+msgid ""
+"<p>Thank you! Hopefully your wait isn't too long.</p> <p>By law, you should "
+"get a response promptly, and normally before the end of <strong>\n"
+"{{date_response_required_by}}</strong>.</p>"
+msgstr ""
+
+#: app/controllers/request_controller.rb:415
 msgid ""
 "<p>Thank you! Hopefully your wait isn't too long.</p><p>You should get a "
 "response within 20 days, or be told if it will take longer (<a href=\"%s"
 "\">details</a>).</p>"
 msgstr ""
 
-#: app/controllers/request_controller.rb:417
+#: app/controllers/request_controller.rb:418
 msgid ""
 "<p>Thank you! We'll look into what happened and try and fix it up.</p><p>If "
 "the error was a delivery failure, and you can find an up to date FOI email "
 "address for the authority, please tell us using the form below.</p>"
+msgstr ""
+
+#: app/controllers/request_controller.rb:379
+msgid ""
+"<p>Thank you! Your request is long overdue, by more than 40 working days. "
+"Most requests should be answered within 20 working days. You might like to "
+"complain about this, see below.</p>"
+msgstr ""
+
+#: app/controllers/user_controller.rb:485
+msgid ""
+"<p>Thanks for changing the text about you on your profile.</p>\n"
+"            <p><strong>Next...</strong> You can upload a profile photograph "
+"too.</p>"
+msgstr ""
+
+#: app/controllers/user_controller.rb:407
+msgid ""
+"<p>Thanks for updating your profile photo.</p>\n"
+"                <p><strong>Next...</strong> You can put some text about you "
+"and your research on your profile.</p>"
 msgstr ""
 
 #: app/controllers/request_controller.rb:267
@@ -205,7 +283,7 @@ msgid ""
 "authority, but will not be displayed on the site.</p>"
 msgstr ""
 
-#: app/controllers/request_controller.rb:397
+#: app/controllers/request_controller.rb:398
 msgid ""
 "<p>We're glad you got all the information that you wanted. If you write "
 "about or make use of the information, please come back and add an annotation "
@@ -213,7 +291,7 @@ msgid ""
 "\"%s\">make a donation</a> to the charity which runs it.</p>"
 msgstr ""
 
-#: app/controllers/request_controller.rb:400
+#: app/controllers/request_controller.rb:401
 msgid ""
 "<p>We're glad you got some of the information that you wanted. If you found "
 "WhatDoTheyKnow useful, <a href=\"%s\">make a donation</a> to the charity "
@@ -319,6 +397,12 @@ msgstr ""
 msgid ""
 "<strong><code>variety:</code></strong> to select type of thing to search "
 "for, see the <a href=\"%s\">table of varieties</a> below."
+msgstr ""
+
+#: app/views/comment/new.rhtml:56
+msgid ""
+"<strong>Advice</strong> on how to get a response that will satisfy the "
+"requester. </li>"
 msgstr ""
 
 #: app/views/request/_other_describe_state.rhtml:53
@@ -455,6 +539,12 @@ msgstr ""
 msgid "Advanced search tips"
 msgstr ""
 
+#: app/views/comment/new.rhtml:52
+msgid ""
+"Advise on whether the <strong>refusal is legal</strong>, and how to complain "
+"about it if not."
+msgstr ""
+
 #: app/views/request/new.rhtml:69
 msgid ""
 "Air, water, soil, land, flora and fauna (including how these effect\n"
@@ -489,6 +579,12 @@ msgid ""
 "request. For example:"
 msgstr ""
 
+#: app/views/comment/new.rhtml:69
+msgid ""
+"Annotations will be posted publicly here, and are \n"
+"        <strong>not</strong> sent to {{public_body_name}}."
+msgstr ""
+
 #: app/views/request/_after_actions.rhtml:6
 msgid "Anyone:"
 msgstr ""
@@ -520,7 +616,7 @@ msgstr ""
 msgid "Authority has requested <strong>extension of the deadline.</strong>"
 msgstr ""
 
-#: app/controllers/request_controller.rb:408
+#: app/controllers/request_controller.rb:409
 msgid "Authority has requested extension of the deadline."
 msgstr ""
 
@@ -566,6 +662,14 @@ msgid ""
 "it</a>."
 msgstr ""
 
+#: app/controllers/track_controller.rb:143
+msgid "Cancel a {{site_name}} alert"
+msgstr ""
+
+#: app/controllers/track_controller.rb:173
+msgid "Cancel some {{site_name}} alerts"
+msgstr ""
+
 #: locale/model_attributes.rb:46
 msgid "CensorRule|Last edit comment"
 msgstr ""
@@ -603,6 +707,7 @@ msgstr ""
 msgid "Change your email"
 msgstr ""
 
+#: app/controllers/user_controller.rb:249
 #: app/views/user/signchangeemail.rhtml:1
 #: app/views/user/signchangeemail.rhtml:11
 msgid "Change your email address used on {{site_name}}"
@@ -617,6 +722,10 @@ msgstr ""
 #: app/views/user/signchangepassword_send_confirm.rhtml:1
 #: app/views/user/signchangepassword_send_confirm.rhtml:9
 msgid "Change your password on {{site_name}}"
+msgstr ""
+
+#: app/controllers/user_controller.rb:203
+msgid "Change your password {{site_name}}"
 msgstr ""
 
 #: app/views/public_body/show.rhtml:16 app/views/public_body/show.rhtml:18
@@ -638,6 +747,10 @@ msgstr ""
 
 #: app/models/info_request_event.rb:290
 msgid "Clarification required"
+msgstr ""
+
+#: app/controllers/request_controller.rb:322
+msgid "Classify an FOI response from "
 msgstr ""
 
 #: app/views/request_mailer/very_overdue_alert.rhtml:6
@@ -671,6 +784,19 @@ msgstr ""
 
 #: app/models/track_thing.rb:163
 msgid "Confirm you want to be emailed when an FOI request succeeds"
+msgstr ""
+
+#: app/controllers/request_controller.rb:283
+msgid "Confirm your FOI request to "
+msgstr ""
+
+#: app/controllers/request_controller.rb:687
+#: app/controllers/user_controller.rb:505
+msgid "Confirm your account on {{site_name}}"
+msgstr ""
+
+#: app/controllers/comment_controller.rb:57
+msgid "Confirm your annotation to {{info_request_title}}"
 msgstr ""
 
 #: app/views/layouts/default.rhtml:143
@@ -750,6 +876,16 @@ msgstr ""
 
 #: app/views/user/set_profile_about_me.rhtml:9
 msgid "Edit text about you"
+msgstr ""
+
+#: app/models/user.rb:132
+msgid "Either the email or password was not recognised, please try again."
+msgstr ""
+
+#: app/models/user.rb:134
+msgid ""
+"Either the email or password was not recognised, please try again. Or create "
+"a new account using the form on the right."
 msgstr ""
 
 #: app/views/comment/_comment_form.rhtml:9
@@ -1120,7 +1256,7 @@ msgid ""
 "more. Please try doing what you were doing from the beginning."
 msgstr ""
 
-#: app/controllers/request_controller.rb:423
+#: app/controllers/request_controller.rb:424
 msgid ""
 "If you have not done so already, please write a message below telling the "
 "authority that you have withdrawn your request. Otherwise they will not know "
@@ -1281,6 +1417,11 @@ msgid ""
 "appeared and your browser and operating system type and version."
 msgstr ""
 
+#: app/views/request/_correspondence.rhtml:27
+#: app/views/request/_correspondence.rhtml:57
+msgid "Link to this"
+msgstr ""
+
 #: app/views/public_body/list.rhtml:32
 msgid "List of all authorities (CSV)"
 msgstr ""
@@ -1422,6 +1563,10 @@ msgstr ""
 msgid "Now check your email!"
 msgstr ""
 
+#: app/views/comment/preview.rhtml:5
+msgid "Now preview your annotation"
+msgstr ""
+
 #: app/views/request/followup_preview.rhtml:10
 msgid "Now preview your follow up"
 msgstr ""
@@ -1444,12 +1589,12 @@ msgid ""
 "{{site_name}}"
 msgstr ""
 
-#: app/controllers/request_controller.rb:394
+#: app/controllers/request_controller.rb:395
 msgid ""
 "Oh no! Sorry to hear that your request was refused. Here is what to do now."
 msgstr ""
 
-#: app/controllers/request_controller.rb:411
+#: app/controllers/request_controller.rb:412
 msgid ""
 "Oh no! Sorry to hear that your request was wrong. Here is what to do now."
 msgstr ""
@@ -1510,6 +1655,10 @@ msgstr ""
 
 #: app/views/request/new.rhtml:76
 msgid "Plans and administrative measures that affect these matters"
+msgstr ""
+
+#: app/controllers/request_game_controller.rb:40
+msgid "Play the request categorisation game"
 msgstr ""
 
 #: app/views/request_game/play.rhtml:1 app/views/request_game/play.rhtml:30
@@ -1692,11 +1841,11 @@ msgstr ""
 msgid "Please sign in as "
 msgstr ""
 
-#: app/controllers/request_controller.rb:713
+#: app/controllers/request_controller.rb:714
 msgid "Please type a message and/or choose a file containing your response."
 msgstr ""
 
-#: app/controllers/request_controller.rb:420
+#: app/controllers/request_controller.rb:421
 msgid "Please use the form below to tell us more."
 msgstr ""
 
@@ -1721,7 +1870,7 @@ msgid ""
 "letters. This makes it easier for others to read."
 msgstr ""
 
-#: app/controllers/request_controller.rb:403
+#: app/controllers/request_controller.rb:404
 msgid ""
 "Please write your follow up message containing the necessary clarifications "
 "below."
@@ -1737,6 +1886,10 @@ msgstr ""
 msgid ""
 "Point to <strong>related information</strong>, campaigns or forums which may "
 "be useful."
+msgstr ""
+
+#: app/views/comment/preview.rhtml:21
+msgid "Post annotation"
 msgstr ""
 
 #: locale/model_attributes.rb:56
@@ -1765,6 +1918,10 @@ msgstr ""
 
 #: app/views/request/followup_preview.rhtml:1
 msgid "Preview follow up to '"
+msgstr ""
+
+#: app/views/comment/preview.rhtml:1
+msgid "Preview new annotation on '{{info_request_title}}'"
 msgstr ""
 
 #: app/views/comment/_comment_form.rhtml:16
@@ -1853,6 +2010,10 @@ msgstr ""
 msgid "RawEmail|Data text"
 msgstr ""
 
+#: app/views/comment/preview.rhtml:20
+msgid "Re-edit this annotation"
+msgstr ""
+
 #: app/views/request/followup_preview.rhtml:49
 msgid "Re-edit this message"
 msgstr ""
@@ -1903,6 +2064,10 @@ msgstr ""
 msgid ""
 "Remember me</label> (keeps you signed in longer;\n"
 "    do not use on a public computer) "
+msgstr ""
+
+#: app/views/request/_correspondence.rhtml:28
+msgid "Reply to this message"
 msgstr ""
 
 #: app/views/comment/_single_comment.rhtml:24
@@ -1995,12 +2160,20 @@ msgstr ""
 msgid "Search the site to find what you were looking for."
 msgstr ""
 
+#: app/controllers/user_controller.rb:321
+msgid "Send a message to "
+msgstr ""
+
 #: app/views/request/_followup.rhtml:7
 msgid "Send a public follow up message to"
 msgstr ""
 
 #: app/views/request/_followup.rhtml:10
 msgid "Send a public reply to"
+msgstr ""
+
+#: app/views/request/_correspondence.rhtml:58
+msgid "Send follow up"
 msgstr ""
 
 #: app/views/request/followup_preview.rhtml:50
@@ -2129,14 +2302,34 @@ msgstr ""
 msgid "Tags:"
 msgstr ""
 
-#: app/controllers/request_controller.rb:719
+#: app/controllers/request_game_controller.rb:50
+msgid "Thank you for helping us keep the site tidy!"
+msgstr ""
+
+#: app/controllers/comment_controller.rb:62
+msgid "Thank you for making an annotation!"
+msgstr ""
+
+#: app/controllers/request_controller.rb:720
 msgid ""
 "Thank you for responding to this FOI request! Your response has been "
 "published below, and a link to your response has been emailed to "
 msgstr ""
 
+#: app/controllers/request_controller.rb:361
+msgid ""
+"Thank you for updating the status of the request '<a href=\"%s\">"
+"{{info_request_title}}</a>'. There are some more requests below for you to "
+"classify."
+msgstr ""
+
 #: app/controllers/request_controller.rb:364
 msgid "Thank you for updating this request!"
+msgstr ""
+
+#: app/controllers/user_controller.rb:388
+#: app/controllers/user_controller.rb:404
+msgid "Thank you for updating your profile photo"
 msgstr ""
 
 #: app/views/request_game/play.rhtml:42
@@ -2160,6 +2353,12 @@ msgid ""
 "    We'll also, if you need it, give you advice on what to do next about "
 "each of your\n"
 "    requests."
+msgstr ""
+
+#: app/controllers/user_controller.rb:188
+msgid ""
+"That doesn't look like a valid email address. Please check you have typed it "
+"correctly."
 msgstr ""
 
 #: app/views/request/_other_describe_state.rhtml:40
@@ -2282,8 +2481,64 @@ msgid ""
 "Information requests this person has made."
 msgstr ""
 
+#: app/controllers/track_controller.rb:142
+msgid "Then you can cancel the alert."
+msgstr ""
+
+#: app/controllers/track_controller.rb:172
+msgid "Then you can cancel the alerts."
+msgstr ""
+
+#: app/controllers/user_controller.rb:248
+msgid "Then you can change your email address used on {{site_name}}"
+msgstr ""
+
+#: app/controllers/user_controller.rb:202
+msgid "Then you can change your password on {{site_name}}"
+msgstr ""
+
+#: app/controllers/request_controller.rb:321
+msgid "Then you can classify the FOI response you have got from "
+msgstr ""
+
+#: app/controllers/request_game_controller.rb:39
+msgid "Then you can play the request categorisation game."
+msgstr ""
+
+#: app/controllers/user_controller.rb:320
+msgid "Then you can send a message to "
+msgstr ""
+
+#: app/controllers/user_controller.rb:504
+msgid "Then you can sign in to {{site_name}}"
+msgstr ""
+
+#: app/controllers/request_controller.rb:48
+msgid "Then you can update the status of your request to "
+msgstr ""
+
+#: app/controllers/request_controller.rb:686
+msgid "Then you can upload an FOI response. "
+msgstr ""
+
+#: app/controllers/request_controller.rb:528
+msgid "Then you can write follow up message to "
+msgstr ""
+
+#: app/controllers/request_controller.rb:529
+msgid "Then you can write your reply to "
+msgstr ""
+
 #: app/models/track_thing.rb:162
 msgid "Then you will be emailed whenever an FOI request succeeds."
+msgstr ""
+
+#: app/controllers/request_controller.rb:282
+msgid "Then your FOI request to {{public_body_name}} will be sent."
+msgstr ""
+
+#: app/controllers/comment_controller.rb:56
+msgid "Then your annotation to {{info_request_title}} will be posted."
 msgstr ""
 
 #: app/views/request_mailer/comment_on_alert_plural.rhtml:1
@@ -2303,6 +2558,10 @@ msgstr ""
 msgid ""
 "There was a <strong>delivery error</strong> or similar, which needs fixing "
 "by the WhatDoTheyKnow team."
+msgstr ""
+
+#: app/controllers/public_body_controller.rb:70
+msgid "There was an error with the words you entered, please try again."
 msgstr ""
 
 #: app/views/request/_describe_state.rhtml:38
@@ -2456,10 +2715,26 @@ msgstr ""
 msgid "To be emailed about any successful requests"
 msgstr ""
 
+#: app/controllers/track_controller.rb:171
+msgid "To cancel these alerts"
+msgstr ""
+
+#: app/controllers/track_controller.rb:141
+msgid "To cancel this alert"
+msgstr ""
+
 #: app/views/user/no_cookies.rhtml:5
 msgid ""
 "To carry on, you need to sign in or make an account. Unfortunately, there\n"
 "was a technical problem trying to do this."
+msgstr ""
+
+#: app/controllers/user_controller.rb:247
+msgid "To change your email address used on {{site_name}}"
+msgstr ""
+
+#: app/controllers/request_controller.rb:320
+msgid "To classify the response to this FOI request"
 msgstr ""
 
 #: app/views/request/show_response.rhtml:39
@@ -2482,6 +2757,39 @@ msgstr ""
 
 #: app/views/request_mailer/new_response_reminder_alert.rhtml:1
 msgid "To let us know, follow this link and then select the appropriate box."
+msgstr ""
+
+#: app/controllers/request_game_controller.rb:38
+msgid "To play the request categorisation game"
+msgstr ""
+
+#: app/controllers/comment_controller.rb:55
+msgid "To post your annotation"
+msgstr ""
+
+#: app/controllers/request_controller.rb:526
+msgid "To reply to "
+msgstr ""
+
+#: app/controllers/request_controller.rb:525
+msgid "To send a follow up message to "
+msgstr ""
+
+#: app/controllers/user_controller.rb:319
+msgid "To send a message to "
+msgstr ""
+
+#: app/controllers/request_controller.rb:281
+msgid "To send your FOI request"
+msgstr ""
+
+#: app/controllers/request_controller.rb:47
+msgid "To update the status of this FOI request"
+msgstr ""
+
+#: app/controllers/request_controller.rb:685
+msgid ""
+"To upload a response, you must be logged in using an email address from "
 msgstr ""
 
 #: app/views/public_body/view_email_captcha.rhtml:5
@@ -2585,6 +2893,10 @@ msgstr ""
 #: app/views/request/_after_actions.rhtml:13
 #: app/views/request/_after_actions.rhtml:33
 msgid "Update the status of this request"
+msgstr ""
+
+#: app/controllers/request_controller.rb:49
+msgid "Update the status of your request to "
 msgstr ""
 
 #: app/views/general/search.rhtml:112
@@ -2783,6 +3095,14 @@ msgstr ""
 msgid "Withdrawn by the requester."
 msgstr ""
 
+#: app/controllers/request_controller.rb:532
+msgid "Write a reply to "
+msgstr ""
+
+#: app/controllers/request_controller.rb:531
+msgid "Write your FOI follow up message to "
+msgstr ""
+
 #: app/views/request/new.rhtml:46
 msgid "Write your request in <strong>simple, precise language</strong>."
 msgstr ""
@@ -2802,6 +3122,10 @@ msgstr ""
 
 #: app/views/comment/_single_comment.rhtml:10
 msgid "You"
+msgstr ""
+
+#: app/controllers/track_controller.rb:96
+msgid "You are already being emailed updates about "
 msgstr ""
 
 #: app/models/track_thing.rb:156
@@ -2831,6 +3155,14 @@ msgstr ""
 msgid "You have a new response to the {{law_used_full}} request "
 msgstr ""
 
+#: app/controllers/user_controller.rb:482
+msgid "You have now changed the text about you on your profile."
+msgstr ""
+
+#: app/controllers/user_controller.rb:300
+msgid "You have now changed your email address used on {{site_name}}"
+msgstr ""
+
 #: app/views/user_mailer/already_registered.rhtml:3
 msgid ""
 "You just tried to sign up to WhatDoTheyKnow.com, when you\n"
@@ -2838,6 +3170,12 @@ msgid ""
 "left as they previously were.\n"
 "\n"
 "Please click on the link below."
+msgstr ""
+
+#: app/views/comment/new.rhtml:59
+msgid ""
+"You know what caused the error, and can <strong>suggest a solution</strong>, "
+"such as a working email address."
 msgstr ""
 
 #: app/views/request/upload_response.rhtml:16
@@ -2860,7 +3198,19 @@ msgid ""
 "to find one, then please <a href=\"%s\">send it to us</a>."
 msgstr ""
 
-#: app/controllers/request_controller.rb:541
+#: app/controllers/user_controller.rb:460
+msgid "You need to be logged in to change the text about you on your profile."
+msgstr ""
+
+#: app/controllers/user_controller.rb:361
+msgid "You need to be logged in to change your profile photo."
+msgstr ""
+
+#: app/controllers/user_controller.rb:423
+msgid "You need to be logged in to clear your profile photo."
+msgstr ""
+
+#: app/controllers/request_controller.rb:542
 msgid "You previously submitted that exact follow up message for this request."
 msgstr ""
 
@@ -2888,10 +3238,26 @@ msgid ""
 "email alerts."
 msgstr ""
 
+#: app/controllers/track_controller.rb:152
+msgid "You will no longer be emailed updates about "
+msgstr ""
+
+#: app/controllers/track_controller.rb:181
+msgid "You will no longer be emailed updates for those alerts"
+msgstr ""
+
+#: app/controllers/track_controller.rb:109
+msgid "You will now be emailed updates about "
+msgstr ""
+
 #: app/views/request_mailer/not_clarified_alert.rhtml:6
 msgid ""
 "You will only get an answer to your request if you follow up\n"
 "with the clarification."
+msgstr ""
+
+#: app/controllers/user_controller.rb:432
+msgid "You've now cleared your profile photo"
 msgstr ""
 
 #: app/views/user/show.rhtml:152
@@ -2923,19 +3289,29 @@ msgstr ""
 msgid "Your email subscriptions"
 msgstr ""
 
-#: app/controllers/request_controller.rb:538
+#: app/controllers/request_controller.rb:539
 msgid ""
 "Your follow up has not been sent because this request has been stopped to "
-"prevent spam. Please <a href=\"/help/contact\">contact us</a> if you really "
-"want to send a follow up message."
+"prevent spam. Please <a href=\"%s\">contact us</a> if you really want to "
+"send a follow up message."
 msgstr ""
 
-#: app/controllers/request_controller.rb:566
+#: app/controllers/request_controller.rb:567
 msgid "Your follow up message has been sent on its way."
 msgstr ""
 
-#: app/controllers/request_controller.rb:564
+#: app/controllers/request_controller.rb:565
 msgid "Your internal review request has been sent on its way."
+msgstr ""
+
+#: app/controllers/help_controller.rb:61
+msgid ""
+"Your message has been sent. Thank you for getting in touch! We'll get back "
+"to you soon."
+msgstr ""
+
+#: app/controllers/user_controller.rb:339
+msgid "Your message to {{recipient_user_name}} has been sent!"
 msgstr ""
 
 #: app/views/request/followup_preview.rhtml:15
@@ -2962,6 +3338,10 @@ msgstr ""
 msgid "Your original message is attached."
 msgstr ""
 
+#: app/controllers/user_controller.rb:230
+msgid "Your password has been changed."
+msgstr ""
+
 #: app/views/user/signchangeemail.rhtml:25
 msgid "Your password:"
 msgstr ""
@@ -2986,6 +3366,12 @@ msgstr ""
 msgid ""
 "Your response will <strong>appear on the Internet</strong>, <a href=\"%s"
 "\">read why</a> and answers to other questions."
+msgstr ""
+
+#: app/views/comment/new.rhtml:62
+msgid ""
+"Your thoughts on what the WhatDoTheyKnow <strong>administrators</strong> "
+"should do about the request."
 msgstr ""
 
 #: app/models/outgoing_message.rb:69
