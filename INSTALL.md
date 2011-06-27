@@ -203,17 +203,19 @@ drop it in /etc/cron.d/ on the server.
 
 # Troubleshooting
 
-* *Various tests fail with "Your PostgreSQL connection does not support
-   unescape_bytea. Try upgrading to pg 0.9.0 or later."*
+*   **Various tests fail with "*Your PostgreSQL connection does not support
+    unescape_bytea. Try upgrading to pg 0.9.0 or later.*"**
 
-  You have an old version of `pg`, the ruby postgres driver.  In
-  Ubuntu, for example, this is provided by the package `libdbd-pg-ruby`.
+    You have an old version of `pg`, the ruby postgres driver.  In
+    Ubuntu, for example, this is provided by the package `libdbd-pg-ruby`.
 
-  Try upgrading your system's `pg` installation, or installing the pg
-  gem with `gem install pg`
+    Try upgrading your system's `pg` installation, or installing the pg
+    gem with `gem install pg`
 
-* Some of the tests relating to mail are failing
+*   **Some of the tests relating to mail are failing, with messages like
+    "*when using TMail should load an email with funny MIME settings'
+    FAILED*"**
 
-  Did you remember to remove the file `alaveteli/config/rails_env.rb`
-  as described above?  It's created every time you run
-  `script/rails-post-deploy`
+    Did you remember to remove the file `alaveteli/config/rails_env.rb`
+    as described above?  It's created every time you run
+    `script/rails-post-deploy`
