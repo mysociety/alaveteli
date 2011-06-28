@@ -40,7 +40,7 @@ describe InfoRequest do
     
     describe " when emailing" do
     
-        fixtures :info_requests, :info_request_events, :public_bodies, :public_body_translations, :users
+        fixtures :info_requests, :info_request_events, :public_bodies, :public_body_translations, :users, :comments
 
         before do
             @info_request = info_requests(:fancy_dog_request)
@@ -120,7 +120,7 @@ describe InfoRequest do
     end 
 
     describe "when calculating the status" do
-        fixtures :info_requests, :info_request_events, :holidays, :public_bodies, :public_body_translations
+        fixtures :info_requests, :info_request_events, :holidays, :public_bodies, :public_body_translations, :outgoing_messages
 
         before do
             @ir = info_requests(:naughty_chicken_request)
