@@ -21,15 +21,14 @@ DUSER=!!(*= $user *)!!
 
 trap "" 1
 
-export PIDFILE
+export PIDFILE LOGFILE
 
 quietly_start_daemon() {
     /sbin/start-stop-daemon --quiet --start --pidfile "$PIDFILE" --chuid "$DUSER" --startas "$DAEMON" -- $DAEMON_ARGS
 }
 
 start_daemon() {
-    /sbin/start-stop-daemon --start --pidfile "$PIDFILE" --chuid "$DUSER" --startas "$DAEMON" -- $DAEMON_ARGS \
-      > "$LOGFILE" 2>&1
+    /sbin/start-stop-daemon --start --pidfile "$PIDFILE" --chuid "$DUSER" --startas "$DAEMON" -- $DAEMON_ARGS
 }
 
 stop_daemon() {

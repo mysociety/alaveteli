@@ -15,6 +15,7 @@ Dir.chdir(alaveteli_dir) do
         if ENV.has_key? "LOGFILE"
             STDERR.reopen(STDOUT.reopen(ENV["LOGFILE"], "a"))
             STDOUT.sync=true
+            puts "Daemon starting at #{Time.new}"
         end
 
         # Load the runner in a subprocess
