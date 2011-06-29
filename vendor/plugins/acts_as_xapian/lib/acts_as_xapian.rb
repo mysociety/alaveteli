@@ -98,7 +98,7 @@ module ActsAsXapian
       # make the directory for the xapian databases to go in
       Dir.mkdir(db_parent_path) unless File.exists?(db_parent_path)
 
-      @@db_path = File.join(db_parent_path, environment) 
+      @@db_path = File.join(db_parent_path, environment)
 
       # make some things that don't depend on the db
       # XXX this gets made once for each acts_as_xapian. Oh well.
@@ -124,8 +124,8 @@ module ActsAsXapian
         begin
             @@db = Xapian::Database.new(@@db_path)
             @@enquire = Xapian::Enquire.new(@@db)
-        rescue IOError
-            raise "Xapian database not opened; have you built it with scripts/rebuild-xapian-index ?"
+        rescue IOError => e
+            raise "Failed to open Xapian database #{@@db_path}: #{e.message}"
         end
 
         init_query_parser
