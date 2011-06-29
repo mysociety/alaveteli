@@ -59,8 +59,6 @@ The following command will set up a user 'foi' with password 'foi':
 
     echo "CREATE DATABASE foi_development encoding = 'UTF8';
     CREATE DATABASE foi_test encoding = 'UTF8';
-    CREATE DATABASE foi_development encoding = 'UTF8';
-    CREATE DATABASE foi_test encoding = 'UTF8';
     CREATE USER foi WITH CREATEUSER;
     ALTER USER foi WITH PASSWORD 'foi';
     ALTER USER foi WITH CREATEDB;
@@ -68,7 +66,6 @@ The following command will set up a user 'foi' with password 'foi':
     GRANT ALL PRIVILEGES ON DATABASE foi_test TO foi;    	
     ALTER DATABASE foi_development OWNER TO foi;
     ALTER DATABASE foi_test OWNER TO foi;" | psql
-
 
 # Set up configs
 
