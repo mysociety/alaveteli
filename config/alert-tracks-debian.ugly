@@ -24,16 +24,16 @@ trap "" 1
 export PIDFILE
 
 quietly_start_daemon() {
-    start-stop-daemon --quiet --start --pidfile "$PIDFILE" --chuid "$DUSER" --startas "$DAEMON" -- $DAEMON_ARGS
+    /sbin/start-stop-daemon --quiet --start --pidfile "$PIDFILE" --chuid "$DUSER" --startas "$DAEMON" -- $DAEMON_ARGS
 }
 
 start_daemon() {
-    start-stop-daemon --start --pidfile "$PIDFILE" --chuid "$DUSER" --startas "$DAEMON" -- $DAEMON_ARGS \
+    /sbin/start-stop-daemon --start --pidfile "$PIDFILE" --chuid "$DUSER" --startas "$DAEMON" -- $DAEMON_ARGS \
       > "$LOGFILE" 2>&1
 }
 
 stop_daemon() {
-    start-stop-daemon --stop --pidfile "$PIDFILE"
+    /sbin/start-stop-daemon --stop --pidfile "$PIDFILE"
 }
 
 restart() { stop; start; }
