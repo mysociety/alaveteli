@@ -43,7 +43,10 @@ case "$1" in
       quietly_start_daemon
       if [ $? -ne 1 ]
       then
-          echo "WhatDoTheyKnow alert daemon was not running; restarting now"
+          echo "WhatDoTheyKnow alert daemon was not running; now restarted"
+          exit 1
+      else
+          exit 0
       fi
       ;;
   
