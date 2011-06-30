@@ -1,0 +1,293 @@
+<% @title = "Bej kerkes" %>
+
+<%= render :partial => 'sidebar' %>
+
+<h1 id="making_requests"><%= @title %> <a href="#making_requests">#</a> </h1>
+<dl>
+
+<dt id="which_authority">I'm not sure which authority to make my request to, how can I find out? <a href="#which_authority">#</a> </dt>
+
+<dd>
+<p>It can be hard to untangle government's complicated structured, and work out
+who knows the information that you want. Here are a few tips:
+<ul>
+<li>Browse or search WhatDoTheyKnow looking for similar requests to yours.</li>
+<li>When you've found an authority you think might have the information, use
+the "home page" link on the right hand side of their page to check what they do
+on their website.</li>
+<li>Contact the authority by phone or email to ask if they hold the kind of
+information you're after.</li>
+<li>Don't worry excessively about getting the right authority. If you get it
+wrong, they ought to advise you who to make the request to instead.
+</li>
+<li>If you've got a thorny case, please <a href="/help/contact">contact us</a> for help.</li>
+</ul>
+
+</dd>
+
+
+
+<dt id="missing_body">You're missing the public authority that I want to request from! <a href="#missing_body">#</a> </dt>
+
+<dd>
+<p>Please <a href="/help/contact">contact us</a> with the name of the public authority and,
+if you can find it, their contact email address for Freedom of Information requests.
+</p>
+<p>If you'd like to help add a whole category of public authority to the site, we'd love
+to hear from you too.
+</p>
+
+</dd>
+
+<dt id="authorities">Why do you include some authorities that aren't formally subject to FOI?<a href="#authorities">#</a> </dt>
+
+<dd>
+<p>WhatDoTheyKnow lets you make requests for information to a range of
+organisations:</p>
+
+<ul>
+  <li> Those formally subject to the FOI Act</li>
+  <li> Those formally subject to the Environmental Regulations (a less well  
+  defined group)</li>
+  <li> Those which voluntarily comply with the FOI Act</li>
+  <li> Those which aren't subject to the Act but we think should be, on grounds
+  such as them having significant public responsibilities. 
+  </li>
+</ul>
+
+<p>In the last case, we're using the site to lobby for expansion of the
+scope of the FOI Act. Even if an organisation is not legally obliged to respond
+to an FOI request, they can still do so voluntarily.
+</p>
+
+</dd>
+
+<dt id="focused">Why must I keep my request focused?<a href="#focused">#</a> </dt>
+
+<dd>
+
+<p>
+Please put in your request only what is needed so that someone can
+easily identify what information you are asking for. Please do
+<i>not</i> include any of the following:
+</p>
+
+<ul>
+<li>arguments about your cause</li>
+<li>statements that could defame or insult others</li>
+</ul>
+
+<p>
+If you do, we may have to remove your request to avoid problems with
+libel law, which is a pain for both you and us. Short, succinct messages
+make it easier for authorities to be clear what information you are
+requesting, which means you will get a reply more quickly.
+</p>
+
+<p>
+If you want information to support an argument or campaign, Freedom of
+Information is a powerful tool. Although you may not use this site to
+run your campaign, we encourage you to use it to get the information you
+need. We also encourage to run your campaign elsewhere - one effective
+and very easy way is to <%= link_to 'start your own blog',
+"http://wordpress.com/"%>. You are welcome to link to your campaign
+from this site in an annotation to your request (you can make
+annotations after submitting the request).
+</p>
+
+</dd>
+
+<dt id="fees">Does it cost me anything to make a request?<a href="#fees">#</a> </dt>
+
+<dd>
+
+<p>Making an FOI request is nearly always free.</p>
+
+<p>Authorities often include unnecessary, scary, boilerplate in
+acknowledgement messages saying they "may" charge a fee. Ignore such notices.
+They hardly ever will actually charge a fee.  If they do, they can only charge you if
+you have specifically agreed in advance to pay.  <a
+    href="http://www.ico.gov.uk/upload/documents/library/freedom_of_information/practical_application/chargingafee.pdf">More
+    details</a> from the Information Commissioner.
+</p>
+
+<p>Sometimes an authority will refuse your request, saying that the cost
+of handling it exceeds £600 (for central government) or £450 (for all other
+public authorities). At this point you can refine your
+request. e.g. it would be much cheaper for an authority to tell you the amount
+spent on marshmallows in the past year than in the past ten years.
+</p>
+
+</dd>
+
+
+
+<dt id="quickly_response">How quickly will I get a response? <a href="#quickly_response">#</a> </dt>
+
+<dd>
+<p>By law, public authorities must respond <strong>promptly</strong> to
+requests.
+</p>
+
+<p>Even if they are not prompt, in nearly all cases they must respond within
+20 working days. If you had to clarify your request, or they are a school,
+or one or two other cases, then they may have more time
+(<a href="/help/officers#days">full details</a>).
+
+<p>WhatDoTheyKnow will email you if you don't get a timely response.  You can
+then send the public authority a message to remind them, and tell them if they
+are breaking the law.</p>
+
+</dd>
+
+<dt id="deadline_extended">Deadline extended <a href="#deadline_extended">#</a> </dt>
+
+<dd>
+<p>By law, public authorities must needs <strong>more time</strong> for request ... (TO DO)
+</p>
+
+
+</dd>
+<dt id="no_response">What if I never get a response?<a href="#no_response">#</a> </dt>
+
+<dd>
+<p>There are several things you can do if you never get a response.</p>
+<ul>
+    <li>Sometimes there has been a genuine problem and the authority never
+    received the request. It is worth telephoning the authority and politely
+    checking that they received the request. It was sent to them by email.
+    </li>
+    <li>If they have not received it, the problem is most likely due to
+    "spam filters". Refer the authority to the measures in the answer 
+    '<a href="/help/officers#spam_problems">I can see a request on WhatDoTheyKnow, but we never got it by email!</a>' 
+    in the FOI officers section of this help. 
+    </li>
+    <li>If you're still having no luck, then you can ask for an internal review,
+    and then complain to the Information Commissioner about the authority.
+    Read our page '<a href="/help/unhappy">Unhappy about the response you got?</a>'.
+</ul>
+</dd>
+
+<dt id="not_satifised">What if I'm not satisfied with the response? <a href="#not_satifised">#</a> </dt>
+<dd>If you didn't get the information you asked for, or you didn't get it in time,
+then read our page '<a href="/help/unhappy">Unhappy about the response you got?</a>'.
+</dd>
+
+<dt id="reuse">It says I can't re-use the information I got!<a href="#reuse">#</a> </dt>
+<dd>
+<p>Authorities often add legal boilerplate about the 
+"<a href="http://www.opsi.gov.uk/si/si2005/20051515">Re-Use of Public Sector
+Information Regulations 2005</a>", which at first glance implies you may not
+be able do anything with the information.
+</p>
+
+<p>You can, of course, write articles about the information or summarise it, or
+quote parts of it. We also think you should feel free to republish the
+information in full, just as we do, even though in theory you might not be
+allowed to do so.  See <a href="/help/officers#copyright">our policy on copyright</a>.</p>
+
+</dd>
+
+<dt id="ico_help">Can you tell me more of the nitty gritty about the process of making requests? <a href="#ico_help">#</a> </dt>
+
+<dd>
+<p>Have a look at the
+<a href="http://www.ico.gov.uk/for_the_public/access_to_official_information.aspx">access to official information</a>
+pages on the Information Commissioner's website.</p>
+
+<p>If you're requesting information from a Scottish public authority,
+the process is very similar. There are differences around time
+limits for compliance.
+See the <a href="http://www.itspublicknowledge.info/nmsruntime/saveasdialog.asp?lID=1858&amp;sID=321">Scottish
+Information Commissioner's guidance</a> for details.</p> 
+</dd>
+
+<dt id="data_protection">Can I request information about myself? <a href="#data_protection">#</a> </dt>
+
+<dd>
+<p>No. Requests made using WhatDoTheyKnow are public, made under the Freedom of
+Information Act, and cannot help you find information about a private
+individual.</p>
+
+<p>If you would like to know what information a public
+authority holds about yourself, you should make a "Subject Access Request" in
+private using Data Protection law.  The leaflet "<a
+href="http://www.ico.gov.uk/upload/documents/library/data_protection/introductory/subject_access_rights.pdf">How to access your information</a>" (on the Information Commissioner's
+website) explains how to do this.</p>
+
+<p>If you see that somebody has included personal information, perhaps
+unwittingly, in a request, please <a href="/help/contact">contact us</a>
+immediately so we can remove it.</p>
+</dd>
+
+
+<dt id="private_requests">I'd like to keep my request secret! (At least until I publish my story) <a href="#private_requests">#</a> </dt>
+
+<dd><p>WhatDoTheyKnow is currently only designed for public requests. All
+responses that we receive are automatically published on the website for anyone
+to read.  </p>
+<p>You should contact the public authority directly if you would like to
+make a request in private.  If you're interested in buying a system which helps
+you manage FOI requests in secret, then <a href="/help/contact">contact us</a>.
+</p>
+</dd>
+
+<dt id="eir">Why can I only request information about the environment from some authorities? <a href="#eir">#</a> </dt>
+
+<dd>
+<p>Some public authorities, such as <a href="http://www.whatdotheyknow.com/body/south_east_water">South East Water</a>,
+don't come under the Freedom of Information Act, but do come under another law called
+the Environmental Information Regulations (EIR). 
+</p>
+
+<p>It's a very similar law, so you make a request
+to them using WhatDoTheyKnow in just the same way as an FOI request. The only
+difference is that on the page where your write you request, it reminds you
+that you can only request "environmental information" and tells you what that
+means. It is quite broad.
+</p>
+
+<p>You can, of course, request environmental information from other
+authorities. Just make a Freedom of Information (FOI) request as normal. The
+authority has a duty to work out if the Environmental Information Regulations
+(EIR) is the more appropriate legislation to reply under. 
+</p>
+</dd>
+
+<dt id="multiple">Can I make the same to request to lots of authorities, e.g. all councils? <a href="#multiple">#</a> </dt>
+
+<dd>We ask you to first send a test version of your request to a few
+authorities. Their responses will help you improve the wording of your request,
+so that you get the best information when you send the request to all of
+the authorities. There is currently no automated system for sending the request
+to the other authorities, you must copy and paste it by hand.
+
+</dd>
+
+<dt id="offsite">I made a request off the site, how do I upload it to the archive?<a href="#offsite">#</a> </dt>
+
+<dd>WhatDoTheyKnow is an archive of requests made through the site,
+and does not try to be an archive of all FOI requests. We'll never support uploading
+other requests. For one thing, we wouldn't be able to verify that other
+responses actually came from the authority. If this really matters to you,
+you can always make the same request again via WhatDoTheyKnow.
+</dd>
+
+<dt id="moderation">How do you moderate request annotations? <a href="#moderation">#</a> </dt>
+
+<dd> 
+<p>Annotations on WhatDoTheyKnow are to help
+people get the information they want, or to give them pointers to places they
+can go to help them act on it. We reserve the right to remove anything else.
+</p>
+<p>Endless, political discussions are not allowed.
+Post a link to a suitable forum or campaign site elsewhere.</p>
+<dd>
+
+</dl>
+
+<p><strong>Next</strong>, read about <a href="/help/privacy">your privacy</a> --&gt;
+
+<div id="hash_link_padding"></div>
+
+

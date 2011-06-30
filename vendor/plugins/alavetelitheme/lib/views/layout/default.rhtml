@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="<%= I18n.locale %>">
+    <head>
+        <script type="text/javascript" src="/jslib/spell/spellChecker.js"></script>
+
+        <% if @profile_photo_javascript %>
+            <script type="text/javascript" src="/javascripts/jquery.js"></script>
+            <script type="text/javascript" src="/javascripts/jquery.Jcrop.js"></script>
+            <script type="text/javascript" src="/javascripts/profile_photo.js"></script>
+            <link rel="stylesheet" href="/stylesheets/jquery.Jcrop.css" type="text/css" >
+        <% end %>
+
+        <title>
+        <% if @title %>
+            <%=@title%> - <%= site_name %>
+        <% else %>
+            <%= site_name %> - <%= _('Make and browse Freedom of Information (FOI) requests') %>
+        <% end %>
+        </title>
+
+        <link rel="shortcut icon" href="/favicon.ico">
+
+        <%= stylesheet_link_tag 'main', :title => "Main", :rel => "stylesheet"  %>
+        <!--[if LT IE 7]> 
+        <style type="text/css">@import url("/stylesheets/ie6.css");</style> 
+        <![endif]-->
+        <!--[if LT IE 7]> 
+        <style type="text/css">@import url("/stylesheets/ie6-custom.css");</style> 
+        <![endif]-->
+        <%= stylesheet_link_tag 'custom', :title => "Main", :rel => "stylesheet"  %>
+
+        <% if @feed_autodetect %>
+            <% for feed in @feed_autodetect %>
+                <link rel="alternate" type="application/atom+xml" title="<%=h feed[:title] %>" href="<%=h feed[:url]%>">
+                <% if feed[:has_json] %>
+                    <link rel="alternate" type="application/json" title="JSON version of <%=h feed[:title] %>" href="<%=h feed[:url]%>.json">
+                <% end %>
+            <% end %>
+        <% end %>
+        <% if @has_json %>
+            <link rel="alternate" type="application/json" title="JSON version of this page" href="<%=h main_url(request.request_uri) %>.json">
+        <% end %>
+
+        <% if @no_crawl %>
+            <meta name="robots" content="noindex, nofollow">
+        <% end %>
+
+<% # code for popup advert for a campaign etc.
+=begin
+        <script type="text/javascript" src="/javascripts/jquery.js"></script>
+        <script type="text/javascript" src="/javascripts/jquery.cookie.js"></script>
+
+        <script type="text/javascript">
+
+        document.write('<style type="text/css">.jshide { display: none; }<'+'/style>');
+        $(function(){
+            if (!$.cookie('seen_foi2')) {
+                window.setTimeout(function(){
+                    $('#everypage').slideDown('slow');
+                }, 1000);
+            }
+        });
+
+        </script>
+=end
+%>
+
+    </head>
+    <body>
+
+<% # code for popup advert for a campaign etc.
+=begin
+    <div id="everypage" class="jshide">
+    <p style="float:right"><a href="#top" onclick="$.cookie('seen_foi2', 1, { expires: 7, path: '/' }); $('#everypage').hide('slow'); return false;">Close</a></p>
+    [ message goes here ]
+    <p style="text-align: right"><a href="#top" onclick="$.cookie('seen_foi2', 1, { expires: 7, path: '/' }); $('#everypage').hide('slow'); return false;">Close</a></p>
+    </div>
+=end
+%>
+
+    <div id="header">
+        <h1>
+            <%= link_to site_name, frontpage_url %>
+        </h1>
+        <div id="tagline">
+            <%= _('Make and explore Freedom of Information requests') %>
+        </div>
+	  <%= render :partial => 'general/locale_switcher' %>
+
+    </div>
+	<div id="orglogo">
+	  <%= render :partial => 'general/orglink' %>
+	</div>
+          
+    <div id="navigation_search">
+        <% form_tag({:controller => "general", :action => "search_redirect"}, {:id => "navigation_search_form"}) do %>
+           <p>
+               <%= text_field_tag 'query', params[:query], { :size => 40, :id => "navigation_search_query" } %>
+               <%= submit_tag _("Search") %>
+           </p>
+        <% end %>
+    </div>
+	<div id="topnav">
+		<ul id="navigation">
+            <li><%= link_to _("Make request"), frontpage_url %></li>
+			<li><%= link_to _("View requests"), request_list_successful_url %></li>
+			<li><%= link_to _("View authorities"), list_public_bodies_default %></li>
+			<% if @user %>
+				<li><%=link_to _("My requests"), user_url(@user) %></li>
+			<% end %>
+			<li><%= link_to _("Read blog"), blog_url %></li>
+			<li><%= link_to _("Help"), help_about_url %></li>
+		</ul>
+		<% if not (controller.action_name == 'signin' or controller.action_name == 'signup') %>
+			<div id="logged_in_bar">
+			<% if @user %>
+				<%= _('Hello, {{username}}!', :username => h(@user.name))%>
+				(<%= link_to _("Sign out"), signout_url(:r => request.request_uri) %>)
+			<% else %>
+			        <%= _('Hello!') %>
+				(<%= link_to _("Sign in or sign up"), signin_url(:r => request.request_uri) %>)
+			<% end %>
+			</div>
+		<% end %>
+	</div>
+	
+    <div id="wrapper">
+        <div id="content">
+
+            <% if flash[:notice] %>
+                <div id="notice"><%= flash[:notice] %></div>
+            <% end %>
+            <% if flash[:error] %>
+                <div id="error"><%= flash[:error] %></div>
+            <% end %>
+
+            <div id="<%= controller.controller_name + "_" + controller.action_name %>" class="controller_<%= controller.controller_name %>">
+            <%= yield :layout %>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer">
+        <%= link_to _("Contact {{site_name}}", :site_name => site_name), help_contact_url %>
+	<%= render :partial => 'general/credits' %>
+    </div>
+
+	<%= render :partial => 'general/before_body_end' %>
+
+    </body>
+</html>
