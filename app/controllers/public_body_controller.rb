@@ -67,7 +67,7 @@ class PublicBodyController < ApplicationController
                     render :template => "public_body/view_email"
                     return
                 end
-                flash.now[:error] = "There was an error with the words you entered, please try again."
+                flash.now[:error] = _("There was an error with the words you entered, please try again.")
             end
             render :template => "public_body/view_email_captcha"
         end

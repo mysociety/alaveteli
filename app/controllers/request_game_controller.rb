@@ -20,7 +20,7 @@ class RequestGameController < ApplicationController
         @requests = old.sort_by{ rand }.slice(0..2)
 
         if @missing == 0
-            flash[:notice] = '<p>All done! Thank you very much for your help.</p><p>There are <a href="/help/credits#helpus">more things you can do</a> to help WhatDoTheyKnow.</p>'
+            flash[:notice] = _('<p>All done! Thank you very much for your help.</p><p>There are <a href="%s">more things you can do</a> to help WhatDoTheyKnow.</p>') % [help_credits_path+"#helpus"]
         end
 
         @league_table_28_days = InfoRequestEvent.make_league_table(
@@ -35,9 +35,9 @@ class RequestGameController < ApplicationController
     def show
         url_title = params[:url_title]
         if !authenticated?(
-                :web => "To play the request categorisation game",
-                :email => "Then you can play the request categorisation game.", 
-                :email_subject => "Play the request categorisation game"
+                :web => _("To play the request categorisation game"),
+                :email => _("Then you can play the request categorisation game."), 
+                :email_subject => _("Play the request categorisation game")
             )
             # do nothing - as "authenticated?" has done the redirect to signin page for us
             return
@@ -47,7 +47,7 @@ class RequestGameController < ApplicationController
 
     def stop
         session[:request_game] = nil
-        flash[:notice] = 'Thank you for helping us keep the site tidy!'
+        flash[:notice] = _('Thank you for helping us keep the site tidy!')
         redirect_to frontpage_url
     end
 
