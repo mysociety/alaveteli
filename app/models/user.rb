@@ -31,11 +31,11 @@ require 'digest/sha1'
 class User < ActiveRecord::Base
     strip_attributes!
 
-    validates_presence_of :email, :message => N_("Please enter your email address")
+    validates_presence_of :email, :message => _("Please enter your email address")
 
-    validates_presence_of :name, :message => N_("Please enter your name")
+    validates_presence_of :name, :message => _("Please enter your name")
 
-    validates_presence_of :hashed_password, :message => N_("Please enter a password")
+    validates_presence_of :hashed_password, :message => _("Please enter a password")
 
     has_many :info_requests, :order => 'created_at desc'
     has_many :user_info_request_sent_alerts
@@ -46,7 +46,7 @@ class User < ActiveRecord::Base
     has_many :censor_rules, :order => 'created_at desc'
 
     attr_accessor :password_confirmation, :no_xapian_reindex
-    validates_confirmation_of :password, :message => N_("Please enter the same password twice")
+    validates_confirmation_of :password, :message => _("Please enter the same password twice")
 
     validates_inclusion_of :admin_level, :in => [ 
         'none',
@@ -103,10 +103,10 @@ class User < ActiveRecord::Base
 
     def validate
         if self.email != "" && !MySociety::Validate.is_valid_email(self.email)
-            errors.add(:email, N_("Please enter a valid email address")) 
+            errors.add(_("Please enter a valid email address")) 
         end
         if MySociety::Validate.is_valid_email(self.name)
-            errors.add(:name, N_("Please enter your name, not your email address, in the name field.")) 
+            errors.add(:name, _("Please enter your name, not your email address, in the name field.")) 
         end
     end
 
@@ -129,9 +129,9 @@ class User < ActiveRecord::Base
         params[:email].strip!
 
         if specific_user_login
-            auth_fail_message = "Either the email or password was not recognised, please try again."
+            auth_fail_message = _("Either the email or password was not recognised, please try again.")
         else
-            auth_fail_message = "Either the email or password was not recognised, please try again. Or create a new account using the form on the right."
+            auth_fail_message = _("Either the email or password was not recognised, please try again. Or create a new account using the form on the right.")
         end
 
         user = self.find_user_by_email(params[:email])

@@ -285,31 +285,31 @@ class InfoRequestEvent < ActiveRecord::Base
             status = self.calculated_state
             if !status.nil?
                 if status == 'waiting_response'
-                    return "Acknowledgement"
+                    return _("Acknowledgement")
                 elsif status == 'waiting_clarification'
-                    return "Clarification required"
+                    return _("Clarification required")
                 elsif status == 'gone_postal'
-                    return "Handled by post"
+                    return _("Handled by post")
                 elsif status == 'deadline_extended'
-                    return "Deadline Extended"
+                    return _("Deadline Extended")
                 elsif status == 'wrong_response'
-                    return "Wrong Response"
+                    return _("Wrong Response")
                 elsif status == 'not_held'
-                    return "Information not held"
+                    return _("Information not held")
                 elsif status == 'rejected'
-                    return "Refused"
+                    return _("Refused")
                 elsif status == 'partially_successful'
-                    return "Some information sent"
+                    return _("Some information sent")
                 elsif status == 'successful'
-                    return "All information sent"
+                    return _("All information sent")
                 elsif status == 'internal_review'
-                    return "Internal review acknowledgement"
+                    return _("Internal review acknowledgement")
                 elsif status == 'user_withdrawn'
-                    return "Withdrawn by requester"
+                    return _("Withdrawn by requester")
                 elsif status == 'error_message'
-                    return "Delivery error"
+                    return _("Delivery error")
                 elsif status == 'requires_admin'
-                    return "Unusual response"
+                    return _("Unusual response")
                 end
                 raise "unknown status " + status
             end
@@ -320,17 +320,17 @@ class InfoRequestEvent < ActiveRecord::Base
             status = self.calculated_state
             if !status.nil?
                 if status == 'internal_review'
-                    return "Internal review request"
+                    return _("Internal review request")
                 end
                 if status == 'waiting_response'
-                    return "Clarification"
+                    return _("Clarification")
                 end
-                raise "unknown status " + status
+                raise _("unknown status ") + status
             end
-            return "Follow up"
+            return _("Follow up")
         end
 
-        raise "display_status only works for incoming and outgoing messages right now"
+        raise _("display_status only works for incoming and outgoing messages right now")
     end
 
     def is_sent_sort?

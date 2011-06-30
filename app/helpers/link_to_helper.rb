@@ -203,6 +203,12 @@ module LinkToHelper
         params['locale'] = locale
         return url_for(params)
     end
-  
+	
+	def locale_name(locale)
+		return "English" if locale == "en"
+		return "Srpski" if locale == "sr"
+		return "Shqip" if locale == "sq"
+	return locale
+	end  
 end
 

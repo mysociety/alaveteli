@@ -750,39 +750,39 @@ public
     def display_status
         status = self.calculate_status
         if status == 'waiting_classification'
-            "Awaiting classification."
+            _("Awaiting classification.")
         elsif status == 'waiting_response'
-            "Awaiting response."
+            _("Awaiting response.")
         elsif status == 'waiting_response_overdue'
-            "Delayed."
+            _("Delayed.")
         elsif status == 'waiting_response_very_overdue'
-            "Long overdue."
+            _("Long overdue.")
         elsif status == 'not_held'
-            "Information not held."
+            _("Information not held.")
         elsif status == 'rejected'
-            "Refused."
+            _("Refused.")
         elsif status == 'partially_successful'
-            "Partially successful."
+            _("Partially successful.")
         elsif status == 'successful'
-            "Successful."
+            _("Successful.")
         elsif status == 'waiting_clarification'
-            "Waiting clarification."
+            _("Waiting clarification.")
         elsif status == 'gone_postal'
-            "Handled by post."
+            _("Handled by post.")
         elsif status == 'deadline_extended'
-            "Deadline extended."
+            _("Deadline extended.")
         elsif status == 'wrong_response'
-            "Wrong Response."
+            _("Wrong Response.")
         elsif status == 'internal_review'
-            "Awaiting internal review."
+            _("Awaiting internal review.")
         elsif status == 'error_message'
-            "Delivery error"
+            _("Delivery error")
         elsif status == 'requires_admin'
-            "Unusual response."
+            _("Unusual response.")
         elsif status == 'user_withdrawn'
-            "Withdrawn by the requester."
+            _("Withdrawn by the requester.")
         else
-            raise "unknown status " + status
+            raise _("unknown status ") + status
         end
     end
 

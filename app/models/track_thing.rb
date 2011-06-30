@@ -152,15 +152,15 @@ class TrackThing < ActiveRecord::Base
                 @params = {
                     # Website
                     :list_description => "any <a href=\"/list/successful\">successful requests</a>",
-                    :verb_on_page => "Email me new successful responses",
-                    :verb_on_page_already => "You are being emailed about any new successful responses",
+                    :verb_on_page => _("Email me new successful responses "),
+                    :verb_on_page_already => _("You are being emailed about any new successful responses"),
                     # Email
-                    :title_in_email => "Successful Freedom of Information requests",
-                    :title_in_rss => "Successful Freedom of Information requests",
+                    :title_in_email => _("Successful Freedom of Information requests"),
+                    :title_in_rss => _("Successful Freedom of Information requests"),
                     # Authentication
-                    :web => "To be emailed about any successful requests",
-                    :email => "Then you will be emailed whenever an FOI request succeeds.",
-                    :email_subject => "Confirm you want to be emailed when an FOI request succeeds",
+                    :web => _("To be emailed about any successful requests"),
+                    :email => _("Then you will be emailed whenever an FOI request succeeds."),
+                    :email_subject => _("Confirm you want to be emailed when an FOI request succeeds"),
                     # RSS sorting - used described date, as newest would give a
                     # date for responses possibly days before description, so
                     # wouldn't appear at top of list when description (known
@@ -171,7 +171,7 @@ class TrackThing < ActiveRecord::Base
                 @params = {
                     # Website
                     :list_description => "'<a href=\"/body/" + CGI.escapeHTML(self.public_body.url_name) + "\">" + CGI.escapeHTML(self.public_body.name) + "</a>', a public authority", # XXX yeuch, sometimes I just want to call view helpers from the model, sorry! can't work out how 
-                    :verb_on_page => "Track requests to " + CGI.escapeHTML(self.public_body.name) + " by email",
+                    :verb_on_page => _("Track requests to {{public_body_name}} by email",:public_body_name=>CGI.escapeHTML(self.public_body.name)),
                     :verb_on_page_already => "You are already tracking requests to " + CGI.escapeHTML(self.public_body.name) + " by email",
                     # Email
                     :title_in_email => self.public_body.law_only_short + " requests to '" + self.public_body.name + "'",
