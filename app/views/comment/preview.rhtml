@@ -1,8 +1,8 @@
-<% @title = "Preview new annotation on '" + h(@info_request.title) + "'" %>
+<% @title = _("Preview new annotation on '{{info_request_title}}'",:info_request_title=>h(@info_request.title)) %>
 
 <% form_for(:comment, @comment, :html => { :id => 'preview_form' }, :url => { :controller => "comment", :action => "new", :type => "request" } ) do |f| %>
     
-    <h1>Now preview your annotation</h1>
+    <h1><%= _('Now preview your annotation') %></h1>
 
     <%= render :partial => 'comment/single_comment', :locals => { :comment => @comment } %>
 
@@ -17,8 +17,8 @@
     <% end %>
     <%= hidden_field_tag(:submitted_comment, 1) %>
     <%= hidden_field_tag(:preview, 0 ) %>
-    <%= submit_tag "Re-edit this annotation", :name => 'reedit' %>
-    <%= submit_tag "Post annotation", :name => 'submit' %>
+    <%= submit_tag _("Re-edit this annotation"), :name => 'reedit' %>
+    <%= submit_tag _("Post annotation"), :name => 'submit' %>
     </p>
 
 <% end %>

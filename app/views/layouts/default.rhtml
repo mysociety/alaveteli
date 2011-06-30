@@ -27,7 +27,7 @@
         <!--[if LT IE 7]> 
         <style type="text/css">@import url("/stylesheets/ie6-custom.css");</style> 
         <![endif]-->
-        <%= stylesheet_link_tag 'main-custom', :title => "Main", :rel => "stylesheet"  %>
+        <%= stylesheet_link_tag 'custom', :title => "Main", :rel => "stylesheet"  %>
 
         <% if @feed_autodetect %>
             <% for feed in @feed_autodetect %>
@@ -77,22 +77,19 @@
     </div>
 =end
 %>
-
-    <div id="banner">
-    </div>
+<div class="entirebody">
     <div id="header">
+  		<div class="lang"><%= render :partial => 'general/locale_switcher' %></div>
         <h1>
-            <%= link_to site_name, frontpage_url %>
+            <%= link_to "&nbsp;", frontpage_url %>
         </h1>
+
         <div id="tagline">
             <%= _('Make and explore Freedom of Information requests') %>
         </div>
-	  <%= render :partial => 'general/locale_switcher' %>
 
     </div>
-	<div id="orglogo">
-	  <%= render :partial => 'general/orglink' %>
-	</div>
+
           
     <div id="navigation_search">
         <% form_tag({:controller => "general", :action => "search_redirect"}, {:id => "navigation_search_form"}) do %>
@@ -146,8 +143,9 @@
         <%= link_to _("Contact {{site_name}}", :site_name => site_name), help_contact_url %>
 	<%= render :partial => 'general/credits' %>
     </div>
+	<div class="after-footer">&nbsp;</div>
 
 	<%= render :partial => 'general/before_body_end' %>
-
+</div>
     </body>
 </html>
