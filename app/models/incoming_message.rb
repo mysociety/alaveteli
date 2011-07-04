@@ -194,65 +194,54 @@ class FOIAttachment
     end
 
     # Whether this type can be shown in the Google Docs Viewer.
-    # PDF, PowerPoint and TIFF are listed on https://docs.google.com/viewer
-    # .doc and .docx were added later http://gmailblog.blogspot.com/2010/06/view-doc-attachments-right-in-your.html
-    # .xls appears to work fine too
+    # The full list of supported types can be found at
+    #   https://docs.google.com/support/bin/answer.py?hl=en&answer=1189935
     def has_google_docs_viewer?
-        if self.content_type == 'application/vnd.ms-word'
-            return true
-        elsif self.content_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-            return true
-        elsif self.content_type == 'application/pdf'
-            return true
-        elsif self.content_type == 'image/tiff'
-            return true
-        elsif self.content_type == 'application/vnd.ms-powerpoint'
-            return true
-        elsif self.content_type == 'application/vnd.ms-excel'
-            return true
-        end
+        return !! {
+            "application/pdf" => true, # .pdf
+            "image/tiff" => true, # .tiff
+            
+            "application/vnd.ms-word" => true, # .doc
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document" => true, # .docx
+            
+            "application/vnd.ms-powerpoint" => true, # .ppt
+            "application/vnd.openxmlformats-officedocument.presentationml.presentation" => true, # .pptx
+            
+            "application/vnd.ms-excel" => true, # .xls
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" => true, # .xlsx
+            
+        } [self.content_type]
     end
 
     # Whether this type has a "View as HTML"
     def has_body_as_html?
-        if self.content_type == 'text/plain'
-            return true
-        elsif self.content_type == 'application/vnd.ms-word'
-            return true
-        elsif self.content_type == 'application/vnd.ms-excel'
-            return true
-        elsif self.content_type == 'application/pdf'
-            return true
-        elsif self.content_type == 'application/rtf'
-            return true
-        end
-        # We use the same "View as HTML" link to embed the Google Doc Viewer
-        # (when it can't do a conversion locally)
-        if self.has_google_docs_viewer?
-            return true
-        end
-        return false
+        return (
+            !!{
+                "text/plain" => true,
+                "application/rtf" => true,
+            }[self.content_type] or
+            self.has_google_docs_viewer?
+        )
     end
 
     # Name of type of attachment type - only valid for things that has_body_as_html?
     def name_of_content_type
-        if self.content_type == 'text/plain'
-            return "Text file"
-        elsif self.content_type == 'application/vnd.ms-word' 
-            return "Word document"
-        elsif self.content_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-            return "Word document - XML"
-        elsif self.content_type == 'application/vnd.ms-excel'
-            return "Excel spreadsheet"
-        elsif self.content_type == 'application/pdf'
-            return "PDF file"
-        elsif self.content_type == 'application/rtf'
-            return "RTF file"
-        elsif self.content_type == 'application/vnd.ms-powerpoint'
-            return "PowerPoint presentation"
-        elsif self.content_type == 'image/tiff'
-            return "TIFF image"
-        end
+        return {
+            "text/plain" => "Text file",
+            'application/rtf' => "RTF file",
+            
+            'application/pdf' => "PDF file",
+            'image/tiff' => "TIFF image",
+            
+            'application/vnd.ms-word' => "Word document",
+            'application/vnd.openxmlformats-officedocument.wordprocessingml.document' => "Word document",
+            
+            'application/vnd.ms-powerpoint' => "PowerPoint presentation",
+            'application/vnd.openxmlformats-officedocument.presentationml.presentation' => "PowerPoint presentation",
+            
+            'application/vnd.ms-excel' => "Excel spreadsheet",
+            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' => "Excel spreadsheet",
+        }[self.content_type]
     end
 
     # For "View as HTML" of attachment
