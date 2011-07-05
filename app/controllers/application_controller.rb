@@ -31,7 +31,7 @@ class ApplicationController < ActionController::Base
     def site_name
       # XXX should come from database:
       site_name = "WhatDoTheyKnow"
-      return site_name      
+      return site_name
     end
 
     # Help work out which request causes RAM spike.

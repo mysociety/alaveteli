@@ -13,33 +13,60 @@
 # !!(*= $daemon_name *)!! Start the WhatDoTheyKnow email alert daemon
 
 NAME=!!(*= $daemon_name *)!!
-DAEMON=/data/vhost/!!(*= $vhost *)!!/alaveteli/script/alert-tracks-daemon
+DAEMON=/data/vhost/!!(*= $vhost *)!!/alaveteli/script/runner
+DAEMON_ARGS="--daemon TrackMailer.alert_tracks_loop"
 PIDFILE=/data/vhost/!!(*= $vhost *)!!/alert-tracks.pid
+LOGFILE=/data/vhost/!!(*= $vhost *)!!/logs/alert-tracks.log
 DUSER=!!(*= $user *)!!
 
 trap "" 1
 
-export PIDFILE
+export PIDFILE LOGFILE
+
+quietly_start_daemon() {
+    /sbin/start-stop-daemon --quiet --start --pidfile "$PIDFILE" --chuid "$DUSER" --startas "$DAEMON" -- $DAEMON_ARGS
+}
+
+start_daemon() {
+    /sbin/start-stop-daemon --start --pidfile "$PIDFILE" --chuid "$DUSER" --startas "$DAEMON" -- $DAEMON_ARGS
+}
+
+stop_daemon() {
+    /sbin/start-stop-daemon --stop --pidfile "$PIDFILE"
+}
+
+restart() { stop; start; }
 
 case "$1" in
+  check)
+      quietly_start_daemon
+      if [ $? -ne 1 ]
+      then
+          echo "WhatDoTheyKnow alert daemon was not running; now restarted"
+          exit 1
+      else
+          exit 0
+      fi
+      ;;
+  
   start)
-    echo -n "Starting WhatDoTheyKnow alert daemon: $NAME"
-    start-stop-daemon --start --pidfile $PIDFILE --chuid $DUSER --exec $DAEMON > /dev/null
-    ;;
-
+      echo -n "Starting WhatDoTheyKnow alert daemon: $NAME"
+      start_daemon
+      ;;
+  
   stop)
-    echo -n "Stopping WhatDoTheyKnow alert daemon: $NAME"
-    start-stop-daemon --stop --pidfile $PIDFILE --oknodo
-    ;;
-
+        echo -n "Stopping WhatDoTheyKnow alert daemon: $NAME"
+        stop_daemon
+        ;;
+  
   restart)
-    echo -n "Restarting WhatDoTheyKnow alert daemon: $NAME"
-    start-stop-daemon --stop --pidfile $PIDFILE --oknodo
-    start-stop-daemon --start --pidfile $PIDFILE --chuid $DUSER --exec $DAEMON > /dev/null
-    ;;
+      echo -n "Restarting WhatDoTheyKnow alert daemon: $NAME"
+      stop_daemon
+      start_daemon
+      ;;
 
   *)
-    echo "Usage: /etc/init.d/$NAME {start|stop|restart}"
+    echo "Usage: /etc/init.d/$NAME {start|stop|restart|check}"
     exit 1
     ;;
 esac
