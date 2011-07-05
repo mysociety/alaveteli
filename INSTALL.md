@@ -204,6 +204,15 @@ able to work out the syntax and variables fairly easily :)
 mySociety render the "ugly" file to reference absolute paths, and then
 drop it in /etc/cron.d/ on the server.
 
+# Set up production web server
+
+It is not recommended to run the website using the default Rails web
+server.  There are various recommendations here:
+http://rubyonrails.org/deploy
+
+We usually use Passenger / mod_rails.
+
+
 # Troubleshooting
 
 *   **Various tests fail with "*Your PostgreSQL connection does not support
