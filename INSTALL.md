@@ -6,6 +6,12 @@ Parallels debian instance (2.6.18-4-686).
 
 Commands are intended to be run via the terminal or over ssh.
 
+As an aid to evaluation, there is an Amazon AMI with all these steps
+configured.  Its id is ami-fa52a993.  It is *not* production-ready:
+Apache isn't set up, and the passwords are insecure.  You may wish to
+run a `git pull` in the source on the software, as it is unlikely to
+be up to date.
+
 # Package Installation
 
 First, get hold of the source code from github: 
