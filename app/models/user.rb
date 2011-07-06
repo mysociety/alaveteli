@@ -103,7 +103,7 @@ class User < ActiveRecord::Base
 
     def validate
         if self.email != "" && !MySociety::Validate.is_valid_email(self.email)
-            errors.add(_("Please enter a valid email address")) 
+            errors.add(:email, _("Please enter a valid email address")) 
         end
         if MySociety::Validate.is_valid_email(self.name)
             errors.add(:name, _("Please enter your name, not your email address, in the name field.")) 

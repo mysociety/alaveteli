@@ -612,7 +612,8 @@ public
     # last_event_forming_initial_request. There may be more obscure
     # things, e.g. fees, not properly covered.
     def date_response_required_by
-        return Holiday.due_date_from(self.date_initial_request_last_sent_at, 7)
+        days_later = MySociety::Config.get('REPLY_LATE_AFTER_DAYS', 20)
+        return Holiday.due_date_from(self.date_initial_request_last_sent_at, days_later)
     end
     # This is a long stop - even with UK public interest test extensions, 40
     # days is a very long time.

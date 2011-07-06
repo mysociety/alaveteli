@@ -26,10 +26,10 @@ class GeneralController < ApplicationController
             # get some example searches and public bodies to display
             # either from config, or based on a (slow!) query if not set
             body_short_names = MySociety::Config.get('FRONTPAGE_PUBLICBODY_EXAMPLES', '').split(/\s*;\s*/).map{|s| "'%s'" % s.gsub(/'/, "''") }.join(", ")
-		    @locale = self.locale_from_params()
-		    locale_condition = 'public_body_translations.locale = ?'
+            @locale = self.locale_from_params()
+            locale_condition = 'public_body_translations.locale = ?'
             conditions = [locale_condition, @locale]
-	        PublicBody.with_locale(@locale) do 
+            PublicBody.with_locale(@locale) do 
                 if body_short_names.empty?
                     # This is too slow
                     @popular_bodies = PublicBody.find(:all, 
@@ -40,8 +40,9 @@ class GeneralController < ApplicationController
 				        :joins => :translations
 				    )
                 else
+                    conditions[0] += " and public_bodies.url_name in (" + body_short_names + ")"
                     @popular_bodies = PublicBody.find(:all, 
-                         :conditions => conditions + ["url_name in (" + body_short_names + ")"],
+                         :conditions => conditions,
                          :joins => :translations)
                 end
             end

@@ -54,11 +54,12 @@ class PublicBody < ActiveRecord::Base
 
     # like find_by_url_name but also search historic url_name if none found
     def self.find_by_url_name_with_historic(name)
-		@localer = I18n.locale.to_s
+        @locale = I18n.locale.to_s
         PublicBody.with_locale(@locale) do 
-        found = PublicBody.find(:all,
-		    :conditions => ["public_body_translations.url_name='#{name}' AND public_body_translations.locale = '#{@localer}'"],
-		    :joins => :translations)
+            found = PublicBody.find(:all,
+                                    :conditions => ["public_body_translations.url_name='#{name}'"],
+                                    :joins => :translations,
+                                    :readonly => false)
             return found.first if found.size == 1
             # Shouldn't we just make url_name unique?
             raise "Two bodies with the same URL name: #{name}" if found.size > 1

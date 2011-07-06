@@ -903,7 +903,7 @@ describe RequestController, "sending overdue request alerts" do
         deliveries = ActionMailer::Base.deliveries
         deliveries.size.should == 1
         mail = deliveries[0]
-        mail.body.should =~ /promptly, as normally\s+required by law/
+        mail.body.should =~ /promptly, as normally/
         mail.to_addrs.to_s.should == info_requests(:naughty_chicken_request).user.name_and_email
 
         mail.body =~ /(http:\/\/.*\/c\/(.*))/
@@ -931,7 +931,7 @@ describe RequestController, "sending overdue request alerts" do
         deliveries = ActionMailer::Base.deliveries
         deliveries.size.should == 1
         mail = deliveries[0]
-        mail.body.should =~ /promptly, as normally\s+required by law during term time/
+        mail.body.should =~ /promptly, as normally/
         mail.to_addrs.to_s.should == info_requests(:naughty_chicken_request).user.name_and_email
     end
 

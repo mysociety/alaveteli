@@ -54,7 +54,7 @@ class CommentController < ApplicationController
         if authenticated?(
                 :web => _("To post your annotation"),
                 :email => _("Then your annotation to {{info_request_title}} will be posted.",:info_request_title=>@info_request.title),
-                :email_subject => _("Confirm your annotation to {{info_request_title}}",:info_request.title=>@info_request.title)
+                :email_subject => _("Confirm your annotation to {{info_request_title}}",:info_request_title=>@info_request.title)
             )
 
             # Also subscribe to track for this request, so they get updates
