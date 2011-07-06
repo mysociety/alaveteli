@@ -54,23 +54,30 @@ class PublicBody < ActiveRecord::Base
 
     # like find_by_url_name but also search historic url_name if none found
     def self.find_by_url_name_with_historic(name)
-        found = PublicBody.find_all_by_url_name(name)
-        return found.first if found.size == 1
-        # Shouldn't we just make url_name unique?
-        raise "Two bodies with the same URL name: #{name}" if found.size > 1
-        # If none found, then search the history of short names
-        old = PublicBody::Version.find_all_by_url_name(name)
-        # Find unique public bodies in it
-        old = old.map { |x| x.public_body_id }
-        old = old.uniq
-        # Maybe return the first one, so we show something relevant,
-        # rather than throwing an error?
-        raise "Two bodies with the same historical URL name: #{name}" if old.size > 1
-        return unless old.size == 1
-        # does acts_as_versioned provide a method that returns the current version?
-        return PublicBody.find(old.first)
+		@localer = I18n.locale.to_s
+        PublicBody.with_locale(@locale) do 
+        found = PublicBody.find(:all,
+		    :conditions => ["public_body_translations.url_name='#{name}' AND public_body_translations.locale = '#{@localer}'"],
+		    :joins => :translations)
+            return found.first if found.size == 1
+            # Shouldn't we just make url_name unique?
+            raise "Two bodies with the same URL name: #{name}" if found.size > 1
+            # If none found, then search the history of short names
+            old = PublicBody::Version.find_all_by_url_name(name)
+            # Find unique public bodies in it
+            old = old.map { |x| x.public_body_id }
+            old = old.uniq
+            # Maybe return the first one, so we show something relevant,
+            # rather than throwing an error?
+            raise "Two bodies with the same historical URL name: #{name}" if old.size > 1
+            return unless old.size == 1
+            # does acts_as_versioned provide a method that returns the current version?
+            return PublicBody.find(old.first)
+        end
     end
 
+	
+	load "public_body_categories_#{I18n.locale.to_s}.rb"
 
     # Set the first letter, which is used for faster queries
     before_save(:set_first_letter)
@@ -278,6 +285,7 @@ class PublicBody < ActiveRecord::Base
                 :request_email => MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost'),
                 :home_page => "",
                 :notes => "",
+				:publication_scheme => "",
                 :last_edit_editor => "internal_admin",
                 :last_edit_comment => "Made by PublicBody.internal_admin_body"
             )
@@ -343,7 +351,7 @@ class PublicBody < ActiveRecord::Base
                     else
                         # New public body
                         notes.push "line " + line.to_s + ": new authority '" + name + "' with email " + email
-                        public_body = PublicBody.new(:name => name, :request_email => email, :short_name => "", :home_page => "", :notes => "", :last_edit_editor => editor, :last_edit_comment => 'Created from spreadsheet')
+                        public_body = PublicBody.new(:name => name, :request_email => email, :short_name => "", :home_page => "", :publication_scheme => "", :notes => "", :last_edit_editor => editor, :last_edit_comment => 'Created from spreadsheet')
                         public_body.tag_string = tag
                         public_body.save!
                     end

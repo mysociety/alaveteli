@@ -10,17 +10,17 @@
 
 <% form_tag 'set_photo', :id => 'set_draft_profile_photo_form', :multipart => true do %>
     <p>
-	    <label class="form_label" for="file_1">Photo of you:</label> 
+	    <label class="form_label" for="file_1"><%= _('Photo of you:')%></label> 
         <%= file_field_tag :file, :size => 35, :id => 'file_1' %>
     </p>
 
 <ul>
-    <li>Your photo will be shown in public <strong>on the Internet</strong>, 
-    wherever you do something on WhatDoTheyKnow.
+    <li><%= _('Your photo will be shown in public <strong>on the Internet</strong>, 
+    wherever you do something on WhatDoTheyKnow.')%>
     </li>
 
-    <li>Please don't upload offensive pictures. We will take down images
-    that we consider inappropriate.
+    <li><%= _('Please don\'t upload offensive pictures. We will take down images
+    that we consider inappropriate.')%>
     </li>
 </ul>
 
@@ -29,7 +29,7 @@
         <%= hidden_field_tag 'submitted_draft_profile_photo', 1 %>
 
         <script type="text/javascript" charset="utf-8">
-            document.write('<%= submit_tag "Next, crop your photo &gt;&gt;" %>');
+            document.write('<%= submit_tag _("Next, crop your photo &gt;&gt;") %>');
         </script>
     </p>
 
@@ -43,7 +43,7 @@
 
 <% if @user.profile_photo %>
 
-    <h2>OR remove the existing photo</h2>
+    <h2><%= _('OR remove the existing photo')%></h2>
 
     <% form_tag 'clear_photo', :id => 'clear_profile_photo_form', :multipart => true do %>
         <%= submit_tag "Clear photo" %>

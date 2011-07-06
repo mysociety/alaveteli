@@ -58,7 +58,7 @@ class HelpController < ApplicationController
                     @user,
                     @last_request, @last_body
                 )
-                flash[:notice] = "Your message has been sent. Thank you for getting in touch! We'll get back to you soon."
+                flash[:notice] = _("Your message has been sent. Thank you for getting in touch! We'll get back to you soon.")
                 redirect_to frontpage_url 
                 return
             end

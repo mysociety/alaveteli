@@ -1,0 +1,105 @@
+<% @title = "Contact us - sr" %>
+
+<%= foi_error_messages_for :contact %>
+
+<div id="contact_preamble">
+
+    <% if !flash[:notice] %>
+        <h1>Contact an authority to get official information</h1>
+        <ul>
+            <li><a href="/new">Go here</a> to make a request, in public, for information
+            from UK public authorities.</li>
+
+            <li>
+            Asking for private information about yourself?
+            Please read our help page about
+            <a href="/help/requesting#data_protection">data protection</a>.
+            </li>
+        </ul>
+
+        <h1>Take up an issue with Government</h1>
+
+        <ul>
+            <li><a href="http://www.writetothem.com">Write to your MP,
+            local councillor or other representative</a>.
+            <li><a href="http://www.number10.gov.uk/">Number 10</a> is a good place to start if you would like to take an issue up with central government. </li>
+        </ul>
+
+
+    <% end %>
+
+    <h1>Contact the WhatDoTheyKnow team</h1>
+    <% if !flash[:notice] %>
+            <ul>
+            <li>
+            Please read the  <a href="/help/about">help page</a> first, as it may
+            answer your question quicker. 
+            </li>
+            
+            <li>We'd love to hear how you've found using this site.
+               Either fill in this form, or send an email to <a
+               href="mailto:<%=@contact_email%>"><%=@contact_email%></a>
+            </li>
+
+            <li>We are a <strong>charity</strong> and not part of the
+            Government.</li>
+            </ul>
+    <% end %>
+</div>
+
+<% form_for :contact do |f| %>
+
+    <% if not @user %>
+        <p>
+            <label class="form_label" for="contact_name">Your name:</label>
+            <%= f.text_field :name, :size => 20 %>
+            (or <%= link_to "sign in", signin_url(:r => request.request_uri) %>)
+        </p>
+
+        <p>
+            <label class="form_label" for="contact_email">Your email:</label>
+            <%= f.text_field :email, :size => 20 %>
+        </p>
+    <% end %>
+
+    <p>
+        <label class="form_label" for="contact_subject">Subject:</label> 
+        <%= f.text_field :subject, :size => 50 %>
+    </p>
+
+    <p>
+        <label class="form_label" for="contact_message">Message to website:</label> 
+        <%= f.text_area :message, :rows => 10, :cols => 60 %>
+    </p>
+
+    <% if !@last_request.nil? %>
+        <p>
+            <label class="form_label" for="contact_message">Include link to request:</label> 
+            <%=request_link(@last_request) %>
+            <%= submit_tag "remove", :name => 'remove' %>
+        </p>
+    <% end %>
+    <% if !@last_body.nil? %>
+        <p>
+            <label class="form_label" for="contact_message">Include link to authority:</label> 
+            <%=public_body_link(@last_body) %>
+            <%= submit_tag "remove", :name => 'remove' %>
+        </p>
+    <% end %>
+
+    <p class="form_note">
+    We can only help you with <strong>technical problems</strong>, or questions
+    about Freedom of Information. See the top of this page if you would like to
+    contact the Government.
+    </P>
+
+
+    <div class="form_button">
+        <%= hidden_field_tag(:submitted_contact_form, 1) %>
+        <%= submit_tag "Send message to the charity" %>
+        &lt;-- we run this site, not the Government!
+    </div>
+
+<% end %>
+
+

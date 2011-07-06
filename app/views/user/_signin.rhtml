@@ -4,31 +4,31 @@
     <%= foi_error_messages_for :user_signin %>
 
     <% if not sign_in_as_existing_user %>
-    <h2>If you've used WhatDoTheyKnow before</h2>
+    <h2><%= _('If you\'ve used WhatDoTheyKnow before')%></h2>
     <% end %>
 
     <p>
-    <label class="form_label" for="user_signin_email">Your e-mail:</label>
+    <label class="form_label" for="user_signin_email"><%= _('Your e-mail:')%></label>
     <%= text_field 'user_signin', 'email', { :size => 20 } %>
     </p>
 
     <p>
-    <label class="form_label" for="user_signin_password">Password:</label>
+    <label class="form_label" for="user_signin_password"><%= _('Password:')%></label>
     <%= password_field 'user_signin', 'password', { :size => 15 } %>
     </p>
 
     <p class="form_note">
-    <%= link_to "Forgotten your password?", signchangepassword_url + "?pretoken=" + h(params[:token]) %>
+    <%= link_to _('Forgotten your password?'), signchangepassword_url + "?pretoken=" + h(params[:token]) %>
     </p>
 
     <p class="form_checkbox">
     <%= check_box_tag 'remember_me', "1" %>
-    <label for="remember_me">Remember me</label> (keeps you signed in longer;
-    do not use on a public computer) </p>
+    <label for="remember_me"><%= _('Remember me</label> (keeps you signed in longer;
+    do not use on a public computer) ')%></p>
 
     <div class="form_button">
     <%= hidden_field_tag 'token', params[:token], { :id => 'signin_token' } %>
-    <%= submit_tag "Sign in" %>
+    <%= submit_tag _('Sign in') %>
     </div>
 <% end %>
 

@@ -162,7 +162,7 @@ module LinkToHelper
 
     # Admin pages
     def admin_url(relative_path)
-        admin_url_prefix = MySociety::Config.get("ADMIN_BASE_URL", "/admin/")
+        admin_url_prefix = admin_general_index_path+"/"
         return admin_url_prefix + relative_path
     end
 
@@ -180,7 +180,7 @@ module LinkToHelper
 
 
     def main_url(relative_path)
-        url_prefix = "http://" + MySociety::Config.get("DOMAIN", '127.0.0.1:3000')
+        url_prefix = "http://" + MySociety::Config.get("DOMAIN", 'informatazyrtare.org')
         return url_prefix + relative_path
     end
 
@@ -203,6 +203,12 @@ module LinkToHelper
         params['locale'] = locale
         return url_for(params)
     end
-  
+	
+	def locale_name(locale)
+		return "English" if locale == "en"
+		return "Srpski" if locale == "sr"
+		return "Shqip" if locale == "sq"
+	return locale
+	end  
 end
 

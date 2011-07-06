@@ -1,9 +1,9 @@
-Someone, perhaps you, just tried to change their email address on
-WhatDoTheyKnow.com from <%=@old_email%> to <%=@new_email%>.
+<%= _('Someone, perhaps you, just tried to change their email address on
+WhatDoTheyKnow.com from ')%><%=@old_email%> <%= _('to')%> <%=@new_email%>.
 
-This was not possible because there is already an account using 
-the email address <%=@new_email%>.
+<%= _('This was not possible because there is already an account using 
+the email address ')%><%=@new_email%>.
 
-The accounts have been left as they previously were.
+<%= _('The accounts have been left as they previously were.')%>
 
--- the WhatDoTheyKnow team
+-- <%= _('the WhatDoTheyKnow team') %>

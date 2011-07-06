@@ -20,7 +20,10 @@ class PublicBodyController < ApplicationController
         PublicBody.with_locale(@locale) do 
             @public_body = PublicBody.find_by_url_name_with_historic(params[:url_name])
             raise "None found" if @public_body.nil? # XXX proper 404
-
+            if @public_body.url_name.nil?
+                redirect_to :back
+                return
+            end 
             # If found by historic name, or alternate locale name, redirect to new name
             if  @public_body.url_name != params[:url_name]
                 redirect_to show_public_body_url(:url_name => @public_body.url_name) 
@@ -70,7 +73,7 @@ class PublicBodyController < ApplicationController
                     render :template => "public_body/view_email"
                     return
                 end
-                flash.now[:error] = "There was an error with the words you entered, please try again."
+                flash.now[:error] = _("There was an error with the words you entered, please try again.")
             end
             render :template => "public_body/view_email_captcha"
         end
@@ -103,7 +106,7 @@ class PublicBodyController < ApplicationController
                 and has_tag_string_tags.name = ?) > 0', @locale, @tag]
         end
         if @tag.size == 1
-            @description = "beginning with '" + @tag + "'"
+            @description = _("beginning with") + " '" + @tag + "'"
         else
             @description = PublicBodyCategories::CATEGORIES_BY_TAG[@tag]
             if @description.nil?

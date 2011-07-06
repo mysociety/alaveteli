@@ -6,26 +6,22 @@
     if not incoming_message.nil?
         %>
         <div class="correspondence" id="incoming-<%=incoming_message.id.to_s%>">
-            <p>This response has been hidden. See annotations to find out why.
-            If you are the requester, then you may 
-            <%= link_to "sign in", signin_url(:r => request.request_uri) %> 
-            to view the response.
+            <p>
+	    <%= _('This response has been hidden. See annotations to find out why.
+            If you are the requester, then you may <a href="%s">sign in</a> to view the response.') % [signin_url(:r => request.request_uri)] %>
             </p>
         </div>
     <% elsif [ 'sent', 'followup_sent', 'resent', 'followup_resent' ].include?(info_request_event.event_type) %>
         <div class="correspondence" id="outgoing-<%=outgoing_message.id.to_s%>">
-            <p>This outgoing message has been hidden. See annotations to
-            find out why.  If you are the requester, then you may <%= link_to
-            "sign in", signin_url(:r => request.request_uri) %> to view the
-            response.
+            <p>
+			<%= _('This outgoing message has been hidden. See annotations to
+						find out why.  If you are the requester, then you may <a href="%s">sign in</a> to view the response.') % [signin_url(:r => request.request_uri)] %>
             </p>
         </div>
     <% elsif info_request_event.event_type == 'comment' %>
         <div class="comment_in_request" id="comment-<%=comment.id.to_s%>">
-            <p>This comment has been hidden. See annotations to
-            find out why.  If you are the requester, then you may <%= link_to
-            "sign in", signin_url(:r => request.request_uri) %> to view the
-            response.
+            <p><%= _('This comment has been hidden. See annotations to
+            find out why.  If you are the requester, then you may <a href="%s">sign in</a> to view the response.') % [signin_url(:r => request.request_uri)]%>
             </p>
         </div>
     <% end %>
@@ -33,5 +29,5 @@
 <% elsif info_request_event.prominence == 'hidden' %>
     <% # show nothing when hidden %>
 <% else %>
-    <% raise "unexpected prominence on request event" %>
+    <% raise _("unexpected prominence on request event") %>
 <% end %>

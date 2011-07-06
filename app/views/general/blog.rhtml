@@ -1,4 +1,4 @@
-<% @title = "WhatDoTheyKnow blog and tweets" %>
+<% @title = "WhatDoTheyKnow blog  and tweets" %>
 
 <div id="blog_sidebar"> 
     <h1><img src="/images/twitter.png" alt=""> <a href="http://www.twitter.com/whatdotheyknow">Follow us on twitter</a></h1>
@@ -24,7 +24,7 @@
     <div class="twitter_post">
         <h2><a href="<%=item['link']%>">@whatdotheyknow on <%= simple_date(Time.parse(item['pubDate'][0])) %></a></h2>
         <p><%=MySociety::Format.make_clickable(h(item['title'][0].sub("WhatDoTheyKnow: ", ""))) %></a></p>
-    <div>
+    </div>
     <% end %>
 
 <% end   %>

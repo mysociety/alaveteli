@@ -56,10 +56,10 @@ class Comment < ActiveRecord::Base
     # Check have edited comment
     def validate
         if self.body.empty? || self.body =~ /^\s+$/
-            errors.add(:body, N_("Please enter your annotation"))
+            errors.add(:body, _("Please enter your annotation"))
         end
         if !MySociety::Validate.uses_mixed_capitals(self.body)
-            errors.add(:body, N_('Please write your annotation using a mixture of capital and lower case letters. This makes it easier for others to read.'))
+            errors.add(:body, _('Please write your annotation using a mixture of capital and lower case letters. This makes it easier for others to read.'))
         end
     end
 

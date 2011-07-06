@@ -54,7 +54,7 @@ class OutgoingMessage < ActiveRecord::Base
 
     # How the default letter starts and ends
     def get_salutation
-        ret = "Dear "
+        ret = _("Dear ")
         if self.message_type == 'followup' && !self.incoming_message_followup.nil? && !self.incoming_message_followup.safe_mail_from.nil? && self.incoming_message_followup.valid_to_reply_to?
             ret = ret + OutgoingMailer.name_for_followup(self.info_request, self.incoming_message_followup)
         else
@@ -64,13 +64,13 @@ class OutgoingMessage < ActiveRecord::Base
     end
     def get_signoff
         if self.message_type == 'followup' && !self.incoming_message_followup.nil? && !self.incoming_message_followup.safe_mail_from.nil? && self.incoming_message_followup.valid_to_reply_to?
-            return "Yours sincerely,"
+            return _("Yours sincerely,")
         else
-            return "Yours faithfully,"
+            return _("Yours faithfully,")
         end
     end
     def get_internal_review_insert_here_note
-        return "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
+        return _("GIVE DETAILS ABOUT YOUR COMPLAINT HERE")
     end
     def get_default_letter
         if self.default_letter

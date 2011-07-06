@@ -36,21 +36,21 @@ class ChangeEmailValidator < ActiveRecord::BaseWithoutTable
 
     def validate
         if !self.old_email.blank? && !MySociety::Validate.is_valid_email(self.old_email)
-            errors.add(:old_email, "Old email doesn't look like a valid address")
+            errors.add(:old_email, _("Old email doesn't look like a valid address"))
         end
 
         if !errors[:old_email]
             if self.old_email.downcase != self.logged_in_user.email.downcase
-                errors.add(:old_email, "Old email address isn't the same as the address of the account you are logged in with")
+                errors.add(:old_email, _("Old email address isn't the same as the address of the account you are logged in with"))
             elsif (!self.changing_email) && (!self.logged_in_user.has_this_password?(self.password))
                 if !errors[:password]
-                    errors.add(:password, "Password is not correct")
+                    errors.add(:password, _("Password is not correct"))
                 end
             end
         end
 
         if !self.new_email.blank? && !MySociety::Validate.is_valid_email(self.new_email)
-            errors.add(:new_email, "New email doesn't look like a valid address")
+            errors.add(:new_email, _("New email doesn't look like a valid address"))
         end
     end
 

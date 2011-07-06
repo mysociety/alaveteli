@@ -1,8 +1,8 @@
 <div id="request_sidebar">
-    <h2>Track this request</h2>
+    <h2><%= _('Track this request') %></h2>
      <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => @info_request.user == @user, :location => 'sidebar' } %>
 
-    <h2>Act on what you've learnt</h2>
+    <h2><%= _("Act on what you've learnt") %></h2>
     <div class="act_link">
         <%= link_to '<img src="/images/helpmeinvestigate.png" alt="" class="rss">', "http://helpmeinvestigate.com/"%> 
         <%= link_to 'Get help investigating', "http://helpmeinvestigate.com/"%>
@@ -27,7 +27,7 @@
 
     <% view_cache :ttl => 1.day, :tag => ['similar', @info_request.id] do %>
      <% if !@xapian_similar.nil? && @xapian_similar.results.size > 0 %>
-        <h2>Similar requests</h2>
+        <h2><% _('Similar requests')%></h2>
         <% for result in @xapian_similar.results %>
             <%= render :partial => 'request/request_listing_short_via_event', :locals => { :event => result[:model], :info_request => result[:model].info_request } %>
         <% end %>
@@ -38,11 +38,11 @@
      <% end %>
     <% end %>
 
-    <p><%= link_to "Event history details", request_details_url(@info_request) %></p>
+    <p><%= link_to _('Event history details'), request_details_url(@info_request) %></p>
 
     <!-- this link with this wording is here for legal reasons, discuss with
     board and our lawyer before changing or removing it -->
-    <p><small><a href="/help/officers#copyright">Are you the owner of
-            any commercial copyright on this page?</a></small></p>
+    <p><small><%= _('<a href="%s">Are you the owner of
+            any commercial copyright on this page?</a>') % [help_officers_path+"#copyright"] %></small></p>
 
 </div>

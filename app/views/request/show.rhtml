@@ -2,14 +2,14 @@
 
 <% if @info_request.prominence == 'hidden' %>
     <p id="hidden_request">
-    This request has prominence 'hidden'. You can only see it because you are logged
-    in as a super user.
+    <%= _('This request has prominence \'hidden\'. You can only see it because you are logged
+    in as a super user.') %>
     </p>
 <% end %>
 <% if @info_request.prominence == 'requester_only' %>
     <p id="hidden_request">
-    This request is hidden, so that only you the requester can see it. Please
-    <a href="/help/contact">contact us</a> if you are not sure why.
+    <%= _('This request is hidden, so that only you the requester can see it. Please
+    <a href="%s">contact us</a> if you are not sure why.') % [help_requesting_path] %>
     </p>
 <% end %>
 
@@ -32,89 +32,89 @@
     <% end %>
 
     <p class="subtitle">
-    <%= user_link(@info_request.user) %> made this
-    <%=h @info_request.law_used_full%> 
-    request 
+	 <%= _('{{user}} made this {{law_used_full}} request',:user=>user_link(@info_request.user), :law_used_full=>h(@info_request.law_used_full)) %>
     <% if !@user.nil? && @user.admin_page_links? %>
         (<%= link_to "admin", request_admin_url(@info_request) %>)
     <% end %>
-    to <%= public_body_link(@info_request.public_body) %>
+    <%= _('to {{public_body}}',:public_body=>public_body_link(@info_request.public_body)) %> 
     </p>
 
     <p id="request_status" class="request_icon_line icon_<%= @info_request.calculate_status %>">
     <% if @info_request.awaiting_description %>
         <% if @is_owning_user %>
-            Please <strong>answer the question above</strong> so we know whether the 
-            <%= MySociety::Format.fancy_pluralize(@new_responses_count, 'recent response contains', 'recent responses contain') %> useful information.
+            <%= _('Please <strong>answer the question above</strong> so we know whether the ')%> 
+            <%= MySociety::Format.fancy_pluralize(@new_responses_count, 'recent response contains', 'recent responses contain') %> <%= _('useful information.') %>
         <% else %>
-            This request has an <strong>unknown status</strong>. 
+            <%= _('This request has an <strong>unknown status</strong>.') %>
             <% if @old_unclassified %>
-              We're waiting for someone to read 
+              <%= _('We\'re waiting for someone to read') %> 
               <%= MySociety::Format.fancy_pluralize(@new_responses_count, 'a recent response', 'recent responses') %>
-              and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?
+              <%= _('and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?') %>
             <% else %>
-              We're waiting for
-              <%= user_link(@info_request.user) %> to read 
+            <%=  _('We\'re waiting for') %>
+              <%= user_link(@info_request.user) %> <%= _('to read') %> 
               <%= MySociety::Format.fancy_pluralize(@new_responses_count, 'a recent response', 'recent responses') %> 
-              and update the status.
+              <%= _('and update the status.') %>
             <% end %>
         <% end %>
     <% elsif @status == 'waiting_response' %>
-        Currently <strong>waiting for a response</strong> from <%= public_body_link(@info_request.public_body) %>,
-        they must respond promptly and 
+		<%= _('Currently <strong>waiting for a response</strong> from {{public_body_link}}, they must respond promptly and', :public_body_link=> public_body_link(@info_request.public_body)) %>
         <% if @info_request.public_body.is_school? %>
-            in term time
+        <%= _('in term time') %>
         <% else %>
-            normally 
+        <%= _('normally') %> 
         <% end %>
-        no later than <strong><%= simple_date(@info_request.date_response_required_by) %></strong>
+        <%= _('no later than') %> <strong><%= simple_date(@info_request.date_response_required_by) %></strong>
         (<%= link_to "details", "/help/requesting#quickly_response" %>).
     <% elsif @status == 'waiting_response_overdue' %>
-        Response to this request is <strong>delayed</strong>.
-        By law, <%= public_body_link(@info_request.public_body) %> should
-        normally have responded <strong>promptly</strong> and
+        <%= _('Response to this request is <strong>delayed</strong>.') %>
+		<%= _('By law, {{public_body_link}} should normally have responded <strong>promptly</strong> and',:public_body_link=>public_body_link(@info_request.public_body)) %>
             <% if @info_request.public_body.is_school? %>
-                in term time 
+            <%= _('in term time') %> 
             <% end %>
-            by <strong><%= simple_date(@info_request.date_response_required_by) %></strong>
-        (<%= link_to "details", "/help/requesting#quickly_response" %>).
+            <%= _('by') %> <strong><%= simple_date(@info_request.date_response_required_by) %></strong>
+		(<%= _('<a href="%s">details</a>') % [help_requesting_path + '#quickly_response'] %>)
     <% elsif @status == 'waiting_response_very_overdue' %>
-        Response to this request is <strong>long overdue</strong>. 
-        By law, under all circumstances, <%= public_body_link(@info_request.public_body) %> 
-        should have responded by now
-        (<%= link_to "details", "/help/requesting#quickly_response" %>).
-        You can <strong>complain</strong> by
-        <%= link_to "requesting an internal review", show_response_no_followup_url(:id => @info_request.id, :incoming_message_id => nil) + "?internal_review=1#followup" %>.
+        <%= _('Response to this request is <strong>long overdue</strong>.') %> 
+		<%= _('By law, under all circumstances, {{public_body_link}} should have responded by now',:public_body_link => public_body_link(@info_request.public_body)) %>
+        (<%= _('<a href="%s">details</a>') % [help_requesting_path + '#quickly_response'] %>).
+        <%= _('You can <strong>complain</strong> by') %>
+        <%= link_to _("requesting an internal review"), show_response_no_followup_url(:id => @info_request.id, :incoming_message_id => nil) + "?internal_review=1#followup" %>.
     <% elsif @status == 'not_held' %>
-        <%= public_body_link(@info_request.public_body) %> <strong>did not have</strong> the information requested.
+        <%= public_body_link(@info_request.public_body) %> <%= _('<strong>did not have</strong> the information requested.') %>
     <% elsif @status == 'rejected' %>
-        The request was <strong>refused</strong> by <%= public_body_link(@info_request.public_body) %>.
+        <%= _('The request was <strong>refused</strong> by') %> <%= public_body_link(@info_request.public_body) %>.
     <% elsif @status == 'successful' %>
-        The request was <strong>successful</strong>.
+        <%= _('The request was <strong>successful</strong>.') %>
+    <% elsif @status == 'deadline_extended' %>
+    Currently <strong>deadline extended</strong> from <%= public_body_link(@info_request.public_body) %>,
+        they must respond promptly and normally no later than <strong><%= simple_date(@info_request.date_deadline_extended) %></strong>
+        (<%= link_to "details", "/help/requesting#deadline_extended" %>).
+    <% elsif @status == 'wrong_response' %>
+        <%= public_body_link(@info_request.public_body) %> has replied but the response <strong>does not correspond to the request</strong>.
     <% elsif @status == 'partially_successful' %>
-        The request was <strong>partially successful</strong>.
+        <%= _('The request was <strong>partially successful</strong>.') %>
     <% elsif @status == 'waiting_clarification' %>
         <% if @is_owning_user %>
-            <%=h @info_request.public_body.name %> is <strong>waiting for your clarification</strong>. 
-            Please
-              <%= link_to "send a follow up message", respond_to_last_url(@info_request) + '#followup' %>.
+            <%=h @info_request.public_body.name %> <%= _('is <strong>waiting for your clarification</strong>.') %> 
+            <%= _('Please') %>
+              <%= link_to _("send a follow up message"), respond_to_last_url(@info_request) + '#followup' %>.
         <% else %>
-            The request is <strong>waiting for clarification</strong>. 
-            If you are
-            <%= user_link(@info_request.user) %>, please
-            <%= link_to "sign in", signin_url(:r => request.request_uri) %> to send a follow up message.
+            <%= _('The request is <strong>waiting for clarification</strong>.') %> 
+			<%= _('If you are {{user_link}}, please',:user_link=>user_link(@info_request.user)) %>
+            <%= link_to _("sign in"), signin_url(:r => request.request_uri) %> <%= _('to send a follow up message.') %>
         <% end %>
     <% elsif @status == 'gone_postal' %>
-        The authority would like to / has <strong>responded by post</strong> to this request.
+        <%= _('The authority would like to / has <strong>responded by post</strong> to this request.') %>
     <% elsif @status == 'internal_review' %>
-        Waiting for an <strong>internal review</strong> by <%= public_body_link(@info_request.public_body) %> of their handling of this request.
+		<%= _('Waiting for an <strong>internal review</strong> by {{public_body_link}} of their handling of this request.',:public_body_link=>public_body_link(@info_request.public_body)) %>
     <% elsif @status == 'error_message' %>
-        There was a <strong>delivery error</strong> or similar, which needs fixing by the WhatDoTheyKnow team.
+        <%= _('There was a <strong>delivery error</strong> or similar, which needs fixing by the WhatDoTheyKnow team.') %>
     <% elsif @status == 'requires_admin' %>
-        This request has had an unusual response, and <strong>requires attention</strong> from the WhatDoTheyKnow team.
+        <%= _('This request has had an unusual response, and <strong>requires attention</strong> from the WhatDoTheyKnow team.') %>
     <% elsif @status == 'user_withdrawn' %>
-        This request has been <strong>withdrawn</strong> by the person who made it. 
-        There may be an explanation in the correspondence below.
+        <%= _('This request has been <strong>withdrawn</strong> by the person who made it. 
+        	   There may be an explanation in the correspondence below.') %>
     <% else %>
         <% raise "unknown status " + @status %>
     <% end %>

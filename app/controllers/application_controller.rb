@@ -30,8 +30,8 @@ class ApplicationController < ActionController::Base
     helper_method :site_name, :locale_from_params
     def site_name
       # XXX should come from database:
-      site_name = "WhatDoTheyKnow"
-      return site_name
+      site_name = "InformataZyrtare.org"
+      return site_name      
     end
 
     # Help work out which request causes RAM spike.
