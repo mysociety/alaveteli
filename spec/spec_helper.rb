@@ -103,6 +103,12 @@ def validate_as_body(html)
         "<html><head><title>Test</title></head><body>#{html}</body></html>")
 end
 
+def basic_auth_login(request)
+    username = MySociety::Config.get('ADMIN_USERNAME', '')
+    password = MySociety::Config.get('ADMIN_PASSWORD', '')
+    request.env["HTTP_AUTHORIZATION"] = "Basic " + Base64::encode64("#{username}:#{password}")
+end
+
 # Monkeypatch! Validate HTML in tests.
 $html_validation_script = "/usr/bin/validate" # from Debian package wdg-html-validator
 if $tempfilecount.nil?
@@ -126,7 +132,7 @@ if $tempfilecount.nil?
                     return unless @response.template.controller.instance_eval { integrate_views? }
 
                     # And then if HTML, not a redirect (302, 301)
-                    if @response.content_type == "text/html" && (@response.response_code != 302) && (@response.response_code != 301) 
+                    if @response.content_type == "text/html" && ! [301,302,401].include?(@response.response_code)
                         validate_html(@response.body)
                     end
                 end
