@@ -116,13 +116,15 @@ if (MySociety::Config.get("DOMAIN", "") != "")
 end
 
 # fallback locale and available locales
-I18n.default_locale = :sq
 if ENV["RAILS_ENV"] == "test"
     # The tests assume that the "en" and "es" locales are available
     FastGettext.default_available_locales = ["en", "es"]
+    I18n.default_locale = :en
 else
-    available_locales = MySociety::Config.get('AVAILABLE_LOCALES', 'sq en sr')
+    available_locales = MySociety::Config.get('AVAILABLE_LOCALES', 'en es')
+    default_locale = MySociety::Config.get('DEFAULT_LOCALE', 'en')
     FastGettext.default_available_locales = available_locales.split(/ /)
+    I18n.default_locale = default_locale
 end
 
 # Load monkey patches and other things from lib/
