@@ -196,9 +196,3 @@ ActionController::Routing::Routes.draw do |map|
     # instead of a file named 'wsdl'
     # map.connect ':controller/service.wsdl', :action => 'wsdl'
 end
-
-# XXX should do something like the following to load routes from separate files
-# Dir.glob("config/routes_*yml").each do |f| 
-#   ActionController::Routing::Translator.translate_from_file(f)
-# end
-ActionController::Routing::Translator.translate_from_file('config', 'i18n-routes.yml')
