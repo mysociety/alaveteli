@@ -32,13 +32,20 @@
     <% end %>
 
     <p class="subtitle">
-    <%= user_link(@info_request.user) %> made this
-    <%=h @info_request.law_used_full%> 
-    request 
-    <% if !@user.nil? && @user.admin_page_links? %>
-        (<%= link_to "admin", request_admin_url(@info_request) %>)
-    <% end %>
-    to <%= public_body_link(@info_request.public_body) %>
+        <%= user_link(@info_request.user) %>
+        <% if !@user.nil? && @user.admin_page_links? %>
+            (<%= link_to "admin", user_admin_url(@info_request.user) %>)
+        <% end %>
+        made this
+        <%=h @info_request.law_used_full%> request 
+        <% if !@user.nil? && @user.admin_page_links? %>
+            (<%= link_to "admin", request_admin_url(@info_request) %>)
+        <% end %>
+        to
+        <%= public_body_link(@info_request.public_body) %>
+        <% if !@user.nil? && @user.admin_page_links? %>
+            (<%= link_to "admin", public_body_admin_url(@info_request.public_body) %>)
+        <% end %>
     </p>
 
     <p id="request_status" class="request_icon_line icon_<%= @info_request.calculate_status %>">
