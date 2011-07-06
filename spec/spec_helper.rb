@@ -5,6 +5,11 @@ require File.expand_path(File.join(File.dirname(__FILE__),'..','config','environ
 require 'spec/autorun'
 require 'spec/rails'
 
+# set a default username and password so we can test 
+config = MySociety::Config.load_default()
+config['ADMIN_USERNAME'] = 'foo'
+config['ADMIN_PASSWORD'] = 'baz'
+
 # Uncomment the next line to use webrat's matchers
 #require 'webrat/integrations/rspec-rails'
 
@@ -104,8 +109,8 @@ def validate_as_body(html)
 end
 
 def basic_auth_login(request)
-    username = MySociety::Config.get('ADMIN_USERNAME', '')
-    password = MySociety::Config.get('ADMIN_PASSWORD', '')
+    username = MySociety::Config.get('ADMIN_USERNAME')
+    password = MySociety::Config.get('ADMIN_PASSWORD')
     request.env["HTTP_AUTHORIZATION"] = "Basic " + Base64::encode64("#{username}:#{password}")
 end
 

@@ -10,8 +10,7 @@ require 'fileutils'
 
 class AdminController < ApplicationController
     layout "admin"
-	before_filter :authenticate
-	USER_NAME, PASSWORD = "sadminiz", "w5x^H^<{J231s3"
+    before_filter :authenticate
     protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
     # action to take if expecting an authenticity token and one isn't received
@@ -47,9 +46,13 @@ class AdminController < ApplicationController
     end
 	private
 	def authenticate
-	  authenticate_or_request_with_http_basic do |user_name, password|
-		user_name == USER_NAME && password == PASSWORD
-	  end
+            username = MySociety::Config.get('ADMIN_USERNAME', '')
+            password = MySociety::Config.get('ADMIN_PASSWORD', '')
+            if !(username && password).empty?
+                authenticate_or_request_with_http_basic do |user_name, password|
+                    user_name == username && password == password
+                end
+            end
 	end
 end
 

@@ -36,8 +36,13 @@ define('OPTION_INCOMING_EMAIL_SECRET', 'xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx'
 define('OPTION_BLACKHOLE_PREFIX', 'do-not-reply-to-this-address'); // used as envelope from at the incoming email domain for cases where we don't care about failure
 
 // Administration
+// To completely skip admin authentication, set these to empty strings
+define('OPTION_ADMIN_USERNAME', 'adminxxxx');
+define('OPTION_ADMIN_PASSWORD', 'passwordx');
+
 define('OPTION_CONTACT_EMAIL', 'admin@localhost');
 define('OPTION_ADMIN_BASE_URL', '/admin/');
+
 // Where /stylesheets sits under for admin pages. See asset_host in 
 // config/environment.rb. Can be full domain or relative path (not an absolute path beginning with /).
 define('OPTION_ADMIN_PUBLIC_URL', ''); 
@@ -56,6 +61,7 @@ define('OPTION_RECAPTCHA_PRIVATE_KEY', 'x');
 
 // Locales we wish to support in this app
 define('OPTION_AVAILABLE_LOCALES', 'en es');
+define('DEFAULT_LOCALE', 'en');
 
 // example searches for the home page, semicolon delimited
 define('OPTION_FRONTPAGE_SEARCH_EXAMPLES', 'Geraldine Quango; Department for Humpadinking');

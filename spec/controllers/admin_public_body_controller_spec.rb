@@ -3,7 +3,14 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe AdminPublicBodyController, "when administering public bodies" do
     integrate_views
     fixtures :public_bodies, :public_body_translations
-  
+
+    before do
+        username = MySociety::Config.get('ADMIN_USERNAME', '')
+        password = MySociety::Config.get('ADMIN_PASSWORD', '')
+        basic_auth_login @request
+    end
+
+
     it "shows the index page" do
         get :index
     end
@@ -40,14 +47,18 @@ describe AdminPublicBodyController, "when administering public bodies" do
         post :destroy, { :id => 3 }
         PublicBody.count.should == 1
     end
-
-
 end
 
 describe AdminPublicBodyController, "when administering public bodies with i18n" do
     integrate_views
     fixtures :public_bodies, :public_body_translations
   
+    before do
+        username = MySociety::Config.get('ADMIN_USERNAME', '')
+        password = MySociety::Config.get('ADMIN_PASSWORD', '')
+        basic_auth_login @request
+    end
+
     it "shows the index page" do
         get :index
     end
@@ -90,6 +101,24 @@ describe AdminPublicBodyController, "when administering public bodies with i18n"
     end
 
     it "destroy a public body" do
+        PublicBody.count.should == 2
+        post :destroy, { :id => 3 }
+        PublicBody.count.should == 1
+    end
+
+    it "don't allow non-authenticated users to do anything" do
+        @request.env["HTTP_AUTHORIZATION"] = ""
+        PublicBody.count.should == 2
+        post :destroy, { :id => 3 }
+        response.code.should == "401"
+        PublicBody.count.should == 2
+    end
+
+    it "when no username/password set, skip admin authorisation" do
+        config = MySociety::Config.load_default()
+        config['ADMIN_USERNAME'] = ''
+        config['ADMIN_PASSWORD'] = ''
+        @request.env["HTTP_AUTHORIZATION"] = ""
         PublicBody.count.should == 2
         post :destroy, { :id => 3 }
         PublicBody.count.should == 1
