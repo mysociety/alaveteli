@@ -1,5 +1,6 @@
 /config.tmp
 /general
+/general.yml
 /general.deployed
 /database.yml
 /database.yml.deployed
