@@ -6,6 +6,7 @@
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
 # $Id: application_helper.rb,v 1.22 2008-07-09 07:24:50 francis Exp $
+require 'languages'
 
 module ApplicationHelper
     # URL generating functions are needed by all controllers (for redirects),
@@ -66,6 +67,10 @@ module ApplicationHelper
         t = highlight_words(t, words, html)
         return t
     end
+	
+    def locale_name(locale)
+        return LanguageNames::get_language_name(locale)
+    end  
 
     # Use our own algorithm for finding path of cache
     def foi_cache(name = {}, options = nil, &block)
