@@ -52,6 +52,7 @@ define('OPTION_BLACKHOLE_PREFIX', 'do-not-reply-to-this-address'); // used as en
 // To completely skip admin authentication, set these to empty strings
 define('OPTION_ADMIN_USERNAME', 'adminxxxx');
 define('OPTION_ADMIN_PASSWORD', 'passwordx');
+
 define('OPTION_ADMIN_BASE_URL', '/admin/');
 
 
