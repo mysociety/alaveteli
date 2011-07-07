@@ -58,6 +58,7 @@ Rails::Initializer.run do |config|
   config.gem "recaptcha", :lib => "recaptcha/rails"
   config.gem 'rspec', :lib => false, :version => '1.3.1'
   config.gem 'rspec-rails', :lib => false, :version => '1.3.3'
+  config.gem 'routing-filter'
   config.gem 'will_paginate', :version => '~> 2.3.11', :source => 'http://gemcutter.org'
   #GettextI18nRails.translations_are_html_safe = true
   # Your secret key for verifying cookie session data integrity.

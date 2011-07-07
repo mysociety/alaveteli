@@ -1,0 +1,151 @@
+--- !ruby/object:Gem::Specification 
+name: routing-filter
+version: !ruby/object:Gem::Version 
+  hash: 17
+  prerelease: 
+  segments: 
+  - 0
+  - 2
+  - 3
+  version: 0.2.3
+platform: ruby
+authors: 
+- Sven Fuchs
+autorequire: 
+bindir: bin
+cert_chain: []
+
+date: 2011-01-24 00:00:00 +00:00
+default_executable: 
+dependencies: 
+- !ruby/object:Gem::Dependency 
+  name: actionpack
+  prerelease: false
+  requirement: &id001 !ruby/object:Gem::Requirement 
+    none: false
+    requirements: 
+    - - ">="
+      - !ruby/object:Gem::Version 
+        hash: 3
+        segments: 
+        - 0
+        version: "0"
+  type: :runtime
+  version_requirements: *id001
+- !ruby/object:Gem::Dependency 
+  name: i18n
+  prerelease: false
+  requirement: &id002 !ruby/object:Gem::Requirement 
+    none: false
+    requirements: 
+    - - ">="
+      - !ruby/object:Gem::Version 
+        hash: 3
+        segments: 
+        - 0
+        version: "0"
+  type: :development
+  version_requirements: *id002
+- !ruby/object:Gem::Dependency 
+  name: rails
+  prerelease: false
+  requirement: &id003 !ruby/object:Gem::Requirement 
+    none: false
+    requirements: 
+    - - ">="
+      - !ruby/object:Gem::Version 
+        hash: 3
+        segments: 
+        - 0
+        version: "0"
+  type: :development
+  version_requirements: *id003
+- !ruby/object:Gem::Dependency 
+  name: test_declarative
+  prerelease: false
+  requirement: &id004 !ruby/object:Gem::Requirement 
+    none: false
+    requirements: 
+    - - ">="
+      - !ruby/object:Gem::Version 
+        hash: 3
+        segments: 
+        - 0
+        version: "0"
+  type: :development
+  version_requirements: *id004
+description: Routing filters wraps around the complex beast that the Rails routing system is, allowing for unseen flexibility and power in Rails URL recognition and generation.
+email: svenfuchs@artweb-design.de
+executables: []
+
+extensions: []
+
+extra_rdoc_files: []
+
+files: 
+- lib/routing-filter.rb
+- lib/routing_filter/adapters/rails_2.rb
+- lib/routing_filter/adapters/rails_3.rb
+- lib/routing_filter/chain.rb
+- lib/routing_filter/filter.rb
+- lib/routing_filter/filters/extension.rb
+- lib/routing_filter/filters/locale.rb
+- lib/routing_filter/filters/pagination.rb
+- lib/routing_filter/filters/uuid.rb
+- lib/routing_filter/version.rb
+- lib/routing_filter.rb
+- test/all.rb
+- test/blocks.rb
+- test/filters/all_filters/generation.rb
+- test/filters/all_filters/recognition.rb
+- test/filters/all_filters_test.rb
+- test/filters/extension_test.rb
+- test/filters/locale_test.rb
+- test/filters/pagination_test.rb
+- test/filters/uuid_test.rb
+- test/rails_test.rb
+- test/routes_test.rb
+- test/routing_filter_test.rb
+- test/test_adapters/rails_2.rb
+- test/test_adapters/rails_3.rb
+- test/test_helper.rb
+- Gemfile
+- Gemfile.lock
+- MIT-LICENSE
+- README.markdown
+has_rdoc: true
+homepage: http://github.com/svenfuchs/routing-filter
+licenses: []
+
+post_install_message: 
+rdoc_options: []
+
+require_paths: 
+- lib
+required_ruby_version: !ruby/object:Gem::Requirement 
+  none: false
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      hash: 3
+      segments: 
+      - 0
+      version: "0"
+required_rubygems_version: !ruby/object:Gem::Requirement 
+  none: false
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      hash: 3
+      segments: 
+      - 0
+      version: "0"
+requirements: []
+
+rubyforge_project: "[none]"
+rubygems_version: 1.4.2
+signing_key: 
+specification_version: 3
+summary: Routing filters wraps around the complex beast that the Rails routing system is, allowing for unseen flexibility and power in Rails URL recognition and generation
+test_files: []
+
