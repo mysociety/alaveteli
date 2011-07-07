@@ -51,14 +51,12 @@ class InfoRequest < ActiveRecord::Base
     has_many :exim_logs, :order => 'exim_log_done_id'
 
     has_tag_string
-
-    # user described state (also update in info_request_event, admin_request/edit.rhtml)
-    validates_inclusion_of :described_state, :in => [ 
+    
+    def self.enumerate_states
+        states = [ 
         'waiting_response',
         'waiting_clarification', 
         'gone_postal',
-        'deadline_extended',
-		'wrong_response',
         'not_held',
         'rejected', # this is called 'refused' in UK FOI law and the user interface, but 'rejected' internally for historic reasons
         'successful', 
@@ -67,7 +65,16 @@ class InfoRequest < ActiveRecord::Base
         'error_message',
         'requires_admin',
         'user_withdrawn'
-    ]
+        ]
+        begin
+            states += theme_extra_states
+        rescue NoMethodError
+            states
+        end
+    end
+
+    # user described state (also update in info_request_event, admin_request/edit.rhtml)
+    validates_inclusion_of :described_state, :in => InfoRequest.enumerate_states
 
     validates_inclusion_of :prominence, :in => [ 
         'normal', 
@@ -93,6 +100,7 @@ class InfoRequest < ActiveRecord::Base
         'holding_pen', # put them in the holding pen
         'blackhole' # just dump them
     ]
+
 
     # only check on create, so existing models with mixed case are allowed
     def validate_on_create

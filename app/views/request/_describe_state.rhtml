@@ -4,7 +4,7 @@
         <h2><%= _('What best describes the status of this request now?') %></h2>
 
         <hr> <!------------------------------------------------>
-
+	<h3>This request is still in progress:</h3>
         <% if @info_request.described_state != 'internal_review' %>
             <div>
                 <%= radio_button "incoming_message", "described_state", "waiting_response", :id => 'waiting_response' + id_suffix %>
@@ -38,11 +38,10 @@
             <label for="gone_postal<%=id_suffix%>"><%= _('They are going to reply <strong>by post</strong>') %></label>
         </div>
 
-        <div>
-            <%= radio_button "incoming_message", "described_state", "deadline_extended", :id => 'deadline_extended' + id_suffix %>
-            <label for="deadline_extended<%=id_suffix%>"><%= _('Authority has requested <strong>extension of the deadline.</strong>') %></label>
-        </div>
+        <%= render :partial => 'general/custom_state_transitions_pending', :locals => {:id_suffix => id_suffix } %>
+
         <hr> <!------------------------------------------------>
+	<h3>This particular request is finished:</h3>
 
         <% if @info_request.described_state == 'internal_review' %>
             <p><%= _('The <strong>review has finished</strong> and overall:') %></p>
@@ -65,12 +64,11 @@
             <label for="rejected<%=id_suffix%>"><%= _('My request has been <strong>refused</strong>') %></label>
         </div>
 
-        <div>
-            <%= radio_button "incoming_message", "described_state", "wrong_response", :id => 'wrong_response' + id_suffix %>
-            <label for="rejected<%=id_suffix%>"><%= _('Authority has replied but the response <strong>does not correspond to the request</strong>') %></label>
-        </div>
+        <%= render :partial => 'general/custom_state_transitions_complete', :locals => {:id_suffix => id_suffix } %>
+
 
         <hr> <!------------------------------------------------>
+	<h3>Other:</h3>
 
         <div>
            <%= radio_button "incoming_message", "described_state", "error_message", :id => 'error_message' + id_suffix %>

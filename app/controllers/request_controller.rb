@@ -52,6 +52,7 @@ class RequestController < ApplicationController
                     )
             end
             
+
             @last_info_request_event_id = @info_request.last_event_id_needing_description
             @new_responses_count = @info_request.events_needing_description.select {|i| i.event_type == 'response'}.size
 1
@@ -368,7 +369,6 @@ class RequestController < ApplicationController
             end
             return
         end
-
         # Display advice for requester on what to do next, as appropriate
         if @info_request.calculate_status == 'waiting_response'
             flash[:notice] = _("<p>Thank you! Hopefully your wait isn't too long.</p> <p>By law, you should get a response promptly, and normally before the end of <strong>
@@ -407,12 +407,6 @@ class RequestController < ApplicationController
             redirect_to respond_to_last_url(@info_request)
         elsif @info_request.calculate_status == 'gone_postal'
             redirect_to respond_to_last_url(@info_request) + "?gone_postal=1"
-		elsif @info_request.calculate_status == 'deadline_extended'
-			flash[:notice] = _("Authority has requested extension of the deadline.")
-            redirect_to unhappy_url(@info_request)
-		elsif @info_request.calculate_status == 'wrong_response'
-			flash[:notice] = _("Oh no! Sorry to hear that your request was wrong. Here is what to do now.")
-            redirect_to unhappy_url(@info_request)
         elsif @info_request.calculate_status == 'internal_review'
             flash[:notice] = _("<p>Thank you! Hopefully your wait isn't too long.</p><p>You should get a response within 20 days, or be told if it will take longer (<a href=\"%s\">details</a>).</p>") % [unhappy_url(@info_request) + "#internal_review"]
             redirect_to request_url(@info_request)
@@ -426,7 +420,11 @@ class RequestController < ApplicationController
             flash[:notice] = _("If you have not done so already, please write a message below telling the authority that you have withdrawn your request. Otherwise they will not know it has been withdrawn.")
             redirect_to respond_to_last_url(@info_request)
         else
-            raise "unknown calculate_status " + @info_request.calculate_status
+            begin
+                return theme_describe_state(@info_request)
+            rescue NoMethodError
+                raise "unknown calculate_status " + @info_request.calculate_status
+            end
         end
     end
 

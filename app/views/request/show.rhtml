@@ -86,12 +86,6 @@
         <%= _('The request was <strong>refused</strong> by') %> <%= public_body_link(@info_request.public_body) %>.
     <% elsif @status == 'successful' %>
         <%= _('The request was <strong>successful</strong>.') %>
-    <% elsif @status == 'deadline_extended' %>
-    Currently <strong>deadline extended</strong> from <%= public_body_link(@info_request.public_body) %>,
-        they must respond promptly and normally no later than <strong><%= simple_date(@info_request.date_deadline_extended) %></strong>
-        (<%= link_to "details", "/help/requesting#deadline_extended" %>).
-    <% elsif @status == 'wrong_response' %>
-        <%= public_body_link(@info_request.public_body) %> has replied but the response <strong>does not correspond to the request</strong>.
     <% elsif @status == 'partially_successful' %>
         <%= _('The request was <strong>partially successful</strong>.') %>
     <% elsif @status == 'waiting_clarification' %>
@@ -116,7 +110,7 @@
         <%= _('This request has been <strong>withdrawn</strong> by the person who made it. 
         	   There may be an explanation in the correspondence below.') %>
     <% else %>
-        <% raise "unknown status " + @status %>
+        <%= render :partial => 'general/custom_state_descriptions', :locals => { :status => @status } %>
     <% end %>
     </p>
 

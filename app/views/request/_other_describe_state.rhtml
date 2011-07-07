@@ -7,7 +7,7 @@
     Thanks.') %></h2>
 
     <hr> <!------------------------------------------------>
-
+    <h3>This request is still in progress:</h3>
     <% if @info_request.described_state != 'internal_review' %>
         <div>
             <%= radio_button "incoming_message", "described_state", "waiting_response", :id => 'waiting_response' + id_suffix %>
@@ -34,7 +34,10 @@
         <label for="gone_postal<%=id_suffix%>"><%= _('A response will be sent <strong>by post</strong>') %></label>
     </div>
 
+    <%= render :partial => 'general/custom_state_transitions_pending', :locals => {:id_suffix => id_suffix } %>
+
     <hr> <!------------------------------------------------>
+    <h3>This particular request is finished:</h3>
 
     <% if @info_request.described_state == 'internal_review' %>
         <p><%= _('The <strong>review has finished</strong> and overall:') %></p>
@@ -56,6 +59,8 @@
         <%= radio_button "incoming_message", "described_state", "rejected", :id => 'rejected' + id_suffix %>
         <label for="rejected<%=id_suffix%>"><%= _('The request has been <strong>refused</strong>') %></label>
     </div>
+    
+    <%= render :partial => 'general/custom_state_transitions_complete', :locals => {:id_suffix => id_suffix } %>
 
     <hr> <!------------------------------------------------>
 
