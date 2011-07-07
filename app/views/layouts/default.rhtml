@@ -76,10 +76,10 @@
 =end
 %>
 <div class="entirebody">
+    <div id="banner"></div>
     <div id="header">
-  		<div class="lang"><%= render :partial => 'general/locale_switcher' %></div>
         <h1>
-            <%= link_to "&nbsp;", frontpage_url %>
+            <%= link_to site_name, frontpage_url %>
         </h1>
 
         <div id="tagline">
@@ -87,7 +87,10 @@
         </div>
 
     </div>
-
+    <div id="orglogo">
+      <%= render :partial => 'general/orglink' %>
+    </div>
+    <div class="lang"><%= render :partial => 'general/locale_switcher' %></div>
           
     <div id="navigation_search">
         <% form_tag({:controller => "general", :action => "search_redirect"}, {:id => "navigation_search_form"}) do %>
@@ -96,6 +99,7 @@
                <%= submit_tag _("Search") %>
            </p>
         <% end %>
+
     </div>
 	<div id="topnav">
 		<ul id="navigation">
@@ -122,6 +126,7 @@
 	</div>
 	
     <div id="wrapper">
+
         <div id="content">
 
             <% if flash[:notice] %>
