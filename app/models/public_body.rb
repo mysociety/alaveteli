@@ -77,9 +77,16 @@ class PublicBody < ActiveRecord::Base
         end
     end
 
-	
+    # XXX this should be saner; probably implement categories as data
+    begin
 	load "public_body_categories_#{I18n.locale.to_s}.rb"
-
+    rescue MissingSourceFile
+        begin
+            load "public_body_categories_#{I18n.default_locale.to_s}.rb"
+        rescue MissingSourceFile
+            load "public_body_categories.rb"
+        end
+    end
     # Set the first letter, which is used for faster queries
     before_save(:set_first_letter)
     def set_first_letter
