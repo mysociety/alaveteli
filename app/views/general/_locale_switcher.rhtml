@@ -1,4 +1,4 @@
-     <% if FastGettext.default_available_locales.length > 1 %>
+     <% if FastGettext.default_available_locales.length > 1 && !params.empty? %>
      <div id="user_locale_switcher">
        <% for possible_locale in FastGettext.default_available_locales %>
         <% if possible_locale == I18n.locale.to_s %>
@@ -9,5 +9,3 @@
          <% end %>
      </div>
      <% end %>
-
-<div class="spacer"></div>

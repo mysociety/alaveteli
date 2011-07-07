@@ -193,16 +193,10 @@ ActionController::Routing::Routes.draw do |map|
         rule.admin_rule_create '/admin/censor/create', :action => 'create'
         rule.admin_rule_edit '/admin/censor/edit/:id', :action => 'edit'
         rule.admin_rule_update '/admin/censor/update', :action => 'update'
-        rule.admin_rule_destroy '/admin/censor/destroy', :action => 'destroy'
+        rule.admin_rule_destroy '/admin/censor/destroy/:censor_rule_id', :action => 'destroy'
     end
 
     # Allow downloading Web Service WSDL as a file with an extension
     # instead of a file named 'wsdl'
     # map.connect ':controller/service.wsdl', :action => 'wsdl'
 end
-
-# XXX should do something like the following to load routes from separate files
-# Dir.glob("config/routes_*yml").each do |f| 
-#   ActionController::Routing::Translator.translate_from_file(f)
-# end
-ActionController::Routing::Translator.translate_from_file('config', 'i18n-routes.yml')
