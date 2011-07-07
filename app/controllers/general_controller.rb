@@ -66,23 +66,18 @@ class GeneralController < ApplicationController
 
     # Display WhatDoTheyKnow category from mySociety blog
     def blog
-        feed_url = 'http://www.mysociety.org/category/projects/whatdotheyknow/feed/'
-        content = open(feed_url).read
-        @data = XmlSimple.xml_in(content)
-        @channel = @data['channel'][0]
-        @items = @channel['item']
-
-        @feed_autodetect = [ { :url => feed_url, :title => "WhatDoTheyKnow blog"} ]
-
-        twitter_url = 'http://api.twitter.com/1/statuses/user_timeline/whatdotheyknow.rss' # @whatdotheyknow
-        content = open(twitter_url).read
-        @data = XmlSimple.xml_in(content)
-        @channel = @data['channel'][0]
-        @items = @channel['item'] + @items
-
-        @feed_autodetect += [ { :url => twitter_url, :title => "WhatDoTheyKnow tweets"} ]
-
-        @items.sort! { |a,b| Time.parse(b['pubDate'][0]) <=> Time.parse(a['pubDate'][0]) }
+        @feed_autodetect = []
+        feed_url = MySociety::Config.get('BLOG_FEED', '')
+        if not feed_url.empty?
+            content = open(feed_url).read
+            @data = XmlSimple.xml_in(content)
+            @channel = @data['channel'][0]
+            @blog_items = @channel['item']
+            @feed_autodetect = [ { :url => feed_url, :title => "WhatDoTheyKnow blog"} ]
+        else
+            @blog_items = []
+        end
+        @twitter_user = MySociety::Config.get('TWITTER_USERNAME', '')
     end
 
     # Just does a redirect from ?query= search to /query

@@ -37,6 +37,10 @@ define('OPTION_CONTACT_NAME', 'Alaveteli Webmaster');
 // Workflow settings
 define('OPTION_REPLY_LATE_AFTER_DAYS', 20);
 
+// Blog and Twitter
+define('OPTION_BLOG_FEED', 'http://www.mysociety.org/category/projects/whatdotheyknow/feed/');
+define('OPTION_TWITTER_USERNAME', 'whatdotheyknow');
+
 
 // Incoming email
 define('OPTION_INCOMING_EMAIL_DOMAIN', 'localhost'); // e.g. 'foifa.com'
@@ -48,8 +52,9 @@ define('OPTION_BLACKHOLE_PREFIX', 'do-not-reply-to-this-address'); // used as en
 // To completely skip admin authentication, set these to empty strings
 define('OPTION_ADMIN_USERNAME', 'adminxxxx');
 define('OPTION_ADMIN_PASSWORD', 'passwordx');
-
 define('OPTION_ADMIN_BASE_URL', '/admin/');
+
+
 
 // Where /stylesheets sits under for admin pages. See asset_host in 
 // config/environment.rb. Can be full domain or relative path (not an absolute path beginning with /).
