@@ -22,6 +22,7 @@ class OutgoingMailer < ApplicationMailer
         @from = info_request.incoming_name_and_email
         @recipients = info_request.recipient_name_and_email
         @subject    = info_request.email_subject_request
+        @headers["message-id"] = OutgoingMailer.id_for_message(outgoing_message)
         @body       = {:info_request => info_request, :outgoing_message => outgoing_message,
             :contact_email => MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost') }
     end
@@ -32,12 +33,12 @@ class OutgoingMailer < ApplicationMailer
         @from = info_request.incoming_name_and_email
         @recipients = OutgoingMailer.name_and_email_for_followup(info_request, incoming_message_followup)
         @subject    = OutgoingMailer.subject_for_followup(info_request, outgoing_message)
+        @headers["message-id"] = OutgoingMailer.id_for_message(outgoing_message)
         @body       = {:info_request => info_request, :outgoing_message => outgoing_message,
             :incoming_message_followup => incoming_message_followup,
             :contact_email => MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost') }
     end
 
-    # Separate function, so can be called from controller for logging
     # XXX the condition checking valid_to_reply_to? also appears in views/request/_followup.rhtml,
     # it shouldn't really, should call something here.
     # XXX also OutgoingMessage.get_salutation
@@ -84,6 +85,14 @@ class OutgoingMailer < ApplicationMailer
             # email has been checked in incoming_message_followup.valid_to_reply_to? above
             return true
         end
+    end
+    # Message-ID to use
+    def OutgoingMailer.id_for_message(outgoing_message)
+        message_id = "ogm-" + outgoing_message.id.to_s
+        t = Time.now
+        message_id += "+" + '%08x%05x-%04x' % [t.to_i, t.tv_usec, rand(0xffff)]
+        message_id += "@" + MySociety::Config.get("INCOMING_EMAIL_DOMAIN", "localhost")
+        return "<" + message_id + ">"
     end
 
 end
