@@ -171,7 +171,7 @@ body
 #topnav
 {
 	position: relative;
-	top: 77px;
+	top: 103px;
 	left: 0px;
 	width: 100%;
 	height: auto;
@@ -1227,12 +1227,13 @@ div.user_about_me
 }
 
 div.lang {
- position: relative;
- clear: both;
+ position: absolute;
  text-align: right;
  font-size: 0.8em;
  top: 45px;
+ right: 0px;
  padding-right: 5px;
+ z-index: 200;
 }
 
 div#user_locale_switcher {
