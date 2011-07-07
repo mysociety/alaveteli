@@ -29,8 +29,7 @@ class ApplicationController < ActionController::Base
 
     helper_method :site_name, :locale_from_params
     def site_name
-      # XXX should come from database:
-      site_name = "InformataZyrtare.org"
+      site_name = MySociety::Config.get('SITE_NAME', 'Alaveteli')
       return site_name      
     end
 
