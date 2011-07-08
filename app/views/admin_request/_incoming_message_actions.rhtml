@@ -1,7 +1,11 @@
 <% form_tag '../redeliver_incoming' do %>
   <div>
       id or url_title of request:
-      <%= text_field_tag 'url_title', "", { :size => 20 } %>
+      <% if @info_requests && @info_requests.size == 1 %>
+        <%= text_field_tag 'url_title', @info_requests[0].url_title, { :size => 20 } %>
+      <% else %>
+        <%= text_field_tag 'url_title', "", { :size => 20 } %>
+      <% end %>
       <%= hidden_field_tag 'redeliver_incoming_message_id', incoming_message.id %>
       <%= submit_tag "Redeliver to another request" %>
   </div>
