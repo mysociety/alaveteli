@@ -20,7 +20,7 @@ APP_DIR=`pwd`
 cd app/..
 
 # read config file in for later (STAGING_SITE)
-if [ -e "config/general" ]
+if [ -e "config/general" ] || [ -e "config/general.yml" ]
 then
     . commonlib/shlib/deployfns
     read_conf config/general
