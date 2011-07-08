@@ -47,7 +47,7 @@ COOKIE_STORE_SESSION_SECRET: 'your secret key here, make it long and random'
 # checks in a few obvious places.
 READ_ONLY: ''
 
-# Recaptcha, for detecting humans. Get keys here: http:#recaptcha.net/whyrecaptcha.html
+# Recaptcha, for detecting humans. Get keys here: http://recaptcha.net/whyrecaptcha.html
 RECAPTCHA_PUBLIC_KEY: 'x'
 RECAPTCHA_PRIVATE_KEY: 'x'
 
@@ -61,4 +61,4 @@ FRONTPAGE_SEARCH_EXAMPLES: 'Geraldine Quango; Department for Humpadinking'
 FRONTPAGE_PUBLICBODY_EXAMPLES: 'tgq'
 
 # URL of theme to install
-THEME_URL: 'git:#github.com/mysociety/whatdotheyknow-theme.git'
+THEME_URL: 'git://github.com/mysociety/whatdotheyknow-theme.git'
