@@ -159,7 +159,7 @@ ActionController::Routing::Routes.draw do |map|
         admin.admin_request_update_outgoing '/admin/request/update_outgoing/:id', :action => 'update_outgoing'
         admin.admin_request_edit_comment '/admin/request/edit_comment/:id', :action => 'edit_comment'
         admin.admin_request_update_comment '/admin/request/update_comment/:id', :action => 'update_comment'
-        admin.admin_request_destroy_incomine '/admin/request/destroy_incoming/:id', :action => 'destroy_incoming'
+        admin.admin_request_destroy_incoming '/admin/request/destroy_incoming/:id', :action => 'destroy_incoming'
         admin.admin_request_redeliver_incoming '/admin/request/redeliver_incoming', :action => 'redeliver_incoming'
         admin.admin_request_move_request '/admin/request/move_request', :action => 'move_request'
         admin.admin_request_generate_upload_url '/admin/request/generate_upload_url/:id', :action => 'generate_upload_url'
