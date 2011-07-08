@@ -169,11 +169,11 @@ class OutgoingMessage < ActiveRecord::Base
     def send_message(log_event_type = 'sent')
         if self.status == 'ready'
             if self.message_type == 'initial_request'
-                mail_message = OutgoingMailer.deliver_initial_request(self.info_request, self)
-                
                 self.last_sent_at = Time.now
                 self.status = 'sent'
                 self.save!
+
+                mail_message = OutgoingMailer.deliver_initial_request(self.info_request, self)
                 self.info_request.log_event(log_event_type, {
                     :email => mail_message.to_addrs.join(", "),
                     :outgoing_message_id => self.id,
@@ -181,11 +181,11 @@ class OutgoingMessage < ActiveRecord::Base
                 })
                 self.info_request.set_described_state('waiting_response')
             elsif self.message_type == 'followup'
-                mail_message = OutgoingMailer.deliver_followup(self.info_request, self, self.incoming_message_followup)
-                
                 self.last_sent_at = Time.now
                 self.status = 'sent'
                 self.save!
+
+                mail_message = OutgoingMailer.deliver_followup(self.info_request, self, self.incoming_message_followup)
                 self.info_request.log_event('followup_' + log_event_type, {
                     :email => mail_message.to_addrs.join(", "),
                     :outgoing_message_id => self.id,
