@@ -55,12 +55,11 @@ module RoutingFilter
     def around_generate(*args, &block)
       params = args.extract_options!                              # this is because we might get a call like forum_topics_path(forum, topic, :locale => :en)
 
-      locale = params.delete(:locale)                             # extract the passed :locale option
+      locale = params.delete(:locale)                             # extract the tpassed :locale option
       locale = I18n.locale if locale.nil?                         # default to I18n.locale when locale is nil (could also be false)
       locale = nil unless valid_locale?(locale)                   # reset to no locale when locale is not valid
 
       args << params
-
       yield.tap do |result|
         prepend_segment!(result, locale) if prepend_locale?(locale)
       end

@@ -47,6 +47,26 @@ describe AdminPublicBodyController, "when administering public bodies" do
         post :destroy, { :id => 3 }
         PublicBody.count.should == 1
     end
+
+    it "don't allow non-authenticated users to do anything" do
+        @request.env["HTTP_AUTHORIZATION"] = ""
+        PublicBody.count.should == 2
+        post :destroy, { :id => 3 }
+        response.code.should == "401"
+        PublicBody.count.should == 2
+    end
+
+    it "when no username/password set, skip admin authorisation" do
+        config = MySociety::Config.load_default()
+        config['ADMIN_USERNAME'] = ''
+        config['ADMIN_PASSWORD'] = ''
+        @request.env["HTTP_AUTHORIZATION"] = ""
+        PublicBody.count.should == 2
+        post :destroy, { :id => 3 }
+        PublicBody.count.should == 1
+    end
+
+
 end
 
 describe AdminPublicBodyController, "when administering public bodies with i18n" do
@@ -73,24 +93,28 @@ describe AdminPublicBodyController, "when administering public bodies with i18n"
     end
 
     it "creates a new public body" do
+        I18n.locale = :es
         PublicBody.count.should == 2
         post :create, { :public_body => { :name => "New Quango", :short_name => "", :tag_string => "blah", :request_email => 'newquango@localhost', :last_edit_comment => 'From test code' } }
         PublicBody.count.should == 3
+        I18n.locale = :en
     end
 
     it "edits a public body" do
-        get :edit, {:id => 3, :locale => 'es'}
+        I18n.locale = :es
+        get :edit, {:id => 3, :locale => :es}
         response.body.should include('Baguette')
+        I18n.locale = :en
     end
 
     it "saves edits to a public body" do
-        PublicBody.with_locale(:es) do
-            pb = PublicBody.find(id=3)
-            pb.name.should == "El Department for Humpadinking"
-        end
+        I18n.locale = :es
+        pb = PublicBody.find(id=3)
+        pb.name.should == "El Department for Humpadinking"
+        post :update, { :id => 3, :public_body => { :name => "Renamed", :short_name => "", :tag_string => "some tags", :request_email => 'edited@localhost', :last_edit_comment => 'From test code' }}
+        response.flash[:notice].should include('successful') 
+        I18n.locale = :en
 
-        post :update, { :id => 3, :public_body => { :name => "Renamed", :short_name => "", :tag_string => "some tags", :request_email => 'edited@localhost', :last_edit_comment => 'From test code' }, :locale => "es" }
-        response.flash[:notice].should include('successful')
         pb = PublicBody.find(public_bodies(:humpadink_public_body).id)
         PublicBody.with_locale(:es) do
            pb.name.should == "Renamed"
@@ -105,24 +129,5 @@ describe AdminPublicBodyController, "when administering public bodies with i18n"
         post :destroy, { :id => 3 }
         PublicBody.count.should == 1
     end
-
-    it "don't allow non-authenticated users to do anything" do
-        @request.env["HTTP_AUTHORIZATION"] = ""
-        PublicBody.count.should == 2
-        post :destroy, { :id => 3 }
-        response.code.should == "401"
-        PublicBody.count.should == 2
-    end
-
-    it "when no username/password set, skip admin authorisation" do
-        config = MySociety::Config.load_default()
-        config['ADMIN_USERNAME'] = ''
-        config['ADMIN_PASSWORD'] = ''
-        @request.env["HTTP_AUTHORIZATION"] = ""
-        PublicBody.count.should == 2
-        post :destroy, { :id => 3 }
-        PublicBody.count.should == 1
-    end
-
 
 end

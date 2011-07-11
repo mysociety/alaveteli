@@ -125,12 +125,6 @@ if $tempfilecount.nil?
                 alias :original_process :process
 
                 def process(action, parameters = nil, session = nil, flash = nil, http_method = 'GET')
-                    # Call original process function
-                    if parameters.nil?
-                        parameters = {:locale => "en"}
-                    elsif not parameters.has_key?(:locale)
-                        parameters[:locale] = "en"
-                    end
                     self.original_process(action, parameters, session, flash, http_method)
 
                     # XXX Is there a better way to check this than calling a private method?

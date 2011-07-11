@@ -22,20 +22,23 @@ describe PublicBodyController, "when showing a body" do
     end
 
     it "should assign the body using different locale from that used for url_name" do
-        get :show, {:url_name => "dfh", :locale => 'es'}
-        assigns[:public_body].notes.should == "Baguette"
+        PublicBody.with_locale(:es) do
+            get :show, {:url_name => "dfh"}
+            assigns[:public_body].notes.should == "Baguette"
+        end
     end
 
     it "should assign the body using same locale as that used in url_name" do
-        get :show, {:url_name => "edfh", :locale => 'es'}
-        assigns[:public_body].notes.should == "Baguette"
+        PublicBody.with_locale(:es) do
+            get :show, {:url_name => "edfh"}
+            assigns[:public_body].notes.should == "Baguette"
+        end
     end
 
-    it "should assign the body using same locale as that used in url_name even with wrongly set locale" do
-        PublicBody.with_locale(:en) do 
-            get :show, {:url_name => "edfh", :locale => 'es'}
-            response.body.should include('Baguette')
-        end
+    it "should redirect use to the relevant locale even when url_name is for a different locale" do
+        ActionController::Routing::Routes.filters.clear
+        get :show, {:url_name => "edfh"}
+        response.should redirect_to "http://test.host/body/dfh"
     end
  
     it "should redirect to newest name if you use historic name of public body in URL" do
@@ -69,12 +72,13 @@ describe PublicBodyController, "when listing bodies" do
     end
 
     it "should list bodies in alphabetical order with different locale" do
-        get :list, :locale => "es"
+        I18n.locale = :es
+        get :list
         response.should render_template('list')
-
         assigns[:public_bodies].should == [ public_bodies(:geraldine_public_body), public_bodies(:humpadink_public_body) ]
         assigns[:tag].should == "all"
         assigns[:description].should == "all"
+        I18n.locale = :en
     end
 
     it "should list a tagged thing on the appropriate list page, and others on the other page, and all still on the all page" do

@@ -735,7 +735,7 @@ describe RequestController, "when classifying an information request" do
          
         def expect_redirect(status, redirect_path)
             post_status(status)
-            response.should redirect_to("http://test.host/#{redirect_path}")
+            response.should redirect_to("http://test.host/en/#{redirect_path}")
         end
         
         it 'should redirect to the "request url" with a message in the right tense when status is updated to "waiting response" and the response is not overdue' do

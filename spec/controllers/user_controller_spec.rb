@@ -75,6 +75,7 @@ describe UserController, "when signing in" do
     end
 
     it "should log in when you give right email/password, and redirect to where you were" do
+        ActionController::Routing::Routes.filters.clear
         get :signin, :r => "/list"
         response.should render_template('sign')
         post_redirect = get_last_postredirect
@@ -82,6 +83,7 @@ describe UserController, "when signing in" do
             :token => post_redirect.token
         }
         session[:user_id].should == users(:bob_smith_user).id
+        # response doesn't contain /en/ but redirect_to does...
         response.should redirect_to(:controller => 'request', :action => 'list', :post_redirect => 1)
         response.should_not send_email
     end
@@ -107,6 +109,7 @@ describe UserController, "when signing in" do
     end
 
     it "should confirm your email, log you in and redirect you to where you were after you click an email link" do
+        ActionController::Routing::Routes.filters.clear
         get :signin, :r => "/list"
         post_redirect = get_last_postredirect
 
@@ -191,6 +194,7 @@ describe UserController, "when signing out" do
     end
 
     it "should log you out and redirect you to where you were" do
+        ActionController::Routing::Routes.filters.clear
         session[:user_id] = users(:bob_smith_user).id
         get :signout, :r => '/list'
         session[:user_id].should be_nil
@@ -420,8 +424,7 @@ describe UserController, "when changing email address" do
                 "signchangeemail"=>{
                     "old_email"=>"bob@localhost", 
                     "new_email"=>"newbob@localhost"}, 
-                "controller"=>"user",
-                "locale"=>"en"}
+                "controller"=>"user"}
         post :signchangeemail, post_redirect.post_params
 
         response.should redirect_to(:controller => 'user', :action => 'show', :url_name => 'bob_smith')
