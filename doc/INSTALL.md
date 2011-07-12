@@ -75,8 +75,8 @@ The following command will set up a user 'foi' with password 'foi':
 
 # Set up configs
 
-For overall application settings, copy `config/general-example` to
-`config/general` and edit to your taste.
+For overall application settings, copy `config/general.yml-example` to
+`config/general.yml` and edit to your taste.
 
 Note that the default settings for frontpage examples are designed to
 work with the dummy data shipped with Alaveteli; once you have real
