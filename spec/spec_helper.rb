@@ -10,6 +10,9 @@ config = MySociety::Config.load_default()
 config['ADMIN_USERNAME'] = 'foo'
 config['ADMIN_PASSWORD'] = 'baz'
 
+# tests assume 20 days
+config['REPLY_LATE_AFTER_DAYS'] = 20
+
 # Uncomment the next line to use webrat's matchers
 #require 'webrat/integrations/rspec-rails'
 
