@@ -18,7 +18,7 @@
     <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => false, :location => 'main' } %>
 <% end %>
 
-<% view_cache :ttl => 5.minutes, :tag => [@view, @page] do %>
+<% view_cache :ttl => 5.minutes, :tag => [@view, @page, I18n.locale] do %>
     <% if @list_results.empty? %>
         <p> <%= _('No requests of this sort yet.')%></p>
     <% else %>

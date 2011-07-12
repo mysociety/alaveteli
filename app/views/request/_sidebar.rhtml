@@ -25,7 +25,7 @@
     </div>
 
 
-    <% view_cache :ttl => 1.day, :tag => ['similar', @info_request.id] do %>
+    <% view_cache :ttl => 1.day, :tag => ['similar', @info_request.id, I18n.locale] do %>
      <% if !@xapian_similar.nil? && @xapian_similar.results.size > 0 %>
         <h2><% _('Similar requests')%></h2>
         <% for result in @xapian_similar.results %>
