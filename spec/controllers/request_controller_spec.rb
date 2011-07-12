@@ -721,6 +721,9 @@ describe RequestController, "when classifying an information request" do
             InfoRequest.send(:require, File.expand_path(File.join(File.dirname(__FILE__), '..', 'models', 'customstates')))
             InfoRequest.send(:include, InfoRequestCustomStates)
             InfoRequest.class_eval('@@custom_states_loaded = true')
+            RequestController.send(:require, File.expand_path(File.join(File.dirname(__FILE__), '..', 'models', 'customstates')))
+            RequestController.send(:include, RequestControllerCustomStates)
+            RequestController.class_eval('@@custom_states_loaded = true')
             it "knows about extended states" do
                 Time.stub!(:now).and_return(Time.utc(2007, 11, 10, 00, 01)) 
                 post_status('deadline_extended')
