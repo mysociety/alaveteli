@@ -132,13 +132,19 @@ class InfoRequest < ActiveRecord::Base
     end
 
     def load_custom_states
+        @@custom_states_loaded = false
+        if !ENV["RAILS_ENV"] == "test"
+            load_custom_states!
+        end
+    end
+
+    def load_custom_states!
         begin
             # InfoRequestCustomStates may be `require`d in a theme
             # plugin, or by a test
             InfoRequest.send(:include, InfoRequestCustomStates)
             @@custom_states_loaded = true
         rescue NameError
-            @@custom_states_loaded = false
         end
     end
 

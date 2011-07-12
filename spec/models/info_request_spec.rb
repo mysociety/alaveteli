@@ -167,7 +167,7 @@ describe InfoRequest do
         before do
             InfoRequest.send(:require, File.expand_path(File.dirname(__FILE__) + '/customstates'))
             @ir = info_requests(:naughty_chicken_request)
-            @ir.load_custom_states
+            @ir.load_custom_states!
         end
 
         it "rejects invalid states" do
