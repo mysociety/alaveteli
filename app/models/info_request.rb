@@ -51,30 +51,9 @@ class InfoRequest < ActiveRecord::Base
     has_many :exim_logs, :order => 'exim_log_done_id'
 
     has_tag_string
-    
-    def self.enumerate_states
-        states = [ 
-        'waiting_response',
-        'waiting_clarification', 
-        'gone_postal',
-        'not_held',
-        'rejected', # this is called 'refused' in UK FOI law and the user interface, but 'rejected' internally for historic reasons
-        'successful', 
-        'partially_successful',
-        'internal_review',
-        'error_message',
-        'requires_admin',
-        'user_withdrawn'
-        ]
-        begin
-            states += theme_extra_states
-        rescue NoMethodError
-            states
-        end
-    end
 
     # user described state (also update in info_request_event, admin_request/edit.rhtml)
-    validates_inclusion_of :described_state, :in => InfoRequest.enumerate_states
+    validate :must_be_valid_state
 
     validates_inclusion_of :prominence, :in => [ 
         'normal', 
@@ -101,7 +80,31 @@ class InfoRequest < ActiveRecord::Base
         'blackhole' # just dump them
     ]
 
+    def enumerate_states
+        states = [ 
+        'waiting_response',
+        'waiting_clarification', 
+        'gone_postal',
+        'not_held',
+        'rejected', # this is called 'refused' in UK FOI law and the user interface, but 'rejected' internally for historic reasons
+        'successful', 
+        'partially_successful',
+        'internal_review',
+        'error_message',
+        'requires_admin',
+        'user_withdrawn'
+        ]
 
+        if @@custom_states_loaded
+            states += self.theme_extra_states
+        end
+        states
+    end
+
+    def must_be_valid_state
+        errors.add(:described_state, "is not a valid state") if 
+            !self.enumerate_states.include? described_state
+    end
     # only check on create, so existing models with mixed case are allowed
     def validate_on_create
         if !self.title.nil? && !MySociety::Validate.uses_mixed_capitals(self.title, 10)
@@ -118,12 +121,24 @@ class InfoRequest < ActiveRecord::Base
     OLD_AGE_IN_DAYS = 21.days
 
     def after_initialize
+        self.load_custom_states
         if self.described_state.nil?
             self.described_state = 'waiting_response'
         end
         # FOI or EIR?
         if !self.public_body.nil? && self.public_body.eir_only?
             self.law_used = 'eir'
+        end
+    end
+
+    def load_custom_states
+        begin
+            # InfoRequestCustomStates may be `require`d in a theme
+            # plugin, or by a test
+            InfoRequest.send(:include, InfoRequestCustomStates)
+            @@custom_states_loaded = true
+        rescue NameError
+            @@custom_states_loaded = false
         end
     end
 
@@ -520,10 +535,15 @@ public
     #   waiting_response_overdue
     #   waiting_response_very_overdue
     def calculate_status
+        if @@custom_states_loaded
+            return self.theme_calculate_status
+        else
+            self.base_calculate_status
+        end
+    end
+     
+    def base_calculate_status
         return 'waiting_classification' if self.awaiting_description
-        # if deadline_extended expired do waiting_response_overdue
-        return 'waiting_response_overdue' if
-          self.described_state == "deadline_extended" && Time.now.strftime("%Y-%m-%d") > self.date_deadline_extended.strftime("%Y-%m-%d")
         return described_state unless self.described_state == "waiting_response"
         # Compare by date, so only overdue on next day, not if 1 second late
         return 'waiting_response_very_overdue' if
@@ -635,10 +655,7 @@ public
             return Holiday.due_date_from(self.date_initial_request_last_sent_at, 40)
         end
     end
-    # deadline_extended
-    def date_deadline_extended
-        return Holiday.due_date_from(self.date_initial_request_last_sent_at, 15)
-    end
+
     # Where the initial request is sent to
     def recipient_email
         return self.public_body.request_email
@@ -777,10 +794,6 @@ public
             _("Waiting clarification.")
         elsif status == 'gone_postal'
             _("Handled by post.")
-        elsif status == 'deadline_extended'
-            _("Deadline extended.")
-        elsif status == 'wrong_response'
-            _("Wrong Response.")
         elsif status == 'internal_review'
             _("Awaiting internal review.")
         elsif status == 'error_message'
@@ -790,7 +803,11 @@ public
         elsif status == 'user_withdrawn'
             _("Withdrawn by the requester.")
         else
-            raise _("unknown status ") + status
+            begin
+                return self.theme_display_status(status)
+            rescue NoMethodError
+                raise _("unknown status ") + status
+            end
         end
     end
 

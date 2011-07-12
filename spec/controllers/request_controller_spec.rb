@@ -526,6 +526,8 @@ describe RequestController, "when classifying an information request" do
         response.should render_template('user/wrong_user')
     end
     
+
+
     describe 'when the request is old and unclassified' do 
         
         before do 
@@ -713,6 +715,16 @@ describe RequestController, "when classifying an information request" do
         it 'should redirect to the unhappy page' do 
             post_status('rejected')
             response.should redirect_to(:controller => 'help', :action => 'unhappy', :url_title => @dog_request.url_title)
+        end
+
+        describe "when using custom statuses from the theme" do
+            InfoRequest.send(:require, File.expand_path(File.join(File.dirname(__FILE__), '..', 'models', 'customstates')))
+
+            it "knows about extended states" do
+                Time.stub!(:now).and_return(Time.utc(2007, 11, 10, 00, 01)) 
+                post_status('deadline_extended')
+                flash[:notice].should == 'Authority has requested extension of the deadline.'
+            end
         end
     end
     

@@ -12,6 +12,21 @@ class RequestController < ApplicationController
     before_filter :check_read_only, :only => [ :new, :show_response, :describe_state, :upload_response ]
     protect_from_forgery :only => [ :new, :show_response, :describe_state, :upload_response ] # See ActionController::RequestForgeryProtection for details
     
+    def load_custom_states
+        begin
+            # InfoRequestCustomStates may be `require`d in a theme
+            # plugin, or by a test
+            RequestController.send(:include, RequestControllerCustomStates)
+            @@custom_states_loaded = true
+        rescue NameError
+            @@custom_states_loaded = false
+        end
+    end
+
+    def initialize
+        self.load_custom_states
+    end
+
     def show
         @locale = self.locale_from_params()
         PublicBody.with_locale(@locale) do  
@@ -369,6 +384,7 @@ class RequestController < ApplicationController
             end
             return
         end
+        
         # Display advice for requester on what to do next, as appropriate
         if @info_request.calculate_status == 'waiting_response'
             flash[:notice] = _("<p>Thank you! Hopefully your wait isn't too long.</p> <p>By law, you should get a response promptly, and normally before the end of <strong>
@@ -420,9 +436,9 @@ class RequestController < ApplicationController
             flash[:notice] = _("If you have not done so already, please write a message below telling the authority that you have withdrawn your request. Otherwise they will not know it has been withdrawn.")
             redirect_to respond_to_last_url(@info_request)
         else
-            begin
-                return theme_describe_state(@info_request)
-            rescue NoMethodError
+            if @@custom_states_loaded
+                return self.theme_describe_state(@info_request)
+            else
                 raise "unknown calculate_status " + @info_request.calculate_status
             end
         end
