@@ -1,18 +1,17 @@
-<h1>Sorry, we couldn't find that page</h1>
+<h1><%= _("Sorry, we couldn't find that page") %></h1>
 
-<p>The page either doesn't exist, or is broken. Things you can try now:</p>
+<p><%= _("The page either doesn't exist, or is broken. Things you can try now:")%></p>
 
 <ul>
-<li>Check for mistakes if you typed or copied the address.</li>
-<li>Search the site to find what you were looking for.
+<li><%= _("Check for mistakes if you typed or copied the address.")%></li>
+<li><%= _("Search the site to find what you were looking for.")%>
     <% form_tag({:controller => "general", :action => "search_redirect"}, {:id => "search_form"}) do %>
            <%= text_field_tag 'query', params[:query], { :size => 30 } %>
-           <%= submit_tag "Search" %>
+           <%= submit_tag _("Search") %>
     <% end %>
 </li>
-<li><a href="/help/contact">Contact us</a> to tell us about
-    the problem</li>
-<li>Go to our <a href="/">front page</a></li>
+<li><%= _('<a href="%s">Contact us</a> to tell us about the problem</li>') % [help_contact_path] %>
+<li><%= _('Go to our <a href="%s">front page</a></li>') % ["/"] %>
 </ul>
 
-<p id="error_technical_details"><strong>Technical details:</strong> <%=@exception_class ? @exception_class : "Unknown"%></p>
+<p id="error_technical_details"><%= _("<strong>Technical details:</strong>")%> <%=@exception_class ? @exception_class : _("Unknown")%></p>

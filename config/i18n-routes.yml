@@ -1,6 +1,8 @@
 en:
   # default from routes.rb
+sq:
+  # let routes be in english all
+sr:
+  # let routes be in english all
 es:
-  search: busquedas
-  help: ayuda
-  about: sobre
+  # let routes be in english all

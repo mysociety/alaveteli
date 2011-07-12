@@ -83,7 +83,8 @@ describe 'when viewing an information request' do
         
             describe 'when there is a last response' do 
             
-                before do 
+                before do
+                    ActionController::Routing::Routes.filters.clear
                     @mock_response = mock_model(IncomingMessage)
                     @mock_request.stub!(:get_last_response).and_return(@mock_response)
                 end
@@ -99,6 +100,7 @@ describe 'when viewing an information request' do
             describe 'when there is no last response' do
         
                 before do 
+                    ActionController::Routing::Routes.filters.clear
                     @mock_request.stub!(:get_last_response).and_return(nil)
                 end
             

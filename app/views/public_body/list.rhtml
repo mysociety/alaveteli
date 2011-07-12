@@ -1,8 +1,8 @@
 <div id="body_sidebar">
 
-    <h1>Show only...</h1>
+    <h1><%=_('Show only...')%></h1>
 
-    <h2>Alphabet</h2>
+    <h2><%=_('Alphabet') %></h2>
     <ul><li>
         <%= render :partial => 'alphabet' %>
     </li></ul>
@@ -26,21 +26,21 @@
     </ul>
 
     <p>
-      <a href="/help/requesting#missing_body">Are we missing a public authority?</a>
+	<%= _('<a href="%s">Are we missing a public authority?</a>.') % [help_requesting_path + '#missing_body'] %>
     </p>
     <p>
-      <%= link_to "List of all authorities (CSV)", all_public_bodies_csv_url() %>
+      <%= link_to _('List of all authorities (CSV)'), all_public_bodies_csv_url() %>
     </p>
 
 </div>
 
-<% @title = "Public authorities - " + @description %>
+<% @title = _("Public authorities - {{description}}", :description => @description) %>
 
 <h1><%=@title%></h1>
 
 <p class="subtitle">
-    <%= @public_bodies.size %> in total
-    (<a href="/help/requesting#missing_body">can't find the one you want?</a>)
+    <%= @public_bodies.size %> <%= _('in total') %>
+	(<%= _('<a href="%s">can\'t find the one you want?</a>') % [help_requesting_path + '#missing_body'] %>)
 </p>
 
 <% if @tag.size == 1 %>

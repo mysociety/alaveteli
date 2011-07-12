@@ -93,7 +93,7 @@ class TrackController < ApplicationController
         if @user
             @existing_track = TrackThing.find_by_existing_track(@user, @track_thing)
             if @existing_track
-                flash[:notice] = "You are already being emailed updates about " + @track_thing.params[:list_description]
+                flash[:notice] = _("You are already being emailed updates about ") + @track_thing.params[:list_description]
                 return true
             end
         end
@@ -106,7 +106,7 @@ class TrackController < ApplicationController
         @track_thing.tracking_user_id = @user.id
         @track_thing.save!
 
-        flash[:notice] = "You will now be emailed updates about " + @track_thing.params[:list_description]
+        flash[:notice] = _("You will now be emailed updates about ") + @track_thing.params[:list_description]
         return true
     end
 
@@ -138,9 +138,9 @@ class TrackController < ApplicationController
         track_thing = TrackThing.find(params[:track_id].to_i)
 
         if not authenticated_as_user?(track_thing.tracking_user,
-                :web => "To cancel this alert",
-                :email => "Then you can cancel the alert.",
-                :email_subject => "Cancel a WhatDoTheyKnow alert"
+                :web => _("To cancel this alert"),
+                :email => _("Then you can cancel the alert."),
+                :email_subject => _("Cancel a {{site_name}} alert",:site_name=>site_name)
             )
             # do nothing - as "authenticated?" has done the redirect to signin page for us
             return
@@ -149,7 +149,7 @@ class TrackController < ApplicationController
         new_medium = params[:track_medium]
         if new_medium == 'delete'
             track_thing.destroy
-            flash[:notice] = "You will no longer be emailed updates about " + track_thing.params[:list_description]
+            flash[:notice] = _("You will no longer be emailed updates about ") + track_thing.params[:list_description]
             redirect_to params[:r]
         # Reuse code like this if we let medium change again.
         #elsif new_medium == 'email_daily'
@@ -168,9 +168,9 @@ class TrackController < ApplicationController
         user_id = User.find(params[:user].to_i)
 
         if not authenticated_as_user?(user_id,
-                :web => "To cancel these alerts",
-                :email => "Then you can cancel the alerts.",
-                :email_subject => "Cancel some WhatDoTheyKnow alerts"
+                :web => _("To cancel these alerts"),
+                :email => _("Then you can cancel the alerts."),
+                :email_subject => _("Cancel some {{site_name}} alerts",:site_name=>site_name)
             )
             # do nothing - as "authenticated?" has done the redirect to signin page for us
             return
@@ -178,7 +178,7 @@ class TrackController < ApplicationController
 
         track_type = params[:track_type]
 
-        flash[:notice] = "You will no longer be emailed updates for those alerts"
+        flash[:notice] = _("You will no longer be emailed updates for those alerts")
         for track_thing in TrackThing.find(:all, :conditions => [ "track_type = ? and tracking_user_id = ?", track_type, user_id ])
             track_thing.destroy
         end

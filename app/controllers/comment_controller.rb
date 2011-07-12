@@ -52,14 +52,15 @@ class CommentController < ApplicationController
         end
 
         if authenticated?(
-                :web => "To post your annotation",
-                :email => "Then your annotation to " + @info_request.title + " will be posted.",
-                :email_subject => "Confirm your annotation to " + @info_request.title
+                :web => _("To post your annotation"),
+                :email => _("Then your annotation to {{info_request_title}} will be posted.",:info_request_title=>@info_request.title),
+                :email_subject => _("Confirm your annotation to {{info_request_title}}",:info_request_title=>@info_request.title)
             )
 
             # Also subscribe to track for this request, so they get updates
             # (do this first, so definitely don't send alert)
-            flash[:notice] = "Thank you for making an annotation!"
+            flash[:notice] = _("Thank you for making an annotation!")
+
             if params[:subscribe_to_request]
                 @track_thing = TrackThing.create_track_for_request(@info_request)
                 @existing_track = TrackThing.find_by_existing_track(@user, @track_thing)
@@ -69,9 +70,9 @@ class CommentController < ApplicationController
                     @track_thing.track_medium = 'email_daily'
                     @track_thing.tracking_user_id = @user.id
                     @track_thing.save!
-                    flash[:notice] += " You will also be emailed updates about the request."
+                    flash[:notice] += _(" You will also be emailed updates about the request.")
                 else
-                    flash[:notice] += " You are already being emailed updates about the request."
+                    flash[:notice] += _(" You are already being emailed updates about the request.")
                 end
             end
 

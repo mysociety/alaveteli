@@ -2,11 +2,11 @@
 
 <% form_for(:info_request, @info_request, :html => { :id => 'preview_form' }  ) do |f| %>
     
-    <h1>Now preview your request</h1>
+    <h1><%= _('Now preview your request') %></h1>
     <ul>
-    <li>Check you haven't included any <strong>personal information</strong>.</li>
-    <li>Your name, request and any responses will appear in <strong>search engines</strong>
-        (<a href="/help/privacy#public_request">details</a>).
+    <li><%= _('Check you haven\'t included any <strong>personal information</strong>.') %></li>
+    <li><%= _('Your name, request and any responses will appear in <strong>search engines</strong>
+        (<a href="%s">details</a>).') % [help_privacy_path+"#public_request"] %> 
     </li>
     </ul>
 
@@ -14,8 +14,8 @@
 
         <div class="correspondence" id="outgoing-0">
             <p class="preview_subject">
-                <strong>To:</strong> <%=h @info_request.public_body.name %>
-                <br><strong>Subject:</strong> <%=h @info_request.email_subject_request %>
+                <strong><%= _('To:') %></strong> <%=h @info_request.public_body.name %>
+                <br><strong><%= _('Subject:') %></strong> <%=h @info_request.email_subject_request %>
             </p>
 
             <div class="correspondence_text">
@@ -28,8 +28,8 @@
         </div>
     <% end %>
 
-    <p><strong>Privacy note:</strong> If you want to request private information about
-    yourself then <a href="/help/requesting#data_protection">click here</a>.
+    <p><%= _('<strong>Privacy note:</strong> If you want to request private information about
+    yourself then <a href="%s">click here</a>.') % [help_requesting_path+"#data_protection"] %>
 
     <p>
     <%= f.hidden_field(:title) %>
@@ -37,12 +37,12 @@
     <%= f.hidden_field(:tag_string) %>
     <%= hidden_field_tag(:submitted_new_request, 1) %>
     <%= hidden_field_tag(:preview, 0 ) %>
-    <%= submit_tag "Re-edit this request", :name => 'reedit' %>
-    <%= submit_tag "Send public " + h(@info_request.law_used_full) + " request", :name => 'submit' %>
+    <%= submit_tag _("Re-edit this request"), :name => 'reedit' %>
+    <%= submit_tag _("Send public ") + h(@info_request.law_used_full) + " request", :name => 'submit' %>
     </p>
 
     <% if !@info_request.tag_string.empty? %>
-        <p><strong>Tags:</strong> <%=h @info_request.tag_string %></p>
+        <p><strong><%= _('Tags:') %></strong> <%=h @info_request.tag_string %></p>
     <% end %>
 
 <% end %>

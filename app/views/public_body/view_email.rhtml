@@ -1,21 +1,20 @@
 <% @title = "FOI email address for '" + h(@public_body.name) + "'" %>
 
-<h1>FOI email address for '<%=public_body_link(@public_body)%>'</h1>
+<h1><%= _('FOI email address for {{public_body}}',:public_body=> public_body_link(@public_body))%></h1>
 
 <p>
 <% if @public_body.is_requestable? %>
-    WhatDoTheyKnow sends new requests to <strong><%=h @public_body.request_email%></strong> for this authority.
+<%= _('WhatDoTheyKnow sends new requests to <strong>{{request_email}}</strong> for this authority.',:request_email=> h(@public_body.request_email))%>
 <% else %>
     <% if @public_body.not_requestable_reason == 'not_apply' %>
-        <p>Freedom of Information law no longer applies to this authority.
-        Follow up messages to existing requests are sent to <strong><%=h @public_body.request_email%></strong>.
+        <p><%= _('Freedom of Information law no longer applies to this authority.Follow up messages to existing requests are sent to ')%><strong><%=h @public_body.request_email%></strong>.
         </p>
     <% elsif @public_body.not_requestable_reason == 'defunct' %>
         <p><%=h @public_body.name %> no longer exists.
-        Follow up messages to existing requests are sent to <strong><%=h @public_body.request_email%></strong>.
+        <%= _('Follow up messages to existing requests are sent to ')%><strong><%=h @public_body.request_email%></strong>.
         </p>
     <% elsif @public_body.not_requestable_reason == 'bad_contact' %>
-        <p>We do not have a working request email address for this authority.
+        <p><%= _('We do not have a working request email address for this authority.')%>
         </p>
     <% else %>
         <% raise "unknown reason " + @reason %>
@@ -26,10 +25,10 @@
 
 <p>
     <% if @public_body.is_requestable? || @public_body.not_requestable_reason != 'bad_contact' %>
-        If the address is wrong, or you know a better address, please <a href="/help/contact">contact us</a>.
+        <%= _('If the address is wrong, or you know a better address, please <a href="%s">contact us</a>.')% [help_contact_path]%>
     <% else %>
-        If you know the address to use, then please <a href="/help/contact">send it to us</a>.
-        You may be able to find the address on their website, or by phoning them up and asking. 
+       <%= _(' If you know the address to use, then please <a href="%s">send it to us</a>.
+        You may be able to find the address on their website, or by phoning them up and asking.')% [help_contact_path] %>
     <% end %>
 </p>
 

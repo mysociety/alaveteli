@@ -185,7 +185,7 @@ class UserController < ApplicationController
         if params[:submitted_signchangepassword_send_confirm]
             # They've entered the email, check it is OK and user exists
             if not MySociety::Validate.is_valid_email(params[:signchangepassword][:email])
-                flash[:error] = "That doesn't look like a valid email address. Please check you have typed it correctly."
+                flash[:error] = _("That doesn't look like a valid email address. Please check you have typed it correctly.")
                 render :action => 'signchangepassword_send_confirm'
                 return
             end
@@ -199,8 +199,8 @@ class UserController < ApplicationController
                 post_redirect = PostRedirect.new(:uri => url , :post_params => {},
                     :reason_params => {
                         :web => "",
-                        :email => "Then you can change your password on WhatDoTheyKnow.com",
-                        :email_subject => "Change your password on WhatDoTheyKnow.com"
+                        :email => _("Then you can change your password on {{site_name}}",:site_name=>site_name),
+                        :email_subject => _("Change your password {{site_name}}",:site_name=>site_name)
                     },
                     :circumstance => "change_password" # special login that lets you change your password
                 )
@@ -227,7 +227,7 @@ class UserController < ApplicationController
                     render :action => 'signchangepassword'
                 else
                     @user.save!
-                    flash[:notice] = "Your password has been changed."
+                    flash[:notice] = _("Your password has been changed.")
                     if params[:pretoken] and not params[:pretoken].empty?
                         post_redirect = PostRedirect.find_by_token(params[:pretoken])
                         do_post_redirect post_redirect
@@ -244,9 +244,9 @@ class UserController < ApplicationController
     # Change your email
     def signchangeemail
         if not authenticated?(
-                :web => "To change your email address used on WhatDoTheyKnow.com",
-                :email => "Then you can change your email address used on WhatDoTheyKnow.com",
-                :email_subject => "Change your email address used on WhatDoTheyKnow.com"
+                :web => _("To change your email address used on {{site_name}}",:site_name=>site_name),
+                :email => _("Then you can change your email address used on {{site_name}}",:site_name=>site_name),
+                :email_subject => _("Change your email address used on {{site_name}}",:site_name=>site_name)
             )
             # "authenticated?" has done the redirect to signin page for us
             return
@@ -306,7 +306,7 @@ class UserController < ApplicationController
 
         # Now clear the circumstance
         session[:user_circumstance] = nil
-        flash[:notice] = "You have now changed your email address used on WhatDoTheyKnow.com"
+        flash[:notice] = _("You have now changed your email address used on {{site_name}}",:site_name=>site_name)
         redirect_to user_url(@user)
     end
 
@@ -325,9 +325,9 @@ class UserController < ApplicationController
         # partly to avoid spam, and partly to have some equanimity of openess
         # between the two users)
         if not authenticated?(
-                :web => "To send a message to " + CGI.escapeHTML(@recipient_user.name),
-                :email => "Then you can send a message to " + @recipient_user.name + ".",
-                :email_subject => "Send a message to " + @recipient_user.name
+                :web => _("To send a message to ") + CGI.escapeHTML(@recipient_user.name),
+                :email => _("Then you can send a message to ") + @recipient_user.name + ".",
+                :email_subject => _("Send a message to ") + @recipient_user.name
             )
             # "authenticated?" has done the redirect to signin page for us
             return
@@ -345,13 +345,13 @@ class UserController < ApplicationController
                     params[:contact][:subject],
                     params[:contact][:message]
                 )
-                flash[:notice] = "Your message to " + CGI.escapeHTML(@recipient_user.name) + " has been sent!"
+                flash[:notice] = _("Your message to {{recipient_user_name}} has been sent!",:recipient_user_name=>CGI.escapeHTML(@recipient_user.name))
                 redirect_to user_url(@recipient_user)
                 return
             end
         else
             @contact = ContactValidator.new(
-                { :message => "" + @recipient_user.name + ",\n\n\n\nYours,\n\n" + @user.name }
+                { :message => "" + @recipient_user.name + _(",\n\n\n\nYours,\n\n{{user_name}}",:user_name=>@user.name) }
             )
         end
 
@@ -367,7 +367,7 @@ class UserController < ApplicationController
     def set_profile_photo
         # check they are logged in (the upload photo option is anyway only available when logged in)
         if authenticated_user.nil?
-            flash[:error] = "You need to be logged in to change your profile photo."
+            flash[:error] = _("You need to be logged in to change your profile photo.")
             redirect_to frontpage_url
             return
         end
@@ -394,7 +394,7 @@ class UserController < ApplicationController
                 @profile_photo = ProfilePhoto.new(:data => @draft_profile_photo.data, :draft => false)
                 @user.set_profile_photo(@profile_photo)
                 @draft_profile_photo.destroy
-                flash[:notice] = "Thank you for updating your profile photo"
+                flash[:notice] = _("Thank you for updating your profile photo")
                 redirect_to user_url(@user)
                 return
             end
@@ -410,11 +410,11 @@ class UserController < ApplicationController
             draft_profile_photo.destroy
 
             if !@user.get_about_me_for_html_display.empty?
-                flash[:notice] = "Thank you for updating your profile photo"
+                flash[:notice] = _("Thank you for updating your profile photo")
                 redirect_to user_url(@user)
             else
-                flash[:notice] = "<p>Thanks for updating your profile photo.</p>
-                <p><strong>Next...</strong> You can put some text about you and your research on your profile.</p>"
+                flash[:notice] = _("<p>Thanks for updating your profile photo.</p>
+                <p><strong>Next...</strong> You can put some text about you and your research on your profile.</p>")
                 redirect_to set_profile_about_me_url()
             end
         else
@@ -429,7 +429,7 @@ class UserController < ApplicationController
 
         # check they are logged in (the upload photo option is anyway only available when logged in)
         if authenticated_user.nil?
-            flash[:error] = "You need to be logged in to clear your profile photo."
+            flash[:error] = _("You need to be logged in to clear your profile photo.")
             redirect_to frontpage_url
             return
         end
@@ -438,7 +438,7 @@ class UserController < ApplicationController
             @user.profile_photo.destroy
         end
 
-        flash[:notice] = "You've now cleared your profile photo"
+        flash[:notice] = _("You've now cleared your profile photo")
         redirect_to user_url(@user)
     end
 
@@ -466,7 +466,7 @@ class UserController < ApplicationController
     # Change about me text on your profile page
     def set_profile_about_me
         if authenticated_user.nil?
-            flash[:error] = "You need to be logged in to change the text about you on your profile."
+            flash[:error] = _("You need to be logged in to change the text about you on your profile.")
             redirect_to frontpage_url
             return
         end
@@ -488,11 +488,11 @@ class UserController < ApplicationController
         @user.about_me = @about_me.about_me
         @user.save!
         if @user.profile_photo
-            flash[:notice] = "You have now changed the text about you on your profile."
+            flash[:notice] = _("You have now changed the text about you on your profile.")
             redirect_to user_url(@user)
         else
-            flash[:notice] = "<p>Thanks for changing the text about you on your profile.</p>
-            <p><strong>Next...</strong> You can upload a profile photograph too.</p>"
+            flash[:notice] = _("<p>Thanks for changing the text about you on your profile.</p>
+            <p><strong>Next...</strong> You can upload a profile photograph too.</p>")
             redirect_to set_profile_photo_url()
         end
     end
@@ -510,8 +510,8 @@ class UserController < ApplicationController
             @post_redirect = PostRedirect.new(:uri => params[:r], :post_params => {},
                 :reason_params => {
                     :web => "",
-                    :email => "Then you can sign in to WhatDoTheyKnow.com",
-                    :email_subject => "Confirm your account on WhatDoTheyKnow.com"
+                    :email => _("Then you can sign in to {{site_name}}",:site_name=>site_name),
+                    :email_subject => _("Confirm your account on {{site_name}}",:site_name=>site_name)
                 })
             @post_redirect.save!
             params[:token] = @post_redirect.token

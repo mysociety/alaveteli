@@ -1,12 +1,11 @@
-<% if FastGettext.default_available_locales.length > 1 && !params.empty? %>
-  <div id="user_locale_switcher">
-    Language:
-    <% for possible_locale in FastGettext.default_available_locales %>
-      <% if possible_locale == I18n.locale.to_s %>
-        <%= possible_locale %>
-      <% else %>
-        <a href="<%= locale_switcher(possible_locale, params) %>"><%= possible_locale %></a>
-      <% end %>
-    <% end %>
-  </div>
-<% end %>
+     <% if FastGettext.default_available_locales.length > 1 && !params.empty? %>
+     <div id="user_locale_switcher">
+       <% for possible_locale in FastGettext.default_available_locales %>
+        <% if possible_locale == I18n.locale.to_s %>
+	          <span class="active"><%= locale_name(possible_locale) %></span>
+        <% else %>
+          <a href="<%= locale_switcher(possible_locale, params) %>"><%= locale_name(possible_locale) %></a>
+        <% end %>
+         <% end %>
+     </div>
+     <% end %>

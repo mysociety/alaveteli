@@ -526,6 +526,8 @@ describe RequestController, "when classifying an information request" do
         response.should render_template('user/wrong_user')
     end
     
+
+
     describe 'when the request is old and unclassified' do 
         
         before do 
@@ -714,6 +716,16 @@ describe RequestController, "when classifying an information request" do
             post_status('rejected')
             response.should redirect_to(:controller => 'help', :action => 'unhappy', :url_title => @dog_request.url_title)
         end
+
+        describe "when using custom statuses from the theme" do
+            InfoRequest.send(:require, File.expand_path(File.join(File.dirname(__FILE__), '..', 'models', 'customstates')))
+
+            it "knows about extended states" do
+                Time.stub!(:now).and_return(Time.utc(2007, 11, 10, 00, 01)) 
+                post_status('deadline_extended')
+                flash[:notice].should == 'Authority has requested extension of the deadline.'
+            end
+        end
     end
     
     describe 'when redirecting after a successful status update by the request owner' do 
@@ -735,7 +747,7 @@ describe RequestController, "when classifying an information request" do
          
         def expect_redirect(status, redirect_path)
             post_status(status)
-            response.should redirect_to("http://test.host/#{redirect_path}")
+            response.should redirect_to("http://test.host/en/#{redirect_path}")
         end
         
         it 'should redirect to the "request url" with a message in the right tense when status is updated to "waiting response" and the response is not overdue' do
@@ -903,7 +915,7 @@ describe RequestController, "sending overdue request alerts" do
         deliveries = ActionMailer::Base.deliveries
         deliveries.size.should == 1
         mail = deliveries[0]
-        mail.body.should =~ /promptly, as normally\s+required by law/
+        mail.body.should =~ /promptly, as normally/
         mail.to_addrs.to_s.should == info_requests(:naughty_chicken_request).user.name_and_email
 
         mail.body =~ /(http:\/\/.*\/c\/(.*))/
@@ -931,7 +943,7 @@ describe RequestController, "sending overdue request alerts" do
         deliveries = ActionMailer::Base.deliveries
         deliveries.size.should == 1
         mail = deliveries[0]
-        mail.body.should =~ /promptly, as normally\s+required by law during term time/
+        mail.body.should =~ /promptly, as normally/
         mail.to_addrs.to_s.should == info_requests(:naughty_chicken_request).user.name_and_email
     end
 

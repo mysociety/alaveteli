@@ -20,23 +20,36 @@ class GeneralController < ApplicationController
 
     # New, improved front page!
     def frontpage
+
         behavior_cache do
 
             # get some example searches and public bodies to display
             # either from config, or based on a (slow!) query if not set
             body_short_names = MySociety::Config.get('FRONTPAGE_PUBLICBODY_EXAMPLES', '').split(/\s*;\s*/).map{|s| "'%s'" % s.gsub(/'/, "''") }.join(", ")
-            if body_short_names.empty?
-            # This is too slow
-                @popular_bodies = PublicBody.find(:all, :select => "*, (select count(*) from info_requests where info_requests.public_body_id = public_bodies.id) as c", :order => "c desc", :limit => 32)
-            else
-                @popular_bodies = PublicBody.find(:all, :conditions => ["url_name in (" + body_short_names + ")"])
+            @locale = self.locale_from_params()
+            locale_condition = 'public_body_translations.locale = ?'
+            conditions = [locale_condition, @locale]
+            PublicBody.with_locale(@locale) do 
+                if body_short_names.empty?
+                    # This is too slow
+                    @popular_bodies = PublicBody.find(:all, 
+				        :select => "public_bodies.*, (select count(*) from info_requests where info_requests.public_body_id = public_bodies.id) as c", 
+				        :order => "c desc", 
+				        :limit => 32,
+				        :conditions => conditions,
+				        :joins => :translations
+				    )
+                else
+                    conditions[0] += " and public_bodies.url_name in (" + body_short_names + ")"
+                    @popular_bodies = PublicBody.find(:all, 
+                         :conditions => conditions,
+                         :joins => :translations)
+                end
             end
             @search_examples = MySociety::Config.get('FRONTPAGE_SEARCH_EXAMPLES', '').split(/\s*;\s*/)
             if @search_examples.empty?
                 @search_examples = @popular_bodies.map { |body| body.name }
             end
-
-
             # Get some successful requests #
             begin
                 query = 'variety:response (status:successful OR status:partially_successful)'
@@ -53,23 +66,18 @@ class GeneralController < ApplicationController
 
     # Display WhatDoTheyKnow category from mySociety blog
     def blog
-        feed_url = 'http://www.mysociety.org/category/projects/whatdotheyknow/feed/'
-        content = open(feed_url).read
-        @data = XmlSimple.xml_in(content)
-        @channel = @data['channel'][0]
-        @items = @channel['item']
-
-        @feed_autodetect = [ { :url => feed_url, :title => "WhatDoTheyKnow blog"} ]
-
-        twitter_url = 'http://api.twitter.com/1/statuses/user_timeline/whatdotheyknow.rss' # @whatdotheyknow
-        content = open(twitter_url).read
-        @data = XmlSimple.xml_in(content)
-        @channel = @data['channel'][0]
-        @items = @channel['item'] + @items
-
-        @feed_autodetect += [ { :url => twitter_url, :title => "WhatDoTheyKnow tweets"} ]
-
-        @items.sort! { |a,b| Time.parse(b['pubDate'][0]) <=> Time.parse(a['pubDate'][0]) }
+        @feed_autodetect = []
+        feed_url = MySociety::Config.get('BLOG_FEED', '')
+        if not feed_url.empty?
+            content = open(feed_url).read
+            @data = XmlSimple.xml_in(content)
+            @channel = @data['channel'][0]
+            @blog_items = @channel['item']
+            @feed_autodetect = [ { :url => feed_url, :title => "WhatDoTheyKnow blog"} ]
+        else
+            @blog_items = []
+        end
+        @twitter_user = MySociety::Config.get('TWITTER_USERNAME', '')
     end
 
     # Just does a redirect from ?query= search to /query

@@ -2,42 +2,42 @@
 
 <%= foi_error_messages_for :comment %>
 
-<h1>Respond to the FOI request '<%=request_link(@info_request)%>' made by <%=user_link(@info_request.user) %></h1>
+<h1><%= _('Respond to the FOI request')%> '<%=request_link(@info_request)%>'<% _(' made by ')%><%=user_link(@info_request.user) %></h1>
 
 <p>
-    Your response will <strong>appear on the Internet</strong>, <a href="/help/officers">read why</a> and answers to other questions.
+    <%= _('Your response will <strong>appear on the Internet</strong>, <a href="%s">read why</a> and answers to other questions.')% [help_officers_path] %>
 </p>
 
-<h2>Respond by email</h2>
+<h2><%= _('Respond by email')%></h2>
 
-<p>You should have received a copy of the request by email, and you can respond
-by <strong>simply replying</strong> to that email. For your convenience, here is the address:
+<p><%= _('You should have received a copy of the request by email, and you can respond
+by <strong>simply replying</strong> to that email. For your convenience, here is the address:')%>
 <a href="mailto:<%=h @info_request.incoming_email%>"><%=h @info_request.incoming_email%></a>.
-You may <strong>include attachments</strong>. If you would like to attach a
-file too large for email, use the form below.
+<%= _('You may <strong>include attachments</strong>. If you would like to attach a
+file too large for email, use the form below.')%>
 </p>
 
 
-<h2>Respond using the web</h2>
+<h2><%= _('Respond using the web')%></h2>
 
-<p>Enter your response below. You may attach one file (use email, or 
-<a href="/help/contact">contact us</a> if you need more).</p>
+<p><%= _('Enter your response below. You may attach one file (use email, or 
+<a href="%s">contact us</a> if you need more).')% [help_contact_path] %></p>
 
 <% form_tag '', :html => { :id => 'upload_response_form' }, :multipart => true do %>
     <p>
-        <label class="form_label" for="body">Response:</label> 
+        <label class="form_label" for="body"><% _('Response:')%></label> 
                 <%= text_area_tag :body, "", :rows => 10, :cols => 55 %>
     </p>
 
     <p>
-	    <label class="form_label" for="file_1">Attachment (optional):</label> 
+	    <label class="form_label" for="file_1"><% _('Attachment (optional):')%></label> 
         <%= file_field_tag :file_1, :size => 35 %>
     </p>
 
     <p>
         <%= hidden_field_tag 'submitted_upload_response', 1 %>
         <%= submit_tag "Upload FOI response" %>
-        (<strong>patience</strong>, especially for large files, it may take a while!)
+       <%= _(' (<strong>patience</strong>, especially for large files, it may take a while!)')%>
     </p>
 
 <% end %>

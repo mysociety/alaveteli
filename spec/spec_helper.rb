@@ -5,6 +5,11 @@ require File.expand_path(File.join(File.dirname(__FILE__),'..','config','environ
 require 'spec/autorun'
 require 'spec/rails'
 
+# set a default username and password so we can test 
+config = MySociety::Config.load_default()
+config['ADMIN_USERNAME'] = 'foo'
+config['ADMIN_PASSWORD'] = 'baz'
+
 # Uncomment the next line to use webrat's matchers
 #require 'webrat/integrations/rspec-rails'
 
@@ -103,6 +108,12 @@ def validate_as_body(html)
         "<html><head><title>Test</title></head><body>#{html}</body></html>")
 end
 
+def basic_auth_login(request)
+    username = MySociety::Config.get('ADMIN_USERNAME')
+    password = MySociety::Config.get('ADMIN_PASSWORD')
+    request.env["HTTP_AUTHORIZATION"] = "Basic " + Base64::encode64("#{username}:#{password}")
+end
+
 # Monkeypatch! Validate HTML in tests.
 $html_validation_script = "/usr/bin/validate" # from Debian package wdg-html-validator
 if $tempfilecount.nil?
@@ -114,19 +125,13 @@ if $tempfilecount.nil?
                 alias :original_process :process
 
                 def process(action, parameters = nil, session = nil, flash = nil, http_method = 'GET')
-                    # Call original process function
-                    if parameters.nil?
-                        parameters = {:locale => "en"}
-                    elsif not parameters.has_key?(:locale)
-                        parameters[:locale] = "en"
-                    end
                     self.original_process(action, parameters, session, flash, http_method)
 
                     # XXX Is there a better way to check this than calling a private method?
                     return unless @response.template.controller.instance_eval { integrate_views? }
 
                     # And then if HTML, not a redirect (302, 301)
-                    if @response.content_type == "text/html" && (@response.response_code != 302) && (@response.response_code != 301) 
+                    if @response.content_type == "text/html" && ! [301,302,401].include?(@response.response_code)
                         validate_html(@response.body)
                     end
                 end

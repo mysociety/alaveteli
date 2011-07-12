@@ -53,19 +53,7 @@ class InfoRequest < ActiveRecord::Base
     has_tag_string
 
     # user described state (also update in info_request_event, admin_request/edit.rhtml)
-    validates_inclusion_of :described_state, :in => [ 
-        'waiting_response',
-        'waiting_clarification', 
-        'gone_postal',
-        'not_held',
-        'rejected', # this is called 'refused' in UK FOI law and the user interface, but 'rejected' internally for historic reasons
-        'successful', 
-        'partially_successful',
-        'internal_review',
-        'error_message',
-        'requires_admin',
-        'user_withdrawn'
-    ]
+    validate :must_be_valid_state
 
     validates_inclusion_of :prominence, :in => [ 
         'normal', 
@@ -92,6 +80,31 @@ class InfoRequest < ActiveRecord::Base
         'blackhole' # just dump them
     ]
 
+    def enumerate_states
+        states = [ 
+        'waiting_response',
+        'waiting_clarification', 
+        'gone_postal',
+        'not_held',
+        'rejected', # this is called 'refused' in UK FOI law and the user interface, but 'rejected' internally for historic reasons
+        'successful', 
+        'partially_successful',
+        'internal_review',
+        'error_message',
+        'requires_admin',
+        'user_withdrawn'
+        ]
+
+        if @@custom_states_loaded
+            states += self.theme_extra_states
+        end
+        states
+    end
+
+    def must_be_valid_state
+        errors.add(:described_state, "is not a valid state") if 
+            !self.enumerate_states.include? described_state
+    end
     # only check on create, so existing models with mixed case are allowed
     def validate_on_create
         if !self.title.nil? && !MySociety::Validate.uses_mixed_capitals(self.title, 10)
@@ -108,12 +121,24 @@ class InfoRequest < ActiveRecord::Base
     OLD_AGE_IN_DAYS = 21.days
 
     def after_initialize
+        self.load_custom_states
         if self.described_state.nil?
             self.described_state = 'waiting_response'
         end
         # FOI or EIR?
         if !self.public_body.nil? && self.public_body.eir_only?
             self.law_used = 'eir'
+        end
+    end
+
+    def load_custom_states
+        begin
+            # InfoRequestCustomStates may be `require`d in a theme
+            # plugin, or by a test
+            InfoRequest.send(:include, InfoRequestCustomStates)
+            @@custom_states_loaded = true
+        rescue NameError
+            @@custom_states_loaded = false
         end
     end
 
@@ -510,6 +535,14 @@ public
     #   waiting_response_overdue
     #   waiting_response_very_overdue
     def calculate_status
+        if @@custom_states_loaded
+            return self.theme_calculate_status
+        else
+            self.base_calculate_status
+        end
+    end
+     
+    def base_calculate_status
         return 'waiting_classification' if self.awaiting_description
         return described_state unless self.described_state == "waiting_response"
         # Compare by date, so only overdue on next day, not if 1 second late
@@ -607,7 +640,8 @@ public
     # last_event_forming_initial_request. There may be more obscure
     # things, e.g. fees, not properly covered.
     def date_response_required_by
-        return Holiday.due_date_from(self.date_initial_request_last_sent_at, 20)
+        days_later = MySociety::Config.get('REPLY_LATE_AFTER_DAYS', 20)
+        return Holiday.due_date_from(self.date_initial_request_last_sent_at, days_later)
     end
     # This is a long stop - even with UK public interest test extensions, 40
     # days is a very long time.
@@ -741,35 +775,39 @@ public
     def display_status
         status = self.calculate_status
         if status == 'waiting_classification'
-            "Awaiting classification."
+            _("Awaiting classification.")
         elsif status == 'waiting_response'
-            "Awaiting response."
+            _("Awaiting response.")
         elsif status == 'waiting_response_overdue'
-            "Delayed."
+            _("Delayed.")
         elsif status == 'waiting_response_very_overdue'
-            "Long overdue."
+            _("Long overdue.")
         elsif status == 'not_held'
-            "Information not held."
+            _("Information not held.")
         elsif status == 'rejected'
-            "Refused."
+            _("Refused.")
         elsif status == 'partially_successful'
-            "Partially successful."
+            _("Partially successful.")
         elsif status == 'successful'
-            "Successful."
+            _("Successful.")
         elsif status == 'waiting_clarification'
-            "Waiting clarification."
+            _("Waiting clarification.")
         elsif status == 'gone_postal'
-            "Handled by post."
+            _("Handled by post.")
         elsif status == 'internal_review'
-            "Awaiting internal review."
+            _("Awaiting internal review.")
         elsif status == 'error_message'
-            "Delivery error"
+            _("Delivery error")
         elsif status == 'requires_admin'
-            "Unusual response."
+            _("Unusual response.")
         elsif status == 'user_withdrawn'
-            "Withdrawn by the requester."
+            _("Withdrawn by the requester.")
         else
-            raise "unknown status " + status
+            begin
+                return self.theme_display_status(status)
+            rescue NoMethodError
+                raise _("unknown status ") + status
+            end
         end
     end
 

@@ -12,6 +12,21 @@ class RequestController < ApplicationController
     before_filter :check_read_only, :only => [ :new, :show_response, :describe_state, :upload_response ]
     protect_from_forgery :only => [ :new, :show_response, :describe_state, :upload_response ] # See ActionController::RequestForgeryProtection for details
     
+    def load_custom_states
+        begin
+            # InfoRequestCustomStates may be `require`d in a theme
+            # plugin, or by a test
+            RequestController.send(:include, RequestControllerCustomStates)
+            @@custom_states_loaded = true
+        rescue NameError
+            @@custom_states_loaded = false
+        end
+    end
+
+    def initialize
+        self.load_custom_states
+    end
+
     def show
         @locale = self.locale_from_params()
         PublicBody.with_locale(@locale) do  
@@ -46,12 +61,13 @@ class RequestController < ApplicationController
             
             if @update_status
                 return if !@is_owning_user && !authenticated_as_user?(@info_request.user,
-                        :web => "To update the status of this FOI request",
-                        :email => "Then you can update the status of your request to " + @info_request.public_body.name + ".",
-                        :email_subject => "Update the status of your request to " + @info_request.public_body.name
+                        :web => _("To update the status of this FOI request"),
+                        :email => _("Then you can update the status of your request to ") + @info_request.public_body.name + ".",
+                        :email_subject => _("Update the status of your request to ") + @info_request.public_body.name
                     )
             end
             
+
             @last_info_request_event_id = @info_request.last_event_id_needing_description
             @new_responses_count = @info_request.events_needing_description.select {|i| i.event_type == 'response'}.size
 1
@@ -121,12 +137,12 @@ class RequestController < ApplicationController
         end
 
         if @view == 'recent'
-            @title = "Recently sent Freedom of Information requests"
+            @title = _("Recently sent Freedom of Information requests")
             query = "variety:sent";
             sortby = "newest"
             @track_thing = TrackThing.create_track_for_all_new_requests
         elsif @view == 'successful'
-            @title = "Recently successful responses"
+            @title = _("Recently successful responses")
             query = 'variety:response (status:successful OR status:partially_successful)'
             sortby = "described"
             @track_thing = TrackThing.create_track_for_all_successful_requests
@@ -262,15 +278,15 @@ class RequestController < ApplicationController
             message = ""
             if @outgoing_message.contains_email?
                 if @user.nil? 
-                    message += "<p>You do not need to include your email in the request in order to get a reply, as we will ask for it on the next screen (<a href=\"/help/privacy#email_address\">details</a>).</p>";
+                    message += _("<p>You do not need to include your email in the request in order to get a reply, as we will ask for it on the next screen (<a href=\"%s\">details</a>).</p>") % [help_privacy_path+"#email_address"];
                 else
-                    message += "<p>You do not need to include your email in the request in order to get a reply (<a href=\"/help/privacy#email_address\">details</a>).</p>";
+                    message += _("<p>You do not need to include your email in the request in order to get a reply (<a href=\"%s\">details</a>).</p>") % [help_privacy_path+"#email_address"];
                 end
-                message += "<p>We recommend that you edit your request and remove the email address.
-                If you leave it, the email address will be sent to the authority, but will not be displayed on the site.</p>"
+                message += _("<p>We recommend that you edit your request and remove the email address.
+                If you leave it, the email address will be sent to the authority, but will not be displayed on the site.</p>")
             end
             if @outgoing_message.contains_postcode?
-                message += "<p>Your request contains a <strong>postcode</strong>. Unless it directly relates to the subject of your request, please remove any address as it will <strong>appear publicly on the Internet</strong>.</p>";
+                message += _("<p>Your request contains a <strong>postcode</strong>. Unless it directly relates to the subject of your request, please remove any address as it will <strong>appear publicly on the Internet</strong>.</p>");
             end
             if not message.empty?
                 flash.now[:error] = message
@@ -280,9 +296,9 @@ class RequestController < ApplicationController
         end
 
         if !authenticated?(
-                :web => "To send your FOI request",
-                :email => "Then your FOI request to " + @info_request.public_body.name + " will be sent.",
-                :email_subject => "Confirm your FOI request to " + @info_request.public_body.name
+                :web => _("To send your FOI request"),
+                :email => _("Then your FOI request to {{public_body_name}} will be sent.",:public_body_name=>@info_request.public_body.name),
+                :email_subject => _("Confirm your FOI request to ") + @info_request.public_body.name
             )
             # do nothing - as "authenticated?" has done the redirect to signin page for us
             return
@@ -293,11 +309,11 @@ class RequestController < ApplicationController
         @info_request.save!
         # XXX send_message needs the database id, so we send after saving, which isn't ideal if the request broke here.
         @outgoing_message.send_message
-        flash[:notice] = "<p>Your " + @info_request.law_used_full + " request has been <strong>sent on its way</strong>!</p>
+        flash[:notice] = _("<p>Your {{law_used_full}} request has been <strong>sent on its way</strong>!</p>
             <p><strong>We will email you</strong> when there is a response, or after 20 working days if the authority still hasn't
             replied by then.</p>
             <p>If you write about this request (for example in a forum or a blog) please link to this page, and add an 
-            annotation below telling people about your writing.</p>"
+            annotation below telling people about your writing.</p>",:law_used_full=>@info_request.law_used_full)
         redirect_to request_url(@info_request)
     end
 
@@ -319,22 +335,22 @@ class RequestController < ApplicationController
         # Check authenticated, and parameters set. We check is_owning_user
         # to get admin overrides (see is_owning_user? above)
         if !@old_unclassified && !@is_owning_user && !authenticated_as_user?(@info_request.user,
-                :web => "To classify the response to this FOI request",
-                :email => "Then you can classify the FOI response you have got from " + @info_request.public_body.name + ".",
-                :email_subject => "Classify an FOI response from " + @info_request.public_body.name
+                :web => _("To classify the response to this FOI request"),
+                :email => _("Then you can classify the FOI response you have got from ") + @info_request.public_body.name + ".",
+                :email_subject => _("Classify an FOI response from ") + @info_request.public_body.name
             )
             # do nothing - as "authenticated?" has done the redirect to signin page for us
             return
         end
 
         if !params[:incoming_message]
-            flash[:error] = "Please choose whether or not you got some of the information that you wanted."
+            flash[:error] = _("Please choose whether or not you got some of the information that you wanted.")
             redirect_to request_url(@info_request)
             return
         end
 
         if params[:last_info_request_event_id].to_i != @last_info_request_event_id
-            flash[:error] = "The request has been updated since you originally loaded this page. Please check for any new incoming messages below, and try again."
+            flash[:error] = _("The request has been updated since you originally loaded this page. Please check for any new incoming messages below, and try again.")
             redirect_to request_url(@info_request)
             return
         end
@@ -360,66 +376,71 @@ class RequestController < ApplicationController
             # Don't give advice on what to do next, as it isn't their request
             RequestMailer.deliver_old_unclassified_updated(@info_request)
             if session[:request_game] 
-                flash[:notice] = 'Thank you for updating the status of the request \'<a href="' + CGI.escapeHTML(request_url(@info_request)) + '">' + CGI.escapeHTML(@info_request.title) + '</a>\'. There are some more requests below for you to classify.'
+                flash[:notice] = _('Thank you for updating the status of the request \'<a href="%s">{{info_request_title}}</a>\'. There are some more requests below for you to classify.',:info_request_title=>CGI.escapeHTML(@info_request.title)) % [CGI.escapeHTML(request_url(@info_request))]
                 redirect_to play_url 
             else
-                flash[:notice] = 'Thank you for updating this request!'
+                flash[:notice] = _('Thank you for updating this request!')
                 redirect_to request_url(@info_request)
             end
             return
         end
-
+        
         # Display advice for requester on what to do next, as appropriate
         if @info_request.calculate_status == 'waiting_response'
-            flash[:notice] = "<p>Thank you! Hopefully your wait isn't too long.</p> <p>By law, you should get a response promptly, and " + (@info_request.public_body.is_school? ? "in term time" : "") + " normally before the end of <strong>" + simple_date(@info_request.date_response_required_by) + "</strong>.</p>"
+            flash[:notice] = _("<p>Thank you! Hopefully your wait isn't too long.</p> <p>By law, you should get a response promptly, and normally before the end of <strong>
+{{date_response_required_by}}</strong>.</p>",:date_response_required_by=>simple_date(@info_request.date_response_required_by))
             redirect_to request_url(@info_request)
         elsif @info_request.calculate_status == 'waiting_response_overdue'
-            flash[:notice] = "<p>Thank you! Hope you don't have to wait much longer.</p> <p>By law, you should have got a response promptly, and " + (@info_request.public_body.is_school? ? "in term time" : "") + " normally before the end of <strong>" + simple_date(@info_request.date_response_required_by) + "</strong>.</p>"
+            flash[:notice] = _("<p>Thank you! Hope you don't have to wait much longer.</p> <p>By law, you should have got a response promptly, and normally before the end of <strong>{{date_response_required_by}}</strong>.</p>",:date_response_required_by=>simple_date(@info_request.date_response_required_by))
             redirect_to request_url(@info_request)
         elsif @info_request.calculate_status == 'waiting_response_very_overdue'
-            flash[:notice] = "<p>Thank you! Your request is long overdue, by more than 40 working days. Most requests should be answered within 20 working days. You might like to complain about this, see below.</p>"
+            flash[:notice] = _("<p>Thank you! Your request is long overdue, by more than 40 working days. Most requests should be answered within 20 working days. You might like to complain about this, see below.</p>")
             redirect_to unhappy_url(@info_request)
         elsif @info_request.calculate_status == 'not_held'
-            flash[:notice] = "<p>Thank you! Here are some ideas on what to do next:</p>
+            flash[:notice] = _("<p>Thank you! Here are some ideas on what to do next:</p>
             <ul>
-            <li>To send your request to another authority, first copy the text of your request below, then <a href=\"/new\">find the other authority</a>.</li>
+            <li>To send your request to another authority, first copy the text of your request below, then <a href=\"%s\">find the other authority</a>.</li>
             <li>If you would like to contest the authority's claim that they do not hold the information, here is 
-            <a href=\"" + CGI.escapeHTML(unhappy_url(@info_request)) + "\">how to complain</a>.
+            <a href=\"%s\">how to complain</a>.
             </li>
-            <li>We have <a href=\"" + CGI.escapeHTML(unhappy_url(@info_request)) + "#other_means\">suggestions</a>
+            <li>We have <a href=\"%s\">suggestions</a>
             on other means to answer your question.
             </li>
             </ul>
-            "
+            ") % ["/new",CGI.escapeHTML(unhappy_url(@info_request)),CGI.escapeHTML(unhappy_url(@info_request)) + "#other_means"]
             redirect_to request_url(@info_request)
         elsif @info_request.calculate_status == 'rejected'
-            flash[:notice] = "Oh no! Sorry to hear that your request was refused. Here is what to do now."
+            flash[:notice] = _("Oh no! Sorry to hear that your request was refused. Here is what to do now.")
             redirect_to unhappy_url(@info_request)
         elsif @info_request.calculate_status == 'successful'
-            flash[:notice] = "<p>We're glad you got all the information that you wanted. If you write about or make use of the information, please come back and add an annotation below saying what you did.</p><p>If you found WhatDoTheyKnow useful, <a href=\"http://www.mysociety.org/donate/\">make a donation</a> to the charity which runs it.</p>"
+            flash[:notice] = _("<p>We're glad you got all the information that you wanted. If you write about or make use of the information, please come back and add an annotation below saying what you did.</p><p>If you found WhatDoTheyKnow useful, <a href=\"%s\">make a donation</a> to the charity which runs it.</p>") % ["http://www.mysociety.org/donate/"]
             redirect_to request_url(@info_request)
         elsif @info_request.calculate_status == 'partially_successful'
-            flash[:notice] = "<p>We're glad you got some of the information that you wanted. If you found WhatDoTheyKnow useful, <a href=\"http://www.mysociety.org/donate/\">make a donation</a> to the charity which runs it.</p><p>If you want to try and get the rest of the information, here's what to do now.</p>"
+            flash[:notice] = _("<p>We're glad you got some of the information that you wanted. If you found WhatDoTheyKnow useful, <a href=\"%s\">make a donation</a> to the charity which runs it.</p><p>If you want to try and get the rest of the information, here's what to do now.</p>") % ["http://www.mysociety.org/donate/"]
             redirect_to unhappy_url(@info_request)
         elsif @info_request.calculate_status == 'waiting_clarification'
-            flash[:notice] = "Please write your follow up message containing the necessary clarifications below."
+            flash[:notice] = _("Please write your follow up message containing the necessary clarifications below.")
             redirect_to respond_to_last_url(@info_request)
         elsif @info_request.calculate_status == 'gone_postal'
             redirect_to respond_to_last_url(@info_request) + "?gone_postal=1"
         elsif @info_request.calculate_status == 'internal_review'
-            flash[:notice] = "<p>Thank you! Hopefully your wait isn't too long.</p><p>You should get a response within 20 days, or be told if it will take longer (<a href=\"" + unhappy_url(@info_request) + "#internal_review\">details</a>).</p>"
+            flash[:notice] = _("<p>Thank you! Hopefully your wait isn't too long.</p><p>You should get a response within 20 days, or be told if it will take longer (<a href=\"%s\">details</a>).</p>") % [unhappy_url(@info_request) + "#internal_review"]
             redirect_to request_url(@info_request)
         elsif @info_request.calculate_status == 'error_message'
-            flash[:notice] = "<p>Thank you! We'll look into what happened and try and fix it up.</p><p>If the error was a delivery failure, and you can find an up to date FOI email address for the authority, please tell us using the form below.</p>"
+            flash[:notice] = _("<p>Thank you! We'll look into what happened and try and fix it up.</p><p>If the error was a delivery failure, and you can find an up to date FOI email address for the authority, please tell us using the form below.</p>")
             redirect_to help_general_url(:action => 'contact')
         elsif @info_request.calculate_status == 'requires_admin'
-            flash[:notice] = "Please use the form below to tell us more."
+            flash[:notice] = _("Please use the form below to tell us more.")
             redirect_to help_general_url(:action => 'contact')
         elsif @info_request.calculate_status == 'user_withdrawn'
-            flash[:notice] = "If you have not done so already, please write a message below telling the authority that you have withdrawn your request. Otherwise they will not know it has been withdrawn."
+            flash[:notice] = _("If you have not done so already, please write a message below telling the authority that you have withdrawn your request. Otherwise they will not know it has been withdrawn.")
             redirect_to respond_to_last_url(@info_request)
         else
-            raise "unknown calculate_status " + @info_request.calculate_status
+            if @@custom_states_loaded
+                return self.theme_describe_state(@info_request)
+            else
+                raise "unknown calculate_status " + @info_request.calculate_status
+            end
         end
     end
 
@@ -517,24 +538,24 @@ class RequestController < ApplicationController
         # message and wasting their time if they are not the requester.
         if !authenticated_as_user?(@info_request.user,
                 :web => @incoming_message.nil? ? 
-                    "To send a follow up message to " + @info_request.public_body.name :
-                    "To reply to " + @info_request.public_body.name,
+                    _("To send a follow up message to ") + @info_request.public_body.name :
+                    _("To reply to ") + @info_request.public_body.name,
                 :email => @incoming_message.nil? ?
-                    "Then you can write follow up message to " + @info_request.public_body.name + "." :
-                    "Then you can write your reply to " + @info_request.public_body.name + ".",
+                    _("Then you can write follow up message to ") + @info_request.public_body.name + "." :
+                    _("Then you can write your reply to ") + @info_request.public_body.name + ".",
                 :email_subject => @incoming_message.nil? ?
-                    "Write your FOI follow up message to " + @info_request.public_body.name :
-                    "Write a reply to " + @info_request.public_body.name
+                    _("Write your FOI follow up message to ") + @info_request.public_body.name :
+                    _("Write a reply to ") + @info_request.public_body.name
             )
             return
         end
 
         if !params[:submitted_followup].nil? && !params[:reedit]
             if @info_request.allow_new_responses_from == 'nobody'
-                flash[:error] = 'Your follow up has not been sent because this request has been stopped to prevent spam. Please <a href="/help/contact">contact us</a> if you really want to send a follow up message.'
+                flash[:error] = _('Your follow up has not been sent because this request has been stopped to prevent spam. Please <a href="%s">contact us</a> if you really want to send a follow up message.') % [help_contact_path]
             else
                 if @info_request.find_existing_outgoing_message(params[:outgoing_message][:body])
-                    flash[:error] = 'You previously submitted that exact follow up message for this request.'
+                    flash[:error] = _('You previously submitted that exact follow up message for this request.')
                     render :action => 'show_response'
                     return
                 end
@@ -557,9 +578,9 @@ class RequestController < ApplicationController
                 @outgoing_message.send_message
                 @outgoing_message.save!
                 if @outgoing_message.what_doing == 'internal_review'
-                    flash[:notice] = "Your internal review request has been sent on its way."
+                    flash[:notice] = _("Your internal review request has been sent on its way.")
                 else
-                    flash[:notice] = "Your follow up message has been sent on its way."
+                    flash[:notice] = _("Your follow up message has been sent on its way.")
                 end
                 redirect_to request_url(@info_request)
             end
@@ -676,9 +697,9 @@ class RequestController < ApplicationController
             @info_request = InfoRequest.find_by_url_title(params[:url_title])
 
             @reason_params = {
-                    :web => "To upload a response, you must be logged in using an email address from " +  CGI.escapeHTML(@info_request.public_body.name),
-                    :email => "Then you can upload an FOI response. ",
-                    :email_subject => "Confirm your account on WhatDoTheyKnow.com"
+                    :web => _("To upload a response, you must be logged in using an email address from ") +  CGI.escapeHTML(@info_request.public_body.name),
+                    :email => _("Then you can upload an FOI response. "),
+                    :email_subject => _("Confirm your account on {{site_name}}",:site_name=>site_name)
             }
             if !authenticated?(@reason_params)
                 return
@@ -705,13 +726,13 @@ class RequestController < ApplicationController
             body = params[:body] || ""
 
             if file_name.nil? && body.empty?
-                flash[:error] = "Please type a message and/or choose a file containing your response."
+                flash[:error] = _("Please type a message and/or choose a file containing your response.")
                 return
             end
 
             mail = RequestMailer.create_fake_response(@info_request, @user, body, file_name, file_content)
             @info_request.receive(mail, mail.encoded, true)
-            flash[:notice] = "Thank you for responding to this FOI request! Your response has been published below, and a link to your response has been emailed to " + CGI.escapeHTML(@info_request.user.name) + "."
+            flash[:notice] = _("Thank you for responding to this FOI request! Your response has been published below, and a link to your response has been emailed to ") + CGI.escapeHTML(@info_request.user.name) + "."
             redirect_to request_url(@info_request)
             return
         end

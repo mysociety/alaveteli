@@ -1,16 +1,47 @@
-<% @title = "WhatDoTheyKnow blog and tweets" %>
-
-<div id="blog_sidebar"> 
-    <h1><img src="/images/twitter.png" alt=""> <a href="http://www.twitter.com/whatdotheyknow">Follow us on twitter</a></h1>
-    <h1><img src="/images/rss.png" alt=""> <a href="http://www.mysociety.org/category/projects/whatdotheyknow/feed/">Subscribe to blog</h1>
-</div> 
+<% @title = "#{site_name} blog and tweets" %>
 
 <h1><%=@title %></h1>
+   <img src="/images/twitter.png" alt="twitter icon" valign="middle"> <a href="http://www.twitter.com/whatdotheyknow">Follow us on twitter</a>&nbsp;
+   <img src="/images/rss.png" alt="RSS icon" valign="middle"> <a href="http://www.mysociety.org/category/projects/whatdotheyknow/feed/">Subscribe to blog</a>
+<% if !@twitter_user.empty? %>
+<div id="twitter">
+<script src="http://widgets.twimg.com/j/2/widget.js"></script>
+<script>
+new TWTR.Widget({
+  version: 2,
+  type: 'profile',
+  rpp: 15,
+  interval: 6000,
+  width: 'auto',
+  height: 500,
+  theme: {
+    shell: {
+      background: '#eaeaea',
+      color: '#000000'
+    },
+    tweets: {
+      background: '#ffffff',
+      color: '#000000',
+      links: '#0b004a'
+    }
+  },
+  features: {
+    scrollbar: false,
+    loop: false,
+    live: false,
+    hashtags: true,
+    timestamp: true,
+    avatars: true,
+    behavior: 'all'
+  }
+}).render().setUser('<%=@twitter_user %>').start();
+</script>
+
+</div>
+<% end %>
 
 <div id="blog">
-
-<% for item in @items: %>
-    <% if item['comments'] %>
+  <% for item in @blog_items: %>
     <div class="blog_post">
         <h2><a href="<%=item['link']%>"><%=h item['title'] %></a></h2>
         <p class="subtitle">Posted on <%= simple_date(Time.parse(item['pubDate'][0])) %> by <%=h item['creator'] %></p>
@@ -20,18 +51,9 @@
         </em>
         </p>
     </div>
-    <% else %>
-    <div class="twitter_post">
-        <h2><a href="<%=item['link']%>">@whatdotheyknow on <%= simple_date(Time.parse(item['pubDate'][0])) %></a></h2>
-        <p><%=MySociety::Format.make_clickable(h(item['title'][0].sub("WhatDoTheyKnow: ", ""))) %></a></p>
-    <div>
-    <% end %>
-
-<% end   %>
-
-<p>
-    <a href="http://www.mysociety.org/category/projects/whatdotheyknow/">All blog posts</a> |
-    <a href="http://www.twitter.com/whatdotheyknow">@whatdotheyknow on twitter</a>
-</p>
-
+  <% end   %>
+  <p>
+    <a href="http://www.mysociety.org/category/projects/whatdotheyknow/">All blog posts</a>
+  </p>
 </div>
+

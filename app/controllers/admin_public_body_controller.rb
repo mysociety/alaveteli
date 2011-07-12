@@ -9,50 +9,49 @@
 class AdminPublicBodyController < AdminController
     def index
         list
+        render :action => 'list'
     end
 
     def _lookup_query_internal
-        @query = params[:query]
-        if @query == ""
-            @query = nil
+        @locale = self.locale_from_params()
+        PublicBody.with_locale(@locale) do 
+            @query = params[:query]
+            if @query == ""
+                @query = nil
+            end
+            @page = params[:page]
+            if @page == ""
+                @page = nil
+            end
+            @public_bodies = PublicBody.paginate :order => "public_body_translations.name", :page => @page, :per_page => 100,
+                :conditions =>  @query.nil? ? "public_body_translations.locale = '#{@locale}'" : 
+				["(lower(public_body_translations.name) like lower('%'||?||'%') or 
+                                 lower(public_body_translations.short_name) like lower('%'||?||'%') or 
+                                 lower(public_body_translations.request_email) like lower('%'||?||'%' )) AND (public_body_translations.locale = '#{@locale}')", @query, @query, @query],
+              :joins => :translations
+            @public_bodies_by_tag = PublicBody::Translation.find_by_tag(@query) 
         end
-        @page = params[:page]
-        if @page == ""
-            @page = nil
-        end
-        @public_bodies = PublicBody.paginate :order => "name", :page => @page, :per_page => 100,
-            :conditions =>  @query.nil? ? nil : ["lower(name) like lower('%'||?||'%') or 
-                             lower(short_name) like lower('%'||?||'%') or 
-                             lower(request_email) like lower('%'||?||'%')", @query, @query, @query]
-        @public_bodies_by_tag = PublicBody.find_by_tag(@query) 
     end
 
     def list
-        @locale = self.locale_from_params()
-        PublicBody.with_locale(@locale) do 
-            self._lookup_query_internal
-            render :action => 'list'
-        end
+        self._lookup_query_internal
     end
 
     def mass_tag_add
-        @locale = self.locale_from_params()
-        PublicBody.with_locale(@locale) do 
-          self._lookup_query_internal
+        self._lookup_query_internal
 
-          if params[:new_tag] and params[:new_tag] != ""
-              if params[:table_name] == 'exact'
-                  bodies = @public_bodies_by_tag
-              elsif params[:table_name] == 'substring'
-                  bodies = @public_bodies
-              else
-                  raise "Unknown table_name " + params[:table_name]
-              end
-              for body in bodies
-                  body.add_tag_if_not_already_present(params[:new_tag])
-              end
-              flash[:notice] = "Added tag to table of bodies."
-          end
+        if params[:new_tag] and params[:new_tag] != ""
+            if params[:table_name] == 'exact'
+                bodies = @public_bodies_by_tag
+            elsif params[:table_name] == 'substring'
+                bodies = @public_bodies
+            else
+                raise "Unknown table_name " + params[:table_name]
+            end
+            for body in bodies
+                body.add_tag_if_not_already_present(params[:new_tag])
+            end
+            flash[:notice] = "Added tag to table of bodies."
         end
 
         redirect_to admin_url('body/list') + "?query=" + @query + (@page.nil? ? "" : "&page=" + @page) # XXX construct this URL properly

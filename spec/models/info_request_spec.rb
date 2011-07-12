@@ -159,6 +159,42 @@ describe InfoRequest do
         end
     end
 
+
+    describe "when using a plugin and calculating the status" do
+
+        fixtures :info_requests
+
+        before do
+            InfoRequest.send(:require, File.expand_path(File.dirname(__FILE__) + '/customstates'))
+            @ir = info_requests(:naughty_chicken_request)
+            @ir.load_custom_states
+        end
+
+        it "rejects invalid states" do
+            lambda {@ir.set_described_state("foo")}.should raise_error(ActiveRecord::RecordInvalid)
+        end
+
+        it "accepts core states" do
+            @ir.set_described_state("requires_admin")
+        end
+
+        it "accepts extended states" do
+            # this time would normally be "overdue"
+            Time.stub!(:now).and_return(Time.utc(2007, 11, 10, 00, 01)) 
+            @ir.set_described_state("deadline_extended")
+            @ir.display_status.should == 'Deadline extended.'
+            @ir.date_deadline_extended
+        end
+        
+        it "is not overdue if it's had the deadline extended" do
+            when_overdue = Time.utc(2007, 11, 10, 00, 01) + 16.days
+            Time.stub!(:now).and_return(when_overdue) 
+            @ir.calculate_status.should == 'waiting_response_overdue'
+        end
+        
+    end
+
+
     describe "when calculating the status for a school" do
         fixtures :info_requests, :info_request_events, :holidays, :public_bodies, :public_body_translations
 

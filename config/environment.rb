@@ -58,6 +58,7 @@ Rails::Initializer.run do |config|
   config.gem "recaptcha", :lib => "recaptcha/rails"
   config.gem 'rspec', :lib => false, :version => '1.3.1'
   config.gem 'rspec-rails', :lib => false, :version => '1.3.3'
+  config.gem 'routing-filter'
   config.gem 'will_paginate', :version => '~> 2.3.11', :source => 'http://gemcutter.org'
   #GettextI18nRails.translations_are_html_safe = true
   # Your secret key for verifying cookie session data integrity.
@@ -116,19 +117,20 @@ if (MySociety::Config.get("DOMAIN", "") != "")
 end
 
 # fallback locale and available locales
-I18n.default_locale = :en
 if ENV["RAILS_ENV"] == "test"
     # The tests assume that the "en" and "es" locales are available
     FastGettext.default_available_locales = ["en", "es"]
+    I18n.default_locale = :en
 else
-    available_locales = MySociety::Config.get('AVAILABLE_LOCALES', 'en')
-    FastGettext.default_available_locales = available_locales.split()
+    available_locales = MySociety::Config.get('AVAILABLE_LOCALES', 'en es')
+    default_locale = MySociety::Config.get('DEFAULT_LOCALE', 'en')
+    FastGettext.default_available_locales = available_locales.split(/ /)
+    I18n.default_locale = default_locale
 end
 
 # Load monkey patches and other things from lib/
 require 'tmail_extensions.rb'
 require 'activesupport_cache_extensions.rb'
-require 'public_body_categories.rb'
 require 'timezone_fixes.rb'
 require 'use_spans_for_errors.rb'
 require 'make_html_4_compliant.rb'

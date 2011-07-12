@@ -43,6 +43,8 @@ describe TrackController, "when sending alerts for a track" do
     end
   
     it "should send alerts" do
+        # Don't do clever locale-insertion-unto-URL stuff
+        ActionController::Routing::Routes.filters.clear
         # set the time the comment event happened at to within the last week
         ire = info_request_events(:silly_comment_event)
         ire.created_at = Time.now - 3.days

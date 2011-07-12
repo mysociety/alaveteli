@@ -15,7 +15,9 @@ class ApplicationMailer < ActionMailer::Base
     self.raise_delivery_errors = true
 
     def contact_from_name_and_email
-        "WhatDoTheyKnow <"+MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost')+">"
+        contact_name = MySociety::Config.get("CONTACT_NAME", 'contact@localhost')
+        contact_email = MySociety::Config.get("CONTACT_EMAIL", 'Alaveteli')
+        return "#{contact_name} <#{contact_email}>"
     end
 
     def blackhole_email

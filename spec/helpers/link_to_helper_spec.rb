@@ -7,6 +7,7 @@ describe LinkToHelper do
     describe 'when creating a url for a request' do 
         
         before do
+            ActionController::Routing::Routes.filters.clear
             @mock_request = mock_model(InfoRequest, :url_title => 'test_title')
         end
         

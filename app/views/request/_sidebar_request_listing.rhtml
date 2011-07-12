@@ -10,7 +10,7 @@
             <strong>
             <%= info_request.display_status %>
             </strong><br>
-            Requested on <%= simple_date(info_request.created_at) %>.
+           <% _('Requested on {{date}}',:date=>simple_date(info_request.created_at)) %>.
         </span>
     </div>
 <% end %>

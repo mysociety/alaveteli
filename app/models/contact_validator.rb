@@ -31,7 +31,7 @@ class ContactValidator < ActiveRecord::BaseWithoutTable
     validates_presence_of :message, :message => N_("Please enter the message you want to send")
 
     def validate
-        errors.add(:email, "Email doesn't look like a valid address") unless MySociety::Validate.is_valid_email(self.email)
+        errors.add(:email, _("Email doesn't look like a valid address")) unless MySociety::Validate.is_valid_email(self.email)
     end
 
 end
