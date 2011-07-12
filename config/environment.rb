@@ -122,10 +122,10 @@ if ENV["RAILS_ENV"] == "test"
     FastGettext.default_available_locales = ["en", "es"]
     I18n.default_locale = :en
 else
-    available_locales = MySociety::Config.get('AVAILABLE_LOCALES', 'en es')
-    default_locale = MySociety::Config.get('DEFAULT_LOCALE', 'en')
-    FastGettext.default_available_locales = available_locales.split(/ /)
-    I18n.default_locale = default_locale
+    available_locales = MySociety::Config.get('AVAILABLE_LOCALES', 'en es').split(/ /)
+    FastGettext.default_available_locales = available_locales
+    I18n.available_locales = available_locales
+    I18n.default_locale = MySociety::Config.get('DEFAULT_LOCALE', 'en')
 end
 
 # Load monkey patches and other things from lib/
