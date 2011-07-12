@@ -12,25 +12,13 @@ class RequestController < ApplicationController
     before_filter :check_read_only, :only => [ :new, :show_response, :describe_state, :upload_response ]
     protect_from_forgery :only => [ :new, :show_response, :describe_state, :upload_response ] # See ActionController::RequestForgeryProtection for details
     
-    def load_custom_states
-        @@custom_states_loaded = false
+    @@custom_states_loaded = false
+    begin
         if !ENV["RAILS_ENV"] == "test"
-            load_custom_states!
-        end
-    end
-
-    def load_custom_states!
-        begin
-            # InfoRequestCustomStates may be `require`d in a theme
-            # plugin, or by a test
-            RequestController.send(:include, RequestControllerCustomStates)
+            include RequestControllerCustomStates
             @@custom_states_loaded = true
-        rescue NameError
         end
-    end
-
-    def initialize
-        self.load_custom_states
+    rescue NameError
     end
 
     def show

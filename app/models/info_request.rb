@@ -80,7 +80,7 @@ class InfoRequest < ActiveRecord::Base
         'blackhole' # just dump them
     ]
 
-    def enumerate_states
+    def self.enumerate_states
         states = [ 
         'waiting_response',
         'waiting_clarification', 
@@ -96,15 +96,25 @@ class InfoRequest < ActiveRecord::Base
         ]
 
         if @@custom_states_loaded
-            states += self.theme_extra_states
+            states += InfoRequest.theme_extra_states
         end
         states
     end
 
     def must_be_valid_state
         errors.add(:described_state, "is not a valid state") if 
-            !self.enumerate_states.include? described_state
+            !InfoRequest.enumerate_states.include? described_state
     end
+
+    @@custom_states_loaded = false
+    begin
+        if !ENV["RAILS_ENV"] == "test"
+            include InfoRequestCustomStates
+            @@custom_states_loaded = true
+        end
+    rescue NameError
+    end
+
     # only check on create, so existing models with mixed case are allowed
     def validate_on_create
         if !self.title.nil? && !MySociety::Validate.uses_mixed_capitals(self.title, 10)
@@ -121,30 +131,12 @@ class InfoRequest < ActiveRecord::Base
     OLD_AGE_IN_DAYS = 21.days
 
     def after_initialize
-        self.load_custom_states
         if self.described_state.nil?
             self.described_state = 'waiting_response'
         end
         # FOI or EIR?
         if !self.public_body.nil? && self.public_body.eir_only?
             self.law_used = 'eir'
-        end
-    end
-
-    def load_custom_states
-        @@custom_states_loaded = false
-        if !ENV["RAILS_ENV"] == "test"
-            load_custom_states!
-        end
-    end
-
-    def load_custom_states!
-        begin
-            # InfoRequestCustomStates may be `require`d in a theme
-            # plugin, or by a test
-            InfoRequest.send(:include, InfoRequestCustomStates)
-            @@custom_states_loaded = true
-        rescue NameError
         end
     end
 

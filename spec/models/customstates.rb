@@ -1,4 +1,9 @@
 module InfoRequestCustomStates
+
+    def self.included(base)
+        base.extend(ClassMethods)
+    end
+
     # Mixin methods for InfoRequest
     def theme_display_status(status)
         if status == 'deadline_extended'
@@ -9,12 +14,6 @@ module InfoRequestCustomStates
             raise _("unknown status ") + status        
         end
     end
-
-    def theme_extra_states
-        return ['deadline_extended',
-                'wrong_response']
-    end
-
 
     def theme_calculate_status
         return 'waiting_classification' if self.awaiting_description
@@ -41,6 +40,12 @@ module InfoRequestCustomStates
         return Holiday.due_date_from(self.date_response_required_by, 15)
     end
 
+    module ClassMethods 
+        def theme_extra_states
+            return ['deadline_extended',
+                    'wrong_response']
+        end
+    end
 end
 
 module RequestControllerCustomStates
