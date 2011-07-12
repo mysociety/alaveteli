@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
 "POT-Creation-Date: 2011-06-25 15:32+0200\n"
-"PO-Revision-Date: 2011-06-26 00:20+0000\n"
+"PO-Revision-Date: 2011-07-12 15:27+0100\n"
 "Last-Translator: stefanw <stefanwehrmeyer@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -3732,8 +3732,5 @@ msgstr ""
 #: app/views/request/show.rhtml:35
 msgid "{{user}} made this {{law_used_full}} request"
 msgstr ""
-
-#~ msgid "activerecord.errors.full_messages.format"
-#~ msgstr "%{message}"
 
 
