@@ -119,14 +119,16 @@ end
 # fallback locale and available locales
 if ENV["RAILS_ENV"] == "test"
     # The tests assume that the "en" and "es" locales are available
-    FastGettext.default_available_locales = ["en", "es"]
-    I18n.default_locale = :en
+    available_locales = ["en", "es"]
+    default_locale = "en"
 else
     available_locales = MySociety::Config.get('AVAILABLE_LOCALES', 'en es').split(/ /)
-    FastGettext.default_available_locales = available_locales
-    I18n.available_locales = available_locales
-    I18n.default_locale = MySociety::Config.get('DEFAULT_LOCALE', 'en')
+    default_locale = MySociety::Config.get('DEFAULT_LOCALE', 'en')
 end
+
+FastGettext.default_available_locales = available_locales
+I18n.available_locales = available_locales
+I18n.default_locale = default_locale
 
 # Load monkey patches and other things from lib/
 require 'tmail_extensions.rb'
