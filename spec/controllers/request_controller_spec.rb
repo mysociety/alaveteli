@@ -739,6 +739,7 @@ describe RequestController, "when classifying an information request" do
             session[:user_id] = @request_owner.id
             @dog_request = info_requests(:fancy_dog_request)
             InfoRequest.stub!(:find).and_return(@dog_request)
+            ActionController::Routing::Routes.filters.clear
         end
 
         def request_url
@@ -751,7 +752,7 @@ describe RequestController, "when classifying an information request" do
          
         def expect_redirect(status, redirect_path)
             post_status(status)
-            response.should redirect_to("http://test.host/en/#{redirect_path}")
+            response.should redirect_to("http://test.host/#{redirect_path}")
         end
         
         it 'should redirect to the "request url" with a message in the right tense when status is updated to "waiting response" and the response is not overdue' do
