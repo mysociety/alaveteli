@@ -39,3 +39,4 @@ memcached
 rubygems
 libfcgi-dev
 gettext
+python-yaml
