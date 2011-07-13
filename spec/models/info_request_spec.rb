@@ -176,7 +176,7 @@ describe InfoRequest do
         end
 
         it "accepts core states" do
-            @ir.set_described_state("requires_admin")
+            @ir.set_described_state("successful")
         end
 
         it "accepts extended states" do
