@@ -2992,11 +2992,3 @@ msgstr ""
 msgid "{{user}} made this {{law_used_full}} request"
 msgstr ""
 
-#~ msgid "Ministerial departments"
-#~ msgstr "Ministerial departments d"
-
-#~ msgid "Miscellaneous"
-#~ msgstr "Miscellaneous d"
-
-#~ msgid "activerecord.errors.full_messages.format"
-#~ msgstr "%{message}"

@@ -94,7 +94,6 @@ class InfoRequest < ActiveRecord::Base
         'requires_admin',
         'user_withdrawn'
         ]
-
         if @@custom_states_loaded
             states += InfoRequest.theme_extra_states
         end
@@ -108,7 +107,8 @@ class InfoRequest < ActiveRecord::Base
 
     @@custom_states_loaded = false
     begin
-        if !ENV["RAILS_ENV"] == "test"
+        if ENV["RAILS_ENV"] != "test"
+            require 'customstates'
             include InfoRequestCustomStates
             @@custom_states_loaded = true
         end

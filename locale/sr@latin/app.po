@@ -3714,7 +3714,7 @@ msgstr ""
 msgid "{{user}} made this {{law_used_full}} request"
 msgstr ""
 
-#~ msgid "activerecord.errors.full_messages.format"
-#~ msgstr "%{message}"
+
+
 
 
