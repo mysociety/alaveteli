@@ -18,7 +18,7 @@ First, get hold of the source code from github:
 
     git clone https://github.com/sebbacon/alaveteli.git
 
-(You may need to install git first, e.g. with `sudo apt-get install git-code`)
+(You may need to install git first, e.g. with `sudo apt-get install git-core`)
 
 Now, in a terminal, navigate to the alaveteli folder where this
 install guide lives.
