@@ -33,9 +33,6 @@
 
     <p class="subtitle">
         <% if !@user.nil? && @user.admin_page_links? %>
-            <%= _('{{user}} made this {{law_used_full}} request',:user=>user_link(@info_request.user), :law_used_full=>h(@info_request.law_used_full)) %>
-            <%= _('to {{public_body}}',:public_body=>public_body_link(@info_request.public_body)) %> 
-        <% else %>
             <%= _('{{user}} (<a href="{{user_admin_url}}">admin</a>) made this {{law_used_full}} request (<a href="{{request_admin_url}}">admin</a>) to {{public_body_link}} (<a href="{{public_body_admin_url}}">admin</a>)',
                     :user => user_link(@info_request.user),
                     :law_used_full => h(@info_request.law_used_full),
@@ -43,6 +40,9 @@
                     :request_admin_url => request_admin_url(@info_request),
                     :public_body_link => public_body_link(@info_request.public_body),
                     :public_body_admin_url => public_body_admin_url(@info_request.public_body)) %>
+        <% else %>
+            <%= _('{{user}} made this {{law_used_full}} request',:user=>user_link(@info_request.user), :law_used_full=>h(@info_request.law_used_full)) %>
+            <%= _('to {{public_body}}',:public_body=>public_body_link(@info_request.public_body)) %> 
         <% end %>
     </p>
 
