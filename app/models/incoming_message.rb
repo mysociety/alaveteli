@@ -1146,7 +1146,7 @@ class IncomingMessage < ActiveRecord::Base
                 # recurse into zip files
                 begin
                     zip_file = Zip::ZipFile.open(tempfile.path)
-                    text += _get_attachment_text_from_zip_file(zip_file)
+                    text += IncomingMessage._get_attachment_text_from_zip_file(zip_file)
                     zip_file.close()
                 rescue
                     $stderr.puts("Error processing zip file: #{$!.inspect}")
@@ -1157,7 +1157,7 @@ class IncomingMessage < ActiveRecord::Base
 
         return text
     end
-    def _get_attachment_text_from_zip_file(zip_file)
+    def IncomingMessage._get_attachment_text_from_zip_file(zip_file)
         text = ""
         for entry in zip_file
             if entry.file?
