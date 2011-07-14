@@ -3,7 +3,8 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe AdminRequestController, "when administering requests" do
     integrate_views
     fixtures :info_requests, :outgoing_messages, :users, :info_request_events
-  
+    before { basic_auth_login @request }
+
     it "shows the index/list page" do
         get :index
     end

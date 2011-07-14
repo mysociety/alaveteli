@@ -17,7 +17,7 @@ ActionController::Routing::Routes.draw do |map|
     map.with_options :controller => 'general' do |general|
         general.frontpage           '/',            :action => 'frontpage'
         general.blog '/blog', :action => 'blog'
-		general.custom_css '/stylesheets/custom.css', :action => 'custom_css'
+        general.custom_css '/stylesheets/custom.css', :action => 'custom_css'
         general.search_redirect '/search',      :action => 'search_redirect'
         # XXX combined is the search query, and then if sorted a "/newest" at the end.
         # Couldn't find a way to do this in routes which also picked up multiple other slashes
@@ -114,8 +114,8 @@ ActionController::Routing::Routes.draw do |map|
       help.help_officers '/help/officers', :action => 'officers'
       help.help_requesting '/help/requesting', :action => 'requesting'
       help.help_privacy '/help/privacy', :action => 'privacy'
-	  help.help_api '/help/api', :action => 'api'
-	  help.help_credits '/help/credits', :action => 'credits'
+      help.help_api '/help/api', :action => 'api'
+      help.help_credits '/help/credits', :action => 'credits'
       help.help_general '/help/:action', :action => :action
     end
 
