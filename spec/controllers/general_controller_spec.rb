@@ -22,6 +22,29 @@ describe GeneralController, "when searching" do
         response.should redirect_to(:action => 'search', :combined => "mouse") # URL /search/:query
     end
 
+    describe "when using different locale settings" do 
+        home_link_regex = /href=".*\/en"/
+        it "should generate URLs with a locale prepended when there's more than one locale set" do
+            ActionController::Routing::Routes.add_filters(['conditionallyprependlocale'])
+            get :frontpage
+            response.should have_text(home_link_regex)
+        end
+
+        it "should generate URLs without a locale prepended when there's only one locale set" do
+            ActionController::Routing::Routes.add_filters(['conditionallyprependlocale'])
+            old_available_locales =  FastGettext.default_available_locales
+            available_locales = ['en']
+            FastGettext.default_available_locales = available_locales
+            I18n.available_locales = available_locales
+
+            get :frontpage
+            response.should_not have_text(home_link_regex)
+
+            FastGettext.default_available_locales = old_available_locales
+            I18n.available_locales = old_available_locales
+        end
+    end
+
     describe 'when using xapian search' do
 
       # rebuild xapian index after fixtures loaded
