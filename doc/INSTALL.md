@@ -197,12 +197,30 @@ each email received; patches welcome!
 
 # Cron jobs
 
-`config/crontab.ugly` contains the cronjobs run on WhatDoTheyKnow.  It's
-in a strange templating format they use in mySociety, but you should be
-able to work out the syntax and variables fairly easily :)
+`config/crontab.ugly` contains the cronjobs run on WhatDoTheyKnow.
+It's in a strange templating format they use in mySociety.  mySociety
+render the "ugly" file to reference absolute paths, and then drop it
+in `/etc/cron.d/` on the server.
 
-mySociety render the "ugly" file to reference absolute paths, and then
-drop it in /etc/cron.d/ on the server.
+The `ugly` format uses simple variable substitution.  A variable looks
+like `!!(*= $this *)!!`.  The variables are:
+
+* `vhost`: part of the path to the directory where the software is
+  served from.  In the mySociety files, it usually comes as
+  `/data/vhost/!!(*= $vhost *)!!` -- you should replace that whole
+  port with a path to the directory where your Alaveteli software
+  installation lives, e.g. `/var/www/`
+* `vcspath`: the name of the alaveteli checkout, e.g. `alaveteli`.
+  Thus, `/data/vhost/!!(*= $vhost *)!!/!!(*= $vcspath *)!!` might be
+  replaced with `/var/www/alaveteli` in your cron tab
+* `user`: the user that the software runs as
+* `site`: a string to identify your alaveteli instance
+
+One of the cron jobs refers to a script at
+`/etc/init.d/foi-alert-tracks`.  This is an init script, a copy of
+which lives in `config/alert-tracks-debian.ugly`.  As with the cron
+jobs above, replace the variables (and/or bits near the variables)
+with paths to your software.
 
 # Set up production web server
 

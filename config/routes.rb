@@ -192,7 +192,7 @@ ActionController::Routing::Routes.draw do |map|
         rule.admin_rule_new '/admin/censor/new', :action => 'new'
         rule.admin_rule_create '/admin/censor/create', :action => 'create'
         rule.admin_rule_edit '/admin/censor/edit/:id', :action => 'edit'
-        rule.admin_rule_update '/admin/censor/update', :action => 'update'
+        rule.admin_rule_update '/admin/censor/update/:id', :action => 'update'
         rule.admin_rule_destroy '/admin/censor/destroy/:censor_rule_id', :action => 'destroy'
     end
 
