@@ -6,7 +6,6 @@
 #  id          :integer         not null, primary key
 #  data_text   :text            
 #  data_binary :binary          
-# - prepared to 277k.
 
 # models/raw_email.rb:
 # The fat part of models/incoming_message.rb
