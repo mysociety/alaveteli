@@ -88,7 +88,7 @@ class PostRedirect < ActiveRecord::Base
 
     # Called from cron job delete-old-things
     def self.delete_old_post_redirects
-        PostRedirect.delete_all "updated_at < (now() - interval '6 months')"
+        PostRedirect.delete_all "updated_at < (now() - interval '2 months')"
     end
 
 end
