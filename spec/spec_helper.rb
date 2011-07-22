@@ -13,6 +13,10 @@ config['ADMIN_PASSWORD'] = 'baz'
 # tests assume 20 days
 config['REPLY_LATE_AFTER_DAYS'] = 20
 
+# tests assume 20 days
+config['RAW_EMAILS_LOCATION'] = 'files/raw_emails_tests'
+
+
 # Uncomment the next line to use webrat's matchers
 #require 'webrat/integrations/rspec-rails'
 

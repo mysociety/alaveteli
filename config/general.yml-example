@@ -56,6 +56,10 @@ ADMIN_PASSWORD: 'passwordx'
 CONTACT_EMAIL: 'postmaster@localhost'
 CONTACT_NAME: 'Alaveteli Webmaster'
 
+# Where the raw incoming email data gets stored; make sure you back
+# this up!
+RAW_EMAILS_LOCATION: 'files/raw_emails'
+
 # The base URL for admin pages.
 # If not specified, it will default to the path to the admin controller,
 # which is usually what you want. It is useful in situations where admin
