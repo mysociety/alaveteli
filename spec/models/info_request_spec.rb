@@ -40,7 +40,7 @@ describe InfoRequest do
     
     describe " when emailing" do
     
-        fixtures :info_requests, :info_request_events, :public_bodies, :public_body_translations, :users, :comments
+        fixtures :info_requests, :info_request_events, :outgoing_messages, :public_bodies, :public_body_translations, :users, :comments
 
         before do
             @info_request = info_requests(:fancy_dog_request)
