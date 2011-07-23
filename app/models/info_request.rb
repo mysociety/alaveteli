@@ -112,7 +112,7 @@ class InfoRequest < ActiveRecord::Base
             include InfoRequestCustomStates
             @@custom_states_loaded = true
         end
-    rescue NameError
+    rescue MissingSourceFile
     end
 
     # only check on create, so existing models with mixed case are allowed
