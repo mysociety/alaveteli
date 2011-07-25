@@ -23,6 +23,7 @@ class RequestController < ApplicationController
     end
 
     def show
+        medium_cache
         @locale = self.locale_from_params()
         PublicBody.with_locale(@locale) do  
 
@@ -95,6 +96,7 @@ class RequestController < ApplicationController
 
     # Extra info about a request, such as event history
     def details
+        long_cache
         @info_request = InfoRequest.find_by_url_title(params[:url_title])
         if !@info_request.user_can_view?(authenticated_user)
             render :template => 'request/hidden', :status => 410 # gone
@@ -106,6 +108,7 @@ class RequestController < ApplicationController
 
     # Requests similar to this one
     def similar
+        short_cache
         @per_page = 25
         @page = (params[:page] || "1").to_i
         @info_request = InfoRequest.find_by_url_title(params[:url_title])
@@ -124,6 +127,7 @@ class RequestController < ApplicationController
     end
 
     def list
+        medium_cache
         @view = params[:view]
 
         if @view.nil?

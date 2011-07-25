@@ -11,6 +11,7 @@ require 'csv'
 class PublicBodyController < ApplicationController
     # XXX tidy this up with better error messages, and a more standard infrastructure for the redirect to canonical URL
     def show
+        long_cache
         if MySociety::Format.simplify_url_part(params[:url_name], 'body') != params[:url_name]
             redirect_to :url_name =>  MySociety::Format.simplify_url_part(params[:url_name], 'body'), :status => :moved_permanently 
             return
@@ -80,6 +81,7 @@ class PublicBodyController < ApplicationController
     end
 
     def list
+        long_cache
         # XXX move some of these tag SQL queries into has_tag_string.rb
         @tag = params[:tag]
         @locale = self.locale_from_params()
