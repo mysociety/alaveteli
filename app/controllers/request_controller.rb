@@ -19,7 +19,7 @@ class RequestController < ApplicationController
             include RequestControllerCustomStates
             @@custom_states_loaded = true
         end
-    rescue NameError
+    rescue MissingSourceFile
     end
 
     def show
