@@ -83,3 +83,9 @@ STAGING_SITE: 1
 RECAPTCHA_PUBLIC_KEY: 'x'
 RECAPTCHA_PRIVATE_KEY: 'x'
 
+# For debugging memory problems.  If true, the app logs
+# the memory use increase of the Ruby process due to the
+# request (Linux only).  Since Ruby never returns memory to the OS, if the
+# existing process previously served a larger request, this won't
+# show any consumption for the later request.
+DEBUG_RECORD_MEMORY: false

@@ -46,12 +46,17 @@ class ApplicationController < ActionController::Base
     # egrep "CONSUME MEMORY: [0-9]{7} KB" production.log
     around_filter :record_memory
     def record_memory
-        File.read("/proc/#{Process.pid}/status").match(/VmRSS:\s+(\d+)/)
-        rss_before_action = $1.to_i
-        yield
-        File.read("/proc/#{Process.pid}/status").match(/VmRSS:\s+(\d+)/)
-        rss_after_action = $1.to_i
-        logger.info("PID: #{Process.pid}\tCONSUME MEMORY: #{rss_after_action - rss_before_action} KB\tNow: #{rss_after_action} KB\t#{request.url}")
+        record_memory = MySociety::Config.get('DEBUG_RECORD_MEMORY', false)
+        if record_memory
+            File.read("/proc/#{Process.pid}/status").match(/VmRSS:\s+(\d+)/)
+            rss_before_action = $1.to_i
+            yield
+            File.read("/proc/#{Process.pid}/status").match(/VmRSS:\s+(\d+)/)
+            rss_after_action = $1.to_i
+            logger.info("PID: #{Process.pid}\tCONSUME MEMORY: #{rss_after_action - rss_before_action} KB\tNow: #{rss_after_action} KB\t#{request.url}")
+        else
+            yield
+        end
     end
 
     # Set cookie expiry according to "remember me" checkbox, as per "An easier
