@@ -10,6 +10,8 @@ class HelpController < ApplicationController
 
     # we don't even have a control subroutine for most help pages, just see their templates
     
+    before_filter :long_cache
+
     def unhappy
         @info_request = nil
         if params[:url_title]

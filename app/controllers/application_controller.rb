@@ -14,10 +14,32 @@ class ApplicationController < ActionController::Base
     layout "default"
     include FastGettext::Translation # make functions like _, n_, N_ etc available)
     before_filter :set_gettext_locale
-
+    before_filter :set_vary_header
     # scrub sensitive parameters from the logs
     filter_parameter_logging :password
 
+    def set_vary_header
+        response.headers['Vary'] = 'Cookie'
+    end
+    
+    helper_method :anonymous_cache, :short_cache, :medium_cache, :long_cache
+    def anonymous_cache(time)
+        if session[:user_id].nil?
+            expires_in time, :public => true
+        end
+    end
+
+    def short_cache
+        anonymous_cache(60.seconds)
+    end
+
+    def medium_cache
+        anonymous_cache(60.minutes)
+    end
+
+    def long_cache
+        anonymous_cache(24.hours)
+    end
 
     def set_gettext_locale
         requested_locale = params[:locale] || session[:locale] || cookies[:locale] ||  request.env['HTTP_ACCEPT_LANGUAGE']
