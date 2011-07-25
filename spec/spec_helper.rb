@@ -30,6 +30,22 @@ Spec::Runner.configure do |config|
   # in your config/boot.rb
   config.fixture_path = RAILS_ROOT + '/spec/fixtures/'
 
+
+  config.before(:each) do
+        # XXX this is a hack around the fact that our raw_email model
+        # is in transition to something that doesn't actually live in
+        # the database at all.  The raw_email *fixture* saves to the
+        # model, the model then needs to be told to save itself on the
+        # filesystem.
+        begin
+            raw_email = raw_emails(:useless_raw_email)
+            raw_email.data=raw_email.dbdata
+        rescue NoMethodError
+            # only do it in tests with raw_emails fixtures
+        end
+    end
+
+
   # == Fixtures
   #
   # You can declare fixtures for each example_group like this:
