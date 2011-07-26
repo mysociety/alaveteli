@@ -65,6 +65,15 @@ describe AdminPublicBodyController, "when administering public bodies" do
         post :destroy, { :id => 3 }
         PublicBody.count.should == 1
     end
+    it "when no username set, skip admin authorisation" do
+        config = MySociety::Config.load_default()
+        config['ADMIN_USERNAME'] = ''
+        config['ADMIN_PASSWORD'] = 'fuz'
+        @request.env["HTTP_AUTHORIZATION"] = ""
+        PublicBody.count.should == 2
+        post :destroy, { :id => 3 }
+        PublicBody.count.should == 1
+    end
 
 
 end
