@@ -48,6 +48,9 @@ BLACKHOLE_PREFIX: 'do-not-reply-to-this-address'
 
 ## Administration
 
+# Delete this one or leave it blank, unless you have some specific reason to change it
+ADMIN_BASE_URL: ''
+
 # Leave these two blank to skip admin authorisation
 ADMIN_USERNAME: 'adminxxxx'
 ADMIN_PASSWORD: 'passwordx'
