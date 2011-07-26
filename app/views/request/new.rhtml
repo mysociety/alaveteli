@@ -1,3 +1,14 @@
+<script type="text/javascript" src="/javascripts/ba-throttle-debounce.js"></script>
+<script>
+  $(document).ready(function(){
+    // Avoid triggering too often (on each keystroke) by using the debounce jQuery plugin:
+    // http://benalman.com/projects/jquery-throttle-debounce-plugin/
+    $("#typeahead_search").keypress($.debounce( 300, function() {
+      $("#typeahead_response").load("<%=search_ahead_url%>?q="+encodeURI(this.value));
+    }));
+  });
+</script>
+
 <% @title = _("Make an {{law_used_short}} request to '{{public_body_name}}'",:law_used_short=>h(@info_request.law_used_short),:public_body_name=>h(@info_request.public_body.name))  %>
 
 <% if @existing_request %>
@@ -12,41 +23,45 @@
 
 <%= foi_error_messages_for :info_request, :outgoing_message %>
 
-<div id="request_advice">
-    <h1><%= _('Read this before writing your {{info_request_law_used_full}} request', :info_request_law_used_full=>h(@info_request.law_used_full)) %></h1>
-    <ul>
-    <li>
-        <% form_tag("http://www.google.co.uk/search", {:id => "search_body_website_form", :method => "get"} ) do %>
-            <p>
-                <%= _('First,') %> 
-                <% if !@info_request.public_body.publication_scheme.empty? %>
-                    <%= _('<strong>browse</strong> the authority\'s <a href="%s">publication scheme</a> or <strong>search</strong> their web site ...') % [@info_request.public_body.publication_scheme] %> 
-                <% else %>
-                <%= _('<strong>search</strong> the authority\'s web site ...') %>
-                <% end %>
-                <% if !@info_request.public_body.calculated_home_page.nil? %>
-                    <br>
-                    &nbsp; &nbsp; &nbsp; &nbsp; <%= text_field_tag 'q', params[:q], { :size => 20 } %>
-                    <%= hidden_field_tag 'as_sitesearch', @info_request.public_body.calculated_home_page %>
-                    <%= submit_tag _("Search") %>
-               <% end %>
-               <br>
-               ... <%= _('to check that the info isn\'t already published.') %>
-            </p>
-        <% end %>
-    </li>
+<h1><%= _('2. Ask for Information') %></h1>
 
-    <li> 
+<% form_for(:info_request, @info_request, :html => { :id => 'write_form' }  ) do |f| %>
+
+<div id="request_header">
+	<p>
+		<label class="form_label" for="info_request_public_body_id"><%= _('To:') %></label> 
+		<span id="to_public_body"><%=h(@info_request.public_body.name)%></span>
+  	<div class="form_item_note">
         <% if @info_request.public_body.info_requests.size > 0 %>
             <%= _("Browse <a href='%s'>other requests</a> to '{{public_body_name}}' for examples of how to word your request.", :public_body_name=>h(@info_request.public_body.name)) % [public_body_url(@info_request.public_body)] %>
         <% else %>
-	    <%= _('Browse  <a href="%s">other requests</a> for examples of how to word your request.') % [request_list_url] %>
+      <%= _('Browse  <a href="%s">other requests</a> for examples of how to word your request.') % [request_list_url] %>
         <% end %>
-    </li>
+    </div>
+	</p>
+	<p>
+		<label class="form_label" for="info_request_title"><%= _('Summary:') %></label> 
+		<%= f.text_field :title, :size => 50, :id =>"typeahead_search" %>
+	</p>
+	<div class="form_item_note">
+		(<%= _('a one line summary of the information you are requesting, 
+		e.g.') %> 
+          <% if @info_request.law_used == 'eir' %>
+              <%= _("'Pollution levels over time for the River Tyne'") %>
+          <% else %>
+              <%= _("'Crime statistics by ward level for Wales'") %>
+          <% end %>
+          )
+	</div>
+	<div id="typeahead_response">
+	</div>
+</div>
+  
+<div id="request_advice">
+    <ul>
     <li><%= _('Write your request in <strong>simple, precise language</strong>.') %></li>
     <li><%= _('Ask for <strong>specific</strong> documents or information, this site is not suitable for general enquiries.') %></li>
     <li><%= _('Keep it <strong>focused</strong>, you\'ll be more likely to get what you want (<a href="%s">why?</a>).') % [help_requesting_path + '#focused'] %></li>
-    <li><%= _('This site is <strong>public</strong>. Everything you type and any response will be published.') %></li>
     </ul>
 
     <% if @info_request.public_body.has_notes? %>
@@ -80,30 +95,9 @@
         time</strong> or the time of the public authority by requesting unrelated information.') %></p>
     <% end %>
 </div>
-	
-<% form_for(:info_request, @info_request, :html => { :id => 'write_form' }  ) do |f| %>
 
-	<div id="request_form">
-		<h1>
-			<label class="form_label" for="info_request_public_body_id"><%= _('To:') %></label>
-			<span id="to_public_body"><%=h(@info_request.public_body.name)%></span>
-		</h1>
-	
-		<p>
-			<label class="form_label" for="info_request_title"><%= _('Summary:') %></label> 
-			<%= f.text_field :title, :size => 50 %>
-		</p>
-		<div class="form_item_note">
-			(<%= _('a one line summary of the information you are requesting, 
-			e.g.') %> 
-            <% if @info_request.law_used == 'eir' %>
-                <%= _("'Pollution levels over time for the River Tyne'") %>
-            <% else %>
-                <%= _("'Crime statistics by ward level for Wales'") %>
-            <% end %>
-            )
-		</div>
-	
+
+	<div id="request_form">	
 		<% fields_for :outgoing_message do |o| %>
 		<p>
 			<label class="form_label" for="outgoing_message_body"><%= _('Your request:') %></label> 

@@ -52,6 +52,7 @@ ActionController::Routing::Routes.draw do |map|
 
         request.upload_response "/upload/request/:url_title", :action => 'upload_response'
 
+        request.search_ahead '/request_search_ahead',      :action => 'search_typeahead'
     end
 
     # Use /profile for things to do with the currently signed in user.

@@ -1250,5 +1250,36 @@ describe RequestController, "when showing JSON version for API" do
 
 end
 
+describe RequestController, "when doing type ahead searches" do
+    fixtures :info_requests, :info_request_events, :public_bodies, :public_body_translations, :users, :incoming_messages, :raw_emails, :outgoing_messages, :comments 
+
+    it "should return nothing for the empty query string" do
+        get :search_typeahead, :q => ""
+        response.should render_template('request/_search_ahead.rhtml')
+        assigns[:xapian_requests].results.size.should == 0
+    end
+    
+    it "should return a request matching the given keyword, but not users with a matching description" do
+        get :search_typeahead, :q => "chicken"
+        response.should render_template('request/_search_ahead.rhtml')
+        assigns[:xapian_requests].results.size.should == 1
+        assigns[:xapian_requests].results[0][:model].title.should == info_requests(:naughty_chicken_request).title
+    end
+
+    it "should return all requests matching any of the given keywords" do
+        get :search_typeahead, :q => "money dog"
+        response.should render_template('request/_search_ahead.rhtml')
+        assigns[:xapian_requests].results.size.should == 2
+        assigns[:xapian_requests].results[0][:model].title.should == info_requests(:fancy_dog_request).title
+        assigns[:xapian_requests].results[1][:model].title.should == info_requests(:naughty_chicken_request).title
+    end
+
+    it "should return partial matches" do
+        get :search_typeahead, :q => "chick"  # 'chick' for 'chicken'
+        response.should render_template('request/_search_ahead.rhtml')
+        assigns[:xapian_requests].results.size.should == 1
+        assigns[:xapian_requests].results[0][:model].title.should == info_requests(:naughty_chicken_request).title
+    end
+end
 
 
