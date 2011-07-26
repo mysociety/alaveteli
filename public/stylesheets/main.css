@@ -930,16 +930,33 @@ a img.attachment_image {
 /*------------------------------------------------ making a request / sign up / sign in  */
 
 #request_advice
-{}
+{
+	float: right;
+	width: 250px;
+	margin-top: 1em;
+}
+
 	#request_advice ul
 	{
-		width: 26em;
 		margin: 0 auto 0 auto;
 	}
 	#request_advice ul li { margin: 0 0 1em 0; }
 
+#request_header
+{
+	background-color: #FFFFE0;
+	padding-top: 0.5em;
+	padding-bottom: 1em;
+}
+
+#request_search_ahead_results
+{
+	font-size: 0.8em;    
+	margin-left: 11em;
+}
+
 #request_form
-{ margin-top: 4em;}
+{ margin-top: 1em;}
 
 #request_form label,
 label.form_label
@@ -952,10 +969,6 @@ label.form_label
 	padding: 0 10px 0 0;
     margin: 0 0 0 0;
 }
-	#request_form h1 label
-	{
-		font-size: 0.55em;
-	}
 
 .form_item_note, .form_note
 {
