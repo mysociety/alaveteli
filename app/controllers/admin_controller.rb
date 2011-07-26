@@ -48,7 +48,7 @@ class AdminController < ApplicationController
 	def authenticate
             username = MySociety::Config.get('ADMIN_USERNAME', '')
             password = MySociety::Config.get('ADMIN_PASSWORD', '')
-            if !(username && password).empty?
+            if !username.empty? && !password.empty?
                 authenticate_or_request_with_http_basic do |user_name, password|
                     user_name == username && password == password
                 end
