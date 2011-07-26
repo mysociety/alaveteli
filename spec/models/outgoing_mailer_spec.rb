@@ -6,23 +6,6 @@ describe OutgoingMailer, " when working out follow up addresses" do
     # mocks. Put parts of the tests in spec/lib/tmail_extensions.rb
     fixtures :info_requests, :incoming_messages, :raw_emails, :public_bodies, :public_body_translations
 
-    before do
-        # XXX this is a hack around the fact that our raw_email model
-        # is in transition to something that doesn't actually live in
-        # the database at all.  The raw_email fixture saves to the
-        # model, the model then needs to be told to save itself on the
-        # filesystem.
-        raw_email = raw_emails(:useless_raw_email)
-        raw_email.data=raw_email.dbdata
-    end
-
-    after do
-        # And this is a hack around the fact that Rails fixtures don't
-        # have teardowns happen on them; we need to ensure no emails
-        # are left lying around
-        raw_emails(:useless_raw_email).destroy_file_representation!
-    end
-
     it "should parse them right" do
         ir = info_requests(:fancy_dog_request) 
         im = ir.incoming_messages[0]

@@ -20,9 +20,8 @@ class GeneralController < ApplicationController
 
     # New, improved front page!
     def frontpage
-
+        medium_cache
         behavior_cache do
-
             # get some example searches and public bodies to display
             # either from config, or based on a (slow!) query if not set
             body_short_names = MySociety::Config.get('FRONTPAGE_PUBLICBODY_EXAMPLES', '').split(/\s*;\s*/).map{|s| "'%s'" % s.gsub(/'/, "''") }.join(", ")
@@ -66,6 +65,7 @@ class GeneralController < ApplicationController
 
     # Display WhatDoTheyKnow category from mySociety blog
     def blog
+        medium_cache
         @feed_autodetect = []
         feed_url = MySociety::Config.get('BLOG_FEED', '')
         if not feed_url.empty?
@@ -176,6 +176,7 @@ class GeneralController < ApplicationController
     end
 
     def custom_css
+        long_cache
         @locale = self.locale_from_params()
         render(:layout => false, :content_type => 'text/css')
     end

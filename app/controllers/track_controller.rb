@@ -11,6 +11,8 @@ class TrackController < ApplicationController
 
     protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
+    before_filter :medium_cache
+
     # Track all updates to a particular request
     def track_request
         @info_request = InfoRequest.find_by_url_title(params[:url_title])

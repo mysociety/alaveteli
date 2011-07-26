@@ -26,7 +26,11 @@ class TrackMailer < ApplicationMailer
         @body = { :user => user, :email_about_things => email_about_things, :unsubscribe_url => unsubscribe_url }
     end
 
-    # Send email alerts for tracked things.
+    # Send email alerts for tracked things.  Never more than one email
+    # a day, nor about events which are more than a week old, nor
+    # events about which emails have been sent within the last two
+    # weeks.
+
     # Useful query to run by hand to see how many alerts are due:
     #   User.find(:all, :conditions => [ "last_daily_track_email < ?", Time.now - 1.day ]).size
     def self.alert_tracks

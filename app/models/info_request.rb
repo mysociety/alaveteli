@@ -112,7 +112,7 @@ class InfoRequest < ActiveRecord::Base
             include InfoRequestCustomStates
             @@custom_states_loaded = true
         end
-    rescue MissingSourceFile
+    rescue MissingSourceFile, NameError
     end
 
     # only check on create, so existing models with mixed case are allowed
@@ -347,14 +347,7 @@ public
     # XXX this *should* also check outgoing message joined to is an initial
     # request (rather than follow up)
     def InfoRequest.find_by_existing_request(title, public_body_id, body)
-        # XXX can add other databases here which have regexp_replace
-        if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"
-            # Exclude spaces from the body comparison using regexp_replace
-            return InfoRequest.find(:first, :conditions => [ "title = ? and public_body_id = ? and regexp_replace(outgoing_messages.body, '[[:space:]]', '', 'g') = regexp_replace(?, '[[:space:]]', '', 'g')", title, public_body_id, body ], :include => [ :outgoing_messages ] )
-        else
-            # For other databases (e.g. SQLite) not the end of the world being space-sensitive for this check
-            return InfoRequest.find(:first, :conditions => [ "title = ? and public_body_id = ? and outgoing_messages.body = ?", title, public_body_id, body ], :include => [ :outgoing_messages ] )
-        end
+        return InfoRequest.find(:first, :conditions => [ "title = ? and public_body_id = ? and outgoing_messages.body = ?", title, public_body_id, body ], :include => [ :outgoing_messages ] )
     end
 
     def find_existing_outgoing_message(body)
