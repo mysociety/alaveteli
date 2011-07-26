@@ -949,6 +949,12 @@ a img.attachment_image {
 	padding-bottom: 1em;
 }
 
+#request_header_text
+{
+	font-size: 0.8em;    
+	margin-left: 11em;
+}
+
 #request_search_ahead_results
 {
 	font-size: 0.8em;    
