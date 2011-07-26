@@ -43,6 +43,14 @@ describe WhatDoTheyKnow::StripEmptySessions do
       response.headers['Set-Cookie'].should == ""
     end
   
+    it 'should strip the session cookie setting header even with a locale' do 
+      @session_data[:locale] = 'en'
+      application_response_headers = { 'Content-Type' => 'text/html', 
+                                       'Set-Cookie' => 'mykey=f274c61a35320c52d45e9f8d7d4e2649; path=/; HttpOnly'}
+      response = make_response(@session_data, application_response_headers)
+      response.headers['Set-Cookie'].should == ""
+    end
+  
     it 'should strip the session cookie setting header (but no other cookie setting header) if there is more than one' do 
       application_response_headers = { 'Content-Type' => 'text/html', 
                                        'Set-Cookie' => ['mykey=f274c61a35320c52d45e9f8d7d4e2649; path=/; HttpOnly',
