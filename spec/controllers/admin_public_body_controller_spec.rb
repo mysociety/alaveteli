@@ -42,21 +42,27 @@ describe AdminPublicBodyController, "when administering public bodies" do
         pb.name.should == "Renamed"
     end
 
-    it "destroy a public body" do
+    it "destroys a public body" do
         PublicBody.count.should == 2
         post :destroy, { :id => 3 }
         PublicBody.count.should == 1
     end
 
-    it "don't allow non-authenticated users to do anything" do
+    it "sets a using_admin flag" do
+        get :show, :id => 2
+        session[:using_admin].should == 1
+    end
+
+    it "disallows non-authenticated users to do anything" do
         @request.env["HTTP_AUTHORIZATION"] = ""
         PublicBody.count.should == 2
         post :destroy, { :id => 3 }
         response.code.should == "401"
         PublicBody.count.should == 2
+        session[:using_admin].should == nil
     end
 
-    it "when no username/password set, skip admin authorisation" do
+    it "skips admin authorisation when no username/password set" do
         config = MySociety::Config.load_default()
         config['ADMIN_USERNAME'] = ''
         config['ADMIN_PASSWORD'] = ''
@@ -64,8 +70,9 @@ describe AdminPublicBodyController, "when administering public bodies" do
         PublicBody.count.should == 2
         post :destroy, { :id => 3 }
         PublicBody.count.should == 1
+        session[:using_admin].should == 1
     end
-    it "when no username set, skip admin authorisation" do
+    it "skips admin authorisation when no username set" do
         config = MySociety::Config.load_default()
         config['ADMIN_USERNAME'] = ''
         config['ADMIN_PASSWORD'] = 'fuz'
@@ -73,6 +80,7 @@ describe AdminPublicBodyController, "when administering public bodies" do
         PublicBody.count.should == 2
         post :destroy, { :id => 3 }
         PublicBody.count.should == 1
+        session[:using_admin].should == 1
     end
 
 
