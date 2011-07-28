@@ -313,7 +313,7 @@ class RequestController < ApplicationController
             replied by then.</p>
             <p>If you write about this request (for example in a forum or a blog) please link to this page, and add an 
             annotation below telling people about your writing.</p>",:law_used_full=>@info_request.law_used_full)
-        redirect_to request_url(@info_request)
+        redirect_to show_new_request_path(:url_title => @info_request.url_title)
     end
 
     # Submitted to the describing state of messages form

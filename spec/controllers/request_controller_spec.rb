@@ -363,6 +363,9 @@ describe RequestController, "when creating a new request" do
         mail.body.should =~ /This is a silly letter. It is too short to be interesting./
 
         response.should redirect_to(:action => 'show', :url_title => ir.url_title)
+        # This test uses an explicit path because it's relied in
+        # Google Analytics goals:
+        response.redirected_to.should == "/en/request/why_is_your_quango_called_gerald/new"
     end
 
     it "should give an error if the same request is submitted twice" do

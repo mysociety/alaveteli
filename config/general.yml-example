@@ -64,7 +64,7 @@ RAW_EMAILS_LOCATION: 'files/raw_emails'
 # If not specified, it will default to the path to the admin controller,
 # which is usually what you want. It is useful in situations where admin
 # requests are proxied via a secure server, for example.
-# ADMIN_BASE_URL: '/admin/'
+ADMIN_BASE_URL: ''
 
 # Where /stylesheets sits under for admin pages. See asset_host in
 # config/environment.rb. Can be full domain or relative path (not an
