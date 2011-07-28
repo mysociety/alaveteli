@@ -25,9 +25,7 @@
         <% end %>
 
         <p>
-		<%= _('Please <strong>only</strong> write messages directly relating to your 
-				request {{request_link}}. If you would like to ask for information
-				that was not in your original request, then <a href="%s">file a new request</a>.',:request_link=>request_link(@info_request)) % [new_request_to_body_url(:url_name => @info_request.public_body.url_name)] %>
+		<%= _('Please <strong>only</strong> write messages directly relating to your request {{request_link}}. If you would like to ask for information that was not in your original request, then <a href="{{new_request_link}}">file a new request</a>.', :request_link=>request_link(@info_request), :new_request_link => new_request_to_body_url(:url_name => @info_request.public_body.url_name)) %>
         </p>
 
         <% status = @info_request.calculate_status %>
