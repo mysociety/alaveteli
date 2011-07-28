@@ -39,6 +39,7 @@ ActionController::Routing::Routes.draw do |map|
         request.new_request_to_body    '/new/:url_name',         :action => 'new'
 
         request.show_request     '/request/:url_title.:format', :action => 'show'
+        request.show_new_request     '/request/:url_title/new', :action => 'show'
         request.details_request     '/details/request/:url_title', :action => 'details'
         request.similar_request     '/similar/request/:url_title', :action => 'similar'
 
