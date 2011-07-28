@@ -18,3 +18,5 @@ Disallow: /upload/
 Disallow: /user/contact/
 Disallow: /feed/
 Disallow: /profile/
+Disallow: /signin
+
