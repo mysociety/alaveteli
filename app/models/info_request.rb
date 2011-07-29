@@ -428,11 +428,11 @@ public
 
         ActiveRecord::Base.transaction do
             raw_email = RawEmail.new
-            raw_email.data = raw_email_data
             incoming_message.raw_email = raw_email
             incoming_message.info_request = self
-            raw_email.save!
             incoming_message.save!
+            raw_email.data = raw_email_data
+            raw_email.save!
 
             self.awaiting_description = true
             self.log_event("response", { :incoming_message_id => incoming_message.id })

@@ -13,6 +13,7 @@ config['ADMIN_PASSWORD'] = 'baz'
 # tests assume 20 days
 config['REPLY_LATE_AFTER_DAYS'] = 20
 
+
 # Uncomment the next line to use webrat's matchers
 #require 'webrat/integrations/rspec-rails'
 
@@ -25,6 +26,7 @@ Spec::Runner.configure do |config|
   # lines, delete config/database.yml and disable :active_record
   # in your config/boot.rb
   config.fixture_path = RAILS_ROOT + '/spec/fixtures/'
+
 
   # == Fixtures
   #
@@ -143,4 +145,13 @@ if $tempfilecount.nil?
     else
         puts "WARNING: HTML validation script " + $html_validation_script + " not found"
     end
+end
+
+def load_raw_emails_data(raw_emails)
+        raw_email = raw_emails(:useless_raw_email)
+    begin
+        raw_email.destroy_file_representation!
+    rescue Errno::ENOENT
+    end
+    raw_email.data = load_file_fixture("useless_raw_email.email")
 end
