@@ -5,6 +5,9 @@ describe OutgoingMailer, " when working out follow up addresses" do
     # calls TMail.  XXX untangle it and make these tests spread out and using
     # mocks. Put parts of the tests in spec/lib/tmail_extensions.rb
     fixtures :info_requests, :incoming_messages, :raw_emails, :public_bodies, :public_body_translations
+    before(:each) do
+        load_raw_emails_data(raw_emails)
+    end
 
     it "should parse them right" do
         ir = info_requests(:fancy_dog_request) 
@@ -69,13 +72,8 @@ end
 describe OutgoingMailer, "when working out follow up subjects" do
     fixtures :info_requests, :incoming_messages, :outgoing_messages, :raw_emails
 
-    before do
-        raw_email = raw_emails(:useless_raw_email)
-        raw_email.data=raw_email.dbdata
-    end
-
-    after do
-        raw_emails(:useless_raw_email).destroy_file_representation!
+    before(:each) do
+        load_raw_emails_data(raw_emails)
     end
 
     it "should prefix the title with 'Freedom of Information request -' for initial requests" do

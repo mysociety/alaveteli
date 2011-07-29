@@ -5,6 +5,7 @@ describe IncomingMessage, " when dealing with incoming mail" do
 
     before do
         @im = incoming_messages(:useless_incoming_message)
+        load_raw_emails_data(raw_emails)
     end
 
     it "should return the mail Date header date for sent at" do
@@ -129,6 +130,8 @@ describe IncomingMessage, " when censoring data" do
         @censor_rule_2.last_edit_editor = "unknown"
         @censor_rule_2.last_edit_comment = "none"
         @im.info_request.censor_rules << @censor_rule_2
+
+        load_raw_emails_data(raw_emails)
     end
 
     it "should do nothing to a JPEG" do
@@ -212,6 +215,7 @@ describe IncomingMessage, " when censoring whole users" do
         @censor_rule_1.last_edit_editor = "unknown"
         @censor_rule_1.last_edit_comment = "none"
         @im.info_request.user.censor_rules << @censor_rule_1
+        load_raw_emails_data(raw_emails)
     end
 
     it "should apply censor rules to HTML files" do
