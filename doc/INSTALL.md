@@ -230,6 +230,9 @@ http://rubyonrails.org/deploy
 
 We usually use Passenger / mod_rails.
 
+Under all but light loads, it is strongly recommended to run the
+server behind an http accelerator like Varnish.  A sample varnish VCL
+is supplied in `../conf/varnish-alaveteli.vcl`.
 
 # Troubleshooting
 

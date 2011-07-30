@@ -8,7 +8,7 @@ require 'json'
 
 describe RequestController, "when listing recent requests" do
     
-    before(:all) do
+    before(:each) do
         rebuild_xapian_index
     end
     
@@ -35,11 +35,14 @@ describe RequestController, "when listing recent requests" do
     end
 end
 
-
 describe RequestController, "when showing one request" do
     
     fixtures :info_requests, :info_request_events, :public_bodies, :public_body_translations, :public_body_translations, :users, :incoming_messages, :raw_emails, :outgoing_messages, :comments # all needed as integrating views
-  
+    
+    before(:each) do
+        load_raw_emails_data(raw_emails)
+    end
+
     it "should be successful" do
         get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
         response.should be_success
@@ -197,6 +200,10 @@ end
 
 describe RequestController, "when changing prominence of a request" do
     fixtures :info_requests, :info_request_events, :public_bodies, :public_body_translations, :users, :incoming_messages, :raw_emails, :outgoing_messages # all needed as integrating views
+
+    before(:each) do
+        load_raw_emails_data(raw_emails)
+    end
 
     it "should not show hidden requests" do
         ir = info_requests(:fancy_dog_request)
@@ -365,7 +372,7 @@ describe RequestController, "when creating a new request" do
         response.should redirect_to(:action => 'show', :url_title => ir.url_title)
         # This test uses an explicit path because it's relied in
         # Google Analytics goals:
-        response.redirected_to.should == "/en/request/why_is_your_quango_called_gerald/new"
+        response.redirected_to.should =~ /request\/why_is_your_quango_called_gerald\/new$/
     end
 
     it "should give an error if the same request is submitted twice" do
@@ -457,7 +464,11 @@ end
 describe RequestController, "when viewing an individual response for reply/followup" do
     integrate_views
     fixtures :info_requests, :info_request_events, :public_bodies, :public_body_translations, :users, :incoming_messages, :raw_emails, :outgoing_messages, :comments # all needed as integrating views
-  
+
+    before(:each) do
+        load_raw_emails_data(raw_emails)
+    end
+
     it "should ask for login if you are logged in as wrong person" do
         session[:user_id] = users(:silly_name_user).id
         get :show_response, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message)
@@ -489,6 +500,7 @@ describe RequestController, "when classifying an information request" do
         @dog_request = info_requests(:fancy_dog_request)
         @dog_request.stub!(:is_old_unclassified?).and_return(false)
         InfoRequest.stub!(:find).and_return(@dog_request)
+        load_raw_emails_data(raw_emails)
     end
 
     def post_status(status)
@@ -898,7 +910,11 @@ end
 describe RequestController, "sending overdue request alerts" do
     integrate_views
     fixtures :info_requests, :info_request_events, :public_bodies, :public_body_translations, :users, :incoming_messages, :raw_emails, :outgoing_messages # all needed as integrating views
- 
+    
+    before(:each) do
+        load_raw_emails_data(raw_emails)
+    end
+
     it "should send an overdue alert mail to creators of overdue requests" do
         chicken_request = info_requests(:naughty_chicken_request)
         chicken_request.outgoing_messages[0].last_sent_at = Time.now() - 30.days
@@ -982,7 +998,11 @@ end
 describe RequestController, "sending unclassified new response reminder alerts" do
     integrate_views
     fixtures :info_requests, :info_request_events, :public_bodies, :public_body_translations, :users, :incoming_messages, :raw_emails, :outgoing_messages, :comments # all needed as integrating views
- 
+
+    before(:each) do
+        load_raw_emails_data(raw_emails)
+    end
+
     it "should send an alert" do
         RequestMailer.alert_new_response_reminders
 
@@ -1009,7 +1029,10 @@ end
 describe RequestController, "clarification required alerts" do
     integrate_views
     fixtures :info_requests, :info_request_events, :public_bodies, :public_body_translations, :users, :incoming_messages, :raw_emails, :outgoing_messages # all needed as integrating views
- 
+    before(:each) do
+        load_raw_emails_data(raw_emails)
+    end
+
     it "should send an alert" do
         ir = info_requests(:fancy_dog_request)
         ir.set_described_state('waiting_clarification')
@@ -1060,6 +1083,9 @@ end
 describe RequestController, "comment alerts" do
     integrate_views
     fixtures :info_requests, :info_request_events, :public_bodies, :public_body_translations, :users, :incoming_messages, :raw_emails, :outgoing_messages, :comments # all needed as integrating views
+    before(:each) do
+        load_raw_emails_data(raw_emails)
+    end
  
     it "should send an alert (once and once only)" do
         # delete ficture comment and make new one, so is in last month (as
@@ -1131,7 +1157,10 @@ end
 
 describe RequestController, "when viewing comments" do
     integrate_views
-    fixtures :users
+    fixtures :users, :raw_emails, :incoming_messages, :info_requests
+    before(:each) do
+        load_raw_emails_data(raw_emails)
+    end
 
     it "should link to the user who submitted it" do
         session[:user_id] = users(:bob_smith_user).id
@@ -1239,6 +1268,10 @@ end
 describe RequestController, "when showing JSON version for API" do
     
     fixtures :info_requests, :info_request_events, :public_bodies, :public_body_translations, :users, :incoming_messages, :raw_emails, :outgoing_messages, :comments 
+
+    before(:each) do
+        load_raw_emails_data(raw_emails)
+    end
 
     it "should return data in JSON form" do
         get :show, :url_title => 'why_do_you_have_such_a_fancy_dog', :format => 'json'

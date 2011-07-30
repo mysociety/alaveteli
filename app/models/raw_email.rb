@@ -29,9 +29,13 @@ class RawEmail < ActiveRecord::Base
 
     def directory
         request_id = self.incoming_message.info_request.id.to_s
-        File.join(MySociety::Config.get('RAW_EMAILS_LOCATION',
-                                        'files/raw_emails'), 
-                  request_id[0..2], request_id)
+        if ENV["RAILS_ENV"] = "test"
+            return 'files/raw_email_test'
+        else
+            return File.join(MySociety::Config.get('RAW_EMAILS_LOCATION',
+                                                   'files/raw_emails'), 
+                             request_id[0..2], request_id)
+        end
     end
 
     def filepath
