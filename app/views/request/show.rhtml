@@ -1,4 +1,4 @@
-<% @title = h(@info_request.title) %>
+<% @title = "#{h(@info_request.title)} - a Freedom of Information request to #{h(@info_request.public_body.name)}" %>
 
 <% if @info_request.prominence == 'hidden' %>
     <p id="hidden_request">
@@ -23,7 +23,7 @@
 <%= render :partial => 'sidebar' %>
 
 <div id="request_main">
-    <h1><%=@title%></h1>
+    <h1><%=h(@info_request.title)%></h1>
 
     <% if @info_request.user.profile_photo %>
         <p class="user_photo_on_request">
