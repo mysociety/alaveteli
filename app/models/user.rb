@@ -118,6 +118,9 @@ class User < ActiveRecord::Base
         if not name.nil?
             name.strip!
         end
+        if self.public_banned?
+            name = _("{{user_name}} (Banned)", :user_name=>name)
+        end
         name
     end
 
