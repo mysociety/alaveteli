@@ -47,8 +47,8 @@
             <%= link_to _("Make a new Environmental Information request"), new_request_to_body_url(:url_name => @public_body.url_name)%>  to <%= h(@public_body.name) %>
 
         <% else %>
-            <%= _('<a href="%s">Make a new Freedom of Information request</a> to {{public_body_name}}',
-		:public_body_name => h(@public_body.name)) % new_request_to_body_url(:url_name => @public_body.url_name)%>
+            <%= _('<a href="{{url}}">Make a new Freedom of Information request</a> to {{public_body_name}}',
+		:public_body_name => h(@public_body.name), :url=>new_request_to_body_url(:url_name => @public_body.url_name))%>
         <% end %>
     <% elsif @public_body.has_notes? %>
         <%= @public_body.notes_as_html %>
