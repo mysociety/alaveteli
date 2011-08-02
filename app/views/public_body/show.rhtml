@@ -21,6 +21,7 @@
     <%= link_to _('View FOI email address'), view_public_body_email_url(@public_body.url_name) %><br>
 </div> 
 
+<div id="main_content">
 <h1><%=h(@public_body.name)%></h1>
 
 <p class="subtitle">
@@ -99,4 +100,4 @@
     <% end %>
     <p> <%= _('The search index is currently offline, so we can\'t show the Freedom of Information requests that have been made to this authority.')%></p>
 <% end %> 
-
+</div>

@@ -312,6 +312,7 @@ h1, h2, h3
 	line-height: 1em;
 	letter-spacing: 0em;
 	color: #555;
+	clear: left;
 }
 	h1 { font-size: 1.8em;}
 	h2 { font-size: 1.4em;}
@@ -926,6 +927,29 @@ a img.attachment_image {
 }
 #body_sidebar a { text-decoration: none; }
 
+
+/*------------------------------------------------ selecting an authority  */
+
+#authority_search_ahead_results
+{
+  width: 26em;
+  float: left;
+}
+
+#authority_preview
+{
+  width: 26em;
+  float: right;
+  background-color: #FFFFE0;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+  #authority_preview #stepwise_make_request
+  {
+    margin: 0;
+  }
+ 
 
 /*------------------------------------------------ making a request / sign up / sign in  */
 

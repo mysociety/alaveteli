@@ -80,11 +80,12 @@
                <%= submit_tag _("Search") %>
            </p>
         <% end %>
-
     </div>
+    
     <div id="topnav">
         <ul id="navigation">
-            <li><%= link_to _("Make request"), frontpage_url %></li>
+            <li><%= link_to _("Home"), frontpage_url %></li>
+            <li><%= link_to _("Make request"), select_authority_url %></li>
             <li><%= link_to _("View requests"), request_list_successful_url %></li>
             <li><%= link_to _("View authorities"), list_public_bodies_default %></li>
             <% if @user %>

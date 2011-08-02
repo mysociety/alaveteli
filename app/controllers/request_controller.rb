@@ -22,6 +22,10 @@ class RequestController < ApplicationController
     rescue MissingSourceFile, NameError
     end
 
+    def select_authority
+        medium_cache
+    end
+    
     def show
         medium_cache
         @locale = self.locale_from_params()
@@ -66,7 +70,7 @@ class RequestController < ApplicationController
 
             @last_info_request_event_id = @info_request.last_event_id_needing_description
             @new_responses_count = @info_request.events_needing_description.select {|i| i.event_type == 'response'}.size
-1
+
             # Sidebar stuff
             # ... requests that have similar imporant terms
             behavior_cache :tag => ['similar', @info_request.id] do
