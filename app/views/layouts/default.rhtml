@@ -26,6 +26,8 @@
         <style type="text/css">@import url("/stylesheets/ie6-custom.css");</style> 
         <![endif]-->
         <%= stylesheet_link_tag 'custom', :title => "Main", :rel => "stylesheet"  %>
+        <!-- XXX: add conditional include -->
+        <%= stylesheet_link_tag 'jquery.fancybox-1.3.4', :rel => "stylesheet"  %>
 
         <% if @feed_autodetect %>
             <% for feed in @feed_autodetect %>
