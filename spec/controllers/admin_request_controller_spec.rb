@@ -39,3 +39,22 @@ describe AdminRequestController, "when administering requests" do
 
 end
 
+describe AdminRequestController, "when administering the holding pen" do
+    integrate_views
+    fixtures :info_requests, :incoming_messages, :raw_emails, :users, :public_bodies, :public_body_translations
+    before(:each) do
+        basic_auth_login @request
+        load_raw_emails_data(raw_emails)
+    end
+
+    it "shows a rejection reason for an incoming message from an invalid address" do
+        ir = info_requests(:fancy_dog_request)
+        ir.allow_new_responses_from = 'authority_only'
+        ir.handle_rejected_responses = 'holding_pen'
+        ir.save!
+        receive_incoming_mail('incoming-request-plain.email', ir.incoming_email, "frob@nowhere.com")
+        get :show_raw_email, :id => InfoRequest.holding_pen_request.get_last_response.raw_email.id
+        response.should have_text(/Only the authority can reply to this request/)
+    end
+
+end

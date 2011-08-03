@@ -205,10 +205,11 @@ class RequestMailer < ApplicationMailer
     def receive(email, raw_email)
         # Find which info requests the email is for
         reply_info_requests = self.requests_matching_email(email)
-
         # Nothing found, so save in holding pen
         if reply_info_requests.size == 0 
-            InfoRequest.holding_pen_request.receive(email, raw_email)
+            reason = _("Could not identify the request from the email address")
+            request = InfoRequest.holding_pen_request
+            request.receive(email, raw_email, false, reason)
             return
         end
 

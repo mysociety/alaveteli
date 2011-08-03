@@ -275,7 +275,6 @@ class AdminRequestController < AdminController
 
     def show_raw_email
         @raw_email = RawEmail.find(params[:id])
-
         # For the holding pen, try to guess where it should be ...
         @holding_pen = false
         if (@raw_email.incoming_message.info_request == InfoRequest.holding_pen_request && !@raw_email.incoming_message.mail.from_addrs.nil? && @raw_email.incoming_message.mail.from_addrs.size > 0)
@@ -303,6 +302,10 @@ class AdminRequestController < AdminController
             for address in addresses
                 @info_requests += InfoRequest.guess_by_incoming_email(address)
             end
+
+            # 3. Give a reason why it's in the holding pen
+            last_event = @raw_email.incoming_message.info_request.get_last_event
+            @rejected_reason = last_event.params[:rejected_reason]
         end
     end
 

@@ -379,21 +379,24 @@ public
     end
 
     # A new incoming email to this request
-    def receive(email, raw_email_data, override_stop_new_responses = false)
+    def receive(email, raw_email_data, override_stop_new_responses = false, rejected_reason = "")
         if !override_stop_new_responses
             allow = nil
-
+            reason = nil
             # See if new responses are prevented for spam reasons
             if self.allow_new_responses_from == 'nobody'
                 allow = false
+                reason = _('This request has been set by an administrator to "allow new responses from nobody"')
             elsif self.allow_new_responses_from == 'anybody'
                 allow = true
             elsif self.allow_new_responses_from == 'authority_only'
                 if email.from_addrs.nil? || email.from_addrs.size == 0
                     allow = false
+                    reason = _('Only the authority can reply to this request, but there is no "From" address to check against')
                 else
                     sender_email = email.from_addrs[0].spec
                     sender_domain = PublicBody.extract_domain_from_email(sender_email)
+                    reason = _("Only the authority can reply to this request, and I don't recognise the address this reply was sent from")
                     allow = false
                     # Allow any domain that has already sent reply
                     for row in self.who_can_followup_to
@@ -411,7 +414,7 @@ public
                 if self.handle_rejected_responses == 'bounce'
                     RequestMailer.deliver_stopped_responses(self, email, raw_email_data)
                 elsif self.handle_rejected_responses == 'holding_pen'
-                    InfoRequest.holding_pen_request.receive(email, raw_email_data)
+                    InfoRequest.holding_pen_request.receive(email, raw_email_data, false, reason)
                 elsif self.handle_rejected_responses == 'blackhole'
                     # do nothing - just lose the message (Note: a copy will be
                     # in the backup mailbox if the server is configured to send
@@ -435,7 +438,11 @@ public
             raw_email.save!
 
             self.awaiting_description = true
-            self.log_event("response", { :incoming_message_id => incoming_message.id })
+            params = { :incoming_message_id => incoming_message.id }
+            if !rejected_reason.empty?
+                params[:rejected_reason] = rejected_reason
+            end
+            self.log_event("response", params)
             self.save!
         end
 
