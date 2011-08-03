@@ -221,7 +221,11 @@ class ApplicationController < ActionController::Base
         if session[:user_id].nil?
             return nil
         else
-            return User.find(session[:user_id])
+            begin
+                return User.find(session[:user_id])
+            rescue ActiveRecord::RecordNotFound
+                return nil
+            end
         end
     end
 

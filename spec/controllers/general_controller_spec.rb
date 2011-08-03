@@ -17,6 +17,13 @@ describe GeneralController, "when searching" do
         response.should be_success
     end
 
+    it "doesn't raise an error when there's no user matching the one in the session" do
+        session[:user_id] = 999
+        get :frontpage
+        response.should be_success
+    end
+
+
     it "should redirect from search query URL to pretty URL" do
         post :search_redirect, :query => "mouse" # query hidden in POST parameters
         response.should redirect_to(:action => 'search', :combined => "mouse") # URL /search/:query
