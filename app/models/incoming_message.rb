@@ -1237,9 +1237,8 @@ class IncomingMessage < ActiveRecord::Base
             info_request_event.track_things_sent_emails.each { |a| a.destroy }
             info_request_event.user_info_request_sent_alerts.each { |a| a.destroy }
             info_request_event.destroy
-            raw_email = self.raw_email
+            self.raw_email.destroy_file_representation!
             self.destroy
-            self.raw_email.destroy 
         end
     end
 

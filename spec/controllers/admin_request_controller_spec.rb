@@ -68,4 +68,11 @@ describe AdminRequestController, "when administering the holding pen" do
         assigns[:info_requests][0].should == ir
     end
 
+    it "destroys an incoming message" do
+        im = incoming_messages(:useless_incoming_message)        
+        raw_email = im.raw_email.filepath
+        post :destroy_incoming, :incoming_message_id => im.id
+        assert_equal File.exists?(raw_email), false        
+    end
+
 end
