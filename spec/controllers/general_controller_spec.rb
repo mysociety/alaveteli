@@ -17,6 +17,27 @@ describe GeneralController, "when searching" do
         response.should be_success
     end
 
+    it "should render the front page with default language" do
+        get :frontpage
+        response.should have_tag('html[lang="en"]')
+    end
+
+    it "should render the front page with default language" do
+        old_default_locale = I18n.default_locale
+        I18n.default_locale = "es"
+        get :frontpage
+        response.should have_tag('html[lang="es"]')
+        I18n.default_locale = old_default_locale
+    end
+
+    it "should render the front page with browser-selected language" do
+        accept_language = "es-ES,en-GB,en-US;q=0.8,en;q=0.6"
+        request.env['HTTP_ACCEPT_LANGUAGE'] = accept_language
+        get :frontpage
+        response.should have_tag('html[lang="es"]')
+        request.env['HTTP_ACCEPT_LANGUAGE'] = nil
+    end
+
     it "doesn't raise an error when there's no user matching the one in the session" do
         session[:user_id] = 999
         get :frontpage
