@@ -930,10 +930,14 @@ a img.attachment_image {
 
 /*------------------------------------------------ selecting an authority  */
 
+#authority_selection
+{
+  float: left;
+}
+
 #authority_search_ahead_results
 {
   width: 26em;
-  float: left;
 }
 
 #authority_preview
