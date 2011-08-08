@@ -42,7 +42,11 @@ class ApplicationController < ActionController::Base
     end
 
     def set_gettext_locale
-        requested_locale = params[:locale] || session[:locale] || cookies[:locale] ||  request.env['HTTP_ACCEPT_LANGUAGE'] || I18n.default_locale
+        if MySociety::Config.get('USE_DEFAULT_BROWSER_LANGUAGE', true)
+            requested_locale = params[:locale] || session[:locale] || cookies[:locale] || request.env['HTTP_ACCEPT_LANGUAGE'] || I18n.default_locale
+        else
+            requested_locale = params[:locale] || session[:locale] || cookies[:locale] || I18n.default_locale
+        end
         session[:locale] = FastGettext.set_locale(requested_locale)
     end
 
