@@ -59,7 +59,7 @@
     <li> <%= _('You know what caused the error, and can <strong>suggest a solution</strong>, such as a working email address.')%> </li>
 <% end %>
 <% if [ 'requires_admin' ].include?(@info_request.described_state) %>
-    <li> <%= _('Your thoughts on what the WhatDoTheyKnow <strong>administrators</strong> should do about the request.') %> </li>
+    <li> <%= _('Your thoughts on what the {{site_name}} <strong>administrators</strong> should do about the request.', :site_name=>site_name) %> </li>
 <% end %>
 
 

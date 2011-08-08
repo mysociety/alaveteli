@@ -1,9 +1,10 @@
 <%= _('Someone, perhaps you, just tried to change their email address on
-WhatDoTheyKnow.com from ')%><%=@old_email%> <%= _('to')%> <%=@new_email%>.
+{{site_name}} from {{old_email}} to {{new_email}}.', :site_name=>site_name,
+:old_email=>@old_email, :new_email=>@new_email) %>
 
 <%= _('This was not possible because there is already an account using 
-the email address ')%><%=@new_email%>.
+the email address {{email}}.', :email=>@new_email)%>.
 
 <%= _('The accounts have been left as they previously were.')%>
 
--- <%= _('the WhatDoTheyKnow team') %>
+-- <%= _('the {{site_name}} team', :site_name=>site_name) %>

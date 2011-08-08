@@ -53,11 +53,7 @@ class ApplicationController < ActionController::Base
     # scrub sensitive parameters from the logs
     filter_parameter_logging :password
 
-    helper_method :site_name, :locale_from_params
-    def site_name
-      site_name = MySociety::Config.get('SITE_NAME', 'Alaveteli')
-      return site_name      
-    end
+    helper_method :locale_from_params
 
     # Help work out which request causes RAM spike.
     # http://www.codeweblog.com/rails-to-monitor-the-process-of-memory-leaks-skills/
@@ -280,7 +276,9 @@ class ApplicationController < ActionController::Base
     def check_read_only
         read_only = MySociety::Config.get('READ_ONLY', '')
         if !read_only.empty?
-            flash[:notice] = "<p>WhatDoTheyKnow is currently in maintenance. You can only view existing requests. You cannot make new ones, add followups or annotations, or otherwise change the database.</p> <p>" + read_only + "</p>"
+            flash[:notice] = _("<p>{{site_name}} is currently in maintenance. You can only view existing requests. You cannot make new ones, add followups or annotations, or otherwise change the database.</p> <p>{{read_only}}</p>",
+                :site_name => site_name,
+                :read_only => read_only)
             redirect_to frontpage_url
         end
 
@@ -355,6 +353,9 @@ class ApplicationController < ActionController::Base
     # views (for links) and mailers (for use in emails), so include them into
     # all of all.
     include LinkToHelper
+
+    # Site-wide access to configuration settings
+    include ConfigHelper
 end
 
 

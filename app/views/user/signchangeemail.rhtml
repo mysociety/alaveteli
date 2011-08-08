@@ -34,7 +34,7 @@
 
     <div class="form_button">
     <%= hidden_field_tag 'submitted_signchangeemail_do', 1 %>
-    <%= submit_tag "Change email on WhatDoTheyKnow.com" %>
+    <%= submit_tag _("Change email on {{site_name}}", :site_name=>site_name) %>
     </div>
 <% end %>
 

@@ -22,7 +22,7 @@ class TrackMailer < ApplicationMailer
         # etc. don't decide we are spammers.)
 
         @recipients = user.name_and_email
-        @subject = "Your WhatDoTheyKnow.com email alert"
+        @subject = _("Your {{site_name}} email alert", :site_name => site_name)
         @body = { :user => user, :email_about_things => email_about_things, :unsubscribe_url => unsubscribe_url }
     end
 

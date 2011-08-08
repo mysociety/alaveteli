@@ -431,7 +431,7 @@ class IncomingMessage < ActiveRecord::Base
             text.gsub!(self.info_request.public_body.request_email, "[" + self.info_request.public_body.short_or_long_name + " request email]")
         end
         text.gsub!(self.info_request.incoming_email, "[FOI #" + self.info_request.id.to_s + " email]")
-        text.gsub!(MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost'), "[WhatDoTheyKnow contact email]")
+        text.gsub!(MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost'), "[#{MySociety::Config.get('SITE_NAME', 'Alaveteli')} contact email]")
     end
 
     # Replaces all email addresses in (possibly binary data) with equal length alternative ones.
@@ -862,7 +862,9 @@ class IncomingMessage < ActiveRecord::Base
                     text = Iconv.conv('utf-8', 'windows-1252', text)
                 rescue Iconv::IllegalSequence
                     # Text looks like unlabelled nonsense, strip out anything that isn't UTF-8
-                    text = Iconv.conv('utf-8//IGNORE', 'utf-8', text) + "\n\n[ WhatDoTheyKnow note: The above text was badly encoded, and has had strange characters removed. ]"
+                    text = Iconv.conv('utf-8//IGNORE', 'utf-8', text) + 
+                        _("\n\n[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]", 
+                        :site_name => MySociety::Config.get('SITE_NAME', 'Alaveteli'))
                 end
             end
         end
@@ -1131,7 +1133,7 @@ class IncomingMessage < ActiveRecord::Base
                 external_command("/usr/bin/catdoc", tempfile.path, :append_to => text)
             elsif content_type == 'text/html'
                 # lynx wordwraps links in its output, which then don't get formatted properly
-                # by WhatDoTheyKnow. We use elinks instead, which doesn't do that.
+                # by Alaveteli. We use elinks instead, which doesn't do that.
                 external_command("/usr/bin/elinks", "-dump-charset", "utf-8", "-force-html", "-dump",
                     tempfile.path, :append_to => text)
             elsif content_type == 'application/vnd.ms-excel'

@@ -110,9 +110,9 @@
     <% elsif @status == 'internal_review' %>
 		<%= _('Waiting for an <strong>internal review</strong> by {{public_body_link}} of their handling of this request.',:public_body_link=>public_body_link(@info_request.public_body)) %>
     <% elsif @status == 'error_message' %>
-        <%= _('There was a <strong>delivery error</strong> or similar, which needs fixing by the WhatDoTheyKnow team.') %>
+        <%= _('There was a <strong>delivery error</strong> or similar, which needs fixing by the {{site_name}} team.', :site_name=>site_name) %>
     <% elsif @status == 'requires_admin' %>
-        <%= _('This request has had an unusual response, and <strong>requires attention</strong> from the WhatDoTheyKnow team.') %>
+        <%= _('This request has had an unusual response, and <strong>requires attention</strong> from the {{site_name}} team.', :site_name=>site_name) %>
     <% elsif @status == 'user_withdrawn' %>
         <%= _('This request has been <strong>withdrawn</strong> by the person who made it. 
         	   There may be an explanation in the correspondence below.') %>
