@@ -57,6 +57,24 @@ describe AdminRequestController, "when administering the holding pen" do
         response.should have_text(/Only the authority can reply to this request/)
     end
 
+    it "allows redelivery even to a closed request" do
+        ir = info_requests(:fancy_dog_request)
+        ir.allow_new_responses_from = 'nobody'
+        ir.handle_rejected_responses = 'holding_pen'
+        ir.save!
+        InfoRequest.holding_pen_request.incoming_messages.length.should == 0
+        ir.incoming_messages.length.should == 1
+        receive_incoming_mail('incoming-request-plain.email', ir.incoming_email, "frob@nowhere.com")
+        InfoRequest.holding_pen_request.incoming_messages.length.should == 1
+        new_im = InfoRequest.holding_pen_request.incoming_messages[0]
+        ir.incoming_messages.length.should == 1
+        post :redeliver_incoming, :redeliver_incoming_message_id => new_im.id, :url_title => ir.url_title        
+        ir = InfoRequest.find_by_url_title(ir.url_title)
+        ir.incoming_messages.length.should == 2
+        response.should redirect_to('http://test.host/admin/request/show/101')
+        InfoRequest.holding_pen_request.incoming_messages.length.should == 0
+    end
+
     it "guesses a misdirected request" do
         ir = info_requests(:fancy_dog_request)
         ir.handle_rejected_responses = 'holding_pen'
