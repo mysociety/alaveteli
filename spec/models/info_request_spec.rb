@@ -2,6 +2,40 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe InfoRequest do 
 
+    describe "guessing a request from an email" do 
+        fixtures :info_requests, :public_bodies, :incoming_messages, :raw_emails
+
+        before do
+            @im = incoming_messages(:useless_incoming_message)
+            load_raw_emails_data(raw_emails)
+        end
+
+        it 'should compute a hash' do
+            @info_request = InfoRequest.new(:title => "testing",
+                                            :public_body => public_bodies(:geraldine_public_body),
+                                            :user_id => 1)
+            @info_request.save!
+            @info_request.idhash.should_not == nil
+        end
+
+        it 'should find a request based on an email with an intact id and a broken hash' do 
+            ir = info_requests(:fancy_dog_request)
+            id = ir.id
+            @im.mail.to = "request-#{id}-asdfg@example.com"
+            guessed = InfoRequest.guess_by_incoming_email(@im)
+            guessed[0].idhash.should == ir.idhash
+        end
+
+        it 'should find a request based on an email with a broken id and an intact hash' do
+            ir = info_requests(:fancy_dog_request)
+            idhash = ir.idhash
+            @im.mail.to = "request-123ab-#{idhash}@example.com"
+            guessed = InfoRequest.guess_by_incoming_email(@im)
+            guessed[0].id.should == ir.id
+        end
+
+    end
+
     describe "making up the URL title" do 
         before do
             @info_request = InfoRequest.new

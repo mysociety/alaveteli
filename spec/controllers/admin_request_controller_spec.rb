@@ -57,4 +57,15 @@ describe AdminRequestController, "when administering the holding pen" do
         response.should have_text(/Only the authority can reply to this request/)
     end
 
+    it "guesses a misdirected request" do
+        ir = info_requests(:fancy_dog_request)
+        ir.handle_rejected_responses = 'holding_pen'
+        ir.save!
+        mail_to = "request-#{ir.id}-asdfg@example.com"
+        receive_incoming_mail('incoming-request-plain.email', mail_to)
+        get :show_raw_email, :id => InfoRequest.holding_pen_request.get_last_response.raw_email.id
+        response.should have_text(/Could not identify the request/)
+        assigns[:info_requests][0].should == ir
+    end
+
 end

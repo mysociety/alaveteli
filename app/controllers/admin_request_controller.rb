@@ -293,15 +293,7 @@ class AdminRequestController < AdminController
             end
             
             # 2. Match the email address in the message without matching the hash
-            @info_requests = []
-            addresses =
-                    (@raw_email.incoming_message.mail.to || []) + 
-                    (@raw_email.incoming_message.mail.cc || []) +
-                    (@raw_email.incoming_message.mail.envelope_to || [])
-            addresses.uniq!
-            for address in addresses
-                @info_requests += InfoRequest.guess_by_incoming_email(address)
-            end
+            @info_requests =  InfoRequest.guess_by_incoming_email(@raw_email.incoming_message)
 
             # 3. Give a reason why it's in the holding pen
             last_event = @raw_email.incoming_message.info_request.get_last_event
