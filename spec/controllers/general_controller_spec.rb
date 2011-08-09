@@ -17,6 +17,48 @@ describe GeneralController, "when searching" do
         response.should be_success
     end
 
+    it "should render the front page with default language" do
+        get :frontpage
+        response.should have_tag('html[lang="en"]')
+    end
+
+    it "should render the front page with default language" do
+        old_default_locale = I18n.default_locale
+        I18n.default_locale = "es"
+        get :frontpage
+        response.should have_tag('html[lang="es"]')
+        I18n.default_locale = old_default_locale
+    end
+
+    it "should render the front page with default language and ignore the browser setting" do
+        config = MySociety::Config.load_default()
+        config['USE_DEFAULT_BROWSER_LANGUAGE'] = false
+        accept_language = "en-GB,en-US;q=0.8,en;q=0.6"
+        request.env['HTTP_ACCEPT_LANGUAGE'] = accept_language
+        old_default_locale = I18n.default_locale
+        I18n.default_locale = "es"
+        get :frontpage
+        response.should have_tag('html[lang="es"]')
+        I18n.default_locale = old_default_locale
+    end
+
+    it "should render the front page with browser-selected language when there's no default set" do
+        config = MySociety::Config.load_default()
+        config['USE_DEFAULT_BROWSER_LANGUAGE'] = true
+        accept_language = "es-ES,en-GB,en-US;q=0.8,en;q=0.6"
+        request.env['HTTP_ACCEPT_LANGUAGE'] = accept_language
+        get :frontpage
+        response.should have_tag('html[lang="es"]')
+        request.env['HTTP_ACCEPT_LANGUAGE'] = nil
+    end
+
+    it "doesn't raise an error when there's no user matching the one in the session" do
+        session[:user_id] = 999
+        get :frontpage
+        response.should be_success
+    end
+
+
     it "should redirect from search query URL to pretty URL" do
         post :search_redirect, :query => "mouse" # query hidden in POST parameters
         response.should redirect_to(:action => 'search', :combined => "mouse") # URL /search/:query

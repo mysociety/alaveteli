@@ -177,7 +177,7 @@ class AdminRequestController < AdminController
         raw_email_data = incoming_message.raw_email.data
         mail = TMail::Mail.parse(raw_email_data)
         mail.base64_decode
-        destination_request.receive(mail, raw_email_data)
+        destination_request.receive(mail, raw_email_data, true)
 
         incoming_message_id = incoming_message.id
         incoming_message.fully_destroy
@@ -275,7 +275,6 @@ class AdminRequestController < AdminController
 
     def show_raw_email
         @raw_email = RawEmail.find(params[:id])
-
         # For the holding pen, try to guess where it should be ...
         @holding_pen = false
         if (@raw_email.incoming_message.info_request == InfoRequest.holding_pen_request && !@raw_email.incoming_message.mail.from_addrs.nil? && @raw_email.incoming_message.mail.from_addrs.size > 0)
@@ -294,15 +293,11 @@ class AdminRequestController < AdminController
             end
             
             # 2. Match the email address in the message without matching the hash
-            @info_requests = []
-            addresses =
-                    (@raw_email.incoming_message.mail.to || []) + 
-                    (@raw_email.incoming_message.mail.cc || []) +
-                    (@raw_email.incoming_message.mail.envelope_to || [])
-            addresses.uniq!
-            for address in addresses
-                @info_requests += InfoRequest.guess_by_incoming_email(address)
-            end
+            @info_requests =  InfoRequest.guess_by_incoming_email(@raw_email.incoming_message)
+
+            # 3. Give a reason why it's in the holding pen
+            last_event = @raw_email.incoming_message.info_request.get_last_event
+            @rejected_reason = last_event.params[:rejected_reason]
         end
     end
 

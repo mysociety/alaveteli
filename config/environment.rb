@@ -122,6 +122,7 @@ else
 end
 
 FastGettext.default_available_locales = available_locales
+I18n.locale = default_locale
 I18n.available_locales = available_locales
 I18n.default_locale = default_locale
 

@@ -110,7 +110,7 @@ If you want some dummy data to play with, you can try loading the
 fixtures that the test suite uses into your development database.  You
 can do this with:
 
-    rake spec:db:fixtures:load
+    ./script/load-sample-data
 
 Next we need to create the index for the search engine (Xapian):
 

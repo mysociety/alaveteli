@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# This script loads spec fixtures, but also needs to do a hack around
+# the fact that the fixtures aren't aware of the fact that RawEmails
+# have a filesystem representation of their contents
+
+LOC=`dirname $0`
+rake --silent spec:db:fixtures:load
+"$LOC/runner" 'puts File.expand_path(File.dirname(__FILE__) + "/spec/spec_helper"); require File.expand_path(File.dirname(__FILE__) + "/spec/spec_helper"); RawEmail.all().each {|email|  email.data = load_file_fixture("useless_raw_email.email")}'
+
+
+echo "Loaded fixtures."

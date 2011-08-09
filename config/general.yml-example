@@ -19,6 +19,7 @@ TWITTER_USERNAME: 'whatdotheyknow'
 # Locales we wish to support in this app, space-delimited
 AVAILABLE_LOCALES: 'en es'
 DEFAULT_LOCALE: 'en'
+USE_DEFAULT_BROWSER_LANGUAGE: true
 
 # How many days should have passed before an answer to a request is officially late?
 REPLY_LATE_AFTER_DAYS: 20

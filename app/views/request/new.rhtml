@@ -38,7 +38,7 @@
 
     <li> 
         <% if @info_request.public_body.info_requests.size > 0 %>
-            <%= _("Browse <a href='%s'>other requests</a> to '{{public_body_name}}' for examples of how to word your request.", :public_body_name=>h(@info_request.public_body.name)) % [public_body_url(@info_request.public_body)] %>
+            <%= _("Browse <a href='{{url}}'>other requests</a> to '{{public_body_name}}' for examples of how to word your request.", :public_body_name=>h(@info_request.public_body.name), :url=>public_body_url(@info_request.public_body)) %>
         <% else %>
 	    <%= _('Browse  <a href="%s">other requests</a> for examples of how to word your request.') % [request_list_url] %>
         <% end %>

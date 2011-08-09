@@ -15,6 +15,24 @@ describe User, "making up the URL name" do
         @user.url_name.should == 'user'
     end
 end
+
+
+describe User, "showing the name" do 
+    before do
+        @user = User.new
+        @user.name = 'Some Name '
+    end
+
+    it 'should strip whitespace' do 
+        @user.name.should == 'Some Name'
+    end
+
+    it 'should show if user has been banned' do 
+        @user.ban_text = "Naughty user"
+        @user.name.should == 'Some Name (Banned)'
+    end
+
+end
  
 describe User, " when authenticating" do
     before do
