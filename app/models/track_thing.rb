@@ -120,8 +120,8 @@ class TrackThing < ActiveRecord::Base
                 @params = {
                     # Website
                     :list_description => "'<a href=\"/request/" + CGI.escapeHTML(self.info_request.url_title) + "\">" + CGI.escapeHTML(self.info_request.title) + "</a>', a request", # XXX yeuch, sometimes I just want to call view helpers from the model, sorry! can't work out how 
-                    :verb_on_page => "Track this request by email",
-                    :verb_on_page_already => "You are already tracking this request by email",
+                    :verb_on_page => _("Track this request by email"),
+                    :verb_on_page_already => _("You are already tracking this request by email"),
                     # Email
                     :title_in_email => "New updates for the request '" + self.info_request.title + "'",
                     :title_in_rss => "New updates for the request '" + self.info_request.title + "'",
@@ -135,23 +135,23 @@ class TrackThing < ActiveRecord::Base
             elsif self.track_type == 'all_new_requests'
                 @params = {
                     # Website
-                    :list_description => "any <a href=\"/list\">new requests</a>",
-                    :verb_on_page => "Email me when there are new requests",
-                    :verb_on_page_already => "You are being emailed when there are new requests",
+                    :list_description => _("any <a href=\"/list\">new requests</a>"),
+                    :verb_on_page => _("Email me when there are new requests"),
+                    :verb_on_page_already => _("You are being emailed when there are new requests"),
                     # Email
-                    :title_in_email => "New Freedom of Information requests",
-                    :title_in_rss => "New Freedom of Information requests",
+                    :title_in_email => _("New Freedom of Information requests"),
+                    :title_in_rss => _("New Freedom of Information requests"),
                     # Authentication
-                    :web => "To be emailed about any new requests",
-                    :email => "Then you will be emailed whenever anyone makes a new FOI request.",
-                    :email_subject => "Confirm you want to be emailed about new requests",
+                    :web => _("To be emailed about any new requests"),
+                    :email => _("Then you will be emailed whenever anyone makes a new FOI request."),
+                    :email_subject => _("Confirm you want to be emailed about new requests"),
                     # RSS sorting
                     :feed_sortby => 'newest'
                 }
             elsif self.track_type == 'all_successful_requests'
                 @params = {
                     # Website
-                    :list_description => "any <a href=\"/list/successful\">successful requests</a>",
+                    :list_description => _("any <a href=\"/list/successful\">successful requests</a>"),
                     :verb_on_page => _("Email me new successful responses "),
                     :verb_on_page_already => _("You are being emailed about any new successful responses"),
                     # Email
