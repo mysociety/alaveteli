@@ -240,19 +240,55 @@ describe PublicBody, " when loading CSV files" do
 
         PublicBody.count.should == original_count + 3
     end
-end
 
-describe PublicBody, " when loading CSV files with field names and fields out of order" do
-    it "should do a dry run successfully" do
+    it "should handle a field list and fields out of order" do
         original_count = PublicBody.count
 
         csv_contents = load_file_fixture("fake-authority-type-with-field-names.csv")
         errors, notes = PublicBody.import_csv(csv_contents, 'fake', true, 'someadmin') # true means dry run
         errors.should == []
         notes.size.should == 3
-        notes.should == ["line 1: new authority 'North West Fake Authority' with email north_west_foi@localhost", 
-            "line 2: new authority 'Scottish Fake Authority' with email scottish_foi@localhost", 
-            "line 3: new authority 'Fake Authority of Northern Ireland' with email ni_foi@localhost"]
+        notes.should == ["line 2: new authority 'North West Fake Authority' with email north_west_foi@localhost", 
+            "line 3: new authority 'Scottish Fake Authority' with email scottish_foi@localhost", 
+            "line 4: new authority 'Fake Authority of Northern Ireland' with email ni_foi@localhost"]
+
+        PublicBody.count.should == original_count
+    end
+
+    it "should create bodies with names in multiple locales" do
+        original_count = PublicBody.count
+
+        csv_contents = load_file_fixture("fake-authority-type-with-field-names.csv")
+        errors, notes = PublicBody.import_csv(csv_contents, 'fake', false, 'someadmin', ['es'])
+        errors.should == []
+        notes.size.should == 6
+        notes.should == [
+            "line 2: new authority 'North West Fake Authority' with email north_west_foi@localhost", 
+            "line 2:   (aka 'Autoridad del Nordeste' in locale es)", 
+            "line 3: new authority 'Scottish Fake Authority' with email scottish_foi@localhost", 
+            "line 3:   (aka 'Autoridad Escocesa' in locale es)", 
+            "line 4: new authority 'Fake Authority of Northern Ireland' with email ni_foi@localhost",
+            "line 4:   (aka 'Autoridad Irlandesa' in locale es)"]
+
+        PublicBody.count.should == original_count + 3
+        
+        # XXX Not sure why trying to do a PublicBody.with_locale fails here. Seems related to 
+        # the way categories are loaded every time from the PublicBody class. For now we just
+        # test some translation was done.
+        body = PublicBody.find_by_name('North West Fake Authority')
+        body.translated_locales.should == [:en, :es]
+    end
+
+    it "should not fail if a locale is not found in the input file" do
+        original_count = PublicBody.count
+
+        csv_contents = load_file_fixture("fake-authority-type-with-field-names.csv")
+        errors, notes = PublicBody.import_csv(csv_contents, 'fake', true, 'someadmin', ['xx']) # true means dry run
+        errors.should == []
+        notes.size.should == 3
+        notes.should == ["line 2: new authority 'North West Fake Authority' with email north_west_foi@localhost", 
+            "line 3: new authority 'Scottish Fake Authority' with email scottish_foi@localhost", 
+            "line 4: new authority 'Fake Authority of Northern Ireland' with email ni_foi@localhost"]
 
         PublicBody.count.should == original_count
     end

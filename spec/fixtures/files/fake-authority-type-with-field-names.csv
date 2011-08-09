@@ -1,4 +1,4 @@
-#id,email,name
-,north_west_foi@localhost,North West Fake Authority
-,scottish_foi@localhost,Scottish Fake Authority
-,ni_foi@localhost,Fake Authority of Northern Ireland
+#id,email,name,name.es
+,north_west_foi@localhost,North West Fake Authority,Autoridad del Nordeste
+,scottish_foi@localhost,Scottish Fake Authority,Autoridad Escocesa
+,ni_foi@localhost,Fake Authority of Northern Ireland,Autoridad Irlandesa
