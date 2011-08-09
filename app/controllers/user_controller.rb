@@ -8,6 +8,8 @@
 
 class UserController < ApplicationController
 
+    layout :select_layout
+    
     protect_from_forgery :only => [ :contact,
                                     :set_profile_photo,
                                     :signchangeemail,
@@ -72,10 +74,6 @@ class UserController < ApplicationController
     def signin
         work_out_post_redirect
 
-        # when logging in through a modal iframe, don't display chrome around the content
-        @is_modal_dialog = (params[:modal].to_i != 0)
-        layout = @is_modal_dialog ? 'no_chrome' : 'default'
-        
         # make sure we have cookies
         if session.instance_variable_get(:@dbman)
             if not session.instance_variable_get(:@dbman).instance_variable_get(:@original)
@@ -84,7 +82,7 @@ class UserController < ApplicationController
                     redirect_to signin_url(:r => params[:r], :again => 1)
                     return
                 end
-                render :action => 'no_cookies', :layout => layout
+                render :action => 'no_cookies'
                 return
             end
         end
@@ -96,13 +94,13 @@ class UserController < ApplicationController
 
         if not params[:user_signin]
             # First time page is shown
-            render :action => 'sign', :layout => layout
+            render :action => 'sign'
             return
         else
             @user_signin = User.authenticate_from_form(params[:user_signin], @post_redirect.reason_params[:user_name] ? true : false)
             if @user_signin.errors.size > 0
                 # Failed to authenticate
-                render :action => 'sign', :layout => layout
+                render :action => 'sign'
                 return
             else
                 # Successful login
@@ -112,7 +110,7 @@ class UserController < ApplicationController
                     session[:remember_me] = params[:remember_me] ? true : false
                     
                     if @is_modal_dialog
-                        render :action => 'signin_successful', :layout => layout
+                        render :action => 'signin_successful'
                     else
                         do_post_redirect @post_redirect
                     end
@@ -128,15 +126,11 @@ class UserController < ApplicationController
     def signup
         work_out_post_redirect
 
-        # when logging in through a modal iframe, don't display chrome around the content
-        @is_modal_dialog = (params[:modal].to_i != 0)
-        layout = @is_modal_dialog ? 'no_chrome' : 'default'
-
         # Make the user and try to save it
         @user_signup = User.new(params[:user_signup])
         if !@user_signup.valid?
             # Show the form
-            render :action => 'sign', :layout => layout
+            render :action => 'sign'
         else
             user_alreadyexists = User.find_user_by_email(params[:user_signup][:email])
             if user_alreadyexists
@@ -513,6 +507,12 @@ class UserController < ApplicationController
 
     private
 
+    # when logging in through a modal iframe, don't display chrome around the content
+    def select_layout
+        @is_modal_dialog = (params[:modal].to_i != 0)
+        @is_modal_dialog ? 'no_chrome' : 'default'
+    end
+    
     # Decide where we are going to redirect back to after signin/signup, and record that
     def work_out_post_redirect
         # Redirect to front page later if nothing else specified
