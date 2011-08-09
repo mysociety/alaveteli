@@ -242,5 +242,18 @@ describe PublicBody, " when loading CSV files" do
     end
 end
 
+describe PublicBody, " when loading CSV files with field names and fields out of order" do
+    it "should do a dry run successfully" do
+        original_count = PublicBody.count
 
+        csv_contents = load_file_fixture("fake-authority-type-with-field-names.csv")
+        errors, notes = PublicBody.import_csv(csv_contents, 'fake', true, 'someadmin') # true means dry run
+        errors.should == []
+        notes.size.should == 3
+        notes.should == ["line 1: new authority 'North West Fake Authority' with email north_west_foi@localhost", 
+            "line 2: new authority 'Scottish Fake Authority' with email scottish_foi@localhost", 
+            "line 3: new authority 'Fake Authority of Northern Ireland' with email ni_foi@localhost"]
 
+        PublicBody.count.should == original_count
+    end
+end

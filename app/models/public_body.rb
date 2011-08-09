@@ -313,26 +313,30 @@ class PublicBody < ActiveRecord::Base
     def self.import_csv(csv, tag, dry_run, editor)
         errors = []
         notes = []
-
+        
         begin
             ActiveRecord::Base.transaction do
-                existing_bodies = PublicBody.find_by_tag(tag)
-
                 bodies_by_name = {}
                 set_of_existing = Set.new()
-                for existing_body in existing_bodies
+                for existing_body in PublicBody.find_by_tag(tag)
                     bodies_by_name[existing_body.name] = existing_body
                     set_of_existing.add(existing_body.name)
                 end
 
                 set_of_importing = Set.new()
+                field_names = { 'name'=>1, 'email'=>2 }     # Default values in case no field list is given
                 line = 0
-
                 CSV::Reader.parse(csv) do |row|
+                    # Parse the first line as a field list if it starts with '#'
+                    if line==0 and row.to_s =~ /^#(.*)$/
+                        row.each_with_index {|field, i| field_names[field] = i}
+                        next
+                    end
+                    
                     line = line + 1
 
-                    name = row[1]
-                    email = row[2]
+                    name = row[field_names['name']]
+                    email = row[field_names['email']]
                     next if name.nil?
                     if email.nil?
                         email = '' # unknown/bad contact is empty string
