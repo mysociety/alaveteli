@@ -196,8 +196,7 @@ ActionController::Routing::Routes.draw do |map|
         rule.admin_rule_update '/admin/censor/update/:id', :action => 'update'
         rule.admin_rule_destroy '/admin/censor/destroy/:censor_rule_id', :action => 'destroy'
     end
-
-    # map.filter('conditionallyprependlocale')
+    map.filter('conditionallyprependlocale')
 
     # Allow downloading Web Service WSDL as a file with an extension
     # instead of a file named 'wsdl'
