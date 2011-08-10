@@ -461,10 +461,22 @@ class IncomingMessage < ActiveRecord::Base
                 if censored_uncompressed_text != uncompressed_text
                     # then use the altered file (recompressed)
                     recompressed_text = nil
-                    IO.popen("/usr/bin/pdftk - output - compress", "r+") do |child|
+                    if MySociety::Config.get('USE_GHOSTSCRIPT_COMPRESSION') == true
+                        command = "gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/screen -dNOPAUSE -dQUIET -dBATCH -sOutputFile=- -"
+                    else
+                        command = "/usr/bin/pdftk - output - compress"
+                    end
+                    IO.popen(command, "r+") do |child|
                         child.write(censored_uncompressed_text)
                         child.close_write()
                         recompressed_text = child.read()
+                    end
+                    if recompressed_text.nil? || recompressed_text.empty?
+                        # buggy versions of pdftk sometimes fail on
+                        # compression, I don't see it's a disaster in
+                        # these cases to save an uncompressed version?
+                        recompressed_text = censored_uncompressed_text                        
+                        logger.warn "Unable to compress PDF; problem with your pdftk version?"
                     end
                     if !recompressed_text.nil? && !recompressed_text.empty?
                         text[0..-1] = recompressed_text # [0..-1] makes it change the 'text' string in place
