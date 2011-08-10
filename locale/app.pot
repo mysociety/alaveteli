@@ -1363,7 +1363,7 @@ msgstr ""
 
 #: app/views/outgoing_mailer/initial_request.rhtml:8
 msgid ""
-"Is {{email_address}} the wrong address for {{type_of_request}} requests tp "
+"Is {{email_address}} the wrong address for {{type_of_request}} requests to "
 "{{public_body_name}}? If so, please contact us using this form:"
 msgstr ""
 
