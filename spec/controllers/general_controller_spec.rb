@@ -12,6 +12,10 @@ describe GeneralController, "when searching" do
                :incoming_messages,
                :comments ]
 
+    before(:each) do
+        load_raw_emails_data(raw_emails)
+    end
+
     it "should render the front page successfully" do
         get :frontpage
         response.should be_success

@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe IncomingMessage, " when dealing with incoming mail" do
     fixtures :incoming_messages, :raw_emails, :info_requests
 
-    before do
+    before(:each) do
         @im = incoming_messages(:useless_incoming_message)
         load_raw_emails_data(raw_emails)
     end
@@ -112,7 +112,7 @@ end
 describe IncomingMessage, " when censoring data" do
     fixtures :incoming_messages, :raw_emails, :public_bodies, :public_body_translations, :info_requests, :users
 
-    before do
+    before(:each) do
         @test_data = "There was a mouse called Stilton, he wished that he was blue."
 
         @im = incoming_messages(:useless_incoming_message)
@@ -204,7 +204,7 @@ end
 describe IncomingMessage, " when censoring whole users" do
     fixtures :incoming_messages, :raw_emails, :public_bodies, :public_body_translations, :info_requests, :users
 
-    before do
+    before(:each) do
         @test_data = "There was a mouse called Stilton, he wished that he was blue."
 
         @im = incoming_messages(:useless_incoming_message)

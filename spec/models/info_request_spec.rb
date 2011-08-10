@@ -5,7 +5,7 @@ describe InfoRequest do
     describe "guessing a request from an email" do 
         fixtures :info_requests, :public_bodies, :incoming_messages, :raw_emails
 
-        before do
+        before(:each) do
             @im = incoming_messages(:useless_incoming_message)
             load_raw_emails_data(raw_emails)
         end

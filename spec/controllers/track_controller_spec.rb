@@ -37,14 +37,12 @@ describe TrackController, "when sending alerts for a track" do
     integrate_views
     fixtures :info_requests, :outgoing_messages, :incoming_messages, :raw_emails, :info_request_events, :users, :track_things, :track_things_sent_emails, :public_bodies, :public_body_translations
     include LinkToHelper # for main_url
+
     before(:each) do
         load_raw_emails_data(raw_emails)
-    end
-    
-    before do
         rebuild_xapian_index
     end
-  
+    
     it "should send alerts" do
         # Don't do clever locale-insertion-unto-URL stuff
         ActionController::Routing::Routes.filters.clear
@@ -101,9 +99,9 @@ describe TrackController, "when viewing RSS feed for a track" do
     integrate_views
     fixtures :info_requests, :outgoing_messages, :incoming_messages, :raw_emails, :info_request_events, :users, :track_things, :comments, :public_bodies, :public_body_translations
 
-    before do
-        rebuild_xapian_index
+    before(:each) do
         load_raw_emails_data(raw_emails)
+        rebuild_xapian_index
     end
 
     it "should get the RSS feed" do
@@ -127,9 +125,9 @@ describe TrackController, "when viewing JSON version of a track feed" do
     integrate_views
     fixtures :info_requests, :outgoing_messages, :incoming_messages, :raw_emails, :info_request_events, :users, :track_things, :comments, :public_bodies, :public_body_translations
 
-    before do
-        rebuild_xapian_index
+    before(:each) do
         load_raw_emails_data(raw_emails)
+        rebuild_xapian_index
     end
 
     it "should get the feed" do
