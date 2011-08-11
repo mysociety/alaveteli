@@ -569,7 +569,8 @@ class IncomingMessage < ActiveRecord::Base
         text.gsub!(/(Complaints and Corporate Affairs Officer)\s+Westminster Primary Care Trust.+/ms, "\\1")
 
         # Remove WhatDoTheyKnow signup links
-        text.gsub!(/http:\/\/www.whatdotheyknow.com\/c\/[^\s]+/, "[WDTK login link]")
+        domain = MySociety::Config.get('DOMAIN')
+        text.gsub!(/http:\/\/#{domain}\/c\/[^\s]+/, "[WDTK login link]")
 
         # Remove Home Office survey links
         # e.g. http://www.whatdotheyknow.com/request/serious_crime_act_2007_section_7#incoming-12650
