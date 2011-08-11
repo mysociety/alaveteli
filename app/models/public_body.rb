@@ -336,6 +336,7 @@ class PublicBody < ActiveRecord::Base
 
                     # Parse the first line as a field list if it starts with '#'
                     if line==1 and row.to_s =~ /^#(.*)$/
+                        row[0] = row[0][1..-1]  # Remove the # sign on first field
                         row.each_with_index {|field, i| field_names[field] = i}
                         next
                     end
