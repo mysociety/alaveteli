@@ -4,10 +4,8 @@ You're in.
 
 <a href="#" id="send-request">Continue sending your request</a>
 
-<script>
-    parent.modal_signin_successful = true;
-    
+<script>    
     $("#send-request").click(function() {
-        parent.$.fancybox.close(); return false; 
+        onSuccessfulLogin(); return false; 
     });
 </script>
