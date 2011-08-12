@@ -9,7 +9,7 @@
     <span class="desc">
     <% if !public_body.short_name.empty? || !public_body.notes_without_html.empty? %>
         <% if !public_body.short_name.empty? %>
-            Also called <%=highlight_words(public_body.short_name, @highlight_words) %>.
+            <%= _("Also called {{other_name}}.", :other_name => highlight_words(public_body.short_name, @highlight_words)) %>
         <% end %>
         <% if !public_body.notes_without_html.empty? %>
             <%= highlight_and_excerpt(public_body.notes_without_html, @highlight_words, 150) %>
@@ -18,12 +18,12 @@
     <% end %>
 	</span>
     <span class="bottomline">
-        <%= pluralize(public_body.info_requests.size, "request") %> made. 
+        <%= n_('%d request made.', '%d requests made.', public_body.info_requests.size) % public_body.info_requests.size %>
         <% if !@include_request_link_in_authority_listing.nil? %>
         <%= link_to _("Make your own request"), public_body_url(public_body) %>.
         <% end %>
         <br>
-        Added on <%= simple_date(public_body.created_at) %>.
+        <%= _("Added on {{date}}", :date => simple_date(public_body.created_at)) %>.
     </span>
 </div>
 

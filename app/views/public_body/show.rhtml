@@ -78,7 +78,7 @@
         <% if @public_body.eir_only? %>
             <%= pluralize(@public_body.info_requests.size, "Environmental Information Regulations request made using this site") %>
         <% else %>
-		<%= n_('%d Freedom of Information request', '%d Freedom of Information requests', @public_body.info_requests.size) % @public_body.info_requests.size %> made using this site
+		<%= n_('%d Freedom of Information request made using this site', '%d Freedom of Information requests made using this site', @public_body.info_requests.size) % @public_body.info_requests.size %>
         <% end %>
         <%= @page_desc %>
         </h2>

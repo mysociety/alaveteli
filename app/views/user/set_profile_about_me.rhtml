@@ -1,4 +1,4 @@
-<% @title = _('Change the text about you on your profile at WhatDoTheyKnow.com') %>
+<% @title = _('Change the text about you on your profile at {{site_name}}', :site_name=>site_name) %>
 
 <% raise _('internal error') if not @user %>
 
@@ -11,8 +11,8 @@
            <%= _(' What are you investigating using Freedom of Information? ')%> 
         </p>
         <p>
-          <%= _('  This will appear on your WhatDoTheyKnow profile, to make it
-            easier for others to get involved with what you\'re doing.')%>
+          <%= _('  This will appear on your {{site_name}} profile, to make it
+            easier for others to get involved with what you\'re doing.', :site_name=>site_name)%>
         </p>
     </div>
 

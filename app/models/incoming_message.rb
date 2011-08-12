@@ -431,7 +431,7 @@ class IncomingMessage < ActiveRecord::Base
             text.gsub!(self.info_request.public_body.request_email, "[" + self.info_request.public_body.short_or_long_name + " request email]")
         end
         text.gsub!(self.info_request.incoming_email, "[FOI #" + self.info_request.id.to_s + " email]")
-        text.gsub!(MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost'), "[WhatDoTheyKnow contact email]")
+        text.gsub!(MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost'), "[#{MySociety::Config.get('SITE_NAME', 'Alaveteli')} contact email]")
     end
 
     # Replaces all email addresses in (possibly binary data) with equal length alternative ones.
@@ -461,10 +461,22 @@ class IncomingMessage < ActiveRecord::Base
                 if censored_uncompressed_text != uncompressed_text
                     # then use the altered file (recompressed)
                     recompressed_text = nil
-                    IO.popen("/usr/bin/pdftk - output - compress", "r+") do |child|
+                    if MySociety::Config.get('USE_GHOSTSCRIPT_COMPRESSION') == true
+                        command = "gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/screen -dNOPAUSE -dQUIET -dBATCH -sOutputFile=- -"
+                    else
+                        command = "/usr/bin/pdftk - output - compress"
+                    end
+                    IO.popen(command, "r+") do |child|
                         child.write(censored_uncompressed_text)
                         child.close_write()
                         recompressed_text = child.read()
+                    end
+                    if recompressed_text.nil? || recompressed_text.empty?
+                        # buggy versions of pdftk sometimes fail on
+                        # compression, I don't see it's a disaster in
+                        # these cases to save an uncompressed version?
+                        recompressed_text = censored_uncompressed_text                        
+                        logger.warn "Unable to compress PDF; problem with your pdftk version?"
                     end
                     if !recompressed_text.nil? && !recompressed_text.empty?
                         text[0..-1] = recompressed_text # [0..-1] makes it change the 'text' string in place
@@ -850,7 +862,9 @@ class IncomingMessage < ActiveRecord::Base
                     text = Iconv.conv('utf-8', 'windows-1252', text)
                 rescue Iconv::IllegalSequence
                     # Text looks like unlabelled nonsense, strip out anything that isn't UTF-8
-                    text = Iconv.conv('utf-8//IGNORE', 'utf-8', text) + "\n\n[ WhatDoTheyKnow note: The above text was badly encoded, and has had strange characters removed. ]"
+                    text = Iconv.conv('utf-8//IGNORE', 'utf-8', text) + 
+                        _("\n\n[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]", 
+                        :site_name => MySociety::Config.get('SITE_NAME', 'Alaveteli'))
                 end
             end
         end
@@ -1119,7 +1133,7 @@ class IncomingMessage < ActiveRecord::Base
                 external_command("/usr/bin/catdoc", tempfile.path, :append_to => text)
             elsif content_type == 'text/html'
                 # lynx wordwraps links in its output, which then don't get formatted properly
-                # by WhatDoTheyKnow. We use elinks instead, which doesn't do that.
+                # by Alaveteli. We use elinks instead, which doesn't do that.
                 external_command("/usr/bin/elinks", "-dump-charset", "utf-8", "-force-html", "-dump",
                     tempfile.path, :append_to => text)
             elsif content_type == 'application/vnd.ms-excel'
@@ -1237,9 +1251,8 @@ class IncomingMessage < ActiveRecord::Base
             info_request_event.track_things_sent_emails.each { |a| a.destroy }
             info_request_event.user_info_request_sent_alerts.each { |a| a.destroy }
             info_request_event.destroy
-            raw_email = self.raw_email
+            self.raw_email.destroy_file_representation!
             self.destroy
-            self.raw_email.destroy 
         end
     end
 

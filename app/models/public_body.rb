@@ -310,29 +310,39 @@ class PublicBody < ActiveRecord::Base
     # Import from CSV. Just tests things and returns messages if dry_run is true.
     # Returns an array of [array of errors, array of notes]. If there are errors,
     # always rolls back (as with dry_run).
-    def self.import_csv(csv, tag, dry_run, editor)
+    def self.import_csv(csv, tag, dry_run, editor, additional_locales = [])
         errors = []
         notes = []
 
         begin
             ActiveRecord::Base.transaction do
-                existing_bodies = PublicBody.find_by_tag(tag)
-
+                # Use the default locale when retrieving existing bodies; otherwise
+                # matching names won't work afterwards, and we'll create new bodies instead
+                # of updating them
                 bodies_by_name = {}
                 set_of_existing = Set.new()
-                for existing_body in existing_bodies
-                    bodies_by_name[existing_body.name] = existing_body
-                    set_of_existing.add(existing_body.name)
+                PublicBody.with_locale(I18n.default_locale) do
+                    for existing_body in PublicBody.find_by_tag(tag)
+                        bodies_by_name[existing_body.name] = existing_body
+                        set_of_existing.add(existing_body.name)
+                    end
                 end
-
+                
                 set_of_importing = Set.new()
+                field_names = { 'name'=>1, 'email'=>2 }     # Default values in case no field list is given
                 line = 0
-
                 CSV::Reader.parse(csv) do |row|
                     line = line + 1
 
-                    name = row[1]
-                    email = row[2]
+                    # Parse the first line as a field list if it starts with '#'
+                    if line==1 and row.to_s =~ /^#(.*)$/
+                        row[0] = row[0][1..-1]  # Remove the # sign on first field
+                        row.each_with_index {|field, i| field_names[field] = i}
+                        next
+                    end
+    
+                    name = row[field_names['name']]
+                    email = row[field_names['email']]
                     next if name.nil?
                     if email.nil?
                         email = '' # unknown/bad contact is empty string
@@ -353,8 +363,19 @@ class PublicBody < ActiveRecord::Base
                             notes.push "line " + line.to_s + ": updating email for '" + name + "' from " + public_body.request_email + " to " + email
                             public_body.request_email = email
                             public_body.last_edit_editor = editor
-                            public_body.last_edit_comment = 'Updated from spreadsheet'
+                            public_body.last_edit_comment = 'Updated from spreadsheet'                            
                             public_body.save!
+                        end
+
+                        additional_locales.each do |locale|
+                            localized_name = field_names["name.#{locale}"] && row[field_names["name.#{locale}"]]
+                            PublicBody.with_locale(locale) do 
+                                if !localized_name.nil? and public_body.name != localized_name
+                                    notes.push "line " + line.to_s + ": updating name for '#{name}' from '#{public_body.name}' to '#{localized_name}' (locale: #{locale})."
+                                    public_body.name = localized_name
+                                    public_body.save!
+                                end
+                            end
                         end
                     else
                         # New public body
@@ -362,6 +383,18 @@ class PublicBody < ActiveRecord::Base
                         public_body = PublicBody.new(:name => name, :request_email => email, :short_name => "", :home_page => "", :publication_scheme => "", :notes => "", :last_edit_editor => editor, :last_edit_comment => 'Created from spreadsheet')
                         public_body.tag_string = tag
                         public_body.save!
+
+                        additional_locales.each do |locale|
+                            localized_name = field_names["name.#{locale}"] && row[field_names["name.#{locale}"]]
+                            if !localized_name.nil?
+                                PublicBody.with_locale(locale) do 
+                                    notes.push "line " + line.to_s + ":   (aka '#{localized_name}' in locale #{locale})"
+                                    public_body.name = localized_name
+                                    public_body.publication_scheme = ""
+                                    public_body.save!
+                                end
+                            end
+                        end
                     end
 
                     set_of_importing.add(name)

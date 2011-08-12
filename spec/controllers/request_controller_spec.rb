@@ -7,8 +7,10 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 require 'json'
 
 describe RequestController, "when listing recent requests" do
-    
+    fixtures :info_requests, :outgoing_messages, :users, :info_request_events, :public_bodies, :public_body_translations, :incoming_messages, :raw_emails, :comments
+
     before(:each) do
+        load_raw_emails_data(raw_emails)
         rebuild_xapian_index
     end
     
@@ -496,7 +498,7 @@ describe RequestController, "when classifying an information request" do
 
     fixtures :info_requests, :info_request_events, :public_bodies, :public_body_translations, :users, :incoming_messages, :raw_emails, :outgoing_messages, :comments # all needed as integrating views
 
-    before do 
+    before(:each) do 
         @dog_request = info_requests(:fancy_dog_request)
         @dog_request.stub!(:is_old_unclassified?).and_return(false)
         InfoRequest.stub!(:find).and_return(@dog_request)
@@ -831,7 +833,11 @@ end
 describe RequestController, "when sending a followup message" do
     integrate_views
     fixtures :info_requests, :info_request_events, :public_bodies, :public_body_translations, :users, :incoming_messages, :raw_emails, :outgoing_messages # all needed as integrating views
-  
+
+    before(:each) do
+        load_raw_emails_data(raw_emails)
+    end
+
     it "should require login" do
         post :show_response, :outgoing_message => { :body => "What a useless response! You suck.", :what_doing => 'normal_sort' }, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_followup => 1
         post_redirect = PostRedirect.get_last_post_redirect

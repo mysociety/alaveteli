@@ -20,7 +20,9 @@ class RequestGameController < ApplicationController
         @requests = old.sort_by{ rand }.slice(0..2)
 
         if @missing == 0
-            flash[:notice] = _('<p>All done! Thank you very much for your help.</p><p>There are <a href="%s">more things you can do</a> to help WhatDoTheyKnow.</p>') % [help_credits_path+"#helpus"]
+            flash[:notice] = _('<p>All done! Thank you very much for your help.</p><p>There are <a href="{{helpus_url}}">more things you can do</a> to help {{site_name}}.</p>', 
+                :helpus_url => help_credits_path+"#helpus",
+                :site_name => site_name)
         end
 
         @league_table_28_days = InfoRequestEvent.make_league_table(

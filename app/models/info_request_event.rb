@@ -121,7 +121,12 @@ class InfoRequestEvent < ActiveRecord::Base
         self.info_request.user.url_name
     end
     def requested_from
-        self.info_request.public_body.url_name
+        # acts_as_xapian will detect translated fields via Globalize and add all the 
+        # available locales to the index. But 'requested_from' is not translated directly,
+        # although it relies on a translated field in PublicBody. Hence, we need to
+        # manually add all the localized values to the index (Xapian can handle a list
+        # of values in a term, btw)
+        self.info_request.public_body.translations.map {|t| t.url_name}
     end
     def commented_by
         if self.event_type == 'comment'

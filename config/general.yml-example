@@ -19,6 +19,7 @@ TWITTER_USERNAME: 'whatdotheyknow'
 # Locales we wish to support in this app, space-delimited
 AVAILABLE_LOCALES: 'en es'
 DEFAULT_LOCALE: 'en'
+USE_DEFAULT_BROWSER_LANGUAGE: true
 
 # How many days should have passed before an answer to a request is officially late?
 REPLY_LATE_AFTER_DAYS: 20
@@ -93,3 +94,12 @@ RECAPTCHA_PRIVATE_KEY: 'x'
 # existing process previously served a larger request, this won't
 # show any consumption for the later request.
 DEBUG_RECORD_MEMORY: false
+
+# Currently we default to using pdftk to compress PDFs.  You can
+# optionally try Ghostscript, which should do a better job of
+# compression.  Some versions of pdftk are buggy with respect to
+# compression, in which case Alaveteli doesn't recompress the PDFs at
+# all and logs a warning message "Unable to compress PDF"; which would
+# be another reason to try this setting.
+USE_GHOSTSCRIPT_COMPRESSION: true
+

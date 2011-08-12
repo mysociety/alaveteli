@@ -1,11 +1,11 @@
 <%= @name %>,
 
-<%= _('You just tried to sign up to WhatDoTheyKnow.com, when you
+<%= _('You just tried to sign up to {{site_name}}, when you
 already have an account. Your name and password have been
 left as they previously were.
 
-Please click on the link below.')%> <%=@reasons[:email]%> 
+Please click on the link below.', :site_name=>site_name)%> <%=@reasons[:email]%> 
 
 <%=@url%>
 
--- <%= _('the WhatDoTheyKnow team') %>
+-- <%= _('the {{site_name}} team', :site_name=>site_name) %>

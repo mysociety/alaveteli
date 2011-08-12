@@ -31,7 +31,7 @@ class UserMailer < ApplicationMailer
         @from = contact_from_name_and_email
         headers 'Return-Path' => blackhole_email, 'Reply-To' => @from # we don't care about bounces when people are fiddling with their account
         @recipients = new_email
-        @subject    = _("Confirm your new email address on WhatDoTheyKnow.com")
+        @subject    = _("Confirm your new email address on {{site_name}}", :site_name=>site_name)
         @body[:name] = user.name
         @body[:url] = url
         @body[:old_email] = user.email
@@ -42,7 +42,7 @@ class UserMailer < ApplicationMailer
         @from = contact_from_name_and_email
         headers 'Return-Path' => blackhole_email, 'Reply-To' => @from # we don't care about bounces when people are fiddling with their account
         @recipients = new_email
-        @subject    = _("Unable to change email address on WhatDoTheyKnow.com")
+        @subject    = _("Unable to change email address on {{site_name}}", :site_name=>site_name)
         @body[:old_email] = old_email
         @body[:new_email] = new_email
     end

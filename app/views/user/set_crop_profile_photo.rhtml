@@ -33,7 +33,7 @@
     <%= hidden_field_tag 'draft_profile_photo_id', @draft_profile_photo.id %>
 
     <p><%= _('<strong>Privacy note:</strong> Your photo will be shown in public on the Internet, 
-    wherever you do something on WhatDoTheyKnow.')%>
+    wherever you do something on {{site_name}}.', :site_name=>site_name)%>
 
     <p>
         <%= hidden_field_tag 'submitted_crop_profile_photo', 1 %>

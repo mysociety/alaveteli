@@ -34,7 +34,7 @@ describe User, " when indexing users with Xapian" do
 end
 
 describe PublicBody, " when indexing public bodies with Xapian" do
-    fixtures :public_bodies, :public_body_translations, :incoming_messages, :outgoing_messages, :raw_emails, :comments
+    fixtures :public_bodies, :public_body_translations, :incoming_messages, :outgoing_messages, :raw_emails, :comments, :info_requests
     before(:each) do
         load_raw_emails_data(raw_emails)
     end
@@ -73,6 +73,10 @@ end
 
 describe PublicBody, " when indexing requests by body they are to" do
     fixtures :public_bodies, :public_body_translations, :info_request_events, :info_requests, :raw_emails, :comments
+
+    before(:each) do
+        load_raw_emails_data(raw_emails)
+    end
 
     it "should find requests to the body" do
         rebuild_xapian_index

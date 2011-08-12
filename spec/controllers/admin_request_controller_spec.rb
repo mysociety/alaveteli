@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe AdminRequestController, "when administering requests" do
     integrate_views
-    fixtures :info_requests, :outgoing_messages, :users, :info_request_events
+    fixtures :info_requests, :outgoing_messages, :users, :info_request_events, :public_bodies, :public_body_translations
     before { basic_auth_login @request }
 
     it "shows the index/list page" do
@@ -39,3 +39,63 @@ describe AdminRequestController, "when administering requests" do
 
 end
 
+describe AdminRequestController, "when administering the holding pen" do
+    integrate_views
+    fixtures :info_requests, :incoming_messages, :raw_emails, :users, :public_bodies, :public_body_translations
+    before(:each) do
+        basic_auth_login @request
+        load_raw_emails_data(raw_emails)
+    end
+
+    it "shows a rejection reason for an incoming message from an invalid address" do
+        ir = info_requests(:fancy_dog_request)
+        ir.allow_new_responses_from = 'authority_only'
+        ir.handle_rejected_responses = 'holding_pen'
+        ir.save!
+        receive_incoming_mail('incoming-request-plain.email', ir.incoming_email, "frob@nowhere.com")
+        get :show_raw_email, :id => InfoRequest.holding_pen_request.get_last_response.raw_email.id
+        response.should have_text(/Only the authority can reply to this request/)
+    end
+
+    it "allows redelivery even to a closed request" do
+        ir = info_requests(:fancy_dog_request)
+        ir.allow_new_responses_from = 'nobody'
+        ir.handle_rejected_responses = 'holding_pen'
+        ir.save!
+        InfoRequest.holding_pen_request.incoming_messages.length.should == 0
+        ir.incoming_messages.length.should == 1
+        receive_incoming_mail('incoming-request-plain.email', ir.incoming_email, "frob@nowhere.com")
+        InfoRequest.holding_pen_request.incoming_messages.length.should == 1
+        new_im = InfoRequest.holding_pen_request.incoming_messages[0]
+        ir.incoming_messages.length.should == 1
+        post :redeliver_incoming, :redeliver_incoming_message_id => new_im.id, :url_title => ir.url_title        
+        ir = InfoRequest.find_by_url_title(ir.url_title)
+        ir.incoming_messages.length.should == 2
+        response.should redirect_to('http://test.host/admin/request/show/101')
+        InfoRequest.holding_pen_request.incoming_messages.length.should == 0
+    end
+
+    it "guesses a misdirected request" do
+        ir = info_requests(:fancy_dog_request)
+        ir.handle_rejected_responses = 'holding_pen'
+        ir.allow_new_responses_from = 'authority_only'
+        ir.save!
+        mail_to = "request-#{ir.id}-asdfg@example.com"
+        receive_incoming_mail('incoming-request-plain.email', mail_to)
+        interesting_email = InfoRequest.holding_pen_request.get_last_response.raw_email.id
+        # now we add another message to the queue, which we're not interested in
+        receive_incoming_mail('incoming-request-plain.email', ir.incoming_email, "")
+        InfoRequest.holding_pen_request.incoming_messages.length.should == 2
+        get :show_raw_email, :id => interesting_email
+        response.should have_text(/Could not identify the request/)
+        assigns[:info_requests][0].should == ir
+    end
+
+    it "destroys an incoming message" do
+        im = incoming_messages(:useless_incoming_message)        
+        raw_email = im.raw_email.filepath
+        post :destroy_incoming, :incoming_message_id => im.id
+        assert_equal File.exists?(raw_email), false        
+    end
+
+end
