@@ -2,22 +2,20 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # 
-#   <victoria@access-info.org>, 2011.
-# David Cabo <david.cabo@gmail.com>, 2011.
-# skenaja <alex@alexskene.com>, 2011.
+#   <alex@alexskene.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
 "POT-Creation-Date: 2011-08-11 12:30+0200\n"
 "PO-Revision-Date: 2011-08-12 00:21+0000\n"
-"Last-Translator: dcabo <david.cabo@gmail.com>\n"
+"Last-Translator: skenaja <alex@alexskene.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: es\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Language: cy\n"
+"Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n==2) ? 1 : (n != 8 && n != 11) ? 2 : 3\n"
 
 #: app/models/incoming_message.rb:866
 msgid ""
@@ -37,20 +35,16 @@ msgid ""
 " (<strong>no ranty</strong> politics, read our <a href=\"%s\">moderation "
 "policy</a>)"
 msgstr ""
-" (<strong>sin ataques políticos</strong>, lea nuestra <a "
-"href=\"%s\">política de moderación</a>)"
 
 #: app/views/request/upload_response.rhtml:40
 msgid ""
 " (<strong>patience</strong>, especially for large files, it may take a "
 "while!)"
 msgstr ""
-" (<strong>paciencia</strong>, especialmente con ficheros grandes, puede "
-"tardar unos minutos!)"
 
 #: app/views/user/show.rhtml:59
 msgid " (you)"
-msgstr " (usted)"
+msgstr ""
 
 #: app/views/user/signchangepassword_send_confirm.rhtml:18
 msgid ""
@@ -58,40 +52,30 @@ msgid ""
 "    We will send you an email. Follow the instructions in it to change\n"
 "    your password."
 msgstr ""
-" <strong>Nota::</strong>\n"
-"    Le enviaremos un correo. Siga sus instrucciones para cambiar\n"
-"    su contraseña."
 
 #: app/views/user/contact.rhtml:35
 msgid " <strong>Privacy note:</strong> Your email address will be given to"
 msgstr ""
-" <strong>Nota sobre privacidad:</strong> Su dirección de correo será dada a"
 
 #: app/views/comment/new.rhtml:33
 msgid " <strong>Summarise</strong> the content of any information returned. "
 msgstr ""
-" <strong>Resuma</strong> el contenido de cualquier información obtenida. "
 
 #: app/views/comment/new.rhtml:23
 msgid " Advise on how to <strong>best clarify</strong> the request."
 msgstr ""
-" Consejo sobre cómo <strong>aclarar lo mejor posible</strong> la petición."
 
 #: app/views/comment/new.rhtml:49
 msgid ""
 " Ideas on what <strong>other documents to request</strong> which the "
 "authority may hold. "
 msgstr ""
-" Ideas sobre <strong>qué otros documentos pedir</strong> que el organismo "
-"público puede tener. "
 
 #: app/views/public_body/view_email.rhtml:30
 msgid ""
 " If you know the address to use, then please <a href=\"%s\">send it to us</a>.\n"
 "        You may be able to find the address on their website, or by phoning them up and asking."
 msgstr ""
-" Si conoce la dirección a utilizar, entonces por favor <a href=\"%s\">envíenosla</a>.\n"
-"        Puede que la encuentre en su página web, o llamándoles por teléfono y preguntando."
 
 #: app/views/user/set_profile_about_me.rhtml:26
 msgid ""
@@ -99,87 +83,82 @@ msgid ""
 "            twitter account. They will be made clickable. \n"
 "            e.g."
 msgstr ""
-" Incluya enlaces relevantes, como a una página informativa, su blog o\n"
-"            cuenta de Twitter. Se convertirán en enlaces automáticamente. \n"
-"            Por ejemplo:"
 
 #: app/views/comment/new.rhtml:27
 msgid ""
 " Link to the information requested, if it is <strong>already "
 "available</strong> on the Internet. "
 msgstr ""
-" Enlace a la información pedida, si <strong>ya está disponible</strong> en "
-"Internet. "
 
 #: app/views/comment/new.rhtml:29
 msgid ""
 " Offer better ways of <strong>wording the request</strong> to get the "
 "information. "
 msgstr ""
-" Ofrecer mejores formas de <strong>redactar su petición</strong> para "
-"conseguir la información. "
 
 #: app/views/user/sign.rhtml:26
 msgid " Please sign in or make a new account."
-msgstr " Por favor abra una sesión o cree una nueva cuenta"
+msgstr ""
 
 #: app/views/comment/new.rhtml:34
 msgid ""
 " Say how you've <strong>used the information</strong>, with links if "
 "possible."
 msgstr ""
-" Diga cómo ha <strong>usado la información</strong>, con enlaces si es "
-"posible."
 
 #: app/views/comment/new.rhtml:28
 msgid ""
 " Suggest <strong>where else</strong> the requester might find the "
 "information. "
 msgstr ""
-" Sugiera <strong>en qué otro lugar</strong> el peticionario puede encontrar "
-"la información. "
 
 #: app/views/user/set_profile_about_me.rhtml:11
 msgid " What are you investigating using Freedom of Information? "
-msgstr " ¿Qué está investigando usando Acceso a la Información? "
+msgstr ""
 
 #: app/controllers/comment_controller.rb:75
 msgid " You are already being emailed updates about the request."
-msgstr " Ya está recibiendo actualizaciones por correo sobre la petición."
+msgstr ""
 
 #: app/controllers/comment_controller.rb:73
 msgid " You will also be emailed updates about the request."
-msgstr " Recibirá actualizaciones por correo sobre esta petición."
+msgstr ""
 
 #: app/views/request/upload_response.rhtml:5
 msgid " made by "
-msgstr " hecha por "
+msgstr ""
 
 #: app/views/user/show.rhtml:123
 msgid " made no Freedom of Information requests using this site."
-msgstr " no ha hecho peticiones de Acceso a la Información en esta web."
+msgstr ""
 
 #: app/views/user/contact.rhtml:36
 msgid " when you send this message."
-msgstr " cuando envió este mensaje."
+msgstr ""
 
 #: app/views/public_body/show.rhtml:80
 msgid "%d Freedom of Information request made using this site"
 msgid_plural "%d Freedom of Information requests made using this site"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
 
 #: app/views/general/frontpage.rhtml:36
 msgid "%d request"
 msgid_plural "%d requests"
-msgstr[0] "%d petición"
-msgstr[1] "%d peticiones"
+msgstr[0] "Nifer o geisiadau: %d"
+msgstr[1] "Nifer o geisiadau: %d"
+msgstr[2] "Nifer o geisiadau: %d"
+msgstr[3] "Nifer o geisiadau: %d"
 
 #: app/views/public_body/_body_listing_single.rhtml:21
 msgid "%d request made."
 msgid_plural "%d requests made."
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
 
 #: app/views/request/new.rhtml:102
 msgid "'Crime statistics by ward level for Wales'"
@@ -199,52 +178,41 @@ msgid ""
 "\n"
 "{{user_name}}"
 msgstr ""
-",\n"
-"\n"
-"\n"
-"\n"
-"Un saludo,\n"
-"\n"
-"{{user_name}}"
 
 #: app/views/request/_after_actions.rhtml:9
 msgid "<a href=\"%s\">Add an annotation</a> (to help the requester or others)"
 msgstr ""
-"<a href=\"%s\">Añada un comentario</a> (para ayudar al peticionario o a "
-"otros)"
 
 #: app/views/public_body/list.rhtml:29
 msgid "<a href=\"%s\">Are we missing a public authority?</a>."
-msgstr "<a href=\"%s\">¿Nos falta algún organismo público?</a>."
+msgstr ""
 
 #: app/views/request/_sidebar.rhtml:45
 msgid ""
 "<a href=\"%s\">Are you the owner of\n"
 "            any commercial copyright on this page?</a>"
 msgstr ""
-"<a href=\"%s\">¿Posee el copyright\n"
-"            de alguna información de esta página?</a>"
 
 #: app/views/general/search.rhtml:53
 msgid "<a href=\"%s\">Browse all</a> or <a href=\"%s\">ask us to add one</a>."
-msgstr "<a href=\"%s\">Ver todas</a> o <a href=\"%s\">pídanos que añadamos una</a>."
+msgstr ""
 
 #: app/views/general/exception_caught.rhtml:13
 msgid "<a href=\"%s\">Contact us</a> to tell us about the problem</li>"
-msgstr "<a href=\"%s\">Contáctenos</a> para informarnos sobre el problema</li>"
+msgstr ""
 
 #: app/views/public_body/list.rhtml:43
 msgid "<a href=\"%s\">can't find the one you want?</a>"
-msgstr "<a href=\"%s\">¿No puede encontrar el que busca?</a>"
+msgstr ""
 
 #: app/views/request/_followup.rhtml:39 app/views/request/_followup.rhtml:46
 #: app/views/request/show.rhtml:83 app/views/request/show.rhtml:87
 msgid "<a href=\"%s\">details</a>"
-msgstr "<a href=\"%s\">detalles</a>"
+msgstr ""
 
 #: app/views/request/_followup.rhtml:74
 msgid "<a href=\"%s\">what's that?</a>"
-msgstr "<a href=\"%s\">¿Qué es eso?</a>"
+msgstr ""
 
 #: app/views/public_body/show.rhtml:50
 msgid ""
@@ -279,17 +247,12 @@ msgid ""
 "should have got a response promptly, and normally before the end of "
 "<strong>{{date_response_required_by}}</strong>.</p>"
 msgstr ""
-"<p>¡Gracias! Esperamos que no tenga que esperar mucho más.</p> <p>Por ley, "
-"debería recibir una respuesta pronto, y normalmente antes del final de "
-"<strong>{{date_response_required_by}}</strong>.</p>"
 
 #: app/controllers/request_controller.rb:389
 msgid ""
 "<p>Thank you! Hopefully your wait isn't too long.</p> <p>By law, you should get a response promptly, and normally before the end of <strong>\n"
 "{{date_response_required_by}}</strong>.</p>"
 msgstr ""
-"<p>¡Gracias! Esperamos que su espera no sea demasiado larga.</p> <p>Por ley, debería recibir una respuesta pronto, y normalmente antes del fin de <strong>\n"
-"{{date_response_required_by}}</strong>.</p>"
 
 #: app/controllers/request_controller.rb:428
 msgid ""
@@ -304,10 +267,6 @@ msgid ""
 "the error was a delivery failure, and you can find an up to date FOI email "
 "address for the authority, please tell us using the form below.</p>"
 msgstr ""
-"<p>¡Gracias! Investigaremos lo ocurrido y trataremos de arreglarlo.</p><p> "
-"Si el error ha sido al intentar entregar el correo, y puede encontrar una "
-"dirección más actualizada para este organismo, por favor indíquenoslo en el "
-"siguiente formulario.</p>"
 
 #: app/controllers/request_controller.rb:396
 msgid ""
@@ -321,24 +280,18 @@ msgid ""
 "<p>Thanks for changing the text about you on your profile.</p>\n"
 "            <p><strong>Next...</strong> You can upload a profile photograph too.</p>"
 msgstr ""
-"<p>Gracias por actualizar el texto de su perfil personal.</p>\n"
-"            <p><strong>Ahora...</strong> puede subir también una foto a su perfil.</p>"
 
 #: app/controllers/user_controller.rb:417
 msgid ""
 "<p>Thanks for updating your profile photo.</p>\n"
 "                <p><strong>Next...</strong> You can put some text about you and your research on your profile.</p>"
 msgstr ""
-"<p>Gracias por actualizar la foto de su perfil.</p>\n"
-"                <p><strong>Ahora...</strong> puede escribir sobre usted y su investigación en su perfil.</p>"
 
 #: app/controllers/request_controller.rb:284
 msgid ""
 "<p>We recommend that you edit your request and remove the email address.\n"
 "                If you leave it, the email address will be sent to the authority, but will not be displayed on the site.</p>"
 msgstr ""
-"<p>Le aconsejamos que edite su petición y elimine su dirección de correo.\n"
-"                Si la deja, su dirección será enviada al organismo público, pero no será visible en esta web.</p>"
 
 #: app/controllers/request_controller.rb:417
 msgid ""
@@ -362,8 +315,6 @@ msgid ""
 "<p>You do not need to include your email in the request in order to get a "
 "reply (<a href=\"%s\">details</a>).</p>"
 msgstr ""
-"<p>No necesita incluir su dirección de correo en la petición para recibir "
-"una respuesta (<a href=\"%s\">más detalles</a>).</p>"
 
 #: app/controllers/request_controller.rb:280
 msgid ""
@@ -371,9 +322,6 @@ msgid ""
 "reply, as we will ask for it on the next screen (<a "
 "href=\"%s\">details</a>).</p>"
 msgstr ""
-"<p>No necesita incluir su dirección de correo en la petición para recibir "
-"una respuesta, se la pediremos en el siguiente paso (<a href=\"%s\">más "
-"detalles</a>).</p>"
 
 #: app/controllers/request_controller.rb:288
 msgid ""
@@ -381,10 +329,6 @@ msgid ""
 "relates to the subject of your request, please remove any address as it will"
 " <strong>appear publicly on the Internet</strong>.</p>"
 msgstr ""
-"<p>Su petición incluye un <strong>código postal</strong>. Salvo que esté "
-"directamente relacionado con su petición, por favor elimine cualquier "
-"dirección, ya que <strong>estará disponible públicamente en "
-"Internet</strong>.</p>"
 
 #: app/controllers/request_controller.rb:311
 msgid ""
@@ -408,59 +352,42 @@ msgid ""
 "bulk/spam mail folders. Sometimes, our messages are marked that way.</small>\n"
 "</p>"
 msgstr ""
-"<small>Si usa correo web o tiene filtros \"anti spam\", por favor compruebe\n"
-"sus carpetas de spam. A veces, nuestros mensajes se marcan así por error.</small>\n"
-"</p>"
 
 #: app/views/request/new.rhtml:131
 msgid ""
 "<strong> Can I request information about myself?</strong>\n"
 "\t\t\t<a href=\"%s\">No! (Click here for details)</a>"
 msgstr ""
-"<strong> ¿Puedo pedir información sobre mí?</strong>\n"
-"\t\t\t<a href=\"%s\">¡No! (Pulse aquí para más detalles)</a>"
 
 #: app/views/general/search.rhtml:130
 msgid ""
 "<strong><code>commented_by:tony_bowden</code></strong> to search annotations"
 " made by Tony Bowden, typing the name as in the URL."
 msgstr ""
-"<strong><code>commented_by:rafael_nadal</code></strong> para buscar "
-"comentarios hechos por el usuario 'rafael_nadal'."
 
 #: app/views/general/search.rhtml:132
 msgid ""
 "<strong><code>filetype:pdf</code></strong> to find all responses with PDF "
 "attachments. Or try these: <code>{{list_of_file_extensions}}</code>"
 msgstr ""
-"<strong><code>filetype:pdf</code></strong> para buscar todas las respuestas "
-"con PDFs adjuntos. O prueba estas: <code>{{list_of_file_extensions}}</code>"
 
 #: app/views/general/search.rhtml:131
 msgid ""
 "<strong><code>request:</code></strong> to restrict to a specific request, "
 "typing the title as in the URL."
 msgstr ""
-"<strong><code>request:</code></strong> para restringir la búsqueda a una "
-"petición específica, escribiendo el título tal y como aparece en la URL."
 
 #: app/views/general/search.rhtml:129
 msgid ""
 "<strong><code>requested_by:julian_todd</code></strong> to search requests "
 "made by Julian Todd, typing the name as in the URL."
 msgstr ""
-"<code><strong>requested_by:julian_todd</strong></code> para buscar las "
-"peticiones realizadas por Julian Todd, escribiendo el nombre como aparece en"
-" la URL."
 
 #: app/views/general/search.rhtml:128
 msgid ""
 "<strong><code>requested_from:home_office</code></strong> to search requests "
 "from the Home Office, typing the name as in the URL."
 msgstr ""
-"<strong><code>requested_from:consejo_europeo</code></strong> para buscar "
-"peticiones realizadas al Consejo Europeo, escribiendo su nombre como aparece"
-" en la URL."
 
 #: app/views/general/search.rhtml:126
 msgid ""
@@ -475,9 +402,6 @@ msgid ""
 "    and tag values, e.g. <code>tag:openlylocal AND tag:financial_transaction:335633</code>. Note that by default any of the tags\n"
 "    can be present, you have to put <code>AND</code> explicitly if you only want results them all present."
 msgstr ""
-"<strong><code>tag:salud</code></strong> para buscar todos los organismos públicos o peticiones con la etiqueta dada. Puede incluir múltiples etiquetas, \n"
-"    y valores, e.g. <code>tag:salud AND tag:financial_transaction:335633</code>. Por defecto, basta con que cualquiera de las etiquetas\n"
-"    esté presente, añada <code>AND</code> explícitamente si sólo quiere resultados con todas ellas presentes."
 
 #: app/views/general/search.rhtml:127
 msgid ""
@@ -490,18 +414,15 @@ msgid ""
 "<strong>Advice</strong> on how to get a response that will satisfy the "
 "requester. </li>"
 msgstr ""
-"<strong>Consejos</strong> sobre cómo conseguir una respuesta que satisfaga "
-"al peticionario. </li>"
 
 #: app/views/request/_other_describe_state.rhtml:56
 msgid "<strong>All the information</strong> has been sent"
-msgstr "<strong>Toda la información</strong> ha sido enviada"
+msgstr ""
 
 #: app/views/request/_followup.rhtml:79
 msgid ""
 "<strong>Anything else</strong>, such as clarifying, prompting, thanking"
 msgstr ""
-"<strong>Otras cosas</strong>, como aclarar, preguntar, dar las gracias"
 
 #: app/views/request/details.rhtml:12
 msgid ""
@@ -515,15 +436,13 @@ msgstr ""
 
 #: app/views/request/_other_describe_state.rhtml:28
 msgid "<strong>Clarification</strong> has been requested"
-msgstr "Se ha solicitado una <strong>aclaración</strong>"
+msgstr ""
 
 #: app/views/request/_other_describe_state.rhtml:14
 msgid ""
 "<strong>No response</strong> has been received\n"
 "                <small>(maybe there's just an acknowledgement)</small>"
 msgstr ""
-"No se ha recibido <strong>ninguna respuesta</strong>\n"
-"                <small>(puede que se trate sólo de un acuse de recibo)</small>"
 
 #: app/views/user/signchangeemail.rhtml:30
 msgid ""
@@ -531,25 +450,18 @@ msgid ""
 "    We will send an email to your new email address. Follow the\n"
 "    instructions in it to confirm changing your email."
 msgstr ""
-"<strong>Nota:</strong>\n"
-"    Enviaremos un correo a la nueva dirección de correo. Siga\n"
-"    sus instrucciones para confirmar la nueva dirección."
 
 #: app/views/user/contact.rhtml:32
 msgid ""
 "<strong>Note:</strong> You're sending a message to yourself, presumably\n"
 "            to try out how it works."
 msgstr ""
-"<strong>Nota:</strong> Se está enviando un mensaje a sí mismo, suponemos\n"
-"            que para probar cómo funciona."
 
 #: app/views/request/preview.rhtml:31
 msgid ""
 "<strong>Privacy note:</strong> If you want to request private information about\n"
 "    yourself then <a href=\"%s\">click here</a>."
 msgstr ""
-"<strong>Nota sobre privacidad:</strong> Si quiere solicitar información privada\n"
-"    sobre sí mismo entonces <a href=\"%s\">siga este enlace</a>."
 
 #: app/views/user/set_crop_profile_photo.rhtml:35
 msgid ""
@@ -562,20 +474,18 @@ msgid ""
 "<strong>Privacy warning:</strong> Your message, and any response\n"
 "        to it, will be displayed publicly on this website."
 msgstr ""
-"<strong>Nota sobre privacidad:</strong> Su mensaje, y cualquier respuesta,\n"
-"        estarán disponibles públicamente en esta web."
 
 #: app/views/request/_other_describe_state.rhtml:52
 msgid "<strong>Some of the information</strong> has been sent "
-msgstr "Se ha enviado <strong>parte de la información</strong> "
+msgstr ""
 
 #: app/views/general/exception_caught.rhtml:17
 msgid "<strong>Technical details:</strong>"
-msgstr "<strong>Detalles técnicos:</strong>"
+msgstr ""
 
 #: app/views/comment/new.rhtml:35
 msgid "<strong>Thank</strong> the public authority or "
-msgstr "<strong>Dé las gracias</strong> al organismo público o "
+msgstr ""
 
 #: app/views/request/new.rhtml:23
 msgid ""
@@ -585,18 +495,16 @@ msgstr ""
 
 #: app/views/request/show.rhtml:91
 msgid "<strong>did not have</strong> the information requested."
-msgstr "<strong>no tenía</strong> la información solicitada."
+msgstr ""
 
 #: app/views/request/new.rhtml:25
 msgid "<strong>search</strong> the authority's web site ..."
-msgstr "<strong>busque</strong> en la web del organismo público ..."
+msgstr "<strong>chwilio'r</strong> wefan yr awdurdod ..."
 
 #: app/views/comment/new.rhtml:45
 msgid ""
 "A <strong>summary</strong> of the response if you have received it by post. "
 msgstr ""
-"Un <strong>resumen</strong> de la respuesta si la ha recibido por correo "
-"ordinario. "
 
 #: app/views/general/search.rhtml:162
 msgid "A public authority"
@@ -604,7 +512,7 @@ msgstr ""
 
 #: app/views/request/_other_describe_state.rhtml:34
 msgid "A response will be sent <strong>by post</strong>"
-msgstr "Una respuesta será enviada <strong>por correo ordinario</strong>"
+msgstr ""
 
 #: app/views/general/search.rhtml:151
 msgid "A strange reponse, required attention by the {{site_name}} team"
@@ -616,7 +524,7 @@ msgstr ""
 
 #: app/views/user/set_profile_about_me.rhtml:20
 msgid "About you:"
-msgstr "Sobre mí:"
+msgstr ""
 
 #: app/models/info_request_event.rb:293
 msgid "Acknowledgement"
@@ -628,7 +536,7 @@ msgstr ""
 
 #: app/views/comment/new.rhtml:14
 msgid "Add an annotation to "
-msgstr "Añada un comentario a "
+msgstr ""
 
 #: app/views/request/show_response.rhtml:47
 msgid ""
@@ -642,23 +550,21 @@ msgstr ""
 
 #: app/models/user.rb:54
 msgid "Admin level is not included in list"
-msgstr "Nivel de Administrador no incluido en la lista"
+msgstr ""
 
 #: app/views/request_mailer/requires_admin.rhtml:9
 msgid "Administration URL:"
-msgstr "URL de Administración:"
+msgstr ""
 
 #: app/views/general/search.rhtml:31 app/views/general/search.rhtml:121
 msgid "Advanced search tips"
-msgstr "Ayuda para la búsqueda avanzada"
+msgstr ""
 
 #: app/views/comment/new.rhtml:52
 msgid ""
 "Advise on whether the <strong>refusal is legal</strong>, and how to complain"
 " about it if not."
 msgstr ""
-"Consejo sobre <strong>si el rechazo es legal</strong>, y como apelar si no "
-"lo es."
 
 #: app/views/request/new.rhtml:69
 msgid ""
@@ -668,7 +574,7 @@ msgstr ""
 
 #: app/models/info_request_event.rb:309
 msgid "All information sent"
-msgstr "Toda la información enviada"
+msgstr ""
 
 #: app/views/general/search.rhtml:146
 msgid "All of the information requested has been received"
@@ -676,7 +582,7 @@ msgstr ""
 
 #: app/views/public_body/list.rhtml:5
 msgid "Alphabet"
-msgstr "Alfabeto"
+msgstr ""
 
 #: app/views/public_body/_body_listing_single.rhtml:12
 msgid "Also called {{other_name}}."
@@ -687,12 +593,10 @@ msgid ""
 "Although all responses are automatically published, we depend on\n"
 "you, the original requester, to evaluate them."
 msgstr ""
-"Aunque todas las respuestas se publican automáticamente, dependemos\n"
-"de usted, el creador de la petición, para evaluarlas."
 
 #: app/views/request/_other_describe_state.rhtml:70
 msgid "An <strong>error message</strong> has been received"
-msgstr "Se ha recibido <strong>un mensaje de error</strong>"
+msgstr ""
 
 #: app/views/general/search.rhtml:161
 msgid "Annotation added to request"
@@ -700,67 +604,57 @@ msgstr ""
 
 #: app/views/user/show.rhtml:34
 msgid "Annotations"
-msgstr "Comentarios"
+msgstr ""
 
 #: app/views/comment/new.rhtml:17
 msgid ""
 "Annotations are so anyone, including you, can help the requester with their "
 "request. For example:"
 msgstr ""
-"Los comentarios sirven para que cualquier, incluído usted, pueda ayudar al "
-"creador de la petición. Por ejemplo:"
 
 #: app/views/comment/new.rhtml:69
 msgid ""
 "Annotations will be posted publicly here, and are \n"
 "        <strong>not</strong> sent to {{public_body_name}}."
 msgstr ""
-"Los comentarios se muestran públicamente aquí, y \n"
-"        <strong>no</strong> se envían a {{public_body_name}}."
 
 #: app/views/request/_after_actions.rhtml:6
 msgid "Anyone:"
-msgstr "Cualquiera:"
+msgstr ""
 
 #: app/views/request/new.rhtml:47
 msgid ""
 "Ask for <strong>specific</strong> documents or information, this site is not"
 " suitable for general enquiries."
 msgstr ""
-"Pida documentos o información <strong>específica</strong>, esta web no está "
-"pensada para resolver dudas generales."
 
 #: app/views/request/show_response.rhtml:31
 msgid ""
 "At the bottom of this page, write a reply to them trying to persuade them to scan it in\n"
 "            (<a href=\"%s\">more details</a>)."
 msgstr ""
-"Al final de esta página, escriba una respuesta intentando convencerles de que lo escaneen\n"
-"            (<a href=\"%s\">más detalles</a>)."
 
 #: app/views/request/upload_response.rhtml:33
 msgid "Attachment (optional):"
-msgstr "Adjuntos (opcional):"
+msgstr ""
 
 #: app/models/info_request.rb:783
 msgid "Awaiting classification."
-msgstr "Esperando clasificación."
+msgstr ""
 
 #: app/models/info_request.rb:803
 msgid "Awaiting internal review."
-msgstr "Esperando revisión interna."
+msgstr ""
 
 #: app/models/info_request.rb:785
 msgid "Awaiting response."
-msgstr "Esperando respuesta."
+msgstr ""
 
 #: app/views/request/new.rhtml:43
 msgid ""
 "Browse  <a href=\"%s\">other requests</a> for examples of how to word your "
 "request."
 msgstr ""
-"Revise  <a href=\"%s\">otras peticiones</a> para ver ejemplos de cómo "
-"redactar su petición."
 
 #: app/views/request/new.rhtml:41
 msgid ""
@@ -773,32 +667,26 @@ msgid ""
 "By law, under all circumstances, {{public_body_link}} should have responded "
 "by now"
 msgstr ""
-"Por ley, bajo cualquier circunstancia, {{public_body_link}} ya debería haber"
-" respondido"
 
 #: app/views/request/show.rhtml:78
 msgid ""
 "By law, {{public_body_link}} should normally have responded "
 "<strong>promptly</strong> and"
 msgstr ""
-"Por ley, {{public_body_link}} debería haber respondido "
-"<strong>pronto</strong> y"
 
 #: app/views/general/search.rhtml:17
 msgid ""
 "Can't find it? <a href=\"%s\">Browse all</a> or <a href=\"%s\">ask us to add"
 " it</a>."
 msgstr ""
-"No lo encuentra? <a href=\"%s\">Consulte la lista completa</a> o <a "
-"href=\"%s\">pídanos que añadamos uno nuevo</a> "
 
 #: app/controllers/track_controller.rb:145
 msgid "Cancel a {{site_name}} alert"
-msgstr "Cancele una alerta de {{site_name}}"
+msgstr ""
 
 #: app/controllers/track_controller.rb:175
 msgid "Cancel some {{site_name}} alerts"
-msgstr "Cancelar alertas de {{site_name}}"
+msgstr ""
 
 #: locale/model_attributes.rb:39
 msgid "CensorRule|Last edit comment"
@@ -818,7 +706,7 @@ msgstr ""
 
 #: lib/public_body_categories_en.rb:14
 msgid "Central government"
-msgstr "Gobierno central"
+msgstr ""
 
 #: app/views/user/signchangeemail.rhtml:37
 msgid "Change email on {{site_name}}"
@@ -826,11 +714,11 @@ msgstr ""
 
 #: app/views/user/signchangepassword.rhtml:27
 msgid "Change password on {{site_name}}"
-msgstr "Cambie la contraseña en {{site_name}}"
+msgstr "Newid cyfrinair ar {{site_name}}"
 
 #: app/views/user/set_crop_profile_photo.rhtml:1 app/views/user/show.rhtml:104
 msgid "Change profile photo"
-msgstr "Cambie la foto de perfil"
+msgstr ""
 
 #: app/views/user/set_profile_about_me.rhtml:1
 msgid "Change the text about you on your profile at {{site_name}}"
@@ -838,13 +726,13 @@ msgstr ""
 
 #: app/views/user/show.rhtml:107
 msgid "Change your email"
-msgstr "Cambie su correo"
+msgstr ""
 
 #: app/controllers/user_controller.rb:250
 #: app/views/user/signchangeemail.rhtml:1
 #: app/views/user/signchangeemail.rhtml:11
 msgid "Change your email address used on {{site_name}}"
-msgstr "Cambie su dirección de correo en {{site_name}}"
+msgstr ""
 
 #: app/views/user/show.rhtml:106
 msgid "Change your password"
@@ -855,11 +743,11 @@ msgstr ""
 #: app/views/user/signchangepassword_send_confirm.rhtml:1
 #: app/views/user/signchangepassword_send_confirm.rhtml:9
 msgid "Change your password on {{site_name}}"
-msgstr "Cambie su contraseña en {{site_name}}"
+msgstr "Newid eich cyfrinair ar {{site_name}}"
 
 #: app/controllers/user_controller.rb:204
 msgid "Change your password {{site_name}}"
-msgstr "Cambie su contraseña en {{site_name}}"
+msgstr ""
 
 #: app/views/public_body/show.rhtml:15 app/views/public_body/show.rhtml:17
 msgid "Charity registration"
@@ -867,41 +755,36 @@ msgstr ""
 
 #: app/views/general/exception_caught.rhtml:6
 msgid "Check for mistakes if you typed or copied the address."
-msgstr "Busque erratas si ha copiado la dirección."
+msgstr ""
 
 #: app/views/request/followup_preview.rhtml:14
 #: app/views/request/preview.rhtml:7
 msgid "Check you haven't included any <strong>personal information</strong>."
 msgstr ""
-"Compruebe que no ha incluído <strong>ninguna información personal</strong>."
 
 #: app/models/info_request_event.rb:331
 msgid "Clarification"
-msgstr "Aclaración"
+msgstr ""
 
 #: app/models/info_request_event.rb:295
 msgid "Clarification required"
-msgstr "Se necesita aclaración"
+msgstr ""
 
 #: app/controllers/request_controller.rb:339
 msgid "Classify an FOI response from "
-msgstr "Clasifique una petición de "
+msgstr ""
 
 #: app/views/request_mailer/very_overdue_alert.rhtml:6
 msgid ""
 "Click on the link below to send a message to {{public_body_name}} telling them to reply to your request. You might like to ask for an internal\n"
 "review, asking them to find out why response to the request has been so slow."
 msgstr ""
-"Haga click en el siguiente enlace para mandar un mensaje a {{public_body_name}} solicitando que respondan a su petición. Puede pedir una revisión\n"
-"interna, preguntándoles por qué se ha demorado tanto la respuesta a su petición."
 
 #: app/views/request_mailer/overdue_alert.rhtml:5
 msgid ""
 "Click on the link below to send a message to {{public_body}} reminding them "
 "to reply to your request."
 msgstr ""
-"Haga click en el siguiente enlace para enviar un mensaje a {{public_body}} "
-"recordándoles que deben responder a su petición."
 
 #: locale/model_attributes.rb:22
 msgid "Comment|Body"
@@ -940,20 +823,20 @@ msgstr ""
 
 #: app/models/track_thing.rb:163
 msgid "Confirm you want to be emailed when an FOI request succeeds"
-msgstr "Confirme que quiere recibir correos cuando una petición tenga éxito"
+msgstr ""
 
 #: app/controllers/request_controller.rb:300
 msgid "Confirm your FOI request to "
-msgstr "Confirme su petición a "
+msgstr ""
 
 #: app/controllers/request_controller.rb:703
 #: app/controllers/user_controller.rb:515
 msgid "Confirm your account on {{site_name}}"
-msgstr "Confirme su cuenta en {{site_name}}"
+msgstr ""
 
 #: app/controllers/comment_controller.rb:57
 msgid "Confirm your annotation to {{info_request_title}}"
-msgstr "Confirme su comentario a {{info_request_title}}"
+msgstr ""
 
 #: app/models/user_mailer.rb:34
 msgid "Confirm your new email address on {{site_name}}"
@@ -961,7 +844,7 @@ msgstr ""
 
 #: app/views/layouts/default.rhtml:127
 msgid "Contact {{site_name}}"
-msgstr "Contacte con {{site_name}}"
+msgstr "Cysylltwch â {{site_name}}"
 
 #: app/models/request_mailer.rb:210
 msgid "Could not identify the request from the email address"
@@ -972,12 +855,10 @@ msgid ""
 "Couldn't understand the image file that you uploaded. PNG, JPEG, GIF and "
 "many other common image file formats are supported."
 msgstr ""
-"No se pudo procesar la imagen subida. Puede utilizar PNG, JPEG, GIF u otros "
-"formatos de imagen populares."
 
 #: app/views/user/set_crop_profile_photo.rhtml:6
 msgid "Crop your profile photo"
-msgstr "Recorte su foto de perfil"
+msgstr ""
 
 #: app/views/request/new.rhtml:74
 msgid ""
@@ -990,12 +871,10 @@ msgid ""
 "Currently <strong>waiting for a response</strong> from {{public_body_link}},"
 " they must respond promptly and"
 msgstr ""
-"Actualmente <strong>esperando la respuesta</strong> de {{public_body_link}},"
-" que debe responder pronto y"
 
 #: app/models/info_request_event.rb:299
 msgid "Deadline Extended"
-msgstr "Fecha límite extendida"
+msgstr ""
 
 #: app/models/outgoing_message.rb:57
 msgid "Dear "
@@ -1003,39 +882,35 @@ msgstr ""
 
 #: app/models/info_request.rb:787
 msgid "Delayed."
-msgstr "Retrasado."
+msgstr ""
 
 #: app/models/info_request.rb:805 app/models/info_request_event.rb:315
 msgid "Delivery error"
-msgstr "Error en la entrega"
+msgstr ""
 
 #: app/views/request/details.rhtml:1 app/views/request/details.rhtml:2
 msgid "Details of request '"
-msgstr "Detalles de la petición '"
+msgstr ""
 
 #: app/views/general/search.rhtml:50 app/views/general/search.rhtml:62
 msgid "Did you mean: {{correction}}"
-msgstr "¿Quiere decir: {{correction}}?"
+msgstr ""
 
 #: app/views/outgoing_mailer/_followup_footer.rhtml:1
 msgid ""
 "Disclaimer: This message and any reply that you make will be published on "
 "the internet. Our privacy and copyright policies:"
 msgstr ""
-"Atención: Este mensaje y cualquier respuesta que usted haga serán publicadas"
-" en Internet. Nuestras políticas de privacidad y copyright:"
 
 #: app/views/request/_view_html_prefix.rhtml:6
 msgid "Download original attachment"
-msgstr "Descargar ficheros adjuntos"
+msgstr ""
 
 #: app/views/request/_followup.rhtml:85
 msgid ""
 "Edit and add <strong>more details</strong> to the message above,\n"
 "                explaining why you are dissatisfied with their response."
 msgstr ""
-"Edite y añada <strong>más detalles</strong> al mensaje anterior,\n"
-"                explicando por qué no esta satisfecho con su respuesta."
 
 #: app/views/admin_public_body/_locale_selector.rhtml:2
 msgid "Edit language version:"
@@ -1043,31 +918,29 @@ msgstr ""
 
 #: app/views/user/set_profile_about_me.rhtml:9
 msgid "Edit text about you"
-msgstr "Edite el texto sobre usted"
+msgstr ""
 
 #: app/models/user.rb:135
 msgid "Either the email or password was not recognised, please try again."
-msgstr "El correo o la contraseña son inválidos, por favor pruebe otra vez."
+msgstr ""
 
 #: app/models/user.rb:137
 msgid ""
 "Either the email or password was not recognised, please try again. Or create"
 " a new account using the form on the right."
 msgstr ""
-"El correo o la contraseña son inválidos, por favor pruebe otra vez. O cree "
-"una nueva cuenta usando el formulario de la derecha."
 
 #: app/models/contact_validator.rb:34
 msgid "Email doesn't look like a valid address"
-msgstr "La dirección de correo no parece válida"
+msgstr ""
 
 #: app/views/comment/_comment_form.rhtml:8
 msgid "Email me future updates to this request"
-msgstr "Quiero recibir emails con las actulizaciones de esta solicitud"
+msgstr ""
 
 #: app/models/track_thing.rb:155
 msgid "Email me new successful responses "
-msgstr "Recibir respuestas válidas "
+msgstr ""
 
 #: app/models/track_thing.rb:139
 msgid "Email me when there are new requests"
@@ -1075,15 +948,13 @@ msgstr ""
 
 #: app/views/user/show.rhtml:36
 msgid "Email subscriptions"
-msgstr "Suscripciones de correo"
+msgstr ""
 
 #: app/views/general/search.rhtml:123
 msgid ""
 "Enter words that you want to find separated by spaces, e.g. <strong>climbing"
 " lane</strong>"
 msgstr ""
-"Introduzca las palabras que desee separadas por espacio, es decir "
-"<strong>parlamento gasto</strong>"
 
 #: app/views/request/upload_response.rhtml:23
 msgid ""
@@ -1093,11 +964,11 @@ msgstr ""
 
 #: app/views/public_body/show.rhtml:96
 msgid "Environmental Information Regulations requests made"
-msgstr "Peticiones medio-ambientales realizadas"
+msgstr ""
 
 #: app/views/public_body/show.rhtml:69
 msgid "Environmental Information Regulations requests made using this site"
-msgstr "Peticiones medio-ambientales realizadas en esta web"
+msgstr ""
 
 #: app/views/request/details.rhtml:4
 msgid "Event history"
@@ -1113,9 +984,6 @@ msgid ""
 "                will be <strong>displayed publicly</strong> on\n"
 "                this website forever (<a href=\"%s\">why?</a>)."
 msgstr ""
-"Todo lo que escriba en esta página \n"
-"                estará <strong>disponible públicamente</strong> en\n"
-"                está web para siempre (<a href=\"%s\">¿por qué?</a>)."
 
 #: app/views/request/new.rhtml:116
 msgid ""
@@ -1123,9 +991,6 @@ msgid ""
 "                will be <strong>displayed publicly</strong> on\n"
 "                this website forever (<a href=\"%s\">why?</a>)."
 msgstr ""
-"Todo lo que escriba en esta página, incluyendo <strong>su nombre</strong>, \n"
-"                estará <strong>disponible públicamente</strong> en\n"
-"                está web para siempre (<a href=\"%s\">¿por qué?</a>)."
 
 #: locale/model_attributes.rb:60
 msgid "EximLogDone|Filename"
@@ -1145,11 +1010,11 @@ msgstr ""
 
 #: app/views/public_body/view_email.rhtml:3
 msgid "FOI email address for {{public_body}}"
-msgstr "Dirección de correo para {{public_body}}"
+msgstr ""
 
 #: app/views/user/show.rhtml:33
 msgid "FOI requests"
-msgstr "Peticiones de información"
+msgstr ""
 
 #: app/models/track_thing.rb:193 app/models/track_thing.rb:194
 msgid "FOI requests by '{{user_name}}'"
@@ -1157,19 +1022,17 @@ msgstr ""
 
 #: app/models/profile_photo.rb:101
 msgid "Failed to convert image to a PNG"
-msgstr "Error al convertir la imagen a PNG"
+msgstr ""
 
 #: app/models/profile_photo.rb:105
 msgid ""
 "Failed to convert image to the correct size: at %{cols}x%{rows}, need "
 "%{width}x%{height}"
 msgstr ""
-"Error al convertir la imagen al tamaño adecuado: es %{cols}x%{rows}, debería"
-" ser %{width}x%{height}"
 
 #: app/views/request/new.rhtml:21
 msgid "First,"
-msgstr "Primero,"
+msgstr ""
 
 #: app/views/general/frontpage.rhtml:8
 msgid ""
@@ -1177,14 +1040,16 @@ msgid ""
 "           <br>like information from. <strong>By law, they have to respond</strong>\n"
 "           (<a href=\"%s\">why?</a>)."
 msgstr ""
+"Yn gyntaf, teipiwch <strong>enw awdurdod cyhoeddus yn y DU</strong> yr<br>\n"
+"hoffech gael gwybodaeth ganddo. Yn ôl y gyfraith, mae'n rhaid iddynt ymateb (<a href=\"%s\">pam?</a>)."
 
 #: app/views/request_mailer/old_unclassified_updated.rhtml:4
 msgid "Follow this link to see the request:"
-msgstr "Siga este enlace para ver la petición:"
+msgstr ""
 
 #: app/models/info_request_event.rb:335
 msgid "Follow up"
-msgstr "Seguimiento"
+msgstr ""
 
 #: app/views/general/search.rhtml:159
 msgid "Follow up message sent by requester"
@@ -1192,7 +1057,7 @@ msgstr ""
 
 #: app/views/public_body/view_email.rhtml:14
 msgid "Follow up messages to existing requests are sent to "
-msgstr "Mensajes de seguimiento a peticiones existentes se envían a "
+msgstr ""
 
 #: app/views/request/_followup.rhtml:16
 msgid ""
@@ -1206,47 +1071,42 @@ msgid ""
 "For an unknown reason, it is not possible to make a request to this "
 "authority."
 msgstr ""
-"No es posible hacer una petición a este organismo, por motivos desconocidos."
 
 #: app/views/user/_signin.rhtml:21
 msgid "Forgotten your password?"
-msgstr "¿Ha olvidado su contraseña?"
+msgstr ""
 
 #: app/views/public_body/show.rhtml:56
 msgid ""
 "Freedom of Information law does not apply to this authority, so you cannot make\n"
 "        a request to it."
 msgstr ""
-"La ley de acceso a la información no es aplicable a esta institución por lo "
-"que no puedes enviar una solicitud."
 
 #: app/views/request/followup_bad.rhtml:11
 msgid "Freedom of Information law no longer applies to"
-msgstr "La ley de acceso a la información ya no es aplicable a"
+msgstr ""
 
 #: app/views/public_body/view_email.rhtml:10
 msgid ""
 "Freedom of Information law no longer applies to this authority.Follow up "
 "messages to existing requests are sent to "
 msgstr ""
-"La ley de acceso a la información ya no es aplicable a este organismo. Los "
-"mensajes de seguimiento de peticiones existentes se envían a "
 
 #: app/views/user/show.rhtml:128
 msgid "Freedom of Information request"
-msgstr "Petición de acceso a la información"
+msgstr ""
 
 #: app/views/public_body/show.rhtml:98
 msgid "Freedom of Information requests made"
-msgstr "Peticiones de acceso a información realizadas"
+msgstr ""
 
 #: app/views/user/show.rhtml:121 app/views/user/show.rhtml:140
 msgid "Freedom of Information requests made by"
-msgstr "Peticiones de acceso a información hechas por"
+msgstr ""
 
 #: app/views/public_body/show.rhtml:72
 msgid "Freedom of Information requests made using this site"
-msgstr "Peticiones de acceso a información realizadas por esta web"
+msgstr ""
 
 #: app/views/request/followup_bad.rhtml:12
 msgid ""
@@ -1257,31 +1117,31 @@ msgstr ""
 
 #: app/models/outgoing_message.rb:73
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
-msgstr "DETALLE SU QUEJA AQUÍ"
+msgstr ""
 
 #: app/views/general/exception_caught.rhtml:14
 msgid "Go to our <a href=\"%s\">front page</a></li>"
-msgstr "Ir a la <a href=\"%s\">página de inicio</a></li>"
+msgstr ""
 
 #: app/models/info_request_event.rb:297
 msgid "Handled by post"
-msgstr "Resuelta por correo ordinario"
+msgstr ""
 
 #: app/models/info_request.rb:801
 msgid "Handled by post."
-msgstr "Resuelta por correo ordinario"
+msgstr ""
 
 #: app/views/layouts/default.rhtml:102
 msgid "Hello!"
-msgstr "¡Hola!"
+msgstr "Helo!"
 
 #: app/views/layouts/default.rhtml:99
 msgid "Hello, {{username}}!"
-msgstr "¡Hola, {{username}}!"
+msgstr "Helo, {{username}}!"
 
 #: app/views/layouts/default.rhtml:94
 msgid "Help"
-msgstr "Ayuda"
+msgstr "Help"
 
 #: app/views/request/details.rhtml:50
 msgid ""
@@ -1301,15 +1161,15 @@ msgstr ""
 
 #: locale/model_attributes.rb:57
 msgid "Holiday|Day"
-msgstr ""
+msgstr "Gwyliau | Diwrnod"
 
 #: locale/model_attributes.rb:58
 msgid "Holiday|Description"
-msgstr ""
+msgstr "Gwyliau | Disgrifiad"
 
 #: app/views/public_body/show.rhtml:7
 msgid "Home page of authority"
-msgstr "Sitio web del organismo"
+msgstr ""
 
 #: app/views/request/new.rhtml:63
 msgid ""
@@ -1323,11 +1183,11 @@ msgstr ""
 
 #: app/views/request/_followup.rhtml:68
 msgid "I am asking for <strong>new information</strong>"
-msgstr "Estoy pidiendo <strong>nueva información</strong>"
+msgstr ""
 
 #: app/views/request/_followup.rhtml:73
 msgid "I am requesting an <strong>internal review</strong>"
-msgstr "Estoy pidiendo una <strong>revisión interna</strong>"
+msgstr ""
 
 #: app/views/request_game/play.rhtml:39
 msgid "I don't like these ones &mdash; give me some more!"
@@ -1339,48 +1199,43 @@ msgstr ""
 
 #: app/views/request/_describe_state.rhtml:91
 msgid "I would like to <strong>withdraw this request</strong>"
-msgstr "Me gustaría <strong>retirar esta petición</strong>"
+msgstr ""
 
 #: app/views/request/_describe_state.rhtml:11
 msgid ""
 "I'm still <strong>waiting</strong> for my information\n"
 "                <small>(maybe you got an acknowledgement)</small>"
 msgstr ""
-"Todavía estoy <strong>esperando</strong> por mi información\n"
-"                <small>(puede que haya obtenido un acuse de recibo)</small>"
 
 #: app/views/request/_describe_state.rhtml:18
 msgid "I'm still <strong>waiting</strong> for the internal review"
-msgstr "Todavía estoy <strong>esperando</strong> por la revisión interna"
+msgstr ""
 
 #: app/views/request/_describe_state.rhtml:32
 msgid "I'm waiting for an <strong>internal review</strong> response"
 msgstr ""
-"Estoy esperando por una respuesta de la <strong>revisión interna</strong>"
 
 #: app/views/request/_describe_state.rhtml:25
 msgid "I've been asked to <strong>clarify</strong> my request"
-msgstr "Me han pedido que <strong>aclare</strong> mi petición"
+msgstr ""
 
 #: app/views/request/_describe_state.rhtml:60
 msgid "I've received <strong>all the information"
-msgstr "He recibido <strong>toda la información"
+msgstr ""
 
 #: app/views/request/_describe_state.rhtml:56
 msgid "I've received <strong>some of the information</strong>"
-msgstr "He recibido <strong>parte de la información</strong>"
+msgstr ""
 
 #: app/views/request/_describe_state.rhtml:76
 msgid "I've received an <strong>error message</strong>"
-msgstr "He recibido un <strong>mensaje de error</strong>"
+msgstr ""
 
 #: app/views/public_body/view_email.rhtml:28
 msgid ""
 "If the address is wrong, or you know a better address, please <a "
 "href=\"%s\">contact us</a>."
 msgstr ""
-"Si la dirección es incorrecta, o conoce una más actualizada, por favor <a "
-"href=\"%s\">contáctenos</a>."
 
 #: app/views/request_mailer/stopped_responses.rhtml:10
 msgid ""
@@ -1388,9 +1243,6 @@ msgid ""
 "or an email on another subject to {{user}}, then please\n"
 "email {{contact_email}} for help."
 msgstr ""
-"Si no es correcto, o le gustaría enviar una respuesta a la petición\n"
-"o un correo sobre otro tema a {{user}}, entonces por favor\n"
-"escriba a {{contact_email}} solicitando ayuda."
 
 #: app/views/request/_followup.rhtml:20
 msgid ""
@@ -1398,33 +1250,26 @@ msgid ""
 "            the public authority, you have the right to\n"
 "            complain (<a href=\"%s\">details</a>)."
 msgstr ""
-"Si no está satisfecho con la respuesta que ha recibido del\n"
-"            organismo público, tiene derecho a\n"
-"            apelar (<a href=\"%s\">detalles</a>)."
 
 #: app/views/user/no_cookies.rhtml:20
 msgid "If you are still having trouble, please <a href=\"%s\">contact us</a>."
-msgstr "Si aún tiene problemas, por favor <a href=\"%s\">contáctenos</a>."
+msgstr ""
 
 #: app/views/request/hidden.rhtml:15
 msgid ""
 "If you are the requester, then you may <a href=\"%s\">sign in</a> to view "
 "the request."
 msgstr ""
-"Si la petición es suya, puede <a href=\"%s\">abrir una sesión</a> para "
-"verla."
 
 #: app/views/request/new.rhtml:119
 msgid ""
 "If you are thinking of using a pseudonym,\n"
 "                please <a href=\"%s\">read this first</a>."
 msgstr ""
-"Si está pensando en utilizar un pseudónimo,\n"
-"                por favor <a href=\"%s\">lea esto primero</a>."
 
 #: app/views/request/show.rhtml:105
 msgid "If you are {{user_link}}, please"
-msgstr "Si es {{user_link}}, por favor"
+msgstr ""
 
 #: app/views/user/bad_token.rhtml:7
 msgid ""
@@ -1432,33 +1277,24 @@ msgid ""
 "it</strong> from the email.  Then <strong>paste it into your browser</strong>, into the place\n"
 "you would type the address of any other webpage."
 msgstr ""
-"Si no puede hacer click en el enlace del correo, tendrá que <strong>seleccionarlo y copiarlo\n"
-"</strong> en el correo.  A continuación, <strong>péguelo en su navegador</strong>, en el lugar\n"
-"dónde escribe la dirección de cualquier otra página web."
 
 #: app/views/request/show_response.rhtml:49
 msgid ""
 "If you can, scan in or photograph the response, and <strong>send us\n"
 "                    a copy to upload</strong>."
 msgstr ""
-"Si puede, escanee o haga una foto de la respuesta, y <strong>mándenos\n"
-"                    una copia para que la subamos</strong>."
 
 #: app/views/outgoing_mailer/_followup_footer.rhtml:4
 msgid ""
 "If you find this service useful as an FOI officer, please ask your web "
 "manager to link to us from your organisation's FOI page."
 msgstr ""
-"Si encuentra este servicio útil como responsable de Acceso a la Información,"
-" pida al responsable de su web que añada un enlace a nuestra web."
 
 #: app/views/user/bad_token.rhtml:13
 msgid ""
 "If you got the email <strong>more than six months ago</strong>, then this login link won't work any\n"
 "more. Please try doing what you were doing from the beginning."
 msgstr ""
-"Si recibió el correo <strong>hace más de seis meses</strong>, entonces el enlace ya no funcionará.\n"
-"Por favor intente hacer lo que estaba haciendo inicialmente."
 
 #: app/controllers/request_controller.rb:437
 msgid ""
@@ -1466,9 +1302,6 @@ msgid ""
 "authority that you have withdrawn your request. Otherwise they will not know"
 " it has been withdrawn."
 msgstr ""
-"Si no lo ha hecho ya, por favor escriba un mensaje a continuación informando"
-" al organismo público de que ha retirado su petición. De lo contrario no "
-"sabrá que lo ha hecho."
 
 #: app/views/user/signchangeemail_confirm.rhtml:11
 #: app/views/user/signchangepassword_confirm.rhtml:10
@@ -1476,16 +1309,12 @@ msgid ""
 "If you use web-based email or have \"junk mail\" filters, also check your\n"
 "bulk/spam mail folders. Sometimes, our messages are marked that way."
 msgstr ""
-"Si usa correo web o tiene filtros \"anti spam\", por favor compruebe\n"
-"sus carpetas de spam. A veces, nuestros mensajes se marcan así por error."
 
 #: app/views/user/banned.rhtml:15
 msgid ""
 "If you would like us to lift this ban, then you may politely\n"
 "<a href=\"/help/contact\">contact us</a> giving reasons.\n"
 msgstr ""
-"Si quiere eliminar el bloqueo, entonces puede <a href=\"/help/contact\">contactarnos</a>\n"
-" explicándonos sus razones.\n"
 
 #: app/views/user/_signup.rhtml:6
 msgid "If you're new to {{site_name}}"
@@ -1500,8 +1329,6 @@ msgid ""
 "If your browser is set to accept cookies and you are seeing this message,\n"
 "then there is probably a fault with our server."
 msgstr ""
-"Si su navegador acepta cookies y está viendo este mensaje,\n"
-"puede que haya un problema en nuestro servidor."
 
 #: locale/model_attributes.rb:63
 msgid "IncomingMessage|Cached attachment text clipped"
@@ -1573,11 +1400,11 @@ msgstr ""
 
 #: app/models/info_request_event.rb:303
 msgid "Information not held"
-msgstr "Información no disponible"
+msgstr ""
 
 #: app/models/info_request.rb:791
 msgid "Information not held."
-msgstr "Información no disponible."
+msgstr ""
 
 #: app/views/request/new.rhtml:71
 msgid ""
@@ -1587,11 +1414,11 @@ msgstr ""
 
 #: app/models/info_request_event.rb:311
 msgid "Internal review acknowledgement"
-msgstr "Acuse de recibo de revisión interna"
+msgstr ""
 
 #: app/models/info_request_event.rb:328
 msgid "Internal review request"
-msgstr "Petición de revisión interna"
+msgstr ""
 
 #: app/views/outgoing_mailer/initial_request.rhtml:8
 msgid ""
@@ -1605,9 +1432,6 @@ msgid ""
 "or cannot do so.  If you can, please enable cookies, or try using a different\n"
 "browser.  Then press refresh to have another go."
 msgstr ""
-"Puede que su navegador esté configurado para no aceptar lo que se conoce como \"cookies\",\n"
-"o que no pueda hacerlo.  Si sabe cómo, por favor permita las \"cookies\", o use un navegador\n"
-"distinto.  Entonces vuelva a visitar la página para volver a intentarlo."
 
 #: app/views/user/_user_listing_single.rhtml:21
 msgid "Joined in"
@@ -1622,42 +1446,37 @@ msgid ""
 "Keep it <strong>focused</strong>, you'll be more likely to get what you want"
 " (<a href=\"%s\">why?</a>)."
 msgstr ""
-"Sea <strong>específico</strong>, tendrá más probabilidades de conseguir lo "
-"que quiere (<a href=\"%s\">¿por qué?</a>)."
 
 #: app/views/contact_mailer/message.rhtml:10
 msgid "Last authority viewed: "
-msgstr "Ultimo organismo visitado: "
+msgstr ""
 
 #: app/views/contact_mailer/message.rhtml:7
 msgid "Last request viewed: "
-msgstr "Última petición vista: "
+msgstr ""
 
 #: app/views/user/no_cookies.rhtml:17
 msgid ""
 "Let us know what you were doing when this message\n"
 "appeared and your browser and operating system type and version."
 msgstr ""
-"Háganos saber que estaba haciendo cuando apareció\n"
-"este mensaje, así como el nombre y versión de su navegador y\n"
-"sistema operativo."
 
 #: app/views/request/_correspondence.rhtml:27
 #: app/views/request/_correspondence.rhtml:57
 msgid "Link to this"
-msgstr "Enlace"
+msgstr ""
 
 #: app/views/public_body/list.rhtml:32
 msgid "List of all authorities (CSV)"
-msgstr "Lista de todos los organismos (CSV)"
+msgstr ""
 
 #: lib/public_body_categories_en.rb:23
 msgid "Local and regional"
-msgstr "Local y regional"
+msgstr ""
 
 #: app/models/info_request.rb:789
 msgid "Long overdue."
-msgstr "Muy retrasada."
+msgstr ""
 
 #: app/views/public_body/show.rhtml:47
 msgid "Make a new Environmental Information request"
@@ -1665,27 +1484,27 @@ msgstr ""
 
 #: app/views/request/new.rhtml:1
 msgid "Make an {{law_used_short}} request to '{{public_body_name}}'"
-msgstr "Hacer una petición {{law_used_short}} a '{{public_body_name}}'"
+msgstr ""
 
 #: app/views/layouts/default.rhtml:15
 msgid "Make and browse Freedom of Information (FOI) requests"
-msgstr "Realiza una petición de información o mira las ya realizadas"
+msgstr ""
 
 #: app/views/layouts/default.rhtml:67
 msgid "Make and explore Freedom of Information requests"
-msgstr "Realiza una petición de información o mira las ya realizadas"
+msgstr "Gwnewch geisiadau Rhyddid Gwybodaeth neu archwiliwch trwyddynt"
 
 #: app/views/general/frontpage.rhtml:4
 msgid "Make or explore Freedom of Information requests"
-msgstr "Realiza una petición de información o mira las ya realizadas"
+msgstr "Gwnewch geisiadau Rhyddid Gwybodaeth neu archwiliwch trwyddynt"
 
 #: app/views/layouts/default.rhtml:87
 msgid "Make request"
-msgstr "Realizar petición"
+msgstr "Gwneud cais"
 
 #: app/views/public_body/_body_listing_single.rhtml:23
 msgid "Make your own request"
-msgstr "Hacer mi propia petición"
+msgstr ""
 
 #: app/views/contact_mailer/message.rhtml:4
 msgid "Message sent using {{site_name}} contact form, "
@@ -1693,35 +1512,35 @@ msgstr ""
 
 #: app/views/request/new_bad_contact.rhtml:1
 msgid "Missing contact details for '"
-msgstr "Faltan datos de contacto para '"
+msgstr ""
 
 #: app/views/public_body/show.rhtml:5
 msgid "More about this authority"
-msgstr "Más información sobre este organismo"
+msgstr ""
 
 #: app/views/general/frontpage.rhtml:41
 msgid "More authorities..."
-msgstr "Más organismos..."
+msgstr "Mwy o awdurdodau..."
 
 #: app/views/general/frontpage.rhtml:55
 msgid "More successful requests..."
-msgstr "Más peticiones realizadas con éxito..."
+msgstr "Mwy o geisiadau llwyddiannus..."
 
 #: app/views/request/_describe_state.rhtml:64
 msgid "My request has been <strong>refused</strong>"
-msgstr "Mi petición ha sido <strong>rechazada</strong>"
+msgstr ""
 
 #: app/views/layouts/default.rhtml:91
 msgid "My requests"
-msgstr "Mis peticiones"
+msgstr ""
 
 #: app/models/public_body.rb:36
 msgid "Name can't be blank"
-msgstr "El nombre no puede estar vacío"
+msgstr ""
 
 #: app/models/public_body.rb:40
 msgid "Name is already taken"
-msgstr "El nombre ya está siendo utilizado"
+msgstr ""
 
 #: app/models/track_thing.rb:142 app/models/track_thing.rb:143
 msgid "New Freedom of Information requests"
@@ -1729,133 +1548,127 @@ msgstr ""
 
 #: app/views/user/signchangeemail.rhtml:20
 msgid "New e-mail:"
-msgstr "Nueva dirección:"
+msgstr ""
 
 #: app/models/change_email_validator.rb:53
 msgid "New email doesn't look like a valid address"
-msgstr "La nueva dirección no parece válida"
+msgstr ""
 
 #: app/views/user/signchangepassword.rhtml:15
 msgid "New password:"
-msgstr "Nueva contraseña:"
+msgstr ""
 
 #: app/views/user/signchangepassword.rhtml:20
 msgid "New password: (again)"
-msgstr "Nueva contraseña: (de nuevo)"
+msgstr ""
 
 #: app/views/request/show_response.rhtml:62
 msgid "New response to your request"
-msgstr "Nueva respuesta a su petición"
+msgstr ""
 
 #: app/views/request/show_response.rhtml:68
 msgid "New response to {{law_used_short}} request"
-msgstr "Nueva respuesta a su petición {{law_used_short}}"
+msgstr ""
 
 #: app/views/general/search.rhtml:40
 msgid "Newest results first"
-msgstr "Resultados recientes primero"
+msgstr ""
 
 #: app/views/user/set_draft_profile_photo.rhtml:32
 msgid "Next, crop your photo &gt;&gt;"
-msgstr "Ahora, recorte su foto &gt;&gt;"
+msgstr ""
 
 #: app/views/general/search.rhtml:16
 msgid "Next, select the public authority you'd like to make the request from."
-msgstr "Ahora, elige el organismo al que le quiere enviar su petición."
+msgstr ""
 
 #: app/views/general/search.rhtml:48
 msgid "No public authorities found"
-msgstr "No se han encontrado organismos"
+msgstr ""
 
 #: app/views/request/list.rhtml:23
 msgid "No requests of this sort yet."
-msgstr "No existen peticiones de este tipo todavía."
+msgstr ""
 
 #: app/views/request/similar.rhtml:7
 msgid "No similar requests found."
-msgstr "No se han encontrado peticiones similares."
+msgstr ""
 
 #: app/views/public_body/show.rhtml:73
 msgid ""
 "Nobody has made any Freedom of Information requests to {{public_body_name}} "
 "using this site yet."
 msgstr ""
-"Nadie ha realizado todavía una petición de información a "
-"{{public_body_name}} usando esta web."
 
 #: app/views/public_body/_body_listing.rhtml:2
 #: app/views/request/_request_listing.rhtml:2
 msgid "None found."
-msgstr "No se han encontrado resultados."
+msgstr ""
 
 #: app/views/user/signchangeemail_confirm.rhtml:3
 #: app/views/user/signchangepassword_confirm.rhtml:1
 #: app/views/user/signchangepassword_confirm.rhtml:3
 msgid "Now check your email!"
-msgstr "¡Ahora compruebe su correo!"
+msgstr ""
 
 #: app/views/comment/preview.rhtml:5
 msgid "Now preview your annotation"
-msgstr "Ahora revise su comentario"
+msgstr ""
 
 #: app/views/request/followup_preview.rhtml:10
 msgid "Now preview your follow up"
-msgstr "Ahora revise su mensaje"
+msgstr ""
 
 #: app/views/request/followup_preview.rhtml:8
 msgid "Now preview your message asking for an internal review"
-msgstr "Ahora revise su mensaje pidiendo una revisión interna"
+msgstr ""
 
 #: app/views/request/preview.rhtml:5
 msgid "Now preview your request"
-msgstr "Ahora revise su petición"
+msgstr ""
 
 #: app/views/user/set_draft_profile_photo.rhtml:46
 msgid "OR remove the existing photo"
-msgstr "O borre la foto actual"
+msgstr ""
 
 #: app/views/general/frontpage.rhtml:25
 msgid ""
 "OR, <strong>search</strong> for information others have requested using "
 "{{site_name}}"
 msgstr ""
-"O, <strong>busca</strong> en la información que otros han solicitado usando "
-"{{site_name}}"
+"NEU, <strong>chwiliwch</strong> am wybodaeth y mae pobl eraill wedi gofyn "
+"amdani gan ddefnyddio {{site_name}}"
 
 #: app/controllers/request_controller.rb:414
 msgid ""
 "Oh no! Sorry to hear that your request was refused. Here is what to do now."
 msgstr ""
-"¡Oh no! Sentimos oir que su petición ha sido rechazada. Esto es lo que puede"
-" hacer ahora."
 
 #: app/views/user/signchangeemail.rhtml:15
 msgid "Old e-mail:"
-msgstr "Correo antiguo:"
+msgstr ""
 
 #: app/models/change_email_validator.rb:44
 msgid ""
 "Old email address isn't the same as the address of the account you are "
 "logged in with"
 msgstr ""
-"La dirección de correo antiguo no es con la que ha abierto su sesión actual"
 
 #: app/models/change_email_validator.rb:39
 msgid "Old email doesn't look like a valid address"
-msgstr "La dirección de correo antigua no parece válida"
+msgstr ""
 
 #: app/views/user/show.rhtml:32
 msgid "On this page"
-msgstr "En esta página"
+msgstr ""
 
 #: app/views/general/search.rhtml:71
 msgid "One public authority matching &#x2018;{{user_search_query}}&#x2019;"
 msgstr ""
-"Un organismo público coincide con &#x2018;{{user_search_query}}&#x2019;"
 
 #: app/views/public_body/show.rhtml:91
 msgid "Only requests made using {{site_name}} are shown."
-msgstr "Sólo se muestran las peticiones realizadas con {{site_name}}."
+msgstr ""
 
 #: app/models/info_request.rb:405
 msgid ""
@@ -1875,80 +1688,74 @@ msgstr ""
 
 #: locale/model_attributes.rb:26
 msgid "OutgoingMessage|Body"
-msgstr "OutgoingMessage|Body"
+msgstr ""
 
 #: locale/model_attributes.rb:29
 msgid "OutgoingMessage|Last sent at"
-msgstr "OutgoingMessage|Last sent at"
+msgstr ""
 
 #: locale/model_attributes.rb:28
 msgid "OutgoingMessage|Message type"
-msgstr "OutgoingMessage|Message type"
+msgstr ""
 
 #: locale/model_attributes.rb:27
 msgid "OutgoingMessage|Status"
-msgstr "OutgoingMessage|Status"
+msgstr ""
 
 #: locale/model_attributes.rb:30
 msgid "OutgoingMessage|What doing"
-msgstr "OutgoingMessage|What doing"
+msgstr ""
 
 #: app/models/info_request.rb:795
 msgid "Partially successful."
-msgstr "Éxito parcial."
+msgstr ""
 
 #: app/models/change_email_validator.rb:47
 msgid "Password is not correct"
-msgstr "La contraseña no es correcta"
+msgstr ""
 
 #: app/views/user/_signin.rhtml:16 app/views/user/_signup.rhtml:30
 msgid "Password:"
-msgstr "Contraseña:"
+msgstr ""
 
 #: app/views/user/_signup.rhtml:35
 msgid "Password: (again)"
-msgstr "Contraseña: (de nuevo)"
+msgstr ""
 
 #: app/views/user/set_draft_profile_photo.rhtml:13
 msgid "Photo of you:"
-msgstr "Foto:"
+msgstr ""
 
 #: app/views/request/new.rhtml:76
 msgid "Plans and administrative measures that affect these matters"
-msgstr "Planes y medidas administrativas que afecten a estos temas"
+msgstr ""
 
 #: app/controllers/request_game_controller.rb:42
 msgid "Play the request categorisation game"
-msgstr "Juega al juego de clasificación de peticiones!"
+msgstr ""
 
 #: app/views/request_game/play.rhtml:1 app/views/request_game/play.rhtml:30
 msgid "Play the request categorisation game!"
-msgstr "Juega al juego de clasificación de peticiones!"
+msgstr ""
 
 #: app/views/request/show.rhtml:101
 msgid "Please"
-msgstr "Por favor"
+msgstr ""
 
 #: app/views/user/no_cookies.rhtml:15
 msgid "Please <a href=\"%s\">get in touch</a> with us so we can fix it."
 msgstr ""
-"Por favor <a href=\"%s\">contacte</a> con nosotros para que podamos "
-"arreglarlo."
 
 #: app/views/request/show.rhtml:52
 msgid ""
 "Please <strong>answer the question above</strong> so we know whether the "
 msgstr ""
-"Por favor <strong>responda la pregunta anterior</strong> para que sepamos si"
-" "
 
 #: app/views/user/show.rhtml:12
 msgid ""
 "Please <strong>go to the following requests</strong>, and let us\n"
 "        know if there was information in the recent responses to them."
 msgstr ""
-"Por favor <strong>vaya a la siguiente petición</strong>, y háganos\n"
-"        saber si había información en las últimas respuestas recibidas."
 
 #: app/views/request/_followup.rhtml:27
 msgid ""
@@ -1960,29 +1767,27 @@ msgstr ""
 
 #: app/views/request/new.rhtml:60
 msgid "Please ask for environmental information only"
-msgstr "Por favor pida información medio-ambiental solamente"
+msgstr ""
 
 #: app/views/user/bad_token.rhtml:2
 msgid ""
 "Please check the URL (i.e. the long code of letters and numbers) is copied\n"
 "correctly from your email."
 msgstr ""
-"Por favor compruebe que ha copiado correctamente la URL (esto es, la secuencia\n"
-"de letras y números) del correo."
 
 #: app/models/profile_photo.rb:91
 msgid "Please choose a file containing your photo."
-msgstr "Por favor elige el fichero que contiene tu foto"
+msgstr ""
 
 #: app/models/outgoing_message.rb:162
 msgid "Please choose what sort of reply you are making."
-msgstr "Por favor, elija el tipo de respuesta que está creando."
+msgstr ""
 
 #: app/controllers/request_controller.rb:346
 msgid ""
 "Please choose whether or not you got some of the information that you "
 "wanted."
-msgstr "Por favor indique si ha recibido o no la información que quería."
+msgstr ""
 
 #: app/views/user_mailer/changeemail_confirm.rhtml:3
 msgid ""
@@ -1994,222 +1799,193 @@ msgstr ""
 #: app/views/user_mailer/confirm_login.rhtml:3
 msgid "Please click on the link below to confirm your email address."
 msgstr ""
-"Por favor seleccione el siguiente enlace para confirmar su dirección de "
-"correo."
 
 #: app/models/info_request.rb:126
 msgid ""
 "Please describe more what the request is about in the subject. There is no "
 "need to say it is an FOI request, we add that on anyway."
 msgstr ""
-"Por favor, describa mejor el tema de su petición en el asunto. Por cierto, "
-"no hace falta decir que es una petición FOI, ya lo añadimos nosotros."
 
 #: app/views/user/set_draft_profile_photo.rhtml:22
 msgid ""
 "Please don't upload offensive pictures. We will take down images\n"
 "    that we consider inappropriate."
 msgstr ""
-"Por favor no suba imágenes ofensivas. Eliminaremos cualquier imagen\n"
-"    que consideremos inapropiada."
 
 #: app/views/user/no_cookies.rhtml:3
 msgid "Please enable \"cookies\" to carry on"
-msgstr "Por favor active las \"cookies\" para continuar"
+msgstr ""
 
 #: app/models/user.rb:38
 msgid "Please enter a password"
-msgstr "Por favor, introduzca una contraseña."
+msgstr ""
 
 #: app/models/contact_validator.rb:30
 msgid "Please enter a subject"
-msgstr "Por favor, introduzca un asunto"
+msgstr ""
 
 #: app/models/info_request.rb:34
 msgid "Please enter a summary of your request"
-msgstr "Por favor, introduzca un resumen de su petición"
+msgstr ""
 
 #: app/models/user.rb:106
 msgid "Please enter a valid email address"
-msgstr "Por favor, introduzca una dirección de correo válida"
+msgstr ""
 
 #: app/models/contact_validator.rb:31
 msgid "Please enter the message you want to send"
-msgstr "Por favor, introduzca el mensaje que quieres enviar"
+msgstr ""
 
 #: app/models/user.rb:49
 msgid "Please enter the same password twice"
-msgstr "Por favor, introduzca la misma contraseña dos veces"
+msgstr ""
 
 #: app/models/comment.rb:59
 msgid "Please enter your annotation"
-msgstr "Por favor, introduzca su comentario"
+msgstr ""
 
 #: app/models/contact_validator.rb:29 app/models/user.rb:34
 msgid "Please enter your email address"
-msgstr "Por favor, introduzca su dirección de correo"
+msgstr ""
 
 #: app/models/outgoing_message.rb:147
 msgid "Please enter your follow up message"
-msgstr "Por favor, introduzca su mensaje"
+msgstr ""
 
 #: app/models/outgoing_message.rb:150
 msgid "Please enter your letter requesting information"
-msgstr "Por favor, introduzca su petición de información"
+msgstr ""
 
 #: app/models/contact_validator.rb:28 app/models/user.rb:36
 msgid "Please enter your name"
-msgstr "Por favor, introduzca su nombre"
+msgstr ""
 
 #: app/models/user.rb:109
 msgid "Please enter your name, not your email address, in the name field."
 msgstr ""
-"Por favor, introduzca su nombre - no su dirección de correo - en el campo "
-"para el nombre"
 
 #: app/models/change_email_validator.rb:30
 msgid "Please enter your new email address"
-msgstr "Por favor, introduzca su nueva dirección de correo"
+msgstr ""
 
 #: app/models/change_email_validator.rb:29
 msgid "Please enter your old email address"
-msgstr "Por favor, introduzca su antigua dirección de correo"
+msgstr ""
 
 #: app/models/change_email_validator.rb:31
 msgid "Please enter your password"
-msgstr "Por favor, introduzca su contraseña"
+msgstr ""
 
 #: app/models/outgoing_message.rb:145
 msgid "Please give details explaining why you want a review"
-msgstr "Por favor, explica por qué quiere una revisión"
+msgstr ""
 
 #: app/models/about_me_validator.rb:24
 msgid "Please keep it shorter than 500 characters"
-msgstr "Por favor, limite tu mensaje a 500 carácteres"
+msgstr ""
 
 #: app/models/info_request.rb:123
 msgid ""
 "Please keep the summary short, like in the subject of an email. You can use "
 "a phrase, rather than a full sentence."
 msgstr ""
-"Por favor, mantenga el resumen corto, como en el asunto de un correo "
-"electrónico"
 
 #: app/views/request/new.rhtml:79
 msgid ""
 "Please only request information that comes under those categories, <strong>do not waste your\n"
 "        time</strong> or the time of the public authority by requesting unrelated information."
 msgstr ""
-"Por favor, pida información sólo de estas categorias, <strong>no pierda su tiempo\n"
-"        </strong> o el del organismo público pidiendo información no relacionada."
 
 #: app/views/request/new_please_describe.rhtml:5
 msgid ""
 "Please select each of these requests in turn, and <strong>let everyone know</strong>\n"
 "if they are successful yet or not."
 msgstr ""
-"Por favor elija estas peticiones una a una, y <strong>haz que se sepa</strong>\n"
-"si han tenido éxito o no."
 
 #: app/models/outgoing_message.rb:156
 msgid ""
 "Please sign at the bottom with your name, or alter the \"%{signoff}\" "
 "signature"
 msgstr ""
-"Por favor, firme con su nombre en la parte inferior, o cambia la firma "
-"\"%{signoff}\""
 
 #: app/views/user/sign.rhtml:8
 msgid "Please sign in as "
-msgstr "Por favor abre una sesión como "
+msgstr ""
 
 #: app/controllers/request_controller.rb:730
 msgid "Please type a message and/or choose a file containing your response."
 msgstr ""
-"Por favor escriba un mensaje y/o escoja un fichero conteniendo su respuesta."
 
 #: app/controllers/request_controller.rb:434
 msgid "Please use the form below to tell us more."
-msgstr "Por favor use el formulario a continuación para decirnos más."
+msgstr ""
 
 #: app/views/outgoing_mailer/followup.rhtml:6
 #: app/views/outgoing_mailer/initial_request.rhtml:5
 msgid "Please use this email address for all replies to this request:"
 msgstr ""
-"Por favor use la siguiente dirección de correo para todas las respuestas a "
-"esta petición:"
 
 #: app/models/info_request.rb:35
 msgid "Please write a summary with some text in it"
-msgstr "Por favor, escriba un resumen que no esté vacío"
+msgstr ""
 
 #: app/models/info_request.rb:120
 msgid ""
 "Please write the summary using a mixture of capital and lower case letters. "
 "This makes it easier for others to read."
 msgstr ""
-"Por favor, escriba el resumen usando letras mayúsculas y minúsculas para "
-"facilitar su lectura"
 
 #: app/models/comment.rb:62
 msgid ""
 "Please write your annotation using a mixture of capital and lower case "
 "letters. This makes it easier for others to read."
 msgstr ""
-"Por favor, escriba su comentario usando letras mayúsculas y minúsculas para "
-"facilitar su lectura"
 
 #: app/controllers/request_controller.rb:423
 msgid ""
 "Please write your follow up message containing the necessary clarifications "
 "below."
 msgstr ""
-"Por favor escriba su mensaje conteniendo las aclaraciones necesarias a "
-"continuación."
 
 #: app/models/outgoing_message.rb:159
 msgid ""
 "Please write your message using a mixture of capital and lower case letters."
 " This makes it easier for others to read."
 msgstr ""
-"Por favor, escriba su mensaje usando letras mayúsculas y minúsculas para "
-"facilitar su lectura"
 
 #: app/views/comment/new.rhtml:41
 msgid ""
 "Point to <strong>related information</strong>, campaigns or forums which may"
 " be useful."
 msgstr ""
-"Haga referencia a <strong>información relacionada</strong>, campañas o foros"
-" que puedan ser útiles."
 
 #: app/views/comment/preview.rhtml:21
 msgid "Post annotation"
-msgstr "Enviar comentario"
+msgstr ""
 
 #: locale/model_attributes.rb:55
 msgid "PostRedirect|Circumstance"
-msgstr "PostRedirect|Circumstance"
+msgstr ""
 
 #: locale/model_attributes.rb:53
 msgid "PostRedirect|Email token"
-msgstr "PostRedirect|Email token"
+msgstr ""
 
 #: locale/model_attributes.rb:52
 msgid "PostRedirect|Post params yaml"
-msgstr "PostRedirect|Post params yaml"
+msgstr ""
 
 #: locale/model_attributes.rb:54
 msgid "PostRedirect|Reason params yaml"
-msgstr "PostRedirect|Reason params yaml"
+msgstr ""
 
 #: locale/model_attributes.rb:50
 msgid "PostRedirect|Token"
-msgstr "PostRedirect|Token"
+msgstr ""
 
 #: locale/model_attributes.rb:51
 msgid "PostRedirect|Uri"
-msgstr "PostRedirect"
+msgstr ""
 
 #: app/views/general/_credits.rhtml:1
 msgid "Powered by <a href=\"http://www.alaveteli.org/\">Alaveteli</a>."
@@ -2217,107 +1993,105 @@ msgstr ""
 
 #: app/views/request/followup_preview.rhtml:1
 msgid "Preview follow up to '"
-msgstr "Revisar mensaje a '"
+msgstr ""
 
 #: app/views/comment/preview.rhtml:1
 msgid "Preview new annotation on '{{info_request_title}}'"
-msgstr "Revisar nuevo comentario a '{{info_request_title}}'"
+msgstr ""
 
 #: app/views/comment/_comment_form.rhtml:15
 msgid "Preview your annotation"
-msgstr "Revise su comentario"
+msgstr ""
 
 #: app/views/request/_followup.rhtml:96
 msgid "Preview your message"
-msgstr "Revise su mensaje"
+msgstr ""
 
 #: app/views/request/new.rhtml:139
 msgid "Preview your public request"
-msgstr "Revise su petición pública"
+msgstr ""
 
 #: locale/model_attributes.rb:15
 msgid "ProfilePhoto|Data"
-msgstr "ProfilePhoto|Data"
+msgstr ""
 
 #: locale/model_attributes.rb:16
 msgid "ProfilePhoto|Draft"
-msgstr "ProfilePhoto|Draft"
+msgstr ""
 
 #: app/views/public_body/list.rhtml:37
 msgid "Public authorities - {{description}}"
-msgstr "Organismos públicos - {{description}}"
+msgstr ""
 
 #: app/views/general/search.rhtml:73
 msgid ""
 "Public authorities {{start_count}} to {{end_count}} of {{total_count}} for "
 "{{user_search_query}}"
 msgstr ""
-"Organismos {{start_count}} a {{end_count}} de {{total_count}} para "
-"{{user_search_query}}"
 
 #: locale/model_attributes.rb:12
 msgid "PublicBody|First letter"
-msgstr "Primera letra"
+msgstr ""
 
 #: locale/model_attributes.rb:10
 msgid "PublicBody|Home page"
-msgstr "Sitio web"
+msgstr ""
 
 #: locale/model_attributes.rb:8
 msgid "PublicBody|Last edit comment"
-msgstr "PublicBody|Last edit comment"
+msgstr ""
 
 #: locale/model_attributes.rb:7
 msgid "PublicBody|Last edit editor"
-msgstr "PublicBody|Last edit editor"
+msgstr ""
 
 #: locale/model_attributes.rb:3
 msgid "PublicBody|Name"
-msgstr "Nombre"
+msgstr ""
 
 #: locale/model_attributes.rb:11
 msgid "PublicBody|Notes"
-msgstr "Notas"
+msgstr ""
 
 #: locale/model_attributes.rb:13
 msgid "PublicBody|Publication scheme"
-msgstr "PublicBody|Publication scheme"
+msgstr ""
 
 #: locale/model_attributes.rb:5
 msgid "PublicBody|Request email"
-msgstr "PublicBody|Request email"
+msgstr ""
 
 #: locale/model_attributes.rb:4
 msgid "PublicBody|Short name"
-msgstr "Nombre corto"
+msgstr ""
 
 #: locale/model_attributes.rb:9
 msgid "PublicBody|Url name"
-msgstr "Dirección web"
+msgstr ""
 
 #: locale/model_attributes.rb:6
 msgid "PublicBody|Version"
-msgstr "Versión"
+msgstr ""
 
 #: app/views/public_body/show.rhtml:10
 msgid "Publication scheme"
-msgstr "Esquema de publicación"
+msgstr ""
 
 #: locale/model_attributes.rb:48
 msgid "RawEmail|Data binary"
-msgstr "RawEmail|Data binary"
+msgstr ""
 
 #: app/views/comment/preview.rhtml:20
 msgid "Re-edit this annotation"
-msgstr "Editar este comentario"
+msgstr ""
 
 #: app/views/request/followup_preview.rhtml:49
 msgid "Re-edit this message"
-msgstr "Editar este mensaje"
+msgstr ""
 
 #: app/views/request/preview.rhtml:40
 msgid "Re-edit this request"
-msgstr "Editar esta petición"
+msgstr ""
 
 #: app/views/general/search.rhtml:137
 msgid ""
@@ -2327,11 +2101,11 @@ msgstr ""
 
 #: app/views/layouts/default.rhtml:93
 msgid "Read blog"
-msgstr "Leer el blog"
+msgstr "Darllen blog"
 
 #: app/views/request/new.rhtml:16
 msgid "Read this before writing your {{info_request_law_used_full}} request"
-msgstr "Lea esto antes de escribir su petición {{info_request_law_used_full}}"
+msgstr ""
 
 #: app/views/general/search.rhtml:150
 msgid "Received an error message, such as delivery failure."
@@ -2339,79 +2113,73 @@ msgstr ""
 
 #: app/views/general/search.rhtml:42
 msgid "Recently described results first"
-msgstr "Resultados descritos recientemente primero"
+msgstr ""
 
 #: app/controllers/request_controller.rb:139
 msgid "Recently sent Freedom of Information requests"
-msgstr "Peticiones de acceso a la información enviadas recientemente"
+msgstr ""
 
 #: app/views/request/list.rhtml:6
 msgid "Recently sent requests"
-msgstr "Peticiones enviadas recientemente"
+msgstr ""
 
 #: app/controllers/request_controller.rb:144
 msgid "Recently successful responses"
-msgstr "Respuestas exitosas recientes"
+msgstr ""
 
 #: app/models/info_request_event.rb:305
 msgid "Refused"
-msgstr "Rechazada"
+msgstr ""
 
 #: app/models/info_request.rb:793
 msgid "Refused."
-msgstr "Rechazada."
+msgstr ""
 
 #: app/views/user/_signin.rhtml:26
 msgid ""
 "Remember me</label> (keeps you signed in longer;\n"
 "    do not use on a public computer) "
 msgstr ""
-"Recuérdame</label> (mantiene la sesión abierta;\n"
-"    no lo use en un ordenador público) "
 
 #: app/views/request/_correspondence.rhtml:28
 msgid "Reply to this message"
-msgstr "Conteste a este mensaje"
+msgstr ""
 
 #: app/views/comment/_single_comment.rhtml:24
 msgid "Report abuse"
-msgstr "Denuncie abuso"
+msgstr ""
 
 #: app/views/request/_after_actions.rhtml:37
 msgid "Request an internal review"
-msgstr "Pida una revisión interna"
+msgstr ""
 
 #: app/views/request/_followup.rhtml:4
 msgid "Request an internal review from"
-msgstr "Pida una revisión interna de"
+msgstr ""
 
 #: app/views/request/hidden.rhtml:1
 msgid "Request has been removed"
-msgstr "La petición ha sido eliminada"
+msgstr ""
 
 #: app/views/request/_request_listing_via_event.rhtml:28
 msgid ""
 "Request sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr ""
-"Petición enviada a {{public_body_name}} por {{info_request_user}} el "
-"{{date}}."
 
 #: app/views/request/_request_listing_via_event.rhtml:36
 msgid ""
 "Request to {{public_body_name}} by {{info_request_user}}. Annotated by "
 "{{event_comment_user}} on {{date}}."
 msgstr ""
-"Petición a {{public_body_name}} por {{info_request_user}}. Comentada por "
-"{{event_comment_user}} el {{date}}."
 
 #: app/views/request/_request_listing_single.rhtml:12
 msgid ""
 "Requested from {{public_body_name}} by {{info_request_user}} on {{date}}"
-msgstr "Petición a {{public_body_name}} de {{info_request_user}} el {{date}}"
+msgstr ""
 
 #: app/views/request/_sidebar_request_listing.rhtml:13
 msgid "Requested on {{date}}"
-msgstr "Pedida el {{date}}"
+msgstr ""
 
 #: app/models/track_thing.rb:209 app/models/track_thing.rb:210
 msgid "Requests or responses matching '{{query}}'"
@@ -2419,19 +2187,19 @@ msgstr ""
 
 #: app/views/request/upload_response.rhtml:11
 msgid "Respond by email"
-msgstr "Contestar por correo"
+msgstr ""
 
 #: app/views/request/_after_actions.rhtml:46
 msgid "Respond to request"
-msgstr "Contestar la petición"
+msgstr ""
 
 #: app/views/request/upload_response.rhtml:5
 msgid "Respond to the FOI request"
-msgstr "Contestar la petición"
+msgstr ""
 
 #: app/views/request/upload_response.rhtml:21
 msgid "Respond using the web"
-msgstr "Contestar vía web"
+msgstr ""
 
 #: app/views/general/search.rhtml:160
 msgid "Response from a public authority"
@@ -2439,113 +2207,114 @@ msgstr ""
 
 #: app/views/request/show.rhtml:77
 msgid "Response to this request is <strong>delayed</strong>."
-msgstr "La respuesta a esta petición está <strong>retrasada</strong>."
+msgstr ""
 
 #: app/views/request/show.rhtml:85
 msgid "Response to this request is <strong>long overdue</strong>."
-msgstr "La respuesta a esta petición está <strong>muy retrasada</strong>."
+msgstr ""
 
 #: app/views/request/show_response.rhtml:64
 msgid "Response to your request"
-msgstr "Respuesta a su petición"
+msgstr ""
 
 #: app/views/request/upload_response.rhtml:28
 msgid "Response:"
-msgstr "Respuesta:"
+msgstr ""
 
 #: app/views/general/search.rhtml:9
 msgid "Results page {{page_number}}"
-msgstr "Página de resultados {{page_number}}"
+msgstr ""
 
 #: app/views/user/set_profile_about_me.rhtml:35
 msgid "Save"
-msgstr "Guardar"
+msgstr ""
 
 #: app/views/general/exception_caught.rhtml:10
 #: app/views/general/frontpage.rhtml:16 app/views/general/search.rhtml:29
 #: app/views/layouts/default.rhtml:80 app/views/request/new.rhtml:31
 msgid "Search"
-msgstr "Buscar"
+msgstr "Chwilio"
 
 #: app/views/general/search.rhtml:4
 msgid "Search Freedom of Information requests, public authorities and users"
-msgstr "Buscar peticiones de información, organismos públicos y usuarios"
+msgstr ""
+"Chwilio Rhyddid Gwybodaeth o geisiadau, awdurdodau cyhoeddus a defnyddwyr"
 
 #: app/views/general/exception_caught.rhtml:7
 msgid "Search the site to find what you were looking for."
-msgstr "Buscar en esta web para encontrar lo que busca."
+msgstr ""
 
 #: app/controllers/user_controller.rb:331
 msgid "Send a message to "
-msgstr "Enviar un mensaje a "
+msgstr ""
 
 #: app/views/request/_followup.rhtml:7
 msgid "Send a public follow up message to"
-msgstr "Enviar un mensaje público a"
+msgstr ""
 
 #: app/views/request/_followup.rhtml:10
 msgid "Send a public reply to"
-msgstr "Enviar una respuesta pública a"
+msgstr ""
 
 #: app/views/request/_correspondence.rhtml:58
 msgid "Send follow up"
-msgstr "Enviar un mensaje"
+msgstr ""
 
 #: app/views/request/followup_preview.rhtml:50
 msgid "Send message"
-msgstr "Enviar un mensaje"
+msgstr ""
 
 #: app/views/user/show.rhtml:69
 msgid "Send message to "
-msgstr "Enviar un mensaje a "
+msgstr ""
 
 #: app/views/request/preview.rhtml:41
 msgid "Send public "
-msgstr "Enviar público "
+msgstr ""
 
 #: app/views/user/show.rhtml:53
 msgid "Set your profile photo"
-msgstr "Cambiar foto de perfil"
+msgstr ""
 
 #: app/models/public_body.rb:39
 msgid "Short name is already taken"
-msgstr "Nombre de usuario ya en uso"
+msgstr ""
 
 #: app/views/general/search.rhtml:38
 msgid "Show most relevant results first"
-msgstr "Muestra resultados más relevantes primero"
+msgstr ""
 
 #: app/views/public_body/list.rhtml:3 app/views/request/list.rhtml:2
 msgid "Show only..."
-msgstr "Mostrar sólo..."
+msgstr ""
 
 #: app/views/user/_signin.rhtml:31 app/views/user/show.rhtml:113
 msgid "Sign in"
-msgstr "Abrir sesión"
+msgstr ""
 
 #: app/views/user/sign.rhtml:20
 msgid "Sign in or make a new account"
-msgstr "Abrir sesión o crear nueva cuenta"
+msgstr "Mewngofnodi neu gofrestru"
 
 #: app/views/layouts/default.rhtml:103
 msgid "Sign in or sign up"
-msgstr "Iniciar sesión o registro"
+msgstr "Mewngofnodi neu gofrestru"
 
 #: app/views/layouts/default.rhtml:100
 msgid "Sign out"
-msgstr "Cerrar sesión"
+msgstr ""
 
 #: app/views/user/_signup.rhtml:41
 msgid "Sign up"
-msgstr "Registrarse"
+msgstr ""
 
 #: app/views/request/_sidebar.rhtml:30
 msgid "Similar requests"
-msgstr "Peticiones similares"
+msgstr ""
 
 #: app/models/info_request_event.rb:307
 msgid "Some information sent"
-msgstr "Enviada parte de la información"
+msgstr ""
 
 #: app/views/general/search.rhtml:145
 msgid "Some of the information requested has been received"
@@ -2558,10 +2327,6 @@ msgid ""
 "choose one of these requests, read it, and let everyone know whether or not the\n"
 "information has been provided. Everyone'll be exceedingly grateful."
 msgstr ""
-"Algunas personas que hicieron peticiones no nos han hecho saber si tuvieron\n"
-"éxito o no. Necesitamos <strong>su</strong> ayuda &ndash;\n"
-"elija una de las peticiones, léala, y háganos saber si se ha obtenido o no\n"
-"la información. Todos le estaremos agradecidos.."
 
 #: app/views/user_mailer/changeemail_already_used.rhtml:1
 msgid ""
@@ -2571,40 +2336,40 @@ msgstr ""
 
 #: app/views/general/exception_caught.rhtml:1
 msgid "Sorry, we couldn't find that page"
-msgstr "Lo sentimos, no hemos podido encontrar esa página"
+msgstr ""
 
 #: app/views/request/new.rhtml:53
 msgid "Special note for this authority!"
-msgstr "¡Notas especiales sobre este organismo!"
+msgstr ""
 
 #: app/views/request/_other_describe_state.rhtml:21
 msgid "Still awaiting an <strong>internal review</strong>"
-msgstr "Todavía esperando por una <strong>revisión interna</strong>"
+msgstr ""
 
 #: app/views/request/followup_preview.rhtml:23
 #: app/views/request/preview.rhtml:18
 msgid "Subject:"
-msgstr "Tema:"
+msgstr ""
 
 #: app/views/user/signchangepassword_send_confirm.rhtml:26
 msgid "Submit"
-msgstr "Enviar"
+msgstr ""
 
 #: app/views/request/_describe_state.rhtml:101
 msgid "Submit status"
-msgstr "Enviar estado"
+msgstr ""
 
 #: app/models/track_thing.rb:158 app/models/track_thing.rb:159
 msgid "Successful Freedom of Information requests"
-msgstr "Peticiones de acceso a la información con éxito"
+msgstr ""
 
 #: app/views/request/list.rhtml:5
 msgid "Successful responses"
-msgstr "Respuestas con exito"
+msgstr ""
 
 #: app/models/info_request.rb:797
 msgid "Successful."
-msgstr "Exitosa."
+msgstr ""
 
 #: app/views/comment/new.rhtml:38
 msgid ""
@@ -2614,31 +2379,29 @@ msgstr ""
 
 #: app/views/request/new.rhtml:93
 msgid "Summary:"
-msgstr "Resumen:"
+msgstr ""
 
 #: app/views/general/search.rhtml:140
 msgid "Table of statuses"
-msgstr "Tabla de estados"
+msgstr ""
 
 #: app/views/request/preview.rhtml:45
 msgid "Tags:"
-msgstr "Etiquetas:"
+msgstr ""
 
 #: app/controllers/request_game_controller.rb:52
 msgid "Thank you for helping us keep the site tidy!"
-msgstr "¡Gracias por ayudarnos a mantener la web en orden!"
+msgstr ""
 
 #: app/controllers/comment_controller.rb:62
 msgid "Thank you for making an annotation!"
-msgstr "¡Gracias por hacer un comentario!"
+msgstr ""
 
 #: app/controllers/request_controller.rb:736
 msgid ""
 "Thank you for responding to this FOI request! Your response has been "
 "published below, and a link to your response has been emailed to "
 msgstr ""
-"¡Gracias por responder a esta petición de información! Su respuesta ha sido "
-"publicada a continuación, y un enlace a su respuesta ha sido enviada a "
 
 #: app/controllers/request_controller.rb:378
 msgid ""
@@ -2649,20 +2412,18 @@ msgstr ""
 
 #: app/controllers/request_controller.rb:381
 msgid "Thank you for updating this request!"
-msgstr "¡Gracias por actualizar esta petición!"
+msgstr ""
 
 #: app/controllers/user_controller.rb:398
 #: app/controllers/user_controller.rb:414
 msgid "Thank you for updating your profile photo"
-msgstr "Gracias por actualizar su foto de perfil"
+msgstr ""
 
 #: app/views/request_game/play.rhtml:42
 msgid ""
 "Thanks for helping - your work will make it easier for everyone to find successful\n"
 "responses, and maybe even let us make league tables..."
 msgstr ""
-"Gracias por ayudar - su trabajo hace más sencillo que otros encuentren peticiones\n"
-"que han tenido éxito, e incluso nos permitirá hacer clasificaciones..."
 
 #: app/views/user/show.rhtml:20
 msgid ""
@@ -2670,9 +2431,6 @@ msgid ""
 "            also, if you need it, give advice on what to do next about your\n"
 "            requests."
 msgstr ""
-"Muchas gracias - esto ayudará a otros a encontrar información útil.\n"
-"            Nosotros también, si lo necesita, ofrecemos consejos sobre qué\n"
-"            hacer a continuación con sus peticiones."
 
 #: app/views/request/new_please_describe.rhtml:20
 msgid ""
@@ -2680,61 +2438,48 @@ msgid ""
 "    We'll also, if you need it, give you advice on what to do next about each of your\n"
 "    requests."
 msgstr ""
-"Muchas gracias por ayudar a mantenerlo todo <strong>limpio y organizado</strong>.\n"
-"    Nosotros también, si lo necesita, ofrecemos consejos sobre qué\n"
-"    hacer a continuación con sus peticiones."
 
 #: app/controllers/user_controller.rb:189
 msgid ""
 "That doesn't look like a valid email address. Please check you have typed it"
 " correctly."
 msgstr ""
-"No parece ser una dirección de correo válida. Por favor comprueba que la ha "
-"escrito correctamente."
 
 #: app/views/request/_describe_state.rhtml:47
 #: app/views/request/_other_describe_state.rhtml:43
 msgid "The <strong>review has finished</strong> and overall:"
-msgstr "La <strong>revisión ha finalizado</strong> y en resumen:"
+msgstr ""
 
 #: app/views/request/new.rhtml:62
 msgid "The Freedom of Information Act <strong>does not apply</strong> to"
-msgstr "La ley de acceso a la información <strong>no es aplicable</strong> a"
+msgstr ""
 
 #: app/views/user_mailer/changeemail_already_used.rhtml:8
 msgid "The accounts have been left as they previously were."
-msgstr "Las cuentas se han dejado tal y como estaban anteriormente."
+msgstr ""
 
 #: app/views/request/_other_describe_state.rhtml:48
 msgid ""
 "The authority do <strong>not have</strong> the information <small>(maybe "
 "they say who does)"
 msgstr ""
-"El organismo <strong>no tiene</strong> la información <small>(tal vez dicen "
-"quién la tiene)"
 
 #: app/views/request/show_response.rhtml:28
 msgid ""
 "The authority only has a <strong>paper copy</strong> of the information."
 msgstr ""
-"El organismo sólo tiene una <strong>copia en papel</strong> de la "
-"información."
 
 #: app/views/request/show_response.rhtml:18
 msgid ""
 "The authority say that they <strong>need a postal\n"
 "            address</strong>, not just an email, for it to be a valid FOI request"
 msgstr ""
-"El organismo dice que necesita <strong>una dirección\n"
-"            postal</strong>, no sólo un correo electrónico, para que la petición sea válida"
 
 #: app/views/request/show.rhtml:109
 msgid ""
 "The authority would like to / has <strong>responded by post</strong> to this"
 " request."
 msgstr ""
-"El organismo querría / ha respondido <strong>por correo ordinario</strong> a"
-" esta petición."
 
 #: app/views/request_mailer/stopped_responses.rhtml:1
 msgid ""
@@ -2742,9 +2487,6 @@ msgid ""
 "{{user}} to reply to an {{law_used_short}}\n"
 "request has not been delivered."
 msgstr ""
-"El correo envíado por usted, en nombre de {{public_body}}, enviado a\n"
-"{{user}} como respuesta a la petición {{law_used_short}}\n"
-"no ha sido entregado."
 
 #: app/views/request/show_response.rhtml:22
 msgid ""
@@ -2755,7 +2497,7 @@ msgstr ""
 
 #: app/views/general/exception_caught.rhtml:3
 msgid "The page either doesn't exist, or is broken. Things you can try now:"
-msgstr "La página no existe, o está rota. Cosas que puede probar ahora:"
+msgstr ""
 
 #: app/views/general/search.rhtml:143
 msgid "The public authority does not have the information requested"
@@ -2771,32 +2513,29 @@ msgstr ""
 
 #: app/views/request/_other_describe_state.rhtml:60
 msgid "The request has been <strong>refused</strong>"
-msgstr "La petición ha sido <strong>rechazada</strong>"
+msgstr ""
 
 #: app/controllers/request_controller.rb:352
 msgid ""
 "The request has been updated since you originally loaded this page. Please "
 "check for any new incoming messages below, and try again."
 msgstr ""
-"La petición ha sido actualizada desde que llegó inicialmente a esta página. "
-"Por favor revise si ha llegado un nuevo mensaje a continuación, y vuelva a "
-"intentarlo."
 
 #: app/views/request/show.rhtml:104
 msgid "The request is <strong>waiting for clarification</strong>."
-msgstr "La petición está <strong>esperando aclaración</strong>."
+msgstr ""
 
 #: app/views/request/show.rhtml:97
 msgid "The request was <strong>partially successful</strong>."
-msgstr "La petición fue <strong>exitosa parcialmente</strong>."
+msgstr ""
 
 #: app/views/request/show.rhtml:93
 msgid "The request was <strong>refused</strong> by"
-msgstr "La petición fue <strong>rechazada</strong> por"
+msgstr ""
 
 #: app/views/request/show.rhtml:95
 msgid "The request was <strong>successful</strong>."
-msgstr "La petición fue <strong>exitosa</strong>."
+msgstr ""
 
 #: app/views/general/search.rhtml:144
 msgid "The request was refused by the public authority"
@@ -2808,9 +2547,6 @@ msgid ""
 "various reasons why we might have done this, sorry we can't be more specific here. Please <a\n"
 "    href=\"%s\">contact us</a> if you have any questions."
 msgstr ""
-"La petición que ha intentado ver ha sido eliminada. Hay\n"
-"varios posibles motivos para esto, pero no podemos ser más específicos aquí. Por favor <a\n"
-"    href=\"%s\">contáctenos</a> si tiene cualquier pregunta."
 
 #: app/views/general/search.rhtml:152
 msgid "The requester has abandoned this request for some reason"
@@ -2822,9 +2558,6 @@ msgid ""
 "            by law, the authority should normally have responded\n"
 "            <strong>promptly</strong> and"
 msgstr ""
-"La respuesta a su petición ha sido <strong>retrasada</strong>.\n"
-"            Por ley, el organismo debería normalmente haber respondido\n"
-"            <strong>rápidamente</strong> y"
 
 #: app/views/request/_followup.rhtml:44
 msgid ""
@@ -2832,73 +2565,66 @@ msgid ""
 "            law, under all circumstances, the authority should have responded\n"
 "            by now"
 msgstr ""
-"La respuesta a su petición ha sido <strong>muy retrasada</strong>.\n"
-"            Por ley, bajo cualquier circunstancia, el organismo ya debería\n"
-"            haber respondido"
 
 #: app/views/public_body/show.rhtml:100
 msgid ""
 "The search index is currently offline, so we can't show the Freedom of "
 "Information requests that have been made to this authority."
 msgstr ""
-"El motor de búsqueda no está accesible en estos momentos: no podemos mostrar"
-" las peticiones de información realizadas a este organismo."
 
 #: app/views/user/show.rhtml:141
 msgid ""
 "The search index is currently offline, so we can't show the Freedom of "
 "Information requests this person has made."
 msgstr ""
-"El motor de búsqueda no está accesible en estos momentos: no podemos mostrar"
-" las peticiones de información que ha hecho esta persona"
 
 #: app/controllers/track_controller.rb:144
 msgid "Then you can cancel the alert."
-msgstr "Entonces podrá cancelar su alerta."
+msgstr ""
 
 #: app/controllers/track_controller.rb:174
 msgid "Then you can cancel the alerts."
-msgstr "Entonces podrá cancelar las alertas."
+msgstr ""
 
 #: app/controllers/user_controller.rb:249
 msgid "Then you can change your email address used on {{site_name}}"
-msgstr "Entonces podrá cambiar el correo utilizado en {{site_name}}"
+msgstr ""
 
 #: app/controllers/user_controller.rb:203
 msgid "Then you can change your password on {{site_name}}"
-msgstr "Entonces podrá cambiar su contraseña en {{site_name}}"
+msgstr ""
 
 #: app/controllers/request_controller.rb:338
 msgid "Then you can classify the FOI response you have got from "
-msgstr "Entonces podrá clasificar la respuesta que ha obtenido "
+msgstr ""
 
 #: app/controllers/request_game_controller.rb:41
 msgid "Then you can play the request categorisation game."
-msgstr "Entonces podrá jugar al juego de clasificar peticiones"
+msgstr ""
 
 #: app/controllers/user_controller.rb:330
 msgid "Then you can send a message to "
-msgstr "Entonces podrá mandar un mensaje a"
+msgstr ""
 
 #: app/controllers/user_controller.rb:514
 msgid "Then you can sign in to {{site_name}}"
-msgstr "Entonces podrá entrar a {{site_name}}"
+msgstr ""
 
 #: app/controllers/request_controller.rb:61
 msgid "Then you can update the status of your request to "
-msgstr "Entonces podrá actualizar el estado de su petición a "
+msgstr ""
 
 #: app/controllers/request_controller.rb:702
 msgid "Then you can upload an FOI response. "
-msgstr "Entonces podrá subir una respuesta. "
+msgstr ""
 
 #: app/controllers/request_controller.rb:545
 msgid "Then you can write follow up message to "
-msgstr "Entonces podrá escribir un mensaje a "
+msgstr ""
 
 #: app/controllers/request_controller.rb:546
 msgid "Then you can write your reply to "
-msgstr "Entonces podrá escribir su respuesta a "
+msgstr ""
 
 #: app/models/track_thing.rb:197
 msgid ""
@@ -2914,7 +2640,7 @@ msgstr ""
 
 #: app/models/track_thing.rb:162
 msgid "Then you will be emailed whenever an FOI request succeeds."
-msgstr "Entonces recibirá correos cuando una petición tenga éxito."
+msgstr ""
 
 #: app/models/track_thing.rb:146
 msgid "Then you will be emailed whenever anyone makes a new FOI request."
@@ -2928,27 +2654,23 @@ msgstr ""
 
 #: app/controllers/request_controller.rb:299
 msgid "Then your FOI request to {{public_body_name}} will be sent."
-msgstr "Entonces su petición a {{public_body_name}} será enviada."
+msgstr ""
 
 #: app/controllers/comment_controller.rb:56
 msgid "Then your annotation to {{info_request_title}} will be posted."
-msgstr "Entonces se enviará su comentario a {{info_request_title}}."
+msgstr ""
 
 #: app/views/request_mailer/comment_on_alert_plural.rhtml:1
 msgid ""
 "There are {{count}} new annotations on your {{info_request}} request. Follow"
 " this link to see what they wrote."
 msgstr ""
-"Hay {{count}} comentarios en su petición {{info_request}}. Siga este enlace "
-"para leer lo que dicen."
 
 #: app/views/user/show.rhtml:4
 msgid ""
 "There is <strong>more than one person</strong> who uses this site and has this name. \n"
 "    One of them is shown below, you may mean a different one:"
 msgstr ""
-"Hay <strong>más de una persona</strong> que utiliza esta web y tiene este nombre. \n"
-"    Una de ellas se muestra a continuación, puede que se refiera a una distinta:"
 
 #: app/views/request/show.rhtml:113
 msgid ""
@@ -2959,121 +2681,98 @@ msgstr ""
 #: app/controllers/public_body_controller.rb:77
 msgid "There was an error with the words you entered, please try again."
 msgstr ""
-"Ha habido un error con las palabras introducidas, por favor pruebe otra vez."
 
 #: app/views/request/_describe_state.rhtml:38
 msgid "They are going to reply <strong>by post</strong>"
-msgstr "Van a responder <strong>por correo ordinario</strong>"
+msgstr ""
 
 #: app/views/request/_describe_state.rhtml:52
 msgid ""
 "They do <strong>not have</strong> the information <small>(maybe they say who"
 " does)</small>"
 msgstr ""
-"<strong>No tienen</strong> la información <small>(tal vez dicen quién la "
-"tiene)</small>"
 
 #: app/views/user/show.rhtml:83
 msgid "They have been given the following explanation:"
-msgstr "Han recibido la siguiente explicación:"
+msgstr ""
 
 #: app/views/request_mailer/overdue_alert.rhtml:3
 msgid ""
 "They have not replied to your {{law_used_short}} request {{title}} promptly,"
 " as normally required by law"
 msgstr ""
-"No han respondido a su petición {{law_used_short}} {{title}} rápidamente, "
-"como require generalmente la ley"
 
 #: app/views/request_mailer/very_overdue_alert.rhtml:3
 msgid ""
 "They have not replied to your {{law_used_short}} request {{title}}, \n"
 "as required by law"
 msgstr ""
-"No han respondido a su petición {{law_used_short}} {{title}}, \n"
-" como require la ley"
 
 #: app/views/request/_after_actions.rhtml:3
 msgid "Things to do with this request"
-msgstr "Cosas que hacer con esta petición"
+msgstr ""
 
 #: app/views/public_body/show.rhtml:59
 msgid "This authority no longer exists, so you cannot make a request to it."
 msgstr ""
-"Este organismo ya no existe, no pueden realizarse peticiones de información."
 
 #: app/views/request/_hidden_correspondence.rhtml:23
 msgid ""
 "This comment has been hidden. See annotations to\n"
 "            find out why.  If you are the requester, then you may <a href=\"%s\">sign in</a> to view the response."
 msgstr ""
-"Este respuesta está oculta. Revise los comentarios\n"
-"            para descubrir por qué. Si es su petición, <a href=\"%s\">abra una sesión</a> para ver la respuesta."
 
 #: app/views/request/new.rhtml:65
 msgid ""
 "This covers a very wide spectrum of information about the state of\n"
 "        the <strong>natural and built environment</strong>, such as:"
 msgstr ""
-"Esto incluye un amplio espectro de información sobre el estado de\n"
-"        el <strong>entorno natural y urbanizado</strong>, como:"
 
 #: app/views/request/_view_html_prefix.rhtml:9
 msgid ""
 "This is an HTML version of an attachment to the Freedom of Information "
 "request"
 msgstr ""
-"Esta es la versión HTML de un fichero adjunto a una petición de acceso a la "
-"información"
 
 #: app/views/request_mailer/stopped_responses.rhtml:5
 msgid ""
 "This is because {{title}} is an old request that has been\n"
 "marked to no longer receive responses."
 msgstr ""
-"Esto es porque {{title}} es una petición antigua\n"
-"marcada para ya no recibir más respuestas."
 
 #: app/views/track/_tracking_links.rhtml:9
 msgid ""
 "This is your own request, so you will be automatically emailed when new "
 "responses arrive."
 msgstr ""
-"Esta es su petición, por lo que recibirá correos automáticamente cuando "
-"lleguen nuevas respuestas."
 
 #: app/views/request/_hidden_correspondence.rhtml:17
 msgid ""
 "This outgoing message has been hidden. See annotations to\n"
 "\t\t\t\t\t\tfind out why.  If you are the requester, then you may <a href=\"%s\">sign in</a> to view the response."
 msgstr ""
-"Este mensaje está oculto. Lea los comentarios\n"
-"\t\t\t\t\t\tpara descubrir por qué.  Si es su petición, <a href=\"%s\">abra una sesión</a> para ver la respuesta."
 
 #: app/views/user/show.rhtml:122
 msgid "This person has"
-msgstr "Esta persona ha"
+msgstr ""
 
 #: app/views/user/show.rhtml:152
 msgid "This person's"
-msgstr "Esta persona"
+msgstr ""
 
 #: app/views/request/_describe_state.rhtml:84
 msgid "This request <strong>requires administrator attention</strong>"
 msgstr ""
-"Esta petición <strong>requiere la intervención de un administrador</strong>"
 
 #: app/views/request/show.rhtml:55
 msgid "This request has an <strong>unknown status</strong>."
-msgstr "Esta petición tiene un <strong>estado desconocido</strong>."
+msgstr ""
 
 #: app/views/request/show.rhtml:117
 msgid ""
 "This request has been <strong>withdrawn</strong> by the person who made it. \n"
 "        \t   There may be an explanation in the correspondence below."
 msgstr ""
-"Esta petición ha sido <strong>retirada</strong> por la persona que la realizó. \n"
-"        \t   Puede que haya una explicación en los mensajes a continuación."
 
 #: app/models/info_request.rb:395
 msgid ""
@@ -3092,32 +2791,24 @@ msgid ""
 "This request has prominence 'hidden'. You can only see it because you are logged\n"
 "    in as a super user."
 msgstr ""
-"Esta petición tiene visibilidad 'oculta'. Puede verla sólo porque esta identificado\n"
-"    como super-usuario."
 
 #: app/views/request/show.rhtml:11
 msgid ""
 "This request is hidden, so that only you the requester can see it. Please\n"
 "    <a href=\"%s\">contact us</a> if you are not sure why."
 msgstr ""
-"Esta petición está oculta, por lo que sólo usted como creador puede verla. Por favor\n"
-"    <a href=\"%s\">contáctenos</a> si no está seguro de por qué."
 
 #: app/views/request/_hidden_correspondence.rhtml:10
 msgid ""
 "This response has been hidden. See annotations to find out why.\n"
 "            If you are the requester, then you may <a href=\"%s\">sign in</a> to view the response."
 msgstr ""
-"Este respuesta está oculta. Revise los comentarios\n"
-"            para descubrir por qué. Si es su petición, <a href=\"%s\">abra una sesión</a> para ver la respuesta."
 
 #: app/views/request/new.rhtml:49
 msgid ""
 "This site is <strong>public</strong>. Everything you type and any response "
 "will be published."
 msgstr ""
-"Esta web es <strong>pública</strong>. Todo lo que escriba y cualquier "
-"respuesta será publicada."
 
 #: app/views/request/details.rhtml:6
 msgid ""
@@ -3143,7 +2834,7 @@ msgstr ""
 
 #: app/models/track_thing.rb:161
 msgid "To be emailed about any successful requests"
-msgstr "Para recibir correos sobre cualquier petición exitosa"
+msgstr ""
 
 #: app/models/track_thing.rb:196
 msgid "To be emailed about requests by '{{user_name}}'"
@@ -3157,35 +2848,33 @@ msgstr ""
 
 #: app/controllers/track_controller.rb:173
 msgid "To cancel these alerts"
-msgstr "Cancelar estas alertas"
+msgstr ""
 
 #: app/controllers/track_controller.rb:143
 msgid "To cancel this alert"
-msgstr "Cancelar esta alerta"
+msgstr ""
 
 #: app/views/user/no_cookies.rhtml:5
 msgid ""
 "To carry on, you need to sign in or make an account. Unfortunately, there\n"
 "was a technical problem trying to do this."
 msgstr ""
-"Para continuar, necesita abrir una sesión o crear una cuenta. Desgraciadamente,\n"
-"ha habido un problema técnico al intentar hacerlo."
 
 #: app/controllers/user_controller.rb:248
 msgid "To change your email address used on {{site_name}}"
-msgstr "Cambiar la dirección de correo usada en {{site_name}}"
+msgstr ""
 
 #: app/controllers/request_controller.rb:337
 msgid "To classify the response to this FOI request"
-msgstr "Reclasificar la respuesta a esta petición"
+msgstr ""
 
 #: app/views/request/show_response.rhtml:39
 msgid "To do that please send a private email to "
-msgstr "Para hacerlo, por favor mande un correo privado a "
+msgstr ""
 
 #: app/views/request_mailer/not_clarified_alert.rhtml:2
 msgid "To do this, first click on the link below."
-msgstr "Para hacerlo, elija primero el siguiente enlace."
+msgstr ""
 
 #: app/models/track_thing.rb:212
 msgid "To follow requests and responses matching '{{query}}'"
@@ -3196,72 +2885,66 @@ msgid ""
 "To help us keep the site tidy, someone else has updated the status of the \n"
 "{{law_used_full}} request {{title}} that you made to {{public_body}}, to \"{{display_status}}\" If you disagree with their categorisation, please update the status again yourself to what you believe to be more accurate."
 msgstr ""
-"Para ayudarnos a mantener la web ordenada, alguien ha actualizado el estado de \n"
-"la petición {{law_used_full}} {{title}} que hizo a {{public_body}}, a \"{{display_status}}\". Si no está de acuerdo con esta clasificación, por favor actualice el estado usted mismo a lo que considere correcto."
 
 #: app/views/request_mailer/new_response_reminder_alert.rhtml:1
 msgid "To let us know, follow this link and then select the appropriate box."
-msgstr "Para hacérnoslo saber, siga este enlace y elija la caja apropiada."
+msgstr ""
 
 #: app/controllers/request_game_controller.rb:40
 msgid "To play the request categorisation game"
-msgstr "Jugar al juego de recategorización de peticiones"
+msgstr ""
 
 #: app/controllers/comment_controller.rb:55
 msgid "To post your annotation"
-msgstr "Añadir su comentario"
+msgstr ""
 
 #: app/controllers/request_controller.rb:543
 msgid "To reply to "
-msgstr "Contestar a "
+msgstr ""
 
 #: app/controllers/request_controller.rb:542
 msgid "To send a follow up message to "
-msgstr "Enviar una respuesta a "
+msgstr ""
 
 #: app/controllers/user_controller.rb:329
 msgid "To send a message to "
-msgstr "Para enviar un mensaje a"
+msgstr ""
 
 #: app/controllers/request_controller.rb:298
 msgid "To send your FOI request"
-msgstr "Para enviar su petición de información"
+msgstr ""
 
 #: app/controllers/request_controller.rb:60
 msgid "To update the status of this FOI request"
-msgstr "Para actualizar el estado de su petición de información"
+msgstr ""
 
 #: app/controllers/request_controller.rb:701
 msgid ""
 "To upload a response, you must be logged in using an email address from "
 msgstr ""
-"Para cargar una respuesta, debe estar registrado con una dirección de correo"
-" electrónico de"
 
 #: app/views/public_body/view_email_captcha.rhtml:5
 msgid ""
 "To view the email address that we use to send FOI requests to "
 "{{public_body_name}}, please enter these words."
 msgstr ""
-"Para ver la dirección de correo que usamos para mandar peticiones a "
-"{{public_body_name}}, por favor introduzca estas palabras."
 
 #: app/views/request_mailer/new_response.rhtml:5
 msgid "To view the response, click on the link below."
-msgstr "Para ver la respuesta, use el siguiente enlace."
+msgstr ""
 
 #: app/views/request/_request_listing_short_via_event.rhtml:9
 msgid "To {{public_body_link_absolute}}"
-msgstr "Para {{public_body_link_absolute}}"
+msgstr ""
 
 #: app/views/request/followup_preview.rhtml:22 app/views/request/new.rhtml:88
 #: app/views/request/preview.rhtml:17
 msgid "To:"
-msgstr "Para:"
+msgstr ""
 
 #: app/models/track_thing.rb:174
 msgid "Track requests to {{public_body_name}} by email"
-msgstr "Seguir peticiones a {{public_body_name}} por correo"
+msgstr ""
 
 #: app/models/track_thing.rb:206
 msgid "Track things matching '{{query}}' by email"
@@ -3269,11 +2952,11 @@ msgstr ""
 
 #: app/views/public_body/show.rhtml:3
 msgid "Track this authority"
-msgstr "Seguir a este organismo"
+msgstr ""
 
 #: app/views/user/show.rhtml:29
 msgid "Track this person"
-msgstr "Seguir a esta persona"
+msgstr ""
 
 #: app/models/track_thing.rb:190
 msgid "Track this person by email"
@@ -3281,7 +2964,7 @@ msgstr ""
 
 #: app/views/request/_sidebar.rhtml:2
 msgid "Track this request"
-msgstr "Seguir esta petición"
+msgstr ""
 
 #: app/models/track_thing.rb:123
 msgid "Track this request by email"
@@ -3289,27 +2972,25 @@ msgstr ""
 
 #: locale/model_attributes.rb:33
 msgid "TrackThing|Track medium"
-msgstr "TrackThing|Track medium"
+msgstr ""
 
 #: locale/model_attributes.rb:32
 msgid "TrackThing|Track query"
-msgstr "TrackThing|Track query"
+msgstr ""
 
 #: locale/model_attributes.rb:34
 msgid "TrackThing|Track type"
-msgstr "TrackThing|Track type"
+msgstr ""
 
 #: app/views/general/search.rhtml:133
 msgid ""
 "Type <strong><code>01/01/2008..14/01/2008</code></strong> to only show "
 "things that happened in the first two weeks of January."
 msgstr ""
-"Introduzca <code><strong>01/01/2008..14/01/2008</strong></code> para mostrar"
-" sólo las cosas que sucedieron en las dos primeras semanas de enero."
 
 #: app/models/public_body.rb:37
 msgid "URL name can't be blank"
-msgstr "La URL no puede estar vacía."
+msgstr ""
 
 #: app/models/user_mailer.rb:45
 msgid "Unable to change email address on {{site_name}}"
@@ -3317,19 +2998,19 @@ msgstr ""
 
 #: app/views/request/followup_bad.rhtml:4
 msgid "Unable to send a reply to {{username}}"
-msgstr "No se pudo enviar la respuesta a {{username}}"
+msgstr ""
 
 #: app/views/request/followup_bad.rhtml:2
 msgid "Unable to send follow up message to {{username}}"
-msgstr "No se pudo enviar la respuesta a {{username}}"
+msgstr ""
 
 #: app/views/request/list.rhtml:29
 msgid "Unexpected search result type"
-msgstr "Se encontró un tipo de resultado inesperado"
+msgstr ""
 
 #: app/views/request/similar.rhtml:18
 msgid "Unexpected search result type "
-msgstr "Se encontró un tipo de resultado inesperado "
+msgstr ""
 
 #: app/views/user/wrong_user_unknown_email.rhtml:3
 msgid ""
@@ -3337,108 +3018,101 @@ msgid ""
 "email address for that authority, so we can't validate this.\n"
 "Please <a href=\"%s\">contact us</a> to sort it out."
 msgstr ""
-"Desgraciadamente no tenemos la dirección\n"
-"de correo para este organismo, así que no podemos validarlo.\n"
-"Por favor <a href=\"%s\">contáctenos</a> para arreglarlo."
 
 #: app/views/request/new_bad_contact.rhtml:5
 msgid ""
 "Unfortunately, we do not have a working {{info_request_law_used_full}}\n"
 "address for"
-msgstr "Desgraciadamente, no tenemos una dirección de correo válida para"
+msgstr ""
 
 #: app/views/general/exception_caught.rhtml:17
 msgid "Unknown"
-msgstr "Desconocido"
+msgstr ""
 
 #: app/models/info_request_event.rb:317
 msgid "Unusual response"
-msgstr "Respuesta no habitual"
+msgstr ""
 
 #: app/models/info_request.rb:807
 msgid "Unusual response."
-msgstr "Respuesta no habitual."
+msgstr ""
 
 #: app/views/request/_after_actions.rhtml:13
 #: app/views/request/_after_actions.rhtml:33
 msgid "Update the status of this request"
-msgstr "Actualizar el estado de esta petición"
+msgstr ""
 
 #: app/controllers/request_controller.rb:62
 msgid "Update the status of your request to "
-msgstr "Actualizar el estado de la petición a "
+msgstr ""
 
 #: app/views/general/search.rhtml:124
 msgid ""
 "Use OR (in capital letters) where you don't mind which word,  e.g. "
 "<strong><code>commons OR lords</code></strong>"
 msgstr ""
-"Escriba OR (en mayúsculas) cuando no le importe qué palabra,  e.g. "
-"<strong><code>diputado OR parlamento</code></strong>"
 
 #: app/views/general/search.rhtml:125
 msgid ""
 "Use quotes when you want to find an exact phrase, e.g. "
 "<strong><code>\"Liverpool City Council\"</code></strong>"
 msgstr ""
-"Utilice comillas cuando quiera buscar una frase exacta, por ejemplo "
-"<strong><code>\"Consejo de Europa\"</code></strong>"
 
 #: locale/model_attributes.rb:67
 msgid "UserInfoRequestSentAlert|Alert type"
-msgstr "UserInfoRequestSentAlert|Alert type"
+msgstr ""
 
 #: locale/model_attributes.rb:78
 msgid "User|About me"
-msgstr "User|About me"
+msgstr ""
 
 #: locale/model_attributes.rb:76
 msgid "User|Admin level"
-msgstr "User|Admin level"
+msgstr ""
 
 #: locale/model_attributes.rb:77
 msgid "User|Ban text"
-msgstr "User|Ban text"
+msgstr ""
 
 #: locale/model_attributes.rb:69
 msgid "User|Email"
-msgstr "User|Email"
+msgstr ""
 
 #: locale/model_attributes.rb:73
 msgid "User|Email confirmed"
-msgstr "User|Email confirmed"
+msgstr ""
 
 #: locale/model_attributes.rb:71
 msgid "User|Hashed password"
-msgstr "User|Hashed password"
+msgstr ""
 
 #: locale/model_attributes.rb:75
 msgid "User|Last daily track email"
-msgstr "User|Last daily track email"
+msgstr ""
 
 #: locale/model_attributes.rb:70
 msgid "User|Name"
-msgstr "User|Name"
+msgstr ""
 
 #: locale/model_attributes.rb:72
 msgid "User|Salt"
-msgstr "User|Salt"
+msgstr ""
 
 #: locale/model_attributes.rb:74
 msgid "User|Url name"
-msgstr "User|Url name"
+msgstr ""
 
 #: app/views/public_body/show.rhtml:21
 msgid "View FOI email address"
-msgstr "Ver dirección de correo"
+msgstr ""
 
 #: app/views/public_body/view_email_captcha.rhtml:1
 msgid "View FOI email address for '{{public_body_name}}'"
-msgstr "Ver dirección de correo para '{{public_body_name}}'"
+msgstr ""
 
 #: app/views/public_body/view_email_captcha.rhtml:3
 msgid "View FOI email address for {{public_body_name}}"
-msgstr "Ver dirección de correo para '{{public_body_name}}'"
+msgstr ""
 
 #: app/views/contact_mailer/user_message.rhtml:10
 msgid "View Freedom of Information requests made by {{user_name}}:"
@@ -3446,27 +3120,25 @@ msgstr ""
 
 #: app/views/layouts/default.rhtml:89
 msgid "View authorities"
-msgstr "Ver organismos públicos"
+msgstr "Gweld yr awdurdodau"
 
 #: app/views/public_body/view_email_captcha.rhtml:12
 msgid "View email"
-msgstr "Ver correo"
+msgstr "Gweld e-bost"
 
 #: app/views/layouts/default.rhtml:88
 msgid "View requests"
-msgstr "Ver solicitudes"
+msgstr "Gweld ceisiadau"
 
 #: app/models/info_request.rb:799
 msgid "Waiting clarification."
-msgstr "Esperando aclaración."
+msgstr ""
 
 #: app/views/request/show.rhtml:111
 msgid ""
 "Waiting for an <strong>internal review</strong> by {{public_body_link}} of "
 "their handling of this request."
 msgstr ""
-"Esperando una <strong>revisión interna</strong> por parte de "
-"{{public_body_link}} de cómo han respondido a esta petición."
 
 #: app/views/general/search.rhtml:149
 msgid ""
@@ -3480,13 +3152,12 @@ msgstr ""
 
 #: app/views/public_body/view_email.rhtml:17
 msgid "We do not have a working request email address for this authority."
-msgstr "No tenemos una dirección de correo válida para este organismo."
+msgstr ""
 
 #: app/views/request/followup_bad.rhtml:24
 msgid ""
 "We do not have a working {{law_used_full}} address for {{public_body_name}}."
 msgstr ""
-"No tenemos una dirección de correo válida para este {{public_body_name}}."
 
 #: app/views/request/_describe_state.rhtml:107
 msgid ""
@@ -3501,117 +3172,100 @@ msgid ""
 "We will not reveal your email address to anybody unless you\n"
 "or the law tell us to."
 msgstr ""
-"No revelaremos su dirección de correo a nadie salvo que usted\n"
-"nos lo diga, o la ley nos obligue."
 
 #: app/views/user_mailer/changeemail_confirm.rhtml:10
 msgid ""
 "We will not reveal your email addresses to anybody unless you\n"
 "or the law tell us to."
 msgstr ""
-"No revelaremos su dirección de correo a nadie salvo que usted\n"
-"nos lo diga, o la ley nos obligue."
 
 #: app/views/request/show.rhtml:61
 msgid "We're waiting for"
-msgstr "Estamos esperando a"
+msgstr ""
 
 #: app/views/request/show.rhtml:57
 msgid "We're waiting for someone to read"
-msgstr "Estamos esperando que alguien lea"
+msgstr ""
 
 #: app/views/user/signchangeemail_confirm.rhtml:6
 msgid ""
 "We've sent an email to your new email address. You'll need to click the link in\n"
 "it before your email address will be changed."
 msgstr ""
-"Hemos enviado un correo a su nueva dirección de correo. Necesitará seguir el enlace\n"
-"incluido en él para que se actualice su dirección de correo."
 
 #: app/views/user/confirm.rhtml:6
 msgid ""
 "We've sent you an email, and you'll need to click the link in it before you can\n"
 "continue."
 msgstr ""
-"Le hemos enviado un correo, necesitará seguir el enlace incluído en él antes\n"
-"de continuar."
 
 #: app/views/user/signchangepassword_confirm.rhtml:6
 msgid ""
 "We've sent you an email, click the link in it, then you can change your "
 "password."
 msgstr ""
-"Le hemos enviado un correo, siga el enlace incluído en él, y podrá cambiar "
-"su contraseña."
 
 #: app/views/request/_followup.rhtml:58
 msgid "What are you doing?"
-msgstr "¿Qué está haciendo?"
+msgstr ""
 
 #: app/views/request/_describe_state.rhtml:4
 msgid "What best describes the status of this request now?"
-msgstr "¿Cómo describiría el estado de esta petición ahora?"
+msgstr ""
 
 #: app/views/request_mailer/new_response.rhtml:9
 msgid ""
 "When you get there, please update the status to say if the response \n"
 "contains any useful information."
 msgstr ""
-"Por favor actualice el estado para indicar si la respuesta \n"
-"contiene información útil."
 
 #: app/views/request/show_response.rhtml:44
 msgid ""
 "When you receive the paper response, please help\n"
 "            others find out what it says:"
 msgstr ""
-"Cuando reciba la respuesta en papel, por favor ayude\n"
-"            a que otros sepan lo que dice:"
 
 #: app/views/request/new_please_describe.rhtml:16
 msgid ""
 "When you're done, <strong>come back here</strong>, <a href=\"%s\">reload "
 "this page</a> and file your new request."
 msgstr ""
-"Cuando esté listo, <strong>vuelva aquí</strong>, <a href=\"%s\">recargue "
-"esta página</a> y cree una nueva petición."
 
 #: app/views/request/show_response.rhtml:13
 msgid "Which of these is happening?"
-msgstr "¿Qué está pasando?"
+msgstr ""
 
 #: app/models/info_request_event.rb:313
 msgid "Withdrawn by requester"
-msgstr "Retirada por el autor"
+msgstr ""
 
 #: app/models/info_request.rb:809
 msgid "Withdrawn by the requester."
-msgstr "Retirada por el autor."
+msgstr ""
 
 #: app/controllers/request_controller.rb:549
 msgid "Write a reply to "
-msgstr "Escribir una respuesta a "
+msgstr ""
 
 #: app/controllers/request_controller.rb:548
 msgid "Write your FOI follow up message to "
-msgstr "Escriba su respuesta a "
+msgstr ""
 
 #: app/views/request/new.rhtml:46
 msgid "Write your request in <strong>simple, precise language</strong>."
 msgstr ""
-"Escriba su petición en un <strong>lenguaje sencillo y preciso</strong>."
 
 #: app/models/info_request_event.rb:301
 msgid "Wrong Response"
-msgstr "Respuesta incorrecta"
+msgstr ""
 
 #: app/views/comment/_single_comment.rhtml:10
 msgid "You"
-msgstr "Usted"
+msgstr ""
 
 #: app/controllers/track_controller.rb:98
 msgid "You are already being emailed updates about "
-msgstr "Ya está recibiendo actualizaciones por correo sobre "
+msgstr ""
 
 #: app/models/track_thing.rb:175
 msgid "You are already tracking requests to {{public_body_name}} by email"
@@ -3631,7 +3285,7 @@ msgstr ""
 
 #: app/models/track_thing.rb:156
 msgid "You are being emailed about any new successful responses"
-msgstr "Está recibiendo correos sobre cualquier nueva respuesta exitosa"
+msgstr ""
 
 #: app/models/track_thing.rb:140
 msgid "You are being emailed when there are new requests"
@@ -3639,7 +3293,7 @@ msgstr ""
 
 #: app/views/request/show.rhtml:88
 msgid "You can <strong>complain</strong> by"
-msgstr "Puede <strong>apelar</strong>"
+msgstr ""
 
 #: app/views/request/details.rhtml:58
 msgid ""
@@ -3650,23 +3304,23 @@ msgstr ""
 #: app/views/public_body/show.rhtml:40
 msgid ""
 "You can only request information about the environment from this authority."
-msgstr "Solo puede solicitar información medioambiental a esta institución"
+msgstr ""
 
 #: app/views/user/show.rhtml:122
 msgid "You have"
-msgstr "Tiene"
+msgstr ""
 
 #: app/views/request_mailer/new_response.rhtml:1
 msgid "You have a new response to the {{law_used_full}} request "
-msgstr "Tiene una nueva respuesta a la petición {{law_used_full}} "
+msgstr ""
 
 #: app/controllers/user_controller.rb:492
 msgid "You have now changed the text about you on your profile."
-msgstr "Ha cambiado el texto sobre usted en su perfil."
+msgstr ""
 
 #: app/controllers/user_controller.rb:310
 msgid "You have now changed your email address used on {{site_name}}"
-msgstr "Ha cambiado la dirección de correo que usa en {{site_name}}"
+msgstr ""
 
 #: app/views/user_mailer/already_registered.rhtml:3
 msgid ""
@@ -3682,8 +3336,6 @@ msgid ""
 "You know what caused the error, and can <strong>suggest a solution</strong>,"
 " such as a working email address."
 msgstr ""
-"Sabe lo que ha causado el error, y puede <strong>sugerir una solución</a>, "
-"como una dirección de correo válida."
 
 #: app/views/request/upload_response.rhtml:16
 msgid ""
@@ -3707,15 +3359,15 @@ msgstr ""
 
 #: app/controllers/user_controller.rb:470
 msgid "You need to be logged in to change the text about you on your profile."
-msgstr "Necesita identificarse para cambiar el texto de su perfil."
+msgstr ""
 
 #: app/controllers/user_controller.rb:371
 msgid "You need to be logged in to change your profile photo."
-msgstr "Necesita identificarse para cambiar la foto de su perfil."
+msgstr ""
 
 #: app/controllers/user_controller.rb:433
 msgid "You need to be logged in to clear your profile photo."
-msgstr "Necesita identificarse para borrar la foto de su perfil."
+msgstr ""
 
 #: app/controllers/request_controller.rb:559
 msgid ""
@@ -3744,31 +3396,29 @@ msgstr ""
 
 #: app/controllers/track_controller.rb:154
 msgid "You will no longer be emailed updates about "
-msgstr "Ya no recibirá actualizaciones por correo sobre "
+msgstr ""
 
 #: app/controllers/track_controller.rb:183
 msgid "You will no longer be emailed updates for those alerts"
-msgstr "Ya no recibirá correos para esas alertas"
+msgstr ""
 
 #: app/controllers/track_controller.rb:111
 msgid "You will now be emailed updates about "
-msgstr "Ahora recibirá actualizaciones por correo sobre "
+msgstr ""
 
 #: app/views/request_mailer/not_clarified_alert.rhtml:6
 msgid ""
 "You will only get an answer to your request if you follow up\n"
 "with the clarification."
 msgstr ""
-"Sólo recibirá una respuesta a su petición si continúa\n"
-"con la aclaración."
 
 #: app/controllers/user_controller.rb:442
 msgid "You've now cleared your profile photo"
-msgstr "Ha borrado la foto de su perfil"
+msgstr ""
 
 #: app/views/user/show.rhtml:152
 msgid "Your "
-msgstr "Su "
+msgstr ""
 
 #: app/views/user/_signup.rhtml:22
 msgid ""
@@ -3788,11 +3438,11 @@ msgstr ""
 #: app/views/user/_signin.rhtml:11 app/views/user/_signup.rhtml:9
 #: app/views/user/signchangepassword_send_confirm.rhtml:13
 msgid "Your e-mail:"
-msgstr "Su correo:"
+msgstr ""
 
 #: app/views/user/show.rhtml:168
 msgid "Your email subscriptions"
-msgstr "Sus suscripciones de correo"
+msgstr ""
 
 #: app/controllers/request_controller.rb:556
 msgid ""
@@ -3800,33 +3450,28 @@ msgid ""
 "prevent spam. Please <a href=\"%s\">contact us</a> if you really want to "
 "send a follow up message."
 msgstr ""
-"Su respuesta no ha sido enviada porque esta petición ha sido bloqueada para "
-"evitar spam. Por favor <a href=\"%s\">contáctenos</a> si realmente quiere "
-"enviar una respuesta."
 
 #: app/controllers/request_controller.rb:584
 msgid "Your follow up message has been sent on its way."
-msgstr "Su mensaje de seguimiento está en camino."
+msgstr ""
 
 #: app/controllers/request_controller.rb:582
 msgid "Your internal review request has been sent on its way."
-msgstr "Su petición para una revisión interna está en camino."
+msgstr ""
 
 #: app/controllers/help_controller.rb:63
 msgid ""
 "Your message has been sent. Thank you for getting in touch! We'll get back "
 "to you soon."
 msgstr ""
-"Su mensaje ha sido enviado. Gracias por escribir, nos pondremos en contacto "
-"con usted pronto."
 
 #: app/controllers/user_controller.rb:349
 msgid "Your message to {{recipient_user_name}} has been sent!"
-msgstr "Su mensaje a {{recipient_user_name}} ha sido enviado."
+msgstr ""
 
 #: app/views/request/followup_preview.rhtml:15
 msgid "Your message will appear in <strong>search engines</strong>"
-msgstr "Su mensaje aparecerá en <strong>los motores de búsqueda</strong>"
+msgstr ""
 
 #: app/views/comment/preview.rhtml:10
 msgid ""
@@ -3841,19 +3486,19 @@ msgstr ""
 
 #: app/views/user/_signup.rhtml:18
 msgid "Your name:"
-msgstr "Su nombre:"
+msgstr ""
 
 #: app/views/request_mailer/stopped_responses.rhtml:14
 msgid "Your original message is attached."
-msgstr "Su mensaje original está adjunto."
+msgstr ""
 
 #: app/controllers/user_controller.rb:231
 msgid "Your password has been changed."
-msgstr "Su contraseña ha sido cambiada."
+msgstr ""
 
 #: app/views/user/signchangeemail.rhtml:25
 msgid "Your password:"
-msgstr "Su contraseña:"
+msgstr ""
 
 #: app/views/user/set_draft_profile_photo.rhtml:18
 msgid ""
@@ -3869,7 +3514,7 @@ msgstr ""
 
 #: app/views/request/new.rhtml:109
 msgid "Your request:"
-msgstr "Su petición:"
+msgstr ""
 
 #: app/views/request/upload_response.rhtml:8
 msgid ""
@@ -3903,15 +3548,15 @@ msgstr ""
 
 #: app/views/public_body/show.rhtml:31
 msgid "admin"
-msgstr "admin"
+msgstr ""
 
 #: app/views/public_body/show.rhtml:29
 msgid "also called {{public_body_short_name}}"
-msgstr "también conocido como {{public_body_short_name}}"
+msgstr ""
 
 #: app/views/user/wrong_user.rhtml:5
 msgid "and sign in as "
-msgstr "y abra una sesión como "
+msgstr ""
 
 #: app/views/request/show.rhtml:59
 msgid ""
@@ -3921,19 +3566,19 @@ msgstr ""
 
 #: app/views/request/show.rhtml:64
 msgid "and update the status."
-msgstr "y actualizar su estado."
+msgstr ""
 
 #: app/views/request/_describe_state.rhtml:101
 msgid "and we'll suggest <strong>what to do next</strong>"
-msgstr "y le sugeriremos <strong>qué hacer a continuación</strong>"
+msgstr ""
 
 #: app/views/user/show.rhtml:153
 msgid "annotation"
-msgstr "comentario"
+msgstr ""
 
 #: app/views/user/show.rhtml:147
 msgid "annotations"
-msgstr "comentarios"
+msgstr ""
 
 #: app/models/track_thing.rb:138
 msgid "any <a href=\"/list\">new requests</a>"
@@ -3945,11 +3590,11 @@ msgstr ""
 
 #: app/views/request_mailer/very_overdue_alert.rhtml:1
 msgid "are long overdue."
-msgstr "están muy retrasados."
+msgstr ""
 
 #: app/controllers/public_body_controller.rb:111
 msgid "beginning with"
-msgstr "empezando con"
+msgstr ""
 
 #: app/views/request/show.rhtml:82
 msgid "by"
@@ -3957,23 +3602,23 @@ msgstr ""
 
 #: app/views/request/_followup.rhtml:38
 msgid "by <strong>{{date}}</strong>"
-msgstr "antes de <strong>{{date}}</strong>"
+msgstr ""
 
 #: app/views/request/_request_listing_via_event.rhtml:34
 msgid "by {{public_body_name}} to {{info_request_user}} on {{date}}."
-msgstr "por {{public_body_name}} a {{info_request_user}} el {{date}}."
+msgstr ""
 
 #: app/views/request/_request_listing_short_via_event.rhtml:10
 msgid "by {{user_link_absolute}}"
-msgstr "por {{user_link_absolute}}"
+msgstr ""
 
 #: locale/model_attributes.rb:35
 msgid "censor rule"
-msgstr "regla de censura"
+msgstr ""
 
 #: locale/model_attributes.rb:20
 msgid "comment"
-msgstr "comentario"
+msgstr ""
 
 #: app/views/request/show_response.rhtml:41
 msgid ""
@@ -3984,7 +3629,6 @@ msgstr ""
 #: app/models/info_request_event.rb:338
 msgid "display_status only works for incoming and outgoing messages right now"
 msgstr ""
-"display_status sólo funciona para mensajes de entrada y salida ahora mismo"
 
 #: app/views/request_mailer/overdue_alert.rhtml:3
 msgid "during term time"
@@ -3992,39 +3636,39 @@ msgstr ""
 
 #: app/views/general/frontpage.rhtml:18
 msgid "e.g."
-msgstr "por ejemplo"
+msgstr "ee"
 
 #: app/views/user/show.rhtml:96
 msgid "edit text about you"
-msgstr "edite el texto sobre usted"
+msgstr ""
 
 #: app/views/user/show.rhtml:171
 msgid "email subscription"
-msgstr "suscripción de correo"
+msgstr ""
 
 #: app/views/request_mailer/very_overdue_alert.rhtml:4
 msgid "even during holidays"
-msgstr "incluso durante las vacaciones"
+msgstr "hyd yn oed yn ystod y gwyliau"
 
 #: locale/model_attributes.rb:17
 msgid "exim log"
-msgstr "log exim"
+msgstr ""
 
 #: locale/model_attributes.rb:59
 msgid "exim log done"
-msgstr "log exim completado"
+msgstr ""
 
 #: app/views/request_mailer/requires_admin.rhtml:2
 msgid "has reported an"
-msgstr "ha denunciado un"
+msgstr ""
 
 #: app/views/request_mailer/overdue_alert.rhtml:1
 msgid "have delayed."
-msgstr "han retrasado."
+msgstr ""
 
 #: locale/model_attributes.rb:56
 msgid "holiday"
-msgstr "vacaciones"
+msgstr "gwyliau"
 
 #: app/views/request/_followup.rhtml:36 app/views/request/show.rhtml:70
 #: app/views/request/show.rhtml:80
@@ -4033,45 +3677,45 @@ msgstr ""
 
 #: app/views/public_body/list.rhtml:42
 msgid "in total"
-msgstr "en total"
+msgstr ""
 
 #: locale/model_attributes.rb:62
 msgid "incoming message"
-msgstr "incoming message"
+msgstr ""
 
 #: locale/model_attributes.rb:79
 msgid "info request"
-msgstr "info request"
+msgstr ""
 
 #: locale/model_attributes.rb:40
 msgid "info request event"
-msgstr "info request event"
+msgstr ""
 
 #: app/views/user/set_profile_about_me.rhtml:3
 #: app/views/user/signchangeemail.rhtml:3
 msgid "internal error"
-msgstr "error interno"
+msgstr ""
 
 #: app/views/request/show.rhtml:100
 msgid "is <strong>waiting for your clarification</strong>."
-msgstr "está <strong>esperando su aclaración</strong>."
+msgstr ""
 
 #: app/views/user/show.rhtml:71
 msgid "just to see how it works"
-msgstr "sólo para ver cómo funciona"
+msgstr ""
 
 #: app/views/comment/_single_comment.rhtml:10
 msgid "left an annotation"
-msgstr "dejó un comentario"
+msgstr ""
 
 #: app/views/user/_user_listing_single.rhtml:19
 #: app/views/user/_user_listing_single.rhtml:20
 msgid "made."
-msgstr "hecho."
+msgstr ""
 
 #: app/views/request/show.rhtml:74
 msgid "no later than"
-msgstr "no más tarde de"
+msgstr ""
 
 #: app/views/request/followup_bad.rhtml:18
 msgid ""
@@ -4083,47 +3727,47 @@ msgstr ""
 
 #: app/views/request/show.rhtml:72
 msgid "normally"
-msgstr "normalmente"
+msgstr ""
 
 #: app/views/user/show.rhtml:114
 msgid "only"
-msgstr "sólo"
+msgstr ""
 
 #: locale/model_attributes.rb:25
 msgid "outgoing message"
-msgstr "mensaje de salida"
+msgstr ""
 
 #: app/views/user/sign.rhtml:11
 msgid "please sign in as "
-msgstr "por favor abra una sesión como "
+msgstr ""
 
 #: app/views/user/sign.rhtml:28
 msgid "please sign in or make a new account."
-msgstr "por favor abra una sesión o cree una nueva cuenta."
+msgstr ""
 
 #: locale/model_attributes.rb:49
 msgid "post redirect"
-msgstr "post redirect"
+msgstr ""
 
 #: locale/model_attributes.rb:14
 msgid "profile photo"
-msgstr "foto de perfil"
+msgstr ""
 
 #: locale/model_attributes.rb:2
 msgid "public body"
-msgstr "organismo público"
+msgstr ""
 
 #: locale/model_attributes.rb:47
 msgid "raw email"
-msgstr "correo original"
+msgstr ""
 
 #: app/views/request_mailer/not_clarified_alert.rhtml:1
 msgid "request."
-msgstr "petición."
+msgstr ""
 
 #: app/views/request/show.rhtml:89
 msgid "requesting an internal review"
-msgstr "pidiendo una revisión interna"
+msgstr ""
 
 #: app/views/request_mailer/requires_admin.rhtml:3
 msgid ""
@@ -4133,23 +3777,23 @@ msgstr ""
 
 #: app/views/request/show.rhtml:102
 msgid "send a follow up message"
-msgstr "envíe un mensaje de seguimiento"
+msgstr ""
 
 #: app/views/request/_request_listing_via_event.rhtml:31
 msgid "sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
-msgstr "enviada a {{public_body_name}} por {{info_request_user}} el {{date}}."
+msgstr ""
 
 #: app/views/request/show.rhtml:106
 msgid "sign in"
-msgstr "abrir sesión"
+msgstr "Mewngofnodi neu gofrestru"
 
 #: app/views/user/wrong_user.rhtml:4
 msgid "sign out"
-msgstr "cerrar sesión"
+msgstr ""
 
 #: app/views/request_mailer/new_response.rhtml:2
 msgid "that you made to"
-msgstr "que hizo a"
+msgstr ""
 
 #: app/views/request_mailer/comment_on_alert.rhtml:6
 #: app/views/request_mailer/comment_on_alert_plural.rhtml:5
@@ -4170,7 +3814,7 @@ msgstr ""
 
 #: app/views/user/show.rhtml:140
 msgid "this person"
-msgstr "esta persona"
+msgstr ""
 
 #: app/views/user/show.rhtml:113
 msgid ""
@@ -4180,19 +3824,19 @@ msgstr ""
 
 #: app/views/request/new.rhtml:34
 msgid "to check that the info isn't already published."
-msgstr "comprobar que la información no esta ya publicada."
+msgstr ""
 
 #: app/views/request/show.rhtml:62
 msgid "to read"
-msgstr "leer"
+msgstr ""
 
 #: app/views/request/show.rhtml:106
 msgid "to send a follow up message."
-msgstr "mandar un mensaje de seguimiento."
+msgstr ""
 
 #: app/views/request/show.rhtml:45
 msgid "to {{public_body}}"
-msgstr "a {{public_body}}"
+msgstr ""
 
 #: locale/model_attributes.rb:31
 msgid "track thing"
@@ -4204,39 +3848,39 @@ msgstr ""
 
 #: app/views/request/_request_listing_via_event.rhtml:38
 msgid "unknown event type indexed "
-msgstr "indexado tipo de evento desconocido "
+msgstr ""
 
 #: app/views/request/followup_bad.rhtml:29
 msgid "unknown reason "
-msgstr "motivo desconocido "
+msgstr ""
 
 #: app/models/info_request.rb:814 app/models/info_request_event.rb:333
 msgid "unknown status "
-msgstr "estado desconocido "
+msgstr ""
 
 #: app/views/user/show.rhtml:208
 msgid "unsubscribe"
-msgstr "cancelar suscripción"
+msgstr ""
 
 #: app/views/user/show.rhtml:180 app/views/user/show.rhtml:194
 msgid "unsubscribe all"
-msgstr "cancelar todas las suscripciones"
+msgstr ""
 
 #: app/views/request/show.rhtml:53
 msgid "useful information."
-msgstr "información útil."
+msgstr ""
 
 #: locale/model_attributes.rb:68
 msgid "user"
-msgstr "usuario"
+msgstr ""
 
 #: locale/model_attributes.rb:66
 msgid "user info request sent alert"
-msgstr "user info request sent alert"
+msgstr ""
 
 #: app/views/user/show.rhtml:140
 msgid "you"
-msgstr "Usted"
+msgstr ""
 
 #: app/views/request/new.rhtml:6
 msgid ""
@@ -4247,15 +3891,15 @@ msgstr ""
 
 #: app/views/request/_after_actions.rhtml:20
 msgid "{{info_request_user_name}} only:"
-msgstr "Sólo {{info_request_user_name}}:"
+msgstr ""
 
 #: app/views/general/frontpage.rhtml:51
 msgid "{{length_of_time}} ago"
-msgstr "hace {{length_of_time}}"
+msgstr "{{length_of_time}} yn ôl"
 
 #: app/views/request/_after_actions.rhtml:43
 msgid "{{public_body_name}} only:"
-msgstr "Sólo {{public_body_name}}:"
+msgstr ""
 
 #: app/views/public_body/view_email.rhtml:7
 msgid ""
@@ -4286,6 +3930,6 @@ msgstr ""
 
 #: app/views/request/show.rhtml:44
 msgid "{{user}} made this {{law_used_full}} request"
-msgstr "{{user}} hizo esta petición {{law_used_full}}"
+msgstr ""
 
 
