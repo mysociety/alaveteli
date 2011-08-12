@@ -778,6 +778,8 @@ describe RequestController, "when classifying an information request" do
             @dog_request.stub!(:date_very_overdue_after).and_return(Time.now.to_date-1)
             expect_redirect('waiting_response', unhappy_url)
             flash[:notice].should match(/is long overdue/)
+            flash[:notice].should match(/by more than 40 working days/)
+            flash[:notice].should match(/within 20 working days/)
         end
          
         it 'should redirect to the "request url" when status is updated to "not held"' do 
