@@ -19,6 +19,13 @@ describe IncomingMessage, " when dealing with incoming mail" do
 
 end
 
+describe IncomingMessage, "when parsing HTML mail" do 
+    it "should display UTF-8 characters in the plain text version correctly" do
+        html = "<html><b>foo</b> është"
+        plain_text = IncomingMessage._get_attachment_text_internal_one_file('text/html', html)
+        plain_text.should match(/është/)
+    end
+end
 
 describe IncomingMessage, "when getting the attachment text" do 
 
