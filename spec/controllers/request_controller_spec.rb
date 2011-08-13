@@ -322,7 +322,20 @@ describe RequestController, "when creating a new request" do
         response.should render_template('new')
     end
 
+    it "should redirect to sign in page when input is good and nobody is logged in" do
+        params = { :info_request => { :public_body_id => @body.id, 
+            :title => "Why is your quango called Geraldine?", :tag_string => "" },
+            :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." },
+            :submitted_new_request => 1, :preview => 1
+        }
+        post :new, params
+        post_redirect = PostRedirect.get_last_post_redirect
+        response.should redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
+        # post_redirect.post_params.should == params # XXX get this working. there's a : vs '' problem amongst others
+    end
+
     it "should show preview when input is good" do
+        session[:user_id] = @user.id
         post :new, { :info_request => { :public_body_id => @body.id, 
             :title => "Why is your quango called Geraldine?", :tag_string => "" },
             :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." },
@@ -338,18 +351,6 @@ describe RequestController, "when creating a new request" do
             :submitted_new_request => 1, :preview => 0,
             :reedit => "Re-edit this request"
         response.should render_template('new')
-    end
-
-    it "should redirect to sign in page when input is good and nobody is logged in" do
-        params = { :info_request => { :public_body_id => @body.id, 
-            :title => "Why is your quango called Geraldine?", :tag_string => "" },
-            :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." },
-            :submitted_new_request => 1, :preview => 0
-        }
-        post :new, params
-        post_redirect = PostRedirect.get_last_post_redirect
-        response.should redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
-        # post_redirect.post_params.should == params # XXX get this working. there's a : vs '' problem amongst others
     end
 
     it "should create the request and outgoing message, and send the outgoing message by email, and redirect to request page when input is good and somebody is logged in" do
