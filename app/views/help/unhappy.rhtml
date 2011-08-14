@@ -31,7 +31,7 @@ to your request '<%=request_link(@info_request) %>'?
 <% if !@info_request.nil? %>
     Choose <%= link_to "request an internal review", show_response_no_followup_url(:id => @info_request.id, :incoming_message_id => nil) + "?internal_review=1#followup" %> and then write a message asking the authority to review your request.
 <% else %>
-    At the bottom of the relevant request page on WhatDoTheyKnow choose
+    At the bottom of the relevant request page on <%= site_name %> choose
     "request an internal review". Then write a message asking for an internal
     review of your request. You may want to include a link to the
     request page, to make it clear which request you are talking about.
@@ -64,12 +64,12 @@ Information Commissioner, either
     include a link to your request 
     <strong><%=h main_url(request_url(@info_request)) %></strong>
 <% else %>
-    include a link to your request on WhatDoTheyKnow
+    include a link to your request on <%= site_name %>
 <% end %>
 in your complaint or print out the whole page of your request and all attachments.
 </p>
 
-<p>WhatDoTheyKnow has no special facilities for handling a request at this stage - it
+<p><%= site_name %> has no special facilities for handling a request at this stage - it
 passes into the Information Commissioner's system. You can leave annotations on your
 request keeping people informed of progress.</p>
 
