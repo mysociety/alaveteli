@@ -580,6 +580,8 @@ module ActsAsXapian
                 STDERR.puts(detail.backtrace.join("\n") + "\nFAILED ActsAsXapian.update_index job #{id} #{$!} " + (job.nil? ? "" : "model " + job.model + " id " + job.model_id.to_s))
             end
         end
+        
+        ActsAsXapian.writable_db.close
     end
         
     # You must specify *all* the models here, this totally rebuilds the Xapian
