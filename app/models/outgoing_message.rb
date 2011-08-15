@@ -54,14 +54,15 @@ class OutgoingMessage < ActiveRecord::Base
 
     # How the default letter starts and ends
     def get_salutation
-        ret = _("Dear ")
+        ret = ""
         if self.message_type == 'followup' && !self.incoming_message_followup.nil? && !self.incoming_message_followup.safe_mail_from.nil? && self.incoming_message_followup.valid_to_reply_to?
             ret = ret + OutgoingMailer.name_for_followup(self.info_request, self.incoming_message_followup)
         else
             ret = ret + self.info_request.public_body.name
         end
-        return ret + ","
+        salutation = _("Dear {{public_body_name}},", :public_body_name => ret)
     end
+
     def get_signoff
         if self.message_type == 'followup' && !self.incoming_message_followup.nil? && !self.incoming_message_followup.safe_mail_from.nil? && self.incoming_message_followup.valid_to_reply_to?
             return _("Yours sincerely,")

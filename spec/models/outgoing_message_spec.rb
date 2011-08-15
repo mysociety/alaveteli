@@ -1,7 +1,10 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe OutgoingMessage, " when making an outgoing message" do
+    fixtures :outgoing_messages, :info_requests, :incoming_messages, :public_bodies, :public_body_translations
+
     before do
+        @om = outgoing_messages(:useless_outgoing_message)
         @outgoing_message = OutgoingMessage.new({
             :status => 'ready',
             :message_type => 'initial_request',
@@ -26,6 +29,10 @@ describe OutgoingMessage, " when making an outgoing message" do
 
     it "should include email addresses in outgoing messages" do
         @outgoing_message.body.should include("foo@bar.com")
+    end
+
+    it "should work out a salutation" do
+        @om.get_salutation.should == "Dear Geraldine Quango,"
     end
 end
 
