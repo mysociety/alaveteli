@@ -19,6 +19,13 @@ describe IncomingMessage, " when dealing with incoming mail" do
 
 end
 
+describe IncomingMessage, "when parsing HTML mail" do 
+    it "should display UTF-8 characters in the plain text version correctly" do
+        html = "<html><b>foo</b> është"
+        plain_text = IncomingMessage._get_attachment_text_internal_one_file('text/html', html)
+        plain_text.should match(/është/)
+    end
+end
 
 describe IncomingMessage, "when getting the attachment text" do 
 
@@ -199,6 +206,13 @@ describe IncomingMessage, " when censoring data" do
         data = @test_data.dup
         @im.html_mask_stuff!(data)
         data.should == "There was a mouse called Jarlsberg, he wished that he was yellow."
+    end
+
+    it "should apply hard-coded privacy rules to HTML files" do
+        domain = MySociety::Config.get('DOMAIN')
+        data = "http://#{domain}/c/cheese"
+        @im.html_mask_stuff!(data)
+        data.should == "[WDTK login link]"
     end
 
     it "should apply censor rules to From: addresses" do

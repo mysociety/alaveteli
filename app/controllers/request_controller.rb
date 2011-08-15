@@ -393,7 +393,7 @@ class RequestController < ApplicationController
             flash[:notice] = _("<p>Thank you! Hope you don't have to wait much longer.</p> <p>By law, you should have got a response promptly, and normally before the end of <strong>{{date_response_required_by}}</strong>.</p>",:date_response_required_by=>simple_date(@info_request.date_response_required_by))
             redirect_to request_url(@info_request)
         elsif @info_request.calculate_status == 'waiting_response_very_overdue'
-            flash[:notice] = _("<p>Thank you! Your request is long overdue, by more than 40 working days. Most requests should be answered within 20 working days. You might like to complain about this, see below.</p>")
+            flash[:notice] = _("<p>Thank you! Your request is long overdue, by more than {{very_late_number_of_days}} working days. Most requests should be answered within {{late_number_of_days}} working days. You might like to complain about this, see below.</p>", :very_late_number_of_days => MySociety::Config.get('REPLY_VERY_LATE_AFTER_DAYS', 40), :late_number_of_days => MySociety::Config.get('REPLY_LATE_AFTER_DAYS', 20))
             redirect_to unhappy_url(@info_request)
         elsif @info_request.calculate_status == 'not_held'
             flash[:notice] = _("<p>Thank you! Here are some ideas on what to do next:</p>

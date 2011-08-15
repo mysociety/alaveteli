@@ -651,6 +651,8 @@ public
     # days is a very long time.
     def date_very_overdue_after
         last_sent = last_event_forming_initial_request
+        very_late_days_later = MySociety::Config.get('REPLY_VERY_LATE_AFTER_DAYS', 40)
+        school_very_late_days_later = MySociety::Config.get('SPECIAL_REPLY_VERY_LATE_AFTER_DAYS', 60)
         if self.public_body.is_school?
             # schools have 60 working days maximum (even over a long holiday)
             return Holiday.due_date_from(self.date_initial_request_last_sent_at, 60)

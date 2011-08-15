@@ -569,7 +569,8 @@ class IncomingMessage < ActiveRecord::Base
         text.gsub!(/(Complaints and Corporate Affairs Officer)\s+Westminster Primary Care Trust.+/ms, "\\1")
 
         # Remove WhatDoTheyKnow signup links
-        text.gsub!(/http:\/\/www.whatdotheyknow.com\/c\/[^\s]+/, "[WDTK login link]")
+        domain = MySociety::Config.get('DOMAIN')
+        text.gsub!(/http:\/\/#{domain}\/c\/[^\s]+/, "[WDTK login link]")
 
         # Remove Home Office survey links
         # e.g. http://www.whatdotheyknow.com/request/serious_crime_act_2007_section_7#incoming-12650
@@ -1134,7 +1135,7 @@ class IncomingMessage < ActiveRecord::Base
             elsif content_type == 'text/html'
                 # lynx wordwraps links in its output, which then don't get formatted properly
                 # by Alaveteli. We use elinks instead, which doesn't do that.
-                external_command("/usr/bin/elinks", "-dump-charset", "utf-8", "-force-html", "-dump",
+                external_command("/usr/bin/elinks", "-eval", "'set document.codepage.assume = \"utf-8\"'", "-dump-charset", "utf-8", "-force-html", "-dump",
                     tempfile.path, :append_to => text)
             elsif content_type == 'application/vnd.ms-excel'
                 # Bit crazy using /usr/bin/strings - but xls2csv, xlhtml and
