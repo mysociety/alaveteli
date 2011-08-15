@@ -308,6 +308,13 @@ describe RequestController, "when creating a new request" do
         response.should redirect_to(:controller => 'general', :action => 'frontpage')
     end
 
+    it "should redirect 'bad request' page when a body has no email address" do
+        @body.request_email = ""
+        @body.save!
+        get :new, :public_body_id => @body.id
+        response.should render_template('new_bad_contact')
+    end
+
     it "should accept a public body parameter" do
         get :new, :public_body_id => @body.id
         assigns[:info_request].public_body.should == @body    
