@@ -341,9 +341,12 @@ class PublicBody < ActiveRecord::Base
                         row.each_with_index {|field, i| field_names[field] = i}
                         next
                     end
+
+                    fields = {}
+                    field_names.each{|name, i| fields[name] = row[i]}
     
-                    name = row[field_names['name']]
-                    email = row[field_names['email']]
+                    name = fields['name']
+                    email = fields['email']
                     next if name.nil?
                     if email.nil?
                         email = '' # unknown/bad contact is empty string
@@ -356,7 +359,7 @@ class PublicBody < ActiveRecord::Base
                         errors.push "error: line " + line.to_s + ": invalid email " + email + " for authority '" + name + "'"
                         next
                     end
-
+                
                     if bodies_by_name[name]
                         # Already have the public body, just update email
                         public_body = bodies_by_name[name]
@@ -367,9 +370,9 @@ class PublicBody < ActiveRecord::Base
                             public_body.last_edit_comment = 'Updated from spreadsheet'                            
                             public_body.save!
                         end
-
+                        
                         additional_locales.each do |locale|
-                            localized_name = field_names["name.#{locale}"] && row[field_names["name.#{locale}"]]
+                            localized_name = fields["name.#{locale}"]
                             PublicBody.with_locale(locale) do 
                                 if !localized_name.nil? and public_body.name != localized_name
                                     notes.push "line " + line.to_s + ": updating name for '#{name}' from '#{public_body.name}' to '#{localized_name}' (locale: #{locale})."
@@ -386,7 +389,7 @@ class PublicBody < ActiveRecord::Base
                         public_body.save!
 
                         additional_locales.each do |locale|
-                            localized_name = field_names["name.#{locale}"] && row[field_names["name.#{locale}"]]
+                            localized_name = fields["name.#{locale}"]
                             if !localized_name.nil?
                                 PublicBody.with_locale(locale) do 
                                     notes.push "line " + line.to_s + ":   (aka '#{localized_name}' in locale #{locale})"
