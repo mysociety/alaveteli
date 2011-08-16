@@ -90,14 +90,30 @@ class AdminPublicBodyController < AdminController
     end
 
     def create
-        @locale = self.locale_from_params()
-        PublicBody.with_locale(@locale) do 
-            params[:public_body][:last_edit_editor] = admin_http_auth_user()
-            @public_body = PublicBody.new(params[:public_body])
-            if @public_body.save
-                flash[:notice] = 'PublicBody was successfully created.'
-                redirect_to admin_url('body/show/' + @public_body.id.to_s)
-            else
+        # Start creating the public body in the default locale
+        PublicBody.with_locale(I18n.default_locale) do
+            begin
+                ActiveRecord::Base.transaction do
+                    params[:public_body][:last_edit_editor] = admin_http_auth_user()
+                    @public_body = PublicBody.new(params[:public_body])
+                    @public_body.save!
+
+                    # Next, save the translations in the additional locales
+                    I18n.available_locales.each do |locale|
+                        PublicBody.with_locale(locale) do
+                            unless (attr_values = params["public_body_#{locale}"]).nil?
+                                # 'publication_scheme' can't be null in the current DB schema
+                                attr_values[:publication_scheme] = attr_values[:publication_scheme] || ''
+                                @public_body.attributes = attr_values
+                                @public_body.save!
+                            end
+                        end
+                    end
+    
+                    flash[:notice] = 'PublicBody was successfully created.'
+                    redirect_to admin_url('body/show/' + @public_body.id.to_s)
+                end
+            rescue ActiveRecord::RecordInvalid
                 render :action => 'new'
             end
         end
@@ -157,7 +173,7 @@ class AdminPublicBodyController < AdminController
                 
                 # Try with dry run first
                 csv_contents = params[:csv_file].read
-                en = PublicBody.import_csv(csv_contents, params[:tag], true, admin_http_auth_user(), I18n.available_locales)
+                en = PublicBody.import_csv(csv_contents, params[:tag], true, admin_http_auth_user(), available_locales)
                 errors = en[0]
                 notes = en[1]
 

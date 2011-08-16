@@ -109,14 +109,6 @@ describe AdminPublicBodyController, "when administering public bodies with i18n"
         get :show, {:id => 2, :locale => "es" }
     end
 
-    it "creates a new public body" do
-        I18n.default_locale = :es
-        PublicBody.count.should == 2
-        post :create, { :public_body => { :name => "New Quango", :short_name => "", :tag_string => "blah", :request_email => 'newquango@localhost', :last_edit_comment => 'From test code' } }
-        PublicBody.count.should == 3
-        I18n.default_locale = :en
-    end
-
     it "edits a public body" do
         I18n.default_locale = :es
         get :edit, {:id => 3, :locale => :es}
@@ -145,6 +137,62 @@ describe AdminPublicBodyController, "when administering public bodies with i18n"
         PublicBody.count.should == 2
         post :destroy, { :id => 3 }
         PublicBody.count.should == 1
+    end
+
+end
+
+describe AdminPublicBodyController, "when creating public bodies with i18n" do
+    integrate_views
+    fixtures :public_bodies, :public_body_translations
+  
+    before do
+        username = MySociety::Config.get('ADMIN_USERNAME', '')
+        password = MySociety::Config.get('ADMIN_PASSWORD', '')
+        basic_auth_login @request
+    end
+
+    it "creates a new public body in one locale" do
+        PublicBody.count.should == 2
+        post :create, { :public_body => { :name => "New Quango", :short_name => "", :tag_string => "blah", :request_email => 'newquango@localhost', :last_edit_comment => 'From test code' } }
+        PublicBody.count.should == 3
+
+        body = PublicBody.find_by_name("New Quango")
+        response.should redirect_to("http://test.host/en/admin/body/show/#{body.id}")
+    end
+
+    it "creates a new public body with multiple locales" do
+        PublicBody.count.should == 2
+        post :create, { 
+            :public_body => { :name => "New Quango", :short_name => "", :tag_string => "blah", :request_email => 'newquango@localhost', :last_edit_comment => 'From test code' },
+            :public_body_es => { :name => "Nuevo Quango", :short_name => "", :tag_string => "blah", :request_email => 'newquango@localhost', :last_edit_comment => 'From test code' } 
+        }
+        PublicBody.count.should == 3
+        
+        body = PublicBody.find_by_name("New Quango")
+        body.translations.map {|t| t.locale.to_s}.sort.should == ["en", "es"]
+        PublicBody.with_locale(:en) do
+            body.name.should == "New Quango"
+            body.url_name.should == "new_quango"
+        end
+        PublicBody.with_locale(:es) do
+            body.name.should == "Nuevo Quango"
+            body.url_name.should == "nuevo_quango"
+        end
+        
+        response.should redirect_to("http://test.host/en/admin/body/show/#{body.id}")
+    end
+
+    # when submitting the 'new' form, we should ignore a locale if the user hasn't set any value in it
+    it "doesn't create the public body if anything fails" do
+        PublicBody.count.should == 2
+        post :create, { 
+            :public_body => { :name => "New Quango", :short_name => "", :tag_string => "blah", :request_email => 'newquango@localhost', :last_edit_comment => 'From test code' },
+            :public_body_fr => { :name => "Neuf Quango", :short_name => "", :tag_string => "blah", :request_email => 'newquango@localhost', :last_edit_comment => 'From test code' },
+            :public_body_es => { :name => "" },  # invalid
+        }
+        response.should render_template('new')
+        PublicBody.count.should == 2
+        I18n.locale.should == :en     # don't mess up the previous locale
     end
 
 end
