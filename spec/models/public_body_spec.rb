@@ -210,6 +210,20 @@ describe PublicBody, "when searching" do
         body.id.should == 3
         body.class.to_s.should == 'PublicBody'
     end
+    
+    it "should cope with same url_name across multiple locales" do
+        PublicBody.with_locale(:es) do
+            # use the unique spanish name to retrieve and edit
+            body = PublicBody.find_by_url_name_with_historic('etgq')
+            body.short_name = 'tgq' # Same as english version
+            body.save! 
+    
+            # now try to retrieve it
+            body = PublicBody.find_by_url_name_with_historic('tgq')
+            body.id.should == public_bodies(:geraldine_public_body).id
+            body.name.should == "El A Geraldine Quango"
+        end
+    end
 end
 
 describe PublicBody, " when loading CSV files" do

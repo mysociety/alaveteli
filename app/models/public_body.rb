@@ -54,15 +54,16 @@ class PublicBody < ActiveRecord::Base
 
     # like find_by_url_name but also search historic url_name if none found
     def self.find_by_url_name_with_historic(name)
-        @locale = I18n.locale.to_s
-        PublicBody.with_locale(@locale) do 
+        locale = self.locale || I18n.locale
+        PublicBody.with_locale(locale) do 
             found = PublicBody.find(:all,
                                     :conditions => ["public_body_translations.url_name='#{name}'"],
                                     :joins => :translations,
                                     :readonly => false)
-            return found.first if found.size == 1
-            # Shouldn't we just make url_name unique?
-            raise "Two bodies with the same URL name: #{name}" if found.size > 1
+            # If many bodies are found (usually because the url_name is the same across
+            # locales) return any of them
+            return found.first if found.size >= 1
+
             # If none found, then search the history of short names
             old = PublicBody::Version.find_all_by_url_name(name)
             # Find unique public bodies in it
@@ -138,7 +139,7 @@ class PublicBody < ActiveRecord::Base
             return 'defunct'
         elsif self.not_apply?
             return 'not_apply'
-        elsif self.request_email.empty? or self.request_email == 'blank'
+        elsif self.request_email.nil? or self.request_email.empty? or self.request_email == 'blank'
             return 'bad_contact'
         else
             raise "requestable_failure_reason called with type that has no reason"
