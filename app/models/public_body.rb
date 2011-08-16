@@ -342,6 +342,9 @@ class PublicBody < ActiveRecord::Base
                         row.each_with_index {|field, i| field_names[field] = i}
                         next
                     end
+
+                    fields = {}
+                    field_names.each{|name, i| fields[name] = row[i]}
     
                     name = row[field_names['name']]
                     email = row[field_names['request_email']]
