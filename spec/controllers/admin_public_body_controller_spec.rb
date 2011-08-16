@@ -149,6 +149,8 @@ describe AdminPublicBodyController, "when creating public bodies with i18n" do
         username = MySociety::Config.get('ADMIN_USERNAME', '')
         password = MySociety::Config.get('ADMIN_PASSWORD', '')
         basic_auth_login @request
+        
+        ActionController::Routing::Routes.filters.clear     # don't auto-insert locale, complicates assertions
     end
 
     it "creates a new public body in one locale" do
@@ -157,7 +159,7 @@ describe AdminPublicBodyController, "when creating public bodies with i18n" do
         PublicBody.count.should == 3
 
         body = PublicBody.find_by_name("New Quango")
-        response.should redirect_to("http://test.host/en/admin/body/show/#{body.id}")
+        response.should redirect_to(:controller=>'admin_public_body', :action=>'show', :id=>body.id)
     end
 
     it "creates a new public body with multiple locales" do
@@ -179,7 +181,7 @@ describe AdminPublicBodyController, "when creating public bodies with i18n" do
             body.url_name.should == "nuevo_quango"
         end
         
-        response.should redirect_to("http://test.host/en/admin/body/show/#{body.id}")
+        response.should redirect_to(:controller=>'admin_public_body', :action=>'show', :id=>body.id)
     end
 
     # when submitting the 'new' form, we should ignore a locale if the user hasn't set any value in it
