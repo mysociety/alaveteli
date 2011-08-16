@@ -21,26 +21,41 @@
     <% end %>
 </div>
 
-<p><label for="public_body_name">Name</label><br/>
-<%= text_field 'public_body', 'name', :size => 60  %></p>
+<h3>Localized Fields</h3>
 
-<p><label for="public_body_short_name">Short name <small>(only put in abbreviations which are really used, otherwise leave blank. Short or long name is used in the URL - don't worry about breaking URLs through renaming, as the history is used to redirect)</small></label><br/>
-<%= text_field 'public_body', 'short_name', :size => 60  %></p>
+<% 
+    for locale in I18n.available_locales do
+        object_name = locale==:en ? 'public_body' : "public_body_#{locale.to_s}"
+%>
+<div>
+    <p>Locale: <%= locale_name(locale.to_s) %></p>
 
-<p><label for="public_body_request_email">Request email <small>(set to <strong>blank</strong> (empty string) if can't find an address; these emails are <strong>public</strong> as anyone can view with a CAPTCHA)</small></label><br/>
-<%= text_field 'public_body', 'request_email', :size => 40  %></p>
+    <p><label for="public_body_name">Name</label><br/>
+    <%= text_field object_name, 'name', :size => 60  %></p>
+
+    <p><label for="public_body_short_name">Short name <small>(only put in abbreviations which are really used, otherwise leave blank. Short or long name is used in the URL - don't worry about breaking URLs through renaming, as the history is used to redirect)</small></label><br/>
+    <%= text_field object_name, 'short_name', :size => 60  %></p>
+
+    <p><label for="public_body_request_email">Request email <small>(set to <strong>blank</strong> (empty string) if can't find an address; these emails are <strong>public</strong> as anyone can view with a CAPTCHA)</small></label><br/>
+    <%= text_field object_name, 'request_email', :size => 40  %></p>
+
+    <p><label for="public_body_publication_scheme">Publication scheme URL</label><br/>
+    <%= text_field object_name, 'publication_scheme', :size => 60  %></p>
+
+    <p><label for="public_body_notes">Public notes</label> <small>(HTML, for users to consider when making FOI requests to the authority)</small><br/>
+    <%= text_area object_name, 'notes', :rows => 3, :cols => 60  %></p>
+</div>
+<% 
+    end 
+%>
+
+<h3>Common Fields</h3>
 
 <p><label for="public_body_tag_string">Tags <small>(space separated; see list of tags on the right; also <strong>not_apply</strong> if FOI and EIR no longer apply to authority, <strong>eir_only</strong> if EIR but not FOI applies to authority, <strong>defunct</strong> if the authority no longer exists; charity:NUMBER if a registered charity)</small></label><br/>
 <%= text_field 'public_body', 'tag_string', :size => 60  %></p>
 
 <p><label for="public_body_home_page">Home page <small>(of whole authority, not just their FOI page; set to <strong>blank</strong> (empty string) to guess it from the email)</small></label><br/>
 <%= text_field 'public_body', 'home_page', :size => 60  %></p>
-
-<p><label for="public_body_publication_scheme">Publication scheme URL</label><br/>
-<%= text_field 'public_body', 'publication_scheme', :size => 60  %></p>
-
-<p><label for="public_body_notes">Public notes</label> <small>(HTML, for users to consider when making FOI requests to the authority)</small><br/>
-<%= text_area 'public_body', 'notes', :rows => 3, :cols => 60  %></p>
 
 <p><label for="public_body_last_edit_comment"><strong>Comment</strong> for this edit</label> <small>(put URL or other source of new info)</small><br/>
 <%= text_area 'public_body', 'last_edit_comment', :rows => 3, :cols => 60  %></p>
