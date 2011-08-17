@@ -2,7 +2,10 @@
 
 <!--[form:public_body]-->
 
-<div id="tag_help">
+<!-- 
+    XXX: disabled temporarily while testing jQuery tabs
+    
+    <div id="tag_help">
     <h2>List of tags</h2>
     <% first_row = true %>
     <% for row in PublicBodyCategories::CATEGORIES_WITH_HEADINGS %>
@@ -19,9 +22,17 @@
             <h3><%=h row%></h3>
         <% end %>
     <% end %>
-</div>
+</div> -->
 
 <h3>Localized Fields</h3>
+<div id="div-locales">
+
+    <ul>
+    <% for locale in I18n.available_locales do %>
+        <li><a href="#div-locale-<%=locale.to_s%>"><%=locale_name(locale.to_s)%></a></li>
+    <% end %>
+    </ul>
+
 
 <% 
     for locale in I18n.available_locales do
@@ -37,29 +48,29 @@
 
         fields_for prefix, object do |t|
 %>
-<div>
-    <p>Locale: <%= locale_name(locale.to_s) %></p>
-    <%= t.hidden_field :locale, :value => locale.to_s %>
+    <div id="div-locale-<%=locale.to_s%>">
+        <%= t.hidden_field :locale, :value => locale.to_s %>
     
-    <p><label for="public_body_name">Name</label><br/>
-    <%= t.text_field :name, :size => 60  %></p>
+        <p><label for="public_body_name">Name</label><br/>
+        <%= t.text_field :name, :size => 60  %></p>
 
-    <p><label for="public_body_short_name">Short name <small>(only put in abbreviations which are really used, otherwise leave blank. Short or long name is used in the URL - don't worry about breaking URLs through renaming, as the history is used to redirect)</small></label><br/>
-    <%= t.text_field :short_name, :size => 60  %></p>
+        <p><label for="public_body_short_name">Short name <small>(only put in abbreviations which are really used, otherwise leave blank. Short or long name is used in the URL - don't worry about breaking URLs through renaming, as the history is used to redirect)</small></label><br/>
+        <%= t.text_field :short_name, :size => 60  %></p>
 
-    <p><label for="public_body_request_email">Request email <small>(set to <strong>blank</strong> (empty string) if can't find an address; these emails are <strong>public</strong> as anyone can view with a CAPTCHA)</small></label><br/>
-    <%= t.text_field :request_email, :size => 40  %></p>
+        <p><label for="public_body_request_email">Request email <small>(set to <strong>blank</strong> (empty string) if can't find an address; these emails are <strong>public</strong> as anyone can view with a CAPTCHA)</small></label><br/>
+        <%= t.text_field :request_email, :size => 40  %></p>
 
-    <p><label for="public_body_publication_scheme">Publication scheme URL</label><br/>
-    <%= t.text_field :publication_scheme, :size => 60  %></p>
+        <p><label for="public_body_publication_scheme">Publication scheme URL</label><br/>
+        <%= t.text_field :publication_scheme, :size => 60  %></p>
 
-    <p><label for="public_body_notes">Public notes</label> <small>(HTML, for users to consider when making FOI requests to the authority)</small><br/>
-    <%= t.text_area :notes, :rows => 3, :cols => 60  %></p>
-</div>
+        <p><label for="public_body_notes">Public notes</label> <small>(HTML, for users to consider when making FOI requests to the authority)</small><br/>
+        <%= t.text_area :notes, :rows => 3, :cols => 60  %></p>
+    </div>
 <% 
         end
     end 
 %>
+</div>
 
 <h3>Common Fields</h3>
 
