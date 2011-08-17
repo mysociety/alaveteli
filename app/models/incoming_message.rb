@@ -255,7 +255,8 @@ class FOIAttachment
             text = CGI.escapeHTML(text)
             text = MySociety::Format.make_clickable(text)
             html = text.gsub(/\n/, '<br>')
-            return "<html><head></head><body>" + html + "</body></html>", wrapper_id
+            return '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd"><html><head><title></title></head><body>' + html + "</body></html>", wrapper_id
         end
 
         # the extractions will also produce image files, which go in the
@@ -987,7 +988,6 @@ class IncomingMessage < ActiveRecord::Base
                 attachment.filename = _get_censored_part_file_name(leaf)
                 if leaf.within_rfc822_attachment
                     attachment.within_rfc822_subject = leaf.within_rfc822_attachment.subject
-
                     # Test to see if we are in the first part of the attached
                     # RFC822 message and it is text, if so add headers.
                     # XXX should probably use hunting algorithm to find main text part, rather than

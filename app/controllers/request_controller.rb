@@ -604,23 +604,29 @@ class RequestController < ApplicationController
     # special caching code so mime types are handled right
     around_filter :cache_attachments, :only => [ :get_attachment, :get_attachment_as_html ]
     def cache_attachments
-        key = params.merge(:only_path => true)
-        key_path = foi_fragment_cache_path(key)
+        if !params[:skip_cache].nil?
+            yield
+        else
+            key = params.merge(:only_path => true)
+            key_path = foi_fragment_cache_path(key)
 
-        if foi_fragment_cache_exists?(key_path)
-            cached = foi_fragment_cache_read(key_path)
-            response.content_type = AlaveteliFileTypes.filename_to_mimetype(params[:file_name].join("/")) || 'application/octet-stream'
-            render_for_text(cached)
-            return
+            if foi_fragment_cache_exists?(key_path)
+                cached = foi_fragment_cache_read(key_path)
+                response.content_type = AlaveteliFileTypes.filename_to_mimetype(params[:file_name].join("/")) || 'application/octet-stream'
+                render_for_text(cached)
+                return
+            end
+
+            yield
+
+            if params[:skip_cache].nil?
+                # write it to the fileystem ourselves, so is just a plain file. (The
+                # various fragment cache functions using Ruby Marshall to write the file
+                # which adds a header, so isnt compatible with images that have been
+                # extracted elsewhere from PDFs)
+                foi_fragment_cache_write(key_path, response.body)
+            end
         end
-
-        yield
-
-        # write it to the fileystem ourselves, so is just a plain file. (The
-        # various fragment cache functions using Ruby Marshall to write the file
-        # which adds a header, so isnt compatible with images that have been
-        # extracted elsewhere from PDFs)
-        foi_fragment_cache_write(key_path, response.body)
     end
 
     def get_attachment
@@ -649,7 +655,7 @@ class RequestController < ApplicationController
 
         view_html_stylesheet = render_to_string :partial => "request/view_html_stylesheet"
         html.sub!(/<head>/i, "<head>" + view_html_stylesheet)
-        html.sub!(/<body[^>]*>/i, '<body><prefix-here><div id="' + wrapper_id + '"><div id="view_html_content">')
+        html.sub!(/<body[^>]*>/i, '<body><prefix-here><div id="' + wrapper_id + '"><div id="view-html-content">')
         html.sub!(/<\/body[^>]*>/i, '</div></div></body>')
 
         view_html_prefix = render_to_string :partial => "request/view_html_prefix"
@@ -657,7 +663,6 @@ class RequestController < ApplicationController
         html.sub!("<attachment-url-here>", CGI.escape(@attachment_url))
 
         @incoming_message.html_mask_stuff!(html) 
-
         response.content_type = 'text/html'
         render :text => html
     end

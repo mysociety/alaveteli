@@ -125,6 +125,14 @@ describe RequestController, "when showing one request" do
             response.should have_text(/First hello/)
         end
 
+        it "should generate valid HTML verson of plain text attachments " do
+            ir = info_requests(:fancy_dog_request) 
+            receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
+            get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => ['hello.txt.html'], :skip_cache => 1
+            response.content_type.should == "text/html"
+            response.should have_text(/Second hello/)
+        end
+
         it "should treat attachments with unknown extensions as binary" do
             ir = info_requests(:fancy_dog_request)
             receive_incoming_mail('incoming-request-attachment-unknown-extension.email', ir.incoming_email)
