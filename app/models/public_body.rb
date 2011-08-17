@@ -38,7 +38,7 @@ class PublicBody < ActiveRecord::Base
 
     validates_uniqueness_of :short_name, :message => N_("Short name is already taken"), :if => Proc.new { |pb| pb.short_name != "" }
     validates_uniqueness_of :name, :message => N_("Name is already taken")
-    
+
     has_many :info_requests, :order => 'created_at desc'
     has_many :track_things, :order => 'created_at desc'
 
@@ -46,6 +46,40 @@ class PublicBody < ActiveRecord::Base
 
     translates :name, :short_name, :request_email, :url_name, :notes, :first_letter, :publication_scheme
 
+    # Convenience methods for creating/editing translations via forms
+    def translation(locale)
+        self.translations.find_by_locale(locale)
+    end
+
+    # XXX - Don't like repeating this!
+    def calculate_cached_fields(t)
+        t.first_letter = t.name.scan(/^./mu)[0].upcase
+        short_long_name = t.name
+        short_long_name = t.short_name if t.short_name and !t.short_name.empty?
+        t.url_name = MySociety::Format.simplify_url_part(short_long_name, 'body')
+    end
+    
+    def translated_versions
+        translations
+    end
+    
+    def translated_versions=(translation_attrs)
+        if translation_attrs.respond_to? :each_value    # Hash => updating
+            translation_attrs.each_value do |attrs|
+                t = translation(attrs[:locale]) || PublicBody::Translation.new
+                t.attributes = attrs
+                calculate_cached_fields(t)
+                t.save!
+            end
+        else                                            # Array => creating
+            translation_attrs.each do |attrs|
+                new_translation = PublicBody::Translation.new(attrs)
+                calculate_cached_fields(new_translation)
+                translations << new_translation
+            end
+        end
+    end
+    
     # Make sure publication_scheme gets the correct default value.
     # (This would work automatically, were publication_scheme not a translated attribute)
     def after_initialize
@@ -191,7 +225,6 @@ class PublicBody < ActiveRecord::Base
 
     # When name or short name is changed, also change the url name
     def short_name=(short_name)
-
         globalize.write(self.class.locale || I18n.locale, :short_name, short_name)
         self[:short_name] = short_name
         self.update_url_name
@@ -204,15 +237,15 @@ class PublicBody < ActiveRecord::Base
     end
 
     def update_url_name
-        url_name = MySociety::Format.simplify_url_part(self.short_or_long_name, 'body')
-        self.url_name = url_name
+        self.url_name = MySociety::Format.simplify_url_part(self.short_or_long_name, 'body')
     end
+    
     # Return the short name if present, or else long name
     def short_or_long_name
-        if self.short_name.nil? # can happen during construction
+        if self.short_name.nil? || self.short_name.empty?   # 'nil' can happen during construction
             self.name
         else
-            self.short_name.empty? ? self.name : self.short_name
+            self.short_name
         end
     end
 
