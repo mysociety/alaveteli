@@ -19,9 +19,7 @@
             address</strong>, not just an email, for it to be a valid FOI request') %>
         </dt>
         <dd>
-            <%= _('The law, the Ministry of Justice and the Information Commissioner
-            all say that an email is sufficient (<a href="%s">more details</a>).
-            At the bottom of this page, write a reply to the authority explaining this to them.') % [help_privacy_path + '#full_address'] %>
+            <%= render :partial => 'help/why_they_should_reply_by_email', :locals => {:help_page_url =>  help_privacy_path } %>
         </dd>
 
         <dt>

@@ -62,7 +62,6 @@ describe GeneralController, "when searching" do
         response.should be_success
     end
 
-
     it "should redirect from search query URL to pretty URL" do
         post :search_redirect, :query => "mouse" # query hidden in POST parameters
         response.should redirect_to(:action => 'search', :combined => "mouse") # URL /search/:query
