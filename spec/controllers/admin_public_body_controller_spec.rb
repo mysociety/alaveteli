@@ -113,7 +113,7 @@ describe AdminPublicBodyController, "when administering public bodies with i18n"
         get :edit, {:id => 3, :locale => :en}
         
         # When editing a body, the controller returns all available translations
-        assigns[:public_body_es].name.should == 'El Department for Humpadinking'
+        assigns[:public_body].translation("es").name.should == 'El Department for Humpadinking'
         assigns[:public_body].name.should == 'Department for Humpadinking'
         response.should render_template('edit')
     end
@@ -124,8 +124,16 @@ describe AdminPublicBodyController, "when administering public bodies with i18n"
             pb.name.should == "El Department for Humpadinking"
             post :update, { 
                 :id => 3, 
-                :public_body => { :name => "Department for Humpadinking", :short_name => "", :tag_string => "some tags", :request_email => 'edited@localhost', :last_edit_comment => 'From test code' },
-                :public_body_es => { :name => "Renamed", :short_name => "", :tag_string => "some tags", :request_email => 'edited@localhost', :last_edit_comment => 'From test code' }
+                :public_body => { 
+                    :name => "Department for Humpadinking", 
+                    :short_name => "", 
+                    :tag_string => "some tags", 
+                    :request_email => 'edited@localhost', 
+                    :last_edit_comment => 'From test code',
+                    :translated_versions => {
+                        3 => {:locale => "es", :name => "Renamed",:short_name => "", :request_email => 'edited@localhost'}
+                        }
+                    }
                 }
             response.flash[:notice].should include('successful') 
         end
@@ -171,8 +179,10 @@ describe AdminPublicBodyController, "when creating public bodies with i18n" do
     it "creates a new public body with multiple locales" do
         PublicBody.count.should == 2
         post :create, { 
-            :public_body => { :name => "New Quango", :short_name => "", :tag_string => "blah", :request_email => 'newquango@localhost', :last_edit_comment => 'From test code' },
-            :public_body_es => { :name => "Nuevo Quango", :short_name => "", :tag_string => "blah", :request_email => 'newquango@localhost', :last_edit_comment => 'From test code' } 
+            :public_body => { 
+                :name => "New Quango", :short_name => "", :tag_string => "blah", :request_email => 'newquango@localhost', :last_edit_comment => 'From test code',
+                :translated_versions => [{ :locale => "es", :name => "Mi Nuevo Quango", :short_name => "", :request_email => 'newquango@localhost' }]
+                }
         }
         PublicBody.count.should == 3
         
@@ -181,25 +191,14 @@ describe AdminPublicBodyController, "when creating public bodies with i18n" do
         PublicBody.with_locale(:en) do
             body.name.should == "New Quango"
             body.url_name.should == "new_quango"
+            body.first_letter.should == "N"
         end
         PublicBody.with_locale(:es) do
-            body.name.should == "Nuevo Quango"
-            body.url_name.should == "nuevo_quango"
+            body.name.should == "Mi Nuevo Quango"
+            body.url_name.should == "mi_nuevo_quango"
+            body.first_letter.should == "M"
         end
         
         response.should redirect_to(:controller=>'admin_public_body', :action=>'show', :id=>body.id)
-    end
-
-    # when submitting the 'new' form, we should ignore a locale if the user hasn't set any value in it
-    it "doesn't create the public body if anything fails" do
-        PublicBody.count.should == 2
-        post :create, { 
-            :public_body => { :name => "New Quango", :short_name => "", :tag_string => "blah", :request_email => 'newquango@localhost', :last_edit_comment => 'From test code' },
-            :public_body_fr => { :name => "Neuf Quango", :short_name => "", :tag_string => "blah", :request_email => 'newquango@localhost', :last_edit_comment => 'From test code' },
-            :public_body_es => { :name => "" },  # invalid
-        }
-        response.should render_template('new')
-        PublicBody.count.should == 2
-        I18n.locale.should == :en     # don't mess up the previous locale
     end
 end
