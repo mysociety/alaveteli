@@ -1,6 +1,10 @@
-
-
 <h1><%=@title%></h1>
+
+<script>
+    $(function() {
+        $("#div-locales").tabs();
+    });
+</script>
 
 <% form_for @public_body, :url => {:action => 'update'} do |f| %>
   <%= render :partial => 'form', :locals => {:f => f} %>

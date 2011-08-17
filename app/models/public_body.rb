@@ -53,7 +53,7 @@ class PublicBody < ActiveRecord::Base
 
     # XXX - Don't like repeating this!
     def calculate_cached_fields(t)
-        t.first_letter = t.name.scan(/^./mu)[0].upcase
+        t.first_letter = t.name.scan(/^./mu)[0].upcase unless t.name.nil? or t.name.empty?
         short_long_name = t.name
         short_long_name = t.short_name if t.short_name and !t.short_name.empty?
         t.url_name = MySociety::Format.simplify_url_part(short_long_name, 'body')
