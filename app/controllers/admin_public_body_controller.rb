@@ -89,6 +89,19 @@ class AdminPublicBodyController < AdminController
         end
     end
 
+    def update_localized_attributes(public_body, params)
+        I18n.available_locales.each do |locale|
+            PublicBody.with_locale(locale) do
+                unless (attr_values = params["public_body_#{locale}"]).nil?
+                    # 'publication_scheme' can't be null in the current DB schema
+                    attr_values[:publication_scheme] = attr_values[:publication_scheme] || ''
+                    public_body.attributes = attr_values
+                    public_body.save!
+                end
+            end
+        end
+    end
+    
     def create
         # Start creating the public body in the default locale
         PublicBody.with_locale(I18n.default_locale) do
@@ -99,17 +112,8 @@ class AdminPublicBodyController < AdminController
                     @public_body.save!
 
                     # Next, save the translations in the additional locales
-                    I18n.available_locales.each do |locale|
-                        PublicBody.with_locale(locale) do
-                            unless (attr_values = params["public_body_#{locale}"]).nil?
-                                # 'publication_scheme' can't be null in the current DB schema
-                                attr_values[:publication_scheme] = attr_values[:publication_scheme] || ''
-                                @public_body.attributes = attr_values
-                                @public_body.save!
-                            end
-                        end
-                    end
-    
+                    update_localized_attributes(@public_body, params)
+                    
                     flash[:notice] = 'PublicBody was successfully created.'
                     redirect_to admin_url('body/show/' + @public_body.id.to_s)
                 end
@@ -120,23 +124,35 @@ class AdminPublicBodyController < AdminController
     end
 
     def edit
-        @locale = self.locale_from_params()
-        PublicBody.with_locale(@locale) do 
+        PublicBody.with_locale(I18n.default_locale) do
             @public_body = PublicBody.find(params[:id])
             @public_body.last_edit_comment = ""
-            render
         end
+
+        # Additional locales (could remove the default, but won't make a difference)
+        I18n.available_locales.each do |locale|
+            instance_variable_set("@public_body_#{locale}", @public_body.translations.select{|t| t.locale==locale}.first)
+        end
+        
+        render
     end
 
     def update
-        @locale = self.locale_from_params()
-        PublicBody.with_locale(@locale) do 
-            params[:public_body][:last_edit_editor] = admin_http_auth_user()
-            @public_body = PublicBody.find(params[:id])
-            if @public_body.update_attributes(params[:public_body])
-                flash[:notice] = 'PublicBody was successfully updated.'
-                redirect_to admin_url('body/show/' + @public_body.id.to_s)
-            else
+        # Start updating the public body in the default locale
+        PublicBody.with_locale(I18n.default_locale) do
+            begin
+                ActiveRecord::Base.transaction do
+                    params[:public_body][:last_edit_editor] = admin_http_auth_user()
+                    @public_body = PublicBody.find(params[:id])
+                    @public_body.update_attributes!(params[:public_body])
+
+                    # Next, update the translations in the additional locales
+                    update_localized_attributes(@public_body, params)
+                    
+                    flash[:notice] = 'PublicBody was successfully updated.'
+                    redirect_to admin_url('body/show/' + @public_body.id.to_s)
+                end
+            rescue ActiveRecord::RecordInvalid
                 render :action => 'edit'
             end
         end

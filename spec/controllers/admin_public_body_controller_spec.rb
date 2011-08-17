@@ -110,19 +110,25 @@ describe AdminPublicBodyController, "when administering public bodies with i18n"
     end
 
     it "edits a public body" do
-        I18n.default_locale = :es
-        get :edit, {:id => 3, :locale => :es}
-        response.body.should include('Baguette')
-        I18n.default_locale = :en
+        get :edit, {:id => 3, :locale => :en}
+        
+        # When editing a body, the controller returns all available translations
+        assigns[:public_body_es].name.should == 'El Department for Humpadinking'
+        assigns[:public_body].name.should == 'Department for Humpadinking'
+        response.should render_template('edit')
     end
 
     it "saves edits to a public body" do
-        I18n.default_locale = :es
-        pb = PublicBody.find(id=3)
-        pb.name.should == "El Department for Humpadinking"
-        post :update, { :id => 3, :public_body => { :name => "Renamed", :short_name => "", :tag_string => "some tags", :request_email => 'edited@localhost', :last_edit_comment => 'From test code' }}
-        response.flash[:notice].should include('successful') 
-        I18n.default_locale = :en
+        PublicBody.with_locale(:es) do
+            pb = PublicBody.find(id=3)
+            pb.name.should == "El Department for Humpadinking"
+            post :update, { 
+                :id => 3, 
+                :public_body => { :name => "Department for Humpadinking", :short_name => "", :tag_string => "some tags", :request_email => 'edited@localhost', :last_edit_comment => 'From test code' },
+                :public_body_es => { :name => "Renamed", :short_name => "", :tag_string => "some tags", :request_email => 'edited@localhost', :last_edit_comment => 'From test code' }
+                }
+            response.flash[:notice].should include('successful') 
+        end
 
         pb = PublicBody.find(public_bodies(:humpadink_public_body).id)
         PublicBody.with_locale(:es) do
@@ -196,5 +202,4 @@ describe AdminPublicBodyController, "when creating public bodies with i18n" do
         PublicBody.count.should == 2
         I18n.locale.should == :en     # don't mess up the previous locale
     end
-
 end
