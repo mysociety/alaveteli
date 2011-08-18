@@ -581,6 +581,8 @@ module ActsAsXapian
             end
         end
         
+        # We close the database when we're finished to remove the lock file. Since writable_init 
+        # reopens it and recreates the environment every time we don't need to do further cleanup 
         ActsAsXapian.writable_db.close
     end
         
