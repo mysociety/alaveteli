@@ -4,12 +4,10 @@
       <meta http-equiv="content-type" content="text/html;charset=UTF-8" >
       <title><%= site_name %> admin<%= @title ? ":" : "" %> <%=@title%></title>
       
-      <!-- XXX: use local versions once we agree on tabs -->
-      <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-      <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.15/jquery-ui.min.js"></script>
+      <%= javascript_include_tag 'jquery.js', 'jquery-ui.min' %>
 
+      <%= stylesheet_link_tag 'admin-theme/jquery-ui-1.8.15.custom.css', :rel => 'stylesheet'%>
       <%= stylesheet_link_tag 'admin', :title => "Main", :rel => "stylesheet"  %>
-      <%= stylesheet_link_tag 'ui-lightness/jquery-ui-1.8.15.custom.css', :rel => 'stylesheet'%>
     </head>
     <body>
 
@@ -36,6 +34,6 @@
     <% end %>
 
     <%= yield  %>
-
+    
     </body>
 </html>

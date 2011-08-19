@@ -50,9 +50,11 @@ form {
 #tag_help {
     float: right;
     width: 25%;
-}
-#tag_help {
     margin-top: 0;
+}
+#public_body_form {
+    float: left;
+    width: 70%;
 }
 
 .forms_on_one_line {

@@ -2,37 +2,12 @@
 
 <!--[form:public_body]-->
 
-<!-- 
-    XXX: disabled temporarily while testing jQuery tabs
-    
-    <div id="tag_help">
-    <h2>List of tags</h2>
-    <% first_row = true %>
-    <% for row in PublicBodyCategories::CATEGORIES_WITH_HEADINGS %>
-        <% if row.instance_of?(Array) %>
-            <% if row[0] != 'other' %>
-                <strong><%= row[0] %></strong>=<%= row[1] %>
-                <br/> 
-            <% end %>
-        <% elsif row != 'Miscellaneous' %>
-            <% if not first_row %>
-            <% else %> 
-                <% first_row = false %>
-            <% end %>
-            <h3><%=h row%></h3>
-        <% end %>
-    <% end %>
-</div> -->
-
-<h3>Localized Fields</h3>
 <div id="div-locales">
-
     <ul>
     <% for locale in I18n.available_locales do %>
         <li><a href="#div-locale-<%=locale.to_s%>"><%=locale_name(locale.to_s)%></a></li>
     <% end %>
     </ul>
-
 
 <% 
     for locale in I18n.available_locales do
@@ -50,7 +25,7 @@
 %>
     <div id="div-locale-<%=locale.to_s%>">
         <%= t.hidden_field :locale, :value => locale.to_s %>
-    
+
         <p><label for="public_body_name">Name</label><br/>
         <%= t.text_field :name, :size => 60  %></p>
 
@@ -82,6 +57,5 @@
 
 <p><label for="public_body_last_edit_comment"><strong>Comment</strong> for this edit</label> <small>(put URL or other source of new info)</small><br/>
 <%= f.text_area :last_edit_comment, :rows => 3, :cols => 60  %></p>
+
 <!--[eoform:public_body]-->
-
-
