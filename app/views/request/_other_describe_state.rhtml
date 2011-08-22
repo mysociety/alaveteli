@@ -7,7 +7,7 @@
     Thanks.') %></h2>
 
     <hr> <!------------------------------------------------>
-    <h3>This request is still in progress:</h3>
+    <h3><%= _('This request is still in progress:') %></h3>
     <% if @info_request.described_state != 'internal_review' %>
         <div>
             <%= radio_button "incoming_message", "described_state", "waiting_response", :id => 'waiting_response' + id_suffix %>
@@ -37,7 +37,7 @@
     <%= render :partial => 'general/custom_state_transitions_pending', :locals => {:id_suffix => id_suffix } %>
 
     <hr> <!------------------------------------------------>
-    <h3>This particular request is finished:</h3>
+    <h3><%= _('This particular request is finished:') %></h3>
 
     <% if @info_request.described_state == 'internal_review' %>
         <p><%= _('The <strong>review has finished</strong> and overall:') %></p>
