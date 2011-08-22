@@ -502,3 +502,7 @@ div.frontpage-box {
   min-height: 30px;
   font-style: italic;
 }
+
+#set_photo {
+    background: url(/images/defaultprofilepic.png)
+}
