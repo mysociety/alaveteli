@@ -234,9 +234,11 @@ describe PublicBody, " when loading CSV files" do
         errors, notes = PublicBody.import_csv(csv_contents, 'fake', true, 'someadmin') # true means dry run
         errors.should == []
         notes.size.should == 3
-        notes.should == ["line 1: new authority 'North West Fake Authority' with email north_west_foi@localhost", 
-            "line 2: new authority 'Scottish Fake Authority' with email scottish_foi@localhost", 
-            "line 3: new authority 'Fake Authority of Northern Ireland' with email ni_foi@localhost"]
+        notes.should == [
+            "line 1: creating new authority 'North West Fake Authority' (locale: en):\n\t\{\"request_email\":\"north_west_foi@localhost\"\}", 
+            "line 2: creating new authority 'Scottish Fake Authority' (locale: en):\n\t\{\"request_email\":\"scottish_foi@localhost\"\}", 
+            "line 3: creating new authority 'Fake Authority of Northern Ireland' (locale: en):\n\t\{\"request_email\":\"ni_foi@localhost\"\}"
+            ]
 
         PublicBody.count.should == original_count
     end
@@ -248,9 +250,11 @@ describe PublicBody, " when loading CSV files" do
         errors, notes = PublicBody.import_csv(csv_contents, 'fake', false, 'someadmin') # false means real run
         errors.should == []
         notes.size.should == 3
-        notes.should == ["line 1: new authority 'North West Fake Authority' with email north_west_foi@localhost", 
-            "line 2: new authority 'Scottish Fake Authority' with email scottish_foi@localhost", 
-            "line 3: new authority 'Fake Authority of Northern Ireland' with email ni_foi@localhost"]
+        notes.should == [
+            "line 1: creating new authority 'North West Fake Authority' (locale: en):\n\t\{\"request_email\":\"north_west_foi@localhost\"\}", 
+            "line 2: creating new authority 'Scottish Fake Authority' (locale: en):\n\t\{\"request_email\":\"scottish_foi@localhost\"\}", 
+            "line 3: creating new authority 'Fake Authority of Northern Ireland' (locale: en):\n\t\{\"request_email\":\"ni_foi@localhost\"\}"
+            ]
 
         PublicBody.count.should == original_count + 3
     end
@@ -262,9 +266,11 @@ describe PublicBody, " when loading CSV files" do
         errors, notes = PublicBody.import_csv(csv_contents, 'fake', true, 'someadmin') # true means dry run
         errors.should == []
         notes.size.should == 3
-        notes.should == ["line 2: new authority 'North West Fake Authority' with email north_west_foi@localhost", 
-            "line 3: new authority 'Scottish Fake Authority' with email scottish_foi@localhost", 
-            "line 4: new authority 'Fake Authority of Northern Ireland' with email ni_foi@localhost"]
+        notes.should == [
+            "line 2: creating new authority 'North West Fake Authority' (locale: en):\n\t\{\"request_email\":\"north_west_foi@localhost\",\"home_page\":\"http://northwest.org\"\}", 
+            "line 3: creating new authority 'Scottish Fake Authority' (locale: en):\n\t\{\"request_email\":\"scottish_foi@localhost\",\"home_page\":\"http://scottish.org\"\}", 
+            "line 4: creating new authority 'Fake Authority of Northern Ireland' (locale: en):\n\t\{\"request_email\":\"ni_foi@localhost\"\}"
+            ]
 
         PublicBody.count.should == original_count
     end
@@ -273,16 +279,17 @@ describe PublicBody, " when loading CSV files" do
         original_count = PublicBody.count
 
         csv_contents = load_file_fixture("fake-authority-type-with-field-names.csv")
-        errors, notes = PublicBody.import_csv(csv_contents, 'fake', false, 'someadmin', ['es'])
+        errors, notes = PublicBody.import_csv(csv_contents, 'fake', false, 'someadmin', [:en, :es])
         errors.should == []
         notes.size.should == 6
         notes.should == [
-            "line 2: new authority 'North West Fake Authority' with email north_west_foi@localhost", 
-            "line 2:   (aka 'Autoridad del Nordeste' in locale es)", 
-            "line 3: new authority 'Scottish Fake Authority' with email scottish_foi@localhost", 
-            "line 3:   (aka 'Autoridad Escocesa' in locale es)", 
-            "line 4: new authority 'Fake Authority of Northern Ireland' with email ni_foi@localhost",
-            "line 4:   (aka 'Autoridad Irlandesa' in locale es)"]
+            "line 2: creating new authority 'North West Fake Authority' (locale: en):\n\t{\"request_email\":\"north_west_foi@localhost\",\"home_page\":\"http://northwest.org\"}", 
+            "line 2: creating new authority 'North West Fake Authority' (locale: es):\n\t{\"name\":\"Autoridad del Nordeste\"}", 
+            "line 3: creating new authority 'Scottish Fake Authority' (locale: en):\n\t{\"request_email\":\"scottish_foi@localhost\",\"home_page\":\"http://scottish.org\"}",
+            "line 3: creating new authority 'Scottish Fake Authority' (locale: es):\n\t{\"name\":\"Autoridad Escocesa\"}",
+            "line 4: creating new authority 'Fake Authority of Northern Ireland' (locale: en):\n\t{\"request_email\":\"ni_foi@localhost\"}",
+            "line 4: creating new authority 'Fake Authority of Northern Ireland' (locale: es):\n\t{\"name\":\"Autoridad Irlandesa\"}"
+            ]
 
         PublicBody.count.should == original_count + 3
         
@@ -297,12 +304,14 @@ describe PublicBody, " when loading CSV files" do
         original_count = PublicBody.count
 
         csv_contents = load_file_fixture("fake-authority-type-with-field-names.csv")
-        errors, notes = PublicBody.import_csv(csv_contents, 'fake', true, 'someadmin', ['xx']) # true means dry run
+        errors, notes = PublicBody.import_csv(csv_contents, 'fake', true, 'someadmin', [:en, :xx]) # true means dry run
         errors.should == []
         notes.size.should == 3
-        notes.should == ["line 2: new authority 'North West Fake Authority' with email north_west_foi@localhost", 
-            "line 3: new authority 'Scottish Fake Authority' with email scottish_foi@localhost", 
-            "line 4: new authority 'Fake Authority of Northern Ireland' with email ni_foi@localhost"]
+        notes.should == [
+            "line 2: creating new authority 'North West Fake Authority' (locale: en):\n\t{\"request_email\":\"north_west_foi@localhost\",\"home_page\":\"http://northwest.org\"}",
+            "line 3: creating new authority 'Scottish Fake Authority' (locale: en):\n\t{\"request_email\":\"scottish_foi@localhost\",\"home_page\":\"http://scottish.org\"}", 
+            "line 4: creating new authority 'Fake Authority of Northern Ireland' (locale: en):\n\t{\"request_email\":\"ni_foi@localhost\"}"
+            ]
 
         PublicBody.count.should == original_count
     end
