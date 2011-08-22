@@ -62,10 +62,14 @@ body {
 }
 
 #banner_inner a#logo {
-  position:absolute;
+  position:absolute; 
   left:0px;
   top:70px;
   z-index: 100;
+}
+
+a img  {
+ border: none
 }
 
 #navigation_search {
@@ -85,6 +89,7 @@ body {
   padding:5px 5px 4px 5px;
   border-color:#BE7DBC;
   border-radius:5px 0px 0px 5px;
+  -moz-border-radius:5px 0px 0px 5px;
 }
 
 #logged_in_bar {
@@ -141,6 +146,7 @@ div.lang {
   background: url(/images/stripes.png);
   border: 1px solid #DEBEDD;
   border-radius:5px;
+  -moz-border-radius:5px;
   font-family:DeliciousRoman;
   color: #6B3C6A;
   font-size:18px;
@@ -295,6 +301,7 @@ p.subtitle {
   padding: 5px;
   color: #555;
   border-radius: 3px 0px 0px 3px;
+  -moz-border-radius: 3px 0px 0px 3px;
   border-style: solid;
   border-color: #BBB;
   border-width: 1px;
@@ -433,6 +440,7 @@ div.frontpage-box {
   background: url(/images/stripes.png);
   border: 1px solid #DEBEDD;
   border-radius:5px;
+  -moz-border-radius:5px;
   font-family:DeliciousRoman;
   color: #6B3C6A;
   font-size:18px;
