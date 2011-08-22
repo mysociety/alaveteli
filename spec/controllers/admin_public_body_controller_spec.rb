@@ -110,27 +110,27 @@ describe AdminPublicBodyController, "when administering public bodies with i18n"
     end
 
     it "creates a new public body" do
-        I18n.locale = :es
+        I18n.default_locale = :es
         PublicBody.count.should == 2
         post :create, { :public_body => { :name => "New Quango", :short_name => "", :tag_string => "blah", :request_email => 'newquango@localhost', :last_edit_comment => 'From test code' } }
         PublicBody.count.should == 3
-        I18n.locale = :en
+        I18n.default_locale = :en
     end
 
     it "edits a public body" do
-        I18n.locale = :es
+        I18n.default_locale = :es
         get :edit, {:id => 3, :locale => :es}
         response.body.should include('Baguette')
-        I18n.locale = :en
+        I18n.default_locale = :en
     end
 
     it "saves edits to a public body" do
-        I18n.locale = :es
+        I18n.default_locale = :es
         pb = PublicBody.find(id=3)
         pb.name.should == "El Department for Humpadinking"
         post :update, { :id => 3, :public_body => { :name => "Renamed", :short_name => "", :tag_string => "some tags", :request_email => 'edited@localhost', :last_edit_comment => 'From test code' }}
         response.flash[:notice].should include('successful') 
-        I18n.locale = :en
+        I18n.default_locale = :en
 
         pb = PublicBody.find(public_bodies(:humpadink_public_body).id)
         PublicBody.with_locale(:es) do

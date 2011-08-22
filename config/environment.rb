@@ -28,6 +28,12 @@ load "config.rb"
 load "format.rb"
 load "debug_helpers.rb"
 load "util.rb"
+# Patch Rails::GemDependency to cope with older versions of rubygems, e.g. in Debian Lenny
+# Restores override removed in https://github.com/rails/rails/commit/c20a4d18e36a13b5eea3155beba36bb582c0cc87
+# without effecting method behaviour
+# and adds fallback gem call removed in https://github.com/rails/rails/commit/4c3725723f15fab0a424cb1318b82b460714b72f
+require File.join(File.dirname(__FILE__), '../lib/old_rubygems_patch')
+
 
 Rails::Initializer.run do |config|
   # Load intial mySociety config
@@ -122,6 +128,7 @@ else
 end
 
 FastGettext.default_available_locales = available_locales
+I18n.locale = default_locale
 I18n.available_locales = available_locales
 I18n.default_locale = default_locale
 
@@ -136,3 +143,4 @@ require 'willpaginate_hack.rb'
 require 'sendmail_return_path.rb'
 require 'tnef.rb'
 require 'i18n_fixes.rb'
+require 'rack_quote_monkeypatch.rb'

@@ -14,6 +14,9 @@ module ApplicationHelper
     # all of all.
     include LinkToHelper
 
+    # Site-wide access to configuration settings
+    include ConfigHelper
+
     # Copied from error_messages_for in active_record_helper.rb
     def foi_error_messages_for(*params)
         options = params.last.is_a?(Hash) ? params.pop.symbolize_keys : {}
@@ -45,7 +48,7 @@ module ApplicationHelper
             ''
         end
     end
-
+    
     # Highlight words, also escapes HTML (other than spans that we add)
     def highlight_words(t, words, html = true)
         if html

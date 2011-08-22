@@ -120,8 +120,8 @@ class TrackThing < ActiveRecord::Base
                 @params = {
                     # Website
                     :list_description => "'<a href=\"/request/" + CGI.escapeHTML(self.info_request.url_title) + "\">" + CGI.escapeHTML(self.info_request.title) + "</a>', a request", # XXX yeuch, sometimes I just want to call view helpers from the model, sorry! can't work out how 
-                    :verb_on_page => "Track this request by email",
-                    :verb_on_page_already => "You are already tracking this request by email",
+                    :verb_on_page => _("Track this request by email"),
+                    :verb_on_page_already => _("You are already tracking this request by email"),
                     # Email
                     :title_in_email => "New updates for the request '" + self.info_request.title + "'",
                     :title_in_rss => "New updates for the request '" + self.info_request.title + "'",
@@ -135,23 +135,23 @@ class TrackThing < ActiveRecord::Base
             elsif self.track_type == 'all_new_requests'
                 @params = {
                     # Website
-                    :list_description => "any <a href=\"/list\">new requests</a>",
-                    :verb_on_page => "Email me when there are new requests",
-                    :verb_on_page_already => "You are being emailed when there are new requests",
+                    :list_description => _("any <a href=\"/list\">new requests</a>"),
+                    :verb_on_page => _("Email me when there are new requests"),
+                    :verb_on_page_already => _("You are being emailed when there are new requests"),
                     # Email
-                    :title_in_email => "New Freedom of Information requests",
-                    :title_in_rss => "New Freedom of Information requests",
+                    :title_in_email => _("New Freedom of Information requests"),
+                    :title_in_rss => _("New Freedom of Information requests"),
                     # Authentication
-                    :web => "To be emailed about any new requests",
-                    :email => "Then you will be emailed whenever anyone makes a new FOI request.",
-                    :email_subject => "Confirm you want to be emailed about new requests",
+                    :web => _("To be emailed about any new requests"),
+                    :email => _("Then you will be emailed whenever anyone makes a new FOI request."),
+                    :email_subject => _("Confirm you want to be emailed about new requests"),
                     # RSS sorting
                     :feed_sortby => 'newest'
                 }
             elsif self.track_type == 'all_successful_requests'
                 @params = {
                     # Website
-                    :list_description => "any <a href=\"/list/successful\">successful requests</a>",
+                    :list_description => _("any <a href=\"/list/successful\">successful requests</a>"),
                     :verb_on_page => _("Email me new successful responses "),
                     :verb_on_page_already => _("You are being emailed about any new successful responses"),
                     # Email
@@ -172,14 +172,14 @@ class TrackThing < ActiveRecord::Base
                     # Website
                     :list_description => "'<a href=\"/body/" + CGI.escapeHTML(self.public_body.url_name) + "\">" + CGI.escapeHTML(self.public_body.name) + "</a>', a public authority", # XXX yeuch, sometimes I just want to call view helpers from the model, sorry! can't work out how 
                     :verb_on_page => _("Track requests to {{public_body_name}} by email",:public_body_name=>CGI.escapeHTML(self.public_body.name)),
-                    :verb_on_page_already => "You are already tracking requests to " + CGI.escapeHTML(self.public_body.name) + " by email",
+                    :verb_on_page_already => _("You are already tracking requests to {{public_body_name}} by email", :public_body_name=>CGI.escapeHTML(self.public_body.name)),
                     # Email
                     :title_in_email => self.public_body.law_only_short + " requests to '" + self.public_body.name + "'",
                     :title_in_rss => self.public_body.law_only_short + " requests to '" + self.public_body.name + "'",
                     # Authentication
-                    :web => "To be emailed about requests made using WhatDoTheyKnow to the public authority '" + CGI.escapeHTML(self.public_body.name) + "'",
-                    :email => "Then you will be emailed whenever someone requests something or gets a response from '" + CGI.escapeHTML(self.public_body.name) + "'.",
-                    :email_subject => "Confirm you want to be emailed about requests to '" + self.public_body.name + "'",
+                    :web => _("To be emailed about requests made using {{site_name}} to the public authority '{{public_body_name}}'", :site_name=>MySociety::Config.get('SITE_NAME', 'Alaveteli'), :public_body_name=>CGI.escapeHTML(self.public_body.name)),
+                    :email => _("Then you will be emailed whenever someone requests something or gets a response from '{{public_body_name}}'.", :public_body_name=>CGI.escapeHTML(self.public_body.name)),
+                    :email_subject => _("Confirm you want to be emailed about requests to '{{public_body_name}}'", :public_body_name=>self.public_body.name),
                     # RSS sorting
                     :feed_sortby => 'newest'
                 }
@@ -187,15 +187,15 @@ class TrackThing < ActiveRecord::Base
                 @params = {
                     # Website
                     :list_description => "'<a href=\"/user/" + CGI.escapeHTML(self.tracked_user.url_name) + "\">" + CGI.escapeHTML(self.tracked_user.name) + "</a>', a person", # XXX yeuch, sometimes I just want to call view helpers from the model, sorry! can't work out how 
-                    :verb_on_page => "Track this person by email",
-                    :verb_on_page_already => "You are already tracking this person by email",
+                    :verb_on_page => _("Track this person by email"),
+                    :verb_on_page_already => _("You are already tracking this person by email"),
                     # Email
-                    :title_in_email => "FOI requests by '" + self.tracked_user.name + "'",
-                    :title_in_rss => "FOI requests by '" + self.tracked_user.name + "'",
+                    :title_in_email => _("FOI requests by '{{user_name}}'", :user_name=>self.tracked_user.name),
+                    :title_in_rss => _("FOI requests by '{{user_name}}'", :user_name=>self.tracked_user.name),
                     # Authentication
-                    :web => "To be emailed about requests by '" + CGI.escapeHTML(self.tracked_user.name) + "'",
-                    :email => "Then you will be emailed whenever '" + CGI.escapeHTML(self.tracked_user.name) + "' requests something or gets a response.",
-                    :email_subject => "Confirm you want to be emailed about requests by '" + self.tracked_user.name + "'",
+                    :web => _("To be emailed about requests by '{{user_name}}'", :user_name=>CGI.escapeHTML(self.tracked_user.name)),
+                    :email => _("Then you will be emailed whenever '{{user_name}}' requests something or gets a response.", :user_name=>CGI.escapeHTML(self.tracked_user.name)),
+                    :email_subject => _("Confirm you want to be emailed about requests by '{{user_name}}'", :user_name=>self.tracked_user.name),
                     # RSS sorting
                     :feed_sortby => 'newest'
                 }
@@ -203,15 +203,15 @@ class TrackThing < ActiveRecord::Base
                 @params = {
                     # Website
                     :list_description => "'<a href=\"/search/" + CGI.escapeHTML(self.track_query) + "/newest\">" + CGI.escapeHTML(self.track_query) + "</a>' in new requests/responses", # XXX yeuch, sometimes I just want to call view helpers from the model, sorry! can't work out how 
-                    :verb_on_page => "Track things matching '" + CGI.escapeHTML(self.track_query) + "' by email",
-                    :verb_on_page_already => "You are already tracking things matching '" + CGI.escapeHTML(self.track_query) + "' by email",
+                    :verb_on_page => _("Track things matching '{{query}}' by email", :query=>CGI.escapeHTML(self.track_query)),
+                    :verb_on_page_already => _("You are already tracking things matching '{{query}}' by email", :query=>CGI.escapeHTML(self.track_query)),
                     # Email
-                    :title_in_email => "Requests or responses matching '" + self.track_query + "'",
-                    :title_in_rss => "Requests or responses matching '" + self.track_query + "'",
+                    :title_in_email => _("Requests or responses matching '{{query}}'", :query=>self.track_query),
+                    :title_in_rss => _("Requests or responses matching '{{query}}'", :query=>self.track_query),
                     # Authentication
-                    :web => "To follow requests and responses matching '" + CGI.escapeHTML(self.track_query) + "'",
-                    :email => "Then you will be emailed whenever a new request or response matches '" + CGI.escapeHTML(self.track_query) + "'.",
-                    :email_subject => "Confirm you want to be emailed about new requests or responses matching '" + self.track_query + "'",
+                    :web => _("To follow requests and responses matching '{{query}}'", :query=>CGI.escapeHTML(self.track_query)),
+                    :email => _("Then you will be emailed whenever a new request or response matches '{{query}}'.", :query=>CGI.escapeHTML(self.track_query)),
+                    :email_subject => _("Confirm you want to be emailed about new requests or responses matching '{{query}}'", :query=>self.track_query),
                     # RSS sorting - XXX hmmm, we don't really know which to use
                     # here for sorting. Might be a query term (e.g. 'cctv'), in
                     # which case newest is good, or might be something like

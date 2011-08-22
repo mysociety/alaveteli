@@ -393,29 +393,31 @@ class RequestController < ApplicationController
             flash[:notice] = _("<p>Thank you! Hope you don't have to wait much longer.</p> <p>By law, you should have got a response promptly, and normally before the end of <strong>{{date_response_required_by}}</strong>.</p>",:date_response_required_by=>simple_date(@info_request.date_response_required_by))
             redirect_to request_url(@info_request)
         elsif @info_request.calculate_status == 'waiting_response_very_overdue'
-            flash[:notice] = _("<p>Thank you! Your request is long overdue, by more than 40 working days. Most requests should be answered within 20 working days. You might like to complain about this, see below.</p>")
+            flash[:notice] = _("<p>Thank you! Your request is long overdue, by more than {{very_late_number_of_days}} working days. Most requests should be answered within {{late_number_of_days}} working days. You might like to complain about this, see below.</p>", :very_late_number_of_days => MySociety::Config.get('REPLY_VERY_LATE_AFTER_DAYS', 40), :late_number_of_days => MySociety::Config.get('REPLY_LATE_AFTER_DAYS', 20))
             redirect_to unhappy_url(@info_request)
         elsif @info_request.calculate_status == 'not_held'
             flash[:notice] = _("<p>Thank you! Here are some ideas on what to do next:</p>
             <ul>
-            <li>To send your request to another authority, first copy the text of your request below, then <a href=\"%s\">find the other authority</a>.</li>
+            <li>To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>.</li>
             <li>If you would like to contest the authority's claim that they do not hold the information, here is 
-            <a href=\"%s\">how to complain</a>.
+            <a href=\"{{complain_url}}\">how to complain</a>.
             </li>
-            <li>We have <a href=\"%s\">suggestions</a>
+            <li>We have <a href=\"{{other_means_url}}\">suggestions</a>
             on other means to answer your question.
             </li>
-            </ul>
-            ") % ["/new",CGI.escapeHTML(unhappy_url(@info_request)),CGI.escapeHTML(unhappy_url(@info_request)) + "#other_means"]
+            </ul>", 
+            :find_authority_url => "/new", 
+            :complain_url => CGI.escapeHTML(unhappy_url(@info_request)),
+            :other_means_url => CGI.escapeHTML(unhappy_url(@info_request)) + "#other_means")
             redirect_to request_url(@info_request)
         elsif @info_request.calculate_status == 'rejected'
             flash[:notice] = _("Oh no! Sorry to hear that your request was refused. Here is what to do now.")
             redirect_to unhappy_url(@info_request)
         elsif @info_request.calculate_status == 'successful'
-            flash[:notice] = _("<p>We're glad you got all the information that you wanted. If you write about or make use of the information, please come back and add an annotation below saying what you did.</p><p>If you found WhatDoTheyKnow useful, <a href=\"%s\">make a donation</a> to the charity which runs it.</p>") % ["http://www.mysociety.org/donate/"]
+            flash[:notice] = _("<p>We're glad you got all the information that you wanted. If you write about or make use of the information, please come back and add an annotation below saying what you did.</p><p>If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it.</p>", :site_name=>site_name, :donation_url => "http://www.mysociety.org/donate/")
             redirect_to request_url(@info_request)
         elsif @info_request.calculate_status == 'partially_successful'
-            flash[:notice] = _("<p>We're glad you got some of the information that you wanted. If you found WhatDoTheyKnow useful, <a href=\"%s\">make a donation</a> to the charity which runs it.</p><p>If you want to try and get the rest of the information, here's what to do now.</p>") % ["http://www.mysociety.org/donate/"]
+            flash[:notice] = _("<p>We're glad you got some of the information that you wanted. If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to the charity which runs it.</p><p>If you want to try and get the rest of the information, here's what to do now.</p>", :site_name=>site_name, :donation_url=>"http://www.mysociety.org/donate/")
             redirect_to unhappy_url(@info_request)
         elsif @info_request.calculate_status == 'waiting_clarification'
             flash[:notice] = _("Please write your follow up message containing the necessary clarifications below.")
@@ -423,7 +425,7 @@ class RequestController < ApplicationController
         elsif @info_request.calculate_status == 'gone_postal'
             redirect_to respond_to_last_url(@info_request) + "?gone_postal=1"
         elsif @info_request.calculate_status == 'internal_review'
-            flash[:notice] = _("<p>Thank you! Hopefully your wait isn't too long.</p><p>You should get a response within 20 days, or be told if it will take longer (<a href=\"%s\">details</a>).</p>") % [unhappy_url(@info_request) + "#internal_review"]
+            flash[:notice] = _("<p>Thank you! Hopefully your wait isn't too long.</p><p>You should get a response within {{late_number_of_days}} days, or be told if it will take longer (<a href=\"{{review_url}}\">details</a>).</p>",:late_number_of_days => MySociety::Config.get('REPLY_LATE_AFTER_DAYS', 20), :review_url => unhappy_url(@info_request) + "#internal_review")
             redirect_to request_url(@info_request)
         elsif @info_request.calculate_status == 'error_message'
             flash[:notice] = _("<p>Thank you! We'll look into what happened and try and fix it up.</p><p>If the error was a delivery failure, and you can find an up to date FOI email address for the authority, please tell us using the form below.</p>")
@@ -602,23 +604,29 @@ class RequestController < ApplicationController
     # special caching code so mime types are handled right
     around_filter :cache_attachments, :only => [ :get_attachment, :get_attachment_as_html ]
     def cache_attachments
-        key = params.merge(:only_path => true)
-        key_path = foi_fragment_cache_path(key)
+        if !params[:skip_cache].nil?
+            yield
+        else
+            key = params.merge(:only_path => true)
+            key_path = foi_fragment_cache_path(key)
 
-        if foi_fragment_cache_exists?(key_path)
-            cached = foi_fragment_cache_read(key_path)
-            response.content_type = AlaveteliFileTypes.filename_to_mimetype(params[:file_name].join("/")) || 'application/octet-stream'
-            render_for_text(cached)
-            return
+            if foi_fragment_cache_exists?(key_path)
+                cached = foi_fragment_cache_read(key_path)
+                response.content_type = AlaveteliFileTypes.filename_to_mimetype(params[:file_name].join("/")) || 'application/octet-stream'
+                render_for_text(cached)
+                return
+            end
+
+            yield
+
+            if params[:skip_cache].nil?
+                # write it to the fileystem ourselves, so is just a plain file. (The
+                # various fragment cache functions using Ruby Marshall to write the file
+                # which adds a header, so isnt compatible with images that have been
+                # extracted elsewhere from PDFs)
+                foi_fragment_cache_write(key_path, response.body)
+            end
         end
-
-        yield
-
-        # write it to the fileystem ourselves, so is just a plain file. (The
-        # various fragment cache functions using Ruby Marshall to write the file
-        # which adds a header, so isnt compatible with images that have been
-        # extracted elsewhere from PDFs)
-        foi_fragment_cache_write(key_path, response.body)
     end
 
     def get_attachment
@@ -647,7 +655,7 @@ class RequestController < ApplicationController
 
         view_html_stylesheet = render_to_string :partial => "request/view_html_stylesheet"
         html.sub!(/<head>/i, "<head>" + view_html_stylesheet)
-        html.sub!(/<body[^>]*>/i, '<body><prefix-here><div id="' + wrapper_id + '"><div id="view_html_content">')
+        html.sub!(/<body[^>]*>/i, '<body><prefix-here><div id="' + wrapper_id + '"><div id="view-html-content">')
         html.sub!(/<\/body[^>]*>/i, '</div></div></body>')
 
         view_html_prefix = render_to_string :partial => "request/view_html_prefix"
@@ -655,7 +663,6 @@ class RequestController < ApplicationController
         html.sub!("<attachment-url-here>", CGI.escape(@attachment_url))
 
         @incoming_message.html_mask_stuff!(html) 
-
         response.content_type = 'text/html'
         render :text => html
     end

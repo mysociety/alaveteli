@@ -20,8 +20,6 @@ class RawEmail < ActiveRecord::Base
     
     has_one :incoming_message
 
-    before_destroy :destroy_file_representation!
-
     # We keep the old data_text field (which is of type text) for backwards
     # compatibility. We use the new data_binary field because only it works
     # properly in recent versions of PostgreSQL (get seg faults escaping

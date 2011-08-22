@@ -17,10 +17,21 @@
     </p>
 
     <p>
-    <label for="csv_file">CSV file (no header rows; unused first column; name second column; email third column):</label>
-    <br/>
-    <%= file_field_tag :csv_file, :size => 60 %> 
+    <label for="csv_file">CSV file:</label>
+    <%= file_field_tag :csv_file, :size => 40 %> 
     </p>
+    
+    <p><strong>CSV file format:</strong> A first row with the list of fields, 
+    starting with '#', is optional but highly recommended. The fields 'name'
+    and 'email' are required; additionaly, translated values are supported by
+    adding the locale name to the field name, e.g. 'name.es', 'name.de'... Example:
+    </p>
+    
+    <blockquote>
+        #id,name,email,name.es<br/>
+        1,An Authority,a@example.com,Un organismo<br/>
+        2,Another One,another@example.com,Otro organismo<br/>
+    </blockquote>
 
     <p><strong>Note:</strong> Choose <strong>dry run</strong> to test, without
     actually altering the database. Choose <strong>upload</strong> to actually

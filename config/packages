@@ -17,6 +17,7 @@ elinks
 unrtf
 xlhtml
 libxapian-ruby1.8
+xapian-tools
 gnuplot-nox
 php5-cli
 # ttf-bitstream-vera 

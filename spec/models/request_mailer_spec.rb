@@ -27,7 +27,49 @@ describe RequestMailer, " when receiving incoming mail" do
         receive_incoming_mail('incoming-request-plain.email', 'dummy@localhost')
         ir.incoming_messages.size.should == 1
         InfoRequest.holding_pen_request.incoming_messages.size.should == 1
+        last_event = InfoRequest.holding_pen_request.incoming_messages[0].info_request.get_last_event
+        last_event.params[:rejected_reason].should == "Could not identify the request from the email address"
+        
+        deliveries = ActionMailer::Base.deliveries
+        deliveries.size.should == 1
+        mail = deliveries[0]
+        mail.to.should == [ MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost') ]
+        deliveries.clear
+    end
 
+    it "should store mail in holding pen and send to admin when the from email is empty and only authorites can reply" do
+        ir = info_requests(:fancy_dog_request)
+        ir.allow_new_responses_from = 'authority_only'
+        ir.handle_rejected_responses = 'holding_pen'
+        ir.save!
+        ir.incoming_messages.size.should == 1
+        InfoRequest.holding_pen_request.incoming_messages.size.should == 0
+        receive_incoming_mail('incoming-request-plain.email', ir.incoming_email, "")
+        ir.incoming_messages.size.should == 1
+        InfoRequest.holding_pen_request.incoming_messages.size.should == 1
+        last_event = InfoRequest.holding_pen_request.incoming_messages[0].info_request.get_last_event
+        last_event.params[:rejected_reason].should =~ /there is no "From" address/
+        
+        deliveries = ActionMailer::Base.deliveries
+        deliveries.size.should == 1
+        mail = deliveries[0]
+        mail.to.should == [ MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost') ]
+        deliveries.clear
+    end
+
+    it "should store mail in holding pen and send to admin when the from email is unknown and only authorites can reply" do
+        ir = info_requests(:fancy_dog_request)
+        ir.allow_new_responses_from = 'authority_only'
+        ir.handle_rejected_responses = 'holding_pen'
+        ir.save!
+        ir.incoming_messages.size.should == 1
+        InfoRequest.holding_pen_request.incoming_messages.size.should == 0
+        receive_incoming_mail('incoming-request-plain.email', ir.incoming_email, "frob@nowhere.com")
+        ir.incoming_messages.size.should == 1
+        InfoRequest.holding_pen_request.incoming_messages.size.should == 1
+        last_event = InfoRequest.holding_pen_request.incoming_messages[0].info_request.get_last_event
+        last_event.params[:rejected_reason].should =~ /Only the authority can reply/
+        
         deliveries = ActionMailer::Base.deliveries
         deliveries.size.should == 1
         mail = deliveries[0]
@@ -108,6 +150,8 @@ describe RequestMailer, " when receiving incoming mail" do
         receive_incoming_mail('incoming-request-plain.email', ir.incoming_email)
         ir.incoming_messages.size.should == 1
         InfoRequest.holding_pen_request.incoming_messages.size.should == 1 # arrives in holding pen
+        last_event = InfoRequest.holding_pen_request.incoming_messages[0].info_request.get_last_event
+        last_event.params[:rejected_reason].should =~ /allow new responses from nobody/
 
         # should be a message to admin regarding holding pen
         deliveries = ActionMailer::Base.deliveries

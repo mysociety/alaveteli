@@ -1,8 +1,8 @@
 <% @title = "#{site_name} blog and tweets" %>
 
 <h1><%=@title %></h1>
-   <img src="/images/twitter.png" alt="twitter icon" valign="middle"> <a href="http://www.twitter.com/whatdotheyknow">Follow us on twitter</a>&nbsp;
-   <img src="/images/rss.png" alt="RSS icon" valign="middle"> <a href="http://www.mysociety.org/category/projects/whatdotheyknow/feed/">Subscribe to blog</a>
+   <img src="/images/twitter.png" alt="twitter icon" valign="middle"> <a href="http://www.twitter.com/<%= MySociety::Config.get('TWITTER_USERNAME') %>">Follow us on twitter</a>&nbsp;
+   <img src="/images/rss.png" alt="RSS icon" valign="middle"> <a href="<%= MySociety::Config.get('BLOG_FEED') %>">Subscribe to blog</a>
 <% if !@twitter_user.empty? %>
 <div id="twitter">
 <script src="http://widgets.twimg.com/j/2/widget.js"></script>
@@ -52,8 +52,5 @@ new TWTR.Widget({
         </p>
     </div>
   <% end   %>
-  <p>
-    <a href="http://www.mysociety.org/category/projects/whatdotheyknow/">All blog posts</a>
-  </p>
 </div>
 

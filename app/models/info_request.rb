@@ -17,7 +17,6 @@
 #  allow_new_responses_from  :string(255)     default("anybody"), not null
 #  handle_rejected_responses :string(255)     default("bounce"), not null
 #
-
 # models/info_request.rb:
 # A Freedom of Information request.
 #
@@ -309,13 +308,20 @@ public
 
     # Return list of info requests which *might* be right given email address
     # e.g. For the id-hash email addresses, don't match the hash.
-    def InfoRequest.guess_by_incoming_email(incoming_email)
-        id, hash = InfoRequest._extract_id_hash_from_email(incoming_email)
-        begin
-            return [InfoRequest.find(id)]
-        rescue ActiveRecord::RecordNotFound
-            return []
+    def InfoRequest.guess_by_incoming_email(incoming_message)
+        guesses = []
+        # 1. Try to guess based on the email address(es)
+        addresses =
+            (incoming_message.mail.to || []) + 
+            (incoming_message.mail.cc || []) +
+            (incoming_message.mail.envelope_to || [])
+        addresses.uniq!
+        for address in addresses
+            id, hash = InfoRequest._extract_id_hash_from_email(address)
+            guesses.push(InfoRequest.find_by_id(id))
+            guesses.push(InfoRequest.find_by_idhash(hash))
         end
+        return guesses.select{|x| !x.nil?}.uniq
     end
 
     # Internal function used by find_by_magic_email and guess_by_incoming_email
@@ -326,7 +332,7 @@ public
         # The optional bounce- dates from when we used to have separate emails for the envelope from.
         # (that was abandoned because councils would send hand written responses to them, not just
         # bounce messages)
-        incoming_email =~ /request-(?:bounce-)?(\d+)-([a-z0-9]+)/
+        incoming_email =~ /request-(?:bounce-)?([a-z0-9]+)-([a-z0-9]+)/
         id = $1.to_i
         hash = $2
 
@@ -379,21 +385,24 @@ public
     end
 
     # A new incoming email to this request
-    def receive(email, raw_email_data, override_stop_new_responses = false)
+    def receive(email, raw_email_data, override_stop_new_responses = false, rejected_reason = "")
         if !override_stop_new_responses
             allow = nil
-
+            reason = nil
             # See if new responses are prevented for spam reasons
             if self.allow_new_responses_from == 'nobody'
                 allow = false
+                reason = _('This request has been set by an administrator to "allow new responses from nobody"')
             elsif self.allow_new_responses_from == 'anybody'
                 allow = true
             elsif self.allow_new_responses_from == 'authority_only'
                 if email.from_addrs.nil? || email.from_addrs.size == 0
                     allow = false
+                    reason = _('Only the authority can reply to this request, but there is no "From" address to check against')
                 else
                     sender_email = email.from_addrs[0].spec
                     sender_domain = PublicBody.extract_domain_from_email(sender_email)
+                    reason = _("Only the authority can reply to this request, and I don't recognise the address this reply was sent from")
                     allow = false
                     # Allow any domain that has already sent reply
                     for row in self.who_can_followup_to
@@ -411,7 +420,7 @@ public
                 if self.handle_rejected_responses == 'bounce'
                     RequestMailer.deliver_stopped_responses(self, email, raw_email_data)
                 elsif self.handle_rejected_responses == 'holding_pen'
-                    InfoRequest.holding_pen_request.receive(email, raw_email_data)
+                    InfoRequest.holding_pen_request.receive(email, raw_email_data, false, reason)
                 elsif self.handle_rejected_responses == 'blackhole'
                     # do nothing - just lose the message (Note: a copy will be
                     # in the backup mailbox if the server is configured to send
@@ -435,7 +444,11 @@ public
             raw_email.save!
 
             self.awaiting_description = true
-            self.log_event("response", { :incoming_message_id => incoming_message.id })
+            params = { :incoming_message_id => incoming_message.id }
+            if !rejected_reason.empty?
+                params[:rejected_reason] = rejected_reason
+            end
+            self.log_event("response", params)
             self.save!
         end
 
@@ -638,6 +651,8 @@ public
     # days is a very long time.
     def date_very_overdue_after
         last_sent = last_event_forming_initial_request
+        very_late_days_later = MySociety::Config.get('REPLY_VERY_LATE_AFTER_DAYS', 40)
+        school_very_late_days_later = MySociety::Config.get('SPECIAL_REPLY_VERY_LATE_AFTER_DAYS', 60)
         if self.public_body.is_school?
             # schools have 60 working days maximum (even over a long holiday)
             return Holiday.due_date_from(self.date_initial_request_last_sent_at, 60)
@@ -671,6 +686,7 @@ public
             end
         end
         return nil
+
     end
     def get_last_response_event
         for e in self.info_request_events.reverse
@@ -831,15 +847,25 @@ public
     def InfoRequest.magic_email_for_id(prefix_part, id) 
         magic_email = MySociety::Config.get("INCOMING_EMAIL_PREFIX", "") 
         magic_email += prefix_part + id.to_s
-        magic_email += "-" + Digest::SHA1.hexdigest(id.to_s + MySociety::Config.get("INCOMING_EMAIL_SECRET", 'dummysecret'))[0,8]
+        magic_email += "-" + InfoRequest.hash_from_id(id)
         magic_email += "@" + MySociety::Config.get("INCOMING_EMAIL_DOMAIN", "localhost")
         return magic_email
+    end
+
+    before_validation :compute_idhash
+
+    def compute_idhash
+        self.idhash = InfoRequest.hash_from_id(self.id)
+    end
+
+    def InfoRequest.hash_from_id(id)
+        return Digest::SHA1.hexdigest(id.to_s + MySociety::Config.get("INCOMING_EMAIL_SECRET", 'dummysecret'))[0,8]
     end
 
     # Called by find_by_incoming_email - and used to be called by separate
     # function for envelope from address, until we abandoned it.
     def InfoRequest.find_by_magic_email(id, hash)
-        expected_hash = Digest::SHA1.hexdigest(id.to_s + MySociety::Config.get("INCOMING_EMAIL_SECRET", 'dummysecret'))[0,8]
+        expected_hash = InfoRequest.hash_from_id(id)
         #print "expected: " + expected_hash + "\nhash: " + hash + "\n"
         if hash != expected_hash
             return nil

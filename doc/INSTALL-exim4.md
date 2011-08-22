@@ -28,7 +28,7 @@ And, assuming you set `OPTION_INCOMING_EMAIL_PREFIX` in your config at
 `config/general` to "foi+", create `config/aliases` with the following
 content:
 
-    ^foi+.*: |/path/to/alaveteli/software/script/mailin
+    ^foi\\+.*: |/path/to/alaveteli/software/script/mailin
 
 Finally, make sure you have `dc_use_split_config='true'` in
 `/etc/exim4/update-exim4.conf.conf`, and execute the command

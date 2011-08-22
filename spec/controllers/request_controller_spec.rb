@@ -7,8 +7,10 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 require 'json'
 
 describe RequestController, "when listing recent requests" do
-    
+    fixtures :info_requests, :outgoing_messages, :users, :info_request_events, :public_bodies, :public_body_translations, :incoming_messages, :raw_emails, :comments
+
     before(:each) do
+        load_raw_emails_data(raw_emails)
         rebuild_xapian_index
     end
     
@@ -121,6 +123,14 @@ describe RequestController, "when showing one request" do
             get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 3, :file_name => ['hello.txt']
             response.content_type.should == "text/plain"
             response.should have_text(/First hello/)
+        end
+
+        it "should generate valid HTML verson of plain text attachments " do
+            ir = info_requests(:fancy_dog_request) 
+            receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
+            get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => ['hello.txt.html'], :skip_cache => 1
+            response.content_type.should == "text/html"
+            response.should have_text(/Second hello/)
         end
 
         it "should treat attachments with unknown extensions as binary" do
@@ -304,6 +314,13 @@ describe RequestController, "when creating a new request" do
         session[:user_id] = @user.id
         get :new
         response.should redirect_to(:controller => 'general', :action => 'frontpage')
+    end
+
+    it "should redirect 'bad request' page when a body has no email address" do
+        @body.request_email = ""
+        @body.save!
+        get :new, :public_body_id => @body.id
+        response.should render_template('new_bad_contact')
     end
 
     it "should accept a public body parameter" do
@@ -496,7 +513,7 @@ describe RequestController, "when classifying an information request" do
 
     fixtures :info_requests, :info_request_events, :public_bodies, :public_body_translations, :users, :incoming_messages, :raw_emails, :outgoing_messages, :comments # all needed as integrating views
 
-    before do 
+    before(:each) do 
         @dog_request = info_requests(:fancy_dog_request)
         @dog_request.stub!(:is_old_unclassified?).and_return(false)
         InfoRequest.stub!(:find).and_return(@dog_request)
@@ -776,6 +793,8 @@ describe RequestController, "when classifying an information request" do
             @dog_request.stub!(:date_very_overdue_after).and_return(Time.now.to_date-1)
             expect_redirect('waiting_response', unhappy_url)
             flash[:notice].should match(/is long overdue/)
+            flash[:notice].should match(/by more than 40 working days/)
+            flash[:notice].should match(/within 20 working days/)
         end
          
         it 'should redirect to the "request url" when status is updated to "not held"' do 
@@ -831,7 +850,11 @@ end
 describe RequestController, "when sending a followup message" do
     integrate_views
     fixtures :info_requests, :info_request_events, :public_bodies, :public_body_translations, :users, :incoming_messages, :raw_emails, :outgoing_messages # all needed as integrating views
-  
+
+    before(:each) do
+        load_raw_emails_data(raw_emails)
+    end
+
     it "should require login" do
         post :show_response, :outgoing_message => { :body => "What a useless response! You suck.", :what_doing => 'normal_sort' }, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_followup => 1
         post_redirect = PostRedirect.get_last_post_redirect

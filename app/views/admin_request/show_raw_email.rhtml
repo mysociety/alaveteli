@@ -3,8 +3,9 @@
 <h1>Incoming message <%=@raw_email.incoming_message.id.to_s %></h1>
 
 <p>
-    FOI request: <%= link_to request_both_links(@raw_email.incoming_message.info_request) %>
+    FOI request: <%= request_both_links(@raw_email.incoming_message.info_request) %>
     <% if @holding_pen %> 
+        <br>This is in the holding pen because: <strong><%= @rejected_reason %></strong>
         <% if @public_bodies.size > 0 %>
             <br>Guessed authority:
             <% for public_body in @public_bodies %>
@@ -30,7 +31,7 @@
 
 <h2>Raw email</h2>
 
-<%= link_to "Download", "../download_raw_email/" + @raw_email.id.to_s %>
+<p><%= link_to "Download", "../download_raw_email/" + @raw_email.id.to_s %></p>
 
 <pre><%=h(@raw_email.data).gsub(/\n/, '<br>') %></pre>
 

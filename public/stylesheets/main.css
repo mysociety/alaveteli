@@ -273,24 +273,24 @@ body
 	text-align: left;
 	overflow: visible;
 }
-#view_html_content table {
+#view-html-content table {
     border-collapse: collapse;
     margin-bottom: 1em;
 }
-#view_html_content td, th {
+#view-html-content td, th {
     border: solid 1px #000000;
 }
-#view_html_content td {
+#view-html-content td {
     vertical-align: top
 }
-#view_html_content td {
+#view-html-content td {
     max-width: 30em;
     overflow: auto;
 }
-#view_html_content tr:nth-child(odd) {
+#view-html-content tr:nth-child(odd) {
     background-color: #bbbbbb;
 }
-#view_html_content tr:nth-child(even) {
+#view-html-content tr:nth-child(even) {
     background-color: #dddddd;
 }
 
@@ -890,11 +890,11 @@ a img.attachment_image {
 
 /*------------------------------------------------ view attachment as HTML */
 
-.view_html_content {
+.view-html-content {
     margin-left: 1em;
     margin-right: 1em;
 }
-.view_html_content, img {
+.view-html-content, img {
     max-width: 50em;
 }
 

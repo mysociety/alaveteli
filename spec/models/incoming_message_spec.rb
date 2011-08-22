@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe IncomingMessage, " when dealing with incoming mail" do
     fixtures :incoming_messages, :raw_emails, :info_requests
 
-    before do
+    before(:each) do
         @im = incoming_messages(:useless_incoming_message)
         load_raw_emails_data(raw_emails)
     end
@@ -19,6 +19,13 @@ describe IncomingMessage, " when dealing with incoming mail" do
 
 end
 
+describe IncomingMessage, "when parsing HTML mail" do 
+    it "should display UTF-8 characters in the plain text version correctly" do
+        html = "<html><b>foo</b> është"
+        plain_text = IncomingMessage._get_attachment_text_internal_one_file('text/html', html)
+        plain_text.should match(/është/)
+    end
+end
 
 describe IncomingMessage, "when getting the attachment text" do 
 
@@ -112,7 +119,7 @@ end
 describe IncomingMessage, " when censoring data" do
     fixtures :incoming_messages, :raw_emails, :public_bodies, :public_body_translations, :info_requests, :users
 
-    before do
+    before(:each) do
         @test_data = "There was a mouse called Stilton, he wished that he was blue."
 
         @im = incoming_messages(:useless_incoming_message)
@@ -160,10 +167,12 @@ describe IncomingMessage, " when censoring data" do
         data.should == "His email was x\000x\000x\000@\000x\000x\000x\000.\000x\000x\000x\000, indeed"
     end
 
-    # As at March 9th 2010: This test fails with pdftk 1.41+dfsg-1 installed
-    # which is in Ubuntu Karmic. It works again for the lasest version
-    # 1.41+dfsg-7 in Debian unstable. And it works for Debian stable.
-    it "should replace everything in PDF files" do
+
+
+    def pdf_replacement_test(use_ghostscript_compression)
+        config = MySociety::Config.load_default()
+        previous = config['USE_GHOSTSCRIPT_COMPRESSION']
+        config['USE_GHOSTSCRIPT_COMPRESSION'] = use_ghostscript_compression
         orig_pdf = load_file_fixture('tfl.pdf')
         pdf = orig_pdf.dup
 
@@ -175,6 +184,15 @@ describe IncomingMessage, " when censoring data" do
         masked_text = IncomingMessage._get_attachment_text_internal_one_file('application/pdf', pdf)
         masked_text.should_not match(/foi@tfl.gov.uk/)
         masked_text.should match(/xxx@xxx.xxx.xx/)
+        config['USE_GHOSTSCRIPT_COMPRESSION'] = previous
+    end
+
+    it "should replace everything in PDF files using pdftk" do
+        pdf_replacement_test(false)
+    end
+
+    it "should replace everything in PDF files using ghostscript" do
+        pdf_replacement_test(true)
     end
 
     it "should not produce zero length output if pdftk silently fails" do
@@ -188,6 +206,13 @@ describe IncomingMessage, " when censoring data" do
         data = @test_data.dup
         @im.html_mask_stuff!(data)
         data.should == "There was a mouse called Jarlsberg, he wished that he was yellow."
+    end
+
+    it "should apply hard-coded privacy rules to HTML files" do
+        domain = MySociety::Config.get('DOMAIN')
+        data = "http://#{domain}/c/cheese"
+        @im.html_mask_stuff!(data)
+        data.should == "[WDTK login link]"
     end
 
     it "should apply censor rules to From: addresses" do
@@ -204,7 +229,7 @@ end
 describe IncomingMessage, " when censoring whole users" do
     fixtures :incoming_messages, :raw_emails, :public_bodies, :public_body_translations, :info_requests, :users
 
-    before do
+    before(:each) do
         @test_data = "There was a mouse called Stilton, he wished that he was blue."
 
         @im = incoming_messages(:useless_incoming_message)
