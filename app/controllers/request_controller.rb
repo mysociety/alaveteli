@@ -136,12 +136,12 @@ class RequestController < ApplicationController
         end
 
         if @view == 'recent'
-            @title = _("Recently sent requests")
+            @title = _("Recently sent Freedom of Information requests")
             query = "variety:sent";
             sortby = "newest"
             @track_thing = TrackThing.create_track_for_all_new_requests
         elsif @view == 'successful'
-            @title = _("Recently successful requests")
+            @title = _("Recently successful responses")
             query = 'variety:response (status:successful OR status:partially_successful)'
             sortby = "described"
             @track_thing = TrackThing.create_track_for_all_successful_requests
