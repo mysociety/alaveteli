@@ -36,19 +36,9 @@
 
 <% @title = _("Public authorities - {{description}}", :description => @description) %>
 
-<h1><%=@title%></h1>
-
-<p class="subtitle">
-    <%= @public_bodies.size %> <%= _('in total') %>
-	(<%= _('<a href="%s">can\'t find the one you want?</a>') % [help_requesting_path + '#missing_body'] %>)
-</p>
-
-<% if @tag.size == 1 %>
-    <p><%= render :partial => 'alphabet' %></p>
-<% end %>
+<h1>Public authorities</h1>
+<h2 class="publicbody_results"><%= _('Found {{count}} public bodies {{description}}', :count=>@public_bodies.size, :description=>@description) %></h2>
 <%= render :partial => 'body_listing', :locals => { :public_bodies => @public_bodies } %>
-<% if @tag.size == 1 && @public_bodies.size > 0 %>
-    <p><%= render :partial => 'alphabet' %></p>
-<% end %>
 
-<%= will_paginate(@public_bodies) %>
+<%= will_paginate(@public_bodies) %><br/>
+<%= _('<a href="%s">Can\'t find the one you want?</a>') % [help_requesting_path + '#missing_body'] %>

@@ -220,7 +220,7 @@ module ActsAsXapian
         raise "writable_suffix/suffix inconsistency" if @@writable_suffix && @@writable_suffix != suffix
 
         # for indexing
-        @@writable_db = Xapian::WritableDatabase.new(full_path, Xapian::DB_CREATE_OR_OPEN)
+        @@writable_db = Xapian::Flint::WritableDatabase.new(full_path, Xapian::DB_CREATE_OR_OPEN)
         @@term_generator = Xapian::TermGenerator.new()
         @@term_generator.set_flags(Xapian::TermGenerator::FLAG_SPELLING, 0)
         @@term_generator.database = @@writable_db

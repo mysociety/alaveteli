@@ -10,11 +10,13 @@
     </ul></div>
 <% end %>
 
+<h1>Make a new request</h1>
+
 <%= foi_error_messages_for :info_request, :outgoing_message %>
 
 <div id="request_advice">
-    <h1><%= _('Read this before writing your {{info_request_law_used_full}} request', :info_request_law_used_full=>h(@info_request.law_used_full)) %></h1>
-    <ul>
+    <h2><%= _('Read this before writing your {{info_request_law_used_full}} request', :info_request_law_used_full=>h(@info_request.law_used_full)) %></h2>
+    <ol>
     <li>
         <% form_tag("http://www.google.co.uk/search", {:id => "search_body_website_form", :method => "get"} ) do %>
             <p>
@@ -47,7 +49,7 @@
     <li><%= _('Ask for <strong>specific</strong> documents or information, this site is not suitable for general enquiries.') %></li>
     <li><%= _('Keep it <strong>focused</strong>, you\'ll be more likely to get what you want (<a href="%s">why?</a>).') % [help_requesting_path + '#focused'] %></li>
     <li><%= _('This site is <strong>public</strong>. Everything you type and any response will be published.') %></li>
-    </ul>
+    </ol>
 
     <% if @info_request.public_body.has_notes? %>
         <h1><%= _('Special note for this authority!') %></h1>
@@ -84,10 +86,8 @@
 <% form_for(:info_request, @info_request, :html => { :id => 'write_form' }  ) do |f| %>
 
 	<div id="request_form">
-		<h1>
 			<label class="form_label" for="info_request_public_body_id"><%= _('To:') %></label>
 			<span id="to_public_body"><%=h(@info_request.public_body.name)%></span>
-		</h1>
 	
 		<p>
 			<label class="form_label" for="info_request_title"><%= _('Summary:') %></label> 

@@ -1,7 +1,7 @@
 <% view_cache :ttl => 5.minutes, :tag => I18n.locale do %>
 
 <div id="frontpage_search">
-    <h1><%= _('Make or explore Freedom of Information requests') %></h1>
+    <h1>Make or explore<br/>Freedom of Information requests</h1>
 
     <% form_tag({:action => "search_redirect"}, {:id => "search_form"}) do %>
        <p>
@@ -13,7 +13,7 @@
            <br>
            <%= text_field_tag 'query', params[:query], { :size => 30 } %>
            <%= hidden_field_tag 'bodies', 1 %>
-           <%= submit_tag _('Search') %>
+           <%= image_submit_tag 'button-search.png', :title => 'Search' %>
            <br>
            <%= _('e.g.') %>
 	   <% @search_examples.each_with_index do |name, i| %>

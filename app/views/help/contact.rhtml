@@ -2,10 +2,12 @@
 
 <%= foi_error_messages_for :contact %>
 
+<h1><%= @title %></h1>
+
 <div id="contact_preamble">
 
     <% if !flash[:notice] %>
-        <h1>Contact an authority to get official information</h1>
+        <h2>Contact an authority to get official information</h2>
         <ul>
             <li><a href="/new">Go here</a> to make a request, in public, for information
             from UK public authorities.</li>
@@ -17,7 +19,7 @@
             </li>
         </ul>
 
-        <h1>Take up an issue with Government</h1>
+        <h2>Take up an issue with Government</h2>
 
         <ul>
             <li><a href="http://www.writetothem.com">Write to your MP,
@@ -28,7 +30,7 @@
 
     <% end %>
 
-    <h1>Contact the WhatDoTheyKnow team</h1>
+    <h2>Contact the WhatDoTheyKnow team</h2>
     <% if !flash[:notice] %>
             <ul>
             <li>
