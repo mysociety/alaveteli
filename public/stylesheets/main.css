@@ -933,7 +933,7 @@ a img.attachment_image {
 #authority_selection
 {
   float: left;
-  width: 30em;
+  width: 40%;
 }
 
 #authority_search_ahead_results
@@ -943,18 +943,20 @@ a img.attachment_image {
 
 #authority_preview
 {
-  width: 36em;
+  width: 45%;
   float: right;
   background-color: #FFFFE0;
   padding-left: 1em;
   padding-right: 1em;
+  overflow: hidden;
 }
 
+  #authority_preview #header_left,
+  #authority_preview.request_left,
   #authority_preview #stepwise_make_request
   {
-    margin: 0;
-  }
- 
+      width: 95%;
+  } 
 
 /*------------------------------------------------ making a request / sign up / sign in  */
 

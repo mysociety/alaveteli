@@ -13,8 +13,9 @@
               // We're using the existing body list: we intercept the clicks on the titles to 
               // display a preview on the right hand side of the screen
               $("#typeahead_response a").click(function() {
-                $("#authority_preview").load(this.href+"?narrow_layout=1 #main_content", function() {
+                $("#authority_preview").load(this.href+" #main_content", function() {
                   $("#authority_preview").show();
+                  $("#authority_preview #header_right").hide();
                 });
                 return false;
               });

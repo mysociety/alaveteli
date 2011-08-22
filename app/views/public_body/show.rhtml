@@ -1,7 +1,6 @@
 <% @title = h(@public_body.name) + " - view and make Freedom of Information requests" %>
 <div id="main_content">
 <div>
-<% unless params[:narrow_layout] # XXX: not ideal %>
   <div id="header_right">
       <h2><%= _('Track this authority')%></h2>
       <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => false, :location => 'sidebar' } %>
@@ -23,7 +22,6 @@
       <% end %>
       <%= link_to _('View FOI email address'), view_public_body_email_url(@public_body.url_name) %><br>
   </div> 
-<% end %>
 
   <div id="header_left">
     <h1><%=h(@public_body.name)%></h1>
