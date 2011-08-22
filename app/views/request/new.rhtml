@@ -1,3 +1,55 @@
+<script type="text/javascript" src="/javascripts/ba-throttle-debounce.js"></script>
+<script>
+    $(document).ready(function(){
+        // Avoid triggering too often (on each keystroke) by using the debounce jQuery plugin:
+        // http://benalman.com/projects/jquery-throttle-debounce-plugin/
+        $("#typeahead_search").keypress($.debounce( 300, function() {
+            $("#typeahead_response").load("<%=search_ahead_url%>?q="+encodeURI(this.value));
+        }));
+    });
+</script>
+
+<%
+    enable_modal_signin = false;
+%>
+
+<% if enable_modal_signin && !@user %>
+<%= javascript_include_tag 'jquery.fancybox-1.3.4.pack' %>
+<%= javascript_include_tag 'jquery.form' %>
+<script>
+    function onSuccessfulLogin() {
+        $.fancybox.close();
+        $("#write_form").ajaxFormUnbind();
+        $("#write_form").submit();
+    }
+    
+    function interceptFormSubmit(form_id) {
+        $(form_id).ajaxForm({
+            success: function(responseText) {
+                $("#fancybox-content").html(responseText);
+                interceptFormSubmits();
+            }
+        });
+    };
+
+    function interceptFormSubmits() {
+        interceptFormSubmit("#signin_form");
+        interceptFormSubmit("#signup_form");
+    };
+    
+    $(document).ready(function() {
+        $("#write_form").ajaxForm({
+            success: function(responseText) {
+                $.fancybox({
+                    'content': responseText,
+                    'onComplete': interceptFormSubmits
+                });
+            }
+        });
+    });
+</script>
+<% end %>
+
 <% @title = _("Make an {{law_used_short}} request to '{{public_body_name}}'",:law_used_short=>h(@info_request.law_used_short),:public_body_name=>h(@info_request.public_body.name))  %>
 
 <% if @existing_request %>
@@ -10,107 +62,89 @@
     </ul></div>
 <% end %>
 
-<h1>Make a new request</h1>
+    <%= foi_error_messages_for :info_request, :outgoing_message %>
 
-<%= foi_error_messages_for :info_request, :outgoing_message %>
+    <h1><%= _('2. Ask for Information') %></h1>
 
-<div id="request_advice">
-    <h2><%= _('Read this before writing your {{info_request_law_used_full}} request', :info_request_law_used_full=>h(@info_request.law_used_full)) %></h2>
-    <ol>
-    <li>
-        <% form_tag("http://www.google.co.uk/search", {:id => "search_body_website_form", :method => "get"} ) do %>
-            <p>
-                <%= _('First,') %> 
-                <% if !@info_request.public_body.publication_scheme.empty? %>
-                    <%= _('<strong>browse</strong> the authority\'s <a href="%s">publication scheme</a> or <strong>search</strong> their web site ...') % [@info_request.public_body.publication_scheme] %> 
+    <% form_for(:info_request, @info_request, :html => { :id => 'write_form' }  ) do |f| %>
+
+    <div id="request_header">
+        <p>
+            <label class="form_label" for="info_request_public_body_id"><%= _('To:') %></label> 
+            <span id="to_public_body"><%=h(@info_request.public_body.name)%></span>
+            <div class="form_item_note">
+                <% if @info_request.public_body.info_requests.size > 0 %>
+                    <%= _("Browse <a href='{{url}}'>other requests</a> to '{{public_body_name}}' for examples of how to word your request.", :public_body_name=>h(@info_request.public_body.name), :url=>public_body_url(@info_request.public_body)) %>
                 <% else %>
-                <%= _('<strong>search</strong> the authority\'s web site ...') %>
+                    <%= _("Browse <a href='{{url}}'>other requests</a> for examples of how to word your request.", :url=>request_list_url) %>
                 <% end %>
-                <% if !@info_request.public_body.calculated_home_page.nil? %>
-                    <br>
-                    &nbsp; &nbsp; &nbsp; &nbsp; <%= text_field_tag 'q', params[:q], { :size => 20 } %>
-                    <%= hidden_field_tag 'as_sitesearch', @info_request.public_body.calculated_home_page %>
-                    <%= submit_tag _("Search") %>
-               <% end %>
-               <br>
-               ... <%= _('to check that the info isn\'t already published.') %>
-            </p>
+            </div>
+        </p>
+
+        <div id="request_header_text">    
+        <% if @info_request.public_body.has_notes? %>
+            <h3><%= _('Special note for this authority!') %></h3>
+            <p><%= @info_request.public_body.notes_as_html %></p>
         <% end %>
-    </li>
 
-    <li> 
-        <% if @info_request.public_body.info_requests.size > 0 %>
-            <%= _("Browse <a href='{{url}}'>other requests</a> to '{{public_body_name}}' for examples of how to word your request.", :public_body_name=>h(@info_request.public_body.name), :url=>public_body_url(@info_request.public_body)) %>
-        <% else %>
-	    <%= _('Browse  <a href="%s">other requests</a> for examples of how to word your request.') % [request_list_url] %>
+        <% if @info_request.public_body.eir_only? %>
+            <h3><%= _('Please ask for environmental information only') %></h3>
+
+            <p><%= _('The Freedom of Information Act <strong>does not apply</strong> to') %> <%=h(@info_request.public_body.name)%>.  
+            <%= _('However, you have the right to request environmental
+            information under a different law') %> (<a href="/help/requesting#eir">explanation</a>).  
+            <%= _('This covers a very wide spectrum of information about the state of
+            the <strong>natural and built environment</strong>, such as:') %>
+
+            <ul>
+            <li><%= _('Air, water, soil, land, flora and fauna (including how these effect
+            human beings)') %></li>
+            <li><%= _('Information on emissions and discharges (e.g. noise, energy,
+            radiation, waste materials)') %></li>
+            <li><%= _('Human health and safety') %></li>
+            <li><%= _('Cultural sites and built structures (as they may be affected by the
+            environmental factors listed above)') %></li>
+            <li><%= _('Plans and administrative measures that affect these matters') %></li>
+            </ul>
+
+            <p><%= _('Please only request information that comes under those categories, <strong>do not waste your
+            time</strong> or the time of the public authority by requesting unrelated information.') %></p>
         <% end %>
-    </li>
-    <li><%= _('Write your request in <strong>simple, precise language</strong>.') %></li>
-    <li><%= _('Ask for <strong>specific</strong> documents or information, this site is not suitable for general enquiries.') %></li>
-    <li><%= _('Keep it <strong>focused</strong>, you\'ll be more likely to get what you want (<a href="%s">why?</a>).') % [help_requesting_path + '#focused'] %></li>
-    <li><%= _('This site is <strong>public</strong>. Everything you type and any response will be published.') %></li>
-    </ol>
-
-    <% if @info_request.public_body.has_notes? %>
-        <h1><%= _('Special note for this authority!') %></h1>
+        </div>
+ 
+        <p>
+            <label class="form_label" for="info_request_title"><%= _('Summary:') %></label> 
+            <%= f.text_field :title, :size => 50, :id =>"typeahead_search" %>
+        </p>
+        <div class="form_item_note">
+            (<%= _("a one line summary of the information you are requesting, \n\t\t\te.g.") %> 
+              <% if @info_request.law_used == 'eir' %>
+                  <%= _("'Pollution levels over time for the River Tyne'") %>
+              <% else %>
+                  <%= _("'Crime statistics by ward level for Wales'") %>
+              <% end %>
+              )
+        </div>
+        <div id="typeahead_response">
+        </div>
+    </div>
+  
+    <div id="request_advice">
         <ul>
-            <li><p><%= @info_request.public_body.notes_as_html %></p></li>
+        <li><%= _('Write your request in <strong>simple, precise language</strong>.') %></li>
+        <li><%= _('Ask for <strong>specific</strong> documents or information, this site is not suitable for general enquiries.') %></li>
+        <li><%= _('Keep it <strong>focused</strong>, you\'ll be more likely to get what you want (<a href="%s">why?</a>).') % [help_requesting_path + '#focused'] %></li>
         </ul>
-    <% end %>
+    </div>
 
-    <% if @info_request.public_body.eir_only? %>
-        <h1><%= _('Please ask for environmental information only') %></h1>
-        
-        <p><%= _('The Freedom of Information Act <strong>does not apply</strong> to') %> <%=h(@info_request.public_body.name)%>.  
-        <%= _('However, you have the right to request environmental
-        information under a different law') %> (<a href="/help/requesting#eir">explanation</a>).  
-        <%= _('This covers a very wide spectrum of information about the state of
-        the <strong>natural and built environment</strong>, such as:') %>
-
-        <ul>
-        <li><%= _('Air, water, soil, land, flora and fauna (including how these effect
-        human beings)') %></li>
-        <li><%= _('Information on emissions and discharges (e.g. noise, energy,
-        radiation, waste materials)') %></li>
-        <li><%= _('Human health and safety') %></li>
-        <li><%= _('Cultural sites and built structures (as they may be affected by the
-        environmental factors listed above)') %></li>
-        <li><%= _('Plans and administrative measures that affect these matters') %></li>
-        </ul>
-
-        <p><%= _('Please only request information that comes under those categories, <strong>do not waste your
-        time</strong> or the time of the public authority by requesting unrelated information.') %></p>
-    <% end %>
-</div>
-	
-<% form_for(:info_request, @info_request, :html => { :id => 'write_form' }  ) do |f| %>
-
-	<div id="request_form">
-			<label class="form_label" for="info_request_public_body_id"><%= _('To:') %></label>
-			<span id="to_public_body"><%=h(@info_request.public_body.name)%></span>
-	
-		<p>
-			<label class="form_label" for="info_request_title"><%= _('Summary:') %></label> 
-			<%= f.text_field :title, :size => 50 %>
-		</p>
-		<div class="form_item_note">
-			(<%= _('a one line summary of the information you are requesting, 
-			e.g.') %> 
-            <% if @info_request.law_used == 'eir' %>
-                <%= _("'Pollution levels over time for the River Tyne'") %>
-            <% else %>
-                <%= _("'Crime statistics by ward level for Wales'") %>
-            <% end %>
-            )
-		</div>
-	
-		<% fields_for :outgoing_message do |o| %>
-		<p>
-			<label class="form_label" for="outgoing_message_body"><%= _('Your request:') %></label> 
-			<%= o.text_area :body, :rows => 20, :cols => 60 %>
-		</p>
-		<% end %>
-	
+    <div id="request_form"> 
+        <% fields_for :outgoing_message do |o| %>
+        <p>
+            <label class="form_label" for="outgoing_message_body"><%= _('Your request:') %></label> 
+            <%= o.text_area :body, :rows => 20, :cols => 60 %>
+        </p>
+        <% end %>
+    
         <% if !@user %>
             <p class="form_note">
                 <%= _('Everything that you enter on this page, including <strong>your name</strong>, 
@@ -126,18 +160,19 @@
                 this website forever (<a href="%s">why?</a>).') % [help_privacy_path+"#public_request"] %>  
             </p>
         <% end %>
-	
-		<p class="form_note">
-			<%= _('<strong> Can I request information about myself?</strong>
-			<a href="%s">No! (Click here for details)</a>') % [help_requesting_path+"#data_protection"] %>   
-		</p>
-	
-		<div class="form_button">
-			<%= f.hidden_field(:public_body_id, { :value => @info_request.public_body_id } ) %>
-			<%= hidden_field_tag(:submitted_new_request, 1 ) %>
-			<%= hidden_field_tag(:preview, 1 ) %>
-			<%= submit_tag _("Preview your public request") %>
-		</div>
+    
+        <p class="form_note">
+            <%= _("<strong> Can I request information about myself?</strong>\n" +
+            "\t\t\t<a href=\"%s\">No! (Click here for details)</a>") % [help_requesting_path+"#data_protection"] %>   
+        </p>
+    
+        <div class="form_button">
+            <%= f.hidden_field(:public_body_id, { :value => @info_request.public_body_id } ) %>
+            <%= hidden_field_tag(:submitted_new_request, 1 ) %>
+            <%= hidden_field_tag(:preview, 1 ) %>
+            <%= hidden_field_tag(:modal, 1 ) if enable_modal_signin %>
+            <%= submit_tag _("Preview your public request") %>
+        </div>
 
         <% if !@info_request.tag_string.empty? %>
             <p class="form_note">
@@ -148,8 +183,8 @@
                 <strong>Tags:</strong> <%=h @info_request.tag_string %>
             </p>
         <% end %>
-	
-		</div>
+    
+        </div>
 <% end %>
 
 

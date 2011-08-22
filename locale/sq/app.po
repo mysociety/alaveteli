@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
 "POT-Creation-Date: 2011-08-11 12:30+0200\n"
-"PO-Revision-Date: 2011-08-12 08:23+0000\n"
+"PO-Revision-Date: 2011-08-12 09:51+0000\n"
 "Last-Translator: vbrestovci <vbrestovci@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -33,6 +33,8 @@ msgid ""
 "  This will appear on your {{site_name}} profile, to make it\n"
 "            easier for others to get involved with what you're doing."
 msgstr ""
+"Kjo do të shfaqet në profilin tënd në {{site_name}}, për ta bërë më të\n"
+"lehtë për të tjerët që të involvohen me çfarë jeni duke bërë."
 
 #: app/views/comment/_comment_form.rhtml:16
 msgid ""
@@ -52,7 +54,7 @@ msgstr ""
 
 #: app/views/user/show.rhtml:59
 msgid " (you)"
-msgstr "(ti)"
+msgstr " (ti)"
 
 #: app/views/user/signchangepassword_send_confirm.rhtml:18
 msgid ""
@@ -60,17 +62,18 @@ msgid ""
 "    We will send you an email. Follow the instructions in it to change\n"
 "    your password."
 msgstr ""
-"<strong>Shënim:</strong>Do të dërgoj një email. Ndiq udhëzimet në te për të "
-"ndryshuar fjalëkalimin tënd."
+" <strong>Shënim:</strong>\n"
+"Do të dërgoj një email. Ndiq udhëzimet në te për të ndryshuar \n"
+"fjalëkalimin tënd."
 
 #: app/views/user/contact.rhtml:35
 msgid " <strong>Privacy note:</strong> Your email address will be given to"
-msgstr "<strong>Shënim privacie:</strong> Adresa e emailit do t'i jepet"
+msgstr " <strong>Shënim privacie:</strong> Adresa e emailit do t'i jepet"
 
 #: app/views/comment/new.rhtml:33
 msgid " <strong>Summarise</strong> the content of any information returned. "
 msgstr ""
-"<strong>Përmbledh</strong> përmbajtjen e informacioneve të kthyera "
+" <strong>Përmbledh</strong> përmbajtjen e informacioneve të kthyera "
 "(përgjegura)."
 
 #: app/views/comment/new.rhtml:23
@@ -90,9 +93,8 @@ msgid ""
 " If you know the address to use, then please <a href=\"%s\">send it to us</a>.\n"
 "        You may be able to find the address on their website, or by phoning them up and asking."
 msgstr ""
-"Nëse e din adresën e emailit për ta përdorur, atëherë të lutem <a "
-"href=\"%s\">na e dërgon</a> . Ti mund ta gjen  adresën e emailit në ueb "
-"sajtin e tyre ose duke ju telefonuar dhe pyetur."
+" Nëse e din adresën e emailit për ta përdorur, atëherë të lutem <a href=\"%s\">na e dërgon</a>. \n"
+"Ti mund ta gjen  adresën e emailit në ueb sajtin e tyre ose duke ju telefonuar dhe pyetur."
 
 #: app/views/user/set_profile_about_me.rhtml:26
 msgid ""
@@ -109,27 +111,27 @@ msgid ""
 " Link to the information requested, if it is <strong>already "
 "available</strong> on the Internet. "
 msgstr ""
-"Vegza për informatat e kërkuara, në qoftë se ato <strong> tashmë "
-"janë</strong> në dispozicion në internet."
+" Vegza për informatat e kërkuara, në qoftë se ato <strong> tashmë "
+"janë</strong> në dispozicion në internet. "
 
 #: app/views/comment/new.rhtml:29
 msgid ""
 " Offer better ways of <strong>wording the request</strong> to get the "
 "information. "
 msgstr ""
-"Propozo mënyra më të mira të <strong>formulim të kërkesës</strong> për të "
-"marrë informacion."
+" Propozo mënyra më të mira të <strong>formulim të kërkesës</strong> për të "
+"marrë informacion. "
 
 #: app/views/user/sign.rhtml:26
 msgid " Please sign in or make a new account."
-msgstr "Të lutem kyçu ose krijo një llogari të re."
+msgstr " Të lutem kyçu ose krijo një llogari të re."
 
 #: app/views/comment/new.rhtml:34
 msgid ""
 " Say how you've <strong>used the information</strong>, with links if "
 "possible."
 msgstr ""
-"Trego se si ke <strong>përdorur informacionin,</strong> me ueb vegza nëse "
+" Trego se si ke <strong>përdorur informacionin,</strong> me ueb vegza nëse "
 "është e mundur."
 
 #: app/views/comment/new.rhtml:28
@@ -137,13 +139,13 @@ msgid ""
 " Suggest <strong>where else</strong> the requester might find the "
 "information. "
 msgstr ""
-"Sugjero <strong>ku tjetër</strong> kërkuesi mund të gjej informacionin."
+" Sugjero <strong>ku tjetër</strong> kërkuesi mund të gjej informacionin. "
 
 #: app/views/user/set_profile_about_me.rhtml:11
 msgid " What are you investigating using Freedom of Information? "
 msgstr ""
-"Çfarë jeni duke hulumtuar (hetuar) duke përdor kërkesat për çasje në "
-"Informata Zyrtare?"
+" Çfarë jeni duke hulumtuar (hetuar) duke përdor kërkesat për çasje në "
+"Informata Zyrtare? "
 
 #: app/controllers/comment_controller.rb:75
 msgid " You are already being emailed updates about the request."
@@ -158,16 +160,16 @@ msgstr ""
 
 #: app/views/request/upload_response.rhtml:5
 msgid " made by "
-msgstr "bërë nga "
+msgstr " bërë nga "
 
 #: app/views/user/show.rhtml:123
 msgid " made no Freedom of Information requests using this site."
 msgstr ""
-"nuk ka bërë kërkesa për informata zyrtare duke përdorur këtë ueb faqe."
+" nuk ka bërë kërkesa për informata zyrtare duke përdorur këtë ueb faqe."
 
 #: app/views/user/contact.rhtml:36
 msgid " when you send this message."
-msgstr "kur e dërgoni këtë mesazh."
+msgstr " kur e dërgoni këtë mesazh."
 
 #: app/views/public_body/show.rhtml:80
 msgid "%d Freedom of Information request made using this site"
@@ -220,15 +222,13 @@ msgstr ""
 
 #: app/views/public_body/list.rhtml:29
 msgid "<a href=\"%s\">Are we missing a public authority?</a>."
-msgstr "<a href=\"%s\">A po mungon ndonjë autoritet publik?</a> ."
+msgstr "<a href=\"%s\">A po mungon ndonjë autoritet publik?</a>."
 
 #: app/views/request/_sidebar.rhtml:45
 msgid ""
 "<a href=\"%s\">Are you the owner of\n"
 "            any commercial copyright on this page?</a>"
 msgstr ""
-"<a href=\"%s\">Are you the owner of any commercial copyright on this "
-"page?</a>"
 
 #: app/views/general/search.rhtml:53
 msgid "<a href=\"%s\">Browse all</a> or <a href=\"%s\">ask us to add one</a>."
@@ -497,6 +497,9 @@ msgid ""
 "way authorities use it. Plus you'll need to be an elite statistician.  Please\n"
 "<a href=\"{{contact_path}}\">contact us</a> with questions."
 msgstr ""
+"<strong>Caveat emptor!</strong> Për të përdorur këto shenime në mënyrë të ndershme, ju duhet njohuri e brendshme e pikënisjes së përdoruesve të {{site_name}}. Si,\n"
+"pse dhe nga kush kategorizohen kërkesat nuk është diçka e vetëkuptueshme pra edhe mund të ketë gabime dhe paqartësi. Gjithashtu duhet ta kuptoni ligjin për qasje në dokumente publike, si dhe mënyrën se si institucionet (autoritetet) e zbatojnë atë. Plus duhet të jeni ekspert i statistikës.  Të lutem\n"
+"<a href=\"{{contact_path}}\"> na kontakto </a> me pyetje."
 
 #: app/views/request/_other_describe_state.rhtml:28
 msgid "<strong>Clarification</strong> has been requested"
@@ -539,6 +542,8 @@ msgid ""
 "<strong>Privacy note:</strong> Your photo will be shown in public on the Internet, \n"
 "    wherever you do something on {{site_name}}."
 msgstr ""
+"<strong>Shënim privacie:</strong> Fotografia yte do të tregohet publikisht në internet, \n"
+"    kudo që vepron diçka në {{site_name}}."
 
 #: app/views/request/followup_preview.rhtml:37
 msgid ""
@@ -579,7 +584,7 @@ msgid ""
 "A <strong>summary</strong> of the response if you have received it by post. "
 msgstr ""
 "Një <strong>përmbledhje</strong> e përgjigjes nëse ate e keni marrë me "
-"postë."
+"postë. "
 
 #: app/views/general/search.rhtml:162
 msgid "A public authority"
@@ -740,7 +745,7 @@ msgid ""
 "Browse  <a href=\"%s\">other requests</a> for examples of how to word your "
 "request."
 msgstr ""
-"Shfleto <a href=\"%s\">kërkesa të tjera</a> për shembuj se si të formulosh "
+"Shfleto  <a href=\"%s\">kërkesa të tjera</a> për shembuj se si të formulosh "
 "kërkesën tënde."
 
 #: app/views/request/new.rhtml:41
@@ -783,11 +788,11 @@ msgstr "Anulo disa njoftime për {{site_name}}"
 
 #: locale/model_attributes.rb:39
 msgid "CensorRule|Last edit comment"
-msgstr "CensorRule | Redaktimi i fundit i koment"
+msgstr "CensorRule | Editimi i fundit i koment"
 
 #: locale/model_attributes.rb:38
 msgid "CensorRule|Last edit editor"
-msgstr "CensorRule | Redaktimi i fundit të editorit"
+msgstr "CensorRule | Editimi i fundit të editorit"
 
 #: locale/model_attributes.rb:37
 msgid "CensorRule|Replacement"
@@ -815,7 +820,7 @@ msgstr "Ndrysho fotografinë e profilit"
 
 #: app/views/user/set_profile_about_me.rhtml:1
 msgid "Change the text about you on your profile at {{site_name}}"
-msgstr ""
+msgstr "Ndrysho tekstin për vetën në profilin tënd në {{site_name}}"
 
 #: app/views/user/show.rhtml:107
 msgid "Change your email"
@@ -1022,11 +1027,11 @@ msgstr ""
 
 #: app/views/admin_public_body/_locale_selector.rhtml:2
 msgid "Edit language version:"
-msgstr "Redakto versionin e gjuhës:"
+msgstr "Edito versionin e gjuhës:"
 
 #: app/views/user/set_profile_about_me.rhtml:9
 msgid "Edit text about you"
-msgstr " tekstin për vetën tënde"
+msgstr "Edito tekstin për vetën tënde"
 
 #: app/models/user.rb:135
 msgid "Either the email or password was not recognised, please try again."
@@ -1282,6 +1287,10 @@ msgid ""
 "{{site_name}} for intermediate events, which weren't given an explicit\n"
 "description by a user. See the <a href=\"{{search_path}}\">search tips</a> for description of the states."
 msgstr ""
+"Këtu <strong>përshkruar</strong> nënkupton kur një përdorues ka zgjedhë statusin e kërkesës, dhe\n"
+"ngjarja e fundit  ka azhuruar statusin me këtë vlerë. <strong>llogaritur</strong> në këtë rast është vënë nga\n"
+"{{site_name}} për ngjarjet e ndërmjeme, të cilave nuk u është dhënë\n"
+"përshkrim eksplicit nga përdoruesi. Shih  <a href=\"{{search_path}}>këshillat e kërkimit</a> për përshkrimet e statuseve."
 
 #: app/views/request/_other_describe_state.rhtml:4
 msgid ""
@@ -1331,7 +1340,7 @@ msgstr "Nuk dua të pastroj më tutje!"
 
 #: app/views/request/_describe_state.rhtml:91
 msgid "I would like to <strong>withdraw this request</strong>"
-msgstr "Ddo të doja të <strong>tërheqë këtë kërkesë</strong>"
+msgstr "Do të doja të <strong>tërheqë këtë kërkesë</strong>"
 
 #: app/views/request/_describe_state.rhtml:11
 msgid ""
@@ -1618,11 +1627,11 @@ msgstr ""
 
 #: app/views/contact_mailer/message.rhtml:10
 msgid "Last authority viewed: "
-msgstr "Autoriteti i shikuar së fundi:"
+msgstr "Autoriteti i shikuar së fundi: "
 
 #: app/views/contact_mailer/message.rhtml:7
 msgid "Last request viewed: "
-msgstr "Kërkesa e shikuar së fundi:"
+msgstr "Kërkesa e shikuar së fundi: "
 
 #: app/views/user/no_cookies.rhtml:17
 msgid ""
@@ -1978,6 +1987,9 @@ msgid ""
 "change the email address that you use for {{site_name}}\n"
 "from {{old_email}} to {{new_email}}"
 msgstr ""
+"Të lutem klikoni në vegzën e më poshtëme për të konfirmuar se dëshironi të\n"
+"ndryshoni adresën e emailit që ju përdorni për {{site_name}}\n"
+"prej {{old_email}} në {{new_email}}"
 
 #: app/views/user_mailer/confirm_login.rhtml:3
 msgid "Please click on the link below to confirm your email address."
@@ -2251,11 +2263,11 @@ msgstr "PublicBody |Ballina"
 
 #: locale/model_attributes.rb:8
 msgid "PublicBody|Last edit comment"
-msgstr "PublicBody | Redaktimi i fundit i komentit"
+msgstr "PublicBody | Editimi i fundit i komentit"
 
 #: locale/model_attributes.rb:7
 msgid "PublicBody|Last edit editor"
-msgstr "PublicBody | Redaktimi i fundit editor"
+msgstr "PublicBody | Editimi i fundit editor"
 
 #: locale/model_attributes.rb:3
 msgid "PublicBody|Name"
@@ -2295,7 +2307,7 @@ msgstr "RawEmail |Të dhënat binare"
 
 #: app/views/comment/preview.rhtml:20
 msgid "Re-edit this annotation"
-msgstr "Ri edito këtë shënim"
+msgstr "Re-edito këtë shënim"
 
 #: app/views/request/followup_preview.rhtml:49
 msgid "Re-edit this message"
@@ -2310,6 +2322,8 @@ msgid ""
 "Read about <a href=\"{{advanced_search_url}}\">advanced search "
 "operators</a>, such as proximity and wildcards."
 msgstr ""
+"Lexo rreth <a href=\"{{advanced_search_url}}\">kërkimit të avansuar të "
+"operatorëve</a> , të tilla si afërsia dhe gjithëpërfshirëse."
 
 #: app/views/layouts/default.rhtml:93
 msgid "Read blog"
@@ -2557,6 +2571,8 @@ msgid ""
 "Someone, perhaps you, just tried to change their email address on\n"
 "{{site_name}} from {{old_email}} to {{new_email}}."
 msgstr ""
+"Dikush, ndoshta ti, u përpoq të ndryshojë adresën e emailit në\n"
+"{{site_name}} prej {{old_email}} në {{new_email}}."
 
 #: app/views/general/exception_caught.rhtml:1
 msgid "Sorry, we couldn't find that page"
@@ -2790,7 +2806,7 @@ msgstr "Kërkesa ishte e <strong>suksesshme</strong>."
 
 #: app/views/general/search.rhtml:144
 msgid "The request was refused by the public authority"
-msgstr ""
+msgstr "Kërkesa u refuzua nga autoriteti publik"
 
 #: app/views/request/hidden.rhtml:9
 msgid ""
@@ -3077,6 +3093,8 @@ msgid ""
 "This request has had an unusual response, and <strong>requires "
 "attention</strong> from the {{site_name}} team."
 msgstr ""
+"Kjo kërkesë ka pasë një përgjigje të pazakontë dhe <strong>kërkon \"\n"
+"\"vëmendje</strong> nga ekipi i {{site_name}}."
 
 #: app/views/request/show.rhtml:5
 msgid ""
@@ -3122,13 +3140,15 @@ msgstr ""
 
 #: app/views/user/show.rhtml:79
 msgid "This user has been banned from {{site_name}} "
-msgstr ""
+msgstr "Ky përdorues është ndaluar (përjashtuar) nga {site_name}} "
 
 #: app/views/user_mailer/changeemail_already_used.rhtml:5
 msgid ""
 "This was not possible because there is already an account using \n"
 "the email address {{email}}."
 msgstr ""
+"Kjo nuk ishte e mundur sepse egziston një llogari duke\n"
+"përdorur këtë adresë të emailit {{email}}."
 
 #: app/models/track_thing.rb:145
 msgid "To be emailed about any new requests"
@@ -3305,7 +3325,7 @@ msgstr "URL emri nuk mund të jetë i zbrazët"
 
 #: app/models/user_mailer.rb:45
 msgid "Unable to change email address on {{site_name}}"
-msgstr ""
+msgstr "E pamundur për të ndryshuar email adresën në {{site_name}}"
 
 #: app/views/request/followup_bad.rhtml:4
 msgid "Unable to send a reply to {{username}}"
@@ -3438,7 +3458,7 @@ msgstr "Shiko adresën e emailit për Informatë Zyrtare {{public_body_name}}"
 
 #: app/views/contact_mailer/user_message.rhtml:10
 msgid "View Freedom of Information requests made by {{user_name}}:"
-msgstr ""
+msgstr "Shiko kërkesat për informata zyrtare të bëra nga {{user_name}}: "
 
 #: app/views/layouts/default.rhtml:89
 msgid "View authorities"
@@ -3869,6 +3889,8 @@ msgid ""
 "Your photo will be shown in public <strong>on the Internet</strong>, \n"
 "    wherever you do something on {{site_name}}."
 msgstr ""
+"Fotografia yte do të shfaqet në publikisht <strong>në internet</strong>,\n"
+"    kurdo që të bëni diçka në {{site_name}}."
 
 #: app/views/request_mailer/new_response_reminder_alert.rhtml:5
 msgid ""
@@ -3895,6 +3917,8 @@ msgid ""
 "Your thoughts on what the {{site_name}} <strong>administrators</strong> "
 "should do about the request."
 msgstr ""
+"Mendimet tua se çfare duhet  <strong>administratorët e</strong> \n"
+"{{site_name}} bërë me kërkesën."
 
 #: app/models/track_mailer.rb:25
 msgid "Your {{site_name}} email alert"
@@ -4181,7 +4205,7 @@ msgstr "që ti ke bërë për"
 #: app/views/user_mailer/changeemail_confirm.rhtml:13
 #: app/views/user_mailer/confirm_login.rhtml:11
 msgid "the {{site_name}} team"
-msgstr ""
+msgstr "ekipi i {{site_name}}"
 
 #: app/views/user/show.rhtml:140
 msgid "this person"
@@ -4281,6 +4305,8 @@ msgid ""
 "{{site_name}} sends new requests to <strong>{{request_email}}</strong> for "
 "this authority."
 msgstr ""
+"{{site_name}} dërgon kërkesa të reja për <strong>{{request_email}}</strong> "
+"për këtë autoritet."
 
 #: app/models/user.rb:122
 msgid "{{user_name}} (Banned)"

@@ -192,7 +192,9 @@ class ApplicationController < ActionController::Base
             post_redirect = PostRedirect.new(:uri => request.request_uri, :post_params => params,
                 :reason_params => reason_params)
             post_redirect.save!
-            redirect_to signin_url(:token => post_redirect.token)
+            # 'modal' controls whether the sign-in form will be displayed in the typical full-blown 
+            # page or on its own, useful for pop-ups            
+            redirect_to signin_url(:token => post_redirect.token, :modal => params[:modal])
             return false
         end
         return true

@@ -82,16 +82,12 @@ class AdminPublicBodyController < AdminController
     end
 
     def new
-        @locale = self.locale_from_params()
-        PublicBody.with_locale(@locale) do 
-            @public_body = PublicBody.new
-            render
-        end
+        @public_body = PublicBody.new
+        render
     end
-
+    
     def create
-        @locale = self.locale_from_params()
-        PublicBody.with_locale(@locale) do 
+        PublicBody.with_locale(I18n.default_locale) do
             params[:public_body][:last_edit_editor] = admin_http_auth_user()
             @public_body = PublicBody.new(params[:public_body])
             if @public_body.save
@@ -104,17 +100,13 @@ class AdminPublicBodyController < AdminController
     end
 
     def edit
-        @locale = self.locale_from_params()
-        PublicBody.with_locale(@locale) do 
-            @public_body = PublicBody.find(params[:id])
-            @public_body.last_edit_comment = ""
-            render
-        end
+        @public_body = PublicBody.find(params[:id])
+        @public_body.last_edit_comment = ""        
+        render
     end
 
     def update
-        @locale = self.locale_from_params()
-        PublicBody.with_locale(@locale) do 
+        PublicBody.with_locale(I18n.default_locale) do
             params[:public_body][:last_edit_editor] = admin_http_auth_user()
             @public_body = PublicBody.find(params[:id])
             if @public_body.update_attributes(params[:public_body])
@@ -157,7 +149,7 @@ class AdminPublicBodyController < AdminController
                 
                 # Try with dry run first
                 csv_contents = params[:csv_file].read
-                en = PublicBody.import_csv(csv_contents, params[:tag], true, admin_http_auth_user(), I18n.available_locales)
+                en = PublicBody.import_csv(csv_contents, params[:tag], true, admin_http_auth_user(), available_locales)
                 errors = en[0]
                 notes = en[1]
 

@@ -1,0 +1,49 @@
+<script type="text/javascript" src="/javascripts/ba-throttle-debounce.js"></script>
+<script>
+    $(document).ready(function(){
+        $("#authority_preview").hide();
+        
+        // Avoid triggering too often (on each keystroke) by using the debounce jQuery plugin:
+        // http://benalman.com/projects/jquery-throttle-debounce-plugin/
+        $("#query").keypress($.debounce( 300, function() {        
+            // Do a type ahead search and display results
+            $("#typeahead_response").load("<%=search_ahead_bodies_url%>?q="+encodeURI(this.value), function() {
+              $("#authority_preview").hide();   // Hide the preview, since results have changed
+
+              // We're using the existing body list: we intercept the clicks on the titles to 
+              // display a preview on the right hand side of the screen
+              $("#typeahead_response a").click(function() {
+                $("#authority_preview").load(this.href+"?narrow_layout=1 #main_content", function() {
+                  $("#authority_preview").show();
+                });
+                return false;
+              });
+            });
+        }));
+    });
+</script>
+
+<% @title = _("Select the authority to write to")  %>
+
+  <h1 style="clear: left"><%= _('1. Select an authority') %></h1>
+
+  <div id="authority_selection">
+    <% form_tag({:controller => "general", :action => "search_redirect"}, {:id => "search_form"}) do %>
+       <p>
+           <p>
+           <%= _('First, type in the <strong>name of the UK public authority</strong> you\'d 
+           <br>like information from. <strong>By law, they have to respond</strong>
+           (<a href="%s">why?</a>).') % help_about_url %>
+           </p>
+           <%= text_field_tag 'query', params[:query], { :size => 30 } %>
+           <%= hidden_field_tag 'bodies', 1 %>
+           <%= submit_tag _('Search') %>
+       </p>
+    <% end %>
+    <div id="typeahead_response">
+    </div>
+  </div>
+  
+  <div id="authority_preview">
+  </div>
+  

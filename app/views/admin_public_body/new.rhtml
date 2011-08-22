@@ -2,9 +2,16 @@
 
 <h1><%=@title%></h1>
 
-<% form_tag 'create' do %>
-  <%= render :partial => 'form' %>
-  <p><%= submit_tag "Create" %></p>
+<script>
+    $(function() {
+        $("#div-locales").tabs();
+    });
+</script>
+
+
+<% form_for :public_body, @public_body, :url => {:action => "create"} do |f| %>
+  <%= render :partial => 'form', :locals => {:f => f} %>
+  <p><%= f.submit "Create" %></p>
 <% end %>
 
 <p>

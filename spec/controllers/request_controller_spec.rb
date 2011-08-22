@@ -337,7 +337,20 @@ describe RequestController, "when creating a new request" do
         response.should render_template('new')
     end
 
+    it "should redirect to sign in page when input is good and nobody is logged in" do
+        params = { :info_request => { :public_body_id => @body.id, 
+            :title => "Why is your quango called Geraldine?", :tag_string => "" },
+            :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." },
+            :submitted_new_request => 1, :preview => 1
+        }
+        post :new, params
+        post_redirect = PostRedirect.get_last_post_redirect
+        response.should redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
+        # post_redirect.post_params.should == params # XXX get this working. there's a : vs '' problem amongst others
+    end
+
     it "should show preview when input is good" do
+        session[:user_id] = @user.id
         post :new, { :info_request => { :public_body_id => @body.id, 
             :title => "Why is your quango called Geraldine?", :tag_string => "" },
             :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." },
@@ -353,18 +366,6 @@ describe RequestController, "when creating a new request" do
             :submitted_new_request => 1, :preview => 0,
             :reedit => "Re-edit this request"
         response.should render_template('new')
-    end
-
-    it "should redirect to sign in page when input is good and nobody is logged in" do
-        params = { :info_request => { :public_body_id => @body.id, 
-            :title => "Why is your quango called Geraldine?", :tag_string => "" },
-            :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." },
-            :submitted_new_request => 1, :preview => 0
-        }
-        post :new, params
-        post_redirect = PostRedirect.get_last_post_redirect
-        response.should redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
-        # post_redirect.post_params.should == params # XXX get this working. there's a : vs '' problem amongst others
     end
 
     it "should create the request and outgoing message, and send the outgoing message by email, and redirect to request page when input is good and somebody is logged in" do
@@ -1309,5 +1310,36 @@ describe RequestController, "when showing JSON version for API" do
 
 end
 
+describe RequestController, "when doing type ahead searches" do
+    fixtures :info_requests, :info_request_events, :public_bodies, :public_body_translations, :users, :incoming_messages, :raw_emails, :outgoing_messages, :comments 
+
+    it "should return nothing for the empty query string" do
+        get :search_typeahead, :q => ""
+        response.should render_template('request/_search_ahead.rhtml')
+        assigns[:xapian_requests].results.size.should == 0
+    end
+    
+    it "should return a request matching the given keyword, but not users with a matching description" do
+        get :search_typeahead, :q => "chicken"
+        response.should render_template('request/_search_ahead.rhtml')
+        assigns[:xapian_requests].results.size.should == 1
+        assigns[:xapian_requests].results[0][:model].title.should == info_requests(:naughty_chicken_request).title
+    end
+
+    it "should return all requests matching any of the given keywords" do
+        get :search_typeahead, :q => "money dog"
+        response.should render_template('request/_search_ahead.rhtml')
+        assigns[:xapian_requests].results.size.should == 2
+        assigns[:xapian_requests].results[0][:model].title.should == info_requests(:fancy_dog_request).title
+        assigns[:xapian_requests].results[1][:model].title.should == info_requests(:naughty_chicken_request).title
+    end
+
+    it "should return partial matches" do
+        get :search_typeahead, :q => "chick"  # 'chick' for 'chicken'
+        response.should render_template('request/_search_ahead.rhtml')
+        assigns[:xapian_requests].results.size.should == 1
+        assigns[:xapian_requests].results[0][:model].title.should == info_requests(:naughty_chicken_request).title
+    end
+end
 
 

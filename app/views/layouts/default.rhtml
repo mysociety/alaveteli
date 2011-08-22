@@ -1,8 +1,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="<%= I18n.locale %>">
     <head>
+        <script type="text/javascript" src="/javascripts/jquery.js"></script>
         <% if @profile_photo_javascript %>
-            <script type="text/javascript" src="/javascripts/jquery.js"></script>
             <script type="text/javascript" src="/javascripts/jquery.Jcrop.js"></script>
             <script type="text/javascript" src="/javascripts/profile_photo.js"></script>
             <link rel="stylesheet" href="/stylesheets/jquery.Jcrop.css" type="text/css" >
@@ -28,6 +28,8 @@
         <style type="text/css">@import url("/stylesheets/ie6-custom.css");</style> 
         <![endif]-->
         <%= stylesheet_link_tag 'custom', :title => "Main", :rel => "stylesheet"  %>
+        <!-- XXX: add conditional include -->
+        <%= stylesheet_link_tag 'jquery.fancybox-1.3.4', :rel => "stylesheet"  %>
 
         <% if @feed_autodetect %>
             <% for feed in @feed_autodetect %>
@@ -93,8 +95,8 @@
         
         <div id="topnav">
             <ul id="navigation">
-                <li class="<%= 'selected' if params[:controller] == 'general' %>"><%= link_to _("Make a request"), frontpage_url %></li>
-                <li class="<%= 'selected' if params[:controller] == 'request' %>"><%= link_to _("View requests"), request_list_successful_url %></li>
+                <li class="<%= 'selected' if params[:controller] == 'request' and ['new', 'select_authority'].include?(params[:action]) %>"><%= link_to _("Make a request"), select_authority_url %></li>
+                <li class="<%= 'selected' if params[:controller] == 'request' and !['new', 'select_authority'].include?(params[:action]) %>"><%= link_to _("View requests"), request_list_successful_url %></li>
                 <li class="<%= 'selected' if params[:controller] == 'public_body' %>"><%= link_to _("View authorities"), list_public_bodies_default %></li>
                 <li class="<%= 'selected' if params[:controller] == 'blog' %>"><%= link_to _("Read blog"), blog_url %></li>
                 <li class="<%= 'selected' if params[:controller] == 'help' %>"><%= link_to _("Help"), help_about_url %></li>
