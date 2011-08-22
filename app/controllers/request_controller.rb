@@ -425,7 +425,7 @@ class RequestController < ApplicationController
         elsif @info_request.calculate_status == 'gone_postal'
             redirect_to respond_to_last_url(@info_request) + "?gone_postal=1"
         elsif @info_request.calculate_status == 'internal_review'
-            flash[:notice] = _("<p>Thank you! Hopefully your wait isn't too long.</p><p>You should get a response within 20 days, or be told if it will take longer (<a href=\"{{review_url}}\">details</a>).</p>", :review_url => unhappy_url(@info_request) + "#internal_review")
+            flash[:notice] = _("<p>Thank you! Hopefully your wait isn't too long.</p><p>You should get a response within {{late_number_of_days}} days, or be told if it will take longer (<a href=\"{{review_url}}\">details</a>).</p>",:late_number_of_days => MySociety::Config.get('REPLY_LATE_AFTER_DAYS', 20), :review_url => unhappy_url(@info_request) + "#internal_review")
             redirect_to request_url(@info_request)
         elsif @info_request.calculate_status == 'error_message'
             flash[:notice] = _("<p>Thank you! We'll look into what happened and try and fix it up.</p><p>If the error was a delivery failure, and you can find an up to date FOI email address for the authority, please tell us using the form below.</p>")
