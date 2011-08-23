@@ -187,7 +187,7 @@ module LinkToHelper
 
     # Basic date format
     def simple_date(date)
-        return date.strftime("%e %B %Y").strip
+        return I18n.l(date, :format => "%e %B %Y")
     end
 
     def simple_time(date)

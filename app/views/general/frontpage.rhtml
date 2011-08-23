@@ -21,10 +21,7 @@
            <%= hidden_field_tag 'bodies', 1 %>
            <%= image_submit_tag 'button-search.png', :title => 'Search' %>
            <br>
-           <%= _('e.g.') %>
-	   <% @search_examples.each_with_index do |name, i| %>
-             <%=link_to name, search_url(name, 'bodies')%><% if i < 2 %>, <% else %>. <% break %><% end %>
-	   <% end %>
+            <%= render :partial => 'frontpage_search_examples'  %>
     <% end %>
     </div>
   </div>
