@@ -1,46 +1,53 @@
 <% @title = "#{site_name} blog and tweets" %>
 
-<h1><%=@title %></h1>
-   <img src="/images/twitter.png" alt="twitter icon" valign="middle"> <a href="http://www.twitter.com/<%= MySociety::Config.get('TWITTER_USERNAME') %>">Follow us on twitter</a>&nbsp;
-   <img src="/images/rss.png" alt="RSS icon" valign="middle"> <a href="<%= MySociety::Config.get('BLOG_FEED') %>">Subscribe to blog</a>
 <% if !@twitter_user.empty? %>
-<div id="twitter">
-<script src="http://widgets.twimg.com/j/2/widget.js"></script>
-<script>
-new TWTR.Widget({
-  version: 2,
-  type: 'profile',
-  rpp: 15,
-  interval: 6000,
-  width: 'auto',
-  height: 500,
-  theme: {
-    shell: {
-      background: '#eaeaea',
-      color: '#000000'
+<div id="right_column">
+  <h2>Stay up to date</h2>
+  <div class="act_link">
+    <img src="/images/twitter-16.png" alt="twitter icon" valign="middle"> <a href="http://www.twitter.com/<%= MySociety::Config.get('TWITTER_USERNAME') %>">Follow us on twitter</a><br/>
+  </div>
+  <div class="act_link">
+    <img src="/images/feed-16.png" alt="RSS icon" valign="middle"> <a href="<%= MySociety::Config.get('BLOG_FEED') %>">Subscribe to blog</a>
+  </div>
+  <div id="twitter">
+  <script src="http://widgets.twimg.com/j/2/widget.js"></script>
+  <script>
+  new TWTR.Widget({
+    version: 2,
+    type: 'profile',
+    rpp: 15,
+    interval: 6000,
+    width: 'auto',
+    height: 500,
+    theme: {
+      shell: {
+        background: '#eaeaea',
+        color: '#000000'
+      },
+      tweets: {
+        background: '#ffffff',
+        color: '#000000',
+        links: '#0b004a'
+      }
     },
-    tweets: {
-      background: '#ffffff',
-      color: '#000000',
-      links: '#0b004a'
+    features: {
+      scrollbar: false,
+      loop: false,
+      live: false,
+      hashtags: true,
+      timestamp: true,
+      avatars: true,
+      behavior: 'all'
     }
-  },
-  features: {
-    scrollbar: false,
-    loop: false,
-    live: false,
-    hashtags: true,
-    timestamp: true,
-    avatars: true,
-    behavior: 'all'
-  }
-}).render().setUser('<%=@twitter_user %>').start();
-</script>
+  }).render().setUser('<%=@twitter_user %>').start();
+  </script>
 
+  </div>
 </div>
 <% end %>
 
-<div id="blog">
+<div id="left_column">
+   <h1><%=@title %></h1>
   <% for item in @blog_items: %>
     <div class="blog_post">
         <h2><a href="<%=item['link']%>"><%=h item['title'] %></a></h2>
