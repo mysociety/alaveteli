@@ -67,6 +67,12 @@
           <div id="logged_in_bar">
           <% if @user %>
               <%= _('Hello, {{username}}!', :username => h(@user.name))%>
+
+                <% if @user %>
+                    <%=link_to _("My profile"), user_url(@user) %>
+                <% end %>
+
+
               <%= link_to _("Sign out"), signout_url(:r => request.request_uri) %>
           <% else %>
               <%= link_to _("Sign in or sign up"), signin_url(:r => request.request_uri) %>
@@ -90,9 +96,6 @@
                 <li class="<%= 'selected' if params[:controller] == 'general' %>"><%= link_to _("Make a request"), frontpage_url %></li>
                 <li class="<%= 'selected' if params[:controller] == 'request' %>"><%= link_to _("View requests"), request_list_successful_url %></li>
                 <li class="<%= 'selected' if params[:controller] == 'public_body' %>"><%= link_to _("View authorities"), list_public_bodies_default %></li>
-                <% if @user %>
-                    <li><%=link_to _("My requests"), user_url(@user) %></li>
-                <% end %>
                 <li class="<%= 'selected' if params[:controller] == 'blog' %>"><%= link_to _("Read blog"), blog_url %></li>
                 <li class="<%= 'selected' if params[:controller] == 'help' %>"><%= link_to _("Help"), help_about_url %></li>
             </ul>
