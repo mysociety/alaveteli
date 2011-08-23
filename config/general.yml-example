@@ -94,6 +94,9 @@ STAGING_SITE: 1
 RECAPTCHA_PUBLIC_KEY: 'x'
 RECAPTCHA_PRIVATE_KEY: 'x'
 
+# Number of days after which to send a 'new response reminder'
+NEW_RESPONSE_REMINDER_AFTER_DAYS: [3, 10, 24]
+
 # For debugging memory problems.  If true, the app logs
 # the memory use increase of the Ruby process due to the
 # request (Linux only).  Since Ruby never returns memory to the OS, if the
