@@ -1,7 +1,9 @@
 <%= _("You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>") %>
 
-<script>    
+<script>
+    parent.modal_signin_successful = true;
+
     $("#send-request").click(function() {
-        onSuccessfulLogin(); return false; 
+        parent.$.fancybox.close(); return false; 
     });
 </script>
