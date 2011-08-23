@@ -23,6 +23,17 @@ class RequestController < ApplicationController
     end
 
     def select_authority
+        # Check whether we force the user to sign in right at the start, or we allow her
+        # to start filling the request anonymously
+        if force_registration_on_new_request && !authenticated?(
+                :web => _("To send your FOI request"),
+                :email => _("Then you'll be allowed to send FOI requests."),
+                :email_subject => _("Confirm your email address")
+            )
+            # do nothing - as "authenticated?" has done the redirect to signin page for us
+            return
+        end
+
         medium_cache
     end
     
@@ -276,15 +287,6 @@ class RequestController < ApplicationController
             return
         end
 
-        if !authenticated?(
-                :web => _("To send your FOI request"),
-                :email => _("Then your FOI request to {{public_body_name}} will be sent.",:public_body_name=>@info_request.public_body.name),
-                :email_subject => _("Confirm your FOI request to ") + @info_request.public_body.name
-            )
-            # do nothing - as "authenticated?" has done the redirect to signin page for us
-            return
-        end
-
         # Show preview page, if it is a preview
         if params[:preview].to_i == 1
             message = ""
@@ -304,6 +306,15 @@ class RequestController < ApplicationController
                 flash.now[:error] = message
             end
             render :action => 'preview'
+            return
+        end
+
+        if !authenticated?(
+                :web => _("To send your FOI request"),
+                :email => _("Then your FOI request to {{public_body_name}} will be sent.",:public_body_name=>@info_request.public_body.name),
+                :email_subject => _("Confirm your FOI request to ") + @info_request.public_body.name
+            )
+            # do nothing - as "authenticated?" has done the redirect to signin page for us
             return
         end
 

@@ -9,47 +9,6 @@
     });
 </script>
 
-<%
-    enable_modal_signin = false;
-%>
-
-<% if enable_modal_signin && !@user %>
-<%= javascript_include_tag 'jquery.fancybox-1.3.4.pack' %>
-<%= javascript_include_tag 'jquery.form' %>
-<script>
-    function onSuccessfulLogin() {
-        $.fancybox.close();
-        $("#write_form").ajaxFormUnbind();
-        $("#write_form").submit();
-    }
-    
-    function interceptFormSubmit(form_id) {
-        $(form_id).ajaxForm({
-            success: function(responseText) {
-                $("#fancybox-content").html(responseText);
-                interceptFormSubmits();
-            }
-        });
-    };
-
-    function interceptFormSubmits() {
-        interceptFormSubmit("#signin_form");
-        interceptFormSubmit("#signup_form");
-    };
-    
-    $(document).ready(function() {
-        $("#write_form").ajaxForm({
-            success: function(responseText) {
-                $.fancybox({
-                    'content': responseText,
-                    'onComplete': interceptFormSubmits
-                });
-            }
-        });
-    });
-</script>
-<% end %>
-
 <% @title = _("Make an {{law_used_short}} request to '{{public_body_name}}'",:law_used_short=>h(@info_request.law_used_short),:public_body_name=>h(@info_request.public_body.name))  %>
 
 <% if @existing_request %>
@@ -170,7 +129,6 @@
             <%= f.hidden_field(:public_body_id, { :value => @info_request.public_body_id } ) %>
             <%= hidden_field_tag(:submitted_new_request, 1 ) %>
             <%= hidden_field_tag(:preview, 1 ) %>
-            <%= hidden_field_tag(:modal, 1 ) if enable_modal_signin %>
             <%= submit_tag _("Preview your public request") %>
         </div>
 
