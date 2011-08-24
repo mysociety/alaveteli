@@ -279,7 +279,7 @@ class InfoRequestEvent < ActiveRecord::Base
     def display_status
         if is_incoming_message?
             status = self.calculated_state
-            status.nil? ? _("Response") : InfoRequest.get_status_description(status)
+            return status.nil? ? _("Response") : InfoRequest.get_status_description(status)
         end
 
         if is_outgoing_message?
