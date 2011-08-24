@@ -38,14 +38,18 @@
 
 <h1><%=@title%></h1>
 
+<% form_tag(request.url, :method => "get") do %>
+  <%= label_tag(:public_body_query, _("Search:")) %>
+  <%= text_field_tag(:public_body_query, params[:public_body_query]) %> 
+  <%= submit_tag(_("Search")) %>
+  <%= submit_tag(_("Show all")) %>
+<% end %>
+
 <p class="subtitle">
     <%= @public_bodies.size %> <%= _('in total') %>
 	(<%= _('<a href="%s">can\'t find the one you want?</a>') % [help_requesting_path + '#missing_body'] %>)
 </p>
 
-<% if @tag.size == 1 %>
-    <p><%= render :partial => 'alphabet' %></p>
-<% end %>
 <%= render :partial => 'body_listing', :locals => { :public_bodies => @public_bodies } %>
 <% if @tag.size == 1 && @public_bodies.size > 0 %>
     <p><%= render :partial => 'alphabet' %></p>

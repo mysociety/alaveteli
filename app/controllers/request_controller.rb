@@ -129,12 +129,9 @@ class RequestController < ApplicationController
     def list
         medium_cache
         @view = params[:view]
-        if !@view.nil?
-            params[:request_status] = @view
-        end
         params[:request_status] = "recent" if params[:query].nil? && params[:request_status].nil? 
-        query, sortby = alter_query_from_params(params[:query])
-        @title = "Some title"
+        query, sortby = alter_query_from_params
+        @title = "View and search requests"
         
         @page = get_search_page_from_params if !@page # used in cache case, as perform_search sets @page as side effect
         behavior_cache :tag => [@view, @page] do

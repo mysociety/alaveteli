@@ -84,10 +84,18 @@ ActionController::Routing::Routes.draw do |map|
 
     map.with_options :controller => 'public_body' do |body|
         body.list_public_bodies "/body", :action => 'list'
+        body.list_public_bodies_default "/body/list/all", :action => 'list'
         body.list_public_bodies "/body/list/:tag", :action => 'list'
         body.list_public_bodies_redirect "/local/:tag", :action => 'list_redirect'
         body.all_public_bodies_csv "/body/all-authorities.csv", :action => 'list_all_csv'
-        body.show_public_body "/body/:url_name.:format", :action => 'show'
+        body.show_public_body "/body/:url_name.:format", :action => 'show', :view => 'all'
+        body.show_public_body_all "/body/:url_name/all", :action => 'show', :view => 'all'
+        body.show_public_body_successful "/body/:url_name/successful", :action => 'show', :view => "successful"
+        body.show_public_body_unsuccessful "/body/:url_name/unsuccessful", :action => 'show', :view => "unsuccessful"
+        body.show_public_body_awaiting "/body/:url_name/awaiting", :action => 'show', :view => "awaiting"
+        body.show_public_body_tag "/body/:url_name/:tag", :action => 'show'
+        body.show_public_body_tag_view "/body/:url_name/:tag/:view", :action => 'show'
+
         body.view_public_body_email "/body/:url_name/view_email", :action => 'view_email'
     end
 

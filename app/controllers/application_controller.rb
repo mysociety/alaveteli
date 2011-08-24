@@ -349,10 +349,18 @@ class ApplicationController < ActionController::Base
         session[:last_body_id] = public_body.id
     end
 
-    def alter_query_from_params(query)
+    def param_exists(item)
+        return params[item] && !params[item].empty?
+    end
+
+    def alter_query_from_params
         # various forms are used to customise queries and hide
         # xapian's complexity.  This parses the form fields and turns
         # them into a xapian query string
+        if params[:latest_status].nil?
+            params[:latest_status] = params[:view] || "all"
+        end
+        query = params[:query]
         query = "" if query.nil?
         sortby = "newest"
         if params[:request_variety] && !(query =~ /variety:/) 
@@ -369,35 +377,53 @@ class ApplicationController < ActionController::Base
             end
             query += " (#{varieties.join(' OR ')})"            
         end
-        case params[:request_status]
-        when "recent", "all"
-            if !(query =~ /variety:/)
-                query += " (variety:sent)"
+        if params[:latest_status] && !(query =~ /latest_status:/)
+            statuses = []
+            if params[:latest_status].class == String
+                params[:latest_status] = [params[:latest_status]]
             end
-        when "successful"
-            query += ' (latest_status:successful OR latest_status:partially_successful)'
-            sortby = "described"
-        when  "unsuccessful"
-            query += '  (latest_status:rejected OR latest_status:not_held)'
-            sortby = "described"
-        when "awaiting"
-            if query.empty?
-                query += 'variety:sent '
+            if params[:latest_status].include?("recent") ||  params[:latest_status].include?("all")
+                if !(query =~ /variety:/)
+                    query += " (variety:sent)"
+                end
             end
-            query += ' NOT (latest_status:successful OR latest_status:partially_successful OR latest_status:rejected OR latest_status:not_held OR latest_status:gone_postal)'
-            sortby = "described"
-        when "internal_review"
-            query += ' (latest_status:internal_review)'
-            sortby = "described"
-        end
+            if params[:latest_status].include? "successful"
+                statuses << ['latest_status:successful', 'latest_status:partially_successful']
+                sortby = "described"
+            end
+            if params[:latest_status].include? "unsuccessful"
+                statuses << ['latest_status:rejected', 'latest_status:not_held']
+                sortby = "described"
+            end
+            if params[:latest_status].include? "awaiting"
+                statuses << ['latest_status:waiting_response', 'latest_status:waiting_clarification', 'waiting_classification:true']
+                sortby = "described"
+            end
+            if params[:latest_status].include? "internal_review"
+                statuses << ['status:internal_review']
+                sortby = "described"
+            end
+            if params[:latest_status].include? "other"
+                statuses << ['latest_status:gone_postal', 'latest_status:error_message', 'latest_status:requires_admin', 'latest_status:user_withdrawn']
+                sortby = "described"
+            end
+            if params[:latest_status].include? "gone_postal"
+                statuses << ['latest_status:gone_postal']
+                sortby = "described"
+            end
+            query += " (#{statuses.join(' OR ')})"
 
-        if !params[:request_date_after].nil? && params[:request_date_before].nil?
+        end
+        if query.empty?
+            query = "variety:sent"
+        end
+        if param_exists(:request_date_after) && !param_exists(:request_date_before)
             params[:request_date_before] = Date.now.strftime("%d/%m/%Y")
             query += " #{params[:request_date_after]}..#{params[:request_date_before]}"
-        elsif params[:request_date_after].nil? && !params[:request_date_before].nil?
+        elsif !param_exists(:request_date_after) && param_exists(:request_date_before)
             params[:request_date_after] = "01/01/2008"
         end
-        if params[:request_date_after]
+        if param_exists(:request_date_after)
             query = "#{params[:request_date_after]}..#{params[:request_date_before]} " + query
         end
         return query, sortby

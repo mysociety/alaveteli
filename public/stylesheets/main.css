@@ -1239,3 +1239,19 @@ div.lang {
 div#user_locale_switcher {
  margin: 5px;
 }
+
+div#list-filter {
+ clear: both;
+ height: 7em;
+}
+
+div.list-filter-item {
+ float:left;
+ width: 200px;
+}
+
+div.list-search-item {
+ clear:both
+ width: auto;
+ margin-bottom: 20px;
+}
