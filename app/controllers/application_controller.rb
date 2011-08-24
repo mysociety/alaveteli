@@ -349,6 +349,61 @@ class ApplicationController < ActionController::Base
         session[:last_body_id] = public_body.id
     end
 
+    def alter_query_from_params(query)
+        # various forms are used to customise queries and hide
+        # xapian's complexity.  This parses the form fields and turns
+        # them into a xapian query string
+        query = "" if query.nil?
+        sortby = "newest"
+        if params[:request_variety] && !(query =~ /variety:/) 
+            sortby = "described"
+            varieties = []
+            if params[:request_variety].include? "sent"
+                varieties << ['variety:sent', 'variety:followup_sent']
+            end
+            if params[:request_variety].include? "response"
+                varieties << ['variety:response']
+            end
+            if params[:request_variety].include? "comment"
+                varieties << ['variety:comment']
+            end
+            query += " (#{varieties.join(' OR ')})"            
+        end
+        case params[:request_status]
+        when "recent", "all"
+            if !(query =~ /variety:/)
+                query += " (variety:sent)"
+            end
+        when "successful"
+            query += ' (latest_status:successful OR latest_status:partially_successful)'
+            sortby = "described"
+        when  "unsuccessful"
+            query += '  (latest_status:rejected OR latest_status:not_held)'
+            sortby = "described"
+        when "awaiting"
+            if query.empty?
+                query += 'variety:sent '
+            end
+            query += ' NOT (latest_status:successful OR latest_status:partially_successful OR latest_status:rejected OR latest_status:not_held OR latest_status:gone_postal)'
+            sortby = "described"
+        when "internal_review"
+            query += ' (latest_status:internal_review)'
+            sortby = "described"
+        end
+
+        if !params[:request_date_after].nil? && params[:request_date_before].nil?
+            params[:request_date_before] = Date.now.strftime("%d/%m/%Y")
+            query += " #{params[:request_date_after]}..#{params[:request_date_before]}"
+        elsif params[:request_date_after].nil? && !params[:request_date_before].nil?
+            params[:request_date_after] = "01/01/2008"
+        end
+        if params[:request_date_after]
+            query = "#{params[:request_date_after]}..#{params[:request_date_before]} " + query
+        end
+        return query, sortby
+
+    end
+
     # URL generating functions are needed by all controllers (for redirects),
     # views (for links) and mailers (for use in emails), so include them into
     # all of all.
