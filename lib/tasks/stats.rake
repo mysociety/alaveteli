@@ -2,7 +2,7 @@ namespace :stats do
   
   desc 'Produce transaction stats' 
   task :show => :environment do 
-    month_starts = (Date.new(2009, 1)..Date.new(2011, 5)).select { |d| d.day == 1 }
+    month_starts = (Date.new(2009, 1)..Date.new(2011, 8)).select { |d| d.day == 1 }
     headers = ['Period',
                'Requests sent', 
                'Annotations added', 
