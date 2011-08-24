@@ -32,7 +32,10 @@ ActionController::Routing::Routes.draw do |map|
 
     map.with_options :controller => 'request' do |request|
         request.request_list_recent   '/list/recent',        :action => 'list', :view => 'recent'
+        request.request_list_all   '/list/all',        :action => 'list', :view => 'all'
         request.request_list_successful   '/list/successful',        :action => 'list', :view => 'successful'
+        request.request_list_unsuccessful   '/list/unsuccessful',        :action => 'list', :view => 'unsuccessful'
+        request.request_list_awaiting   '/list/awaiting',        :action => 'list', :view => 'awaiting'
         request.request_list   '/list',        :action => 'list'
 
         request.new_request    '/new',         :action => 'new'
