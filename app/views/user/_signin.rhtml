@@ -3,9 +3,9 @@
 <% form_tag({:action => "signin"}, {:id => "signin_form"}) do %>
     <%= foi_error_messages_for :user_signin %>
 
-    <% if not sign_in_as_existing_user %>
+    <!--<% if not sign_in_as_existing_user %>
     <h2><%= _('If you\'ve used {{site_name}} before', :site_name=>site_name)%></h2>
-    <% end %>
+    <% end %>-->
 
     <p>
     <label class="form_label" for="user_signin_email"><%= _('Your e-mail:')%></label>

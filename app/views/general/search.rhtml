@@ -16,7 +16,7 @@
          <% if @bodies %>
              <%= hidden_field_tag 'bodies', 1 %>
          <% end %>
-         <%= image_submit_tag 'button-search.png', :title=>"Search" %>
+         <%= submit_tag _("Search") %>
          <% if not @show_tips %>
              &nbsp;&nbsp;<%= link_to _('Advanced search tips'), search_redirect_path %>
          <% end %>
