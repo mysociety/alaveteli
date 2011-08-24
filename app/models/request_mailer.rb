@@ -266,12 +266,12 @@ class RequestMailer < ApplicationMailer
         end
     end
 
-    # Send email alerts for new responses which haven't been classified. Goes
-    # out 3 days after last update of event, then after 7, then after 24.
+    # Send email alerts for new responses which haven't been classified. By default, 
+    # it goes out 3 days after last update of event, then after 10, then after 24.
     def self.alert_new_response_reminders
-        self.alert_new_response_reminders_internal(3, 'new_response_reminder_1')
-        self.alert_new_response_reminders_internal(10, 'new_response_reminder_2')
-        self.alert_new_response_reminders_internal(24, 'new_response_reminder_3')
+        MySociety::Config.get("NEW_RESPONSE_REMINDER_AFTER_DAYS", [3, 10, 24]).each_with_index do |days, i|
+            self.alert_new_response_reminders_internal(days, "new_response_reminder_#{i+1}")
+        end
     end
     def self.alert_new_response_reminders_internal(days_since, type_code)
         info_requests = InfoRequest.find_old_unclassified(:order => 'info_requests.id', 

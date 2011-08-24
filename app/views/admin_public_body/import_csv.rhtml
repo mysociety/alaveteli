@@ -23,16 +23,19 @@
     
     <p><strong>CSV file format:</strong> A first row with the list of fields, 
     starting with '#', is optional but highly recommended. The fields 'name'
-    and 'email' are required; additionaly, translated values are supported by
+    and 'request_email' are required; additionaly, translated values are supported by
     adding the locale name to the field name, e.g. 'name.es', 'name.de'... Example:
     </p>
     
     <blockquote>
-        #id,name,email,name.es<br/>
+        #id,name,request_email,name.es<br/>
         1,An Authority,a@example.com,Un organismo<br/>
         2,Another One,another@example.com,Otro organismo<br/>
     </blockquote>
 
+    <p>Supported files: name (i18n), short_name (i18n), request_email (i18n), notes (i18n), 
+    publication_scheme (i18n), home_page.</p>
+    
     <p><strong>Note:</strong> Choose <strong>dry run</strong> to test, without
     actually altering the database. Choose <strong>upload</strong> to actually
     make the changes. In either case, you will be shown any errors, or details

@@ -38,7 +38,7 @@ class PublicBody < ActiveRecord::Base
 
     validates_uniqueness_of :short_name, :message => N_("Short name is already taken"), :if => Proc.new { |pb| pb.short_name != "" }
     validates_uniqueness_of :name, :message => N_("Name is already taken")
-    
+
     has_many :info_requests, :order => 'created_at desc'
     has_many :track_things, :order => 'created_at desc'
 
@@ -46,6 +46,40 @@ class PublicBody < ActiveRecord::Base
 
     translates :name, :short_name, :request_email, :url_name, :notes, :first_letter, :publication_scheme
 
+    # Convenience methods for creating/editing translations via forms
+    def translation(locale)
+        self.translations.find_by_locale(locale)
+    end
+
+    # XXX - Don't like repeating this!
+    def calculate_cached_fields(t)
+        t.first_letter = t.name.scan(/^./mu)[0].upcase unless t.name.nil? or t.name.empty?
+        short_long_name = t.name
+        short_long_name = t.short_name if t.short_name and !t.short_name.empty?
+        t.url_name = MySociety::Format.simplify_url_part(short_long_name, 'body')
+    end
+    
+    def translated_versions
+        translations
+    end
+    
+    def translated_versions=(translation_attrs)
+        if translation_attrs.respond_to? :each_value    # Hash => updating
+            translation_attrs.each_value do |attrs|
+                t = translation(attrs[:locale]) || PublicBody::Translation.new
+                t.attributes = attrs
+                calculate_cached_fields(t)
+                t.save!
+            end
+        else                                            # Array => creating
+            translation_attrs.each do |attrs|
+                new_translation = PublicBody::Translation.new(attrs)
+                calculate_cached_fields(new_translation)
+                translations << new_translation
+            end
+        end
+    end
+    
     # Make sure publication_scheme gets the correct default value.
     # (This would work automatically, were publication_scheme not a translated attribute)
     def after_initialize
@@ -191,7 +225,6 @@ class PublicBody < ActiveRecord::Base
 
     # When name or short name is changed, also change the url name
     def short_name=(short_name)
-
         globalize.write(self.class.locale || I18n.locale, :short_name, short_name)
         self[:short_name] = short_name
         self.update_url_name
@@ -204,15 +237,15 @@ class PublicBody < ActiveRecord::Base
     end
 
     def update_url_name
-        url_name = MySociety::Format.simplify_url_part(self.short_or_long_name, 'body')
-        self.url_name = url_name
+        self.url_name = MySociety::Format.simplify_url_part(self.short_or_long_name, 'body')
     end
+    
     # Return the short name if present, or else long name
     def short_or_long_name
-        if self.short_name.nil? # can happen during construction
+        if self.short_name.nil? || self.short_name.empty?   # 'nil' can happen during construction
             self.name
         else
-            self.short_name.empty? ? self.name : self.short_name
+            self.short_name
         end
     end
 
@@ -311,9 +344,10 @@ class PublicBody < ActiveRecord::Base
     # Import from CSV. Just tests things and returns messages if dry_run is true.
     # Returns an array of [array of errors, array of notes]. If there are errors,
     # always rolls back (as with dry_run).
-    def self.import_csv(csv, tag, dry_run, editor, additional_locales = [])
+    def self.import_csv(csv, tag, dry_run, editor, available_locales = [])
         errors = []
         notes = []
+        available_locales = [I18n.default_locale] if available_locales.empty?
 
         begin
             ActiveRecord::Base.transaction do
@@ -330,7 +364,7 @@ class PublicBody < ActiveRecord::Base
                 end
                 
                 set_of_importing = Set.new()
-                field_names = { 'name'=>1, 'email'=>2 }     # Default values in case no field list is given
+                field_names = { 'name'=>1, 'request_email'=>2 }     # Default values in case no field list is given
                 line = 0
                 CSV::Reader.parse(csv) do |row|
                     line = line + 1
@@ -341,57 +375,65 @@ class PublicBody < ActiveRecord::Base
                         row.each_with_index {|field, i| field_names[field] = i}
                         next
                     end
+
+                    fields = {}
+                    field_names.each{|name, i| fields[name] = row[i]}
     
                     name = row[field_names['name']]
-                    email = row[field_names['email']]
+                    email = row[field_names['request_email']]
                     next if name.nil?
-                    if email.nil?
-                        email = '' # unknown/bad contact is empty string
-                    end
 
                     name.strip!
                     email.strip!
 
-                    if email != "" && !MySociety::Validate.is_valid_email(email)
-                        errors.push "error: line " + line.to_s + ": invalid email " + email + " for authority '" + name + "'"
+                    if !email.nil? && !email.empty? && !MySociety::Validate.is_valid_email(email)
+                        errors.push "error: line #{line.to_s}: invalid email '#{email}' for authority '#{name}'"
                         next
                     end
+                    
+                    field_list = ['name', 'short_name', 'request_email', 'notes', 'publication_scheme', 'home_page']
 
-                    if bodies_by_name[name]
-                        # Already have the public body, just update email
-                        public_body = bodies_by_name[name]
-                        if public_body.request_email != email
-                            notes.push "line " + line.to_s + ": updating email for '" + name + "' from " + public_body.request_email + " to " + email
-                            public_body.request_email = email
-                            public_body.last_edit_editor = editor
-                            public_body.last_edit_comment = 'Updated from spreadsheet'                            
-                            public_body.save!
-                        end
+                    if public_body = bodies_by_name[name]
+                        available_locales.each do |locale|
+                            PublicBody.with_locale(locale) do
+                                changed = {}
+                                field_list.each do |field_name|
+                                    localized_field_name = (locale === I18n.default_locale) ? field_name : "#{field_name}.#{locale}"
+                                    localized_value = field_names[localized_field_name] && row[field_names[localized_field_name]]
+                                    if !localized_value.nil? and public_body.send(field_name) != localized_value
+                                        changed[field_name] = "#{public_body.send(field_name)}: #{localized_value}"
+                                        public_body.send("#{field_name}=", localized_value)
+                                    end
+                                end
 
-                        additional_locales.each do |locale|
-                            localized_name = field_names["name.#{locale}"] && row[field_names["name.#{locale}"]]
-                            PublicBody.with_locale(locale) do 
-                                if !localized_name.nil? and public_body.name != localized_name
-                                    notes.push "line " + line.to_s + ": updating name for '#{name}' from '#{public_body.name}' to '#{localized_name}' (locale: #{locale})."
-                                    public_body.name = localized_name
+                                unless changed.empty?
+                                    notes.push "line #{line.to_s}: updating authority '#{name}' (locale: #{locale}):\n\t#{changed.to_json}"
+                                    public_body.last_edit_editor = editor
+                                    public_body.last_edit_comment = 'Updated from spreadsheet'                            
                                     public_body.save!
                                 end
                             end
                         end
-                    else
-                        # New public body
-                        notes.push "line " + line.to_s + ": new authority '" + name + "' with email " + email
-                        public_body = PublicBody.new(:name => name, :request_email => email, :short_name => "", :home_page => "", :publication_scheme => "", :notes => "", :last_edit_editor => editor, :last_edit_comment => 'Created from spreadsheet')
-                        public_body.tag_string = tag
-                        public_body.save!
+                    else # New public body
+                        public_body = PublicBody.new(:name=>name, :short_name=>"", :request_email=>"")
+                        available_locales.each do |locale|                            
+                            PublicBody.with_locale(locale) do
+                                changed = {}
+                                field_list.each do |field_name|
+                                    localized_field_name = (locale === I18n.default_locale) ? field_name : "#{field_name}.#{locale}"
+                                    localized_value = field_names[localized_field_name] && row[field_names[localized_field_name]]
+                                    if !localized_value.nil? and public_body.send(field_name) != localized_value
+                                        changed[field_name] = localized_value
+                                        public_body.send("#{field_name}=", localized_value)
+                                    end
+                                end
 
-                        additional_locales.each do |locale|
-                            localized_name = field_names["name.#{locale}"] && row[field_names["name.#{locale}"]]
-                            if !localized_name.nil?
-                                PublicBody.with_locale(locale) do 
-                                    notes.push "line " + line.to_s + ":   (aka '#{localized_name}' in locale #{locale})"
-                                    public_body.name = localized_name
-                                    public_body.publication_scheme = ""
+                                unless changed.empty?
+                                    notes.push "line #{line.to_s}: creating new authority '#{name}' (locale: #{locale}):\n\t#{changed.to_json}"
+                                    public_body.publication_scheme = public_body.publication_scheme || ""
+                                    public_body.tag_string = tag
+                                    public_body.last_edit_editor = editor
+                                    public_body.last_edit_comment = 'Created from spreadsheet'                            
                                     public_body.save!
                                 end
                             end
