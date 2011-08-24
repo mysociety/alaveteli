@@ -203,15 +203,15 @@ class TrackThing < ActiveRecord::Base
                 @params = {
                     # Website
                     :list_description => "'<a href=\"/search/" + CGI.escapeHTML(self.track_query) + "/newest\">" + CGI.escapeHTML(self.track_query) + "</a>' in new requests/responses", # XXX yeuch, sometimes I just want to call view helpers from the model, sorry! can't work out how 
-                    :verb_on_page => _("Track things matching '{{query}}' by email", :query=>CGI.escapeHTML(self.track_query)),
-                    :verb_on_page_already => _("You are already tracking things matching '{{query}}' by email", :query=>CGI.escapeHTML(self.track_query)),
+                    :verb_on_page => _("Track things matching this search by email"),
+                    :verb_on_page_already => _("You are already tracking things matching this search by email"),
                     # Email
-                    :title_in_email => _("Requests or responses matching '{{query}}'", :query=>self.track_query),
-                    :title_in_rss => _("Requests or responses matching '{{query}}'", :query=>self.track_query),
+                    :title_in_email => _("Requests or responses matching your saved search"),
+                    :title_in_rss => _("Requests or responses matching your saved search"),
                     # Authentication
-                    :web => _("To follow requests and responses matching '{{query}}'", :query=>CGI.escapeHTML(self.track_query)),
-                    :email => _("Then you will be emailed whenever a new request or response matches '{{query}}'.", :query=>CGI.escapeHTML(self.track_query)),
-                    :email_subject => _("Confirm you want to be emailed about new requests or responses matching '{{query}}'", :query=>self.track_query),
+                    :web => _("To follow requests and responses matching your search"),
+                    :email => _("Then you will be emailed whenever a new request or response matches your search."),
+                    :email_subject => _("Confirm you want to be emailed about new requests or responses matching your search"),
                     # RSS sorting - XXX hmmm, we don't really know which to use
                     # here for sorting. Might be a query term (e.g. 'cctv'), in
                     # which case newest is good, or might be something like

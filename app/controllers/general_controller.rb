@@ -82,9 +82,12 @@ class GeneralController < ApplicationController
 
     # Just does a redirect from ?query= search to /query
     def search_redirect
-        @query = params[:query]
+        @query = alter_query_from_params
         @sortby = params[:sortby]
         @bodies = params[:bodies]
+        [:latest_status, :request_variety, :request_date_after, :request_date_before, :query].each do |x| 
+            session[x] = params[x]
+        end
         if @query.nil? || @query.empty?
             @query = nil
             @page = 1
@@ -103,6 +106,9 @@ class GeneralController < ApplicationController
     def search
         # XXX Why is this so complicated with arrays and stuff? Look at the route
         # in config/routes.rb for comments.
+        [:latest_status, :request_variety, :request_date_after, :request_date_before, :query].each do |x|
+            params[x] = session[x]
+        end
         combined = params[:combined]
         @sortby = nil
         @bodies = false # searching from front page, largely for a public authority

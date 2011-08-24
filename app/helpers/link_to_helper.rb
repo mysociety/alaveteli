@@ -79,7 +79,7 @@ module LinkToHelper
         link_to(h(public_body.name), main_url(public_body_url(public_body))) + " (" + link_to("admin", public_body_admin_url(public_body)) + ")"
     end
     def list_public_bodies_default
-        list_public_bodies_url(:tag => 'a') 
+        list_public_bodies_url(:tag => 'all') 
     end
 
     # Users

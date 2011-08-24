@@ -1,41 +1,8 @@
-<div id="list-filter">
-<% form_tag({}, :method => "get") do %>
- <%= label_tag(:query, "Search for:") %>
- <%= text_field_tag(:query, params[:query]) %> <br/>
- <% [["sent", "messages from users"], 
-    ["response", "messages from authorities"],
-    ["comment", "comments"]].each_with_index do |item, index|
-    variety, title = item %>
- 
-  <%= check_box_tag "request_variety[]", variety, params[:request_variety].nil? ? true : params[:request_variety].include?(variety), :id => "request_variety_#{index}" %>
-  <%= label_tag("request_variety_#{index}", title) %> <br />
- <% end %>
 
- <ul class="request-selector">
-   <% for status in ["all", "successful", "unsuccessful", "awaiting"] %>
-  <li>
-  <% if params[:view] != status %>
-   <%= link_to "#{status} requests", url_for(:controller => "request", :action => "list", :view => status) + "?#{request.query_string}"  %> 
-  <% else %>
-    <%= status %> requests
-  <% end %>
-  </li>
-  <% end %>
- </ul>
-
- <div class="filter-item last">
-   between dates:
-   <input type="text" name="request_date_after" /> from<br>
-   <input type="text" name="request_date_before" /> to<br>
- </div>
-
-
-
- <%= submit_tag("Search") %>
-<% end %>
-</div>
 
 <h1><%=@title%></h1>
+
+<%= render :partial => 'request/request_filter_form' %>
 
 <% if @track_thing %>
     <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => false, :location => 'main' } %>

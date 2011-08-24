@@ -2,14 +2,14 @@
 
 <% if @query.nil? %>
     <% @title = _("Search Freedom of Information requests, public authorities and users") %>
-    <h1><%=@title%></h1>
 <% elsif @total_hits == 0 %>
-    <%= _("Nothing found for &#x2018;{{search_terms}}&#x2019;", :search_terms => h(@query)) %>
+    <% @title = _('There were no requests matching your query.') %>
 <% else %>
     <% @title = _("Results page {{page_number}}", :page_number => @page.to_s) %>
 <% end%>
-
 <% @include_request_link_in_authority_listing = true %>
+
+<h1><%=@title%></h1>
 
 <% if @bodies && (@page == 1 || @xapian_bodies.results.size > 0) %>
     <div id="stepwise_instructions">
@@ -19,19 +19,56 @@
     </div>
 <% end %>
 
-<% form_tag({:action => "search_redirect"}, {:id => "search_form"}) do %>
-   <p>
-       <%= text_field_tag 'query', @query, { :size => 40 } %>
-       <%= hidden_field_tag 'sortby', @inputted_sortby %>
-       <% if @bodies %>
-           <%= hidden_field_tag 'bodies', 1 %>
-       <% end %>
-       <%= submit_tag _("Search") %>
+<script>
+  $(function() {
+     $(".use-datepicker").datepicker();
+  });
+</script>
+
+<div id="list-filter">
+
+ <div class="list-search-item">
+  <% form_tag(search_redirect_url, :method => "get") do %>
+  <%= label_tag(:query, _("Search for:")) %>
+  <%= text_field_tag(:query, params[:query], { :size => 40 }) %>
+  <%= submit_tag("Search") %>
+ </div>
+  <div class="list-filter-item">
+   <%= _("Restrict search to:") %> <br />
+     <% [["successful", _("successful requests")],
+        ["unsuccessful", _("unsuccessful requests")],
+        ["awaiting", _("unresolved requests")],
+        ["internal_review", _("internal reviews")]].each_with_index do |item, index|
+
+	status, title = item %>
+      <%= check_box_tag "latest_status[]", status, params[:latest_status].nil? ? false : params[:latest_status].include?(status), :id => "latest_status_#{index}" %>
+      <%= label_tag("latest_status_#{index}", title) %> <br/>
+    <% end %>
+ </div>
+ <div class="list-filter-item">
+  <%= _("Search for words in:") %> <br/>
+  <% [["sent", _("messages from users")], 
+     ["response", _("messages from authorities")],
+     ["comment", _("comments")]].each_with_index do |item, index|
+     variety, title = item %>
+  
+   <%= check_box_tag "request_variety[]", variety, params[:request_variety].nil? ? true : params[:request_variety].include?(variety), :id => "request_variety_#{index}" %>
+   <%= label_tag("request_variety_#{index}", title) %> <br/>
+  <% end %>
+ </div>
+ <div class="list-filter-item">
+   Search between dates:
+   <%= text_field_tag(:request_date_after, params[:request_date_after], {:class => "use-datepicker", :size => 10}) %> -
+   <%= text_field_tag(:request_date_before, params[:request_date_before], {:class => "use-datepicker", :size => 10}) %>
+ </div>
+<% end %>
+
        <% if not @show_tips %>
            &nbsp;&nbsp;<%= link_to _('Advanced search tips'), search_redirect_path %>
        <% end %>
-   </p>
-<% end %>
+
+ 
+</div>
 
 <% if !@query.nil? %>
     <p>
@@ -53,10 +90,6 @@
     <p><%= _('<a href="%s">Browse all</a> or <a href="%s">ask us to add one</a>.') % [list_public_bodies_default, help_requesting_path + '#missing_body'] %></p>
 <% end %>
 
-<% if @total_hits == 0 %>
-    <h1><%=@title %></h1>
-<% end %>
-
 <% if not @query.nil? %>
     <% if @spelling_correction %>
         <p id="did_you_mean"><%= _('Did you mean: {{correction}}', :correction => search_link(@spelling_correction, @postfix)) %></p>
@@ -68,7 +101,7 @@
 
     <% if @xapian_bodies.results.size > 0 %>
         <% if @xapian_bodies.results.size == 1 && @page == 1 %>
-            <h1><%= _('One public authority matching &#x2018;{{user_search_query}}&#x2019;', :user_search_query => h(@query)) %></h1>
+            <h1><%= _('One public authority matching your search', :user_search_query => h(@query)) %></h1>
         <% else %>
             <h1><%= _('Public authorities {{start_count}} to {{end_count}} of {{total_count}} for {{user_search_query}}', :start_count => ((@page-1)*@bodies_per_page+1).to_s, :end_count => [@page*@bodies_per_page, @xapian_bodies.matches_estimated].min.to_s, :total_count => @xapian_bodies.matches_estimated.to_s, :user_search_query => h(@query)) %></h1>
         <% end %>
@@ -98,7 +131,7 @@
         <% if @xapian_requests.results.size == 1 && @page == 1 %>
             <h1><%= _("One FOI request matching &#x2018;{{user_search_query}}&#x2019;", :user_search_query => h(@query)) %></h1>
         <% else %>
-            <h1><%= _("FOI requests  {{start_count}} to {{end_count}} of {{total_count}} for &#x2018;{{user_search_query}}&#x2019;", :start_count => ((@page-1)*@requests_per_page+1).to_s, :end_count => [@page*@requests_per_page, @xapian_requests.matches_estimated].min.to_s, :total_count =>  @xapian_requests.matches_estimated.to_s, :user_search_query => h(@query)) %></h1>
+            <h1><%= _("FOI requests  {{start_count}} to {{end_count}} of {{total_count}}", :start_count => ((@page-1)*@requests_per_page+1).to_s, :end_count => [@page*@requests_per_page, @xapian_requests.matches_estimated].min.to_s, :total_count =>  @xapian_requests.matches_estimated.to_s, :user_search_query => h(@query)) %></h1>
         <% end %>
 
         <% if @track_thing %>
