@@ -291,6 +291,7 @@ p.subtitle {
   color: #69952F;
 }
 
+.icon_waiting_response,
 .icon_waiting_classification,
 .icon_waiting_clarification {
   background-image: url(/images/status-pending.png);
