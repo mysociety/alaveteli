@@ -13,11 +13,7 @@
            <%= hidden_field_tag 'bodies', 1 %>
            <%= submit_tag _('Search') %>
            <br>
-           <%= _('e.g.') %>
-	   <% @search_examples.each_with_index do |name, i| %>
-             <%=link_to name, search_url(name, 'bodies')%><% if i < 2 %>, <% else %>. <% break %><% end %>
-	   <% end %>
-
+            <%= render :partial => 'frontpage_search_examples'  %>
            <br>
            <br>
            <%= _('OR, <strong>search</strong> for information others have requested using {{site_name}}', :site_name => site_name) %>

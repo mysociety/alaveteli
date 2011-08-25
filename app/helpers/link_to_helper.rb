@@ -61,7 +61,7 @@ module LinkToHelper
   
     # Public bodies
     def public_body_url(public_body)
-        return show_public_body_url(:url_name => public_body.url_name, :only_path => true)
+        public_body.url_name.nil? ? '' : show_public_body_url(:url_name => public_body.url_name, :only_path => true)
     end
     def public_body_link_short(public_body)
         link_to h(public_body.short_or_long_name), public_body_url(public_body)
@@ -187,7 +187,7 @@ module LinkToHelper
 
     # Basic date format
     def simple_date(date)
-        return date.strftime("%e %B %Y").strip
+        return I18n.l(date, :format => "%e %B %Y")
     end
 
     def simple_time(date)
