@@ -23,7 +23,8 @@ ActionController::Routing::Routes.draw do |map|
         # Couldn't find a way to do this in routes which also picked up multiple other slashes
         # and dots and other characters that can appear in search query. So we sort it all
         # out in the controller.
-        general.search_general '/search/*combined',      :action => 'search'
+        general.search_general '/search/*combined', :action => 'search'
+        general.advanced_search '/advancedsearch', :action => 'search_redirect', :advanced => true
 
         general.random_request '/random', :action => 'random_request'
 

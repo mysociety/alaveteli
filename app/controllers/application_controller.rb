@@ -351,22 +351,15 @@ class ApplicationController < ActionController::Base
 
     def param_exists(item)
         return params[item] && !params[item].empty?
-    end
-
-    def alter_query_from_params
-        # various forms are used to customise queries and hide
-        # xapian's complexity.  This parses the form fields and turns
-        # them into a xapian query string
-        if params[:latest_status].nil?
-            params[:latest_status] = params[:view] || "all"
-        end
-        query = params[:query]
-        query = "" if query.nil?
+    end    
+    
+    def get_request_variety_from_params
+        query = ""
         sortby = "newest"
-        if params[:request_variety] && !(query =~ /variety:/) 
-            sortby = "described"
-            varieties = []
+        varieties = []
+        if params[:request_variety] && !(query =~ /variety:/)
             if params[:request_variety].include? "sent"
+                varieties -= ['variety:sent', 'variety:followup_sent', 'variety:response', 'variety:comment']
                 varieties << ['variety:sent', 'variety:followup_sent']
             end
             if params[:request_variety].include? "response"
@@ -375,48 +368,50 @@ class ApplicationController < ActionController::Base
             if params[:request_variety].include? "comment"
                 varieties << ['variety:comment']
             end
-            query += " (#{varieties.join(' OR ')})"            
         end
-        if params[:latest_status] && !(query =~ /latest_status:/)
+        if !varieties.empty?
+            query = " (#{varieties.join(' OR ')})"
+        end
+        return query
+    end
+
+    def get_status_from_params
+        query = ""
+        if params[:latest_status] 
             statuses = []
             if params[:latest_status].class == String
                 params[:latest_status] = [params[:latest_status]]
             end
             if params[:latest_status].include?("recent") ||  params[:latest_status].include?("all")
-                if !(query =~ /variety:/)
-                    query += " (variety:sent)"
-                end
+                query += " (variety:sent)"
             end
             if params[:latest_status].include? "successful"
                 statuses << ['latest_status:successful', 'latest_status:partially_successful']
-                sortby = "described"
             end
             if params[:latest_status].include? "unsuccessful"
                 statuses << ['latest_status:rejected', 'latest_status:not_held']
-                sortby = "described"
             end
             if params[:latest_status].include? "awaiting"
                 statuses << ['latest_status:waiting_response', 'latest_status:waiting_clarification', 'waiting_classification:true']
-                sortby = "described"
             end
             if params[:latest_status].include? "internal_review"
                 statuses << ['status:internal_review']
-                sortby = "described"
             end
             if params[:latest_status].include? "other"
                 statuses << ['latest_status:gone_postal', 'latest_status:error_message', 'latest_status:requires_admin', 'latest_status:user_withdrawn']
-                sortby = "described"
             end
             if params[:latest_status].include? "gone_postal"
                 statuses << ['latest_status:gone_postal']
-                sortby = "described"
             end
-            query += " (#{statuses.join(' OR ')})"
+            if !statuses.empty?
+                query = " (#{statuses.join(' OR ')})"
+            end
+        end
+        return query
+    end
 
-        end
-        if query.empty?
-            query = "variety:sent"
-        end
+    def get_date_range_from_params
+        query = ""
         if param_exists(:request_date_after) && !param_exists(:request_date_before)
             params[:request_date_before] = Date.now.strftime("%d/%m/%Y")
             query += " #{params[:request_date_after]}..#{params[:request_date_before]}"
@@ -424,10 +419,32 @@ class ApplicationController < ActionController::Base
             params[:request_date_after] = "01/01/2008"
         end
         if param_exists(:request_date_after)
-            query = "#{params[:request_date_after]}..#{params[:request_date_before]} " + query
+            query = " #{params[:request_date_after]}..#{params[:request_date_before]}"
         end
-        return query, sortby
+        return query
+    end
 
+    def get_tags_from_params
+        query = ""
+        tags = []
+        if param_exists(:tags)
+            params[:tags].split().each do |tag| 
+                tags << "tag:#{tag}"
+            end
+        end
+        if !tags.empty?
+            query = " (#{tags.join(' OR ')})"
+        end
+        return query
+    end
+    
+    def make_query_from_params
+        query = params[:query] || "" if query.nil?
+        query += get_date_range_from_params
+        query += get_request_variety_from_params
+        query += get_status_from_params
+        query += get_tags_from_params
+        return query
     end
 
     # URL generating functions are needed by all controllers (for redirects),

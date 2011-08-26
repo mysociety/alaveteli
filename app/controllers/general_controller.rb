@@ -82,23 +82,34 @@ class GeneralController < ApplicationController
 
     # Just does a redirect from ?query= search to /query
     def search_redirect
-        @query = alter_query_from_params
+        if params[:advanced].nil?
+            @query, _ = make_query_from_params
+        else
+            @query, _ = params[:query]
+        end
         @sortby = params[:sortby]
-        @bodies = params[:bodies]
-        [:latest_status, :request_variety, :request_date_after, :request_date_before, :query].each do |x| 
+        path = request.path.split("/")
+        if path.size > 0 && (['newest', 'described', 'relevant'].include?(path[-1]))
+            @sort_postfix = path.pop
+        end
+        if path.size > 0 && (['bodies', 'requests', 'users', 'all'].include?(path[-1]))
+            @variety_postfix = path.pop
+        end
+        @variety_postfix = params[:bodies] if @variety_postfix.nil? && !params[:bodies].nil?
+        @variety_postfix = "all" if @variety_postfix.nil?
+        if @variety_postfix != "users"
+            @common_query = get_tags_from_params
+        end
+        [:latest_status, :request_variety, :request_date_after, :request_date_before, :query, :tags].each do |x| 
             session[x] = params[x]
         end
         if @query.nil? || @query.empty?
             @query = nil
             @page = 1
+            @advanced = !params[:advanced].nil?
             render :action => "search"
         else
-            if (@bodies == '1') && (@sortby.nil? || @sortby.empty?)
-                @postfix = 'bodies'
-            else
-                @postfix = @sortby
-            end
-            redirect_to search_url(@query, @postfix)
+            redirect_to search_url(@query, @variety_postfix, @sort_postfix, params[:advanced])
         end
     end
 
@@ -106,26 +117,49 @@ class GeneralController < ApplicationController
     def search
         # XXX Why is this so complicated with arrays and stuff? Look at the route
         # in config/routes.rb for comments.
-        [:latest_status, :request_variety, :request_date_after, :request_date_before, :query].each do |x|
+        if !params[:commit].nil?
+            search_redirect
+            return
+        end
+        [:latest_status, :request_variety, :request_date_after, :request_date_before, :query, :tags].each do |x|
             params[x] = session[x]
         end
         combined = params[:combined]
         @sortby = nil
-        @bodies = false # searching from front page, largely for a public authority
+        @bodies = @requests = @users = true
+        if combined.size > 0 && (['advanced'].include?(combined[-1]))
+            combined.pop
+            @advanced = true
+        else
+            @advanced = false
+        end
         # XXX currently /described isn't linked to anywhere, just used in RSS and for /list/successful
         # This is because it's confusingly different from /newest - but still useful for power users.
-        if combined.size > 1 && (['newest', 'described', 'bodies', 'relevant'].include?(combined[-1]))
-            @postfix = combined[-1]
-            combined = combined[0..-2]
-            if @postfix == 'bodies'
+        if combined.size > 0 && (['newest', 'described', 'relevant'].include?(combined[-1]))
+            @sort_postfix = combined.pop
+            @sortby = @sort_postfix
+        end
+
+        if combined.size > 0 && (['bodies', 'requests', 'users', 'all'].include?(combined[-1]))
+            @variety_postfix = combined.pop
+            case @variety_postfix
+            when 'bodies'
                 @bodies = true
-            else
-                @sortby = @postfix
+                @requests = false
+                @users = false
+            when 'requests'
+                @bodies = false
+                @requests = true
+                @users = false
+            when 'users'
+                @bodies = false
+                @requests = false
+                @users = true
             end
         end
         @query = combined.join("/")
-
         @inputted_sortby = @sortby
+        @common_query = get_tags_from_params
         if @sortby.nil?
             # Parse query, so can work out if it has prefix terms only - if so then it is a
             # structured query which should show newest first, rather than a free text search
@@ -151,21 +185,41 @@ class GeneralController < ApplicationController
         if params[:requests_per_page]
             requests_per_page = params[:requests_per_page].to_i
         end
-        @xapian_requests = perform_search([InfoRequestEvent], @query, @sortby, 'request_collapse', requests_per_page)
-        @requests_per_page = @per_page
-        @xapian_bodies = perform_search([PublicBody], @query, @sortby, nil, 5)
-        @bodies_per_page = @per_page
-        @xapian_users = perform_search([User], @query, @sortby, nil, 5)
-        @users_per_page = @per_page
-
-        @this_page_hits = @xapian_requests.results.size + @xapian_bodies.results.size + @xapian_users.results.size
-        @total_hits = @xapian_requests.matches_estimated + @xapian_bodies.matches_estimated + @xapian_users.matches_estimated
+        @this_page_hits = @total_hits = @xapian_requests_hits = @xapian_bodies_hits = @xapian_users_hits = 0
+        if @requests
+            @xapian_requests = perform_search([InfoRequestEvent], @query, @sortby, 'request_collapse', requests_per_page)
+            @requests_per_page = @per_page
+            @this_page_hits += @xapian_requests.results.size
+            @xapian_requests_hits = @xapian_requests.results.size
+            @xapian_requests_total_hits = @xapian_requests.matches_estimated
+            @total_hits += @xapian_requests.matches_estimated
+        end
+        if @bodies
+            @xapian_bodies = perform_search([PublicBody], @query, @sortby, nil, 5)
+            @bodies_per_page = @per_page
+            @this_page_hits += @xapian_bodies.results.size
+            @xapian_bodies_hits = @xapian_bodies.results.size
+            @xapian_bodies_total_hits = @xapian_bodies.matches_estimated
+            @total_hits += @xapian_bodies.matches_estimated
+        end
+        if @users
+            @xapian_users = perform_search([User], @query, @sortby, nil, 5)
+            @users_per_page = @per_page
+            @this_page_hits += @xapian_users.results.size
+            @xapian_users_hits = @xapian_users.results.size
+            @xapian_users_total_hits = @xapian_users.matches_estimated
+            @total_hits += @xapian_users.matches_estimated
+        end
 
         # Spelling and highight words are same for all three queries
-        @spelling_correction = @xapian_requests.spelling_correction
-        @highlight_words = @xapian_requests.words_to_highlight
+        if !@xapian_requests.nil?
+            @highlight_words = @xapian_requests.words_to_highlight
+            if !(@xapian_requests.spelling_correction =~ /[a-z]+:/)
+                @spelling_correction = @xapian_requests.spelling_correction
+            end
+        end
 
-        @track_thing = TrackThing.create_track_for_search_query(@query)
+        @track_thing = TrackThing.create_track_for_search_query(@query, @variety_postfix)
         @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss], :has_json => true } ]
     end
 

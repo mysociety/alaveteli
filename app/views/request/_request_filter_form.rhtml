@@ -31,6 +31,7 @@
   <%= label_tag(:query, _("Search for:")) %>
   <%= text_field_tag(:query, params[:query]) %> 
  </div>
+<% if false # don't think we want this, but leaving as an example %>
  <div class="list-filter-item">
   <%= _("Search for words in:") %> <br/>
   <% [["sent", _("messages from users")], 
@@ -42,6 +43,7 @@
    <%= label_tag("request_variety_#{index}", title) %> <br/>
   <% end %>
  </div>
+<% end %>
  <div class="list-filter-item">
    Search between dates:
    <%= text_field_tag(:request_date_after, params[:request_date_after], {:class => "use-datepicker", :size => 10}) %> -
