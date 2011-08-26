@@ -1,0 +1,18 @@
+form input[type=submit], a.link_button_green {
+  border: solid 0px #FFF;
+  line-height: 16px;
+  padding-top: 3px
+}
+
+input#navigation_search_query {
+  margin-bottom: -5px;
+}
+
+.request_left span.head {
+  line-height: 35px;
+}
+
+#header_left,
+#left_column {
+  margin-top: 20px;
+}

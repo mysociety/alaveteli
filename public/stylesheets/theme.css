@@ -379,7 +379,7 @@ p.subtitle {
 }
 
 #header_left {
-  width:645px;
+  width:625px;
   float:left;
 }
 
@@ -428,25 +428,15 @@ p.subtitle {
   border-width:0px;
 }
 
-h2.person_results {
-  padding-top:0px;
-  border-bottom:1px solid #B3B3B3;
-  padding-bottom:15px;
-  margin-bottom:0px;
-}
-
-h2.foi_results {
-  padding-top:0px;
-  border-bottom:1px solid #B3B3B3;
-  padding-bottom:15px;
-  margin-bottom:0px;
-}
-
+h2.foi_results,
+h2.person_results,
 h2.publicbody_results {
   padding-top:0px;
   border-bottom:1px solid #B3B3B3;
   padding-bottom:15px;
   margin-bottom:0px;
+  padding-top: 15px;
+  margin-top: 0px;
 }
 
 .list_toggle_controls {
