@@ -10,7 +10,7 @@
 <% @include_request_link_in_authority_listing = true %>
 
 <h1><%=@title%></h1>
-<script>
+<script type="text/javascript">
   $(function() {
      $(".use-datepicker").datepicker({dateFormat: 'yy-mm-dd'});
   });
@@ -28,9 +28,9 @@
 
 <% else %>
 
+<% form_tag(request.url, :method => "get") do %>
 <div id="list-filter">
  <div id="simple-search-box">
-  <% form_tag(request.url, :method => "get") do %>
   <%= label_tag(:query, _("Search for:")) %>
   <%= text_field_tag(:query, params[:query], { :size => 40 }) %>
   <%= submit_tag("Search") %>
@@ -109,9 +109,9 @@
 </div>
 <% end %>
    <%= submit_tag("Filter") %>
-<% end %>
  </fieldset>
 </div>
+<% end %>
 
 
 <p><%= link_to(_("Advanced search"), advanced_search_url) %></p>

@@ -1,4 +1,4 @@
-<script>
+<script type="text/javascript">
   $(function() {
      $(".use-datepicker").datepicker();
   });
@@ -14,10 +14,12 @@
                        ["awaiting", _("unresolved requests")]] %>
     <li>
     <% if params[:view] != status %>
-      <% if params[:controller] == "public_body" %>
-        <%= link_to label, url_for(:controller => "public_body", :action => "show", :view => status, :url_name => @public_body.url_name) + "?#{request.query_string}"  %> 
+      <% if params[:controller] == "public_body"
+
+ %>
+        <%= link_to label, url_for(:controller => "public_body", :action => "show", :view => status, :url_name => @public_body.url_name) + "?" + request.query_string  %> 
       <% else %>
-        <%= link_to label, url_for(:controller => "request", :action => "list", :view => status) + "?#{request.query_string}"  %> 
+        <%= link_to label, url_for(:controller => "request", :action => "list", :view => status) + "?" + request.query_string %> 
       <% end %>
     <% else %>
       <%= label %>
@@ -26,8 +28,8 @@
     <% end %>
    </ul>
  </div>
+  <% form_tag(request.path, :method => "get") do %>
  <div class="list-filter-item">
-  <% form_tag({}, :method => "get") do %>
   <%= label_tag(:query, _("Search for:")) %>
   <%= text_field_tag(:query, params[:query]) %> 
  </div>

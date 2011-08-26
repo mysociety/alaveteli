@@ -383,7 +383,7 @@ class ApplicationController < ActionController::Base
                 params[:latest_status] = [params[:latest_status]]
             end
             if params[:latest_status].include?("recent") ||  params[:latest_status].include?("all")
-                query += " (variety:sent)"
+                query += " variety:sent"
             end
             if params[:latest_status].include? "successful"
                 statuses << ['latest_status:successful', 'latest_status:partially_successful']
