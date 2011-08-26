@@ -105,9 +105,19 @@ class TrackThing < ActiveRecord::Base
         return track_thing
     end
 
-    def TrackThing.create_track_for_search_query(query)
+    def TrackThing.create_track_for_search_query(query, variety_postfix = nil)
         track_thing = TrackThing.new
         track_thing.track_type = 'search_query'
+        if !(query =~ /variety:/)
+            case variety_postfix
+            when "requests"
+                query += " variety:sent"
+            when "users"
+                query += " variety:user"
+            when "authorities"
+                query += " variety:authority"                
+            end
+        end            
         track_thing.track_query = query
         return track_thing
     end

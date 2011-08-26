@@ -129,10 +129,10 @@ class RequestController < ApplicationController
     def list
         medium_cache
         @view = params[:view]
-        params[:request_status] = "recent" if params[:query].nil? && params[:request_status].nil? 
-        query, sortby = alter_query_from_params
+        params[:latest_status] = @view
+        query = make_query_from_params
         @title = "View and search requests"
-        
+        sortby = "newest"
         @page = get_search_page_from_params if !@page # used in cache case, as perform_search sets @page as side effect
         behavior_cache :tag => [@view, @page] do
             xapian_object = perform_search([InfoRequestEvent], query, sortby, 'request_collapse')

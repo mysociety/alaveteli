@@ -1240,18 +1240,12 @@ div#user_locale_switcher {
  margin: 5px;
 }
 
-div#list-filter {
- clear: both;
- height: 7em;
+
+div#common-subfilters {
+ float: left;
+ width: 300px;
 }
 
-div.list-filter-item {
- float:left;
- width: 200px;
-}
-
-div.list-search-item {
- clear:both
- width: auto;
- margin-bottom: 20px;
+div#requests-subfilters {
+ margin-left: 300px;
 }

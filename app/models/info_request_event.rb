@@ -134,11 +134,19 @@ class InfoRequestEvent < ActiveRecord::Base
     end
 
     def latest_variety
-        self.info_request.get_last_event.variety
+        for event in self.info_request.info_request_events.reverse
+            if !event.variety.nil? and !event.variety.empty?
+                return event.variety
+            end
+        end
     end
 
     def latest_status
-        self.info_request.get_last_event.calculated_state
+        for event in self.info_request.info_request_events.reverse
+            if !event.calculated_state.nil? and !event.calculated_state.empty?
+                return event.calculated_state
+            end
+        end
     end
 
     def waiting_classification

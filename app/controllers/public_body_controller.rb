@@ -38,13 +38,14 @@ class PublicBodyController < ApplicationController
             if !referrer.nil? && referrer.match(%r{^#{top_url}search/.*/bodies$})
                 @searched_to_send_request = true
             end
-            query, sortby = alter_query_from_params
-            if !query.empty?
-                query = "(#{query})"
-            end
-            query += "requested_from:#{@public_body.url_name}"
+            @view = params[:view]
+            params[:latest_status] = @view
+
+            query = make_query_from_params
+            query += " requested_from:#{@public_body.url_name}"
             # Use search query for this so can collapse and paginate easily
             # XXX really should just use SQL query here rather than Xapian.
+            sortby = "described"
             begin
                 @xapian_requests = perform_search([InfoRequestEvent], query, sortby, 'request_collapse')
                 if (@page > 1)
@@ -86,12 +87,7 @@ class PublicBodyController < ApplicationController
     def list
         long_cache
         # XXX move some of these tag SQL queries into has_tag_string.rb
-        if params[:commit] != _('Show all')
-            @query = "%#{params[:public_body_query].nil? ? "" : params[:public_body_query]}%"
-        else
-            redirect_to list_public_bodies_url(:tag => "all")
-            return
-        end
+        @query = "%#{params[:public_body_query].nil? ? "" : params[:public_body_query]}%"
         @tag = params[:tag]
         @locale = self.locale_from_params()
         locale_condition = "upper(public_body_translations.name) LIKE upper(?) AND public_body_translations.locale = ?"
