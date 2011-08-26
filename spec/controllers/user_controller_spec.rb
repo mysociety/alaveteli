@@ -179,7 +179,9 @@ describe UserController, "when signing up" do
 
         deliveries = ActionMailer::Base.deliveries
         deliveries.size.should  == 1
-        deliveries[0].body.should include("when you already have an")
+        
+        # This text may span a line break, depending on the length of the SITE_NAME
+        deliveries[0].body.should match(/when\s+you\s+already\s+have\s+an/)
     end
 
     # XXX need to do bob@localhost signup and check that sends different email
