@@ -1,7 +1,3 @@
-# £2k p/a
-# talk about margins
-# 
-
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 require 'json'
@@ -30,7 +26,7 @@ describe RequestController, "when listing recent requests" do
                    :matches_estimated => 103)
 
         InfoRequest.should_receive(:full_search).
-          with([InfoRequestEvent],"variety:sent", "created_at", anything, anything, anything, anything).
+          with([InfoRequestEvent]," variety:sent", "created_at", anything, anything, anything, anything).
           and_return(xap_results)
         get :list, :view => 'recent'
         assigns[:list_results].size.should == 25
