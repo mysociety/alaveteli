@@ -50,7 +50,7 @@ body {
 }
 
 #banner {
-  background: url(/images/stripes.png);
+  background: url(../images/stripes.png);
   border: none;
   height:160px;
 }
@@ -143,7 +143,7 @@ div.lang {
 }
 
 #stepwise_make_request {
-  background: url(/images/stripes.png);
+  background: url(../images/stripes.png);
   border: 1px solid #DEBEDD;
   border-radius:5px;
   -moz-border-radius:5px;
@@ -246,15 +246,15 @@ p.subtitle {
 }
 
 .icon_waiting_response_very_overdue {
-  background: url(/images/button-overdue.png);
+  background: url(../images/button-overdue.png);
 }
 
 .icon_complete {
-  background: url(/images/button-complete.png);
+  background: url(../images/button-complete.png);
 }
 
 .icon_waiting_classification {
-  background: url(/images/button-awaiting-classification.png);
+  background: url(../images/button-awaiting-classification.png);
 }
 
 #request_sidebar {
@@ -282,7 +282,7 @@ p.subtitle {
 }
 
 .request_listing span.desc {
-  background: url(/images/quote-marks.png) no-repeat;
+  background: url(../images/quote-marks.png) no-repeat;
   padding: 0px 0px 0px 40px;
   min-height:60px;
   font-size:12px;
@@ -341,7 +341,7 @@ p.subtitle {
 }
 
 h2.person_results {
-  background:url(/images/icon-person.png) no-repeat;
+  background:url(../images/icon-person.png) no-repeat;
   padding-left:20px;
   min-height:26px;
   padding-top:5px;
@@ -351,7 +351,7 @@ h2.person_results {
 }
 
 h2.foi_results {
-  background:url(/images/icon-foi.png) no-repeat 0px 3px;
+  background:url(../images/icon-foi.png) no-repeat 0px 3px;
   padding-left:25px;
   padding-top:0px;
   border-bottom:1px solid #DDD;
@@ -360,7 +360,7 @@ h2.foi_results {
 }
 
 h2.publicbody_results {
-  background:url(/images/icon-publicbody.png) no-repeat 0px 3px;
+  background:url(../images/icon-publicbody.png) no-repeat 0px 3px;
   padding-left:30px;
   min-height:26px;
   padding-top:5px;
@@ -437,7 +437,7 @@ ul.no_bullets li {
 
 
 div.frontpage-box {
-  background: url(/images/stripes.png);
+  background: url(../images/stripes.png);
   border: 1px solid #DEBEDD;
   border-radius:5px;
   -moz-border-radius:5px;
@@ -465,14 +465,14 @@ div.frontpage-box {
   padding: 0;
   margin: 0;
   height: 210px;
-  background: url(/images/bighand.png) no-repeat scroll 0 bottom transparent;
+  background: url(../images/bighand.png) no-repeat scroll 0 bottom transparent;
 }
 
 #littlehand {
   padding: 0;
   margin: 0;
   height: 210px;
-  background: url(/images/littlehand.png) repeat-x scroll 10px bottom transparent;
+  background: url(../images/littlehand.png) repeat-x scroll 10px bottom transparent;
 }
 
 #frontpage-box-3 {
@@ -494,7 +494,7 @@ div.frontpage-box {
 #frontpage_examples .excerpt {
   cursor: hand;
   cursor: pointer;
-  background: url(/images/quote-marks.png) no-repeat;
+  background: url(../images/quote-marks.png) no-repeat;
   padding: 0px 0px 0px 40px;
   font-size:12px;
   color:#444;
@@ -504,5 +504,5 @@ div.frontpage-box {
 }
 
 #set_photo {
-    background: url(/images/defaultprofilepic.png)
+    background: url(../images/defaultprofilepic.png)
 }

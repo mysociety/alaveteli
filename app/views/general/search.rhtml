@@ -2,6 +2,16 @@
 
 <% @include_request_link_in_authority_listing = true %>
 
+<%= render :partial => 'localised_datepicker'  %>
+
+<% if @query.nil? %>
+    <% @title = _("Search Freedom of Information requests, public authorities and users") %>
+<% elsif @total_hits == 0 %>
+    <% @title = _('There were no requests matching your query.') %>
+<% else %>
+    <% @title = _("Results page {{page_number}}", :page_number => @page.to_s) %>
+<% end%>
+
 <div id="header_left">
   <% if @query.nil? %>
     <h1>Search</h1>
@@ -9,19 +19,108 @@
      <h1>Search results</h1> 
   <% end%>
 
-  <% form_tag({:action => "search_redirect"}, {:id => "search_form"}) do %>
-     <p>
-         <%= text_field_tag 'query', @query, { :size => 40 } %>
+  <% if @advanced %>
+    <p><%= _('To use the advanced search, combine phrases and labels as described in the search tips below.') %></p>
+    <% form_tag(advanced_search_url, :method => "get") do %>
+       <p>
+         <%= text_field_tag :query, params[:query], { :size => 40 } %>
          <%= hidden_field_tag 'sortby', @inputted_sortby %>
          <% if @bodies %>
              <%= hidden_field_tag 'bodies', 1 %>
          <% end %>
          <%= image_submit_tag 'button-search.png', :title=>"Search" %>
-         <% if not @show_tips %>
-             &nbsp;&nbsp;<%= link_to _('Advanced search tips'), search_redirect_path %>
+             &nbsp;&nbsp;<%= link_to _('Simple search'), search_redirect_path %>
+       </p>
+    <% end %>
+  <% else %>
+    <% form_tag(request.url, {:method => "get", :id => "search_form"}) do %>
+     <p>
+         <%= text_field_tag 'query', params[:query], { :size => 40 } %>
+         <%= hidden_field_tag 'sortby', @inputted_sortby %>
+         <% if @bodies %>
+             <%= hidden_field_tag 'bodies', 1 %>
          <% end %>
+         <%= image_submit_tag 'button-search.png', :title=>"Search" %>
      </p>
+<fieldset>
+  <legend>
+	<%= _("Filters:") %>
+  </legend>
+<div id="common-subfilters">
+  <div id="variety-filter">
+   <ul>
+     <% for variety, label in [
+	["all", _("everything")],
+	["requests", _("requests")],
+        ["users", _("users")],
+        ["bodies", _("authorities")]]%>
+     <li>
+       <% if @variety_postfix != variety %>
+        <% if variety != "users" %>
+         <%=  link_to label, search_url([params[:query], @common_query], variety, @sort_postfix), :method => :get  %>
+	<% else %>
+         <%=  link_to label, search_url(params[:query], variety, @sort_postfix), :method => :get  %>
+	<% end %>
+       <% else %>
+         <%= label %>
+       <% end %>
+     </li>
+     <% end %>
+    </ul>
+ </div>
+
+<% if false %>
+<%-# Commented out for now as tags are of limited use when users can't see them.  This will change in the future! -%>
+<% if @variety_postfix != "users" %>
+ <div>
+   <%= label_tag(:query, _("Tags (separated by a space):")) %><%= text_field_tag(:tags, params[:tags], { :size => 20 }) %>
+   <% for tag in InfoRequest.get_tags %>
+     <%= tag.name_and_value %>
+   <% end %>
+ </div>
+<% end %>
+<% end %>
+</div>
+
+<% if @variety_postfix == "requests" %>
+<div id="requests-subfilters">
+ <div>
+   <%= _("Only show:") %> <br />
+     <% [["successful", _("successful requests")],
+        ["unsuccessful", _("unsuccessful requests")],
+        ["awaiting", _("unresolved requests")],
+        ["internal_review", _("internal reviews")]].each_with_index do |item, index|
+
+	status, title = item %>
+      <%= check_box_tag "latest_status[]", status, params[:latest_status].nil? ? false : params[:latest_status].include?(status), :id => "latest_status_#{index}" %>
+      <%= label_tag("latest_status_#{index}", title) %> <br/>
+    <% end %>
+ </div>
+ <div>
+  <%= _("Search for words in:") %> <br/>
+  <% [["sent", _("messages from users")], 
+     ["response", _("messages from authorities")],
+     ["comment", _("comments")]].each_with_index do |item, index|
+     variety, title = item %>
+  
+   <%= check_box_tag "request_variety[]", variety, params[:request_variety].nil? ? true : params[:request_variety].include?(variety), :id => "request_variety_#{index}" %>
+   <%= label_tag("request_variety_#{index}", title) %> <br/>
   <% end %>
+ </div>
+ <div>
+   Search between dates:
+   <%= text_field_tag(:request_date_after, params[:request_date_after], {:class => "use-datepicker", :size => 10}) %> -
+   <%= text_field_tag(:request_date_before, params[:request_date_before], {:class => "use-datepicker", :size => 10}) %>
+ </div>
+</div>
+<% end %>
+   <%= submit_tag("Filter") %>
+ </fieldset>
+  <% end %>
+  <p><%= link_to(_("Advanced search"), advanced_search_url) %></p>
+<% end %>
+
+  
 
   <% if !@query.nil? %>
       <p id="search_controls">
@@ -35,7 +134,7 @@
   <% end %>
 </div>
 
-<% if @track_thing %>
+<% if @track_thing  && (@xapian_bodies_hits > 0 || @xapian_users_hits > 0 || @total_hits == 0)%>
   <div id="header_right">
     <h2>Track this search</h2>
     <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => false, :location => 'main' } %>
@@ -50,11 +149,11 @@
 
 <% if not @query.nil? %>
     <div class="results_section">
-      <% if @xapian_bodies.results.size > 0 %>
-          <% if @xapian_bodies.results.size == 1 && @page == 1 %>
+      <% if @xapian_bodies_hits > 0 %>
+          <% if @xapian_bodies_hits == 1 && @page == 1 %>
               <h2 class="publicbody_results"><%= _('One public authority found') %></h2>
           <% else %>
-              <h2 class="publicbody_results"><%= _('Public authorities {{start_count}} to {{end_count}} of {{total_count}} for {{user_search_query}}', :start_count => ((@page-1)*@bodies_per_page+1).to_s, :end_count => [@page*@bodies_per_page, @xapian_bodies.matches_estimated].min.to_s, :total_count => @xapian_bodies.matches_estimated.to_s, :user_search_query => h(@query)) %></h2>
+              <h2 class="publicbody_results"><%= _('Public authorities {{start_count}} to {{end_count}} of {{total_count}}', :start_count => ((@page-1)*@bodies_per_page+1).to_s, :end_count => [@page*@bodies_per_page, @xapian_bodies.matches_estimated].min.to_s, :total_count => @xapian_bodies.matches_estimated.to_s) %></h2>
           <% end %>
 
           <div class="results_block">
@@ -74,11 +173,11 @@
     </div>
 
     <div class="results_section">
-      <% if @xapian_users.results.size > 0 %>
-          <% if @xapian_users.results.size == 1 && @page == 1 %>
+      <% if @xapian_users_hits > 0 %>
+          <% if @xapian_users_hits == 1 && @page == 1 %>
               <h2 class="person_results"><%= _("One person found") %></h2>
           <% else %>
-              <h2 class="person_results"><%= _("People {{start_count}} to {{end_count}} of {{total_count}} for &#x2018;{{user_search_query}}&#x2019;", :start_count => ((@page-1)*@users_per_page+1).to_s, :end_count =>  [@page*@users_per_page, @xapian_users.matches_estimated].min.to_s, :total_count =>  @xapian_users.matches_estimated.to_s, :user_search_query => h(@query)) %></h2>
+              <h2 class="person_results"><%= _("People {{start_count}} to {{end_count}} of {{total_count}}", :start_count => ((@page-1)*@users_per_page+1).to_s, :end_count =>  [@page*@users_per_page, @xapian_users.matches_estimated].min.to_s, :total_count =>  @xapian_users.matches_estimated.to_s) %></h2>
           <% end %>
 
           <div class="results_block">
@@ -92,11 +191,11 @@
     </div>
 
     <div class="results_section">
-      <% if @xapian_requests.results.size > 0 %>
-          <% if @xapian_requests.results.size == 1 && @page == 1 %>
+      <% if @xapian_requests_hits > 0 %>
+          <% if @xapian_requests_hits == 1 && @page == 1 %>
               <h2 class="foi_results"><%= _("One FOI request found") %></h2>
           <% else %>
-              <h2 class="foi_results"><%= _("FOI requests  {{start_count}} to {{end_count}} of {{total_count}} for &#x2018;{{user_search_query}}&#x2019;", :start_count => ((@page-1)*@requests_per_page+1).to_s, :end_count => [@page*@requests_per_page, @xapian_requests.matches_estimated].min.to_s, :total_count =>  @xapian_requests.matches_estimated.to_s, :user_search_query => h(@query)) %></h2>
+              <h2 class="foi_results"><%= _("FOI requests  {{start_count}} to {{end_count}} of {{total_count}}", :start_count => ((@page-1)*@requests_per_page+1).to_s, :end_count => [@page*@requests_per_page, @xapian_requests.matches_estimated].min.to_s, :total_count =>  @xapian_requests.matches_estimated.to_s) %></h2>
           <% end %>
 
           <div class="results_block">
@@ -110,7 +209,10 @@
     </div>
 <% end %>
 
-<% if @show_tips %>
+<% if @advanced %>
+
+<div id="advanced-search-tips">
+    <a name="show-tips"></a>
     <h2><%= _("Advanced search tips")%></h2>
     <ul>
     <li><%= _("Enter words that you want to find separated by spaces, e.g. <strong>climbing lane</strong>") %></li>
@@ -132,28 +234,30 @@
 
     <h2 id="statuses"><%= _('Table of statuses') %></h2>
     <table class="status_table">
-        <tr><td><strong><%=search_link('status:waiting_response')%></strong></td><td><%= _('Waiting for the public authority to reply') %></td></tr>
-        <tr><td><strong><%=search_link('status:not_held')%></strong></td><td><%= _('The public authority does not have the information requested') %></td></tr>
-        <tr><td><strong><%=search_link('status:rejected')%></strong></td><td><%= _('The request was refused by the public authority') %></td></tr>
-        <tr><td><strong><%=search_link('status:partially_successful')%></strong></td><td><%= _('Some of the information requested has been received') %></td></tr>
-        <tr><td><strong><%=search_link('status:successful')%></strong></td><td><%= _('All of the information requested has been received') %></td></tr>
-        <tr><td><strong><%=search_link('status:waiting_clarification')%></strong></td><td><%= _('The public authority would like part of the request explained') %></td></tr>
-        <tr><td><strong><%=search_link('status:gone_postal')%></strong></td><td><%= _('The public authority would like to / has responded by post') %></td></tr>
-        <tr><td><strong><%=search_link('status:internal_review')%></strong></td><td><%= _('Waiting for the public authority to complete an internal review of their handling of the request') %></td></tr>
-        <tr><td><strong><%=search_link('status:error_message')%></strong></td><td><%= _('Received an error message, such as delivery failure.') %></td></tr>
-        <tr><td><strong><%=search_link('status:requires_admin')%></strong></td><td><%= _('A strange reponse, required attention by the {{site_name}} team', :site_name=>site_name) %></td></tr>
-        <tr><td><strong><%=search_link('status:user_withdrawn')%></strong></td><td><%= _('The requester has abandoned this request for some reason') %></td></tr>
+        <tr><td><strong><%=search_link('status:waiting_response', nil, nil, true)%></strong></td><td><%= _('Waiting for the public authority to reply') %></td></tr>
+        <tr><td><strong><%=search_link('status:not_held', nil, nil, true)%></strong></td><td><%= _('The public authority does not have the information requested') %></td></tr>
+        <tr><td><strong><%=search_link('status:rejected', nil, nil, true)%></strong></td><td><%= _('The request was refused by the public authority') %></td></tr>
+        <tr><td><strong><%=search_link('status:partially_successful', nil, nil, true)%></strong></td><td><%= _('Some of the information requested has been received') %></td></tr>
+        <tr><td><strong><%=search_link('status:successful', nil, nil, true)%></strong></td><td><%= _('All of the information requested has been received') %></td></tr>
+        <tr><td><strong><%=search_link('status:waiting_clarification', nil, nil, true)%></strong></td><td><%= _('The public authority would like part of the request explained') %></td></tr>
+        <tr><td><strong><%=search_link('status:gone_postal', nil, nil, true)%></strong></td><td><%= _('The public authority would like to / has responded by post') %></td></tr>
+        <tr><td><strong><%=search_link('status:internal_review', nil, nil, true)%></strong></td><td><%= _('Waiting for the public authority to complete an internal review of their handling of the request') %></td></tr>
+        <tr><td><strong><%=search_link('status:error_message', nil, nil, true)%></strong></td><td><%= _('Received an error message, such as delivery failure.') %></td></tr>
+        <tr><td><strong><%=search_link('status:requires_admin', nil, nil, true)%></strong></td><td><%= _('A strange reponse, required attention by the {{site_name}} team', :site_name=>site_name) %></td></tr>
+        <tr><td><strong><%=search_link('status:user_withdrawn', nil, nil, true)%></strong></td><td><%= _('The requester has abandoned this request for some reason') %></td></tr>
     </table>
 
     <h2 id="varieties"><%= _('Table of varieties') %></h2>
 
     <table class="status_table">
-        <tr><td><strong><%=search_link('variety:sent')%></strong></td><td><%= _('Original request sent') %></td></tr>
-        <tr><td><strong><%=search_link('variety:followup_sent')%></strong></td><td><%= _('Follow up message sent by requester') %></td></tr>
-        <tr><td><strong><%=search_link('variety:response')%></strong></td><td><%= _('Response from a public authority') %></td></tr>
-        <tr><td><strong><%=search_link('variety:comment')%></strong></td><td><%= _('Annotation added to request') %></td></tr>
-        <tr><td><strong><%=search_link('variety:authority')%></strong></td><td><%= _('A public authority') %></td></tr>
-        <tr><td><strong><%=search_link('variety:user')%></strong></td><td><%= _('A {{site_name}} user', :site_name=>site_name) %></td></tr>
+        <tr><td><strong><%=search_link('variety:sent', nil, nil, true)%></strong></td><td><%= _('Original request sent') %></td></tr>
+        <tr><td><strong><%=search_link('variety:followup_sent', nil, nil, true)%></strong></td><td><%= _('Follow up message sent by requester') %></td></tr>
+        <tr><td><strong><%=search_link('variety:response', nil, nil, true)%></strong></td><td><%= _('Response from a public authority') %></td></tr>
+        <tr><td><strong><%=search_link('variety:comment', nil, nil, true)%></strong></td><td><%= _('Annotation added to request') %></td></tr>
+        <tr><td><strong><%=search_link('variety:authority', nil, nil, true)%></strong></td><td><%= _('A public authority') %></td></tr>
+        <tr><td><strong><%=search_link('variety:user', nil, nil, true)%></strong></td><td><%= _('A {{site_name}} user', :site_name=>site_name) %></td></tr>
     </table>
+
+</div>
 
 <% end %>

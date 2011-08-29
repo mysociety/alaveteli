@@ -451,7 +451,7 @@ public
             self.log_event("response", params)
             self.save!
         end
-
+        self.info_request_events.each { |event| event.xapian_mark_needs_index } # for the "waiting_classification" index
         RequestMailer.deliver_new_response(self, incoming_message)
     end
 
@@ -564,6 +564,7 @@ public
     def calculate_event_states
         curr_state = nil
         for event in self.info_request_events.reverse
+            event.xapian_mark_needs_index  # we need to reindex all events in order to update their latest_* terms
             if curr_state.nil? 
                 if !event.described_state.nil?
                     curr_state = event.described_state

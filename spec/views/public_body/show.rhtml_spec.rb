@@ -1,7 +1,6 @@
 require File.dirname(__FILE__) + '/../../spec_helper'
 
 describe "when viewing a body" do
-
     before do
         @pb = mock_model(PublicBody, 
                          :name => 'Test Quango', 
@@ -28,6 +27,8 @@ describe "when viewing a body" do
         assigns[:xapian_requests] = @xap
         assigns[:page] = 1
         assigns[:per_page] = 10
+        # work round a bug in ActionController::TestRequest; allows request.query_string to work in the template
+        request.env["REQUEST_URI"] = ""
     end
 
     it "should be successful" do
@@ -51,7 +52,7 @@ describe "when viewing a body" do
     end
 
     it "should cope with no results" do
-        @xap.stub!(:results).and_return([])
+        @pb.stub!(:info_requests).and_return([])
         render "public_body/show"
         response.should have_tag("p", /Nobody has made any Freedom of Information requests/m)
     end

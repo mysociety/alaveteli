@@ -5,7 +5,8 @@ describe "when listing recent requests" do
     before do
         assigns[:page] = 1
         assigns[:per_page] = 10
-
+        # work round a bug in ActionController::TestRequest; allows request.query_string to work in the template
+        request.env["REQUEST_URI"] = ""
         # we're not testing the interlock plugin's cache
         template.stub!(:view_cache).and_yield
     end
@@ -32,9 +33,7 @@ describe "when listing recent requests" do
     it "should be successful" do
         assigns[:list_results] = [ make_mock_event, make_mock_event ]
         assigns[:matches_estimated] = 2
-
         render "request/list"
-
         response.should have_tag("div.request_listing")
         response.should_not have_tag("p", /No requests of this sort yet/m)
     end
@@ -42,7 +41,6 @@ describe "when listing recent requests" do
     it "should cope with no results" do
         assigns[:list_results] = [ ]
         assigns[:matches_estimated] = 0
-
         render "request/list"
         response.should have_tag("p", /No requests of this sort yet/m)
         response.should_not have_tag("div.request_listing")

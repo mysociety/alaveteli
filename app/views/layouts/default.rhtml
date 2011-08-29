@@ -17,10 +17,11 @@
         </title>
 
         <link rel="shortcut icon" href="/favicon.ico">
-
 	<%= stylesheet_link_tag 'main', :title => "Main", :rel => "stylesheet" %>
 	<%= stylesheet_link_tag 'fonts', :rel => "stylesheet" %>
 	<%= stylesheet_link_tag 'theme', :rel => "stylesheet" %>
+	<%= javascript_include_tag 'jquery.js', 'jquery-ui.min' %>
+	<%= stylesheet_link_tag 'admin-theme/jquery-ui-1.8.15.custom.css', :rel => 'stylesheet'%>
         <!--[if LT IE 7]> 
         <style type="text/css">@import url("/stylesheets/ie6.css");</style> 
         <![endif]-->
@@ -94,7 +95,7 @@
         <div id="topnav">
             <ul id="navigation">
                 <li class="<%= 'selected' if params[:controller] == 'general' %>"><%= link_to _("Make a request"), frontpage_url %></li>
-                <li class="<%= 'selected' if params[:controller] == 'request' %>"><%= link_to _("View requests"), request_list_successful_url %></li>
+                <li class="<%= 'selected' if params[:controller] == 'request' %>"><%= link_to _("View requests"), request_list_all_url %></li>
                 <li class="<%= 'selected' if params[:controller] == 'public_body' %>"><%= link_to _("View authorities"), list_public_bodies_default %></li>
                 <li class="<%= 'selected' if params[:controller] == 'blog' %>"><%= link_to _("Read blog"), blog_url %></li>
                 <li class="<%= 'selected' if params[:controller] == 'help' %>"><%= link_to _("Help"), help_about_url %></li>
