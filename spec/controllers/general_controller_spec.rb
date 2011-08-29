@@ -122,6 +122,34 @@ describe GeneralController, "when searching" do
 
     end
 
+    it "should filter results based on end of URL being 'all'" do
+        get :search, :combined => ['"bob"', "all"]
+        assigns[:xapian_requests].results.size.should == 2
+        assigns[:xapian_users].results.size.should == 1
+        assigns[:xapian_bodies].results.size.should == 0
+    end
+
+    it "should filter results based on end of URL being 'users'" do
+        get :search, :combined => ['"bob"', "users"]
+        assigns[:xapian_requests].should == nil
+        assigns[:xapian_users].results.size.should == 1
+        assigns[:xapian_bodies].should == nil
+    end
+
+    it "should filter results based on end of URL being 'requests'" do
+        get :search, :combined => ['"bob"', "requests"]
+        assigns[:xapian_requests].results.size.should == 2
+        assigns[:xapian_users].should == nil
+        assigns[:xapian_bodies].should == nil
+    end
+
+    it "should filter results based on end of URL being 'bodies'" do
+        get :search, :combined => ['"quango"', "bodies"]
+        assigns[:xapian_requests].should == nil
+        assigns[:xapian_users].should == nil
+        assigns[:xapian_bodies].results.size.should == 1        
+    end
+
     it "should show help when searching for nothing" do
         get :search_redirect, :query => nil
         response.should render_template('search')

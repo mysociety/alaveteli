@@ -134,6 +134,7 @@ class RequestController < ApplicationController
         @title = "View and search requests"
         sortby = "newest"
         @page = get_search_page_from_params if !@page # used in cache case, as perform_search sets @page as side effect
+
         behavior_cache :tag => [@view, @page] do
             xapian_object = perform_search([InfoRequestEvent], query, sortby, 'request_collapse')
             @list_results = xapian_object.results.map { |r| r[:model] }

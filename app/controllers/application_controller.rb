@@ -413,10 +413,10 @@ class ApplicationController < ActionController::Base
     def get_date_range_from_params
         query = ""
         if param_exists(:request_date_after) && !param_exists(:request_date_before)
-            params[:request_date_before] = Date.now.strftime("%d/%m/%Y")
+            params[:request_date_before] = Time.now.strftime("%d/%m/%Y")
             query += " #{params[:request_date_after]}..#{params[:request_date_before]}"
         elsif !param_exists(:request_date_after) && param_exists(:request_date_before)
-            params[:request_date_after] = "01/01/2008"
+            params[:request_date_after] = "01/01/2001"
         end
         if param_exists(:request_date_after)
             query = " #{params[:request_date_after]}..#{params[:request_date_before]}"

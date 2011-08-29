@@ -20,6 +20,22 @@ describe RequestController, "when listing recent requests" do
         response.should render_template('list')
     end
 
+    it "should filter requests" do
+        get :list, :view => 'all'
+        assigns[:list_results].size.should == 2
+        get :list, :view => 'successful'
+        assigns[:list_results].size.should == 0
+    end
+
+    it "should filter requests by date" do
+        get :list, :view => 'all', :request_date_before => '13/10/2007'
+        assigns[:list_results].size.should == 1
+        get :list, :view => 'all', :request_date_after => '13/10/2007'
+        assigns[:list_results].size.should == 1
+        get :list, :view => 'all', :request_date_after => '10/10/2007', :request_date_before => '01/01/2010'
+        assigns[:list_results].size.should == 2
+    end
+
     it "should assign the first page of results" do
         xap_results = mock_model(ActsAsXapian::Search, 
                    :results => (1..25).to_a.map { |m| { :model => m } },

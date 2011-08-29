@@ -78,6 +78,16 @@ describe PublicBodyController, "when listing bodies" do
         assigns[:description].should == "all"
     end
 
+    it "should support simple searching of bodies by title" do
+        get :list, :public_body_query => 'quango'
+        assigns[:public_bodies].should == [ public_bodies(:geraldine_public_body) ]
+    end
+
+    it "should support simple searching of bodies by notes" do
+        get :list, :public_body_query => 'Albatross'
+        assigns[:public_bodies].should == [ public_bodies(:humpadink_public_body) ]
+    end
+
     it "should list bodies in alphabetical order with different locale" do
         I18n.default_locale = :es
         get :list
