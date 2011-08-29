@@ -10,12 +10,8 @@
 <% @include_request_link_in_authority_listing = true %>
 
 <h1><%=@title%></h1>
-<script type="text/javascript">
-  $(function() {
-     $(".use-datepicker").datepicker({dateFormat: 'yy-mm-dd'});
-  });
-</script>
 
+<%= render :partial => 'localised_datepicker'  %>
 
 <% if @advanced %>
  <p><%= _('To use the advanced search, combine phrases and labels as described in the search tips below.') %></p>
