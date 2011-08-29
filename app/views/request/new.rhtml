@@ -28,11 +28,12 @@
                 <% end %>
                 <% if !@info_request.public_body.calculated_home_page.nil? %>
                     <br>
-                    &nbsp; &nbsp; &nbsp; &nbsp; <%= text_field_tag 'q', params[:q], { :size => 20 } %>
-                    <%= hidden_field_tag 'as_sitesearch', @info_request.public_body.calculated_home_page %>
-                    <%= submit_tag _("Search") %>
+                    <p>
+                      &nbsp; &nbsp; &nbsp; &nbsp; <%= text_field_tag 'q', params[:q], { :size => 20 } %>
+                      <%= hidden_field_tag 'as_sitesearch', @info_request.public_body.calculated_home_page %>
+                      <%= submit_tag _("Search") %>
+                    </p>
                <% end %>
-               <br>
                ... <%= _('to check that the info isn\'t already published.') %>
             </p>
         <% end %>

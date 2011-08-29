@@ -49,7 +49,7 @@
             <% else %>
     	        Make a new <strong>Freedom of Information</strong> request
             <% end %>
-            <%= _('<a href="{{url}}">{{image_tag}}</a>', :url=>new_request_to_body_url(:url_name => @public_body.url_name), :image_tag=>image_tag('start-button.png'))%>
+            <%= _('&nbsp;<a class="link_button_green" href="{{url}}">{{text}}</a>', :url=>new_request_to_body_url(:url_name => @public_body.url_name), :text=>_("Start"))%>
         <% elsif @public_body.has_notes? %>
             <%= @public_body.notes_as_html %>
         <% elsif @public_body.not_requestable_reason == 'not_apply' %>
