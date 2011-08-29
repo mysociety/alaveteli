@@ -37,7 +37,7 @@
 <h1>Public authorities</h1>
 <h2 class="publicbody_results"><%= _('Found {{count}} public bodies {{description}}', :count=>@public_bodies.size, :description=>@description) %></h2>
 
-<% form_tag(request.url, :method => "get") do %>
+<% form_tag(list_public_bodies_default_url, :method => "get") do %>
  <div>
   <%= label_tag(:public_body_query, _("Search:")) %>
   <%= text_field_tag(:public_body_query, params[:public_body_query]) %> 
