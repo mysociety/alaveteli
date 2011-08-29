@@ -119,6 +119,11 @@ class TrackThing < ActiveRecord::Base
             end
         end            
         track_thing.track_query = query
+        # XXX should extract requested_by:, request:, requested_from:
+        # and stick their values into the respective relations.
+        # Should also update "params" to make the list_description
+        # nicer and more generic.  It will need to do some clever
+        # parsing of the query to do this nicely
         return track_thing
     end
 
