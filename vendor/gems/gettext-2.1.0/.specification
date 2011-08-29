@@ -1,6 +1,12 @@
 --- !ruby/object:Gem::Specification 
 name: gettext
 version: !ruby/object:Gem::Version 
+  hash: 11
+  prerelease: 
+  segments: 
+  - 2
+  - 1
+  - 0
   version: 2.1.0
 platform: ruby
 authors: 
@@ -14,15 +20,21 @@ default_executable:
 dependencies: 
 - !ruby/object:Gem::Dependency 
   name: locale
-  type: :runtime
-  version_requirement: 
-  version_requirements: !ruby/object:Gem::Requirement 
+  prerelease: false
+  requirement: &id001 !ruby/object:Gem::Requirement 
+    none: false
     requirements: 
     - - ">="
       - !ruby/object:Gem::Version 
+        hash: 5
+        segments: 
+        - 2
+        - 0
+        - 5
         version: 2.0.5
-    version: 
-description: Ruby-GetText-Package is a GNU GetText-like program for Ruby. The catalog file(po-file) is same format with GNU GetText. So you can use GNU GetText tools for maintaining.
+  type: :runtime
+  version_requirements: *id001
+description: "        Ruby-GetText-Package is a GNU GetText-like program for Ruby.\n        The catalog file(po-file) is same format with GNU GetText.\n        So you can use GNU GetText tools for maintaining.\n"
 email: mutomasa at gmail.com
 executables: 
 - rmsgmerge
@@ -791,27 +803,35 @@ files:
 - samples/hello.rb
 has_rdoc: true
 homepage: http://gettext.rubyforge.org/
+licenses: []
+
 post_install_message: 
 rdoc_options: []
 
 require_paths: 
 - lib
 required_ruby_version: !ruby/object:Gem::Requirement 
+  none: false
   requirements: 
   - - ">="
     - !ruby/object:Gem::Version 
+      hash: 3
+      segments: 
+      - 0
       version: "0"
-  version: 
 required_rubygems_version: !ruby/object:Gem::Requirement 
+  none: false
   requirements: 
   - - ">="
     - !ruby/object:Gem::Version 
+      hash: 3
+      segments: 
+      - 0
       version: "0"
-  version: 
 requirements: []
 
 rubyforge_project: gettext
-rubygems_version: 1.2.0
+rubygems_version: 1.4.2
 signing_key: 
 specification_version: 3
 summary: Ruby-GetText-Package is a libary and tools to localize messages.
