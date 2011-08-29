@@ -1,18 +1,8 @@
-<div id="list_sidebar">
-<h1><%= _('Show only...')%></h1>
-<ul>
-<% for view, description, target in [ 
-    ['successful', _('Successful responses'), request_list_successful_url(:view => 'successful')],
-    ['recent', _('Recently sent requests'), request_list_recent_url(:view => 'recent')]
-] %>
-<li>  
-    <%= link_to_unless (@view == view), description, target %> 
-</li>
-<% end %>
-</ul>
-</div>
+
 
 <h1><%=@title%></h1>
+
+<%= render :partial => 'request/request_filter_form' %>
 
 <% if @track_thing %>
     <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => false, :location => 'main' } %>

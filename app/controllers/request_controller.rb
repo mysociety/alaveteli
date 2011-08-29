@@ -129,27 +129,12 @@ class RequestController < ApplicationController
     def list
         medium_cache
         @view = params[:view]
-
-        if @view.nil?
-            redirect_to request_list_url(:view => 'successful')
-            return
-        end
-
-        if @view == 'recent'
-            @title = _("Recently sent Freedom of Information requests")
-            query = "variety:sent";
-            sortby = "newest"
-            @track_thing = TrackThing.create_track_for_all_new_requests
-        elsif @view == 'successful'
-            @title = _("Recently successful responses")
-            query = 'variety:response (status:successful OR status:partially_successful)'
-            sortby = "described"
-            @track_thing = TrackThing.create_track_for_all_successful_requests
-        else
-            raise "unknown request list view " + @view.to_s
-        end
-        
+        params[:latest_status] = @view
+        query = make_query_from_params
+        @title = "View and search requests"
+        sortby = "newest"
         @page = get_search_page_from_params if !@page # used in cache case, as perform_search sets @page as side effect
+
         behavior_cache :tag => [@view, @page] do
             xapian_object = perform_search([InfoRequestEvent], query, sortby, 'request_collapse')
             @list_results = xapian_object.results.map { |r| r[:model] }
@@ -158,7 +143,8 @@ class RequestController < ApplicationController
         
         @title = @title + " (page " + @page.to_s + ")" if (@page > 1)
 
-        @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss], :has_json => true } ]
+        # XXX need to reinstate the following; @track_thing had previously been set to "TrackThing.create_track_for_all_new_requests" and "TrackThing.create_track_for_all_successful_requests"
+        # @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss], :has_json => true } ]
 
         # Don't let robots go more than 20 pages in
         if @page > 20

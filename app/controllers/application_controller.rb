@@ -349,6 +349,104 @@ class ApplicationController < ActionController::Base
         session[:last_body_id] = public_body.id
     end
 
+    def param_exists(item)
+        return params[item] && !params[item].empty?
+    end    
+    
+    def get_request_variety_from_params
+        query = ""
+        sortby = "newest"
+        varieties = []
+        if params[:request_variety] && !(query =~ /variety:/)
+            if params[:request_variety].include? "sent"
+                varieties -= ['variety:sent', 'variety:followup_sent', 'variety:response', 'variety:comment']
+                varieties << ['variety:sent', 'variety:followup_sent']
+            end
+            if params[:request_variety].include? "response"
+                varieties << ['variety:response']
+            end
+            if params[:request_variety].include? "comment"
+                varieties << ['variety:comment']
+            end
+        end
+        if !varieties.empty?
+            query = " (#{varieties.join(' OR ')})"
+        end
+        return query
+    end
+
+    def get_status_from_params
+        query = ""
+        if params[:latest_status] 
+            statuses = []
+            if params[:latest_status].class == String
+                params[:latest_status] = [params[:latest_status]]
+            end
+            if params[:latest_status].include?("recent") ||  params[:latest_status].include?("all")
+                query += " variety:sent"
+            end
+            if params[:latest_status].include? "successful"
+                statuses << ['latest_status:successful', 'latest_status:partially_successful']
+            end
+            if params[:latest_status].include? "unsuccessful"
+                statuses << ['latest_status:rejected', 'latest_status:not_held']
+            end
+            if params[:latest_status].include? "awaiting"
+                statuses << ['latest_status:waiting_response', 'latest_status:waiting_clarification', 'waiting_classification:true']
+            end
+            if params[:latest_status].include? "internal_review"
+                statuses << ['status:internal_review']
+            end
+            if params[:latest_status].include? "other"
+                statuses << ['latest_status:gone_postal', 'latest_status:error_message', 'latest_status:requires_admin', 'latest_status:user_withdrawn']
+            end
+            if params[:latest_status].include? "gone_postal"
+                statuses << ['latest_status:gone_postal']
+            end
+            if !statuses.empty?
+                query = " (#{statuses.join(' OR ')})"
+            end
+        end
+        return query
+    end
+
+    def get_date_range_from_params
+        query = ""
+        if param_exists(:request_date_after) && !param_exists(:request_date_before)
+            params[:request_date_before] = Time.now.strftime("%d/%m/%Y")
+            query += " #{params[:request_date_after]}..#{params[:request_date_before]}"
+        elsif !param_exists(:request_date_after) && param_exists(:request_date_before)
+            params[:request_date_after] = "01/01/2001"
+        end
+        if param_exists(:request_date_after)
+            query = " #{params[:request_date_after]}..#{params[:request_date_before]}"
+        end
+        return query
+    end
+
+    def get_tags_from_params
+        query = ""
+        tags = []
+        if param_exists(:tags)
+            params[:tags].split().each do |tag| 
+                tags << "tag:#{tag}"
+            end
+        end
+        if !tags.empty?
+            query = " (#{tags.join(' OR ')})"
+        end
+        return query
+    end
+    
+    def make_query_from_params
+        query = params[:query] || "" if query.nil?
+        query += get_date_range_from_params
+        query += get_request_variety_from_params
+        query += get_status_from_params
+        query += get_tags_from_params
+        return query
+    end
+
     # URL generating functions are needed by all controllers (for redirects),
     # views (for links) and mailers (for use in emails), so include them into
     # all of all.

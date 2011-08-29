@@ -16,7 +16,6 @@ class PublicBodyController < ApplicationController
             redirect_to :url_name =>  MySociety::Format.simplify_url_part(params[:url_name], 'body'), :status => :moved_permanently 
             return
         end
-
         @locale = self.locale_from_params()
         PublicBody.with_locale(@locale) do 
             @public_body = PublicBody.find_by_url_name_with_historic(params[:url_name])
@@ -39,11 +38,16 @@ class PublicBodyController < ApplicationController
             if !referrer.nil? && referrer.match(%r{^#{top_url}search/.*/bodies$})
                 @searched_to_send_request = true
             end
+            @view = params[:view]
+            params[:latest_status] = @view
 
+            query = make_query_from_params
+            query += " requested_from:#{@public_body.url_name}"
             # Use search query for this so can collapse and paginate easily
             # XXX really should just use SQL query here rather than Xapian.
+            sortby = "described"
             begin
-                @xapian_requests = perform_search([InfoRequestEvent], 'requested_from:' + @public_body.url_name, 'newest', 'request_collapse')
+                @xapian_requests = perform_search([InfoRequestEvent], query, sortby, 'request_collapse')
                 if (@page > 1)
                     @page_desc = " (page " + @page.to_s + ")" 
                 else    
@@ -83,29 +87,30 @@ class PublicBodyController < ApplicationController
     def list
         long_cache
         # XXX move some of these tag SQL queries into has_tag_string.rb
+        @query = "%#{params[:public_body_query].nil? ? "" : params[:public_body_query]}%"
         @tag = params[:tag]
         @locale = self.locale_from_params()
-        locale_condition = 'public_body_translations.locale = ?'
-        if @tag.nil?
+        locale_condition = "(upper(public_body_translations.name) LIKE upper(?) OR upper(public_body_translations.notes) LIKE upper (?)) AND public_body_translations.locale = ?"
+        if @tag.nil? or @tag == "all"
             @tag = "all"
-            conditions = [locale_condition, @locale]
+            conditions = [locale_condition, @query, @query, @locale]
         elsif @tag == 'other'
             category_list = PublicBodyCategories::CATEGORIES.map{|c| "'"+c+"'"}.join(",")
             conditions = [locale_condition + ' AND (select count(*) from has_tag_string_tags where has_tag_string_tags.model_id = public_bodies.id
                 and has_tag_string_tags.model = \'PublicBody\'
-                and has_tag_string_tags.name in (' + category_list + ')) = 0', @locale]
+                and has_tag_string_tags.name in (' + category_list + ')) = 0', @query, @query, @locale]
         elsif @tag.size == 1
             @tag.upcase!
-            conditions = [locale_condition + ' AND public_body_translations.first_letter = ?', @locale, @tag]
+            conditions = [locale_condition + ' AND public_body_translations.first_letter = ?', @query, @query, @locale, @tag]
         elsif @tag.include?(":")
             name, value = HasTagString::HasTagStringTag.split_tag_into_name_value(@tag)
             conditions = [locale_condition + ' AND (select count(*) from has_tag_string_tags where has_tag_string_tags.model_id = public_bodies.id
                 and has_tag_string_tags.model = \'PublicBody\'
-                and has_tag_string_tags.name = ? and has_tag_string_tags.value = ?) > 0', @locale, name, value]
+                and has_tag_string_tags.name = ? and has_tag_string_tags.value = ?) > 0', @query, @query, @locale, name, value]
         else
             conditions = [locale_condition + ' AND (select count(*) from has_tag_string_tags where has_tag_string_tags.model_id = public_bodies.id
                 and has_tag_string_tags.model = \'PublicBody\'
-                and has_tag_string_tags.name = ?) > 0', @locale, @tag]
+                and has_tag_string_tags.name = ?) > 0', @query, @query, @locale, @tag]
         end
         if @tag.size == 1
             @description = _("beginning with") + " '" + @tag + "'"

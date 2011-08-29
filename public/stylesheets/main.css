@@ -1239,3 +1239,13 @@ div.lang {
 div#user_locale_switcher {
  margin: 5px;
 }
+
+
+div#common-subfilters {
+ float: left;
+ width: 300px;
+}
+
+div#requests-subfilters {
+ margin-left: 300px;
+}
