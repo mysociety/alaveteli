@@ -71,7 +71,7 @@ class UserController < ApplicationController
     # Login form
     def signin
         work_out_post_redirect
-
+        @request_from_foreign_country = country_from_ip != MySociety::Config.get('ISO_COUNTRY_CODE', 'GB')
         # make sure we have cookies
         if session.instance_variable_get(:@dbman)
             if not session.instance_variable_get(:@dbman).instance_variable_get(:@original)
@@ -118,10 +118,15 @@ class UserController < ApplicationController
     # Create new account form
     def signup
         work_out_post_redirect
-
+        @request_from_foreign_country = country_from_ip != MySociety::Config.get('ISO_COUNTRY_CODE', 'GB')
         # Make the user and try to save it
         @user_signup = User.new(params[:user_signup])
-        if !@user_signup.valid?
+        error = false
+        if @request_from_foreign_country && !verify_recaptcha
+            flash.now[:error] = _("There was an error with the words you entered, please try again.")
+            error = true
+        end
+        if error || !@user_signup.valid?
             # Show the form
             render :action => 'sign'
         else
