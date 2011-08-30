@@ -45,10 +45,6 @@ class GeneralController < ApplicationController
                          :joins => :translations)
                 end
             end
-            @search_examples = MySociety::Config.get('FRONTPAGE_SEARCH_EXAMPLES', '').split(/\s*;\s*/)
-            if @search_examples.empty?
-                @search_examples = @popular_bodies.map { |body| body.name }
-            end
             # Get some successful requests #
             begin
                 query = 'variety:response (status:successful OR status:partially_successful)'

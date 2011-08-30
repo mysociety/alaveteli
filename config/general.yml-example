@@ -31,9 +31,6 @@ REPLY_VERY_LATE_AFTER_DAYS: 40
 # We give some types of authority like schools a bit longer than everyone else
 SPECIAL_REPLY_VERY_LATE_AFTER_DAYS: 60
 
-# example searches for the home page, semicolon delimited.  
-FRONTPAGE_SEARCH_EXAMPLES: 'Geraldine Quango; Department for Humpadinking'
-
 # example public bodies for the home page, semicolon delimited - short_names
 FRONTPAGE_PUBLICBODY_EXAMPLES: 'tgq'
 
