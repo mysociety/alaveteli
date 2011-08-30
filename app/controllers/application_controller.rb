@@ -447,6 +447,17 @@ class ApplicationController < ActionController::Base
         return query
     end
 
+    def country_from_ip
+        gaze = MySociety::Config.get('GAZE_URL', '')
+        default = MySociety::Config.get('ISO_COUNTRY_CODE', '')
+        country = ""
+        if !gaze.empty?
+            country = open("#{gaze}/gaze-rest?f=get_country_from_ip;ip=#{request.remote_ip}").read.strip
+        end
+        country = default if country.empty?
+        return country
+    end
+
     # URL generating functions are needed by all controllers (for redirects),
     # views (for links) and mailers (for use in emails), so include them into
     # all of all.
