@@ -71,7 +71,7 @@ class UserController < ApplicationController
     # Login form
     def signin
         work_out_post_redirect
-
+        @request_from_foreign_country = country_from_ip != MySociety::Config.get('ISO_COUNTRY_CODE', 'GB')
         # make sure we have cookies
         if session.instance_variable_get(:@dbman)
             if not session.instance_variable_get(:@dbman).instance_variable_get(:@original)

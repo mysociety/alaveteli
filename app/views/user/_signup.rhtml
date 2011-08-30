@@ -2,9 +2,6 @@
 
 <% form_tag({:action => "signup"}, {:id => "signup_form"}) do %>
     <%= foi_error_messages_for :user_signup %>
-    <% if @request_from_foreign_country %>
-    <%= recaptcha_tags %>
-    <% end %>
 
     <h2><%= _('If you\'re new to {{site_name}}', :site_name=>site_name)%></h2>
 
@@ -38,6 +35,10 @@
         <label class="form_label" for="user_signup_password_confirmation"> <%= _('Password: (again)')%></label>
         <%= password_field 'user_signup', 'password_confirmation', { :size => 15 } %>
     </p>
+
+    <% if @request_from_foreign_country %>
+    <%= recaptcha_tags %>
+    <% end %>
 
     <div class="form_button">
         <%= hidden_field_tag 'token', params[:token], { :id => 'signup_token' } %>
