@@ -8,6 +8,7 @@
 #
 # $Id: application.rb,v 1.59 2009-09-17 13:01:56 francis Exp $
 
+require 'open-uri'
 
 class ApplicationController < ActionController::Base
     # Standard headers, footers and navigation for whole site
@@ -101,11 +102,17 @@ class ApplicationController < ActionController::Base
         # Make sure expiry time for session is set (before_filters are
         # otherwise missed by this override) 
         session_remember_me
-
+        case exception
+        when ActiveRecord::RecordNotFound, ActionController::UnknownAction, ActionController::RoutingError
+            @status = 404
+        else
+            @status = 500
+        end
         # Display user appropriate error message
         @exception_backtrace = exception.backtrace.join("\n")
         @exception_class = exception.class.to_s
-        render :template => "general/exception_caught.rhtml", :status => 404
+        @exception_message = exception.message
+        render :template => "general/exception_caught.rhtml", :status => @status
     end
 
     # For development sites.
