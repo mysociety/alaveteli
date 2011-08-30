@@ -24,7 +24,7 @@ class UserController < ApplicationController
 
         @display_user = User.find(:first, :conditions => [ "url_name = ? and email_confirmed = ?", params[:url_name], true ])
         if not @display_user
-            raise "user not found, url_name=" + params[:url_name]
+            raise ActiveRecord::RecordNotFound.new("user not found, url_name=" + params[:url_name])
         end
         @same_name_users = User.find(:all, :conditions => [ "name ilike ? and email_confirmed = ? and id <> ?", @display_user.name, true, @display_user.id ], :order => "created_at")
 
@@ -133,7 +133,6 @@ class UserController < ApplicationController
                 # New unconfirmed user
                 @user_signup.email_confirmed = false
                 @user_signup.save!
-
                 send_confirmation_mail @user_signup
                 return
             end
@@ -454,7 +453,7 @@ class UserController < ApplicationController
     def get_profile_photo
         @display_user = User.find(:first, :conditions => [ "url_name = ? and email_confirmed = ?", params[:url_name], true ])
         if !@display_user
-            raise "user not found, url_name=" + params[:url_name]
+            raise ActiveRecord::RecordNotFound.new("user not found, url_name=" + params[:url_name])
         end
         if !@display_user.profile_photo
             raise "user has no profile photo, url_name=" + params[:url_name]

@@ -37,7 +37,7 @@ class RequestController < ApplicationController
             # Look up by new style text names 
             @info_request = InfoRequest.find_by_url_title(params[:url_title])
             if @info_request.nil?
-                raise "Request not found" 
+                raise ActiveRecord::RecordNotFound.new("Request not found")
             end
             set_last_request(@info_request)
 
@@ -187,7 +187,7 @@ class RequestController < ApplicationController
                     params[:info_request][:public_body_id] = params[:url_name]
                 else
                     public_body = PublicBody.find_by_url_name_with_historic(params[:url_name])
-                    raise "None found" if public_body.nil? # XXX proper 404
+                    raise ActiveRecord::RecordNotFound.new("None found") if public_body.nil? # XXX proper 404
                     params[:info_request][:public_body_id] = public_body.id
                 end
             elsif params[:public_body_id]
@@ -670,10 +670,10 @@ class RequestController < ApplicationController
         raise "internal error, pre-auth filter should have caught this" if !@info_request.user_can_view?(authenticated_user)
   
         @attachment = IncomingMessage.get_attachment_by_url_part_number(@incoming_message.get_attachments_for_display, @part_number)
-        raise "attachment not found part number " + @part_number.to_s + " incoming_message " + @incoming_message.id.to_s if @attachment.nil?
+        raise ActiveRecord::RecordNotFound.new("attachment not found part number " + @part_number.to_s + " incoming_message " + @incoming_message.id.to_s) if @attachment.nil?
 
         # check filename in URL matches that in database (use a censor rule if you want to change a filename)
-        raise "please use same filename as original file has, display: '" + @attachment.display_filename + "' old_display: '" + @attachment.old_display_filename + "' original: '" + @original_filename + "'" if @attachment.display_filename != @original_filename && @attachment.old_display_filename != @original_filename
+        raise ActiveRecord::RecordNotFound.new("please use same filename as original file has, display: '" + @attachment.display_filename + "' old_display: '" + @attachment.old_display_filename + "' original: '" + @original_filename + "'") if @attachment.display_filename != @original_filename && @attachment.old_display_filename != @original_filename
 
         @attachment_url = get_attachment_url(:id => @incoming_message.info_request_id,
                 :incoming_message_id => @incoming_message.id, :part => @part_number,
