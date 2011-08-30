@@ -40,21 +40,17 @@
          <% if @bodies %>
              <%= hidden_field_tag 'bodies', 1 %>
          <% end %>
-         <%= image_submit_tag 'button-search.png', :title=>"Search" %>
+         <%= submit_tag _("Search") %>
      </p>
-<fieldset>
-  <legend>
-	<%= _("Filters:") %>
-  </legend>
 <div id="common-subfilters">
   <div id="variety-filter">
-   <ul>
-     <% for variety, label in [
-	["all", _("everything")],
-	["requests", _("requests")],
+     <h3 class="title"><%= _("Showing") %></h3>
+     <% labels = [
+	      ["all", _("everything")],
+	      ["requests", _("requests")],
         ["users", _("users")],
         ["bodies", _("authorities")]]%>
-     <li>
+     <% for variety, label in labels %>
        <% if @variety_postfix != variety %>
         <% if variety != "users" %>
          <%=  link_to label, search_url([params[:query], @common_query], variety, @sort_postfix), :method => :get  %>
@@ -64,9 +60,8 @@
        <% else %>
          <%= label %>
        <% end %>
-     </li>
+       <%= "|" unless variety == labels.last[0]%>
      <% end %>
-    </ul>
  </div>
 
 <% if false %>
@@ -85,19 +80,19 @@
 <% if @variety_postfix == "requests" %>
 <div id="requests-subfilters">
  <div>
-   <%= _("Only show:") %> <br />
+     <h3 class="title"><%= _("Restrict to") %></h3>
      <% [["successful", _("successful requests")],
         ["unsuccessful", _("unsuccessful requests")],
         ["awaiting", _("unresolved requests")],
         ["internal_review", _("internal reviews")]].each_with_index do |item, index|
-
-	status, title = item %>
+	   status, title = item %>
+	   
       <%= check_box_tag "latest_status[]", status, params[:latest_status].nil? ? false : params[:latest_status].include?(status), :id => "latest_status_#{index}" %>
       <%= label_tag("latest_status_#{index}", title) %> <br/>
     <% end %>
  </div>
  <div>
-  <%= _("Search for words in:") %> <br/>
+  <h3 class="title"><%= _("Search in") %></h3>
   <% [["sent", _("messages from users")], 
      ["response", _("messages from authorities")],
      ["comment", _("comments")]].each_with_index do |item, index|
@@ -107,15 +102,16 @@
    <%= label_tag("request_variety_#{index}", title) %> <br/>
   <% end %>
  </div>
- <div>
-   Search between dates:
-   <%= text_field_tag(:request_date_after, params[:request_date_after], {:class => "use-datepicker", :size => 10}) %> -
+ <div id="date_range">
+   <label class="form_label title" for="query">Made between</label>
+   <%= text_field_tag(:request_date_after, params[:request_date_after], {:class => "use-datepicker", :size => 10}) %>
+   <label class="form_label" for="query">&nbsp;and</label>
    <%= text_field_tag(:request_date_before, params[:request_date_before], {:class => "use-datepicker", :size => 10}) %>
  </div>
 </div>
+<br/>
 <% end %>
-   <%= submit_tag("Filter") %>
- </fieldset>
+   <%= submit_tag("Filter") if @variety_postfix == "requests"%>
   <% end %>
   <p><%= link_to(_("Advanced search"), advanced_search_url) %></p>
 <% end %>
