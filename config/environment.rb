@@ -110,7 +110,7 @@ ActionMailer::Base.default_url_options[:host] = MySociety::Config.get("DOMAIN", 
 # So that javascript assets use full URL, so proxied admin URLs read javascript OK
 if (MySociety::Config.get("DOMAIN", "") != "")
     ActionController::Base.asset_host = Proc.new { |source, request|
-        if request.fullpath.match(/^\/admin\//)
+        if ENV["RAILS_ENV"] != "test" && request.fullpath.match(/^\/admin\//)
             MySociety::Config.get("ADMIN_PUBLIC_URL", "")
         else
             MySociety::Config.get("DOMAIN", 'localhost:3000')

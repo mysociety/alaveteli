@@ -226,7 +226,7 @@ body
 	font-size: 0.9em;
 	z-index: 200;
 	padding: 0.20em 10px 0.25em 1em;
-	color: #FFF;
+	color: #444;
 }
 
 #logged_in_bar a, #logged_in_bar a:visited 
