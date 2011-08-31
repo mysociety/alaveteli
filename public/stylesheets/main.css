@@ -226,7 +226,7 @@ body
 	font-size: 0.9em;
 	z-index: 200;
 	padding: 0.20em 10px 0.25em 1em;
-	color: #FFF;
+	color: #444;
 }
 
 #logged_in_bar a, #logged_in_bar a:visited 
@@ -1238,14 +1238,4 @@ div.lang {
 
 div#user_locale_switcher {
  margin: 5px;
-}
-
-
-div#common-subfilters {
- float: left;
- width: 300px;
-}
-
-div#requests-subfilters {
- margin-left: 300px;
 }

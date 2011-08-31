@@ -112,7 +112,9 @@ class PublicBodyController < ApplicationController
                 and has_tag_string_tags.model = \'PublicBody\'
                 and has_tag_string_tags.name = ?) > 0', @query, @query, @locale, @tag]
         end
-        if @tag.size == 1
+        if @tag == "all"
+            @description = ""
+        elsif @tag.size == 1
             @description = _("beginning with") + " '" + @tag + "'"
         else
             @description = PublicBodyCategories::CATEGORIES_BY_TAG[@tag]

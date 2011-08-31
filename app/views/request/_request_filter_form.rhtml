@@ -2,17 +2,14 @@
 
 <div id="list-filter">
   <div class="list-filter-item">
-   Showing:
-   <ul class="request-selector">
-     <% for status, label in [["all", _("all requests")], 
+   <h3 class="title">Showing</h3>
+     <% statuses = [["all", _("all requests")], 
                        ["successful", _("successful requests")],
                        ["unsuccessful", _("unsuccessful requests")],
                        ["awaiting", _("unresolved requests")]] %>
-    <li>
-    <% if params[:view] != status %>
-      <% if params[:controller] == "public_body"
-
- %>
+     <% for status, label in statuses %>
+     <% if params[:view] != status %>
+       <% if params[:controller] == "public_body" %>
         <%= link_to label, url_for(:controller => "public_body", :action => "show", :view => status, :url_name => @public_body.url_name) + "?" + request.query_string  %> 
       <% else %>
         <%= link_to label, url_for(:controller => "request", :action => "list", :view => status) + "?" + request.query_string %> 
@@ -20,13 +17,12 @@
     <% else %>
       <%= label %>
     <% end %>
-    </li>
+    <%= "|" unless statuses.last[0] == status %>
     <% end %>
-   </ul>
  </div>
-  <% form_tag(request.path, :method => "get") do %>
+  <% form_tag(request.path, :method => "get", :id=>"filter_requests_form") do %>
  <div class="list-filter-item">
-  <%= label_tag(:query, _("Search for:")) %>
+  <%= label_tag(:query, _("Keywords"), :class=>"form_label title") %>
   <%= text_field_tag(:query, params[:query]) %> 
  </div>
 <% if false # don't think we want this, but leaving as an example %>
@@ -43,8 +39,9 @@
  </div>
 <% end %>
  <div class="list-filter-item">
-   Search between dates:
-   <%= text_field_tag(:request_date_after, params[:request_date_after], {:class => "use-datepicker", :size => 10}) %> -
+   <%= label_tag(:query, _("Made between"), :class=>"form_label title") %>
+   <%= text_field_tag(:request_date_after, params[:request_date_after], {:class => "use-datepicker", :size => 10}) %>&nbsp;&nbsp;
+   <%= label_tag(:query, _("and"), :class=>"form_label") %>
    <%= text_field_tag(:request_date_before, params[:request_date_before], {:class => "use-datepicker", :size => 10}) %>
  </div>
 

@@ -68,10 +68,10 @@ describe "when viewing a body" do
         @pb.stub!(:get_tag_values).and_return(['98765', '12345'])
 
         render "public_body/show"
-        response.should have_tag("div#request_sidebar") do
+        response.should have_tag("div#header_right") do
             with_tag("a[href*=?]", /charity-commission.gov.uk.*RegisteredCharityNumber=98765$/)
         end
-        response.should have_tag("div#request_sidebar") do
+        response.should have_tag("div#header_right") do
             with_tag("a[href*=?]", /charity-commission.gov.uk.*RegisteredCharityNumber=12345$/)
         end
     end 
@@ -81,7 +81,7 @@ describe "when viewing a body" do
         @pb.stub!(:get_tag_values).and_return(['SC1234'])
 
         render "public_body/show"
-        response.should have_tag("div#request_sidebar") do
+        response.should have_tag("div#header_right") do
             with_tag("a[href*=?]", /www.oscr.org.uk.*id=SC1234$/)
         end
     end 
@@ -89,7 +89,7 @@ describe "when viewing a body" do
 
     it "should not link to Charity Commission site if we don't have number" do
         render "public_body/show"
-        response.should have_tag("div#request_sidebar") do
+        response.should have_tag("div#header_right") do
             without_tag("a[href*=?]", /charity-commission.gov.uk/)
         end
     end 

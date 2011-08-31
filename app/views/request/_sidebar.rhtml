@@ -1,4 +1,4 @@
-<div id="request_sidebar">
+<div id="right_column">
     <h2><%= _('Track this request') %></h2>
      <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => @info_request.user == @user, :location => 'sidebar' } %>
 
