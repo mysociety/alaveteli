@@ -41,6 +41,9 @@
              <%= hidden_field_tag 'bodies', 1 %>
          <% end %>
          <%= submit_tag _("Search") %>
+        <%= link_to(_("Advanced search"), advanced_search_url) %>
+
+
      </p>
 <div id="common-subfilters">
   <div id="variety-filter">
@@ -114,16 +117,15 @@
    <%= submit_tag("Filter") if @variety_postfix == "requests"%>
 </div>
   <% end %>
-  <p><%= link_to(_("Advanced search"), advanced_search_url) %></p>
 <% end %>
 
   
 
   <% if !@query.nil? %>
       <p id="search_controls">
-      <%=link_to_unless @sortby == 'relevant', _("Show most relevant results first"), search_url(@query, 'relevant') %>
+      <%=link_to_unless @sortby == 'relevant', _("Show most relevant results first"), search_url(@query, @variety_postfix, 'relevant') %>
       |
-      <%=link_to_unless @sortby == 'newest', _("Newest results first"), search_url(@query, 'newest') %>
+      <%=link_to_unless @sortby == 'newest', _("Newest results first"), search_url(@query, @variety_postfix, 'newest') %>
       <% if @sortby == 'described' %>
       | <%= _('Recently described results first') %>
       <% end %>
