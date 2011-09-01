@@ -27,19 +27,19 @@
         <%= t.hidden_field :locale, :value => locale.to_s %>
 
         <p><label for="public_body_name">Name</label><br/>
-        <%= t.text_field :name, :size => 60  %></p>
+        <%= t.text_field :name, :size => 60, :id => form_tag_id(t.object_name, :name)  %></p>
 
         <p><label for="public_body_short_name">Short name <small>(only put in abbreviations which are really used, otherwise leave blank. Short or long name is used in the URL - don't worry about breaking URLs through renaming, as the history is used to redirect)</small></label><br/>
-        <%= t.text_field :short_name, :size => 60  %></p>
+        <%= t.text_field :short_name, :size => 60, :id => form_tag_id(t.object_name, :short_name)  %></p>
 
         <p><label for="public_body_request_email">Request email <small>(set to <strong>blank</strong> (empty string) if can't find an address; these emails are <strong>public</strong> as anyone can view with a CAPTCHA)</small></label><br/>
-        <%= t.text_field :request_email, :size => 40  %></p>
+        <%= t.text_field :request_email, :size => 40, :id => form_tag_id(t.object_name, :request_email)  %></p>
 
         <p><label for="public_body_publication_scheme">Publication scheme URL</label><br/>
-        <%= t.text_field :publication_scheme, :size => 60  %></p>
+        <%= t.text_field :publication_scheme, :size => 60, :id => form_tag_id(t.object_name, :publication_scheme)  %></p>
 
         <p><label for="public_body_notes">Public notes</label> <small>(HTML, for users to consider when making FOI requests to the authority)</small><br/>
-        <%= t.text_area :notes, :rows => 3, :cols => 60  %></p>
+        <%= t.text_area :notes, :rows => 3, :cols => 60, :id => form_tag_id(t.object_name, :notes)  %></p>
     </div>
 <% 
         end
