@@ -56,6 +56,10 @@ body {
   font-size: 12px;
 }
 
+body.front {
+  background: url(/images/home-grad.png) repeat-x 0px 160px;
+}
+
 #wrapper {
   padding-top:160px;
 }
@@ -596,7 +600,8 @@ form input.use-datepicker[type=text] {
 }
 
 form input[type=submit], 
-a.link_button_green {
+a.link_button_green,
+a.link_button_green_large {
   background: url(/images/button-gradient.png);
   color: white;
   text-decoration: none;
@@ -609,6 +614,13 @@ a.link_button_green {
   font-family: 'DeliciousRoman', Arial, sans-serif;
   font-size: 18px;
   cursor: pointer;
+}
+
+a.link_button_green_large {
+  background: url(/images/button-gradient-large.png);
+  font-size: 22px;
+  line-height: 22px;
+  padding-bottom: 7px;
 }
 
 @-moz-document url-prefix() {
@@ -735,6 +747,87 @@ div.correspondence {
   background: url(/images/stripes-70.png);
   border-width: 0px;
   font-size: 13px;
+}
+
+/* ---------- Frontpage ----------- */
+
+#frontpage_splash {
+  height: 375px;
+  margin-top: -12px;
+  margin-bottom: 20px;
+  width: 100%;
+  background: url(/images/flying-computer.png) no-repeat 175px bottom;
+}
+
+#frontpage_splash #left_column {
+  line-height: 40px;
+  margin-top: 66px;
+}
+
+#frontpage_splash h1 {
+  margin: 0px 0px 20px 0px;
+  font-family: 'DeliciousRoman', Arial, sans-serif;
+  font-size: 39px;
+  color: #6B3C6A;
+  font-weight:normal;
+}
+
+#frontpage_splash h1 strong {
+  font-family: 'DeliciousHeavyRegular', Arial, sans-serif;
+  font-size: 54px;
+  color: #93278F;
+  font-weight: normal;
+}
+
+#frontpage_splash h1 span {
+  font-family: Georgia;
+  font-style: italic;
+  font-weight:normal;
+  font-size: 25px;
+  color: #6B3C6A;
+}
+
+#frontpage_splash #right_column {
+  width: 265px;
+}
+
+#frontpage_splash h2 {
+  font-size: 26px;
+  font-weight:normal;
+  color: #6B3C6A;
+  font-family:'DeliciousRoman', Arial, sans-serif;
+  margin-bottom: 10px;
+  line-height: 28px;
+}
+
+#frontpage_splash h2 strong {
+  font-size: 31px;
+  color: #93278F;
+  font-family:'DeliciousBold', Arial, sans-serif;
+}
+
+#frontpage_splash h2 span {
+  color: #6B3C6A;
+  font-style: italic;
+  font-size: 19px;
+  font-family: Georgia;
+}
+
+#frontpage_splash #right_column input[type=text] {
+  width: 180px;
+}
+
+#frontpage_splash #frontpage_search_box {
+  margin-bottom: 30px;
+  margin-top: -10px;
+}
+
+#frontpage_splash #frontpage_right_to_know p {
+  line-height: 20px;
+}
+
+body.front h3 {
+  font-size: 28px;
 }
 
 /* ---------- Calendar theme ----------- */
