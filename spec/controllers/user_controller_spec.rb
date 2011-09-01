@@ -32,6 +32,13 @@ describe UserController, "when showing a user" do
         assigns[:display_user].should == users(:bob_smith_user)
     end
 
+    it "should search the user's contributions" do
+        get :show, :url_name => "bob_smith"
+        assigns[:xapian_requests].results.count.should == 2
+        get :show, :url_name => "bob_smith", :user_query => "money"
+        assigns[:xapian_requests].results.count.should == 1
+    end
+
 # Error handling not quite good enough for this yet
 #    it "should not show unconfirmed users" do
 #        get :show, :url_name => "silly_emnameem"
