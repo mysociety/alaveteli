@@ -369,17 +369,8 @@ p.subtitle {
   margin:0px -6px 20px 0px;
 }
 
-#search_form input[type=text] {
-  margin-right:-6px;
-  font-size: 17px;
-  color: #555;
-  border-radius: 3px 0px 0px 3px;
-  -moz-border-radius: 3px 0px 0px 3px;
-  border-style: solid;
-  border-color: #BBB;
-  border-width: 1px;
-  width: 250px;
-  height: 18px;
+#advanced-search input[type=text] {
+  width: auto;
 }
 
 #search_form input[type=submit] {

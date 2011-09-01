@@ -22,6 +22,7 @@
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
 # $Id: track_thing.rb,v 1.53 2009-09-17 21:10:05 francis Exp $
+require 'set'
 
 class TrackThing < ActiveRecord::Base
     belongs_to :tracking_user, :class_name => 'User'
@@ -66,6 +67,63 @@ class TrackThing < ActiveRecord::Base
     def track_type_description
         TrackThing.track_type_description(self.track_type)
     end
+
+    def track_query_description
+        # XXX this is very brittle... we should probably ask users 
+        # simply to name their tracks when they make them?
+        self.track_query = self.track_query.gsub(/([()]|OR)/, "")
+        filters = self.track_query.scan /\b\S+:\S+\b/
+        text = self.track_query
+        varieties = Set.new
+        date = ""
+        statuses = Set.new
+        for filter in filters
+            text = text.sub(filter, "")
+            if filter =~ /variety:user/
+                varieties << _("users")
+            end
+            if filter =~ /variety:comment/
+                varieties << _("comments")
+            end
+            if filter =~ /variety:authority/
+                varieties << _("authorities")
+            end
+            if filter =~ /(variety:(sent|followup_sent|response)|latest_status)/
+                varieties << _("requests")
+            end
+            if filter =~ /[0-9\/]+\.\.[0-9\/]+/
+                date = _("between two dates")
+            end
+            if filter =~ /(rejected|not_held)/
+                statuses << _("unsuccessful")
+            end
+            if filter =~ /(:successful|:partially_successful)/
+                statuses << _("successful")
+            end
+            if filter =~ /waiting/
+                statuses << _("awaiting a response")
+            end                
+        end
+        if filters.empty?
+            text = self.track_query
+        end
+        descriptions = []
+        if varieties.include? _("requests")
+            descriptions << _("requests which are {{list_of_statuses}}", :list_of_statuses => Array(statuses).join(_(' or ')))
+            varieties -= [_("requests")]
+        end
+        if descriptions.empty? and varieties.empty?
+            varieties << _("anything")
+        end
+        descriptions += Array(varieties)
+        text = text.strip
+        descriptions = descriptions.join(_(" or "))
+        if !text.empty?
+            descriptions += _("{{list_of_things}} matching text '{{search_query}}'", :list_of_things => "", :search_query => text)
+        end
+        return descriptions
+    end
+
 
     def TrackThing.create_track_for_request(info_request)
         track_thing = TrackThing.new
@@ -217,7 +275,7 @@ class TrackThing < ActiveRecord::Base
             elsif self.track_type == 'search_query'
                 @params = {
                     # Website
-                    :list_description => "'<a href=\"/search/" + CGI.escapeHTML(self.track_query) + "/newest\">" + CGI.escapeHTML(self.track_query) + "</a>' in new requests/responses", # XXX yeuch, sometimes I just want to call view helpers from the model, sorry! can't work out how 
+                    :list_description => "<a href=\"/search/" + CGI.escapeHTML(self.track_query) + "/newest/advanced\">" + self.track_query_description + "</a>", # XXX yeuch, sometimes I just want to call view helpers from the model, sorry! can't work out how 
                     :verb_on_page => _("Track things matching this search by email"),
                     :verb_on_page_already => _("You are already tracking things matching this search by email"),
                     # Email
