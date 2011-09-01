@@ -1,31 +1,36 @@
 <% view_cache :ttl => 5.minutes, :tag => I18n.locale do %>
-
-
-  <div class="frontpage-box" id="frontpage-box-1">
-   <%= render :partial => 'frontpage_intro_sentence'  %>
-  </div>
-
-  <div class="frontpage-box" id="frontpage-box-2">
-    <div id="bighand">
-    Make a new <strong>Freedom of Information</strong> request
-     <br />
-     <a href="/en/new/tgq"><%= image_tag('start-button.png') %></a>
-     </div>
-  </div>
-
-  <div class="frontpage-box" id="frontpage-box-3">
-    <div id="littlehand">
-    Search over <strong><%= InfoRequest.count %> requests</strong> and <strong><%= PublicBody.count %> authorities</strong>:
-    <% form_tag({:action => "search_redirect"}, {:id => "search_form"}) do %>
-           <%= text_field_tag 'query', params[:query], { :size => 30 } %>
-           <%= hidden_field_tag 'bodies', 1 %>
-           <%= image_submit_tag 'button-search.png', :title => 'Search' %>
-           <br>
-            <%= render :partial => 'frontpage_search_examples'  %>
-    <% end %>
+  <div id="frontpage_splash">
+    <div id="left_column">
+      <h1>
+        Make a new<br/>
+        <strong>Freedom <span>of</span><br/>
+        Information<br/>
+        request</strong>
+      </h1>
+      <a class="link_button_green_large" href="/en/new/tgq">Start now &raquo;</a>
     </div>
+    <div id="right_column">
+      <div id="frontpage_search_box">
+        <h2>
+          Search over</br>
+          <strong><%= InfoRequest.count %> requests</strong> <span>and</span><br/>
+          <strong><%= PublicBody.count %> authorities</strong>
+        </h2>
+        <% form_tag({:action => "search_redirect"}, {:id => "search_form"}) do %>
+               <%= text_field_tag 'query', params[:query], { :size => 30 } %>
+               <%= hidden_field_tag 'bodies', 1 %>
+               <%= submit_tag 'Search' %>
+        <% end %>
+      </div>
+      <div id="frontpage_right_to_know">
+        <h2>
+          Your <strong>Right to Know</strong>
+        </h2>
+        <p><%= render :partial => 'frontpage_intro_sentence'  %></p>
+      </div>
+    </div>
+    <div style="clear:both"></div>
   </div>
-
 
 <div id="frontpage_examples">
     <% if @popular_bodies.size > 0 %>

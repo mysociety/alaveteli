@@ -51,7 +51,7 @@
 
     <%= render :partial => 'general/before_head_end' %>
     </head>
-    <body>
+    <body <%= "class='front'" if params[:action] == 'frontpage' %>>
 
 <% # code for popup advert for a campaign etc.
 =begin
