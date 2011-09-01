@@ -3,7 +3,11 @@
      <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => @info_request.user == @user, :location => 'sidebar' } %>
 
     <h2><%= _("Act on what you've learnt") %></h2>
+
     <div class="act_link">
+     <% tweet_link = "http://twitter.com/share?url=#{h(request.url)}&via=#{h(MySociety::Config.get('TWITTER_USERNAME', ''))}&text='#{h(@info_request.title)}'&related=#{_('alaveteli_foi:The software that runs {{site_name}}', :site_name => h(site_name))}" %>
+        <%= link_to '<img src="/images/twitter-16.png" alt="twitter icon">', tweet_link %> 
+        <%= link_to _("Tweet this request"), tweet_link %> 
     </div>
     <div class="act_link">
         <%= link_to '<img src="/images/wordpress.png" alt="" class="rss">', "http://wordpress.com/"%> 
