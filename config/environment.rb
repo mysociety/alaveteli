@@ -61,6 +61,7 @@ Rails::Initializer.run do |config|
   config.gem "gettext", :version => '>=1.9.3'
   config.gem "fast_gettext", :version => '>=0.4.8'
   config.gem "rack", :version => '1.1.0'
+  config.gem "rdoc", :version => '2.4.3'
   config.gem "recaptcha", :lib => "recaptcha/rails"
   config.gem 'rspec', :lib => false, :version => '1.3.1'
   config.gem 'rspec-rails', :lib => false, :version => '1.3.3'
