@@ -2,7 +2,7 @@
 
 <% form_for(:info_request, @info_request, :html => { :id => 'preview_form' }  ) do |f| %>
     
-    <h1><%= _('Now preview your request') %></h1>
+    <h1><%= _('3. Now check your request') %></h1>
     <ul>
     <li><%= _('Check you haven\'t included any <strong>personal information</strong>.') %></li>
     <li><%= _('Your name, request and any responses will appear in <strong>search engines</strong>
@@ -37,8 +37,8 @@
     <%= f.hidden_field(:tag_string) %>
     <%= hidden_field_tag(:submitted_new_request, 1) %>
     <%= hidden_field_tag(:preview, 0 ) %>
-    <%= submit_tag _("Re-edit this request"), :name => 'reedit' %>
-    <%= submit_tag _("Send public ") + h(@info_request.law_used_full) + " request", :name => 'submit' %>
+    <%= submit_tag _("Edit this request"), :name => 'reedit', :id => 'reedit_button' %>
+    <%= submit_tag _("Send request"), :name => 'submit', :id => 'submit_button' %>    
     </p>
 
     <% if !@info_request.tag_string.empty? %>
@@ -46,5 +46,3 @@
     <% end %>
 
 <% end %>
-
-

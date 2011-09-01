@@ -312,6 +312,7 @@ h1, h2, h3
 	line-height: 1em;
 	letter-spacing: 0em;
 	color: #555;
+	clear: left;
 }
 	h1 { font-size: 1.8em;}
 	h2 { font-size: 1.4em;}
@@ -927,19 +928,72 @@ a img.attachment_image {
 #body_sidebar a { text-decoration: none; }
 
 
+/*------------------------------------------------ selecting an authority  */
+
+#authority_selection
+{
+  float: left;
+  width: 40%;
+}
+
+#authority_search_ahead_results
+{
+  width: 26em;
+}
+
+#authority_preview
+{
+  width: 45%;
+  float: right;
+  background-color: #FFFFE0;
+  padding-left: 1em;
+  padding-right: 1em;
+  overflow: hidden;
+}
+
+  #authority_preview #header_left,
+  #authority_preview.request_left,
+  #authority_preview #stepwise_make_request
+  {
+      width: 95%;
+  } 
+
 /*------------------------------------------------ making a request / sign up / sign in  */
 
 #request_advice
-{}
+{
+	float: right;
+	width: 250px;
+	margin-top: 1em;
+}
+
 	#request_advice ul
 	{
-		width: 26em;
 		margin: 0 auto 0 auto;
 	}
 	#request_advice ul li { margin: 0 0 1em 0; }
 
+#request_header
+{
+	background-color: #FFFFE0;
+	padding-top: 0.5em;
+	padding-bottom: 1em;
+}
+
+#request_header_text
+{
+	font-size: 0.8em;    
+	margin-left: 11em;
+}
+
+#request_search_ahead_results
+{
+	font-size: 0.8em;    
+	margin-left: 11em;
+}
+
 #request_form
-{ margin-top: 4em;}
+{ margin-top: 1em;}
 
 #request_form label,
 label.form_label
@@ -952,10 +1006,6 @@ label.form_label
 	padding: 0 10px 0 0;
     margin: 0 0 0 0;
 }
-	#request_form h1 label
-	{
-		font-size: 0.55em;
-	}
 
 .form_item_note, .form_note
 {

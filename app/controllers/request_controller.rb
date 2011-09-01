@@ -22,6 +22,21 @@ class RequestController < ApplicationController
     rescue MissingSourceFile, NameError
     end
 
+    def select_authority
+        # Check whether we force the user to sign in right at the start, or we allow her
+        # to start filling the request anonymously
+        if force_registration_on_new_request && !authenticated?(
+                :web => _("To send your FOI request"),
+                :email => _("Then you'll be allowed to send FOI requests."),
+                :email_subject => _("Confirm your email address")
+            )
+            # do nothing - as "authenticated?" has done the redirect to signin page for us
+            return
+        end
+
+        medium_cache
+    end
+    
     def show
         medium_cache
         @locale = self.locale_from_params()
@@ -66,7 +81,7 @@ class RequestController < ApplicationController
 
             @last_info_request_event_id = @info_request.last_event_id_needing_description
             @new_responses_count = @info_request.events_needing_description.select {|i| i.event_type == 'response'}.size
-1
+
             # Sidebar stuff
             # ... requests that have similar imporant terms
             behavior_cache :tag => ['similar', @info_request.id] do
@@ -726,6 +741,18 @@ class RequestController < ApplicationController
             redirect_to request_url(@info_request)
             return
         end
+    end
+
+    # Type ahead search
+    def search_typeahead
+        # Since acts_as_xapian doesn't support the Partial match flag, we work around it
+        # by making the last work a wildcard, which is quite the same
+        query = params[:q] + '*'
+
+        query = query.split(' ').join(' OR ')       # XXX: HACK for OR instead of default AND!
+        @xapian_requests = perform_search([InfoRequestEvent], query, 'relevant', 'request_collapse', 5)
+
+        render :partial => "request/search_ahead.rhtml"
     end
 end
 

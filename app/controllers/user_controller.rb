@@ -8,6 +8,8 @@
 
 class UserController < ApplicationController
 
+    layout :select_layout
+    
     protect_from_forgery :only => [ :contact,
                                     :set_profile_photo,
                                     :signchangeemail,
@@ -106,7 +108,12 @@ class UserController < ApplicationController
                     session[:user_id] = @user_signin.id
                     session[:user_circumstance] = nil
                     session[:remember_me] = params[:remember_me] ? true : false
-                    do_post_redirect @post_redirect
+                    
+                    if is_modal_dialog
+                        render :action => 'signin_successful'
+                    else
+                        do_post_redirect @post_redirect
+                    end
                 else
                     send_confirmation_mail @user_signin
                 end
@@ -504,6 +511,15 @@ class UserController < ApplicationController
 
     private
 
+    def is_modal_dialog
+        (params[:modal].to_i != 0)
+    end
+    
+    # when logging in through a modal iframe, don't display chrome around the content
+    def select_layout
+        is_modal_dialog ? 'no_chrome' : 'default'
+    end
+    
     # Decide where we are going to redirect back to after signin/signup, and record that
     def work_out_post_redirect
         # Redirect to front page later if nothing else specified

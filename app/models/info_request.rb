@@ -780,8 +780,7 @@ public
 
 
     # Display version of status
-    def display_status
-        status = self.calculate_status
+    def InfoRequest.get_status_description(status)
         if status == 'waiting_classification'
             _("Awaiting classification.")
         elsif status == 'waiting_response'
@@ -817,6 +816,10 @@ public
                 raise _("unknown status ") + status
             end
         end
+    end
+
+    def display_status
+        InfoRequest.get_status_description(self.calculate_status)
     end
 
     # Completely delete this request and all objects depending on it

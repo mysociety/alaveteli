@@ -42,6 +42,7 @@
 
     <div class="form_button">
         <%= hidden_field_tag 'token', params[:token], { :id => 'signup_token' } %>
+        <%= hidden_field_tag :modal, params[:modal] %>
         <%= submit_tag _('Sign up') %>
     </div>
 
