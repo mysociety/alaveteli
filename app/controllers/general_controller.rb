@@ -50,11 +50,18 @@ class GeneralController < ApplicationController
                 query = 'variety:response (status:successful OR status:partially_successful)'
                 # query = 'variety:response' # XXX debug
                 sortby = "described"
-                xapian_object = perform_search([InfoRequestEvent], query, sortby, 'request_title_collapse', 8)
-                @successful_request_events = xapian_object.results.map { |r| r[:model] }
-                @successful_request_events = @successful_request_events.sort_by { |e| e.described_at }.reverse
+                max_count = 5
+                xapian_object = perform_search([InfoRequestEvent], query, sortby, 'request_title_collapse', max_count)
+                @request_events = xapian_object.results.map { |r| r[:model] }
+                @request_events = @request_events.sort_by { |e| e.described_at }.reverse
+                if @request_events.count < max_count
+                    query = 'variety:sent'
+                    xapian_object = perform_search([InfoRequestEvent], query, sortby, 'request_title_collapse', max_count-@request_events.count)
+                    more_events = xapian_object.results.map { |r| r[:model] }
+                    @request_events += more_events.sort_by { |e| e.described_at }.reverse
+                end
             rescue
-                @successful_request_events = []
+                @request_events = []
             end
         end
     end
