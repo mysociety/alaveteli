@@ -142,7 +142,9 @@ class GeneralController < ApplicationController
             @sort_postfix = combined.pop
             @sortby = @sort_postfix
         end
-
+        if !params[:view].nil?
+            combined += [params[:view]]
+        end
         if combined.size > 0 && (['bodies', 'requests', 'users', 'all'].include?(combined[-1]))
             @variety_postfix = combined.pop
             case @variety_postfix
