@@ -4,26 +4,13 @@
 
     <h2><%= _("Act on what you've learnt") %></h2>
     <div class="act_link">
-        <%= link_to '<img src="/images/helpmeinvestigate.png" alt="" class="rss">', "http://helpmeinvestigate.com/"%> 
-        <%= link_to 'Get help investigating', "http://helpmeinvestigate.com/"%>
     </div>
-    <div class="act_link">
-        <%= link_to '<img src="/images/writetothem.png" alt="" class="rss">', "http://www.writetothem.com"%> 
-        <%= link_to 'Write to your politician', "http://www.writetothem.com"%>
-    </div>
-    <div class="act_link">
-        <%= link_to '<img src="/images/pledgebank.png" alt="" class="rss">', "http://www.pledgebank.com"%> 
-        <%= link_to 'Pledge with others', "http://www.pledgebank.com"%>
-    </div>
-    <!-- <div class="act_link">
-        <%= link_to '<img src="/images/petitions.png" alt="" class="rss">', "http://petitions.number10.gov.uk"%> 
-        <%= link_to 'Petition the PM', "http://petitions.number10.gov.uk"%>
-    </div> -->
     <div class="act_link">
         <%= link_to '<img src="/images/wordpress.png" alt="" class="rss">', "http://wordpress.com/"%> 
-        <%= link_to 'Start your own blog', "http://wordpress.com/"%>
+        <%= link_to _("Start your own blog"), "http://wordpress.com/"%>
     </div>
 
+    <%= render :partial => 'request/next_actions' %>
 
     <% view_cache :ttl => 1.day, :tag => ['similar', @info_request.id, I18n.locale] do %>
      <% if !@xapian_similar.nil? && @xapian_similar.results.size > 0 %>
