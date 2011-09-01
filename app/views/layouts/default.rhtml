@@ -125,7 +125,7 @@
 
     <div id="footer">
         <%= link_to _("Contact {{site_name}}", :site_name => site_name), help_contact_url %>
-    | <img src="/images/twitter-16.png" alt="twitter icon" valign="middle"> <a href="http://www.twitter.com/<%= MySociety::Config.get('TWITTER_USERNAME') %>">Follow us on twitter</a>
+    | <img src="/images/twitter-16.png" alt="twitter icon" class="twitter-icon"> <a href="http://www.twitter.com/<%= MySociety::Config.get('TWITTER_USERNAME') %>">Follow us on twitter</a>
     <%= render :partial => 'general/credits' %>
     </div>
     <div class="after-footer">&nbsp;</div>

@@ -414,6 +414,10 @@ div#twitter
 	margin: 0 0 1em 1em;
 }
 
+img.twitter-icon {
+ vertical-align: middle;
+}
+
 .blog_post {
     margin-bottom: 2em;
 }

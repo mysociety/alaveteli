@@ -25,7 +25,7 @@ describe "When searching" do
         request_via_redirect("post", "/search",
                              :query => 'bob'
                              )
-        response.body.should include("One person matching")
+        response.body.should include("One person found")
     end
 
     it "should correctly filter searches for requests" do
@@ -45,7 +45,7 @@ describe "When searching" do
         request_via_redirect("post", "/search",
                              :query => "daftest",
                              :request_variety => ['comments'])
-        response.body.should include("One FOI request matching your search")
+        response.body.should include("One FOI request found")
 
         request_via_redirect("post", "/search",
                              :query => "daftest",
