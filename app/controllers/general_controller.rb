@@ -99,7 +99,7 @@ class GeneralController < ApplicationController
             @variety_postfix = path.pop
         end
         @variety_postfix = params[:bodies] if @variety_postfix.nil? && !params[:bodies].nil?
-        @variety_postfix = "all" if @variety_postfix.nil?
+        @variety_postfix = "requests" if @variety_postfix.nil?
         if @variety_postfix != "users"
             @common_query = get_tags_from_params
         end

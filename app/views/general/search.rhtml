@@ -46,10 +46,10 @@
   <div id="variety-filter">
      <h3 class="title"><%= _("Showing") %></h3>
      <% labels = [
-	      ["all", _("everything")],
 	      ["requests", _("requests")],
         ["users", _("users")],
-        ["bodies", _("authorities")]]%>
+        ["bodies", _("authorities")],
+	["all", _("everything")]]%>
      <% for variety, label in labels %>
        <% if @variety_postfix != variety %>
         <% if variety != "users" %>

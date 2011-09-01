@@ -25,13 +25,18 @@ describe "When searching" do
         request_via_redirect("post", "/search",
                              :query => 'bob'
                              )
-        response.body.should include("One person found")
+        response.body.should include("FOI requests")
     end
 
     it "should correctly filter searches for requests" do
         request_via_redirect("post", "/search/bob/requests")   
-        response.body.should_not include("One person matching")
+        response.body.should_not include("One person found")
         response.body.should include("FOI requests 1 to 2 of 2")
+    end
+    it "should correctly filter searches for users" do
+        request_via_redirect("post", "/search/bob/users")   
+        response.body.should include("One person found")
+        response.body.should_not include("FOI requests 1 to 2 of 2")
     end
 
     it "should correctly filter searches for successful requests" do
