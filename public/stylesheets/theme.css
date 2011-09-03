@@ -413,6 +413,12 @@ p.subtitle {
   padding-right:2px;
 }
 
+form.feed_form input[type="submit"] {
+ font-size: 12px;
+ line-height: 12px;
+ padding: 2px 4px;
+}
+
 #header_right > br {
   line-height:200%;
 }

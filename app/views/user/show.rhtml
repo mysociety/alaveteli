@@ -186,7 +186,7 @@
         <% else %>
             <h2 id="email_subscriptions"> Your <%=pluralize(@track_things.size, _('email subscription')) %> </h2>
             <% if @track_things_grouped.size == 1 %>
-                <% form_tag :controller => 'track', :action => 'delete_all_type' do %>
+                <% form_tag ({:controller => 'track', :action => 'delete_all_type'}, :class => "feed_form") do %>
                     <h3>
                         <%=TrackThing.track_type_description(@track_things[0].track_type)%>
                         <%= hidden_field_tag 'track_type', @track_things[0].track_type %>
@@ -200,7 +200,7 @@
             <% end %>
             <% for track_type, track_things in @track_things_grouped %>
                 <% if @track_things_grouped.size > 1 %>
-                    <% form_tag :controller => 'track', :action => 'delete_all_type' do %>
+                    <% form_tag ({:controller => 'track', :action => 'delete_all_type'}, :class => "feed_form") do %>
                         <h3>
                             <%=TrackThing.track_type_description(track_type)%>
                             <%= hidden_field_tag 'track_type', track_type %>
@@ -216,7 +216,7 @@
                 <ul>
                 <% for track_thing in track_things %>
                     <li>
-                        <% form_tag :controller => 'track', :action => 'update', :track_id => track_thing.id do %>
+                        <% form_tag ({:controller => 'track', :action => 'update', :track_id => track_thing.id}, :class => "feed_form") do %>
                             <div>
                                 <%= track_thing.params[:list_description] %> 
                                 <%= hidden_field_tag 'track_medium', "delete", { :id => 'track_medium_' + track_thing.id.to_s } %>
