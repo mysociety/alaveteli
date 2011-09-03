@@ -75,7 +75,7 @@ describe PublicBodyController, "when listing bodies" do
 
         assigns[:public_bodies].should == [ public_bodies(:humpadink_public_body), public_bodies(:geraldine_public_body) ]
         assigns[:tag].should == "all"
-        assigns[:description].should == "all"
+        assigns[:description].should == ""
     end
 
     it "should support simple searching of bodies by title" do
@@ -94,7 +94,7 @@ describe PublicBodyController, "when listing bodies" do
         response.should render_template('list')
         assigns[:public_bodies].should == [ public_bodies(:geraldine_public_body), public_bodies(:humpadink_public_body) ]
         assigns[:tag].should == "all"
-        assigns[:description].should == "all"
+        assigns[:description].should == ""
         I18n.default_locale = :en
     end
 
@@ -113,7 +113,7 @@ describe PublicBodyController, "when listing bodies" do
 
         get :list
         response.should render_template('list')
-        assigns[:public_bodies].should == [ public_bodies(:humpadink_public_body), public_bodies(:geraldine_public_body) ]
+        assigns[:public_bodies].count.should == 2
 
     end
 

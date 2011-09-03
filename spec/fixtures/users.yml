@@ -10,6 +10,7 @@ bob_smith_user:
   email_confirmed: true
   admin_level: 'none'
   ban_text: ''
+  locale: 'en'
   about_me: 'I like making requests about fancy dogs and naughty chickens and stuff.'
 silly_name_user: 
   id: "2"
@@ -23,6 +24,7 @@ silly_name_user:
   email_confirmed: false
   admin_level: 'none'
   ban_text: ''
+  locale: 'en'
   about_me: ''
 admin_user: 
   id: "3"
@@ -36,4 +38,5 @@ admin_user:
   email_confirmed: false
   admin_level: 'super'
   ban_text: ''
+  locale: ''
   about_me: ''

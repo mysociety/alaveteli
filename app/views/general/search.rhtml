@@ -20,10 +20,11 @@
   <% end%>
 
   <% if @advanced %>
+   <div id="advanced-search">
     <p><%= _('To use the advanced search, combine phrases and labels as described in the search tips below.') %></p>
     <% form_tag(advanced_search_url, :method => "get") do %>
        <p>
-         <%= text_field_tag :query, params[:query], { :size => 40 } %>
+         <%= text_field_tag :query, @query, { :size => 60 } %>
          <%= hidden_field_tag 'sortby', @inputted_sortby %>
          <% if @bodies %>
              <%= hidden_field_tag 'bodies', 1 %>
@@ -32,6 +33,7 @@
              &nbsp;&nbsp;<%= link_to _('Simple search'), search_redirect_path %>
        </p>
     <% end %>
+  </div>
   <% else %>
     <% form_tag(request.url, {:method => "get", :id => "search_form"}) do %>
      <p>
@@ -41,15 +43,18 @@
              <%= hidden_field_tag 'bodies', 1 %>
          <% end %>
          <%= submit_tag _("Search") %>
+        <%= link_to(_("Advanced search"), advanced_search_url) %>
+
+
      </p>
 <div id="common-subfilters">
   <div id="variety-filter">
      <h3 class="title"><%= _("Showing") %></h3>
      <% labels = [
-	      ["all", _("everything")],
 	      ["requests", _("requests")],
         ["users", _("users")],
-        ["bodies", _("authorities")]]%>
+        ["bodies", _("authorities")],
+	["all", _("everything")]]%>
      <% for variety, label in labels %>
        <% if @variety_postfix != variety %>
         <% if variety != "users" %>
@@ -109,20 +114,20 @@
    <%= text_field_tag(:request_date_before, params[:request_date_before], {:class => "use-datepicker", :size => 10}) %>
  </div>
 </div>
-<br/>
 <% end %>
+<div>
    <%= submit_tag("Filter") if @variety_postfix == "requests"%>
+</div>
   <% end %>
-  <p><%= link_to(_("Advanced search"), advanced_search_url) %></p>
 <% end %>
 
   
 
   <% if !@query.nil? %>
       <p id="search_controls">
-      <%=link_to_unless @sortby == 'relevant', _("Show most relevant results first"), search_url(@query, 'relevant') %>
+      <%=link_to_unless @sortby == 'relevant', _("Show most relevant results first"), search_url(@query, @variety_postfix, 'relevant') %>
       |
-      <%=link_to_unless @sortby == 'newest', _("Newest results first"), search_url(@query, 'newest') %>
+      <%=link_to_unless @sortby == 'newest', _("Newest results first"), search_url(@query, @variety_postfix, 'newest') %>
       <% if @sortby == 'described' %>
       | <%= _('Recently described results first') %>
       <% end %>
@@ -191,7 +196,7 @@
           <% if @xapian_requests_hits == 1 && @page == 1 %>
               <h2 class="foi_results"><%= _("One FOI request found") %></h2>
           <% else %>
-              <h2 class="foi_results"><%= _("FOI requests  {{start_count}} to {{end_count}} of {{total_count}}", :start_count => ((@page-1)*@requests_per_page+1).to_s, :end_count => [@page*@requests_per_page, @xapian_requests.matches_estimated].min.to_s, :total_count =>  @xapian_requests.matches_estimated.to_s) %></h2>
+              <h2 class="foi_results"><%= _("FOI requests {{start_count}} to {{end_count}} of {{total_count}}", :start_count => ((@page-1)*@requests_per_page+1).to_s, :end_count => [@page*@requests_per_page, @xapian_requests.matches_estimated].min.to_s, :total_count =>  @xapian_requests.matches_estimated.to_s) %></h2>
           <% end %>
 
           <div class="results_block">

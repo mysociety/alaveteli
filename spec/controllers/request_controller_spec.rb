@@ -451,6 +451,7 @@ describe RequestController, "when making a new request" do
         @user.stub!(:get_undescribed_requests).and_return([])
         @user.stub!(:can_leave_requests_undescribed?).and_return(false)
         @user.stub!(:can_file_requests?).and_return(true)
+        @user.stub!(:locale).and_return("en")
         User.stub!(:find).and_return(@user)
 
         @body = mock_model(PublicBody, :id => 314, :eir_only? => false, :is_requestable? => true, :name => "Test Quango")

@@ -50,11 +50,18 @@ class GeneralController < ApplicationController
                 query = 'variety:response (status:successful OR status:partially_successful)'
                 # query = 'variety:response' # XXX debug
                 sortby = "described"
-                xapian_object = perform_search([InfoRequestEvent], query, sortby, 'request_title_collapse', 8)
-                @successful_request_events = xapian_object.results.map { |r| r[:model] }
-                @successful_request_events = @successful_request_events.sort_by { |e| e.described_at }.reverse
+                max_count = 5
+                xapian_object = perform_search([InfoRequestEvent], query, sortby, 'request_title_collapse', max_count)
+                @request_events = xapian_object.results.map { |r| r[:model] }
+                @request_events = @request_events.sort_by { |e| e.described_at }.reverse
+                if @request_events.count < max_count
+                    query = 'variety:sent'
+                    xapian_object = perform_search([InfoRequestEvent], query, sortby, 'request_title_collapse', max_count-@request_events.count)
+                    more_events = xapian_object.results.map { |r| r[:model] }
+                    @request_events += more_events.sort_by { |e| e.described_at }.reverse
+                end
             rescue
-                @successful_request_events = []
+                @request_events = []
             end
         end
     end
@@ -92,7 +99,7 @@ class GeneralController < ApplicationController
             @variety_postfix = path.pop
         end
         @variety_postfix = params[:bodies] if @variety_postfix.nil? && !params[:bodies].nil?
-        @variety_postfix = "all" if @variety_postfix.nil?
+        @variety_postfix = "requests" if @variety_postfix.nil?
         if @variety_postfix != "users"
             @common_query = get_tags_from_params
         end
@@ -135,7 +142,9 @@ class GeneralController < ApplicationController
             @sort_postfix = combined.pop
             @sortby = @sort_postfix
         end
-
+        if !params[:view].nil?
+            combined += [params[:view]]
+        end
         if combined.size > 0 && (['bodies', 'requests', 'users', 'all'].include?(combined[-1]))
             @variety_postfix = combined.pop
             case @variety_postfix
@@ -152,8 +161,13 @@ class GeneralController < ApplicationController
                 @requests = false
                 @users = true
             end
+        else
+            @variety_postfix = "all"
         end
         @query = combined.join("/")
+        if params[:query].nil?
+            params[:query] = @query
+        end
         @inputted_sortby = @sortby
         @common_query = get_tags_from_params
         if @sortby.nil?

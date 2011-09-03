@@ -22,6 +22,7 @@
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 #
 # $Id: track_thing.rb,v 1.53 2009-09-17 21:10:05 francis Exp $
+require 'set'
 
 class TrackThing < ActiveRecord::Base
     belongs_to :tracking_user, :class_name => 'User'
@@ -66,6 +67,63 @@ class TrackThing < ActiveRecord::Base
     def track_type_description
         TrackThing.track_type_description(self.track_type)
     end
+
+    def track_query_description
+        # XXX this is very brittle... we should probably ask users 
+        # simply to name their tracks when they make them?
+        self.track_query = self.track_query.gsub(/([()]|OR)/, "")
+        filters = self.track_query.scan /\b\S+:\S+\b/
+        text = self.track_query
+        varieties = Set.new
+        date = ""
+        statuses = Set.new
+        for filter in filters
+            text = text.sub(filter, "")
+            if filter =~ /variety:user/
+                varieties << _("users")
+            end
+            if filter =~ /variety:comment/
+                varieties << _("comments")
+            end
+            if filter =~ /variety:authority/
+                varieties << _("authorities")
+            end
+            if filter =~ /(variety:(sent|followup_sent|response)|latest_status)/
+                varieties << _("requests")
+            end
+            if filter =~ /[0-9\/]+\.\.[0-9\/]+/
+                date = _("between two dates")
+            end
+            if filter =~ /(rejected|not_held)/
+                statuses << _("unsuccessful")
+            end
+            if filter =~ /(:successful|:partially_successful)/
+                statuses << _("successful")
+            end
+            if filter =~ /waiting/
+                statuses << _("awaiting a response")
+            end                
+        end
+        if filters.empty?
+            text = self.track_query
+        end
+        descriptions = []
+        if varieties.include? _("requests")
+            descriptions << _("requests which are {{list_of_statuses}}", :list_of_statuses => Array(statuses).join(_(' or ')))
+            varieties -= [_("requests")]
+        end
+        if descriptions.empty? and varieties.empty?
+            varieties << _("anything")
+        end
+        descriptions += Array(varieties)
+        text = text.strip
+        descriptions = descriptions.join(_(" or "))
+        if !text.empty?
+            descriptions += _("{{list_of_things}} matching text '{{search_query}}'", :list_of_things => "", :search_query => text)
+        end
+        return descriptions
+    end
+
 
     def TrackThing.create_track_for_request(info_request)
         track_thing = TrackThing.new
@@ -134,16 +192,16 @@ class TrackThing < ActiveRecord::Base
             if self.track_type == 'request_updates'
                 @params = {
                     # Website
-                    :list_description => "'<a href=\"/request/" + CGI.escapeHTML(self.info_request.url_title) + "\">" + CGI.escapeHTML(self.info_request.title) + "</a>', a request", # XXX yeuch, sometimes I just want to call view helpers from the model, sorry! can't work out how 
+                    :list_description => _("'{{link_to_request}}', a request", :link_to_request => "<a href=\"/request/" + CGI.escapeHTML(self.info_request.url_title) + "\">" + CGI.escapeHTML(self.info_request.title) + "</a>"), # XXX yeuch, sometimes I just want to call view helpers from the model, sorry! can't work out how 
                     :verb_on_page => _("Track this request by email"),
                     :verb_on_page_already => _("You are already tracking this request by email"),
                     # Email
-                    :title_in_email => "New updates for the request '" + self.info_request.title + "'",
-                    :title_in_rss => "New updates for the request '" + self.info_request.title + "'",
+                    :title_in_email => _("New updates for the request '{{request_title}}'", :request_title => self.info_request.title),
+                                         :title_in_rss => _("New updates for the request '{{request_title}}'", :request_title => self.info_request.title),
                     # Authentication
-                    :web => "To follow updates to the request '" + CGI.escapeHTML(self.info_request.title) + "'",
-                    :email => "Then you will be emailed whenever the request '" + CGI.escapeHTML(self.info_request.title) + "' is updated.",
-                    :email_subject => "Confirm you want to follow updates to the request '" + self.info_request.title + "'",
+                    :web => _("To follow updates to the request '{{request_title}}'", :request_title => CGI.escapeHTML(self.info_request.title)),
+                    :email => _("Then you will be emailed whenever the request '{{request_title}}' is updated.", :request_title => CGI.escapeHTML(self.info_request.title)),
+                    :email_subject => _("Confirm you want to follow updates to the request '{{request_title}}'", :request_title => self.info_request.title),
                     # RSS sorting
                     :feed_sortby => 'newest'
                 }
@@ -185,7 +243,7 @@ class TrackThing < ActiveRecord::Base
             elsif self.track_type == 'public_body_updates'
                 @params = {
                     # Website
-                    :list_description => "'<a href=\"/body/" + CGI.escapeHTML(self.public_body.url_name) + "\">" + CGI.escapeHTML(self.public_body.name) + "</a>', a public authority", # XXX yeuch, sometimes I just want to call view helpers from the model, sorry! can't work out how 
+                    :list_description => _("'{{link_to_authority}}', a public authority", :link_to_authority => "<a href=\"/body/" + CGI.escapeHTML(self.public_body.url_name) + "\">" + CGI.escapeHTML(self.public_body.name) + "</a>"), # XXX yeuch, sometimes I just want to call view helpers from the model, sorry! can't work out how 
                     :verb_on_page => _("Track requests to {{public_body_name}} by email",:public_body_name=>CGI.escapeHTML(self.public_body.name)),
                     :verb_on_page_already => _("You are already tracking requests to {{public_body_name}} by email", :public_body_name=>CGI.escapeHTML(self.public_body.name)),
                     # Email
@@ -201,7 +259,7 @@ class TrackThing < ActiveRecord::Base
             elsif self.track_type == 'user_updates'
                 @params = {
                     # Website
-                    :list_description => "'<a href=\"/user/" + CGI.escapeHTML(self.tracked_user.url_name) + "\">" + CGI.escapeHTML(self.tracked_user.name) + "</a>', a person", # XXX yeuch, sometimes I just want to call view helpers from the model, sorry! can't work out how 
+                    :list_description => _("'{{link_to_user}}', a person", :link_to_user => "<a href=\"/user/" + CGI.escapeHTML(self.tracked_user.url_name) + "\">" + CGI.escapeHTML(self.tracked_user.name) + "</a>"), # XXX yeuch, sometimes I just want to call view helpers from the model, sorry! can't work out how 
                     :verb_on_page => _("Track this person by email"),
                     :verb_on_page_already => _("You are already tracking this person by email"),
                     # Email
@@ -217,7 +275,7 @@ class TrackThing < ActiveRecord::Base
             elsif self.track_type == 'search_query'
                 @params = {
                     # Website
-                    :list_description => "'<a href=\"/search/" + CGI.escapeHTML(self.track_query) + "/newest\">" + CGI.escapeHTML(self.track_query) + "</a>' in new requests/responses", # XXX yeuch, sometimes I just want to call view helpers from the model, sorry! can't work out how 
+                    :list_description => "<a href=\"/search/" + CGI.escapeHTML(self.track_query) + "/newest/advanced\">" + self.track_query_description + "</a>", # XXX yeuch, sometimes I just want to call view helpers from the model, sorry! can't work out how 
                     :verb_on_page => _("Track things matching this search by email"),
                     :verb_on_page_already => _("You are already tracking things matching this search by email"),
                     # Email

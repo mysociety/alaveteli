@@ -90,6 +90,7 @@ class PublicBodyController < ApplicationController
         @query = "%#{params[:public_body_query].nil? ? "" : params[:public_body_query]}%"
         @tag = params[:tag]
         @locale = self.locale_from_params()
+
         locale_condition = "(upper(public_body_translations.name) LIKE upper(?) OR upper(public_body_translations.notes) LIKE upper (?)) AND public_body_translations.locale = ?"
         if @tag.nil? or @tag == "all"
             @tag = "all"

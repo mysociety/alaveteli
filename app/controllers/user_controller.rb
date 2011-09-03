@@ -35,9 +35,16 @@ class UserController < ApplicationController
         # Use search query for this so can collapse and paginate easily
         # XXX really should just use SQL query here rather than Xapian.
         begin
-            @xapian_requests = perform_search([InfoRequestEvent], 'requested_by:' + @display_user.url_name, 'newest', 'request_collapse')
-            @xapian_comments = perform_search([InfoRequestEvent], 'commented_by:' + @display_user.url_name, 'newest', nil)
-
+            requests_query = 'requested_by:' + @display_user.url_name
+            comments_query = 'commented_by:' + @display_user.url_name
+            if !params[:user_query].nil?
+                requests_query += " " + params[:user_query]
+                comments_query += " " + params[:user_query]
+                @match_phrase = _("{{search_results}} matching '{{query}}'", :search_results => "", :query => params[:user_query])
+            end
+            @xapian_requests = perform_search([InfoRequestEvent], requests_query, 'newest', 'request_collapse')
+            @xapian_comments = perform_search([InfoRequestEvent], comments_query, 'newest', nil)
+            
             if (@page > 1)
                 @page_desc = " (page " + @page.to_s + ")"
             else

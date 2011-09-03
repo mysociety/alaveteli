@@ -1,37 +1,43 @@
 <% view_cache :ttl => 5.minutes, :tag => I18n.locale do %>
-
-
-  <div class="frontpage-box" id="frontpage-box-1">
-   <%= render :partial => 'frontpage_intro_sentence'  %>
-  </div>
-
-  <div class="frontpage-box" id="frontpage-box-2">
-    <div id="bighand">
-    Make a new <strong>Freedom of Information</strong> request
-     <br />
-     <a href="/select_authority"><img alt="Start-button" src="/images/start-button.png"></a>
-     </div>
-  </div>
-
-  <div class="frontpage-box" id="frontpage-box-3">
-    <div id="littlehand">
-    Search over <strong><%= InfoRequest.count %> requests</strong> and <strong><%= PublicBody.count %> authorities</strong>:
-    <% form_tag({:action => "search_redirect"}, {:id => "search_form"}) do %>
-           <%= text_field_tag 'query', params[:query], { :size => 30 } %>
-           <%= hidden_field_tag 'bodies', 1 %>
-           <%= image_submit_tag 'button-search.png', :title => 'Search' %>
-           <br>
-            <%= render :partial => 'frontpage_search_examples'  %>
-    <% end %>
+  <div id="frontpage_splash">
+    <div id="left_column">
+      <h1>
+        <%= _("Make a new<br/>
+        <strong>Freedom <span>of</span><br/>
+        Information<br/>
+        request</strong>") %>
+      </h1>
+      <a class="link_button_green_large" href="/select_authority"><%= _("Start now &raquo;") %></a>
     </div>
+    <div id="right_column">
+      <div id="frontpage_search_box">
+        <h2>
+	  <%= _("Search over<br/>
+          <strong>{{number_of_requests}} requests</strong> <span>and</span><br/>
+          <strong>{{number_of_authorities}} authorities</strong>",
+	  :number_of_requests => InfoRequest.count, :number_of_authorities => PublicBody.count) %>
+        </h2>
+        <% form_tag({:action => "search_redirect"}, {:id => "search_form"}) do %>
+	<div>
+               <%= text_field_tag 'query', params[:query], { :size => 30 } %>
+               <%= hidden_field_tag 'bodies', 1 %>
+               <%= submit_tag _('Search') %>
+	</div>
+        <% end %>
+      </div>
+      <div id="frontpage_right_to_know">
+       <%= render :partial => 'frontpage_intro_sentence'  %>
+      </div>
+    </div>
+    <div style="clear:both"></div>
   </div>
-
 
 <div id="frontpage_examples">
     <% if @popular_bodies.size > 0 %>
       <div id="examples_0">
-	<h3>Who has the information?</h3>
-	<%= site_name %> covers requests to <%= PublicBody.count %> authorities, including:
+	<h3><%= _("Who can I request information from?") %></h3>
+	<%= _("{{site_name}} covers requests to {{number_of_authorities}} authorities, including:",
+	    :site_name => site_name, :number_of_authorities => PublicBody.count) %>
 	<ul>
             <% for popular_body in @popular_bodies %>
                 <li><%=public_body_link(popular_body)%>
@@ -46,13 +52,13 @@
     <% end %>
 
         <div id="examples_1">
-	  <h3>What are people asking?</h3>
-           <%= site_name %> users have asked <%= InfoRequest.count %> questions.
+	  <h3><%= _("What information has been released?") %></h3>
+           <%= _("{{site_name}} users have made {{number_of_requests}} requests, including:", 
+	    :site_name => site_name, :number_of_requests => InfoRequest.count) %>
             <ul>
-
-              <% for event in @successful_request_events %>
+              <% for event in @request_events %>
 	      <li>
- 	       <%= public_body_link(event.info_request.public_body) %> answered a question about 
+ 	       <%= public_body_link(event.info_request.public_body) %> answered a request about 
 	       <%=link_to h(event.info_request.title), request_url(event.info_request)%> 
                <%= _('{{length_of_time}} ago', :length_of_time => time_ago_in_words(event.described_at)) %> 
 	       <p class="excerpt" onclick="document.location.href='<%=request_url(event.info_request)%>'"><%= excerpt(event.info_request.title, "", 200) %></p>

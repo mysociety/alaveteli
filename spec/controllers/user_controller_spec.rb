@@ -32,6 +32,13 @@ describe UserController, "when showing a user" do
         assigns[:display_user].should == users(:bob_smith_user)
     end
 
+    it "should search the user's contributions" do
+        get :show, :url_name => "bob_smith"
+        assigns[:xapian_requests].results.count.should == 2
+        get :show, :url_name => "bob_smith", :user_query => "money"
+        assigns[:xapian_requests].results.count.should == 1
+    end
+
 # Error handling not quite good enough for this yet
 #    it "should not show unconfirmed users" do
 #        get :show, :url_name => "silly_emnameem"
@@ -169,6 +176,19 @@ describe UserController, "when signing up" do
         deliveries = ActionMailer::Base.deliveries
         deliveries.size.should  == 1
         deliveries[0].body.should include("not reveal your email")
+    end
+
+    it "should send confirmation mail in other languages or different locales" do
+        session[:locale] = "es"
+        post :signup, {:user_signup => { :email => 'new@localhost', :name => 'New Person',
+            :password => 'sillypassword', :password_confirmation => 'sillypassword',
+           }
+        }
+        response.should render_template('confirm')
+
+        deliveries = ActionMailer::Base.deliveries
+        deliveries.size.should  == 1
+        deliveries[0].body.should include("No revelaremos su dirección de correo")
     end
 
     it "should send special 'already signed up' mail if you fill the form in with existing registered email " do
