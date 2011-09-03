@@ -1,5 +1,8 @@
 <div id="right_column">
-    <h2><%= _('Track this request') %></h2>
+    <h2><%= _('Follow this request') %></h2>
+
+    <% follower_count = TrackThing.count(:all, :conditions => ["info_request_id = ?", @info_request.id]) + 1 %>
+    <p><%= n_("There is %d person following this request", "There are %d people following this request", follower_count) % follower_count %></p>
      <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => @info_request.user == @user, :location => 'sidebar' } %>
 
     <h2><%= _("Act on what you've learnt") %></h2>

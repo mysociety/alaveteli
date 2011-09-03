@@ -4,11 +4,10 @@
     end
 %>
 
-
 <% if own_request %> 
     <p><%= _('This is your own request, so you will be automatically emailed when new responses arrive.')%></p>
 <% elsif existing_track %> 
-        <% form_tag({:controller => 'track', :action => 'update', :track_id => existing_track.id}, :class => "feed_form_" + location) do %>
+        <% form_tag({:controller => 'track', :action => 'update', :track_id => existing_track.id}, :class => "feed_form feed_form_" + location) do %>
             <p>
                 <%= track_thing.params[:verb_on_page_already] %>
                 <%= hidden_field_tag 'track_medium', "delete" %>
@@ -19,7 +18,7 @@
 <% elsif track_thing %>
     <div class="feed_link feed_link_<%=location%>">
         <%= link_to '<img src="/images/email-16.png" alt="">', do_track_url(track_thing) %>
-        <%= link_to "Track by email", do_track_url(track_thing) %>
+        <%= link_to "Follow by email", do_track_url(track_thing) %>
     </div>
     
     <div class="feed_link feed_link_<%=location%>">
