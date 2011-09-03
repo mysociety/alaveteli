@@ -1,18 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-module TestCustomStates
-    def self.included(base)
-        base.extend(ClassMethods)
-    end
-
-    module ClassMethods 
-        def theme_extra_states
-            return ['crotchety']
-        end
-    end
-end
-
-
 describe "When rendering errors" do
 
     fixtures [ :info_requests,
@@ -49,11 +36,8 @@ describe "When rendering errors" do
     end
     it "should render a 500 for general errors" do
         ir = info_requests(:naughty_chicken_request)
-        InfoRequest.send(:include, TestCustomStates)
-        InfoRequest.class_eval('@@custom_states_loaded = true')
-        ir.set_described_state("crotchety")
-        ir.save!
-        InfoRequest.class_eval('@@custom_states_loaded = false')
+        # Set an invalid state for the request. Note that update_attribute doesn't run the validations
+        ir.update_attribute(:described_state, "crotchety")
         get("/request/#{ir.url_title}")
         response.code.should == "500"
     end
