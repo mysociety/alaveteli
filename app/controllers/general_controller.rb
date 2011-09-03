@@ -161,8 +161,13 @@ class GeneralController < ApplicationController
                 @requests = false
                 @users = true
             end
+        else
+            @variety_postfix = "all"
         end
         @query = combined.join("/")
+        if params[:query].nil?
+            params[:query] = @query
+        end
         @inputted_sortby = @sortby
         @common_query = get_tags_from_params
         if @sortby.nil?
