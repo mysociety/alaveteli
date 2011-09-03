@@ -14,8 +14,14 @@ class ApplicationController < ActionController::Base
     # Standard headers, footers and navigation for whole site
     layout "default"
     include FastGettext::Translation # make functions like _, n_, N_ etc available)
+
+    # Note: a filter stops the chain if it redirects or renders something
+    before_filter :authentication_check
     before_filter :set_gettext_locale
+    before_filter :check_in_post_redirect
+    before_filter :session_remember_me
     before_filter :set_vary_header
+
     # scrub sensitive parameters from the logs
     filter_parameter_logging :password
 
@@ -48,7 +54,14 @@ class ApplicationController < ActionController::Base
         else
             requested_locale = params[:locale] || session[:locale] || cookies[:locale] || I18n.default_locale
         end
+        requested_locale = FastGettext.best_locale_in(requested_locale)
         session[:locale] = FastGettext.set_locale(requested_locale)
+        if !@user.nil?
+            if @user.locale != requested_locale
+                @user.locale = session[:locale]
+                @user.save!
+            end
+        end
     end
 
     # scrub sensitive parameters from the logs
@@ -85,7 +98,6 @@ class ApplicationController < ActionController::Base
     # Set cookie expiry according to "remember me" checkbox, as per "An easier
     # and more flexible hack" on this page:
     #   http://wiki.rubyonrails.org/rails/pages/HowtoChangeSessionOptions
-    before_filter :session_remember_me
     def session_remember_me
         # Reset the "sliding window" session expiry time.
         if request.env['rack.session.options']
@@ -263,7 +275,6 @@ class ApplicationController < ActionController::Base
     end
 
     # If we are in a faked redirect to POST request, then set post params.
-    before_filter :check_in_post_redirect
     def check_in_post_redirect
         if params[:post_redirect] and session[:post_redirect_token]
             post_redirect = PostRedirect.find_by_token(session[:post_redirect_token])
@@ -272,7 +283,6 @@ class ApplicationController < ActionController::Base
     end
 
     # Default layout shows user in corner, so needs access to it
-    before_filter :authentication_check
     def authentication_check
         if session[:user_id]
             @user = authenticated_user
