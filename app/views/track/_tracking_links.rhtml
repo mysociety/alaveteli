@@ -19,12 +19,12 @@
 <% elsif track_thing %>
     <div class="feed_link feed_link_<%=location%>">
         <%= link_to '<img src="/images/email-16.png" alt="">', do_track_url(track_thing) %>
-        <%= link_to "Track by email", do_track_url(track_thing) %>
+        <%= link_to _("Track by email"), do_track_url(track_thing) %>
     </div>
     
     <div class="feed_link feed_link_<%=location%>">
         <%= link_to '<img src="/images/feed-16.png" alt="">', do_track_url(track_thing, 'feed') %> 
-        <%= link_to (location == 'sidebar' ? 'RSS feed of updates' : 'RSS feed'),  do_track_url(track_thing, 'feed') %>
+        <%= link_to (location == 'sidebar' ? _('RSS feed of updates') : _('RSS feed')),  do_track_url(track_thing, 'feed') %>
     </div>
 <% end %>
 

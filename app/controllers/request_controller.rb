@@ -146,7 +146,7 @@ class RequestController < ApplicationController
         @view = params[:view]
         params[:latest_status] = @view
         query = make_query_from_params
-        @title = "View and search requests"
+        @title = _("View and search requests")
         sortby = "newest"
         @page = get_search_page_from_params if !@page # used in cache case, as perform_search sets @page as side effect
         behavior_cache :tag => [@view, @page] do

@@ -2,7 +2,7 @@
 
 <div id="list-filter">
   <div class="list-filter-item">
-   <h3 class="title">Showing</h3>
+   <h3 class="title"><%= _("Showing") %></h3>
      <% statuses = [["all", _("all requests")], 
                        ["successful", _("successful requests")],
                        ["unsuccessful", _("unsuccessful requests")],
@@ -46,7 +46,7 @@
  </div>
 
  <div class="list-filter-item">
-  <%= submit_tag("Search") %>
+  <%= submit_tag(_("Search")) %>
  </div>
 <% end %>
 </div>
