@@ -3,6 +3,7 @@ h1 {
   font-size: 42px;
   font-family: 'DeliciousBold', Arial, sans-serif;
   margin-bottom:15px;
+  margin-top:10px;
 }
 
 h2 a {
@@ -195,6 +196,7 @@ div.lang {
 p.subtitle {
   margin-top:10px;
   margin-bottom:20px;
+  font-style: italic;
 }
 
 .results_section {
@@ -437,10 +439,13 @@ h2.foi_results,
 h2.person_results,
 h2.publicbody_results {
   padding-top:0px;
-  border-bottom:1px solid #B3B3B3;
   padding-bottom:15px;
   margin-bottom:0px;
   margin-top: 0px;
+}
+
+h2.foi_results {
+  width: 600px;
 }
 
 .list_toggle_controls {
@@ -891,4 +896,9 @@ body.front h3 {
   background:#FFF;
   cursor:pointer;
   opacity: 1;
+}
+p.public-body-name-prefix {
+ color: #DEB4D8;
+ margin-top: 15px;
+ margin-bottom: -15px;
 }
