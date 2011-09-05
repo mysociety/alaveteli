@@ -1,5 +1,5 @@
 <script type="text/javascript" src="/javascripts/ba-throttle-debounce.js"></script>
-<script>
+<script type="text/javascript">
     $(document).ready(function(){
         // Avoid triggering too often (on each keystroke) by using the debounce jQuery plugin:
         // http://benalman.com/projects/jquery-throttle-debounce-plugin/
@@ -28,7 +28,7 @@
     <% form_for(:info_request, @info_request, :html => { :id => 'write_form' }  ) do |f| %>
 
     <div id="request_header">
-        <p>
+        <div>
             <label class="form_label" for="info_request_public_body_id"><%= _('To:') %></label> 
             <span id="to_public_body"><%=h(@info_request.public_body.name)%></span>
             <div class="form_item_note">
@@ -38,7 +38,7 @@
                     <%= _("Browse <a href='{{url}}'>other requests</a> for examples of how to word your request.", :url=>request_list_url) %>
                 <% end %>
             </div>
-        </p>
+        </div>
 
         <div id="request_header_text">    
         <% if @info_request.public_body.has_notes? %>
@@ -72,7 +72,7 @@
         </div>
  
         <p>
-            <label class="form_label" for="info_request_title"><%= _('Summary:') %></label> 
+            <label class="form_label" for="typeahead_search"><%= _('Summary:') %></label> 
             <%= f.text_field :title, :size => 50, :id =>"typeahead_search" %>
         </p>
         <div class="form_item_note">
