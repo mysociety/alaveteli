@@ -303,37 +303,7 @@ class InfoRequestEvent < ActiveRecord::Base
     def display_status
         if is_incoming_message?
             status = self.calculated_state
-            if !status.nil?
-                if status == 'waiting_response'
-                    return _("Acknowledgement")
-                elsif status == 'waiting_clarification'
-                    return _("Clarification required")
-                elsif status == 'gone_postal'
-                    return _("Handled by post")
-                elsif status == 'deadline_extended'
-                    return _("Deadline Extended")
-                elsif status == 'wrong_response'
-                    return _("Wrong Response")
-                elsif status == 'not_held'
-                    return _("Information not held")
-                elsif status == 'rejected'
-                    return _("Refused")
-                elsif status == 'partially_successful'
-                    return _("Some information sent")
-                elsif status == 'successful'
-                    return _("All information sent")
-                elsif status == 'internal_review'
-                    return _("Internal review acknowledgement")
-                elsif status == 'user_withdrawn'
-                    return _("Withdrawn by requester")
-                elsif status == 'error_message'
-                    return _("Delivery error")
-                elsif status == 'requires_admin'
-                    return _("Unusual response")
-                end
-                raise "unknown status " + status
-            end
-            return "Response"
+            return status.nil? ? _("Response") : InfoRequest.get_status_description(status)
         end
 
         if is_outgoing_message?

@@ -104,7 +104,7 @@ describe TrackController, "when sending alerts for a track" do
         TrackMailer.alert_tracks
         deliveries = ActionMailer::Base.deliveries
         mail = deliveries[0]
-        mail.body.should include('el equipo de Alaveteli')
+        mail.body.should include('el equipo de ')
     end
 end
 

@@ -40,8 +40,12 @@ ActionController::Routing::Routes.draw do |map|
         request.request_list_awaiting   '/list/awaiting',        :action => 'list', :view => 'awaiting'
         request.request_list   '/list',        :action => 'list'
 
+        request.select_authority     '/select_authority',     :action => 'select_authority'
+        
         request.new_request    '/new',         :action => 'new'
         request.new_request_to_body    '/new/:url_name',         :action => 'new'
+
+        request.search_ahead '/request/search_ahead',      :action => 'search_typeahead'
 
         request.show_request     '/request/:url_title.:format', :action => 'show'
         request.show_new_request     '/request/:url_title/new', :action => 'show'
@@ -57,7 +61,6 @@ ActionController::Routing::Routes.draw do |map|
         request.info_request_event '/request_event/:info_request_event_id', :action => 'show_request_event'
 
         request.upload_response "/upload/request/:url_title", :action => 'upload_response'
-
     end
 
     # Use /profile for things to do with the currently signed in user.
@@ -85,6 +88,7 @@ ActionController::Routing::Routes.draw do |map|
     end
 
     map.with_options :controller => 'public_body' do |body|
+        body.search_ahead_bodies '/body/search_ahead',      :action => 'search_typeahead'
         body.list_public_bodies "/body", :action => 'list'
         body.list_public_bodies_default "/body/list/all", :action => 'list'
         body.list_public_bodies "/body/list/:tag", :action => 'list'

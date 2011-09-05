@@ -1,8 +1,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="<%= I18n.locale %>">
     <head>
+        <script type="text/javascript" src="/javascripts/jquery.js"></script>
         <% if @profile_photo_javascript %>
-            <script type="text/javascript" src="/javascripts/jquery.js"></script>
             <script type="text/javascript" src="/javascripts/jquery.Jcrop.js"></script>
             <script type="text/javascript" src="/javascripts/profile_photo.js"></script>
             <link rel="stylesheet" href="/stylesheets/jquery.Jcrop.css" type="text/css" >
@@ -32,6 +32,8 @@
         <style type="text/css">@import url("/stylesheets/ie7.css");</style> 
         <![endif]-->
         <%= stylesheet_link_tag 'custom', :title => "Main", :rel => "stylesheet"  %>
+        <!-- XXX: add conditional include -->
+        <%= stylesheet_link_tag 'jquery.fancybox-1.3.4', :rel => "stylesheet"  %>
 
         <% if @feed_autodetect %>
             <% for feed in @feed_autodetect %>
@@ -53,6 +55,28 @@
     </head>
     <body <%= "class='front'" if params[:action] == 'frontpage' %>>
 
+    <!-- XXX: move to a separate file -->
+    <% if force_registration_on_new_request && !@user %>
+    <%= javascript_include_tag 'jquery.fancybox-1.3.4.pack' %>
+    <script>
+        $(document).ready(function() {
+            $("#make-request-link").fancybox({
+                'modal': false,
+                'width': 800,
+                'height': 500,
+                'type': 'iframe',
+                'href': '/en/profile/sign_in?modal=1',
+                'onClosed': function() {
+                    // modal_signin_successful variable set by modal dialog box
+                    if (typeof modal_signin_successful != 'undefined' ) {
+                        window.location.href = '<%= select_authority_url %>';
+                    }
+                } 
+            });
+        });
+    </script>
+    <% end %>
+        
 <% # code for popup advert for a campaign etc.
 =begin
     <div id="everypage" class="jshide">
@@ -93,12 +117,13 @@
             <% end %>
         </div>
         
-        <%= link_to image_tag('logo.png'), frontpage_url, :id=>'logo' %> 
+        <%= render :partial => 'general/orglink' %>
         
         <div id="topnav">
             <ul id="navigation">
-                <li class="<%= 'selected' if params[:controller] == 'general' and params[:action] != 'blog' %>"><%= link_to _("Make a request"), frontpage_url %></li>
-                <li class="<%= 'selected' if params[:controller] == 'request' %>"><%= link_to _("View requests"), request_list_successful_url %></li>
+                <li class="<%= 'selected' if params[:controller] == 'general' and params[:action] != 'blog' %>"><%= link_to _("Home"), frontpage_url %></li>
+                <li class="<%= 'selected' if params[:controller] == 'request' and ['new', 'select_authority'].include?(params[:action]) %>"><%= link_to _("Make a request"), select_authority_url, :id => 'make-request-link' %></li>
+                <li class="<%= 'selected' if params[:controller] == 'request' and !['new', 'select_authority'].include?(params[:action]) %>"><%= link_to _("View requests"), request_list_successful_url %></li>
                 <li class="<%= 'selected' if params[:controller] == 'public_body' %>"><%= link_to _("View authorities"), list_public_bodies_default %></li>
                 <li class="<%= 'selected' if params[:controller] == 'general' and params[:action] == 'blog' %>"><%= link_to _("Read blog"), blog_url %></li>
                 <li class="<%= 'selected' if params[:controller] == 'help' %>"><%= link_to _("Help"), help_about_url %></li>

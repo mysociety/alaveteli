@@ -176,5 +176,17 @@ class PublicBodyController < ApplicationController
                   :filename => 'all-authorities.csv', 
                   :disposition =>'attachment', :encoding => 'utf8')
     end
+
+    # Type ahead search
+    def search_typeahead
+        # Since acts_as_xapian doesn't support the Partial match flag, we work around it
+        # by making the last work a wildcard, which is quite the same
+        query = params[:q] + '*'
+
+        query = query.split(' ').join(' OR ')       # XXX: HACK for OR instead of default AND!
+        @xapian_requests = perform_search([PublicBody], query, 'relevant', 'request_collapse', 5)
+
+        render :partial => "public_body/search_ahead"
+    end
 end
 

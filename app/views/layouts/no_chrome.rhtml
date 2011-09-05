@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="<%= I18n.locale %>">
+    <head>
+        <title>
+        <% if @title %>
+            <%=@title%> - <%= site_name %>
+        <% else %>
+            <%= site_name %> - <%= _('Make and browse Freedom of Information (FOI) requests') %>
+        <% end %>
+        </title>
+
+        <script type="text/javascript" src="/javascripts/jquery.js"></script>
+
+        <%= stylesheet_link_tag 'main', :title => "Main", :rel => "stylesheet"  %>
+        <!--[if LT IE 7]> 
+        <style type="text/css">@import url("/stylesheets/ie6.css");</style> 
+        <![endif]-->
+        <!--[if LT IE 7]> 
+        <style type="text/css">@import url("/stylesheets/ie6-custom.css");</style> 
+        <![endif]-->
+        <%= stylesheet_link_tag 'custom', :title => "Main", :rel => "stylesheet"  %>
+    </head>
+    <body>
+        <div class="entirebody">
+            <div id="content">
+                <% if flash[:notice] %>
+                    <div id="notice"><%= flash[:notice] %></div>
+                <% end %>
+                <% if flash[:error] %>
+                    <div id="error"><%= flash[:error] %></div>
+                <% end %>
+
+                <div id="<%= controller.controller_name + "_" + controller.action_name %>" class="controller_<%= controller.controller_name %>">
+                <%= yield :layout %>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

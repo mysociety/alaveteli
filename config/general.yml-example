@@ -37,6 +37,9 @@ FRONTPAGE_PUBLICBODY_EXAMPLES: 'tgq'
 # URL of theme to install (when running rails-post-deploy script)
 THEME_URL: 'git://github.com/mysociety/whatdotheyknow-theme.git'
 
+# Whether a user needs to sign in to start the New Request process
+FORCE_REGISTRATION_ON_NEW_REQUEST: false
+
 
 ## Incoming email
 # Your email domain, e.g. 'foifa.com'

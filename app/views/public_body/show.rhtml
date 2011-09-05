@@ -1,4 +1,5 @@
 <% @title = h(@public_body.name) + " - view and make Freedom of Information requests" %>
+<div id="main_content">
 <div>
   <div id="header_right">
       <h2><%= _('Follow this authority')%></h2>
@@ -50,9 +51,9 @@
     <div id="stepwise_make_request">
         <% if @public_body.is_requestable? || @public_body.not_requestable_reason == 'bad_contact' %>
             <% if @public_body.eir_only? %>
-    	        Make a new <strong>Environmental Information</strong> request
+    	        <%= _('Make a new <strong>Environmental Information</strong> request')%>
             <% else %>
-    	        Make a new <strong>Freedom of Information</strong> request to <%=h(@public_body.name)%>
+    	        <%= _('Make a new <strong>Freedom of Information</strong> request to {{public_body}}', :public_body => h(@public_body.name))%>
             <% end %>
             &nbsp;<%= _('<a class="link_button_green" href="{{url}}">{{text}}</a>', :url=>new_request_to_body_url(:url_name => @public_body.url_name), :text=>_("Start"))%>
         <% elsif @public_body.has_notes? %>
@@ -119,4 +120,5 @@
     <% end %>
     <p> <%= _('The search index is currently offline, so we can\'t show the Freedom of Information requests that have been made to this authority.')%></p>
 <% end %> 
-
+</div>
+</div>
