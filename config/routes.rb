@@ -105,6 +105,10 @@ ActionController::Routing::Routes.draw do |map|
         comment.new_comment "/annotate/request/:url_title", :action => 'new', :type => 'request'
     end
 
+    map.with_options :controller => 'services' do |service|
+        service.other_country_message "/country_message", :action => 'other_country_message'
+    end
+
     map.with_options :controller => 'track' do |track|
         # /track/ is for setting up an email alert for the item
         # /feed/ is a direct RSS feed of the item
@@ -124,6 +128,7 @@ ActionController::Routing::Routes.draw do |map|
     map.with_options :controller => 'help' do |help|
       help.help_unhappy '/help/unhappy/:url_title', :action => 'unhappy'
       help.help_about '/help/about', :action => 'about'
+      help.help_about '/help/alaveteli', :action => 'alaveteli'
       help.help_contact '/help/contact', :action => 'contact'
       help.help_officers '/help/officers', :action => 'officers'
       help.help_requesting '/help/requesting', :action => 'requesting'

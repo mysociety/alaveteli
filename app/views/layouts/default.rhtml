@@ -20,7 +20,7 @@
 	<%= stylesheet_link_tag 'main', :title => "Main", :rel => "stylesheet" %>
 	<%= stylesheet_link_tag 'fonts', :rel => "stylesheet" %>
 	<%= stylesheet_link_tag 'theme', :rel => "stylesheet" %>
-	<%= javascript_include_tag 'jquery.js', 'jquery-ui.min' %>
+	<%= javascript_include_tag 'jquery.js', 'jquery-ui.min','jquery.cookie.js', 'general.js' %>
 	<%= stylesheet_link_tag 'admin-theme/jquery-ui-1.8.15.custom.css', :rel => 'stylesheet'%>
         <!--[if LT IE 7]> 
         <style type="text/css">@import url("/stylesheets/ie6.css");</style> 
@@ -107,7 +107,7 @@
       </div>
     </div>
     <div id="wrapper">
-
+      
         <div id="content">
 
             <% if flash[:notice] %>
@@ -118,6 +118,8 @@
             <% end %>
 
             <div id="<%= controller.controller_name + "_" + controller.action_name %>" class="controller_<%= controller.controller_name %>">
+
+	    <div id="other-country-notice"></div>
             <%= yield :layout %>
             </div>
         </div>
