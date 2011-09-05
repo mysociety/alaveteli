@@ -123,12 +123,13 @@ class PublicBodyController < ApplicationController
                 @description = @tag
             end
         end
-        PublicBody.with_locale(@locale) do 
+        PublicBody.with_locale(@locale) do
             @public_bodies = PublicBody.paginate(
               :order => "public_body_translations.name", :page => params[:page], :per_page => 1000, # fit all councils on one page
               :conditions => conditions,
               :joins => :translations
             )
+            @public_bodies.delete(PublicBody.internal_admin_body)   # Don't show the Internal Admin body to the user
             render :template => "public_body/list"
         end
     end
