@@ -106,3 +106,8 @@ DEBUG_RECORD_MEMORY: false
 # be another reason to try this setting.
 USE_GHOSTSCRIPT_COMPRESSION: true
 
+# mySociety's gazeteer service.  Shouldn't change.
+GAZE_URL: http://gaze.mysociety.org
+
+# The email address to which non-bounce responses should be forwarded
+FORWARD_NONBOUNCE_RESPONSES_TO: user-support@localhost
