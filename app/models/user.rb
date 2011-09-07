@@ -343,6 +343,12 @@ class User < ActiveRecord::Base
         }
     end
 
+    def record_bounce(message)
+        self.email_bounced_at = Time.now
+        self.email_bounce_message = message
+        self.save!
+    end
+    
     private
 
     def User.encrypted_password(password, salt)
@@ -354,21 +360,15 @@ class User < ActiveRecord::Base
         self.salt = self.object_id.to_s + rand.to_s
     end
     
-    def record_bounce(message)
-        self.email_bounced_at = Time.now
-        self.email_bounce_message = message
-        self.save!
-    end
-    
     def should_be_emailed?
         return (self.email_confirmed && self.email_bounced_at.nil?)
     end
     
     def User.record_bounce_for_email(email, message)
-        user = self.find_user_by_email(email)
+        user = User.find_user_by_email(email)
         return false if user.nil?
         
-        if user.self.email_bounced_at.nil?
+        if user.email_bounced_at.nil?
             user.record_bounce(message)
         end
         return true

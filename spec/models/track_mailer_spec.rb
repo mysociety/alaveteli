@@ -21,7 +21,8 @@ describe TrackMailer do
                 @user = mock_model(User, :no_xapian_reindex= => false,
                                          :last_daily_track_email= => true,
                                          :save! => true,
-                                         :url_name => 'test-name')
+                                         :url_name => 'test-name',
+                                         :should_be_emailed? => true)
                 User.stub!(:find).and_return([@user])
                 @user.stub!(:no_xapian_reindex=)
             end
@@ -107,6 +108,36 @@ describe TrackMailer do
                 end
             end
 
+        end
+
+        describe 'when a user should not be emailed' do
+            before do
+                @user = mock_model(User, :no_xapian_reindex= => false,
+                                         :last_daily_track_email= => true,
+                                         :save! => true,
+                                         :url_name => 'test-name',
+                                         :should_be_emailed? => false)
+                User.stub!(:find).and_return([@user])
+                @user.stub!(:no_xapian_reindex=)
+            end
+
+            it 'should not ask for any daily track things for the user' do
+                expected_conditions = [ "tracking_user_id = ? and track_medium = ?", @user.id, 'email_daily' ]
+                TrackThing.should_not_receive(:find).with(:all, :conditions => expected_conditions).and_return([])
+                TrackMailer.alert_tracks
+            end
+
+
+            it 'should not set the no_xapian_reindex flag on the user' do
+                @user.should_not_receive(:no_xapian_reindex=).with(true)
+                TrackMailer.alert_tracks
+            end
+
+            it 'should not update the time of the user\'s last daily tracking email' do
+                @user.should_not_receive(:last_daily_track_email=).with(Time.now)
+                @user.should_not_receive(:save!)
+                TrackMailer.alert_tracks
+            end
         end
 
     end
