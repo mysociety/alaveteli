@@ -1,0 +1,26 @@
+#!/usr/bin/ruby
+
+# Handle email responses sent to us.
+#
+# This script is invoked as a pipe command, i.e. with the raw email message on stdin.
+# - If a message is identified as a permanent bounce, the user is marked as having a
+#   bounced address, and will not be sent any more messages.
+# - If a message is identified as an out-of-office autoreply, it is discarded.
+# - Any other messages are forwarded to config.get("FORWARD_NONBOUNCE_RESPONSES_TO")
+
+
+# We want to avoid loading rails unless we need it, so we start by just loading the
+# config file ourselves.
+alaveteli_dir = File.join(File.dirname(__FILE__), '..')
+$:.push(File.join(alaveteli_dir, "commonlib", "rblib"))
+load "config.rb"
+MySociety::Config.set_file(File.join(alaveteli_dir, 'config', 'general'), true)
+MySociety::Config.load_default
+
+message = $stdin.read
+
+forward_non_bounces_to = MySociety::Config.get("FORWARD_NONBOUNCE_RESPONSES_TO", "user-support@localhost")
+IO.popen("/usr/sbin/sendmail -i #{forward_non_bounces_to}", "w") do |f|
+    f.write(message);
+    f.close;
+end
