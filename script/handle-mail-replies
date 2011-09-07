@@ -18,7 +18,7 @@ MySociety::Config.set_file(File.join($alaveteli_dir, 'config', 'general'), true)
 MySociety::Config.load_default
 
 def main
-    File.chdir($alaveteli_dir) do
+    Dir.chdir($alaveteli_dir) do
         load_rails
         raw_message = $stdin.read
         pfa = permanently_failed_address(raw_message)
