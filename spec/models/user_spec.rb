@@ -282,6 +282,18 @@ describe User, "when setting a profile photo" do
 #    end
 end
 
+describe User, "when unconfirmed" do
+    fixtures :users
+
+    before do
+        @user = users(:unconfirmed_user)
+    end
+
+    it "should not be emailed" do
+        @user.should_be_emailed?.should be_false
+    end
+end
+
 describe User, "when emails have bounced" do
     fixtures :users
 

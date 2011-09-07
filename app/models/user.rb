@@ -349,21 +349,23 @@ class User < ActiveRecord::Base
         self.save!
     end
     
+    def should_be_emailed?
+        return (self.email_confirmed && self.email_bounced_at.nil?)
+    end
+
+    ## Private instance methods
     private
 
-    def User.encrypted_password(password, salt)
-        string_to_hash = password + salt # XXX need to add a secret here too?
-        Digest::SHA1.hexdigest(string_to_hash)
-    end
-    
     def create_new_salt
         self.salt = self.object_id.to_s + rand.to_s
     end
     
-    def should_be_emailed?
-        return (self.email_confirmed && self.email_bounced_at.nil?)
+    ## Class methods
+    def User.encrypted_password(password, salt)
+        string_to_hash = password + salt # XXX need to add a secret here too?
+        Digest::SHA1.hexdigest(string_to_hash)
     end
-    
+        
     def User.record_bounce_for_email(email, message)
         user = User.find_user_by_email(email)
         return false if user.nil?
