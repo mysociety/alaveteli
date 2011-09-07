@@ -17,7 +17,7 @@
 #  ban_text               :text            default(""), not null
 #  about_me               :text            default(""), not null
 #  email_bounced_at       :datetime        
-#  email_bounce_message   :string(1024)    default(""), not null
+#  email_bounce_message   :text            default(""), not null
 #
 
 # models/user.rb:
