@@ -64,6 +64,10 @@ ADMIN_PASSWORD: 'passwordx'
 CONTACT_EMAIL: 'postmaster@localhost'
 CONTACT_NAME: 'Alaveteli Webmaster'
 
+# Email "from" details for track messages
+TRACK_SENDER_EMAIL: 'postmaster@localhost'
+TRACK_SENDER_NAME: 'Alaveteli Webmaster'
+
 # Where the raw incoming email data gets stored; make sure you back
 # this up!
 RAW_EMAILS_LOCATION: 'files/raw_emails'
@@ -115,3 +119,6 @@ USE_GHOSTSCRIPT_COMPRESSION: true
 
 # mySociety's gazeteer service.  Shouldn't change.
 GAZE_URL: http://gaze.mysociety.org
+
+# The email address to which non-bounce responses should be forwarded
+FORWARD_NONBOUNCE_RESPONSES_TO: user-support@localhost

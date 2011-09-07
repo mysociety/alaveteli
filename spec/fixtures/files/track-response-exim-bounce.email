@@ -1,0 +1,67 @@
+Delivered-To: mysociety.robin@gmail.com
+Received: by 10.216.187.197 with SMTP id y47cs98510wem;
+        Tue, 6 Sep 2011 14:22:44 -0700 (PDT)
+Received: by 10.216.203.79 with SMTP id e57mr78207weo.42.1315344164092;
+        Tue, 06 Sep 2011 14:22:44 -0700 (PDT)
+Return-Path: <>
+Received: from wildfire.ukcod.org.uk (wildfire.ukcod.org.uk [89.238.145.74])
+        by mx.google.com with ESMTPS id n64si9483505weq.102.2011.09.06.14.22.42
+        (version=TLSv1/SSLv3 cipher=OTHER);
+        Tue, 06 Sep 2011 14:22:43 -0700 (PDT)
+Received-SPF: pass (google.com: best guess record for domain of wildfire.ukcod.org.uk designates 89.238.145.74 as permitted sender) client-ip=89.238.145.74;
+Authentication-Results: mx.google.com; spf=pass (google.com: best guess record for domain of wildfire.ukcod.org.uk designates 89.238.145.74 as permitted sender) smtp.mail=
+Received: from Debian-exim by wildfire.ukcod.org.uk with local (Exim 4.69)
+	id 1R136L-0003xr-1Q
+	for team@whatdotheyknow.com; Tue, 06 Sep 2011 22:22:37 +0100
+X-Failed-Recipients: user@example.com
+Auto-Submitted: auto-replied
+From: Mail Delivery System <Mailer-Daemon@wildfire.ukcod.org.uk>
+To: team@whatdotheyknow.com
+Subject: Mail delivery failed: returning message to sender
+Message-Id: <E1R136L-0003xr-1Q@wildfire.ukcod.org.uk>
+Date: Tue, 06 Sep 2011 22:22:37 +0100
+List-Id: Admin Team for What Do They Know <team@whatdotheyknow.com>
+
+This message was created automatically by mail delivery software.
+
+A message that you sent could not be delivered to one or more of its
+recipients. This is a permanent error. The following address(es) failed:
+
+  user@example.com
+    Unrouteable address
+
+------ This is a copy of the message, including all the headers. ------
+
+Return-path: <team@whatdotheyknow.com>
+Received: from foi by wildfire.ukcod.org.uk with local (Exim 4.69)
+	(envelope-from <team@whatdotheyknow.com>)
+	id 1R136J-0003xp-Td
+	for user@example.com; Tue, 06 Sep 2011 22:22:36 +0100
+Date: Tue, 6 Sep 2011 22:22:35 +0100
+From: WhatDoTheyKnow <team@whatdotheyknow.com>
+To: Nonexistent User <user@example.com>
+Subject: Your WhatDoTheyKnow email alert
+Mime-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Precedence: bulk
+Auto-Submitted: auto-generated
+Message-Id: <E1R136J-0003xp-Td@wildfire.ukcod.org.uk>
+
+FOI requests to 'Maritime and Coastguard Agency'
+================================================
+
+-- MCA & HM Coastguard Official Vehicles --
+Maritime and Coastguard Agency sent a response to Peter Smith (12 August 2011)
+     "Peter In response (reference F0000881) to your FOI questions the
+     MCA answer is:- 1. All MCA vehicles are purchased outright. 2. Yes
+     there is a volu..."
+http://www.whatdotheyknow.com/request/mca_hm_coastguard_official_vehic#incoming-201529
+
+
+Alter your subscription
+=======================
+
+Please click on the link below to cancel or alter these emails.
+http://www.whatdotheyknow.com/c/ie4pkpy70dl4b8flsig
+
+-- the WhatDoTheyKnow team
