@@ -91,7 +91,10 @@ class PublicBodyController < ApplicationController
         @tag = params[:tag]
         @locale = self.locale_from_params()
 
-        locale_condition = "(upper(public_body_translations.name) LIKE upper(?) OR upper(public_body_translations.notes) LIKE upper (?)) AND public_body_translations.locale = ?"
+        locale_condition = "(upper(public_body_translations.name) LIKE upper(?) 
+                            OR upper(public_body_translations.notes) LIKE upper (?)) 
+                            AND public_body_translations.locale = ?
+                            AND public_bodies.id <> #{PublicBody.internal_admin_body.id}"
         if @tag.nil? or @tag == "all"
             @tag = "all"
             conditions = [locale_condition, @query, @query, @locale]
@@ -129,7 +132,6 @@ class PublicBodyController < ApplicationController
               :conditions => conditions,
               :joins => :translations
             )
-            @public_bodies.delete(PublicBody.internal_admin_body)   # Don't show the Internal Admin body to the user
             render :template => "public_body/list"
         end
     end
