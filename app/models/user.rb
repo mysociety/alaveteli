@@ -96,6 +96,15 @@ class User < ActiveRecord::Base
             end
         end
     end
+    
+    def get_locale
+        if !self.locale.nil?
+            locale = self.locale
+        else
+            locale = I18n.locale
+        end
+        return locale.to_s
+    end
 
     def visible_comments
         self.comments.find(:all, :conditions => 'visible')

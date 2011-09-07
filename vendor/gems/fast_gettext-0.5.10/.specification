@@ -2,7 +2,7 @@
 name: fast_gettext
 version: !ruby/object:Gem::Version 
   hash: 31
-  prerelease: false
+  prerelease: 
   segments: 
   - 0
   - 5
@@ -127,7 +127,7 @@ required_rubygems_version: !ruby/object:Gem::Requirement
 requirements: []
 
 rubyforge_project: 
-rubygems_version: 1.3.7
+rubygems_version: 1.4.2
 signing_key: 
 specification_version: 3
 summary: A simple, fast and threadsafe implementation of GetText

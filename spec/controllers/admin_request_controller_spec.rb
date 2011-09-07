@@ -71,7 +71,7 @@ describe AdminRequestController, "when administering the holding pen" do
         post :redeliver_incoming, :redeliver_incoming_message_id => new_im.id, :url_title => ir.url_title        
         ir = InfoRequest.find_by_url_title(ir.url_title)
         ir.incoming_messages.length.should == 2
-        response.should redirect_to('http://test.host/admin/request/show/101')
+        response.should redirect_to(:controller=>'admin_request', :action=>'show', :id=>101)
         InfoRequest.holding_pen_request.incoming_messages.length.should == 0
     end
 

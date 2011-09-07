@@ -1,7 +1,3 @@
-# £2k p/a
-# talk about margins
-# 
-
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 require 'json'
@@ -24,13 +20,29 @@ describe RequestController, "when listing recent requests" do
         response.should render_template('list')
     end
 
+    it "should filter requests" do
+        get :list, :view => 'all'
+        assigns[:list_results].size.should == 2
+        get :list, :view => 'successful'
+        assigns[:list_results].size.should == 0
+    end
+
+    it "should filter requests by date" do
+        get :list, :view => 'all', :request_date_before => '13/10/2007'
+        assigns[:list_results].size.should == 1
+        get :list, :view => 'all', :request_date_after => '13/10/2007'
+        assigns[:list_results].size.should == 1
+        get :list, :view => 'all', :request_date_after => '10/10/2007', :request_date_before => '01/01/2010'
+        assigns[:list_results].size.should == 2
+    end
+
     it "should assign the first page of results" do
         xap_results = mock_model(ActsAsXapian::Search, 
                    :results => (1..25).to_a.map { |m| { :model => m } },
                    :matches_estimated => 103)
 
         InfoRequest.should_receive(:full_search).
-          with([InfoRequestEvent],"variety:sent", "created_at", anything, anything, anything, anything).
+          with([InfoRequestEvent]," variety:sent", "created_at", anything, anything, anything, anything).
           and_return(xap_results)
         get :list, :view => 'recent'
         assigns[:list_results].size.should == 25
@@ -149,7 +161,7 @@ describe RequestController, "when showing one request" do
             lambda {
                 get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, 
                     :file_name => ['http://trying.to.hack']
-            }.should raise_error(RuntimeError)
+            }.should raise_error(ActiveRecord::RecordNotFound)
         end
 
         it "should censor attachments downloaded as binary" do
@@ -337,7 +349,20 @@ describe RequestController, "when creating a new request" do
         response.should render_template('new')
     end
 
+    it "should redirect to sign in page when input is good and nobody is logged in" do
+        params = { :info_request => { :public_body_id => @body.id, 
+            :title => "Why is your quango called Geraldine?", :tag_string => "" },
+            :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." },
+            :submitted_new_request => 1, :preview => 0
+        }
+        post :new, params
+        post_redirect = PostRedirect.get_last_post_redirect
+        response.should redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
+        # post_redirect.post_params.should == params # XXX get this working. there's a : vs '' problem amongst others
+    end
+
     it "should show preview when input is good" do
+        session[:user_id] = @user.id
         post :new, { :info_request => { :public_body_id => @body.id, 
             :title => "Why is your quango called Geraldine?", :tag_string => "" },
             :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." },
@@ -353,18 +378,6 @@ describe RequestController, "when creating a new request" do
             :submitted_new_request => 1, :preview => 0,
             :reedit => "Re-edit this request"
         response.should render_template('new')
-    end
-
-    it "should redirect to sign in page when input is good and nobody is logged in" do
-        params = { :info_request => { :public_body_id => @body.id, 
-            :title => "Why is your quango called Geraldine?", :tag_string => "" },
-            :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." },
-            :submitted_new_request => 1, :preview => 0
-        }
-        post :new, params
-        post_redirect = PostRedirect.get_last_post_redirect
-        response.should redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
-        # post_redirect.post_params.should == params # XXX get this working. there's a : vs '' problem amongst others
     end
 
     it "should create the request and outgoing message, and send the outgoing message by email, and redirect to request page when input is good and somebody is logged in" do
@@ -438,6 +451,7 @@ describe RequestController, "when making a new request" do
         @user.stub!(:get_undescribed_requests).and_return([])
         @user.stub!(:can_leave_requests_undescribed?).and_return(false)
         @user.stub!(:can_file_requests?).and_return(true)
+        @user.stub!(:locale).and_return("en")
         User.stub!(:find).and_return(@user)
 
         @body = mock_model(PublicBody, :id => 314, :eir_only? => false, :is_requestable? => true, :name => "Test Quango")
@@ -735,18 +749,16 @@ describe RequestController, "when classifying an information request" do
             response.should redirect_to(:controller => 'help', :action => 'unhappy', :url_title => @dog_request.url_title)
         end
 
-        describe "when using custom statuses from the theme" do
+        it "knows about extended states" do
             InfoRequest.send(:require, File.expand_path(File.join(File.dirname(__FILE__), '..', 'models', 'customstates')))
             InfoRequest.send(:include, InfoRequestCustomStates)
             InfoRequest.class_eval('@@custom_states_loaded = true')
             RequestController.send(:require, File.expand_path(File.join(File.dirname(__FILE__), '..', 'models', 'customstates')))
             RequestController.send(:include, RequestControllerCustomStates)
             RequestController.class_eval('@@custom_states_loaded = true')
-            it "knows about extended states" do
-                Time.stub!(:now).and_return(Time.utc(2007, 11, 10, 00, 01)) 
-                post_status('deadline_extended')
-                flash[:notice].should == 'Authority has requested extension of the deadline.'
-            end
+            Time.stub!(:now).and_return(Time.utc(2007, 11, 10, 00, 01)) 
+            post_status('deadline_extended')
+            flash[:notice].should == 'Authority has requested extension of the deadline.'
         end
     end
     
@@ -1309,5 +1321,36 @@ describe RequestController, "when showing JSON version for API" do
 
 end
 
+describe RequestController, "when doing type ahead searches" do
+    fixtures :info_requests, :info_request_events, :public_bodies, :public_body_translations, :users, :incoming_messages, :raw_emails, :outgoing_messages, :comments 
+
+    it "should return nothing for the empty query string" do
+        get :search_typeahead, :q => ""
+        response.should render_template('request/_search_ahead.rhtml')
+        assigns[:xapian_requests].results.size.should == 0
+    end
+    
+    it "should return a request matching the given keyword, but not users with a matching description" do
+        get :search_typeahead, :q => "chicken"
+        response.should render_template('request/_search_ahead.rhtml')
+        assigns[:xapian_requests].results.size.should == 1
+        assigns[:xapian_requests].results[0][:model].title.should == info_requests(:naughty_chicken_request).title
+    end
+
+    it "should return all requests matching any of the given keywords" do
+        get :search_typeahead, :q => "money dog"
+        response.should render_template('request/_search_ahead.rhtml')
+        assigns[:xapian_requests].results.size.should == 2
+        assigns[:xapian_requests].results[0][:model].title.should == info_requests(:fancy_dog_request).title
+        assigns[:xapian_requests].results[1][:model].title.should == info_requests(:naughty_chicken_request).title
+    end
+
+    it "should return partial matches" do
+        get :search_typeahead, :q => "chick"  # 'chick' for 'chicken'
+        response.should render_template('request/_search_ahead.rhtml')
+        assigns[:xapian_requests].results.size.should == 1
+        assigns[:xapian_requests].results[0][:model].title.should == info_requests(:naughty_chicken_request).title
+    end
+end
 
 

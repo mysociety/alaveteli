@@ -62,7 +62,7 @@ class RequestMailer < ApplicationMailer
         @from = contact_from_name_and_email
         headers 'Return-Path' => blackhole_email, 'Reply-To' => @from, # not much we can do if the user's email is broken
                 'Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
-                'X-Auto-Response-Suppress' => 'OOF' # http://social.technet.microsoft.com/forums/en-US/exchangesvrdevelopment/thread/7e4af3fb-4ceb-4df6-9ed3-665ccdd157d2#fe60eeb3-b0ab-4443-9e54-3da490f25cbf
+                'X-Auto-Response-Suppress' => 'OOF'
         @recipients = info_request.user.name_and_email
         @subject = "New response to your FOI request - " + info_request.title
         @body = { :incoming_message => incoming_message, :info_request => info_request, :url => url }
@@ -81,7 +81,7 @@ class RequestMailer < ApplicationMailer
         @from = contact_from_name_and_email
         headers 'Return-Path' => blackhole_email, 'Reply-To' => @from, # not much we can do if the user's email is broken
                 'Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
-                'X-Auto-Response-Suppress' => 'OOF' # http://social.technet.microsoft.com/forums/en-US/exchangesvrdevelopment/thread/7e4af3fb-4ceb-4df6-9ed3-665ccdd157d2#fe60eeb3-b0ab-4443-9e54-3da490f25cbf
+                'X-Auto-Response-Suppress' => 'OOF'
         @recipients = user.name_and_email
         @subject = "Delayed response to your FOI request - " + info_request.title
         @body = { :info_request => info_request, :url => url }
@@ -100,7 +100,7 @@ class RequestMailer < ApplicationMailer
         @from = contact_from_name_and_email
         headers 'Return-Path' => blackhole_email, 'Reply-To' => @from, # not much we can do if the user's email is broken
                 'Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
-                'X-Auto-Response-Suppress' => 'OOF' # http://social.technet.microsoft.com/forums/en-US/exchangesvrdevelopment/thread/7e4af3fb-4ceb-4df6-9ed3-665ccdd157d2#fe60eeb3-b0ab-4443-9e54-3da490f25cbf
+                'X-Auto-Response-Suppress' => 'OOF'
         @recipients = user.name_and_email
         @subject = "You're long overdue a response to your FOI request - " + info_request.title
         @body = { :info_request => info_request, :url => url }
@@ -120,7 +120,7 @@ class RequestMailer < ApplicationMailer
         @from = contact_from_name_and_email
         headers 'Return-Path' => blackhole_email, 'Reply-To' => @from, # not much we can do if the user's email is broken
                 'Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
-                'X-Auto-Response-Suppress' => 'OOF' # http://social.technet.microsoft.com/forums/en-US/exchangesvrdevelopment/thread/7e4af3fb-4ceb-4df6-9ed3-665ccdd157d2#fe60eeb3-b0ab-4443-9e54-3da490f25cbf
+                'X-Auto-Response-Suppress' => 'OOF'
         @recipients = info_request.user.name_and_email
         @subject = "Was the response you got to your FOI request any good?"
         @body = { :incoming_message => incoming_message, :info_request => info_request, :url => url }
@@ -131,7 +131,7 @@ class RequestMailer < ApplicationMailer
         @from = contact_from_name_and_email
         headers 'Return-Path' => blackhole_email, 'Reply-To' => @from, # not much we can do if the user's email is broken
                 'Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
-                'X-Auto-Response-Suppress' => 'OOF' # http://social.technet.microsoft.com/forums/en-US/exchangesvrdevelopment/thread/7e4af3fb-4ceb-4df6-9ed3-665ccdd157d2#fe60eeb3-b0ab-4443-9e54-3da490f25cbf
+                'X-Auto-Response-Suppress' => 'OOF'
         @recipients = info_request.user.name_and_email
         @subject = "Someone has updated the status of your request"
         url = main_url(request_url(info_request))
@@ -152,7 +152,7 @@ class RequestMailer < ApplicationMailer
         @from = contact_from_name_and_email
         headers 'Return-Path' => blackhole_email, 'Reply-To' => @from, # not much we can do if the user's email is broken
                 'Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
-                'X-Auto-Response-Suppress' => 'OOF' # http://social.technet.microsoft.com/forums/en-US/exchangesvrdevelopment/thread/7e4af3fb-4ceb-4df6-9ed3-665ccdd157d2#fe60eeb3-b0ab-4443-9e54-3da490f25cbf
+                'X-Auto-Response-Suppress' => 'OOF'
         @recipients = info_request.user.name_and_email
         @subject = "Clarify your FOI request - " + info_request.title
         @body = { :incoming_message => incoming_message, :info_request => info_request, :url => url }
@@ -163,7 +163,7 @@ class RequestMailer < ApplicationMailer
         @from = contact_from_name_and_email
         headers 'Return-Path' => blackhole_email, 'Reply-To' => @from, # not much we can do if the user's email is broken
                 'Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
-                'X-Auto-Response-Suppress' => 'OOF' # http://social.technet.microsoft.com/forums/en-US/exchangesvrdevelopment/thread/7e4af3fb-4ceb-4df6-9ed3-665ccdd157d2#fe60eeb3-b0ab-4443-9e54-3da490f25cbf
+                'X-Auto-Response-Suppress' => 'OOF'
         @recipients = info_request.user.name_and_email
         @subject = "Somebody added a note to your FOI request - " + info_request.title
         @body = { :comment => comment, :info_request => info_request, :url => main_url(comment_url(comment)) }
@@ -172,7 +172,7 @@ class RequestMailer < ApplicationMailer
         @from = contact_from_name_and_email
         headers 'Return-Path' => blackhole_email, 'Reply-To' => @from, # not much we can do if the user's email is broken
                 'Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
-                'X-Auto-Response-Suppress' => 'OOF' # http://social.technet.microsoft.com/forums/en-US/exchangesvrdevelopment/thread/7e4af3fb-4ceb-4df6-9ed3-665ccdd157d2#fe60eeb3-b0ab-4443-9e54-3da490f25cbf
+                'X-Auto-Response-Suppress' => 'OOF'
         @recipients = info_request.user.name_and_email
         @subject = "Some notes have been added to your FOI request - " + info_request.title
         @body = { :count => count, :info_request => info_request, :url => main_url(comment_url(earliest_unalerted_comment)) }

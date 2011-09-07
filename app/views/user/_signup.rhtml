@@ -3,15 +3,15 @@
 <% form_tag({:action => "signup"}, {:id => "signup_form"}) do %>
     <%= foi_error_messages_for :user_signup %>
 
-    <h2><%= _('If you\'re new to {{site_name}}', :site_name=>site_name)%></h2>
+    <!--<h2><%= _('If you\'re new to {{site_name}}', :site_name=>site_name)%></h2>-->
 
     <p>
         <label class="form_label" for="user_signup_email"><%= _('Your e-mail:')%></label>
         <%= text_field 'user_signup', 'email', { :size => 20 } %>
     </p>
     <div class="form_item_note">
-        <%= ('We will not reveal your email address to anybody unless you or
-        the law tell us to (<a href="%s">_details</a>). ') %[help_privacy_path] %>
+        <%= _('We will not reveal your email address to anybody unless you or
+        the law tell us to (<a href="%s">details</a>). ') %[help_privacy_path] %>
     </div>
 
     <p>
@@ -36,8 +36,13 @@
         <%= password_field 'user_signup', 'password_confirmation', { :size => 15 } %>
     </p>
 
+    <% if @request_from_foreign_country %>
+    <%= recaptcha_tags %>
+    <% end %>
+
     <div class="form_button">
-        <%= hidden_field_tag 'token', params[:token], { :id => 'signup_token' } %>
+        <%= hidden_field_tag 'token', params[:token], {:id => 'signup_token' } %>
+        <%= hidden_field_tag :modal, params[:modal], {:id => 'signup_modal' } %>
         <%= submit_tag _('Sign up') %>
     </div>
 

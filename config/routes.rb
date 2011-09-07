@@ -23,7 +23,9 @@ ActionController::Routing::Routes.draw do |map|
         # Couldn't find a way to do this in routes which also picked up multiple other slashes
         # and dots and other characters that can appear in search query. So we sort it all
         # out in the controller.
-        general.search_general '/search/*combined',      :action => 'search'
+        general.search_general '/search/*combined/requests', :action => 'search', :view => 'requests'
+        general.search_general '/search/*combined', :action => 'search'
+        general.advanced_search '/advancedsearch', :action => 'search_redirect', :advanced => true
 
         general.random_request '/random', :action => 'random_request'
 
@@ -32,11 +34,18 @@ ActionController::Routing::Routes.draw do |map|
 
     map.with_options :controller => 'request' do |request|
         request.request_list_recent   '/list/recent',        :action => 'list', :view => 'recent'
+        request.request_list_all   '/list/all',        :action => 'list', :view => 'all'
         request.request_list_successful   '/list/successful',        :action => 'list', :view => 'successful'
+        request.request_list_unsuccessful   '/list/unsuccessful',        :action => 'list', :view => 'unsuccessful'
+        request.request_list_awaiting   '/list/awaiting',        :action => 'list', :view => 'awaiting'
         request.request_list   '/list',        :action => 'list'
 
+        request.select_authority     '/select_authority',     :action => 'select_authority'
+        
         request.new_request    '/new',         :action => 'new'
         request.new_request_to_body    '/new/:url_name',         :action => 'new'
+
+        request.search_ahead '/request/search_ahead',      :action => 'search_typeahead'
 
         request.show_request     '/request/:url_title.:format', :action => 'show'
         request.show_new_request     '/request/:url_title/new', :action => 'show'
@@ -52,7 +61,6 @@ ActionController::Routing::Routes.draw do |map|
         request.info_request_event '/request_event/:info_request_event_id', :action => 'show_request_event'
 
         request.upload_response "/upload/request/:url_title", :action => 'upload_response'
-
     end
 
     # Use /profile for things to do with the currently signed in user.
@@ -80,16 +88,29 @@ ActionController::Routing::Routes.draw do |map|
     end
 
     map.with_options :controller => 'public_body' do |body|
+        body.search_ahead_bodies '/body/search_ahead',      :action => 'search_typeahead'
         body.list_public_bodies "/body", :action => 'list'
+        body.list_public_bodies_default "/body/list/all", :action => 'list'
         body.list_public_bodies "/body/list/:tag", :action => 'list'
         body.list_public_bodies_redirect "/local/:tag", :action => 'list_redirect'
         body.all_public_bodies_csv "/body/all-authorities.csv", :action => 'list_all_csv'
-        body.show_public_body "/body/:url_name.:format", :action => 'show'
+        body.show_public_body "/body/:url_name.:format", :action => 'show', :view => 'all'
+        body.show_public_body_all "/body/:url_name/all", :action => 'show', :view => 'all'
+        body.show_public_body_successful "/body/:url_name/successful", :action => 'show', :view => "successful"
+        body.show_public_body_unsuccessful "/body/:url_name/unsuccessful", :action => 'show', :view => "unsuccessful"
+        body.show_public_body_awaiting "/body/:url_name/awaiting", :action => 'show', :view => "awaiting"
+        body.show_public_body_tag "/body/:url_name/:tag", :action => 'show'
+        body.show_public_body_tag_view "/body/:url_name/:tag/:view", :action => 'show'
+
         body.view_public_body_email "/body/:url_name/view_email", :action => 'view_email'
     end
 
     map.with_options :controller => 'comment' do |comment|
         comment.new_comment "/annotate/request/:url_title", :action => 'new', :type => 'request'
+    end
+
+    map.with_options :controller => 'services' do |service|
+        service.other_country_message "/country_message", :action => 'other_country_message'
     end
 
     map.with_options :controller => 'track' do |track|
@@ -111,6 +132,7 @@ ActionController::Routing::Routes.draw do |map|
     map.with_options :controller => 'help' do |help|
       help.help_unhappy '/help/unhappy/:url_title', :action => 'unhappy'
       help.help_about '/help/about', :action => 'about'
+      help.help_about '/help/alaveteli', :action => 'alaveteli'
       help.help_contact '/help/contact', :action => 'contact'
       help.help_officers '/help/officers', :action => 'officers'
       help.help_requesting '/help/requesting', :action => 'requesting'

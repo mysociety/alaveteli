@@ -21,7 +21,8 @@ describe TrackMailer do
                 @user = mock_model(User, :no_xapian_reindex= => false,
                                          :last_daily_track_email= => true,
                                          :save! => true,
-                                         :url_name => 'test-name')
+                                         :url_name => 'test-name',
+                                         :get_locale => 'en')
                 User.stub!(:find).and_return([@user])
                 @user.stub!(:no_xapian_reindex=)
             end

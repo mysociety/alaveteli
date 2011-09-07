@@ -1,33 +1,27 @@
-<div id="request_sidebar">
-    <h2><%= _('Track this request') %></h2>
+<div id="right_column">
+    <h2><%= _('Follow this request') %></h2>
+
+    <% follower_count = TrackThing.count(:all, :conditions => ["info_request_id = ?", @info_request.id]) + 1 %>
+    <p><%= n_("There is %d person following this request", "There are %d people following this request", follower_count) % follower_count %></p>
      <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => @info_request.user == @user, :location => 'sidebar' } %>
 
     <h2><%= _("Act on what you've learnt") %></h2>
+
     <div class="act_link">
-        <%= link_to '<img src="/images/helpmeinvestigate.png" alt="" class="rss">', "http://helpmeinvestigate.com/"%> 
-        <%= link_to 'Get help investigating', "http://helpmeinvestigate.com/"%>
+     <% tweet_link = "http://twitter.com/share?url=#{h(request.url)}&via=#{h(MySociety::Config.get('TWITTER_USERNAME', ''))}&text='#{h(@info_request.title)}'&related=#{_('alaveteli_foi:The software that runs {{site_name}}', :site_name => h(site_name))}" %>
+        <%= link_to '<img src="/images/twitter-16.png" alt="twitter icon">', tweet_link %> 
+        <%= link_to _("Tweet this request"), tweet_link %> 
     </div>
-    <div class="act_link">
-        <%= link_to '<img src="/images/writetothem.png" alt="" class="rss">', "http://www.writetothem.com"%> 
-        <%= link_to 'Write to your politician', "http://www.writetothem.com"%>
-    </div>
-    <div class="act_link">
-        <%= link_to '<img src="/images/pledgebank.png" alt="" class="rss">', "http://www.pledgebank.com"%> 
-        <%= link_to 'Pledge with others', "http://www.pledgebank.com"%>
-    </div>
-    <!-- <div class="act_link">
-        <%= link_to '<img src="/images/petitions.png" alt="" class="rss">', "http://petitions.number10.gov.uk"%> 
-        <%= link_to 'Petition the PM', "http://petitions.number10.gov.uk"%>
-    </div> -->
     <div class="act_link">
         <%= link_to '<img src="/images/wordpress.png" alt="" class="rss">', "http://wordpress.com/"%> 
-        <%= link_to 'Start your own blog', "http://wordpress.com/"%>
+        <%= link_to _("Start your own blog"), "http://wordpress.com/"%>
     </div>
 
+    <%= render :partial => 'request/next_actions' %>
 
     <% view_cache :ttl => 1.day, :tag => ['similar', @info_request.id, I18n.locale] do %>
      <% if !@xapian_similar.nil? && @xapian_similar.results.size > 0 %>
-        <h2><% _('Similar requests')%></h2>
+        <h2><%= _('Similar requests')%></h2>
         <% for result in @xapian_similar.results %>
             <%= render :partial => 'request/request_listing_short_via_event', :locals => { :event => result[:model], :info_request => result[:model].info_request } %>
         <% end %>

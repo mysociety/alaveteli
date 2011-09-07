@@ -16,6 +16,7 @@ describe TrackController, "when making a new track on a request" do
 
         @user = mock_model(User)
         User.stub!(:find).and_return(@user)
+        @user.stub!(:locale).and_return("en")
     end
 
     it "should require login when making new track" do
@@ -69,7 +70,6 @@ describe TrackController, "when sending alerts for a track" do
         mail.body.should include('added an annotation') # comment included
 
         mail.body.should =~ /This a the daftest comment the world has ever seen/ # comment text included
-
         # Check subscription managing link
 # XXX We can't do this, as it is redirecting to another controller. I'm
 # apparently meant to be writing controller unit tests here, not functional
@@ -93,6 +93,19 @@ describe TrackController, "when sending alerts for a track" do
         deliveries.size.should == 0
     end
 
+    it "should send localised alerts" do
+        # set the time the comment event happened at to within the last week
+        ire = info_request_events(:silly_comment_event)
+        ire.created_at = Time.now - 3.days
+        ire.save!
+        user = users(:silly_name_user)
+        user.locale = "es"
+        user.save!
+        TrackMailer.alert_tracks
+        deliveries = ActionMailer::Base.deliveries
+        mail = deliveries[0]
+        mail.body.should include('el equipo de ')
+    end
 end
 
 describe TrackController, "when viewing RSS feed for a track" do

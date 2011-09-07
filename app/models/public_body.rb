@@ -206,7 +206,7 @@ class PublicBody < ActiveRecord::Base
         return self.created_at.strftime("%Y%m%d%H%M%S") 
     end
     def variety
-        "authority"
+        return "authority"
     end
 
     # if the URL name has changed, then all requested_from: queries

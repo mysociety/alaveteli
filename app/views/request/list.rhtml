@@ -1,40 +1,35 @@
-<div id="list_sidebar">
-<h1><%= _('Show only...')%></h1>
-<ul>
-<% for view, description, target in [ 
-    ['successful', _('Successful responses'), request_list_successful_url(:view => 'successful')],
-    ['recent', _('Recently sent requests'), request_list_recent_url(:view => 'recent')]
-] %>
-<li>  
-    <%= link_to_unless (@view == view), description, target %> 
-</li>
-<% end %>
-</ul>
+
+<div id="header_left">
+  <h1><%=@title%></h1>
+  <%= render :partial => 'request/request_filter_form' %>
 </div>
 
-<h1><%=@title%></h1>
+<div id="header_right">
+  <h2><%= _("Follow these requests") %></h2>
+  <% if @track_thing %>
+      <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => false, :location => 'main' } %>
+  <% end %>
+</div>
 
-<% if @track_thing %>
-    <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => false, :location => 'main' } %>
-<% end %>
+<div style="clear:both"></div>
 
-<% view_cache :ttl => 5.minutes, :tag => [@view, @page, I18n.locale] do %>
-    <% if @list_results.empty? %>
-        <p> <%= _('No requests of this sort yet.')%></p>
-    <% else %>
-        <% for result in @list_results%>
-            <% if result.class.to_s == 'InfoRequestEvent' %>
-                <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result, :info_request => result.info_request } %>
-            <% else %>
-                <p><strong><%= _('Unexpected search result type') %> <%=result.class.to_s%></strong></p>
+<div class="results_section">
+  <% view_cache :ttl => 5.minutes, :tag => [@view, @page, I18n.locale] do %>
+      <% if @list_results.empty? %>
+          <p> <%= _('No requests of this sort yet.')%></p>
+      <% else %>
+          <h2 class="foi_results"><%= _('{{count}} FOI requests found', :count => @list_results.size) %></h2>
+          <div class="results_block">
+            <% for result in @list_results%>
+                <% if result.class.to_s == 'InfoRequestEvent' %>
+                    <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result, :info_request => result.info_request } %>
+                <% else %>
+                    <p><strong><%= _('Unexpected search result type') %> <%=result.class.to_s%></strong></p>
+                <% end %>
             <% end %>
-        <% end %>
-    <% end %>
+          </div>
+      <% end %>
 
-    <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @matches_estimated) %>
-<% end %>
-
-<% if @track_thing %>
-    <p></p>
-    <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => false, :location => 'main' } %>
-<% end %>
+      <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @matches_estimated) %>
+  <% end %>
+</div>

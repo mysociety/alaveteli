@@ -64,7 +64,7 @@ describe GeneralController, "when searching" do
 
     it "should redirect from search query URL to pretty URL" do
         post :search_redirect, :query => "mouse" # query hidden in POST parameters
-        response.should redirect_to(:action => 'search', :combined => "mouse") # URL /search/:query
+        response.should redirect_to(:action => 'search', :combined => "mouse", :view => "requests") # URL /search/:query/all
     end
 
     describe "when using different locale settings" do 
@@ -120,6 +120,34 @@ describe GeneralController, "when searching" do
           assigns[:xapian_bodies].results[0][:model].should == public_bodies(:geraldine_public_body)
       end
 
+    end
+
+    it "should filter results based on end of URL being 'all'" do
+        get :search, :combined => ['"bob"', "all"]
+        assigns[:xapian_requests].results.size.should == 2
+        assigns[:xapian_users].results.size.should == 1
+        assigns[:xapian_bodies].results.size.should == 0
+    end
+
+    it "should filter results based on end of URL being 'users'" do
+        get :search, :combined => ['"bob"', "users"]
+        assigns[:xapian_requests].should == nil
+        assigns[:xapian_users].results.size.should == 1
+        assigns[:xapian_bodies].should == nil
+    end
+
+    it "should filter results based on end of URL being 'requests'" do
+        get :search, :combined => ['"bob"', "requests"]
+        assigns[:xapian_requests].results.size.should == 2
+        assigns[:xapian_users].should == nil
+        assigns[:xapian_bodies].should == nil
+    end
+
+    it "should filter results based on end of URL being 'bodies'" do
+        get :search, :combined => ['"quango"', "bodies"]
+        assigns[:xapian_requests].should == nil
+        assigns[:xapian_users].should == nil
+        assigns[:xapian_bodies].results.size.should == 1        
     end
 
     it "should show help when searching for nothing" do

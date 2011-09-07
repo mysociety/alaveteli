@@ -46,7 +46,5 @@ class UserMailer < ApplicationMailer
         @body[:old_email] = old_email
         @body[:new_email] = new_email
     end
-
-
 end
 
