@@ -1,0 +1,113 @@
+Delivered-To: mysociety.robin@gmail.com
+Received: by 10.216.187.197 with SMTP id y47cs96752wem;
+        Tue, 6 Sep 2011 13:37:26 -0700 (PDT)
+Received: by 10.216.212.37 with SMTP id x37mr3361871weo.35.1315341445852;
+        Tue, 06 Sep 2011 13:37:25 -0700 (PDT)
+Return-Path: <>
+Received: from wildfire.ukcod.org.uk (wildfire.ukcod.org.uk [89.238.145.74])
+        by mx.google.com with ESMTPS id h49si1800318wed.40.2011.09.06.13.37.25
+        (version=TLSv1/SSLv3 cipher=OTHER);
+        Tue, 06 Sep 2011 13:37:25 -0700 (PDT)
+Received-SPF: pass (google.com: best guess record for domain of wildfire.ukcod.org.uk designates 89.238.145.74 as permitted sender) client-ip=89.238.145.74;
+Authentication-Results: mx.google.com; spf=pass (google.com: best guess record for domain of wildfire.ukcod.org.uk designates 89.238.145.74 as permitted sender) smtp.mail=
+Received: from cluster-a.mailcontrol.com ([85.115.52.190]:43258)
+	by wildfire.ukcod.org.uk with esmtp (Exim 4.69)
+	id 1R12OV-0003KQ-9c
+	for team@whatdotheyknow.com; Tue, 06 Sep 2011 21:37:19 +0100
+Received: from mail.example.com ([62.6.240.178])
+	by rly22a.srv.mailcontrol.com (MailControl) with ESMTP id p86KbIZV025877
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=NO)
+	for <team@whatdotheyknow.com>; Tue, 6 Sep 2011 21:37:18 +0100
+Received: from MX05.example.com (10.100.14.57) by GCEX534.PHSGROUP.local
+ (10.100.21.78) with Microsoft SMTP Server id 14.1.270.1; Tue, 6 Sep 2011
+ 21:38:52 +0100
+From: <postmaster@xyz.local>
+To: <team@whatdotheyknow.com>
+Date: Tue, 6 Sep 2011 21:37:13 +0100
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="9B095B5ADSN=_01CC68D9CD29F1E300015B60MX05.example.com"
+X-DSNContext: 7ce717b1 - 1148 - 00000002 - 00000000
+Message-ID: <DEU8FnRwh00000d1b@MX05.example.com>
+Subject: Delivery Status Notification (Failure)
+X-Scanned-By: MailControl A-12-01-02 (www.mailcontrol.com) on 10.65.0.132
+List-Id: Admin Team for What Do They Know <team@whatdotheyknow.com>
+
+--9B095B5ADSN=_01CC68D9CD29F1E300015B60MX05.example.com
+Content-Type: text/plain; charset="unicode-1-1-utf-7"
+
+This is an automatically generated Delivery Status Notification.
+
+Delivery to the following recipients failed.
+
+       FailedUser@example.com
+
+
+
+
+--9B095B5ADSN=_01CC68D9CD29F1E300015B60MX05.example.com
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns;MX05.example.com
+Received-From-MTA: dns;MX04.example.com
+Arrival-Date: Tue, 6 Sep 2011 21:37:13 +0100
+
+Final-Recipient: rfc822;FailedUser@example.com
+Action: failed
+Status: 5.2.2
+X-Display-Name: Failed User
+
+
+--9B095B5ADSN=_01CC68D9CD29F1E300015B60MX05.example.com
+Content-Type: message/rfc822
+
+Received: from MX04.example.com ([10.100.14.56]) by MX05.example.com with
+ Microsoft SMTPSVC(5.0.2195.6713);	 Tue, 6 Sep 2011 21:37:13 +0100
+Received: from DCEX553.example.com ([10.211.10.27]) by MX04.example.com with
+ Microsoft SMTPSVC(5.0.2195.6713);	 Tue, 6 Sep 2011 21:37:13 +0100
+Received: from cluster-a.mailcontrol.com (85.115.52.190) by mail.example.com
+ (10.211.10.27) with Microsoft SMTP Server id 14.1.270.1; Tue, 6 Sep 2011
+ 20:36:49 +0100
+Received: from wildfire.ukcod.org.uk (wildfire.ukcod.org.uk [89.238.145.74])
+	by rly01a.srv.mailcontrol.com (MailControl) with ESMTP id p86KbAZN016792
+	(version=TLSv1/SSLv3 cipher=AES256-SHA bits=256 verify=NO)	for
+ <faileduser@example.com>; Tue, 6 Sep 2011 21:37:11 +0100
+Received: from foi by wildfire.ukcod.org.uk with local (Exim 4.69)
+	(envelope-from <team@whatdotheyknow.com>)	id 1R12OL-0003K9-UE	for
+ faileduser@example.com; Tue, 06 Sep 2011 21:37:10 +0100
+Date: Tue, 6 Sep 2011 21:37:09 +0100
+From: WhatDoTheyKnow <team@whatdotheyknow.com>
+To: Failed <faileduser@example.com>
+Subject: Your WhatDoTheyKnow email alert
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Precedence: bulk
+Auto-Submitted: auto-generated
+Message-ID: <E1R12OL-0003K9-UE@wildfire.ukcod.org.uk>
+X-Mailcontrol-Inbound: 7DN0MnCsYCrl5jj2!rZ4BuxxWQ2q0l7t3Lrex4V7ScCE2eoC2RNzHw==
+X-Spam-Score: -0.857
+X-Scanned-By: MailControl A-12-01-02 (www.mailcontrol.com) on 10.65.0.111
+Return-Path: team@whatdotheyknow.com
+X-OriginalArrivalTime: 06 Sep 2011 20:37:13.0070 (UTC) FILETIME=[C20250E0:01CC6CD4]
+
+Requests or responses matching 'bottled water cooler'
+=====================================================
+
+-- HS2 meetings - Agendas and Minutes --
+Warwickshire County Council sent a response to Richard Jones (21 July 2011)
+     "Dear Mr Jones FREEDOM OF INFORMATION ACT 2000 - INFORMATION
+     REQUEST Your request for information has now been considered. The
+     information you have..."
+http://www.whatdotheyknow.com/request/hs2_meetings_agendas_and_minutes_2#incoming-195748
+
+
+Alter your subscription
+=======================
+
+Please click on the link below to cancel or alter these emails.
+http://www.whatdotheyknow.com/c/f76ffwifzlo5sk4egr3
+
+-- the WhatDoTheyKnow team
+
+
+--9B095B5ADSN=_01CC68D9CD29F1E300015B60MX05.example.com--

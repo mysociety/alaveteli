@@ -17,20 +17,37 @@ load "config.rb"
 MySociety::Config.set_file(File.join($alaveteli_dir, 'config', 'general'), true)
 MySociety::Config.load_default
 
-def main
-    load_rails
-    raw_message = $stdin.read
-    pfa = permanently_failed_address(raw_message)
-    if pfa.nil?
-        not_a_bounce(raw_message)
-    else
-        record_bounce(pfa, raw_message)
+def main(in_test_mode)
+    Dir.chdir($alaveteli_dir) do
+        load_rails
+        
+        raw_message = $stdin.read
+        message = TMail::Mail.parse(raw_message)
+        
+        pfas = permanently_failed_addresses(message)
+        if !pfas.empty?
+            if in_test_mode
+                puts pfas
+            else
+                pfas.each do |pfa|
+                    record_bounce(pfa, raw_message)
+                end
+            end
+            return 1
+        end
+        
+        if is_oof? message
+            # Discard out-of-office messages
+            return 2
+        end
+        
+        # Otherwise forward the message on
+        forward_on(raw_message) unless in_test_mode
+        return 0
     end
 end
 
-def permanently_failed_address(raw_message)
-    message = TMail::Mail.parse(raw_message)
-
+def permanently_failed_addresses(message)
     if message.header_string("Return-Path") == "<>"
         # Some sort of auto-response
     
@@ -41,14 +58,55 @@ def permanently_failed_address(raw_message)
             # Check for the words "This is a permanent error." in the body, to indicate
             # a permanent failure
             if message.body =~ /This is a permanent error./
-                return failed_recipients
+                return failed_recipients.split(/,\s*/)
             end
         end
-        return nil
+        
+        # Next, look for multipart/report
+        if message.content_type == "multipart/report"
+            permanently_failed_recipients = []
+            message.parts.each do |part|
+                if part.content_type == "message/delivery-status"
+                    sections = part.body.split(/\r?\n\r?\n/)
+                    # The first section is a generic header; subsequent sections
+                    # represent a particular recipient. Since we 
+                    sections[1..-1].each do |section|
+                        if section !~ /^Status: (\d)/ || $1 != '5'
+                            # Either we couldn’t find the Status field, or it was a transient failure
+                            break
+                        end
+                        if section =~ /^Final-Recipient: rfc822;(.+)/
+                            permanently_failed_recipients.push($1)
+                        end
+                    end
+                end
+            end
+            if !permanently_failed_recipients.empty?
+                return permanently_failed_recipients
+            end
+        end
     end
+    
+    return []
 end
 
-def not_a_bounce(raw_message)
+def is_oof?(message)
+    # Check for out-of-office
+    
+    if message.header_string("Return-Path") == "<>"
+        subject = message.header_string("Subject")
+        if subject.start_with? "Out of Office: "
+            return true
+        end
+        if subject.start_with? "Automatic reply: "
+            return true
+        end
+    end
+    
+    return false
+end
+
+def forward_on(raw_message)
     forward_non_bounces_to = MySociety::Config.get("FORWARD_NONBOUNCE_RESPONSES_TO", "user-support@localhost")
     IO.popen("/usr/sbin/sendmail -i #{forward_non_bounces_to}", "w") do |f|
         f.write(raw_message);
@@ -57,7 +115,7 @@ def not_a_bounce(raw_message)
 end
 
 def load_rails
-    require File.join($alaveteli_dir, 'config', 'boot')
+    require File.join('config', 'boot')
     require RAILS_ROOT + '/config/environment'
 end
 
@@ -65,4 +123,6 @@ def record_bounce(email_address, bounce_message)
     User.record_bounce_for_email(email_address, bounce_message)
 end
 
-main
+in_test_mode = (ARGV[0] == "--test")
+status = main(in_test_mode)
+exit(status) if in_test_mode
