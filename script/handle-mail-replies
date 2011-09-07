@@ -18,13 +18,15 @@ MySociety::Config.set_file(File.join($alaveteli_dir, 'config', 'general'), true)
 MySociety::Config.load_default
 
 def main
-    load_rails
-    raw_message = $stdin.read
-    pfa = permanently_failed_address(raw_message)
-    if pfa.nil?
-        not_a_bounce(raw_message)
-    else
-        record_bounce(pfa, raw_message)
+    File.chdir($alaveteli_dir) do
+        load_rails
+        raw_message = $stdin.read
+        pfa = permanently_failed_address(raw_message)
+        if pfa.nil?
+            not_a_bounce(raw_message)
+        else
+            record_bounce(pfa, raw_message)
+        end
     end
 end
 
@@ -57,7 +59,7 @@ def not_a_bounce(raw_message)
 end
 
 def load_rails
-    require File.join($alaveteli_dir, 'config', 'boot')
+    require File.join('config', 'boot')
     require RAILS_ROOT + '/config/environment'
 end
 
