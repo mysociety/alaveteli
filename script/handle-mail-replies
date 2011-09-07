@@ -11,16 +11,58 @@
 
 # We want to avoid loading rails unless we need it, so we start by just loading the
 # config file ourselves.
-alaveteli_dir = File.join(File.dirname(__FILE__), '..')
-$:.push(File.join(alaveteli_dir, "commonlib", "rblib"))
+$alaveteli_dir = File.join(File.dirname(__FILE__), '..')
+$:.push(File.join($alaveteli_dir, "commonlib", "rblib"))
 load "config.rb"
-MySociety::Config.set_file(File.join(alaveteli_dir, 'config', 'general'), true)
+MySociety::Config.set_file(File.join($alaveteli_dir, 'config', 'general'), true)
 MySociety::Config.load_default
 
-message = $stdin.read
-
-forward_non_bounces_to = MySociety::Config.get("FORWARD_NONBOUNCE_RESPONSES_TO", "user-support@localhost")
-IO.popen("/usr/sbin/sendmail -i #{forward_non_bounces_to}", "w") do |f|
-    f.write(message);
-    f.close;
+def main
+    load_rails
+    raw_message = $stdin.read
+    pfa = permanently_failed_address(raw_message)
+    if pfa.nil?
+        not_a_bounce(raw_message)
+    else
+        record_bounce(pfa, raw_message)
+    end
 end
+
+def permanently_failed_address(raw_message)
+    message = TMail::Mail.parse(raw_message)
+
+    if message.header_string("Return-Path") == "<>"
+        # Some sort of auto-response
+    
+        # Check for Exim’s X-Failed-Recipients header
+        failed_recipients = message.header_string("X-Failed-Recipients")
+        if !failed_recipients.nil?
+            # The X-Failed-Recipients header contains the email address that failed
+            # Check for the words "This is a permanent error." in the body, to indicate
+            # a permanent failure
+            if message.body =~ /This is a permanent error./
+                return failed_recipients
+            end
+        end
+        return nil
+    end
+end
+
+def not_a_bounce(raw_message)
+    forward_non_bounces_to = MySociety::Config.get("FORWARD_NONBOUNCE_RESPONSES_TO", "user-support@localhost")
+    IO.popen("/usr/sbin/sendmail -i #{forward_non_bounces_to}", "w") do |f|
+        f.write(raw_message);
+        f.close;
+    end
+end
+
+def load_rails
+    require File.join($alaveteli_dir, 'config', 'boot')
+    require RAILS_ROOT + '/config/environment'
+end
+
+def record_bounce(email_address, bounce_message)
+    User.record_bounce_for_email(email_address, bounce_message)
+end
+
+main
