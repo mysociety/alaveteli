@@ -7,8 +7,13 @@
             $("#typeahead_response").load("<%=search_ahead_url%>?q="+encodeURI(this.value), function() {
                 // When following links in typeahead results, open new tab/window
                 $("#typeahead_response a").attr("target","_blank");
+                
+                // Update the public body site search link
+                $("#body-site-search-link").attr("href", "http://www.google.com/#q="+encodeURI($("#typeahead_search").val())+
+                                                "+site:<%= @info_request.public_body.calculated_home_page %>");
             });
         }));
+        
     });
 </script>
 
@@ -87,6 +92,7 @@
               <% end %>
               )
         </div>
+        
         <div id="typeahead_response">
         </div>
     </div>
