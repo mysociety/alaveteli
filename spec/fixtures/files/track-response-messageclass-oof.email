@@ -1,0 +1,63 @@
+Delivered-To: mysociety.robin@gmail.com
+Received: by 10.216.187.197 with SMTP id y47cs177522wem;
+        Thu, 8 Sep 2011 14:01:27 -0700 (PDT)
+Received: by 10.216.220.168 with SMTP id o40mr1165141wep.75.1315515686762;
+        Thu, 08 Sep 2011 14:01:26 -0700 (PDT)
+Return-Path: <MAILER-DAEMON@wildfire.ukcod.org.uk>
+Received: from wildfire.ukcod.org.uk (wildfire.ukcod.org.uk [89.238.145.74])
+        by mx.google.com with ESMTPS id k18si4719546wed.16.2011.09.08.14.01.25
+        (version=TLSv1/SSLv3 cipher=OTHER);
+        Thu, 08 Sep 2011 14:01:25 -0700 (PDT)
+Received-SPF: pass (google.com: best guess record for domain of MAILER-DAEMON@wildfire.ukcod.org.uk designates 89.238.145.74 as permitted sender) client-ip=89.238.145.74;
+Authentication-Results: mx.google.com; spf=pass (google.com: best guess record for domain of MAILER-DAEMON@wildfire.ukcod.org.uk designates 89.238.145.74 as permitted sender) smtp.mail=MAILER-DAEMON@wildfire.ukcod.org.uk
+Received: from foi by wildfire.ukcod.org.uk with local (Exim 4.69)
+    (envelope-from <MAILER-DAEMON@wildfire.ukcod.org.uk>)
+    id 1R1lio-0004zB-Fv
+    for team_delivery@whatdotheyknow.com; Thu, 08 Sep 2011 22:01:18 +0100
+Received: from mailproxy2.newsquest.co.uk ([93.174.8.201]:2528)
+    by wildfire.ukcod.org.uk with esmtp (Exim 4.69)
+    id 1R1lin-0004z2-Lk
+    for track@whatdotheyknow.com; Thu, 08 Sep 2011 22:01:17 +0100
+X-IronPort-AV: E=Sophos;i="4.68,352,1312153200"; 
+   d="scan'208";a="450582625"
+Content-Type: multipart/mixed; boundary="===============1667734580=="
+MIME-Version: 1.0
+Received: from sx-mailtraq.se.ad.newsquest.co.uk (sx-mailtraq.se.ad.newsquest.co.uk [10.50.6.12])
+          by nqsussex.co.uk with ESMTP (Mailtraq/2.12.0.2278) id NQSSF0865193
+          for track@whatdotheyknow.com; Thu, 08 Sep 2011 22:01:04 +0100
+From: "bjarne.stroustrup" <bjarne.stroustrup@example.co.uk>
+To: track@whatdotheyknow.com
+Date: Thu, 08 Sep 2011 22:01:01 +0100
+Message-ID: <THRGF086ADB9@example.co.uk>
+Subject: Automatic Response
+X-Hops: 1
+X-POST-MessageClass: 9; Autoresponder
+
+--===============1667734580==
+MIME-Version: 1.0
+Content-Type: text/plain; charset=""
+
+I am out of the office until Tuesday, January 20. If your email is 
+urgent please resend it to news@example.co.uk.
+Thanks very much
+Boris
+
+--===============1667734580==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+
+This email has been scanned for viruses and other threats using Newsquest's=
+ Ironport email filters.
+
+This document is private and confidential.
+All property, copyright and other rights in it and its contents belong to
+ewsquest Media Group Limited.
+It must not be read, copied, disclosed or otherwise used without Newsquest=
+=E2=80=99s authorisation. Newsquest may exercise its legal rights and remed=
+ies in the event of any such unauthorised use.
+
+
+--===============1667734580==--
+
