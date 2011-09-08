@@ -93,8 +93,8 @@ end
 def is_oof?(message)
     # Check for out-of-office
     
+    subject = message.header_string("Subject")
     if message.header_string("Return-Path") == "<>"
-        subject = message.header_string("Subject")
         if subject.start_with? "Out of Office: "
             return true
         end
@@ -103,6 +103,9 @@ def is_oof?(message)
         end
     end
     
+    if subject.start_with? "Out of Office AutoReply:"
+        return true
+    end
     return false
 end
 
