@@ -44,5 +44,10 @@ describe "When filtering" do
         r = mail_reply_test("track-response-lotus-oof-1.email")
         r.status.should == 2
     end
+
+    it "should detect a Messagelabs-style out-of-office" do
+        r = mail_reply_test("track-response-messagelabs-oof-1.email")
+        r.status.should == 2
+    end
 end
 
