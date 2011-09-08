@@ -22,7 +22,13 @@ def main(in_test_mode)
         load_rails
         
         raw_message = $stdin.read
-        message = TMail::Mail.parse(raw_message)
+        begin
+            message = TMail::Mail.parse(raw_message)
+        rescue
+            # Error parsing message. Just pass it on, to be on the safe side.
+            forward_on(raw_message) unless in_test_mode
+            return 0
+        end
         
         pfas = permanently_failed_addresses(message)
         if !pfas.empty?
