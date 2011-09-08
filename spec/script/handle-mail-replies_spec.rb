@@ -39,5 +39,10 @@ describe "When filtering" do
         r = mail_reply_test("track-response-exchange-oof-1.email")
         r.status.should == 2
     end
+
+    it "should detect a Lotus Domino-style out-of-office" do
+        r = mail_reply_test("track-response-lotus-oof-1.email")
+        r.status.should == 2
+    end
 end
 

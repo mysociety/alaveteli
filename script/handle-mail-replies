@@ -106,6 +106,9 @@ def is_oof?(message)
     if subject.start_with? "Out of Office AutoReply:"
         return true
     end
+    if subject.end_with? "is out of the office"
+        return true
+    end
     return false
 end
 
