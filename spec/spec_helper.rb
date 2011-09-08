@@ -148,7 +148,7 @@ if $tempfilecount.nil?
 end
 
 def load_raw_emails_data(raw_emails)
-        raw_email = raw_emails(:useless_raw_email)
+    raw_email = raw_emails(:useless_raw_email)
     begin
         raw_email.destroy_file_representation!
     rescue Errno::ENOENT
