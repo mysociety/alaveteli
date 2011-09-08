@@ -100,20 +100,20 @@ end
 def is_oof?(message)
     # Check for out-of-office
     
-    subject = message.header_string("Subject")
+    subject = message.header_string("Subject").downcase
     if message.header_string("Return-Path") == "<>"
-        if subject.start_with? "Out of Office: "
+        if subject.start_with? "out of office: "
             return true
         end
-        if subject.start_with? "Automatic reply: "
+        if subject.start_with? "automatic reply: "
             return true
         end
     end
     
-    if subject.start_with? "Out of Office AutoReply:"
+    if subject.start_with? "out of office autoreply:"
         return true
     end
-    if subject == "Out of Office"
+    if subject == "out of office"
         return true
     end
     if subject.end_with? "is out of the office"
