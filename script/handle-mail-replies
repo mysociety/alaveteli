@@ -17,7 +17,7 @@ load "config.rb"
 MySociety::Config.set_file(File.join($alaveteli_dir, 'config', 'general'), true)
 MySociety::Config.load_default
 
-$:.push("vendor/rails/actionmailer/lib/action_mailer/vendor/tmail-1.2.7")
+$:.push(File.join($alaveteli_dir, "vendor", "rails", "actionmailer", "lib", "action_mailer", "vendor", "tmail-1.2.7"))
 require 'tmail'
 
 def main(in_test_mode)
