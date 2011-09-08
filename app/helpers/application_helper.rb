@@ -105,8 +105,12 @@ module ApplicationHelper
         method_name.sub(/\?$/, "")
     end
  
-    def form_tag_id(object_name, method_name)
-        return "#{sanitized_object_name(object_name.to_s)}_#{sanitized_method_name(method_name.to_s)}"
+    def form_tag_id(object_name, method_name, locale=nil)
+	if locale.nil?
+            return "#{sanitized_object_name(object_name.to_s)}_#{sanitized_method_name(method_name.to_s)}"
+        else
+            return "#{sanitized_object_name(object_name.to_s)}_#{sanitized_method_name(method_name.to_s)}__#{locale.to_s}"
+        end
     end
 
 end
