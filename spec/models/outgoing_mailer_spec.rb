@@ -112,7 +112,6 @@ describe OutgoingMailer, "when working out follow up subjects" do
     it "should not add Re: prefix if there already is a lower case re: prefix" do
         ir = info_requests(:fancy_dog_request) 
         im = ir.incoming_messages[0]
-        puts im.raw_email.data
         om = outgoing_messages(:useless_outgoing_message)
         om.incoming_message_followup = im
 
