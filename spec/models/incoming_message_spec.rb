@@ -79,11 +79,21 @@ describe IncomingMessage, " folding quoted parts of emails" do
 end
 
 describe IncomingMessage, " checking validity to reply to" do
-    def test_email(email, result)
+    def test_email(result, email, return_path, autosubmitted)
         @address = mock(TMail::Address)
         @address.stub!(:spec).and_return(email)
+
+        @return_path = mock(TMail::ReturnPathHeader)
+        @return_path.stub!(:addr).and_return(return_path)
+
+        @autosubmitted = mock(TMail::KeywordsHeader)
+        @autosubmitted.stub!(:keys).and_return(autosubmitted)
+
         @mail = mock(TMail::Mail)
         @mail.stub!(:from_addrs).and_return( [ @address ] )
+        @mail.stub!(:[]).with("return-path").and_return(@return_path)
+        @mail.stub!(:[]).with("auto-submitted").and_return(@autosubmitted)
+
         @incoming_message = IncomingMessage.new()
         @incoming_message.stub!(:mail).and_return(@mail)
 
@@ -91,27 +101,63 @@ describe IncomingMessage, " checking validity to reply to" do
     end
 
     it "says a valid email is fine" do
-        test_email("team@mysociety.org", true)
+        test_email(true, "team@mysociety.org", nil, [])
     end
 
     it "says postmaster email is bad" do
-        test_email("postmaster@mysociety.org", false)
+        test_email(false, "postmaster@mysociety.org", nil, [])
     end
 
     it "says Mailer-Daemon email is bad" do
-        test_email("Mailer-Daemon@mysociety.org", false)
+        test_email(false, "Mailer-Daemon@mysociety.org", nil, [])
     end
 
     it "says case mangled MaIler-DaemOn email is bad" do
-        test_email("MaIler-DaemOn@mysociety.org", false)
+        test_email(false, "MaIler-DaemOn@mysociety.org", nil, [])
     end
 
     it "says Auto_Reply email is bad" do
-        test_email("Auto_Reply@mysociety.org", false)
+        test_email(false, "Auto_Reply@mysociety.org", nil, [])
     end
 
     it "says DoNotReply email is bad" do
-        test_email("DoNotReply@tube.tfl.gov.uk", false)
+        test_email(false, "DoNotReply@tube.tfl.gov.uk", nil, [])
+    end
+
+    it "says a filled-out return-path is fine" do
+        test_email(true, "team@mysociety.org", "Return-path: <foo@baz.com>", [])
+    end
+
+    it "says an empty return-path is bad" do
+        test_email(false, "team@mysociety.org", "<>", [])
+    end
+
+    it "says an auto-submitted keyword is bad" do
+        test_email(false, "team@mysociety.org", nil, ["auto-replied"])
+    end
+
+end
+
+describe IncomingMessage, " checking validity to reply to with real emails" do
+    fixtures :incoming_messages, :raw_emails, :public_bodies, :public_body_translations, :info_requests, :users
+
+    after(:all) do
+        ActionMailer::Base.deliveries.clear
+    end
+    it "should allow a reply to plain emails" do
+        ir = info_requests(:fancy_dog_request) 
+        receive_incoming_mail('incoming-request-plain.email', ir.incoming_email)
+        ir.incoming_messages[1].valid_to_reply_to?.should == true
+    end
+    it "should not allow a reply to emails with empty return-paths" do
+        ir = info_requests(:fancy_dog_request) 
+        receive_incoming_mail('empty-return-path.email', ir.incoming_email)
+        ir.incoming_messages[1].valid_to_reply_to?.should == false
+    end
+    it "should not allow a reply to emails with autoresponse headers" do
+        ir = info_requests(:fancy_dog_request) 
+        receive_incoming_mail('autoresponse-header.email', ir.incoming_email)
+        ir.incoming_messages[1].valid_to_reply_to?.should == false
     end
 
 end

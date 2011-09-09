@@ -1308,7 +1308,12 @@ class IncomingMessage < ActiveRecord::Base
         if !prefix.nil? && prefix.downcase.match(/^(postmaster|mailer-daemon|auto_reply|donotreply|no.reply)$/)
             return false
         end
-
+        if !self.mail['return-path'].nil? && self.mail['return-path'].addr == "<>"
+            return false
+        end
+        if !self.mail['auto-submitted'].nil? && !self.mail['auto-submitted'].keys.empty?
+            return false
+        end
         return true
     end
 
