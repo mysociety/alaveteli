@@ -518,12 +518,24 @@ span#to_public_body {
 }
 
 .form_item_note, .form_note {
-  margin-left:12em;
+  margin-left: 110px;
 }
 
 #left_column {
   width:600px;
   float:left;
+}
+
+#right_column_flip {
+  width:220px;
+  float:left;
+  margin-top:20px;
+}
+
+#left_column_flip {
+  width:620px;
+  float:right;
+  margin-top: 10px;
 }
 
 #right_column {
@@ -750,6 +762,8 @@ div.correspondence {
   background: url(/images/stripes-70.png);
   border-width: 0px;
   font-size: 13px;
+  border-radius: 6px;
+  padding: 4px 20px 0px 9px;
 }
 
 /* ---------- Frontpage ----------- */
@@ -926,4 +940,82 @@ p.public-body-name-prefix {
 #authority_preview #list-filter,
 #authority_preview h2.foi_results {
  display: none;
+}
+
+p.subtitle {
+  font-size: 18px;
+  font-family: 'DeliciousRoman';
+  font-style: normal;
+  color: #6B3C7F;
+}
+
+/*------------- Other countries notice ---------------*/
+#other-country-notice {
+  background: #93278F;
+  color: #FFF;
+  font-size: 16px;
+  width: 100%;
+  z-index: 999;
+  display: block;
+  position: absolute;
+  top: 0px;
+  opacity: 0.9;
+}
+
+#other-country-notice a {
+  color: #FFF;
+}
+
+#other-country-notice .close-button {
+  background: url(/images/small-white-cross.png) no-repeat;
+  padding: 10px 0px;
+  width: 15px;
+  height: 15px;
+  border: solid 0px #FFF;
+  text-indent: -999px;
+  overflow:hidden;
+  float:right;
+}
+
+/*---------- From tweaks ----------*/
+#to_public_body {
+  display: block;
+  margin-bottom: 15px;
+}
+
+.fieldWithErrors {
+  background: none;
+  border: solid 0px #FFF;
+}
+
+.fieldWithErrors textarea,
+.fieldWithErrors input {
+  border: solid 1px Red !important;
+}
+
+.errorExplanation {
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: normal;
+  width: 554px;
+  margin: 20px 0px 30px 0px;
+}
+
+#notice {
+  font-size: 12px;
+  font-weight: normal;
+  padding: 10px 20px 10px 20px;
+  background: #EDFED3 !important;
+  color: #5B7705;
+  border-color: #B6CB86;
+  border-radius: 6px;
+  margin: 15px 0px;
+}
+
+#notice p:first-child {
+  margin-top: 0px;
+}
+
+#notice p:last-child {
+  margin-bottom: 0px;
 }
