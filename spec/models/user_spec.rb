@@ -282,3 +282,26 @@ describe User, "when setting a profile photo" do
 #    end
 end
 
+describe User, "when unconfirmed" do
+    fixtures :users
+
+    before do
+        @user = users(:unconfirmed_user)
+    end
+
+    it "should not be emailed" do
+        @user.should_be_emailed?.should be_false
+    end
+end
+
+describe User, "when emails have bounced" do
+    fixtures :users
+
+    it "should record bounces" do
+        User.record_bounce_for_email("bob@localhost", "The reason we think the email bounced (e.g. a bounce message)")
+        
+        user = User.find_user_by_email("bob@localhost")
+        user.email_bounced_at.should_not be_nil
+        user.email_bounce_message.should == "The reason we think the email bounced (e.g. a bounce message)"
+    end
+end

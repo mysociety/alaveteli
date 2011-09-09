@@ -26,6 +26,12 @@ class TrackMailer < ApplicationMailer
         @body = { :user => user, :email_about_things => email_about_things, :unsubscribe_url => unsubscribe_url }
     end
 
+    def contact_from_name_and_email
+        contact_name = MySociety::Config.get("TRACK_SENDER_NAME", 'Alaveteli')
+        contact_email = MySociety::Config.get("TRACK_SENDER_EMAIL", 'contact@localhost')
+        return "#{contact_name} <#{contact_email}>"
+    end
+
     # Send email alerts for tracked things.  Never more than one email
     # a day, nor about events which are more than a week old, nor
     # events about which emails have been sent within the last two
@@ -40,6 +46,8 @@ class TrackMailer < ApplicationMailer
             return false
         end
         for user in users
+            next if !user.should_be_emailed?
+            
             email_about_things = []
             track_things = TrackThing.find(:all, :conditions => [ "tracking_user_id = ? and track_medium = ?", user.id, 'email_daily' ])
             for track_thing in track_things

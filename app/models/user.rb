@@ -16,6 +16,8 @@
 #  admin_level            :string(255)     default("none"), not null
 #  ban_text               :text            default(""), not null
 #  about_me               :text            default(""), not null
+#  email_bounced_at       :datetime        
+#  email_bounce_message   :text            default(""), not null
 #
 
 # models/user.rb:
@@ -350,15 +352,37 @@ class User < ActiveRecord::Base
         }
     end
 
+    def record_bounce(message)
+        self.email_bounced_at = Time.now
+        self.email_bounce_message = message
+        self.save!
+    end
+    
+    def should_be_emailed?
+        return (self.email_confirmed && self.email_bounced_at.nil?)
+    end
+
+    ## Private instance methods
     private
 
+    def create_new_salt
+        self.salt = self.object_id.to_s + rand.to_s
+    end
+    
+    ## Class methods
     def User.encrypted_password(password, salt)
         string_to_hash = password + salt # XXX need to add a secret here too?
         Digest::SHA1.hexdigest(string_to_hash)
     end
-    
-    def create_new_salt
-        self.salt = self.object_id.to_s + rand.to_s
+        
+    def User.record_bounce_for_email(email, message)
+        user = User.find_user_by_email(email)
+        return false if user.nil?
+        
+        if user.email_bounced_at.nil?
+            user.record_bounce(message)
+        end
+        return true
     end
 end
 

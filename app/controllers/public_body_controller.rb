@@ -91,7 +91,10 @@ class PublicBodyController < ApplicationController
         @tag = params[:tag]
         @locale = self.locale_from_params()
 
-        locale_condition = "(upper(public_body_translations.name) LIKE upper(?) OR upper(public_body_translations.notes) LIKE upper (?)) AND public_body_translations.locale = ?"
+        locale_condition = "(upper(public_body_translations.name) LIKE upper(?) 
+                            OR upper(public_body_translations.notes) LIKE upper (?)) 
+                            AND public_body_translations.locale = ?
+                            AND public_bodies.id <> #{PublicBody.internal_admin_body.id}"
         if @tag.nil? or @tag == "all"
             @tag = "all"
             conditions = [locale_condition, @query, @query, @locale]
@@ -123,7 +126,7 @@ class PublicBodyController < ApplicationController
                 @description = @tag
             end
         end
-        PublicBody.with_locale(@locale) do 
+        PublicBody.with_locale(@locale) do
             @public_bodies = PublicBody.paginate(
               :order => "public_body_translations.name", :page => params[:page], :per_page => 1000, # fit all councils on one page
               :conditions => conditions,

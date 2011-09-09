@@ -111,7 +111,7 @@ describe UserController, "when signing in" do
         get :signin, :r => "/list"
         response.should render_template('sign')
         post_redirect = get_last_postredirect
-        post :signin, { :user_signin => { :email => 'silly@localhost', :password => 'jonespassword' },
+        post :signin, { :user_signin => { :email => 'unconfirmed@localhost', :password => 'jonespassword' },
             :token => post_redirect.token
         }
         response.should render_template('confirm')
@@ -123,7 +123,7 @@ describe UserController, "when signing in" do
         get :signin, :r => "/list"
         post_redirect = get_last_postredirect
 
-        post :signin, { :user_signin => { :email => 'silly@localhost', :password => 'jonespassword' },
+        post :signin, { :user_signin => { :email => 'unconfirmed@localhost', :password => 'jonespassword' },
             :token => post_redirect.token
         }
         response.should send_email
@@ -143,7 +143,7 @@ describe UserController, "when signing in" do
         # check confirmation URL works
         session[:user_id].should be_nil
         get :confirm, :email_token => post_redirect.email_token
-        session[:user_id].should == users(:silly_name_user).id
+        session[:user_id].should == users(:unconfirmed_user).id
         response.should redirect_to(:controller => 'request', :action => 'list', :post_redirect => 1)
     end
 

@@ -32,9 +32,10 @@
         <style type="text/css">@import url("/stylesheets/ie7.css");</style> 
         <![endif]-->
         <%= stylesheet_link_tag 'custom', :title => "Main", :rel => "stylesheet"  %>
-        <!-- XXX: add conditional include -->
+        <% if force_registration_on_new_request %>
         <%= stylesheet_link_tag 'jquery.fancybox-1.3.4', :rel => "stylesheet"  %>
-
+        <% end %>
+        
         <% if @feed_autodetect %>
             <% for feed in @feed_autodetect %>
                 <link rel="alternate" type="application/atom+xml" title="<%=h feed[:title] %>" href="<%=h feed[:url]%>">
@@ -62,8 +63,8 @@
         $(document).ready(function() {
             $("#make-request-link").fancybox({
                 'modal': false,
-                'width': 800,
-                'height': 500,
+                'width': 900,
+                'height': 400,
                 'type': 'iframe',
                 'href': '/en/profile/sign_in?modal=1',
                 'onClosed': function() {
@@ -132,9 +133,7 @@
       </div>
     </div>
     <div id="wrapper">
-      
         <div id="content">
-
             <% if flash[:notice] %>
                 <div id="notice"><%= flash[:notice] %></div>
             <% end %>
