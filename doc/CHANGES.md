@@ -11,7 +11,8 @@
 ## Highlighted features
 * Complete overhaul of design, including improved search, modern look and feel, more twitter links, etc
 * A banner alerts visitors from other countries to existing sites in their country, or exhorts them to make their own
-* Bounce emails that result from user alerts are automatically processed and hard bouncing accounts do not continue to receive alerts
+* Bounce emails that result from user alerts are automatically processed and hard bouncing accounts do not continue to receive alerts.
+  See the new instructions in INSTALL-exim4.md for details of how to set this up.
 
 
 # Version 0.3
