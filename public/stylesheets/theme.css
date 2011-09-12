@@ -1,3 +1,4 @@
+
 h1 {
   color: #93278F;
   font-size: 42px;
@@ -377,6 +378,7 @@ p.subtitle {
 
 #search_form input[type=submit] {
   border-radius: 0px 2px 2px 0px;
+  -moz-border-radius: 0px 2px 2px 0px;
 }
 
 #header_left {
@@ -609,13 +611,13 @@ form input.use-datepicker[type=text] {
   background: url(/images/calendar.png) no-repeat 115px 3px;
   margin: 0px !important;
   border-radius:3px !important;
+  -moz-border-radius:3px !important;
   font-size: 14px !important;
 }
 
 form input[type=submit], 
 a.link_button_green,
-a.link_button_green_large,
-span.close-button {
+a.link_button_green_large {
   background: url(/images/button-gradient.png);
   color: white;
   text-decoration: none;
@@ -624,6 +626,7 @@ span.close-button {
   line-height: 18px;
   border: solid 1px #69952F;
   border-radius: 2px;
+  -moz-border-radius: 2px;
   text-shadow: 1px 1px 0px #5B841D;
   font-family: 'DeliciousRoman', Arial, sans-serif;
   font-size: 18px;
@@ -763,6 +766,7 @@ div.correspondence {
   border-width: 0px;
   font-size: 13px;
   border-radius: 6px;
+  -moz-border-radius: 6px;
   padding: 4px 20px 0px 9px;
 }
 
@@ -869,6 +873,7 @@ body.front h3 {
   background: #F2F2F2;
   border: solid 0px #FFF;
   border-radius: 2px;
+  -moz-border-radius: 2px;
 }
 
 #ui-datepicker-div .ui-state-default:hover {
@@ -918,13 +923,6 @@ body.front h3 {
  position: absolute;
 }
 
-span.close-button {
-  cursor: pointer;
-  font-size: 1em;
-  padding: 0 1px 0 1px;
-  line-height: 1.1em;
-  font-family: Arial;
-}
 body.front #other-country-notice,
 #other-country-notice {
  display: none;
@@ -966,15 +964,50 @@ p.subtitle {
   color: #FFF;
 }
 
-#other-country-notice .close-button {
+.close-button {
+  color: white;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 2px;
+  -moz-border-radius: 2px;
+  cursor: pointer;
+  cursor: hand;
   background: url(/images/small-white-cross.png) no-repeat;
-  padding: 10px 0px;
+  padding: 10px 0;
   width: 15px;
   height: 15px;
   border: solid 0px #FFF;
   text-indent: -999px;
   overflow:hidden;
   float:right;
+
+}
+/*------------- Link box ---------------*/
+#link_box {
+ position: absolute;
+ padding: 5px;
+ text-align: left;
+ background-color: white;
+ z-index: 999;
+ opacity: 0.9;
+ border-radius: 6px;
+ -moz-border-radius: 6px;
+ border: 1px solid #93278F;
+ display: none;
+}
+
+#link_box .close-button {
+  background-color: #93278F;
+  padding: 0;
+  margin-left: 15px;
+}
+
+a.link_to_this {
+ display: inline-block;
+ width: 20px;
+ letter-spacing: -1000em;
+ overflow: hidden;
+ background: url(/images/link-icon.png) no-repeat;
 }
 
 /*---------- From tweaks ----------*/
@@ -995,6 +1028,7 @@ p.subtitle {
 
 .errorExplanation {
   border-radius: 6px;
+  -moz-border-radius: 6px;
   font-size: 12px;
   font-weight: normal;
   width: 554px;
@@ -1009,6 +1043,7 @@ p.subtitle {
   color: #5B7705;
   border-color: #B6CB86;
   border-radius: 6px;
+  -moz-border-radius: 6px;
   margin: 15px 0px;
 }
 
