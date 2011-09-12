@@ -368,6 +368,9 @@ p.subtitle {
   margin-top:60px;
 }
 
+div.ff-icon-printfix {
+ display: none;
+}
 #search_form {
   margin:0px -6px 20px 0px;
 }

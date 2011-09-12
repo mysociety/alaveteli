@@ -17,9 +17,10 @@
         </title>
 
         <link rel="shortcut icon" href="/favicon.ico">
-	<%= stylesheet_link_tag 'main', :title => "Main", :rel => "stylesheet" %>
-	<%= stylesheet_link_tag 'fonts', :rel => "stylesheet" %>
-	<%= stylesheet_link_tag 'theme', :rel => "stylesheet" %>
+	<%= stylesheet_link_tag 'main', :title => "Main", :rel => "stylesheet", :media => "all" %>
+	<%= stylesheet_link_tag 'fonts', :rel => "stylesheet", :media => "all"  %>
+	<%= stylesheet_link_tag 'theme', :rel => "stylesheet", :media => "all"  %>
+	<%= stylesheet_link_tag 'print', :rel => "stylesheet", :media => "print"  %>
 	<%= javascript_include_tag 'jquery.js', 'jquery-ui.min','jquery.cookie.js', 'general.js' %>
 	<%= stylesheet_link_tag 'admin-theme/jquery-ui-1.8.15.custom.css', :rel => 'stylesheet'%>
         <!--[if LT IE 7]> 
