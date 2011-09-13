@@ -357,7 +357,11 @@ class PublicBody < ActiveRecord::Base
                 bodies_by_name = {}
                 set_of_existing = Set.new()
                 PublicBody.with_locale(I18n.default_locale) do
-                    for existing_body in PublicBody.find_by_tag(tag)
+                    bodies = (tag.nil? || tag.empty?) ? PublicBody.find(:all) : PublicBody.find_by_tag(tag)
+                    for existing_body in bodies
+                        # Hide InternalAdminBody from import notes
+                        next if existing_body.id == PublicBody.internal_admin_body.id
+                        
                         bodies_by_name[existing_body.name] = existing_body
                         set_of_existing.add(existing_body.name)
                     end
@@ -393,7 +397,7 @@ class PublicBody < ActiveRecord::Base
                     
                     field_list = ['name', 'short_name', 'request_email', 'notes', 'publication_scheme', 'home_page']
 
-                    if public_body = bodies_by_name[name]
+                    if public_body = bodies_by_name[name]   # Existing public body
                         available_locales.each do |locale|
                             PublicBody.with_locale(locale) do
                                 changed = {}
@@ -446,7 +450,7 @@ class PublicBody < ActiveRecord::Base
                 # Give an error listing ones that are to be deleted 
                 deleted_ones = set_of_existing - set_of_importing
                 if deleted_ones.size > 0
-                    notes.push "notes: Some " + tag + " bodies are in database, but not in CSV file:\n    " + Array(deleted_ones).join("\n    ") + "\nYou may want to delete them manually.\n"
+                    notes.push "Notes: Some " + tag + " bodies are in database, but not in CSV file:\n    " + Array(deleted_ones).join("\n    ") + "\nYou may want to delete them manually.\n"
                 end
 
                 # Rollback if a dry run, or we had errors

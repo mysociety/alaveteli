@@ -227,6 +227,12 @@ describe PublicBody, "when searching" do
 end
 
 describe PublicBody, " when loading CSV files" do
+    before(:each) do
+        # InternalBody is created the first time it's accessed, which happens sometimes during imports,
+        # depending on the tag used. By accessing it here before every test, it doesn't disturb our checks later on
+        PublicBody.internal_admin_body
+    end
+    
     it "should do a dry run successfully" do
         original_count = PublicBody.count
 
@@ -256,6 +262,22 @@ describe PublicBody, " when loading CSV files" do
             "line 3: creating new authority 'Fake Authority of Northern Ireland' (locale: en):\n\t\{\"request_email\":\"ni_foi@localhost\"\}"
             ]
 
+        PublicBody.count.should == original_count + 3
+    end
+
+    it "should do imports without a tag successfully" do
+        original_count = PublicBody.count
+        
+        csv_contents = load_file_fixture("fake-authority-type.csv")
+        errors, notes = PublicBody.import_csv(csv_contents, '', false, 'someadmin') # false means real run
+        errors.should == []
+        notes.size.should == 4
+        notes.should == [
+            "line 1: creating new authority 'North West Fake Authority' (locale: en):\n\t\{\"request_email\":\"north_west_foi@localhost\"\}", 
+            "line 2: creating new authority 'Scottish Fake Authority' (locale: en):\n\t\{\"request_email\":\"scottish_foi@localhost\"\}", 
+            "line 3: creating new authority 'Fake Authority of Northern Ireland' (locale: en):\n\t\{\"request_email\":\"ni_foi@localhost\"\}",
+            "Notes: Some  bodies are in database, but not in CSV file:\n    Department for Humpadinking\n    Geraldine Quango\nYou may want to delete them manually.\n"
+            ]
         PublicBody.count.should == original_count + 3
     end
 

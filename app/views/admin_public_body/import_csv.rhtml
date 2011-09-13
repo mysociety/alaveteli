@@ -12,15 +12,15 @@
 
 <% form_tag 'import_csv', :multipart => true do %>
     <p>
-    <label for="tag">Tag to add entries to / alter entries for:</label>
-    <%= text_field_tag 'tag', params[:tag] %>
-    </p>
-
-    <p>
     <label for="csv_file">CSV file:</label>
     <%= file_field_tag :csv_file, :size => 40 %> 
     </p>
     
+    <p>
+    <label for="tag">Optional: Tag to add entries to / alter entries for:</label>
+    <%= text_field_tag 'tag', params[:tag] %>
+    </p>
+
     <p><strong>CSV file format:</strong> A first row with the list of fields, 
     starting with '#', is optional but highly recommended. The fields 'name'
     and 'request_email' are required; additionaly, translated values are supported by
