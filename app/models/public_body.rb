@@ -395,7 +395,7 @@ class PublicBody < ActiveRecord::Base
                         next
                     end
                     
-                    field_list = ['name', 'short_name', 'request_email', 'notes', 'publication_scheme', 'home_page']
+                    field_list = ['name', 'short_name', 'request_email', 'notes', 'publication_scheme', 'home_page', 'tag_string']
 
                     if public_body = bodies_by_name[name]   # Existing public body
                         available_locales.each do |locale|
@@ -435,7 +435,6 @@ class PublicBody < ActiveRecord::Base
                                 unless changed.empty?
                                     notes.push "line #{line.to_s}: creating new authority '#{name}' (locale: #{locale}):\n\t#{changed.to_json}"
                                     public_body.publication_scheme = public_body.publication_scheme || ""
-                                    public_body.tag_string = tag
                                     public_body.last_edit_editor = editor
                                     public_body.last_edit_comment = 'Created from spreadsheet'                            
                                     public_body.save!
