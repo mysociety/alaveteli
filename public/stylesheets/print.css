@@ -17,8 +17,8 @@ div#content {
 p.event_actions,
 div#after_actions,
 #right_column,
-#header_right,
 #banner,
+#header_right,
 #describe_state_form_1,
 #describe_state_form_2 input[type=submit],
 #footer {
@@ -28,8 +28,6 @@ div#after_actions,
 div.correspondence {
  background: none;
  border: 1px solid #DDD;
- border-radius: 0;
- -moz-border-radius: 0;
 }
 
 p#request_status {

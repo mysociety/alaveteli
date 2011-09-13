@@ -216,7 +216,28 @@ describe RequestController, "when showing one request" do
             response.body.should have_tag("p.attachment strong", /goodbye.txt/m) 
         end
 
- 
+        it "should make a zipfile available, which has a different URL when it changes" do
+            ir = info_requests(:fancy_dog_request) 
+            session[:user_id] = ir.user.id # bob_smith_user
+            receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
+            title = 'why_do_you_have_such_a_fancy_dog'
+            get :download_entire_request, :url_title => title
+            assigns[:url_path].should have_text(/#{title}.zip$/)
+            old_path = assigns[:url_path]
+            response.location.should have_text(/#{assigns[:url_path]}$/)
+            zipfile = Zip::ZipFile.open(File.join(File.dirname(__FILE__), "../../cache/zips", old_path)) { |zipfile|
+                zipfile.count.should == 2
+            }
+            receive_incoming_mail('incoming-request-attachment-unknown-extension.email', ir.incoming_email)
+            get :download_entire_request, :url_title => title
+            assigns[:url_path].should have_text(/#{title}.zip$/)
+            response.location.should have_text(/#{assigns[:url_path]}/)
+            assigns[:url_path].should_not == old_path
+            zipfile = Zip::ZipFile.open(File.join(File.dirname(__FILE__), "../../cache/zips", assigns[:url_path])) { |zipfile|
+                zipfile.count.should == 4
+zipfile.entries.each {|x| puts x.name}
+            }
+        end
     end
 end
 

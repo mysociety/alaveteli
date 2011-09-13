@@ -7,6 +7,8 @@
 # $Id: request_controller.rb,v 1.192 2009-10-19 19:26:40 francis Exp $
 
 require 'alaveteli_file_types'
+require 'zip/zip'
+require 'open-uri'
 
 class RequestController < ApplicationController
     before_filter :check_read_only, :only => [ :new, :show_response, :describe_state, :upload_response ]
@@ -67,7 +69,6 @@ class RequestController < ApplicationController
             @status = @info_request.calculate_status
             @collapse_quotes = params[:unfold] ? false : true
             @update_status = params[:update_status] ? true : false    
-            @is_owning_user = @info_request.is_owning_user?(authenticated_user)
             @old_unclassified = @info_request.is_old_unclassified? && !authenticated_user.nil?
             
             if @update_status
@@ -101,7 +102,7 @@ class RequestController < ApplicationController
 
             # For send followup link at bottom
             @last_response = @info_request.get_last_response
-
+            @is_owning_user = @info_request.is_owning_user?(authenticated_user)
             respond_to do |format|
                 format.html { @has_json = true; render :template => 'request/show'}
                 format.json { render :json => @info_request.json_for_api(true) }
@@ -753,6 +754,68 @@ class RequestController < ApplicationController
         @xapian_requests = perform_search([InfoRequestEvent], query, 'relevant', 'request_collapse', 5)
 
         render :partial => "request/search_ahead.rhtml"
+    end
+
+    def download_entire_request
+        @locale = self.locale_from_params()
+        PublicBody.with_locale(@locale) do
+            info_request = InfoRequest.find_by_url_title(params[:url_title])
+            if info_request.nil?
+                raise ActiveRecord::RecordNotFound.new("Request not found")
+            end
+            if authenticated?(
+                              :web => _("To download the zip file"),
+                              :email => _("Then you can download a zip file of {{info_request_title}}.",:info_request_title=>info_request.title),
+                              :email_subject => _("Log in to download a zip file of {{info_request_title}}",:info_request_title=>info_request.title)
+                              )
+                updated = Digest::SHA1.hexdigest(info_request.get_last_event.created_at.to_s + info_request.updated_at.to_s)
+                @url_path = "/download/#{updated[0..1]}/#{updated}/#{params[:url_title]}.zip"
+                file_path = File.join(File.dirname(__FILE__), '../../cache/zips', @url_path)
+                if !File.exists?(file_path) 
+                    FileUtils.mkdir_p(File.dirname(file_path))
+                    Zip::ZipFile.open(file_path, Zip::ZipFile::CREATE) { |zipfile|
+                        convert_command = MySociety::Config.get("HTML_TO_PDF_COMMAND")
+                        done = false
+                        if File.exists?(convert_command)
+                            domain = MySociety::Config.get("DOMAIN")
+                            url = "http://#{domain}#{request_url(info_request)}?print_stylesheet=1"
+                            tempfile = Tempfile.new('foihtml2pdf')
+                            output = AlaveteliExternalCommand.run(convert_command, url, tempfile.path)
+                            if !output.nil?
+                                zipfile.get_output_stream("correspondence.pdf") { |f|
+                                    f.puts(File.open(tempfile.path).read)
+                                }
+                                done = true
+                            else
+                                logger.error("Could not convert info request #{info_request.id} to PDF")
+                            end
+                            tempfile.close
+                        else                    
+                            logger.warn("No HTML -> PDF converter found at #{convert_command}")
+                        end
+                        if !done
+                            @info_request = info_request
+                            @info_request_events = info_request.info_request_events
+                            template = File.read(File.join(File.dirname(__FILE__), "..", "views", "request", "simple_correspondence.rhtml"))
+                            output = ERB.new(template).result(binding)
+                            zipfile.get_output_stream("correspondence.txt") { |f|
+                                f.puts(output)
+                            }
+                        end
+                        for message in info_request.incoming_messages                
+                            attachments = message.get_attachments_for_display
+                            for attachment in attachments
+                                zipfile.get_output_stream(attachment.display_filename) { |f|
+                                    f.puts(attachment.body)
+                                }
+                            end
+                        end
+                    }
+                    File.chmod(0644, file_path)
+                end
+                redirect_to @url_path
+            end
+        end
     end
 end
 

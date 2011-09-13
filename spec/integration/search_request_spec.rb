@@ -13,7 +13,8 @@ describe "When searching" do
                :comments ]
 
     before(:each) do
-        load_raw_emails_data(raw_emails)
+        emails = raw_emails.clone
+        load_raw_emails_data(emails)
     end
 
     it "should not strip quotes from quoted query" do

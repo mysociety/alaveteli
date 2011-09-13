@@ -36,7 +36,16 @@ code. Run:
 
   git submodule update --init
 
-to fetch the contents of the submodules. 
+to fetch the contents of the submodules.
+
+Optionally, you may want to install
+[wkhtmltopdf](http://code.google.com/p/wkhtmltopdf/downloads/list).
+We recommend downloading the latest, statically compiled version from
+the project website, as this allows running headless (i.e. without a
+graphical interface running) on Linux.  If you do install
+`wkhtmltopdf`, you need to edit a setting in the config file to point
+to it (see below).
+
 
 # Configure Database 
 

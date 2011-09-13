@@ -62,6 +62,11 @@ body.front {
   background: url(/images/home-grad.png) repeat-x 0px 160px;
 }
 
+div.controller_help h1 a
+{
+    color: #93278F
+}
+
 #wrapper {
   padding-top:160px;
 }

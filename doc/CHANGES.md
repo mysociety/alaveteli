@@ -6,14 +6,20 @@
   * FORWARD_NONBOUNCE_RESPONSES_TO
   * TRACK_SENDER_EMAIL
   * TRACK_SENDER_NAME
-* Execute `script/rebuild-xapian-index` to create new xapian index terms used in latest version of search (can take a long time)
+  * HTML_TO_PDF_COMMAND
+* Execute `script/rebuild-xapian-index` to create new xapian index
+  terms used in latest version of search (can take a long time)
+* Install wkhtmltopdf to enable PDFs in downloadable zipfiles.  A
+  static binary is recommended on Linux in order to run the command
+  headless: http://code.google.com/p/wkhtmltopdf/downloads/list
+* Configure your MTA to handle bounce emails from alerts (see INSTALL-exim4.md)
 
 ## Highlighted features
 * Complete overhaul of design, including improved search, modern look and feel, more twitter links, etc
 * A banner alerts visitors from other countries to existing sites in their country, or exhorts them to make their own
 * Bounce emails that result from user alerts are automatically processed and hard bouncing accounts do not continue to receive alerts.
   See the new instructions in INSTALL-exim4.md for details of how to set this up.
-
+* Logged in users now have the ability to download a zipfile of the entire correspondence for a request
 
 # Version 0.3
 

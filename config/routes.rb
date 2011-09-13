@@ -61,6 +61,8 @@ ActionController::Routing::Routes.draw do |map|
         request.info_request_event '/request_event/:info_request_event_id', :action => 'show_request_event'
 
         request.upload_response "/upload/request/:url_title", :action => 'upload_response'
+        request.download_entire_request '/request/:url_title/download',      :action => 'download_entire_request'
+
     end
 
     # Use /profile for things to do with the currently signed in user.

@@ -21,6 +21,9 @@
 	<%= stylesheet_link_tag 'fonts', :rel => "stylesheet", :media => "all"  %>
 	<%= stylesheet_link_tag 'theme', :rel => "stylesheet", :media => "all"  %>
 	<%= stylesheet_link_tag 'print', :rel => "stylesheet", :media => "print"  %>
+	<% if !params[:print_stylesheet].nil? %>
+         <%= stylesheet_link_tag 'print', :rel => "stylesheet", :media => "all"  %>
+	<% end %>
 	<%= javascript_include_tag 'jquery.js', 'jquery-ui.min','jquery.cookie.js', 'general.js' %>
 	<%= stylesheet_link_tag 'admin-theme/jquery-ui-1.8.15.custom.css', :rel => 'stylesheet'%>
         <!--[if LT IE 7]> 
