@@ -116,7 +116,8 @@ a img  {
   position:absolute;
 }
 
-#logged_in_bar a {
+#logged_in_bar a,
+#logged_in_bar a:visited {
   color: #93278F;
 }
 
@@ -763,14 +764,36 @@ div.frontpage-box {
     background: url(/images/defaultprofilepic.png)
 }
 
-div.correspondence {
-  width: 100%;
+div.correspondence,
+div.comment_in_request {
+  width: 600px;
   background: url(/images/stripes-70.png);
   border-width: 0px;
   font-size: 13px;
   border-radius: 6px;
   -moz-border-radius: 6px;
   padding: 4px 20px 0px 9px;
+}
+
+div[id|="comment"] {
+  margin-left: 0px;
+}
+
+div[id|="comment"] h2 {
+  font-size: 1em;
+  text-align:right;
+}
+
+div[id|="comment"] p {
+  font-size: 13px;
+}
+
+.comment_in_request_text {
+  margin: 0px 0px 0px 10px;
+}
+
+.comment_in_request_text img.comment_quote {
+  display: none;
 }
 
 /* ---------- Frontpage ----------- */
@@ -1038,16 +1061,27 @@ a.link_to_this {
   margin: 20px 0px 30px 0px;
 }
 
-#notice {
+#notice, .describe_state_form {
   font-size: 12px;
   font-weight: normal;
   padding: 10px 20px 10px 20px;
-  background: #EDFED3 !important;
-  color: #5B7705;
-  border-color: #B6CB86;
+  background: #E9FDD3 !important;
+  color: #517704;
+  border-color: #B0CA86;
   border-radius: 6px;
   -moz-border-radius: 6px;
   margin: 15px 0px;
+}
+
+.describe_state_form hr {
+  border-color: #B0CA86;
+  border-top: 0px;
+  border-style: dotted;
+  margin: 20px 0px;
+}
+
+.describe_state_form {
+  color: #333;
 }
 
 #notice p:first-child {
@@ -1056,4 +1090,25 @@ a.link_to_this {
 
 #notice p:last-child {
   margin-bottom: 0px;
+}
+
+div.correspondence p.preview_subject {
+  font-family: 'DeliciousRoman';
+  font-size: 18px !important;
+  margin-left: 10px;
+  color: #6B3C7F;
+  line-height: 25px;
+}
+
+div.correspondence p.preview_subject strong {
+  color: #6B3C7F;
+}
+
+#preview_form ul {
+  margin: 0px;
+  padding: 1px 32px 10px;
+}
+
+#preview_form ul li {
+  margin: 10px 0px;
 }
