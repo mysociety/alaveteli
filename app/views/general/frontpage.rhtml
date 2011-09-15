@@ -20,7 +20,6 @@
         <% form_tag({:action => "search_redirect"}, {:id => "search_form"}) do %>
 	<div>
                <%= text_field_tag 'query', params[:query], { :size => 30 } %>
-               <%= hidden_field_tag 'bodies', 1 %>
                <%= submit_tag _('Search') %>
 	</div>
         <% end %>
