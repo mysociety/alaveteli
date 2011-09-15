@@ -168,6 +168,10 @@ div.lang {
   float:left;
 }
 
+#request_header_text {
+ margin-left: 110px;
+}
+
 #wrapper {
   width: 900px;
 }
@@ -780,8 +784,13 @@ div.comment_in_request {
   padding: 4px 20px 0px 9px;
 }
 
+div.comment_in_request {
+  margin-left: 50px;
+  width: 550px;
+}
+
 div[id|="comment"] {
-  margin-left: 0px;
+  margin-left: 50px;
 }
 
 div[id|="comment"] h2 {
