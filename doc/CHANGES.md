@@ -21,6 +21,7 @@
 * Bounce emails that result from user alerts are automatically processed and hard bouncing accounts do not continue to receive alerts.
   See the new instructions in INSTALL-exim4.md for details of how to set this up.
 * Logged in users now have the ability to download a zipfile of the entire correspondence for a request
+* Improved UI for responding to requests.  The user now has a single option to "reply" at the bottom of a request, and can adjust who they are replying to on the next page
 
 # Version 0.3
 
