@@ -95,27 +95,27 @@
 	<% end %>
     <% end %>
 
-</div>
-<div style="clear:both">&nbsp;</div>
-<% if !@xapian_requests.nil? %>
+    <div style="clear:both">&nbsp;</div>
+    <% if !@xapian_requests.nil? %>
 
-        <% for result in @xapian_requests.results %>
-            <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result[:model], :info_request => result[:model].info_request } %>
+            <% for result in @xapian_requests.results %>
+                <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result[:model], :info_request => result[:model].info_request } %>
+            <% end %>
+
+            <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @public_body.info_requests.size) %>
+
+    	<% if @xapian_requests.results.empty? %>
+      	  <p><% _('There were no requests matching your query.') %></p>
+    	<% else %>
+              <p> <%= _('Only requests made using {{site_name}} are shown.', :site_name => site_name) %></p>
+    	<% end %>
+
+    <% else %> 
+        <% if @public_body.eir_only? %>
+            <h2><%= _('Environmental Information Regulations requests made') %></h2>
+        <% else %>
+            <h2> <%= _('Freedom of Information requests made')%></h2>
         <% end %>
-
-        <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @public_body.info_requests.size) %>
-
-	<% if @xapian_requests.results.empty? %>
-  	  <p><% _('There were no requests matching your query.') %></p>
-	<% else %>
-          <p> <%= _('Only requests made using {{site_name}} are shown.', :site_name => site_name) %></p>
-	<% end %>
-
-<% else %> 
-    <% if @public_body.eir_only? %>
-        <h2><%= _('Environmental Information Regulations requests made') %></h2>
-    <% else %>
-        <h2> <%= _('Freedom of Information requests made')%></h2>
-    <% end %>
-    <p> <%= _('The search index is currently offline, so we can\'t show the Freedom of Information requests that have been made to this authority.')%></p>
-<% end %> 
+        <p> <%= _('The search index is currently offline, so we can\'t show the Freedom of Information requests that have been made to this authority.')%></p>
+    <% end %> 
+</div>
