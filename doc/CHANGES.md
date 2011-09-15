@@ -22,6 +22,7 @@
   See the new instructions in INSTALL-exim4.md for details of how to set this up.
 * Logged in users now have the ability to download a zipfile of the entire correspondence for a request
 * Improved UI for responding to requests.  The user now has a single option to "reply" at the bottom of a request, and can adjust who they are replying to on the next page
+* [Full list of changes on github](https://github.com/sebbacon/alaveteli/issues?sort=created&direction=desc&state=closed&milestone=7)
 
 # Version 0.3
 
