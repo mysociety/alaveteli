@@ -36,7 +36,7 @@
           <%= link_to _("Request an internal review"), show_response_no_followup_url(:id => @info_request.id, :incoming_message_id => nil) + "?internal_review=1#followup" %> 
       </li>
       <li>
-          <%= link_to _("Download a zip file containing all the above correspondence"), download_entire_request_url(:url_title => @info_request.url_title) %> 
+          <%= link_to _("Download a zip file of all correspondence"), download_entire_request_url(:url_title => @info_request.url_title) %> 
       </li>
   </ul>
     </div>
@@ -48,7 +48,7 @@
           <%= link_to _("Respond to request"), upload_response_url(:url_title => @info_request.url_title) %> 
       </li>
       <li>
-          <%= link_to _("Download a zip file containing all the above correspondence"), download_entire_request_url(:url_title => @info_request.url_title) %> 
+          <%= link_to _("Download a zip file of all correspondence"), download_entire_request_url(:url_title => @info_request.url_title) %> 
       </li>
       </ul>
     </div>
