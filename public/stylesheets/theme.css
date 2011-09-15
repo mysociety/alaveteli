@@ -1126,3 +1126,7 @@ div.correspondence p.preview_subject strong {
 #preview_form ul li {
   margin: 10px 0px;
 }
+
+div#show_response_view p.event_actions {
+  display: none;
+}

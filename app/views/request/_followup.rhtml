@@ -1,8 +1,3 @@
-<style>
- p.event_actions {
-  display: none;
- }
-</style>
 <div id="followup">
   <% if (incoming_message.nil? || !incoming_message.valid_to_reply_to?)
         name_for_followup = _("the main FOI contact at {{public_body}}", :public_body => h(OutgoingMailer.name_for_followup(@info_request, nil)))
@@ -35,6 +30,8 @@
       <% else %>
         <li><%= link_to name, show_response_url(:id => @info_request.id, :incoming_message_id => id)%></li>
       <% end %>
+     <% else %>
+       <li><%= link_to(_("the main FOI contact address for {{public_body}}", :public_body => name), show_response_no_followup_url(:id => @info_request.id, :incoming_message_id => nil)) %></li>
      <% end %>
    <% end %>
 
