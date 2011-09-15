@@ -922,10 +922,13 @@ public
     end
 
     # List of incoming messages to followup, by unique email
-    def who_can_followup_to
+    def who_can_followup_to(skip_message = nil)
         ret = []
         done = {}
         for incoming_message in self.incoming_messages.reverse
+            if incoming_message == skip_message
+                next
+            end
             incoming_message.safe_mail_from
             
             email = OutgoingMailer.email_for_followup(self, incoming_message)

@@ -533,6 +533,22 @@ describe RequestController, "when viewing an individual response for reply/follo
         response.should render_template('show_response')
     end
 
+    it "should offer the opportunity to reply to the main address" do
+        session[:user_id] = users(:bob_smith_user).id
+        get :show_response, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message)
+        response.body.should have_tag("div#other_recipients ul li", /the main FOI contact address for/)
+    end
+
+    it "should offer an opportunity to reply to another address" do
+        session[:user_id] = users(:bob_smith_user).id
+        ir = info_requests(:fancy_dog_request)
+        ir.allow_new_responses_from = "anybody"
+        ir.save!
+        receive_incoming_mail('incoming-request-plain.email', ir.incoming_email, "Frob <frob@bonce.com>")
+        get :show_response, :id => ir.id, :incoming_message_id => incoming_messages(:useless_incoming_message)
+        response.body.should have_tag("div#other_recipients ul li", /Frob/)
+    end
+
     it "should not show individual responses if request hidden, even if request owner" do
         ir = info_requests(:fancy_dog_request) 
         ir.prominence = 'hidden'

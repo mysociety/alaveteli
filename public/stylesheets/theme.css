@@ -1075,7 +1075,7 @@ a.link_to_this {
   margin: 20px 0px 30px 0px;
 }
 
-#notice, .describe_state_form {
+#notice, .describe_state_form, #other_recipients {
   font-size: 12px;
   font-weight: normal;
   padding: 10px 20px 10px 20px;
