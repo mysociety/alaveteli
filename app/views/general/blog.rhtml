@@ -1,11 +1,11 @@
-<% @title = "#{site_name} blog and tweets" %>
+<% @title = _("{{site_name}} blog and tweets", :site_name => site_name) %>
 
 <% if !@twitter_user.empty? %>
 <div id="right_column">
   <div class="act_link">
-    <h2>Stay up to date</h2>
-    <img src="/images/twitter-16.png" alt="twitter icon"  class="twitter-icon"> <a href="http://www.twitter.com/<%= MySociety::Config.get('TWITTER_USERNAME') %>">Follow us on twitter</a><br/><br/>
-    <img src="/images/feed-16.png" alt="RSS icon" valign="middle"> <a href="<%= MySociety::Config.get('BLOG_FEED') %>">Subscribe to blog</a>
+    <h2><%= _("Stay up to date") %></h2>
+    <img src="/images/twitter-16.png" alt="twitter icon"  class="twitter-icon"> <a href="http://www.twitter.com/<%= MySociety::Config.get('TWITTER_USERNAME') %>"><%= _("Follow us on twitter") %></a><br/><br/>
+    <img src="/images/feed-16.png" alt="RSS icon" valign="middle"> <a href="<%= MySociety::Config.get('BLOG_FEED') %>"><%= _("Subscribe to blog") %></a>
   </div>
   <div id="twitter">
   <script src="http://widgets.twimg.com/j/2/widget.js"></script>
@@ -50,10 +50,10 @@
     <% for item in @blog_items: %>
       <div class="blog_post">
           <h2><a href="<%=item['link']%>"><%=h item['title'] %></a></h2>
-          <p class="subtitle">Posted on <%= simple_date(Time.parse(item['pubDate'][0])) %> by <%=h item['creator'] %></p>
+          <p class="subtitle"><%= _("Posted on {{date}} by {{author}}", :date=>simple_date(Time.parse(item['pubDate'][0])), :author=>item['creator']) %></p>
           <div><%= item['encoded'] %></div>
           <p><em>
-              <a href="<%=item['comments'][0]%>"><%=item['comments'][1]%> comments</a>
+              <a href="<%=item['comments'][0]%>"><%= _("{{number_of_comments}} comments", :number_of_comments=>item['comments'][1]) %></a>
           </em>
           </p>
       </div>

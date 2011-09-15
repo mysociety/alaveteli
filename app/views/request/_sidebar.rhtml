@@ -26,7 +26,7 @@
             <%= render :partial => 'request/request_listing_short_via_event', :locals => { :event => result[:model], :info_request => result[:model].info_request } %>
         <% end %>
         <% if @xapian_similar_more %>
-            <p><%= link_to "More similar requests", request_similar_url(@info_request) %></p>
+            <p><%= link_to _("More similar requests"), request_similar_url(@info_request) %></p>
         <% end %>
         <!-- Important terms: <%= @xapian_similar.important_terms.join(" ") %>  -->
      <% end %>
