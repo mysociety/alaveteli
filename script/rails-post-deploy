@@ -44,6 +44,10 @@ else
     fi
     mkdir -p log
 fi
+# link the "downloads" directory in the cache to somewhere it can be served
+mkdir -p $APP_DIR/cache/zips/download
+ln -s $APP_DIR/cache/zips/download $APP_DIR/public/
+
 cd log
 touch development.log fastcgi.crash.log production.log test.log
 cd ..
