@@ -792,7 +792,7 @@ class RequestController < ApplicationController
                                 }
                                 done = true
                             else
-                                logger.error("Could not convert info request #{info_request.id} to PDF")
+                                logger.error("Could not convert info request #{info_request.id} to PDF with command '#{convert_command} #{url} #{tempfile.path}'")
                             end
                             tempfile.close
                         else                    
