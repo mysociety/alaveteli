@@ -534,6 +534,7 @@ span#to_public_body {
 
 .form_item_note, .form_note {
   margin-left: 110px;
+  font-size: 1em;
 }
 
 #left_column {
