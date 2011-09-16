@@ -358,14 +358,18 @@ class ApplicationController < ActionController::Base
         return (params[:page] || "1").to_i
     end
 
-    # Store last visited pages, for contact form
+    # Store last visited pages, for contact form; but only for logged in users, as otherwise this breaks caching
     def set_last_request(info_request)
-        session[:last_request_id] = info_request.id
-        session[:last_body_id] = nil
+        if !session[:user_id].nil?
+            session[:last_request_id] = info_request.id
+            session[:last_body_id] = nil
+        end
     end
     def set_last_body(public_body)
-        session[:last_request_id] = nil
-        session[:last_body_id] = public_body.id
+        if !session[:user_id].nil?
+            session[:last_request_id] = nil
+            session[:last_body_id] = public_body.id
+        end
     end
 
     def param_exists(item)
