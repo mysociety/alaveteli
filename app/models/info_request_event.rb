@@ -94,7 +94,7 @@ class InfoRequestEvent < ActiveRecord::Base
                      [ :created_at_numeric, 1, "created_at", :number ], # for sorting
                      [ :described_at_numeric, 2, "described_at", :number ], # XXX using :number for lack of :datetime support in Xapian values
                      [ :request, 3, "request_collapse", :string ],
-                     [ :request_title_collapse, 4, "request_title_collapse", :string ]
+                     [ :request_title_collapse, 4, "request_title_collapse", :string ],
                    ],
         :terms => [ [ :calculated_state, 'S', "status" ],
                 [ :requested_by, 'B', "requested_by" ],
@@ -102,6 +102,9 @@ class InfoRequestEvent < ActiveRecord::Base
                 [ :commented_by, 'C', "commented_by" ],
                 [ :request, 'R', "request" ],
                 [ :variety, 'V', "variety" ],
+                [ :latest_variety, 'K', "latest_variety" ],
+                [ :latest_status, 'L', "latest_status" ],
+                [ :waiting_classification, 'W', "waiting_classification" ],
                 [ :filetype, 'T', "filetype" ],
                 [ :tags, 'U', "tag" ] 
         ],
@@ -129,6 +132,27 @@ class InfoRequestEvent < ActiveRecord::Base
     def request
         self.info_request.url_title
     end
+
+    def latest_variety
+        for event in self.info_request.info_request_events.reverse
+            if !event.variety.nil? and !event.variety.empty?
+                return event.variety
+            end
+        end
+    end
+
+    def latest_status
+        for event in self.info_request.info_request_events.reverse
+            if !event.calculated_state.nil? and !event.calculated_state.empty?
+                return event.calculated_state
+            end
+        end
+    end
+
+    def waiting_classification
+        self.info_request.awaiting_description == true ? "yes" : "no"
+    end
+
     def request_title_collapse
         url_title = self.info_request.url_title
         # remove numeric section from the end, use this to group lots

@@ -37,7 +37,7 @@ class RequestController < ApplicationController
             # Look up by new style text names 
             @info_request = InfoRequest.find_by_url_title(params[:url_title])
             if @info_request.nil?
-                raise "Request not found" 
+                raise ActiveRecord::RecordNotFound.new("Request not found")
             end
             set_last_request(@info_request)
 
@@ -129,27 +129,12 @@ class RequestController < ApplicationController
     def list
         medium_cache
         @view = params[:view]
-
-        if @view.nil?
-            redirect_to request_list_url(:view => 'successful')
-            return
-        end
-
-        if @view == 'recent'
-            @title = _("Recently sent Freedom of Information requests")
-            query = "variety:sent";
-            sortby = "newest"
-            @track_thing = TrackThing.create_track_for_all_new_requests
-        elsif @view == 'successful'
-            @title = _("Recently successful responses")
-            query = 'variety:response (status:successful OR status:partially_successful)'
-            sortby = "described"
-            @track_thing = TrackThing.create_track_for_all_successful_requests
-        else
-            raise "unknown request list view " + @view.to_s
-        end
-        
+        params[:latest_status] = @view
+        query = make_query_from_params
+        @title = "View and search requests"
+        sortby = "newest"
         @page = get_search_page_from_params if !@page # used in cache case, as perform_search sets @page as side effect
+
         behavior_cache :tag => [@view, @page] do
             xapian_object = perform_search([InfoRequestEvent], query, sortby, 'request_collapse')
             @list_results = xapian_object.results.map { |r| r[:model] }
@@ -158,7 +143,8 @@ class RequestController < ApplicationController
         
         @title = @title + " (page " + @page.to_s + ")" if (@page > 1)
 
-        @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss], :has_json => true } ]
+        # XXX need to reinstate the following; @track_thing had previously been set to "TrackThing.create_track_for_all_new_requests" and "TrackThing.create_track_for_all_successful_requests"
+        # @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss], :has_json => true } ]
 
         # Don't let robots go more than 20 pages in
         if @page > 20
@@ -203,7 +189,7 @@ class RequestController < ApplicationController
                     params[:info_request][:public_body_id] = params[:url_name]
                 else
                     public_body = PublicBody.find_by_url_name_with_historic(params[:url_name])
-                    raise "None found" if public_body.nil? # XXX proper 404
+                    raise ActiveRecord::RecordNotFound.new("None found") if public_body.nil? # XXX proper 404
                     params[:info_request][:public_body_id] = public_body.id
                 end
             elsif params[:public_body_id]
@@ -686,10 +672,10 @@ class RequestController < ApplicationController
         raise "internal error, pre-auth filter should have caught this" if !@info_request.user_can_view?(authenticated_user)
   
         @attachment = IncomingMessage.get_attachment_by_url_part_number(@incoming_message.get_attachments_for_display, @part_number)
-        raise "attachment not found part number " + @part_number.to_s + " incoming_message " + @incoming_message.id.to_s if @attachment.nil?
+        raise ActiveRecord::RecordNotFound.new("attachment not found part number " + @part_number.to_s + " incoming_message " + @incoming_message.id.to_s) if @attachment.nil?
 
         # check filename in URL matches that in database (use a censor rule if you want to change a filename)
-        raise "please use same filename as original file has, display: '" + @attachment.display_filename + "' old_display: '" + @attachment.old_display_filename + "' original: '" + @original_filename + "'" if @attachment.display_filename != @original_filename && @attachment.old_display_filename != @original_filename
+        raise ActiveRecord::RecordNotFound.new("please use same filename as original file has, display: '" + @attachment.display_filename + "' old_display: '" + @attachment.old_display_filename + "' original: '" + @original_filename + "'") if @attachment.display_filename != @original_filename && @attachment.old_display_filename != @original_filename
 
         @attachment_url = get_attachment_url(:id => @incoming_message.info_request_id,
                 :incoming_message_id => @incoming_message.id, :part => @part_number,

@@ -79,7 +79,7 @@ module LinkToHelper
         link_to(h(public_body.name), main_url(public_body_url(public_body))) + " (" + link_to("admin", public_body_admin_url(public_body)) + ")"
     end
     def list_public_bodies_default
-        list_public_bodies_url(:tag => 'a') 
+        list_public_bodies_url(:tag => 'all') 
     end
 
     # Users
@@ -135,11 +135,10 @@ module LinkToHelper
         end
     end
 
-    # General pages. postfix is either the sort order, or 'bodies' to show you
-    # came from the front page and are looking for public bodies
-    def search_url(query, postfix = nil)
+    # General pages.
+    def search_url(query, variety_postfix = nil, sort_postfix = nil, advanced = nil)
+        query = query - ["", nil] if query.kind_of?(Array)
         url = search_general_url(:combined => query)
-
         # Here we can't escape the slashes, as RFC 2396 doesn't allow slashes
         # within a path component. Rails is assuming when generating URLs that
         # either there aren't slashes, or we are in a query part where you can
@@ -151,13 +150,19 @@ module LinkToHelper
         #   http://rails.lighthouseapp.com/projects/8994/tickets/144-patch-bug-in-rails-route-globbing
         url = url.gsub("%2F", "/")
 
-        if !postfix.nil? && !postfix.empty?
-            url = url + "/" + postfix
+        if !variety_postfix.nil? && !variety_postfix.empty?
+            url = url + "/" + variety_postfix
+        end
+        if !sort_postfix.nil? && !sort_postfix.empty?
+            url = url + "/" + sort_postfix
+        end
+        if !advanced.nil? && (advanced)
+            url = url + "/advanced"
         end
         return url
     end
-    def search_link(query, postfix = nil)
-        link_to h(query), search_url(query, postfix)
+    def search_link(query, variety_postfix = nil, sort_postfix = nil, advanced = nil)
+        link_to h(query), search_url(query, variety_postfix, sort_postfix, advanced)
     end
 
     # Admin pages

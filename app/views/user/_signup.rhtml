@@ -10,8 +10,8 @@
         <%= text_field 'user_signup', 'email', { :size => 20 } %>
     </p>
     <div class="form_item_note">
-        <%= ('We will not reveal your email address to anybody unless you or
-        the law tell us to (<a href="%s">_details</a>). ') %[help_privacy_path] %>
+        <%= _('We will not reveal your email address to anybody unless you or
+        the law tell us to (<a href="%s">details</a>). ') %[help_privacy_path] %>
     </div>
 
     <p>
@@ -35,6 +35,10 @@
         <label class="form_label" for="user_signup_password_confirmation"> <%= _('Password: (again)')%></label>
         <%= password_field 'user_signup', 'password_confirmation', { :size => 15 } %>
     </p>
+
+    <% if @request_from_foreign_country %>
+    <%= recaptcha_tags %>
+    <% end %>
 
     <div class="form_button">
         <%= hidden_field_tag 'token', params[:token], { :id => 'signup_token' } %>

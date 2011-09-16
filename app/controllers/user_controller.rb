@@ -24,7 +24,7 @@ class UserController < ApplicationController
 
         @display_user = User.find(:first, :conditions => [ "url_name = ? and email_confirmed = ?", params[:url_name], true ])
         if not @display_user
-            raise "user not found, url_name=" + params[:url_name]
+            raise ActiveRecord::RecordNotFound.new("user not found, url_name=" + params[:url_name])
         end
         @same_name_users = User.find(:all, :conditions => [ "name ilike ? and email_confirmed = ? and id <> ?", @display_user.name, true, @display_user.id ], :order => "created_at")
 
@@ -71,7 +71,7 @@ class UserController < ApplicationController
     # Login form
     def signin
         work_out_post_redirect
-
+        @request_from_foreign_country = country_from_ip != MySociety::Config.get('ISO_COUNTRY_CODE', 'GB')
         # make sure we have cookies
         if session.instance_variable_get(:@dbman)
             if not session.instance_variable_get(:@dbman).instance_variable_get(:@original)
@@ -118,10 +118,15 @@ class UserController < ApplicationController
     # Create new account form
     def signup
         work_out_post_redirect
-
+        @request_from_foreign_country = country_from_ip != MySociety::Config.get('ISO_COUNTRY_CODE', 'GB')
         # Make the user and try to save it
         @user_signup = User.new(params[:user_signup])
-        if !@user_signup.valid?
+        error = false
+        if @request_from_foreign_country && !verify_recaptcha
+            flash.now[:error] = _("There was an error with the words you entered, please try again.")
+            error = true
+        end
+        if error || !@user_signup.valid?
             # Show the form
             render :action => 'sign'
         else
@@ -133,7 +138,6 @@ class UserController < ApplicationController
                 # New unconfirmed user
                 @user_signup.email_confirmed = false
                 @user_signup.save!
-
                 send_confirmation_mail @user_signup
                 return
             end
@@ -454,7 +458,7 @@ class UserController < ApplicationController
     def get_profile_photo
         @display_user = User.find(:first, :conditions => [ "url_name = ? and email_confirmed = ?", params[:url_name], true ])
         if !@display_user
-            raise "user not found, url_name=" + params[:url_name]
+            raise ActiveRecord::RecordNotFound.new("user not found, url_name=" + params[:url_name])
         end
         if !@display_user.profile_photo
             raise "user has no profile photo, url_name=" + params[:url_name]

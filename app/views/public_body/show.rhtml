@@ -64,7 +64,7 @@
 </div>
 
 <% if !@xapian_requests.nil? %>
-   <% if @xapian_requests.results.empty? %>
+   <% if @public_body.info_requests.size == 0 %>
         <% if @public_body.eir_only? %>
             <h2><%= _('Environmental Information Regulations requests made using this site') %></h2>
             <p>Nobody has made any Environmental Information Regulations requests to <%=h(@public_body.name)%> using this site yet.</p>
@@ -82,13 +82,19 @@
         <%= @page_desc %>
         </h2>
 
+	<%= render :partial => 'request/request_filter_form' %>
+
         <% for result in @xapian_requests.results %>
             <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result[:model], :info_request => result[:model].info_request } %>
         <% end %>
 
         <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @public_body.info_requests.size) %>
 
-        <p> <%= _('Only requests made using {{site_name}} are shown.', :site_name => site_name) %></p>
+	<% if @xapian_requests.results.empty? %>
+  	  <p><% _('There were no requests matching your query.') %></p>
+	<% else %>
+          <p> <%= _('Only requests made using {{site_name}} are shown.', :site_name => site_name) %></p>
+	<% end %>
 
     <% end %>
 <% else %> 

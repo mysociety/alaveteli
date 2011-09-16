@@ -1,7 +1,3 @@
-# £2k p/a
-# talk about margins
-# 
-
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 require 'json'
@@ -24,13 +20,29 @@ describe RequestController, "when listing recent requests" do
         response.should render_template('list')
     end
 
+    it "should filter requests" do
+        get :list, :view => 'all'
+        assigns[:list_results].size.should == 2
+        get :list, :view => 'successful'
+        assigns[:list_results].size.should == 0
+    end
+
+    it "should filter requests by date" do
+        get :list, :view => 'all', :request_date_before => '13/10/2007'
+        assigns[:list_results].size.should == 1
+        get :list, :view => 'all', :request_date_after => '13/10/2007'
+        assigns[:list_results].size.should == 1
+        get :list, :view => 'all', :request_date_after => '10/10/2007', :request_date_before => '01/01/2010'
+        assigns[:list_results].size.should == 2
+    end
+
     it "should assign the first page of results" do
         xap_results = mock_model(ActsAsXapian::Search, 
                    :results => (1..25).to_a.map { |m| { :model => m } },
                    :matches_estimated => 103)
 
         InfoRequest.should_receive(:full_search).
-          with([InfoRequestEvent],"variety:sent", "created_at", anything, anything, anything, anything).
+          with([InfoRequestEvent]," variety:sent", "created_at", anything, anything, anything, anything).
           and_return(xap_results)
         get :list, :view => 'recent'
         assigns[:list_results].size.should == 25
@@ -149,7 +161,7 @@ describe RequestController, "when showing one request" do
             lambda {
                 get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, 
                     :file_name => ['http://trying.to.hack']
-            }.should raise_error(RuntimeError)
+            }.should raise_error(ActiveRecord::RecordNotFound)
         end
 
         it "should censor attachments downloaded as binary" do
@@ -735,18 +747,16 @@ describe RequestController, "when classifying an information request" do
             response.should redirect_to(:controller => 'help', :action => 'unhappy', :url_title => @dog_request.url_title)
         end
 
-        describe "when using custom statuses from the theme" do
+        it "knows about extended states" do
             InfoRequest.send(:require, File.expand_path(File.join(File.dirname(__FILE__), '..', 'models', 'customstates')))
             InfoRequest.send(:include, InfoRequestCustomStates)
             InfoRequest.class_eval('@@custom_states_loaded = true')
             RequestController.send(:require, File.expand_path(File.join(File.dirname(__FILE__), '..', 'models', 'customstates')))
             RequestController.send(:include, RequestControllerCustomStates)
             RequestController.class_eval('@@custom_states_loaded = true')
-            it "knows about extended states" do
-                Time.stub!(:now).and_return(Time.utc(2007, 11, 10, 00, 01)) 
-                post_status('deadline_extended')
-                flash[:notice].should == 'Authority has requested extension of the deadline.'
-            end
+            Time.stub!(:now).and_return(Time.utc(2007, 11, 10, 00, 01)) 
+            post_status('deadline_extended')
+            flash[:notice].should == 'Authority has requested extension of the deadline.'
         end
     end
     

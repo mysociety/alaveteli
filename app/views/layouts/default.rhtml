@@ -15,9 +15,10 @@
             <%= site_name %> - <%= _('Make and browse Freedom of Information (FOI) requests') %>
         <% end %>
         </title>
-
+	
         <link rel="shortcut icon" href="/favicon.ico">
-
+	<%= javascript_include_tag 'jquery.js', 'jquery-ui.min' %>
+	<%= stylesheet_link_tag 'admin-theme/jquery-ui-1.8.15.custom.css', :rel => 'stylesheet'%>
         <%= stylesheet_link_tag 'main', :title => "Main", :rel => "stylesheet"  %>
         <!--[if LT IE 7]> 
         <style type="text/css">@import url("/stylesheets/ie6.css");</style> 
