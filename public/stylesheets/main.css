@@ -953,6 +953,7 @@ a img.attachment_image {
   padding-left: 1em;
   padding-right: 1em;
   overflow: hidden;
+  margin-top: -67px;
 }
 
   #authority_preview #header_left,
