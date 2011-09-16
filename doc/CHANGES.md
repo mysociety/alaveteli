@@ -22,6 +22,7 @@
   static binary is recommended on Linux in order to run the command
   headless: http://code.google.com/p/wkhtmltopdf/downloads/list
 * Ensure your webserver can serve up generated files by symlinking `cache/zips/download` to `public/download` (this is also done by the `rails-post-deploy` script).  If you're using Passenger + Apache, you'll need to add a `PassengerResolveSymlinksInDocumentRoot on` directive to the configuration.
+  * Note that the zipfile download functionality will currently hang if you're running Alaveteli single-threaded, as it creates a new request to the server to get the print stylesheet version!
 * Configure your MTA to handle bounce emails from alerts (see INSTALL-exim4.md)
 
 # Version 0.3
