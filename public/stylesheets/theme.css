@@ -785,6 +785,13 @@ div.comment_in_request {
   -moz-border-radius: 6px;
   padding: 4px 20px 0px 9px;
 }
+div.outgoing.correspondence {
+  background: url(/images/stripes-70-light.png);
+}
+
+div.comment_in_request {
+  background: url(/images/stripes-70-light2.png);
+}
 
 div.comment_in_request {
   margin-left: 50px;
