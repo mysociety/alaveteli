@@ -76,12 +76,11 @@
             <p><%= _('Nobody has made any Freedom of Information requests to {{public_body_name}} using this site yet.', :public_body_name => h(@public_body.name))%></p>
         <% end %>
     <% else %>
-        <h2 class="foi_results">
-	
+	<h2 class="foi_results">
         <% if @public_body.eir_only? %>
             <%= pluralize(@public_body.info_requests.size, "Environmental Information Regulations request made using this site") %>
         <% else %>
-	   <% if  @public_body.info_requests.size > 1 %>
+	   <% if  @public_body.info_requests.size > 4 %>
 		<%= n_('Search within the %d Freedom of Information requests to %s', 'Search within the %d Freedom of Information requests made to %s', @public_body.info_requests.size) % [@public_body.info_requests.size, @public_body.name] %>
            <% else %>
 	      <%= n_('%d Freedom of Information request to %s', '%d Freedom of Information requests to %s', @public_body.info_requests.size) % [@public_body.info_requests.size, @public_body.name] %>
@@ -89,7 +88,9 @@
         <% end %>
         <%= @page_desc %>
         </h2>
-        <% if  @public_body.info_requests.size > 1 %>
+        <a name="results"></a>
+	
+        <% if  @public_body.info_requests.size > 4 %>
          <%= render :partial => 'request/request_filter_form' %>
 	<% end %>
     <% end %>
