@@ -135,7 +135,8 @@ div.lang {
 #topnav {
   background: transparent;
   top: 120px;
-  left: 115px;
+  margin-left: 115px;
+  width: auto;
   font-family:'DeliciousRoman', Arial, sans-serif;
   font-size: 18px;
 }
