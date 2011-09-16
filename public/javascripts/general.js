@@ -36,4 +36,12 @@ $(document).ready(function() {
 	     
 	 });
      $('.close-button').click(function() { $(this).parent().hide() });
+     $('div#variety-filter a').each(function() {
+	     $(this).click(function() {
+		     var form = $('form#search_form');
+		     form.attr('action', $(this).attr('href'));
+		     form.submit();
+		     return false;
+		 })
+	 })
 })

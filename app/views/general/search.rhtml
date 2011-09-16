@@ -58,9 +58,9 @@
      <% for variety, label in labels %>
        <% if @variety_postfix != variety %>
         <% if variety != "users" %>
-         <%=  link_to label, search_url([params[:query], @common_query], variety, @sort_postfix), :method => :get  %>
+         <%=  link_to label, search_url([params[:query], @common_query], variety, @sort_postfix)  %>
 	<% else %>
-         <%=  link_to label, search_url(params[:query], variety, @sort_postfix), :method => :get  %>
+         <%=  link_to label, search_url(params[:query], variety, @sort_postfix) %>
 	<% end %>
        <% else %>
          <%= label %>

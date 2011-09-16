@@ -125,7 +125,7 @@ class GeneralController < ApplicationController
             return
         end
         [:latest_status, :request_variety, :request_date_after, :request_date_before, :query, :tags].each do |x|
-            params[x] = session[x]
+            params[x] = session[x] if params[x].nil?
         end
         combined = params[:combined]
         @sortby = nil
@@ -160,13 +160,16 @@ class GeneralController < ApplicationController
                 @bodies = false
                 @requests = false
                 @users = true
+            else
+                @variety_postfix = "all"
             end
-        else
-            @variety_postfix = "all"
         end
         @query = combined.join("/")
         if params[:query].nil?
             params[:query] = @query
+        end
+        if @variety_postfix != "all" && @requests
+            @query, _ = make_query_from_params
         end
         @inputted_sortby = @sortby
         @common_query = get_tags_from_params
