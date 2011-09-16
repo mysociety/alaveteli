@@ -10,17 +10,17 @@
             $("#typeahead_response").load("<%=search_ahead_bodies_url%>?q="+encodeURI(this.value), function() {
               $("#authority_preview").hide();   // Hide the preview, since results have changed
 
-              // We're using the existing body list: we intercept the clicks on the titles to 
-              // display a preview on the right hand side of the screen
-              $("#typeahead_response a").click(function() {
-                $("#authority_preview").load(this.href+" #main_content", function() {
-                  $("#authority_preview").show();
-                  $("#authority_preview #header_right").hide();
-                });
-                return false;
-              });
             });
         }));
+        // We're using the existing body list: we intercept the clicks on the titles to 
+        // display a preview on the right hand side of the screen
+        $("#typeahead_response a").live('click', function() {
+            $("#authority_preview").load(this.href+" #public_body_show", function() {
+                $("#authority_preview").show();
+                $("#authority_preview #header_right").hide();
+            });
+            return false;
+        });
     });
 </script>
 
@@ -29,7 +29,7 @@
   <h1 style="clear: left"><%= _('1. Select an authority') %></h1>
 
   <div id="authority_selection">
-    <% form_tag({:controller => "general", :action => "search_redirect"}, {:id => "search_form"}) do %>
+    <% form_tag({:controller => "request", :action => "select_authority"}, {:id => "search_form", :method => "get"}) do %>
        <p>
            <p>
            <%= _('First, type in the <strong>name of the UK public authority</strong> you\'d 
@@ -42,6 +42,24 @@
        </p>
     <% end %>
     <div id="typeahead_response">
+ <% if !@xapian_requests.nil? %>
+  <% if  @xapian_requests.results.size > 0 %>
+    <h3><%= _('Top search results:') %></h3>
+    <p>
+      <%= _('Select one to see more information about the authority.')%>
+    </p>
+  <% else %>
+    <h3><%= _('No results found.') %></h3>
+  <% end %>
+  <div id="authority_search_ahead_results">
+    <% for result in @xapian_requests.results %>
+      <%= render :partial => 'public_body/body_listing_single', :locals => { :public_body => result[:model] } %>
+    <% end %>
+  </div>
+ <% end %>
+
+
+
     </div>
   </div>
   
