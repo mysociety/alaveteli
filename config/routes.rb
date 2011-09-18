@@ -7,12 +7,15 @@
 # $Id: routes.rb,v 1.92 2009-10-14 22:01:27 francis Exp $
 
 ActionController::Routing::Routes.draw do |map|
-
+    
     # The priority is based upon order of creation: first created -> highest priority.
 
     # Sample of regular route:
     # map.connect 'products/:id', :controller => 'catalog', :action => 'view'
     # Keep in mind you can assign values other than :controller and :action
+
+    # Allow easy extension from themes. Note these will have the highest priority.
+    require 'config/custom-routes'
     
     map.with_options :controller => 'general' do |general|
         general.frontpage           '/',            :action => 'frontpage'
