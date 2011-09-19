@@ -99,7 +99,7 @@ class PublicBodyController < ApplicationController
             @tag = "all"
             conditions = [locale_condition, @query, @query, @locale]
         elsif @tag == 'other'
-            category_list = PublicBodyCategories::CATEGORIES.map{|c| "'"+c+"'"}.join(",")
+            category_list = PublicBodyCategories::get().tags().map{|c| "'"+c+"'"}.join(",")
             conditions = [locale_condition + ' AND (select count(*) from has_tag_string_tags where has_tag_string_tags.model_id = public_bodies.id
                 and has_tag_string_tags.model = \'PublicBody\'
                 and has_tag_string_tags.name in (' + category_list + ')) = 0', @query, @query, @locale]
@@ -121,7 +121,7 @@ class PublicBodyController < ApplicationController
         elsif @tag.size == 1
             @description = _("beginning with") + " '" + @tag + "'"
         else
-            @description = PublicBodyCategories::CATEGORIES_BY_TAG[@tag]
+            @description = PublicBodyCategories::get().by_tag()[@tag]
             if @description.nil?
                 @description = @tag
             end
