@@ -28,6 +28,10 @@ class AdminUserController < AdminController
         # Don't use @user as that is any logged in user
         @admin_user = User.find(params[:id])
     end
+    
+    def show_bounce_message
+        @admin_user = User.find(params[:id])
+    end
 
     def edit
         @admin_user = User.find(params[:id])
@@ -56,6 +60,14 @@ class AdminUserController < AdminController
         track_thing.destroy
         flash[:notice] = 'Track destroyed'
         redirect_to user_admin_url(track_thing.tracking_user)
+    end
+    
+    def clear_bounce
+        user = User.find(params[:id])
+        user.email_bounced_at = nil
+        user.email_bounce_message = ""
+        user.save!
+        redirect_to user_admin_url(user)
     end
 
     def login_as

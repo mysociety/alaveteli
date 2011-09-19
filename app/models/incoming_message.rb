@@ -1304,7 +1304,7 @@ class IncomingMessage < ActiveRecord::Base
         prefix = email
         prefix =~ /^(.*)@/
         prefix = $1
-        if !prefix.nil? && prefix.downcase.match(/^(postmaster|mailer-daemon|auto_reply|donotreply|no.reply)$/)
+        if !prefix.nil? && prefix.downcase.match(/^(postmaster|mailer-daemon|auto_reply|do.?not.?reply|no.reply)$/)
             return false
         end
         if !self.mail['return-path'].nil? && self.mail['return-path'].addr == "<>"
