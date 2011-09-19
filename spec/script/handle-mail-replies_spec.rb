@@ -29,5 +29,30 @@ describe "When filtering" do
         r.status.should == 1
         r.out.should == "FailedUser@example.com\n"
     end
+
+    it "should detect a generic out-of-office" do
+        r = mail_reply_test("track-response-generic-oof.email")
+        r.status.should == 2
+    end
+
+    it "should detect an Exchange-style out-of-office" do
+        r = mail_reply_test("track-response-exchange-oof-1.email")
+        r.status.should == 2
+    end
+
+    it "should detect a Lotus Domino-style out-of-office" do
+        r = mail_reply_test("track-response-lotus-oof-1.email")
+        r.status.should == 2
+    end
+
+    it "should detect a Messagelabs-style out-of-office" do
+        r = mail_reply_test("track-response-messagelabs-oof-1.email")
+        r.status.should == 2
+    end
+
+    it "should detect an out-of-office that has an X-POST-MessageClass header" do
+        r = mail_reply_test("track-response-messageclass-oof.email")
+        r.status.should == 2
+    end
 end
 
