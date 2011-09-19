@@ -36,7 +36,7 @@ class PublicBodyCategories
         @@CATEGORIES = {} if @@CATEGORIES.nil?
         I18n.available_locales.each do |locale|
             begin
-                load "lib/public_body_categories_#{locale}.rb"
+                load "public_body_categories_#{locale}.rb"
             rescue MissingSourceFile
             end
         end
