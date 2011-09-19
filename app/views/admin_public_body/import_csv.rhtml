@@ -20,6 +20,14 @@
     <label for="tag">Optional: Tag to add entries to / alter entries for:</label>
     <%= text_field_tag 'tag', params[:tag] %>
     </p>
+    
+    <p>
+    <label for="tag_behaviour">What to do with existing tags?</label>
+    <%= select_tag 'tag_behaviour', 
+        "<option value='add' selected>Add new tags to existing ones</option>
+         <option value='replace'>Replace existing tags with new ones</option>" 
+    %>
+    </p>
 
     <p><strong>CSV file format:</strong> A first row with the list of fields, 
     starting with '#', is optional but highly recommended. The fields 'name'
@@ -41,6 +49,11 @@
     make the changes. In either case, you will be shown any errors, or details
     of the changes.  When uploading, any changes since last import will be
     overwritten - e.g.  email addresses changed back.
+    </p>
+    
+    <p><strong>Note:</strong> The import tag will also be added to the imported bodies
+    if no tags are provided in the CSV file or if the import mode is set to
+    "Add new tags to existing ones".
     </p>
 
     <p><%= submit_tag 'Dry run' %> <%= submit_tag 'Upload' %></p>

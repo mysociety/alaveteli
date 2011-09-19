@@ -334,7 +334,7 @@ class PublicBody < ActiveRecord::Base
     # Import from CSV. Just tests things and returns messages if dry_run is true.
     # Returns an array of [array of errors, array of notes]. If there are errors,
     # always rolls back (as with dry_run).
-    def self.import_csv(csv, tag, dry_run, editor, available_locales = [])
+    def self.import_csv(csv, tag, tag_behaviour, dry_run, editor, available_locales = [])
         errors = []
         notes = []
         available_locales = [I18n.default_locale] if available_locales.empty?
@@ -387,13 +387,26 @@ class PublicBody < ActiveRecord::Base
                     
                     field_list = ['name', 'short_name', 'request_email', 'notes', 'publication_scheme', 'home_page', 'tag_string']
 
-                    if public_body = bodies_by_name[name]   # Existing public body
+                    if public_body = bodies_by_name[name]   # Existing public body                        
                         available_locales.each do |locale|
                             PublicBody.with_locale(locale) do
                                 changed = {}
                                 field_list.each do |field_name|
                                     localized_field_name = (locale === I18n.default_locale) ? field_name : "#{field_name}.#{locale}"
                                     localized_value = field_names[localized_field_name] && row[field_names[localized_field_name]]
+                                    
+                                    # Tags are a special case, as we support adding to the field, not just setting a new value
+                                    if localized_field_name == 'tag_string'
+                                        if localized_value.nil?
+                                            localized_value = tag unless tag.empty?
+                                        else
+                                            if tag_behaviour == 'add'
+                                                localized_value = "#{localized_value} #{tag}" unless tag.empty?
+                                                localized_value = "#{localized_value} #{public_body.tag_string}" 
+                                            end
+                                        end
+                                    end
+                                    
                                     if !localized_value.nil? and public_body.send(field_name) != localized_value
                                         changed[field_name] = "#{public_body.send(field_name)}: #{localized_value}"
                                         public_body.send("#{field_name}=", localized_value)
@@ -416,6 +429,11 @@ class PublicBody < ActiveRecord::Base
                                 field_list.each do |field_name|
                                     localized_field_name = (locale === I18n.default_locale) ? field_name : "#{field_name}.#{locale}"
                                     localized_value = field_names[localized_field_name] && row[field_names[localized_field_name]]
+
+                                    if localized_field_name == 'tag_string' and tag_behaviour == 'add'
+                                        localized_value = "#{localized_value} #{tag}" unless tag.empty?
+                                    end
+                                
                                     if !localized_value.nil? and public_body.send(field_name) != localized_value
                                         changed[field_name] = localized_value
                                         public_body.send("#{field_name}=", localized_value)
