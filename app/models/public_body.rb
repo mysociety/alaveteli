@@ -112,16 +112,6 @@ class PublicBody < ActiveRecord::Base
         end
     end
 
-    # XXX this should be saner; probably implement categories as data
-    begin
-	load "public_body_categories_#{I18n.locale.to_s}.rb"
-    rescue MissingSourceFile
-        begin
-            load "public_body_categories_#{I18n.default_locale.to_s}.rb"
-        rescue MissingSourceFile
-            load "public_body_categories.rb"
-        end
-    end
     # Set the first letter, which is used for faster queries
     before_save(:set_first_letter)
     def set_first_letter
@@ -255,8 +245,8 @@ class PublicBody < ActiveRecord::Base
         types = []
         first = true
         for tag in self.tags
-            if PublicBodyCategories::CATEGORIES_BY_TAG.include?(tag.name)
-                desc = PublicBodyCategories::CATEGORY_SINGULAR_BY_TAG[tag.name] 
+            if PublicBodyCategories::get().by_tag().include?(tag.name)
+                desc = PublicBodyCategories::get().singular_by_tag()[tag.name] 
                 if first
                     # terrible that Ruby/Rails doesn't have an equivalent of ucfirst
                     # (capitalize shockingly converts later characters to lowercase)
@@ -518,7 +508,7 @@ class PublicBody < ActiveRecord::Base
     end
     def notes_without_html
         # assume notes are reasonably behaved HTML, so just use simple regexp on this
-        self.notes.gsub(/<\/?[^>]*>/, "")
+        self.notes.nil? ? '' : self.notes.gsub(/<\/?[^>]*>/, "")
     end
 
     def json_for_api

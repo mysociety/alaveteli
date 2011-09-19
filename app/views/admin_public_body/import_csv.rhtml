@@ -49,7 +49,7 @@
 <hr>
 
 <p>Standard tags: 
-    <% for category, description in PublicBodyCategories::CATEGORIES_BY_TAG %>
+    <% for category, description in PublicBodyCategories::get().by_tag() %>
         <% if category != "other" %>
             <strong><%= category %></strong>=<%= description %>;
         <% end %>
