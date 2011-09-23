@@ -187,7 +187,7 @@ class PublicBodyController < ApplicationController
         query = params[:q] + '*'
 
         query = query.split(' ').join(' OR ')       # XXX: HACK for OR instead of default AND!
-        @xapian_requests = perform_search([PublicBody], query, 'relevant', 'request_collapse', 5)
+        @xapian_requests = perform_search([PublicBody], query, 'relevant', nil, 5)
 
         render :partial => "public_body/search_ahead"
     end
