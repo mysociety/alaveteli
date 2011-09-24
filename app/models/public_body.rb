@@ -422,7 +422,7 @@ class PublicBody < ActiveRecord::Base
                             end
                         end
                     else # New public body
-                        public_body = PublicBody.new(:name=>name, :short_name=>"", :request_email=>"")
+                        public_body = PublicBody.new(:name=>"", :short_name=>"", :request_email=>"")
                         available_locales.each do |locale|                            
                             PublicBody.with_locale(locale) do
                                 changed = {}
