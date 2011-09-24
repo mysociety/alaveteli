@@ -392,7 +392,7 @@ class PublicBody < ActiveRecord::Base
                             PublicBody.with_locale(locale) do
                                 changed = {}
                                 field_list.each do |field_name|
-                                    localized_field_name = (locale === I18n.default_locale) ? field_name : "#{field_name}.#{locale}"
+                                    localized_field_name = (locale.to_s == I18n.default_locale.to_s) ? field_name : "#{field_name}.#{locale}"
                                     localized_value = field_names[localized_field_name] && row[field_names[localized_field_name]]
                                     
                                     # Tags are a special case, as we support adding to the field, not just setting a new value
@@ -427,7 +427,7 @@ class PublicBody < ActiveRecord::Base
                             PublicBody.with_locale(locale) do
                                 changed = {}
                                 field_list.each do |field_name|
-                                    localized_field_name = (locale === I18n.default_locale) ? field_name : "#{field_name}.#{locale}"
+                                    localized_field_name = (locale.to_s == I18n.default_locale.to_s) ? field_name : "#{field_name}.#{locale}"
                                     localized_value = field_names[localized_field_name] && row[field_names[localized_field_name]]
 
                                     if localized_field_name == 'tag_string' and tag_behaviour == 'add'
