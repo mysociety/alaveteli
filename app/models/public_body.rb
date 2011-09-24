@@ -378,7 +378,7 @@ class PublicBody < ActiveRecord::Base
                     next if name.nil?
 
                     name.strip!
-                    email.strip!
+                    email.strip! unless email.nil?
 
                     if !email.nil? && !email.empty? && !MySociety::Validate.is_valid_email(email)
                         errors.push "error: line #{line.to_s}: invalid email '#{email}' for authority '#{name}'"
