@@ -23,7 +23,9 @@
         <%= link_to _("Make your own request"), public_body_url(public_body) %>.
         <% end %>
         <br>
-        <%= _("Added on {{date}}", :date => simple_date(public_body.created_at)) %>.
+        <span class="date_added">
+            <%= _("Added on {{date}}", :date => simple_date(public_body.created_at)) %>.
+        </span>
     </span>
 </div>
 
