@@ -19,7 +19,10 @@ class PublicBodyController < ApplicationController
         @locale = self.locale_from_params()
         PublicBody.with_locale(@locale) do 
             @public_body = PublicBody.find_by_url_name_with_historic(params[:url_name])
-            raise ActiveRecord::RecordNotFound.new("None found") if @public_body.nil? # XXX proper 404
+            if @public_body.nil?
+                render :template => 'public/404.html'
+                return
+            end
             if @public_body.url_name.nil?
                 redirect_to :back
                 return
