@@ -67,6 +67,7 @@
     </div>
   </div>
 
+  <div id="foi_results_section">
    <% if @public_body.info_requests.size == 0 %>
         <% if @public_body.eir_only? %>
             <h2><%= _('Environmental Information Regulations requests made using this site') %></h2>
@@ -117,5 +118,6 @@
             <h2> <%= _('Freedom of Information requests made')%></h2>
         <% end %>
         <p> <%= _('The search index is currently offline, so we can\'t show the Freedom of Information requests that have been made to this authority.')%></p>
-    <% end %> 
+    <% end %>
+    </div>
 </div>
