@@ -69,8 +69,12 @@ class PublicBodyController < ApplicationController
     end
 
     def view_email
-        @public_bodies = PublicBody.find(:all, :conditions => [ "url_name = ?", params[:url_name] ])
-        @public_body = @public_bodies[0]
+        @public_body = PublicBody.find_by_url_name_with_historic(params[:url_name])
+        if @public_body.nil?
+            render :template => 'public/404.html'
+            return
+        end
+        
         PublicBody.with_locale(self.locale_from_params()) do
             if params[:submitted_view_email]
                 if verify_recaptcha
