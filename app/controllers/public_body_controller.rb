@@ -19,10 +19,7 @@ class PublicBodyController < ApplicationController
         @locale = self.locale_from_params()
         PublicBody.with_locale(@locale) do 
             @public_body = PublicBody.find_by_url_name_with_historic(params[:url_name])
-            if @public_body.nil?
-                render :template => 'public/404.html'
-                return
-            end
+            raise ActiveRecord::RecordNotFound.new("None found") if @public_body.nil?
             if @public_body.url_name.nil?
                 redirect_to :back
                 return
@@ -73,11 +70,8 @@ class PublicBodyController < ApplicationController
 
     def view_email
         @public_body = PublicBody.find_by_url_name_with_historic(params[:url_name])
-        if @public_body.nil?
-            render :template => 'public/404.html'
-            return
-        end
-        
+        raise ActiveRecord::RecordNotFound.new("None found") if @public_body.nil?
+
         PublicBody.with_locale(self.locale_from_params()) do
             if params[:submitted_view_email]
                 if verify_recaptcha
