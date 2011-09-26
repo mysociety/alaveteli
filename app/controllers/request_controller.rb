@@ -314,10 +314,11 @@ class RequestController < ApplicationController
         # XXX send_message needs the database id, so we send after saving, which isn't ideal if the request broke here.
         @outgoing_message.send_message
         flash[:notice] = _("<p>Your {{law_used_full}} request has been <strong>sent on its way</strong>!</p>
-            <p><strong>We will email you</strong> when there is a response, or after 20 working days if the authority still hasn't
+            <p><strong>We will email you</strong> when there is a response, or after {{late_number_of_days}} working days if the authority still hasn't
             replied by then.</p>
             <p>If you write about this request (for example in a forum or a blog) please link to this page, and add an 
-            annotation below telling people about your writing.</p>",:law_used_full=>@info_request.law_used_full)
+            annotation below telling people about your writing.</p>",:law_used_full=>@info_request.law_used_full,
+            :late_number_of_days => MySociety::Config.get('REPLY_LATE_AFTER_DAYS', 20))
         redirect_to show_new_request_path(:url_title => @info_request.url_title)
     end
 
