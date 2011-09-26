@@ -136,7 +136,7 @@ ActionController::Routing::Routes.draw do |map|
     map.with_options :controller => 'help' do |help|
       help.help_unhappy '/help/unhappy/:url_title', :action => 'unhappy'
       help.help_about '/help/about', :action => 'about'
-      help.help_about '/help/alaveteli', :action => 'alaveteli'
+      help.help_alaveteli '/help/alaveteli', :action => 'alaveteli'
       help.help_contact '/help/contact', :action => 'contact'
       help.help_officers '/help/officers', :action => 'officers'
       help.help_requesting '/help/requesting', :action => 'requesting'
