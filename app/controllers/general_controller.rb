@@ -70,13 +70,13 @@ class GeneralController < ApplicationController
     def blog
         medium_cache
         @feed_autodetect = []
-        feed_url = MySociety::Config.get('BLOG_FEED', '')
+        @feed_url = "#{MySociety::Config.get('BLOG_FEED', '')}?lang=#{self.locale_from_params()}"
         if not feed_url.empty?
-            content = open(feed_url).read
+            content = open(@feed_url).read
             @data = XmlSimple.xml_in(content)
             @channel = @data['channel'][0]
             @blog_items = @channel['item']
-            @feed_autodetect = [{:url => feed_url, :title => "#{site_name} blog"}]
+            @feed_autodetect = [{:url => @feed_url, :title => "#{site_name} blog"}]
         else
             @blog_items = []
         end
