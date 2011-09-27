@@ -71,7 +71,7 @@ class GeneralController < ApplicationController
         medium_cache
         @feed_autodetect = []
         @feed_url = "#{MySociety::Config.get('BLOG_FEED', '')}?lang=#{self.locale_from_params()}"
-        if not feed_url.empty?
+        if not @feed_url.empty?
             content = open(@feed_url).read
             @data = XmlSimple.xml_in(content)
             @channel = @data['channel'][0]
