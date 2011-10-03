@@ -1,13 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="<%= I18n.locale %>">
     <head>
-        <script type="text/javascript" src="/javascripts/jquery.js"></script>
-        <% if @profile_photo_javascript %>
-            <script type="text/javascript" src="/javascripts/jquery.Jcrop.js"></script>
-            <script type="text/javascript" src="/javascripts/profile_photo.js"></script>
-            <link rel="stylesheet" href="/stylesheets/jquery.Jcrop.css" type="text/css" >
-        <% end %>
-
         <title>
         <% if @title %>
             <%=@title%> - <%= site_name %>
@@ -25,6 +18,13 @@
          <%= stylesheet_link_tag 'print', :rel => "stylesheet", :media => "all"  %>
 	<% end %>
 	<%= javascript_include_tag 'jquery.js', 'jquery-ui.min','jquery.cookie.js', 'general.js' %>
+
+        <% if @profile_photo_javascript %>
+            <script type="text/javascript" src="/javascripts/jquery.Jcrop.js"></script>
+            <script type="text/javascript" src="/javascripts/profile_photo.js"></script>
+            <link rel="stylesheet" href="/stylesheets/jquery.Jcrop.css" type="text/css" >
+        <% end %>
+
 	<%= stylesheet_link_tag 'admin-theme/jquery-ui-1.8.15.custom.css', :rel => 'stylesheet'%>
         <!--[if LT IE 7]> 
         <style type="text/css">@import url("/stylesheets/ie6.css");</style> 
