@@ -40,10 +40,11 @@ class TrackMailer < ApplicationMailer
     # Useful query to run by hand to see how many alerts are due:
     #   User.find(:all, :conditions => [ "last_daily_track_email < ?", Time.now - 1.day ]).size
     def self.alert_tracks
+        done_something = false
         now = Time.now()
         users = User.find(:all, :conditions => [ "last_daily_track_email < ?", now - 1.day ])
         if users.empty?
-            return false
+            return done_something
         end
         for user in users
             next if !user.should_be_emailed?
@@ -116,8 +117,9 @@ class TrackMailer < ApplicationMailer
             user.last_daily_track_email = now
             user.no_xapian_reindex = true
             user.save!
+            done_something = true
         end
-        return true
+        return done_something
     end
 
     def self.alert_tracks_loop
