@@ -5,8 +5,13 @@ In `/etc/exim4/conf.d/main/04_alaveteli_options`:
 
     ALAVETELI_HOME=/path/to/alaveteli/software
     ALAVETELI_USER=www-data
+    log_file_path=/var/log/exim4/exim-%slog-%D
 
 (The user ALAVETELI_USER should have write permissions on ALAVETELI_HOME).
+
+Note that the name and location of the log files created by Exim must match 
+what the script `load-exim-logs` expects, hence the need for the extra
+`log_file_path` setting.
 
 In `/etc/exim4/conf.d/router/04_alaveteli`:
 
