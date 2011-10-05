@@ -1,0 +1,262 @@
+body {
+color:#444;
+font-size:12px;
+font-family:Arial, sans-serif;
+}
+
+#banner {
+background-repeat:no-repeat;
+background-position:center top;
+background-color:#F0F0F0;
+background:url(/images/stripes.png);
+}
+
+#topnav {
+font-family:'DeliciousRoman', Arial, sans-serif;
+}
+
+#topnav li a,#topnav li a:visited {
+color:#ADADAD;
+}
+
+#topnav li a:hover {
+color:#fff;
+}
+
+#topnav ul li.selected {
+ background:#fff;
+}
+
+#topnav ul li a {
+color:#6B3C6A !important;
+}
+
+#logged_in_bar {
+color:#444;
+}
+
+#logged_in_bar a,#logged_in_bar a:visited {
+color:#92B3FF;
+}
+
+h1,h2,h3 {
+ font-family:Trebuchet, Trebuchet MS, Helvetica, sans-serif;
+ color:#555;
+}
+
+h1 {
+color:#93278F;
+font-size:42px;
+font-family:'DeliciousBold', Arial, sans-serif;
+}
+
+h2 {
+font-size:1.4em;
+}
+
+
+h2,dt {
+color:#93278F;
+font-family:'DeliciousBold', Arial, sans-serif;
+font-weight:400;
+}
+
+h3 {
+color:#6B3C6A;
+font-family:'DeliciousRoman', Arial, sans-serif;
+font-weight:400;
+}
+
+a {
+color:#93278F;
+}
+
+p.subtitle {
+font-family:'DeliciousRoman';
+color:#6B3C7F;
+}
+
+.request_listing span.head a,.user_listing span.head a,.body_listing span.head a {
+color:#6B3C6A;
+font-family:'DeliciousRoman', Arial, sans-serif;
+font-weight:400;
+}
+
+.request_listing span.desc {
+background:url(/images/quote-marks.png) no-repeat;
+color:#444;
+}
+
+.feed_link a,.act_link a,#header_right > a {
+color:#6B3C6A;
+}
+
+#request_form label,label.form_label,span#to_public_body {
+color:#6B3C6A;
+}
+
+span#to_public_body {
+font-family:'DeliciousBold', Arial, sans-serif;
+}
+
+#middle_strip {
+color:#93278F;
+}
+
+#stepwise_make_request {
+background-color:#d0d0d0;
+background:url(/images/stripes.png);
+border:1px solid #DEBEDD;
+font-family:'DeliciousRoman', Arial, sans-serif;
+color:#6B3C6A;
+}
+
+div.comment_in_request {
+background:url(/images/stripes-70-light2.png);
+border-color:#5F5F5F;
+border-style:dotted;
+border-width:1px;
+}
+
+#request_form label,label.form_label {
+font-family:'DeliciousRoman', Arial, sans-serif;
+}
+
+#navigation_search input[type=text] {
+ border-color:#BE7DBC;
+}
+
+
+form input[type=submit],a.link_button_green,a.link_button_green_large {
+font-family:'DeliciousRoman', Arial, sans-serif;
+}
+
+div.frontpage-box {
+background:url(/images/stripes.png);
+border:1px solid #DEBEDD;
+font-family:'DeliciousRoman', Arial, sans-serif;
+color:#6B3C6A;
+}
+
+
+div.correspondence,div.comment_in_request {
+background:url(/images/stripes-70.png);
+}
+
+div.outgoing.correspondence {
+background:url(/images/stripes-70-light.png);
+}
+
+#frontpage_splash {
+background:url(/images/flying-computer.png) no-repeat 175px bottom;
+}
+
+#frontpage_splash h1 {
+font-family:'DeliciousRoman', Arial, sans-serif;
+font-size:39px;
+color:#6B3C6A;
+font-weight:400;
+margin:0 0 20px;
+}
+
+#frontpage_splash h1 strong {
+font-family:'DeliciousHeavyRegular', Arial, sans-serif;
+font-size:54px;
+color:#93278F;
+font-weight:400;
+}
+
+#frontpage_splash h1 span {
+font-family:Georgia;
+font-style:italic;
+font-weight:400;
+font-size:25px;
+color:#6B3C6A;
+}
+
+#frontpage_splash h2 {
+font-size:26px;
+font-weight:400;
+color:#6B3C6A;
+font-family:'DeliciousRoman', Arial, sans-serif;
+}
+
+#frontpage_splash h2 strong {
+font-size:31px;
+color:#93278F;
+font-family:'DeliciousBold', Arial, sans-serif;
+}
+
+#frontpage_splash h2 span {
+color:#6B3C6A;
+font-style:italic;
+font-size:19px;
+font-family:Georgia;
+}
+
+
+#ui-datepicker-div.ui-widget {
+font-family:Arial, sans-serif;
+color:#93278F;
+}
+
+#ui-datepicker-div .ui-datepicker-header,#ui-datepicker-div .ui-widget-header {
+color:#93278F;
+font-family:'DeliciousRoman';
+}
+
+#ui-datepicker-div .ui-state-default:hover {
+background:#DEB4D8;
+color:#FFF;
+}
+
+#ui-datepicker-div .ui-state-active {
+background:#D093C7;
+color:#FFF;
+}
+
+#other-country-notice {
+background:#93278F;
+color:#FFF;
+}
+
+p.public-body-name-prefix {
+color:#DEB4D8;
+}
+
+#other-country-notice a {
+color:#FFF;
+}
+
+
+#link_box {
+position:absolute;
+text-align:left;
+background-color:#FFF;
+z-index:999;
+opacity:0.9px;
+border-radius:6px;
+-moz-border-radius:6px;
+border:1px solid #93278F;
+display:none;
+padding:5px;
+}
+
+#link_box .close-button {
+background-color:#93278F;
+margin-left:15px;
+padding:0;
+}
+
+div.correspondence p.preview_subject {
+font-family:'DeliciousRoman';
+color:#6B3C7F;
+}
+
+div.correspondence p.preview_subject strong {
+color:#6B3C7F;
+}
+
+div.controller_help h1 a,#logged_in_bar a,#logged_in_bar a:visited,#stepwise_make_request strong {
+color:#93278F;
+}
