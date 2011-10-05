@@ -27,119 +27,6 @@ body
 
 }
 
-/*------------------------------------------------ header */
-#header
-{
-	height: 55px;
-	position: absolute;
-	top: 0px;
-	left: 14px;
-	height: 55px;
-	width: 500px;
-	z-index: 200;
-    text-align: left;
-}
-	#header h1
-	{ 
-		font-size: 0.8em;
-        line-height: 0em;
-	margin: 0;
-	}
-	
-	#header h1 a
-	{ 
-		color: #f0f0f0;
-		display: block;
-		height: 55px;
-		background-image: url(../images/navimg/alaveteli-logo.png);
-		background-repeat: no-repeat;
-	}
-
-	#header #tagline
-	{
-		font-size: 0.8em;
-		font-style: italic;
-		text-align: left;
-		margin: 2px 0 0 0;
-		color: #626262;
-	}
-
-	#header #user_locale_switcher
-	{
-		font-size: 0.8em;
-		font-style: italic;
-		text-align: left;
-		margin: 2px 0 0 0;
-		color: #626262;
-		position: absolute;
-	}
-/*------------------------------------------------ temp stuff */
-#staging, #alpha_notice, #beta
-{ }
-
-
-#header h1 #beta, #header h1 #beta a
-{
-	display: inline;
-	height: 1em;
-	background-image: none;
-	font-size: 12px;
-	color: #A4A4A4;
-}
-
-
-#staging
-{
-	visibility: hidden;
-	overflow: default;
-}
-
-#alpha_notice
-{
-	padding: 0 20px 0 20px;
-	margin: 0 0 1em 0;
-	border-color: #FF201D;
-	border-width: 1px;
-	border-style: solid;
-	background-color: #f0f0f0;
-}
-
-#downtime {
-    border: 2px dashed #993233;
-    background-color: #ffcc99;
-    padding: 4px;
-    margin: 0 auto;
-    width: 80%;
-    text-align: center;
-}
-	
-/*------------------------------------------------ org logo */
-	#orglogo
-	{
-		position: absolute;
-		width: 100%;
-		left: 0px;
-		top: 0;
-		z-index: 150;
-		text-align: right;
-		font-size: 0.8em;
-		height: 40px;
-		z-index: 100;
-	}
-		#orglogo a
-		{
-			color: #f0f0f0;
-			display: block;
-			float: right;
-			clear: none;
-			height: 55px;
-			width: 265px;
-			background-image: url(../images/navimg/alaveteli-logo-header.png);
-			background-repeat: no-repeat;
-			background-position: 125px 15px;
-		}
-/*------------------------------------------------ search */
-			
 #navigation_search
 {
 	position: absolute;
@@ -208,15 +95,6 @@ body
 	
 				#topnav li a:active { }
 	
-		#topnav li a.on, #topnav li a.on:visited
-		{ 
-			font-weight: bold; 
-			color: #000;
-		}
-	
-			#topnav li a.on:hover {}
-	
-			#topnav li a.on:active {}
 
 /*-------------------------- login/signup */
 #logged_in_bar
@@ -250,20 +128,7 @@ body
 	overflow: visible;
 }
 
-/*------------------------------------------------ view as HTML */
-/* XXX this copies lines from #wrapper above, as didn't want to break wrapper
- * right now */
-#wrapper_xlhtml {
-	position: relative;
-	clear: both;
-	top: 0px;
-	padding-top: 100px;
-    width: 90%;
-	margin: 0px auto 1.2em auto;
-	/* = 800px at default size? so 1em = 16px*/
-	text-align: left;
-	overflow: visible;
-}
+
 #wrapper_google_embed {
 	position: relative;
 	clear: both;
@@ -318,8 +183,6 @@ h1, h2, h3
 	h2 { font-size: 1.4em;}
 	h3 { font-size: 1.2em;}
 
-h4, h5, h6
-{}
 
 /* XXX Francis put this here so he could check highlighting worked */ 
 .highlight
@@ -340,25 +203,8 @@ dt
 dd { margin: 0.6em 0 2em 4em; width: 33em; }
 
 /*---------------- content : recent requests sidebar */
-#frontpage_search
-{
-    text-align: center;
-    margin: 3em 0em 1em 0em;
-    padding: 1em;
-	background-color: #d0d0d0;
-}
-#stepwise_instructions
-{
-    text-align: center;
-    margin: 0em 0em 0em 0em;
-    padding: 0.2em 0em 0.2em 0em;
-	background-color: #d0d0d0;
-}
-#stepwise_instructions p
-{
-    margin: 0.5em 0em 0em 0em;
-    padding: 0em 0em 0em 0em;
-}
+
+
 #stepwise_make_request
 {
     text-align: center;
@@ -424,65 +270,6 @@ img.twitter-icon {
 }
 
 /*-----------------------------list sidebars----------------*/
-#list_sidebar
-{
-	width: 14em;
-	float: right;
-	font-size: 0.85em;
-	border-color: #AEAEAE;
-	border-width: 1px;
-	border-style: solid;
-	background-color: #EAEAEA;
-	padding: 0.5em;
-	margin: 0 0 0 1em;
-}
-	#list_sidebar h1, #list_sidebar h2
-	{
-		font-size: 1.2em;
-		line-height: 1em;
-		margin: 0px 0px 0.3em 0px;
-	}
-		#list_sidebar ul
-		{
-			list-style: none;
-			margin: 0px;
-			padding: 0px;
-		}
-		
-/*-----------------------------request sidebars----------------*/
-
-	#request_sidebar span.head
-	{
-		padding: 12px 0 0 0;
-		font-weight: bold;
-		font-size: 1.2em;
-		padding: 8px 0 0 0px;
-		background-image: none;
-	}
-
-	#request_sidebar .request_listing span.desc
-	 /* sidebar request list only */
-	{
-		float: left;
-		clear: both;
-		width: 16.9em;
-		background-image: url(../images/navimg/quote-open-small.png);
-		background-repeat: no-repeat;
-		background-position: 0 0;
-		padding: 2px 2px 1em 15px;
-	}
-
-	#request_sidebar span.bottomline
-	{
-		float: left;
-		clear: both;
-		width: 100%;
-		margin: 0 0 0.6em 0;
-		background-image: none;
-		padding: 0px;
-	}
-
-
 
 /*--------------------------------- content : full lists */
 
@@ -566,9 +353,6 @@ img.twitter-icon {
 			background-position: left center;
 			min-height: 42px;		
 		}
-
-		span.bottomline a
-		{}
 	
     .request_icon_line
     {
@@ -686,45 +470,6 @@ div.pagination { text-align: center; padding-top: 0.3em;}
 	}
 
 
-/*---------------- content : find authority (home page) */
-#make_requests
-{
-	float: left;
-	clear: none;
-	width: 26em;
-	text-align: center;
-}
-
-.auto_complete
-{
-	text-align: left;
-	background-color: #FFF;
-	border-color: #454545 #282828 #000 #454545;
-	border-width: 1px 1px 2px 1px;
-	border-style: solid;
-}
-
-	.auto_complete ul
-	{ 
-		list-style: none;
-		margin: 0px;
-		padding: 0px;
-	}
-	.auto_complete ul li
-	{
-		margin: 0px 0px 0.4em 0px;
-		padding: 0.1em 1em 0.3em 1em;
-		color: #595959;
-	}
-	.auto_complete ul li:hover
-	{
-		color: #000;
-		background-color: #D7D7D7;
-		cursor: default;
-	}
-
-
-
 /*-------------------- Content : form errors */
 #error, .errorExplanation, #hidden_request
 {
@@ -792,15 +537,7 @@ div.pagination { text-align: center; padding-top: 0.3em;}
 
 /*---------------- content : request detail pages */
 
-#request_sidebar
-{
-	float: right;
-	clear: none;
-	width: 14em;
-	margin: 0 0 0 0.6em;
-	font-size: 0.9em;
-}
-#request_main, #show_response_view
+#show_response_view
 {
     width: 35em;
 }
@@ -895,11 +632,11 @@ a img.attachment_image {
 
 /*------------------------------------------------ view attachment as HTML */
 
-.view-html-content {
+#view-html-content {
     margin-left: 1em;
     margin-right: 1em;
 }
-.view-html-content, img {
+#view-html-content img {
     max-width: 50em;
 }
 
@@ -923,16 +660,6 @@ a img.attachment_image {
 }
 
 /*------------------------------------------------ authority listings */
-#body_sidebar {
-	font-size: 0.85em;
-	width: 16em;
-	float: right;
-	clear:none;
-}
-#body_sidebar a { text-decoration: none; }
-
-
-/*------------------------------------------------ selecting an authority  */
 
 #authority_selection
 {
@@ -1072,19 +799,6 @@ p#sign_in_reason
 
 /*--------------------------------- content : about pages */
 
-div#about_sidebar
-{
-	float: right;
-	clear: none;
-	width: 14em;
-	background-color: #EAEAEA;
-	padding: 0.5em;
-	margin: 0 0 0 1em;
-
-	border-color: #AEAEAE;
-	border-width: 1px;
-	border-style: solid;
-}
 
 div.controller_help dt a, div.controller_help h1 a, div#help_unhappy h1 a.hover_a
 {
@@ -1121,9 +835,6 @@ div.feed_link img {
     text-decoration: none;
 }
 div.feed_link_main {
-    display: inline;
-}
-form.feed_form_main {
     display: inline;
 }
 
@@ -1164,7 +875,7 @@ div.act_link img {
     z-index: 200; /* So on top */
     max-height: 95%; overflow: auto; /* So on e.g. 800x600 scrollbar appears */
 }
-#everypage h2, #everypage h3, #foi2009 h2, #foi2009 h3 {
+#everypage h2, #everypage h3 {
     margin: 0.5em 0;
 }
 
