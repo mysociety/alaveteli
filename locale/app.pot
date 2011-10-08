@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
-"POT-Creation-Date: 2011-09-27 15:58+0200\n"
-"PO-Revision-Date: 2011-09-27 15:58+0200\n"
+"POT-Creation-Date: 2011-10-09 01:10+0200\n"
+"PO-Revision-Date: 2011-10-09 01:10+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -665,6 +665,34 @@ msgstr ""
 msgid "Name is already taken"
 msgstr ""
 
+#: app/models/request_mailer.rb:50
+msgid "FOI response requires admin - "
+msgstr ""
+
+#: app/models/request_mailer.rb:67
+msgid "New response to your FOI request - "
+msgstr ""
+
+#: app/models/request_mailer.rb:86
+msgid "Delayed response to your FOI request - "
+msgstr ""
+
+#: app/models/request_mailer.rb:105
+msgid "You're long overdue a response to your FOI request - "
+msgstr ""
+
+#: app/models/request_mailer.rb:125
+msgid "Was the response you got to your FOI request any good?"
+msgstr ""
+
+#: app/models/request_mailer.rb:168
+msgid "Somebody added a note to your FOI request - "
+msgstr ""
+
+#: app/models/request_mailer.rb:177
+msgid "Some notes have been added to your FOI request - "
+msgstr ""
+
 #: app/models/request_mailer.rb:218
 msgid "Could not identify the request from the email address"
 msgstr ""
@@ -1300,8 +1328,8 @@ msgid "Search the site to find what you were looking for."
 msgstr ""
 
 #: app/views/general/exception_caught.rhtml:12 app/views/general/frontpage.rhtml:23
-#: app/views/general/search.rhtml:32 app/views/general/search.rhtml:45
-#: app/views/public_body/list.rhtml:42 app/views/request/_request_filter_form.rhtml:49
+#: app/views/general/search.rhtml:17 app/views/general/search.rhtml:32 app/views/general/search.rhtml:45
+#: app/views/public_body/list.rhtml:43 app/views/request/_request_filter_form.rhtml:49
 #: app/views/request/select_authority.rhtml:41
 msgid "Search"
 msgstr ""
@@ -1384,6 +1412,10 @@ msgstr ""
 msgid "Results page {{page_number}}"
 msgstr ""
 
+#: app/views/general/search.rhtml:19
+msgid "Search results"
+msgstr ""
+
 #: app/views/general/search.rhtml:24
 msgid "To use the advanced search, combine phrases and labels as described in the search tips below."
 msgstr ""
@@ -1440,6 +1472,18 @@ msgstr ""
 msgid "messages from authorities"
 msgstr ""
 
+#: app/views/general/search.rhtml:112 app/views/request/_request_filter_form.rhtml:23
+msgid "Made between"
+msgstr ""
+
+#: app/views/general/search.rhtml:114 app/views/request/_request_filter_form.rhtml:25
+msgid "and"
+msgstr ""
+
+#: app/views/general/search.rhtml:121
+msgid "Filter"
+msgstr ""
+
 #: app/views/general/search.rhtml:129
 msgid "Show most relevant results first"
 msgstr ""
@@ -1450,6 +1494,10 @@ msgstr ""
 
 #: app/views/general/search.rhtml:133
 msgid "Recently described results first"
+msgstr ""
+
+#: app/views/general/search.rhtml:141
+msgid "Track this search"
 msgstr ""
 
 #: app/views/general/search.rhtml:156
@@ -1492,7 +1540,7 @@ msgstr ""
 msgid "Would you like to see a website like this in your country?"
 msgstr ""
 
-#: app/views/layouts/default.rhtml:15 app/views/layouts/no_chrome.rhtml:8
+#: app/views/layouts/default.rhtml:8 app/views/layouts/no_chrome.rhtml:8
 msgid "Make and browse Freedom of Information (FOI) requests"
 msgstr ""
 
@@ -1574,28 +1622,32 @@ msgstr ""
 msgid "Beginning with"
 msgstr ""
 
-#: app/views/public_body/list.rhtml:28
+#: app/views/public_body/list.rhtml:29
 msgid "<a href=\"%s\">Are we missing a public authority?</a>."
 msgstr ""
 
-#: app/views/public_body/list.rhtml:31
+#: app/views/public_body/list.rhtml:32
 msgid "List of all authorities (CSV)"
 msgstr ""
 
-#: app/views/public_body/list.rhtml:35
+#: app/views/public_body/list.rhtml:36
 msgid "Public authorities - {{description}}"
 msgstr ""
 
-#: app/views/public_body/list.rhtml:37
+#: app/views/public_body/list.rhtml:38
 msgid "Public authorities"
 msgstr ""
 
-#: app/views/public_body/list.rhtml:46
+#: app/views/public_body/list.rhtml:47
 msgid "Found {{count}} public bodies {{description}}"
 msgstr ""
 
-#: app/views/public_body/list.rhtml:50
+#: app/views/public_body/list.rhtml:51
 msgid "<a href=\"%s\">Can't find the one you want?</a>"
+msgstr ""
+
+#: app/views/public_body/show.rhtml:1
+msgid " - view and make Freedom of Information requests"
 msgstr ""
 
 #: app/views/public_body/show.rhtml:4
@@ -2037,14 +2089,6 @@ msgstr ""
 
 #: app/views/request/_request_filter_form.rhtml:11
 msgid "Search for words in:"
-msgstr ""
-
-#: app/views/request/_request_filter_form.rhtml:23
-msgid "Made between"
-msgstr ""
-
-#: app/views/request/_request_filter_form.rhtml:25
-msgid "and"
 msgstr ""
 
 #: app/views/request/_request_filter_form.rhtml:30
@@ -2926,7 +2970,7 @@ msgstr ""
 msgid "Remember me</label> (keeps you signed in longer;\n    do not use on a public computer) "
 msgstr ""
 
-#: app/views/user/_signin.rhtml:32
+#: app/views/user/_signin.rhtml:32 app/views/user/sign.rhtml:2 app/views/user/sign.rhtml:33
 msgid "Sign in"
 msgstr ""
 
@@ -2950,7 +2994,7 @@ msgstr ""
 msgid "Password: (again)"
 msgstr ""
 
-#: app/views/user/_signup.rhtml:46
+#: app/views/user/_signup.rhtml:46 app/views/user/sign.rhtml:40
 msgid "Sign up"
 msgstr ""
 
@@ -3276,6 +3320,10 @@ msgstr ""
 
 #: app/views/user/sign.rhtml:28
 msgid "please sign in or make a new account."
+msgstr ""
+
+#: app/views/user/sign.rhtml:37
+msgid "- or -"
 msgstr ""
 
 #: app/views/user/signchangeemail.rhtml:15
