@@ -1,5 +1,5 @@
 <% if @post_redirect.reason_params[:user_name] %>
-    <% @title = "Sign in" %>
+    <% @title = _("Sign in") %>
 
     <div id="sign_alone">
 
@@ -30,14 +30,14 @@
         </p>-->
         
         <div id="left_half">
-          <h1>Sign in</h1>
+          <h1><%= _('Sign in') %></h1>
           <%= render :partial => 'signin', :locals => { :sign_in_as_existing_user => false } %>
         </div>
         <div id="middle_strip">
-          - or -
+        <%= _('- or -') %>
         </div>
         <div id="right_half">
-          <h1>Sign up</h1>
+          <h1><%= _('Sign up') %></h1>
           <%= render :partial => 'signup' %>
         </div>
         <div style="clear:both"></div>

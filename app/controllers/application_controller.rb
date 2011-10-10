@@ -488,20 +488,6 @@ class ApplicationController < ActionController::Base
 
     # Site-wide access to configuration settings
     include ConfigHelper
-
-    # XXX: patch to improve usability of gettext's _(), which by default accepts only
-    # one parameter. This is normally done in a monkey patch file named 'i18n_fixes.rb'.
-    # For some reason - and only when running in production -, after adding a new controller 
-    # in a theme, the monkey patch in 'i18n_fixes.rb' doesn't seem to take effect. 
-    # But it works just fine in the views.
-    #  It's probably related to the loading order of classes, but including the
-    # monkey patch before or after the theme makes no difference. Even more bizarrely,
-    # require'ing or load'ing the patch file here doesn't work (!?), I need to redefine
-    # the method explicitely. I'm going crazy...
-    def _(key, options = {})
-      translation = FastGettext._(key) || key
-      gettext_interpolate(translation, options)
-    end
 end
 
 

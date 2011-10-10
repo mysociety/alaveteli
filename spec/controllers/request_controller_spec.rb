@@ -336,6 +336,33 @@ end
 #    response.headers["Status"].should == "404 Not Found"
 #  end
 
+describe RequestController, "when searching for an authority" do
+    fixtures :public_bodies, :users
+
+    # Whether or not sign-in is required for this step is configurable,
+    # so we make sure we're logged in, just in case
+    before do
+        @user = users(:bob_smith_user)
+    end
+    
+    it "should return nothing for the empty query string" do
+        session[:user_id] = @user.id
+        get :select_authority, :query => ""
+        
+        response.should render_template('select_authority')
+        assigns[:xapian_requests].results.size == 0
+    end
+
+    it "should return matching bodies" do
+        session[:user_id] = @user.id
+        get :select_authority, :query => "Quango"
+        
+        response.should render_template('select_authority')
+        assigns[:xapian_requests].results.size == 1
+        assigns[:xapian_requests].results[0][:model].name.should == public_bodies(:geraldine_public_body).name
+    end
+end
+
 describe RequestController, "when creating a new request" do
     integrate_views
     fixtures :info_requests, :outgoing_messages, :public_bodies, :public_body_translations, :users

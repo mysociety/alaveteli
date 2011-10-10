@@ -237,7 +237,12 @@ It is not recommended to run the website using the default Rails web
 server.  There are various recommendations here:
 http://rubyonrails.org/deploy
 
-We usually use Passenger / mod_rails.
+We usually use Passenger / mod_rails.  The file at `conf/httpd.conf`
+contains the WhatDoTheyKnow settings.  At a minimum, you should
+include the following in an Apache configuration file:
+
+    PassengerResolveSymlinksInDocumentRoot on
+    PassengerMaxPoolSize 6 # Recommend setting this to 3 or less on servers with 512MB RAM
 
 Under all but light loads, it is strongly recommended to run the
 server behind an http accelerator like Varnish.  A sample varnish VCL

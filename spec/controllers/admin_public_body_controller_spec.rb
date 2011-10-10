@@ -52,6 +52,12 @@ describe AdminPublicBodyController, "when administering public bodies" do
         get :show, :id => 2
         session[:using_admin].should == 1
     end
+end
+
+describe AdminPublicBodyController, "when administering public bodies and paying attention to authentication" do
+
+    integrate_views
+    fixtures :public_bodies, :public_body_translations
 
     it "disallows non-authenticated users to do anything" do
         @request.env["HTTP_AUTHORIZATION"] = ""
@@ -82,6 +88,19 @@ describe AdminPublicBodyController, "when administering public bodies" do
         PublicBody.count.should == 1
         session[:using_admin].should == 1
     end
+    it "forces authorisation when password and username set" do
+        config = MySociety::Config.load_default()
+        config['ADMIN_USERNAME'] = 'biz'
+        config['ADMIN_PASSWORD'] = 'fuz'
+        @request.env["HTTP_AUTHORIZATION"] = ""
+        PublicBody.count.should == 2
+        basic_auth_login(@request, "baduser", "badpassword")
+        post :destroy, { :id => 3 }
+        response.code.should == "401"
+        PublicBody.count.should == 2
+        session[:using_admin].should == nil
+    end
+
 
 
 end
