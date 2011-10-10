@@ -266,3 +266,16 @@ is supplied in `../conf/varnish-alaveteli.vcl`.
     Did you remember to remove the file `alaveteli/config/rails_env.rb`
     as described above?  It's created every time you run
     `script/rails-post-deploy`
+
+*   **Non-ASCII characters are being displayed as asterisks in my incoming messages**
+
+    We rely on `elinks` to convert HTML email to plain text.
+    Normally, the encoding should just work, but under some
+    circumstances it appears that `elinks` ignores the parameters
+    passed to it from Alaveteli.
+    
+    To force `elinks` always to treat input as UTF8, add the following
+    to `/etc/elinks/elinks.conf`:
+    
+        set document.codepage.assume = "utf-8"
+    
