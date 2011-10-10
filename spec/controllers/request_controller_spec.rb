@@ -137,6 +137,13 @@ describe RequestController, "when showing one request" do
             response.should have_text(/First hello/)
         end
 
+        it "should convert message body to UTF8" do
+            ir = info_requests(:fancy_dog_request) 
+            receive_incoming_mail('iso8859_2_raw_email.email', ir.incoming_email)
+            get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
+            response.should have_text(/tënde/u)
+        end
+
         it "should generate valid HTML verson of plain text attachments " do
             ir = info_requests(:fancy_dog_request) 
             receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
