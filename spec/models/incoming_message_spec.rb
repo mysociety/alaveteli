@@ -1,7 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe IncomingMessage, " when dealing with incoming mail" do
-    fixtures :incoming_messages, :raw_emails, :info_requests
+    fixtures :all
 
     before(:each) do
         @im = incoming_messages(:useless_incoming_message)
@@ -148,7 +148,7 @@ describe IncomingMessage, " checking validity to reply to" do
 end
 
 describe IncomingMessage, " checking validity to reply to with real emails" do
-    fixtures :incoming_messages, :raw_emails, :public_bodies, :public_body_translations, :info_requests, :users
+    fixtures :all
 
     after(:all) do
         ActionMailer::Base.deliveries.clear
@@ -172,7 +172,7 @@ describe IncomingMessage, " checking validity to reply to with real emails" do
 end
 
 describe IncomingMessage, " when censoring data" do
-    fixtures :incoming_messages, :raw_emails, :public_bodies, :public_body_translations, :info_requests, :users
+    fixtures :all
 
     before(:each) do
         @test_data = "There was a mouse called Stilton, he wished that he was blue."
@@ -282,7 +282,7 @@ describe IncomingMessage, " when censoring data" do
 end
 
 describe IncomingMessage, " when censoring whole users" do
-    fixtures :incoming_messages, :raw_emails, :public_bodies, :public_body_translations, :info_requests, :users
+    fixtures :all
 
     before(:each) do
         @test_data = "There was a mouse called Stilton, he wished that he was blue."
