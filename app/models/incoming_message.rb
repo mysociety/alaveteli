@@ -1112,21 +1112,21 @@ class IncomingMessage < ActiveRecord::Base
             tempfile.print body
             tempfile.flush
             if content_type == 'application/vnd.ms-word'
-                AlaveteliExternalCommand.run("/usr/bin/wvText", tempfile.path, tempfile.path + ".txt")
+                AlaveteliExternalCommand.run(`which /usr/bin/wvText`.chomp, tempfile.path, tempfile.path + ".txt")
                 # Try catdoc if we get into trouble (e.g. for InfoRequestEvent 2701)
                 if not File.exists?(tempfile.path + ".txt")
-                    AlaveteliExternalCommand.run("/usr/bin/catdoc", tempfile.path, :append_to => text)
+                    AlaveteliExternalCommand.run(`which /usr/bin/catdoc`.chomp, tempfile.path, :append_to => text)
                 else
                     text += File.read(tempfile.path + ".txt") + "\n\n"
                     File.unlink(tempfile.path + ".txt")
                 end
             elsif content_type == 'application/rtf'
                 # catdoc on RTF prodcues less comments and extra bumf than --text option to unrtf
-                AlaveteliExternalCommand.run("/usr/bin/catdoc", tempfile.path, :append_to => text)
+                AlaveteliExternalCommand.run(`which /usr/bin/catdoc`.chomp, tempfile.path, :append_to => text)
             elsif content_type == 'text/html'
                 # lynx wordwraps links in its output, which then don't get formatted properly
                 # by Alaveteli. We use elinks instead, which doesn't do that.
-                AlaveteliExternalCommand.run("/usr/bin/elinks", "-eval", "'set document.codepage.assume = \"utf-8\"'", "-dump-charset", "utf-8", "-force-html", "-dump",
+                AlaveteliExternalCommand.run(`which /usr/bin/elinks`.chomp, "-eval", "'set document.codepage.assume = \"utf-8\"'", "-dump-charset", "utf-8", "-force-html", "-dump",
                     tempfile.path, :append_to => text)
             elsif content_type == 'application/vnd.ms-excel'
                 # Bit crazy using /usr/bin/strings - but xls2csv, xlhtml and
@@ -1137,9 +1137,9 @@ class IncomingMessage < ActiveRecord::Base
             elsif content_type == 'application/vnd.ms-powerpoint'
                 # ppthtml seems to catch more text, but only outputs HTML when
                 # we want text, so just use catppt for now
-                AlaveteliExternalCommand.run("/usr/bin/catppt", tempfile.path, :append_to => text)
+                AlaveteliExternalCommand.run(`which /usr/bin/catppt`.chomp, tempfile.path, :append_to => text)
             elsif content_type == 'application/pdf'
-                AlaveteliExternalCommand.run("/usr/bin/pdftotext", tempfile.path, "-", :append_to => text)
+                AlaveteliExternalCommand.run(`which /usr/bin/pdftotext`.chomp, tempfile.path, "-", :append_to => text)
             elsif content_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
                 # This is Microsoft's XML office document format.
                 # Just pull out the main XML file, and strip it of text.
