@@ -606,21 +606,13 @@ class IncomingMessage < ActiveRecord::Base
         text.gsub!(/^(>.*\n)/, replacement)
         text.gsub!(/^(On .+ (wrote|said):\n)/, replacement)
 
-        # Multiple line sections
-        # http://www.whatdotheyknow.com/request/identity_card_scheme_expenditure
-        # http://www.whatdotheyknow.com/request/parliament_protest_actions
-        # http://www.whatdotheyknow.com/request/64/response/102
-        # http://www.whatdotheyknow.com/request/47/response/283
-        # http://www.whatdotheyknow.com/request/30/response/166
-        # http://www.whatdotheyknow.com/request/52/response/238
-        # http://www.whatdotheyknow.com/request/224/response/328 # example with * * * * *
-        # http://www.whatdotheyknow.com/request/297/response/506
-        ['-', '_', '*', '#'].each do |score|
+        ['-', '_', '*', '#'].each do |scorechar|
+            score = /(?:[#{scorechar}]\s*){8,}/
             text.sub!(/(Disclaimer\s+)?  # appears just before
                         (
-                            \s*(?:[#{score}]\s*){8,}\s*\n.*? # top line
+                            \s*#{score}\n(?:(?!#{score}\n).)*? # top line
                             (disclaimer:\n|confidential|received\sthis\semail\sin\serror|virus|intended\s+recipient|monitored\s+centrally|intended\s+(for\s+|only\s+for\s+use\s+by\s+)the\s+addressee|routinely\s+monitored|MessageLabs|unauthorised\s+use)
-                            .*?((?:[#{score}]\s*){8,}\s*\n|\z) # bottom line OR end of whole string (for ones with no terminator XXX risky)
+                            .*?(?:#{score}|\z) # bottom line OR end of whole string (for ones with no terminator XXX risky)
                         )
                        /imx, replacement)
         end

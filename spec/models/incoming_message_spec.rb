@@ -17,6 +17,15 @@ describe IncomingMessage, " when dealing with incoming mail" do
         TMail::Address.parse(em)
     end
 
+    it "should correctly fold various types of footer" do
+        Dir.glob(File.join(Spec::Runner.configuration.fixture_path, "files", "email-folding-example-*.txt")).each do |file|
+            message = File.read(file)
+            parsed = IncomingMessage.remove_quoted_sections(message)
+            expected = File.read("#{file}.expected")
+            parsed.should include(expected)
+        end
+    end
+
 end
 
 describe IncomingMessage, "when parsing HTML mail" do 
