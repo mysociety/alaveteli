@@ -10,7 +10,7 @@ padding:0;
 #banner {
 position:absolute;
 top:0;
-background-color:#444;
+background-color:#EEE;
 left:0;
 width:100%;
 border:none;
@@ -72,14 +72,14 @@ padding:0;
 
 #topnav li a,#topnav li a:visited {
 display:block;
-color:#ddd;
+color:#444;
 text-decoration:none;
 margin:0;
 padding:0;
 }
 
 #topnav li a:hover {
-color:#fff;
+color:#000;
 }
 
 #logged_in_bar {
@@ -95,7 +95,7 @@ padding:0.2em 10px 0.25em 1em;
 }
 
 #logged_in_bar a,#logged_in_bar a:visited {
-color:#fff;
+color:#444;
 }
 
 #wrapper {
@@ -906,10 +906,6 @@ a {
 text-decoration:underline;
 }
 
-body.front {
-background:url(/images/home-grad.png) repeat-x 0 160px;
-}
-
 #banner_inner {
 width:890px;
 position:relative;
@@ -939,10 +935,6 @@ border-radius:5px 0 0 5px;
 -moz-border-radius:5px 0 0 5px;
 border-color:#222;
 padding:5px 5px 4px;
-}
-
-#topnav ul li a {
-color:#CCC !important;
 }
 
 #topnav ul li {
@@ -1370,11 +1362,11 @@ margin:0 0 0 10px;
 }
 
 #frontpage_splash {
+background:url(/images/flying-computer.png) no-repeat 175px bottom;
 height:375px;
 margin-top:-12px;
 margin-bottom:20px;
 width:100%;
-background:url(/images/flying-computer.png) no-repeat 175px bottom;
 }
 
 #frontpage_splash #left_column {
@@ -1384,14 +1376,14 @@ margin-top:66px;
 
 #frontpage_splash h1 {
 font-size:39px;
-color:#AAA;
+color:#222;
 font-weight:400;
 margin:0 0 20px;
 }
 
 #frontpage_splash h1 strong {
 font-size:54px;
-color:#AAA;
+color:#222;
 font-weight:400;
 }
 
@@ -1403,21 +1395,17 @@ font-size:25px;
 color:#444;
 }
 
-#frontpage_splash #right_column {
-width:265px;
-}
-
 #frontpage_splash h2 {
 font-size:26px;
 font-weight:400;
-color:#CCC;
+color:#222;
 margin-bottom:10px;
 line-height:28px;
 }
 
 #frontpage_splash h2 strong {
 font-size:31px;
-color:#CCC;
+color:#222;
 }
 
 #frontpage_splash h2 span {
@@ -1425,6 +1413,10 @@ color:#333;
 font-style:italic;
 font-size:19px;
 font-family:Georgia;
+}
+
+#frontpage_splash #right_column {
+width:265px;
 }
 
 #frontpage_splash #right_column input[type=text] {
