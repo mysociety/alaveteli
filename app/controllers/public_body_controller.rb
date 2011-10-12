@@ -19,7 +19,7 @@ class PublicBodyController < ApplicationController
         @locale = self.locale_from_params()
         PublicBody.with_locale(@locale) do 
             @public_body = PublicBody.find_by_url_name_with_historic(params[:url_name])
-            raise ActiveRecord::RecordNotFound.new("None found") if @public_body.nil? # XXX proper 404
+            raise ActiveRecord::RecordNotFound.new("None found") if @public_body.nil?
             if @public_body.url_name.nil?
                 redirect_to :back
                 return
@@ -69,8 +69,9 @@ class PublicBodyController < ApplicationController
     end
 
     def view_email
-        @public_bodies = PublicBody.find(:all, :conditions => [ "url_name = ?", params[:url_name] ])
-        @public_body = @public_bodies[0]
+        @public_body = PublicBody.find_by_url_name_with_historic(params[:url_name])
+        raise ActiveRecord::RecordNotFound.new("None found") if @public_body.nil?
+
         PublicBody.with_locale(self.locale_from_params()) do
             if params[:submitted_view_email]
                 if verify_recaptcha
@@ -187,7 +188,7 @@ class PublicBodyController < ApplicationController
         query = params[:q] + '*'
 
         query = query.split(' ').join(' OR ')       # XXX: HACK for OR instead of default AND!
-        @xapian_requests = perform_search([PublicBody], query, 'relevant', 'request_collapse', 5)
+        @xapian_requests = perform_search([PublicBody], query, 'relevant', nil, 5)
 
         render :partial => "public_body/search_ahead"
     end

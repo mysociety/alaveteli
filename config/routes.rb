@@ -104,10 +104,9 @@ ActionController::Routing::Routes.draw do |map|
         body.show_public_body_successful "/body/:url_name/successful", :action => 'show', :view => "successful"
         body.show_public_body_unsuccessful "/body/:url_name/unsuccessful", :action => 'show', :view => "unsuccessful"
         body.show_public_body_awaiting "/body/:url_name/awaiting", :action => 'show', :view => "awaiting"
+        body.view_public_body_email "/body/:url_name/view_email", :action => 'view_email'
         body.show_public_body_tag "/body/:url_name/:tag", :action => 'show'
         body.show_public_body_tag_view "/body/:url_name/:tag/:view", :action => 'show'
-
-        body.view_public_body_email "/body/:url_name/view_email", :action => 'view_email'
     end
 
     map.with_options :controller => 'comment' do |comment|
@@ -137,7 +136,7 @@ ActionController::Routing::Routes.draw do |map|
     map.with_options :controller => 'help' do |help|
       help.help_unhappy '/help/unhappy/:url_title', :action => 'unhappy'
       help.help_about '/help/about', :action => 'about'
-      help.help_about '/help/alaveteli', :action => 'alaveteli'
+      help.help_alaveteli '/help/alaveteli', :action => 'alaveteli'
       help.help_contact '/help/contact', :action => 'contact'
       help.help_officers '/help/officers', :action => 'officers'
       help.help_requesting '/help/requesting', :action => 'requesting'

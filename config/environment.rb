@@ -130,7 +130,7 @@ end
 
 FastGettext.default_available_locales = available_locales
 I18n.locale = default_locale
-I18n.available_locales = available_locales
+I18n.available_locales = available_locales.map {|locale_name| locale_name.to_sym}
 I18n.default_locale = default_locale
 
 # Load monkey patches and other things from lib/

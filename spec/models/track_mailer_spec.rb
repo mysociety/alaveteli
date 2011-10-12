@@ -45,6 +45,9 @@ describe TrackMailer do
                 @user.should_receive(:save!)
                 TrackMailer.alert_tracks
             end
+            it 'should return true' do
+                TrackMailer.alert_tracks.should == true
+            end
 
 
             describe 'for each tracked thing' do
@@ -138,6 +141,9 @@ describe TrackMailer do
                 @user.should_not_receive(:last_daily_track_email=).with(Time.now)
                 @user.should_not_receive(:save!)
                 TrackMailer.alert_tracks
+            end
+            it 'should return false' do
+                TrackMailer.alert_tracks.should == false
             end
         end
 

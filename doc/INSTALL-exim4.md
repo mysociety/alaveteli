@@ -5,6 +5,16 @@ In `/etc/exim4/conf.d/main/04_alaveteli_options`:
 
     ALAVETELI_HOME=/path/to/alaveteli/software
     ALAVETELI_USER=www-data
+    log_file_path=/var/log/exim4/exim-%slog-%D
+    log_selector=+all -retry_defer 
+
+(The user ALAVETELI_USER should have write permissions on ALAVETELI_HOME).
+
+Note that the name and location of the log files created by Exim must match 
+what the `load-exim-logs` script expects, hence the need for the extra
+`log_file_path` setting. And the `check-recent-requests-sent` scripts expects
+the logs to contain the `from=<...>` envelope information, so we make the 
+logs more verbose with `log_selector`. 
 
 In `/etc/exim4/conf.d/router/04_alaveteli`:
 
@@ -68,3 +78,7 @@ see something like:
     R: alaveteli pipe for snafflerequest-234@localhost
     snafflerequest-234@localhost -> |/home/alaveteli/alaveteli/script/mailin
     transport = alaveteli_mailin_transport
+
+There is a great
+[Exim Cheatsheet](http://bradthemad.org/tech/notes/exim_cheatsheet.php)
+online that you may find useful.

@@ -36,7 +36,7 @@
     <% form_for(:info_request, @info_request, :html => { :id => 'write_form' }  ) do |f| %>
 
     <div id="request_header">
-        <div>
+        <div id="request_header_body">
             <label class="form_label" for="info_request_public_body_id"><%= _('To:') %></label> 
             <span id="to_public_body"><%=h(@info_request.public_body.name)%></span>
             <div class="form_item_note">
@@ -46,13 +46,13 @@
                     <%= _("Browse <a href='{{url}}'>other requests</a> for examples of how to word your request.", :url=>request_list_url) %>
                 <% end %>
             </div>
-        </div>
 
-        <div id="request_header_text">    
-        <% if @info_request.public_body.has_notes? %>
-            <h3><%= _('Special note for this authority!') %></h3>
-            <p><%= @info_request.public_body.notes_as_html %></p>
-        <% end %>
+            <div id="request_header_text">    
+            <% if @info_request.public_body.has_notes? %>
+                <h3><%= _('Special note for this authority!') %></h3>
+                <p><%= @info_request.public_body.notes_as_html %></p>
+            <% end %>
+        </div>
 
         <% if @info_request.public_body.eir_only? %>
             <h3><%= _('Please ask for environmental information only') %></h3>
@@ -78,19 +78,21 @@
             time</strong> or the time of the public authority by requesting unrelated information.') %></p>
         <% end %>
         </div>
- 
-        <p>
-            <label class="form_label" for="typeahead_search"><%= _('Summary:') %></label> 
-            <%= f.text_field :title, :size => 50, :id =>"typeahead_search" %>
-        </p>
-        <div class="form_item_note">
-            (<%= _("a one line summary of the information you are requesting, \n\t\t\te.g.") %> 
-              <% if @info_request.law_used == 'eir' %>
-                  <%= _("'Pollution levels over time for the River Tyne'") %>
-              <% else %>
-                  <%= _("'Crime statistics by ward level for Wales'") %>
-              <% end %>
-              )
+
+        <div id="request_header_subject"> 
+            <p>
+                <label class="form_label" for="typeahead_search"><%= _('Summary:') %></label> 
+                <%= f.text_field :title, :size => 50, :id =>"typeahead_search" %>
+            </p>
+            <div class="form_item_note">
+                (<%= _("a one line summary of the information you are requesting, \n\t\t\te.g.") %> 
+                  <% if @info_request.law_used == 'eir' %>
+                      <%= _("'Pollution levels over time for the River Tyne'") %>
+                  <% else %>
+                      <%= _("'Crime statistics by ward level for Wales'") %>
+                  <% end %>
+                  )
+            </div>
         </div>
         
         <div id="typeahead_response">

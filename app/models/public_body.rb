@@ -378,7 +378,7 @@ class PublicBody < ActiveRecord::Base
                     next if name.nil?
 
                     name.strip!
-                    email.strip!
+                    email.strip! unless email.nil?
 
                     if !email.nil? && !email.empty? && !MySociety::Validate.is_valid_email(email)
                         errors.push "error: line #{line.to_s}: invalid email '#{email}' for authority '#{name}'"
@@ -392,7 +392,7 @@ class PublicBody < ActiveRecord::Base
                             PublicBody.with_locale(locale) do
                                 changed = {}
                                 field_list.each do |field_name|
-                                    localized_field_name = (locale === I18n.default_locale) ? field_name : "#{field_name}.#{locale}"
+                                    localized_field_name = (locale.to_s == I18n.default_locale.to_s) ? field_name : "#{field_name}.#{locale}"
                                     localized_value = field_names[localized_field_name] && row[field_names[localized_field_name]]
                                     
                                     # Tags are a special case, as we support adding to the field, not just setting a new value
@@ -422,12 +422,12 @@ class PublicBody < ActiveRecord::Base
                             end
                         end
                     else # New public body
-                        public_body = PublicBody.new(:name=>name, :short_name=>"", :request_email=>"")
+                        public_body = PublicBody.new(:name=>"", :short_name=>"", :request_email=>"")
                         available_locales.each do |locale|                            
                             PublicBody.with_locale(locale) do
                                 changed = {}
                                 field_list.each do |field_name|
-                                    localized_field_name = (locale === I18n.default_locale) ? field_name : "#{field_name}.#{locale}"
+                                    localized_field_name = (locale.to_s == I18n.default_locale.to_s) ? field_name : "#{field_name}.#{locale}"
                                     localized_value = field_names[localized_field_name] && row[field_names[localized_field_name]]
 
                                     if localized_field_name == 'tag_string' and tag_behaviour == 'add'
