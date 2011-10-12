@@ -31,7 +31,7 @@ module Rails
     end
 
     def vendor_rails?
-      File.exist?("#{RAILS_ROOT}/vendor/rails")
+      File.exist?("#{RAILS_ROOT}/vendor/rails/Rakefile")
     end
 
     def preinitialize

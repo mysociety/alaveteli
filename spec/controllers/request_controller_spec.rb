@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 require 'json'
 
 describe RequestController, "when listing recent requests" do
-    fixtures :info_requests, :outgoing_messages, :users, :info_request_events, :public_bodies, :public_body_translations, :incoming_messages, :raw_emails, :comments
+    fixtures :users, :public_bodies, :public_body_translations, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events
 
     before(:each) do
         load_raw_emails_data(raw_emails)
@@ -51,7 +51,7 @@ end
 
 describe RequestController, "when showing one request" do
     
-    fixtures :info_requests, :info_request_events, :public_bodies, :public_body_translations, :public_body_translations, :users, :incoming_messages, :raw_emails, :outgoing_messages, :comments # all needed as integrating views
+    fixtures :public_bodies, :public_body_translations, :public_body_translations, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events # all needed as integrating views
     
     before(:each) do
         load_raw_emails_data(raw_emails)
@@ -135,6 +135,13 @@ describe RequestController, "when showing one request" do
             get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 3, :file_name => ['hello.txt']
             response.content_type.should == "text/plain"
             response.should have_text(/First hello/)
+        end
+
+        it "should convert message body to UTF8" do
+            ir = info_requests(:fancy_dog_request) 
+            receive_incoming_mail('iso8859_2_raw_email.email', ir.incoming_email)
+            get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
+            response.should have_text(/tënde/u)
         end
 
         it "should generate valid HTML verson of plain text attachments " do
@@ -242,7 +249,7 @@ zipfile.entries.each {|x| puts x.name}
 end
 
 describe RequestController, "when changing prominence of a request" do
-    fixtures :info_requests, :info_request_events, :public_bodies, :public_body_translations, :users, :incoming_messages, :raw_emails, :outgoing_messages # all needed as integrating views
+    fixtures :public_bodies, :public_body_translations, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :info_request_events # all needed as integrating views
 
     before(:each) do
         load_raw_emails_data(raw_emails)
@@ -358,7 +365,7 @@ end
 
 describe RequestController, "when creating a new request" do
     integrate_views
-    fixtures :info_requests, :outgoing_messages, :public_bodies, :public_body_translations, :users
+    fixtures :public_bodies, :public_body_translations, :users, :info_requests, :outgoing_messages
 
     before do
         @user = users(:bob_smith_user)
@@ -542,7 +549,7 @@ end
 
 describe RequestController, "when viewing an individual response for reply/followup" do
     integrate_views
-    fixtures :info_requests, :info_request_events, :public_bodies, :public_body_translations, :users, :incoming_messages, :raw_emails, :outgoing_messages, :comments # all needed as integrating views
+    fixtures :public_bodies, :public_body_translations, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events # all needed as integrating views
 
     before(:each) do
         load_raw_emails_data(raw_emails)
@@ -589,7 +596,7 @@ end
 
 describe RequestController, "when classifying an information request" do
 
-    fixtures :info_requests, :info_request_events, :public_bodies, :public_body_translations, :users, :incoming_messages, :raw_emails, :outgoing_messages, :comments # all needed as integrating views
+    fixtures :public_bodies, :public_body_translations, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events # all needed as integrating views
 
     before(:each) do 
         @dog_request = info_requests(:fancy_dog_request)
@@ -925,7 +932,7 @@ end
 
 describe RequestController, "when sending a followup message" do
     integrate_views
-    fixtures :info_requests, :info_request_events, :public_bodies, :public_body_translations, :users, :incoming_messages, :raw_emails, :outgoing_messages # all needed as integrating views
+    fixtures :public_bodies, :public_body_translations, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :info_request_events # all needed as integrating views
 
     before(:each) do
         load_raw_emails_data(raw_emails)
@@ -1008,7 +1015,7 @@ end
 
 describe RequestController, "sending overdue request alerts" do
     integrate_views
-    fixtures :info_requests, :info_request_events, :public_bodies, :public_body_translations, :users, :incoming_messages, :raw_emails, :outgoing_messages # all needed as integrating views
+    fixtures :public_bodies, :public_body_translations, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :info_request_events # all needed as integrating views
     
     before(:each) do
         load_raw_emails_data(raw_emails)
@@ -1096,7 +1103,7 @@ end
 
 describe RequestController, "sending unclassified new response reminder alerts" do
     integrate_views
-    fixtures :info_requests, :info_request_events, :public_bodies, :public_body_translations, :users, :incoming_messages, :raw_emails, :outgoing_messages, :comments # all needed as integrating views
+    fixtures :public_bodies, :public_body_translations, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events # all needed as integrating views
 
     before(:each) do
         load_raw_emails_data(raw_emails)
@@ -1127,7 +1134,7 @@ end
 
 describe RequestController, "clarification required alerts" do
     integrate_views
-    fixtures :info_requests, :info_request_events, :public_bodies, :public_body_translations, :users, :incoming_messages, :raw_emails, :outgoing_messages # all needed as integrating views
+    fixtures :public_bodies, :public_body_translations, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :info_request_events # all needed as integrating views
     before(:each) do
         load_raw_emails_data(raw_emails)
     end
@@ -1181,7 +1188,7 @@ end
 
 describe RequestController, "comment alerts" do
     integrate_views
-    fixtures :info_requests, :info_request_events, :public_bodies, :public_body_translations, :users, :incoming_messages, :raw_emails, :outgoing_messages, :comments # all needed as integrating views
+    fixtures :public_bodies, :public_body_translations, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events # all needed as integrating views
     before(:each) do
         load_raw_emails_data(raw_emails)
     end
@@ -1256,7 +1263,7 @@ end
 
 describe RequestController, "when viewing comments" do
     integrate_views
-    fixtures :users, :raw_emails, :incoming_messages, :info_requests
+    fixtures :users, :info_requests, :raw_emails, :incoming_messages
     before(:each) do
         load_raw_emails_data(raw_emails)
     end
@@ -1279,7 +1286,7 @@ end
 
 
 describe RequestController, "authority uploads a response from the web interface" do
-    fixtures :info_requests, :info_request_events, :public_bodies, :public_body_translations, :users
+    fixtures :public_bodies, :public_body_translations, :users, :info_requests, :info_request_events
 
     before(:all) do
         # domain after the @ is used for authentication of FOI officers, so to test it
@@ -1366,7 +1373,7 @@ end
 
 describe RequestController, "when showing JSON version for API" do
     
-    fixtures :info_requests, :info_request_events, :public_bodies, :public_body_translations, :users, :incoming_messages, :raw_emails, :outgoing_messages, :comments 
+    fixtures :public_bodies, :public_body_translations, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events 
 
     before(:each) do
         load_raw_emails_data(raw_emails)
@@ -1386,7 +1393,7 @@ describe RequestController, "when showing JSON version for API" do
 end
 
 describe RequestController, "when doing type ahead searches" do
-    fixtures :info_requests, :info_request_events, :public_bodies, :public_body_translations, :users, :incoming_messages, :raw_emails, :outgoing_messages, :comments 
+    fixtures :public_bodies, :public_body_translations, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events 
 
     it "should return nothing for the empty query string" do
         get :search_typeahead, :q => ""
