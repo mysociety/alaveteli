@@ -7,7 +7,7 @@ require 'json'
 
 describe UserController, "when showing a user" do
     integrate_views
-    fixtures :users, :outgoing_messages, :incoming_messages, :raw_emails, :info_requests, :info_request_events, :comments, :public_bodies, :public_body_translations
+    fixtures :users, :public_bodies, :public_body_translations, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :info_request_events, :comments
     before(:each) do
         load_raw_emails_data(raw_emails)
     end

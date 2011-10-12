@@ -157,7 +157,7 @@ describe PublicBodyController, "when showing JSON version for API" do
 end
 
 describe PublicBodyController, "when doing type ahead searches" do
-    fixtures :info_requests, :info_request_events, :public_bodies, :public_body_translations, :users, :incoming_messages, :raw_emails, :outgoing_messages, :comments 
+    fixtures :public_bodies, :public_body_translations, :users, :raw_emails, :info_requests, :incoming_messages, :outgoing_messages, :comments, :info_request_events
 
     it "should return nothing for the empty query string" do
         get :search_typeahead, :q => ""
