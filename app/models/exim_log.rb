@@ -108,10 +108,10 @@ class EximLog < ActiveRecord::Base
                     # be sure we are parsing the exim line right)
                     envelope_from = " from <" + ir.incoming_email + "> "
                     if !exim_log.line.include?(envelope_from)
-                        raise "unexpected parsing of exim line"
+                        $stderr.puts("unexpected parsing of exim line: [#{exim_log.line.chomp}]")
+                    else
+                        found = true
                     end
-
-                    found = true
                 end
             end
             if !found
