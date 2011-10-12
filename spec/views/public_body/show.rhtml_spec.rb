@@ -1,7 +1,6 @@
 require File.dirname(__FILE__) + '/../../spec_helper'
 
 describe "when viewing a body" do
-
     before do
         @pb = mock_model(PublicBody, 
                          :name => 'Test Quango', 
@@ -28,6 +27,8 @@ describe "when viewing a body" do
         assigns[:xapian_requests] = @xap
         assigns[:page] = 1
         assigns[:per_page] = 10
+        # work round a bug in ActionController::TestRequest; allows request.query_string to work in the template
+        request.env["REQUEST_URI"] = ""
     end
 
     it "should be successful" do
@@ -47,11 +48,11 @@ describe "when viewing a body" do
 
     it "should tell total number of requests" do
         render "public_body/show"
-        response.should include_text("4 Freedom of Information requests made")
+        response.should include_text("4 Freedom of Information requests")
     end
 
     it "should cope with no results" do
-        @xap.stub!(:results).and_return([])
+        @pb.stub!(:info_requests).and_return([])
         render "public_body/show"
         response.should have_tag("p", /Nobody has made any Freedom of Information requests/m)
     end
@@ -67,10 +68,10 @@ describe "when viewing a body" do
         @pb.stub!(:get_tag_values).and_return(['98765', '12345'])
 
         render "public_body/show"
-        response.should have_tag("div#request_sidebar") do
+        response.should have_tag("div#header_right") do
             with_tag("a[href*=?]", /charity-commission.gov.uk.*RegisteredCharityNumber=98765$/)
         end
-        response.should have_tag("div#request_sidebar") do
+        response.should have_tag("div#header_right") do
             with_tag("a[href*=?]", /charity-commission.gov.uk.*RegisteredCharityNumber=12345$/)
         end
     end 
@@ -80,7 +81,7 @@ describe "when viewing a body" do
         @pb.stub!(:get_tag_values).and_return(['SC1234'])
 
         render "public_body/show"
-        response.should have_tag("div#request_sidebar") do
+        response.should have_tag("div#header_right") do
             with_tag("a[href*=?]", /www.oscr.org.uk.*id=SC1234$/)
         end
     end 
@@ -88,7 +89,7 @@ describe "when viewing a body" do
 
     it "should not link to Charity Commission site if we don't have number" do
         render "public_body/show"
-        response.should have_tag("div#request_sidebar") do
+        response.should have_tag("div#header_right") do
             without_tag("a[href*=?]", /charity-commission.gov.uk/)
         end
     end 

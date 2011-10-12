@@ -1,8 +1,4 @@
-
 <p id="sign_in_reason">
-<%= @reason_params[:web] %>, please 
-<%= link_to _('sign out'), signout_url(:r => request.request_uri) %>, 
-<%= _('and sign in as ')%><%= h(@reason_params[:user_name]) %>.
+<%= _('Sorry, but only {{user_name}} is allowed to do that.', :user_name => h(@reason_params[:user_name])) %>
 </p>
-
 

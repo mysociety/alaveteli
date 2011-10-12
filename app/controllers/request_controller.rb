@@ -7,6 +7,8 @@
 # $Id: request_controller.rb,v 1.192 2009-10-19 19:26:40 francis Exp $
 
 require 'alaveteli_file_types'
+require 'zip/zip'
+require 'open-uri'
 
 class RequestController < ApplicationController
     before_filter :check_read_only, :only => [ :new, :show_response, :describe_state, :upload_response ]
@@ -22,6 +24,26 @@ class RequestController < ApplicationController
     rescue MissingSourceFile, NameError
     end
 
+    def select_authority
+        # Check whether we force the user to sign in right at the start, or we allow her
+        # to start filling the request anonymously
+        if force_registration_on_new_request && !authenticated?(
+                :web => _("To send your FOI request"),
+                :email => _("Then you'll be allowed to send FOI requests."),
+                :email_subject => _("Confirm your email address")
+            )
+            # do nothing - as "authenticated?" has done the redirect to signin page for us
+            return
+        end
+        
+        if !params[:query].nil?
+            query = params[:query] + '*'
+            query = query.split(' ').join(' OR ')       # XXX: HACK for OR instead of default AND!
+            @xapian_requests = perform_search([PublicBody], query, 'relevant', nil, 5)
+        end
+        medium_cache
+    end
+    
     def show
         medium_cache
         @locale = self.locale_from_params()
@@ -37,7 +59,7 @@ class RequestController < ApplicationController
             # Look up by new style text names 
             @info_request = InfoRequest.find_by_url_title(params[:url_title])
             if @info_request.nil?
-                raise "Request not found" 
+                raise ActiveRecord::RecordNotFound.new("Request not found")
             end
             set_last_request(@info_request)
 
@@ -52,7 +74,6 @@ class RequestController < ApplicationController
             @status = @info_request.calculate_status
             @collapse_quotes = params[:unfold] ? false : true
             @update_status = params[:update_status] ? true : false    
-            @is_owning_user = @info_request.is_owning_user?(authenticated_user)
             @old_unclassified = @info_request.is_old_unclassified? && !authenticated_user.nil?
             
             if @update_status
@@ -66,7 +87,7 @@ class RequestController < ApplicationController
 
             @last_info_request_event_id = @info_request.last_event_id_needing_description
             @new_responses_count = @info_request.events_needing_description.select {|i| i.event_type == 'response'}.size
-1
+
             # Sidebar stuff
             # ... requests that have similar imporant terms
             behavior_cache :tag => ['similar', @info_request.id] do
@@ -86,7 +107,7 @@ class RequestController < ApplicationController
 
             # For send followup link at bottom
             @last_response = @info_request.get_last_response
-
+            @is_owning_user = @info_request.is_owning_user?(authenticated_user)
             respond_to do |format|
                 format.html { @has_json = true; render :template => 'request/show'}
                 format.json { render :json => @info_request.json_for_api(true) }
@@ -129,26 +150,10 @@ class RequestController < ApplicationController
     def list
         medium_cache
         @view = params[:view]
-
-        if @view.nil?
-            redirect_to request_list_url(:view => 'successful')
-            return
-        end
-
-        if @view == 'recent'
-            @title = _("Recently sent Freedom of Information requests")
-            query = "variety:sent";
-            sortby = "newest"
-            @track_thing = TrackThing.create_track_for_all_new_requests
-        elsif @view == 'successful'
-            @title = _("Recently successful responses")
-            query = 'variety:response (status:successful OR status:partially_successful)'
-            sortby = "described"
-            @track_thing = TrackThing.create_track_for_all_successful_requests
-        else
-            raise "unknown request list view " + @view.to_s
-        end
-        
+        params[:latest_status] = @view
+        query = make_query_from_params
+        @title = _("View and search requests")
+        sortby = "newest"
         @page = get_search_page_from_params if !@page # used in cache case, as perform_search sets @page as side effect
         behavior_cache :tag => [@view, @page] do
             xapian_object = perform_search([InfoRequestEvent], query, sortby, 'request_collapse')
@@ -157,7 +162,7 @@ class RequestController < ApplicationController
         end
         
         @title = @title + " (page " + @page.to_s + ")" if (@page > 1)
-
+        @track_thing = TrackThing.create_track_for_search_query(query)
         @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss], :has_json => true } ]
 
         # Don't let robots go more than 20 pages in
@@ -203,7 +208,7 @@ class RequestController < ApplicationController
                     params[:info_request][:public_body_id] = params[:url_name]
                 else
                     public_body = PublicBody.find_by_url_name_with_historic(params[:url_name])
-                    raise "None found" if public_body.nil? # XXX proper 404
+                    raise ActiveRecord::RecordNotFound.new("None found") if public_body.nil? # XXX proper 404
                     params[:info_request][:public_body_id] = public_body.id
                 end
             elsif params[:public_body_id]
@@ -309,10 +314,11 @@ class RequestController < ApplicationController
         # XXX send_message needs the database id, so we send after saving, which isn't ideal if the request broke here.
         @outgoing_message.send_message
         flash[:notice] = _("<p>Your {{law_used_full}} request has been <strong>sent on its way</strong>!</p>
-            <p><strong>We will email you</strong> when there is a response, or after 20 working days if the authority still hasn't
+            <p><strong>We will email you</strong> when there is a response, or after {{late_number_of_days}} working days if the authority still hasn't
             replied by then.</p>
             <p>If you write about this request (for example in a forum or a blog) please link to this page, and add an 
-            annotation below telling people about your writing.</p>",:law_used_full=>@info_request.law_used_full)
+            annotation below telling people about your writing.</p>",:law_used_full=>@info_request.law_used_full,
+            :late_number_of_days => MySociety::Config.get('REPLY_LATE_AFTER_DAYS', 20))
         redirect_to show_new_request_path(:url_title => @info_request.url_title)
     end
 
@@ -686,10 +692,10 @@ class RequestController < ApplicationController
         raise "internal error, pre-auth filter should have caught this" if !@info_request.user_can_view?(authenticated_user)
   
         @attachment = IncomingMessage.get_attachment_by_url_part_number(@incoming_message.get_attachments_for_display, @part_number)
-        raise "attachment not found part number " + @part_number.to_s + " incoming_message " + @incoming_message.id.to_s if @attachment.nil?
+        raise ActiveRecord::RecordNotFound.new("attachment not found part number " + @part_number.to_s + " incoming_message " + @incoming_message.id.to_s) if @attachment.nil?
 
         # check filename in URL matches that in database (use a censor rule if you want to change a filename)
-        raise "please use same filename as original file has, display: '" + @attachment.display_filename + "' old_display: '" + @attachment.old_display_filename + "' original: '" + @original_filename + "'" if @attachment.display_filename != @original_filename && @attachment.old_display_filename != @original_filename
+        raise ActiveRecord::RecordNotFound.new("please use same filename as original file has, display: '" + @attachment.display_filename + "' old_display: '" + @attachment.old_display_filename + "' original: '" + @original_filename + "'") if @attachment.display_filename != @original_filename && @attachment.old_display_filename != @original_filename
 
         @attachment_url = get_attachment_url(:id => @incoming_message.info_request_id,
                 :incoming_message_id => @incoming_message.id, :part => @part_number,
@@ -741,6 +747,80 @@ class RequestController < ApplicationController
             flash[:notice] = _("Thank you for responding to this FOI request! Your response has been published below, and a link to your response has been emailed to ") + CGI.escapeHTML(@info_request.user.name) + "."
             redirect_to request_url(@info_request)
             return
+        end
+    end
+
+    # Type ahead search
+    def search_typeahead
+        # Since acts_as_xapian doesn't support the Partial match flag, we work around it
+        # by making the last work a wildcard, which is quite the same
+        query = params[:q] + '*'
+
+        query = query.split(' ').join(' OR ')       # XXX: HACK for OR instead of default AND!
+        @xapian_requests = perform_search([InfoRequestEvent], query, 'relevant', 'request_collapse', 5)
+
+        render :partial => "request/search_ahead.rhtml"
+    end
+
+    def download_entire_request
+        @locale = self.locale_from_params()
+        PublicBody.with_locale(@locale) do
+            info_request = InfoRequest.find_by_url_title(params[:url_title])
+            if info_request.nil?
+                raise ActiveRecord::RecordNotFound.new("Request not found")
+            end
+            if authenticated?(
+                              :web => _("To download the zip file"),
+                              :email => _("Then you can download a zip file of {{info_request_title}}.",:info_request_title=>info_request.title),
+                              :email_subject => _("Log in to download a zip file of {{info_request_title}}",:info_request_title=>info_request.title)
+                              )
+                updated = Digest::SHA1.hexdigest(info_request.get_last_event.created_at.to_s + info_request.updated_at.to_s)
+                @url_path = "/download/#{updated[0..1]}/#{updated}/#{params[:url_title]}.zip"
+                file_path = File.join(File.dirname(__FILE__), '../../cache/zips', @url_path)
+                if !File.exists?(file_path) 
+                    FileUtils.mkdir_p(File.dirname(file_path))
+                    Zip::ZipFile.open(file_path, Zip::ZipFile::CREATE) { |zipfile|
+                        convert_command = MySociety::Config.get("HTML_TO_PDF_COMMAND")
+                        done = false
+                        if File.exists?(convert_command)
+                            domain = MySociety::Config.get("DOMAIN")
+                            url = "http://#{domain}#{request_url(info_request)}?print_stylesheet=1"
+                            tempfile = Tempfile.new('foihtml2pdf')
+                            output = AlaveteliExternalCommand.run(convert_command, url, tempfile.path)
+                            if !output.nil?
+                                zipfile.get_output_stream("correspondence.pdf") { |f|
+                                    f.puts(File.open(tempfile.path).read)
+                                }
+                                done = true
+                            else
+                                logger.error("Could not convert info request #{info_request.id} to PDF with command '#{convert_command} #{url} #{tempfile.path}'")
+                            end
+                            tempfile.close
+                        else                    
+                            logger.warn("No HTML -> PDF converter found at #{convert_command}")
+                        end
+                        if !done
+                            @info_request = info_request
+                            @info_request_events = info_request.info_request_events
+                            template = File.read(File.join(File.dirname(__FILE__), "..", "views", "request", "simple_correspondence.rhtml"))
+                            output = ERB.new(template).result(binding)
+                            zipfile.get_output_stream("correspondence.txt") { |f|
+                                f.puts(output)
+                            }
+                        end
+                        for message in info_request.incoming_messages                
+                            attachments = message.get_attachments_for_display
+                            for attachment in attachments
+                                zipfile.get_output_stream(attachment.display_filename) { |f|
+                                    f.puts(attachment.body)
+                                }
+                            end
+                        end
+                    }
+                    File.chmod(0644, file_path)
+                end
+                redirect_to @url_path
+            end
         end
     end
 end

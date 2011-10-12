@@ -5,16 +5,6 @@ module InfoRequestCustomStates
     end
 
     # Mixin methods for InfoRequest
-    def theme_display_status(status)
-        if status == 'deadline_extended'
-            _("Deadline extended.")
-        elsif status == 'wrong_response'
-            _("Wrong Response.")
-        else
-            raise _("unknown status ") + status        
-        end
-    end
-
     def theme_calculate_status
         return 'waiting_classification' if self.awaiting_description
         waiting_response = self.described_state == "waiting_response" || self.described_state == "deadline_extended"
@@ -41,6 +31,16 @@ module InfoRequestCustomStates
     end
 
     module ClassMethods 
+        def theme_display_status(status)
+            if status == 'deadline_extended'
+                _("Deadline extended.")
+            elsif status == 'wrong_response'
+                _("Wrong Response.")
+            else
+                raise _("unknown status ") + status        
+            end
+        end
+
         def theme_extra_states
             return ['deadline_extended',
                     'wrong_response']

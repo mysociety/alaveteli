@@ -61,6 +61,7 @@ Rails::Initializer.run do |config|
   config.gem "gettext", :version => '>=1.9.3'
   config.gem "fast_gettext", :version => '>=0.4.8'
   config.gem "rack", :version => '1.1.0'
+  config.gem "rdoc", :version => '>=2.4.3'
   config.gem "recaptcha", :lib => "recaptcha/rails"
   config.gem 'rspec', :lib => false, :version => '1.3.1'
   config.gem 'rspec-rails', :lib => false, :version => '1.3.3'
@@ -109,7 +110,7 @@ ActionMailer::Base.default_url_options[:host] = MySociety::Config.get("DOMAIN", 
 # So that javascript assets use full URL, so proxied admin URLs read javascript OK
 if (MySociety::Config.get("DOMAIN", "") != "")
     ActionController::Base.asset_host = Proc.new { |source, request|
-        if request.fullpath.match(/^\/admin\//)
+        if ENV["RAILS_ENV"] != "test" && request.fullpath.match(/^\/admin\//)
             MySociety::Config.get("ADMIN_PUBLIC_URL", "")
         else
             MySociety::Config.get("DOMAIN", 'localhost:3000')
@@ -129,7 +130,7 @@ end
 
 FastGettext.default_available_locales = available_locales
 I18n.locale = default_locale
-I18n.available_locales = available_locales
+I18n.available_locales = available_locales.map {|locale_name| locale_name.to_sym}
 I18n.default_locale = default_locale
 
 # Load monkey patches and other things from lib/
@@ -144,3 +145,5 @@ require 'sendmail_return_path.rb'
 require 'tnef.rb'
 require 'i18n_fixes.rb'
 require 'rack_quote_monkeypatch.rb'
+require 'world_foi_websites.rb'
+require 'alaveteli_external_command.rb'

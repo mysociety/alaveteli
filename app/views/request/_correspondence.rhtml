@@ -1,3 +1,4 @@
+<div class="ff-print-fix"></div>
 <%  
 if !info_request_event.nil? && info_request_event.event_type == 'response'
     incoming_message = info_request_event.incoming_message
@@ -5,11 +6,10 @@ end
 
 if not incoming_message.nil?
 %>
-    <div class="correspondence" id="incoming-<%=incoming_message.id.to_s%>">
-        <% foi_cache(:controller => "request", :action => "show_response", :id => @info_request.id, :incoming_message_id => incoming_message.id, :only_path => true, :template => "_correspondence", :section => "incoming_message_bubble", :collapse => @collapse_quotes ? nil : 'no' ) do %>
+    <div class="incoming correspondence" id="incoming-<%=incoming_message.id.to_s%>">
         <h2>
             <% if !incoming_message.safe_mail_from.nil? && incoming_message.safe_mail_from.strip != @info_request.public_body.name.strip %>
-                <%=h incoming_message.safe_mail_from %><br>
+                <%= _("From:") %> <%=h incoming_message.safe_mail_from %><br>
             <% end %>
             <% if incoming_message.safe_mail_from.nil? || (incoming_message.mail_from_domain == @info_request.public_body.request_email_domain) %>
                 <%=h @info_request.public_body.name %><br>
@@ -18,25 +18,22 @@ if not incoming_message.nil?
         </h2>
 
         <%= render :partial => 'bubble', :locals => { :incoming_message => incoming_message, :body => incoming_message.get_body_for_html_display(@collapse_quotes), :attachments => incoming_message.get_attachments_for_display }  %>
-        <% end %>
 
         <p class="event_actions">
             <% if !@user.nil? && @user.admin_page_links? %>
                 <%= link_to "Admin", admin_url("request/show_raw_email/" + incoming_message.raw_email_id.to_s) %> | 
             <% end %>
-            <%= link_to _("Link to this"), incoming_message_url(incoming_message) %> |
-            <%= link_to _("Reply to this message"), show_response_url(:id => incoming_message.info_request.id, :incoming_message_id => incoming_message.id) + "#followup" %>
-
+            <%= link_to _("Link to this"), incoming_message_url(incoming_message), :class => "link_to_this" %> 
         </p>
     </div>
 <%
 elsif [ 'sent', 'followup_sent' ].include?(info_request_event.event_type)
     outgoing_message = info_request_event.outgoing_message
     %>
-    <div class="correspondence" id="outgoing-<%=outgoing_message.id.to_s%>">
+    <div class="outgoing correspondence" id="outgoing-<%=outgoing_message.id.to_s%>">
 
         <h2>
-        <%=h @info_request.user.name %><br>
+        <%= _("From:") %> <%=h @info_request.user.name %><br>
         <br><%= simple_date(info_request_event.created_at) %>
         </h2>
 
@@ -54,12 +51,11 @@ elsif [ 'sent', 'followup_sent' ].include?(info_request_event.event_type)
             <% end %> 
             -->
 
-            <%= link_to _("Link to this"), outgoing_message_url(outgoing_message) %> |
-            <%= link_to _("Send follow up"), show_response_no_followup_url(:id => outgoing_message.info_request.id, :incoming_message_id => nil) + "#followup" %>
+            <%= link_to _("Link to this"), outgoing_message_url(outgoing_message), :class => "link_to_this" %> 
         </p>
     </div>
 <% elsif [ 'resent', 'followup_resent' ].include?(info_request_event.event_type) %>
-    <div class="correspondence" id="outgoing-<%=outgoing_message.id.to_s%>">
+    <div class="outgoing correspondence" id="outgoing-<%=outgoing_message.id.to_s%>">
         <h2>
             <%= simple_date(info_request_event.created_at) %>
         </h2>

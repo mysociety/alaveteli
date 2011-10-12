@@ -17,7 +17,7 @@
     </div>
     <p class="event_actions">
         <% if !comment.id.nil? %>
-            <%= link_to "Link to this", comment_url(comment) %>
+            <%= link_to "Link to this", comment_url(comment), :class => "link_to_this" %>
             <% if !@user.nil? && @user.admin_page_links? %>
                 | <%= link_to "Admin", admin_url("request/edit_comment/" + comment.id.to_s) %>
             <% end %>

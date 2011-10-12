@@ -79,30 +79,5 @@ describe 'when displaying actions that can be taken with regard to a request' do
     it 'should display a link for the request owner to request a review' do
         expect_owner_link('Request an internal review')
     end
-    
-    describe 'when there is no last response' do
         
-        before do 
-            assigns[:last_response] = nil
-        end
-    
-        it 'should display a link for the request owner to send a follow up' do
-            expect_owner_link('Send follow up to test public body')
-        end
-    
-    end
-    
-    describe 'when there is a last response' do
-        
-        before do 
-            assigns[:last_response] = mock_model(IncomingMessage, 
-                                                 :valid_to_reply_to? => false)
-        end
-    
-        it 'should display a link for the request owner to reply to the last response' do
-            expect_owner_link('Reply to test public body')
-        end
-    
-    end
-    
 end

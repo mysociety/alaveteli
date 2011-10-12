@@ -6,14 +6,39 @@
 #
 # $Id: public_body_categories.rb,v 1.1 2009-09-14 14:45:48 francis Exp $
 
-module PublicBodyCategories
+class PublicBodyCategories
+    
+    attr_reader :with_description, :with_headings, :tags, :by_tag, :singular_by_tag
+    
+    def initialize(categories)
+        @with_headings = categories
+        # Arranged in different ways for different sorts of displaying
+        @with_description = @with_headings.select() { |a| a.instance_of?(Array) }
+        @tags = @with_description.map() { |a| a[0] }
+        @by_tag = Hash[*@with_description.map() { |a| a[0..1] }.flatten]
+        @singular_by_tag = Hash[*@with_description.map() { |a| [a[0],a[2]] }.flatten]        
+    end
 
-    CATEGORIES_WITH_HEADINGS = []
+    def PublicBodyCategories.get
+        load_categories() if @@CATEGORIES.nil?          
+        @@CATEGORIES[I18n.locale.to_s] || @@CATEGORIES[I18n.default_locale.to_s] || PublicBodyCategories.new([])
+    end
 
-    # Arranged in different ways for different sorts of displaying
-    CATEGORIES_WITH_DESCRIPTION = CATEGORIES_WITH_HEADINGS.select() { |a| a.instance_of?(Array) }
-    CATEGORIES = CATEGORIES_WITH_DESCRIPTION.map() { |a| a[0] }
-    CATEGORIES_BY_TAG = Hash[*CATEGORIES_WITH_DESCRIPTION.map() { |a| a[0..1] }.flatten]
-    CATEGORY_SINGULAR_BY_TAG = Hash[*CATEGORIES_WITH_DESCRIPTION.map() { |a| [a[0],a[2]] }.flatten]
+    # Called from the data files themselves
+    def PublicBodyCategories.add(locale, categories)
+        @@CATEGORIES[locale.to_s] = PublicBodyCategories.new(categories)
+    end
+    
+    private
+    @@CATEGORIES = nil
+    
+    def PublicBodyCategories.load_categories()
+        @@CATEGORIES = {} if @@CATEGORIES.nil?
+        I18n.available_locales.each do |locale|
+            begin
+                load "public_body_categories_#{locale}.rb"
+            rescue MissingSourceFile
+            end
+        end
+    end
 end
-

@@ -117,13 +117,13 @@ class InfoRequest < ActiveRecord::Base
     # only check on create, so existing models with mixed case are allowed
     def validate_on_create
         if !self.title.nil? && !MySociety::Validate.uses_mixed_capitals(self.title, 10)
-            errors.add(:title, N_('Please write the summary using a mixture of capital and lower case letters. This makes it easier for others to read.'))
+            errors.add(:title, _('Please write the summary using a mixture of capital and lower case letters. This makes it easier for others to read.'))
         end
         if !self.title.nil? && title.size > 200
-            errors.add(:title, N_('Please keep the summary short, like in the subject of an email. You can use a phrase, rather than a full sentence.'))
+            errors.add(:title, _('Please keep the summary short, like in the subject of an email. You can use a phrase, rather than a full sentence.'))
         end
         if !self.title.nil? && self.title =~ /^(FOI|Freedom of Information)\s*requests?$/i
-            errors.add(:title, N_('Please describe more what the request is about in the subject. There is no need to say it is an FOI request, we add that on anyway.'))
+            errors.add(:title, _('Please describe more what the request is about in the subject. There is no need to say it is an FOI request, we add that on anyway.'))
         end
     end
     
@@ -451,7 +451,7 @@ public
             self.log_event("response", params)
             self.save!
         end
-
+        self.info_request_events.each { |event| event.xapian_mark_needs_index } # for the "waiting_classification" index
         RequestMailer.deliver_new_response(self, incoming_message)
     end
 
@@ -564,6 +564,7 @@ public
     def calculate_event_states
         curr_state = nil
         for event in self.info_request_events.reverse
+            event.xapian_mark_needs_index  # we need to reindex all events in order to update their latest_* terms
             if curr_state.nil? 
                 if !event.described_state.nil?
                     curr_state = event.described_state
@@ -779,8 +780,7 @@ public
 
 
     # Display version of status
-    def display_status
-        status = self.calculate_status
+    def InfoRequest.get_status_description(status)
         if status == 'waiting_classification'
             _("Awaiting classification.")
         elsif status == 'waiting_response'
@@ -816,6 +816,10 @@ public
                 raise _("unknown status ") + status
             end
         end
+    end
+
+    def display_status
+        InfoRequest.get_status_description(self.calculate_status)
     end
 
     # Completely delete this request and all objects depending on it
@@ -918,10 +922,13 @@ public
     end
 
     # List of incoming messages to followup, by unique email
-    def who_can_followup_to
+    def who_can_followup_to(skip_message = nil)
         ret = []
         done = {}
         for incoming_message in self.incoming_messages.reverse
+            if incoming_message == skip_message
+                next
+            end
             incoming_message.safe_mail_from
             
             email = OutgoingMailer.email_for_followup(self, incoming_message)

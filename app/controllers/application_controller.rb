@@ -8,13 +8,20 @@
 #
 # $Id: application.rb,v 1.59 2009-09-17 13:01:56 francis Exp $
 
+require 'open-uri'
 
 class ApplicationController < ActionController::Base
     # Standard headers, footers and navigation for whole site
     layout "default"
     include FastGettext::Translation # make functions like _, n_, N_ etc available)
+        
+    # Note: a filter stops the chain if it redirects or renders something
+    before_filter :authentication_check
     before_filter :set_gettext_locale
+    before_filter :check_in_post_redirect
+    before_filter :session_remember_me
     before_filter :set_vary_header
+
     # scrub sensitive parameters from the logs
     filter_parameter_logging :password
 
@@ -47,7 +54,14 @@ class ApplicationController < ActionController::Base
         else
             requested_locale = params[:locale] || session[:locale] || cookies[:locale] || I18n.default_locale
         end
+        requested_locale = FastGettext.best_locale_in(requested_locale)
         session[:locale] = FastGettext.set_locale(requested_locale)
+        if !@user.nil?
+            if @user.locale != requested_locale
+                @user.locale = session[:locale]
+                @user.save!
+            end
+        end
     end
 
     # scrub sensitive parameters from the logs
@@ -84,7 +98,6 @@ class ApplicationController < ActionController::Base
     # Set cookie expiry according to "remember me" checkbox, as per "An easier
     # and more flexible hack" on this page:
     #   http://wiki.rubyonrails.org/rails/pages/HowtoChangeSessionOptions
-    before_filter :session_remember_me
     def session_remember_me
         # Reset the "sliding window" session expiry time.
         if request.env['rack.session.options']
@@ -101,11 +114,17 @@ class ApplicationController < ActionController::Base
         # Make sure expiry time for session is set (before_filters are
         # otherwise missed by this override) 
         session_remember_me
-
+        case exception
+        when ActiveRecord::RecordNotFound, ActionController::UnknownAction, ActionController::RoutingError
+            @status = 404
+        else
+            @status = 500
+        end
         # Display user appropriate error message
         @exception_backtrace = exception.backtrace.join("\n")
         @exception_class = exception.class.to_s
-        render :template => "general/exception_caught.rhtml", :status => 404
+        @exception_message = exception.message
+        render :template => "general/exception_caught.rhtml", :status => @status
     end
 
     # For development sites.
@@ -192,7 +211,9 @@ class ApplicationController < ActionController::Base
             post_redirect = PostRedirect.new(:uri => request.request_uri, :post_params => params,
                 :reason_params => reason_params)
             post_redirect.save!
-            redirect_to signin_url(:token => post_redirect.token)
+            # 'modal' controls whether the sign-in form will be displayed in the typical full-blown 
+            # page or on its own, useful for pop-ups            
+            redirect_to signin_url(:token => post_redirect.token, :modal => params[:modal])
             return false
         end
         return true
@@ -256,7 +277,6 @@ class ApplicationController < ActionController::Base
     end
 
     # If we are in a faked redirect to POST request, then set post params.
-    before_filter :check_in_post_redirect
     def check_in_post_redirect
         if params[:post_redirect] and session[:post_redirect_token]
             post_redirect = PostRedirect.find_by_token(session[:post_redirect_token])
@@ -265,7 +285,6 @@ class ApplicationController < ActionController::Base
     end
 
     # Default layout shows user in corner, so needs access to it
-    before_filter :authentication_check
     def authentication_check
         if session[:user_id]
             @user = authenticated_user
@@ -339,14 +358,127 @@ class ApplicationController < ActionController::Base
         return (params[:page] || "1").to_i
     end
 
-    # Store last visited pages, for contact form
+    # Store last visited pages, for contact form; but only for logged in users, as otherwise this breaks caching
     def set_last_request(info_request)
-        session[:last_request_id] = info_request.id
-        session[:last_body_id] = nil
+        if !session[:user_id].nil?
+            session[:last_request_id] = info_request.id
+            session[:last_body_id] = nil
+        end
     end
     def set_last_body(public_body)
-        session[:last_request_id] = nil
-        session[:last_body_id] = public_body.id
+        if !session[:user_id].nil?
+            session[:last_request_id] = nil
+            session[:last_body_id] = public_body.id
+        end
+    end
+
+    def param_exists(item)
+        return params[item] && !params[item].empty?
+    end    
+    
+    def get_request_variety_from_params
+        query = ""
+        sortby = "newest"
+        varieties = []
+        if params[:request_variety] && !(query =~ /variety:/)
+            if params[:request_variety].include? "sent"
+                varieties -= ['variety:sent', 'variety:followup_sent', 'variety:response', 'variety:comment']
+                varieties << ['variety:sent', 'variety:followup_sent']
+            end
+            if params[:request_variety].include? "response"
+                varieties << ['variety:response']
+            end
+            if params[:request_variety].include? "comment"
+                varieties << ['variety:comment']
+            end
+        end
+        if !varieties.empty?
+            query = " (#{varieties.join(' OR ')})"
+        end
+        return query
+    end
+
+    def get_status_from_params
+        query = ""
+        if params[:latest_status] 
+            statuses = []
+            if params[:latest_status].class == String
+                params[:latest_status] = [params[:latest_status]]
+            end
+            if params[:latest_status].include?("recent") ||  params[:latest_status].include?("all")
+                query += " variety:sent"
+            end
+            if params[:latest_status].include? "successful"
+                statuses << ['latest_status:successful', 'latest_status:partially_successful']
+            end
+            if params[:latest_status].include? "unsuccessful"
+                statuses << ['latest_status:rejected', 'latest_status:not_held']
+            end
+            if params[:latest_status].include? "awaiting"
+                statuses << ['latest_status:waiting_response', 'latest_status:waiting_clarification', 'waiting_classification:true']
+            end
+            if params[:latest_status].include? "internal_review"
+                statuses << ['status:internal_review']
+            end
+            if params[:latest_status].include? "other"
+                statuses << ['latest_status:gone_postal', 'latest_status:error_message', 'latest_status:requires_admin', 'latest_status:user_withdrawn']
+            end
+            if params[:latest_status].include? "gone_postal"
+                statuses << ['latest_status:gone_postal']
+            end
+            if !statuses.empty?
+                query = " (#{statuses.join(' OR ')})"
+            end
+        end
+        return query
+    end
+
+    def get_date_range_from_params
+        query = ""
+        if param_exists(:request_date_after) && !param_exists(:request_date_before)
+            params[:request_date_before] = Time.now.strftime("%d/%m/%Y")
+            query += " #{params[:request_date_after]}..#{params[:request_date_before]}"
+        elsif !param_exists(:request_date_after) && param_exists(:request_date_before)
+            params[:request_date_after] = "01/01/2001"
+        end
+        if param_exists(:request_date_after)
+            query = " #{params[:request_date_after]}..#{params[:request_date_before]}"
+        end
+        return query
+    end
+
+    def get_tags_from_params
+        query = ""
+        tags = []
+        if param_exists(:tags)
+            params[:tags].split().each do |tag| 
+                tags << "tag:#{tag}"
+            end
+        end
+        if !tags.empty?
+            query = " (#{tags.join(' OR ')})"
+        end
+        return query
+    end
+    
+    def make_query_from_params
+        query = params[:query] || "" if query.nil?
+        query += get_date_range_from_params
+        query += get_request_variety_from_params
+        query += get_status_from_params
+        query += get_tags_from_params
+        return query
+    end
+
+    def country_from_ip
+        gaze = MySociety::Config.get('GAZE_URL', '')
+        default = MySociety::Config.get('ISO_COUNTRY_CODE', '')
+        country = ""
+        if !gaze.empty?
+            country = open("#{gaze}/gaze-rest?f=get_country_from_ip;ip=#{request.remote_ip}").read.strip
+        end
+        country = default if country.empty?
+        return country
     end
 
     # URL generating functions are needed by all controllers (for redirects),
