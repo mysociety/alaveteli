@@ -2,12 +2,12 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe GeneralController, "when searching" do
     integrate_views
-    fixtures [ :info_requests,
-               :info_request_events,
-               :public_bodies,
+    fixtures [ :public_bodies,
                :public_body_translations,
                :users,
                :raw_emails,
+               :info_requests,
+               :info_request_events,
                :outgoing_messages,
                :incoming_messages,
                :comments ]

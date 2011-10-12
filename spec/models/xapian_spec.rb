@@ -34,7 +34,7 @@ describe User, " when indexing users with Xapian" do
 end
 
 describe PublicBody, " when indexing public bodies with Xapian" do
-    fixtures :public_bodies, :public_body_translations, :incoming_messages, :outgoing_messages, :raw_emails, :comments, :info_requests
+    fixtures :public_bodies, :public_body_translations, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments
     before(:each) do
         load_raw_emails_data(raw_emails)
     end
@@ -72,7 +72,7 @@ describe PublicBody, " when indexing public bodies with Xapian" do
 end
 
 describe PublicBody, " when indexing requests by body they are to" do
-    fixtures :public_bodies, :public_body_translations, :info_request_events, :info_requests, :raw_emails, :comments
+    fixtures :public_bodies, :public_body_translations, :info_requests, :raw_emails, :comments, :info_request_events
 
     before(:each) do
         load_raw_emails_data(raw_emails)
@@ -132,7 +132,7 @@ describe PublicBody, " when indexing requests by body they are to" do
 end
 
 describe User, " when indexing requests by user they are from" do
-    fixtures :users, :info_request_events, :info_requests, :incoming_messages, :outgoing_messages, :raw_emails, :comments
+    fixtures :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events
     before(:each) do
         load_raw_emails_data(raw_emails)
     end
@@ -219,7 +219,7 @@ describe User, " when indexing requests by user they are from" do
 end
 
 describe User, " when indexing comments by user they are by" do
-    fixtures :users, :info_request_events, :info_requests, :comments, :incoming_messages, :outgoing_messages, :raw_emails, :comments
+    fixtures :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events
     before(:each) do
         load_raw_emails_data(raw_emails)
     end
@@ -256,7 +256,7 @@ describe User, " when indexing comments by user they are by" do
 end
 
 describe InfoRequest, " when indexing requests by their title" do
-    fixtures :info_request_events, :info_requests, :incoming_messages, :raw_emails, :comments
+    fixtures :info_requests, :raw_emails, :incoming_messages, :comments, :info_request_events
     before(:each) do
         load_raw_emails_data(raw_emails)
     end
@@ -287,7 +287,7 @@ describe InfoRequest, " when indexing requests by their title" do
 end
 
 describe InfoRequest, " when indexing requests by tag" do
-    fixtures :info_request_events, :info_requests, :incoming_messages, :raw_emails, :comments
+    fixtures :info_requests, :raw_emails, :incoming_messages, :comments, :info_request_events
     before(:each) do
         load_raw_emails_data(raw_emails)
     end
@@ -309,7 +309,7 @@ describe InfoRequest, " when indexing requests by tag" do
 end
 
 describe PublicBody, " when indexing authorities by tag" do
-    fixtures :public_bodies, :public_body_translations, :incoming_messages, :outgoing_messages, :raw_emails, :comments
+    fixtures :public_bodies, :public_body_translations, :raw_emails, :incoming_messages, :outgoing_messages, :comments
     before(:each) do
         load_raw_emails_data(raw_emails)
     end

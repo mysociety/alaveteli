@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe AdminRequestController, "when administering requests" do
     integrate_views
-    fixtures :info_requests, :outgoing_messages, :users, :info_request_events, :public_bodies, :public_body_translations
+    fixtures :users, :public_bodies, :public_body_translations, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events
     before { basic_auth_login @request }
 
     it "shows the index/list page" do
@@ -41,7 +41,7 @@ end
 
 describe AdminRequestController, "when administering the holding pen" do
     integrate_views
-    fixtures :info_requests, :incoming_messages, :raw_emails, :users, :public_bodies, :public_body_translations
+    fixtures :users, :public_bodies, :public_body_translations, :info_requests, :raw_emails, :incoming_messages
     before(:each) do
         basic_auth_login @request
         load_raw_emails_data(raw_emails)
