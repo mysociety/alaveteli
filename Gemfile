@@ -15,8 +15,8 @@ gem 'recaptcha', '~> 0.3.1', :require => 'recaptcha/rails'
 # :require avoids "already initialized constant" warnings
 gem 'rmagick', :require => 'RMagick'
 gem 'routing-filter', '~> 0.2.4'
-gem 'rspec', '~> 1.3.1'
-gem 'rspec-rails', '~> 1.3.3'
+gem 'rspec', '~> 1.3.2'
+gem 'rspec-rails', '~> 1.3.4'
 gem 'ruby-msg', '~> 1.5.0'
 gem 'test-unit', '~> 1.2.3' if RUBY_VERSION.to_f >= 1.9
 gem 'tmail'
