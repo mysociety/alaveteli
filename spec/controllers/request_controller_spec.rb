@@ -1,7 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-require 'json'
-
 describe RequestController, "when listing recent requests" do
     fixtures :users, :public_bodies, :public_body_translations, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events
 

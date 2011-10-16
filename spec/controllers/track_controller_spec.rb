@@ -1,7 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-require 'json'
-
 describe TrackController, "when making a new track on a request" do
     before do
         @ir = mock_model(InfoRequest, :url_title => 'myrequest',

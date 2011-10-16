@@ -17,8 +17,6 @@
 #
 # $Id: profile_photo.rb,v 1.2 2009-09-17 21:10:05 francis Exp $
 #
-require 'mahoro'
-require 'RMagick'
 
 class ProfilePhoto < ActiveRecord::Base
     WIDTH = 96

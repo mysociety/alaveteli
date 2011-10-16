@@ -1,7 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-require 'json'
-
 describe PublicBodyController, "when showing a body" do
     integrate_views
     fixtures :public_bodies, :public_body_translations, :public_body_versions

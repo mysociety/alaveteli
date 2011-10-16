@@ -1,9 +1,6 @@
 [submodule "commonlib"]
 	path = commonlib
 	url = git://git.mysociety.org/commonlib
-[submodule "vendor/rails"]
-	path = vendor/rails
-	url = git://github.com/rails/rails.git
 [submodule "vendor/rails-locales"]
 	path = vendor/rails-locales
 	url = git://github.com/svenfuchs/rails-i18n.git
