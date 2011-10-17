@@ -360,7 +360,7 @@ class PublicBody < ActiveRecord::Base
                 set_of_importing = Set.new()
                 field_names = { 'name'=>1, 'request_email'=>2 }     # Default values in case no field list is given
                 line = 0
-                CSV::Reader.parse(csv) do |row|
+                CSV.parse(csv) do |row|
                     line = line + 1
 
                     # Parse the first line as a field list if it starts with '#'
