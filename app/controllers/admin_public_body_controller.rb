@@ -166,7 +166,7 @@ class AdminPublicBodyController < AdminController
                         notes.push("Dry run was successful, real run would do as above.")
                     else
                         # And if OK, with real run
-                        en = PublicBody.import_csv(csv_contents, params[:tag], false, admin_http_auth_user(), available_locales)
+                        en = PublicBody.import_csv(csv_contents, params[:tag], false, admin_http_auth_user(), I18n.available_locales)
                         errors = en[0]
                         notes = en[1]
                         if errors.size != 0
