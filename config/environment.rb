@@ -134,6 +134,7 @@ I18n.available_locales = available_locales.map {|locale_name| locale_name.to_sym
 I18n.default_locale = default_locale
 
 # Load monkey patches and other things from lib/
+require 'ruby19.rb'
 require 'tmail_extensions.rb'
 require 'activesupport_cache_extensions.rb'
 require 'timezone_fixes.rb'
