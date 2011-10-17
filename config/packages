@@ -41,4 +41,4 @@ rubygems
 libfcgi-dev
 gettext
 python-yaml
-wkhtmltopdf
+wkhtmltopdf-static
