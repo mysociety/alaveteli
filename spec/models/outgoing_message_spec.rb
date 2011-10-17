@@ -1,7 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe OutgoingMessage, " when making an outgoing message" do
-    fixtures :outgoing_messages, :info_requests, :incoming_messages, :public_bodies, :public_body_translations
+    fixtures :public_bodies, :public_body_translations, :public_body_versions, :info_requests, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
     before do
         @om = outgoing_messages(:useless_outgoing_message)
@@ -38,7 +38,7 @@ end
 
 
 describe IncomingMessage, " when censoring data" do
-    fixtures :outgoing_messages, :info_requests
+    fixtures :info_requests, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
     before do
         @om = outgoing_messages(:useless_outgoing_message)

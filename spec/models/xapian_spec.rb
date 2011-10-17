@@ -1,7 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe User, " when indexing users with Xapian" do
-    fixtures :users
+    fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
     it "should search by name" do
         rebuild_xapian_index
@@ -34,7 +34,7 @@ describe User, " when indexing users with Xapian" do
 end
 
 describe PublicBody, " when indexing public bodies with Xapian" do
-    fixtures :public_bodies, :public_body_translations, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments
+    fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
     before(:each) do
         load_raw_emails_data(raw_emails)
     end
@@ -72,7 +72,7 @@ describe PublicBody, " when indexing public bodies with Xapian" do
 end
 
 describe PublicBody, " when indexing requests by body they are to" do
-    fixtures :public_bodies, :public_body_translations, :info_requests, :raw_emails, :comments, :info_request_events
+    fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
     before(:each) do
         load_raw_emails_data(raw_emails)
@@ -132,7 +132,7 @@ describe PublicBody, " when indexing requests by body they are to" do
 end
 
 describe User, " when indexing requests by user they are from" do
-    fixtures :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events
+    fixtures :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
     before(:each) do
         load_raw_emails_data(raw_emails)
     end
@@ -219,7 +219,7 @@ describe User, " when indexing requests by user they are from" do
 end
 
 describe User, " when indexing comments by user they are by" do
-    fixtures :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events
+    fixtures :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
     before(:each) do
         load_raw_emails_data(raw_emails)
     end
@@ -256,7 +256,7 @@ describe User, " when indexing comments by user they are by" do
 end
 
 describe InfoRequest, " when indexing requests by their title" do
-    fixtures :info_requests, :raw_emails, :incoming_messages, :comments, :info_request_events
+    fixtures :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
     before(:each) do
         load_raw_emails_data(raw_emails)
     end
@@ -287,7 +287,7 @@ describe InfoRequest, " when indexing requests by their title" do
 end
 
 describe InfoRequest, " when indexing requests by tag" do
-    fixtures :info_requests, :raw_emails, :incoming_messages, :comments, :info_request_events
+    fixtures :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
     before(:each) do
         load_raw_emails_data(raw_emails)
     end
@@ -309,7 +309,7 @@ describe InfoRequest, " when indexing requests by tag" do
 end
 
 describe PublicBody, " when indexing authorities by tag" do
-    fixtures :public_bodies, :public_body_translations, :raw_emails, :incoming_messages, :outgoing_messages, :comments
+    fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
     before(:each) do
         load_raw_emails_data(raw_emails)
     end
