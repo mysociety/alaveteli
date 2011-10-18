@@ -16,4 +16,5 @@ TAGS
 /vendor/plugins/*theme
 /locale/model_attributes.rb
 /files/
-public/download
+/public/download
+/public/alavetelitheme
