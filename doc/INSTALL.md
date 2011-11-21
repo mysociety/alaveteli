@@ -82,6 +82,18 @@ The following command will set up a user 'foi' with password 'foi':
     ALTER DATABASE foi_development OWNER TO foi;
     ALTER DATABASE foi_test OWNER TO foi;" | psql
 
+# Configure email
+
+You will need to set up an email server (MTA) to send and receive
+emails.  Full configuration for an MTA is beyond the scope of this
+document. However, just to get the tests to pass, you will at a
+minimum need to allow sending emails via a `sendmail` command (a
+requirement met, for example, with `sudo apt-get install exim4`).
+
+To receive email in a production setup, you will also need to
+configure your MTA to forward incoming emails to Alaveteli.  An
+example configuration is described in `INSTALL-exim4.md`.
+
 # Set up configs
 
 For overall application settings, copy `config/general.yml-example` to
@@ -283,3 +295,16 @@ is supplied in `../conf/varnish-alaveteli.vcl`.
     [https://github.com/sebbacon/alaveteli/issues/128#issuecomment-1814845](this issue followup)
     for further discussion.
     
+*   **I'm getting lots of `SourceIndex.new(hash) is deprecated` errors when running the tests**
+
+    The latest versions of rubygems contain a large number of noisy
+    deprecation warnings that you can't turn off individually.  Rails
+    2.x isn't under active development so isn't going to get fixed (in
+    the sense of using a non-deprecated API).  So the only vaguely
+    sensible way to avoid this noisy output is to downgrade rubygems.
+    
+    For example, you might do this by uninstalling your
+    system-packaged rubygems, and then installing the latest rubygems
+    from source, and finally executing `sudo gem update --system
+    1.6.2`.
+
