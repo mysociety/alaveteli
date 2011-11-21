@@ -6,12 +6,15 @@ In `/etc/exim4/conf.d/main/04_alaveteli_options`:
     ALAVETELI_HOME=/path/to/alaveteli/software
     ALAVETELI_USER=www-data
     log_file_path=/var/log/exim4/exim-%slog-%D
+    log_selector=+all -retry_defer 
 
 (The user ALAVETELI_USER should have write permissions on ALAVETELI_HOME).
 
 Note that the name and location of the log files created by Exim must match 
-what the script `load-exim-logs` expects, hence the need for the extra
-`log_file_path` setting.
+what the `load-exim-logs` script expects, hence the need for the extra
+`log_file_path` setting. And the `check-recent-requests-sent` scripts expects
+the logs to contain the `from=<...>` envelope information, so we make the 
+logs more verbose with `log_selector`. 
 
 In `/etc/exim4/conf.d/router/04_alaveteli`:
 

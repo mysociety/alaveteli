@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
-"POT-Creation-Date: 2011-09-27 15:58+0200\n"
-"PO-Revision-Date: 2011-09-27 14:08+0000\n"
+"POT-Creation-Date: 2011-10-09 01:10+0200\n"
+"PO-Revision-Date: 2011-10-08 23:08+0000\n"
 "Last-Translator: dcabo <david.cabo@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -917,6 +917,34 @@ msgstr "Nombre de usuario ya en uso"
 msgid "Name is already taken"
 msgstr "El nombre ya está siendo utilizado"
 
+#: app/models/request_mailer.rb:50
+msgid "FOI response requires admin - "
+msgstr "Respuesta a solicitud necesita un administrador - "
+
+#: app/models/request_mailer.rb:67
+msgid "New response to your FOI request - "
+msgstr "Nueva respuesta a tu solicitud de información - "
+
+#: app/models/request_mailer.rb:86
+msgid "Delayed response to your FOI request - "
+msgstr "Respuesta retrasada a tu solicitud de acceso a información - "
+
+#: app/models/request_mailer.rb:105
+msgid "You're long overdue a response to your FOI request - "
+msgstr "La respuesta a tu solicitud de información está muy retrasada - "
+
+#: app/models/request_mailer.rb:125
+msgid "Was the response you got to your FOI request any good?"
+msgstr "¿Fue la respuesta a tu solicitud satisfactoria?"
+
+#: app/models/request_mailer.rb:168
+msgid "Somebody added a note to your FOI request - "
+msgstr "Nuevo comentario en tu solicitud de acceso a información - "
+
+#: app/models/request_mailer.rb:177
+msgid "Some notes have been added to your FOI request - "
+msgstr "Nuevos comentarios en tu solicitud de acceso a información - "
+
 #: app/models/request_mailer.rb:218
 msgid "Could not identify the request from the email address"
 msgstr ""
@@ -1555,6 +1583,12 @@ msgid ""
 "<strong>latest_status:not_held</strong> will match only requests that are "
 "<em>currently</em> marked as not held."
 msgstr ""
+"All the options below can use <strong>status</strong> or "
+"<strong>latest_status</strong> before the colon. For example, "
+"<strong>status:not_held</strong> will match requests which have "
+"<em>ever</em> been marked as not held; "
+"<strong>latest_status:not_held</strong> will match only requests that are "
+"<em>currently</em> marked as not held."
 
 #: app/views/general/_advanced_search_tips.rhtml:26
 msgid "Waiting for the public authority to reply"
@@ -1618,6 +1652,11 @@ msgid ""
 "been sent; <strong>latest_variety:sent</strong> will match only requests "
 "that are <em>currently</em> marked as sent."
 msgstr ""
+"All the options below can use <strong>variety</strong> or "
+"<strong>latest_variety</strong> before the colon. For example, "
+"<strong>variety:sent</strong> will match requests which have <em>ever</em> "
+"been sent; <strong>latest_variety:sent</strong> will match only requests "
+"that are <em>currently</em> marked as sent."
 
 #: app/views/general/_advanced_search_tips.rhtml:42
 msgid "Original request sent"
@@ -1736,8 +1775,9 @@ msgid "Search the site to find what you were looking for."
 msgstr "Buscar en esta web para encontrar lo que busca."
 
 #: app/views/general/exception_caught.rhtml:12
-#: app/views/general/frontpage.rhtml:23 app/views/general/search.rhtml:32
-#: app/views/general/search.rhtml:45 app/views/public_body/list.rhtml:42
+#: app/views/general/frontpage.rhtml:23 app/views/general/search.rhtml:17
+#: app/views/general/search.rhtml:32 app/views/general/search.rhtml:45
+#: app/views/public_body/list.rhtml:43
 #: app/views/request/_request_filter_form.rhtml:49
 #: app/views/request/select_authority.rhtml:41
 msgid "Search"
@@ -1845,6 +1885,10 @@ msgstr "No se encontraron solicitudes para su búsqueda."
 msgid "Results page {{page_number}}"
 msgstr "Página de resultados {{page_number}}"
 
+#: app/views/general/search.rhtml:19
+msgid "Search results"
+msgstr "Resultados de la búsqueda"
+
 #: app/views/general/search.rhtml:24
 msgid ""
 "To use the advanced search, combine phrases and labels as described in the "
@@ -1911,6 +1955,20 @@ msgstr "mensajes de usuarios"
 msgid "messages from authorities"
 msgstr "mensajes de organismos"
 
+#: app/views/general/search.rhtml:112
+#: app/views/request/_request_filter_form.rhtml:23
+msgid "Made between"
+msgstr "Realizadas entre"
+
+#: app/views/general/search.rhtml:114
+#: app/views/request/_request_filter_form.rhtml:25
+msgid "and"
+msgstr "y"
+
+#: app/views/general/search.rhtml:121
+msgid "Filter"
+msgstr "Filtrar"
+
 #: app/views/general/search.rhtml:129
 msgid "Show most relevant results first"
 msgstr "Muestra resultados más relevantes primero"
@@ -1922,6 +1980,10 @@ msgstr "Resultados recientes primero"
 #: app/views/general/search.rhtml:133
 msgid "Recently described results first"
 msgstr "Resultados descritos recientemente primero"
+
+#: app/views/general/search.rhtml:141
+msgid "Track this search"
+msgstr "Seguir esta búsqueda"
 
 #: app/views/general/search.rhtml:156
 msgid "One public authority found"
@@ -1964,7 +2026,7 @@ msgstr "Solicitudes {{start_count}} a {{end_count}} de {{total_count}}"
 msgid "Would you like to see a website like this in your country?"
 msgstr "¿Le gustaría ver una web como esta en su país?"
 
-#: app/views/layouts/default.rhtml:15 app/views/layouts/no_chrome.rhtml:8
+#: app/views/layouts/default.rhtml:8 app/views/layouts/no_chrome.rhtml:8
 msgid "Make and browse Freedom of Information (FOI) requests"
 msgstr "Realiza una petición de información o mira las ya realizadas"
 
@@ -2066,29 +2128,33 @@ msgstr "Mostrar sólo..."
 msgid "Beginning with"
 msgstr "Comenzando por"
 
-#: app/views/public_body/list.rhtml:28
+#: app/views/public_body/list.rhtml:29
 msgid "<a href=\"%s\">Are we missing a public authority?</a>."
 msgstr "<a href=\"%s\">¿Nos falta algún organismo público?</a>."
 
-#: app/views/public_body/list.rhtml:31
+#: app/views/public_body/list.rhtml:32
 msgid "List of all authorities (CSV)"
 msgstr "Lista de todos los organismos (CSV)"
 
-#: app/views/public_body/list.rhtml:35
+#: app/views/public_body/list.rhtml:36
 msgid "Public authorities - {{description}}"
 msgstr "Organismos públicos - {{description}}"
 
-#: app/views/public_body/list.rhtml:37
+#: app/views/public_body/list.rhtml:38
 msgid "Public authorities"
 msgstr "Organismos públicos"
 
-#: app/views/public_body/list.rhtml:46
+#: app/views/public_body/list.rhtml:47
 msgid "Found {{count}} public bodies {{description}}"
 msgstr "Encontrados {{count}} organismos públicos {{description}}"
 
-#: app/views/public_body/list.rhtml:50
+#: app/views/public_body/list.rhtml:51
 msgid "<a href=\"%s\">Can't find the one you want?</a>"
 msgstr "<a href=\"%s\">¿No encuentra el que busca?</a>"
+
+#: app/views/public_body/show.rhtml:1
+msgid " - view and make Freedom of Information requests"
+msgstr " - Envía y busca entre solicitudes de acceso a información"
 
 #: app/views/public_body/show.rhtml:4
 msgid "Follow this authority"
@@ -2667,14 +2733,6 @@ msgstr "Términos"
 #: app/views/request/_request_filter_form.rhtml:11
 msgid "Search for words in:"
 msgstr "Buscar palabras en:"
-
-#: app/views/request/_request_filter_form.rhtml:23
-msgid "Made between"
-msgstr "Realizadas entre"
-
-#: app/views/request/_request_filter_form.rhtml:25
-msgid "and"
-msgstr "y"
 
 #: app/views/request/_request_filter_form.rhtml:30
 msgid "all requests"
@@ -3955,7 +4013,8 @@ msgstr ""
 "Recuérdame</label> (mantiene la sesión abierta;\n"
 "    no lo use en un ordenador público) "
 
-#: app/views/user/_signin.rhtml:32
+#: app/views/user/_signin.rhtml:32 app/views/user/sign.rhtml:2
+#: app/views/user/sign.rhtml:33
 msgid "Sign in"
 msgstr "Abrir sesión"
 
@@ -3993,7 +4052,7 @@ msgstr ""
 msgid "Password: (again)"
 msgstr "Contraseña: (de nuevo)"
 
-#: app/views/user/_signup.rhtml:46
+#: app/views/user/_signup.rhtml:46 app/views/user/sign.rhtml:40
 msgid "Sign up"
 msgstr "Registrarse"
 
@@ -4429,6 +4488,10 @@ msgstr " Por favor abra una sesión o cree una nueva cuenta"
 #: app/views/user/sign.rhtml:28
 msgid "please sign in or make a new account."
 msgstr "por favor abra una sesión o cree una nueva cuenta."
+
+#: app/views/user/sign.rhtml:37
+msgid "- or -"
+msgstr "- o -"
 
 #: app/views/user/signchangeemail.rhtml:15
 msgid "Old e-mail:"

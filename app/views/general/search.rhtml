@@ -14,9 +14,9 @@
 
 <div id="header_left">
   <% if @query.nil? %>
-    <h1>Search</h1>
+    <h1><%= _("Search") %></h1>
   <% else %>
-     <h1>Search results</h1> 
+     <h1><%= _("Search results") %></h1> 
   <% end%>
 
   <% if @advanced %>
@@ -109,16 +109,16 @@
           </div>
 
           <div id="date_range">
-            <label class="form_label title" for="query">Made between</label>
+            <label class="form_label title" for="query"><%= _("Made between") %></label>
             <%= text_field_tag(:request_date_after, params[:request_date_after], {:class => "use-datepicker", :size => 10}) %>
-            <label class="form_label" for="query">&nbsp;and</label>
+            <label class="form_label" for="query">&nbsp;<%= _("and") %></label>
             <%= text_field_tag(:request_date_before, params[:request_date_before], {:class => "use-datepicker", :size => 10}) %>
           </div>
         </div>  
       <% end %>
       
       <div>
-        <%= submit_tag("Filter") if @variety_postfix == "requests"%>
+        <%= submit_tag _("Filter") if @variety_postfix == "requests"%>
       </div>
     <% end # Search form%>
     
@@ -138,7 +138,7 @@
 
 <% if @track_thing  && (@xapian_bodies_hits > 0 || @xapian_users_hits > 0 || @total_hits == 0)%>
   <div id="header_right">
-    <h2>Track this search</h2>
+    <h2><%= _('Track this search')%></h2>
     <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => false, :location => 'main' } %>
   </div>
 <% end %>

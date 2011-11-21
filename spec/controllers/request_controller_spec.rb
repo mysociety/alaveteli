@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 require 'json'
@@ -239,11 +240,10 @@ describe RequestController, "when showing one request" do
             get :download_entire_request, :url_title => title
             assigns[:url_path].should have_text(/#{title}.zip$/)
             response.location.should have_text(/#{assigns[:url_path]}/)
-            assigns[:url_path].should_not == old_path
             zipfile = Zip::ZipFile.open(File.join(File.dirname(__FILE__), "../../cache/zips", assigns[:url_path])) { |zipfile|
                 zipfile.count.should == 4
-zipfile.entries.each {|x| puts x.name}
             }
+            assigns[:url_path].should_not == old_path
         end
     end
 end

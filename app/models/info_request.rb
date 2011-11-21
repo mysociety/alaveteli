@@ -240,9 +240,9 @@ public
         # into some sort of separate jurisdiction dependent file
         if self.public_body.url_name == 'general_register_office'
             # without GQ in the subject, you just get an auto response
-            self.law_used_full + ' request GQ - ' + self.title
+            _('{{law_used_full}} request GQ - {{title}}',:law_used_full=>self.law_used_full,:title=>self.title)
         else
-            self.law_used_full + ' request - ' + self.title
+            _('{{law_used_full}} request - {{title}}',:law_used_full=>self.law_used_full,:title=>self.title)
         end
     end
     def email_subject_followup(incoming_message = nil)
@@ -260,36 +260,36 @@ public
     # Two sorts of laws for requests, FOI or EIR 
     def law_used_full
         if self.law_used == 'foi'
-            return "Freedom of Information"
+            return _("Freedom of Information")
         elsif self.law_used == 'eir'
-            return "Environmental Information Regulations"
+            return _("Environmental Information Regulations")
         else
             raise "Unknown law used '" + self.law_used + "'"
         end
     end
     def law_used_short
         if self.law_used == 'foi'
-            return "FOI"
+            return _("FOI")
         elsif self.law_used == 'eir'
-            return "EIR"
+            return _("EIR")
         else
             raise "Unknown law used '" + self.law_used + "'"
         end
     end
     def law_used_act
         if self.law_used == 'foi'
-            return "Freedom of Information Act"
+            return _("Freedom of Information Act")
         elsif self.law_used == 'eir'
-            return "Environmental Information Regulations"
+            return _("Environmental Information Regulations")
         else
             raise "Unknown law used '" + self.law_used + "'"
         end
     end
     def law_used_with_a
         if self.law_used == 'foi'
-            return "A Freedom of Information request"
+            return _("A Freedom of Information request")
         elsif self.law_used == 'eir'
-            return "An Environmental Information Regulations request"
+            return _("An Environmental Information Regulations request")
         else
             raise "Unknown law used '" + self.law_used + "'"
         end
