@@ -114,7 +114,7 @@ def validate_as_body(html)
 end
 
 def basic_auth_login(request, username = nil, password = nil)
-    username = MySociety::Config.get('ADMIN_USERNAME') if username.nil?
+   username = MySociety::Config.get('ADMIN_USERNAME') if username.nil?
     password = MySociety::Config.get('ADMIN_PASSWORD') if password.nil?
     request.env["HTTP_AUTHORIZATION"] = "Basic " + Base64::encode64("#{username}:#{password}")
 end
