@@ -193,7 +193,7 @@ describe User, "when reindexing referencing models" do
 end
 
 describe User, "when checking abilities" do
-    fixtures :users
+    fixtures :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
     before do
         @user = users(:bob_smith_user)
@@ -283,7 +283,7 @@ describe User, "when setting a profile photo" do
 end
 
 describe User, "when unconfirmed" do
-    fixtures :users
+    fixtures :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
     before do
         @user = users(:unconfirmed_user)
@@ -295,7 +295,7 @@ describe User, "when unconfirmed" do
 end
 
 describe User, "when emails have bounced" do
-    fixtures :users
+    fixtures :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
     it "should record bounces" do
         User.record_bounce_for_email("bob@localhost", "The reason we think the email bounced (e.g. a bounce message)")

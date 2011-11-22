@@ -2,15 +2,19 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe GeneralController, "when searching" do
     integrate_views
-    fixtures [ :public_bodies,
-               :public_body_translations,
-               :users,
-               :raw_emails,
-               :info_requests,
-               :info_request_events,
-               :outgoing_messages,
-               :incoming_messages,
-               :comments ]
+    fixtures [
+      :public_bodies,
+      :public_body_translations,
+      :public_body_versions,
+      :users,
+      :info_requests,
+      :raw_emails,
+      :incoming_messages,
+      :outgoing_messages,
+      :comments,
+      :info_request_events,
+      :track_things,
+    ]
 
     before(:each) do
         load_raw_emails_data(raw_emails)
