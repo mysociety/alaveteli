@@ -1,4 +1,4 @@
-#id,email,name,name.es
-,north_west_foi@localhost,North West Fake Authority,Autoridad del Nordeste
-,scottish_foi@localhost,Scottish Fake Authority,Autoridad Escocesa
-,ni_foi@localhost,Fake Authority of Northern Ireland,Autoridad Irlandesa
+#id,request_email,name,name.es,tag_string,home_page
+,north_west_foi@localhost,North West Fake Authority,Autoridad del Nordeste,,http://northwest.org
+,scottish_foi@localhost,Scottish Fake Authority,Autoridad Escocesa,scottish,http://scottish.org
+,ni_foi@localhost,Fake Authority of Northern Ireland,Autoridad Irlandesa,fake aTag

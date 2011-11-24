@@ -29,7 +29,6 @@
 # general not specific to IncomingMessage.
 
 require 'alaveteli_file_types'
-require 'external_command'
 require 'htmlentities'
 require 'rexml/document'
 require 'zip/zip'
@@ -255,7 +254,8 @@ class FOIAttachment
             text = CGI.escapeHTML(text)
             text = MySociety::Format.make_clickable(text)
             html = text.gsub(/\n/, '<br>')
-            return "<html><head></head><body>" + html + "</body></html>", wrapper_id
+            return '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd"><html><head><title></title></head><body>' + html + "</body></html>", wrapper_id
         end
 
         # the extractions will also produce image files, which go in the
@@ -606,21 +606,13 @@ class IncomingMessage < ActiveRecord::Base
         text.gsub!(/^(>.*\n)/, replacement)
         text.gsub!(/^(On .+ (wrote|said):\n)/, replacement)
 
-        # Multiple line sections
-        # http://www.whatdotheyknow.com/request/identity_card_scheme_expenditure
-        # http://www.whatdotheyknow.com/request/parliament_protest_actions
-        # http://www.whatdotheyknow.com/request/64/response/102
-        # http://www.whatdotheyknow.com/request/47/response/283
-        # http://www.whatdotheyknow.com/request/30/response/166
-        # http://www.whatdotheyknow.com/request/52/response/238
-        # http://www.whatdotheyknow.com/request/224/response/328 # example with * * * * *
-        # http://www.whatdotheyknow.com/request/297/response/506
-        ['-', '_', '*', '#'].each do |score|
+        ['-', '_', '*', '#'].each do |scorechar|
+            score = /(?:[#{scorechar}]\s*){8,}/
             text.sub!(/(Disclaimer\s+)?  # appears just before
                         (
-                            \s*(?:[#{score}]\s*){8,}\s*\n.*? # top line
+                            \s*#{score}\n(?:(?!#{score}\n).)*? # top line
                             (disclaimer:\n|confidential|received\sthis\semail\sin\serror|virus|intended\s+recipient|monitored\s+centrally|intended\s+(for\s+|only\s+for\s+use\s+by\s+)the\s+addressee|routinely\s+monitored|MessageLabs|unauthorised\s+use)
-                            .*?((?:[#{score}]\s*){8,}\s*\n|\z) # bottom line OR end of whole string (for ones with no terminator XXX risky)
+                            .*?(?:#{score}|\z) # bottom line OR end of whole string (for ones with no terminator XXX risky)
                         )
                        /imx, replacement)
         end
@@ -987,7 +979,6 @@ class IncomingMessage < ActiveRecord::Base
                 attachment.filename = _get_censored_part_file_name(leaf)
                 if leaf.within_rfc822_attachment
                     attachment.within_rfc822_subject = leaf.within_rfc822_attachment.subject
-
                     # Test to see if we are in the first part of the attached
                     # RFC822 message and it is text, if so add headers.
                     # XXX should probably use hunting algorithm to find main text part, rather than
@@ -1121,38 +1112,38 @@ class IncomingMessage < ActiveRecord::Base
             tempfile.print body
             tempfile.flush
             if content_type == 'application/vnd.ms-word'
-                external_command("/usr/bin/wvText", tempfile.path, tempfile.path + ".txt")
+                AlaveteliExternalCommand.run("/usr/bin/wvText", tempfile.path, tempfile.path + ".txt")
                 # Try catdoc if we get into trouble (e.g. for InfoRequestEvent 2701)
                 if not File.exists?(tempfile.path + ".txt")
-                    external_command("/usr/bin/catdoc", tempfile.path, :append_to => text)
+                    AlaveteliExternalCommand.run("/usr/bin/catdoc", tempfile.path, :append_to => text)
                 else
                     text += File.read(tempfile.path + ".txt") + "\n\n"
                     File.unlink(tempfile.path + ".txt")
                 end
             elsif content_type == 'application/rtf'
                 # catdoc on RTF prodcues less comments and extra bumf than --text option to unrtf
-                external_command("/usr/bin/catdoc", tempfile.path, :append_to => text)
+                AlaveteliExternalCommand.run("/usr/bin/catdoc", tempfile.path, :append_to => text)
             elsif content_type == 'text/html'
                 # lynx wordwraps links in its output, which then don't get formatted properly
                 # by Alaveteli. We use elinks instead, which doesn't do that.
-                external_command("/usr/bin/elinks", "-eval", "'set document.codepage.assume = \"utf-8\"'", "-dump-charset", "utf-8", "-force-html", "-dump",
+                AlaveteliExternalCommand.run("/usr/bin/elinks", "-eval", "'set document.codepage.assume = \"utf-8\"'", "-dump-charset", "utf-8", "-force-html", "-dump",
                     tempfile.path, :append_to => text)
             elsif content_type == 'application/vnd.ms-excel'
                 # Bit crazy using /usr/bin/strings - but xls2csv, xlhtml and
                 # py_xls2txt only extract text from cells, not from floating
                 # notes. catdoc may be fooled by weird character sets, but will
                 # probably do for UK FOI requests.
-                external_command("/usr/bin/strings", tempfile.path, :append_to => text)
+                AlaveteliExternalCommand.run("/usr/bin/strings", tempfile.path, :append_to => text)
             elsif content_type == 'application/vnd.ms-powerpoint'
                 # ppthtml seems to catch more text, but only outputs HTML when
                 # we want text, so just use catppt for now
-                external_command("/usr/bin/catppt", tempfile.path, :append_to => text)
+                AlaveteliExternalCommand.run("/usr/bin/catppt", tempfile.path, :append_to => text)
             elsif content_type == 'application/pdf'
-                external_command("/usr/bin/pdftotext", tempfile.path, "-", :append_to => text)
+                AlaveteliExternalCommand.run("/usr/bin/pdftotext", tempfile.path, "-", :append_to => text)
             elsif content_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
                 # This is Microsoft's XML office document format.
                 # Just pull out the main XML file, and strip it of text.
-                xml = external_command("/usr/bin/unzip", "-qq", "-c", tempfile.path, "word/document.xml")
+                xml = AlaveteliExternalCommand.run("/usr/bin/unzip", "-qq", "-c", tempfile.path, "word/document.xml")
                 if !xml.nil?
                     doc = REXML::Document.new(xml)
                     text += doc.each_element( './/text()' ){}.join(" ")
@@ -1305,10 +1296,15 @@ class IncomingMessage < ActiveRecord::Base
         prefix = email
         prefix =~ /^(.*)@/
         prefix = $1
-        if !prefix.nil? && prefix.downcase.match(/^(postmaster|mailer-daemon|auto_reply|donotreply|no.reply)$/)
+        if !prefix.nil? && prefix.downcase.match(/^(postmaster|mailer-daemon|auto_reply|do.?not.?reply|no.reply)$/)
             return false
         end
-
+        if !self.mail['return-path'].nil? && self.mail['return-path'].addr == "<>"
+            return false
+        end
+        if !self.mail['auto-submitted'].nil? && !self.mail['auto-submitted'].keys.empty?
+            return false
+        end
         return true
     end
 
@@ -1336,34 +1332,6 @@ class IncomingMessage < ActiveRecord::Base
     end
     private :normalise_content_type
 
-    def self.external_command(program_name, *args)
-        # Run an external program, and return its output.
-        # Standard error is suppressed unless the program
-        # fails (i.e. returns a non-zero exit status).
-        opts = {}
-        if !args.empty? && args[-1].is_a?(Hash)
-            opts = args.pop
-        end
-    
-        xc = ExternalCommand.new(program_name, *args)
-        if opts.has_key? :append_to
-            xc.out = opts[:append_to]
-        end
-        xc.run()
-        if xc.status != 0
-            # Error
-            $stderr.puts("Error from #{program_name} #{args.join(' ')}:")
-            $stderr.print(xc.err)
-            return nil
-        else
-            if opts.has_key? :append_to
-                opts[:append_to] << "\n\n"
-            else
-                return xc.out
-            end
-        end
-    end
-    private_class_method :external_command
 end
 
 

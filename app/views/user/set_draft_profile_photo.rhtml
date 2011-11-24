@@ -2,7 +2,7 @@
 
 <% raise "internal error" if not @user %>
 
-<h2>Choose your profile photo</h2>
+<h2><%= _("Choose your profile photo") %></h2>
 
 <%= foi_error_messages_for :draft_profile_photo %>
 
@@ -52,7 +52,7 @@
 <% end %>
 
 <p>
-    <%= link_to h("Cancel, return to your profile page"), user_url(@user) %>
+    <%= link_to _("Cancel, return to your profile page"), user_url(@user) %>
 </p>
 
 </div>

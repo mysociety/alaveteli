@@ -8,6 +8,8 @@
 
 class UserController < ApplicationController
 
+    layout :select_layout
+    
     protect_from_forgery :only => [ :contact,
                                     :set_profile_photo,
                                     :signchangeemail,
@@ -24,7 +26,7 @@ class UserController < ApplicationController
 
         @display_user = User.find(:first, :conditions => [ "url_name = ? and email_confirmed = ?", params[:url_name], true ])
         if not @display_user
-            raise "user not found, url_name=" + params[:url_name]
+            raise ActiveRecord::RecordNotFound.new("user not found, url_name=" + params[:url_name])
         end
         @same_name_users = User.find(:all, :conditions => [ "name ilike ? and email_confirmed = ? and id <> ?", @display_user.name, true, @display_user.id ], :order => "created_at")
 
@@ -33,9 +35,16 @@ class UserController < ApplicationController
         # Use search query for this so can collapse and paginate easily
         # XXX really should just use SQL query here rather than Xapian.
         begin
-            @xapian_requests = perform_search([InfoRequestEvent], 'requested_by:' + @display_user.url_name, 'newest', 'request_collapse')
-            @xapian_comments = perform_search([InfoRequestEvent], 'commented_by:' + @display_user.url_name, 'newest', nil)
-
+            requests_query = 'requested_by:' + @display_user.url_name
+            comments_query = 'commented_by:' + @display_user.url_name
+            if !params[:user_query].nil?
+                requests_query += " " + params[:user_query]
+                comments_query += " " + params[:user_query]
+                @match_phrase = _("{{search_results}} matching '{{query}}'", :search_results => "", :query => params[:user_query])
+            end
+            @xapian_requests = perform_search([InfoRequestEvent], requests_query, 'newest', 'request_collapse')
+            @xapian_comments = perform_search([InfoRequestEvent], comments_query, 'newest', nil)
+            
             if (@page > 1)
                 @page_desc = " (page " + @page.to_s + ")"
             else
@@ -71,7 +80,7 @@ class UserController < ApplicationController
     # Login form
     def signin
         work_out_post_redirect
-
+        @request_from_foreign_country = country_from_ip != MySociety::Config.get('ISO_COUNTRY_CODE', 'GB')
         # make sure we have cookies
         if session.instance_variable_get(:@dbman)
             if not session.instance_variable_get(:@dbman).instance_variable_get(:@original)
@@ -106,7 +115,12 @@ class UserController < ApplicationController
                     session[:user_id] = @user_signin.id
                     session[:user_circumstance] = nil
                     session[:remember_me] = params[:remember_me] ? true : false
-                    do_post_redirect @post_redirect
+                    
+                    if is_modal_dialog
+                        render :action => 'signin_successful'
+                    else
+                        do_post_redirect @post_redirect
+                    end
                 else
                     send_confirmation_mail @user_signin
                 end
@@ -118,10 +132,15 @@ class UserController < ApplicationController
     # Create new account form
     def signup
         work_out_post_redirect
-
+        @request_from_foreign_country = country_from_ip != MySociety::Config.get('ISO_COUNTRY_CODE', 'GB')
         # Make the user and try to save it
         @user_signup = User.new(params[:user_signup])
-        if !@user_signup.valid?
+        error = false
+        if @request_from_foreign_country && !verify_recaptcha
+            flash.now[:error] = _("There was an error with the words you entered, please try again.")
+            error = true
+        end
+        if error || !@user_signup.valid?
             # Show the form
             render :action => 'sign'
         else
@@ -133,7 +152,6 @@ class UserController < ApplicationController
                 # New unconfirmed user
                 @user_signup.email_confirmed = false
                 @user_signup.save!
-
                 send_confirmation_mail @user_signup
                 return
             end
@@ -454,7 +472,7 @@ class UserController < ApplicationController
     def get_profile_photo
         @display_user = User.find(:first, :conditions => [ "url_name = ? and email_confirmed = ?", params[:url_name], true ])
         if !@display_user
-            raise "user not found, url_name=" + params[:url_name]
+            raise ActiveRecord::RecordNotFound.new("user not found, url_name=" + params[:url_name])
         end
         if !@display_user.profile_photo
             raise "user has no profile photo, url_name=" + params[:url_name]
@@ -500,6 +518,15 @@ class UserController < ApplicationController
 
     private
 
+    def is_modal_dialog
+        (params[:modal].to_i != 0)
+    end
+    
+    # when logging in through a modal iframe, don't display chrome around the content
+    def select_layout
+        is_modal_dialog ? 'no_chrome' : 'default'
+    end
+    
     # Decide where we are going to redirect back to after signin/signup, and record that
     def work_out_post_redirect
         # Redirect to front page later if nothing else specified

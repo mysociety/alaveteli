@@ -113,9 +113,9 @@ def validate_as_body(html)
         "<html><head><title>Test</title></head><body>#{html}</body></html>")
 end
 
-def basic_auth_login(request)
-    username = MySociety::Config.get('ADMIN_USERNAME')
-    password = MySociety::Config.get('ADMIN_PASSWORD')
+def basic_auth_login(request, username = nil, password = nil)
+   username = MySociety::Config.get('ADMIN_USERNAME') if username.nil?
+    password = MySociety::Config.get('ADMIN_PASSWORD') if password.nil?
     request.env["HTTP_AUTHORIZATION"] = "Basic " + Base64::encode64("#{username}:#{password}")
 end
 
@@ -148,7 +148,7 @@ if $tempfilecount.nil?
 end
 
 def load_raw_emails_data(raw_emails)
-        raw_email = raw_emails(:useless_raw_email)
+    raw_email = raw_emails(:useless_raw_email)
     begin
         raw_email.destroy_file_representation!
     rescue Errno::ENOENT

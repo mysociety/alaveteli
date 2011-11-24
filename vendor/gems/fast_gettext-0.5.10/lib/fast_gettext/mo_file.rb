@@ -22,8 +22,12 @@ module FastGettext
     #returns the plural forms or all singular translations that where found
     def plural(*msgids)
       translations = plural_translations(msgids)
-      return translations unless translations.empty?
-      msgids.map{|msgid| self[msgid] || msgid} #try to translate each id
+      return translations 
+      # XXX: 20111004 - Temporary patch for release/0.4 until we upgrade the fast_gettext gem
+      # to 0.60. The code used to say 'unless translations.empty?', but that's wrong:
+      # we must return [] if not found - otherwise chained repositories won't work.
+      # Also removed: 
+      #   msgids.map{|msgid| self[msgid] || msgid} #try to translate each id
     end
 
     def pluralisation_rule

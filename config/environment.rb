@@ -6,7 +6,7 @@
 # ENV['RAILS_ENV'] ||= 'production'
 
 # Specifies gem version of Rails to use when vendor/rails is not present
-RAILS_GEM_VERSION = '2.3.11' unless defined? RAILS_GEM_VERSION
+RAILS_GEM_VERSION = '2.3.14' unless defined? RAILS_GEM_VERSION
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
@@ -28,6 +28,12 @@ load "config.rb"
 load "format.rb"
 load "debug_helpers.rb"
 load "util.rb"
+# Patch Rails::GemDependency to cope with older versions of rubygems, e.g. in Debian Lenny
+# Restores override removed in https://github.com/rails/rails/commit/c20a4d18e36a13b5eea3155beba36bb582c0cc87
+# without effecting method behaviour
+# and adds fallback gem call removed in https://github.com/rails/rails/commit/4c3725723f15fab0a424cb1318b82b460714b72f
+require File.join(File.dirname(__FILE__), '../lib/old_rubygems_patch')
+
 
 Rails::Initializer.run do |config|
   # Load intial mySociety config
@@ -55,6 +61,7 @@ Rails::Initializer.run do |config|
   config.gem "gettext", :version => '>=1.9.3'
   config.gem "fast_gettext", :version => '>=0.4.8'
   config.gem "rack", :version => '1.1.0'
+  config.gem "rdoc", :version => '>=2.4.3'
   config.gem "recaptcha", :lib => "recaptcha/rails"
   config.gem 'rspec', :lib => false, :version => '1.3.1'
   config.gem 'rspec-rails', :lib => false, :version => '1.3.3'
@@ -103,7 +110,7 @@ ActionMailer::Base.default_url_options[:host] = MySociety::Config.get("DOMAIN", 
 # So that javascript assets use full URL, so proxied admin URLs read javascript OK
 if (MySociety::Config.get("DOMAIN", "") != "")
     ActionController::Base.asset_host = Proc.new { |source, request|
-        if request.fullpath.match(/^\/admin\//)
+        if ENV["RAILS_ENV"] != "test" && request.fullpath.match(/^\/admin\//)
             MySociety::Config.get("ADMIN_PUBLIC_URL", "")
         else
             MySociety::Config.get("DOMAIN", 'localhost:3000')
@@ -123,7 +130,7 @@ end
 
 FastGettext.default_available_locales = available_locales
 I18n.locale = default_locale
-I18n.available_locales = available_locales
+I18n.available_locales = available_locales.map {|locale_name| locale_name.to_sym}
 I18n.default_locale = default_locale
 
 # Load monkey patches and other things from lib/
@@ -137,3 +144,6 @@ require 'willpaginate_hack.rb'
 require 'sendmail_return_path.rb'
 require 'tnef.rb'
 require 'i18n_fixes.rb'
+require 'rack_quote_monkeypatch.rb'
+require 'world_foi_websites.rb'
+require 'alaveteli_external_command.rb'

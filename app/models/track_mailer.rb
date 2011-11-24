@@ -26,6 +26,12 @@ class TrackMailer < ApplicationMailer
         @body = { :user => user, :email_about_things => email_about_things, :unsubscribe_url => unsubscribe_url }
     end
 
+    def contact_from_name_and_email
+        contact_name = MySociety::Config.get("TRACK_SENDER_NAME", 'Alaveteli')
+        contact_email = MySociety::Config.get("TRACK_SENDER_EMAIL", 'contact@localhost')
+        return "#{contact_name} <#{contact_email}>"
+    end
+
     # Send email alerts for tracked things.  Never more than one email
     # a day, nor about events which are more than a week old, nor
     # events about which emails have been sent within the last two
@@ -34,12 +40,15 @@ class TrackMailer < ApplicationMailer
     # Useful query to run by hand to see how many alerts are due:
     #   User.find(:all, :conditions => [ "last_daily_track_email < ?", Time.now - 1.day ]).size
     def self.alert_tracks
+        done_something = false
         now = Time.now()
         users = User.find(:all, :conditions => [ "last_daily_track_email < ?", now - 1.day ])
         if users.empty?
-            return false
+            return done_something
         end
         for user in users
+            next if !user.should_be_emailed?
+            
             email_about_things = []
             track_things = TrackThing.find(:all, :conditions => [ "tracking_user_id = ? and track_medium = ?", user.id, 'email_daily' ])
             for track_thing in track_things
@@ -85,7 +94,11 @@ class TrackMailer < ApplicationMailer
             # If we have anything to send, then send everything for the user in one mail
             if email_about_things.size > 0
                 # Send the email
+
+                previous_locale = I18n.locale
+                I18n.locale = user.get_locale
                 TrackMailer.deliver_event_digest(user, email_about_things)
+                I18n.locale = previous_locale
             end
 
             # Record that we've now sent those alerts to that user
@@ -104,8 +117,9 @@ class TrackMailer < ApplicationMailer
             user.last_daily_track_email = now
             user.no_xapian_reindex = true
             user.save!
+            done_something = true
         end
-        return true
+        return done_something
     end
 
     def self.alert_tracks_loop

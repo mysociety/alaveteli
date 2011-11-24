@@ -36,7 +36,16 @@ code. Run:
 
   git submodule update --init
 
-to fetch the contents of the submodules. 
+to fetch the contents of the submodules.
+
+Optionally, you may want to install
+[wkhtmltopdf](http://code.google.com/p/wkhtmltopdf/downloads/list).
+We recommend downloading the latest, statically compiled version from
+the project website, as this allows running headless (i.e. without a
+graphical interface running) on Linux.  If you do install
+`wkhtmltopdf`, you need to edit a setting in the config file to point
+to it (see below).
+
 
 # Configure Database 
 
@@ -72,6 +81,18 @@ The following command will set up a user 'foi' with password 'foi':
     GRANT ALL PRIVILEGES ON DATABASE foi_test TO foi;    	
     ALTER DATABASE foi_development OWNER TO foi;
     ALTER DATABASE foi_test OWNER TO foi;" | psql
+
+# Configure email
+
+You will need to set up an email server (MTA) to send and receive
+emails.  Full configuration for an MTA is beyond the scope of this
+document. However, just to get the tests to pass, you will at a
+minimum need to allow sending emails via a `sendmail` command (a
+requirement met, for example, with `sudo apt-get install exim4`).
+
+To receive email in a production setup, you will also need to
+configure your MTA to forward incoming emails to Alaveteli.  An
+example configuration is described in `INSTALL-exim4.md`.
 
 # Set up configs
 
@@ -228,7 +249,12 @@ It is not recommended to run the website using the default Rails web
 server.  There are various recommendations here:
 http://rubyonrails.org/deploy
 
-We usually use Passenger / mod_rails.
+We usually use Passenger / mod_rails.  The file at `conf/httpd.conf`
+contains the WhatDoTheyKnow settings.  At a minimum, you should
+include the following in an Apache configuration file:
+
+    PassengerResolveSymlinksInDocumentRoot on
+    PassengerMaxPoolSize 6 # Recommend setting this to 3 or less on servers with 512MB RAM
 
 Under all but light loads, it is strongly recommended to run the
 server behind an http accelerator like Varnish.  A sample varnish VCL
@@ -252,3 +278,33 @@ is supplied in `../conf/varnish-alaveteli.vcl`.
     Did you remember to remove the file `alaveteli/config/rails_env.rb`
     as described above?  It's created every time you run
     `script/rails-post-deploy`
+
+*   **Non-ASCII characters are being displayed as asterisks in my incoming messages**
+
+    We rely on `elinks` to convert HTML email to plain text.
+    Normally, the encoding should just work, but under some
+    circumstances it appears that `elinks` ignores the parameters
+    passed to it from Alaveteli.
+    
+    To force `elinks` always to treat input as UTF8, add the following
+    to `/etc/elinks/elinks.conf`:
+    
+        set document.codepage.assume = "utf-8"
+        
+    You should also check that your locale is set up wrongly.  See 
+    [https://github.com/sebbacon/alaveteli/issues/128#issuecomment-1814845](this issue followup)
+    for further discussion.
+    
+*   **I'm getting lots of `SourceIndex.new(hash) is deprecated` errors when running the tests**
+
+    The latest versions of rubygems contain a large number of noisy
+    deprecation warnings that you can't turn off individually.  Rails
+    2.x isn't under active development so isn't going to get fixed (in
+    the sense of using a non-deprecated API).  So the only vaguely
+    sensible way to avoid this noisy output is to downgrade rubygems.
+    
+    For example, you might do this by uninstalling your
+    system-packaged rubygems, and then installing the latest rubygems
+    from source, and finally executing `sudo gem update --system
+    1.6.2`.
+

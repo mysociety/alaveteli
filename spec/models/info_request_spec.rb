@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe InfoRequest do 
 
     describe "guessing a request from an email" do 
-        fixtures :info_requests, :public_bodies, :incoming_messages, :raw_emails
+        fixtures :public_bodies, :info_requests, :raw_emails, :incoming_messages
 
         before(:each) do
             @im = incoming_messages(:useless_incoming_message)
@@ -74,7 +74,7 @@ describe InfoRequest do
     
     describe " when emailing" do
     
-        fixtures :info_requests, :info_request_events, :outgoing_messages, :public_bodies, :public_body_translations, :users, :comments
+        fixtures :public_bodies, :public_body_translations, :users, :info_requests, :outgoing_messages, :info_request_events, :comments
 
         before do
             @info_request = info_requests(:fancy_dog_request)
@@ -154,7 +154,7 @@ describe InfoRequest do
     end 
 
     describe "when calculating the status" do
-        fixtures :info_requests, :info_request_events, :holidays, :public_bodies, :public_body_translations, :outgoing_messages
+        fixtures :holidays, :public_bodies, :public_body_translations, :info_requests, :outgoing_messages, :info_request_events
 
         before do
             @ir = info_requests(:naughty_chicken_request)
@@ -231,7 +231,7 @@ describe InfoRequest do
 
 
     describe "when calculating the status for a school" do
-        fixtures :info_requests, :info_request_events, :holidays, :public_bodies, :public_body_translations
+        fixtures :holidays, :public_bodies, :public_body_translations, :info_requests, :info_request_events
 
         before do
             @ir = info_requests(:naughty_chicken_request)

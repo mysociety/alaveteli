@@ -45,13 +45,18 @@ class AdminController < ApplicationController
         end
     end
 	private
+
 	def authenticate
-            username = MySociety::Config.get('ADMIN_USERNAME', '')
-            password = MySociety::Config.get('ADMIN_PASSWORD', '')
-            if !username.empty? && !password.empty?
+            config_username = MySociety::Config.get('ADMIN_USERNAME', '')
+            config_password = MySociety::Config.get('ADMIN_PASSWORD', '')
+            if !config_username.empty? && !config_password.empty?
                 authenticate_or_request_with_http_basic do |user_name, password|
-                    user_name == username && password == password
-                    session[:using_admin] = 1
+                    if user_name == config_username && password == config_password
+                        session[:using_admin] = 1
+                        request.env['REMOTE_USER'] = user_name
+                    else
+                        request_http_basic_authentication
+                    end
                 end
             else
                 session[:using_admin] = 1

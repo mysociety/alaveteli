@@ -689,8 +689,8 @@ module ActsAsXapian
             self.class.to_s + "-" + self.id.to_s
         end
 
-        def xapian_value(field, type = nil)
-            if self.respond_to?("translations")
+        def xapian_value(field, type = nil, index_translations = false)
+            if index_translations && self.respond_to?("translations")
                 if type == :date or type == :boolean
                     value = single_xapian_value(field, type = type)
                 else
@@ -777,7 +777,7 @@ module ActsAsXapian
               for text in self.xapian_options[:texts]
                   ActsAsXapian.term_generator.increase_termpos # stop phrases spanning different text fields
                   # XXX the "1" here is a weight that could be varied for a boost function
-                  ActsAsXapian.term_generator.index_text(xapian_value(text), 1) 
+                  ActsAsXapian.term_generator.index_text(xapian_value(text, nil, true), 1) 
               end
             end
 

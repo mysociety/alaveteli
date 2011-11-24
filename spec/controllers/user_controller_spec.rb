@@ -7,7 +7,7 @@ require 'json'
 
 describe UserController, "when showing a user" do
     integrate_views
-    fixtures :users, :outgoing_messages, :incoming_messages, :raw_emails, :info_requests, :info_request_events, :comments, :public_bodies, :public_body_translations
+    fixtures :users, :public_bodies, :public_body_translations, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :info_request_events, :comments
     before(:each) do
         load_raw_emails_data(raw_emails)
     end
@@ -30,6 +30,13 @@ describe UserController, "when showing a user" do
     it "should assign the user" do
         get :show, :url_name => "bob_smith"
         assigns[:display_user].should == users(:bob_smith_user)
+    end
+
+    it "should search the user's contributions" do
+        get :show, :url_name => "bob_smith"
+        assigns[:xapian_requests].results.count.should == 2
+        get :show, :url_name => "bob_smith", :user_query => "money"
+        assigns[:xapian_requests].results.count.should == 1
     end
 
 # Error handling not quite good enough for this yet
@@ -104,7 +111,7 @@ describe UserController, "when signing in" do
         get :signin, :r => "/list"
         response.should render_template('sign')
         post_redirect = get_last_postredirect
-        post :signin, { :user_signin => { :email => 'silly@localhost', :password => 'jonespassword' },
+        post :signin, { :user_signin => { :email => 'unconfirmed@localhost', :password => 'jonespassword' },
             :token => post_redirect.token
         }
         response.should render_template('confirm')
@@ -116,7 +123,7 @@ describe UserController, "when signing in" do
         get :signin, :r => "/list"
         post_redirect = get_last_postredirect
 
-        post :signin, { :user_signin => { :email => 'silly@localhost', :password => 'jonespassword' },
+        post :signin, { :user_signin => { :email => 'unconfirmed@localhost', :password => 'jonespassword' },
             :token => post_redirect.token
         }
         response.should send_email
@@ -136,7 +143,7 @@ describe UserController, "when signing in" do
         # check confirmation URL works
         session[:user_id].should be_nil
         get :confirm, :email_token => post_redirect.email_token
-        session[:user_id].should == users(:silly_name_user).id
+        session[:user_id].should == users(:unconfirmed_user).id
         response.should redirect_to(:controller => 'request', :action => 'list', :post_redirect => 1)
     end
 
@@ -171,6 +178,19 @@ describe UserController, "when signing up" do
         deliveries[0].body.should include("not reveal your email")
     end
 
+    it "should send confirmation mail in other languages or different locales" do
+        session[:locale] = "es"
+        post :signup, {:user_signup => { :email => 'new@localhost', :name => 'New Person',
+            :password => 'sillypassword', :password_confirmation => 'sillypassword',
+           }
+        }
+        response.should render_template('confirm')
+
+        deliveries = ActionMailer::Base.deliveries
+        deliveries.size.should  == 1
+        deliveries[0].body.should include("No revelaremos su dirección de correo")
+    end
+
     it "should send special 'already signed up' mail if you fill the form in with existing registered email " do
         post :signup, { :user_signup => { :email => 'silly@localhost', :name => 'New Person',
             :password => 'sillypassword', :password_confirmation => 'sillypassword' } 
@@ -179,7 +199,9 @@ describe UserController, "when signing up" do
 
         deliveries = ActionMailer::Base.deliveries
         deliveries.size.should  == 1
-        deliveries[0].body.should include("when you already have an")
+        
+        # This text may span a line break, depending on the length of the SITE_NAME
+        deliveries[0].body.should match(/when\s+you\s+already\s+have\s+an/)
     end
 
     # XXX need to do bob@localhost signup and check that sends different email

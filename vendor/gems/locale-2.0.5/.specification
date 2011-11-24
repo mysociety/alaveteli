@@ -1,6 +1,12 @@
 --- !ruby/object:Gem::Specification 
 name: locale
 version: !ruby/object:Gem::Version 
+  hash: 5
+  prerelease: 
+  segments: 
+  - 2
+  - 0
+  - 5
   version: 2.0.5
 platform: ruby
 authors: 
@@ -13,7 +19,7 @@ date: 2009-11-13 00:00:00 +00:00
 default_executable: 
 dependencies: []
 
-description: Ruby-Locale is the pure ruby library which provides basic APIs for localization.
+description: "    Ruby-Locale is the pure ruby library which provides basic APIs for localization.\n"
 email: mutomasa at gmail.com
 executables: []
 
@@ -70,27 +76,35 @@ files:
 - samples/sample_1.rb
 has_rdoc: true
 homepage: http://locale.rubyforge.org/
+licenses: []
+
 post_install_message: 
 rdoc_options: []
 
 require_paths: 
 - lib
 required_ruby_version: !ruby/object:Gem::Requirement 
+  none: false
   requirements: 
   - - ">="
     - !ruby/object:Gem::Version 
+      hash: 3
+      segments: 
+      - 0
       version: "0"
-  version: 
 required_rubygems_version: !ruby/object:Gem::Requirement 
+  none: false
   requirements: 
   - - ">="
     - !ruby/object:Gem::Version 
+      hash: 3
+      segments: 
+      - 0
       version: "0"
-  version: 
 requirements: []
 
 rubyforge_project: locale
-rubygems_version: 1.2.0
+rubygems_version: 1.4.2
 signing_key: 
 specification_version: 3
 summary: Ruby-Locale is the pure ruby library which provides basic APIs for localization.

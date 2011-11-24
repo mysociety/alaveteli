@@ -1,14 +1,13 @@
-<div id="body_sidebar">
+<div id="right_column_flip">
+    <h2><%=_('Show only...')%></h2>
 
-    <h1><%=_('Show only...')%></h1>
-
-    <h2><%=_('Alphabet') %></h2>
+    <h3><%=_('Beginning with') %></h3>
     <ul><li>
         <%= render :partial => 'alphabet' %>
-    </li></ul>
-
+    </li>
+    </ul>
     <% first_row = true %>
-    <% for row in PublicBodyCategories::CATEGORIES_WITH_HEADINGS %>
+    <% for row in PublicBodyCategories::get().with_headings() %>
         <% if row.instance_of?(Array) %>
             <li>
             <%= link_to_unless (@tag == row[0]), row[1], list_public_bodies_url(:tag => row[0]) %> 
@@ -19,36 +18,35 @@
             <% else %>
                 <% first_row = false %>
             <% end %>
-            <h2><%=h row%></h2>
+            <h3><%=h row%></h3>
             <ul>
         <% end %>
     <% end %>
-    </ul>
-
+    <% if not first_row %>
+	    </ul>
+    <% end %>
     <p>
 	<%= _('<a href="%s">Are we missing a public authority?</a>.') % [help_requesting_path + '#missing_body'] %>
     </p>
     <p>
       <%= link_to _('List of all authorities (CSV)'), all_public_bodies_csv_url() %>
     </p>
-
 </div>
 
 <% @title = _("Public authorities - {{description}}", :description => @description) %>
+<div id="left_column_flip">
+<h1><%= _('Public authorities') %></h1>
 
-<h1><%=@title%></h1>
-
-<p class="subtitle">
-    <%= @public_bodies.size %> <%= _('in total') %>
-	(<%= _('<a href="%s">can\'t find the one you want?</a>') % [help_requesting_path + '#missing_body'] %>)
-</p>
-
-<% if @tag.size == 1 %>
-    <p><%= render :partial => 'alphabet' %></p>
+<% form_tag(list_public_bodies_default_url, :method => "get", :id=>"search_form") do %>
+ <div>
+  <%= text_field_tag(:public_body_query, params[:public_body_query]) %> 
+  <%= submit_tag(_("Search")) %>
+ </div>
 <% end %>
+
+<h2 class="publicbody_results"><%= _('Found {{count}} public bodies {{description}}', :count=>@public_bodies.size, :description=>@description) %></h2>
 <%= render :partial => 'body_listing', :locals => { :public_bodies => @public_bodies } %>
-<% if @tag.size == 1 && @public_bodies.size > 0 %>
-    <p><%= render :partial => 'alphabet' %></p>
-<% end %>
 
-<%= will_paginate(@public_bodies) %>
+  <%= will_paginate(@public_bodies) %><br/>
+  <%= _('<a href="%s">Can\'t find the one you want?</a>') % [help_requesting_path + '#missing_body'] %>
+</div>

@@ -13,18 +13,25 @@
 <% end %>
 
 
-<p>
+<div>
 <strong>Id:</strong> <%= @admin_user.id%> <br>
 <% for column in User.content_columns %>
     <strong><%= column.human_name %>:</strong> 
     <% if column.name == 'email' %>
         <a href="mailto:<%=h @admin_user.email %>"><%=h @admin_user.email%></a>
+    <% elsif column.name == 'email_bounce_message' %>
+      <% if !@admin_user.email_bounce_message.empty? %>
+          <a href="../show_bounce_message/<%= @admin_user.id.to_s %>">See bounce message</a>
+      <% end %>
     <% else %>
         <%=h @admin_user.send(column.name) %>
     <% end %>
+    <% if column.name == 'email_bounced_at' && !@admin_user.email_bounced_at.nil? %>
+      <form action="../clear_bounce/<%= @admin_user.id.to_s %>" style="display: inline;"><input type="submit" name="action" value="Clear bounce"></form>
+    <% end %>
     <br>
 <% end %>
-</p>
+</div>
 
 <p>
     <%= link_to 'Public page', main_url(user_url(@admin_user)) %>

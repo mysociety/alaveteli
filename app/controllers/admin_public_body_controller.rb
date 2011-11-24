@@ -6,6 +6,8 @@
 #
 # $Id: admin_public_body_controller.rb,v 1.23 2009-08-26 00:58:29 francis Exp $
 
+require "public_body_categories"
+
 class AdminPublicBodyController < AdminController
     def index
         list
@@ -82,16 +84,12 @@ class AdminPublicBodyController < AdminController
     end
 
     def new
-        @locale = self.locale_from_params()
-        PublicBody.with_locale(@locale) do 
-            @public_body = PublicBody.new
-            render
-        end
+        @public_body = PublicBody.new
+        render
     end
-
+    
     def create
-        @locale = self.locale_from_params()
-        PublicBody.with_locale(@locale) do 
+        PublicBody.with_locale(I18n.default_locale) do
             params[:public_body][:last_edit_editor] = admin_http_auth_user()
             @public_body = PublicBody.new(params[:public_body])
             if @public_body.save
@@ -104,17 +102,13 @@ class AdminPublicBodyController < AdminController
     end
 
     def edit
-        @locale = self.locale_from_params()
-        PublicBody.with_locale(@locale) do 
-            @public_body = PublicBody.find(params[:id])
-            @public_body.last_edit_comment = ""
-            render
-        end
+        @public_body = PublicBody.find(params[:id])
+        @public_body.last_edit_comment = ""        
+        render
     end
 
     def update
-        @locale = self.locale_from_params()
-        PublicBody.with_locale(@locale) do 
+        PublicBody.with_locale(I18n.default_locale) do
             params[:public_body][:last_edit_editor] = admin_http_auth_user()
             @public_body = PublicBody.find(params[:id])
             if @public_body.update_attributes(params[:public_body])
@@ -146,41 +140,36 @@ class AdminPublicBodyController < AdminController
 
     def import_csv
         if params[:csv_file]
-            if !params[:tag].empty?
-                if params['commit'] == 'Dry run'
-                    dry_run_only = true
-                elsif params['commit'] == 'Upload'
-                    dry_run_only = false
-                else
-                    raise "internal error, unknown button label"
-                end
-                
-                # Try with dry run first
-                csv_contents = params[:csv_file].read
-                en = PublicBody.import_csv(csv_contents, params[:tag], true, admin_http_auth_user(), I18n.available_locales)
-                errors = en[0]
-                notes = en[1]
-
-                if errors.size == 0
-                    if dry_run_only
-                        notes.push("Dry run was successful, real run would do as above.")
-                    else
-                        # And if OK, with real run
-                        en = PublicBody.import_csv(csv_contents, params[:tag], false, admin_http_auth_user(), available_locales)
-                        errors = en[0]
-                        notes = en[1]
-                        if errors.size != 0
-                            raise "dry run mismatched real run"
-                        end
-                        notes.push("Import was successful.")
-                    end
-                end
-                @errors = errors.join("\n")
-                @notes = notes.join("\n")
+            if params['commit'] == 'Dry run'
+                dry_run_only = true
+            elsif params['commit'] == 'Upload'
+                dry_run_only = false
             else
-                @errors = "Please enter a tag, use a singular e.g. sea_fishery_committee"
-                @notes = ""
+                raise "internal error, unknown button label"
             end
+            
+            # Try with dry run first
+            csv_contents = params[:csv_file].read
+            en = PublicBody.import_csv(csv_contents, params[:tag], params[:tag_behaviour], true, admin_http_auth_user(), I18n.available_locales)
+            errors = en[0]
+            notes = en[1]
+
+            if errors.size == 0
+                if dry_run_only
+                    notes.push("Dry run was successful, real run would do as above.")
+                else
+                    # And if OK, with real run
+                    en = PublicBody.import_csv(csv_contents, params[:tag], params[:tag_behaviour], false, admin_http_auth_user(), I18n.available_locales)
+                    errors = en[0]
+                    notes = en[1]
+                    if errors.size != 0
+                        raise "dry run mismatched real run"
+                    end
+                    notes.push("Import was successful.")
+                end
+            end
+            @errors = errors.join("\n")
+            @notes = notes.join("\n")
         else
             @errors = ""
             @notes = ""

@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe AdminRequestController, "when administering requests" do
     integrate_views
-    fixtures :info_requests, :outgoing_messages, :users, :info_request_events, :public_bodies, :public_body_translations
+    fixtures :users, :public_bodies, :public_body_translations, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events
     before { basic_auth_login @request }
 
     it "shows the index/list page" do
@@ -41,7 +41,7 @@ end
 
 describe AdminRequestController, "when administering the holding pen" do
     integrate_views
-    fixtures :info_requests, :incoming_messages, :raw_emails, :users, :public_bodies, :public_body_translations
+    fixtures :users, :public_bodies, :public_body_translations, :info_requests, :raw_emails, :incoming_messages
     before(:each) do
         basic_auth_login @request
         load_raw_emails_data(raw_emails)
@@ -71,7 +71,7 @@ describe AdminRequestController, "when administering the holding pen" do
         post :redeliver_incoming, :redeliver_incoming_message_id => new_im.id, :url_title => ir.url_title        
         ir = InfoRequest.find_by_url_title(ir.url_title)
         ir.incoming_messages.length.should == 2
-        response.should redirect_to('http://test.host/admin/request/show/101')
+        response.should redirect_to(:controller=>'admin_request', :action=>'show', :id=>101)
         InfoRequest.holding_pen_request.incoming_messages.length.should == 0
     end
 

@@ -1,13 +1,10 @@
-# £2k p/a
-# talk about margins
-# 
-
+# -*- coding: utf-8 -*-
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 require 'json'
 
 describe RequestController, "when listing recent requests" do
-    fixtures :info_requests, :outgoing_messages, :users, :info_request_events, :public_bodies, :public_body_translations, :incoming_messages, :raw_emails, :comments
+    fixtures :users, :public_bodies, :public_body_translations, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events
 
     before(:each) do
         load_raw_emails_data(raw_emails)
@@ -24,13 +21,29 @@ describe RequestController, "when listing recent requests" do
         response.should render_template('list')
     end
 
+    it "should filter requests" do
+        get :list, :view => 'all'
+        assigns[:list_results].size.should == 2
+        get :list, :view => 'successful'
+        assigns[:list_results].size.should == 0
+    end
+
+    it "should filter requests by date" do
+        get :list, :view => 'all', :request_date_before => '13/10/2007'
+        assigns[:list_results].size.should == 1
+        get :list, :view => 'all', :request_date_after => '13/10/2007'
+        assigns[:list_results].size.should == 1
+        get :list, :view => 'all', :request_date_after => '10/10/2007', :request_date_before => '01/01/2010'
+        assigns[:list_results].size.should == 2
+    end
+
     it "should assign the first page of results" do
         xap_results = mock_model(ActsAsXapian::Search, 
                    :results => (1..25).to_a.map { |m| { :model => m } },
                    :matches_estimated => 103)
 
         InfoRequest.should_receive(:full_search).
-          with([InfoRequestEvent],"variety:sent", "created_at", anything, anything, anything, anything).
+          with([InfoRequestEvent]," variety:sent", "created_at", anything, anything, anything, anything).
           and_return(xap_results)
         get :list, :view => 'recent'
         assigns[:list_results].size.should == 25
@@ -39,7 +52,7 @@ end
 
 describe RequestController, "when showing one request" do
     
-    fixtures :info_requests, :info_request_events, :public_bodies, :public_body_translations, :public_body_translations, :users, :incoming_messages, :raw_emails, :outgoing_messages, :comments # all needed as integrating views
+    fixtures :public_bodies, :public_body_translations, :public_body_translations, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events # all needed as integrating views
     
     before(:each) do
         load_raw_emails_data(raw_emails)
@@ -125,6 +138,21 @@ describe RequestController, "when showing one request" do
             response.should have_text(/First hello/)
         end
 
+        it "should convert message body to UTF8" do
+            ir = info_requests(:fancy_dog_request) 
+            receive_incoming_mail('iso8859_2_raw_email.email', ir.incoming_email)
+            get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
+            response.should have_text(/tënde/u)
+        end
+
+        it "should generate valid HTML verson of plain text attachments " do
+            ir = info_requests(:fancy_dog_request) 
+            receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
+            get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => ['hello.txt.html'], :skip_cache => 1
+            response.content_type.should == "text/html"
+            response.should have_text(/Second hello/)
+        end
+
         it "should treat attachments with unknown extensions as binary" do
             ir = info_requests(:fancy_dog_request)
             receive_incoming_mail('incoming-request-attachment-unknown-extension.email', ir.incoming_email)
@@ -141,7 +169,7 @@ describe RequestController, "when showing one request" do
             lambda {
                 get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, 
                     :file_name => ['http://trying.to.hack']
-            }.should raise_error(RuntimeError)
+            }.should raise_error(ActiveRecord::RecordNotFound)
         end
 
         it "should censor attachments downloaded as binary" do
@@ -196,12 +224,32 @@ describe RequestController, "when showing one request" do
             response.body.should have_tag("p.attachment strong", /goodbye.txt/m) 
         end
 
- 
+        it "should make a zipfile available, which has a different URL when it changes" do
+            ir = info_requests(:fancy_dog_request) 
+            session[:user_id] = ir.user.id # bob_smith_user
+            receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
+            title = 'why_do_you_have_such_a_fancy_dog'
+            get :download_entire_request, :url_title => title
+            assigns[:url_path].should have_text(/#{title}.zip$/)
+            old_path = assigns[:url_path]
+            response.location.should have_text(/#{assigns[:url_path]}$/)
+            zipfile = Zip::ZipFile.open(File.join(File.dirname(__FILE__), "../../cache/zips", old_path)) { |zipfile|
+                zipfile.count.should == 2
+            }
+            receive_incoming_mail('incoming-request-attachment-unknown-extension.email', ir.incoming_email)
+            get :download_entire_request, :url_title => title
+            assigns[:url_path].should have_text(/#{title}.zip$/)
+            response.location.should have_text(/#{assigns[:url_path]}/)
+            zipfile = Zip::ZipFile.open(File.join(File.dirname(__FILE__), "../../cache/zips", assigns[:url_path])) { |zipfile|
+                zipfile.count.should == 4
+            }
+            assigns[:url_path].should_not == old_path
+        end
     end
 end
 
 describe RequestController, "when changing prominence of a request" do
-    fixtures :info_requests, :info_request_events, :public_bodies, :public_body_translations, :users, :incoming_messages, :raw_emails, :outgoing_messages # all needed as integrating views
+    fixtures :public_bodies, :public_body_translations, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :info_request_events # all needed as integrating views
 
     before(:each) do
         load_raw_emails_data(raw_emails)
@@ -288,9 +336,36 @@ end
 #    response.headers["Status"].should == "404 Not Found"
 #  end
 
+describe RequestController, "when searching for an authority" do
+    fixtures :public_bodies, :users
+
+    # Whether or not sign-in is required for this step is configurable,
+    # so we make sure we're logged in, just in case
+    before do
+        @user = users(:bob_smith_user)
+    end
+    
+    it "should return nothing for the empty query string" do
+        session[:user_id] = @user.id
+        get :select_authority, :query => ""
+        
+        response.should render_template('select_authority')
+        assigns[:xapian_requests].results.size == 0
+    end
+
+    it "should return matching bodies" do
+        session[:user_id] = @user.id
+        get :select_authority, :query => "Quango"
+        
+        response.should render_template('select_authority')
+        assigns[:xapian_requests].results.size == 1
+        assigns[:xapian_requests].results[0][:model].name.should == public_bodies(:geraldine_public_body).name
+    end
+end
+
 describe RequestController, "when creating a new request" do
     integrate_views
-    fixtures :info_requests, :outgoing_messages, :public_bodies, :public_body_translations, :users
+    fixtures :public_bodies, :public_body_translations, :users, :info_requests, :outgoing_messages
 
     before do
         @user = users(:bob_smith_user)
@@ -308,6 +383,13 @@ describe RequestController, "when creating a new request" do
         response.should redirect_to(:controller => 'general', :action => 'frontpage')
     end
 
+    it "should redirect 'bad request' page when a body has no email address" do
+        @body.request_email = ""
+        @body.save!
+        get :new, :public_body_id => @body.id
+        response.should render_template('new_bad_contact')
+    end
+
     it "should accept a public body parameter" do
         get :new, :public_body_id => @body.id
         assigns[:info_request].public_body.should == @body    
@@ -322,7 +404,20 @@ describe RequestController, "when creating a new request" do
         response.should render_template('new')
     end
 
+    it "should redirect to sign in page when input is good and nobody is logged in" do
+        params = { :info_request => { :public_body_id => @body.id, 
+            :title => "Why is your quango called Geraldine?", :tag_string => "" },
+            :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." },
+            :submitted_new_request => 1, :preview => 0
+        }
+        post :new, params
+        post_redirect = PostRedirect.get_last_post_redirect
+        response.should redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
+        # post_redirect.post_params.should == params # XXX get this working. there's a : vs '' problem amongst others
+    end
+
     it "should show preview when input is good" do
+        session[:user_id] = @user.id
         post :new, { :info_request => { :public_body_id => @body.id, 
             :title => "Why is your quango called Geraldine?", :tag_string => "" },
             :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." },
@@ -338,18 +433,6 @@ describe RequestController, "when creating a new request" do
             :submitted_new_request => 1, :preview => 0,
             :reedit => "Re-edit this request"
         response.should render_template('new')
-    end
-
-    it "should redirect to sign in page when input is good and nobody is logged in" do
-        params = { :info_request => { :public_body_id => @body.id, 
-            :title => "Why is your quango called Geraldine?", :tag_string => "" },
-            :outgoing_message => { :body => "This is a silly letter. It is too short to be interesting." },
-            :submitted_new_request => 1, :preview => 0
-        }
-        post :new, params
-        post_redirect = PostRedirect.get_last_post_redirect
-        response.should redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
-        # post_redirect.post_params.should == params # XXX get this working. there's a : vs '' problem amongst others
     end
 
     it "should create the request and outgoing message, and send the outgoing message by email, and redirect to request page when input is good and somebody is logged in" do
@@ -423,6 +506,7 @@ describe RequestController, "when making a new request" do
         @user.stub!(:get_undescribed_requests).and_return([])
         @user.stub!(:can_leave_requests_undescribed?).and_return(false)
         @user.stub!(:can_file_requests?).and_return(true)
+        @user.stub!(:locale).and_return("en")
         User.stub!(:find).and_return(@user)
 
         @body = mock_model(PublicBody, :id => 314, :eir_only? => false, :is_requestable? => true, :name => "Test Quango")
@@ -465,7 +549,7 @@ end
 
 describe RequestController, "when viewing an individual response for reply/followup" do
     integrate_views
-    fixtures :info_requests, :info_request_events, :public_bodies, :public_body_translations, :users, :incoming_messages, :raw_emails, :outgoing_messages, :comments # all needed as integrating views
+    fixtures :public_bodies, :public_body_translations, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events # all needed as integrating views
 
     before(:each) do
         load_raw_emails_data(raw_emails)
@@ -483,6 +567,22 @@ describe RequestController, "when viewing an individual response for reply/follo
         response.should render_template('show_response')
     end
 
+    it "should offer the opportunity to reply to the main address" do
+        session[:user_id] = users(:bob_smith_user).id
+        get :show_response, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message)
+        response.body.should have_tag("div#other_recipients ul li", /the main FOI contact address for/)
+    end
+
+    it "should offer an opportunity to reply to another address" do
+        session[:user_id] = users(:bob_smith_user).id
+        ir = info_requests(:fancy_dog_request)
+        ir.allow_new_responses_from = "anybody"
+        ir.save!
+        receive_incoming_mail('incoming-request-plain.email', ir.incoming_email, "Frob <frob@bonce.com>")
+        get :show_response, :id => ir.id, :incoming_message_id => incoming_messages(:useless_incoming_message)
+        response.body.should have_tag("div#other_recipients ul li", /Frob/)
+    end
+
     it "should not show individual responses if request hidden, even if request owner" do
         ir = info_requests(:fancy_dog_request) 
         ir.prominence = 'hidden'
@@ -496,7 +596,7 @@ end
 
 describe RequestController, "when classifying an information request" do
 
-    fixtures :info_requests, :info_request_events, :public_bodies, :public_body_translations, :users, :incoming_messages, :raw_emails, :outgoing_messages, :comments # all needed as integrating views
+    fixtures :public_bodies, :public_body_translations, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events # all needed as integrating views
 
     before(:each) do 
         @dog_request = info_requests(:fancy_dog_request)
@@ -720,18 +820,16 @@ describe RequestController, "when classifying an information request" do
             response.should redirect_to(:controller => 'help', :action => 'unhappy', :url_title => @dog_request.url_title)
         end
 
-        describe "when using custom statuses from the theme" do
+        it "knows about extended states" do
             InfoRequest.send(:require, File.expand_path(File.join(File.dirname(__FILE__), '..', 'models', 'customstates')))
             InfoRequest.send(:include, InfoRequestCustomStates)
             InfoRequest.class_eval('@@custom_states_loaded = true')
             RequestController.send(:require, File.expand_path(File.join(File.dirname(__FILE__), '..', 'models', 'customstates')))
             RequestController.send(:include, RequestControllerCustomStates)
             RequestController.class_eval('@@custom_states_loaded = true')
-            it "knows about extended states" do
-                Time.stub!(:now).and_return(Time.utc(2007, 11, 10, 00, 01)) 
-                post_status('deadline_extended')
-                flash[:notice].should == 'Authority has requested extension of the deadline.'
-            end
+            Time.stub!(:now).and_return(Time.utc(2007, 11, 10, 00, 01)) 
+            post_status('deadline_extended')
+            flash[:notice].should == 'Authority has requested extension of the deadline.'
         end
     end
     
@@ -834,7 +932,7 @@ end
 
 describe RequestController, "when sending a followup message" do
     integrate_views
-    fixtures :info_requests, :info_request_events, :public_bodies, :public_body_translations, :users, :incoming_messages, :raw_emails, :outgoing_messages # all needed as integrating views
+    fixtures :public_bodies, :public_body_translations, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :info_request_events # all needed as integrating views
 
     before(:each) do
         load_raw_emails_data(raw_emails)
@@ -917,7 +1015,7 @@ end
 
 describe RequestController, "sending overdue request alerts" do
     integrate_views
-    fixtures :info_requests, :info_request_events, :public_bodies, :public_body_translations, :users, :incoming_messages, :raw_emails, :outgoing_messages # all needed as integrating views
+    fixtures :public_bodies, :public_body_translations, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :info_request_events # all needed as integrating views
     
     before(:each) do
         load_raw_emails_data(raw_emails)
@@ -1005,7 +1103,7 @@ end
 
 describe RequestController, "sending unclassified new response reminder alerts" do
     integrate_views
-    fixtures :info_requests, :info_request_events, :public_bodies, :public_body_translations, :users, :incoming_messages, :raw_emails, :outgoing_messages, :comments # all needed as integrating views
+    fixtures :public_bodies, :public_body_translations, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events # all needed as integrating views
 
     before(:each) do
         load_raw_emails_data(raw_emails)
@@ -1036,7 +1134,7 @@ end
 
 describe RequestController, "clarification required alerts" do
     integrate_views
-    fixtures :info_requests, :info_request_events, :public_bodies, :public_body_translations, :users, :incoming_messages, :raw_emails, :outgoing_messages # all needed as integrating views
+    fixtures :public_bodies, :public_body_translations, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :info_request_events # all needed as integrating views
     before(:each) do
         load_raw_emails_data(raw_emails)
     end
@@ -1090,7 +1188,7 @@ end
 
 describe RequestController, "comment alerts" do
     integrate_views
-    fixtures :info_requests, :info_request_events, :public_bodies, :public_body_translations, :users, :incoming_messages, :raw_emails, :outgoing_messages, :comments # all needed as integrating views
+    fixtures :public_bodies, :public_body_translations, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events # all needed as integrating views
     before(:each) do
         load_raw_emails_data(raw_emails)
     end
@@ -1165,7 +1263,7 @@ end
 
 describe RequestController, "when viewing comments" do
     integrate_views
-    fixtures :users, :raw_emails, :incoming_messages, :info_requests
+    fixtures :users, :info_requests, :raw_emails, :incoming_messages
     before(:each) do
         load_raw_emails_data(raw_emails)
     end
@@ -1188,7 +1286,7 @@ end
 
 
 describe RequestController, "authority uploads a response from the web interface" do
-    fixtures :info_requests, :info_request_events, :public_bodies, :public_body_translations, :users
+    fixtures :public_bodies, :public_body_translations, :users, :info_requests, :info_request_events
 
     before(:all) do
         # domain after the @ is used for authentication of FOI officers, so to test it
@@ -1275,7 +1373,7 @@ end
 
 describe RequestController, "when showing JSON version for API" do
     
-    fixtures :info_requests, :info_request_events, :public_bodies, :public_body_translations, :users, :incoming_messages, :raw_emails, :outgoing_messages, :comments 
+    fixtures :public_bodies, :public_body_translations, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events 
 
     before(:each) do
         load_raw_emails_data(raw_emails)
@@ -1294,5 +1392,36 @@ describe RequestController, "when showing JSON version for API" do
 
 end
 
+describe RequestController, "when doing type ahead searches" do
+    fixtures :public_bodies, :public_body_translations, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events 
+
+    it "should return nothing for the empty query string" do
+        get :search_typeahead, :q => ""
+        response.should render_template('request/_search_ahead.rhtml')
+        assigns[:xapian_requests].results.size.should == 0
+    end
+    
+    it "should return a request matching the given keyword, but not users with a matching description" do
+        get :search_typeahead, :q => "chicken"
+        response.should render_template('request/_search_ahead.rhtml')
+        assigns[:xapian_requests].results.size.should == 1
+        assigns[:xapian_requests].results[0][:model].title.should == info_requests(:naughty_chicken_request).title
+    end
+
+    it "should return all requests matching any of the given keywords" do
+        get :search_typeahead, :q => "money dog"
+        response.should render_template('request/_search_ahead.rhtml')
+        assigns[:xapian_requests].results.size.should == 2
+        assigns[:xapian_requests].results[0][:model].title.should == info_requests(:fancy_dog_request).title
+        assigns[:xapian_requests].results[1][:model].title.should == info_requests(:naughty_chicken_request).title
+    end
+
+    it "should return partial matches" do
+        get :search_typeahead, :q => "chick"  # 'chick' for 'chicken'
+        response.should render_template('request/_search_ahead.rhtml')
+        assigns[:xapian_requests].results.size.should == 1
+        assigns[:xapian_requests].results[0][:model].title.should == info_requests(:naughty_chicken_request).title
+    end
+end
 
 

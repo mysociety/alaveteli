@@ -1,7 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe IncomingMessage, " when dealing with incoming mail" do
-    fixtures :incoming_messages, :raw_emails, :info_requests
+    fixtures :users, :raw_emails, :public_bodies, :public_body_translations, :info_requests, :incoming_messages
 
     before(:each) do
         @im = incoming_messages(:useless_incoming_message)
@@ -15,6 +15,27 @@ describe IncomingMessage, " when dealing with incoming mail" do
     it "should be able to parse emails with quoted commas in" do
         em = "\"Clare College, Cambridge\" <test@test.test>"
         TMail::Address.parse(em)
+    end
+
+    it "should correctly fold various types of footer" do
+        Dir.glob(File.join(Spec::Runner.configuration.fixture_path, "files", "email-folding-example-*.txt")).each do |file|
+            message = File.read(file)
+            parsed = IncomingMessage.remove_quoted_sections(message)
+            expected = File.read("#{file}.expected")
+            parsed.should include(expected)
+        end
+    end
+
+    it "should fold multiline sections" do
+      {
+        "foo\n--------\nconfidential"                                       => "foo\nFOLDED_QUOTED_SECTION\n", # basic test
+        "foo\n--------\nbar - confidential"                                 => "foo\nFOLDED_QUOTED_SECTION\n", # allow scorechar inside folded section
+        "foo\n--------\nbar\n--------\nconfidential"                        => "foo\n--------\nbar\nFOLDED_QUOTED_SECTION\n", # don't assume that anything after a score is a folded section
+        "foo\n--------\nbar\n--------\nconfidential\n--------\nrest"        => "foo\n--------\nbar\nFOLDED_QUOTED_SECTION\nrest", # don't assume that a folded section continues to the end of the message
+        "foo\n--------\nbar\n- - - - - - - -\nconfidential\n--------\nrest" => "foo\n--------\nbar\nFOLDED_QUOTED_SECTION\nrest", # allow spaces in the score
+      }.each do |input,output|
+        IncomingMessage.remove_quoted_sections(input).should == output
+      end
     end
 
 end
@@ -79,11 +100,21 @@ describe IncomingMessage, " folding quoted parts of emails" do
 end
 
 describe IncomingMessage, " checking validity to reply to" do
-    def test_email(email, result)
+    def test_email(result, email, return_path, autosubmitted)
         @address = mock(TMail::Address)
         @address.stub!(:spec).and_return(email)
+
+        @return_path = mock(TMail::ReturnPathHeader)
+        @return_path.stub!(:addr).and_return(return_path)
+
+        @autosubmitted = mock(TMail::KeywordsHeader)
+        @autosubmitted.stub!(:keys).and_return(autosubmitted)
+
         @mail = mock(TMail::Mail)
         @mail.stub!(:from_addrs).and_return( [ @address ] )
+        @mail.stub!(:[]).with("return-path").and_return(@return_path)
+        @mail.stub!(:[]).with("auto-submitted").and_return(@autosubmitted)
+
         @incoming_message = IncomingMessage.new()
         @incoming_message.stub!(:mail).and_return(@mail)
 
@@ -91,33 +122,69 @@ describe IncomingMessage, " checking validity to reply to" do
     end
 
     it "says a valid email is fine" do
-        test_email("team@mysociety.org", true)
+        test_email(true, "team@mysociety.org", nil, [])
     end
 
     it "says postmaster email is bad" do
-        test_email("postmaster@mysociety.org", false)
+        test_email(false, "postmaster@mysociety.org", nil, [])
     end
 
     it "says Mailer-Daemon email is bad" do
-        test_email("Mailer-Daemon@mysociety.org", false)
+        test_email(false, "Mailer-Daemon@mysociety.org", nil, [])
     end
 
     it "says case mangled MaIler-DaemOn email is bad" do
-        test_email("MaIler-DaemOn@mysociety.org", false)
+        test_email(false, "MaIler-DaemOn@mysociety.org", nil, [])
     end
 
     it "says Auto_Reply email is bad" do
-        test_email("Auto_Reply@mysociety.org", false)
+        test_email(false, "Auto_Reply@mysociety.org", nil, [])
     end
 
     it "says DoNotReply email is bad" do
-        test_email("DoNotReply@tube.tfl.gov.uk", false)
+        test_email(false, "DoNotReply@tube.tfl.gov.uk", nil, [])
+    end
+
+    it "says a filled-out return-path is fine" do
+        test_email(true, "team@mysociety.org", "Return-path: <foo@baz.com>", [])
+    end
+
+    it "says an empty return-path is bad" do
+        test_email(false, "team@mysociety.org", "<>", [])
+    end
+
+    it "says an auto-submitted keyword is bad" do
+        test_email(false, "team@mysociety.org", nil, ["auto-replied"])
+    end
+
+end
+
+describe IncomingMessage, " checking validity to reply to with real emails" do
+    fixtures :users, :raw_emails, :public_bodies, :public_body_translations, :info_requests, :incoming_messages
+
+    after(:all) do
+        ActionMailer::Base.deliveries.clear
+    end
+    it "should allow a reply to plain emails" do
+        ir = info_requests(:fancy_dog_request) 
+        receive_incoming_mail('incoming-request-plain.email', ir.incoming_email)
+        ir.incoming_messages[1].valid_to_reply_to?.should == true
+    end
+    it "should not allow a reply to emails with empty return-paths" do
+        ir = info_requests(:fancy_dog_request) 
+        receive_incoming_mail('empty-return-path.email', ir.incoming_email)
+        ir.incoming_messages[1].valid_to_reply_to?.should == false
+    end
+    it "should not allow a reply to emails with autoresponse headers" do
+        ir = info_requests(:fancy_dog_request) 
+        receive_incoming_mail('autoresponse-header.email', ir.incoming_email)
+        ir.incoming_messages[1].valid_to_reply_to?.should == false
     end
 
 end
 
 describe IncomingMessage, " when censoring data" do
-    fixtures :incoming_messages, :raw_emails, :public_bodies, :public_body_translations, :info_requests, :users
+    fixtures :users, :raw_emails, :public_bodies, :public_body_translations, :info_requests, :incoming_messages
 
     before(:each) do
         @test_data = "There was a mouse called Stilton, he wished that he was blue."
@@ -227,7 +294,7 @@ describe IncomingMessage, " when censoring data" do
 end
 
 describe IncomingMessage, " when censoring whole users" do
-    fixtures :incoming_messages, :raw_emails, :public_bodies, :public_body_translations, :info_requests, :users
+    fixtures :users, :raw_emails, :public_bodies, :public_body_translations, :info_requests, :incoming_messages
 
     before(:each) do
         @test_data = "There was a mouse called Stilton, he wished that he was blue."
