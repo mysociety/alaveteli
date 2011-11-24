@@ -95,7 +95,7 @@ describe PublicBody, " using machine tags" do
 end
 
 describe PublicBody, "when finding_by_tags" do
-    fixtures :public_bodies, :public_body_translations
+    fixtures :public_bodies, :public_body_translations, :public_body_versions, :info_requests, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
     before do
          @geraldine = public_bodies(:geraldine_public_body)
@@ -173,7 +173,7 @@ describe PublicBody, " when saving" do
 end
 
 describe PublicBody, "when searching" do
-    fixtures :public_bodies, :public_body_translations, :public_body_versions
+    fixtures :public_bodies, :public_body_translations, :public_body_versions, :info_requests, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
     it "should find by existing url name" do
         body = PublicBody.find_by_url_name_with_historic('dfh')
@@ -302,8 +302,8 @@ describe PublicBody, " when loading CSV files" do
         notes.size.should == 4
         notes.should == [
             "line 2: creating new authority 'North West Fake Authority' (locale: en):\n\t\{\"name\":\"North West Fake Authority\",\"request_email\":\"north_west_foi@localhost\",\"home_page\":\"http://northwest.org\"\}", 
-            "line 3: creating new authority 'Scottish Fake Authority' (locale: en):\n\t\{\"tag_string\":\"scottish\",\"name\":\"Scottish Fake Authority\",\"request_email\":\"scottish_foi@localhost\",\"home_page\":\"http://scottish.org\"\}", 
-            "line 4: creating new authority 'Fake Authority of Northern Ireland' (locale: en):\n\t\{\"tag_string\":\"fake aTag\",\"name\":\"Fake Authority of Northern Ireland\",\"request_email\":\"ni_foi@localhost\"\}",
+            "line 3: creating new authority 'Scottish Fake Authority' (locale: en):\n\t\{\"name\":\"Scottish Fake Authority\",\"request_email\":\"scottish_foi@localhost\",\"home_page\":\"http://scottish.org\",\"tag_string\":\"scottish\"\}", 
+            "line 4: creating new authority 'Fake Authority of Northern Ireland' (locale: en):\n\t\{\"name\":\"Fake Authority of Northern Ireland\",\"request_email\":\"ni_foi@localhost\",\"tag_string\":\"fake aTag\"\}",
             "Notes: Some  bodies are in database, but not in CSV file:\n    Department for Humpadinking\n    Geraldine Quango\nYou may want to delete them manually.\n"
             ]
 
@@ -316,7 +316,7 @@ describe PublicBody, " when loading CSV files" do
 
         PublicBody.find_by_name('North West Fake Authority').tag_array_for_search.should == []
         PublicBody.find_by_name('Scottish Fake Authority').tag_array_for_search.should == ['scottish']
-        PublicBody.find_by_name('Fake Authority of Northern Ireland').tag_array_for_search.should == ['fake', 'aTag']
+        PublicBody.find_by_name('Fake Authority of Northern Ireland').tag_array_for_search.should == ['aTag', 'fake']
 
         # Import again to check the 'add' tag functionality works
         new_tags_file = load_file_fixture('fake-authority-add-tags.rb')
@@ -324,8 +324,8 @@ describe PublicBody, " when loading CSV files" do
 
         # Check tags were added successfully
         PublicBody.find_by_name('North West Fake Authority').tag_array_for_search.should == ['aTag']
-        PublicBody.find_by_name('Scottish Fake Authority').tag_array_for_search.should == ['scottish', 'aTag']
-        PublicBody.find_by_name('Fake Authority of Northern Ireland').tag_array_for_search.should == ['fake', 'aTag']
+        PublicBody.find_by_name('Scottish Fake Authority').tag_array_for_search.should == ['aTag', 'scottish']
+        PublicBody.find_by_name('Fake Authority of Northern Ireland').tag_array_for_search.should == ['aTag', 'fake']
     end
 
     it "should import tags successfully when the import tag is set" do
@@ -334,8 +334,8 @@ describe PublicBody, " when loading CSV files" do
 
         # Check new bodies were imported successfully
         PublicBody.find_by_name('North West Fake Authority').tag_array_for_search.should == ['fake']
-        PublicBody.find_by_name('Scottish Fake Authority').tag_array_for_search.should == ['scottish', 'fake']
-        PublicBody.find_by_name('Fake Authority of Northern Ireland').tag_array_for_search.should == ['fake', 'aTag']
+        PublicBody.find_by_name('Scottish Fake Authority').tag_array_for_search.should == ['fake', 'scottish']
+        PublicBody.find_by_name('Fake Authority of Northern Ireland').tag_array_for_search.should == ['aTag', 'fake']
         
         # Import again to check the 'replace' tag functionality works
         new_tags_file = load_file_fixture('fake-authority-add-tags.rb')
@@ -344,7 +344,7 @@ describe PublicBody, " when loading CSV files" do
         # Check tags were added successfully
         PublicBody.find_by_name('North West Fake Authority').tag_array_for_search.should == ['aTag']
         PublicBody.find_by_name('Scottish Fake Authority').tag_array_for_search.should == ['aTag']
-        PublicBody.find_by_name('Fake Authority of Northern Ireland').tag_array_for_search.should == ['fake', 'aTag']
+        PublicBody.find_by_name('Fake Authority of Northern Ireland').tag_array_for_search.should == ['aTag', 'fake']
     end
 
     it "should create bodies with names in multiple locales" do
@@ -357,9 +357,9 @@ describe PublicBody, " when loading CSV files" do
         notes.should == [
             "line 2: creating new authority 'North West Fake Authority' (locale: en):\n\t{\"name\":\"North West Fake Authority\",\"request_email\":\"north_west_foi@localhost\",\"home_page\":\"http://northwest.org\"}", 
             "line 2: creating new authority 'North West Fake Authority' (locale: es):\n\t{\"name\":\"Autoridad del Nordeste\"}", 
-            "line 3: creating new authority 'Scottish Fake Authority' (locale: en):\n\t{\"tag_string\":\"scottish\",\"name\":\"Scottish Fake Authority\",\"request_email\":\"scottish_foi@localhost\",\"home_page\":\"http://scottish.org\"}",
+            "line 3: creating new authority 'Scottish Fake Authority' (locale: en):\n\t{\"name\":\"Scottish Fake Authority\",\"request_email\":\"scottish_foi@localhost\",\"home_page\":\"http://scottish.org\",\"tag_string\":\"scottish\"}",
             "line 3: creating new authority 'Scottish Fake Authority' (locale: es):\n\t{\"name\":\"Autoridad Escocesa\"}",
-            "line 4: creating new authority 'Fake Authority of Northern Ireland' (locale: en):\n\t{\"tag_string\":\"fake aTag\",\"name\":\"Fake Authority of Northern Ireland\",\"request_email\":\"ni_foi@localhost\"}",
+            "line 4: creating new authority 'Fake Authority of Northern Ireland' (locale: en):\n\t{\"name\":\"Fake Authority of Northern Ireland\",\"request_email\":\"ni_foi@localhost\",\"tag_string\":\"fake aTag\"}",
             "line 4: creating new authority 'Fake Authority of Northern Ireland' (locale: es):\n\t{\"name\":\"Autoridad Irlandesa\"}",
             "Notes: Some  bodies are in database, but not in CSV file:\n    Department for Humpadinking\n    Geraldine Quango\nYou may want to delete them manually.\n"
             ]
@@ -385,8 +385,8 @@ describe PublicBody, " when loading CSV files" do
         notes.size.should == 4
         notes.should == [
             "line 2: creating new authority 'North West Fake Authority' (locale: en):\n\t{\"name\":\"North West Fake Authority\",\"request_email\":\"north_west_foi@localhost\",\"home_page\":\"http://northwest.org\"}",
-            "line 3: creating new authority 'Scottish Fake Authority' (locale: en):\n\t{\"tag_string\":\"scottish\",\"name\":\"Scottish Fake Authority\",\"request_email\":\"scottish_foi@localhost\",\"home_page\":\"http://scottish.org\"}", 
-            "line 4: creating new authority 'Fake Authority of Northern Ireland' (locale: en):\n\t{\"tag_string\":\"fake aTag\",\"name\":\"Fake Authority of Northern Ireland\",\"request_email\":\"ni_foi@localhost\"}",
+            "line 3: creating new authority 'Scottish Fake Authority' (locale: en):\n\t{\"name\":\"Scottish Fake Authority\",\"request_email\":\"scottish_foi@localhost\",\"home_page\":\"http://scottish.org\",\"tag_string\":\"scottish\"}", 
+            "line 4: creating new authority 'Fake Authority of Northern Ireland' (locale: en):\n\t{\"name\":\"Fake Authority of Northern Ireland\",\"request_email\":\"ni_foi@localhost\",\"tag_string\":\"fake aTag\"}",
             "Notes: Some  bodies are in database, but not in CSV file:\n    Department for Humpadinking\n    Geraldine Quango\nYou may want to delete them manually.\n"
             ]
 

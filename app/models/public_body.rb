@@ -360,11 +360,11 @@ class PublicBody < ActiveRecord::Base
                 set_of_importing = Set.new()
                 field_names = { 'name'=>1, 'request_email'=>2 }     # Default values in case no field list is given
                 line = 0
-                CSV::Reader.parse(csv) do |row|
+                CSV.parse(csv) do |row|
                     line = line + 1
 
                     # Parse the first line as a field list if it starts with '#'
-                    if line==1 and row.to_s =~ /^#(.*)$/
+                    if line==1 and row.first.to_s =~ /^#(.*)$/
                         row[0] = row[0][1..-1]  # Remove the # sign on first field
                         row.each_with_index {|field, i| field_names[field] = i}
                         next
@@ -390,7 +390,7 @@ class PublicBody < ActiveRecord::Base
                     if public_body = bodies_by_name[name]   # Existing public body                        
                         available_locales.each do |locale|
                             PublicBody.with_locale(locale) do
-                                changed = {}
+                                changed = ActiveSupport::OrderedHash.new
                                 field_list.each do |field_name|
                                     localized_field_name = (locale.to_s == I18n.default_locale.to_s) ? field_name : "#{field_name}.#{locale}"
                                     localized_value = field_names[localized_field_name] && row[field_names[localized_field_name]]
@@ -425,7 +425,7 @@ class PublicBody < ActiveRecord::Base
                         public_body = PublicBody.new(:name=>"", :short_name=>"", :request_email=>"")
                         available_locales.each do |locale|                            
                             PublicBody.with_locale(locale) do
-                                changed = {}
+                                changed = ActiveSupport::OrderedHash.new
                                 field_list.each do |field_name|
                                     localized_field_name = (locale.to_s == I18n.default_locale.to_s) ? field_name : "#{field_name}.#{locale}"
                                     localized_value = field_names[localized_field_name] && row[field_names[localized_field_name]]
@@ -457,7 +457,7 @@ class PublicBody < ActiveRecord::Base
                 # Give an error listing ones that are to be deleted 
                 deleted_ones = set_of_existing - set_of_importing
                 if deleted_ones.size > 0
-                    notes.push "Notes: Some " + tag + " bodies are in database, but not in CSV file:\n    " + Array(deleted_ones).join("\n    ") + "\nYou may want to delete them manually.\n"
+                    notes.push "Notes: Some " + tag + " bodies are in database, but not in CSV file:\n    " + Array(deleted_ones).sort.join("\n    ") + "\nYou may want to delete them manually.\n"
                 end
 
                 # Rollback if a dry run, or we had errors

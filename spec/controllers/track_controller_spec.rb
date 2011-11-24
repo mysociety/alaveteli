@@ -36,7 +36,7 @@ end
 
 describe TrackController, "when sending alerts for a track" do
     integrate_views
-    fixtures :public_bodies, :public_body_translations, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things, :track_things_sent_emails
+    fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things, :track_things_sent_emails
     include LinkToHelper # for main_url
 
     before(:each) do
@@ -58,7 +58,7 @@ describe TrackController, "when sending alerts for a track" do
         deliveries.size.should == 1
         mail = deliveries[0]
         mail.body.should =~ /Alter your subscription/
-        mail.to_addrs.to_s.should include(users(:silly_name_user).email)
+        mail.to_addrs.first.to_s.should include(users(:silly_name_user).email)
         mail.body =~ /(http:\/\/.*\/c\/(.*))/
         mail_url = $1
         mail_token = $2
@@ -110,7 +110,7 @@ end
 
 describe TrackController, "when viewing RSS feed for a track" do
     integrate_views
-    fixtures :public_bodies, :public_body_translations, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
+    fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
     before(:each) do
         load_raw_emails_data(raw_emails)
@@ -136,7 +136,7 @@ end
 describe TrackController, "when viewing JSON version of a track feed" do
 
     integrate_views
-    fixtures :public_bodies, :public_body_translations, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
+    fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
     before(:each) do
         load_raw_emails_data(raw_emails)
