@@ -14,7 +14,6 @@ describe User, " when indexing users with Xapian" do
     it "should search by 'about me' text" do
         user = users(:bob_smith_user)
 
-        rebuild_xapian_index
           # def InfoRequest.full_search(models, query, order, ascending, collapse, per_page, page)
         xapian_object = InfoRequest.full_search([User], "stuff", 'created_at', true, nil, 100, 1)
         xapian_object.results.size.should == 1

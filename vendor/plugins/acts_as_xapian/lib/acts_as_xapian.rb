@@ -35,7 +35,6 @@ module ActsAsXapian
         @@db = nil
         @@db_path = nil
         @@writable_db = nil
-        @@writable_suffix = nil
         @@init_values = []
         $acts_as_xapian_class_var_init = true
     end
@@ -217,7 +216,6 @@ module ActsAsXapian
         prepare_environment
 
         full_path = @@db_path + suffix
-        raise "writable_suffix/suffix inconsistency" if @@writable_suffix && @@writable_suffix != suffix
 
         # for indexing
         @@writable_db = Xapian::flint_open(full_path, Xapian::DB_CREATE_OR_OPEN)
@@ -225,7 +223,6 @@ module ActsAsXapian
         @@term_generator.set_flags(Xapian::TermGenerator::FLAG_SPELLING, 0)
         @@term_generator.database = @@writable_db
         @@term_generator.stemmer = @@stemmer
-        @@writable_suffix = suffix
     end
 
     ######################################################################
@@ -580,16 +577,20 @@ module ActsAsXapian
                 STDERR.puts(detail.backtrace.join("\n") + "\nFAILED ActsAsXapian.update_index job #{id} #{$!} " + (job.nil? ? "" : "model " + job.model + " id " + job.model_id.to_s))
             end
         end
-    end
         
+        # We close the database when we're finished to remove the lock file. Since writable_init 
+        # reopens it and recreates the environment every time we don't need to do further cleanup 
+        ActsAsXapian.writable_db.close
+    end
+    
     # You must specify *all* the models here, this totally rebuilds the Xapian
     # database.  You'll want any readers to reopen the database after this.
     #
     # Incremental update_index calls above are suspended while this rebuild
     # happens (i.e. while the .new database is there) - any index update jobs
     # are left in the database, and will run after the rebuild has finished.
-    def ActsAsXapian.rebuild_index(model_classes, verbose = false)
-        raise "when rebuilding all, please call as first and only thing done in process / task" if not ActsAsXapian.writable_db.nil?
+    def ActsAsXapian.rebuild_index(model_classes, verbose = false, safe_rebuild = true)
+        #raise "when rebuilding all, please call as first and only thing done in process / task" if not ActsAsXapian.writable_db.nil?
 
         prepare_environment
         
@@ -600,42 +601,23 @@ module ActsAsXapian
             FileUtils.rm_r(new_path)
         end
 
-        # Index everything 
-        batch_size = 1000
-        for model_class in model_classes
-            model_class_count = model_class.count
-            0.step(model_class_count, batch_size) do |i|
-              # We fork here, so each batch is run in a different process. This is
-              # because otherwise we get a memory "leak" and you can't rebuild very
-              # large databases (however long you have!)
-              pid = Process.fork # XXX this will only work on Unix, tough
-              if pid
-                    Process.waitpid(pid)
-                    if not $?.success?
-                        raise "batch fork child failed, exiting also"
-                    end
-                    # database connection doesn't survive a fork, rebuild it
-                    ActiveRecord::Base.connection.reconnect!
-              else
-                    # fully reopen the database each time (with a new object)
-                    # (so doc ids and so on aren't preserved across the fork)
-                    ActsAsXapian.writable_init(".new")
-                    STDOUT.puts("ActsAsXapian.rebuild_index: New batch. #{model_class.to_s} from #{i} to #{i + batch_size} of #{model_class_count} pid #{Process.pid.to_s}") if verbose
-                    models = model_class.find(:all, :limit => batch_size, :offset => i, :order => :id)
-                    for model in models
-                      STDOUT.puts("ActsAsXapian.rebuild_index      #{model_class} #{model.id}") if verbose
-                      model.xapian_index
-                    end
-                    # make sure everything is written
-                    ActsAsXapian.writable_db.flush
-                    # database connection won't survive a fork, so shut it down
-                    ActiveRecord::Base.connection.disconnect!
-                    # brutal exit, so other shutdown code not run (for speed and safety)
-                    Kernel.exit! 0
-              end
-
+        # Index everything
+        if safe_rebuild
+            _rebuild_index_safely(model_classes, verbose)
+        else
+            # Save time by running the indexing in one go and in-process
+            ActsAsXapian.writable_init(".new")
+            for model_class in model_classes
+                STDOUT.puts("ActsAsXapian.rebuild_index: Rebuilding #{model_class.to_s}") if verbose
+                model_class.find(:all).each do |model|
+                  STDOUT.puts("ActsAsXapian.rebuild_index      #{model_class} #{model.id}") if verbose
+                  model.xapian_index
+                end
             end
-        end
+            # make sure everything is written and close
+            ActsAsXapian.writable_db.flush
+            ActsAsXapian.writable_db.close
+        end            
 
         # Rename into place
         old_path = ActsAsXapian.db_path
@@ -657,6 +639,45 @@ module ActsAsXapian
 
         # You'll want to restart your FastCGI or Mongrel processes after this,
         # so they get the new db
+    end
+
+    def ActsAsXapian._rebuild_index_safely(model_classes, verbose)
+        batch_size = 1000
+        for model_class in model_classes
+            model_class_count = model_class.count
+            0.step(model_class_count, batch_size) do |i|
+              # We fork here, so each batch is run in a different process. This is
+              # because otherwise we get a memory "leak" and you can't rebuild very
+              # large databases (however long you have!)
+              pid = Process.fork # XXX this will only work on Unix, tough
+              if pid
+                    Process.waitpid(pid)
+                    if not $?.success?
+                        raise "batch fork child failed, exiting also"
+                    end
+                    # database connection doesn't survive a fork, rebuild it
+                    ActiveRecord::Base.connection.reconnect!
+              else
+                    # fully reopen the database each time (with a new object)
+                    # (so doc ids and so on aren't preserved across the fork)
+                    ActsAsXapian.writable_init(".new")
+                    STDOUT.puts("ActsAsXapian.rebuild_index: New batch. #{model_class.to_s} from #{i} to #{i + batch_size} of #{model_class_count} pid #{Process.pid.to_s}") if verbose
+                    model_class.find(:all, :limit => batch_size, :offset => i, :order => :id).each do |model|
+                      STDOUT.puts("ActsAsXapian.rebuild_index      #{model_class} #{model.id}") if verbose
+                      model.xapian_index
+                    end
+                    # make sure everything is written
+                    ActsAsXapian.writable_db.flush
+                    # close database
+                    ActsAsXapian.writable_db.close
+                    # database connection won't survive a fork, so shut it down
+                    ActiveRecord::Base.connection.disconnect!
+                    # brutal exit, so other shutdown code not run (for speed and safety)
+                    Kernel.exit! 0
+              end
+
+            end
+        end
     end
 
     ######################################################################
