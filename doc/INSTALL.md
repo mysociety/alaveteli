@@ -1,8 +1,13 @@
-These instructions are based on getting the FOI site up and running on
-Ubuntu and/or Debian.
+These instructions assume Debian Squeeze or Ubuntu 11.04, or later
+(probably, though we won't necessarily have tested in later versions
+yet!)
+[Install instructions for OS X](https://github.com/sebbacon/alaveteli/wiki/OS-X-Quickstart)
+are under development.
 
-It was last run using the Lucid Lynx version of Ubuntu and on the
-Parallels debian instance (2.6.18-4-686).
+It is possible to install on Ubuntus as old as 10.04, but you must use
+[Xapian backports](https://launchpad.net/~xapian-backports/+archive/xapian-1.2)
+(see [issue #158](https://github.com/sebbacon/alaveteli/issues/159)
+for discussion).
 
 Commands are intended to be run via the terminal or over ssh.
 
