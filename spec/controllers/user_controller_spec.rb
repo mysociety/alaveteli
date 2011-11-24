@@ -1,3 +1,4 @@
+# coding: utf-8
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 require 'json'
@@ -260,8 +261,8 @@ describe UserController, "when sending another user a message" do
         mail = deliveries[0]
         mail.body.should include("Bob Smith has used #{MySociety::Config.get('SITE_NAME')} to send you the message below")
         mail.body.should include("Just a test!")
-        #mail.to_addrs.to_s.should == users(:silly_name_user).name_and_email # XXX fix some nastiness with quoting name_and_email
-        mail.from_addrs.to_s.should == users(:bob_smith_user).name_and_email
+        #mail.to_addrs.first.to_s.should == users(:silly_name_user).name_and_email # XXX fix some nastiness with quoting name_and_email
+        mail.from_addrs.first.to_s.should == users(:bob_smith_user).name_and_email
     end
 
 end

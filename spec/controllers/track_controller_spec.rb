@@ -58,7 +58,7 @@ describe TrackController, "when sending alerts for a track" do
         deliveries.size.should == 1
         mail = deliveries[0]
         mail.body.should =~ /Alter your subscription/
-        mail.to_addrs.to_s.should include(users(:silly_name_user).email)
+        mail.to_addrs.first.to_s.should include(users(:silly_name_user).email)
         mail.body =~ /(http:\/\/.*\/c\/(.*))/
         mail_url = $1
         mail_token = $2

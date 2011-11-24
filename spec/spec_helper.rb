@@ -144,6 +144,14 @@ if $tempfilecount.nil?
     end
 end
 
+# to_ary differs in Ruby 1.8 and 1.9
+# @see http://yehudakatz.com/2010/01/02/the-craziest-fing-bug-ive-ever-seen/
+def safe_mock_model(model, args = {})
+  mock = mock_model(model, args)
+  mock.should_receive(:to_ary).any_number_of_times
+  mock
+end
+
 def load_raw_emails_data(raw_emails)
     raw_email = raw_emails(:useless_raw_email)
     begin
