@@ -425,7 +425,7 @@ class PublicBody < ActiveRecord::Base
                         public_body = PublicBody.new(:name=>"", :short_name=>"", :request_email=>"")
                         available_locales.each do |locale|                            
                             PublicBody.with_locale(locale) do
-                                changed = {}
+                                changed = ActiveSupport::OrderedHash.new
                                 field_list.each do |field_name|
                                     localized_field_name = (locale.to_s == I18n.default_locale.to_s) ? field_name : "#{field_name}.#{locale}"
                                     localized_value = field_names[localized_field_name] && row[field_names[localized_field_name]]
