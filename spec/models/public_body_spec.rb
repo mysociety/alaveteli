@@ -226,6 +226,18 @@ describe PublicBody, "when searching" do
     end
 end
 
+describe PublicBody, " when dealing public body locales" do
+    it "shouldn't fail if it internal_admin_body was created in a locale other than the default" do
+        # first time, do it with the non-default locale
+        PublicBody.with_locale(:es) do
+            PublicBody.internal_admin_body
+        end
+
+        # second time
+        lambda {PublicBody.internal_admin_body }.should_not raise_error(ActiveRecord::RecordInvalid)
+    end
+end
+
 describe PublicBody, " when loading CSV files" do
     before(:each) do
         # InternalBody is created the first time it's accessed, which happens sometimes during imports,

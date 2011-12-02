@@ -309,22 +309,23 @@ class PublicBody < ActiveRecord::Base
 
     # The "internal admin" is a special body for internal use.
     def PublicBody.internal_admin_body
-        pb = PublicBody.find_by_url_name("internal_admin_authority")
-        if pb.nil?
-            pb = PublicBody.new(
-                :name => 'Internal admin authority',
-                :short_name => "",
-                :request_email => MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost'),
-                :home_page => "",
-                :notes => "",
-				:publication_scheme => "",
-                :last_edit_editor => "internal_admin",
-                :last_edit_comment => "Made by PublicBody.internal_admin_body"
-            )
-            pb.save!
+        PublicBody.with_locale(I18n.default_locale) do
+            pb = PublicBody.find_by_url_name("internal_admin_authority")
+            if pb.nil?
+                pb = PublicBody.new(
+                 :name => 'Internal admin authority',
+                 :short_name => "",
+                 :request_email => MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost'),
+                 :home_page => "",
+                 :notes => "",
+                 :publication_scheme => "",
+                 :last_edit_editor => "internal_admin",
+                 :last_edit_comment => "Made by PublicBody.internal_admin_body"
+                )
+                pb.save!
+            end
+            return pb
         end
-
-        return pb
     end
 
 
