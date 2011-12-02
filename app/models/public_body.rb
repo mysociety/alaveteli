@@ -64,8 +64,14 @@ class PublicBody < ActiveRecord::Base
     end
     
     def translated_versions=(translation_attrs)
+        def skip?(attrs)
+            valueless = attrs.inject({}) { |h, (k, v)| h[k] = v if v != '' and k != 'locale'; h } # because we want to fall back to alternative translations where there are empty values
+            return valueless.length == 0
+        end
+
         if translation_attrs.respond_to? :each_value    # Hash => updating
             translation_attrs.each_value do |attrs|
+                next if skip?(attrs)
                 t = translation(attrs[:locale]) || PublicBody::Translation.new
                 t.attributes = attrs
                 calculate_cached_fields(t)
@@ -73,6 +79,7 @@ class PublicBody < ActiveRecord::Base
             end
         else                                            # Array => creating
             translation_attrs.each do |attrs|
+                next if skip?(attrs)
                 new_translation = PublicBody::Translation.new(attrs)
                 calculate_cached_fields(new_translation)
                 translations << new_translation
