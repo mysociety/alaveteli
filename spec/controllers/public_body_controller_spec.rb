@@ -68,6 +68,19 @@ describe PublicBodyController, "when listing bodies" do
         response.should be_success
     end
 
+    it "should list all bodies even when there are no translations for selected locale" do
+        PublicBody.with_locale(:es) do
+
+        spanish_only = PublicBody.new(:name => 'Spanish only',
+                                      :short_name => 'SO',
+                                      :request_email => 'spanish@flourish.org',
+                                      :last_edit_editor => 'test',
+                                      :last_edit_comment => '')
+            end
+        get :list
+        assigns[:public_bodies].length.should == 3
+    end
+
     it "should list bodies in alphabetical order" do
         get :list
 
@@ -110,7 +123,7 @@ describe PublicBodyController, "when listing bodies" do
         get :list, :tag => "other"
         response.should render_template('list')
         assigns[:public_bodies].should == [ public_bodies(:geraldine_public_body) ]
-
+        
         get :list
         response.should render_template('list')
         assigns[:public_bodies].count.should == 2
