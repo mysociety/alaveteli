@@ -1,7 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe TrackThing, "when tracking changes" do
-    fixtures :track_things, :users
+    fixtures :users, :info_requests, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
     before do
         @track_thing = track_things(:track_fancy_dog_search)

@@ -6,7 +6,7 @@
 module ActionMailer
    class Base
       def perform_delivery_sendmail(mail)
-        sender = (mail['return-path'] && mail['return-path'].spec) || mail.from
+        sender = (mail['return-path'] && mail['return-path'].spec) || mail.from.first
 
         sendmail_args = sendmail_settings[:arguments].dup
         sendmail_args += " -f \"#{sender}\""

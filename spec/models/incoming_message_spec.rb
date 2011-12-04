@@ -1,7 +1,8 @@
+# coding: utf-8
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe IncomingMessage, " when dealing with incoming mail" do
-    fixtures :users, :raw_emails, :public_bodies, :public_body_translations, :info_requests, :incoming_messages
+    fixtures :users, :raw_emails, :public_bodies, :public_body_translations, :public_body_versions, :info_requests, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
     before(:each) do
         @im = incoming_messages(:useless_incoming_message)
@@ -160,7 +161,7 @@ describe IncomingMessage, " checking validity to reply to" do
 end
 
 describe IncomingMessage, " checking validity to reply to with real emails" do
-    fixtures :users, :raw_emails, :public_bodies, :public_body_translations, :info_requests, :incoming_messages
+    fixtures :users, :raw_emails, :public_bodies, :public_body_translations, :info_requests, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
     after(:all) do
         ActionMailer::Base.deliveries.clear
@@ -184,7 +185,7 @@ describe IncomingMessage, " checking validity to reply to with real emails" do
 end
 
 describe IncomingMessage, " when censoring data" do
-    fixtures :users, :raw_emails, :public_bodies, :public_body_translations, :info_requests, :incoming_messages
+    fixtures :users, :raw_emails, :public_bodies, :public_body_translations, :public_body_versions, :info_requests, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
     before(:each) do
         @test_data = "There was a mouse called Stilton, he wished that he was blue."
@@ -294,7 +295,7 @@ describe IncomingMessage, " when censoring data" do
 end
 
 describe IncomingMessage, " when censoring whole users" do
-    fixtures :users, :raw_emails, :public_bodies, :public_body_translations, :info_requests, :incoming_messages
+    fixtures :users, :raw_emails, :public_bodies, :public_body_translations, :public_body_versions, :info_requests, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
     before(:each) do
         @test_data = "There was a mouse called Stilton, he wished that he was blue."

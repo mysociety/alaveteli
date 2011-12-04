@@ -1,4 +1,4 @@
-require 'spec_helper'
+require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 describe WhatDoTheyKnow::StripEmptySessions do
   
   def make_response(session_data, response_headers)

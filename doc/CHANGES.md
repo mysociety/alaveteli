@@ -1,3 +1,17 @@
+# Version 0.5
+
+## Highlighted features
+* It should now be possible to develop the software on OSX 
+* Base design refactored: CSS simplified and reduced, base design colours removed, now provided in example Alaveteli theme override
+
+## Upgrade notes
+* **IMPORTANT! We now depend on Xapian 1.2**, which means you may need to install Xapian from backports.  See [issue #159] for more info.
+* Themes created for 0.4 and below should be changed to match the new format (although the old way should continue to work):
+  * You should create a resources folder at `<yourtheme>/public/` and symlink to it from the main rails app.  See the `install.rb` in `alaveteli-theme` example theme for details.
+  * Your styles should be moved from `general/custom_css.rhtml` to a standalone stylesheet in `<yourtheme>/public/stylesheets/`
+  * The partial at `general/_before_head_end.rhtml` should be changed in the theme to include this stylesheet
+
+
 # Version 0.4
 
 ## Highlighted features
@@ -16,6 +30,9 @@
   * TRACK_SENDER_EMAIL
   * TRACK_SENDER_NAME
   * HTML_TO_PDF_COMMAND
+  * NEW_RESPONSE_REMINDER_AFTER_DAYS
+  * FORCE_REGISTRATION_ON_NEW_REQUEST
+* The config variable `FRONTPAGE_SEARCH_EXAMPLES` is no longer used, so you should remove it to avoid confusion.
 * Execute `script/rebuild-xapian-index` to create new xapian index
   terms used in latest version of search (can take a long time)
 * Install wkhtmltopdf to enable PDFs in downloadable zipfiles.  A

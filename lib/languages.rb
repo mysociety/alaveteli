@@ -1,3 +1,4 @@
+# coding: utf-8
 class LanguageNames
     def self.get_language_name(locale)
         language_names = {
