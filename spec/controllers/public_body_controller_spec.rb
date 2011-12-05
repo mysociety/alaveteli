@@ -68,17 +68,19 @@ describe PublicBodyController, "when listing bodies" do
         response.should be_success
     end
 
-    it "should list all bodies even when there are no translations for selected locale" do
+    it "should list all bodies from default locale, even when there are no translations for selected locale" do
+        PublicBody.with_locale(:en) do
+            english_only = PublicBody.new(:name => 'English only',
+                                          :short_name => 'EO',
+                                          :request_email => 'english@flourish.org',
+                                          :last_edit_editor => 'test',
+                                          :last_edit_comment => '')
+            english_only.save
+        end
         PublicBody.with_locale(:es) do
-
-        spanish_only = PublicBody.new(:name => 'Spanish only',
-                                      :short_name => 'SO',
-                                      :request_email => 'spanish@flourish.org',
-                                      :last_edit_editor => 'test',
-                                      :last_edit_comment => '')
-            end
-        get :list
-        assigns[:public_bodies].length.should == 3
+            get :list
+            assigns[:public_bodies].length.should == 3
+        end
     end
 
     it "should list bodies in alphabetical order" do
