@@ -77,12 +77,20 @@ def load_file_fixture(file_name)
     return content
 end
 
-def rebuild_xapian_index
+def rebuild_xapian_index(terms = true, values = true, texts = true, dropfirst = true)
+    if dropfirst
+        begin
+            ActsAsXapian.readable_init
+            FileUtils.rm_r(ActsAsXapian.db_path)
+        rescue RuntimeError
+        end
+        ActsAsXapian.writable_init
+    end
     verbose = false
     # safe_rebuild=true, which involves forking to avoid memory leaks, doesn't work well with rspec. 
     # unsafe is significantly faster, and we can afford possible memory leaks while testing.
     safe_rebuild = false
-    ActsAsXapian.rebuild_index(["PublicBody", "User", "InfoRequestEvent"].map{|m| m.constantize}, verbose, safe_rebuild) 
+    ActsAsXapian.rebuild_index(["PublicBody", "User", "InfoRequestEvent"].map{|m| m.constantize}, verbose, terms, values, texts, safe_rebuild) 
 end
 
 def update_xapian_index

@@ -589,7 +589,7 @@ module ActsAsXapian
     # Incremental update_index calls above are suspended while this rebuild
     # happens (i.e. while the .new database is there) - any index update jobs
     # are left in the database, and will run after the rebuild has finished.
-    def ActsAsXapian.rebuild_index(model_classes, verbose = false, safe_rebuild = true)
+    def ActsAsXapian.rebuild_index(model_classes, verbose = false, terms = true, values = true, texts = true, safe_rebuild = true)
         #raise "when rebuilding all, please call as first and only thing done in process / task" if not ActsAsXapian.writable_db.nil?
 
         prepare_environment
@@ -603,7 +603,7 @@ module ActsAsXapian
 
         # Index everything
         if safe_rebuild
-            _rebuild_index_safely(model_classes, verbose)
+            _rebuild_index_safely(model_classes, verbose, terms, values, texts)
         else
             # Save time by running the indexing in one go and in-process
             ActsAsXapian.writable_init(".new")
@@ -611,7 +611,7 @@ module ActsAsXapian
                 STDOUT.puts("ActsAsXapian.rebuild_index: Rebuilding #{model_class.to_s}") if verbose
                 model_class.find(:all).each do |model|
                   STDOUT.puts("ActsAsXapian.rebuild_index      #{model_class} #{model.id}") if verbose
-                  model.xapian_index
+                  model.xapian_index(terms, values, texts)
                 end
             end
             # make sure everything is written and close
@@ -641,7 +641,7 @@ module ActsAsXapian
         # so they get the new db
     end
 
-    def ActsAsXapian._rebuild_index_safely(model_classes, verbose)
+    def ActsAsXapian._rebuild_index_safely(model_classes, verbose, terms, values, texts)
         batch_size = 1000
         for model_class in model_classes
             model_class_count = model_class.count
@@ -664,7 +664,7 @@ module ActsAsXapian
                     STDOUT.puts("ActsAsXapian.rebuild_index: New batch. #{model_class.to_s} from #{i} to #{i + batch_size} of #{model_class_count} pid #{Process.pid.to_s}") if verbose
                     model_class.find(:all, :limit => batch_size, :offset => i, :order => :id).each do |model|
                       STDOUT.puts("ActsAsXapian.rebuild_index      #{model_class} #{model.id}") if verbose
-                      model.xapian_index
+                      model.xapian_index(terms, values, texts)
                     end
                     # make sure everything is written
                     ActsAsXapian.writable_db.flush
@@ -738,7 +738,7 @@ module ActsAsXapian
         end
 
         # Store record in the Xapian database
-        def xapian_index
+        def xapian_index(terms = true, values = true, texts = true)
             # if we have a conditional function for indexing, call it and destory object if failed
             if self.class.xapian_options.include?(:if)
                 if_value = xapian_value(self.class.xapian_options[:if], :boolean)
@@ -748,37 +748,90 @@ module ActsAsXapian
                 end
             end
 
+            if self.class.to_s == "PublicBody" and self.url_name == "tgq"
+                
+#require 'ruby-debug'
+#debugger               
+            end
             # otherwise (re)write the Xapian record for the object
-            doc = Xapian::Document.new
+            ActsAsXapian.readable_init
+            existing_query = Xapian::Query.new("I" + self.xapian_document_term)
+            ActsAsXapian.enquire.query = existing_query
+            match = ActsAsXapian.enquire.mset(0,1,1).matches[0]
+
+            if !match.nil?
+                doc = match.document
+            else
+                doc = Xapian::Document.new
+                doc.data = self.xapian_document_term
+                doc.add_term("M" + self.class.to_s)
+                doc.add_term("I" + doc.data)
+            end
             ActsAsXapian.term_generator.document = doc
-
-            doc.data = self.xapian_document_term
-
-            doc.add_term("M" + self.class.to_s)
-            doc.add_term("I" + doc.data)
-            if self.xapian_options[:terms]
-              for term in self.xapian_options[:terms]
-                  value = xapian_value(term[0])
-                  if value.kind_of?(Array)
-                    for v in value
-                      doc.add_term(term[1] + v)
-                    end
-                  else
-                    doc.add_term(term[1] + value)
+            # work out what to index.  XXX for now, this is only selective on "terms".
+            terms_to_index = []
+            drop_all_terms = false
+            if terms and self.xapian_options[:terms]
+              terms_to_index = self.xapian_options[:terms].dup
+              if terms.is_a?(String)
+                  terms_to_index.reject!{|term| !terms.include?(term[1])}
+                  if terms_to_index.length == self.xapian_options[:terms].length
+                      drop_all_terms = true
                   end
+              else
+                  drop_all_terms = true
               end
             end
-            if self.xapian_options[:values]
-              for value in self.xapian_options[:values]
-                  doc.add_value(value[1], xapian_value(value[0], value[3])) 
-              end
+            texts_to_index = []
+            if texts and self.xapian_options[:texts]
+                texts_to_index = self.xapian_options[:texts]
             end
-            if self.xapian_options[:texts]
-              for text in self.xapian_options[:texts]
-                  ActsAsXapian.term_generator.increase_termpos # stop phrases spanning different text fields
-                  # XXX the "1" here is a weight that could be varied for a boost function
-                  ActsAsXapian.term_generator.index_text(xapian_value(text, nil, true), 1) 
-              end
+            values_to_index = []
+            if values and self.xapian_options[:values]
+                values_to_index = self.xapian_options[:values]
+            end
+
+            # clear any existing values that we might want to replace
+            if drop_all_terms && texts
+                # as an optimisation, if we're reindexing all of both, we remove everything
+                doc.clear_terms
+                doc.add_term("M" + self.class.to_s)
+                doc.add_term("I" + doc.data)
+            else
+                term_prefixes_to_index = terms_to_index.map {|x| x[1]}
+                for existing_term in doc.terms
+                    first_letter = existing_term.term[0...1]
+                    if !"MI".include?(first_letter)
+                        if first_letter.match("^[A-Z]+") && terms_to_index.include?(first_letter)
+                            doc.remove_term(existing_term.term)
+                        elsif texts
+                            doc.remove_term(existing_term.term)
+                        end
+                    end
+                end
+            end
+            # for now, we always clear values
+            doc.clear_values 
+            
+            for term in terms_to_index
+                value = xapian_value(term[0])
+                if value.kind_of?(Array)
+                    for v in value
+                        doc.add_term(term[1] + v)
+                    end
+                else
+                    doc.add_term(term[1] + value)
+                end
+            end
+            # values
+            for value in values_to_index
+                doc.add_value(value[1], xapian_value(value[0], value[3])) 
+            end
+            # texts
+            for text in texts_to_index
+                ActsAsXapian.term_generator.increase_termpos # stop phrases spanning different text fields
+                # XXX the "1" here is a weight that could be varied for a boost function
+                ActsAsXapian.term_generator.index_text(xapian_value(text, nil, true), 1) 
             end
 
             ActsAsXapian.writable_db.replace_document("I" + doc.data, doc)
