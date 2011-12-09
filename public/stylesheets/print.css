@@ -36,3 +36,7 @@ p#request_status {
 div.correspondence {
  page-break-before: avoid;
 }
+
+#other-country-notice {
+ display: none;
+}
