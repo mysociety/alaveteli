@@ -4,6 +4,7 @@ describe User, " when indexing users with Xapian" do
     fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
     it "should search by name" do
+        parse_all_incoming_messages
         rebuild_xapian_index
           # def InfoRequest.full_search(models, query, order, ascending, collapse, per_page, page)
         xapian_object = InfoRequest.full_search([User], "Silly", 'created_at', true, nil, 100, 1)

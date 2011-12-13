@@ -7,6 +7,8 @@
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
 # This is the type which is used to send data about attachments to the view
 
+require 'digest'
+
 class FoiAttachment < ActiveRecord::Base
     belongs_to :incoming_message
     validates_presence_of :content_type
@@ -14,41 +16,38 @@ class FoiAttachment < ActiveRecord::Base
     validates_presence_of :display_size
 
     before_validation :ensure_filename!, :only => [:filename]
+    before_destroy :delete_cached_file!
 
     def directory
-        if ENV["RAILS_ENV"] == "test"
-            base_dir = File.join('cache', 'attachments_test')
-        else
-            base_dir = File.join('cache', 'attachments')
-        end
-        request_id = self.incoming_message.info_request.id.to_s
-        return File.join(base_dir, request_id[0..2], request_id, self.incoming_message.id.to_s)
+        base_dir = File.join("cache", "attachments_#{ENV['RAILS_ENV']}")
+        return File.join(base_dir, self.hexdigest[0..2])
     end
 
     def filepath
-        part_number = self.url_part_number.nil? ? "1" : self.url_part_number.to_s
-        File.join(self.directory, part_number)
+        File.join(self.directory, self.hexdigest)
+    end
+
+    def delete_cached_file!
+        begin
+            File.delete(self.filepath)
+        rescue
+        end
     end
 
     def body=(d)
+        self.hexdigest = Digest::MD5.hexdigest(d)
         if !File.exists?(self.directory)
             FileUtils.mkdir_p self.directory
         end
         File.open(self.filepath, "wb") { |file|
             file.write d
         }
-        self.update_display_size!
+        update_display_size!
     end
 
     def body
         if @cached_body.nil?
-            if !File.exists?(self.filepath)
-                # For some reason, we've lost the cache; extract everything again
-                self.incoming_message.extract_attachments!
-                @cached_body = self.body
-            else
-                @cached_body = File.open(self.filepath, "rb" ).read
-            end
+            @cached_body = File.open(self.filepath, "rb" ).read
         end
         return @cached_body
     end

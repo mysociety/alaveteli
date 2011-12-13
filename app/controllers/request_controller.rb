@@ -690,7 +690,6 @@ class RequestController < ApplicationController
        
         # check permissions
         raise "internal error, pre-auth filter should have caught this" if !@info_request.user_can_view?(authenticated_user)
-  
         @attachment = IncomingMessage.get_attachment_by_url_part_number(@incoming_message.get_attachments_for_display, @part_number)
         raise ActiveRecord::RecordNotFound.new("attachment not found part number " + @part_number.to_s + " incoming_message " + @incoming_message.id.to_s) if @attachment.nil?
 
@@ -713,6 +712,7 @@ class RequestController < ApplicationController
                     :email => _("Then you can upload an FOI response. "),
                     :email_subject => _("Confirm your account on {{site_name}}",:site_name=>site_name)
             }
+
             if !authenticated?(@reason_params)
                 return
             end
@@ -754,6 +754,7 @@ class RequestController < ApplicationController
     def search_typeahead
         # Since acts_as_xapian doesn't support the Partial match flag, we work around it
         # by making the last work a wildcard, which is quite the same
+        
         query = params[:q] + '*'
 
         query = query.split(' ').join(' OR ')       # XXX: HACK for OR instead of default AND!

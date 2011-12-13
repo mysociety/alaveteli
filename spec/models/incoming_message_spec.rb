@@ -336,16 +336,13 @@ describe IncomingMessage, " when uudecoding bad messages" do
         mail_body = load_file_fixture('incoming-request-bad-uuencoding.email')
         mail = TMail::Mail.parse(mail_body)
         mail.base64_decode
-
         im = incoming_messages(:useless_incoming_message)
         im.stub!(:mail).and_return(mail)
-
-require 'ruby-debug'
-debugger
         im.extract_attachments!
-        attachments = im.get_main_body_text_uudecode_attachments
-        attachments.size.should == 1
-        attachments[0].filename.should == 'moo.txt'
+        attachments = im.foi_attachments
+        attachments.size.should == 2
+        attachments[1].filename.should == 'moo.txt'
+        im.get_attachments_for_display.size.should == 1
     end
 
     it "should apply censor rules" do
@@ -365,7 +362,7 @@ debugger
         ir.censor_rules << @censor_rule
         im.extract_attachments!
 
-        attachments = im.get_main_body_text_uudecode_attachments
+        attachments = im.get_attachments_for_display
         attachments.size.should == 1
         attachments[0].display_filename.should == 'bah.txt'
     end

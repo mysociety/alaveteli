@@ -54,6 +54,11 @@ describe InfoRequestEvent do
     describe "doing search/index stuff" do 
         fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
+        before(:each) do
+            load_raw_emails_data(raw_emails)
+            parse_all_incoming_messages
+        end
+
         it 'should get search text for outgoing messages' do 
             event = info_request_events(:useless_outgoing_message_event)
             message = outgoing_messages(:useless_outgoing_message).body

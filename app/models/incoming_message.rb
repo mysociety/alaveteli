@@ -386,7 +386,12 @@ class IncomingMessage < ActiveRecord::Base
         if !prefix.nil? && prefix.downcase.match(/^(postmaster|mailer-daemon|auto_reply|donotreply|no.reply)$/)
             return false
         end
-
+        if !self.mail['return-path'].nil? && self.mail['return-path'].addr == "<>"
+            return false
+        end
+        if !self.mail['auto-submitted'].nil? && !self.mail['auto-submitted'].keys.empty?
+            return false
+        end
         return true
     end
 
@@ -1007,16 +1012,7 @@ class IncomingMessage < ActiveRecord::Base
         return p
     end
     # Returns attachments that are uuencoded in main body part
-    def get_main_body_text_uudecode_attachments
-        # we don't use get_main_body_text_internal, as we want to avoid charset
-        # conversions, since /usr/bin/uudecode needs to deal with those.
-        # e.g. for https://secure.mysociety.org/admin/foi/request/show_raw_email/24550
-        main_part = get_main_body_text_part
-        if main_part.nil?
-            return []
-        end
-        text = main_part.body
-
+    def _uudecode_and_save_attachments(text)
         # Find any uudecoded things buried in it, yeuchly
         uus = text.scan(/^begin.+^`\n^end\n/sm)
         attachments = []
@@ -1039,11 +1035,16 @@ class IncomingMessage < ActiveRecord::Base
             else
                 content_type = 'application/octet-stream'
             end
-            attachment = self.foi_attachments.create(:body => content,
-                                                     :filename => filename,
-                                                     :content_type => content_type)
+            hexdigest = Digest::MD5.hexdigest(content)
+            attachment = self.foi_attachments.find_or_create_by_hexdigest(:hexdigest => hexdigest)
+            attachment.update_attributes(:filename => filename,
+                                         :content_type => content_type,
+                                         :body => content,
+                                         :display_size => "0K")
+            attachment.save!
+            attachments << attachment
         end    
-        return self.foi_attachments
+        return attachments
     end
 
     def get_attachments_for_display
@@ -1059,16 +1060,11 @@ class IncomingMessage < ActiveRecord::Base
         return attachments
     end
 
-
     def extract_attachments!
         leaves = get_attachment_leaves # XXX check where else this is called from
-
         # XXX we have to call ensure_parts_counted after get_attachment_leaves
         # which is really messy.
         ensure_parts_counted
-
-        self.foi_attachments.clear
-
         attachments = []
         for leaf in leaves            
             body = leaf.body
@@ -1106,24 +1102,36 @@ class IncomingMessage < ActiveRecord::Base
                     #attachment.body = leaf.within_rfc822_attachment.port.to_s
                 end
             end
-            self.foi_attachments.create(:content_type => leaf.content_type,
-                                        :url_part_number => leaf.url_part_number,
-                                        :filename => _get_part_file_name(leaf),
-                                        :body => body,
-                                        :charset => leaf.charset,
-                                        :within_rfc822_attachment => within_rfc822_attachment)
-                                        
+            hexdigest = Digest::MD5.hexdigest(body)
+            attachment = self.foi_attachments.find_or_create_by_hexdigest(:hexdigest => hexdigest)
+            attachment.update_attributes(:url_part_number => leaf.url_part_number,
+                                         :content_type => leaf.content_type,
+                                         :filename => _get_part_file_name(leaf),
+                                         :charset => leaf.charset,
+                                         :within_rfc822_subject => within_rfc822_subject,
+                                         :display_size => "0K",
+                                         :body => body)
+            attachment.save!
+            attachments << attachment.id
+        end
+        main_part = get_main_body_text_part
+        # we don't use get_main_body_text_internal, as we want to avoid charset
+        # conversions, since /usr/bin/uudecode needs to deal with those.
+        # e.g. for https://secure.mysociety.org/admin/foi/request/show_raw_email/24550
+        if !main_part.nil?
+            uudecoded_attachments = _uudecode_and_save_attachments(main_part.body)
+            c = @count_first_uudecode_count
+            for uudecode_attachment in uudecoded_attachments
+                c += 1
+                uudecode_attachment.url_part_number = c
+                uudecode_attachment.save!
+                attachments << uudecode_attachment.id
+            end
         end
 
-        uudecode_attachments = get_main_body_text_uudecode_attachments
-        c = @count_first_uudecode_count
-        for uudecode_attachment in uudecode_attachments
-            c += 1
-            uudecode_attachment.url_part_number = c
-            uudecode_attachment.save!
-        end
-        return self.foi_attachments
-    end
+        # now get rid of any attachments we no longer have
+        FoiAttachment.destroy_all("id NOT IN (#{attachments.join(',')}) AND incoming_message_id = #{self.id}")        
+   end
 
     # Returns body text as HTML with quotes flattened, and emails removed.
     def get_body_for_html_display(collapse_quoted_sections = true)
@@ -1163,6 +1171,7 @@ class IncomingMessage < ActiveRecord::Base
         text = text.gsub(/(?:<br>\s*){2,}/, '<br><br>') # remove excess linebreaks that unnecessarily space it out
         return text
     end
+
 
     # Returns text of email for using in quoted section when replying
     def get_body_for_quoting
@@ -1300,6 +1309,7 @@ class IncomingMessage < ActiveRecord::Base
         text = Iconv.conv('utf-8//IGNORE', 'utf-8', text)
         return text
     end
+
 
     # Returns text for indexing
     def get_text_for_indexing_full

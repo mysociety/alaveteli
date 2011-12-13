@@ -173,7 +173,7 @@ describe RequestController, "when showing one request" do
             # re-parse...
             lambda {
                 get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => ['hello.txt.baz.html'], :skip_cache => 1
-            }.should raise_error(RuntimeError)
+            }.should raise_error(ActiveRecord::RecordNotFound)
             
             attachment = IncomingMessage.get_attachment_by_url_part_number(ir.incoming_messages[1].get_attachments_for_display, 2)
             attachment.body.should have_text(/Second hello/)
@@ -995,7 +995,6 @@ describe RequestController, "when sending a followup message" do
 
     before(:each) do
         load_raw_emails_data(raw_emails)
-        info_requests(:fancy_dog_request).incoming_messages.each{|x| x.parse_raw_email!}
     end
 
     it "should require login" do
@@ -1346,9 +1345,10 @@ end
 
 
 describe RequestController, "authority uploads a response from the web interface" do
+    integrate_views
     fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
-    before(:all) do
+    before(:each) do
         # domain after the @ is used for authentication of FOI officers, so to test it
         # we need a user which isn't at localhost.
         @normal_user = User.new(:name => "Mr. Normal", :email => "normal-user@flourish.org",  
@@ -1402,7 +1402,7 @@ describe RequestController, "authority uploads a response from the web interface
 
     # How do I test a file upload in rails?
     # http://stackoverflow.com/questions/1178587/how-do-i-test-a-file-upload-in-rails
-    it "should let the requester upload a file" do
+    it "should let the authority upload a file" do
         @ir = info_requests(:fancy_dog_request) 
         incoming_before = @ir.incoming_messages.size
         session[:user_id] = @foi_officer_user.id
