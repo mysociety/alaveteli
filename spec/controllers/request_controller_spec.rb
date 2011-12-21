@@ -1398,7 +1398,7 @@ describe RequestController, "when doing type ahead searches" do
     it "should return nothing for the empty query string" do
         get :search_typeahead, :q => ""
         response.should render_template('request/_search_ahead.rhtml')
-        assigns[:xapian_requests].results.size.should == 0
+        assigns[:xapian_requests].should be_nil
     end
     
     it "should return a request matching the given keyword, but not users with a matching description" do
@@ -1416,11 +1416,10 @@ describe RequestController, "when doing type ahead searches" do
         assigns[:xapian_requests].results[1][:model].title.should == info_requests(:naughty_chicken_request).title
     end
 
-    it "should return partial matches" do
-        get :search_typeahead, :q => "chick"  # 'chick' for 'chicken'
+    it "should not return  matches for short words" do
+        get :search_typeahead, :q => "a" 
         response.should render_template('request/_search_ahead.rhtml')
-        assigns[:xapian_requests].results.size.should == 1
-        assigns[:xapian_requests].results[0][:model].title.should == info_requests(:naughty_chicken_request).title
+        assigns[:xapian_requests].should be_nil
     end
 end
 
