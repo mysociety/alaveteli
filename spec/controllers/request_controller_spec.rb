@@ -167,7 +167,6 @@ describe RequestController, "when showing one request" do
 
             # change the raw_email associated with the message; this only be reparsed when explicitly asked for
             ir.incoming_messages[1].raw_email.data = ir.incoming_messages[1].raw_email.data.sub("Second", "Third")
-
             # asking for an attachment by the wrong filename results
             # in a 404 for browsing users.  This shouldn't cause a
             # re-parse...
@@ -183,7 +182,10 @@ describe RequestController, "when showing one request" do
             response.should_not have_text(/Third hello/)
             
             # ...but if we explicitly ask for attachments to be extracted, then they should be
-            ir.incoming_messages[1].extract_attachments!
+            force = true
+            ir.incoming_messages[1].parse_raw_email!(force)
+            attachment = IncomingMessage.get_attachment_by_url_part_number(ir.incoming_messages[1].get_attachments_for_display, 2)
+            attachment.body.should have_text(/Second hello/)
             get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => ['hello.txt.html'], :skip_cache => 1
             response.should have_text(/Third hello/)
         end

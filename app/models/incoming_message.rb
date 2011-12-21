@@ -338,8 +338,8 @@ class IncomingMessage < ActiveRecord::Base
 
     # Return the structured TMail::Mail object
     # Documentation at http://i.loveruby.net/en/projects/tmail/doc/
-    def mail
-        if @mail.nil? && !self.raw_email.nil?
+    def mail(force = nil)
+        if (!force.nil? || @mail.nil?) && !self.raw_email.nil?
             # Hack round bug in TMail's MIME decoding. Example request which provokes it:
             # http://www.whatdotheyknow.com/request/reviews_of_unduly_lenient_senten#incoming-4830
             # Report of TMail bug:
@@ -395,21 +395,24 @@ class IncomingMessage < ActiveRecord::Base
         return true
     end
 
-    def parse_raw_email!
+    def parse_raw_email!(force = nil)
         # The following fields may be absent; we treat them as cached
         # values in case we want to regenerate them (due to mail
         # parsing bugs, etc).
-        self.extract_attachments!
-        self.sent_at = self.mail.date || self.created_at
-        self.subject = self.mail.subject
-        self.safe_mail_from = self._calculate_safe_mail_from
-        begin
-            self.mail_from_domain = PublicBody.extract_domain_from_email(self.mail.from_addrs[0].spec)
-        rescue NoMethodError
-            self.mail_from_domain = ""
+        if (!force.nil? || self.last_parsed.nil?)
+            self.extract_attachments!
+            self.sent_at = self.mail.date || self.created_at
+            self.subject = self.mail.subject
+            self.safe_mail_from = self._calculate_safe_mail_from
+            begin
+                self.mail_from_domain = PublicBody.extract_domain_from_email(self.mail.from_addrs[0].spec)
+            rescue NoMethodError
+                self.mail_from_domain = ""
+            end
+            self.valid_to_reply_to = self._calculate_valid_to_reply_to
+            self.last_parsed = Time.now
+            self.save!
         end
-        self.valid_to_reply_to = self._calculate_valid_to_reply_to
-        self.save!
     end
 
     def valid_to_reply_to?
@@ -421,38 +424,23 @@ class IncomingMessage < ActiveRecord::Base
     # repetition.  I tried overriding method_missing but got some
     # unpredictable results.
     def valid_to_reply_to
-        result = super
-        if result.nil?
-            self.parse_raw_email!
-        end
+        parse_raw_email!
         super
     end
     def sent_at
-        result = super
-        if result.nil?
-            self.parse_raw_email!
-        end
+        parse_raw_email!
         super
     end
     def subject
-        result = super
-        if result.nil?
-            self.parse_raw_email!
-        end
+        parse_raw_email!
         super
     end
     def safe_mail_from
-        result = super
-        if result.nil?
-            self.parse_raw_email!
-        end
+        parse_raw_email!
         super
     end
     def mail_from_domain
-        result = super
-        if result.nil?
-            self.parse_raw_email!
-        end
+        parse_raw_email!
         super
     end
 
@@ -460,19 +448,12 @@ class IncomingMessage < ActiveRecord::Base
     # XXX This fills in part.rfc822_attachment and part.url_part_number within
     # all the parts of the email (see TMail monkeypatch above for how these
     # attributes are added). ensure_parts_counted must be called before using
-    # the attributes. This calculation is done only when required to avoid
-    # having to load and parse the email unnecessarily.
-    def after_initialize
-        @parts_counted = false 
-    end
+    # the attributes. 
     def ensure_parts_counted
-        if not @parts_counted
-            @count_parts_count = 0
-            _count_parts_recursive(self.mail)
-            # we carry on using these numeric ids for attachments uudecoded from within text parts
-            @count_first_uudecode_count = @count_parts_count
-            @parts_counted = true
-        end
+        @count_parts_count = 0
+        _count_parts_recursive(self.mail)
+        # we carry on using these numeric ids for attachments uudecoded from within text parts
+        @count_first_uudecode_count = @count_parts_count
     end
     def _count_parts_recursive(part)
         if part.multipart?
@@ -769,7 +750,8 @@ class IncomingMessage < ActiveRecord::Base
     # (This risks losing info if the unchosen alternative is the only one to contain 
     # useful info, but let's worry about that another time)
     def get_attachment_leaves
-        return _get_attachment_leaves_recursive(self.mail)
+        force = true
+        return _get_attachment_leaves_recursive(self.mail(force))
     end
     def _get_attachment_leaves_recursive(curr_mail, within_rfc822_attachment = nil)
         leaves_found = []
@@ -1048,9 +1030,7 @@ class IncomingMessage < ActiveRecord::Base
     end
 
     def get_attachments_for_display
-        if self.foi_attachments.size == 0
-            extract_attachments!
-        end
+        parse_raw_email!
         # return what user would consider attachments, i.e. not the main body
         main_part = get_main_body_text_part
         attachments = []

@@ -453,7 +453,6 @@ public
             self.save!
         end
         self.info_request_events.each { |event| event.xapian_mark_needs_index } # for the "waiting_classification" index
-        incoming_message.parse_raw_email!
         RequestMailer.deliver_new_response(self, incoming_message)
     end
 

@@ -676,6 +676,7 @@ class RequestController < ApplicationController
     # Internal function
     def get_attachment_internal(html_conversion)
         @incoming_message = IncomingMessage.find(params[:incoming_message_id])
+        @incoming_message.parse_raw_email!
         @info_request = @incoming_message.info_request
         if @incoming_message.info_request_id != params[:id].to_i
             raise sprintf("Incoming message %d does not belong to request %d", @incoming_message.info_request_id, params[:id])
