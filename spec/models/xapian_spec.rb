@@ -1,9 +1,10 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe User, " when indexing users with Xapian" do
-    fixtures :users
+    fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
     it "should search by name" do
+        parse_all_incoming_messages
         rebuild_xapian_index
           # def InfoRequest.full_search(models, query, order, ascending, collapse, per_page, page)
         xapian_object = InfoRequest.full_search([User], "Silly", 'created_at', true, nil, 100, 1)
@@ -12,10 +13,10 @@ describe User, " when indexing users with Xapian" do
     end
 
     it "should search by 'about me' text" do
+        rebuild_xapian_index
         user = users(:bob_smith_user)
 
-        rebuild_xapian_index
-          # def InfoRequest.full_search(models, query, order, ascending, collapse, per_page, page)
+        # def InfoRequest.full_search(models, query, order, ascending, collapse, per_page, page)
         xapian_object = InfoRequest.full_search([User], "stuff", 'created_at', true, nil, 100, 1)
         xapian_object.results.size.should == 1
         xapian_object.results[0][:model].should == user
@@ -34,7 +35,7 @@ describe User, " when indexing users with Xapian" do
 end
 
 describe PublicBody, " when indexing public bodies with Xapian" do
-    fixtures :public_bodies, :public_body_translations, :incoming_messages, :outgoing_messages, :raw_emails, :comments, :info_requests
+    fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
     before(:each) do
         load_raw_emails_data(raw_emails)
     end
@@ -72,7 +73,7 @@ describe PublicBody, " when indexing public bodies with Xapian" do
 end
 
 describe PublicBody, " when indexing requests by body they are to" do
-    fixtures :public_bodies, :public_body_translations, :info_request_events, :info_requests, :raw_emails, :comments
+    fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
     before(:each) do
         load_raw_emails_data(raw_emails)
@@ -132,7 +133,7 @@ describe PublicBody, " when indexing requests by body they are to" do
 end
 
 describe User, " when indexing requests by user they are from" do
-    fixtures :users, :info_request_events, :info_requests, :incoming_messages, :outgoing_messages, :raw_emails, :comments
+    fixtures :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
     before(:each) do
         load_raw_emails_data(raw_emails)
     end
@@ -219,7 +220,7 @@ describe User, " when indexing requests by user they are from" do
 end
 
 describe User, " when indexing comments by user they are by" do
-    fixtures :users, :info_request_events, :info_requests, :comments, :incoming_messages, :outgoing_messages, :raw_emails, :comments
+    fixtures :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
     before(:each) do
         load_raw_emails_data(raw_emails)
     end
@@ -256,7 +257,7 @@ describe User, " when indexing comments by user they are by" do
 end
 
 describe InfoRequest, " when indexing requests by their title" do
-    fixtures :info_request_events, :info_requests, :incoming_messages, :raw_emails, :comments
+    fixtures :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
     before(:each) do
         load_raw_emails_data(raw_emails)
     end
@@ -287,7 +288,7 @@ describe InfoRequest, " when indexing requests by their title" do
 end
 
 describe InfoRequest, " when indexing requests by tag" do
-    fixtures :info_request_events, :info_requests, :incoming_messages, :raw_emails, :comments
+    fixtures :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
     before(:each) do
         load_raw_emails_data(raw_emails)
     end
@@ -309,7 +310,7 @@ describe InfoRequest, " when indexing requests by tag" do
 end
 
 describe PublicBody, " when indexing authorities by tag" do
-    fixtures :public_bodies, :public_body_translations, :incoming_messages, :outgoing_messages, :raw_emails, :comments
+    fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
     before(:each) do
         load_raw_emails_data(raw_emails)
     end
@@ -332,6 +333,66 @@ describe PublicBody, " when indexing authorities by tag" do
         xapian_object.results.size.should == 0
     end
 end
+
+describe PublicBody, " when only indexing selected things on a rebuild" do
+    fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
+    before(:each) do
+        load_raw_emails_data(raw_emails)
+    end
+
+    it "should only index what we ask it to" do
+        rebuild_xapian_index
+        body = public_bodies(:geraldine_public_body)
+        body.tag_string = 'mice:3'
+        body.name = 'frobzn'
+        body.save!
+        # only reindex 'variety' term
+        dropfirst = true
+        terms = "V"
+        values = false
+        texts = false
+        rebuild_xapian_index(terms, values, texts, dropfirst)
+        xapian_object = InfoRequest.full_search([PublicBody], "tag:mice", 'created_at', true, nil, 100, 1)
+        xapian_object.results.size.should == 0
+        xapian_object = InfoRequest.full_search([PublicBody], "frobzn", 'created_at', true, nil, 100, 1)
+        xapian_object.results.size.should == 0
+        xapian_object = InfoRequest.full_search([PublicBody], "variety:authority", 'created_at', true, nil, 100, 1)
+        xapian_object.results.size.should == 2
+        # only reindex 'tag' and text
+        dropfirst = true
+        terms = "U"
+        values = false
+        texts = true
+        rebuild_xapian_index(terms, values, texts, dropfirst)
+        xapian_object = InfoRequest.full_search([PublicBody], "tag:mice", 'created_at', true, nil, 100, 1)
+        xapian_object.results.size.should == 1
+        xapian_object = InfoRequest.full_search([PublicBody], "frobzn", 'created_at', true, nil, 100, 1)
+        xapian_object.results.size.should == 1
+        xapian_object = InfoRequest.full_search([PublicBody], "variety:authority", 'created_at', true, nil, 100, 1)
+        xapian_object.results.size.should == 0
+        # only reindex 'variety' term, but keeping the existing data in-place
+        dropfirst = false
+        terms = "V"
+        texts = false
+        rebuild_xapian_index(terms, values, texts, dropfirst)
+        xapian_object = InfoRequest.full_search([PublicBody], "tag:mice", 'created_at', true, nil, 100, 1)
+        xapian_object.results.size.should == 1
+        xapian_object = InfoRequest.full_search([PublicBody], "frobzn", 'created_at', true, nil, 100, 1)
+        xapian_object.results.size.should == 1
+        xapian_object = InfoRequest.full_search([PublicBody], "variety:authority", 'created_at', true, nil, 100, 1)
+        xapian_object.results.size.should == 2
+        # only reindex 'variety' term, blowing away existing data
+        dropfirst = true
+        rebuild_xapian_index(terms, values, texts, dropfirst)
+        xapian_object = InfoRequest.full_search([PublicBody], "tag:mice", 'created_at', true, nil, 100, 1)
+        xapian_object.results.size.should == 0
+        xapian_object = InfoRequest.full_search([PublicBody], "frobzn", 'created_at', true, nil, 100, 1)
+        xapian_object.results.size.should == 0
+        xapian_object = InfoRequest.full_search([PublicBody], "variety:authority", 'created_at', true, nil, 100, 1)
+        xapian_object.results.size.should == 2
+    end
+end
+
 
 
 

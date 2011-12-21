@@ -12,7 +12,6 @@
         <link rel="shortcut icon" href="/favicon.ico">
 	<%= stylesheet_link_tag 'main', :title => "Main", :rel => "stylesheet", :media => "all" %>
 	<%= stylesheet_link_tag 'fonts', :rel => "stylesheet", :media => "all"  %>
-	<%= stylesheet_link_tag 'theme', :rel => "stylesheet", :media => "all"  %>
 	<%= stylesheet_link_tag 'print', :rel => "stylesheet", :media => "print"  %>
 	<% if !params[:print_stylesheet].nil? %>
          <%= stylesheet_link_tag 'print', :rel => "stylesheet", :media => "all"  %>
@@ -35,11 +34,12 @@
         <!--[if LT IE 8]> 
         <style type="text/css">@import url("/stylesheets/ie7.css");</style> 
         <![endif]-->
-        <%= stylesheet_link_tag 'custom', :title => "Main", :rel => "stylesheet"  %>
+	<!-- the following method for customising CSS is deprecated; see `doc/THEMES.md` for detail -->
+	<%= stylesheet_link_tag 'custom', :title => "Main", :rel => "stylesheet"  %>
         <% if force_registration_on_new_request %>
         <%= stylesheet_link_tag 'jquery.fancybox-1.3.4', :rel => "stylesheet"  %>
         <% end %>
-        
+
         <% if @feed_autodetect %>
             <% for feed in @feed_autodetect %>
                 <link rel="alternate" type="application/atom+xml" title="<%=h feed[:title] %>" href="<%=h feed[:url]%>">
@@ -49,7 +49,7 @@
             <% end %>
         <% end %>
         <% if @has_json %>
-            <link rel="alternate" type="application/json" title="JSON version of this page" href="<%=h main_url(request.request_uri) %>.json">
+            <link rel="alternate" type="application/json" title="JSON version of this page" href="<%=h main_url(request.request_uri, '.json') %>">
         <% end %>
 
         <% if @no_crawl %>

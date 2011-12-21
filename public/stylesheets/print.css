@@ -1,4 +1,4 @@
-div#content, div#left_column, div.entirebodym div#wrapper {
+div#content, div#left_column, div.entirebody div#wrapper {
  width: 100%; 
  margin: 0; 
  float: none;
@@ -35,4 +35,8 @@ p#request_status {
 }
 div.correspondence {
  page-break-before: avoid;
+}
+
+#other-country-notice {
+ display: none;
 }

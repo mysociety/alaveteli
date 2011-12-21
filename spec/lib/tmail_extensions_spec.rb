@@ -1,3 +1,4 @@
+# coding: utf-8
 # This is a test of the set_content_type monkey patch in
 # lib/tmail_extensions.rb
 
@@ -25,6 +26,15 @@ describe "when using TMail" do
     it 'should parse multiple to addresses with unqoted display names' do
         mail = TMail::Mail.parse(load_file_fixture('multiple-unquoted-display-names.email'))
         mail.to.should == ["request-66666-caa77777@whatdotheyknow.com", "foi@example.com"]
+    end
+
+    it 'should convert to utf8' do
+        # NB this isn't actually a TMail extension, but is core TMail;
+        # this was just a convenient place to assert the UTF8
+        # conversion is working
+        mail = TMail::Mail.parse(load_file_fixture('iso8859_2_raw_email.email'))
+        mail.subject.should have_text(/gjatë/u)
+        mail.body.is_utf8?.should == true
     end
 
 end

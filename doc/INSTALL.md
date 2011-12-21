@@ -1,8 +1,13 @@
-These instructions are based on getting the FOI site up and running on
-Ubuntu and/or Debian.
+These instructions assume Debian Squeeze or Ubuntu 11.04, or later
+(probably, though we won't necessarily have tested in later versions
+yet!)
+[Install instructions for OS X](https://github.com/sebbacon/alaveteli/wiki/OS-X-Quickstart)
+are under development.
 
-It was last run using the Lucid Lynx version of Ubuntu and on the
-Parallels debian instance (2.6.18-4-686).
+It is possible to install on Ubuntus as old as 10.04, but you must use
+[Xapian backports](https://launchpad.net/~xapian-backports/+archive/xapian-1.2)
+(see [issue #158](https://github.com/sebbacon/alaveteli/issues/159)
+for discussion).
 
 Commands are intended to be run via the terminal or over ssh.
 
@@ -81,6 +86,18 @@ The following command will set up a user 'foi' with password 'foi':
     GRANT ALL PRIVILEGES ON DATABASE foi_test TO foi;    	
     ALTER DATABASE foi_development OWNER TO foi;
     ALTER DATABASE foi_test OWNER TO foi;" | psql
+
+# Configure email
+
+You will need to set up an email server (MTA) to send and receive
+emails.  Full configuration for an MTA is beyond the scope of this
+document. However, just to get the tests to pass, you will at a
+minimum need to allow sending emails via a `sendmail` command (a
+requirement met, for example, with `sudo apt-get install exim4`).
+
+To receive email in a production setup, you will also need to
+configure your MTA to forward incoming emails to Alaveteli.  An
+example configuration is described in `INSTALL-exim4.md`.
 
 # Set up configs
 
@@ -266,3 +283,33 @@ is supplied in `../conf/varnish-alaveteli.vcl`.
     Did you remember to remove the file `alaveteli/config/rails_env.rb`
     as described above?  It's created every time you run
     `script/rails-post-deploy`
+
+*   **Non-ASCII characters are being displayed as asterisks in my incoming messages**
+
+    We rely on `elinks` to convert HTML email to plain text.
+    Normally, the encoding should just work, but under some
+    circumstances it appears that `elinks` ignores the parameters
+    passed to it from Alaveteli.
+    
+    To force `elinks` always to treat input as UTF8, add the following
+    to `/etc/elinks/elinks.conf`:
+    
+        set document.codepage.assume = "utf-8"
+        
+    You should also check that your locale is set up wrongly.  See 
+    [https://github.com/sebbacon/alaveteli/issues/128#issuecomment-1814845](this issue followup)
+    for further discussion.
+    
+*   **I'm getting lots of `SourceIndex.new(hash) is deprecated` errors when running the tests**
+
+    The latest versions of rubygems contain a large number of noisy
+    deprecation warnings that you can't turn off individually.  Rails
+    2.x isn't under active development so isn't going to get fixed (in
+    the sense of using a non-deprecated API).  So the only vaguely
+    sensible way to avoid this noisy output is to downgrade rubygems.
+    
+    For example, you might do this by uninstalling your
+    system-packaged rubygems, and then installing the latest rubygems
+    from source, and finally executing `sudo gem update --system
+    1.6.2`.
+
