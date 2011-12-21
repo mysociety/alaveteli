@@ -49,7 +49,7 @@
             <% end %>
         <% end %>
         <% if @has_json %>
-            <link rel="alternate" type="application/json" title="JSON version of this page" href="<%=h main_url(request.request_uri) %>.json">
+            <link rel="alternate" type="application/json" title="JSON version of this page" href="<%=h main_url(request.request_uri, '.json') %>">
         <% end %>
 
         <% if @no_crawl %>
