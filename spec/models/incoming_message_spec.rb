@@ -284,11 +284,9 @@ describe IncomingMessage, " when censoring data" do
     end
 
     it "should apply censor rules to From: addresses" do
-        mock_mail = mock('Email object')
-        mock_mail.stub!(:from_name_if_present).and_return("Stilton Mouse")
-        @im.stub!(:mail).and_return(mock_mail)
-        
-        safe_mail_from = @im._calculate_safe_mail_from
+        @im.stub!(:mail_from).and_return("Stilton Mouse")        
+        @im.stub!(:last_parsed).and_return(Time.now)        
+        safe_mail_from = @im.safe_mail_from
         safe_mail_from.should == "Jarlsberg Mouse"
     end
 

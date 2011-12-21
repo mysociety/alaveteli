@@ -356,15 +356,6 @@ class IncomingMessage < ActiveRecord::Base
     # there isn't one or if there is only an email address. XXX can probably
     # remove from_name_if_present (which is a monkey patch) by just calling
     # .from_addrs[0].name here instead? 
-    def _calculate_safe_mail_from
-        name = self.mail.from_name_if_present
-        if name.nil?
-            return nil
-        end
-        name = name.dup
-        self.info_request.apply_censor_rules_to_text!(name)
-        return name
-    end
 
     # Return false if for some reason this is a message that we shouldn't let them reply to
     def _calculate_valid_to_reply_to
@@ -403,7 +394,10 @@ class IncomingMessage < ActiveRecord::Base
             self.extract_attachments!
             self.sent_at = self.mail.date || self.created_at
             self.subject = self.mail.subject
-            self.safe_mail_from = self._calculate_safe_mail_from
+            # XXX can probably remove from_name_if_present (which is a
+            # monkey patch) by just calling .from_addrs[0].name here
+            # instead?
+            self.mail_from = self.mail.from_name_if_present
             begin
                 self.mail_from_domain = PublicBody.extract_domain_from_email(self.mail.from_addrs[0].spec)
             rescue NoMethodError
@@ -435,9 +429,16 @@ class IncomingMessage < ActiveRecord::Base
         parse_raw_email!
         super
     end
-    def safe_mail_from
+    def mail_from
         parse_raw_email!
         super
+    end
+    def safe_mail_from
+        if !self.mail_from.nil?
+            mail_from = self.mail_from.dup
+            self.info_request.apply_censor_rules_to_text!(mail_from)            
+            return mail_from
+        end
     end
     def mail_from_domain
         parse_raw_email!
@@ -848,7 +849,6 @@ class IncomingMessage < ActiveRecord::Base
     # search results
     def _cache_main_body_text
         text = self.get_main_body_text_internal
-
         # Strip the uudecode parts from main text
         # - this also effectively does a .dup as well, so text mods don't alter original
         text = text.split(/^begin.+^`\n^end\n/sm).join(" ")

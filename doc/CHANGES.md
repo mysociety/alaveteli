@@ -5,6 +5,7 @@
 * Base design refactored: CSS simplified and reduced, base design colours removed, now provided in example Alaveteli theme override
 * It is now possible to rebuild the xapian index for specific terms, rather than having to drop and rebuild the entire database every time (as previously).  See rake xapian:rebuild_index for more info. 
 * When listing authorities, show all authorities in default locale, rather than only those in the currently selected locale.
+* Ensure incoming emails are only ever parsed once (should give a performance boost)
 
 ## Upgrade notes
 * **IMPORTANT! We now depend on Xapian 1.2**, which means you may need to install Xapian from backports.  See [issue #159] for more info.
