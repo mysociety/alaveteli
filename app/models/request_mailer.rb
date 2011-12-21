@@ -10,6 +10,7 @@ require 'alaveteli_file_types'
 
 class RequestMailer < ApplicationMailer
     
+
     # Used when an FOI officer uploads a response from their web browser - this is
     # the "fake" email used to store in the same format in the database as if they
     # had emailed it.

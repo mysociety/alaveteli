@@ -676,6 +676,7 @@ class RequestController < ApplicationController
     # Internal function
     def get_attachment_internal(html_conversion)
         @incoming_message = IncomingMessage.find(params[:incoming_message_id])
+        @incoming_message.parse_raw_email!
         @info_request = @incoming_message.info_request
         if @incoming_message.info_request_id != params[:id].to_i
             raise sprintf("Incoming message %d does not belong to request %d", @incoming_message.info_request_id, params[:id])
@@ -690,7 +691,6 @@ class RequestController < ApplicationController
        
         # check permissions
         raise "internal error, pre-auth filter should have caught this" if !@info_request.user_can_view?(authenticated_user)
-  
         @attachment = IncomingMessage.get_attachment_by_url_part_number(@incoming_message.get_attachments_for_display, @part_number)
         raise ActiveRecord::RecordNotFound.new("attachment not found part number " + @part_number.to_s + " incoming_message " + @incoming_message.id.to_s) if @attachment.nil?
 
@@ -713,6 +713,7 @@ class RequestController < ApplicationController
                     :email => _("Then you can upload an FOI response. "),
                     :email_subject => _("Confirm your account on {{site_name}}",:site_name=>site_name)
             }
+
             if !authenticated?(@reason_params)
                 return
             end

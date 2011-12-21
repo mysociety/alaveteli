@@ -23,7 +23,7 @@ file too large for email, use the form below.')%>
 <p><%= _('Enter your response below. You may attach one file (use email, or 
 <a href="%s">contact us</a> if you need more).')% [help_contact_path] %></p>
 
-<% form_tag '', :html => { :id => 'upload_response_form' }, :multipart => true do %>
+<% form_tag '', :id => 'upload_response_form', :multipart => true do %>
     <p>
         <label class="form_label" for="body"><% _('Response:')%></label> 
                 <%= text_area_tag :body, "", :rows => 10, :cols => 55 %>

@@ -1,3 +1,4 @@
+
 # == Schema Information
 # Schema version: 95
 #
@@ -249,10 +250,10 @@ public
         if incoming_message.nil? || !incoming_message.valid_to_reply_to?
             'Re: ' + self.email_subject_request
         else
-            if incoming_message.mail.subject.match(/^Re:/i)
-                incoming_message.mail.subject
+            if incoming_message.subject.match(/^Re:/i)
+                incoming_message.subject
             else
-                'Re: ' + incoming_message.mail.subject
+                'Re: ' + incoming_message.subject
             end
         end
     end
