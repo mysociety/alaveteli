@@ -64,7 +64,7 @@ end
 describe IncomingMessage, " display attachments" do
 
     it "should not show slashes in filenames" do
-        foi_attachment = FOIAttachment.new()
+        foi_attachment = FoiAttachment.new()
         # http://www.whatdotheyknow.com/request/post_commercial_manager_librarie#incoming-17233
         foi_attachment.filename = "FOI/09/066 RESPONSE TO FOI REQUEST RECEIVED 21st JANUARY 2009.txt"
         expected_display_filename = foi_attachment.filename.gsub(/\//, " ")
@@ -72,10 +72,11 @@ describe IncomingMessage, " display attachments" do
     end
 
     it "should not show slashes in subject generated filenames" do
-        foi_attachment = FOIAttachment.new()
+        foi_attachment = FoiAttachment.new()
         # http://www.whatdotheyknow.com/request/post_commercial_manager_librarie#incoming-17233
         foi_attachment.within_rfc822_subject = "FOI/09/066 RESPONSE TO FOI REQUEST RECEIVED 21st JANUARY 2009"
         foi_attachment.content_type = 'text/plain'
+        foi_attachment.ensure_filename!
         expected_display_filename = foi_attachment.within_rfc822_subject.gsub(/\//, " ") + ".txt"
         foi_attachment.display_filename.should == expected_display_filename
     end
@@ -118,8 +119,7 @@ describe IncomingMessage, " checking validity to reply to" do
 
         @incoming_message = IncomingMessage.new()
         @incoming_message.stub!(:mail).and_return(@mail)
-
-        @incoming_message.valid_to_reply_to?.should == result
+        @incoming_message._calculate_valid_to_reply_to.should == result
     end
 
     it "says a valid email is fine" do
@@ -284,10 +284,8 @@ describe IncomingMessage, " when censoring data" do
     end
 
     it "should apply censor rules to From: addresses" do
-        mock_mail = mock('Email object')
-        mock_mail.stub!(:from_name_if_present).and_return("Stilton Mouse")
-        @im.stub!(:mail).and_return(mock_mail)
-        
+        @im.stub!(:mail_from).and_return("Stilton Mouse")        
+        @im.stub!(:last_parsed).and_return(Time.now)        
         safe_mail_from = @im.safe_mail_from
         safe_mail_from.should == "Jarlsberg Mouse"
     end
@@ -326,21 +324,23 @@ end
 
 
 describe IncomingMessage, " when uudecoding bad messages" do
+    fixtures :incoming_messages, :raw_emails, :public_bodies, :public_body_translations, :info_requests, :users, :foi_attachments
+
+    before(:each) do
+        load_raw_emails_data(raw_emails)
+    end
+
     it "should be able to do it at all" do
         mail_body = load_file_fixture('incoming-request-bad-uuencoding.email')
         mail = TMail::Mail.parse(mail_body)
         mail.base64_decode
-
-        im = IncomingMessage.new
+        im = incoming_messages(:useless_incoming_message)
         im.stub!(:mail).and_return(mail)
-        ir = InfoRequest.new
-        im.info_request = ir
-        u = User.new
-        ir.user = u
-
-        attachments = im.get_main_body_text_uudecode_attachments
-        attachments.size.should == 1
-        attachments[0].filename.should == 'moo.txt'
+        im.extract_attachments!
+        attachments = im.foi_attachments
+        attachments.size.should == 2
+        attachments[1].filename.should == 'moo.txt'
+        im.get_attachments_for_display.size.should == 1
     end
 
     it "should apply censor rules" do
@@ -348,12 +348,9 @@ describe IncomingMessage, " when uudecoding bad messages" do
         mail = TMail::Mail.parse(mail_body)
         mail.base64_decode
 
-        im = IncomingMessage.new
+        im = incoming_messages(:useless_incoming_message)
         im.stub!(:mail).and_return(mail)
-        ir = InfoRequest.new
-        im.info_request = ir
-        u = User.new
-        ir.user = u
+        ir = info_requests(:fancy_dog_request)
 
         @censor_rule = CensorRule.new()
         @censor_rule.text = "moo"
@@ -361,26 +358,31 @@ describe IncomingMessage, " when uudecoding bad messages" do
         @censor_rule.last_edit_editor = "unknown"
         @censor_rule.last_edit_comment = "none"
         ir.censor_rules << @censor_rule
+        im.extract_attachments!
 
-        attachments = im.get_main_body_text_uudecode_attachments
+        attachments = im.get_attachments_for_display
         attachments.size.should == 1
-        attachments[0].filename.should == 'bah.txt'
+        attachments[0].display_filename.should == 'bah.txt'
     end
 
 end
 
 describe IncomingMessage, "when messages are attached to messages" do
+    fixtures :incoming_messages, :raw_emails, :public_bodies, :public_body_translations, :info_requests, :users, :foi_attachments
+
+    before(:each) do
+        load_raw_emails_data(raw_emails)
+    end
+
     it "should flatten all the attachments out" do
         mail_body = load_file_fixture('incoming-request-attach-attachments.email')
         mail = TMail::Mail.parse(mail_body)
         mail.base64_decode
 
-        im = IncomingMessage.new
+        im = incoming_messages(:useless_incoming_message)
         im.stub!(:mail).and_return(mail)
-        ir = InfoRequest.new
-        im.info_request = ir
-        u = User.new
-        ir.user = u
+        
+        im.extract_attachments!
 
         attachments = im.get_attachments_for_display
         attachments.size.should == 3
@@ -391,17 +393,20 @@ describe IncomingMessage, "when messages are attached to messages" do
 end
 
 describe IncomingMessage, "when Outlook messages are attached to messages" do
+    fixtures :incoming_messages, :raw_emails, :public_bodies, :public_body_translations, :info_requests, :users, :foi_attachments
+
+    before(:each) do
+        load_raw_emails_data(raw_emails)
+    end
+
     it "should flatten all the attachments out" do
         mail_body = load_file_fixture('incoming-request-oft-attachments.email')
         mail = TMail::Mail.parse(mail_body)
         mail.base64_decode
 
-        im = IncomingMessage.new
+        im = incoming_messages(:useless_incoming_message)
         im.stub!(:mail).and_return(mail)
-        ir = InfoRequest.new
-        im.info_request = ir
-        u = User.new
-        ir.user = u
+        im.extract_attachments!
 
         attachments = im.get_attachments_for_display
         attachments.size.should == 2
@@ -411,17 +416,20 @@ describe IncomingMessage, "when Outlook messages are attached to messages" do
 end
 
 describe IncomingMessage, "when TNEF attachments are attached to messages" do
+    fixtures :incoming_messages, :raw_emails, :public_bodies, :public_body_translations, :info_requests, :users, :foi_attachments
+
+    before(:each) do
+        load_raw_emails_data(raw_emails)
+    end
+
     it "should flatten all the attachments out" do
         mail_body = load_file_fixture('incoming-request-tnef-attachments.email')
         mail = TMail::Mail.parse(mail_body)
         mail.base64_decode
 
-        im = IncomingMessage.new
+        im = incoming_messages(:useless_incoming_message)
         im.stub!(:mail).and_return(mail)
-        ir = InfoRequest.new
-        im.info_request = ir
-        u = User.new
-        ir.user = u
+        im.extract_attachments!
 
         attachments = im.get_attachments_for_display
         attachments.size.should == 2

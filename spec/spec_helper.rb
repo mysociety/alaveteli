@@ -77,12 +77,21 @@ def load_file_fixture(file_name)
     return content
 end
 
-def rebuild_xapian_index
+def rebuild_xapian_index(terms = true, values = true, texts = true, dropfirst = true)
+    parse_all_incoming_messages
+    if dropfirst
+        begin
+            ActsAsXapian.readable_init
+            FileUtils.rm_r(ActsAsXapian.db_path)
+        rescue RuntimeError
+        end
+        ActsAsXapian.writable_init
+    end
     verbose = false
     # safe_rebuild=true, which involves forking to avoid memory leaks, doesn't work well with rspec. 
     # unsafe is significantly faster, and we can afford possible memory leaks while testing.
     safe_rebuild = false
-    ActsAsXapian.rebuild_index(["PublicBody", "User", "InfoRequestEvent"].map{|m| m.constantize}, verbose, safe_rebuild) 
+    ActsAsXapian.rebuild_index(["PublicBody", "User", "InfoRequestEvent"].map{|m| m.constantize}, verbose, terms, values, texts, safe_rebuild) 
 end
 
 def update_xapian_index
@@ -159,4 +168,8 @@ def load_raw_emails_data(raw_emails)
     rescue Errno::ENOENT
     end
     raw_email.data = load_file_fixture("useless_raw_email.email")
+end
+
+def parse_all_incoming_messages
+    IncomingMessage.find(:all).each{|x| x.parse_raw_email!}
 end
