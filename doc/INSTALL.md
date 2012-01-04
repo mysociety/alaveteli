@@ -86,6 +86,12 @@ The following command will set up a user 'foi' with password 'foi':
     GRANT ALL PRIVILEGES ON DATABASE foi_test TO foi;    	
     ALTER DATABASE foi_development OWNER TO foi;
     ALTER DATABASE foi_test OWNER TO foi;" | psql
+    
+We create using the ``SQL_ASCII`` encoding, because in postgres this
+is means "no encoding"; and because we handle and store all kinds of
+data that may not be valid UTF (for example, data originating from
+various broken email clients that's not 8-bit clean), it's safer to be
+able to store *anything*, than reject data at runtime.
 
 # Configure email
 
