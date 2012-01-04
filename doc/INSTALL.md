@@ -51,6 +51,12 @@ graphical interface running) on Linux.  If you do install
 `wkhtmltopdf`, you need to edit a setting in the config file to point
 to it (see below).
 
+Version 1.44 of `pdftk` contains a bug which makes it to loop forever
+in certain edge conditions.  Until it's incorporated into an official
+release, you can either hope you don't encounter the bug (it ties up a
+rails process until you kill it) you'll need to patch it yourself or
+use the Debian package compiled by mySociety (see link in
+[issue 305](https://github.com/sebbacon/alaveteli/issues/305))
 
 # Configure Database 
 
