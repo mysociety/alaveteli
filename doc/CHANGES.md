@@ -8,12 +8,13 @@
 * Ensure incoming emails are only ever parsed once (should give a performance boost)
 
 ## Upgrade notes
-* **IMPORTANT! We now depend on Xapian 1.2**, which means you may need to install Xapian from backports.  See [issue #159] for more info.
+* **IMPORTANT! We now depend on Xapian 1.2**, which means you may need to install Xapian from backports.  See [issue #159](https://github.com/sebbacon/alaveteli/issues/159) for more info.
+* 
 * Themes created for 0.4 and below should be changed to match the new format (although the old way should continue to work):
   * You should create a resources folder at `<yourtheme>/public/` and symlink to it from the main rails app.  See the `install.rb` in `alaveteli-theme` example theme for details.
   * Your styles should be moved from `general/custom_css.rhtml` to a standalone stylesheet in `<yourtheme>/public/stylesheets/`
   * The partial at `general/_before_head_end.rhtml` should be changed in the theme to include this stylesheet
-
+* [issue #281](https://github.com/sebbacon/alaveteli/issues/281) fixes some bugs relating to display of internationalised emails.  To fix any wrongly displayed emails, you'll need to run the script at `script/clear-caches` so that the caches can be regenerated
 
 # Version 0.4
 

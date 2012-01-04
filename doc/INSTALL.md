@@ -301,8 +301,9 @@ is supplied in `../conf/varnish-alaveteli.vcl`.
     to `/etc/elinks/elinks.conf`:
     
         set document.codepage.assume = "utf-8"
-        
-    You should also check that your locale is set up wrongly.  See 
+        set document.codepage.force_assumed = 1
+
+    You should also check that your locale is set up correctly.  See 
     [https://github.com/sebbacon/alaveteli/issues/128#issuecomment-1814845](this issue followup)
     for further discussion.
     

@@ -9,6 +9,10 @@ describe IncomingMessage, " when dealing with incoming mail" do
         load_raw_emails_data(raw_emails)
     end
 
+    after(:all) do
+        ActionMailer::Base.deliveries.clear
+    end
+
     it "should return the mail Date header date for sent at" do
         @im.sent_at.should == @im.mail.date
     end
@@ -26,6 +30,24 @@ describe IncomingMessage, " when dealing with incoming mail" do
             parsed.should include(expected)
         end
     end
+
+    it "should correctly convert HTML even when there's a meta tag asserting that it is iso-8859-1 which would normally confuse elinks" do
+        ir = info_requests(:fancy_dog_request)
+        receive_incoming_mail('quoted-subject-iso8859-1.email', ir.incoming_email)
+        message = ir.incoming_messages[1]
+        message.parse_raw_email!
+        message.get_main_body_text_part.charset.should == "iso-8859-1"
+        message.get_main_body_text_internal.should include("política")
+    end
+
+    it "should unquote RFC 2047 headers" do
+        ir = info_requests(:fancy_dog_request)
+        receive_incoming_mail('quoted-subject-iso8859-1.email', ir.incoming_email)
+        message = ir.incoming_messages[1]
+        message.mail_from.should == "Coordenação de Relacionamento, Pesquisa e Informação/CEDI"
+        message.subject.should == "Câmara Responde:  Banco de ideias"
+    end
+
 
     it "should fold multiline sections" do
       {

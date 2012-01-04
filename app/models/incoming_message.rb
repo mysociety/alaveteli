@@ -523,7 +523,7 @@ class IncomingMessage < ActiveRecord::Base
             # it into conflict with ensure_parts_counted which it has to be
             # called both before and after.  It will fail with cases of
             # attachments of attachments etc.
-
+            charset = curr_mail.charset # save this, because overwriting content_type also resets charset
             # Don't allow nil content_types
             if curr_mail.content_type.nil?
                 curr_mail.content_type = 'application/octet-stream'
@@ -553,7 +553,6 @@ class IncomingMessage < ActiveRecord::Base
                     curr_mail.content_type = 'application/octet-stream'
                 end
             end
-
             # If the part is an attachment of email
             if curr_mail.content_type == 'message/rfc822' || curr_mail.content_type == 'application/vnd.ms-outlook' || curr_mail.content_type == 'application/ms-tnef'
                 ensure_parts_counted # fills in rfc822_attachment variable
@@ -563,6 +562,8 @@ class IncomingMessage < ActiveRecord::Base
                 curr_mail.within_rfc822_attachment = within_rfc822_attachment
                 leaves_found += [curr_mail]
             end
+            # restore original charset
+            curr_mail.charset = charset
         end
         return leaves_found
     end
@@ -621,61 +622,54 @@ class IncomingMessage < ActiveRecord::Base
         main_part = get_main_body_text_part
         return _convert_part_body_to_text(main_part)
     end
+
     # Given a main text part, converts it to text
     def _convert_part_body_to_text(part)
         if part.nil?
             text = "[ Email has no body, please see attachments ]"
-            text_charset = "utf-8"
+            source_charset = "utf-8"
         else
-            text = part.body
-            text_charset = part.charset
+            text = part.body # by default, TMail converts to UT8 in this call
+            source_charset = part.charset
             if part.content_type == 'text/html'
                 # e.g. http://www.whatdotheyknow.com/request/35/response/177
-                # XXX This is a bit of a hack as it is calling a convert to text routine.
-                # Could instead call a sanitize HTML one.
-                text = self.class._get_attachment_text_internal_one_file(part.content_type, text)
-            end
-        end
+                # XXX This is a bit of a hack as it is calling a
+                # convert to text routine.  Could instead call a
+                # sanitize HTML one.
 
-        # Charset conversion, turn everything into UTF-8
-        if not text_charset.nil?
-            begin
-                # XXX specially convert unicode pound signs, was needed here
-                # http://www.whatdotheyknow.com/request/88/response/352
-                text = text.gsub("£", Iconv.conv(text_charset, 'utf-8', '£')) 
-                # Try proper conversion
-                text = Iconv.conv('utf-8', text_charset, text)
-            rescue Iconv::IllegalSequence, Iconv::InvalidEncoding
-                # Clearly specified charset was nonsense
-                text_charset = nil
-            end
-        end
-        if text_charset.nil?
-            # No specified charset, so guess
-            
-            # Could use rchardet here, but it had trouble with 
-            #   http://www.whatdotheyknow.com/request/107/response/144
-            # So I gave up - most likely in UK we'll only get windows-1252 anyway.
-
-            begin
-                # See if it is good UTF-8 anyway
-                text = Iconv.conv('utf-8', 'utf-8', text)
-            rescue Iconv::IllegalSequence
+                # If the text isn't UTF8, it means TMail had a problem
+                # converting it (invalid characters, etc), and we
+                # should instead tell elinks to respect the source
+                # charset
+                use_charset = "utf-8"
                 begin
-                    # Or is it good windows-1252, most likely
-                    text = Iconv.conv('utf-8', 'windows-1252', text)
+                    text = Iconv.conv('utf-8', 'utf-8', text)
                 rescue Iconv::IllegalSequence
-                    # Text looks like unlabelled nonsense, strip out anything that isn't UTF-8
-                    text = Iconv.conv('utf-8//IGNORE', 'utf-8', text) + 
-                        _("\n\n[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]", 
-                        :site_name => MySociety::Config.get('SITE_NAME', 'Alaveteli'))
+                    use_charset = source_charset
+                end
+                text = self.class._get_attachment_text_internal_one_file(part.content_type, text, use_charset)
+            end
+        end
+
+        # If TMail can't convert text, it just returns it, so we sanitise it.
+        begin
+            # Test if it's good UTF-8
+            text = Iconv.conv('utf-8', 'utf-8', text)
+        rescue Iconv::IllegalSequence
+            # Text looks like unlabelled nonsense, 
+            # strip out anything that isn't UTF-8
+            begin
+                text = Iconv.conv('utf-8//IGNORE', source_charset, text) + 
+                    _("\n\n[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]", 
+                      :site_name => MySociety::Config.get('SITE_NAME', 'Alaveteli'))
+            rescue Iconv::InvalidEncoding, Iconv::IllegalSequence
+                if source_charset != "utf-8"
+                    source_charset = "utf-8"
+                    retry
                 end
             end
         end
         
-        # An assertion that we have ended up with UTF-8 XXX can remove as this should
-        # always be fine if code above is
-        Iconv.conv('utf-8', 'utf-8', text)
 
         # Fix DOS style linefeeds to Unix style ones (or other later regexps won't work)
         # Needed for e.g. http://www.whatdotheyknow.com/request/60/response/98
@@ -923,7 +917,9 @@ class IncomingMessage < ActiveRecord::Base
 
         return self.cached_attachment_text_clipped
     end
-    def IncomingMessage._get_attachment_text_internal_one_file(content_type, body)
+    def IncomingMessage._get_attachment_text_internal_one_file(content_type, body, charset = 'utf-8')
+        # note re. charset: TMail always tries to convert email bodies
+        # to UTF8 by default, so normally it should already be that.
         text = ''
         # XXX - tell all these command line tools to return utf-8
         if content_type == 'text/plain'
@@ -945,9 +941,10 @@ class IncomingMessage < ActiveRecord::Base
                 # catdoc on RTF prodcues less comments and extra bumf than --text option to unrtf
                 AlaveteliExternalCommand.run(`which catdoc`.chomp, tempfile.path, :append_to => text)
             elsif content_type == 'text/html'
-                # lynx wordwraps links in its output, which then don't get formatted properly
-                # by Alaveteli. We use elinks instead, which doesn't do that.
-                AlaveteliExternalCommand.run(`which elinks`.chomp, "-eval", "'set document.codepage.assume = \"utf-8\"'", "-dump-charset", "utf-8", "-force-html", "-dump",
+                # lynx wordwraps links in its output, which then don't
+                # get formatted properly by Alaveteli. We use elinks
+                # instead, which doesn't do that.
+                AlaveteliExternalCommand.run(`which elinks`.chomp, "-eval", "'set document.codepage.assume = \"#{charset}\"'", "-eval", "'set document.codepage.force_assumed = 1'", "-dump-charset", "utf-8", "-force-html", "-dump",
                     tempfile.path, :append_to => text)
             elsif content_type == 'application/vnd.ms-excel'
                 # Bit crazy using /usr/bin/strings - but xls2csv, xlhtml and
@@ -1014,7 +1011,7 @@ class IncomingMessage < ActiveRecord::Base
         text = ''
         attachments = self.get_attachments_for_display
         for attachment in attachments
-            text += IncomingMessage._get_attachment_text_internal_one_file(attachment.content_type, attachment.body)
+            text += IncomingMessage._get_attachment_text_internal_one_file(attachment.content_type, attachment.body, attachment.charset)
         end
         # Remove any bad characters
         text = Iconv.conv('utf-8//IGNORE', 'utf-8', text)
