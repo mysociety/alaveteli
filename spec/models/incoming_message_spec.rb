@@ -124,16 +124,15 @@ describe IncomingMessage, " folding quoted parts of emails" do
 end
 
 describe IncomingMessage, " checking validity to reply to" do
-    def test_email(result, email, return_path, autosubmitted)
+    def test_email(result, email, return_path, autosubmitted = nil)
         @address = mock(TMail::Address)
         @address.stub!(:spec).and_return(email)
 
         @return_path = mock(TMail::ReturnPathHeader)
         @return_path.stub!(:addr).and_return(return_path)
-
-        @autosubmitted = mock(TMail::KeywordsHeader)
-        @autosubmitted.stub!(:keys).and_return(autosubmitted)
-
+        if !autosubmitted.nil?
+            @autosubmitted = TMail::UnstructuredHeader.new("auto-submitted", autosubmitted)
+        end
         @mail = mock(TMail::Mail)
         @mail.stub!(:from_addrs).and_return( [ @address ] )
         @mail.stub!(:[]).with("return-path").and_return(@return_path)
@@ -145,39 +144,39 @@ describe IncomingMessage, " checking validity to reply to" do
     end
 
     it "says a valid email is fine" do
-        test_email(true, "team@mysociety.org", nil, [])
+        test_email(true, "team@mysociety.org", nil)
     end
 
     it "says postmaster email is bad" do
-        test_email(false, "postmaster@mysociety.org", nil, [])
+        test_email(false, "postmaster@mysociety.org", nil)
     end
 
     it "says Mailer-Daemon email is bad" do
-        test_email(false, "Mailer-Daemon@mysociety.org", nil, [])
+        test_email(false, "Mailer-Daemon@mysociety.org", nil)
     end
 
     it "says case mangled MaIler-DaemOn email is bad" do
-        test_email(false, "MaIler-DaemOn@mysociety.org", nil, [])
+        test_email(false, "MaIler-DaemOn@mysociety.org", nil)
     end
 
     it "says Auto_Reply email is bad" do
-        test_email(false, "Auto_Reply@mysociety.org", nil, [])
+        test_email(false, "Auto_Reply@mysociety.org", nil)
     end
 
     it "says DoNotReply email is bad" do
-        test_email(false, "DoNotReply@tube.tfl.gov.uk", nil, [])
+        test_email(false, "DoNotReply@tube.tfl.gov.uk", nil)
     end
 
     it "says a filled-out return-path is fine" do
-        test_email(true, "team@mysociety.org", "Return-path: <foo@baz.com>", [])
+        test_email(true, "team@mysociety.org", "Return-path: <foo@baz.com>")
     end
 
     it "says an empty return-path is bad" do
-        test_email(false, "team@mysociety.org", "<>", [])
+        test_email(false, "team@mysociety.org", "<>")
     end
 
     it "says an auto-submitted keyword is bad" do
-        test_email(false, "team@mysociety.org", nil, ["auto-replied"])
+        test_email(false, "team@mysociety.org", nil, "auto-replied")
     end
 
 end

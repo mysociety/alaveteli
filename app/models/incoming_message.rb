@@ -111,7 +111,7 @@ class IncomingMessage < ActiveRecord::Base
         if !self.mail['return-path'].nil? && self.mail['return-path'].addr == "<>"
             return false
         end
-        if !self.mail['auto-submitted'].nil? && !self.mail['auto-submitted'].keys.empty?
+        if !self.mail['auto-submitted'].nil?
             return false
         end
         return true
@@ -1104,7 +1104,7 @@ class IncomingMessage < ActiveRecord::Base
         if !self.mail['return-path'].nil? && self.mail['return-path'].addr == "<>"
             return false
         end
-        if !self.mail['auto-submitted'].nil? && !self.mail['auto-submitted'].keys.empty?
+        if !self.mail['auto-submitted'].nil?
             return false
         end
         return true
