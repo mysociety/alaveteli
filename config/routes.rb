@@ -15,7 +15,7 @@ ActionController::Routing::Routes.draw do |map|
     # Keep in mind you can assign values other than :controller and :action
 
     # Allow easy extension from themes. Note these will have the highest priority.
-    require 'config/custom-routes'
+    require File.join(Rails.root, 'config', 'custom-routes')
     
     map.with_options :controller => 'general' do |general|
         general.frontpage           '/',            :action => 'frontpage'
@@ -78,6 +78,8 @@ ActionController::Routing::Routes.draw do |map|
 
         user.confirm '/c/:email_token', :action => 'confirm'
         user.show_user '/user/:url_name.:format', :action => 'show'
+        user.show_user_profile '/user/:url_name/profile.:format', :action => 'show', :view => 'profile'
+        user.show_user_requests '/user/:url_name/requests.:format', :action => 'show', :view => 'requests'
         user.contact_user '/user/contact/:id', :action => 'contact'
 
         user.signchangepassword '/profile/change_password',      :action => 'signchangepassword'

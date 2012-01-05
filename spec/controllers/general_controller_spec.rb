@@ -2,15 +2,19 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe GeneralController, "when searching" do
     integrate_views
-    fixtures [ :info_requests,
-               :info_request_events,
-               :public_bodies,
-               :public_body_translations,
-               :users,
-               :raw_emails,
-               :outgoing_messages,
-               :incoming_messages,
-               :comments ]
+    fixtures [
+      :public_bodies,
+      :public_body_translations,
+      :public_body_versions,
+      :users,
+      :info_requests,
+      :raw_emails,
+      :incoming_messages,
+      :outgoing_messages,
+      :comments,
+      :info_request_events,
+      :track_things,
+    ]
 
     before(:each) do
         load_raw_emails_data(raw_emails)
@@ -70,13 +74,13 @@ describe GeneralController, "when searching" do
     describe "when using different locale settings" do 
         home_link_regex = /href=".*\/en"/
         it "should generate URLs with a locale prepended when there's more than one locale set" do
-            ActionController::Routing::Routes.add_filters(['conditionallyprependlocale'])
+            ActionController::Routing::Routes.add_filters('conditionallyprependlocale')
             get :frontpage
             response.should have_text(home_link_regex)
         end
 
         it "should generate URLs without a locale prepended when there's only one locale set" do
-            ActionController::Routing::Routes.add_filters(['conditionallyprependlocale'])
+            ActionController::Routing::Routes.add_filters('conditionallyprependlocale')
             old_available_locales =  FastGettext.default_available_locales
             available_locales = ['en']
             FastGettext.default_available_locales = available_locales

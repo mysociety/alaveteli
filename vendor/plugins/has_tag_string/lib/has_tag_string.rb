@@ -98,7 +98,7 @@ module HasTagString
                 ret[tag.name_and_value] = 1
             end
 
-            return ret.keys
+            return ret.keys.sort
         end
 
         # Test to see if class is tagged with the given tag

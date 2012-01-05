@@ -53,6 +53,7 @@ class AdminController < ApplicationController
                 authenticate_or_request_with_http_basic do |user_name, password|
                     if user_name == config_username && password == config_password
                         session[:using_admin] = 1
+                        request.env['REMOTE_USER'] = user_name
                     else
                         request_http_basic_authentication
                     end

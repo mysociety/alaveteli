@@ -2,15 +2,19 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe "When searching" do
 
-    fixtures [ :info_requests,
-               :info_request_events,
-               :public_bodies,
-               :public_body_translations,
-               :users,
-               :raw_emails,
-               :outgoing_messages,
-               :incoming_messages,
-               :comments ]
+    fixtures [
+        :users,
+        :public_bodies,
+        :public_body_translations,
+        :public_body_versions,
+        :info_requests,
+        :raw_emails,
+        :outgoing_messages,
+        :incoming_messages,
+        :comments,
+        :info_request_events,
+        :track_things,
+    ]
 
     before(:each) do
         emails = raw_emails.clone

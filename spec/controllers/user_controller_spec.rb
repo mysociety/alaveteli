@@ -1,3 +1,4 @@
+# coding: utf-8
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 require 'json'
@@ -7,7 +8,7 @@ require 'json'
 
 describe UserController, "when showing a user" do
     integrate_views
-    fixtures :users, :outgoing_messages, :incoming_messages, :raw_emails, :info_requests, :info_request_events, :comments, :public_bodies, :public_body_translations
+    fixtures :users, :public_bodies, :public_body_translations, :public_body_versions, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
     before(:each) do
         load_raw_emails_data(raw_emails)
     end
@@ -25,6 +26,16 @@ describe UserController, "when showing a user" do
     it "should render with 'show' template" do
         get :show, :url_name => "bob_smith"
         response.should render_template('show')
+    end
+
+    it "should distinguish between 'my profile' and 'my requests' for logged in users" do
+        session[:user_id] = users(:bob_smith_user).id
+        get :show, :url_name => "bob_smith", :view => 'requests'
+        response.body.should_not include("Change your password")
+        response.body.should include("Freedom of Information requests")
+        get :show, :url_name => "bob_smith", :view => 'profile'
+        response.body.should include("Change your password")
+        response.body.should_not include("Freedom of Information requests")
     end
 
     it "should assign the user" do
@@ -260,8 +271,8 @@ describe UserController, "when sending another user a message" do
         mail = deliveries[0]
         mail.body.should include("Bob Smith has used #{MySociety::Config.get('SITE_NAME')} to send you the message below")
         mail.body.should include("Just a test!")
-        #mail.to_addrs.to_s.should == users(:silly_name_user).name_and_email # XXX fix some nastiness with quoting name_and_email
-        mail.from_addrs.to_s.should == users(:bob_smith_user).name_and_email
+        #mail.to_addrs.first.to_s.should == users(:silly_name_user).name_and_email # XXX fix some nastiness with quoting name_and_email
+        mail.from_addrs.first.to_s.should == users(:bob_smith_user).name_and_email
     end
 
 end

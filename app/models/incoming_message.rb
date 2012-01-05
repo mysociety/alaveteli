@@ -44,275 +44,6 @@ module TMail
     end
 end
 
-# This is the type which is used to send data about attachments to the view
-class FOIAttachment
-    attr_accessor :body
-    attr_accessor :content_type
-    attr_accessor :filename
-    attr_accessor :url_part_number
-    attr_accessor :within_rfc822_subject # we use the subject as the filename for email attachments
-
-    # List of DSN codes taken from RFC 3463
-    # http://tools.ietf.org/html/rfc3463
-    DsnToMessage = {
-         'X.1.0' => 'Other address status',
-         'X.1.1' => 'Bad destination mailbox address',
-         'X.1.2' => 'Bad destination system address',
-         'X.1.3' => 'Bad destination mailbox address syntax',
-         'X.1.4' => 'Destination mailbox address ambiguous',
-         'X.1.5' => 'Destination mailbox address valid',
-         'X.1.6' => 'Mailbox has moved',
-         'X.1.7' => 'Bad sender\'s mailbox address syntax',
-         'X.1.8' => 'Bad sender\'s system address',
-         'X.2.0' => 'Other or undefined mailbox status',
-         'X.2.1' => 'Mailbox disabled, not accepting messages',
-         'X.2.2' => 'Mailbox full',
-         'X.2.3' => 'Message length exceeds administrative limit.',
-         'X.2.4' => 'Mailing list expansion problem',
-         'X.3.0' => 'Other or undefined mail system status',
-         'X.3.1' => 'Mail system full',
-         'X.3.2' => 'System not accepting network messages',
-         'X.3.3' => 'System not capable of selected features',
-         'X.3.4' => 'Message too big for system',
-         'X.4.0' => 'Other or undefined network or routing status',
-         'X.4.1' => 'No answer from host',
-         'X.4.2' => 'Bad connection',
-         'X.4.3' => 'Routing server failure',
-         'X.4.4' => 'Unable to route',
-         'X.4.5' => 'Network congestion',
-         'X.4.6' => 'Routing loop detected',
-         'X.4.7' => 'Delivery time expired',
-         'X.5.0' => 'Other or undefined protocol status',
-         'X.5.1' => 'Invalid command',
-         'X.5.2' => 'Syntax error',
-         'X.5.3' => 'Too many recipients',
-         'X.5.4' => 'Invalid command arguments',
-         'X.5.5' => 'Wrong protocol version',
-         'X.6.0' => 'Other or undefined media error',
-         'X.6.1' => 'Media not supported',
-         'X.6.2' => 'Conversion required and prohibited',
-         'X.6.3' => 'Conversion required but not supported',
-         'X.6.4' => 'Conversion with loss performed',
-         'X.6.5' => 'Conversion failed',
-         'X.7.0' => 'Other or undefined security status',
-         'X.7.1' => 'Delivery not authorized, message refused',
-         'X.7.2' => 'Mailing list expansion prohibited',
-         'X.7.3' => 'Security conversion required but not possible',
-         'X.7.4' => 'Security features not supported',
-         'X.7.5' => 'Cryptographic failure',
-         'X.7.6' => 'Cryptographic algorithm not supported',
-         'X.7.7' => 'Message integrity failure'
-     }
-
-    # Returns HTML, of extra comment to put by attachment
-    def extra_note
-        # For delivery status notification attachments, extract the status and
-        # look up what it means in the DSN table.
-        if @content_type == 'message/delivery-status'
-            if !@body.match(/Status:\s+([0-9]+\.([0-9]+\.[0-9]+))\s+/)
-                return ""
-            end
-            dsn = $1
-            dsn_part = 'X.' + $2
-
-            dsn_message = ""
-            if DsnToMessage.include?(dsn_part)
-                dsn_message = " (" + DsnToMessage[dsn_part] + ")"
-            end
-
-            return "<br><em>DSN: " + dsn + dsn_message + "</em>"
-        end
-        return ""
-    end
-
-    # Called by controller so old filenames still work
-    def old_display_filename
-        filename = self._internal_display_filename
-
-        # Convert weird spaces (e.g. \n) to normal ones
-        filename = filename.gsub(/\s/, " ")
-        # Remove slashes, they mess with URLs
-        filename = filename.gsub(/\//, "-")
-
-        return filename
-    end 
-
-    # XXX changing this will break existing URLs, so have a care - maybe
-    # make another old_display_filename see above
-    def display_filename
-        filename = self._internal_display_filename
-
-        # Sometimes filenames have e.g. %20 in - no point butchering that
-        # (without unescaping it, this would remove the % and leave 20s in there)
-        filename = CGI.unescape(filename)
-
-        # Remove weird spaces
-        filename = filename.gsub(/\s+/, " ")
-        # Remove non-alphabetic characters
-        filename = filename.gsub(/[^A-Za-z0-9.]/, " ")
-        # Remove spaces near dots
-        filename = filename.gsub(/\s*\.\s*/, ".")
-        # Compress adjacent spaces down to a single one
-        filename = filename.gsub(/\s+/, " ")
-        filename = filename.strip
-
-        return filename
-    end
-
-    def _internal_display_filename
-        calc_ext = AlaveteliFileTypes.mimetype_to_extension(@content_type)
-
-        if @filename 
-            # Put right extension on if missing
-            if !filename.match(/\.#{calc_ext}$/) && calc_ext
-                filename + "." + calc_ext
-            else
-                filename
-            end
-        else
-            if !calc_ext
-                calc_ext = "bin"
-            end
-            if @within_rfc822_subject
-                @within_rfc822_subject + "." + calc_ext
-            else
-                "attachment." + calc_ext
-            end
-        end
-    end
-
-    # Size to show next to the download link for the attachment
-    def display_size
-        s = self.body.size
-
-        if s > 1024 * 1024
-            return  sprintf("%.1f", s.to_f / 1024 / 1024) + 'M'
-        else
-            return (s / 1024).to_s + 'K'
-        end
-    end
-
-    # Whether this type can be shown in the Google Docs Viewer.
-    # The full list of supported types can be found at
-    #   https://docs.google.com/support/bin/answer.py?hl=en&answer=1189935
-    def has_google_docs_viewer?
-        return !! {
-            "application/pdf" => true, # .pdf
-            "image/tiff" => true, # .tiff
-            
-            "application/vnd.ms-word" => true, # .doc
-            "application/vnd.openxmlformats-officedocument.wordprocessingml.document" => true, # .docx
-            
-            "application/vnd.ms-powerpoint" => true, # .ppt
-            "application/vnd.openxmlformats-officedocument.presentationml.presentation" => true, # .pptx
-            
-            "application/vnd.ms-excel" => true, # .xls
-            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" => true, # .xlsx
-            
-        } [self.content_type]
-    end
-
-    # Whether this type has a "View as HTML"
-    def has_body_as_html?
-        return (
-            !!{
-                "text/plain" => true,
-                "application/rtf" => true,
-            }[self.content_type] or
-            self.has_google_docs_viewer?
-        )
-    end
-
-    # Name of type of attachment type - only valid for things that has_body_as_html?
-    def name_of_content_type
-        return {
-            "text/plain" => "Text file",
-            'application/rtf' => "RTF file",
-            
-            'application/pdf' => "PDF file",
-            'image/tiff' => "TIFF image",
-            
-            'application/vnd.ms-word' => "Word document",
-            'application/vnd.openxmlformats-officedocument.wordprocessingml.document' => "Word document",
-            
-            'application/vnd.ms-powerpoint' => "PowerPoint presentation",
-            'application/vnd.openxmlformats-officedocument.presentationml.presentation' => "PowerPoint presentation",
-            
-            'application/vnd.ms-excel' => "Excel spreadsheet",
-            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' => "Excel spreadsheet",
-        }[self.content_type]
-    end
-
-    # For "View as HTML" of attachment
-    def body_as_html(dir)
-        html = nil
-        wrapper_id = "wrapper"
-
-        # simple cases, can never fail
-        if self.content_type == 'text/plain'
-            text = self.body.strip
-            text = CGI.escapeHTML(text)
-            text = MySociety::Format.make_clickable(text)
-            html = text.gsub(/\n/, '<br>')
-            return '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd"><html><head><title></title></head><body>' + html + "</body></html>", wrapper_id
-        end
-
-        # the extractions will also produce image files, which go in the
-        # current directory, so change to the directory the function caller
-        # wants everything in
-        Dir.chdir(dir) do
-            tempfile = Tempfile.new('foiextract', '.')
-            tempfile.print self.body
-            tempfile.flush
-
-            if self.content_type == 'application/pdf'
-                IO.popen("/usr/bin/pdftohtml -nodrm -zoom 1.0 -stdout -enc UTF-8 -noframes " + tempfile.path + "", "r") do |child|
-                    html = child.read()
-                end
-            elsif self.content_type == 'application/rtf'
-                IO.popen("/usr/bin/unrtf --html " + tempfile.path + "", "r") do |child|
-                    html = child.read()
-                end
-            elsif self.has_google_docs_viewer?
-                html = '' # force error and using Google docs viewer
-            else
-                raise "No HTML conversion available for type " + self.content_type
-            end
-
-            tempfile.close
-            tempfile.delete
-        end
-
-        # We need to look at:
-        # a) Any error code
-        # b) The output size, as pdftohtml does not return an error code upon error.
-        # c) For cases when there is no text in the body of the HTML, or
-        # images, so nothing will be rendered. This is to detect some bug in
-        # pdftohtml, which sometimes makes it return just <hr>s and no other
-        # content.
-        html.match(/(\<body[^>]*\>.*)/mi)
-        body = $1.to_s
-        body_without_tags = body.gsub(/\s+/,"").gsub(/\<[^\>]*\>/, "")
-        contains_images = html.match(/<img/mi) ? true : false
-        if !$?.success? || html.size == 0 || (body_without_tags.size == 0 && !contains_images)
-            ret = "<html><head></head><body>";
-            if self.has_google_docs_viewer?
-                wrapper_id = "wrapper_google_embed"
-                ret = ret + "<iframe src='http://docs.google.com/viewer?url=<attachment-url-here>&embedded=true' width='100%' height='100%' style='border: none;'></iframe>";
-            else 
-                ret = ret + "<p>Sorry, we were unable to convert this file to HTML. Please use the download link at the top right.</p>"
-            end
-            ret = ret + "</body></html>"
-            return ret, wrapper_id
-        end
-
-        return html, wrapper_id
-    end
-
-end
-
-
 class IncomingMessage < ActiveRecord::Base
     belongs_to :info_request
     validates_presence_of :info_request
@@ -320,7 +51,7 @@ class IncomingMessage < ActiveRecord::Base
     validates_presence_of :raw_email
 
     has_many :outgoing_message_followups, :foreign_key => 'incoming_message_followup_id', :class_name => 'OutgoingMessage'
-
+    has_many :foi_attachments
     has_many :info_request_events # never really has many, but could in theory
 
     belongs_to :raw_email
@@ -338,8 +69,8 @@ class IncomingMessage < ActiveRecord::Base
 
     # Return the structured TMail::Mail object
     # Documentation at http://i.loveruby.net/en/projects/tmail/doc/
-    def mail
-        if @mail.nil? && !self.raw_email.nil?
+    def mail(force = nil)
+        if (!force.nil? || @mail.nil?) && !self.raw_email.nil?
             # Hack round bug in TMail's MIME decoding. Example request which provokes it:
             # http://www.whatdotheyknow.com/request/reviews_of_unduly_lenient_senten#incoming-4830
             # Report of TMail bug:
@@ -352,23 +83,109 @@ class IncomingMessage < ActiveRecord::Base
         @mail
     end
 
+    # Returns the name of the person the incoming message is from, or nil if
+    # there isn't one or if there is only an email address. XXX can probably
+    # remove from_name_if_present (which is a monkey patch) by just calling
+    # .from_addrs[0].name here instead? 
+
+    # Return false if for some reason this is a message that we shouldn't let them reply to
+    def _calculate_valid_to_reply_to
+        # check validity of email
+        if self.mail.from_addrs.nil? || self.mail.from_addrs.size == 0
+            return false
+        end
+        email = self.mail.from_addrs[0].spec
+        if !MySociety::Validate.is_valid_email(email)
+            return false
+        end
+
+        # reject postmaster - authorities seem to nearly always not respond to
+        # email to postmaster, and it tends to only happen after delivery failure.
+        # likewise Mailer-Daemon, Auto_Reply...
+        prefix = email
+        prefix =~ /^(.*)@/
+        prefix = $1
+        if !prefix.nil? && prefix.downcase.match(/^(postmaster|mailer-daemon|auto_reply|donotreply|no.reply)$/)
+            return false
+        end
+        if !self.mail['return-path'].nil? && self.mail['return-path'].addr == "<>"
+            return false
+        end
+        if !self.mail['auto-submitted'].nil?
+            return false
+        end
+        return true
+    end
+
+    def parse_raw_email!(force = nil)
+        # The following fields may be absent; we treat them as cached
+        # values in case we want to regenerate them (due to mail
+        # parsing bugs, etc).
+        if (!force.nil? || self.last_parsed.nil?)
+            self.extract_attachments!
+            self.sent_at = self.mail.date || self.created_at
+            self.subject = self.mail.subject
+            # XXX can probably remove from_name_if_present (which is a
+            # monkey patch) by just calling .from_addrs[0].name here
+            # instead?
+            self.mail_from = self.mail.from_name_if_present
+            begin
+                self.mail_from_domain = PublicBody.extract_domain_from_email(self.mail.from_addrs[0].spec)
+            rescue NoMethodError
+                self.mail_from_domain = ""
+            end
+            self.valid_to_reply_to = self._calculate_valid_to_reply_to
+            self.last_parsed = Time.now
+            self.save!
+        end
+    end
+
+    def valid_to_reply_to?
+        return self.valid_to_reply_to
+    end
+
+    # The cached fields mentioned in the previous comment
+    # XXX there must be a nicer way to do this without all that
+    # repetition.  I tried overriding method_missing but got some
+    # unpredictable results.
+    def valid_to_reply_to
+        parse_raw_email!
+        super
+    end
+    def sent_at
+        parse_raw_email!
+        super
+    end
+    def subject
+        parse_raw_email!
+        super
+    end
+    def mail_from
+        parse_raw_email!
+        super
+    end
+    def safe_mail_from
+        if !self.mail_from.nil?
+            mail_from = self.mail_from.dup
+            self.info_request.apply_censor_rules_to_text!(mail_from)            
+            return mail_from
+        end
+    end
+    def mail_from_domain
+        parse_raw_email!
+        super
+    end
+
     # Number the attachments in depth first tree order, for use in URLs.
     # XXX This fills in part.rfc822_attachment and part.url_part_number within
     # all the parts of the email (see TMail monkeypatch above for how these
     # attributes are added). ensure_parts_counted must be called before using
-    # the attributes. This calculation is done only when required to avoid
-    # having to load and parse the email unnecessarily.
-    def after_initialize
-        @parts_counted = false 
-    end
+    # the attributes. 
     def ensure_parts_counted
-        if not @parts_counted
-            @count_parts_count = 0
-            _count_parts_recursive(self.mail)
-            # we carry on using these numeric ids for attachments uudecoded from within text parts
-            @count_first_uudecode_count = @count_parts_count
-            @parts_counted = true
-        end
+        @count_parts_count = 0
+        _count_parts_recursive(self.mail)
+        # we carry on using these numeric ids for attachments uudecoded from within text parts
+        @count_first_uudecode_count = @count_parts_count
     end
     def _count_parts_recursive(part)
         if part.multipart?
@@ -406,7 +223,7 @@ class IncomingMessage < ActiveRecord::Base
         end
     end
     # And look up by URL part number to get an attachment
-    # XXX relies on get_attachments_for_display calling ensure_parts_counted
+    # XXX relies on extract_attachments calling ensure_parts_counted
     def self.get_attachment_by_url_part_number(attachments, found_url_part_number)
         attachments.each do |a|
             if a.url_part_number == found_url_part_number
@@ -414,12 +231,6 @@ class IncomingMessage < ActiveRecord::Base
             end
         end
         return nil
-    end
-
-    # Return date mail was sent
-    def sent_at
-        # Use date it arrived (created_at) if mail itself doesn't have Date: header
-        self.mail.date || self.created_at
     end
 
     # Converts email addresses we know about into textual descriptions of them
@@ -447,7 +258,7 @@ class IncomingMessage < ActiveRecord::Base
         # Special cases for some content types
         if content_type == 'application/pdf'
             uncompressed_text = nil
-            IO.popen("/usr/bin/pdftk - output - uncompress", "r+") do |child|
+            IO.popen("#{`which pdftk`.chomp} - output - uncompress", "r+") do |child|
                 child.write(text)
                 child.close_write()
                 uncompressed_text = child.read()
@@ -464,7 +275,7 @@ class IncomingMessage < ActiveRecord::Base
                     if MySociety::Config.get('USE_GHOSTSCRIPT_COMPRESSION') == true
                         command = "gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/screen -dNOPAUSE -dQUIET -dBATCH -sOutputFile=- -"
                     else
-                        command = "/usr/bin/pdftk - output - compress"
+                        command = "#{`which pdftk`.chomp} - output - compress"
                     end
                     IO.popen(command, "r+") do |child|
                         child.write(censored_uncompressed_text)
@@ -518,6 +329,7 @@ class IncomingMessage < ActiveRecord::Base
         self.info_request.apply_censor_rules_to_binary!(text)
 
         raise "internal error in binary_mask_stuff" if text.size != orig_size
+        return text
     end
 
     # Removes censored stuff from from HTML conversion of downloaded binaries
@@ -606,21 +418,13 @@ class IncomingMessage < ActiveRecord::Base
         text.gsub!(/^(>.*\n)/, replacement)
         text.gsub!(/^(On .+ (wrote|said):\n)/, replacement)
 
-        # Multiple line sections
-        # http://www.whatdotheyknow.com/request/identity_card_scheme_expenditure
-        # http://www.whatdotheyknow.com/request/parliament_protest_actions
-        # http://www.whatdotheyknow.com/request/64/response/102
-        # http://www.whatdotheyknow.com/request/47/response/283
-        # http://www.whatdotheyknow.com/request/30/response/166
-        # http://www.whatdotheyknow.com/request/52/response/238
-        # http://www.whatdotheyknow.com/request/224/response/328 # example with * * * * *
-        # http://www.whatdotheyknow.com/request/297/response/506
-        ['-', '_', '*', '#'].each do |score|
+        ['-', '_', '*', '#'].each do |scorechar|
+            score = /(?:[#{scorechar}]\s*){8,}/
             text.sub!(/(Disclaimer\s+)?  # appears just before
                         (
-                            \s*(?:[#{score}]\s*){8,}\s*\n.*? # top line
+                            \s*#{score}\n(?:(?!#{score}\n).)*? # top line
                             (disclaimer:\n|confidential|received\sthis\semail\sin\serror|virus|intended\s+recipient|monitored\s+centrally|intended\s+(for\s+|only\s+for\s+use\s+by\s+)the\s+addressee|routinely\s+monitored|MessageLabs|unauthorised\s+use)
-                            .*?((?:[#{score}]\s*){8,}\s*\n|\z) # bottom line OR end of whole string (for ones with no terminator XXX risky)
+                            .*?(?:#{score}|\z) # bottom line OR end of whole string (for ones with no terminator XXX risky)
                         )
                        /imx, replacement)
         end
@@ -666,20 +470,20 @@ class IncomingMessage < ActiveRecord::Base
     end
 
     # Internal function
-    def _get_censored_part_file_name(mail)
+    def _get_part_file_name(mail)
         part_file_name = TMail::Mail.get_part_file_name(mail)
         if part_file_name.nil?
             return nil
         end
         part_file_name = part_file_name.dup
-        self.info_request.apply_censor_rules_to_text!(part_file_name)
         return part_file_name
     end
 
     # (This risks losing info if the unchosen alternative is the only one to contain 
     # useful info, but let's worry about that another time)
     def get_attachment_leaves
-        return _get_attachment_leaves_recursive(self.mail)
+        force = true
+        return _get_attachment_leaves_recursive(self.mail(force))
     end
     def _get_attachment_leaves_recursive(curr_mail, within_rfc822_attachment = nil)
         leaves_found = []
@@ -719,14 +523,14 @@ class IncomingMessage < ActiveRecord::Base
             # it into conflict with ensure_parts_counted which it has to be
             # called both before and after.  It will fail with cases of
             # attachments of attachments etc.
-
+            charset = curr_mail.charset # save this, because overwriting content_type also resets charset
             # Don't allow nil content_types
             if curr_mail.content_type.nil?
                 curr_mail.content_type = 'application/octet-stream'
             end
             # PDFs often come with this mime type, fix it up for view code
             if curr_mail.content_type == 'application/octet-stream'
-                part_file_name = self._get_censored_part_file_name(curr_mail)
+                part_file_name = self._get_part_file_name(curr_mail)
                 calc_mime = AlaveteliFileTypes.filename_and_content_to_mimetype(part_file_name, curr_mail.body)
                 if calc_mime
                     curr_mail.content_type = calc_mime
@@ -749,7 +553,6 @@ class IncomingMessage < ActiveRecord::Base
                     curr_mail.content_type = 'application/octet-stream'
                 end
             end
-
             # If the part is an attachment of email
             if curr_mail.content_type == 'message/rfc822' || curr_mail.content_type == 'application/vnd.ms-outlook' || curr_mail.content_type == 'application/ms-tnef'
                 ensure_parts_counted # fills in rfc822_attachment variable
@@ -759,6 +562,8 @@ class IncomingMessage < ActiveRecord::Base
                 curr_mail.within_rfc822_attachment = within_rfc822_attachment
                 leaves_found += [curr_mail]
             end
+            # restore original charset
+            curr_mail.charset = charset
         end
         return leaves_found
     end
@@ -776,7 +581,6 @@ class IncomingMessage < ActiveRecord::Base
     # search results
     def _cache_main_body_text
         text = self.get_main_body_text_internal
-
         # Strip the uudecode parts from main text
         # - this also effectively does a .dup as well, so text mods don't alter original
         text = text.split(/^begin.+^`\n^end\n/sm).join(" ")
@@ -818,61 +622,54 @@ class IncomingMessage < ActiveRecord::Base
         main_part = get_main_body_text_part
         return _convert_part_body_to_text(main_part)
     end
+
     # Given a main text part, converts it to text
     def _convert_part_body_to_text(part)
         if part.nil?
             text = "[ Email has no body, please see attachments ]"
-            text_charset = "utf-8"
+            source_charset = "utf-8"
         else
-            text = part.body
-            text_charset = part.charset
+            text = part.body # by default, TMail converts to UT8 in this call
+            source_charset = part.charset
             if part.content_type == 'text/html'
                 # e.g. http://www.whatdotheyknow.com/request/35/response/177
-                # XXX This is a bit of a hack as it is calling a convert to text routine.
-                # Could instead call a sanitize HTML one.
-                text = self.class._get_attachment_text_internal_one_file(part.content_type, text)
-            end
-        end
+                # XXX This is a bit of a hack as it is calling a
+                # convert to text routine.  Could instead call a
+                # sanitize HTML one.
 
-        # Charset conversion, turn everything into UTF-8
-        if not text_charset.nil?
-            begin
-                # XXX specially convert unicode pound signs, was needed here
-                # http://www.whatdotheyknow.com/request/88/response/352
-                text = text.gsub("£", Iconv.conv(text_charset, 'utf-8', '£')) 
-                # Try proper conversion
-                text = Iconv.conv('utf-8', text_charset, text)
-            rescue Iconv::IllegalSequence, Iconv::InvalidEncoding
-                # Clearly specified charset was nonsense
-                text_charset = nil
-            end
-        end
-        if text_charset.nil?
-            # No specified charset, so guess
-            
-            # Could use rchardet here, but it had trouble with 
-            #   http://www.whatdotheyknow.com/request/107/response/144
-            # So I gave up - most likely in UK we'll only get windows-1252 anyway.
-
-            begin
-                # See if it is good UTF-8 anyway
-                text = Iconv.conv('utf-8', 'utf-8', text)
-            rescue Iconv::IllegalSequence
+                # If the text isn't UTF8, it means TMail had a problem
+                # converting it (invalid characters, etc), and we
+                # should instead tell elinks to respect the source
+                # charset
+                use_charset = "utf-8"
                 begin
-                    # Or is it good windows-1252, most likely
-                    text = Iconv.conv('utf-8', 'windows-1252', text)
+                    text = Iconv.conv('utf-8', 'utf-8', text)
                 rescue Iconv::IllegalSequence
-                    # Text looks like unlabelled nonsense, strip out anything that isn't UTF-8
-                    text = Iconv.conv('utf-8//IGNORE', 'utf-8', text) + 
-                        _("\n\n[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]", 
-                        :site_name => MySociety::Config.get('SITE_NAME', 'Alaveteli'))
+                    use_charset = source_charset
+                end
+                text = self.class._get_attachment_text_internal_one_file(part.content_type, text, use_charset)
+            end
+        end
+
+        # If TMail can't convert text, it just returns it, so we sanitise it.
+        begin
+            # Test if it's good UTF-8
+            text = Iconv.conv('utf-8', 'utf-8', text)
+        rescue Iconv::IllegalSequence
+            # Text looks like unlabelled nonsense, 
+            # strip out anything that isn't UTF-8
+            begin
+                text = Iconv.conv('utf-8//IGNORE', source_charset, text) + 
+                    _("\n\n[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]", 
+                      :site_name => MySociety::Config.get('SITE_NAME', 'Alaveteli'))
+            rescue Iconv::InvalidEncoding, Iconv::IllegalSequence
+                if source_charset != "utf-8"
+                    source_charset = "utf-8"
+                    retry
                 end
             end
         end
         
-        # An assertion that we have ended up with UTF-8 XXX can remove as this should
-        # always be fine if code above is
-        Iconv.conv('utf-8', 'utf-8', text)
 
         # Fix DOS style linefeeds to Unix style ones (or other later regexps won't work)
         # Needed for e.g. http://www.whatdotheyknow.com/request/60/response/98
@@ -887,8 +684,8 @@ class IncomingMessage < ActiveRecord::Base
     end
     # Returns part which contains main body text, or nil if there isn't one
     def get_main_body_text_part
-        leaves = get_attachment_leaves
-        
+        leaves = self.foi_attachments
+
         # Find first part which is text/plain or text/html
         # (We have to include HTML, as increasingly there are mail clients that
         # include no text alternative for the main part, and we don't want to
@@ -902,7 +699,7 @@ class IncomingMessage < ActiveRecord::Base
 
         # Otherwise first part which is any sort of text
         leaves.each do |p|
-            if p.main_type == 'text'
+            if p.content_type.match(/^text/)
                 return p
             end
         end
@@ -910,7 +707,7 @@ class IncomingMessage < ActiveRecord::Base
         # ... or if none, consider first part 
         p = leaves[0]
         # if it is a known type then don't use it, return no body (nil)
-        if AlaveteliFileTypes.mimetype_to_extension(p.content_type)
+        if !p.nil? && AlaveteliFileTypes.mimetype_to_extension(p.content_type)
             # this is guess of case where there are only attachments, no body text
             # e.g. http://www.whatdotheyknow.com/request/cost_benefit_analysis_for_real_n
             return nil
@@ -922,16 +719,7 @@ class IncomingMessage < ActiveRecord::Base
         return p
     end
     # Returns attachments that are uuencoded in main body part
-    def get_main_body_text_uudecode_attachments
-        # we don't use get_main_body_text_internal, as we want to avoid charset
-        # conversions, since /usr/bin/uudecode needs to deal with those.
-        # e.g. for https://secure.mysociety.org/admin/foi/request/show_raw_email/24550
-        main_part = get_main_body_text_part
-        if main_part.nil?
-            return []
-        end
-        text = main_part.body
-
+    def _uudecode_and_save_attachments(text)
         # Find any uudecoded things buried in it, yeuchly
         uus = text.scan(/^begin.+^`\n^end\n/sm)
         attachments = []
@@ -946,91 +734,109 @@ class IncomingMessage < ActiveRecord::Base
             end
             tempfile.close
             # Make attachment type from it, working out filename and mime type
-            attachment = FOIAttachment.new()
-            attachment.body = content
-            attachment.filename = uu.match(/^begin\s+[0-9]+\s+(.*)$/)[1]
-            self.info_request.apply_censor_rules_to_text!(attachment.filename)
-            calc_mime = AlaveteliFileTypes.filename_and_content_to_mimetype(attachment.filename, attachment.body)
+            filename = uu.match(/^begin\s+[0-9]+\s+(.*)$/)[1]
+            calc_mime = AlaveteliFileTypes.filename_and_content_to_mimetype(filename, content)
             if calc_mime
                 calc_mime = normalise_content_type(calc_mime)
-                attachment.content_type = calc_mime
+                content_type = calc_mime
             else
-                attachment.content_type = 'application/octet-stream'
+                content_type = 'application/octet-stream'
             end
-            attachments += [attachment]
-        end
-        
+            hexdigest = Digest::MD5.hexdigest(content)
+            attachment = self.foi_attachments.find_or_create_by_hexdigest(:hexdigest => hexdigest)
+            attachment.update_attributes(:filename => filename,
+                                         :content_type => content_type,
+                                         :body => content,
+                                         :display_size => "0K")
+            attachment.save!
+            attachments << attachment
+        end    
         return attachments
     end
 
-    # Returns all attachments for use in display code
-    # XXX is this called multiple times and should be cached?
     def get_attachments_for_display
+        parse_raw_email!
+        # return what user would consider attachments, i.e. not the main body
         main_part = get_main_body_text_part
-        leaves = get_attachment_leaves
+        attachments = []
+        for attachment in self.foi_attachments
+            attachments << attachment if attachment != main_part
+        end
+        return attachments
+    end
 
+    def extract_attachments!
+        leaves = get_attachment_leaves # XXX check where else this is called from
         # XXX we have to call ensure_parts_counted after get_attachment_leaves
         # which is really messy.
         ensure_parts_counted
-
         attachments = []
-        for leaf in leaves
-            if leaf != main_part
-                attachment = FOIAttachment.new
-
-                attachment.body = leaf.body
-                # As leaf.body causes MIME decoding which uses lots of RAM, do garbage collection here
-                # to prevent excess memory use. XXX not really sure if this helps reduce
-                # peak RAM use overall. Anyway, maybe there is something better to do than this.
-                GC.start 
-
-                attachment.filename = _get_censored_part_file_name(leaf)
-                if leaf.within_rfc822_attachment
-                    attachment.within_rfc822_subject = leaf.within_rfc822_attachment.subject
-                    # Test to see if we are in the first part of the attached
-                    # RFC822 message and it is text, if so add headers.
-                    # XXX should probably use hunting algorithm to find main text part, rather than
-                    # just expect it to be first. This will do for now though.
-                    # Example request that needs this:
-                    # http://www.whatdotheyknow.com/request/2923/response/7013/attach/2/Cycle%20Path%20Bank.txt
-                    if leaf.within_rfc822_attachment == leaf && leaf.content_type == 'text/plain'
-                        headers = ""
-                        for header in [ 'Date', 'Subject', 'From', 'To', 'Cc' ]
-                            if leaf.within_rfc822_attachment.header.include?(header.downcase)
-                                header_value = leaf.within_rfc822_attachment.header[header.downcase]
-                                # Example message which has a blank Date header:
-                                # http://www.whatdotheyknow.com/request/30747/response/80253/attach/html/17/Common%20Purpose%20Advisory%20Group%20Meeting%20Tuesday%202nd%20March.txt.html
-                                if !header_value.blank?
-                                    headers = headers + header + ": " + header_value.to_s + "\n"
-                                end
+        for leaf in leaves            
+            body = leaf.body
+            # As leaf.body causes MIME decoding which uses lots of RAM, do garbage collection here
+            # to prevent excess memory use. XXX not really sure if this helps reduce
+            # peak RAM use overall. Anyway, maybe there is something better to do than this.
+            GC.start             
+            if leaf.within_rfc822_attachment
+                within_rfc822_subject = leaf.within_rfc822_attachment.subject
+                # Test to see if we are in the first part of the attached
+                # RFC822 message and it is text, if so add headers.
+                # XXX should probably use hunting algorithm to find main text part, rather than
+                # just expect it to be first. This will do for now though.
+                # Example request that needs this:
+                # http://www.whatdotheyknow.com/request/2923/response/7013/attach/2/Cycle%20Path%20Bank.txt
+                if leaf.within_rfc822_attachment == leaf && leaf.content_type == 'text/plain'
+                    headers = ""
+                    for header in [ 'Date', 'Subject', 'From', 'To', 'Cc' ]
+                        if leaf.within_rfc822_attachment.header.include?(header.downcase)
+                            header_value = leaf.within_rfc822_attachment.header[header.downcase]
+                            # Example message which has a blank Date header:
+                            # http://www.whatdotheyknow.com/request/30747/response/80253/attach/html/17/Common%20Purpose%20Advisory%20Group%20Meeting%20Tuesday%202nd%20March.txt.html
+                            if !header_value.blank?
+                                headers = headers + header + ": " + header_value.to_s + "\n"
                             end
                         end
-                        # XXX call _convert_part_body_to_text here, but need to get charset somehow
-                        # e.g. http://www.whatdotheyknow.com/request/1593/response/3088/attach/4/Freedom%20of%20Information%20request%20-%20car%20oval%20sticker:%20Article%2020,%20Convention%20on%20Road%20Traffic%201949.txt
-                        attachment.body = headers + "\n" + attachment.body
-
-                        # This is quick way of getting all headers, but instead we only add some a) to
-                        # make it more usable, b) as at least one authority accidentally leaked security
-                        # information into a header.
-                        #attachment.body = leaf.within_rfc822_attachment.port.to_s
                     end
+                    # XXX call _convert_part_body_to_text here, but need to get charset somehow
+                    # e.g. http://www.whatdotheyknow.com/request/1593/response/3088/attach/4/Freedom%20of%20Information%20request%20-%20car%20oval%20sticker:%20Article%2020,%20Convention%20on%20Road%20Traffic%201949.txt
+                    body = headers + "\n" + body
+                    
+                    # This is quick way of getting all headers, but instead we only add some a) to
+                    # make it more usable, b) as at least one authority accidentally leaked security
+                    # information into a header.
+                    #attachment.body = leaf.within_rfc822_attachment.port.to_s
                 end
-                attachment.content_type = leaf.content_type
-                attachment.url_part_number = leaf.url_part_number
-                attachments += [attachment]
+            end
+            hexdigest = Digest::MD5.hexdigest(body)
+            attachment = self.foi_attachments.find_or_create_by_hexdigest(:hexdigest => hexdigest)
+            attachment.update_attributes(:url_part_number => leaf.url_part_number,
+                                         :content_type => leaf.content_type,
+                                         :filename => _get_part_file_name(leaf),
+                                         :charset => leaf.charset,
+                                         :within_rfc822_subject => within_rfc822_subject,
+                                         :display_size => "0K",
+                                         :body => body)
+            attachment.save!
+            attachments << attachment.id
+        end
+        main_part = get_main_body_text_part
+        # we don't use get_main_body_text_internal, as we want to avoid charset
+        # conversions, since /usr/bin/uudecode needs to deal with those.
+        # e.g. for https://secure.mysociety.org/admin/foi/request/show_raw_email/24550
+        if !main_part.nil?
+            uudecoded_attachments = _uudecode_and_save_attachments(main_part.body)
+            c = @count_first_uudecode_count
+            for uudecode_attachment in uudecoded_attachments
+                c += 1
+                uudecode_attachment.url_part_number = c
+                uudecode_attachment.save!
+                attachments << uudecode_attachment.id
             end
         end
 
-        uudecode_attachments = get_main_body_text_uudecode_attachments
-        c = @count_first_uudecode_count
-        for uudecode_attachment in uudecode_attachments
-            c += 1
-            uudecode_attachment.url_part_number = c
-            attachments += [uudecode_attachment]
-        end
-
-        return attachments
-    end
+        # now get rid of any attachments we no longer have
+        FoiAttachment.destroy_all("id NOT IN (#{attachments.join(',')}) AND incoming_message_id = #{self.id}")        
+   end
 
     # Returns body text as HTML with quotes flattened, and emails removed.
     def get_body_for_html_display(collapse_quoted_sections = true)
@@ -1055,7 +861,7 @@ class IncomingMessage < ActiveRecord::Base
             text.strip!
             # if there is nothing but quoted stuff, then show the subject
             if text == "FOLDED_QUOTED_SECTION"
-                text = "[Subject only] " + CGI.escapeHTML(self.mail.subject) + text
+                text = "[Subject only] " + CGI.escapeHTML(self.subject) + text
             end
             # and display link for quoted stuff
             text = text.gsub(/FOLDED_QUOTED_SECTION/, "\n\n" + '<span class="unfold_link"><a href="?unfold=1#incoming-'+self.id.to_s+'">show quoted sections</a></span>' + "\n\n")
@@ -1070,6 +876,7 @@ class IncomingMessage < ActiveRecord::Base
         text = text.gsub(/(?:<br>\s*){2,}/, '<br><br>') # remove excess linebreaks that unnecessarily space it out
         return text
     end
+
 
     # Returns text of email for using in quoted section when replying
     def get_body_for_quoting
@@ -1110,7 +917,9 @@ class IncomingMessage < ActiveRecord::Base
 
         return self.cached_attachment_text_clipped
     end
-    def IncomingMessage._get_attachment_text_internal_one_file(content_type, body)
+    def IncomingMessage._get_attachment_text_internal_one_file(content_type, body, charset = 'utf-8')
+        # note re. charset: TMail always tries to convert email bodies
+        # to UTF8 by default, so normally it should already be that.
         text = ''
         # XXX - tell all these command line tools to return utf-8
         if content_type == 'text/plain'
@@ -1120,21 +929,22 @@ class IncomingMessage < ActiveRecord::Base
             tempfile.print body
             tempfile.flush
             if content_type == 'application/vnd.ms-word'
-                AlaveteliExternalCommand.run("/usr/bin/wvText", tempfile.path, tempfile.path + ".txt")
+                AlaveteliExternalCommand.run(`which wvText`.chomp, tempfile.path, tempfile.path + ".txt")
                 # Try catdoc if we get into trouble (e.g. for InfoRequestEvent 2701)
                 if not File.exists?(tempfile.path + ".txt")
-                    AlaveteliExternalCommand.run("/usr/bin/catdoc", tempfile.path, :append_to => text)
+                    AlaveteliExternalCommand.run(`which catdoc`.chomp, tempfile.path, :append_to => text)
                 else
                     text += File.read(tempfile.path + ".txt") + "\n\n"
                     File.unlink(tempfile.path + ".txt")
                 end
             elsif content_type == 'application/rtf'
                 # catdoc on RTF prodcues less comments and extra bumf than --text option to unrtf
-                AlaveteliExternalCommand.run("/usr/bin/catdoc", tempfile.path, :append_to => text)
+                AlaveteliExternalCommand.run(`which catdoc`.chomp, tempfile.path, :append_to => text)
             elsif content_type == 'text/html'
-                # lynx wordwraps links in its output, which then don't get formatted properly
-                # by Alaveteli. We use elinks instead, which doesn't do that.
-                AlaveteliExternalCommand.run("/usr/bin/elinks", "-eval", "'set document.codepage.assume = \"utf-8\"'", "-dump-charset", "utf-8", "-force-html", "-dump",
+                # lynx wordwraps links in its output, which then don't
+                # get formatted properly by Alaveteli. We use elinks
+                # instead, which doesn't do that.
+                AlaveteliExternalCommand.run(`which elinks`.chomp, "-eval", "'set document.codepage.assume = \"#{charset}\"'", "-eval", "'set document.codepage.force_assumed = 1'", "-dump-charset", "utf-8", "-force-html", "-dump",
                     tempfile.path, :append_to => text)
             elsif content_type == 'application/vnd.ms-excel'
                 # Bit crazy using /usr/bin/strings - but xls2csv, xlhtml and
@@ -1145,9 +955,9 @@ class IncomingMessage < ActiveRecord::Base
             elsif content_type == 'application/vnd.ms-powerpoint'
                 # ppthtml seems to catch more text, but only outputs HTML when
                 # we want text, so just use catppt for now
-                AlaveteliExternalCommand.run("/usr/bin/catppt", tempfile.path, :append_to => text)
+                AlaveteliExternalCommand.run(`which catppt`.chomp, tempfile.path, :append_to => text)
             elsif content_type == 'application/pdf'
-                AlaveteliExternalCommand.run("/usr/bin/pdftotext", tempfile.path, "-", :append_to => text)
+                AlaveteliExternalCommand.run(`which pdftotext`.chomp, tempfile.path, "-", :append_to => text)
             elsif content_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
                 # This is Microsoft's XML office document format.
                 # Just pull out the main XML file, and strip it of text.
@@ -1201,12 +1011,13 @@ class IncomingMessage < ActiveRecord::Base
         text = ''
         attachments = self.get_attachments_for_display
         for attachment in attachments
-            text += IncomingMessage._get_attachment_text_internal_one_file(attachment.content_type, attachment.body)
+            text += IncomingMessage._get_attachment_text_internal_one_file(attachment.content_type, attachment.body, attachment.charset)
         end
         # Remove any bad characters
         text = Iconv.conv('utf-8//IGNORE', 'utf-8', text)
         return text
     end
+
 
     # Returns text for indexing
     def get_text_for_indexing_full
@@ -1217,23 +1028,6 @@ class IncomingMessage < ActiveRecord::Base
         return get_body_for_quoting + "\n\n" + get_attachment_text_clipped
     end
 
-    # Returns the name of the person the incoming message is from, or nil if
-    # there isn't one or if there is only an email address. XXX can probably
-    # remove from_name_if_present (which is a monkey patch) by just calling
-    # .from_addrs[0].name here instead? 
-    def safe_mail_from
-        name = self.mail.from_name_if_present
-        if name.nil?
-            return nil
-        end
-        name = name.dup
-        self.info_request.apply_censor_rules_to_text!(name)
-        return name
-    end
-
-    def mail_from_domain
-        return PublicBody.extract_domain_from_email(self.mail.from_addrs[0].spec)
-    end
 
 
     # Has message arrived "recently"?
@@ -1310,7 +1104,7 @@ class IncomingMessage < ActiveRecord::Base
         if !self.mail['return-path'].nil? && self.mail['return-path'].addr == "<>"
             return false
         end
-        if !self.mail['auto-submitted'].nil? && !self.mail['auto-submitted'].keys.empty?
+        if !self.mail['auto-submitted'].nil?
             return false
         end
         return true

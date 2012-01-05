@@ -185,9 +185,16 @@ module LinkToHelper
     end
 
 
-    def main_url(relative_path)
+    def main_url(relative_path, append = nil)
         url_prefix = "http://" + MySociety::Config.get("DOMAIN", '127.0.0.1:3000')
-        return url_prefix + relative_path
+        url = url_prefix + relative_path
+        if !append.nil?
+            env = Rack::MockRequest.env_for(url)
+            req = Rack::Request.new(env)
+            req.path_info += append
+            url = req.url
+        end
+        return url
     end
 
     # Basic date format

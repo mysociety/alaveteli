@@ -1,4 +1,8 @@
-require File.join(File.dirname(__FILE__),'..','vendor','rails','railties','lib','rails','gem_dependency.rb')
+if File.exist? File.join(File.dirname(__FILE__),'..','vendor','rails','railties','lib','rails','gem_dependency.rb')
+  require File.join(File.dirname(__FILE__),'..','vendor','rails','railties','lib','rails','gem_dependency.rb')
+else
+  require 'rails/gem_dependency'
+end
 
 module Rails
   class GemDependency < Gem::Dependency

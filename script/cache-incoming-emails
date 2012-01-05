@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Fill in all the database caches of text from body/attachments.
+# Will take a while to run! Can use after clear-caches to refresh the database
+# level caches if you like.
+
+LOC=`dirname $0`
+
+"$LOC/runner" 'IncomingMessage.find_each() { |im| print "info request " + im.info_request.id.to_s + ", incoming message " + im.id.to_s + ": " + im.extract_attachments!.count.to_s + " attachments extracted to " + im.foi_attachments[0].directory + "; main body folded: " + im.get_main_body_text_folded.size.to_s + " attachment clipped:" + im.get_attachment_text_clipped.size.to_s + "\n" }'

@@ -10,7 +10,6 @@
 .DS_Store
 .autotest
 /db/test_structure.sql
-moo.txt
 *#*#
 TAGS
 /vendor/plugins/*theme

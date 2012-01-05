@@ -1,7 +1,7 @@
 # This file is copied to ~/spec when you run 'ruby script/generate rspec'
 # from the project root directory.
 ENV["RAILS_ENV"] ||= 'test'
-require File.expand_path(File.join(File.dirname(__FILE__),'..','config','environment'))
+require File.expand_path(File.join('..', '..', 'config', 'environment'), __FILE__)
 require 'spec/autorun'
 require 'spec/rails'
 
@@ -17,16 +17,13 @@ config['REPLY_LATE_AFTER_DAYS'] = 20
 # Uncomment the next line to use webrat's matchers
 #require 'webrat/integrations/rspec-rails'
 
-# Requires supporting files with custom matchers and macros, etc,
-# in ./support/ and its subdirectories.
-Dir[File.expand_path(File.join(File.dirname(__FILE__),'support','**','*.rb'))].each {|f| require f}
-
 Spec::Runner.configure do |config|
   # If you're not using ActiveRecord you should remove these
   # lines, delete config/database.yml and disable :active_record
   # in your config/boot.rb
-  config.fixture_path = RAILS_ROOT + '/spec/fixtures/'
 
+  # fixture_path must end in a separator
+  config.fixture_path = File.join(Rails.root, 'spec', 'fixtures') + File::SEPARATOR
 
   # == Fixtures
   #
@@ -80,12 +77,21 @@ def load_file_fixture(file_name)
     return content
 end
 
-def rebuild_xapian_index
-    # XXX could for speed call ActsAsXapian.rebuild_index directly, but would
-    # need model name list, and would need to fix acts_as_xapian so can call writes
-    # and reads mixed up (it asserts where it thinks it can't do this)
-    rebuild_name = File.dirname(__FILE__) + '/../script/rebuild-xapian-index'
-    Kernel.system(rebuild_name) or raise "failed to launch #{rebuild_name}, error bitcode #{$?}, exit status: #{$?.exitstatus}"
+def rebuild_xapian_index(terms = true, values = true, texts = true, dropfirst = true)
+    parse_all_incoming_messages
+    if dropfirst
+        begin
+            ActsAsXapian.readable_init
+            FileUtils.rm_r(ActsAsXapian.db_path)
+        rescue RuntimeError
+        end
+        ActsAsXapian.writable_init
+    end
+    verbose = false
+    # safe_rebuild=true, which involves forking to avoid memory leaks, doesn't work well with rspec. 
+    # unsafe is significantly faster, and we can afford possible memory leaks while testing.
+    safe_rebuild = false
+    ActsAsXapian.rebuild_index(["PublicBody", "User", "InfoRequestEvent"].map{|m| m.constantize}, verbose, terms, values, texts, safe_rebuild) 
 end
 
 def update_xapian_index
@@ -114,7 +120,7 @@ def validate_as_body(html)
 end
 
 def basic_auth_login(request, username = nil, password = nil)
-    username = MySociety::Config.get('ADMIN_USERNAME') if username.nil?
+   username = MySociety::Config.get('ADMIN_USERNAME') if username.nil?
     password = MySociety::Config.get('ADMIN_PASSWORD') if password.nil?
     request.env["HTTP_AUTHORIZATION"] = "Basic " + Base64::encode64("#{username}:#{password}")
 end
@@ -147,6 +153,14 @@ if $tempfilecount.nil?
     end
 end
 
+# to_ary differs in Ruby 1.8 and 1.9
+# @see http://yehudakatz.com/2010/01/02/the-craziest-fing-bug-ive-ever-seen/
+def safe_mock_model(model, args = {})
+  mock = mock_model(model, args)
+  mock.should_receive(:to_ary).any_number_of_times
+  mock
+end
+
 def load_raw_emails_data(raw_emails)
     raw_email = raw_emails(:useless_raw_email)
     begin
@@ -154,4 +168,8 @@ def load_raw_emails_data(raw_emails)
     rescue Errno::ENOENT
     end
     raw_email.data = load_file_fixture("useless_raw_email.email")
+end
+
+def parse_all_incoming_messages
+    IncomingMessage.find(:all).each{|x| x.parse_raw_email!}
 end

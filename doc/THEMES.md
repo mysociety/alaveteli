@@ -50,24 +50,21 @@ These means that a file at
 `vendor/plugins/alavetelitheme/lib/help/about.rhml` will appear in
 place of the core "about us" file.
 
-There's a special file at
-`vendor/plugins/alavetelitheme/lib/views/general/custom_css.rhtml`.
-Its contents are automatically included as the last CSS file in the
-header of the site.  In theory, it should be possible to do quite a
-lot of layout customisation by only changing this file.
+Rails expects all its stylesheets to live at `<railshome>/public`,
+which presents a problem for plugins.  Here's how we solve it: the
+stylesheet and associated resources for your theme live (by
+convention) in at `alavatelitheme/public/`.  This is symlinked from
+the main Rails app -- see `alavetelitheme/install.rb` to see how this
+happens.
 
-Your CSS is likely to reference various images such as a logo,
-background images, etc.  We don't have a nice way of supporting these
-at the moment.  The current practice is to place them in
-`vendor/plugins/alavetelitheme/public/images/` and then symlink this
-directory to somewhere within the `public/` folder in the main
-Alaveteli Rails app, e.g.:
+The partial at
+`alavetelitheme/lib/views/general/_before_head_end.rhtml` includes the
+custom CSS in your theme's stylesheet folder (by convention, in
+`alavetelitheme/public/stylesheets/`), with:
 
-   ln -s $ALAVETELI_SITE/vendor/plugins/alavetelitheme/public/images/ public/images/my_images
-   
-...and then refer to these in your custom_css.rhtml like so:
+     <%= stylesheet_link_tag "/alavetelitheme/stylesheets/custom" %>
 
-    background-image: url("../my_images/navimg/my-logo.png");
+...which will, of course, need changing for your theme.
 
 # Customising the request states
 

@@ -1,4 +1,5 @@
-#!/usr/bin/ruby
+#!/usr/bin/env ruby
+# -*- coding: utf-8 -*-
 
 # Handle email responses sent to us.
 #
@@ -17,8 +18,13 @@ load "config.rb"
 MySociety::Config.set_file(File.join($alaveteli_dir, 'config', 'general'), true)
 MySociety::Config.load_default
 
-$:.push(File.join($alaveteli_dir, "vendor", "rails", "actionmailer", "lib", "action_mailer", "vendor", "tmail-1.2.7"))
-require 'tmail'
+require 'rubygems'
+if File.exist? File.join($alaveteli_dir,'vendor','rails','Rakefile')
+    $:.push(File.join($alaveteli_dir, "vendor", "rails", "actionmailer", "lib", "action_mailer", "vendor", "tmail-1.2.7"))
+    require 'tmail'
+else
+    require 'action_mailer'
+end
 
 def main(in_test_mode)
     Dir.chdir($alaveteli_dir) do
@@ -114,10 +120,19 @@ def is_oof?(message)
         end
     end
     
+    if message.header_string("Auto-Submitted") == "auto-generated"
+        if subject =~ /out of( the)? office/
+            return true
+        end
+    end
+    
     if subject.start_with? "out of office autoreply:"
         return true
     end
     if subject == "out of office"
+        return true
+    end
+    if subject == "out of office reply"
         return true
     end
     if subject.end_with? "is out of the office"
