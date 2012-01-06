@@ -31,6 +31,13 @@ describe IncomingMessage, " when dealing with incoming mail" do
         end
     end
 
+    it "should ensure cached body text has been parsed correctly" do
+        ir = info_requests(:fancy_dog_request)
+        receive_incoming_mail('quoted-subject-iso8859-1.email', ir.incoming_email)
+        message = ir.incoming_messages[1]
+        message.get_main_body_text_unfolded.should_not include("Email has no body")
+    end
+
     it "should correctly convert HTML even when there's a meta tag asserting that it is iso-8859-1 which would normally confuse elinks" do
         ir = info_requests(:fancy_dog_request)
         receive_incoming_mail('quoted-subject-iso8859-1.email', ir.incoming_email)

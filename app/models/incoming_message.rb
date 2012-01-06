@@ -619,6 +619,7 @@ class IncomingMessage < ActiveRecord::Base
     end
     # Returns body text from main text part of email, converted to UTF-8
     def get_main_body_text_internal
+        parse_raw_email!
         main_part = get_main_body_text_part
         return _convert_part_body_to_text(main_part)
     end
