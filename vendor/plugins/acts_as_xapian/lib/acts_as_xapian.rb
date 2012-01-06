@@ -584,7 +584,8 @@ module ActsAsXapian
     end
     
     def ActsAsXapian._is_xapian_db(path)
-        return File.exist?(File.join(temp_path, "iamflint")) or File.exist?(File.join(temp_path, "iamchert"))
+        exists = File.exist?(File.join(path, "iamflint")) or File.exist?(File.join(path, "iamchert"))
+        return exists
     end
     
     # You must specify *all* the models here, this totally rebuilds the Xapian
