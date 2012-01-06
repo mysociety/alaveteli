@@ -83,8 +83,8 @@ constraints whilst running the tests they also need to be a superuser.
 
 The following command will set up a user 'foi' with password 'foi':
 
-    echo "CREATE DATABASE foi_development encoding = 'SQL_ASCII';
-    CREATE DATABASE foi_test encoding = 'SQL_ASCII';
+    echo "CREATE DATABASE foi_development encoding 'SQL_ASCII' template template0;
+    CREATE DATABASE foi_test encoding 'SQL_ASCII' template template0;
     CREATE USER foi WITH CREATEUSER;
     ALTER USER foi WITH PASSWORD 'foi';
     ALTER USER foi WITH CREATEDB;
