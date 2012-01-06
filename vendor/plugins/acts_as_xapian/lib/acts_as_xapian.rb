@@ -219,6 +219,7 @@ module ActsAsXapian
 
         # for indexing
         @@writable_db = Xapian::flint_open(full_path, Xapian::DB_CREATE_OR_OPEN)
+        @@enquire = Xapian::Enquire.new(@@writable_db)
         @@term_generator = Xapian::TermGenerator.new()
         @@term_generator.set_flags(Xapian::TermGenerator::FLAG_SPELLING, 0)
         @@term_generator.database = @@writable_db
@@ -531,6 +532,7 @@ module ActsAsXapian
         end
 
         ids_to_refresh = ActsAsXapianJob.find(:all).map() { |i| i.id }
+        ActsAsXapian.writable_init
         for id in ids_to_refresh
             job = nil
             begin
@@ -546,6 +548,7 @@ module ActsAsXapian
                         next
                     end
                     STDOUT.puts("ActsAsXapian.update_index #{job.action} #{job.model} #{job.model_id.to_s} #{Time.now.to_s}") if verbose
+
                     begin
                         if job.action == 'update'
                             # XXX Index functions may reference other models, so we could eager load here too?
@@ -564,6 +567,9 @@ module ActsAsXapian
                         job.action = 'destroy'
                         retry
                     end
+                    if flush
+                        ActsAsXapian.writable_db.flush
+                    end
                     job.destroy
                 end
             rescue => detail
@@ -571,9 +577,9 @@ module ActsAsXapian
                 STDERR.puts(detail.backtrace.join("\n") + "\nFAILED ActsAsXapian.update_index job #{id} #{$!} " + (job.nil? ? "" : "model " + job.model + " id " + job.model_id.to_s))
             end
         end
-        
         # We close the database when we're finished to remove the lock file. Since writable_init 
         # reopens it and recreates the environment every time we don't need to do further cleanup 
+        ActsAsXapian.writable_db.flush
         ActsAsXapian.writable_db.close
     end
     
@@ -606,6 +612,7 @@ module ActsAsXapian
             _rebuild_index_safely(model_classes, verbose, terms, values, texts)
         else
             @@db_path = ActsAsXapian.db_path + ".new"
+            ActsAsXapian.writable_init
             # Save time by running the indexing in one go and in-process
             for model_class in model_classes
                 STDOUT.puts("ActsAsXapian.rebuild_index: Rebuilding #{model_class.to_s}") if verbose
@@ -614,6 +621,8 @@ module ActsAsXapian
                   model.xapian_index(terms, values, texts)
                 end
             end
+            ActsAsXapian.writable_db.flush
+            ActsAsXapian.writable_db.close
         end            
 
         # Rename into place
@@ -655,14 +664,18 @@ module ActsAsXapian
                     # database connection doesn't survive a fork, rebuild it
                     ActiveRecord::Base.connection.reconnect!
               else
+
                     # fully reopen the database each time (with a new object)
                     # (so doc ids and so on aren't preserved across the fork)
                     @@db_path = ActsAsXapian.db_path + ".new"
+                    ActsAsXapian.writable_init
                     STDOUT.puts("ActsAsXapian.rebuild_index: New batch. #{model_class.to_s} from #{i} to #{i + batch_size} of #{model_class_count} pid #{Process.pid.to_s}") if verbose
                     model_class.find(:all, :limit => batch_size, :offset => i, :order => :id).each do |model|
                       STDOUT.puts("ActsAsXapian.rebuild_index      #{model_class} #{model.id}") if verbose
                       model.xapian_index(terms, values, texts)
                     end
+                    ActsAsXapian.writable_db.flush
+                    ActsAsXapian.writable_db.close            
                     # database connection won't survive a fork, so shut it down
                     ActiveRecord::Base.connection.disconnect!
                     # brutal exit, so other shutdown code not run (for speed and safety)
@@ -741,15 +754,6 @@ module ActsAsXapian
                 end
             end
 
-            # but first we want a readable database, to see if there's already an entry
-            begin
-                ActsAsXapian.readable_init
-            rescue
-                # ensure we've previously initialised a writable database
-                ActsAsXapian.writable_init
-                ActsAsXapian.writable_db.close
-                ActsAsXapian.readable_init
-            end
             existing_query = Xapian::Query.new("I" + self.xapian_document_term)
             ActsAsXapian.enquire.query = existing_query
             match = ActsAsXapian.enquire.mset(0,1,1).matches[0]
@@ -787,8 +791,6 @@ module ActsAsXapian
             if values and self.xapian_options[:values]
                 values_to_index = self.xapian_options[:values]
             end
-
-            ActsAsXapian.writable_init # now reopen as writable
 
             # clear any existing data that we might want to replace
             if drop_all_terms && texts
@@ -839,16 +841,11 @@ module ActsAsXapian
             end
 
             ActsAsXapian.writable_db.replace_document("I" + doc.data, doc)
-            ActsAsXapian.writable_db.flush
-            ActsAsXapian.writable_db.close
         end
 
         # Delete record from the Xapian database
         def xapian_destroy
-            ActsAsXapian.writable_init
             ActsAsXapian.writable_db.delete_document("I" + self.xapian_document_term)
-            ActsAsXapian.writable_db.flush
-            ActsAsXapian.writable_db.close            
         end
 
         # Used to mark changes needed by batch indexer

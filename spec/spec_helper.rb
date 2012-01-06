@@ -97,7 +97,7 @@ end
 
 def update_xapian_index
     verbose = false
-    ActsAsXapian.update_index(flush_to_disk=true, verbose) 
+    ActsAsXapian.update_index(flush_to_disk=false, verbose) 
 end
 
 # Validate an entire HTML page
