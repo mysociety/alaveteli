@@ -44,7 +44,7 @@
  </div>
 <% end %>
 
-<h2 class="publicbody_results"><%= _('Found {{count}} public bodies {{description}}', :count=>@public_bodies.size, :description=>@description) %></h2>
+<h2 class="publicbody_results"><%= _('Found {{count}} public bodies {{description}}', :count=>@public_bodies.total_entries, :description=>@description) %></h2>
 <%= render :partial => 'body_listing', :locals => { :public_bodies => @public_bodies } %>
 
   <%= will_paginate(@public_bodies) %><br/>
