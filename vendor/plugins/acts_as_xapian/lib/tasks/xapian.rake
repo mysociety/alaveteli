@@ -46,7 +46,7 @@ namespace :xapian do
 	coerce_arg(ENV['verbose'], false),
         coerce_arg(ENV['terms'], true),
         coerce_arg(ENV['values'], true),
-        coerce_arg(ENV['textx'], true))
+        coerce_arg(ENV['texts'], true))
     end
 
     # Parameters - are models, query, offset, limit, sort_by_prefix,
