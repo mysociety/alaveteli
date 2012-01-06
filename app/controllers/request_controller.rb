@@ -35,9 +35,8 @@ class RequestController < ApplicationController
             # do nothing - as "authenticated?" has done the redirect to signin page for us
             return
         end
-        
         if !params[:query].nil?
-            query = params[:query] + '*'
+            query = params[:query]
             query = query.split(' ').join(' OR ')       # XXX: HACK for OR instead of default AND!
             @xapian_requests = perform_search([PublicBody], query, 'relevant', nil, 5)
         end
