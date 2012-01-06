@@ -30,12 +30,23 @@ namespace :xapian do
 
     desc 'Completely rebuilds Xapian search index (must specify all models)'
     task :rebuild_index => :environment do
+        def coerce_arg(arg, default)
+	    if arg == "false"
+	        return false
+            elsif arg == "true"
+                return true
+            elsif arg.nil?
+	        return default
+            else
+                return arg
+            end
+	end
         raise "specify ALL your models with models=\"ModelName1 ModelName2\" as parameter" if ENV['models'].nil?
         ActsAsXapian.rebuild_index(ENV['models'].split(" ").map{|m| m.constantize}, 
-	ENV['verbose'] ? true : false,
-	ENV['terms'] == "false" ? false : ENV['terms'],
-	ENV['values'] == "false" ? false : ENV['values'],
-	ENV['texts'] == "false" ? false : true)
+	coerce_arg(ENV['verbose'], false),
+        coerce_arg(ENV['terms'], true),
+        coerce_arg(ENV['values'], true),
+        coerce_arg(ENV['textx'], true))
     end
 
     # Parameters - are models, query, offset, limit, sort_by_prefix,
