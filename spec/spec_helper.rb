@@ -78,7 +78,6 @@ def load_file_fixture(file_name)
 end
 
 def rebuild_xapian_index(terms = true, values = true, texts = true, dropfirst = true)
-    parse_all_incoming_messages
     if dropfirst
         begin
             ActsAsXapian.readable_init
@@ -86,7 +85,9 @@ def rebuild_xapian_index(terms = true, values = true, texts = true, dropfirst = 
         rescue RuntimeError
         end
         ActsAsXapian.writable_init
+        ActsAsXapian.writable_db.close
     end
+    parse_all_incoming_messages
     verbose = false
     # safe_rebuild=true, which involves forking to avoid memory leaks, doesn't work well with rspec. 
     # unsafe is significantly faster, and we can afford possible memory leaks while testing.

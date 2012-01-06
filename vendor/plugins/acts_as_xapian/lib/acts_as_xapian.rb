@@ -614,9 +614,6 @@ module ActsAsXapian
                   model.xapian_index(terms, values, texts)
                 end
             end
-            # make sure everything is written and closed
-            ActsAsXapian.writable_db.flush
-            ActsAsXapian.writable_db.close
         end            
 
         # Rename into place
@@ -739,9 +736,7 @@ module ActsAsXapian
             if self.class.xapian_options.include?(:if)
                 if_value = xapian_value(self.class.xapian_options[:if], :boolean)
                 if not if_value
-                    ActsAsXapian.writable_init
                     self.xapian_destroy
-                    ActsAsXapian.writable_db.close
                     return
                 end
             end
@@ -750,7 +745,7 @@ module ActsAsXapian
             begin
                 ActsAsXapian.readable_init
             rescue
-                # ensure we've initialised a writable database
+                # ensure we've previously initialised a writable database
                 ActsAsXapian.writable_init
                 ActsAsXapian.writable_db.close
                 ActsAsXapian.readable_init
@@ -793,7 +788,8 @@ module ActsAsXapian
                 values_to_index = self.xapian_options[:values]
             end
 
-            ActsAsXapian.writable_init
+            ActsAsXapian.writable_init # now reopen as writable
+
             # clear any existing data that we might want to replace
             if drop_all_terms && texts
                 # as an optimisation, if we're reindexing all of both, we remove everything
@@ -849,7 +845,10 @@ module ActsAsXapian
 
         # Delete record from the Xapian database
         def xapian_destroy
+            ActsAsXapian.writable_init
             ActsAsXapian.writable_db.delete_document("I" + self.xapian_document_term)
+            ActsAsXapian.writable_db.flush
+            ActsAsXapian.writable_db.close            
         end
 
         # Used to mark changes needed by batch indexer
