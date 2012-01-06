@@ -589,24 +589,29 @@ module ActsAsXapian
     # Incremental update_index calls above are suspended while this rebuild
     # happens (i.e. while the .new database is there) - any index update jobs
     # are left in the database, and will run after the rebuild has finished.
+
     def ActsAsXapian.rebuild_index(model_classes, verbose = false, terms = true, values = true, texts = true, safe_rebuild = true)
         #raise "when rebuilding all, please call as first and only thing done in process / task" if not ActsAsXapian.writable_db.nil?
-
         prepare_environment
-        
-        # Delete any existing .new database, and open a new one
+
+        update_existing = !(terms && values && texts)
+        # Delete any existing .new database, and open a new one which is a copy of the current one
         new_path = ActsAsXapian.db_path + ".new"
+        old_path = ActsAsXapian.db_path
         if File.exist?(new_path)
             raise "found existing " + new_path + " which is not Xapian flint database, please delete for me" if not File.exist?(File.join(new_path, "iamflint"))
             FileUtils.rm_r(new_path)
         end
-
+        if update_existing
+            FileUtils.cp_r(old_path, new_path)
+        end
+        ActsAsXapian.writable_init
+        ActsAsXapian.writable_db.close # just to make an empty one to read
         # Index everything
         if safe_rebuild
             _rebuild_index_safely(model_classes, verbose, terms, values, texts)
         else
             # Save time by running the indexing in one go and in-process
-            ActsAsXapian.writable_init(".new")
             for model_class in model_classes
                 STDOUT.puts("ActsAsXapian.rebuild_index: Rebuilding #{model_class.to_s}") if verbose
                 model_class.find(:all).each do |model|
@@ -620,8 +625,7 @@ module ActsAsXapian
         end            
 
         # Rename into place
-        old_path = ActsAsXapian.db_path
-        temp_path = ActsAsXapian.db_path + ".tmp"
+        temp_path = old_path + ".tmp"
         if File.exist?(temp_path)
             raise "temporary database found " + temp_path + " which is not Xapian flint database, please delete for me" if not File.exist?(File.join(temp_path, "iamflint"))
             FileUtils.rm_r(temp_path)
@@ -639,6 +643,7 @@ module ActsAsXapian
 
         # You'll want to restart your FastCGI or Mongrel processes after this,
         # so they get the new db
+        @@db_path = old_path
     end
 
     def ActsAsXapian._rebuild_index_safely(model_classes, verbose, terms, values, texts)
@@ -660,16 +665,12 @@ module ActsAsXapian
               else
                     # fully reopen the database each time (with a new object)
                     # (so doc ids and so on aren't preserved across the fork)
-                    ActsAsXapian.writable_init(".new")
+                    @@db_path = ActsAsXapian.db_path + ".new"
                     STDOUT.puts("ActsAsXapian.rebuild_index: New batch. #{model_class.to_s} from #{i} to #{i + batch_size} of #{model_class_count} pid #{Process.pid.to_s}") if verbose
                     model_class.find(:all, :limit => batch_size, :offset => i, :order => :id).each do |model|
                       STDOUT.puts("ActsAsXapian.rebuild_index      #{model_class} #{model.id}") if verbose
                       model.xapian_index(terms, values, texts)
                     end
-                    # make sure everything is written
-                    ActsAsXapian.writable_db.flush
-                    # close database
-                    ActsAsXapian.writable_db.close
                     # database connection won't survive a fork, so shut it down
                     ActiveRecord::Base.connection.disconnect!
                     # brutal exit, so other shutdown code not run (for speed and safety)
@@ -743,16 +744,14 @@ module ActsAsXapian
             if self.class.xapian_options.include?(:if)
                 if_value = xapian_value(self.class.xapian_options[:if], :boolean)
                 if not if_value
+                    ActsAsXapian.writable_init
                     self.xapian_destroy
+                    ActsAsXapian.writable_db.close
                     return
                 end
             end
-
-            if self.class.to_s == "PublicBody" and self.url_name == "tgq"
-                
-#require 'ruby-debug'
-#debugger               
-            end
+            ActsAsXapian.writable_init
+            ActsAsXapian.writable_db.close
             # otherwise (re)write the Xapian record for the object
             ActsAsXapian.readable_init
             existing_query = Xapian::Query.new("I" + self.xapian_document_term)
@@ -790,7 +789,7 @@ module ActsAsXapian
             if values and self.xapian_options[:values]
                 values_to_index = self.xapian_options[:values]
             end
-
+            ActsAsXapian.writable_init
             # clear any existing values that we might want to replace
             if drop_all_terms && texts
                 # as an optimisation, if we're reindexing all of both, we remove everything
@@ -835,6 +834,9 @@ module ActsAsXapian
             end
 
             ActsAsXapian.writable_db.replace_document("I" + doc.data, doc)
+            puts "wrote #{doc.data}:#{doc.terms.to_json} to #{ActsAsXapian.db_path}"
+            ActsAsXapian.writable_db.flush
+            ActsAsXapian.writable_db.close
         end
 
         # Delete record from the Xapian database
