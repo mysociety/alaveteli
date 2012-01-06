@@ -32,10 +32,10 @@ describe UserController, "when showing a user" do
         session[:user_id] = users(:bob_smith_user).id
         get :show, :url_name => "bob_smith", :view => 'requests'
         response.body.should_not include("Change your password")
-        response.body.should include("Freedom of Information requests")
+        response.body.should match(/Your [0-9]+ Freedom of Information requests/)
         get :show, :url_name => "bob_smith", :view => 'profile'
         response.body.should include("Change your password")
-        response.body.should_not include("Freedom of Information requests")
+        response.body.should_not match(/Your [0-9]+ Freedom of Information requests/)
     end
 
     it "should assign the user" do

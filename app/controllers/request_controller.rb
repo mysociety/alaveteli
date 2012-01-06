@@ -814,7 +814,8 @@ class RequestController < ApplicationController
                         for message in info_request.incoming_messages                
                             attachments = message.get_attachments_for_display
                             for attachment in attachments
-                                zipfile.get_output_stream(attachment.display_filename) { |f|
+                                filename = "#{attachment.url_part_number}_#{attachment.display_filename}"
+                                zipfile.get_output_stream(filename) { |f|
                                     f.puts(attachment.body)
                                 }
                             end
