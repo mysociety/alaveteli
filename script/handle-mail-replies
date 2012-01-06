@@ -120,10 +120,19 @@ def is_oof?(message)
         end
     end
     
+    if message.header_string("Auto-Submitted") == "auto-generated"
+        if subject =~ /out of( the)? office/
+            return true
+        end
+    end
+    
     if subject.start_with? "out of office autoreply:"
         return true
     end
     if subject == "out of office"
+        return true
+    end
+    if subject == "out of office reply"
         return true
     end
     if subject.end_with? "is out of the office"

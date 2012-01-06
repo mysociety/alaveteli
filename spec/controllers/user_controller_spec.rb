@@ -28,6 +28,16 @@ describe UserController, "when showing a user" do
         response.should render_template('show')
     end
 
+    it "should distinguish between 'my profile' and 'my requests' for logged in users" do
+        session[:user_id] = users(:bob_smith_user).id
+        get :show, :url_name => "bob_smith", :view => 'requests'
+        response.body.should_not include("Change your password")
+        response.body.should match(/Your [0-9]+ Freedom of Information requests/)
+        get :show, :url_name => "bob_smith", :view => 'profile'
+        response.body.should include("Change your password")
+        response.body.should_not match(/Your [0-9]+ Freedom of Information requests/)
+    end
+
     it "should assign the user" do
         get :show, :url_name => "bob_smith"
         assigns[:display_user].should == users(:bob_smith_user)
