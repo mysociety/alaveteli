@@ -129,7 +129,7 @@ class PublicBodyController < ApplicationController
         end
         PublicBody.with_locale(@locale) do
             @public_bodies = PublicBody.paginate(
-              :order => "public_body_translations.name", :page => params[:page], :per_page => 1000, # fit all councils on one page
+              :order => "public_body_translations.name", :page => params[:page], :per_page => 100,
               :conditions => conditions,
               :joins => :translations
             )
