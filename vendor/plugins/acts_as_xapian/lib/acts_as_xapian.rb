@@ -218,7 +218,7 @@ module ActsAsXapian
         full_path = @@db_path + suffix
 
         # for indexing
-        @@writable_db = Xapian::flint_open(full_path, Xapian::DB_CREATE_OR_OPEN)
+        @@writable_db = Xapian::WritableDatabase.new(full_path, Xapian::DB_CREATE_OR_OPEN)
         @@term_generator = Xapian::TermGenerator.new()
         @@term_generator.set_flags(Xapian::TermGenerator::FLAG_SPELLING, 0)
         @@term_generator.database = @@writable_db
@@ -583,6 +583,10 @@ module ActsAsXapian
         ActsAsXapian.writable_db.close
     end
     
+    def ActsAsXapian._is_xapian_db(path)
+        return File.exist?(File.join(temp_path, "iamflint")) or File.exist?(File.join(temp_path, "iamchert"))
+    end
+    
     # You must specify *all* the models here, this totally rebuilds the Xapian
     # database.  You'll want any readers to reopen the database after this.
     #
@@ -597,7 +601,7 @@ module ActsAsXapian
         # Delete any existing .new database, and open a new one
         new_path = ActsAsXapian.db_path + ".new"
         if File.exist?(new_path)
-            raise "found existing " + new_path + " which is not Xapian flint database, please delete for me" if not File.exist?(File.join(new_path, "iamflint"))
+            raise "found existing " + new_path + " which is not Xapian flint database, please delete for me" if not ActsAsXapian._is_xapian_db(new_path)
             FileUtils.rm_r(new_path)
         end
 
@@ -623,7 +627,7 @@ module ActsAsXapian
         old_path = ActsAsXapian.db_path
         temp_path = ActsAsXapian.db_path + ".tmp"
         if File.exist?(temp_path)
-            raise "temporary database found " + temp_path + " which is not Xapian flint database, please delete for me" if not File.exist?(File.join(temp_path, "iamflint"))
+            raise "temporary database found " + temp_path + " which is not Xapian flint database, please delete for me" if not ActsAsXapian._is_xapian_db(temp_path)
             FileUtils.rm_r(temp_path)
         end
         if File.exist?(old_path)
@@ -633,7 +637,7 @@ module ActsAsXapian
 
         # Delete old database
         if File.exist?(temp_path)
-            raise "old database now at " + temp_path + " is not Xapian flint database, please delete for me" if not File.exist?(File.join(temp_path, "iamflint"))
+            raise "old database now at " + temp_path + " is not Xapian flint database, please delete for me" if not ActsAsXapian._is_xapian_db(temp_path)
             FileUtils.rm_r(temp_path)
         end
 
