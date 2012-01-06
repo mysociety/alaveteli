@@ -57,6 +57,7 @@ module PublicBodyCategories
             [ "nhstrust", "NHS trusts", "an NHS trust" ],
             [ "pct", "Primary care trusts", "a primary care trust" ],
             [ "nhswales", "NHS in Wales", "part of the NHS in Wales" ],
+            [ "chc", "Community Health Councils (Wales)", "an independent local NHS watchdog in Wales" ],
             [ "nhsni", "NHS in Northern Ireland", "part of the NHS in Northern Ireland" ],
             [ "hscr", "Health / social care", "Relating to health / social care" ],
             [ "pha", "Port health authorities", "a port health authority"],
