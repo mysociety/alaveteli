@@ -524,8 +524,6 @@ module ActsAsXapian
         # If there are no models in the queue, then nothing to do
         return if model_classes.size == 0
 
-        ActsAsXapian.writable_init
-
         # Abort if full rebuild is going on
         new_path = ActsAsXapian.db_path + ".new"
         if File.exist?(new_path)
@@ -567,10 +565,6 @@ module ActsAsXapian
                         retry
                     end
                     job.destroy
-
-                    if flush
-                        ActsAsXapian.writable_db.flush
-                    end
                 end
             rescue => detail
                 # print any error, and carry on so other things are indexed
@@ -594,7 +588,7 @@ module ActsAsXapian
         #raise "when rebuilding all, please call as first and only thing done in process / task" if not ActsAsXapian.writable_db.nil?
         prepare_environment
 
-        update_existing = !(terms && values && texts)
+        update_existing = !(terms == true && values == true && texts == true)
         # Delete any existing .new database, and open a new one which is a copy of the current one
         new_path = ActsAsXapian.db_path + ".new"
         old_path = ActsAsXapian.db_path
@@ -611,6 +605,7 @@ module ActsAsXapian
         if safe_rebuild
             _rebuild_index_safely(model_classes, verbose, terms, values, texts)
         else
+            @@db_path = ActsAsXapian.db_path + ".new"
             # Save time by running the indexing in one go and in-process
             for model_class in model_classes
                 STDOUT.puts("ActsAsXapian.rebuild_index: Rebuilding #{model_class.to_s}") if verbose
@@ -619,7 +614,7 @@ module ActsAsXapian
                   model.xapian_index(terms, values, texts)
                 end
             end
-            # make sure everything is written and close
+            # make sure everything is written and closed
             ActsAsXapian.writable_db.flush
             ActsAsXapian.writable_db.close
         end            
@@ -740,7 +735,7 @@ module ActsAsXapian
 
         # Store record in the Xapian database
         def xapian_index(terms = true, values = true, texts = true)
-            # if we have a conditional function for indexing, call it and destory object if failed
+            # if we have a conditional function for indexing, call it and destroy object if failed
             if self.class.xapian_options.include?(:if)
                 if_value = xapian_value(self.class.xapian_options[:if], :boolean)
                 if not if_value
@@ -750,10 +745,16 @@ module ActsAsXapian
                     return
                 end
             end
-            ActsAsXapian.writable_init
-            ActsAsXapian.writable_db.close
-            # otherwise (re)write the Xapian record for the object
-            ActsAsXapian.readable_init
+
+            # but first we want a readable database, to see if there's already an entry
+            begin
+                ActsAsXapian.readable_init
+            rescue
+                # ensure we've initialised a writable database
+                ActsAsXapian.writable_init
+                ActsAsXapian.writable_db.close
+                ActsAsXapian.readable_init
+            end
             existing_query = Xapian::Query.new("I" + self.xapian_document_term)
             ActsAsXapian.enquire.query = existing_query
             match = ActsAsXapian.enquire.mset(0,1,1).matches[0]
@@ -766,8 +767,8 @@ module ActsAsXapian
                 doc.add_term("M" + self.class.to_s)
                 doc.add_term("I" + doc.data)
             end
-            ActsAsXapian.term_generator.document = doc
-            # work out what to index.  XXX for now, this is only selective on "terms".
+            # work out what to index
+            # 1. Which terms to index?  We allow the user to specify particular ones
             terms_to_index = []
             drop_all_terms = false
             if terms and self.xapian_options[:terms]
@@ -781,16 +782,19 @@ module ActsAsXapian
                   drop_all_terms = true
               end
             end
+            # 2. Texts to index?  Currently, it's all or nothing
             texts_to_index = []
             if texts and self.xapian_options[:texts]
                 texts_to_index = self.xapian_options[:texts]
             end
+            # 3. Values to index?  Currently, it's all or nothing
             values_to_index = []
             if values and self.xapian_options[:values]
                 values_to_index = self.xapian_options[:values]
             end
+
             ActsAsXapian.writable_init
-            # clear any existing values that we might want to replace
+            # clear any existing data that we might want to replace
             if drop_all_terms && texts
                 # as an optimisation, if we're reindexing all of both, we remove everything
                 doc.clear_terms
@@ -800,17 +804,17 @@ module ActsAsXapian
                 term_prefixes_to_index = terms_to_index.map {|x| x[1]}
                 for existing_term in doc.terms
                     first_letter = existing_term.term[0...1]
-                    if !"MI".include?(first_letter)
-                        if first_letter.match("^[A-Z]+") && terms_to_index.include?(first_letter)
-                            doc.remove_term(existing_term.term)
+                    if !"MI".include?(first_letter) # it's not one of the reserved value
+                        if first_letter.match("^[A-Z]+") # it's a "value" (rather than indexed text)
+                            if term_prefixes_to_index.include?(first_letter) # it's a value that we've been asked to index
+                                doc.remove_term(existing_term.term)
+                            end
                         elsif texts
-                            doc.remove_term(existing_term.term)
+                            doc.remove_term(existing_term.term) # it's text and we've been asked to reindex it
                         end
                     end
                 end
             end
-            # for now, we always clear values
-            doc.clear_values 
             
             for term in terms_to_index
                 value = xapian_value(term[0])
@@ -822,19 +826,23 @@ module ActsAsXapian
                     doc.add_term(term[1] + value)
                 end
             end
-            # values
-            for value in values_to_index
-                doc.add_value(value[1], xapian_value(value[0], value[3])) 
+            
+            if values
+                doc.clear_values 
+                for value in values_to_index
+                    doc.add_value(value[1], xapian_value(value[0], value[3])) 
+                end
             end
-            # texts
-            for text in texts_to_index
-                ActsAsXapian.term_generator.increase_termpos # stop phrases spanning different text fields
-                # XXX the "1" here is a weight that could be varied for a boost function
-                ActsAsXapian.term_generator.index_text(xapian_value(text, nil, true), 1) 
+            if texts
+                ActsAsXapian.term_generator.document = doc
+                for text in texts_to_index
+                    ActsAsXapian.term_generator.increase_termpos # stop phrases spanning different text fields
+                    # XXX the "1" here is a weight that could be varied for a boost function
+                    ActsAsXapian.term_generator.index_text(xapian_value(text, nil, true), 1) 
+                end
             end
 
             ActsAsXapian.writable_db.replace_document("I" + doc.data, doc)
-            puts "wrote #{doc.data}:#{doc.terms.to_json} to #{ActsAsXapian.db_path}"
             ActsAsXapian.writable_db.flush
             ActsAsXapian.writable_db.close
         end
