@@ -158,6 +158,15 @@ describe RequestController, "when showing one request" do
             response.should have_text(/Second hello/)
         end
 
+        it "should generate valid HTML verson of PDF attachments " do
+            ir = info_requests(:fancy_dog_request) 
+            receive_incoming_mail('incoming-request-pdf-attachment.email', ir.incoming_email)
+            ir.reload
+            get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => ['fs_50379341.pdf.html'], :skip_cache => 1
+            response.content_type.should == "text/html"
+            response.should have_text(/Walberswick Parish Council/)
+        end
+
         it "should not cause a reparsing of the raw email, even when the result would be a 404 " do
             ir = info_requests(:fancy_dog_request) 
             receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)

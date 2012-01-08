@@ -138,10 +138,10 @@ if $tempfilecount.nil?
 
                 def process(action, parameters = nil, session = nil, flash = nil, http_method = 'GET')
                     self.original_process(action, parameters, session, flash, http_method)
-
+                    # don't validate auto-generated HTML
+                    return if @request.query_parameters["action"] == "get_attachment_as_html"
                     # XXX Is there a better way to check this than calling a private method?
                     return unless @response.template.controller.instance_eval { integrate_views? }
-
                     # And then if HTML, not a redirect (302, 301)
                     if @response.content_type == "text/html" && ! [301,302,401].include?(@response.response_code)
                         validate_html(@response.body)

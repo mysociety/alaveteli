@@ -19,7 +19,7 @@ class FoiAttachment < ActiveRecord::Base
     before_destroy :delete_cached_file!
 
     def directory
-        base_dir = File.join("cache", "attachments_#{ENV['RAILS_ENV']}")
+        base_dir = File.join(File.dirname(__FILE__), "../../cache", "attachments_#{ENV['RAILS_ENV']}")
         return File.join(base_dir, self.hexdigest[0..2])
     end
 
@@ -302,7 +302,7 @@ class FoiAttachment < ActiveRecord::Base
         body = $1.to_s
         body_without_tags = body.gsub(/\s+/,"").gsub(/\<[^\>]*\>/, "")
         contains_images = html.match(/<img/mi) ? true : false
-        if !$?.success? || html.size == 0 || (body_without_tags.size == 0 && !contains_images)
+        if html.size == 0 || !$?.success? || (body_without_tags.size == 0 && !contains_images)
             ret = "<html><head></head><body>";
             if self.has_google_docs_viewer?
                 wrapper_id = "wrapper_google_embed"
