@@ -473,17 +473,6 @@ font-size:1em;
 text-align:right;
 }
 
-div.comment_in_request {
-float:left;
-overflow:auto;
-width:550px;
-border-color:#5F5F5F;
-border-style:dotted;
-border-width:1px;
-margin:0 0 1em 50px;
-padding:0 0.5em;
-}
-
 div#after_actions {
 float:left;
 margin-bottom:1em;
@@ -1345,7 +1334,7 @@ width:600px;
 font-size:13px;
 border-radius:6px;
 -moz-border-radius:6px;
-border-width:0;
+border-width:1px;
 padding:4px 20px 0 9px;
 }
 
@@ -1355,6 +1344,17 @@ div.outgoing.correspondence {
 
 div[id|="comment"] p {
 font-size:13px;
+}
+
+div.comment_in_request {
+float:left;
+overflow:auto;
+width:550px;
+border-color:#5F5F5F;
+border-style:dotted;
+border-width:1px;
+margin:0 0 1em 50px;
+padding:0 0.5em;
 }
 
 .comment_in_request_text {
