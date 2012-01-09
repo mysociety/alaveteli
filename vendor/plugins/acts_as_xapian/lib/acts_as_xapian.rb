@@ -218,7 +218,7 @@ module ActsAsXapian
         full_path = @@db_path + suffix
 
         # for indexing
-        @@writable_db = Xapian::flint_open(full_path, Xapian::DB_CREATE_OR_OPEN)
+        @@writable_db = Xapian::WritableDatabase.new(full_path, Xapian::DB_CREATE_OR_OPEN)
         @@enquire = Xapian::Enquire.new(@@writable_db)
         @@term_generator = Xapian::TermGenerator.new()
         @@term_generator.set_flags(Xapian::TermGenerator::FLAG_SPELLING, 0)
