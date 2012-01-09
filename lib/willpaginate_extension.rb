@@ -5,8 +5,12 @@ module WillPaginateExtension
             # Hack for admin pages, when proxied via https on mySociety servers, they
             # need a relative URL.
             url = url_for(page)
-            if url.match(/^\/admin.*(\?.*)/)
+            if url.match(/\/admin.*(\?.*)/)
                 url = $1
+            end
+            # Hack around our type-ahead search magic
+            if url.match(/\/body\/search_ahead/)
+                url.sub!("/body/search_ahead", "/select_authority")
             end
             @template.link_to text, url, attributes
         end

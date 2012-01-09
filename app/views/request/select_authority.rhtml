@@ -7,7 +7,7 @@
         // http://benalman.com/projects/jquery-throttle-debounce-plugin/
         $("#query").keypress($.debounce( 300, function() {        
             // Do a type ahead search and display results
-            $("#typeahead_response").load("<%=search_ahead_bodies_url%>?q="+encodeURI(this.value), function() {
+            $("#typeahead_response").load("<%=search_ahead_bodies_url%>?query="+encodeURI(this.value), function() {
               $("#authority_preview").hide();   // Hide the preview, since results have changed
 
             });
