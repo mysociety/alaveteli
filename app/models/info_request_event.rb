@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 95
+# Schema version: 108
 #
 # Table name: info_request_events
 #
@@ -8,12 +8,12 @@
 #  event_type          :text            not null
 #  params_yaml         :text            not null
 #  created_at          :datetime        not null
-#  described_state     :string(255)     
-#  calculated_state    :string(255)     
-#  last_described_at   :datetime        
-#  incoming_message_id :integer         
-#  outgoing_message_id :integer         
-#  comment_id          :integer         
+#  described_state     :string(255)
+#  calculated_state    :string(255)
+#  last_described_at   :datetime
+#  incoming_message_id :integer
+#  outgoing_message_id :integer
+#  comment_id          :integer
 #  prominence          :string(255)     default("normal"), not null
 #
 

@@ -1,15 +1,15 @@
 # == Schema Information
-# Schema version: 95
+# Schema version: 108
 #
 # Table name: track_things_sent_emails
 #
 #  id                    :integer         not null, primary key
 #  track_thing_id        :integer         not null
-#  info_request_event_id :integer         
-#  user_id               :integer         
-#  public_body_id        :integer         
-#  created_at            :datetime        
-#  updated_at            :datetime        
+#  info_request_event_id :integer
+#  user_id               :integer
+#  public_body_id        :integer
+#  created_at            :datetime
+#  updated_at            :datetime
 #
 
 # models/track_things_sent_email.rb:
