@@ -56,7 +56,7 @@
       <%= render :partial => 'public_body/body_listing_single', :locals => { :public_body => result[:model] } %>
     <% end %>
   </div>
-  <%= will_paginate WillPaginate::Collection.new(@page, 5, @xapian_requests.matches_estimated) %>
+  <%= will_paginate WillPaginate::Collection.new(@page, 10, @xapian_requests.matches_estimated) %>
 
  <% end %>
 
