@@ -147,6 +147,7 @@ class InfoRequestEvent < ActiveRecord::Base
                 return event.calculated_state
             end
         end
+        return
     end
 
     def waiting_classification
