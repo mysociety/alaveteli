@@ -365,14 +365,14 @@ class ApplicationController < ActionController::Base
     # Store last visited pages, for contact form; but only for logged in users, as otherwise this breaks caching
     def set_last_request(info_request)
         if !session[:user_id].nil?
-            session[:last_request_id] = info_request.id
-            session[:last_body_id] = nil
+            cookies["last_request_id"] = info_request.id
+            cookies["last_body_id"] = nil
         end
     end
     def set_last_body(public_body)
         if !session[:user_id].nil?
-            session[:last_request_id] = nil
-            session[:last_body_id] = public_body.id
+            cookies["last_request_id"] = nil
+            cookies["last_body_id"] = public_body.id
         end
     end
 

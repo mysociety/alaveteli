@@ -31,8 +31,8 @@ class AdminPublicBodyController < AdminController
                                  lower(public_body_translations.short_name) like lower('%'||?||'%') or 
                                  lower(public_body_translations.request_email) like lower('%'||?||'%' )) AND (public_body_translations.locale = '#{@locale}')", @query, @query, @query],
               :joins => :translations
-            @public_bodies_by_tag = PublicBody::Translation.find_by_tag(@query) 
         end
+        @public_bodies_by_tag = PublicBody.find_by_tag(@query) 
     end
 
     def list
