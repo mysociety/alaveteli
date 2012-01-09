@@ -1,3 +1,19 @@
+# == Schema Information
+# Schema version: 108
+#
+# Table name: foi_attachments
+#
+#  id                    :integer         not null, primary key
+#  content_type          :text
+#  filename              :text
+#  charset               :text
+#  display_size          :text
+#  url_part_number       :integer
+#  within_rfc822_subject :text
+#  incoming_message_id   :integer
+#  hexdigest             :string(32)
+#
+
 # encoding: UTF-8
 
 # models/foi_attachment.rb:
@@ -47,7 +63,13 @@ class FoiAttachment < ActiveRecord::Base
 
     def body
         if @cached_body.nil?
-            @cached_body = File.open(self.filepath, "rb" ).read
+            begin
+                @cached_body = File.open(self.filepath, "rb" ).read
+            rescue Errno::ENOENT
+                # we've lost our cached attachments for some reason.  Reparse them.
+                force = true
+                self.incoming_message.parse_raw_email!(force)
+            end
         end
         return @cached_body
     end

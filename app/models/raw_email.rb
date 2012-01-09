@@ -1,11 +1,10 @@
 # == Schema Information
-# Schema version: 95
+# Schema version: 108
 #
 # Table name: raw_emails
 #
-#  id          :integer         not null, primary key
-#  data_text   :text            
-#  data_binary :binary          
+#  id :integer         not null, primary key
+#
 
 # models/raw_email.rb:
 # The fat part of models/incoming_message.rb

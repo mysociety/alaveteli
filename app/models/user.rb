@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 95
+# Schema version: 108
 #
 # Table name: users
 #
@@ -10,13 +10,14 @@
 #  salt                   :string(255)     not null
 #  created_at             :datetime        not null
 #  updated_at             :datetime        not null
-#  email_confirmed        :boolean         default(false), not null
+#  email_confirmed        :boolean         default(FALSE), not null
 #  url_name               :text            not null
 #  last_daily_track_email :datetime        default(Sat Jan 01 00:00:00 UTC 2000)
 #  admin_level            :string(255)     default("none"), not null
 #  ban_text               :text            default(""), not null
 #  about_me               :text            default(""), not null
-#  email_bounced_at       :datetime        
+#  locale                 :string(255)
+#  email_bounced_at       :datetime
 #  email_bounce_message   :text            default(""), not null
 #
 
