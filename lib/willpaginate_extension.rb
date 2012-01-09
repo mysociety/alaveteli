@@ -20,8 +20,7 @@ module WillPaginateExtension
         def url_for(page)
             page_one = page == 1
             unless @url_string and !page_one
-                # the following line makes pagination work on our specially munged search page
-                @url_params = @template.request.symbolized_path_parameters
+                @url_params = {}
                 # page links should preserve GET parameters
                 stringified_merge @url_params, @template.params if @template.request.get?
                 stringified_merge @url_params, @options[:params] if @options[:params]
@@ -32,6 +31,9 @@ module WillPaginateExtension
                 else
                     @url_params[param_name] = page_one ? 1 : 2
                 end
+                # the following line makes pagination work on our specially munged search page
+                combined = @template.request.path_parameters["combined"]
+                @url_params["combined"] = combined if !combined.nil?
                 url = @template.url_for(@url_params)
                 return url if page_one
                 
