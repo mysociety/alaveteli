@@ -17,6 +17,7 @@
         $("#typeahead_response .head a").live('click', function() {
             $("#authority_preview").load(this.href+" #public_body_show", function() {
                 $("#authority_preview").show();
+		$(window).scrollTop($("#banner").height());
                 $("#authority_preview #header_right").hide();
             });
             return false;
