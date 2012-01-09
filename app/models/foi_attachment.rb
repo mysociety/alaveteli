@@ -1,3 +1,19 @@
+# == Schema Information
+# Schema version: 108
+#
+# Table name: foi_attachments
+#
+#  id                    :integer         not null, primary key
+#  content_type          :text
+#  filename              :text
+#  charset               :text
+#  display_size          :text
+#  url_part_number       :integer
+#  within_rfc822_subject :text
+#  incoming_message_id   :integer
+#  hexdigest             :string(32)
+#
+
 # encoding: UTF-8
 
 # models/foi_attachment.rb:
