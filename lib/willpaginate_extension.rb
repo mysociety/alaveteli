@@ -5,8 +5,12 @@ module WillPaginateExtension
             # Hack for admin pages, when proxied via https on mySociety servers, they
             # need a relative URL.
             url = url_for(page)
-            if url.match(/^\/admin.*(\?.*)/)
+            if url.match(/\/admin.*(\?.*)/)
                 url = $1
+            end
+            # Hack around our type-ahead search magic
+            if url.match(/\/body\/search_ahead/)
+                url.sub!("/body/search_ahead", "/select_authority")
             end
             @template.link_to text, url, attributes
         end
@@ -21,7 +25,6 @@ module WillPaginateExtension
                 # page links should preserve GET parameters
                 stringified_merge @url_params, @template.params if @template.request.get?
                 stringified_merge @url_params, @options[:params] if @options[:params]
-                @request_method=:get, @symbolized_path_parameters={:locale=>"en", :action=>"search", :combined=>["school", "all"], :controller=>"general"}
                 if complex = param_name.index(/[^\w-]/)
                     page_param = parse_query_parameters("#{param_name}=#{page}")
                     
