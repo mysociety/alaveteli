@@ -544,7 +544,7 @@ module ActsAsXapian
                         # was updated a second time by another process. In that case
                         # ActsAsXapianJob.delete_all in xapian_mark_needs_index below
                         # might have removed the first job record while we are working on it.
-                        STDOUT.puts("job with #{id} vanished under foot") if verbose
+                        #STDERR.puts("job with #{id} vanished under foot") if verbose
                         next
                     end
                     STDOUT.puts("ActsAsXapian.update_index #{job.action} #{job.model} #{job.model_id.to_s} #{Time.now.to_s}") if verbose
