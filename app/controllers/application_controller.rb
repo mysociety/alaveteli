@@ -14,7 +14,10 @@ class ApplicationController < ActionController::Base
     # Standard headers, footers and navigation for whole site
     layout "default"
     include FastGettext::Translation # make functions like _, n_, N_ etc available)
-        
+
+    # Send notification email on exceptions
+    include ExceptionNotification::Notifiable
+    
     # Note: a filter stops the chain if it redirects or renders something
     before_filter :authentication_check
     before_filter :set_gettext_locale
@@ -119,6 +122,7 @@ class ApplicationController < ActionController::Base
             @status = 404
         else
             @status = 500
+            notify_about_exception exception
         end
         # Display user appropriate error message
         @exception_backtrace = exception.backtrace.join("\n")
@@ -361,14 +365,14 @@ class ApplicationController < ActionController::Base
     # Store last visited pages, for contact form; but only for logged in users, as otherwise this breaks caching
     def set_last_request(info_request)
         if !session[:user_id].nil?
-            session[:last_request_id] = info_request.id
-            session[:last_body_id] = nil
+            cookies["last_request_id"] = info_request.id
+            cookies["last_body_id"] = nil
         end
     end
     def set_last_body(public_body)
         if !session[:user_id].nil?
-            session[:last_request_id] = nil
-            session[:last_body_id] = public_body.id
+            cookies["last_request_id"] = nil
+            cookies["last_body_id"] = public_body.id
         end
     end
 

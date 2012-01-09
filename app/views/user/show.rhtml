@@ -147,7 +147,7 @@
             <% end %>
         <% else %>
             <h2 class="foi_results" id="foi_requests">
-                <%= @is_you ? n_('Your %d Freedom of Information request', 'Your %d Freedom of Information requests', @xapian_requests.results.size) % @xapian_requests.results.size  : n_('This person\'s %d Freedom of Information request', 'This person\'s %d Freedom of Information requests', @xapian_requests.results.size) % @xapian_requests.results.size %>
+                <%= @is_you ? n_('Your %d Freedom of Information request', 'Your %d Freedom of Information requests', @xapian_requests.results.size) % @xapian_requests.results.size  : n_('This person\'s %d Freedom of Information request', 'This person\'s %d Freedom of Information requests',  @xapian_requests.matches_estimated.to_s) % @xapian_requests.matches_estimated %>
                 <!-- matches_estimated <%=@xapian_requests.matches_estimated%> -->
                 <%= @match_phrase %>
 		<%= @page_desc %>

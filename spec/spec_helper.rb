@@ -78,7 +78,6 @@ def load_file_fixture(file_name)
 end
 
 def rebuild_xapian_index(terms = true, values = true, texts = true, dropfirst = true)
-    parse_all_incoming_messages
     if dropfirst
         begin
             ActsAsXapian.readable_init
@@ -86,7 +85,9 @@ def rebuild_xapian_index(terms = true, values = true, texts = true, dropfirst = 
         rescue RuntimeError
         end
         ActsAsXapian.writable_init
+        ActsAsXapian.writable_db.close
     end
+    parse_all_incoming_messages
     verbose = false
     # safe_rebuild=true, which involves forking to avoid memory leaks, doesn't work well with rspec. 
     # unsafe is significantly faster, and we can afford possible memory leaks while testing.
@@ -96,7 +97,7 @@ end
 
 def update_xapian_index
     verbose = false
-    ActsAsXapian.update_index(flush_to_disk=true, verbose) 
+    ActsAsXapian.update_index(flush_to_disk=false, verbose) 
 end
 
 # Validate an entire HTML page
@@ -137,10 +138,10 @@ if $tempfilecount.nil?
 
                 def process(action, parameters = nil, session = nil, flash = nil, http_method = 'GET')
                     self.original_process(action, parameters, session, flash, http_method)
-
+                    # don't validate auto-generated HTML
+                    return if @request.query_parameters["action"] == "get_attachment_as_html"
                     # XXX Is there a better way to check this than calling a private method?
                     return unless @response.template.controller.instance_eval { integrate_views? }
-
                     # And then if HTML, not a redirect (302, 301)
                     if @response.content_type == "text/html" && ! [301,302,401].include?(@response.response_code)
                         validate_html(@response.body)

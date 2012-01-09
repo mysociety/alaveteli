@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 95
+# Schema version: 108
 #
 # Table name: outgoing_messages
 #
@@ -10,8 +10,8 @@
 #  message_type                 :string(255)     not null
 #  created_at                   :datetime        not null
 #  updated_at                   :datetime        not null
-#  last_sent_at                 :datetime        
-#  incoming_message_followup_id :integer         
+#  last_sent_at                 :datetime
+#  incoming_message_followup_id :integer
 #  what_doing                   :string(255)     not null
 #
 

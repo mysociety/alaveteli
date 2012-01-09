@@ -1,11 +1,11 @@
 # == Schema Information
-# Schema version: 95
+# Schema version: 108
 #
 # Table name: holidays
 #
 #  id          :integer         not null, primary key
-#  day         :date            
-#  description :text            
+#  day         :date
+#  description :text
 #
 
 # models/holiday.rb:

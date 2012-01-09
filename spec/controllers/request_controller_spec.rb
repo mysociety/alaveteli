@@ -158,6 +158,15 @@ describe RequestController, "when showing one request" do
             response.should have_text(/Second hello/)
         end
 
+        it "should generate valid HTML verson of PDF attachments " do
+            ir = info_requests(:fancy_dog_request) 
+            receive_incoming_mail('incoming-request-pdf-attachment.email', ir.incoming_email)
+            ir.reload
+            get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => ['fs_50379341.pdf.html'], :skip_cache => 1
+            response.content_type.should == "text/html"
+            response.should have_text(/Walberswick Parish Council/)
+        end
+
         it "should not cause a reparsing of the raw email, even when the result would be a 404 " do
             ir = info_requests(:fancy_dog_request) 
             receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
@@ -287,7 +296,7 @@ describe RequestController, "when showing one request" do
             old_path = assigns[:url_path]
             response.location.should have_text(/#{assigns[:url_path]}$/)
             zipfile = Zip::ZipFile.open(File.join(File.dirname(__FILE__), "../../cache/zips", old_path)) { |zipfile|
-                zipfile.count.should == 2
+                zipfile.count.should == 1 # just the message
             }
             receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
             get :download_entire_request, :url_title => title
@@ -295,14 +304,14 @@ describe RequestController, "when showing one request" do
             old_path = assigns[:url_path]
             response.location.should have_text(/#{assigns[:url_path]}$/)
             zipfile = Zip::ZipFile.open(File.join(File.dirname(__FILE__), "../../cache/zips", old_path)) { |zipfile|
-                zipfile.count.should == 2
+                zipfile.count.should == 3 # the message plus two "hello.txt" files
             }
             receive_incoming_mail('incoming-request-attachment-unknown-extension.email', ir.incoming_email)
             get :download_entire_request, :url_title => title
             assigns[:url_path].should have_text(/#{title}.zip$/)
             response.location.should have_text(/#{assigns[:url_path]}/)
             zipfile = Zip::ZipFile.open(File.join(File.dirname(__FILE__), "../../cache/zips", assigns[:url_path])) { |zipfile|
-                zipfile.count.should == 4
+                zipfile.count.should == 5 # the message, two hello.txt, the unknown attachment, and its empty message
             }
             assigns[:url_path].should_not == old_path
         end
