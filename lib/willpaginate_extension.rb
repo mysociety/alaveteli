@@ -21,7 +21,6 @@ module WillPaginateExtension
                 # page links should preserve GET parameters
                 stringified_merge @url_params, @template.params if @template.request.get?
                 stringified_merge @url_params, @options[:params] if @options[:params]
-                @request_method=:get, @symbolized_path_parameters={:locale=>"en", :action=>"search", :combined=>["school", "all"], :controller=>"general"}
                 if complex = param_name.index(/[^\w-]/)
                     page_param = parse_query_parameters("#{param_name}=#{page}")
                     
