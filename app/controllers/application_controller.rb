@@ -14,7 +14,10 @@ class ApplicationController < ActionController::Base
     # Standard headers, footers and navigation for whole site
     layout "default"
     include FastGettext::Translation # make functions like _, n_, N_ etc available)
-        
+
+    # Send notification email on exceptions
+    include ExceptionNotification::Notifiable
+    
     # Note: a filter stops the chain if it redirects or renders something
     before_filter :authentication_check
     before_filter :set_gettext_locale
@@ -119,6 +122,7 @@ class ApplicationController < ActionController::Base
             @status = 404
         else
             @status = 500
+            notify_about_exception exception
         end
         # Display user appropriate error message
         @exception_backtrace = exception.backtrace.join("\n")
