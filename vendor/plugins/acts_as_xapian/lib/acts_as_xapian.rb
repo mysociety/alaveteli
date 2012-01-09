@@ -525,6 +525,7 @@ module ActsAsXapian
         # If there are no models in the queue, then nothing to do
         return if model_classes.size == 0
 
+        ActsAsXapian.writable_init
         # Abort if full rebuild is going on
         new_path = ActsAsXapian.db_path + ".new"
         if File.exist?(new_path)
@@ -532,7 +533,6 @@ module ActsAsXapian
         end
 
         ids_to_refresh = ActsAsXapianJob.find(:all).map() { |i| i.id }
-        ActsAsXapian.writable_init
         for id in ids_to_refresh
             job = nil
             begin

@@ -14,7 +14,7 @@
         }));
         // We're using the existing body list: we intercept the clicks on the titles to 
         // display a preview on the right hand side of the screen
-        $("#typeahead_response a").live('click', function() {
+        $("#typeahead_response .head a").live('click', function() {
             $("#authority_preview").load(this.href+" #public_body_show", function() {
                 $("#authority_preview").show();
                 $("#authority_preview #header_right").hide();
@@ -56,6 +56,8 @@
       <%= render :partial => 'public_body/body_listing_single', :locals => { :public_body => result[:model] } %>
     <% end %>
   </div>
+  <%= will_paginate WillPaginate::Collection.new(@page, 10, @xapian_requests.matches_estimated) %>
+
  <% end %>
 
 
