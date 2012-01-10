@@ -739,7 +739,7 @@ module ActsAsXapian
 
         # Store record in the Xapian database
         def xapian_index(terms = true, values = true, texts = true)
-            # if we have a conditional function for indexing, call it and destory object if failed
+            # if we have a conditional function for indexing, call it and destroy object if failed
             if self.class.xapian_options.include?(:if)
                 if_value = xapian_value(self.class.xapian_options[:if], :boolean)
                 if not if_value
