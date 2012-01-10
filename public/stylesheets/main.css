@@ -1624,8 +1624,12 @@ div.controller_help h1 a,#logged_in_bar a,#logged_in_bar a:visited,#stepwise_mak
 }
 
 .request_left,#header_left {
-width:100%;
+width:625px;
 float:left;
+}
+#authority_preview .request_left,
+#authority_preview #header_left {
+  width: 100%;
 }
 
 #request_sidebar h2,.list-filter-item {
