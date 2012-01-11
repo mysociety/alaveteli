@@ -116,8 +116,10 @@ class UserController < ApplicationController
             render :action => 'sign'
             return
         else
-            @user_signin = User.authenticate_from_form(params[:user_signin], @post_redirect.reason_params[:user_name] ? true : false)
-            if @user_signin.errors.size > 0
+            if !@post_redirect.nil?
+                @user_signin = User.authenticate_from_form(params[:user_signin], @post_redirect.reason_params[:user_name] ? true : false)
+            end
+            if @post_redirect.nil? || @user_signin.errors.size > 0
                 # Failed to authenticate
                 render :action => 'sign'
                 return
