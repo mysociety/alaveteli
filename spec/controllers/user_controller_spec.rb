@@ -109,6 +109,19 @@ describe UserController, "when signing in" do
         response.should_not send_email
     end
 
+    it "should not log you in if you use an invalid PostRedirect token, and shouldn't give 500 error either" do
+        ActionController::Routing::Routes.filters.clear
+        get :signin, :r => "/list"
+        response.should render_template('sign')
+        post_redirect = "something invalid"
+        lambda {
+            post :signin, { :user_signin => { :email => 'bob@localhost', :password => 'jonespassword' },
+                :token => post_redirect
+            }
+        }.should_not raise_error(NoMethodError)
+        response.should render_template('sign')
+    end
+
 # No idea how to test this in the test framework :(
 #    it "should have set a long lived cookie if they picked remember me, session cookie if they didn't" do
 #        get :signin, :r => "/list"

@@ -59,6 +59,7 @@ class FoiAttachment < ActiveRecord::Base
             file.write d
         }
         update_display_size!
+        @cached_body = d
     end
 
     def body

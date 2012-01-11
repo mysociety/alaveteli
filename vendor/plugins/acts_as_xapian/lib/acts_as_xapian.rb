@@ -584,8 +584,8 @@ module ActsAsXapian
     end
     
     def ActsAsXapian._is_xapian_db(path)
-        exists = File.exist?(File.join(path, "iamflint")) or File.exist?(File.join(path, "iamchert"))
-        return exists
+        is_db = File.exist?(File.join(path, "iamflint")) || File.exist?(File.join(path, "iamchert"))
+        return is_db
     end
     
     # You must specify *all* the models here, this totally rebuilds the Xapian
@@ -633,6 +633,7 @@ module ActsAsXapian
         # Rename into place
         temp_path = old_path + ".tmp"
         if File.exist?(temp_path)
+            @@db_path = old_path
             raise "temporary database found " + temp_path + " which is not Xapian flint database, please delete for me" if not ActsAsXapian._is_xapian_db(temp_path)
             FileUtils.rm_r(temp_path)
         end
@@ -643,7 +644,10 @@ module ActsAsXapian
 
         # Delete old database
         if File.exist?(temp_path)
-            raise "old database now at " + temp_path + " is not Xapian flint database, please delete for me" if not ActsAsXapian._is_xapian_db(temp_path)
+            if not ActsAsXapian._is_xapian_db(temp_path)
+                @@db_path = old_path
+                raise "old database now at " + temp_path + " is not Xapian flint database, please delete for me"
+            end
             FileUtils.rm_r(temp_path)
         end
 

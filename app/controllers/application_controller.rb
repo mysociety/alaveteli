@@ -361,6 +361,27 @@ class ApplicationController < ActionController::Base
     def get_search_page_from_params
         return (params[:page] || "1").to_i
     end
+    def perform_search_typeahead(query, model)
+        # strip out unintended search operators - see
+        # https://github.com/sebbacon/alaveteli/issues/328 
+        # XXX this is a result of the OR hack below -- should fix by
+        # allowing a parameter to perform_search to control the
+        # default operator!
+        query = query.gsub(/(\s-\s|&)/, "")
+        query = query.split(/ +(?!-)/)
+        if query.last.nil? || query.last.strip.length < 3
+            xapian_requests = nil
+        else
+            query = query.join(' OR ')       # XXX: HACK for OR instead of default AND!
+            if model == PublicBody
+                collapse = nil
+            elsif model == InfoRequestEvent
+                collapse = 'request_collapse'
+            end
+            xapian_requests = perform_search([model], query, 'relevant', collapse, 5)
+        end
+        return xapian_requests
+    end
 
     # Store last visited pages, for contact form; but only for logged in users, as otherwise this breaks caching
     def set_last_request(info_request)

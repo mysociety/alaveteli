@@ -50,12 +50,13 @@
 <h3>Common Fields</h3>
 
 <p><label for="public_body_tag_string">Tags <small>(space separated; see list of tags on the right; also <strong>not_apply</strong> if FOI and EIR no longer apply to authority, <strong>eir_only</strong> if EIR but not FOI applies to authority, <strong>defunct</strong> if the authority no longer exists; charity:NUMBER if a registered charity)</small></label><br/>
-<%= f.text_field :tag_string, :size => 60  %></p>
+
+<%= text_field :public_body, :tag_string, :size => 60, :id => 'public_body_tag_string'  %></p>
 
 <p><label for="public_body_home_page">Home page <small>(of whole authority, not just their FOI page; set to <strong>blank</strong> (empty string) to guess it from the email)</small></label><br/>
-<%= f.text_field :home_page, :size => 60  %></p>
+<%= text_field :public_body, :home_page, :size => 60, :id => 'public_body_home_page'  %></p>
 
 <p><label for="public_body_last_edit_comment"><strong>Comment</strong> for this edit</label> <small>(put URL or other source of new info)</small><br/>
-<%= f.text_area :last_edit_comment, :rows => 3, :cols => 60  %></p>
+<%= text_area :public_body, :last_edit_comment, :rows => 3, :cols => 60, :id => 'public_body_last_edit_comment'  %></p>
 
 <!--[eoform:public_body]-->
