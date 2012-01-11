@@ -9,7 +9,7 @@
 <%= render :partial => 'tag_help' %>
 
 <div id="public_body_form">
-    <% form_tag '../update/' + @public_body.id.to_s do |f| %>
+    <% form_tag '../update/' + @public_body.id.to_s do %>
       <%= render :partial => 'form' %>
       <p><%= submit_tag 'Save', :accesskey => 's' %></p>
     <% end %>
