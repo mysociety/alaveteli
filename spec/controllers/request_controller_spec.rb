@@ -1487,11 +1487,27 @@ describe RequestController, "when doing type ahead searches" do
         assigns[:xapian_requests].results[1][:model].title.should == info_requests(:naughty_chicken_request).title
     end
 
-    it "should not return  matches for short words" do
+    it "should not return matches for short words" do
         get :search_typeahead, :q => "a" 
         response.should render_template('request/_search_ahead.rhtml')
         assigns[:xapian_requests].should be_nil
     end
+
+    it "should not give an error when user users unintended search operators" do
+        for phrase in ["Marketing/PR activities - Aldborough E-Act Free Schoo",
+                       "Request for communications between DCMS/Ed Vaizey and ICO from Jan 1st 2011 - May ",
+                       "Bellevue Road Ryde Isle of Wight PO33 2AR - what is the"]
+            lambda {
+                get :search_typeahead, :q => phrase
+            }.should_not raise_error(StandardError)
+        end
+    end
+
+    it "should return all requests matching any of the given keywords" do
+        get :search_typeahead, :q => "dog -chicken"
+        assigns[:xapian_requests].results.size.should == 1
+    end
+
 end
 
 
