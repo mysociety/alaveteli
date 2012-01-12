@@ -57,6 +57,7 @@ class FoiAttachment < ActiveRecord::Base
         end
         File.open(self.filepath, "wb") { |file|
             file.write d
+            file.fsync
         }
         update_display_size!
         @cached_body = d

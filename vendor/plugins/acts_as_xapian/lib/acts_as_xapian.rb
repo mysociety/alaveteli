@@ -248,6 +248,8 @@ module ActsAsXapian
             end
         end
 
+        MSET_MAX_TRIES = 5
+        MSET_MAX_DELAY = 5
         # Set self.query before calling this
         def initialize_query(options)
             #raise options.to_yaml
@@ -278,7 +280,28 @@ module ActsAsXapian
                     ActsAsXapian.enquire.collapse_key = value
                 end
 
-                self.matches = ActsAsXapian.enquire.mset(offset, limit, 100)
+                tries = 0
+                delay = 1
+                begin
+                    self.matches = ActsAsXapian.enquire.mset(offset, limit, 100)
+                rescue IOError => e
+                    if e.message =~ /DatabaseModifiedError: /
+                        # This should be a transient error, so back off and try again, up to a point
+                        if tries > MAX_TRIES
+                            raise "Received DatabaseModifiedError from Xapian even after retrying #{MAX_TRIES} times"
+                        else
+                            sleep delay
+                        end
+                        tries += 1
+                        delay *= 2
+                        delay = MAX_DELAY if delay > MAX_DELAY
+        
+                        @@db.reopen()
+                        retry
+                    else
+                        raise
+                    end
+                end
                 self.cached_results = nil
             }
         end

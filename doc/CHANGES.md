@@ -20,6 +20,7 @@
   * EXCEPTION_NOTIFICATIONS_FROM
   * EXCEPTION_NOTIFICATIONS_TO
 * The recommended Varnish config has changed, so that we ignore more cookies.  You should review your Varnish config with respect to the example at `config/varnish-alaveteli.vcl`.
+* Consider setting elinks global config as described in the "Troubleshooting" section of INSTALL.md
 
 # Version 0.4
 

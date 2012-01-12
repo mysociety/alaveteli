@@ -37,8 +37,7 @@ class RequestController < ApplicationController
         end
         if !params[:query].nil?
             query = params[:query]
-            query = query.split(' ').join(' OR ')       # XXX: HACK for OR instead of default AND!
-            @xapian_requests = perform_search([PublicBody], query, 'relevant', nil, 5)
+            @xapian_requests = perform_search_typeahead(query, PublicBody)
         end
         medium_cache
     end
@@ -118,11 +117,14 @@ class RequestController < ApplicationController
     def details
         long_cache
         @info_request = InfoRequest.find_by_url_title(params[:url_title])
-        if !@info_request.user_can_view?(authenticated_user)
-            render :template => 'request/hidden', :status => 410 # gone
-            return
+        if @info_request.nil?
+            raise ActiveRecord::RecordNotFound.new("Request not found")
+        else            
+            if !@info_request.user_can_view?(authenticated_user)
+                render :template => 'request/hidden', :status => 410 # gone
+                return
+            end
         end
-
         @columns = ['id', 'event_type', 'created_at', 'described_state', 'last_described_at', 'calculated_state' ]
     end
 
@@ -600,9 +602,13 @@ class RequestController < ApplicationController
     before_filter :authenticate_attachment, :only => [ :get_attachment, :get_attachment_as_html ]
     def authenticate_attachment
         # Test for hidden
-        incoming_message = IncomingMessage.find(params[:incoming_message_id])
-        if !incoming_message.info_request.user_can_view?(authenticated_user)
-            render :template => 'request/hidden', :status => 410 # gone
+        if request.path =~ /\/$/ 
+            raise PermissionDenied.new("Directory listing not allowed")
+        else
+            incoming_message = IncomingMessage.find(params[:incoming_message_id])
+            if !incoming_message.info_request.user_can_view?(authenticated_user)
+                render :template => 'request/hidden', :status => 410 # gone
+            end
         end
     end
 
