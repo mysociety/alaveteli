@@ -19,6 +19,6 @@
 
  <% end %>
   <h2><%= _('Technical details') %></h2>
-  <p><strong><%=@exception_class ? @exception_class : _("Unknown")%></strong></p>
-  <p><strong><%=@exception_message %></strong></p>
+  <p><strong><%= h(@exception_class ? @exception_class : _("Unknown")) %></strong></p>
+  <p><strong><%= h(@exception_message) %></strong></p>
 </div>
