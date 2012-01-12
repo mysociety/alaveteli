@@ -371,8 +371,8 @@ class ApplicationController < ActionController::Base
         # XXX this is a result of the OR hack below -- should fix by
         # allowing a parameter to perform_search to control the
         # default operator!
-        query = query.gsub(/(\s-\s|&)/, "")
-        query = query.split(/ +(?!-)/)
+        query = query.strip.gsub(/(\s-\s|&)/, "")
+        query = query.split(/ +(?![-+]+)/)
         if query.last.nil? || query.last.strip.length < 3
             xapian_requests = nil
         else
