@@ -118,11 +118,14 @@ class RequestController < ApplicationController
     def details
         long_cache
         @info_request = InfoRequest.find_by_url_title(params[:url_title])
-        if !@info_request.user_can_view?(authenticated_user)
-            render :template => 'request/hidden', :status => 410 # gone
-            return
+        if @info_request.nil?
+            raise ActiveRecord::RecordNotFound.new("Request not found")
+        else            
+            if !@info_request.user_can_view?(authenticated_user)
+                render :template => 'request/hidden', :status => 410 # gone
+                return
+            end
         end
-
         @columns = ['id', 'event_type', 'created_at', 'described_state', 'last_described_at', 'calculated_state' ]
     end
 
