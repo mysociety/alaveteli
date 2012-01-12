@@ -21,7 +21,6 @@
 
 
 require 'digest/sha1'
-require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
 
 class InfoRequest < ActiveRecord::Base
     strip_attributes!
