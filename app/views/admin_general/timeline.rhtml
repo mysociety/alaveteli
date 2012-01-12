@@ -36,10 +36,9 @@
                end
             %>
         <% elsif event.event_type == 'edit_outgoing' %>
-            <% outgoing_messages = OutgoingMessage.find(:all, event.params[:outgoing_message_id].to_i) %>
+            <% outgoing_message = OutgoingMessage.find(event.params[:outgoing_message_id].to_i) %>
             had outgoing message edited by administrator <strong><%=h event.params[:editor] %></strong>.
-            <% if outgoing_messages.size > 0 %>
-                <% outgoing_message = outgoing_messages[0] %>
+            <% if outgoing_message %>
                 <% for p in ['body'] 
                         if event.params[p.to_sym] != event.params[('old_'+p).to_sym]
                             %> Changed <%=p%> from '<%=h event.params[('old_'+p).to_sym]%>' to '<%=h event.params[p.to_sym] %>'. <%
@@ -50,10 +49,9 @@
                 Missing outgoing message, internal error.
             <% end %>
         <% elsif event.event_type == 'edit_comment' %>
-            <% comments = Comment.find(:all, event.params[:comment_id].to_i) %>
+            <% comment = Comment.find(event.params[:comment_id].to_i) %>
             had annotation edited by administrator <strong><%=h event.params[:editor] %></strong>.
-            <% if comments.size > 0 %>
-                <% comment = comments[0] %>
+            <% if comment %>
                 <% for p in ['body'] 
                         if event.params[p.to_sym] != event.params[('old_'+p).to_sym]
                             %> Changed <%=p%> from '<%=h event.params[('old_'+p).to_sym]%>' to '<%=h event.params[p.to_sym] %>'. <%

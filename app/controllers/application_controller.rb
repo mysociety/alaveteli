@@ -11,10 +11,15 @@
 require 'open-uri'
 
 class ApplicationController < ActionController::Base
+    class PermissionDenied < StandardError
+    end
     # Standard headers, footers and navigation for whole site
     layout "default"
     include FastGettext::Translation # make functions like _, n_, N_ etc available)
-        
+
+    # Send notification email on exceptions
+    include ExceptionNotification::Notifiable
+    
     # Note: a filter stops the chain if it redirects or renders something
     before_filter :authentication_check
     before_filter :set_gettext_locale
@@ -117,8 +122,11 @@ class ApplicationController < ActionController::Base
         case exception
         when ActiveRecord::RecordNotFound, ActionController::UnknownAction, ActionController::RoutingError
             @status = 404
+        when PermissionDenied
+            @status = 403
         else
             @status = 500
+            notify_about_exception exception
         end
         # Display user appropriate error message
         @exception_backtrace = exception.backtrace.join("\n")
@@ -185,7 +193,7 @@ class ApplicationController < ActionController::Base
         return File.exists?(key_path)
     end
     def foi_fragment_cache_read(key_path)
-        cached = File.read(key_path)
+        return File.read(key_path)
     end
     def foi_fragment_cache_write(key_path, content)
         FileUtils.mkdir_p(File.dirname(key_path))
@@ -357,18 +365,39 @@ class ApplicationController < ActionController::Base
     def get_search_page_from_params
         return (params[:page] || "1").to_i
     end
+    def perform_search_typeahead(query, model)
+        # strip out unintended search operators - see
+        # https://github.com/sebbacon/alaveteli/issues/328 
+        # XXX this is a result of the OR hack below -- should fix by
+        # allowing a parameter to perform_search to control the
+        # default operator!
+        query = query.strip.gsub(/(\s-\s|&)/, "")
+        query = query.split(/ +(?![-+]+)/)
+        if query.last.nil? || query.last.strip.length < 3
+            xapian_requests = nil
+        else
+            query = query.join(' OR ')       # XXX: HACK for OR instead of default AND!
+            if model == PublicBody
+                collapse = nil
+            elsif model == InfoRequestEvent
+                collapse = 'request_collapse'
+            end
+            xapian_requests = perform_search([model], query, 'relevant', collapse, 5)
+        end
+        return xapian_requests
+    end
 
     # Store last visited pages, for contact form; but only for logged in users, as otherwise this breaks caching
     def set_last_request(info_request)
         if !session[:user_id].nil?
-            session[:last_request_id] = info_request.id
-            session[:last_body_id] = nil
+            cookies["last_request_id"] = info_request.id
+            cookies["last_body_id"] = nil
         end
     end
     def set_last_body(public_body)
         if !session[:user_id].nil?
-            session[:last_request_id] = nil
-            session[:last_body_id] = public_body.id
+            cookies["last_request_id"] = nil
+            cookies["last_body_id"] = public_body.id
         end
     end
 

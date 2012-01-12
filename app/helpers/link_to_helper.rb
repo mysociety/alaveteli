@@ -189,10 +189,14 @@ module LinkToHelper
         url_prefix = "http://" + MySociety::Config.get("DOMAIN", '127.0.0.1:3000')
         url = url_prefix + relative_path
         if !append.nil?
-            env = Rack::MockRequest.env_for(url)
-            req = Rack::Request.new(env)
-            req.path_info += append
-            url = req.url
+            begin
+                env = Rack::MockRequest.env_for(url)
+                req = Rack::Request.new(env)
+                req.path_info += append
+                url = req.url
+            rescue URI::InvalidURIError
+                # don't append to it
+            end
         end
         return url
     end

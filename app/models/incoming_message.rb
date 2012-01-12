@@ -1,7 +1,5 @@
-# encoding: UTF-8
-
 # == Schema Information
-# Schema version: 95
+# Schema version: 108
 #
 # Table name: incoming_messages
 #
@@ -10,10 +8,18 @@
 #  created_at                     :datetime        not null
 #  updated_at                     :datetime        not null
 #  raw_email_id                   :integer         not null
-#  cached_attachment_text_clipped :text            
-#  cached_main_body_text_folded   :text            
-#  cached_main_body_text_unfolded :text            
+#  cached_attachment_text_clipped :text
+#  cached_main_body_text_folded   :text
+#  cached_main_body_text_unfolded :text
+#  sent_at                        :time
+#  subject                        :text
+#  mail_from_domain               :text
+#  valid_to_reply_to              :boolean
+#  last_parsed                    :datetime
+#  mail_from                      :text
 #
+
+# encoding: UTF-8
 
 # models/incoming_message.rb:
 # An (email) message from really anybody to be logged with a request. e.g. A
@@ -122,21 +128,23 @@ class IncomingMessage < ActiveRecord::Base
         # values in case we want to regenerate them (due to mail
         # parsing bugs, etc).
         if (!force.nil? || self.last_parsed.nil?)
-            self.extract_attachments!
-            self.sent_at = self.mail.date || self.created_at
-            self.subject = self.mail.subject
-            # XXX can probably remove from_name_if_present (which is a
-            # monkey patch) by just calling .from_addrs[0].name here
-            # instead?
-            self.mail_from = self.mail.from_name_if_present
-            begin
-                self.mail_from_domain = PublicBody.extract_domain_from_email(self.mail.from_addrs[0].spec)
-            rescue NoMethodError
-                self.mail_from_domain = ""
+            ActiveRecord::Base.transaction do
+                self.extract_attachments!
+                self.sent_at = self.mail.date || self.created_at
+                self.subject = self.mail.subject
+                # XXX can probably remove from_name_if_present (which is a
+                # monkey patch) by just calling .from_addrs[0].name here
+                # instead?
+                self.mail_from = self.mail.from_name_if_present
+                begin
+                    self.mail_from_domain = PublicBody.extract_domain_from_email(self.mail.from_addrs[0].spec)
+                rescue NoMethodError
+                    self.mail_from_domain = ""
+                end
+                self.valid_to_reply_to = self._calculate_valid_to_reply_to
+                self.last_parsed = Time.now
+                self.save!
             end
-            self.valid_to_reply_to = self._calculate_valid_to_reply_to
-            self.last_parsed = Time.now
-            self.save!
         end
     end
 

@@ -14,6 +14,8 @@ describe IncomingMessage, " when dealing with incoming mail" do
     end
 
     it "should return the mail Date header date for sent at" do
+        @im.parse_raw_email!(true)
+        @im.reload
         @im.sent_at.should == @im.mail.date
     end
 

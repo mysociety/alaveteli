@@ -130,3 +130,10 @@ FORWARD_NONBOUNCE_RESPONSES_TO: user-support@localhost
 # If the command is not present, a text-only version will be rendered
 # instead.
 HTML_TO_PDF_COMMAND: /usr/local/bin/wkhtmltopdf-amd64
+
+# Exception notifications
+EXCEPTION_NOTIFICATIONS_FROM: do-not-reply-to-this-address@example.com
+EXCEPTION_NOTIFICATIONS_TO:
+ - robin@example.org
+ - seb@example.org
+

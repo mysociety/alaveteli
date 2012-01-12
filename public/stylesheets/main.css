@@ -84,7 +84,7 @@ color:#000;
 
 #logged_in_bar {
 clear:none;
-font-size:0.9em;
+font-size:0.8em;
 z-index:200;
 color:#444;
 top:18px;
@@ -473,17 +473,6 @@ font-size:1em;
 text-align:right;
 }
 
-div.comment_in_request {
-float:left;
-overflow:auto;
-width:550px;
-border-color:#5F5F5F;
-border-style:dotted;
-border-width:1px;
-margin:0 0 1em 50px;
-padding:0 0.5em;
-}
-
 div#after_actions {
 float:left;
 margin-bottom:1em;
@@ -510,9 +499,7 @@ margin-left:50px;
 }
 
 div[id|="comment"] h2 {
-margin-left:1em;
 font-size:1em;
-text-align:right;
 }
 
 .comment_quote {
@@ -686,7 +673,6 @@ width:24em;
 div.controller_help dt a,div.controller_help h1 a,div#help_unhappy h1 a.hover_a {
 text-decoration:none;
 font-size:0.8em;
-color:#fff;
 background-color:#fff;
 }
 
@@ -1345,7 +1331,7 @@ width:600px;
 font-size:13px;
 border-radius:6px;
 -moz-border-radius:6px;
-border-width:0;
+border-width:1px;
 padding:4px 20px 0 9px;
 }
 
@@ -1355,6 +1341,17 @@ div.outgoing.correspondence {
 
 div[id|="comment"] p {
 font-size:13px;
+}
+
+div.comment_in_request {
+float:left;
+overflow:auto;
+width:550px;
+border-color:#5F5F5F;
+border-style:dotted;
+border-width:1px;
+margin:0 0 1em 50px;
+padding:0 0.5em;
 }
 
 .comment_in_request_text {
@@ -1505,6 +1502,7 @@ p.public-body-name-prefix {
 color:#888;
 margin-top:15px;
 margin-bottom:-15px;
+font-size: 16px;
 }
 
 #other-country-notice a {
@@ -1628,6 +1626,10 @@ div.controller_help h1 a,#logged_in_bar a,#logged_in_bar a:visited,#stepwise_mak
 .request_left,#header_left {
 width:625px;
 float:left;
+}
+#authority_preview .request_left,
+#authority_preview #header_left {
+  width: 100%;
 }
 
 #request_sidebar h2,.list-filter-item {

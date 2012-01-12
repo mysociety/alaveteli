@@ -16,6 +16,11 @@
   * The partial at `general/_before_head_end.rhtml` should be changed in the theme to include this stylesheet
 * [issue #281](https://github.com/sebbacon/alaveteli/issues/281) fixes some bugs relating to display of internationalised emails.  To fix any wrongly displayed emails, you'll need to run the script at `script/clear-caches` so that the caches can be regenerated
 * During this release, a bug was discovered in pdftk 1.44 which caused it to loop forever.  Until it's incorporated into an official release, you'll need to patch it yourself or use the Debian package compiled by mySociety (see link in [issue 305](https://github.com/sebbacon/alaveteli/issues/305))
+* Ensure you have values for new config variables (see `config/general.yml-example`):
+  * EXCEPTION_NOTIFICATIONS_FROM
+  * EXCEPTION_NOTIFICATIONS_TO
+* The recommended Varnish config has changed, so that we ignore more cookies.  You should review your Varnish config with respect to the example at `config/varnish-alaveteli.vcl`.
+* Consider setting elinks global config as described in the "Troubleshooting" section of INSTALL.md
 
 # Version 0.4
 

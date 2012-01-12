@@ -187,6 +187,8 @@
             <%= render :partial => 'user/user_listing_single', :locals => { :display_user => result[:model] } %>
           <% end %>
         </div>
+        <%= will_paginate WillPaginate::Collection.new(@page, @users_per_page, @xapian_users.matches_estimated) %>
+
       <% end %>
     </div>
 

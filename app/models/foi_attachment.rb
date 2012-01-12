@@ -1,3 +1,19 @@
+# == Schema Information
+# Schema version: 108
+#
+# Table name: foi_attachments
+#
+#  id                    :integer         not null, primary key
+#  content_type          :text
+#  filename              :text
+#  charset               :text
+#  display_size          :text
+#  url_part_number       :integer
+#  within_rfc822_subject :text
+#  incoming_message_id   :integer
+#  hexdigest             :string(32)
+#
+
 # encoding: UTF-8
 
 # models/foi_attachment.rb:
@@ -19,7 +35,7 @@ class FoiAttachment < ActiveRecord::Base
     before_destroy :delete_cached_file!
 
     def directory
-        base_dir = File.join("cache", "attachments_#{ENV['RAILS_ENV']}")
+        base_dir = File.join(File.dirname(__FILE__), "../../cache", "attachments_#{ENV['RAILS_ENV']}")
         return File.join(base_dir, self.hexdigest[0..2])
     end
 
@@ -41,13 +57,21 @@ class FoiAttachment < ActiveRecord::Base
         end
         File.open(self.filepath, "wb") { |file|
             file.write d
+            file.fsync
         }
         update_display_size!
+        @cached_body = d
     end
 
     def body
         if @cached_body.nil?
-            @cached_body = File.open(self.filepath, "rb" ).read
+            begin
+                @cached_body = File.open(self.filepath, "rb" ).read
+            rescue Errno::ENOENT
+                # we've lost our cached attachments for some reason.  Reparse them.
+                force = true
+                self.incoming_message.parse_raw_email!(force)
+            end
         end
         return @cached_body
     end
@@ -302,7 +326,7 @@ class FoiAttachment < ActiveRecord::Base
         body = $1.to_s
         body_without_tags = body.gsub(/\s+/,"").gsub(/\<[^\>]*\>/, "")
         contains_images = html.match(/<img/mi) ? true : false
-        if !$?.success? || html.size == 0 || (body_without_tags.size == 0 && !contains_images)
+        if html.size == 0 || !$?.success? || (body_without_tags.size == 0 && !contains_images)
             ret = "<html><head></head><body>";
             if self.has_google_docs_viewer?
                 wrapper_id = "wrapper_google_embed"

@@ -158,6 +158,15 @@ describe RequestController, "when showing one request" do
             response.should have_text(/Second hello/)
         end
 
+        it "should generate valid HTML verson of PDF attachments " do
+            ir = info_requests(:fancy_dog_request) 
+            receive_incoming_mail('incoming-request-pdf-attachment.email', ir.incoming_email)
+            ir.reload
+            get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => ['fs_50379341.pdf.html'], :skip_cache => 1
+            response.content_type.should == "text/html"
+            response.should have_text(/Walberswick Parish Council/)
+        end
+
         it "should not cause a reparsing of the raw email, even when the result would be a 404 " do
             ir = info_requests(:fancy_dog_request) 
             receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
@@ -287,7 +296,7 @@ describe RequestController, "when showing one request" do
             old_path = assigns[:url_path]
             response.location.should have_text(/#{assigns[:url_path]}$/)
             zipfile = Zip::ZipFile.open(File.join(File.dirname(__FILE__), "../../cache/zips", old_path)) { |zipfile|
-                zipfile.count.should == 2
+                zipfile.count.should == 1 # just the message
             }
             receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
             get :download_entire_request, :url_title => title
@@ -295,14 +304,14 @@ describe RequestController, "when showing one request" do
             old_path = assigns[:url_path]
             response.location.should have_text(/#{assigns[:url_path]}$/)
             zipfile = Zip::ZipFile.open(File.join(File.dirname(__FILE__), "../../cache/zips", old_path)) { |zipfile|
-                zipfile.count.should == 2
+                zipfile.count.should == 3 # the message plus two "hello.txt" files
             }
             receive_incoming_mail('incoming-request-attachment-unknown-extension.email', ir.incoming_email)
             get :download_entire_request, :url_title => title
             assigns[:url_path].should have_text(/#{title}.zip$/)
             response.location.should have_text(/#{assigns[:url_path]}/)
             zipfile = Zip::ZipFile.open(File.join(File.dirname(__FILE__), "../../cache/zips", assigns[:url_path])) { |zipfile|
-                zipfile.count.should == 4
+                zipfile.count.should == 5 # the message, two hello.txt, the unknown attachment, and its empty message
             }
             assigns[:url_path].should_not == old_path
         end
@@ -411,7 +420,7 @@ describe RequestController, "when searching for an authority" do
         get :select_authority, :query => ""
         
         response.should render_template('select_authority')
-        assigns[:xapian_requests].results.size == 0
+        assigns[:xapian_requests].should == nil
     end
 
     it "should return matching bodies" do
@@ -421,6 +430,18 @@ describe RequestController, "when searching for an authority" do
         response.should render_template('select_authority')
         assigns[:xapian_requests].results.size == 1
         assigns[:xapian_requests].results[0][:model].name.should == public_bodies(:geraldine_public_body).name
+    end
+
+    it "should not give an error when user users unintended search operators" do
+        for phrase in ["Marketing/PR activities - Aldborough E-Act Free Schoo",
+                       "Request for communications between DCMS/Ed Vaizey and ICO from Jan 1st 2011 - May ",
+                       "Bellevue Road Ryde Isle of Wight PO33 2AR - what is the",
+                       "NHS Ayrshire & Arran",
+                       " cardiff"]
+            lambda {
+                get :select_authority, :query => phrase
+            }.should_not raise_error(StandardError)
+        end
     end
 end
 
@@ -1478,11 +1499,28 @@ describe RequestController, "when doing type ahead searches" do
         assigns[:xapian_requests].results[1][:model].title.should == info_requests(:naughty_chicken_request).title
     end
 
-    it "should not return  matches for short words" do
+    it "should not return matches for short words" do
         get :search_typeahead, :q => "a" 
         response.should render_template('request/_search_ahead.rhtml')
         assigns[:xapian_requests].should be_nil
     end
+
+    it "should not give an error when user users unintended search operators" do
+        for phrase in ["Marketing/PR activities - Aldborough E-Act Free Schoo",
+                       "Request for communications between DCMS/Ed Vaizey and ICO from Jan 1st 2011 - May ",
+                       "Bellevue Road Ryde Isle of Wight PO33 2AR - what is the",
+                       "NHS Ayrshire & Arran"]
+            lambda {
+                get :search_typeahead, :q => phrase
+            }.should_not raise_error(StandardError)
+        end
+    end
+
+    it "should return all requests matching any of the given keywords" do
+        get :search_typeahead, :q => "dog -chicken"
+        assigns[:xapian_requests].results.size.should == 1
+    end
+
 end
 
 

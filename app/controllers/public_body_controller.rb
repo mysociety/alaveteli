@@ -129,7 +129,7 @@ class PublicBodyController < ApplicationController
         end
         PublicBody.with_locale(@locale) do
             @public_bodies = PublicBody.paginate(
-              :order => "public_body_translations.name", :page => params[:page], :per_page => 1000, # fit all councils on one page
+              :order => "public_body_translations.name", :page => params[:page], :per_page => 100,
               :conditions => conditions,
               :joins => :translations
             )
@@ -185,14 +185,8 @@ class PublicBodyController < ApplicationController
     def search_typeahead
         # Since acts_as_xapian doesn't support the Partial match flag, we work around it
         # by making the last work a wildcard, which is quite the same
-        query = params[:q]
-        query = query.split(' ')
-        if query.last.nil? || query.last.strip.length < 3
-            @xapian_requests = nil
-        else
-            query = query.join(' OR ')       # XXX: HACK for OR instead of default AND!
-            @xapian_requests = perform_search([PublicBody], query, 'relevant', nil, 5)
-        end
+        query = params[:query]
+        @xapian_requests = perform_search_typeahead(query, PublicBody)
         render :partial => "public_body/search_ahead"
     end
 end
