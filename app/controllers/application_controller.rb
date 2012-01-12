@@ -11,6 +11,8 @@
 require 'open-uri'
 
 class ApplicationController < ActionController::Base
+    class PermissionDenied < StandardError
+    end
     # Standard headers, footers and navigation for whole site
     layout "default"
     include FastGettext::Translation # make functions like _, n_, N_ etc available)
@@ -120,6 +122,8 @@ class ApplicationController < ActionController::Base
         case exception
         when ActiveRecord::RecordNotFound, ActionController::UnknownAction, ActionController::RoutingError
             @status = 404
+        when PermissionDenied
+            @status = 403
         else
             @status = 500
             notify_about_exception exception
@@ -189,7 +193,7 @@ class ApplicationController < ActionController::Base
         return File.exists?(key_path)
     end
     def foi_fragment_cache_read(key_path)
-        cached = File.read(key_path)
+        return File.read(key_path)
     end
     def foi_fragment_cache_write(key_path, content)
         FileUtils.mkdir_p(File.dirname(key_path))

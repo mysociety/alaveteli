@@ -45,5 +45,9 @@ describe "When rendering errors" do
         get("/request/#{ir.url_title}")
         response.code.should == "500"
     end
+    it "should render a 403 for attempts at directory listing for attachments" do
+        get("/request/5/response/4/attach/html/3/" )
+        response.code.should == "403"
+    end
 end
 
