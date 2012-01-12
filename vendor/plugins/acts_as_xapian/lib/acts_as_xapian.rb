@@ -30,14 +30,19 @@ module ActsAsXapian
     class NoXapianRubyBindingsError < StandardError
     end
 
-    # XXX global class intializers here get loaded more than once, don't know why. Protect them.
-    if not $acts_as_xapian_class_var_init 
-        @@db = nil
-        @@db_path = nil
-        @@writable_db = nil
-        @@init_values = []
+    @@db = nil
+    @@db_path = nil
+    @@writable_db = nil
+    @@init_values = []
+
+    # There used to be a problem with this module being loaded more than once.
+    # Keep a check here, so we can tell if the problem recurs.
+    if $acts_as_xapian_class_var_init
+        raise "The acts_as_xapian module has already been loaded"
+    else
         $acts_as_xapian_class_var_init = true
     end
+
     def ActsAsXapian.db
         @@db
     end
