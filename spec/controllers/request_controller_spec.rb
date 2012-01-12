@@ -420,7 +420,7 @@ describe RequestController, "when searching for an authority" do
         get :select_authority, :query => ""
         
         response.should render_template('select_authority')
-        assigns[:xapian_requests].results.size == 0
+        assigns[:xapian_requests].should == nil
     end
 
     it "should return matching bodies" do
@@ -430,6 +430,17 @@ describe RequestController, "when searching for an authority" do
         response.should render_template('select_authority')
         assigns[:xapian_requests].results.size == 1
         assigns[:xapian_requests].results[0][:model].name.should == public_bodies(:geraldine_public_body).name
+    end
+
+    it "should not give an error when user users unintended search operators" do
+        for phrase in ["Marketing/PR activities - Aldborough E-Act Free Schoo",
+                       "Request for communications between DCMS/Ed Vaizey and ICO from Jan 1st 2011 - May ",
+                       "Bellevue Road Ryde Isle of Wight PO33 2AR - what is the",
+                       "NHS Ayrshire & Arran"]
+            lambda {
+                get :select_authority, :query => phrase
+            }.should_not raise_error(StandardError)
+        end
     end
 end
 
@@ -1496,9 +1507,11 @@ describe RequestController, "when doing type ahead searches" do
     it "should not give an error when user users unintended search operators" do
         for phrase in ["Marketing/PR activities - Aldborough E-Act Free Schoo",
                        "Request for communications between DCMS/Ed Vaizey and ICO from Jan 1st 2011 - May ",
-                       "Bellevue Road Ryde Isle of Wight PO33 2AR - what is the"]
+                       "Bellevue Road Ryde Isle of Wight PO33 2AR - what is the",
+                       "NHS Ayrshire & Arran"]
             lambda {
                 get :search_typeahead, :q => phrase
+                puts phrase
             }.should_not raise_error(StandardError)
         end
     end
