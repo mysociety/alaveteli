@@ -601,10 +601,10 @@ class RequestController < ApplicationController
 
     before_filter :authenticate_attachment, :only => [ :get_attachment, :get_attachment_as_html ]
     def authenticate_attachment
-        # Test for hidden
-        if request.path =~ /\/$/ 
+        if request.path =~ /\/$/ || !(params[:part] =~ /^\d+$/)
             raise PermissionDenied.new("Directory listing not allowed")
         else
+            # Test for hidden
             incoming_message = IncomingMessage.find(params[:incoming_message_id])
             if !incoming_message.info_request.user_can_view?(authenticated_user)
                 @info_request = incoming_message.info_request # used by view
