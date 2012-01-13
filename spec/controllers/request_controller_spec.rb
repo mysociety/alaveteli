@@ -24,6 +24,8 @@ describe RequestController, "when listing recent requests" do
     it "should filter requests" do
         get :list, :view => 'all'
         assigns[:list_results].size.should == 2
+        # default sort order is the request with the most recently created event first
+        assigns[:list_results][0].info_request.id.should == 101
         get :list, :view => 'successful'
         assigns[:list_results].size.should == 0
     end
@@ -32,9 +34,10 @@ describe RequestController, "when listing recent requests" do
         get :list, :view => 'all', :request_date_before => '13/10/2007'
         assigns[:list_results].size.should == 1
         get :list, :view => 'all', :request_date_after => '13/10/2007'
-        assigns[:list_results].size.should == 1
-        get :list, :view => 'all', :request_date_after => '10/10/2007', :request_date_before => '01/01/2010'
         assigns[:list_results].size.should == 2
+        get :list, :view => 'all', :request_date_after => '13/10/2007', :request_date_before => '01/11/2007'
+        assigns[:list_results].size.should == 2
+    end
     end
 
     it "should assign the first page of results" do
@@ -43,7 +46,7 @@ describe RequestController, "when listing recent requests" do
                    :matches_estimated => 103)
 
         InfoRequest.should_receive(:full_search).
-          with([InfoRequestEvent]," variety:sent", "created_at", anything, anything, anything, anything).
+          with([InfoRequestEvent]," variety:sent OR variety:followup_sent OR variety:response OR variety:comment", "created_at", anything, anything, anything, anything).
           and_return(xap_results)
         get :list, :view => 'recent'
         assigns[:list_results].size.should == 25
