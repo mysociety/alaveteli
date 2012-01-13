@@ -444,7 +444,7 @@ class ApplicationController < ActionController::Base
                 statuses << ['latest_status:rejected', 'latest_status:not_held']
             end
             if params[:latest_status].include? "awaiting"
-                statuses << ['latest_status:waiting_response', 'latest_status:waiting_clarification', 'waiting_classification:true']
+                statuses << ['latest_status:waiting_response', 'latest_status:waiting_clarification', 'waiting_classification:true', 'latest_status:internal_review','latest_status:gone_postal', 'latest_status:error_message', 'latest_status:requires_admin']
             end
             if params[:latest_status].include? "internal_review"
                 statuses << ['status:internal_review']
