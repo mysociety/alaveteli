@@ -607,6 +607,7 @@ class RequestController < ApplicationController
         else
             incoming_message = IncomingMessage.find(params[:incoming_message_id])
             if !incoming_message.info_request.user_can_view?(authenticated_user)
+                @info_request = incoming_message.info_request # used by view
                 render :template => 'request/hidden', :status => 410 # gone
             end
         end

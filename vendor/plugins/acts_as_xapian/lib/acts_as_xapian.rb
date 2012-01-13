@@ -30,14 +30,19 @@ module ActsAsXapian
     class NoXapianRubyBindingsError < StandardError
     end
 
-    # XXX global class intializers here get loaded more than once, don't know why. Protect them.
-    if not $acts_as_xapian_class_var_init 
-        @@db = nil
-        @@db_path = nil
-        @@writable_db = nil
-        @@init_values = []
+    @@db = nil
+    @@db_path = nil
+    @@writable_db = nil
+    @@init_values = []
+
+    # There used to be a problem with this module being loaded more than once.
+    # Keep a check here, so we can tell if the problem recurs.
+    if $acts_as_xapian_class_var_init
+        raise "The acts_as_xapian module has already been loaded"
+    else
         $acts_as_xapian_class_var_init = true
     end
+
     def ActsAsXapian.db
         @@db
     end
@@ -248,6 +253,8 @@ module ActsAsXapian
             end
         end
 
+        MSET_MAX_TRIES = 5
+        MSET_MAX_DELAY = 5
         # Set self.query before calling this
         def initialize_query(options)
             #raise options.to_yaml
@@ -278,7 +285,28 @@ module ActsAsXapian
                     ActsAsXapian.enquire.collapse_key = value
                 end
 
-                self.matches = ActsAsXapian.enquire.mset(offset, limit, 100)
+                tries = 0
+                delay = 1
+                begin
+                    self.matches = ActsAsXapian.enquire.mset(offset, limit, 100)
+                rescue IOError => e
+                    if e.message =~ /DatabaseModifiedError: /
+                        # This should be a transient error, so back off and try again, up to a point
+                        if tries > MAX_TRIES
+                            raise "Received DatabaseModifiedError from Xapian even after retrying #{MAX_TRIES} times"
+                        else
+                            sleep delay
+                        end
+                        tries += 1
+                        delay *= 2
+                        delay = MAX_DELAY if delay > MAX_DELAY
+        
+                        @@db.reopen()
+                        retry
+                    else
+                        raise
+                    end
+                end
                 self.cached_results = nil
             }
         end
