@@ -11,9 +11,9 @@
 <%= render :partial => 'tag_help' %>
 
 <div id="public_body_form">
-    <% form_for :public_body, @public_body, :url => {:action => "create"} do |f| %>
-      <%= render :partial => 'form', :locals => {:f => f} %>
-      <p><%= f.submit "Create" %></p>
+    <% form_tag './create/' + @public_body.id.to_s do %>
+      <%= render :partial => 'form' %>
+      <p><%= submit_tag "Create" %></p>
     <% end %>
 
     <p>
