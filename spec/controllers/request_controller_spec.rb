@@ -1509,7 +1509,8 @@ describe RequestController, "when doing type ahead searches" do
         for phrase in ["Marketing/PR activities - Aldborough E-Act Free Schoo",
                        "Request for communications between DCMS/Ed Vaizey and ICO from Jan 1st 2011 - May ",
                        "Bellevue Road Ryde Isle of Wight PO33 2AR - what is the",
-                       "NHS Ayrshire & Arran"]
+                       "NHS Ayrshire & Arran",
+                       "uda ( units of dent"]
             lambda {
                 get :search_typeahead, :q => phrase
             }.should_not raise_error(StandardError)

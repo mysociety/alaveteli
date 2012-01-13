@@ -372,6 +372,7 @@ class ApplicationController < ActionController::Base
         # allowing a parameter to perform_search to control the
         # default operator!
         query = query.strip.gsub(/(\s-\s|&)/, "")
+        query = query.strip.gsub(/(\s-\s|&|\(|\))/, "")
         query = query.split(/ +(?![-+]+)/)
         if query.last.nil? || query.last.strip.length < 3
             xapian_requests = nil
