@@ -301,7 +301,7 @@ module ActsAsXapian
                         delay *= 2
                         delay = MSET_MAX_DELAY if delay > MSET_MAX_DELAY
         
-                        @@db.reopen()
+                        ActsAsXapian.db.reopen()
                         retry
                     else
                         raise
