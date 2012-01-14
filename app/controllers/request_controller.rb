@@ -153,7 +153,7 @@ class RequestController < ApplicationController
         @view = params[:view]
         @page = get_search_page_from_params if !@page # used in cache case, as perform_search sets @page as side effect
         if @view == "recent"
-            redirect_to request_list_all_path(:action => "list", :view => "all", :page => @page), :status => :moved_permanently
+            return redirect_to request_list_all_path(:action => "list", :view => "all", :page => @page), :status => :moved_permanently
         end
         params[:latest_status] = @view
         query = make_query_from_params
