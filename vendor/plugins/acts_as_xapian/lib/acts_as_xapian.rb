@@ -293,7 +293,7 @@ module ActsAsXapian
                     if e.message =~ /DatabaseModifiedError: /
                         # This should be a transient error, so back off and try again, up to a point
                         if tries > MSET_MAX_TRIES
-                            raise "Received DatabaseModifiedError from Xapian even after retrying #{MAX_TRIES} times"
+                            raise "Received DatabaseModifiedError from Xapian even after retrying #{MSET_MAX_TRIES} times"
                         else
                             sleep delay
                         end
