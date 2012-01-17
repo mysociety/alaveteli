@@ -274,7 +274,7 @@ module ActsAsXapian
                     ActsAsXapian.enquire.sort_by_relevance!
                 else
                     value = ActsAsXapian.values_by_prefix[sort_by_prefix]
-                    raise "couldn't find prefix '" + sort_by_prefix + "'" if value.nil?
+                    raise "couldn't find prefix '" + sort_by_prefix.to_s + "'" if value.nil?
                     ActsAsXapian.enquire.sort_by_value_then_relevance!(value, sort_by_ascending)
                 end
                 if collapse_by_prefix.nil?
@@ -420,7 +420,7 @@ module ActsAsXapian
         # User]. Can take a single model class, or you can express the model
         # class names in strings if you like.
         # query_string - user inputed query string, with syntax much like Google Search
-        def initialize(model_classes, query_string, options = {})
+        def initialize(model_classes, query_string, options = {}, user_query = nil)
             # Check parameters, convert to actual array of model classes
             new_model_classes = []
             model_classes = [model_classes] if model_classes.class != Array
@@ -439,10 +439,13 @@ module ActsAsXapian
 
             # Construct query which only finds things from specified models
             model_query = Xapian::Query.new(Xapian::Query::OP_OR, model_classes.map{|mc| "M" + mc.to_s})
-            user_query = ActsAsXapian.query_parser.parse_query(self.query_string,
-                  Xapian::QueryParser::FLAG_BOOLEAN | Xapian::QueryParser::FLAG_PHRASE |
-                  Xapian::QueryParser::FLAG_LOVEHATE | Xapian::QueryParser::FLAG_WILDCARD |
-                  Xapian::QueryParser::FLAG_SPELLING_CORRECTION)
+            if user_query.nil?
+                user_query = ActsAsXapian.query_parser.parse_query(
+                                       self.query_string,
+                                       Xapian::QueryParser::FLAG_BOOLEAN | Xapian::QueryParser::FLAG_PHRASE |
+                                       Xapian::QueryParser::FLAG_LOVEHATE | Xapian::QueryParser::FLAG_WILDCARD |
+                                       Xapian::QueryParser::FLAG_SPELLING_CORRECTION)
+            end
             self.query = Xapian::Query.new(Xapian::Query::OP_AND, model_query, user_query)
 
             # Call base class constructor

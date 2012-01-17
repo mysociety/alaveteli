@@ -366,23 +366,31 @@ class ApplicationController < ActionController::Base
         return (params[:page] || "1").to_i
     end
     def perform_search_typeahead(query, model)
-        # strip out unintended search operators - see
-        # https://github.com/sebbacon/alaveteli/issues/328 
-        # XXX this is a result of the OR hack below -- should fix by
-        # allowing a parameter to perform_search to control the
-        # default operator!
-        query = query.strip.gsub(/(\s-\s|&|\(|\))/, "")
-        query = query.split(/ +(?![-+]+)/)
-        if query.last.nil? || query.last.strip.length < 3
+        query_words = query.split(/ +(?![-+]+)/)
+        if query_words.last.nil? || query_words.last.strip.length < 3
             xapian_requests = nil
         else
-            query = query.join(' OR ')       # XXX: HACK for OR instead of default AND!
             if model == PublicBody
                 collapse = nil
             elsif model == InfoRequestEvent
                 collapse = 'request_collapse'
             end
-            xapian_requests = perform_search([model], query, 'relevant', collapse, 5)
+            options = {
+                :offset => 0, 
+                :limit => 5,
+                :sort_by_prefix => nil,
+                :sort_by_ascending => true,
+                :collapse_by_prefix => collapse,
+            }
+            ActsAsXapian.readable_init
+            old_default_op = ActsAsXapian.query_parser.default_op
+            ActsAsXapian.query_parser.default_op = Xapian::Query::OP_OR
+            user_query =  ActsAsXapian.query_parser.parse_query(
+                                       query,
+                                       Xapian::QueryParser::FLAG_LOVEHATE | Xapian::QueryParser::FLAG_PARTIAL |
+                                       Xapian::QueryParser::FLAG_SPELLING_CORRECTION)
+            xapian_requests = ActsAsXapian::Search.new([model], query, options, user_query)
+            ActsAsXapian.query_parser.default_op = old_default_op
         end
         return xapian_requests
     end
