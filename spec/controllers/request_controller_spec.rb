@@ -12,12 +12,12 @@ describe RequestController, "when listing recent requests" do
     end
     
     it "should be successful" do
-        get :list, :view => 'recent'
+        get :list, :view => 'all'
         response.should be_success
     end
 
     it "should render with 'list' template" do
-        get :list, :view => 'recent'
+        get :list, :view => 'all'
         response.should render_template('list')
     end
 
@@ -58,7 +58,7 @@ describe RequestController, "when listing recent requests" do
         InfoRequest.should_receive(:full_search).
           with([InfoRequestEvent]," (variety:sent OR variety:followup_sent OR variety:response OR variety:comment)", "created_at", anything, anything, anything, anything).
           and_return(xap_results)
-        get :list, :view => 'recent'
+        get :list, :view => 'all'
         assigns[:list_results].size.should == 25
     end
 end
