@@ -1,4 +1,14 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'fakeweb'
+
+describe GeneralController, "when trying to show the blog" do
+    it "should fail silently if the blog is returning an error" do        
+        FakeWeb.register_uri(:get, %r|.*|, :body => "Error", :status => ["500", "Error"])
+        get :blog
+        response.status.should == "200 OK"
+        assigns[:blog_items].count.should == 0
+    end
+end
 
 describe GeneralController, "when searching" do
     integrate_views

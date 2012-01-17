@@ -71,14 +71,15 @@ class GeneralController < ApplicationController
         medium_cache
         @feed_autodetect = []
         @feed_url = "#{MySociety::Config.get('BLOG_FEED', '')}?lang=#{self.locale_from_params()}"
+        @blog_items = []
         if not @feed_url.empty?
-            content = open(@feed_url).read
-            @data = XmlSimple.xml_in(content)
-            @channel = @data['channel'][0]
-            @blog_items = @channel['item']
-            @feed_autodetect = [{:url => @feed_url, :title => "#{site_name} blog"}]
-        else
-            @blog_items = []
+            content = quietly_try_to_open(@feed_url)
+            if !content.empty?
+                @data = XmlSimple.xml_in(content)
+                @channel = @data['channel'][0]
+                @blog_items = @channel['item']
+                @feed_autodetect = [{:url => @feed_url, :title => "#{site_name} blog"}]
+            end
         end
         @twitter_user = MySociety::Config.get('TWITTER_USERNAME', '')
     end

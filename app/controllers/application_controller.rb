@@ -504,12 +504,22 @@ class ApplicationController < ActionController::Base
         default = MySociety::Config.get('ISO_COUNTRY_CODE', '')
         country = ""
         if !gaze.empty?
-            country = open("#{gaze}/gaze-rest?f=get_country_from_ip;ip=#{request.remote_ip}").read.strip
+            country = quietly_try_to_open("#{gaze}/gaze-rest?f=get_country_from_ip;ip=#{request.remote_ip}")
         end
         country = default if country.empty?
         return country
     end
 
+    def quietly_try_to_open(url)
+        begin 
+            result = open(url).read.strip
+        rescue OpenURI::HTTPError, SocketError
+            logger.warn("Unable to open third-party URL #{url}")
+            result = ""
+        end
+        return result
+    end
+    
     # URL generating functions are needed by all controllers (for redirects),
     # views (for links) and mailers (for use in emails), so include them into
     # all of all.
