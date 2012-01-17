@@ -738,9 +738,7 @@ class IncomingMessage < ActiveRecord::Base
             tempfile = Tempfile.new('foiuu')
             tempfile.print uu
             tempfile.flush
-            IO.popen("/usr/bin/uudecode " + tempfile.path + " -o -", "r") do |child|
-                content = child.read()
-            end
+            content = AlaveteliExternalCommand("uudecode", "-o", "/dev/stdout", tempfile.path)
             tempfile.close
             # Make attachment type from it, working out filename and mime type
             filename = uu.match(/^begin\s+[0-9]+\s+(.*)$/)[1]
