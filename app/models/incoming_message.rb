@@ -277,15 +277,11 @@ class IncomingMessage < ActiveRecord::Base
                     # then use the altered file (recompressed)
                     recompressed_text = nil
                     if MySociety::Config.get('USE_GHOSTSCRIPT_COMPRESSION') == true
-                        command = "gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/screen -dNOPAUSE -dQUIET -dBATCH -sOutputFile=- -"
+                        command = ["gs", "-sDEVICE=pdfwrite", "-dCompatibilityLevel=1.4", "-dPDFSETTINGS=/screen", "-dNOPAUSE", "-dQUIET", "-dBATCH", "-sOutputFile=-", "-"]
                     else
-                        command = "#{"pdftk"} - output - compress"
+                        command = ["pdftk", "-", "output", "-", "compress"]
                     end
-                    IO.popen(command, "r+") do |child|
-                        child.write(censored_uncompressed_text)
-                        child.close_write()
-                        recompressed_text = child.read()
-                    end
+                    recompressed_text = AlaveteliExternalCommand.run(*(command + [{:stdin_string=>censored_uncompressed_text}]))
                     if recompressed_text.nil? || recompressed_text.empty?
                         # buggy versions of pdftk sometimes fail on
                         # compression, I don't see it's a disaster in
