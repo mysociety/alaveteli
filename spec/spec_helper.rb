@@ -121,16 +121,24 @@ def validate_as_body(html)
 end
 
 def basic_auth_login(request, username = nil, password = nil)
-   username = MySociety::Config.get('ADMIN_USERNAME') if username.nil?
+    username = MySociety::Config.get('ADMIN_USERNAME') if username.nil?
     password = MySociety::Config.get('ADMIN_PASSWORD') if password.nil?
     request.env["HTTP_AUTHORIZATION"] = "Basic " + Base64::encode64("#{username}:#{password}")
 end
 
 # Monkeypatch! Validate HTML in tests.
-$html_validation_script = "/usr/bin/validate" # from Debian package wdg-html-validator
+utility_search_path = MySociety::Config.get("UTILITY_SEARCH_PATH", ["/usr/bin", "/usr/local/bin"])
+$html_validation_script_found = false
+utility_search_path.each do |d|
+    $html_validation_script = File.join(d, "validate")
+    if File.file? $html_validation_script and File.executable? $html_validation_script
+        $html_validation_script_found = true
+        break
+    end
+end
 if $tempfilecount.nil?
     $tempfilecount = 0
-    if File.exist?($html_validation_script)
+    if $html_validation_script_found
         module ActionController
             module TestProcess
                 # Hook into the process function, so can automatically get HTML after each request
