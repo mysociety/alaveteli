@@ -943,8 +943,8 @@ class IncomingMessage < ActiveRecord::Base
                 # lynx wordwraps links in its output, which then don't
                 # get formatted properly by Alaveteli. We use elinks
                 # instead, which doesn't do that.
-                AlaveteliExternalCommand.run("elinks", "-eval", "'set document.codepage.assume = \"#{charset}\"'", "-eval", "'set document.codepage.force_assumed = 1'", "-dump-charset", "utf-8", "-force-html", "-dump",
-                    tempfile.path, :append_to => text)
+                AlaveteliExternalCommand.run("elinks", "-eval", "set document.codepage.assume = \"#{charset}\"", "-eval", "set document.codepage.force_assumed = 1", "-dump-charset", "utf-8", "-force-html", "-dump",
+                    tempfile.path, :append_to => text, :env => {"LANG" => "C"})
             elsif content_type == 'application/vnd.ms-excel'
                 # Bit crazy using /usr/bin/strings - but xls2csv, xlhtml and
                 # py_xls2txt only extract text from cells, not from floating
