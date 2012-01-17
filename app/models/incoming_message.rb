@@ -317,8 +317,8 @@ class IncomingMessage < ActiveRecord::Base
         emails = ascii_chars.scan(MySociety::Validate.email_find_regexp)
         # Convert back to UCS-2, making a mask at the same time
         emails.map! {|email| [
-                Iconv.conv('ucs-2', 'ascii', email[0]), 
-                Iconv.conv('ucs-2', 'ascii', email[0].gsub(/[^@.]/, 'x'))
+                Iconv.conv('ucs-2le', 'ascii', email[0]), 
+                Iconv.conv('ucs-2le', 'ascii', email[0].gsub(/[^@.]/, 'x'))
         ] }
         # Now search and replace the UCS-2 email with the UCS-2 mask
         for email, mask in emails
