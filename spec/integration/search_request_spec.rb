@@ -48,7 +48,7 @@ describe "When searching" do
         request_via_redirect("post", "/search",
                              :query => "bob",
                              :latest_status => ['successful'])
-        response.body.should include("no requests matching your query")
+        response.body.should include("no results matching your query")
     end
 
     it "should correctly filter searches for comments" do
@@ -60,7 +60,7 @@ describe "When searching" do
         request_via_redirect("post", "/search",
                              :query => "daftest",
                              :request_variety => ['response','sent'])
-        response.body.should include("no requests matching your query")
+        response.body.should include("no results matching your query")
     end
 
 end

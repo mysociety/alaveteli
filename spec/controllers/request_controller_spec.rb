@@ -12,12 +12,12 @@ describe RequestController, "when listing recent requests" do
     end
     
     it "should be successful" do
-        get :list, :view => 'recent'
+        get :list, :view => 'all'
         response.should be_success
     end
 
     it "should render with 'list' template" do
-        get :list, :view => 'recent'
+        get :list, :view => 'all'
         response.should render_template('list')
     end
 
@@ -58,7 +58,7 @@ describe RequestController, "when listing recent requests" do
         InfoRequest.should_receive(:full_search).
           with([InfoRequestEvent]," (variety:sent OR variety:followup_sent OR variety:response OR variety:comment)", "created_at", anything, anything, anything, anything).
           and_return(xap_results)
-        get :list, :view => 'recent'
+        get :list, :view => 'all'
         assigns[:list_results].size.should == 25
     end
 end
@@ -450,7 +450,9 @@ describe RequestController, "when searching for an authority" do
                        "Request for communications between DCMS/Ed Vaizey and ICO from Jan 1st 2011 - May ",
                        "Bellevue Road Ryde Isle of Wight PO33 2AR - what is the",
                        "NHS Ayrshire & Arran",
-                       " cardiff"]
+                       " cardiff",
+                       "Foo * bax",
+                       "qux ~ quux"]
             lambda {
                 get :select_authority, :query => phrase
             }.should_not raise_error(StandardError)
@@ -1518,12 +1520,20 @@ describe RequestController, "when doing type ahead searches" do
         assigns[:xapian_requests].should be_nil
     end
 
+    it "should do partial matches for longer words" do
+        get :search_typeahead, :q => "chick" 
+        response.should render_template('request/_search_ahead.rhtml')
+        assigns[:xapian_requests].results.size.should ==1
+    end
+
     it "should not give an error when user users unintended search operators" do
         for phrase in ["Marketing/PR activities - Aldborough E-Act Free Schoo",
                        "Request for communications between DCMS/Ed Vaizey and ICO from Jan 1st 2011 - May ",
                        "Bellevue Road Ryde Isle of Wight PO33 2AR - what is the",
                        "NHS Ayrshire & Arran",
-                       "uda ( units of dent"]
+                       "uda ( units of dent",
+                       "frob * baz",
+                       "bar ~ qux"]
             lambda {
                 get :search_typeahead, :q => phrase
             }.should_not raise_error(StandardError)
