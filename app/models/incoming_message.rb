@@ -630,7 +630,7 @@ class IncomingMessage < ActiveRecord::Base
             text = "[ Email has no body, please see attachments ]"
             source_charset = "utf-8"
         else
-            text = part.body # by default, TMail converts to UT8 in this call
+            text = part.body # by default, TMail converts to UTF8 in this call
             source_charset = part.charset
             if part.content_type == 'text/html'
                 # e.g. http://www.whatdotheyknow.com/request/35/response/177
