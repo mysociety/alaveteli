@@ -78,7 +78,7 @@ describe GeneralController, "when searching" do
 
     it "should redirect from search query URL to pretty URL" do
         post :search_redirect, :query => "mouse" # query hidden in POST parameters
-        response.should redirect_to(:action => 'search', :combined => "mouse", :view => "requests") # URL /search/:query/all
+        response.should redirect_to(:action => 'search', :combined => "mouse", :view => "all") # URL /search/:query/all
     end
 
     describe "when using different locale settings" do 
