@@ -604,15 +604,12 @@ class RequestController < ApplicationController
 
     before_filter :authenticate_attachment, :only => [ :get_attachment, :get_attachment_as_html ]
     def authenticate_attachment
-        if request.path =~ /\/$/ || !(params[:part] =~ /^\d+$/)
-            raise PermissionDenied.new("Directory listing not allowed")
-        else
-            # Test for hidden
-            incoming_message = IncomingMessage.find(params[:incoming_message_id])
-            if !incoming_message.info_request.user_can_view?(authenticated_user)
-                @info_request = incoming_message.info_request # used by view
-                render :template => 'request/hidden', :status => 410 # gone
-            end
+        # Test for hidden
+        incoming_message = IncomingMessage.find(params[:incoming_message_id])
+        raise ActiveRecord::RecordNotFound.new("Message not found") if incoming_message.nil?
+        if !incoming_message.info_request.user_can_view?(authenticated_user)
+            @info_request = incoming_message.info_request # used by view
+            render :template => 'request/hidden', :status => 410 # gone
         end
     end
 
@@ -624,8 +621,8 @@ class RequestController < ApplicationController
         else
             key = params.merge(:only_path => true)
             key_path = foi_fragment_cache_path(key)
-
             if foi_fragment_cache_exists?(key_path)
+                raise PermissionDenied.new("Directory listing not allowed") if File.directory?(key_path)
                 cached = foi_fragment_cache_read(key_path)
                 response.content_type = AlaveteliFileTypes.filename_to_mimetype(params[:file_name].join("/")) || 'application/octet-stream'
                 render_for_text(cached)
