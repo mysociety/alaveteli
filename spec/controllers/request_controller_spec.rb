@@ -23,7 +23,9 @@ describe RequestController, "when listing recent requests" do
 
     it "should filter requests" do
         get :list, :view => 'all'
-        assigns[:list_results].size.should == 2
+        assigns[:list_results].size.should == 3
+        # default sort order is the request with the most recently created event first
+        assigns[:list_results][0].info_request.id.should == 104
         get :list, :view => 'successful'
         assigns[:list_results].size.should == 0
     end
@@ -32,9 +34,20 @@ describe RequestController, "when listing recent requests" do
         get :list, :view => 'all', :request_date_before => '13/10/2007'
         assigns[:list_results].size.should == 1
         get :list, :view => 'all', :request_date_after => '13/10/2007'
+        assigns[:list_results].size.should == 3
+        get :list, :view => 'all', :request_date_after => '13/10/2007', :request_date_before => '01/11/2007'
         assigns[:list_results].size.should == 1
-        get :list, :view => 'all', :request_date_after => '10/10/2007', :request_date_before => '01/01/2010'
-        assigns[:list_results].size.should == 2
+    end
+
+    it "should list internal_review requests as unresolved ones" do
+        get :list, :view => 'awaiting'
+        assigns[:list_results].size.should == 0
+        event = info_request_events(:useless_incoming_message_event)
+        event.calculated_state = "internal_review"
+        event.save!
+        rebuild_xapian_index
+        get :list, :view => 'awaiting'
+        assigns[:list_results].size.should == 1
     end
 
     it "should assign the first page of results" do
@@ -43,7 +56,7 @@ describe RequestController, "when listing recent requests" do
                    :matches_estimated => 103)
 
         InfoRequest.should_receive(:full_search).
-          with([InfoRequestEvent]," variety:sent", "created_at", anything, anything, anything, anything).
+          with([InfoRequestEvent]," (variety:sent OR variety:followup_sent OR variety:response OR variety:comment)", "created_at", anything, anything, anything, anything).
           and_return(xap_results)
         get :list, :view => 'recent'
         assigns[:list_results].size.should == 25
@@ -1111,8 +1124,8 @@ describe RequestController, "sending overdue request alerts" do
         RequestMailer.alert_overdue_requests
 
         deliveries = ActionMailer::Base.deliveries
-        deliveries.size.should == 1
-        mail = deliveries[0]
+        deliveries.size.should == 2
+        mail = deliveries[1]
         mail.body.should =~ /promptly, as normally/
         mail.to_addrs.first.to_s.should == info_requests(:naughty_chicken_request).user.name_and_email
 
@@ -1139,8 +1152,8 @@ describe RequestController, "sending overdue request alerts" do
         RequestMailer.alert_overdue_requests
 
         deliveries = ActionMailer::Base.deliveries
-        deliveries.size.should == 1
-        mail = deliveries[0]
+        deliveries.size.should == 2
+        mail = deliveries[1]
         mail.body.should =~ /promptly, as normally/
         mail.to_addrs.first.to_s.should == info_requests(:naughty_chicken_request).user.name_and_email
     end
@@ -1164,8 +1177,8 @@ describe RequestController, "sending overdue request alerts" do
         RequestMailer.alert_overdue_requests
 
         deliveries = ActionMailer::Base.deliveries
-        deliveries.size.should == 1
-        mail = deliveries[0]
+        deliveries.size.should == 2
+        mail = deliveries[1]
         mail.body.should =~ /required by law/
         mail.to_addrs.first.to_s.should == info_requests(:naughty_chicken_request).user.name_and_email
 
@@ -1509,7 +1522,8 @@ describe RequestController, "when doing type ahead searches" do
         for phrase in ["Marketing/PR activities - Aldborough E-Act Free Schoo",
                        "Request for communications between DCMS/Ed Vaizey and ICO from Jan 1st 2011 - May ",
                        "Bellevue Road Ryde Isle of Wight PO33 2AR - what is the",
-                       "NHS Ayrshire & Arran"]
+                       "NHS Ayrshire & Arran",
+                       "uda ( units of dent"]
             lambda {
                 get :search_typeahead, :q => phrase
             }.should_not raise_error(StandardError)

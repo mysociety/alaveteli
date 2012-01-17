@@ -34,6 +34,9 @@ class FoiAttachment < ActiveRecord::Base
     before_validation :ensure_filename!, :only => [:filename]
     before_destroy :delete_cached_file!
 
+    BODY_MAX_TRIES = 3
+    BODY_MAX_DELAY = 5
+
     def directory
         base_dir = File.join(File.dirname(__FILE__), "../../cache", "attachments_#{ENV['RAILS_ENV']}")
         return File.join(base_dir, self.hexdigest[0..2])
@@ -45,6 +48,7 @@ class FoiAttachment < ActiveRecord::Base
 
     def delete_cached_file!
         begin
+            @cached_body = nil
             File.delete(self.filepath)
         rescue
         end
@@ -57,7 +61,6 @@ class FoiAttachment < ActiveRecord::Base
         end
         File.open(self.filepath, "wb") { |file|
             file.write d
-            file.fsync
         }
         update_display_size!
         @cached_body = d
@@ -65,12 +68,23 @@ class FoiAttachment < ActiveRecord::Base
 
     def body
         if @cached_body.nil?
+            tries = 0
+            delay = 1
             begin
                 @cached_body = File.open(self.filepath, "rb" ).read
             rescue Errno::ENOENT
                 # we've lost our cached attachments for some reason.  Reparse them.
+                if tries > BODY_MAX_TRIES
+                    raise
+                else
+                    sleep delay
+                end
+                tries += 1
+                delay *= 2
+                delay = BODY_MAX_DELAY if delay > BODY_MAX_DELAY
                 force = true
                 self.incoming_message.parse_raw_email!(force)
+                retry
             end
         end
         return @cached_body

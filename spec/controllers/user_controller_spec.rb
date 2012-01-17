@@ -45,7 +45,7 @@ describe UserController, "when showing a user" do
 
     it "should search the user's contributions" do
         get :show, :url_name => "bob_smith"
-        assigns[:xapian_requests].results.count.should == 2
+        assigns[:xapian_requests].results.count.should == 3
         get :show, :url_name => "bob_smith", :user_query => "money"
         assigns[:xapian_requests].results.count.should == 1
     end

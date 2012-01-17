@@ -20,17 +20,17 @@ describe FoiAttachment, " when calculating due date" do
         attachment.display_size.should == "0K"
     end
     it "reparses the body if it disappears" do
-        mail_body = load_file_fixture('incoming-request-attach-attachments.email')
-        mail = TMail::Mail.parse(mail_body)
-        mail.base64_decode
         im = incoming_messages(:useless_incoming_message)
-        im.stub!(:mail).and_return(mail)        
-        #im.extract_attachments!
-        attachments = im.get_attachments_for_display
-        FileUtils.rm attachments[0].filepath
+        im.extract_attachments!
+        main = im.get_main_body_text_part
+        orig_body = main.body
+        main.delete_cached_file!
         lambda {
-            attachments = im.get_attachments_for_display
-            body = attachments[0].body
+            im.get_main_body_text_part.body
         }.should_not raise_error(Errno::ENOENT)
+        main.delete_cached_file!
+        main = im.get_main_body_text_part
+        main.body.should == orig_body
+        
     end
 end

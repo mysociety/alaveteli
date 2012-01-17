@@ -44,6 +44,9 @@ describe AdminPublicBodyController, "when administering public bodies" do
 
     it "destroys a public body" do
         PublicBody.count.should == 2
+        info_request_events(:badger_outgoing_message_event).destroy
+        outgoing_messages(:badger_outgoing_message).destroy
+        info_requests(:badger_request).destroy
         post :destroy, { :id => 3 }
         PublicBody.count.should == 1
     end
@@ -74,6 +77,9 @@ describe AdminPublicBodyController, "when administering public bodies and paying
         config['ADMIN_PASSWORD'] = ''
         @request.env["HTTP_AUTHORIZATION"] = ""
         PublicBody.count.should == 2
+        info_request_events(:badger_outgoing_message_event).destroy
+        outgoing_messages(:badger_outgoing_message).destroy
+        info_requests(:badger_request).destroy
         post :destroy, { :id => 3 }
         PublicBody.count.should == 1
         session[:using_admin].should == 1
@@ -84,6 +90,9 @@ describe AdminPublicBodyController, "when administering public bodies and paying
         config['ADMIN_PASSWORD'] = 'fuz'
         @request.env["HTTP_AUTHORIZATION"] = ""
         PublicBody.count.should == 2
+        info_request_events(:badger_outgoing_message_event).destroy
+        outgoing_messages(:badger_outgoing_message).destroy
+        info_requests(:badger_request).destroy
         post :destroy, { :id => 3 }
         PublicBody.count.should == 1
         session[:using_admin].should == 1
@@ -95,6 +104,9 @@ describe AdminPublicBodyController, "when administering public bodies and paying
         @request.env["HTTP_AUTHORIZATION"] = ""
         PublicBody.count.should == 2
         basic_auth_login(@request, "baduser", "badpassword")
+        info_request_events(:badger_outgoing_message_event).destroy
+        outgoing_messages(:badger_outgoing_message).destroy
+        info_requests(:badger_request).destroy
         post :destroy, { :id => 3 }
         response.code.should == "401"
         PublicBody.count.should == 2
@@ -168,6 +180,9 @@ describe AdminPublicBodyController, "when administering public bodies with i18n"
 
     it "destroy a public body" do
         PublicBody.count.should == 2
+        info_request_events(:badger_outgoing_message_event).destroy
+        outgoing_messages(:badger_outgoing_message).destroy
+        info_requests(:badger_request).destroy
         post :destroy, { :id => 3 }
         PublicBody.count.should == 1
     end

@@ -292,16 +292,16 @@ module ActsAsXapian
                 rescue IOError => e
                     if e.message =~ /DatabaseModifiedError: /
                         # This should be a transient error, so back off and try again, up to a point
-                        if tries > MAX_TRIES
-                            raise "Received DatabaseModifiedError from Xapian even after retrying #{MAX_TRIES} times"
+                        if tries > MSET_MAX_TRIES
+                            raise "Received DatabaseModifiedError from Xapian even after retrying #{MSET_MAX_TRIES} times"
                         else
                             sleep delay
                         end
                         tries += 1
                         delay *= 2
-                        delay = MAX_DELAY if delay > MAX_DELAY
+                        delay = MSET_MAX_DELAY if delay > MSET_MAX_DELAY
         
-                        @@db.reopen()
+                        ActsAsXapian.db.reopen()
                         retry
                     else
                         raise

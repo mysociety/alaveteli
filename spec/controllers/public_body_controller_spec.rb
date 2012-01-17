@@ -6,6 +6,11 @@ describe PublicBodyController, "when showing a body" do
     integrate_views
     fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
+    before(:each) do
+        load_raw_emails_data(raw_emails)
+        rebuild_xapian_index
+    end
+
     it "should be successful" do
         get :show, :url_name => "dfh", :view => 'all'
         response.should be_success
@@ -26,6 +31,8 @@ describe PublicBodyController, "when showing a body" do
         assigns[:xapian_requests].results.count.should == 2
         get :show, :url_name => "tgq", :view => 'successful'
         assigns[:xapian_requests].results.count.should == 0
+        get :show, :url_name => "dfh", :view => 'all'
+        assigns[:xapian_requests].results.count.should == 1
     end
 
     it "should assign the body using different locale from that used for url_name" do

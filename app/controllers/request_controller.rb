@@ -151,11 +151,14 @@ class RequestController < ApplicationController
     def list
         medium_cache
         @view = params[:view]
+        @page = get_search_page_from_params if !@page # used in cache case, as perform_search sets @page as side effect
+        if @view == "recent"
+            return redirect_to request_list_all_path(:action => "list", :view => "all", :page => @page), :status => :moved_permanently
+        end
         params[:latest_status] = @view
         query = make_query_from_params
         @title = _("View and search requests")
         sortby = "newest"
-        @page = get_search_page_from_params if !@page # used in cache case, as perform_search sets @page as side effect
         behavior_cache :tag => [@view, @page] do
             xapian_object = perform_search([InfoRequestEvent], query, sortby, 'request_collapse')
             @list_results = xapian_object.results.map { |r| r[:model] }
@@ -601,10 +604,10 @@ class RequestController < ApplicationController
 
     before_filter :authenticate_attachment, :only => [ :get_attachment, :get_attachment_as_html ]
     def authenticate_attachment
-        # Test for hidden
-        if request.path =~ /\/$/ 
+        if request.path =~ /\/$/ || !(params[:part] =~ /^\d+$/)
             raise PermissionDenied.new("Directory listing not allowed")
         else
+            # Test for hidden
             incoming_message = IncomingMessage.find(params[:incoming_message_id])
             if !incoming_message.info_request.user_can_view?(authenticated_user)
                 @info_request = incoming_message.info_request # used by view
