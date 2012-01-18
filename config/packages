@@ -5,7 +5,6 @@ ruby1.8
 libpgsql-ruby1.8
 libruby1.8
 rake (>= 0.8.4-1)
-irb
 wv
 poppler-utils
 # poppler-utils (>= 0.12.0) # this is much better when it is available in Debian stable
