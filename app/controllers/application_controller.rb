@@ -524,7 +524,7 @@ class ApplicationController < ActionController::Base
     def quietly_try_to_open(url)
         begin 
             result = open(url).read.strip
-        rescue OpenURI::HTTPError, SocketError
+        rescue OpenURI::HTTPError, SocketError, Errno::ETIMEDOUT, Errno::ECONNREFUSED, Errno::EHOSTUNREACH
             logger.warn("Unable to open third-party URL #{url}")
             result = ""
         end
