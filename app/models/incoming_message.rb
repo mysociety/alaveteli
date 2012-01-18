@@ -266,11 +266,7 @@ class IncomingMessage < ActiveRecord::Base
         # Special cases for some content types
         if content_type == 'application/pdf'
             uncompressed_text = nil
-            IO.popen("#{`which pdftk`.chomp} - output - uncompress", "r+") do |child|
-                child.write(text)
-                child.close_write()
-                uncompressed_text = child.read()
-            end
+            uncompressed_text = AlaveteliExternalCommand.run("pdftk", "-", "output", "-", "uncompress", :stdin_string => text)
             # if we managed to uncompress the PDF...
             if !uncompressed_text.nil? && !uncompressed_text.empty?
                 # then censor stuff (making a copy so can compare again in a bit)
@@ -281,15 +277,11 @@ class IncomingMessage < ActiveRecord::Base
                     # then use the altered file (recompressed)
                     recompressed_text = nil
                     if MySociety::Config.get('USE_GHOSTSCRIPT_COMPRESSION') == true
-                        command = "gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/screen -dNOPAUSE -dQUIET -dBATCH -sOutputFile=- -"
+                        command = ["gs", "-sDEVICE=pdfwrite", "-dCompatibilityLevel=1.4", "-dPDFSETTINGS=/screen", "-dNOPAUSE", "-dQUIET", "-dBATCH", "-sOutputFile=-", "-"]
                     else
-                        command = "#{`which pdftk`.chomp} - output - compress"
+                        command = ["pdftk", "-", "output", "-", "compress"]
                     end
-                    IO.popen(command, "r+") do |child|
-                        child.write(censored_uncompressed_text)
-                        child.close_write()
-                        recompressed_text = child.read()
-                    end
+                    recompressed_text = AlaveteliExternalCommand.run(*(command + [{:stdin_string=>censored_uncompressed_text}]))
                     if recompressed_text.nil? || recompressed_text.empty?
                         # buggy versions of pdftk sometimes fail on
                         # compression, I don't see it's a disaster in
@@ -325,8 +317,8 @@ class IncomingMessage < ActiveRecord::Base
         emails = ascii_chars.scan(MySociety::Validate.email_find_regexp)
         # Convert back to UCS-2, making a mask at the same time
         emails.map! {|email| [
-                Iconv.conv('ucs-2', 'ascii', email[0]), 
-                Iconv.conv('ucs-2', 'ascii', email[0].gsub(/[^@.]/, 'x'))
+                Iconv.conv('ucs-2le', 'ascii', email[0]), 
+                Iconv.conv('ucs-2le', 'ascii', email[0].gsub(/[^@.]/, 'x'))
         ] }
         # Now search and replace the UCS-2 email with the UCS-2 mask
         for email, mask in emails
@@ -638,7 +630,7 @@ class IncomingMessage < ActiveRecord::Base
             text = "[ Email has no body, please see attachments ]"
             source_charset = "utf-8"
         else
-            text = part.body # by default, TMail converts to UT8 in this call
+            text = part.body # by default, TMail converts to UTF8 in this call
             source_charset = part.charset
             if part.content_type == 'text/html'
                 # e.g. http://www.whatdotheyknow.com/request/35/response/177
@@ -738,9 +730,7 @@ class IncomingMessage < ActiveRecord::Base
             tempfile = Tempfile.new('foiuu')
             tempfile.print uu
             tempfile.flush
-            IO.popen("/usr/bin/uudecode " + tempfile.path + " -o -", "r") do |child|
-                content = child.read()
-            end
+            content = AlaveteliExternalCommand.run("uudecode", "-o", "/dev/stdout", tempfile.path)
             tempfile.close
             # Make attachment type from it, working out filename and mime type
             filename = uu.match(/^begin\s+[0-9]+\s+(.*)$/)[1]
@@ -938,23 +928,23 @@ class IncomingMessage < ActiveRecord::Base
             tempfile.print body
             tempfile.flush
             if content_type == 'application/vnd.ms-word'
-                AlaveteliExternalCommand.run(`which wvText`.chomp, tempfile.path, tempfile.path + ".txt")
+                AlaveteliExternalCommand.run("wvText", tempfile.path, tempfile.path + ".txt")
                 # Try catdoc if we get into trouble (e.g. for InfoRequestEvent 2701)
                 if not File.exists?(tempfile.path + ".txt")
-                    AlaveteliExternalCommand.run(`which catdoc`.chomp, tempfile.path, :append_to => text)
+                    AlaveteliExternalCommand.run("catdoc", tempfile.path, :append_to => text)
                 else
                     text += File.read(tempfile.path + ".txt") + "\n\n"
                     File.unlink(tempfile.path + ".txt")
                 end
             elsif content_type == 'application/rtf'
                 # catdoc on RTF prodcues less comments and extra bumf than --text option to unrtf
-                AlaveteliExternalCommand.run(`which catdoc`.chomp, tempfile.path, :append_to => text)
+                AlaveteliExternalCommand.run("catdoc", tempfile.path, :append_to => text)
             elsif content_type == 'text/html'
                 # lynx wordwraps links in its output, which then don't
                 # get formatted properly by Alaveteli. We use elinks
                 # instead, which doesn't do that.
-                AlaveteliExternalCommand.run(`which elinks`.chomp, "-eval", "'set document.codepage.assume = \"#{charset}\"'", "-eval", "'set document.codepage.force_assumed = 1'", "-dump-charset", "utf-8", "-force-html", "-dump",
-                    tempfile.path, :append_to => text)
+                AlaveteliExternalCommand.run("elinks", "-eval", "set document.codepage.assume = \"#{charset}\"", "-eval", "set document.codepage.force_assumed = 1", "-dump-charset", "utf-8", "-force-html", "-dump",
+                    tempfile.path, :append_to => text, :env => {"LANG" => "C"})
             elsif content_type == 'application/vnd.ms-excel'
                 # Bit crazy using /usr/bin/strings - but xls2csv, xlhtml and
                 # py_xls2txt only extract text from cells, not from floating
@@ -964,9 +954,9 @@ class IncomingMessage < ActiveRecord::Base
             elsif content_type == 'application/vnd.ms-powerpoint'
                 # ppthtml seems to catch more text, but only outputs HTML when
                 # we want text, so just use catppt for now
-                AlaveteliExternalCommand.run(`which catppt`.chomp, tempfile.path, :append_to => text)
+                AlaveteliExternalCommand.run("catppt", tempfile.path, :append_to => text)
             elsif content_type == 'application/pdf'
-                AlaveteliExternalCommand.run(`which pdftotext`.chomp, tempfile.path, "-", :append_to => text)
+                AlaveteliExternalCommand.run("pdftotext", tempfile.path, "-", :append_to => text)
             elsif content_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
                 # This is Microsoft's XML office document format.
                 # Just pull out the main XML file, and strip it of text.

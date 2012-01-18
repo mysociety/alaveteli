@@ -312,13 +312,9 @@ class FoiAttachment < ActiveRecord::Base
             tempfile.flush
 
             if self.content_type == 'application/pdf'
-                IO.popen("/usr/bin/pdftohtml -nodrm -zoom 1.0 -stdout -enc UTF-8 -noframes " + tempfile.path + "", "r") do |child|
-                    html = child.read()
-                end
+                html = AlaveteliExternalCommand.run("pdftohtml", "-nodrm", "-zoom", "1.0", "-stdout", "-enc", "UTF-8", "-noframes", tempfile.path)
             elsif self.content_type == 'application/rtf'
-                IO.popen("/usr/bin/unrtf --html " + tempfile.path + "", "r") do |child|
-                    html = child.read()
-                end
+                html = AlaveteliExternalCommand.run("unrtf", "--html", tempfile.path)
             elsif self.has_google_docs_viewer?
                 html = '' # force error and using Google docs viewer
             else
