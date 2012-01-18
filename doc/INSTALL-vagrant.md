@@ -11,27 +11,15 @@ Clone the Alaveteli repo then run these commands from the repo directory:
 
     # Download, install and run VM
     vagrant up
-    # SSH to the new box
+
+    # SSH to the new box and switch to the Alaveteli directory
     vagrant ssh
+    cd vagrant
 
-    # Create the databases
-    sudo su - postgres
-    echo "CREATE DATABASE foi_development encoding = 'UTF8';
-    CREATE DATABASE foi_test encoding = 'UTF8';
-    CREATE USER foi WITH CREATEUSER;
-    ALTER USER foi WITH PASSWORD 'foi';
-    ALTER USER foi WITH CREATEDB;
-    GRANT ALL PRIVILEGES ON DATABASE foi_development TO foi;
-    GRANT ALL PRIVILEGES ON DATABASE foi_test TO foi;
-    ALTER DATABASE foi_development OWNER TO foi;
-    ALTER DATABASE foi_test OWNER TO foi;" | psql
-
-    # Create DB config file
-    cp /vagrant/config/database.yml-example /vagrant/config/database.yml
-    sed -i -e 's/<username>/foi/g' /vagrant/config/database.yml-example
-    sed -i -e 's/<password>/foi/g' /vagrant/config/database.yml-example
+    # Migrate the database
+    rake db:migrate
 
     # Start the development server
-    /vagrant/script/server
+    ./script/server
 
 Now visit `localhost:3000`.
