@@ -9,3 +9,11 @@ packages.each do |pkg|
     action :install
   end
 end
+
+# The database config
+template "/vagrant/config/database.yml" do
+  source "database.yml.erb"
+  mode "664"
+  owner "vagrant"
+  group "vagrant"
+end
