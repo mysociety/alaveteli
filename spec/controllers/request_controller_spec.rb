@@ -171,6 +171,16 @@ describe RequestController, "when showing one request" do
             response.should have_text(/Second hello/)
         end
 
+        it "should return 404 for ugly URLs contain a request id that isn't an integer " do
+            ir = info_requests(:fancy_dog_request) 
+            receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
+            ir.reload
+            ugly_id = "55195"
+            lambda {
+                get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => ugly_id, :part => 2, :file_name => ['hello.txt.html'], :skip_cache => 1
+            }.should raise_error(ActiveRecord::RecordNotFound)
+        end
+
         it "should generate valid HTML verson of PDF attachments " do
             ir = info_requests(:fancy_dog_request) 
             receive_incoming_mail('incoming-request-pdf-attachment.email', ir.incoming_email)
