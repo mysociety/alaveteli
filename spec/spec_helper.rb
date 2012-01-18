@@ -144,7 +144,12 @@ if $tempfilecount.nil?
                     return unless @response.template.controller.instance_eval { integrate_views? }
                     # And then if HTML, not a redirect (302, 301)
                     if @response.content_type == "text/html" && ! [301,302,401].include?(@response.response_code)
+                    if @response.template.instance_eval("@_memoized__pick_partial_template").nil?
                         validate_html(@response.body)
+                    else
+                        # it's a partial
+                        validate_as_body(@response.body)
+                    end
                     end
                 end
             end
