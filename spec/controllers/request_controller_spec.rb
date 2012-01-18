@@ -1493,6 +1493,8 @@ end
 describe RequestController, "when doing type ahead searches" do
     fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things 
 
+    integrate_views
+
     it "should return nothing for the empty query string" do
         get :search_typeahead, :q => ""
         response.should render_template('request/_search_ahead.rhtml')
