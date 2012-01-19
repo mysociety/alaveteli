@@ -89,6 +89,7 @@ class ApplicationController < ActionController::Base
     def record_memory
         record_memory = MySociety::Config.get('DEBUG_RECORD_MEMORY', false)
         if record_memory
+            logger.info "Processing request for #{request.url} with Rails process #{Process.pid}"
             File.read("/proc/#{Process.pid}/status").match(/VmRSS:\s+(\d+)/)
             rss_before_action = $1.to_i
             yield
