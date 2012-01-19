@@ -32,12 +32,12 @@ class GeneralController < ApplicationController
                 if body_short_names.empty?
                     # This is too slow
                     @popular_bodies = PublicBody.find(:all, 
-				        :select => "public_bodies.*, (select count(*) from info_requests where info_requests.public_body_id = public_bodies.id) as c", 
-				        :order => "c desc", 
-				        :limit => 32,
-				        :conditions => conditions,
-				        :joins => :translations
-				    )
+                        :select => "public_bodies.*, (select count(*) from info_requests where info_requests.public_body_id = public_bodies.id) as c", 
+                        :order => "c desc", 
+                        :limit => 32,
+                        :conditions => conditions,
+                        :joins => :translations
+                    )
                 else
                     conditions[0] += " and public_bodies.url_name in (" + body_short_names + ")"
                     @popular_bodies = PublicBody.find(:all, 
