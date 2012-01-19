@@ -166,7 +166,7 @@ class RequestController < ApplicationController
         query = make_query_from_params
         @title = _("View and search requests")
         sortby = "newest"
-        behavior_cache :tag => [@view, @page] do
+        behavior_cache :tag => [@query, @page, I18n.locale] do
             xapian_object = perform_search([InfoRequestEvent], query, sortby, 'request_collapse')
             @list_results = xapian_object.results.map { |r| r[:model] }
             @matches_estimated = xapian_object.matches_estimated
