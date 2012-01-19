@@ -181,6 +181,8 @@ end
 describe PublicBodyController, "when doing type ahead searches" do
     fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
+    integrate_views
+
     it "should return nothing for the empty query string" do
         get :search_typeahead, :query => ""
         response.should render_template('public_body/_search_ahead')
@@ -190,6 +192,7 @@ describe PublicBodyController, "when doing type ahead searches" do
     it "should return a body matching the given keyword, but not users with a matching description" do
         get :search_typeahead, :query => "Geraldine"
         response.should render_template('public_body/_search_ahead')
+        response.body.should include('search_ahead')
         assigns[:xapian_requests].results.size.should == 1
         assigns[:xapian_requests].results[0][:model].name.should == public_bodies(:geraldine_public_body).name
     end
