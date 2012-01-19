@@ -7,6 +7,10 @@
 <h2>Version numbers</h2>
 
 <p>
+Alaveteli branch: <%= link_to @current_branch, @github_origin + @current_branch %>
+<br>
+Alaveteli commit: <%= link_to @current_commit, @github_origin + @current_commit %>
+<br>
 RUBY_VERSION <%=h RUBY_VERSION %>
 <br>
 Rails::VERSION::STRING <%=h Rails::VERSION::STRING%>
