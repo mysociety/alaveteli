@@ -368,7 +368,10 @@ class ApplicationController < ActionController::Base
     def get_search_page_from_params
         return (params[:page] || "1").to_i
     end
+
     def perform_search_typeahead(query, model)
+        @page = get_search_page_from_params
+        @per_page = 10
         query_words = query.split(/ +(?![-+]+)/)
         if query_words.last.nil? || query_words.last.strip.length < 3
             xapian_requests = nil
@@ -379,8 +382,8 @@ class ApplicationController < ActionController::Base
                 collapse = 'request_collapse'
             end
             options = {
-                :offset => 0, 
-                :limit => 5,
+                :offset => (@page - 1) * @per_page, 
+                :limit => @per_page,
                 :sort_by_prefix => nil,
                 :sort_by_ascending => true,
                 :collapse_by_prefix => collapse,
@@ -388,11 +391,24 @@ class ApplicationController < ActionController::Base
             ActsAsXapian.readable_init
             old_default_op = ActsAsXapian.query_parser.default_op
             ActsAsXapian.query_parser.default_op = Xapian::Query::OP_OR
-            user_query =  ActsAsXapian.query_parser.parse_query(
-                                       query,
-                                       Xapian::QueryParser::FLAG_LOVEHATE | Xapian::QueryParser::FLAG_PARTIAL |
-                                       Xapian::QueryParser::FLAG_SPELLING_CORRECTION)
-            xapian_requests = ActsAsXapian::Search.new([model], query, options, user_query)
+            begin
+                user_query =  ActsAsXapian.query_parser.parse_query(
+                                           query.strip + '*',
+                                           Xapian::QueryParser::FLAG_LOVEHATE | Xapian::QueryParser::FLAG_WILDCARD |
+                                           Xapian::QueryParser::FLAG_SPELLING_CORRECTION)
+                xapian_requests = ActsAsXapian::Search.new([model], query, options, user_query)
+            rescue RuntimeError => e
+                if e.message =~ /^QueryParserError: Wildcard/
+                    # Wildcard expands to too many terms
+                    logger.info "Wildcard query '#{query.strip + '*'}' caused: #{e.message}"
+                    
+                    user_query =  ActsAsXapian.query_parser.parse_query(
+                                               query,
+                                               Xapian::QueryParser::FLAG_LOVEHATE |
+                                               Xapian::QueryParser::FLAG_SPELLING_CORRECTION)
+                    xapian_requests = ActsAsXapian::Search.new([model], query, options, user_query)
+                end
+            end
             ActsAsXapian.query_parser.default_op = old_default_op
         end
         return xapian_requests
@@ -524,7 +540,7 @@ class ApplicationController < ActionController::Base
     def quietly_try_to_open(url)
         begin 
             result = open(url).read.strip
-        rescue OpenURI::HTTPError, SocketError
+        rescue OpenURI::HTTPError, SocketError, Errno::ETIMEDOUT, Errno::ECONNREFUSED, Errno::EHOSTUNREACH
             logger.warn("Unable to open third-party URL #{url}")
             result = ""
         end

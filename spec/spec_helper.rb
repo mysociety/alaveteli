@@ -143,7 +143,10 @@ if $tempfilecount.nil?
             module TestProcess
                 # Hook into the process function, so can automatically get HTML after each request
                 alias :original_process :process
-
+                def is_fragment
+                    # XXX there must be a better way of doing this!
+                    return @request.query_parameters["action"] == "search_typeahead"
+                end
                 def process(action, parameters = nil, session = nil, flash = nil, http_method = 'GET')
                     self.original_process(action, parameters, session, flash, http_method)
                     # don't validate auto-generated HTML
@@ -152,7 +155,12 @@ if $tempfilecount.nil?
                     return unless @response.template.controller.instance_eval { integrate_views? }
                     # And then if HTML, not a redirect (302, 301)
                     if @response.content_type == "text/html" && ! [301,302,401].include?(@response.response_code)
+                    if !is_fragment
                         validate_html(@response.body)
+                    else
+                        # it's a partial
+                        validate_as_body(@response.body)
+                    end
                     end
                 end
             end

@@ -143,6 +143,7 @@ module ActsAsXapian
         @@query_parser.stemming_strategy = Xapian::QueryParser::STEM_SOME
         @@query_parser.database = @@db
         @@query_parser.default_op = Xapian::Query::OP_AND
+        @@query_parser.set_max_wildcard_expansion(1000)
 
         @@stopper = Xapian::SimpleStopper.new
         @@stopper.add("and")
@@ -443,7 +444,7 @@ module ActsAsXapian
                 user_query = ActsAsXapian.query_parser.parse_query(
                                        self.query_string,
                                        Xapian::QueryParser::FLAG_BOOLEAN | Xapian::QueryParser::FLAG_PHRASE |
-                                       Xapian::QueryParser::FLAG_LOVEHATE | Xapian::QueryParser::FLAG_WILDCARD |
+                                       Xapian::QueryParser::FLAG_LOVEHATE |
                                        Xapian::QueryParser::FLAG_SPELLING_CORRECTION)
             end
             self.query = Xapian::Query.new(Xapian::Query::OP_AND, model_query, user_query)

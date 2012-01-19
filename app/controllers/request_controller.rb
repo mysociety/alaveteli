@@ -155,6 +155,13 @@ class RequestController < ApplicationController
         if @view == "recent"
             return redirect_to request_list_all_path(:action => "list", :view => "all", :page => @page), :status => :moved_permanently
         end
+
+       # Temporary patch
+       # Later pages are very expensive to load
+        if @page > 100
+            raise "Sorry. No pages after 100 today."
+        end
+
         params[:latest_status] = @view
         query = make_query_from_params
         @title = _("View and search requests")
@@ -682,10 +689,11 @@ class RequestController < ApplicationController
     # Internal function
     def get_attachment_internal(html_conversion)
         @incoming_message = IncomingMessage.find(params[:incoming_message_id])
+        @requested_request = InfoRequest.find(params[:id])
         @incoming_message.parse_raw_email!
         @info_request = @incoming_message.info_request
         if @incoming_message.info_request_id != params[:id].to_i
-            raise sprintf("Incoming message %d does not belong to request %d", @incoming_message.info_request_id, params[:id])
+            raise ActiveRecord::RecordNotFound.new("Incoming message %d does not belong to request %d", @incoming_message.info_request_id, params[:id])
         end
         @part_number = params[:part].to_i
         @filename = params[:file_name].join("/")

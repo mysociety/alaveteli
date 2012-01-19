@@ -28,6 +28,13 @@ describe TrackThing, "when tracking changes" do
         found_track.should == @track_thing
     end
 
+    it "can display the description of a deleted track_thing" do
+        track_thing = TrackThing.create_track_for_search_query('fancy dog')
+        description = track_thing.track_query_description
+        track_thing.destroy
+        track_thing.track_query_description.should == description
+    end
+
     it "will make some sane descriptions of search-based tracks" do
         tests = [['bob variety:user', "users matching text 'bob'"],
                  ['bob (variety:sent OR variety:followup_sent OR variety:response OR variety:comment) (latest_status:successful OR latest_status:partially_successful OR latest_status:rejected OR latest_status:not_held)', "requests which are successful or unsuccessful or comments matching text 'bob'"],
