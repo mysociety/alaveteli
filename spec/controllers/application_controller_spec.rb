@@ -23,3 +23,12 @@ describe ApplicationController, "when accessing third party services" do
     end
 end
 
+describe ApplicationController, "when caching fragments" do
+    it "should not fail with long filenames" do
+        long_name = "blahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblah.txt"
+        path = self.controller.send(:foi_fragment_cache_path, long_name)
+        self.controller.send(:foi_fragment_cache_write, path, "whassap")
+    end
+
+end
+
