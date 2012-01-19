@@ -155,6 +155,13 @@ class RequestController < ApplicationController
         if @view == "recent"
             return redirect_to request_list_all_path(:action => "list", :view => "all", :page => @page), :status => :moved_permanently
         end
+
+       # Temporary patch
+       # Later pages are very expensive to load
+        if @page > 100
+            raise "Sorry. No pages after 100 today."
+        end
+
         params[:latest_status] = @view
         query = make_query_from_params
         @title = _("View and search requests")
