@@ -443,7 +443,7 @@ module ActsAsXapian
                 user_query = ActsAsXapian.query_parser.parse_query(
                                        self.query_string,
                                        Xapian::QueryParser::FLAG_BOOLEAN | Xapian::QueryParser::FLAG_PHRASE |
-                                       Xapian::QueryParser::FLAG_LOVEHATE | Xapian::QueryParser::FLAG_WILDCARD |
+                                       Xapian::QueryParser::FLAG_LOVEHATE |
                                        Xapian::QueryParser::FLAG_SPELLING_CORRECTION)
             end
             self.query = Xapian::Query.new(Xapian::Query::OP_AND, model_query, user_query)
