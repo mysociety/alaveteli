@@ -385,11 +385,24 @@ class ApplicationController < ActionController::Base
             ActsAsXapian.readable_init
             old_default_op = ActsAsXapian.query_parser.default_op
             ActsAsXapian.query_parser.default_op = Xapian::Query::OP_OR
-            user_query =  ActsAsXapian.query_parser.parse_query(
-                                       query,
-                                       Xapian::QueryParser::FLAG_LOVEHATE | Xapian::QueryParser::FLAG_PARTIAL |
-                                       Xapian::QueryParser::FLAG_SPELLING_CORRECTION)
-            xapian_requests = ActsAsXapian::Search.new([model], query, options, user_query)
+            begin
+                user_query =  ActsAsXapian.query_parser.parse_query(
+                                           query.strip + '*',
+                                           Xapian::QueryParser::FLAG_LOVEHATE | Xapian::QueryParser::FLAG_WILDCARD |
+                                           Xapian::QueryParser::FLAG_SPELLING_CORRECTION)
+                xapian_requests = ActsAsXapian::Search.new([model], query, options, user_query)
+            rescue RuntimeError => e
+                if e.message =~ /^QueryParserError: Wildcard/
+                    # Wildcard expands to too many terms
+                    logger.info "Wildcard query '#{query.strip + '*'}' caused: #{e.message}"
+                    
+                    user_query =  ActsAsXapian.query_parser.parse_query(
+                                               query,
+                                               Xapian::QueryParser::FLAG_LOVEHATE |
+                                               Xapian::QueryParser::FLAG_SPELLING_CORRECTION)
+                    xapian_requests = ActsAsXapian::Search.new([model], query, options, user_query)
+                end
+            end
             ActsAsXapian.query_parser.default_op = old_default_op
         end
         return xapian_requests

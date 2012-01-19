@@ -143,6 +143,7 @@ module ActsAsXapian
         @@query_parser.stemming_strategy = Xapian::QueryParser::STEM_SOME
         @@query_parser.database = @@db
         @@query_parser.default_op = Xapian::Query::OP_AND
+        @@query_parser.set_max_wildcard_expansion(1000)
 
         @@stopper = Xapian::SimpleStopper.new
         @@stopper.add("and")
