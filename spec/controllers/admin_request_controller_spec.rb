@@ -7,6 +7,11 @@ describe AdminRequestController, "when administering requests" do
 
     before(:each) do
         load_raw_emails_data(raw_emails)
+        @old_filters = ActionController::Routing::Routes.filters
+        ActionController::Routing::Routes.filters = RoutingFilter::Chain.new
+    end
+    after do
+        ActionController::Routing::Routes.filters = @old_filters
     end
 
     it "shows the index/list page" do
@@ -49,6 +54,11 @@ describe AdminRequestController, "when administering the holding pen" do
     before(:each) do
         basic_auth_login @request
         load_raw_emails_data(raw_emails)
+        @old_filters = ActionController::Routing::Routes.filters
+        ActionController::Routing::Routes.filters = RoutingFilter::Chain.new
+    end
+    after do
+        ActionController::Routing::Routes.filters = @old_filters
     end
 
     it "shows a rejection reason for an incoming message from an invalid address" do
