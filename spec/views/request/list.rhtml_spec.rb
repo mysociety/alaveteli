@@ -33,6 +33,7 @@ describe "when listing recent requests" do
     it "should be successful" do
         assigns[:list_results] = [ make_mock_event, make_mock_event ]
         assigns[:matches_estimated] = 2
+        assigns[:show_no_more_than] = 100
         render "request/list"
         response.should have_tag("div.request_listing")
         response.should_not have_tag("p", /No requests of this sort yet/m)
@@ -41,6 +42,7 @@ describe "when listing recent requests" do
     it "should cope with no results" do
         assigns[:list_results] = [ ]
         assigns[:matches_estimated] = 0
+        assigns[:show_no_more_than] = 0
         render "request/list"
         response.should have_tag("p", /No requests of this sort yet/m)
         response.should_not have_tag("div.request_listing")
