@@ -696,7 +696,7 @@ class RequestController < ApplicationController
         @incoming_message.parse_raw_email!
         @info_request = @incoming_message.info_request
         if @incoming_message.info_request_id != params[:id].to_i
-            raise ActiveRecord::RecordNotFound.new("Incoming message %d does not belong to request %d", @incoming_message.info_request_id, params[:id])
+            raise ActiveRecord::RecordNotFound.new(sprintf("Incoming message %d does not belong to request %d", @incoming_message.info_request_id, params[:id]))
         end
         @part_number = params[:part].to_i
         @filename = params[:file_name].join("/")
