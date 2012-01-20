@@ -2,6 +2,13 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 require 'fakeweb'
 
 describe GeneralController, "when trying to show the blog" do
+    before (:each) do
+        FakeWeb.clean_registry
+    end
+    after (:each) do
+        FakeWeb.clean_registry
+    end
+
     it "should fail silently if the blog is returning an error" do        
         FakeWeb.register_uri(:get, %r|.*|, :body => "Error", :status => ["500", "Error"])
         get :blog
