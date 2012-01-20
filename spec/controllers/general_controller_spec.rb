@@ -96,16 +96,15 @@ describe GeneralController, "when searching" do
         end
 
         it "should generate URLs without a locale prepended when there's only one locale set" do
-            old_available_locales =  FastGettext.default_available_locales
-            available_locales = ['en']
-            FastGettext.default_available_locales = available_locales
-            I18n.available_locales = available_locales
+            old_fgt_available_locales =  FastGettext.default_available_locales
+            old_i18n_available_locales =  I18n.available_locales
+            FastGettext.default_available_locales = I18n.available_locales = ['en']
 
             get :frontpage
             response.should_not have_text(home_link_regex)
 
-            FastGettext.default_available_locales = old_available_locales
-            I18n.available_locales = old_available_locales
+            FastGettext.default_available_locales = old_fgt_available_locales
+            I18n.available_locales = old_i18n_available_locales
         end
     end
 
