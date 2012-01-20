@@ -947,7 +947,11 @@ describe RequestController, "when classifying an information request" do
             session[:user_id] = @request_owner.id
             @dog_request = info_requests(:fancy_dog_request)
             InfoRequest.stub!(:find).and_return(@dog_request)
-            ActionController::Routing::Routes.filters.clear
+            @old_filters = ActionController::Routing::Routes.filters
+            ActionController::Routing::Routes.filters = RoutingFilter::Chain.new
+        end
+        after do
+            ActionController::Routing::Routes.filters = @old_filters
         end
 
         def request_url

@@ -7,9 +7,14 @@ describe LinkToHelper do
     describe 'when creating a url for a request' do 
         
         before do
-            ActionController::Routing::Routes.filters.clear
             @mock_request = mock_model(InfoRequest, :url_title => 'test_title')
+            @old_filters = ActionController::Routing::Routes.filters
+            ActionController::Routing::Routes.filters = RoutingFilter::Chain.new
         end
+        after do
+            ActionController::Routing::Routes.filters = @old_filters
+        end
+
         
         it 'should return a path like /request/test_title' do 
             request_url(@mock_request).should == '/request/test_title'

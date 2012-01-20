@@ -84,13 +84,11 @@ describe GeneralController, "when searching" do
     describe "when using different locale settings" do 
         home_link_regex = /href=".*\/en"/
         it "should generate URLs with a locale prepended when there's more than one locale set" do
-            ActionController::Routing::Routes.add_filters('conditionallyprependlocale')
             get :frontpage
             response.should have_text(home_link_regex)
         end
 
         it "should generate URLs without a locale prepended when there's only one locale set" do
-            ActionController::Routing::Routes.add_filters('conditionallyprependlocale')
             old_available_locales =  FastGettext.default_available_locales
             available_locales = ['en']
             FastGettext.default_available_locales = available_locales
