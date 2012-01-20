@@ -13,6 +13,9 @@ require 'open-uri'
 class RequestController < ApplicationController
     before_filter :check_read_only, :only => [ :new, :show_response, :describe_state, :upload_response ]
     protect_from_forgery :only => [ :new, :show_response, :describe_state, :upload_response ] # See ActionController::RequestForgeryProtection for details
+
+    MAX_RESULTS = 500
+    PER_PAGE = 25
     
     @@custom_states_loaded = false
     begin
@@ -155,11 +158,10 @@ class RequestController < ApplicationController
         if @view == "recent"
             return redirect_to request_list_all_path(:action => "list", :view => "all", :page => @page), :status => :moved_permanently
         end
-
-       # Temporary patch
-       # Later pages are very expensive to load
-        if @page > 100
-            raise "Sorry. No pages after 100 today."
+        
+        # Later pages are very expensive to load
+        if @page > MAX_RESULTS / PER_PAGE
+            raise ActiveRecord::RecordNotFound.new("Sorry. No pages after #{MAX_RESULTS / PER_PAGE}.")
         end
 
         params[:latest_status] = @view
@@ -170,6 +172,7 @@ class RequestController < ApplicationController
             xapian_object = perform_search([InfoRequestEvent], query, sortby, 'request_collapse')
             @list_results = xapian_object.results.map { |r| r[:model] }
             @matches_estimated = xapian_object.matches_estimated
+            @show_no_more_than = (@matches_estimated > MAX_RESULTS) ? MAX_RESULTS : @matches_estimated
         end
         
         @title = @title + " (page " + @page.to_s + ")" if (@page > 1)
