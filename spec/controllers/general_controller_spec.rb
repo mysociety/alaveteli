@@ -2,6 +2,13 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 require 'fakeweb'
 
 describe GeneralController, "when trying to show the blog" do
+    before (:each) do
+        FakeWeb.clean_registry
+    end
+    after (:each) do
+        FakeWeb.clean_registry
+    end
+
     it "should fail silently if the blog is returning an error" do        
         FakeWeb.register_uri(:get, %r|.*|, :body => "Error", :status => ["500", "Error"])
         get :blog
@@ -84,13 +91,11 @@ describe GeneralController, "when searching" do
     describe "when using different locale settings" do 
         home_link_regex = /href=".*\/en"/
         it "should generate URLs with a locale prepended when there's more than one locale set" do
-            ActionController::Routing::Routes.add_filters('conditionallyprependlocale')
             get :frontpage
             response.should have_text(home_link_regex)
         end
 
         it "should generate URLs without a locale prepended when there's only one locale set" do
-            ActionController::Routing::Routes.add_filters('conditionallyprependlocale')
             old_available_locales =  FastGettext.default_available_locales
             available_locales = ['en']
             FastGettext.default_available_locales = available_locales
