@@ -5,6 +5,10 @@ describe AdminRequestController, "when administering requests" do
     fixtures :users, :public_bodies, :public_body_translations, :public_body_versions, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
     before { basic_auth_login @request }
 
+    before(:each) do
+        load_raw_emails_data(raw_emails)
+    end
+
     it "shows the index/list page" do
         get :index
     end
