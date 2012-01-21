@@ -197,10 +197,12 @@ class ApplicationController < ActionController::Base
         return File.exists?(key_path)
     end
     def foi_fragment_cache_read(key_path)
+        logger.info "Reading from fragment cache #{key_path}"
         return File.read(key_path)
     end
     def foi_fragment_cache_write(key_path, content)
         FileUtils.mkdir_p(File.dirname(key_path))
+        logger.info "Writing to fragment cache #{key_path}"
         File.atomic_write(key_path) do |f|
             f.write(content)
         end
