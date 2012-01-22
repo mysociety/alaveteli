@@ -17,12 +17,6 @@ then run these commands from the repo directory:
     vagrant ssh
     cd vagrant
 
-    # FIXME: Why isn't APT updating via Chef, damnit!
-    # You need to run this on the Vagrant box
-    sudo apt-get update
-    # And back on your machine:
-    vagrant provision
-
     # Migrate the database
     rake db:migrate
 

@@ -36,6 +36,10 @@ Vagrant::Config.run do |config|
   # folder, and the third is the path on the host to the actual folder.
   # config.vm.share_folder "v-data", "/vagrant_data", "../data"
 
+  # The postgres recipe always wants to run before we try to update so this is
+  # a hack to get the chef recipes to work
+  config.vm.provision :shell, :inline => "apt-get update"
+
   # Enable provisioning with chef solo, specifying a cookbooks path (relative
   # to this Vagrantfile), and adding some recipes and/or roles.
   #

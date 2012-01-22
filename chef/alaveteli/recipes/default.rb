@@ -1,6 +1,4 @@
-require_recipe "apt"
 require_recipe "postgresql::server"
-
 
 # Install package dependencies as per the readme
 packages = `cut -d " " -f 1 /vagrant/config/packages | grep -v "^#"`.split
