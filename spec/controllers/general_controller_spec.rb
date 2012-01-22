@@ -1,4 +1,14 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'fakeweb'
+
+describe GeneralController, "when trying to show the blog" do
+    it "should fail silently if the blog is returning an error" do        
+        FakeWeb.register_uri(:get, %r|.*|, :body => "Error", :status => ["500", "Error"])
+        get :blog
+        response.status.should == "200 OK"
+        assigns[:blog_items].count.should == 0
+    end
+end
 
 describe GeneralController, "when searching" do
     integrate_views
@@ -68,7 +78,7 @@ describe GeneralController, "when searching" do
 
     it "should redirect from search query URL to pretty URL" do
         post :search_redirect, :query => "mouse" # query hidden in POST parameters
-        response.should redirect_to(:action => 'search', :combined => "mouse", :view => "requests") # URL /search/:query/all
+        response.should redirect_to(:action => 'search', :combined => "mouse", :view => "all") # URL /search/:query/all
     end
 
     describe "when using different locale settings" do 

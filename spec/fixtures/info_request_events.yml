@@ -38,4 +38,13 @@ silly_comment_event:
   event_type: comment
   outgoing_message_id: 
   created_at: 2008-08-12 23:05:12.500942
+badger_outgoing_message_event:
+  params_yaml: "--- \n\
+    :outgoing_message_id: 3\n"
+  id: 904
+  info_request_id: 104
+  event_type: sent
+  created_at: 2011-10-12 01:56:58.586598
+  described_state:
+  outgoing_message_id: 3
 

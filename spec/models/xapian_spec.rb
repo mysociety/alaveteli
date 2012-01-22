@@ -63,6 +63,9 @@ describe PublicBody, " when indexing public bodies with Xapian" do
         xapian_object.results.size.should == 1
         xapian_object.results[0][:model].should == public_bodies(:humpadink_public_body)
 
+        info_request_events(:badger_outgoing_message_event).destroy
+        outgoing_messages(:badger_outgoing_message).destroy
+        info_requests(:badger_request).destroy
         public_bodies(:humpadink_public_body).destroy
 
         update_xapian_index
@@ -141,16 +144,16 @@ describe User, " when indexing requests by user they are from" do
     it "should find requests from the user" do
         rebuild_xapian_index
         xapian_object = InfoRequest.full_search([InfoRequestEvent], "requested_by:bob_smith", 'created_at', true, nil, 100, 1)
-        xapian_object.results.size.should == 4
+        xapian_object.results.size.should == 5
     end
 
     it "should find just the sent message events from a particular user" do
         rebuild_xapian_index
           # def InfoRequest.full_search(models, query, order, ascending, collapse, per_page, page)
         xapian_object = InfoRequest.full_search([InfoRequestEvent], "requested_by:bob_smith variety:sent", 'created_at', true, nil, 100, 1)
-        xapian_object.results.size.should == 2
-        xapian_object.results[1][:model].should == info_request_events(:useless_outgoing_message_event)
-        xapian_object.results[0][:model].should == info_request_events(:silly_outgoing_message_event)
+        xapian_object.results.size.should == 3
+        xapian_object.results[2][:model].should == info_request_events(:useless_outgoing_message_event)
+        xapian_object.results[1][:model].should == info_request_events(:silly_outgoing_message_event)
     end
 
     it "should not find it when one of the request's users is changed" do
@@ -164,8 +167,8 @@ describe User, " when indexing requests by user they are from" do
 
           # def InfoRequest.full_search(models, query, order, ascending, collapse, per_page, page)
         xapian_object = InfoRequest.full_search([InfoRequestEvent], "requested_by:bob_smith", 'created_at', true, 'request_collapse', 100, 1)
-        xapian_object.results.size.should == 1
-        xapian_object.results[0][:model].should == info_request_events(:silly_comment_event)
+        xapian_object.results.size.should == 2
+        xapian_object.results[1][:model].should == info_request_events(:silly_comment_event)
     end
 
     it "should not get confused searching for requests when one user has a name which has same stem as another" do
@@ -198,7 +201,7 @@ describe User, " when indexing requests by user they are from" do
         # initial search
         rebuild_xapian_index
         xapian_object = InfoRequest.full_search([InfoRequestEvent], "requested_by:bob_smith", 'created_at', true, nil, 100, 1)
-        xapian_object.results.size.should == 4
+        xapian_object.results.size.should == 5
         models_found_before = xapian_object.results.map { |x| x[:model] }
 
         # change the URL name of the body
@@ -212,7 +215,7 @@ describe User, " when indexing requests by user they are from" do
         xapian_object = InfoRequest.full_search([InfoRequestEvent], "requested_by:bob_smith", 'created_at', true, nil, 100, 1)
         xapian_object.results.size.should == 0
         xapian_object = InfoRequest.full_search([InfoRequestEvent], "requested_by:robert_smith", 'created_at', true, nil, 100, 1)
-        xapian_object.results.size.should == 4
+        xapian_object.results.size.should == 5
         models_found_after = xapian_object.results.map { |x| x[:model] }
 
         models_found_before.should == models_found_after

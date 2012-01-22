@@ -1,3 +1,19 @@
+# == Schema Information
+# Schema version: 108
+#
+# Table name: foi_attachments
+#
+#  id                    :integer         not null, primary key
+#  content_type          :text
+#  filename              :text
+#  charset               :text
+#  display_size          :text
+#  url_part_number       :integer
+#  within_rfc822_subject :text
+#  incoming_message_id   :integer
+#  hexdigest             :string(32)
+#
+
 # encoding: UTF-8
 
 # models/foi_attachment.rb:
@@ -18,8 +34,11 @@ class FoiAttachment < ActiveRecord::Base
     before_validation :ensure_filename!, :only => [:filename]
     before_destroy :delete_cached_file!
 
+    BODY_MAX_TRIES = 3
+    BODY_MAX_DELAY = 5
+
     def directory
-        base_dir = File.join("cache", "attachments_#{ENV['RAILS_ENV']}")
+        base_dir = File.join(File.dirname(__FILE__), "../../cache", "attachments_#{ENV['RAILS_ENV']}")
         return File.join(base_dir, self.hexdigest[0..2])
     end
 
@@ -29,6 +48,7 @@ class FoiAttachment < ActiveRecord::Base
 
     def delete_cached_file!
         begin
+            @cached_body = nil
             File.delete(self.filepath)
         rescue
         end
@@ -43,11 +63,29 @@ class FoiAttachment < ActiveRecord::Base
             file.write d
         }
         update_display_size!
+        @cached_body = d
     end
 
     def body
         if @cached_body.nil?
-            @cached_body = File.open(self.filepath, "rb" ).read
+            tries = 0
+            delay = 1
+            begin
+                @cached_body = File.open(self.filepath, "rb" ).read
+            rescue Errno::ENOENT
+                # we've lost our cached attachments for some reason.  Reparse them.
+                if tries > BODY_MAX_TRIES
+                    raise
+                else
+                    sleep delay
+                end
+                tries += 1
+                delay *= 2
+                delay = BODY_MAX_DELAY if delay > BODY_MAX_DELAY
+                force = true
+                self.incoming_message.parse_raw_email!(force)
+                retry
+            end
         end
         return @cached_body
     end
@@ -274,13 +312,9 @@ class FoiAttachment < ActiveRecord::Base
             tempfile.flush
 
             if self.content_type == 'application/pdf'
-                IO.popen("/usr/bin/pdftohtml -nodrm -zoom 1.0 -stdout -enc UTF-8 -noframes " + tempfile.path + "", "r") do |child|
-                    html = child.read()
-                end
+                html = AlaveteliExternalCommand.run("pdftohtml", "-nodrm", "-zoom", "1.0", "-stdout", "-enc", "UTF-8", "-noframes", tempfile.path)
             elsif self.content_type == 'application/rtf'
-                IO.popen("/usr/bin/unrtf --html " + tempfile.path + "", "r") do |child|
-                    html = child.read()
-                end
+                html = AlaveteliExternalCommand.run("unrtf", "--html", tempfile.path)
             elsif self.has_google_docs_viewer?
                 html = '' # force error and using Google docs viewer
             else
@@ -302,7 +336,7 @@ class FoiAttachment < ActiveRecord::Base
         body = $1.to_s
         body_without_tags = body.gsub(/\s+/,"").gsub(/\<[^\>]*\>/, "")
         contains_images = html.match(/<img/mi) ? true : false
-        if !$?.success? || html.size == 0 || (body_without_tags.size == 0 && !contains_images)
+        if html.size == 0 || !$?.success? || (body_without_tags.size == 0 && !contains_images)
             ret = "<html><head></head><body>";
             if self.has_google_docs_viewer?
                 wrapper_id = "wrapper_google_embed"

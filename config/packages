@@ -3,9 +3,8 @@
 # alavateli mailing list if you want to change it
 ruby1.8
 libpgsql-ruby1.8
-libopenssl-ruby1.8
+libruby1.8
 rake (>= 0.8.4-1)
-irb
 wv
 poppler-utils
 # poppler-utils (>= 0.12.0) # this is much better when it is available in Debian stable
@@ -24,8 +23,8 @@ php5-cli
 sharutils
 unzip
 libzip-ruby1.8
-libzlib-ruby
-mahoro-ruby1.8 | libmahoro-ruby1.8
+libruby
+libmahoro-ruby1.8
 wdg-html-validator
 # libapache2-mod-passenger
 mutt
@@ -41,3 +40,4 @@ rubygems
 libfcgi-dev
 gettext
 python-yaml
+wkhtmltopdf-static

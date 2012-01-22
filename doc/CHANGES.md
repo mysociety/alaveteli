@@ -6,14 +6,21 @@
 * It is now possible to rebuild the xapian index for specific terms, rather than having to drop and rebuild the entire database every time (as previously).  See rake xapian:rebuild_index for more info. 
 * When listing authorities, show all authorities in default locale, rather than only those in the currently selected locale.
 * Ensure incoming emails are only ever parsed once (should give a performance boost)
+* [Full list of changes on github](https://github.com/sebbacon/alaveteli/issues?state=closed&milestone=9)
 
 ## Upgrade notes
-* **IMPORTANT! We now depend on Xapian 1.2**, which means you may need to install Xapian from backports.  See [issue #159] for more info.
+* **IMPORTANT! We now depend on Xapian 1.2**, which means you may need to install Xapian from backports.  See [issue #159](https://github.com/sebbacon/alaveteli/issues/159) for more info.
 * Themes created for 0.4 and below should be changed to match the new format (although the old way should continue to work):
   * You should create a resources folder at `<yourtheme>/public/` and symlink to it from the main rails app.  See the `install.rb` in `alaveteli-theme` example theme for details.
   * Your styles should be moved from `general/custom_css.rhtml` to a standalone stylesheet in `<yourtheme>/public/stylesheets/`
   * The partial at `general/_before_head_end.rhtml` should be changed in the theme to include this stylesheet
-
+* [issue #281](https://github.com/sebbacon/alaveteli/issues/281) fixes some bugs relating to display of internationalised emails.  To fix any wrongly displayed emails, you'll need to run the script at `script/clear-caches` so that the caches can be regenerated
+* During this release, a bug was discovered in pdftk 1.44 which caused it to loop forever.  Until it's incorporated into an official release, you'll need to patch it yourself or use the Debian package compiled by mySociety (see link in [issue 305](https://github.com/sebbacon/alaveteli/issues/305))
+* Ensure you have values for new config variables (see `config/general.yml-example`):
+  * EXCEPTION_NOTIFICATIONS_FROM
+  * EXCEPTION_NOTIFICATIONS_TO
+* The recommended Varnish config has changed, so that we ignore more cookies.  You should review your Varnish config with respect to the example at `config/varnish-alaveteli.vcl`.
+* Consider setting elinks global config as described in the "Troubleshooting" section of INSTALL.md
 
 # Version 0.4
 

@@ -24,3 +24,9 @@ Disallow: /feed/
 Disallow: /profile/
 Disallow: /signin
 Disallow: /body/*/view_email$
+
+# The following adding Jan 2012 to stop robots crawling pages
+# generated in error (see
+# https://github.com/sebbacon/alaveteli/issues/311).  Can be removed
+# later in 2012 when the error pages have been dropped from the index
+Disallow: *.json.j*

@@ -20,5 +20,17 @@ describe LinkToHelper do
         end
         
     end
+
+    describe "when appending something to a URL" do
+        it 'should append to things without query strings' do
+            main_url('/a', '.json').should == 'http://test.localdomain/a.json'
+        end
+        it 'should append to things with query strings' do
+            main_url('/a?z=1', '.json').should == 'http://test.localdomain/a.json?z=1'
+        end
+        it 'should fail silently with invalid URLs' do
+            main_url('/a?z=9%', '.json').should == 'http://test.localdomain/a?z=9%'
+        end
+    end
     
 end

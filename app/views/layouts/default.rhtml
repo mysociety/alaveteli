@@ -102,7 +102,8 @@
               <%= _('Hello, {{username}}!', :username => h(@user.name))%>
 
                 <% if @user %>
-                    <%=link_to _("My profile"), user_url(@user) %>
+                    <%=link_to _("My requests"), show_user_requests_path(:url_name => @user.url_name) %>
+                    <%=link_to _("My profile"), show_user_profile_path(:url_name => @user.url_name) %>
                 <% end %>
 
 

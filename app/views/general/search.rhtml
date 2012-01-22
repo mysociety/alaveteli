@@ -7,7 +7,7 @@
 <% if @query.nil? %>
     <% @title = _("Search Freedom of Information requests, public authorities and users") %>
 <% elsif @total_hits == 0 %>
-    <% @title = _('There were no requests matching your query.') %>
+    <% @title = _('There were no results matching your query.') %>
 <% else %>
     <% @title = _("Results page {{page_number}}", :page_number => @page.to_s) %>
 <% end%>
@@ -166,7 +166,6 @@
 
         <%= will_paginate WillPaginate::Collection.new(@page, @bodies_per_page, @xapian_bodies.matches_estimated) %>
       <% elsif @bodies && !@query.nil? && @xapian_bodies.results.size == 0 && @page == 1 %>
-        <h2 class="publicbody_results"><%= _('No public authorities found') %></h2>
         <% if @spelling_correction %>
           <p id="did_you_mean"><%= _('Did you mean: {{correction}}', :correction => search_link(@spelling_correction, @postfix)) %></p>
         <% end %>
@@ -187,6 +186,8 @@
             <%= render :partial => 'user/user_listing_single', :locals => { :display_user => result[:model] } %>
           <% end %>
         </div>
+        <%= will_paginate WillPaginate::Collection.new(@page, @users_per_page, @xapian_users.matches_estimated) %>
+
       <% end %>
     </div>
 

@@ -23,7 +23,17 @@ class UserController < ApplicationController
             redirect_to :url_name =>  MySociety::Format.simplify_url_part(params[:url_name], 'user', 32), :status => :moved_permanently
             return
         end
-
+        if params[:view].nil?
+            @show_requests = true
+            @show_profile = true
+        elsif params[:view] == 'profile'
+            @show_profile = true
+            @show_requests = false
+        elsif params[:view] == 'requests'
+            @show_profile = false
+            @show_requests = true
+        end
+        
         @display_user = User.find(:first, :conditions => [ "url_name = ? and email_confirmed = ?", params[:url_name], true ])
         if not @display_user
             raise ActiveRecord::RecordNotFound.new("user not found, url_name=" + params[:url_name])
@@ -34,31 +44,33 @@ class UserController < ApplicationController
 
         # Use search query for this so can collapse and paginate easily
         # XXX really should just use SQL query here rather than Xapian.
-        begin
-            requests_query = 'requested_by:' + @display_user.url_name
-            comments_query = 'commented_by:' + @display_user.url_name
-            if !params[:user_query].nil?
-                requests_query += " " + params[:user_query]
-                comments_query += " " + params[:user_query]
-                @match_phrase = _("{{search_results}} matching '{{query}}'", :search_results => "", :query => params[:user_query])
+        if @show_requests
+            begin
+                requests_query = 'requested_by:' + @display_user.url_name
+                comments_query = 'commented_by:' + @display_user.url_name
+                if !params[:user_query].nil?
+                    requests_query += " " + params[:user_query]
+                    comments_query += " " + params[:user_query]
+                    @match_phrase = _("{{search_results}} matching '{{query}}'", :search_results => "", :query => params[:user_query])
+                end
+                @xapian_requests = perform_search([InfoRequestEvent], requests_query, 'newest', 'request_collapse')
+                @xapian_comments = perform_search([InfoRequestEvent], comments_query, 'newest', nil)
+                
+                if (@page > 1)
+                    @page_desc = " (page " + @page.to_s + ")"
+                else
+                    @page_desc = ""
+                end
+            rescue
+                @xapian_requests = nil
+                @xapian_comments = nil
             end
-            @xapian_requests = perform_search([InfoRequestEvent], requests_query, 'newest', 'request_collapse')
-            @xapian_comments = perform_search([InfoRequestEvent], comments_query, 'newest', nil)
-            
-            if (@page > 1)
-                @page_desc = " (page " + @page.to_s + ")"
-            else
-                @page_desc = ""
-            end
-        rescue
-            @xapian_requests = nil
-            @xapian_comments = nil
+
+            # Track corresponding to this page
+            @track_thing = TrackThing.create_track_for_user(@display_user)
+            @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss], :has_json => true } ]
+
         end
-
-        # Track corresponding to this page
-        @track_thing = TrackThing.create_track_for_user(@display_user)
-        @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss], :has_json => true } ]
-
         # All tracks for the user
         if @is_you
             @track_things = TrackThing.find(:all, :conditions => ["tracking_user_id = ? and track_medium = ?", @display_user.id, 'email_daily'], :order => 'created_at desc')
@@ -104,8 +116,10 @@ class UserController < ApplicationController
             render :action => 'sign'
             return
         else
-            @user_signin = User.authenticate_from_form(params[:user_signin], @post_redirect.reason_params[:user_name] ? true : false)
-            if @user_signin.errors.size > 0
+            if !@post_redirect.nil?
+                @user_signin = User.authenticate_from_form(params[:user_signin], @post_redirect.reason_params[:user_name] ? true : false)
+            end
+            if @post_redirect.nil? || @user_signin.errors.size > 0
                 # Failed to authenticate
                 render :action => 'sign'
                 return
