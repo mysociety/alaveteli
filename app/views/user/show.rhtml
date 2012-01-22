@@ -1,4 +1,8 @@
-<% @title = h(@display_user.name) + " - Freedom of Information requests" %>
+<% if @show_requests %>
+ <% @title = h(@display_user.name) + " - Freedom of Information requests" %>
+<% else %>
+ <% @title = h(@display_user.name) + " - user profile" %>
+<% end %>
 
 <% if (@same_name_users.size >= 1) %>
     <p><%= _('There is <strong>more than one person</strong> who uses this site and has this name. 
@@ -7,7 +11,7 @@
     <% end %> 
 <% end%>
 
-<% if @is_you && @undescribed_requests.size > 0 %>
+<% if @show_profile && @is_you && @undescribed_requests.size > 0 %>
     <div class="undescribed_requests">
         <p><%= _('Please <strong>go to the following requests</strong>, and let us
         know if there was information in the recent responses to them.')%></p>
@@ -24,17 +28,18 @@
     </div>
 <% end %>
 
+<% if @show_profile %>
 <div id="user_profile_header">
   <div id="header_right">
-      <h2><%= _('Track this person')%></h2>
-      <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => false, :location => 'sidebar' } %>
-
-      <h2><%= _('On this page')%></h2>
-      <a href="#foi_requests"><%= _('FOI requests')%></a>
-      <br><a href="#annotations"><%= _('Annotations')%></a>
-      <% if @is_you %>
-          <br><a href="#email_subscriptions"><%= _('Email subscriptions')%></a>
-      <% end %>
+     <% if !@track_thing.nil? %>
+       <h2><%= _('Track this person')%></h2>
+       <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => false, :location => 'sidebar' } %>
+     <% end %>
+     <% if !@xapian_requests.nil? %>
+       <h2><%= _('On this page')%></h2>
+       <a href="#foi_requests"><%= _('FOI requests')%></a>
+       <br><a href="#annotations"><%= _('Annotations')%></a>
+     <% end %>
   </div> 
 
   <div class="header_left">
@@ -116,7 +121,9 @@
   </div>
 </div>
 <div style="clear:both"></div>
+<% end %>
 
+<% if @show_requests %>
 <div id="user_profile_search">
             <% form_tag(show_user_url, :method => "get", :id=>"search_form") do %>
 	     <div>
@@ -140,7 +147,7 @@
             <% end %>
         <% else %>
             <h2 class="foi_results" id="foi_requests">
-                <%= @is_you ? n_('Your %d Freedom of Information request', 'Your %d Freedom of Information requests', @xapian_requests.results.size) % @xapian_requests.results.size  : n_('This person\'s %d Freedom of Information request', 'This person\'s %d Freedom of Information requests', @xapian_requests.results.size) % @xapian_requests.results.size %>
+                <%= @is_you ? n_('Your %d Freedom of Information request', 'Your %d Freedom of Information requests', @xapian_requests.matches_estimated.to_s) % @xapian_requests.matches_estimated.to_s : n_('This person\'s %d Freedom of Information request', 'This person\'s %d Freedom of Information requests',  @xapian_requests.matches_estimated.to_s) % @xapian_requests.matches_estimated %>
                 <!-- matches_estimated <%=@xapian_requests.matches_estimated%> -->
                 <%= @match_phrase %>
 		<%= @page_desc %>
@@ -154,8 +161,10 @@
             <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @display_user.info_requests.size) %>
         <% end %>
     <% else %> 
+      <% if @show_requests %>
         <h2 class="foi_results" id="foi_requests"><%= @is_you ? _('Freedom of Information requests made by you') : _('Freedom of Information requests made by this person') %> </h2>
         <p><%= _('The search index is currently offline, so we can\'t show the Freedom of Information requests this person has made.')%></p>
+      <% end %>
     <% end %> 
 
     <% if !@xapian_comments.nil? %>
@@ -181,7 +190,7 @@
         <% end %>
     <% end %>
 
-    <% if @is_you %>
+    <% if @show_profile && @is_you %>
         <% if @track_things.empty? %>
             <h2 id="email_subscriptions"> <%= _('Your email subscriptions')%></h2>
             <p><%= _('None made.')%></p>
@@ -233,3 +242,4 @@
         <% end %>
     <% end %>
 </div>
+<% end %>

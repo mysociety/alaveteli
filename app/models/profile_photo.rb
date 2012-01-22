@@ -1,12 +1,12 @@
 # == Schema Information
-# Schema version: 95
+# Schema version: 108
 #
 # Table name: profile_photos
 #
 #  id      :integer         not null, primary key
 #  data    :binary          not null
-#  user_id :integer         
-#  draft   :boolean         default(false), not null
+#  user_id :integer
+#  draft   :boolean         default(FALSE), not null
 #
 
 # models/profile_photo.rb:

@@ -1,11 +1,11 @@
 # == Schema Information
-# Schema version: 95
+# Schema version: 108
 #
 # Table name: exim_logs
 #
 #  id               :integer         not null, primary key
-#  exim_log_done_id :integer         
-#  info_request_id  :integer         
+#  exim_log_done_id :integer
+#  info_request_id  :integer
 #  order            :integer         not null
 #  line             :text            not null
 #  created_at       :datetime        not null

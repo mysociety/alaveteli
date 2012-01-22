@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 95
+# Schema version: 108
 #
 # Table name: info_request_events
 #
@@ -8,12 +8,12 @@
 #  event_type          :text            not null
 #  params_yaml         :text            not null
 #  created_at          :datetime        not null
-#  described_state     :string(255)     
-#  calculated_state    :string(255)     
-#  last_described_at   :datetime        
-#  incoming_message_id :integer         
-#  outgoing_message_id :integer         
-#  comment_id          :integer         
+#  described_state     :string(255)
+#  calculated_state    :string(255)
+#  last_described_at   :datetime
+#  incoming_message_id :integer
+#  outgoing_message_id :integer
+#  comment_id          :integer
 #  prominence          :string(255)     default("normal"), not null
 #
 
@@ -109,7 +109,7 @@ class InfoRequestEvent < ActiveRecord::Base
                 [ :tags, 'U', "tag" ] 
         ],
         :if => :indexed_by_search?,
-        :eager_load => [ :incoming_message, :outgoing_message, :comment, { :info_request => [ :user, :public_body, :censor_rules ] } ]
+        :eager_load => [ :outgoing_message, :comment, { :info_request => [ :user, :public_body, :censor_rules ] } ]
 
     def requested_by
         self.info_request.user.url_name
@@ -147,6 +147,7 @@ class InfoRequestEvent < ActiveRecord::Base
                 return event.calculated_state
             end
         end
+        return
     end
 
     def waiting_classification
@@ -175,7 +176,21 @@ class InfoRequestEvent < ActiveRecord::Base
         # format it here as no datetime support in Xapian's value ranges
         return self.created_at.strftime("%Y%m%d%H%M%S") 
     end
-    # clipped = true - means return shorter text. It is used for snippets for
+    
+    def incoming_message_selective_columns(fields)
+        message = IncomingMessage.find(:all, 
+                                       :select => fields + ", incoming_messages.info_request_id",
+                                       :joins => "INNER JOIN info_request_events ON incoming_messages.id = incoming_message_id ",
+                                       :conditions => "info_request_events.id = #{self.id}"
+                                       )
+        message = message[0]
+        if !message.nil?
+            message.info_request = InfoRequest.find(message.info_request_id)
+        end
+        return message
+    end
+
+    # clipped = true - means return shorter text. It is used for snippets fore
     # performance reasons. Xapian will take the full text.
     def search_text_main(clipped = false)
         text = ''
@@ -185,7 +200,7 @@ class InfoRequestEvent < ActiveRecord::Base
             text = text + self.outgoing_message.get_text_for_indexing + "\n\n"
         elsif self.event_type == 'response'
             if clipped
-                text = text + self.incoming_message.get_text_for_indexing_clipped + "\n\n"
+                text = text + self.incoming_message_selective_columns("cached_attachment_text_clipped").cached_attachment_text_clipped + "\n\n"
             else
                 text = text + self.incoming_message.get_text_for_indexing_full + "\n\n"
             end
@@ -295,7 +310,7 @@ class InfoRequestEvent < ActiveRecord::Base
     end
 
  
-    def is_incoming_message?()  not self.incoming_message.nil?  end 
+    def is_incoming_message?()  not self.incoming_message_selective_columns("incoming_messages.id").nil?  end 
     def is_outgoing_message?()  not self.outgoing_message.nil?  end 
     def is_comment?()           not self.comment.nil?           end 
 

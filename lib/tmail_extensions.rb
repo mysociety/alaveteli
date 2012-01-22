@@ -30,7 +30,7 @@ module TMail
         # Monkeypatch! Return the name part of from address, or nil if there isn't one
         def from_name_if_present
             if self.from && self.from_addrs[0].name
-                return self.from_addrs[0].name
+                return TMail::Unquoter.unquote_and_convert_to(self.from_addrs[0].name, "utf-8")
             else
                 return nil
             end

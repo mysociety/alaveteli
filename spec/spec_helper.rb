@@ -1,6 +1,6 @@
 # This file is copied to ~/spec when you run 'ruby script/generate rspec'
 # from the project root directory.
-ENV["RAILS_ENV"] ||= 'test'
+ENV["RAILS_ENV"] = 'test'
 require File.expand_path(File.join('..', '..', 'config', 'environment'), __FILE__)
 require 'spec/autorun'
 require 'spec/rails'
@@ -78,7 +78,6 @@ def load_file_fixture(file_name)
 end
 
 def rebuild_xapian_index(terms = true, values = true, texts = true, dropfirst = true)
-    parse_all_incoming_messages
     if dropfirst
         begin
             ActsAsXapian.readable_init
@@ -86,7 +85,9 @@ def rebuild_xapian_index(terms = true, values = true, texts = true, dropfirst = 
         rescue RuntimeError
         end
         ActsAsXapian.writable_init
+        ActsAsXapian.writable_db.close
     end
+    parse_all_incoming_messages
     verbose = false
     # safe_rebuild=true, which involves forking to avoid memory leaks, doesn't work well with rspec. 
     # unsafe is significantly faster, and we can afford possible memory leaks while testing.
@@ -96,7 +97,7 @@ end
 
 def update_xapian_index
     verbose = false
-    ActsAsXapian.update_index(flush_to_disk=true, verbose) 
+    ActsAsXapian.update_index(flush_to_disk=false, verbose) 
 end
 
 # Validate an entire HTML page
@@ -120,16 +121,24 @@ def validate_as_body(html)
 end
 
 def basic_auth_login(request, username = nil, password = nil)
-   username = MySociety::Config.get('ADMIN_USERNAME') if username.nil?
+    username = MySociety::Config.get('ADMIN_USERNAME') if username.nil?
     password = MySociety::Config.get('ADMIN_PASSWORD') if password.nil?
     request.env["HTTP_AUTHORIZATION"] = "Basic " + Base64::encode64("#{username}:#{password}")
 end
 
 # Monkeypatch! Validate HTML in tests.
-$html_validation_script = "/usr/bin/validate" # from Debian package wdg-html-validator
+utility_search_path = MySociety::Config.get("UTILITY_SEARCH_PATH", ["/usr/bin", "/usr/local/bin"])
+$html_validation_script_found = false
+utility_search_path.each do |d|
+    $html_validation_script = File.join(d, "validate")
+    if File.file? $html_validation_script and File.executable? $html_validation_script
+        $html_validation_script_found = true
+        break
+    end
+end
 if $tempfilecount.nil?
     $tempfilecount = 0
-    if File.exist?($html_validation_script)
+    if $html_validation_script_found
         module ActionController
             module TestProcess
                 # Hook into the process function, so can automatically get HTML after each request
@@ -137,10 +146,10 @@ if $tempfilecount.nil?
 
                 def process(action, parameters = nil, session = nil, flash = nil, http_method = 'GET')
                     self.original_process(action, parameters, session, flash, http_method)
-
+                    # don't validate auto-generated HTML
+                    return if @request.query_parameters["action"] == "get_attachment_as_html"
                     # XXX Is there a better way to check this than calling a private method?
                     return unless @response.template.controller.instance_eval { integrate_views? }
-
                     # And then if HTML, not a redirect (302, 301)
                     if @response.content_type == "text/html" && ! [301,302,401].include?(@response.response_code)
                         validate_html(@response.body)

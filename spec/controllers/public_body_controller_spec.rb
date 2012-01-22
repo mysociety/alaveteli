@@ -6,6 +6,11 @@ describe PublicBodyController, "when showing a body" do
     integrate_views
     fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
+    before(:each) do
+        load_raw_emails_data(raw_emails)
+        rebuild_xapian_index
+    end
+
     it "should be successful" do
         get :show, :url_name => "dfh", :view => 'all'
         response.should be_success
@@ -26,6 +31,8 @@ describe PublicBodyController, "when showing a body" do
         assigns[:xapian_requests].results.count.should == 2
         get :show, :url_name => "tgq", :view => 'successful'
         assigns[:xapian_requests].results.count.should == 0
+        get :show, :url_name => "dfh", :view => 'all'
+        assigns[:xapian_requests].results.count.should == 1
     end
 
     it "should assign the body using different locale from that used for url_name" do
@@ -175,20 +182,20 @@ describe PublicBodyController, "when doing type ahead searches" do
     fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
     it "should return nothing for the empty query string" do
-        get :search_typeahead, :q => ""
+        get :search_typeahead, :query => ""
         response.should render_template('public_body/_search_ahead')
         assigns[:xapian_requests].should be_nil
     end
     
     it "should return a body matching the given keyword, but not users with a matching description" do
-        get :search_typeahead, :q => "Geraldine"
+        get :search_typeahead, :query => "Geraldine"
         response.should render_template('public_body/_search_ahead')
         assigns[:xapian_requests].results.size.should == 1
         assigns[:xapian_requests].results[0][:model].name.should == public_bodies(:geraldine_public_body).name
     end
 
     it "should return all requests matching any of the given keywords" do
-        get :search_typeahead, :q => "Geraldine Humpadinking"
+        get :search_typeahead, :query => "Geraldine Humpadinking"
         response.should render_template('public_body/_search_ahead')
         assigns[:xapian_requests].results.size.should == 2
         assigns[:xapian_requests].results[0][:model].name.should == public_bodies(:humpadink_public_body).name
@@ -196,14 +203,14 @@ describe PublicBodyController, "when doing type ahead searches" do
     end
 
     it "should return requests matching the given keywords in any of their locales" do
-        get :search_typeahead, :q => "baguette" # part of the spanish notes
+        get :search_typeahead, :query => "baguette" # part of the spanish notes
         response.should render_template('public_body/_search_ahead')
         assigns[:xapian_requests].results.size.should == 1
         assigns[:xapian_requests].results[0][:model].name.should == public_bodies(:humpadink_public_body).name
     end
 
     it "should not return  matches for short words" do
-        get :search_typeahead, :q => "b" 
+        get :search_typeahead, :query => "b" 
         response.should render_template('public_body/_search_ahead')
         assigns[:xapian_requests].should be_nil
     end

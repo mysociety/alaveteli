@@ -10,12 +10,12 @@
 .DS_Store
 .autotest
 /db/test_structure.sql
-moo.txt
 *#*#
 TAGS
 /vendor/plugins/*theme
 /locale/model_attributes.rb
 /files/
-public/download
 general.yml
 .vagrant
+/public/download
+/public/*theme

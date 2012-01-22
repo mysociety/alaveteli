@@ -4,9 +4,9 @@ end %>
 
 <div class="request_listing">
   <div class="request_left">
-	  <span class="head">
+      <span class="head">
         <% if event.is_incoming_message? %>
-            <%= link_to highlight_words(info_request.title, @highlight_words), incoming_message_url(event.incoming_message) %>
+            <%= link_to highlight_words(info_request.title, @highlight_words), incoming_message_url(event.incoming_message_selective_columns("incoming_messages.id")) %>
         <% elsif event.is_outgoing_message? and event.event_type == 'followup_sent' %>
             <%= link_to highlight_words(info_request.title, @highlight_words), outgoing_message_url(event.outgoing_message) %>
         <% elsif event.is_comment? %>
@@ -14,9 +14,9 @@ end %>
         <% else %>
             <%= link_to highlight_words(info_request.title, @highlight_words), request_url(info_request) %>
         <% end %>
-	  </span>
-	  <div class="requester">
-	      <% if event.event_type == 'sent' %>
+      </span>
+      <div class="requester">
+        <% if event.event_type == 'sent' %>
             <%= _('Request sent to {{public_body_name}} by {{info_request_user}} on {{date}}.',:public_body_name=>public_body_link_absolute(info_request.public_body),:info_request_user=>user_link_absolute(info_request.user),:date=>simple_date(event.created_at )) %> 
         <% elsif event.event_type == 'followup_sent' %>
             <%=event.display_status %>
@@ -27,19 +27,22 @@ end %>
         <% elsif event.event_type == 'comment' %>
             <%= _('Request to {{public_body_name}} by {{info_request_user}}. Annotated by {{event_comment_user}} on {{date}}.',:public_body_name=>public_body_link_absolute(info_request.public_body),:info_request_user=>user_link_absolute(info_request.user),:event_comment_user=>user_link_absolute(event.comment.user),:date=>simple_date(event.created_at)) %>
         <% else %>
-            <% raise _("unknown event type indexed ") + event.event_type %>
+            <%# Events of other types will not be indexed: see InfoRequestEvent#indexed_by_search?
+                However, it can happen that we see other types of event transiently here in the period
+                between a change being made and the update-xapian-index job being run. %>
+            <!-- Event of type '<%= event.event_type %>', id=<%= event.id %> -->
         <% end %>
-    </div>
-    <span class="bottomline icon_<%= info_request.calculate_status %>">
+      </div>
+      <span class="bottomline icon_<%= info_request.calculate_status %>">
         <strong>
         <%= info_request.display_status %>
         </strong><br>
-    </span>
+      </span>
   </div>
   <div class="request_right">
     <span class="desc">	
         <%= highlight_and_excerpt(event.search_text_main(true), @highlight_words, 150) %>
-	  </span>
-	</div>
+    </span>
+  </div>
 </div>
 

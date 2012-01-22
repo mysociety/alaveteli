@@ -28,6 +28,16 @@ describe UserController, "when showing a user" do
         response.should render_template('show')
     end
 
+    it "should distinguish between 'my profile' and 'my requests' for logged in users" do
+        session[:user_id] = users(:bob_smith_user).id
+        get :show, :url_name => "bob_smith", :view => 'requests'
+        response.body.should_not include("Change your password")
+        response.body.should match(/Your [0-9]+ Freedom of Information requests/)
+        get :show, :url_name => "bob_smith", :view => 'profile'
+        response.body.should include("Change your password")
+        response.body.should_not match(/Your [0-9]+ Freedom of Information requests/)
+    end
+
     it "should assign the user" do
         get :show, :url_name => "bob_smith"
         assigns[:display_user].should == users(:bob_smith_user)
@@ -35,7 +45,7 @@ describe UserController, "when showing a user" do
 
     it "should search the user's contributions" do
         get :show, :url_name => "bob_smith"
-        assigns[:xapian_requests].results.count.should == 2
+        assigns[:xapian_requests].results.count.should == 3
         get :show, :url_name => "bob_smith", :user_query => "money"
         assigns[:xapian_requests].results.count.should == 1
     end
@@ -97,6 +107,20 @@ describe UserController, "when signing in" do
         # response doesn't contain /en/ but redirect_to does...
         response.should redirect_to(:controller => 'request', :action => 'list', :post_redirect => 1)
         response.should_not send_email
+    end
+
+    it "should not log you in if you use an invalid PostRedirect token, and shouldn't give 500 error either" do
+        ActionController::Routing::Routes.filters.clear
+        post_redirect = "something invalid"
+        lambda {
+            post :signin, { :user_signin => { :email => 'bob@localhost', :password => 'jonespassword' },
+                :token => post_redirect
+            }
+        }.should_not raise_error(NoMethodError)
+        post :signin, { :user_signin => { :email => 'bob@localhost', :password => 'jonespassword' },
+            :token => post_redirect }
+        response.should render_template('sign')
+        assigns[:post_redirect].should == nil
     end
 
 # No idea how to test this in the test framework :(

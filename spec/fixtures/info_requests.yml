@@ -20,3 +20,14 @@ naughty_chicken_request:
     described_state: waiting_response
     awaiting_description: false    
     idhash: e8d18c84
+badger_request:
+    id: 104
+    title: Are you really a badger?
+    url_title: are_you_really_a_badger
+    created_at: 2011-10-13 18:15:57
+    updated_at: 2011-10-13 18:15:57
+    public_body_id: 3
+    user_id: 1
+    described_state: waiting_response
+    awaiting_description: false    
+    idhash: e8d18c84

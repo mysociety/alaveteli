@@ -131,6 +131,9 @@ I18n.locale = default_locale
 I18n.available_locales = available_locales.map {|locale_name| locale_name.to_sym}
 I18n.default_locale = default_locale
 
+# Customise will_paginate URL generation
+WillPaginate::ViewHelpers.pagination_options[:renderer] = 'WillPaginateExtension::LinkRenderer'
+
 # Load monkey patches and other things from lib/
 require 'ruby19.rb'
 require 'tmail_extensions.rb'
@@ -139,10 +142,13 @@ require 'timezone_fixes.rb'
 require 'use_spans_for_errors.rb'
 require 'make_html_4_compliant.rb'
 require 'activerecord_errors_extensions.rb'
-require 'willpaginate_hack.rb'
+require 'willpaginate_extension.rb'
 require 'sendmail_return_path.rb'
 require 'tnef.rb'
 require 'i18n_fixes.rb'
 require 'rack_quote_monkeypatch.rb'
 require 'world_foi_websites.rb'
 require 'alaveteli_external_command.rb'
+
+ExceptionNotification::Notifier.sender_address = MySociety::Config::get('EXCEPTION_NOTIFICATIONS_FROM')
+ExceptionNotification::Notifier.exception_recipients = MySociety::Config::get('EXCEPTION_NOTIFICATIONS_TO')

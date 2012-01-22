@@ -1,12 +1,12 @@
 # == Schema Information
-# Schema version: 95
+# Schema version: 108
 #
 # Table name: censor_rules
 #
 #  id                :integer         not null, primary key
-#  info_request_id   :integer         
-#  user_id           :integer         
-#  public_body_id    :integer         
+#  info_request_id   :integer
+#  user_id           :integer
+#  public_body_id    :integer
 #  text              :text            not null
 #  replacement       :text            not null
 #  last_edit_editor  :string(255)     not null

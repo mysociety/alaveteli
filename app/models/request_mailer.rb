@@ -353,7 +353,18 @@ class RequestMailer < ApplicationMailer
         # That that patch has not been applied, despite bribes of beer, is
         # typical of the lack of quality of Rails.
         
-        info_requests = InfoRequest.find(:all, :conditions => [ "(select id from info_request_events where event_type = 'comment' and info_request_events.info_request_id = info_requests.id and created_at > ? limit 1) is not null", Time.now() - 1.month ], :include => [ { :info_request_events => :user_info_request_sent_alerts } ], :order => "info_requests.id, info_request_events.created_at" )
+        info_requests = InfoRequest.find(:all,
+            :conditions => [
+               "info_requests.id in (
+                    select info_request_id
+                    from info_request_events
+                    where event_type = 'comment'
+                    and created_at > (now() - '1 month'::interval)
+                )"
+            ],
+            :include => [ { :info_request_events => :user_info_request_sent_alerts } ],
+            :order => "info_requests.id, info_request_events.created_at"
+        )
         for info_request in info_requests
 
             # Count number of new comments to alert on
