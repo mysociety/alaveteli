@@ -10,14 +10,11 @@ do
     seen=false
     for spec2 in $specs
     do
-        if [ "$spec1" != "$spec2" ]
+        rake db:test:purge > /dev/null
+        rake db:test:clone_structure > /dev/null
+        if ! ( script/spec "$spec1" "$spec2" ) > /dev/null
         then
-            rake db:test:purge
-            rake db:test:clone_structure
-            if ! ( script/spec "$spec1" "$spec2" ) > /dev/null
-            then
-                echo "FAILED: $spec1 $spec2"
-            fi
+            echo "FAILED: $spec1 $spec2"
         fi
     done
 done
