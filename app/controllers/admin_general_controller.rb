@@ -78,6 +78,10 @@ class AdminGeneralController < AdminController
     end
 
     def debug
+        @current_commit = `git log -1 --format="%H"`
+        @current_branch = `git branch | grep "\*" | awk '{print $2}'`
+        repo = `git remote show origin -n | grep Fetch | awk '{print $3}' | sed -re 's/.*:(.*).git/\\1/'`
+        @github_origin = "https://github.com/#{repo.strip}/tree/"
         @request_env = request.env 
     end
 end

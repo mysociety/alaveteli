@@ -53,14 +53,24 @@ describe RequestController, "when listing recent requests" do
     it "should assign the first page of results" do
         xap_results = mock_model(ActsAsXapian::Search, 
                    :results => (1..25).to_a.map { |m| { :model => m } },
-                   :matches_estimated => 103)
+                   :matches_estimated => 1000000)
 
         InfoRequest.should_receive(:full_search).
           with([InfoRequestEvent]," (variety:sent OR variety:followup_sent OR variety:response OR variety:comment)", "created_at", anything, anything, anything, anything).
           and_return(xap_results)
         get :list, :view => 'all'
         assigns[:list_results].size.should == 25
+        assigns[:show_no_more_than].should == RequestController::MAX_RESULTS
     end
+    it "should return 404 for pages we don't want to serve up" do
+        xap_results = mock_model(ActsAsXapian::Search, 
+                   :results => (1..25).to_a.map { |m| { :model => m } },
+                   :matches_estimated => 1000000)
+        lambda {
+            get :list, :view => 'all', :page => 100
+        }.should raise_error(ActiveRecord::RecordNotFound)
+    end
+
 end
 
 describe RequestController, "when showing one request" do
@@ -169,6 +179,16 @@ describe RequestController, "when showing one request" do
             get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => ['hello.txt.html'], :skip_cache => 1
             response.content_type.should == "text/html"
             response.should have_text(/Second hello/)
+        end
+
+        it "should return 404 for ugly URLs contain a request id that isn't an integer " do
+            ir = info_requests(:fancy_dog_request) 
+            receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
+            ir.reload
+            ugly_id = "55195"
+            lambda {
+                get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => ugly_id, :part => 2, :file_name => ['hello.txt.html'], :skip_cache => 1
+            }.should raise_error(ActiveRecord::RecordNotFound)
         end
 
         it "should generate valid HTML verson of PDF attachments " do
@@ -937,7 +957,11 @@ describe RequestController, "when classifying an information request" do
             session[:user_id] = @request_owner.id
             @dog_request = info_requests(:fancy_dog_request)
             InfoRequest.stub!(:find).and_return(@dog_request)
-            ActionController::Routing::Routes.filters.clear
+            @old_filters = ActionController::Routing::Routes.filters
+            ActionController::Routing::Routes.filters = RoutingFilter::Chain.new
+        end
+        after do
+            ActionController::Routing::Routes.filters = @old_filters
         end
 
         def request_url
@@ -1492,6 +1516,8 @@ end
 
 describe RequestController, "when doing type ahead searches" do
     fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things 
+
+    integrate_views
 
     it "should return nothing for the empty query string" do
         get :search_typeahead, :q => ""

@@ -43,7 +43,7 @@ class RawEmail < ActiveRecord::Base
         if !File.exists?(self.directory)
             FileUtils.mkdir_p self.directory
         end
-        File.open(self.filepath, "wb") { |file|
+        File.atomic_write(self.filepath) { |file|
             file.write d
         }
     end

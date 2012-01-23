@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Try all ordered pairs of spec files,
+# to winkle out order-dependent failures.
+
+specs=spec/*/*.rb
+
+for spec1 in $specs
+do
+    seen=false
+    for spec2 in $specs
+    do
+        rake db:test:purge > /dev/null
+        rake db:test:clone_structure > /dev/null
+        if ! ( script/spec "$spec1" "$spec2" ) > /dev/null 2>&1
+        then
+            echo "FAILED: $spec1 $spec2"
+        fi
+    done
+done

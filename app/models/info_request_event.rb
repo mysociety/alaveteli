@@ -190,6 +190,26 @@ class InfoRequestEvent < ActiveRecord::Base
         return message
     end
 
+    def get_clipped_response_efficiently
+        # XXX this ugly code is an attempt to not always load all the
+        # columns for an incoming message, which can be *very* large
+        # (due to all the cached text).  We care particularly in this
+        # case because it's called for every search result on a page
+        # (to show the search snippet). Actually, we should review if we
+        # need all this data to be cached in the database at all, and
+        # then we won't need this horrid workaround.
+        message = self.incoming_message_selective_columns("cached_attachment_text_clipped, cached_main_body_text_folded")
+        clipped_body = message.cached_main_body_text_folded
+        clipped_attachment = message.cached_attachment_text_clipped
+        if clipped_body.nil? || clipped_attachment.nil?
+            # we're going to have to load it anyway
+            text = self.incoming_message.get_text_for_indexing_clipped
+        else
+            text = clipped_body.gsub("FOLDED_QUOTED_SECTION", " ").strip + "\n\n" + clipped_attachment
+        end
+        return text + "\n\n"
+    end
+
     # clipped = true - means return shorter text. It is used for snippets fore
     # performance reasons. Xapian will take the full text.
     def search_text_main(clipped = false)
@@ -200,7 +220,7 @@ class InfoRequestEvent < ActiveRecord::Base
             text = text + self.outgoing_message.get_text_for_indexing + "\n\n"
         elsif self.event_type == 'response'
             if clipped
-                text = text + self.incoming_message_selective_columns("cached_attachment_text_clipped").cached_attachment_text_clipped + "\n\n"
+                text = text + self.get_clipped_response_efficiently
             else
                 text = text + self.incoming_message.get_text_for_indexing_full + "\n\n"
             end

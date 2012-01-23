@@ -13,6 +13,9 @@ require 'open-uri'
 class RequestController < ApplicationController
     before_filter :check_read_only, :only => [ :new, :show_response, :describe_state, :upload_response ]
     protect_from_forgery :only => [ :new, :show_response, :describe_state, :upload_response ] # See ActionController::RequestForgeryProtection for details
+
+    MAX_RESULTS = 500
+    PER_PAGE = 25
     
     @@custom_states_loaded = false
     begin
@@ -155,14 +158,21 @@ class RequestController < ApplicationController
         if @view == "recent"
             return redirect_to request_list_all_path(:action => "list", :view => "all", :page => @page), :status => :moved_permanently
         end
+        
+        # Later pages are very expensive to load
+        if @page > MAX_RESULTS / PER_PAGE
+            raise ActiveRecord::RecordNotFound.new("Sorry. No pages after #{MAX_RESULTS / PER_PAGE}.")
+        end
+
         params[:latest_status] = @view
         query = make_query_from_params
         @title = _("View and search requests")
         sortby = "newest"
-        behavior_cache :tag => [@view, @page] do
+        behavior_cache :tag => [@query, @page, I18n.locale] do
             xapian_object = perform_search([InfoRequestEvent], query, sortby, 'request_collapse')
             @list_results = xapian_object.results.map { |r| r[:model] }
             @matches_estimated = xapian_object.matches_estimated
+            @show_no_more_than = (@matches_estimated > MAX_RESULTS) ? MAX_RESULTS : @matches_estimated
         end
         
         @title = @title + " (page " + @page.to_s + ")" if (@page > 1)
@@ -682,10 +692,11 @@ class RequestController < ApplicationController
     # Internal function
     def get_attachment_internal(html_conversion)
         @incoming_message = IncomingMessage.find(params[:incoming_message_id])
+        @requested_request = InfoRequest.find(params[:id])
         @incoming_message.parse_raw_email!
         @info_request = @incoming_message.info_request
         if @incoming_message.info_request_id != params[:id].to_i
-            raise sprintf("Incoming message %d does not belong to request %d", @incoming_message.info_request_id, params[:id])
+            raise ActiveRecord::RecordNotFound.new(sprintf("Incoming message %d does not belong to request %d", @incoming_message.info_request_id, params[:id]))
         end
         @part_number = params[:part].to_i
         @filename = params[:file_name].join("/")

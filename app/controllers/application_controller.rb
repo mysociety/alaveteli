@@ -89,6 +89,7 @@ class ApplicationController < ActionController::Base
     def record_memory
         record_memory = MySociety::Config.get('DEBUG_RECORD_MEMORY', false)
         if record_memory
+            logger.info "Processing request for #{request.url} with Rails process #{Process.pid}"
             File.read("/proc/#{Process.pid}/status").match(/VmRSS:\s+(\d+)/)
             rss_before_action = $1.to_i
             yield
@@ -180,7 +181,10 @@ class ApplicationController < ActionController::Base
         path = foi_fragment_cache_part_path(param)
         path = "/views" + path
         foi_cache_path = File.join(File.dirname(__FILE__), '../../cache')
-        return File.join(foi_cache_path, path)
+        max_file_length = 255 - 35 # we subtract 35 because tempfile
+                                   # adds on a variable number of
+                                   # characters
+        return File.join(foi_cache_path, path)[0...max_file_length]
     end
     def foi_fragment_cache_all_for_request(info_request)
         # return stub path so admin can expire it
@@ -193,10 +197,12 @@ class ApplicationController < ActionController::Base
         return File.exists?(key_path)
     end
     def foi_fragment_cache_read(key_path)
+        logger.info "Reading from fragment cache #{key_path}"
         return File.read(key_path)
     end
     def foi_fragment_cache_write(key_path, content)
         FileUtils.mkdir_p(File.dirname(key_path))
+        logger.info "Writing to fragment cache #{key_path}"
         File.atomic_write(key_path) do |f|
             f.write(content)
         end
@@ -365,7 +371,10 @@ class ApplicationController < ActionController::Base
     def get_search_page_from_params
         return (params[:page] || "1").to_i
     end
+
     def perform_search_typeahead(query, model)
+        @page = get_search_page_from_params
+        @per_page = 10
         query_words = query.split(/ +(?![-+]+)/)
         if query_words.last.nil? || query_words.last.strip.length < 3
             xapian_requests = nil
@@ -376,8 +385,8 @@ class ApplicationController < ActionController::Base
                 collapse = 'request_collapse'
             end
             options = {
-                :offset => 0, 
-                :limit => 5,
+                :offset => (@page - 1) * @per_page, 
+                :limit => @per_page,
                 :sort_by_prefix => nil,
                 :sort_by_ascending => true,
                 :collapse_by_prefix => collapse,
@@ -385,11 +394,24 @@ class ApplicationController < ActionController::Base
             ActsAsXapian.readable_init
             old_default_op = ActsAsXapian.query_parser.default_op
             ActsAsXapian.query_parser.default_op = Xapian::Query::OP_OR
-            user_query =  ActsAsXapian.query_parser.parse_query(
-                                       query,
-                                       Xapian::QueryParser::FLAG_LOVEHATE | Xapian::QueryParser::FLAG_PARTIAL |
-                                       Xapian::QueryParser::FLAG_SPELLING_CORRECTION)
-            xapian_requests = ActsAsXapian::Search.new([model], query, options, user_query)
+            begin
+                user_query =  ActsAsXapian.query_parser.parse_query(
+                                           query.strip + '*',
+                                           Xapian::QueryParser::FLAG_LOVEHATE | Xapian::QueryParser::FLAG_WILDCARD |
+                                           Xapian::QueryParser::FLAG_SPELLING_CORRECTION)
+                xapian_requests = ActsAsXapian::Search.new([model], query, options, user_query)
+            rescue RuntimeError => e
+                if e.message =~ /^QueryParserError: Wildcard/
+                    # Wildcard expands to too many terms
+                    logger.info "Wildcard query '#{query.strip + '*'}' caused: #{e.message}"
+                    
+                    user_query =  ActsAsXapian.query_parser.parse_query(
+                                               query,
+                                               Xapian::QueryParser::FLAG_LOVEHATE |
+                                               Xapian::QueryParser::FLAG_SPELLING_CORRECTION)
+                    xapian_requests = ActsAsXapian::Search.new([model], query, options, user_query)
+                end
+            end
             ActsAsXapian.query_parser.default_op = old_default_op
         end
         return xapian_requests
@@ -521,7 +543,7 @@ class ApplicationController < ActionController::Base
     def quietly_try_to_open(url)
         begin 
             result = open(url).read.strip
-        rescue OpenURI::HTTPError, SocketError
+        rescue OpenURI::HTTPError, SocketError, Errno::ETIMEDOUT, Errno::ECONNREFUSED, Errno::EHOSTUNREACH
             logger.warn("Unable to open third-party URL #{url}")
             result = ""
         end

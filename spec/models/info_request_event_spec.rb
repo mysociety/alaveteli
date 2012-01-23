@@ -73,6 +73,14 @@ describe InfoRequestEvent do
             event.search_text_main.strip.should == "No way! I'm not going to tell you that in a month of Thursdays.\n\nThe Geraldine Quango"
         end
 
+        it 'should get clipped text for incoming messages, and cache it too' do 
+            event = info_request_events(:useless_incoming_message_event)
+            
+            event.incoming_message_selective_columns("cached_main_body_text_folded").cached_main_body_text_folded = nil
+            event.search_text_main(true).strip.should == "No way! I'm not going to tell you that in a month of Thursdays.\n\nThe Geraldine Quango"
+            event.incoming_message_selective_columns("cached_main_body_text_folded").cached_main_body_text_folded.should_not == nil
+        end
+
 
     end
 
