@@ -12,7 +12,7 @@ do
     do
         rake db:test:purge > /dev/null
         rake db:test:clone_structure > /dev/null
-        if ! ( script/spec "$spec1" "$spec2" ) > /dev/null
+        if ! ( script/spec "$spec1" "$spec2" ) > /dev/null 2>&1
         then
             echo "FAILED: $spec1 $spec2"
         fi
