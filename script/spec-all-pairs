@@ -7,14 +7,19 @@ specs=spec/*/*.rb
 
 for spec1 in $specs
 do
-    seen=false
+    all_okay=true
     for spec2 in $specs
     do
         rake db:test:purge > /dev/null
         rake db:test:clone_structure > /dev/null
-        if ! ( script/spec "$spec1" "$spec2" ) > /dev/null 2>&1
+        if script/spec "$spec1" "$spec2" > /dev/null 2>&1
         then
+            echo "OK: $spec1 $spec2"
+        else
             echo "FAILED: $spec1 $spec2"
+            all_okay=false
         fi
     done
 done
+
+exec $all_okay
