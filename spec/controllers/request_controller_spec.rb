@@ -339,14 +339,19 @@ describe RequestController, "when showing one request" do
             zipfile = Zip::ZipFile.open(File.join(File.dirname(__FILE__), "../../cache/zips", old_path)) { |zipfile|
                 zipfile.count.should == 3 # the message plus two "hello.txt" files
             }
+            
+            # The path of the zip file is based on the hash of the timestamp of the last request
+            # in the thread, so we wait for a second to make sure this one will have a different
+            # timestamp than the previous.
+            sleep 1
             receive_incoming_mail('incoming-request-attachment-unknown-extension.email', ir.incoming_email)
             get :download_entire_request, :url_title => title
             assigns[:url_path].should have_text(/#{title}.zip$/)
+            assigns[:url_path].should_not == old_path
             response.location.should have_text(/#{assigns[:url_path]}/)
             zipfile = Zip::ZipFile.open(File.join(File.dirname(__FILE__), "../../cache/zips", assigns[:url_path])) { |zipfile|
                 zipfile.count.should == 5 # the message, two hello.txt, the unknown attachment, and its empty message
             }
-            assigns[:url_path].should_not == old_path
         end
     end
 end
