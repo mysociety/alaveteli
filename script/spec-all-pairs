@@ -39,11 +39,18 @@ pairs_from_stdin() {
     all_okay=true
     while read line
     do
-        line=${line#\* FAILED: }
-        if ! test_pair $line
-        then
-            all_okay=false
-        fi
+        case "$line" in
+        \*\ FAILED:\ *)
+          line=${line#\* FAILED: }
+          if ! test_pair $line
+          then
+              all_okay=false
+          fi
+        ;;
+        *)
+          echo "No match: $line"
+        ;;
+        esac
     done
     
     $all_okay
