@@ -526,6 +526,13 @@ describe UserController, "when using profile photos" do
         post :set_profile_photo, { :id => @user.id, :file => @uploadedfile, :submitted_draft_profile_photo => 1, :automatically_crop => 1 } 
     end
 
+    it "should return a 404 not a 500 when a profile photo has not been set" do
+        @user.profile_photo.should be_nil
+        lambda {
+            get :get_profile_photo, {:url_name => @user.url_name }
+        }.should raise_error(ActiveRecord::RecordNotFound)
+    end
+
     it "should let you change profile photo if you're logged in as the user" do
         @user.profile_photo.should be_nil
         session[:user_id] = @user.id
