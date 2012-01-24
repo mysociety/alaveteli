@@ -3,23 +3,57 @@
 # Try all ordered pairs of spec files,
 # to winkle out order-dependent failures.
 
-specs=spec/*/*.rb
+test_pair () {
+    rake db:test:purge > /dev/null
+    rake db:test:clone_structure > /dev/null
+    if script/spec "$1" "$2" > /dev/null 2>&1
+    then
+        echo "OK: $1 $2"
+        return 0
+    else
+        echo "FAILED: $1 $2"
+        return 1
+    fi
+}
 
-for spec1 in $specs
-do
-    all_okay=true
-    for spec2 in $specs
+all_pairs() {
+    specs=spec/*/*.rb
+
+    for spec1 in $specs
     do
-        rake db:test:purge > /dev/null
-        rake db:test:clone_structure > /dev/null
-        if script/spec "$spec1" "$spec2" > /dev/null 2>&1
+        all_okay=true
+        for spec2 in $specs
+        do
+            if ! test_pair "$spec1" "$spec2"
+            then
+              all_okay=false
+            fi
+        done
+    done
+
+    $all_okay
+    return $?
+}
+
+pairs_from_stdin() {
+    all_okay=true
+    while read line
+    do
+        line=${line#\* FAILED: }
+        if ! test_pair $line
         then
-            echo "OK: $spec1 $spec2"
-        else
-            echo "FAILED: $spec1 $spec2"
             all_okay=false
         fi
     done
-done
+    
+    $all_okay
+    return $?
+}
 
-exec $all_okay
+if [ "$1" = "-" ]
+then
+    pairs_from_stdin
+else
+    all_pairs
+fi
+exit $?
