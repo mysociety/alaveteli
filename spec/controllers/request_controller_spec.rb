@@ -190,6 +190,15 @@ describe RequestController, "when showing one request" do
                 get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => ugly_id, :part => 2, :file_name => ['hello.txt.html'], :skip_cache => 1
             }.should raise_error(ActiveRecord::RecordNotFound)
         end
+        it "should return 404 when incoming message and request ids don't match " do
+            ir = info_requests(:fancy_dog_request)
+            wrong_id = info_requests(:naughty_chicken_request).id
+            receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
+            ir.reload
+            lambda {
+                get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => wrong_id, :part => 2, :file_name => ['hello.txt.html'], :skip_cache => 1
+            }.should raise_error(ActiveRecord::RecordNotFound)
+        end
 
         it "should generate valid HTML verson of PDF attachments " do
             ir = info_requests(:fancy_dog_request) 
