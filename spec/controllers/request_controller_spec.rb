@@ -39,6 +39,11 @@ describe RequestController, "when listing recent requests" do
         assigns[:list_results].size.should == 1
     end
 
+    it "should make a sane-sized cache tag" do
+        get :list, :view => 'all', :request_date_after => '13/10/2007', :request_date_before => '01/11/2007'
+        assigns[:cache_tag].size.should <= 32
+    end
+
     it "should list internal_review requests as unresolved ones" do
         get :list, :view => 'awaiting'
         assigns[:list_results].size.should == 0

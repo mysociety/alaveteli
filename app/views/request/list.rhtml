@@ -14,7 +14,7 @@
 <div style="clear:both"></div>
 
 <div class="results_section">
-  <% view_cache :ttl => 5.minutes.to_i, :tag => [@query, @page, I18n.locale] do %>
+  <% view_cache :ttl => 5.minutes.to_i, :tag => [@cache_tag] do %>
       <% if @list_results.empty? %>
           <p> <%= _('No requests of this sort yet.')%></p>
       <% else %>
