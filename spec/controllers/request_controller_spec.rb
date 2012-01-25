@@ -121,7 +121,7 @@ describe RequestController, "when showing one request" do
             assigns[:update_status].should be_true
         end
 
-        it 'should assign the "update status" flag to the view as true if the parameter is present' do
+        it 'should assign the "update status" flag to the view as false if the parameter is not present' do
             get :show, :url_title => 'test_title'
             assigns[:update_status].should be_false
         end
