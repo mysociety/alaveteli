@@ -190,56 +190,56 @@
         <% end %>
     <% end %>
 
-    <% if @show_profile && @is_you %>
-        <% if @track_things.empty? %>
-            <h2 id="email_subscriptions"> <%= _('Your email subscriptions')%></h2>
-            <p><%= _('None made.')%></p>
-        <% else %>
-            <h2 id="email_subscriptions"> Your <%=pluralize(@track_things.size, _('email subscription')) %> </h2>
-            <% if @track_things_grouped.size == 1 %>
+</div>
+<% end %>
+<% if @show_profile && @is_you %>
+    <% if @track_things.empty? %>
+        <h2 id="email_subscriptions"> <%= _('Your email subscriptions')%></h2>
+        <p><%= _('None made.')%></p>
+    <% else %>
+        <h2 id="email_subscriptions"> Your <%=pluralize(@track_things.size, _('email subscription')) %> </h2>
+        <% if @track_things_grouped.size == 1 %>
+            <% form_tag({:controller => 'track', :action => 'delete_all_type'}, :class => "feed_form") do %>
+                <h3>
+                    <%=TrackThing.track_type_description(@track_things[0].track_type)%>
+                    <%= hidden_field_tag 'track_type', @track_things[0].track_type %>
+                    <%= hidden_field_tag 'user', @display_user.id %>
+                    <%= hidden_field_tag 'r', request.request_uri %>
+                    <% if @track_things.size > 1 %>
+                        <%= submit_tag _('unsubscribe all') %>
+                    <% end %>
+                </h3>
+            <% end %>
+        <% end %>
+        <% for track_type, track_things in @track_things_grouped %>
+            <% if @track_things_grouped.size > 1 %>
                 <% form_tag({:controller => 'track', :action => 'delete_all_type'}, :class => "feed_form") do %>
                     <h3>
-                        <%=TrackThing.track_type_description(@track_things[0].track_type)%>
-                        <%= hidden_field_tag 'track_type', @track_things[0].track_type %>
+                        <%=TrackThing.track_type_description(track_type)%>
+                        <%= hidden_field_tag 'track_type', track_type %>
                         <%= hidden_field_tag 'user', @display_user.id %>
                         <%= hidden_field_tag 'r', request.request_uri %>
-                        <% if @track_things.size > 1 %>
-                            <%= submit_tag _('unsubscribe all') %>
-                        <% end %>
+                        <% if track_things.size > 1 %>
+                            <%= submit_tag _('unsubscribe all')%>
+                        <% end %> 
                     </h3>
                 <% end %>
             <% end %>
-            <% for track_type, track_things in @track_things_grouped %>
-                <% if @track_things_grouped.size > 1 %>
-                    <% form_tag({:controller => 'track', :action => 'delete_all_type'}, :class => "feed_form") do %>
-                        <h3>
-                            <%=TrackThing.track_type_description(track_type)%>
-                            <%= hidden_field_tag 'track_type', track_type %>
-                            <%= hidden_field_tag 'user', @display_user.id %>
-                            <%= hidden_field_tag 'r', request.request_uri %>
-                            <% if track_things.size > 1 %>
-                                <%= submit_tag _('unsubscribe all')%>
-                            <% end %> 
-                        </h3>
-                    <% end %>
-                <% end %>
 
-                <ul>
-                <% for track_thing in track_things %>
-                    <li>
-                        <% form_tag({:controller => 'track', :action => 'update', :track_id => track_thing.id}, :class => "feed_form") do %>
-                            <div>
-                                <%= track_thing.params[:list_description] %> 
-                                <%= hidden_field_tag 'track_medium', "delete", { :id => 'track_medium_' + track_thing.id.to_s } %>
-                                <%= hidden_field_tag 'r', request.request_uri, { :id => 'r_' + track_thing.id.to_s }  %>
-                                <%= submit_tag _('unsubscribe') %>
-                            </div>
-                        <% end %>
-                    </li>
-                <% end %>
-                </ul>
+            <ul>
+            <% for track_thing in track_things %>
+                <li>
+                    <% form_tag({:controller => 'track', :action => 'update', :track_id => track_thing.id}, :class => "feed_form") do %>
+                        <div>
+                            <%= track_thing.params[:list_description] %> 
+                            <%= hidden_field_tag 'track_medium', "delete", { :id => 'track_medium_' + track_thing.id.to_s } %>
+                            <%= hidden_field_tag 'r', request.request_uri, { :id => 'r_' + track_thing.id.to_s }  %>
+                            <%= submit_tag _('unsubscribe') %>
+                        </div>
+                    <% end %>
+                </li>
             <% end %>
+            </ul>
         <% end %>
     <% end %>
-</div>
 <% end %>
