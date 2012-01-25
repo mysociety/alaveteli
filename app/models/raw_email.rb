@@ -27,7 +27,7 @@ class RawEmail < ActiveRecord::Base
     def directory
         request_id = self.incoming_message.info_request.id.to_s
         if ENV["RAILS_ENV"] == "test"
-            return 'files/raw_email_test'
+            return File.join(RAILS_ROOT, 'files/raw_email_test')
         else
             return File.join(MySociety::Config.get('RAW_EMAILS_LOCATION',
                                                    'files/raw_emails'), 
@@ -49,33 +49,11 @@ class RawEmail < ActiveRecord::Base
     end
 
     def data
-        if !File.exists?(self.filepath)
-            dbdata
-        else
-            File.open(self.filepath, "rb" ).read
-        end
+        File.open(self.filepath, "rb").read
     end
 
     def destroy_file_representation!
         File.delete(self.filepath)
-    end
-
-    def dbdata=(d)
-        write_attribute(:data_binary, d)
-    end
-
-    def dbdata
-        d = read_attribute(:data_binary)
-        if !d.nil?
-            return d
-        end
-
-        d = read_attribute(:data_text)
-        if !d.nil?
-            return d
-        end
-
-        raise "internal error, double nil value in RawEmail"
     end
 
 end

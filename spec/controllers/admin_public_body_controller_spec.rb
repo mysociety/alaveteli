@@ -198,8 +198,13 @@ describe AdminPublicBodyController, "when creating public bodies with i18n" do
         password = MySociety::Config.get('ADMIN_PASSWORD', '')
         basic_auth_login @request
         
-        ActionController::Routing::Routes.filters.clear     # don't auto-insert locale, complicates assertions
+        @old_filters = ActionController::Routing::Routes.filters
+        ActionController::Routing::Routes.filters = RoutingFilter::Chain.new
     end
+    after do
+        ActionController::Routing::Routes.filters = @old_filters
+    end
+
 
     it "creates a new public body in one locale" do
         PublicBody.count.should == 2

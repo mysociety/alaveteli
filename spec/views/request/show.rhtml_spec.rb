@@ -84,10 +84,15 @@ describe 'when viewing an information request' do
             describe 'when there is a last response' do 
             
                 before do
-                    ActionController::Routing::Routes.filters.clear
                     @mock_response = mock_model(IncomingMessage)
                     @mock_request.stub!(:get_last_response).and_return(@mock_response)
+                    @old_filters = ActionController::Routing::Routes.filters
+                    ActionController::Routing::Routes.filters = RoutingFilter::Chain.new
                 end
+                after do
+                    ActionController::Routing::Routes.filters = @old_filters
+                end
+
             
                 it 'should show a link to follow up the last response with clarification' do 
                     request_page
@@ -100,9 +105,14 @@ describe 'when viewing an information request' do
             describe 'when there is no last response' do
         
                 before do 
-                    ActionController::Routing::Routes.filters.clear
                     @mock_request.stub!(:get_last_response).and_return(nil)
+                    @old_filters = ActionController::Routing::Routes.filters
+                    ActionController::Routing::Routes.filters = RoutingFilter::Chain.new
                 end
+                after do
+                    ActionController::Routing::Routes.filters = @old_filters
+                end
+
             
                 it 'should show a link to follow up the request without reference to a specific response' do 
                     request_page

@@ -5,6 +5,15 @@ describe AdminRequestController, "when administering requests" do
     fixtures :users, :public_bodies, :public_body_translations, :public_body_versions, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
     before { basic_auth_login @request }
 
+    before(:each) do
+        load_raw_emails_data(raw_emails)
+        @old_filters = ActionController::Routing::Routes.filters
+        ActionController::Routing::Routes.filters = RoutingFilter::Chain.new
+    end
+    after do
+        ActionController::Routing::Routes.filters = @old_filters
+    end
+
     it "shows the index/list page" do
         get :index
     end
@@ -45,6 +54,11 @@ describe AdminRequestController, "when administering the holding pen" do
     before(:each) do
         basic_auth_login @request
         load_raw_emails_data(raw_emails)
+        @old_filters = ActionController::Routing::Routes.filters
+        ActionController::Routing::Routes.filters = RoutingFilter::Chain.new
+    end
+    after do
+        ActionController::Routing::Routes.filters = @old_filters
     end
 
     it "shows a rejection reason for an incoming message from an invalid address" do
