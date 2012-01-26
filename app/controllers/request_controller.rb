@@ -74,7 +74,7 @@ class RequestController < ApplicationController
             @info_request_events = @info_request.info_request_events
             @status = @info_request.calculate_status
             @collapse_quotes = params[:unfold] ? false : true
-            @update_status = params[:update_status] ? true : false    
+            @update_status = params[:update_status] ? true : false
             @old_unclassified = @info_request.is_old_unclassified? && !authenticated_user.nil?
             
             if @update_status
