@@ -103,7 +103,7 @@
                 <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result[:model], :info_request => result[:model].info_request } %>
             <% end %>
 
-            <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @xapian_results.size) %>
+            <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @xapian_requests.results.size) %>
 
             <% if @xapian_requests.results.empty? %>
                 <p><% _('There were no requests matching your query.') %></p>
