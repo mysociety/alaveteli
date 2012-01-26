@@ -108,24 +108,40 @@ describe RequestController, "when showing one request" do
 
      
     describe 'when handling an update_status parameter' do
-        
-        before do 
-            mock_request = mock_model(InfoRequest, :url_title => 'test_title', 
-                                                   :title => 'test title', 
-                                                   :null_object => true)
-            InfoRequest.stub!(:find_by_url_title).and_return(mock_request)
-        end
-
         it 'should assign the "update status" flag to the view as true if the parameter is present' do
-            get :show, :url_title => 'test_title', :update_status => 1
+            get :show, :url_title => 'why_do_you_have_such_a_fancy_dog', :update_status => 1
             assigns[:update_status].should be_true
         end
 
-        it 'should assign the "update status" flag to the view as true if the parameter is present' do
-            get :show, :url_title => 'test_title'
+        it 'should assign the "update status" flag to the view as false if the parameter is not present' do
+            get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
             assigns[:update_status].should be_false
         end
         
+        it 'should require login' do
+            session[:user_id] = nil
+            get :show, :url_title => 'why_do_you_have_such_a_fancy_dog', :update_status => 1
+            post_redirect = PostRedirect.get_last_post_redirect
+            response.should redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
+        end
+        
+        it 'should work if logged in as the requester' do
+            session[:user_id] = users(:bob_smith_user).id
+            get :show, :url_title => 'why_do_you_have_such_a_fancy_dog', :update_status => 1
+            response.should render_template "request/show"
+        end
+        
+        it 'should not work if logged in as not the requester' do
+            session[:user_id] = users(:silly_name_user).id
+            get :show, :url_title => 'why_do_you_have_such_a_fancy_dog', :update_status => 1
+            response.should render_template "user/wrong_user"
+        end
+        
+        it 'should work if logged in as an admin user' do
+            session[:user_id] = users(:admin_user).id
+            get :show, :url_title => 'why_do_you_have_such_a_fancy_dog', :update_status => 1
+            response.should render_template "request/show"
+        end
     end
 
     describe 'when handling incoming mail' do 

@@ -74,8 +74,9 @@ class RequestController < ApplicationController
             @info_request_events = @info_request.info_request_events
             @status = @info_request.calculate_status
             @collapse_quotes = params[:unfold] ? false : true
-            @update_status = params[:update_status] ? true : false    
+            @update_status = params[:update_status] ? true : false
             @old_unclassified = @info_request.is_old_unclassified? && !authenticated_user.nil?
+            @is_owning_user = @info_request.is_owning_user?(authenticated_user)
             
             if @update_status
                 return if !@is_owning_user && !authenticated_as_user?(@info_request.user,
@@ -108,7 +109,6 @@ class RequestController < ApplicationController
 
             # For send followup link at bottom
             @last_response = @info_request.get_last_response
-            @is_owning_user = @info_request.is_owning_user?(authenticated_user)
             respond_to do |format|
                 format.html { @has_json = true; render :template => 'request/show'}
                 format.json { render :json => @info_request.json_for_api(true) }
