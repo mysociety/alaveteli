@@ -23,3 +23,16 @@ humpadink_public_body:
   url_name: dfh
   created_at: 2007-10-25 10:51:01.161639
   notes: An albatross told me!!!
+forlorn_public_body:
+  name: "Department of Loneliness"
+  first_letter: D
+  updated_at: 2011-01-26 14:11:02.12345
+  last_edit_comment: 'Aw, bless.'
+  request_email: forlorn-requests@localhost
+  id: 4
+  version: 1
+  last_edit_editor: "robin"
+  short_name: DoL
+  url_name: lonely
+  created_at: 2011-01-26 14:11:02.12345
+  notes: A very lonely public body that no one has corresponded with

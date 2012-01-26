@@ -23,20 +23,42 @@ describe RequestController, "when listing recent requests" do
 
     it "should filter requests" do
         get :list, :view => 'all'
-        assigns[:list_results].size.should == 3
+        assigns[:list_results].map(&:info_request).should =~ InfoRequest.all
+        
         # default sort order is the request with the most recently created event first
-        assigns[:list_results][0].info_request.id.should == 104
+        assigns[:list_results].map(&:info_request).should == InfoRequest.all(
+            :order => "(select max(info_request_events.created_at) from info_request_events where info_request_events.info_request_id = info_requests.id) DESC")
+
         get :list, :view => 'successful'
-        assigns[:list_results].size.should == 0
+        assigns[:list_results].map(&:info_request).should =~ InfoRequest.all(
+            :conditions => "id in (
+                select info_request_id
+                from info_request_events
+                where not exists (
+                    select *
+                    from info_request_events later_events
+                    where later_events.created_at > info_request_events.created_at
+                    and later_events.info_request_id = info_request_events.info_request_id
+                )
+                and info_request_events.described_state in ('successful', 'partially_successful')
+            )")
     end
 
     it "should filter requests by date" do
+        # The semantics of the search are that it finds any InfoRequest
+        # that has any InfoRequestEvent created in the specified range
+        
         get :list, :view => 'all', :request_date_before => '13/10/2007'
-        assigns[:list_results].size.should == 1
+        assigns[:list_results].map(&:info_request).should =~ InfoRequest.all(
+            :conditions => "id in (select info_request_id from info_request_events where created_at < '2007-10-13'::date)")
+        
         get :list, :view => 'all', :request_date_after => '13/10/2007'
-        assigns[:list_results].size.should == 3
+        assigns[:list_results].map(&:info_request).should =~ InfoRequest.all(
+            :conditions => "id in (select info_request_id from info_request_events where created_at > '2007-10-13'::date)")
+        
         get :list, :view => 'all', :request_date_after => '13/10/2007', :request_date_before => '01/11/2007'
-        assigns[:list_results].size.should == 1
+        assigns[:list_results].map(&:info_request).should =~ InfoRequest.all(
+            :conditions => "id in (select info_request_id from info_request_events where created_at between '2007-10-13'::date and '2007-11-01'::date)")
     end
 
     it "should make a sane-sized cache tag" do
@@ -46,13 +68,32 @@ describe RequestController, "when listing recent requests" do
 
     it "should list internal_review requests as unresolved ones" do
         get :list, :view => 'awaiting'
-        assigns[:list_results].size.should == 0
+        
+        # This doesn’t precisely duplicate the logic of the actual
+        # query, but it is close enough to give the same result with
+        # the current set of test data.
+        assigns[:list_results].should =~ InfoRequestEvent.all(
+            :conditions => "described_state in (
+                    'waiting_response', 'waiting_clarification',
+                    'internal_review', 'gone_postal', 'error_message', 'requires_admin'
+                ) and not exists (
+                    select *
+                    from info_request_events later_events
+                    where later_events.created_at > info_request_events.created_at
+                    and later_events.info_request_id = info_request_events.info_request_id
+                )")
+        
+        
+        get :list, :view => 'awaiting'
+        assigns[:list_results].map(&:info_request).include?(info_requests(:fancy_dog_request)).should == false
+        
         event = info_request_events(:useless_incoming_message_event)
-        event.calculated_state = "internal_review"
+        event.described_state = event.calculated_state = "internal_review"
         event.save!
         rebuild_xapian_index
+        
         get :list, :view => 'awaiting'
-        assigns[:list_results].size.should == 1
+        assigns[:list_results].map(&:info_request).include?(info_requests(:fancy_dog_request)).should == true
     end
 
     it "should assign the first page of results" do
