@@ -27,7 +27,7 @@ class AdminPublicBodyController < AdminController
             end
             @public_bodies = PublicBody.paginate :order => "public_body_translations.name", :page => @page, :per_page => 100,
                 :conditions =>  @query.nil? ? "public_body_translations.locale = '#{@locale}'" : 
-				["(lower(public_body_translations.name) like lower('%'||?||'%') or 
+                                ["(lower(public_body_translations.name) like lower('%'||?||'%') or 
                                  lower(public_body_translations.short_name) like lower('%'||?||'%') or 
                                  lower(public_body_translations.request_email) like lower('%'||?||'%' )) AND (public_body_translations.locale = '#{@locale}')", @query, @query, @query],
               :joins => :translations
