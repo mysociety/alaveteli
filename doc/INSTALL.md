@@ -36,20 +36,24 @@ Some of the files also have a version number listed in config/packages - check
 that you have appropriate versions installed. Some also list "|" and offer
 a choice of packages.
 
+
 You will also want to install mySociety's common ruby libraries and the Rails
 code. Run:
 
-  git submodule update --init
+    git submodule update --init
 
 to fetch the contents of the submodules.
 
-Optionally, you may want to install
-[wkhtmltopdf](http://code.google.com/p/wkhtmltopdf/downloads/list).
+If you would like users to be able to download pretty PDFs as part of 
+the downloadable zipfile of their request history, you should also install
+[wkhtmltopdf](http://code.google.com/p/wkhtmltopdf/downloads/list).  
 We recommend downloading the latest, statically compiled version from
 the project website, as this allows running headless (i.e. without a
 graphical interface running) on Linux.  If you do install
 `wkhtmltopdf`, you need to edit a setting in the config file to point
-to it (see below).
+to it (see below).  If you don't install it, everything will still work, but 
+users will get ugly, plain text versions of their requests when they 
+download them.
 
 Version 1.44 of `pdftk` contains a bug which makes it to loop forever
 in certain edge conditions.  Until it's incorporated into an official
