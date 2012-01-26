@@ -74,8 +74,9 @@ class RequestController < ApplicationController
             @info_request_events = @info_request.info_request_events
             @status = @info_request.calculate_status
             @collapse_quotes = params[:unfold] ? false : true
-            @update_status = params[:update_status] ? true : false    
+            @update_status = params[:update_status] ? true : false
             @old_unclassified = @info_request.is_old_unclassified? && !authenticated_user.nil?
+            @is_owning_user = @info_request.is_owning_user?(authenticated_user)
             
             if @update_status
                 return if !@is_owning_user && !authenticated_as_user?(@info_request.user,
@@ -108,7 +109,6 @@ class RequestController < ApplicationController
 
             # For send followup link at bottom
             @last_response = @info_request.get_last_response
-            @is_owning_user = @info_request.is_owning_user?(authenticated_user)
             respond_to do |format|
                 format.html { @has_json = true; render :template => 'request/show'}
                 format.json { render :json => @info_request.json_for_api(true) }
@@ -168,7 +168,8 @@ class RequestController < ApplicationController
         query = make_query_from_params
         @title = _("View and search requests")
         sortby = "newest"
-        behavior_cache :tag => [@query, @page, I18n.locale] do
+        @cache_tag = Digest::MD5.hexdigest(query + @page.to_s) 
+        behavior_cache :tag => [@cache_tag] do
             xapian_object = perform_search([InfoRequestEvent], query, sortby, 'request_collapse')
             @list_results = xapian_object.results.map { |r| r[:model] }
             @matches_estimated = xapian_object.matches_estimated
@@ -696,7 +697,8 @@ class RequestController < ApplicationController
         @incoming_message.parse_raw_email!
         @info_request = @incoming_message.info_request
         if @incoming_message.info_request_id != params[:id].to_i
-            raise ActiveRecord::RecordNotFound.new(sprintf("Incoming message %d does not belong to request %d", @incoming_message.info_request_id, params[:id]))
+            message = "Incoming message %d does not belong to request %d" % [@incoming_message.info_request_id, params[:id]]
+            raise ActiveRecord::RecordNotFound.new(message)
         end
         @part_number = params[:part].to_i
         @filename = params[:file_name].join("/")

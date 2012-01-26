@@ -155,6 +155,7 @@ describe TrackMailer do
           @post_redirect = mock_model(PostRedirect, :save! => true,
                                                     :email_token => "token")
           PostRedirect.stub!(:new).and_return(@post_redirect)
+          ActionMailer::Base.deliveries = []
         end
 
         it 'should deliver one email, with right headers' do

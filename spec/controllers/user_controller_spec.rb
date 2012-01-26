@@ -11,6 +11,7 @@ describe UserController, "when showing a user" do
     fixtures :users, :public_bodies, :public_body_translations, :public_body_versions, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
     before(:each) do
         load_raw_emails_data(raw_emails)
+        rebuild_xapian_index
     end
    
     it "should be successful" do
@@ -540,6 +541,13 @@ describe UserController, "when using profile photos" do
     
     it "should not let you change profile photo if you're not logged in as the user" do
         post :set_profile_photo, { :id => @user.id, :file => @uploadedfile, :submitted_draft_profile_photo => 1, :automatically_crop => 1 } 
+    end
+
+    it "should return a 404 not a 500 when a profile photo has not been set" do
+        @user.profile_photo.should be_nil
+        lambda {
+            get :get_profile_photo, {:url_name => @user.url_name }
+        }.should raise_error(ActiveRecord::RecordNotFound)
     end
 
     it "should let you change profile photo if you're logged in as the user" do

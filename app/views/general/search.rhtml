@@ -56,11 +56,7 @@
             ["all", _("everything")]]%>
           <% for variety, label in labels %>
             <% if @variety_postfix != variety %>
-              <% if variety != "users" %>
-              <%=  link_to label, search_url([params[:query], @common_query], variety, @sort_postfix)  %>
-              <% else %>
-              <%=  link_to label, search_url(params[:query], variety, @sort_postfix) %>
-              <% end %>
+	      <%=  link_to label, search_url([params[:query], variety, @sort_postfix]) %>
             <% else %>
               <%= label %>
             <% end %>
@@ -126,9 +122,9 @@
 
   <% if !@query.nil? %>
     <p id="search_controls">
-      <%=link_to_unless @sortby == 'relevant', _("Show most relevant results first"), search_url(@query, @variety_postfix, 'relevant') %>
+      <%=link_to_unless @sortby == 'relevant', _("Show most relevant results first"), search_url([params[:query], @variety_postfix, 'relevant'], params) %>
       |
-      <%=link_to_unless @sortby == 'newest', _("Newest results first"), search_url(@query, @variety_postfix, 'newest') %>
+      <%=link_to_unless @sortby == 'newest', _("Newest results first"), search_url([params[:query], @variety_postfix, 'newest'], params) %>
       <% if @sortby == 'described' %>
       | <%= _('Recently described results first') %>
       <% end %>

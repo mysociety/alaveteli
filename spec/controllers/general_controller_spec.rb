@@ -35,6 +35,7 @@ describe GeneralController, "when searching" do
 
     before(:each) do
         load_raw_emails_data(raw_emails)
+        rebuild_xapian_index
     end
 
     it "should render the front page successfully" do
@@ -111,7 +112,8 @@ describe GeneralController, "when searching" do
     describe 'when using xapian search' do
 
       # rebuild xapian index after fixtures loaded
-      before(:all) do
+      before(:each) do
+          load_raw_emails_data(raw_emails)
           rebuild_xapian_index
       end
 

@@ -39,6 +39,11 @@ describe RequestController, "when listing recent requests" do
         assigns[:list_results].size.should == 1
     end
 
+    it "should make a sane-sized cache tag" do
+        get :list, :view => 'all', :request_date_after => '13/10/2007', :request_date_before => '01/11/2007'
+        assigns[:cache_tag].size.should <= 32
+    end
+
     it "should list internal_review requests as unresolved ones" do
         get :list, :view => 'awaiting'
         assigns[:list_results].size.should == 0
@@ -103,24 +108,40 @@ describe RequestController, "when showing one request" do
 
      
     describe 'when handling an update_status parameter' do
-        
-        before do 
-            mock_request = mock_model(InfoRequest, :url_title => 'test_title', 
-                                                   :title => 'test title', 
-                                                   :null_object => true)
-            InfoRequest.stub!(:find_by_url_title).and_return(mock_request)
-        end
-
         it 'should assign the "update status" flag to the view as true if the parameter is present' do
-            get :show, :url_title => 'test_title', :update_status => 1
+            get :show, :url_title => 'why_do_you_have_such_a_fancy_dog', :update_status => 1
             assigns[:update_status].should be_true
         end
 
-        it 'should assign the "update status" flag to the view as true if the parameter is present' do
-            get :show, :url_title => 'test_title'
+        it 'should assign the "update status" flag to the view as false if the parameter is not present' do
+            get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
             assigns[:update_status].should be_false
         end
         
+        it 'should require login' do
+            session[:user_id] = nil
+            get :show, :url_title => 'why_do_you_have_such_a_fancy_dog', :update_status => 1
+            post_redirect = PostRedirect.get_last_post_redirect
+            response.should redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
+        end
+        
+        it 'should work if logged in as the requester' do
+            session[:user_id] = users(:bob_smith_user).id
+            get :show, :url_title => 'why_do_you_have_such_a_fancy_dog', :update_status => 1
+            response.should render_template "request/show"
+        end
+        
+        it 'should not work if logged in as not the requester' do
+            session[:user_id] = users(:silly_name_user).id
+            get :show, :url_title => 'why_do_you_have_such_a_fancy_dog', :update_status => 1
+            response.should render_template "user/wrong_user"
+        end
+        
+        it 'should work if logged in as an admin user' do
+            session[:user_id] = users(:admin_user).id
+            get :show, :url_title => 'why_do_you_have_such_a_fancy_dog', :update_status => 1
+            response.should render_template "request/show"
+        end
     end
 
     describe 'when handling incoming mail' do 
@@ -188,6 +209,15 @@ describe RequestController, "when showing one request" do
             ugly_id = "55195"
             lambda {
                 get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => ugly_id, :part => 2, :file_name => ['hello.txt.html'], :skip_cache => 1
+            }.should raise_error(ActiveRecord::RecordNotFound)
+        end
+        it "should return 404 when incoming message and request ids don't match " do
+            ir = info_requests(:fancy_dog_request)
+            wrong_id = info_requests(:naughty_chicken_request).id
+            receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
+            ir.reload
+            lambda {
+                get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => wrong_id, :part => 2, :file_name => ['hello.txt.html'], :skip_cache => 1
             }.should raise_error(ActiveRecord::RecordNotFound)
         end
 
@@ -339,14 +369,19 @@ describe RequestController, "when showing one request" do
             zipfile = Zip::ZipFile.open(File.join(File.dirname(__FILE__), "../../cache/zips", old_path)) { |zipfile|
                 zipfile.count.should == 3 # the message plus two "hello.txt" files
             }
+            
+            # The path of the zip file is based on the hash of the timestamp of the last request
+            # in the thread, so we wait for a second to make sure this one will have a different
+            # timestamp than the previous.
+            sleep 1
             receive_incoming_mail('incoming-request-attachment-unknown-extension.email', ir.incoming_email)
             get :download_entire_request, :url_title => title
             assigns[:url_path].should have_text(/#{title}.zip$/)
+            assigns[:url_path].should_not == old_path
             response.location.should have_text(/#{assigns[:url_path]}/)
             zipfile = Zip::ZipFile.open(File.join(File.dirname(__FILE__), "../../cache/zips", assigns[:url_path])) { |zipfile|
                 zipfile.count.should == 5 # the message, two hello.txt, the unknown attachment, and its empty message
             }
-            assigns[:url_path].should_not == old_path
         end
     end
 end

@@ -19,6 +19,7 @@ describe "When searching" do
     before(:each) do
         emails = raw_emails.clone
         load_raw_emails_data(emails)
+        rebuild_xapian_index
     end
 
     it "should not strip quotes from quoted query" do
@@ -45,19 +46,19 @@ describe "When searching" do
     end
 
     it "should correctly filter searches for successful requests" do
-        request_via_redirect("post", "/search",
+        request_via_redirect("post", "/search/requests",
                              :query => "bob",
                              :latest_status => ['successful'])
         response.body.should include("no results matching your query")
     end
 
     it "should correctly filter searches for comments" do
-        request_via_redirect("post", "/search",
+        request_via_redirect("post", "/search/requests",
                              :query => "daftest",
                              :request_variety => ['comments'])
         response.body.should include("One FOI request found")
 
-        request_via_redirect("post", "/search",
+        request_via_redirect("post", "/search/requests",
                              :query => "daftest",
                              :request_variety => ['response','sent'])
         response.body.should include("no results matching your query")
