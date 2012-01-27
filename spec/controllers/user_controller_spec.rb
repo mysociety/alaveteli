@@ -46,16 +46,19 @@ describe UserController, "when showing a user" do
 
     it "should search the user's contributions" do
         get :show, :url_name => "bob_smith"
-        assigns[:xapian_requests].results.count.should == 3
+        assigns[:xapian_requests].results.map{|x|x[:model].info_request}.should =~ InfoRequest.all(:conditions => "user_id = #{users(:bob_smith_user).id}")
+        
         get :show, :url_name => "bob_smith", :user_query => "money"
-        assigns[:xapian_requests].results.count.should == 1
+        assigns[:xapian_requests].results.map{|x|x[:model].info_request}.should == [info_requests(:naughty_chicken_request)]
     end
 
-# Error handling not quite good enough for this yet
-#    it "should not show unconfirmed users" do
-#        get :show, :url_name => "silly_emnameem"
-#        assigns[:display_users].should == [ users(:silly_name_user) ]
-#    end
+    it "should not show unconfirmed users" do
+        begin
+            get :show, :url_name => "unconfirmed_user"
+        rescue => e
+        end
+        e.should be_an_instance_of(ActiveRecord::RecordNotFound)
+    end
 
 end
 

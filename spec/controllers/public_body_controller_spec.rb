@@ -26,13 +26,23 @@ describe PublicBodyController, "when showing a body" do
         assigns[:public_body].should == public_bodies(:humpadink_public_body)
     end
 
-    it "should assign the requests" do
+    it "should assign the requests (1)" do
         get :show, :url_name => "tgq", :view => 'all'
-        assigns[:xapian_requests].results.count.should == 2
+        assigns[:xapian_requests].results.map{|x|x[:model].info_request}.should =~ InfoRequest.all(
+            :conditions => ["public_body_id = ?", public_bodies(:geraldine_public_body).id])
+    end
+    
+    it "should assign the requests (2)" do
         get :show, :url_name => "tgq", :view => 'successful'
-        assigns[:xapian_requests].results.count.should == 0
+        assigns[:xapian_requests].results.map{|x|x[:model].info_request}.should =~ InfoRequest.all(
+            :conditions => ["described_state = ? and public_body_id = ?",
+                "successful", public_bodies(:geraldine_public_body).id])
+    end
+    
+    it "should assign the requests (3)" do
         get :show, :url_name => "dfh", :view => 'all'
-        assigns[:xapian_requests].results.count.should == 1
+        assigns[:xapian_requests].results.map{|x|x[:model].info_request}.should =~ InfoRequest.all(
+            :conditions => ["public_body_id = ?", public_bodies(:humpadink_public_body).id])
     end
 
     it "should assign the body using different locale from that used for url_name" do
@@ -81,16 +91,16 @@ describe PublicBodyController, "when listing bodies" do
 
     it "should list all bodies from default locale, even when there are no translations for selected locale" do
         PublicBody.with_locale(:en) do
-            english_only = PublicBody.new(:name => 'English only',
+            @english_only = PublicBody.new(:name => 'English only',
                                           :short_name => 'EO',
                                           :request_email => 'english@flourish.org',
                                           :last_edit_editor => 'test',
                                           :last_edit_comment => '')
-            english_only.save
+            @english_only.save
         end
         PublicBody.with_locale(:es) do
             get :list
-            assigns[:public_bodies].length.should == 3
+            assigns[:public_bodies].include?(@english_only).should == true
         end
     end
 
@@ -99,7 +109,7 @@ describe PublicBodyController, "when listing bodies" do
 
         response.should render_template('list')
 
-        assigns[:public_bodies].should == [ public_bodies(:humpadink_public_body), public_bodies(:geraldine_public_body) ]
+        assigns[:public_bodies].should == PublicBody.all(:order => "name", :conditions => "id <> #{PublicBody.internal_admin_body.id}")
         assigns[:tag].should == "all"
         assigns[:description].should == ""
     end
@@ -135,11 +145,11 @@ describe PublicBodyController, "when listing bodies" do
 
         get :list, :tag => "other"
         response.should render_template('list')
-        assigns[:public_bodies].should == [ public_bodies(:geraldine_public_body) ]
+        assigns[:public_bodies].should =~ PublicBody.all(:conditions => "id not in (#{public_bodies(:humpadink_public_body).id}, #{PublicBody.internal_admin_body.id})")
         
         get :list
         response.should render_template('list')
-        assigns[:public_bodies].count.should == 2
+        assigns[:public_bodies].should =~ PublicBody.all(:conditions => "id <> #{PublicBody.internal_admin_body.id}")
 
     end
 

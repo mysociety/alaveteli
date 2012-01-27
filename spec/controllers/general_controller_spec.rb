@@ -108,6 +108,18 @@ describe GeneralController, "when searching" do
             I18n.available_locales = old_i18n_available_locales
         end
     end
+    
+    describe 'when constructing the list of recent requests' do
+        before(:each) do
+          load_raw_emails_data(raw_emails)
+          rebuild_xapian_index
+        end
+
+        it 'should list the successful request first' do
+            get :frontpage
+            assigns[:request_events].first.info_request.should == info_requests(:boring_request)
+        end
+    end
 
     describe 'when using xapian search' do
 
