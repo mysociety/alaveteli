@@ -353,14 +353,16 @@ describe RequestController, "when showing one request" do
             censor_rule.last_edit_comment = "none"
             ir.user.censor_rules << censor_rule
 
-            receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
-            ir.reload
+            begin
+                receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
+                ir.reload
 
-            get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => ['hello.txt'], :skip_cache => 1
-            response.content_type.should == "text/plain"
-            response.should have_text(/xxxxxx hello/)
-            
-            ir.user.censor_rules.clear
+                get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => ['hello.txt'], :skip_cache => 1
+                response.content_type.should == "text/plain"
+                response.should have_text(/xxxxxx hello/)
+            ensure
+                ir.user.censor_rules.clear
+            end
         end
 
         it "should censor attachment names" do
