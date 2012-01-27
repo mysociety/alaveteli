@@ -48,6 +48,8 @@ badger_outgoing_message_event:
   described_state: waiting_response
   calculated_state: waiting_response
   outgoing_message_id: 3
+
+# These in chronological order
 boring_outgoing_message_event:
   id: 905
   params_yaml: "--- \n\
@@ -68,4 +70,39 @@ useful_incoming_message_event:
   created_at: 2007-11-13 18:09:20.042061
   described_state: successful
   calculated_state: successful
+
+another_boring_outgoing_message_event:
+  id: 907
+  params_yaml: "--- \n\
+    :outgoing_message_id: 5\n"
+  outgoing_message_id: 5
+  info_request_id: 106
+  event_type: sent
+  created_at: 2006-01-12 01:56:58.586598
+  described_state: waiting_response
+  calculated_state: waiting_response
+another_useful_incoming_message_event:
+  id: 908
+  params_yaml: "--- \n\
+    :incoming_message_id: 3\n"
+  incoming_message_id: 3
+  info_request_id: 106
+  event_type: response
+  created_at: 2007-11-13 18:09:20.042061
+  described_state: successful
+  calculated_state: successful
+
+another_comment_event: 
+  id: 909
+  info_request_id: 105
+  comment_id: 2
+  params_yaml: "--- \n\
+    :comment_id: 2\n"
+  incoming_message_id: 
+  outgoing_message_id: 
+  last_described_at: 
+  described_state: 
+  calculated_state: 
+  event_type: comment
+  created_at: 2008-08-12 12:05:12.879634
 

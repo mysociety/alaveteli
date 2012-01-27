@@ -115,9 +115,11 @@ describe GeneralController, "when searching" do
           rebuild_xapian_index
         end
 
-        it 'should list the successful request first' do
+        it 'should list the newest successful request first' do
+            # Make sure the newest is listed first even if an older one has an even newer comment:
+            #   https://github.com/sebbacon/alaveteli/issues/370
             get :frontpage
-            assigns[:request_events].first.info_request.should == info_requests(:boring_request)
+            assigns[:request_events].first.info_request.should == info_requests(:another_boring_request)
         end
     end
 

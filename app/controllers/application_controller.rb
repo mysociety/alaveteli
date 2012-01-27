@@ -178,14 +178,13 @@ class ApplicationController < ActionController::Base
     end
 
     def foi_fragment_cache_path(param)
-        path = foi_fragment_cache_part_path(param)
-        path = "/views" + path
-        foi_cache_path = File.join(File.dirname(__FILE__), '../../cache')
+        path = File.join(RAILS_ROOT, 'cache', 'views', foi_fragment_cache_part_path(param))
         max_file_length = 255 - 35 # we subtract 35 because tempfile
                                    # adds on a variable number of
                                    # characters
-        return File.join(foi_cache_path, path)[0...max_file_length]
+        return File.join(File.split(path).map{|x| x[0...max_file_length]})
     end
+
     def foi_fragment_cache_all_for_request(info_request)
         # return stub path so admin can expire it
         first_three_digits = info_request.id.to_s()[0..2]

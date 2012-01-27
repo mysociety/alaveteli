@@ -39,6 +39,7 @@ describe RequestController, "when listing recent requests" do
                     from info_request_events later_events
                     where later_events.created_at > info_request_events.created_at
                     and later_events.info_request_id = info_request_events.info_request_id
+                    and later_events.described_state is not null
                 )
                 and info_request_events.described_state in ('successful', 'partially_successful')
             )")
@@ -219,9 +220,11 @@ describe RequestController, "when showing one request" do
             get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
             (assigns[:info_request_events].size - size_before).should == 1
             ir.reload
+            
             get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => ['hello.txt']
             response.content_type.should == "text/plain"
             response.should have_text(/Second hello/)
+            
             get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 3, :file_name => ['hello.txt']
             response.content_type.should == "text/plain"
             response.should have_text(/First hello/)
@@ -356,6 +359,8 @@ describe RequestController, "when showing one request" do
             get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => ['hello.txt'], :skip_cache => 1
             response.content_type.should == "text/plain"
             response.should have_text(/xxxxxx hello/)
+            
+            ir.user.censor_rules.clear
         end
 
         it "should censor attachment names" do
@@ -386,9 +391,12 @@ describe RequestController, "when showing one request" do
             censor_rule.last_edit_editor = "unknown"
             censor_rule.last_edit_comment = "none"
             ir.censor_rules << censor_rule
-
-            get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-            response.body.should have_tag("p.attachment strong", /goodbye.txt/m) 
+            begin
+                get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
+                response.body.should have_tag("p.attachment strong", /goodbye.txt/m)
+            ensure
+                ir.censor_rules.clear
+            end
         end
 
         it "should make a zipfile available, which has a different URL when it changes" do

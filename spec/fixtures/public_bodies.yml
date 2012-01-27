@@ -36,3 +36,16 @@ forlorn_public_body:
   url_name: lonely
   created_at: 2011-01-26 14:11:02.12345
   notes: A very lonely public body that no one has corresponded with
+silly_walks_public_body: 
+  id: 5
+  version: 1
+  name: "Ministry of Silly Walks"
+  first_letter: M
+  updated_at: 2007-10-25 10:51:01.161639
+  last_edit_comment: Is a comment really required?
+  request_email: silly-walks-requests@localhost
+  last_edit_editor: robin
+  short_name: MSW
+  url_name: msw
+  created_at: 2007-10-25 10:51:01.161639
+  notes: You know the one.

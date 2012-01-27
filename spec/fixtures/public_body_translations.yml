@@ -52,3 +52,14 @@ forlorn_en_public_body_translation:
   url_name: lonely
   locale: en
   notes: A very lonely public body that no one has corresponded with
+
+silly_walks_en_public_body_translation:
+  id: 6
+  public_body_id: 5
+  locale: en
+  name: "Ministry of Silly Walks"
+  first_letter: M
+  request_email: silly-walks-requests@localhost
+  short_name: MSW
+  url_name: msw
+  notes: You know the one.

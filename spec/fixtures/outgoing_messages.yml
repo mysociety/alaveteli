@@ -54,5 +54,15 @@ boring_outgoing_message:
   created_at: 2012-01-14 01:56:58.586598
   what_doing: normal_sort
 
+another_boring_outgoing_message:
+  id: 5
+  info_request_id: 106
+  message_type: initial_request
+  status: sent
+  body: "How much was spent on boring equipment in the 2010-2011 financial year?"
+  last_sent_at: 2006-01-12 01:57:58.586598
+  created_at: 2006-01-12 01:56:58.586598
+  updated_at: 2006-01-12 01:56:58.586598
+  what_doing: normal_sort
 
 

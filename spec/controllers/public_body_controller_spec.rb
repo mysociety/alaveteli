@@ -105,11 +105,14 @@ describe PublicBodyController, "when listing bodies" do
     end
 
     it "should list bodies in alphabetical order" do
+        # Note that they are alphabetised by localised name
         get :list
 
         response.should render_template('list')
 
-        assigns[:public_bodies].should == PublicBody.all(:order => "name", :conditions => "id <> #{PublicBody.internal_admin_body.id}")
+        assigns[:public_bodies].should == PublicBody.all(
+            :conditions => "id <> #{PublicBody.internal_admin_body.id}",
+            :order => "(select name from public_body_translations where public_body_id=public_bodies.id and locale='en')")
         assigns[:tag].should == "all"
         assigns[:description].should == ""
     end

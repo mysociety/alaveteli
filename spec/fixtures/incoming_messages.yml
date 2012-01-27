@@ -11,3 +11,10 @@ useful_incoming_message:
     raw_email_id: 2
     created_at: 2012-01-26 10:19:23
     updated_at: 2012-01-26 10:19:23
+
+another_useful_incoming_message:
+    id: 3
+    info_request_id: 105
+    raw_email_id: 2
+    created_at: 2007-11-13 18:09:20
+    updated_at: 2007-11-13 18:09:20

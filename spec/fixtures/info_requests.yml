@@ -35,9 +35,20 @@ boring_request:
     id: 105
     title: The cost of boring
     url_title: the_cost_of_boring
-    created_at: 2012-01-26 10:19:23
-    updated_at: 2012-01-26 10:19:23
+    created_at: 2006-01-12 01:56:58.586598
+    updated_at: 2008-08-12 12:05:12.879634
     public_body_id: 3
+    user_id: 1
+    described_state: successful
+    awaiting_description: false
+    idhash: 173fd003
+another_boring_request:
+    id: 106
+    title: The cost of boring
+    url_title: the_cost_of_boring_2
+    created_at: 2006-01-12 01:56:58.586598
+    updated_at: 2007-11-13 18:09:20.042061
+    public_body_id: 5
     user_id: 1
     described_state: successful
     awaiting_description: false
