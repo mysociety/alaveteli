@@ -24,8 +24,8 @@ humpadink_es_public_body_translation:
   name: "El Department for Humpadinking"
   first_letter: E
   request_email: humpadink-requests@localhost
-  id: "3"
-  public_body_id: "3"
+  id: 3
+  public_body_id: 3
   short_name: eDfH
   url_name: edfh
   locale: es
@@ -35,9 +35,20 @@ humpadink_en_public_body_translation:
   name: "Department for Humpadinking"
   first_letter: D
   request_email: humpadink-requests@localhost
-  id: "4"
-  public_body_id: "3"
+  id: 4
+  public_body_id: 3
   short_name: DfH
   url_name: dfh
   locale: en
   notes: An albatross told me!!!
+
+forlorn_en_public_body_translation: 
+  name: "Department of Loneliness"
+  first_letter: D
+  request_email: forlorn-requests@localhost
+  id: 5
+  public_body_id: 4
+  short_name: DoL
+  url_name: lonely
+  locale: en
+  notes: A very lonely public body that no one has corresponded with
