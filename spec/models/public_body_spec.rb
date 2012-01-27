@@ -249,7 +249,6 @@ describe PublicBody, " when loading CSV files" do
     it "should import even if no email is provided" do
         errors, notes = PublicBody.import_csv("1,aBody", '', 'replace', true, 'someadmin') # true means dry run
         errors.should == []
-        puts "notes = #{notes.inspect}"
         notes.size.should == 2
         notes[0].should == "line 1: creating new authority 'aBody' (locale: en):\n\t{\"name\":\"aBody\"}"
         notes[1].should =~ /Notes: Some  bodies are in database, but not in CSV file:\n(    [A-Za-z ]+\n)*You may want to delete them manually.\n/
