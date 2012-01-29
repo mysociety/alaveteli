@@ -354,9 +354,7 @@ class ApplicationController < ActionController::Base
         @sortby = sortby
 
         # Work out sorting method
-        order_pair = order_to_sort_by(@sortby)
-        order = order_pair[0]
-        ascending = order_pair[1]
+        order, ascending = order_to_sort_by(@sortby)
 
         # Peform the search
         @per_page = per_page
