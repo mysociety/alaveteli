@@ -6,7 +6,7 @@ describe IncomingMessage, " when dealing with incoming mail" do
 
     before(:each) do
         @im = incoming_messages(:useless_incoming_message)
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
     end
 
     after(:all) do
@@ -236,7 +236,7 @@ describe IncomingMessage, " when censoring data" do
         @censor_rule_2.last_edit_comment = "none"
         @im.info_request.censor_rules << @censor_rule_2
 
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
     end
 
     it "should do nothing to a JPEG" do
@@ -336,7 +336,7 @@ describe IncomingMessage, " when censoring whole users" do
         @censor_rule_1.last_edit_editor = "unknown"
         @censor_rule_1.last_edit_comment = "none"
         @im.info_request.user.censor_rules << @censor_rule_1
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
     end
 
     it "should apply censor rules to HTML files" do
@@ -357,7 +357,7 @@ describe IncomingMessage, " when uudecoding bad messages" do
     fixtures :incoming_messages, :raw_emails, :public_bodies, :public_body_translations, :info_requests, :users, :foi_attachments
 
     before(:each) do
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
     end
 
     it "should be able to do it at all" do
@@ -401,7 +401,7 @@ describe IncomingMessage, "when messages are attached to messages" do
     fixtures :incoming_messages, :raw_emails, :public_bodies, :public_body_translations, :info_requests, :users, :foi_attachments
 
     before(:each) do
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
     end
 
     it "should flatten all the attachments out" do
@@ -426,7 +426,7 @@ describe IncomingMessage, "when Outlook messages are attached to messages" do
     fixtures :incoming_messages, :raw_emails, :public_bodies, :public_body_translations, :info_requests, :users, :foi_attachments
 
     before(:each) do
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
     end
 
     it "should flatten all the attachments out" do
@@ -449,7 +449,7 @@ describe IncomingMessage, "when TNEF attachments are attached to messages" do
     fixtures :incoming_messages, :raw_emails, :public_bodies, :public_body_translations, :info_requests, :users, :foi_attachments
 
     before(:each) do
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
     end
 
     it "should flatten all the attachments out" do

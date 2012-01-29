@@ -17,8 +17,7 @@ describe "When searching" do
     ]
 
     before(:each) do
-        emails = raw_emails.clone
-        load_raw_emails_data(emails)
+        load_raw_emails_data
         rebuild_xapian_index
     end
 

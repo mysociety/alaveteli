@@ -7,7 +7,7 @@ describe InfoRequest do
 
         before(:each) do
             @im = incoming_messages(:useless_incoming_message)
-            load_raw_emails_data(raw_emails)
+            load_raw_emails_data
         end
 
         it 'should compute a hash' do

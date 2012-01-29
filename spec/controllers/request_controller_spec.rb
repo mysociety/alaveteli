@@ -7,7 +7,7 @@ describe RequestController, "when listing recent requests" do
     fixtures :users, :public_bodies, :public_body_translations, :public_body_versions, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
     before(:each) do
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
         rebuild_xapian_index
     end
     
@@ -125,7 +125,7 @@ describe RequestController, "when showing one request" do
     fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things # all needed as integrating views
     
     before(:each) do
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
     end
 
     it "should be successful" do
@@ -441,7 +441,7 @@ describe RequestController, "when changing prominence of a request" do
     fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :info_request_events, :track_things # all needed as integrating views
 
     before(:each) do
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
     end
 
     it "should not show hidden requests" do
@@ -755,7 +755,7 @@ describe RequestController, "when viewing an individual response for reply/follo
     fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things # all needed as integrating views
 
     before(:each) do
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
     end
 
     it "should ask for login if you are logged in as wrong person" do
@@ -805,7 +805,7 @@ describe RequestController, "when classifying an information request" do
         @dog_request = info_requests(:fancy_dog_request)
         @dog_request.stub!(:is_old_unclassified?).and_return(false)
         InfoRequest.stub!(:find).and_return(@dog_request)
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
     end
 
     def post_status(status)
@@ -1142,7 +1142,7 @@ describe RequestController, "when sending a followup message" do
     fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things # all needed as integrating views
 
     before(:each) do
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
     end
 
     it "should require login" do
@@ -1225,7 +1225,7 @@ describe RequestController, "sending overdue request alerts" do
     fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things # all needed as integrating views
     
     before(:each) do
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
     end
 
     it "should send an overdue alert mail to creators of overdue requests" do
@@ -1313,7 +1313,7 @@ describe RequestController, "sending unclassified new response reminder alerts" 
     fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things # all needed as integrating views
 
     before(:each) do
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
     end
 
     it "should send an alert" do
@@ -1343,7 +1343,7 @@ describe RequestController, "clarification required alerts" do
     integrate_views
     fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things # all needed as integrating views
     before(:each) do
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
     end
 
     it "should send an alert" do
@@ -1397,7 +1397,7 @@ describe RequestController, "comment alerts" do
     integrate_views
     fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things # all needed as integrating views
     before(:each) do
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
     end
  
     it "should send an alert (once and once only)" do
@@ -1472,7 +1472,7 @@ describe RequestController, "when viewing comments" do
     integrate_views
     fixtures :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
     before(:each) do
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
     end
 
     it "should link to the user who submitted it" do
@@ -1584,7 +1584,7 @@ describe RequestController, "when showing JSON version for API" do
     fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things 
 
     before(:each) do
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
     end
 
     it "should return data in JSON form" do

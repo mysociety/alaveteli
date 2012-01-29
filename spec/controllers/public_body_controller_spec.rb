@@ -7,7 +7,7 @@ describe PublicBodyController, "when showing a body" do
     fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
     before(:each) do
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
         rebuild_xapian_index
     end
 

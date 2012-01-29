@@ -17,7 +17,7 @@ describe "When rendering errors" do
     ]
 
     before(:each) do
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
         ActionController::Base.consider_all_requests_local = false
     end
 

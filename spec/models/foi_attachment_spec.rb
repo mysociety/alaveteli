@@ -4,7 +4,7 @@ describe FoiAttachment, " when calculating due date" do
     fixtures :incoming_messages, :raw_emails, :public_bodies, :public_body_translations, :info_requests, :users, :foi_attachments
 
     before(:each) do
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
     end
 
     it "sets the body" do

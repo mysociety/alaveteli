@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe RequestMailer, " when receiving incoming mail" do
     fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
     before(:each) do
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
         ActionMailer::Base.deliveries = []
     end
 

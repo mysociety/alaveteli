@@ -34,7 +34,7 @@ describe GeneralController, "when searching" do
     ]
 
     before(:each) do
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
         rebuild_xapian_index
     end
 
@@ -111,7 +111,7 @@ describe GeneralController, "when searching" do
     
     describe 'when constructing the list of recent requests' do
         before(:each) do
-          load_raw_emails_data(raw_emails)
+          load_raw_emails_data
           rebuild_xapian_index
         end
 
@@ -127,7 +127,7 @@ describe GeneralController, "when searching" do
 
       # rebuild xapian index after fixtures loaded
       before(:each) do
-          load_raw_emails_data(raw_emails)
+          load_raw_emails_data
           rebuild_xapian_index
       end
 
