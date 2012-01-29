@@ -127,6 +127,9 @@ class IncomingMessage < ActiveRecord::Base
         # The following fields may be absent; we treat them as cached
         # values in case we want to regenerate them (due to mail
         # parsing bugs, etc).
+        if self.raw_email.nil?
+            raise "Incoming message id=#{id} has no raw_email"
+        end
         if (!force.nil? || self.last_parsed.nil?)
             ActiveRecord::Base.transaction do
                 self.extract_attachments!
