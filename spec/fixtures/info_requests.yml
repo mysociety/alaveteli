@@ -45,7 +45,7 @@ boring_request:
 another_boring_request:
     id: 106
     title: The cost of boring
-    url_title: the_cost_of_boring_2
+    url_title: the_cost_of_boring_two # Not _2, because we want to avoid the search collapsing these two
     created_at: 2006-01-12 01:56:58.586598
     updated_at: 2007-11-13 18:09:20.042061
     public_body_id: 5

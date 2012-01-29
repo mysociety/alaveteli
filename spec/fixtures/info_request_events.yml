@@ -60,14 +60,14 @@ boring_outgoing_message_event:
   created_at: 2006-01-12 01:56:58.586598
   described_state: waiting_response
   calculated_state: waiting_response
-useful_incoming_message_event: 
+useful_incoming_message_event:
   id: 906
   params_yaml: "--- \n\
     :incoming_message_id: 2\n"
   incoming_message_id: 2
   info_request_id: 105
   event_type: response
-  created_at: 2007-11-13 18:09:20.042061
+  created_at: 2007-11-13 18:00:20
   described_state: successful
   calculated_state: successful
 

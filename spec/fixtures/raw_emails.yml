@@ -4,11 +4,11 @@
 # of the search functions, so if you use either of these words
 # in the email text then some tests will have to be updated.
 
-useless_raw_email: 
+useless_raw_email:
   id: 1
 
-useful_raw_email: 
+useful_raw_email:
   id: 2
 
-another_useful_raw_email: 
+another_useful_raw_email:
   id: 3

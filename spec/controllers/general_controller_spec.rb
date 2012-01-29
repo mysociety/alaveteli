@@ -116,8 +116,13 @@ describe GeneralController, "when searching" do
         end
 
         it 'should list the newest successful request first' do
-            # Make sure the newest is listed first even if an older one has an even newer comment:
+            # Make sure the newest is listed first even if an older one
+            # has a newer comment or was reclassified more recently:
             #   https://github.com/sebbacon/alaveteli/issues/370
+            #
+            # This is a deliberate behaviour change, in that the
+            # previous behaviour (showing more-recently-reclassified
+            # requests first) was intentional.
             get :frontpage
             assigns[:request_events].first.info_request.should == info_requests(:another_boring_request)
         end
