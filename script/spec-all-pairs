@@ -41,6 +41,7 @@ pairs_from_stdin() {
     do
         case "$line" in
         \*\ FAILED:\ *)
+        spec/*.rb spec/$.rb)
           line=${line#\* FAILED: }
           if ! test_pair $line
           then

@@ -107,7 +107,7 @@ def validate_html(html)
     File.open(tempfilename, "w+") do |f|
         f.puts html
     end
-    if not system($html_validation_script, tempfilename)
+    if not system($html_validation_script, *($html_validation_script_options +[tempfilename]))
         raise "HTML validation error in " + tempfilename + " HTTP status: " + @response.response_code.to_s
     end
     File.unlink(tempfilename)
@@ -131,6 +131,7 @@ utility_search_path = MySociety::Config.get("UTILITY_SEARCH_PATH", ["/usr/bin", 
 $html_validation_script_found = false
 utility_search_path.each do |d|
     $html_validation_script = File.join(d, "validate")
+    $html_validation_script_options = ["--charset=utf-8"]
     if File.file? $html_validation_script and File.executable? $html_validation_script
         $html_validation_script_found = true
         break
@@ -178,13 +179,12 @@ def safe_mock_model(model, args = {})
   mock
 end
 
-def load_raw_emails_data(raw_emails)
-    raw_email = raw_emails(:useless_raw_email)
-    begin
-        raw_email.destroy_file_representation!
-    rescue Errno::ENOENT
+def load_raw_emails_data
+    raw_emails_yml = File.join(Spec::Runner.configuration.fixture_path, "raw_emails.yml")
+    for raw_email_id in YAML::load_file(raw_emails_yml).map{|k,v| v["id"]} do
+        raw_email = RawEmail.find(raw_email_id)
+        raw_email.data = load_file_fixture("raw_emails/%d.email" % [raw_email_id])
     end
-    raw_email.data = load_file_fixture("useless_raw_email.email")
 end
 
 def parse_all_incoming_messages
