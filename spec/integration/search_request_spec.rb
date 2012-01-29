@@ -34,21 +34,34 @@ describe "When searching" do
     end
 
     it "should correctly filter searches for requests" do
-        request_via_redirect("post", "/search/bob/requests")   
+        request_via_redirect("post", "/search/bob/requests")
         response.body.should_not include("One person found")
-        response.body.should include("FOI requests 1 to 2 of 2")
+        n = 4 # The number of requests that contain the word "bob" somewhere
+              # in the email text. At present this is:
+              # - fancy_dog_request
+              # - naughty_chicken_request
+              # - boring_request
+              # - another_boring_request
+              #
+              # In other words it is all requests made by Bob Smith
+              # except for badger_request, which he did not sign.
+        response.body.should include("FOI requests 1 to #{n} of #{n}")
     end
     it "should correctly filter searches for users" do
-        request_via_redirect("post", "/search/bob/users")   
+        request_via_redirect("post", "/search/bob/users")
         response.body.should include("One person found")
-        response.body.should_not include("FOI requests 1 to 2 of 2")
+        response.body.should_not include("FOI requests 1 to")
     end
 
     it "should correctly filter searches for successful requests" do
         request_via_redirect("post", "/search/requests",
                              :query => "bob",
                              :latest_status => ['successful'])
-        response.body.should include("no results matching your query")
+        n = 2 # The number of *successful* requests that contain the word "bob" somewhere
+              # in the email text. At present this is:
+              # - boring_request
+              # - another_boring_request
+        response.body.should include("FOI requests 1 to #{n} of #{n}")
     end
 
     it "should correctly filter searches for comments" do

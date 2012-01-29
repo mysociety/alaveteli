@@ -1,37 +1,37 @@
 useless_outgoing_message_event:
+  id: 900
   params_yaml: "--- \n\
     :outgoing_message_id: 1\n"
-  id: 900
   info_request_id: 101
   event_type: sent
   created_at: 2007-10-12 01:56:58.586598
   described_state:
   outgoing_message_id: 1
 silly_outgoing_message_event:
+  id: 901
   params_yaml: "--- \n\
     :outgoing_message_id: 2\n"
-  id: 901
   info_request_id: 103
   event_type: sent
   created_at: 2007-10-14 10:41:12.686264
   described_state:
   outgoing_message_id: 2
 useless_incoming_message_event: 
+  id: 902
   params_yaml: "--- \n\
     :incoming_message_id: 1\n"
-  id: 902
   info_request_id: 101
   event_type: response
   created_at: 2007-11-13 18:09:20.042061
   described_state:
   incoming_message_id: 1
 silly_comment_event: 
+  id: 903
   params_yaml: "--- \n\
     :comment_id: 1\n"
   incoming_message_id: 
   last_described_at: 
   described_state: 
-  id: "903"
   info_request_id: 101
   comment_id: 1
   calculated_state: 
@@ -39,9 +39,9 @@ silly_comment_event:
   outgoing_message_id: 
   created_at: 2008-08-12 23:05:12.500942
 badger_outgoing_message_event:
+  id: 904
   params_yaml: "--- \n\
     :outgoing_message_id: 3\n"
-  id: 904
   info_request_id: 104
   event_type: sent
   created_at: 2011-10-12 01:56:58.586598
@@ -92,7 +92,7 @@ another_useful_incoming_message_event:
   described_state: successful
   calculated_state: successful
 
-another_comment_event: 
+another_comment_event:
   id: 909
   info_request_id: 105
   comment_id: 2

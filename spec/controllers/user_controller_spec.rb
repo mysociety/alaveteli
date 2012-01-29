@@ -46,10 +46,14 @@ describe UserController, "when showing a user" do
 
     it "should search the user's contributions" do
         get :show, :url_name => "bob_smith"
-        assigns[:xapian_requests].results.map{|x|x[:model].info_request}.should =~ InfoRequest.all(:conditions => "user_id = #{users(:bob_smith_user).id}")
+        assigns[:xapian_requests].results.map{|x|x[:model].info_request}.should =~ InfoRequest.all(
+            :conditions => "user_id = #{users(:bob_smith_user).id}")
         
         get :show, :url_name => "bob_smith", :user_query => "money"
-        assigns[:xapian_requests].results.map{|x|x[:model].info_request}.should == [info_requests(:naughty_chicken_request)]
+        assigns[:xapian_requests].results.map{|x|x[:model].info_request}.should =~ [
+            info_requests(:naughty_chicken_request),
+            info_requests(:another_boring_request),
+        ]
     end
 
     it "should not show unconfirmed users" do

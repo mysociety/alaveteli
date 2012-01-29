@@ -14,7 +14,7 @@ useful_incoming_message:
 
 another_useful_incoming_message:
     id: 3
-    info_request_id: 105
-    raw_email_id: 2
+    info_request_id: 106
+    raw_email_id: 3
     created_at: 2007-11-13 18:09:20
     updated_at: 2007-11-13 18:09:20
