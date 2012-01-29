@@ -4,7 +4,7 @@ describe User, " when indexing users with Xapian" do
     fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
     before(:each) do
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
         rebuild_xapian_index
     end
     
@@ -39,7 +39,7 @@ end
 describe PublicBody, " when indexing public bodies with Xapian" do
     fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
     before(:each) do
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
         rebuild_xapian_index
     end
 
@@ -73,7 +73,7 @@ describe PublicBody, " when indexing requests by body they are to" do
     fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
     before(:each) do
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
         rebuild_xapian_index
     end
 
@@ -129,7 +129,7 @@ end
 describe User, " when indexing requests by user they are from" do
     fixtures :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things, :public_bodies, :public_body_versions, :public_body_translations
     before(:each) do
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
         rebuild_xapian_index
     end
 
@@ -208,7 +208,7 @@ end
 describe User, " when indexing comments by user they are by" do
     fixtures :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
     before(:each) do
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
         rebuild_xapian_index
     end
 
@@ -244,7 +244,7 @@ end
 describe InfoRequest, " when indexing requests by their title" do
     fixtures :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
     before(:each) do
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
         rebuild_xapian_index
     end
 
@@ -274,7 +274,7 @@ end
 describe InfoRequest, " when indexing requests by tag" do
     fixtures :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
     before(:each) do
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
         rebuild_xapian_index
     end
 
@@ -296,7 +296,7 @@ end
 describe PublicBody, " when indexing authorities by tag" do
     fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
     before(:each) do
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
         rebuild_xapian_index
     end
 
@@ -321,7 +321,7 @@ end
 describe PublicBody, " when only indexing selected things on a rebuild" do
     fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
     before(:each) do
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
         rebuild_xapian_index
     end
 

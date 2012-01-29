@@ -8,10 +8,10 @@
 <p><label for="admin_user_email">Email</label> (<strong>you must</strong> first validate this)<br/>
 <%= text_field 'admin_user', 'email', :size => 60  %></p>
 
-<p><label for="admin_level">Admin level</label> (<strong>none</strong> or <strong>super</strong>; this is for admin features and links which are in the site proper)<br/>
+<p><label for="admin_user_admin_level">Admin level</label> (<strong>none</strong> or <strong>super</strong>; this is for admin features and links which are in the site proper)<br/>
 <%= text_field 'admin_user', 'admin_level', :size => 60  %></p>
 
-<p><label for="ban_text">Ban text</label> <small>(if not blank will stop the
+<p><label for="admin_user_ban_text">Ban text</label> <small>(if not blank will stop the
     user from filing new requests, making annotations or messaging other users;
     the text is shown in public on the user's page and when they try to do a
     forbidden action; write in the second person (you); see
@@ -19,7 +19,9 @@
 
 <%= text_area 'admin_user', 'ban_text', :cols => 60, :rows => 3  %></p>
 
-<p><label for="about_me">About me</label> (user's own text on their profile, format like comments):<br/>
+<p><label for="admin_user_about_me">About me</label> (user's own text on their profile, format like comments):<br/>
 <%= text_area 'admin_user', 'about_me', :cols => 60, :rows => 3  %></p>
 
+<p><%= check_box 'admin_user', 'no_limit' %>
+<label for="admin_user_no_limit">No rate limit</label> (disable the limit on daily requests)</p>
 

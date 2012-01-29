@@ -120,3 +120,6 @@ HTML_TO_PDF_COMMAND: /usr/local/bin/wkhtmltopdf-amd64
 # Exception notifications
 EXCEPTION_NOTIFICATIONS_FROM: do-not-reply-to-this-address@example.com
 EXCEPTION_NOTIFICATIONS_TO:
+
+MAX_REQUESTS_PER_USER_PER_DAY: 2
+

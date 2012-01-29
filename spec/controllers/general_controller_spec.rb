@@ -34,7 +34,7 @@ describe GeneralController, "when searching" do
     ]
 
     before(:each) do
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
         rebuild_xapian_index
     end
 
@@ -111,13 +111,25 @@ describe GeneralController, "when searching" do
     
     describe 'when constructing the list of recent requests' do
         before(:each) do
-          load_raw_emails_data(raw_emails)
+          load_raw_emails_data
           rebuild_xapian_index
         end
 
-        it 'should list the successful request first' do
+        it 'should list the newest successful request first' do
+            # Make sure the newest is listed first even if an older one
+            # has a newer comment or was reclassified more recently:
+            #   https://github.com/sebbacon/alaveteli/issues/370
+            #
+            # This is a deliberate behaviour change, in that the
+            # previous behaviour (showing more-recently-reclassified
+            # requests first) was intentional.
             get :frontpage
-            assigns[:request_events].first.info_request.should == info_requests(:boring_request)
+            assigns[:request_events].first.info_request.should == info_requests(:another_boring_request)
+        end
+        
+        it 'should coalesce duplicate requests' do
+            get :frontpage
+            assigns[:request_events].map(&:info_request).select{|x|x.url_title =~ /^spam/}.length.should == 1
         end
     end
 
@@ -125,7 +137,7 @@ describe GeneralController, "when searching" do
 
       # rebuild xapian index after fixtures loaded
       before(:each) do
-          load_raw_emails_data(raw_emails)
+          load_raw_emails_data
           rebuild_xapian_index
       end
 
@@ -156,21 +168,31 @@ describe GeneralController, "when searching" do
 
     it "should filter results based on end of URL being 'all'" do
         get :search, :combined => ['"bob"', "all"]
-        assigns[:xapian_requests].results.size.should == 2
-        assigns[:xapian_users].results.size.should == 1
-        assigns[:xapian_bodies].results.size.should == 0
+        assigns[:xapian_requests].results.map{|x| x[:model]}.should =~ [
+            info_request_events(:useless_outgoing_message_event),
+            info_request_events(:silly_outgoing_message_event),
+            info_request_events(:useful_incoming_message_event),
+            info_request_events(:another_useful_incoming_message_event),
+        ]
+        assigns[:xapian_users].results.map{|x| x[:model]}.should == [users(:bob_smith_user)]
+        assigns[:xapian_bodies].results.should == []
     end
 
     it "should filter results based on end of URL being 'users'" do
         get :search, :combined => ['"bob"', "users"]
         assigns[:xapian_requests].should == nil
-        assigns[:xapian_users].results.size.should == 1
+        assigns[:xapian_users].results.map{|x| x[:model]}.should == [users(:bob_smith_user)]
         assigns[:xapian_bodies].should == nil
     end
 
     it "should filter results based on end of URL being 'requests'" do
         get :search, :combined => ['"bob"', "requests"]
-        assigns[:xapian_requests].results.size.should == 2
+        assigns[:xapian_requests].results.map{|x|x[:model]}.should =~ [
+            info_request_events(:useless_outgoing_message_event),
+            info_request_events(:silly_outgoing_message_event),
+            info_request_events(:useful_incoming_message_event),
+            info_request_events(:another_useful_incoming_message_event),
+        ]
         assigns[:xapian_users].should == nil
         assigns[:xapian_bodies].should == nil
     end
@@ -179,7 +201,7 @@ describe GeneralController, "when searching" do
         get :search, :combined => ['"quango"', "bodies"]
         assigns[:xapian_requests].should == nil
         assigns[:xapian_users].should == nil
-        assigns[:xapian_bodies].results.size.should == 1        
+        assigns[:xapian_bodies].results.map{|x|x[:model]}.should == [public_bodies(:geraldine_public_body)]
     end
 
     it "should show help when searching for nothing" do

@@ -17,8 +17,7 @@ describe "When viewing requests" do
     ]
 
     before(:each) do
-        emails = raw_emails.clone
-        load_raw_emails_data(emails)
+        load_raw_emails_data
     end
 
     it "should not make endlessly recursive JSON <link>s" do

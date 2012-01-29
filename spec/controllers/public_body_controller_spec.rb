@@ -7,7 +7,7 @@ describe PublicBodyController, "when showing a body" do
     fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
     before(:each) do
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
         rebuild_xapian_index
     end
 
@@ -105,11 +105,14 @@ describe PublicBodyController, "when listing bodies" do
     end
 
     it "should list bodies in alphabetical order" do
+        # Note that they are alphabetised by localised name
         get :list
 
         response.should render_template('list')
 
-        assigns[:public_bodies].should == PublicBody.all(:order => "name", :conditions => "id <> #{PublicBody.internal_admin_body.id}")
+        assigns[:public_bodies].should == PublicBody.all(
+            :conditions => "id <> #{PublicBody.internal_admin_body.id}",
+            :order => "(select name from public_body_translations where public_body_id=public_bodies.id and locale='en')")
         assigns[:tag].should == "all"
         assigns[:description].should == ""
     end
@@ -150,7 +153,6 @@ describe PublicBodyController, "when listing bodies" do
         get :list
         response.should render_template('list')
         assigns[:public_bodies].should =~ PublicBody.all(:conditions => "id <> #{PublicBody.internal_admin_body.id}")
-
     end
 
     it "should list a machine tagged thing, should get it in both ways" do
@@ -196,6 +198,11 @@ describe PublicBodyController, "when doing type ahead searches" do
     fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
     integrate_views
+    
+    before(:each) do
+        load_raw_emails_data
+        rebuild_xapian_index
+    end
 
     it "should return nothing for the empty query string" do
         get :search_typeahead, :query => ""
@@ -214,16 +221,16 @@ describe PublicBodyController, "when doing type ahead searches" do
     it "should return all requests matching any of the given keywords" do
         get :search_typeahead, :query => "Geraldine Humpadinking"
         response.should render_template('public_body/_search_ahead')
-        assigns[:xapian_requests].results.size.should == 2
-        assigns[:xapian_requests].results[0][:model].name.should == public_bodies(:humpadink_public_body).name
-        assigns[:xapian_requests].results[1][:model].name.should == public_bodies(:geraldine_public_body).name
+        assigns[:xapian_requests].results.map{|x|x[:model]}.should =~ [
+            public_bodies(:humpadink_public_body),
+            public_bodies(:geraldine_public_body),
+        ]
     end
 
     it "should return requests matching the given keywords in any of their locales" do
         get :search_typeahead, :query => "baguette" # part of the spanish notes
         response.should render_template('public_body/_search_ahead')
-        assigns[:xapian_requests].results.size.should == 1
-        assigns[:xapian_requests].results[0][:model].name.should == public_bodies(:humpadink_public_body).name
+        assigns[:xapian_requests].results.map{|x|x[:model]}.should =~ [public_bodies(:humpadink_public_body)]
     end
 
     it "should not return  matches for short words" do
