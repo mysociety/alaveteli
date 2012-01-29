@@ -38,7 +38,11 @@ class FoiAttachment < ActiveRecord::Base
     BODY_MAX_DELAY = 5
 
     def directory
-        base_dir = File.join(File.dirname(__FILE__), "../../cache", "attachments_#{ENV['RAILS_ENV']}")
+        rails_env = ENV['RAILS_ENV']
+        if rails_env.nil? || rails_env.empty?
+            raise "$RAILS_ENV is not set"
+        end
+        base_dir = File.join(File.dirname(__FILE__), "../../cache", "attachments_#{rails_env}")
         return File.join(base_dir, self.hexdigest[0..2])
     end
 
