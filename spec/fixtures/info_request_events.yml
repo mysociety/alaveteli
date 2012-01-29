@@ -106,3 +106,47 @@ another_comment_event:
   event_type: comment
   created_at: 2008-08-12 12:05:12.879634
 
+
+# The spam requests were both successful
+spam_1_outgoing_message_event:
+  id: 910
+  params_yaml: "--- \n\
+    :outgoing_message_id: 6\n"
+  outgoing_message_id: 6
+  info_request_id: 107
+  event_type: sent
+  created_at: 2001-01-02 01:23:45.6789100
+  described_state: waiting_response
+  calculated_state: waiting_response
+spam_1_incoming_message_event:
+  id: 911
+  params_yaml: "--- \n\
+    :incoming_message_id: 4\n"
+  incoming_message_id: 4
+  info_request_id: 107
+  event_type: response
+  created_at: 2001-01-03 01:23:45.6789100
+  described_state: successful
+  calculated_state: successful
+
+spam_2_outgoing_message_event:
+  id: 912
+  params_yaml: "--- \n\
+    :outgoing_message_id: 7\n"
+  outgoing_message_id: 7
+  info_request_id: 108
+  event_type: sent
+  created_at: 2001-01-02 02:23:45.6789100
+  described_state: waiting_response
+  calculated_state: waiting_response
+spam_2_incoming_message_event:
+  id: 913
+  params_yaml: "--- \n\
+    :incoming_message_id: 5\n"
+  incoming_message_id: 5
+  info_request_id: 108
+  event_type: response
+  created_at: 2001-01-03 02:23:45.6789100
+  described_state: successful
+  calculated_state: successful
+

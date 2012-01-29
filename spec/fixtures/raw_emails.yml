@@ -12,3 +12,9 @@ useful_raw_email:
 
 another_useful_raw_email:
   id: 3
+
+spam_1_raw_email:
+  id: 4
+
+spam_2_raw_email:
+  id: 5

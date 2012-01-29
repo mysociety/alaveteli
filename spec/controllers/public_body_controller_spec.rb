@@ -153,7 +153,6 @@ describe PublicBodyController, "when listing bodies" do
         get :list
         response.should render_template('list')
         assigns[:public_bodies].should =~ PublicBody.all(:conditions => "id <> #{PublicBody.internal_admin_body.id}")
-
     end
 
     it "should list a machine tagged thing, should get it in both ways" do

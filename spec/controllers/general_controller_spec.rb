@@ -126,6 +126,11 @@ describe GeneralController, "when searching" do
             get :frontpage
             assigns[:request_events].first.info_request.should == info_requests(:another_boring_request)
         end
+        
+        it 'should coalesce duplicate requests' do
+            get :frontpage
+            assigns[:request_events].map(&:info_request).select{|x|x.url_title =~ /^spam/}.length.should == 1
+        end
     end
 
     describe 'when using xapian search' do
