@@ -208,8 +208,12 @@ class RequestController < ApplicationController
 
         # Banned from making new requests?
         if !authenticated_user.nil? && !authenticated_user.can_file_requests?
-            @details = authenticated_user.can_fail_html
-            render :template => 'user/banned'
+            if authenticated_user.exceeded_limit?
+                render :template => 'user/rate_limited'
+            else
+                @details = authenticated_user.can_fail_html
+                render :template => 'user/banned'
+            end
             return
         end
 

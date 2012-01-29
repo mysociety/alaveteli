@@ -45,6 +45,7 @@ class AdminUserController < AdminController
         @admin_user.admin_level = params[:admin_user][:admin_level]
         @admin_user.ban_text = params[:admin_user][:ban_text]
         @admin_user.about_me = params[:admin_user][:about_me]
+        @admin_user.no_limit = params[:admin_user][:no_limit]
 
         if @admin_user.valid?
             @admin_user.save!

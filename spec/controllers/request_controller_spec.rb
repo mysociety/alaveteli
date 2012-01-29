@@ -702,6 +702,58 @@ describe RequestController, "when creating a new request" do
 
         response.should redirect_to(:action => 'show', :url_title => ir2.url_title)
     end
+    
+    it 'should respect the rate limit' do
+        # Try to create three requests in succession.
+        # (The limit set in config/test.yml is two.)
+        session[:user_id] = users(:robin_user)
+
+        post :new, :info_request => { :public_body_id => @body.id, 
+            :title => "What is the answer to the ultimate question?", :tag_string => "" },
+            :outgoing_message => { :body => "Please supply the answer from your files." },
+            :submitted_new_request => 1, :preview => 0
+        response.should redirect_to(:action => 'show', :url_title => 'what_is_the_answer_to_the_ultima')
+
+        
+        post :new, :info_request => { :public_body_id => @body.id, 
+            :title => "Why did the chicken cross the road?", :tag_string => "" },
+            :outgoing_message => { :body => "Please send me all the relevant documents you hold." },
+            :submitted_new_request => 1, :preview => 0
+        response.should redirect_to(:action => 'show', :url_title => 'why_did_the_chicken_cross_the_ro')
+
+        post :new, :info_request => { :public_body_id => @body.id, 
+            :title => "What's black and white and red all over?", :tag_string => "" },
+            :outgoing_message => { :body => "Please send all minutes of meetings and email records that address this question." },
+            :submitted_new_request => 1, :preview => 0
+        response.should render_template('user/rate_limited')
+    end
+    
+    it 'should ignore the rate limit for specified users' do
+        # Try to create three requests in succession.
+        # (The limit set in config/test.yml is two.)
+        session[:user_id] = users(:robin_user)
+        users(:robin_user).no_limit = true
+        users(:robin_user).save!
+
+        post :new, :info_request => { :public_body_id => @body.id, 
+            :title => "What is the answer to the ultimate question?", :tag_string => "" },
+            :outgoing_message => { :body => "Please supply the answer from your files." },
+            :submitted_new_request => 1, :preview => 0
+        response.should redirect_to(:action => 'show', :url_title => 'what_is_the_answer_to_the_ultima')
+
+        
+        post :new, :info_request => { :public_body_id => @body.id, 
+            :title => "Why did the chicken cross the road?", :tag_string => "" },
+            :outgoing_message => { :body => "Please send me all the relevant documents you hold." },
+            :submitted_new_request => 1, :preview => 0
+        response.should redirect_to(:action => 'show', :url_title => 'why_did_the_chicken_cross_the_ro')
+
+        post :new, :info_request => { :public_body_id => @body.id, 
+            :title => "What's black and white and red all over?", :tag_string => "" },
+            :outgoing_message => { :body => "Please send all minutes of meetings and email records that address this question." },
+            :submitted_new_request => 1, :preview => 0
+        response.should redirect_to(:action => 'show', :url_title => 'whats_black_and_white_and_red_al')
+    end
 
 end
 
@@ -747,6 +799,7 @@ describe RequestController, "when making a new request" do
 
     it "should fail if user is banned" do
         @user.stub!(:can_file_requests?).and_return(false)
+        @user.stub!(:exceeded_limit?).and_return(false)
         @user.should_receive(:can_fail_html).and_return('FAIL!')
         session[:user_id] = @user.id
         get :new, :public_body_id => @body.id
