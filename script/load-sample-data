@@ -16,4 +16,4 @@ ENV["RAILS_ENV"] = env        # so restore to what it was before
 load_raw_emails_data
 END
 
-echo "Loaded fixtures."
+echo "Loaded fixtures.  You may now wish to run $LOC/update-xapian-index"
