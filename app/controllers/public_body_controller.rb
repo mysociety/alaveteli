@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # app/controllers/public_body_controller.rb:
 # Show information about a public body.
 #
@@ -117,14 +118,17 @@ class PublicBodyController < ApplicationController
                 and has_tag_string_tags.model = \'PublicBody\'
                 and has_tag_string_tags.name = ?) > 0', @query, @query, default_locale, @tag]
         end
+
         if @tag == "all"
             @description = ""
         elsif @tag.size == 1
-            @description = _("beginning with") + " '" + @tag + "'"
+            @description = _("beginning with ‘{{first_letter}}’", :first_letter=>@tag)
         else
-            @description = PublicBodyCategories::get().by_tag()[@tag]
-            if @description.nil?
-                @description = @tag
+            category_name = PublicBodyCategories::get().by_tag()[@tag]
+            if category_name.nil?
+                @description = _("matching the tag ‘{{tag_name}}’", :tag_name=>@tag)
+            else
+                @description = _("in the category ‘{{category_name}}’", :category_name=>category_name)
             end
         end
         PublicBody.with_locale(@locale) do

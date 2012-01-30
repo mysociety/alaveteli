@@ -20,7 +20,7 @@ class PublicBodyCategories
     end
 
     def PublicBodyCategories.get
-        load_categories() if @@CATEGORIES.nil?          
+        load_categories if @@CATEGORIES.empty?
         @@CATEGORIES[I18n.locale.to_s] || @@CATEGORIES[I18n.default_locale.to_s] || PublicBodyCategories.new([])
     end
 
@@ -30,10 +30,9 @@ class PublicBodyCategories
     end
     
     private
-    @@CATEGORIES = nil
+    @@CATEGORIES = {}
     
     def PublicBodyCategories.load_categories()
-        @@CATEGORIES = {} if @@CATEGORIES.nil?
         I18n.available_locales.each do |locale|
             begin
                 load "public_body_categories_#{locale}.rb"

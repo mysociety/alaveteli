@@ -1,3 +1,4 @@
+# -*- coding: undecided -*-
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 require 'json'
@@ -138,13 +139,15 @@ describe PublicBodyController, "when listing bodies" do
     end
 
     it "should list a tagged thing on the appropriate list page, and others on the other page, and all still on the all page" do
+        load_test_categories
+
         public_bodies(:humpadink_public_body).tag_string = "foo local_council"
 
         get :list, :tag => "local_council"
         response.should render_template('list')
         assigns[:public_bodies].should == [ public_bodies(:humpadink_public_body) ]
         assigns[:tag].should == "local_council"
-        assigns[:description].should == "Local councils"
+        assigns[:description].should == "in the category ‘Local councils’"
 
         get :list, :tag => "other"
         response.should render_template('list')

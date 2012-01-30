@@ -190,3 +190,11 @@ end
 def parse_all_incoming_messages
     IncomingMessage.find(:all).each{|x| x.parse_raw_email!}
 end
+
+def load_test_categories
+    PublicBodyCategories.add(:en, [
+        "Local and regional",
+            [ "local_council", "Local councils", "a local council" ],
+        "Miscellaneous",
+            [ "other", "Miscellaneous", "miscellaneous" ],])
+end
