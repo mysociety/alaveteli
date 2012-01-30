@@ -137,3 +137,5 @@ EXCEPTION_NOTIFICATIONS_TO:
  - robin@example.org
  - seb@example.org
 
+# This rate limiting can be turned off per-user via the admin interface
+MAX_REQUESTS_PER_USER_PER_DAY: 6

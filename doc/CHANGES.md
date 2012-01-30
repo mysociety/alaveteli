@@ -6,6 +6,7 @@
 * It is now possible to rebuild the xapian index for specific terms, rather than having to drop and rebuild the entire database every time (as previously).  See rake xapian:rebuild_index for more info. 
 * When listing authorities, show all authorities in default locale, rather than only those in the currently selected locale.
 * Ensure incoming emails are only ever parsed once (should give a performance boost)
+* Added a simple rate-limiting feature: restrict the number of requests users can make per day, except if explicitly unrestricted in the admin interface
 * [Full list of changes on github](https://github.com/sebbacon/alaveteli/issues?state=closed&milestone=9)
 
 ## Upgrade notes
@@ -19,6 +20,7 @@
 * Ensure you have values for new config variables (see `config/general.yml-example`):
   * EXCEPTION_NOTIFICATIONS_FROM
   * EXCEPTION_NOTIFICATIONS_TO
+  * MAX_REQUESTS_PER_USER_PER_DAY
 * The recommended Varnish config has changed, so that we ignore more cookies.  You should review your Varnish config with respect to the example at `config/varnish-alaveteli.vcl`.
 * Consider setting elinks global config as described in the "Troubleshooting" section of INSTALL.md
 
