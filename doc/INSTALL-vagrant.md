@@ -15,7 +15,7 @@ then run these commands from the repo directory:
 
     # SSH to the new box and switch to the Alaveteli directory
     vagrant ssh
-    cd vagrant
+    cd /vagrant
 
     # Migrate the database
     rake db:migrate
