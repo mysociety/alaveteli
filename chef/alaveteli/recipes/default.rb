@@ -26,3 +26,11 @@ template "/vagrant/config/database.yml" do
   owner "vagrant"
   group "vagrant"
 end
+
+# Application config
+cookbook_file "/vagrant/config/general.yml" do
+  source "general.yml"
+  mode "644"
+  owner "vagrant"
+  group "vagrant"
+end
