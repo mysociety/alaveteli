@@ -20,7 +20,7 @@
 * Ensure you have values for new config variables (see `config/general.yml-example`):
   * EXCEPTION_NOTIFICATIONS_FROM
   * EXCEPTION_NOTIFICATIONS_TO
-  * MAX_REQUESTS_PER_USER_PER_DAY
+* The new optional config variable MAX_REQUESTS_PER_USER_PER_DAY can be set to limit the number of requests each user can make per day.
 * The recommended Varnish config has changed, so that we ignore more cookies.  You should review your Varnish config with respect to the example at `config/varnish-alaveteli.vcl`.
 * Consider setting elinks global config as described in the "Troubleshooting" section of INSTALL.md
 
