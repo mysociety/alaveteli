@@ -17,6 +17,8 @@ then run these commands from the repo directory:
     vagrant ssh
     cd /vagrant
 
+    # Accept the RVM warning
+
     # Setup the database
     rake db:create && rake db:migrate
 
