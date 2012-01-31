@@ -116,17 +116,20 @@ module ActsAsXapian
         raise NoXapianRubyBindingsError.new("Xapian Ruby bindings not installed") unless ActsAsXapian.bindings_available
         raise "acts_as_xapian hasn't been called in any models" if @@init_values.empty?
         
-        # if DB is not nil, then we're already initialised, so don't do it again
-        # XXX we need to reopen the database each time, so Xapian gets changes to it.
-        # Hopefully in later version of Xapian it will autodetect this, and this can
-        # be commented back in again.
-        # return unless @@db.nil?
-
         prepare_environment
+        
+        # We need to reopen the database each time, so Xapian gets changes to it.
+        # Calling reopen() does not always pick up changes for reasons that I can
+        # only speculate about at the moment. (It is easy to reproduce this by
+        # changing the code below to use reopen() rather than open() followed by
+        # close(), and running rake spec.)
+        if !@@db.nil?
+            @@db.close
+        end
+        @@db = Xapian::Database.new(@@db_path)
         
         # basic Xapian objects
         begin
-            @@db = Xapian::Database.new(@@db_path)
             @@enquire = Xapian::Enquire.new(@@db)
         rescue IOError => e
             raise "Failed to open Xapian database #{@@db_path}: #{e.message}"

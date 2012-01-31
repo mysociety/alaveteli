@@ -363,7 +363,10 @@ class ApplicationController < ActionController::Base
         else
             @page = this_page
         end
-        return InfoRequest.full_search(models, @query, order, ascending, collapse, @per_page, @page) 
+        result = InfoRequest.full_search(models, @query, order, ascending, collapse, @per_page, @page)
+        result.results # Touch the results to load them, otherwise accessing them from the view
+                       # might fail later if the database has subsequently been reopened.
+        return result
     end
     def get_search_page_from_params
         return (params[:page] || "1").to_i
