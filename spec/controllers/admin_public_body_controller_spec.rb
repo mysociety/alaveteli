@@ -70,7 +70,7 @@ describe AdminPublicBodyController, "when administering public bodies and paying
 
     it "disallows non-authenticated users to do anything" do
         @request.env["HTTP_AUTHORIZATION"] = ""
-        n = PublicBody.count.should
+        n = PublicBody.count
         post :destroy, { :id => 3 }
         response.code.should == "401"
         PublicBody.count.should == n
@@ -105,7 +105,7 @@ describe AdminPublicBodyController, "when administering public bodies and paying
         config['ADMIN_USERNAME'] = 'biz'
         config['ADMIN_PASSWORD'] = 'fuz'
         @request.env["HTTP_AUTHORIZATION"] = ""
-        n = PublicBody.count.should
+        n = PublicBody.count
         basic_auth_login(@request, "baduser", "badpassword")
         post :destroy, { :id => public_bodies(:forlorn_public_body).id }
         response.code.should == "401"
