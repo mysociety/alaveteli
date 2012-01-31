@@ -137,3 +137,6 @@ EXCEPTION_NOTIFICATIONS_TO:
  - robin@example.org
  - seb@example.org
 
+# Rate limiting
+MAX_REQUESTS_PER_USER_PER_DAY: 10
+
