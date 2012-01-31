@@ -4,7 +4,6 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 require 'json'
 
 describe RequestController, "when listing recent requests" do
-    fixtures :users, :public_bodies, :public_body_translations, :public_body_versions, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
     before(:each) do
         load_raw_emails_data
@@ -121,8 +120,6 @@ describe RequestController, "when listing recent requests" do
 end
 
 describe RequestController, "when showing one request" do
-    
-    fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things # all needed as integrating views
     
     before(:each) do
         load_raw_emails_data
@@ -443,7 +440,6 @@ describe RequestController, "when showing one request" do
 end
 
 describe RequestController, "when changing prominence of a request" do
-    fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :info_request_events, :track_things # all needed as integrating views
 
     before(:each) do
         load_raw_emails_data
@@ -531,7 +527,6 @@ end
 #  end
 
 describe RequestController, "when searching for an authority" do
-    fixtures :public_bodies, :users
 
     # Whether or not sign-in is required for this step is configurable,
     # so we make sure we're logged in, just in case
@@ -573,7 +568,6 @@ end
 
 describe RequestController, "when creating a new request" do
     integrate_views
-    fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
     before do
         @user = users(:bob_smith_user)
@@ -810,7 +804,6 @@ end
 
 describe RequestController, "when viewing an individual response for reply/followup" do
     integrate_views
-    fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things # all needed as integrating views
 
     before(:each) do
         load_raw_emails_data
@@ -856,8 +849,6 @@ describe RequestController, "when viewing an individual response for reply/follo
 end
 
 describe RequestController, "when classifying an information request" do
-
-    fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things # all needed as integrating views
 
     before(:each) do 
         @dog_request = info_requests(:fancy_dog_request)
@@ -1197,7 +1188,6 @@ end
 
 describe RequestController, "when sending a followup message" do
     integrate_views
-    fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things # all needed as integrating views
 
     before(:each) do
         load_raw_emails_data
@@ -1280,7 +1270,6 @@ end
 
 describe RequestController, "sending overdue request alerts" do
     integrate_views
-    fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things # all needed as integrating views
     
     before(:each) do
         load_raw_emails_data
@@ -1368,7 +1357,6 @@ end
 
 describe RequestController, "sending unclassified new response reminder alerts" do
     integrate_views
-    fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things # all needed as integrating views
 
     before(:each) do
         load_raw_emails_data
@@ -1399,7 +1387,6 @@ end
 
 describe RequestController, "clarification required alerts" do
     integrate_views
-    fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things # all needed as integrating views
     before(:each) do
         load_raw_emails_data
     end
@@ -1453,7 +1440,6 @@ end
 
 describe RequestController, "comment alerts" do
     integrate_views
-    fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things # all needed as integrating views
     before(:each) do
         load_raw_emails_data
     end
@@ -1528,7 +1514,6 @@ end
 
 describe RequestController, "when viewing comments" do
     integrate_views
-    fixtures :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
     before(:each) do
         load_raw_emails_data
     end
@@ -1552,7 +1537,6 @@ end
 
 describe RequestController, "authority uploads a response from the web interface" do
     integrate_views
-    fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
     before(:each) do
         # domain after the @ is used for authentication of FOI officers, so to test it
@@ -1638,8 +1622,6 @@ describe RequestController, "authority uploads a response from the web interface
 end
 
 describe RequestController, "when showing JSON version for API" do
-    
-    fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things 
 
     before(:each) do
         load_raw_emails_data
@@ -1659,7 +1641,6 @@ describe RequestController, "when showing JSON version for API" do
 end
 
 describe RequestController, "when doing type ahead searches" do
-    fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things 
 
     integrate_views
 

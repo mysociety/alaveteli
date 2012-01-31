@@ -1,7 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Holiday, " when calculating due date" do
-    fixtures :holidays
 
     def due_date(ymd) 
         return Holiday.due_date_from(Date.strptime(ymd), 20).strftime("%F")

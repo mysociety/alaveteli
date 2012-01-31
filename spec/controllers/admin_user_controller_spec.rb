@@ -2,7 +2,6 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe AdminUserController, "when administering users" do
     integrate_views
-    fixtures :users, :info_requests, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things, :public_bodies, :public_body_versions, :public_body_translations
     before { basic_auth_login @request }
   
     it "shows the index/list page" do

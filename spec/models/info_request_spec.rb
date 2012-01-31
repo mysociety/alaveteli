@@ -3,7 +3,6 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe InfoRequest do 
 
     describe "guessing a request from an email" do 
-        fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
         before(:each) do
             @im = incoming_messages(:useless_incoming_message)
@@ -73,8 +72,6 @@ describe InfoRequest do
     end
     
     describe " when emailing" do
-    
-        fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
         before do
             @info_request = info_requests(:fancy_dog_request)
@@ -154,7 +151,6 @@ describe InfoRequest do
     end 
 
     describe "when calculating the status" do
-        fixtures :holidays, :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
         before do
             @ir = info_requests(:naughty_chicken_request)
@@ -196,8 +192,6 @@ describe InfoRequest do
 
     describe "when using a plugin and calculating the status" do
 
-        fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
-
         before do
             InfoRequest.send(:require, File.expand_path(File.dirname(__FILE__) + '/customstates'))
             InfoRequest.send(:include, InfoRequestCustomStates)
@@ -231,7 +225,6 @@ describe InfoRequest do
 
 
     describe "when calculating the status for a school" do
-        fixtures :holidays, :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
         before do
             @ir = info_requests(:naughty_chicken_request)

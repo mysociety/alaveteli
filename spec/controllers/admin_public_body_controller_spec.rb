@@ -2,7 +2,6 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe AdminPublicBodyController, "when administering public bodies" do
     integrate_views
-    fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
     before do
         username = MySociety::Config.get('ADMIN_USERNAME', '')
@@ -72,7 +71,6 @@ end
 describe AdminPublicBodyController, "when administering public bodies and paying attention to authentication" do
 
     integrate_views
-    fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
     it "disallows non-authenticated users to do anything" do
         @request.env["HTTP_AUTHORIZATION"] = ""
@@ -125,7 +123,6 @@ end
 
 describe AdminPublicBodyController, "when administering public bodies with i18n" do
     integrate_views
-    fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
   
     before do
         username = MySociety::Config.get('ADMIN_USERNAME', '')
@@ -194,7 +191,6 @@ end
 
 describe AdminPublicBodyController, "when creating public bodies with i18n" do
     integrate_views
-    fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
   
     before do
         username = MySociety::Config.get('ADMIN_USERNAME', '')
