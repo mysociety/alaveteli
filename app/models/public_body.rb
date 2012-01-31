@@ -275,7 +275,7 @@ class PublicBody < ActiveRecord::Base
             ret = ret + types[-1]
             return ret
         else
-            return "A public authority"
+            return _("A public authority")
         end
     end
 
