@@ -4,8 +4,7 @@
 # to winkle out order-dependent failures.
 
 test_pair () {
-    rake db:test:purge > /dev/null
-    rake db:test:clone_structure > /dev/null
+    rake db:test:prepare > /dev/null
     if script/spec "$1" "$2" > /dev/null 2>&1
     then
         echo "OK: $1 $2"
