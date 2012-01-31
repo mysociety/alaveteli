@@ -4283,7 +4283,7 @@ msgid ""
 msgstr ""
 
 #: app/models/user.rb:122
-msgid "{{user_name}} (Banned)"
+msgid "{{user_name}} (Account suspended)"
 msgstr ""
 
 #: app/views/request_mailer/comment_on_alert.rhtml:1

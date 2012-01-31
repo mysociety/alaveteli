@@ -932,7 +932,7 @@ msgid "Please enter your name, not your email address, in the name field."
 msgstr ""
 
 #: app/models/user.rb:133
-msgid "{{user_name}} (Banned)"
+msgid "{{user_name}} (Account suspended)"
 msgstr ""
 
 #: app/models/user.rb:146
