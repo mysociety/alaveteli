@@ -207,18 +207,28 @@ class RequestController < ApplicationController
         end
 
         # Banned from making new requests?
+        user_exceeded_limit = false
         if !authenticated_user.nil? && !authenticated_user.can_file_requests?
-            if authenticated_user.exceeded_limit?
-                render :template => 'user/rate_limited'
-            else
+            # If the reason the user cannot make new requests is that they are
+            # rate-limited, it’s possible they composed a request before they
+            # logged in and we want to include the text of the request so they
+            # can squirrel it away for tomorrow, so we detect this later after
+            # we have constructed the InfoRequest.
+            user_exceeded_limit = authenticated_user.exceeded_limit?
+            if !user_exceeded_limit
                 @details = authenticated_user.can_fail_html
                 render :template => 'user/banned'
+                return
             end
-            return
         end
 
         # First time we get to the page, just display it
         if params[:submitted_new_request].nil? || params[:reedit]
+            if user_exceeded_limit
+                render :template => 'user/rate_limited'
+                return
+            end
+
             params[:info_request] = { } if !params[:info_request]
 
             # Read parameters in - first the public body (by URL name or id)
@@ -315,6 +325,11 @@ class RequestController < ApplicationController
                 flash.now[:error] = message
             end
             render :action => 'preview'
+            return
+        end
+
+        if user_exceeded_limit
+            render :template => 'user/rate_limited'
             return
         end
 
