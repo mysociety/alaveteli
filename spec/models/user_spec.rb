@@ -29,7 +29,7 @@ describe User, "showing the name" do
 
     it 'should show if user has been banned' do 
         @user.ban_text = "Naughty user"
-        @user.name.should == 'Some Name (Banned)'
+        @user.name.should == 'Some Name (Account suspended)'
     end
 
 end
