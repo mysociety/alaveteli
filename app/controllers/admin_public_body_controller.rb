@@ -56,7 +56,7 @@ class AdminPublicBodyController < AdminController
             flash[:notice] = "Added tag to table of bodies."
         end
 
-        redirect_to admin_url('body/list') + "?query=" + @query + (@page.nil? ? "" : "&page=" + @page) # XXX construct this URL properly
+        redirect_to admin_body_list_url(:query => @query, :page => @page)
     end
 
     def missing_scheme
