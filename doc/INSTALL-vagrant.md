@@ -18,7 +18,7 @@ then run these commands from the repo directory:
     cd /vagrant
 
     # Setup the database
-    rake db:setup
+    rake db:create && rake db:migrate
 
     # Start the development server
     ./script/server
