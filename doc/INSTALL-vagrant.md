@@ -17,10 +17,10 @@ then run these commands from the repo directory:
     vagrant ssh
     cd /vagrant
 
-    # Migrate the database
-    rake db:migrate
+    # Setup the database
+    rake db:setup
 
     # Start the development server
     ./script/server
 
-Now visit `localhost:3000`.
+Now visit `http://localhost:3000`.
