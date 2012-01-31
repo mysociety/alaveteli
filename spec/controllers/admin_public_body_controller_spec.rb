@@ -61,6 +61,14 @@ describe AdminPublicBodyController, "when administering public bodies" do
         get :show, :id => 2
         session[:using_admin].should == 1
     end
+
+    it "mass assigns tags" do
+        n = PublicBody.count
+        post :mass_tag_add, { :new_tag => "department", :table_name => "substring" }
+        response.flash[:notice].should == "Added tag to table of bodies."
+        response.should redirect_to(:action=>'list')
+        PublicBody.find_by_tag("department").count.should == n
+    end
 end
 
 describe AdminPublicBodyController, "when administering public bodies and paying attention to authentication" do

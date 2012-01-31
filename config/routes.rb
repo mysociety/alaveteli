@@ -169,6 +169,7 @@ ActionController::Routing::Routes.draw do |map|
         body.admin_body_create '/admin/body/create/:id', :action => 'create'
         body.admin_body_destroy '/admin/body/destroy/:id', :action => 'destroy'
         body.admin_body_import_csv '/admin/body/import_csv', :action => 'import_csv'
+        body.admin_body_mass_tag_add '/admin/body/mass_tag_add', :action => 'mass_tag_add'
     end
 
     map.with_options :controller => 'admin_general' do |admin|
