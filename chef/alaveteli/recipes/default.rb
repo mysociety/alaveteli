@@ -11,9 +11,11 @@ require_recipe "postgresql::server"
 
 # Install package dependencies as per the readme
 packages = `cut -d " " -f 1 /vagrant/config/packages | grep -v "^#"`.split
+# mySociety packages are unauthenticated
+mysociety_packages = %w{wkhtmltopdf-static pdftk}
 packages.each do |pkg|
   package pkg do
-    options "--allow-unauthenticated" if pkg == "wkhtmltopdf-static"
+    options "--allow-unauthenticated" if mysociety_packages.include? pkg
   end
 end
 
