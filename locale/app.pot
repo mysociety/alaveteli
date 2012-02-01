@@ -1195,6 +1195,10 @@ msgstr ""
 msgid "Follow these requests"
 msgstr ""
 
+#: app/models/user.rb:133
+msgid "{{user_name}} (Account suspended)"
+msgstr ""
+
 #: app/views/public_body/show.rhtml:4
 msgid "Follow this authority"
 msgstr ""

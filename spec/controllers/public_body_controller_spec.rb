@@ -1,11 +1,9 @@
-# -*- coding: undecided -*-
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 require 'json'
 
 describe PublicBodyController, "when showing a body" do
     integrate_views
-    fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
     before(:each) do
         load_raw_emails_data
@@ -83,7 +81,6 @@ end
 
 describe PublicBodyController, "when listing bodies" do
     integrate_views
-    fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
     it "should be successful" do
         get :list
@@ -183,8 +180,6 @@ end
 
 describe PublicBodyController, "when showing JSON version for API" do
 
-    fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
-
     it "should be successful" do
         get :show, :url_name => "dfh", :format => "json", :view => 'all'
 
@@ -198,7 +193,6 @@ describe PublicBodyController, "when showing JSON version for API" do
 end
 
 describe PublicBodyController, "when doing type ahead searches" do
-    fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
     integrate_views
     

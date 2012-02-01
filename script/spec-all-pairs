@@ -4,8 +4,7 @@
 # to winkle out order-dependent failures.
 
 test_pair () {
-    rake db:test:purge > /dev/null
-    rake db:test:clone_structure > /dev/null
+    rake db:test:prepare > /dev/null 2>&1
     if script/spec "$1" "$2" > /dev/null 2>&1
     then
         echo "OK: $1 $2"
@@ -40,8 +39,8 @@ pairs_from_stdin() {
     while read line
     do
         case "$line" in
-        \*\ FAILED:\ *)
-        spec/*.rb spec/$.rb)
+        \*\ FAILED:\ *|\
+        spec/*.rb\ spec/*.rb)
           line=${line#\* FAILED: }
           if ! test_pair $line
           then

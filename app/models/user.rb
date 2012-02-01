@@ -132,7 +132,7 @@ class User < ActiveRecord::Base
             name.strip!
         end
         if self.public_banned?
-            name = _("{{user_name}} (Banned)", :user_name=>name)
+            name = _("{{user_name}} (Account suspended)", :user_name=>name)
         end
         name
     end

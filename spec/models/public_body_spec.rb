@@ -95,7 +95,6 @@ describe PublicBody, " using machine tags" do
 end
 
 describe PublicBody, "when finding_by_tags" do
-    fixtures :public_bodies, :public_body_translations, :public_body_versions, :info_requests, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
     before do
          @geraldine = public_bodies(:geraldine_public_body)
@@ -173,7 +172,6 @@ describe PublicBody, " when saving" do
 end
 
 describe PublicBody, "when searching" do
-    fixtures :public_bodies, :public_body_translations, :public_body_versions, :info_requests, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
     it "should find by existing url name" do
         body = PublicBody.find_by_url_name_with_historic('dfh')
@@ -239,7 +237,6 @@ describe PublicBody, " when dealing public body locales" do
 end
 
 describe PublicBody, " when loading CSV files" do
-    fixtures :public_bodies, :public_body_versions, :public_body_translations
     before(:each) do
         # InternalBody is created the first time it's accessed, which happens sometimes during imports,
         # depending on the tag used. By accessing it here before every test, it doesn't disturb our checks later on
