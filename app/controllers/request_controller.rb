@@ -716,7 +716,10 @@ class RequestController < ApplicationController
         @incoming_message.parse_raw_email!
         @info_request = @incoming_message.info_request
         if @incoming_message.info_request_id != params[:id].to_i
-            message = "Incoming message %d does not belong to request %d" % [@incoming_message.info_request_id, params[:id]]
+            # Note that params[:id] might not be an integer, though
+            # if we’ve got this far then it must begin with an integer
+            # and that integer must be the id number of an actual request.
+            message = "Incoming message %d does not belong to request '%s'" % [@incoming_message.info_request_id, params[:id]]
             raise ActiveRecord::RecordNotFound.new(message)
         end
         @part_number = params[:part].to_i

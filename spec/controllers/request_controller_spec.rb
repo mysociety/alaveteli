@@ -235,7 +235,7 @@ describe RequestController, "when showing one request" do
             response.should have_text(/tënde/u)
         end
 
-        it "should generate valid HTML verson of plain text attachments " do
+        it "should generate valid HTML verson of plain text attachments" do
             ir = info_requests(:fancy_dog_request) 
             receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
             ir.reload
@@ -244,16 +244,53 @@ describe RequestController, "when showing one request" do
             response.should have_text(/Second hello/)
         end
 
-        it "should return 404 for ugly URLs contain a request id that isn't an integer " do
+        # This is a regression test for a bug where URLs of this form were causing 500 errors
+        # instead of 404s.
+        #
+        # (Note that in fact only the integer-prefix of the URL part is used, so there are
+        # *some* “ugly URLs containing a request id that isn't an integer” that actually return
+        # a 200 response. The point is that IDs of this sort were triggering an error in the
+        # error-handling path, causing the wrong sort of error response to be returned in the
+        # case where the integer prefix referred to the wrong request.)
+        #
+        # https://github.com/sebbacon/alaveteli/issues/351
+        it "should return 404 for ugly URLs containing a request id that isn't an integer" do
             ir = info_requests(:fancy_dog_request) 
             receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
             ir.reload
             ugly_id = "55195"
             lambda {
-                get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => ugly_id, :part => 2, :file_name => ['hello.txt.html'], :skip_cache => 1
+                get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ugly_id, :part => 2, :file_name => ['hello.txt.html'], :skip_cache => 1
+            }.should raise_error(ActiveRecord::RecordNotFound)
+
+            lambda {
+                get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => ugly_id, :part => 2, :file_name => ['hello.txt'], :skip_cache => 1
             }.should raise_error(ActiveRecord::RecordNotFound)
         end
-        it "should return 404 when incoming message and request ids don't match " do
+        it "should return 404 when incoming message and request ids don't match" do
+            ir = info_requests(:fancy_dog_request)
+            wrong_id = info_requests(:naughty_chicken_request).id
+            receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
+            ir.reload
+            lambda {
+                get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => wrong_id, :part => 2, :file_name => ['hello.txt.html'], :skip_cache => 1
+            }.should raise_error(ActiveRecord::RecordNotFound)
+        end
+        it "should return 404 for ugly URLs contain a request id that isn't an integer, even if the integer prefix refers to an actual request" do
+            ir = info_requests(:fancy_dog_request)
+            receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
+            ir.reload
+            ugly_id = "%d95" % [info_requests(:naughty_chicken_request).id]
+            
+            lambda {
+                get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ugly_id, :part => 2, :file_name => ['hello.txt.html'], :skip_cache => 1
+            }.should raise_error(ActiveRecord::RecordNotFound)
+
+            lambda {
+                get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => ugly_id, :part => 2, :file_name => ['hello.txt'], :skip_cache => 1
+            }.should raise_error(ActiveRecord::RecordNotFound)
+        end
+        it "should return 404 when incoming message and request ids don't match" do
             ir = info_requests(:fancy_dog_request)
             wrong_id = info_requests(:naughty_chicken_request).id
             receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
