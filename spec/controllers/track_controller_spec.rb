@@ -36,7 +36,6 @@ end
 
 describe TrackController, "when sending alerts for a track" do
     integrate_views
-    fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things, :track_things_sent_emails
     include LinkToHelper # for main_url
 
     before(:each) do
@@ -115,7 +114,6 @@ end
 
 describe TrackController, "when viewing RSS feed for a track" do
     integrate_views
-    fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
     before(:each) do
         load_raw_emails_data
@@ -141,7 +139,6 @@ end
 describe TrackController, "when viewing JSON version of a track feed" do
 
     integrate_views
-    fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
     before(:each) do
         load_raw_emails_data

@@ -2,14 +2,19 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe AdminPublicBodyController, "when administering public bodies" do
     integrate_views
-    fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
     before do
         username = MySociety::Config.get('ADMIN_USERNAME', '')
         password = MySociety::Config.get('ADMIN_PASSWORD', '')
         basic_auth_login @request
+        
+        @old_filters = ActionController::Routing::Routes.filters
+        ActionController::Routing::Routes.filters = RoutingFilter::Chain.new
     end
 
+    after do
+        ActionController::Routing::Routes.filters = @old_filters
+    end
 
     it "shows the index page" do
         get :index
@@ -61,16 +66,23 @@ describe AdminPublicBodyController, "when administering public bodies" do
         get :show, :id => 2
         session[:using_admin].should == 1
     end
+
+    it "mass assigns tags" do
+        n = PublicBody.count
+        post :mass_tag_add, { :new_tag => "department", :table_name => "substring" }
+        response.flash[:notice].should == "Added tag to table of bodies."
+        response.should redirect_to(:action=>'list')
+        PublicBody.find_by_tag("department").count.should == n
+    end
 end
 
 describe AdminPublicBodyController, "when administering public bodies and paying attention to authentication" do
 
     integrate_views
-    fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
     it "disallows non-authenticated users to do anything" do
         @request.env["HTTP_AUTHORIZATION"] = ""
-        n = PublicBody.count.should
+        n = PublicBody.count
         post :destroy, { :id => 3 }
         response.code.should == "401"
         PublicBody.count.should == n
@@ -105,7 +117,7 @@ describe AdminPublicBodyController, "when administering public bodies and paying
         config['ADMIN_USERNAME'] = 'biz'
         config['ADMIN_PASSWORD'] = 'fuz'
         @request.env["HTTP_AUTHORIZATION"] = ""
-        n = PublicBody.count.should
+        n = PublicBody.count
         basic_auth_login(@request, "baduser", "badpassword")
         post :destroy, { :id => public_bodies(:forlorn_public_body).id }
         response.code.should == "401"
@@ -119,7 +131,6 @@ end
 
 describe AdminPublicBodyController, "when administering public bodies with i18n" do
     integrate_views
-    fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
   
     before do
         username = MySociety::Config.get('ADMIN_USERNAME', '')
@@ -188,7 +199,6 @@ end
 
 describe AdminPublicBodyController, "when creating public bodies with i18n" do
     integrate_views
-    fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
   
     before do
         username = MySociety::Config.get('ADMIN_USERNAME', '')
@@ -198,10 +208,10 @@ describe AdminPublicBodyController, "when creating public bodies with i18n" do
         @old_filters = ActionController::Routing::Routes.filters
         ActionController::Routing::Routes.filters = RoutingFilter::Chain.new
     end
+
     after do
         ActionController::Routing::Routes.filters = @old_filters
     end
-
 
     it "creates a new public body in one locale" do
         n = PublicBody.count

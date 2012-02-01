@@ -24,6 +24,7 @@ Spec::Runner.configure do |config|
 
   # fixture_path must end in a separator
   config.fixture_path = File.join(Rails.root, 'spec', 'fixtures') + File::SEPARATOR
+  config.global_fixtures = :users, :public_bodies, :public_body_translations, :public_body_versions, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things, :foi_attachments, :has_tag_string_tags, :holidays, :track_things_sent_emails
 
   # == Fixtures
   #
@@ -189,4 +190,12 @@ end
 
 def parse_all_incoming_messages
     IncomingMessage.find(:all).each{|x| x.parse_raw_email!}
+end
+
+def load_test_categories
+    PublicBodyCategories.add(:en, [
+        "Local and regional",
+            [ "local_council", "Local councils", "a local council" ],
+        "Miscellaneous",
+            [ "other", "Miscellaneous", "miscellaneous" ],])
 end

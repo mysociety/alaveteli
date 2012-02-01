@@ -2,7 +2,6 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe CommentController, "when commenting on a request" do
     integrate_views
-    fixtures :users, :public_bodies, :public_body_translations, :public_body_versions, :info_requests, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
     it "should give an error and render 'new' template when body text is just some whitespace" do
         post :new, :url_title => info_requests(:naughty_chicken_request).url_title,

@@ -4,7 +4,6 @@ require 'json'
 
 describe PublicBodyController, "when showing a body" do
     integrate_views
-    fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
     before(:each) do
         load_raw_emails_data
@@ -82,7 +81,6 @@ end
 
 describe PublicBodyController, "when listing bodies" do
     integrate_views
-    fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
     it "should be successful" do
         get :list
@@ -138,13 +136,15 @@ describe PublicBodyController, "when listing bodies" do
     end
 
     it "should list a tagged thing on the appropriate list page, and others on the other page, and all still on the all page" do
+        load_test_categories
+
         public_bodies(:humpadink_public_body).tag_string = "foo local_council"
 
         get :list, :tag => "local_council"
         response.should render_template('list')
         assigns[:public_bodies].should == [ public_bodies(:humpadink_public_body) ]
         assigns[:tag].should == "local_council"
-        assigns[:description].should == "Local councils"
+        assigns[:description].should == "in the category ‘Local councils’"
 
         get :list, :tag => "other"
         response.should render_template('list')
@@ -180,8 +180,6 @@ end
 
 describe PublicBodyController, "when showing JSON version for API" do
 
-    fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
-
     it "should be successful" do
         get :show, :url_name => "dfh", :format => "json", :view => 'all'
 
@@ -195,7 +193,6 @@ describe PublicBodyController, "when showing JSON version for API" do
 end
 
 describe PublicBodyController, "when doing type ahead searches" do
-    fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
     integrate_views
     
