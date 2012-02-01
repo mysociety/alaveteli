@@ -126,10 +126,10 @@ module ActsAsXapian
         if !@@db.nil?
             @@db.close
         end
-        @@db = Xapian::Database.new(@@db_path)
         
         # basic Xapian objects
         begin
+            @@db = Xapian::Database.new(@@db_path)
             @@enquire = Xapian::Enquire.new(@@db)
         rescue IOError => e
             raise "Failed to open Xapian database #{@@db_path}: #{e.message}"
