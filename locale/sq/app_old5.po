@@ -4423,7 +4423,7 @@ msgstr ""
 "për këtë autoritet."
 
 #: app/models/user.rb:122
-msgid "{{user_name}} (Banned)"
+msgid "{{user_name}} (Account suspended)"
 msgstr "{{user_name}} (Përjashtuar)"
 
 #: app/views/request_mailer/comment_on_alert.rhtml:1

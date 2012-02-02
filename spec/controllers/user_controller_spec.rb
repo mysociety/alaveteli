@@ -8,7 +8,6 @@ require 'json'
 
 describe UserController, "when showing a user" do
     integrate_views
-    fixtures :users, :public_bodies, :public_body_translations, :public_body_versions, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
     before(:each) do
         load_raw_emails_data
         rebuild_xapian_index
@@ -68,7 +67,6 @@ end
 
 describe UserController, "when signing in" do
     integrate_views
-    fixtures :users
 
     def get_last_postredirect
         post_redirects = PostRedirect.find_by_sql("select * from post_redirects order by id desc limit 1")
@@ -196,7 +194,6 @@ end
 
 describe UserController, "when signing up" do
     integrate_views
-    fixtures :users
 
     it "should be an error if you type the password differently each time" do
         post :signup, { :user_signup => { :email => 'new@localhost', :name => 'New Person',
@@ -254,7 +251,6 @@ end
 
 describe UserController, "when signing out" do
     integrate_views
-    fixtures :users
 
     it "should log you out and redirect to the home page" do
         session[:user_id] = users(:bob_smith_user).id
@@ -279,7 +275,6 @@ end
 
 describe UserController, "when sending another user a message" do
     integrate_views
-    fixtures :users
 
     it "should redirect to signin page if you go to the contact form and aren't signed in" do
         get :contact, :id => users(:silly_name_user)
@@ -317,7 +312,6 @@ end
 
 describe UserController, "when changing password" do
     integrate_views
-    fixtures :users
 
     it "should show the email form when not logged in" do
         get :signchangepassword
@@ -388,7 +382,6 @@ end
 
 describe UserController, "when changing email address" do
     integrate_views
-    fixtures :users
 
     it "should require login" do
         get :signchangeemail
@@ -534,7 +527,6 @@ end
 
 describe UserController, "when using profile photos" do
     integrate_views
-    fixtures :users
 
     before do
         @user = users(:bob_smith_user)
@@ -590,8 +582,6 @@ describe UserController, "when using profile photos" do
 end
 
 describe UserController, "when showing JSON version for API" do
-    
-    fixtures :users
   
     it "should be successful" do
         get :show, :url_name => "bob_smith", :format => "json"

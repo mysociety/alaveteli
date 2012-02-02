@@ -4,7 +4,6 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 require 'json'
 
 describe RequestController, "when listing recent requests" do
-    fixtures :users, :public_bodies, :public_body_translations, :public_body_versions, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
     before(:each) do
         load_raw_emails_data
@@ -122,8 +121,6 @@ end
 
 describe RequestController, "when showing one request" do
     
-    fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things # all needed as integrating views
-    
     before(:each) do
         load_raw_emails_data
     end
@@ -238,7 +235,7 @@ describe RequestController, "when showing one request" do
             response.should have_text(/tënde/u)
         end
 
-        it "should generate valid HTML verson of plain text attachments " do
+        it "should generate valid HTML verson of plain text attachments" do
             ir = info_requests(:fancy_dog_request) 
             receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
             ir.reload
@@ -247,16 +244,53 @@ describe RequestController, "when showing one request" do
             response.should have_text(/Second hello/)
         end
 
-        it "should return 404 for ugly URLs contain a request id that isn't an integer " do
+        # This is a regression test for a bug where URLs of this form were causing 500 errors
+        # instead of 404s.
+        #
+        # (Note that in fact only the integer-prefix of the URL part is used, so there are
+        # *some* “ugly URLs containing a request id that isn't an integer” that actually return
+        # a 200 response. The point is that IDs of this sort were triggering an error in the
+        # error-handling path, causing the wrong sort of error response to be returned in the
+        # case where the integer prefix referred to the wrong request.)
+        #
+        # https://github.com/sebbacon/alaveteli/issues/351
+        it "should return 404 for ugly URLs containing a request id that isn't an integer" do
             ir = info_requests(:fancy_dog_request) 
             receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
             ir.reload
             ugly_id = "55195"
             lambda {
-                get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => ugly_id, :part => 2, :file_name => ['hello.txt.html'], :skip_cache => 1
+                get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ugly_id, :part => 2, :file_name => ['hello.txt.html'], :skip_cache => 1
+            }.should raise_error(ActiveRecord::RecordNotFound)
+
+            lambda {
+                get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => ugly_id, :part => 2, :file_name => ['hello.txt'], :skip_cache => 1
             }.should raise_error(ActiveRecord::RecordNotFound)
         end
-        it "should return 404 when incoming message and request ids don't match " do
+        it "should return 404 when incoming message and request ids don't match" do
+            ir = info_requests(:fancy_dog_request)
+            wrong_id = info_requests(:naughty_chicken_request).id
+            receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
+            ir.reload
+            lambda {
+                get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => wrong_id, :part => 2, :file_name => ['hello.txt.html'], :skip_cache => 1
+            }.should raise_error(ActiveRecord::RecordNotFound)
+        end
+        it "should return 404 for ugly URLs contain a request id that isn't an integer, even if the integer prefix refers to an actual request" do
+            ir = info_requests(:fancy_dog_request)
+            receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
+            ir.reload
+            ugly_id = "%d95" % [info_requests(:naughty_chicken_request).id]
+            
+            lambda {
+                get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ugly_id, :part => 2, :file_name => ['hello.txt.html'], :skip_cache => 1
+            }.should raise_error(ActiveRecord::RecordNotFound)
+
+            lambda {
+                get :get_attachment_as_html, :incoming_message_id => ir.incoming_messages[1].id, :id => ugly_id, :part => 2, :file_name => ['hello.txt'], :skip_cache => 1
+            }.should raise_error(ActiveRecord::RecordNotFound)
+        end
+        it "should return 404 when incoming message and request ids don't match" do
             ir = info_requests(:fancy_dog_request)
             wrong_id = info_requests(:naughty_chicken_request).id
             receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
@@ -443,7 +477,6 @@ describe RequestController, "when showing one request" do
 end
 
 describe RequestController, "when changing prominence of a request" do
-    fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :info_request_events, :track_things # all needed as integrating views
 
     before(:each) do
         load_raw_emails_data
@@ -531,7 +564,6 @@ end
 #  end
 
 describe RequestController, "when searching for an authority" do
-    fixtures :public_bodies, :users
 
     # Whether or not sign-in is required for this step is configurable,
     # so we make sure we're logged in, just in case
@@ -573,7 +605,6 @@ end
 
 describe RequestController, "when creating a new request" do
     integrate_views
-    fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
     before do
         @user = users(:bob_smith_user)
@@ -810,7 +841,6 @@ end
 
 describe RequestController, "when viewing an individual response for reply/followup" do
     integrate_views
-    fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things # all needed as integrating views
 
     before(:each) do
         load_raw_emails_data
@@ -856,8 +886,6 @@ describe RequestController, "when viewing an individual response for reply/follo
 end
 
 describe RequestController, "when classifying an information request" do
-
-    fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things # all needed as integrating views
 
     before(:each) do 
         @dog_request = info_requests(:fancy_dog_request)
@@ -1197,7 +1225,6 @@ end
 
 describe RequestController, "when sending a followup message" do
     integrate_views
-    fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things # all needed as integrating views
 
     before(:each) do
         load_raw_emails_data
@@ -1280,7 +1307,6 @@ end
 
 describe RequestController, "sending overdue request alerts" do
     integrate_views
-    fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things # all needed as integrating views
     
     before(:each) do
         load_raw_emails_data
@@ -1368,7 +1394,6 @@ end
 
 describe RequestController, "sending unclassified new response reminder alerts" do
     integrate_views
-    fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things # all needed as integrating views
 
     before(:each) do
         load_raw_emails_data
@@ -1399,7 +1424,6 @@ end
 
 describe RequestController, "clarification required alerts" do
     integrate_views
-    fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things # all needed as integrating views
     before(:each) do
         load_raw_emails_data
     end
@@ -1453,7 +1477,6 @@ end
 
 describe RequestController, "comment alerts" do
     integrate_views
-    fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things # all needed as integrating views
     before(:each) do
         load_raw_emails_data
     end
@@ -1528,7 +1551,6 @@ end
 
 describe RequestController, "when viewing comments" do
     integrate_views
-    fixtures :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
     before(:each) do
         load_raw_emails_data
     end
@@ -1552,7 +1574,6 @@ end
 
 describe RequestController, "authority uploads a response from the web interface" do
     integrate_views
-    fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
     before(:each) do
         # domain after the @ is used for authentication of FOI officers, so to test it
@@ -1638,8 +1659,6 @@ describe RequestController, "authority uploads a response from the web interface
 end
 
 describe RequestController, "when showing JSON version for API" do
-    
-    fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things 
 
     before(:each) do
         load_raw_emails_data
@@ -1659,7 +1678,6 @@ describe RequestController, "when showing JSON version for API" do
 end
 
 describe RequestController, "when doing type ahead searches" do
-    fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things 
 
     integrate_views
 

@@ -5,7 +5,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe "when using TMail" do
-    fixtures :info_requests, :incoming_messages
 
     before(:each) do
         ActionMailer::Base.deliveries.clear
