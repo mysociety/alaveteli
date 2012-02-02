@@ -39,6 +39,10 @@ This document is about what you can do in a theme.
 To get started, install the sample theme by running 
 
     ./script/plugin install git://github.com/sebbacon/alavetelitheme.git
+    
+This downloads and installs the theme in
+`vendor/plugins/alavetelitheme` and contains examples for nearly
+everything you might want to customise.
 
 # Branding the site 
 
