@@ -57,7 +57,7 @@ class IncomingMessage < ActiveRecord::Base
     validates_presence_of :raw_email
 
     has_many :outgoing_message_followups, :foreign_key => 'incoming_message_followup_id', :class_name => 'OutgoingMessage'
-    has_many :foi_attachments
+    has_many :foi_attachments, :order => 'id'
     has_many :info_request_events # never really has many, but could in theory
 
     belongs_to :raw_email
