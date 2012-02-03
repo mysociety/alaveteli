@@ -28,7 +28,7 @@ sub vcl_recv {
     set req.http.X-Forwarded-For = client.ip;
  
     # Remove Google Analytics, has_js, and last-seen cookies
-    set req.http.Cookie = regsuball(req.http.Cookie, "(^|;\s*)(__[a-z]+|has_js|last_body_id|last_request_id|seen_foi2)=[^;]*", "");
+    set req.http.Cookie = regsuball(req.http.Cookie, "(^|;\s*)(__[a-z]+|has_js|has_seen_country_message|seen_foi2)=[^;]*", "");
 
     # Normalize the Accept-Encoding header
     if (req.http.Accept-Encoding) {

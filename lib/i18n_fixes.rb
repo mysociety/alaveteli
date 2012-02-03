@@ -22,9 +22,9 @@ def gettext_interpolate(string, values)
       if escaped
         pattern
       elsif INTERPOLATION_RESERVED_KEYS.include?(pattern)
-        raise ReservedInterpolationKey.new(pattern, string)
+        raise I18n::ReservedInterpolationKey.new(pattern, string)
       elsif !values.include?(key)
-        raise MissingInterpolationArgument.new(pattern, string)
+        raise I18n::MissingInterpolationArgument.new(pattern, string)
       else
         values[key].to_s
       end
