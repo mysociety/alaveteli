@@ -31,15 +31,15 @@ class HelpController < ApplicationController
         end
 
         # look up link to request/body
-        @last_request_id = cookies["last_request_id"].to_i
-        if @last_request_id > 0
-            @last_request = InfoRequest.find(@last_request_id)
+        last_request_id = cookies["last_request_id"].to_i
+        if last_request_id > 0
+            @last_request = InfoRequest.find(last_request_id)
         else
             @last_request = nil
         end
-        @last_body_id = cookies["last_body_id"].to_i
-        if @last_body_id > 0
-            @last_body = PublicBody.find(@last_body_id)
+        last_body_id = cookies["last_body_id"].to_i
+        if last_body_id > 0
+            @last_body = PublicBody.find(last_body_id)
         else
             @last_body = nil
         end
