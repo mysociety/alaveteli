@@ -773,12 +773,12 @@ class IncomingMessage < ActiveRecord::Base
         # which is really messy.
         ensure_parts_counted
         attachments = []
-        for leaf in leaves            
+        for leaf in leaves
             body = leaf.body
             # As leaf.body causes MIME decoding which uses lots of RAM, do garbage collection here
             # to prevent excess memory use. XXX not really sure if this helps reduce
             # peak RAM use overall. Anyway, maybe there is something better to do than this.
-            GC.start             
+            GC.start
             if leaf.within_rfc822_attachment
                 within_rfc822_subject = leaf.within_rfc822_attachment.subject
                 # Test to see if we are in the first part of the attached
