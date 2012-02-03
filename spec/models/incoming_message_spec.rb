@@ -362,6 +362,7 @@ describe IncomingMessage, " when uudecoding bad messages" do
         im = incoming_messages(:useless_incoming_message)
         im.stub!(:mail).and_return(mail)
         im.extract_attachments!
+        
         attachments = im.foi_attachments
         attachments.size.should == 2
         attachments[1].filename.should == 'moo.txt'
@@ -385,9 +386,9 @@ describe IncomingMessage, " when uudecoding bad messages" do
         ir.censor_rules << @censor_rule
         im.extract_attachments!
 
-        attachments = im.get_attachments_for_display
-        attachments.size.should == 1
-        attachments[0].display_filename.should == 'bah.txt'
+        im.get_attachments_for_display.map(&:display_filename).should == [
+            'bah.txt',
+        ]
     end
 
 end
@@ -409,10 +410,11 @@ describe IncomingMessage, "when messages are attached to messages" do
         im.extract_attachments!
 
         attachments = im.get_attachments_for_display
-        attachments.size.should == 3
-        attachments[0].display_filename.should == 'Same attachment twice.txt'
-        attachments[1].display_filename.should == 'hello.txt'
-        attachments[2].display_filename.should == 'hello.txt'
+        attachments.map(&:display_filename).should == [
+            'Same attachment twice.txt',
+            'hello.txt',
+            'hello.txt',
+        ]
     end
 end
 
@@ -431,10 +433,10 @@ describe IncomingMessage, "when Outlook messages are attached to messages" do
         im.stub!(:mail).and_return(mail)
         im.extract_attachments!
 
-        attachments = im.get_attachments_for_display
-        attachments.size.should == 2
-        attachments[0].display_filename.should == 'test.html' # picks HTML rather than text by default, as likely to render better
-        attachments[1].display_filename.should == 'attach.txt'
+        im.get_attachments_for_display.map(&:display_filename).should == [
+            'test.html',  # picks HTML rather than text by default, as likely to render better
+            'attach.txt',
+        ]
     end
 end
 
@@ -453,12 +455,10 @@ describe IncomingMessage, "when TNEF attachments are attached to messages" do
         im.stub!(:mail).and_return(mail)
         im.extract_attachments!
 
-        attachments = im.get_attachments_for_display
-        attachments.size.should == 2
-        attachments[0].display_filename.should == 'FOI 09 02976i.doc'
-        attachments[1].display_filename.should == 'FOI 09 02976iii.doc'
+        im.get_attachments_for_display.map(&:display_filename).should == [
+            'FOI 09 02976i.doc',
+            'FOI 09 02976iii.doc',
+        ]
     end
 end
-
-
 
