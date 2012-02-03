@@ -1319,9 +1319,10 @@ describe RequestController, "sending overdue request alerts" do
 
         RequestMailer.alert_overdue_requests
 
-        deliveries = ActionMailer::Base.deliveries
-        deliveries.size.should == 2
-        mail = deliveries[1]
+        chicken_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /chickens/}
+        chicken_mails.size.should == 1
+        mail = chicken_mails[0]
+        
         mail.body.should =~ /promptly, as normally/
         mail.to_addrs.first.to_s.should == info_requests(:naughty_chicken_request).user.name_and_email
 
@@ -1347,9 +1348,10 @@ describe RequestController, "sending overdue request alerts" do
 
         RequestMailer.alert_overdue_requests
 
-        deliveries = ActionMailer::Base.deliveries
-        deliveries.size.should == 2
-        mail = deliveries[1]
+        chicken_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /chickens/}
+        chicken_mails.size.should == 1
+        mail = chicken_mails[0]
+        
         mail.body.should =~ /promptly, as normally/
         mail.to_addrs.first.to_s.should == info_requests(:naughty_chicken_request).user.name_and_email
     end
@@ -1372,9 +1374,10 @@ describe RequestController, "sending overdue request alerts" do
 
         RequestMailer.alert_overdue_requests
 
-        deliveries = ActionMailer::Base.deliveries
-        deliveries.size.should == 2
-        mail = deliveries[1]
+        chicken_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /chickens/}
+        chicken_mails.size.should == 1
+        mail = chicken_mails[0]
+        
         mail.body.should =~ /required by law/
         mail.to_addrs.first.to_s.should == info_requests(:naughty_chicken_request).user.name_and_email
 
