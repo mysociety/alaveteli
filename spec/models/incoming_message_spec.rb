@@ -2,14 +2,19 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe IncomingMessage, " when dealing with incoming mail" do
-    fixtures :users, :raw_emails, :public_bodies, :public_body_translations, :public_body_versions, :info_requests, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
     before(:each) do
         @im = incoming_messages(:useless_incoming_message)
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
+    end
+
+    after(:all) do
+        ActionMailer::Base.deliveries.clear
     end
 
     it "should return the mail Date header date for sent at" do
+        @im.parse_raw_email!(true)
+        @im.reload
         @im.sent_at.should == @im.mail.date
     end
 
@@ -26,6 +31,31 @@ describe IncomingMessage, " when dealing with incoming mail" do
             parsed.should include(expected)
         end
     end
+
+    it "should ensure cached body text has been parsed correctly" do
+        ir = info_requests(:fancy_dog_request)
+        receive_incoming_mail('quoted-subject-iso8859-1.email', ir.incoming_email)
+        message = ir.incoming_messages[1]
+        message.get_main_body_text_unfolded.should_not include("Email has no body")
+    end
+
+    it "should correctly convert HTML even when there's a meta tag asserting that it is iso-8859-1 which would normally confuse elinks" do
+        ir = info_requests(:fancy_dog_request)
+        receive_incoming_mail('quoted-subject-iso8859-1.email', ir.incoming_email)
+        message = ir.incoming_messages[1]
+        message.parse_raw_email!
+        message.get_main_body_text_part.charset.should == "iso-8859-1"
+        message.get_main_body_text_internal.should include("política")
+    end
+
+    it "should unquote RFC 2047 headers" do
+        ir = info_requests(:fancy_dog_request)
+        receive_incoming_mail('quoted-subject-iso8859-1.email', ir.incoming_email)
+        message = ir.incoming_messages[1]
+        message.mail_from.should == "Coordenação de Relacionamento, Pesquisa e Informação/CEDI"
+        message.subject.should == "Câmara Responde:  Banco de ideias"
+    end
+
 
     it "should fold multiline sections" do
       {
@@ -102,16 +132,15 @@ describe IncomingMessage, " folding quoted parts of emails" do
 end
 
 describe IncomingMessage, " checking validity to reply to" do
-    def test_email(result, email, return_path, autosubmitted)
+    def test_email(result, email, return_path, autosubmitted = nil)
         @address = mock(TMail::Address)
         @address.stub!(:spec).and_return(email)
 
         @return_path = mock(TMail::ReturnPathHeader)
         @return_path.stub!(:addr).and_return(return_path)
-
-        @autosubmitted = mock(TMail::KeywordsHeader)
-        @autosubmitted.stub!(:keys).and_return(autosubmitted)
-
+        if !autosubmitted.nil?
+            @autosubmitted = TMail::UnstructuredHeader.new("auto-submitted", autosubmitted)
+        end
         @mail = mock(TMail::Mail)
         @mail.stub!(:from_addrs).and_return( [ @address ] )
         @mail.stub!(:[]).with("return-path").and_return(@return_path)
@@ -123,45 +152,44 @@ describe IncomingMessage, " checking validity to reply to" do
     end
 
     it "says a valid email is fine" do
-        test_email(true, "team@mysociety.org", nil, [])
+        test_email(true, "team@mysociety.org", nil)
     end
 
     it "says postmaster email is bad" do
-        test_email(false, "postmaster@mysociety.org", nil, [])
+        test_email(false, "postmaster@mysociety.org", nil)
     end
 
     it "says Mailer-Daemon email is bad" do
-        test_email(false, "Mailer-Daemon@mysociety.org", nil, [])
+        test_email(false, "Mailer-Daemon@mysociety.org", nil)
     end
 
     it "says case mangled MaIler-DaemOn email is bad" do
-        test_email(false, "MaIler-DaemOn@mysociety.org", nil, [])
+        test_email(false, "MaIler-DaemOn@mysociety.org", nil)
     end
 
     it "says Auto_Reply email is bad" do
-        test_email(false, "Auto_Reply@mysociety.org", nil, [])
+        test_email(false, "Auto_Reply@mysociety.org", nil)
     end
 
     it "says DoNotReply email is bad" do
-        test_email(false, "DoNotReply@tube.tfl.gov.uk", nil, [])
+        test_email(false, "DoNotReply@tube.tfl.gov.uk", nil)
     end
 
     it "says a filled-out return-path is fine" do
-        test_email(true, "team@mysociety.org", "Return-path: <foo@baz.com>", [])
+        test_email(true, "team@mysociety.org", "Return-path: <foo@baz.com>")
     end
 
     it "says an empty return-path is bad" do
-        test_email(false, "team@mysociety.org", "<>", [])
+        test_email(false, "team@mysociety.org", "<>")
     end
 
     it "says an auto-submitted keyword is bad" do
-        test_email(false, "team@mysociety.org", nil, ["auto-replied"])
+        test_email(false, "team@mysociety.org", nil, "auto-replied")
     end
 
 end
 
 describe IncomingMessage, " checking validity to reply to with real emails" do
-    fixtures :users, :raw_emails, :public_bodies, :public_body_translations, :info_requests, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
     after(:all) do
         ActionMailer::Base.deliveries.clear
@@ -185,7 +213,6 @@ describe IncomingMessage, " checking validity to reply to with real emails" do
 end
 
 describe IncomingMessage, " when censoring data" do
-    fixtures :users, :raw_emails, :public_bodies, :public_body_translations, :public_body_versions, :info_requests, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
     before(:each) do
         @test_data = "There was a mouse called Stilton, he wished that he was blue."
@@ -206,7 +233,7 @@ describe IncomingMessage, " when censoring data" do
         @censor_rule_2.last_edit_comment = "none"
         @im.info_request.censor_rules << @censor_rule_2
 
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
     end
 
     it "should do nothing to a JPEG" do
@@ -293,7 +320,6 @@ describe IncomingMessage, " when censoring data" do
 end
 
 describe IncomingMessage, " when censoring whole users" do
-    fixtures :users, :raw_emails, :public_bodies, :public_body_translations, :public_body_versions, :info_requests, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
     before(:each) do
         @test_data = "There was a mouse called Stilton, he wished that he was blue."
@@ -306,7 +332,7 @@ describe IncomingMessage, " when censoring whole users" do
         @censor_rule_1.last_edit_editor = "unknown"
         @censor_rule_1.last_edit_comment = "none"
         @im.info_request.user.censor_rules << @censor_rule_1
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
     end
 
     it "should apply censor rules to HTML files" do
@@ -324,10 +350,9 @@ end
 
 
 describe IncomingMessage, " when uudecoding bad messages" do
-    fixtures :incoming_messages, :raw_emails, :public_bodies, :public_body_translations, :info_requests, :users, :foi_attachments
 
     before(:each) do
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
     end
 
     it "should be able to do it at all" do
@@ -368,10 +393,9 @@ describe IncomingMessage, " when uudecoding bad messages" do
 end
 
 describe IncomingMessage, "when messages are attached to messages" do
-    fixtures :incoming_messages, :raw_emails, :public_bodies, :public_body_translations, :info_requests, :users, :foi_attachments
 
     before(:each) do
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
     end
 
     it "should flatten all the attachments out" do
@@ -393,10 +417,9 @@ describe IncomingMessage, "when messages are attached to messages" do
 end
 
 describe IncomingMessage, "when Outlook messages are attached to messages" do
-    fixtures :incoming_messages, :raw_emails, :public_bodies, :public_body_translations, :info_requests, :users, :foi_attachments
 
     before(:each) do
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
     end
 
     it "should flatten all the attachments out" do
@@ -416,10 +439,9 @@ describe IncomingMessage, "when Outlook messages are attached to messages" do
 end
 
 describe IncomingMessage, "when TNEF attachments are attached to messages" do
-    fixtures :incoming_messages, :raw_emails, :public_bodies, :public_body_translations, :info_requests, :users, :foi_attachments
 
     before(:each) do
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
     end
 
     it "should flatten all the attachments out" do

@@ -6,6 +6,10 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe "when using TMail" do
 
+    before(:each) do
+        ActionMailer::Base.deliveries.clear
+    end
+
     it "should load an email with funny MIME settings" do
         # just send it to the holding pen
         InfoRequest.holding_pen_request.incoming_messages.size.should == 0

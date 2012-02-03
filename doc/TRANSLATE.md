@@ -8,12 +8,14 @@ an account there (ask on the mailing list).
 # Summary
 
 1. Make some changes to the software with `_('translatable strings')`
-2. Run `./script/generate_pot.sh`
-3. This should just cause the file at `locale/app.pot` to change.  Commit and push
-4. Send a message to the alaveteli-dev mailing list warning them that you're going to upload this file to transifex
-5. Wait a day or so
-6. Update the `app.pot` resource in Transifex
-7. When new translations are available, run `tx pull -a` and commit the results to the repository
+2. Temporarily move any theme containing translations out of the way (there's a bug in gettext_i18n_rails that can't cope with translation chains)
+3. Run `./script/generate_pot.sh`
+4. This should just cause the file at `locale/app.pot` to change.  Commit and push
+5. Move your theme back in place
+6. Send a message to the alaveteli-dev mailing list warning them that you're going to upload this file to transifex
+7. Wait a day or so to make sure they've uploaded any of their outstanding translations and have a copy of any old ones
+8. Update the `app.pot` resource in Transifex
+9. When new translations are available, run `tx pull -a` and commit the results to the repository
 
 # Detail
 

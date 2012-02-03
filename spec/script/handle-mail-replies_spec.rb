@@ -54,5 +54,15 @@ describe "When filtering" do
         r = mail_reply_test("track-response-messageclass-oof.email")
         r.status.should == 2
     end
+
+    it "should detect an Outlook(?)-style out-of-office" do
+        r = mail_reply_test("track-response-outlook-oof.email")
+        r.status.should == 2
+    end
+
+    it "should detect an ABCMail-style out-of-office" do
+        r = mail_reply_test("track-response-abcmail-oof.email")
+        r.status.should == 2
+    end
 end
 

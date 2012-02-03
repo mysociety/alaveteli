@@ -36,17 +36,18 @@ end
 
 describe TrackController, "when sending alerts for a track" do
     integrate_views
-    fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things, :track_things_sent_emails
     include LinkToHelper # for main_url
 
     before(:each) do
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
         rebuild_xapian_index
     end
     
     it "should send alerts" do
         # Don't do clever locale-insertion-unto-URL stuff
-        ActionController::Routing::Routes.filters.clear
+        old_filters = ActionController::Routing::Routes.filters
+        ActionController::Routing::Routes.filters = RoutingFilter::Chain.new
+
         # set the time the comment event happened at to within the last week
         ire = info_request_events(:silly_comment_event)
         ire.created_at = Time.now - 3.days
@@ -91,6 +92,9 @@ describe TrackController, "when sending alerts for a track" do
         TrackMailer.alert_tracks
         deliveries = ActionMailer::Base.deliveries
         deliveries.size.should == 0
+
+        # Restore the routing filters
+        ActionController::Routing::Routes.filters = old_filters
     end
 
     it "should send localised alerts" do
@@ -110,10 +114,9 @@ end
 
 describe TrackController, "when viewing RSS feed for a track" do
     integrate_views
-    fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
     before(:each) do
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
         rebuild_xapian_index
     end
 
@@ -136,10 +139,9 @@ end
 describe TrackController, "when viewing JSON version of a track feed" do
 
     integrate_views
-    fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
     before(:each) do
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
         rebuild_xapian_index
     end
 

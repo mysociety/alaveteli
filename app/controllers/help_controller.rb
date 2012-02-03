@@ -26,20 +26,20 @@ class HelpController < ApplicationController
         # if they clicked remove for link to request/body, remove it
         if params[:remove]
             @last_request = nil
-            session[:last_request_id] = nil
-            session[:last_body_id] = nil
+            cookies["last_request_id"] = nil
+            cookies["last_body_id"] = nil
         end
 
         # look up link to request/body
-        @last_request_id = session[:last_request_id].to_i
-        if @last_request_id > 0
-            @last_request = InfoRequest.find(@last_request_id)
+        last_request_id = cookies["last_request_id"].to_i
+        if last_request_id > 0
+            @last_request = InfoRequest.find(last_request_id)
         else
             @last_request = nil
         end
-        @last_body_id = session[:last_body_id].to_i
-        if @last_body_id > 0
-            @last_body = PublicBody.find(@last_body_id)
+        last_body_id = cookies["last_body_id"].to_i
+        if last_body_id > 0
+            @last_body = PublicBody.find(last_body_id)
         else
             @last_body = nil
         end

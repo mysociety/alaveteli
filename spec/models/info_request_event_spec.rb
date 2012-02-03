@@ -29,7 +29,8 @@ describe InfoRequestEvent do
     describe "should know" do
 
         it "that it's an incoming message" do
-            event = InfoRequestEvent.new(:incoming_message => mock_model(IncomingMessage))
+            event = InfoRequestEvent.new()
+            event.stub!(:incoming_message_selective_columns).and_return(1)
             event.is_incoming_message?.should be_true
             event.is_outgoing_message?.should be_false
             event.is_comment?.should be_false
@@ -37,6 +38,7 @@ describe InfoRequestEvent do
 
         it "that it's an outgoing message" do
             event = InfoRequestEvent.new(:outgoing_message => mock_model(OutgoingMessage))
+            event.id = 1
             event.is_incoming_message?.should be_false
             event.is_outgoing_message?.should be_true
             event.is_comment?.should be_false
@@ -44,6 +46,7 @@ describe InfoRequestEvent do
 
         it "that it's a comment" do
             event = InfoRequestEvent.new(:comment => mock_model(Comment))
+            event.id = 1
             event.is_incoming_message?.should be_false
             event.is_outgoing_message?.should be_false
             event.is_comment?.should be_true
@@ -52,10 +55,9 @@ describe InfoRequestEvent do
     end
 
     describe "doing search/index stuff" do 
-        fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
         before(:each) do
-            load_raw_emails_data(raw_emails)
+            load_raw_emails_data
             parse_all_incoming_messages
         end
 
@@ -68,6 +70,14 @@ describe InfoRequestEvent do
         it 'should get search text for incoming messages' do 
             event = info_request_events(:useless_incoming_message_event)
             event.search_text_main.strip.should == "No way! I'm not going to tell you that in a month of Thursdays.\n\nThe Geraldine Quango"
+        end
+
+        it 'should get clipped text for incoming messages, and cache it too' do 
+            event = info_request_events(:useless_incoming_message_event)
+            
+            event.incoming_message_selective_columns("cached_main_body_text_folded").cached_main_body_text_folded = nil
+            event.search_text_main(true).strip.should == "No way! I'm not going to tell you that in a month of Thursdays.\n\nThe Geraldine Quango"
+            event.incoming_message_selective_columns("cached_main_body_text_folded").cached_main_body_text_folded.should_not == nil
         end
 
 

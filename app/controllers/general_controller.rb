@@ -32,12 +32,12 @@ class GeneralController < ApplicationController
                 if body_short_names.empty?
                     # This is too slow
                     @popular_bodies = PublicBody.find(:all, 
-				        :select => "public_bodies.*, (select count(*) from info_requests where info_requests.public_body_id = public_bodies.id) as c", 
-				        :order => "c desc", 
-				        :limit => 32,
-				        :conditions => conditions,
-				        :joins => :translations
-				    )
+                        :select => "public_bodies.*, (select count(*) from info_requests where info_requests.public_body_id = public_bodies.id) as c", 
+                        :order => "c desc", 
+                        :limit => 32,
+                        :conditions => conditions,
+                        :joins => :translations
+                    )
                 else
                     conditions[0] += " and public_bodies.url_name in (" + body_short_names + ")"
                     @popular_bodies = PublicBody.find(:all, 
@@ -45,20 +45,21 @@ class GeneralController < ApplicationController
                          :joins => :translations)
                 end
             end
-            # Get some successful requests #
+            # Get some successful requests
             begin
                 query = 'variety:response (status:successful OR status:partially_successful)'
-                # query = 'variety:response' # XXX debug
-                sortby = "described"
+                sortby = "newest"
                 max_count = 5
                 xapian_object = perform_search([InfoRequestEvent], query, sortby, 'request_title_collapse', max_count)
                 @request_events = xapian_object.results.map { |r| r[:model] }
-                @request_events = @request_events.sort_by { |e| e.described_at }.reverse
+                
+                # If there are not yet enough successful requests, fill out the list with
+                # other requests
                 if @request_events.count < max_count
                     query = 'variety:sent'
                     xapian_object = perform_search([InfoRequestEvent], query, sortby, 'request_title_collapse', max_count-@request_events.count)
                     more_events = xapian_object.results.map { |r| r[:model] }
-                    @request_events += more_events.sort_by { |e| e.described_at }.reverse
+                    @request_events += more_events
                 end
             rescue
                 @request_events = []
@@ -71,48 +72,34 @@ class GeneralController < ApplicationController
         medium_cache
         @feed_autodetect = []
         @feed_url = "#{MySociety::Config.get('BLOG_FEED', '')}?lang=#{self.locale_from_params()}"
+        @blog_items = []
         if not @feed_url.empty?
-            content = open(@feed_url).read
-            @data = XmlSimple.xml_in(content)
-            @channel = @data['channel'][0]
-            @blog_items = @channel['item']
-            @feed_autodetect = [{:url => @feed_url, :title => "#{site_name} blog"}]
-        else
-            @blog_items = []
+            content = quietly_try_to_open(@feed_url)
+            if !content.empty?
+                @data = XmlSimple.xml_in(content)
+                @channel = @data['channel'][0]
+                @blog_items = @channel['item']
+                @feed_autodetect = [{:url => @feed_url, :title => "#{site_name} blog"}]
+            end
         end
         @twitter_user = MySociety::Config.get('TWITTER_USERNAME', '')
     end
 
     # Just does a redirect from ?query= search to /query
     def search_redirect
-        if params[:advanced].nil?
-            @query, _ = make_query_from_params
-        else
-            @query, _ = params[:query]
-        end
-        @sortby = params[:sortby]
-        path = request.path.split("/")
-        if path.size > 0 && (['newest', 'described', 'relevant'].include?(path[-1]))
-            @sort_postfix = path.pop
-        end
-        if path.size > 0 && (['bodies', 'requests', 'users', 'all'].include?(path[-1]))
-            @variety_postfix = path.pop
-        end
-        @variety_postfix = "bodies" if @variety_postfix.nil? && !params[:bodies].nil?
-        @variety_postfix = "requests" if @variety_postfix.nil?
-        if @variety_postfix != "users"
-            @common_query = get_tags_from_params
-        end
-        [:latest_status, :request_variety, :request_date_after, :request_date_before, :query, :tags].each do |x| 
-            session[x] = params[x]
-        end
+        @query = params.delete(:query)
         if @query.nil? || @query.empty?
             @query = nil
             @page = 1
             @advanced = !params[:advanced].nil?
             render :action => "search"
         else
-            redirect_to search_url(@query, @variety_postfix, @sort_postfix, params[:advanced])
+            query_parts = @query.split("/")
+            if !['bodies', 'requests', 'users', 'all'].include?(query_parts[-1])
+                redirect_to search_url([@query, "all"], params)
+            else                
+                redirect_to search_url(@query, params)
+            end
         end
     end
 
@@ -120,13 +107,6 @@ class GeneralController < ApplicationController
     def search
         # XXX Why is this so complicated with arrays and stuff? Look at the route
         # in config/routes.rb for comments.
-        if !params[:commit].nil?
-            search_redirect
-            return
-        end
-        [:latest_status, :request_variety, :request_date_after, :request_date_before, :query, :tags].each do |x|
-            params[x] = session[x] if params[x].nil?
-        end
         combined = params[:combined]
         @sortby = nil
         @bodies = @requests = @users = true

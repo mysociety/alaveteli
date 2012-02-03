@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 95
+# Schema version: 108
 #
 # Table name: users
 #
@@ -10,14 +10,16 @@
 #  salt                   :string(255)     not null
 #  created_at             :datetime        not null
 #  updated_at             :datetime        not null
-#  email_confirmed        :boolean         default(false), not null
+#  email_confirmed        :boolean         default(FALSE), not null
 #  url_name               :text            not null
 #  last_daily_track_email :datetime        default(Sat Jan 01 00:00:00 UTC 2000)
 #  admin_level            :string(255)     default("none"), not null
 #  ban_text               :text            default(""), not null
 #  about_me               :text            default(""), not null
-#  email_bounced_at       :datetime        
+#  locale                 :string(255)
+#  email_bounced_at       :datetime
 #  email_bounce_message   :text            default(""), not null
+#  no_limit               :boolean         default(FALSE), not null
 #
 
 # models/user.rb:
@@ -130,7 +132,7 @@ class User < ActiveRecord::Base
             name.strip!
         end
         if self.public_banned?
-            name = _("{{user_name}} (Banned)", :user_name=>name)
+            name = _("{{user_name}} (Account suspended)", :user_name=>name)
         end
         name
     end
@@ -255,7 +257,7 @@ class User < ActiveRecord::Base
     end
     
     def User.owns_every_request?(user)
-      !user.nil? && user.owns_every_request?  
+      !user.nil? && user.owns_every_request?
     end
 
     # Can the user see every request, even hidden ones?
@@ -273,7 +275,18 @@ class User < ActiveRecord::Base
     end
     # Various ways the user can be banned, and text to describe it if failed
     def can_file_requests?
-        self.ban_text.empty?
+        self.ban_text.empty? && !self.exceeded_limit?
+    end
+    def exceeded_limit?
+        # Some users have no limit
+        return false if self.no_limit
+        
+        # Has the user issued as many as MAX_REQUESTS_PER_USER_PER_DAY requests in the past 24 hours?
+        daily_limit = MySociety::Config.get("MAX_REQUESTS_PER_USER_PER_DAY")
+        return false if daily_limit.nil?
+        recent_requests = InfoRequest.count(:conditions => ["user_id = ? and created_at > now() - '1 day'::interval", self.id])
+        
+        return (recent_requests >= daily_limit)
     end
     def can_make_followup?
         self.ban_text.empty?
@@ -285,7 +298,11 @@ class User < ActiveRecord::Base
         self.ban_text.empty?
     end
     def can_fail_html
-        text = self.ban_text.strip
+        if ban_text
+            text = self.ban_text.strip
+        else
+            raise "Unknown reason for ban"
+        end
         text = CGI.escapeHTML(text)
         text = MySociety::Format.make_clickable(text, :contract => 1)
         text = text.gsub(/\n/, '<br>')

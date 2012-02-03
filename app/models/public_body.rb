@@ -275,7 +275,7 @@ class PublicBody < ActiveRecord::Base
             ret = ret + types[-1]
             return ret
         else
-            return "A public authority"
+            return _("A public authority")
         end
     end
 
@@ -395,7 +395,7 @@ class PublicBody < ActiveRecord::Base
                     
                     field_list = ['name', 'short_name', 'request_email', 'notes', 'publication_scheme', 'home_page', 'tag_string']
 
-                    if public_body = bodies_by_name[name]   # Existing public body                        
+                    if public_body = bodies_by_name[name]   # Existing public body
                         available_locales.each do |locale|
                             PublicBody.with_locale(locale) do
                                 changed = ActiveSupport::OrderedHash.new

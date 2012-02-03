@@ -7,16 +7,17 @@
         // http://benalman.com/projects/jquery-throttle-debounce-plugin/
         $("#query").keypress($.debounce( 300, function() {        
             // Do a type ahead search and display results
-            $("#typeahead_response").load("<%=search_ahead_bodies_url%>?q="+encodeURI(this.value), function() {
+            $("#typeahead_response").load("<%=search_ahead_bodies_url%>?query="+encodeURI(this.value), function() {
               $("#authority_preview").hide();   // Hide the preview, since results have changed
 
             });
         }));
         // We're using the existing body list: we intercept the clicks on the titles to 
         // display a preview on the right hand side of the screen
-        $("#typeahead_response a").live('click', function() {
+        $("#typeahead_response .head a").live('click', function() {
             $("#authority_preview").load(this.href+" #public_body_show", function() {
                 $("#authority_preview").show();
+		$(window).scrollTop($("#banner").height());
                 $("#authority_preview #header_right").hide();
             });
             return false;
@@ -33,8 +34,8 @@
        <p>
            <p>
            <%= _('First, type in the <strong>name of the UK public authority</strong> you\'d 
-           <br>like information from. <strong>By law, they have to respond</strong>
-           (<a href="%s">why?</a>).') % help_about_url %>
+           like information from. <strong>By law, they have to respond</strong>
+           (<a href="%s#%s">why?</a>).') % [help_about_url, "whybother_them"] %>
            </p>
            <%= text_field_tag 'query', params[:query], { :size => 30 } %>
            <%= hidden_field_tag 'bodies', 1 %>
@@ -56,6 +57,7 @@
       <%= render :partial => 'public_body/body_listing_single', :locals => { :public_body => result[:model] } %>
     <% end %>
   </div>
+
  <% end %>
 
 

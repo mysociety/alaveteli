@@ -36,21 +36,31 @@ Some of the files also have a version number listed in config/packages - check
 that you have appropriate versions installed. Some also list "|" and offer
 a choice of packages.
 
+
 You will also want to install mySociety's common ruby libraries and the Rails
 code. Run:
 
-  git submodule update --init
+    git submodule update --init
 
 to fetch the contents of the submodules.
 
-Optionally, you may want to install
-[wkhtmltopdf](http://code.google.com/p/wkhtmltopdf/downloads/list).
+If you would like users to be able to download pretty PDFs as part of 
+the downloadable zipfile of their request history, you should also install
+[wkhtmltopdf](http://code.google.com/p/wkhtmltopdf/downloads/list).  
 We recommend downloading the latest, statically compiled version from
 the project website, as this allows running headless (i.e. without a
 graphical interface running) on Linux.  If you do install
 `wkhtmltopdf`, you need to edit a setting in the config file to point
-to it (see below).
+to it (see below).  If you don't install it, everything will still work, but 
+users will get ugly, plain text versions of their requests when they 
+download them.
 
+Version 1.44 of `pdftk` contains a bug which makes it to loop forever
+in certain edge conditions.  Until it's incorporated into an official
+release, you can either hope you don't encounter the bug (it ties up a
+rails process until you kill it) you'll need to patch it yourself or
+use the Debian package compiled by mySociety (see link in
+[issue 305](https://github.com/sebbacon/alaveteli/issues/305))
 
 # Configure Database 
 
@@ -77,8 +87,8 @@ constraints whilst running the tests they also need to be a superuser.
 
 The following command will set up a user 'foi' with password 'foi':
 
-    echo "CREATE DATABASE foi_development encoding = 'UTF8';
-    CREATE DATABASE foi_test encoding = 'UTF8';
+    echo "CREATE DATABASE foi_development encoding 'SQL_ASCII' template template0;
+    CREATE DATABASE foi_test encoding 'SQL_ASCII' template template0;
     CREATE USER foi WITH CREATEUSER;
     ALTER USER foi WITH PASSWORD 'foi';
     ALTER USER foi WITH CREATEDB;
@@ -86,6 +96,12 @@ The following command will set up a user 'foi' with password 'foi':
     GRANT ALL PRIVILEGES ON DATABASE foi_test TO foi;    	
     ALTER DATABASE foi_development OWNER TO foi;
     ALTER DATABASE foi_test OWNER TO foi;" | psql
+    
+We create using the ``SQL_ASCII`` encoding, because in postgres this
+is means "no encoding"; and because we handle and store all kinds of
+data that may not be valid UTF (for example, data originating from
+various broken email clients that's not 8-bit clean), it's safer to be
+able to store *anything*, than reject data at runtime.
 
 # Configure email
 
@@ -295,8 +311,9 @@ is supplied in `../conf/varnish-alaveteli.vcl`.
     to `/etc/elinks/elinks.conf`:
     
         set document.codepage.assume = "utf-8"
-        
-    You should also check that your locale is set up wrongly.  See 
+        set document.codepage.force_assumed = 1
+
+    You should also check that your locale is set up correctly.  See 
     [https://github.com/sebbacon/alaveteli/issues/128#issuecomment-1814845](this issue followup)
     for further discussion.
     

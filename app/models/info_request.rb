@@ -1,6 +1,5 @@
-
 # == Schema Information
-# Schema version: 95
+# Schema version: 108
 #
 # Table name: info_requests
 #
@@ -11,23 +10,17 @@
 #  created_at                :datetime        not null
 #  updated_at                :datetime        not null
 #  described_state           :string(255)     not null
-#  awaiting_description      :boolean         default(false), not null
+#  awaiting_description      :boolean         default(FALSE), not null
 #  prominence                :string(255)     default("normal"), not null
 #  url_title                 :text            not null
 #  law_used                  :string(255)     default("foi"), not null
 #  allow_new_responses_from  :string(255)     default("anybody"), not null
 #  handle_rejected_responses :string(255)     default("bounce"), not null
+#  idhash                    :string(255)     not null
 #
-# models/info_request.rb:
-# A Freedom of Information request.
-#
-# Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
-# Email: francis@mysociety.org; WWW: http://www.mysociety.org/
-#
-# $Id: info_request.rb,v 1.217 2009-10-26 17:52:39 francis Exp $
+
 
 require 'digest/sha1'
-require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
 
 class InfoRequest < ActiveRecord::Base
     strip_attributes!

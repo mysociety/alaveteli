@@ -3,6 +3,6 @@
 cd `dirname $0`
 
 rake gettext:store_model_attributes
-rake gettext:find
-git checkout ../locale/*/app.po
+rake gettext:findpot
 
+echo "Now commit the new app.pot and push.  See TRANSLATE.md for next steps"

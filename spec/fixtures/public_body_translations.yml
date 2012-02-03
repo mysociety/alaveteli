@@ -24,8 +24,8 @@ humpadink_es_public_body_translation:
   name: "El Department for Humpadinking"
   first_letter: E
   request_email: humpadink-requests@localhost
-  id: "3"
-  public_body_id: "3"
+  id: 3
+  public_body_id: 3
   short_name: eDfH
   url_name: edfh
   locale: es
@@ -35,9 +35,42 @@ humpadink_en_public_body_translation:
   name: "Department for Humpadinking"
   first_letter: D
   request_email: humpadink-requests@localhost
-  id: "4"
-  public_body_id: "3"
+  id: 4
+  public_body_id: 3
   short_name: DfH
   url_name: dfh
   locale: en
   notes: An albatross told me!!!
+
+forlorn_en_public_body_translation: 
+  name: "Department of Loneliness"
+  first_letter: D
+  request_email: forlorn-requests@localhost
+  id: 5
+  public_body_id: 4
+  short_name: DoL
+  url_name: lonely
+  locale: en
+  notes: A very lonely public body that no one has corresponded with
+
+silly_walks_en_public_body_translation:
+  id: 6
+  public_body_id: 5
+  locale: en
+  name: "Ministry of Silly Walks"
+  first_letter: M
+  request_email: silly-walks-requests@localhost
+  short_name: MSW
+  url_name: msw
+  notes: You know the one.
+
+sensible_walks_en_public_body_translation:
+  id: 7
+  public_body_id: 6
+  locale: en
+  name: "Ministry of Sensible Walks"
+  first_letter: M
+  request_email: sensible-walks-requests@localhost
+  short_name: SenseWalk
+  url_name: sensible_walks
+  notes: I bet you’ve never heard of it.

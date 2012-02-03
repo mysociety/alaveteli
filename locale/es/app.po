@@ -1219,7 +1219,7 @@ msgstr ""
 "para el nombre"
 
 #: app/models/user.rb:133
-msgid "{{user_name}} (Banned)"
+msgid "{{user_name}} (Account suspended)"
 msgstr "{{user_name}} (Expulsado)"
 
 #: app/models/user.rb:146

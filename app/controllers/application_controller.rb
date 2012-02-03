@@ -11,10 +11,15 @@
 require 'open-uri'
 
 class ApplicationController < ActionController::Base
+    class PermissionDenied < StandardError
+    end
     # Standard headers, footers and navigation for whole site
     layout "default"
     include FastGettext::Translation # make functions like _, n_, N_ etc available)
-        
+
+    # Send notification email on exceptions
+    include ExceptionNotification::Notifiable
+    
     # Note: a filter stops the chain if it redirects or renders something
     before_filter :authentication_check
     before_filter :set_gettext_locale
@@ -84,6 +89,7 @@ class ApplicationController < ActionController::Base
     def record_memory
         record_memory = MySociety::Config.get('DEBUG_RECORD_MEMORY', false)
         if record_memory
+            logger.info "Processing request for #{request.url} with Rails process #{Process.pid}"
             File.read("/proc/#{Process.pid}/status").match(/VmRSS:\s+(\d+)/)
             rss_before_action = $1.to_i
             yield
@@ -117,8 +123,11 @@ class ApplicationController < ActionController::Base
         case exception
         when ActiveRecord::RecordNotFound, ActionController::UnknownAction, ActionController::RoutingError
             @status = 404
+        when PermissionDenied
+            @status = 403
         else
             @status = 500
+            notify_about_exception exception
         end
         # Display user appropriate error message
         @exception_backtrace = exception.backtrace.join("\n")
@@ -169,11 +178,13 @@ class ApplicationController < ActionController::Base
     end
 
     def foi_fragment_cache_path(param)
-        path = foi_fragment_cache_part_path(param)
-        path = "/views" + path
-        foi_cache_path = File.join(File.dirname(__FILE__), '../../cache')
-        return File.join(foi_cache_path, path)
+        path = File.join(RAILS_ROOT, 'cache', 'views', foi_fragment_cache_part_path(param))
+        max_file_length = 255 - 35 # we subtract 35 because tempfile
+                                   # adds on a variable number of
+                                   # characters
+        return File.join(File.split(path).map{|x| x[0...max_file_length]})
     end
+
     def foi_fragment_cache_all_for_request(info_request)
         # return stub path so admin can expire it
         first_three_digits = info_request.id.to_s()[0..2]
@@ -185,10 +196,12 @@ class ApplicationController < ActionController::Base
         return File.exists?(key_path)
     end
     def foi_fragment_cache_read(key_path)
-        cached = File.read(key_path)
+        logger.info "Reading from fragment cache #{key_path}"
+        return File.read(key_path)
     end
     def foi_fragment_cache_write(key_path, content)
         FileUtils.mkdir_p(File.dirname(key_path))
+        logger.info "Writing to fragment cache #{key_path}"
         File.atomic_write(key_path) do |f|
             f.write(content)
         end
@@ -341,9 +354,7 @@ class ApplicationController < ActionController::Base
         @sortby = sortby
 
         # Work out sorting method
-        order_pair = order_to_sort_by(@sortby)
-        order = order_pair[0]
-        ascending = order_pair[1]
+        order, ascending = order_to_sort_by(@sortby)
 
         # Peform the search
         @per_page = per_page
@@ -352,23 +363,71 @@ class ApplicationController < ActionController::Base
         else
             @page = this_page
         end
-        return InfoRequest.full_search(models, @query, order, ascending, collapse, @per_page, @page) 
+        result = InfoRequest.full_search(models, @query, order, ascending, collapse, @per_page, @page)
+        result.results # Touch the results to load them, otherwise accessing them from the view
+                       # might fail later if the database has subsequently been reopened.
+        return result
     end
     def get_search_page_from_params
         return (params[:page] || "1").to_i
     end
 
+    def perform_search_typeahead(query, model)
+        @page = get_search_page_from_params
+        @per_page = 10
+        query_words = query.split(/ +(?![-+]+)/)
+        if query_words.last.nil? || query_words.last.strip.length < 3
+            xapian_requests = nil
+        else
+            if model == PublicBody
+                collapse = nil
+            elsif model == InfoRequestEvent
+                collapse = 'request_collapse'
+            end
+            options = {
+                :offset => (@page - 1) * @per_page, 
+                :limit => @per_page,
+                :sort_by_prefix => nil,
+                :sort_by_ascending => true,
+                :collapse_by_prefix => collapse,
+            }
+            ActsAsXapian.readable_init
+            old_default_op = ActsAsXapian.query_parser.default_op
+            ActsAsXapian.query_parser.default_op = Xapian::Query::OP_OR
+            begin
+                user_query =  ActsAsXapian.query_parser.parse_query(
+                                           query.strip + '*',
+                                           Xapian::QueryParser::FLAG_LOVEHATE | Xapian::QueryParser::FLAG_WILDCARD |
+                                           Xapian::QueryParser::FLAG_SPELLING_CORRECTION)
+                xapian_requests = ActsAsXapian::Search.new([model], query, options, user_query)
+            rescue RuntimeError => e
+                if e.message =~ /^QueryParserError: Wildcard/
+                    # Wildcard expands to too many terms
+                    logger.info "Wildcard query '#{query.strip + '*'}' caused: #{e.message}"
+                    
+                    user_query =  ActsAsXapian.query_parser.parse_query(
+                                               query,
+                                               Xapian::QueryParser::FLAG_LOVEHATE |
+                                               Xapian::QueryParser::FLAG_SPELLING_CORRECTION)
+                    xapian_requests = ActsAsXapian::Search.new([model], query, options, user_query)
+                end
+            end
+            ActsAsXapian.query_parser.default_op = old_default_op
+        end
+        return xapian_requests
+    end
+
     # Store last visited pages, for contact form; but only for logged in users, as otherwise this breaks caching
     def set_last_request(info_request)
         if !session[:user_id].nil?
-            session[:last_request_id] = info_request.id
-            session[:last_body_id] = nil
+            cookies["last_request_id"] = info_request.id
+            cookies["last_body_id"] = nil
         end
     end
     def set_last_body(public_body)
         if !session[:user_id].nil?
-            session[:last_request_id] = nil
-            session[:last_body_id] = public_body.id
+            cookies["last_request_id"] = nil
+            cookies["last_body_id"] = public_body.id
         end
     end
 
@@ -406,7 +465,7 @@ class ApplicationController < ActionController::Base
                 params[:latest_status] = [params[:latest_status]]
             end
             if params[:latest_status].include?("recent") ||  params[:latest_status].include?("all")
-                query += " variety:sent"
+                query += " (variety:sent OR variety:followup_sent OR variety:response OR variety:comment)"
             end
             if params[:latest_status].include? "successful"
                 statuses << ['latest_status:successful', 'latest_status:partially_successful']
@@ -415,7 +474,7 @@ class ApplicationController < ActionController::Base
                 statuses << ['latest_status:rejected', 'latest_status:not_held']
             end
             if params[:latest_status].include? "awaiting"
-                statuses << ['latest_status:waiting_response', 'latest_status:waiting_clarification', 'waiting_classification:true']
+                statuses << ['latest_status:waiting_response', 'latest_status:waiting_clarification', 'waiting_classification:true', 'latest_status:internal_review','latest_status:gone_postal', 'latest_status:error_message', 'latest_status:requires_admin']
             end
             if params[:latest_status].include? "internal_review"
                 statuses << ['status:internal_review']
@@ -475,12 +534,22 @@ class ApplicationController < ActionController::Base
         default = MySociety::Config.get('ISO_COUNTRY_CODE', '')
         country = ""
         if !gaze.empty?
-            country = open("#{gaze}/gaze-rest?f=get_country_from_ip;ip=#{request.remote_ip}").read.strip
+            country = quietly_try_to_open("#{gaze}/gaze-rest?f=get_country_from_ip;ip=#{request.remote_ip}")
         end
         country = default if country.empty?
         return country
     end
 
+    def quietly_try_to_open(url)
+        begin 
+            result = open(url).read.strip
+        rescue OpenURI::HTTPError, SocketError, Errno::ETIMEDOUT, Errno::ECONNREFUSED, Errno::EHOSTUNREACH
+            logger.warn("Unable to open third-party URL #{url}")
+            result = ""
+        end
+        return result
+    end
+    
     # URL generating functions are needed by all controllers (for redirects),
     # views (for links) and mailers (for use in emails), so include them into
     # all of all.

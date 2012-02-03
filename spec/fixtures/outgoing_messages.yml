@@ -33,4 +33,56 @@ silly_outgoing_message:
   last_sent_at: 2007-10-14 10:41:12.686264
   created_at: 2007-10-14 01:56:58.586598
   what_doing: normal_sort
+badger_outgoing_message:
+  id: 3
+  info_request_id: 104
+  message_type: initial_request
+  status: sent
+  updated_at: 2011-10-14 01:56:58.586598
+  body: "Is it true that you are really a badger, in fact?"
+  last_sent_at: 2011-10-14 10:41:12.686264
+  created_at: 2011-10-14 01:56:58.586598
+  what_doing: normal_sort
+boring_outgoing_message:
+  id: 4
+  info_request_id: 105
+  message_type: initial_request
+  status: sent
+  updated_at: 2012-01-14 01:56:58.586598
+  body: "How much was spent on boring equipment in the 2010-2011 financial year?"
+  last_sent_at: 2012-01-14 10:41:12.686264
+  created_at: 2012-01-14 01:56:58.586598
+  what_doing: normal_sort
+
+another_boring_outgoing_message:
+  id: 5
+  info_request_id: 106
+  message_type: initial_request
+  status: sent
+  body: "How much was spent on boring equipment in the 2010-2011 financial year?"
+  last_sent_at: 2006-01-12 01:57:58.586598
+  created_at: 2006-01-12 01:56:58.586598
+  updated_at: 2006-01-12 01:56:58.586598
+  what_doing: normal_sort
+
+spam_1_outgoing_message:
+  id: 6
+  info_request_id: 107
+  message_type: initial_request
+  status: sent
+  body: "Would you like some cheap v1agra?"
+  last_sent_at: 2007-01-12 01:57:58.586598
+  created_at: 2007-01-12 01:56:58.586598
+  updated_at: 2007-01-12 01:56:58.586598
+  what_doing: normal_sort
+spam_2_outgoing_message:
+  id: 7
+  info_request_id: 108
+  message_type: initial_request
+  status: sent
+  body: "Would you like some cheap v1agra?"
+  last_sent_at: 2007-01-12 02:57:58.586598
+  created_at: 2007-01-12 02:56:58.586598
+  updated_at: 2007-01-12 02:56:58.586598
+  what_doing: normal_sort
 

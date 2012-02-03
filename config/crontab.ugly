@@ -10,7 +10,7 @@ PATH=/usr/local/bin:/usr/bin:/bin
 MAILTO=cron-!!(*= $site *)!!@mysociety.org
 
 # Every 5 minutes
-*/5 * * * * !!(*= $user *)!! run-with-lockfile -n /data/vhost/!!(*= $vhost *)!!/update-xapian-index.lock /data/vhost/!!(*= $vhost *)!!/!!(*= $vcspath *)!!/script/update-xapian-index || echo "stalled?"
+*/5 * * * * !!(*= $user *)!! run-with-lockfile -n /data/vhost/!!(*= $vhost *)!!/change-xapian-database.lock "/data/vhost/!!(*= $vhost *)!!/!!(*= $vcspath *)!!/script/update-xapian-index verbose=true" >> /data/vhost/!!(*= $vhost *)!!/logs/update-xapian-index.log || echo "stalled?"
 # Every 10 minutes
 5,15,25,35,45,55 * * * * !!(*= $user *)!! /etc/init.d/foi-alert-tracks check
 
@@ -28,7 +28,7 @@ MAILTO=cron-!!(*= $site *)!!@mysociety.org
 2 4 * * * !!(*= $user *)!! run-with-lockfile -n /data/vhost/!!(*= $vhost *)!!/check-recent-requests-sent.lock /data/vhost/!!(*= $vhost *)!!/!!(*= $vcspath *)!!/script/check-recent-requests-sent || echo "stalled?"
 45 3 * * * !!(*= $user *)!! run-with-lockfile -n /data/vhost/!!(*= $vhost *)!!/stop-new-responses-on-old-requests.lock /data/vhost/!!(*= $vhost *)!!/!!(*= $vcspath *)!!/script/stop-new-responses-on-old-requests || echo "stalled?"
 # Only root can restart apache
-31 1 * * * root run-with-lockfile -n /data/vhost/!!(*= $vhost *)!!/compact-xapian-database.lock "/data/vhost/!!(*= $vhost *)!!/!!(*= $vcspath *)!!/script/compact-xapian-database production" || echo "stalled?"
+31 1 * * * root run-with-lockfile -n /data/vhost/!!(*= $vhost *)!!/change-xapian-database.lock "/data/vhost/!!(*= $vhost *)!!/!!(*= $vcspath *)!!/script/compact-xapian-database production" || echo "stalled?"
 
 
 # Once a day on all servers

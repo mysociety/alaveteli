@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # app/controllers/public_body_controller.rb:
 # Show information about a public body.
 #
@@ -117,19 +118,22 @@ class PublicBodyController < ApplicationController
                 and has_tag_string_tags.model = \'PublicBody\'
                 and has_tag_string_tags.name = ?) > 0', @query, @query, default_locale, @tag]
         end
+
         if @tag == "all"
             @description = ""
         elsif @tag.size == 1
-            @description = _("beginning with") + " '" + @tag + "'"
+            @description = _("beginning with ‘{{first_letter}}’", :first_letter=>@tag)
         else
-            @description = PublicBodyCategories::get().by_tag()[@tag]
-            if @description.nil?
-                @description = @tag
+            category_name = PublicBodyCategories::get().by_tag()[@tag]
+            if category_name.nil?
+                @description = _("matching the tag ‘{{tag_name}}’", :tag_name=>@tag)
+            else
+                @description = _("in the category ‘{{category_name}}’", :category_name=>category_name)
             end
         end
         PublicBody.with_locale(@locale) do
             @public_bodies = PublicBody.paginate(
-              :order => "public_body_translations.name", :page => params[:page], :per_page => 1000, # fit all councils on one page
+              :order => "public_body_translations.name", :page => params[:page], :per_page => 100,
               :conditions => conditions,
               :joins => :translations
             )
@@ -185,14 +189,8 @@ class PublicBodyController < ApplicationController
     def search_typeahead
         # Since acts_as_xapian doesn't support the Partial match flag, we work around it
         # by making the last work a wildcard, which is quite the same
-        query = params[:q]
-        query = query.split(' ')
-        if query.last.nil? || query.last.strip.length < 3
-            @xapian_requests = nil
-        else
-            query = query.join(' OR ')       # XXX: HACK for OR instead of default AND!
-            @xapian_requests = perform_search([PublicBody], query, 'relevant', nil, 5)
-        end
+        query = params[:query]
+        @xapian_requests = perform_search_typeahead(query, PublicBody)
         render :partial => "public_body/search_ahead"
     end
 end

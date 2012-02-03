@@ -1,5 +1,7 @@
 # Settings specified here will take precedence over those in config/environment.rb
 
+require 'lib/patches/fixtures_constraint_disabling'
+
 # The test environment is used exclusively to run your application's
 # test suite.  You never need to work with it otherwise.  Remember that
 # your test database is "scratch space" for the test suite and is wiped
@@ -18,6 +20,7 @@ config.action_controller.perform_caching             = false
 # ActionMailer::Base.deliveries array.
 config.action_mailer.delivery_method = :test
 config.gem 'rspec-rails', :version => '>= 1.3.3', :lib => false unless File.directory?(File.join(Rails.root, 'vendor/plugins/rspec-rails'))
+config.gem 'fakeweb', :version => '>=1.3.0'
 
 # Disable request forgery protection in test environment 
 config.action_controller.allow_forgery_protection    = false

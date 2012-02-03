@@ -1,12 +1,4 @@
-# controllers/application.rb:
-# Parent class of all controllers in FOI site. Filters added to this controller
-# apply to all controllers in the application. Likewise, all the methods added
-# will be available for all controllers.
-#
-# Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
-# Email: francis@mysociety.org; WWW: http://www.mysociety.org/
-#
-# $Id: application.rb,v 1.59 2009-09-17 13:01:56 francis Exp $
+# controllers/services_controller.rb:
 
 require 'open-uri'
 
