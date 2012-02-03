@@ -300,7 +300,7 @@ describe RequestController, "when showing one request" do
             }.should raise_error(ActiveRecord::RecordNotFound)
         end
 
-        it "should generate valid HTML verson of PDF attachments " do
+        it "should generate valid HTML verson of PDF attachments" do
             ir = info_requests(:fancy_dog_request) 
             receive_incoming_mail('incoming-request-pdf-attachment.email', ir.incoming_email)
             ir.reload
@@ -309,7 +309,7 @@ describe RequestController, "when showing one request" do
             response.should have_text(/Walberswick Parish Council/)
         end
 
-        it "should not cause a reparsing of the raw email, even when the result would be a 404 " do
+        it "should not cause a reparsing of the raw email, even when the result would be a 404" do
             ir = info_requests(:fancy_dog_request) 
             receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
             ir.reload

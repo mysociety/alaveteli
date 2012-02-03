@@ -233,7 +233,7 @@ describe UserController, "when signing up" do
         deliveries[0].body.should include("No revelaremos su dirección de correo")
     end
 
-    it "should send special 'already signed up' mail if you fill the form in with existing registered email " do
+    it "should send special 'already signed up' mail if you fill the form in with existing registered email" do
         post :signup, { :user_signup => { :email => 'silly@localhost', :name => 'New Person',
             :password => 'sillypassword', :password_confirmation => 'sillypassword' } 
         }
