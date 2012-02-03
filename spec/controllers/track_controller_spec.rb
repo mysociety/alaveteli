@@ -134,6 +134,11 @@ describe TrackController, "when viewing RSS feed for a track" do
         assigns[:xapian_object].results[2][:model].should == info_request_events(:useless_outgoing_message_event) # created_at 2007-10-14 10:41:12.686264
     end
 
+    it "should return NotFound for a non-existent user" do
+        lambda {
+            get :track_user, :feed => 'feed', :url_name => "there_is_no_such_user"
+        }.should raise_error(ActiveRecord::RecordNotFound)
+    end
 end
 
 describe TrackController, "when viewing JSON version of a track feed" do

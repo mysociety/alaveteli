@@ -66,6 +66,7 @@ class TrackController < ApplicationController
     # Track a user
     def track_user
         @track_user = User.find_by_url_name(params[:url_name])
+        raise ActiveRecord::RecordNotFound.new("No such user") if @track_user.nil?
         @track_thing = TrackThing.create_track_for_user(@track_user)
 
         return atom_feed_internal if params[:feed] == 'feed'
