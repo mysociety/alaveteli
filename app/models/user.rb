@@ -288,6 +288,16 @@ class User < ActiveRecord::Base
         
         return (recent_requests >= daily_limit)
     end
+    def next_request_permitted_at
+        return nil if self.no_limit
+        
+        daily_limit = MySociety::Config.get("MAX_REQUESTS_PER_USER_PER_DAY")
+        n_most_recent_requests = InfoRequest.all(:conditions => ["user_id = ? and created_at > now() - '1 day'::interval", self.id], :order => "created_at DESC", :limit => daily_limit)
+        return nil if n_most_recent_requests.size < daily_limit
+        
+        nth_most_recent_request = n_most_recent_requests[-1]
+        return nth_most_recent_request.created_at + 1.day
+    end
     def can_make_followup?
         self.ban_text.empty?
     end
