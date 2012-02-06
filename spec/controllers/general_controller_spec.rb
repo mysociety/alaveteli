@@ -198,6 +198,22 @@ describe GeneralController, "when searching" do
         assigns[:query].should be_nil
     end
 
+    it "should not show unconfirmed users" do
+        get :search, :combined => ["unconfirmed", "users"]
+        response.should render_template('search')
+        assigns[:xapian_users].results.map{|x|x[:model]}.should == []
+    end
+
+    it "should show newly-confirmed users" do
+        u = users(:unconfirmed_user)
+        u.email_confirmed = true
+        u.save!
+        update_xapian_index
+        
+        get :search, :combined => ["unconfirmed", "users"]
+        response.should render_template('search')
+        assigns[:xapian_users].results.map{|x|x[:model]}.should == [u]
+    end
 
 end
 

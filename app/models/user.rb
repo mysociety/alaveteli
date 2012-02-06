@@ -61,7 +61,8 @@ class User < ActiveRecord::Base
         :values => [ 
              [ :created_at_numeric, 1, "created_at", :number ] # for sorting
         ],
-        :terms => [ [ :variety, 'V', "variety" ] ]
+        :terms => [ [ :variety, 'V', "variety" ] ],
+        :if => :indexed_by_search?
     def created_at_numeric
         # format it here as no datetime support in Xapian's value ranges
         return self.created_at.strftime("%Y%m%d%H%M%S") 
@@ -393,6 +394,10 @@ class User < ActiveRecord::Base
     
     def should_be_emailed?
         return (self.email_confirmed && self.email_bounced_at.nil?)
+    end
+    
+    def indexed_by_search?
+        return self.email_confirmed
     end
 
     ## Private instance methods
