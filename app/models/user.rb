@@ -264,6 +264,12 @@ class User < ActiveRecord::Base
     def User.view_hidden_requests?(user)
       !user.nil? && user.admin_level == 'super'
     end
+
+    # Should the user be kept logged into their own account
+    # if they follow a /c/ redirect link belonging to another user?
+    def User.stay_logged_in_on_redirect?(user)
+      !user.nil? && user.admin_level == 'super'
+    end
      
     # Does the user get "(admin)" links on each page on the main site?
     def admin_page_links?
