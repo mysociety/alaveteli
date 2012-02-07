@@ -5,7 +5,7 @@
 This release was mainly to address issue #418, a regression introduced
 in 0.5, which was causing deployment problems:
 
-* Setting `STAGING_SITE: 1` in `general.yml` and running
+* Setting `STAGING_SITE: 0` in `general.yml` and running
   `script/rails-post-deploy` will ensure the correct behaviour in
   production environments
 * It should now be safe to run `rake spec` on a production server
@@ -24,7 +24,7 @@ As usual, there is a [full list of changes on github](https://github.com/sebbaco
 
 ## Upgrade notes
 
-* On a production server, ensure that `STAGING_SITE` is set to `1`,
+* On a production server, ensure that `STAGING_SITE` is set to `0`,
   and then run `script/rails-post-deploy` as usual.
 
 # Version 0.5
