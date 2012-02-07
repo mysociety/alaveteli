@@ -22,12 +22,8 @@ an account there (ask on the mailing list).
 ## Finding new translatable strings
 
 To update the POT file with strings from the software source, run
-`rake gettext:find` from the Alaveteli software.  This will also
-update all the PO files for all the languages, which you don't
-actually want, because these are all handled in Transifex; so you'll
-want to revert these files again using git.
-
-The script at `./script/generate_pot.sh` does these steps for you.
+`rake gettext:find` from the Alaveteli software.  The script at
+`./script/generate_pot.sh` does this for you.
 
 When you've changed the POT file, and committed it, you should warn
 people on the mailing list before logging into Transifex and pressing
