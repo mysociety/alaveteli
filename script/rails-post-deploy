@@ -58,21 +58,20 @@ cd ..
 # Force appropriate environment in production
 if [ "$OPTION_STAGING_SITE" = "0" ]
 then
-	if [ ! -e "config/rails_env.rb" ]
-	then
-		cat <<-END
+    cat <<-END
 		
-		***************************************************************** 
-		WARNING: About to make config/rails_env.rb which, via special
-		code in config/boot.rb, forces the Rails environment to be
-		"production". If this is a development system, please edit your
-		config/general.yml file and set the STAGING_SITE option to 1,
-		and also delete the generated config/rails_env.rb file.
-		***************************************************************** 
-		
-		END
-	fi
-	echo "ENV['RAILS_ENV'] = 'production'" > config/rails_env.rb
+	***************************************************************** 
+	WARNING: About to make config/rails_env.rb which, via special
+	code in config/boot.rb, forces the Rails environment to be
+	"production". If this is a development system, please edit your
+	config/general.yml file and set the STAGING_SITE option to 1,
+	and also delete the generated config/rails_env.rb file.
+	Alternatively, you can override config/rails_env.rb at any time 
+	with an environment variable.
+	***************************************************************** 
+	
+	END
+    echo "ENV['RAILS_ENV'] ||= 'production'" > config/rails_env.rb
 fi
 
 if [ -n "$OPTION_THEME_URL" ]
