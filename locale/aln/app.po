@@ -3,19 +3,20 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Valon  <vbrestovci@gmail.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
 "POT-Creation-Date: 2011-11-10 14:28+0100\n"
-"PO-Revision-Date: 2011-03-09 17:48+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2011-11-10 13:54+0000\n"
+"Last-Translator: Valon <vbrestovci@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: sr\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+"Language: aln\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: app/models/incoming_message.rb:859
 msgid ""
@@ -145,21 +146,18 @@ msgid "%d Freedom of Information request to %s"
 msgid_plural "%d Freedom of Information requests to %s"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
 
 #: app/views/general/frontpage.rhtml:43
 msgid "%d request"
 msgid_plural "%d requests"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
 
 #: app/views/public_body/_body_listing_single.rhtml:21
 msgid "%d request made."
 msgid_plural "%d requests made."
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
 
 #: app/views/request/new.rhtml:92
 msgid "'Crime statistics by ward level for Wales'"
@@ -1285,11 +1283,11 @@ msgstr ""
 
 #: app/views/layouts/default.rhtml:104
 msgid "Hello, {{username}}!"
-msgstr ""
+msgstr "Tungjat, {{username}}!"
 
 #: app/views/general/_topnav.rhtml:8
 msgid "Help"
-msgstr ""
+msgstr "Ndihmë"
 
 #: app/views/request/details.rhtml:50
 msgid ""
@@ -1321,7 +1319,7 @@ msgstr ""
 
 #: app/views/public_body/show.rhtml:20
 msgid "Home page of authority"
-msgstr ""
+msgstr "ueb faqja e autoritetit"
 
 #: app/views/request/new.rhtml:61
 msgid ""
@@ -1719,7 +1717,7 @@ msgstr ""
 
 #: app/views/general/frontpage.rhtml:67
 msgid "More successful requests..."
-msgstr ""
+msgstr "Ma tepër kërkesa të suksesshme..."
 
 #: app/views/layouts/default.rhtml:107
 msgid "My profile"
@@ -1743,7 +1741,7 @@ msgstr ""
 
 #: lib/world_foi_websites.rb:21
 msgid "New Zealand"
-msgstr ""
+msgstr "Zelanda e Re"
 
 #: app/views/user/signchangeemail.rhtml:20
 msgid "New e-mail:"
@@ -1815,7 +1813,7 @@ msgstr ""
 #: app/views/request/_request_listing.rhtml:2
 #: app/views/public_body/_body_listing.rhtml:3
 msgid "None found."
-msgstr ""
+msgstr "Asnji nuk u gjet."
 
 #: app/views/user/show.rhtml:167 app/views/user/show.rhtml:187
 msgid "None made."
@@ -2467,7 +2465,7 @@ msgstr ""
 #: app/views/general/frontpage.rhtml:23 app/views/general/search.rhtml:17
 #: app/views/general/search.rhtml:32 app/views/general/search.rhtml:45
 msgid "Search"
-msgstr ""
+msgstr "Kërko"
 
 #: app/views/general/search.rhtml:8
 msgid "Search Freedom of Information requests, public authorities and users"
@@ -2505,7 +2503,6 @@ msgid "Search within the %d Freedom of Information requests to %s"
 msgid_plural "Search within the %d Freedom of Information requests made to %s"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
 
 #: app/views/user/show.rhtml:125
 msgid "Search your contributions"
@@ -2713,7 +2710,7 @@ msgstr ""
 
 #: app/views/general/exception_caught.rhtml:21
 msgid "Technical details"
-msgstr ""
+msgstr "Detalet teknike"
 
 #: app/controllers/request_game_controller.rb:52
 msgid "Thank you for helping us keep the site tidy!"
@@ -3004,14 +3001,12 @@ msgid "There is %d person following this authority"
 msgid_plural "There are %d people following this authority"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
 
 #: app/views/request/_sidebar.rhtml:5
 msgid "There is %d person following this request"
 msgid_plural "There are %d people following this request"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
 
 #: app/views/user/show.rhtml:4
 msgid ""
@@ -3126,14 +3121,12 @@ msgid "This person's %d Freedom of Information request"
 msgid_plural "This person's %d Freedom of Information requests"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
 
 #: app/views/user/show.rhtml:171
 msgid "This person's %d annotation"
 msgid_plural "This person's %d annotations"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
 
 #: app/views/user/show.rhtml:164
 msgid "This person's annotations"
@@ -3431,7 +3424,7 @@ msgstr ""
 
 #: lib/world_foi_websites.rb:5
 msgid "United Kingdom"
-msgstr ""
+msgstr "Mbretnia e Bashkueme"
 
 #: lib/world_foi_websites.rb:17
 msgid "United States of America"
@@ -3671,7 +3664,7 @@ msgstr ""
 
 #: app/views/general/_localised_datepicker.rhtml:13
 msgid "Wk"
-msgstr ""
+msgstr "Java"
 
 #: app/views/help/alaveteli.rhtml:6
 msgid "Would you like to see a website like this in your country?"
@@ -3865,14 +3858,12 @@ msgid "Your %d Freedom of Information request"
 msgid_plural "Your %d Freedom of Information requests"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
 
 #: app/views/user/show.rhtml:171
 msgid "Your %d annotation"
 msgid_plural "Your %d annotations"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
 
 #: app/views/user/_signup.rhtml:22
 msgid ""
@@ -4413,7 +4404,7 @@ msgstr ""
 
 #: app/views/general/frontpage.rhtml:62
 msgid "{{length_of_time}} ago"
-msgstr ""
+msgstr "{{length_of_time}} ma parë"
 
 #: app/models/track_thing.rb:122
 msgid "{{list_of_things}} matching text '{{search_query}}'"

@@ -3,19 +3,20 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+#   <john@handelaar.org>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
 "POT-Creation-Date: 2011-11-10 14:28+0100\n"
-"PO-Revision-Date: 2011-03-09 17:48+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2011-11-10 13:54+0000\n"
+"Last-Translator: Valon <vbrestovci@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: sr\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+"Language: en_IE\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: app/models/incoming_message.rb:859
 msgid ""
@@ -145,29 +146,26 @@ msgid "%d Freedom of Information request to %s"
 msgid_plural "%d Freedom of Information requests to %s"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
 
 #: app/views/general/frontpage.rhtml:43
 msgid "%d request"
 msgid_plural "%d requests"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
 
 #: app/views/public_body/_body_listing_single.rhtml:21
 msgid "%d request made."
 msgid_plural "%d requests made."
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
 
 #: app/views/request/new.rhtml:92
 msgid "'Crime statistics by ward level for Wales'"
-msgstr ""
+msgstr "'Crime statistics by Garda District for the Western Region'"
 
 #: app/views/request/new.rhtml:90
 msgid "'Pollution levels over time for the River Tyne'"
-msgstr ""
+msgstr "'Pollution levels over time for the River Boyne'"
 
 #: app/models/track_thing.rb:246
 msgid "'{{link_to_authority}}', a public authority"
@@ -418,6 +416,9 @@ msgid ""
 "<strong><code>requested_from:home_office</code></strong> to search requests "
 "from the Home Office, typing the name as in the URL."
 msgstr ""
+"<strong><code>requested_from:department_of_justice_and_equality</code></strong>"
+" to search requests from the Department of Justice and Equality, typing the "
+"name as in the URL."
 
 #: app/views/general/_advanced_search_tips.rhtml:8
 msgid ""
@@ -2505,7 +2506,6 @@ msgid "Search within the %d Freedom of Information requests to %s"
 msgid_plural "Search within the %d Freedom of Information requests made to %s"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
 
 #: app/views/user/show.rhtml:125
 msgid "Search your contributions"
@@ -3004,14 +3004,12 @@ msgid "There is %d person following this authority"
 msgid_plural "There are %d people following this authority"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
 
 #: app/views/request/_sidebar.rhtml:5
 msgid "There is %d person following this request"
 msgid_plural "There are %d people following this request"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
 
 #: app/views/user/show.rhtml:4
 msgid ""
@@ -3126,14 +3124,12 @@ msgid "This person's %d Freedom of Information request"
 msgid_plural "This person's %d Freedom of Information requests"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
 
 #: app/views/user/show.rhtml:171
 msgid "This person's %d annotation"
 msgid_plural "This person's %d annotations"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
 
 #: app/views/user/show.rhtml:164
 msgid "This person's annotations"
@@ -3391,6 +3387,8 @@ msgid ""
 "Type <strong><code>01/01/2008..14/01/2008</code></strong> to only show "
 "things that happened in the first two weeks of January."
 msgstr ""
+"Type <strong><code>01/01/2011..14/01/2011</code></strong> to only show "
+"things that happened in the first two weeks of January 2011."
 
 #: app/models/public_body.rb:37
 msgid "URL name can't be blank"
@@ -3465,6 +3463,8 @@ msgid ""
 "Use quotes when you want to find an exact phrase, e.g. "
 "<strong><code>\"Liverpool City Council\"</code></strong>"
 msgstr ""
+"Use quotes when you want to find an exact phrase, e.g. "
+"<strong><code>\"Limerick City Council\"</code></strong>"
 
 #: locale/model_attributes.rb:70
 msgid "UserInfoRequestSentAlert|Alert type"
@@ -3865,14 +3865,12 @@ msgid "Your %d Freedom of Information request"
 msgid_plural "Your %d Freedom of Information requests"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
 
 #: app/views/user/show.rhtml:171
 msgid "Your %d annotation"
 msgid_plural "Your %d annotations"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
 
 #: app/views/user/_signup.rhtml:22
 msgid ""
