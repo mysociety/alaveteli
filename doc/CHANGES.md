@@ -15,7 +15,8 @@ There is one minor new feature in this release:
 * Administrators can follow the auto-login URLs forwarded in emails
   from users who want support, and they will remain logged in as
   themselves.
-* We now have a most of a Czech translation (thanks Josef Pospisil!)
+
+We now have a most of a Czech translation (thanks Josef Pospisil!)
 
 Finally, this release also addresses a number of small bugs, including
 the (potentially) important issue #408.
