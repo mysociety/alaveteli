@@ -6,7 +6,7 @@ In `/etc/exim4/conf.d/main/04_alaveteli_options`:
     ALAVETELI_HOME=/path/to/alaveteli/software
     ALAVETELI_USER=www-data
     log_file_path=/var/log/exim4/exim-%slog-%D
-    log_selector=+all -retry_defer 
+    MAIN_LOG_SELECTOR==+all -retry_defer 
 
 (The user ALAVETELI_USER should have write permissions on ALAVETELI_HOME).
 
