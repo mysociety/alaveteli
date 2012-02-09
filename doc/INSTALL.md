@@ -283,6 +283,42 @@ is supplied in `../conf/varnish-alaveteli.vcl`.
 
 # Troubleshooting
 
+*   **Incoming emails aren't appearing in my Alaveteli install**
+    
+    First, you need to check that your MTA is delivering relevant
+    incoming emails to the `script/mailin` command.  There are various
+    ways of setting your MTA up to do this; we have documented one way
+    of doing it in Exim at `doc/INSTALL-exim4.conf`, including a
+    command you can use to check that the email routing is set up
+    correctly.
+    
+    Second, you need to test that the mailin script itself is working
+    correctly, by running it from the command line, First, find a
+    valid "To" address for a request in your system.  You can do this
+    through your site's admin interface, or from the command line,
+    like so:
+
+        $ ./script/console
+        Loading development environment (Rails 2.3.14)
+        >> InfoRequest.find_by_url_title("why_do_you_have_such_a_fancy_dog").incoming_email
+        => "request-101-50929748@localhost"
+            
+    Now take the source of a valid email (there are some sample emails in
+    `spec/fixtures/files/`); edit the `To:` header to match this address;
+    and then pipe it through the mailin script.  A non-zero exit code
+    means there was a problem.  For example:
+
+        $ cp spec/fixtures/files/incoming-request-plain.email /tmp/
+        $ perl -pi -e 's/^To:.*/To: <request-101-50929748@localhost>/' /tmp/incoming-request-plain.email
+        $ ./script/mailin < /tmp/incoming-request-plain.email
+        $ echo $?
+        75
+
+    The `mailin` script emails the details of any errors to
+    `CONTACT_EMAIL` (from your `general.yml` file).  A common problem is
+    for the user that the MTA runs as not to have write access to
+    `files/raw_emails/`.
+        
 *   **Various tests fail with "*Your PostgreSQL connection does not support
     unescape_bytea. Try upgrading to pg 0.9.0 or later.*"**
 

@@ -79,6 +79,11 @@ see something like:
     snafflerequest-234@localhost -> |/home/alaveteli/alaveteli/script/mailin
     transport = alaveteli_mailin_transport
 
+This tells you that the routing part (making emails to
+`foi\+.*@localhost` be forwarded to Alaveteli's `mailin` script) is
+working.
+
 There is a great
 [Exim Cheatsheet](http://bradthemad.org/tech/notes/exim_cheatsheet.php)
 online that you may find useful.
+
