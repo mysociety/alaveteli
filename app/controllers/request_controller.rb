@@ -220,6 +220,8 @@ class RequestController < ApplicationController
                 render :template => 'user/banned'
                 return
             end
+            # User did exceed limit
+            @next_request_permitted_at = authenticated_user.next_request_permitted_at
         end
 
         # First time we get to the page, just display it

@@ -190,6 +190,43 @@ describe UserController, "when signing in" do
         ActionController::Routing::Routes.filters = old_filters
     end
 
+    it "should keep you logged in if you click a confirmation link and are already logged in as an admin" do
+        old_filters = ActionController::Routing::Routes.filters
+        ActionController::Routing::Routes.filters = RoutingFilter::Chain.new
+
+        get :signin, :r => "/list"
+        post_redirect = get_last_postredirect
+
+        post :signin, { :user_signin => { :email => 'unconfirmed@localhost', :password => 'jonespassword' },
+            :token => post_redirect.token
+        }
+        response.should send_email
+
+        deliveries = ActionMailer::Base.deliveries
+        deliveries.size.should  == 1
+        mail = deliveries[0]
+        mail.body =~ /(http:\/\/.*(\/c\/(.*)))/
+        mail_url = $1
+        mail_path = $2
+        mail_token = $3
+
+        # check is right confirmation URL
+        mail_token.should == post_redirect.email_token
+        params_from(:get, mail_path).should == { :controller => 'user', :action => 'confirm', :email_token => mail_token }
+
+        # Log in as an admin
+        session[:user_id] = users(:admin_user).id
+
+        # Get the confirmation URL, and check we’re still Joe
+        get :confirm, :email_token => post_redirect.email_token
+        session[:user_id].should == users(:admin_user).id
+        
+        # And the redirect should still work, of course
+        response.should redirect_to(:controller => 'request', :action => 'list', :post_redirect => 1)
+
+        ActionController::Routing::Routes.filters = old_filters
+    end
+
 end
 
 describe UserController, "when signing up" do
@@ -233,7 +270,7 @@ describe UserController, "when signing up" do
         deliveries[0].body.should include("No revelaremos su dirección de correo")
     end
 
-    it "should send special 'already signed up' mail if you fill the form in with existing registered email " do
+    it "should send special 'already signed up' mail if you fill the form in with existing registered email" do
         post :signup, { :user_signup => { :email => 'silly@localhost', :name => 'New Person',
             :password => 'sillypassword', :password_confirmation => 'sillypassword' } 
         }

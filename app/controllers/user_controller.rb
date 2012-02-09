@@ -182,9 +182,11 @@ class UserController < ApplicationController
             return
         end
 
-        @user = post_redirect.user
-        @user.email_confirmed = true
-        @user.save!
+        if !User.stay_logged_in_on_redirect?(@user)
+            @user = post_redirect.user
+            @user.email_confirmed = true
+            @user.save!
+        end
 
         session[:user_id] = @user.id
         session[:user_circumstance] = post_redirect.circumstance

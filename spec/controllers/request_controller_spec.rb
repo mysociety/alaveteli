@@ -300,7 +300,7 @@ describe RequestController, "when showing one request" do
             }.should raise_error(ActiveRecord::RecordNotFound)
         end
 
-        it "should generate valid HTML verson of PDF attachments " do
+        it "should generate valid HTML verson of PDF attachments" do
             ir = info_requests(:fancy_dog_request) 
             receive_incoming_mail('incoming-request-pdf-attachment.email', ir.incoming_email)
             ir.reload
@@ -309,7 +309,7 @@ describe RequestController, "when showing one request" do
             response.should have_text(/Walberswick Parish Council/)
         end
 
-        it "should not cause a reparsing of the raw email, even when the result would be a 404 " do
+        it "should not cause a reparsing of the raw email, even when the result would be a 404" do
             ir = info_requests(:fancy_dog_request) 
             receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)
             ir.reload
@@ -1319,9 +1319,10 @@ describe RequestController, "sending overdue request alerts" do
 
         RequestMailer.alert_overdue_requests
 
-        deliveries = ActionMailer::Base.deliveries
-        deliveries.size.should == 2
-        mail = deliveries[1]
+        chicken_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /chickens/}
+        chicken_mails.size.should == 1
+        mail = chicken_mails[0]
+        
         mail.body.should =~ /promptly, as normally/
         mail.to_addrs.first.to_s.should == info_requests(:naughty_chicken_request).user.name_and_email
 
@@ -1347,9 +1348,10 @@ describe RequestController, "sending overdue request alerts" do
 
         RequestMailer.alert_overdue_requests
 
-        deliveries = ActionMailer::Base.deliveries
-        deliveries.size.should == 2
-        mail = deliveries[1]
+        chicken_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /chickens/}
+        chicken_mails.size.should == 1
+        mail = chicken_mails[0]
+        
         mail.body.should =~ /promptly, as normally/
         mail.to_addrs.first.to_s.should == info_requests(:naughty_chicken_request).user.name_and_email
     end
@@ -1372,9 +1374,10 @@ describe RequestController, "sending overdue request alerts" do
 
         RequestMailer.alert_overdue_requests
 
-        deliveries = ActionMailer::Base.deliveries
-        deliveries.size.should == 2
-        mail = deliveries[1]
+        chicken_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /chickens/}
+        chicken_mails.size.should == 1
+        mail = chicken_mails[0]
+        
         mail.body.should =~ /required by law/
         mail.to_addrs.first.to_s.should == info_requests(:naughty_chicken_request).user.name_and_email
 
