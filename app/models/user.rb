@@ -61,7 +61,8 @@ class User < ActiveRecord::Base
         :values => [ 
              [ :created_at_numeric, 1, "created_at", :number ] # for sorting
         ],
-        :terms => [ [ :variety, 'V', "variety" ] ]
+        :terms => [ [ :variety, 'V', "variety" ] ],
+        :if => :indexed_by_search?
     def created_at_numeric
         # format it here as no datetime support in Xapian's value ranges
         return self.created_at.strftime("%Y%m%d%H%M%S") 
@@ -264,6 +265,12 @@ class User < ActiveRecord::Base
     def User.view_hidden_requests?(user)
       !user.nil? && user.admin_level == 'super'
     end
+
+    # Should the user be kept logged into their own account
+    # if they follow a /c/ redirect link belonging to another user?
+    def User.stay_logged_in_on_redirect?(user)
+      !user.nil? && user.admin_level == 'super'
+    end
      
     # Does the user get "(admin)" links on each page on the main site?
     def admin_page_links?
@@ -287,6 +294,16 @@ class User < ActiveRecord::Base
         recent_requests = InfoRequest.count(:conditions => ["user_id = ? and created_at > now() - '1 day'::interval", self.id])
         
         return (recent_requests >= daily_limit)
+    end
+    def next_request_permitted_at
+        return nil if self.no_limit
+        
+        daily_limit = MySociety::Config.get("MAX_REQUESTS_PER_USER_PER_DAY")
+        n_most_recent_requests = InfoRequest.all(:conditions => ["user_id = ? and created_at > now() - '1 day'::interval", self.id], :order => "created_at DESC", :limit => daily_limit)
+        return nil if n_most_recent_requests.size < daily_limit
+        
+        nth_most_recent_request = n_most_recent_requests[-1]
+        return nth_most_recent_request.created_at + 1.day
     end
     def can_make_followup?
         self.ban_text.empty?
@@ -377,6 +394,10 @@ class User < ActiveRecord::Base
     
     def should_be_emailed?
         return (self.email_confirmed && self.email_bounced_at.nil?)
+    end
+    
+    def indexed_by_search?
+        return self.email_confirmed
     end
 
     ## Private instance methods

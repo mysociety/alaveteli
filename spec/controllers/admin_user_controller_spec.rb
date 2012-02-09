@@ -2,7 +2,9 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe AdminUserController, "when administering users" do
     integrate_views
-    before { basic_auth_login @request }
+    before do
+        basic_auth_login @request
+    end
   
     it "shows the index/list page" do
         get :index
@@ -16,6 +18,19 @@ describe AdminUserController, "when administering users" do
     it "shows a user" do
         get :show, :id => users(:bob_smith_user)
     end
+    
+    it "logs in as another user" do
+        get :login_as,  :id => users(:bob_smith_user).id
+        post_redirect = PostRedirect.get_last_post_redirect
+        response.should redirect_to(:controller => 'user', :action => 'confirm', :email_token => post_redirect.email_token)
+    end
 
+    it "logs in as another user when already logged in as an admin" do
+        session[:user_id] = users(:admin_user).id
+        get :login_as,  :id => users(:bob_smith_user).id
+        post_redirect = PostRedirect.get_last_post_redirect
+        response.should redirect_to(:controller => 'user', :action => 'confirm', :email_token => post_redirect.email_token)
+        session[:user_id].should be_nil
+    end
 end
 

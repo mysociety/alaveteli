@@ -22,42 +22,61 @@ cd app/..
 # read config file in for later (STAGING_SITE)
 if [ -e "config/general" ] || [ -e "config/general.yml" ]
 then
-    . commonlib/shlib/deployfns
-    read_conf config/general
+	. commonlib/shlib/deployfns
+	read_conf config/general
 else
-    OPTION_DOMAIN=127.0.0.1:3000
-    OPTION_STAGING_SITE=1
+	OPTION_DOMAIN=127.0.0.1:3000
+	OPTION_STAGING_SITE=1
 fi
 
 # create initial log files
 if [ -e $APP_DIR/../logs ]
 then
-    # mySociety servers have logs dir in level above
-    rm -f log
-    ln -s $APP_DIR/../logs log
+	# mySociety servers have logs dir in level above
+	rm -f log
+	ln -s $APP_DIR/../logs log
 else
-    # otherwise just make the directory
-    if [ -h log ]
-    then
-        # remove any old-style symlink first
-        rm -f log
-    fi
-    mkdir -p log
+	# otherwise just make the directory
+	if [ -h log ]
+	then
+		# remove any old-style symlink first
+		rm -f log
+	fi
+	mkdir -p log
 fi
 # link the "downloads" directory in the cache to somewhere it can be served
 if [ ! -e $APP_DIR/public/download ]
 then
-    mkdir -p $APP_DIR/cache/zips/download
-    ln -s $APP_DIR/cache/zips/download $APP_DIR/public/
+	mkdir -p $APP_DIR/cache/zips/download
+	ln -s $APP_DIR/cache/zips/download $APP_DIR/public/
 fi
 
 cd log
 touch development.log fastcgi.crash.log production.log test.log
 cd ..
 
+# Force appropriate environment in production
+if [ "$OPTION_STAGING_SITE" = "0" ]
+then
+    cat <<-END
+		
+	***************************************************************** 
+	WARNING: About to make config/rails_env.rb which, via special
+	code in config/boot.rb, forces the Rails environment to be
+	"production". If this is a development system, please edit your
+	config/general.yml file and set the STAGING_SITE option to 1,
+	and also delete the generated config/rails_env.rb file.
+	Alternatively, you can override config/rails_env.rb at any time 
+	with an environment variable.
+	***************************************************************** 
+	
+	END
+    echo "ENV['RAILS_ENV'] ||= 'production'" > config/rails_env.rb
+fi
+
 if [ -n "$OPTION_THEME_URL" ]
 then
-    script/plugin install --force $OPTION_THEME_URL
+	script/plugin install --force $OPTION_THEME_URL
 fi
 
 # upgrade database

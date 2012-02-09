@@ -14,7 +14,7 @@ norm, rather than the exception.
 Please join our mailing list at
 https://groups.google.com/group/alaveteli-dev and introduce yourself.
 
-Some documentation can be found in the [`doc/` folder](./alaveteli/doc/).  There's
+Some documentation can be found in the [`doc/` folder](https://github.com/sebbacon/alaveteli/tree/master/doc).  There's
 background information and a little more documentation on
 [our wiki](https://github.com/sebbacon/alaveteli/wiki/Home/), and
 hopefully we'll make [our homepage](http://alaveteli.org) more useful
