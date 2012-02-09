@@ -13,7 +13,10 @@ namespace :gettext do
 
     #merge tmp.pot and existing pot
     FileUtils.mkdir_p('locale')
-    GetText::msgmerge("locale/app.pot", temp_pot, "version 0.0.1", :po_root => 'locale', :msgmerge=>[ :no_fuzzy_matching, :sort_output ])
+    GetText::msgmerge("locale/app.pot", temp_pot, "alaveteli",  :po_root => 'locale', :msgmerge=>[ :no_wrap, :sort_output ]) 
+    Dir.glob("locale/*/app.po") do |po_file|
+      GetText::msgmerge(po_file, temp_pot, "alaveteli", :po_root => 'locale', :msgmerge=>[ :no_wrap, :sort_output ]) 
+    end
     File.delete(temp_pot)
   end 
 
