@@ -839,7 +839,7 @@ class RequestController < ApplicationController
                                 logger.error("Could not convert info request #{info_request.id} to PDF with command '#{convert_command} #{url} #{tempfile.path}'")
                             end
                             tempfile.close
-                        else                    
+                        else
                             logger.warn("No HTML -> PDF converter found at #{convert_command}")
                         end
                         if !done
