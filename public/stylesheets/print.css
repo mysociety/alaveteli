@@ -42,6 +42,6 @@ div.correspondence {
 }
 
 .not-for-print {
- display: none;
+ display: none !IMPORTANT;
 }
 
