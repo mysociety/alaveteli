@@ -1738,6 +1738,30 @@ describe RequestController, "when doing type ahead searches" do
         assigns[:xapian_requests].results.size.should == 1
     end
 
+describe "when showing similar requests" do
+    integrate_views
+
+    it "should work" do
+        get :similar, :url_title => info_requests(:badger_request).url_title
+        response.should render_template("request/similar")
+        assigns[:info_request].should == info_requests(:badger_request)
+    end
+
+    it "should show similar requests" do
+        get :similar, :url_title => info_requests(:badger_request).url_title
+        assigns[:xapian_object].results.map{|x|x[:model].info_request}.should =~ [
+            info_requests(:fancy_dog_request),
+            info_requests(:naughty_chicken_request),
+        ]
+    end
+
+    it "should 404 for non-existent paths" do
+        lambda {
+            get :similar, :url_title => "there_is_really_no_such_path_owNAFkHR"
+        }.should raise_error(ActiveRecord::RecordNotFound)
+    end
+end
+
 end
 
 

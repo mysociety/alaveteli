@@ -137,6 +137,8 @@ class RequestController < ApplicationController
         @per_page = 25
         @page = (params[:page] || "1").to_i
         @info_request = InfoRequest.find_by_url_title(params[:url_title])
+        raise ActiveRecord::RecordNotFound.new("Request not found") if @info_request.nil?
+        
         if !@info_request.user_can_view?(authenticated_user)
             render :template => 'request/hidden', :status => 410 # gone
             return
@@ -146,7 +148,7 @@ class RequestController < ApplicationController
         
         if (@page > 1)
             @page_desc = " (page " + @page.to_s + ")" 
-        else    
+        else
             @page_desc = ""
         end
     end
@@ -837,7 +839,7 @@ class RequestController < ApplicationController
                                 logger.error("Could not convert info request #{info_request.id} to PDF with command '#{convert_command} #{url} #{tempfile.path}'")
                             end
                             tempfile.close
-                        else                    
+                        else
                             logger.warn("No HTML -> PDF converter found at #{convert_command}")
                         end
                         if !done
