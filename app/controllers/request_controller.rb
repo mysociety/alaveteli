@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # app/controllers/request_controller.rb:
 # Show information about one particular request.
 #
@@ -684,7 +685,7 @@ class RequestController < ApplicationController
 
         # we don't use @attachment.content_type here, as we want same mime type when cached in cache_attachments above
         response.content_type = AlaveteliFileTypes.filename_to_mimetype(params[:file_name].join("/")) || 'application/octet-stream'
-
+        headers["Content-Disposition"] = "attachment; filename=#{params[:file_name]}"
         render :text => @attachment.body
     end
 
