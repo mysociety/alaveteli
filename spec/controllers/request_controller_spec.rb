@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-require 'json'
-
 describe RequestController, "when listing recent requests" do
 
     before(:each) do
