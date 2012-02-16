@@ -284,7 +284,12 @@ class PublicBody < ActiveRecord::Base
     def calculated_home_page
         # manual override for ones we calculate wrongly
         if self.home_page != ''
-            return self.home_page
+            # Add standard URL prefix
+            if home_page[0..10] == 'http://www.'
+                return self.home_page
+            else
+                return "http://www.#{self.home_page}"
+            end
         end
 
         # extract the domain name from the FOI request email

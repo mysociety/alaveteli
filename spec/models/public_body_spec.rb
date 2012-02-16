@@ -421,5 +421,11 @@ describe PublicBody do
       public_body.stub!(:request_email_domain).and_return nil
       public_body.calculated_home_page.should be_nil
     end
+
+    it "should ensure home page URLs start with http://" do
+      public_body = PublicBody.new
+      public_body.home_page = "example.com"
+      public_body.calculated_home_page.should == "http://www.example.com"
+    end
   end
 end
