@@ -142,3 +142,8 @@ EXCEPTION_NOTIFICATIONS_TO:
 
 # This rate limiting can be turned off per-user via the admin interface
 MAX_REQUESTS_PER_USER_PER_DAY: 6
+
+SURVEY_URL: http://survey.mysociety.org/
+# The shared secret needed to authenticate with the survey service
+SURVEY_SECRET: 12345678910
+
