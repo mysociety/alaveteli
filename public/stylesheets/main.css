@@ -1044,7 +1044,7 @@ padding:4px 0;
 .request_listing span.desc {
 background:url(/images/quote-marks.png) no-repeat;
 min-height:60px;
-width:auto;
+width:100%;
 color:#444;
 line-height:18px;
 padding:0 0 0 40px;
@@ -1629,7 +1629,8 @@ div.controller_help h1 a,#logged_in_bar a,#logged_in_bar a:visited,#stepwise_mak
 }
 
 .request_left,#header_left {
-width:625px;
+width:575px;
+padding-right:50px;
 float:left;
 }
 #authority_preview .request_left,
