@@ -4,6 +4,10 @@ These instructions will get you up and running using Alaveteli with
 First of all install dependencies like VirtualBox and then install Vagrant
 `gem install vagrant`.
 
+You'll also need `nfsd` installed on your machine for NFS shared folders. This
+is required for performance reasons. On Ubuntu install the `nfs-server`
+package.
+
 Clone the Alaveteli repo, clone the submodules `git submodule update --init`,
 then run these commands from the repo directory:
 
