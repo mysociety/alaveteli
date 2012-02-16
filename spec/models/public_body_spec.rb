@@ -425,7 +425,7 @@ describe PublicBody do
     it "should ensure home page URLs start with http://" do
       public_body = PublicBody.new
       public_body.home_page = "example.com"
-      public_body.calculated_home_page.should == "http://www.example.com"
+      public_body.calculated_home_page.should == "http://example.com"
     end
   end
 end

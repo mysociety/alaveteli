@@ -283,7 +283,7 @@ class PublicBody < ActiveRecord::Base
     # if not known.
     def calculated_home_page
         if home_page && !home_page.empty?
-            home_page[0..10] == 'http://www.' ? home_page : "http://www.#{home_page}"
+            home_page[0..6] == 'http://' ? home_page : "http://#{home_page}"
         elsif request_email_domain
             "http://www.#{request_email_domain}"
         end
