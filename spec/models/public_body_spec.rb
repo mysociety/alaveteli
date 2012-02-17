@@ -427,5 +427,11 @@ describe PublicBody do
       public_body.home_page = "example.com"
       public_body.calculated_home_page.should == "http://example.com"
     end
+
+    it "should not add http when https is present" do
+      public_body = PublicBody.new
+      public_body.home_page = "https://example.com"
+      public_body.calculated_home_page.should == "https://example.com"
+    end
   end
 end
