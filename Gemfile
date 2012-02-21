@@ -24,3 +24,8 @@ gem 'will_paginate', '~> 2.3.11'
 gem 'xapian-full'
 gem 'xml-simple'
 gem 'zip'
+
+group :test do
+  gem 'fakeweb'
+  gem 'rspec-rails', '~> 1.3.4'
+end
