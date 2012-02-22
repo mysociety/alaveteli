@@ -24,3 +24,7 @@ memcached
 gettext
 python-yaml
 wkhtmltopdf-static
+libmagic-dev
+libmagickwand-dev
+libpq-dev
+uuid-dev
