@@ -1,13 +1,7 @@
-These instructions assume Debian Squeeze or Ubuntu 11.04, or later
-(probably, though we won't necessarily have tested in later versions
-yet!)
+These instructions assume Debian Squeeze or Ubuntu 10.04 LTS.
 [Install instructions for OS X](https://github.com/sebbacon/alaveteli/wiki/OS-X-Quickstart)
-are under development.
-
-It is possible to install on Ubuntus as old as 10.04, but you must use
-[Xapian backports](https://launchpad.net/~xapian-backports/+archive/xapian-1.2)
-(see [issue #158](https://github.com/sebbacon/alaveteli/issues/159)
-for discussion).
+are under development.  Debian Squeeze is the best supported
+deployment platform.
 
 Commands are intended to be run via the terminal or over ssh.
 
@@ -15,7 +9,7 @@ As an aid to evaluation, there is an
 [Amazon AMI](https://github.com/sebbacon/alaveteli/wiki/Alaveteli-ec2-amix)
 with all these steps configured.  It is *not* production-ready.
 
-# Package Installation
+# Get Alaveteli
 
 To start with, you may need to install git, e.g. with `sudo apt-get
 install git-core`
@@ -25,36 +19,58 @@ Next, get hold of the Alaveteli source code from github:
     git clone https://github.com/sebbacon/alaveteli.git
     cd alaveteli
 
-If you are running Debian, you can use some of the specially compiled
-mysociety packages by adding the following to /etc/apt/sources.list:
+This will get the current release.  If you are a developer and want to
+add new features, you might want to swap to the development branch:
+
+    git checkout develop
+
+# Install system dependencies
+
+These are packages that the software depends on: third-party software
+used to parse documents, host the site, etc.  There are also packages
+that contain headers necessary to compile some of the gem dependencies
+in the next step.
+
+If you are running Debian, you can use specially compiled mysociety
+packages by adding the following to `/etc/apt/sources.list`:
 
     deb http://debian.mysociety.org squeeze main non-free contrib
-
-Install the packages that are listed in config/packages using apt-get e.g.:
+    
+Now install the packages that are listed in config/packages using apt-get
+e.g.:
 
     sudo apt-get install `cut -d " " -f 1 config/packages | grep -v "^#"`
 
-Some of the files also have a version number listed in config/packages - check
-that you have appropriate versions installed. Some also list "|" and offer
-a choice of packages.
+Some of the files also have a version number listed in config/packages
+- check that you have appropriate versions installed. Some also list
+"|" and offer a choice of packages.  If you've not set up the
+mySociety Debian source (e.g. if you're running Ubuntu), you should
+comment out `wkhtmltopdf-static` from `config/packages`, as it won't
+install.
 
-# Ruby dependency installation
+# Install Ruby dependencies
 
 Install rubygems 1.6.1 (we're not using the Debian package because we
-want an old version; see "Troubleshooting" below for an explanation
-why):
+need an older version; see "Troubleshooting" below for an
+explanation):
 
     wget http://rubyforge.org/frs/download.php/74445/rubygems-1.6.2.tgz -O /tmp/rubygems-1.6.2.tgz
     tar zxvf /tmp/rubygems-1.6.2.tgz -C /tmp/
-    sudo ruby /tmp/rubygems-1.6.2/setup.rb
+    sudo ruby1.8 /tmp/rubygems-1.6.2/setup.rb
  
-Now, to install Alaveteli's Ruby dependencies, we need to install bundler:
+To install Alaveteli's Ruby dependencies, we also need to install
+bundler:
 
     sudo gem1.8 install bundler
+    
+Now bundler can then handle the rest of our dependency installation:
+
     bundle install --deployment
     
-The part of the `bundle install` that compiles `xapian-full` takes a
-*long* time!
+Note that the part of the `bundle install` that compiles `xapian-full`
+takes a *long* time!
+
+# Install mySociety libraries
 
 You will also want to install mySociety's common ruby libraries and the Rails
 code. Run:
@@ -68,7 +84,7 @@ to fetch the contents of the submodules.
 Debian users should add the mySociety debian archive to their
 `/etc/apt/sources.list` as described above.  Doing this and following
 the above instructions should install a couple of custom
-dependencies. Users of other platforms will have to install these
+dependencies. Users of other platforms can optionally install these
 dependencies manually, as follows:
 
 1. If you would like users to be able to download pretty PDFs as part of
@@ -93,7 +109,8 @@ use the Debian package compiled by mySociety (see link in
 # Configure Database 
 
 There has been a little work done in trying to make the code work with
-other databases (e.g. SQLite), but the preferred database is PostgreSQL.
+other databases (e.g. SQLite), but the currently supported database is
+PostgreSQL.
 
 If you don't have it installed:
 
@@ -128,27 +145,63 @@ data that may not be valid UTF (for example, data originating from
 various broken email clients that's not 8-bit clean), it's safer to be
 able to store *anything*, than reject data at runtime.
 
-# Configure email
+# Configure email 
 
 You will need to set up an email server (MTA) to send and receive
 emails.  Full configuration for an MTA is beyond the scope of this
-document. However, just to get the tests to pass, you will at a
+document, though we describe an example configuration for Exim in
+`INSTALL-exim4.md`.
+
+## Minimal
+
+However, just to get the tests to pass, you will at a
 minimum need to allow sending emails via a `sendmail` command (a
 requirement met, for example, with `sudo apt-get install exim4`).
 
-To receive email in a production setup, you will also need to
+## Detailed
+
+When an authority receives an email, the email's `reply-to` field is a
+magic address which is parsed and consumed by the Rails app.
+
+To receive such email in a production setup, you will need to
 configure your MTA to pipe incoming emails to the Alaveteli script
-`script/mailin`.  An example configuration is described in
-`INSTALL-exim4.md`.
+`script/mailin`. Therefore, you will need to configure your MTA to
+accept emails to magic addresses, and to pipe such emails to this
+script.
+
+Magic email addresses are of the form:
+
+    <foi+request-3-691c8388@example.com>
+
+The respective parts of this address are controlled with options in
+config/general.yml, thus:
+
+    INCOMING_EMAIL_PREFIX = 'foi+'
+    INCOMING_EMAIL_DOMAIN = 'example.com'
+
+When you set up your MTA, note that if there is some error inside
+Rails, the email is returned with an exit code 75, which for Exim at
+least means the MTA will try again later.  Additionally, a stacktrace
+is emailed to `CONTACT_EMAIL`.
+
+`INSTALL-exim4.md` describes one possible configuration for Exim (>=
+1.9).
+
+A well-configured installation of this code will separately have had
+Exim make a backup copy of the email in a separate mailbox, just in
+case.
+
+This setup isn't very scaleable, as it spawns a new Ruby process for
+each email received; patches welcome!
 
 # Set up configs
 
-opy `config/general.yml-example` to `config/general.yml` and edit to
+Copy `config/general.yml-example` to `config/general.yml` and edit to
 your taste.
 
 Note that the default settings for frontpage examples are designed to
 work with the dummy data shipped with Alaveteli; once you have real
-data, you should edit these.
+data, you should certainly edit these.
 
 The default theme is the "Alaveteli" theme.  When you run
 `rails-post-deploy` (see below), that theme gets installed
@@ -196,10 +249,22 @@ Make sure everything looks OK:
 
     rake spec
 
-If there are failures here, something has gone wrong with the preceding
-steps. You might be able to move on to the next step, depending on how
-serious they are, but ideally you should try to find out what's gone
-wrong.
+If there are failures here, something has gone wrong with the
+preceding steps (see the next section for a common problem and
+workaround). You might be able to move on to the next step, depending
+on how serious they are, but ideally you should try to find out what's
+gone wrong.
+
+## glibc bug workaround
+
+There's a
+[bug in glibc](http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=637239)
+which causes Xapian to segfault when running the tests.  Although the
+bug report linked to claims it's fixed in the current Debian stable,
+it's not as of version `2.11.3-2`.
+
+Until it's fixed (e.g. `libc6 2.13-26` does work), you can get the
+tests to pass by setting `export LD_PRELOAD=/lib/libuuid.so.1`.
 
 # Run the Server
 
@@ -232,39 +297,6 @@ behaviour.
 
 And send us the patch!
 
-# Mailer setup
-
-When an authority receives an email, the email's `reply-to` field is a
-magic address which is parsed and consumed by the Rails app.
-
-Currently, this is done by calling `script/mailin` and piping in the raw
-email.  You will need to configure your MTA to accept emails to magic
-addresses, and to pipe such emails to this script.
-
-Magic email addresses are of the form:
-
-    <foi+request-3-691c8388@example.com>
-
-The respective parts of this address are controlled with options in
-config/general.yml, thus:
-
-    INCOMING_EMAIL_PREFIX = 'foi+'
-    INCOMING_EMAIL_DOMAIN = 'example.com'
-
-`INSTALL-exim.txt` describes one possible configuration for Exim (>=
-1.9).
-
-When you set up your MTA, note that if there is some error inside
-Rails, the email is returned with an exit code 75, which for Exim at
-least means the MTA will try again later.  Additionally, a stacktrace
-is emailed to `CONTACT_EMAIL`.
-
-A well-configured installation of this code will separately have had
-Exim make a backup copy of the email in a separate mailbox, just in
-case.
-
-This setup isn't very scaleable, as it spawns a new Ruby process for
-each email received; patches welcome!
 
 # Cron jobs
 
@@ -309,6 +341,10 @@ include the following in an Apache configuration file:
 Under all but light loads, it is strongly recommended to run the
 server behind an http accelerator like Varnish.  A sample varnish VCL
 is supplied in `../conf/varnish-alaveteli.vcl`.
+
+Some
+[production server best practice notes](https://github.com/sebbacon/alaveteli/wiki/Production-Server-Best-Practices)
+are evolving on the wiki.
 
 # Troubleshooting
 
@@ -361,9 +397,8 @@ is supplied in `../conf/varnish-alaveteli.vcl`.
     "*when using TMail should load an email with funny MIME settings'
     FAILED*"**
 
-    Did you remember to remove the file `alaveteli/config/rails_env.rb`
-    as described above?  It's created every time you run
-    `script/rails-post-deploy`
+    This sounds like the tests are running using the `production`
+    environment, rather than the `test` environment, for some reason.
 
 *   **Non-ASCII characters are being displayed as asterisks in my incoming messages**
 
