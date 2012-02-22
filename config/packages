@@ -2,13 +2,9 @@
 # mysociety deployment infrastructure -- please discuss on the
 # alavateli mailing list if you want to change it
 ruby1.8
-libpgsql-ruby1.8
-libopenssl-ruby1.8
-rake (>= 0.8.4-1)
 irb
 wv
 poppler-utils
-# poppler-utils (>= 0.12.0) # this is much better when it is available in Debian stable
 pdftk (> 1.41+dfsg-1) | pdftk (< 1.41+dfsg-1) # that version has a non-functionining uncompress option
 gs-gpl
 catdoc
@@ -16,29 +12,15 @@ links
 elinks
 unrtf
 xlhtml
-libxapian-ruby1.8
 xapian-tools
 gnuplot-nox
 php5-cli
-# ttf-bitstream-vera 
 sharutils
 unzip
-libzip-ruby1.8
-libzlib-ruby
-mahoro-ruby1.8 | libmahoro-ruby1.8
 wdg-html-validator
-# libapache2-mod-passenger
 mutt
-librack-ruby1.8 (>= 1.0.1-1)
-librmagick-ruby1.8
-libxml-simple-ruby
-libfcgi-ruby1.8
-vpim
 tnef (>= 1.4.5)
-libmemcache-client-ruby (>= 1.7.8-2)
 memcached
-rubygems
-libfcgi-dev
 gettext
 python-yaml
 wkhtmltopdf-static
