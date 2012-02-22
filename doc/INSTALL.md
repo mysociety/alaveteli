@@ -25,6 +25,11 @@ Next, get hold of the Alaveteli source code from github:
     git clone https://github.com/sebbacon/alaveteli.git
     cd alaveteli
 
+If you are running Debian, you can use some of the specially compiled
+mysociety packages by adding the following to /etc/apt/sources.list:
+
+    deb http://debian.mysociety.org squeeze main non-free contrib
+
 Install the packages that are listed in config/packages using apt-get e.g.:
 
     sudo apt-get install `cut -d " " -f 1 config/packages | grep -v "^#"`
@@ -39,21 +44,17 @@ Install rubygems 1.6.1 (we're not using the Debian package because we
 want an old version; see "Troubleshooting" below for an explanation
 why):
 
-    cd /tmp/
-    wget http://rubyforge.org/frs/download.php/74445/rubygems-1.6.2.tgz
+    wget http://rubyforge.org/frs/download.php/74445/rubygems-1.6.2.tgz -O /tmp/rubygems-1.6.2.tgz
     tar zxvf /tmp/rubygems-1.6.2.tgz -C /tmp/
     sudo ruby /tmp/rubygems-1.6.2/setup.rb
  
 Now, to install Alaveteli's Ruby dependencies, we need to install bundler:
 
-    sudo gem install bundler
+    sudo gem1.8 install bundler
     bundle install --deployment
-
-On Debian, at least, the binaries installed by bundler are not put in
-the system `PATH`; therefore, in order to run `rake`, you will need to
-do something like:
-
-    ln -s /usr/lib/ruby/gems/1.8/bin/rake /usr/local/bin/
+    
+The part of the `bundle install` that compiles `xapian-full` takes a
+*long* time!
 
 You will also want to install mySociety's common ruby libraries and the Rails
 code. Run:
@@ -62,23 +63,32 @@ code. Run:
 
 to fetch the contents of the submodules.
 
-If you would like users to be able to download pretty PDFs as part of 
-the downloadable zipfile of their request history, you should also install
-[wkhtmltopdf](http://code.google.com/p/wkhtmltopdf/downloads/list).  
+## Packages customised by mySociety
+
+Debian users should add the mySociety debian archive to their
+`/etc/apt/sources.list` as described above.  Doing this and following
+the above instructions should install a couple of custom
+dependencies. Users of other platforms will have to install these
+dependencies manually, as follows:
+
+1. If you would like users to be able to download pretty PDFs as part of
+the downloadable zipfile of their request history, you should install
+[wkhtmltopdf](http://code.google.com/p/wkhtmltopdf/downloads/list).
 We recommend downloading the latest, statically compiled version from
 the project website, as this allows running headless (i.e. without a
 graphical interface running) on Linux.  If you do install
 `wkhtmltopdf`, you need to edit a setting in the config file to point
-to it (see below).  If you don't install it, everything will still work, but 
-users will get ugly, plain text versions of their requests when they 
-download them.
+to it (see below).  If you don't install it, everything will still
+work, but users will get ugly, plain text versions of their requests
+when they download them.
 
-Version 1.44 of `pdftk` contains a bug which makes it to loop forever
+2. Version 1.44 of `pdftk` contains a bug which makes it to loop forever
 in certain edge conditions.  Until it's incorporated into an official
 release, you can either hope you don't encounter the bug (it ties up a
 rails process until you kill it) you'll need to patch it yourself or
 use the Debian package compiled by mySociety (see link in
 [issue 305](https://github.com/sebbacon/alaveteli/issues/305))
+
 
 # Configure Database 
 
@@ -152,7 +162,13 @@ probably don't want this in your development profile; the example
 
 # Deployment
 
-In the 'alaveteli' directory, run:
+On Debian, at least, the binaries installed by bundler are not put in
+the system `PATH`; therefore, in order to run `rake` (needed for
+deployments), you will need to do something like:
+
+    ln -s /usr/lib/ruby/gems/1.8/bin/rake /usr/local/bin/
+
+Now, in the 'alaveteli' directory, run:
 
     ./script/rails-post-deploy 
 
