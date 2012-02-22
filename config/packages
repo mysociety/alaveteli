@@ -28,3 +28,4 @@ libmagic-dev
 libmagickwand-dev
 libpq-dev
 uuid-dev
+ruby1.8-dev
