@@ -11,22 +11,19 @@ for discussion).
 
 Commands are intended to be run via the terminal or over ssh.
 
-As an aid to evaluation, there is an Amazon AMI with all these steps
-configured.  Its id is ami-fa52a993.  It is *not* production-ready:
-Apache isn't set up, and the passwords are insecure.  You may wish to
-run a `git pull` in the source on the software, as it is unlikely to
-be up to date.
+As an aid to evaluation, there is an
+[Amazon AMI](https://github.com/sebbacon/alaveteli/wiki/Alaveteli-ec2-amix)
+with all these steps configured.  It is *not* production-ready.
 
 # Package Installation
 
-First, get hold of the source code from github: 
+To start with, you may need to install git, e.g. with `sudo apt-get
+install git-core`
+
+Next, get hold of the Alaveteli source code from github: 
 
     git clone https://github.com/sebbacon/alaveteli.git
-
-(You may need to install git first, e.g. with `sudo apt-get install git-core`)
-
-Now, in a terminal, navigate to the alaveteli folder where this
-install guide lives.
+    cd alaveteli
 
 Install the packages that are listed in config/packages using apt-get e.g.:
 
@@ -36,6 +33,27 @@ Some of the files also have a version number listed in config/packages - check
 that you have appropriate versions installed. Some also list "|" and offer
 a choice of packages.
 
+# Ruby dependency installation
+
+Install rubygems 1.6.1 (we're not using the Debian package because we
+want an old version; see "Troubleshooting" below for an explanation
+why):
+
+    cd /tmp/
+    wget http://rubyforge.org/frs/download.php/74445/rubygems-1.6.2.tgz
+    tar zxvf /tmp/rubygems-1.6.2.tgz -C /tmp/
+    sudo ruby /tmp/rubygems-1.6.2/setup.rb
+ 
+Now, to install Alaveteli's Ruby dependencies, we need to install bundler:
+
+    sudo gem install bundler
+    bundle install --deployment
+
+On Debian, at least, the binaries installed by bundler are not put in
+the system `PATH`; therefore, in order to run `rake`, you will need to
+do something like:
+
+    ln -s /usr/lib/ruby/gems/1.8/bin/rake /usr/local/bin/
 
 You will also want to install mySociety's common ruby libraries and the Rails
 code. Run:
@@ -78,25 +96,22 @@ username and password of your postgres database.
 * edit it to point to your local postgresql database in the development
   and test sections and create the databases:
 
-Become the 'postgres' user (`sudo su - postgres`)
-
 Make sure that the user specified in database.yml exists, and has full
 permissions on these databases. As they need the ability to turn off
 constraints whilst running the tests they also need to be a superuser.
-  (See http://dev.rubyonrails.org/ticket/9981)
+(See http://dev.rubyonrails.org/ticket/9981)
+  
+You can create a `foi` user from the command line, thus:
 
-The following command will set up a user 'foi' with password 'foi':
-
-    echo "CREATE DATABASE foi_development encoding 'SQL_ASCII' template template0;
-    CREATE DATABASE foi_test encoding 'SQL_ASCII' template template0;
-    CREATE USER foi WITH CREATEUSER;
-    ALTER USER foi WITH PASSWORD 'foi';
-    ALTER USER foi WITH CREATEDB;
-    GRANT ALL PRIVILEGES ON DATABASE foi_development TO foi;
-    GRANT ALL PRIVILEGES ON DATABASE foi_test TO foi;    	
-    ALTER DATABASE foi_development OWNER TO foi;
-    ALTER DATABASE foi_test OWNER TO foi;" | psql
+    # su - postgres
+    $ createuser -s -P foi
     
+And you can create a database thus:
+
+    $ createdb -T template0 -E SQL_ASCII -O foi foi_production
+    $ createdb -T template0 -E SQL_ASCII -O foi foi_test
+    $ createdb -T template0 -E SQL_ASCII -O foi foi_development
+
 We create using the ``SQL_ASCII`` encoding, because in postgres this
 is means "no encoding"; and because we handle and store all kinds of
 data that may not be valid UTF (for example, data originating from
@@ -112,20 +127,22 @@ minimum need to allow sending emails via a `sendmail` command (a
 requirement met, for example, with `sudo apt-get install exim4`).
 
 To receive email in a production setup, you will also need to
-configure your MTA to forward incoming emails to Alaveteli.  An
-example configuration is described in `INSTALL-exim4.md`.
+configure your MTA to pipe incoming emails to the Alaveteli script
+`script/mailin`.  An example configuration is described in
+`INSTALL-exim4.md`.
 
 # Set up configs
 
-For overall application settings, copy `config/general.yml-example` to
-`config/general.yml` and edit to your taste.
+opy `config/general.yml-example` to `config/general.yml` and edit to
+your taste.
 
 Note that the default settings for frontpage examples are designed to
 work with the dummy data shipped with Alaveteli; once you have real
 data, you should edit these.
 
-The default theme is the "WhatDoTheyKnow" theme.  When you run
-`rails-post-deploy` (see below), that theme gets installed automatically.
+The default theme is the "Alaveteli" theme.  When you run
+`rails-post-deploy` (see below), that theme gets installed
+automatically.
 
 You'll also want to copy `config/memcached.yml-example` to
 `config/memcached.yml`. The application is configured, via the
@@ -139,14 +156,10 @@ In the 'alaveteli' directory, run:
 
     ./script/rails-post-deploy 
 
-(This will need execute privs so `chmod 755` if necessary)
-
-This sets up directory structures, creates logs, etc.
-
-Next, if you have a `alaveteli/config/rails_env.rb` file, delete it,
-so that tests run against our test database, rather than the
-development one.  (Otherwise, any data you create in development will
-be blown away every time you run the tests.)
+(This will need execute privs so `chmod 755` if necessary.) This sets
+up directory structures, creates logs, installs/updates themes, runs
+database migrations, etc.  You should run it after each new software
+update.
 
 If you want some dummy data to play with, you can try loading the
 fixtures that the test suite uses into your development database.  You
@@ -217,10 +230,10 @@ Magic email addresses are of the form:
     <foi+request-3-691c8388@example.com>
 
 The respective parts of this address are controlled with options in
-options/general, thus:
+config/general.yml, thus:
 
-    $OPTION_INCOMING_EMAIL_PREFIX = 'foi+'
-    $OPTION_INCOMING_EMAIL_DOMAIN = 'example.com'
+    INCOMING_EMAIL_PREFIX = 'foi+'
+    INCOMING_EMAIL_DOMAIN = 'example.com'
 
 `INSTALL-exim.txt` describes one possible configuration for Exim (>=
 1.9).
@@ -228,7 +241,7 @@ options/general, thus:
 When you set up your MTA, note that if there is some error inside
 Rails, the email is returned with an exit code 75, which for Exim at
 least means the MTA will try again later.  Additionally, a stacktrace
-is emailed to `$OPTION_CONTACT_EMAIL`.
+is emailed to `CONTACT_EMAIL`.
 
 A well-configured installation of this code will separately have had
 Exim make a backup copy of the email in a separate mailbox, just in
