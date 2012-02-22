@@ -11,6 +11,7 @@ GEM
     activeresource (2.3.14)
       activesupport (= 2.3.14)
     activesupport (2.3.14)
+    fakeweb (1.3.0)
     fast_gettext (0.6.1)
     gettext (2.1.0)
       locale (>= 2.0.5)
@@ -51,6 +52,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  fakeweb
   fast_gettext (>= 0.6.0)
   gettext (>= 1.9.3)
   json (~> 1.5.1)
