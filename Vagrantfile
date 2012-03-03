@@ -7,11 +7,11 @@ Vagrant::Config.run do |config|
   # please see the online documentation at vagrantup.com.
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "debian-squeeze-64-rvm"
+  config.vm.box = "debian-squeeze-64"
 
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
-  config.vm.box_url = "https://s3-eu-west-1.amazonaws.com/rosstimson-vagrant-boxes/debian-squeeze-64-rvm.box"
+  config.vm.box_url = "http://dl.dropbox.com/u/174733/debian-squeeze-64.box"
 
   # Boot with a GUI so you can see the screen. (Default is headless)
   # config.vm.boot_mode = :gui
@@ -40,10 +40,6 @@ Vagrant::Config.run do |config|
   config.vm.share_folder("v-root", "/vagrant", ".", :nfs => true)
   config.nfs.map_uid=1000
   config.nfs.map_gid=1000
-
-  # The postgres recipe always wants to run before we try to update so this is
-  # a hack to get the chef recipes to work
-  config.vm.provision :shell, :inline => "apt-get update"
 
   # Enable provisioning with chef solo, specifying a cookbooks path (relative
   # to this Vagrantfile), and adding some recipes and/or roles.
