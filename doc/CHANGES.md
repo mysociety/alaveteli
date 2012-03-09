@@ -1,3 +1,16 @@
+# Next version
+
+## Highlighted features
+
+* Ruby dependencies are now handled by Bundler
+
+## Upgrade notes
+
+* Because dependencies are now handled by Bundler, when you next run
+  the `rails-post-deploy` script, it will download, compile and
+  install various things.  Part of this is compiling xapian, which may
+  take a *long* time (subsequent deployments should be much faster)
+
 # Version 0.5.1
 
 ## Highlighted features

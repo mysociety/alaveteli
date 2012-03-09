@@ -20,7 +20,8 @@ Next, get hold of the Alaveteli source code from github:
     cd alaveteli
 
 This will get the current release.  If you are a developer and want to
-add new features, you might want to swap to the development branch:
+add or try new features, you might want to swap to the development
+branch:
 
     git checkout develop
 
@@ -63,13 +64,6 @@ bundler:
 
     sudo gem1.8 install bundler
     
-Now bundler can then handle the rest of our dependency installation:
-
-    bundle install --deployment
-    
-Note that the part of the `bundle install` that compiles `xapian-full`
-takes a *long* time!
-
 # Install mySociety libraries
 
 You will also want to install mySociety's common ruby libraries and the Rails
@@ -154,9 +148,9 @@ document, though we describe an example configuration for Exim in
 
 ## Minimal
 
-However, just to get the tests to pass, you will at a
-minimum need to allow sending emails via a `sendmail` command (a
-requirement met, for example, with `sudo apt-get install exim4`).
+If you just want to get the tests to pass, you will at a minimum need
+to allow sending emails via a `sendmail` command (a requirement met,
+for example, with `sudo apt-get install exim4`).
 
 ## Detailed
 
@@ -191,9 +185,6 @@ A well-configured installation of this code will separately have had
 Exim make a backup copy of the email in a separate mailbox, just in
 case.
 
-This setup isn't very scaleable, as it spawns a new Ruby process for
-each email received; patches welcome!
-
 # Set up configs
 
 Copy `config/general.yml-example` to `config/general.yml` and edit to
@@ -220,6 +211,10 @@ the system `PATH`; therefore, in order to run `rake` (needed for
 deployments), you will need to do something like:
 
     ln -s /usr/lib/ruby/gems/1.8/bin/rake /usr/local/bin/
+    
+Or (Debian):
+
+    ln -s /usr/lib/ruby/gems/1.8/bin/rake /usr/local/bin/
 
 Now, in the 'alaveteli' directory, run:
 
@@ -229,6 +224,10 @@ Now, in the 'alaveteli' directory, run:
 up directory structures, creates logs, installs/updates themes, runs
 database migrations, etc.  You should run it after each new software
 update.
+
+One of the things the script does is install dependencies (using
+`bundle install`).  Note that the first time you run it, part of the
+`bundle install` that compiles `xapian-full` takes a *long* time!
 
 If you want some dummy data to play with, you can try loading the
 fixtures that the test suite uses into your development database.  You
