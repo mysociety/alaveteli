@@ -422,5 +422,12 @@ class User < ActiveRecord::Base
         end
         return true
     end
+
+    after_save(:purge_in_cache)
+    def purge_in_cache
+        # XXX should only be if specific attributes have changed
+        self.info_requests.each {|x| x.purge_in_cache}
+    end
+
 end
 

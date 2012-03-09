@@ -1042,6 +1042,21 @@ public
         end
         return ret
     end
+
+    before_save(:mark_view_is_dirty)
+    def mark_view_is_dirty
+        self.view_is_dirty = true
+        self.save!
+    end
+
+    def self.purge_varnish
+        for info_request in InfoRequest.find_by_view_is_dirty(true)
+            url = "/request/#{info_request.url_title}"
+            purge(url)
+            info_request.view_is_dirty = true
+            info_request.save!
+        end
+    end
 end
 
 

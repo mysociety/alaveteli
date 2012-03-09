@@ -36,6 +36,8 @@ class AdminController < ApplicationController
 
         # also force a search reindexing (so changed text reflected in search)
         info_request.reindex_request_events
+        # and remove from varnsi
+        info_request.purge_in_cache
     end
 
     # Expire cached attachment files for a user

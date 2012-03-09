@@ -547,6 +547,11 @@ class PublicBody < ActiveRecord::Base
         }
     end
 
+    after_save(:purge_in_cache)
+    def purge_in_cache
+        self.info_requests.each {|x| x.purge_in_cache}
+    end
+
 end
 
 

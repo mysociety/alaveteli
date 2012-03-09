@@ -13,6 +13,9 @@ config['ADMIN_PASSWORD'] = 'baz'
 # tests assume 20 days
 config['REPLY_LATE_AFTER_DAYS'] = 20
 
+# register a fake Varnish server
+require 'fakeweb'
+FakeWeb.register_uri(:get, %r|varnish|, :body => "OK")
 
 # Uncomment the next line to use webrat's matchers
 #require 'webrat/integrations/rspec-rails'
