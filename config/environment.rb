@@ -17,11 +17,7 @@ $:.push(File.join(File.dirname(__FILE__), '../commonlib/rblib'))
 # (type "git submodule update --init" in the whatdotheyknow directory)
 
 # ruby-ole and ruby-msg.  We use a custom ruby-msg to avoid a name conflict
-$:.unshift(File.join(File.dirname(__FILE__), '../vendor/ruby-ole/lib'))
-$:.unshift(File.join(File.dirname(__FILE__), '../vendor/ruby-msg/lib'))
 $:.unshift(File.join(File.dirname(__FILE__), '../vendor/plugins/globalize2/lib'))
-
-require 'memcache'
 
 load "validate.rb"
 load "config.rb"
@@ -61,16 +57,6 @@ Rails::Initializer.run do |config|
   # config.log_level = :debug
   #
   # Specify gems that this application depends on and have them installed with rake gems:install
-  config.gem "locale", :version => '>=2.0.5'
-  config.gem "gettext", :version => '>=1.9.3'
-  config.gem "fast_gettext", :version => '>=0.4.8'
-  config.gem "rack", :version => '1.1.0'
-  config.gem "rdoc", :version => '>=2.4.3'
-  config.gem "recaptcha", :lib => "recaptcha/rails"
-  config.gem 'rspec', :lib => false, :version => '1.3.1'
-  config.gem 'rspec-rails', :lib => false, :version => '1.3.3'
-  config.gem 'routing-filter'
-  config.gem 'will_paginate', :version => '~> 2.3.11', :source => 'http://gemcutter.org'
   #GettextI18nRails.translations_are_html_safe = true
 
   # Use SQL instead of Active Record's schema dumper when creating the test database.

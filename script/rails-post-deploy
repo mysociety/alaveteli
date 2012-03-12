@@ -74,6 +74,13 @@ then
     echo "ENV['RAILS_ENV'] ||= 'production'" > config/rails_env.rb
 fi
 
+if [ "$OPTION_STAGING_SITE" = "0" ]
+then
+    bundle install --deployment
+else
+    bundle install
+fi
+
 if [ -n "$OPTION_THEME_URL" ]
 then
 	script/plugin install --force $OPTION_THEME_URL
