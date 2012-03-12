@@ -19,7 +19,7 @@ Next, get hold of the Alaveteli source code from github:
     git clone https://github.com/sebbacon/alaveteli.git
     cd alaveteli
 
-This will get the current release.  If you are a developer and want to
+This will get the current stable release.  If you are a developer and want to
 add or try new features, you might want to swap to the development
 branch:
 
@@ -33,9 +33,10 @@ that contain headers necessary to compile some of the gem dependencies
 in the next step.
 
 If you are running Debian, you can use specially compiled mysociety
-packages by adding the following to `/etc/apt/sources.list`:
+packages by adding the following to `/etc/apt/sources.list` and
+running `apt-get update`:
 
-    deb http://debian.mysociety.org squeeze main non-free contrib
+    deb http://debian.mysociety.org squeeze main
     
 Now install the packages that are listed in config/packages using apt-get
 e.g.:
@@ -206,17 +207,7 @@ probably don't want this in your development profile; the example
 
 # Deployment
 
-On Debian, at least, the binaries installed by bundler are not put in
-the system `PATH`; therefore, in order to run `rake` (needed for
-deployments), you will need to do something like:
-
-    ln -s /usr/lib/ruby/gems/1.8/bin/rake /usr/local/bin/
-    
-Or (Debian):
-
-    ln -s /usr/lib/ruby/gems/1.8/bin/rake /usr/local/bin/
-
-Now, in the 'alaveteli' directory, run:
+In the 'alaveteli' directory, run:
 
     ./script/rails-post-deploy 
 
@@ -228,6 +219,17 @@ update.
 One of the things the script does is install dependencies (using
 `bundle install`).  Note that the first time you run it, part of the
 `bundle install` that compiles `xapian-full` takes a *long* time!
+
+On Debian, at least, the binaries installed by bundler are not put in
+the system `PATH`; therefore, in order to run `rake` (needed for
+deployments), you will need to do something like:
+
+    ln -s /usr/lib/ruby/gems/1.8/bin/rake /usr/local/bin/
+    
+Or (Debian):
+
+    ln -s /usr/lib/ruby/gems/1.8/bin/rake /usr/local/bin/
+
 
 If you want some dummy data to play with, you can try loading the
 fixtures that the test suite uses into your development database.  You
