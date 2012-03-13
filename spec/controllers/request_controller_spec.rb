@@ -631,7 +631,7 @@ describe RequestController, "when creating a new request" do
 
     it "should accept a public body parameter" do
         get :new, :public_body_id => @body.id
-        assigns[:info_request].public_body.should == @body    
+        assigns[:info_request].public_body.should == @body
         response.should render_template('new')
     end
 

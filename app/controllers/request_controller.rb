@@ -344,7 +344,13 @@ class RequestController < ApplicationController
             return
         end
 
-        @info_request.user = authenticated_user
+        if params[:post_redirect_user]
+            # If an admin has clicked the confirmation link on a users behalf,
+            # we don’t want to reassign the request to the administrator.
+            @info_request.user = params[:post_redirect_user]
+        else
+            @info_request.user = authenticated_user
+        end
         # This automatically saves dependent objects, such as @outgoing_message, in the same transaction
         @info_request.save!
         # XXX send_message needs the database id, so we send after saving, which isn't ideal if the request broke here.
