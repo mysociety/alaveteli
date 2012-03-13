@@ -18,3 +18,4 @@ TAGS
 /public/download
 /public/*theme
 /vendor/bundle
+.bundle
