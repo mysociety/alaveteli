@@ -1743,8 +1743,9 @@ describe RequestController, "when doing type ahead searches" do
         get :search_typeahead, :q => "dog -chicken"
         assigns[:xapian_requests].results.size.should == 1
     end
+end
 
-describe "when showing similar requests" do
+describe RequestController, "when showing similar requests" do
     integrate_views
 
     it "should work" do
@@ -1766,8 +1767,6 @@ describe "when showing similar requests" do
             get :similar, :url_title => "there_is_really_no_such_path_owNAFkHR"
         }.should raise_error(ActiveRecord::RecordNotFound)
     end
-end
-
 end
 
 
