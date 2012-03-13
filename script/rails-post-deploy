@@ -76,7 +76,7 @@ fi
 
 if [ "$OPTION_STAGING_SITE" = "0" ]
 then
-    bundle install --deployment
+    bundle install  --without development:test --deployment
 else
     bundle install
 fi
