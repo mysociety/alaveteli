@@ -17,6 +17,19 @@ Apache isn't set up, and the passwords are insecure.  You may wish to
 run a `git pull` in the source on the software, as it is unlikely to
 be up to date.
 
+# Dev environment quickstart
+
+To get a dev environment running, you can use Chef or Vagrant.  These
+are not currently recommended for production, because they are still under development.  For production, you should follow the steps below manually.
+
+To install using Vagrant (which provisions a virtual machine and
+installs Alaveteli there), see `INSTALL-vagrant.md`.
+
+To install using chef, edit `user` and `group` in `chef/solo.json`,
+and then run:
+
+    sudo chef-solo -c chef/solo.rb -j chef/solo.json
+
 # Package Installation
 
 First, get hold of the source code from github: 

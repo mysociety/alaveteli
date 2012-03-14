@@ -45,8 +45,13 @@ Vagrant::Config.run do |config|
   # to this Vagrantfile), and adding some recipes and/or roles.
   #
   config.vm.provision :chef_solo do |chef|
-    chef.cookbooks_path = "chef"
+    chef.cookbooks_path = "chef/cookbooks"
     chef.add_recipe "alaveteli"
+    chef.json = {
+            :user => 'vagrant',
+            :group => 'vagrant',
+            :root => '/vagrant'
+        }
   end
 
   # Enable provisioning with chef server, specifying the chef server URL,

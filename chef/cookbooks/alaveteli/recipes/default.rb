@@ -1,4 +1,8 @@
 require_recipe "apt"
+require 'json'
+puts node[:lsb][:id]
+puts node[:lsb][:release]
+puts node[:lsb][:codename]
 
 apt_repository "mysociety" do
   uri "http://debian.mysociety.org"
@@ -10,7 +14,7 @@ end
 require_recipe "postgresql::server"
 
 # Install package dependencies as per the readme
-packages = `cut -d " " -f 1 /vagrant/config/packages | grep -v "^#"`.split
+packages = `cut -d " " -f 1 #{node[:root]}/config/packages | grep -v "^#"`.split
 # mySociety packages are unauthenticated
 mysociety_packages = %w{wkhtmltopdf-static pdftk}
 packages.each do |pkg|
@@ -20,17 +24,17 @@ packages.each do |pkg|
 end
 
 # The database config
-template "/vagrant/config/database.yml" do
+template "#{node[:root]}/config/database.yml" do
   source "database.yml.erb"
   mode "664"
-  owner "vagrant"
-  group "vagrant"
+  owner node[:user]
+  group node[:group]
 end
 
 # Application config
-cookbook_file "/vagrant/config/general.yml" do
+cookbook_file "#{node[:root]}/config/general.yml" do
   source "general.yml"
   mode "644"
-  owner "vagrant"
-  group "vagrant"
+  owner node[:user]
+  group node[:group]
 end
