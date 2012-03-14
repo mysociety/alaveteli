@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
-"POT-Creation-Date: 2011-10-07 13:48+0200\n"
-"PO-Revision-Date: 2011-10-07 13:09+0000\n"
-"Last-Translator: vbrestovci <vbrestovci@gmail.com>\n"
+"POT-Creation-Date: 2012-02-08 10:16-0000\n"
+"PO-Revision-Date: 2012-02-08 11:27+0000\n"
+"Last-Translator: sebbacon <seb.bacon@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Language: sq\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-#: app/models/incoming_message.rb:867
+#: app/models/incoming_message.rb:667
 msgid ""
 "\n"
 "\n"
@@ -56,7 +56,7 @@ msgstr ""
 "<strong>(Durim,</strong> sidomos për fotografi të mëdha,  mund të marrë më "
 "shum kohë!)"
 
-#: app/views/user/show.rhtml:59
+#: app/views/user/show.rhtml:64
 msgid " (you)"
 msgstr " (ti)"
 
@@ -130,10 +130,6 @@ msgstr ""
 " Propozo mënyra më të mira të <strong>formulim të kërkesës</strong> për të "
 "marrë informacion. "
 
-#: app/views/user/sign.rhtml:26
-msgid " Please sign in or make a new account."
-msgstr " Të lutem kyçu ose krijo një llogari të re."
-
 #: app/views/comment/new.rhtml:35
 msgid ""
 " Say how you've <strong>used the information</strong>, with links if "
@@ -171,7 +167,7 @@ msgstr ""
 msgid " made by "
 msgstr " bërë nga "
 
-#: app/models/track_thing.rb:112 app/models/track_thing.rb:120
+#: app/models/track_thing.rb:111 app/models/track_thing.rb:119
 msgid " or "
 msgstr " ose "
 
@@ -205,19 +201,19 @@ msgstr "'Statistikat e krimit në nivel komune'"
 msgid "'Pollution levels over time for the River Tyne'"
 msgstr "'Niveli i ndotjes në lumin Drin'"
 
-#: app/models/track_thing.rb:246
+#: app/models/track_thing.rb:245
 msgid "'{{link_to_authority}}', a public authority"
 msgstr "'{{link_to_authority}}', një autoritet publik"
 
-#: app/models/track_thing.rb:195
+#: app/models/track_thing.rb:194
 msgid "'{{link_to_request}}', a request"
 msgstr "'{{link_to_request}}', një kërkesë"
 
-#: app/models/track_thing.rb:262
+#: app/models/track_thing.rb:261
 msgid "'{{link_to_user}}', a person"
 msgstr "'{{link_to_user}}', një person"
 
-#: app/controllers/user_controller.rb:373
+#: app/controllers/user_controller.rb:389
 msgid ""
 ",\n"
 "\n"
@@ -235,11 +231,11 @@ msgstr ""
 "\n"
 "{{user_name}}"
 
-#: app/views/user/sign.rhtml:37
+#: app/views/user/sign.rhtml:28
 msgid "- or -"
 msgstr "- apo -"
 
-#: app/views/request/select_authority.rhtml:29
+#: app/views/request/select_authority.rhtml:30
 msgid "1. Select an authority"
 msgstr "1. Zgjedh një autoritet"
 
@@ -273,7 +269,7 @@ msgstr ""
 "<a href=\"%s\">A je pronar i\n"
 "            ndonjë të drejte autoriale komerciale në këtë faqe? </a>"
 
-#: app/views/general/search.rhtml:173
+#: app/views/general/search.rhtml:168
 msgid "<a href=\"%s\">Browse all</a> or <a href=\"%s\">ask us to add one</a>."
 msgstr ""
 "<a href=\"%s\">Shfletoni të gjitha</a> ose <a href=\"%s\">kërkoni nga ne që "
@@ -283,7 +279,7 @@ msgstr ""
 msgid "<a href=\"%s\">Can't find the one you want?</a>"
 msgstr "<a href=\"%s\">Nuk mund të gjen autoritetin që dëshiron?</a>"
 
-#: app/views/user/show.rhtml:113
+#: app/views/user/show.rhtml:118
 msgid ""
 "<a href=\"%s\">Sign in</a> to change password, subscriptions and more "
 "({{user_name}} only)"
@@ -310,7 +306,7 @@ msgstr ""
 "href=\"{{helpus_url}}\">shumë gjëra që ti mund të bësh</a> për të ndihmuar "
 "{{site_name}}. </p>"
 
-#: app/controllers/request_controller.rb:405
+#: app/controllers/request_controller.rb:441
 msgid ""
 "<p>Thank you! Here are some ideas on what to do next:</p>\n"
 "            <ul>\n"
@@ -334,7 +330,7 @@ msgstr ""
 "            </li>\n"
 "            </ul>"
 
-#: app/controllers/request_controller.rb:399
+#: app/controllers/request_controller.rb:435
 msgid ""
 "<p>Thank you! Hope you don't have to wait much longer.</p> <p>By law, you "
 "should have got a response promptly, and normally before the end of "
@@ -344,7 +340,7 @@ msgstr ""
 "</p><p>Sipas ligjit, ti duhet të kesh marrë një përgjigje menjëherë, dhe "
 "normalisht para <strong>{{date_response_required_by}}</strong>.</p>"
 
-#: app/controllers/request_controller.rb:395
+#: app/controllers/request_controller.rb:431
 msgid ""
 "<p>Thank you! Hopefully your wait isn't too long.</p> <p>By law, you should get a response promptly, and normally before the end of <strong>\n"
 "{{date_response_required_by}}</strong>.</p>"
@@ -352,7 +348,7 @@ msgstr ""
 "<p>Faleminderit! Shpresojmë se pritja yte nuk do të jetë shumë e gjatë. </p><p>Sipas ligjit, ti duhet marrë  një përgjigje menjëherë, dhe normalisht para <strong>\n"
 "{{date_response_required_by}}</strong>.</p>"
 
-#: app/controllers/request_controller.rb:434
+#: app/controllers/request_controller.rb:470
 msgid ""
 "<p>Thank you! Hopefully your wait isn't too long.</p><p>You should get a "
 "response within {{late_number_of_days}} days, or be told if it will take "
@@ -363,7 +359,7 @@ msgstr ""
 "{{late_number_of_days}} ditë pune, ose të njoftohesh se do të marrë kohë më "
 "të gjatë (<a href={{review_url}}\">detajet</a>).</p>"
 
-#: app/controllers/request_controller.rb:437
+#: app/controllers/request_controller.rb:473
 msgid ""
 "<p>Thank you! We'll look into what happened and try and fix it up.</p><p>If "
 "the error was a delivery failure, and you can find an up to date FOI email "
@@ -374,7 +370,7 @@ msgstr ""
 "adresën e autoritetit, dhe ti mund të gjesh email adresën aktuale të "
 "autoritetit, të lutem na e trego duke përdorur formularin e mëposhtëm.</p>"
 
-#: app/controllers/request_controller.rb:402
+#: app/controllers/request_controller.rb:438
 msgid ""
 "<p>Thank you! Your request is long overdue, by more than "
 "{{very_late_number_of_days}} working days. Most requests should be answered "
@@ -386,7 +382,7 @@ msgstr ""
 "përgjigjen jo më vonë se për {{late_number_of_days}} ditë pune. Ti mund të "
 "ankohesh për këtë, shih më poshtë.</p>"
 
-#: app/controllers/user_controller.rb:513
+#: app/controllers/user_controller.rb:530
 msgid ""
 "<p>Thanks for changing the text about you on your profile.</p>\n"
 "            <p><strong>Next...</strong> You can upload a profile photograph too.</p>"
@@ -394,7 +390,7 @@ msgstr ""
 "<p> Faleminderit për ndryshimin e tekstit për vetën tënde në profil. </p>\n"
 "            <p> <strong>Pastaj ...</strong> Ti gjithashtu mund ta ngarkon (upload) një fotografi në profilin tënd.</p>"
 
-#: app/controllers/user_controller.rb:435
+#: app/controllers/user_controller.rb:451
 msgid ""
 "<p>Thanks for updating your profile photo.</p>\n"
 "                <p><strong>Next...</strong> You can put some text about you and your research on your profile.</p>"
@@ -403,7 +399,7 @@ msgstr ""
 "<strong>Pastaj ...</strong>Ti mund të shkruash një tekst për veti dhe për "
 "temat e hulumtimit tënd në profil.</p>"
 
-#: app/controllers/request_controller.rb:289
+#: app/controllers/request_controller.rb:320
 msgid ""
 "<p>We recommend that you edit your request and remove the email address.\n"
 "                If you leave it, the email address will be sent to the authority, but will not be displayed on the site.</p>"
@@ -411,7 +407,7 @@ msgstr ""
 "<p> Ne të rekomandojmë që të editosh kërkesën dhe për të fshire  adresën e emailit.\n"
 "               Nëse e len atë, adresa e  emailit do ti dërgohet autoritetit, por nuk do të shfaqet në këtë ueb faqe. </p>"
 
-#: app/controllers/request_controller.rb:423
+#: app/controllers/request_controller.rb:459
 msgid ""
 "<p>We're glad you got all the information that you wanted. If you write "
 "about or make use of the information, please come back and add an annotation"
@@ -425,7 +421,7 @@ msgstr ""
 " ke gjetë {{site_name}} të dobishëm, <a href=\"{{donation_url}}\">bëj një "
 "donacion</a> për organizatat që qëndrojnë mbrapa sajë.</p>"
 
-#: app/controllers/request_controller.rb:426
+#: app/controllers/request_controller.rb:462
 msgid ""
 "<p>We're glad you got some of the information that you wanted. If you found "
 "{{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to "
@@ -438,7 +434,7 @@ msgstr ""
 "të tentosh që të marrësh edhe pjesën e mbetur të informatave, këtu është se "
 "çfarë duhet të bësh.</p>"
 
-#: app/controllers/request_controller.rb:287
+#: app/controllers/request_controller.rb:318
 msgid ""
 "<p>You do not need to include your email in the request in order to get a "
 "reply (<a href=\"%s\">details</a>).</p>"
@@ -446,7 +442,7 @@ msgstr ""
 "<p> Ti nuk duhet të inkludosh adresën e emailit tënd në këtë kërkesë qe të "
 "marrësh përgjigje (<a href=\"%s\">detaje</a> ). </p>"
 
-#: app/controllers/request_controller.rb:285
+#: app/controllers/request_controller.rb:316
 msgid ""
 "<p>You do not need to include your email in the request in order to get a "
 "reply, as we will ask for it on the next screen (<a "
@@ -456,7 +452,7 @@ msgstr ""
 "marrësh përgjigje, sepse ne do ta kërkojme atë ne faqen vijuese (<a "
 "href=\"%s\">detaje</a> )."
 
-#: app/controllers/request_controller.rb:293
+#: app/controllers/request_controller.rb:324
 msgid ""
 "<p>Your request contains a <strong>postcode</strong>. Unless it directly "
 "relates to the subject of your request, please remove any address as it will"
@@ -466,7 +462,7 @@ msgstr ""
 "direkt me temën e kërkesës tënde, të lutem largo çdo adresë sepse do të jetë"
 " <strong> publike në internet</strong>. </p>"
 
-#: app/controllers/request_controller.rb:316
+#: app/controllers/request_controller.rb:352
 msgid ""
 "<p>Your {{law_used_full}} request has been <strong>sent on its way</strong>!</p>\n"
 "            <p><strong>We will email you</strong> when there is a response, or after {{late_number_of_days}} working days if the authority still hasn't\n"
@@ -477,7 +473,7 @@ msgstr ""
 "<p>Kërkesa yte për informata zyrtare <strong>është dërguar</strong>!</p>\n"
 "            <p><strong>Ne do të njoftojmë me email</strong> kur të mirret një përgjigje, apo pas {{late_number_of_days}} ditë pune nëse autoriteti ende nuk është përgjigjur deri atëherë.</p>"
 
-#: app/controllers/application_controller.rb:298
+#: app/controllers/application_controller.rb:311
 msgid ""
 "<p>{{site_name}} is currently in maintenance. You can only view existing "
 "requests. You cannot make new ones, add followups or annotations, or "
@@ -680,6 +676,11 @@ msgstr ""
 "Një <strong>përmbledhje</strong> e përgjigjes nëse ate e keni marrë me "
 "postë. "
 
+#: app/models/info_request.rb:284
+msgid "A Freedom of Information request"
+msgstr ""
+
+#: app/models/public_body.rb:278
 #: app/views/general/_advanced_search_tips.rhtml:46
 msgid "A public authority"
 msgstr "Autoriteti publik"
@@ -721,7 +722,7 @@ msgstr ""
 msgid "Added on {{date}}"
 msgstr "Shtuar më {{date}}"
 
-#: app/models/user.rb:56
+#: app/models/user.rb:58
 msgid "Admin level is not included in list"
 msgstr "Niveli i administratorit nuk është i përfshir në listë"
 
@@ -794,11 +795,15 @@ msgstr ""
 msgid "An <strong>error message</strong> has been received"
 msgstr "Një <strong>mesazh gabimi</strong> është marrë"
 
+#: app/models/info_request.rb:286
+msgid "An Environmental Information Regulations request"
+msgstr ""
+
 #: app/views/general/_advanced_search_tips.rhtml:45
 msgid "Annotation added to request"
 msgstr "Shënimi iu shtua kërkesës"
 
-#: app/views/user/show.rhtml:34
+#: app/views/user/show.rhtml:41
 msgid "Annotations"
 msgstr "Shënimet"
 
@@ -846,15 +851,15 @@ msgstr "Shtojca - attachment (opcionale):"
 msgid "Attachment:"
 msgstr "Shtojca (attachment):"
 
-#: app/models/info_request.rb:785
+#: app/models/info_request.rb:779
 msgid "Awaiting classification."
 msgstr "Në pritje të klasifikimit."
 
-#: app/models/info_request.rb:805
+#: app/models/info_request.rb:799
 msgid "Awaiting internal review."
 msgstr "Në pritje për rishqyrtim intern."
 
-#: app/models/info_request.rb:787
+#: app/models/info_request.rb:781
 msgid "Awaiting response."
 msgstr "Në pritje të përgjigjes"
 
@@ -898,11 +903,11 @@ msgstr ""
 "Sipas ligjit, {{public_body_link}} do të duhej të ishte përgjigjur "
 "<strong>menjëherë</strong> dhe"
 
-#: app/controllers/track_controller.rb:145
+#: app/controllers/track_controller.rb:153
 msgid "Cancel a {{site_name}} alert"
 msgstr "Anulo njoftimet për {{site_name}}"
 
-#: app/controllers/track_controller.rb:175
+#: app/controllers/track_controller.rb:183
 msgid "Cancel some {{site_name}} alerts"
 msgstr "Anulo disa njoftime për {{site_name}}"
 
@@ -910,19 +915,19 @@ msgstr "Anulo disa njoftime për {{site_name}}"
 msgid "Cancel, return to your profile page"
 msgstr "Anulo, kthehu në faqen e profilit tënd "
 
-#: locale/model_attributes.rb:39
+#: locale/model_attributes.rb:46
 msgid "CensorRule|Last edit comment"
 msgstr "CensorRule | Editimi i fundit i koment"
 
-#: locale/model_attributes.rb:38
+#: locale/model_attributes.rb:45
 msgid "CensorRule|Last edit editor"
 msgstr "CensorRule | Editimi i fundit të editorit"
 
-#: locale/model_attributes.rb:37
+#: locale/model_attributes.rb:44
 msgid "CensorRule|Replacement"
 msgstr "CensorRule | Zëvendësimi"
 
-#: locale/model_attributes.rb:36
+#: locale/model_attributes.rb:43
 msgid "CensorRule|Text"
 msgstr "CensorRule | Teksti"
 
@@ -934,7 +939,7 @@ msgstr "Ndrysho emailin në {{site_name}}"
 msgid "Change password on {{site_name}}"
 msgstr "Ndrysho fjalekalimin në {{site_name}}"
 
-#: app/views/user/show.rhtml:104 app/views/user/set_crop_profile_photo.rhtml:1
+#: app/views/user/show.rhtml:109 app/views/user/set_crop_profile_photo.rhtml:1
 msgid "Change profile photo"
 msgstr "Ndrysho fotografinë e profilit"
 
@@ -942,17 +947,17 @@ msgstr "Ndrysho fotografinë e profilit"
 msgid "Change the text about you on your profile at {{site_name}}"
 msgstr "Ndrysho tekstin për vetën në profilin tënd në {{site_name}}"
 
-#: app/views/user/show.rhtml:107
+#: app/views/user/show.rhtml:112
 msgid "Change your email"
 msgstr "Ndrysho email adresën tënde"
 
-#: app/controllers/user_controller.rb:268
+#: app/controllers/user_controller.rb:284
 #: app/views/user/signchangeemail.rhtml:1
 #: app/views/user/signchangeemail.rhtml:11
 msgid "Change your email address used on {{site_name}}"
 msgstr "Ndysho email adresën tënde të përdorur në këtë {{site_name}}"
 
-#: app/views/user/show.rhtml:106
+#: app/views/user/show.rhtml:111
 msgid "Change your password"
 msgstr "Ndrysho fjalëkalimin tënd"
 
@@ -963,7 +968,7 @@ msgstr "Ndrysho fjalëkalimin tënd"
 msgid "Change your password on {{site_name}}"
 msgstr "Ndrysho fjalëkalimin tënd në {{site_name}}"
 
-#: app/controllers/user_controller.rb:222
+#: app/controllers/user_controller.rb:238
 msgid "Change your password {{site_name}}"
 msgstr "Ndrysho fjalëkalimin tënd {{site_name}}"
 
@@ -975,8 +980,8 @@ msgstr "Regjistrimi i organizatës"
 msgid "Check for mistakes if you typed or copied the address."
 msgstr "Kontrollo për gabime, nëse ke shtypur ose kopjuar adresën."
 
-#: app/views/request/preview.rhtml:7
 #: app/views/request/followup_preview.rhtml:14
+#: app/views/request/preview.rhtml:7
 msgid "Check you haven't included any <strong>personal information</strong>."
 msgstr ""
 "Kontrollo që nuk ke përfshi asnjë <strong>informacion personal.</strong>"
@@ -989,11 +994,11 @@ msgstr "Kili"
 msgid "Choose your profile photo"
 msgstr "Zgjidh fotografinë për profilin tënd"
 
-#: app/models/info_request_event.rb:316
+#: app/models/info_request_event.rb:351
 msgid "Clarification"
 msgstr "Sqarim"
 
-#: app/controllers/request_controller.rb:345
+#: app/controllers/request_controller.rb:381
 msgid "Classify an FOI response from "
 msgstr "Klasifiko një përgjigje për kërkesë për informatë zyrtare prej "
 
@@ -1031,11 +1036,11 @@ msgstr "Koment | Lokale"
 msgid "Comment|Visible"
 msgstr "Koment | i/e dukshëm"
 
-#: app/models/track_thing.rb:220
+#: app/models/track_thing.rb:219
 msgid "Confirm you want to be emailed about new requests"
 msgstr "Konfirmo që doni të merrni email për kërkesa të reja"
 
-#: app/models/track_thing.rb:287
+#: app/models/track_thing.rb:286
 msgid ""
 "Confirm you want to be emailed about new requests or responses matching your"
 " search"
@@ -1043,36 +1048,36 @@ msgstr ""
 "Konfirmo që dëshiron të merrësh email për kërkesa ose përgjigje të reja që "
 "përputhen me kërkimin tënd"
 
-#: app/models/track_thing.rb:271
+#: app/models/track_thing.rb:270
 msgid "Confirm you want to be emailed about requests by '{{user_name}}'"
 msgstr ""
 "Konfirmo që doni të merrni email për kërkesat e reja të '{{user_name}}'"
 
-#: app/models/track_thing.rb:255
+#: app/models/track_thing.rb:254
 msgid ""
 "Confirm you want to be emailed about requests to '{{public_body_name}}'"
 msgstr ""
 "Konfirmo që doni të merrni email për kërkesat e reja te "
 "'{{public_body_name}}'"
 
-#: app/models/track_thing.rb:236
+#: app/models/track_thing.rb:235
 msgid "Confirm you want to be emailed when an FOI request succeeds"
 msgstr ""
 "Konfirmo që doni të merrni email kur një kërkesë për informata zyrtare ka "
 "sukses"
 
-#: app/models/track_thing.rb:204
+#: app/models/track_thing.rb:203
 msgid "Confirm you want to follow updates to the request '{{request_title}}'"
 msgstr ""
 "Konfirmo që dëshiron ti përcjell aktualizimet për kërkesën "
 "'{{request_title}}'"
 
-#: app/controllers/request_controller.rb:305
+#: app/controllers/request_controller.rb:341
 msgid "Confirm your FOI request to "
 msgstr "Konfirmo kërkesën tënde për "
 
-#: app/controllers/request_controller.rb:714
-#: app/controllers/user_controller.rb:542
+#: app/controllers/user_controller.rb:559
+#: app/controllers/request_controller.rb:757
 msgid "Confirm your account on {{site_name}}"
 msgstr "Konfirmo llogarinë tënde në {{site_name}}"
 
@@ -1080,7 +1085,7 @@ msgstr "Konfirmo llogarinë tënde në {{site_name}}"
 msgid "Confirm your annotation to {{info_request_title}}"
 msgstr "Konfirmo shënimin tënd për {{info_request_title}}"
 
-#: app/controllers/request_controller.rb:33
+#: app/controllers/request_controller.rb:36
 msgid "Confirm your email address"
 msgstr "Konfirmo adresën tënde të emailit"
 
@@ -1092,7 +1097,7 @@ msgstr "Konfirmo adresën e email-it tënd të ri në {{site_name}}"
 msgid "Contact {{site_name}}"
 msgstr "Kontakto {{site_name}}"
 
-#: app/models/request_mailer.rb:218
+#: app/models/request_mailer.rb:219
 msgid "Could not identify the request from the email address"
 msgstr "Nuk mund ta identifikoj kërkesën nga email adresa"
 
@@ -1132,15 +1137,15 @@ msgstr "Data:"
 msgid "Dear {{public_body_name}},"
 msgstr "Të nderuar {{public_body_name}},"
 
-#: app/models/request_mailer.rb:86
+#: app/models/request_mailer.rb:87
 msgid "Delayed response to your FOI request - "
 msgstr ""
 
-#: app/models/info_request.rb:789
+#: app/models/info_request.rb:783
 msgid "Delayed."
 msgstr "Vonuar."
 
-#: app/models/info_request.rb:807
+#: app/models/info_request.rb:801
 msgid "Delivery error"
 msgstr "Gabim gjatë dorëzimit"
 
@@ -1148,7 +1153,7 @@ msgstr "Gabim gjatë dorëzimit"
 msgid "Details of request '"
 msgstr "Detajet e kërkesës"
 
-#: app/views/general/search.rhtml:171
+#: app/views/general/search.rhtml:166
 msgid "Did you mean: {{correction}}"
 msgstr "Mos mendove këtë: {{correction}}"
 
@@ -1180,6 +1185,10 @@ msgstr "Shkarko zip fajllin me korrespondencën e plotë"
 msgid "Download original attachment"
 msgstr "Shkarko shtojcën (attachment) origjinale"
 
+#: app/models/info_request.rb:268
+msgid "EIR"
+msgstr ""
+
 #: app/views/request/_followup.rhtml:112
 msgid ""
 "Edit and add <strong>more details</strong> to the message above,\n"
@@ -1200,12 +1209,12 @@ msgstr "Edito tekstin për vetën tënde"
 msgid "Edit this request"
 msgstr "Edito këtë kërkesë"
 
-#: app/models/user.rb:146
+#: app/models/user.rb:149
 msgid "Either the email or password was not recognised, please try again."
 msgstr ""
 "Adresa e email-it apo fjalëkalimi nuk janë njohur, të lutem provo përsëri."
 
-#: app/models/user.rb:148
+#: app/models/user.rb:151
 msgid ""
 "Either the email or password was not recognised, please try again. Or create"
 " a new account using the form on the right."
@@ -1221,17 +1230,13 @@ msgstr "Email adresa nuk duket si një adresë e vlefshme"
 msgid "Email me future updates to this request"
 msgstr "Dërgom aktualizime me email në lidhje me këtë kërkesë"
 
-#: app/models/track_thing.rb:228
+#: app/models/track_thing.rb:227
 msgid "Email me new successful responses "
 msgstr "M'i dërgo me email përgjigjet e reja të suksesshme "
 
-#: app/models/track_thing.rb:212
+#: app/models/track_thing.rb:211
 msgid "Email me when there are new requests"
 msgstr "Më dërgo email kur ka kërkesa të reja"
-
-#: app/views/user/show.rhtml:36
-msgid "Email subscriptions"
-msgstr "Abonimet me email"
 
 #: app/views/general/_advanced_search_tips.rhtml:5
 msgid ""
@@ -1249,6 +1254,10 @@ msgstr ""
 "Shkruaj përgjigjen tënde më poshtë. Ti mund të bashkëangjitësh një fajll "
 "(përdor e-mail, ose <a href=\"%s\">na kontakto</a> nëse ke nevojë për më "
 "shumë)."
+
+#: app/models/info_request.rb:259 app/models/info_request.rb:277
+msgid "Environmental Information Regulations"
+msgstr ""
 
 #: app/views/public_body/show.rhtml:116
 msgid "Environmental Information Regulations requests made"
@@ -1292,11 +1301,11 @@ msgstr ""
 "                do të <strong>tregohet publikisht</strong> në\n"
 "                këtë faqe përgjithmonë (<a href=\"%s\">pse?</a>)."
 
-#: locale/model_attributes.rb:58
+#: locale/model_attributes.rb:68
 msgid "EximLogDone|Filename"
 msgstr "EximLogDone|Filename"
 
-#: locale/model_attributes.rb:59
+#: locale/model_attributes.rb:69
 msgid "EximLogDone|Last stat"
 msgstr "EximLogDone|Statistika e fundit"
 
@@ -1308,25 +1317,29 @@ msgstr "EximLog|Linja"
 msgid "EximLog|Order"
 msgstr "EximLog|Order"
 
+#: app/models/info_request.rb:266
+msgid "FOI"
+msgstr ""
+
 #: app/views/public_body/view_email.rhtml:3
 msgid "FOI email address for {{public_body}}"
 msgstr "Adresa e emailit për Informatë Zyrtare për {{public_body}}"
 
-#: app/views/user/show.rhtml:33
+#: app/views/user/show.rhtml:40
 msgid "FOI requests"
 msgstr "Kërkesat për Informata Zyrtare"
 
-#: app/models/track_thing.rb:266 app/models/track_thing.rb:267
+#: app/models/track_thing.rb:265 app/models/track_thing.rb:266
 msgid "FOI requests by '{{user_name}}'"
 msgstr "Kërkesa për informata zyrtare nga '{{user_name}}'"
 
-#: app/views/general/search.rhtml:198
+#: app/views/general/search.rhtml:195
 msgid "FOI requests {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr ""
 "Kërkesat për informata zyrtare {{start_count}} deri {{end_count}} prej "
 "{{total_count}}"
 
-#: app/models/request_mailer.rb:50
+#: app/models/request_mailer.rb:51
 msgid "FOI response requires admin - "
 msgstr ""
 
@@ -1342,19 +1355,44 @@ msgstr ""
 "Konvertimi i imazhit në madhësinë adekuate dështoi: në %{cols}x%{rows}, "
 "duhet %{width}x%{height}"
 
-#: app/views/general/search.rhtml:121
+#: app/views/general/search.rhtml:117
 msgid "Filter"
 msgstr "Filtro"
 
-#: app/views/request/select_authority.rhtml:35
+#: app/views/request/select_authority.rhtml:36
 msgid ""
 "First, type in the <strong>name of the UK public authority</strong> you'd \n"
-"           <br>like information from. <strong>By law, they have to respond</strong>\n"
-"           (<a href=\"%s\">why?</a>)."
+"           like information from. <strong>By law, they have to respond</strong>\n"
+"           (<a href=\"%s#%s\">why?</a>)."
 msgstr ""
-"Së pari, shkruaj <strong>emrin e autoritetit publik</strong> prej të\n"
-"           <br>cilit kërkon informata. <strong>Sipas ligjit, ata duhet të\n"
-"           përgjigjen</strong> (<a href=\\\"%s\\\">pse?</a>)."
+
+#: locale/model_attributes.rb:88
+msgid "FoiAttachment|Charset"
+msgstr ""
+
+#: locale/model_attributes.rb:86
+msgid "FoiAttachment|Content type"
+msgstr ""
+
+#: locale/model_attributes.rb:89
+msgid "FoiAttachment|Display size"
+msgstr ""
+
+#: locale/model_attributes.rb:87
+msgid "FoiAttachment|Filename"
+msgstr ""
+
+#: locale/model_attributes.rb:92
+msgid "FoiAttachment|Hexdigest"
+msgstr ""
+
+#: locale/model_attributes.rb:90
+msgid "FoiAttachment|Url part number"
+msgstr ""
+
+#: locale/model_attributes.rb:91
+msgid "FoiAttachment|Within rfc822 subject"
+msgstr ""
 
 #: app/views/track/_tracking_links.rhtml:21
 msgid "Follow by email"
@@ -1376,7 +1414,7 @@ msgstr "Kliko këtë vegzë për të parë kërkesën:"
 msgid "Follow this request"
 msgstr "Përcjell këtë kërkesë"
 
-#: app/models/info_request_event.rb:320
+#: app/models/info_request_event.rb:355
 msgid "Follow up"
 msgstr "Përcjell"
 
@@ -1398,7 +1436,7 @@ msgstr ""
 " parandaluar spam emailat. Të lutem <a href=\"{{url}}\"> na kontakto</a> "
 "nëse ti je {{user_link}} dhe ke nevojë të dërgosh mesazh vazhdues."
 
-#: app/views/general/_footer.rhtml:3 app/views/general/blog.rhtml:7
+#: app/views/general/blog.rhtml:7 app/views/general/_footer.rhtml:3
 msgid "Follow us on twitter"
 msgstr "Na përcjell në twitter"
 
@@ -1418,13 +1456,19 @@ msgstr "Ke harru fjalëkalimin?"
 msgid "Found {{count}} public bodies {{description}}"
 msgstr "U gjetën {{count}} autoritete publike - {{description}}"
 
+#: app/models/info_request.rb:257
+msgid "Freedom of Information"
+msgstr ""
+
+#: app/models/info_request.rb:275
+msgid "Freedom of Information Act"
+msgstr ""
+
 #: app/views/public_body/show.rhtml:60
 msgid ""
 "Freedom of Information law does not apply to this authority, so you cannot make\n"
-"            a request to it."
+"                a request to it."
 msgstr ""
-"Ligji për qasje në dokumente publike nuk aplikohet në këtë autoritet publik, kështu që ti\n"
-"           nuk mund të bën kërkesa për te."
 
 #: app/views/request/followup_bad.rhtml:11
 msgid "Freedom of Information law no longer applies to"
@@ -1442,11 +1486,11 @@ msgstr ""
 msgid "Freedom of Information requests made"
 msgstr "Kërkesat e bëra për informata zyrtare"
 
-#: app/views/user/show.rhtml:155
+#: app/views/user/show.rhtml:164
 msgid "Freedom of Information requests made by this person"
 msgstr "Kërkesat për informata zyrtare të bëra nga ky person"
 
-#: app/views/user/show.rhtml:155
+#: app/views/user/show.rhtml:164
 msgid "Freedom of Information requests made by you"
 msgstr "Kërkesat për informata zyrtare bërë nga ti"
 
@@ -1483,11 +1527,11 @@ msgstr "JEPI DETAJET PËR ANKESËN TËNDE KËTU"
 msgid "Germany"
 msgstr "Gjermani"
 
-#: app/models/info_request.rb:803
+#: app/models/info_request.rb:797
 msgid "Handled by post."
 msgstr "Do të trajtohet me postë."
 
-#: app/controllers/services_controller.rb:21
+#: app/controllers/services_controller.rb:13
 msgid ""
 "Hello! You can make Freedom of Information requests within {{country_name}} "
 "at {{link_to_website}}"
@@ -1495,7 +1539,7 @@ msgstr ""
 "Përshëndetje! Ti mund të bën kërkesa për informata zyrtare për autoritetet e"
 "  {{country_name}} në {{link_to_website}}"
 
-#: app/views/layouts/default.rhtml:104
+#: app/views/layouts/default.rhtml:102
 msgid "Hello, {{username}}!"
 msgstr "Përshëndetje, {{username}}!"
 
@@ -1515,6 +1559,12 @@ msgstr ""
 "{{site_name}} për ngjarjet e ndërmjeme, të cilave nuk u është dhënë\n"
 "përshkrim eksplicit nga përdoruesi. Shih  <a href=\"{{search_path}}>këshillat e kërkimit</a> për përshkrimet e statuseve."
 
+#: app/views/user/rate_limited.rhtml:10
+msgid ""
+"Here is the message you wrote, in case you would like to copy the text and "
+"save it for later."
+msgstr ""
+
 #: app/views/request/_other_describe_state.rhtml:4
 msgid ""
 "Hi! We need your help. The person who made the following request\n"
@@ -1527,11 +1577,11 @@ msgstr ""
 "    moment për ta lexuar dhe klasifikuar atë që ta mbajme ueb faqen të rregullt dhe të organizuar?\n"
 "    Faleminderit."
 
-#: locale/model_attributes.rb:55
+#: locale/model_attributes.rb:65
 msgid "Holiday|Day"
 msgstr "Festa | Dita"
 
-#: locale/model_attributes.rb:56
+#: locale/model_attributes.rb:66
 msgid "Holiday|Description"
 msgstr "Festa | Përshkrimi"
 
@@ -1692,7 +1742,7 @@ msgstr ""
 "parë,</strong> atëherë kjo vegzë për kyçje nuk do të funksionojë më. Të "
 "lutem provon duke bërë atë që keni vepruar nga fillimi."
 
-#: app/controllers/request_controller.rb:443
+#: app/controllers/request_controller.rb:479
 msgid ""
 "If you have not done so already, please write a message below telling the "
 "authority that you have withdrawn your request. Otherwise they will not know"
@@ -1736,99 +1786,103 @@ msgstr ""
 "Nëse shfletuesi yt është vendosur për të pranuar \"cookies\" dhe ju jeni "
 "duke parë këtë mesazh, atëherë me sa duket ka gabim në serverin tonë."
 
-#: locale/model_attributes.rb:61
+#: locale/model_attributes.rb:55
 msgid "IncomingMessage|Cached attachment text clipped"
 msgstr "IncomingMessage|Cached attachment text clipped"
 
-#: locale/model_attributes.rb:62
+#: locale/model_attributes.rb:56
 msgid "IncomingMessage|Cached main body text folded"
 msgstr "IncomingMessage|Cached main body text folded"
 
-#: locale/model_attributes.rb:63
+#: locale/model_attributes.rb:57
 msgid "IncomingMessage|Cached main body text unfolded"
 msgstr "IncomingMessage|Cached main body text unfolded"
 
-#: locale/model_attributes.rb:67
+#: locale/model_attributes.rb:61
+msgid "IncomingMessage|Last parsed"
+msgstr ""
+
+#: locale/model_attributes.rb:62
+msgid "IncomingMessage|Mail from"
+msgstr ""
+
+#: locale/model_attributes.rb:59
 msgid "IncomingMessage|Mail from domain"
 msgstr "IncomingMessage | Email prej domain-it"
 
-#: locale/model_attributes.rb:66
-msgid "IncomingMessage|Safe mail from"
-msgstr "IncomingMessage | Email i sigurtë prej"
-
-#: locale/model_attributes.rb:64
+#: locale/model_attributes.rb:63
 msgid "IncomingMessage|Sent at"
 msgstr "IncomingMessage | Dërguar më"
 
-#: locale/model_attributes.rb:65
+#: locale/model_attributes.rb:58
 msgid "IncomingMessage|Subject"
 msgstr "IncomingMessage | Lënda"
 
-#: locale/model_attributes.rb:68
+#: locale/model_attributes.rb:60
 msgid "IncomingMessage|Valid to reply to"
 msgstr "IncomingMessage | Valide për t'iu përgjigjur te"
 
-#: locale/model_attributes.rb:44
+#: locale/model_attributes.rb:39
 msgid "InfoRequestEvent|Calculated state"
 msgstr "InfoRequestEvent|Calculated state"
 
-#: locale/model_attributes.rb:43
+#: locale/model_attributes.rb:38
 msgid "InfoRequestEvent|Described state"
 msgstr "InfoRequestEvent|Described state"
 
-#: locale/model_attributes.rb:41
+#: locale/model_attributes.rb:36
 msgid "InfoRequestEvent|Event type"
 msgstr "InfoRequestEvent|Event type"
 
-#: locale/model_attributes.rb:45
+#: locale/model_attributes.rb:40
 msgid "InfoRequestEvent|Last described at"
 msgstr "InfoRequestEvent|Last described at"
 
-#: locale/model_attributes.rb:42
+#: locale/model_attributes.rb:37
 msgid "InfoRequestEvent|Params yaml"
 msgstr "InfoRequestEvent|Params yaml"
 
-#: locale/model_attributes.rb:46
+#: locale/model_attributes.rb:41
 msgid "InfoRequestEvent|Prominence"
 msgstr "InfoRequestEvent|Prominence"
 
-#: locale/model_attributes.rb:89
+#: locale/model_attributes.rb:102
 msgid "InfoRequest|Allow new responses from"
 msgstr "InfoRequest|Lejo përgjigje të reja prej"
 
-#: locale/model_attributes.rb:85
+#: locale/model_attributes.rb:98
 msgid "InfoRequest|Awaiting description"
 msgstr "InfoRequest|Awaiting description"
 
-#: locale/model_attributes.rb:84
+#: locale/model_attributes.rb:97
 msgid "InfoRequest|Described state"
 msgstr "InfoRequest|Described state"
 
-#: locale/model_attributes.rb:90
+#: locale/model_attributes.rb:103
 msgid "InfoRequest|Handle rejected responses"
 msgstr "InfoRequest|Handle rejected responses"
 
-#: locale/model_attributes.rb:91
+#: locale/model_attributes.rb:104
 msgid "InfoRequest|Idhash"
 msgstr "InfoRequest|Idhash"
 
-#: locale/model_attributes.rb:88
+#: locale/model_attributes.rb:101
 msgid "InfoRequest|Law used"
 msgstr "Info të kërkesës | Ligji i përdorur"
 
-#: locale/model_attributes.rb:86
+#: locale/model_attributes.rb:99
 msgid "InfoRequest|Prominence"
 msgstr "Info të kërkesës | Rëndësi"
 
-#: locale/model_attributes.rb:83
+#: locale/model_attributes.rb:96
 msgid "InfoRequest|Title"
 msgstr "Info të kërkesës | Titulli"
 
-#: locale/model_attributes.rb:87
+#: locale/model_attributes.rb:100
 msgid "InfoRequest|Url title"
 msgstr "Info të kërkesës | Titulli Url"
 
-#: app/models/info_request.rb:793
+#: app/models/info_request.rb:787
 msgid "Information not held."
 msgstr "Informata nuk mbahet këtu."
 
@@ -1838,7 +1892,7 @@ msgid ""
 "            radiation, waste materials)"
 msgstr ""
 
-#: app/models/info_request_event.rb:313
+#: app/models/info_request_event.rb:348
 msgid "Internal review request"
 msgstr "Kërkesë për rishqyrtim intern"
 
@@ -1865,7 +1919,7 @@ msgstr ""
 msgid "Joined in"
 msgstr "Bashkangjitur më"
 
-#: app/views/user/show.rhtml:62
+#: app/views/user/show.rhtml:67
 msgid "Joined {{site_name}} in"
 msgstr "Bashkangjitur {{site_name}} më"
 
@@ -1911,16 +1965,16 @@ msgstr "Vegza e kësaj kërkese"
 msgid "List of all authorities (CSV)"
 msgstr "Listo të gjitha autoritetet (CSV)"
 
-#: app/controllers/request_controller.rb:775
+#: app/controllers/request_controller.rb:816
 msgid "Log in to download a zip file of {{info_request_title}}"
 msgstr "Kyçu për të shkarkuar zip fajllin e {{info_request_title}}"
 
-#: app/models/info_request.rb:791
+#: app/models/info_request.rb:785
 msgid "Long overdue."
 msgstr "Tepër e vonuar."
 
 #: app/views/request/_request_filter_form.rhtml:23
-#: app/views/general/search.rhtml:112
+#: app/views/general/search.rhtml:108
 msgid "Made between"
 msgstr "Bërë ndërmjet"
 
@@ -1984,13 +2038,17 @@ msgstr "Më shumë kërkesa të ngjashme"
 msgid "More successful requests..."
 msgstr "Më shumë kërkesa të suksesshme..."
 
-#: app/views/layouts/default.rhtml:107
+#: app/views/layouts/default.rhtml:106
 msgid "My profile"
 msgstr "Profili im"
 
 #: app/views/request/_describe_state.rhtml:64
 msgid "My request has been <strong>refused</strong>"
 msgstr "Kërkesa ime është <strong>refuzuar</strong>"
+
+#: app/views/layouts/default.rhtml:105
+msgid "My requests"
+msgstr ""
 
 #: app/models/public_body.rb:36
 msgid "Name can't be blank"
@@ -2000,7 +2058,7 @@ msgstr "Emri nuk mund të jetë i zbrazët"
 msgid "Name is already taken"
 msgstr "Emri është i zënë"
 
-#: app/models/track_thing.rb:215 app/models/track_thing.rb:216
+#: app/models/track_thing.rb:214 app/models/track_thing.rb:215
 msgid "New Freedom of Information requests"
 msgstr "Kërkesat e reja për informata zyrtare "
 
@@ -2012,7 +2070,7 @@ msgstr "Zelanda e Re"
 msgid "New e-mail:"
 msgstr "Email i ri:"
 
-#: app/models/change_email_validator.rb:53
+#: app/models/change_email_validator.rb:54
 msgid "New email doesn't look like a valid address"
 msgstr "Email adresa e re nuk duket si një adresë e vlefshme"
 
@@ -2024,7 +2082,7 @@ msgstr "Fjalëkalim i ri:"
 msgid "New password: (again)"
 msgstr "Fjalëkalim i ri: (përsërite)"
 
-#: app/models/request_mailer.rb:67
+#: app/models/request_mailer.rb:68
 msgid "New response to your FOI request - "
 msgstr ""
 
@@ -2036,11 +2094,11 @@ msgstr "përgjigje e re për kërkesën tënde"
 msgid "New response to {{law_used_short}} request"
 msgstr "përgjigje e re për kërkesën"
 
-#: app/models/track_thing.rb:199 app/models/track_thing.rb:200
+#: app/models/track_thing.rb:198 app/models/track_thing.rb:199
 msgid "New updates for the request '{{request_title}}'"
 msgstr "Aktualizime të reja për kërkesën '{{request_title}}'"
 
-#: app/views/general/search.rhtml:131
+#: app/views/general/search.rhtml:127
 msgid "Newest results first"
 msgstr "Rezultatet më të reja të parat"
 
@@ -2052,16 +2110,12 @@ msgstr "Para"
 msgid "Next, crop your photo &gt;&gt;"
 msgstr "Pastaj, preje foton tënde &gt;&gt;"
 
-#: app/views/general/search.rhtml:169
-msgid "No public authorities found"
-msgstr "Nuk u gjet asnjë autoritet publik"
-
 #: app/views/request/list.rhtml:19
 msgid "No requests of this sort yet."
 msgstr "Ende nuk ka kërkesa të këtij lloji."
 
-#: app/views/request/select_authority.rhtml:52
-#: app/views/public_body/_search_ahead.rhtml:8
+#: app/views/request/select_authority.rhtml:53
+#: app/views/public_body/_search_ahead.rhtml:9
 msgid "No results found."
 msgstr "Asnjë rezultat nuk u gjet."
 
@@ -2082,7 +2136,7 @@ msgstr ""
 msgid "None found."
 msgstr "Asnjë nuk u gjet."
 
-#: app/views/user/show.rhtml:165 app/views/user/show.rhtml:185
+#: app/views/user/show.rhtml:175 app/views/user/show.rhtml:197
 msgid "None made."
 msgstr "Asnjë e bërë."
 
@@ -2108,7 +2162,7 @@ msgstr "Shiko mesazhin tënd ku ke kërkuar rishqyrtim intern"
 msgid "OR remove the existing photo"
 msgstr "Ose hiqni fotografinë ekzistuese"
 
-#: app/controllers/request_controller.rb:420
+#: app/controllers/request_controller.rb:456
 msgid ""
 "Oh no! Sorry to hear that your request was refused. Here is what to do now."
 msgstr "Na vjen keq që kërkesa yte është refuzuar. Ja se çfarë të bëhet tani."
@@ -2117,7 +2171,7 @@ msgstr "Na vjen keq që kërkesa yte është refuzuar. Ja se çfarë të bëhet 
 msgid "Old e-mail:"
 msgstr "Emali i vjetër:"
 
-#: app/models/change_email_validator.rb:44
+#: app/models/change_email_validator.rb:45
 msgid ""
 "Old email address isn't the same as the address of the account you are "
 "logged in with"
@@ -2125,23 +2179,23 @@ msgstr ""
 "Adresa e emailit të vjetër nuk është e njëjtë me adresën e llogarisë me të "
 "cilën jeni kyçur për momentin"
 
-#: app/models/change_email_validator.rb:39
+#: app/models/change_email_validator.rb:40
 msgid "Old email doesn't look like a valid address"
 msgstr "Email adresa e vjetër nuk duket si një adresë e vlefshme"
 
-#: app/views/user/show.rhtml:32
+#: app/views/user/show.rhtml:39
 msgid "On this page"
 msgstr "Në këtë faqe"
 
-#: app/views/general/search.rhtml:196
+#: app/views/general/search.rhtml:193
 msgid "One FOI request found"
 msgstr "U gjet një kërkesë"
 
-#: app/views/general/search.rhtml:180
+#: app/views/general/search.rhtml:175
 msgid "One person found"
 msgstr "U gjet një person"
 
-#: app/views/general/search.rhtml:156
+#: app/views/general/search.rhtml:152
 msgid "One public authority found"
 msgstr "U gjet një autoritet publik"
 
@@ -2149,7 +2203,7 @@ msgstr "U gjet një autoritet publik"
 msgid "Only requests made using {{site_name}} are shown."
 msgstr "Vetëm kërkesat që janë bërë me {{site_name}} janë të shfaqura."
 
-#: app/models/info_request.rb:405
+#: app/models/info_request.rb:399
 msgid ""
 "Only the authority can reply to this request, and I don't recognise the "
 "address this reply was sent from"
@@ -2157,7 +2211,7 @@ msgstr ""
 "Vetëm autoriteti mund të përgjigjet në këtë kërkesë, dhe unë nuk e njoha "
 "adresën prej nga kjo përgjigje u dërgua"
 
-#: app/models/info_request.rb:401
+#: app/models/info_request.rb:395
 msgid ""
 "Only the authority can reply to this request, but there is no \"From\" "
 "address to check against"
@@ -2165,7 +2219,7 @@ msgstr ""
 "Vetëm autoriteti mund të përgjigjet në këtë kërkesë, por nuk kishte \"Prej: "
 "(From:)\" adresë për ta verifikuar dërguesin"
 
-#: app/views/request/_search_ahead.rhtml:10
+#: app/views/request/_search_ahead.rhtml:11
 msgid "Or search in their website for this information."
 msgstr "Ose kërko në ueb faqen e tyre për këtë informacion."
 
@@ -2197,11 +2251,11 @@ msgstr "OutgoingMessage|Status"
 msgid "OutgoingMessage|What doing"
 msgstr "OutgoingMessage|What doing"
 
-#: app/models/info_request.rb:797
+#: app/models/info_request.rb:791
 msgid "Partially successful."
 msgstr "Pjesërisht e suksesshme."
 
-#: app/models/change_email_validator.rb:47
+#: app/models/change_email_validator.rb:48
 msgid "Password is not correct"
 msgstr "Fjalëkalimi nuk është i saktë"
 
@@ -2213,11 +2267,11 @@ msgstr "Fjalëkalimi:"
 msgid "Password: (again)"
 msgstr "Fjalëkalimi: (përsërite)"
 
-#: app/views/layouts/default.rhtml:154
+#: app/views/layouts/default.rhtml:153
 msgid "Paste this link into emails, tweets, and anywhere else:"
 msgstr "Kopjo (paste) këtë vegzë në emaila, tweeta dhe kudo tjetër:"
 
-#: app/views/general/search.rhtml:182
+#: app/views/general/search.rhtml:177
 msgid "People {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "Personat {{start_count}} deri {{end_count}} prej {{total_count}}"
 
@@ -2251,7 +2305,7 @@ msgid ""
 msgstr ""
 "Të lutem <strong> përgjigju pyetjes së mësipërme</strong> që ne të dimë nëse"
 
-#: app/views/user/show.rhtml:12
+#: app/views/user/show.rhtml:16
 msgid ""
 "Please <strong>go to the following requests</strong>, and let us\n"
 "        know if there was information in the recent responses to them."
@@ -2291,7 +2345,7 @@ msgstr "Të lutem zgjedh një fajll që përmban fotografinë tënde."
 msgid "Please choose what sort of reply you are making."
 msgstr "Të lutem zgjedh llojin e përgjigjes."
 
-#: app/controllers/request_controller.rb:352
+#: app/controllers/request_controller.rb:388
 msgid ""
 "Please choose whether or not you got some of the information that you "
 "wanted."
@@ -2319,7 +2373,7 @@ msgid "Please click on the link below to confirm your email address."
 msgstr ""
 "Të lutem kliko në vegzën e mëposhtme për të konfirmuar email adresën tënde."
 
-#: app/models/info_request.rb:126
+#: app/models/info_request.rb:120
 msgid ""
 "Please describe more what the request is about in the subject. There is no "
 "need to say it is an FOI request, we add that on anyway."
@@ -2340,7 +2394,7 @@ msgstr ""
 msgid "Please enable \"cookies\" to carry on"
 msgstr "Të lutem aktivizo \"cookies\" në shfletues për të vazhduar"
 
-#: app/models/user.rb:40
+#: app/models/user.rb:42
 msgid "Please enter a password"
 msgstr "Të lutem shkruaj fjalëkalimin"
 
@@ -2348,11 +2402,11 @@ msgstr "Të lutem shkruaj fjalëkalimin"
 msgid "Please enter a subject"
 msgstr "Të lutem shkruaj lëndën"
 
-#: app/models/info_request.rb:34
+#: app/models/info_request.rb:28
 msgid "Please enter a summary of your request"
 msgstr "Të lutem shkruaj një përmbledhje të kërkesës tënde"
 
-#: app/models/user.rb:117
+#: app/models/user.rb:120
 msgid "Please enter a valid email address"
 msgstr "Të lutem shkruaj adresën korrekte të emailit"
 
@@ -2360,15 +2414,15 @@ msgstr "Të lutem shkruaj adresën korrekte të emailit"
 msgid "Please enter the message you want to send"
 msgstr "Të lutem shkruaj mesazhin që dëshiron ta dërgosh"
 
-#: app/models/user.rb:51
+#: app/models/user.rb:53
 msgid "Please enter the same password twice"
 msgstr "Të lutem shkruaj fjalëkalimin e njëjtë dy herë"
 
-#: app/models/comment.rb:59
+#: app/models/comment.rb:60
 msgid "Please enter your annotation"
 msgstr "Të lutem shkruaj shënimin tënd"
 
-#: app/models/user.rb:36 app/models/contact_validator.rb:29
+#: app/models/contact_validator.rb:29 app/models/user.rb:38
 msgid "Please enter your email address"
 msgstr "Të lutem shkruaj adresën e emailit tënd"
 
@@ -2380,23 +2434,23 @@ msgstr "Të lutem shto mesazhin vazhdues"
 msgid "Please enter your letter requesting information"
 msgstr "Të lutem shkruaj letrën e kërkesës për informatë "
 
-#: app/models/user.rb:38 app/models/contact_validator.rb:28
+#: app/models/contact_validator.rb:28 app/models/user.rb:40
 msgid "Please enter your name"
 msgstr "Të lutem shkruaj emrin tënd"
 
-#: app/models/user.rb:120
+#: app/models/user.rb:123
 msgid "Please enter your name, not your email address, in the name field."
 msgstr "Të lutem shkruaj emrin tënd e jo adresën e emailit ne këtë fushë."
 
-#: app/models/change_email_validator.rb:30
+#: app/models/change_email_validator.rb:31
 msgid "Please enter your new email address"
 msgstr "Të lutem shkruaj adresën e re të emailit "
 
-#: app/models/change_email_validator.rb:29
+#: app/models/change_email_validator.rb:30
 msgid "Please enter your old email address"
 msgstr "Të lutem shkruaj adresën e vjetër të emailit "
 
-#: app/models/change_email_validator.rb:31
+#: app/models/change_email_validator.rb:32
 msgid "Please enter your password"
 msgstr "Të lutem shkruaj fjalëkalimin tënd"
 
@@ -2409,7 +2463,7 @@ msgstr ""
 msgid "Please keep it shorter than 500 characters"
 msgstr "Të lutem mbaje tekstin më të shkurër se 500 shenja"
 
-#: app/models/info_request.rb:123
+#: app/models/info_request.rb:117
 msgid ""
 "Please keep the summary short, like in the subject of an email. You can use "
 "a phrase, rather than a full sentence."
@@ -2443,28 +2497,28 @@ msgstr ""
 msgid "Please sign in as "
 msgstr "Të lutem kyçu si "
 
-#: app/controllers/request_controller.rb:741
+#: app/controllers/request_controller.rb:785
 msgid "Please type a message and/or choose a file containing your response."
 msgstr ""
 "Të lutem shkruaj një mesazh dhe/ose zgjedh një fajll që përmban përgjigjen "
 "tënde."
 
-#: app/controllers/request_controller.rb:440
+#: app/controllers/request_controller.rb:476
 msgid "Please use the form below to tell us more."
 msgstr "Të lutem përdor formularin e mëposhtëm për të na treguar më shumë."
 
-#: app/views/outgoing_mailer/followup.rhtml:6
 #: app/views/outgoing_mailer/initial_request.rhtml:5
+#: app/views/outgoing_mailer/followup.rhtml:6
 msgid "Please use this email address for all replies to this request:"
 msgstr ""
 "Të lutem përdor këtë adresë të emailit për të gjitha përgjigjet në këtë "
 "kërkesë:"
 
-#: app/models/info_request.rb:35
+#: app/models/info_request.rb:29
 msgid "Please write a summary with some text in it"
 msgstr "Të lutem shkruaj përmbledhjen"
 
-#: app/models/info_request.rb:120
+#: app/models/info_request.rb:114
 msgid ""
 "Please write the summary using a mixture of capital and lower case letters. "
 "This makes it easier for others to read."
@@ -2472,7 +2526,7 @@ msgstr ""
 "Të lutem shkruaj përmbledhjen duke përdorur kombinim të germave të mëdha dhe"
 " të vogla. Kjo e bën leximin për të tjerët më të lehtë."
 
-#: app/models/comment.rb:62
+#: app/models/comment.rb:63
 msgid ""
 "Please write your annotation using a mixture of capital and lower case "
 "letters. This makes it easier for others to read."
@@ -2480,7 +2534,7 @@ msgstr ""
 "Të lutem shkruaj komentin duke përdorur kombinim të germave të mëdha dhe të "
 "vogla. Kjo e bën leximin për të tjerët më të lehtë."
 
-#: app/controllers/request_controller.rb:429
+#: app/controllers/request_controller.rb:465
 msgid ""
 "Please write your follow up message containing the necessary clarifications "
 "below."
@@ -2504,7 +2558,7 @@ msgstr ""
 "Udhëzo te <strong>informatat që nderlidhen me këtë,</strong> fushata ose "
 "forume të cilat mund të jenë të dobishme."
 
-#: app/views/request/_search_ahead.rhtml:3
+#: app/views/request/_search_ahead.rhtml:4
 msgid "Possibly related requests:"
 msgstr "Kërkesa të ndërlidhura:"
 
@@ -2584,7 +2638,7 @@ msgstr "Autoritetet publike"
 msgid "Public authorities - {{description}}"
 msgstr "Autoritetet publike - {{description}}"
 
-#: app/views/general/search.rhtml:158
+#: app/views/general/search.rhtml:154
 msgid "Public authorities {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr ""
 "Autoritetet publike {{start_count}} deri {{end_count}} prej {{total_count}}"
@@ -2669,11 +2723,11 @@ msgstr "Lexo blog-un"
 msgid "Received an error message, such as delivery failure."
 msgstr "Morra një mesazh gabimi, si p.sh. dështim gjatë dorëzimit."
 
-#: app/views/general/search.rhtml:133
+#: app/views/general/search.rhtml:129
 msgid "Recently described results first"
 msgstr "Rezultatet e përshkruara së fundi radhiti të parat"
 
-#: app/models/info_request.rb:795
+#: app/models/info_request.rb:789
 msgid "Refused."
 msgstr "Refuzuar."
 
@@ -2726,7 +2780,7 @@ msgstr ""
 msgid "Requested on {{date}}"
 msgstr "Kërkuar me {{date}}"
 
-#: app/models/track_thing.rb:282 app/models/track_thing.rb:283
+#: app/models/track_thing.rb:281 app/models/track_thing.rb:282
 msgid "Requests or responses matching your saved search"
 msgstr "Kërkesat ose përgjigjet që përputhen me kërkimin e ruajtur"
 
@@ -2746,7 +2800,7 @@ msgstr "Përgjigju kërkesës për Informata Zyrtare"
 msgid "Respond using the web"
 msgstr "Përgjigju duke përdorur ueb faqen"
 
-#: app/models/info_request_event.rb:306
+#: app/models/info_request_event.rb:341
 msgid "Response"
 msgstr "Përgjigje"
 
@@ -2770,7 +2824,7 @@ msgstr "përgjigje për kërkesën tënde"
 msgid "Response:"
 msgstr "Përgjigja:"
 
-#: app/views/general/search.rhtml:87
+#: app/views/general/search.rhtml:83
 msgid "Restrict to"
 msgstr "Kufizo në"
 
@@ -2782,12 +2836,12 @@ msgstr "Faqja e rezultateve {{page_number}}"
 msgid "Save"
 msgstr "Ruaj"
 
+#: app/views/request/select_authority.rhtml:42
 #: app/views/request/_request_filter_form.rhtml:49
-#: app/views/request/select_authority.rhtml:41
-#: app/views/public_body/list.rhtml:43
+#: app/views/general/search.rhtml:17 app/views/general/search.rhtml:32
+#: app/views/general/search.rhtml:45
 #: app/views/general/exception_caught.rhtml:12
-#: app/views/general/frontpage.rhtml:23 app/views/general/search.rhtml:17
-#: app/views/general/search.rhtml:32 app/views/general/search.rhtml:45
+#: app/views/general/frontpage.rhtml:23 app/views/public_body/list.rhtml:43
 msgid "Search"
 msgstr "Kërko"
 
@@ -2796,7 +2850,7 @@ msgid "Search Freedom of Information requests, public authorities and users"
 msgstr ""
 "Kërko në kërkesat e informatave zyrtare, autoritet publike dhe përdoruesit"
 
-#: app/views/user/show.rhtml:125
+#: app/views/user/show.rhtml:134
 msgid "Search contributions by this person"
 msgstr "Kërko për kontribute të bëra nga ky person"
 
@@ -2804,7 +2858,7 @@ msgstr "Kërko për kontribute të bëra nga ky person"
 msgid "Search for words in:"
 msgstr "Kërko fjalë në:"
 
-#: app/views/general/search.rhtml:100
+#: app/views/general/search.rhtml:96
 msgid "Search in"
 msgstr "Kërko në"
 
@@ -2832,16 +2886,16 @@ msgid_plural "Search within the %d Freedom of Information requests made to %s"
 msgstr[0] "Kërko brenda %d kërkesave për informata zyrtare në %s"
 msgstr[1] "Kërko brenda %d kërkesave për informata zyrtare të bëra në %s"
 
-#: app/views/user/show.rhtml:123
+#: app/views/user/show.rhtml:132
 msgid "Search your contributions"
 msgstr "Kërko në kontributet tua"
 
-#: app/views/request/select_authority.rhtml:49
-#: app/views/public_body/_search_ahead.rhtml:5
+#: app/views/request/select_authority.rhtml:50
+#: app/views/public_body/_search_ahead.rhtml:6
 msgid "Select one to see more information about the authority."
 msgstr "Zgjidh një për të parë më shumë informacion në lidhje me autoritetin."
 
-#: app/views/request/select_authority.rhtml:27
+#: app/views/request/select_authority.rhtml:28
 msgid "Select the authority to write to"
 msgstr "Përzgjedh autoritetin"
 
@@ -2849,7 +2903,7 @@ msgstr "Përzgjedh autoritetin"
 msgid "Send a followup"
 msgstr "Dërgo mesazh vazhdues"
 
-#: app/controllers/user_controller.rb:349
+#: app/controllers/user_controller.rb:365
 msgid "Send a message to "
 msgstr "Dërgo mesazh te "
 
@@ -2865,7 +2919,7 @@ msgstr "Dërgo përgjigje publike te {{person_or_body}}"
 msgid "Send message"
 msgstr "Dërgo mesazh"
 
-#: app/views/user/show.rhtml:69
+#: app/views/user/show.rhtml:74
 msgid "Send message to "
 msgstr "Dërgo mesazh te "
 
@@ -2873,7 +2927,7 @@ msgstr "Dërgo mesazh te "
 msgid "Send request"
 msgstr "Dërgo kërkesën"
 
-#: app/views/user/show.rhtml:53
+#: app/views/user/show.rhtml:58
 msgid "Set your profile photo"
 msgstr "Vendos fotografinë e profilit tënd"
 
@@ -2881,7 +2935,7 @@ msgstr "Vendos fotografinë e profilit tënd"
 msgid "Short name is already taken"
 msgstr "Emri i shkurtë është i zënë"
 
-#: app/views/general/search.rhtml:129
+#: app/views/general/search.rhtml:125
 msgid "Show most relevant results first"
 msgstr "Shfaqi rezultatet më relevante"
 
@@ -2894,7 +2948,7 @@ msgstr "Shfaq vetëm..."
 msgid "Showing"
 msgstr "Duke paraqitur"
 
-#: app/views/user/sign.rhtml:2 app/views/user/sign.rhtml:33
+#: app/views/user/sign.rhtml:2 app/views/user/sign.rhtml:24
 #: app/views/user/_signin.rhtml:32
 msgid "Sign in"
 msgstr "Kyçu"
@@ -2903,15 +2957,15 @@ msgstr "Kyçu"
 msgid "Sign in or make a new account"
 msgstr "Kyçu ose krijo një llogari të re"
 
-#: app/views/layouts/default.rhtml:113
+#: app/views/layouts/default.rhtml:112
 msgid "Sign in or sign up"
 msgstr "Kyçu ose krijo llogari"
 
-#: app/views/layouts/default.rhtml:111
+#: app/views/layouts/default.rhtml:110
 msgid "Sign out"
 msgstr "Ç'kyçu"
 
-#: app/views/user/sign.rhtml:40 app/views/user/_signup.rhtml:46
+#: app/views/user/_signup.rhtml:46 app/views/user/sign.rhtml:31
 msgid "Sign up"
 msgstr "Regjistrohu"
 
@@ -2923,7 +2977,7 @@ msgstr "Kërkesa të ngjashme"
 msgid "Simple search"
 msgstr "Kërkim i thjeshtë"
 
-#: app/models/request_mailer.rb:177
+#: app/models/request_mailer.rb:178
 msgid "Some notes have been added to your FOI request - "
 msgstr ""
 
@@ -2943,7 +2997,7 @@ msgstr ""
 " një nga këto kërkesa, lexo atë, dhe njofto të tjerët se a u ofruan "
 "informatat e kërkuara. Të gjithë do të jenë shumë mirënjohës për këtë."
 
-#: app/models/request_mailer.rb:168
+#: app/models/request_mailer.rb:169
 msgid "Somebody added a note to your FOI request - "
 msgstr "Dikush ka shtuar një shënim në kërkesën tënde -"
 
@@ -2991,8 +3045,8 @@ msgstr "Qëndro i informuar rreth risive"
 msgid "Still awaiting an <strong>internal review</strong>"
 msgstr "Ende në pritje të <strong>rishqyrtimit intern</strong>"
 
-#: app/views/request/preview.rhtml:18
 #: app/views/request/followup_preview.rhtml:23
+#: app/views/request/preview.rhtml:18
 msgid "Subject:"
 msgstr "Lënda:"
 
@@ -3008,11 +3062,11 @@ msgstr "Dërgo statusin"
 msgid "Subscribe to blog"
 msgstr "Abonohu në blog"
 
-#: app/models/track_thing.rb:231 app/models/track_thing.rb:232
+#: app/models/track_thing.rb:230 app/models/track_thing.rb:231
 msgid "Successful Freedom of Information requests"
 msgstr "Kërkesat e suksesshme për Informata Zyrtare"
 
-#: app/models/info_request.rb:799
+#: app/models/info_request.rb:793
 msgid "Successful."
 msgstr "Suksesshme."
 
@@ -3036,7 +3090,7 @@ msgstr "Tabela e statuseve"
 msgid "Table of varieties"
 msgstr "Tabela e varianteve"
 
-#: app/views/general/search.rhtml:75
+#: app/views/general/search.rhtml:71
 msgid "Tags (separated by a space):"
 msgstr "Etiketat (të ndara me një hapësirë):"
 
@@ -3058,7 +3112,7 @@ msgstr ""
 msgid "Thank you for making an annotation!"
 msgstr "Faleminderit që keni bërë një shënim!"
 
-#: app/controllers/request_controller.rb:747
+#: app/controllers/request_controller.rb:791
 msgid ""
 "Thank you for responding to this FOI request! Your response has been "
 "published below, and a link to your response has been emailed to "
@@ -3067,7 +3121,7 @@ msgstr ""
 "Përgjigja yte është publikuar më poshtë, si dhe vegza për përgjigjen tënde i"
 " është derguar me email  "
 
-#: app/controllers/request_controller.rb:384
+#: app/controllers/request_controller.rb:420
 msgid ""
 "Thank you for updating the status of the request '<a "
 "href=\"{{url}}\">{{info_request_title}}</a>'. There are some more requests "
@@ -3077,12 +3131,12 @@ msgstr ""
 "href=\"{{url}}\">{{info_request_title}}</a> '. Ka disa kërkesa të tjera për "
 "ty për ti klasifikuar."
 
-#: app/controllers/request_controller.rb:387
+#: app/controllers/request_controller.rb:423
 msgid "Thank you for updating this request!"
 msgstr "Faleminderit për aktualizimin e kësaj kërkese!"
 
-#: app/controllers/user_controller.rb:416
 #: app/controllers/user_controller.rb:432
+#: app/controllers/user_controller.rb:448
 msgid "Thank you for updating your profile photo"
 msgstr "Faleminderit për aktualizimin e fotografisë e profilit tënd"
 
@@ -3094,7 +3148,7 @@ msgstr ""
 "Faleminderit për ndihmë - ndihma yte do ta bëjë më të lehtë që të tjerët të gjejnë kërkesat e suksesshme, \n"
 "e ndoshta edhe të na mundesojë krijim e ranglistave..."
 
-#: app/views/user/show.rhtml:20
+#: app/views/user/show.rhtml:24
 msgid ""
 "Thanks very much - this will help others find useful stuff. We'll\n"
 "            also, if you need it, give advice on what to do next about your\n"
@@ -3114,7 +3168,7 @@ msgstr ""
 "ndihmojmë, nëse ke nevojë, me këshilla si të veproni në vijim me kërkesat "
 "tuaja."
 
-#: app/controllers/user_controller.rb:207
+#: app/controllers/user_controller.rb:223
 msgid ""
 "That doesn't look like a valid email address. Please check you have typed it"
 " correctly."
@@ -3122,8 +3176,8 @@ msgstr ""
 "Kjo nuk duket si një email adresë e vlefshme. Të lutem kontrollo që e ke "
 "shtypur të saktë."
 
-#: app/views/request/_other_describe_state.rhtml:43
 #: app/views/request/_describe_state.rhtml:47
+#: app/views/request/_other_describe_state.rhtml:43
 msgid "The <strong>review has finished</strong> and overall:"
 msgstr "<strong>Rishqyrtimi ka përfunduar</strong> dhe përfundimi është:"
 
@@ -3195,7 +3249,7 @@ msgstr ""
 msgid "The request has been <strong>refused</strong>"
 msgstr "Kërkesa është <strong>refuzuar</strong>"
 
-#: app/controllers/request_controller.rb:358
+#: app/controllers/request_controller.rb:394
 msgid ""
 "The request has been updated since you originally loaded this page. Please "
 "check for any new incoming messages below, and try again."
@@ -3267,7 +3321,7 @@ msgstr ""
 "Indeksi i kërkimit aktualisht është i shkëputur, kështu që nuk mund të shfaq"
 " kërkesat e Informata zyrtare që kan të bëjnë me këtë autoritet"
 
-#: app/views/user/show.rhtml:156
+#: app/views/user/show.rhtml:165
 msgid ""
 "The search index is currently offline, so we can't show the Freedom of "
 "Information requests this person has made."
@@ -3275,30 +3329,30 @@ msgstr ""
 "Indeksi i kërkimit është jashtë funksioni, kështu që ne nuk mund t'i "
 "tregojmë kërkesat për informata zyrtare që ky person ka bërë."
 
-#: app/controllers/track_controller.rb:144
+#: app/controllers/track_controller.rb:152
 msgid "Then you can cancel the alert."
 msgstr "Pastaj ti mund të anulon njoftimin."
 
-#: app/controllers/track_controller.rb:174
+#: app/controllers/track_controller.rb:182
 msgid "Then you can cancel the alerts."
 msgstr "Pastaj ti mund të anulon njoftimet."
 
-#: app/controllers/user_controller.rb:267
+#: app/controllers/user_controller.rb:283
 msgid "Then you can change your email address used on {{site_name}}"
 msgstr ""
 "Pastaj ti mund të ndryshosh adresën tënde të emailit që përdoret në "
 "{{site_name}}"
 
-#: app/controllers/user_controller.rb:221
+#: app/controllers/user_controller.rb:237
 msgid "Then you can change your password on {{site_name}}"
 msgstr ""
 "Pastaj ti mund të ndryshosh fjalëkalimin tënd që përdoret në {{site_name}}"
 
-#: app/controllers/request_controller.rb:344
+#: app/controllers/request_controller.rb:380
 msgid "Then you can classify the FOI response you have got from "
 msgstr "Pastaj ti mund të klasifikon përgjigjet e marra nga "
 
-#: app/controllers/request_controller.rb:774
+#: app/controllers/request_controller.rb:815
 msgid "Then you can download a zip file of {{info_request_title}}."
 msgstr "Pastaj ti mund të shkarkosh zip fajllin e {{info_request_title}}."
 
@@ -3306,33 +3360,33 @@ msgstr "Pastaj ti mund të shkarkosh zip fajllin e {{info_request_title}}."
 msgid "Then you can play the request categorisation game."
 msgstr "Pastaj ti mund të luash lojën për kategorizim të kërkesave."
 
-#: app/controllers/user_controller.rb:348
+#: app/controllers/user_controller.rb:364
 msgid "Then you can send a message to "
 msgstr "Pastaj ti mund të dërgon mesazh te "
 
-#: app/controllers/user_controller.rb:541
+#: app/controllers/user_controller.rb:558
 msgid "Then you can sign in to {{site_name}}"
 msgstr "Pastaj ti mund të kyçesh në {{site_name}}"
 
-#: app/controllers/request_controller.rb:82
+#: app/controllers/request_controller.rb:84
 msgid "Then you can update the status of your request to "
 msgstr "Pastaj ti mund të aktualizosh statusin e kërkesës tënde për "
 
-#: app/controllers/request_controller.rb:713
+#: app/controllers/request_controller.rb:756
 msgid "Then you can upload an FOI response. "
 msgstr ""
 "Pastaj ti mund të ngarkon një përgjigje ndaj kërkesës për informata zyrtare."
 " "
 
-#: app/controllers/request_controller.rb:551
+#: app/controllers/request_controller.rb:587
 msgid "Then you can write follow up message to "
 msgstr "Atëher ti mund të shkruash mesazh vazhdues për "
 
-#: app/controllers/request_controller.rb:552
+#: app/controllers/request_controller.rb:588
 msgid "Then you can write your reply to "
 msgstr "Pastaj ti mund të shkruash përgjigjen tënde për "
 
-#: app/models/track_thing.rb:270
+#: app/models/track_thing.rb:269
 msgid ""
 "Then you will be emailed whenever '{{user_name}}' requests something or gets"
 " a response."
@@ -3340,7 +3394,7 @@ msgstr ""
 "Atëher ti do njoftohesh me email sa herë që '{{user_name}}' bën ndonjë "
 "kërkesë apo merr përgjigje."
 
-#: app/models/track_thing.rb:286
+#: app/models/track_thing.rb:285
 msgid ""
 "Then you will be emailed whenever a new request or response matches your "
 "search."
@@ -3348,19 +3402,19 @@ msgstr ""
 "Atëherë ti do njoftohesh me email sa herë që dikush bën ndonjë kërkesë apo "
 "mirret përgjigje që përputhet me kërkimin tënd."
 
-#: app/models/track_thing.rb:235
+#: app/models/track_thing.rb:234
 msgid "Then you will be emailed whenever an FOI request succeeds."
 msgstr ""
 "Atëher ti do njoftohesh me email sa herë që një kërkesë për informata "
 "zyrtare është e suksesshme."
 
-#: app/models/track_thing.rb:219
+#: app/models/track_thing.rb:218
 msgid "Then you will be emailed whenever anyone makes a new FOI request."
 msgstr ""
 "Atëher ti do njoftohesh me email sa herë që dikush bën ndonjë kërkesë për "
 "informata zyrtare."
 
-#: app/models/track_thing.rb:254
+#: app/models/track_thing.rb:253
 msgid ""
 "Then you will be emailed whenever someone requests something or gets a "
 "response from '{{public_body_name}}'."
@@ -3368,7 +3422,7 @@ msgstr ""
 "Atëher ti do njoftohesh me email sa herë që dikush bën ndonjë kërkesë apo "
 "merr përgjigje nga '{{public_body_name}}'."
 
-#: app/models/track_thing.rb:203
+#: app/models/track_thing.rb:202
 msgid ""
 "Then you will be emailed whenever the request '{{request_title}}' is "
 "updated."
@@ -3376,11 +3430,11 @@ msgstr ""
 "Atëherë ti do njoftohesh me email sa herë kërkesa '{{request_title}}' "
 "aktualizohet."
 
-#: app/controllers/request_controller.rb:32
+#: app/controllers/request_controller.rb:35
 msgid "Then you'll be allowed to send FOI requests."
 msgstr "Atëherë ty do të lejohet të bën kërkesa për informata zyrtare."
 
-#: app/controllers/request_controller.rb:304
+#: app/controllers/request_controller.rb:340
 msgid "Then your FOI request to {{public_body_name}} will be sent."
 msgstr "Pastaj kërkesa yte për "
 
@@ -3408,13 +3462,22 @@ msgid_plural "There are %d people following this request"
 msgstr[0] "Një person %d është duke e përcjell këtë kërkesë"
 msgstr[1] "Janë %d persona duke e përcjell këtë autoritet"
 
-#: app/views/user/show.rhtml:4
+#: app/views/user/show.rhtml:8
 msgid ""
 "There is <strong>more than one person</strong> who uses this site and has this name. \n"
 "    One of them is shown below, you may mean a different one:"
 msgstr ""
 "Ekziston <strong>më shumë se një person</strong> i cili e përdor këtë ueb sajt dhe ka të njejtin emërtim.\n"
 "Njëri prej tyre është listuar më poshtë, ti mund të kesh menduar për tjetër kend:"
+
+#: app/views/user/rate_limited.rhtml:7
+msgid ""
+"There is a limit on the number of requests you can make in a day, because we"
+" don’t want public authorities to be bombarded with large numbers of "
+"inappropriate requests. If you feel you have a good reason to ask for the "
+"limit to be lifted in your case, please <a href='{{help_contact_path}}'>get "
+"in touch</a>."
+msgstr ""
 
 #: app/views/request/show.rhtml:113
 msgid ""
@@ -3424,14 +3487,18 @@ msgstr ""
 "Kishte një <strong>dështim gjatë dorëzimit.</strong> apo diç e ngjajshme, e "
 "cila ka nevojë për përmirsim nga ekipi i {{site_name}}."
 
-#: app/controllers/user_controller.rb:140
-#: app/controllers/public_body_controller.rb:82
+#: app/controllers/user_controller.rb:154
+#: app/controllers/public_body_controller.rb:83
 msgid "There was an error with the words you entered, please try again."
 msgstr "Kishte një gabim me fjalët që keni shtypur, të lutem provo përsëri."
 
-#: app/views/public_body/show.rhtml:109 app/views/general/search.rhtml:10
+#: app/views/public_body/show.rhtml:109
 msgid "There were no requests matching your query."
 msgstr "Nuk ka kërkesa që përputhen me kërkimin tënd."
+
+#: app/views/general/search.rhtml:10
+msgid "There were no results matching your query."
+msgstr ""
 
 #: app/views/request/_describe_state.rhtml:38
 msgid "They are going to reply <strong>by post</strong>"
@@ -3445,7 +3512,7 @@ msgstr ""
 "Ata <strong>nuk e kanë</strong> informatën <small>(ndoshta ata tregojnë kush"
 " e ka)</small>"
 
-#: app/views/user/show.rhtml:83
+#: app/views/user/show.rhtml:88
 msgid "They have been given the following explanation:"
 msgstr "Atyre u është dhënë shpjegimi vijues:"
 
@@ -3498,6 +3565,10 @@ msgstr ""
 "Ky është versioni tekstual (plain text) i kërkesës për informata zyrtare "
 "\"{{request_title}}\".  Versioni i fundit dhe i plotë është në {{full_url}}"
 
+#: app/foo.rb:1
+msgid "This is a test!"
+msgstr ""
+
 #: app/views/request/_view_html_prefix.rhtml:9
 msgid ""
 "This is an HTML version of an attachment to the Freedom of Information "
@@ -3530,31 +3601,31 @@ msgstr ""
 "Mesazhi në largim është fshehur. Shih shënimet në \n"
 "        »» »» »» për të kuptuar arsyen.  Nëse ti je kërkuesi, atëherë ti mund të <a href=\"%s\">kyçesh</a> për të parë përgjigjen."
 
-#: app/views/request/_other_describe_state.rhtml:40
 #: app/views/request/_describe_state.rhtml:44
+#: app/views/request/_other_describe_state.rhtml:40
 msgid "This particular request is finished:"
 msgstr "Kjo kërkesë është përmbyllur:"
 
-#: app/views/user/show.rhtml:136
+#: app/views/user/show.rhtml:144
 msgid ""
 "This person has made no Freedom of Information requests using this site."
 msgstr ""
 "Ky person nuk ka bërë kërkesa për informata zyrtare duke përdorur këtë ueb "
 "faqe."
 
-#: app/views/user/show.rhtml:141
+#: app/views/user/show.rhtml:149
 msgid "This person's %d Freedom of Information request"
 msgid_plural "This person's %d Freedom of Information requests"
 msgstr[0] "%d kërkesë për informatë zyrtare të këtij personi"
 msgstr[1] "%d kërkesa për informata zyrtare të këtij personi"
 
-#: app/views/user/show.rhtml:169
+#: app/views/user/show.rhtml:179
 msgid "This person's %d annotation"
 msgid_plural "This person's %d annotations"
 msgstr[0] "%d shënim i këtij personi"
 msgstr[1] "%d shënime të këtij personi"
 
-#: app/views/user/show.rhtml:162
+#: app/views/user/show.rhtml:172
 msgid "This person's annotations"
 msgstr "Shënimet që i ka bërë ky person"
 
@@ -3574,7 +3645,7 @@ msgstr ""
 "Kjo kërkesë është <strong>tërhequr</strong> nga personi që e bëri atë. » "
 "Mund të ketë një shpjegim në korrespondencën më poshtë."
 
-#: app/models/info_request.rb:395
+#: app/models/info_request.rb:389
 msgid ""
 "This request has been set by an administrator to \"allow new responses from "
 "nobody\""
@@ -3607,8 +3678,8 @@ msgstr ""
 "ate. Të lutem <a href=\"%s\">na kontakto</a> nëse nuk je i sigurt pse kjo po"
 " ndodhë."
 
-#: app/views/request/_other_describe_state.rhtml:10
 #: app/views/request/_describe_state.rhtml:7
+#: app/views/request/_other_describe_state.rhtml:10
 msgid "This request is still in progress:"
 msgstr "Kjo kërkesë është ende në përpunim:"
 
@@ -3633,7 +3704,7 @@ msgstr ""
 "shpejtësisë me të cilën autoritetet i përgjigjen kërkesave, numrit të kërkesave\n"
 "që kërkojne përgjigje postale dhe gjëra të tjera."
 
-#: app/views/user/show.rhtml:79
+#: app/views/user/show.rhtml:84
 msgid "This user has been banned from {{site_name}} "
 msgstr "Ky përdorues është përjashtuar nga {site_name}} "
 
@@ -3645,19 +3716,19 @@ msgstr ""
 "Kjo nuk ishte e mundur sepse egziston një llogari duke\n"
 "përdorur këtë adresë të emailit {{email}}."
 
-#: app/models/track_thing.rb:218
+#: app/models/track_thing.rb:217
 msgid "To be emailed about any new requests"
 msgstr "Të marrësh email për cdo kërkesë të re"
 
-#: app/models/track_thing.rb:234
+#: app/models/track_thing.rb:233
 msgid "To be emailed about any successful requests"
 msgstr "Të marrësh email për cdo kërkesë të suksesshme"
 
-#: app/models/track_thing.rb:269
+#: app/models/track_thing.rb:268
 msgid "To be emailed about requests by '{{user_name}}'"
 msgstr "Të marrësh email për kërkesat e bëra nga '{{user_name}}'"
 
-#: app/models/track_thing.rb:253
+#: app/models/track_thing.rb:252
 msgid ""
 "To be emailed about requests made using {{site_name}} to the public "
 "authority '{{public_body_name}}'"
@@ -3665,11 +3736,11 @@ msgstr ""
 "Të marrësh email për kërkesat e bëra duke përdorur '{{site_name}}' për "
 "autoritetin publik të quajur '{{public_body_name}}'"
 
-#: app/controllers/track_controller.rb:173
+#: app/controllers/track_controller.rb:181
 msgid "To cancel these alerts"
 msgstr "Për të anuluar njoftimet"
 
-#: app/controllers/track_controller.rb:143
+#: app/controllers/track_controller.rb:151
 msgid "To cancel this alert"
 msgstr "Për të anuluar këtë njoftim"
 
@@ -3681,11 +3752,11 @@ msgstr ""
 "Për të vazhduar, ti duhet të kyçesh ose të hapë një llogari. Për fat të keq,"
 " ka pasur një problem teknik duke u përpjekur për të bërë këtë."
 
-#: app/controllers/user_controller.rb:266
+#: app/controllers/user_controller.rb:282
 msgid "To change your email address used on {{site_name}}"
 msgstr "Për të ndryshuar email adresën tënde të përdorur në {{site_name}}"
 
-#: app/controllers/request_controller.rb:343
+#: app/controllers/request_controller.rb:379
 msgid "To classify the response to this FOI request"
 msgstr "Për të klasifikuar përgjigjen e kësaj kërkese për informata zyrtare"
 
@@ -3697,15 +3768,15 @@ msgstr "Për të bërë këtë të lutem dërgoni një email privat te"
 msgid "To do this, first click on the link below."
 msgstr "Për ta bërë këtë, së pari kliko në vegzën më poshtë."
 
-#: app/controllers/request_controller.rb:773
+#: app/controllers/request_controller.rb:814
 msgid "To download the zip file"
 msgstr "Për të shkarkuar zip fajllin"
 
-#: app/models/track_thing.rb:285
+#: app/models/track_thing.rb:284
 msgid "To follow requests and responses matching your search"
 msgstr "Përcjell kërkesat dhe përgjigjet që përputhen me kërkimin e ruajtur"
 
-#: app/models/track_thing.rb:202
+#: app/models/track_thing.rb:201
 msgid "To follow updates to the request '{{request_title}}'"
 msgstr "Për të përcjell aktualizimet e kërkesës '{{request_title}}'"
 
@@ -3730,28 +3801,28 @@ msgstr "Për të luajtur në lojën e kategorizimit të kërkesave"
 msgid "To post your annotation"
 msgstr "Për të postuar shënimin tënd"
 
-#: app/controllers/request_controller.rb:549
+#: app/controllers/request_controller.rb:585
 msgid "To reply to "
 msgstr "Për t'iu përgjigjur "
 
-#: app/controllers/request_controller.rb:548
+#: app/controllers/request_controller.rb:584
 msgid "To send a follow up message to "
 msgstr "Për të dërguar mesazh vazhdues për "
 
-#: app/controllers/user_controller.rb:347
+#: app/controllers/user_controller.rb:363
 msgid "To send a message to "
 msgstr "Për të dërguar mesazh te "
 
-#: app/controllers/request_controller.rb:31
-#: app/controllers/request_controller.rb:303
+#: app/controllers/request_controller.rb:34
+#: app/controllers/request_controller.rb:339
 msgid "To send your FOI request"
 msgstr "Për të dërguar kërkesën tënde për informata zyrtare"
 
-#: app/controllers/request_controller.rb:81
+#: app/controllers/request_controller.rb:83
 msgid "To update the status of this FOI request"
 msgstr "Për të aktualizuar statusin e kësaj kërkese për informata zyrtare"
 
-#: app/controllers/request_controller.rb:712
+#: app/controllers/request_controller.rb:755
 msgid ""
 "To upload a response, you must be logged in using an email address from "
 msgstr ""
@@ -3782,10 +3853,10 @@ msgstr "Për të parë përgjigjen, kliko në vegzën më poshtë."
 msgid "To {{public_body_link_absolute}}"
 msgstr "Për {{public_body_link_absolute}}"
 
-#: app/views/request/preview.rhtml:17 app/views/request/new.rhtml:40
-#: app/views/request/followup_preview.rhtml:22
 #: app/views/request/simple_correspondence.rhtml:16
 #: app/views/request/simple_correspondence.rhtml:28
+#: app/views/request/followup_preview.rhtml:22 app/views/request/new.rhtml:40
+#: app/views/request/preview.rhtml:17
 msgid "To:"
 msgstr "Për:"
 
@@ -3793,32 +3864,32 @@ msgstr "Për:"
 msgid "Today"
 msgstr "Sot"
 
-#: app/views/request/select_authority.rhtml:47
-#: app/views/public_body/_search_ahead.rhtml:3
+#: app/views/request/select_authority.rhtml:48
+#: app/views/public_body/_search_ahead.rhtml:4
 msgid "Top search results:"
 msgstr "Rezultatet e kërkimeve më të shpeshta:"
 
-#: app/models/track_thing.rb:247
+#: app/models/track_thing.rb:246
 msgid "Track requests to {{public_body_name}} by email"
 msgstr "Përcjell me email kërkesat e bëra për {{public_body_name}} "
 
-#: app/models/track_thing.rb:279
+#: app/models/track_thing.rb:278
 msgid "Track things matching this search by email"
 msgstr "Përcjell gjërat që përputhen me këtë kërkim me email"
 
-#: app/views/user/show.rhtml:29
+#: app/views/user/show.rhtml:35
 msgid "Track this person"
 msgstr "Përcjell aktivitetin e këtij personi"
 
-#: app/models/track_thing.rb:263
+#: app/models/track_thing.rb:262
 msgid "Track this person by email"
 msgstr "Përcjell aktivitetin e këtij personi me email"
 
-#: app/models/track_thing.rb:196
+#: app/models/track_thing.rb:195
 msgid "Track this request by email"
 msgstr "Përcjell këtë kërkesë me email"
 
-#: app/views/general/search.rhtml:141
+#: app/views/general/search.rhtml:137
 msgid "Track this search"
 msgstr "Përcjell këtë kërkim"
 
@@ -3900,7 +3971,7 @@ msgstr "Shtetet e Bashkuara të Amerikës"
 msgid "Unknown"
 msgstr "I/e panjohur"
 
-#: app/models/info_request.rb:809
+#: app/models/info_request.rb:803
 msgid "Unusual response."
 msgstr "përgjigje e pazakonshme."
 
@@ -3909,7 +3980,7 @@ msgstr "përgjigje e pazakonshme."
 msgid "Update the status of this request"
 msgstr "Aktualizo statusin e kësaj kërkese"
 
-#: app/controllers/request_controller.rb:83
+#: app/controllers/request_controller.rb:85
 msgid "Update the status of your request to "
 msgstr "Aktualizo statusin e kërkesës tënde për "
 
@@ -3930,47 +4001,63 @@ msgstr ""
 "Përdor thonjëzat (\" \") kur ti dëshiron të gjeshë një fjalë ekzakte, p.sh. "
 "<code><strong>\"Ministria e Arsimit\"</strong></code>"
 
-#: locale/model_attributes.rb:70
+#: locale/model_attributes.rb:94
 msgid "UserInfoRequestSentAlert|Alert type"
 msgstr "UserInfoRequestSentAlert|Alert type"
 
-#: locale/model_attributes.rb:81
+#: locale/model_attributes.rb:80
 msgid "User|About me"
 msgstr "Përdoruesi |Rreth meje"
 
-#: locale/model_attributes.rb:79
+#: locale/model_attributes.rb:78
 msgid "User|Admin level"
 msgstr "Përdoruesi | Niveli i Administrimit"
 
-#: locale/model_attributes.rb:80
+#: locale/model_attributes.rb:79
 msgid "User|Ban text"
 msgstr "Përdoruesi |Tekst i ndaluar"
 
-#: locale/model_attributes.rb:72
+#: locale/model_attributes.rb:71
 msgid "User|Email"
 msgstr "Përdoruesi |Email"
 
-#: locale/model_attributes.rb:76
+#: locale/model_attributes.rb:83
+msgid "User|Email bounce message"
+msgstr ""
+
+#: locale/model_attributes.rb:82
+msgid "User|Email bounced at"
+msgstr ""
+
+#: locale/model_attributes.rb:75
 msgid "User|Email confirmed"
 msgstr "Përdoruesi|Emaili u konfirmua"
 
-#: locale/model_attributes.rb:74
+#: locale/model_attributes.rb:73
 msgid "User|Hashed password"
 msgstr "User|Hashed password"
 
-#: locale/model_attributes.rb:78
+#: locale/model_attributes.rb:77
 msgid "User|Last daily track email"
 msgstr "User|Last daily track email"
 
-#: locale/model_attributes.rb:73
+#: locale/model_attributes.rb:81
+msgid "User|Locale"
+msgstr ""
+
+#: locale/model_attributes.rb:72
 msgid "User|Name"
 msgstr "Përdoruesi|Emri"
 
-#: locale/model_attributes.rb:75
+#: locale/model_attributes.rb:84
+msgid "User|No limit"
+msgstr ""
+
+#: locale/model_attributes.rb:74
 msgid "User|Salt"
 msgstr "User|Salt"
 
-#: locale/model_attributes.rb:77
+#: locale/model_attributes.rb:76
 msgid "User|Url name"
 msgstr "Përdoruesi | Emri Url"
 
@@ -3991,7 +4078,7 @@ msgstr "Shiko adresën e emailit për Informatë Zyrtare {{public_body_name}}"
 msgid "View Freedom of Information requests made by {{user_name}}:"
 msgstr "Shiko kërkesat për informata zyrtare të bëra nga {{user_name}}: "
 
-#: app/controllers/request_controller.rb:155
+#: app/controllers/request_controller.rb:169
 msgid "View and search requests"
 msgstr "Shiko dhe kërko kërkesat"
 
@@ -4007,7 +4094,7 @@ msgstr "Shiko adresën e emailit"
 msgid "View requests"
 msgstr "Shiko kërkesat"
 
-#: app/models/info_request.rb:801
+#: app/models/info_request.rb:795
 msgid "Waiting clarification."
 msgstr "Duke pritur sqarim."
 
@@ -4031,7 +4118,7 @@ msgstr ""
 msgid "Waiting for the public authority to reply"
 msgstr "Duke pritur që autoriteti publik të përgjigjet"
 
-#: app/models/request_mailer.rb:125
+#: app/models/request_mailer.rb:126
 msgid "Was the response you got to your FOI request any good?"
 msgstr ""
 
@@ -4157,7 +4244,7 @@ msgstr "Cila nga këto po ndodh?"
 msgid "Who can I request information from?"
 msgstr "Nga kush mund të kërkoj informata?"
 
-#: app/models/info_request.rb:811
+#: app/models/info_request.rb:805
 msgid "Withdrawn by the requester."
 msgstr "E tërhequr nga kërkuesi."
 
@@ -4173,11 +4260,11 @@ msgstr "A dëshiron të shohësh një ueb faqe si kjo në shtetin tënd?"
 msgid "Write a reply"
 msgstr "Shkruaj një përgjigje"
 
-#: app/controllers/request_controller.rb:555
+#: app/controllers/request_controller.rb:591
 msgid "Write a reply to "
 msgstr "Shkruaj një përgjigje për "
 
-#: app/controllers/request_controller.rb:554
+#: app/controllers/request_controller.rb:590
 msgid "Write your FOI follow up message to "
 msgstr "Shkruaj mesazhin tënd vazhdues të kërkesës për informata zyrtare për "
 
@@ -4190,33 +4277,33 @@ msgstr ""
 msgid "You"
 msgstr "Ti"
 
-#: app/controllers/track_controller.rb:98
+#: app/controllers/track_controller.rb:106
 msgid "You are already being emailed updates about "
 msgstr "Ti tashmë je duke i pranuar me email aktualizimet në lidhje me "
 
-#: app/models/track_thing.rb:248
+#: app/models/track_thing.rb:247
 msgid "You are already tracking requests to {{public_body_name}} by email"
 msgstr ""
 "Ti tashmë je duke i përcjell kërkesat për {{public_body_name}} me email"
 
-#: app/models/track_thing.rb:280
+#: app/models/track_thing.rb:279
 msgid "You are already tracking things matching this search by email"
 msgstr ""
 "Ti tashmë je duke i përcjell me email gjërat që përputhen me këtë kërkim"
 
-#: app/models/track_thing.rb:264
+#: app/models/track_thing.rb:263
 msgid "You are already tracking this person by email"
 msgstr "Ti tashmë je duke e përcjell këtë person me email"
 
-#: app/models/track_thing.rb:197
+#: app/models/track_thing.rb:196
 msgid "You are already tracking this request by email"
 msgstr "Ti tashmë je duke e përcjell këtë kërkesë me email"
 
-#: app/models/track_thing.rb:229
+#: app/models/track_thing.rb:228
 msgid "You are being emailed about any new successful responses"
 msgstr "Ti je duke pranuar me email çdo përgjigje të re të suksesshme"
 
-#: app/models/track_thing.rb:213
+#: app/models/track_thing.rb:212
 msgid "You are being emailed when there are new requests"
 msgstr "Ti tashmë je duke marrë email njoftues, sa herë që ka kërkesa të reja"
 
@@ -4250,16 +4337,23 @@ msgstr ""
 "Ti e ke gjetë një lëshim teknik (bug).  Të lutem <a "
 "href=\"{{contact_url}}\"> na kontakto</a> për të na lajmruar për problemin\""
 
-#: app/views/user/show.rhtml:136
+#: app/views/user/rate_limited.rhtml:5
+msgid ""
+"You have hit the rate limit on new requests. Users are ordinarily limited to"
+" {{max_requests_per_user_per_day}} requests in any rolling 24-hour period. "
+"You will be able to make another request in {{can_make_another_request}}."
+msgstr ""
+
+#: app/views/user/show.rhtml:144
 msgid "You have made no Freedom of Information requests using this site."
 msgstr ""
 "Nuk ke bërë kërkesa për informata zyrtare duke përdorur këtë ueb faqe."
 
-#: app/controllers/user_controller.rb:510
+#: app/controllers/user_controller.rb:527
 msgid "You have now changed the text about you on your profile."
 msgstr "Ju keni ndryshuar tani tekstin për ju në profilin tuaj."
 
-#: app/controllers/user_controller.rb:328
+#: app/controllers/user_controller.rb:344
 msgid "You have now changed your email address used on {{site_name}}"
 msgstr ""
 "Tash ke ndryshuar adresën tënde të emailit që përdoret në {{site_name}}"
@@ -4313,22 +4407,22 @@ msgstr ""
 "në ueb sajtin e tyre, ose duke iu telefonuar. Nëse ke arritur\n"
 "ta gjenë adresën, atëherë të lutem <a href=\"{{help_url}}\">na e dërgo të njejtën</a>."
 
-#: app/controllers/user_controller.rb:488
+#: app/controllers/user_controller.rb:505
 msgid "You need to be logged in to change the text about you on your profile."
 msgstr ""
 "Duhet të jesh i kyçur për të ndryshuar tekstin për vetën tënde në profil."
 
-#: app/controllers/user_controller.rb:389
+#: app/controllers/user_controller.rb:405
 msgid "You need to be logged in to change your profile photo."
 msgstr "Ti duhet të jesh i kyçur që të ndryshosh fotografinë e profilit tënd."
 
-#: app/controllers/user_controller.rb:451
+#: app/controllers/user_controller.rb:467
 msgid "You need to be logged in to clear your profile photo."
 msgstr ""
 "Ti duhet të jesh i kyçur për të larguar (fshirë) fotografinë e profilit "
 "tënd."
 
-#: app/controllers/request_controller.rb:565
+#: app/controllers/request_controller.rb:601
 msgid ""
 "You previously submitted that exact follow up message for this request."
 msgstr "Më parë ke dërguar të njejtin mesazh vazhdues për këtë kërkesë."
@@ -4360,15 +4454,15 @@ msgstr ""
 "Ti nuk do të mund të bësh kërkesa të reja, të dërgon mesazhe vazhduese, të shtosh shënime ose \n"
 "të dërgon mesazhe tek përdoruesit tjerë. Ti mund të vazhdosh ti shiqosh kërkesat tjera, dhe të vendosësh njoftimet me email."
 
-#: app/controllers/track_controller.rb:154
+#: app/controllers/track_controller.rb:162
 msgid "You will no longer be emailed updates about "
 msgstr "Ti nuk do të merr më aktualizime me email për "
 
-#: app/controllers/track_controller.rb:183
+#: app/controllers/track_controller.rb:191
 msgid "You will no longer be emailed updates for those alerts"
 msgstr "Ti nuk do të merr më aktualizime me email për këto njoftime "
 
-#: app/controllers/track_controller.rb:111
+#: app/controllers/track_controller.rb:119
 msgid "You will now be emailed updates about "
 msgstr "Tani do të merr aktualizime me email për "
 
@@ -4379,21 +4473,21 @@ msgid ""
 msgstr ""
 "Ti do të merr përgjigje në kërkesën tënde vetëm në qoftë se e sqaroni atë."
 
-#: app/models/request_mailer.rb:105
+#: app/models/request_mailer.rb:106
 msgid "You're long overdue a response to your FOI request - "
 msgstr ""
 
-#: app/controllers/user_controller.rb:460
+#: app/controllers/user_controller.rb:476
 msgid "You've now cleared your profile photo"
 msgstr "Ke pastruar fotografinë e profilit tënd"
 
-#: app/views/user/show.rhtml:141
+#: app/views/user/show.rhtml:149
 msgid "Your %d Freedom of Information request"
 msgid_plural "Your %d Freedom of Information requests"
 msgstr[0] "%d kërkesë e yte për informatë zyrtare"
 msgstr[1] "%d kërkesa tua për informata zyrtare"
 
-#: app/views/user/show.rhtml:169
+#: app/views/user/show.rhtml:179
 msgid "Your %d annotation"
 msgid_plural "Your %d annotations"
 msgstr[0] "%d shënim i yti"
@@ -4413,7 +4507,7 @@ msgstr ""
 "        Nëse mendon ta përdorësh një pseudonim, të lutem\n"
 "        <a href=\"%s\">së pari lexoje këtë</a>."
 
-#: app/views/user/show.rhtml:162
+#: app/views/user/show.rhtml:172
 msgid "Your annotations"
 msgstr "Shënimet tua"
 
@@ -4425,16 +4519,16 @@ msgstr ""
 "Të dhënat tuaja nuk iu kanë dhënë askujt, përveç nëse ju vendos të përgjigjesh në këtë\n"
 "mesazh, i cili pastaj do të shkon direkt tek personi i cili shkroi mesazhin."
 
-#: app/views/user/signchangepassword_send_confirm.rhtml:13
 #: app/views/user/_signup.rhtml:9 app/views/user/_signin.rhtml:11
+#: app/views/user/signchangepassword_send_confirm.rhtml:13
 msgid "Your e-mail:"
 msgstr "Emaili yt:"
 
-#: app/views/user/show.rhtml:184
+#: app/views/user/show.rhtml:196
 msgid "Your email subscriptions"
 msgstr "Email abonimet e tua"
 
-#: app/controllers/request_controller.rb:562
+#: app/controllers/request_controller.rb:598
 msgid ""
 "Your follow up has not been sent because this request has been stopped to "
 "prevent spam. Please <a href=\"%s\">contact us</a> if you really want to "
@@ -4444,11 +4538,11 @@ msgstr ""
 "të parandaluar spam emailat.  Të lutem <a href=\"%s\">na kontakto</a> nëse "
 "vërtet dëshiron të dërgosh mesazh vazhdues."
 
-#: app/controllers/request_controller.rb:590
+#: app/controllers/request_controller.rb:626
 msgid "Your follow up message has been sent on its way."
 msgstr "Mesazhi yt vazhdues është derguar."
 
-#: app/controllers/request_controller.rb:588
+#: app/controllers/request_controller.rb:624
 msgid "Your internal review request has been sent on its way."
 msgstr "Kërkesa për rishqyrtim intern është dërguar."
 
@@ -4460,7 +4554,7 @@ msgstr ""
 "Mesazhi yt u dërgua. Faleminderit që na kontaktuat! Ne do t'ju përgjigjemi "
 "së shpejti."
 
-#: app/controllers/user_controller.rb:367
+#: app/controllers/user_controller.rb:383
 msgid "Your message to {{recipient_user_name}} has been sent!"
 msgstr "Mesazhi yt për {{recipient_user_name}} është dërguar!"
 
@@ -4493,7 +4587,7 @@ msgstr "Emri yt:"
 msgid "Your original message is attached."
 msgstr "Mesazhi yt origjinal është i bashkangjitur."
 
-#: app/controllers/user_controller.rb:249
+#: app/controllers/user_controller.rb:265
 msgid "Your password has been changed."
 msgstr "Fjalëkalimi yt është ndryshuar."
 
@@ -4570,7 +4664,7 @@ msgid "also called {{public_body_short_name}}"
 msgstr "i quajtur edhe {{public_body_short_name}}"
 
 #: app/views/request/_request_filter_form.rhtml:25
-#: app/views/general/search.rhtml:114
+#: app/views/general/search.rhtml:110
 msgid "and"
 msgstr "dhe"
 
@@ -4594,15 +4688,15 @@ msgstr "dhe ne do të sugjerojmë <strong>çfarë të bëjë pastaj</strong>"
 msgid "answered a request about"
 msgstr "i'u përgjigj kërkesës në lidhje me"
 
-#: app/models/track_thing.rb:211
+#: app/models/track_thing.rb:210
 msgid "any <a href=\"/list\">new requests</a>"
 msgstr "any <a href=\"/list\">new requests</a>"
 
-#: app/models/track_thing.rb:227
+#: app/models/track_thing.rb:226
 msgid "any <a href=\"/list/successful\">successful requests</a>"
 msgstr "ndonjë <a href=\"/list/successful\">kërkesë e re</a>"
 
-#: app/models/track_thing.rb:116
+#: app/models/track_thing.rb:115
 msgid "anything"
 msgstr "çkado"
 
@@ -4610,19 +4704,19 @@ msgstr "çkado"
 msgid "are long overdue."
 msgstr "janë vonuar së tepërmi."
 
-#: app/models/track_thing.rb:89 app/views/general/search.rhtml:55
+#: app/models/track_thing.rb:88 app/views/general/search.rhtml:55
 msgid "authorities"
 msgstr "autoritetet"
 
-#: app/models/track_thing.rb:104
+#: app/models/track_thing.rb:103
 msgid "awaiting a response"
 msgstr "në pritje të një përgjigje"
 
-#: app/controllers/public_body_controller.rb:123
-msgid "beginning with"
-msgstr "duke filluar me"
+#: app/controllers/public_body_controller.rb:125
+msgid "beginning with ‘{{first_letter}}’"
+msgstr ""
 
-#: app/models/track_thing.rb:95
+#: app/models/track_thing.rb:94
 msgid "between two dates"
 msgstr "në mes të dy datave"
 
@@ -4642,7 +4736,7 @@ msgstr "nga {{public_body_name}} për {{info_request_user}} me {{date}}."
 msgid "by {{user_link_absolute}}"
 msgstr "nga {{user_link_absolute}}"
 
-#: locale/model_attributes.rb:35
+#: locale/model_attributes.rb:42
 msgid "censor rule"
 msgstr "censor rregulli"
 
@@ -4650,9 +4744,9 @@ msgstr "censor rregulli"
 msgid "comment"
 msgstr "komenti"
 
-#: app/models/track_thing.rb:86
+#: app/models/track_thing.rb:85
 #: app/views/request/_request_filter_form.rhtml:14
-#: app/views/general/search.rhtml:103
+#: app/views/general/search.rhtml:99
 msgid "comments"
 msgstr "komentet"
 
@@ -4664,7 +4758,7 @@ msgstr ""
 "që përmban adresën tënde postale, dhe duke u kërkuar atyre të përgjigjen në këtë kërkesë. \n"
 "          Ose ju mund t'iu telefononi atyre."
 
-#: app/models/info_request_event.rb:323
+#: app/models/info_request_event.rb:358
 msgid "display_status only works for incoming and outgoing messages right now"
 msgstr ""
 "display_status tani për tani punon vetëm për mesazhet hyrëse dhe dalëse"
@@ -4673,11 +4767,11 @@ msgstr ""
 msgid "during term time"
 msgstr "gjatë gjysmëvjetorit"
 
-#: app/views/user/show.rhtml:96
+#: app/views/user/show.rhtml:101
 msgid "edit text about you"
 msgstr "edito tekstin në lidhje me ty"
 
-#: app/views/user/show.rhtml:187
+#: app/views/user/show.rhtml:199
 msgid "email subscription"
 msgstr "abonimet me email"
 
@@ -4693,9 +4787,13 @@ msgstr "gjithçka"
 msgid "exim log"
 msgstr "exim log"
 
-#: locale/model_attributes.rb:57
+#: locale/model_attributes.rb:67
 msgid "exim log done"
 msgstr "exim log done"
+
+#: locale/model_attributes.rb:85
+msgid "foi attachment"
+msgstr ""
 
 #: app/views/request_mailer/requires_admin.rhtml:2
 msgid "has reported an"
@@ -4705,7 +4803,7 @@ msgstr "ka raportuar një"
 msgid "have delayed."
 msgstr "kanë vonuar."
 
-#: locale/model_attributes.rb:54
+#: locale/model_attributes.rb:64
 msgid "holiday"
 msgstr "festë"
 
@@ -4714,24 +4812,28 @@ msgstr "festë"
 msgid "in term time"
 msgstr "në gjysmëvjetor"
 
-#: locale/model_attributes.rb:60
+#: app/controllers/public_body_controller.rb:131
+msgid "in the category ‘{{category_name}}’"
+msgstr ""
+
+#: locale/model_attributes.rb:54
 msgid "incoming message"
 msgstr "mesazhi i ardhur"
 
-#: locale/model_attributes.rb:82
+#: locale/model_attributes.rb:95
 msgid "info request"
 msgstr "kërkesë për informatë"
 
-#: locale/model_attributes.rb:40
+#: locale/model_attributes.rb:35
 msgid "info request event"
 msgstr "info request event"
 
-#: app/views/user/signchangeemail.rhtml:3
 #: app/views/user/set_profile_about_me.rhtml:3
+#: app/views/user/signchangeemail.rhtml:3
 msgid "internal error"
 msgstr "gabim i brendshëm i sistemit"
 
-#: app/views/general/search.rhtml:91
+#: app/views/general/search.rhtml:87
 msgid "internal reviews"
 msgstr "rishqyrtimet interne"
 
@@ -4739,7 +4841,7 @@ msgstr "rishqyrtimet interne"
 msgid "is <strong>waiting for your clarification</strong>."
 msgstr "është duke <strong>pritur për sqarim tuaj</strong>."
 
-#: app/views/user/show.rhtml:71
+#: app/views/user/show.rhtml:76
 msgid "just to see how it works"
 msgstr "vetëm për të parë se si funksionon"
 
@@ -4752,13 +4854,17 @@ msgstr "ka lënë një shënim"
 msgid "made."
 msgstr "bërë."
 
+#: app/controllers/public_body_controller.rb:129
+msgid "matching the tag ‘{{tag_name}}’"
+msgstr ""
+
 #: app/views/request/_request_filter_form.rhtml:13
-#: app/views/general/search.rhtml:102
+#: app/views/general/search.rhtml:98
 msgid "messages from authorities"
 msgstr "mesazhe nga autoritetet"
 
 #: app/views/request/_request_filter_form.rhtml:12
-#: app/views/general/search.rhtml:101
+#: app/views/general/search.rhtml:97
 msgid "messages from users"
 msgstr "mesazhe nga përdoruesit"
 
@@ -4788,10 +4894,6 @@ msgstr "Mesazhi në largim"
 msgid "please sign in as "
 msgstr "Të lutem kyçu si"
 
-#: app/views/user/sign.rhtml:28
-msgid "please sign in or make a new account."
-msgstr "të lutem kyçu ose krijo një llogari të re."
-
 #: locale/model_attributes.rb:47
 msgid "post redirect"
 msgstr "ridrejto postën në tjetër adresë"
@@ -4812,12 +4914,12 @@ msgstr "kërkesë."
 msgid "requesting an internal review"
 msgstr "kërko rishqyrtim intern"
 
-#: app/models/track_thing.rb:92 app/models/track_thing.rb:111
-#: app/models/track_thing.rb:113 app/views/general/search.rhtml:53
+#: app/models/track_thing.rb:91 app/models/track_thing.rb:110
+#: app/models/track_thing.rb:112 app/views/general/search.rhtml:53
 msgid "requests"
 msgstr "kërkesat"
 
-#: app/models/track_thing.rb:112
+#: app/models/track_thing.rb:111
 msgid "requests which are {{list_of_statuses}}"
 msgstr "kërkesat të cilat janë {{list_of_statuses}}"
 
@@ -4841,12 +4943,12 @@ msgstr "dërguar {{public_body_name}} nga {{info_request_user}} me {{date}}."
 msgid "sign in"
 msgstr "Kyçu"
 
-#: app/models/track_thing.rb:101
+#: app/models/track_thing.rb:100
 msgid "successful"
 msgstr "e suksesshëme"
 
 #: app/views/request/_request_filter_form.rhtml:31
-#: app/views/general/search.rhtml:88
+#: app/views/general/search.rhtml:84
 msgid "successful requests"
 msgstr "kërkesat e suksesshme"
 
@@ -4864,20 +4966,20 @@ msgstr ""
 msgid "the main FOI contact at {{public_body}}"
 msgstr "kontakti kryesor për kërkesa te {{public_body}}"
 
-#: app/views/request_mailer/comment_on_alert_plural.rhtml:5
-#: app/views/request_mailer/old_unclassified_updated.rhtml:8
-#: app/views/request_mailer/new_response_reminder_alert.rhtml:8
-#: app/views/request_mailer/very_overdue_alert.rhtml:11
-#: app/views/request_mailer/overdue_alert.rhtml:9
+#: app/views/track_mailer/event_digest.rhtml:66
 #: app/views/request_mailer/stopped_responses.rhtml:16
 #: app/views/request_mailer/new_response.rhtml:15
-#: app/views/request_mailer/not_clarified_alert.rhtml:9
+#: app/views/request_mailer/new_response_reminder_alert.rhtml:8
 #: app/views/request_mailer/comment_on_alert.rhtml:6
-#: app/views/user_mailer/already_registered.rhtml:11
+#: app/views/request_mailer/comment_on_alert_plural.rhtml:5
+#: app/views/request_mailer/old_unclassified_updated.rhtml:8
+#: app/views/request_mailer/overdue_alert.rhtml:9
+#: app/views/request_mailer/not_clarified_alert.rhtml:9
+#: app/views/request_mailer/very_overdue_alert.rhtml:11
+#: app/views/user_mailer/changeemail_already_used.rhtml:10
 #: app/views/user_mailer/confirm_login.rhtml:11
 #: app/views/user_mailer/changeemail_confirm.rhtml:13
-#: app/views/user_mailer/changeemail_already_used.rhtml:10
-#: app/views/track_mailer/event_digest.rhtml:66
+#: app/views/user_mailer/already_registered.rhtml:11
 msgid "the {{site_name}} team"
 msgstr "ekipi i {{site_name}}"
 
@@ -4901,37 +5003,33 @@ msgstr "përcjell gjënë"
 msgid "unexpected prominence on request event"
 msgstr "rëndësi (prominence) e papritur për kërkesën"
 
-#: app/views/request/_request_listing_via_event.rhtml:30
-msgid "unknown event type indexed "
-msgstr "Indeksim i llojit të panjohur të ngjarjes "
-
 #: app/views/request/followup_bad.rhtml:29
 msgid "unknown reason "
 msgstr "arsye e panjohur "
 
-#: app/models/info_request_event.rb:318 app/models/info_request.rb:816
+#: app/models/info_request.rb:810 app/models/info_request_event.rb:353
 msgid "unknown status "
 msgstr "status i panjohur "
 
 #: app/views/request/_request_filter_form.rhtml:33
-#: app/views/general/search.rhtml:90
+#: app/views/general/search.rhtml:86
 msgid "unresolved requests"
 msgstr "kërkesat e pazgjidhura"
 
-#: app/views/user/show.rhtml:224
+#: app/views/user/show.rhtml:236
 msgid "unsubscribe"
 msgstr "ndërprej abonimin"
 
-#: app/views/user/show.rhtml:196 app/views/user/show.rhtml:210
+#: app/views/user/show.rhtml:208 app/views/user/show.rhtml:222
 msgid "unsubscribe all"
 msgstr "ndërpreji të gjitha abonimet"
 
-#: app/models/track_thing.rb:98
+#: app/models/track_thing.rb:97
 msgid "unsuccessful"
 msgstr "e pasuksesshme"
 
 #: app/views/request/_request_filter_form.rhtml:32
-#: app/views/general/search.rhtml:89
+#: app/views/general/search.rhtml:85
 msgid "unsuccessful requests"
 msgstr "kërkesat e pasuksesshme"
 
@@ -4939,15 +5037,15 @@ msgstr "kërkesat e pasuksesshme"
 msgid "useful information."
 msgstr "informata të dobishëme."
 
-#: locale/model_attributes.rb:71
+#: locale/model_attributes.rb:70
 msgid "user"
 msgstr "përdoruesi"
 
-#: locale/model_attributes.rb:69
+#: locale/model_attributes.rb:93
 msgid "user info request sent alert"
 msgstr "shfrytëzuesi info kërkesë dërguar alarm"
 
-#: app/models/track_thing.rb:83 app/views/general/search.rhtml:54
+#: app/models/track_thing.rb:82 app/views/general/search.rhtml:54
 msgid "users"
 msgstr "përdoruesit"
 
@@ -4969,11 +5067,19 @@ msgstr ""
 msgid "{{info_request_user_name}} only:"
 msgstr "Vetëm për {{info_request_user_name}}:"
 
+#: app/models/info_request.rb:239
+msgid "{{law_used_full}} request - {{title}}"
+msgstr ""
+
+#: app/models/info_request.rb:237
+msgid "{{law_used_full}} request GQ - {{title}}"
+msgstr ""
+
 #: app/views/general/frontpage.rhtml:62
 msgid "{{length_of_time}} ago"
 msgstr "{{length_of_time}} më parë"
 
-#: app/models/track_thing.rb:122
+#: app/models/track_thing.rb:121
 msgid "{{list_of_things}} matching text '{{search_query}}'"
 msgstr "{{list_of_things}} që përputhen me tekstin '{{search_query}}'"
 
@@ -4989,7 +5095,7 @@ msgstr "Vetëm për {{public_body_name}}:"
 msgid "{{public_body}} sent a response to {{user_name}}"
 msgstr "{{public_body}} dërgoi një përgjigje për {{user_name}}"
 
-#: app/controllers/user_controller.rb:43
+#: app/controllers/user_controller.rb:54
 msgid "{{search_results}} matching '{{query}}'"
 msgstr "{{search_results}} që përputhen me '{{query}}'"
 
@@ -5020,8 +5126,8 @@ msgstr ""
 "Përdoruesit e {{site_name}} kanë bërë {{number_of_requests}} kërkesa, duke "
 "përfshirë:"
 
-#: app/models/user.rb:133
-msgid "{{user_name}} (Banned)"
+#: app/models/user.rb:136
+msgid "{{user_name}} (Account suspended)"
 msgstr "{{user_name}} (Përjashtuar)"
 
 #: app/views/track_mailer/event_digest.rhtml:31
@@ -5067,4 +5173,5 @@ msgstr ""
 #: app/views/request/show.rhtml:44
 msgid "{{user}} made this {{law_used_full}} request"
 msgstr "{{user}} bëri këtë kërkesë"
+
 

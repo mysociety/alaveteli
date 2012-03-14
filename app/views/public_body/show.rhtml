@@ -1,123 +1,123 @@
 <% @title = h(@public_body.name) + _(" - view and make Freedom of Information requests") %>
 <div id="main_content">
-  <div id="header_right">
+    <div id="header_right">
       <h2><%= _('Follow this authority')%></h2>
 
-    <% follower_count = TrackThing.count(:all, :conditions => ["public_body_id = ?", @public_body.id]) %>
-    <p><%= n_("There is %d person following this authority", "There are %d people following this authority", follower_count) % follower_count %></p>
+      <% follower_count = TrackThing.count(:all, :conditions => ["public_body_id = ?", @public_body.id]) %>
+      <p><%= n_("There is %d person following this authority", "There are %d people following this authority", follower_count) % follower_count %></p>
 
-      <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => false, :location => 'sidebar' } %>
-      <h2><%= _('More about this authority')%></h2>
-      <% if !@public_body.calculated_home_page.nil? %>
-          <%= link_to _('Home page of authority'), @public_body.calculated_home_page %><br>
-      <% end %>
-      <% if !@public_body.publication_scheme.empty? %>
-          <%= link_to _('Publication scheme'), @public_body.publication_scheme %><br>
-      <% end %>
-      <% if @public_body.has_tag?("charity") %>
-          <% for tag_value in @public_body.get_tag_values("charity") %>
-              <% if tag_value.match(/^SC/) %>
-                  <%= link_to _('Charity registration'), "http://www.oscr.org.uk/CharityIndexDetails.aspx?id=" + tag_value %><br>
-              <% else %>
-                  <%= link_to _('Charity registration'), "http://www.charity-commission.gov.uk/SHOWCHARITY/RegisterOfCharities/CharityFramework.aspx?RegisteredCharityNumber=" + tag_value %><br>
-              <% end %>
-          <% end %>
-      <% end %>
-      <%= link_to _('View FOI email address'), view_public_body_email_url(@public_body.url_name) %><br>
-  </div> 
-
-  <div id="header_left">
-    <p class="public-body-name-prefix"><%= _("Freedom of information requests to") %></p>
-    <h1><%=h(@public_body.name)%></h1>
-
-    <p class="subtitle">
-    <%=@public_body.type_of_authority(true)%><% if not @public_body.short_name.empty? %>, 
-    <%= _('also called {{public_body_short_name}}', :public_body_short_name =>  h(@public_body.short_name))%><% end %>
-    <% if !@user.nil? && @user.admin_page_links? %>
-    (<%= link_to _("admin"), public_body_admin_url(@public_body) %>)
-    <% end %>
-    </p>
-
-    <% if @public_body.has_notes? && (@public_body.is_requestable? || @public_body.not_requestable_reason == 'bad_contact') %>
-        <p><%= @public_body.notes_as_html %></p>
-    <% end %>
-
-    <% if @public_body.eir_only? %>
-        <p><%= _('You can only request information about the environment from this authority.')%></p>
-    <% end %>
-
-    <div id="stepwise_make_request">
-        <% if @public_body.is_requestable? || @public_body.not_requestable_reason == 'bad_contact' %>
-            <% if @public_body.eir_only? %>
-    	        <%= _('Make a new <strong>Environmental Information</strong> request')%>
-            <% else %>
-    	        <%= _('Make a new <strong>Freedom of Information</strong> request to {{public_body}}', :public_body => h(@public_body.name))%>
+        <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => false, :location => 'sidebar' } %>
+        <h2><%= _('More about this authority')%></h2>
+        <% if !@public_body.calculated_home_page.nil? %>
+            <%= link_to _('Home page of authority'), @public_body.calculated_home_page %><br>
+        <% end %>
+        <% if !@public_body.publication_scheme.empty? %>
+            <%= link_to _('Publication scheme'), @public_body.publication_scheme %><br>
+        <% end %>
+        <% if @public_body.has_tag?("charity") %>
+            <% for tag_value in @public_body.get_tag_values("charity") %>
+                <% if tag_value.match(/^SC/) %>
+                    <%= link_to _('Charity registration'), "http://www.oscr.org.uk/CharityIndexDetails.aspx?id=" + tag_value %><br>
+                <% else %>
+                    <%= link_to _('Charity registration'), "http://www.charity-commission.gov.uk/SHOWCHARITY/RegisterOfCharities/CharityFramework.aspx?RegisteredCharityNumber=" + tag_value %><br>
+                <% end %>
             <% end %>
-            &nbsp;<%= _('<a class="link_button_green" href="{{url}}">{{text}}</a>', :url=>new_request_to_body_url(:url_name => @public_body.url_name), :text=>_("Start"))%>
-        <% elsif @public_body.has_notes? %>
-            <%= @public_body.notes_as_html %>
-        <% elsif @public_body.not_requestable_reason == 'not_apply' %>
-            <%= _('Freedom of Information law does not apply to this authority, so you cannot make
-            a request to it.')%>
-        <% elsif @public_body.not_requestable_reason == 'defunct' %>
-            <%= _('This authority no longer exists, so you cannot make a request to it.')%>
-        <% else %>
-            <%= _('For an unknown reason, it is not possible to make a request to this authority.')%>
         <% end %>
+        <%= link_to _('View FOI email address'), view_public_body_email_url(@public_body.url_name) %><br>
+    </div> 
+
+    <div id="header_left">
+        <p class="public-body-name-prefix"><%= _("Freedom of information requests to") %></p>
+        <h1><%=h(@public_body.name)%></h1>
+
+        <p class="subtitle">
+        <%=@public_body.type_of_authority(true)%><% if not @public_body.short_name.empty? %>, 
+        <%= _('also called {{public_body_short_name}}', :public_body_short_name =>  h(@public_body.short_name))%><% end %>
+        <% if !@user.nil? && @user.admin_page_links? %>
+        (<%= link_to _("admin"), public_body_admin_url(@public_body) %>)
+        <% end %>
+        </p>
+
+        <% if @public_body.has_notes? && (@public_body.is_requestable? || @public_body.not_requestable_reason == 'bad_contact') %>
+            <p><%= @public_body.notes_as_html %></p>
+        <% end %>
+
+        <% if @public_body.eir_only? %>
+            <p><%= _('You can only request information about the environment from this authority.')%></p>
+        <% end %>
+
+        <div id="stepwise_make_request">
+            <% if @public_body.is_requestable? || @public_body.not_requestable_reason == 'bad_contact' %>
+                <% if @public_body.eir_only? %>
+                    <%= _('Make a new <strong>Environmental Information</strong> request')%>
+                <% else %>
+                    <%= _('Make a new <strong>Freedom of Information</strong> request to {{public_body}}', :public_body => h(@public_body.name))%>
+                <% end %>
+                &nbsp;<%= _('<a class="link_button_green" href="{{url}}">{{text}}</a>', :url=>new_request_to_body_url(:url_name => @public_body.url_name), :text=>_("Start"))%>
+            <% elsif @public_body.has_notes? %>
+                <%= @public_body.notes_as_html %>
+            <% elsif @public_body.not_requestable_reason == 'not_apply' %>
+                <%= _('Freedom of Information law does not apply to this authority, so you cannot make
+                a request to it.')%>
+            <% elsif @public_body.not_requestable_reason == 'defunct' %>
+                <%= _('This authority no longer exists, so you cannot make a request to it.')%>
+            <% else %>
+                <%= _('For an unknown reason, it is not possible to make a request to this authority.')%>
+            <% end %>
+        </div>
     </div>
-  </div>
 
-  <div id="foi_results_section">
-   <% if @public_body.info_requests.size == 0 %>
-        <% if @public_body.eir_only? %>
-            <h2><%= _('Environmental Information Regulations requests made using this site') %></h2>
-            <p>Nobody has made any Environmental Information Regulations requests to <%=h(@public_body.name)%> using this site yet.</p>
+    <div id="foi_results_section">
+       <% if @public_body.info_requests.size == 0 %>
+            <% if @public_body.eir_only? %>
+                <h2><%= _('Environmental Information Regulations requests made using this site') %></h2>
+                <p>Nobody has made any Environmental Information Regulations requests to <%=h(@public_body.name)%> using this site yet.</p>
+            <% else %>
+                <h2><%= _('Freedom of Information requests made using this site')%></h2>
+                <p><%= _('Nobody has made any Freedom of Information requests to {{public_body_name}} using this site yet.', :public_body_name => h(@public_body.name))%></p>
+            <% end %>
         <% else %>
-            <h2><%= _('Freedom of Information requests made using this site')%></h2>
-            <p><%= _('Nobody has made any Freedom of Information requests to {{public_body_name}} using this site yet.', :public_body_name => h(@public_body.name))%></p>
+            <h2 class="foi_results">
+                <% if @public_body.eir_only? %>
+                    <%= pluralize(@public_body.info_requests.size, "Environmental Information Regulations request made using this site") %>
+                <% else %>
+               <% if  @public_body.info_requests.size > 4 %>
+                <%= n_('Search within the %d Freedom of Information requests to %s', 'Search within the %d Freedom of Information requests made to %s', @public_body.info_requests.size) % [@public_body.info_requests.size, @public_body.name] %>
+                   <% else %>
+                  <%= n_('%d Freedom of Information request to %s', '%d Freedom of Information requests to %s', @public_body.info_requests.size) % [@public_body.info_requests.size, @public_body.name] %>
+               <% end %>
+                <% end %>
+                <%= @page_desc %>
+            </h2>
+            <a name="results"></a>
+    
+            <% if  @public_body.info_requests.size > 4 %>
+                <%= render :partial => 'request/request_filter_form' %>
+            <% end %>
         <% end %>
-    <% else %>
-	<h2 class="foi_results">
-        <% if @public_body.eir_only? %>
-            <%= pluralize(@public_body.info_requests.size, "Environmental Information Regulations request made using this site") %>
-        <% else %>
-	   <% if  @public_body.info_requests.size > 4 %>
-		<%= n_('Search within the %d Freedom of Information requests to %s', 'Search within the %d Freedom of Information requests made to %s', @public_body.info_requests.size) % [@public_body.info_requests.size, @public_body.name] %>
-           <% else %>
-	      <%= n_('%d Freedom of Information request to %s', '%d Freedom of Information requests to %s', @public_body.info_requests.size) % [@public_body.info_requests.size, @public_body.name] %>
-	   <% end %>
-        <% end %>
-        <%= @page_desc %>
-        </h2>
-        <a name="results"></a>
-	
-        <% if  @public_body.info_requests.size > 4 %>
-         <%= render :partial => 'request/request_filter_form' %>
-	<% end %>
-    <% end %>
 
-    <div style="clear:both">&nbsp;</div>
-    <% if !@xapian_requests.nil? %>
+        <div style="clear:both">&nbsp;</div>
+        <% if !@xapian_requests.nil? %>
 
             <% for result in @xapian_requests.results %>
                 <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result[:model], :info_request => result[:model].info_request } %>
             <% end %>
 
-            <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @public_body.info_requests.size) %>
+            <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @xapian_requests.matches_estimated) %>
 
-    	<% if @xapian_requests.results.empty? %>
-      	  <p><% _('There were no requests matching your query.') %></p>
-    	<% else %>
-              <p> <%= _('Only requests made using {{site_name}} are shown.', :site_name => site_name) %></p>
-    	<% end %>
+            <% if @xapian_requests.results.empty? %>
+                <p><% _('There were no requests matching your query.') %></p>
+            <% else %>
+                  <p> <%= _('Only requests made using {{site_name}} are shown.', :site_name => site_name) %></p>
+            <% end %>
 
-    <% else %> 
-        <% if @public_body.eir_only? %>
-            <h2><%= _('Environmental Information Regulations requests made') %></h2>
-        <% else %>
-            <h2> <%= _('Freedom of Information requests made')%></h2>
+        <% else %> 
+            <% if @public_body.eir_only? %>
+                <h2><%= _('Environmental Information Regulations requests made') %></h2>
+            <% else %>
+                <h2> <%= _('Freedom of Information requests made')%></h2>
+            <% end %>
+            <p> <%= _('The search index is currently offline, so we can\'t show the Freedom of Information requests that have been made to this authority.')%></p>
         <% end %>
-        <p> <%= _('The search index is currently offline, so we can\'t show the Freedom of Information requests that have been made to this authority.')%></p>
-    <% end %>
     </div>
 </div>

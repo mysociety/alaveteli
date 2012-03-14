@@ -47,12 +47,12 @@
                 <% end %>
             </div>
 
-            <div id="request_header_text">    
             <% if @info_request.public_body.has_notes? %>
+              <div id="request_header_text">    
                 <h3><%= _('Special note for this authority!') %></h3>
                 <p><%= @info_request.public_body.notes_as_html %></p>
+              </div>
             <% end %>
-        </div>
 
         <% if @info_request.public_body.eir_only? %>
             <h3><%= _('Please ask for environmental information only') %></h3>

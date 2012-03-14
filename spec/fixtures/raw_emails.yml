@@ -1,2 +1,20 @@
-useless_raw_email: 
+# The actual email messages are in fixtures/files/raw_emails
+#
+# Note that the words "money" and "bob" are used in some tests
+# of the search functions, so if you use either of these words
+# in the email text then some tests will have to be updated.
+
+useless_raw_email:
   id: 1
+
+useful_raw_email:
+  id: 2
+
+another_useful_raw_email:
+  id: 3
+
+spam_1_raw_email:
+  id: 4
+
+spam_2_raw_email:
+  id: 5

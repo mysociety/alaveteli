@@ -57,7 +57,7 @@ class IncomingMessage < ActiveRecord::Base
     validates_presence_of :raw_email
 
     has_many :outgoing_message_followups, :foreign_key => 'incoming_message_followup_id', :class_name => 'OutgoingMessage'
-    has_many :foi_attachments
+    has_many :foi_attachments, :order => 'id'
     has_many :info_request_events # never really has many, but could in theory
 
     belongs_to :raw_email
@@ -127,6 +127,9 @@ class IncomingMessage < ActiveRecord::Base
         # The following fields may be absent; we treat them as cached
         # values in case we want to regenerate them (due to mail
         # parsing bugs, etc).
+        if self.raw_email.nil?
+            raise "Incoming message id=#{id} has no raw_email"
+        end
         if (!force.nil? || self.last_parsed.nil?)
             ActiveRecord::Base.transaction do
                 self.extract_attachments!
@@ -770,12 +773,12 @@ class IncomingMessage < ActiveRecord::Base
         # which is really messy.
         ensure_parts_counted
         attachments = []
-        for leaf in leaves            
+        for leaf in leaves
             body = leaf.body
             # As leaf.body causes MIME decoding which uses lots of RAM, do garbage collection here
             # to prevent excess memory use. XXX not really sure if this helps reduce
             # peak RAM use overall. Anyway, maybe there is something better to do than this.
-            GC.start             
+            GC.start
             if leaf.within_rfc822_attachment
                 within_rfc822_subject = leaf.within_rfc822_attachment.subject
                 # Test to see if we are in the first part of the attached

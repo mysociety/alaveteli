@@ -275,26 +275,18 @@ class PublicBody < ActiveRecord::Base
             ret = ret + types[-1]
             return ret
         else
-            return "A public authority"
+            return _("A public authority")
         end
     end
 
     # Guess home page from the request email, or use explicit override, or nil
     # if not known.
     def calculated_home_page
-        # manual override for ones we calculate wrongly
-        if self.home_page != ''
-            return self.home_page
+        if home_page && !home_page.empty?
+            home_page[URI::regexp(%w(http https))] ? home_page : "http://#{home_page}"
+        elsif request_email_domain
+            "http://www.#{request_email_domain}"
         end
-
-        # extract the domain name from the FOI request email
-        url = self.request_email_domain
-        if url.nil?
-            return nil
-        end
-
-        # add standard URL prefix
-        return "http://www." + url
     end
 
     # Are all requests to this body under the Environmental Information Regulations?
@@ -395,7 +387,7 @@ class PublicBody < ActiveRecord::Base
                     
                     field_list = ['name', 'short_name', 'request_email', 'notes', 'publication_scheme', 'home_page', 'tag_string']
 
-                    if public_body = bodies_by_name[name]   # Existing public body                        
+                    if public_body = bodies_by_name[name]   # Existing public body
                         available_locales.each do |locale|
                             PublicBody.with_locale(locale) do
                                 changed = ActiveSupport::OrderedHash.new

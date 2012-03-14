@@ -2,11 +2,10 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe IncomingMessage, " when dealing with incoming mail" do
-    fixtures :users, :raw_emails, :public_bodies, :public_body_translations, :public_body_versions, :info_requests, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
     before(:each) do
         @im = incoming_messages(:useless_incoming_message)
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
     end
 
     after(:all) do
@@ -191,7 +190,6 @@ describe IncomingMessage, " checking validity to reply to" do
 end
 
 describe IncomingMessage, " checking validity to reply to with real emails" do
-    fixtures :users, :raw_emails, :public_bodies, :public_body_translations, :info_requests, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
     after(:all) do
         ActionMailer::Base.deliveries.clear
@@ -215,7 +213,6 @@ describe IncomingMessage, " checking validity to reply to with real emails" do
 end
 
 describe IncomingMessage, " when censoring data" do
-    fixtures :users, :raw_emails, :public_bodies, :public_body_translations, :public_body_versions, :info_requests, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
     before(:each) do
         @test_data = "There was a mouse called Stilton, he wished that he was blue."
@@ -236,7 +233,7 @@ describe IncomingMessage, " when censoring data" do
         @censor_rule_2.last_edit_comment = "none"
         @im.info_request.censor_rules << @censor_rule_2
 
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
     end
 
     it "should do nothing to a JPEG" do
@@ -323,7 +320,6 @@ describe IncomingMessage, " when censoring data" do
 end
 
 describe IncomingMessage, " when censoring whole users" do
-    fixtures :users, :raw_emails, :public_bodies, :public_body_translations, :public_body_versions, :info_requests, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
     before(:each) do
         @test_data = "There was a mouse called Stilton, he wished that he was blue."
@@ -336,7 +332,7 @@ describe IncomingMessage, " when censoring whole users" do
         @censor_rule_1.last_edit_editor = "unknown"
         @censor_rule_1.last_edit_comment = "none"
         @im.info_request.user.censor_rules << @censor_rule_1
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
     end
 
     it "should apply censor rules to HTML files" do
@@ -354,10 +350,9 @@ end
 
 
 describe IncomingMessage, " when uudecoding bad messages" do
-    fixtures :incoming_messages, :raw_emails, :public_bodies, :public_body_translations, :info_requests, :users, :foi_attachments
 
     before(:each) do
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
     end
 
     it "should be able to do it at all" do
@@ -367,6 +362,7 @@ describe IncomingMessage, " when uudecoding bad messages" do
         im = incoming_messages(:useless_incoming_message)
         im.stub!(:mail).and_return(mail)
         im.extract_attachments!
+        
         attachments = im.foi_attachments
         attachments.size.should == 2
         attachments[1].filename.should == 'moo.txt'
@@ -390,18 +386,17 @@ describe IncomingMessage, " when uudecoding bad messages" do
         ir.censor_rules << @censor_rule
         im.extract_attachments!
 
-        attachments = im.get_attachments_for_display
-        attachments.size.should == 1
-        attachments[0].display_filename.should == 'bah.txt'
+        im.get_attachments_for_display.map(&:display_filename).should == [
+            'bah.txt',
+        ]
     end
 
 end
 
 describe IncomingMessage, "when messages are attached to messages" do
-    fixtures :incoming_messages, :raw_emails, :public_bodies, :public_body_translations, :info_requests, :users, :foi_attachments
 
     before(:each) do
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
     end
 
     it "should flatten all the attachments out" do
@@ -415,18 +410,18 @@ describe IncomingMessage, "when messages are attached to messages" do
         im.extract_attachments!
 
         attachments = im.get_attachments_for_display
-        attachments.size.should == 3
-        attachments[0].display_filename.should == 'Same attachment twice.txt'
-        attachments[1].display_filename.should == 'hello.txt'
-        attachments[2].display_filename.should == 'hello.txt'
+        attachments.map(&:display_filename).should == [
+            'Same attachment twice.txt',
+            'hello.txt',
+            'hello.txt',
+        ]
     end
 end
 
 describe IncomingMessage, "when Outlook messages are attached to messages" do
-    fixtures :incoming_messages, :raw_emails, :public_bodies, :public_body_translations, :info_requests, :users, :foi_attachments
 
     before(:each) do
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
     end
 
     it "should flatten all the attachments out" do
@@ -438,18 +433,17 @@ describe IncomingMessage, "when Outlook messages are attached to messages" do
         im.stub!(:mail).and_return(mail)
         im.extract_attachments!
 
-        attachments = im.get_attachments_for_display
-        attachments.size.should == 2
-        attachments[0].display_filename.should == 'test.html' # picks HTML rather than text by default, as likely to render better
-        attachments[1].display_filename.should == 'attach.txt'
+        im.get_attachments_for_display.map(&:display_filename).should == [
+            'test.html',  # picks HTML rather than text by default, as likely to render better
+            'attach.txt',
+        ]
     end
 end
 
 describe IncomingMessage, "when TNEF attachments are attached to messages" do
-    fixtures :incoming_messages, :raw_emails, :public_bodies, :public_body_translations, :info_requests, :users, :foi_attachments
 
     before(:each) do
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
     end
 
     it "should flatten all the attachments out" do
@@ -461,12 +455,10 @@ describe IncomingMessage, "when TNEF attachments are attached to messages" do
         im.stub!(:mail).and_return(mail)
         im.extract_attachments!
 
-        attachments = im.get_attachments_for_display
-        attachments.size.should == 2
-        attachments[0].display_filename.should == 'FOI 09 02976i.doc'
-        attachments[1].display_filename.should == 'FOI 09 02976iii.doc'
+        im.get_attachments_for_display.map(&:display_filename).should == [
+            'FOI 09 02976i.doc',
+            'FOI 09 02976iii.doc',
+        ]
     end
 end
-
-
 

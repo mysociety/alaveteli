@@ -178,14 +178,13 @@ class ApplicationController < ActionController::Base
     end
 
     def foi_fragment_cache_path(param)
-        path = foi_fragment_cache_part_path(param)
-        path = "/views" + path
-        foi_cache_path = File.join(File.dirname(__FILE__), '../../cache')
+        path = File.join(RAILS_ROOT, 'cache', 'views', foi_fragment_cache_part_path(param))
         max_file_length = 255 - 35 # we subtract 35 because tempfile
                                    # adds on a variable number of
                                    # characters
-        return File.join(foi_cache_path, path)[0...max_file_length]
+        return File.join(File.split(path).map{|x| x[0...max_file_length]})
     end
+
     def foi_fragment_cache_all_for_request(info_request)
         # return stub path so admin can expire it
         first_three_digits = info_request.id.to_s()[0..2]
@@ -295,6 +294,7 @@ class ApplicationController < ActionController::Base
         if params[:post_redirect] and session[:post_redirect_token]
             post_redirect = PostRedirect.find_by_token(session[:post_redirect_token])
             params.update(post_redirect.post_params)
+            params[:post_redirect_user] = post_redirect.user
         end
     end
 
@@ -355,9 +355,7 @@ class ApplicationController < ActionController::Base
         @sortby = sortby
 
         # Work out sorting method
-        order_pair = order_to_sort_by(@sortby)
-        order = order_pair[0]
-        ascending = order_pair[1]
+        order, ascending = order_to_sort_by(@sortby)
 
         # Peform the search
         @per_page = per_page
@@ -366,7 +364,10 @@ class ApplicationController < ActionController::Base
         else
             @page = this_page
         end
-        return InfoRequest.full_search(models, @query, order, ascending, collapse, @per_page, @page) 
+        result = InfoRequest.full_search(models, @query, order, ascending, collapse, @per_page, @page)
+        result.results # Touch the results to load them, otherwise accessing them from the view
+                       # might fail later if the database has subsequently been reopened.
+        return result
     end
     def get_search_page_from_params
         return (params[:page] || "1").to_i

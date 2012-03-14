@@ -53,3 +53,16 @@ unconfirmed_user:
   admin_level: 'none'
   ban_text: ''
   about_me: ''
+robin_user:
+  id: 5
+  name: Robin Houston
+  url_name: robin_houston
+  email: robin@localhost
+  salt: "-6116981980.392287733335677"
+  hashed_password: 6b7cd45a5f35fd83febc0452a799530398bfb6e8 # jonespassword
+  updated_at: 2012-01-01 10:39:15.491593
+  created_at: 2012-01-01 10:39:15.491593
+  email_confirmed: true
+  admin_level: 'none'
+  ban_text: ''
+  about_me: 'I am the best'

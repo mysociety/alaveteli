@@ -55,10 +55,9 @@ describe InfoRequestEvent do
     end
 
     describe "doing search/index stuff" do 
-        fixtures :public_bodies, :public_body_translations, :public_body_versions, :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
 
         before(:each) do
-            load_raw_emails_data(raw_emails)
+            load_raw_emails_data
             parse_all_incoming_messages
         end
 

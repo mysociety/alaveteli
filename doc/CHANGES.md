@@ -1,3 +1,49 @@
+# Next version
+
+## Highlighted features
+
+* Ruby dependencies are now handled by Bundler
+
+## Upgrade notes
+
+* Existing installations will need to install the Bundler gem.  See
+  `INSTALL.md` for details.
+
+* Because dependencies are now handled by Bundler, when you next run
+  the `rails-post-deploy` script, it will download, compile and
+  install various things.  Part of this is compiling xapian, which may
+  take a *long* time (subsequent deployments should be much faster)
+
+# Version 0.5.1
+
+## Highlighted features
+
+This release was mainly to address issue #418, a regression introduced
+in 0.5, which was causing deployment problems:
+
+* Setting `STAGING_SITE: 0` in `general.yml` and running
+  `script/rails-post-deploy` will ensure the correct behaviour in
+  production environments
+* It should now be safe to run `rake spec` on a production server
+
+There is one minor new feature in this release: 
+
+* Administrators can follow the auto-login URLs forwarded in emails
+  from users who want support, and they will remain logged in as
+  themselves.
+
+We now have a most of a Czech translation (thanks Josef Pospisil!)
+
+Finally, this release also addresses a number of small bugs, including
+the (potentially) important issue #408.
+
+As usual, there is a [full list of changes on github](https://github.com/sebbacon/alaveteli/issues?milestone=9&state=closed)
+
+## Upgrade notes
+
+* On a production server, ensure that `STAGING_SITE` is set to `0`,
+  and then run `script/rails-post-deploy` as usual.
+
 # Version 0.5
 
 ## Highlighted features
@@ -6,6 +52,7 @@
 * It is now possible to rebuild the xapian index for specific terms, rather than having to drop and rebuild the entire database every time (as previously).  See rake xapian:rebuild_index for more info. 
 * When listing authorities, show all authorities in default locale, rather than only those in the currently selected locale.
 * Ensure incoming emails are only ever parsed once (should give a performance boost)
+* Added a simple rate-limiting feature: restrict the number of requests users can make per day, except if explicitly unrestricted in the admin interface
 * [Full list of changes on github](https://github.com/sebbacon/alaveteli/issues?state=closed&milestone=9)
 
 ## Upgrade notes
@@ -19,6 +66,7 @@
 * Ensure you have values for new config variables (see `config/general.yml-example`):
   * EXCEPTION_NOTIFICATIONS_FROM
   * EXCEPTION_NOTIFICATIONS_TO
+* The new optional config variable MAX_REQUESTS_PER_USER_PER_DAY can be set to limit the number of requests each user can make per day.
 * The recommended Varnish config has changed, so that we ignore more cookies.  You should review your Varnish config with respect to the example at `config/varnish-alaveteli.vcl`.
 * Consider setting elinks global config as described in the "Troubleshooting" section of INSTALL.md
 

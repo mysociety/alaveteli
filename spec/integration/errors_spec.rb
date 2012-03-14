@@ -2,22 +2,8 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe "When rendering errors" do
 
-    fixtures [
-      :users,
-      :public_bodies,
-      :public_body_translations,
-      :public_body_versions,
-      :info_requests,
-      :raw_emails,
-      :outgoing_messages,
-      :incoming_messages,
-      :comments,
-      :info_request_events,
-      :track_things,
-    ]
-
     before(:each) do
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
         ActionController::Base.consider_all_requests_local = false
     end
 

@@ -1,16 +1,14 @@
 # coding: utf-8
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-require 'json'
-
 # XXX Use route_for or params_from to check /c/ links better
 # http://rspec.rubyforge.org/rspec-rails/1.1.12/classes/Spec/Rails/Example/ControllerExampleGroup.html
 
 describe UserController, "when showing a user" do
     integrate_views
-    fixtures :users, :public_bodies, :public_body_translations, :public_body_versions, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
     before(:each) do
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
+        rebuild_xapian_index
     end
    
     it "should be successful" do
@@ -45,22 +43,28 @@ describe UserController, "when showing a user" do
 
     it "should search the user's contributions" do
         get :show, :url_name => "bob_smith"
-        assigns[:xapian_requests].results.count.should == 3
+        assigns[:xapian_requests].results.map{|x|x[:model].info_request}.should =~ InfoRequest.all(
+            :conditions => "user_id = #{users(:bob_smith_user).id}")
+        
         get :show, :url_name => "bob_smith", :user_query => "money"
-        assigns[:xapian_requests].results.count.should == 1
+        assigns[:xapian_requests].results.map{|x|x[:model].info_request}.should =~ [
+            info_requests(:naughty_chicken_request),
+            info_requests(:another_boring_request),
+        ]
     end
 
-# Error handling not quite good enough for this yet
-#    it "should not show unconfirmed users" do
-#        get :show, :url_name => "silly_emnameem"
-#        assigns[:display_users].should == [ users(:silly_name_user) ]
-#    end
+    it "should not show unconfirmed users" do
+        begin
+            get :show, :url_name => "unconfirmed_user"
+        rescue => e
+        end
+        e.should be_an_instance_of(ActiveRecord::RecordNotFound)
+    end
 
 end
 
 describe UserController, "when signing in" do
     integrate_views
-    fixtures :users
 
     def get_last_postredirect
         post_redirects = PostRedirect.find_by_sql("select * from post_redirects order by id desc limit 1")
@@ -184,11 +188,47 @@ describe UserController, "when signing in" do
         ActionController::Routing::Routes.filters = old_filters
     end
 
+    it "should keep you logged in if you click a confirmation link and are already logged in as an admin" do
+        old_filters = ActionController::Routing::Routes.filters
+        ActionController::Routing::Routes.filters = RoutingFilter::Chain.new
+
+        get :signin, :r => "/list"
+        post_redirect = get_last_postredirect
+
+        post :signin, { :user_signin => { :email => 'unconfirmed@localhost', :password => 'jonespassword' },
+            :token => post_redirect.token
+        }
+        response.should send_email
+
+        deliveries = ActionMailer::Base.deliveries
+        deliveries.size.should  == 1
+        mail = deliveries[0]
+        mail.body =~ /(http:\/\/.*(\/c\/(.*)))/
+        mail_url = $1
+        mail_path = $2
+        mail_token = $3
+
+        # check is right confirmation URL
+        mail_token.should == post_redirect.email_token
+        params_from(:get, mail_path).should == { :controller => 'user', :action => 'confirm', :email_token => mail_token }
+
+        # Log in as an admin
+        session[:user_id] = users(:admin_user).id
+
+        # Get the confirmation URL, and check we’re still Joe
+        get :confirm, :email_token => post_redirect.email_token
+        session[:user_id].should == users(:admin_user).id
+        
+        # And the redirect should still work, of course
+        response.should redirect_to(:controller => 'request', :action => 'list', :post_redirect => 1)
+
+        ActionController::Routing::Routes.filters = old_filters
+    end
+
 end
 
 describe UserController, "when signing up" do
     integrate_views
-    fixtures :users
 
     it "should be an error if you type the password differently each time" do
         post :signup, { :user_signup => { :email => 'new@localhost', :name => 'New Person',
@@ -228,7 +268,7 @@ describe UserController, "when signing up" do
         deliveries[0].body.should include("No revelaremos su dirección de correo")
     end
 
-    it "should send special 'already signed up' mail if you fill the form in with existing registered email " do
+    it "should send special 'already signed up' mail if you fill the form in with existing registered email" do
         post :signup, { :user_signup => { :email => 'silly@localhost', :name => 'New Person',
             :password => 'sillypassword', :password_confirmation => 'sillypassword' } 
         }
@@ -246,7 +286,6 @@ end
 
 describe UserController, "when signing out" do
     integrate_views
-    fixtures :users
 
     it "should log you out and redirect to the home page" do
         session[:user_id] = users(:bob_smith_user).id
@@ -271,7 +310,6 @@ end
 
 describe UserController, "when sending another user a message" do
     integrate_views
-    fixtures :users
 
     it "should redirect to signin page if you go to the contact form and aren't signed in" do
         get :contact, :id => users(:silly_name_user)
@@ -309,7 +347,6 @@ end
 
 describe UserController, "when changing password" do
     integrate_views
-    fixtures :users
 
     it "should show the email form when not logged in" do
         get :signchangepassword
@@ -380,7 +417,6 @@ end
 
 describe UserController, "when changing email address" do
     integrate_views
-    fixtures :users
 
     it "should require login" do
         get :signchangeemail
@@ -526,7 +562,6 @@ end
 
 describe UserController, "when using profile photos" do
     integrate_views
-    fixtures :users
 
     before do
         @user = users(:bob_smith_user)
@@ -540,6 +575,13 @@ describe UserController, "when using profile photos" do
     
     it "should not let you change profile photo if you're not logged in as the user" do
         post :set_profile_photo, { :id => @user.id, :file => @uploadedfile, :submitted_draft_profile_photo => 1, :automatically_crop => 1 } 
+    end
+
+    it "should return a 404 not a 500 when a profile photo has not been set" do
+        @user.profile_photo.should be_nil
+        lambda {
+            get :get_profile_photo, {:url_name => @user.url_name }
+        }.should raise_error(ActiveRecord::RecordNotFound)
     end
 
     it "should let you change profile photo if you're logged in as the user" do
@@ -575,8 +617,6 @@ describe UserController, "when using profile photos" do
 end
 
 describe UserController, "when showing JSON version for API" do
-    
-    fixtures :users
   
     it "should be successful" do
         get :show, :url_name => "bob_smith", :format => "json"

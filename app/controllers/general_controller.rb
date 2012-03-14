@@ -45,20 +45,21 @@ class GeneralController < ApplicationController
                          :joins => :translations)
                 end
             end
-            # Get some successful requests #
+            # Get some successful requests
             begin
                 query = 'variety:response (status:successful OR status:partially_successful)'
-                # query = 'variety:response' # XXX debug
-                sortby = "described"
+                sortby = "newest"
                 max_count = 5
                 xapian_object = perform_search([InfoRequestEvent], query, sortby, 'request_title_collapse', max_count)
                 @request_events = xapian_object.results.map { |r| r[:model] }
-                @request_events = @request_events.sort_by { |e| e.described_at }.reverse
+                
+                # If there are not yet enough successful requests, fill out the list with
+                # other requests
                 if @request_events.count < max_count
                     query = 'variety:sent'
                     xapian_object = perform_search([InfoRequestEvent], query, sortby, 'request_title_collapse', max_count-@request_events.count)
                     more_events = xapian_object.results.map { |r| r[:model] }
-                    @request_events += more_events.sort_by { |e| e.described_at }.reverse
+                    @request_events += more_events
                 end
             rescue
                 @request_events = []
@@ -86,34 +87,19 @@ class GeneralController < ApplicationController
 
     # Just does a redirect from ?query= search to /query
     def search_redirect
-        if params[:advanced].nil?
-            @query, _ = make_query_from_params
-        else
-            @query, _ = params[:query]
-        end
-        @sortby = params[:sortby]
-        path = request.path.split("/")
-        if path.size > 0 && (['newest', 'described', 'relevant'].include?(path[-1]))
-            @sort_postfix = path.pop
-        end
-        if path.size > 0 && (['bodies', 'requests', 'users', 'all'].include?(path[-1]))
-            @variety_postfix = path.pop
-        end
-        @variety_postfix = "bodies" if @variety_postfix.nil? && !params[:bodies].nil?
-        @variety_postfix = "all" if @variety_postfix.nil?
-        if @variety_postfix != "users"
-            @common_query = get_tags_from_params
-        end
-        [:latest_status, :request_variety, :request_date_after, :request_date_before, :query, :tags].each do |x| 
-            session[x] = params[x]
-        end
+        @query = params.delete(:query)
         if @query.nil? || @query.empty?
             @query = nil
             @page = 1
             @advanced = !params[:advanced].nil?
             render :action => "search"
         else
-            redirect_to search_url(@query, @variety_postfix, @sort_postfix, params[:advanced])
+            query_parts = @query.split("/")
+            if !['bodies', 'requests', 'users', 'all'].include?(query_parts[-1])
+                redirect_to search_url([@query, "all"], params)
+            else                
+                redirect_to search_url(@query, params)
+            end
         end
     end
 
@@ -121,13 +107,6 @@ class GeneralController < ApplicationController
     def search
         # XXX Why is this so complicated with arrays and stuff? Look at the route
         # in config/routes.rb for comments.
-        if !params[:commit].nil?
-            search_redirect
-            return
-        end
-        [:latest_status, :request_variety, :request_date_after, :request_date_before, :query, :tags].each do |x|
-            params[x] = session[x] if params[x].nil?
-        end
         combined = params[:combined]
         @sortby = nil
         @bodies = @requests = @users = true

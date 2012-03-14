@@ -2,11 +2,10 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe AdminRequestController, "when administering requests" do
     integrate_views
-    fixtures :users, :public_bodies, :public_body_translations, :public_body_versions, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
     before { basic_auth_login @request }
 
     before(:each) do
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
         @old_filters = ActionController::Routing::Routes.filters
         ActionController::Routing::Routes.filters = RoutingFilter::Chain.new
     end
@@ -50,10 +49,9 @@ end
 
 describe AdminRequestController, "when administering the holding pen" do
     integrate_views
-    fixtures :users, :public_bodies, :public_body_translations, :public_body_versions, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things
     before(:each) do
         basic_auth_login @request
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
         @old_filters = ActionController::Routing::Routes.filters
         ActionController::Routing::Routes.filters = RoutingFilter::Chain.new
     end

@@ -16,10 +16,49 @@ humpadink_public_body:
   updated_at: 2007-10-25 10:51:01.161639
   last_edit_comment: Not sure what this new department does.
   request_email: humpadink-requests@localhost
-  id: "3"
+  id: 3
   version: "2"
   last_edit_editor: "francis"
   short_name: DfH
   url_name: dfh
   created_at: 2007-10-25 10:51:01.161639
   notes: An albatross told me!!!
+forlorn_public_body:
+  name: "Department of Loneliness"
+  first_letter: D
+  updated_at: 2011-01-26 14:11:02.12345
+  last_edit_comment: 'Aw, bless.'
+  request_email: forlorn-requests@localhost
+  id: 4
+  version: 1
+  last_edit_editor: "robin"
+  short_name: DoL
+  url_name: lonely
+  created_at: 2011-01-26 14:11:02.12345
+  notes: A very lonely public body that no one has corresponded with
+silly_walks_public_body: 
+  id: 5
+  version: 1
+  name: "Ministry of Silly Walks"
+  first_letter: M
+  updated_at: 2007-10-25 10:51:01.161639
+  last_edit_comment: Is a comment really required?
+  request_email: silly-walks-requests@localhost
+  last_edit_editor: robin
+  short_name: MSW
+  url_name: msw
+  created_at: 2007-10-25 10:51:01.161639
+  notes: You know the one.
+sensible_walks_public_body: 
+  id: 6
+  version: 1
+  name: "Ministry of Sensible Walks"
+  first_letter: M
+  request_email: sensible-walks-requests@localhost
+  short_name: SenseWalk
+  url_name: sensible_walks
+  notes: I bet you’ve never heard of it.
+  updated_at: 2008-10-25 10:51:01.161639
+  last_edit_comment: Another stunning innovation from your friendly national government
+  last_edit_editor: robin
+  created_at: 2008-10-25 10:51:01.161639

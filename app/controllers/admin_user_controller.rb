@@ -45,6 +45,7 @@ class AdminUserController < AdminController
         @admin_user.admin_level = params[:admin_user][:admin_level]
         @admin_user.ban_text = params[:admin_user][:ban_text]
         @admin_user.about_me = params[:admin_user][:about_me]
+        @admin_user.no_limit = params[:admin_user][:no_limit]
 
         if @admin_user.valid?
             @admin_user.save!
@@ -76,6 +77,7 @@ class AdminUserController < AdminController
         post_redirect = PostRedirect.new( :uri => main_url(user_url(@admin_user)), :user_id => @admin_user.id)
         post_redirect.save!
         url = main_url(confirm_url(:email_token => post_redirect.email_token, :only_path => true))
+        session[:user_id] = nil # Log out current (usually admin) user, so we get logged in as the other user
 
         redirect_to url
     end

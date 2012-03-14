@@ -92,7 +92,10 @@ COOKIE_STORE_SESSION_SECRET: 'your secret key here, make it long and random'
 # checks in a few obvious places.
 READ_ONLY: ''
 
-# Doesn't do anything right now.
+# Is this a staging or dev site (1) or a live site (0).
+# Controls whether or not the rails-post-deploy script
+# will create the file config/rails_env.rb file to force
+# Rails into production environment.
 STAGING_SITE: 1
 
 # Recaptcha, for detecting humans. Get keys here: http://recaptcha.net/whyrecaptcha.html
@@ -137,3 +140,5 @@ EXCEPTION_NOTIFICATIONS_TO:
  - robin@example.org
  - seb@example.org
 
+# This rate limiting can be turned off per-user via the admin interface
+MAX_REQUESTS_PER_USER_PER_DAY: 6
