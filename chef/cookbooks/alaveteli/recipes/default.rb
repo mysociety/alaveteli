@@ -44,15 +44,18 @@ require_recipe "bundler::install"
 
 bash "create databases" do
     cwd node[:root]
+    user node[:user]
     code "rake db:create:all"
 end
 
 bash "checkout submodules" do
+    user node[:user]
     cwd node[:root]
     code "git submodule update --init"
 end
 
 bash "run the post-install script" do
     cwd node[:root]
+    user node[:user]
     code "./script/rails-post-deploy"
 end
