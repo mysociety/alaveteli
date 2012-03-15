@@ -1,8 +1,16 @@
 require_recipe "apt"
 require 'json'
-puts node[:lsb][:id]
-puts node[:lsb][:release]
-puts node[:lsb][:codename]
+
+# Testing for platform:
+# node[:lsb][:id] == "Debian"
+# node[:lsb][:release] == "6.0"
+# node[:lsb][:codename] == "squeeze"
+
+if node[:lsb][:id] == "Debian"
+    path = "/var/lib/gems/1.8/bin"
+else
+    path = ""
+end
 
 apt_repository "mysociety" do
   uri "http://debian.mysociety.org"
@@ -40,12 +48,20 @@ cookbook_file "#{node[:root]}/config/general.yml" do
 end
 
 # install dependencies
-require_recipe "bundler::install"
+
+gem_package "bundler" do
+    action :install
+end
+
+bash "run bundle install" do
+    cwd node[:root]
+    code "#{path}/bundle install"
+end
 
 bash "create databases" do
     cwd node[:root]
     user node[:user]
-    code "rake db:create:all"
+    code "#{path}/rake db:create:all"
 end
 
 bash "checkout submodules" do
@@ -53,6 +69,17 @@ bash "checkout submodules" do
     cwd node[:root]
     code "git submodule update --init"
 end
+
+bash "bring rake into the PATH" do
+    code "ln -s #{path}/rake /usr/local/bin/rake"
+    not_if "[ -e  /usr/local/bin/rake ]"
+end
+
+bash "bring bundle into the PATH" do
+    code "ln -s #{path}/bundle /usr/local/bin/bundle"
+    not_if "[ -e  /usr/local/bin/bundle ]"
+end
+
 
 bash "run the post-install script" do
     cwd node[:root]
