@@ -1,5 +1,3 @@
 {
-    "run_list": [ "recipe[alaveteli::default]" ],
-    "user": "<user>",
-    "group": "<group>"
+    "run_list": [ "recipe[alaveteli::default]" ]
 }

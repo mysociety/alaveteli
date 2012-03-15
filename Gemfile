@@ -28,7 +28,8 @@ gem 'ruby-msg', '~> 1.5.0'
 gem 'test-unit', '~> 1.2.3' if RUBY_VERSION.to_f >= 1.9
 gem 'vpim'
 gem 'will_paginate', '~> 2.3.11'
-gem 'xapian-full'
+# when 1.2.9 is released by the maintainer, we can remove the local copy of this gem
+gem 'xapian-full', '~> 1.2.9', :path => 'contrib'
 gem 'xml-simple'
 gem 'zip'
 

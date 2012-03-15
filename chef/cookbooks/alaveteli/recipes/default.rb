@@ -38,3 +38,21 @@ cookbook_file "#{node[:root]}/config/general.yml" do
   owner node[:user]
   group node[:group]
 end
+
+# install dependencies
+require_recipe "bundler::install"
+
+bash "create databases" do
+    cwd node[:root]
+    code "rake db:create:all"
+end
+
+bash "checkout submodules" do
+    cwd node[:root]
+    code "git submodule update --init"
+end
+
+bash "run the post-install script" do
+    cwd node[:root]
+    code "./script/rails-post-deploy"
+end

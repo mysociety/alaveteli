@@ -1,3 +1,8 @@
+PATH
+  remote: contrib
+  specs:
+    xapian-full (1.2.9)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -44,7 +49,6 @@ GEM
     ruby-ole (1.2.11.2)
     vpim (0.695)
     will_paginate (2.3.16)
-    xapian-full (1.2.3)
     xml-simple (1.1.0)
     zip (2.0.2)
 
@@ -71,6 +75,6 @@ DEPENDENCIES
   ruby-msg (~> 1.5.0)
   vpim
   will_paginate (~> 2.3.11)
-  xapian-full
+  xapian-full (~> 1.2.9)!
   xml-simple
   zip

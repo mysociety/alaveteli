@@ -22,10 +22,6 @@ Usage
     git clone https://github.com/sebbacon/alaveteli.git
     cd alaveteli
 
-### Clone the submodules
-
-    git submodule update --init
-
 ### Download, install and run VM
 
 NOTE: This will download at least 400MB and take some time (30 minutes with a
@@ -41,10 +37,6 @@ shared folders.
 
     vagrant ssh
     cd /vagrant
-
-### Setup the database
-
-    rake db:create && rake db:migrate
 
 ### Load sample data and index it
 
