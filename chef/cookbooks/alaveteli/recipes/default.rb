@@ -1,12 +1,13 @@
+require_recipe "openssl"
 require_recipe "apt"
-require 'json'
+
 
 # Testing for platform:
 # node[:lsb][:id] == "Debian"
 # node[:lsb][:release] == "6.0"
 # node[:lsb][:codename] == "squeeze"
 
-if node[:lsb][:id] == "Debian"
+if node.platform == "debian"
     path = "/var/lib/gems/1.8/bin"
 else
     path = ""
@@ -19,8 +20,6 @@ apt_repository "mysociety" do
   action :add
 end
 
-require_recipe "postgresql::server"
-
 # Install package dependencies as per the readme
 packages = `cut -d " " -f 1 #{node[:root]}/config/packages | grep -v "^#"`.split
 # mySociety packages are unauthenticated
@@ -30,6 +29,8 @@ packages.each do |pkg|
     options "--allow-unauthenticated" if mysociety_packages.include? pkg
   end
 end
+
+include_recipe "postgresql::server"
 
 # The database config
 template "#{node[:root]}/config/database.yml" do
@@ -53,31 +54,31 @@ gem_package "bundler" do
     action :install
 end
 
+bash "bring bundle into the PATH" do
+    code "ln -s #{path}/bundle /usr/local/bin/bundle"
+    not_if "[ -e  /usr/local/bin/bundle ] || [ -e  /usr/bin/bundle ]"
+end
+
 bash "run bundle install" do
     cwd node[:root]
-    code "#{path}/bundle install"
+    code "bundle install"
+end
+
+bash "bring rake into the PATH" do
+    code "ln -s #{path}/rake /usr/local/bin/rake"
+    not_if "[ -e  /usr/local/bin/rake ] || [ -e  /usr/bin/rake ]"
 end
 
 bash "create databases" do
     cwd node[:root]
     user node[:user]
-    code "#{path}/rake db:create:all"
+    code "rake db:create:all"
 end
 
 bash "checkout submodules" do
     user node[:user]
     cwd node[:root]
     code "git submodule update --init"
-end
-
-bash "bring rake into the PATH" do
-    code "ln -s #{path}/rake /usr/local/bin/rake"
-    not_if "[ -e  /usr/local/bin/rake ]"
-end
-
-bash "bring bundle into the PATH" do
-    code "ln -s #{path}/bundle /usr/local/bin/bundle"
-    not_if "[ -e  /usr/local/bin/bundle ]"
 end
 
 
