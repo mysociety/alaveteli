@@ -21,7 +21,7 @@
 
 pg_packages = case node['platform']
 when "ubuntu","debian"
-  %w{postgresql-client libpq-dev}
+  %w{postgresql-client libpq-dev build-essential}
 when "fedora","suse","amazon"
   %w{postgresql-devel}
 when "redhat","centos","scientific"
