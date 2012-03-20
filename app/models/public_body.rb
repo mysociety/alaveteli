@@ -527,7 +527,7 @@ class PublicBody < ActiveRecord::Base
     end
 
     def has_notes?
-        return self.notes != ""
+        return !self.notes.nil? && self.notes != ""
     end
     def notes_as_html
         self.notes
