@@ -151,8 +151,8 @@ class ApplicationController < ActionController::Base
         false
     end
 
-    # Called from test code, is a mimic of User.confirm, for use in following email
-    # links when in controller tests (since we don't have full integration tests that
+    # Called from test code, is a mimic of UserController.confirm, for use in following email
+    # links when in controller tests (though we also have full integration tests that
     # can work over multiple controllers)
     def test_code_redirect_by_email_token(token, controller_example_group)
         post_redirect = PostRedirect.find_by_email_token(token)
