@@ -151,8 +151,8 @@ class ApplicationController < ActionController::Base
         false
     end
 
-    # Called from test code, is a mimic of User.confirm, for use in following email
-    # links when in controller tests (since we don't have full integration tests that
+    # Called from test code, is a mimic of UserController.confirm, for use in following email
+    # links when in controller tests (though we also have full integration tests that
     # can work over multiple controllers)
     def test_code_redirect_by_email_token(token, controller_example_group)
         post_redirect = PostRedirect.find_by_email_token(token)
@@ -224,15 +224,15 @@ class ApplicationController < ActionController::Base
             post_redirect = PostRedirect.new(:uri => request.request_uri, :post_params => params,
                 :reason_params => reason_params)
             post_redirect.save!
-            # 'modal' controls whether the sign-in form will be displayed in the typical full-blown 
-            # page or on its own, useful for pop-ups            
+            # 'modal' controls whether the sign-in form will be displayed in the typical full-blown
+            # page or on its own, useful for pop-ups
             redirect_to signin_url(:token => post_redirect.token, :modal => params[:modal])
             return false
         end
         return true
     end
 
-    def authenticated_as_user?(user, reason_params) 
+    def authenticated_as_user?(user, reason_params)
         reason_params[:user_name] = user.name
         reason_params[:user_url] = show_user_url(:url_name => user.url_name)
         if session[:user_id]
@@ -274,6 +274,8 @@ class ApplicationController < ActionController::Base
         # XXX what is the built in Ruby URI munging function that can do this
         # choice of & vs. ? more elegantly than this dumb if statement?
         if uri.include?("?")
+            # XXX This looks odd. What would a fragment identifier be doing server-side?
+            #     But it also looks harmless, so I’ll leave it just in case.
             if uri.include?("#")
                 uri.sub!("#", "&post_redirect=1#")
             else

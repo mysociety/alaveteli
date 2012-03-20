@@ -39,7 +39,7 @@ class PostRedirect < ActiveRecord::Base
         self.post_params_yaml = params.to_yaml
     end
     def post_params
-        if self.post_params_yaml.nil?   
+        if self.post_params_yaml.nil?
             return {}
         end
         YAML.load(self.post_params_yaml)

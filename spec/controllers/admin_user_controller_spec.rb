@@ -24,13 +24,7 @@ describe AdminUserController, "when administering users" do
         post_redirect = PostRedirect.get_last_post_redirect
         response.should redirect_to(:controller => 'user', :action => 'confirm', :email_token => post_redirect.email_token)
     end
-
-    it "logs in as another user when already logged in as an admin" do
-        session[:user_id] = users(:admin_user).id
-        get :login_as,  :id => users(:bob_smith_user).id
-        post_redirect = PostRedirect.get_last_post_redirect
-        response.should redirect_to(:controller => 'user', :action => 'confirm', :email_token => post_redirect.email_token)
-        session[:user_id].should be_nil
-    end
+    
+    # See also "allows an admin to log in as another user" in spec/integration/admin_spec.rb
 end
 
