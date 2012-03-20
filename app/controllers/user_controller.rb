@@ -154,7 +154,8 @@ class UserController < ApplicationController
             flash.now[:error] = _("There was an error with the words you entered, please try again.")
             error = true
         end
-        if error || !@user_signup.valid?
+        if error || !@user_signup.valid? || params[:toc]!='1'
+            @user_signup.errors.add(:toc, _("Por favor confirme que ha leído las Condiciones de Uso.")) if params[:toc]!='1'
             # Show the form
             render :action => 'sign'
         else
