@@ -38,7 +38,11 @@
     
     <p class="form_checkbox">
         <%= check_box_tag 'toc', "1" %>
-        <label for="toc"><%= _('He leído las <a href="%s">Condiciones de Uso</a> de la web.') %[help_terms_of_use_path] %></label>
+        <label for="toc">
+            <%= _('He leído las <a href="{{terms_url}}" target="_blank">Condiciones de Uso</a> de la web y su <a href="{{privacy_url}}" target="_blank">Política de Privacidad</a>.', 
+                    :terms_url => help_terms_of_use_path,
+                    :privacy_url => help_privacy_policy_path) %>
+        </label>
     </p>
 
     <% if @request_from_foreign_country %>
