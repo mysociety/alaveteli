@@ -34,7 +34,7 @@ In `/etc/exim4/conf.d/transport/04_alaveteli`:
        user = ALAVETELI_USER
        group = ALAVETELI_USER
     
-And, assuming you set `OPTION_INCOMING_EMAIL_PREFIX` in your config at
+And, assuming you set `INCOMING_EMAIL_PREFIX` in your config at
 `config/general` to "foi+", create `config/aliases` with the following
 content:
 
