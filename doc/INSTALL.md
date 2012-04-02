@@ -37,7 +37,11 @@ packages by adding the following to `/etc/apt/sources.list` and
 running `apt-get update`:
 
     deb http://debian.mysociety.org squeeze main
-    
+
+If you don't set up that mySociety Debian source (e.g. if you're
+running Ubuntu), you should comment out `wkhtmltopdf-static` from
+`config/packages`, as it won't install in the next step
+
 Now install the packages that are listed in config/packages using apt-get
 e.g.:
 
@@ -45,10 +49,7 @@ e.g.:
 
 Some of the files also have a version number listed in config/packages
 - check that you have appropriate versions installed. Some also list
-"|" and offer a choice of packages.  If you've not set up the
-mySociety Debian source (e.g. if you're running Ubuntu), you should
-comment out `wkhtmltopdf-static` from `config/packages`, as it won't
-install.
+"|" and offer a choice of packages.
 
 # Install Ruby dependencies
 
