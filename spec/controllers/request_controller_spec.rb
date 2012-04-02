@@ -121,6 +121,7 @@ describe RequestController, "when showing one request" do
     
     before(:each) do
         load_raw_emails_data
+        FileUtils.rm_rf File.join(File.dirname(__FILE__), "../../cache/zips")
     end
 
     it "should be successful" do
