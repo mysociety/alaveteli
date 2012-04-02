@@ -565,7 +565,7 @@ end
  
 # XXX do this for invalid ids
 #  it "should render 404 file" do
-#    response.should render_template("#{RAILS_ROOT}/public/404.html")
+#    response.should render_template("#{Rails.root}/public/404.html")
 #    response.headers["Status"].should == "404 Not Found"
 #  end
 

@@ -12,6 +12,6 @@ ActionController::Base.session = {
 ActionController::Base.session_store = :cookie_store
 
 # Insert a bit of middleware code to prevent uneeded cookie setting.
-require "#{RAILS_ROOT}/lib/whatdotheyknow/strip_empty_sessions"
+require "#{Rails.root}/lib/whatdotheyknow/strip_empty_sessions"
 ActionController::Dispatcher.middleware.insert_before ActionController::Base.session_store, WhatDoTheyKnow::StripEmptySessions, :key => '_wdtk_cookie_session', :path => "/", :httponly => true
 
