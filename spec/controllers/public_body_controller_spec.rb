@@ -1,10 +1,12 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-require 'json'
-
 describe PublicBodyController, "when showing a body" do
     integrate_views
-    fixtures :public_bodies, :public_body_translations, :public_body_versions
+
+    before(:each) do
+        load_raw_emails_data
+        rebuild_xapian_index
+    end
 
     it "should be successful" do
         get :show, :url_name => "dfh", :view => 'all'
@@ -21,11 +23,23 @@ describe PublicBodyController, "when showing a body" do
         assigns[:public_body].should == public_bodies(:humpadink_public_body)
     end
 
-    it "should assign the requests" do
+    it "should assign the requests (1)" do
         get :show, :url_name => "tgq", :view => 'all'
-        assigns[:xapian_requests].results.count.should == 2
+        assigns[:xapian_requests].results.map{|x|x[:model].info_request}.should =~ InfoRequest.all(
+            :conditions => ["public_body_id = ?", public_bodies(:geraldine_public_body).id])
+    end
+    
+    it "should assign the requests (2)" do
         get :show, :url_name => "tgq", :view => 'successful'
-        assigns[:xapian_requests].results.count.should == 0
+        assigns[:xapian_requests].results.map{|x|x[:model].info_request}.should =~ InfoRequest.all(
+            :conditions => ["described_state = ? and public_body_id = ?",
+                "successful", public_bodies(:geraldine_public_body).id])
+    end
+    
+    it "should assign the requests (3)" do
+        get :show, :url_name => "dfh", :view => 'all'
+        assigns[:xapian_requests].results.map{|x|x[:model].info_request}.should =~ InfoRequest.all(
+            :conditions => ["public_body_id = ?", public_bodies(:humpadink_public_body).id])
     end
 
     it "should assign the body using different locale from that used for url_name" do
@@ -43,9 +57,13 @@ describe PublicBodyController, "when showing a body" do
     end
 
     it "should redirect use to the relevant locale even when url_name is for a different locale" do
-        ActionController::Routing::Routes.filters.clear
+        old_filters = ActionController::Routing::Routes.filters
+        ActionController::Routing::Routes.filters = RoutingFilter::Chain.new
+
         get :show, {:url_name => "edfh", :view => 'all'}
         response.should redirect_to "http://test.host/body/dfh"
+
+        ActionController::Routing::Routes.filters = old_filters
     end
  
     it "should redirect to newest name if you use historic name of public body in URL" do
@@ -61,19 +79,36 @@ end
 
 describe PublicBodyController, "when listing bodies" do
     integrate_views
-    fixtures :public_bodies, :public_body_translations, :public_body_versions
 
     it "should be successful" do
         get :list
         response.should be_success
     end
 
+    it "should list all bodies from default locale, even when there are no translations for selected locale" do
+        PublicBody.with_locale(:en) do
+            @english_only = PublicBody.new(:name => 'English only',
+                                          :short_name => 'EO',
+                                          :request_email => 'english@flourish.org',
+                                          :last_edit_editor => 'test',
+                                          :last_edit_comment => '')
+            @english_only.save
+        end
+        PublicBody.with_locale(:es) do
+            get :list
+            assigns[:public_bodies].include?(@english_only).should == true
+        end
+    end
+
     it "should list bodies in alphabetical order" do
+        # Note that they are alphabetised by localised name
         get :list
 
         response.should render_template('list')
 
-        assigns[:public_bodies].should == [ public_bodies(:humpadink_public_body), public_bodies(:geraldine_public_body) ]
+        assigns[:public_bodies].should == PublicBody.all(
+            :conditions => "id <> #{PublicBody.internal_admin_body.id}",
+            :order => "(select name from public_body_translations where public_body_id=public_bodies.id and locale='en')")
         assigns[:tag].should == "all"
         assigns[:description].should == ""
     end
@@ -99,22 +134,23 @@ describe PublicBodyController, "when listing bodies" do
     end
 
     it "should list a tagged thing on the appropriate list page, and others on the other page, and all still on the all page" do
+        load_test_categories
+
         public_bodies(:humpadink_public_body).tag_string = "foo local_council"
 
         get :list, :tag => "local_council"
         response.should render_template('list')
         assigns[:public_bodies].should == [ public_bodies(:humpadink_public_body) ]
         assigns[:tag].should == "local_council"
-        assigns[:description].should == "Local councils"
+        assigns[:description].should == "in the category ‘Local councils’"
 
         get :list, :tag => "other"
         response.should render_template('list')
-        assigns[:public_bodies].should == [ public_bodies(:geraldine_public_body) ]
-
+        assigns[:public_bodies].should =~ PublicBody.all(:conditions => "id not in (#{public_bodies(:humpadink_public_body).id}, #{PublicBody.internal_admin_body.id})")
+        
         get :list
         response.should render_template('list')
-        assigns[:public_bodies].count.should == 2
-
+        assigns[:public_bodies].should =~ PublicBody.all(:conditions => "id <> #{PublicBody.internal_admin_body.id}")
     end
 
     it "should list a machine tagged thing, should get it in both ways" do
@@ -142,8 +178,6 @@ end
 
 describe PublicBodyController, "when showing JSON version for API" do
 
-    fixtures :public_bodies, :public_body_translations
-
     it "should be successful" do
         get :show, :url_name => "dfh", :format => "json", :view => 'all'
 
@@ -157,40 +191,46 @@ describe PublicBodyController, "when showing JSON version for API" do
 end
 
 describe PublicBodyController, "when doing type ahead searches" do
-    fixtures :public_bodies, :public_body_translations, :users, :raw_emails, :info_requests, :incoming_messages, :outgoing_messages, :comments, :info_request_events
+
+    integrate_views
+    
+    before(:each) do
+        load_raw_emails_data
+        rebuild_xapian_index
+    end
 
     it "should return nothing for the empty query string" do
-        get :search_typeahead, :q => ""
+        get :search_typeahead, :query => ""
         response.should render_template('public_body/_search_ahead')
-        assigns[:xapian_requests].results.size.should == 0
+        assigns[:xapian_requests].should be_nil
     end
     
     it "should return a body matching the given keyword, but not users with a matching description" do
-        get :search_typeahead, :q => "Geraldine"
+        get :search_typeahead, :query => "Geraldine"
         response.should render_template('public_body/_search_ahead')
+        response.body.should include('search_ahead')
         assigns[:xapian_requests].results.size.should == 1
         assigns[:xapian_requests].results[0][:model].name.should == public_bodies(:geraldine_public_body).name
     end
 
     it "should return all requests matching any of the given keywords" do
-        get :search_typeahead, :q => "Geraldine Humpadinking"
+        get :search_typeahead, :query => "Geraldine Humpadinking"
         response.should render_template('public_body/_search_ahead')
-        assigns[:xapian_requests].results.size.should == 2
-        assigns[:xapian_requests].results[0][:model].name.should == public_bodies(:humpadink_public_body).name
-        assigns[:xapian_requests].results[1][:model].name.should == public_bodies(:geraldine_public_body).name
+        assigns[:xapian_requests].results.map{|x|x[:model]}.should =~ [
+            public_bodies(:humpadink_public_body),
+            public_bodies(:geraldine_public_body),
+        ]
     end
 
     it "should return requests matching the given keywords in any of their locales" do
-        get :search_typeahead, :q => "baguette" # part of the spanish notes
+        get :search_typeahead, :query => "baguette" # part of the spanish notes
         response.should render_template('public_body/_search_ahead')
-        assigns[:xapian_requests].results.size.should == 1
-        assigns[:xapian_requests].results[0][:model].name.should == public_bodies(:humpadink_public_body).name
+        assigns[:xapian_requests].results.map{|x|x[:model]}.should =~ [public_bodies(:humpadink_public_body)]
     end
 
-    it "should return partial matches" do
-        get :search_typeahead, :q => "geral"  # 'geral' for 'Geraldine'
+    it "should not return  matches for short words" do
+        get :search_typeahead, :query => "b" 
         response.should render_template('public_body/_search_ahead')
-        assigns[:xapian_requests].results.size.should == 1
-        assigns[:xapian_requests].results[0][:model].name.should == public_bodies(:geraldine_public_body).name
+        assigns[:xapian_requests].should be_nil
     end
 end

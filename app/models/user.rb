@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 95
+# Schema version: 108
 #
 # Table name: users
 #
@@ -10,14 +10,16 @@
 #  salt                   :string(255)     not null
 #  created_at             :datetime        not null
 #  updated_at             :datetime        not null
-#  email_confirmed        :boolean         default(false), not null
+#  email_confirmed        :boolean         default(FALSE), not null
 #  url_name               :text            not null
 #  last_daily_track_email :datetime        default(Sat Jan 01 00:00:00 UTC 2000)
 #  admin_level            :string(255)     default("none"), not null
 #  ban_text               :text            default(""), not null
 #  about_me               :text            default(""), not null
-#  email_bounced_at       :datetime        
+#  locale                 :string(255)
+#  email_bounced_at       :datetime
 #  email_bounce_message   :text            default(""), not null
+#  no_limit               :boolean         default(FALSE), not null
 #
 
 # models/user.rb:
@@ -59,7 +61,8 @@ class User < ActiveRecord::Base
         :values => [ 
              [ :created_at_numeric, 1, "created_at", :number ] # for sorting
         ],
-        :terms => [ [ :variety, 'V', "variety" ] ]
+        :terms => [ [ :variety, 'V', "variety" ] ],
+        :if => :indexed_by_search?
     def created_at_numeric
         # format it here as no datetime support in Xapian's value ranges
         return self.created_at.strftime("%Y%m%d%H%M%S") 
@@ -130,7 +133,7 @@ class User < ActiveRecord::Base
             name.strip!
         end
         if self.public_banned?
-            name = _("{{user_name}} (Banned)", :user_name=>name)
+            name = _("{{user_name}} (Account suspended)", :user_name=>name)
         end
         name
     end
@@ -255,11 +258,17 @@ class User < ActiveRecord::Base
     end
     
     def User.owns_every_request?(user)
-      !user.nil? && user.owns_every_request?  
+      !user.nil? && user.owns_every_request?
     end
 
     # Can the user see every request, even hidden ones?
     def User.view_hidden_requests?(user)
+      !user.nil? && user.admin_level == 'super'
+    end
+
+    # Should the user be kept logged into their own account
+    # if they follow a /c/ redirect link belonging to another user?
+    def User.stay_logged_in_on_redirect?(user)
       !user.nil? && user.admin_level == 'super'
     end
      
@@ -273,7 +282,28 @@ class User < ActiveRecord::Base
     end
     # Various ways the user can be banned, and text to describe it if failed
     def can_file_requests?
-        self.ban_text.empty?
+        self.ban_text.empty? && !self.exceeded_limit?
+    end
+    def exceeded_limit?
+        # Some users have no limit
+        return false if self.no_limit
+        
+        # Has the user issued as many as MAX_REQUESTS_PER_USER_PER_DAY requests in the past 24 hours?
+        daily_limit = MySociety::Config.get("MAX_REQUESTS_PER_USER_PER_DAY")
+        return false if daily_limit.nil?
+        recent_requests = InfoRequest.count(:conditions => ["user_id = ? and created_at > now() - '1 day'::interval", self.id])
+        
+        return (recent_requests >= daily_limit)
+    end
+    def next_request_permitted_at
+        return nil if self.no_limit
+        
+        daily_limit = MySociety::Config.get("MAX_REQUESTS_PER_USER_PER_DAY")
+        n_most_recent_requests = InfoRequest.all(:conditions => ["user_id = ? and created_at > now() - '1 day'::interval", self.id], :order => "created_at DESC", :limit => daily_limit)
+        return nil if n_most_recent_requests.size < daily_limit
+        
+        nth_most_recent_request = n_most_recent_requests[-1]
+        return nth_most_recent_request.created_at + 1.day
     end
     def can_make_followup?
         self.ban_text.empty?
@@ -285,7 +315,11 @@ class User < ActiveRecord::Base
         self.ban_text.empty?
     end
     def can_fail_html
-        text = self.ban_text.strip
+        if ban_text
+            text = self.ban_text.strip
+        else
+            raise "Unknown reason for ban"
+        end
         text = CGI.escapeHTML(text)
         text = MySociety::Format.make_clickable(text, :contract => 1)
         text = text.gsub(/\n/, '<br>')
@@ -360,6 +394,10 @@ class User < ActiveRecord::Base
     
     def should_be_emailed?
         return (self.email_confirmed && self.email_bounced_at.nil?)
+    end
+    
+    def indexed_by_search?
+        return self.email_confirmed
     end
 
     ## Private instance methods

@@ -1,41 +1,152 @@
 useless_outgoing_message_event:
+  id: 900
   params_yaml: "--- \n\
     :outgoing_message_id: 1\n"
-  id: 900
   info_request_id: 101
   event_type: sent
   created_at: 2007-10-12 01:56:58.586598
   described_state:
   outgoing_message_id: 1
 silly_outgoing_message_event:
+  id: 901
   params_yaml: "--- \n\
     :outgoing_message_id: 2\n"
-  id: 901
   info_request_id: 103
   event_type: sent
   created_at: 2007-10-14 10:41:12.686264
   described_state:
   outgoing_message_id: 2
 useless_incoming_message_event: 
+  id: 902
   params_yaml: "--- \n\
     :incoming_message_id: 1\n"
-  id: 902
   info_request_id: 101
   event_type: response
   created_at: 2007-11-13 18:09:20.042061
   described_state:
   incoming_message_id: 1
 silly_comment_event: 
+  id: 903
   params_yaml: "--- \n\
     :comment_id: 1\n"
   incoming_message_id: 
   last_described_at: 
   described_state: 
-  id: "903"
-  info_request_id: "101"
-  comment_id: "1"
+  info_request_id: 101
+  comment_id: 1
   calculated_state: 
   event_type: comment
   outgoing_message_id: 
   created_at: 2008-08-12 23:05:12.500942
+badger_outgoing_message_event:
+  id: 904
+  params_yaml: "--- \n\
+    :outgoing_message_id: 3\n"
+  info_request_id: 104
+  event_type: sent
+  created_at: 2011-10-12 01:56:58.586598
+  described_state: waiting_response
+  calculated_state: waiting_response
+  outgoing_message_id: 3
+
+# These in chronological order
+boring_outgoing_message_event:
+  id: 905
+  params_yaml: "--- \n\
+    :outgoing_message_id: 4\n"
+  outgoing_message_id: 4
+  info_request_id: 105
+  event_type: sent
+  created_at: 2006-01-12 01:56:58.586598
+  described_state: waiting_response
+  calculated_state: waiting_response
+useful_incoming_message_event:
+  id: 906
+  params_yaml: "--- \n\
+    :incoming_message_id: 2\n"
+  incoming_message_id: 2
+  info_request_id: 105
+  event_type: response
+  created_at: 2007-11-13 18:00:20
+  described_state: successful
+  calculated_state: successful
+
+another_boring_outgoing_message_event:
+  id: 907
+  params_yaml: "--- \n\
+    :outgoing_message_id: 5\n"
+  outgoing_message_id: 5
+  info_request_id: 106
+  event_type: sent
+  created_at: 2006-01-12 01:56:58.586598
+  described_state: waiting_response
+  calculated_state: waiting_response
+another_useful_incoming_message_event:
+  id: 908
+  params_yaml: "--- \n\
+    :incoming_message_id: 3\n"
+  incoming_message_id: 3
+  info_request_id: 106
+  event_type: response
+  created_at: 2007-11-13 18:09:20.042061
+  described_state: successful
+  calculated_state: successful
+
+another_comment_event:
+  id: 909
+  info_request_id: 105
+  comment_id: 2
+  params_yaml: "--- \n\
+    :comment_id: 2\n"
+  incoming_message_id: 
+  outgoing_message_id: 
+  last_described_at: 
+  described_state: 
+  calculated_state: 
+  event_type: comment
+  created_at: 2008-08-12 12:05:12.879634
+
+
+# The spam requests were both successful
+spam_1_outgoing_message_event:
+  id: 910
+  params_yaml: "--- \n\
+    :outgoing_message_id: 6\n"
+  outgoing_message_id: 6
+  info_request_id: 107
+  event_type: sent
+  created_at: 2001-01-02 01:23:45.6789100
+  described_state: waiting_response
+  calculated_state: waiting_response
+spam_1_incoming_message_event:
+  id: 911
+  params_yaml: "--- \n\
+    :incoming_message_id: 4\n"
+  incoming_message_id: 4
+  info_request_id: 107
+  event_type: response
+  created_at: 2001-01-03 01:23:45.6789100
+  described_state: successful
+  calculated_state: successful
+
+spam_2_outgoing_message_event:
+  id: 912
+  params_yaml: "--- \n\
+    :outgoing_message_id: 7\n"
+  outgoing_message_id: 7
+  info_request_id: 108
+  event_type: sent
+  created_at: 2001-01-02 02:23:45.6789100
+  described_state: waiting_response
+  calculated_state: waiting_response
+spam_2_incoming_message_event:
+  id: 913
+  params_yaml: "--- \n\
+    :incoming_message_id: 5\n"
+  incoming_message_id: 5
+  info_request_id: 108
+  event_type: response
+  created_at: 2001-01-03 02:23:45.6789100
+  described_state: successful
+  calculated_state: successful
 

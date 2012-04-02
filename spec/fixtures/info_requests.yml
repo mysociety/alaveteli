@@ -18,5 +18,63 @@ naughty_chicken_request:
     public_body_id: 2
     user_id: 1
     described_state: waiting_response
-    awaiting_description: false    
+    awaiting_description: false
     idhash: e8d18c84
+badger_request:
+    id: 104
+    title: Are you really a badger?
+    url_title: are_you_really_a_badger
+    created_at: 2011-10-13 18:15:57
+    updated_at: 2011-10-13 18:15:57
+    public_body_id: 3
+    user_id: 1
+    described_state: waiting_response
+    awaiting_description: false
+    idhash: e8d18c84
+boring_request:
+    id: 105
+    title: The cost of boring
+    url_title: the_cost_of_boring
+    created_at: 2006-01-12 01:56:58.586598
+    updated_at: 2008-08-12 12:05:12.879634
+    public_body_id: 3
+    user_id: 1
+    described_state: successful
+    awaiting_description: false
+    idhash: 173fd003
+another_boring_request:
+    id: 106
+    title: The cost of boring
+    url_title: the_cost_of_boring_two # Not _2, because we want to avoid the search collapsing these two
+    created_at: 2006-01-12 01:56:58.586598
+    updated_at: 2007-11-13 18:09:20.042061
+    public_body_id: 5
+    user_id: 1
+    described_state: successful
+    awaiting_description: false
+    idhash: 173fd004
+
+# A pair of identical requests (with url_title differing only in the numeric suffix)
+# used to test the request de-duplication features.
+spam_1_request:
+    id: 107
+    title: Cheap v1agra
+    url_title: spam_1
+    created_at: 2010-01-01 01:23:45.6789100
+    created_at: 2010-01-01 01:23:45.6789100
+    public_body_id: 5
+    user_id: 5
+    described_state: successful
+    awaiting_description: false
+    idhash: 173fd005
+spam_2_request:
+    id: 108
+    title: Cheap v1agra
+    url_title: spam_2
+    created_at: 2010-01-01 02:23:45.6789100
+    created_at: 2010-01-01 02:23:45.6789100
+    public_body_id: 6
+    user_id: 5
+    described_state: successful
+    awaiting_description: false
+    idhash: 173fd005

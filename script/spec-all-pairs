@@ -1,0 +1,81 @@
+#!/bin/bash
+
+# Try all ordered pairs of spec files,
+# to winkle out order-dependent failures.
+
+log_file=/dev/null
+
+test_pair () {
+    rake db:test:prepare > /dev/null 2>&1
+    output=$(script/spec "$1" "$2" 2>&1)
+    if [ $? -eq 0 ]
+    then
+        echo "OK: $1 $2"
+        return 0
+    else
+        echo >> "$log_file" "FAILED: $1 $2"
+        echo >> "$log_file" "======================================="
+        echo >> "$log_file" "$output"
+        echo >> "$log_file"
+        
+        echo "FAILED: $1 $2"
+        return 1
+    fi
+}
+
+all_pairs() {
+    specs=spec/*/*.rb
+
+    for spec1 in $specs
+    do
+        all_okay=true
+        for spec2 in $specs
+        do
+            if ! test_pair "$spec1" "$spec2"
+            then
+              all_okay=false
+            fi
+        done
+    done
+
+    $all_okay
+    return $?
+}
+
+pairs_from_stdin() {
+    all_okay=true
+    while read line
+    do
+        case "$line" in
+        \*\ FAILED:\ *|\
+        spec/*.rb\ spec/*.rb)
+          line=${line#\* FAILED: }
+          if ! test_pair $line
+          then
+              all_okay=false
+          fi
+        ;;
+        *)
+          echo "No match: $line"
+        ;;
+        esac
+    done
+    
+    $all_okay
+    return $?
+}
+
+if [ "$1" = --log ]
+then
+  shift
+  log_file=$1
+  shift
+  cp /dev/null "$log_file"
+fi
+if [ "$1" = "-" ]
+then
+    pairs_from_stdin
+else
+    all_pairs
+fi
+exit $?

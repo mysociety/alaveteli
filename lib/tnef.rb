@@ -9,7 +9,7 @@ class TNEF
         main = TMail::Mail.new
         main.set_content_type 'multipart', 'mixed', { 'boundary' => TMail.new_boundary }
         Dir.mktmpdir do |dir|
-            IO.popen("/usr/bin/tnef -K -C #{dir}", "w") do |f|
+            IO.popen("#{`which tnef`.chomp} -K -C #{dir}", "w") do |f|
                 f.write(content)
                 f.close
                 if $?.signaled?

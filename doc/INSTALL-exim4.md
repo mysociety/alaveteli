@@ -6,7 +6,7 @@ In `/etc/exim4/conf.d/main/04_alaveteli_options`:
     ALAVETELI_HOME=/path/to/alaveteli/software
     ALAVETELI_USER=www-data
     log_file_path=/var/log/exim4/exim-%slog-%D
-    log_selector=+all -retry_defer 
+    MAIN_LOG_SELECTOR==+all -retry_defer 
 
 (The user ALAVETELI_USER should have write permissions on ALAVETELI_HOME).
 
@@ -59,7 +59,11 @@ with `FORWARD_NONBOUNCE_RESPONSES_TO: 'raw_team@whatdotheyknow.com'`
 
 Finally, make sure you have `dc_use_split_config='true'` in
 `/etc/exim4/update-exim4.conf.conf`, and execute the command
-`update-exim4.conf`
+`update-exim4.conf`.
+
+NB: if the file `/etc/exim4/exim4.conf` exists then `update-exim4.conf`
+will silently do nothing. Some distributions include this file. If
+yours does, you will need to rename it before running `update-exim4.conf`.
 
 (You may also want to set `dc_eximconfig_configtype='internet'`,
 `dc_local_interfaces='0.0.0.0 ; ::1'`, and
@@ -79,6 +83,11 @@ see something like:
     snafflerequest-234@localhost -> |/home/alaveteli/alaveteli/script/mailin
     transport = alaveteli_mailin_transport
 
+This tells you that the routing part (making emails to
+`foi\+.*@localhost` be forwarded to Alaveteli's `mailin` script) is
+working.
+
 There is a great
 [Exim Cheatsheet](http://bradthemad.org/tech/notes/exim_cheatsheet.php)
 online that you may find useful.
+

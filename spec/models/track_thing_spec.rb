@@ -1,7 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe TrackThing, "when tracking changes" do
-    fixtures :track_things, :users
 
     before do
         @track_thing = track_things(:track_fancy_dog_search)
@@ -26,6 +25,13 @@ describe TrackThing, "when tracking changes" do
         track_thing = TrackThing.create_track_for_search_query('fancy dog')
         found_track = TrackThing.find_by_existing_track(users(:silly_name_user), track_thing)
         found_track.should == @track_thing
+    end
+
+    it "can display the description of a deleted track_thing" do
+        track_thing = TrackThing.create_track_for_search_query('fancy dog')
+        description = track_thing.track_query_description
+        track_thing.destroy
+        track_thing.track_query_description.should == description
     end
 
     it "will make some sane descriptions of search-based tracks" do

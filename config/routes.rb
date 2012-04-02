@@ -6,6 +6,9 @@
 #
 # $Id: routes.rb,v 1.92 2009-10-14 22:01:27 francis Exp $
 
+# Allow easy extension from themes. Note these will have the highest priority.
+load File.join('config', 'custom-routes.rb')
+
 ActionController::Routing::Routes.draw do |map|
     
     # The priority is based upon order of creation: first created -> highest priority.
@@ -14,9 +17,6 @@ ActionController::Routing::Routes.draw do |map|
     # map.connect 'products/:id', :controller => 'catalog', :action => 'view'
     # Keep in mind you can assign values other than :controller and :action
 
-    # Allow easy extension from themes. Note these will have the highest priority.
-    require File.join(Rails.root, 'config', 'custom-routes')
-    
     map.with_options :controller => 'general' do |general|
         general.frontpage           '/',            :action => 'frontpage'
         general.blog '/blog', :action => 'blog'
@@ -26,7 +26,7 @@ ActionController::Routing::Routes.draw do |map|
         # Couldn't find a way to do this in routes which also picked up multiple other slashes
         # and dots and other characters that can appear in search query. So we sort it all
         # out in the controller.
-        general.search_general '/search/*combined/requests', :action => 'search', :view => 'requests'
+        general.search_general '/search/*combined/all', :action => 'search', :view => 'all'
         general.search_general '/search/*combined', :action => 'search'
         general.advanced_search '/advancedsearch', :action => 'search_redirect', :advanced => true
 
@@ -78,6 +78,8 @@ ActionController::Routing::Routes.draw do |map|
 
         user.confirm '/c/:email_token', :action => 'confirm'
         user.show_user '/user/:url_name.:format', :action => 'show'
+        user.show_user_profile '/user/:url_name/profile.:format', :action => 'show', :view => 'profile'
+        user.show_user_requests '/user/:url_name/requests.:format', :action => 'show', :view => 'requests'
         user.contact_user '/user/contact/:id', :action => 'contact'
 
         user.signchangepassword '/profile/change_password',      :action => 'signchangepassword'
@@ -167,6 +169,7 @@ ActionController::Routing::Routes.draw do |map|
         body.admin_body_create '/admin/body/create/:id', :action => 'create'
         body.admin_body_destroy '/admin/body/destroy/:id', :action => 'destroy'
         body.admin_body_import_csv '/admin/body/import_csv', :action => 'import_csv'
+        body.admin_body_mass_tag_add '/admin/body/mass_tag_add', :action => 'mass_tag_add'
     end
 
     map.with_options :controller => 'admin_general' do |admin|

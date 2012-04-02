@@ -10,14 +10,13 @@
         </title>
 
         <link rel="shortcut icon" href="/favicon.ico">
-	<%= stylesheet_link_tag 'main', :title => "Main", :rel => "stylesheet", :media => "all" %>
-	<%= stylesheet_link_tag 'fonts', :rel => "stylesheet", :media => "all"  %>
-	<%= stylesheet_link_tag 'theme', :rel => "stylesheet", :media => "all"  %>
-	<%= stylesheet_link_tag 'print', :rel => "stylesheet", :media => "print"  %>
-	<% if !params[:print_stylesheet].nil? %>
+        <%= stylesheet_link_tag 'main', :title => "Main", :rel => "stylesheet", :media => "all" %>
+        <%= stylesheet_link_tag 'fonts', :rel => "stylesheet", :media => "all"  %>
+        <%= stylesheet_link_tag 'print', :rel => "stylesheet", :media => "print"  %>
+        <% if !params[:print_stylesheet].nil? %>
          <%= stylesheet_link_tag 'print', :rel => "stylesheet", :media => "all"  %>
-	<% end %>
-	<%= javascript_include_tag 'jquery.js', 'jquery-ui.min','jquery.cookie.js', 'general.js' %>
+        <% end %>
+        <%= javascript_include_tag 'jquery.js', 'jquery-ui.min','jquery.cookie.js', 'general.js' %>
 
         <% if @profile_photo_javascript %>
             <script type="text/javascript" src="/javascripts/jquery.Jcrop.js"></script>
@@ -25,7 +24,7 @@
             <link rel="stylesheet" href="/stylesheets/jquery.Jcrop.css" type="text/css" >
         <% end %>
 
-	<%= stylesheet_link_tag 'admin-theme/jquery-ui-1.8.15.custom.css', :rel => 'stylesheet'%>
+        <%= stylesheet_link_tag 'admin-theme/jquery-ui-1.8.15.custom.css', :rel => 'stylesheet'%>
         <!--[if LT IE 7]> 
         <style type="text/css">@import url("/stylesheets/ie6.css");</style> 
         <![endif]-->
@@ -35,11 +34,12 @@
         <!--[if LT IE 8]> 
         <style type="text/css">@import url("/stylesheets/ie7.css");</style> 
         <![endif]-->
+        <!-- the following method for customising CSS is deprecated; see `doc/THEMES.md` for detail -->
         <%= stylesheet_link_tag 'custom', :title => "Main", :rel => "stylesheet"  %>
         <% if force_registration_on_new_request %>
         <%= stylesheet_link_tag 'jquery.fancybox-1.3.4', :rel => "stylesheet"  %>
         <% end %>
-        
+
         <% if @feed_autodetect %>
             <% for feed in @feed_autodetect %>
                 <link rel="alternate" type="application/atom+xml" title="<%=h feed[:title] %>" href="<%=h feed[:url]%>">
@@ -49,14 +49,14 @@
             <% end %>
         <% end %>
         <% if @has_json %>
-            <link rel="alternate" type="application/json" title="JSON version of this page" href="<%=h main_url(request.request_uri) %>.json">
+            <link rel="alternate" type="application/json" title="JSON version of this page" href="<%=h main_url(request.request_uri, '.json') %>">
         <% end %>
 
         <% if @no_crawl %>
             <meta name="robots" content="noindex, nofollow">
         <% end %>
 
-    <%= render :partial => 'general/before_head_end' %>
+        <%= render :partial => 'general/before_head_end' %>
     </head>
     <body <%= "class='front'" if params[:action] == 'frontpage' %>>
 
@@ -102,7 +102,8 @@
               <%= _('Hello, {{username}}!', :username => h(@user.name))%>
 
                 <% if @user %>
-                    <%=link_to _("My profile"), user_url(@user) %>
+                    <%=link_to _("My requests"), show_user_requests_path(:url_name => @user.url_name) %>
+                    <%=link_to _("My profile"), show_user_profile_path(:url_name => @user.url_name) %>
                 <% end %>
 
 

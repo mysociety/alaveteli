@@ -14,11 +14,11 @@
 <div style="clear:both"></div>
 
 <div class="results_section">
-  <% view_cache :ttl => 5.minutes.to_i, :tag => [@view, @page, I18n.locale] do %>
+  <% view_cache :ttl => 5.minutes.to_i, :tag => [@cache_tag] do %>
       <% if @list_results.empty? %>
           <p> <%= _('No requests of this sort yet.')%></p>
       <% else %>
-          <h2 class="foi_results"><%= _('{{count}} FOI requests found', :count => @list_results.size) %></h2>
+          <h2 class="foi_results"><%= _('{{count}} FOI requests found', :count => @matches_estimated) %></h2>
           <div class="results_block">
             <% for result in @list_results%>
                 <% if result.class.to_s == 'InfoRequestEvent' %>
@@ -30,6 +30,6 @@
           </div>
       <% end %>
 
-      <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @matches_estimated) %>
+      <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @show_no_more_than) %>
   <% end %>
 </div>

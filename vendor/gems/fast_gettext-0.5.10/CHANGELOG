@@ -1,6 +1,0 @@
-0.4.14 -- "" is translated as "", not as gettext meta information
-0.4.0 -- pluralisation_rules is no longer stored in each repository, only retrived. Added Chain and Logger repository.
-0.3.6 -- FastGettext.default_locale=
-0.3.5 -- FastGettext.default_text_domain=
-0.3.4 -- Exceptions are thrown, not returned when translating without text domain
-0.3 -- pluralisation methods accept/return n plural forms, contrary to singular/plural before

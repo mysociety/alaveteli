@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 95
+# Schema version: 108
 #
 # Table name: user_info_request_sent_alerts
 #
@@ -7,7 +7,7 @@
 #  user_id               :integer         not null
 #  info_request_id       :integer         not null
 #  alert_type            :string(255)     not null
-#  info_request_event_id :integer         
+#  info_request_event_id :integer
 #
 
 # models/user_info_request_sent_alert.rb:

@@ -2,14 +2,19 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe AdminPublicBodyController, "when administering public bodies" do
     integrate_views
-    fixtures :public_bodies, :public_body_translations
 
     before do
         username = MySociety::Config.get('ADMIN_USERNAME', '')
         password = MySociety::Config.get('ADMIN_PASSWORD', '')
         basic_auth_login @request
+        
+        @old_filters = ActionController::Routing::Routes.filters
+        ActionController::Routing::Routes.filters = RoutingFilter::Chain.new
     end
 
+    after do
+        ActionController::Routing::Routes.filters = @old_filters
+    end
 
     it "shows the index page" do
         get :index
@@ -25,9 +30,9 @@ describe AdminPublicBodyController, "when administering public bodies" do
     end
 
     it "creates a new public body" do
-        PublicBody.count.should == 2
+        n = PublicBody.count
         post :create, { :public_body => { :name => "New Quango", :short_name => "", :tag_string => "blah", :request_email => 'newquango@localhost', :last_edit_comment => 'From test code' } }
-        PublicBody.count.should == 3
+        PublicBody.count.should == n + 1
     end
 
     it "edits a public body" do
@@ -42,29 +47,45 @@ describe AdminPublicBodyController, "when administering public bodies" do
         pb.name.should == "Renamed"
     end
 
+    it "does not destroy a public body that has associated requests" do
+        id = public_bodies(:humpadink_public_body).id
+        n = PublicBody.count
+        post :destroy, { :id => id }
+        response.should redirect_to(:controller=>'admin_public_body', :action=>'show', :id => id)
+        PublicBody.count.should == n
+    end
+    
     it "destroys a public body" do
-        PublicBody.count.should == 2
-        post :destroy, { :id => 3 }
-        PublicBody.count.should == 1
+        n = PublicBody.count
+        post :destroy, { :id => public_bodies(:forlorn_public_body).id }
+        response.should redirect_to(:controller=>'admin_public_body', :action=>'list')
+        PublicBody.count.should == n - 1
     end
 
     it "sets a using_admin flag" do
         get :show, :id => 2
         session[:using_admin].should == 1
     end
+
+    it "mass assigns tags" do
+        n = PublicBody.count
+        post :mass_tag_add, { :new_tag => "department", :table_name => "substring" }
+        response.flash[:notice].should == "Added tag to table of bodies."
+        response.should redirect_to(:action=>'list')
+        PublicBody.find_by_tag("department").count.should == n
+    end
 end
 
 describe AdminPublicBodyController, "when administering public bodies and paying attention to authentication" do
 
     integrate_views
-    fixtures :public_bodies, :public_body_translations
 
     it "disallows non-authenticated users to do anything" do
         @request.env["HTTP_AUTHORIZATION"] = ""
-        PublicBody.count.should == 2
+        n = PublicBody.count
         post :destroy, { :id => 3 }
         response.code.should == "401"
-        PublicBody.count.should == 2
+        PublicBody.count.should == n
         session[:using_admin].should == nil
     end
 
@@ -73,19 +94,22 @@ describe AdminPublicBodyController, "when administering public bodies and paying
         config['ADMIN_USERNAME'] = ''
         config['ADMIN_PASSWORD'] = ''
         @request.env["HTTP_AUTHORIZATION"] = ""
-        PublicBody.count.should == 2
-        post :destroy, { :id => 3 }
-        PublicBody.count.should == 1
+
+        n = PublicBody.count
+        post :destroy, { :id => public_bodies(:forlorn_public_body).id }
+        PublicBody.count.should == n - 1
         session[:using_admin].should == 1
     end
+    
     it "skips admin authorisation when no username set" do
         config = MySociety::Config.load_default()
         config['ADMIN_USERNAME'] = ''
         config['ADMIN_PASSWORD'] = 'fuz'
         @request.env["HTTP_AUTHORIZATION"] = ""
-        PublicBody.count.should == 2
-        post :destroy, { :id => 3 }
-        PublicBody.count.should == 1
+        
+        n = PublicBody.count
+        post :destroy, { :id => public_bodies(:forlorn_public_body).id }
+        PublicBody.count.should == n - 1
         session[:using_admin].should == 1
     end
     it "forces authorisation when password and username set" do
@@ -93,11 +117,11 @@ describe AdminPublicBodyController, "when administering public bodies and paying
         config['ADMIN_USERNAME'] = 'biz'
         config['ADMIN_PASSWORD'] = 'fuz'
         @request.env["HTTP_AUTHORIZATION"] = ""
-        PublicBody.count.should == 2
+        n = PublicBody.count
         basic_auth_login(@request, "baduser", "badpassword")
-        post :destroy, { :id => 3 }
+        post :destroy, { :id => public_bodies(:forlorn_public_body).id }
         response.code.should == "401"
-        PublicBody.count.should == 2
+        PublicBody.count.should == n
         session[:using_admin].should == nil
     end
 
@@ -107,7 +131,6 @@ end
 
 describe AdminPublicBodyController, "when administering public bodies with i18n" do
     integrate_views
-    fixtures :public_bodies, :public_body_translations
   
     before do
         username = MySociety::Config.get('ADMIN_USERNAME', '')
@@ -167,43 +190,47 @@ describe AdminPublicBodyController, "when administering public bodies with i18n"
     end
 
     it "destroy a public body" do
-        PublicBody.count.should == 2
-        post :destroy, { :id => 3 }
-        PublicBody.count.should == 1
+        n = PublicBody.count
+        post :destroy, { :id => public_bodies(:forlorn_public_body).id }
+        PublicBody.count.should == n - 1
     end
 
 end
 
 describe AdminPublicBodyController, "when creating public bodies with i18n" do
     integrate_views
-    fixtures :public_bodies, :public_body_translations
   
     before do
         username = MySociety::Config.get('ADMIN_USERNAME', '')
         password = MySociety::Config.get('ADMIN_PASSWORD', '')
         basic_auth_login @request
         
-        ActionController::Routing::Routes.filters.clear     # don't auto-insert locale, complicates assertions
+        @old_filters = ActionController::Routing::Routes.filters
+        ActionController::Routing::Routes.filters = RoutingFilter::Chain.new
+    end
+
+    after do
+        ActionController::Routing::Routes.filters = @old_filters
     end
 
     it "creates a new public body in one locale" do
-        PublicBody.count.should == 2
+        n = PublicBody.count
         post :create, { :public_body => { :name => "New Quango", :short_name => "", :tag_string => "blah", :request_email => 'newquango@localhost', :last_edit_comment => 'From test code' } }
-        PublicBody.count.should == 3
+        PublicBody.count.should == n + 1
 
         body = PublicBody.find_by_name("New Quango")
         response.should redirect_to(:controller=>'admin_public_body', :action=>'show', :id=>body.id)
     end
 
     it "creates a new public body with multiple locales" do
-        PublicBody.count.should == 2
+        n = PublicBody.count
         post :create, { 
             :public_body => { 
                 :name => "New Quango", :short_name => "", :tag_string => "blah", :request_email => 'newquango@localhost', :last_edit_comment => 'From test code',
                 :translated_versions => [{ :locale => "es", :name => "Mi Nuevo Quango", :short_name => "", :request_email => 'newquango@localhost' }]
                 }
         }
-        PublicBody.count.should == 3
+        PublicBody.count.should == n + 1
         
         body = PublicBody.find_by_name("New Quango")
         body.translations.map {|t| t.locale.to_s}.sort.should == ["en", "es"]

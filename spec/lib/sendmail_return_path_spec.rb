@@ -3,6 +3,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe "when sending email with an altered return path" do
+    before(:each) { ActionMailer::Base.deliveries = [] }
 
     it "should default to delivery method test" do
         ActionMailer::Base.delivery_method.should == :test

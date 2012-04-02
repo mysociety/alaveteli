@@ -7,7 +7,7 @@
 <% if @query.nil? %>
     <% @title = _("Search Freedom of Information requests, public authorities and users") %>
 <% elsif @total_hits == 0 %>
-    <% @title = _('There were no requests matching your query.') %>
+    <% @title = _('There were no results matching your query.') %>
 <% else %>
     <% @title = _("Results page {{page_number}}", :page_number => @page.to_s) %>
 <% end%>
@@ -56,11 +56,7 @@
             ["all", _("everything")]]%>
           <% for variety, label in labels %>
             <% if @variety_postfix != variety %>
-              <% if variety != "users" %>
-              <%=  link_to label, search_url([params[:query], @common_query], variety, @sort_postfix)  %>
-              <% else %>
-              <%=  link_to label, search_url(params[:query], variety, @sort_postfix) %>
-              <% end %>
+	      <%=  link_to label, search_url([params[:query], variety, @sort_postfix]) %>
             <% else %>
               <%= label %>
             <% end %>
@@ -126,9 +122,9 @@
 
   <% if !@query.nil? %>
     <p id="search_controls">
-      <%=link_to_unless @sortby == 'relevant', _("Show most relevant results first"), search_url(@query, @variety_postfix, 'relevant') %>
+      <%=link_to_unless @sortby == 'relevant', _("Show most relevant results first"), search_url([params[:query], @variety_postfix, 'relevant'], params) %>
       |
-      <%=link_to_unless @sortby == 'newest', _("Newest results first"), search_url(@query, @variety_postfix, 'newest') %>
+      <%=link_to_unless @sortby == 'newest', _("Newest results first"), search_url([params[:query], @variety_postfix, 'newest'], params) %>
       <% if @sortby == 'described' %>
       | <%= _('Recently described results first') %>
       <% end %>
@@ -166,7 +162,6 @@
 
         <%= will_paginate WillPaginate::Collection.new(@page, @bodies_per_page, @xapian_bodies.matches_estimated) %>
       <% elsif @bodies && !@query.nil? && @xapian_bodies.results.size == 0 && @page == 1 %>
-        <h2 class="publicbody_results"><%= _('No public authorities found') %></h2>
         <% if @spelling_correction %>
           <p id="did_you_mean"><%= _('Did you mean: {{correction}}', :correction => search_link(@spelling_correction, @postfix)) %></p>
         <% end %>
@@ -187,6 +182,8 @@
             <%= render :partial => 'user/user_listing_single', :locals => { :display_user => result[:model] } %>
           <% end %>
         </div>
+        <%= will_paginate WillPaginate::Collection.new(@page, @users_per_page, @xapian_users.matches_estimated) %>
+
       <% end %>
     </div>
 

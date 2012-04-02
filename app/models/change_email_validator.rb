@@ -1,11 +1,12 @@
 # == Schema Information
-# Schema version: 95
+# Schema version: 108
 #
 # Table name: change_email_validators
 #
-#  old_email :string
-#  new_email :string
-#  password  :string
+#  old_email         :string
+#  new_email         :string
+#  password          :string
+#  user_circumstance :string
 #
 
 # models/changeemail_validator.rb:

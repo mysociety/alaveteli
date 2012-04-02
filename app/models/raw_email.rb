@@ -1,11 +1,10 @@
 # == Schema Information
-# Schema version: 95
+# Schema version: 108
 #
 # Table name: raw_emails
 #
-#  id          :integer         not null, primary key
-#  data_text   :text            
-#  data_binary :binary          
+#  id :integer         not null, primary key
+#
 
 # models/raw_email.rb:
 # The fat part of models/incoming_message.rb
@@ -28,7 +27,7 @@ class RawEmail < ActiveRecord::Base
     def directory
         request_id = self.incoming_message.info_request.id.to_s
         if ENV["RAILS_ENV"] == "test"
-            return 'files/raw_email_test'
+            return File.join(RAILS_ROOT, 'files/raw_email_test')
         else
             return File.join(MySociety::Config.get('RAW_EMAILS_LOCATION',
                                                    'files/raw_emails'), 
@@ -44,39 +43,17 @@ class RawEmail < ActiveRecord::Base
         if !File.exists?(self.directory)
             FileUtils.mkdir_p self.directory
         end
-        File.open(self.filepath, "wb") { |file|
+        File.atomic_write(self.filepath) { |file|
             file.write d
         }
     end
 
     def data
-        if !File.exists?(self.filepath)
-            dbdata
-        else
-            File.open(self.filepath, "rb" ).read
-        end
+        File.open(self.filepath, "rb").read
     end
 
     def destroy_file_representation!
         File.delete(self.filepath)
-    end
-
-    def dbdata=(d)
-        write_attribute(:data_binary, d)
-    end
-
-    def dbdata
-        d = read_attribute(:data_binary)
-        if !d.nil?
-            return d
-        end
-
-        d = read_attribute(:data_text)
-        if !d.nil?
-            return d
-        end
-
-        raise "internal error, double nil value in RawEmail"
     end
 
 end

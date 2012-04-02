@@ -7,6 +7,10 @@
 <h2>Version numbers</h2>
 
 <p>
+Alaveteli branch: <%= link_to @current_branch, @github_origin + @current_branch %>
+<br>
+Alaveteli commit: <%= link_to @current_commit, @github_origin + @current_commit %>
+<br>
 RUBY_VERSION <%=h RUBY_VERSION %>
 <br>
 Rails::VERSION::STRING <%=h Rails::VERSION::STRING%>
@@ -16,8 +20,6 @@ TMail::VERSION::STRING <%=h TMail::VERSION::STRING%>
 Xapian::version_string <%=h Xapian::version_string%>
 <br>
 Spec::VERSION::STRING <%=h Spec::VERSION::STRING%>
-<br>
-Spec::Rails::VERSION::STRING <%=h Spec::Rails::VERSION::STRING%>
 </p>
 
 <h2>Configuration</h2>

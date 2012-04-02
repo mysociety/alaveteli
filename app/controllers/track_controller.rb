@@ -46,7 +46,14 @@ class TrackController < ApplicationController
 
     # Track all updates to a particular public body
     def track_public_body
-        @public_body = PublicBody.find_by_url_name(params[:url_name])
+        @public_body = PublicBody.find_by_url_name_with_historic(params[:url_name])
+        raise ActiveRecord::RecordNotFound.new("None found") if @public_body.nil?
+        # If found by historic name, or alternate locale name, redirect to new name
+        if  @public_body.url_name != params[:url_name]
+            redirect_to track_public_body_url(:url_name => @public_body.url_name, :feed => params[:feed])
+            return
+        end
+
         @track_thing = TrackThing.create_track_for_public_body(@public_body)
 
         return atom_feed_internal if params[:feed] == 'feed'
@@ -59,6 +66,7 @@ class TrackController < ApplicationController
     # Track a user
     def track_user
         @track_user = User.find_by_url_name(params[:url_name])
+        raise ActiveRecord::RecordNotFound.new("No such user") if @track_user.nil?
         @track_thing = TrackThing.create_track_for_user(@track_user)
 
         return atom_feed_internal if params[:feed] == 'feed'

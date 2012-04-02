@@ -1,4 +1,4 @@
-<% if @post_redirect.reason_params[:user_name] %>
+<% if !@post_redirect.nil? && @post_redirect.reason_params[:user_name] %>
     <% @title = _("Sign in") %>
 
     <div id="sign_alone">
@@ -19,16 +19,7 @@
 <% else %>
     <% @title = _('Sign in or make a new account') %>
 
-    <div id="sign_together">
-
-        <!--<p id="sign_in_reason">
-        <% if @post_redirect.reason_params[:web].empty? %>
-            <%= _(' Please sign in or make a new account.') %>
-        <% else %>
-            <%= @post_redirect.reason_params[:web] %>,  <%= _('please sign in or make a new account.') %>
-        <% end %>
-        </p>-->
-        
+    <div id="sign_together">        
         <div id="left_half">
           <h1><%= _('Sign in') %></h1>
           <%= render :partial => 'signin', :locals => { :sign_in_as_existing_user => false } %>

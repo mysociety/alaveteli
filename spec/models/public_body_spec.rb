@@ -95,7 +95,6 @@ describe PublicBody, " using machine tags" do
 end
 
 describe PublicBody, "when finding_by_tags" do
-    fixtures :public_bodies, :public_body_translations
 
     before do
          @geraldine = public_bodies(:geraldine_public_body)
@@ -173,7 +172,6 @@ describe PublicBody, " when saving" do
 end
 
 describe PublicBody, "when searching" do
-    fixtures :public_bodies, :public_body_translations, :public_body_versions
 
     it "should find by existing url name" do
         body = PublicBody.find_by_url_name_with_historic('dfh')
@@ -226,6 +224,18 @@ describe PublicBody, "when searching" do
     end
 end
 
+describe PublicBody, " when dealing public body locales" do
+    it "shouldn't fail if it internal_admin_body was created in a locale other than the default" do
+        # first time, do it with the non-default locale
+        PublicBody.with_locale(:es) do
+            PublicBody.internal_admin_body
+        end
+
+        # second time
+        lambda {PublicBody.internal_admin_body }.should_not raise_error(ActiveRecord::RecordInvalid)
+    end
+end
+
 describe PublicBody, " when loading CSV files" do
     before(:each) do
         # InternalBody is created the first time it's accessed, which happens sometimes during imports,
@@ -237,10 +247,8 @@ describe PublicBody, " when loading CSV files" do
         errors, notes = PublicBody.import_csv("1,aBody", '', 'replace', true, 'someadmin') # true means dry run
         errors.should == []
         notes.size.should == 2
-        notes.should == [
-            "line 1: creating new authority 'aBody' (locale: en):\n\t{\"name\":\"aBody\"}",
-            "Notes: Some  bodies are in database, but not in CSV file:\n    Department for Humpadinking\n    Geraldine Quango\nYou may want to delete them manually.\n"
-            ]
+        notes[0].should == "line 1: creating new authority 'aBody' (locale: en):\n\t{\"name\":\"aBody\"}"
+        notes[1].should =~ /Notes: Some  bodies are in database, but not in CSV file:\n(    [A-Za-z ]+\n)*You may want to delete them manually.\n/
     end
     
     it "should do a dry run successfully" do
@@ -250,12 +258,12 @@ describe PublicBody, " when loading CSV files" do
         errors, notes = PublicBody.import_csv(csv_contents, '', 'replace', true, 'someadmin') # true means dry run
         errors.should == []
         notes.size.should == 4
-        notes.should == [
+        notes[0..2].should == [
             "line 1: creating new authority 'North West Fake Authority' (locale: en):\n\t\{\"name\":\"North West Fake Authority\",\"request_email\":\"north_west_foi@localhost\"\}", 
             "line 2: creating new authority 'Scottish Fake Authority' (locale: en):\n\t\{\"name\":\"Scottish Fake Authority\",\"request_email\":\"scottish_foi@localhost\"\}", 
             "line 3: creating new authority 'Fake Authority of Northern Ireland' (locale: en):\n\t\{\"name\":\"Fake Authority of Northern Ireland\",\"request_email\":\"ni_foi@localhost\"\}",
-            "Notes: Some  bodies are in database, but not in CSV file:\n    Department for Humpadinking\n    Geraldine Quango\nYou may want to delete them manually.\n"
-            ]
+        ]
+        notes[3].should =~ /Notes: Some  bodies are in database, but not in CSV file:\n(    [A-Za-z ]+\n)*You may want to delete them manually.\n/
 
         PublicBody.count.should == original_count
     end
@@ -267,12 +275,12 @@ describe PublicBody, " when loading CSV files" do
         errors, notes = PublicBody.import_csv(csv_contents, '', 'replace', false, 'someadmin') # false means real run
         errors.should == []
         notes.size.should == 4
-        notes.should == [
+        notes[0..2].should == [
             "line 1: creating new authority 'North West Fake Authority' (locale: en):\n\t\{\"name\":\"North West Fake Authority\",\"request_email\":\"north_west_foi@localhost\"\}", 
             "line 2: creating new authority 'Scottish Fake Authority' (locale: en):\n\t\{\"name\":\"Scottish Fake Authority\",\"request_email\":\"scottish_foi@localhost\"\}", 
             "line 3: creating new authority 'Fake Authority of Northern Ireland' (locale: en):\n\t\{\"name\":\"Fake Authority of Northern Ireland\",\"request_email\":\"ni_foi@localhost\"\}",
-            "Notes: Some  bodies are in database, but not in CSV file:\n    Department for Humpadinking\n    Geraldine Quango\nYou may want to delete them manually.\n"
-            ]
+        ]
+        notes[3].should =~ /Notes: Some  bodies are in database, but not in CSV file:\n(    [A-Za-z ]+\n)*You may want to delete them manually.\n/
 
         PublicBody.count.should == original_count + 3
     end
@@ -284,12 +292,12 @@ describe PublicBody, " when loading CSV files" do
         errors, notes = PublicBody.import_csv(csv_contents, '', 'replace', false, 'someadmin') # false means real run
         errors.should == []
         notes.size.should == 4
-        notes.should == [
+        notes[0..2].should == [
             "line 1: creating new authority 'North West Fake Authority' (locale: en):\n\t\{\"name\":\"North West Fake Authority\",\"request_email\":\"north_west_foi@localhost\"\}", 
             "line 2: creating new authority 'Scottish Fake Authority' (locale: en):\n\t\{\"name\":\"Scottish Fake Authority\",\"request_email\":\"scottish_foi@localhost\"\}", 
             "line 3: creating new authority 'Fake Authority of Northern Ireland' (locale: en):\n\t\{\"name\":\"Fake Authority of Northern Ireland\",\"request_email\":\"ni_foi@localhost\"\}",
-            "Notes: Some  bodies are in database, but not in CSV file:\n    Department for Humpadinking\n    Geraldine Quango\nYou may want to delete them manually.\n"
-            ]
+        ]
+        notes[3].should =~ /Notes: Some  bodies are in database, but not in CSV file:\n(    [A-Za-z ]+\n)*You may want to delete them manually.\n/
         PublicBody.count.should == original_count + 3
     end
 
@@ -300,12 +308,12 @@ describe PublicBody, " when loading CSV files" do
         errors, notes = PublicBody.import_csv(csv_contents, '', 'replace', true, 'someadmin') # true means dry run
         errors.should == []
         notes.size.should == 4
-        notes.should == [
+        notes[0..2].should == [
             "line 2: creating new authority 'North West Fake Authority' (locale: en):\n\t\{\"name\":\"North West Fake Authority\",\"request_email\":\"north_west_foi@localhost\",\"home_page\":\"http://northwest.org\"\}", 
             "line 3: creating new authority 'Scottish Fake Authority' (locale: en):\n\t\{\"name\":\"Scottish Fake Authority\",\"request_email\":\"scottish_foi@localhost\",\"home_page\":\"http://scottish.org\",\"tag_string\":\"scottish\"\}", 
             "line 4: creating new authority 'Fake Authority of Northern Ireland' (locale: en):\n\t\{\"name\":\"Fake Authority of Northern Ireland\",\"request_email\":\"ni_foi@localhost\",\"tag_string\":\"fake aTag\"\}",
-            "Notes: Some  bodies are in database, but not in CSV file:\n    Department for Humpadinking\n    Geraldine Quango\nYou may want to delete them manually.\n"
-            ]
+        ]
+        notes[3].should =~ /Notes: Some  bodies are in database, but not in CSV file:\n(    [A-Za-z ]+\n)*You may want to delete them manually.\n/
 
         PublicBody.count.should == original_count
     end
@@ -354,15 +362,15 @@ describe PublicBody, " when loading CSV files" do
         errors, notes = PublicBody.import_csv(csv_contents, '', 'replace', false, 'someadmin', [:en, :es])
         errors.should == []
         notes.size.should == 7
-        notes.should == [
+        notes[0..5].should == [
             "line 2: creating new authority 'North West Fake Authority' (locale: en):\n\t{\"name\":\"North West Fake Authority\",\"request_email\":\"north_west_foi@localhost\",\"home_page\":\"http://northwest.org\"}", 
             "line 2: creating new authority 'North West Fake Authority' (locale: es):\n\t{\"name\":\"Autoridad del Nordeste\"}", 
             "line 3: creating new authority 'Scottish Fake Authority' (locale: en):\n\t{\"name\":\"Scottish Fake Authority\",\"request_email\":\"scottish_foi@localhost\",\"home_page\":\"http://scottish.org\",\"tag_string\":\"scottish\"}",
             "line 3: creating new authority 'Scottish Fake Authority' (locale: es):\n\t{\"name\":\"Autoridad Escocesa\"}",
             "line 4: creating new authority 'Fake Authority of Northern Ireland' (locale: en):\n\t{\"name\":\"Fake Authority of Northern Ireland\",\"request_email\":\"ni_foi@localhost\",\"tag_string\":\"fake aTag\"}",
             "line 4: creating new authority 'Fake Authority of Northern Ireland' (locale: es):\n\t{\"name\":\"Autoridad Irlandesa\"}",
-            "Notes: Some  bodies are in database, but not in CSV file:\n    Department for Humpadinking\n    Geraldine Quango\nYou may want to delete them manually.\n"
-            ]
+        ]
+        notes[6].should =~ /Notes: Some  bodies are in database, but not in CSV file:\n(    [A-Za-z ]+\n)*You may want to delete them manually.\n/
 
         PublicBody.count.should == original_count + 3
         
@@ -383,13 +391,47 @@ describe PublicBody, " when loading CSV files" do
         errors, notes = PublicBody.import_csv(csv_contents, '', 'replace', true, 'someadmin', ['en', :xx]) # true means dry run
         errors.should == []
         notes.size.should == 4
-        notes.should == [
+        notes[0..2].should == [
             "line 2: creating new authority 'North West Fake Authority' (locale: en):\n\t{\"name\":\"North West Fake Authority\",\"request_email\":\"north_west_foi@localhost\",\"home_page\":\"http://northwest.org\"}",
             "line 3: creating new authority 'Scottish Fake Authority' (locale: en):\n\t{\"name\":\"Scottish Fake Authority\",\"request_email\":\"scottish_foi@localhost\",\"home_page\":\"http://scottish.org\",\"tag_string\":\"scottish\"}", 
             "line 4: creating new authority 'Fake Authority of Northern Ireland' (locale: en):\n\t{\"name\":\"Fake Authority of Northern Ireland\",\"request_email\":\"ni_foi@localhost\",\"tag_string\":\"fake aTag\"}",
-            "Notes: Some  bodies are in database, but not in CSV file:\n    Department for Humpadinking\n    Geraldine Quango\nYou may want to delete them manually.\n"
-            ]
+        ]
+        notes[3].should =~ /Notes: Some  bodies are in database, but not in CSV file:\n(    [A-Za-z ]+\n)*You may want to delete them manually.\n/
 
         PublicBody.count.should == original_count
     end
+end
+
+describe PublicBody do
+  describe "calculated home page" do
+    it "should return the home page verbatim if it's present" do
+      public_body = PublicBody.new
+      public_body.home_page = "http://www.example.com"
+      public_body.calculated_home_page.should == "http://www.example.com"
+    end
+
+    it "should return the home page based on the request email domain if it has one" do
+      public_body = PublicBody.new
+      public_body.stub!(:request_email_domain).and_return "public-authority.com"
+      public_body.calculated_home_page.should == "http://www.public-authority.com"
+    end
+
+    it "should return nil if there's no home page and the email domain can't be worked out" do
+      public_body = PublicBody.new
+      public_body.stub!(:request_email_domain).and_return nil
+      public_body.calculated_home_page.should be_nil
+    end
+
+    it "should ensure home page URLs start with http://" do
+      public_body = PublicBody.new
+      public_body.home_page = "example.com"
+      public_body.calculated_home_page.should == "http://example.com"
+    end
+
+    it "should not add http when https is present" do
+      public_body = PublicBody.new
+      public_body.home_page = "https://example.com"
+      public_body.calculated_home_page.should == "https://example.com"
+    end
+  end
 end

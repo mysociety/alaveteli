@@ -1,7 +1,7 @@
 # This file is copied to ~/spec when you run 'ruby script/generate rspec'
 # from the project root directory.
-ENV["RAILS_ENV"] ||= 'test'
-require File.expand_path(File.join(File.dirname(__FILE__),'..','config','environment'))
+ENV["RAILS_ENV"] = 'test'
+require File.expand_path(File.join('..', '..', 'config', 'environment'), __FILE__)
 require 'spec/autorun'
 require 'spec/rails'
 
@@ -17,16 +17,14 @@ config['REPLY_LATE_AFTER_DAYS'] = 20
 # Uncomment the next line to use webrat's matchers
 #require 'webrat/integrations/rspec-rails'
 
-# Requires supporting files with custom matchers and macros, etc,
-# in ./support/ and its subdirectories.
-Dir[File.expand_path(File.join(File.dirname(__FILE__),'support','**','*.rb'))].each {|f| require f}
-
 Spec::Runner.configure do |config|
   # If you're not using ActiveRecord you should remove these
   # lines, delete config/database.yml and disable :active_record
   # in your config/boot.rb
-  config.fixture_path = RAILS_ROOT + '/spec/fixtures/'
 
+  # fixture_path must end in a separator
+  config.fixture_path = File.join(Rails.root, 'spec', 'fixtures') + File::SEPARATOR
+  config.global_fixtures = :users, :public_bodies, :public_body_translations, :public_body_versions, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things, :foi_attachments, :has_tag_string_tags, :holidays, :track_things_sent_emails
 
   # == Fixtures
   #
@@ -80,17 +78,27 @@ def load_file_fixture(file_name)
     return content
 end
 
-def rebuild_xapian_index
-    # XXX could for speed call ActsAsXapian.rebuild_index directly, but would
-    # need model name list, and would need to fix acts_as_xapian so can call writes
-    # and reads mixed up (it asserts where it thinks it can't do this)
-    rebuild_name = File.dirname(__FILE__) + '/../script/rebuild-xapian-index'
-    Kernel.system(rebuild_name) or raise "failed to launch #{rebuild_name}, error bitcode #{$?}, exit status: #{$?.exitstatus}"
+def rebuild_xapian_index(terms = true, values = true, texts = true, dropfirst = true)
+    if dropfirst
+        begin
+            ActsAsXapian.readable_init
+            FileUtils.rm_r(ActsAsXapian.db_path)
+        rescue RuntimeError
+        end
+        ActsAsXapian.writable_init
+        ActsAsXapian.writable_db.close
+    end
+    parse_all_incoming_messages
+    verbose = false
+    # safe_rebuild=true, which involves forking to avoid memory leaks, doesn't work well with rspec. 
+    # unsafe is significantly faster, and we can afford possible memory leaks while testing.
+    safe_rebuild = false
+    ActsAsXapian.rebuild_index(["PublicBody", "User", "InfoRequestEvent"].map{|m| m.constantize}, verbose, terms, values, texts, safe_rebuild) 
 end
 
 def update_xapian_index
     verbose = false
-    ActsAsXapian.update_index(flush_to_disk=true, verbose) 
+    ActsAsXapian.update_index(flush_to_disk=false, verbose) 
 end
 
 # Validate an entire HTML page
@@ -100,7 +108,7 @@ def validate_html(html)
     File.open(tempfilename, "w+") do |f|
         f.puts html
     end
-    if not system($html_validation_script, tempfilename)
+    if not system($html_validation_script, *($html_validation_script_options +[tempfilename]))
         raise "HTML validation error in " + tempfilename + " HTTP status: " + @response.response_code.to_s
     end
     File.unlink(tempfilename)
@@ -120,24 +128,41 @@ def basic_auth_login(request, username = nil, password = nil)
 end
 
 # Monkeypatch! Validate HTML in tests.
-$html_validation_script = "/usr/bin/validate" # from Debian package wdg-html-validator
+utility_search_path = MySociety::Config.get("UTILITY_SEARCH_PATH", ["/usr/bin", "/usr/local/bin"])
+$html_validation_script_found = false
+utility_search_path.each do |d|
+    $html_validation_script = File.join(d, "validate")
+    $html_validation_script_options = ["--charset=utf-8"]
+    if File.file? $html_validation_script and File.executable? $html_validation_script
+        $html_validation_script_found = true
+        break
+    end
+end
 if $tempfilecount.nil?
     $tempfilecount = 0
-    if File.exist?($html_validation_script)
+    if $html_validation_script_found
         module ActionController
             module TestProcess
                 # Hook into the process function, so can automatically get HTML after each request
                 alias :original_process :process
-
+                def is_fragment
+                    # XXX there must be a better way of doing this!
+                    return @request.query_parameters["action"] == "search_typeahead"
+                end
                 def process(action, parameters = nil, session = nil, flash = nil, http_method = 'GET')
                     self.original_process(action, parameters, session, flash, http_method)
-
+                    # don't validate auto-generated HTML
+                    return if @request.query_parameters["action"] == "get_attachment_as_html"
                     # XXX Is there a better way to check this than calling a private method?
                     return unless @response.template.controller.instance_eval { integrate_views? }
-
                     # And then if HTML, not a redirect (302, 301)
                     if @response.content_type == "text/html" && ! [301,302,401].include?(@response.response_code)
+                    if !is_fragment
                         validate_html(@response.body)
+                    else
+                        # it's a partial
+                        validate_as_body(@response.body)
+                    end
                     end
                 end
             end
@@ -155,11 +180,22 @@ def safe_mock_model(model, args = {})
   mock
 end
 
-def load_raw_emails_data(raw_emails)
-    raw_email = raw_emails(:useless_raw_email)
-    begin
-        raw_email.destroy_file_representation!
-    rescue Errno::ENOENT
+def load_raw_emails_data
+    raw_emails_yml = File.join(Spec::Runner.configuration.fixture_path, "raw_emails.yml")
+    for raw_email_id in YAML::load_file(raw_emails_yml).map{|k,v| v["id"]} do
+        raw_email = RawEmail.find(raw_email_id)
+        raw_email.data = load_file_fixture("raw_emails/%d.email" % [raw_email_id])
     end
-    raw_email.data = load_file_fixture("useless_raw_email.email")
+end
+
+def parse_all_incoming_messages
+    IncomingMessage.find(:all).each{|x| x.parse_raw_email!}
+end
+
+def load_test_categories
+    PublicBodyCategories.add(:en, [
+        "Local and regional",
+            [ "local_council", "Local councils", "a local council" ],
+        "Miscellaneous",
+            [ "other", "Miscellaneous", "miscellaneous" ],])
 end

@@ -2,18 +2,8 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe "When rendering errors" do
 
-    fixtures [ :info_requests,
-               :info_request_events,
-               :public_bodies,
-               :public_body_translations,
-               :users,
-               :raw_emails,
-               :outgoing_messages,
-               :incoming_messages,
-               :comments ]
-
     before(:each) do
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
         ActionController::Base.consider_all_requests_local = false
     end
 
@@ -40,6 +30,19 @@ describe "When rendering errors" do
         ir.update_attribute(:described_state, "crotchety")
         get("/request/#{ir.url_title}")
         response.code.should == "500"
+    end
+    it "should render a 403 for attempts at directory listing for attachments" do
+        # make a fake cache
+        foi_cache_path = File.join(File.dirname(__FILE__), '../../cache')
+        FileUtils.mkdir_p(File.join(foi_cache_path, "views/en/request/101/101/response/1/attach/html/1"))
+        get("/request/101/response/1/attach/html/1/" )
+        response.code.should == "403"
+        get("/request/101/response/1/attach/html" )
+        response.code.should == "403" 
+    end
+    it "should render a 404 for non-existent 'details' pages for requests" do
+        get("/details/request/wobble" )
+        response.code.should == "404"
     end
 end
 

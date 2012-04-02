@@ -2,14 +2,16 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # 
+# Translators:
+# Valon  <vbrestovci@gmail.com>, 2012.
 # vbrestovci <vbrestovci@gmail.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
-"POT-Creation-Date: 2011-08-11 12:30+0200\n"
-"PO-Revision-Date: 2011-08-12 00:21+0000\n"
-"Last-Translator: vbrestovci <vbrestovci@gmail.com>\n"
+"POT-Creation-Date: 2012-02-08 10:16-0000\n"
+"PO-Revision-Date: 2012-02-08 17:24+0000\n"
+"Last-Translator: Valon <vbrestovci@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -17,7 +19,7 @@ msgstr ""
 "Language: sr@latin\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
-#: app/models/incoming_message.rb:866
+#: app/models/incoming_message.rb:667
 msgid ""
 "\n"
 "\n"
@@ -29,6 +31,8 @@ msgid ""
 "  This will appear on your {{site_name}} profile, to make it\n"
 "            easier for others to get involved with what you're doing."
 msgstr ""
+"  Ovo će se pojaviti na vašem {{site_name}} profilu, da bi\n"
+"            olakšali drugima da se uključe u to šta radite."
 
 #: app/views/comment/_comment_form.rhtml:16
 msgid ""
@@ -41,10 +45,16 @@ msgid ""
 " (<strong>patience</strong>, especially for large files, it may take a "
 "while!)"
 msgstr ""
+" (<strong>budite strpljivi</strong>, posebno za velike datoteke, moglo bi "
+"potrajati!)"
 
-#: app/views/user/show.rhtml:59
+#: app/views/user/show.rhtml:64
 msgid " (you)"
-msgstr ""
+msgstr " (Vi)"
+
+#: app/views/public_body/show.rhtml:1
+msgid " - view and make Freedom of Information requests"
+msgstr " - pregledaj i napravi Zahteve o slobodnom pristupu informacijama "
 
 #: app/views/user/signchangepassword_send_confirm.rhtml:18
 msgid ""
@@ -52,30 +62,38 @@ msgid ""
 "    We will send you an email. Follow the instructions in it to change\n"
 "    your password."
 msgstr ""
+" <strong>Note:</strong>\n"
+"    Poslati ćemo vam e-mail. Pratite instrukcije u njemu da biste promijenili\n"
+"    Vaš password."
 
 #: app/views/user/contact.rhtml:35
 msgid " <strong>Privacy note:</strong> Your email address will be given to"
 msgstr ""
+" <strong>Privacy note:</strong> Vaša e-mail adresa će biti proslijeđena"
 
-#: app/views/comment/new.rhtml:33
+#: app/views/comment/new.rhtml:34
 msgid " <strong>Summarise</strong> the content of any information returned. "
-msgstr ""
+msgstr " <strong>Sažimati</strong> sadržaj svake vraćene informacije. "
 
-#: app/views/comment/new.rhtml:23
+#: app/views/comment/new.rhtml:24
 msgid " Advise on how to <strong>best clarify</strong> the request."
-msgstr ""
+msgstr " Savetuj kako<strong>najbolje objasniti</strong> zahjev."
 
-#: app/views/comment/new.rhtml:49
+#: app/views/comment/new.rhtml:50
 msgid ""
 " Ideas on what <strong>other documents to request</strong> which the "
 "authority may hold. "
 msgstr ""
+" Ideje za <strong>zahteve drugih dokumenata</strong> koje ustanova može "
+"posjedovati. "
 
 #: app/views/public_body/view_email.rhtml:30
 msgid ""
 " If you know the address to use, then please <a href=\"%s\">send it to us</a>.\n"
 "        You may be able to find the address on their website, or by phoning them up and asking."
 msgstr ""
+" Ako znate koju adresu treba koristiti, molimo Vas <a href=\"%s\">pošaljite je nama</a>.\n"
+"        Moguće je da možete naći adresu na njihovoj web stranici, ili putem telefona."
 
 #: app/views/user/set_profile_about_me.rhtml:26
 msgid ""
@@ -83,30 +101,31 @@ msgid ""
 "            twitter account. They will be made clickable. \n"
 "            e.g."
 msgstr ""
+" Uključite relevantne linkove, poput stranice kampanje, Vašeg bloga ili \n"
+"            twitter account-a. Moći će se kliknuti na njih. \n"
+"            npr."
 
-#: app/views/comment/new.rhtml:27
+#: app/views/comment/new.rhtml:28
 msgid ""
 " Link to the information requested, if it is <strong>already "
 "available</strong> on the Internet. "
 msgstr ""
 
-#: app/views/comment/new.rhtml:29
+#: app/views/comment/new.rhtml:30
 msgid ""
 " Offer better ways of <strong>wording the request</strong> to get the "
 "information. "
 msgstr ""
 
-#: app/views/user/sign.rhtml:26
-msgid " Please sign in or make a new account."
-msgstr ""
-
-#: app/views/comment/new.rhtml:34
+#: app/views/comment/new.rhtml:35
 msgid ""
 " Say how you've <strong>used the information</strong>, with links if "
 "possible."
 msgstr ""
+" Recite nam kako ste<strong>iskoristili informaciju</strong>, sa linkovima "
+"ako je moguće."
 
-#: app/views/comment/new.rhtml:28
+#: app/views/comment/new.rhtml:29
 msgid ""
 " Suggest <strong>where else</strong> the requester might find the "
 "information. "
@@ -115,35 +134,36 @@ msgstr ""
 #: app/views/user/set_profile_about_me.rhtml:11
 msgid " What are you investigating using Freedom of Information? "
 msgstr ""
+" Šta istražujete koristeći Zakon o slobodnom pristupu informacijama ? "
 
 #: app/controllers/comment_controller.rb:75
 msgid " You are already being emailed updates about the request."
-msgstr ""
+msgstr " Ažuriranja zahteva već su Vam poslana putem e-maila."
 
 #: app/controllers/comment_controller.rb:73
 msgid " You will also be emailed updates about the request."
-msgstr ""
+msgstr " Ažuriranja zahteva će Vam takođe biti poslana putem e-maila."
 
 #: app/views/request/upload_response.rhtml:5
 msgid " made by "
-msgstr ""
+msgstr " načinjeno od strane "
 
-#: app/views/user/show.rhtml:123
-msgid " made no Freedom of Information requests using this site."
-msgstr ""
+#: app/models/track_thing.rb:111 app/models/track_thing.rb:119
+msgid " or "
+msgstr " ili "
 
 #: app/views/user/contact.rhtml:36
 msgid " when you send this message."
-msgstr ""
+msgstr " kada pošaljete ovu poruku."
 
-#: app/views/public_body/show.rhtml:80
-msgid "%d Freedom of Information request made using this site"
-msgid_plural "%d Freedom of Information requests made using this site"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+#: app/views/public_body/show.rhtml:87
+msgid "%d Freedom of Information request to %s"
+msgid_plural "%d Freedom of Information requests to %s"
+msgstr[0] "%d Freedom of Information requests to %s"
+msgstr[1] "%d Freedom of Information requests to %s"
+msgstr[2] "%d Freedom of Information requests to %s"
 
-#: app/views/general/frontpage.rhtml:36
+#: app/views/general/frontpage.rhtml:43
 msgid "%d request"
 msgid_plural "%d requests"
 msgstr[0] ""
@@ -157,15 +177,27 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: app/views/request/new.rhtml:102
+#: app/views/request/new.rhtml:92
 msgid "'Crime statistics by ward level for Wales'"
 msgstr ""
 
-#: app/views/request/new.rhtml:100
+#: app/views/request/new.rhtml:90
 msgid "'Pollution levels over time for the River Tyne'"
-msgstr ""
+msgstr "'Nivo zagađenja kroz period vremena za reku Tyne'"
 
-#: app/controllers/user_controller.rb:355
+#: app/models/track_thing.rb:245
+msgid "'{{link_to_authority}}', a public authority"
+msgstr "'{{link_to_authority}}', javna ustanova"
+
+#: app/models/track_thing.rb:194
+msgid "'{{link_to_request}}', a request"
+msgstr "'{{link_to_request}}', zahtev"
+
+#: app/models/track_thing.rb:261
+msgid "'{{link_to_user}}', a person"
+msgstr "'{{link_to_user}}', osoba"
+
+#: app/controllers/user_controller.rb:389
 msgid ""
 ",\n"
 "\n"
@@ -175,47 +207,76 @@ msgid ""
 "\n"
 "{{user_name}}"
 msgstr ""
+",\n"
+"\n"
+"\n"
+"\n"
+"S poštovanjem,\n"
+"\n"
+"{{user_name}}"
+
+#: app/views/user/sign.rhtml:28
+msgid "- or -"
+msgstr "- ili -"
+
+#: app/views/request/select_authority.rhtml:30
+msgid "1. Select an authority"
+msgstr "1. Odaberite ustanovu"
+
+#: app/views/request/new.rhtml:22
+msgid "2. Ask for Information"
+msgstr "2. Tražite informacije"
+
+#: app/views/request/preview.rhtml:5
+msgid "3. Now check your request"
+msgstr "3. Sada provjerite Vaš zahtev"
+
+#: app/views/public_body/show.rhtml:56
+msgid "<a class=\"link_button_green\" href=\"{{url}}\">{{text}}</a>"
+msgstr "<a class=\"link_button_green\" href=\"{{url}}\">{{text}}</a>"
 
 #: app/views/request/_after_actions.rhtml:9
 msgid "<a href=\"%s\">Add an annotation</a> (to help the requester or others)"
 msgstr ""
+"<a href=\"%s\">Dodaj napomenu</a> (da bi se pomoglo podnosiocu zahteva ili "
+"drugima)"
 
 #: app/views/public_body/list.rhtml:29
 msgid "<a href=\"%s\">Are we missing a public authority?</a>."
-msgstr ""
+msgstr "<a href=\"%s\">Da li nam nedostaje javna ustanova?</a>."
 
-#: app/views/request/_sidebar.rhtml:45
+#: app/views/request/_sidebar.rhtml:39
 msgid ""
 "<a href=\"%s\">Are you the owner of\n"
 "            any commercial copyright on this page?</a>"
 msgstr ""
 
-#: app/views/general/search.rhtml:53
+#: app/views/general/search.rhtml:168
 msgid "<a href=\"%s\">Browse all</a> or <a href=\"%s\">ask us to add one</a>."
 msgstr ""
+"<a href=\"%s\">Pretraži sve</a> ili <a href=\"%s\"> zamolite nas da dodamo "
+"</a>."
 
-#: app/views/general/exception_caught.rhtml:13
-msgid "<a href=\"%s\">Contact us</a> to tell us about the problem</li>"
+#: app/views/public_body/list.rhtml:51
+msgid "<a href=\"%s\">Can't find the one you want?</a>"
+msgstr "<a href=\"%s\">Ne možete naći onaj koji želite?</a>"
+
+#: app/views/user/show.rhtml:118
+msgid ""
+"<a href=\"%s\">Sign in</a> to change password, subscriptions and more "
+"({{user_name}} only)"
 msgstr ""
+"<a href=\"%s\">Prijavite se</a> da biste promijenili password, pretplatu ili"
+" drugo ({{user_name}} only)"
 
-#: app/views/public_body/list.rhtml:43
-msgid "<a href=\"%s\">can't find the one you want?</a>"
-msgstr ""
-
-#: app/views/request/_followup.rhtml:39 app/views/request/_followup.rhtml:46
+#: app/views/request/_followup.rhtml:66 app/views/request/_followup.rhtml:73
 #: app/views/request/show.rhtml:83 app/views/request/show.rhtml:87
 msgid "<a href=\"%s\">details</a>"
-msgstr ""
+msgstr "<a href=\"%s\">detalji</a>"
 
-#: app/views/request/_followup.rhtml:74
+#: app/views/request/_followup.rhtml:101
 msgid "<a href=\"%s\">what's that?</a>"
-msgstr ""
-
-#: app/views/public_body/show.rhtml:50
-msgid ""
-"<a href=\"{{url}}\">Make a new Freedom of Information request</a> to "
-"{{public_body_name}}"
-msgstr ""
+msgstr "<a href=\"%s\">šta je to?</a>"
 
 #: app/controllers/request_game_controller.rb:23
 msgid ""
@@ -223,8 +284,11 @@ msgid ""
 "href=\"{{helpus_url}}\">more things you can do</a> to help "
 "{{site_name}}.</p>"
 msgstr ""
+"<p>Završeno! Hvala Vam na pomoći.</p><p>Postoji <a "
+"href=\"{{helpus_url}}\">više stvari koje možete uradite</a> da biste pomogli"
+" {{site_name}}.</p>"
 
-#: app/controllers/request_controller.rb:399
+#: app/controllers/request_controller.rb:441
 msgid ""
 "<p>Thank you! Here are some ideas on what to do next:</p>\n"
 "            <ul>\n"
@@ -237,60 +301,79 @@ msgid ""
 "            </li>\n"
 "            </ul>"
 msgstr ""
+"<p>Hvala! Evo nekoliko ideja o tome šta raditi dalje:</p>\n"
+"            <ul>\n"
+"            <li>Da biste poslali Vaš zahtev nekoj drugoj ustanovi, prvo kopirajte tekst Vašeg zahteva ispod, zatim <a href=\"{{find_authority_url}}\">pronađite drugu ustanovu</a>.</li>\n"
+"            <li>Ako želite osporiti tvrdnje ustanove da ne posjeduju informacije, evo\n"
+"            <a href=\"{{complain_url}}\">kako podnijeti žalbu</a>.\n"
+"            </li>\n"
+"            <li>Imamo <a href=\"{{other_means_url}}\">prijedloge</a>\n"
+"            za sredstva koja će vam pomoći da dobijete odgovore.\n"
+"            </li>\n"
+"            </ul>"
 
-#: app/controllers/request_controller.rb:393
+#: app/controllers/request_controller.rb:435
 msgid ""
 "<p>Thank you! Hope you don't have to wait much longer.</p> <p>By law, you "
 "should have got a response promptly, and normally before the end of "
 "<strong>{{date_response_required_by}}</strong>.</p>"
 msgstr ""
 
-#: app/controllers/request_controller.rb:389
+#: app/controllers/request_controller.rb:431
 msgid ""
 "<p>Thank you! Hopefully your wait isn't too long.</p> <p>By law, you should get a response promptly, and normally before the end of <strong>\n"
 "{{date_response_required_by}}</strong>.</p>"
 msgstr ""
 
-#: app/controllers/request_controller.rb:428
+#: app/controllers/request_controller.rb:470
 msgid ""
 "<p>Thank you! Hopefully your wait isn't too long.</p><p>You should get a "
-"response within 20 days, or be told if it will take longer (<a "
-"href=\"{{review_url}}\">details</a>).</p>"
+"response within {{late_number_of_days}} days, or be told if it will take "
+"longer (<a href=\"{{review_url}}\">details</a>).</p>"
 msgstr ""
+"<p>Hvala! Nadamo se da nećete čekati predugo.</p><p>Trebali biste dobiti "
+"odgovor za {{late_number_of_days}} dana, ili obavešteni da će trajati duže. "
+"(<a href=\"{{review_url}}\">Više informacija</a>)</p>"
 
-#: app/controllers/request_controller.rb:431
+#: app/controllers/request_controller.rb:473
 msgid ""
 "<p>Thank you! We'll look into what happened and try and fix it up.</p><p>If "
 "the error was a delivery failure, and you can find an up to date FOI email "
 "address for the authority, please tell us using the form below.</p>"
 msgstr ""
+"<p>Hvala! Proveriti ćemo šta se dogodilo i pokušati to popraviti.</p><p>Ako "
+"je došlo do greške prilikom isporuke, i možete naći ažuriranu ZOSPI e-mail "
+"adresu za ustanovu molimo obavestite nas koristeći formular ispod.</p>"
 
-#: app/controllers/request_controller.rb:396
+#: app/controllers/request_controller.rb:438
 msgid ""
-"<p>Thank you! Your request is long overdue, by more than 40 working days. "
-"Most requests should be answered within 20 working days. You might like to "
-"complain about this, see below.</p>"
+"<p>Thank you! Your request is long overdue, by more than "
+"{{very_late_number_of_days}} working days. Most requests should be answered "
+"within {{late_number_of_days}} working days. You might like to complain "
+"about this, see below.</p>"
 msgstr ""
 
-#: app/controllers/user_controller.rb:495
+#: app/controllers/user_controller.rb:530
 msgid ""
 "<p>Thanks for changing the text about you on your profile.</p>\n"
 "            <p><strong>Next...</strong> You can upload a profile photograph too.</p>"
 msgstr ""
 
-#: app/controllers/user_controller.rb:417
+#: app/controllers/user_controller.rb:451
 msgid ""
 "<p>Thanks for updating your profile photo.</p>\n"
 "                <p><strong>Next...</strong> You can put some text about you and your research on your profile.</p>"
 msgstr ""
 
-#: app/controllers/request_controller.rb:284
+#: app/controllers/request_controller.rb:320
 msgid ""
 "<p>We recommend that you edit your request and remove the email address.\n"
 "                If you leave it, the email address will be sent to the authority, but will not be displayed on the site.</p>"
 msgstr ""
+"<p>Preporučujemo da preuredite Vaš zahtev i da uklonite e-mail adresu.\n"
+"                Ako je ostavite, e-mail adresa će biti poslana ustanovi, ali neće biti vidljiva na web stranici.</p>"
 
-#: app/controllers/request_controller.rb:417
+#: app/controllers/request_controller.rb:459
 msgid ""
 "<p>We're glad you got all the information that you wanted. If you write "
 "about or make use of the information, please come back and add an annotation"
@@ -298,50 +381,66 @@ msgid ""
 "href=\"{{donation_url}}\">make a donation</a> to the charity which runs "
 "it.</p>"
 msgstr ""
+"<p>Drago nam je da ste dobili sve željene informacije. Ako ih budete "
+"koristili ili pisali o njima, molimo da se vratite i dodate napomenu ispod "
+"opisujući šta ste uradili. </p><p>Ako mislite da je {{site_name}} bio "
+"koristan, <a href=\"{{donation_url}}\">donirajte</a> nevladinoj organizaciji"
+" koja ga vodi.</p>"
 
-#: app/controllers/request_controller.rb:420
+#: app/controllers/request_controller.rb:462
 msgid ""
 "<p>We're glad you got some of the information that you wanted. If you found "
 "{{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to "
 "the charity which runs it.</p><p>If you want to try and get the rest of the "
 "information, here's what to do now.</p>"
 msgstr ""
+"<p>Drago nam je da ste dobili dio željenih informacija. Ako mislite da je "
+"{{site_name}} bio koristan, <a href=\"{{donation_url}}\">donirajte</a> "
+"nevladinoj organizaciji koja ga vodi.</p>"
 
-#: app/controllers/request_controller.rb:282
+#: app/controllers/request_controller.rb:318
 msgid ""
 "<p>You do not need to include your email in the request in order to get a "
 "reply (<a href=\"%s\">details</a>).</p>"
 msgstr ""
+"<p>Nije potrebno da uključite Vašu e-mail adresu u zahtev da biste dobili "
+"odgovor (<a href=\"%s\">Više informacija</a>).</p>"
 
-#: app/controllers/request_controller.rb:280
+#: app/controllers/request_controller.rb:316
 msgid ""
 "<p>You do not need to include your email in the request in order to get a "
 "reply, as we will ask for it on the next screen (<a "
 "href=\"%s\">details</a>).</p>"
 msgstr ""
+"<p>Nije potrebno da uključite Vašu e-mail adresu u zahtev da biste dobili "
+"odgovor, pitati ćemo vas u vezi toga u sledećem koraku (<a href=\"%s\">Više "
+"informacija</a>).</p>"
 
-#: app/controllers/request_controller.rb:288
+#: app/controllers/request_controller.rb:324
 msgid ""
 "<p>Your request contains a <strong>postcode</strong>. Unless it directly "
 "relates to the subject of your request, please remove any address as it will"
 " <strong>appear publicly on the Internet</strong>.</p>"
 msgstr ""
 
-#: app/controllers/request_controller.rb:311
+#: app/controllers/request_controller.rb:352
 msgid ""
 "<p>Your {{law_used_full}} request has been <strong>sent on its way</strong>!</p>\n"
-"            <p><strong>We will email you</strong> when there is a response, or after 20 working days if the authority still hasn't\n"
+"            <p><strong>We will email you</strong> when there is a response, or after {{late_number_of_days}} working days if the authority still hasn't\n"
 "            replied by then.</p>\n"
 "            <p>If you write about this request (for example in a forum or a blog) please link to this page, and add an \n"
 "            annotation below telling people about your writing.</p>"
 msgstr ""
 
-#: app/controllers/application_controller.rb:279
+#: app/controllers/application_controller.rb:311
 msgid ""
 "<p>{{site_name}} is currently in maintenance. You can only view existing "
 "requests. You cannot make new ones, add followups or annotations, or "
 "otherwise change the database.</p> <p>{{read_only}}</p>"
 msgstr ""
+"<p>{{site_name}} je trenutno na održavanju. Možete samo pregledati postojeće"
+" zahteve. Ne možete odnositi nove, dodavati prateće poruke ili napomene, ili"
+" u suprotnom promijenite bazu podataka.</p> <p>{{read_only}}</p>"
 
 #: app/views/user/confirm.rhtml:11
 msgid ""
@@ -349,77 +448,94 @@ msgid ""
 "bulk/spam mail folders. Sometimes, our messages are marked that way.</small>\n"
 "</p>"
 msgstr ""
+"<small>Ako koristite neke od web mail servisa ili imate filtere za \"junk mail\", provjerite u Vašim bulk/spam folderima. Ponekad su naše poruke označene tako</small>\n"
+"</p>"
 
-#: app/views/request/new.rhtml:131
+#: app/views/request/new.rhtml:135
 msgid ""
 "<strong> Can I request information about myself?</strong>\n"
 "\t\t\t<a href=\"%s\">No! (Click here for details)</a>"
 msgstr ""
+"<strong> Da li mogu zahtijevati informacije o sebi?</strong>\n"
+"<span class=\"whitespace other\" title=\"Tab\">»</span><span class=\"whitespace other\" title=\"Tab\">»</span><span class=\"whitespace other\" title=\"Tab\">»</span><a href=\"%s\">Ne! (Kliknite za detalje)</a>"
 
-#: app/views/general/search.rhtml:130
+#: app/views/general/_advanced_search_tips.rhtml:12
 msgid ""
 "<strong><code>commented_by:tony_bowden</code></strong> to search annotations"
 " made by Tony Bowden, typing the name as in the URL."
 msgstr ""
+"<strong><code>komentar_od:tony_bowden</code></strong> da pretražujete "
+"komentare Tony Bowden-a, ime unesite kao u URL-u."
 
-#: app/views/general/search.rhtml:132
+#: app/views/general/_advanced_search_tips.rhtml:14
 msgid ""
 "<strong><code>filetype:pdf</code></strong> to find all responses with PDF "
 "attachments. Or try these: <code>{{list_of_file_extensions}}</code>"
 msgstr ""
+"<strong><code>filetype:pdf</code></strong> da nađete sve odgovore sa PDF "
+"prilozima. Ili probajte ove: <code>{{list_of_file_extensions}}</code>"
 
-#: app/views/general/search.rhtml:131
+#: app/views/general/_advanced_search_tips.rhtml:13
 msgid ""
 "<strong><code>request:</code></strong> to restrict to a specific request, "
 "typing the title as in the URL."
 msgstr ""
+"<strong><code>zahtev:</code></strong> da biste se ograničili na neki "
+"određeni zahtev, ukucati naslov kao u URL-u"
 
-#: app/views/general/search.rhtml:129
+#: app/views/general/_advanced_search_tips.rhtml:11
 msgid ""
 "<strong><code>requested_by:julian_todd</code></strong> to search requests "
 "made by Julian Todd, typing the name as in the URL."
 msgstr ""
+"<strong><code>podnesen_od strane:julian_todd</code></strong> da biste "
+"pretražili zahteve koje je podnio Julian Todd, ukucati ime kao u URL-u."
 
-#: app/views/general/search.rhtml:128
+#: app/views/general/_advanced_search_tips.rhtml:10
 msgid ""
 "<strong><code>requested_from:home_office</code></strong> to search requests "
 "from the Home Office, typing the name as in the URL."
 msgstr ""
 
-#: app/views/general/search.rhtml:126
+#: app/views/general/_advanced_search_tips.rhtml:8
 msgid ""
 "<strong><code>status:</code></strong> to select based on the status or "
 "historical status of the request, see the <a href=\"{{statuses_url}}\">table"
 " of statuses</a> below."
 msgstr ""
+"<strong><code>status:</code></strong> da biste birali zasnovano na statusu "
+"ili historiji statusa zahteva, pogledajte <a "
+"href=\"{{statuses_url}}\">tabelu statusa</a> below."
 
-#: app/views/general/search.rhtml:134
+#: app/views/general/_advanced_search_tips.rhtml:16
 msgid ""
 "<strong><code>tag:charity</code></strong> to find all public bodies or requests with a given tag. You can include multiple tags, \n"
 "    and tag values, e.g. <code>tag:openlylocal AND tag:financial_transaction:335633</code>. Note that by default any of the tags\n"
 "    can be present, you have to put <code>AND</code> explicitly if you only want results them all present."
 msgstr ""
 
-#: app/views/general/search.rhtml:127
+#: app/views/general/_advanced_search_tips.rhtml:9
 msgid ""
 "<strong><code>variety:</code></strong> to select type of thing to search "
 "for, see the <a href=\"{{varieties_url}}\">table of varieties</a> below."
 msgstr ""
 
-#: app/views/comment/new.rhtml:56
+#: app/views/comment/new.rhtml:57
 msgid ""
 "<strong>Advice</strong> on how to get a response that will satisfy the "
 "requester. </li>"
 msgstr ""
+"<strong>Savet</strong> o tome kako dobiti odgovor koji će zadovoljiti "
+"podnosioca zahteva. </li>"
 
 #: app/views/request/_other_describe_state.rhtml:56
 msgid "<strong>All the information</strong> has been sent"
-msgstr ""
+msgstr "<strong>Sve informacije</strong> su poslane"
 
-#: app/views/request/_followup.rhtml:79
+#: app/views/request/_followup.rhtml:106
 msgid ""
 "<strong>Anything else</strong>, such as clarifying, prompting, thanking"
-msgstr ""
+msgstr "<strong>Nešto drugo</strong>, poput objašnjenja, napomena, zahvalnica"
 
 #: app/views/request/details.rhtml:12
 msgid ""
@@ -433,13 +549,15 @@ msgstr ""
 
 #: app/views/request/_other_describe_state.rhtml:28
 msgid "<strong>Clarification</strong> has been requested"
-msgstr ""
+msgstr "<strong>Objašnjenje</strong> je zatraženo"
 
 #: app/views/request/_other_describe_state.rhtml:14
 msgid ""
 "<strong>No response</strong> has been received\n"
 "                <small>(maybe there's just an acknowledgement)</small>"
 msgstr ""
+"<strong>Nema odgovora</strong> je primljeno\n"
+"                <small>(možda postoji samo potvrda)</small>"
 
 #: app/views/user/signchangeemail.rhtml:30
 msgid ""
@@ -447,18 +565,25 @@ msgid ""
 "    We will send an email to your new email address. Follow the\n"
 "    instructions in it to confirm changing your email."
 msgstr ""
+"<strong>Napomena:</strong>\n"
+"    Poslati ćemo e-mail na Vašu novu adresu. Pratite\n"
+"    upute u njemu da bi potvrdili promjenu vašeg e-maila."
 
 #: app/views/user/contact.rhtml:32
 msgid ""
 "<strong>Note:</strong> You're sending a message to yourself, presumably\n"
 "            to try out how it works."
 msgstr ""
+"<strong>Napomena:</strong> Šaljte poruku sebi, vjerovatno\n"
+"            da isprobate kako radi."
 
 #: app/views/request/preview.rhtml:31
 msgid ""
 "<strong>Privacy note:</strong> If you want to request private information about\n"
 "    yourself then <a href=\"%s\">click here</a>."
 msgstr ""
+"<strong>Napomena o privatnosti:</strong> Ako želite da zahtevate privatne informacije o\n"
+"    Vama onda <a href=\"%s\">kliknite ovde</a>."
 
 #: app/views/user/set_crop_profile_photo.rhtml:35
 msgid ""
@@ -471,396 +596,464 @@ msgid ""
 "<strong>Privacy warning:</strong> Your message, and any response\n"
 "        to it, will be displayed publicly on this website."
 msgstr ""
+"<strong>Upozorenje o privatnosti:</strong> Vaša poruka i bilo koji odgovor\n"
+"        na nju, će biti javno prikazan na ovoj stranici."
 
 #: app/views/request/_other_describe_state.rhtml:52
 msgid "<strong>Some of the information</strong> has been sent "
-msgstr ""
+msgstr "<strong>Dio informacija</strong> je poslan "
 
-#: app/views/general/exception_caught.rhtml:17
-msgid "<strong>Technical details:</strong>"
-msgstr ""
-
-#: app/views/comment/new.rhtml:35
+#: app/views/comment/new.rhtml:36
 msgid "<strong>Thank</strong> the public authority or "
-msgstr ""
-
-#: app/views/request/new.rhtml:23
-msgid ""
-"<strong>browse</strong> the authority's <a href=\"%s\">publication "
-"scheme</a> or <strong>search</strong> their web site ..."
 msgstr ""
 
 #: app/views/request/show.rhtml:91
 msgid "<strong>did not have</strong> the information requested."
-msgstr ""
+msgstr "<strong>nije sadržavao</strong> traženu informaciju."
 
-#: app/views/request/new.rhtml:25
-msgid "<strong>search</strong> the authority's web site ..."
-msgstr ""
-
-#: app/views/comment/new.rhtml:45
+#: app/views/comment/new.rhtml:46
 msgid ""
 "A <strong>summary</strong> of the response if you have received it by post. "
+msgstr " <strong>Sažetak</strong> odgovora ako ste ga primili poštom. "
+
+#: app/models/info_request.rb:284
+msgid "A Freedom of Information request"
 msgstr ""
 
-#: app/views/general/search.rhtml:162
+#: app/models/public_body.rb:278
+#: app/views/general/_advanced_search_tips.rhtml:46
 msgid "A public authority"
-msgstr ""
+msgstr "Javna ustanova"
 
 #: app/views/request/_other_describe_state.rhtml:34
 msgid "A response will be sent <strong>by post</strong>"
-msgstr ""
+msgstr "Odgovor će biti poslan <strong>poštom</strong>"
 
-#: app/views/general/search.rhtml:151
+#: app/views/general/_advanced_search_tips.rhtml:35
 msgid "A strange reponse, required attention by the {{site_name}} team"
-msgstr ""
+msgstr "Neobičan odgovor, potreban pregled od strane {{site_name}} tima"
 
-#: app/views/general/search.rhtml:163
+#: app/views/general/_advanced_search_tips.rhtml:47
 msgid "A {{site_name}} user"
-msgstr ""
+msgstr "Korisnik stranice {{site_name}}"
 
 #: app/views/user/set_profile_about_me.rhtml:20
 msgid "About you:"
-msgstr ""
+msgstr "O Vama:"
 
-#: app/models/info_request_event.rb:293
-msgid "Acknowledgement"
-msgstr ""
-
-#: app/views/request/_sidebar.rhtml:5
+#: app/views/request/_sidebar.rhtml:8
 msgid "Act on what you've learnt"
-msgstr ""
+msgstr "Radite na osnovu onoga što ste naučili"
 
 #: app/views/comment/new.rhtml:14
-msgid "Add an annotation to "
-msgstr ""
+msgid "Add an annotation"
+msgstr "Dodati napomenu"
 
-#: app/views/request/show_response.rhtml:47
+#: app/views/request/show_response.rhtml:45
 msgid ""
 "Add an annotation to your request with choice quotes, or\n"
 "                a <strong>summary of the response</strong>."
 msgstr ""
+"Dodajte napomenu Vašem zahtevu sa izabranim navodima, ili\n"
+"                 <strong>sažetak odgovora</strong>."
 
-#: app/views/public_body/_body_listing_single.rhtml:26
+#: app/views/public_body/_body_listing_single.rhtml:27
 msgid "Added on {{date}}"
-msgstr ""
+msgstr "Dodato na datum {{date}}"
 
-#: app/models/user.rb:54
+#: app/models/user.rb:58
 msgid "Admin level is not included in list"
-msgstr ""
+msgstr "Nivo administratora nije uključen u listu"
 
 #: app/views/request_mailer/requires_admin.rhtml:9
 msgid "Administration URL:"
-msgstr ""
+msgstr "URL administracije:"
 
-#: app/views/general/search.rhtml:31 app/views/general/search.rhtml:121
+#: app/views/general/search.rhtml:46
+msgid "Advanced search"
+msgstr "Napredna pretraga"
+
+#: app/views/general/_advanced_search_tips.rhtml:3
 msgid "Advanced search tips"
-msgstr ""
+msgstr "Saveti za naprednu pretragu"
 
-#: app/views/comment/new.rhtml:52
+#: app/views/comment/new.rhtml:53
 msgid ""
 "Advise on whether the <strong>refusal is legal</strong>, and how to complain"
 " about it if not."
 msgstr ""
+"Savet o tome da li je <strong>odbijanje legalno</strong>, i o tome kako se "
+"žaliti ako nije."
 
-#: app/views/request/new.rhtml:69
+#: app/views/request/new.rhtml:67
 msgid ""
 "Air, water, soil, land, flora and fauna (including how these effect\n"
-"        human beings)"
+"            human beings)"
 msgstr ""
+"Zrak, voda, tlo, kopno, flora i fauna (uključujući kako ovi utiču na\n"
+"            ljudska bića)"
 
-#: app/models/info_request_event.rb:309
-msgid "All information sent"
-msgstr ""
-
-#: app/views/general/search.rhtml:146
+#: app/views/general/_advanced_search_tips.rhtml:30
 msgid "All of the information requested has been received"
+msgstr "Sve tražene informacije su primljene"
+
+#: app/views/general/_advanced_search_tips.rhtml:23
+msgid ""
+"All the options below can use <strong>status</strong> or "
+"<strong>latest_status</strong> before the colon. For example, "
+"<strong>status:not_held</strong> will match requests which have "
+"<em>ever</em> been marked as not held; "
+"<strong>latest_status:not_held</strong> will match only requests that are "
+"<em>currently</em> marked as not held."
 msgstr ""
 
-#: app/views/public_body/list.rhtml:5
-msgid "Alphabet"
+#: app/views/general/_advanced_search_tips.rhtml:40
+msgid ""
+"All the options below can use <strong>variety</strong> or "
+"<strong>latest_variety</strong> before the colon. For example, "
+"<strong>variety:sent</strong> will match requests which have <em>ever</em> "
+"been sent; <strong>latest_variety:sent</strong> will match only requests "
+"that are <em>currently</em> marked as sent."
 msgstr ""
 
 #: app/views/public_body/_body_listing_single.rhtml:12
 msgid "Also called {{other_name}}."
-msgstr ""
+msgstr "Drugim imenom {{other_name}}."
+
+#: app/views/track_mailer/event_digest.rhtml:60
+msgid "Alter your subscription"
+msgstr "Promjenite Vašu pretplatu"
 
 #: app/views/request_mailer/new_response.rhtml:12
 msgid ""
 "Although all responses are automatically published, we depend on\n"
 "you, the original requester, to evaluate them."
 msgstr ""
+"Iako su svi odgovori automatski objavljeni, računamo na\n"
+"vas, izvornog podnosioca zahteva, da ih ocijenite."
 
 #: app/views/request/_other_describe_state.rhtml:70
 msgid "An <strong>error message</strong> has been received"
+msgstr "<strong>poruka o pogrešci</strong> je primljena"
+
+#: app/models/info_request.rb:286
+msgid "An Environmental Information Regulations request"
 msgstr ""
 
-#: app/views/general/search.rhtml:161
+#: app/views/general/_advanced_search_tips.rhtml:45
 msgid "Annotation added to request"
-msgstr ""
+msgstr "Napomena dodata na zahtev"
 
-#: app/views/user/show.rhtml:34
+#: app/views/user/show.rhtml:41
 msgid "Annotations"
-msgstr ""
+msgstr "Napomene"
 
-#: app/views/comment/new.rhtml:17
+#: app/views/comment/new.rhtml:18
 msgid ""
 "Annotations are so anyone, including you, can help the requester with their "
 "request. For example:"
 msgstr ""
+"Napomene služe da bilo ko, uključujući Vas, može pomoći podnosioca zahteva "
+"sa njegovim zahtevom. Na primjer:"
 
-#: app/views/comment/new.rhtml:69
+#: app/views/comment/new.rhtml:70
 msgid ""
 "Annotations will be posted publicly here, and are \n"
 "        <strong>not</strong> sent to {{public_body_name}}."
 msgstr ""
+"Napomene će biti postane javno ovde, i \n"
+"        <strong>naće</strong> biti poslane za {{public_body_name}}."
 
 #: app/views/request/_after_actions.rhtml:6
 msgid "Anyone:"
-msgstr ""
+msgstr "Bilo ko:"
 
-#: app/views/request/new.rhtml:47
+#: app/views/request/new.rhtml:105
 msgid ""
 "Ask for <strong>specific</strong> documents or information, this site is not"
 " suitable for general enquiries."
 msgstr ""
+"Tražite <strong>konkretne</strong> dokumente ili informacije, ova stranica "
+"nije pogodna za opće pretrage."
 
-#: app/views/request/show_response.rhtml:31
+#: app/views/request/show_response.rhtml:29
 msgid ""
 "At the bottom of this page, write a reply to them trying to persuade them to scan it in\n"
 "            (<a href=\"%s\">more details</a>)."
 msgstr ""
+"Na dnu ove stranice, napišite im odgovor pokušavajući da ih ubjedite da ga pregledaju\n"
+"            (<a href=\"%s\">Više informacija</a>)."
 
 #: app/views/request/upload_response.rhtml:33
 msgid "Attachment (optional):"
-msgstr ""
+msgstr "Prilog (neobavezno):"
 
-#: app/models/info_request.rb:783
+#: app/views/request/simple_correspondence.rhtml:21
+msgid "Attachment:"
+msgstr "Prilog"
+
+#: app/models/info_request.rb:779
 msgid "Awaiting classification."
-msgstr ""
+msgstr "Čeka klasifikaciju."
 
-#: app/models/info_request.rb:803
+#: app/models/info_request.rb:799
 msgid "Awaiting internal review."
-msgstr ""
+msgstr "Čeka urgenciju"
 
-#: app/models/info_request.rb:785
+#: app/models/info_request.rb:781
 msgid "Awaiting response."
-msgstr ""
+msgstr "Čeka odgovor."
 
-#: app/views/request/new.rhtml:43
+#: app/views/public_body/list.rhtml:4
+msgid "Beginning with"
+msgstr "Počevši sa"
+
+#: app/views/request/new.rhtml:46
 msgid ""
-"Browse  <a href=\"%s\">other requests</a> for examples of how to word your "
-"request."
+"Browse <a href='{{url}}'>other requests</a> for examples of how to word your"
+" request."
 msgstr ""
+"Pretražite <a href='{{url}}'>druge zahteve</a> radi primjera kako da sročite"
+" Vaš zahtev."
 
-#: app/views/request/new.rhtml:41
+#: app/views/request/new.rhtml:44
 msgid ""
 "Browse <a href='{{url}}'>other requests</a> to '{{public_body_name}}' for "
 "examples of how to word your request."
 msgstr ""
+"Pretražite <a href='{{url}}'>druge zahteve</a> za '{{public_body_name}}' "
+"radi primjera kako da sročite Vaš zahtev."
+
+#: app/views/general/frontpage.rhtml:48
+msgid "Browse all authorities..."
+msgstr "Pretražite sve ustanove"
 
 #: app/views/request/show.rhtml:86
 msgid ""
 "By law, under all circumstances, {{public_body_link}} should have responded "
 "by now"
 msgstr ""
+"Po zakonu, pod svim uvjetima, {{public_body_link}} je trebala odgovoriti do "
+"sada"
 
 #: app/views/request/show.rhtml:78
 msgid ""
 "By law, {{public_body_link}} should normally have responded "
 "<strong>promptly</strong> and"
 msgstr ""
+"Po zakonu, {{public_body_link}} je trebala odgovoriti <strong>brzo</strong> "
+"i"
 
-#: app/views/general/search.rhtml:17
-msgid ""
-"Can't find it? <a href=\"%s\">Browse all</a> or <a href=\"%s\">ask us to add"
-" it</a>."
-msgstr ""
-
-#: app/controllers/track_controller.rb:145
+#: app/controllers/track_controller.rb:153
 msgid "Cancel a {{site_name}} alert"
-msgstr ""
+msgstr "Poništi {{site_name}} upozorenje"
 
-#: app/controllers/track_controller.rb:175
+#: app/controllers/track_controller.rb:183
 msgid "Cancel some {{site_name}} alerts"
+msgstr "Poništi neka {{site_name}} upozorenja"
+
+#: app/views/user/set_draft_profile_photo.rhtml:55
+msgid "Cancel, return to your profile page"
 msgstr ""
 
-#: locale/model_attributes.rb:39
+#: locale/model_attributes.rb:46
 msgid "CensorRule|Last edit comment"
 msgstr ""
 
-#: locale/model_attributes.rb:38
+#: locale/model_attributes.rb:45
 msgid "CensorRule|Last edit editor"
 msgstr ""
 
-#: locale/model_attributes.rb:37
+#: locale/model_attributes.rb:44
 msgid "CensorRule|Replacement"
-msgstr ""
+msgstr "Pravilo Cenzure|Zamjena"
 
-#: locale/model_attributes.rb:36
+#: locale/model_attributes.rb:43
 msgid "CensorRule|Text"
-msgstr ""
-
-#: lib/public_body_categories_en.rb:14
-msgid "Central government"
-msgstr ""
+msgstr "Pravilo Cenzure|Tekst"
 
 #: app/views/user/signchangeemail.rhtml:37
 msgid "Change email on {{site_name}}"
-msgstr ""
+msgstr "Promeniti e-mail na {{site_name}}"
 
 #: app/views/user/signchangepassword.rhtml:27
 msgid "Change password on {{site_name}}"
-msgstr ""
+msgstr "Promeniti password na {{site_name}}"
 
-#: app/views/user/set_crop_profile_photo.rhtml:1 app/views/user/show.rhtml:104
+#: app/views/user/show.rhtml:109 app/views/user/set_crop_profile_photo.rhtml:1
 msgid "Change profile photo"
-msgstr ""
+msgstr "Promeniti sliku na profilu"
 
 #: app/views/user/set_profile_about_me.rhtml:1
 msgid "Change the text about you on your profile at {{site_name}}"
-msgstr ""
+msgstr "Promijenite tekst o Vama na Vašem profilu na {{site_name}}"
 
-#: app/views/user/show.rhtml:107
+#: app/views/user/show.rhtml:112
 msgid "Change your email"
-msgstr ""
+msgstr "Promeniti Vaš e-mail"
 
-#: app/controllers/user_controller.rb:250
+#: app/controllers/user_controller.rb:284
 #: app/views/user/signchangeemail.rhtml:1
 #: app/views/user/signchangeemail.rhtml:11
 msgid "Change your email address used on {{site_name}}"
-msgstr ""
+msgstr "Promijenite Vašu e-mail adresu korištenu na {{site_name}}"
 
-#: app/views/user/show.rhtml:106
+#: app/views/user/show.rhtml:111
 msgid "Change your password"
-msgstr ""
+msgstr "Promeniti Vaš password"
 
-#: app/views/user/signchangepassword.rhtml:1
-#: app/views/user/signchangepassword.rhtml:11
 #: app/views/user/signchangepassword_send_confirm.rhtml:1
 #: app/views/user/signchangepassword_send_confirm.rhtml:9
+#: app/views/user/signchangepassword.rhtml:1
+#: app/views/user/signchangepassword.rhtml:11
 msgid "Change your password on {{site_name}}"
-msgstr ""
+msgstr "Promeniti password na {{site_name}}"
 
-#: app/controllers/user_controller.rb:204
+#: app/controllers/user_controller.rb:238
 msgid "Change your password {{site_name}}"
-msgstr ""
+msgstr "Promjenite Vaš password {{site_name}}"
 
-#: app/views/public_body/show.rhtml:15 app/views/public_body/show.rhtml:17
+#: app/views/public_body/show.rhtml:20 app/views/public_body/show.rhtml:22
 msgid "Charity registration"
-msgstr ""
+msgstr "Registracija nevladine organizacije"
 
-#: app/views/general/exception_caught.rhtml:6
+#: app/views/general/exception_caught.rhtml:8
 msgid "Check for mistakes if you typed or copied the address."
-msgstr ""
+msgstr "Provjerite ima li grešaka ako ste ukucali ili kopirali adresu."
 
 #: app/views/request/followup_preview.rhtml:14
 #: app/views/request/preview.rhtml:7
 msgid "Check you haven't included any <strong>personal information</strong>."
-msgstr ""
+msgstr "Provjerite da niste uključili nikakve <strong>lične podatke</strong>."
 
-#: app/models/info_request_event.rb:331
+#: lib/world_foi_websites.rb:29
+msgid "Chile"
+msgstr "Čile"
+
+#: app/views/user/set_draft_profile_photo.rhtml:5
+msgid "Choose your profile photo"
+msgstr "Odaberite sliku na Vašem profilu"
+
+#: app/models/info_request_event.rb:351
 msgid "Clarification"
-msgstr ""
+msgstr "Objašnjenje"
 
-#: app/models/info_request_event.rb:295
-msgid "Clarification required"
-msgstr ""
-
-#: app/controllers/request_controller.rb:339
+#: app/controllers/request_controller.rb:381
 msgid "Classify an FOI response from "
-msgstr ""
+msgstr "Klasificirajte odgovor na Zahtev za slobodan pristup informacijama od"
 
 #: app/views/request_mailer/very_overdue_alert.rhtml:6
 msgid ""
 "Click on the link below to send a message to {{public_body_name}} telling them to reply to your request. You might like to ask for an internal\n"
 "review, asking them to find out why response to the request has been so slow."
 msgstr ""
+"Kliknite na link ispod da biste poslali poruku za {{public_body_name}} u kojoj ih napomenite da odgovore. Možda želite tražiti internal\n"
+"review, tražeći da saznaju zašto odgovor na zahtev kasni."
 
 #: app/views/request_mailer/overdue_alert.rhtml:5
 msgid ""
 "Click on the link below to send a message to {{public_body}} reminding them "
 "to reply to your request."
 msgstr ""
+"Kliknite na link ispod da biste poslali poruku {{public_body}} koja će ih "
+"podsetiti da odgovore na Vaš zahtev."
 
 #: locale/model_attributes.rb:22
 msgid "Comment|Body"
-msgstr ""
+msgstr "Komentar|Tijelo"
 
 #: locale/model_attributes.rb:21
 msgid "Comment|Comment type"
-msgstr ""
+msgstr "Komentar|Tip komentara"
 
 #: locale/model_attributes.rb:24
 msgid "Comment|Locale"
-msgstr ""
+msgstr "Komentar|Mjesto"
 
 #: locale/model_attributes.rb:23
 msgid "Comment|Visible"
-msgstr ""
+msgstr "Komentar|Vidljiv"
 
-#: app/models/track_thing.rb:147
+#: app/models/track_thing.rb:219
 msgid "Confirm you want to be emailed about new requests"
-msgstr ""
+msgstr "Potvrdite da želite biti obavešteni e-mailom o novim zahtevima"
 
-#: app/models/track_thing.rb:214
+#: app/models/track_thing.rb:286
 msgid ""
-"Confirm you want to be emailed about new requests or responses matching "
-"'{{query}}'"
+"Confirm you want to be emailed about new requests or responses matching your"
+" search"
 msgstr ""
+"Potvrdite da želite biti obavešteni e-mailom o novim zahtevima ili "
+"odgovorima koji odgovaraju Vašoj pretrazi"
 
-#: app/models/track_thing.rb:198
+#: app/models/track_thing.rb:270
 msgid "Confirm you want to be emailed about requests by '{{user_name}}'"
 msgstr ""
+"Potvrdite da želite biti obavešteni e-mailom o zahtevima podnesenim od "
+"strane '{{user_name}}'"
 
-#: app/models/track_thing.rb:182
+#: app/models/track_thing.rb:254
 msgid ""
 "Confirm you want to be emailed about requests to '{{public_body_name}}'"
 msgstr ""
+"Potvrdite da želite biti obavešteni e-mailom o zahtevima za "
+"'{{public_body_name}}'"
 
-#: app/models/track_thing.rb:163
+#: app/models/track_thing.rb:235
 msgid "Confirm you want to be emailed when an FOI request succeeds"
 msgstr ""
+"Potvrdite da želite da budete obavešteni e-mailom kada Zahtev za slobodan "
+"pristup informacijama bude uspješan"
 
-#: app/controllers/request_controller.rb:300
+#: app/models/track_thing.rb:203
+msgid "Confirm you want to follow updates to the request '{{request_title}}'"
+msgstr "Potvrdite da želite pratiti ažuriranja zahteva '{{request_title}}'"
+
+#: app/controllers/request_controller.rb:341
 msgid "Confirm your FOI request to "
-msgstr ""
+msgstr "Potvrdite Vaš Zahtev za slobodan pristup informacijama za"
 
-#: app/controllers/request_controller.rb:703
-#: app/controllers/user_controller.rb:515
+#: app/controllers/user_controller.rb:559
+#: app/controllers/request_controller.rb:757
 msgid "Confirm your account on {{site_name}}"
-msgstr ""
+msgstr "Potvrdite Vaš račun na {{site_name}}"
 
 #: app/controllers/comment_controller.rb:57
 msgid "Confirm your annotation to {{info_request_title}}"
-msgstr ""
+msgstr "Potvrdite Vašu napomenu za {{info_request_title}}"
+
+#: app/controllers/request_controller.rb:36
+msgid "Confirm your email address"
+msgstr "Potvrdite Vašu e-mail adresu"
 
 #: app/models/user_mailer.rb:34
 msgid "Confirm your new email address on {{site_name}}"
-msgstr ""
+msgstr "Potvrdite Vašu novu e-mail adresu na {{site_name}}"
 
-#: app/views/layouts/default.rhtml:127
+#: app/views/general/_footer.rhtml:2
 msgid "Contact {{site_name}}"
 msgstr "Kontakt {{site_name}}"
 
-#: app/models/request_mailer.rb:210
+#: app/models/request_mailer.rb:219
 msgid "Could not identify the request from the email address"
-msgstr ""
+msgstr "Nismo mogli prepoznati zahtev sa e-mail adrese"
 
 #: app/models/profile_photo.rb:96
 msgid ""
 "Couldn't understand the image file that you uploaded. PNG, JPEG, GIF and "
 "many other common image file formats are supported."
 msgstr ""
+"Pogrešan format datoteke. Molimo Vas uploadirajte: PNG, JPEG, GIF, ili neke "
+"druge podržive formate."
 
 #: app/views/user/set_crop_profile_photo.rhtml:6
 msgid "Crop your profile photo"
-msgstr ""
+msgstr "Podrezati sliku na Vašem profilu"
 
-#: app/views/request/new.rhtml:74
+#: app/views/request/new.rhtml:72
 msgid ""
 "Cultural sites and built structures (as they may be affected by the\n"
-"        environmental factors listed above)"
+"            environmental factors listed above)"
 msgstr ""
 
 #: app/views/request/show.rhtml:68
@@ -868,30 +1061,38 @@ msgid ""
 "Currently <strong>waiting for a response</strong> from {{public_body_link}},"
 " they must respond promptly and"
 msgstr ""
+"Trenutno <strong>čeka odgovor</strong> od {{public_body_link}}, moraju "
+"odgovoriti brzo i"
 
-#: app/models/info_request_event.rb:299
-msgid "Deadline Extended"
-msgstr ""
+#: app/views/request/simple_correspondence.rhtml:17
+#: app/views/request/simple_correspondence.rhtml:29
+#: app/views/request/simple_correspondence.rhtml:36
+msgid "Date:"
+msgstr "Datum:"
 
-#: app/models/outgoing_message.rb:57
-msgid "Dear "
-msgstr ""
+#: app/models/outgoing_message.rb:63
+msgid "Dear {{public_body_name}},"
+msgstr "Poštovani {{public_body_name}},"
 
-#: app/models/info_request.rb:787
+#: app/models/request_mailer.rb:87
+msgid "Delayed response to your FOI request - "
+msgstr "Odgođen odgovor na Vaš Zahtev o slobodnom pristupu informacijama  - "
+
+#: app/models/info_request.rb:783
 msgid "Delayed."
-msgstr ""
+msgstr "Odgođen"
 
-#: app/models/info_request.rb:805 app/models/info_request_event.rb:315
+#: app/models/info_request.rb:801
 msgid "Delivery error"
-msgstr ""
+msgstr "Greška u isporuci"
 
 #: app/views/request/details.rhtml:1 app/views/request/details.rhtml:2
 msgid "Details of request '"
-msgstr ""
+msgstr "Detalji zahteva '"
 
-#: app/views/general/search.rhtml:50 app/views/general/search.rhtml:62
+#: app/views/general/search.rhtml:166
 msgid "Did you mean: {{correction}}"
-msgstr ""
+msgstr "Da li ste mislili: {{correction}}"
 
 #: app/views/outgoing_mailer/_followup_footer.rhtml:1
 msgid ""
@@ -899,101 +1100,141 @@ msgid ""
 "the internet. Our privacy and copyright policies:"
 msgstr ""
 
-#: app/views/request/_view_html_prefix.rhtml:6
-msgid "Download original attachment"
+#: app/views/request/_followup.rhtml:19
+msgid ""
+"Don't want to address your message to {{person_or_body}}?  You can also "
+"write to:"
 msgstr ""
 
-#: app/views/request/_followup.rhtml:85
+#: app/views/general/_localised_datepicker.rhtml:4
+msgid "Done"
+msgstr "Završeno"
+
+#: app/views/request/_after_actions.rhtml:17
+msgid "Download a zip file of all correspondence"
+msgstr "Preuzmite svu korespondenciju u zip fajlu"
+
+#: app/views/request/_view_html_prefix.rhtml:6
+msgid "Download original attachment"
+msgstr "Preuzeti originalni prilog"
+
+#: app/models/info_request.rb:268
+msgid "EIR"
+msgstr ""
+
+#: app/views/request/_followup.rhtml:112
 msgid ""
 "Edit and add <strong>more details</strong> to the message above,\n"
 "                explaining why you are dissatisfied with their response."
 msgstr ""
+"Uredite i dodajte <strong>više detalja</strong> na poruku iznad,\n"
+"                objašnjavajući zašto niste zadovoljni njihovim odgovorom."
 
 #: app/views/admin_public_body/_locale_selector.rhtml:2
 msgid "Edit language version:"
-msgstr ""
+msgstr "Uređuj verziju jezika:"
 
 #: app/views/user/set_profile_about_me.rhtml:9
 msgid "Edit text about you"
-msgstr ""
+msgstr "Uredite tekst o Vama"
 
-#: app/models/user.rb:135
+#: app/views/request/preview.rhtml:40
+msgid "Edit this request"
+msgstr "Uredi ovaj zahtev"
+
+#: app/models/user.rb:149
 msgid "Either the email or password was not recognised, please try again."
-msgstr ""
+msgstr "E-mail ili password nisu prepoznati, molimo pokušajte ponovo."
 
-#: app/models/user.rb:137
+#: app/models/user.rb:151
 msgid ""
 "Either the email or password was not recognised, please try again. Or create"
 " a new account using the form on the right."
 msgstr ""
+"E-mail ili password nisu prepoznati, molimo pokušajte ponovo. Ili kreirajte "
+"novi račun koristeći formular desno."
 
 #: app/models/contact_validator.rb:34
 msgid "Email doesn't look like a valid address"
-msgstr ""
+msgstr "E-mail ne izgleda kao validna adresa"
 
 #: app/views/comment/_comment_form.rhtml:8
 msgid "Email me future updates to this request"
-msgstr ""
+msgstr "Buduća ažuriranja šaljite na moj e-mail"
 
-#: app/models/track_thing.rb:155
+#: app/models/track_thing.rb:227
 msgid "Email me new successful responses "
-msgstr ""
+msgstr "Pošaljite mi e-mail sa novim pozitivnim odgovorima "
 
-#: app/models/track_thing.rb:139
+#: app/models/track_thing.rb:211
 msgid "Email me when there are new requests"
-msgstr ""
+msgstr "Pošaljite mi e-mail kada pristignu novi zahtevi"
 
-#: app/views/user/show.rhtml:36
-msgid "Email subscriptions"
-msgstr ""
-
-#: app/views/general/search.rhtml:123
+#: app/views/general/_advanced_search_tips.rhtml:5
 msgid ""
 "Enter words that you want to find separated by spaces, e.g. <strong>climbing"
 " lane</strong>"
 msgstr ""
+"Sa razmacima unesite reči koje želite naći, npr. <strong>climbing "
+"lane</strong"
 
 #: app/views/request/upload_response.rhtml:23
 msgid ""
 "Enter your response below. You may attach one file (use email, or \n"
 "<a href=\"%s\">contact us</a> if you need more)."
 msgstr ""
+"Unesite Vaš odgovor ispod. Možete priložiti jednu datoteku (koristite e-mail, ili \n"
+"<a href=\"%s\">kontaktirajte nas</a> ako trebate više)."
 
-#: app/views/public_body/show.rhtml:96
+#: app/models/info_request.rb:259 app/models/info_request.rb:277
+msgid "Environmental Information Regulations"
+msgstr ""
+
+#: app/views/public_body/show.rhtml:116
 msgid "Environmental Information Regulations requests made"
 msgstr ""
 
-#: app/views/public_body/show.rhtml:69
+#: app/views/public_body/show.rhtml:73
 msgid "Environmental Information Regulations requests made using this site"
 msgstr ""
 
+#: lib/world_foi_websites.rb:13
+msgid "European Union"
+msgstr "Evropska Unija"
+
 #: app/views/request/details.rhtml:4
 msgid "Event history"
-msgstr ""
+msgstr "Prikaz prošlih događanja"
 
-#: app/views/request/_sidebar.rhtml:41
+#: app/views/request/_sidebar.rhtml:35
 msgid "Event history details"
-msgstr ""
+msgstr "Detalji prikaza prošlih događanja"
 
-#: app/views/request/new.rhtml:124
+#: app/views/request/new.rhtml:128
 msgid ""
 "Everything that you enter on this page \n"
 "                will be <strong>displayed publicly</strong> on\n"
 "                this website forever (<a href=\"%s\">why?</a>)."
 msgstr ""
+"Sve što unesete na ovu stranicu \n"
+"                će biti <strong>javno prikazano</strong> na\n"
+"                ovoj web stranici trajno. (<a href=\"%s\">Više informacija</a>)."
 
-#: app/views/request/new.rhtml:116
+#: app/views/request/new.rhtml:120
 msgid ""
 "Everything that you enter on this page, including <strong>your name</strong>, \n"
 "                will be <strong>displayed publicly</strong> on\n"
 "                this website forever (<a href=\"%s\">why?</a>)."
 msgstr ""
+"Sve što unesete na ovu stranicu, uključujući <strong>Vaše ime</strong>, \n"
+"                će biti <strong>javno prikazano</strong> na\n"
+"                ovoj web stranici zauvek (<a href=\"%s\">Više informacija</a>)."
 
-#: locale/model_attributes.rb:60
+#: locale/model_attributes.rb:68
 msgid "EximLogDone|Filename"
 msgstr ""
 
-#: locale/model_attributes.rb:61
+#: locale/model_attributes.rb:69
 msgid "EximLogDone|Last stat"
 msgstr ""
 
@@ -1005,81 +1246,157 @@ msgstr ""
 msgid "EximLog|Order"
 msgstr ""
 
+#: app/models/info_request.rb:266
+msgid "FOI"
+msgstr ""
+
 #: app/views/public_body/view_email.rhtml:3
 msgid "FOI email address for {{public_body}}"
-msgstr ""
+msgstr "ZOSPI e-mail adresa za {{public_body}}"
 
-#: app/views/user/show.rhtml:33
+#: app/views/user/show.rhtml:40
 msgid "FOI requests"
+msgstr "Zahtevi za slobodan pristup informacijama"
+
+#: app/models/track_thing.rb:265 app/models/track_thing.rb:266
+msgid "FOI requests by '{{user_name}}'"
+msgstr "Zahtevi za slobodan pristup informacijama od strane '{{user_name}}'"
+
+#: app/views/general/search.rhtml:195
+msgid "FOI requests {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr ""
 
-#: app/models/track_thing.rb:193 app/models/track_thing.rb:194
-msgid "FOI requests by '{{user_name}}'"
+#: app/models/request_mailer.rb:51
+msgid "FOI response requires admin - "
 msgstr ""
+"Odgovor na Zahtev o slobodnom pristupu informacijama zahteva "
+"administratorsku dozvolu  - "
 
 #: app/models/profile_photo.rb:101
 msgid "Failed to convert image to a PNG"
-msgstr ""
+msgstr "Nismo uspeli konvertovati sliku u PNG format"
 
 #: app/models/profile_photo.rb:105
 msgid ""
 "Failed to convert image to the correct size: at %{cols}x%{rows}, need "
 "%{width}x%{height}"
 msgstr ""
+"Nismo uspeli konvertovati sliku u odgovarajuću veličinu:  %{cols}x%{rows}, "
+"potrebno %{width}x%{height}"
 
-#: app/views/request/new.rhtml:21
-msgid "First,"
-msgstr ""
+#: app/views/general/search.rhtml:117
+msgid "Filter"
+msgstr "Filtriraj"
 
-#: app/views/general/frontpage.rhtml:8
+#: app/views/request/select_authority.rhtml:36
 msgid ""
 "First, type in the <strong>name of the UK public authority</strong> you'd \n"
-"           <br>like information from. <strong>By law, they have to respond</strong>\n"
-"           (<a href=\"%s\">why?</a>)."
+"           like information from. <strong>By law, they have to respond</strong>\n"
+"           (<a href=\"%s#%s\">why?</a>)."
 msgstr ""
+
+#: locale/model_attributes.rb:88
+msgid "FoiAttachment|Charset"
+msgstr ""
+
+#: locale/model_attributes.rb:86
+msgid "FoiAttachment|Content type"
+msgstr ""
+
+#: locale/model_attributes.rb:89
+msgid "FoiAttachment|Display size"
+msgstr ""
+
+#: locale/model_attributes.rb:87
+msgid "FoiAttachment|Filename"
+msgstr ""
+
+#: locale/model_attributes.rb:92
+msgid "FoiAttachment|Hexdigest"
+msgstr ""
+
+#: locale/model_attributes.rb:90
+msgid "FoiAttachment|Url part number"
+msgstr ""
+
+#: locale/model_attributes.rb:91
+msgid "FoiAttachment|Within rfc822 subject"
+msgstr ""
+
+#: app/views/track/_tracking_links.rhtml:21
+msgid "Follow by email"
+msgstr "Prati putem e-maila"
+
+#: app/views/request/list.rhtml:8
+msgid "Follow these requests"
+msgstr "Prati ove zahteve"
+
+#: app/views/public_body/show.rhtml:4
+msgid "Follow this authority"
+msgstr "Prati ovu ustanovu"
 
 #: app/views/request_mailer/old_unclassified_updated.rhtml:4
 msgid "Follow this link to see the request:"
-msgstr ""
+msgstr "Pratite ovaj link da biste videli zahtev:"
 
-#: app/models/info_request_event.rb:335
+#: app/views/request/_sidebar.rhtml:2
+msgid "Follow this request"
+msgstr "Prati ovaj zahtev"
+
+#: app/models/info_request_event.rb:355
 msgid "Follow up"
 msgstr ""
 
-#: app/views/general/search.rhtml:159
+#: app/views/general/_advanced_search_tips.rhtml:43
 msgid "Follow up message sent by requester"
-msgstr ""
+msgstr "Prateća poruka poslana od strane podnosioca zahteva"
 
 #: app/views/public_body/view_email.rhtml:14
 msgid "Follow up messages to existing requests are sent to "
 msgstr ""
 
-#: app/views/request/_followup.rhtml:16
+#: app/views/request/_followup.rhtml:43
 msgid ""
 "Follow ups and new responses to this request have been stopped to prevent "
 "spam. Please <a href=\"{{url}}\">contact us</a> if you are {{user_link}} and"
 " need to send a follow up."
 msgstr ""
 
-#: app/views/public_body/show.rhtml:61
+#: app/views/general/blog.rhtml:7 app/views/general/_footer.rhtml:3
+msgid "Follow us on twitter"
+msgstr "Pratite nas na twitter-u"
+
+#: app/views/public_body/show.rhtml:65
 msgid ""
 "For an unknown reason, it is not possible to make a request to this "
 "authority."
-msgstr ""
+msgstr "Iz nepoznatog razloga, nije moguće podneti zahtev ovoj ustanovi."
 
 #: app/views/user/_signin.rhtml:21
 msgid "Forgotten your password?"
+msgstr "Zaboravili ste Vaš password?"
+
+#: app/views/public_body/list.rhtml:47
+msgid "Found {{count}} public bodies {{description}}"
+msgstr "Pronađeno {{count}} javnih tijela {{description}}"
+
+#: app/models/info_request.rb:257
+msgid "Freedom of Information"
 msgstr ""
 
-#: app/views/public_body/show.rhtml:56
+#: app/models/info_request.rb:275
+msgid "Freedom of Information Act"
+msgstr ""
+
+#: app/views/public_body/show.rhtml:60
 msgid ""
 "Freedom of Information law does not apply to this authority, so you cannot make\n"
-"        a request to it."
+"                a request to it."
 msgstr ""
 
 #: app/views/request/followup_bad.rhtml:11
 msgid "Freedom of Information law no longer applies to"
-msgstr ""
+msgstr "Zakon o slobodnom pristupu informacijama više se ne primjenjuje na"
 
 #: app/views/public_body/view_email.rhtml:10
 msgid ""
@@ -1087,20 +1404,25 @@ msgid ""
 "messages to existing requests are sent to "
 msgstr ""
 
-#: app/views/user/show.rhtml:128
-msgid "Freedom of Information request"
-msgstr ""
-
-#: app/views/public_body/show.rhtml:98
+#: app/views/public_body/show.rhtml:118
 msgid "Freedom of Information requests made"
-msgstr ""
+msgstr "Zahtevi za slobodan pristup informacijama podneseni"
 
-#: app/views/user/show.rhtml:121 app/views/user/show.rhtml:140
-msgid "Freedom of Information requests made by"
+#: app/views/user/show.rhtml:164
+msgid "Freedom of Information requests made by this person"
 msgstr ""
+"Zahtevi za slobodan pristup informacijama podnešeni od strane ove osobe"
 
-#: app/views/public_body/show.rhtml:72
+#: app/views/user/show.rhtml:164
+msgid "Freedom of Information requests made by you"
+msgstr "Zahtevi za slobodan pristup informacijama podnešeni od strane Vas."
+
+#: app/views/public_body/show.rhtml:76
 msgid "Freedom of Information requests made using this site"
+msgstr "Zahtevi za slobodan pristup informacijama podneseni na ovoj stranici"
+
+#: app/views/public_body/show.rhtml:30
+msgid "Freedom of information requests to"
 msgstr ""
 
 #: app/views/request/followup_bad.rhtml:12
@@ -1110,31 +1432,38 @@ msgid ""
 "    an email which will go to the right place, please <a href=\"%s\">send it to us</a>."
 msgstr ""
 
-#: app/models/outgoing_message.rb:73
+#: app/views/request/_correspondence.rhtml:12
+#: app/views/request/_correspondence.rhtml:36
+#: app/views/request/simple_correspondence.rhtml:14
+#: app/views/request/simple_correspondence.rhtml:27
+msgid "From:"
+msgstr "Od strane:"
+
+#: app/models/outgoing_message.rb:74
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
-msgstr ""
+msgstr "OVDE IZNESITE DETALJE VAŠE ŽALBE"
 
-#: app/views/general/exception_caught.rhtml:14
-msgid "Go to our <a href=\"%s\">front page</a></li>"
-msgstr ""
+#: lib/world_foi_websites.rb:25
+msgid "Germany"
+msgstr "Njemačka"
 
-#: app/models/info_request_event.rb:297
-msgid "Handled by post"
-msgstr ""
-
-#: app/models/info_request.rb:801
+#: app/models/info_request.rb:797
 msgid "Handled by post."
 msgstr ""
 
+#: app/controllers/services_controller.rb:13
+msgid ""
+"Hello! You can make Freedom of Information requests within {{country_name}} "
+"at {{link_to_website}}"
+msgstr ""
+"Dobrodošli! Možete podnositi Zahteve za slobodan pristup informacijama u "
+"{{country_name}} na ovom linku: {{link_to_website}}"
+
 #: app/views/layouts/default.rhtml:102
-msgid "Hello!"
-msgstr ""
-
-#: app/views/layouts/default.rhtml:99
 msgid "Hello, {{username}}!"
-msgstr ""
+msgstr "Dobrodošli, {{username}}!"
 
-#: app/views/layouts/default.rhtml:94
+#: app/views/general/_topnav.rhtml:8
 msgid "Help"
 msgstr "Pomoć"
 
@@ -1146,6 +1475,12 @@ msgid ""
 "description by a user. See the <a href=\"{{search_path}}\">search tips</a> for description of the states."
 msgstr ""
 
+#: app/views/user/rate_limited.rhtml:10
+msgid ""
+"Here is the message you wrote, in case you would like to copy the text and "
+"save it for later."
+msgstr ""
+
 #: app/views/request/_other_describe_state.rhtml:4
 msgid ""
 "Hi! We need your help. The person who made the following request\n"
@@ -1153,84 +1488,98 @@ msgid ""
 "    a moment to read it and help us keep the place tidy for everyone?\n"
 "    Thanks."
 msgstr ""
+"Pozdrav, trebamo Vašu pomoć. Osoba koja je podnela sledeći zahtev\n"
+"    nam nije rekla da li je bio uspešan ili ne. Da li biste mogli odvojiti\n"
+"    malo vremena da ga pročitate i da nam pomognete da održimo ovo mjesto urednim za sve?\n"
+"    Hvala."
 
-#: locale/model_attributes.rb:57
+#: locale/model_attributes.rb:65
 msgid "Holiday|Day"
-msgstr ""
+msgstr "Praznik|Dan"
 
-#: locale/model_attributes.rb:58
+#: locale/model_attributes.rb:66
 msgid "Holiday|Description"
-msgstr ""
+msgstr "Praznik|Opis"
 
-#: app/views/public_body/show.rhtml:7
+#: app/views/general/_topnav.rhtml:3
+msgid "Home"
+msgstr "Naslovna"
+
+#: app/views/public_body/show.rhtml:12
 msgid "Home page of authority"
-msgstr ""
+msgstr "Početna stranica ustanove"
 
-#: app/views/request/new.rhtml:63
+#: app/views/request/new.rhtml:61
 msgid ""
 "However, you have the right to request environmental\n"
-"        information under a different law"
+"            information under a different law"
 msgstr ""
+"Ipak, imate pravo da tražite informacije o okolišu\n"
+"            pozivajući se na drugi zakon"
 
-#: app/views/request/new.rhtml:73
+#: app/views/request/new.rhtml:71
 msgid "Human health and safety"
 msgstr ""
 
-#: app/views/request/_followup.rhtml:68
+#: app/views/request/_followup.rhtml:95
 msgid "I am asking for <strong>new information</strong>"
-msgstr ""
+msgstr "Molim za <strong>nove informacije</strong>"
 
-#: app/views/request/_followup.rhtml:73
+#: app/views/request/_followup.rhtml:100
 msgid "I am requesting an <strong>internal review</strong>"
 msgstr ""
 
 #: app/views/request_game/play.rhtml:39
 msgid "I don't like these ones &mdash; give me some more!"
-msgstr ""
+msgstr "Ne sviđaju mi se ove &mdash; dajte mi više!"
 
 #: app/views/request_game/play.rhtml:40
 msgid "I don't want to do any more tidying now!"
-msgstr ""
+msgstr "Ne želim da uređujem više u ovom momentu!"
 
 #: app/views/request/_describe_state.rhtml:91
 msgid "I would like to <strong>withdraw this request</strong>"
-msgstr ""
+msgstr "Želio/la bih da <strong>povučem ovaj zahtev</strong>"
 
 #: app/views/request/_describe_state.rhtml:11
 msgid ""
 "I'm still <strong>waiting</strong> for my information\n"
 "                <small>(maybe you got an acknowledgement)</small>"
 msgstr ""
+"Još uvek <strong>čekam</strong> na svoje informacije\n"
+"                <small>(možda ste dobili potvrdu)</small>"
 
 #: app/views/request/_describe_state.rhtml:18
 msgid "I'm still <strong>waiting</strong> for the internal review"
-msgstr ""
+msgstr "Još uvek <strong>čekam</strong> na urgenciju"
 
 #: app/views/request/_describe_state.rhtml:32
 msgid "I'm waiting for an <strong>internal review</strong> response"
-msgstr ""
+msgstr "Čekam na <strong>urgenciju</strong>"
 
 #: app/views/request/_describe_state.rhtml:25
 msgid "I've been asked to <strong>clarify</strong> my request"
-msgstr ""
+msgstr "Zamoljen/a sam da <strong>objasnim</strong> moj zahtev"
 
 #: app/views/request/_describe_state.rhtml:60
 msgid "I've received <strong>all the information"
-msgstr ""
+msgstr "Dobio/la sam <strong>sve informacije"
 
 #: app/views/request/_describe_state.rhtml:56
 msgid "I've received <strong>some of the information</strong>"
-msgstr ""
+msgstr "Dobio/la sam <strong>dio informacija</strong>"
 
 #: app/views/request/_describe_state.rhtml:76
 msgid "I've received an <strong>error message</strong>"
-msgstr ""
+msgstr "Dobio/la sam <strong>poruku o pogrešci</strong>"
 
 #: app/views/public_body/view_email.rhtml:28
 msgid ""
 "If the address is wrong, or you know a better address, please <a "
 "href=\"%s\">contact us</a>."
 msgstr ""
+"Ako je adresa pogrešna, ili znate bolju adresu, molimo Vas <a href=\"%s\">da"
+" nas kontaktirate</a>."
 
 #: app/views/request_mailer/stopped_responses.rhtml:10
 msgid ""
@@ -1238,33 +1587,43 @@ msgid ""
 "or an email on another subject to {{user}}, then please\n"
 "email {{contact_email}} for help."
 msgstr ""
+"Ako je ovo pogrešno, ili biste da pošaljete novi odgovor na zahtev\n"
+"ili e-mail o nečemu drugome {{user}}, onda molimo\n"
+"pošaljite nam e-mail {{contact_email}} za pomoć."
 
-#: app/views/request/_followup.rhtml:20
+#: app/views/request/_followup.rhtml:47
 msgid ""
 "If you are dissatisfied by the response you got from\n"
 "            the public authority, you have the right to\n"
 "            complain (<a href=\"%s\">details</a>)."
 msgstr ""
+"Ako niste zadovoljni odgovorom koji ste dobili od\n"
+"            javne ustanove, imate pravo na\n"
+"            žalbu (<a href=\"%s\">Više informacija</a>)."
 
 #: app/views/user/no_cookies.rhtml:20
 msgid "If you are still having trouble, please <a href=\"%s\">contact us</a>."
-msgstr ""
+msgstr "Ako i dalje imate problema, molimo <a href=\"%s\">kontaktirajte nas</a>."
 
 #: app/views/request/hidden.rhtml:15
 msgid ""
 "If you are the requester, then you may <a href=\"%s\">sign in</a> to view "
 "the request."
 msgstr ""
+"Ako ste podnosioc zahteva, možete se <a href=\"%s\">prijaviti</a> da biste "
+"pogledali zahtev."
 
-#: app/views/request/new.rhtml:119
+#: app/views/request/new.rhtml:123
 msgid ""
 "If you are thinking of using a pseudonym,\n"
 "                please <a href=\"%s\">read this first</a>."
 msgstr ""
+"Ako razmišljate o korištenju pseudonima,\n"
+"                molimo da<a href=\"%s\">pročitajte prvo ovo</a>."
 
 #: app/views/request/show.rhtml:105
 msgid "If you are {{user_link}}, please"
-msgstr ""
+msgstr "Ako ste {{user_link}}, molimo"
 
 #: app/views/user/bad_token.rhtml:7
 msgid ""
@@ -1272,12 +1631,17 @@ msgid ""
 "it</strong> from the email.  Then <strong>paste it into your browser</strong>, into the place\n"
 "you would type the address of any other webpage."
 msgstr ""
+"Ako ne možete kliknuti na njega u e-mailu, morati ćete <strong>odabrati i kopirati\n"
+"ga</strong> sa e-maila.  Zatim <strong>nalijepite ga u Vaš pretraživač</strong>, na mjesto\n"
+"gde biste ukucali adresu bilo koje druge web stranice."
 
-#: app/views/request/show_response.rhtml:49
+#: app/views/request/show_response.rhtml:47
 msgid ""
 "If you can, scan in or photograph the response, and <strong>send us\n"
 "                    a copy to upload</strong>."
 msgstr ""
+"Ako možete skenirajte ili uslikajte odgovor, i <strong>pošaljite nam\n"
+"                    kopiju za slanje</strong>."
 
 #: app/views/outgoing_mailer/_followup_footer.rhtml:4
 msgid ""
@@ -1290,136 +1654,171 @@ msgid ""
 "If you got the email <strong>more than six months ago</strong>, then this login link won't work any\n"
 "more. Please try doing what you were doing from the beginning."
 msgstr ""
+"Ako ste dobili e-mail <strong>pre više od šest meseci</strong>, onda ovaj link za prijavu više neće\n"
+"raditi. Molimo pokušajte ispočetka."
 
-#: app/controllers/request_controller.rb:437
+#: app/controllers/request_controller.rb:479
 msgid ""
 "If you have not done so already, please write a message below telling the "
 "authority that you have withdrawn your request. Otherwise they will not know"
 " it has been withdrawn."
 msgstr ""
+"Ako niste već, molimo napišite poruku ispod u kojoj napominjete ustanovu da "
+"ste povukli Vaš zahtev. U protivnom neće znati da je zahtev povučen."
 
-#: app/views/user/signchangeemail_confirm.rhtml:11
 #: app/views/user/signchangepassword_confirm.rhtml:10
+#: app/views/user/signchangeemail_confirm.rhtml:11
 msgid ""
 "If you use web-based email or have \"junk mail\" filters, also check your\n"
 "bulk/spam mail folders. Sometimes, our messages are marked that way."
 msgstr ""
+"Ako koristite neke od web mail servisa ili imate filtere za \"junk mail\", provjerite u Vašim\n"
+"bulk/spam folderima. Ponekad su naše poruke označene tako."
 
 #: app/views/user/banned.rhtml:15
 msgid ""
 "If you would like us to lift this ban, then you may politely\n"
 "<a href=\"/help/contact\">contact us</a> giving reasons.\n"
 msgstr ""
+"Ako biste željeli da ukinemo ovu zabranu, možete nas na pristojan način\n"
+"<a href=\"/help/contact\">kontaktirati</a> uz obrazloženje.\n"
 
 #: app/views/user/_signup.rhtml:6
 msgid "If you're new to {{site_name}}"
-msgstr ""
+msgstr "Ako ste novi na {{site_name}}"
 
 #: app/views/user/_signin.rhtml:7
 msgid "If you've used {{site_name}} before"
-msgstr ""
+msgstr "Ako ste koristili {{site_name}} prije"
 
 #: app/views/user/no_cookies.rhtml:12
 msgid ""
 "If your browser is set to accept cookies and you are seeing this message,\n"
 "then there is probably a fault with our server."
 msgstr ""
+"Ako je Vaš pretraživač namješten da prihvata cookies-e i vidite ovu poruku,\n"
+"onda vjerovatno postoji problem sa našim serverom."
 
-#: locale/model_attributes.rb:63
+#: locale/model_attributes.rb:55
 msgid "IncomingMessage|Cached attachment text clipped"
 msgstr ""
 
-#: locale/model_attributes.rb:64
+#: locale/model_attributes.rb:56
 msgid "IncomingMessage|Cached main body text folded"
 msgstr ""
 
-#: locale/model_attributes.rb:65
+#: locale/model_attributes.rb:57
 msgid "IncomingMessage|Cached main body text unfolded"
 msgstr ""
 
-#: locale/model_attributes.rb:44
+#: locale/model_attributes.rb:61
+msgid "IncomingMessage|Last parsed"
+msgstr ""
+
+#: locale/model_attributes.rb:62
+msgid "IncomingMessage|Mail from"
+msgstr ""
+
+#: locale/model_attributes.rb:59
+msgid "IncomingMessage|Mail from domain"
+msgstr "Nadolazeća poruka|Pošta sa domene"
+
+#: locale/model_attributes.rb:63
+msgid "IncomingMessage|Sent at"
+msgstr "Nadolazeća poruka|Poslana u"
+
+#: locale/model_attributes.rb:58
+msgid "IncomingMessage|Subject"
+msgstr "Nadolazeća poruka|Tema"
+
+#: locale/model_attributes.rb:60
+msgid "IncomingMessage|Valid to reply to"
+msgstr "Nadolazeća poruka|Validna za odgovor za"
+
+#: locale/model_attributes.rb:39
 msgid "InfoRequestEvent|Calculated state"
 msgstr ""
 
-#: locale/model_attributes.rb:43
+#: locale/model_attributes.rb:38
 msgid "InfoRequestEvent|Described state"
 msgstr ""
 
-#: locale/model_attributes.rb:41
+#: locale/model_attributes.rb:36
 msgid "InfoRequestEvent|Event type"
 msgstr ""
 
-#: locale/model_attributes.rb:45
+#: locale/model_attributes.rb:40
 msgid "InfoRequestEvent|Last described at"
 msgstr ""
 
-#: locale/model_attributes.rb:42
+#: locale/model_attributes.rb:37
 msgid "InfoRequestEvent|Params yaml"
 msgstr ""
 
-#: locale/model_attributes.rb:46
+#: locale/model_attributes.rb:41
 msgid "InfoRequestEvent|Prominence"
 msgstr ""
 
-#: locale/model_attributes.rb:86
+#: locale/model_attributes.rb:102
 msgid "InfoRequest|Allow new responses from"
 msgstr ""
 
-#: locale/model_attributes.rb:82
+#: locale/model_attributes.rb:98
 msgid "InfoRequest|Awaiting description"
 msgstr ""
 
-#: locale/model_attributes.rb:81
+#: locale/model_attributes.rb:97
 msgid "InfoRequest|Described state"
 msgstr ""
 
-#: locale/model_attributes.rb:87
+#: locale/model_attributes.rb:103
 msgid "InfoRequest|Handle rejected responses"
 msgstr ""
 
-#: locale/model_attributes.rb:85
+#: locale/model_attributes.rb:104
+msgid "InfoRequest|Idhash"
+msgstr ""
+
+#: locale/model_attributes.rb:101
 msgid "InfoRequest|Law used"
 msgstr ""
 
-#: locale/model_attributes.rb:83
+#: locale/model_attributes.rb:99
 msgid "InfoRequest|Prominence"
 msgstr ""
 
-#: locale/model_attributes.rb:80
+#: locale/model_attributes.rb:96
 msgid "InfoRequest|Title"
 msgstr ""
 
-#: locale/model_attributes.rb:84
+#: locale/model_attributes.rb:100
 msgid "InfoRequest|Url title"
 msgstr ""
 
-#: app/models/info_request_event.rb:303
-msgid "Information not held"
-msgstr ""
-
-#: app/models/info_request.rb:791
+#: app/models/info_request.rb:787
 msgid "Information not held."
-msgstr ""
+msgstr "Ne posedujemo informacije."
 
-#: app/views/request/new.rhtml:71
+#: app/views/request/new.rhtml:69
 msgid ""
 "Information on emissions and discharges (e.g. noise, energy,\n"
-"        radiation, waste materials)"
+"            radiation, waste materials)"
 msgstr ""
+"Informacije o emisijama i otpadima (npr. buka, energija,\n"
+"            radijacija, otpadni materijali)"
 
-#: app/models/info_request_event.rb:311
-msgid "Internal review acknowledgement"
-msgstr ""
-
-#: app/models/info_request_event.rb:328
+#: app/models/info_request_event.rb:348
 msgid "Internal review request"
-msgstr ""
+msgstr "Zahtev za urgenciju"
 
 #: app/views/outgoing_mailer/initial_request.rhtml:8
 msgid ""
 "Is {{email_address}} the wrong address for {{type_of_request}} requests to "
 "{{public_body_name}}? If so, please contact us using this form:"
 msgstr ""
+"Da li je {{email_address}} pogrešna adresa za {{type_of_request}} zahteve za"
+" {{public_body_name}}?Ako da, molimo kontaktirajte nas koristeći ovaj "
+"formular:"
 
 #: app/views/user/no_cookies.rhtml:8
 msgid ""
@@ -1427,188 +1826,244 @@ msgid ""
 "or cannot do so.  If you can, please enable cookies, or try using a different\n"
 "browser.  Then press refresh to have another go."
 msgstr ""
+"Moguće je da Vaš pretraživač nije namešten da prihvata nešto što se zove \"cookies\",\n"
+"ili nema tu mogućnost.  Ako možete, molimo pokušajte aktivirati cookies-e, ili pokušajte koristiti drugi\n"
+"pretraživač.  Zatim pritisnite refresh da biste pokušali ponovo."
 
 #: app/views/user/_user_listing_single.rhtml:21
 msgid "Joined in"
 msgstr ""
 
-#: app/views/user/show.rhtml:62
+#: app/views/user/show.rhtml:67
 msgid "Joined {{site_name}} in"
-msgstr ""
+msgstr "Pridružio se na {{site_name}} u"
 
-#: app/views/request/new.rhtml:48
+#: app/views/request/new.rhtml:106
 msgid ""
 "Keep it <strong>focused</strong>, you'll be more likely to get what you want"
 " (<a href=\"%s\">why?</a>)."
 msgstr ""
+"Držite se <strong>suštine</strong>, lakše ćete dobiti ono što tražite(<a "
+"href=\"%s\">Više informacija</a>)."
+
+#: app/views/request/_request_filter_form.rhtml:6
+msgid "Keywords"
+msgstr "Ključne reči"
+
+#: lib/world_foi_websites.rb:9
+msgid "Kosovo"
+msgstr "Kosovo"
 
 #: app/views/contact_mailer/message.rhtml:10
 msgid "Last authority viewed: "
-msgstr ""
+msgstr "Zadnja pregledana ustanova: "
 
 #: app/views/contact_mailer/message.rhtml:7
 msgid "Last request viewed: "
-msgstr ""
+msgstr "Zadnji pregledani zahtev: "
 
 #: app/views/user/no_cookies.rhtml:17
 msgid ""
 "Let us know what you were doing when this message\n"
 "appeared and your browser and operating system type and version."
 msgstr ""
+"Obavestite nas o tome šta ste uradili kada se ova poruka\n"
+"pojavila i o tipu i verziji Vašeg pretraživača i operativnog sistema."
 
-#: app/views/request/_correspondence.rhtml:27
-#: app/views/request/_correspondence.rhtml:57
+#: app/views/request/_correspondence.rhtml:26
+#: app/views/request/_correspondence.rhtml:54
 msgid "Link to this"
-msgstr ""
+msgstr "Spojite sa ovim"
 
 #: app/views/public_body/list.rhtml:32
 msgid "List of all authorities (CSV)"
-msgstr ""
+msgstr "Popis svih ustanova (CSV)"
 
-#: lib/public_body_categories_en.rb:23
-msgid "Local and regional"
-msgstr ""
+#: app/controllers/request_controller.rb:816
+msgid "Log in to download a zip file of {{info_request_title}}"
+msgstr "Prijavite se da preuzmete zipovano {{info_request_title}}"
 
-#: app/models/info_request.rb:789
+#: app/models/info_request.rb:785
 msgid "Long overdue."
 msgstr ""
 
-#: app/views/public_body/show.rhtml:47
-msgid "Make a new Environmental Information request"
+#: app/views/request/_request_filter_form.rhtml:23
+#: app/views/general/search.rhtml:108
+msgid "Made between"
+msgstr "Napravljen između"
+
+#: app/views/public_body/show.rhtml:52
+msgid "Make a new <strong>Environmental Information</strong> request"
 msgstr ""
 
-#: app/views/request/new.rhtml:1
+#: app/views/public_body/show.rhtml:54
+msgid ""
+"Make a new <strong>Freedom of Information</strong> request to "
+"{{public_body}}"
+msgstr ""
+"Podnesi novi <strong>Zahtev za slobodan pristup informacijama</strong> za "
+"{{public_body}}"
+
+#: app/views/general/frontpage.rhtml:5
+msgid ""
+"Make a new<br/>\n"
+"        <strong>Freedom <span>of</span><br/>\n"
+"        Information<br/>\n"
+"        request</strong>"
+msgstr ""
+"Podnesi novi<br/>\n"
+"        <strong>Zahtev<span> za</span><br/>\n"
+"        slobodan<br/>\n"
+"        pristup informacijama</strong>"
+
+#: app/views/general/_topnav.rhtml:4
+msgid "Make a request"
+msgstr "Podnesi zahtev"
+
+#: app/views/request/new.rhtml:20
 msgid "Make an {{law_used_short}} request to '{{public_body_name}}'"
 msgstr ""
+"Podnesi {{law_used_short}} zahtev javnoj ustanovi '{{public_body_name}}'"
 
-#: app/views/layouts/default.rhtml:15
+#: app/views/layouts/default.rhtml:8 app/views/layouts/no_chrome.rhtml:8
 msgid "Make and browse Freedom of Information (FOI) requests"
-msgstr ""
-
-#: app/views/layouts/default.rhtml:67
-msgid "Make and explore Freedom of Information requests"
-msgstr ""
-
-#: app/views/general/frontpage.rhtml:4
-msgid "Make or explore Freedom of Information requests"
-msgstr ""
-
-#: app/views/layouts/default.rhtml:87
-msgid "Make request"
-msgstr "Napravi zahtev"
+msgstr "Napravi i pretraži Zahteve za slobodan pristup informacijama"
 
 #: app/views/public_body/_body_listing_single.rhtml:23
 msgid "Make your own request"
-msgstr ""
+msgstr "Načinite Vaš zahtev"
 
 #: app/views/contact_mailer/message.rhtml:4
 msgid "Message sent using {{site_name}} contact form, "
-msgstr ""
+msgstr "Poruka poslana koristeći {{site_name}} formular za kontakt, "
 
 #: app/views/request/new_bad_contact.rhtml:1
 msgid "Missing contact details for '"
-msgstr ""
+msgstr "Nedostaju detalji kontakta za '"
 
-#: app/views/public_body/show.rhtml:5
+#: app/views/public_body/show.rhtml:10
 msgid "More about this authority"
-msgstr ""
+msgstr "Više o ovoj ustanovi"
 
-#: app/views/general/frontpage.rhtml:41
-msgid "More authorities..."
-msgstr ""
+#: app/views/request/_sidebar.rhtml:29
+msgid "More similar requests"
+msgstr "Više sličnih zahteva"
 
-#: app/views/general/frontpage.rhtml:55
+#: app/views/general/frontpage.rhtml:67
 msgid "More successful requests..."
-msgstr ""
+msgstr "Više uspešnih zahteva..."
+
+#: app/views/layouts/default.rhtml:106
+msgid "My profile"
+msgstr "Moj profil"
 
 #: app/views/request/_describe_state.rhtml:64
 msgid "My request has been <strong>refused</strong>"
-msgstr ""
+msgstr "Moj zahtev je <strong>odbijen</strong>"
 
-#: app/views/layouts/default.rhtml:91
+#: app/views/layouts/default.rhtml:105
 msgid "My requests"
 msgstr "Moji zahtevi"
 
 #: app/models/public_body.rb:36
 msgid "Name can't be blank"
-msgstr "Ime ne može biti prazno"
+msgstr "Ime ne može ostati prazno"
 
 #: app/models/public_body.rb:40
 msgid "Name is already taken"
-msgstr ""
+msgstr "Ime se već koristi"
 
-#: app/models/track_thing.rb:142 app/models/track_thing.rb:143
+#: app/models/track_thing.rb:214 app/models/track_thing.rb:215
 msgid "New Freedom of Information requests"
-msgstr ""
+msgstr "Novi Zahtevi za slobodan pristup informacijama"
+
+#: lib/world_foi_websites.rb:21
+msgid "New Zealand"
+msgstr "Novi Zeland"
 
 #: app/views/user/signchangeemail.rhtml:20
 msgid "New e-mail:"
-msgstr ""
+msgstr "Novi e-mail:"
 
-#: app/models/change_email_validator.rb:53
+#: app/models/change_email_validator.rb:54
 msgid "New email doesn't look like a valid address"
-msgstr ""
+msgstr "Novi e-mail ne izgleda kao validna adresa"
 
 #: app/views/user/signchangepassword.rhtml:15
 msgid "New password:"
-msgstr ""
+msgstr "Novi password:"
 
 #: app/views/user/signchangepassword.rhtml:20
 msgid "New password: (again)"
-msgstr ""
+msgstr "Novi password: (ponovo)"
 
-#: app/views/request/show_response.rhtml:62
+#: app/models/request_mailer.rb:68
+msgid "New response to your FOI request - "
+msgstr "Novi odgovor na Vaš Zahtev o slobodnom pristupu informacijama  - "
+
+#: app/views/request/show_response.rhtml:60
 msgid "New response to your request"
-msgstr ""
+msgstr "Novi odgovor na Vaš zahtev"
 
-#: app/views/request/show_response.rhtml:68
+#: app/views/request/show_response.rhtml:66
 msgid "New response to {{law_used_short}} request"
-msgstr ""
+msgstr "Novi odgovor na {{law_used_short}} zahtev"
 
-#: app/views/general/search.rhtml:40
+#: app/models/track_thing.rb:198 app/models/track_thing.rb:199
+msgid "New updates for the request '{{request_title}}'"
+msgstr "Nova ažuriranja za zahtev '{{request_title}}'"
+
+#: app/views/general/search.rhtml:127
 msgid "Newest results first"
-msgstr ""
+msgstr "Najnoviji rezultati "
+
+#: app/views/general/_localised_datepicker.rhtml:6
+msgid "Next"
+msgstr "Slijedeći"
 
 #: app/views/user/set_draft_profile_photo.rhtml:32
 msgid "Next, crop your photo &gt;&gt;"
-msgstr ""
+msgstr "Zatim, smanjite Vašu sliku &gt;&gt;"
 
-#: app/views/general/search.rhtml:16
-msgid "Next, select the public authority you'd like to make the request from."
-msgstr ""
-
-#: app/views/general/search.rhtml:48
-msgid "No public authorities found"
-msgstr ""
-
-#: app/views/request/list.rhtml:23
+#: app/views/request/list.rhtml:19
 msgid "No requests of this sort yet."
-msgstr ""
+msgstr "Nema zahteva ove vrste dosada."
+
+#: app/views/request/select_authority.rhtml:53
+#: app/views/public_body/_search_ahead.rhtml:9
+msgid "No results found."
+msgstr "Nema rezultata pretrage"
 
 #: app/views/request/similar.rhtml:7
 msgid "No similar requests found."
-msgstr ""
+msgstr "Nisu nađeni slični zahtevi."
 
-#: app/views/public_body/show.rhtml:73
+#: app/views/public_body/show.rhtml:77
 msgid ""
 "Nobody has made any Freedom of Information requests to {{public_body_name}} "
 "using this site yet."
 msgstr ""
+"Niko nije podnio Zahtev za slobodan pristup informacijama "
+"{{public_body_name}} koristeći ovu stranicu."
 
-#: app/views/public_body/_body_listing.rhtml:2
 #: app/views/request/_request_listing.rhtml:2
+#: app/views/public_body/_body_listing.rhtml:3
 msgid "None found."
-msgstr ""
+msgstr "Ništa nije nađeno."
 
-#: app/views/user/signchangeemail_confirm.rhtml:3
+#: app/views/user/show.rhtml:175 app/views/user/show.rhtml:197
+msgid "None made."
+msgstr "Ništa podneseno."
+
 #: app/views/user/signchangepassword_confirm.rhtml:1
 #: app/views/user/signchangepassword_confirm.rhtml:3
+#: app/views/user/signchangeemail_confirm.rhtml:3
 msgid "Now check your email!"
-msgstr ""
+msgstr "Sada proverite Vaš e-mail!"
 
 #: app/views/comment/preview.rhtml:5
 msgid "Now preview your annotation"
-msgstr ""
+msgstr "Sada pregledajte Vašu napomenu"
 
 #: app/views/request/followup_preview.rhtml:10
 msgid "Now preview your follow up"
@@ -1616,171 +2071,208 @@ msgstr ""
 
 #: app/views/request/followup_preview.rhtml:8
 msgid "Now preview your message asking for an internal review"
-msgstr ""
-
-#: app/views/request/preview.rhtml:5
-msgid "Now preview your request"
-msgstr ""
+msgstr "Sada pregledajte Vašu poruku u kojoj tražite urgenciju "
 
 #: app/views/user/set_draft_profile_photo.rhtml:46
 msgid "OR remove the existing photo"
-msgstr ""
+msgstr "ILI odstrani postojeću sliku"
 
-#: app/views/general/frontpage.rhtml:25
-msgid ""
-"OR, <strong>search</strong> for information others have requested using "
-"{{site_name}}"
-msgstr ""
-
-#: app/controllers/request_controller.rb:414
+#: app/controllers/request_controller.rb:456
 msgid ""
 "Oh no! Sorry to hear that your request was refused. Here is what to do now."
 msgstr ""
+"Žao nam je što je Vaš zahtev odbijen. Prijedlog za Vaše slijedeće akcije."
 
 #: app/views/user/signchangeemail.rhtml:15
 msgid "Old e-mail:"
-msgstr ""
+msgstr "Stari e-mail:"
 
-#: app/models/change_email_validator.rb:44
+#: app/models/change_email_validator.rb:45
 msgid ""
 "Old email address isn't the same as the address of the account you are "
 "logged in with"
 msgstr ""
+"Stara e-mail adresa nije ista kao adresa računa na koji ste prijavljeni"
 
-#: app/models/change_email_validator.rb:39
+#: app/models/change_email_validator.rb:40
 msgid "Old email doesn't look like a valid address"
-msgstr ""
+msgstr "Stari e-mail ne izgleda kao validna adresa"
 
-#: app/views/user/show.rhtml:32
+#: app/views/user/show.rhtml:39
 msgid "On this page"
-msgstr ""
+msgstr "Na ovoj stranici"
 
-#: app/views/general/search.rhtml:71
-msgid "One public authority matching &#x2018;{{user_search_query}}&#x2019;"
-msgstr ""
+#: app/views/general/search.rhtml:193
+msgid "One FOI request found"
+msgstr "Pronađen jedan Zahtev za slobodan pristup informacijama"
 
-#: app/views/public_body/show.rhtml:91
+#: app/views/general/search.rhtml:175
+msgid "One person found"
+msgstr "Jedna osoba pronađena"
+
+#: app/views/general/search.rhtml:152
+msgid "One public authority found"
+msgstr "Jedna javna ustanova pronađena"
+
+#: app/views/public_body/show.rhtml:111
 msgid "Only requests made using {{site_name}} are shown."
-msgstr ""
+msgstr "Samo zahtevi koji koriste {{site_name}} su prikazani."
 
-#: app/models/info_request.rb:405
+#: app/models/info_request.rb:399
 msgid ""
 "Only the authority can reply to this request, and I don't recognise the "
 "address this reply was sent from"
 msgstr ""
+"Samo ustanova može odgovoriti na ovaj zahtev, i ne prepoznajemo adresu sa "
+"koje je poslan ovaj odgovor"
 
-#: app/models/info_request.rb:401
+#: app/models/info_request.rb:395
 msgid ""
 "Only the authority can reply to this request, but there is no \"From\" "
 "address to check against"
 msgstr ""
+"Samo ustanova može odgovoriti na ovaj zahtev, ali ne sadrži adresu "
+"pošiljaoca"
 
-#: app/views/general/search.rhtml:158
+#: app/views/request/_search_ahead.rhtml:11
+msgid "Or search in their website for this information."
+msgstr "Ili tražite ovu informaciju na njihovoj web stranici."
+
+#: app/views/general/_advanced_search_tips.rhtml:42
 msgid "Original request sent"
-msgstr ""
+msgstr "Originalni zahtev poslan"
+
+#: app/views/request/_describe_state.rhtml:71
+msgid "Other:"
+msgstr "Drugo:"
 
 #: locale/model_attributes.rb:26
 msgid "OutgoingMessage|Body"
-msgstr ""
+msgstr "Odlazeća poruka|Tijelo"
 
 #: locale/model_attributes.rb:29
 msgid "OutgoingMessage|Last sent at"
-msgstr ""
+msgstr "Odlazeća poruka|Zadnja poslana u"
 
 #: locale/model_attributes.rb:28
 msgid "OutgoingMessage|Message type"
-msgstr ""
+msgstr "Odlazeća poruka|Tip poruke"
 
 #: locale/model_attributes.rb:27
 msgid "OutgoingMessage|Status"
-msgstr ""
+msgstr "Odlazeća poruka|Status"
 
 #: locale/model_attributes.rb:30
 msgid "OutgoingMessage|What doing"
-msgstr ""
+msgstr "Odlazeća poruka|Šta radi"
 
-#: app/models/info_request.rb:795
+#: app/models/info_request.rb:791
 msgid "Partially successful."
-msgstr ""
+msgstr "Delimično uspješan."
 
-#: app/models/change_email_validator.rb:47
+#: app/models/change_email_validator.rb:48
 msgid "Password is not correct"
-msgstr ""
+msgstr "Password nije ispravan"
 
-#: app/views/user/_signin.rhtml:16 app/views/user/_signup.rhtml:30
+#: app/views/user/_signup.rhtml:30 app/views/user/_signin.rhtml:16
 msgid "Password:"
-msgstr ""
+msgstr "Password:"
 
 #: app/views/user/_signup.rhtml:35
 msgid "Password: (again)"
+msgstr "Password: (ponovo)"
+
+#: app/views/layouts/default.rhtml:153
+msgid "Paste this link into emails, tweets, and anywhere else:"
+msgstr "Nalijepite ovaj link na e-mailove, tweets-e i na druga mjesta:"
+
+#: app/views/general/search.rhtml:177
+msgid "People {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr ""
 
 #: app/views/user/set_draft_profile_photo.rhtml:13
 msgid "Photo of you:"
-msgstr ""
+msgstr "Vaša slika:"
 
-#: app/views/request/new.rhtml:76
+#: app/views/request/new.rhtml:74
 msgid "Plans and administrative measures that affect these matters"
-msgstr ""
+msgstr "Planovi i administrativne mjere koje utiču na ove predmete"
 
 #: app/controllers/request_game_controller.rb:42
 msgid "Play the request categorisation game"
-msgstr ""
+msgstr "Igrajte igru kategorizacije zahteva"
 
 #: app/views/request_game/play.rhtml:1 app/views/request_game/play.rhtml:30
 msgid "Play the request categorisation game!"
-msgstr ""
+msgstr "Igrajte igru kategorizacije zahteva!"
 
 #: app/views/request/show.rhtml:101
 msgid "Please"
-msgstr ""
+msgstr "Molimo"
 
 #: app/views/user/no_cookies.rhtml:15
 msgid "Please <a href=\"%s\">get in touch</a> with us so we can fix it."
-msgstr ""
+msgstr "Molimo <a href=\"%s\">kontaktirajte</a> nas kako bi to mogli popraviti."
 
 #: app/views/request/show.rhtml:52
 msgid ""
 "Please <strong>answer the question above</strong> so we know whether the "
 msgstr ""
+"Molimo <strong>odgovorite na pitanje iznad</strong> kako bi znali da li"
 
-#: app/views/user/show.rhtml:12
+#: app/views/user/show.rhtml:16
 msgid ""
 "Please <strong>go to the following requests</strong>, and let us\n"
 "        know if there was information in the recent responses to them."
 msgstr ""
+"Molimo <strong>idite na sledeće zahteve</strong>, i obavestite\n"
+"        nas ako je bilo informacija u skorašnjim odgovorima."
 
-#: app/views/request/_followup.rhtml:27
+#: app/views/request/_followup.rhtml:54
 msgid ""
 "Please <strong>only</strong> write messages directly relating to your "
 "request {{request_link}}. If you would like to ask for information that was "
 "not in your original request, then <a href=\"{{new_request_link}}\">file a "
 "new request</a>."
 msgstr ""
+"Molimo <strong>samo</strong> pišite poruke samo uvezi sa Vašim zahtevom "
+"{{request_link}}. Ako želite da tražite informacije koje nisu u Vašem "
+"originalnom zahtevu, onda <a href=\"{{new_request_link}}\">podnesite novi "
+"zahtev</a>."
 
-#: app/views/request/new.rhtml:60
+#: app/views/request/new.rhtml:58
 msgid "Please ask for environmental information only"
-msgstr ""
+msgstr "Molimo tražite samo informacije o okolišu"
 
 #: app/views/user/bad_token.rhtml:2
 msgid ""
 "Please check the URL (i.e. the long code of letters and numbers) is copied\n"
 "correctly from your email."
 msgstr ""
+"Molimo proverite da li je URL (i.e. the long code of letters and numbers) kopiran\n"
+"ispravno sa Vašeg e-maila."
 
 #: app/models/profile_photo.rb:91
 msgid "Please choose a file containing your photo."
-msgstr ""
+msgstr "Molimo izaberite datoteku koja sadržava Vašu sliku."
 
-#: app/models/outgoing_message.rb:162
+#: app/models/outgoing_message.rb:163
 msgid "Please choose what sort of reply you are making."
-msgstr ""
+msgstr "Molimo izaberite vrstu odgovora."
 
-#: app/controllers/request_controller.rb:346
+#: app/controllers/request_controller.rb:388
 msgid ""
 "Please choose whether or not you got some of the information that you "
 "wanted."
 msgstr ""
+"Ako ste podnosioc zahteva, možete se <a href=\"%s\">prijaviti</a> da biste "
+"pogledali zahtev."
+
+#: app/views/track_mailer/event_digest.rhtml:63
+msgid "Please click on the link below to cancel or alter these emails."
+msgstr ""
+"Molimo kliknite na link ispod da biste poništili ili promijenili ove "
+"e-mailove"
 
 #: app/views/user_mailer/changeemail_confirm.rhtml:3
 msgid ""
@@ -1788,105 +2280,115 @@ msgid ""
 "change the email address that you use for {{site_name}}\n"
 "from {{old_email}} to {{new_email}}"
 msgstr ""
+"Molimo kliknite na link ispod da potvrdite da želite \n"
+"promeniti e-mail adresu koju koristite na {{site_name}}\n"
+"sa {{old_email}} na {{new_email}}"
 
 #: app/views/user_mailer/confirm_login.rhtml:3
 msgid "Please click on the link below to confirm your email address."
-msgstr ""
+msgstr "Molimo kliknite na link ispod da biste potvrdili Vašu e-mail adresu."
 
-#: app/models/info_request.rb:126
+#: app/models/info_request.rb:120
 msgid ""
 "Please describe more what the request is about in the subject. There is no "
 "need to say it is an FOI request, we add that on anyway."
 msgstr ""
+"Molimo dodatno opišite o kakvom zahtevu je reč u predmetu. Nije potrebno "
+"reći da je Zahtev za slobodan pristup informacijama, tu ćemo stavku dodati "
+"svakako."
 
 #: app/views/user/set_draft_profile_photo.rhtml:22
 msgid ""
 "Please don't upload offensive pictures. We will take down images\n"
 "    that we consider inappropriate."
 msgstr ""
+"Molimo nemojte postavljati uvredljive slike. Skinuti ćemo sve slike\n"
+"    koje smatramo neprikladnim."
 
 #: app/views/user/no_cookies.rhtml:3
 msgid "Please enable \"cookies\" to carry on"
-msgstr ""
+msgstr "Molimo aktivirajte cookies-e da biste nastavili"
 
-#: app/models/user.rb:38
+#: app/models/user.rb:42
 msgid "Please enter a password"
-msgstr ""
+msgstr "Molimo unesite password"
 
 #: app/models/contact_validator.rb:30
 msgid "Please enter a subject"
-msgstr "Molimo Vas da unesete naslov"
+msgstr "Molimo unestite naslov"
 
-#: app/models/info_request.rb:34
+#: app/models/info_request.rb:28
 msgid "Please enter a summary of your request"
-msgstr "Molimo Vas da unesete opis vaseg zahteva"
+msgstr "Molimo unesite sažetak Vašeg zahteva"
 
-#: app/models/user.rb:106
+#: app/models/user.rb:120
 msgid "Please enter a valid email address"
-msgstr ""
+msgstr "Molimo unesite valjanu e-mail adresu"
 
 #: app/models/contact_validator.rb:31
 msgid "Please enter the message you want to send"
-msgstr ""
+msgstr "Molimo upišite poruku koju želite poslati"
 
-#: app/models/user.rb:49
+#: app/models/user.rb:53
 msgid "Please enter the same password twice"
-msgstr "Molimo Vas da unesete dva puta isti pasvord"
+msgstr "Molimo unesite isti password dva puta"
 
-#: app/models/comment.rb:59
+#: app/models/comment.rb:60
 msgid "Please enter your annotation"
-msgstr ""
+msgstr "Molimo unesite komentar"
 
-#: app/models/contact_validator.rb:29 app/models/user.rb:34
+#: app/models/contact_validator.rb:29 app/models/user.rb:38
 msgid "Please enter your email address"
-msgstr ""
+msgstr "Molimo unesite Vašu e-mail adresu"
 
-#: app/models/outgoing_message.rb:147
+#: app/models/outgoing_message.rb:148
 msgid "Please enter your follow up message"
-msgstr ""
+msgstr "Molimo unesite Vašu prateću poruku"
 
-#: app/models/outgoing_message.rb:150
+#: app/models/outgoing_message.rb:151
 msgid "Please enter your letter requesting information"
-msgstr ""
+msgstr "Molimo unesite Vaše pismo za zahtev informacija"
 
-#: app/models/contact_validator.rb:28 app/models/user.rb:36
+#: app/models/contact_validator.rb:28 app/models/user.rb:40
 msgid "Please enter your name"
-msgstr "Molimo Vas da unesete svoje ime"
+msgstr "Molimo unesite Vaše ime"
 
-#: app/models/user.rb:109
+#: app/models/user.rb:123
 msgid "Please enter your name, not your email address, in the name field."
-msgstr ""
-
-#: app/models/change_email_validator.rb:30
-msgid "Please enter your new email address"
-msgstr ""
-
-#: app/models/change_email_validator.rb:29
-msgid "Please enter your old email address"
-msgstr ""
+msgstr "Molimo unesite Vaše ime, ne Vašu e-mail adresu, u polje."
 
 #: app/models/change_email_validator.rb:31
-msgid "Please enter your password"
-msgstr "Molimo Vas da unesete vaš pasvord"
+msgid "Please enter your new email address"
+msgstr "Molimo unesite Vašu novu e-mail adresu"
 
-#: app/models/outgoing_message.rb:145
+#: app/models/change_email_validator.rb:30
+msgid "Please enter your old email address"
+msgstr "Molimo unesite Vašu staru e-mail adresu"
+
+#: app/models/change_email_validator.rb:32
+msgid "Please enter your password"
+msgstr "Molimo unesite Vaš password"
+
+#: app/models/outgoing_message.rb:146
 msgid "Please give details explaining why you want a review"
-msgstr ""
+msgstr "Molimo objasnite zašto želite urgenciju"
 
 #: app/models/about_me_validator.rb:24
 msgid "Please keep it shorter than 500 characters"
-msgstr ""
+msgstr "Molimo da ne koristite više od 500 znakova"
 
-#: app/models/info_request.rb:123
+#: app/models/info_request.rb:117
 msgid ""
 "Please keep the summary short, like in the subject of an email. You can use "
 "a phrase, rather than a full sentence."
 msgstr ""
+"Molimo da sažetak bude kratak, poput naslova e-maila. Radije koristite frazu"
+" nego punu rečenicu."
 
-#: app/views/request/new.rhtml:79
+#: app/views/request/new.rhtml:77
 msgid ""
 "Please only request information that comes under those categories, <strong>do not waste your\n"
-"        time</strong> or the time of the public authority by requesting unrelated information."
+"            time</strong> or the time of the public authority by requesting unrelated information."
 msgstr ""
 
 #: app/views/request/new_please_describe.rhtml:5
@@ -1894,94 +2396,116 @@ msgid ""
 "Please select each of these requests in turn, and <strong>let everyone know</strong>\n"
 "if they are successful yet or not."
 msgstr ""
+"Molimo odaberite svaki od ovih zahteva naizmjenice, i <strong>obavestite sve</strong>\n"
+"da li su bili uspešni ili ne."
 
-#: app/models/outgoing_message.rb:156
+#: app/models/outgoing_message.rb:157
 msgid ""
 "Please sign at the bottom with your name, or alter the \"%{signoff}\" "
 "signature"
-msgstr ""
+msgstr "Molimo da se na dnu potpišete, ili izmijenite  \"%{signoff}\" potpis"
 
 #: app/views/user/sign.rhtml:8
 msgid "Please sign in as "
-msgstr ""
+msgstr "Molimo prijavite se kao "
 
-#: app/controllers/request_controller.rb:730
+#: app/controllers/request_controller.rb:785
 msgid "Please type a message and/or choose a file containing your response."
-msgstr ""
+msgstr "Molimo ukucajte poruku i/ili odaberite fajl koji sadrži vaš odgovor."
 
-#: app/controllers/request_controller.rb:434
+#: app/controllers/request_controller.rb:476
 msgid "Please use the form below to tell us more."
-msgstr ""
+msgstr "Molimo koristite formular ispod da biste nam rekli više."
 
-#: app/views/outgoing_mailer/followup.rhtml:6
 #: app/views/outgoing_mailer/initial_request.rhtml:5
+#: app/views/outgoing_mailer/followup.rhtml:6
 msgid "Please use this email address for all replies to this request:"
-msgstr ""
+msgstr "Molimo koristite ovu e-mail adresu za odgovore na ovaj zahtev:"
 
-#: app/models/info_request.rb:35
+#: app/models/info_request.rb:29
 msgid "Please write a summary with some text in it"
-msgstr ""
+msgstr "Molimo napišite sažetak sa nešto teksta"
 
-#: app/models/info_request.rb:120
+#: app/models/info_request.rb:114
 msgid ""
 "Please write the summary using a mixture of capital and lower case letters. "
 "This makes it easier for others to read."
 msgstr ""
+"Molimo napišite sažetak koristeći velika i mala slova. Tako ćete olakšati "
+"čitanje drugima."
 
-#: app/models/comment.rb:62
+#: app/models/comment.rb:63
 msgid ""
 "Please write your annotation using a mixture of capital and lower case "
 "letters. This makes it easier for others to read."
 msgstr ""
+"Molimo napišite komentar koristeći velika i mala slova. Tako ćete olakšati "
+"čitanje drugima."
 
-#: app/controllers/request_controller.rb:423
+#: app/controllers/request_controller.rb:465
 msgid ""
 "Please write your follow up message containing the necessary clarifications "
 "below."
 msgstr ""
 
-#: app/models/outgoing_message.rb:159
+#: app/models/outgoing_message.rb:160
 msgid ""
 "Please write your message using a mixture of capital and lower case letters."
 " This makes it easier for others to read."
 msgstr ""
+"Molimo napišite poruku koristeći velika i mala slova. Tako ćete olakšati "
+"čitanje drugima."
 
-#: app/views/comment/new.rhtml:41
+#: app/views/comment/new.rhtml:42
 msgid ""
 "Point to <strong>related information</strong>, campaigns or forums which may"
 " be useful."
 msgstr ""
+"Ukažite na <strong>slične informacije</strong>, kampanje ili forume koji "
+"mogu biti korisni."
+
+#: app/views/request/_search_ahead.rhtml:4
+msgid "Possibly related requests:"
+msgstr "Vjerovatno srodni zahtevi:"
 
 #: app/views/comment/preview.rhtml:21
 msgid "Post annotation"
-msgstr ""
+msgstr "Postaj napomenu"
 
-#: locale/model_attributes.rb:55
+#: locale/model_attributes.rb:53
 msgid "PostRedirect|Circumstance"
 msgstr ""
 
-#: locale/model_attributes.rb:53
+#: locale/model_attributes.rb:51
 msgid "PostRedirect|Email token"
 msgstr ""
 
-#: locale/model_attributes.rb:52
+#: locale/model_attributes.rb:50
 msgid "PostRedirect|Post params yaml"
 msgstr ""
 
-#: locale/model_attributes.rb:54
+#: locale/model_attributes.rb:52
 msgid "PostRedirect|Reason params yaml"
 msgstr ""
 
-#: locale/model_attributes.rb:50
+#: locale/model_attributes.rb:48
 msgid "PostRedirect|Token"
 msgstr ""
 
-#: locale/model_attributes.rb:51
+#: locale/model_attributes.rb:49
 msgid "PostRedirect|Uri"
 msgstr ""
 
+#: app/views/general/blog.rhtml:53
+msgid "Posted on {{date}} by {{author}}"
+msgstr "Poslano na datum {{date}} od strane {{author}}"
+
 #: app/views/general/_credits.rhtml:1
-msgid "Powered by <a href=\"http://www.alaveteli.org/\">Alaveteli</a>."
+msgid "Powered by <a href=\"http://www.alaveteli.org/\">Alaveteli</a>"
+msgstr ""
+
+#: app/views/general/_localised_datepicker.rhtml:5
+msgid "Prev"
 msgstr ""
 
 #: app/views/request/followup_preview.rhtml:1
@@ -1990,327 +2514,383 @@ msgstr ""
 
 #: app/views/comment/preview.rhtml:1
 msgid "Preview new annotation on '{{info_request_title}}'"
-msgstr ""
+msgstr "Pregledaj novu napomenu za '{{info_request_title}}'"
 
 #: app/views/comment/_comment_form.rhtml:15
 msgid "Preview your annotation"
-msgstr ""
+msgstr "Pregledajte Vašu napomenu"
 
-#: app/views/request/_followup.rhtml:96
+#: app/views/request/_followup.rhtml:123
 msgid "Preview your message"
-msgstr ""
+msgstr "Pregledajte Vašu poruku"
 
-#: app/views/request/new.rhtml:139
+#: app/views/request/new.rhtml:143
 msgid "Preview your public request"
-msgstr ""
+msgstr "Pregledajte Vaš javni zahtev"
 
 #: locale/model_attributes.rb:15
 msgid "ProfilePhoto|Data"
-msgstr ""
+msgstr "Slika na profilu|Podaci"
 
 #: locale/model_attributes.rb:16
 msgid "ProfilePhoto|Draft"
-msgstr ""
+msgstr "Slika na profilu|Skica"
 
-#: app/views/public_body/list.rhtml:37
+#: app/views/public_body/list.rhtml:38
+msgid "Public authorities"
+msgstr "Javne ustanove"
+
+#: app/views/public_body/list.rhtml:36
 msgid "Public authorities - {{description}}"
-msgstr ""
+msgstr "Javne ustanove - {{description}}"
 
-#: app/views/general/search.rhtml:73
-msgid ""
-"Public authorities {{start_count}} to {{end_count}} of {{total_count}} for "
-"{{user_search_query}}"
+#: app/views/general/search.rhtml:154
+msgid "Public authorities {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr ""
 
 #: locale/model_attributes.rb:12
 msgid "PublicBody|First letter"
-msgstr ""
+msgstr "Javno tijelo|Početno slovo"
 
 #: locale/model_attributes.rb:10
 msgid "PublicBody|Home page"
-msgstr ""
+msgstr "Javno tijelo|Home page"
 
 #: locale/model_attributes.rb:8
 msgid "PublicBody|Last edit comment"
-msgstr ""
+msgstr "Javno tijelo|Zadnji uređeni komentar"
 
 #: locale/model_attributes.rb:7
 msgid "PublicBody|Last edit editor"
-msgstr ""
+msgstr "Javno tijelo|Zadnji uređivač"
 
 #: locale/model_attributes.rb:3
 msgid "PublicBody|Name"
-msgstr ""
+msgstr "Javno tijelo | Ime"
 
 #: locale/model_attributes.rb:11
 msgid "PublicBody|Notes"
-msgstr ""
+msgstr "Javno tijelo|Bilješke"
 
 #: locale/model_attributes.rb:13
 msgid "PublicBody|Publication scheme"
-msgstr ""
+msgstr "Javno tijelo|Nacrt publikacije"
 
 #: locale/model_attributes.rb:5
 msgid "PublicBody|Request email"
-msgstr ""
+msgstr "Javno tijelo|"
 
 #: locale/model_attributes.rb:4
 msgid "PublicBody|Short name"
-msgstr ""
+msgstr "Javno tijelo|Nadimak"
 
 #: locale/model_attributes.rb:9
 msgid "PublicBody|Url name"
-msgstr ""
+msgstr "Javno tijelo|Url ime"
 
 #: locale/model_attributes.rb:6
 msgid "PublicBody|Version"
-msgstr ""
+msgstr "Javno tijelo|Verzija"
 
-#: app/views/public_body/show.rhtml:10
+#: app/views/public_body/show.rhtml:15
 msgid "Publication scheme"
+msgstr "Nacrt publikacije"
+
+#: app/views/track/_tracking_links.rhtml:26
+msgid "RSS feed"
 msgstr ""
 
-#: locale/model_attributes.rb:48
-msgid "RawEmail|Data binary"
+#: app/views/track/_tracking_links.rhtml:26
+msgid "RSS feed of updates"
 msgstr ""
 
 #: app/views/comment/preview.rhtml:20
 msgid "Re-edit this annotation"
-msgstr ""
+msgstr "Ponovo urediti ovu napomenu"
 
 #: app/views/request/followup_preview.rhtml:49
 msgid "Re-edit this message"
-msgstr ""
+msgstr "Ponovo urediti ovu poruku"
 
-#: app/views/request/preview.rhtml:40
-msgid "Re-edit this request"
-msgstr ""
-
-#: app/views/general/search.rhtml:137
+#: app/views/general/_advanced_search_tips.rhtml:19
 msgid ""
 "Read about <a href=\"{{advanced_search_url}}\">advanced search "
 "operators</a>, such as proximity and wildcards."
 msgstr ""
 
-#: app/views/layouts/default.rhtml:93
+#: app/views/general/_topnav.rhtml:7
 msgid "Read blog"
-msgstr ""
+msgstr "Čitaj blog"
 
-#: app/views/request/new.rhtml:16
-msgid "Read this before writing your {{info_request_law_used_full}} request"
-msgstr ""
-
-#: app/views/general/search.rhtml:150
+#: app/views/general/_advanced_search_tips.rhtml:34
 msgid "Received an error message, such as delivery failure."
-msgstr ""
+msgstr "Dobijena poruka o pogrešci, poput neuspješnog prijema poruke."
 
-#: app/views/general/search.rhtml:42
+#: app/views/general/search.rhtml:129
 msgid "Recently described results first"
-msgstr ""
+msgstr "Nedavno opisani rezultati "
 
-#: app/controllers/request_controller.rb:139
-msgid "Recently sent Freedom of Information requests"
-msgstr ""
-
-#: app/views/request/list.rhtml:6
-msgid "Recently sent requests"
-msgstr ""
-
-#: app/controllers/request_controller.rb:144
-msgid "Recently successful responses"
-msgstr ""
-
-#: app/models/info_request_event.rb:305
-msgid "Refused"
-msgstr ""
-
-#: app/models/info_request.rb:793
+#: app/models/info_request.rb:789
 msgid "Refused."
-msgstr ""
+msgstr "Odbijen."
 
 #: app/views/user/_signin.rhtml:26
 msgid ""
 "Remember me</label> (keeps you signed in longer;\n"
 "    do not use on a public computer) "
 msgstr ""
-
-#: app/views/request/_correspondence.rhtml:28
-msgid "Reply to this message"
-msgstr ""
+"Zapamti nalog</label> (Omogućava da ostanete duže prijavljeni;\n"
+"    Ovu opciju nemojte koristiti na javnim računarima) "
 
 #: app/views/comment/_single_comment.rhtml:24
 msgid "Report abuse"
-msgstr ""
+msgstr "Prijavi zloupotrebu"
 
-#: app/views/request/_after_actions.rhtml:37
+#: app/views/request/_after_actions.rhtml:39
 msgid "Request an internal review"
 msgstr ""
 
-#: app/views/request/_followup.rhtml:4
-msgid "Request an internal review from"
-msgstr ""
+#: app/views/request/_followup.rhtml:8
+msgid "Request an internal review from {{person_or_body}}"
+msgstr "Zatražiti urgenciju od strane {{person_or_body}}"
 
 #: app/views/request/hidden.rhtml:1
 msgid "Request has been removed"
-msgstr ""
+msgstr "Zahtev je uklonjen"
 
-#: app/views/request/_request_listing_via_event.rhtml:28
+#: app/views/request/_request_listing_via_event.rhtml:20
 msgid ""
 "Request sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr ""
+"Zahtev poslan {{public_body_name}} od strane {{info_request_user}} na datum "
+"{{date}}."
 
-#: app/views/request/_request_listing_via_event.rhtml:36
+#: app/views/request/_request_listing_via_event.rhtml:28
 msgid ""
 "Request to {{public_body_name}} by {{info_request_user}}. Annotated by "
 "{{event_comment_user}} on {{date}}."
 msgstr ""
+"Zahtev za {{public_body_name}} od strane {{info_request_user}}. "
+"Prokomentarisan od strane {{event_comment_user}} na datum {{date}}."
 
 #: app/views/request/_request_listing_single.rhtml:12
 msgid ""
 "Requested from {{public_body_name}} by {{info_request_user}} on {{date}}"
 msgstr ""
+"Traženo od {{public_body_name}} od strane {{info_request_user}} na datum "
+"{{date}}"
 
 #: app/views/request/_sidebar_request_listing.rhtml:13
 msgid "Requested on {{date}}"
-msgstr ""
+msgstr "Traženo na datum {{date}}"
 
-#: app/models/track_thing.rb:209 app/models/track_thing.rb:210
-msgid "Requests or responses matching '{{query}}'"
-msgstr ""
+#: app/models/track_thing.rb:281 app/models/track_thing.rb:282
+msgid "Requests or responses matching your saved search"
+msgstr "Zahtevi ili odgovori koji odgovaraju Vašoj spašenoj pretrazi"
 
 #: app/views/request/upload_response.rhtml:11
 msgid "Respond by email"
-msgstr ""
+msgstr "Odgovoriti e-mailom"
 
-#: app/views/request/_after_actions.rhtml:46
+#: app/views/request/_after_actions.rhtml:48
 msgid "Respond to request"
-msgstr ""
+msgstr "Odgovoriti na zahtev"
 
 #: app/views/request/upload_response.rhtml:5
 msgid "Respond to the FOI request"
-msgstr ""
+msgstr "Odgovoriti na Zahtev za slobodan pristup informacijama"
 
 #: app/views/request/upload_response.rhtml:21
 msgid "Respond using the web"
-msgstr ""
+msgstr "Odgovoriti preko web-a"
 
-#: app/views/general/search.rhtml:160
+#: app/models/info_request_event.rb:341
+msgid "Response"
+msgstr "Odgovor"
+
+#: app/views/general/_advanced_search_tips.rhtml:44
 msgid "Response from a public authority"
-msgstr ""
+msgstr "Odgovor od javne ustanove"
 
 #: app/views/request/show.rhtml:77
 msgid "Response to this request is <strong>delayed</strong>."
-msgstr ""
+msgstr "Odgovor na ovaj zahtev je <strong>odgođen</strong>."
 
 #: app/views/request/show.rhtml:85
 msgid "Response to this request is <strong>long overdue</strong>."
-msgstr ""
+msgstr "Odgovor na ovaj zahtev <strong>kasni</strong>."
 
-#: app/views/request/show_response.rhtml:64
+#: app/views/request/show_response.rhtml:62
 msgid "Response to your request"
-msgstr ""
+msgstr "Odgovor na Vaš zahtev"
 
 #: app/views/request/upload_response.rhtml:28
 msgid "Response:"
-msgstr ""
+msgstr "Odgovor:"
 
-#: app/views/general/search.rhtml:9
+#: app/views/general/search.rhtml:83
+msgid "Restrict to"
+msgstr "Ograničiti na"
+
+#: app/views/general/search.rhtml:12
 msgid "Results page {{page_number}}"
-msgstr ""
+msgstr "Rezultati na stranici {{page_number}}"
 
 #: app/views/user/set_profile_about_me.rhtml:35
 msgid "Save"
-msgstr ""
+msgstr "Sačuvaj"
 
-#: app/views/general/exception_caught.rhtml:10
-#: app/views/general/frontpage.rhtml:16 app/views/general/search.rhtml:29
-#: app/views/layouts/default.rhtml:80 app/views/request/new.rhtml:31
+#: app/views/request/select_authority.rhtml:42
+#: app/views/request/_request_filter_form.rhtml:49
+#: app/views/general/search.rhtml:17 app/views/general/search.rhtml:32
+#: app/views/general/search.rhtml:45
+#: app/views/general/exception_caught.rhtml:12
+#: app/views/general/frontpage.rhtml:23 app/views/public_body/list.rhtml:43
 msgid "Search"
-msgstr "Pretraga"
+msgstr "Pretraži"
 
-#: app/views/general/search.rhtml:4
+#: app/views/general/search.rhtml:8
 msgid "Search Freedom of Information requests, public authorities and users"
 msgstr ""
+"Pretraži Zahteve za slobodan pristup informacijama, javne ustanove i "
+"korisnici"
 
-#: app/views/general/exception_caught.rhtml:7
+#: app/views/user/show.rhtml:134
+msgid "Search contributions by this person"
+msgstr "Pretraži doprinose od strane ove osobe"
+
+#: app/views/request/_request_filter_form.rhtml:11
+msgid "Search for words in:"
+msgstr ""
+
+#: app/views/general/search.rhtml:96
+msgid "Search in"
+msgstr "Pretraži u"
+
+#: app/views/general/frontpage.rhtml:15
+msgid ""
+"Search over<br/>\n"
+"          <strong>{{number_of_requests}} requests</strong> <span>and</span><br/>\n"
+"          <strong>{{number_of_authorities}} authorities</strong>"
+msgstr ""
+"Traži preko<br/>\n"
+"          <strong>{{number_of_requests}} zahteva</strong> <span>i</span><br/>\n"
+"          <strong>{{number_of_authorities}} ustanova</strong>"
+
+#: app/views/general/search.rhtml:19
+msgid "Search results"
+msgstr "Rezultati pretrage"
+
+#: app/views/general/exception_caught.rhtml:9
 msgid "Search the site to find what you were looking for."
+msgstr "Pretražite web stranicu da pronađete što ste tražili."
+
+#: app/views/public_body/show.rhtml:85
+msgid "Search within the %d Freedom of Information requests to %s"
+msgid_plural "Search within the %d Freedom of Information requests made to %s"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: app/views/user/show.rhtml:132
+msgid "Search your contributions"
+msgstr "Pretražite Vaše doprinose"
+
+#: app/views/request/select_authority.rhtml:50
+#: app/views/public_body/_search_ahead.rhtml:6
+msgid "Select one to see more information about the authority."
+msgstr "Odaberite jedan da biste videli više informacija o ustanovi."
+
+#: app/views/request/select_authority.rhtml:28
+msgid "Select the authority to write to"
+msgstr "Odaberite ustanovu kojoj ćete pisati"
+
+#: app/views/request/_after_actions.rhtml:28
+msgid "Send a followup"
 msgstr ""
 
-#: app/controllers/user_controller.rb:331
+#: app/controllers/user_controller.rb:365
 msgid "Send a message to "
+msgstr "Pošalji poruku za "
+
+#: app/views/request/_followup.rhtml:11
+msgid "Send a public follow up message to {{person_or_body}}"
 msgstr ""
 
-#: app/views/request/_followup.rhtml:7
-msgid "Send a public follow up message to"
-msgstr ""
-
-#: app/views/request/_followup.rhtml:10
-msgid "Send a public reply to"
-msgstr ""
-
-#: app/views/request/_correspondence.rhtml:58
-msgid "Send follow up"
-msgstr ""
+#: app/views/request/_followup.rhtml:14
+msgid "Send a public reply to {{person_or_body}}"
+msgstr "Poslati javni odgovor za {{person_or_body}}"
 
 #: app/views/request/followup_preview.rhtml:50
 msgid "Send message"
-msgstr ""
+msgstr "Pošalji poruku"
 
-#: app/views/user/show.rhtml:69
+#: app/views/user/show.rhtml:74
 msgid "Send message to "
-msgstr ""
+msgstr "Pošalji poruku  "
 
 #: app/views/request/preview.rhtml:41
-msgid "Send public "
-msgstr ""
+msgid "Send request"
+msgstr "Pošalji zahtev"
 
-#: app/views/user/show.rhtml:53
+#: app/views/user/show.rhtml:58
 msgid "Set your profile photo"
-msgstr ""
+msgstr "Podesiti sliku na Vašem profilu"
 
 #: app/models/public_body.rb:39
 msgid "Short name is already taken"
-msgstr ""
+msgstr "Nadimak se već koristi"
 
-#: app/views/general/search.rhtml:38
+#: app/views/general/search.rhtml:125
 msgid "Show most relevant results first"
-msgstr ""
+msgstr "Prikaži najreleveantnije rezultate "
 
-#: app/views/public_body/list.rhtml:3 app/views/request/list.rhtml:2
+#: app/views/public_body/list.rhtml:2
 msgid "Show only..."
-msgstr ""
+msgstr "Prikaži samo..."
 
-#: app/views/user/_signin.rhtml:31 app/views/user/show.rhtml:113
+#: app/views/request/_request_filter_form.rhtml:29
+#: app/views/general/search.rhtml:51
+msgid "Showing"
+msgstr "Prikazuje"
+
+#: app/views/user/sign.rhtml:2 app/views/user/sign.rhtml:24
+#: app/views/user/_signin.rhtml:32
 msgid "Sign in"
-msgstr ""
+msgstr "Prijavite se"
 
 #: app/views/user/sign.rhtml:20
 msgid "Sign in or make a new account"
-msgstr ""
+msgstr "Prijavite se ili napravite novi korisnički račun"
 
-#: app/views/layouts/default.rhtml:103
+#: app/views/layouts/default.rhtml:112
 msgid "Sign in or sign up"
-msgstr ""
+msgstr "Prijavite se ili Registrujte se"
 
-#: app/views/layouts/default.rhtml:100
+#: app/views/layouts/default.rhtml:110
 msgid "Sign out"
-msgstr ""
+msgstr "Odjavite se"
 
-#: app/views/user/_signup.rhtml:41
+#: app/views/user/_signup.rhtml:46 app/views/user/sign.rhtml:31
 msgid "Sign up"
-msgstr ""
+msgstr "Registrujte se"
 
-#: app/views/request/_sidebar.rhtml:30
+#: app/views/request/_sidebar.rhtml:24
 msgid "Similar requests"
-msgstr ""
+msgstr "Slični zahtevi"
 
-#: app/models/info_request_event.rb:307
-msgid "Some information sent"
-msgstr ""
+#: app/views/general/search.rhtml:33
+msgid "Simple search"
+msgstr "Jednostavna pretraga"
 
-#: app/views/general/search.rhtml:145
+#: app/models/request_mailer.rb:178
+msgid "Some notes have been added to your FOI request - "
+msgstr ""
+"Bilješke su dodate na Vaš Zahtev o slobodnom pristupu informacijama  - "
+
+#: app/views/general/_advanced_search_tips.rhtml:29
 msgid "Some of the information requested has been received"
-msgstr ""
+msgstr "Dio traženih informacija je dobijen"
 
 #: app/views/request_game/play.rhtml:31
 msgid ""
@@ -2319,110 +2899,170 @@ msgid ""
 "choose one of these requests, read it, and let everyone know whether or not the\n"
 "information has been provided. Everyone'll be exceedingly grateful."
 msgstr ""
+"Neki od podnosioca zahteva nas nisu obavestili da li su njihovi zahtevi bili\n"
+"uspešni ili ne.  Trebamo <strong>Vašu</strong> pomoć &ndash;\n"
+"odaberite jedan od ovih zahteva, pročitajte ga, i obavestite sve da li su\n"
+"informacije dobijene ili ne. Svi će Vam biti veoma zahvalni."
+
+#: app/models/request_mailer.rb:169
+msgid "Somebody added a note to your FOI request - "
+msgstr ""
+"Neko je dodao komentar na Vaš Zahtev za slobodan pristup informacijama."
 
 #: app/views/user_mailer/changeemail_already_used.rhtml:1
 msgid ""
 "Someone, perhaps you, just tried to change their email address on\n"
 "{{site_name}} from {{old_email}} to {{new_email}}."
 msgstr ""
+"Neko je, možda ste to Vi, pokušao da promijeni svoju e-mail adresu na\n"
+"{{site_name}} sa {{old_email}} na {{new_email}}."
 
-#: app/views/general/exception_caught.rhtml:1
+#: app/views/user/wrong_user.rhtml:2
+msgid "Sorry, but only {{user_name}} is allowed to do that."
+msgstr "Žalimo, ali samo {{user_name}} može raditi to."
+
+#: app/views/general/exception_caught.rhtml:17
+msgid "Sorry, there was a problem processing this page"
+msgstr "Žalimo, postoji problem u procesuiranju stranice"
+
+#: app/views/general/exception_caught.rhtml:3
 msgid "Sorry, we couldn't find that page"
-msgstr ""
+msgstr "Žalimo, nismo mogli pronaći tu stranicu"
 
-#: app/views/request/new.rhtml:53
+#: app/views/request/new.rhtml:52
 msgid "Special note for this authority!"
+msgstr "Posebna napomena za ovu ustanovu!"
+
+#: app/views/public_body/show.rhtml:56
+msgid "Start"
+msgstr "Počni"
+
+#: app/views/general/frontpage.rhtml:10
+msgid "Start now &raquo;"
+msgstr "Počni sada &raquo;"
+
+#: app/views/request/_sidebar.rhtml:17
+msgid "Start your own blog"
+msgstr "Započnite Vaš blog"
+
+#: app/views/general/blog.rhtml:6
+msgid "Stay up to date"
 msgstr ""
 
 #: app/views/request/_other_describe_state.rhtml:21
 msgid "Still awaiting an <strong>internal review</strong>"
-msgstr ""
+msgstr "I dalje čeka <strong>internal review</strong>"
 
 #: app/views/request/followup_preview.rhtml:23
 #: app/views/request/preview.rhtml:18
 msgid "Subject:"
-msgstr ""
+msgstr "Tema:"
 
 #: app/views/user/signchangepassword_send_confirm.rhtml:26
 msgid "Submit"
-msgstr ""
+msgstr "Predaj"
 
 #: app/views/request/_describe_state.rhtml:101
 msgid "Submit status"
-msgstr ""
+msgstr "Pošalji status"
 
-#: app/models/track_thing.rb:158 app/models/track_thing.rb:159
+#: app/views/general/blog.rhtml:8
+msgid "Subscribe to blog"
+msgstr "Pretplatiti se na blog"
+
+#: app/models/track_thing.rb:230 app/models/track_thing.rb:231
 msgid "Successful Freedom of Information requests"
-msgstr ""
+msgstr "Uspešni Zahtevi za slobodan pristup informacijama"
 
-#: app/views/request/list.rhtml:5
-msgid "Successful responses"
-msgstr ""
-
-#: app/models/info_request.rb:797
+#: app/models/info_request.rb:793
 msgid "Successful."
-msgstr ""
+msgstr "Uspešan."
 
-#: app/views/comment/new.rhtml:38
+#: app/views/comment/new.rhtml:39
 msgid ""
 "Suggest how the requester can find the <strong>rest of the "
 "information</strong>."
 msgstr ""
+"Predložite kako ponosioc zahteva može pronaći <strong>ostatak "
+"informacije</strong>."
 
-#: app/views/request/new.rhtml:93
+#: app/views/request/new.rhtml:84
 msgid "Summary:"
-msgstr ""
+msgstr "Sažetak:"
 
-#: app/views/general/search.rhtml:140
+#: app/views/general/_advanced_search_tips.rhtml:22
 msgid "Table of statuses"
+msgstr "Pregled statusa"
+
+#: app/views/general/_advanced_search_tips.rhtml:39
+msgid "Table of varieties"
+msgstr "Tabela vrsta"
+
+#: app/views/general/search.rhtml:71
+msgid "Tags (separated by a space):"
 msgstr ""
 
 #: app/views/request/preview.rhtml:45
 msgid "Tags:"
-msgstr ""
+msgstr "Označeni:"
+
+#: app/views/general/exception_caught.rhtml:21
+msgid "Technical details"
+msgstr "Tehnički detalji"
 
 #: app/controllers/request_game_controller.rb:52
 msgid "Thank you for helping us keep the site tidy!"
-msgstr ""
+msgstr "Hvala što nam pomažete da održavamo ovu web stranicu urednom!"
 
 #: app/controllers/comment_controller.rb:62
 msgid "Thank you for making an annotation!"
-msgstr ""
+msgstr "Hvala što ste napravili napomenu!"
 
-#: app/controllers/request_controller.rb:736
+#: app/controllers/request_controller.rb:791
 msgid ""
 "Thank you for responding to this FOI request! Your response has been "
 "published below, and a link to your response has been emailed to "
 msgstr ""
+"Hvala na Vašem odgovoru na ovaj Zahtev za slobodan pristup informacijama! "
+"Vaš odgovor je objavljen ispod, i link na vaš odgovor je poslan putem "
+"e-maila za"
 
-#: app/controllers/request_controller.rb:378
+#: app/controllers/request_controller.rb:420
 msgid ""
 "Thank you for updating the status of the request '<a "
 "href=\"{{url}}\">{{info_request_title}}</a>'. There are some more requests "
 "below for you to classify."
 msgstr ""
+"Hvala na ažuriranju statusa zahteva '<a "
+"href=\"{{url}}\">{{info_request_title}}</a>'. Postoje drugi zahtevi ispod "
+"koje možete klasificirati."
 
-#: app/controllers/request_controller.rb:381
+#: app/controllers/request_controller.rb:423
 msgid "Thank you for updating this request!"
-msgstr ""
+msgstr "Hvala na ažuriranju zahteva!"
 
-#: app/controllers/user_controller.rb:398
-#: app/controllers/user_controller.rb:414
+#: app/controllers/user_controller.rb:432
+#: app/controllers/user_controller.rb:448
 msgid "Thank you for updating your profile photo"
-msgstr ""
+msgstr "Hvala što ste ažurirali sliku na Vašem profilu"
 
 #: app/views/request_game/play.rhtml:42
 msgid ""
 "Thanks for helping - your work will make it easier for everyone to find successful\n"
 "responses, and maybe even let us make league tables..."
 msgstr ""
+"Hvala na pomoći - Vaš rad će svima olakšati pronalaženje pozitivnih\n"
+"odgovora, i možda čak dozvoliti nama da pravimo rangliste..."
 
-#: app/views/user/show.rhtml:20
+#: app/views/user/show.rhtml:24
 msgid ""
 "Thanks very much - this will help others find useful stuff. We'll\n"
 "            also, if you need it, give advice on what to do next about your\n"
 "            requests."
 msgstr ""
+"Hvala - ovo će pomoći drugima da pronađu korisne stvari. Mi ćemo Vas\n"
+"            takođe, ako vam zatreba, savetovati o tome šta da radite dalje sa Vašim\n"
+"            zahtevima."
 
 #: app/views/request/new_please_describe.rhtml:20
 msgid ""
@@ -2430,48 +3070,59 @@ msgid ""
 "    We'll also, if you need it, give you advice on what to do next about each of your\n"
 "    requests."
 msgstr ""
+"Hvala Vam što pomažete da sve bude<strong>čitko i organizovano</strong>.\n"
+"    Mi ćemo Vas takođe, ako vam zatreba, posavetovati o tome šta da dalje radite sa svakim od Vaših\n"
+"    zahteva."
 
-#: app/controllers/user_controller.rb:189
+#: app/controllers/user_controller.rb:223
 msgid ""
 "That doesn't look like a valid email address. Please check you have typed it"
 " correctly."
 msgstr ""
+"E-mail adresa ne izgleda validna. Molimo provjerite da li ste je  ukucali "
+"pravilno."
 
 #: app/views/request/_describe_state.rhtml:47
 #: app/views/request/_other_describe_state.rhtml:43
 msgid "The <strong>review has finished</strong> and overall:"
-msgstr ""
+msgstr "Pregled <strong>je završen</strong> i sveukupno:"
 
-#: app/views/request/new.rhtml:62
+#: app/views/request/new.rhtml:60
 msgid "The Freedom of Information Act <strong>does not apply</strong> to"
 msgstr ""
+"Zakon o slobodnom pristupu informacijama <strong>se ne odnosi</strong> na"
 
 #: app/views/user_mailer/changeemail_already_used.rhtml:8
 msgid "The accounts have been left as they previously were."
-msgstr ""
+msgstr "Korisnički računi nisu menjani"
 
 #: app/views/request/_other_describe_state.rhtml:48
 msgid ""
 "The authority do <strong>not have</strong> the information <small>(maybe "
 "they say who does)"
 msgstr ""
+"Ustanova <strong>ne posjeduje</strong> informacije <small>(možda mogu reći "
+"ko posjeduje)"
 
-#: app/views/request/show_response.rhtml:28
+#: app/views/request/show_response.rhtml:26
 msgid ""
 "The authority only has a <strong>paper copy</strong> of the information."
-msgstr ""
+msgstr "Ustanova ima samo <strong>štampanu kopiju</strong> informacije."
 
 #: app/views/request/show_response.rhtml:18
 msgid ""
 "The authority say that they <strong>need a postal\n"
 "            address</strong>, not just an email, for it to be a valid FOI request"
 msgstr ""
+"Iz ustanove kažu da im <strong>treba poštanska\n"
+"            adresa</strong>, ne samo e-mail, da bi Zahtev za slobodan pristup informacijama bio valjan"
 
 #: app/views/request/show.rhtml:109
 msgid ""
 "The authority would like to / has <strong>responded by post</strong> to this"
 " request."
 msgstr ""
+"Ustanova bi željela / je <strong>odgovorila poštom</strong> na ovaj zahtev."
 
 #: app/views/request_mailer/stopped_responses.rhtml:1
 msgid ""
@@ -2480,58 +3131,53 @@ msgid ""
 "request has not been delivered."
 msgstr ""
 
-#: app/views/request/show_response.rhtml:22
-msgid ""
-"The law, the Ministry of Justice and the Information Commissioner\n"
-"            all say that an email is sufficient (<a href=\"%s\">more details</a>).\n"
-"            At the bottom of this page, write a reply to the authority explaining this to them."
-msgstr ""
+#: app/views/general/exception_caught.rhtml:5
+msgid "The page doesn't exist. Things you can try now:"
+msgstr "Stranica ne postoji. Stvari koje možete probati sada:"
 
-#: app/views/general/exception_caught.rhtml:3
-msgid "The page either doesn't exist, or is broken. Things you can try now:"
-msgstr ""
-
-#: app/views/general/search.rhtml:143
+#: app/views/general/_advanced_search_tips.rhtml:27
 msgid "The public authority does not have the information requested"
-msgstr ""
+msgstr "Javna ustanova ne posjeduje tražene informacije"
 
-#: app/views/general/search.rhtml:147
+#: app/views/general/_advanced_search_tips.rhtml:31
 msgid "The public authority would like part of the request explained"
-msgstr ""
+msgstr "Javna ustanova bi htjela objašnjenje dijela zahteva"
 
-#: app/views/general/search.rhtml:148
+#: app/views/general/_advanced_search_tips.rhtml:32
 msgid "The public authority would like to / has responded by post"
-msgstr ""
+msgstr "Javna ustanova bi htjela odgovoriti ili je već odgovorila poštom"
 
 #: app/views/request/_other_describe_state.rhtml:60
 msgid "The request has been <strong>refused</strong>"
-msgstr ""
+msgstr "Zahtev je <strong>odbijen</strong>"
 
-#: app/controllers/request_controller.rb:352
+#: app/controllers/request_controller.rb:394
 msgid ""
 "The request has been updated since you originally loaded this page. Please "
 "check for any new incoming messages below, and try again."
 msgstr ""
+"Zahtev je ažuriran otkako ste prvi put učitali ovu stranicu. Molimo "
+"provjerite nove dolazeće poruke ispod i pokušajte ponovo. "
 
 #: app/views/request/show.rhtml:104
 msgid "The request is <strong>waiting for clarification</strong>."
-msgstr ""
+msgstr "Zahtev <strong>čeka na objašnjenje</strong>."
 
 #: app/views/request/show.rhtml:97
 msgid "The request was <strong>partially successful</strong>."
-msgstr ""
+msgstr "Zahtev je <strong>delimično uspešan</strong>."
 
 #: app/views/request/show.rhtml:93
 msgid "The request was <strong>refused</strong> by"
-msgstr ""
+msgstr "Zahtev je <strong>odbijen</strong> od strane"
 
 #: app/views/request/show.rhtml:95
 msgid "The request was <strong>successful</strong>."
-msgstr ""
+msgstr "Zahtev je <strong>uspešan</strong>."
 
-#: app/views/general/search.rhtml:144
+#: app/views/general/_advanced_search_tips.rhtml:28
 msgid "The request was refused by the public authority"
-msgstr ""
+msgstr "Zahtev je odbijen od strane javne ustanove"
 
 #: app/views/request/hidden.rhtml:9
 msgid ""
@@ -2539,129 +3185,200 @@ msgid ""
 "various reasons why we might have done this, sorry we can't be more specific here. Please <a\n"
 "    href=\"%s\">contact us</a> if you have any questions."
 msgstr ""
+"Zahtev koji ste pokušali pregledati je uklonjen. Postoje\n"
+"razni razlozi radi kojih smo to mogli uraditi, žao nam je ali ne možemo biti precizniji po tom pitanju. Molimo <a\n"
+"    href=\"%s\">kontaktirajte nas</a> ako imate pitanja."
 
-#: app/views/general/search.rhtml:152
+#: app/views/general/_advanced_search_tips.rhtml:36
 msgid "The requester has abandoned this request for some reason"
-msgstr ""
+msgstr "Podnosioc je odustao od ovog zahteva iz nekog razloga"
 
-#: app/views/request/_followup.rhtml:32
+#: app/views/request/_followup.rhtml:59
 msgid ""
 "The response to your request has been <strong>delayed</strong>.  You can say that, \n"
 "            by law, the authority should normally have responded\n"
 "            <strong>promptly</strong> and"
 msgstr ""
+"Odgovor na Vaš zahtev je <strong>odgođen</strong>.  Možete reći da je, \n"
+"            po zakonu, ustanova trebala odgovoriti\n"
+"            <strong>brzo</strong> i"
 
-#: app/views/request/_followup.rhtml:44
+#: app/views/request/_followup.rhtml:71
 msgid ""
 "The response to your request is <strong>long overdue</strong>.   You can say that, by \n"
 "            law, under all circumstances, the authority should have responded\n"
 "            by now"
 msgstr ""
+"Odgovor na Vaš zahtev <strong>kasni</strong>.   Možete reći da po \n"
+"            zakonu, u svakom slučaju, ustanova je trebala odgovoriti\n"
+"            do sada"
 
-#: app/views/public_body/show.rhtml:100
+#: app/views/public_body/show.rhtml:120
 msgid ""
 "The search index is currently offline, so we can't show the Freedom of "
 "Information requests that have been made to this authority."
 msgstr ""
+"Indeks za pretragu je trenutno isključen, ne možemo prikazati Zahteve za "
+"slobodan pristup informacijama podnesene ovoj ustanovi."
 
-#: app/views/user/show.rhtml:141
+#: app/views/user/show.rhtml:165
 msgid ""
 "The search index is currently offline, so we can't show the Freedom of "
 "Information requests this person has made."
 msgstr ""
+"Indeks za pretragu je trenutno isključen, radi toga ne možemo prikazati "
+"Zahteve za slobodan pristup informacijama koje je ova osoba napravila."
 
-#: app/controllers/track_controller.rb:144
+#: app/controllers/track_controller.rb:152
 msgid "Then you can cancel the alert."
-msgstr ""
+msgstr "Tada možete poništiti upozorenje."
 
-#: app/controllers/track_controller.rb:174
+#: app/controllers/track_controller.rb:182
 msgid "Then you can cancel the alerts."
-msgstr ""
+msgstr "Tada možete poništiti upozorenja."
 
-#: app/controllers/user_controller.rb:249
+#: app/controllers/user_controller.rb:283
 msgid "Then you can change your email address used on {{site_name}}"
-msgstr ""
+msgstr "Tada možete promeniti Vašu e-mail adresu korištenu na {{site_name}}"
 
-#: app/controllers/user_controller.rb:203
+#: app/controllers/user_controller.rb:237
 msgid "Then you can change your password on {{site_name}}"
-msgstr ""
+msgstr "Tada možete promeniti Vaš password na {{site_name}}"
 
-#: app/controllers/request_controller.rb:338
+#: app/controllers/request_controller.rb:380
 msgid "Then you can classify the FOI response you have got from "
-msgstr ""
+msgstr "Tada možete klasificirati ZOSPI odgovor koji ste dobili od"
+
+#: app/controllers/request_controller.rb:815
+msgid "Then you can download a zip file of {{info_request_title}}."
+msgstr "Tada možete preuzeti zipovano {{info_request_title}}."
 
 #: app/controllers/request_game_controller.rb:41
 msgid "Then you can play the request categorisation game."
-msgstr ""
+msgstr "Tada možete igrati igru kategorizacije zatjeva."
 
-#: app/controllers/user_controller.rb:330
+#: app/controllers/user_controller.rb:364
 msgid "Then you can send a message to "
-msgstr ""
+msgstr "Tada možete poslati poruku za "
 
-#: app/controllers/user_controller.rb:514
+#: app/controllers/user_controller.rb:558
 msgid "Then you can sign in to {{site_name}}"
-msgstr ""
+msgstr "Tada se možete prijaviti na {{site_name}}"
 
-#: app/controllers/request_controller.rb:61
+#: app/controllers/request_controller.rb:84
 msgid "Then you can update the status of your request to "
-msgstr ""
+msgstr "Tada možete ažurirati status vašeg zahteva prema"
 
-#: app/controllers/request_controller.rb:702
+#: app/controllers/request_controller.rb:756
 msgid "Then you can upload an FOI response. "
 msgstr ""
+"Tada možete postaviti odgovor na Zahtev o slobodnom pristupu informacijama."
 
-#: app/controllers/request_controller.rb:545
+#: app/controllers/request_controller.rb:587
 msgid "Then you can write follow up message to "
-msgstr ""
+msgstr "Tada možete napisati prateću poruku za "
 
-#: app/controllers/request_controller.rb:546
+#: app/controllers/request_controller.rb:588
 msgid "Then you can write your reply to "
-msgstr ""
+msgstr "Tada možete napisati Vaš odgovor za"
 
-#: app/models/track_thing.rb:197
+#: app/models/track_thing.rb:269
 msgid ""
 "Then you will be emailed whenever '{{user_name}}' requests something or gets"
 " a response."
 msgstr ""
+"Tada ćete biti obavešteni putem e-maila kada god '{{user_name}}' bude "
+"podnosio zahtev ili dobije odgovor."
 
-#: app/models/track_thing.rb:213
+#: app/models/track_thing.rb:285
 msgid ""
-"Then you will be emailed whenever a new request or response matches "
-"'{{query}}'."
+"Then you will be emailed whenever a new request or response matches your "
+"search."
 msgstr ""
+"Tada ćete biti obavešteni putem e-maila kada novi zahtev ili odgovor bude "
+"odgovarao Vašoj pretrazi."
 
-#: app/models/track_thing.rb:162
+#: app/models/track_thing.rb:234
 msgid "Then you will be emailed whenever an FOI request succeeds."
 msgstr ""
+"Biti ćete obavešteni putem e-maila kada god neki Zahtev za slobodan pristup "
+"informacijama bude uspješan."
 
-#: app/models/track_thing.rb:146
+#: app/models/track_thing.rb:218
 msgid "Then you will be emailed whenever anyone makes a new FOI request."
 msgstr ""
+"Tada ćete biti obavešteni putem e-maila kada neko podnese Zahtev za slobodan"
+" pristup informacijama."
 
-#: app/models/track_thing.rb:181
+#: app/models/track_thing.rb:253
 msgid ""
 "Then you will be emailed whenever someone requests something or gets a "
 "response from '{{public_body_name}}'."
 msgstr ""
+"Tada ćete biti obavešteni putem e-maila kada god neko bude podnosio zahtev "
+"ili dobije odgovor od '{{public_body_name}}'."
 
-#: app/controllers/request_controller.rb:299
+#: app/models/track_thing.rb:202
+msgid ""
+"Then you will be emailed whenever the request '{{request_title}}' is "
+"updated."
+msgstr ""
+"Tada ćete biti obavešteni putem e-maila kada zahtev '{{request_title}}' bude"
+" ažuriran."
+
+#: app/controllers/request_controller.rb:35
+msgid "Then you'll be allowed to send FOI requests."
+msgstr ""
+"Tada će Vam biti dozvoljeno da šaljete Zahteve za slobodan pristup "
+"informacijama "
+
+#: app/controllers/request_controller.rb:340
 msgid "Then your FOI request to {{public_body_name}} will be sent."
 msgstr ""
+"Tada će Vaši Zahtevi za slobodan pristup informacijama za "
+"{{public_body_name}} biti poslani."
 
 #: app/controllers/comment_controller.rb:56
 msgid "Then your annotation to {{info_request_title}} will be posted."
-msgstr ""
+msgstr "Tada će Vaša napomena za {{info_request_title}} biti postavljena."
 
 #: app/views/request_mailer/comment_on_alert_plural.rhtml:1
 msgid ""
 "There are {{count}} new annotations on your {{info_request}} request. Follow"
 " this link to see what they wrote."
 msgstr ""
+"Postoje {{count}} nove napomene na Vašem {{info_request}} zahtevu. Pratite "
+"ovaj link da pogledate šta je napisano."
 
-#: app/views/user/show.rhtml:4
+#: app/views/public_body/show.rhtml:7
+msgid "There is %d person following this authority"
+msgid_plural "There are %d people following this authority"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: app/views/request/_sidebar.rhtml:5
+msgid "There is %d person following this request"
+msgid_plural "There are %d people following this request"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: app/views/user/show.rhtml:8
 msgid ""
 "There is <strong>more than one person</strong> who uses this site and has this name. \n"
 "    One of them is shown below, you may mean a different one:"
+msgstr ""
+"Postoji <strong>više nego jedna osoba</strong> koja koristi ovu web stranicu i ima ovo ime. \n"
+"    Jedna od njih je prikazana ispod:"
+
+#: app/views/user/rate_limited.rhtml:7
+msgid ""
+"There is a limit on the number of requests you can make in a day, because we"
+" don’t want public authorities to be bombarded with large numbers of "
+"inappropriate requests. If you feel you have a good reason to ask for the "
+"limit to be lifted in your case, please <a href='{{help_contact_path}}'>get "
+"in touch</a>."
 msgstr ""
 
 #: app/views/request/show.rhtml:113
@@ -2669,44 +3386,61 @@ msgid ""
 "There was a <strong>delivery error</strong> or similar, which needs fixing "
 "by the {{site_name}} team."
 msgstr ""
+"Došlo je do <strong>greške u isporuci</strong> ili nečega sličnog što treba "
+"popravku od strane {{site_name}} tima."
 
-#: app/controllers/public_body_controller.rb:77
+#: app/controllers/user_controller.rb:154
+#: app/controllers/public_body_controller.rb:83
 msgid "There was an error with the words you entered, please try again."
+msgstr "Postoji greška u rečima koje ste ukucali, molimo pokušajte ponovo."
+
+#: app/views/public_body/show.rhtml:109
+msgid "There were no requests matching your query."
+msgstr "Nema zahteva koji odgovaraju Vašoj pretrazi."
+
+#: app/views/general/search.rhtml:10
+msgid "There were no results matching your query."
 msgstr ""
 
 #: app/views/request/_describe_state.rhtml:38
 msgid "They are going to reply <strong>by post</strong>"
-msgstr ""
+msgstr "Odgovoriti će <strong>poštom</strong>"
 
 #: app/views/request/_describe_state.rhtml:52
 msgid ""
 "They do <strong>not have</strong> the information <small>(maybe they say who"
 " does)</small>"
 msgstr ""
+"Oni <strong>ne posjeduju</strong> informaciju <small>(možda mogu reći ko je "
+"posjeduje)</small>"
 
-#: app/views/user/show.rhtml:83
+#: app/views/user/show.rhtml:88
 msgid "They have been given the following explanation:"
-msgstr ""
+msgstr "Dato im je slijedeće objašnjenje:"
 
 #: app/views/request_mailer/overdue_alert.rhtml:3
 msgid ""
 "They have not replied to your {{law_used_short}} request {{title}} promptly,"
 " as normally required by law"
 msgstr ""
+"Nisu odgovorili na Vaš {{law_used_short}} zahtev {{title}} u kratkom "
+"vremenskom roku, kao što je predviđeno zakonom"
 
 #: app/views/request_mailer/very_overdue_alert.rhtml:3
 msgid ""
 "They have not replied to your {{law_used_short}} request {{title}}, \n"
 "as required by law"
 msgstr ""
+"Nisu odgovorili na Vaš {{law_used_short}} zahtev {{title}}, \n"
+"kao što je predviđeno zakonom"
 
 #: app/views/request/_after_actions.rhtml:3
 msgid "Things to do with this request"
-msgstr ""
+msgstr "Stvari za uraditi sa ovim zahtevom"
 
-#: app/views/public_body/show.rhtml:59
+#: app/views/public_body/show.rhtml:63
 msgid "This authority no longer exists, so you cannot make a request to it."
-msgstr ""
+msgstr "Ova ustanova više ne postoji, zato joj nije moguće podnijeti zahtev. "
 
 #: app/views/request/_hidden_correspondence.rhtml:23
 msgid ""
@@ -2714,10 +3448,21 @@ msgid ""
 "            find out why.  If you are the requester, then you may <a href=\"%s\">sign in</a> to view the response."
 msgstr ""
 
-#: app/views/request/new.rhtml:65
+#: app/views/request/new.rhtml:63
 msgid ""
 "This covers a very wide spectrum of information about the state of\n"
-"        the <strong>natural and built environment</strong>, such as:"
+"            the <strong>natural and built environment</strong>, such as:"
+msgstr ""
+
+#: app/views/request/simple_correspondence.rhtml:1
+msgid ""
+"This is a plain-text version of the Freedom of Information request "
+"\"{{request_title}}\".  The latest, full version is available online at "
+"{{full_url}}"
+msgstr ""
+
+#: app/foo.rb:1
+msgid "This is a test!"
 msgstr ""
 
 #: app/views/request/_view_html_prefix.rhtml:9
@@ -2725,18 +3470,23 @@ msgid ""
 "This is an HTML version of an attachment to the Freedom of Information "
 "request"
 msgstr ""
+"Ovo je HTML verzija priloga uz Zahtev za slobodnom pristupu informacijama"
 
 #: app/views/request_mailer/stopped_responses.rhtml:5
 msgid ""
 "This is because {{title}} is an old request that has been\n"
 "marked to no longer receive responses."
 msgstr ""
+"To je zato što je {{title}} stari zahtev koji je\n"
+"označen da više ne prima odgovore."
 
-#: app/views/track/_tracking_links.rhtml:9
+#: app/views/track/_tracking_links.rhtml:8
 msgid ""
 "This is your own request, so you will be automatically emailed when new "
 "responses arrive."
 msgstr ""
+"Ovo je Vaš zahtev, biti ćete automatski obavešteni e-mailom kada novi "
+"odgovori budu stizali."
 
 #: app/views/request/_hidden_correspondence.rhtml:17
 msgid ""
@@ -2744,29 +3494,53 @@ msgid ""
 "\t\t\t\t\t\tfind out why.  If you are the requester, then you may <a href=\"%s\">sign in</a> to view the response."
 msgstr ""
 
-#: app/views/user/show.rhtml:122
-msgid "This person has"
-msgstr ""
+#: app/views/request/_describe_state.rhtml:44
+#: app/views/request/_other_describe_state.rhtml:40
+msgid "This particular request is finished:"
+msgstr "Ovaj zahtev je završen:"
 
-#: app/views/user/show.rhtml:152
-msgid "This person's"
+#: app/views/user/show.rhtml:144
+msgid ""
+"This person has made no Freedom of Information requests using this site."
 msgstr ""
+"Ova osoba nije podnela nijedan Zahtev za slobodan pristup informacijama "
+"koristeći ovu web stranicu."
+
+#: app/views/user/show.rhtml:149
+msgid "This person's %d Freedom of Information request"
+msgid_plural "This person's %d Freedom of Information requests"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: app/views/user/show.rhtml:179
+msgid "This person's %d annotation"
+msgid_plural "This person's %d annotations"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: app/views/user/show.rhtml:172
+msgid "This person's annotations"
+msgstr "Napomene ove osobe"
 
 #: app/views/request/_describe_state.rhtml:84
 msgid "This request <strong>requires administrator attention</strong>"
-msgstr ""
+msgstr "Ovaj zahtev <strong>treba provjeru administratora</strong>"
 
 #: app/views/request/show.rhtml:55
 msgid "This request has an <strong>unknown status</strong>."
-msgstr ""
+msgstr "Ovaj zahtev ima <strong>nepoznat status</strong>."
 
 #: app/views/request/show.rhtml:117
 msgid ""
 "This request has been <strong>withdrawn</strong> by the person who made it. \n"
 "        \t   There may be an explanation in the correspondence below."
 msgstr ""
+"Ovaj zahtev je <strong>povučen</strong> od strane osobe koja ga je napravila. \n"
+"        <span class=\"whitespace other\" title=\"Tab\">»</span>   Obijašnjenje može biti u dopisima ispod."
 
-#: app/models/info_request.rb:395
+#: app/models/info_request.rb:389
 msgid ""
 "This request has been set by an administrator to \"allow new responses from "
 "nobody\""
@@ -2777,29 +3551,34 @@ msgid ""
 "This request has had an unusual response, and <strong>requires "
 "attention</strong> from the {{site_name}} team."
 msgstr ""
+"Ovaj zahtev je dobio neobičan odgovor, i  <strong>treba pregled</strong> od "
+"strane {{site_name}} tima."
 
 #: app/views/request/show.rhtml:5
 msgid ""
 "This request has prominence 'hidden'. You can only see it because you are logged\n"
 "    in as a super user."
 msgstr ""
+"Ovaj zahtev je inače skriven. Možete ga videti jer ste prijavljeni \n"
+"    kao super korisnik."
 
 #: app/views/request/show.rhtml:11
 msgid ""
 "This request is hidden, so that only you the requester can see it. Please\n"
 "    <a href=\"%s\">contact us</a> if you are not sure why."
 msgstr ""
+"Ovaj zahtev je skriven tako da ga samo Vi podnosioc možete videti. Molimo\n"
+"    <a href=\"%s\">kontaktirajte nas</a> ako niste sigurni zašto."
+
+#: app/views/request/_describe_state.rhtml:7
+#: app/views/request/_other_describe_state.rhtml:10
+msgid "This request is still in progress:"
+msgstr "Ovaj zahtev je još u toku:"
 
 #: app/views/request/_hidden_correspondence.rhtml:10
 msgid ""
 "This response has been hidden. See annotations to find out why.\n"
 "            If you are the requester, then you may <a href=\"%s\">sign in</a> to view the response."
-msgstr ""
-
-#: app/views/request/new.rhtml:49
-msgid ""
-"This site is <strong>public</strong>. Everything you type and any response "
-"will be published."
 msgstr ""
 
 #: app/views/request/details.rhtml:6
@@ -2810,67 +3589,86 @@ msgid ""
 "which require a postal response and much more."
 msgstr ""
 
-#: app/views/user/show.rhtml:79
+#: app/views/user/show.rhtml:84
 msgid "This user has been banned from {{site_name}} "
-msgstr ""
+msgstr "Ovaj korisnik je isključen sa {{site_name}} "
 
 #: app/views/user_mailer/changeemail_already_used.rhtml:5
 msgid ""
 "This was not possible because there is already an account using \n"
 "the email address {{email}}."
 msgstr ""
+"To nije bilo moguće jer već postoji račun koji koristi ovu e-mail adresu "
+"{{email}}."
 
-#: app/models/track_thing.rb:145
+#: app/models/track_thing.rb:217
 msgid "To be emailed about any new requests"
-msgstr ""
+msgstr "Da budete obavešteni putem e-maila o svim novim zahtevima"
 
-#: app/models/track_thing.rb:161
+#: app/models/track_thing.rb:233
 msgid "To be emailed about any successful requests"
-msgstr ""
+msgstr "Da biste dobili e-mail o svakom uspešnom zahtevu"
 
-#: app/models/track_thing.rb:196
+#: app/models/track_thing.rb:268
 msgid "To be emailed about requests by '{{user_name}}'"
 msgstr ""
+"Da budete obavešteni putem e-maila o zahtevima podnesenim od strane "
+"'{{user_name}}'"
 
-#: app/models/track_thing.rb:180
+#: app/models/track_thing.rb:252
 msgid ""
 "To be emailed about requests made using {{site_name}} to the public "
 "authority '{{public_body_name}}'"
 msgstr ""
+"Da budete obavešteni putem e-maila o zahtevima napravljenim korištenjem "
+"{{site_name}} za javnu ustanovu '{{public_body_name}}'"
 
-#: app/controllers/track_controller.rb:173
+#: app/controllers/track_controller.rb:181
 msgid "To cancel these alerts"
-msgstr ""
+msgstr "Da biste poništili ova upozorenja"
 
-#: app/controllers/track_controller.rb:143
+#: app/controllers/track_controller.rb:151
 msgid "To cancel this alert"
-msgstr ""
+msgstr "Da biste poništili ovo upozorenje"
 
 #: app/views/user/no_cookies.rhtml:5
 msgid ""
 "To carry on, you need to sign in or make an account. Unfortunately, there\n"
 "was a technical problem trying to do this."
 msgstr ""
+"Da biste nastavili, morate se prijaviti ili registrovati. Nažalost, problem\n"
+"tehničke prirode se pojavio pri pokušaju navedenog."
 
-#: app/controllers/user_controller.rb:248
+#: app/controllers/user_controller.rb:282
 msgid "To change your email address used on {{site_name}}"
-msgstr ""
+msgstr "Da biste promenili Vašu e-mail adresu korištenu na {{site_name}}"
 
-#: app/controllers/request_controller.rb:337
+#: app/controllers/request_controller.rb:379
 msgid "To classify the response to this FOI request"
 msgstr ""
+"Da biste klasificirali odgovor na ovaj Zahtev za slobodan pristup "
+"informacijama"
 
-#: app/views/request/show_response.rhtml:39
+#: app/views/request/show_response.rhtml:37
 msgid "To do that please send a private email to "
-msgstr ""
+msgstr "Da biste to uradili molimo pošaljite privatni e-mail "
 
 #: app/views/request_mailer/not_clarified_alert.rhtml:2
 msgid "To do this, first click on the link below."
-msgstr ""
+msgstr "Da biste ovo uradili, prvo kliknite na link ispod."
 
-#: app/models/track_thing.rb:212
-msgid "To follow requests and responses matching '{{query}}'"
+#: app/controllers/request_controller.rb:814
+msgid "To download the zip file"
+msgstr "Da biste preuzeli zip fajl"
+
+#: app/models/track_thing.rb:284
+msgid "To follow requests and responses matching your search"
 msgstr ""
+"Da biste pratili zahteve i odgovore koji se podudaraju sa Vašom pretragom"
+
+#: app/models/track_thing.rb:201
+msgid "To follow updates to the request '{{request_title}}'"
+msgstr "Da biste pratili ažuriranja zahteva '{{request_title}}'"
 
 #: app/views/request_mailer/old_unclassified_updated.rhtml:1
 msgid ""
@@ -2881,86 +3679,109 @@ msgstr ""
 #: app/views/request_mailer/new_response_reminder_alert.rhtml:1
 msgid "To let us know, follow this link and then select the appropriate box."
 msgstr ""
+"Da biste nas obavestili, pratite ovaj link i zatim odaberite odgovarajuće "
+"polje."
 
 #: app/controllers/request_game_controller.rb:40
 msgid "To play the request categorisation game"
-msgstr ""
+msgstr "Da biste igrali igru kategorizacije zahteva"
 
 #: app/controllers/comment_controller.rb:55
 msgid "To post your annotation"
-msgstr ""
+msgstr "Da biste postavili Vašu napomenu"
 
-#: app/controllers/request_controller.rb:543
+#: app/controllers/request_controller.rb:585
 msgid "To reply to "
-msgstr ""
+msgstr "Da biste odgovorili "
 
-#: app/controllers/request_controller.rb:542
+#: app/controllers/request_controller.rb:584
 msgid "To send a follow up message to "
-msgstr ""
+msgstr "Da biste poslali prateću poruku za "
 
-#: app/controllers/user_controller.rb:329
+#: app/controllers/user_controller.rb:363
 msgid "To send a message to "
-msgstr ""
+msgstr "Da biste poslali poruku za "
 
-#: app/controllers/request_controller.rb:298
+#: app/controllers/request_controller.rb:34
+#: app/controllers/request_controller.rb:339
 msgid "To send your FOI request"
-msgstr ""
+msgstr "Da biste poslali Vaš Zahtev za slobodan pristup informacijama."
 
-#: app/controllers/request_controller.rb:60
+#: app/controllers/request_controller.rb:83
 msgid "To update the status of this FOI request"
 msgstr ""
+"Da biste ažurirali status Vašeg Zahteva za slobodan pristup informacijama."
 
-#: app/controllers/request_controller.rb:701
+#: app/controllers/request_controller.rb:755
 msgid ""
 "To upload a response, you must be logged in using an email address from "
 msgstr ""
+"Da biste postavili odgovor, morate biti prijavljeni koristeći pritom e-mail "
+"adresu sa "
+
+#: app/views/general/search.rhtml:24
+msgid ""
+"To use the advanced search, combine phrases and labels as described in the "
+"search tips below."
+msgstr ""
+"Da biste koristili napredno pretraživanje, kombinujte fraze i oznake kao što"
+" je opisano u savetima za pretragu ispod."
 
 #: app/views/public_body/view_email_captcha.rhtml:5
 msgid ""
 "To view the email address that we use to send FOI requests to "
 "{{public_body_name}}, please enter these words."
 msgstr ""
+"Da biste videli e-mail adresu koju koristimo za slanje Zahteva za slobodan "
+"pristup informacijama prema {{public_body_name}}, molimo unesite ove reči."
 
 #: app/views/request_mailer/new_response.rhtml:5
 msgid "To view the response, click on the link below."
-msgstr ""
+msgstr "Da biste videli odgovor, kliknite na link ispod."
 
 #: app/views/request/_request_listing_short_via_event.rhtml:9
 msgid "To {{public_body_link_absolute}}"
-msgstr ""
+msgstr "Za {{public_body_link_absolute}}"
 
-#: app/views/request/followup_preview.rhtml:22 app/views/request/new.rhtml:88
+#: app/views/request/simple_correspondence.rhtml:16
+#: app/views/request/simple_correspondence.rhtml:28
+#: app/views/request/followup_preview.rhtml:22 app/views/request/new.rhtml:40
 #: app/views/request/preview.rhtml:17
 msgid "To:"
-msgstr ""
+msgstr "Za:"
 
-#: app/models/track_thing.rb:174
+#: app/views/general/_localised_datepicker.rhtml:7
+msgid "Today"
+msgstr "Danas"
+
+#: app/views/request/select_authority.rhtml:48
+#: app/views/public_body/_search_ahead.rhtml:4
+msgid "Top search results:"
+msgstr "Glavni rezultati pretrage"
+
+#: app/models/track_thing.rb:246
 msgid "Track requests to {{public_body_name}} by email"
 msgstr ""
 
-#: app/models/track_thing.rb:206
-msgid "Track things matching '{{query}}' by email"
-msgstr ""
+#: app/models/track_thing.rb:278
+msgid "Track things matching this search by email"
+msgstr "Pratite stvari koje odgovaraju ovoj pretrazi putem e-maila"
 
-#: app/views/public_body/show.rhtml:3
-msgid "Track this authority"
-msgstr ""
-
-#: app/views/user/show.rhtml:29
+#: app/views/user/show.rhtml:35
 msgid "Track this person"
-msgstr ""
+msgstr "Prati ovu osobu"
 
-#: app/models/track_thing.rb:190
+#: app/models/track_thing.rb:262
 msgid "Track this person by email"
-msgstr ""
+msgstr "Pratite ovu osobu e-mailom"
 
-#: app/views/request/_sidebar.rhtml:2
-msgid "Track this request"
-msgstr ""
-
-#: app/models/track_thing.rb:123
+#: app/models/track_thing.rb:195
 msgid "Track this request by email"
-msgstr ""
+msgstr "Pratite ovaj zahtev e-mailom"
+
+#: app/views/general/search.rhtml:137
+msgid "Track this search"
+msgstr "Pratite ovu pretragu"
 
 #: locale/model_attributes.rb:33
 msgid "TrackThing|Track medium"
@@ -2974,29 +3795,35 @@ msgstr ""
 msgid "TrackThing|Track type"
 msgstr ""
 
-#: app/views/general/search.rhtml:133
+#: app/views/request/_sidebar.rhtml:13
+msgid "Tweet this request"
+msgstr "Tweetuj ovaj zahtev"
+
+#: app/views/general/_advanced_search_tips.rhtml:15
 msgid ""
 "Type <strong><code>01/01/2008..14/01/2008</code></strong> to only show "
 "things that happened in the first two weeks of January."
 msgstr ""
+"Ukucajte <strong><code>01/01/2008..14/01/2008</code></strong> da prikažete "
+"samo ono što se dešavalo u prve dve nedelje januara."
 
 #: app/models/public_body.rb:37
 msgid "URL name can't be blank"
-msgstr ""
+msgstr "Ime URL-a ne može ostati prazno "
 
 #: app/models/user_mailer.rb:45
 msgid "Unable to change email address on {{site_name}}"
-msgstr ""
+msgstr "Nemoguće promeniti e-mail adresu na  {{site_name}}"
 
 #: app/views/request/followup_bad.rhtml:4
 msgid "Unable to send a reply to {{username}}"
-msgstr ""
+msgstr "Ne možemo poslati poruku za {{username}}"
 
 #: app/views/request/followup_bad.rhtml:2
 msgid "Unable to send follow up message to {{username}}"
-msgstr ""
+msgstr "Ne možemo poslati popratnu pokuku za {{username}}"
 
-#: app/views/request/list.rhtml:29
+#: app/views/request/list.rhtml:27
 msgid "Unexpected search result type"
 msgstr ""
 
@@ -3010,121 +3837,154 @@ msgid ""
 "email address for that authority, so we can't validate this.\n"
 "Please <a href=\"%s\">contact us</a> to sort it out."
 msgstr ""
+"Nažalost nismo u posjedu e-mail adrese za ZOSPI\n"
+"te ustanove, tako da nismo u mogućnosti validirati ovo.\n"
+"Molimo <a href=\"%s\">kontaktirajte nas</a> da to razjasnimo."
 
 #: app/views/request/new_bad_contact.rhtml:5
 msgid ""
 "Unfortunately, we do not have a working {{info_request_law_used_full}}\n"
 "address for"
 msgstr ""
+"Nažalost, ne posedujemo ispravnu {{info_request_law_used_full}}\n"
+"adresu za"
 
-#: app/views/general/exception_caught.rhtml:17
+#: lib/world_foi_websites.rb:5
+msgid "United Kingdom"
+msgstr "Velika Britanija"
+
+#: lib/world_foi_websites.rb:17
+msgid "United States of America"
+msgstr "Sjedinjene Američke Države"
+
+#: app/views/general/exception_caught.rhtml:22
 msgid "Unknown"
-msgstr ""
+msgstr "Nepoznat"
 
-#: app/models/info_request_event.rb:317
-msgid "Unusual response"
-msgstr ""
-
-#: app/models/info_request.rb:807
+#: app/models/info_request.rb:803
 msgid "Unusual response."
-msgstr ""
+msgstr "Neobičan odgovor."
 
 #: app/views/request/_after_actions.rhtml:13
-#: app/views/request/_after_actions.rhtml:33
+#: app/views/request/_after_actions.rhtml:35
 msgid "Update the status of this request"
-msgstr ""
+msgstr "Ažurirajte status ovog zahteva"
 
-#: app/controllers/request_controller.rb:62
+#: app/controllers/request_controller.rb:85
 msgid "Update the status of your request to "
-msgstr ""
+msgstr "Ažurirajte status Vašeg zahteva za "
 
-#: app/views/general/search.rhtml:124
+#: app/views/general/_advanced_search_tips.rhtml:6
 msgid ""
 "Use OR (in capital letters) where you don't mind which word,  e.g. "
 "<strong><code>commons OR lords</code></strong>"
 msgstr ""
 
-#: app/views/general/search.rhtml:125
+#: app/views/general/_advanced_search_tips.rhtml:7
 msgid ""
 "Use quotes when you want to find an exact phrase, e.g. "
 "<strong><code>\"Liverpool City Council\"</code></strong>"
 msgstr ""
+"Koristite navodnike kada želite naći tačne fraze, npr. "
+"<strong><code>\"Ministarstvo Trgovine i Industrije\"</code></strong>"
 
-#: locale/model_attributes.rb:67
+#: locale/model_attributes.rb:94
 msgid "UserInfoRequestSentAlert|Alert type"
 msgstr ""
 
-#: locale/model_attributes.rb:78
+#: locale/model_attributes.rb:80
 msgid "User|About me"
-msgstr ""
+msgstr "Korisnik|O meni"
 
-#: locale/model_attributes.rb:76
+#: locale/model_attributes.rb:78
 msgid "User|Admin level"
-msgstr ""
+msgstr "Korisnik|Administratorski nivo"
 
-#: locale/model_attributes.rb:77
+#: locale/model_attributes.rb:79
 msgid "User|Ban text"
-msgstr ""
-
-#: locale/model_attributes.rb:69
-msgid "User|Email"
-msgstr ""
-
-#: locale/model_attributes.rb:73
-msgid "User|Email confirmed"
-msgstr ""
+msgstr "Korisnik|tekst isključenja"
 
 #: locale/model_attributes.rb:71
-msgid "User|Hashed password"
+msgid "User|Email"
+msgstr "Korisnik|E-mail"
+
+#: locale/model_attributes.rb:83
+msgid "User|Email bounce message"
+msgstr ""
+
+#: locale/model_attributes.rb:82
+msgid "User|Email bounced at"
 msgstr ""
 
 #: locale/model_attributes.rb:75
+msgid "User|Email confirmed"
+msgstr "Korisnik | E-mail potvrđen"
+
+#: locale/model_attributes.rb:73
+msgid "User|Hashed password"
+msgstr "Korisnik|Hashed password"
+
+#: locale/model_attributes.rb:77
 msgid "User|Last daily track email"
 msgstr ""
 
-#: locale/model_attributes.rb:70
-msgid "User|Name"
+#: locale/model_attributes.rb:81
+msgid "User|Locale"
 msgstr ""
 
 #: locale/model_attributes.rb:72
-msgid "User|Salt"
+msgid "User|Name"
+msgstr "Korisnik|Ime"
+
+#: locale/model_attributes.rb:84
+msgid "User|No limit"
 msgstr ""
 
 #: locale/model_attributes.rb:74
-msgid "User|Url name"
+msgid "User|Salt"
 msgstr ""
 
-#: app/views/public_body/show.rhtml:21
+#: locale/model_attributes.rb:76
+msgid "User|Url name"
+msgstr "Korisnik|Url ime"
+
+#: app/views/public_body/show.rhtml:26
 msgid "View FOI email address"
-msgstr ""
+msgstr "Videti adresu za Zahteve za slobodan pristup informacijama."
 
 #: app/views/public_body/view_email_captcha.rhtml:1
 msgid "View FOI email address for '{{public_body_name}}'"
-msgstr ""
+msgstr "Videti ZOSPI e-mail za '{{public_body_name}}'"
 
 #: app/views/public_body/view_email_captcha.rhtml:3
 msgid "View FOI email address for {{public_body_name}}"
-msgstr ""
+msgstr "Pogledati ZOSPI e-mail adrese za {{public_body_name}}"
 
 #: app/views/contact_mailer/user_message.rhtml:10
 msgid "View Freedom of Information requests made by {{user_name}}:"
 msgstr ""
+"Pegledati Zahjeve za slobodan pristup informacijama napravljene od strane "
+"{{user_name}}:"
 
-#: app/views/layouts/default.rhtml:89
+#: app/controllers/request_controller.rb:169
+msgid "View and search requests"
+msgstr "Pregledaj i pretraži zahteve"
+
+#: app/views/general/_topnav.rhtml:6
 msgid "View authorities"
-msgstr ""
+msgstr "Videti ustanove"
 
 #: app/views/public_body/view_email_captcha.rhtml:12
 msgid "View email"
-msgstr ""
+msgstr "Pogledati e-mail"
 
-#: app/views/layouts/default.rhtml:88
+#: app/views/general/_topnav.rhtml:5
 msgid "View requests"
-msgstr ""
+msgstr "Videti zahteve"
 
-#: app/models/info_request.rb:799
+#: app/models/info_request.rb:795
 msgid "Waiting clarification."
-msgstr ""
+msgstr "Čekamo na objašnjenje."
 
 #: app/views/request/show.rhtml:111
 msgid ""
@@ -3132,24 +3992,30 @@ msgid ""
 "their handling of this request."
 msgstr ""
 
-#: app/views/general/search.rhtml:149
+#: app/views/general/_advanced_search_tips.rhtml:33
 msgid ""
 "Waiting for the public authority to complete an internal review of their "
 "handling of the request"
 msgstr ""
 
-#: app/views/general/search.rhtml:142
+#: app/views/general/_advanced_search_tips.rhtml:26
 msgid "Waiting for the public authority to reply"
+msgstr "Čekamo na odgovor javne ustanove"
+
+#: app/models/request_mailer.rb:126
+msgid "Was the response you got to your FOI request any good?"
 msgstr ""
+"Da li je odgovor koji ste dobili na Vaš Zahtev o slobodnom pristupu "
+"informacijama bio od ikakve koristi?"
 
 #: app/views/public_body/view_email.rhtml:17
 msgid "We do not have a working request email address for this authority."
-msgstr ""
+msgstr "Ne posedujemo ispravnu e-mail adresu za zahteve ove ustanove."
 
 #: app/views/request/followup_bad.rhtml:24
 msgid ""
 "We do not have a working {{law_used_full}} address for {{public_body_name}}."
-msgstr ""
+msgstr "Nemamo ispravnu {{law_used_full}} adresu za {{public_body_name}}."
 
 #: app/views/request/_describe_state.rhtml:107
 msgid ""
@@ -3158,11 +4024,23 @@ msgid ""
 "        &ndash;\n"
 "\tif you are {{user_link}} please <a href=\"{{url}}\">sign in</a> and let everyone know."
 msgstr ""
+"Ne znamo da li najnoviji odgovor na ovaj zahtev sadrži\n"
+"    informacije ili ne\n"
+"        &ndash;\n"
+"<span class=\"whitespace other\" title=\"Tab\">»</span>ako ste {{user_link}} molimo <a href=\"{{url}}\">prijavite se</a> i obavestite sve."
 
 #: app/views/user_mailer/confirm_login.rhtml:8
 msgid ""
 "We will not reveal your email address to anybody unless you\n"
 "or the law tell us to."
+msgstr ""
+"Nećemo prikazati Vašu e-mail adresu nikome osim ako nam Vi\n"
+"ili zakon to budete zahtijevali."
+
+#: app/views/user/_signup.rhtml:13
+msgid ""
+"We will not reveal your email address to anybody unless you or\n"
+"        the law tell us to (<a href=\"%s\">details</a>). "
 msgstr ""
 
 #: app/views/user_mailer/changeemail_confirm.rhtml:10
@@ -3170,122 +4048,149 @@ msgid ""
 "We will not reveal your email addresses to anybody unless you\n"
 "or the law tell us to."
 msgstr ""
+"Nećemo prikazati Vašu e-mail adresu nikome osim ako nam Vi\n"
+"ili zakon to budete zahtijevali."
 
 #: app/views/request/show.rhtml:61
 msgid "We're waiting for"
-msgstr ""
+msgstr "Čekamo da"
 
 #: app/views/request/show.rhtml:57
 msgid "We're waiting for someone to read"
-msgstr ""
+msgstr "Čekamo da neko pročita"
 
 #: app/views/user/signchangeemail_confirm.rhtml:6
 msgid ""
 "We've sent an email to your new email address. You'll need to click the link in\n"
 "it before your email address will be changed."
 msgstr ""
+"Poslali smo e-mail na Vašu novu e-mail adresu. Morati ćete kliknuti na link u\n"
+"njemu prije nego Vaša adresa bude izmjenjena."
 
 #: app/views/user/confirm.rhtml:6
 msgid ""
 "We've sent you an email, and you'll need to click the link in it before you can\n"
 "continue."
 msgstr ""
+"Poslali smo Vam e-mail, trebate kliknuti na link u njemu prije nego što \n"
+"nastavite."
 
 #: app/views/user/signchangepassword_confirm.rhtml:6
 msgid ""
 "We've sent you an email, click the link in it, then you can change your "
 "password."
 msgstr ""
+"Poslali smo Vam e-mail, kliknite na link u njemu, onda ćete moći promjeniti "
+"Vaš password."
 
-#: app/views/request/_followup.rhtml:58
+#: app/views/request/_followup.rhtml:85
 msgid "What are you doing?"
-msgstr ""
+msgstr "Šta radite?"
 
 #: app/views/request/_describe_state.rhtml:4
 msgid "What best describes the status of this request now?"
-msgstr ""
+msgstr "Šta najbolje opisuje status ovog zahteva sada?"
+
+#: app/views/general/frontpage.rhtml:54
+msgid "What information has been released?"
+msgstr "Koje informacije su objavljene?"
 
 #: app/views/request_mailer/new_response.rhtml:9
 msgid ""
 "When you get there, please update the status to say if the response \n"
 "contains any useful information."
 msgstr ""
+"Kada dođete do toga, molimo ažurirajte status da nam kažete da li \n"
+"je odgovor sadržavao korisne informacije."
 
-#: app/views/request/show_response.rhtml:44
+#: app/views/request/show_response.rhtml:42
 msgid ""
 "When you receive the paper response, please help\n"
 "            others find out what it says:"
 msgstr ""
+"Kada dobijete printanu kopiju, molimo pomozite\n"
+"            drugima da saznaju njen sadržaj:"
 
 #: app/views/request/new_please_describe.rhtml:16
 msgid ""
 "When you're done, <strong>come back here</strong>, <a href=\"%s\">reload "
 "this page</a> and file your new request."
 msgstr ""
+"Kada završite, <strong>vratite se ovde</strong>, <a href=\"%s\">učitajte "
+"ponovo ovu stranicu</a> i spremite Vaš novi zahtev."
 
 #: app/views/request/show_response.rhtml:13
 msgid "Which of these is happening?"
-msgstr ""
+msgstr "Šta se od ovoga događa?"
 
-#: app/models/info_request_event.rb:313
-msgid "Withdrawn by requester"
-msgstr ""
+#: app/views/general/frontpage.rhtml:37
+msgid "Who can I request information from?"
+msgstr "Od koga mogu tražiti informacije?"
 
-#: app/models/info_request.rb:809
+#: app/models/info_request.rb:805
 msgid "Withdrawn by the requester."
+msgstr "Povučeno od strane podnosioca zahteva."
+
+#: app/views/general/_localised_datepicker.rhtml:13
+msgid "Wk"
 msgstr ""
 
-#: app/controllers/request_controller.rb:549
+#: app/views/help/alaveteli.rhtml:6
+msgid "Would you like to see a website like this in your country?"
+msgstr "Da li biste hteli videti ovakvu web stranicu u Vašoj zemlji?"
+
+#: app/views/request/_after_actions.rhtml:30
+msgid "Write a reply"
+msgstr "Napisati odgovor"
+
+#: app/controllers/request_controller.rb:591
 msgid "Write a reply to "
-msgstr ""
+msgstr "napišite odgovor za "
 
-#: app/controllers/request_controller.rb:548
+#: app/controllers/request_controller.rb:590
 msgid "Write your FOI follow up message to "
 msgstr ""
+"Napišite Vašu prateću poruku Zahteva za slobodan pristup informacijama za "
 
-#: app/views/request/new.rhtml:46
+#: app/views/request/new.rhtml:104
 msgid "Write your request in <strong>simple, precise language</strong>."
-msgstr ""
-
-#: app/models/info_request_event.rb:301
-msgid "Wrong Response"
-msgstr ""
+msgstr "Pišite Vaš zahtev <strong>jednostavnim, preciznim jezikom</strong>."
 
 #: app/views/comment/_single_comment.rhtml:10
 msgid "You"
-msgstr ""
+msgstr "Vi"
 
-#: app/controllers/track_controller.rb:98
+#: app/controllers/track_controller.rb:106
 msgid "You are already being emailed updates about "
-msgstr ""
+msgstr "Ažuriranja su Vam već poslana putem e-maila "
 
-#: app/models/track_thing.rb:175
+#: app/models/track_thing.rb:247
 msgid "You are already tracking requests to {{public_body_name}} by email"
+msgstr "Već pratite zahjeve za {{public_body_name}} putem e-maila"
+
+#: app/models/track_thing.rb:279
+msgid "You are already tracking things matching this search by email"
 msgstr ""
 
-#: app/models/track_thing.rb:207
-msgid "You are already tracking things matching '{{query}}' by email"
-msgstr ""
-
-#: app/models/track_thing.rb:191
+#: app/models/track_thing.rb:263
 msgid "You are already tracking this person by email"
-msgstr ""
+msgstr "Već pratite ovu osobu putem e-maila"
 
-#: app/models/track_thing.rb:124
+#: app/models/track_thing.rb:196
 msgid "You are already tracking this request by email"
-msgstr ""
+msgstr "Već pratite ovaj zahtev putem e-maila"
 
-#: app/models/track_thing.rb:156
+#: app/models/track_thing.rb:228
 msgid "You are being emailed about any new successful responses"
-msgstr ""
+msgstr "Biti ćete obavešteni e-mailom o novim pozitivnim odgovorima"
 
-#: app/models/track_thing.rb:140
+#: app/models/track_thing.rb:212
 msgid "You are being emailed when there are new requests"
-msgstr ""
+msgstr "Biti ćete obavešteni putem e-maila kada bude novih zahteva"
 
 #: app/views/request/show.rhtml:88
 msgid "You can <strong>complain</strong> by"
-msgstr ""
+msgstr "Možete se <strong>žaliti</strong> tako što ćete"
 
 #: app/views/request/details.rhtml:58
 msgid ""
@@ -3293,26 +4198,43 @@ msgid ""
 "page for the request.  See the <a href=\"{{api_path}}\">API documentation</a>."
 msgstr ""
 
-#: app/views/public_body/show.rhtml:40
+#: app/views/public_body/show.rhtml:46
 msgid ""
 "You can only request information about the environment from this authority."
-msgstr ""
-
-#: app/views/user/show.rhtml:122
-msgid "You have"
-msgstr ""
+msgstr "Možete samo zahtevati informacije o okolišu od ove ustanove."
 
 #: app/views/request_mailer/new_response.rhtml:1
 msgid "You have a new response to the {{law_used_full}} request "
+msgstr "Imate novi odgovor na {{law_used_full}} zahtev "
+
+#: app/views/general/exception_caught.rhtml:18
+msgid ""
+"You have found a bug.  Please <a href=\"{{contact_url}}\">contact us</a> to "
+"tell us about the problem"
+msgstr ""
+"Pronašli ste programsku grešku.  Molimo <a "
+"href=\"{{contact_url}}\">kontaktirajte nas</a> da nam ukažete na problem"
+
+#: app/views/user/rate_limited.rhtml:5
+msgid ""
+"You have hit the rate limit on new requests. Users are ordinarily limited to"
+" {{max_requests_per_user_per_day}} requests in any rolling 24-hour period. "
+"You will be able to make another request in {{can_make_another_request}}."
 msgstr ""
 
-#: app/controllers/user_controller.rb:492
+#: app/views/user/show.rhtml:144
+msgid "You have made no Freedom of Information requests using this site."
+msgstr ""
+"Niste podneli nijedan Zahtev za slobodan pristup informacijama koristeći ovu"
+" web stranicu. "
+
+#: app/controllers/user_controller.rb:527
 msgid "You have now changed the text about you on your profile."
-msgstr ""
+msgstr "Sada ste promenili tekst o Vama na Vašem profilu."
 
-#: app/controllers/user_controller.rb:310
+#: app/controllers/user_controller.rb:344
 msgid "You have now changed your email address used on {{site_name}}"
-msgstr ""
+msgstr "Sada ste promenili Vašu e-mail adresu korištenu na {{site_name}}"
 
 #: app/views/user_mailer/already_registered.rhtml:3
 msgid ""
@@ -3322,18 +4244,27 @@ msgid ""
 "\n"
 "Please click on the link below."
 msgstr ""
+"Probali ste da se registrujete {{site_name}}, mada već\n"
+"imate račun. Vaše ime i password su ostali\n"
+"isti kao prije.\n"
+"\n"
+"Molimo kliknite na link ispod."
 
-#: app/views/comment/new.rhtml:59
+#: app/views/comment/new.rhtml:60
 msgid ""
 "You know what caused the error, and can <strong>suggest a solution</strong>,"
 " such as a working email address."
 msgstr ""
+"Znate šta je uzrok greške i možete <strong>predložiti rešenje</strong>, "
+"poput ispravne e-mail adrese."
 
 #: app/views/request/upload_response.rhtml:16
 msgid ""
 "You may <strong>include attachments</strong>. If you would like to attach a\n"
 "file too large for email, use the form below."
 msgstr ""
+"Možete <strong>dodati priloge</strong>. Ako biste željeli priložiti\n"
+"fajl prevelik za e-mail, koristite link ispod."
 
 #: app/views/request/followup_bad.rhtml:24
 msgid ""
@@ -3341,42 +4272,55 @@ msgid ""
 "    one on their website, or by phoning them up and asking. If you manage\n"
 "    to find one, then please <a href=\"%s\">send it to us</a>."
 msgstr ""
+"Moguće je da je nađete\n"
+"    na njihovoj web stranici, ili putem telefonskog poziva. Ako uspete\n"
+"    da je nađete, onda molimo <a href=\"%s\">da nam je pošaljete</a>."
 
 #: app/views/request/new_bad_contact.rhtml:6
 msgid ""
 "You may be able to find\n"
 "one on their website, or by phoning them up and asking. If you manage\n"
-"to find one, then please <a href=\"%s\">send it to us</a>."
+"to find one, then please <a href=\"{{help_url}}\">send it to us</a>."
 msgstr ""
+"Možete ga naći\n"
+"na njihovoj web-stranici, ili ih pitati putem telefona. Ako ga uspete\n"
+"naći, tada molimo <a href=\"{{help_url}}\">pošaljite nam ga</a>."
 
-#: app/controllers/user_controller.rb:470
+#: app/controllers/user_controller.rb:505
 msgid "You need to be logged in to change the text about you on your profile."
 msgstr ""
+"Morate biti prijavljeni ukoliko želite mjenjati tekst o Vama na Vašem "
+"profilu."
 
-#: app/controllers/user_controller.rb:371
+#: app/controllers/user_controller.rb:405
 msgid "You need to be logged in to change your profile photo."
 msgstr ""
+"Morate biti prijavljeni ukoliko želite mjenjati sliku na Vašem profilu."
 
-#: app/controllers/user_controller.rb:433
+#: app/controllers/user_controller.rb:467
 msgid "You need to be logged in to clear your profile photo."
 msgstr ""
+"Morate biti prijavljeni ukoliko želite izbrisati sliku na Vašem profilu."
 
-#: app/controllers/request_controller.rb:559
+#: app/controllers/request_controller.rb:601
 msgid ""
 "You previously submitted that exact follow up message for this request."
-msgstr ""
+msgstr "Prethodno ste predali istu popratnu poruku za ovaj zahtev."
 
 #: app/views/request/upload_response.rhtml:13
 msgid ""
 "You should have received a copy of the request by email, and you can respond\n"
 "by <strong>simply replying</strong> to that email. For your convenience, here is the address:"
 msgstr ""
+"Trebali ste dobiti kopiju zahteva putem e-maila, i možete odgovoriti\n"
+" <strong>jednostavno</strong> na taj e-mail. U tu svrhu, ovo je adresa:"
 
-#: app/views/request/show_response.rhtml:36
+#: app/views/request/show_response.rhtml:34
 msgid ""
 "You want to <strong>give your postal address</strong> to the authority in "
 "private."
 msgstr ""
+"Želite da <strong>date vašu poštansku adresu</strong> isključivo ustanovi."
 
 #: app/views/user/banned.rhtml:9
 msgid ""
@@ -3386,17 +4330,17 @@ msgid ""
 "email alerts."
 msgstr ""
 
-#: app/controllers/track_controller.rb:154
+#: app/controllers/track_controller.rb:162
 msgid "You will no longer be emailed updates about "
-msgstr ""
+msgstr "Više vam nećemo slati ažuriranja"
 
-#: app/controllers/track_controller.rb:183
+#: app/controllers/track_controller.rb:191
 msgid "You will no longer be emailed updates for those alerts"
-msgstr ""
+msgstr "Više vam nećemo slati ažuriranja za ova upozorenja"
 
-#: app/controllers/track_controller.rb:111
+#: app/controllers/track_controller.rb:119
 msgid "You will now be emailed updates about "
-msgstr ""
+msgstr "Od sada ćemo Vam slati ažuriranja"
 
 #: app/views/request_mailer/not_clarified_alert.rhtml:6
 msgid ""
@@ -3404,13 +4348,27 @@ msgid ""
 "with the clarification."
 msgstr ""
 
-#: app/controllers/user_controller.rb:442
-msgid "You've now cleared your profile photo"
+#: app/models/request_mailer.rb:106
+msgid "You're long overdue a response to your FOI request - "
 msgstr ""
 
-#: app/views/user/show.rhtml:152
-msgid "Your "
-msgstr ""
+#: app/controllers/user_controller.rb:476
+msgid "You've now cleared your profile photo"
+msgstr "Sada ste izbrisali sliku na Vašem profilu"
+
+#: app/views/user/show.rhtml:149
+msgid "Your %d Freedom of Information request"
+msgid_plural "Your %d Freedom of Information requests"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: app/views/user/show.rhtml:179
+msgid "Your %d annotation"
+msgid_plural "Your %d annotations"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 #: app/views/user/_signup.rhtml:22
 msgid ""
@@ -3421,204 +4379,250 @@ msgid ""
 "        <a href=\"%s\">read this first</a>."
 msgstr ""
 
+#: app/views/user/show.rhtml:172
+msgid "Your annotations"
+msgstr "Vaše napomene"
+
 #: app/views/contact_mailer/user_message.rhtml:3
 msgid ""
 "Your details have not been given to anyone, unless you choose to reply to this\n"
 "message, which will then go directly to the person who wrote the message."
 msgstr ""
+"Vaši podatci nisu dati nikome, osim ako odaberete da odgovorite na ovu "
+"poruku, koja će u tom slučaju ići direktno osobi kaoja je napisala poruku."
 
-#: app/views/user/_signin.rhtml:11 app/views/user/_signup.rhtml:9
+#: app/views/user/_signup.rhtml:9 app/views/user/_signin.rhtml:11
 #: app/views/user/signchangepassword_send_confirm.rhtml:13
 msgid "Your e-mail:"
-msgstr ""
+msgstr "Vaš e-mail:"
 
-#: app/views/user/show.rhtml:168
+#: app/views/user/show.rhtml:196
 msgid "Your email subscriptions"
-msgstr ""
+msgstr "Vaše e-mail pretplate"
 
-#: app/controllers/request_controller.rb:556
+#: app/controllers/request_controller.rb:598
 msgid ""
 "Your follow up has not been sent because this request has been stopped to "
 "prevent spam. Please <a href=\"%s\">contact us</a> if you really want to "
 "send a follow up message."
 msgstr ""
 
-#: app/controllers/request_controller.rb:584
+#: app/controllers/request_controller.rb:626
 msgid "Your follow up message has been sent on its way."
-msgstr ""
+msgstr "Vaša prateća poruka je na putu."
 
-#: app/controllers/request_controller.rb:582
+#: app/controllers/request_controller.rb:624
 msgid "Your internal review request has been sent on its way."
-msgstr ""
+msgstr "Vaša urgencija je na putu."
 
 #: app/controllers/help_controller.rb:63
 msgid ""
 "Your message has been sent. Thank you for getting in touch! We'll get back "
 "to you soon."
-msgstr ""
+msgstr "Igrajte igru kategorizacije zahteva"
 
-#: app/controllers/user_controller.rb:349
+#: app/controllers/user_controller.rb:383
 msgid "Your message to {{recipient_user_name}} has been sent!"
-msgstr ""
+msgstr "Vaša poruka za {{recipient_user_name}} je poslana!"
 
 #: app/views/request/followup_preview.rhtml:15
 msgid "Your message will appear in <strong>search engines</strong>"
-msgstr ""
+msgstr "Vaša poruka će se pojaviti u <strong>pretraživačima</strong>"
 
 #: app/views/comment/preview.rhtml:10
 msgid ""
 "Your name and annotation will appear in <strong>search engines</strong>."
-msgstr ""
+msgstr "Vaše ime i napomena će se pojaviti u <strong>pretraživačima</strong>."
 
 #: app/views/request/preview.rhtml:8
 msgid ""
 "Your name, request and any responses will appear in <strong>search engines</strong>\n"
 "        (<a href=\"%s\">details</a>)."
 msgstr ""
+"Vaše ime, zahtev i sve poruke će se pojaviti u <strong>pretraživačima</strong>\n"
+"        (<a href=\"%s\">Više informacija</a>)."
 
 #: app/views/user/_signup.rhtml:18
 msgid "Your name:"
-msgstr ""
+msgstr "Vaše ime:"
 
 #: app/views/request_mailer/stopped_responses.rhtml:14
 msgid "Your original message is attached."
-msgstr ""
+msgstr "Vaša originalna poruka je pridružena."
 
-#: app/controllers/user_controller.rb:231
+#: app/controllers/user_controller.rb:265
 msgid "Your password has been changed."
-msgstr ""
+msgstr "Vaš password je promenjen."
 
 #: app/views/user/signchangeemail.rhtml:25
 msgid "Your password:"
-msgstr ""
+msgstr "Vaš password:"
 
 #: app/views/user/set_draft_profile_photo.rhtml:18
 msgid ""
 "Your photo will be shown in public <strong>on the Internet</strong>, \n"
 "    wherever you do something on {{site_name}}."
 msgstr ""
+"Vaša slika će biti javno prikazana <strong>na Internetu</strong>, \n"
+"    kada god budete uradili nešto na {{site_name}}."
 
 #: app/views/request_mailer/new_response_reminder_alert.rhtml:5
 msgid ""
 "Your request was called {{info_request}}. Letting everyone know whether you "
 "got the information will help us keep tabs on"
 msgstr ""
+"Naziv Vašeg zahteva je {{info_request}}. Obavest o tome da li ste dobili "
+"odgovor će nam pomoći da bolje pratimo."
 
-#: app/views/request/new.rhtml:109
+#: app/views/request/new.rhtml:113
 msgid "Your request:"
-msgstr ""
+msgstr "Vaš zahtev:"
 
 #: app/views/request/upload_response.rhtml:8
 msgid ""
 "Your response will <strong>appear on the Internet</strong>, <a "
 "href=\"%s\">read why</a> and answers to other questions."
 msgstr ""
+"Vaš odgovor će se <strong>pojaviti na Internetu</strong>, <a "
+"href=\"%s\">pročitajte zašto</a> i odgovore na druga pitanja."
 
-#: app/views/comment/new.rhtml:62
+#: app/views/comment/new.rhtml:63
 msgid ""
 "Your thoughts on what the {{site_name}} <strong>administrators</strong> "
 "should do about the request."
 msgstr ""
+"Vaše mišljenje o tome šta administratori {{site_name}} trebaju da rade po "
+"pitanju zahteva."
 
 #: app/models/track_mailer.rb:25
 msgid "Your {{site_name}} email alert"
-msgstr ""
+msgstr "Vaše {{site_name}} e-mail upozorenje"
 
-#: app/models/outgoing_message.rb:69
+#: app/models/outgoing_message.rb:70
 msgid "Yours faithfully,"
-msgstr ""
+msgstr "S poštovanjem,"
 
-#: app/models/outgoing_message.rb:67
+#: app/models/outgoing_message.rb:68
 msgid "Yours sincerely,"
-msgstr ""
+msgstr "S poštovanjem,"
 
-#: app/views/request/new.rhtml:97
+#: app/views/request/new.rhtml:88
 msgid ""
 "a one line summary of the information you are requesting, \n"
 "\t\t\te.g."
 msgstr ""
+"sažetak informacije koju tražite u jednoj rečenici,\n"
+"»»» npr."
 
-#: app/views/public_body/show.rhtml:31
+#: app/views/public_body/show.rhtml:37
 msgid "admin"
-msgstr "admin"
+msgstr "administrator"
 
-#: app/views/public_body/show.rhtml:29
+#: app/views/request/_request_filter_form.rhtml:30
+msgid "all requests"
+msgstr "svi zahtevi"
+
+#: app/views/public_body/show.rhtml:35
 msgid "also called {{public_body_short_name}}"
-msgstr ""
+msgstr "takođe poznat/a kao {{public_body_short_name}}"
 
-#: app/views/user/wrong_user.rhtml:5
-msgid "and sign in as "
-msgstr ""
+#: app/views/request/_request_filter_form.rhtml:25
+#: app/views/general/search.rhtml:110
+msgid "and"
+msgstr "i"
 
 #: app/views/request/show.rhtml:59
 msgid ""
 "and update the status accordingly. Perhaps <strong>you</strong> might like "
 "to help out by doing that?"
 msgstr ""
+"i ažurirajte status po tome. Možda <strong>biste</strong> hteli pomoći "
+"radeći to?"
 
 #: app/views/request/show.rhtml:64
 msgid "and update the status."
-msgstr ""
+msgstr "i ažurirajte status."
 
 #: app/views/request/_describe_state.rhtml:101
 msgid "and we'll suggest <strong>what to do next</strong>"
-msgstr ""
+msgstr "i mi ćemo predložiti <strong>šta raditi dalje</strong>"
 
-#: app/views/user/show.rhtml:153
-msgid "annotation"
-msgstr ""
+#: app/views/general/frontpage.rhtml:60
+msgid "answered a request about"
+msgstr "odgovorio/la na zahtev o "
 
-#: app/views/user/show.rhtml:147
-msgid "annotations"
-msgstr ""
-
-#: app/models/track_thing.rb:138
+#: app/models/track_thing.rb:210
 msgid "any <a href=\"/list\">new requests</a>"
-msgstr ""
+msgstr "svi <a href=\"/list\">novi zahtevi</a>"
 
-#: app/models/track_thing.rb:154
+#: app/models/track_thing.rb:226
 msgid "any <a href=\"/list/successful\">successful requests</a>"
-msgstr ""
+msgstr "svi <a href=\"/list/successful\">uspešni zahtevi</a>"
+
+#: app/models/track_thing.rb:115
+msgid "anything"
+msgstr "bilo šta"
 
 #: app/views/request_mailer/very_overdue_alert.rhtml:1
 msgid "are long overdue."
 msgstr ""
 
-#: app/controllers/public_body_controller.rb:111
-msgid "beginning with"
+#: app/models/track_thing.rb:88 app/views/general/search.rhtml:55
+msgid "authorities"
+msgstr "ustanove"
+
+#: app/models/track_thing.rb:103
+msgid "awaiting a response"
 msgstr ""
+
+#: app/controllers/public_body_controller.rb:125
+msgid "beginning with ‘{{first_letter}}’"
+msgstr ""
+
+#: app/models/track_thing.rb:94
+msgid "between two dates"
+msgstr "između dva datuma"
 
 #: app/views/request/show.rhtml:82
 msgid "by"
-msgstr ""
+msgstr "od strane"
 
-#: app/views/request/_followup.rhtml:38
+#: app/views/request/_followup.rhtml:65
 msgid "by <strong>{{date}}</strong>"
-msgstr ""
+msgstr "od strane <strong>{{date}}</strong>"
 
-#: app/views/request/_request_listing_via_event.rhtml:34
+#: app/views/request/_request_listing_via_event.rhtml:26
 msgid "by {{public_body_name}} to {{info_request_user}} on {{date}}."
 msgstr ""
+"od strane {{public_body_name}} za {{info_request_user}} na datum {{date}}."
 
 #: app/views/request/_request_listing_short_via_event.rhtml:10
 msgid "by {{user_link_absolute}}"
-msgstr ""
+msgstr "od strane {{user_link_absolute}}"
 
-#: locale/model_attributes.rb:35
+#: locale/model_attributes.rb:42
 msgid "censor rule"
-msgstr ""
+msgstr "pravilo cenzure"
 
 #: locale/model_attributes.rb:20
 msgid "comment"
-msgstr ""
+msgstr "komentar"
 
-#: app/views/request/show_response.rhtml:41
+#: app/models/track_thing.rb:85
+#: app/views/request/_request_filter_form.rhtml:14
+#: app/views/general/search.rhtml:99
+msgid "comments"
+msgstr "komentari"
+
+#: app/views/request/show_response.rhtml:39
 msgid ""
 "containing your postal address, and asking them to reply to this request.\n"
 "            Or you could phone them."
 msgstr ""
+"sa Vašom poštanskom adresom, tražite da odgovore na ovaj zahtev.\n"
+"            Ili ih možete kontaktirati putem telefona."
 
-#: app/models/info_request_event.rb:338
+#: app/models/info_request_event.rb:358
 msgid "display_status only works for incoming and outgoing messages right now"
 msgstr ""
 
@@ -3626,88 +4630,110 @@ msgstr ""
 msgid "during term time"
 msgstr ""
 
-#: app/views/general/frontpage.rhtml:18
-msgid "e.g."
-msgstr ""
-
-#: app/views/user/show.rhtml:96
+#: app/views/user/show.rhtml:101
 msgid "edit text about you"
-msgstr ""
+msgstr "uredite tekst o Vama"
 
-#: app/views/user/show.rhtml:171
+#: app/views/user/show.rhtml:199
 msgid "email subscription"
-msgstr ""
+msgstr "e-mail pretplata"
 
 #: app/views/request_mailer/very_overdue_alert.rhtml:4
 msgid "even during holidays"
-msgstr ""
+msgstr "i za vreme praznika"
+
+#: app/views/general/search.rhtml:56
+msgid "everything"
+msgstr "sve"
 
 #: locale/model_attributes.rb:17
 msgid "exim log"
-msgstr ""
+msgstr "exim zapis"
 
-#: locale/model_attributes.rb:59
+#: locale/model_attributes.rb:67
 msgid "exim log done"
+msgstr "exim zapis završen"
+
+#: locale/model_attributes.rb:85
+msgid "foi attachment"
 msgstr ""
 
 #: app/views/request_mailer/requires_admin.rhtml:2
 msgid "has reported an"
-msgstr ""
+msgstr "je prijavio/la"
 
 #: app/views/request_mailer/overdue_alert.rhtml:1
 msgid "have delayed."
-msgstr ""
+msgstr "je odgodio/la"
 
-#: locale/model_attributes.rb:56
+#: locale/model_attributes.rb:64
 msgid "holiday"
-msgstr ""
+msgstr "praznik"
 
-#: app/views/request/_followup.rhtml:36 app/views/request/show.rhtml:70
+#: app/views/request/_followup.rhtml:63 app/views/request/show.rhtml:70
 #: app/views/request/show.rhtml:80
 msgid "in term time"
 msgstr ""
 
-#: app/views/public_body/list.rhtml:42
-msgid "in total"
+#: app/controllers/public_body_controller.rb:131
+msgid "in the category ‘{{category_name}}’"
 msgstr ""
 
-#: locale/model_attributes.rb:62
+#: locale/model_attributes.rb:54
 msgid "incoming message"
-msgstr ""
+msgstr "nadolazeća poruka"
 
-#: locale/model_attributes.rb:79
+#: locale/model_attributes.rb:95
 msgid "info request"
-msgstr ""
+msgstr "zahtev za informaciju"
 
-#: locale/model_attributes.rb:40
+#: locale/model_attributes.rb:35
 msgid "info request event"
 msgstr ""
 
 #: app/views/user/set_profile_about_me.rhtml:3
 #: app/views/user/signchangeemail.rhtml:3
 msgid "internal error"
-msgstr ""
+msgstr "interna greška"
+
+#: app/views/general/search.rhtml:87
+msgid "internal reviews"
+msgstr "urgencije"
 
 #: app/views/request/show.rhtml:100
 msgid "is <strong>waiting for your clarification</strong>."
-msgstr ""
+msgstr "<strong>čeka na Vaše objašnjenje</strong>."
 
-#: app/views/user/show.rhtml:71
+#: app/views/user/show.rhtml:76
 msgid "just to see how it works"
-msgstr ""
+msgstr "samo da vidite kako radi"
 
 #: app/views/comment/_single_comment.rhtml:10
 msgid "left an annotation"
-msgstr ""
+msgstr "ostavio napomenu"
 
 #: app/views/user/_user_listing_single.rhtml:19
 #: app/views/user/_user_listing_single.rhtml:20
 msgid "made."
 msgstr ""
 
+#: app/controllers/public_body_controller.rb:129
+msgid "matching the tag ‘{{tag_name}}’"
+msgstr ""
+
+#: app/views/request/_request_filter_form.rhtml:13
+#: app/views/general/search.rhtml:98
+msgid "messages from authorities"
+msgstr "poruke od ustanova"
+
+#: app/views/request/_request_filter_form.rhtml:12
+#: app/views/general/search.rhtml:97
+msgid "messages from users"
+msgstr "poruke od korisnika"
+
 #: app/views/request/show.rhtml:74
 msgid "no later than"
-msgstr ""
+msgstr "ne kasnije od"
 
 #: app/views/request/followup_bad.rhtml:18
 msgid ""
@@ -3721,45 +4747,42 @@ msgstr ""
 msgid "normally"
 msgstr ""
 
-#: app/views/user/show.rhtml:114
-msgid "only"
-msgstr ""
-
 #: locale/model_attributes.rb:25
 msgid "outgoing message"
-msgstr ""
+msgstr "odlazeća poruka"
 
 #: app/views/user/sign.rhtml:11
 msgid "please sign in as "
-msgstr ""
+msgstr "molimo prijavite se kao "
 
-#: app/views/user/sign.rhtml:28
-msgid "please sign in or make a new account."
-msgstr ""
-
-#: locale/model_attributes.rb:49
+#: locale/model_attributes.rb:47
 msgid "post redirect"
-msgstr ""
+msgstr "preusmjeriti post"
 
 #: locale/model_attributes.rb:14
 msgid "profile photo"
-msgstr ""
+msgstr "slika profila"
 
 #: locale/model_attributes.rb:2
 msgid "public body"
-msgstr ""
-
-#: locale/model_attributes.rb:47
-msgid "raw email"
-msgstr ""
+msgstr "javno telo"
 
 #: app/views/request_mailer/not_clarified_alert.rhtml:1
 msgid "request."
-msgstr ""
+msgstr "zahtev."
 
 #: app/views/request/show.rhtml:89
 msgid "requesting an internal review"
-msgstr ""
+msgstr "zahteva urgenciju"
+
+#: app/models/track_thing.rb:91 app/models/track_thing.rb:110
+#: app/models/track_thing.rb:112 app/views/general/search.rhtml:53
+msgid "requests"
+msgstr "zahtevi"
+
+#: app/models/track_thing.rb:111
+msgid "requests which are {{list_of_statuses}}"
+msgstr "zahtevi koji su {{list_of_statuses}}"
 
 #: app/views/request_mailer/requires_admin.rhtml:3
 msgid ""
@@ -3769,66 +4792,72 @@ msgstr ""
 
 #: app/views/request/show.rhtml:102
 msgid "send a follow up message"
-msgstr ""
+msgstr "pošaljite prateću poruku"
 
-#: app/views/request/_request_listing_via_event.rhtml:31
+#: app/views/request/_request_listing_via_event.rhtml:23
 msgid "sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr ""
+"poslano za {{public_body_name}} od strane {{info_request_user}} na datum "
+"{{date}}."
 
 #: app/views/request/show.rhtml:106
 msgid "sign in"
-msgstr ""
+msgstr "prijavite se"
 
-#: app/views/user/wrong_user.rhtml:4
-msgid "sign out"
-msgstr ""
+#: app/models/track_thing.rb:100
+msgid "successful"
+msgstr "uspešni"
+
+#: app/views/request/_request_filter_form.rhtml:31
+#: app/views/general/search.rhtml:84
+msgid "successful requests"
+msgstr "uspešni zahtevi"
 
 #: app/views/request_mailer/new_response.rhtml:2
 msgid "that you made to"
 msgstr ""
 
-#: app/views/request_mailer/comment_on_alert.rhtml:6
-#: app/views/request_mailer/comment_on_alert_plural.rhtml:5
+#: app/views/request/_followup.rhtml:23 app/views/request/_followup.rhtml:28
+#: app/views/request/_followup.rhtml:34
+msgid "the main FOI contact address for {{public_body}}"
+msgstr ""
+"glavne kontakt adrese za Zahteve o slobodnom pristupu informacijama za "
+"{{public_body}}"
+
+#: app/views/request/_followup.rhtml:3
+msgid "the main FOI contact at {{public_body}}"
+msgstr ""
+"glavni kontakt za Zahteve o slobodnom pristupu informacijama u  ustanovi "
+"{{public_body}}"
+
+#: app/views/track_mailer/event_digest.rhtml:66
+#: app/views/request_mailer/stopped_responses.rhtml:16
 #: app/views/request_mailer/new_response.rhtml:15
 #: app/views/request_mailer/new_response_reminder_alert.rhtml:8
-#: app/views/request_mailer/not_clarified_alert.rhtml:9
+#: app/views/request_mailer/comment_on_alert.rhtml:6
+#: app/views/request_mailer/comment_on_alert_plural.rhtml:5
 #: app/views/request_mailer/old_unclassified_updated.rhtml:8
 #: app/views/request_mailer/overdue_alert.rhtml:9
-#: app/views/request_mailer/stopped_responses.rhtml:16
+#: app/views/request_mailer/not_clarified_alert.rhtml:9
 #: app/views/request_mailer/very_overdue_alert.rhtml:11
-#: app/views/track_mailer/event_digest.rhtml:66
-#: app/views/user_mailer/already_registered.rhtml:11
 #: app/views/user_mailer/changeemail_already_used.rhtml:10
-#: app/views/user_mailer/changeemail_confirm.rhtml:13
 #: app/views/user_mailer/confirm_login.rhtml:11
+#: app/views/user_mailer/changeemail_confirm.rhtml:13
+#: app/views/user_mailer/already_registered.rhtml:11
 msgid "the {{site_name}} team"
-msgstr ""
-
-#: app/views/user/show.rhtml:140
-msgid "this person"
-msgstr ""
-
-#: app/views/user/show.rhtml:113
-msgid ""
-"to change password, \n"
-"            subscriptions and more"
-msgstr ""
-
-#: app/views/request/new.rhtml:34
-msgid "to check that the info isn't already published."
-msgstr ""
+msgstr "{{site_name}} tim"
 
 #: app/views/request/show.rhtml:62
 msgid "to read"
-msgstr ""
+msgstr "za čitati"
 
 #: app/views/request/show.rhtml:106
 msgid "to send a follow up message."
-msgstr ""
+msgstr "poslati prateću poruku."
 
 #: app/views/request/show.rhtml:45
 msgid "to {{public_body}}"
-msgstr ""
+msgstr "za {{public_body}}"
 
 #: locale/model_attributes.rb:31
 msgid "track thing"
@@ -3838,59 +4867,107 @@ msgstr ""
 msgid "unexpected prominence on request event"
 msgstr ""
 
-#: app/views/request/_request_listing_via_event.rhtml:38
-msgid "unknown event type indexed "
-msgstr ""
-
 #: app/views/request/followup_bad.rhtml:29
 msgid "unknown reason "
-msgstr ""
+msgstr "nepoznat razlog "
 
-#: app/models/info_request.rb:814 app/models/info_request_event.rb:333
+#: app/models/info_request.rb:810 app/models/info_request_event.rb:353
 msgid "unknown status "
-msgstr ""
+msgstr "nepoznat status "
 
-#: app/views/user/show.rhtml:208
+#: app/views/request/_request_filter_form.rhtml:33
+#: app/views/general/search.rhtml:86
+msgid "unresolved requests"
+msgstr "neriješeni zahtevi"
+
+#: app/views/user/show.rhtml:236
 msgid "unsubscribe"
-msgstr ""
+msgstr "prekinuti pretplatu"
 
-#: app/views/user/show.rhtml:180 app/views/user/show.rhtml:194
+#: app/views/user/show.rhtml:208 app/views/user/show.rhtml:222
 msgid "unsubscribe all"
-msgstr ""
+msgstr "prekinuti pretplatu na sve"
+
+#: app/models/track_thing.rb:97
+msgid "unsuccessful"
+msgstr "neuspešni"
+
+#: app/views/request/_request_filter_form.rhtml:32
+#: app/views/general/search.rhtml:85
+msgid "unsuccessful requests"
+msgstr "neuspešni zahtevi"
 
 #: app/views/request/show.rhtml:53
 msgid "useful information."
-msgstr ""
+msgstr "korisna informacija"
 
-#: locale/model_attributes.rb:68
+#: locale/model_attributes.rb:70
 msgid "user"
-msgstr ""
+msgstr "korisnik"
 
-#: locale/model_attributes.rb:66
+#: locale/model_attributes.rb:93
 msgid "user info request sent alert"
 msgstr ""
 
-#: app/views/user/show.rhtml:140
-msgid "you"
-msgstr ""
+#: app/models/track_thing.rb:82 app/views/general/search.rhtml:54
+msgid "users"
+msgstr "korisnici"
 
-#: app/views/request/new.rhtml:6
+#: app/views/request/list.rhtml:21
+msgid "{{count}} FOI requests found"
+msgstr "{{count}} Zahteva za slobodan pristup informacijama pronađeno"
+
+#: app/views/request/new.rhtml:27
 msgid ""
 "{{existing_request_user}} already\n"
-"    created the same request on {{date}}. You can either view the <a href=\"{{existing_request}}\">existing request</a>,\n"
-"    or edit the details below to make a new but similar request."
+"      created the same request on {{date}}. You can either view the <a href=\"{{existing_request}}\">existing request</a>,\n"
+"      or edit the details below to make a new but similar request."
 msgstr ""
 
-#: app/views/request/_after_actions.rhtml:20
+#: app/views/request/_after_actions.rhtml:23
 msgid "{{info_request_user_name}} only:"
+msgstr "{{info_request_user_name}} samo:"
+
+#: app/models/info_request.rb:239
+msgid "{{law_used_full}} request - {{title}}"
 msgstr ""
 
-#: app/views/general/frontpage.rhtml:51
-msgid "{{length_of_time}} ago"
-msgstr "{{length_of_time}} pre"
+#: app/models/info_request.rb:237
+msgid "{{law_used_full}} request GQ - {{title}}"
+msgstr ""
 
-#: app/views/request/_after_actions.rhtml:43
+#: app/views/general/frontpage.rhtml:62
+msgid "{{length_of_time}} ago"
+msgstr "pre {{length_of_time}}"
+
+#: app/models/track_thing.rb:121
+msgid "{{list_of_things}} matching text '{{search_query}}'"
+msgstr ""
+
+#: app/views/general/blog.rhtml:56
+msgid "{{number_of_comments}} comments"
+msgstr "{{number_of_comments}} komentara"
+
+#: app/views/request/_after_actions.rhtml:45
 msgid "{{public_body_name}} only:"
+msgstr "{{public_body_name}} samo:"
+
+#: app/views/track_mailer/event_digest.rhtml:21
+msgid "{{public_body}} sent a response to {{user_name}}"
+msgstr "{{public_body}} je poslao/la poruku za {{user_name}}"
+
+#: app/controllers/user_controller.rb:54
+msgid "{{search_results}} matching '{{query}}'"
+msgstr ""
+
+#: app/views/general/blog.rhtml:1
+msgid "{{site_name}} blog and tweets"
+msgstr "{{site_name}} blogovi i tweet-ovi"
+
+#: app/views/general/frontpage.rhtml:38
+msgid ""
+"{{site_name}} covers requests to {{number_of_authorities}} authorities, "
+"including:"
 msgstr ""
 
 #: app/views/public_body/view_email.rhtml:7
@@ -3898,20 +4975,47 @@ msgid ""
 "{{site_name}} sends new requests to <strong>{{request_email}}</strong> for "
 "this authority."
 msgstr ""
+"{{site_name}} šalje nove zahteve <strong>{{request_email}}</strong> za ovu "
+"javnu ustanovu."
 
-#: app/models/user.rb:122
-msgid "{{user_name}} (Banned)"
+#: app/views/general/frontpage.rhtml:55
+msgid ""
+"{{site_name}} users have made {{number_of_requests}} requests, including:"
 msgstr ""
+"korisnici {{site_name}} su podneli {{number_of_requests}} zahteva, "
+"uključujući:"
+
+#: app/models/user.rb:136
+msgid "{{user_name}} (Account suspended)"
+msgstr ""
+
+#: app/views/track_mailer/event_digest.rhtml:31
+msgid "{{user_name}} added an annotation"
+msgstr "{{user_name}} je dodao napomenu"
 
 #: app/views/request_mailer/comment_on_alert.rhtml:1
 msgid ""
 "{{user_name}} has annotated your {{law_used_short}} \n"
 "request. Follow this link to see what they wrote."
 msgstr ""
+"{{user_name}} su komentarisali Vaš {{law_used_short}} \n"
+"zahtev. Pratite ovaj link da vidite šta su napisali."
 
 #: app/views/contact_mailer/user_message.rhtml:2
 msgid "{{user_name}} has used {{site_name}} to send you the message below."
+msgstr "{{user_name}} je koristio {{site_name}} da Vam pošalje poruku ispod."
+
+#: app/views/track_mailer/event_digest.rhtml:24
+msgid "{{user_name}} sent a follow up message to {{public_body}}"
 msgstr ""
+
+#: app/views/track_mailer/event_digest.rhtml:28
+msgid "{{user_name}} sent a request to {{public_body}}"
+msgstr "{{user_name}} je poslao zahtev za {{public_body}}"
+
+#: app/views/request/simple_correspondence.rhtml:42
+msgid "{{username}} left an annotation:"
+msgstr "{{username}} je ostavio napomenu:"
 
 #: app/views/request/show.rhtml:36
 msgid ""
@@ -3919,9 +5023,12 @@ msgid ""
 "{{law_used_full}} request (<a href=\"{{request_admin_url}}\">admin</a>) to "
 "{{public_body_link}} (<a href=\"{{public_body_admin_url}}\">admin</a>)"
 msgstr ""
+"{{user}} (<a href=\"{{user_admin_url}}\">admin</a>) je podnio ovaj "
+"{{law_used_full}} zahtev (<a href=\"{{request_admin_url}}\">admin</a>) za "
+"{{public_body_link}} (<a href=\"{{public_body_admin_url}}\">admin</a>)"
 
 #: app/views/request/show.rhtml:44
 msgid "{{user}} made this {{law_used_full}} request"
-msgstr ""
+msgstr "{{user}} je podnio/la ovaj {{law_used_full}} zahtev"
 
 

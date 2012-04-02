@@ -1,18 +1,18 @@
 # == Schema Information
-# Schema version: 95
+# Schema version: 108
 #
 # Table name: track_things
 #
 #  id               :integer         not null, primary key
 #  tracking_user_id :integer         not null
 #  track_query      :string(255)     not null
-#  info_request_id  :integer         
-#  tracked_user_id  :integer         
-#  public_body_id   :integer         
+#  info_request_id  :integer
+#  tracked_user_id  :integer
+#  public_body_id   :integer
 #  track_medium     :string(255)     not null
 #  track_type       :string(255)     default("internal_error"), not null
-#  created_at       :datetime        
-#  updated_at       :datetime        
+#  created_at       :datetime
+#  updated_at       :datetime
 #
 
 # models/track_thing.rb:
@@ -71,14 +71,13 @@ class TrackThing < ActiveRecord::Base
     def track_query_description
         # XXX this is very brittle... we should probably ask users 
         # simply to name their tracks when they make them?
-        self.track_query = self.track_query.gsub(/([()]|OR)/, "")
-        filters = self.track_query.scan /\b\S+:\S+\b/
-        text = self.track_query
+        original_text = parsed_text = self.track_query.gsub(/([()]|OR)/, "")
+        filters = parsed_text.scan /\b\S+:\S+\b/
         varieties = Set.new
         date = ""
         statuses = Set.new
         for filter in filters
-            text = text.sub(filter, "")
+            parsed_text = parsed_text.sub(filter, "")
             if filter =~ /variety:user/
                 varieties << _("users")
             end
@@ -105,7 +104,7 @@ class TrackThing < ActiveRecord::Base
             end                
         end
         if filters.empty?
-            text = self.track_query
+            parsed_text = original_text
         end
         descriptions = []
         if varieties.include? _("requests")
@@ -116,10 +115,10 @@ class TrackThing < ActiveRecord::Base
             varieties << _("anything")
         end
         descriptions += Array(varieties)
-        text = text.strip
+        parsed_text = parsed_text.strip
         descriptions = descriptions.join(_(" or "))
-        if !text.empty?
-            descriptions += _("{{list_of_things}} matching text '{{search_query}}'", :list_of_things => "", :search_query => text)
+        if !parsed_text.empty?
+            descriptions += _("{{list_of_things}} matching text '{{search_query}}'", :list_of_things => "", :search_query => parsed_text)
         end
         return descriptions
     end

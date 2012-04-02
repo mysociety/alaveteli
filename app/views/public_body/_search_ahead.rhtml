@@ -1,4 +1,5 @@
-<p>
+<div>
+ <% if !@xapian_requests.nil? %>
   <% if @xapian_requests.results.size > 0 %>
     <h3><%= _('Top search results:') %></h3>
     <p>
@@ -12,7 +13,9 @@
       <%= render :partial => 'body_listing_single', :locals => { :public_body => result[:model] } %>
     <% end %>
   </div>
-</p>
+  <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @xapian_requests.matches_estimated) %>
+ <% end %>
+</div>
 
 
 

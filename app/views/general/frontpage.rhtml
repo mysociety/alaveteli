@@ -12,20 +12,20 @@
     <div id="right_column">
       <div id="frontpage_search_box">
         <h2>
-	  <%= _("Search over<br/>
+          <%= _("Search over<br/>
           <strong>{{number_of_requests}} requests</strong> <span>and</span><br/>
           <strong>{{number_of_authorities}} authorities</strong>",
-	  :number_of_requests => InfoRequest.count, :number_of_authorities => PublicBody.count) %>
+          :number_of_requests => InfoRequest.count, :number_of_authorities => PublicBody.count) %>
         </h2>
         <% form_tag({:action => "search_redirect"}, {:id => "search_form"}) do %>
-	<div>
-               <%= text_field_tag 'query', params[:query], { :size => 30 } %>
-               <%= submit_tag _('Search') %>
-	</div>
+        <div>
+          <%= text_field_tag 'query', params[:query], { :size => 30 } %>
+          <%= submit_tag _('Search') %>
+        </div>
         <% end %>
       </div>
       <div id="frontpage_right_to_know">
-       <%= render :partial => 'frontpage_intro_sentence'  %>
+        <%= render :partial => 'frontpage_intro_sentence'  %>
       </div>
     </div>
     <div style="clear:both"></div>
@@ -34,38 +34,38 @@
 <div id="frontpage_examples">
     <% if @popular_bodies.size > 0 %>
       <div id="examples_0">
-	<h3><%= _("Who can I request information from?") %></h3>
-	<%= _("{{site_name}} covers requests to {{number_of_authorities}} authorities, including:",
-	    :site_name => site_name, :number_of_authorities => PublicBody.count) %>
-	<ul>
+        <h3><%= _("Who can I request information from?") %></h3>
+        <%= _("{{site_name}} covers requests to {{number_of_authorities}} authorities, including:",
+            :site_name => site_name, :number_of_authorities => PublicBody.count) %>
+        <ul>
             <% for popular_body in @popular_bodies %>
                 <li><%=public_body_link(popular_body)%>
                  <%= n_('%d request', '%d requests', popular_body.info_requests.count) % popular_body.info_requests.count %>
                 </li>
             <% end%>
-       </ul>
-            <p><strong>
-                <%= link_to _('Browse all authorities...'), list_public_bodies_default %>
-            </strong></p>
-        </div>
+        </ul>
+        <p><strong>
+            <%= link_to _('Browse all authorities...'), list_public_bodies_default %>
+        </strong></p>
+      </div>
     <% end %>
 
-        <div id="examples_1">
-	  <h3><%= _("What information has been released?") %></h3>
-           <%= _("{{site_name}} users have made {{number_of_requests}} requests, including:", 
-	    :site_name => site_name, :number_of_requests => InfoRequest.count) %>
-            <ul>
-              <% for event in @request_events %>
-	      <li>
- 	       <%= public_body_link(event.info_request.public_body) %> <%= _('answered a request about') %>
-	       <%=link_to h(event.info_request.title), request_url(event.info_request)%> 
+    <div id="examples_1">
+      <h3><%= _("What information has been released?") %></h3>
+       <%= _("{{site_name}} users have made {{number_of_requests}} requests, including:", 
+        :site_name => site_name, :number_of_requests => InfoRequest.count) %>
+        <ul>
+          <% for event in @request_events %>
+            <li>
+               <%= public_body_link(event.info_request.public_body) %> <%= _('answered a request about') %>
+               <%=link_to h(event.info_request.title), request_url(event.info_request)%> 
                <%= _('{{length_of_time}} ago', :length_of_time => time_ago_in_words(event.described_at)) %> 
-	       <p class="excerpt" onclick="document.location.href='<%=request_url(event.info_request)%>'"><%= excerpt(event.info_request.title, "", 200) %></p>
-                </li>
-            <% end %>
-            </ul>
-            <p><strong><%=link_to _('More successful requests...'), request_list_successful_url %></strong></p>
-        </div>
+               <p class="excerpt" onclick="document.location.href='<%=request_url(event.info_request)%>'"><%= excerpt(event.search_text_main(true), "", 200) %></p>
+              </li>
+          <% end %>
+        </ul>
+        <p><strong><%=link_to _('More successful requests...'), request_list_successful_url %></strong></p>
+    </div>
 </div>
 
 

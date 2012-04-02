@@ -1,9 +1,9 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe RequestMailer, " when receiving incoming mail" do
-    fixtures :info_requests, :incoming_messages, :raw_emails, :users, :public_bodies, :public_body_translations
     before(:each) do
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
+        ActionMailer::Base.deliveries = []
     end
 
     it "should append it to the appropriate request" do

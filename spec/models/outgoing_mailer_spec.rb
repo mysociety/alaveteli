@@ -4,9 +4,8 @@ describe OutgoingMailer, " when working out follow up addresses" do
     # This is done with fixtures as the code is a bit tangled with the way it
     # calls TMail.  XXX untangle it and make these tests spread out and using
     # mocks. Put parts of the tests in spec/lib/tmail_extensions.rb
-    fixtures :info_requests, :incoming_messages, :raw_emails, :public_bodies, :public_body_translations
     before(:each) do
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
     end
 
     it "should parse them right" do
@@ -24,6 +23,7 @@ describe OutgoingMailer, " when working out follow up addresses" do
         im = ir.incoming_messages[0]
 
         im.raw_email.data = im.raw_email.data.sub("\"FOI Person\" <foiperson@localhost>", "foiperson@localhost")
+        im.parse_raw_email! true
 
         # check the basic entry in the fixture is fine
         OutgoingMailer.name_and_email_for_followup(ir, im).should == "foiperson@localhost"
@@ -36,6 +36,7 @@ describe OutgoingMailer, " when working out follow up addresses" do
         im = ir.incoming_messages[0]
 
         im.raw_email.data = im.raw_email.data.sub("FOI Person", "FOI [ Person")
+        im.parse_raw_email! true
 
         # check the basic entry in the fixture is fine
         OutgoingMailer.name_and_email_for_followup(ir, im).should == "\"FOI [ Person\" <foiperson@localhost>"
@@ -48,6 +49,7 @@ describe OutgoingMailer, " when working out follow up addresses" do
         im = ir.incoming_messages[0]
 
         im.raw_email.data = im.raw_email.data.sub("FOI Person", "FOI \\\" Person")
+        im.parse_raw_email! true
 
         # check the basic entry in the fixture is fine
         OutgoingMailer.name_and_email_for_followup(ir, im).should == "\"FOI \\\" Person\" <foiperson@localhost>"
@@ -60,6 +62,7 @@ describe OutgoingMailer, " when working out follow up addresses" do
         im = ir.incoming_messages[0]
 
         im.raw_email.data = im.raw_email.data.sub("FOI Person", "FOI @ Person")
+        im.parse_raw_email! true
 
         # check the basic entry in the fixture is fine
         OutgoingMailer.name_and_email_for_followup(ir, im).should == "\"FOI @ Person\" <foiperson@localhost>"
@@ -70,10 +73,9 @@ describe OutgoingMailer, " when working out follow up addresses" do
 end
 
 describe OutgoingMailer, "when working out follow up subjects" do
-    fixtures :info_requests, :incoming_messages, :outgoing_messages, :raw_emails
 
     before(:each) do
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
     end
 
     it "should prefix the title with 'Freedom of Information request -' for initial requests" do
@@ -116,6 +118,8 @@ describe OutgoingMailer, "when working out follow up subjects" do
         om.incoming_message_followup = im
 
         im.raw_email.data = im.raw_email.data.sub("Subject: Geraldine FOI Code AZXB421", "Subject: re: Geraldine FOI Code AZXB421")
+        im.parse_raw_email! true
+        
         OutgoingMailer.subject_for_followup(ir, om).should == "re: Geraldine FOI Code AZXB421"
     end
 
@@ -127,6 +131,8 @@ describe OutgoingMailer, "when working out follow up subjects" do
 
         im.raw_email.data = im.raw_email.data.sub("foiperson@localhost", "postmaster@localhost")
         im.raw_email.data = im.raw_email.data.sub("Subject: Geraldine FOI Code AZXB421", "Subject: Delivery Failed")
+        im.parse_raw_email! true
+
         OutgoingMailer.subject_for_followup(ir, om).should == "Re: Freedom of Information request - Why do you have & such a fancy dog?"
     end
 end

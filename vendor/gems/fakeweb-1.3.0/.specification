@@ -1,0 +1,135 @@
+--- !ruby/object:Gem::Specification 
+name: fakeweb
+version: !ruby/object:Gem::Version 
+  hash: 27
+  prerelease: 
+  segments: 
+  - 1
+  - 3
+  - 0
+  version: 1.3.0
+platform: ruby
+authors: 
+- Chris Kampmeier
+- Blaine Cook
+autorequire: 
+bindir: bin
+cert_chain: []
+
+date: 2010-08-22 00:00:00 +01:00
+default_executable: 
+dependencies: 
+- !ruby/object:Gem::Dependency 
+  name: mocha
+  prerelease: false
+  requirement: &id001 !ruby/object:Gem::Requirement 
+    none: false
+    requirements: 
+    - - ">="
+      - !ruby/object:Gem::Version 
+        hash: 49
+        segments: 
+        - 0
+        - 9
+        - 5
+        version: 0.9.5
+  type: :development
+  version_requirements: *id001
+description: FakeWeb is a helper for faking web requests in Ruby. It works at a global level, without modifying code or writing extensive stubs.
+email: 
+- chris@kampers.net
+- romeda@gmail.com
+executables: []
+
+extensions: []
+
+extra_rdoc_files: []
+
+files: 
+- test/test_allow_net_connect.rb
+- test/test_deprecations.rb
+- test/test_fake_authentication.rb
+- test/test_fake_web.rb
+- test/test_fake_web_open_uri.rb
+- test/test_helper.rb
+- test/test_last_request.rb
+- test/test_missing_open_uri.rb
+- test/test_missing_pathname.rb
+- test/test_other_net_http_libraries.rb
+- test/test_precedence.rb
+- test/test_query_string.rb
+- test/test_regexes.rb
+- test/test_response_headers.rb
+- test/test_trailing_slashes.rb
+- test/test_utility.rb
+- test/vendor/right_http_connection-1.2.4/lib/net_fix.rb
+- test/vendor/right_http_connection-1.2.4/lib/right_http_connection.rb
+- test/vendor/right_http_connection-1.2.4/setup.rb
+- test/vendor/samuel-0.2.1/lib/samuel/net_http.rb
+- test/vendor/samuel-0.2.1/lib/samuel/request.rb
+- test/vendor/samuel-0.2.1/lib/samuel.rb
+- test/vendor/samuel-0.2.1/test/request_test.rb
+- test/vendor/samuel-0.2.1/test/samuel_test.rb
+- test/vendor/samuel-0.2.1/test/test_helper.rb
+- test/vendor/samuel-0.2.1/test/thread_test.rb
+has_rdoc: true
+homepage: http://github.com/chrisk/fakeweb
+licenses: []
+
+post_install_message: 
+rdoc_options: []
+
+require_paths: 
+- lib
+required_ruby_version: !ruby/object:Gem::Requirement 
+  none: false
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      hash: 3
+      segments: 
+      - 0
+      version: "0"
+required_rubygems_version: !ruby/object:Gem::Requirement 
+  none: false
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      hash: 3
+      segments: 
+      - 0
+      version: "0"
+requirements: []
+
+rubyforge_project: fakeweb
+rubygems_version: 1.6.2
+signing_key: 
+specification_version: 3
+summary: A tool for faking responses to HTTP requests
+test_files: 
+- test/test_allow_net_connect.rb
+- test/test_deprecations.rb
+- test/test_fake_authentication.rb
+- test/test_fake_web.rb
+- test/test_fake_web_open_uri.rb
+- test/test_helper.rb
+- test/test_last_request.rb
+- test/test_missing_open_uri.rb
+- test/test_missing_pathname.rb
+- test/test_other_net_http_libraries.rb
+- test/test_precedence.rb
+- test/test_query_string.rb
+- test/test_regexes.rb
+- test/test_response_headers.rb
+- test/test_trailing_slashes.rb
+- test/test_utility.rb
+- test/vendor/right_http_connection-1.2.4/lib/net_fix.rb
+- test/vendor/right_http_connection-1.2.4/lib/right_http_connection.rb
+- test/vendor/right_http_connection-1.2.4/setup.rb
+- test/vendor/samuel-0.2.1/lib/samuel/net_http.rb
+- test/vendor/samuel-0.2.1/lib/samuel/request.rb
+- test/vendor/samuel-0.2.1/lib/samuel.rb
+- test/vendor/samuel-0.2.1/test/request_test.rb
+- test/vendor/samuel-0.2.1/test/samuel_test.rb
+- test/vendor/samuel-0.2.1/test/test_helper.rb
+- test/vendor/samuel-0.2.1/test/thread_test.rb

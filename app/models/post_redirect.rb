@@ -1,17 +1,17 @@
 # == Schema Information
-# Schema version: 95
+# Schema version: 108
 #
 # Table name: post_redirects
 #
 #  id                 :integer         not null, primary key
 #  token              :text            not null
 #  uri                :text            not null
-#  post_params_yaml   :text            
+#  post_params_yaml   :text
 #  created_at         :datetime        not null
 #  updated_at         :datetime        not null
 #  email_token        :text            not null
-#  reason_params_yaml :text            
-#  user_id            :integer         
+#  reason_params_yaml :text
+#  user_id            :integer
 #  circumstance       :text            default("normal"), not null
 #
 
@@ -39,7 +39,7 @@ class PostRedirect < ActiveRecord::Base
         self.post_params_yaml = params.to_yaml
     end
     def post_params
-        if self.post_params_yaml.nil?   
+        if self.post_params_yaml.nil?
             return {}
         end
         YAML.load(self.post_params_yaml)

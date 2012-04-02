@@ -1,11 +1,14 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe User, " when indexing users with Xapian" do
-    fixtures :users
 
-    it "should search by name" do
+    before(:each) do
+        load_raw_emails_data
         rebuild_xapian_index
-          # def InfoRequest.full_search(models, query, order, ascending, collapse, per_page, page)
+    end
+    
+    it "should search by name" do
+        # def InfoRequest.full_search(models, query, order, ascending, collapse, per_page, page)
         xapian_object = InfoRequest.full_search([User], "Silly", 'created_at', true, nil, 100, 1)
         xapian_object.results.size.should == 1
         xapian_object.results[0][:model].should == users(:silly_name_user)
@@ -14,8 +17,7 @@ describe User, " when indexing users with Xapian" do
     it "should search by 'about me' text" do
         user = users(:bob_smith_user)
 
-        rebuild_xapian_index
-          # def InfoRequest.full_search(models, query, order, ascending, collapse, per_page, page)
+        # def InfoRequest.full_search(models, query, order, ascending, collapse, per_page, page)
         xapian_object = InfoRequest.full_search([User], "stuff", 'created_at', true, nil, 100, 1)
         xapian_object.results.size.should == 1
         xapian_object.results[0][:model].should == user
@@ -34,59 +36,51 @@ describe User, " when indexing users with Xapian" do
 end
 
 describe PublicBody, " when indexing public bodies with Xapian" do
-    fixtures :public_bodies, :public_body_translations, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments
     before(:each) do
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
+        rebuild_xapian_index
     end
 
     it "should search index the main name field" do
-        rebuild_xapian_index
-
         xapian_object = InfoRequest.full_search([PublicBody], "humpadinking", 'created_at', true, nil, 100, 1)
         xapian_object.results.size.should == 1
         xapian_object.results[0][:model].should == public_bodies(:humpadink_public_body)
     end
 
     it "should search index the notes field" do
-        rebuild_xapian_index
-
         xapian_object = InfoRequest.full_search([PublicBody], "albatross", 'created_at', true, nil, 100, 1)
         xapian_object.results.size.should == 1
         xapian_object.results[0][:model].should == public_bodies(:humpadink_public_body)
     end
 
     it "should delete public bodies from the index when they are destroyed" do
-        rebuild_xapian_index
-
         xapian_object = InfoRequest.full_search([PublicBody], "albatross", 'created_at', true, nil, 100, 1)
         xapian_object.results.size.should == 1
         xapian_object.results[0][:model].should == public_bodies(:humpadink_public_body)
 
-        public_bodies(:humpadink_public_body).destroy
+        public_bodies(:forlorn_public_body).destroy
 
         update_xapian_index
-        xapian_object = InfoRequest.full_search([PublicBody], "albatross", 'created_at', true, nil, 100, 1)
-        xapian_object.results.size.should == 0
+        xapian_object = InfoRequest.full_search([PublicBody], "lonely", 'created_at', true, nil, 100, 1)
+        xapian_object.results.should == []
     end
 
 end
 
 describe PublicBody, " when indexing requests by body they are to" do
-    fixtures :public_bodies, :public_body_translations, :info_requests, :raw_emails, :comments, :info_request_events
 
     before(:each) do
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
+        rebuild_xapian_index
     end
 
     it "should find requests to the body" do
-        rebuild_xapian_index
         xapian_object = InfoRequest.full_search([InfoRequestEvent], "requested_from:tgq", 'created_at', true, nil, 100, 1)
         xapian_object.results.size.should == 4
     end
 
     it "should update index correctly when URL name of body changes" do
         # initial search
-        rebuild_xapian_index
         xapian_object = InfoRequest.full_search([InfoRequestEvent], "requested_from:tgq", 'created_at', true, nil, 100, 1)
         xapian_object.results.size.should == 4
         models_found_before = xapian_object.results.map { |x| x[:model] }
@@ -111,8 +105,6 @@ describe PublicBody, " when indexing requests by body they are to" do
     # if you index via the Xapian TermGenerator, it ignores terms of this length,
     # this checks we're using Document:::add_term() instead
     it "should work with URL names that are longer than 64 characters" do
-        rebuild_xapian_index
-
         # change the URL name of the body
         body = public_bodies(:geraldine_public_body)
         body.short_name = 'The Uncensored, Complete Name of the Quasi-Autonomous Public Body Also Known As Geraldine'
@@ -132,28 +124,25 @@ describe PublicBody, " when indexing requests by body they are to" do
 end
 
 describe User, " when indexing requests by user they are from" do
-    fixtures :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events
     before(:each) do
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
+        rebuild_xapian_index
     end
 
     it "should find requests from the user" do
-        rebuild_xapian_index
         xapian_object = InfoRequest.full_search([InfoRequestEvent], "requested_by:bob_smith", 'created_at', true, nil, 100, 1)
-        xapian_object.results.size.should == 4
+        xapian_object.results.map{|x|x[:model]}.should =~ InfoRequestEvent.all(:conditions => "info_request_id in (select id from info_requests where user_id = #{users(:bob_smith_user).id})")
     end
 
     it "should find just the sent message events from a particular user" do
-        rebuild_xapian_index
           # def InfoRequest.full_search(models, query, order, ascending, collapse, per_page, page)
         xapian_object = InfoRequest.full_search([InfoRequestEvent], "requested_by:bob_smith variety:sent", 'created_at', true, nil, 100, 1)
-        xapian_object.results.size.should == 2
-        xapian_object.results[1][:model].should == info_request_events(:useless_outgoing_message_event)
-        xapian_object.results[0][:model].should == info_request_events(:silly_outgoing_message_event)
+        xapian_object.results.map{|x|x[:model]}.should =~ InfoRequestEvent.all(:conditions => "info_request_id in (select id from info_requests where user_id = #{users(:bob_smith_user).id}) and event_type = 'sent'")
+        xapian_object.results[2][:model].should == info_request_events(:useless_outgoing_message_event)
+        xapian_object.results[1][:model].should == info_request_events(:silly_outgoing_message_event)
     end
 
     it "should not find it when one of the request's users is changed" do
-        rebuild_xapian_index
         silly_user = users(:silly_name_user)
         naughty_chicken_request = info_requests(:naughty_chicken_request)
         naughty_chicken_request.user = silly_user
@@ -163,13 +152,10 @@ describe User, " when indexing requests by user they are from" do
 
           # def InfoRequest.full_search(models, query, order, ascending, collapse, per_page, page)
         xapian_object = InfoRequest.full_search([InfoRequestEvent], "requested_by:bob_smith", 'created_at', true, 'request_collapse', 100, 1)
-        xapian_object.results.size.should == 1
-        xapian_object.results[0][:model].should == info_request_events(:silly_comment_event)
+        xapian_object.results.map{|x|x[:model].info_request}.should =~ InfoRequest.all(:conditions => "user_id = #{users(:bob_smith_user).id}")
     end
 
     it "should not get confused searching for requests when one user has a name which has same stem as another" do
-        rebuild_xapian_index
-
         bob_smith_user = users(:bob_smith_user)
         bob_smith_user.name = "John King"
         bob_smith_user.url_name.should == 'john_king'
@@ -195,9 +181,8 @@ describe User, " when indexing requests by user they are from" do
 
     it "should update index correctly when URL name of user changes" do
         # initial search
-        rebuild_xapian_index
         xapian_object = InfoRequest.full_search([InfoRequestEvent], "requested_by:bob_smith", 'created_at', true, nil, 100, 1)
-        xapian_object.results.size.should == 4
+        xapian_object.results.map{|x|x[:model]}.should =~ InfoRequestEvent.all(:conditions => "info_request_id in (select id from info_requests where user_id = #{users(:bob_smith_user).id})")
         models_found_before = xapian_object.results.map { |x| x[:model] }
 
         # change the URL name of the body
@@ -211,28 +196,24 @@ describe User, " when indexing requests by user they are from" do
         xapian_object = InfoRequest.full_search([InfoRequestEvent], "requested_by:bob_smith", 'created_at', true, nil, 100, 1)
         xapian_object.results.size.should == 0
         xapian_object = InfoRequest.full_search([InfoRequestEvent], "requested_by:robert_smith", 'created_at', true, nil, 100, 1)
-        xapian_object.results.size.should == 4
         models_found_after = xapian_object.results.map { |x| x[:model] }
-
         models_found_before.should == models_found_after
     end
 end
 
 describe User, " when indexing comments by user they are by" do
-    fixtures :users, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events
     before(:each) do
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
+        rebuild_xapian_index
     end
 
     it "should find requests from the user" do
-        rebuild_xapian_index
         xapian_object = InfoRequest.full_search([InfoRequestEvent], "commented_by:silly_emnameem", 'created_at', true, nil, 100, 1)
         xapian_object.results.size.should == 1
     end
 
     it "should update index correctly when URL name of user changes" do
         # initial search
-        rebuild_xapian_index
         xapian_object = InfoRequest.full_search([InfoRequestEvent], "commented_by:silly_emnameem", 'created_at', true, nil, 100, 1)
         xapian_object.results.size.should == 1
         models_found_before = xapian_object.results.map { |x| x[:model] }
@@ -256,13 +237,12 @@ describe User, " when indexing comments by user they are by" do
 end
 
 describe InfoRequest, " when indexing requests by their title" do
-    fixtures :info_requests, :raw_emails, :incoming_messages, :comments, :info_request_events
     before(:each) do
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
+        rebuild_xapian_index
     end
 
     it "should find events for the request" do
-        rebuild_xapian_index
         xapian_object = InfoRequest.full_search([InfoRequestEvent], "request:how_much_public_money_is_wasted_o", 'created_at', true, nil, 100, 1)
         xapian_object.results.size.should == 1
         xapian_object.results[0][:model] == info_request_events(:silly_outgoing_message_event)
@@ -270,7 +250,6 @@ describe InfoRequest, " when indexing requests by their title" do
 
     it "should update index correctly when URL title of request changes" do
         # change the URL name of the body
-        rebuild_xapian_index
         ir = info_requests(:naughty_chicken_request)
         ir.title = 'Really naughty'
         ir.save!
@@ -287,13 +266,12 @@ describe InfoRequest, " when indexing requests by their title" do
 end
 
 describe InfoRequest, " when indexing requests by tag" do
-    fixtures :info_requests, :raw_emails, :incoming_messages, :comments, :info_request_events
     before(:each) do
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
+        rebuild_xapian_index
     end
 
     it "should find request by tag, even when changes" do
-        rebuild_xapian_index
         ir = info_requests(:naughty_chicken_request)
         ir.tag_string = 'bunnyrabbit'
         ir.save!
@@ -309,13 +287,12 @@ describe InfoRequest, " when indexing requests by tag" do
 end
 
 describe PublicBody, " when indexing authorities by tag" do
-    fixtures :public_bodies, :public_body_translations, :raw_emails, :incoming_messages, :outgoing_messages, :comments
     before(:each) do
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
+        rebuild_xapian_index
     end
 
     it "should find request by tag, even when changes" do
-        rebuild_xapian_index
         body = public_bodies(:geraldine_public_body)
         body.tag_string = 'mice:3'
         body.save!
@@ -333,13 +310,61 @@ describe PublicBody, " when indexing authorities by tag" do
     end
 end
 
+describe PublicBody, " when only indexing selected things on a rebuild" do
+    before(:each) do
+        load_raw_emails_data
+        rebuild_xapian_index
+    end
 
-
-
-
-
-
-
-
-
+    it "should only index what we ask it to" do
+        body = public_bodies(:geraldine_public_body)
+        body.tag_string = 'mice:3'
+        body.name = 'frobzn'
+        body.save!
+        # only reindex 'variety' term
+        dropfirst = true
+        terms = "V"
+        values = false
+        texts = false
+        rebuild_xapian_index(terms, values, texts, dropfirst)
+        xapian_object = InfoRequest.full_search([PublicBody], "tag:mice", 'created_at', true, nil, 100, 1)
+        xapian_object.results.size.should == 0
+        xapian_object = InfoRequest.full_search([PublicBody], "frobzn", 'created_at', true, nil, 100, 1)
+        xapian_object.results.size.should == 0
+        xapian_object = InfoRequest.full_search([PublicBody], "variety:authority", 'created_at', true, nil, 100, 1)
+        xapian_object.results.map{|x|x[:model]}.should =~ PublicBody.all
+        # only reindex 'tag' and text
+        dropfirst = true
+        terms = "U"
+        values = false
+        texts = true
+        rebuild_xapian_index(terms, values, texts, dropfirst)
+        xapian_object = InfoRequest.full_search([PublicBody], "tag:mice", 'created_at', true, nil, 100, 1)
+        xapian_object.results.size.should == 1
+        xapian_object = InfoRequest.full_search([PublicBody], "frobzn", 'created_at', true, nil, 100, 1)
+        xapian_object.results.size.should == 1
+        xapian_object = InfoRequest.full_search([PublicBody], "variety:authority", 'created_at', true, nil, 100, 1)
+        xapian_object.results.size.should == 0
+        # only reindex 'variety' term, but keeping the existing data in-place
+        dropfirst = false
+        terms = "V"
+        texts = false
+        rebuild_xapian_index(terms, values, texts, dropfirst)
+        xapian_object = InfoRequest.full_search([PublicBody], "tag:mice", 'created_at', true, nil, 100, 1)
+        xapian_object.results.size.should == 1
+        xapian_object = InfoRequest.full_search([PublicBody], "frobzn", 'created_at', true, nil, 100, 1)
+        xapian_object.results.size.should == 1
+        xapian_object = InfoRequest.full_search([PublicBody], "variety:authority", 'created_at', true, nil, 100, 1)
+        xapian_object.results.map{|x|x[:model]}.should =~ PublicBody.all
+        # only reindex 'variety' term, blowing away existing data
+        dropfirst = true
+        rebuild_xapian_index(terms, values, texts, dropfirst)
+        xapian_object = InfoRequest.full_search([PublicBody], "tag:mice", 'created_at', true, nil, 100, 1)
+        xapian_object.results.size.should == 0
+        xapian_object = InfoRequest.full_search([PublicBody], "frobzn", 'created_at', true, nil, 100, 1)
+        xapian_object.results.size.should == 0
+        xapian_object = InfoRequest.full_search([PublicBody], "variety:authority", 'created_at', true, nil, 100, 1)
+        xapian_object.results.map{|x|x[:model]}.should =~ PublicBody.all
+    end
+end
 

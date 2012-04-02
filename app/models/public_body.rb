@@ -64,8 +64,14 @@ class PublicBody < ActiveRecord::Base
     end
     
     def translated_versions=(translation_attrs)
+        def skip?(attrs)
+            valueless = attrs.inject({}) { |h, (k, v)| h[k] = v if v != '' and k != 'locale'; h } # because we want to fall back to alternative translations where there are empty values
+            return valueless.length == 0
+        end
+
         if translation_attrs.respond_to? :each_value    # Hash => updating
             translation_attrs.each_value do |attrs|
+                next if skip?(attrs)
                 t = translation(attrs[:locale]) || PublicBody::Translation.new
                 t.attributes = attrs
                 calculate_cached_fields(t)
@@ -73,6 +79,7 @@ class PublicBody < ActiveRecord::Base
             end
         else                                            # Array => creating
             translation_attrs.each do |attrs|
+                next if skip?(attrs)
                 new_translation = PublicBody::Translation.new(attrs)
                 calculate_cached_fields(new_translation)
                 translations << new_translation
@@ -268,26 +275,18 @@ class PublicBody < ActiveRecord::Base
             ret = ret + types[-1]
             return ret
         else
-            return "A public authority"
+            return _("A public authority")
         end
     end
 
     # Guess home page from the request email, or use explicit override, or nil
     # if not known.
     def calculated_home_page
-        # manual override for ones we calculate wrongly
-        if self.home_page != ''
-            return self.home_page
+        if home_page && !home_page.empty?
+            home_page[URI::regexp(%w(http https))] ? home_page : "http://#{home_page}"
+        elsif request_email_domain
+            "http://www.#{request_email_domain}"
         end
-
-        # extract the domain name from the FOI request email
-        url = self.request_email_domain
-        if url.nil?
-            return nil
-        end
-
-        # add standard URL prefix
-        return "http://www." + url
     end
 
     # Are all requests to this body under the Environmental Information Regulations?
@@ -309,22 +308,23 @@ class PublicBody < ActiveRecord::Base
 
     # The "internal admin" is a special body for internal use.
     def PublicBody.internal_admin_body
-        pb = PublicBody.find_by_url_name("internal_admin_authority")
-        if pb.nil?
-            pb = PublicBody.new(
-                :name => 'Internal admin authority',
-                :short_name => "",
-                :request_email => MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost'),
-                :home_page => "",
-                :notes => "",
-				:publication_scheme => "",
-                :last_edit_editor => "internal_admin",
-                :last_edit_comment => "Made by PublicBody.internal_admin_body"
-            )
-            pb.save!
+        PublicBody.with_locale(I18n.default_locale) do
+            pb = PublicBody.find_by_url_name("internal_admin_authority")
+            if pb.nil?
+                pb = PublicBody.new(
+                 :name => 'Internal admin authority',
+                 :short_name => "",
+                 :request_email => MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost'),
+                 :home_page => "",
+                 :notes => "",
+                 :publication_scheme => "",
+                 :last_edit_editor => "internal_admin",
+                 :last_edit_comment => "Made by PublicBody.internal_admin_body"
+                )
+                pb.save!
+            end
+            return pb
         end
-
-        return pb
     end
 
 
@@ -387,7 +387,7 @@ class PublicBody < ActiveRecord::Base
                     
                     field_list = ['name', 'short_name', 'request_email', 'notes', 'publication_scheme', 'home_page', 'tag_string']
 
-                    if public_body = bodies_by_name[name]   # Existing public body                        
+                    if public_body = bodies_by_name[name]   # Existing public body
                         available_locales.each do |locale|
                             PublicBody.with_locale(locale) do
                                 changed = ActiveSupport::OrderedHash.new
@@ -425,7 +425,7 @@ class PublicBody < ActiveRecord::Base
                         public_body = PublicBody.new(:name=>"", :short_name=>"", :request_email=>"")
                         available_locales.each do |locale|                            
                             PublicBody.with_locale(locale) do
-                                changed = {}
+                                changed = ActiveSupport::OrderedHash.new
                                 field_list.each do |field_name|
                                     localized_field_name = (locale.to_s == I18n.default_locale.to_s) ? field_name : "#{field_name}.#{locale}"
                                     localized_value = field_names[localized_field_name] && row[field_names[localized_field_name]]

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # app/controllers/request_controller.rb:
 # Show information about one particular request.
 #
@@ -13,6 +14,9 @@ require 'open-uri'
 class RequestController < ApplicationController
     before_filter :check_read_only, :only => [ :new, :show_response, :describe_state, :upload_response ]
     protect_from_forgery :only => [ :new, :show_response, :describe_state, :upload_response ] # See ActionController::RequestForgeryProtection for details
+
+    MAX_RESULTS = 500
+    PER_PAGE = 25
     
     @@custom_states_loaded = false
     begin
@@ -35,11 +39,9 @@ class RequestController < ApplicationController
             # do nothing - as "authenticated?" has done the redirect to signin page for us
             return
         end
-        
         if !params[:query].nil?
-            query = params[:query] + '*'
-            query = query.split(' ').join(' OR ')       # XXX: HACK for OR instead of default AND!
-            @xapian_requests = perform_search([PublicBody], query, 'relevant', nil, 5)
+            query = params[:query]
+            @xapian_requests = perform_search_typeahead(query, PublicBody)
         end
         medium_cache
     end
@@ -73,8 +75,9 @@ class RequestController < ApplicationController
             @info_request_events = @info_request.info_request_events
             @status = @info_request.calculate_status
             @collapse_quotes = params[:unfold] ? false : true
-            @update_status = params[:update_status] ? true : false    
+            @update_status = params[:update_status] ? true : false
             @old_unclassified = @info_request.is_old_unclassified? && !authenticated_user.nil?
+            @is_owning_user = @info_request.is_owning_user?(authenticated_user)
             
             if @update_status
                 return if !@is_owning_user && !authenticated_as_user?(@info_request.user,
@@ -107,7 +110,6 @@ class RequestController < ApplicationController
 
             # For send followup link at bottom
             @last_response = @info_request.get_last_response
-            @is_owning_user = @info_request.is_owning_user?(authenticated_user)
             respond_to do |format|
                 format.html { @has_json = true; render :template => 'request/show'}
                 format.json { render :json => @info_request.json_for_api(true) }
@@ -119,11 +121,14 @@ class RequestController < ApplicationController
     def details
         long_cache
         @info_request = InfoRequest.find_by_url_title(params[:url_title])
-        if !@info_request.user_can_view?(authenticated_user)
-            render :template => 'request/hidden', :status => 410 # gone
-            return
+        if @info_request.nil?
+            raise ActiveRecord::RecordNotFound.new("Request not found")
+        else            
+            if !@info_request.user_can_view?(authenticated_user)
+                render :template => 'request/hidden', :status => 410 # gone
+                return
+            end
         end
-
         @columns = ['id', 'event_type', 'created_at', 'described_state', 'last_described_at', 'calculated_state' ]
     end
 
@@ -133,6 +138,8 @@ class RequestController < ApplicationController
         @per_page = 25
         @page = (params[:page] || "1").to_i
         @info_request = InfoRequest.find_by_url_title(params[:url_title])
+        raise ActiveRecord::RecordNotFound.new("Request not found") if @info_request.nil?
+        
         if !@info_request.user_can_view?(authenticated_user)
             render :template => 'request/hidden', :status => 410 # gone
             return
@@ -142,7 +149,7 @@ class RequestController < ApplicationController
         
         if (@page > 1)
             @page_desc = " (page " + @page.to_s + ")" 
-        else    
+        else
             @page_desc = ""
         end
     end
@@ -150,15 +157,26 @@ class RequestController < ApplicationController
     def list
         medium_cache
         @view = params[:view]
+        @page = get_search_page_from_params if !@page # used in cache case, as perform_search sets @page as side effect
+        if @view == "recent"
+            return redirect_to request_list_all_path(:action => "list", :view => "all", :page => @page), :status => :moved_permanently
+        end
+        
+        # Later pages are very expensive to load
+        if @page > MAX_RESULTS / PER_PAGE
+            raise ActiveRecord::RecordNotFound.new("Sorry. No pages after #{MAX_RESULTS / PER_PAGE}.")
+        end
+
         params[:latest_status] = @view
         query = make_query_from_params
         @title = _("View and search requests")
         sortby = "newest"
-        @page = get_search_page_from_params if !@page # used in cache case, as perform_search sets @page as side effect
-        behavior_cache :tag => [@view, @page] do
+        @cache_tag = Digest::MD5.hexdigest(query + @page.to_s) 
+        behavior_cache :tag => [@cache_tag] do
             xapian_object = perform_search([InfoRequestEvent], query, sortby, 'request_collapse')
             @list_results = xapian_object.results.map { |r| r[:model] }
             @matches_estimated = xapian_object.matches_estimated
+            @show_no_more_than = (@matches_estimated > MAX_RESULTS) ? MAX_RESULTS : @matches_estimated
         end
         
         @title = @title + " (page " + @page.to_s + ")" if (@page > 1)
@@ -192,14 +210,30 @@ class RequestController < ApplicationController
         end
 
         # Banned from making new requests?
+        user_exceeded_limit = false
         if !authenticated_user.nil? && !authenticated_user.can_file_requests?
-            @details = authenticated_user.can_fail_html
-            render :template => 'user/banned'
-            return
+            # If the reason the user cannot make new requests is that they are
+            # rate-limited, it’s possible they composed a request before they
+            # logged in and we want to include the text of the request so they
+            # can squirrel it away for tomorrow, so we detect this later after
+            # we have constructed the InfoRequest.
+            user_exceeded_limit = authenticated_user.exceeded_limit?
+            if !user_exceeded_limit
+                @details = authenticated_user.can_fail_html
+                render :template => 'user/banned'
+                return
+            end
+            # User did exceed limit
+            @next_request_permitted_at = authenticated_user.next_request_permitted_at
         end
 
         # First time we get to the page, just display it
         if params[:submitted_new_request].nil? || params[:reedit]
+            if user_exceeded_limit
+                render :template => 'user/rate_limited'
+                return
+            end
+
             params[:info_request] = { } if !params[:info_request]
 
             # Read parameters in - first the public body (by URL name or id)
@@ -299,6 +333,11 @@ class RequestController < ApplicationController
             return
         end
 
+        if user_exceeded_limit
+            render :template => 'user/rate_limited'
+            return
+        end
+
         if !authenticated?(
                 :web => _("To send your FOI request"),
                 :email => _("Then your FOI request to {{public_body_name}} will be sent.",:public_body_name=>@info_request.public_body.name),
@@ -308,7 +347,13 @@ class RequestController < ApplicationController
             return
         end
 
-        @info_request.user = authenticated_user
+        if params[:post_redirect_user]
+            # If an admin has clicked the confirmation link on a users behalf,
+            # we don’t want to reassign the request to the administrator.
+            @info_request.user = params[:post_redirect_user]
+        else
+            @info_request.user = authenticated_user
+        end
         # This automatically saves dependent objects, such as @outgoing_message, in the same transaction
         @info_request.save!
         # XXX send_message needs the database id, so we send after saving, which isn't ideal if the request broke here.
@@ -602,7 +647,9 @@ class RequestController < ApplicationController
     def authenticate_attachment
         # Test for hidden
         incoming_message = IncomingMessage.find(params[:incoming_message_id])
+        raise ActiveRecord::RecordNotFound.new("Message not found") if incoming_message.nil?
         if !incoming_message.info_request.user_can_view?(authenticated_user)
+            @info_request = incoming_message.info_request # used by view
             render :template => 'request/hidden', :status => 410 # gone
         end
     end
@@ -615,8 +662,8 @@ class RequestController < ApplicationController
         else
             key = params.merge(:only_path => true)
             key_path = foi_fragment_cache_path(key)
-
             if foi_fragment_cache_exists?(key_path)
+                raise PermissionDenied.new("Directory listing not allowed") if File.directory?(key_path)
                 cached = foi_fragment_cache_read(key_path)
                 response.content_type = AlaveteliFileTypes.filename_to_mimetype(params[:file_name].join("/")) || 'application/octet-stream'
                 render_for_text(cached)
@@ -644,7 +691,7 @@ class RequestController < ApplicationController
 
         # we don't use @attachment.content_type here, as we want same mime type when cached in cache_attachments above
         response.content_type = AlaveteliFileTypes.filename_to_mimetype(params[:file_name].join("/")) || 'application/octet-stream'
-
+        headers["Content-Disposition"] = "attachment; filename=#{params[:file_name]}"
         render :text => @attachment.body
     end
 
@@ -676,9 +723,15 @@ class RequestController < ApplicationController
     # Internal function
     def get_attachment_internal(html_conversion)
         @incoming_message = IncomingMessage.find(params[:incoming_message_id])
+        @requested_request = InfoRequest.find(params[:id])
+        @incoming_message.parse_raw_email!
         @info_request = @incoming_message.info_request
         if @incoming_message.info_request_id != params[:id].to_i
-            raise sprintf("Incoming message %d does not belong to request %d", @incoming_message.info_request_id, params[:id])
+            # Note that params[:id] might not be an integer, though
+            # if we’ve got this far then it must begin with an integer
+            # and that integer must be the id number of an actual request.
+            message = "Incoming message %d does not belong to request '%s'" % [@incoming_message.info_request_id, params[:id]]
+            raise ActiveRecord::RecordNotFound.new(message)
         end
         @part_number = params[:part].to_i
         @filename = params[:file_name].join("/")
@@ -690,7 +743,6 @@ class RequestController < ApplicationController
        
         # check permissions
         raise "internal error, pre-auth filter should have caught this" if !@info_request.user_can_view?(authenticated_user)
-  
         @attachment = IncomingMessage.get_attachment_by_url_part_number(@incoming_message.get_attachments_for_display, @part_number)
         raise ActiveRecord::RecordNotFound.new("attachment not found part number " + @part_number.to_s + " incoming_message " + @incoming_message.id.to_s) if @attachment.nil?
 
@@ -713,6 +765,7 @@ class RequestController < ApplicationController
                     :email => _("Then you can upload an FOI response. "),
                     :email_subject => _("Confirm your account on {{site_name}}",:site_name=>site_name)
             }
+
             if !authenticated?(@reason_params)
                 return
             end
@@ -754,11 +807,8 @@ class RequestController < ApplicationController
     def search_typeahead
         # Since acts_as_xapian doesn't support the Partial match flag, we work around it
         # by making the last work a wildcard, which is quite the same
-        query = params[:q] + '*'
-
-        query = query.split(' ').join(' OR ')       # XXX: HACK for OR instead of default AND!
-        @xapian_requests = perform_search([InfoRequestEvent], query, 'relevant', 'request_collapse', 5)
-
+        query = params[:q]
+        @xapian_requests = perform_search_typeahead(query, InfoRequestEvent)
         render :partial => "request/search_ahead.rhtml"
     end
 
@@ -774,7 +824,7 @@ class RequestController < ApplicationController
                               :email => _("Then you can download a zip file of {{info_request_title}}.",:info_request_title=>info_request.title),
                               :email_subject => _("Log in to download a zip file of {{info_request_title}}",:info_request_title=>info_request.title)
                               )
-                updated = Digest::SHA1.hexdigest(info_request.get_last_event.created_at.to_s + info_request.updated_at.to_s)
+                updated = Digest::SHA1.hexdigest(info_request.get_last_event.created_at.to_i.to_s + info_request.updated_at.to_i.to_s)
                 @url_path = "/download/#{updated[0..1]}/#{updated}/#{params[:url_title]}.zip"
                 file_path = File.join(File.dirname(__FILE__), '../../cache/zips', @url_path)
                 if !File.exists?(file_path) 
@@ -796,7 +846,7 @@ class RequestController < ApplicationController
                                 logger.error("Could not convert info request #{info_request.id} to PDF with command '#{convert_command} #{url} #{tempfile.path}'")
                             end
                             tempfile.close
-                        else                    
+                        else
                             logger.warn("No HTML -> PDF converter found at #{convert_command}")
                         end
                         if !done
@@ -811,7 +861,8 @@ class RequestController < ApplicationController
                         for message in info_request.incoming_messages                
                             attachments = message.get_attachments_for_display
                             for attachment in attachments
-                                zipfile.get_output_stream(attachment.display_filename) { |f|
+                                filename = "#{attachment.url_part_number}_#{attachment.display_filename}"
+                                zipfile.get_output_stream(filename) { |f|
                                     f.puts(attachment.body)
                                 }
                             end

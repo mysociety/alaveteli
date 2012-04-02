@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 95
+# Schema version: 108
 #
 # Table name: info_requests
 #
@@ -10,23 +10,17 @@
 #  created_at                :datetime        not null
 #  updated_at                :datetime        not null
 #  described_state           :string(255)     not null
-#  awaiting_description      :boolean         default(false), not null
+#  awaiting_description      :boolean         default(FALSE), not null
 #  prominence                :string(255)     default("normal"), not null
 #  url_title                 :text            not null
 #  law_used                  :string(255)     default("foi"), not null
 #  allow_new_responses_from  :string(255)     default("anybody"), not null
 #  handle_rejected_responses :string(255)     default("bounce"), not null
+#  idhash                    :string(255)     not null
 #
-# models/info_request.rb:
-# A Freedom of Information request.
-#
-# Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
-# Email: francis@mysociety.org; WWW: http://www.mysociety.org/
-#
-# $Id: info_request.rb,v 1.217 2009-10-26 17:52:39 francis Exp $
+
 
 require 'digest/sha1'
-require File.join(File.dirname(__FILE__),'../../vendor/plugins/acts_as_xapian/lib/acts_as_xapian')
 
 class InfoRequest < ActiveRecord::Base
     strip_attributes!
@@ -240,19 +234,19 @@ public
         # into some sort of separate jurisdiction dependent file
         if self.public_body.url_name == 'general_register_office'
             # without GQ in the subject, you just get an auto response
-            self.law_used_full + ' request GQ - ' + self.title
+            _('{{law_used_full}} request GQ - {{title}}',:law_used_full=>self.law_used_full,:title=>self.title)
         else
-            self.law_used_full + ' request - ' + self.title
+            _('{{law_used_full}} request - {{title}}',:law_used_full=>self.law_used_full,:title=>self.title)
         end
     end
     def email_subject_followup(incoming_message = nil)
         if incoming_message.nil? || !incoming_message.valid_to_reply_to?
             'Re: ' + self.email_subject_request
         else
-            if incoming_message.mail.subject.match(/^Re:/i)
-                incoming_message.mail.subject
+            if incoming_message.subject.match(/^Re:/i)
+                incoming_message.subject
             else
-                'Re: ' + incoming_message.mail.subject
+                'Re: ' + incoming_message.subject
             end
         end
     end
@@ -260,36 +254,36 @@ public
     # Two sorts of laws for requests, FOI or EIR 
     def law_used_full
         if self.law_used == 'foi'
-            return "Freedom of Information"
+            return _("Freedom of Information")
         elsif self.law_used == 'eir'
-            return "Environmental Information Regulations"
+            return _("Environmental Information Regulations")
         else
             raise "Unknown law used '" + self.law_used + "'"
         end
     end
     def law_used_short
         if self.law_used == 'foi'
-            return "FOI"
+            return _("FOI")
         elsif self.law_used == 'eir'
-            return "EIR"
+            return _("EIR")
         else
             raise "Unknown law used '" + self.law_used + "'"
         end
     end
     def law_used_act
         if self.law_used == 'foi'
-            return "Freedom of Information Act"
+            return _("Freedom of Information Act")
         elsif self.law_used == 'eir'
-            return "Environmental Information Regulations"
+            return _("Environmental Information Regulations")
         else
             raise "Unknown law used '" + self.law_used + "'"
         end
     end
     def law_used_with_a
         if self.law_used == 'foi'
-            return "A Freedom of Information request"
+            return _("A Freedom of Information request")
         elsif self.law_used == 'eir'
-            return "An Environmental Information Regulations request"
+            return _("An Environmental Information Regulations request")
         else
             raise "Unknown law used '" + self.law_used + "'"
         end

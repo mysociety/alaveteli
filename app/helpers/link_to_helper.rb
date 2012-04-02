@@ -136,9 +136,19 @@ module LinkToHelper
     end
 
     # General pages.
-    def search_url(query, variety_postfix = nil, sort_postfix = nil, advanced = nil)
-        query = query - ["", nil] if query.kind_of?(Array)
-        url = search_general_url(:combined => query)
+    def search_url(query, params = nil)
+        if query.kind_of?(Array)
+            query = query - ["", nil]
+            query = query.join("/")
+        end
+        routing_info = {:controller => 'general', 
+                        :action => 'search',
+                        :combined => query,
+                        :view => nil}
+        if !params.nil?
+            routing_info = params.merge(routing_info)
+        end
+        url = url_for(routing_info)
         # Here we can't escape the slashes, as RFC 2396 doesn't allow slashes
         # within a path component. Rails is assuming when generating URLs that
         # either there aren't slashes, or we are in a query part where you can
@@ -150,19 +160,10 @@ module LinkToHelper
         #   http://rails.lighthouseapp.com/projects/8994/tickets/144-patch-bug-in-rails-route-globbing
         url = url.gsub("%2F", "/")
 
-        if !variety_postfix.nil? && !variety_postfix.empty?
-            url = url + "/" + variety_postfix
-        end
-        if !sort_postfix.nil? && !sort_postfix.empty?
-            url = url + "/" + sort_postfix
-        end
-        if !advanced.nil? && (advanced)
-            url = url + "/advanced"
-        end
         return url
     end
     def search_link(query, variety_postfix = nil, sort_postfix = nil, advanced = nil)
-        link_to h(query), search_url(query, variety_postfix, sort_postfix, advanced)
+        link_to h(query), search_url(query)
     end
 
     # Admin pages
@@ -185,9 +186,20 @@ module LinkToHelper
     end
 
 
-    def main_url(relative_path)
+    def main_url(relative_path, append = nil)
         url_prefix = "http://" + MySociety::Config.get("DOMAIN", '127.0.0.1:3000')
-        return url_prefix + relative_path
+        url = url_prefix + relative_path
+        if !append.nil?
+            begin
+                env = Rack::MockRequest.env_for(url)
+                req = Rack::Request.new(env)
+                req.path_info += append
+                url = req.url
+            rescue URI::InvalidURIError
+                # don't append to it
+            end
+        end
+        return url
     end
 
     # Basic date format

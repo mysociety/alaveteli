@@ -29,7 +29,7 @@ describe User, "showing the name" do
 
     it 'should show if user has been banned' do 
         @user.ban_text = "Naughty user"
-        @user.name.should == 'Some Name (Banned)'
+        @user.name.should == 'Some Name (Account suspended)'
     end
 
 end
@@ -193,7 +193,6 @@ describe User, "when reindexing referencing models" do
 end
 
 describe User, "when checking abilities" do
-    fixtures :users
 
     before do
         @user = users(:bob_smith_user)
@@ -283,7 +282,6 @@ describe User, "when setting a profile photo" do
 end
 
 describe User, "when unconfirmed" do
-    fixtures :users
 
     before do
         @user = users(:unconfirmed_user)
@@ -295,7 +293,6 @@ describe User, "when unconfirmed" do
 end
 
 describe User, "when emails have bounced" do
-    fixtures :users
 
     it "should record bounces" do
         User.record_bounce_for_email("bob@localhost", "The reason we think the email bounced (e.g. a bounce message)")

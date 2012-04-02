@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # app/controllers/public_body_controller.rb:
 # Show information about a public body.
 #
@@ -91,45 +92,48 @@ class PublicBodyController < ApplicationController
         @query = "%#{params[:public_body_query].nil? ? "" : params[:public_body_query]}%"
         @tag = params[:tag]
         @locale = self.locale_from_params()
-
+        default_locale = I18n.default_locale.to_s
         locale_condition = "(upper(public_body_translations.name) LIKE upper(?) 
                             OR upper(public_body_translations.notes) LIKE upper (?)) 
                             AND public_body_translations.locale = ?
                             AND public_bodies.id <> #{PublicBody.internal_admin_body.id}"
         if @tag.nil? or @tag == "all"
             @tag = "all"
-            conditions = [locale_condition, @query, @query, @locale]
+            conditions = [locale_condition, @query, @query, default_locale]
         elsif @tag == 'other'
             category_list = PublicBodyCategories::get().tags().map{|c| "'"+c+"'"}.join(",")
             conditions = [locale_condition + ' AND (select count(*) from has_tag_string_tags where has_tag_string_tags.model_id = public_bodies.id
                 and has_tag_string_tags.model = \'PublicBody\'
-                and has_tag_string_tags.name in (' + category_list + ')) = 0', @query, @query, @locale]
+                and has_tag_string_tags.name in (' + category_list + ')) = 0', @query, @query, default_locale]
         elsif @tag.size == 1
             @tag.upcase!
-            conditions = [locale_condition + ' AND public_body_translations.first_letter = ?', @query, @query, @locale, @tag]
+            conditions = [locale_condition + ' AND public_body_translations.first_letter = ?', @query, @query, default_locale, @tag]
         elsif @tag.include?(":")
             name, value = HasTagString::HasTagStringTag.split_tag_into_name_value(@tag)
             conditions = [locale_condition + ' AND (select count(*) from has_tag_string_tags where has_tag_string_tags.model_id = public_bodies.id
                 and has_tag_string_tags.model = \'PublicBody\'
-                and has_tag_string_tags.name = ? and has_tag_string_tags.value = ?) > 0', @query, @query, @locale, name, value]
+                and has_tag_string_tags.name = ? and has_tag_string_tags.value = ?) > 0', @query, @query, default_locale, name, value]
         else
             conditions = [locale_condition + ' AND (select count(*) from has_tag_string_tags where has_tag_string_tags.model_id = public_bodies.id
                 and has_tag_string_tags.model = \'PublicBody\'
-                and has_tag_string_tags.name = ?) > 0', @query, @query, @locale, @tag]
+                and has_tag_string_tags.name = ?) > 0', @query, @query, default_locale, @tag]
         end
+
         if @tag == "all"
             @description = ""
         elsif @tag.size == 1
-            @description = _("beginning with") + " '" + @tag + "'"
+            @description = _("beginning with ‘{{first_letter}}’", :first_letter=>@tag)
         else
-            @description = PublicBodyCategories::get().by_tag()[@tag]
-            if @description.nil?
-                @description = @tag
+            category_name = PublicBodyCategories::get().by_tag()[@tag]
+            if category_name.nil?
+                @description = _("matching the tag ‘{{tag_name}}’", :tag_name=>@tag)
+            else
+                @description = _("in the category ‘{{category_name}}’", :category_name=>category_name)
             end
         end
         PublicBody.with_locale(@locale) do
             @public_bodies = PublicBody.paginate(
-              :order => "public_body_translations.name", :page => params[:page], :per_page => 1000, # fit all councils on one page
+              :order => "public_body_translations.name", :page => params[:page], :per_page => 100,
               :conditions => conditions,
               :joins => :translations
             )
@@ -185,11 +189,8 @@ class PublicBodyController < ApplicationController
     def search_typeahead
         # Since acts_as_xapian doesn't support the Partial match flag, we work around it
         # by making the last work a wildcard, which is quite the same
-        query = params[:q] + '*'
-
-        query = query.split(' ').join(' OR ')       # XXX: HACK for OR instead of default AND!
-        @xapian_requests = perform_search([PublicBody], query, 'relevant', nil, 5)
-
+        query = params[:query]
+        @xapian_requests = perform_search_typeahead(query, PublicBody)
         render :partial => "public_body/search_ahead"
     end
 end

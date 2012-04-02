@@ -35,7 +35,7 @@ SPECIAL_REPLY_VERY_LATE_AFTER_DAYS: 60
 FRONTPAGE_PUBLICBODY_EXAMPLES: 'tgq'
 
 # URL of theme to install (when running rails-post-deploy script)
-THEME_URL: 'git://github.com/mysociety/whatdotheyknow-theme.git'
+THEME_URL: 'git://github.com/sebbacon/alavetelitheme.git'
 
 # Whether a user needs to sign in to start the New Request process
 FORCE_REGISTRATION_ON_NEW_REQUEST: false
@@ -92,7 +92,10 @@ COOKIE_STORE_SESSION_SECRET: 'your secret key here, make it long and random'
 # checks in a few obvious places.
 READ_ONLY: ''
 
-# Doesn't do anything right now.
+# Is this a staging or dev site (1) or a live site (0).
+# Controls whether or not the rails-post-deploy script
+# will create the file config/rails_env.rb file to force
+# Rails into production environment.
 STAGING_SITE: 1
 
 # Recaptcha, for detecting humans. Get keys here: http://recaptcha.net/whyrecaptcha.html
@@ -130,3 +133,12 @@ FORWARD_NONBOUNCE_RESPONSES_TO: user-support@localhost
 # If the command is not present, a text-only version will be rendered
 # instead.
 HTML_TO_PDF_COMMAND: /usr/local/bin/wkhtmltopdf-amd64
+
+# Exception notifications
+EXCEPTION_NOTIFICATIONS_FROM: do-not-reply-to-this-address@example.com
+EXCEPTION_NOTIFICATIONS_TO:
+ - robin@example.org
+ - seb@example.org
+
+# This rate limiting can be turned off per-user via the admin interface
+MAX_REQUESTS_PER_USER_PER_DAY: 6

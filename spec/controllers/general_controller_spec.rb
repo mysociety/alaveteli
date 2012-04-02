@@ -1,19 +1,28 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'fakeweb'
+
+describe GeneralController, "when trying to show the blog" do
+    before (:each) do
+        FakeWeb.clean_registry
+    end
+    after (:each) do
+        FakeWeb.clean_registry
+    end
+
+    it "should fail silently if the blog is returning an error" do        
+        FakeWeb.register_uri(:get, %r|.*|, :body => "Error", :status => ["500", "Error"])
+        get :blog
+        response.status.should == "200 OK"
+        assigns[:blog_items].count.should == 0
+    end
+end
 
 describe GeneralController, "when searching" do
     integrate_views
-    fixtures [ :public_bodies,
-               :public_body_translations,
-               :users,
-               :raw_emails,
-               :info_requests,
-               :info_request_events,
-               :outgoing_messages,
-               :incoming_messages,
-               :comments ]
 
     before(:each) do
-        load_raw_emails_data(raw_emails)
+        load_raw_emails_data
+        rebuild_xapian_index
     end
 
     it "should render the front page successfully" do
@@ -64,36 +73,58 @@ describe GeneralController, "when searching" do
 
     it "should redirect from search query URL to pretty URL" do
         post :search_redirect, :query => "mouse" # query hidden in POST parameters
-        response.should redirect_to(:action => 'search', :combined => "mouse", :view => "requests") # URL /search/:query/all
+        response.should redirect_to(:action => 'search', :combined => "mouse", :view => "all") # URL /search/:query/all
     end
 
     describe "when using different locale settings" do 
         home_link_regex = /href=".*\/en"/
         it "should generate URLs with a locale prepended when there's more than one locale set" do
-            ActionController::Routing::Routes.add_filters('conditionallyprependlocale')
             get :frontpage
             response.should have_text(home_link_regex)
         end
 
         it "should generate URLs without a locale prepended when there's only one locale set" do
-            ActionController::Routing::Routes.add_filters('conditionallyprependlocale')
-            old_available_locales =  FastGettext.default_available_locales
-            available_locales = ['en']
-            FastGettext.default_available_locales = available_locales
-            I18n.available_locales = available_locales
+            old_fgt_available_locales =  FastGettext.default_available_locales
+            old_i18n_available_locales =  I18n.available_locales
+            FastGettext.default_available_locales = I18n.available_locales = ['en']
 
             get :frontpage
             response.should_not have_text(home_link_regex)
 
-            FastGettext.default_available_locales = old_available_locales
-            I18n.available_locales = old_available_locales
+            FastGettext.default_available_locales = old_fgt_available_locales
+            I18n.available_locales = old_i18n_available_locales
+        end
+    end
+    
+    describe 'when constructing the list of recent requests' do
+        before(:each) do
+          load_raw_emails_data
+          rebuild_xapian_index
+        end
+
+        it 'should list the newest successful request first' do
+            # Make sure the newest is listed first even if an older one
+            # has a newer comment or was reclassified more recently:
+            #   https://github.com/sebbacon/alaveteli/issues/370
+            #
+            # This is a deliberate behaviour change, in that the
+            # previous behaviour (showing more-recently-reclassified
+            # requests first) was intentional.
+            get :frontpage
+            assigns[:request_events].first.info_request.should == info_requests(:another_boring_request)
+        end
+        
+        it 'should coalesce duplicate requests' do
+            get :frontpage
+            assigns[:request_events].map(&:info_request).select{|x|x.url_title =~ /^spam/}.length.should == 1
         end
     end
 
     describe 'when using xapian search' do
 
       # rebuild xapian index after fixtures loaded
-      before(:all) do
+      before(:each) do
+          load_raw_emails_data
           rebuild_xapian_index
       end
 
@@ -124,21 +155,31 @@ describe GeneralController, "when searching" do
 
     it "should filter results based on end of URL being 'all'" do
         get :search, :combined => ['"bob"', "all"]
-        assigns[:xapian_requests].results.size.should == 2
-        assigns[:xapian_users].results.size.should == 1
-        assigns[:xapian_bodies].results.size.should == 0
+        assigns[:xapian_requests].results.map{|x| x[:model]}.should =~ [
+            info_request_events(:useless_outgoing_message_event),
+            info_request_events(:silly_outgoing_message_event),
+            info_request_events(:useful_incoming_message_event),
+            info_request_events(:another_useful_incoming_message_event),
+        ]
+        assigns[:xapian_users].results.map{|x| x[:model]}.should == [users(:bob_smith_user)]
+        assigns[:xapian_bodies].results.should == []
     end
 
     it "should filter results based on end of URL being 'users'" do
         get :search, :combined => ['"bob"', "users"]
         assigns[:xapian_requests].should == nil
-        assigns[:xapian_users].results.size.should == 1
+        assigns[:xapian_users].results.map{|x| x[:model]}.should == [users(:bob_smith_user)]
         assigns[:xapian_bodies].should == nil
     end
 
     it "should filter results based on end of URL being 'requests'" do
         get :search, :combined => ['"bob"', "requests"]
-        assigns[:xapian_requests].results.size.should == 2
+        assigns[:xapian_requests].results.map{|x|x[:model]}.should =~ [
+            info_request_events(:useless_outgoing_message_event),
+            info_request_events(:silly_outgoing_message_event),
+            info_request_events(:useful_incoming_message_event),
+            info_request_events(:another_useful_incoming_message_event),
+        ]
         assigns[:xapian_users].should == nil
         assigns[:xapian_bodies].should == nil
     end
@@ -147,7 +188,7 @@ describe GeneralController, "when searching" do
         get :search, :combined => ['"quango"', "bodies"]
         assigns[:xapian_requests].should == nil
         assigns[:xapian_users].should == nil
-        assigns[:xapian_bodies].results.size.should == 1        
+        assigns[:xapian_bodies].results.map{|x|x[:model]}.should == [public_bodies(:geraldine_public_body)]
     end
 
     it "should show help when searching for nothing" do
@@ -157,6 +198,22 @@ describe GeneralController, "when searching" do
         assigns[:query].should be_nil
     end
 
+    it "should not show unconfirmed users" do
+        get :search, :combined => ["unconfirmed", "users"]
+        response.should render_template('search')
+        assigns[:xapian_users].results.map{|x|x[:model]}.should == []
+    end
+
+    it "should show newly-confirmed users" do
+        u = users(:unconfirmed_user)
+        u.email_confirmed = true
+        u.save!
+        update_xapian_index
+        
+        get :search, :combined => ["unconfirmed", "users"]
+        response.should render_template('search')
+        assigns[:xapian_users].results.map{|x|x[:model]}.should == [u]
+    end
 
 end
 
