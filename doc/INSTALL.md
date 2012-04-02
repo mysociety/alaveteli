@@ -6,7 +6,7 @@ deployment platform.
 Commands are intended to be run via the terminal or over ssh.
 
 As an aid to evaluation, there is an
-[Amazon AMI](https://github.com/sebbacon/alaveteli/wiki/Alaveteli-ec2-amix)
+[Amazon AMI](https://github.com/sebbacon/alaveteli/wiki/Alaveteli-ec2-ami)
 with all these steps configured.  It is *not* production-ready.
 
 # Get Alaveteli
