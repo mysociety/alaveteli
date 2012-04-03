@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 require "external_command"
 
 def mail_reply_test(email_filename)
-    Dir.chdir RAILS_ROOT do
+    Dir.chdir Rails.root do
         xc = ExternalCommand.new("script/handle-mail-replies", "--test")
         xc.run(load_file_fixture(email_filename))
         
