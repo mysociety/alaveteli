@@ -63,7 +63,7 @@ bash "run bundle install" do
   user node[:user]
   cwd node[:root]
   environment ({'HOME' => '/home/vagrant'})
-  code "bundle install"
+  code "bundle exec bundle install"
 end
 
 bash "bring rake into the PATH" do
@@ -75,7 +75,7 @@ bash "create databases" do
   user node[:user]
   cwd node[:root]
   environment ({'HOME' => '/home/vagrant'})
-  code "rake db:create:all"
+  code "bundle exec rake db:create:all"
 end
 
 bash "checkout submodules" do
@@ -88,5 +88,5 @@ bash "run the post-install script" do
   cwd node[:root]
   user node[:user]
   environment ({'HOME' => '/home/vagrant'})
-  code "./script/rails-post-deploy"
+  code "bundle exec ./script/rails-post-deploy"
 end
