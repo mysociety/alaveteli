@@ -229,7 +229,7 @@ probably don't want this in your development profile; the example
 
 In the 'alaveteli' directory, run:
 
-    ./script/rails-post-deploy 
+    bundle exec ./script/rails-post-deploy
 
 (This will need execute privs so `chmod 755` if necessary.) This sets
 up directory structures, creates logs, installs/updates themes, runs
@@ -255,11 +255,11 @@ If you want some dummy data to play with, you can try loading the
 fixtures that the test suite uses into your development database.  You
 can do this with:
 
-    ./script/load-sample-data
+    bundle exec ./script/load-sample-data
 
 Next we need to create the index for the search engine (Xapian):
 
-    ./script/rebuild-xapian-index
+    bundle exec ./script/rebuild-xapian-index
 
 If this fails, the site should still mostly run, but it's a core
 component so you should really try to get this working.
@@ -268,7 +268,7 @@ component so you should really try to get this working.
 
 Make sure everything looks OK:
 
-    rake spec
+    bundle exec rake spec
 
 If there are failures here, something has gone wrong with the
 preceding steps (see the next section for a common problem and
@@ -280,7 +280,7 @@ gone wrong.
 
 Run the following to get the server running:
 
-    ./script/server  --environment=development
+    bundle exec ./script/server  --environment=development
 
 By default the server listens on all interfaces. You can restrict it to the
 localhost interface by adding ` --binding=127.0.0.1`
