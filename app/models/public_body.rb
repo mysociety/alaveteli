@@ -309,7 +309,7 @@ class PublicBody < ActiveRecord::Base
     # The "internal admin" is a special body for internal use.
     def PublicBody.internal_admin_body
         PublicBody.with_locale(I18n.default_locale) do
-            pb = PublicBody.find_by_url_name("internal_admin_authority")
+            pb = PublicBody.find(:all, :conditions => {:url_name => "internal_admin_authority"})
             if pb.nil?
                 pb = PublicBody.new(
                  :name => 'Internal admin authority',
