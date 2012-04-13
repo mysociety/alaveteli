@@ -13,17 +13,18 @@
 #   http://help.yahoo.com/l/us/yahoo/search/webcrawler/slurp-02.html
 
 User-agent: *
-Disallow: /annotate/
-Disallow: /new/
-Disallow: /search/
-Disallow: /similar/
-Disallow: /track/
-Disallow: /upload/
-Disallow: /user/contact/
-Disallow: /feed/
-Disallow: /profile/
-Disallow: /signin
-Disallow: /body/*/view_email$
+Disallow: */annotate/
+Disallow: */new/
+Disallow: */search/
+Disallow: */similar/
+Disallow: */track/
+Disallow: */upload/
+Disallow: */user/contact/
+Disallow: */feed/
+Disallow: */profile/
+Disallow: */signin
+Disallow: */request/*/response/
+Disallow: */body/*/view_email$
 
 # The following adding Jan 2012 to stop robots crawling pages
 # generated in error (see
