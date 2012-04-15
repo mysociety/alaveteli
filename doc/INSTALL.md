@@ -16,7 +16,7 @@ install git-core`
 
 Next, get hold of the Alaveteli source code from github: 
 
-    git clone https://github.com/sebbacon/alaveteli.git
+    git clone https://github.com/datauy/alaveteli.git
     cd alaveteli
 
 This will get the current stable release.  If you are a developer and want to
@@ -24,6 +24,19 @@ add or try new features, you might want to swap to the development
 branch:
 
     git checkout develop
+
+# If you want to use RVM then install it
+
+    sh -s stable < <(curl -s https://raw.github.com/wayneeseguin/rvm/master/binscripts/rvm-installer)
+    source ~/.bashrc
+  
+Check on requirements
+
+    rvm requirements
+
+Install 1.8.7 
+
+    rvm install 1.8.7-head --with-openssl-dir=/usr/local
 
 # Install system dependencies
 
@@ -38,6 +51,8 @@ running `apt-get update`:
 
     deb http://debian.mysociety.org squeeze main
     
+If you are not using RVM:
+
 Now install the packages that are listed in config/packages using apt-get
 e.g.:
 
@@ -49,6 +64,16 @@ Some of the files also have a version number listed in config/packages
 mySociety Debian source (e.g. if you're running Ubuntu), you should
 comment out `wkhtmltopdf-static` from `config/packages`, as it won't
 install.
+
+If you are using RVM:
+
+You still need to install some packages but not ruby, ruby1.8, libopenssl-ruby1.8 or irb from config/packages. I recommend installing one by one to check if everything is fine.
+
+
+DUDAS: gs-gpl es un dummy package, porque instalarlo?
+       links, elinks ?
+       php5-cli ??!
+       mutt?
 
 # Install Ruby dependencies
 
