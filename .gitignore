@@ -20,3 +20,4 @@ TAGS
 /vendor/bundle
 .bundle
 .rmvrc
+config/alert-tracks-debian.ugly
