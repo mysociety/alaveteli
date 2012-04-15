@@ -121,6 +121,7 @@ describe RequestController, "when showing one request" do
     
     before(:each) do
         load_raw_emails_data
+        FileUtils.rm_rf File.join(File.dirname(__FILE__), "../../cache/zips")
     end
 
     it "should be successful" do
@@ -565,7 +566,7 @@ end
  
 # XXX do this for invalid ids
 #  it "should render 404 file" do
-#    response.should render_template("#{RAILS_ROOT}/public/404.html")
+#    response.should render_template("#{Rails.root}/public/404.html")
 #    response.headers["Status"].should == "404 Not Found"
 #  end
 
