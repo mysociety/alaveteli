@@ -26,7 +26,7 @@ tnef (>= 1.4.5)
 memcached
 gettext
 python-yaml
-wkhtmltopdf-static
+wkhtmltopdf
 libmagic-dev
 libmagickwand-dev
 libpq-dev
