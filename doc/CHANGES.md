@@ -6,14 +6,17 @@
 
 ## Upgrade notes
 
-* Existing installations will need to install the Bundler gem.  See
-  `INSTALL.md` for details.
+* You should set aside a while to do this upgrade, as it will require
+  some manual intervention and a wait while dependencies compile:
 
-* Because dependencies are now handled by Bundler, when you next run
-  the `rails-post-deploy` script, it will download, compile and
-  install various things.  Part of this is compiling xapian, which may
-  take a *long* time (subsequent deployments should be much faster)
+  * Existing installations will need to install the Bundler gem.  See
+    `INSTALL.md` for details.
 
+  * Because dependencies are now handled by Bundler, when you next run
+    the `rails-post-deploy` script, it will download, compile and
+    install various things.  Part of this is compiling xapian, which may
+    take a *long* time (subsequent deployments should be much faster)
+    
 # Version 0.5.1
 
 ## Highlighted features

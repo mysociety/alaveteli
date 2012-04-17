@@ -5,8 +5,7 @@
 # have a filesystem representation of their contents
 
 LOC=`dirname "$0"`
-
-rake --silent spec:db:fixtures:load
+bundle exec rake --silent spec:db:fixtures:load
 
 "$LOC/runner" /dev/stdin <<END
 env = ENV["RAILS_ENV"]

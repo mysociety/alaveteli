@@ -44,7 +44,7 @@ shared folders.
 
 ### Run the tests
 
-    rake
+    bundle exec rake spec
 
 ### Start the development server
 

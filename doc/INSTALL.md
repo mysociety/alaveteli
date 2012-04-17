@@ -269,7 +269,7 @@ component so you should really try to get this working.
 
 Make sure everything looks OK:
 
-    rake spec
+    bundle exec rake spec
 
 If there are failures here, something has gone wrong with the
 preceding steps (see the next section for a common problem and
