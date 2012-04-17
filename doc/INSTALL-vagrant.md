@@ -40,7 +40,7 @@ shared folders.
 
 ### Load sample data and index it
 
-    ./script/load-sample-data && ./script/rebuild-xapian-index
+    bundle exec ./script/load-sample-data && bundle exec ./script/rebuild-xapian-index
 
 ### Run the tests
 
@@ -48,7 +48,7 @@ shared folders.
 
 ### Start the development server
 
-    ./script/server
+    bundle exec ./script/server
 
 ### And you're golden
 
