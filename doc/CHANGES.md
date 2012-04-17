@@ -2,7 +2,7 @@
 
 ## Highlighted features
 
-* Ruby dependencies are now handled by Bundler
+* Ruby dependencies are now handled by Bundler.
 
 ## Upgrade notes
 
@@ -16,6 +16,11 @@
     the `rails-post-deploy` script, it will download, compile and
     install various things.  Part of this is compiling xapian, which may
     take a *long* time (subsequent deployments should be much faster)
+    
+* As a side effect of using bundler, `rake` tasks (such as `rake spec`
+  and `rake db:migrate`) should now be prefixed with `bundle exec`
+  (e.g. `bundle exec rake spec`) to ensure they use the correct
+  bundled environment
     
 # Version 0.5.1
 
