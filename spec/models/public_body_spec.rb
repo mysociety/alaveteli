@@ -169,6 +169,11 @@ describe PublicBody, " when saving" do
         @public_body.save!
         @public_body.first_letter.should == 'T'
     end
+
+    it "should not throw an error if the name is unset at the time the short_name is set" do
+        @public_body.name = nil
+        @public_body.short_name = nil
+    end
 end
 
 describe PublicBody, "when searching" do

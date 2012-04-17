@@ -234,7 +234,12 @@ class PublicBody < ActiveRecord::Base
     end
 
     def update_url_name
-        self.url_name = MySociety::Format.simplify_url_part(self.short_or_long_name, 'body')
+        preferred_name = self.short_or_long_name
+        if !preferred_name.nil?
+            # we test it's not nil, because sometimes a race condition
+            # means no name has been set yet
+            self.url_name = MySociety::Format.simplify_url_part(preferred_name, 'body')
+        end
     end
     
     # Return the short name if present, or else long name
