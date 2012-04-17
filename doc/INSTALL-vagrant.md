@@ -24,9 +24,9 @@ Usage
 
 ### Download, install and run VM
 
-NOTE: This will download at least 400MB and take some time (30 minutes with a
-broadband internet connection). This time and downloading is only required the
-first time you run this command.
+NOTE: This will download at least 400MB and take some time (30 minutes
+with a broadband internet connection). The downloading is only
+required the first time you run this command.
 
 You'll be asked for your password to sudo - this is required to create NFS
 shared folders.

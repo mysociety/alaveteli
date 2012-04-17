@@ -27,21 +27,15 @@ branch:
 
 # Dev environment quickstart
 
-To get a dev environment running quickly on Debian or Ubuntu, you can
-use Chef.
-
-Alternatively, you can use Vagrant (which provisions a virtual machine
-and installs Alaveteli there) on any platform supported by Vagrant.
-
-These quickstart methods are not currently recommended for production,
-because they are still under development (and don't include memcached,
-varnish, exim fonfiguration, etc).  For production, you should follow
-the steps below manually.
+To get a dev environment running quickly you can use Vagrant (which
+provisions a virtual machine and installs Alaveteli there) on any
+platform supported by Vagrant.
 
 To install using Vagrant, see `INSTALL-vagrant.md`.
 
-To install using chef, install chef (e.g. `apt-get install chef`) and
-run:
+You can also use chef to install directly into Debian (Ubuntu may work
+but is not currently tested).  To do so, first install chef
+(e.g. `apt-get install chef`), then run:
 
     sudo chef-solo -c chef/solo.rb -j chef/solo.json
 
@@ -204,7 +198,7 @@ is emailed to `CONTACT_EMAIL`.
 1.9).
 
 A well-configured installation of this code will separately have had
-Exim make a backup copy of the email in a separate mailbox, just in
+the MTA make a backup copy of the email in a separate mailbox, just in
 case.
 
 # Step 6: Set up configs
@@ -226,6 +220,9 @@ Interlock Rails plugin, to cache content using memcached.  You
 probably don't want this in your development profile; the example
 `memcached.yml` file disables this behaviour.
 
+As a precaution, you should probably set your `elinks` configuration
+according to the Troubleshooting guide at the end of this document.
+
 # Step 7: Deployment
 
 In the 'alaveteli' directory, run:
@@ -234,23 +231,18 @@ In the 'alaveteli' directory, run:
 
 (This will need execute privs so `chmod 755` if necessary.) This sets
 up directory structures, creates logs, installs/updates themes, runs
-database migrations, etc.  You should run it after each new software
-update.
+database migrations, etc.  **You should run it after each new software
+update.**
 
 One of the things the script does is install dependencies (using
 `bundle install`).  Note that the first time you run it, part of the
 `bundle install` that compiles `xapian-full` takes a *long* time!
 
-On Debian, at least, the binaries installed by bundler are not put in
-the system `PATH`; therefore, in order to run `rake` (needed for
-deployments), you will need to do something like:
+The binaries installed by bundler are not put in the system `PATH`,
+but in `$ALAVETELI_HOME/bin/`; therefore, in order to run `rake`
+(needed for deployments), you will need to do something like:
 
-    ln -s /usr/lib/ruby/gems/1.8/bin/rake /usr/local/bin/
-    
-Or (Debian):
-
-    ln -s /usr/lib/ruby/gems/1.8/bin/rake /usr/local/bin/
-
+    ln -s `pwd`/bin/rake /usr/local/bin/
 
 If you want some dummy data to play with, you can try loading the
 fixtures that the test suite uses into your development database.  You
@@ -272,8 +264,8 @@ Make sure everything looks OK:
     bundle exec rake spec
 
 If there are failures here, something has gone wrong with the
-preceding steps (see the next section for a common problem and
-workaround). You might be able to move on to the next step, depending
+preceding steps (see the next section for common problems and
+workarounds). You might be able to move on to the next step, depending
 on how serious they are, but ideally you should try to find out what's
 gone wrong.
 
@@ -311,6 +303,9 @@ And send us the patch!
 # Step 11: Cron jobs
 
 `config/crontab.ugly` contains the cronjobs run on WhatDoTheyKnow.
+These jobs are mostly to process queues: things that need reindexing,
+email alerts that need sending out, etc.
+
 It's in a strange templating format they use in mySociety.  mySociety
 render the "ugly" file to reference absolute paths, and then drop it
 in `/etc/cron.d/` on the server.
@@ -383,16 +378,19 @@ are evolving on the wiki.
     and then pipe it through the mailin script.  A non-zero exit code
     means there was a problem.  For example:
 
+        # get a valid email source (this example is from the text fixtures):
         $ cp spec/fixtures/files/incoming-request-plain.email /tmp/
+	# substitute a magic email address in the existing To: header:
         $ perl -pi -e 's/^To:.*/To: <request-101-50929748@localhost>/' /tmp/incoming-request-plain.email
+	# now try piping this to the mailin script:
         $ ./script/mailin < /tmp/incoming-request-plain.email
         $ echo $?
         75
 
     The `mailin` script emails the details of any errors to
-    `CONTACT_EMAIL` (from your `general.yml` file).  A common problem is
-    for the user that the MTA runs as not to have write access to
-    `files/raw_emails/`.
+    `CONTACT_EMAIL` (from your `general.yml` file).  A common problem
+    is when the user that the MTA runs as does not have write access
+    to `files/raw_emails/`.
         
 *   **Various tests fail with "*Your PostgreSQL connection does not support
     unescape_bytea. Try upgrading to pg 0.9.0 or later.*"**
