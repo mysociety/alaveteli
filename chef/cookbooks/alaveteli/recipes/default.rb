@@ -67,7 +67,7 @@ bash "run bundle install" do
 end
 
 bash "bring rake into the PATH" do
-    code "ln -s #{path}/rake /usr/local/bin/rake"
+    code "ln -s #{node[:root]}/bin/rake /usr/local/bin/rake"
     not_if "[ -e  /usr/local/bin/rake ] || [ -e  /usr/bin/rake ]"
 end
 
