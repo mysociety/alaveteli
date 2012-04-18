@@ -63,7 +63,7 @@ bash "run bundle install" do
   user node[:user]
   cwd node[:root]
   environment ({'HOME' => '/home/vagrant'})
-  code "bundle exec bundle install"
+  code "bundle install"
 end
 
 bash "bring rake into the PATH" do
