@@ -1,5 +1,3 @@
-require 'mahoro'
-
 class AlaveteliFileTypes
     # To add an image, create a file with appropriate name corresponding to the
     # mime type in public/images e.g. icon_image_tiff_large.png

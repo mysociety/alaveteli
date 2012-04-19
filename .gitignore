@@ -17,3 +17,5 @@ TAGS
 /files/
 /public/download
 /public/*theme
+/vendor/bundle
+.bundle

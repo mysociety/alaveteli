@@ -34,7 +34,7 @@ In `/etc/exim4/conf.d/transport/04_alaveteli`:
        user = ALAVETELI_USER
        group = ALAVETELI_USER
     
-And, assuming you set `OPTION_INCOMING_EMAIL_PREFIX` in your config at
+And, assuming you set `INCOMING_EMAIL_PREFIX` in your config at
 `config/general` to "foi+", create `config/aliases` with the following
 content:
 
@@ -59,7 +59,11 @@ with `FORWARD_NONBOUNCE_RESPONSES_TO: 'raw_team@whatdotheyknow.com'`
 
 Finally, make sure you have `dc_use_split_config='true'` in
 `/etc/exim4/update-exim4.conf.conf`, and execute the command
-`update-exim4.conf`
+`update-exim4.conf`.
+
+NB: if the file `/etc/exim4/exim4.conf` exists then `update-exim4.conf`
+will silently do nothing. Some distributions include this file. If
+yours does, you will need to rename it before running `update-exim4.conf`.
 
 (You may also want to set `dc_eximconfig_configtype='internet'`,
 `dc_local_interfaces='0.0.0.0 ; ::1'`, and
