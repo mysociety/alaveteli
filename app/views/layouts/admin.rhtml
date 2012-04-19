@@ -3,37 +3,75 @@
     <head>
       <meta http-equiv="content-type" content="text/html;charset=UTF-8" >
       <title><%= site_name %> admin<%= @title ? ":" : "" %> <%=@title%></title>
-      
-      <%= javascript_include_tag 'jquery.js', 'jquery-ui.min' %>
+
+      <%= javascript_include_tag 'jquery.js', 'jquery-ui.min', 'bootstrap-collapse', 'bootstrap-tab', 'admin' %>
 
       <%= stylesheet_link_tag 'admin-theme/jquery-ui-1.8.15.custom.css', :rel => 'stylesheet'%>
       <%= stylesheet_link_tag 'admin', :title => "Main", :rel => "stylesheet"  %>
     </head>
     <body>
+      <div id="main" class="container">
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+              <div class="container">
+                <%= link_to 'Alaveteli', main_url('/'), :class => "brand" %>
+                <div class="nav-collapse">
+                  <ul class="nav">
+                    <li>
+                      <%= link_to 'Summary', admin_general_index_path %>
+                    </li>
+                    <li>
+                      <%= link_to 'Timeline', admin_timeline_path %>
+                    </li>
+                    <li>
+                      <%= link_to 'Stats', admin_stats_path %>
+                    </li>
+                    <li>
+                      <%= link_to 'Debug', admin_debug_path %>
+                    </li>
+                    <li>
+                      <%= link_to 'Authorities', admin_body_list_path %>
+                    </li>
+                    <li>
+                      <%= link_to 'Requests', admin_request_list_path %>
+                    </li>
+                    <li>
+                      <%= link_to 'Users', admin_user_list_path %>
+                    </li>
+                    <li>
+                      <%= link_to 'Tracks', admin_track_list_path %>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="row">
+          <div class="span12">
+            <%= render :partial => 'general/locale_switcher' %>
+          </div>
+        </div>
+        <% if flash[:error] %>
+          <div class="row">
+            <div class="span12">
+              <div class="alert alert-error">
+                <%= flash[:error] %>
+              </div>
+            </div>
+          </div>
+        <% end %>
 
-    <p>
-    <strong><%= link_to 'Alaveteli', main_url('/') %> admin:</strong> 
-    <%= link_to 'Summary', admin_general_index_path %>
-    | <%= link_to 'Timeline', admin_timeline_path %>
-    | <%= link_to 'Stats', admin_stats_path %>
-    | <%= link_to 'Debug', admin_debug_path %>
-    <strong>View:</strong>
-    <%= link_to 'Authorities', admin_body_list_path %>
-    | <%= link_to 'Requests', admin_request_list_path %>
-    | <%= link_to 'Users', admin_user_list_path %>
-    | <%= link_to 'Tracks', admin_track_list_path %>
-    </p>
-    <%= render :partial => 'general/locale_switcher' %>
+        <% if flash[:notice] %>
+          <div class="row">
+            <div class="span12">
+              <div class="alert alert-info">
+                <%= flash[:notice] %>
+              </div>
+            </div>
+          </div>
+        <% end %>
 
-    <% if flash[:error] %>
-        <p id="error"><%= flash[:error] %></p>
-    <% end %>
-
-    <% if flash[:notice] %>
-        <p id="notice"><%= flash[:notice] %></p>
-    <% end %>
-
-    <%= yield  %>
-    
+        <%= yield  %>
+      </div>
     </body>
 </html>

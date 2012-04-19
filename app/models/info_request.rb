@@ -48,14 +48,14 @@ class InfoRequest < ActiveRecord::Base
     # user described state (also update in info_request_event, admin_request/edit.rhtml)
     validate :must_be_valid_state
 
-    validates_inclusion_of :prominence, :in => [ 
-        'normal', 
+    validates_inclusion_of :prominence, :in => [
+        'normal',
         'backpage',
         'hidden',
         'requester_only'
     ]
 
-    validates_inclusion_of :law_used, :in => [ 
+    validates_inclusion_of :law_used, :in => [
         'foi', # Freedom of Information Act
         'eir', # Environmental Information Regulations
     ]
@@ -74,13 +74,13 @@ class InfoRequest < ActiveRecord::Base
     ]
 
     def self.enumerate_states
-        states = [ 
+        states = [
         'waiting_response',
-        'waiting_clarification', 
+        'waiting_clarification',
         'gone_postal',
         'not_held',
         'rejected', # this is called 'refused' in UK FOI law and the user interface, but 'rejected' internally for historic reasons
-        'successful', 
+        'successful',
         'partially_successful',
         'internal_review',
         'error_message',
@@ -94,7 +94,7 @@ class InfoRequest < ActiveRecord::Base
     end
 
     def must_be_valid_state
-        errors.add(:described_state, "is not a valid state") if 
+        errors.add(:described_state, "is not a valid state") if
             !InfoRequest.enumerate_states.include? described_state
     end
 
@@ -120,7 +120,7 @@ class InfoRequest < ActiveRecord::Base
             errors.add(:title, _('Please describe more what the request is about in the subject. There is no need to say it is an FOI request, we add that on anyway.'))
         end
     end
-    
+
     OLD_AGE_IN_DAYS = 21.days
 
     def after_initialize
@@ -166,7 +166,7 @@ class InfoRequest < ActiveRecord::Base
         end
     end
     # Force reindex when tag string changes
-    alias_method :orig_tag_string=, :tag_string= 
+    alias_method :orig_tag_string=, :tag_string=
     def tag_string=(tag_string)
         ret = self.orig_tag_string=(tag_string)
         reindex_request_events
@@ -219,7 +219,7 @@ public
     end
 
     # Email which public body should use to respond to request. This is in
-    # the format PREFIXrequest-ID-HASH@DOMAIN. Here ID is the id of the 
+    # the format PREFIXrequest-ID-HASH@DOMAIN. Here ID is the id of the
     # FOI request, and HASH is a signature for that id.
     def incoming_email
         return self.magic_email("request-")
@@ -251,7 +251,7 @@ public
         end
     end
 
-    # Two sorts of laws for requests, FOI or EIR 
+    # Two sorts of laws for requests, FOI or EIR
     def law_used_full
         if self.law_used == 'foi'
             return _("Freedom of Information")
@@ -306,7 +306,7 @@ public
         guesses = []
         # 1. Try to guess based on the email address(es)
         addresses =
-            (incoming_message.mail.to || []) + 
+            (incoming_message.mail.to || []) +
             (incoming_message.mail.cc || []) +
             (incoming_message.mail.envelope_to || [])
         addresses.uniq!
@@ -539,7 +539,7 @@ public
             self.base_calculate_status
         end
     end
-     
+
     def base_calculate_status
         return 'waiting_classification' if self.awaiting_description
         return described_state unless self.described_state == "waiting_response"
@@ -559,13 +559,13 @@ public
         curr_state = nil
         for event in self.info_request_events.reverse
             event.xapian_mark_needs_index  # we need to reindex all events in order to update their latest_* terms
-            if curr_state.nil? 
+            if curr_state.nil?
                 if !event.described_state.nil?
                     curr_state = event.described_state
                 end
             end
 
-            if !curr_state.nil? && event.event_type == 'response' 
+            if !curr_state.nil? && event.event_type == 'response'
                 if event.calculated_state != curr_state
                     event.calculated_state = curr_state
                     event.last_described_at = Time.now()
@@ -579,7 +579,7 @@ public
             elsif !curr_state.nil? && (event.event_type == 'followup_sent' || event.event_type == 'sent') && !event.described_state.nil? && (event.described_state == 'waiting_response' || event.described_state == 'internal_review')
                 # Followups can set the status to waiting response / internal
                 # review. Initial requests ('sent') set the status to waiting response.
-               
+
                 # We want to store that in calculated_state state so it gets
                 # indexed.
                 if event.calculated_state != event.described_state
@@ -723,8 +723,8 @@ public
     def index_of_last_described_event
         events = self.info_request_events
         events.each_index do |i|
-            revi = events.size - 1 - i 
-            m = events[revi] 
+            revi = events.size - 1 - i
+            m = events[revi]
             if not m.described_state.nil?
                 return revi
             end
@@ -735,7 +735,7 @@ public
     def last_event_id_needing_description
         last_event = events_needing_description[-1]
         last_event.nil? ? 0 : last_event.id
-    end        
+    end
 
     # Returns all the events which the user hasn't described yet - an empty array if all described.
     def events_needing_description
@@ -823,11 +823,11 @@ public
             track_thing.destroy
         end
         self.user_info_request_sent_alerts.each { |a| a.destroy }
-        self.info_request_events.each do |info_request_event| 
+        self.info_request_events.each do |info_request_event|
             info_request_event.track_things_sent_emails.each { |a| a.destroy }
             info_request_event.destroy
         end
-        self.exim_logs.each do |exim_log| 
+        self.exim_logs.each do |exim_log|
             exim_log.destroy
         end
         self.outgoing_messages.each { |a| a.destroy }
@@ -842,8 +842,8 @@ public
         return InfoRequest.magic_email_for_id(prefix_part, self.id)
     end
 
-    def InfoRequest.magic_email_for_id(prefix_part, id) 
-        magic_email = MySociety::Config.get("INCOMING_EMAIL_PREFIX", "") 
+    def InfoRequest.magic_email_for_id(prefix_part, id)
+        magic_email = MySociety::Config.get("INCOMING_EMAIL_PREFIX", "")
         magic_email += prefix_part + id.to_s
         magic_email += "-" + InfoRequest.hash_from_id(id)
         magic_email += "@" + MySociety::Config.get("INCOMING_EMAIL_DOMAIN", "localhost")
@@ -888,14 +888,14 @@ public
     def InfoRequest.find_old_unclassified(extra_params={})
         last_response_created_at = last_event_time_clause('response')
         age = extra_params[:age_in_days] ? extra_params[:age_in_days].days : OLD_AGE_IN_DAYS
-        params = {:select => "*, #{last_response_created_at} as last_response_time", 
-                  :conditions => ["awaiting_description = ? and #{last_response_created_at} < ? and url_title != 'holding_pen'", 
-                                 true, Time.now() - age], 
+        params = {:select => "*, #{last_response_created_at} as last_response_time",
+                  :conditions => ["awaiting_description = ? and #{last_response_created_at} < ? and url_title != 'holding_pen'",
+                                 true, Time.now() - age],
                                  :order => "last_response_time"}
         params[:limit] = extra_params[:limit] if extra_params[:limit]
         params[:include] = extra_params[:include] if extra_params[:include]
         if extra_params[:order]
-            params[:order] = extra_params[:order] 
+            params[:order] = extra_params[:order]
             params.delete(:select)
         end
         if extra_params[:conditions]
@@ -905,7 +905,7 @@ public
         end
         find(:all, params)
     end
-    
+
     def is_old_unclassified?
         return false if !awaiting_description
         return false if url_title == 'holding_pen'
@@ -924,7 +924,7 @@ public
                 next
             end
             incoming_message.safe_mail_from
-            
+
             email = OutgoingMailer.email_for_followup(self, incoming_message)
             name = OutgoingMailer.name_for_followup(self, incoming_message)
 
@@ -953,7 +953,7 @@ public
             end
         end
     end
-    
+
     def apply_censor_rules_to_binary!(binary)
         for censor_rule in self.censor_rules
             censor_rule.apply_to_binary!(binary)
@@ -964,7 +964,7 @@ public
             end
         end
     end
-    
+
     def is_owning_user?(user)
         !user.nil? && (user.id == user_id || user.owns_every_request?)
     end
@@ -973,10 +973,10 @@ public
     end
 
     def user_can_view?(user)
-        if self.prominence == 'hidden' 
+        if self.prominence == 'hidden'
             return User.view_hidden_requests?(user)
         end
-        if self.prominence == 'requester_only' 
+        if self.prominence == 'requester_only'
             return self.is_owning_user?(user)
         end
         return true
@@ -1017,7 +1017,7 @@ public
     end
 
     def json_for_api(deep)
-        ret = { 
+        ret = {
             :id => self.id,
             :url_title => self.url_title,
             :title => self.title,
@@ -1042,6 +1042,10 @@ public
         end
         return ret
     end
+
+    def for_admin_column
+      self.class.content_columns.map{|c| c unless %w(title url_title).include?(c.name) }.compact.each do |column|
+        yield(column.human_name, self.send(column.name), column.type.to_s, column.name)
+      end
+    end
 end
-
-

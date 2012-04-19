@@ -1,42 +1,56 @@
-<% @title = "User - " + h(@admin_user.name) %>
+<% @title = _("User - {{name}}", :name => h(@admin_user.name)) %>
 
 <h1><%=@title%></h1>
 
 <% if @admin_user.profile_photo %>
-    <div class="user_photo_on_admin">
-        <% form_tag '../clear_profile_photo/' + @admin_user.id.to_s, :multipart => true do %>
-            <img src="<%= main_url(get_profile_photo_url(:url_name => @admin_user.url_name, :only_path => true)) %>">
-            <br>
-            <%= submit_tag "Clear photo" %>
-        <% end %>
-    </div>
+  <div class="user_photo_on_admin">
+    <% form_tag "../clear_profile_photo/#{@admin_user.id}", :multipart => true, :class => "form" do %>
+      <img src="<%= main_url(get_profile_photo_url(:url_name => @admin_user.url_name, :only_path => true)) %>">
+      <br>
+      <%= submit_tag "Clear photo", :class => "btn btn-info" %>
+    <% end %>
+  </div>
 <% end %>
 
-
-<div>
-<strong>Id:</strong> <%= @admin_user.id%> <br>
-<% for column in User.content_columns %>
-    <strong><%= column.human_name %>:</strong> 
-    <% if column.name == 'email' %>
-        <a href="mailto:<%=h @admin_user.email %>"><%=h @admin_user.email%></a>
-    <% elsif column.name == 'email_bounce_message' %>
-      <% if !@admin_user.email_bounce_message.empty? %>
-          <a href="../show_bounce_message/<%= @admin_user.id.to_s %>">See bounce message</a>
-      <% end %>
-    <% else %>
-        <%=h @admin_user.send(column.name) %>
+<table class="table table-striped">
+  <tbody>
+    <tr>
+      <td>
+        <b><%=_("Id")%></b>
+      </td>
+      <td>
+        <%=@admin_user.id%>
+      </td>
+    </tr>
+    <% @admin_user.for_admin_column(:complete => true) do |name, value, type, column_name| %>
+      <tr>
+        <td>
+          <b><%=_(name)%></b>
+        </td>
+        <td>
+          <% if column_name == 'email' %>
+            <%=link_to @admin_user.email, "mailto:#{h @admin_user.email}"%>
+          <% elsif column_name == 'email_bounce_message' %>
+            <% unless @admin_user.email_bounce_message.empty? %>
+              <%= link_to _("See bounce message"), "../show_bounce_message/#{@admin_user.id}"%>
+            <% end %>
+          <% else %>
+            <%=admin_value(value)%>
+          <% end %>
+          <% if column_name == 'email_bounced_at' && !@admin_user.email_bounced_at.nil? %>
+            <% form_tag "../clear_bounce/#{@admin_user.id}", :class => "form form-inline" do %>
+              <input type="submit" name="action" value="Clear bounce" class="btn btn-info">
+            <% end %>
+          <% end %>
+        </td>
+      </tr>
     <% end %>
-    <% if column.name == 'email_bounced_at' && !@admin_user.email_bounced_at.nil? %>
-      <form action="../clear_bounce/<%= @admin_user.id.to_s %>" style="display: inline;"><input type="submit" name="action" value="Clear bounce"></form>
-    <% end %>
-    <br>
-<% end %>
-</div>
+  </tbody>
+</table>
 
-<p>
-    <%= link_to 'Public page', main_url(user_url(@admin_user)) %>
-    | <%= link_to 'Edit', '../edit/' + @admin_user.id.to_s %>
-    | <%= link_to 'Log in as this user', '../login_as/' + @admin_user.id.to_s %> (also confirms their email)
+<%= link_to 'Edit', '../edit/' + @admin_user.id.to_s, :class => "btn btn-primary" %>
+<%= link_to 'Public page', main_url(user_url(@admin_user)), :class => "btn" %>
+<%= link_to "Log in as #{@admin_user.name}", "../login_as/#{@admin_user.id}", :class => "btn btn-info" %> <span class="label label-warning">also confirms their email</span>
 </p>
 
 <h2>Track things</h2>
@@ -51,7 +65,7 @@
     <th><%= column.human_name %></th>
   <% end %>
   </tr>
-  
+
 <% for post_redirect in @admin_user.post_redirects.find(:all, :order => 'created_at desc') %>
   <tr class="<%= cycle('odd', 'even') %>">
   <td><%=h post_redirect.id %></td>

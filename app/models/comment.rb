@@ -84,7 +84,9 @@ class Comment < ActiveRecord::Base
             return Comment.find(:first, :conditions => [ "info_request_id = ? and body = ?", info_request_id, body ])
         end
     end
-
+  def for_admin_column
+    self.class.content_columns.each do |column|
+      yield(column.human_name, self.send(column.name), column.type.to_s, column.name)
+    end
+  end
 end
-
-
