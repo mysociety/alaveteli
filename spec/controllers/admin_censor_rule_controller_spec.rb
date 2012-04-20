@@ -6,13 +6,13 @@ describe AdminCensorRuleController, "when making censor rules from the admin int
   
     it "should create a censor rule and purge the corresponding request from varnish" do
         ir = info_requests(:fancy_dog_request) 
-        ir.should_receive(:purge_in_cache)
         post :create, :censor_rule => {
                          :text => "meat",
                          :replacement => "tofu",
                          :last_edit_comment => "none",
                          :info_request => ir
         }
+        PurgeRequest.all().first.model_id.should == ir.id
     end
 
 

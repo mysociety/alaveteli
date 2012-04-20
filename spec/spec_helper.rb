@@ -15,7 +15,7 @@ config['REPLY_LATE_AFTER_DAYS'] = 20
 
 # register a fake Varnish server
 require 'fakeweb'
-FakeWeb.register_uri(:get, %r|varnish|, :body => "OK")
+FakeWeb.register_uri(:purge, %r|varnish.localdomain|, :body => "OK")
 
 # Uncomment the next line to use webrat's matchers
 #require 'webrat/integrations/rspec-rails'

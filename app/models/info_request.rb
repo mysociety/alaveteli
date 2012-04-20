@@ -453,7 +453,6 @@ public
     # An annotation (comment) is made
     def add_comment(body, user)
         comment = Comment.new
-
         ActiveRecord::Base.transaction do
             comment.body = body
             comment.user = user
@@ -1043,18 +1042,14 @@ public
         return ret
     end
 
-    before_save(:mark_view_is_dirty)
-    def mark_view_is_dirty
-        self.view_is_dirty = true
-        self.save!
-    end
-
-    def self.purge_varnish
-        for info_request in InfoRequest.find_by_view_is_dirty(true)
-            url = "/request/#{info_request.url_title}"
-            purge(url)
-            info_request.view_is_dirty = true
-            info_request.save!
+    before_save :purge_in_cache
+    def purge_in_cache
+        if !MySociety::Config.get('VARNISH_HOST').nil? && !self.id.nil?
+            # we only do this for existing info_requests (new ones have a nil id)
+            req = PurgeRequest.new(:url => "/request/#{self.url_title}",
+                                   :model => self.class.base_class.to_s,
+                                   :model_id => self.id)
+            req.save()
         end
     end
 end

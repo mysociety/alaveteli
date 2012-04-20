@@ -121,55 +121,50 @@ describe RequestController, "when changing things that appear on the request pag
 
     integrate_views
 
-    before(:each) do
-        FakeWeb.last_request = nil
-    end
-
     it "should purge the downstream cache when mail is received" do
         ir = info_requests(:fancy_dog_request)
         receive_incoming_mail('incoming-request-plain.email', ir.incoming_email)
-        FakeWeb.last_request.path.should include(ir.url_title)
+        PurgeRequest.all().first.model_id.should == ir.id
     end
     it "should purge the downstream cache when a comment is added" do
         ir = info_requests(:fancy_dog_request)
-        ir.should_receive(:purge_in_cache)
         new_comment = info_requests(:fancy_dog_request).add_comment('I also love making annotations.', users(:bob_smith_user))
+        PurgeRequest.all().first.model_id.should == ir.id
     end
     it "should purge the downstream cache when a followup is made" do
         session[:user_id] = users(:bob_smith_user).id
         ir = info_requests(:fancy_dog_request)
         post :show_response, :outgoing_message => { :body => "What a useless response! You suck.", :what_doing => 'normal_sort' }, :id => ir.id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_followup => 1
-        FakeWeb.last_request.path.should include(ir.url_title)
+        PurgeRequest.all().first.model_id.should == ir.id
     end
     it "should purge the downstream cache when the request is categorised" do
         ir = info_requests(:fancy_dog_request)
-        ir.should_receive(:purge_in_cache)
         ir.set_described_state('waiting_clarification')
+        PurgeRequest.all().first.model_id.should == ir.id
     end
     it "should purge the downstream cache when the authority data is changed" do
         ir = info_requests(:fancy_dog_request)
         ir.public_body.name = "Something new"
         ir.public_body.save!
-        FakeWeb.last_request.path.should include(ir.url_title)
+        PurgeRequest.all().map{|x| x.model_id}.should =~ ir.public_body.info_requests.map{|x| x.id}
     end
     it "should purge the downstream cache when the user details are changed" do
         ir = info_requests(:fancy_dog_request)
         ir.user.name = "Something new"
-        FakeWeb.last_request.should == nil
         ir.user.save!
-        FakeWeb.last_request.path.should include(ir.url_title)
+        PurgeRequest.all().map{|x| x.model_id}.should =~ ir.user.info_requests.map{|x| x.id}
     end
     it "should purge the downstream cache when censor rules have changed" do
         # XXX really, CensorRules should execute expiry logic as part
         # of the after_save of the model. Currently this is part of
-        # the AdminController logic, so must be tested from
+        # the AdminCensorRuleController logic, so must be tested from
         # there. Leaving this stub test in place as a reminder        
     end
     it "should purge the downstream cache when something is hidden by an admin" do
         ir = info_requests(:fancy_dog_request)
-        ir.should_receive(:purge_in_cache)
         ir.prominence = 'hidden'
         ir.save!
+        PurgeRequest.all().first.model_id.should == ir.id
     end
 end
 

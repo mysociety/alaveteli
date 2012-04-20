@@ -9,10 +9,16 @@
 
 backend default {
     .host = "127.0.0.1";
-    .port = "80";
+    .port = "3000";
     .connect_timeout = 600s;
     .first_byte_timeout = 600s;
     .between_bytes_timeout = 600s;
+}
+
+// set the servers alaveteli can issue a purge from
+acl purge {
+   "localhost";
+   "127.0.0.1";
 }
 
 sub vcl_recv {
@@ -54,12 +60,13 @@ sub vcl_recv {
        req.request != "HEAD" && 
        req.request != "POST" &&
        req.request != "PUT" &&
+       req.request != "PURGE" &&
        req.request != "DELETE" ) {
         # We don't allow any other methods.
         error 405 "Method Not Allowed";
     }
 
-    if (req.request != "GET" && req.request != "HEAD") {
+    if (req.request != "GET" && req.request != "HEAD" && req.request != "PURGE") {
         /* We only deal with GET and HEAD by default, the rest get passed direct to backend */
         return (pass);
     }
@@ -73,15 +80,21 @@ sub vcl_recv {
     if (req.http.Authorization || req.http.Cookie) {
         return (pass);
     }
- 
     # Let's have a little grace
     set req.grace = 30s;
+    # Handle PURGE requests
+    if (req.request == "PURGE") {
+      if (!client.ip ~ purge) {
+         error 405 "Not allowed.";
+      }
+      ban("obj.http.x-url ~ " + req.url);
+      error 200 "Banned";
+    }
     return (lookup);
 }
 
-
 sub vcl_fetch {
-
+    set beresp.http.x-url = req.url;
     if (req.url ~ "\.(png|gif|jpg|jpeg|swf|css|js|rdf|ico|txt)(\?.*|)$") {
     # Ignore backend headers..
         remove beresp.http.set-Cookie;
@@ -94,3 +107,4 @@ sub vcl_fetch {
         return (deliver);
     }
 }
+
