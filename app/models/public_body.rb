@@ -43,7 +43,7 @@ class PublicBody < ActiveRecord::Base
     has_many :track_things, :order => 'created_at desc'
 
     has_tag_string
-
+   
     translates :name, :short_name, :request_email, :url_name, :notes, :first_letter, :publication_scheme
 
     # Convenience methods for creating/editing translations via forms
@@ -309,7 +309,8 @@ class PublicBody < ActiveRecord::Base
     # The "internal admin" is a special body for internal use.
     def PublicBody.internal_admin_body
         PublicBody.with_locale(I18n.default_locale) do
-            pb = PublicBody.find(:all, :conditions => {:url_name => "internal_admin_authority"})
+            pb = PublicBody.find(:all, :conditions => {:url_name => "internal_admin_authority"}).first
+            #pb = PublicBody.find_by_url_name("internal_admin_authority")
             if pb.nil?
                 pb = PublicBody.new(
                  :name => 'Internal admin authority',
@@ -352,8 +353,8 @@ class PublicBody < ActiveRecord::Base
                         # Hide InternalAdminBody from import notes
                         next if existing_body.id == PublicBody.internal_admin_body.id
                         
-                        bodies_by_name[existing_body.name] = existing_body
-                        set_of_existing.add(existing_body.name)
+                        bodies_by_name[existing_body[:name]] = existing_body
+                        set_of_existing.add(existing_body[:name])
                     end
                 end
                 
