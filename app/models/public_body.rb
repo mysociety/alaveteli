@@ -43,7 +43,7 @@ class PublicBody < ActiveRecord::Base
     has_many :track_things, :order => 'created_at desc'
 
     has_tag_string
-
+   
     translates :name, :short_name, :request_email, :url_name, :notes, :first_letter, :publication_scheme
 
     # Convenience methods for creating/editing translations via forms
@@ -282,19 +282,11 @@ class PublicBody < ActiveRecord::Base
     # Guess home page from the request email, or use explicit override, or nil
     # if not known.
     def calculated_home_page
-        # manual override for ones we calculate wrongly
-        if self.home_page != ''
-            return self.home_page
+        if home_page && !home_page.empty?
+            home_page[URI::regexp(%w(http https))] ? home_page : "http://#{home_page}"
+        elsif request_email_domain
+            "http://www.#{request_email_domain}"
         end
-
-        # extract the domain name from the FOI request email
-        url = self.request_email_domain
-        if url.nil?
-            return nil
-        end
-
-        # add standard URL prefix
-        return "http://www." + url
     end
 
     # Are all requests to this body under the Environmental Information Regulations?
@@ -317,7 +309,8 @@ class PublicBody < ActiveRecord::Base
     # The "internal admin" is a special body for internal use.
     def PublicBody.internal_admin_body
         PublicBody.with_locale(I18n.default_locale) do
-            pb = PublicBody.find_by_url_name("internal_admin_authority")
+            pb = PublicBody.find(:all, :conditions => {:url_name => "internal_admin_authority"}).first
+            #pb = PublicBody.find_by_url_name("internal_admin_authority")
             if pb.nil?
                 pb = PublicBody.new(
                  :name => 'Internal admin authority',
@@ -360,8 +353,8 @@ class PublicBody < ActiveRecord::Base
                         # Hide InternalAdminBody from import notes
                         next if existing_body.id == PublicBody.internal_admin_body.id
                         
-                        bodies_by_name[existing_body.name] = existing_body
-                        set_of_existing.add(existing_body.name)
+                        bodies_by_name[existing_body[:name]] = existing_body
+                        set_of_existing.add(existing_body[:name])
                     end
                 end
                 

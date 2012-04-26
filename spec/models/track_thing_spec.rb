@@ -36,7 +36,7 @@ describe TrackThing, "when tracking changes" do
 
     it "will make some sane descriptions of search-based tracks" do
         tests = [['bob variety:user', "users matching text 'bob'"],
-                 ['bob (variety:sent OR variety:followup_sent OR variety:response OR variety:comment) (latest_status:successful OR latest_status:partially_successful OR latest_status:rejected OR latest_status:not_held)', "requests which are successful or unsuccessful or comments matching text 'bob'"],
+                 ['bob (variety:sent OR variety:followup_sent OR variety:response OR variety:comment) (latest_status:successful OR latest_status:partially_successful OR latest_status:rejected OR latest_status:not_held)', "requests which are unsuccessful or successful or comments matching text 'bob'"],
                  ['(latest_status:waiting_response OR latest_status:waiting_clarification OR waiting_classification:true)', 'requests which are awaiting a response']]
         for query, description in tests
             track_thing = TrackThing.create_track_for_search_query(query)

@@ -74,10 +74,9 @@ class AdminUserController < AdminController
     def login_as
         @admin_user = User.find(params[:id]) # check user does exist
 
-        post_redirect = PostRedirect.new( :uri => main_url(user_url(@admin_user)), :user_id => @admin_user.id)
+        post_redirect = PostRedirect.new( :uri => main_url(user_url(@admin_user)), :user_id => @admin_user.id, :circumstance => "login_as" )
         post_redirect.save!
         url = main_url(confirm_url(:email_token => post_redirect.email_token, :only_path => true))
-        session[:user_id] = nil # Log out current (usually admin) user, so we get logged in as the other user
 
         redirect_to url
     end

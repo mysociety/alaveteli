@@ -17,3 +17,7 @@ TAGS
 /files/
 /public/download
 /public/*theme
+/vendor/bundle
+.bundle
+.rmvrc
+config/alert-tracks-debian.ugly

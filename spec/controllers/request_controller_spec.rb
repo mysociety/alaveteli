@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-require 'json'
-
 describe RequestController, "when listing recent requests" do
 
     before(:each) do
@@ -222,7 +220,6 @@ describe RequestController, "when showing one request" do
             get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => ['hello.txt'], :skip_cache => 1
             response.content_type.should == "text/plain"
             response.should have_text(/Second hello/)
-            
             get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 3, :file_name => ['hello.txt'], :skip_cache => 1
             response.content_type.should == "text/plain"
             response.should have_text(/First hello/)
@@ -349,6 +346,15 @@ describe RequestController, "when showing one request" do
             get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => ['hello.qwglhm'], :skip_cache => 1
             response.content_type.should == "application/octet-stream"
             response.should have_text(/an unusual sort of file/)
+        end
+
+        it "should apply a content-disposition header" do
+            ir = info_requests(:fancy_dog_request)
+            receive_incoming_mail('incoming-request-attachment-unknown-extension.email', ir.incoming_email)
+            ir.reload            
+            get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => ['hello.qwglhm'], :skip_cache => 1
+            response.headers.should include("Content-Disposition")
+            response.headers["Content-Disposition"].should include('hello.qwglhm')
         end
 
         it "should not download attachments with wrong file name" do
@@ -631,7 +637,7 @@ describe RequestController, "when creating a new request" do
 
     it "should accept a public body parameter" do
         get :new, :public_body_id => @body.id
-        assigns[:info_request].public_body.should == @body    
+        assigns[:info_request].public_body.should == @body
         response.should render_template('new')
     end
 
@@ -1737,7 +1743,30 @@ describe RequestController, "when doing type ahead searches" do
         get :search_typeahead, :q => "dog -chicken"
         assigns[:xapian_requests].results.size.should == 1
     end
+end
 
+describe RequestController, "when showing similar requests" do
+    integrate_views
+
+    it "should work" do
+        get :similar, :url_title => info_requests(:badger_request).url_title
+        response.should render_template("request/similar")
+        assigns[:info_request].should == info_requests(:badger_request)
+    end
+
+    it "should show similar requests" do
+        badger_request = info_requests(:badger_request)
+        get :similar, :url_title => badger_request.url_title
+        
+        # Xapian seems to think *all* the requests are similar
+        assigns[:xapian_object].results.map{|x|x[:model].info_request}.should =~ InfoRequest.all.reject {|x| x == badger_request}
+    end
+
+    it "should 404 for non-existent paths" do
+        lambda {
+            get :similar, :url_title => "there_is_really_no_such_path_owNAFkHR"
+        }.should raise_error(ActiveRecord::RecordNotFound)
+    end
 end
 
 

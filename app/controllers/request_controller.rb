@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # app/controllers/request_controller.rb:
 # Show information about one particular request.
 #
@@ -137,6 +138,8 @@ class RequestController < ApplicationController
         @per_page = 25
         @page = (params[:page] || "1").to_i
         @info_request = InfoRequest.find_by_url_title(params[:url_title])
+        raise ActiveRecord::RecordNotFound.new("Request not found") if @info_request.nil?
+        
         if !@info_request.user_can_view?(authenticated_user)
             render :template => 'request/hidden', :status => 410 # gone
             return
@@ -146,7 +149,7 @@ class RequestController < ApplicationController
         
         if (@page > 1)
             @page_desc = " (page " + @page.to_s + ")" 
-        else    
+        else
             @page_desc = ""
         end
     end
@@ -344,7 +347,13 @@ class RequestController < ApplicationController
             return
         end
 
-        @info_request.user = authenticated_user
+        if params[:post_redirect_user]
+            # If an admin has clicked the confirmation link on a users behalf,
+            # we don’t want to reassign the request to the administrator.
+            @info_request.user = params[:post_redirect_user]
+        else
+            @info_request.user = authenticated_user
+        end
         # This automatically saves dependent objects, such as @outgoing_message, in the same transaction
         @info_request.save!
         # XXX send_message needs the database id, so we send after saving, which isn't ideal if the request broke here.
@@ -682,7 +691,7 @@ class RequestController < ApplicationController
 
         # we don't use @attachment.content_type here, as we want same mime type when cached in cache_attachments above
         response.content_type = AlaveteliFileTypes.filename_to_mimetype(params[:file_name].join("/")) || 'application/octet-stream'
-
+        headers["Content-Disposition"] = "attachment; filename=#{params[:file_name]}"
         render :text => @attachment.body
     end
 
@@ -837,7 +846,7 @@ class RequestController < ApplicationController
                                 logger.error("Could not convert info request #{info_request.id} to PDF with command '#{convert_command} #{url} #{tempfile.path}'")
                             end
                             tempfile.close
-                        else                    
+                        else
                             logger.warn("No HTML -> PDF converter found at #{convert_command}")
                         end
                         if !done

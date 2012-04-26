@@ -40,7 +40,7 @@ class RequestMailer < ApplicationMailer
             :filename => "original.eml", :transfer_encoding => '7bit', :content_disposition => 'inline'
         @body = { 
             :info_request => info_request,
-            :contact_email => MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost')     
+            :contact_email => MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost')
         }
     end
 

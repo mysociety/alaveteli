@@ -1,1 +1,0 @@
-_('a translation')
