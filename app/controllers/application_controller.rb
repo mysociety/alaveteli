@@ -178,7 +178,7 @@ class ApplicationController < ActionController::Base
     end
 
     def foi_fragment_cache_path(param)
-        path = File.join(RAILS_ROOT, 'cache', 'views', foi_fragment_cache_part_path(param))
+        path = File.join(Rails.root, 'cache', 'views', foi_fragment_cache_part_path(param))
         max_file_length = 255 - 35 # we subtract 35 because tempfile
                                    # adds on a variable number of
                                    # characters
