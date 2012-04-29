@@ -1,7 +1,7 @@
 # general.yml-example:
 # Example values for the "general" config file.
 #
-# Configuration parameters, in YAML syntax. 
+# Configuration parameters, in YAML syntax.
 #
 # Copy this file to one called "general.yml" in the same directory.  Or
 # have multiple config files and use a symlink to change between them.
@@ -142,3 +142,6 @@ EXCEPTION_NOTIFICATIONS_TO:
 
 # This rate limiting can be turned off per-user via the admin interface
 MAX_REQUESTS_PER_USER_PER_DAY: 6
+
+# Adding a value here will enable Google Analytics on all non-admin pages.
+GA_CODE: ''

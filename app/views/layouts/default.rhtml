@@ -154,6 +154,20 @@
 <br />
 <input type="text">
 </div>
+    <%
+      ga_code = MySociety::Config.get('GA_CODE', '')
+      unless ga_code.empty?
+    %>
+    <script>
+      var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+      document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script>
+      var pageTracker = _gat._getTracker("<%=ga_code%>");
+      pageTracker._trackPageview();
+    </script>
+    <% end %>
+
     </body>
 </html>
 
