@@ -1,0 +1,513 @@
+Delivered-To: mysociety.robin@gmail.com
+Received: by 10.216.93.2 with SMTP id k2csp412wef;
+        Sat, 28 Apr 2012 15:10:07 -0700 (PDT)
+Received: by 10.216.200.90 with SMTP id y68mr994412wen.49.1335651006883;
+        Sat, 28 Apr 2012 15:10:06 -0700 (PDT)
+Return-Path: <MAILER-DAEMON@wildfire.ukcod.org.uk>
+Received: from wildfire.ukcod.org.uk (wildfire.ukcod.org.uk. [89.238.145.74])
+        by mx.google.com with ESMTPS id bw9si8451394wib.28.2012.04.28.15.10.06
+        (version=TLSv1/SSLv3 cipher=OTHER);
+        Sat, 28 Apr 2012 15:10:06 -0700 (PDT)
+Received-SPF: pass (google.com: best guess record for domain of MAILER-DAEMON@wildfire.ukcod.org.uk designates 89.238.145.74 as permitted sender) client-ip=89.238.145.74;
+Authentication-Results: mx.google.com; spf=pass (google.com: best guess record for domain of MAILER-DAEMON@wildfire.ukcod.org.uk designates 89.238.145.74 as permitted sender) smtp.mail=MAILER-DAEMON@wildfire.ukcod.org.uk
+Received: from foi by wildfire.ukcod.org.uk with local (Exim 4.72)
+	(envelope-from <MAILER-DAEMON@wildfire.ukcod.org.uk>)
+	id 1SOFq3-0002Lx-HQ
+	for team_delivery@whatdotheyknow.com; Sat, 28 Apr 2012 23:09:59 +0100
+Received: from majestic.ukcod.org.uk ([89.238.145.68]:48989)
+	by wildfire.ukcod.org.uk with esmtp (Exim 4.72)
+	id 1SOFq2-0002La-Pq
+	for foi-track@wildfire.ukcod.org.uk; Sat, 28 Apr 2012 23:09:59 +0100
+Received: from mailproxy1.example.co.uk ([93.174.8.200]:65135)
+	by majestic.ukcod.org.uk with esmtp (Exim 4.72)
+	id 1SOFps-0001uQ-4T
+	for track@whatdotheyknow.com; Sat, 28 Apr 2012 23:09:48 +0100
+Message-Id: <f8b79b$go3iov@mailproxy1.example.co.uk>
+X-IronPort-AV: E=Sophos;i="4.75,497,1330905600"; 
+   d="scan'208";a="562154271"
+Received: from unknown (HELO so-itws3.so.ad.example.co.uk) ([10.56.10.5])
+  by mailproxy1.example.co.uk with SMTP; 28 Apr 2012 23:09:37 +0100
+From: Webshield SMTP V4.5 MR3 Mail Service
+Date: Sat Apr 28 23:09:37 2012
+To: <track@whatdotheyknow.com>
+Subject: Returned Mail: Error During Delivery
+
+    ---- Failed Recipients ----
+
+<failed.user@example.co.uk>
+Mail Loop Detected
+
+
+Requested action aborted: Mail loop detected
+
+    ---- Contents of the undelivered mail ----
+
+Received: From mailproxy1.example.co.uk ([192.168.80.80]) by so-itws3.so.ad.example.co.uk (WebShield SMTP v4.5 MR3)
+	id 1335650976813; Sat, 28 Apr 2012 23:09:36 +0100
+X-IronPort-AV: E=Sophos;i="4.75,497,1330905600"; 
+   d="scan'208";a="562154267"
+Received: from unknown (HELO so-itws3.so.ad.example.co.uk) ([10.56.10.5])
+  by mailproxy1.example.co.uk with SMTP; 28 Apr 2012 23:09:36 +0100
+Received: From mailproxy1.example.co.uk ([192.168.80.80]) by so-itws3.so.ad.example.co.uk (WebShield SMTP v4.5 MR3)
+	id 1335650976250; Sat, 28 Apr 2012 23:09:36 +0100
+X-IronPort-AV: E=Sophos;i="4.75,497,1330905600"; 
+   d="scan'208";a="562154266"
+Received: from unknown (HELO so-itws3.so.ad.example.co.uk) ([10.56.10.5])
+  by mailproxy1.example.co.uk with SMTP; 28 Apr 2012 23:09:36 +0100
+Received: From mailproxy1.example.co.uk ([192.168.80.80]) by so-itws3.so.ad.example.co.uk (WebShield SMTP v4.5 MR3)
+	id 1335650975812; Sat, 28 Apr 2012 23:09:35 +0100
+X-IronPort-AV: E=Sophos;i="4.75,497,1330905600"; 
+   d="scan'208";a="562154264"
+Received: from unknown (HELO so-itws3.so.ad.example.co.uk) ([10.56.10.5])
+  by mailproxy1.example.co.uk with SMTP; 28 Apr 2012 23:09:35 +0100
+Received: From mailproxy1.example.co.uk ([192.168.80.80]) by so-itws3.so.ad.example.co.uk (WebShield SMTP v4.5 MR3)
+	id 1335650975250; Sat, 28 Apr 2012 23:09:35 +0100
+X-IronPort-AV: E=Sophos;i="4.75,497,1330905600"; 
+   d="scan'208";a="562154263"
+Received: from unknown (HELO so-itws3.so.ad.example.co.uk) ([10.56.10.5])
+  by mailproxy1.example.co.uk with SMTP; 28 Apr 2012 23:09:35 +0100
+Received: From mailproxy1.example.co.uk ([192.168.80.80]) by so-itws3.so.ad.example.co.uk (WebShield SMTP v4.5 MR3)
+	id 1335650974469; Sat, 28 Apr 2012 23:09:34 +0100
+X-IronPort-AV: E=Sophos;i="4.75,497,1330905600"; 
+   d="scan'208";a="562154259"
+Received: from unknown (HELO so-itws3.so.ad.example.co.uk) ([10.56.10.5])
+  by mailproxy1.example.co.uk with SMTP; 28 Apr 2012 23:09:34 +0100
+Received: From mailproxy1.example.co.uk ([192.168.80.80]) by so-itws3.so.ad.example.co.uk (WebShield SMTP v4.5 MR3)
+	id 1335650973250; Sat, 28 Apr 2012 23:09:33 +0100
+X-IronPort-AV: E=Sophos;i="4.75,497,1330905600"; 
+   d="scan'208";a="562154255"
+Received: from unknown (HELO so-itws3.so.ad.example.co.uk) ([10.56.10.5])
+  by mailproxy1.example.co.uk with SMTP; 28 Apr 2012 23:09:33 +0100
+Received: From mailproxy1.example.co.uk ([192.168.80.80]) by so-itws3.so.ad.example.co.uk (WebShield SMTP v4.5 MR3)
+	id 1335650972250; Sat, 28 Apr 2012 23:09:32 +0100
+X-IronPort-AV: E=Sophos;i="4.75,497,1330905600"; 
+   d="scan'208";a="562154253"
+Received: from unknown (HELO so-itws3.so.ad.example.co.uk) ([10.56.10.5])
+  by mailproxy1.example.co.uk with SMTP; 28 Apr 2012 23:09:32 +0100
+Received: From mailproxy1.example.co.uk ([192.168.80.80]) by so-itws3.so.ad.example.co.uk (WebShield SMTP v4.5 MR3)
+	id 1335650971250; Sat, 28 Apr 2012 23:09:31 +0100
+X-IronPort-AV: E=Sophos;i="4.75,497,1330905600"; 
+   d="scan'208";a="562154250"
+Received: from unknown (HELO so-itws3.so.ad.example.co.uk) ([10.56.10.5])
+  by mailproxy1.example.co.uk with SMTP; 28 Apr 2012 23:09:31 +0100
+Received: From mailproxy1.example.co.uk ([192.168.80.80]) by so-itws3.so.ad.example.co.uk (WebShield SMTP v4.5 MR3)
+	id 1335650970797; Sat, 28 Apr 2012 23:09:30 +0100
+X-IronPort-AV: E=Sophos;i="4.75,497,1330905600"; 
+   d="scan'208";a="562154247"
+Received: from unknown (HELO so-itws3.so.ad.example.co.uk) ([10.56.10.5])
+  by mailproxy1.example.co.uk with SMTP; 28 Apr 2012 23:09:30 +0100
+Received: From mailproxy1.example.co.uk ([192.168.80.80]) by so-itws3.so.ad.example.co.uk (WebShield SMTP v4.5 MR3)
+	id 1335650970250; Sat, 28 Apr 2012 23:09:30 +0100
+X-IronPort-AV: E=Sophos;i="4.75,497,1330905600"; 
+   d="scan'208";a="562154246"
+Received: from unknown (HELO so-itws3.so.ad.example.co.uk) ([10.56.10.5])
+  by mailproxy1.example.co.uk with SMTP; 28 Apr 2012 23:09:30 +0100
+Received: From mailproxy1.example.co.uk ([192.168.80.80]) by so-itws3.so.ad.example.co.uk (WebShield SMTP v4.5 MR3)
+	id 1335650969797; Sat, 28 Apr 2012 23:09:29 +0100
+X-IronPort-AV: E=Sophos;i="4.75,497,1330905600"; 
+   d="scan'208";a="562154244"
+Received: from unknown (HELO so-itws3.so.ad.example.co.uk) ([10.56.10.5])
+  by mailproxy1.example.co.uk with SMTP; 28 Apr 2012 23:09:29 +0100
+Received: From mailproxy1.example.co.uk ([192.168.80.80]) by so-itws3.so.ad.example.co.uk (WebShield SMTP v4.5 MR3)
+	id 1335650969250; Sat, 28 Apr 2012 23:09:29 +0100
+X-IronPort-AV: E=Sophos;i="4.75,497,1330905600"; 
+   d="scan'208";a="562154243"
+Received: from unknown (HELO so-itws3.so.ad.example.co.uk) ([10.56.10.5])
+  by mailproxy1.example.co.uk with SMTP; 28 Apr 2012 23:09:29 +0100
+Received: From mailproxy1.example.co.uk ([192.168.80.80]) by so-itws3.so.ad.example.co.uk (WebShield SMTP v4.5 MR3)
+	id 1335650968250; Sat, 28 Apr 2012 23:09:28 +0100
+X-IronPort-AV: E=Sophos;i="4.75,497,1330905600"; 
+   d="scan'208";a="562154241"
+Received: from unknown (HELO so-itws3.so.ad.example.co.uk) ([10.56.10.5])
+  by mailproxy1.example.co.uk with SMTP; 28 Apr 2012 23:09:28 +0100
+Received: From mailproxy1.example.co.uk ([192.168.80.80]) by so-itws3.so.ad.example.co.uk (WebShield SMTP v4.5 MR3)
+	id 1335650967250; Sat, 28 Apr 2012 23:09:27 +0100
+X-IronPort-AV: E=Sophos;i="4.75,497,1330905600"; 
+   d="scan'208";a="562154238"
+Received: from unknown (HELO so-itws3.so.ad.example.co.uk) ([10.56.10.5])
+  by mailproxy1.example.co.uk with SMTP; 28 Apr 2012 23:09:27 +0100
+Received: From mailproxy1.example.co.uk ([192.168.80.80]) by so-itws3.so.ad.example.co.uk (WebShield SMTP v4.5 MR3)
+	id 1335650966250; Sat, 28 Apr 2012 23:09:26 +0100
+X-IronPort-AV: E=Sophos;i="4.75,497,1330905600"; 
+   d="scan'208";a="562154236"
+Received: from unknown (HELO so-itws3.so.ad.example.co.uk) ([10.56.10.5])
+  by mailproxy1.example.co.uk with SMTP; 28 Apr 2012 23:09:26 +0100
+Received: From mailproxy1.example.co.uk ([192.168.80.80]) by so-itws3.so.ad.example.co.uk (WebShield SMTP v4.5 MR3)
+	id 1335650965828; Sat, 28 Apr 2012 23:09:25 +0100
+X-IronPort-AV: E=Sophos;i="4.75,497,1330905600"; 
+   d="scan'208";a="562154235"
+Received: from unknown (HELO so-itws3.so.ad.example.co.uk) ([10.56.10.5])
+  by mailproxy1.example.co.uk with SMTP; 28 Apr 2012 23:09:25 +0100
+Received: From mailproxy1.example.co.uk ([192.168.80.80]) by so-itws3.so.ad.example.co.uk (WebShield SMTP v4.5 MR3)
+	id 1335650965250; Sat, 28 Apr 2012 23:09:25 +0100
+X-IronPort-AV: E=Sophos;i="4.75,497,1330905600"; 
+   d="scan'208";a="562154234"
+Received: from unknown (HELO so-itws3.so.ad.example.co.uk) ([10.56.10.5])
+  by mailproxy1.example.co.uk with SMTP; 28 Apr 2012 23:09:25 +0100
+Received: From mailproxy1.example.co.uk ([192.168.80.80]) by so-itws3.so.ad.example.co.uk (WebShield SMTP v4.5 MR3)
+	id 1335650964781; Sat, 28 Apr 2012 23:09:24 +0100
+X-IronPort-AV: E=Sophos;i="4.75,497,1330905600"; 
+   d="scan'208";a="562154233"
+Received: from unknown (HELO so-itws3.so.ad.example.co.uk) ([10.56.10.5])
+  by mailproxy1.example.co.uk with SMTP; 28 Apr 2012 23:09:24 +0100
+Received: From mailproxy1.example.co.uk ([192.168.80.80]) by so-itws3.so.ad.example.co.uk (WebShield SMTP v4.5 MR3)
+	id 1335650964250; Sat, 28 Apr 2012 23:09:24 +0100
+X-IronPort-AV: E=Sophos;i="4.75,497,1330905600"; 
+   d="scan'208";a="562154231"
+Received: from unknown (HELO so-itws3.so.ad.example.co.uk) ([10.56.10.5])
+  by mailproxy1.example.co.uk with SMTP; 28 Apr 2012 23:09:24 +0100
+Received: From mailproxy1.example.co.uk ([192.168.80.80]) by so-itws3.so.ad.example.co.uk (WebShield SMTP v4.5 MR3)
+	id 1335650963281; Sat, 28 Apr 2012 23:09:23 +0100
+X-IronPort-AV: E=Sophos;i="4.75,497,1330905600"; 
+   d="scan'208";a="562154222"
+Received: from unknown (HELO so-itws3.so.ad.example.co.uk) ([10.56.10.5])
+  by mailproxy1.example.co.uk with SMTP; 28 Apr 2012 23:09:18 +0100
+Received: From mailproxy2.example.co.uk ([192.168.80.81]) by so-itws3.so.ad.example.co.uk (WebShield SMTP v4.5 MR3)
+	id 133565095893; Sat, 28 Apr 2012 23:09:18 +0100
+X-SBRS: 2.9
+X-SG: DEFAULT
+X-IronPort-Anti-Spam-Filtered: true
+X-IronPort-Anti-Spam-Result: AnQDAGtpnE9Z7pFKgWdsb2JhbAA8B4Mpgj+sMSIBARYmJ4F8AQgBCwIgJhgQAQEVIAYCCQgHDgICAw0sFgsYhUMBAYItARkHpjJSkUqBL4EliDMFB4JeghmBGASMYYEwmxiBUwgLAw
+X-IronPort-AV: E=Sophos;i="4.75,497,1330905600"; 
+   d="scan'208";a="514125909"
+Received: from wildfire.ukcod.org.uk ([89.238.145.74])
+  by mailproxy2.example.co.uk with ESMTP; 28 Apr 2012 23:09:12 +0100
+Received: from foi by wildfire.ukcod.org.uk with local (Exim 4.72)
+	(envelope-from <track@whatdotheyknow.com>)
+	id 1SOFpI-0002Iz-6a
+	for failed.user@example.co.uk; Sat, 28 Apr 2012 23:09:12 +0100
+Message-Id: <E1SOFpI-0002Iz-6a@wildfire.ukcod.org.uk>
+Date: Sat, 28 Apr 2012 23:09:10 +0100
+From: WhatDoTheyKnow <track@whatdotheyknow.com>
+To: Failed User <failed.user@example.co.uk>
+Subject: Your WhatDoTheyKnow email alert
+Mime-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Precedence: bulk
+Auto-Submitted: auto-generated
+
+Successful Freedom of Information requests
+==========================================
+
+-- geographical address for PO Box 1244, Enfield, EN1 9UF --
+Royal Mail Group Limited sent a response to Mr Mahmood (16 March 2012)
+     "Dear Mr Mahmood, Please find attached a response to your recent
+     Freedom of Information Request. Yours Sincerely Kate Fearn Company
+     Secretary's..."
+http://www.whatdotheyknow.com/request/geographical_address_for_po_box_3#incoming-264886
+
+-- Foi About Animal Testin --
+University of Strathclyde sent a response to Mr Jonathon Proctor (27 April 2012)
+     "Dear Mr Proctor, Â  FOI Request Reference â€“ 2012/050 Â  Thank you
+     for your email of 03 April 2012 requesting information under the
+     Freedom of I..."
+http://www.whatdotheyknow.com/request/foi_about_animal_testin#incoming-277502
+
+-- School's Spend on Recruitment Advertising --
+Staffordshire County Council sent a response to Robert Saunders ( 3 April 2012)
+     "Dear Mr Saunders Re: Freedom of Information Act 2000 Thank you for
+     your request for information. We have completed the search of our
+     records and pl..."
+http://www.whatdotheyknow.com/request/schools_spend_on_recruitment_adv_8#incoming-270606
+
+-- WBC - Enforcement Team Dog Mess --
+Wirral Metropolitan Borough Council sent a response to Pete Sheffield (26 April 2012)
+     "Hello Pete Sheffield Â  Thank you for your request below, Wirral
+     Council is able to supply the following recorded information, I
+     have included res..."
+http://www.whatdotheyknow.com/request/wbc_enforcement_team_dog_mess#incoming-277027
+
+-- City Garden Project technical feasibility study --
+Aberdeen City Council sent a response to Kenneth Watt (24 April 2012)
+     "Dear Mr Watt Thank you for your information request of 17 April
+     2012, made under the Freedom of Information (Scotland) Act 2002
+     (FOISA). Aberdeen C..."
+http://www.whatdotheyknow.com/request/city_garden_project_technical_fe#incoming-276087
+
+-- Government grant --
+Lambeth Borough Council sent a response to Ed Clarke (17 April 2012)
+     "Dear Ed Clarke, Thank you for your FOI request under reference
+     156969 Please accept my apologies for the late response. You asked
+     " What was the to..."
+http://www.whatdotheyknow.com/request/government_grant#incoming-274144
+
+-- Advertising Policy --
+Humber Bridge Board sent a response to Mr. A. Wilson (24 April 2012)
+     "Dear Mr Wilson Thank you for your email of 23rd April 2012. As the
+     Humber Bridge Board is not a Public Body it is not formally subject
+     to the Freedo..."
+http://www.whatdotheyknow.com/request/advertising_policy#incoming-276348
+
+-- Number of roads/estates/areas in the process of being adopted by Oxfordshire County Council --
+Oxfordshire County Council sent a response to Alex Lalvani (17 April 2012)
+     "Dear Mr. Lalvani Â  Please find below the definition of an
+     â€˜agreementâ€™ as requested by you further to our response to your
+     Freedom of Information..."
+http://www.whatdotheyknow.com/request/number_of_roadsestatesareas_in_t#incoming-273742
+
+-- Correct Diagnosis of Lyme Disease --
+Health Protection Agency sent a response to jacqui butterworth (24 April 2012)
+     "Dear Ms Butterworth I would like to apologise, for not responding
+     to the last point you raised in your email of 29th March, regarding
+     information y..."
+http://www.whatdotheyknow.com/request/correct_diagnosis_of_lyme_diseas#incoming-276391
+
+-- Genesis --
+Camden Borough Council sent a response to salim (24 April 2012)
+     "Camden Council - Information request (FOI/EIR) - Housing and adult
+     social care Our reference: 7706354
+     -------------------------------------------..."
+http://www.whatdotheyknow.com/request/genesis#incoming-276075
+
+-- Missing Persons --
+Humberside Police sent a response to Otis Holmes ( 1 March 2012)
+     "Your Ref:Â Â  Our Ref:Â  F-2012-351 Â  1 March 2012 DearÂ MrÂ Holmes,
+     Please find attached my response to your recent Freedom of
+     Information requ..."
+http://www.whatdotheyknow.com/request/missing_persons_2#incoming-260422
+
+-- A reply to my two previous emails --
+Blackpool Borough Council sent a response to Debbie Tomkinson ( 8 December 2011)
+     "Dear Debbie FREEDOM OF INFORMATION ACT 2000 - INFORMATION REQUEST
+     I am writing in response to your email of 09.11.12. You were
+     previously employed..."
+http://www.whatdotheyknow.com/request/a_reply_to_my_two_previous_email#incoming-234255
+
+-- Expenditure of public funds by Police & CPS on persecution of World War 2 Veteran Norman Scarth --
+Ministry of Justice sent a response to Norman Scarth (24 April 2012)
+     "Dear Mr Scarth, Â  Please find herewith our reply to your Freedom
+     of Information request dated 3rd April 2012. Â  Â  Mrs K Smith Â  Mrs
+     K Smith R..."
+http://www.whatdotheyknow.com/request/expenditure_of_public_funds_by_p#incoming-276263
+
+-- Security screening at Edinburgh Airport --
+UK Border Agency sent a response to S Gray ( 5 April 2012)
+     "Sent on behalf of Anne Webber Â  Dear Mr Gray, Â  Please find
+     attached the FOI response. Â  Kind Regards Â  Sue Â  Sue Dinham
+     Cyclame..."
+http://www.whatdotheyknow.com/request/security_screening_at_edinburgh#incoming-271223
+
+-- Inverness business improvement district (BID) --
+Highland Council sent a response to Laurel Bush (27 April 2012)
+     "Dear Mr Bush, Â  Please find attached the response from William
+     Gilfillan, in relation to the above Freedom of Information request
+     dated 26 April..."
+http://www.whatdotheyknow.com/request/inverness_business_improvement_d_2#incoming-277507
+
+-- Waiting times in Contact Applications --
+Children and Family Court Advisory Support Service sent a response to Philip J Measures (24 April 2012)
+     "Dear Sir Please find atatched a response to your recent request
+     for an internal review. Any additioanl information will be provided
+     by 8th May 2012...."
+http://www.whatdotheyknow.com/request/waiting_times_in_contact_applica#incoming-276410
+
+-- Payments to companies on behalf of directors --
+Moorfields Eye Hospital NHS Foundation Trust sent a response to Alex Miller ( 5 March 2012)
+     "Dear Alex Miller Â  In response to your clarification of 8.2.12,
+     payments made to permanent managers Â and directors employed at the
+     Trust Â are pai..."
+http://www.whatdotheyknow.com/request/payments_to_companies_on_behalf#incoming-261184
+
+-- Personal Injury Claims --
+Leeds City Council sent a response to Ben Stanley ( 3 April 2012)
+     "DearÂ Ben Stanley Please accept my apologies regarding the in
+     responding to your request. Please see attached letter in respect
+     of your recent Free..."
+http://www.whatdotheyknow.com/request/personal_injury_claims_10#incoming-270346
+
+-- Beetham Tower West Â£750,000 payment. --
+Liverpool City Council sent a response to A Rudkin (24 April 2012)
+     "Please find attached response Regards, Kevin Symm Senior
+     Information Officer Legal Services Liverpool City Council Municipal
+     Buildings Dale St..."
+http://www.whatdotheyknow.com/request/beetham_tower_west_750000_paymen_3#incoming-276145
+
+-- Housing Benefit statistics --
+Leeds City Council sent a response to Peter Balderston (17 February 2012)
+     "DearÂ Mr Balderston, Please see attached letter in respect of your
+     recent Freedom of Information request. Please contact me if you
+     have any furthe..."
+http://www.whatdotheyknow.com/request/housing_benefit_statistics_19#incoming-255605
+
+-- Board Minutes - Accuracy & Completeness --
+Avon and Wiltshire Mental Health Partnership NHS Trust sent a response to Steven King (24 April 2012)
+     "Dear Mr King, Please see attached correspondence regarding your
+     Freedom of Information request: <<0718 Response Letter.doc>> Yours
+     sincerely,..."
+http://www.whatdotheyknow.com/request/board_minutes_accuracy_completen#incoming-276314
+
+-- Marked vehicle fleet list --
+Gloucestershire Constabulary sent a response to luke (27 April 2012)
+     "Dear Mr Staddon, Gloucestershire Constabulary Freedom of
+     Information request 2012.3788 On the 28th March 2012 you sent a
+     letter constituting a requ..."
+http://www.whatdotheyknow.com/request/marked_vehicle_fleet_list_7#incoming-277276
+
+-- Quality metrics for decisionmakers. --
+Department for Work and Pensions sent a response to Ian Stirling (26 April 2012)
+     "Dear Mr Stirling Please see attached response to your FoI request.
+     Kind regards DWP Central FoI Team Website: www.dwp.gov.uk Your
+     Reference: I St..."
+http://www.whatdotheyknow.com/request/quality_metrics_for_decisionmake#incoming-276968
+
+-- Stray Dogs --
+Wirral Metropolitan Borough Council sent a response to Carla Bottle (17 April 2012)
+     "Hello Carla Â  Thank you for your further enquiry, I can clarify Â 
+     Strays 76 Â  and a further Handovers by owner (sick or aggressive)
+     74..."
+http://www.whatdotheyknow.com/request/stray_dogs_84#incoming-274073
+
+-- Stray Dogs --
+Wakefield City Council sent a response to Carla Bottle (17 April 2012)
+     "Dear Carla, Freedom of Information Act 2000 - Request for
+     Information I am writing in respect of your recent enquiry for
+     information held by the Aut..."
+http://www.whatdotheyknow.com/request/stray_dogs_149#incoming-273859
+
+-- Stray Dogs --
+Solihull Metropolitan Borough Council sent a response to Carla Bottle (17 April 2012)
+     "Dear Ms Bottle Thank you for your email. Any dogs collected as
+     strays are taken to Birmingham Dogs Home, where they are detained
+     by the home on the..."
+http://www.whatdotheyknow.com/request/stray_dogs_136#incoming-273886
+
+-- Stray Dogs --
+Newham Borough Council sent a response to Carla Bottle (17 April 2012)
+     "Dear Ms Bottle, Thank you for your email received on 16/03/2012.
+     We attach our response under the disclosure provisions of the
+     Freedom of Information..."
+http://www.whatdotheyknow.com/request/stray_dogs_152#incoming-273897
+
+-- Stray Dogs --
+St Edmundsbury Borough Council sent a response to Carla Bottle (17 April 2012)
+     "Dear Carla, Thank you for your email following my response to your
+     Freedom of Information request. I can advise that the 15 dogs that
+     were 'rehomed..."
+http://www.whatdotheyknow.com/request/stray_dogs_111#incoming-273946
+
+-- Stray Dogs --
+Staffordshire Moorlands District Council sent a response to Carla Bottle (17 April 2012)
+     "E-mail: Â [1][FOI #109668 email] Â  Â  Â  Dear Ms Bottle Â  Re:Â 
+     Freedom of Information Act request â€“ Stray Dogs Â  Thank you for
+     your e..."
+http://www.whatdotheyknow.com/request/stray_dogs_108#incoming-274005
+
+-- Stray Dogs --
+Southwark Borough Council sent a response to Carla Bottle (17 April 2012)
+     "Southwark Council - Information request (FOI/EIR) Our reference:
+     214355
+     --------------------------------------------------------------------------..."
+http://www.whatdotheyknow.com/request/stray_dogs_155#incoming-274104
+
+-- Residential Building Revaluation Costs --
+Camden Borough Council sent a response to Peter CAIN (17 April 2012)
+     "Dear Mr Cain Â  Herewith the reply of the Panel to your application
+     for an internal review Â  Yours sincerely Â  Peter Swingler Obo
+     Internal Revie..."
+http://www.whatdotheyknow.com/request/residential_building_revaluation#incoming-274061
+
+-- Stray Dogs --
+Waveney District Council sent a response to Carla Bottle (17 April 2012)
+     "Dear Ms Bottle, Freedom of Information Request - Ref No 9932 I am
+     writing in response to your recently submitted Freedom of
+     Information request reg..."
+http://www.whatdotheyknow.com/request/stray_dogs_112#incoming-274145
+
+-- Stray Dogs --
+Tamworth Borough Council sent a response to Carla Bottle (27 April 2012)
+     "Our Ref: FOI1264/DB/02 Please ask for: Derek Bolton Direct dial:
+     01827 709 587 E-mail:Â  [email address] Â  Ms C Bottle
+     Whatdotheyknow.com..."
+http://www.whatdotheyknow.com/request/stray_dogs_110#incoming-277348
+
+-- Stray Dogs --
+South Northamptonshire District Council sent a response to Carla Bottle (23 April 2012)
+     "South Northamptonshire Council Request Ref: 1013066 Â  Springfields
+     Towcester Date: Apr 5 2012 Northants NN12 6AE"
+http://www.whatdotheyknow.com/request/stray_dogs_89#incoming-275624
+
+-- Stray Dogs --
+Selby District Council sent a response to Carla Bottle (23 April 2012)
+     "Dear Ms Bottle Â  I refer to your recent request for information
+     under the Freedom of Information Act. I have now had an opportunity
+     to check our..."
+http://www.whatdotheyknow.com/request/stray_dogs_148#incoming-275917
+
+-- DASS Carers Assesment Documents --
+Wirral Metropolitan Borough Council sent a response to Heston O Riley (26 April 2012)
+     "Hello Heston O Riley Â  Thank you for request below, apologies for
+     the slight delay, Wirral Council can now provide the information
+     you have r..."
+http://www.whatdotheyknow.com/request/dass_carers_assesment_documents#incoming-277203
+
+-- Traffic offences on Holland Park Barton Under Needwood --
+Staffordshire Police sent a response to Joanne Cooper (24 April 2012)
+     "Please see another response to your FOI request. Â  Â Apologies, but
+     please discard my first response. Â The letter will give an
+     explanation. Regards..."
+http://www.whatdotheyknow.com/request/traffic_offences_on_holland_park#incoming-276112
+
+-- Percy Street - Capita report input --
+Newcastle upon Tyne City Council sent a response to Katja Leyendecker (16 April 2012)
+     "Katja, Firstly let me apologise for the tardy delivery of the
+     response, I have been on annual leave and did not return until this
+     morning. I'm afrai..."
+http://www.whatdotheyknow.com/request/percy_street_capita_report_input#incoming-273690
+
+-- AREa REView COMMITTee CHILd PROtection GUIDElines --
+Nottinghamshire County Council sent a response to Alison Stevens (27 April 2012)
+     "REF:C&IT/PFL/NCC-007511-11 Â  Dear Ms Stevens Â  FREEDOM OF
+     INFORMATION ACT 2000 - INFORMATION REQUEST Â  In response to your
+     request for the..."
+http://www.whatdotheyknow.com/request/area_review_committee_child_prot#incoming-277510
+
+-- Atos HeathcarE Risk AsseSSMENTS --
+Department for Work and Pensions sent a response to Alison Stevens (27 April 2012)
+     "Dear Ms Stevens Please see attached response to your FoI request.
+     Kind regards DWP Central FoI Team To A Stevens C/o [FOI #107839
+     email] DWP Centr..."
+http://www.whatdotheyknow.com/request/atos_heathcare_risk_assessments#incoming-277463
+
+-- SET(0) Postal Applications status D2c 2011 --
+UK Border Agency sent a response to S Pillai (29 March 2012)
+     "S Pillai Â  Please find the response to your request for
+     information under the Freedom of Information Act 2000, regarding
+     SET (O) applications...."
+http://www.whatdotheyknow.com/request/set0_postal_applications_status#incoming-269113
+
+-- re London Borough of Bromley --
+Local Government Ombudsmen sent a response to ROSEMARY CANTWELL (Account suspended) ( 3 April 2012)
+     "Dear Mrs Cantwell I have consulted colleagues and they inform me
+     that you have exhausted our internal complaints procedures and
+     there is nothing more..."
+http://www.whatdotheyknow.com/request/re_london_borough_of_bromley#incoming-270360
+
+
+Alter your subscription
+=======================
+
+
+http://www.whatdotheyknow.com/c/abcdefghijklmnop23
+
+-- the WhatDoTheyKnow team
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

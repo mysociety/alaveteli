@@ -18,6 +18,12 @@ describe "When filtering" do
         r.out.should == "user@example.com\n"
     end
     
+    it "should detect a WebShield delivery error message" do
+        r = mail_reply_test("track-response-webshield-bounce.email")
+        r.status.should == 1
+        r.out.should == "failed.user@example.co.uk\n"
+    end
+    
     it "should pass on a non-bounce message" do
         r = mail_reply_test("incoming-request-bad-uuencoding.email")
         r.status.should == 0
