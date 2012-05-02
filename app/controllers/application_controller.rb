@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # controllers/application.rb:
 # Parent class of all controllers in FOI site. Filters added to this controller
 # apply to all controllers in the application. Likewise, all the methods added
@@ -543,16 +544,6 @@ class ApplicationController < ActionController::Base
         return country
     end
 
-    def quietly_try_to_open(url)
-        begin 
-            result = open(url).read.strip
-        rescue OpenURI::HTTPError, SocketError, Errno::ETIMEDOUT, Errno::ECONNREFUSED, Errno::EHOSTUNREACH
-            logger.warn("Unable to open third-party URL #{url}")
-            result = ""
-        end
-        return result
-    end
-    
     # URL generating functions are needed by all controllers (for redirects),
     # views (for links) and mailers (for use in emails), so include them into
     # all of all.

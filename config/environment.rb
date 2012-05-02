@@ -135,6 +135,7 @@ require 'i18n_fixes.rb'
 require 'rack_quote_monkeypatch.rb'
 require 'world_foi_websites.rb'
 require 'alaveteli_external_command.rb'
+require 'quiet_opener.rb'
 
 ExceptionNotification::Notifier.sender_address = MySociety::Config::get('EXCEPTION_NOTIFICATIONS_FROM')
 ExceptionNotification::Notifier.exception_recipients = MySociety::Config::get('EXCEPTION_NOTIFICATIONS_TO')

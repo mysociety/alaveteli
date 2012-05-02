@@ -3,6 +3,10 @@
 ## Highlighted features
 
 * Ruby dependencies are now handled by Bundler
+* Support for invalidating accelerator cache -- this makes it much
+  less likely, when using Varnish, that users will be presented with
+  stale content.  Fixes
+  [issue #436](https://github.com/sebbacon/alaveteli/issues/436)
 
 ## Upgrade notes
 
@@ -13,6 +17,16 @@
   the `rails-post-deploy` script, it will download, compile and
   install various things.  Part of this is compiling xapian, which may
   take a *long* time (subsequent deployments should be much faster)
+
+* To support invalidating the Varnish cache, ensure that there's a
+  value for `VARNISH_HOST` in `general.yml` (normally this would be
+  `localhost`).  You will also need to update your Varnish server to
+  support PURGE requests.  The example configuration provided at
+  `config/varnish-alaveteli.vcl` will work for Varnish 3 and above. If
+  you leave `VARNISH_HOST` blank, it will have no effect.  Finally,
+  you should install the `purge-varnish` init script that's provided
+  in `ugly` format at `config/purge-varnish-debian.ugly` to ensure the
+  purge queue is emptied regularly.
 
 # Version 0.5.1
 

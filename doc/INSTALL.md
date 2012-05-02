@@ -327,6 +327,14 @@ which lives in `config/alert-tracks-debian.ugly`.  As with the cron
 jobs above, replace the variables (and/or bits near the variables)
 with paths to your software.
 
+One of the cron jobs refers to a script at
+`/etc/init.d/foi-alert-tracks`.  This is an init script, a copy of
+which lives in `config/alert-tracks-debian.ugly`.  As with the cron
+jobs above, replace the variables (and/or bits near the variables)
+with paths to your software.  `config/purge-varnish-debian.ugly` is a
+similar init script, which is optional and not required if you choose
+not to run your site behind Varnish (see below).
+
 # Set up production web server
 
 It is not recommended to run the website using the default Rails web
