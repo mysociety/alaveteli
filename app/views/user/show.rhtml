@@ -139,7 +139,7 @@
     <% if !@xapian_requests.nil? %>
         <% if @xapian_requests.results.empty? %>
             <% if @page == 1 %>
-                <h2 class="foi_results" id="foi_requests"><%= @is_you ? 'Freedom of Information requests made by you' : 'Freedom of Information requests made by this person' %> <%= @match_phrase %>
+                <h2 class="foi_results" id="foi_requests"><%= @is_you ? _('Freedom of Information requests made by you') : _('Freedom of Information requests made by this person') %> <%= @match_phrase %>
 </h2>
                 <p><%= @is_you ? _('You have made no Freedom of Information requests using this site.') : _('This person has made no Freedom of Information requests using this site.') %>
                 <%= @page_desc %>
