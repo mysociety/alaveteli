@@ -23,6 +23,9 @@
 require 'digest/sha1'
 
 class InfoRequest < ActiveRecord::Base
+    include ActionView::Helpers::UrlHelper
+    include ActionController::UrlWriter
+
     strip_attributes!
 
     validates_presence_of :title, :message => N_("Please enter a summary of your request")
@@ -1046,7 +1049,8 @@ public
     def purge_in_cache
         if !MySociety::Config.get('VARNISH_HOST').nil? && !self.id.nil?
             # we only do this for existing info_requests (new ones have a nil id)
-            req = PurgeRequest.new(:url => "/request/#{self.url_title}",
+            path = url_for(:controller => 'request', :action => 'show', :url_title => self.url_title, :only_path => true, :locale => :none)
+            req = PurgeRequest.new(:url => path,
                                    :model => self.class.base_class.to_s,
                                    :model_id => self.id)
             req.save()
