@@ -108,7 +108,7 @@ class TrackThing < ActiveRecord::Base
         end
         descriptions = []
         if varieties.include? _("requests")
-            descriptions << _("requests which are {{list_of_statuses}}", :list_of_statuses => Array(statuses).join(_(' or ')))
+            descriptions << _("requests which are {{list_of_statuses}}", :list_of_statuses => Array(statuses).sort.join(_(' or ')))
             varieties -= [_("requests")]
         end
         if descriptions.empty? and varieties.empty?
@@ -116,8 +116,7 @@ class TrackThing < ActiveRecord::Base
         end
         descriptions += Array(varieties)
         parsed_text = parsed_text.strip
-        descriptions.sort!
-        descriptions = descriptions.join(_(" or "))
+        descriptions = descriptions.sort.join(_(" or "))
         if !parsed_text.empty?
             descriptions += _("{{list_of_things}} matching text '{{search_query}}'", :list_of_things => "", :search_query => parsed_text)
         end
