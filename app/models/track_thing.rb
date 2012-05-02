@@ -116,6 +116,7 @@ class TrackThing < ActiveRecord::Base
         end
         descriptions += Array(varieties)
         parsed_text = parsed_text.strip
+        descriptions.sort!
         descriptions = descriptions.join(_(" or "))
         if !parsed_text.empty?
             descriptions += _("{{list_of_things}} matching text '{{search_query}}'", :list_of_things => "", :search_query => parsed_text)
