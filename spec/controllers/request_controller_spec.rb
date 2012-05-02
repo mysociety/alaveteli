@@ -1042,6 +1042,7 @@ describe RequestController, "when classifying an information request" do
             session[:user_id] = @admin_user.id
             @dog_request = info_requests(:fancy_dog_request)
             InfoRequest.stub!(:find).and_return(@dog_request)
+            @dog_request.stub!(:each).and_return([@dog_request])
         end
 
         it 'should update the status of the request' do 
@@ -1083,6 +1084,7 @@ describe RequestController, "when classifying an information request" do
             @dog_request.user = @admin_user
             @dog_request.save!
             InfoRequest.stub!(:find).and_return(@dog_request)
+            @dog_request.stub!(:each).and_return([@dog_request])
         end
 
         it 'should update the status of the request' do 
@@ -1119,6 +1121,7 @@ describe RequestController, "when classifying an information request" do
             @request_owner = users(:bob_smith_user)
             session[:user_id] = @request_owner.id
             @dog_request.awaiting_description.should == true
+            @dog_request.stub!(:each).and_return([@dog_request])
         end
         
         it "should successfully classify response if logged in as user controlling request" do
@@ -1186,6 +1189,7 @@ describe RequestController, "when classifying an information request" do
             @request_owner = users(:bob_smith_user)
             session[:user_id] = @request_owner.id
             @dog_request = info_requests(:fancy_dog_request)
+            @dog_request.stub!(:each).and_return([@dog_request])
             InfoRequest.stub!(:find).and_return(@dog_request)
             @old_filters = ActionController::Routing::Routes.filters
             ActionController::Routing::Routes.filters = RoutingFilter::Chain.new
