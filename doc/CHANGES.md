@@ -23,7 +23,10 @@
   `localhost`).  You will also need to update your Varnish server to
   support PURGE requests.  The example configuration provided at
   `config/varnish-alaveteli.vcl` will work for Varnish 3 and above. If
-  you leave `VARNISH_HOST` blank, it will have no effect.
+  you leave `VARNISH_HOST` blank, it will have no effect.  Finally,
+  you should install the `purge-varnish` init script that's provided
+  in `ugly` format at `config/purge-varnish-debian.ugly` to ensure the
+  purge queue is emptied regularly.
 
 # Version 0.5.1
 
