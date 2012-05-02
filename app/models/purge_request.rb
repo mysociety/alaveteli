@@ -22,7 +22,7 @@ class PurgeRequest < ActiveRecord::Base
             while !purge_all
                 sleep sleep_seconds
                 sleep_seconds *= 2
-                sleep_seconds = 300 if sleep_seconds > 300
+                sleep_seconds = 30 if sleep_seconds > 30
             end
         end
     end
