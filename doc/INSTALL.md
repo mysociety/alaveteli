@@ -25,7 +25,27 @@ branch:
 
     git checkout develop
 
-# Install system dependencies
+# Dev environment quickstart
+
+To get a dev environment running quickly on Debian or Ubuntu, you can
+use Chef.
+
+Alternatively, you can use Vagrant (which provisions a virtual machine
+and installs Alaveteli there) on any platform supported by Vagrant.
+
+These quickstart methods are not currently recommended for production,
+because they are still under development (and don't include memcached,
+varnish, exim fonfiguration, etc).  For production, you should follow
+the steps below manually.
+
+To install using Vagrant, see `INSTALL-vagrant.md`.
+
+To install using chef, install chef (e.g. `apt-get install chef`) and
+run:
+
+    sudo chef-solo -c chef/solo.rb -j chef/solo.json
+
+# Manual install, step 1: Install system dependencies
 
 These are packages that the software depends on: third-party software
 used to parse documents, host the site, etc.  There are also packages
@@ -51,7 +71,7 @@ Some of the files also have a version number listed in config/packages
 - check that you have appropriate versions installed. Some also list
 "|" and offer a choice of packages.
 
-# Install Ruby dependencies
+# Step 2: Install Ruby dependencies
 
 Install rubygems 1.6.1 (we're not using the Debian package because we
 need an older version; see "Troubleshooting" below for an
@@ -66,7 +86,7 @@ bundler:
 
     sudo gem1.8 install bundler
     
-# Install mySociety libraries
+# Step 3: Install mySociety libraries
 
 You will also want to install mySociety's common ruby libraries and the Rails
 code. Run:
@@ -102,7 +122,7 @@ use the Debian package compiled by mySociety (see link in
 [issue 305](https://github.com/sebbacon/alaveteli/issues/305))
 
 
-# Configure Database 
+# Step 4: Configure Database 
 
 There has been a little work done in trying to make the code work with
 other databases (e.g. SQLite), but the currently supported database is
@@ -141,7 +161,7 @@ data that may not be valid UTF (for example, data originating from
 various broken email clients that's not 8-bit clean), it's safer to be
 able to store *anything*, than reject data at runtime.
 
-# Configure email 
+# Step 5: Configure email 
 
 You will need to set up an email server (MTA) to send and receive
 emails.  Full configuration for an MTA is beyond the scope of this
@@ -187,7 +207,7 @@ A well-configured installation of this code will separately have had
 Exim make a backup copy of the email in a separate mailbox, just in
 case.
 
-# Set up configs
+# Step 6: Set up configs
 
 Copy `config/general.yml-example` to `config/general.yml` and edit to
 your taste.
@@ -206,7 +226,7 @@ Interlock Rails plugin, to cache content using memcached.  You
 probably don't want this in your development profile; the example
 `memcached.yml` file disables this behaviour.
 
-# Deployment
+# Step 7: Deployment
 
 In the 'alaveteli' directory, run:
 
@@ -245,7 +265,7 @@ Next we need to create the index for the search engine (Xapian):
 If this fails, the site should still mostly run, but it's a core
 component so you should really try to get this working.
 
-# Run the Tests
+# Step 8: Run the Tests
 
 Make sure everything looks OK:
 
@@ -257,18 +277,7 @@ workaround). You might be able to move on to the next step, depending
 on how serious they are, but ideally you should try to find out what's
 gone wrong.
 
-## glibc bug workaround
-
-There's a
-[bug in glibc](http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=637239)
-which causes Xapian to segfault when running the tests.  Although the
-bug report linked to claims it's fixed in the current Debian stable,
-it's not as of version `2.11.3-2`.
-
-Until it's fixed (e.g. `libc6 2.13-26` does work), you can get the
-tests to pass by setting `export LD_PRELOAD=/lib/libuuid.so.1`.
-
-# Run the Server
+# Step 9: Run the Server
 
 Run the following to get the server running:
 
@@ -280,7 +289,7 @@ localhost interface by adding ` --binding=127.0.0.1`
 The server should have told you the URL to access in your browser to see
 the site in action.
 
-# Administrator privileges
+# Step 10: Administrator privileges
 
 By default, anyone can access the administrator pages without authentication.
 They are under the URL `/admin`.
@@ -299,8 +308,7 @@ behaviour.
 
 And send us the patch!
 
-
-# Cron jobs
+# Step 11: Cron jobs
 
 `config/crontab.ugly` contains the cronjobs run on WhatDoTheyKnow.
 It's in a strange templating format they use in mySociety.  mySociety
@@ -327,7 +335,7 @@ which lives in `config/alert-tracks-debian.ugly`.  As with the cron
 jobs above, replace the variables (and/or bits near the variables)
 with paths to your software.
 
-# Set up production web server
+# Step 12: Set up production web server
 
 It is not recommended to run the website using the default Rails web
 server.  There are various recommendations here:
