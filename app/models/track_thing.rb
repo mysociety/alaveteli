@@ -146,11 +146,15 @@ class TrackThing < ActiveRecord::Base
         return track_thing
     end
 
-    def TrackThing.create_track_for_public_body(public_body)
+    def TrackThing.create_track_for_public_body(public_body, event_type = nil)
         track_thing = TrackThing.new
         track_thing.track_type = 'public_body_updates'
         track_thing.public_body = public_body
-        track_thing.track_query = "requested_from:" + public_body.url_name
+        query = "requested_from:" + public_body.url_name
+        if InfoRequestEvent.enumerate_event_types.include?(event_type)
+            query += " variety:" + event_type
+        end
+        track_thing.track_query = query
         return track_thing
     end
 
@@ -172,9 +176,9 @@ class TrackThing < ActiveRecord::Base
             when "users"
                 query += " variety:user"
             when "authorities"
-                query += " variety:authority"                
+                query += " variety:authority"
             end
-        end            
+        end
         track_thing.track_query = query
         # XXX should extract requested_by:, request:, requested_from:
         # and stick their values into the respective relations.

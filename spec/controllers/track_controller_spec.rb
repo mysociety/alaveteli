@@ -183,6 +183,35 @@ describe TrackController, "when viewing JSON version of a track feed" do
 
 end
 
+describe TrackController, "when tracking a public body" do
 
+    integrate_views
 
+    before(:each) do
+        load_raw_emails_data
+        rebuild_xapian_index
+    end
+    
+    it "should work" do
+        geraldine = public_bodies(:geraldine_public_body)
+        get :track_public_body, :feed => 'feed', :url_name => geraldine.url_name
+        response.should be_success
+        response.should render_template('track/atom_feed')
+        tt = assigns[:track_thing]
+        tt.public_body.should == geraldine
+        tt.track_type.should == 'public_body_updates'
+        tt.track_query.should == "requested_from:" + geraldine.url_name
+    end
 
+    it "should filter by event type" do
+        geraldine = public_bodies(:geraldine_public_body)
+        get :track_public_body, :feed => 'feed', :url_name => geraldine.url_name, :event_type => 'sent'
+        response.should be_success
+        response.should render_template('track/atom_feed')
+        tt = assigns[:track_thing]
+        tt.public_body.should == geraldine
+        tt.track_type.should == 'public_body_updates'
+        tt.track_query.should == "requested_from:" + geraldine.url_name + " variety:sent"
+    end
+
+end
