@@ -54,6 +54,11 @@ gem_package "bundler" do
     action :install
 end
 
+# Install rake so that xapian-full can compile on the first bundler run
+gem_package "rake" do
+    action :install
+end
+
 bash "bring bundle into the PATH" do
     code "ln -s #{path}/bundle /usr/local/bin/bundle"
     not_if "[ -e  /usr/local/bin/bundle ] || [ -e  /usr/bin/bundle ]"
