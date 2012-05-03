@@ -240,7 +240,7 @@ class PublicBody < ActiveRecord::Base
     # Return the short name if present, or else long name
     def short_or_long_name
         if self.short_name.nil? || self.short_name.empty?   # 'nil' can happen during construction
-            self.name
+            self.name.nil? ? "" : self.name
         else
             self.short_name
         end
@@ -545,6 +545,11 @@ class PublicBody < ActiveRecord::Base
             :publication_scheme => self.publication_scheme,
             :tags => self.tag_array,
         }
+    end
+
+    after_save(:purge_in_cache)
+    def purge_in_cache
+        self.info_requests.each {|x| x.purge_in_cache}
     end
 
 end

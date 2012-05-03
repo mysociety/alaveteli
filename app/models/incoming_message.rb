@@ -816,7 +816,6 @@ class IncomingMessage < ActiveRecord::Base
                                          :filename => _get_part_file_name(leaf),
                                          :charset => leaf.charset,
                                          :within_rfc822_subject => within_rfc822_subject,
-                                         :display_size => "0K",
                                          :body => body)
             attachment.save!
             attachments << attachment.id

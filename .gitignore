@@ -19,3 +19,4 @@ TAGS
 /public/*theme
 /vendor/bundle
 .bundle
+bin/

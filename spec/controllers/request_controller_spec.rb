@@ -117,6 +117,57 @@ describe RequestController, "when listing recent requests" do
 
 end
 
+describe RequestController, "when changing things that appear on the request page" do
+
+    integrate_views
+
+    it "should purge the downstream cache when mail is received" do
+        ir = info_requests(:fancy_dog_request)
+        receive_incoming_mail('incoming-request-plain.email', ir.incoming_email)
+        PurgeRequest.all().first.model_id.should == ir.id
+    end
+    it "should purge the downstream cache when a comment is added" do
+        ir = info_requests(:fancy_dog_request)
+        new_comment = info_requests(:fancy_dog_request).add_comment('I also love making annotations.', users(:bob_smith_user))
+        PurgeRequest.all().first.model_id.should == ir.id
+    end
+    it "should purge the downstream cache when a followup is made" do
+        session[:user_id] = users(:bob_smith_user).id
+        ir = info_requests(:fancy_dog_request)
+        post :show_response, :outgoing_message => { :body => "What a useless response! You suck.", :what_doing => 'normal_sort' }, :id => ir.id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_followup => 1
+        PurgeRequest.all().first.model_id.should == ir.id
+    end
+    it "should purge the downstream cache when the request is categorised" do
+        ir = info_requests(:fancy_dog_request)
+        ir.set_described_state('waiting_clarification')
+        PurgeRequest.all().first.model_id.should == ir.id
+    end
+    it "should purge the downstream cache when the authority data is changed" do
+        ir = info_requests(:fancy_dog_request)
+        ir.public_body.name = "Something new"
+        ir.public_body.save!
+        PurgeRequest.all().map{|x| x.model_id}.should =~ ir.public_body.info_requests.map{|x| x.id}
+    end
+    it "should purge the downstream cache when the user details are changed" do
+        ir = info_requests(:fancy_dog_request)
+        ir.user.name = "Something new"
+        ir.user.save!
+        PurgeRequest.all().map{|x| x.model_id}.should =~ ir.user.info_requests.map{|x| x.id}
+    end
+    it "should purge the downstream cache when censor rules have changed" do
+        # XXX really, CensorRules should execute expiry logic as part
+        # of the after_save of the model. Currently this is part of
+        # the AdminCensorRuleController logic, so must be tested from
+        # there. Leaving this stub test in place as a reminder        
+    end
+    it "should purge the downstream cache when something is hidden by an admin" do
+        ir = info_requests(:fancy_dog_request)
+        ir.prominence = 'hidden'
+        ir.save!
+        PurgeRequest.all().first.model_id.should == ir.id
+    end
+end
+
 describe RequestController, "when showing one request" do
     
     before(:each) do
@@ -185,7 +236,7 @@ describe RequestController, "when showing one request" do
     describe 'when handling incoming mail' do 
       
         integrate_views
-        
+
         it "should receive incoming messages, send email to creator, and show them" do
             ir = info_requests(:fancy_dog_request)
             ir.incoming_messages.each { |x| x.parse_raw_email! }
@@ -991,6 +1042,7 @@ describe RequestController, "when classifying an information request" do
             session[:user_id] = @admin_user.id
             @dog_request = info_requests(:fancy_dog_request)
             InfoRequest.stub!(:find).and_return(@dog_request)
+            @dog_request.stub!(:each).and_return([@dog_request])
         end
 
         it 'should update the status of the request' do 
@@ -1032,6 +1084,7 @@ describe RequestController, "when classifying an information request" do
             @dog_request.user = @admin_user
             @dog_request.save!
             InfoRequest.stub!(:find).and_return(@dog_request)
+            @dog_request.stub!(:each).and_return([@dog_request])
         end
 
         it 'should update the status of the request' do 
@@ -1068,6 +1121,7 @@ describe RequestController, "when classifying an information request" do
             @request_owner = users(:bob_smith_user)
             session[:user_id] = @request_owner.id
             @dog_request.awaiting_description.should == true
+            @dog_request.stub!(:each).and_return([@dog_request])
         end
         
         it "should successfully classify response if logged in as user controlling request" do
@@ -1135,6 +1189,7 @@ describe RequestController, "when classifying an information request" do
             @request_owner = users(:bob_smith_user)
             session[:user_id] = @request_owner.id
             @dog_request = info_requests(:fancy_dog_request)
+            @dog_request.stub!(:each).and_return([@dog_request])
             InfoRequest.stub!(:find).and_return(@dog_request)
             @old_filters = ActionController::Routing::Routes.filters
             ActionController::Routing::Routes.filters = RoutingFilter::Chain.new
@@ -1768,6 +1823,7 @@ describe RequestController, "when showing similar requests" do
             get :similar, :url_title => "there_is_really_no_such_path_owNAFkHR"
         }.should raise_error(ActiveRecord::RecordNotFound)
     end
+
 end
 
 

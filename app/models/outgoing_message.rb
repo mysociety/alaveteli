@@ -267,7 +267,10 @@ class OutgoingMessage < ActiveRecord::Base
         end
     end
 
-
+    after_save(:purge_in_cache)
+    def purge_in_cache
+        self.info_request.purge_in_cache
+    end
 end
 
 

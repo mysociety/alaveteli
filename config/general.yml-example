@@ -142,3 +142,7 @@ EXCEPTION_NOTIFICATIONS_TO:
 
 # This rate limiting can be turned off per-user via the admin interface
 MAX_REQUESTS_PER_USER_PER_DAY: 6
+
+# This is used to work out where to send purge requests.  Should be
+# unset if you aren't running behind varnish
+VARNISH_HOST: localhost
