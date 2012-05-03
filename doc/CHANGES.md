@@ -13,6 +13,14 @@
 * Existing installations will need to install the Bundler gem.  See
   `INSTALL.md` for details.
 
+* As a result of using bundler, the list of software packages that
+  should be installed has changed.  On Debian, you can run:
+
+      sudo apt-get install `cut -d " " -f 1 config/packages | grep -v "^#"`
+      
+  [This gist](https://gist.github.com/2584766) shows the changes to
+  `config/packages` since the previous release.
+
 * Because dependencies are now handled by Bundler, when you next run
   the `rails-post-deploy` script, it will download, compile and
   install various things.  Part of this is compiling xapian, which may
