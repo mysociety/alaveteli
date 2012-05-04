@@ -50,11 +50,15 @@ class TrackController < ApplicationController
         raise ActiveRecord::RecordNotFound.new("None found") if @public_body.nil?
         # If found by historic name, or alternate locale name, redirect to new name
         if  @public_body.url_name != params[:url_name]
-            redirect_to track_public_body_url(:url_name => @public_body.url_name, :feed => params[:feed])
+            redirect_to track_public_body_url(:url_name => @public_body.url_name, :feed => params[:feed], :event_type => params[:event_type])
             return
         end
 
-        @track_thing = TrackThing.create_track_for_public_body(@public_body)
+        if params[:event_type]
+            @track_thing = TrackThing.create_track_for_public_body(@public_body, params[:event_type])
+        else
+            @track_thing = TrackThing.create_track_for_public_body(@public_body)
+        end
 
         return atom_feed_internal if params[:feed] == 'feed'
 
