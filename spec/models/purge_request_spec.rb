@@ -26,7 +26,7 @@ describe PurgeRequest, "purging things" do
         req.save()
         PurgeRequest.all().count.should == 1
         PurgeRequest.purge_all()
-        PurgeRequest.all().count.should == 1
+        PurgeRequest.all().count.should == 0
     end
 end
  

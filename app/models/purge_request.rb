@@ -31,9 +31,7 @@ class PurgeRequest < ActiveRecord::Base
         config = MySociety::Config.load_default()
         varnish_url = config['VARNISH_HOST']
         result = quietly_try_to_purge(varnish_url, self.url)
-        if result == "200"
-            self.delete()
-        end
+        self.delete()
     end
 end
 
