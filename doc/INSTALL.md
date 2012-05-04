@@ -329,6 +329,11 @@ with paths to your software.  `config/purge-varnish-debian.ugly` is a
 similar init script, which is optional and not required if you choose
 not to run your site behind Varnish (see below).
 
+The cron jobs refer to a program `run-with-lockfile`. See
+[this issue](https://github.com/sebbacon/alaveteli/issues/112) for a
+discussion of where to find this program, and how you might replace
+it.
+
 # Set up production web server
 
 It is not recommended to run the website using the default Rails web
