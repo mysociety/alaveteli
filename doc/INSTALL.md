@@ -355,6 +355,25 @@ Some
 [production server best practice notes](https://github.com/sebbacon/alaveteli/wiki/Production-Server-Best-Practices)
 are evolving on the wiki.
 
+# Upgrading Alaveteli
+
+The developer team policy is that the master branch in git should
+always contain the latest stable release.  Therefore, in production,
+you should usually have your software deployed from the master branch,
+and an upgrade can be simply `git pull`.
+
+Patch version increases (e.g. 1.2.3 -> 1.2.4) should not require any
+further action on your part.
+
+Minor version increases (e.g. 1.2.4 -> 1.3.0) will usually require
+further action.  You should read the `CHANGES.md` document to see
+what's changed since your last deployment, paying special attention to
+anything in the "Updgrading" sections.
+
+You should always run the script `scripts/rails-post-deploy` after
+each deployment.  This runs any database migrations for you, plus
+various other things that can be automated for deployment.
+
 # Troubleshooting
 
 *   **Incoming emails aren't appearing in my Alaveteli install**
