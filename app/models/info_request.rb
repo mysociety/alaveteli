@@ -1050,9 +1050,12 @@ public
         if !MySociety::Config.get('VARNISH_HOST').nil? && !self.id.nil?
             # we only do this for existing info_requests (new ones have a nil id)
             path = url_for(:controller => 'request', :action => 'show', :url_title => self.url_title, :only_path => true, :locale => :none)
-            req = PurgeRequest.new(:url => path,
-                                   :model => self.class.base_class.to_s,
-                                   :model_id => self.id)
+            req = PurgeRequest.find_by_url(path)
+            if req.nil?
+                req = PurgeRequest.new(:url => path,
+                                       :model => self.class.base_class.to_s,
+                                       :model_id => self.id)
+            end
             req.save()
         end
     end
