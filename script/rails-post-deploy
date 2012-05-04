@@ -87,6 +87,6 @@ then
 fi
 
 # upgrade database
-rake db:migrate #--trace
+bundle exec rake db:migrate #--trace
 
 
