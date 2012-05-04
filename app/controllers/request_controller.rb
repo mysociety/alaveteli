@@ -171,7 +171,7 @@ class RequestController < ApplicationController
         query = make_query_from_params
         @title = _("View and search requests")
         sortby = "newest"
-        @cache_tag = Digest::MD5.hexdigest(query + @page.to_s) 
+        @cache_tag = Digest::MD5.hexdigest(query + @page.to_s + I18n.locale.to_s) 
         behavior_cache :tag => [@cache_tag] do
             xapian_object = perform_search([InfoRequestEvent], query, sortby, 'request_collapse')
             @list_results = xapian_object.results.map { |r| r[:model] }

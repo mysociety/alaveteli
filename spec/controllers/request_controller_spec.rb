@@ -64,6 +64,14 @@ describe RequestController, "when listing recent requests" do
         assigns[:cache_tag].size.should <= 32
     end
 
+    it "should vary the cache tag with locale" do
+        get :list, :view => 'all', :request_date_after => '13/10/2007', :request_date_before => '01/11/2007'
+        en_tag = assigns[:cache_tag]
+        session[:locale] = :es
+        get :list, :view => 'all', :request_date_after => '13/10/2007', :request_date_before => '01/11/2007'
+        assigns[:cache_tag].should_not == en_tag
+    end
+
     it "should list internal_review requests as unresolved ones" do
         get :list, :view => 'awaiting'
         
@@ -91,7 +99,7 @@ describe RequestController, "when listing recent requests" do
         rebuild_xapian_index
         
         get :list, :view => 'awaiting'
-        assigns[:list_results].map(&:info_request).include?(info_requests(:fancy_dog_request)).should == true
+        assigns[:list_results].map(&:info_request).include?(info_requests(:fancy_dog_request)).should == truei
     end
 
     it "should assign the first page of results" do
