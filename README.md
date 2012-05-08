@@ -3,7 +3,7 @@
 This is an open source project to create a standard, internationalised
 platform for making Freedom of Information (FOI) requests in different
 countries around the world. The software started off life as
-[WhatDoTheyKnow](http://github.com), a website produced by
+[WhatDoTheyKnow](http://www.whatdotheyknow.com), a website produced by
 [mySociety](http://mysociety.org) for making FOI requests in the UK.
 
 We hope that by joining forces between teams across the world, we can
