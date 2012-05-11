@@ -99,7 +99,7 @@ describe RequestController, "when listing recent requests" do
         rebuild_xapian_index
         
         get :list, :view => 'awaiting'
-        assigns[:list_results].map(&:info_request).include?(info_requests(:fancy_dog_request)).should == truei
+        assigns[:list_results].map(&:info_request).include?(info_requests(:fancy_dog_request)).should == true
     end
 
     it "should assign the first page of results" do
