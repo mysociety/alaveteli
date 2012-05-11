@@ -215,5 +215,10 @@ describe GeneralController, "when searching" do
         assigns[:xapian_users].results.map{|x|x[:model]}.should == [u]
     end
 
+    it "should show tracking links for requests-only searches" do
+        get :search, :combined => ['"bob"', "requests"]
+        response.body.should include('Track this search') 
+    end
+
 end
 
