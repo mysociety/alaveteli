@@ -44,5 +44,10 @@ describe TrackThing, "when tracking changes" do
         end
     end
 
+    it "will create an authority-based track when called using a 'bodies' postfix" do
+        track_thing = TrackThing.create_track_for_search_query('fancy dog', 'bodies')
+        track_thing.track_query.should =~ /variety:authority/
+    end
+
 end
 

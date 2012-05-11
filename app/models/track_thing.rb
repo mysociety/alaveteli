@@ -175,7 +175,7 @@ class TrackThing < ActiveRecord::Base
                 query += " variety:sent"
             when "users"
                 query += " variety:user"
-            when "authorities"
+            when "bodies"
                 query += " variety:authority"
             end
         end
