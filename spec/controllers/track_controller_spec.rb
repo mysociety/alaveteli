@@ -1,7 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe TrackController, "when making a new track on a request" do
-    before do
+    before(:each) do
         @ir = mock_model(InfoRequest, :url_title => 'myrequest',
                                       :title => 'My request')
         @track_thing = mock_model(TrackThing, :save! => true,
@@ -9,6 +9,7 @@ describe TrackController, "when making a new track on a request" do
                                               :track_medium= => nil,
                                               :tracking_user_id= => nil)
         TrackThing.stub!(:create_track_for_request).and_return(@track_thing)
+        TrackThing.stub!(:create_track_for_search_query).and_return(@track_thing)
         TrackThing.stub!(:find_by_existing_track).and_return(nil)
         InfoRequest.stub!(:find_by_url_title).and_return(@ir)
 
@@ -23,11 +24,18 @@ describe TrackController, "when making a new track on a request" do
         response.should redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
     end
 
-    it "should save the track and redirect if you are logged in" do
+    it "should save a request track and redirect if you are logged in" do
         session[:user_id] = @user.id
         @track_thing.should_receive(:save!)
         get :track_request, :url_title => @ir.url_title, :feed => 'track'
         response.should redirect_to(:controller => 'request', :action => 'show', :url_title => @ir.url_title)
+    end
+
+    it "should save a search track and redirect to the right place" do
+        session[:user_id] = @user.id
+        @track_thing.should_receive(:save!)
+        get :track_search_query, :query_array => ["bob variety:sent"], :feed => 'track'
+        response.should redirect_to(:controller => 'general', :action => 'search', :combined => ["bob", "requests"])
     end
 
 end

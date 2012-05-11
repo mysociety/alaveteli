@@ -98,7 +98,23 @@ class TrackController < ApplicationController
         return atom_feed_internal if params[:feed] == 'feed'
 
         if self.track_set
-            redirect_to search_url(@query)
+            if @query.scan("variety").length == 1
+                # we're making a track for a simple filter, for which
+                # there's an expression in the UI (rather than relying
+                # on index:value strings in the query)
+                if @query =~ /variety:user/
+                    postfix = "users"
+                    @query.sub!("variety:user", "")
+                elsif @query =~ /variety:authority/
+                    postfix = "bodies"
+                    @query.sub!("variety:authority", "")
+                elsif @query =~ /variety:sent/
+                    postfix = "requests"
+                    @query.sub!("variety:sent", "")
+                end
+                @query.strip!
+            end
+            redirect_to search_url([@query, postfix])
         end
     end
 
