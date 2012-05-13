@@ -1,0 +1,26 @@
+
+@import "compass/css3";
+
+@import "bootstrap";
+
+#main {
+  padding-top: 50px;
+}
+
+table .form {
+  display: inline-block;
+  margin: 0;
+}
+
+.accordion-heading {
+  .btn {
+    float: left;
+    margin: 6px 15px;
+  }
+
+}
+.accordion-toggle {
+  &:hover {
+    text-decoration: none;
+  }
+}
