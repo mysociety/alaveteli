@@ -282,23 +282,26 @@ the site in action.
 
 # Administrator privileges
 
-By default, anyone can access the administrator pages without authentication.
-They are under the URL `/admin`.
+The administrative interface is at the URL `/admin`.
 
-At mySociety (originators of the Alaveteli software), they use a
-separate layer of HTTP basic authentication, proxied over HTTPS, to
-check who is allowed to use the administrator pages. You might like to
-do something similar.
+Only users with the `super` admin level can access the admin
+interface.  Users create their own accounts in the usual way, and then
+administrators can give them `super` privileges.
 
-Alternatively, update the code so that:
+There is an emergency user account which can be accessed via
+`/admin?emergency=1`, using the credentials `ADMIN_USERNAME` and
+`ADMIN_PASSWORD`, which are set in `general.yml`.  To bootstrap the
+first `super` level accounts, you will need to log in as the emergency
+user.
 
-* By default, admin pages use normal site authentication (checking user admin
-level 'super').
-* Create an option in `config/general` which lets us override that
-behaviour.
+Users with the superuser role also have extra privileges in the
+website frontend, such as being able to categorise any request, being
+able to view items that have been hidden from the search, and being
+presented with "admin" links next to individual requests and comments
+in the front end.
 
-And send us the patch!
-
+It is possible completely to override the administrator authentication
+by setting `SKIP_ADMIN_AUTH` to `true` in `general.yml`.
 
 # Cron jobs
 

@@ -12,6 +12,9 @@
         <% end %>
         </p>
 
+    <% if @post_redirect.post_params["controller"] == "admin_general" %>
+     <p>Don't have a superuser account yet?  <%= link_to "Sign in as the emergency user", @post_redirect.uri + "?emergency=1" %></p>
+    <% end %>
     <%= render :partial => 'signin', :locals => { :sign_in_as_existing_user => true } %>
 
     </div>

@@ -37,7 +37,7 @@ FRONTPAGE_PUBLICBODY_EXAMPLES: 'tgq'
 # URL of theme to install (when running rails-post-deploy script)
 THEME_URL: 'git://github.com/sebbacon/alavetelitheme.git'
 
-# Whether a user needs to sign in to start the New Request process
+# Whether a user neis eds to sign in to start the New Request process
 FORCE_REGISTRATION_ON_NEW_REQUEST: false
 
 
@@ -56,9 +56,12 @@ BLACKHOLE_PREFIX: 'do-not-reply-to-this-address'
 
 ## Administration
 
-# Leave these two blank to skip admin authorisation
+# The emergency user
 ADMIN_USERNAME: 'adminxxxx'
 ADMIN_PASSWORD: 'passwordx'
+
+# Set this to true, and the admin interface will be available to anonymous users
+SKIP_ADMIN_AUTH: false
 
 # Email "from" details
 CONTACT_EMAIL: 'postmaster@localhost'
@@ -146,3 +149,8 @@ MAX_REQUESTS_PER_USER_PER_DAY: 6
 # This is used to work out where to send purge requests.  Should be
 # unset if you aren't running behind varnish
 VARNISH_HOST: localhost
+
+# Set this to true if you want to use secure the admin interface with
+# HTTP Basic auth
+
+#        config_username = MySociety::Config.get('ADMIN_USERNAME', '')
