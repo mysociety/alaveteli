@@ -82,6 +82,7 @@ ActionController::Routing::Routes.draw do |map|
         user.show_user '/user/:url_name.:format', :action => 'show'
         user.show_user_profile '/user/:url_name/profile.:format', :action => 'show', :view => 'profile'
         user.show_user_requests '/user/:url_name/requests.:format', :action => 'show', :view => 'requests'
+        user.show_user_wall '/user/:url_name/wall.:format', :action => 'wall'
         user.contact_user '/user/contact/:id', :action => 'contact'
 
         user.signchangepassword '/profile/change_password',      :action => 'signchangepassword'
@@ -92,7 +93,7 @@ ActionController::Routing::Routes.draw do |map|
         user.get_profile_photo '/user/:url_name/photo.png', :action => 'get_profile_photo'
         user.get_draft_profile_photo '/profile/draft_photo/:id.png', :action => 'get_draft_profile_photo'
         user.set_profile_about_me '/profile/set_about_me', :action => 'set_profile_about_me'
-
+        user.set_receive_email_alerts '/profile/set_receive_alerts', :action => 'set_receive_email_alerts'
         user.river '/profile/river', :action => 'river'
     end
 

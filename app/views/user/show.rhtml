@@ -192,11 +192,13 @@
 </div>
 <% end %>
 <% if @show_profile && @is_you %>
+    <h2 id="email_subscriptions"> <%= _("Things you're following")%></h2>
+    <p>You can view everything you're following on <%= link_to "your wall", show_user_wall_path %>.</p>
+    <%= render :partial => 'change_receive_email' %>
+    <br>
     <% if @track_things.empty? %>
-        <h2 id="email_subscriptions"> <%= _('Your email subscriptions')%></h2>
-        <p><%= _('None made.')%></p>
+        <p><%= _("You're not following anything.")%></p>
     <% else %>
-        <h2 id="email_subscriptions"> Your <%=pluralize(@track_things.size, _('email subscription')) %> </h2>
         <% if @track_things_grouped.size == 1 %>
             <% form_tag({:controller => 'track', :action => 'delete_all_type'}, :class => "feed_form") do %>
                 <h3>

@@ -882,6 +882,13 @@ vertical-align:middle;
 text-decoration:none;
 }
 
+#follow_box {
+ background: #FFFFD2;
+ border-radius: 4px;
+ border: solid #5F5F5F 1px;
+ padding: 4px;
+}
+
 h2,dt {
 font-size:1.8em;
 }
