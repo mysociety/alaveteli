@@ -2,9 +2,6 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe AdminUserController, "when administering users" do
     integrate_views
-    before do
-        basic_auth_login @request
-    end
   
     it "shows the index/list page" do
         get :index
