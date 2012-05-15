@@ -7,6 +7,9 @@
   less likely, when using Varnish, that users will be presented with
   stale content.  Fixes
   [issue #436](https://github.com/sebbacon/alaveteli/issues/436)
+* Adding a `GA_CODE` to `general.yml` will cause the relevant Google
+  Analytics code to be added to your rendered pages
+
 ## Upgrade notes
 
 * Existing installations will need to install the Bundler gem.  See
