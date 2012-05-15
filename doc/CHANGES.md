@@ -7,6 +7,8 @@
   less likely, when using Varnish, that users will be presented with
   stale content.  Fixes
   [issue #436](https://github.com/sebbacon/alaveteli/issues/436)
+* Adding a `GA_CODE` to `general.yml` will cause the relevant Google
+  Analytics code to be added to your rendered pages
 
 ## Upgrade notes
 
@@ -35,6 +37,13 @@
   you should install the `purge-varnish` init script that's provided
   in `ugly` format at `config/purge-varnish-debian.ugly` to ensure the
   purge queue is emptied regularly.
+
+* Administrators are now assumed to log in using standard user accounts
+  with superuser privileges (see 'Administrator Privileges' in
+  `INSTALL.md`). The old-style admin account (using credentials from
+  `general.yml`) is now known as the "emergency user".  Deployments
+  that previously bypassed admin authentication should set the new
+  `SKIP_ADMIN_AUTH` config variable to `true`.
 
 # Version 0.5.1
 

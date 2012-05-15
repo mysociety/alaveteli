@@ -636,13 +636,15 @@ margin-top:-1em;
 margin:0 0 0 9em;
 }
 
-p#sign_in_reason {
+p#sign_in_reason, p#superuser_message {
 text-align:center;
 font-size:1.4em;
 font-weight:700;
 line-height:1em;
 }
-
+p#superuser_message {
+ font-size:1.2em;
+}
 #signup,#signin {
 clear:none;
 margin-bottom:1em;

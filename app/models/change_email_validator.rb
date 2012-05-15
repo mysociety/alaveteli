@@ -30,7 +30,7 @@ class ChangeEmailValidator < ActiveRecord::BaseWithoutTable
     validates_presence_of :old_email, :message => N_("Please enter your old email address")
     validates_presence_of :new_email, :message => N_("Please enter your new email address")
     validates_presence_of :password, :message => N_("Please enter your password"), :unless => :changing_email
-    
+
     def changing_email()
       self.user_circumstance == 'change_email'
     end

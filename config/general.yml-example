@@ -1,7 +1,7 @@
 # general.yml-example:
 # Example values for the "general" config file.
 #
-# Configuration parameters, in YAML syntax. 
+# Configuration parameters, in YAML syntax.
 #
 # Copy this file to one called "general.yml" in the same directory.  Or
 # have multiple config files and use a symlink to change between them.
@@ -56,9 +56,12 @@ BLACKHOLE_PREFIX: 'do-not-reply-to-this-address'
 
 ## Administration
 
-# Leave these two blank to skip admin authorisation
+# The emergency user
 ADMIN_USERNAME: 'adminxxxx'
 ADMIN_PASSWORD: 'passwordx'
+
+# Set this to true, and the admin interface will be available to anonymous users
+SKIP_ADMIN_AUTH: false
 
 # Email "from" details
 CONTACT_EMAIL: 'postmaster@localhost'
@@ -143,6 +146,10 @@ EXCEPTION_NOTIFICATIONS_TO:
 # This rate limiting can be turned off per-user via the admin interface
 MAX_REQUESTS_PER_USER_PER_DAY: 6
 
+
 # This is used to work out where to send purge requests.  Should be
 # unset if you aren't running behind varnish
 VARNISH_HOST: localhost
+
+# Adding a value here will enable Google Analytics on all non-admin pages.
+GA_CODE: ''

@@ -31,7 +31,7 @@ class AdminGeneralController < AdminController
         @requires_admin_requests = InfoRequest.find(:all, :select => '*, ' + InfoRequest.last_event_time_clause + ' as last_event_time', :conditions => ["described_state = 'requires_admin'"], :order => "last_event_time")
         @error_message_requests = InfoRequest.find(:all, :select => '*, ' + InfoRequest.last_event_time_clause + ' as last_event_time', :conditions => ["described_state = 'error_message'"], :order => "last_event_time")
         @blank_contacts = PublicBody.find(:all, :conditions => ["request_email = ''"], :order => "updated_at")
-        @old_unclassified = InfoRequest.find_old_unclassified(:limit => 20, 
+        @old_unclassified = InfoRequest.find_old_unclassified(:limit => 20,
                                                                        :conditions => ["prominence = 'normal'"])
         @holding_pen_messages = InfoRequest.holding_pen_request.incoming_messages
     end
@@ -82,7 +82,7 @@ class AdminGeneralController < AdminController
         @current_branch = `git branch | grep "\*" | awk '{print $2}'`
         repo = `git remote show origin -n | grep Fetch | awk '{print $3}' | sed -re 's/.*:(.*).git/\\1/'`
         @github_origin = "https://github.com/#{repo.strip}/tree/"
-        @request_env = request.env 
+        @request_env = request.env
     end
 end
 

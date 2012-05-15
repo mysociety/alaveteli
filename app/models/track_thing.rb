@@ -35,17 +35,17 @@ class TrackThing < ActiveRecord::Base
 
     has_many :track_things_sent_emails
 
-    validates_inclusion_of :track_type, :in => [ 
-        'request_updates', 
+    validates_inclusion_of :track_type, :in => [
+        'request_updates',
         'all_new_requests',
         'all_successful_requests',
-        'public_body_updates', 
+        'public_body_updates',
         'user_updates',
         'search_query'
     ]
 
-    validates_inclusion_of :track_medium, :in => [ 
-        'email_daily', 
+    validates_inclusion_of :track_medium, :in => [
+        'email_daily',
         'feed'
     ]
 
@@ -69,7 +69,7 @@ class TrackThing < ActiveRecord::Base
     end
 
     def track_query_description
-        # XXX this is very brittle... we should probably ask users 
+        # XXX this is very brittle... we should probably ask users
         # simply to name their tracks when they make them?
         original_text = parsed_text = self.track_query.gsub(/([()]|OR)/, "")
         filters = parsed_text.scan /\b\S+:\S+\b/
@@ -101,7 +101,7 @@ class TrackThing < ActiveRecord::Base
             end
             if filter =~ /waiting/
                 statuses << _("awaiting a response")
-            end                
+            end
         end
         if filters.empty?
             parsed_text = original_text

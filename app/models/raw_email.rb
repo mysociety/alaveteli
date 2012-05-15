@@ -16,7 +16,7 @@
 
 class RawEmail < ActiveRecord::Base
     # deliberately don't strip_attributes, so keeps raw email properly
-    
+
     has_one :incoming_message
 
     # We keep the old data_text field (which is of type text) for backwards
@@ -30,7 +30,7 @@ class RawEmail < ActiveRecord::Base
             return File.join(Rails.root, 'files/raw_email_test')
         else
             return File.join(MySociety::Config.get('RAW_EMAILS_LOCATION',
-                                                   'files/raw_emails'), 
+                                                   'files/raw_emails'),
                              request_id[0..2], request_id)
         end
     end
