@@ -400,6 +400,17 @@ class User < ActiveRecord::Base
         return self.email_confirmed
     end
 
+    def for_admin_column(complete = false)
+      if complete
+        columns = self.class.content_columns
+      else
+        columns = self.class.content_columns.map{|c| c if %w(created_at updated_at admin_level email_confirmed).include?(c.name) }.compact
+      end
+      columns.each do |column|
+        yield(column.human_name, self.send(column.name), column.type.to_s)
+      end
+    end
+
     ## Private instance methods
     private
 
@@ -430,4 +441,3 @@ class User < ActiveRecord::Base
     end
 
 end
-

@@ -1,23 +1,38 @@
-<table>
-  <tr>
-  <th>Title</th>
-  <th>Authority</th>
-  <th>User</th>
-  <% for column in InfoRequest.content_columns.map { |c| c.human_name } - [ "Url title", "Title" ] %>
-    <th><%= column %></th>
+<div class="accordion" id="requests">
+  <% for info_request in info_requests %>
+    <div class="accordion-group">
+      <div class="accordion-heading">
+        <%= link_to("admin", request_admin_url(info_request), :class => "btn btn-primary btn-mini") %>
+        <a class="accordion-toggle" href="#request_<%=info_request.id%>" data-toggle="collapse" data-parent="requests">
+          <%=info_request.title%>
+        </a>
+      </div>
+      <div id="request_<%=info_request.id%>" class="accordion-body collapse">
+        <table class="table table-striped">
+          <tbody>
+            <tr>
+              <td colspan="2">
+                <%= link_to("admin #{info_request.public_body.name}", public_body_admin_url(info_request.public_body), :class => "btn btn-mini") %>
+                <%= link_to("admin #{info_request.user.name}", user_admin_url(info_request.user), :class => "btn btn-mini") %>
+              </td>
+            </tr>
+            <% info_request.for_admin_column do | name, value, type | %>
+              <tr>
+                <td>
+                  <b><%=h name %></b>
+                </td>
+                <td>
+                  <% if type == 'datetime' %>
+                    <%=I18n.l(value, :format => "%e %B %Y %H:%M:%S")%>
+                    (<%=_('{{length_of_time}} ago', :length_of_time => time_ago_in_words(value))%>)
+                  <% else %>
+                    <%=h value %>
+                  <% end %>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
   <% end %>
-  </tr>
-  
-<% for info_request in info_requests %>
-  <tr class="<%= cycle('odd', 'even') %>">
-    <td><%= request_both_links(info_request) %></td>
-    <td><%= public_body_both_links(info_request.public_body) %></td>
-    <td><%= user_both_links(info_request.user) %></td>
-  <% for column in InfoRequest.content_columns.map { |c| c.name } - [ "title", "url_title" ] %>
-    <td><%=h info_request.send(column) %></td>
-  <% end %>
-  </tr>
-<% end %>
-</table>
-
-
+</div>
