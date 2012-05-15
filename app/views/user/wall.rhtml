@@ -1,7 +1,10 @@
 <% @title = h(@display_user.name) + _(" - wall") %>
 
-<p>This page lists your own activity, and activity you've followed.  You can change what you're following on <%= link_to "your profile page", show_user_profile_path %>.</p>
+<div class="medium_column">
+ <p><%= _('You can change the requests and users you are following on <a href="{{profile_url}}">your profile page</a>.', :profile_url => show_user_profile_path) %>
  <%= render :partial => 'change_receive_email' %>
+</div>
+
 <div id="user_profile_search">
     <% if !@feed_results.nil? %>
             <% for result in @feed_results %>
