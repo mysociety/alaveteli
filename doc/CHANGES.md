@@ -7,7 +7,6 @@
   less likely, when using Varnish, that users will be presented with
   stale content.  Fixes
   [issue #436](https://github.com/sebbacon/alaveteli/issues/436)
-
 ## Upgrade notes
 
 * Existing installations will need to install the Bundler gem.  See
@@ -35,6 +34,13 @@
   you should install the `purge-varnish` init script that's provided
   in `ugly` format at `config/purge-varnish-debian.ugly` to ensure the
   purge queue is emptied regularly.
+
+* Administrators are now assumed to log in using standard user accounts
+  with superuser privileges (see 'Administrator Privileges' in
+  `INSTALL.md`). The old-style admin account (using credentials from
+  `general.yml`) is now known as the "emergency user".  Deployments
+  that previously bypassed admin authentication should set the new
+  `SKIP_ADMIN_AUTH` config variable to `true`.
 
 # Version 0.5.1
 
