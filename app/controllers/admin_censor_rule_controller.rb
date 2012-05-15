@@ -65,7 +65,7 @@ class AdminCensorRuleController < AdminController
             render :action => 'edit'
         end
     end
-    
+
     def destroy
         censor_rule = CensorRule.find(params[:censor_rule_id])
         info_request = censor_rule.info_request

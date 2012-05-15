@@ -9,14 +9,14 @@
 class CommentController < ApplicationController
     before_filter :check_read_only, :only => [ :new ]
     protect_from_forgery :only => [ :new ]
-    
+
     def new
         if params[:type] == 'request'
             @info_request = InfoRequest.find_by_url_title(params[:url_title])
             @track_thing = TrackThing.create_track_for_request(@info_request)
             if params[:comment]
                 @comment = Comment.new(params[:comment].merge({
-                    :comment_type => 'request', 
+                    :comment_type => 'request',
                     :user => @user
                 }))
             end
@@ -38,7 +38,7 @@ class CommentController < ApplicationController
             # Default to subscribing to request when first viewing form
             params[:subscribe_to_request] = true
         end
-        
+
         # See if values were valid or not
         if !params[:comment] || !@existing_comment.nil? || !@comment.valid? || params[:reedit]
             render :action => 'new'

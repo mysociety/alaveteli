@@ -16,7 +16,7 @@ class AdminPublicBodyController < AdminController
 
     def _lookup_query_internal
         @locale = self.locale_from_params()
-        PublicBody.with_locale(@locale) do 
+        PublicBody.with_locale(@locale) do
             @query = params[:query]
             if @query == ""
                 @query = nil
@@ -26,13 +26,13 @@ class AdminPublicBodyController < AdminController
                 @page = nil
             end
             @public_bodies = PublicBody.paginate :order => "public_body_translations.name", :page => @page, :per_page => 100,
-                :conditions =>  @query.nil? ? "public_body_translations.locale = '#{@locale}'" : 
-                                ["(lower(public_body_translations.name) like lower('%'||?||'%') or 
-                                 lower(public_body_translations.short_name) like lower('%'||?||'%') or 
+                :conditions =>  @query.nil? ? "public_body_translations.locale = '#{@locale}'" :
+                                ["(lower(public_body_translations.name) like lower('%'||?||'%') or
+                                 lower(public_body_translations.short_name) like lower('%'||?||'%') or
                                  lower(public_body_translations.request_email) like lower('%'||?||'%' )) AND (public_body_translations.locale = '#{@locale}')", @query, @query, @query],
               :joins => :translations
         end
-        @public_bodies_by_tag = PublicBody.find_by_tag(@query) 
+        @public_bodies_by_tag = PublicBody.find_by_tag(@query)
     end
 
     def list
@@ -62,11 +62,11 @@ class AdminPublicBodyController < AdminController
     def missing_scheme
         # There might be a way to do this in ActiveRecord, but I can't find it
         @public_bodies = PublicBody.find_by_sql("
-            SELECT a.id, a.name, a.url_name, COUNT(*) AS howmany 
-              FROM public_bodies a JOIN info_requests r ON a.id = r.public_body_id 
-             WHERE a.publication_scheme = '' 
-             GROUP BY a.id, a.name, a.url_name 
-             ORDER BY howmany DESC 
+            SELECT a.id, a.name, a.url_name, COUNT(*) AS howmany
+              FROM public_bodies a JOIN info_requests r ON a.id = r.public_body_id
+             WHERE a.publication_scheme = ''
+             GROUP BY a.id, a.name, a.url_name
+             ORDER BY howmany DESC
              LIMIT 20
         ")
         @stats = {
@@ -77,7 +77,7 @@ class AdminPublicBodyController < AdminController
 
     def show
         @locale = self.locale_from_params()
-        PublicBody.with_locale(@locale) do 
+        PublicBody.with_locale(@locale) do
             @public_body = PublicBody.find(params[:id])
             render
         end
@@ -87,7 +87,7 @@ class AdminPublicBodyController < AdminController
         @public_body = PublicBody.new
         render
     end
-    
+
     def create
         PublicBody.with_locale(I18n.default_locale) do
             params[:public_body][:last_edit_editor] = admin_http_auth_user()
@@ -103,7 +103,7 @@ class AdminPublicBodyController < AdminController
 
     def edit
         @public_body = PublicBody.find(params[:id])
-        @public_body.last_edit_comment = ""        
+        @public_body.last_edit_comment = ""
         render
     end
 
@@ -122,7 +122,7 @@ class AdminPublicBodyController < AdminController
 
     def destroy
         @locale = self.locale_from_params()
-        PublicBody.with_locale(@locale) do 
+        PublicBody.with_locale(@locale) do
             public_body = PublicBody.find(params[:id])
 
             if public_body.info_requests.size > 0
@@ -147,7 +147,7 @@ class AdminPublicBodyController < AdminController
             else
                 raise "internal error, unknown button label"
             end
-            
+
             # Try with dry run first
             csv_contents = params[:csv_file].read
             en = PublicBody.import_csv(csv_contents, params[:tag], params[:tag_behaviour], true, admin_http_auth_user(), I18n.available_locales)
@@ -174,7 +174,7 @@ class AdminPublicBodyController < AdminController
             @errors = ""
             @notes = ""
         end
-        
+
     end
 
     private

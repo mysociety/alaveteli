@@ -9,7 +9,7 @@
 class UserController < ApplicationController
 
     layout :select_layout
-    
+
     protect_from_forgery :only => [ :contact,
                                     :set_profile_photo,
                                     :signchangeemail,
@@ -33,7 +33,7 @@ class UserController < ApplicationController
             @show_profile = false
             @show_requests = true
         end
-        
+
         @display_user = User.find(:first, :conditions => [ "url_name = ? and email_confirmed = ?", params[:url_name], true ])
         if not @display_user
             raise ActiveRecord::RecordNotFound.new("user not found, url_name=" + params[:url_name])
@@ -55,7 +55,7 @@ class UserController < ApplicationController
                 end
                 @xapian_requests = perform_search([InfoRequestEvent], requests_query, 'newest', 'request_collapse')
                 @xapian_comments = perform_search([InfoRequestEvent], comments_query, 'newest', nil)
-                
+
                 if (@page > 1)
                     @page_desc = " (page " + @page.to_s + ")"
                 else
@@ -129,7 +129,7 @@ class UserController < ApplicationController
                     session[:user_id] = @user_signin.id
                     session[:user_circumstance] = nil
                     session[:remember_me] = params[:remember_me] ? true : false
-                    
+
                     if is_modal_dialog
                         render :action => 'signin_successful'
                     else
@@ -319,7 +319,7 @@ class UserController < ApplicationController
         if (not session[:user_circumstance]) or (session[:user_circumstance] != "change_email")
             # don't store the password in the db
             params[:signchangeemail].delete(:password)
-            post_redirect = PostRedirect.new(:uri => signchangeemail_url(), 
+            post_redirect = PostRedirect.new(:uri => signchangeemail_url(),
                                              :post_params => params,
                                              :circumstance => "change_email" # special login that lets you change your email
             )
@@ -538,12 +538,12 @@ class UserController < ApplicationController
     def is_modal_dialog
         (params[:modal].to_i != 0)
     end
-    
+
     # when logging in through a modal iframe, don't display chrome around the content
     def select_layout
         is_modal_dialog ? 'no_chrome' : 'default'
     end
-    
+
     # Decide where we are going to redirect back to after signin/signup, and record that
     def work_out_post_redirect
         # Redirect to front page later if nothing else specified
