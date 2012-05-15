@@ -7,7 +7,7 @@
 # $Id: request_game_controller.rb,v 1.9 2009-10-19 22:06:54 francis Exp $
 
 class RequestGameController < ApplicationController
-    
+
     def play
         session[:request_game] = Time.now
 
@@ -20,7 +20,7 @@ class RequestGameController < ApplicationController
         @requests = old.sort_by{ rand }.slice(0..2)
 
         if @missing == 0
-            flash[:notice] = _('<p>All done! Thank you very much for your help.</p><p>There are <a href="{{helpus_url}}">more things you can do</a> to help {{site_name}}.</p>', 
+            flash[:notice] = _('<p>All done! Thank you very much for your help.</p><p>There are <a href="{{helpus_url}}">more things you can do</a> to help {{site_name}}.</p>',
                 :helpus_url => help_credits_path+"#helpus",
                 :site_name => site_name)
         end
@@ -38,7 +38,7 @@ class RequestGameController < ApplicationController
         url_title = params[:url_title]
         if !authenticated?(
                 :web => _("To play the request categorisation game"),
-                :email => _("Then you can play the request categorisation game."), 
+                :email => _("Then you can play the request categorisation game."),
                 :email_subject => _("Play the request categorisation game")
             )
             # do nothing - as "authenticated?" has done the redirect to signin page for us

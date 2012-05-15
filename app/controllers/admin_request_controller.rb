@@ -60,10 +60,10 @@ class AdminRequestController < AdminController
 
         if @info_request.valid?
             @info_request.save!
-            @info_request.log_event("edit", 
-                { :editor => admin_http_auth_user(), 
-                    :old_title => old_title, :title => @info_request.title, 
-                    :old_prominence => old_prominence, :prominence => @info_request.prominence, 
+            @info_request.log_event("edit",
+                { :editor => admin_http_auth_user(),
+                    :old_title => old_title, :title => @info_request.title,
+                    :old_prominence => old_prominence, :prominence => @info_request.prominence,
                     :old_described_state => old_described_state, :described_state => @info_request.described_state,
                     :old_awaiting_description => old_awaiting_description, :awaiting_description => @info_request.awaiting_description,
                     :old_allow_new_responses_from => old_allow_new_responses_from, :allow_new_responses_from => @info_request.allow_new_responses_from,
@@ -75,7 +75,7 @@ class AdminRequestController < AdminController
         else
             render :action => 'edit'
         end
-    end 
+    end
 
     def fully_destroy
         @info_request = InfoRequest.find(params[:id])
@@ -99,28 +99,28 @@ class AdminRequestController < AdminController
         outgoing_message_id = @outgoing_message.id
 
         @outgoing_message.fully_destroy
-        @outgoing_message.info_request.log_event("destroy_outgoing", 
+        @outgoing_message.info_request.log_event("destroy_outgoing",
             { :editor => admin_http_auth_user(), :deleted_outgoing_message_id => outgoing_message_id })
 
         flash[:notice] = 'Outgoing message successfully destroyed.'
         redirect_to request_admin_url(@info_request)
-    end 
+    end
 
     def update_outgoing
         @outgoing_message = OutgoingMessage.find(params[:id])
 
         old_body = @outgoing_message.body
 
-        if @outgoing_message.update_attributes(params[:outgoing_message]) 
-            @outgoing_message.info_request.log_event("edit_outgoing", 
-                { :outgoing_message_id => @outgoing_message.id, :editor => admin_http_auth_user(), 
+        if @outgoing_message.update_attributes(params[:outgoing_message])
+            @outgoing_message.info_request.log_event("edit_outgoing",
+                { :outgoing_message_id => @outgoing_message.id, :editor => admin_http_auth_user(),
                     :old_body => old_body, :body => @outgoing_message.body })
             flash[:notice] = 'Outgoing message successfully updated.'
             redirect_to request_admin_url(@outgoing_message.info_request)
         else
             render :action => 'edit_outgoing'
         end
-    end 
+    end
 
     def edit_comment
         @comment = Comment.find(params[:id])
@@ -133,9 +133,9 @@ class AdminRequestController < AdminController
         old_visible = @comment.visible
         @comment.visible = params[:comment][:visible] == "true" ? true : false
 
-        if @comment.update_attributes(params[:comment]) 
-            @comment.info_request.log_event("edit_comment", 
-                { :comment_id => @comment.id, :editor => admin_http_auth_user(), 
+        if @comment.update_attributes(params[:comment])
+            @comment.info_request.log_event("edit_comment",
+                { :comment_id => @comment.id, :editor => admin_http_auth_user(),
                     :old_body => old_body, :body => @comment.body,
                     :old_visible => old_visible, :visible => @comment.visible,
                 })
@@ -144,7 +144,7 @@ class AdminRequestController < AdminController
         else
             render :action => 'edit_comment'
         end
-    end 
+    end
 
 
     def destroy_incoming
@@ -153,12 +153,12 @@ class AdminRequestController < AdminController
         incoming_message_id = @incoming_message.id
 
         @incoming_message.fully_destroy
-        @incoming_message.info_request.log_event("destroy_incoming", 
+        @incoming_message.info_request.log_event("destroy_incoming",
             { :editor => admin_http_auth_user(), :deleted_incoming_message_id => incoming_message_id })
 
         flash[:notice] = 'Incoming message successfully destroyed.'
         redirect_to request_admin_url(@info_request)
-    end 
+    end
 
     def redeliver_incoming
         incoming_message = IncomingMessage.find(params[:redeliver_incoming_message_id])
@@ -181,10 +181,10 @@ class AdminRequestController < AdminController
 
         incoming_message_id = incoming_message.id
         incoming_message.fully_destroy
-        incoming_message.info_request.log_event("redeliver_incoming", { 
-                :editor => admin_http_auth_user(), 
-                :destination_request => destination_request.id, 
-                :deleted_incoming_message_id => incoming_message_id 
+        incoming_message.info_request.log_event("redeliver_incoming", {
+                :editor => admin_http_auth_user(),
+                :destination_request => destination_request.id,
+                :deleted_incoming_message_id => incoming_message_id
         })
 
         flash[:notice] = "Message has been moved to this request"
@@ -202,10 +202,10 @@ class AdminRequestController < AdminController
             else
                 info_request.user = destination_user
                 info_request.save!
-                info_request.log_event("move_request", { 
-                        :editor => admin_http_auth_user(), 
-                        :old_user_url_name => old_user.url_name, 
-                        :user_url_name => destination_user.url_name 
+                info_request.log_event("move_request", {
+                        :editor => admin_http_auth_user(),
+                        :old_user_url_name => old_user.url_name,
+                        :user_url_name => destination_user.url_name
                 })
 
                 info_request.reindex_request_events
@@ -220,10 +220,10 @@ class AdminRequestController < AdminController
             else
                 info_request.public_body = destination_public_body
                 info_request.save!
-                info_request.log_event("move_request", { 
-                        :editor => admin_http_auth_user(), 
-                        :old_public_body_url_name => old_public_body.url_name, 
-                        :public_body_url_name => destination_public_body.url_name 
+                info_request.log_event("move_request", {
+                        :editor => admin_http_auth_user(),
+                        :old_public_body_url_name => old_public_body.url_name,
+                        :public_body_url_name => destination_public_body.url_name
                 })
 
                 info_request.reindex_request_events
@@ -288,10 +288,10 @@ class AdminRequestController < AdminController
             if domain.nil?
                 @public_bodies = []
             else
-                @public_bodies = PublicBody.find(:all, :order => "name", 
+                @public_bodies = PublicBody.find(:all, :order => "name",
                     :conditions => [ "lower(request_email) like lower('%'||?||'%')", domain ])
             end
-            
+
             # 2. Match the email address in the message without matching the hash
             @info_requests =  InfoRequest.guess_by_incoming_email(@raw_email.incoming_message)
 

@@ -28,7 +28,7 @@ class ApplicationMailer < ActionMailer::Base
     # views (for links) and mailers (for use in emails), so include them into
     # all of all.
     include LinkToHelper
-    
+
     # Site-wide access to configuration settings
     include ConfigHelper
 end

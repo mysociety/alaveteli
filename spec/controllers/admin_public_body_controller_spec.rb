@@ -4,10 +4,6 @@ describe AdminPublicBodyController, "when administering public bodies" do
     integrate_views
 
     before do
-        username = MySociety::Config.get('ADMIN_USERNAME', '')
-        password = MySociety::Config.get('ADMIN_PASSWORD', '')
-        basic_auth_login @request
-        
         @old_filters = ActionController::Routing::Routes.filters
         ActionController::Routing::Routes.filters = RoutingFilter::Chain.new
     end
@@ -80,6 +76,17 @@ describe AdminPublicBodyController, "when administering public bodies and paying
 
     integrate_views
 
+    before do
+        config = MySociety::Config.load_default()
+        config['SKIP_ADMIN_AUTH'] = false
+        basic_auth_login @request   
+    end
+    after do
+        config = MySociety::Config.load_default()
+        config['SKIP_ADMIN_AUTH'] = true
+    end
+
+
     it "disallows non-authenticated users to do anything" do
         @request.env["HTTP_AUTHORIZATION"] = ""
         n = PublicBody.count
@@ -145,12 +152,6 @@ end
 describe AdminPublicBodyController, "when administering public bodies with i18n" do
     integrate_views
   
-    before do
-        username = MySociety::Config.get('ADMIN_USERNAME', '')
-        password = MySociety::Config.get('ADMIN_PASSWORD', '')
-        basic_auth_login @request
-    end
-
     it "shows the index page" do
         get :index
     end
@@ -214,10 +215,6 @@ describe AdminPublicBodyController, "when creating public bodies with i18n" do
     integrate_views
   
     before do
-        username = MySociety::Config.get('ADMIN_USERNAME', '')
-        password = MySociety::Config.get('ADMIN_PASSWORD', '')
-        basic_auth_login @request
-        
         @old_filters = ActionController::Routing::Routes.filters
         ActionController::Routing::Routes.filters = RoutingFilter::Chain.new
     end
