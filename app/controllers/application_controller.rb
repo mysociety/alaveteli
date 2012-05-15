@@ -120,6 +120,13 @@ class ApplicationController < ActionController::Base
     def rescue_action_in_public(exception)
         # Make sure expiry time for session is set (before_filters are
         # otherwise missed by this override) 
+        begin
+            set_view_paths
+        rescue NameError => e
+            if !(e.message =~ /undefined local variable or method `set_view_paths'/)
+                raise
+            end
+        end
         session_remember_me
         case exception
         when ActiveRecord::RecordNotFound, ActionController::UnknownAction, ActionController::RoutingError
