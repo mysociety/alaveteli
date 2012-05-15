@@ -674,7 +674,6 @@ class IncomingMessage < ActiveRecord::Base
             end
         end
 
-
         # Fix DOS style linefeeds to Unix style ones (or other later regexps won't work)
         # Needed for e.g. http://www.whatdotheyknow.com/request/60/response/98
         text = text.gsub(/\r\n/, "\n")
@@ -1029,8 +1028,6 @@ class IncomingMessage < ActiveRecord::Base
         return get_body_for_quoting + "\n\n" + get_attachment_text_clipped
     end
 
-
-
     # Has message arrived "recently"?
     def recently_arrived
         (Time.now - self.created_at) <= 3.days
@@ -1133,7 +1130,14 @@ class IncomingMessage < ActiveRecord::Base
 
         return content_type
     end
-    private :normalise_content_type
+
+  def for_admin_column
+    self.class.content_columns.each do |column|
+      yield(column.human_name, self.send(column.name), column.type.to_s, column.name)
+    end
+  end
+
+  private :normalise_content_type
 
 end
 

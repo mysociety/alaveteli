@@ -21,3 +21,4 @@ TAGS
 .bundle
 bin/
 config/aliases
+.sass-cache

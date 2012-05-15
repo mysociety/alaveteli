@@ -189,6 +189,25 @@ class PublicBody < ActiveRecord::Base
             text = text.gsub(/\n/, '<br>')
             return text
         end
+
+        def compare(previous = nil)
+          if previous.nil?
+            yield([])
+          else
+            v = self
+            changes = self.class.content_columns.inject([]) {|memo, c|
+              unless %w(version last_edit_editor last_edit_comment updated_at).include?(c.name)
+                from = previous.send(c.name)
+                to = self.send(c.name)
+                memo << { :name => c.human_name, :from => from, :to => to } if from != to
+              end
+              memo
+            }
+            changes.each do |change|
+              yield(change)
+            end
+          end
+        end
     end
 
     acts_as_xapian :texts => [ :name, :short_name, :notes ],
@@ -550,6 +569,12 @@ class PublicBody < ActiveRecord::Base
     after_save(:purge_in_cache)
     def purge_in_cache
         self.info_requests.each {|x| x.purge_in_cache}
+    end
+
+    def for_admin_column
+        self.class.content_columns.map{|c| c unless %w(name last_edit_comment).include?(c.name)}.compact.each do |column|
+            yield(column.human_name, self.send(column.name), column.type.to_s, column.name)
+        end
     end
 
 end

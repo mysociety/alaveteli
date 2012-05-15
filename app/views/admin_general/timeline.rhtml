@@ -1,14 +1,19 @@
 <% @title = "Timeline" %>
-
-<h1><%=h @events_title%></h1>
-
-<p>
-<a href="?hour=1">Hour</a>
-| <a href="?day=1">Day</a>
-| <a href="?">2 days</a>
-| <a href="?week=1">Week</a>
-| <a href="?month=1">Month</a>
-| <a href="?all=1">All time</a></p>
+<div class="btn-toolbar">
+  <div class="btn-group">
+    <a class="btn" href="?hour=1">Hour</a>
+    <a class="btn" href="?day=1">Day</a>
+    <a class="btn" href="?">2 days</a>
+    <a class="btn" href="?week=1">Week</a>
+    <a class="btn" href="?month=1">Month</a>
+    <a class="btn" href="?all=1">All time</a>
+  </div>
+</div>
+<div class="row">
+  <div class="span12">
+    <h1><%=h @events_title%></h1>
+  </div>
+</div>
 
 <% last_date = nil %>
 <% for event in @events %>
@@ -22,14 +27,14 @@
         <br>
     <% end %>
     <% last_date = event.created_at.to_date %>
-    
+
     <%= simple_time(event.created_at) %>
 
     <% if event.class.to_s == 'InfoRequestEvent' %>
         <%= request_both_links(event.info_request) %>
         <% if event.event_type == 'edit' %>
             was edited by administrator <strong><%=h event.params[:editor] %></strong>.
-            <% for p in ['title', 'prominence', 'described_state', 'awaiting_description'] 
+            <% for p in ['title', 'prominence', 'described_state', 'awaiting_description']
                     if event.params[p.to_sym] != event.params[('old_'+p).to_sym]
                         %> Changed <%=p%> from '<%=h event.params[('old_'+p).to_sym]%>' to '<%=h event.params[p.to_sym] %>'. <%
                     end
@@ -38,8 +43,9 @@
         <% elsif event.event_type == 'edit_outgoing' %>
             <% outgoing_message = OutgoingMessage.find(event.params[:outgoing_message_id].to_i) %>
             had outgoing message edited by administrator <strong><%=h event.params[:editor] %></strong>.
-            <% if outgoing_message %>
-                <% for p in ['body'] 
+            <% if outgoing_messages.size > 0 %>
+                <% outgoing_message = outgoing_messages[0] %>
+                <% for p in ['body']
                         if event.params[p.to_sym] != event.params[('old_'+p).to_sym]
                             %> Changed <%=p%> from '<%=h event.params[('old_'+p).to_sym]%>' to '<%=h event.params[p.to_sym] %>'. <%
                         end
@@ -51,8 +57,9 @@
         <% elsif event.event_type == 'edit_comment' %>
             <% comment = Comment.find(event.params[:comment_id].to_i) %>
             had annotation edited by administrator <strong><%=h event.params[:editor] %></strong>.
-            <% if comment %>
-                <% for p in ['body'] 
+            <% if comments.size > 0 %>
+                <% comment = comments[0] %>
+                <% for p in ['body']
                         if event.params[p.to_sym] != event.params[('old_'+p).to_sym]
                             %> Changed <%=p%> from '<%=h event.params[('old_'+p).to_sym]%>' to '<%=h event.params[p.to_sym] %>'. <%
                         end
@@ -69,7 +76,7 @@
             had incoming message redelivered to another request by administrator <strong><%=h event.params[:editor] %></strong>.
          <% elsif event.event_type == 'response' %>
             <% incoming_message = event.incoming_message %>
-            received 
+            received
             <%= link_to 'a response', main_url(incoming_message_url(incoming_message)) %>
             from <%=h event.info_request.public_body.name %>.
         <% elsif event.event_type == 'sent' %>
@@ -93,5 +100,3 @@
 <% if not @events.empty? %>
 </p>
 <% end %>
-
-
