@@ -1,10 +1,12 @@
 <% form_tag(:controller=>"user", :action=>"set_receive_email_alerts") do %>
  <% if @user.receive_email_alerts %>
-  You are currently receiving notification of new activity on your wall by email.
+  <%= _('You are currently receiving notification of new activity on your wall by email.', :wall_url => show_user_wall_path) %>
   <%= hidden_field_tag 'receive_email_alerts', 'false' %>
-  <%= submit_tag "Turn off email alerts" %>
+  <%= submit_tag _("Turn off email alerts") %>
  <% else %>
+  <%= _('Items matching the following conditions are currently displayed on your wall.') %>
   <%= hidden_field_tag 'receive_email_alerts', 'true' %>
-  <%= submit_tag "Send me alerts of new activity by email" %>
+  <%= submit_tag _("Also send me alerts by email") %>
  <% end %>
 <% end %>
+

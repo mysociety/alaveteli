@@ -879,10 +879,14 @@ text-decoration:none;
 }
 
 #follow_box {
- background: #FFFFD2;
- border-radius: 4px;
- border: solid #5F5F5F 1px;
+ background: #E9FDD3;
+ border-radius: 6px;
+ border: solid #B0CA86 1px;
  padding: 4px;
+}
+
+#follow_box h2 {
+ margin: 0;
 }
 
 h2,dt {
@@ -1258,6 +1262,9 @@ cursor:pointer;
 padding:5px 6px;
 }
 
+.feed_link a.link_button_green {
+ color:white;
+}
 a.link_button_green_large {
 background:url(/images/button-gradient-large.png);
 font-size:2em;
@@ -1642,6 +1649,11 @@ width:575px;
 padding-right:50px;
 float:left;
 }
+.medium_column {
+width:575px;
+padding-right:50px;
+}
+
 #authority_preview .request_left,
 #authority_preview #header_left {
   width: 100%;

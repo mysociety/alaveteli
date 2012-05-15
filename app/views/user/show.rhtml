@@ -193,7 +193,6 @@
 <% end %>
 <% if @show_profile && @is_you %>
     <h2 id="email_subscriptions"> <%= _("Things you're following")%></h2>
-    <p>You can view everything you're following on <%= link_to "your wall", show_user_wall_path %>.</p>
     <%= render :partial => 'change_receive_email' %>
     <br>
     <% if @track_things.empty? %>
