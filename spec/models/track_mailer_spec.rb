@@ -25,6 +25,7 @@ describe TrackMailer do
                                          :get_locale => 'en',
                                          :should_be_emailed? => true)
                 User.stub!(:find).and_return([@user])
+                @user.stub!(:receive_email_alerts).and_return(true)
                 @user.stub!(:no_xapian_reindex=)
             end
 
@@ -122,6 +123,7 @@ describe TrackMailer do
                                          :url_name => 'test-name',
                                          :should_be_emailed? => false)
                 User.stub!(:find).and_return([@user])
+                @user.stub!(:receive_email_alerts).and_return(true)
                 @user.stub!(:no_xapian_reindex=)
             end
 
