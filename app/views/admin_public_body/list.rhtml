@@ -1,29 +1,24 @@
 <% if @query.nil? %>
-  <% @title = _('Listing public authorities') %>
+    <% @title = 'Listing public authorities' %>
 <% else %>
-  <% @title = _("Listing public authorities matching '{{query}}'", :query => @query ) %>
+    <% @title = "Listing public authorities matching '" + @query + "'" %>
 <% end %>
 
 <h1><%=@title%></h1>
 
-<div class="btn-toolbar">
+<p>
     <% if !@query.nil? %>
-      <div class="btn-group">
-        <%= link_to 'Show all', 'list', :class => "btn" %>
-      </div>
+        <%= link_to 'Show all', 'list' %> |
     <% end %>
-  <div class="btn-group">
-    <%= link_to 'New public authority', 'new', :class => "btn btn-primary" %>
-  </div>
-  <div class="btn-group">
-    <%= link_to 'Import from CSV file', 'import_csv', :class => "btn btn-warning" %>
-  </div>
-</div>
+    <%= link_to 'New public authority', 'new' %>
+    | <%= link_to 'Import from CSV file', 'import_csv' %>
 </p>
 
-<% form_tag("", :method => "get", :class => "form form-search") do %>
-   <%= text_field_tag 'query', params[:query], { :size => 30, :class => "input-large search-query" } %>
-   <%= submit_tag "Search", :class => "btn" %> (substring search in names and emails; exact match of tags)
+<% form_tag("", :method => "get") do %>
+   <p>
+       <%= text_field_tag 'query', params[:query], { :size => 30 } %>
+       <%= submit_tag "Search" %> (substring search in names and emails; exact match of tags)
+   </p>
 <% end %>
 
 
@@ -41,4 +36,5 @@
     <%= render :partial => 'one_list', :locals => { :bodies => @public_bodies, :table_name => 'substring' } %>
 <% end %>
 
-<%= will_paginate(@public_bodies, :class => "paginator") %>
+<%= will_paginate(@public_bodies) %>
+
