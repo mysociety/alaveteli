@@ -69,7 +69,7 @@ class GeneralController < ApplicationController
 
     # Display blog entries
     def blog
-        medium_cache
+        short_cache
         @feed_autodetect = []
         @feed_url = "#{MySociety::Config.get('BLOG_FEED', '')}?lang=#{self.locale_from_params()}"
         @blog_items = []
