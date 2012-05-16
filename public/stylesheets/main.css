@@ -41,7 +41,11 @@ border-width:1px;
 }
 
 #navigation_search input#navigation_search_query {
-width:14em;
+width:20.25em;
+font-size: 0.8em;
+padding: 5px;
+margin: -1px -1px 0 0;
+
 }
 
 #navigation_search p {
@@ -912,7 +916,7 @@ border:none;
 
 #navigation_search input[type=image] {
 border:0;
-margin-bottom:-8px;
+margin-bottom:-9px;
 margin-left:-4px;
 }
 
