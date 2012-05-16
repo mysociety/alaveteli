@@ -81,6 +81,16 @@ else
     bundle install
 fi
 
+if [ -n "$OPTION_THEME_URLS" ]
+then
+    echo $OPTION_THEME_URLS
+    for THEME in $OPTION_THEME_URLS
+    do
+	script/plugin install --force $THEME
+    done
+fi
+
+# Old version of the above, for backwards compatibility
 if [ -n "$OPTION_THEME_URL" ]
 then
 	script/plugin install --force $OPTION_THEME_URL
