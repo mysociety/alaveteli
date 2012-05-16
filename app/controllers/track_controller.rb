@@ -138,7 +138,7 @@ class TrackController < ApplicationController
         if @user.receive_email_alerts
             flash[:notice] = _('You will now be emailed updates about {{track_description}}. <a href="{{change_email_alerts_url}}">Prefer not to receive emails?</a>', :track_description =>  @track_thing.params[:list_description], :change_email_alerts_url => url_for(:controller => "user", :action => "wall", :url_name => @user.url_name))
         else
-            flash[:notice] = _('You are now <a href="{{wall_url_user}}">following</a> updates about {{track_description}}', @track_thing.params[:list_description], :wall_url_user => url_for(:controller => "user", :action => "wall", :url_name => @user.url_name))
+            flash[:notice] = _('You are now <a href="{{wall_url_user}}">following</a> updates about {{track_description}}', :track_description => @track_thing.params[:list_description], :wall_url_user => url_for(:controller => "user", :action => "wall", :url_name => @user.url_name))
         end
         return true
     end
