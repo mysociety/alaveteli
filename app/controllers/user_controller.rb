@@ -588,7 +588,7 @@ class UserController < ApplicationController
         end
         @user.receive_email_alerts = params[:receive_email_alerts]
         @user.save!
-        redirect_to request.headers['HTTP_REFERER']
+        redirect_to params[:came_from]
     end
 
     private
