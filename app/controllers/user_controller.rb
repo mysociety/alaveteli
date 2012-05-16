@@ -122,11 +122,11 @@ class UserController < ApplicationController
         end
         for track_thing in @track_things
             # XXX factor out of track_mailer.rb
-            xapian_object = InfoRequest.full_search([InfoRequestEvent], track_thing.track_query, 'described_at', true, nil, 100, 1) 
+            xapian_object = InfoRequest.full_search([InfoRequestEvent], track_thing.track_query, 'described_at', true, nil, 20, 1) 
             feed_results += xapian_object.results.map {|x| x[:model]}
         end
 
-        @feed_results = Array(feed_results).sort {|x,y| y.created_at <=> x.created_at}
+        @feed_results = Array(feed_results).sort {|x,y| y.created_at <=> x.created_at}.first(20)
         
         respond_to do |format|
             format.html { @has_json = true }
