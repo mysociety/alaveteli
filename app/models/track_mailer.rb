@@ -48,7 +48,7 @@ class TrackMailer < ApplicationMailer
         end
         for user in users
             next if !user.should_be_emailed? || !user.receive_email_alerts
-            
+
             email_about_things = []
             track_things = TrackThing.find(:all, :conditions => [ "tracking_user_id = ? and track_medium = ?", user.id, 'email_daily' ])
             for track_thing in track_things
