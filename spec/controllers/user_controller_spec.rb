@@ -651,5 +651,11 @@ describe UserController, "when viewing the wall" do
         assigns[:feed_results][0].should == ire
     end
 
+    it "should show other users' activities on their walls" do
+        user = users(:silly_name_user)
+        ire = info_request_events(:useless_incoming_message_event)
+        get :wall, :url_name => user.url_name
+        assigns[:feed_results][0].should_not == ire
+    end
 
 end
