@@ -883,10 +883,27 @@ text-decoration:none;
 }
 
 #follow_box {
- background: #E9FDD3;
- border-radius: 6px;
- border: solid #B0CA86 1px;
+
  padding: 4px;
+}
+
+#follow_box .feed_link {
+ text-align: center;
+}
+
+#follow_count {
+ color: #93278F;
+ font-family: 'DeliciousBold', Arial, sans-serif;
+ font-weight: 700;
+ font-size: 60px;
+ line-height: 60px;
+ text-align: right;
+ float: left;
+ margin-top: -15px;
+ margin-right: 5px;
+}
+.follow_count {
+ clear:both;
 }
 
 #follow_box h2 {
