@@ -16,6 +16,8 @@ describe TrackController, "when making a new track on a request" do
         @user = mock_model(User)
         User.stub!(:find).and_return(@user)
         @user.stub!(:locale).and_return("en")
+        @user.stub!(:receive_email_alerts).and_return(true)
+        @user.stub!(:url_name).and_return("bob")
     end
 
     it "should require login when making new track" do
