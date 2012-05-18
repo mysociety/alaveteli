@@ -30,7 +30,7 @@ gem 'test-unit', '~> 1.2.3' if RUBY_VERSION.to_f >= 1.9
 gem 'vpim'
 gem 'will_paginate', '~> 2.3.11'
 # when 1.2.9 is released by the maintainer, we can stop using this fork:
-gem 'xapian-full-alaveteli', '~> 1.2.9.4'
+gem 'xapian-full', '~> 1.2.9', :git => 'git://github.com/robinhouston/xapian-full.git'
 gem 'xml-simple'
 gem 'zip'
 
