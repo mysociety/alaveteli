@@ -1,5 +1,5 @@
  <% if FastGettext.default_available_locales.length > 1 && !params.empty? %>
-   <div id="user_locale_switcher" class="well btn-toolbar">
+   <div id="user_locale_switcher">
      <div class="btn-group">
      <% for possible_locale in FastGettext.default_available_locales %>
       <% if possible_locale == I18n.locale.to_s %>
