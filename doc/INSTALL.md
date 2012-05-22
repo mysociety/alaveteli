@@ -19,8 +19,9 @@ Next, get hold of the Alaveteli source code from github:
     git clone https://github.com/sebbacon/alaveteli.git
     cd alaveteli
 
-This will get the current stable release.  If you are a developer and want to
-add or try new features, you might want to swap to the development
+This will get the current stable release from the master branch (which
+always contains the latest release).  If you are a developer and want
+to add or try new features, you might want to swap to the development
 branch:
 
     git checkout develop
