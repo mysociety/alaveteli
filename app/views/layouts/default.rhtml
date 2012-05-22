@@ -58,7 +58,7 @@
 
         <%= render :partial => 'general/before_head_end' %>
     </head>
-    <body <%= "class='front'" if params[:action] == 'frontpage' %>>
+    <body class="<%= 'admin' if !session[:using_admin].nil?%> <%= 'front' if params[:action] == 'frontpage' %>">
 
     <!-- XXX: move to a separate file -->
     <% if force_registration_on_new_request && !@user %>
