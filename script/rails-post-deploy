@@ -83,9 +83,9 @@ fi
 
 if [ -n "$OPTION_THEME_URLS" ]
 then
-    echo $OPTION_THEME_URLS
-    for THEME in $OPTION_THEME_URLS
+    for THEME in "${OPTION_THEME_URLS[@]}"
     do
+	echo "Installing $THEME..."
 	script/plugin install --force $THEME
     done
 fi
@@ -93,6 +93,7 @@ fi
 # Old version of the above, for backwards compatibility
 if [ -n "$OPTION_THEME_URL" ]
 then
+        echo "Installing $OPTION_THEME_URL using deprecated THEME_URL..."
 	script/plugin install --force $OPTION_THEME_URL
 fi
 
