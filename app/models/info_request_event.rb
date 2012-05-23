@@ -39,25 +39,26 @@ class InfoRequestEvent < ActiveRecord::Base
 
     def self.enumerate_event_types
         [
-            'sent',
-            'resent',
-            'followup_sent',
-            'followup_resent',
-
-            'edit', # title etc. edited (in admin interface)
-            'edit_outgoing', # outgoing message edited (in admin interface)
-            'edit_comment', # comment edited (in admin interface)
-            'destroy_incoming', # deleted an incoming message (in admin interface)
-            'destroy_outgoing', # deleted an outgoing message (in admin interface)
-            'redeliver_incoming', # redelivered an incoming message elsewhere (in admin interface)
-            'move_request', # changed user or public body (in admin interface)
-            'manual', # you did something in the db by hand
-
-            'response',
-            'comment',
-            'status_update',
+         'sent',
+         'resent',
+         'followup_sent',
+         'followup_resent',
+         
+         'edit', # title etc. edited (in admin interface)
+         'edit_outgoing', # outgoing message edited (in admin interface)
+         'edit_comment', # comment edited (in admin interface)
+         'destroy_incoming', # deleted an incoming message (in admin interface)
+         'destroy_outgoing', # deleted an outgoing message (in admin interface)
+         'redeliver_incoming', # redelivered an incoming message elsewhere (in admin interface)
+         'move_request', # changed user or public body (in admin interface)
+         'manual', # you did something in the db by hand
+         
+         'response',
+         'comment',
+         'status_update'
         ]
     end
+
     validates_inclusion_of :event_type, :in => enumerate_event_types
 
     # user described state (also update in info_request)
@@ -440,7 +441,9 @@ class InfoRequestEvent < ActiveRecord::Base
         return ret
     end
 
-
+  def for_admin_column
+    self.class.content_columns.each do |column|
+      yield(column.human_name, self.send(column.name), column.type.to_s, column.name)
+    end
+  end
 end
-
-

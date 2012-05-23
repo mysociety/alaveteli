@@ -17,12 +17,16 @@ module LinkToHelper
         return show_request_url(params.merge(extra_params))
     end
 
-    def request_link(info_request)
-        link_to h(info_request.title), request_url(info_request)
+    def request_link(info_request, cls=nil )
+        link_to h(info_request.title), request_url(info_request), :class => cls
     end
 
     def request_admin_url(info_request)
         return admin_url('request/show/' + info_request.id.to_s)
+    end
+
+    def request_admin_link(info_request, name="admin", cls=nil)
+      link_to name, request_admin_url(info_request), :class => cls
     end
 
     def request_both_links(info_request)
@@ -66,8 +70,8 @@ module LinkToHelper
     def public_body_link_short(public_body)
         link_to h(public_body.short_or_long_name), public_body_url(public_body)
     end
-    def public_body_link(public_body)
-        link_to h(public_body.name), public_body_url(public_body)
+    def public_body_link(public_body, cls=nil)
+        link_to h(public_body.name), public_body_url(public_body), :class => cls
     end
     def public_body_link_absolute(public_body) # e.g. for in RSS
         link_to h(public_body.name), main_url(public_body_url(public_body))
@@ -86,8 +90,8 @@ module LinkToHelper
     def user_url(user)
         return show_user_url(:url_name => user.url_name, :only_path => true)
     end
-    def user_link(user)
-        link_to h(user.name), user_url(user)
+    def user_link(user, cls=nil)
+        link_to h(user.name), user_url(user), :class => cls
     end
     def user_link_absolute(user)
         link_to h(user.name), main_url(user_url(user))
@@ -111,6 +115,9 @@ module LinkToHelper
     end
     def user_admin_url(user)
         return admin_url('user/show/' + user.id.to_s)
+    end
+    def user_admin_link(user, name="admin", cls=nil)
+      link_to name, user_admin_url(user), :class => cls
     end
     def user_both_links(user)
         link_to(h(user.name), main_url(user_url(user))) + " (" + link_to("admin", user_admin_url(user)) + ")"

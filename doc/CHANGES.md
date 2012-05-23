@@ -9,6 +9,10 @@
   [issue #436](https://github.com/sebbacon/alaveteli/issues/436)
 * Adding a `GA_CODE` to `general.yml` will cause the relevant Google
   Analytics code to be added to your rendered pages
+* It is now possible to have more than one theme installed.  The
+  behaviour of multiple themes is now layered in the reverse order
+  they're listed in the config file.  See the variable `THEME_URLS` in
+  `general.yml-example` for an example.
 
 ## Upgrade notes
 

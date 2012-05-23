@@ -34,8 +34,12 @@ SPECIAL_REPLY_VERY_LATE_AFTER_DAYS: 60
 # example public bodies for the home page, semicolon delimited - short_names
 FRONTPAGE_PUBLICBODY_EXAMPLES: 'tgq'
 
-# URL of theme to install (when running rails-post-deploy script)
-THEME_URL: 'git://github.com/sebbacon/alavetelitheme.git'
+# URLs of themes to download and use (when running rails-post-deploy
+# script). Earlier in the list means the templates have a higher
+# priority.
+THEME_URLS: 
+ - 'git://github.com/sebbacon/adminbootstraptheme.git'
+ - 'git://github.com/sebbacon/alavetelitheme.git'
 
 # Whether a user needs to sign in to start the New Request process
 FORCE_REGISTRATION_ON_NEW_REQUEST: false
