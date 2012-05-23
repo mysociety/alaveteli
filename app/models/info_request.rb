@@ -1059,6 +1059,10 @@ public
             req.save()
         end
     end
+
+    def for_admin_column
+      self.class.content_columns.map{|c| c unless %w(title url_title).include?(c.name) }.compact.each do |column|
+        yield(column.human_name, self.send(column.name), column.type.to_s, column.name)
+      end
+    end
 end
-
-
