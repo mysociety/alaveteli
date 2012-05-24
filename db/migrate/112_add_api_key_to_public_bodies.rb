@@ -9,7 +9,7 @@ class AddApiKeyToPublicBodies < ActiveRecord::Migration
         pb.save!
     end
     
-    change_column :public_bodies, :api_key, :string, :null => false
+    change_column_null :public_bodies, :api_key, false
   end
 
   def self.down
