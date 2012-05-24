@@ -1,4 +1,10 @@
 GIT
+  remote: git://github.com/ctran/annotate_models.git
+  revision: 18cd39ad01829deba5aa34634b8540d6675ab978
+  specs:
+    annotate (2.4.1.beta1)
+
+GIT
   remote: git://github.com/robinhouston/xapian-full.git
   revision: a40074b2de825905b92d5ff6f3d6e094b1240c35
   specs:
@@ -69,7 +75,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  annotate
+  annotate!
   fakeweb
   fast_gettext (>= 0.6.0)
   gettext (>= 1.9.3)
