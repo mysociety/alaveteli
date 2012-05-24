@@ -1,24 +1,3 @@
-# == Schema Information
-# Schema version: 108
-#
-# Table name: incoming_messages
-#
-#  id                             :integer         not null, primary key
-#  info_request_id                :integer         not null
-#  created_at                     :datetime        not null
-#  updated_at                     :datetime        not null
-#  raw_email_id                   :integer         not null
-#  cached_attachment_text_clipped :text
-#  cached_main_body_text_folded   :text
-#  cached_main_body_text_unfolded :text
-#  sent_at                        :time
-#  subject                        :text
-#  mail_from_domain               :text
-#  valid_to_reply_to              :boolean
-#  last_parsed                    :datetime
-#  mail_from                      :text
-#
-
 # encoding: UTF-8
 
 # models/incoming_message.rb:
@@ -1141,4 +1120,25 @@ class IncomingMessage < ActiveRecord::Base
 
 end
 
+
+
+# == Schema Information
+#
+# Table name: incoming_messages
+#
+#  id                             :integer         not null, primary key
+#  info_request_id                :integer         not null
+#  created_at                     :datetime        not null
+#  updated_at                     :datetime        not null
+#  raw_email_id                   :integer         not null
+#  cached_attachment_text_clipped :text
+#  cached_main_body_text_folded   :text
+#  cached_main_body_text_unfolded :text
+#  subject                        :text
+#  mail_from_domain               :text
+#  valid_to_reply_to              :boolean
+#  last_parsed                    :datetime
+#  mail_from                      :text
+#  sent_at                        :datetime
+#
 

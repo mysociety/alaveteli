@@ -37,3 +37,15 @@ end
 
 
 
+
+# == Schema Information
+#
+# Table name: purge_requests
+#
+#  id         :integer         not null, primary key
+#  url        :string(255)
+#  created_at :datetime        not null
+#  model      :string(255)     not null
+#  model_id   :integer         not null
+#
+
