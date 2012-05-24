@@ -660,8 +660,10 @@ class RequestController < ApplicationController
             info_request.set_described_state('attention_requested')
             info_request.attention_requested = true # tells us if attention has ever been requested
             info_request.save!
+            flash[:notice] = _("This request has been reported for administrator attention")
+        else
+            flash[:notice] = _("This request has already been reported for administrator attention")
         end
-        flash[:notice] = _("This request has been reported for administrator attention")
         redirect_to request_url(info_request)
     end
 
