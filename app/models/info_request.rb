@@ -1,3 +1,25 @@
+# == Schema Information
+# Schema version: 114
+#
+# Table name: info_requests
+#
+#  id                        :integer         not null, primary key
+#  title                     :text            not null
+#  user_id                   :integer         not null
+#  public_body_id            :integer         not null
+#  created_at                :datetime        not null
+#  updated_at                :datetime        not null
+#  described_state           :string(255)     not null
+#  awaiting_description      :boolean         default(FALSE), not null
+#  prominence                :string(255)     default("normal"), not null
+#  url_title                 :text            not null
+#  law_used                  :string(255)     default("foi"), not null
+#  allow_new_responses_from  :string(255)     default("anybody"), not null
+#  handle_rejected_responses :string(255)     default("bounce"), not null
+#  idhash                    :string(255)     not null
+#  attention_requested       :boolean         default(FALSE)
+#
+
 
 require 'digest/sha1'
 
@@ -1051,25 +1073,4 @@ public
       end
     end
 end
-
-# == Schema Information
-#
-# Table name: info_requests
-#
-#  id                        :integer         not null, primary key
-#  title                     :text            not null
-#  user_id                   :integer         not null
-#  public_body_id            :integer         not null
-#  created_at                :datetime        not null
-#  updated_at                :datetime        not null
-#  described_state           :string(255)     not null
-#  awaiting_description      :boolean         default(FALSE), not null
-#  prominence                :string(255)     default("normal"), not null
-#  url_title                 :text            not null
-#  law_used                  :string(255)     default("foi"), not null
-#  allow_new_responses_from  :string(255)     default("anybody"), not null
-#  handle_rejected_responses :string(255)     default("bounce"), not null
-#  idhash                    :string(255)     not null
-#  attention_requested       :boolean         default(FALSE)
-#
 
