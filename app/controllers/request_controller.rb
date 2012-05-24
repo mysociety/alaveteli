@@ -54,7 +54,7 @@ class RequestController < ApplicationController
             # Look up by old style numeric identifiers
             if params[:url_title].match(/^[0-9]+$/)
                 @info_request = InfoRequest.find(params[:url_title].to_i)
-                redirect_to request_url(@info_request)
+                redirect_to request_url(@info_request, :format => params[:format])
                 return
             end
 
