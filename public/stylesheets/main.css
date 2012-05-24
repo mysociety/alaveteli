@@ -882,6 +882,34 @@ vertical-align:middle;
 text-decoration:none;
 }
 
+#follow_box {
+
+ padding: 4px;
+}
+
+#follow_box .feed_link {
+ text-align: center;
+}
+
+#follow_count {
+ color: #93278F;
+ font-family: 'DeliciousBold', Arial, sans-serif;
+ font-weight: 700;
+ font-size: 60px;
+ line-height: 60px;
+ text-align: right;
+ float: left;
+ margin-top: -15px;
+ margin-right: 5px;
+}
+.follow_count {
+ clear:both;
+}
+
+#follow_box h2 {
+ margin: 0;
+}
+
 h2,dt {
 font-size:1.8em;
 }
@@ -1255,6 +1283,9 @@ cursor:pointer;
 padding:5px 6px;
 }
 
+.feed_link a.link_button_green {
+ color:white;
+}
 a.link_button_green_large {
 background:url(/images/button-gradient-large.png);
 font-size:2em;
@@ -1639,6 +1670,11 @@ width:575px;
 padding-right:50px;
 float:left;
 }
+.medium_column {
+width:575px;
+padding-right:50px;
+}
+
 #authority_preview .request_left,
 #authority_preview #header_left {
   width: 100%;
