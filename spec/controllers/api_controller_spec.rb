@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe ApiController, "when using the API" do
     it "should create a new request from a POST" do
         geraldine = public_bodies(:geraldine_public_body)
-        number_of_requests = InfoRequest.count(:conditions = ["public_body_id = ?", geraldine.id])
+        number_of_requests = InfoRequest.count(:conditions => ["public_body_id = ?", geraldine.id])
         
         request_data = {
             "title" => "Tell me about your chickens",
@@ -15,12 +15,13 @@ describe ApiController, "when using the API" do
         
         post :create_request, :k => geraldine.api_key, :request_json => request_data.to_json
         response.should be_success
-        response.headers["Content-Type"].should == "application/json"
+
+        response.content_type.should == "application/json"
         
-        response_body = response.body.from_json
+        response_body = ActiveSupport::JSON.decode(response.body)
         response_body["url"].should =~ /^http/
         
-        InfoRequest.count(:conditions = ["public_body_id = ?", geraldine.id]).should == number_of_requests + 1
+        InfoRequest.count(:conditions => ["public_body_id = ?", geraldine.id]).should == number_of_requests + 1
         
         new_request = InfoRequest.find(response_body["id"])
         new_request.user_id.should be_nil
