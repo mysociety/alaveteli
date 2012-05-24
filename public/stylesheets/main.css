@@ -311,7 +311,7 @@ color:#A68C2E;
 background-image:url(../images/navimg/status-icons-fail.png);
 }
 
-.icon_not_held {
+.icon_not_held, .icon_attention_requested {
 background-image:url(/images/status-not-held.png);
 color:#A68C2E;
 }

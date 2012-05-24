@@ -4,7 +4,16 @@
     <% follower_count = TrackThing.count(:all, :conditions => ["info_request_id = ?", @info_request.id]) + 1 %>
     <p><%= n_("There is %d person following this request", "There are %d people following this request", follower_count) % follower_count %></p>
      <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => @info_request.user == @user, :location => 'sidebar' } %>
-
+    <% if @info_request.described_state != "attention_requested" %>
+    <h2><%= _('Offensive? Unsuitable?') %></h2>
+     <% if @info_request.attention_requested %>
+       <p><%= ('The site administrators have reviewed this request and consider it to be suitable for the website.') %></p>
+     <% else %>
+      <p><%= _('Requests for personal information and vexatious requests are not considered valid for FOI purposes (<a href="/help/about">read more</a>).') %>
+       <p><%= ('If you believe this request is not suitable, you can report it for attention by the site administrators') %></p>
+       <%= link_to _("Report this request"), report_path, :class => "link_button_green" %>
+      <% end %>
+    <% end %>
     <h2><%= _("Act on what you've learnt") %></h2>
 
     <div class="act_link">

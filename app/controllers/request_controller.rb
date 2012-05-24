@@ -654,6 +654,17 @@ class RequestController < ApplicationController
         end
     end
 
+    def report_request
+        info_request = InfoRequest.find_by_url_title(params[:url_title])
+        if !info_request.attention_requested
+            info_request.set_described_state('attention_requested')
+            info_request.attention_requested = true # tells us if attention has ever been requested
+            info_request.save!
+        end
+        flash[:notice] = _("This request has been reported for administrator attention")
+        redirect_to request_url(info_request)
+    end
+
     # special caching code so mime types are handled right
     around_filter :cache_attachments, :only => [ :get_attachment, :get_attachment_as_html ]
     def cache_attachments
