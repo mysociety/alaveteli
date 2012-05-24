@@ -26,7 +26,27 @@ class ApiController < ApplicationController
     end
     
     def create_request
-        
+        json = ActiveSupport::JSON.decode(params[:request_json])
+        existing_request = InfoRequest.find_by_existing_request(json["title"], 
+                                                                @public_body.id, 
+                                                                json["body"])
+        info_request = InfoRequest.new(:title => json["title"],
+                                       :public_body_id => @public_body.id,
+                                       :described_state => "awaiting_response",
+                                       :external_user_name => json["external_user_name"],
+                                       :external_url => json["external_url"])
+        outgoing_message = OutgoingMessage.new(json["body"])
+        info_request.outgoing_messages << outgoing_messages
+        outgoing_message.info_request = info_request
+        # See if values were valid or not
+        if !existing_request.nil? || !info_request.valid?
+            # We don't want the error "Outgoing messages is invalid", as the outgoing message
+            # will be valid for a specific reason which we are displaying anyway.
+            info_request.errors.delete("outgoing_messages")
+            render :json => {'errors' => :info_request.errors.to_s}
+        else
+            render :json => {'url' => 'http://goo.com'}
+        end
     end
     
     def add_correspondence
