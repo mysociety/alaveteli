@@ -17,6 +17,7 @@
 #  notes              :text            default(""), not null
 #  first_letter       :string(255)     not null
 #  publication_scheme :text            default(""), not null
+#  api_key            :string(255)     not null
 #
 
 # models/public_body.rb:
@@ -178,7 +179,7 @@ class PublicBody < ActiveRecord::Base
     end
 
     acts_as_versioned
-    self.non_versioned_columns << 'created_at' << 'updated_at' << 'first_letter'
+    self.non_versioned_columns << 'created_at' << 'updated_at' << 'first_letter' << 'api_key'
     class Version
         attr_accessor :created_at
 
