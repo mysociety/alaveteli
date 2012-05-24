@@ -66,6 +66,7 @@ ActionController::Routing::Routes.draw do |map|
 
         request.upload_response "/upload/request/:url_title", :action => 'upload_response'
         request.download_entire_request '/request/:url_title/download',      :action => 'download_entire_request'
+        request.report '/request/:url_title/report',      :action => 'report_request'
 
     end
 

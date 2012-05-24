@@ -46,6 +46,20 @@
     </ul>
 <% end %>
 
+<% if @attention_requests.size > 0 %>
+    <h3>Review requests which have been marked as requiring your attention by users (<%=@error_message_requests.size%> total)</h3>
+
+    <ul>
+    <% for @request in @attention_requests %>
+        <li>
+            <%= request_both_links(@request)%>
+            &ndash; <%=simple_date(@request.get_last_event.created_at)%>
+        </li>
+    <% end %>
+    </ul>
+<% end %>
+
+
 <% if @requires_admin_requests.size > 0 %>
     <h3>These require administrator attention (<%=@requires_admin_requests.size%> total)</h3>
 

@@ -48,7 +48,7 @@ class RequestMailer < ApplicationMailer
     def requires_admin(info_request)
         @from = info_request.user.name_and_email
         @recipients = contact_from_name_and_email
-        @subject = _("FOI response requires admin - ") + info_request.title
+        @subject = _("FOI response requires admin ({{reason}}) - {{title}}", :reason => info_request.described_state, :title => info_request.title)
         url = main_url(request_url(info_request))
         admin_url = request_admin_url(info_request)
         @body = {:info_request => info_request, :url => url, :admin_url => admin_url }

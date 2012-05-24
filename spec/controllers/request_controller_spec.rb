@@ -1845,3 +1845,44 @@ describe RequestController, "when showing similar requests" do
 end
 
 
+describe RequestController, "when reporting a request" do
+    integrate_views
+
+    it "should mark a request as having been reported" do
+        ir = info_requests(:badger_request)
+        title = ir.url_title
+        get :show, :url_title => title
+        assigns[:info_request].attention_requested.should == false
+        get :report_request, :url_title => title
+        get :show, :url_title => title
+        assigns[:info_request].attention_requested.should == true
+        assigns[:info_request].described_state.should == "attention_requested"
+    end
+
+    it "should not allow a request to be reported twice" do
+        title = info_requests(:badger_request).url_title
+        get :report_request, :url_title => title
+        get :show, :url_title => title
+        response.body.should include("has been reported")
+        get :report_request, :url_title => title
+        get :show, :url_title => title
+        response.body.should include("has already been reported")
+    end
+
+    it "should let users know a request has been reported" do
+        title = info_requests(:badger_request).url_title
+        get :show, :url_title => title
+        response.body.should include("Offensive?")
+        get :report_request, :url_title => title
+        get :show, :url_title => title
+        response.body.should_not include("Offensive?")        
+        response.body.should include("This request has been reported")
+        info_requests(:badger_request).set_described_state("successful")
+        get :show, :url_title => title
+        response.body.should_not include("This request has been reported")
+        response.body.should include("The site administrators have reviewed this request")
+    end
+
+end
+
+

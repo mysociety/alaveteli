@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 108
+# Schema version: 114
 #
 # Table name: info_requests
 #
@@ -17,6 +17,7 @@
 #  allow_new_responses_from  :string(255)     default("anybody"), not null
 #  handle_rejected_responses :string(255)     default("bounce"), not null
 #  idhash                    :string(255)     not null
+#  attention_requested       :boolean         default(FALSE)
 #
 
 
@@ -88,7 +89,8 @@ class InfoRequest < ActiveRecord::Base
         'internal_review',
         'error_message',
         'requires_admin',
-        'user_withdrawn'
+        'user_withdrawn',
+        'attention_requested'
         ]
         if @@custom_states_loaded
             states += InfoRequest.theme_extra_states
@@ -503,12 +505,15 @@ public
     # states which require administrator action (hence email administrators
     # when they are entered, and offer state change dialog to them)
     def InfoRequest.requires_admin_states
-        return ['requires_admin', 'error_message']
+        return ['requires_admin', 'error_message', 'attention_requested']
     end
 
     def requires_admin?
         return true if InfoRequest.requires_admin_states.include?(described_state)
         return false
+    end
+
+    def can_have_attention_requested?
     end
 
     # change status, including for last event for later historical purposes
@@ -803,6 +808,8 @@ public
             _("Delivery error")
         elsif status == 'requires_admin'
             _("Unusual response.")
+        elsif status == 'attention_requested'
+            _("Reported for administrator attention.")
         elsif status == 'user_withdrawn'
             _("Withdrawn by the requester.")
         else
@@ -1066,3 +1073,4 @@ public
       end
     end
 end
+

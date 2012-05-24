@@ -41,4 +41,5 @@ end
 
 group :develop do
   gem 'ruby-debug'
+  gem 'annotate'
 end

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 108
+# Schema version: 114
 #
 # Table name: incoming_messages
 #
@@ -11,12 +11,12 @@
 #  cached_attachment_text_clipped :text
 #  cached_main_body_text_folded   :text
 #  cached_main_body_text_unfolded :text
-#  sent_at                        :time
 #  subject                        :text
 #  mail_from_domain               :text
 #  valid_to_reply_to              :boolean
 #  last_parsed                    :datetime
 #  mail_from                      :text
+#  sent_at                        :datetime
 #
 
 # encoding: UTF-8
@@ -1140,5 +1140,6 @@ class IncomingMessage < ActiveRecord::Base
   private :normalise_content_type
 
 end
+
 
 

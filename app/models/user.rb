@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 108
+# Schema version: 114
 #
 # Table name: users
 #
@@ -20,6 +20,8 @@
 #  email_bounced_at       :datetime
 #  email_bounce_message   :text            default(""), not null
 #  no_limit               :boolean         default(FALSE), not null
+#  receive_email_alerts   :boolean         default(TRUE), not null
+#  user_similarity_id     :integer
 #
 
 # models/user.rb:
@@ -441,3 +443,4 @@ class User < ActiveRecord::Base
     end
 
 end
+

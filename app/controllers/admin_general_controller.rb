@@ -30,6 +30,7 @@ class AdminGeneralController < AdminController
         # Tasks to do
         @requires_admin_requests = InfoRequest.find(:all, :select => '*, ' + InfoRequest.last_event_time_clause + ' as last_event_time', :conditions => ["described_state = 'requires_admin'"], :order => "last_event_time")
         @error_message_requests = InfoRequest.find(:all, :select => '*, ' + InfoRequest.last_event_time_clause + ' as last_event_time', :conditions => ["described_state = 'error_message'"], :order => "last_event_time")
+        @attention_requests = InfoRequest.find(:all, :select => '*, ' + InfoRequest.last_event_time_clause + ' as last_event_time', :conditions => ["described_state = 'attention_requested'"], :order => "last_event_time")
         @blank_contacts = PublicBody.find(:all, :conditions => ["request_email = ''"], :order => "updated_at")
         @old_unclassified = InfoRequest.find_old_unclassified(:limit => 20,
                                                                        :conditions => ["prominence = 'normal'"])
