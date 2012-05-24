@@ -1,10 +1,6 @@
 class ApiController < ApplicationController
     before_filter :check_api_key
     
-    def create_request
-        
-    end
-    
     def show_request
         @request = InfoRequest.find(params[:id])
         raise PermissionDenied if @request.public_body_id != @public_body.id
@@ -27,6 +23,10 @@ class ApiController < ApplicationController
         }
         
         render :json => @request_data
+    end
+    
+    def create_request
+        
     end
     
     def add_correspondence
