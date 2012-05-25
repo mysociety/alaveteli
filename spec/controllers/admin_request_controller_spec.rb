@@ -110,4 +110,26 @@ describe AdminRequestController, "when administering the holding pen" do
         assert_equal File.exists?(raw_email), false        
     end
 
+    it "shows a suitable default 'your email has been hidden' message" do
+        ir = info_requests(:fancy_dog_request)
+        get :show, :id => ir.id
+        assigns[:request_hidden_user_explanation].should include(ir.user.name)
+        assigns[:request_hidden_user_explanation].should include("vexatious")
+        get :show, :id => ir.id, :reason => "not_foi"
+        assigns[:request_hidden_user_explanation].should_not include("vexatious")
+        assigns[:request_hidden_user_explanation].should include("not a valid FOI")
+    end
+
+    it "hides requests and sends a notification email that it has done so" do
+        ir = info_requests(:fancy_dog_request)
+        post :hide_request, :id => ir.id, :explanation => "Foo", :reason => "vexatious"
+        ir.reload
+        ir.prominence.should == "requester_only"
+        ir.described_state.should == "vexatious"
+        deliveries = ActionMailer::Base.deliveries
+        deliveries.size.should == 1
+        mail = deliveries[0]
+        mail.body.should =~ /Foo/
+    end
+
 end

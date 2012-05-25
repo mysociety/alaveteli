@@ -119,6 +119,7 @@ ActionController::Routing::Routes.draw do |map|
 
     map.with_options :controller => 'services' do |service|
         service.other_country_message "/country_message", :action => 'other_country_message'
+        service.hidden_user_explanation "/hidden_user_explanation", :action => 'hidden_user_explanation'
     end
 
     map.with_options :controller => 'track' do |track|
@@ -202,6 +203,7 @@ ActionController::Routing::Routes.draw do |map|
         admin.admin_request_show_raw_email '/admin/request/show_raw_email/:id', :action => 'show_raw_email'
         admin.admin_request_download_raw_email '/admin/request/download_raw_email/:id', :action => 'download_raw_email'
         admin.admin_request_clarification '/admin/request/mark_event_as_clarification', :action => 'mark_event_as_clarification'
+        admin.admin_request_hide '/admin/request/hide/:id', :action => 'hide_request'
     end
 
     map.with_options :controller => 'admin_user' do |user|
