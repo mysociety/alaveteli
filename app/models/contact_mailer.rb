@@ -42,4 +42,16 @@ class ContactMailer < ApplicationMailer
         }
     end
 
+    # Send message to a user from the administrator
+    def from_admin_message(recipient_user, subject, message)
+        @from = contact_from_name_and_email
+        @recipients = recipient_user.name_and_email
+        @subject = subject
+        @body = {
+            :message => message,
+            :from_user => @from,
+            :recipient_user => recipient_user,
+        }
+    end
+
 end
