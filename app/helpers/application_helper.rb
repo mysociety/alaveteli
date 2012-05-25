@@ -17,6 +17,9 @@ module ApplicationHelper
     # Site-wide access to configuration settings
     include ConfigHelper
 
+    # Useful for sending emails
+    include MailerHelper
+
     # Copied from error_messages_for in active_record_helper.rb
     def foi_error_messages_for(*params)
         options = params.last.is_a?(Hash) ? params.pop.symbolize_keys : {}
