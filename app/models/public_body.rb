@@ -240,7 +240,7 @@ class PublicBody < ActiveRecord::Base
     # Return the short name if present, or else long name
     def short_or_long_name
         if self.short_name.nil? || self.short_name.empty?   # 'nil' can happen during construction
-            self.name
+            self.name.nil? ? "" : self.name
         else
             self.short_name
         end

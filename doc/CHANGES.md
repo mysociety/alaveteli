@@ -1,3 +1,7 @@
+# Version 0.5.2
+
+This is a hotfix to fix occasional problems importing public body CSVs
+
 # Version 0.5.1
 
 ## Highlighted features
