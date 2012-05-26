@@ -155,7 +155,7 @@ class RequestMailer < ApplicationMailer
                 'Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
                 'X-Auto-Response-Suppress' => 'OOF'
         @recipients = info_request.user.name_and_email
-        @subject = "Clarify your FOI request - " + info_request.title
+        @subject = _("Clarify your FOI request - ") + info_request.title
         @body = { :incoming_message => incoming_message, :info_request => info_request, :url => url }
     end
 
