@@ -866,10 +866,10 @@ class IncomingMessage < ActiveRecord::Base
                 text = "[Subject only] " + CGI.escapeHTML(self.subject) + text
             end
             # and display link for quoted stuff
-            text = text.gsub(/FOLDED_QUOTED_SECTION/, "\n\n" + '<span class="unfold_link"><a href="?unfold=1#incoming-'+self.id.to_s+'">show quoted sections</a></span>' + "\n\n")
+            text = text.gsub(/FOLDED_QUOTED_SECTION/, "\n\n" + '<span class="unfold_link"><a href="?unfold=1#incoming-'+self.id.to_s+'">'+_("show quoted sections")+'</a></span>' + "\n\n")
         else
             if folded_quoted_text.include?('FOLDED_QUOTED_SECTION')
-                text = text + "\n\n" + '<span class="unfold_link"><a href="?#incoming-'+self.id.to_s+'">hide quoted sections</a></span>'
+                text = text + "\n\n" + '<span class="unfold_link"><a href="?#incoming-'+self.id.to_s+'">'+_("hide quoted sections")+'</a></span>'
             end
         end
         text.strip!
