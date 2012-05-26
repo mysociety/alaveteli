@@ -40,8 +40,8 @@
         <%= check_box_tag 'toc', "1" %>
         <label for="toc">
             <%= _('He leído las <a href="{{terms_url}}" target="_blank">Condiciones de Uso</a> de la web y su <a href="{{privacy_url}}" target="_blank">Política de Privacidad</a>.', 
-                    :terms_url => help_terms_of_use_path,
-                    :privacy_url => help_privacy_policy_path) %>
+                    :terms_url => defined? help_terms_of_use_path ? help_terms_of_use_path : nil,
+                    :privacy_url => defined? help_privacy_policy_path ? help_privacy_policy_path : nil) %>
         </label>
     </p>
 

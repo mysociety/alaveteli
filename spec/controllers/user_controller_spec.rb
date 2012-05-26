@@ -248,7 +248,7 @@ describe UserController, "when signing up" do
 
     it "should send confirmation mail if you fill in the form right" do
         post :signup, { :user_signup => { :email => 'new@localhost', :name => 'New Person',
-            :password => 'sillypassword', :password_confirmation => 'sillypassword' } 
+            :password => 'sillypassword', :password_confirmation => 'sillypassword' }, :toc => "1" 
         }
         response.should render_template('confirm')
 
@@ -260,8 +260,7 @@ describe UserController, "when signing up" do
     it "should send confirmation mail in other languages or different locales" do
         session[:locale] = "es"
         post :signup, {:user_signup => { :email => 'new@localhost', :name => 'New Person',
-            :password => 'sillypassword', :password_confirmation => 'sillypassword',
-           }
+            :password => 'sillypassword', :password_confirmation => 'sillypassword'}, :toc => "1"
         }
         response.should render_template('confirm')
 
@@ -272,7 +271,7 @@ describe UserController, "when signing up" do
 
     it "should send special 'already signed up' mail if you fill the form in with existing registered email" do
         post :signup, { :user_signup => { :email => 'silly@localhost', :name => 'New Person',
-            :password => 'sillypassword', :password_confirmation => 'sillypassword' } 
+            :password => 'sillypassword', :password_confirmation => 'sillypassword' }, :toc => "1" 
         }
         response.should render_template('confirm')
 
