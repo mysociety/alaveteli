@@ -1,5 +1,7 @@
-<%=@info_request.public_body.name%> <%=('has asked you to explain part of your')%> <%=@info_request.law_used_short%> <%= _('request.')%> 
-<%= _('To do this, first click on the link below.')%>
+<%= _('{{public_body}} has asked you to explain part of your {{law_used}} request.', 
+    :public_body => @info_request.public_body.name,
+    :law_used => @info_request.law_used_short ) %> 
+<%= _('To do this, first click on the link below.') %>
 
 <%=@url%>
 
