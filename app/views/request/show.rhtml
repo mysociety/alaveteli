@@ -52,17 +52,18 @@
     <% if @info_request.awaiting_description %>
         <% if @is_owning_user %>
             <%= _('Please <strong>answer the question above</strong> so we know whether the ')%> 
-            <%= MySociety::Format.fancy_pluralize(@new_responses_count, 'recent response contains', 'recent responses contain') %> <%= _('useful information.') %>
+            <%= _("las respuestas recientes contienen") %> 
+            <%= _('useful information.') %>
         <% else %>
             <%= _('This request has an <strong>unknown status</strong>.') %>
             <% if @old_unclassified %>
               <%= _('We\'re waiting for someone to read') %> 
-              <%= MySociety::Format.fancy_pluralize(@new_responses_count, 'a recent response', 'recent responses') %>
+              <%= _("las respuestas recientes") %> 
               <%= _('and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?') %>
             <% else %>
             <%=  _('We\'re waiting for') %>
               <%= user_link(@info_request.user) %> <%= _('to read') %> 
-              <%= MySociety::Format.fancy_pluralize(@new_responses_count, 'a recent response', 'recent responses') %> 
+              <%= _("las respuestas recientes") %> 
               <%= _('and update the status.') %>
             <% end %>
         <% end %>
