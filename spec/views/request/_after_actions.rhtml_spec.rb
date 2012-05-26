@@ -75,9 +75,5 @@ describe 'when displaying actions that can be taken with regard to a request' do
         end
         
     end
-
-    it 'should display a link for the request owner to request a review' do
-        expect_owner_link('Request an internal review')
-    end
         
 end

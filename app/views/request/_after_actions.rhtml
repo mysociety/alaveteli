@@ -35,9 +35,6 @@
           <%= link_to _("Update the status of this request"), request_url(@info_request, :update_status => 1) %>
           </li>
       <% end %>
-      <li>
-          <%= link_to _("Request an internal review"), show_response_no_followup_url(:id => @info_request.id, :incoming_message_id => nil) + "?internal_review=1#followup" %> 
-      </li>
   </ul>
     </div>
   

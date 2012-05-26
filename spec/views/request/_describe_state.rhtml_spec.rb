@@ -97,10 +97,6 @@ describe 'when showing the form for describing the state of a request' do
             before do 
                 assigns[:update_status] = true
             end
-            
-            it 'should show a radio button to set the status to "internal_review"' do 
-                expect_radio_button('internal_review')
-            end
 
             it 'should show a radio button to set the status to "requires_admin"' do 
                 expect_radio_button('requires_admin')

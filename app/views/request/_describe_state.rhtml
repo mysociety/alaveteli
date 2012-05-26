@@ -25,13 +25,6 @@
                 <label for="waiting_clarification<%=id_suffix%>"><%= _('I\'ve been asked to <strong>clarify</strong> my request') %></label>
             </div>
         <% end %>
-
-        <% if @update_status && @info_request.described_state != 'internal_review' %>
-            <div>
-                <%= radio_button "incoming_message", "described_state", "internal_review", :id => 'internal_review' + id_suffix %>
-                <label for="internal_review<%=id_suffix%>"><%= _('I\'m waiting for an <strong>internal review</strong> response') %></label>
-            </div>
-        <% end %>
         
         <div>
             <%= radio_button "incoming_message", "described_state", "gone_postal", :id => 'gone_postal' + id_suffix %>
