@@ -72,7 +72,7 @@
         <%= _('normally') %> 
         <% end %>
         <%= _('no later than') %> <strong><%= simple_date(@info_request.date_response_required_by) %></strong>
-        (<%= link_to "details", "/help/requesting#quickly_response" %>).
+        (<%= link_to _("details"), "/help/requesting#quickly_response" %>).
     <% elsif @status == 'waiting_response_overdue' %>
         <%= _('Response to this request is <strong>delayed</strong>.') %>
 		<%= _('By law, {{public_body_link}} should normally have responded <strong>promptly</strong> and',:public_body_link=>public_body_link(@info_request.public_body)) %>
