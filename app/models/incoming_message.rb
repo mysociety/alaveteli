@@ -250,10 +250,10 @@ class IncomingMessage < ActiveRecord::Base
         # if they are public anyway.  For now just be precautionary and only
         # put in descriptions of them in square brackets.
         if self.info_request.public_body.is_followupable?
-            text.gsub!(self.info_request.public_body.request_email, "[" + self.info_request.public_body.short_or_long_name + " request email]")
+            text.gsub!(self.info_request.public_body.request_email, _("[{{public_body}} request email]", :public_body => self.info_request.public_body.short_or_long_name))
         end
-        text.gsub!(self.info_request.incoming_email, "[FOI #" + self.info_request.id.to_s + " email]")
-        text.gsub!(MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost'), "[#{MySociety::Config.get('SITE_NAME', 'Alaveteli')} contact email]")
+        text.gsub!(self.info_request.incoming_email, _('[FOI #{{request}} email]', :request => self.info_request.id.to_s) )
+        text.gsub!(MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost'), _("[{{site_name}} contact email]", :site_name => MySociety::Config.get('SITE_NAME', 'Alaveteli')) )
     end
 
     # Replaces all email addresses in (possibly binary data) with equal length alternative ones.
@@ -864,10 +864,10 @@ class IncomingMessage < ActiveRecord::Base
                 text = "[Subject only] " + CGI.escapeHTML(self.subject) + text
             end
             # and display link for quoted stuff
-            text = text.gsub(/FOLDED_QUOTED_SECTION/, "\n\n" + '<span class="unfold_link"><a href="?unfold=1#incoming-'+self.id.to_s+'">show quoted sections</a></span>' + "\n\n")
+            text = text.gsub(/FOLDED_QUOTED_SECTION/, "\n\n" + '<span class="unfold_link"><a href="?unfold=1#incoming-'+self.id.to_s+'">'+_("show quoted sections")+'</a></span>' + "\n\n")
         else
             if folded_quoted_text.include?('FOLDED_QUOTED_SECTION')
-                text = text + "\n\n" + '<span class="unfold_link"><a href="?#incoming-'+self.id.to_s+'">hide quoted sections</a></span>'
+                text = text + "\n\n" + '<span class="unfold_link"><a href="?#incoming-'+self.id.to_s+'">'+_("hide quoted sections")+'</a></span>'
             end
         end
         text.strip!
