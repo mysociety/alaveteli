@@ -177,7 +177,43 @@ describe ApiController, "when using the API" do
     end
     
     it "should allow files to be attached to a response" do
+        # First we need an external request
+        request_id = info_requests(:external_request).id
         
+        # Initially it has no incoming messages
+        IncomingMessage.count(:conditions => ["info_request_id = ?", request_id]).should == 0
+        
+        # Now add one
+        sent_at = "2012-05-28T12:35:39+01:00"
+        response_body = "Thank you for your request for information, which we are handling in accordance with the Freedom of Information Act 2000. You will receive a response within 20 working days or before the next full moon, whichever is sooner.\n\nYours sincerely,\nJohn Gandermulch,\nExample Council FOI Officer\n"
+        post :add_correspondence,
+            :k => public_bodies(:geraldine_public_body).api_key,
+            :id => request_id,
+            :correspondence_json => {
+                "direction" => "response",
+                "sent_at" => sent_at,
+                "body" => response_body
+            }.to_json,
+            :attachments => [
+                fixture_file_upload("files/tfl.pdf")
+            ]
+        
+        # And make sure it worked
+        response.should be_success
+        incoming_messages = IncomingMessage.all(:conditions => ["info_request_id = ?", request_id])
+        incoming_messages.count.should == 1
+        incoming_message = incoming_messages[0]
+        
+        incoming_message.sent_at.should == Time.iso8601(sent_at)
+        incoming_message.get_main_body_text_folded.should == response_body
+        
+        # Get the attachment
+        attachments = incoming_message.get_attachments_for_display
+        attachments.size.should == 1
+        attachment = attachments[0]
+        
+        attachment.filename.should == "tfl.pdf"
+        attachment.body.should == open("files/tfl.pdf", &:read)
     end
     
     it "should show information about a request" do
