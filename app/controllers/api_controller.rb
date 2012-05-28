@@ -57,6 +57,7 @@ class ApiController < ApplicationController
         # Save the request, and add the corresponding InfoRequestEvent
         request.save!
         request.log_event("sent",
+            :api => true,
             :email => nil,
             :outgoing_message_id => outgoing_message.id,
             :smtp_message_id => nil
@@ -71,7 +72,87 @@ class ApiController < ApplicationController
     end
     
     def add_correspondence
+        request = InfoRequest.find(params[:id])
+        json = ActiveSupport::JSON.decode(params[:correspondence_json])
         
+        direction = json["direction"]
+        body = json["body"]
+        sent_at_str = json["sent_at"]
+        
+        errors = []
+        
+        if !request.is_external?
+            raise ActiveRecord::RecordNotFound.new("Request #{params[:id]} cannot be updated using the API")
+        end
+        
+        if request.public_body_id != @public_body.id
+            raise ActiveRecord::RecordNotFound.new("You do not own request #{params[:id]}")
+        end
+        
+        if !["request", "response"].include?(direction)
+            errors << "The direction parameter must be 'request' or 'response'"
+        end
+        
+        if body.nil?
+            errors << "The 'body' is missing"
+        elsif body.empty?
+            errors << "The 'body' is empty"
+        end
+        
+        begin
+            sent_at = Time.iso8601(sent_at_str)
+        rescue ArgumentError
+            errors << "Failed to parse 'sent_at' field as ISO8601 time: #{sent_at_str}"
+        end
+        
+        if !errors.empty?
+            render :json => { "errors" => errors }
+            return
+        end
+        
+        if direction == "request"
+            # In the 'request' direction, i.e. what we (Alaveteli) regard as outgoing
+            
+            outgoing_message = OutgoingMessage.new(
+                :info_request => request,
+                :status => 'ready',
+                :message_type => 'followup',
+                :body => body,
+                :last_sent_at => sent_at,
+                :what_doing => 'normal_sort'
+            )
+            request.outgoing_messages << outgoing_message
+            request.save!
+            request.log_event("followup_sent",
+                :api => true,
+                :email => nil,
+                :outgoing_message_id => outgoing_message.id,
+                :smtp_message_id => nil
+            )
+        else
+            # In the 'response' direction, i.e. what we (Alaveteli) regard as incoming
+            
+            raw_email = RawEmail.new
+            incoming_message = IncomingMessage.new(
+                :info_request => request,
+                :raw_email => raw_email,
+                :sent_at => sent_at
+            )
+            raw_email.incoming_message = incoming_message
+            raw_email.save!
+            raw_email.data = "From external\nFrom: <none@example.org>\nTo: <none@example.org>\nDate: #{sent_at.rfc2822}\nSubject: Response\n\n" + body
+            
+            request.incoming_messages << incoming_message
+            request.save!
+            request.log_event("response",
+                :api => true,
+                :email => nil,
+                :incoming_message_id => incoming_message.id,
+                :smtp_message_id => nil
+            )
+        end
+        
+        head :no_content
     end
     
     protected

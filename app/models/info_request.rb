@@ -120,6 +120,14 @@ class InfoRequest < ActiveRecord::Base
             errors.add(:external_url, "must be null for an internal request") if !external_url.nil?
         end
     end
+    
+    def is_external?
+        !external_url.nil?
+    end
+    
+    def user_name
+        is_external? ? external_user_name : user.name
+    end
 
     @@custom_states_loaded = false
     begin
