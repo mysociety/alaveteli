@@ -157,6 +157,7 @@ class ApiController < ApplicationController
     
     protected
     def check_api_key
+        raise "Missing required parameter 'k'" if params[:k].nil?
         @public_body = PublicBody.find_by_api_key(params[:k].gsub(' ', '+'))
         raise PermissionDenied if @public_body.nil?
     end

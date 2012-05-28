@@ -177,6 +177,19 @@ describe ApiController, "when using the API" do
     end
     
     it "should show information about a request" do
+        info_request = info_requests(:naughty_chicken_request)
+        get :show_request,
+            :k => public_bodies(:geraldine_public_body).api_key,
+            :id => info_request.id
         
+        response.should be_success
+        assigns[:request].id.should == info_request.id
+        
+        r = ActiveSupport::JSON.decode(response.body)
+        r["title"].should == info_request.title
+        # Let’s not test all the fields here, because it would
+        # essentially just be a matter of copying the code that
+        # assigns them and changing assignment to an equality
+        # check, which does not really test anything at all.
     end
 end
