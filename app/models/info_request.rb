@@ -90,7 +90,9 @@ class InfoRequest < ActiveRecord::Base
         'error_message',
         'requires_admin',
         'user_withdrawn',
-        'attention_requested'
+        'attention_requested',
+        'vexatious',
+        'not_foi'
         ]
         if @@custom_states_loaded
             states += InfoRequest.theme_extra_states
@@ -816,6 +818,10 @@ public
             _("Reported for administrator attention.")
         elsif status == 'user_withdrawn'
             _("Withdrawn by the requester.")
+        elsif status == 'vexatious'
+            _("Considered by administrators as vexatious and hidden from site.")
+        elsif status == 'not_foi'
+            _("Considered by administrators as not an FOI request and hidden from site.")
         else
             begin
                 return self.theme_display_status(status)

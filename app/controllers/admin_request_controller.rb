@@ -6,6 +6,8 @@
 #
 # $Id: admin_request_controller.rb,v 1.42 2009-10-03 01:28:33 francis Exp $
 
+require 'ostruct'
+
 class AdminRequestController < AdminController
     def index
         list
@@ -24,6 +26,15 @@ class AdminRequestController < AdminController
 
     def show
         @info_request = InfoRequest.find(params[:id])
+        # XXX is this *really* the only way to render a template to a
+        # variable, rather than to the response?
+        vars = OpenStruct.new(:name_to => @info_request.user.name, 
+                :name_from => MySociety::Config.get("CONTACT_NAME", 'Alaveteli'), 
+                :info_request => @info_request, :reason => params[:reason],
+                :info_request_url => 'http://' + MySociety::Config.get('DOMAIN') + request_url(@info_request),
+                :site_name => site_name)
+        template = File.read(File.join(File.dirname(__FILE__), "..", "views", "admin_request", "hidden_user_explanation.rhtml"))
+        @request_hidden_user_explanation = ERB.new(template).result(vars.instance_eval { binding })
     end
 
     def resend
@@ -321,6 +332,24 @@ class AdminRequestController < AdminController
 
         flash[:notice] = "Old response marked as having been a clarification"
         redirect_to request_admin_url(info_request_event.info_request)
+    end
+
+    def hide_request
+        ActiveRecord::Base.transaction do
+            explanation = params[:explanation]
+            info_request = InfoRequest.find(params[:id])
+            info_request.set_described_state(params[:reason])
+            info_request.prominence = "requester_only"
+            info_request.save!
+
+            ContactMailer.deliver_from_admin_message(
+                    info_request.user,
+                    "hello",
+                    params[:explanation]
+                )
+            flash[:notice] = _("Your message to {{recipient_user_name}} has been sent",:recipient_user_name=>CGI.escapeHTML(info_request.user.name))
+            redirect_to request_admin_url(info_request)
+        end
     end
 
     private

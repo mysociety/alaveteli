@@ -21,4 +21,15 @@ class ServicesController < ApplicationController
         end
         render :text => text, :content_type => "text/plain"  # XXX workaround the HTML validation in test suite
     end
+    def hidden_user_explanation
+        info_request = InfoRequest.find(params[:info_request_id])
+        render :template => "admin_request/hidden_user_explanation", 
+               :content_type => "text/plain",
+               :layout => false,
+               :locals => {:name_to => info_request.user.name, 
+                          :name_from => MySociety::Config.get("CONTACT_NAME", 'Alaveteli'), 
+                          :info_request => info_request, :reason => params[:reason],
+                          :info_request_url => 'http://' + MySociety::Config.get('DOMAIN') + request_url(info_request),
+                          :site_name => site_name}
+    end
 end
