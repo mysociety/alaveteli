@@ -74,8 +74,8 @@ describe ApiController, "when using the API" do
     end
     
     it "should add a response to a request" do
-        # First we need to create a request
-        request_id = _create_request
+        # First we need an external request
+        request_id = info_requests(:external_request).id
         
         # Initially it has no incoming messages
         IncomingMessage.count(:conditions => ["info_request_id = ?", request_id]).should == 0
@@ -104,7 +104,7 @@ describe ApiController, "when using the API" do
 
     it "should add a followup to a request" do
         # First we need to create a request
-        request_id = _create_request
+        request_id = info_requests(:external_request).id
         
         # Initially it has one outgoing message
         OutgoingMessage.count(:conditions => ["info_request_id = ?", request_id]).should == 1
@@ -172,7 +172,11 @@ describe ApiController, "when using the API" do
         OutgoingMessage.count.should == n_outgoing_messages
     end
     
-    it "should allow attachments to be uploaded" do
+    it "should not allow files to be attached to a followup" do
+        
+    end
+    
+    it "should allow files to be attached to a response" do
         
     end
     

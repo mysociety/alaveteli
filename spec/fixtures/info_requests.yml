@@ -78,3 +78,13 @@ spam_2_request:
     described_state: successful
     awaiting_description: false
     idhash: 173fd005
+external_request:
+    id: 109
+    title: Balalas
+    url_title: balalas
+    external_user_name: Bob Smith
+    external_url: http://www.example.org/request/balala
+    public_body_id: 2
+    described_state: waiting_response
+    awaiting_description: false
+    idhash: a1234567
