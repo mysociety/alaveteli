@@ -64,6 +64,14 @@ describe RequestController, "when listing recent requests" do
         assigns[:cache_tag].size.should <= 32
     end
 
+    it "should vary the cache tag with locale" do
+        get :list, :view => 'all', :request_date_after => '13/10/2007', :request_date_before => '01/11/2007'
+        en_tag = assigns[:cache_tag]
+        session[:locale] = :es
+        get :list, :view => 'all', :request_date_after => '13/10/2007', :request_date_before => '01/11/2007'
+        assigns[:cache_tag].should_not == en_tag
+    end
+
     it "should list internal_review requests as unresolved ones" do
         get :list, :view => 'awaiting'
         
@@ -117,10 +125,72 @@ describe RequestController, "when listing recent requests" do
 
 end
 
+describe RequestController, "when changing things that appear on the request page" do
+
+    integrate_views
+
+    it "should purge the downstream cache when mail is received" do
+        ir = info_requests(:fancy_dog_request)
+        receive_incoming_mail('incoming-request-plain.email', ir.incoming_email)
+        PurgeRequest.all().first.model_id.should == ir.id
+    end
+    it "should purge the downstream cache when a comment is added" do
+        ir = info_requests(:fancy_dog_request)
+        new_comment = info_requests(:fancy_dog_request).add_comment('I also love making annotations.', users(:bob_smith_user))
+        PurgeRequest.all().first.model_id.should == ir.id
+    end
+    it "should purge the downstream cache when a followup is made" do
+        session[:user_id] = users(:bob_smith_user).id
+        ir = info_requests(:fancy_dog_request)
+        post :show_response, :outgoing_message => { :body => "What a useless response! You suck.", :what_doing => 'normal_sort' }, :id => ir.id, :incoming_message_id => incoming_messages(:useless_incoming_message), :submitted_followup => 1
+        PurgeRequest.all().first.model_id.should == ir.id
+    end
+    it "should purge the downstream cache when the request is categorised" do
+        ir = info_requests(:fancy_dog_request)
+        ir.set_described_state('waiting_clarification')
+        PurgeRequest.all().first.model_id.should == ir.id
+    end
+    it "should purge the downstream cache when the authority data is changed" do
+        ir = info_requests(:fancy_dog_request)
+        ir.public_body.name = "Something new"
+        ir.public_body.save!
+        PurgeRequest.all().map{|x| x.model_id}.should =~ ir.public_body.info_requests.map{|x| x.id}
+    end
+    it "should purge the downstream cache when the user details are changed" do
+        ir = info_requests(:fancy_dog_request)
+        ir.user.name = "Something new"
+        ir.user.save!
+        PurgeRequest.all().map{|x| x.model_id}.should =~ ir.user.info_requests.map{|x| x.id}
+    end
+    it "should purge the downstream cache when censor rules have changed" do
+        # XXX really, CensorRules should execute expiry logic as part
+        # of the after_save of the model. Currently this is part of
+        # the AdminCensorRuleController logic, so must be tested from
+        # there. Leaving this stub test in place as a reminder        
+    end
+    it "should purge the downstream cache when something is hidden by an admin" do
+        ir = info_requests(:fancy_dog_request)
+        ir.prominence = 'hidden'
+        ir.save!
+        PurgeRequest.all().first.model_id.should == ir.id
+    end
+    it "should not create more than one entry for any given resourcce" do
+        ir = info_requests(:fancy_dog_request)
+        ir.prominence = 'hidden'
+        ir.save!
+        PurgeRequest.all().count.should == 1
+        ir = info_requests(:fancy_dog_request)
+        ir.prominence = 'hidden'
+        ir.save!
+        PurgeRequest.all().count.should == 1
+    end
+end
+
 describe RequestController, "when showing one request" do
     
     before(:each) do
         load_raw_emails_data
+        FileUtils.rm_rf File.join(File.dirname(__FILE__), "../../cache/zips")
     end
 
     it "should be successful" do
@@ -184,7 +254,7 @@ describe RequestController, "when showing one request" do
     describe 'when handling incoming mail' do 
       
         integrate_views
-        
+
         it "should receive incoming messages, send email to creator, and show them" do
             ir = info_requests(:fancy_dog_request)
             ir.incoming_messages.each { |x| x.parse_raw_email! }
@@ -565,7 +635,7 @@ end
  
 # XXX do this for invalid ids
 #  it "should render 404 file" do
-#    response.should render_template("#{RAILS_ROOT}/public/404.html")
+#    response.should render_template("#{Rails.root}/public/404.html")
 #    response.headers["Status"].should == "404 Not Found"
 #  end
 
@@ -990,6 +1060,7 @@ describe RequestController, "when classifying an information request" do
             session[:user_id] = @admin_user.id
             @dog_request = info_requests(:fancy_dog_request)
             InfoRequest.stub!(:find).and_return(@dog_request)
+            @dog_request.stub!(:each).and_return([@dog_request])
         end
 
         it 'should update the status of the request' do 
@@ -1031,6 +1102,7 @@ describe RequestController, "when classifying an information request" do
             @dog_request.user = @admin_user
             @dog_request.save!
             InfoRequest.stub!(:find).and_return(@dog_request)
+            @dog_request.stub!(:each).and_return([@dog_request])
         end
 
         it 'should update the status of the request' do 
@@ -1067,6 +1139,7 @@ describe RequestController, "when classifying an information request" do
             @request_owner = users(:bob_smith_user)
             session[:user_id] = @request_owner.id
             @dog_request.awaiting_description.should == true
+            @dog_request.stub!(:each).and_return([@dog_request])
         end
         
         it "should successfully classify response if logged in as user controlling request" do
@@ -1134,6 +1207,7 @@ describe RequestController, "when classifying an information request" do
             @request_owner = users(:bob_smith_user)
             session[:user_id] = @request_owner.id
             @dog_request = info_requests(:fancy_dog_request)
+            @dog_request.stub!(:each).and_return([@dog_request])
             InfoRequest.stub!(:find).and_return(@dog_request)
             @old_filters = ActionController::Routing::Routes.filters
             ActionController::Routing::Routes.filters = RoutingFilter::Chain.new
@@ -1767,6 +1841,48 @@ describe RequestController, "when showing similar requests" do
             get :similar, :url_title => "there_is_really_no_such_path_owNAFkHR"
         }.should raise_error(ActiveRecord::RecordNotFound)
     end
+
+end
+
+
+describe RequestController, "when reporting a request" do
+    integrate_views
+
+    it "should mark a request as having been reported" do
+        ir = info_requests(:badger_request)
+        title = ir.url_title
+        get :show, :url_title => title
+        assigns[:info_request].attention_requested.should == false
+        get :report_request, :url_title => title
+        get :show, :url_title => title
+        assigns[:info_request].attention_requested.should == true
+        assigns[:info_request].described_state.should == "attention_requested"
+    end
+
+    it "should not allow a request to be reported twice" do
+        title = info_requests(:badger_request).url_title
+        get :report_request, :url_title => title
+        get :show, :url_title => title
+        response.body.should include("has been reported")
+        get :report_request, :url_title => title
+        get :show, :url_title => title
+        response.body.should include("has already been reported")
+    end
+
+    it "should let users know a request has been reported" do
+        title = info_requests(:badger_request).url_title
+        get :show, :url_title => title
+        response.body.should include("Offensive?")
+        get :report_request, :url_title => title
+        get :show, :url_title => title
+        response.body.should_not include("Offensive?")        
+        response.body.should include("This request has been reported")
+        info_requests(:badger_request).set_described_state("successful")
+        get :show, :url_title => title
+        response.body.should_not include("This request has been reported")
+        response.body.should include("The site administrators have reviewed this request")
+    end
+
 end
 
 

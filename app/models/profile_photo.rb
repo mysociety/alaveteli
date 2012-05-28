@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 108
+# Schema version: 114
 #
 # Table name: profile_photos
 #
@@ -27,9 +27,9 @@ class ProfilePhoto < ActiveRecord::Base
     belongs_to :user
 
     # deliberately don't strip_attributes, so keeps raw photo properly
-    
+
     attr_accessor :x, :y, :w, :h
-    
+
     # convert binary data blob into ImageMagick image when assigned
     attr_accessor :image
     def after_initialize
@@ -45,7 +45,7 @@ class ProfilePhoto < ActiveRecord::Base
             self.image = nil
             return
         end
-    
+
         self.image = image_list[0] # XXX perhaps take largest image or somesuch if there were multiple in the file?
         self.convert_image
     end
@@ -68,7 +68,7 @@ class ProfilePhoto < ActiveRecord::Base
         # draft images are before the user has cropped them
         if !self.draft && (image.columns != WIDTH || image.rows != HEIGHT)
             # do any exact cropping (taken from Jcrop interface)
-            if self.w && self.h 
+            if self.w && self.h
                 image.crop!(self.x.to_i, self.y.to_i, self.w.to_i, self.h.to_i)
             end
             # do any further cropping
@@ -98,7 +98,7 @@ class ProfilePhoto < ActiveRecord::Base
         if self.image.format != 'PNG'
             errors.add(:data, N_("Failed to convert image to a PNG"))
         end
-        
+
         if !self.draft && (self.image.columns != WIDTH || self.image.rows != HEIGHT)
             errors.add(:data, N_("Failed to convert image to the correct size: at %{cols}x%{rows}, need %{width}x%{height}" % { :cols => self.image.columns, :rows => self.image.rows, :width => WIDTH, :height => HEIGHT }))
         end

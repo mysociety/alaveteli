@@ -1,5 +1,5 @@
 # app/controllers/holiday_controller.rb:
-# Calculate dates 
+# Calculate dates
 #
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
@@ -16,7 +16,7 @@ class HolidayController < ApplicationController
             @request_date = Date.strptime(params[:holiday]) or raise "Invalid date"
             @due_date = Holiday.due_date_from(@request_date, 20)
             @skipped = Holiday.all(
-                :conditions => [ 'day >= ? AND day <= ?', 
+                :conditions => [ 'day >= ? AND day <= ?',
                     @request_date.strftime("%F"), @due_date.strftime("%F")
                 ]
             ).collect { |h| h.day }.sort

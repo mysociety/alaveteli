@@ -6,7 +6,7 @@ deployment platform.
 Commands are intended to be run via the terminal or over ssh.
 
 As an aid to evaluation, there is an
-[Amazon AMI](https://github.com/sebbacon/alaveteli/wiki/Alaveteli-ec2-amix)
+[Amazon AMI](https://github.com/sebbacon/alaveteli/wiki/Alaveteli-ec2-ami)
 with all these steps configured.  It is *not* production-ready.
 
 # Get Alaveteli
@@ -19,8 +19,9 @@ Next, get hold of the Alaveteli source code from github:
     git clone https://github.com/sebbacon/alaveteli.git
     cd alaveteli
 
-This will get the current stable release.  If you are a developer and want to
-add or try new features, you might want to swap to the development
+This will get the current stable release from the master branch (which
+always contains the latest release).  If you are a developer and want
+to add or try new features, you might want to swap to the development
 branch:
 
     git checkout develop
@@ -37,7 +38,11 @@ packages by adding the following to `/etc/apt/sources.list` and
 running `apt-get update`:
 
     deb http://debian.mysociety.org squeeze main
-    
+
+If you don't set up that mySociety Debian source (e.g. if you're
+running Ubuntu), you should comment out `wkhtmltopdf-static` from
+`config/packages`, as it won't install in the next step
+
 Now install the packages that are listed in config/packages using apt-get
 e.g.:
 
@@ -45,10 +50,7 @@ e.g.:
 
 Some of the files also have a version number listed in config/packages
 - check that you have appropriate versions installed. Some also list
-"|" and offer a choice of packages.  If you've not set up the
-mySociety Debian source (e.g. if you're running Ubuntu), you should
-comment out `wkhtmltopdf-static` from `config/packages`, as it won't
-install.
+"|" and offer a choice of packages.
 
 # Install Ruby dependencies
 
@@ -248,7 +250,7 @@ component so you should really try to get this working.
 
 Make sure everything looks OK:
 
-    rake spec
+    bundle exec rake spec
 
 If there are failures here, something has gone wrong with the
 preceding steps (see the next section for a common problem and
@@ -281,23 +283,26 @@ the site in action.
 
 # Administrator privileges
 
-By default, anyone can access the administrator pages without authentication.
-They are under the URL `/admin`.
+The administrative interface is at the URL `/admin`.
 
-At mySociety (originators of the Alaveteli software), they use a
-separate layer of HTTP basic authentication, proxied over HTTPS, to
-check who is allowed to use the administrator pages. You might like to
-do something similar.
+Only users with the `super` admin level can access the admin
+interface.  Users create their own accounts in the usual way, and then
+administrators can give them `super` privileges.
 
-Alternatively, update the code so that:
+There is an emergency user account which can be accessed via
+`/admin?emergency=1`, using the credentials `ADMIN_USERNAME` and
+`ADMIN_PASSWORD`, which are set in `general.yml`.  To bootstrap the
+first `super` level accounts, you will need to log in as the emergency
+user.
 
-* By default, admin pages use normal site authentication (checking user admin
-level 'super').
-* Create an option in `config/general` which lets us override that
-behaviour.
+Users with the superuser role also have extra privileges in the
+website frontend, such as being able to categorise any request, being
+able to view items that have been hidden from the search, and being
+presented with "admin" links next to individual requests and comments
+in the front end.
 
-And send us the patch!
-
+It is possible completely to override the administrator authentication
+by setting `SKIP_ADMIN_AUTH` to `true` in `general.yml`.
 
 # Cron jobs
 
@@ -324,7 +329,14 @@ One of the cron jobs refers to a script at
 `/etc/init.d/foi-alert-tracks`.  This is an init script, a copy of
 which lives in `config/alert-tracks-debian.ugly`.  As with the cron
 jobs above, replace the variables (and/or bits near the variables)
-with paths to your software.
+with paths to your software.  `config/purge-varnish-debian.ugly` is a
+similar init script, which is optional and not required if you choose
+not to run your site behind Varnish (see below).
+
+The cron jobs refer to a program `run-with-lockfile`. See
+[this issue](https://github.com/sebbacon/alaveteli/issues/112) for a
+discussion of where to find this program, and how you might replace
+it.
 
 # Set up production web server
 
@@ -346,6 +358,25 @@ is supplied in `../conf/varnish-alaveteli.vcl`.
 Some
 [production server best practice notes](https://github.com/sebbacon/alaveteli/wiki/Production-Server-Best-Practices)
 are evolving on the wiki.
+
+# Upgrading Alaveteli
+
+The developer team policy is that the master branch in git should
+always contain the latest stable release.  Therefore, in production,
+you should usually have your software deployed from the master branch,
+and an upgrade can be simply `git pull`.
+
+Patch version increases (e.g. 1.2.3 -> 1.2.4) should not require any
+further action on your part.
+
+Minor version increases (e.g. 1.2.4 -> 1.3.0) will usually require
+further action.  You should read the `CHANGES.md` document to see
+what's changed since your last deployment, paying special attention to
+anything in the "Updgrading" sections.
+
+You should always run the script `scripts/rails-post-deploy` after
+each deployment.  This runs any database migrations for you, plus
+various other things that can be automated for deployment.
 
 # Troubleshooting
 

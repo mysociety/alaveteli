@@ -13,6 +13,7 @@ MAILTO=cron-!!(*= $site *)!!@mysociety.org
 */5 * * * * !!(*= $user *)!! run-with-lockfile -n /data/vhost/!!(*= $vhost *)!!/change-xapian-database.lock "/data/vhost/!!(*= $vhost *)!!/!!(*= $vcspath *)!!/script/update-xapian-index verbose=true" >> /data/vhost/!!(*= $vhost *)!!/logs/update-xapian-index.log || echo "stalled?"
 # Every 10 minutes
 5,15,25,35,45,55 * * * * !!(*= $user *)!! /etc/init.d/foi-alert-tracks check
+5,15,25,35,45,55 * * * * !!(*= $user *)!! /etc/init.d/purge-varnish check
 
 # Once an hour
 39 * * * * !!(*= $user *)!! run-with-lockfile -n /data/vhost/!!(*= $vhost *)!!/alert-overdue-requests.lock /data/vhost/!!(*= $vhost *)!!/!!(*= $vcspath *)!!/script/alert-overdue-requests || echo "stalled?"

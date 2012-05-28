@@ -19,3 +19,6 @@ TAGS
 /public/*theme
 /vendor/bundle
 .bundle
+bin/
+config/aliases
+.sass-cache

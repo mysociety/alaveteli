@@ -28,19 +28,19 @@ class GeneralController < ApplicationController
             @locale = self.locale_from_params()
             locale_condition = 'public_body_translations.locale = ?'
             conditions = [locale_condition, @locale]
-            PublicBody.with_locale(@locale) do 
+            PublicBody.with_locale(@locale) do
                 if body_short_names.empty?
                     # This is too slow
-                    @popular_bodies = PublicBody.find(:all, 
-                        :select => "public_bodies.*, (select count(*) from info_requests where info_requests.public_body_id = public_bodies.id) as c", 
-                        :order => "c desc", 
+                    @popular_bodies = PublicBody.find(:all,
+                        :select => "public_bodies.*, (select count(*) from info_requests where info_requests.public_body_id = public_bodies.id) as c",
+                        :order => "c desc",
                         :limit => 32,
                         :conditions => conditions,
                         :joins => :translations
                     )
                 else
                     conditions[0] += " and public_bodies.url_name in (" + body_short_names + ")"
-                    @popular_bodies = PublicBody.find(:all, 
+                    @popular_bodies = PublicBody.find(:all,
                          :conditions => conditions,
                          :joins => :translations)
                 end
@@ -52,7 +52,7 @@ class GeneralController < ApplicationController
                 max_count = 5
                 xapian_object = perform_search([InfoRequestEvent], query, sortby, 'request_title_collapse', max_count)
                 @request_events = xapian_object.results.map { |r| r[:model] }
-                
+
                 # If there are not yet enough successful requests, fill out the list with
                 # other requests
                 if @request_events.count < max_count
@@ -97,7 +97,7 @@ class GeneralController < ApplicationController
             query_parts = @query.split("/")
             if !['bodies', 'requests', 'users', 'all'].include?(query_parts[-1])
                 redirect_to search_url([@query, "all"], params)
-            else                
+            else
                 redirect_to search_url(@query, params)
             end
         end
@@ -236,4 +236,4 @@ class GeneralController < ApplicationController
 
 
 end
- 
+

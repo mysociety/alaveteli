@@ -76,17 +76,28 @@ fi
 
 if [ "$OPTION_STAGING_SITE" = "0" ]
 then
-    bundle install  --without development:test --deployment
+    bundle exec bundle install  --without development:test --deployment
 else
-    bundle install
+    bundle exec bundle install
 fi
 
+if [ -n "$OPTION_THEME_URLS" ]
+then
+    for THEME in "${OPTION_THEME_URLS[@]}"
+    do
+	echo "Installing $THEME..."
+	script/plugin install --force $THEME
+    done
+fi
+
+# Old version of the above, for backwards compatibility
 if [ -n "$OPTION_THEME_URL" ]
 then
+        echo "Installing $OPTION_THEME_URL using deprecated THEME_URL..."
 	script/plugin install --force $OPTION_THEME_URL
 fi
 
 # upgrade database
-rake db:migrate #--trace
+bundle exec rake db:migrate #--trace
 
 

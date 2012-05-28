@@ -10,12 +10,12 @@
 # separated) paragraphs, as is the convention for all the other mailers. This
 # turned out to fit better with user exepectations when formatting messages.
 #
-# XXX The other mail templates are written to use blank line separated 
+# XXX The other mail templates are written to use blank line separated
 # paragraphs. They could be rewritten, and the wrapping method made uniform
 # throughout the application.
 
 class OutgoingMailer < ApplicationMailer
-    
+
     # Email to public body requesting info
     def initial_request(info_request, outgoing_message)
         @wrap_lines_as_paragraphs = true
@@ -96,4 +96,4 @@ class OutgoingMailer < ApplicationMailer
     end
 
 end
- 
+

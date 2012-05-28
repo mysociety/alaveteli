@@ -6,7 +6,7 @@
 log_file=/dev/null
 
 test_pair () {
-    rake db:test:prepare > /dev/null 2>&1
+    bundle exec rake db:test:prepare > /dev/null 2>&1
     output=$(script/spec "$1" "$2" 2>&1)
     if [ $? -eq 0 ]
     then

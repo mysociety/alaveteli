@@ -41,7 +41,11 @@ border-width:1px;
 }
 
 #navigation_search input#navigation_search_query {
-width:14em;
+width:20.25em;
+font-size: 0.8em;
+padding: 5px;
+margin: -1px -1px 0 0;
+
 }
 
 #navigation_search p {
@@ -307,7 +311,7 @@ color:#A68C2E;
 background-image:url(../images/navimg/status-icons-fail.png);
 }
 
-.icon_not_held {
+.icon_not_held, .icon_attention_requested {
 background-image:url(/images/status-not-held.png);
 color:#A68C2E;
 }
@@ -636,13 +640,15 @@ margin-top:-1em;
 margin:0 0 0 9em;
 }
 
-p#sign_in_reason {
+p#sign_in_reason, p#superuser_message {
 text-align:center;
 font-size:1.4em;
 font-weight:700;
 line-height:1em;
 }
-
+p#superuser_message {
+ font-size:1.2em;
+}
 #signup,#signin {
 clear:none;
 margin-bottom:1em;
@@ -910,7 +916,7 @@ border:none;
 
 #navigation_search input[type=image] {
 border:0;
-margin-bottom:-8px;
+margin-bottom:-9px;
 margin-left:-4px;
 }
 

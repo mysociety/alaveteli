@@ -131,8 +131,7 @@
     </p>
   <% end %>
 </div>  <!-- header left -->
-
-<% if @track_thing  && (@xapian_bodies_hits > 0 || @xapian_users_hits > 0 || @total_hits == 0)%>
+<% if !@track_thing.nil? %>
   <div id="header_right">
     <h2><%= _('Track this search')%></h2>
     <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => false, :location => 'main' } %>

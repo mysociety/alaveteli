@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 108
+# Schema version: 114
 #
 # Table name: info_request_events
 #
@@ -36,51 +36,56 @@ class InfoRequestEvent < ActiveRecord::Base
     has_many :track_things_sent_emails
 
     validates_presence_of :event_type
-    validates_inclusion_of :event_type, :in => [
-        'sent', 
-        'resent', 
-        'followup_sent', 
-        'followup_resent', 
 
-        'edit', # title etc. edited (in admin interface)
-        'edit_outgoing', # outgoing message edited (in admin interface)
-        'edit_comment', # comment edited (in admin interface)
-        'destroy_incoming', # deleted an incoming message (in admin interface)
-        'destroy_outgoing', # deleted an outgoing message (in admin interface)
-        'redeliver_incoming', # redelivered an incoming message elsewhere (in admin interface)
-        'move_request', # changed user or public body (in admin interface)
-        'manual', # you did something in the db by hand
+    def self.enumerate_event_types
+        [
+         'sent',
+         'resent',
+         'followup_sent',
+         'followup_resent',
+         
+         'edit', # title etc. edited (in admin interface)
+         'edit_outgoing', # outgoing message edited (in admin interface)
+         'edit_comment', # comment edited (in admin interface)
+         'destroy_incoming', # deleted an incoming message (in admin interface)
+         'destroy_outgoing', # deleted an outgoing message (in admin interface)
+         'redeliver_incoming', # redelivered an incoming message elsewhere (in admin interface)
+         'move_request', # changed user or public body (in admin interface)
+         'manual', # you did something in the db by hand
+         
+         'response',
+         'comment',
+         'status_update'
+        ]
+    end
 
-        'response',
-        'comment', 
-        'status_update' 
-    ]
+    validates_inclusion_of :event_type, :in => enumerate_event_types
 
     # user described state (also update in info_request)
     validate :must_be_valid_state
 
     # whether event is publicly visible
-    validates_inclusion_of :prominence, :in => [ 
-        'normal', 
+    validates_inclusion_of :prominence, :in => [
+        'normal',
         'hidden',
         'requester_only'
     ]
 
     def must_be_valid_state
         if !described_state.nil? and !InfoRequest.enumerate_states.include?(described_state)
-            errors.add(described_state, "is not a valid state") 
+            errors.add(described_state, "is not a valid state")
         end
     end
-    
+
     def user_can_view?(user)
         if !self.info_request.user_can_view?(user)
             raise "internal error, called user_can_view? on event when there is not permission to view entire request"
         end
 
-        if self.prominence == 'hidden' 
+        if self.prominence == 'hidden'
             return User.view_hidden_requests?(user)
         end
-        if self.prominence == 'requester_only' 
+        if self.prominence == 'requester_only'
             return self.info_request.is_owning_user?(user)
         end
         return true
@@ -89,7 +94,7 @@ class InfoRequestEvent < ActiveRecord::Base
 
     # Full text search indexing
     acts_as_xapian :texts => [ :search_text_main, :title ],
-        :values => [ 
+        :values => [
                      [ :created_at, 0, "range_search", :date ], # for QueryParser range searches e.g. 01/01/2008..14/01/2008
                      [ :created_at_numeric, 1, "created_at", :number ], # for sorting
                      [ :described_at_numeric, 2, "described_at", :number ], # XXX using :number for lack of :datetime support in Xapian values
@@ -106,7 +111,7 @@ class InfoRequestEvent < ActiveRecord::Base
                 [ :latest_status, 'L', "latest_status" ],
                 [ :waiting_classification, 'W', "waiting_classification" ],
                 [ :filetype, 'T', "filetype" ],
-                [ :tags, 'U', "tag" ] 
+                [ :tags, 'U', "tag" ]
         ],
         :if => :indexed_by_search?,
         :eager_load => [ :outgoing_message, :comment, { :info_request => [ :user, :public_body, :censor_rules ] } ]
@@ -115,7 +120,7 @@ class InfoRequestEvent < ActiveRecord::Base
         self.info_request.user.url_name
     end
     def requested_from
-        # acts_as_xapian will detect translated fields via Globalize and add all the 
+        # acts_as_xapian will detect translated fields via Globalize and add all the
         # available locales to the index. But 'requested_from' is not translated directly,
         # although it relies on a translated field in PublicBody. Hence, we need to
         # manually add all the localized values to the index (Xapian can handle a list
@@ -170,15 +175,15 @@ class InfoRequestEvent < ActiveRecord::Base
     end
     def described_at_numeric
         # format it here as no datetime support in Xapian's value ranges
-        return self.described_at.strftime("%Y%m%d%H%M%S") 
+        return self.described_at.strftime("%Y%m%d%H%M%S")
     end
     def created_at_numeric
         # format it here as no datetime support in Xapian's value ranges
-        return self.created_at.strftime("%Y%m%d%H%M%S") 
+        return self.created_at.strftime("%Y%m%d%H%M%S")
     end
-    
+
     def incoming_message_selective_columns(fields)
-        message = IncomingMessage.find(:all, 
+        message = IncomingMessage.find(:all,
                                        :select => fields + ", incoming_messages.info_request_id",
                                        :joins => "INNER JOIN info_request_events ON incoming_messages.id = incoming_message_id ",
                                        :conditions => "info_request_events.id = #{self.id}"
@@ -214,7 +219,7 @@ class InfoRequestEvent < ActiveRecord::Base
     # performance reasons. Xapian will take the full text.
     def search_text_main(clipped = false)
         text = ''
-        if self.event_type == 'sent' 
+        if self.event_type == 'sent'
             text = text + self.outgoing_message.get_text_for_indexing + "\n\n"
         elsif self.event_type == 'followup_sent'
             text = text + self.outgoing_message.get_text_for_indexing + "\n\n"
@@ -232,7 +237,7 @@ class InfoRequestEvent < ActiveRecord::Base
         return text
     end
     def title
-        if self.event_type == 'sent' 
+        if self.event_type == 'sent'
             return self.info_request.title
         end
         return ''
@@ -313,26 +318,26 @@ class InfoRequestEvent < ActiveRecord::Base
             old_value = old_params[key].to_s
             new_value = new_params[key].to_s
             if old_value != new_value
-                ret = ret + "<em>" + CGI.escapeHTML(key) + ":</em> " 
-                ret = ret + 
-                      CGI.escapeHTML(MySociety::Format.wrap_email_body_by_lines(old_value).strip).gsub(/\n/, '<br>') + 
-                        " => " + 
+                ret = ret + "<em>" + CGI.escapeHTML(key) + ":</em> "
+                ret = ret +
+                      CGI.escapeHTML(MySociety::Format.wrap_email_body_by_lines(old_value).strip).gsub(/\n/, '<br>') +
+                        " => " +
                       CGI.escapeHTML(MySociety::Format.wrap_email_body_by_lines(new_value).strip).gsub(/\n/, '<br>')
                 ret = ret + "<br>"
             end
         end
         for key, value in other_params
-            ret = ret + "<em>" + CGI.escapeHTML(key.to_s) + ":</em> " 
-            ret = ret + CGI.escapeHTML(value.to_s.strip) 
+            ret = ret + "<em>" + CGI.escapeHTML(key.to_s) + ":</em> "
+            ret = ret + CGI.escapeHTML(value.to_s.strip)
             ret = ret + "<br>"
         end
         return ret
     end
 
- 
-    def is_incoming_message?()  not self.incoming_message_selective_columns("incoming_messages.id").nil?  end 
-    def is_outgoing_message?()  not self.outgoing_message.nil?  end 
-    def is_comment?()           not self.comment.nil?           end 
+
+    def is_incoming_message?()  not self.incoming_message_selective_columns("incoming_messages.id").nil?  end
+    def is_outgoing_message?()  not self.outgoing_message.nil?  end
+    def is_comment?()           not self.comment.nil?           end
 
     # Display version of status
     def display_status
@@ -402,7 +407,7 @@ class InfoRequestEvent < ActiveRecord::Base
     end
 
     def json_for_api(deep, snippet_highlight_proc = nil)
-        ret = { 
+        ret = {
             :id => self.id,
             :event_type => self.event_type,
             # params_yaml has possibly sensitive data in it, don't include it
@@ -427,7 +432,7 @@ class InfoRequestEvent < ActiveRecord::Base
             ret[:snippet] = snippet_highlight_proc.call(self.search_text_main(true))
         end
 
-        if deep 
+        if deep
             ret[:info_request] = self.info_request.json_for_api(false)
             ret[:public_body] = self.info_request.public_body.json_for_api
             ret[:user] = self.info_request.user.json_for_api
@@ -436,7 +441,9 @@ class InfoRequestEvent < ActiveRecord::Base
         return ret
     end
 
-
+  def for_admin_column
+    self.class.content_columns.each do |column|
+      yield(column.human_name, self.send(column.name), column.type.to_s, column.name)
+    end
+  end
 end
-
-

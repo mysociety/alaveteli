@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 require "external_command"
 
 def mail_reply_test(email_filename)
-    Dir.chdir RAILS_ROOT do
+    Dir.chdir Rails.root do
         xc = ExternalCommand.new("script/handle-mail-replies", "--test")
         xc.run(load_file_fixture(email_filename))
         
@@ -16,6 +16,18 @@ describe "When filtering" do
         r = mail_reply_test("track-response-exim-bounce.email")
         r.status.should == 1
         r.out.should == "user@example.com\n"
+    end
+    
+    it "should detect a WebShield delivery error message" do
+        r = mail_reply_test("track-response-webshield-bounce.email")
+        r.status.should == 1
+        r.out.should == "failed.user@example.co.uk\n"
+    end
+    
+    it "should detect a MS Exchange non-permanent delivery error message" do
+        r = mail_reply_test("track-response-ms-bounce.email")
+        r.status.should == 1
+        r.out.should == ""
     end
     
     it "should pass on a non-bounce message" do

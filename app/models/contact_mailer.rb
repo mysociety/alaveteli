@@ -25,7 +25,7 @@ class ContactMailer < ApplicationMailer
     # they shouldn't, and this might help. (Have had mysterious cases of a
     # reply coming in duplicate from a public body to both From and envelope
     # from)
- 
+
     # Send message to another user
     def user_message(from_user, recipient_user, from_user_url, subject, message)
         @from = from_user.name_and_email
@@ -34,7 +34,7 @@ class ContactMailer < ApplicationMailer
         headers 'Return-Path' => blackhole_email, 'Reply-To' => @from
         @recipients = recipient_user.name_and_email
         @subject = subject
-        @body = { 
+        @body = {
             :message => message,
             :from_user => from_user,
             :recipient_user => recipient_user,

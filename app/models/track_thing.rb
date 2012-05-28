@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 108
+# Schema version: 114
 #
 # Table name: track_things
 #
@@ -35,17 +35,17 @@ class TrackThing < ActiveRecord::Base
 
     has_many :track_things_sent_emails
 
-    validates_inclusion_of :track_type, :in => [ 
-        'request_updates', 
+    validates_inclusion_of :track_type, :in => [
+        'request_updates',
         'all_new_requests',
         'all_successful_requests',
-        'public_body_updates', 
+        'public_body_updates',
         'user_updates',
         'search_query'
     ]
 
-    validates_inclusion_of :track_medium, :in => [ 
-        'email_daily', 
+    validates_inclusion_of :track_medium, :in => [
+        'email_daily',
         'feed'
     ]
 
@@ -69,7 +69,7 @@ class TrackThing < ActiveRecord::Base
     end
 
     def track_query_description
-        # XXX this is very brittle... we should probably ask users 
+        # XXX this is very brittle... we should probably ask users
         # simply to name their tracks when they make them?
         original_text = parsed_text = self.track_query.gsub(/([()]|OR)/, "")
         filters = parsed_text.scan /\b\S+:\S+\b/
@@ -101,14 +101,14 @@ class TrackThing < ActiveRecord::Base
             end
             if filter =~ /waiting/
                 statuses << _("awaiting a response")
-            end                
+            end
         end
         if filters.empty?
             parsed_text = original_text
         end
         descriptions = []
         if varieties.include? _("requests")
-            descriptions << _("requests which are {{list_of_statuses}}", :list_of_statuses => Array(statuses).join(_(' or ')))
+            descriptions << _("requests which are {{list_of_statuses}}", :list_of_statuses => Array(statuses).sort.join(_(' or ')))
             varieties -= [_("requests")]
         end
         if descriptions.empty? and varieties.empty?
@@ -116,7 +116,7 @@ class TrackThing < ActiveRecord::Base
         end
         descriptions += Array(varieties)
         parsed_text = parsed_text.strip
-        descriptions = descriptions.join(_(" or "))
+        descriptions = descriptions.sort.join(_(" or "))
         if !parsed_text.empty?
             descriptions += _("{{list_of_things}} matching text '{{search_query}}'", :list_of_things => "", :search_query => parsed_text)
         end
@@ -146,11 +146,15 @@ class TrackThing < ActiveRecord::Base
         return track_thing
     end
 
-    def TrackThing.create_track_for_public_body(public_body)
+    def TrackThing.create_track_for_public_body(public_body, event_type = nil)
         track_thing = TrackThing.new
         track_thing.track_type = 'public_body_updates'
         track_thing.public_body = public_body
-        track_thing.track_query = "requested_from:" + public_body.url_name
+        query = "requested_from:" + public_body.url_name
+        if InfoRequestEvent.enumerate_event_types.include?(event_type)
+            query += " variety:" + event_type
+        end
+        track_thing.track_query = query
         return track_thing
     end
 
@@ -171,10 +175,10 @@ class TrackThing < ActiveRecord::Base
                 query += " variety:sent"
             when "users"
                 query += " variety:user"
-            when "authorities"
-                query += " variety:authority"                
+            when "bodies"
+                query += " variety:authority"
             end
-        end            
+        end
         track_thing.track_query = query
         # XXX should extract requested_by:, request:, requested_from:
         # and stick their values into the respective relations.
@@ -191,7 +195,7 @@ class TrackThing < ActiveRecord::Base
             if self.track_type == 'request_updates'
                 @params = {
                     # Website
-                    :list_description => _("'{{link_to_request}}', a request", :link_to_request => "<a href=\"/request/" + CGI.escapeHTML(self.info_request.url_title) + "\">" + CGI.escapeHTML(self.info_request.title) + "</a>"), # XXX yeuch, sometimes I just want to call view helpers from the model, sorry! can't work out how 
+                    :list_description => _("'{{link_to_request}}', a request", :link_to_request => "<a href=\"/request/" + CGI.escapeHTML(self.info_request.url_title) + "\">" + CGI.escapeHTML(self.info_request.title) + "</a>"), # XXX yeuch, sometimes I just want to call view helpers from the model, sorry! can't work out how
                     :verb_on_page => _("Track this request by email"),
                     :verb_on_page_already => _("You are already tracking this request by email"),
                     # Email
@@ -242,7 +246,7 @@ class TrackThing < ActiveRecord::Base
             elsif self.track_type == 'public_body_updates'
                 @params = {
                     # Website
-                    :list_description => _("'{{link_to_authority}}', a public authority", :link_to_authority => "<a href=\"/body/" + CGI.escapeHTML(self.public_body.url_name) + "\">" + CGI.escapeHTML(self.public_body.name) + "</a>"), # XXX yeuch, sometimes I just want to call view helpers from the model, sorry! can't work out how 
+                    :list_description => _("'{{link_to_authority}}', a public authority", :link_to_authority => "<a href=\"/body/" + CGI.escapeHTML(self.public_body.url_name) + "\">" + CGI.escapeHTML(self.public_body.name) + "</a>"), # XXX yeuch, sometimes I just want to call view helpers from the model, sorry! can't work out how
                     :verb_on_page => _("Track requests to {{public_body_name}} by email",:public_body_name=>CGI.escapeHTML(self.public_body.name)),
                     :verb_on_page_already => _("You are already tracking requests to {{public_body_name}} by email", :public_body_name=>CGI.escapeHTML(self.public_body.name)),
                     # Email
@@ -258,7 +262,7 @@ class TrackThing < ActiveRecord::Base
             elsif self.track_type == 'user_updates'
                 @params = {
                     # Website
-                    :list_description => _("'{{link_to_user}}', a person", :link_to_user => "<a href=\"/user/" + CGI.escapeHTML(self.tracked_user.url_name) + "\">" + CGI.escapeHTML(self.tracked_user.name) + "</a>"), # XXX yeuch, sometimes I just want to call view helpers from the model, sorry! can't work out how 
+                    :list_description => _("'{{link_to_user}}', a person", :link_to_user => "<a href=\"/user/" + CGI.escapeHTML(self.tracked_user.url_name) + "\">" + CGI.escapeHTML(self.tracked_user.name) + "</a>"), # XXX yeuch, sometimes I just want to call view helpers from the model, sorry! can't work out how
                     :verb_on_page => _("Track this person by email"),
                     :verb_on_page_already => _("You are already tracking this person by email"),
                     # Email
@@ -274,7 +278,7 @@ class TrackThing < ActiveRecord::Base
             elsif self.track_type == 'search_query'
                 @params = {
                     # Website
-                    :list_description => "<a href=\"/search/" + CGI.escapeHTML(self.track_query) + "/newest/advanced\">" + self.track_query_description + "</a>", # XXX yeuch, sometimes I just want to call view helpers from the model, sorry! can't work out how 
+                    :list_description => "<a href=\"/search/" + CGI.escapeHTML(self.track_query) + "/newest/advanced\">" + self.track_query_description + "</a>", # XXX yeuch, sometimes I just want to call view helpers from the model, sorry! can't work out how
                     :verb_on_page => _("Track things matching this search by email"),
                     :verb_on_page_already => _("You are already tracking things matching this search by email"),
                     # Email

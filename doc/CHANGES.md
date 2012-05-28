@@ -3,16 +3,55 @@
 ## Highlighted features
 
 * Ruby dependencies are now handled by Bundler
+* Support for invalidating accelerator cache -- this makes it much
+  less likely, when using Varnish, that users will be presented with
+  stale content.  Fixes
+  [issue #436](https://github.com/sebbacon/alaveteli/issues/436)
+* Adding a `GA_CODE` to `general.yml` will cause the relevant Google
+  Analytics code to be added to your rendered pages
+* It is now possible to have more than one theme installed.  The
+  behaviour of multiple themes is now layered in the reverse order
+  they're listed in the config file.  See the variable `THEME_URLS` in
+  `general.yml-example` for an example.
 
 ## Upgrade notes
 
 * Existing installations will need to install the Bundler gem.  See
   `INSTALL.md` for details.
 
+* As a result of using bundler, the list of software packages that
+  should be installed has changed.  On Debian, you can run:
+
+      sudo apt-get install `cut -d " " -f 1 config/packages | grep -v "^#"`
+      
+  [This gist](https://gist.github.com/2584766) shows the changes to
+  `config/packages` since the previous release.
+
 * Because dependencies are now handled by Bundler, when you next run
   the `rails-post-deploy` script, it will download, compile and
   install various things.  Part of this is compiling xapian, which may
   take a *long* time (subsequent deployments should be much faster)
+
+* To support invalidating the Varnish cache, ensure that there's a
+  value for `VARNISH_HOST` in `general.yml` (normally this would be
+  `localhost`).  You will also need to update your Varnish server to
+  support PURGE requests.  The example configuration provided at
+  `config/varnish-alaveteli.vcl` will work for Varnish 3 and above. If
+  you leave `VARNISH_HOST` blank, it will have no effect.  Finally,
+  you should install the `purge-varnish` init script that's provided
+  in `ugly` format at `config/purge-varnish-debian.ugly` to ensure the
+  purge queue is emptied regularly.
+
+* Administrators are now assumed to log in using standard user accounts
+  with superuser privileges (see 'Administrator Privileges' in
+  `INSTALL.md`). The old-style admin account (using credentials from
+  `general.yml`) is now known as the "emergency user".  Deployments
+  that previously bypassed admin authentication should set the new
+  `SKIP_ADMIN_AUTH` config variable to `true`.
+
+# Version 0.5.2
+
+This is a hotfix to fix occasional problems importing public body CSVs
 
 # Version 0.5.1
 

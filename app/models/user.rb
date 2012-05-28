@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 108
+# Schema version: 114
 #
 # Table name: users
 #
@@ -20,6 +20,8 @@
 #  email_bounced_at       :datetime
 #  email_bounce_message   :text            default(""), not null
 #  no_limit               :boolean         default(FALSE), not null
+#  receive_email_alerts   :boolean         default(TRUE), not null
+#  user_similarity_id     :integer
 #
 
 # models/user.rb:
@@ -52,22 +54,22 @@ class User < ActiveRecord::Base
     attr_accessor :password_confirmation, :no_xapian_reindex
     validates_confirmation_of :password, :message => _("Please enter the same password twice")
 
-    validates_inclusion_of :admin_level, :in => [ 
+    validates_inclusion_of :admin_level, :in => [
         'none',
-        'super', 
+        'super',
     ], :message => N_('Admin level is not included in list')
 
     acts_as_xapian :texts => [ :name, :about_me ],
-        :values => [ 
+        :values => [
              [ :created_at_numeric, 1, "created_at", :number ] # for sorting
         ],
         :terms => [ [ :variety, 'V', "variety" ] ],
         :if => :indexed_by_search?
     def created_at_numeric
         # format it here as no datetime support in Xapian's value ranges
-        return self.created_at.strftime("%Y%m%d%H%M%S") 
+        return self.created_at.strftime("%Y%m%d%H%M%S")
     end
-    
+
     def variety
         "user"
     end
@@ -79,7 +81,7 @@ class User < ActiveRecord::Base
         if self.new_record?
             # make alert emails go out at a random time for each new user, so
             # overall they are spread out throughout the day.
-            self.last_daily_track_email = User.random_time_in_last_day    
+            self.last_daily_track_email = User.random_time_in_last_day
         end
     end
 
@@ -101,7 +103,7 @@ class User < ActiveRecord::Base
             end
         end
     end
-    
+
     def get_locale
         if !self.locale.nil?
             locale = self.locale
@@ -117,10 +119,10 @@ class User < ActiveRecord::Base
 
     def validate
         if self.email != "" && !MySociety::Validate.is_valid_email(self.email)
-            errors.add(:email, _("Please enter a valid email address")) 
+            errors.add(:email, _("Please enter a valid email address"))
         end
         if MySociety::Validate.is_valid_email(self.name)
-            errors.add(:name, _("Please enter your name, not your email address, in the name field.")) 
+            errors.add(:name, _("Please enter your name, not your email address, in the name field."))
         end
     end
 
@@ -139,7 +141,7 @@ class User < ActiveRecord::Base
     end
 
     # Return user given login email, password and other form parameters (e.g. name)
-    #  
+    #
     # The specific_user_login parameter says that login as a particular user is
     # expected, so no parallel registration form is being displayed.
     def User.authenticate_from_form(params, specific_user_login = false)
@@ -235,10 +237,10 @@ class User < ActiveRecord::Base
     # changed more than a day ago)
     def get_undescribed_requests
         self.info_requests.find(
-            :all, 
-            :conditions => [ 'awaiting_description = ? and ' + InfoRequest.last_event_time_clause + ' < ?', 
-                true, Time.now() - 1.day 
-            ] 
+            :all,
+            :conditions => [ 'awaiting_description = ? and ' + InfoRequest.last_event_time_clause + ' < ?',
+                true, Time.now() - 1.day
+            ]
         )
     end
 
@@ -256,7 +258,7 @@ class User < ActiveRecord::Base
     def owns_every_request?
         self.admin_level == 'super'
     end
-    
+
     def User.owns_every_request?(user)
       !user.nil? && user.owns_every_request?
     end
@@ -271,7 +273,7 @@ class User < ActiveRecord::Base
     def User.stay_logged_in_on_redirect?(user)
       !user.nil? && user.admin_level == 'super'
     end
-     
+
     # Does the user get "(admin)" links on each page on the main site?
     def admin_page_links?
         self.admin_level == 'super'
@@ -287,21 +289,21 @@ class User < ActiveRecord::Base
     def exceeded_limit?
         # Some users have no limit
         return false if self.no_limit
-        
+
         # Has the user issued as many as MAX_REQUESTS_PER_USER_PER_DAY requests in the past 24 hours?
         daily_limit = MySociety::Config.get("MAX_REQUESTS_PER_USER_PER_DAY")
         return false if daily_limit.nil?
         recent_requests = InfoRequest.count(:conditions => ["user_id = ? and created_at > now() - '1 day'::interval", self.id])
-        
+
         return (recent_requests >= daily_limit)
     end
     def next_request_permitted_at
         return nil if self.no_limit
-        
+
         daily_limit = MySociety::Config.get("MAX_REQUESTS_PER_USER_PER_DAY")
         n_most_recent_requests = InfoRequest.all(:conditions => ["user_id = ? and created_at > now() - '1 day'::interval", self.id], :order => "created_at DESC", :limit => daily_limit)
         return nil if n_most_recent_requests.size < daily_limit
-        
+
         nth_most_recent_request = n_most_recent_requests[-1]
         return nth_most_recent_request.created_at + 1.day
     end
@@ -375,7 +377,7 @@ class User < ActiveRecord::Base
     end
 
     def json_for_api
-        return { 
+        return {
             :id => self.id,
             :url_name => self.url_name,
             :name => self.name,
@@ -391,13 +393,24 @@ class User < ActiveRecord::Base
         self.email_bounce_message = message
         self.save!
     end
-    
+
     def should_be_emailed?
         return (self.email_confirmed && self.email_bounced_at.nil?)
     end
-    
+
     def indexed_by_search?
         return self.email_confirmed
+    end
+
+    def for_admin_column(complete = false)
+      if complete
+        columns = self.class.content_columns
+      else
+        columns = self.class.content_columns.map{|c| c if %w(created_at updated_at admin_level email_confirmed).include?(c.name) }.compact
+      end
+      columns.each do |column|
+        yield(column.human_name, self.send(column.name), column.type.to_s)
+      end
     end
 
     ## Private instance methods
@@ -406,21 +419,28 @@ class User < ActiveRecord::Base
     def create_new_salt
         self.salt = self.object_id.to_s + rand.to_s
     end
-    
+
     ## Class methods
     def User.encrypted_password(password, salt)
         string_to_hash = password + salt # XXX need to add a secret here too?
         Digest::SHA1.hexdigest(string_to_hash)
     end
-        
+
     def User.record_bounce_for_email(email, message)
         user = User.find_user_by_email(email)
         return false if user.nil?
-        
+
         if user.email_bounced_at.nil?
             user.record_bounce(message)
         end
         return true
     end
+
+    after_save(:purge_in_cache)
+    def purge_in_cache
+        # XXX should only be if specific attributes have changed
+        self.info_requests.each {|x| x.purge_in_cache}
+    end
+
 end
 

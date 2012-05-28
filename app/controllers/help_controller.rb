@@ -9,7 +9,7 @@
 class HelpController < ApplicationController
 
     # we don't even have a control subroutine for most help pages, just see their templates
-    
+
     before_filter :long_cache
 
     def unhappy
@@ -61,7 +61,7 @@ class HelpController < ApplicationController
                     @last_request, @last_body
                 )
                 flash[:notice] = _("Your message has been sent. Thank you for getting in touch! We'll get back to you soon.")
-                redirect_to frontpage_url 
+                redirect_to frontpage_url
                 return
             end
 
@@ -69,7 +69,7 @@ class HelpController < ApplicationController
                 @contact.errors.clear
             end
         end
-         
+
     end
 
 end

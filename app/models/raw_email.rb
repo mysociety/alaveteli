@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 108
+# Schema version: 114
 #
 # Table name: raw_emails
 #
@@ -16,7 +16,7 @@
 
 class RawEmail < ActiveRecord::Base
     # deliberately don't strip_attributes, so keeps raw email properly
-    
+
     has_one :incoming_message
 
     # We keep the old data_text field (which is of type text) for backwards
@@ -27,10 +27,10 @@ class RawEmail < ActiveRecord::Base
     def directory
         request_id = self.incoming_message.info_request.id.to_s
         if ENV["RAILS_ENV"] == "test"
-            return File.join(RAILS_ROOT, 'files/raw_email_test')
+            return File.join(Rails.root, 'files/raw_email_test')
         else
             return File.join(MySociety::Config.get('RAW_EMAILS_LOCATION',
-                                                   'files/raw_emails'), 
+                                                   'files/raw_emails'),
                              request_id[0..2], request_id)
         end
     end

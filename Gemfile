@@ -16,6 +16,7 @@ gem 'json', '~> 1.5.1'
 gem 'mahoro'
 gem 'memcache-client', :require => 'memcache'
 gem 'locale', '>= 2.0.5'
+gem 'net-purge'
 gem 'rack', '~> 1.1.0'
 gem 'rdoc', '~> 2.4.3'
 gem 'recaptcha', '~> 0.3.1', :require => 'recaptcha/rails'
@@ -28,11 +29,17 @@ gem 'ruby-msg', '~> 1.5.0'
 gem 'test-unit', '~> 1.2.3' if RUBY_VERSION.to_f >= 1.9
 gem 'vpim'
 gem 'will_paginate', '~> 2.3.11'
-gem 'xapian-full'
+# when 1.2.9 is released by the maintainer, we can stop using this fork:
+gem 'xapian-full', '~> 1.2.9', :git => 'git://github.com/sebbacon/xapian-full.git'
 gem 'xml-simple'
 gem 'zip'
 
 group :test do
   gem 'fakeweb'
   gem 'rspec-rails', '~> 1.3.4'
+end
+
+group :develop do
+  gem 'ruby-debug'
+  gem 'annotate'
 end

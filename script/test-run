@@ -1,5 +1,5 @@
 #!/bin/bash
 
 cd ../
-rake spec
+bundle exec rake spec
 

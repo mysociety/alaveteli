@@ -43,9 +43,22 @@ def main(in_test_mode)
             return 1
         end
         
-        if is_oof? message
-            # Discard out-of-office messages
-            return 2
+        # If we are still here, there are no permanent failures,
+        # so if the message is a multipart/report then it must be
+        # reporting a temporary failure. In this case we discard it
+        if message.content_type == "multipart/report"
+          return 1
+        end
+        
+        # Another style of temporary failure message
+        subject = message.header_string("Subject")
+        if message.content_type == "multipart/mixed" && subject == "Delivery Status Notification (Delay)"
+          return 1
+        end
+        
+        # Discard out-of-office messages
+        if is_oof?(message)
+            return 2 # Use a different return code, to distinguish OOFs from bounces
         end
         
         # Otherwise forward the message on
@@ -94,6 +107,15 @@ def permanently_failed_addresses(message)
         end
     end
     
+    subject = message.header_string("Subject")
+    # Then look for the style we’ve seen in WebShield bounces
+    # (These do not have a return path of <> in the cases I have seen.)
+    if subject == "Returned Mail: Error During Delivery"
+      if message.body =~ /^\s*---- Failed Recipients ----\s*((?:<[^>]+>\n)+)/
+        return $1.scan(/<([^>]+)>/).flatten
+      end
+    end
+
     return []
 end
 
@@ -145,7 +167,7 @@ end
 
 def load_rails
     require File.join('config', 'boot')
-    require RAILS_ROOT + '/config/environment'
+    require Rails.root + '/config/environment'
 end
 
 def record_bounce(email_address, bounce_message)

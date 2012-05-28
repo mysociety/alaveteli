@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 108
+# Schema version: 114
 #
 # Table name: holidays
 #
@@ -10,7 +10,7 @@
 
 # models/holiday.rb:
 #
-# Store details on, and perform calculations with, public holidays on which 
+# Store details on, and perform calculations with, public holidays on which
 # the clock for answering FOI requests does not run:
 #
 #   ... "working day" means any day other than a Saturday, a Sunday, Christmas
@@ -37,7 +37,7 @@ class Holiday < ActiveRecord::Base
         # Count forward (20) working days. We start with today as "day zero". The
         # first of the twenty full working days is the next day. We return the
         # date of the last of the twenty.
-        
+
         # This response for example of a public authority complains that we had
         # it wrong.  We didn't (even thought I changed the code for a while,
         # it's changed back now). A day is a day, our lawyer tells us.
