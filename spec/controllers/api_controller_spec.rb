@@ -173,7 +173,23 @@ describe ApiController, "when using the API" do
     end
     
     it "should not allow files to be attached to a followup" do
+        post :add_correspondence,
+            :k => public_bodies(:geraldine_public_body).api_key,
+            :id => info_requests(:external_request).id,
+            :correspondence_json => {
+                    "direction" => "request",
+                    "sent_at" => Time.now.iso8601,
+                    "body" => "Are you joking, or are you serious?"
+                }.to_json,
+            :attachments => [
+                fixture_file_upload("files/tfl.pdf")
+            ]
+            
         
+        # Make sure it worked
+        response.status.to_i.should == 500
+        errors = ActiveSupport::JSON.decode(response.body)["errors"]
+        errors.should == ["You cannot attach files to messages in the 'request' direction"]
     end
     
     it "should allow files to be attached to a response" do
@@ -190,10 +206,10 @@ describe ApiController, "when using the API" do
             :k => public_bodies(:geraldine_public_body).api_key,
             :id => request_id,
             :correspondence_json => {
-                "direction" => "response",
-                "sent_at" => sent_at,
-                "body" => response_body
-            }.to_json,
+                    "direction" => "response",
+                    "sent_at" => sent_at,
+                    "body" => response_body
+                }.to_json,
             :attachments => [
                 fixture_file_upload("files/tfl.pdf")
             ]

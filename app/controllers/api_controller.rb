@@ -74,6 +74,7 @@ class ApiController < ApplicationController
     def add_correspondence
         request = InfoRequest.find(params[:id])
         json = ActiveSupport::JSON.decode(params[:correspondence_json])
+        attachments = params[:attachments]
         
         direction = json["direction"]
         body = json["body"]
@@ -105,8 +106,12 @@ class ApiController < ApplicationController
             errors << "Failed to parse 'sent_at' field as ISO8601 time: #{sent_at_str}"
         end
         
+        if direction == "request" && !attachments.nil?
+            errors << "You cannot attach files to messages in the 'request' direction"
+        end
+        
         if !errors.empty?
-            render :json => { "errors" => errors }
+            render :json => { "errors" => errors }, :status => 500
             return
         end
         
@@ -144,6 +149,21 @@ class ApiController < ApplicationController
             
             request.incoming_messages << incoming_message
             request.save!
+            
+            attachments.each_with_index do |attachment, i|
+                filename = File.basename(attachment.original_filename)
+                body = attachment.read
+                content_type = AlaveteliFileTypes.filename_and_content_to_mimetype(filename, body) || 'application/octet-stream'
+                
+                a = FoiAttachment.new(
+                    :incoming_message_id => incoming_message.id,
+                    :filename => filename,
+                    :content_type => content_type
+                )
+                a.body = body
+                a.save!
+            end
+            
             request.log_event("response",
                 :api => true,
                 :email => nil,
