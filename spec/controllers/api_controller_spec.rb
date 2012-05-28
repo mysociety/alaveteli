@@ -133,6 +133,45 @@ describe ApiController, "when using the API" do
         followup_message.body.should == followup_body.strip
     end
     
+    it "should not allow internal requests to be updated" do
+        n_incoming_messages = IncomingMessage.count
+        n_outgoing_messages = OutgoingMessage.count
+        
+        expect {
+            post :add_correspondence,
+                :k => public_bodies(:geraldine_public_body).api_key,
+                :id => info_requests(:naughty_chicken_request).id,
+                :correspondence_json => {
+                    "direction" => "request",
+                    "sent_at" => Time.now.iso8601,
+                    "body" => "xxx"
+                }.to_json
+        }.to raise_error ActiveRecord::RecordNotFound
+        
+        IncomingMessage.count.should == n_incoming_messages
+        OutgoingMessage.count.should == n_outgoing_messages
+    end
+    
+    it "should not allow other people’s requests to be updated" do
+        request_id = _create_request
+        n_incoming_messages = IncomingMessage.count
+        n_outgoing_messages = OutgoingMessage.count
+        
+        expect {
+            post :add_correspondence,
+                :k => public_bodies(:humpadink_public_body).api_key,
+                :id => request_id,
+                :correspondence_json => {
+                    "direction" => "request",
+                    "sent_at" => Time.now.iso8601,
+                    "body" => "xxx"
+                }.to_json
+        }.to raise_error ActiveRecord::RecordNotFound
+        
+        IncomingMessage.count.should == n_incoming_messages
+        OutgoingMessage.count.should == n_outgoing_messages
+    end
+    
     it "should allow attachments to be uploaded" do
         
     end
