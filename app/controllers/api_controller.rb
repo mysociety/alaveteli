@@ -54,12 +54,15 @@ class ApiController < ApplicationController
             return
         end
         
+        # Save the request, and add the corresponding InfoRequestEvent
         request.save!
         request.log_event("sent",
             :email => nil,
             :outgoing_message_id => outgoing_message.id,
             :smtp_message_id => nil
         )
+        
+        # Return the URL and ID number.
         render :json => {
             'url' => make_url("request", request.url_title),
             'id'  => request.id
