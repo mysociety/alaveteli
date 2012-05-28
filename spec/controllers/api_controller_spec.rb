@@ -19,8 +19,12 @@ describe ApiController, "when using the API" do
     end
     
     it "should create a new request from a POST" do
-        geraldine = public_bodies(:geraldine_public_body)
-        number_of_requests = InfoRequest.count(:conditions => ["public_body_id = ?", geraldine.id])
+        number_of_requests = InfoRequest.count(
+            :conditions => [
+                    "public_body_id = ?",
+                    public_bodies(:geraldine_public_body).id
+            ]
+        )
         
         request_data = {
             "title" => "Tell me about your chickens",
@@ -30,7 +34,7 @@ describe ApiController, "when using the API" do
             "external_user_name" => "Bob Smith",
         }
         
-        post :create_request, :k => geraldine.api_key, :request_json => request_data.to_json
+        post :create_request, :k => public_bodies(:geraldine_public_body).api_key, :request_json => request_data.to_json
         response.should be_success
 
         response.content_type.should == "application/json"
@@ -39,7 +43,10 @@ describe ApiController, "when using the API" do
         response_body["errors"].should be_nil
         response_body["url"].should =~ /^http/
         
-        InfoRequest.count(:conditions => ["public_body_id = ?", geraldine.id]).should == number_of_requests + 1
+        InfoRequest.count(:conditions => [
+            "public_body_id = ?",
+            public_bodies(:geraldine_public_body).id]
+        ).should == number_of_requests + 1
         
         new_request = InfoRequest.find(response_body["id"])
         new_request.user_id.should be_nil
@@ -49,14 +56,13 @@ describe ApiController, "when using the API" do
         new_request.title.should == request_data["title"]
         new_request.last_event_forming_initial_request.outgoing_message.body.should == request_data["body"].strip
         
-        new_request.public_body_id.should == geraldine.id
+        new_request.public_body_id.should == public_bodies(:geraldine_public_body).id
     end
     
-    it "should add a response to a request" do
-        geraldine = public_bodies(:geraldine_public_body)
-        
-        # First we need to create a request
-        post :create_request, :k => geraldine.api_key, :request_json => {
+    def _create_request
+        post :create_request,
+            :k => public_bodies(:geraldine_public_body).api_key,
+            :request_json => {
                 "title" => "Tell me about your chickens",
                 "body" => "Dear Sir,\n\nI should like to know about your chickens.\n\nYours in faith,\nBob\n",
                 
@@ -64,18 +70,29 @@ describe ApiController, "when using the API" do
                 "external_user_name" => "Bob Smith",
             }.to_json
         response.content_type.should == "application/json"
-        request_id = ActiveSupport::JSON.decode(response.body)["id"]
+        return ActiveSupport::JSON.decode(response.body)["id"]
+    end
+    
+    it "should add a response to a request" do
+        # First we need to create a request
+        request_id = _create_request
+        
+        # Initially it has no incoming messages
         IncomingMessage.count(:conditions => ["info_request_id = ?", request_id]).should == 0
         
-        # Now add a response
+        # Now add one
         sent_at = "2012-05-28T12:35:39+01:00"
         response_body = "Thank you for your request for information, which we are handling in accordance with the Freedom of Information Act 2000. You will receive a response within 20 working days or before the next full moon, whichever is sooner.\n\nYours sincerely,\nJohn Gandermulch,\nExample Council FOI Officer\n"
-        post :add_correspondence, :k => geraldine.api_key, :id => request_id, :correspondence_json => {
+        post :add_correspondence,
+            :k => public_bodies(:geraldine_public_body).api_key,
+            :id => request_id,
+            :correspondence_json => {
                 "direction" => "response",
                 "sent_at" => sent_at,
                 "body" => response_body
             }.to_json
         
+        # And make sure it worked
         response.should be_success
         incoming_messages = IncomingMessage.all(:conditions => ["info_request_id = ?", request_id])
         incoming_messages.count.should == 1
@@ -83,6 +100,37 @@ describe ApiController, "when using the API" do
         
         incoming_message.sent_at.should == Time.iso8601(sent_at)
         incoming_message.get_main_body_text_folded.should == response_body
+    end
+
+    it "should add a followup to a request" do
+        # First we need to create a request
+        request_id = _create_request
+        
+        # Initially it has one outgoing message
+        OutgoingMessage.count(:conditions => ["info_request_id = ?", request_id]).should == 1
+        
+        # Add another, as a followup
+        sent_at = "2012-05-29T12:35:39+01:00"
+        followup_body = "Pls answer ASAP.\nkthxbye\n"
+        post :add_correspondence,
+            :k => public_bodies(:geraldine_public_body).api_key,
+            :id => request_id,
+            :correspondence_json => {
+                "direction" => "request",
+                "sent_at" => sent_at,
+                "body" => followup_body
+            }.to_json
+        
+        # Make sure it worked
+        response.should be_success
+        followup_messages = OutgoingMessage.all(
+            :conditions => ["info_request_id = ? and message_type = 'followup'", request_id]
+        )
+        followup_messages.size.should == 1
+        followup_message = followup_messages[0]
+        
+        followup_message.last_sent_at.should == Time.iso8601(sent_at)
+        followup_message.body.should == followup_body.strip
     end
     
     it "should allow attachments to be uploaded" do
