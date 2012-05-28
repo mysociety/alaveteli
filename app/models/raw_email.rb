@@ -19,11 +19,6 @@ class RawEmail < ActiveRecord::Base
 
     has_one :incoming_message
 
-    # We keep the old data_text field (which is of type text) for backwards
-    # compatibility. We use the new data_binary field because only it works
-    # properly in recent versions of PostgreSQL (get seg faults escaping
-    # some binary strings).
-
     def directory
         request_id = self.incoming_message.info_request.id.to_s
         if ENV["RAILS_ENV"] == "test"
