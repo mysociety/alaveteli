@@ -19,6 +19,7 @@ describe ApiController, "when using the API" do
         response.content_type.should == "application/json"
         
         response_body = ActiveSupport::JSON.decode(response.body)
+        response_body["errors"].should be_nil
         response_body["url"].should =~ /^http/
         
         InfoRequest.count(:conditions => ["public_body_id = ?", geraldine.id]).should == number_of_requests + 1
@@ -29,6 +30,6 @@ describe ApiController, "when using the API" do
         new_request.external_url.should == request_data["external_url"]
         
         new_request.title.should == request_data["title"]
-        new_request.last_event_forming_initial_request.outgoing_message.body.should == request_data["body"]
+        new_request.last_event_forming_initial_request.outgoing_message.body.should == request_data["body"].strip
     end
 end

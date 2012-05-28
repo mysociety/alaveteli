@@ -27,26 +27,48 @@ class ApiController < ApplicationController
     
     def create_request
         json = ActiveSupport::JSON.decode(params[:request_json])
-        existing_request = InfoRequest.find_by_existing_request(json["title"], 
-                                                                @public_body.id, 
-                                                                json["body"])
-        info_request = InfoRequest.new(:title => json["title"],
-                                       :public_body_id => @public_body.id,
-                                       :described_state => "awaiting_response",
-                                       :external_user_name => json["external_user_name"],
-                                       :external_url => json["external_url"])
-        outgoing_message = OutgoingMessage.new(json["body"])
-        info_request.outgoing_messages << outgoing_messages
-        outgoing_message.info_request = info_request
-        # See if values were valid or not
-        if !existing_request.nil? || !info_request.valid?
-            # We don't want the error "Outgoing messages is invalid", as the outgoing message
-            # will be valid for a specific reason which we are displaying anyway.
+        request = InfoRequest.new(
+            :title => json["title"],
+            :public_body_id => @public_body.id,
+            :described_state => "waiting_response",
+            :external_user_name => json["external_user_name"],
+            :external_url => json["external_url"]
+        )
+        
+        outgoing_message = OutgoingMessage.new(
+            :status => 'ready',
+            :message_type => 'initial_request',
+            :body => json["body"],
+            :last_sent_at => Time.now(),
+            :what_doing => 'normal_sort',
+            :info_request => request
+        )
+        request.outgoing_messages << outgoing_message
+        
+        # Return an error if the request is invalid
+        if !request.valid?
+            # We don't want the error "Outgoing messages is invalid", as in this
+            # case the list of errors will also contain a more specific error
+            # describing the reason it is invalid.
             info_request.errors.delete("outgoing_messages")
-            render :json => {'errors' => :info_request.errors.to_s}
-        else
-            render :json => {'url' => 'http://goo.com'}
+            
+            render :json => {
+                'errors' => request.errors.full_messages
+            }
+            return
         end
+        
+        request.save!
+        request.log_event("sent",
+            :email => nil,
+            :outgoing_message_id => outgoing_message.id,
+            :smtp_message_id => nil
+        )
+        render :json => {
+            'url' => make_url("request", request.url_title),
+            'id'  => request.id
+        }
+        
     end
     
     def add_correspondence
