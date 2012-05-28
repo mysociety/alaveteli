@@ -46,12 +46,8 @@ class ApiController < ApplicationController
         request.outgoing_messages << outgoing_message
         
         # Return an error if the request is invalid
+        # (Can this ever happen?)
         if !request.valid?
-            # We don't want the error "Outgoing messages is invalid", as in this
-            # case the list of errors will also contain a more specific error
-            # describing the reason it is invalid.
-            info_request.errors.delete("outgoing_messages")
-            
             render :json => {
                 'errors' => request.errors.full_messages
             }
