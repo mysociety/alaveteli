@@ -103,7 +103,7 @@ describe ApiController, "when using the API" do
     end
 
     it "should add a followup to a request" do
-        # First we need to create a request
+        # First we need an external request
         request_id = info_requests(:external_request).id
         
         # Initially it has one outgoing message
