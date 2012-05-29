@@ -829,7 +829,7 @@ describe RequestController, "when creating a new request" do
         response.should redirect_to(:action => 'show', :url_title => 'why_did_the_chicken_cross_the_ro')
 
         post :new, :info_request => { :public_body_id => @body.id, 
-            :title => "What's black and white and red all over?", :tag_string => "" },
+            :title => "What is black and white and red all over?", :tag_string => "" },
             :outgoing_message => { :body => "Please send all minutes of meetings and email records that address this question." },
             :submitted_new_request => 1, :preview => 0
         response.should render_template('user/rate_limited')
@@ -1441,10 +1441,12 @@ describe RequestController, "sending overdue request alerts" do
         user.ban_text = 'Banned'
         user.save!
 
+        UserInfoRequestSentAlert.find_all_by_user_id(user.id).count.should == 0
         RequestMailer.alert_overdue_requests
 
         deliveries = ActionMailer::Base.deliveries
         deliveries.size.should == 0
+        UserInfoRequestSentAlert.find_all_by_user_id(user.id).count.should > 0
     end
 
     it "should send a very overdue alert mail to creators of very overdue requests" do
@@ -1471,6 +1473,17 @@ describe RequestController, "sending overdue request alerts" do
 
         response.should render_template('show_response')
         assigns[:info_request].should == info_requests(:naughty_chicken_request)
+    end
+    it "should not resend alerts to people who've already received them" do
+        chicken_request = info_requests(:naughty_chicken_request)
+        chicken_request.outgoing_messages[0].last_sent_at = Time.now() - 60.days
+        chicken_request.outgoing_messages[0].save!
+        RequestMailer.alert_overdue_requests
+        chicken_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /chickens/}
+        chicken_mails.size.should == 1
+        RequestMailer.alert_overdue_requests
+        chicken_mails = ActionMailer::Base.deliveries.select{|x| x.body =~ /chickens/}
+        chicken_mails.size.should == 1
     end
 
 end
