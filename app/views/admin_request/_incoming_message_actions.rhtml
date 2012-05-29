@@ -1,6 +1,6 @@
 <% form_tag '../redeliver_incoming' do %>
   <div>
-      id or url_title of request:
+      id or url_title of request (or a list of requests, comma-separated):
       <% if @info_requests && @info_requests.size == 1 %>
         <%= text_field_tag 'url_title', @info_requests[0].url_title, { :size => 20 } %>
       <% else %>

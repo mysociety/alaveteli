@@ -86,6 +86,27 @@ describe AdminRequestController, "when administering the holding pen" do
         response.should redirect_to(:controller=>'admin_request', :action=>'show', :id=>101)
         InfoRequest.holding_pen_request.incoming_messages.length.should == 0
     end
+    it "allows redelivery to more than one request" do
+        ir1 = info_requests(:fancy_dog_request)
+        ir1.allow_new_responses_from = 'nobody'
+        ir1.handle_rejected_responses = 'holding_pen'
+        ir1.save!
+        ir1.incoming_messages.length.should == 1
+        ir2 = info_requests(:another_boring_request)
+        ir2.incoming_messages.length.should == 1
+
+        receive_incoming_mail('incoming-request-plain.email', ir1.incoming_email, "frob@nowhere.com")
+        InfoRequest.holding_pen_request.incoming_messages.length.should == 1
+
+        new_im = InfoRequest.holding_pen_request.incoming_messages[0]
+        post :redeliver_incoming, :redeliver_incoming_message_id => new_im.id, :url_title => "#{ir1.url_title},#{ir2.url_title}" 
+        ir1.reload
+        ir1.incoming_messages.length.should == 2
+        ir2.reload
+        ir2.incoming_messages.length.should == 2
+        response.should redirect_to(:controller=>'admin_request', :action=>'show', :id=>ir2.id)
+        InfoRequest.holding_pen_request.incoming_messages.length.should == 0
+    end
 
     it "guesses a misdirected request" do
         ir = info_requests(:fancy_dog_request)

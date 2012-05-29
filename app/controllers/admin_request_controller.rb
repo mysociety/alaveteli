@@ -173,32 +173,36 @@ class AdminRequestController < AdminController
 
     def redeliver_incoming
         incoming_message = IncomingMessage.find(params[:redeliver_incoming_message_id])
+        message_ids = params[:url_title].split(",").each {|x| x.strip}
+        destination_request = nil
+        ActiveRecord::Base.transaction do
+            for m in message_ids
+                if m.match(/^[0-9]+$/)
+                    destination_request = InfoRequest.find_by_id(m.to_i)
+                else
+                    destination_request = InfoRequest.find_by_url_title(m)
+                end
+                if destination_request.nil?
+                    flash[:error] = "Failed to find destination request '" + m + "'"
+                    return redirect_to request_admin_url(incoming_message.info_request)
+                end
 
-        if params[:url_title].match(/^[0-9]+$/)
-            destination_request = InfoRequest.find(params[:url_title].to_i)
-        else
-            destination_request = InfoRequest.find_by_url_title(params[:url_title])
+                raw_email_data = incoming_message.raw_email.data
+                mail = TMail::Mail.parse(raw_email_data)
+                mail.base64_decode
+                destination_request.receive(mail, raw_email_data, true)
+
+                incoming_message_id = incoming_message.id
+                incoming_message.info_request.log_event("redeliver_incoming", {
+                                                            :editor => admin_http_auth_user(),
+                                                            :destination_request => destination_request.id,
+                                                            :deleted_incoming_message_id => incoming_message_id
+                                                        })
+
+                flash[:notice] = "Message has been moved to request(s). Showing the last one:"
+            end
+            incoming_message.fully_destroy
         end
-
-        if destination_request.nil?
-            flash[:error] = "Failed to find destination request '" + params[:url_title] + "'"
-            redirect_to request_admin_url(incoming_message.info_request)
-        end
-
-        raw_email_data = incoming_message.raw_email.data
-        mail = TMail::Mail.parse(raw_email_data)
-        mail.base64_decode
-        destination_request.receive(mail, raw_email_data, true)
-
-        incoming_message_id = incoming_message.id
-        incoming_message.fully_destroy
-        incoming_message.info_request.log_event("redeliver_incoming", {
-                :editor => admin_http_auth_user(),
-                :destination_request => destination_request.id,
-                :deleted_incoming_message_id => incoming_message_id
-        })
-
-        flash[:notice] = "Message has been moved to this request"
         redirect_to request_admin_url(destination_request)
     end
 
