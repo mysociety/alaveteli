@@ -312,7 +312,7 @@ class AdminRequestController < AdminController
 
             # 3. Give a reason why it's in the holding pen
             last_event = InfoRequestEvent.find_by_incoming_message_id(@raw_email.incoming_message.id)
-            @rejected_reason = last_event.params[:rejected_reason]
+            @rejected_reason = last_event.params[:rejected_reason] || "unknown reason"
         end
     end
 
