@@ -13,6 +13,19 @@
   behaviour of multiple themes is now layered in the reverse order
   they're listed in the config file.  See the variable `THEME_URLS` in
   `general.yml-example` for an example.
+* A new, experimental theme for the administrative interface.  It's
+  currently packaged as a standalone theme, but will be merged into
+  the core once it's been tested and iterated in production a few
+  times.
+* Alert subscriptions are now referred to as "following" a request (or
+  group of requests) throughout the UI.  When a user "follows" a
+  request, updates regarding that request are posted on a new "wall"
+  page.  Now they have a wall, users can opt not to receive alerts by
+  email.
+* New features to support fast post-moderation of bad requests: a
+  button for users to report potentially unsuitable requests, and a
+  form control in the administrative interface that hides a request
+  and sends the user an email explaining why.
 
 ## Upgrade notes
 
@@ -48,6 +61,13 @@
   `general.yml`) is now known as the "emergency user".  Deployments
   that previously bypassed admin authentication should set the new
   `SKIP_ADMIN_AUTH` config variable to `true`.
+  
+* If you want to try out the new administrator theme, copy the sample
+  `THEME_URLS` config from `general.yml-example` and run
+  `./script/rails-post-deploy`.  If you don't like it, turn it off
+  again by removing the line referring to the theme
+  (`adminbootstraptheme`) -- but email the mailing list first,
+  explaining why!
 
 # Version 0.5.2
 
