@@ -630,6 +630,41 @@ describe UserController, "when showing JSON version for API" do
 
 end
 
+describe UserController, "when viewing the wall" do
+    integrate_views
 
+    before(:each) do
+        rebuild_xapian_index
+    end
 
+    it "should show users stuff on their wall, most recent first" do
+        user = users(:silly_name_user)
+        ire = info_request_events(:useless_incoming_message_event)
+        ire.created_at = DateTime.new(2001,1,1)
+        session[:user_id] = user.id
+        get :wall, :url_name => user.url_name
+        assigns[:feed_results][0].should_not == ire
 
+        ire.created_at = Time.now
+        ire.save!
+        get :wall, :url_name => user.url_name
+        assigns[:feed_results][0].should == ire
+    end
+
+    it "should show other users' activities on their walls" do
+        user = users(:silly_name_user)
+        ire = info_request_events(:useless_incoming_message_event)
+        get :wall, :url_name => user.url_name
+        assigns[:feed_results][0].should_not == ire
+    end
+
+    it "should allow users to turn their own email alerts on and off" do
+        user = users(:silly_name_user)
+        session[:user_id] = user.id
+        user.receive_email_alerts.should == true
+        get :set_receive_email_alerts, :receive_email_alerts => 'false', :came_from => "/"
+        user.reload
+        user.receive_email_alerts.should_not == true
+    end
+
+end

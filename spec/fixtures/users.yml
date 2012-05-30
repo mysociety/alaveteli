@@ -12,6 +12,7 @@ bob_smith_user:
   ban_text: ''
   locale: 'en'
   about_me: 'I like making requests about fancy dogs and naughty chickens and stuff.'
+  receive_email_alerts: true
 silly_name_user: 
   id: "2"
   name: "Silly <em>Name</em>"
@@ -26,6 +27,7 @@ silly_name_user:
   ban_text: ''
   locale: 'en'
   about_me: ''
+  receive_email_alerts: true
 admin_user: 
   id: "3"
   name: Joe Admin
@@ -40,6 +42,7 @@ admin_user:
   ban_text: ''
   locale: ''
   about_me: ''
+  receive_email_alerts: true
 unconfirmed_user: 
   id: "4"
   name: "Unconfirmed"
@@ -53,6 +56,7 @@ unconfirmed_user:
   admin_level: 'none'
   ban_text: ''
   about_me: ''
+  receive_email_alerts: true
 robin_user:
   id: 5
   name: Robin Houston
@@ -66,3 +70,4 @@ robin_user:
   admin_level: 'none'
   ban_text: ''
   about_me: 'I am the best'
+  receive_email_alerts: true

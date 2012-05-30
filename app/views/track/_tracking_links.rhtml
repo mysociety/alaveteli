@@ -7,18 +7,17 @@
 <% if own_request %> 
     <p><%= _('This is your own request, so you will be automatically emailed when new responses arrive.')%></p>
 <% elsif existing_track %> 
-        <% form_tag({:controller => 'track', :action => 'update', :track_id => existing_track.id}, :class => "feed_form feed_form_" + location) do %>
-            <p>
-                <%= track_thing.params[:verb_on_page_already] %>
-                <%= hidden_field_tag 'track_medium', "delete" %>
-                <%= hidden_field_tag 'r', request.request_uri %>
-                <%= submit_tag "unsubscribe" %>
-            </p>
-        <% end %>
+    <p><%= track_thing.params[:verb_on_page_already] %></p>
+    <div class="feed_link feed_link_<%=location%>">
+	<%= link_to "Unsubscribe", {:controller => 'track', :action => 'update', :track_id => existing_track.id, :track_medium => "delete", :r => request.request_uri}, :class => "link_button_green" %>
+    </div>
 <% elsif track_thing %>
     <div class="feed_link feed_link_<%=location%>">
-        <%= link_to '<img src="/images/email-16.png" alt="">', do_track_url(track_thing) %>
-        <%= link_to _("Follow by email"), do_track_url(track_thing) %>
+     <% if defined? follower_count && follower_count > 0 %>
+        <%= link_to _("I like this request"), do_track_url(track_thing), :class => "link_button_green" %>
+     <% else %>
+        <%= link_to _("Follow"), do_track_url(track_thing), :class => "link_button_green" %>
+     <% end %>
     </div>
     
     <div class="feed_link feed_link_<%=location%>">

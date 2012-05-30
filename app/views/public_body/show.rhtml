@@ -4,7 +4,7 @@
       <h2><%= _('Follow this authority')%></h2>
 
       <% follower_count = TrackThing.count(:all, :conditions => ["public_body_id = ?", @public_body.id]) %>
-      <p><%= n_("There is %d person following this authority", "There are %d people following this authority", follower_count) % follower_count %></p>
+      <p><%= n_("<span id='follow_count'>%d</span> person is following this authority", "<span id='follow_count'>%d</span> people are following this authority", follower_count) % follower_count %></p>
 
         <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => false, :location => 'sidebar' } %>
         <h2><%= _('More about this authority')%></h2>
