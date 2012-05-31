@@ -33,3 +33,4 @@ libpq-dev
 uuid-dev
 ruby1.8-dev
 build-essential
+bundler
