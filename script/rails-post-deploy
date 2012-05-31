@@ -80,7 +80,28 @@ then
     bundle_install_options="--without development:test --deployment"
 fi
 
-bundle install $bundle_install_options
+# Ordinarily we would expect simply to run "bundle install" here.
+# However, at the time of writing there is a bug in bundler that
+# causes gems from github to be rebuilt every time bundle install
+# is run, which makes the process very extremely slow in our case
+# because Xapian takes a long time to build. Running
+# "bundle exec bundle install" is a workaround for this bug.
+#
+# However clearly one cannot run bundle exec till the bundle has
+# initially been installed, so we use a flag file .bundler-has-run
+# to indicate whether we are doing an initial install.
+#
+# If you ever need to rerun the initial install, just remove
+# this flag file.
+#
+# https://groups.google.com/forum/?fromgroups#!topic/alaveteli-dev/lCDuW9H4uBI
+if [ -e .bundler-has-run ]
+then
+    bundle exec bundle install $bundle_install_options
+else
+    bundle install $bundle_install_options
+    touch .bundler-has-run
+fi
 
 if [ -n "$OPTION_THEME_URLS" ]
 then
