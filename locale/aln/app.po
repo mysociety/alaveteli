@@ -4549,5 +4549,3 @@ msgstr ""
 #: app/views/request/show.rhtml:44
 msgid "{{user}} made this {{law_used_full}} request"
 msgstr ""
-
-
