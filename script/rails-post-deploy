@@ -74,7 +74,7 @@ then
     echo "ENV['RAILS_ENV'] ||= 'production'" > config/rails_env.rb
 fi
 
-local bundle_install_options
+bundle_install_options=""
 if [ "$OPTION_STAGING_SITE" = "0" ]
 then
     bundle_install_options="--without development:test --deployment"
