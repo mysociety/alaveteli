@@ -69,6 +69,12 @@
   (`adminbootstraptheme`) -- but email the mailing list first,
   explaining why!
 
+* Here's a list of all the new config variables you might want to change:
+  * `THEME_URLS`
+  * `SKIP_ADMIN_AUTH`
+  * `VARNISH_HOST`
+  * `GA_CODE`
+
 # Version 0.5.2
 
 This is a hotfix to fix occasional problems importing public body CSVs
