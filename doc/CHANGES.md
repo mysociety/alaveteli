@@ -1,4 +1,4 @@
-# Next version
+# Version 0.6
 
 ## Highlighted features
 
