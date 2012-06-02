@@ -88,8 +88,6 @@
         <%= _('Response to this request is <strong>long overdue</strong>.') %> 
 		<%= _('By law, under all circumstances, {{public_body_link}} should have responded by now',:public_body_link => public_body_link(@info_request.public_body)) %>
         (<%= _('<a href="%s">details</a>') % [help_requesting_path + '#quickly_response'] %>).
-        <%= _('You can <strong>complain</strong> by') %>
-        <%= link_to _("requesting an internal review"), show_response_no_followup_url(:id => @info_request.id, :incoming_message_id => nil) + "?internal_review=1#followup" %>.
     <% elsif @status == 'not_held' %>
         <%= public_body_link(@info_request.public_body) %> <%= _('<strong>did not have</strong> the information requested.') %>
     <% elsif @status == 'rejected' %>
