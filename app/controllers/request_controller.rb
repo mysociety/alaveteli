@@ -656,6 +656,12 @@ class RequestController < ApplicationController
 
     def report_request
         info_request = InfoRequest.find_by_url_title(params[:url_title])
+        return if !authenticated?(
+                :web => _("To report this FOI request"),
+                :email => _("Then you can report the request '{{title}}'", :title => info_request.title),
+                :email_subject => _("Report an offensive or unsuitable request")
+            )
+        
         if !info_request.attention_requested
             info_request.set_described_state('attention_requested')
             info_request.attention_requested = true # tells us if attention has ever been requested
