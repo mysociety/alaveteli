@@ -16,7 +16,7 @@ class PublicBodyCategories
         @with_description = @with_headings.select() { |a| a.instance_of?(Array) }
         @tags = @with_description.map() { |a| a[0] }
         @by_tag = Hash[*@with_description.map() { |a| a[0..1] }.flatten]
-        @singular_by_tag = Hash[*@with_description.map() { |a| [a[0],a[2]] }.flatten]        
+        @singular_by_tag = Hash[*@with_description.map() { |a| [a[0],a[2]] }.flatten]
     end
 
     def PublicBodyCategories.get
