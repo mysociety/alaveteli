@@ -6,11 +6,11 @@
 # Required-Stop: $local_fs $syslog
 # Default-Start: 2 3 4 5 
 # Default-Stop: 0 1 6
-# Short-Description: purge-varnish is a daemon running the Alaveteli email alerts
-# Description: purge-varnish send Alaveteli email alerts as required
+# Short-Description: purge-varnish is a daemon purging the Alaveteli varnish cache
+# Description: purge-varnish purge the Alaveteli varnish cache
 ### END INIT INFO
 #
-# !!(*= $daemon_name *)!! Start the Alaveteli email alert daemon
+# !!(*= $daemon_name *)!! Start the Alaveteli email purge-varnish daemon
 
 NAME=!!(*= $daemon_name *)!!
 DAEMON=/data/vhost/!!(*= $vhost *)!!/alaveteli/script/runner
@@ -42,7 +42,7 @@ case "$1" in
       quietly_start_daemon
       if [ $? -ne 1 ]
       then
-          echo "Alaveteli alert daemon was not running; now restarted"
+          echo "Alaveteli purge-varnish daemon was not running; now restarted"
           exit 1
       else
           exit 0
@@ -50,17 +50,17 @@ case "$1" in
       ;;
   
   start)
-      echo -n "Starting Alaveteli alert daemon: $NAME"
+      echo -n "Starting Alaveteli purge-varnish daemon: $NAME"
       start_daemon
       ;;
   
   stop)
-        echo -n "Stopping Alaveteli alert daemon: $NAME"
+        echo -n "Stopping Alaveteli purge-varnish daemon: $NAME"
         stop_daemon
         ;;
   
   restart)
-      echo -n "Restarting Alaveteli alert daemon: $NAME"
+      echo -n "Restarting Alaveteli purge-varnish daemon: $NAME"
       stop_daemon
       start_daemon
       ;;
