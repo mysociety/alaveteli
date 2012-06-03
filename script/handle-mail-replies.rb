@@ -12,7 +12,7 @@
 
 # We want to avoid loading rails unless we need it, so we start by just loading the
 # config file ourselves.
-$alaveteli_dir = File.join(File.dirname(__FILE__), '..')
+$alaveteli_dir = File.expand_path(File.join(File.dirname(__FILE__), '..'))
 $:.push(File.join($alaveteli_dir, "commonlib", "rblib"))
 load "config.rb"
 MySociety::Config.set_file(File.join($alaveteli_dir, 'config', 'general'), true)

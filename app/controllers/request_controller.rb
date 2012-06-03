@@ -839,7 +839,7 @@ class RequestController < ApplicationController
                               )
                 updated = Digest::SHA1.hexdigest(info_request.get_last_event.created_at.to_i.to_s + info_request.updated_at.to_i.to_s)
                 @url_path = "/download/#{updated[0..1]}/#{updated}/#{params[:url_title]}.zip"
-                file_path = File.join(File.dirname(__FILE__), '../../cache/zips', @url_path)
+                file_path = File.expand_path(File.join(File.dirname(__FILE__), '../../cache/zips', @url_path))
                 if !File.exists?(file_path)
                     FileUtils.mkdir_p(File.dirname(file_path))
                     Zip::ZipFile.open(file_path, Zip::ZipFile::CREATE) { |zipfile|
