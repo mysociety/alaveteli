@@ -81,9 +81,9 @@ class AdminGeneralController < AdminController
     def debug
         @http_auth_user = admin_http_auth_user
         @current_commit = `git log -1 --format="%H"`
-        @current_branch = `git branch | perl -ne 'print $1 if /^\* (.*)/'`
+        @current_branch = `git branch | perl -ne 'print $1 if /^\\* (.*)/'`
         @current_version = `git describe --always --tags`
-        repo = `git remote show origin -n | perl -ne 'print $1 if m{Fetch URL: .*github\.com[:/](.*)\.git}'`
+        repo = `git remote show origin -n | perl -ne 'print $1 if m{Fetch URL: .*github\\.com[:/](.*)\\.git}'`
         @github_origin = "https://github.com/#{repo}/tree/"
         @request_env = request.env
     end
