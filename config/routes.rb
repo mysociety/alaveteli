@@ -7,7 +7,9 @@
 # $Id: routes.rb,v 1.92 2009-10-14 22:01:27 francis Exp $
 
 # Allow easy extension from themes. Note these will have the highest priority.
-load File.join('config', 'custom-routes.rb')
+$alaveteli_route_extensions.each do |f|
+    load File.join('config', f)
+end
 
 ActionController::Routing::Routes.draw do |map|
     
