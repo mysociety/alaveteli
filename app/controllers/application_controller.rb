@@ -345,9 +345,6 @@ class ApplicationController < ActionController::Base
             return "*unknown*";
         end
     end
-    def assign_http_auth_user
-        @http_auth_user = admin_http_auth_user
-    end
 
     # Convert URL name for sort by order, to Xapian query
     def order_to_sort_by(sortby)
