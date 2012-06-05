@@ -4,12 +4,6 @@ GIT
   specs:
     annotate (2.4.1.beta1)
 
-GIT
-  remote: git://github.com/robinhouston/xapian-full.git
-  revision: a40074b2de825905b92d5ff6f3d6e094b1240c35
-  specs:
-    xapian-full (1.2.9)
-
 GEM
   remote: http://rubygems.org/
   specs:
