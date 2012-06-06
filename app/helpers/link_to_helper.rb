@@ -96,6 +96,13 @@ module LinkToHelper
     def user_link_absolute(user)
         link_to h(user.name), main_url(user_url(user))
     end
+    def request_user_link_absolute(request)
+        if request.is_external?
+            request.external_user_name || _("Anonymous user")
+        else
+            user_link_absolute(request.user)
+        end
+    end
     def user_or_you_link(user)
         if @user && user == @user
             link_to h("you"), user_url(user)
