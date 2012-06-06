@@ -113,9 +113,9 @@ class InfoRequest < ActiveRecord::Base
     # External requests are requests that have been added using the API, whereas internal
     # requests are requests made using the site.
     def must_be_internal_or_external
-        if user_id.nil?
-            errors.add(:external_url, "must be provided for an external request") if external_url.nil?
-        else
+        # We must permit user_id and external_user_name both to be nil, because the system
+        # allows a request to be created by a non-logged-in user.
+        if !user_id.nil?
             errors.add(:external_user_name, "must be null for an internal request") if !external_user_name.nil?
             errors.add(:external_url, "must be null for an internal request") if !external_url.nil?
         end
