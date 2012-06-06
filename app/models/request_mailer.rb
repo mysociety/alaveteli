@@ -236,7 +236,12 @@ class RequestMailer < ApplicationMailer
 
     # Send email alerts for overdue requests
     def self.alert_overdue_requests()
-        info_requests = InfoRequest.find(:all, :conditions => [ "described_state = 'waiting_response' and awaiting_description = ?", false ], :include => [ :user ] )
+        info_requests = InfoRequest.find(:all,
+            :conditions => [
+                "described_state = 'waiting_response' and awaiting_description = ? and user_id is not null", false
+            ],
+            :include => [ :user ]
+        )
         for info_request in info_requests
             alert_event_id = info_request.last_event_forming_initial_request.id
             # Only overdue requests
