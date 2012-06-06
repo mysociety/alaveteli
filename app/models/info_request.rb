@@ -128,6 +128,19 @@ class InfoRequest < ActiveRecord::Base
     def user_name
         is_external? ? external_user_name : user.name
     end
+    
+    def user_name_slug
+        if is_external?
+            if external_user_name.nil?
+                fake_slug = "anonymous"
+            else
+                fake_slug = external_user_name.parameterize
+            end
+            public_body.url_name + "_"+fake_slug
+        else
+            user.url_name
+        end
+    end
 
     @@custom_states_loaded = false
     begin
