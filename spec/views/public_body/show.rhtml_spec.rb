@@ -105,6 +105,7 @@ def mock_event
             :display_status => 'waiting_response',
             :calculate_status => 'waiting_response',
             :public_body => @pb,
+            :is_external? => false,
             :user => mock_model(User, :name => 'Test User', :url_name => 'testuser')
         ),
         :incoming_message => nil, :is_incoming_message? => false,
