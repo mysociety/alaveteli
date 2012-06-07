@@ -11,7 +11,7 @@
      <% if @info_request.attention_requested %>
        <p><%= ('The site administrators have reviewed this request and consider it to be suitable for the website.') %></p>
      <% else %>
-      <p><%= _('Requests for personal information and vexatious requests are not considered valid for FOI purposes (<a href="/help/about">read more</a>).') %>
+      <p><%= _('Requests for personal information and vexatious requests are not considered valid for FOI purposes (<a href="/help/about">read more</a>).') %></p>
        <p><%= ('If you believe this request is not suitable, you can report it for attention by the site administrators') %></p>
        <%= link_to _("Report this request"), report_path, :class => "link_button_green", :method => "POST" %>
       <% end %>
