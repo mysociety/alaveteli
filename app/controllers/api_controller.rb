@@ -136,40 +136,20 @@ class ApiController < ApplicationController
             )
         else
             # In the 'response' direction, i.e. what we (Alaveteli) regard as incoming
-            
-            raw_email = RawEmail.new
-            incoming_message = IncomingMessage.new(
-                :info_request => request,
-                :raw_email => raw_email,
-                :sent_at => sent_at
-            )
-            raw_email.incoming_message = incoming_message
-            raw_email.save!
-            raw_email.data = "From external\nFrom: <none@example.org>\nTo: <none@example.org>\nDate: #{sent_at.rfc2822}\nSubject: Response\n\n" + body
-            
-            request.incoming_messages << incoming_message
-            request.save!
-            
-            attachments.each_with_index do |attachment, i|
+            attachment_hashes = []
+            (attachments || []).each_with_index do |attachment, i|
                 filename = File.basename(attachment.original_filename)
                 body = attachment.read
                 content_type = AlaveteliFileTypes.filename_and_content_to_mimetype(filename, body) || 'application/octet-stream'
-                
-                a = FoiAttachment.new(
-                    :incoming_message_id => incoming_message.id,
-                    :filename => filename,
-                    :content_type => content_type
+                attachment_hashes.push(
+                    :content_type => content_type,
+                    :body => body,
+                    :filename => filename
                 )
-                a.body = body
-                a.save!
             end
             
-            request.log_event("response",
-                :api => true,
-                :email => nil,
-                :incoming_message_id => incoming_message.id,
-                :smtp_message_id => nil
-            )
+            mail = RequestMailer.create_external_response(request, body, sent_at, attachment_hashes)
+            request.receive(mail, mail.encoded, true)
         end
         
         head :no_content

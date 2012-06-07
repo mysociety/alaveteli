@@ -28,6 +28,17 @@ class RequestMailer < ApplicationMailer
                 :filename => attachment_name
         end
     end
+    
+    # Used when a response is uploaded using the API
+    def external_response(info_request, body, sent_at, attachments)
+        @from = blackhole_email
+        @recipients = info_request.incoming_name_and_email
+        @body = { :body => body }
+        
+        attachments.each do |attachment_hash|
+            attachment attachment_hash
+        end
+    end
 
     # Incoming message arrived for a request, but new responses have been stopped.
     def stopped_responses(info_request, email, raw_email_data)

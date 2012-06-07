@@ -269,7 +269,7 @@ public
         return self.magic_email("request-")
     end
     def incoming_name_and_email
-        return TMail::Address.address_from_name_and_email(self.user.name, self.incoming_email).to_s
+        return TMail::Address.address_from_name_and_email(self.user_name, self.incoming_email).to_s
     end
 
     # Subject lines for emails about the request
@@ -490,7 +490,7 @@ public
             self.save!
         end
         self.info_request_events.each { |event| event.xapian_mark_needs_index } # for the "waiting_classification" index
-        RequestMailer.deliver_new_response(self, incoming_message)
+        RequestMailer.deliver_new_response(self, incoming_message) if !is_external?
     end
 
 
