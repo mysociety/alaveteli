@@ -1488,7 +1488,7 @@ describe RequestController, "sending unclassified new response reminder alerts" 
         deliveries = ActionMailer::Base.deliveries
         deliveries.size.should == 3 # sufficiently late it sends reminders too
         mail = deliveries[0]
-        mail.body.should =~ /To let us know/
+        mail.body.should =~ /To let everyone know/
         mail.to_addrs.first.to_s.should == info_requests(:fancy_dog_request).user.name_and_email
         mail.body =~ /(http:\/\/.*\/c\/(.*))/
         mail_url = $1
