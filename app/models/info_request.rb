@@ -515,9 +515,6 @@ public
         return false
     end
 
-    def can_have_attention_requested?
-    end
-
     # change status, including for last event for later historical purposes
     def set_described_state(new_state)
         ActiveRecord::Base.transaction do
