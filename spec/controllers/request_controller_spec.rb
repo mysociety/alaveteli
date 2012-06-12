@@ -1883,6 +1883,16 @@ describe RequestController, "when reporting a request" do
         response.body.should include("The site administrators have reviewed this request")
     end
 
+    it "should send an email from the reporter to admins" do
+        ir = info_requests(:badger_request)
+        title = ir.url_title
+        post :report_request, :url_title => title
+        deliveries = ActionMailer::Base.deliveries
+        deliveries.size.should == 1
+        mail = deliveries[0]
+        mail.subject.should =~ /attention_requested/
+        mail.from.should include(@user.email)
+    end
 end
 
 
