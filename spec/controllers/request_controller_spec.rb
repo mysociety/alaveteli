@@ -1848,6 +1848,11 @@ end
 describe RequestController, "when reporting a request" do
     integrate_views
 
+    before do
+        @user = users(:robin_user)
+        session[:user_id] = @user.id
+    end
+
     it "should mark a request as having been reported" do
         ir = info_requests(:badger_request)
         title = ir.url_title
