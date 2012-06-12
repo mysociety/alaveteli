@@ -409,7 +409,7 @@ class User < ActiveRecord::Base
         columns = self.class.content_columns.map{|c| c if %w(created_at updated_at admin_level email_confirmed).include?(c.name) }.compact
       end
       columns.each do |column|
-        yield(column.human_name, self.send(column.name), column.type.to_s)
+        yield(column.human_name, self.send(column.name), column.type.to_s, column.name)
       end
     end
 
