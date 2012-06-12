@@ -1858,7 +1858,7 @@ describe RequestController, "when reporting a request" do
         title = ir.url_title
         get :show, :url_title => title
         assigns[:info_request].attention_requested.should == false
-        get :report_request, :url_title => title
+        post :report_request, :url_title => title
         get :show, :url_title => title
         assigns[:info_request].attention_requested.should == true
         assigns[:info_request].described_state.should == "attention_requested"
@@ -1866,10 +1866,10 @@ describe RequestController, "when reporting a request" do
 
     it "should not allow a request to be reported twice" do
         title = info_requests(:badger_request).url_title
-        get :report_request, :url_title => title
+        post :report_request, :url_title => title
         get :show, :url_title => title
         response.body.should include("has been reported")
-        get :report_request, :url_title => title
+        post :report_request, :url_title => title
         get :show, :url_title => title
         response.body.should include("has already been reported")
     end
@@ -1878,7 +1878,7 @@ describe RequestController, "when reporting a request" do
         title = info_requests(:badger_request).url_title
         get :show, :url_title => title
         response.body.should include("Offensive?")
-        get :report_request, :url_title => title
+        post :report_request, :url_title => title
         get :show, :url_title => title
         response.body.should_not include("Offensive?")        
         response.body.should include("This request has been reported")
