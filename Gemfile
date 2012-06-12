@@ -1,5 +1,5 @@
 # Work around bug in Debian Squeeze - see https://github.com/sebbacon/alaveteli/pull/297#issuecomment-4101012
-if File.exist? "/etc/debian_version" and File.open("/etc/debian_version").read.strip == "6.0.4"
+if File.exist? "/etc/debian_version" and File.open("/etc/debian_version").read.strip =~ /^6\.0\.[45]$/
     if File.exist? "/lib/libuuid.so.1"
         require 'dl'
         DL::dlopen('/lib/libuuid.so.1')
@@ -30,7 +30,7 @@ gem 'test-unit', '~> 1.2.3' if RUBY_VERSION.to_f >= 1.9
 gem 'vpim'
 gem 'will_paginate', '~> 2.3.11'
 # when 1.2.9 is released by the maintainer, we can stop using this fork:
-gem 'xapian-full', '~> 1.2.9', :git => 'git://github.com/sebbacon/xapian-full.git'
+gem 'xapian-full-alaveteli', '~> 1.2.9.4'
 gem 'xml-simple'
 gem 'zip'
 

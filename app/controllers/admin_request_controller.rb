@@ -340,15 +340,24 @@ class AdminRequestController < AdminController
 
     def hide_request
         ActiveRecord::Base.transaction do
+            subject = params[:subject]
             explanation = params[:explanation]
             info_request = InfoRequest.find(params[:id])
-            info_request.set_described_state(params[:reason])
             info_request.prominence = "requester_only"
+            
+            info_request.log_event("hide", {
+                    :editor => admin_http_auth_user(),
+                    :reason => params[:reason],
+                    :subject => subject,
+                    :explanation => explanation
+            })
+            
+            info_request.set_described_state(params[:reason])
             info_request.save!
 
             ContactMailer.deliver_from_admin_message(
                     info_request.user,
-                    "hello",
+                    subject,
                     params[:explanation]
                 )
             flash[:notice] = _("Your message to {{recipient_user_name}} has been sent",:recipient_user_name=>CGI.escapeHTML(info_request.user.name))

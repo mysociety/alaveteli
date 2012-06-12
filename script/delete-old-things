@@ -1,9 +1,6 @@
 #!/bin/bash
 
-LOC=`dirname $0`
+cd "`dirname "$0"`"
 
-"$LOC/runner" 'PostRedirect.delete_old_post_redirects()'
-
-"$LOC/runner" 'TrackThingsSentEmail.delete_old_track_things_sent_email()'
-
-
+bundle exec ./runner 'PostRedirect.delete_old_post_redirects()'
+bundle exec ./runner 'TrackThingsSentEmail.delete_old_track_things_sent_email()'

@@ -6,7 +6,7 @@
 # better. Look for a config/rails_env file, and read stuff from there if 
 # it exists. Put just a line like this in there:
 #   ENV['RAILS_ENV'] = 'production'
-rails_env_file = File.join(File.dirname(__FILE__), 'rails_env.rb')
+rails_env_file = File.expand_path(File.join(File.dirname(__FILE__), 'rails_env.rb'))
 if File.exists?(rails_env_file)
     require rails_env_file
 end

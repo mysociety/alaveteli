@@ -52,6 +52,7 @@ class ContactMailer < ApplicationMailer
             :from_user => @from,
             :recipient_user => recipient_user,
         }
+        bcc MySociety::Config::get("CONTACT_EMAIL")
     end
 
 end

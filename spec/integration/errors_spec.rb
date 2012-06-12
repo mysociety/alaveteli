@@ -33,7 +33,7 @@ describe "When rendering errors" do
     end
     it "should render a 403 for attempts at directory listing for attachments" do
         # make a fake cache
-        foi_cache_path = File.join(File.dirname(__FILE__), '../../cache')
+        foi_cache_path = File.expand_path(File.join(File.dirname(__FILE__), '../../cache'))
         FileUtils.mkdir_p(File.join(foi_cache_path, "views/en/request/101/101/response/1/attach/html/1"))
         get("/request/101/response/1/attach/html/1/" )
         response.code.should == "403"

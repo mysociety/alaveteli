@@ -7,7 +7,9 @@
 # $Id: routes.rb,v 1.92 2009-10-14 22:01:27 francis Exp $
 
 # Allow easy extension from themes. Note these will have the highest priority.
-load File.join('config', 'custom-routes.rb')
+$alaveteli_route_extensions.each do |f|
+    load File.join('config', f)
+end
 
 ActionController::Routing::Routes.draw do |map|
     
@@ -66,7 +68,13 @@ ActionController::Routing::Routes.draw do |map|
 
         request.upload_response "/upload/request/:url_title", :action => 'upload_response'
         request.download_entire_request '/request/:url_title/download',      :action => 'download_entire_request'
-        request.report '/request/:url_title/report',      :action => 'report_request'
+        
+        # It would be nice to add :conditions => { :method => :post } to this next one,
+        # because it ought not really to be available as a GET request since it changes
+        # the server state. Unfortunately this doesn’t play well with the PostRedirect
+        # mechanism, which assumes all post-login actions are available via GET, so we
+        # refrain.
+        request.report '/request/:url_title/report', :action => 'report_request'
 
     end
 

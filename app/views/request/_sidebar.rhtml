@@ -13,7 +13,7 @@
      <% else %>
       <p><%= _('Requests for personal information and vexatious requests are not considered valid for FOI purposes (<a href="/help/about">read more</a>).') %>
        <p><%= ('If you believe this request is not suitable, you can report it for attention by the site administrators') %></p>
-       <%= link_to _("Report this request"), report_path, :class => "link_button_green" %>
+       <%= link_to _("Report this request"), report_path, :class => "link_button_green", :method => "POST" %>
       <% end %>
     <% end %>
     <h2><%= _("Act on what you've learnt") %></h2>
