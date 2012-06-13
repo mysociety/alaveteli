@@ -1,3 +1,10 @@
+GIT
+  remote: git@github.com:sebbacon/gettext_i18n_rails.git
+  revision: 7b62102bf355a564eeca2e0dcd05f73f073935b0
+  specs:
+    gettext_i18n_rails (0.6.1)
+      fast_gettext
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -67,6 +74,7 @@ DEPENDENCIES
   fakeweb
   fast_gettext (>= 0.6.0)
   gettext (>= 1.9.3)
+  gettext_i18n_rails (>= 0.6.0)!
   json (~> 1.5.1)
   locale (>= 2.0.5)
   mahoro
