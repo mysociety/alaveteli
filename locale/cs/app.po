@@ -4,14 +4,15 @@
 # 
 # Translators:
 # Hana Huntova <>, 2012.
+# Jana Kneschke <>, 2012.
 #   <josef.pospisil@laststar.eu>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
 "POT-Creation-Date: 2012-02-08 10:16-0000\n"
-"PO-Revision-Date: 2012-02-08 11:29+0000\n"
-"Last-Translator: sebbacon <seb.bacon@gmail.com>\n"
+"PO-Revision-Date: 2012-06-07 09:48+0000\n"
+"Last-Translator: josefpospisil <josef.pospisil@laststar.eu>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,29 +25,25 @@ msgid ""
 "\n"
 "\n"
 "[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]"
-msgstr ""
+msgstr "\n\n[ {{site_name}} Poznámka: výše uvedený text byl špatně kódován a neznámé symboly byly odstraněny. ]"
 
 #: app/views/user/set_profile_about_me.rhtml:14
 msgid ""
 "  This will appear on your {{site_name}} profile, to make it\n"
 "            easier for others to get involved with what you're doing."
-msgstr ""
+msgstr " Toto se objeví na vašem {{site_name}} profilu, abyste mohli svůj dotaz snadno sdílet s ostaními."
 
 #: app/views/comment/_comment_form.rhtml:16
 msgid ""
 " (<strong>no ranty</strong> politics, read our <a href=\"%s\">moderation "
 "policy</a>)"
-msgstr ""
-" (<strong>Žádné stížnosti a hartusení</strong> čtěte naše <a "
-"href=\"%s\">Moderovací pravidla</a>)"
+msgstr " (<strong>Tento prostor neslouží politickým debatám,</strong> přečtěte si <a href=\"%s\">Pravidla diskuze</a>.)"
 
 #: app/views/request/upload_response.rhtml:40
 msgid ""
 " (<strong>patience</strong>, especially for large files, it may take a "
 "while!)"
-msgstr ""
-" (<strong>trpělivost</strong>, zvláště u velkých souborů to může trvat "
-"déle!)"
+msgstr " (<strong>Prosíme o trpělivost</strong>, nahrávání větších souborů může trvat déle!)"
 
 #: app/views/user/show.rhtml:64
 msgid " (you)"
@@ -54,96 +51,81 @@ msgstr " (vy)"
 
 #: app/views/public_body/show.rhtml:1
 msgid " - view and make Freedom of Information requests"
-msgstr ""
+msgstr " - prohlížejte a vzneste dotaz"
 
 #: app/views/user/signchangepassword_send_confirm.rhtml:18
 msgid ""
 " <strong>Note:</strong>\n"
 "    We will send you an email. Follow the instructions in it to change\n"
 "    your password."
-msgstr ""
-" <strong>Upozornění:</strong>\n"
-"    Pošleme vám email. Změňte své heslo podle zaslaných instrukcí."
+msgstr " <strong>Upozornění:</strong>\n    Pošleme vám e-mail s návodem, jak si změníte heslo."
 
 #: app/views/user/contact.rhtml:35
 msgid " <strong>Privacy note:</strong> Your email address will be given to"
-msgstr " <strong>Důvěrná zpráva</strong> Vaše emailová adresa bude předána"
+msgstr " <strong>Ochrana soukromí:</strong> Vaše e-mailová adresa bude předána"
 
 #: app/views/comment/new.rhtml:34
 msgid " <strong>Summarise</strong> the content of any information returned. "
-msgstr ""
-" <strong>Shrňte</strong> obsah jakékoliv informace, která se vám vrátí "
+msgstr " <strong>Shrňte</strong> obsah odpovědi na váš dotaz. "
 
 #: app/views/comment/new.rhtml:24
 msgid " Advise on how to <strong>best clarify</strong> the request."
-msgstr " Poraďte <strong>jak nejlépe upřesnit</strong> žádost."
+msgstr " Poraďte, <strong>jak co nejlépe upřesnit</strong> tento dotaz."
 
 #: app/views/comment/new.rhtml:50
 msgid ""
 " Ideas on what <strong>other documents to request</strong> which the "
 "authority may hold. "
-msgstr ""
-"Návrhy <strong>dalších dokumentů k vyžádání</strong> které instituce má k "
-"dispozici."
+msgstr "Návrhy <strong>na vyžádání potřebných dokumentů</strong>, které může mít daná instituce k dispozici."
 
 #: app/views/public_body/view_email.rhtml:30
 msgid ""
 " If you know the address to use, then please <a href=\"%s\">send it to us</a>.\n"
 "        You may be able to find the address on their website, or by phoning them up and asking."
-msgstr ""
-"Pokud víte, jakou adresu použít <a href=\"%s\">pošlete nám ji</a>.\n"
-"        Možná adresu najdete na jejich stránkách, nebo jim můžete zavolat a zeptat se. "
+msgstr "Pokud víte, jakou adresu použít <a href=\"%s\">pošlete nám ji</a>.\n       Adresu můžete najít na stránkách instituce, nebo můžete zavolat do podatelny a zjistit ji. "
 
 #: app/views/user/set_profile_about_me.rhtml:26
 msgid ""
 " Include relevant links, such as to a campaign page, your blog or a\n"
 "            twitter account. They will be made clickable. \n"
 "            e.g."
-msgstr ""
-"Zahrňte odpovídající odkazy, například k vaší kampani, vašemu blogu, nebo "
-"účtu Twitter. Bude na ně možné kliknout, např. "
+msgstr "Vložte i konkrétní odkazy vztahující se k dotazu, například k vaší kampani, blogu, nebo k účtu Twitter. Bude na ně možné kliknout, např. "
 
 #: app/views/comment/new.rhtml:28
 msgid ""
 " Link to the information requested, if it is <strong>already "
 "available</strong> on the Internet. "
-msgstr ""
-" Odkaz k žádosti o informace, pokud je <strong>již k dispozici</strong> na "
-"internetu."
+msgstr " Odkaz na požadované informace, pokud <strong>jsou k dispozici</strong> na internetu. "
 
 #: app/views/comment/new.rhtml:30
 msgid ""
 " Offer better ways of <strong>wording the request</strong> to get the "
 "information. "
-msgstr ""
-"Navrhněte lepší <strong>formulaci žádosti</strong> pro úspěšnou žádost."
+msgstr "Navrhněte lepší <strong>formulaci dotazu</strong> tak, aby byl zodpovězen. "
 
 #: app/views/comment/new.rhtml:35
 msgid ""
 " Say how you've <strong>used the information</strong>, with links if "
 "possible."
-msgstr ""
-"Řekněte <strong>jak jste využili získané informace</strong>, s odkazy pokud "
-"je to možné."
+msgstr "Povězte ostatním, <strong>jak jste využili získané informace</strong>, a uveďte odkazy, pokud nějaké existují."
 
 #: app/views/comment/new.rhtml:29
 msgid ""
 " Suggest <strong>where else</strong> the requester might find the "
 "information. "
-msgstr " Navrhněte <strong>kde jinde</strong> může žadatel informace nalézt."
+msgstr " Navrhněte, <strong>kde jinde</strong> může tazatel informace nalézt."
 
 #: app/views/user/set_profile_about_me.rhtml:11
 msgid " What are you investigating using Freedom of Information? "
-msgstr ""
-" Co se snažíte zjistit pomocí zákona o svobodném přístupu k informacím? "
+msgstr " Co se snažíte zjistit pomocí zákona o svobodném přístupu k informacím? "
 
 #: app/controllers/comment_controller.rb:75
 msgid " You are already being emailed updates about the request."
-msgstr "Aktualizace o této žádosti jsou vám již zasílány."
+msgstr "Aktualizace týkající se tohoto dotazu vám již byly zaslány e-mailem."
 
 #: app/controllers/comment_controller.rb:73
 msgid " You will also be emailed updates about the request."
-msgstr " Email"
+msgstr " Aktualizace týkající se tohoto dotazu vám budou také zaslány e-mailem."
 
 #: app/views/request/upload_response.rhtml:5
 msgid " made by "
@@ -160,31 +142,31 @@ msgstr " když tuto zprávu pošlete."
 #: app/views/public_body/show.rhtml:87
 msgid "%d Freedom of Information request to %s"
 msgid_plural "%d Freedom of Information requests to %s"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d dotaz podle svobodného přístupu k informacím %s"
+msgstr[1] "%d dotazy podle svobodného přístupu k informacím %s"
+msgstr[2] "%d dotazů podle svobodného přístupu k informacím %s"
 
 #: app/views/general/frontpage.rhtml:43
 msgid "%d request"
 msgid_plural "%d requests"
-msgstr[0] "%d žádost"
-msgstr[1] "%d žádostí"
-msgstr[2] "%d žádost"
+msgstr[0] "%d dotaz"
+msgstr[1] "%d dotazy"
+msgstr[2] "%d dotazů"
 
 #: app/views/public_body/_body_listing_single.rhtml:21
 msgid "%d request made."
 msgid_plural "%d requests made."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d dotaz byl vznesen."
+msgstr[1] "%d dotazy byly vzneseny."
+msgstr[2] "%d dotazů bylo vzneseno."
 
 #: app/views/request/new.rhtml:92
 msgid "'Crime statistics by ward level for Wales'"
-msgstr ""
+msgstr "\"Statistiky kriminality pro Liberecký kraj.\""
 
 #: app/views/request/new.rhtml:90
 msgid "'Pollution levels over time for the River Tyne'"
-msgstr ""
+msgstr "\"Úroveň znečištění ve zvoleném časovém úseku pro řeku Labe\""
 
 #: app/models/track_thing.rb:245
 msgid "'{{link_to_authority}}', a public authority"
@@ -192,11 +174,11 @@ msgstr "'{{link_to_authority}}', instituce"
 
 #: app/models/track_thing.rb:194
 msgid "'{{link_to_request}}', a request"
-msgstr "'{{link_to_request}}', žádost"
+msgstr "'{{link_to_request}}', dotaz"
 
 #: app/models/track_thing.rb:261
 msgid "'{{link_to_user}}', a person"
-msgstr "'{{link_to_user}}', osoba"
+msgstr "od uživatele '{{link_to_user}}'."
 
 #: app/controllers/user_controller.rb:389
 msgid ""
@@ -207,7 +189,7 @@ msgid ""
 "Yours,\n"
 "\n"
 "{{user_name}}"
-msgstr ""
+msgstr ",\n\n\n\nS pozdravem,\n\n{{user_name}}"
 
 #: app/views/user/sign.rhtml:28
 msgid "- or -"
@@ -219,11 +201,11 @@ msgstr "1. Vyberte instituci"
 
 #: app/views/request/new.rhtml:22
 msgid "2. Ask for Information"
-msgstr "2. Požádejte o informaci"
+msgstr "2. Vzneste dotaz"
 
 #: app/views/request/preview.rhtml:5
 msgid "3. Now check your request"
-msgstr "3. Nyní zkontrolujte svou žádost"
+msgstr "3. Nyní dotaz zkontrolujte"
 
 #: app/views/public_body/show.rhtml:56
 msgid "<a class=\"link_button_green\" href=\"{{url}}\">{{text}}</a>"
@@ -231,34 +213,31 @@ msgstr "<a class=\"link_button_green\" href=\"{{url}}\">{{text}}</a>"
 
 #: app/views/request/_after_actions.rhtml:9
 msgid "<a href=\"%s\">Add an annotation</a> (to help the requester or others)"
-msgstr ""
+msgstr "<a href=\"%s\">Přidat poznámku</a> (pomůžete tím dalšímu tázajícímu)"
 
 #: app/views/public_body/list.rhtml:29
 msgid "<a href=\"%s\">Are we missing a public authority?</a>."
-msgstr "<a href=\"%s\">Chybí nám nějaká veřejná instituce?</a>."
+msgstr "<a href=\"%s\">Chybí zde nějaká veřejná instituce?</a>"
 
 #: app/views/request/_sidebar.rhtml:39
 msgid ""
 "<a href=\"%s\">Are you the owner of\n"
 "            any commercial copyright on this page?</a>"
-msgstr ""
-"<a href=\"%s\">Jste vlastníkem nějakých autorských práv na této stránce?</a>"
+msgstr "<a href=\"%s\">Jste vlastníkem nějakých autorských práv na této stránce?</a>"
 
 #: app/views/general/search.rhtml:168
 msgid "<a href=\"%s\">Browse all</a> or <a href=\"%s\">ask us to add one</a>."
-msgstr ""
-"<a href=\"%s\">prohlížet všel</a> nebo <a href=\"%s\">požádat o přidání "
-"kontaktu</a>."
+msgstr "<a href=\"%s\">Prohlížet všel</a> nebo <a href=\"%s\">požádat o přidání kontaktu</a>."
 
 #: app/views/public_body/list.rhtml:51
 msgid "<a href=\"%s\">Can't find the one you want?</a>"
-msgstr "<a href=\"%s\">Nemůžete najít to, co hledáte?</a>"
+msgstr "<a href=\"%s\">Nemůžete najít, co hledáte?</a>"
 
 #: app/views/user/show.rhtml:118
 msgid ""
 "<a href=\"%s\">Sign in</a> to change password, subscriptions and more "
 "({{user_name}} only)"
-msgstr ""
+msgstr "<a href=\"%s\">Přihlašte se/a> pro změnu hesla, pro odběr zpráv atd. ({{user_name}} only)"
 
 #: app/views/request/_followup.rhtml:66 app/views/request/_followup.rhtml:73
 #: app/views/request/show.rhtml:83 app/views/request/show.rhtml:87
@@ -274,7 +253,7 @@ msgid ""
 "<p>All done! Thank you very much for your help.</p><p>There are <a "
 "href=\"{{helpus_url}}\">more things you can do</a> to help "
 "{{site_name}}.</p>"
-msgstr ""
+msgstr "<p>Hotovo! Děkujeme za vaši pomoc.</p><p>Můžete nám <a href=\"{{helpus_url}}\"> také pomoci s:</a>  {{site_name}}</p>"
 
 #: app/controllers/request_controller.rb:441
 msgid ""
@@ -288,37 +267,34 @@ msgid ""
 "            on other means to answer your question.\n"
 "            </li>\n"
 "            </ul>"
-msgstr ""
+msgstr "<p>Děkujeme vám! Dále můžete:</p>\n            <ul>\n            <li>vznést dotaz na další instituci: nejdříve zkopírujte níže uvedený text dotazu a pak <a href=\"{{find_authority_url}}\">najděte další instituci</a>.</li>\n            <li>zpochybnit tvrzení instituce, pokud máte důvodné podezření, že tvrzení o nedostupnosti informací se nezakládá na skutečnosti: zde je  \n            <a href=\"{{complain_url}}\">popis jak podat stížnost</a>.\n            </li>\n            <li>pročíst další <a href=\"{{other_means_url}}\">návrhy,</a>\n            jak získat odpověď na váš dotaz.\n            </li>\n            </ul>"
 
 #: app/controllers/request_controller.rb:435
 msgid ""
 "<p>Thank you! Hope you don't have to wait much longer.</p> <p>By law, you "
 "should have got a response promptly, and normally before the end of "
 "<strong>{{date_response_required_by}}</strong>.</p>"
-msgstr ""
+msgstr "<p>Děkujeme! Doufáme, že na odpověď nebudete příliš dlouho čekat.</p> <p>Podle zákona byste ji měli obdržet co nejdříve, nejpozději do <strong>{{date_response_required_by}}</strong>.</p>"
 
 #: app/controllers/request_controller.rb:431
 msgid ""
 "<p>Thank you! Hopefully your wait isn't too long.</p> <p>By law, you should get a response promptly, and normally before the end of <strong>\n"
 "{{date_response_required_by}}</strong>.</p>"
-msgstr ""
+msgstr "<p>Děkujeme! Doufáme, že na odpověď nečekáte příliš dlouho.</p> <p>Podle zákona byste ji měli obdržet co nejdříve, obvykle do <strong>\n{{date_response_required_by}}</strong>.</p>"
 
 #: app/controllers/request_controller.rb:470
 msgid ""
 "<p>Thank you! Hopefully your wait isn't too long.</p><p>You should get a "
 "response within {{late_number_of_days}} days, or be told if it will take "
 "longer (<a href=\"{{review_url}}\">details</a>).</p>"
-msgstr ""
+msgstr "<p>Děkujeme! Doufáme, že na odpověď nebudete příliš dlouho čekat.</p><p>Měli byste ji obdržet během {{late_number_of_days}} dní, nebo byste měli být informováni, že zodpovězení dotazu bude trvat déle (<a href=\"{{review_url}}\">podrobnosti</a>).</p>"
 
 #: app/controllers/request_controller.rb:473
 msgid ""
 "<p>Thank you! We'll look into what happened and try and fix it up.</p><p>If "
 "the error was a delivery failure, and you can find an up to date FOI email "
 "address for the authority, please tell us using the form below.</p>"
-msgstr ""
-"<p>Děkujeme! Podíváme se co se stalo a pokusíme se to opravit.</p><p>Pokud "
-"se chyba týkala nedoručitelnosti zprávy, a sami najdete správnou adresu pro "
-"danou instituci, prosím sdělte nám to v níže uvedeném formuláři.</p>"
+msgstr "<p>Děkujeme! Podíváme se, co se stalo a pokusíme se to opravit.</p><p>Pokud se chyba týkala nedoručitelnosti dotazu, a sami najdete správnou adresu pro danou instituci, prosíme sdělte nám to v níže uvedeném formuláři.</p>"
 
 #: app/controllers/request_controller.rb:438
 msgid ""
@@ -326,27 +302,25 @@ msgid ""
 "{{very_late_number_of_days}} working days. Most requests should be answered "
 "within {{late_number_of_days}} working days. You might like to complain "
 "about this, see below.</p>"
-msgstr ""
+msgstr "<p>Děkujeme! Zodpovězení vašeho dotazu trvá déle, než stanoví zákonná lhůta, tedy konkrétně o {{very_late_number_of_days}} pracovních dní. Obvykle mají být dotazy zodpovězeny do {{late_number_of_days}} pracovních dnů. Pokud chcete podat stížnost, podívejte se níže a přesný postup.</p>"
 
 #: app/controllers/user_controller.rb:530
 msgid ""
 "<p>Thanks for changing the text about you on your profile.</p>\n"
 "            <p><strong>Next...</strong> You can upload a profile photograph too.</p>"
-msgstr ""
+msgstr "<p>Děkujeme vám za změnu textu ve vašem profilu.</p>\n            <p><strong>Dále...</strong> Můžete vložit své profilové foto.</p>"
 
 #: app/controllers/user_controller.rb:451
 msgid ""
 "<p>Thanks for updating your profile photo.</p>\n"
 "                <p><strong>Next...</strong> You can put some text about you and your research on your profile.</p>"
-msgstr ""
-"<p>Děkujeme za aktualizaci vaší fotografie.</p>\n"
-"                <p><strong>Dále..</strong> Můžete vložit na svůj profil nějaký text o sobě a svém zkoumání.</p>"
+msgstr "<p>Děkujeme za aktualizaci fotografie.</p>\n                <p><strong>Dále..</strong> Můžete na svůj profil vložit text o sobě a zvých dotazech.</p>"
 
 #: app/controllers/request_controller.rb:320
 msgid ""
 "<p>We recommend that you edit your request and remove the email address.\n"
 "                If you leave it, the email address will be sent to the authority, but will not be displayed on the site.</p>"
-msgstr ""
+msgstr "<p>Doporučujeme vám upravit dotaz a odstranit e-mailovou adresu.\n                Pokud ji v dotazu ponecháte, e-mailová adresa bude instituci odeslána, ale neobjeví se na stránkách Informace pro všechny.</p>"
 
 #: app/controllers/request_controller.rb:459
 msgid ""
@@ -355,7 +329,7 @@ msgid ""
 " below saying what you did.</p><p>If you found {{site_name}} useful, <a "
 "href=\"{{donation_url}}\">make a donation</a> to the charity which runs "
 "it.</p>"
-msgstr ""
+msgstr "<p>Jsme rádi, že jste obdrželi informace, které jste potřebovali. Pokud k této odpovědi něco dodáte, nebo ji někde použijete, přidejte poznámku pro další uživatele stránek Informace pro všechny. </p><p>Pokud považujete stránky {{site_name}} užitečné, <a href=\"{{donation_url}}\">podpořte nás</a>.</p>"
 
 #: app/controllers/request_controller.rb:462
 msgid ""
@@ -363,31 +337,27 @@ msgid ""
 "{{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to "
 "the charity which runs it.</p><p>If you want to try and get the rest of the "
 "information, here's what to do now.</p>"
-msgstr ""
+msgstr "<p>Jsme rádi, že jste obdrželi alespoň částečnou odpověď na vznesený dotaz. Pokud považujete stránky{{site_name}} za užitečné, <a href=\"{{donation_url}}\">podpořte nás</a>.</p><p>Pokud chcete získat doplňující informace, zde je návod.</p>"
 
 #: app/controllers/request_controller.rb:318
 msgid ""
 "<p>You do not need to include your email in the request in order to get a "
 "reply (<a href=\"%s\">details</a>).</p>"
-msgstr ""
-"<p>Je třeba uvést svou emailovou adresu, aby vám mohla v pořádku příjít "
-"odpověď (<a href=\"%s\">více</a>).</p>"
+msgstr "<p>Nemusíte uvádět svou e-mailovou adresu. (<a href=\"%s\">více</a>).</p>"
 
 #: app/controllers/request_controller.rb:316
 msgid ""
 "<p>You do not need to include your email in the request in order to get a "
 "reply, as we will ask for it on the next screen (<a "
 "href=\"%s\">details</a>).</p>"
-msgstr ""
-"<p>Je třeba uvést svou emailovou adresu, aby vám mohla v pořádku příjít "
-"odpověď (<a href=\"%s\">více</a>).</p>"
+msgstr "<p>Nemusíte uvádět svou e-mailovou adresu teď, budeme ji vyžadovat v dalším kroku. (<a href=\"%s\">více</a>).</p>"
 
 #: app/controllers/request_controller.rb:324
 msgid ""
 "<p>Your request contains a <strong>postcode</strong>. Unless it directly "
 "relates to the subject of your request, please remove any address as it will"
 " <strong>appear publicly on the Internet</strong>.</p>"
-msgstr ""
+msgstr "<p>Váš dotaz obsahuje <strong>PSČ</strong>. Pokud to není údaj nutný k zodpovězení dotazu, prosíme odstraňte adresu či jiný identifikátor. Váš dotaz bude v celém znění<strong>uveřejněn na internetu</strong>.</p>"
 
 #: app/controllers/request_controller.rb:352
 msgid ""
@@ -396,87 +366,83 @@ msgid ""
 "            replied by then.</p>\n"
 "            <p>If you write about this request (for example in a forum or a blog) please link to this page, and add an \n"
 "            annotation below telling people about your writing.</p>"
-msgstr ""
+msgstr "<p><strong>Odesláno!</strong> Využili jste {{law_used_full}}.</p>\n\n            <p><strong>Pošleme vám e-mail,</strong> jakmile instituce tento dotaz zodpoví nebo po {{late_number_of_days}} pracovních dnech, pokud instituce\n            do té doby neodpoví.</p>\n            <p>Pokud chcete o tomto dotazu napsat (například v diskusním fóru nebo na blogu), přiložte odkaz na tuto stránku a na stránkách IPV přidejte \n            poznámku, kde jste o svém dotazu napsali. </p>"
 
 #: app/controllers/application_controller.rb:311
 msgid ""
 "<p>{{site_name}} is currently in maintenance. You can only view existing "
 "requests. You cannot make new ones, add followups or annotations, or "
 "otherwise change the database.</p> <p>{{read_only}}</p>"
-msgstr ""
+msgstr "<p>{{site_name}} právě provádí údržbu. Můžete si pouze prohlížet již vznesené dotazy. Nelze podávat nové dotazy, přidávat poznámky či odpovědi, nebo jiným způsobem upravovat databázi</p> <p>{{read_only}}</p>"
 
 #: app/views/user/confirm.rhtml:11
 msgid ""
 "<small>If you use web-based email or have \"junk mail\" filters, also check your\n"
 "bulk/spam mail folders. Sometimes, our messages are marked that way.</small>\n"
 "</p>"
-msgstr ""
+msgstr "<small>Pokud používáte prohlížeč ke čtení a posílání e-mailů nebo máte nastavený filtr pro nevyžádanou poštu, zkontrolujte také tuto složku. Může se stát, že váš filtr označil zprávu ze stránek Informace pro všechny za nevyžádanou.</small>\n</p>"
 
 #: app/views/request/new.rhtml:135
 msgid ""
 "<strong> Can I request information about myself?</strong>\n"
 "\t\t\t<a href=\"%s\">No! (Click here for details)</a>"
-msgstr ""
+msgstr "<strong> Mohu požádat o informace o sobě samém?</strong>\n\t\t\t<a href=\"%s\">Ne (zde najdete více informací).</a>"
 
 #: app/views/general/_advanced_search_tips.rhtml:12
 msgid ""
 "<strong><code>commented_by:tony_bowden</code></strong> to search annotations"
 " made by Tony Bowden, typing the name as in the URL."
-msgstr ""
+msgstr "<strong><code>okomentoval/a:tony_bowden</code></strong> pokud chcete vidět více poznámek od uživatele Tonyho Bowdena, napište jeho jméno jako URL."
 
 #: app/views/general/_advanced_search_tips.rhtml:14
 msgid ""
 "<strong><code>filetype:pdf</code></strong> to find all responses with PDF "
 "attachments. Or try these: <code>{{list_of_file_extensions}}</code>"
-msgstr ""
-"<strong><code>filetype:pdf</code></strong> k nalezení všech souborů s PDF "
-"přílohou . Nebo zkuste toto: <code>{{list_of_file_extensions}}</code>"
+msgstr "<strong><code>filetype:pdf</code></strong> k nalezení všech souborů s PDF přílohou . Nebo zkuste toto: <code>{{list_of_file_extensions}}</code>"
 
 #: app/views/general/_advanced_search_tips.rhtml:13
 msgid ""
 "<strong><code>request:</code></strong> to restrict to a specific request, "
 "typing the title as in the URL."
-msgstr ""
-"<strong><code>žádost:</code></strong> k omezení na konkrétní žádost vepište "
-"název stejně jako u URL"
+msgstr "<strong><code>dotaz:</code></strong> k omezení na konkrétní dotaz vepište název stejně jako u URL"
 
 #: app/views/general/_advanced_search_tips.rhtml:11
 msgid ""
 "<strong><code>requested_by:julian_todd</code></strong> to search requests "
 "made by Julian Todd, typing the name as in the URL."
-msgstr ""
+msgstr "<strong><code>requested_by:julian_todd</code></strong> pokud chcete nalézt více poznámek od Tonyho Bowdena, napište jeho jméno jako URL."
 
 #: app/views/general/_advanced_search_tips.rhtml:10
 msgid ""
 "<strong><code>requested_from:home_office</code></strong> to search requests "
 "from the Home Office, typing the name as in the URL."
-msgstr ""
+msgstr "<strong><code>vyžádáno_od:ministerstvo_vnitra</code></strong> pokud chcete nalézt více dotazů vznesených na Ministerstva vnitra, napište název instituce jako URL."
 
 #: app/views/general/_advanced_search_tips.rhtml:8
 msgid ""
 "<strong><code>status:</code></strong> to select based on the status or "
 "historical status of the request, see the <a href=\"{{statuses_url}}\">table"
 " of statuses</a> below."
-msgstr ""
+msgstr "<strong><code>stav:</code></strong> pro výběr dotazů podle současného či minulého stavu, navštivte <a href=\"{{statuses_url}}\">Tabulku stavů</a> below."
 
 #: app/views/general/_advanced_search_tips.rhtml:16
 msgid ""
 "<strong><code>tag:charity</code></strong> to find all public bodies or requests with a given tag. You can include multiple tags, \n"
 "    and tag values, e.g. <code>tag:openlylocal AND tag:financial_transaction:335633</code>. Note that by default any of the tags\n"
 "    can be present, you have to put <code>AND</code> explicitly if you only want results them all present."
-msgstr ""
+msgstr "<strong><code>štítek:charita</code></strong> najde všechny instituce nebo dotazy s daným štítkem. Můžete přidat více štítků \n    a významů, např. <code>štítek:místní AND štítek:financial_transaction:335633</code>. Všimněte si že štítků může být více, ale musí obsahovat slůvko<code>AND</code> aby se vám zobrazily odpovídající výsledky."
 
 #: app/views/general/_advanced_search_tips.rhtml:9
 msgid ""
 "<strong><code>variety:</code></strong> to select type of thing to search "
 "for, see the <a href=\"{{varieties_url}}\">table of varieties</a> below."
-msgstr ""
+msgstr "<strong><code>možnsti:</code></strong> pro výběr možností vyhledávání navštivte<a href=\"{{varieties_url}}\">Tabulku možností</a> below."
 
 #: app/views/comment/new.rhtml:57
 msgid ""
 "<strong>Advice</strong> on how to get a response that will satisfy the "
 "requester. </li>"
-msgstr ""
+msgstr "<strong>Doporučení</strong> jak získat odpověď, která splní požadavky tazatele. </li>"
 
 #: app/views/request/_other_describe_state.rhtml:56
 msgid "<strong>All the information</strong> has been sent"
@@ -485,9 +451,7 @@ msgstr "Veškeré informace byly odeslány"
 #: app/views/request/_followup.rhtml:106
 msgid ""
 "<strong>Anything else</strong>, such as clarifying, prompting, thanking"
-msgstr ""
-"<strong>Ještě něco jiného</strong>, například ujasnění, další dotazování, "
-"poděkování"
+msgstr "<strong>Ještě něco jiného</strong>, například ujasnění, další dotazování, poděkování"
 
 #: app/views/request/details.rhtml:12
 msgid ""
@@ -497,7 +461,7 @@ msgid ""
 "be user error and ambiguity. You will also need to understand FOI law, and the\n"
 "way authorities use it. Plus you'll need to be an elite statistician.  Please\n"
 "<a href=\"{{contact_path}}\">contact us</a> with questions."
-msgstr ""
+msgstr "<strong>Varování!</strong>Aby s daty na {{site_name}} bylo správně zacházeno, je nutné mít základy slušného chování uživatelů internetu. Třídění vznesených dotazů není zas tak jednoduché a mohou \nvzniknout chyby a dojít k různým nejednoznačnostem. Musíte\ntaké rozumět zákonu o svobodném přístupu k informacím\na způsobu, jakým jej instituce používají. A ke všemu být elitní statistik. Prosíme\n<a href=\"{{contact_path}}\">kontaktujte nás</a>, pokud máte otázky."
 
 #: app/views/request/_other_describe_state.rhtml:28
 msgid "<strong>Clarification</strong> has been requested"
@@ -507,38 +471,38 @@ msgstr "Bylo vyžádáno <strong>upřesnění</strong> "
 msgid ""
 "<strong>No response</strong> has been received\n"
 "                <small>(maybe there's just an acknowledgement)</small>"
-msgstr ""
+msgstr "<strong>Bez odpovědi</strong> \n                <small>(možná je to jenom potvrzení)</small>"
 
 #: app/views/user/signchangeemail.rhtml:30
 msgid ""
 "<strong>Note:</strong>\n"
 "    We will send an email to your new email address. Follow the\n"
 "    instructions in it to confirm changing your email."
-msgstr ""
+msgstr "<strong>Poznámka:</strong>\n    Pošleme vám zprávu na vaši e-mailovou adresu. Pro změnu\n    vaší e-mailové adresy postupujte podle instrukcí."
 
 #: app/views/user/contact.rhtml:32
 msgid ""
 "<strong>Note:</strong> You're sending a message to yourself, presumably\n"
 "            to try out how it works."
-msgstr ""
+msgstr "<strong>Poznámka:</strong> Posíláte zprávu sami sobě –\n            možná abyste si vyzkoušeli, jak server Informace pro všechny funguje?"
 
 #: app/views/request/preview.rhtml:31
 msgid ""
 "<strong>Privacy note:</strong> If you want to request private information about\n"
 "    yourself then <a href=\"%s\">click here</a>."
-msgstr ""
+msgstr "<strong>Ochrana soukromí:</strong> Pokud chcete vznést dotaz týkající se vaší osoby,\n     <a href=\"%s\">klikněte sem</a>."
 
 #: app/views/user/set_crop_profile_photo.rhtml:35
 msgid ""
 "<strong>Privacy note:</strong> Your photo will be shown in public on the Internet, \n"
 "    wherever you do something on {{site_name}}."
-msgstr ""
+msgstr "<strong>Ochrana soukromí:</strong> Vaše fotografie bude zveřejněna na internetu \n   společně v vámi vloženým obsahem na {{site_name}}."
 
 #: app/views/request/followup_preview.rhtml:37
 msgid ""
 "<strong>Privacy warning:</strong> Your message, and any response\n"
 "        to it, will be displayed publicly on this website."
-msgstr ""
+msgstr "<strong>Ochrana soukromí:</strong> Vámi vznesený dotaz, a všechny \n        odpovědi na něj budou uveřejněny na těchto stránkách."
 
 #: app/views/request/_other_describe_state.rhtml:52
 msgid "<strong>Some of the information</strong> has been sent "
@@ -559,7 +523,7 @@ msgstr "<strong>Shrnutí</strong> odpovědi, kterou jste obdrželi poštou."
 
 #: app/models/info_request.rb:284
 msgid "A Freedom of Information request"
-msgstr "Žádost o informace podle zákona 106/1999 Sb."
+msgstr "Vznesený dotaz podle zákona 106/1999 Sb."
 
 #: app/models/public_body.rb:278
 #: app/views/general/_advanced_search_tips.rhtml:46
@@ -572,7 +536,7 @@ msgstr "Odpověď bude zaslána <strong>poštou</strong>"
 
 #: app/views/general/_advanced_search_tips.rhtml:35
 msgid "A strange reponse, required attention by the {{site_name}} team"
-msgstr "Podivná reakce, která vyžaduje pozornost {{site_name}} týmu"
+msgstr "Neobvyklá reakce, která vyžaduje pozornost {{site_name}} týmu"
 
 #: app/views/general/_advanced_search_tips.rhtml:47
 msgid "A {{site_name}} user"
@@ -594,7 +558,7 @@ msgstr "Přidat poznámku"
 msgid ""
 "Add an annotation to your request with choice quotes, or\n"
 "                a <strong>summary of the response</strong>."
-msgstr ""
+msgstr "Přidejte poznámku k vašemu dotazu s připravenými komentáři, nebo\n                 <strong>shrnutím odpovědi</strong>."
 
 #: app/views/public_body/_body_listing_single.rhtml:27
 msgid "Added on {{date}}"
@@ -620,15 +584,13 @@ msgstr "Tipy pro pokročilé vyhledávání"
 msgid ""
 "Advise on whether the <strong>refusal is legal</strong>, and how to complain"
 " about it if not."
-msgstr ""
-"Poraďte, zda <strong>odmítnutí je podle práva</strong>, a jakým způsobem si "
-"stěžovat pokud to tak není správně."
+msgstr "Poraďte, zda <strong>odmítnutí je legální</strong>, a jakým způsobem si stěžovat, pokud instituce postupovala protiprávně."
 
 #: app/views/request/new.rhtml:67
 msgid ""
 "Air, water, soil, land, flora and fauna (including how these effect\n"
 "            human beings)"
-msgstr ""
+msgstr "Vzduch, voda, země, flora a fauna (včetně toho, jak ovlivňují\n            člověka)"
 
 #: app/views/general/_advanced_search_tips.rhtml:30
 msgid "All of the information requested has been received"
@@ -642,7 +604,7 @@ msgid ""
 "<em>ever</em> been marked as not held; "
 "<strong>latest_status:not_held</strong> will match only requests that are "
 "<em>currently</em> marked as not held."
-msgstr ""
+msgstr "Všechny níže uvedené možnosti mohou mít<strong>status</strong> nebo <strong>last_status</strong> před dvojtečkou. Například, <strong>status:not_held</strong> vyhledá dotazy, které byly <em>někdy</em> označeny štítkem \"není k dispozici\"; <strong>latest_status:not_held</strong> vyhledá jen ty dotazy, které jsou <em>v současnosti</em> označeny štítkem ůnení k dispozici\"."
 
 #: app/views/general/_advanced_search_tips.rhtml:40
 msgid ""
@@ -651,7 +613,7 @@ msgid ""
 "<strong>variety:sent</strong> will match requests which have <em>ever</em> "
 "been sent; <strong>latest_variety:sent</strong> will match only requests "
 "that are <em>currently</em> marked as sent."
-msgstr ""
+msgstr "Všechny níže uvedené možnosti <strong>variety</strong> or <strong>latest_variety</strong> před dvojtečkou. Například, <strong>variety:sent</strong> zahrne dotazy, které byly <em>někdy</em> vzneseny; <strong>latest_variety:sent</strong> zahrne pouze dotazy <em>v současnosti</em> označené jako odeslané."
 
 #: app/views/public_body/_body_listing_single.rhtml:12
 msgid "Also called {{other_name}}."
@@ -665,7 +627,7 @@ msgstr "Změnit své odběry"
 msgid ""
 "Although all responses are automatically published, we depend on\n"
 "you, the original requester, to evaluate them."
-msgstr ""
+msgstr "I když jsou všechny odpovědi automaticky uveřejňovány, hodnocení dotazu závisí na vás, tedy tazateli."
 
 #: app/views/request/_other_describe_state.rhtml:70
 msgid "An <strong>error message</strong> has been received"
@@ -673,13 +635,11 @@ msgstr "Byla nahlášena <strong>chyba</strong>"
 
 #: app/models/info_request.rb:286
 msgid "An Environmental Information Regulations request"
-msgstr ""
-"Žádosti o informace ve smyslu zákona č. 123/1998 Sb., o právu na informace o"
-" životním prostředí"
+msgstr "Dotazy ve smyslu zákona č. 123/1998 Sb., o právu na informace o životním prostředí"
 
 #: app/views/general/_advanced_search_tips.rhtml:45
 msgid "Annotation added to request"
-msgstr "Poznámka u žádosti byla přidána"
+msgstr "Poznámka u dotazů byla přidána"
 
 #: app/views/user/show.rhtml:41
 msgid "Annotations"
@@ -689,35 +649,29 @@ msgstr "Poznámky"
 msgid ""
 "Annotations are so anyone, including you, can help the requester with their "
 "request. For example:"
-msgstr ""
-"Poznámky jsou tu proto, aby kdokoliv, včetně vás, mohl pomoci žadateli s "
-"jeho žádostí. Například:"
+msgstr "Poznámky jsou tu proto, aby kdokoliv, včetně vás, mohl pomoci tazateli s jeho dotazem. Například:"
 
 #: app/views/comment/new.rhtml:70
 msgid ""
 "Annotations will be posted publicly here, and are \n"
 "        <strong>not</strong> sent to {{public_body_name}}."
-msgstr ""
+msgstr "Poznámky zde budou veřejně k dispozici\n        <strong>a nebudou</strong> poslány {{public_body_name}}."
 
 #: app/views/request/_after_actions.rhtml:6
 msgid "Anyone:"
-msgstr "Komukoliv:"
+msgstr "Kdokoli:"
 
 #: app/views/request/new.rhtml:105
 msgid ""
 "Ask for <strong>specific</strong> documents or information, this site is not"
 " suitable for general enquiries."
-msgstr ""
-"Požádejte o r <strong>konkrétní</strong> dokumenty nebo informace, tyto "
-"stránky nejsou určeny pro obecné dotazy."
+msgstr "Požádejte o <strong>konkrétní</strong> dokumenty nebo informace, tyto stránky nejsou určeny pro obecné dotazy."
 
 #: app/views/request/show_response.rhtml:29
 msgid ""
 "At the bottom of this page, write a reply to them trying to persuade them to scan it in\n"
 "            (<a href=\"%s\">more details</a>)."
-msgstr ""
-"Ve spodní části této stránky jim napište odpověď a požádejte je, aby požadované informace oskenovali\n"
-"            (<a href=\"%s\">více detailů</a>)."
+msgstr "Ve spodní části této stránky jim napište odpověď a požádejte je, aby požadované informace oskenovali\n            (<a href=\"%s\">více detailů</a>)."
 
 #: app/views/request/upload_response.rhtml:33
 msgid "Attachment (optional):"
@@ -733,7 +687,7 @@ msgstr "Čeká se zařazení."
 
 #: app/models/info_request.rb:799
 msgid "Awaiting internal review."
-msgstr "Čeká se na přezkoumání žádosti. "
+msgstr "Čeká se na přezkoumání dotazu. "
 
 #: app/models/info_request.rb:781
 msgid "Awaiting response."
@@ -741,21 +695,19 @@ msgstr "Čeká se na odpověď."
 
 #: app/views/public_body/list.rhtml:4
 msgid "Beginning with"
-msgstr "Začíná na"
+msgstr "Začínající na"
 
 #: app/views/request/new.rhtml:46
 msgid ""
 "Browse <a href='{{url}}'>other requests</a> for examples of how to word your"
 " request."
-msgstr ""
+msgstr "Pokud se chcete inspirovat jak formulovat svůj dotaz, prohlédněte si <a href='{{url}}'>dotazy ostatních</a>."
 
 #: app/views/request/new.rhtml:44
 msgid ""
 "Browse <a href='{{url}}'>other requests</a> to '{{public_body_name}}' for "
 "examples of how to word your request."
-msgstr ""
-"Prohlížejte <a href='{{url}}'>ostatní žádosti</a> pro "
-"'{{public_body_name}}', pomůže vám to lépe formulovat vaši žádost."
+msgstr "Přečtěte si <a href='{{url}}'>dříve vznesené dotazy</a> na '{{public_body_name}}', pomůže vám to lépe formulovat váš dotaz."
 
 #: app/views/general/frontpage.rhtml:48
 msgid "Browse all authorities..."
@@ -765,17 +717,13 @@ msgstr "Procházejte všechny instituce"
 msgid ""
 "By law, under all circumstances, {{public_body_link}} should have responded "
 "by now"
-msgstr ""
-"Podle zákona by {{public_body_link}} měla veřejná instituce v každém případě"
-" odpovědět."
+msgstr "Podle zákona by {{public_body_link}} měla veřejná instituce v každém případě odpovědět."
 
 #: app/views/request/show.rhtml:78
 msgid ""
 "By law, {{public_body_link}} should normally have responded "
 "<strong>promptly</strong> and"
-msgstr ""
-"Žádost poslána {{public_body_name}} od {{info_request_user}}. Poznámka od "
-"{{event_comment_user}} dne {{date}}."
+msgstr "Podle zákona, by měla instituce {{public_body_link}} odpovědět okamžitě"
 
 #: app/controllers/track_controller.rb:153
 msgid "Cancel a {{site_name}} alert"
@@ -791,23 +739,23 @@ msgstr "Zrušit, návrat zpět do stránky s profilem"
 
 #: locale/model_attributes.rb:46
 msgid "CensorRule|Last edit comment"
-msgstr "Cenzorova Pravidla | Poslední komentář"
+msgstr "Cenzorova pravidla | Poslední komentář"
 
 #: locale/model_attributes.rb:45
 msgid "CensorRule|Last edit editor"
-msgstr "Cenzorova Pravidla | Poslední editor"
+msgstr "Cenzorova pravidla | Poslední editor"
 
 #: locale/model_attributes.rb:44
 msgid "CensorRule|Replacement"
-msgstr "Cenzorova Pravidla | Nahrazení"
+msgstr "Cenzorova pravidla | Nahrazení"
 
 #: locale/model_attributes.rb:43
 msgid "CensorRule|Text"
-msgstr "Cenzorova Pravidla | Text"
+msgstr "Cenzorova pravidla | Text"
 
 #: app/views/user/signchangeemail.rhtml:37
 msgid "Change email on {{site_name}}"
-msgstr "Změnit email na {{site_name}}"
+msgstr "Změnit e-mail na {{site_name}}"
 
 #: app/views/user/signchangepassword.rhtml:27
 msgid "Change password on {{site_name}}"
@@ -823,7 +771,7 @@ msgstr "Změňte text svého profilu na {{site_name}}"
 
 #: app/views/user/show.rhtml:112
 msgid "Change your email"
-msgstr "Změňte svůj email"
+msgstr "Změňte svůj e-mail"
 
 #: app/controllers/user_controller.rb:284
 #: app/views/user/signchangeemail.rhtml:1
@@ -852,18 +800,16 @@ msgstr "Registrace dobročinné společnosti"
 
 #: app/views/general/exception_caught.rhtml:8
 msgid "Check for mistakes if you typed or copied the address."
-msgstr "Zkontrolujte chyby pokud je adresa přepisovaná či kopírovaná"
+msgstr "Zkontrolujte chyby, pokud je adresa opisovaná či kopírovaná"
 
 #: app/views/request/followup_preview.rhtml:14
 #: app/views/request/preview.rhtml:7
 msgid "Check you haven't included any <strong>personal information</strong>."
-msgstr ""
-"Zkontrolujte, zda jste neuvedli nějakou <strong>personal "
-"information</strong>."
+msgstr "Zkontrolujte, zda jste neuvedli nějakou <strong>osobní informaci</strong>."
 
 #: lib/world_foi_websites.rb:29
 msgid "Chile"
-msgstr "Čile"
+msgstr "Chile"
 
 #: app/views/user/set_draft_profile_photo.rhtml:5
 msgid "Choose your profile photo"
@@ -875,13 +821,13 @@ msgstr "Vysvětlení"
 
 #: app/controllers/request_controller.rb:381
 msgid "Classify an FOI response from "
-msgstr ""
+msgstr "Zařaďte dotaz od "
 
 #: app/views/request_mailer/very_overdue_alert.rhtml:6
 msgid ""
 "Click on the link below to send a message to {{public_body_name}} telling them to reply to your request. You might like to ask for an internal\n"
 "review, asking them to find out why response to the request has been so slow."
-msgstr ""
+msgstr "Pokud chcete poslat zprávu pro {{public_body_name}} klikněte na níže uvedený odkaz a napište jim, že požadujete odpověď na svůj vznesený dotaz. Můžete je také požádat o kontrolu, proč zodpovězení vašeho dotazů tak dlouho trvá."
 
 #: app/views/request_mailer/overdue_alert.rhtml:5
 msgid ""
@@ -907,38 +853,34 @@ msgstr "Komentář | Viditelný"
 
 #: app/models/track_thing.rb:219
 msgid "Confirm you want to be emailed about new requests"
-msgstr "Potvrďte, že chcete dostávat email o nových žádostech"
+msgstr "Potvrďte, že chcete dostávat e-mail o nových dotazech"
 
 #: app/models/track_thing.rb:286
 msgid ""
 "Confirm you want to be emailed about new requests or responses matching your"
 " search"
-msgstr ""
-"Potvrďte, že chcete dostávat emaily o nových žádostech, nebo odpovědích "
-"odpovídající vašemu vyhledávání"
+msgstr "Potvrďte, že chcete dostávat e-maily o nových dotazech, nebo odpovědích odpovídající vašemu vyhledávání"
 
 #: app/models/track_thing.rb:270
 msgid "Confirm you want to be emailed about requests by '{{user_name}}'"
-msgstr ""
-"Potvrďte, že chcete dostávat email o žádostech uživatele '{{user_name}}'"
+msgstr "Potvrďte, že chcete dostávat e-mail o dotazech vznesených uživatelem '{{user_name}}'"
 
 #: app/models/track_thing.rb:254
 msgid ""
 "Confirm you want to be emailed about requests to '{{public_body_name}}'"
-msgstr ""
-"Potvrďte, že chcete dostávat email o žádostech pro ''{{public_body_name}}'"
+msgstr "Potvrďte, že chcete dostávat e-mail o dotazech vznesených na ''{{public_body_name}}'"
 
 #: app/models/track_thing.rb:235
 msgid "Confirm you want to be emailed when an FOI request succeeds"
-msgstr ""
+msgstr "Potvrďte, že chcete obdržet e-mail o úspěšném vyřízení dotazu"
 
 #: app/models/track_thing.rb:203
 msgid "Confirm you want to follow updates to the request '{{request_title}}'"
-msgstr "Potvrďte, že chcete sledovat aktualizace žádosti  '{{request_title}}'"
+msgstr "Potvrďte, že chcete sledovat aktualizace dotazu  '{{request_title}}'"
 
 #: app/controllers/request_controller.rb:341
 msgid "Confirm your FOI request to "
-msgstr "Potvrďte svou žádost o informace pro"
+msgstr "Potvrďte svůj dotaz vznesený na"
 
 #: app/controllers/user_controller.rb:559
 #: app/controllers/request_controller.rb:757
@@ -951,11 +893,11 @@ msgstr "Potvrďte svou poznámku pro {{info_request_title}}"
 
 #: app/controllers/request_controller.rb:36
 msgid "Confirm your email address"
-msgstr "Potvrťe svou emailovou adresu"
+msgstr "Potvrďte svou e-mailovou adresu"
 
 #: app/models/user_mailer.rb:34
 msgid "Confirm your new email address on {{site_name}}"
-msgstr "Potvrďte novou emailovou adresu na {{site_name}}"
+msgstr "Potvrďte novou e-mailovou adresu na {{site_name}}"
 
 #: app/views/general/_footer.rhtml:2
 msgid "Contact {{site_name}}"
@@ -963,15 +905,13 @@ msgstr "Kontaktujte {{site_name}}"
 
 #: app/models/request_mailer.rb:219
 msgid "Could not identify the request from the email address"
-msgstr "Žádost od této emailové adresy nemohla být identifikována"
+msgstr "Dotaz z této e-mailové adresy nemohl být identifikován"
 
 #: app/models/profile_photo.rb:96
 msgid ""
 "Couldn't understand the image file that you uploaded. PNG, JPEG, GIF and "
 "many other common image file formats are supported."
-msgstr ""
-"Nahraný soubor nebyl rozeznán. PNG, JPEG, GIF a mnohé další obrazové soubory"
-" jsou podporovány. "
+msgstr "Nahraný soubor nebyl rozeznán. Jsou podporovány soubory s koncovkou PNG, JPEG, GIF a další. "
 
 #: app/views/user/set_crop_profile_photo.rhtml:6
 msgid "Crop your profile photo"
@@ -981,15 +921,13 @@ msgstr "Upravte své profilové foto"
 msgid ""
 "Cultural sites and built structures (as they may be affected by the\n"
 "            environmental factors listed above)"
-msgstr ""
+msgstr "Kulturní památky (které mohou být ovlivěny tak, \n            jak je vyjmenovanáno výše)"
 
 #: app/views/request/show.rhtml:68
 msgid ""
 "Currently <strong>waiting for a response</strong> from {{public_body_link}},"
 " they must respond promptly and"
-msgstr ""
-"V současnosti <strong> čeká na odpověď</strong>  od {{public_body_link}}, "
-"musí odpovědět co nejdříve a"
+msgstr "V současnosti <strong> čeká na odpověď</strong>  od {{public_body_link}}, musí odpovědět co nejdříve a"
 
 #: app/views/request/simple_correspondence.rhtml:17
 #: app/views/request/simple_correspondence.rhtml:29
@@ -999,11 +937,11 @@ msgstr "Datum:"
 
 #: app/models/outgoing_message.rb:63
 msgid "Dear {{public_body_name}},"
-msgstr "Važení v {{public_body_name}},"
+msgstr "Vážená paní, vážený pane\n{{public_body_name}},"
 
 #: app/models/request_mailer.rb:87
 msgid "Delayed response to your FOI request - "
-msgstr "Zpožděná odpověď na vaši žádost"
+msgstr "Zpožděná odpověď na váš dotaz"
 
 #: app/models/info_request.rb:783
 msgid "Delayed."
@@ -1015,7 +953,7 @@ msgstr "Chyba při doručení"
 
 #: app/views/request/details.rhtml:1 app/views/request/details.rhtml:2
 msgid "Details of request '"
-msgstr "Podrobnosti této žádosti"
+msgstr "Podrobnosti dotazu"
 
 #: app/views/general/search.rhtml:166
 msgid "Did you mean: {{correction}}"
@@ -1025,16 +963,13 @@ msgstr "Chtěli jste {{correction}}"
 msgid ""
 "Disclaimer: This message and any reply that you make will be published on "
 "the internet. Our privacy and copyright policies:"
-msgstr ""
-"Vyloučení odpovědnosti: Tato zpráva a jakékoliv odpovědi na ni bude "
-"uveřejněna na internetu. Naše pravidla o ochraně osobních údajů a autorských"
-" právech:"
+msgstr "Vyloučení odpovědnosti: Tato zpráva a jakékoliv odpovědi na ni bude uveřejněna na internetu. Naše pravidla o ochraně osobních údajů a autorských právech:"
 
 #: app/views/request/_followup.rhtml:19
 msgid ""
 "Don't want to address your message to {{person_or_body}}?  You can also "
 "write to:"
-msgstr ""
+msgstr "Nechcete svou zprávu adresovat pro {{person_or_body}}?   Můžete také napsat:"
 
 #: app/views/general/_localised_datepicker.rhtml:4
 msgid "Done"
@@ -1042,11 +977,11 @@ msgstr "Hotovo"
 
 #: app/views/request/_after_actions.rhtml:17
 msgid "Download a zip file of all correspondence"
-msgstr ""
+msgstr "Stáhnout zazipovaný soubor celé korespondence"
 
 #: app/views/request/_view_html_prefix.rhtml:6
 msgid "Download original attachment"
-msgstr "Stažení původní přílohy"
+msgstr "Stáhnout původní přílohu"
 
 #: app/models/info_request.rb:268
 msgid "EIR"
@@ -1056,9 +991,7 @@ msgstr "Informace o životním prostředí"
 msgid ""
 "Edit and add <strong>more details</strong> to the message above,\n"
 "                explaining why you are dissatisfied with their response."
-msgstr ""
-"Upravte a přidejte <strong>více informací</strong> do této zprávy\n"
-"                s vysvětlením proč není odpověď uspokojující."
+msgstr "Upravte a přidejte <strong>více informací</strong> do této zprávy\n                s vysvětlením, proč není odpověď uspokojující."
 
 #: app/views/admin_public_body/_locale_selector.rhtml:2
 msgid "Edit language version:"
@@ -1066,55 +999,49 @@ msgstr "Upravit jazykovou verzi:"
 
 #: app/views/user/set_profile_about_me.rhtml:9
 msgid "Edit text about you"
-msgstr "Upravte text o sobě"
+msgstr "Upravit text o sobě"
 
 #: app/views/request/preview.rhtml:40
 msgid "Edit this request"
-msgstr "Upravte tuto žádost"
+msgstr "Upravit tento dotaz"
 
 #: app/models/user.rb:149
 msgid "Either the email or password was not recognised, please try again."
-msgstr "Email nebo heslo nebylo rozpoznáno, prosím zkuste to znovu."
+msgstr "E-mail nebo heslo nebylo rozpoznáno, prosíme zkuste to znovu."
 
 #: app/models/user.rb:151
 msgid ""
 "Either the email or password was not recognised, please try again. Or create"
 " a new account using the form on the right."
-msgstr ""
-"Email nebo heslo nebylo rozpoznáno, prosím zkuste to znovu. Nebo si založte "
-"nový účet napravo."
+msgstr "E-mail nebo heslo nebylo rozpoznáno, prosíme zkuste to znovu. Nebo si založte nový účet."
 
 #: app/models/contact_validator.rb:34
 msgid "Email doesn't look like a valid address"
-msgstr "Neplatná emailová adresa"
+msgstr "Neplatná e-mailová adresa"
 
 #: app/views/comment/_comment_form.rhtml:8
 msgid "Email me future updates to this request"
-msgstr "Pošlete mi budoucí aktualizace této žádosti. "
+msgstr "Pošlete mi budoucí aktualizace tohoto dotazu. "
 
 #: app/models/track_thing.rb:227
 msgid "Email me new successful responses "
-msgstr "Poslat úspěšné odpovědi emailem"
+msgstr "Poslat úspěšné odpovědi e-mailem"
 
 #: app/models/track_thing.rb:211
 msgid "Email me when there are new requests"
-msgstr "Poslat email s novými žádostmi"
+msgstr "Poslat e-mail s novými dotazy"
 
 #: app/views/general/_advanced_search_tips.rhtml:5
 msgid ""
 "Enter words that you want to find separated by spaces, e.g. <strong>climbing"
 " lane</strong>"
-msgstr ""
-"Slova, která chcete najít musí být oddělena mezerou, například "
-"<strong>climbing lane</strong>"
+msgstr "Slova, která chcete najít musí být oddělena mezerou, například <strong>přechod pro chodce</strong>"
 
 #: app/views/request/upload_response.rhtml:23
 msgid ""
 "Enter your response below. You may attach one file (use email, or \n"
 "<a href=\"%s\">contact us</a> if you need more)."
-msgstr ""
-"Vložte svou odpověď níže. Můžete vložit jeden soubor (použijte email, nebo "
-"<a href=\"%s\">nás kontaktujte</a> pokud je jich více)."
+msgstr "Vložte svou odpověď níže. Můžete vložit jeden soubor (použijte e-mail, nebo <a href=\"%s\">nás kontaktujte</a> pokud je jich více)."
 
 #: app/models/info_request.rb:259 app/models/info_request.rb:277
 msgid "Environmental Information Regulations"
@@ -1122,15 +1049,15 @@ msgstr "Informace o životním prostředí"
 
 #: app/views/public_body/show.rhtml:116
 msgid "Environmental Information Regulations requests made"
-msgstr ""
+msgstr "Dotaz vznesený podle zákona č. 114/1992 Sb. o ochraně přírody a krajiny byl podán"
 
 #: app/views/public_body/show.rhtml:73
 msgid "Environmental Information Regulations requests made using this site"
-msgstr ""
+msgstr "Dotaz vznesený za pomocí těchto stránek podle zákona č. 114/1992 Sb. o ochraně přírody a krajiny "
 
 #: lib/world_foi_websites.rb:13
 msgid "European Union"
-msgstr "Evropská Unie"
+msgstr "Evropská unie"
 
 #: app/views/request/details.rhtml:4
 msgid "Event history"
@@ -1145,17 +1072,14 @@ msgid ""
 "Everything that you enter on this page \n"
 "                will be <strong>displayed publicly</strong> on\n"
 "                this website forever (<a href=\"%s\">why?</a>)."
-msgstr ""
-"Vše, co jste vyplnili na této stránce \n"
-"                bude <strong>veřejně dostupné</strong> na těchto\n"
-"                stránkách (<a href=\"%s\">proč?</a>)."
+msgstr "Vše, co jste vyplnili na této stránce, \n                bude <strong>veřejně dostupné</strong> na tomto\n                webu (<a href=\"%s\">proč?</a>)."
 
 #: app/views/request/new.rhtml:120
 msgid ""
 "Everything that you enter on this page, including <strong>your name</strong>, \n"
 "                will be <strong>displayed publicly</strong> on\n"
 "                this website forever (<a href=\"%s\">why?</a>)."
-msgstr ""
+msgstr "Veškeré informace, které vložíte na tuto stránku, včetně <strong>vašeho jména</strong>, \n              budou<strong>uveřejněny</strong> na tomto webu(<a href=\"%s\">proč?</a>)."
 
 #: locale/model_attributes.rb:68
 msgid "EximLogDone|Filename"
@@ -1163,7 +1087,7 @@ msgstr "EximLogDone | Jméno souboru"
 
 #: locale/model_attributes.rb:69
 msgid "EximLogDone|Last stat"
-msgstr "EximLogDone | Last stat"
+msgstr "EximLogDone | Poslední statistiky"
 
 #: locale/model_attributes.rb:19
 msgid "EximLog|Line"
@@ -1175,27 +1099,27 @@ msgstr "EximLog|Order"
 
 #: app/models/info_request.rb:266
 msgid "FOI"
-msgstr "Svobodný přístup k informacím"
+msgstr "dotaz"
 
 #: app/views/public_body/view_email.rhtml:3
 msgid "FOI email address for {{public_body}}"
-msgstr "Emailová adresa podatelny pro {{public_body}}"
+msgstr "E-mailová adresa podatelny pro {{public_body}}"
 
 #: app/views/user/show.rhtml:40
 msgid "FOI requests"
-msgstr "Žádosti"
+msgstr "Dotazy"
 
 #: app/models/track_thing.rb:265 app/models/track_thing.rb:266
 msgid "FOI requests by '{{user_name}}'"
-msgstr "Žádost od '{{user_name}}'"
+msgstr "Dotaz vznesený uživatelem '{{user_name}}'"
 
 #: app/views/general/search.rhtml:195
 msgid "FOI requests {{start_count}} to {{end_count}} of {{total_count}}"
-msgstr ""
+msgstr "Dotazy {{start_count}} do {{end_count}} z {{total_count}}"
 
 #: app/models/request_mailer.rb:51
 msgid "FOI response requires admin - "
-msgstr ""
+msgstr "Odpověď vyžaduje zásah administrátora - "
 
 #: app/models/profile_photo.rb:101
 msgid "Failed to convert image to a PNG"
@@ -1205,9 +1129,7 @@ msgstr "Nepodařilo se konvertovat obrázek do PNG. "
 msgid ""
 "Failed to convert image to the correct size: at %{cols}x%{rows}, need "
 "%{width}x%{height}"
-msgstr ""
-"Nepodařilo se konvertovat obrázek do správné velikosti: at %{cols}x%{rows}, "
-"need %{width}x%{height}"
+msgstr "Nepodařilo se konvertovat obrázek do správné velikosti: at %{cols}x%{rows}, need %{width}x%{height}"
 
 #: app/views/general/search.rhtml:117
 msgid "Filter"
@@ -1218,59 +1140,59 @@ msgid ""
 "First, type in the <strong>name of the UK public authority</strong> you'd \n"
 "           like information from. <strong>By law, they have to respond</strong>\n"
 "           (<a href=\"%s#%s\">why?</a>)."
-msgstr ""
+msgstr "Nejdříve napište <strong>název instituce</strong>, od které chcete získat informace. <strong>Podle zákona vám musí odpovědět</strong>\n           (<a href=\"%s#%s\">proč?</a>)."
 
 #: locale/model_attributes.rb:88
 msgid "FoiAttachment|Charset"
-msgstr ""
+msgstr "Příloha dotazu | Znaková sada"
 
 #: locale/model_attributes.rb:86
 msgid "FoiAttachment|Content type"
-msgstr ""
+msgstr "Příloha dotazu | Druh obsahu"
 
 #: locale/model_attributes.rb:89
 msgid "FoiAttachment|Display size"
-msgstr ""
+msgstr "Příloha dotazu | Velikost zobrazení"
 
 #: locale/model_attributes.rb:87
 msgid "FoiAttachment|Filename"
-msgstr ""
+msgstr "Příloha dotazu | Jméno souboru"
 
 #: locale/model_attributes.rb:92
 msgid "FoiAttachment|Hexdigest"
-msgstr ""
+msgstr "Příloha dotazu | Hexdigest"
 
 #: locale/model_attributes.rb:90
 msgid "FoiAttachment|Url part number"
-msgstr ""
+msgstr "Příloha dotazu | Url část číslo"
 
 #: locale/model_attributes.rb:91
 msgid "FoiAttachment|Within rfc822 subject"
-msgstr ""
+msgstr "Příloha dotazu | V rámci rfc822 subjektu"
 
 #: app/views/track/_tracking_links.rhtml:21
 msgid "Follow by email"
-msgstr "Sledujte emailem"
+msgstr "Sledovat e-mailem"
 
 #: app/views/request/list.rhtml:8
 msgid "Follow these requests"
-msgstr "Sledujte tyto žádosti"
+msgstr "Sledovat tyto dotazy"
 
 #: app/views/public_body/show.rhtml:4
 msgid "Follow this authority"
-msgstr "Sledujte tuto instituci"
+msgstr "Sledovat tuto instituci"
 
 #: app/views/request_mailer/old_unclassified_updated.rhtml:4
 msgid "Follow this link to see the request:"
-msgstr "Pro prohlížení žádosti přejděte na tento odkaz:"
+msgstr "Pro prohlížení dotazu přejděte na tento odkaz:"
 
 #: app/views/request/_sidebar.rhtml:2
 msgid "Follow this request"
-msgstr "Sledujte tyto žádosti"
+msgstr "Sledovat tyto dotazy"
 
 #: app/models/info_request_event.rb:355
 msgid "Follow up"
-msgstr ""
+msgstr "Odpověď"
 
 #: app/views/general/_advanced_search_tips.rhtml:43
 msgid "Follow up message sent by requester"
@@ -1278,24 +1200,24 @@ msgstr "Odpověď zaslána uživatelem"
 
 #: app/views/public_body/view_email.rhtml:14
 msgid "Follow up messages to existing requests are sent to "
-msgstr "Follow up messages to existing requests are set to "
+msgstr "Zasílat aktualizace zpráv u tohoto dotazu na"
 
 #: app/views/request/_followup.rhtml:43
 msgid ""
 "Follow ups and new responses to this request have been stopped to prevent "
 "spam. Please <a href=\"{{url}}\">contact us</a> if you are {{user_link}} and"
 " need to send a follow up."
-msgstr ""
+msgstr "Přidávání odpovědí a komentářů u tohoto dotazu bylo ukončeno kvůli spamu. Prosíme <a href=\"{{url}}\">kontaktujte nás</a> pokud jste {{user_link}} a chcete přidat komentář."
 
 #: app/views/general/blog.rhtml:7 app/views/general/_footer.rhtml:3
 msgid "Follow us on twitter"
-msgstr "Sledujte nás na Twitteru"
+msgstr "Sledujte Informace pro všechny na Twitteru"
 
 #: app/views/public_body/show.rhtml:65
 msgid ""
 "For an unknown reason, it is not possible to make a request to this "
 "authority."
-msgstr "Z neznámého důvodu není možné poslat této instituci žádost. "
+msgstr "Z neznámého důvodu není možné vznést dotaz na tuto instituci. "
 
 #: app/views/user/_signin.rhtml:21
 msgid "Forgotten your password?"
@@ -1303,7 +1225,7 @@ msgstr "Zapomněli jste heslo?"
 
 #: app/views/public_body/list.rhtml:47
 msgid "Found {{count}} public bodies {{description}}"
-msgstr "Najdi {{count}} institucí {{description}}"
+msgstr "Celkem {{count}} institucí {{description}}"
 
 #: app/models/info_request.rb:257
 msgid "Freedom of Information"
@@ -1317,50 +1239,44 @@ msgstr "Zákon o svobodném přístupu k informacím"
 msgid ""
 "Freedom of Information law does not apply to this authority, so you cannot make\n"
 "                a request to it."
-msgstr ""
+msgstr "Zákon o svobodném přístupu k informacím se na tuto instituci nevztahuje, proto \n               na ni nelze vznést dotaz."
 
 #: app/views/request/followup_bad.rhtml:11
 msgid "Freedom of Information law no longer applies to"
-msgstr "Zákon 106/99 Sb. neplatí pro"
+msgstr "Zákon 106/1999 Sb. neplatí pro"
 
 #: app/views/public_body/view_email.rhtml:10
 msgid ""
 "Freedom of Information law no longer applies to this authority.Follow up "
 "messages to existing requests are sent to "
-msgstr ""
+msgstr "Zákon o svobodném přístupu k informacím se na tuto instituci již nevztahuje. Odpovědi na již existující dotazy jsou odesílány na "
 
 #: app/views/public_body/show.rhtml:118
 msgid "Freedom of Information requests made"
-msgstr ""
-"Vaše žádost podle zákona 106/1999 Sb. o svobodném přístupu k informacím byla"
-" tímto podána. "
+msgstr "Váš dotaz podle zákona 106/1999 Sb. o svobodném přístupu k informacím byl tímto vznesen. "
 
 #: app/views/user/show.rhtml:164
 msgid "Freedom of Information requests made by this person"
-msgstr "Žádosti podané touto osobou"
+msgstr "Dotazy vznesené touto osobou"
 
 #: app/views/user/show.rhtml:164
 msgid "Freedom of Information requests made by you"
-msgstr "Moje žádosti"
+msgstr "Moje dotazy"
 
 #: app/views/public_body/show.rhtml:76
 msgid "Freedom of Information requests made using this site"
-msgstr "Žádosti podané pomocí těchto internetových stránek. "
+msgstr "Dotazy vznesené pomocí serveru Informace pro všechny. "
 
 #: app/views/public_body/show.rhtml:30
 msgid "Freedom of information requests to"
-msgstr ""
+msgstr "Dotaz vznesený na"
 
 #: app/views/request/followup_bad.rhtml:12
 msgid ""
 "From the request page, try replying to a particular message, rather than sending\n"
 "    a general followup. If you need to make a general followup, and know\n"
 "    an email which will go to the right place, please <a href=\"%s\">send it to us</a>."
-msgstr ""
-"Spíše než vložení obecné odpovědi zkuste odpovědět na vybranou zprávu ze "
-"stránky pro podání žádosti. Pokud potřebujete vložit obecnou odpověď a znáte"
-" emailovou adresu, která dojde na správné místo, prosíme <a "
-"href=\"%s\">pošlete nám ji</a>"
+msgstr "Spíše než vložení obecné odpovědi zkuste odpovědět na vybranou zprávu ze stránky pro vznesení dotazu. Pokud potřebujete vložit obecnou odpověď a znáte správnou e-mailovou adresu, prosíme <a href=\"%s\">pošlete nám ji</a>"
 
 #: app/views/request/_correspondence.rhtml:12
 #: app/views/request/_correspondence.rhtml:36
@@ -1379,23 +1295,21 @@ msgstr "Německo"
 
 #: app/models/info_request.rb:797
 msgid "Handled by post."
-msgstr ""
+msgstr "Vyřizováno poštou."
 
 #: app/controllers/services_controller.rb:13
 msgid ""
 "Hello! You can make Freedom of Information requests within {{country_name}} "
 "at {{link_to_website}}"
-msgstr ""
-"Hello! You can make Freedom of Information requests within {{country_name}} "
-"at {{link_to_website}}"
+msgstr "Dobrý den, můžete vznést dotaz v zemi {{country_name}} na stránkách {{link_to_website}}"
 
 #: app/views/layouts/default.rhtml:102
 msgid "Hello, {{username}}!"
-msgstr "Dobrý den  {{username}}!"
+msgstr "Přihlášen/a jako  {{username}}!"
 
 #: app/views/general/_topnav.rhtml:8
 msgid "Help"
-msgstr "Pomoc"
+msgstr "Nápověda"
 
 #: app/views/request/details.rhtml:50
 msgid ""
@@ -1403,16 +1317,13 @@ msgid ""
 "the most recent event had its status updated to that value. <strong>calculated</strong> is then inferred by\n"
 "{{site_name}} for intermediate events, which weren't given an explicit\n"
 "description by a user. See the <a href=\"{{search_path}}\">search tips</a> for description of the states."
-msgstr ""
-"Tento <strong>popis</strong> znamená, že uživatel vybral stav žádosti a nejaktuálnější stav byl upraven na tuto hodnotu.\n"
-"<strong>spočítané</strong> jsou na {{site_name}} odvozené\n"
-"pro přechodné události, ke uživatel nepřiřadil určitý popis. Podívejte se <a href=\"{{search_path}}\">tipy pro hledání</a> pro popis stavů."
+msgstr "Tento <strong>popis</strong> znamená, že uživatel upravil status dotazu.\n<strong>V procesué</strong> je pak status na {{site_name}} určený pro přechodný stav bez popisu.\nPro lepší porozumění se podívejte na <a href=\"{{search_path}}\">tipy pro vyhledávání</a> týkající se jednotlivých stavů dotazu."
 
 #: app/views/user/rate_limited.rhtml:10
 msgid ""
 "Here is the message you wrote, in case you would like to copy the text and "
 "save it for later."
-msgstr ""
+msgstr "Zde je zpráva, kterou jste napsali, pokud si chcete uložit kopii. "
 
 #: app/views/request/_other_describe_state.rhtml:4
 msgid ""
@@ -1420,10 +1331,7 @@ msgid ""
 "    hasn't told us whether or not it was successful. Would you mind taking\n"
 "    a moment to read it and help us keep the place tidy for everyone?\n"
 "    Thanks."
-msgstr ""
-"Haló! Potřebujeme vaši pomoc. Osoba, která podala tuto žádost nám nesdělila,"
-" jestli byla zodpovězena úspěšně. Můžete si ji prosím přečíst a pomoci nám "
-"udržovat stránky upravené? Děkujeme."
+msgstr "Haló! Potřebujeme vaši pomoc. Osoba, která vznesla tento dotaz nám nesdělila, jestli byla zodpovězena úspěšně. Můžete si ji přečíst a pomoci nám udržovat stránky přehledné? Děkujeme."
 
 #: locale/model_attributes.rb:65
 msgid "Holiday|Day"
@@ -1445,8 +1353,7 @@ msgstr "Domovská stránka instituce"
 msgid ""
 "However, you have the right to request environmental\n"
 "            information under a different law"
-msgstr ""
-"Máte ale právo požádat o informace o životním prostředí podle jiného zákona"
+msgstr "Máte ale právo požádat o informace o životním prostředí podle jiného zákona"
 
 #: app/views/request/new.rhtml:71
 msgid "Human health and safety"
@@ -1458,7 +1365,7 @@ msgstr "Žádám <strong>novou informaci</strong>"
 
 #: app/views/request/_followup.rhtml:100
 msgid "I am requesting an <strong>internal review</strong>"
-msgstr "Žádám <strong>přezkoumání žádosti</strong>"
+msgstr "Žádám o <strong>přezkoumání</strong>"
 
 #: app/views/request_game/play.rhtml:39
 msgid "I don't like these ones &mdash; give me some more!"
@@ -1470,27 +1377,25 @@ msgstr "Teď už nechci dělat další úpravy!"
 
 #: app/views/request/_describe_state.rhtml:91
 msgid "I would like to <strong>withdraw this request</strong>"
-msgstr "Chci <strong>zrušit žádost</strong>"
+msgstr "Chci <strong>zrušit dotaz</strong>"
 
 #: app/views/request/_describe_state.rhtml:11
 msgid ""
 "I'm still <strong>waiting</strong> for my information\n"
 "                <small>(maybe you got an acknowledgement)</small>"
-msgstr ""
-"Stále <strong>čekám</strong> na svou informaci\n"
-"                <small>(možná máte potvrzení)</small>"
+msgstr "Stále <strong>čekám</strong> na svou informaci\n                <small>(možná máte potvrzení)</small>"
 
 #: app/views/request/_describe_state.rhtml:18
 msgid "I'm still <strong>waiting</strong> for the internal review"
-msgstr "Stále <strong>čekám</strong> na přezkoumání žádosti"
+msgstr "Stále <strong>čekám</strong> na přezkoumání"
 
 #: app/views/request/_describe_state.rhtml:32
 msgid "I'm waiting for an <strong>internal review</strong> response"
-msgstr "Čekám na <strong>přezkoumání žádosti</strong> "
+msgstr "Čekám na vyjádření týkající se <strong>přezkoumání</strong> "
 
 #: app/views/request/_describe_state.rhtml:25
 msgid "I've been asked to <strong>clarify</strong> my request"
-msgstr "Byl/a jsem požádán/a o <strong>vyjasnění</strong> mé žádosti"
+msgstr "Byl/a jsem požádán/a o <strong>vyjasnění</strong> mého dotazu"
 
 #: app/views/request/_describe_state.rhtml:60
 msgid "I've received <strong>all the information"
@@ -1508,28 +1413,21 @@ msgstr "Obdržel jsem <strong>chybovou zprávu</strong>"
 msgid ""
 "If the address is wrong, or you know a better address, please <a "
 "href=\"%s\">contact us</a>."
-msgstr ""
-"Pokud je adresa nesprávná, nebo víte o lepší adrese, prosím <a "
-"href=\"%s\">kontaktujte nás</a>."
+msgstr "Pokud je adresa nesprávná, nebo víte o lepší adrese, prosíme <a href=\"%s\">kontaktujte nás</a>."
 
 #: app/views/request_mailer/stopped_responses.rhtml:10
 msgid ""
 "If this is incorrect, or you would like to send a late response to the request\n"
 "or an email on another subject to {{user}}, then please\n"
 "email {{contact_email}} for help."
-msgstr ""
-"Pokud to není správně, nebo chcete poslat opožděnou odpověď \n"
-"na tuto žádost, nebo napsat {{user}} něco jiného, prosím\n"
-"napište {{contact_email}} pro pomoc."
+msgstr "Pokud to není správně, nebo chcete poslat opožděnou odpověď \nna tento dotaz, nebo napsat {{user}} něco jiného, prosíme\nnapište {{contact_email}} pro pomoc."
 
 #: app/views/request/_followup.rhtml:47
 msgid ""
 "If you are dissatisfied by the response you got from\n"
 "            the public authority, you have the right to\n"
 "            complain (<a href=\"%s\">details</a>)."
-msgstr ""
-"Pokud nejste spokojeni s odpovědí, kterou jste obdrželi od instituce, máte "
-"právo podat stížnost (<a href=\"%s\">details</a>)."
+msgstr "Pokud nejste spokojeni s odpovědí, kterou jste obdrželi od instituce, máte právo podat stížnost (<a href=\"%s\">detaily</a>)."
 
 #: app/views/user/no_cookies.rhtml:20
 msgid "If you are still having trouble, please <a href=\"%s\">contact us</a>."
@@ -1539,80 +1437,62 @@ msgstr "Pokud máte stále problémy <a href=\"%s\">kontaktujte nás</a>."
 msgid ""
 "If you are the requester, then you may <a href=\"%s\">sign in</a> to view "
 "the request."
-msgstr ""
-"Pokud jste žadatel, můžete se <a href=\"%s\">přihlásit</a> a podívat se na "
-"svou žádost."
+msgstr "Pokud jste tazatel, můžete se <a href=\"%s\">přihlásit</a> a podívat se na svůj dotaz."
 
 #: app/views/request/new.rhtml:123
 msgid ""
 "If you are thinking of using a pseudonym,\n"
 "                please <a href=\"%s\">read this first</a>."
-msgstr ""
-"Pokud chcete používat přezdívku\n"
-"please <a href=\"%s\">nejdříve si přečtěte toto</a>."
+msgstr "Pokud chcete používat přezdívku\nplease <a href=\"%s\">nejdříve si přečtěte toto</a>."
 
 #: app/views/request/show.rhtml:105
 msgid "If you are {{user_link}}, please"
-msgstr "Pokud jste {{user_link}}, prosím"
+msgstr "Pokud jste {{user_link}}, prosíme"
 
 #: app/views/user/bad_token.rhtml:7
 msgid ""
 "If you can't click on it in the email, you'll have to <strong>select and copy\n"
 "it</strong> from the email.  Then <strong>paste it into your browser</strong>, into the place\n"
 "you would type the address of any other webpage."
-msgstr ""
-"Pokud odkaz v textu není funkční, je třeba <strong>odkaz vybrat a "
-"překopírovat</strong> z emailu.  Poté <strong>jej vložte do vašeho "
-"prohlížeče</strong>, na místo kam vkládáte ostatní internetové adresy."
+msgstr "Pokud odkaz v textu není funkční, je třeba <strong>odkaz vybrat a překopírovat</strong> z e-mailu.  Poté <strong>jej vložte do adresového řádku vašeho prohlížeče</strong>, tedy na místo, kam vkládáte internetové adresy."
 
 #: app/views/request/show_response.rhtml:47
 msgid ""
 "If you can, scan in or photograph the response, and <strong>send us\n"
 "                    a copy to upload</strong>."
-msgstr ""
-"Pokud můžete, oskenujte nebo vyfoťte odpověď a \n"
-"<strong>pošlete nám soubor pro nahrání</strong>."
+msgstr "Pokud můžete, oskenujte nebo vyfotografujte odpověď a \n<strong>pošlete nám ji</strong>, nahrajeme soubor na stránky Informace pro všechny."
 
 #: app/views/outgoing_mailer/_followup_footer.rhtml:4
 msgid ""
 "If you find this service useful as an FOI officer, please ask your web "
 "manager to link to us from your organisation's FOI page."
-msgstr ""
+msgstr "Pokud jste poskytovatel informací a považujete naši službu za užitečnou, požádejte IT nebo oddělení spravující vaše webové stránky o propojení s našimi stránkami – ideálně tam, kde uveřejňujete povinné informace."
 
 #: app/views/user/bad_token.rhtml:13
 msgid ""
 "If you got the email <strong>more than six months ago</strong>, then this login link won't work any\n"
 "more. Please try doing what you were doing from the beginning."
-msgstr ""
-"Pokud jste obdrželi email <strong>před více než šesti měsíci</strong>, tak tento přihlašovací odkaz již není funkční. \n"
-"Zkuste to, co jste dělali začít znovu."
+msgstr "Pokud jste obdrželi e-mail <strong>před více než šesti měsíci</strong>, tak tento přihlašovací odkaz již není funkční. \nZkuste to znovu od začátku."
 
 #: app/controllers/request_controller.rb:479
 msgid ""
 "If you have not done so already, please write a message below telling the "
 "authority that you have withdrawn your request. Otherwise they will not know"
 " it has been withdrawn."
-msgstr ""
-"Pokud jste tak ještě neučinili, prosím napište instituci zprávu, že jste "
-"svou žádost zrušili. Jinak se o zrušení žádosti nedozví. "
+msgstr "Pokud jste tak ještě neučinili, prosíme napište instituci zprávu, že jste svůj dotaz stáhli. Jinak se o stažení dotazu nedozví. "
 
 #: app/views/user/signchangepassword_confirm.rhtml:10
 #: app/views/user/signchangeemail_confirm.rhtml:11
 msgid ""
 "If you use web-based email or have \"junk mail\" filters, also check your\n"
 "bulk/spam mail folders. Sometimes, our messages are marked that way."
-msgstr ""
-"Pokud chcete použít webový email, nebo máte filtr na spam, zkontrolujte také"
-" příslušné záložky pro spamovou poštu. Někdy jsou zprávy označené tímto "
-"způsobem. "
+msgstr "Pokud používáte e-mailové služby zdarma nebo máte filtr nevyžádané pošty, zkontrolujte také příslušné složky ve své poště. Někdy jsou zprávy zařazeny jako nevyžádané. "
 
 #: app/views/user/banned.rhtml:15
 msgid ""
 "If you would like us to lift this ban, then you may politely\n"
 "<a href=\"/help/contact\">contact us</a> giving reasons.\n"
-msgstr ""
-"Pokud chcete, abychom tento zákaz zrušili, tak nás prosím slušně <a "
-"href=\"/help/contact\">kontaktujte</a> s vysvětlením.\n"
+msgstr "Pokud chcete, abychom tento zákaz zrušili, tak nás prosíme <a href=\"/help/contact\">kontaktujte</a> s vysvětlením.\n"
 
 #: app/views/user/_signup.rhtml:6
 msgid "If you're new to {{site_name}}"
@@ -1626,9 +1506,7 @@ msgstr "Pokud jste {{site_name}} již v minulosti využili"
 msgid ""
 "If your browser is set to accept cookies and you are seeing this message,\n"
 "then there is probably a fault with our server."
-msgstr ""
-"Pokud váš prohlížeč je nastaven na akceptování cookies a vy vidíte tuto zprávu,\n"
-"tak je pravděpodobně nějaký problém s naším serverem."
+msgstr "Pokud váš prohlížeč akceptuje cookies a vy vidíte tuto zprávu,\npravděpodobně je nějaký problém s naším serverem."
 
 #: locale/model_attributes.rb:55
 msgid "IncomingMessage|Cached attachment text clipped"
@@ -1640,35 +1518,35 @@ msgstr "Příchozí zpráva | Soubor z mezipaměti zabalen"
 
 #: locale/model_attributes.rb:57
 msgid "IncomingMessage|Cached main body text unfolded"
-msgstr "Příchozí zpráva | Soubor z mezipaměti rozbalen"
+msgstr "IncomingMessage | Soubor z mezipaměti rozbalen"
 
 #: locale/model_attributes.rb:61
 msgid "IncomingMessage|Last parsed"
-msgstr ""
+msgstr "IncomingMessage | Naposled analyzovány"
 
 #: locale/model_attributes.rb:62
 msgid "IncomingMessage|Mail from"
-msgstr ""
+msgstr "IncomingMessage | Zpráva od"
 
 #: locale/model_attributes.rb:59
 msgid "IncomingMessage|Mail from domain"
-msgstr "Příchozí zpráva | Mail od domény"
+msgstr "IncomingMessage| Mail z domény"
 
 #: locale/model_attributes.rb:63
 msgid "IncomingMessage|Sent at"
-msgstr "Příchozí zpráva | Odeslána v"
+msgstr "IncomingMessage | Odeslána v"
 
 #: locale/model_attributes.rb:58
 msgid "IncomingMessage|Subject"
-msgstr "Příchozí zpráva | Předmět"
+msgstr "IncomingMessage | Předmět"
 
 #: locale/model_attributes.rb:60
 msgid "IncomingMessage|Valid to reply to"
-msgstr "Příchozí zpráva | Platná zpráva pro"
+msgstr "IncomingMessage | Platná zpráva pro"
 
 #: locale/model_attributes.rb:39
 msgid "InfoRequestEvent|Calculated state"
-msgstr "InfoRequestEvent| Vypočítaný status"
+msgstr "InfoRequestEvent| V procesu"
 
 #: locale/model_attributes.rb:38
 msgid "InfoRequestEvent|Described state"
@@ -1676,55 +1554,55 @@ msgstr "InfoRequestEvent| Popsaný status"
 
 #: locale/model_attributes.rb:36
 msgid "InfoRequestEvent|Event type"
-msgstr "Žádost o informaci | Typ aktivity"
+msgstr "InfoRequestEvent | Typ aktivity"
 
 #: locale/model_attributes.rb:40
 msgid "InfoRequestEvent|Last described at"
-msgstr "Žádost o informaci | Naposledy popsán v"
+msgstr "InfoRequestEvent | Naposledy popsán v"
 
 #: locale/model_attributes.rb:37
 msgid "InfoRequestEvent|Params yaml"
-msgstr "Žádost o informaci | Params yaml"
+msgstr "InfoRequestEvent | Params yaml ??"
 
 #: locale/model_attributes.rb:41
 msgid "InfoRequestEvent|Prominence"
-msgstr "Žádost o informaci | Prominence"
+msgstr "InfoRequestEvent | Prominence ??"
 
 #: locale/model_attributes.rb:102
 msgid "InfoRequest|Allow new responses from"
-msgstr "Žádost o informaci | Povolit nové odpovědi od"
+msgstr "InfoRequestEvent | Povolit nové odpovědi od"
 
 #: locale/model_attributes.rb:98
 msgid "InfoRequest|Awaiting description"
-msgstr "Žádost o informaci | Očekává se popis"
+msgstr "InfoRequestEvent | Očekává se popis"
 
 #: locale/model_attributes.rb:97
 msgid "InfoRequest|Described state"
-msgstr "Žádost o informaci | Popsaný status"
+msgstr "InfoRequestEvent | Popsaný status"
 
 #: locale/model_attributes.rb:103
 msgid "InfoRequest|Handle rejected responses"
-msgstr "Žádost o informaci | Řešit odmítnuté odpovědi"
+msgstr "InfoRequestEvent | Řešit odmítnuté odpovědi"
 
 #: locale/model_attributes.rb:104
 msgid "InfoRequest|Idhash"
-msgstr "Žádost o informaci I dhash"
+msgstr "InfoRequestEvent I dhash ??"
 
 #: locale/model_attributes.rb:101
 msgid "InfoRequest|Law used"
-msgstr "Žádost o informaci | Využitý zákon"
+msgstr "InfoRequestEvent | Podle zákona"
 
 #: locale/model_attributes.rb:99
 msgid "InfoRequest|Prominence"
-msgstr "Žádost o informaci | Prominence"
+msgstr "InfoRequestEvent| Prominence ??"
 
 #: locale/model_attributes.rb:96
 msgid "InfoRequest|Title"
-msgstr "Žádost o informaci | Název"
+msgstr "InfoRequestEvent | Název"
 
 #: locale/model_attributes.rb:100
 msgid "InfoRequest|Url title"
-msgstr "Žádost o informaci | Název Url"
+msgstr "InfoRequestEvent| Název URL"
 
 #: app/models/info_request.rb:787
 msgid "Information not held."
@@ -1734,28 +1612,24 @@ msgstr "Informace není k dispozici."
 msgid ""
 "Information on emissions and discharges (e.g. noise, energy,\n"
 "            radiation, waste materials)"
-msgstr ""
-"Informace o vypouštění imisí a emisí (např. energie, hluk, radiace, odpady)"
+msgstr "Informace o vypouštění imisí a emisí (např. energie, hluk, radiace, odpady)"
 
 #: app/models/info_request_event.rb:348
 msgid "Internal review request"
-msgstr "Přezkoumání žádosti"
+msgstr "Přezkoumání dotazu"
 
 #: app/views/outgoing_mailer/initial_request.rhtml:8
 msgid ""
 "Is {{email_address}} the wrong address for {{type_of_request}} requests to "
 "{{public_body_name}}? If so, please contact us using this form:"
-msgstr ""
+msgstr "Je {{email_address}} chybná adresa pro {{type_of_request}} dotazy vznesené na {{public_body_name}}? Pokud ano, prosíme kontaktujte nás vyplněním tohoto formuláře:"
 
 #: app/views/user/no_cookies.rhtml:8
 msgid ""
 "It may be that your browser is not set to accept a thing called \"cookies\",\n"
 "or cannot do so.  If you can, please enable cookies, or try using a different\n"
 "browser.  Then press refresh to have another go."
-msgstr ""
-"Může to být tím, že váš prohlížeč není nastaven pro příjem \"cookies\", nebo toho není schopen.  \n"
-"Pokud to jde, prosím zapněte si příjem \"cookies\", nebo zkuste použít jiný prohlížeč. \n"
-"Pak zvolte obnovit a zkuste to znovu."
+msgstr "Může to být tím, že váš prohlížeč není nastaven pro příjem \"cookies\", nebo to neumí.  \nPokud můžete, zapněte si příjem \"cookies\", nebo zkuste použít jiný prohlížeč. \nPak zvolte obnovit a zkuste to znovu."
 
 #: app/views/user/_user_listing_single.rhtml:21
 msgid "Joined in"
@@ -1769,9 +1643,7 @@ msgstr "Registrace na {{site_name}} od"
 msgid ""
 "Keep it <strong>focused</strong>, you'll be more likely to get what you want"
 " (<a href=\"%s\">why?</a>)."
-msgstr ""
-"Snažte se svou žádost vyjádřit <strong>jasně a jednoduše</strong>, zvýši se "
-"tak vaše šance, že se dozvíte to, co potřebujete (<a href=\"%s\">proč?</a>)."
+msgstr "Snažte se svůj dotaz vyjádřit <strong>jasně a jednoduše</strong>, zvýší se tak vaše šance, že se dozvíte, co potřebujete (<a href=\"%s\">proč?</a>)."
 
 #: app/views/request/_request_filter_form.rhtml:6
 msgid "Keywords"
@@ -1787,15 +1659,13 @@ msgstr "Naposled prohlížená instituce: "
 
 #: app/views/contact_mailer/message.rhtml:7
 msgid "Last request viewed: "
-msgstr "Naposled prohlížená žádost: "
+msgstr "Naposled prohlížený dotaz: "
 
 #: app/views/user/no_cookies.rhtml:17
 msgid ""
 "Let us know what you were doing when this message\n"
 "appeared and your browser and operating system type and version."
-msgstr ""
-"Řekněte nám, co jste dělali, když se tato zpráva\n"
-"objevila a jaký používáte internetový prohlížeč, jeho typ a verzi."
+msgstr "Řekněte nám, co jste dělali, když se tato zpráva\nobjevila a jaký používáte internetový prohlížeč, jeho typ a verzi."
 
 #: app/views/request/_correspondence.rhtml:26
 #: app/views/request/_correspondence.rhtml:54
@@ -1821,15 +1691,13 @@ msgstr "Vloženo mezi"
 
 #: app/views/public_body/show.rhtml:52
 msgid "Make a new <strong>Environmental Information</strong> request"
-msgstr "Požádejte o informace o <strong>životním prostředí</strong> "
+msgstr "Vzneste dotaz týkající se <strong>životního prostředí</strong> "
 
 #: app/views/public_body/show.rhtml:54
 msgid ""
 "Make a new <strong>Freedom of Information</strong> request to "
 "{{public_body}}"
-msgstr ""
-"Podejte novou žádost <strong>podle zákona o svobodném přístupu k "
-"informacím</strong> na {{public_body}}"
+msgstr "Vzneste dotaz <strong>podle zákona o svobodném přístupu k informacím</strong> na {{public_body}}"
 
 #: app/views/general/frontpage.rhtml:5
 msgid ""
@@ -1837,27 +1705,27 @@ msgid ""
 "        <strong>Freedom <span>of</span><br/>\n"
 "        Information<br/>\n"
 "        request</strong>"
-msgstr ""
+msgstr "Vzneste nový <br/>\ndotaz podle zákona<br/>\no svobodném přístupu<br/>\nk informacím"
 
 #: app/views/general/_topnav.rhtml:4
 msgid "Make a request"
-msgstr "Podejte žádost"
+msgstr "Vzneste dotaz"
 
 #: app/views/request/new.rhtml:20
 msgid "Make an {{law_used_short}} request to '{{public_body_name}}'"
-msgstr "Podejte {{law_used_short}} žádost k '{{public_body_name}}'"
+msgstr "Vzneste {{law_used_short}} dotaz na '{{public_body_name}}'"
 
 #: app/views/layouts/default.rhtml:8 app/views/layouts/no_chrome.rhtml:8
 msgid "Make and browse Freedom of Information (FOI) requests"
-msgstr "Podejte žádost o informace (ŽoI) nebo procházejte žádosti ostatních. "
+msgstr "Vzneste dotaz týkajcí se o informací (ŽoI) nebo procházejte dotazy ostatních. "
 
 #: app/views/public_body/_body_listing_single.rhtml:23
 msgid "Make your own request"
-msgstr "Vytvořte svou vlastní žádost"
+msgstr "Vzneste vlastní dotaz"
 
 #: app/views/contact_mailer/message.rhtml:4
 msgid "Message sent using {{site_name}} contact form, "
-msgstr "Message sent using {{site_name}} contact form, "
+msgstr "Zpráva zaslána pomocí kontaktního formuláře stránek {{site_name}}, "
 
 #: app/views/request/new_bad_contact.rhtml:1
 msgid "Missing contact details for '"
@@ -1869,11 +1737,11 @@ msgstr "Více o této instituci"
 
 #: app/views/request/_sidebar.rhtml:29
 msgid "More similar requests"
-msgstr "Více podobných žádostí"
+msgstr "Více podobných dotazů"
 
 #: app/views/general/frontpage.rhtml:67
 msgid "More successful requests..."
-msgstr "Více úspěšných žádostí..."
+msgstr "Více úspěšně zodpovězených dotazů..."
 
 #: app/views/layouts/default.rhtml:106
 msgid "My profile"
@@ -1881,11 +1749,11 @@ msgstr "Můj profil"
 
 #: app/views/request/_describe_state.rhtml:64
 msgid "My request has been <strong>refused</strong>"
-msgstr "Moje žádost byla <strong>odmítnuta</strong>"
+msgstr "Můj dotaz byla <strong>odmítnut</strong>"
 
 #: app/views/layouts/default.rhtml:105
 msgid "My requests"
-msgstr ""
+msgstr "Moje dotazy"
 
 #: app/models/public_body.rb:36
 msgid "Name can't be blank"
@@ -1897,7 +1765,7 @@ msgstr "Jméno je již obsazeno"
 
 #: app/models/track_thing.rb:214 app/models/track_thing.rb:215
 msgid "New Freedom of Information requests"
-msgstr "Nové žádosti "
+msgstr "Nové dotazy "
 
 #: lib/world_foi_websites.rb:21
 msgid "New Zealand"
@@ -1909,7 +1777,7 @@ msgstr "Nový e-mail:"
 
 #: app/models/change_email_validator.rb:54
 msgid "New email doesn't look like a valid address"
-msgstr "Nový email není platná adresa"
+msgstr "Nový e-mail není platný"
 
 #: app/views/user/signchangepassword.rhtml:15
 msgid "New password:"
@@ -1921,23 +1789,23 @@ msgstr "Nové heslo (znovu):"
 
 #: app/models/request_mailer.rb:68
 msgid "New response to your FOI request - "
-msgstr "Nová odpověď na vaši žádost -"
+msgstr "Nová odpověď na váš dotaz -"
 
 #: app/views/request/show_response.rhtml:60
 msgid "New response to your request"
-msgstr "Nová odpověď na vaši žádost"
+msgstr "Nová odpověď na váš dotaz"
 
 #: app/views/request/show_response.rhtml:66
 msgid "New response to {{law_used_short}} request"
-msgstr "Nové odpovědi podle {{law_used_short}} žádosti"
+msgstr "Nové odpovědi na {{law_used_short}} dotaz"
 
 #: app/models/track_thing.rb:198 app/models/track_thing.rb:199
 msgid "New updates for the request '{{request_title}}'"
-msgstr "Nové aktualizace u žádosti '{{request_title}}'"
+msgstr "Nové aktualizace u dotazu '{{request_title}}'"
 
 #: app/views/general/search.rhtml:127
 msgid "Newest results first"
-msgstr "Nové výsledky první"
+msgstr "Nejnovější výsledky jako první"
 
 #: app/views/general/_localised_datepicker.rhtml:6
 msgid "Next"
@@ -1949,7 +1817,7 @@ msgstr "Nyní svou fotografii ořízněte &gt;&gt;"
 
 #: app/views/request/list.rhtml:19
 msgid "No requests of this sort yet."
-msgstr "Zatím žádná zpráva tohoto druhu."
+msgstr "Zatím žádná zpráva tohoto typu."
 
 #: app/views/request/select_authority.rhtml:53
 #: app/views/public_body/_search_ahead.rhtml:9
@@ -1958,13 +1826,13 @@ msgstr "Nic jsme nenašli"
 
 #: app/views/request/similar.rhtml:7
 msgid "No similar requests found."
-msgstr "Žádné podobné žádosti nebyly nalezeny. "
+msgstr "Žádné podobné dotazy nebyly nalezeny. "
 
 #: app/views/public_body/show.rhtml:77
 msgid ""
 "Nobody has made any Freedom of Information requests to {{public_body_name}} "
 "using this site yet."
-msgstr "Ještě nikdo se {{public_body_name}} na těchto stránkách nezeptal. "
+msgstr "Ještě nikdo na {{public_body_name}} dotaz v rámci stránek Informace pro všechny nevznesl. "
 
 #: app/views/request/_request_listing.rhtml:2
 #: app/views/public_body/_body_listing.rhtml:3
@@ -1979,7 +1847,7 @@ msgstr "Nic tu není"
 #: app/views/user/signchangepassword_confirm.rhtml:3
 #: app/views/user/signchangeemail_confirm.rhtml:3
 msgid "Now check your email!"
-msgstr "Nyní zkontrolujte svou emailovou schránku!"
+msgstr "Nyní zkontrolujte svou e-mailovou schránku!"
 
 #: app/views/comment/preview.rhtml:5
 msgid "Now preview your annotation"
@@ -1991,7 +1859,7 @@ msgstr "Nyní přejděte na náhled své odpovědi."
 
 #: app/views/request/followup_preview.rhtml:8
 msgid "Now preview your message asking for an internal review"
-msgstr "Nyní přejděte na náhled své zprávy žádající interní prověření. "
+msgstr "Nyní přejděte na náhled své zprávy žádající prozkoumání. "
 
 #: app/views/user/set_draft_profile_photo.rhtml:46
 msgid "OR remove the existing photo"
@@ -2000,25 +1868,21 @@ msgstr "NEBO odstraňte existující foto"
 #: app/controllers/request_controller.rb:456
 msgid ""
 "Oh no! Sorry to hear that your request was refused. Here is what to do now."
-msgstr ""
-"Ale ne! Je nám líto, že vaše žádost byla zamítnuta. Toto jsou možné další "
-"kroky."
+msgstr "Ale ne! Je nám líto, že váš dotaz byla zamítnut. Pokud chcete, můžete učinit následující kroky."
 
 #: app/views/user/signchangeemail.rhtml:15
 msgid "Old e-mail:"
-msgstr "Starý e-mail"
+msgstr "Původní e-mail"
 
 #: app/models/change_email_validator.rb:45
 msgid ""
 "Old email address isn't the same as the address of the account you are "
 "logged in with"
-msgstr ""
-"Původní emailová adresa není shodná s adresou účtu, do kterého jste se "
-"přihlásili"
+msgstr "Původní e-mailová adresa není shodná s adresou účtu, do kterého jste se přihlásili"
 
 #: app/models/change_email_validator.rb:40
 msgid "Old email doesn't look like a valid address"
-msgstr "Původní email nevypadá jako platná adresa"
+msgstr "Původní e-mail nevypadá jako platná adresa"
 
 #: app/views/user/show.rhtml:39
 msgid "On this page"
@@ -2026,7 +1890,7 @@ msgstr "Na této stránce"
 
 #: app/views/general/search.rhtml:193
 msgid "One FOI request found"
-msgstr "Nalezena jedna žádost"
+msgstr "Nalezen jeden dotaz"
 
 #: app/views/general/search.rhtml:175
 msgid "One person found"
@@ -2038,23 +1902,19 @@ msgstr "Nalezena jedna instituce"
 
 #: app/views/public_body/show.rhtml:111
 msgid "Only requests made using {{site_name}} are shown."
-msgstr "Zobrazí se pouze žádosti podané za použití {{site_name}}"
+msgstr "Zobrazí se pouze dotazy vznesené za použití {{site_name}}"
 
 #: app/models/info_request.rb:399
 msgid ""
 "Only the authority can reply to this request, and I don't recognise the "
 "address this reply was sent from"
-msgstr ""
-"Pouze oslovená instituce může odpovědět na tuto žádost. Adresa, ze které je "
-"odpověď posílána není k této instituci přiřazena. "
+msgstr "Pouze oslovená instituce může odpovědět na tento dotaz. Adresa, ze které je odpověď posílána, není k této instituci přiřazena. "
 
 #: app/models/info_request.rb:395
 msgid ""
 "Only the authority can reply to this request, but there is no \"From\" "
 "address to check against"
-msgstr ""
-"Pouze instituce může odpovědět na vaši žádost, ale v políčku \"Od\" není "
-"žádná adresa "
+msgstr "Pouze instituce může odpovědět na váš dotaz, ale v políčku \"Od\" není žádná adresa "
 
 #: app/views/request/_search_ahead.rhtml:11
 msgid "Or search in their website for this information."
@@ -2062,7 +1922,7 @@ msgstr "Nebo prohledejte tuto informaci na jejich internetových stránkách."
 
 #: app/views/general/_advanced_search_tips.rhtml:42
 msgid "Original request sent"
-msgstr "Původní žádost odeslána"
+msgstr "Původní dotaz odeslán"
 
 #: app/views/request/_describe_state.rhtml:71
 msgid "Other:"
@@ -2106,7 +1966,7 @@ msgstr "Heslo (znovu):"
 
 #: app/views/layouts/default.rhtml:153
 msgid "Paste this link into emails, tweets, and anywhere else:"
-msgstr "Vložte tento odkaz do emailů, tweetů či kamkoliv jinam:"
+msgstr "Vložte tento odkaz do e-mailů, tweetů či kamkoliv jinam:"
 
 #: app/views/general/search.rhtml:177
 msgid "People {{start_count}} to {{end_count}} of {{total_count}}"
@@ -2118,38 +1978,34 @@ msgstr "Vaše foto:"
 
 #: app/views/request/new.rhtml:74
 msgid "Plans and administrative measures that affect these matters"
-msgstr ""
+msgstr "Plány a administrativní opatření, které se týkají těchto záležitostí"
 
 #: app/controllers/request_game_controller.rb:42
 msgid "Play the request categorisation game"
-msgstr "Zahrajte si hru na kategorizaci žádostí"
+msgstr "Zahrajte si hru na kategorizaci dotazů"
 
 #: app/views/request_game/play.rhtml:1 app/views/request_game/play.rhtml:30
 msgid "Play the request categorisation game!"
-msgstr "Hrajte hru na kategorizaci žádostí!"
+msgstr "Hrajte hru na kategorizaci dotazů!"
 
 #: app/views/request/show.rhtml:101
 msgid "Please"
-msgstr "Prosím"
+msgstr "Prosíme"
 
 #: app/views/user/no_cookies.rhtml:15
 msgid "Please <a href=\"%s\">get in touch</a> with us so we can fix it."
-msgstr "Prosím <a href=\"%s\">kontaktujte nás</a> abychom to mohli upravit."
+msgstr "Prosíme <a href=\"%s\">kontaktujte nás</a> abychom to mohli upravit."
 
 #: app/views/request/show.rhtml:52
 msgid ""
 "Please <strong>answer the question above</strong> so we know whether the "
-msgstr ""
-"Prosím <strong>zodpovězte výše položenou otázku</strong> abychom věděli "
-"jestli"
+msgstr "<strong>Zodpovězte výše položenou otázku</strong> abychom věděli, zda"
 
 #: app/views/user/show.rhtml:16
 msgid ""
 "Please <strong>go to the following requests</strong>, and let us\n"
 "        know if there was information in the recent responses to them."
-msgstr ""
-"Prosím <strong>jděte na následující žádost</strong>, a napište nám\n"
-"        jestli v nejnovější odpovědi obsahují informace."
+msgstr "Prosíme <strong>jděte na následující dotaz</strong>, a napište nám,\n        zda nejnovější odpovědi obsahují požadované informace."
 
 #: app/views/request/_followup.rhtml:54
 msgid ""
@@ -2157,89 +2013,78 @@ msgid ""
 "request {{request_link}}. If you would like to ask for information that was "
 "not in your original request, then <a href=\"{{new_request_link}}\">file a "
 "new request</a>."
-msgstr ""
+msgstr "Napište <strong>pouze</strong> zprávu, která se přímo týká vašeho dotazu {{request_link}}. Pokud chcete požádat o informace, které nebyly uvedeny ve vašem původním dotazu, pak <a href=\"{{new_request_link}}\">vzneste nový dotaz</a>."
 
 #: app/views/request/new.rhtml:58
 msgid "Please ask for environmental information only"
-msgstr "Prosím ptejte se pouze na informace o životním prostředí. "
+msgstr "Prosíme ptejte se pouze na informace o životním prostředí. "
 
 #: app/views/user/bad_token.rhtml:2
 msgid ""
 "Please check the URL (i.e. the long code of letters and numbers) is copied\n"
 "correctly from your email."
-msgstr ""
-"Prosím zkontrolujte URL (tedy ten dlouhý kód složený z písmen a čísel) je "
-"správně zkopírovaný do vašeho emailu."
+msgstr "Prosíme zkontrolujte, zda URL (tedy ten dlouhý kód složený z písmen a čísel) je správně zkopírovaný do vašeho e-mailu."
 
 #: app/models/profile_photo.rb:91
 msgid "Please choose a file containing your photo."
-msgstr "Prosím vyberte soubor se svým obrázkem. "
+msgstr "Vyberte soubor se svým obrázkem. "
 
 #: app/models/outgoing_message.rb:163
 msgid "Please choose what sort of reply you are making."
-msgstr "Prosím vyberte jaký typ odpovědi vytváříte. "
+msgstr "Vyberte typ odpovědi. "
 
 #: app/controllers/request_controller.rb:388
 msgid ""
 "Please choose whether or not you got some of the information that you "
 "wanted."
-msgstr "Prosím vyberte z možností zda jste informaci obdrželi či ne. "
+msgstr "Vyberte z možností zda jste požadovanou informaci obdrželi či nikoliv. "
 
 #: app/views/track_mailer/event_digest.rhtml:63
 msgid "Please click on the link below to cancel or alter these emails."
-msgstr ""
-"Pro zrušení nebo změnu těchto emailů prosím klikněte na níže uvedený odkaz"
+msgstr "Pro zrušení nebo změnu těchto e-mailů klikněte na níže uvedený odkaz"
 
 #: app/views/user_mailer/changeemail_confirm.rhtml:3
 msgid ""
 "Please click on the link below to confirm that you want to \n"
 "change the email address that you use for {{site_name}}\n"
 "from {{old_email}} to {{new_email}}"
-msgstr ""
-"Prosím potvrďte na níže uvedený odkaz \n"
-"že chcete změnit emailovou adresu, kterou používáte pro {{site_name}}\n"
-"z {{old_email}} na {{new_email}}"
+msgstr "Potvrďte kliknutím na níže uvedený odkaz, \nže chcete změnit e-mailovou adresu, kterou používáte pro potřeby stránek {{site_name}}\nz {{old_email}} na {{new_email}}"
 
 #: app/views/user_mailer/confirm_login.rhtml:3
 msgid "Please click on the link below to confirm your email address."
-msgstr "Prosím potvrďte svou emailovou adresu kliknutím na přiložený odkaz."
+msgstr "Potvrďte svou e-mailovou adresu kliknutím na přiložený odkaz."
 
 #: app/models/info_request.rb:120
 msgid ""
 "Please describe more what the request is about in the subject. There is no "
 "need to say it is an FOI request, we add that on anyway."
-msgstr ""
-"Prosím popište detailněji o co se ve vaší žádosti jedná. Není třeba "
-"vysvětlovat, že se jedná o žádost podle 106/1999 Sb., systém to za vás "
-"vypíše sám. "
+msgstr "Prosíme popište detailněji, o co se ve vašem dotazu jedná. Není třeba vysvětlovat, že se jedná o dotaz podle 106/1999 Sb., systém to za vás vypíše sám. "
 
 #: app/views/user/set_draft_profile_photo.rhtml:22
 msgid ""
 "Please don't upload offensive pictures. We will take down images\n"
 "    that we consider inappropriate."
-msgstr ""
-"Prosím neukládejte urážlivé obrázky. Ty, které budeme považovat za nevhodné,"
-" smažeme."
+msgstr "Nevkládejte urážlivé obrázky. Ty, které budeme považovat za nevhodné, smažeme."
 
 #: app/views/user/no_cookies.rhtml:3
 msgid "Please enable \"cookies\" to carry on"
-msgstr "Prosím povolte \"cookies\" abyste mohli úspěšně pokračovat"
+msgstr "Povolte \"cookies\" abyste mohli pokračovat"
 
 #: app/models/user.rb:42
 msgid "Please enter a password"
-msgstr "Prosím vložte heslo. "
+msgstr "Vložte heslo. "
 
 #: app/models/contact_validator.rb:30
 msgid "Please enter a subject"
-msgstr "Prosím vložte předmět zprávy. "
+msgstr "Vložte předmět zprávy. "
 
 #: app/models/info_request.rb:28
 msgid "Please enter a summary of your request"
-msgstr "Prosím vložte shrnutí vaší žádosti. "
+msgstr "Vložte shrnutí vašeho dotazu. "
 
 #: app/models/user.rb:120
 msgid "Please enter a valid email address"
-msgstr "Prosím vložte platnou emailovou adresu. "
+msgstr "Vložte platnou e-mailovou adresu. "
 
 #: app/models/contact_validator.rb:31
 msgid "Please enter the message you want to send"
@@ -2247,47 +2092,47 @@ msgstr "Tady napište zprávu, kterou chcete poslat. "
 
 #: app/models/user.rb:53
 msgid "Please enter the same password twice"
-msgstr "Prosím vložte dvakrát heslo. "
+msgstr "Vložte dvakrát heslo. "
 
 #: app/models/comment.rb:60
 msgid "Please enter your annotation"
-msgstr "Prosím vložte svou poznámku. "
+msgstr "Vložte svou poznámku. "
 
 #: app/models/contact_validator.rb:29 app/models/user.rb:38
 msgid "Please enter your email address"
-msgstr "Prosím vložte svou emailovou adresu. "
+msgstr "Vložte svou e-mailovou adresu. "
 
 #: app/models/outgoing_message.rb:148
 msgid "Please enter your follow up message"
-msgstr "Prosím vložte odpověď. "
+msgstr "Vložte odpověď. "
 
 #: app/models/outgoing_message.rb:151
 msgid "Please enter your letter requesting information"
-msgstr "Prosím vložte svůj dopis se žádostí o informaci. "
+msgstr "Vložte svůj dopis s vzneseným dotazem. "
 
 #: app/models/contact_validator.rb:28 app/models/user.rb:40
 msgid "Please enter your name"
-msgstr "Prosim vložte své jméno. "
+msgstr "Vložtee své jméno. "
 
 #: app/models/user.rb:123
 msgid "Please enter your name, not your email address, in the name field."
-msgstr "Prosím vložte do tohoto řádku své jméno, ne emailovou adresu. "
+msgstr "Vložte do tohoto řádku své jméno, ne e-mailovou adresu. "
 
 #: app/models/change_email_validator.rb:31
 msgid "Please enter your new email address"
-msgstr "Prosím vložte svou novou emailovou adresu. "
+msgstr "Vložte svou novou e-mailovou adresu. "
 
 #: app/models/change_email_validator.rb:30
 msgid "Please enter your old email address"
-msgstr "Prosím vložte svou původní emailovou adresu. "
+msgstr "Vložte svou původní e-mailovou adresu. "
 
 #: app/models/change_email_validator.rb:32
 msgid "Please enter your password"
-msgstr "Prosím vložte heslo. "
+msgstr "Vložte heslo. "
 
 #: app/models/outgoing_message.rb:146
 msgid "Please give details explaining why you want a review"
-msgstr "Prosím vysvětlete proč potřebujete přezkoumání. "
+msgstr "Prosíme vysvětlete, proč potřebujete přezkoumání. "
 
 #: app/models/about_me_validator.rb:24
 msgid "Please keep it shorter than 500 characters"
@@ -2297,96 +2142,80 @@ msgstr "Váš text musí být kratší než 500 znaků."
 msgid ""
 "Please keep the summary short, like in the subject of an email. You can use "
 "a phrase, rather than a full sentence."
-msgstr ""
-"Prosím zkraťte shrnutí, podobně jako v předmětu emailové zprávy. Můžete "
-"použít několik slov spíše než celou větu. "
+msgstr "Zkraťte shrnutí, podobně jako v předmětu e-mailové zprávy. Můžete použít několik klíčových slov spíše než celou větu. "
 
 #: app/views/request/new.rhtml:77
 msgid ""
 "Please only request information that comes under those categories, <strong>do not waste your\n"
 "            time</strong> or the time of the public authority by requesting unrelated information."
-msgstr ""
+msgstr "Požádejte o informace, které jsou uvedeny v těchto kategoriích, <strong>neplýtvejte svým časem</strong> nebo časem lidí v institucích dotazy na nesouvisející informace."
 
 #: app/views/request/new_please_describe.rhtml:5
 msgid ""
 "Please select each of these requests in turn, and <strong>let everyone know</strong>\n"
 "if they are successful yet or not."
-msgstr ""
-"Prosím vyberte každou žádost jednotlivě, a <strong>dejte ostatním vědět</strong>\n"
-"jestli jsou úspěšní, nebo ne."
+msgstr "Vyberte každý dotaz jednotlivě, a <strong>dejte ostatním vědět</strong>\njestli byl úspěšně zodpovězen, nebo ne."
 
 #: app/models/outgoing_message.rb:157
 msgid ""
 "Please sign at the bottom with your name, or alter the \"%{signoff}\" "
 "signature"
-msgstr ""
-"Prosím podepište se na konci dopisu svým jménem, nebo změňte \"%{signoff}\" "
-"podpis. "
+msgstr "Podepište se na konci dopisu svým jménem, nebo změňte \"%{signoff}\" podpis. "
 
 #: app/views/user/sign.rhtml:8
 msgid "Please sign in as "
-msgstr "Prosím prihlašte se jako"
+msgstr "Přihlašte se jako"
 
 #: app/controllers/request_controller.rb:785
 msgid "Please type a message and/or choose a file containing your response."
-msgstr ""
-"Prosím napište zprávu a/nebo vyberte soubor, který obsahuje vaši odpověď."
+msgstr "Napište zprávu a/nebo vyberte soubor, který obsahuje vaši odpověď."
 
 #: app/controllers/request_controller.rb:476
 msgid "Please use the form below to tell us more."
-msgstr "Prosím vysvětlete blíže v tomto formuláři. "
+msgstr "Vysvětlete detailněji v tomto formuláři. "
 
 #: app/views/outgoing_mailer/initial_request.rhtml:5
 #: app/views/outgoing_mailer/followup.rhtml:6
 msgid "Please use this email address for all replies to this request:"
-msgstr ""
-"Prosím používejte tuto emailovou adresu pro všechny odpovědi na tuto žádost:"
+msgstr "Prosíme používejte tuto e-mailovou adresu pro všechny odpovědi na tento dotaz:"
 
 #: app/models/info_request.rb:29
 msgid "Please write a summary with some text in it"
-msgstr "Prosím napište text do shrnutí. "
+msgstr "Napište text do shrnutí. "
 
 #: app/models/info_request.rb:114
 msgid ""
 "Please write the summary using a mixture of capital and lower case letters. "
 "This makes it easier for others to read."
-msgstr ""
-"Ve shrnutí je třeba použít text s malými i velkými písmeny. Tak se to bude "
-"lépe číst i ostatním. "
+msgstr "Ve shrnutí je třeba použít text s malými i velkými písmeny. Bude se tak lépe číst i ostatním. "
 
 #: app/models/comment.rb:63
 msgid ""
 "Please write your annotation using a mixture of capital and lower case "
 "letters. This makes it easier for others to read."
-msgstr ""
-"V poznámce je třeba použít text s malými i velkými písmeny. Tak se to bude "
-"lépe číst i ostatním. "
+msgstr "V poznámce je třeba použít text s malými i velkými písmeny. Bude se tak lépe číst i ostatním. "
 
 #: app/controllers/request_controller.rb:465
 msgid ""
 "Please write your follow up message containing the necessary clarifications "
 "below."
-msgstr "Níže prosím napište svou odpověď s požadovaným vysvětlením. "
+msgstr "Níže napište svou odpověď s požadovaným vysvětlením. "
 
 #: app/models/outgoing_message.rb:160
 msgid ""
 "Please write your message using a mixture of capital and lower case letters."
 " This makes it easier for others to read."
-msgstr ""
-"Ve zprávě je třeba použít text s malými i velkými písmeny. Tak se to bude "
-"lépe číst i ostatním. "
+msgstr "Ve zprávě je třeba použít text s malými i velkými písmeny. Bude se tak lépe číst i ostatním. "
 
 #: app/views/comment/new.rhtml:42
 msgid ""
 "Point to <strong>related information</strong>, campaigns or forums which may"
 " be useful."
-msgstr ""
-"Odkažte na <strong>podobné informace</strong>, kampaně či fóra, která by "
-"mohla být užitečná."
+msgstr "Odkažte na <strong>podobné informace</strong>, kampaně či fóra, která by mohla být užitečná."
 
 #: app/views/request/_search_ahead.rhtml:4
 msgid "Possibly related requests:"
-msgstr "Související žádosti"
+msgstr "Související dotazy"
 
 #: app/views/comment/preview.rhtml:21
 msgid "Post annotation"
@@ -2394,27 +2223,27 @@ msgstr "Zveřejněte anotaci"
 
 #: locale/model_attributes.rb:53
 msgid "PostRedirect|Circumstance"
-msgstr "Přesměrování | Okolnosti"
+msgstr "PostRedirect | Okolnosti"
 
 #: locale/model_attributes.rb:51
 msgid "PostRedirect|Email token"
-msgstr "Přesměrování | Emailový žeton"
+msgstr "PostRedirect | E-mailový žeton ??"
 
 #: locale/model_attributes.rb:50
 msgid "PostRedirect|Post params yaml"
-msgstr "Přesměrování | Post params yaml"
+msgstr "PostRedirect | Post params yaml ??"
 
 #: locale/model_attributes.rb:52
 msgid "PostRedirect|Reason params yaml"
-msgstr "PostRedirect|Reason params yaml"
+msgstr "PostRedirect|Reason params yaml ??"
 
 #: locale/model_attributes.rb:48
 msgid "PostRedirect|Token"
-msgstr "Přesměrování | Žeton"
+msgstr "PostRedirect | Žeton"
 
 #: locale/model_attributes.rb:49
 msgid "PostRedirect|Uri"
-msgstr "Přesměrování | Url"
+msgstr "PostRedirect | URL"
 
 #: app/views/general/blog.rhtml:53
 msgid "Posted on {{date}} by {{author}}"
@@ -2426,11 +2255,11 @@ msgstr "Powered by <a href=\"http://www.alaveteli.org/\">Alaveteli</a>"
 
 #: app/views/general/_localised_datepicker.rhtml:5
 msgid "Prev"
-msgstr "Predešlý"
+msgstr "Předešlý"
 
 #: app/views/request/followup_preview.rhtml:1
 msgid "Preview follow up to '"
-msgstr ""
+msgstr "Náhled odpovědi pro"
 
 #: app/views/comment/preview.rhtml:1
 msgid "Preview new annotation on '{{info_request_title}}'"
@@ -2446,7 +2275,7 @@ msgstr "Náhled vaší zprávy"
 
 #: app/views/request/new.rhtml:143
 msgid "Preview your public request"
-msgstr "Náhled vaší žádosti"
+msgstr "Náhled vašeho dotazu"
 
 #: locale/model_attributes.rb:15
 msgid "ProfilePhoto|Data"
@@ -2470,47 +2299,47 @@ msgstr "Instituce od {{start_count}} do {{end_count}} z {{total_count}}"
 
 #: locale/model_attributes.rb:12
 msgid "PublicBody|First letter"
-msgstr "Instituce | První dopis"
+msgstr "PublicBody | První dopis"
 
 #: locale/model_attributes.rb:10
 msgid "PublicBody|Home page"
-msgstr "Instituce | Domovská stránka"
+msgstr "PublicBody | Domovská stránka"
 
 #: locale/model_attributes.rb:8
 msgid "PublicBody|Last edit comment"
-msgstr "Instituce | Komentář poslední editace"
+msgstr "PublicBody | Naposled aktualizovaný komentář"
 
 #: locale/model_attributes.rb:7
 msgid "PublicBody|Last edit editor"
-msgstr "Instituce | Poslední editor"
+msgstr "PublicBody | Naposled aktualizováno uživatelem"
 
 #: locale/model_attributes.rb:3
 msgid "PublicBody|Name"
-msgstr "Instituce | Název"
+msgstr "PublicBody | Název"
 
 #: locale/model_attributes.rb:11
 msgid "PublicBody|Notes"
-msgstr "Instituce | Poznámka"
+msgstr "PublicBody | Poznámka"
 
 #: locale/model_attributes.rb:13
 msgid "PublicBody|Publication scheme"
-msgstr "Instituce | Publikační schéma"
+msgstr "PublicBody | Publikační schéma ??"
 
 #: locale/model_attributes.rb:5
 msgid "PublicBody|Request email"
-msgstr "Instituce | Emailová žádost"
+msgstr "PublicBody | Požádat o e-mail NEBO Dotaz vznesený e-mailem"
 
 #: locale/model_attributes.rb:4
 msgid "PublicBody|Short name"
-msgstr "Instituce | Zkrácené jméno"
+msgstr "PublicBody | Zkrácené jméno"
 
 #: locale/model_attributes.rb:9
 msgid "PublicBody|Url name"
-msgstr "Instituce | Jméno Url"
+msgstr "PublicBody | Název URL"
 
 #: locale/model_attributes.rb:6
 msgid "PublicBody|Version"
-msgstr "Instituce | Verze"
+msgstr "PublicBody | Verze"
 
 #: app/views/public_body/show.rhtml:15
 msgid "Publication scheme"
@@ -2526,31 +2355,29 @@ msgstr "RSS aktualizace"
 
 #: app/views/comment/preview.rhtml:20
 msgid "Re-edit this annotation"
-msgstr "Upravte tuto anotaci"
+msgstr "Editujte tuto anotaci"
 
 #: app/views/request/followup_preview.rhtml:49
 msgid "Re-edit this message"
-msgstr "Opravte tuto zprávu"
+msgstr "Editujte tuto zprávu"
 
 #: app/views/general/_advanced_search_tips.rhtml:19
 msgid ""
 "Read about <a href=\"{{advanced_search_url}}\">advanced search "
 "operators</a>, such as proximity and wildcards."
-msgstr ""
-"Přečtěte si <a href=\"{{advanced_search_url}}\">operandy pokročilého "
-"hledání</a>, jakými jsou blízkost a divoké karty."
+msgstr "Přečtěte si <a href=\"{{advanced_search_url}}\">operandy pokročilého vyhledávání</a>, jakými jsou blízkost a divoké karty."
 
 #: app/views/general/_topnav.rhtml:7
 msgid "Read blog"
-msgstr "Čtětě Blog"
+msgstr "Číst blog"
 
 #: app/views/general/_advanced_search_tips.rhtml:34
 msgid "Received an error message, such as delivery failure."
-msgstr "Objevila se chybová zpráva, jako např. nedoručitelná zpráva"
+msgstr "Objevila se chybová zpráva, jako je nemožnost doručení zprávy"
 
 #: app/views/general/search.rhtml:129
 msgid "Recently described results first"
-msgstr "Nejdříve nedávno popsané výsledky"
+msgstr "Jako první naposled aktualizované výsledky"
 
 #: app/models/info_request.rb:789
 msgid "Refused."
@@ -2560,9 +2387,7 @@ msgstr "Odmítnuto."
 msgid ""
 "Remember me</label> (keeps you signed in longer;\n"
 "    do not use on a public computer) "
-msgstr ""
-"Zapamatovat si mne </label> (zůstanete déle přihlášeni;\n"
-"    nepoužívejte na veřejných počítačích) "
+msgstr "Zapamatovat si mne </label> (zůstanete déle přihlášeni;\n    nepoužívejte na veřejně přístupných počítačích) "
 
 #: app/views/comment/_single_comment.rhtml:24
 msgid "Report abuse"
@@ -2570,30 +2395,26 @@ msgstr "Nahlásit zneužití"
 
 #: app/views/request/_after_actions.rhtml:39
 msgid "Request an internal review"
-msgstr "Požádejte o přezkoumání žádosti"
+msgstr "Požádat o přezkoumání dotazu"
 
 #: app/views/request/_followup.rhtml:8
 msgid "Request an internal review from {{person_or_body}}"
-msgstr "Požádejte o přezkoumání žádosti u  {{person_or_body}}"
+msgstr "Požádat o přezkoumání dotazu u  {{person_or_body}}"
 
 #: app/views/request/hidden.rhtml:1
 msgid "Request has been removed"
-msgstr "Žádost byla odstraněna"
+msgstr "Dotaz byl odstraněn"
 
 #: app/views/request/_request_listing_via_event.rhtml:20
 msgid ""
 "Request sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
-msgstr ""
-"Žádost poslána pro {{public_body_name}} od {{info_request_user}} dne "
-"{{date}}."
+msgstr "Dotaz byl vznesen na {{public_body_name}} od {{info_request_user}} dne {{date}}."
 
 #: app/views/request/_request_listing_via_event.rhtml:28
 msgid ""
 "Request to {{public_body_name}} by {{info_request_user}}. Annotated by "
 "{{event_comment_user}} on {{date}}."
-msgstr ""
-"Žádost poslána {{public_body_name}} od {{info_request_user}}. Poznámka od "
-"{{event_comment_user}} dne {{date}}."
+msgstr "Dotaz byl vznesen na {{public_body_name}} od {{info_request_user}}. Poznámka od {{event_comment_user}} dne {{date}}."
 
 #: app/views/request/_request_listing_single.rhtml:12
 msgid ""
@@ -2602,23 +2423,23 @@ msgstr "Vyžádáno {{public_body_name}} od {{info_request_user}} dne {{date}}"
 
 #: app/views/request/_sidebar_request_listing.rhtml:13
 msgid "Requested on {{date}}"
-msgstr "Žádost podána {{date}}"
+msgstr "Dotaz byl vznesen dne {{date}}"
 
 #: app/models/track_thing.rb:281 app/models/track_thing.rb:282
 msgid "Requests or responses matching your saved search"
-msgstr "Žádosti nebo odpovědi odpovídající vašemu uloženému hledání"
+msgstr "Dotazy nebo odpovědi odpovídající vašemu uloženému hledání"
 
 #: app/views/request/upload_response.rhtml:11
 msgid "Respond by email"
-msgstr "Odpovězte emailem"
+msgstr "Odpovězte e-mailem"
 
 #: app/views/request/_after_actions.rhtml:48
 msgid "Respond to request"
-msgstr "Odpověď na žádost"
+msgstr "Odpovědět na dotaz"
 
 #: app/views/request/upload_response.rhtml:5
 msgid "Respond to the FOI request"
-msgstr "Odpověď na žádost o informace"
+msgstr "Odpovědět na dotaz"
 
 #: app/views/request/upload_response.rhtml:21
 msgid "Respond using the web"
@@ -2634,15 +2455,15 @@ msgstr "Odpověď od instituce"
 
 #: app/views/request/show.rhtml:77
 msgid "Response to this request is <strong>delayed</strong>."
-msgstr "Odpověď na tuto žádost má <strong>zpoždění</strong>."
+msgstr "Odpověď na tento dotaz má <strong>zpoždění</strong>."
 
 #: app/views/request/show.rhtml:85
 msgid "Response to this request is <strong>long overdue</strong>."
-msgstr "Odpověď na tuto žádost <strong>má velké zpoždění</strong>."
+msgstr "Odpověď na tento dotaz <strong>má velké zpoždění</strong>."
 
 #: app/views/request/show_response.rhtml:62
 msgid "Response to your request"
-msgstr "Odpověď na vaši žádost"
+msgstr "Odpověď na váš dotaz"
 
 #: app/views/request/upload_response.rhtml:28
 msgid "Response:"
@@ -2667,11 +2488,11 @@ msgstr "Uložit"
 #: app/views/general/exception_caught.rhtml:12
 #: app/views/general/frontpage.rhtml:23 app/views/public_body/list.rhtml:43
 msgid "Search"
-msgstr "Hledání"
+msgstr "Hledat"
 
 #: app/views/general/search.rhtml:8
 msgid "Search Freedom of Information requests, public authorities and users"
-msgstr "Hledání v žádostech, institucích a uživatelích"
+msgstr "Vyhledávání v dotazech, institucích a uživatelích"
 
 #: app/views/user/show.rhtml:134
 msgid "Search contributions by this person"
@@ -2679,18 +2500,18 @@ msgstr "Prohledávejte příspěvky od tohoto uživatele"
 
 #: app/views/request/_request_filter_form.rhtml:11
 msgid "Search for words in:"
-msgstr "Hledat slova v "
+msgstr "Vyhledat slova v "
 
 #: app/views/general/search.rhtml:96
 msgid "Search in"
-msgstr "Hledat v"
+msgstr "Vyhledat v"
 
 #: app/views/general/frontpage.rhtml:15
 msgid ""
 "Search over<br/>\n"
 "          <strong>{{number_of_requests}} requests</strong> <span>and</span><br/>\n"
 "          <strong>{{number_of_authorities}} authorities</strong>"
-msgstr ""
+msgstr "Prohledávejte více než<br/>\n          <strong>{{number_of_requests}} dotazů</strong> <span>a</span><br/>\n          <strong>{{number_of_authorities}} institucí</strong>"
 
 #: app/views/general/search.rhtml:19
 msgid "Search results"
@@ -2698,23 +2519,23 @@ msgstr "Výsledky vyhledávání"
 
 #: app/views/general/exception_caught.rhtml:9
 msgid "Search the site to find what you were looking for."
-msgstr "Najděte to, co hledáte"
+msgstr "Najděte, co hledáte"
 
 #: app/views/public_body/show.rhtml:85
 msgid "Search within the %d Freedom of Information requests to %s"
 msgid_plural "Search within the %d Freedom of Information requests made to %s"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Prohlížet %d dotaz vznesený na %s"
+msgstr[1] "Prohlížet %d dotazy vznesené na %s"
+msgstr[2] "Prohlížet %d dotazů vznesené na %s"
 
 #: app/views/user/show.rhtml:132
 msgid "Search your contributions"
-msgstr "Prohlížejte své příspěvky"
+msgstr "Prohledávat vlastní příspěvky"
 
 #: app/views/request/select_authority.rhtml:50
 #: app/views/public_body/_search_ahead.rhtml:6
 msgid "Select one to see more information about the authority."
-msgstr "Prohlédněte si více informací o této instituci"
+msgstr "Vyberte jednu instituci pro zobrazení podrobnějších informací"
 
 #: app/views/request/select_authority.rhtml:28
 msgid "Select the authority to write to"
@@ -2722,7 +2543,7 @@ msgstr "Vyberte instituci, které chcete napsat"
 
 #: app/views/request/_after_actions.rhtml:28
 msgid "Send a followup"
-msgstr "Odpovězte"
+msgstr "Odpovědět"
 
 #: app/controllers/user_controller.rb:365
 msgid "Send a message to "
@@ -2738,15 +2559,15 @@ msgstr "Pošlete veřejnou odpověď {{person_or_body}}"
 
 #: app/views/request/followup_preview.rhtml:50
 msgid "Send message"
-msgstr "Poslat zprávu"
+msgstr "Vznést dotaz"
 
 #: app/views/user/show.rhtml:74
 msgid "Send message to "
-msgstr "Poslat zprávu pro"
+msgstr "Vznést dotaz na "
 
 #: app/views/request/preview.rhtml:41
 msgid "Send request"
-msgstr "Poslat žádost"
+msgstr "Vznést dotaz"
 
 #: app/views/user/show.rhtml:58
 msgid "Set your profile photo"
@@ -2758,7 +2579,7 @@ msgstr "Krátké jméno je již obsazeno."
 
 #: app/views/general/search.rhtml:125
 msgid "Show most relevant results first"
-msgstr "Jako první ukaž nejrelevantnější výsledky"
+msgstr "Nejrelevantnější výsledky jako první"
 
 #: app/views/public_body/list.rhtml:2
 msgid "Show only..."
@@ -2767,12 +2588,12 @@ msgstr "Ukázat pouze"
 #: app/views/request/_request_filter_form.rhtml:29
 #: app/views/general/search.rhtml:51
 msgid "Showing"
-msgstr "Ukazovat"
+msgstr "Ukázat"
 
 #: app/views/user/sign.rhtml:2 app/views/user/sign.rhtml:24
 #: app/views/user/_signin.rhtml:32
 msgid "Sign in"
-msgstr "Přihlašte se"
+msgstr "Přihlásit"
 
 #: app/views/user/sign.rhtml:20
 msgid "Sign in or make a new account"
@@ -2780,19 +2601,19 @@ msgstr "Přihlašte se nebo vytvořte nový účet"
 
 #: app/views/layouts/default.rhtml:112
 msgid "Sign in or sign up"
-msgstr "Přihlášení nebo Registrace"
+msgstr "Přihlášení | Registrace"
 
 #: app/views/layouts/default.rhtml:110
 msgid "Sign out"
-msgstr "Odhlášení"
+msgstr "Odhlásit"
 
 #: app/views/user/_signup.rhtml:46 app/views/user/sign.rhtml:31
 msgid "Sign up"
-msgstr "Registrujte se"
+msgstr "Registrace"
 
 #: app/views/request/_sidebar.rhtml:24
 msgid "Similar requests"
-msgstr "Podobné žádosti"
+msgstr "Podobné dotazy"
 
 #: app/views/general/search.rhtml:33
 msgid "Simple search"
@@ -2800,11 +2621,11 @@ msgstr "Jednoduché hledání"
 
 #: app/models/request_mailer.rb:178
 msgid "Some notes have been added to your FOI request - "
-msgstr "K vaší žádosti byly přidány nějaké poznámky"
+msgstr "K vašemu dotazu byly přidány nějaké poznámky"
 
 #: app/views/general/_advanced_search_tips.rhtml:29
 msgid "Some of the information requested has been received"
-msgstr "Některé požadované informace byly obdrženy"
+msgstr "Některé z požadovaných informací byly obdrženy"
 
 #: app/views/request_game/play.rhtml:31
 msgid ""
@@ -2812,23 +2633,17 @@ msgid ""
 "successful or not.  We need <strong>your</strong> help &ndash;\n"
 "choose one of these requests, read it, and let everyone know whether or not the\n"
 "information has been provided. Everyone'll be exceedingly grateful."
-msgstr ""
-"Někteří žadatelé nás neinformovali jestli byli úspěšní, nebo ne  \n"
-"Potřebujeme <strong>your</strong> vaši pomoc &ndash;\n"
-"vyberte si žádost, přečtěte si ji a rozhodněte, zda informace byla či nebyla poskytnuta.\n"
-"Všichni vám budou vděční."
+msgstr "Někteří tazatelé nás neinformovali, zda a nakolik byli se svým dotazem úspěšní. Potřebujeme <strong>your</strong> vaši pomoc &ndash;\nvyberte si dotaz, přečtěte si ji a rozhodněte, zda byl zodpovězen.\nVšichni vám budou vděční."
 
 #: app/models/request_mailer.rb:169
 msgid "Somebody added a note to your FOI request - "
-msgstr "Někdo přidal poznámku k vaší žádosti"
+msgstr "Někdo přidal poznámku k vašemu dotazu"
 
 #: app/views/user_mailer/changeemail_already_used.rhtml:1
 msgid ""
 "Someone, perhaps you, just tried to change their email address on\n"
 "{{site_name}} from {{old_email}} to {{new_email}}."
-msgstr ""
-"Někdo, možná vy, zkusil změnit svou emailovou adresu on\n"
-"{{site_name}} z {{old_email}} na {{new_email}}."
+msgstr "Někdo, možná vy, zkusil změnit svou e-mailovou adresu on\n{{site_name}} z {{old_email}} na {{new_email}}."
 
 #: app/views/user/wrong_user.rhtml:2
 msgid "Sorry, but only {{user_name}} is allowed to do that."
@@ -2848,23 +2663,23 @@ msgstr "Speciální poznámka k této instituci!"
 
 #: app/views/public_body/show.rhtml:56
 msgid "Start"
-msgstr "Start"
+msgstr "Začít zde"
 
 #: app/views/general/frontpage.rhtml:10
 msgid "Start now &raquo;"
-msgstr ""
+msgstr "Začněte zde &raquo;"
 
 #: app/views/request/_sidebar.rhtml:17
 msgid "Start your own blog"
-msgstr "Začněte vlastní blg"
+msgstr "Začněte psát vlastní blg"
 
 #: app/views/general/blog.rhtml:6
 msgid "Stay up to date"
-msgstr ""
+msgstr "Buďte informováni"
 
 #: app/views/request/_other_describe_state.rhtml:21
 msgid "Still awaiting an <strong>internal review</strong>"
-msgstr "Stále čekám na <strong>přezkoumání žádosti</strong>"
+msgstr "Stále čekám na <strong>přezkoumání dotazu</strong>"
 
 #: app/views/request/followup_preview.rhtml:23
 #: app/views/request/preview.rhtml:18
@@ -2881,11 +2696,11 @@ msgstr "Odešlete status"
 
 #: app/views/general/blog.rhtml:8
 msgid "Subscribe to blog"
-msgstr "Odbírejte náš blog"
+msgstr "Sledujte náš blog"
 
 #: app/models/track_thing.rb:230 app/models/track_thing.rb:231
 msgid "Successful Freedom of Information requests"
-msgstr "Úspěšná žádost o informace"
+msgstr "Kompletně zodpovězený dotaz"
 
 #: app/models/info_request.rb:793
 msgid "Successful."
@@ -2895,7 +2710,7 @@ msgstr "Úspěch."
 msgid ""
 "Suggest how the requester can find the <strong>rest of the "
 "information</strong>."
-msgstr "Doporučte jak žadatel může najít<strong>úplné informace</strong>."
+msgstr "Doporučte, jak tazatel může najít<strong>úplné informace</strong>."
 
 #: app/views/request/new.rhtml:84
 msgid "Summary:"
@@ -2911,7 +2726,7 @@ msgstr "Tabulka možností"
 
 #: app/views/general/search.rhtml:71
 msgid "Tags (separated by a space):"
-msgstr ""
+msgstr "Tagy (oddělené mezerou):"
 
 #: app/views/request/preview.rhtml:45
 msgid "Tags:"
@@ -2923,7 +2738,7 @@ msgstr "Technické detaily"
 
 #: app/controllers/request_game_controller.rb:52
 msgid "Thank you for helping us keep the site tidy!"
-msgstr "Děkujeme vám, že nám pomáhate udržovat tyto stránky upravené!"
+msgstr "Děkujeme vám, že nám pomáhate udržovat tyto stránky přehledné!"
 
 #: app/controllers/comment_controller.rb:62
 msgid "Thank you for making an annotation!"
@@ -2933,18 +2748,18 @@ msgstr "Děkujeme vám za vaši anotaci!"
 msgid ""
 "Thank you for responding to this FOI request! Your response has been "
 "published below, and a link to your response has been emailed to "
-msgstr ""
+msgstr "Děkujeme vám za odpověď na tento dotaz! Vaše odpověď byla publikována níže a odkaz vaší odpovědi byl odeslán  "
 
 #: app/controllers/request_controller.rb:420
 msgid ""
 "Thank you for updating the status of the request '<a "
 "href=\"{{url}}\">{{info_request_title}}</a>'. There are some more requests "
 "below for you to classify."
-msgstr ""
+msgstr "Děkujeme za aktualizaci statusu dotazu '<a href=\"{{url}}\">{{info_request_title}}</a>'. Zde jsou další odkazy, které je třeba zatřídit. "
 
 #: app/controllers/request_controller.rb:423
 msgid "Thank you for updating this request!"
-msgstr "Děkujeme vám za aktualizaci této žádosti!"
+msgstr "Děkujeme vám za aktualizaci tohoto dotazu!"
 
 #: app/controllers/user_controller.rb:432
 #: app/controllers/user_controller.rb:448
@@ -2955,56 +2770,46 @@ msgstr "Děkujeme vám za aktualizaci svého profilového fota"
 msgid ""
 "Thanks for helping - your work will make it easier for everyone to find successful\n"
 "responses, and maybe even let us make league tables..."
-msgstr ""
-"Děkujeme za pomoc - vaše práce ulehčí všem hledání v úspěšných\n"
-"odpovědích a snad nám umožní vypracovat i žebříček úspěšnosti..."
+msgstr "Děkujeme za pomoc - vaše práce ulehčí všem hledání v úspěšných\nodpovědích a snad nám umožní vypracovat i žebříček úspěšnosti..."
 
 #: app/views/user/show.rhtml:24
 msgid ""
 "Thanks very much - this will help others find useful stuff. We'll\n"
 "            also, if you need it, give advice on what to do next about your\n"
 "            requests."
-msgstr ""
-"Moc děkujeme - pomohli jste ostatním najít užitečné informace. Pokud\n"
-"            to budete potřebovat, poradíme Vám co dále dělat s vaší           žádostí. "
+msgstr "Moc děkujeme - pomohli jste ostatním najít užitečné informace.\n    Pokud budete potřebovat, poradíme vám, co dále dělat\ns vaším           \n    dotazem"
 
 #: app/views/request/new_please_describe.rhtml:20
 msgid ""
 "Thanks very much for helping keep everything <strong>neat and organised</strong>.\n"
 "    We'll also, if you need it, give you advice on what to do next about each of your\n"
 "    requests."
-msgstr ""
-"Moc vám děkujeme, že jste pomohli udržet vše<strong>úhledné a v pořádku</strong>.\n"
-"Pokud to budete potřebovat, poradíme Vám co dále dělat s vaší           žádostí. "
+msgstr "Moc vám děkujeme, že jste pomohli udržet vše<strong>přehledné</strong>.\n    Pokud budete potřebovat, poradíme vám, co dále dělat\ns vaším           \n    dotazem. "
 
 #: app/controllers/user_controller.rb:223
 msgid ""
 "That doesn't look like a valid email address. Please check you have typed it"
 " correctly."
-msgstr ""
-"To nevypadá jako platná emailová adresa. Prosím zkontrolujte, zda je zadaná "
-"správně. "
+msgstr "To nevypadá jako platná e-mailová adresa. Prosíme zkontrolujte, zda je zadaná správně. "
 
 #: app/views/request/_describe_state.rhtml:47
 #: app/views/request/_other_describe_state.rhtml:43
 msgid "The <strong>review has finished</strong> and overall:"
-msgstr "<strong>Kontrola je ukončena</strong> a celkově:"
+msgstr "<strong>Kontrola byla provedena</strong> a celkem:"
 
 #: app/views/request/new.rhtml:60
 msgid "The Freedom of Information Act <strong>does not apply</strong> to"
-msgstr ""
-"Zákon 106/99 Sb. o svobodném přístupu informací <strong>se nedá "
-"aplikovat</strong> na"
+msgstr "Zákon 106/1999 Sb. o svobodném přístupu informací <strong>se nedá aplikovat</strong> na"
 
 #: app/views/user_mailer/changeemail_already_used.rhtml:8
 msgid "The accounts have been left as they previously were."
-msgstr "Ůčty zůstaly tak, jak byly před tím. "
+msgstr "Ůčty zůstaly v původním stavu. "
 
 #: app/views/request/_other_describe_state.rhtml:48
 msgid ""
 "The authority do <strong>not have</strong> the information <small>(maybe "
 "they say who does)"
-msgstr ""
+msgstr "Instituce <strong>nedisponuje</strong> požadovanými informacemi<small>(možná vám sdělili, kdo je může poskytnout)"
 
 #: app/views/request/show_response.rhtml:26
 msgid ""
@@ -3015,26 +2820,20 @@ msgstr "Tyto informace existují pouze v <strong>papírové podobě</strong>."
 msgid ""
 "The authority say that they <strong>need a postal\n"
 "            address</strong>, not just an email, for it to be a valid FOI request"
-msgstr ""
-"Instituce říká, že pro úspěšné vyřízení žádosti<strong>potřebuje vaši "
-"poštovní adresu</strong>, nejen email."
+msgstr "Instituce tvrdí, že pro úspěšné vyřízení dotazu<strong>potřebuje vaši poštovní adresu</strong>, nejen e-mail."
 
 #: app/views/request/show.rhtml:109
 msgid ""
 "The authority would like to / has <strong>responded by post</strong> to this"
 " request."
-msgstr ""
-"Instituce by na tuto žádost ráda /nebo již odpověděla<strong>posláním "
-"odpovědi poštou</strong>."
+msgstr "Instituce by na tento dotaz ráda /nebo již odpověděla<strong>posláním odpovědi poštou</strong>."
 
 #: app/views/request_mailer/stopped_responses.rhtml:1
 msgid ""
 "The email that you, on behalf of {{public_body}}, sent to\n"
 "{{user}} to reply to an {{law_used_short}}\n"
 "request has not been delivered."
-msgstr ""
-"Email, který jste v zastoupení {{public_body}} poslali, odesílaný pro\n"
-"{{user}} jako odpověď na žádost o poskytnutí informací podle zákona 106/1999 Sb. {{law_used_short}} nebyl doručen."
+msgstr "E-mail, který jste v zastoupení {{public_body}} poslali, odeslaný pro\n{{user}} jako odpověď na dotaz o poskytnutí informací podle zákona 106/1999 Sb. {{law_used_short}} nebyl doručen."
 
 #: app/views/general/exception_caught.rhtml:5
 msgid "The page doesn't exist. Things you can try now:"
@@ -3046,7 +2845,7 @@ msgstr "Instituce nemá požadované informace k dispozici"
 
 #: app/views/general/_advanced_search_tips.rhtml:31
 msgid "The public authority would like part of the request explained"
-msgstr "Instituce potřebuje bližší vysvětlení k žádosti"
+msgstr "Instituce potřebuje bližší vysvětlení k dotazu"
 
 #: app/views/general/_advanced_search_tips.rhtml:32
 msgid "The public authority would like to / has responded by post"
@@ -3054,81 +2853,70 @@ msgstr "Instituce by ráda odpověděla/již odpověděla poštou"
 
 #: app/views/request/_other_describe_state.rhtml:60
 msgid "The request has been <strong>refused</strong>"
-msgstr "Žádost byla <strong>zamítnuta</strong>"
+msgstr "Dotaz byl <strong>zamítnut</strong>"
 
 #: app/controllers/request_controller.rb:394
 msgid ""
 "The request has been updated since you originally loaded this page. Please "
 "check for any new incoming messages below, and try again."
-msgstr ""
-"Vaše žádost byla aktualizována po načtení této stránky. Prosím zkontrolujte "
-"níže příchozí zprávy a zkuste to znovu. "
+msgstr "Váš dotaz byl aktualizován po načtení této stránky. Prosíme zkontrolujte příchozí zprávy níže a zkuste to znovu. "
 
 #: app/views/request/show.rhtml:104
 msgid "The request is <strong>waiting for clarification</strong>."
-msgstr "Žádost <strong>čeká na upřesnění</strong>."
+msgstr "Dotaz <strong>čeká na upřesnění</strong>."
 
 #: app/views/request/show.rhtml:97
 msgid "The request was <strong>partially successful</strong>."
-msgstr "Žádost byla <strong>částečně úspěšná</strong>."
+msgstr "Dotaz byl <strong>částečně úspěšný</strong>."
 
 #: app/views/request/show.rhtml:93
 msgid "The request was <strong>refused</strong> by"
-msgstr "Žádost byla <strong>odmítnuta</strong> "
+msgstr "Dotaz byl <strong>odmítnut</strong> "
 
 #: app/views/request/show.rhtml:95
 msgid "The request was <strong>successful</strong>."
-msgstr "Žádost byla <strong>úspěšná</strong>."
+msgstr "Dotaz byl <strong>úspěšný</strong>."
 
 #: app/views/general/_advanced_search_tips.rhtml:28
 msgid "The request was refused by the public authority"
-msgstr "Žádost byla institucí zamítnuta"
+msgstr "Dotaz byl institucí zamítnut"
 
 #: app/views/request/hidden.rhtml:9
 msgid ""
 "The request you have tried to view has been removed. There are\n"
 "various reasons why we might have done this, sorry we can't be more specific here. Please <a\n"
 "    href=\"%s\">contact us</a> if you have any questions."
-msgstr ""
-"Žádost, kterou jste si chtěli prohlídnout byla odstraněna. Existují\n"
-"různé důvody, proč se to mohlo stát, omlouváme se, že je zde \n"
-"nemůžeme vysvětlit. \n"
-"Prosím <a⏎\n"
-"    href=\"%s\">kontaktujte nás</a> pokud máte otázky."
+msgstr "Dotaz, který jste si chtěli přečíst, byl odstraněn. Existují\nrůzné důvody, proč se tak stalo a omlouváme se, že je zde \nnemůžeme vysvětlit. \nProsíme <a⏎\n    href=\"%s\">kontaktujte nás,</a> pokud máte nějaké otázky."
 
 #: app/views/general/_advanced_search_tips.rhtml:36
 msgid "The requester has abandoned this request for some reason"
-msgstr "Žadatel z nějakého důvodu tuto žádost opustil"
+msgstr "Tazatel z nějakého důvodu tento dotaz opustil ??"
 
 #: app/views/request/_followup.rhtml:59
 msgid ""
 "The response to your request has been <strong>delayed</strong>.  You can say that, \n"
 "            by law, the authority should normally have responded\n"
 "            <strong>promptly</strong> and"
-msgstr ""
+msgstr "Odpověď na váš dotaz má <strong>zpoždění</strong>.  Můžete napsat, že podle zákona by instituce měla odpovědět nejpozději\n            <strong>do 15 dnů</strong> a"
 
 #: app/views/request/_followup.rhtml:71
 msgid ""
 "The response to your request is <strong>long overdue</strong>.   You can say that, by \n"
 "            law, under all circumstances, the authority should have responded\n"
 "            by now"
-msgstr ""
+msgstr "Odpověď na váš dotaz<strong>má velké zpoždění</strong>.                           Můžete napsat, že podle zákona by měl být bez výhrad již dávno zodpovězen,"
 
 #: app/views/public_body/show.rhtml:120
 msgid ""
 "The search index is currently offline, so we can't show the Freedom of "
 "Information requests that have been made to this authority."
-msgstr ""
-"Vyhledávací rejstřík je nyní mimo provoz, nemůžeme vám proto ukázat žádosti "
-"zaslané této instituci. "
+msgstr "Vyhledávací rejstřík je nyní mimo provoz, nemůžeme vám proto ukázat dotazy zaslané této instituci. "
 
 #: app/views/user/show.rhtml:165
 msgid ""
 "The search index is currently offline, so we can't show the Freedom of "
 "Information requests this person has made."
-msgstr ""
-"Vyhledávání není právě teď funkční, nemůžeme proto zobrazit žádosti, které "
-"tato osoba poslala. "
+msgstr "Došlo ke krátkému výpadku vyhledávání, nemůžeme proto zobrazit dotazy, které tato osoba vznesla. Omlouváme se."
 
 #: app/controllers/track_controller.rb:152
 msgid "Then you can cancel the alert."
@@ -3140,7 +2928,7 @@ msgstr "Pak můžete upozornění zrušit."
 
 #: app/controllers/user_controller.rb:283
 msgid "Then you can change your email address used on {{site_name}}"
-msgstr "Poté můžete změnit svou emailovou adresu použitou na {{site_name}}"
+msgstr "Poté můžete změnit svou e-mailovou adresu použitou na {{site_name}}"
 
 #: app/controllers/user_controller.rb:237
 msgid "Then you can change your password on {{site_name}}"
@@ -3148,7 +2936,7 @@ msgstr "Poté můžete změnit heslo na {{site_name}}"
 
 #: app/controllers/request_controller.rb:380
 msgid "Then you can classify the FOI response you have got from "
-msgstr "Můžete zatřídit odpověď na žádost o svobodném přístupu informací od"
+msgstr "Můžete zatřídit odpověď na dotaz od"
 
 #: app/controllers/request_controller.rb:815
 msgid "Then you can download a zip file of {{info_request_title}}."
@@ -3156,7 +2944,7 @@ msgstr "Poté si můžete stáhnout komprimovaný soubor {{info_request_title}}.
 
 #: app/controllers/request_game_controller.rb:41
 msgid "Then you can play the request categorisation game."
-msgstr "Poté si můžete zahrát hru na kategorizaci žádostí. "
+msgstr "Poté si můžete zahrát hru na kategorizaci dotazů. "
 
 #: app/controllers/user_controller.rb:364
 msgid "Then you can send a message to "
@@ -3168,11 +2956,11 @@ msgstr "Poté se můžete přihlásit na {{site_name}}"
 
 #: app/controllers/request_controller.rb:84
 msgid "Then you can update the status of your request to "
-msgstr "Poté můžete aktualizovat status své žádosti u"
+msgstr "Poté můžete aktualizovat status svého dotazu na"
 
 #: app/controllers/request_controller.rb:756
 msgid "Then you can upload an FOI response. "
-msgstr "Poté můžete nahrát odpověď na vaši žádost."
+msgstr "Poté můžete nahrát odpověď na váš dotaz."
 
 #: app/controllers/request_controller.rb:587
 msgid "Then you can write follow up message to "
@@ -3186,43 +2974,41 @@ msgstr "Poté můžete odpovědět na zprávu od"
 msgid ""
 "Then you will be emailed whenever '{{user_name}}' requests something or gets"
 " a response."
-msgstr ""
-"Poté vám přijde email kdykoliv '{{user_name}}' vloží žádost nebo obdrží "
-"odpověď"
+msgstr "Poté vám přijde e-mailem upozornění, kdykoliv '{{user_name}}' vloží dotaz nebo obdrží odpověď"
 
 #: app/models/track_thing.rb:285
 msgid ""
 "Then you will be emailed whenever a new request or response matches your "
 "search."
-msgstr ""
+msgstr "Poté vám přijde e-mailem upozornění, kdykoliv se objeví nový dotaz nebo odpověď odpovídající vašim kritériím vyhledávání. "
 
 #: app/models/track_thing.rb:234
 msgid "Then you will be emailed whenever an FOI request succeeds."
-msgstr "Poté vám přijde email kdykoliv se objeví úspěšná žádost o informace. "
+msgstr "Poté vám přijde e-mailem upozornění, kdykoliv se objeví úspěšně zodpovězený dotaz. "
 
 #: app/models/track_thing.rb:218
 msgid "Then you will be emailed whenever anyone makes a new FOI request."
-msgstr ""
+msgstr "Poté vám přijde e-mailem upozornění, kdykoliv někdo vznese dotaz. "
 
 #: app/models/track_thing.rb:253
 msgid ""
 "Then you will be emailed whenever someone requests something or gets a "
 "response from '{{public_body_name}}'."
-msgstr ""
+msgstr "Poté vám přijde e-mailem upozornění, kdykoliv někdo o něco zažádá, nebo obdrží odpověď od '{{public_body_name}}'."
 
 #: app/models/track_thing.rb:202
 msgid ""
 "Then you will be emailed whenever the request '{{request_title}}' is "
 "updated."
-msgstr ""
+msgstr "Poté vám přijde e-mailem upozornění na každou aktualizaci dotazu '{{request_title}}'."
 
 #: app/controllers/request_controller.rb:35
 msgid "Then you'll be allowed to send FOI requests."
-msgstr ""
+msgstr "Pak můžete vznést dotaz."
 
 #: app/controllers/request_controller.rb:340
 msgid "Then your FOI request to {{public_body_name}} will be sent."
-msgstr "Poté bude vaše žádost pro {{public_body_name}} poslána."
+msgstr "Poté bude váš dotaz pro {{public_body_name}} poslán."
 
 #: app/controllers/comment_controller.rb:56
 msgid "Then your annotation to {{info_request_title}} will be posted."
@@ -3232,31 +3018,27 @@ msgstr "Vaše anotace pro {{info_request_title}} bude odeslána."
 msgid ""
 "There are {{count}} new annotations on your {{info_request}} request. Follow"
 " this link to see what they wrote."
-msgstr ""
-"Jsou tu {{count}} nové anotace {{info_request}} pro vaši žádost. Pro jejich "
-"přečtení použijte tento odkaz."
+msgstr "Jsou tu {{count}} nové anotace {{info_request}} vztahující se ka vašemu dotazu. Pro jejich přečtení použijte tento odkaz."
 
 #: app/views/public_body/show.rhtml:7
 msgid "There is %d person following this authority"
 msgid_plural "There are %d people following this authority"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d člověk sleduje tento dotaz"
+msgstr[1] "%d lidé sledují tento dotaz"
+msgstr[2] "%d lidí sleduje tento dotaz"
 
 #: app/views/request/_sidebar.rhtml:5
 msgid "There is %d person following this request"
 msgid_plural "There are %d people following this request"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] " %d člověk sleduje tento dotaz"
+msgstr[1] " %d lidé sledují tento dotaz"
+msgstr[2] "%d lidí sleduje tento dotaz"
 
 #: app/views/user/show.rhtml:8
 msgid ""
 "There is <strong>more than one person</strong> who uses this site and has this name. \n"
 "    One of them is shown below, you may mean a different one:"
-msgstr ""
-"Jsou tu <strong>dva nebo více lidí</strong> kteří používají tyto stránky a mají toto jméno.\n"
-"    Jeden z nich je zde, ale můžete hledat jiného:"
+msgstr "Jsou tu <strong>dva nebo více lidí</strong> kteří používají tyto stránky a jmenují se stejně.\n    Jednoho z nich vidíte níže, ale možná jste hledali někoho jiného:"
 
 #: app/views/user/rate_limited.rhtml:7
 msgid ""
@@ -3265,28 +3047,26 @@ msgid ""
 "inappropriate requests. If you feel you have a good reason to ask for the "
 "limit to be lifted in your case, please <a href='{{help_contact_path}}'>get "
 "in touch</a>."
-msgstr ""
+msgstr "Počet dotazů za jeden den je limitován. Nechceme, aby byly instituce bombardovány velkým množstvím nerelevantních dotazů. Pokud máte dobrý důvod, proč by měl být váš limit navýšen, prosíme<a href='{{help_contact_path}}'>kontaktujte nás</a>."
 
 #: app/views/request/show.rhtml:113
 msgid ""
 "There was a <strong>delivery error</strong> or similar, which needs fixing "
 "by the {{site_name}} team."
-msgstr ""
-"Vyskytla se <strong>chyba při doručení</strong> nebo něco podobného, co "
-"potřebuje pozornost {{site_name}} týmu."
+msgstr "Vyskytla se <strong>chyba při doručení</strong> nebo něco podobného, co potřebuje pozornost {{site_name}} týmu."
 
 #: app/controllers/user_controller.rb:154
 #: app/controllers/public_body_controller.rb:83
 msgid "There was an error with the words you entered, please try again."
-msgstr "Nastala chyba, prosím zkuste to znovu."
+msgstr "Nastala chyba, prosíme zkuste to znovu."
 
 #: app/views/public_body/show.rhtml:109
 msgid "There were no requests matching your query."
-msgstr "Nejsou tu žádné žádosti shodné s vaším dotazem"
+msgstr "Nejsou tu žádné dotazy shodné s vaším vyhledáváním."
 
 #: app/views/general/search.rhtml:10
 msgid "There were no results matching your query."
-msgstr ""
+msgstr "Nemáme žádné výsledky pro vaše kritéria vyhledávání."
 
 #: app/views/request/_describe_state.rhtml:38
 msgid "They are going to reply <strong>by post</strong>"
@@ -3296,9 +3076,7 @@ msgstr "Odpověď bude doručena <strong>poštou</strong>"
 msgid ""
 "They do <strong>not have</strong> the information <small>(maybe they say who"
 " does)</small>"
-msgstr ""
-"<strong>Nemají</strong> tuto informaci<small>(možná vám sdělili kdo ji "
-"má)</small>"
+msgstr "<strong>Nemohou poskytnout</strong> požadovanou informaci<small>(možná vám ale poradili, na koho se obrátit)</small>"
 
 #: app/views/user/show.rhtml:88
 msgid "They have been given the following explanation:"
@@ -3308,99 +3086,85 @@ msgstr "Obdrželi následující vysvětlení:"
 msgid ""
 "They have not replied to your {{law_used_short}} request {{title}} promptly,"
 " as normally required by law"
-msgstr ""
-"Neposkytli vám odpověď {{law_used_short}} žádost {{title}} v termínu, který "
-"je vymezen v zákoně"
+msgstr "Neodpověděli vám {{law_used_short}} na dotaz {{title}} v zákonem daném termínu"
 
 #: app/views/request_mailer/very_overdue_alert.rhtml:3
 msgid ""
 "They have not replied to your {{law_used_short}} request {{title}}, \n"
 "as required by law"
-msgstr ""
-"Neposkytli vám odpověď {{law_used_short}} žádost {{title}} \n"
-"v termínu, který je vymezen v zákoně"
+msgstr "Neodpověděli vám {{law_used_short}} na dotaz {{title}}\nv zákonem daném termínu"
 
 #: app/views/request/_after_actions.rhtml:3
 msgid "Things to do with this request"
-msgstr "Co můžete dělat s touto žádostí"
+msgstr "Co můžete dělat s tímto dotazem,"
 
 #: app/views/public_body/show.rhtml:63
 msgid "This authority no longer exists, so you cannot make a request to it."
-msgstr "Tato instituce již neexistuje, nelze jí proto zaslat žádost. "
+msgstr "Tato instituce již neexistuje, nelze na niproto vznést dotaz. "
 
 #: app/views/request/_hidden_correspondence.rhtml:23
 msgid ""
 "This comment has been hidden. See annotations to\n"
 "            find out why.  If you are the requester, then you may <a href=\"%s\">sign in</a> to view the response."
-msgstr ""
-"Tento komentář byl skryt. Podívejte se na vysvětlení.\n"
-"Pokud jste žadatel, můžete se <a href=\"%s\">přihlásit</a> k prohlížení odpovědi."
+msgstr "Tento komentář byl skryt. Podívejte se na vysvětlení.\nPokud jste tazatel, můžete se <a href=\"%s\">přihlásit</a> k prohlížení odpovědi."
 
 #: app/views/request/new.rhtml:63
 msgid ""
 "This covers a very wide spectrum of information about the state of\n"
 "            the <strong>natural and built environment</strong>, such as:"
-msgstr ""
+msgstr "Toto zahrnuje široké spektrum informací o stavu \n             <strong>přírody a památek</strong>, například:"
 
 #: app/views/request/simple_correspondence.rhtml:1
 msgid ""
 "This is a plain-text version of the Freedom of Information request "
 "\"{{request_title}}\".  The latest, full version is available online at "
 "{{full_url}}"
-msgstr ""
+msgstr "Toto je neformátovaná textová verze dotazu \"{{request_title}}\".  Poslední, formátovaná verze je k dispozici v elektronické formě na {{full_url}}"
 
 #: app/foo.rb:1
 msgid "This is a test!"
-msgstr ""
+msgstr "Toto je test!"
 
 #: app/views/request/_view_html_prefix.rhtml:9
 msgid ""
 "This is an HTML version of an attachment to the Freedom of Information "
 "request"
-msgstr "Toto je HTML verze přílohy k žádosti o informace. "
+msgstr "Toto je HTML verze přílohy k vznesenému dotazu. "
 
 #: app/views/request_mailer/stopped_responses.rhtml:5
 msgid ""
 "This is because {{title}} is an old request that has been\n"
 "marked to no longer receive responses."
-msgstr ""
-"Je to proto, že {{title}} je starší žádost, pro kterou\n"
-"se odpovědi dále nepřijímají."
+msgstr "Je to proto, že {{title}} je starší dotaz, na nějž\nse odpovědi dále nepřijímají."
 
 #: app/views/track/_tracking_links.rhtml:8
 msgid ""
 "This is your own request, so you will be automatically emailed when new "
 "responses arrive."
-msgstr ""
-"Toto je vaše vlastní žádosti, proto budete dostávat odpovědi emailem "
-"automaticky."
+msgstr "Toto je váš vlastní dotaz, proto budete odpovědi dostávat e-mailem automaticky."
 
 #: app/views/request/_hidden_correspondence.rhtml:17
 msgid ""
 "This outgoing message has been hidden. See annotations to\n"
 "\t\t\t\t\t\tfind out why.  If you are the requester, then you may <a href=\"%s\">sign in</a> to view the response."
-msgstr ""
-"Tato odchozí zpráva byla skryta. Podívejte se na vysvětlení.\n"
-"Pokud jste žadatel, můžete se <a href=\"%s\">přihlásit</a> k prohlížení odpovědi."
+msgstr "Tato odchozí zpráva byla skryta. Podívejte se na vysvětlení.\nPokud jste tazatel, můžete se <a href=\"%s\">přihlásit</a> k prohlížení odpovědi."
 
 #: app/views/request/_describe_state.rhtml:44
 #: app/views/request/_other_describe_state.rhtml:40
 msgid "This particular request is finished:"
-msgstr "Tato žádost je ukončena:"
+msgstr "Tento dotaz je ukončen:"
 
 #: app/views/user/show.rhtml:144
 msgid ""
 "This person has made no Freedom of Information requests using this site."
-msgstr ""
-"Tento uživatel podal na těchto stránkách žádost podle zákona o svobodném "
-"přístupu k informacím."
+msgstr "Tento uživatel na těchto stránkách vznesl dotaz podle zákona o svobodném přístupu k informacím."
 
 #: app/views/user/show.rhtml:149
 msgid "This person's %d Freedom of Information request"
 msgid_plural "This person's %d Freedom of Information requests"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] " %d dotaz od tohoto uživatele"
+msgstr[1] "%d dotazy od tohoto uživatele"
+msgstr[2] "%d dotazů od tohoto uživatele"
 
 #: app/views/user/show.rhtml:179
 msgid "This person's %d annotation"
@@ -3415,62 +3179,52 @@ msgstr "Poznámka této osoby"
 
 #: app/views/request/_describe_state.rhtml:84
 msgid "This request <strong>requires administrator attention</strong>"
-msgstr "Tato žádost <strong>vyžaduje pozornost administrátora</strong>"
+msgstr "Tento dotaz <strong>vyžaduje pozornost administrátora</strong>"
 
 #: app/views/request/show.rhtml:55
 msgid "This request has an <strong>unknown status</strong>."
-msgstr "Stav této žádost je <strong>neznámý</strong>."
+msgstr "Stav tohoto dotazu je <strong>neznámý</strong>."
 
 #: app/views/request/show.rhtml:117
 msgid ""
 "This request has been <strong>withdrawn</strong> by the person who made it. \n"
 "        \t   There may be an explanation in the correspondence below."
-msgstr ""
-"Žádost byla <strong>odvolána</strong> žadatelem. \n"
-"Bližší vysvětlení může být v níže uvedené korespondenci."
+msgstr "Dotaz byla <strong>stažen</strong> tazatelem. \nBližší vysvětlení můžete najít v níže uvedené korespondenci."
 
 #: app/models/info_request.rb:389
 msgid ""
 "This request has been set by an administrator to \"allow new responses from "
 "nobody\""
-msgstr ""
-"Tato žádost byla poslána administrátorovi, aby \"povolil nové odpovědi od "
-"nikoho\""
+msgstr "Tento dotaz byl poslán administrátorovi, aby \"povolil nové odpovědi od nikoho\""
 
 #: app/views/request/show.rhtml:115
 msgid ""
 "This request has had an unusual response, and <strong>requires "
 "attention</strong> from the {{site_name}} team."
-msgstr ""
+msgstr "S dotazem byla provedena neznámá operace, která <strong>vyžaduje pozornost</strong>administrátorů {{site_name}}."
 
 #: app/views/request/show.rhtml:5
 msgid ""
 "This request has prominence 'hidden'. You can only see it because you are logged\n"
 "    in as a super user."
-msgstr ""
-"Tato žádost je skrytá. Můžete ji vidět jenom proto, že jste zalogován/a jako"
-" \"super user\". "
+msgstr "Tento dotaz má status \"skrytý\". Můžete jej vidět jenom proto, že jste zalogován/a jako \"super user\". "
 
 #: app/views/request/show.rhtml:11
 msgid ""
 "This request is hidden, so that only you the requester can see it. Please\n"
 "    <a href=\"%s\">contact us</a> if you are not sure why."
-msgstr ""
-"Tato žádost je nyní skrytá, a může ji vidět pouze žadatel. Prosím\n"
-"<a href=\"%s\">kontaktujte nás</a> pokud si nejste jisti proč."
+msgstr "Tento dotaz je nyní skrytý, a může jej vidět pouze tazatel. Prosíme\n<a href=\"%s\">kontaktujte nás,</a> pokud si nejste jisti proč ji nevidíte."
 
 #: app/views/request/_describe_state.rhtml:7
 #: app/views/request/_other_describe_state.rhtml:10
 msgid "This request is still in progress:"
-msgstr "Tato žádost je stále aktivní:"
+msgstr "Tento dotaz je stále aktivní:"
 
 #: app/views/request/_hidden_correspondence.rhtml:10
 msgid ""
 "This response has been hidden. See annotations to find out why.\n"
 "            If you are the requester, then you may <a href=\"%s\">sign in</a> to view the response."
-msgstr ""
-"Tato odpověď byla skryta. Podívejte se na vysvětlení. \n"
-"Pokud jste žadatel, můžete se <a href=\"%s\">přihlásit</a> k prohlížení odpovědi."
+msgstr "Tato odpověď byla skryta. Podívejte se na vysvětlení. \nPokud jste tazatel, můžete se <a href=\"%s\">přihlásit</a> k prohlížení odpovědi."
 
 #: app/views/request/details.rhtml:6
 msgid ""
@@ -3478,7 +3232,7 @@ msgid ""
 "to this request on {{site_name}}. This could be used to generate information about\n"
 "the speed with which authorities respond to requests, the number of requests\n"
 "which require a postal response and much more."
-msgstr ""
+msgstr "Tato tabulka ukazuje technické detaily související s tímto dotazem vzneseným na {{site_name}}. Tento přehled lze použít k analýze rychlosti, s jakou instituce odpovídají na dotazy, pro počet dotazů, které byly zodpovězeny poštou atd. "
 
 #: app/views/user/show.rhtml:84
 msgid "This user has been banned from {{site_name}} "
@@ -3488,27 +3242,25 @@ msgstr "Tomuto uživateli byl vstup na {{site_name}} zakázán."
 msgid ""
 "This was not possible because there is already an account using \n"
 "the email address {{email}}."
-msgstr ""
+msgstr "Nepodařilo se, protože už jeden účet  \ne-mailovou adresu {{email}} používá."
 
 #: app/models/track_thing.rb:217
 msgid "To be emailed about any new requests"
-msgstr "Pokud chcete dostávat emaily o nových žádostech"
+msgstr "Pro zasílání e-mailových upozornění na nové dotazy"
 
 #: app/models/track_thing.rb:233
 msgid "To be emailed about any successful requests"
-msgstr "K posílání emailů s úspěšnými žádostmi"
+msgstr "Pro zasílání e-mailových upozornění na úspěšné dotazy"
 
 #: app/models/track_thing.rb:268
 msgid "To be emailed about requests by '{{user_name}}'"
-msgstr "Pokud chcete dostávat emaily se žádostmi od '{{user_name}}'"
+msgstr "Pro zasílání e-mailových upozornění na dotazy od '{{user_name}}'"
 
 #: app/models/track_thing.rb:252
 msgid ""
 "To be emailed about requests made using {{site_name}} to the public "
 "authority '{{public_body_name}}'"
-msgstr ""
-"Pokud chcete dostávat emaily o nových žádostech na {{site_name}} pro "
-"instituci '{{public_body_name}}'"
+msgstr "Pro zasílání e-mailových upozornění na nové dotazech vznesené s použitím {{site_name}} na instituci '{{public_body_name}}'"
 
 #: app/controllers/track_controller.rb:181
 msgid "To cancel these alerts"
@@ -3516,27 +3268,25 @@ msgstr "Pro zrušení těchto upozornění"
 
 #: app/controllers/track_controller.rb:151
 msgid "To cancel this alert"
-msgstr "Zrušit tohoto upozornění"
+msgstr "Zrušit toto upozornění"
 
 #: app/views/user/no_cookies.rhtml:5
 msgid ""
 "To carry on, you need to sign in or make an account. Unfortunately, there\n"
 "was a technical problem trying to do this."
-msgstr ""
-"Pro pokračování je třeba se přihlásit nebo zaregistrovat. Bohužel se\n"
-"vyskytl technický problém když jsme to zkoušeli."
+msgstr "Pro pokračování je třeba se přihlásit nebo zaregistrovat. Bohužel se\nvyskytl technický problém."
 
 #: app/controllers/user_controller.rb:282
 msgid "To change your email address used on {{site_name}}"
-msgstr "Změnit email adresu, kterou používáte na {{site_name}}"
+msgstr "Změnit e-mailovou adresu, kterou používáte na {{site_name}}"
 
 #: app/controllers/request_controller.rb:379
 msgid "To classify the response to this FOI request"
-msgstr ""
+msgstr "Pro zatřídění dotazů"
 
 #: app/views/request/show_response.rhtml:37
 msgid "To do that please send a private email to "
-msgstr "Aby k tomu došlo prosím pošlete soukromý mail"
+msgstr "Aby se tak stalo, prosíme pošlete e-mail soukromou cestou"
 
 #: app/views/request_mailer/not_clarified_alert.rhtml:2
 msgid "To do this, first click on the link below."
@@ -3548,26 +3298,25 @@ msgstr "Ke stažení komprimovaného souboru"
 
 #: app/models/track_thing.rb:284
 msgid "To follow requests and responses matching your search"
-msgstr ""
+msgstr "Pro sledování dotazů a odpovědí podle zadaného vyhledávání"
 
 #: app/models/track_thing.rb:201
 msgid "To follow updates to the request '{{request_title}}'"
-msgstr ""
+msgstr "Pro sledování aktualizací dotazu '{{request_title}}'"
 
 #: app/views/request_mailer/old_unclassified_updated.rhtml:1
 msgid ""
 "To help us keep the site tidy, someone else has updated the status of the \n"
 "{{law_used_full}} request {{title}} that you made to {{public_body}}, to \"{{display_status}}\" If you disagree with their categorisation, please update the status again yourself to what you believe to be more accurate."
-msgstr ""
+msgstr "Abychom udržovali stránky přehledné, někdo jiný upravil dotaz {{title}} vznesený na{{public_body}}, z \"{{display_status}}\". Pokud s touto úpravou nesouhlasíte, prosíme aktualizujte tento status znovu tak, jak si myslíte, že je to správné. "
 
 #: app/views/request_mailer/new_response_reminder_alert.rhtml:1
 msgid "To let us know, follow this link and then select the appropriate box."
-msgstr ""
-"Informujte nás kliknutím na tento odkaz a vybráním odpovídající možnosti"
+msgstr "Informujte nás kliknutím na tento odkaz a vybráním odpovídající možnosti"
 
 #: app/controllers/request_game_controller.rb:40
 msgid "To play the request categorisation game"
-msgstr "Zahrát si hru na kategorizaci žádostí"
+msgstr "Zahrát si hru na kategorizaci dotazů"
 
 #: app/controllers/comment_controller.rb:55
 msgid "To post your annotation"
@@ -3588,31 +3337,28 @@ msgstr "Poslat zprávu "
 #: app/controllers/request_controller.rb:34
 #: app/controllers/request_controller.rb:339
 msgid "To send your FOI request"
-msgstr "Poslat žádost o informace"
+msgstr "Vznést dotaz"
 
 #: app/controllers/request_controller.rb:83
 msgid "To update the status of this FOI request"
-msgstr "Aktualizovat stav žádosti o informace"
+msgstr "Aktualizovat stav dotazu"
 
 #: app/controllers/request_controller.rb:755
 msgid ""
 "To upload a response, you must be logged in using an email address from "
-msgstr ""
-"Abyste mohli nahrát odpověď, musíte být přihlášeni pod emailovou adresou z"
+msgstr "Abyste mohli nahrát odpověď, musíte být přihlášeni pod e-mailovou adresou z"
 
 #: app/views/general/search.rhtml:24
 msgid ""
 "To use the advanced search, combine phrases and labels as described in the "
 "search tips below."
-msgstr ""
+msgstr "Použijte pokročilé vyhledávání. Můžete kombinovat části vět a názvy tak, jak je uvedeno níže v návodu"
 
 #: app/views/public_body/view_email_captcha.rhtml:5
 msgid ""
 "To view the email address that we use to send FOI requests to "
 "{{public_body_name}}, please enter these words."
-msgstr ""
-"Pro zobrazení žádostí poslaných {{public_body_name}} vložte prosím "
-"následující slova."
+msgstr "Pro zobrazení dotazů vznesených na {{public_body_name}} vložte následující slova."
 
 #: app/views/request_mailer/new_response.rhtml:5
 msgid "To view the response, click on the link below."
@@ -3636,55 +3382,53 @@ msgstr "Dnes"
 #: app/views/request/select_authority.rhtml:48
 #: app/views/public_body/_search_ahead.rhtml:4
 msgid "Top search results:"
-msgstr ""
+msgstr "Nejrelevantnější výsledky vyhledávání"
 
 #: app/models/track_thing.rb:246
 msgid "Track requests to {{public_body_name}} by email"
-msgstr "Sledujte emailem žádosti určené pro {{public_body_name}}"
+msgstr "Zasílat e-mailem upozornění na odpovědi dotazu vznesených {{public_body_name}}"
 
 #: app/models/track_thing.rb:278
 msgid "Track things matching this search by email"
-msgstr ""
+msgstr "Zasílat e-mailem upozornění na témata odpovídající zvoleným kritériím"
 
 #: app/views/user/show.rhtml:35
 msgid "Track this person"
-msgstr "Sleduj tohoto uživatele"
+msgstr "Sledovat tohoto uživatele"
 
 #: app/models/track_thing.rb:262
 msgid "Track this person by email"
-msgstr "Sledujte tohoto uživatelem emailem"
+msgstr "Zasílat e-mailem upozornění na aktivity tohoto uživatele"
 
 #: app/models/track_thing.rb:195
 msgid "Track this request by email"
-msgstr "Sledujte tuto žádost emailem"
+msgstr "Zasílat e-mailem upozornění na aktualizace tohoto dotazu"
 
 #: app/views/general/search.rhtml:137
 msgid "Track this search"
-msgstr "Sledujte toto hledání"
+msgstr "Sledovat toto vyhledávání"
 
 #: locale/model_attributes.rb:33
 msgid "TrackThing|Track medium"
-msgstr "Sleduj Věci | Sleduj médium"
+msgstr "TrackThing | Sledovat médium"
 
 #: locale/model_attributes.rb:32
 msgid "TrackThing|Track query"
-msgstr "Sleduj Věci | Sleduj dotaz"
+msgstr "TrackThing | Sledovat dotaz"
 
 #: locale/model_attributes.rb:34
 msgid "TrackThing|Track type"
-msgstr "TrackThing|Track type"
+msgstr "TrackThing | Sledovat typ ??"
 
 #: app/views/request/_sidebar.rhtml:13
 msgid "Tweet this request"
-msgstr ""
+msgstr "Tweetujte tento dotaz"
 
 #: app/views/general/_advanced_search_tips.rhtml:15
 msgid ""
 "Type <strong><code>01/01/2008..14/01/2008</code></strong> to only show "
 "things that happened in the first two weeks of January."
-msgstr ""
-"Napište <strong><code>01/01/2008..14/01/2008</code></strong> pokud chcete "
-"zobrazit pouze dotazy v prvních dvou lednových týdnech."
+msgstr "Napište <strong><code>01/01/2008..14/01/2008</code></strong> pokud chcete zobrazit pouze dotazy v prvních dvou lednových týdnech."
 
 #: app/models/public_body.rb:37
 msgid "URL name can't be blank"
@@ -3692,40 +3436,36 @@ msgstr "Název URL nemůže zůstat prázdný"
 
 #: app/models/user_mailer.rb:45
 msgid "Unable to change email address on {{site_name}}"
-msgstr "Nelze změnit emailovou adresu na {{site_name}}"
+msgstr "Nelze změnit e-mailovou adresu na {{site_name}}"
 
 #: app/views/request/followup_bad.rhtml:4
 msgid "Unable to send a reply to {{username}}"
-msgstr "Nejde poslat odpověď uživateli {{username}}"
+msgstr "Nelze poslat odpověď uživateli {{username}}"
 
 #: app/views/request/followup_bad.rhtml:2
 msgid "Unable to send follow up message to {{username}}"
-msgstr "Nejde poslat odpověď uživateli {{username}}"
+msgstr "Nelze poslat odpověď uživateli {{username}}"
 
 #: app/views/request/list.rhtml:27
 msgid "Unexpected search result type"
-msgstr "Neočekávané výsledky hledání"
+msgstr "Neočekávané výsledky vyhledávání"
 
 #: app/views/request/similar.rhtml:18
 msgid "Unexpected search result type "
-msgstr "Neočekávané výsledky hledání "
+msgstr "Neočekávané výsledky vyhledávání "
 
 #: app/views/user/wrong_user_unknown_email.rhtml:3
 msgid ""
 "Unfortunately we don't know the FOI\n"
 "email address for that authority, so we can't validate this.\n"
 "Please <a href=\"%s\">contact us</a> to sort it out."
-msgstr ""
-"Bohužel pro tuto instituci nemáme emailovou\n"
-"adresu pro zasílání žádostí o informace, proto to nemůžeme ověřit.\n"
-"Prosím <a href=\"%s\">kontaktujte nás</a> abychom to vyřešili."
+msgstr "Bohužel nemáme e-mailovou adresu této instituce\npro vznášení dotazů, proto tento údaj nemůžeme ověřit.\nProsíme <a href=\"%s\">kontaktujte nás</a> abychom to vyřešili."
 
 #: app/views/request/new_bad_contact.rhtml:5
 msgid ""
 "Unfortunately, we do not have a working {{info_request_law_used_full}}\n"
 "address for"
-msgstr ""
-"Bohužel nemáme funkční adresu pro zaslání {{info_request_law_used_full}}"
+msgstr "Bohužel nemáme funkční adresu pro zaslání {{info_request_law_used_full}}"
 
 #: lib/world_foi_websites.rb:5
 msgid "United Kingdom"
@@ -3737,7 +3477,7 @@ msgstr "Spojené státy americké"
 
 #: app/views/general/exception_caught.rhtml:22
 msgid "Unknown"
-msgstr "Neznáme"
+msgstr "Neznámé"
 
 #: app/models/info_request.rb:803
 msgid "Unusual response."
@@ -3746,107 +3486,103 @@ msgstr "Neobvyklá odpověď."
 #: app/views/request/_after_actions.rhtml:13
 #: app/views/request/_after_actions.rhtml:35
 msgid "Update the status of this request"
-msgstr "Aktualizujte stav této žádosti"
+msgstr "Aktualizovat stav tohoto dotazu"
 
 #: app/controllers/request_controller.rb:85
 msgid "Update the status of your request to "
-msgstr "Aktualizujte stav vaší žádosti u"
+msgstr "Aktualizujte stav svého dotazu vzneseného na "
 
 #: app/views/general/_advanced_search_tips.rhtml:6
 msgid ""
 "Use OR (in capital letters) where you don't mind which word,  e.g. "
 "<strong><code>commons OR lords</code></strong>"
-msgstr ""
-"Použijte NEBO (velká písmena) když je vám jedno které slovo se objeví,  "
-"např.<strong><code>magistrát NEBO úřad </code></strong>"
+msgstr "Použijte NEBO (velká písmena) pokud chcete vyhledat obě slova,  např.<strong><code>magistrát NEBO úřad </code></strong>"
 
 #: app/views/general/_advanced_search_tips.rhtml:7
 msgid ""
 "Use quotes when you want to find an exact phrase, e.g. "
 "<strong><code>\"Liverpool City Council\"</code></strong>"
-msgstr ""
-"Použijte uvozovky pokud chcete vyhledat přesnou frázi, např. "
-"<strong><code>\"Statutární město Liberec\"</code></strong>"
+msgstr "Použijte uvozovky pokud chcete vyhledat přesnou frázi, např. <strong><code>\"Statutární město Liberec\"</code></strong>"
 
 #: locale/model_attributes.rb:94
 msgid "UserInfoRequestSentAlert|Alert type"
-msgstr "UserInfoRequestSentAlert|Alert type"
+msgstr "UserInfoRequestSentAlert| Typ upozornění"
 
 #: locale/model_attributes.rb:80
 msgid "User|About me"
-msgstr "Uživatel | O mně"
+msgstr "User | O mně"
 
 #: locale/model_attributes.rb:78
 msgid "User|Admin level"
-msgstr "Uživatel | Úroveň admin"
+msgstr "User | Úroveň admin"
 
 #: locale/model_attributes.rb:79
 msgid "User|Ban text"
-msgstr "Uživatel | Zakaž text"
+msgstr "User | Zakázat text"
 
 #: locale/model_attributes.rb:71
 msgid "User|Email"
-msgstr "Uživatel | Email"
+msgstr "User | E-mail"
 
 #: locale/model_attributes.rb:83
 msgid "User|Email bounce message"
-msgstr ""
+msgstr "User l E-mail o nedoručitelnosti zprávy"
 
 #: locale/model_attributes.rb:82
 msgid "User|Email bounced at"
-msgstr ""
+msgstr "User | E-mail byl odmítnut na"
 
 #: locale/model_attributes.rb:75
 msgid "User|Email confirmed"
-msgstr "Uživatel | Email potvrzen"
+msgstr "User | E-mail potvrzen"
 
 #: locale/model_attributes.rb:73
 msgid "User|Hashed password"
-msgstr "Uživatel | Zatříděné heslo"
+msgstr "User | Zařazené heslo"
 
 #: locale/model_attributes.rb:77
 msgid "User|Last daily track email"
-msgstr "Uživatel | Poslední denně sledovaný email"
+msgstr "User | Poslední denně sledovaný e-mail ??"
 
 #: locale/model_attributes.rb:81
 msgid "User|Locale"
-msgstr ""
+msgstr "User | Lokalita"
 
 #: locale/model_attributes.rb:72
 msgid "User|Name"
-msgstr "Uživatel | Jméno"
+msgstr "User | Jméno"
 
 #: locale/model_attributes.rb:84
 msgid "User|No limit"
-msgstr ""
+msgstr "User | Žádné omezení"
 
 #: locale/model_attributes.rb:74
 msgid "User|Salt"
-msgstr "Uživatel | Salt"
+msgstr "User | Salt ??"
 
 #: locale/model_attributes.rb:76
 msgid "User|Url name"
-msgstr "Uživatel | URL jméno"
+msgstr "User | Název URL"
 
 #: app/views/public_body/show.rhtml:26
 msgid "View FOI email address"
-msgstr "Zobrazit email adresu IPV (????)"
+msgstr "Zobrazit e-mailovou adresu Informace pro všechny (????)"
 
 #: app/views/public_body/view_email_captcha.rhtml:1
 msgid "View FOI email address for '{{public_body_name}}'"
-msgstr ""
+msgstr "Adresa pro dotazy vznesené na '{{public_body_name}}'"
 
 #: app/views/public_body/view_email_captcha.rhtml:3
 msgid "View FOI email address for {{public_body_name}}"
-msgstr "Zobrazit emailovou adresu pro žádosti pro {{public_body_name}}"
+msgstr "Zobrazit e-mailovou adresu pro dotazy vznesené na {{public_body_name}}"
 
 #: app/views/contact_mailer/user_message.rhtml:10
 msgid "View Freedom of Information requests made by {{user_name}}:"
-msgstr "Prohlédněte si žádosti podané uživatelem {{user_name}}:"
+msgstr "Prohlédněte si dotazy podané uživatelem {{user_name}}:"
 
 #: app/controllers/request_controller.rb:169
 msgid "View and search requests"
-msgstr "Prohlížejte a prohledávejte žádosti"
+msgstr "Prohledávejte a prohlížejte dotazy"
 
 #: app/views/general/_topnav.rhtml:6
 msgid "View authorities"
@@ -3854,11 +3590,11 @@ msgstr "Zobrazit instituce"
 
 #: app/views/public_body/view_email_captcha.rhtml:12
 msgid "View email"
-msgstr "Zobrazit email"
+msgstr "Zobrazit e-mail"
 
 #: app/views/general/_topnav.rhtml:5
 msgid "View requests"
-msgstr "Zobrazit žádosti"
+msgstr "Zobrazit dotazy"
 
 #: app/models/info_request.rb:795
 msgid "Waiting clarification."
@@ -3868,14 +3604,13 @@ msgstr "Čeká se na vysvětlení. "
 msgid ""
 "Waiting for an <strong>internal review</strong> by {{public_body_link}} of "
 "their handling of this request."
-msgstr ""
-"Čeká se na <strong>přezkoumání žádosti</strong> u {{public_body_link}}."
+msgstr "Čeká se na <strong>přezkoumání dotazu</strong> u {{public_body_link}}."
 
 #: app/views/general/_advanced_search_tips.rhtml:33
 msgid ""
 "Waiting for the public authority to complete an internal review of their "
 "handling of the request"
-msgstr "Čeká se na vnitřní přezkum u instituce jak na žádost odpoví"
+msgstr "Čeká se na vnitřní přezkoumání u instituce, jak na dotaz odpoví"
 
 #: app/views/general/_advanced_search_tips.rhtml:26
 msgid "Waiting for the public authority to reply"
@@ -3883,11 +3618,11 @@ msgstr "Čeká se na odpověď instituce"
 
 #: app/models/request_mailer.rb:126
 msgid "Was the response you got to your FOI request any good?"
-msgstr "Byla odpověď na vaši žádost o informace v pořádku?"
+msgstr "Byla odpověď na váš dotaz kompletní a v pořádku?"
 
 #: app/views/public_body/view_email.rhtml:17
 msgid "We do not have a working request email address for this authority."
-msgstr "Nemáme funkční emailovou adresu pro tuto instituci."
+msgstr "Nemáme funkční e-mailovou adresu pro tuto instituci."
 
 #: app/views/request/followup_bad.rhtml:24
 msgid ""
@@ -3900,29 +3635,25 @@ msgid ""
 "    information or not\n"
 "        &ndash;\n"
 "\tif you are {{user_link}} please <a href=\"{{url}}\">sign in</a> and let everyone know."
-msgstr ""
+msgstr "Nevíme, zda nejnovější odpovědi na tento dotaz obsahují\n    kompletní a požadované informace\n        &ndash;\n\tpokud jste {{user_link}} prosíme <a href=\"{{url}}\">přihlašte se</a> a upravte stav dotazu."
 
 #: app/views/user_mailer/confirm_login.rhtml:8
 msgid ""
 "We will not reveal your email address to anybody unless you\n"
 "or the law tell us to."
-msgstr ""
-"Vaši emailovou adresu nikomu nepředáme pokud o to nebudeme\n"
-"ze zákonných důvodů požádáni."
+msgstr "Vaši e-mailovou adresu nikomu nepředáme, pokud o to nebudeme\nze zákonem daných důvodů požádáni."
 
 #: app/views/user/_signup.rhtml:13
 msgid ""
 "We will not reveal your email address to anybody unless you or\n"
 "        the law tell us to (<a href=\"%s\">details</a>). "
-msgstr ""
+msgstr "Nebudeme vaši e-mailovou adresu nikomu dávat, pokud nám tak neřeknete vy, nebo nám nepřikáže zákon (<a href=\"%s\">podrobnosti</a>). "
 
 #: app/views/user_mailer/changeemail_confirm.rhtml:10
 msgid ""
 "We will not reveal your email addresses to anybody unless you\n"
 "or the law tell us to."
-msgstr ""
-"Vaši emailovou adresu nikomu nepředáme pokud o to nebudeme\n"
-"ze zákonných důvodů požádáni."
+msgstr "Vaši e-mailovou adresu nikomu nepředáme, pokud o to nebudeme\nze zákonem daných důvodů požádáni."
 
 #: app/views/request/show.rhtml:61
 msgid "We're waiting for"
@@ -3936,23 +3667,19 @@ msgstr "Čekáme, až si to někdo přečte"
 msgid ""
 "We've sent an email to your new email address. You'll need to click the link in\n"
 "it before your email address will be changed."
-msgstr ""
-"Poslali jsme email na vaši novou adresu. Je třeba kliknout na odkaz\n"
-"aby byla vaše emailová adresa aktivována."
+msgstr "Poslali jsme e-mail na vaši novou adresu. Je třeba kliknout na zaslaný odkaz,\naby byla vaše nová e-mailová adresa aktivována."
 
 #: app/views/user/confirm.rhtml:6
 msgid ""
 "We've sent you an email, and you'll need to click the link in it before you can\n"
 "continue."
-msgstr ""
-"Poslali jsme vám email. Pro pokračování je třeba kliknout na odkaz\n"
-"v něm obsažený."
+msgstr "Poslali jsme vám e-mail s odkazem. Pro pokračování je třeba kliknout na zaslaný odkaz."
 
 #: app/views/user/signchangepassword_confirm.rhtml:6
 msgid ""
 "We've sent you an email, click the link in it, then you can change your "
 "password."
-msgstr "Poslali jsme vám email. Klikněte na odkaz, poté můžete změnit heslo."
+msgstr "Poslali jsme vám e-mail. Klikněte na odkaz, pak můžete změnit heslo."
 
 #: app/views/request/_followup.rhtml:85
 msgid "What are you doing?"
@@ -3960,7 +3687,7 @@ msgstr "Co děláte?"
 
 #: app/views/request/_describe_state.rhtml:4
 msgid "What best describes the status of this request now?"
-msgstr "Co nyní nejlépe vystihuje stav této žádosti?"
+msgstr "Co nejlépe vystihuje stav tohoto dotazu?"
 
 #: app/views/general/frontpage.rhtml:54
 msgid "What information has been released?"
@@ -3970,25 +3697,23 @@ msgstr "Jaké informace byly uveřejněny?"
 msgid ""
 "When you get there, please update the status to say if the response \n"
 "contains any useful information."
-msgstr "Až se "
+msgstr "Až se přihlásíte ??, aktualizujte status podle toho,\nzda odpověď je dostačující či nokoliv."
 
 #: app/views/request/show_response.rhtml:42
 msgid ""
 "When you receive the paper response, please help\n"
 "            others find out what it says:"
-msgstr ""
-"Pokud obdržíte písemnou odpověď, prosím shrňte\n"
-"            pro ostatní co se v odpovědi říká:"
+msgstr "Pokud obdržíte písemnou odpověď, prosíme shrňte\n            pro ostatní co se v odpovědi říká:"
 
 #: app/views/request/new_please_describe.rhtml:16
 msgid ""
 "When you're done, <strong>come back here</strong>, <a href=\"%s\">reload "
 "this page</a> and file your new request."
-msgstr ""
+msgstr "Až budete hotovi, <strong>vraťte se sem</strong>, <a href=\"%s\">obnovte stránku</a> a vzneste svůj nový dotaz."
 
 #: app/views/request/show_response.rhtml:13
 msgid "Which of these is happening?"
-msgstr "Vyberte z následujících možností co se děje."
+msgstr "Vyberte nejvhodnější popis z následujících možností."
 
 #: app/views/general/frontpage.rhtml:37
 msgid "Who can I request information from?"
@@ -3996,15 +3721,15 @@ msgstr "Od koho mohu tyto informace získat?"
 
 #: app/models/info_request.rb:805
 msgid "Withdrawn by the requester."
-msgstr "Žádost stažena žadatelem."
+msgstr "Dotaz stažen tazatelem."
 
 #: app/views/general/_localised_datepicker.rhtml:13
 msgid "Wk"
-msgstr ""
+msgstr "Wk ??"
 
 #: app/views/help/alaveteli.rhtml:6
 msgid "Would you like to see a website like this in your country?"
-msgstr ""
+msgstr "Would you like to see a website like this in your country?"
 
 #: app/views/request/_after_actions.rhtml:30
 msgid "Write a reply"
@@ -4012,7 +3737,7 @@ msgstr "Napište odpověď"
 
 #: app/controllers/request_controller.rb:591
 msgid "Write a reply to "
-msgstr "Odpovězte "
+msgstr "Odpovědět "
 
 #: app/controllers/request_controller.rb:590
 msgid "Write your FOI follow up message to "
@@ -4020,7 +3745,7 @@ msgstr "Napište svou odpověď pro "
 
 #: app/views/request/new.rhtml:104
 msgid "Write your request in <strong>simple, precise language</strong>."
-msgstr "Napište svou žádosti <strong>jednoduše a jasně</strong>."
+msgstr "Napište svůj dotaz <strong>jednoduše a jasně</strong>."
 
 #: app/views/comment/_single_comment.rhtml:10
 msgid "You"
@@ -4028,31 +3753,31 @@ msgstr "Vy"
 
 #: app/controllers/track_controller.rb:106
 msgid "You are already being emailed updates about "
-msgstr "Emailové aktualizace již dostáváte pro"
+msgstr "E-mailové aktualizace již dostáváte, týkají se"
 
 #: app/models/track_thing.rb:247
 msgid "You are already tracking requests to {{public_body_name}} by email"
-msgstr "Tuto instituci {{public_body_name}} již emailem sledujete"
+msgstr "Tuto instituci {{public_body_name}} již sledujete"
 
 #: app/models/track_thing.rb:279
 msgid "You are already tracking things matching this search by email"
-msgstr ""
+msgstr "Témata odpovídající tomuto hledání již sledujete"
 
 #: app/models/track_thing.rb:263
 msgid "You are already tracking this person by email"
-msgstr "Tuto osobu již emailem sledujete"
+msgstr "Tuto osobu již sledujete"
 
 #: app/models/track_thing.rb:196
 msgid "You are already tracking this request by email"
-msgstr "Tuto žádost již emailem sledujete"
+msgstr "Tento dotaz již sledujete"
 
 #: app/models/track_thing.rb:228
 msgid "You are being emailed about any new successful responses"
-msgstr "Obdržíte email o každé nové úspěšné žádosti. "
+msgstr "Obdržíte upozornění e-mailem o každém novém úspěšně zodpovězeném dotazu. "
 
 #: app/models/track_thing.rb:212
 msgid "You are being emailed when there are new requests"
-msgstr "Email dostanete pokaždé, když je podána nová žádost"
+msgstr "Obdržíte upozornění e-mailem kdykoliv bude vznesen nový dotaz"
 
 #: app/views/request/show.rhtml:88
 msgid "You can <strong>complain</strong> by"
@@ -4062,16 +3787,12 @@ msgstr "Můžete si <strong>stěžovat</strong> "
 msgid ""
 "You can get this page in computer-readable format as part of the main JSON\n"
 "page for the request.  See the <a href=\"{{api_path}}\">API documentation</a>."
-msgstr ""
-"Tato stránka je k dispozici ve formátu čitelném pro počítač jako součást hlavní JSON\n"
-"stránky pro žádosti.  Podívejte se na <a href=\"{{api_path}}\">Dokumentaci API</a>."
+msgstr "Tato stránka je k dispozici ve formátu čitelném pro počítač jako součást hlavní JSON\nstránky pro dotazy.  Podívejte se na <a href=\"{{api_path}}\">Dokumentaci API</a>.  ??"
 
 #: app/views/public_body/show.rhtml:46
 msgid ""
 "You can only request information about the environment from this authority."
-msgstr ""
-"Od této instituce můžete požadovat pouze informace podle zákona o životním "
-"prostředí. "
+msgstr "Od této instituce můžete požadovat pouze informace podle zákona o životním prostředí. "
 
 #: app/views/request_mailer/new_response.rhtml:1
 msgid "You have a new response to the {{law_used_full}} request "
@@ -4081,20 +3802,18 @@ msgstr "Máte novou odpověďna {{law_used_full}} "
 msgid ""
 "You have found a bug.  Please <a href=\"{{contact_url}}\">contact us</a> to "
 "tell us about the problem"
-msgstr ""
+msgstr "Našli jste chybu.  Prosíme <a href=\"{{contact_url}}\">kontaktujte nás</a> a řekněte nám o problému více"
 
 #: app/views/user/rate_limited.rhtml:5
 msgid ""
 "You have hit the rate limit on new requests. Users are ordinarily limited to"
 " {{max_requests_per_user_per_day}} requests in any rolling 24-hour period. "
 "You will be able to make another request in {{can_make_another_request}}."
-msgstr ""
+msgstr "Dosáhli jste početního limitu stanoveného pro nové dotazy. Uživatelé mohou podat {{max_requests_per_user_per_day}} dotazů během 24 hodin. Nový dotaz můžete podat za {{can_make_another_request}}."
 
 #: app/views/user/show.rhtml:144
 msgid "You have made no Freedom of Information requests using this site."
-msgstr ""
-"Zatím jste na těchto stránkách nepodali žádnou žádost o svobodném přístupu k"
-" informacím."
+msgstr "Zatím jste na těchto stránkách nevznesli žádný dotaz podle zákona o svobodném přístupu k informacím."
 
 #: app/controllers/user_controller.rb:527
 msgid "You have now changed the text about you on your profile."
@@ -4102,7 +3821,7 @@ msgstr "Nyní jste změnili text svého profilu "
 
 #: app/controllers/user_controller.rb:344
 msgid "You have now changed your email address used on {{site_name}}"
-msgstr "Právě jste změnili svou emailovou adresu na {{site_name}}"
+msgstr "Právě jste změnili svou e-mailovou adresu na {{site_name}}"
 
 #: app/views/user_mailer/already_registered.rhtml:3
 msgid ""
@@ -4111,45 +3830,37 @@ msgid ""
 "left as they previously were.\n"
 "\n"
 "Please click on the link below."
-msgstr ""
-"Právě jste se pokusili registrovat na {{site_name}}, kde již máte účet. Vaše jméno a heslo zůstalo původní.\n"
-"\n"
-"Prosím klikněte na tento odkaz."
+msgstr "Právě jste se pokusili registrovat na {{site_name}}, kde již máte účet. Vaše jméno a heslo zůstalo původní.\n\nProsíme klikněte na tento odkaz."
 
 #: app/views/comment/new.rhtml:60
 msgid ""
 "You know what caused the error, and can <strong>suggest a solution</strong>,"
 " such as a working email address."
-msgstr ""
+msgstr "Víte, co způsobilo chybu a můžete <strong>navrhnout řešení</strong>,například správnou e-mailovou adresu."
 
 #: app/views/request/upload_response.rhtml:16
 msgid ""
 "You may <strong>include attachments</strong>. If you would like to attach a\n"
 "file too large for email, use the form below."
-msgstr ""
-"Můžete <strong>vložit přílohu</strong>. Pokud chcete vložit soubor, \n"
-"který je přiliš velký pro tento email, použijte formulář níže. "
+msgstr "Můžete <strong>vložit přílohu</strong>. Pokud chcete vložit soubor, \nkterý je přiliš velký pro tento e-mail, použijte formulář níže. "
 
 #: app/views/request/followup_bad.rhtml:24
 msgid ""
 "You may be able to find\n"
 "    one on their website, or by phoning them up and asking. If you manage\n"
 "    to find one, then please <a href=\"%s\">send it to us</a>."
-msgstr ""
+msgstr "Možná se vám podaří\n    najít adresu na jejich stránkách, nebo jim zavolejte a zeptejte se. Pokud uspějete,\n    prosíme <a href=\"%s\">pošlete nám ji</a>."
 
 #: app/views/request/new_bad_contact.rhtml:6
 msgid ""
 "You may be able to find\n"
 "one on their website, or by phoning them up and asking. If you manage\n"
 "to find one, then please <a href=\"{{help_url}}\">send it to us</a>."
-msgstr ""
-"Můžete najít\n"
-"na jejich stránkách, nebo telefonicky. Pokud se vám podaří\n"
-"ji najít, prosím <a href=\"{{help_url}}\">pošlete nám ji</a>."
+msgstr "Můžete najít adresu\nna jejich stránkách, nebo ji zjistíte telefonickým dotazem. Pokud se vám podaří\nji najít, prosíme <a href=\"{{help_url}}\">pošlete nám ji</a>."
 
 #: app/controllers/user_controller.rb:505
 msgid "You need to be logged in to change the text about you on your profile."
-msgstr "Změny textu ve vašem profilu je možné provést po přihlášení."
+msgstr "Změnu textu ve vašem profilu je možné provést po přihlášení."
 
 #: app/controllers/user_controller.rb:405
 msgid "You need to be logged in to change your profile photo."
@@ -4162,22 +3873,19 @@ msgstr "Vymazání profilového fota je možné provést po přihlášení."
 #: app/controllers/request_controller.rb:601
 msgid ""
 "You previously submitted that exact follow up message for this request."
-msgstr ""
-"V minulosti jste již vložili úplně stejnou zprávu týkající se této žádosti. "
+msgstr "V minulosti jste již vložili úplně stejnou zprávu týkající se tohoto dotazu. "
 
 #: app/views/request/upload_response.rhtml:13
 msgid ""
 "You should have received a copy of the request by email, and you can respond\n"
 "by <strong>simply replying</strong> to that email. For your convenience, here is the address:"
-msgstr ""
+msgstr "Měli byste obdržet kopii dotazu e-mailem a můžete na tento e-mail\n<strong>jednoduše odpovědět</strong>. Zde je adresa:"
 
 #: app/views/request/show_response.rhtml:34
 msgid ""
 "You want to <strong>give your postal address</strong> to the authority in "
 "private."
-msgstr ""
-"Je lepší <strong>poskytnout poštovní adresu</strong> instituci v soukromém "
-"režimu."
+msgstr "Je lepší <strong>poskytnout poštovní adresu</strong> instituci v soukromě vzneseném dotazu."
 
 #: app/views/user/banned.rhtml:9
 msgid ""
@@ -4185,36 +3893,29 @@ msgid ""
 "send messages to other users. You may continue to view other requests, and set\n"
 "up\n"
 "email alerts."
-msgstr ""
-"Budete moci podávat žádosti, posílat odpovědi, přidávat komentáře\n"
-"nebo posílat zprávy ostatním uživatelům. Může dále prohlížet další\n"
-"žádosti, nebo si nastavit emailová upozornění."
+msgstr "Budete moci vznášet dotazy, posílat odpovědi, přidávat komentáře\nnebo posílat zprávy ostatním uživatelům. Může dále prohlížet další\ndotazy, nebo si nastavit e-mailová upozornění."
 
 #: app/controllers/track_controller.rb:162
 msgid "You will no longer be emailed updates about "
-msgstr "Zrušení emailových aktualizací o "
+msgstr "Zrušení e-mailových aktualizací na "
 
 #: app/controllers/track_controller.rb:191
 msgid "You will no longer be emailed updates for those alerts"
-msgstr "Emailová upozornění o těchto aktualizacích vám přestanou chodit "
+msgstr "E-mailová upozornění o těchto aktualizacích vám přestanou chodit "
 
 #: app/controllers/track_controller.rb:119
 msgid "You will now be emailed updates about "
-msgstr ""
+msgstr "Budou vám chodit aktualizace o "
 
 #: app/views/request_mailer/not_clarified_alert.rhtml:6
 msgid ""
 "You will only get an answer to your request if you follow up\n"
 "with the clarification."
-msgstr ""
-"Odpověď na vaši žádost obdržíte pouze pokud odpovíte \n"
-"bližším vysvětlením."
+msgstr "Odpověď na váš dotaz obdržíte, pouze pokud odpovíte \nbližším vysvětlením."
 
 #: app/models/request_mailer.rb:106
 msgid "You're long overdue a response to your FOI request - "
-msgstr ""
-"Dlouho jste nereagovali na odpověď k vaší žádosti o svobodném přístupu k "
-"informacím "
+msgstr "Dlouho jste nereagovali na odpověď k vašemu dotazu"
 
 #: app/controllers/user_controller.rb:476
 msgid "You've now cleared your profile photo"
@@ -4223,16 +3924,16 @@ msgstr "Vaše profilové foto bylo vymazáno. "
 #: app/views/user/show.rhtml:149
 msgid "Your %d Freedom of Information request"
 msgid_plural "Your %d Freedom of Information requests"
-msgstr[0] "Vaše %d žádost o svobodném přístupu k informacím"
-msgstr[1] "Vaše %d žádosti o svobodném přístupu k informacím"
-msgstr[2] "Vaše %d žádosti o svobodném přístupu k informacím"
+msgstr[0] "Váš %d dotaz"
+msgstr[1] "Vaše %d dotazy"
+msgstr[2] "Vašich %d dotazů"
 
 #: app/views/user/show.rhtml:179
 msgid "Your %d annotation"
 msgid_plural "Your %d annotations"
-msgstr[0] "Vaše %d poznámka"
-msgstr[1] "Vaše %d poznámka"
-msgstr[2] "Vaše %d poznámka"
+msgstr[0] "Váš %d poznámka"
+msgstr[1] "Vaše %d poznámky"
+msgstr[2] "Vašich %d poznámek"
 
 #: app/views/user/_signup.rhtml:22
 msgid ""
@@ -4241,7 +3942,7 @@ msgid ""
 "        on this website and in search engines. If you\n"
 "        are thinking of using a pseudonym, please \n"
 "        <a href=\"%s\">read this first</a>."
-msgstr ""
+msgstr "Vaše<strong> jméno bude uveřejněno</strong> \n        (<a href=\"%s\">proč?</a>)\n        na těchto stránkách a ve vyhledavačích. Pokud\n        chcete použít přezdívku, prosíme,  \n        <a href=\"%s\">přečtěte nejdříve toto</a>."
 
 #: app/views/user/show.rhtml:172
 msgid "Your annotations"
@@ -4251,37 +3952,37 @@ msgstr "Vaše poznámky"
 msgid ""
 "Your details have not been given to anyone, unless you choose to reply to this\n"
 "message, which will then go directly to the person who wrote the message."
-msgstr ""
+msgstr "Vaše kontaktní údaje nebyly nikomu předány. Pokud se rozhodnete odpovědět na tuto zprávu, bude odeslána přímo autorovi zprávy spolu s vaším kontaktem."
 
 #: app/views/user/_signup.rhtml:9 app/views/user/_signin.rhtml:11
 #: app/views/user/signchangepassword_send_confirm.rhtml:13
 msgid "Your e-mail:"
-msgstr "Váš email:"
+msgstr "Váš e-mail:"
 
 #: app/views/user/show.rhtml:196
 msgid "Your email subscriptions"
-msgstr "Vaše emailové odběry"
+msgstr "Vaše e-mailové odběry"
 
 #: app/controllers/request_controller.rb:598
 msgid ""
 "Your follow up has not been sent because this request has been stopped to "
 "prevent spam. Please <a href=\"%s\">contact us</a> if you really want to "
 "send a follow up message."
-msgstr ""
+msgstr "Vaše odpověď nebyla odeslána, protože tento dotaz byla identifikován jako nevyžádaná zpráva. Prosíme <a href=\"%s\">kontaktujte nás</a> pokud svou zprávu chcete odeslat. "
 
 #: app/controllers/request_controller.rb:626
 msgid "Your follow up message has been sent on its way."
-msgstr "Zpráva s vaší odpovědí byla poslána a je na cestě. "
+msgstr "Zpráva s vaší odpovědí byla odeslána. "
 
 #: app/controllers/request_controller.rb:624
 msgid "Your internal review request has been sent on its way."
-msgstr "Vaše žádost o přezkoumání byla odeslána a je na cestě."
+msgstr "Vaše žádost o přezkoumání byla odeslána."
 
 #: app/controllers/help_controller.rb:63
 msgid ""
 "Your message has been sent. Thank you for getting in touch! We'll get back "
 "to you soon."
-msgstr "Vaše zpráva byla poslána. Děkujeme vám za ni. Odpovíme co nejdříve. "
+msgstr "Vaše zpráva byla odeslána. Děkujeme vám, odpovíme co nejdříve. "
 
 #: app/controllers/user_controller.rb:383
 msgid "Your message to {{recipient_user_name}} has been sent!"
@@ -4294,13 +3995,13 @@ msgstr "Vaše zpráva se objeví <strong>ve vyhledávačích</strong>"
 #: app/views/comment/preview.rhtml:10
 msgid ""
 "Your name and annotation will appear in <strong>search engines</strong>."
-msgstr "Vaše jméno a komentář se objeví <strong>ve vyhledavačích</strong>."
+msgstr "Vaše jméno a komentář se objeví <strong>ve vyhledávačích</strong>."
 
 #: app/views/request/preview.rhtml:8
 msgid ""
 "Your name, request and any responses will appear in <strong>search engines</strong>\n"
 "        (<a href=\"%s\">details</a>)."
-msgstr ""
+msgstr "Vaše jméno, dotaz a všechny odpovědi budou zveřejněny \n        ve <strong>vyhledávačích</strong>(<a         href=\"%s\">podrobnosti</a>)."
 
 #: app/views/user/_signup.rhtml:18
 msgid "Your name:"
@@ -4322,41 +4023,33 @@ msgstr "Vaše heslo:"
 msgid ""
 "Your photo will be shown in public <strong>on the Internet</strong>, \n"
 "    wherever you do something on {{site_name}}."
-msgstr ""
-"Vaše fotografie je veřejná <strong>na internetu</strong>, \n"
-"    kdykoliv uděláte něco na {{site_name}}."
+msgstr "Vaše fotografie bude zveřejněna v rámci profilu <strong>na internetu</strong>, \n    kdykoliv provedete jakoukoli akci {{site_name}}."
 
 #: app/views/request_mailer/new_response_reminder_alert.rhtml:5
 msgid ""
 "Your request was called {{info_request}}. Letting everyone know whether you "
 "got the information will help us keep tabs on"
-msgstr ""
-"Vaše žádost se jmenovala {{info_request}}. Když budete všechny informovat "
-"jestli jste požadovanou informaci obdrželi, budeme mít  přehled o"
+msgstr "Váš dotaz se jmenoval {{info_request}}. Když budete všechny informovat zda jste požadovanou informaci obdrželi, budeme mít přehled o"
 
 #: app/views/request/new.rhtml:113
 msgid "Your request:"
-msgstr "Vaše žádost:"
+msgstr "Váš dotaz:"
 
 #: app/views/request/upload_response.rhtml:8
 msgid ""
 "Your response will <strong>appear on the Internet</strong>, <a "
 "href=\"%s\">read why</a> and answers to other questions."
-msgstr ""
-"Vaše odpověď <strong>bude uveřejněna na internetu</strong>, <a "
-"href=\"%s\">čtěte proč</a>odpovědi na další otázky."
+msgstr "Vaše odpověď <strong>bude uveřejněna na internetu</strong>, <a href=\"%s\">čtěte proč</a>odpovědi na další otázky."
 
 #: app/views/comment/new.rhtml:63
 msgid ""
 "Your thoughts on what the {{site_name}} <strong>administrators</strong> "
 "should do about the request."
-msgstr ""
-"Vaše doporučení co by {{site_name}} <strong>administrátor</strong> měl "
-"udělat s touto žádostí."
+msgstr "Vaše doporučení co by {{site_name}} <strong>administrátor</strong> měl udělat s tímto dotazem."
 
 #: app/models/track_mailer.rb:25
 msgid "Your {{site_name}} email alert"
-msgstr "Váš {{site_name}} emailové upozornění"
+msgstr "Vaše {{site_name}} e-mailové upozornění"
 
 #: app/models/outgoing_message.rb:70
 msgid "Yours faithfully,"
@@ -4370,9 +4063,7 @@ msgstr "S pozdravem,"
 msgid ""
 "a one line summary of the information you are requesting, \n"
 "\t\t\te.g."
-msgstr ""
-"Shrnutí toho, co žádáte na jeden řádek.\n"
-"»»»například:"
+msgstr "Shrnutí vašeho dotazu na jeden řádek.\nNapříklad:"
 
 #: app/views/public_body/show.rhtml:37
 msgid "admin"
@@ -4380,7 +4071,7 @@ msgstr "admin"
 
 #: app/views/request/_request_filter_form.rhtml:30
 msgid "all requests"
-msgstr "všechny žádosti"
+msgstr "všechny dotazy"
 
 #: app/views/public_body/show.rhtml:35
 msgid "also called {{public_body_short_name}}"
@@ -4395,7 +4086,7 @@ msgstr "a"
 msgid ""
 "and update the status accordingly. Perhaps <strong>you</strong> might like "
 "to help out by doing that?"
-msgstr ""
+msgstr "a aktualizujte podle toho stav dotazu. Možná<strong>jste to právě vy</strong> kdo by nám chtěl pomoci?"
 
 #: app/views/request/show.rhtml:64
 msgid "and update the status."
@@ -4407,15 +4098,15 @@ msgstr "a my vám doporučíme <strong>další postup</strong>"
 
 #: app/views/general/frontpage.rhtml:60
 msgid "answered a request about"
-msgstr "zodpověděl žádost o "
+msgstr "zodpověděl dotaz týkající se"
 
 #: app/models/track_thing.rb:210
 msgid "any <a href=\"/list\">new requests</a>"
-msgstr "jakékoliv <a href=\"/list\">nové žádosti</a>"
+msgstr "jakékoliv <a href=\"/list\">nové dotazu</a>"
 
 #: app/models/track_thing.rb:226
 msgid "any <a href=\"/list/successful\">successful requests</a>"
-msgstr "jakékoliv <a href=\"/list/successful\">úspěšné žádosti</a>"
+msgstr "jakékoliv <a href=\"/list/successful\">úspěšné dotazy</a>"
 
 #: app/models/track_thing.rb:115
 msgid "anything"
@@ -4423,7 +4114,7 @@ msgstr "vše"
 
 #: app/views/request_mailer/very_overdue_alert.rhtml:1
 msgid "are long overdue."
-msgstr "jsou dlouho po termínu."
+msgstr "jsou dlouho po zákonem daném termínu."
 
 #: app/models/track_thing.rb:88 app/views/general/search.rhtml:55
 msgid "authorities"
@@ -4435,7 +4126,7 @@ msgstr "očekává se odpověď"
 
 #: app/controllers/public_body_controller.rb:125
 msgid "beginning with ‘{{first_letter}}’"
-msgstr ""
+msgstr "Začínající na ‘{{first_letter}}’"
 
 #: app/models/track_thing.rb:94
 msgid "between two dates"
@@ -4451,7 +4142,7 @@ msgstr "od <strong>{{date}}</strong>"
 
 #: app/views/request/_request_listing_via_event.rhtml:26
 msgid "by {{public_body_name}} to {{info_request_user}} on {{date}}."
-msgstr ""
+msgstr "od {{public_body_name}} pro {{info_request_user}} dne {{date}}."
 
 #: app/views/request/_request_listing_short_via_event.rhtml:10
 msgid "by {{user_link_absolute}}"
@@ -4469,15 +4160,13 @@ msgstr "komentář"
 #: app/views/request/_request_filter_form.rhtml:14
 #: app/views/general/search.rhtml:99
 msgid "comments"
-msgstr "komentáře"
+msgstr "komentáře / komentářů"
 
 #: app/views/request/show_response.rhtml:39
 msgid ""
 "containing your postal address, and asking them to reply to this request.\n"
 "            Or you could phone them."
-msgstr ""
-"obsahující vaši poštovní adresu, a žádající o odpověď na tuto žádost\n"
-"            Nebo jim můžete zavolat."
+msgstr "obsahující vaši poštovní adresu, a žádající o odpověď na tento dotaz.\n            Nebo jim můžete zavolat."
 
 #: app/models/info_request_event.rb:358
 msgid "display_status only works for incoming and outgoing messages right now"
@@ -4485,7 +4174,7 @@ msgstr "display_status právě teď funguje pouze pro příchozí a odchozí zpr
 
 #: app/views/request_mailer/overdue_alert.rhtml:3
 msgid "during term time"
-msgstr ""
+msgstr "během období"
 
 #: app/views/user/show.rhtml:101
 msgid "edit text about you"
@@ -4493,7 +4182,7 @@ msgstr "upravte text o sobě"
 
 #: app/views/user/show.rhtml:199
 msgid "email subscription"
-msgstr "odběr emailem"
+msgstr "odběr e-mailem"
 
 #: app/views/request_mailer/very_overdue_alert.rhtml:4
 msgid "even during holidays"
@@ -4509,11 +4198,11 @@ msgstr "exim log"
 
 #: locale/model_attributes.rb:67
 msgid "exim log done"
-msgstr "exim log hotový"
+msgstr "exim log hotov"
 
 #: locale/model_attributes.rb:85
 msgid "foi attachment"
-msgstr ""
+msgstr "příloha dotazů"
 
 #: app/views/request_mailer/requires_admin.rhtml:2
 msgid "has reported an"
@@ -4534,7 +4223,7 @@ msgstr "v dané lhůtě"
 
 #: app/controllers/public_body_controller.rb:131
 msgid "in the category ‘{{category_name}}’"
-msgstr ""
+msgstr "v kategorii ‘{{category_name}}’"
 
 #: locale/model_attributes.rb:54
 msgid "incoming message"
@@ -4555,11 +4244,11 @@ msgstr "vnitřní chyba"
 
 #: app/views/general/search.rhtml:87
 msgid "internal reviews"
-msgstr ""
+msgstr "vnitřní kontrola"
 
 #: app/views/request/show.rhtml:100
 msgid "is <strong>waiting for your clarification</strong>."
-msgstr "<strong>čeká na vaše ujasnění</strong>."
+msgstr "<strong>čeká na vaše vysvětlení</strong>."
 
 #: app/views/user/show.rhtml:76
 msgid "just to see how it works"
@@ -4576,7 +4265,7 @@ msgstr "hotovo"
 
 #: app/controllers/public_body_controller.rb:129
 msgid "matching the tag ‘{{tag_name}}’"
-msgstr ""
+msgstr "odpovídající štítku ‘{{tag_name}}’"
 
 #: app/views/request/_request_filter_form.rhtml:13
 #: app/views/general/search.rhtml:98
@@ -4598,7 +4287,7 @@ msgid ""
 "    From the request page, try replying to a particular message, rather than sending\n"
 "    a general followup. If you need to make a general followup, and know\n"
 "    an email which will go to the right place, please <a href=\"%s\">send it to us</a>."
-msgstr ""
+msgstr "již neexistuje. Pokud se pokoušíte\n    Ze stránky pro vznesení dotazu, pokuste se odpovědět na vybranou zprávu místo podávání obecné odpovědi. Pokud potřebujete poslat obecnou zprávu a znáte správný e-mail, na který to poslat, prosíme <a href=\"%s\">pošlete nám jej</a>."
 
 #: app/views/request/show.rhtml:72
 msgid "normally"
@@ -4610,7 +4299,7 @@ msgstr "odchozí zpráva"
 
 #: app/views/user/sign.rhtml:11
 msgid "please sign in as "
-msgstr "prosím přihlašte se jako"
+msgstr "prosíme přihlašte se jako"
 
 #: locale/model_attributes.rb:47
 msgid "post redirect"
@@ -4626,26 +4315,26 @@ msgstr "instituce"
 
 #: app/views/request_mailer/not_clarified_alert.rhtml:1
 msgid "request."
-msgstr "žádost"
+msgstr "dotaz"
 
 #: app/views/request/show.rhtml:89
 msgid "requesting an internal review"
-msgstr "požadavek na přezkoumání žádosti"
+msgstr "požadavek na přezkoumání dotazu"
 
 #: app/models/track_thing.rb:91 app/models/track_thing.rb:110
 #: app/models/track_thing.rb:112 app/views/general/search.rhtml:53
 msgid "requests"
-msgstr "žádosti"
+msgstr "dotazy"
 
 #: app/models/track_thing.rb:111
 msgid "requests which are {{list_of_statuses}}"
-msgstr ""
+msgstr "dotazy které jsou {{list_of_statuses}}"
 
 #: app/views/request_mailer/requires_admin.rhtml:3
 msgid ""
 "response as needing administrator attention. Take a look, and reply to this\n"
 "email to let them know what you are going to do about it."
-msgstr ""
+msgstr "jako odpověď, která vyžaduje pozornost administrátora. Podívejte se na ni, odpovězte\nna tento e-mail a oznamte, co budete dělat. ??"
 
 #: app/views/request/show.rhtml:102
 msgid "send a follow up message"
@@ -4666,7 +4355,7 @@ msgstr "úspěšné"
 #: app/views/request/_request_filter_form.rhtml:31
 #: app/views/general/search.rhtml:84
 msgid "successful requests"
-msgstr "úspěšné žádosti"
+msgstr "úspěšně zodpovězené dotazy"
 
 #: app/views/request_mailer/new_response.rhtml:2
 msgid "that you made to"
@@ -4675,11 +4364,11 @@ msgstr "kterou jste žádali u"
 #: app/views/request/_followup.rhtml:23 app/views/request/_followup.rhtml:28
 #: app/views/request/_followup.rhtml:34
 msgid "the main FOI contact address for {{public_body}}"
-msgstr ""
+msgstr "hlavní kontaktní adresa pro poskytování informací {{public_body}}"
 
 #: app/views/request/_followup.rhtml:3
 msgid "the main FOI contact at {{public_body}}"
-msgstr ""
+msgstr "hlavní kontakt pro vznesení dotazu na {{public_body}}"
 
 #: app/views/track_mailer/event_digest.rhtml:66
 #: app/views/request_mailer/stopped_responses.rhtml:16
@@ -4712,11 +4401,11 @@ msgstr "pro {{public_body}}"
 
 #: locale/model_attributes.rb:31
 msgid "track thing"
-msgstr "sleduj věc"
+msgstr "sledovat věc ??"
 
 #: app/views/request/_hidden_correspondence.rhtml:32
 msgid "unexpected prominence on request event"
-msgstr "neočekávaná událost se žádostí"
+msgstr "neočekávaná operace s dotazem"
 
 #: app/views/request/followup_bad.rhtml:29
 msgid "unknown reason "
@@ -4729,7 +4418,7 @@ msgstr "stav neznámý"
 #: app/views/request/_request_filter_form.rhtml:33
 #: app/views/general/search.rhtml:86
 msgid "unresolved requests"
-msgstr "nevyřešené žádosti"
+msgstr "nevyřešené dotazy"
 
 #: app/views/user/show.rhtml:236
 msgid "unsubscribe"
@@ -4746,7 +4435,7 @@ msgstr "neúspěšné"
 #: app/views/request/_request_filter_form.rhtml:32
 #: app/views/general/search.rhtml:85
 msgid "unsuccessful requests"
-msgstr "neúspěšné žádosti"
+msgstr "nezodpovězené dotazy"
 
 #: app/views/request/show.rhtml:53
 msgid "useful information."
@@ -4758,7 +4447,7 @@ msgstr "uživatel"
 
 #: locale/model_attributes.rb:93
 msgid "user info request sent alert"
-msgstr "upozornění na žádost uživatele o informaci"
+msgstr "upozornění na dotaz uživatele týkající se"
 
 #: app/models/track_thing.rb:82 app/views/general/search.rhtml:54
 msgid "users"
@@ -4766,26 +4455,26 @@ msgstr "uživatelé"
 
 #: app/views/request/list.rhtml:21
 msgid "{{count}} FOI requests found"
-msgstr "nalezeno {{count}} žádostí "
+msgstr "nalezeno {{count}} dotazy / dotazů "
 
 #: app/views/request/new.rhtml:27
 msgid ""
 "{{existing_request_user}} already\n"
 "      created the same request on {{date}}. You can either view the <a href=\"{{existing_request}}\">existing request</a>,\n"
 "      or edit the details below to make a new but similar request."
-msgstr ""
+msgstr "{{existing_request_user}} již\n      vznesl stejný dotaz dne {{date}}. Můžete si <a href=\"{{existing_request}}\">tento dotaz</a> přečíst,\n      nebo vzneste podobný, ale podle svých potřeb upravený dotaz."
 
 #: app/views/request/_after_actions.rhtml:23
 msgid "{{info_request_user_name}} only:"
-msgstr "{{info_request_user_name}} pouze:"
+msgstr "Pouze {{info_request_user_name}}:"
 
 #: app/models/info_request.rb:239
 msgid "{{law_used_full}} request - {{title}}"
-msgstr "{{law_used_full}} žádost - {{title}}"
+msgstr "{{law_used_full}} dotaz - {{title}}"
 
 #: app/models/info_request.rb:237
 msgid "{{law_used_full}} request GQ - {{title}}"
-msgstr ""
+msgstr "{{law_used_full}} žádejte GQ - {{title}} ??"
 
 #: app/views/general/frontpage.rhtml:62
 msgid "{{length_of_time}} ago"
@@ -4801,7 +4490,7 @@ msgstr "{{number_of_comments}} komentářů"
 
 #: app/views/request/_after_actions.rhtml:45
 msgid "{{public_body_name}} only:"
-msgstr "{{public_body_name}} pouze:"
+msgstr "Pouze {{public_body_name}}:"
 
 #: app/views/track_mailer/event_digest.rhtml:21
 msgid "{{public_body}} sent a response to {{user_name}}"
@@ -4819,24 +4508,22 @@ msgstr "{{site_name}} blog a tweety"
 msgid ""
 "{{site_name}} covers requests to {{number_of_authorities}} authorities, "
 "including:"
-msgstr ""
+msgstr "{{site_name}} zahrnuje dotazy vnzesené na {{number_of_authorities}} institucí, včetně:"
 
 #: app/views/public_body/view_email.rhtml:7
 msgid ""
 "{{site_name}} sends new requests to <strong>{{request_email}}</strong> for "
 "this authority."
-msgstr ""
-"{{site_name}} posílá nové žádosti <strong>{{request_email}}</strong> této "
-"instituci."
+msgstr "{{site_name}} vznáší nové dotazy na <strong>{{request_email}}</strong> tuto instituci."
 
 #: app/views/general/frontpage.rhtml:55
 msgid ""
 "{{site_name}} users have made {{number_of_requests}} requests, including:"
-msgstr ""
+msgstr "{{site_name}} tazatelé podali {{number_of_requests}} dotazů, včetně:"
 
 #: app/models/user.rb:136
 msgid "{{user_name}} (Account suspended)"
-msgstr ""
+msgstr "{{user_name}} (Účet pozastaven)"
 
 #: app/views/track_mailer/event_digest.rhtml:31
 msgid "{{user_name}} added an annotation"
@@ -4846,11 +4533,11 @@ msgstr "{{user_name}} přidal poznámku"
 msgid ""
 "{{user_name}} has annotated your {{law_used_short}} \n"
 "request. Follow this link to see what they wrote."
-msgstr ""
+msgstr "{{user_name}} uložil poznámku k vaší {{law_used_short}} . \nKlikněte na odkaz a přečtěte si ji."
 
 #: app/views/contact_mailer/user_message.rhtml:2
 msgid "{{user_name}} has used {{site_name}} to send you the message below."
-msgstr "{{user_name}} použil {{site_name}} aby vám posla níže uvedenou zprávu"
+msgstr "{{user_name}} použil {{site_name}} pro zaslání níže uvedené zprávy"
 
 #: app/views/track_mailer/event_digest.rhtml:24
 msgid "{{user_name}} sent a follow up message to {{public_body}}"
@@ -4858,7 +4545,7 @@ msgstr "{{user_name}} pošlete odpověď pro {{public_body}}"
 
 #: app/views/track_mailer/event_digest.rhtml:28
 msgid "{{user_name}} sent a request to {{public_body}}"
-msgstr "{{user_name}} poslal žádost pro {{public_body}}"
+msgstr "{{user_name}} vznesl dotaz {{public_body}}"
 
 #: app/views/request/simple_correspondence.rhtml:42
 msgid "{{username}} left an annotation:"
@@ -4869,10 +4556,8 @@ msgid ""
 "{{user}} (<a href=\"{{user_admin_url}}\">admin</a>) made this "
 "{{law_used_full}} request (<a href=\"{{request_admin_url}}\">admin</a>) to "
 "{{public_body_link}} (<a href=\"{{public_body_admin_url}}\">admin</a>)"
-msgstr ""
+msgstr "{{user}} (<a href=\"{{user_admin_url}}\">admin</a>) podal tuto {{law_used_full}} (<a href=\"{{request_admin_url}}\">admin</a>) pro {{public_body_link}} (<a href=\"{{public_body_admin_url}}\">admin</a>)"
 
 #: app/views/request/show.rhtml:44
 msgid "{{user}} made this {{law_used_full}} request"
 msgstr "{{user}} vložil tuto {{law_used_full}} "
-
-

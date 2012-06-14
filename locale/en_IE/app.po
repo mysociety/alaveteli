@@ -411,10 +411,7 @@ msgstr ""
 msgid ""
 "<strong><code>requested_from:home_office</code></strong> to search requests "
 "from the Home Office, typing the name as in the URL."
-msgstr ""
-"<strong><code>requested_from:department_of_justice_and_equality</code></strong>"
-" to search requests from the Department of Justice and Equality, typing the "
-"name as in the URL."
+msgstr "<strong><code>requested_from:department_of_justice_and_equality</code></strong> to search requests from the Department of Justice and Equality, typing the name as in the URL."
 
 #: app/views/general/_advanced_search_tips.rhtml:8
 msgid ""
@@ -3421,9 +3418,7 @@ msgstr ""
 msgid ""
 "Type <strong><code>01/01/2008..14/01/2008</code></strong> to only show "
 "things that happened in the first two weeks of January."
-msgstr ""
-"Type <strong><code>01/01/2011..14/01/2011</code></strong> to only show "
-"things that happened in the first two weeks of January 2011."
+msgstr "Type <strong><code>01/01/2011..14/01/2011</code></strong> to only show things that happened in the first two weeks of January 2011."
 
 #: app/models/public_body.rb:37
 msgid "URL name can't be blank"
@@ -3497,9 +3492,7 @@ msgstr ""
 msgid ""
 "Use quotes when you want to find an exact phrase, e.g. "
 "<strong><code>\"Liverpool City Council\"</code></strong>"
-msgstr ""
-"Use quotes when you want to find an exact phrase, e.g. "
-"<strong><code>\"Limerick City Council\"</code></strong>"
+msgstr "Use quotes when you want to find an exact phrase, e.g. <strong><code>\"Limerick City Council\"</code></strong>"
 
 #: locale/model_attributes.rb:94
 msgid "UserInfoRequestSentAlert|Alert type"
@@ -4556,5 +4549,3 @@ msgstr ""
 #: app/views/request/show.rhtml:44
 msgid "{{user}} made this {{law_used_full}} request"
 msgstr ""
-
-
