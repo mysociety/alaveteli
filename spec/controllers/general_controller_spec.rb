@@ -83,6 +83,11 @@ describe GeneralController, "when searching" do
             response.should have_text(home_link_regex)
         end
 
+        it "should use our test PO files rather than the application one" do
+            I18n.default_locale = :es
+            get :frontpage
+            response.should have_text(/XOXO/)
+        end
         it "should generate URLs without a locale prepended when there's only one locale set" do
             old_fgt_available_locales =  FastGettext.default_available_locales
             old_i18n_available_locales =  I18n.available_locales
