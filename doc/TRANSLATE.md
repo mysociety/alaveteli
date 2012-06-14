@@ -53,19 +53,32 @@ must:
 * on the release candidate date:
     * download (`tx pull -a -f`) and commit all the current translations (important:
       there's no revision history in Transifex!)
+    * you should also commit these translations to a hotfix for the
+      previous version, so they are preserved against the last known
+      good msgids
     * regenerate the POT file and individual PO files for each language,
       using `./script/generate_pot.sh` (which calls `rake gettext:find`, etc)
         * this updates the PO template, but also merges it with the
           individual PO files, marking strings that have only changed
           slightly as "fuzzy"
-	* you must emporarily move any theme containing translations out of the way (there's a bug in gettext_i18n_rails that can't cope with translation chains)
-    * reupload (`tx push -t`) the POT and PO files to Transifex
-        * The point of uploading the PO files is that Transifex converts the "fuzzy" suggestions from Transifex into "suggestions" under each source string
-        * Note that Transifex *does not* preserve fuzzy strings in the PO files it makes available for download, on the grounds that Transifex supports multiple suggestions, whereas gettext only allows one fuzzy suggestion per msgid.
-    * remove the fuzzy strings from the local PO files (because they make
-      Rails very noisy), and then commit the result. You can do this by re-pulling from Transifex.
+	* you must emporarily move any theme containing translations
+          out of the way (there's a bug in gettext_i18n_rails that
+          can't cope with translation chains)
+    * reupload (`tx push -t`) the POT and PO files to Transifex to the
+      current release branch
+        * The point of uploading the PO files is that Transifex
+          converts the "fuzzy" suggestions from Transifex into
+          "suggestions" under each source string
+        * Note that Transifex *does not* preserve fuzzy strings in the
+          PO files it makes available for download, on the grounds
+          that Transifex supports multiple suggestions, whereas
+          gettext only allows one fuzzy suggestion per msgid.
+    * remove the fuzzy strings from the local PO files (because they
+      make Rails very noisy), and then commit the result. You can do
+      this by re-pulling from Transifex.
 * on the release date:
-    * download and commit all the current translations
+    * download and commit all the current translations to the current
+      release branch
 
 # Translations: developers' view
 
