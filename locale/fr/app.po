@@ -60,15 +60,11 @@ msgid ""
 " <strong>Note:</strong>\n"
 "    We will send you an email. Follow the instructions in it to change\n"
 "    your password."
-msgstr ""
-" <strong>A savoir :</strong>\n"
-"    Nous allons vous envoyer un courrier électronique. Suivez les instructions de ce courrier pour changer votre mot de passe."
+msgstr " <strong>A savoir :</strong>\n    Nous allons vous envoyer un courrier électronique. Suivez les instructions de ce courrier pour changer votre mot de passe."
 
 #: app/views/user/contact.rhtml:35
 msgid " <strong>Privacy note:</strong> Your email address will be given to"
-msgstr ""
-" <strong>Protection de vos données :</strong> Votre adresse e-mail sera "
-"communiquée à"
+msgstr " <strong>Protection de vos données :</strong> Votre adresse e-mail sera communiquée à"
 
 #: app/views/comment/new.rhtml:34
 msgid " <strong>Summarise</strong> the content of any information returned. "
@@ -82,17 +78,13 @@ msgstr "Indiquez comment rendre la demande <strong>plus claire</strong>."
 msgid ""
 " Ideas on what <strong>other documents to request</strong> which the "
 "authority may hold. "
-msgstr ""
-"Idées d'<strong>autres documents à demander</strong> que cette "
-"administration pourrait détenir."
+msgstr "Idées d'<strong>autres documents à demander</strong> que cette administration pourrait détenir."
 
 #: app/views/public_body/view_email.rhtml:30
 msgid ""
 " If you know the address to use, then please <a href=\"%s\">send it to us</a>.\n"
 "        You may be able to find the address on their website, or by phoning them up and asking."
-msgstr ""
-" Si vous savez quelle adresse utiliser, merci de <a href=\"%s\">nous la communiquer</a>.\n"
-"        Vous êtes susceptible de trouver l'adresse sur leur site Internet ou en la leur demandant par téléphone."
+msgstr " Si vous savez quelle adresse utiliser, merci de <a href=\"%s\">nous la communiquer</a>.\n        Vous êtes susceptible de trouver l'adresse sur leur site Internet ou en la leur demandant par téléphone."
 
 #: app/views/user/set_profile_about_me.rhtml:26
 msgid ""
@@ -111,25 +103,19 @@ msgstr ""
 msgid ""
 " Offer better ways of <strong>wording the request</strong> to get the "
 "information. "
-msgstr ""
-" Proposez d'autres <strong>formulations</strong> pour accéder à ces "
-"informations. "
+msgstr " Proposez d'autres <strong>formulations</strong> pour accéder à ces informations. "
 
 #: app/views/comment/new.rhtml:35
 msgid ""
 " Say how you've <strong>used the information</strong>, with links if "
 "possible."
-msgstr ""
-" Dites-nous comment vous avez <strong>utilisé ces informations</strong>, à "
-"l'aide de liens si possible."
+msgstr " Dites-nous comment vous avez <strong>utilisé ces informations</strong>, à l'aide de liens si possible."
 
 #: app/views/comment/new.rhtml:29
 msgid ""
 " Suggest <strong>where else</strong> the requester might find the "
 "information. "
-msgstr ""
-" Suggérez <strong>un autre endroit</strong> où l'utilisateur pourrait "
-"trouver ces informations. "
+msgstr " Suggérez <strong>un autre endroit</strong> où l'utilisateur pourrait trouver ces informations. "
 
 #: app/views/user/set_profile_about_me.rhtml:11
 msgid " What are you investigating using Freedom of Information? "
@@ -240,9 +226,7 @@ msgstr ""
 
 #: app/views/general/search.rhtml:168
 msgid "<a href=\"%s\">Browse all</a> or <a href=\"%s\">ask us to add one</a>."
-msgstr ""
-"<a href=\"%s\">Voir tout</a> ou <a href=\"%s\"> demandez nous d'ajouter "
-"une</a>."
+msgstr "<a href=\"%s\">Voir tout</a> ou <a href=\"%s\"> demandez nous d'ajouter une</a>."
 
 #: app/views/public_body/list.rhtml:51
 msgid "<a href=\"%s\">Can't find the one you want?</a>"
@@ -407,42 +391,31 @@ msgstr ""
 msgid ""
 "<strong><code>commented_by:tony_bowden</code></strong> to search annotations"
 " made by Tony Bowden, typing the name as in the URL."
-msgstr ""
-"<strong><code>commented_by:tony_bowden</code></strong> Pour chercher des "
-"commentaires faits par Tony Bowden, écrivez le nom comme dans l'URL"
+msgstr "<strong><code>commented_by:tony_bowden</code></strong> Pour chercher des commentaires faits par Tony Bowden, écrivez le nom comme dans l'URL"
 
 #: app/views/general/_advanced_search_tips.rhtml:14
 msgid ""
 "<strong><code>filetype:pdf</code></strong> to find all responses with PDF "
 "attachments. Or try these: <code>{{list_of_file_extensions}}</code>"
-msgstr ""
-"<strong><code>filetype:pdf</code></strong> Pour trouver toutes les réponses "
-"avec des documents PDF. Ou essayer ceux-ci: "
-"<code>{{list_of_file_extensions}}</code>"
+msgstr "<strong><code>filetype:pdf</code></strong> Pour trouver toutes les réponses avec des documents PDF. Ou essayer ceux-ci: <code>{{list_of_file_extensions}}</code>"
 
 #: app/views/general/_advanced_search_tips.rhtml:13
 msgid ""
 "<strong><code>request:</code></strong> to restrict to a specific request, "
 "typing the title as in the URL."
-msgstr ""
-"<strong><code>request:</code></strong> Pour vous limiter à une sollicitude "
-"concrète, tapez le titre comme dans l'URL."
+msgstr "<strong><code>request:</code></strong> Pour vous limiter à une sollicitude concrète, tapez le titre comme dans l'URL."
 
 #: app/views/general/_advanced_search_tips.rhtml:11
 msgid ""
 "<strong><code>requested_by:julian_todd</code></strong> to search requests "
 "made by Julian Todd, typing the name as in the URL."
-msgstr ""
-"<strong><code>requested_by:julian_todd</code></strong> Pour chercher les "
-"sollicitudes faites par Julian Todd, écrivez le nom comme dans l'URL. "
+msgstr "<strong><code>requested_by:julian_todd</code></strong> Pour chercher les sollicitudes faites par Julian Todd, écrivez le nom comme dans l'URL. "
 
 #: app/views/general/_advanced_search_tips.rhtml:10
 msgid ""
 "<strong><code>requested_from:home_office</code></strong> to search requests "
 "from the Home Office, typing the name as in the URL."
-msgstr ""
-"<strong><code>requested_from:home_office</code></strong> Pour chercher les "
-"sollicitudes du Home Office, écrivez le nom comme dans l'URL. "
+msgstr "<strong><code>requested_from:home_office</code></strong> Pour chercher les sollicitudes du Home Office, écrivez le nom comme dans l'URL. "
 
 #: app/views/general/_advanced_search_tips.rhtml:8
 msgid ""
@@ -456,13 +429,7 @@ msgid ""
 "<strong><code>tag:charity</code></strong> to find all public bodies or requests with a given tag. You can include multiple tags, \n"
 "    and tag values, e.g. <code>tag:openlylocal AND tag:financial_transaction:335633</code>. Note that by default any of the tags\n"
 "    can be present, you have to put <code>AND</code> explicitly if you only want results them all present."
-msgstr ""
-"<strong><code>tag:charity</code></strong> pour trouvez tous les institutions"
-" publiques ou les sollicitudes avec la même étiquette. Vous pouvez inclure "
-"plusieurs étiquettes,\\n ou plusieurs étiquettes, ex. <code>tag:openlylocal "
-"AND tag:financial_transaction:335633</code>. Note that by default any of the"
-" tags \\n can be present, you have to put <code>AND</code> explicitly if you"
-" only want results them all present."
+msgstr "<strong><code>tag:charity</code></strong> pour trouvez tous les institutions publiques ou les sollicitudes avec la même étiquette. Vous pouvez inclure plusieurs étiquettes,\\n ou plusieurs étiquettes, ex. <code>tag:openlylocal AND tag:financial_transaction:335633</code>. Note that by default any of the tags \\n can be present, you have to put <code>AND</code> explicitly if you only want results them all present."
 
 #: app/views/general/_advanced_search_tips.rhtml:9
 msgid ""
@@ -943,10 +910,7 @@ msgstr ""
 msgid ""
 "Couldn't understand the image file that you uploaded. PNG, JPEG, GIF and "
 "many other common image file formats are supported."
-msgstr ""
-"Nous ne pouvons utiliser le fichier image que vous nous avez soumis. Nous "
-"acceptons les fichiers PNG, JPEG et GIF, ainsi qu'un grand nombre d'autres "
-"formats communément utilisés."
+msgstr "Nous ne pouvons utiliser le fichier image que vous nous avez soumis. Nous acceptons les fichiers PNG, JPEG et GIF, ainsi qu'un grand nombre d'autres formats communément utilisés."
 
 #: app/views/user/set_crop_profile_photo.rhtml:6
 msgid "Crop your profile photo"
@@ -1070,9 +1034,7 @@ msgstr ""
 msgid ""
 "Enter words that you want to find separated by spaces, e.g. <strong>climbing"
 " lane</strong>"
-msgstr ""
-"Entrez les mots que vous voulez trouver séparés avec des espaces. ex. : "
-"<strong>voie rapide</strong>"
+msgstr "Entrez les mots que vous voulez trouver séparés avec des espaces. ex. : <strong>voie rapide</strong>"
 
 #: app/views/request/upload_response.rhtml:23
 msgid ""
@@ -1166,9 +1128,7 @@ msgstr "Nous n'avons pas pu convertir l'image au format PNG."
 msgid ""
 "Failed to convert image to the correct size: at %{cols}x%{rows}, need "
 "%{width}x%{height}"
-msgstr ""
-"Nous n'avons pas pu changer les dimensions de l'image: at %{cols}x%{rows}, "
-"need %{width}x%{height}"
+msgstr "Nous n'avons pas pu changer les dimensions de l'image: at %{cols}x%{rows}, need %{width}x%{height}"
 
 #: app/views/general/search.rhtml:117
 msgid "Filter"
@@ -1256,9 +1216,7 @@ msgstr ""
 msgid ""
 "For an unknown reason, it is not possible to make a request to this "
 "authority."
-msgstr ""
-"Par des raisons que nous ne pouvons pas déterminer, il est impossible "
-"d'envoyer des demandes à cette institution."
+msgstr "Par des raisons que nous ne pouvons pas déterminer, il est impossible d'envoyer des demandes à cette institution."
 
 #: app/views/user/_signin.rhtml:21
 msgid "Forgotten your password?"
@@ -1306,8 +1264,7 @@ msgstr ""
 
 #: app/views/public_body/show.rhtml:76
 msgid "Freedom of Information requests made using this site"
-msgstr ""
-"sollicitudes d'accès à l'information envoyées en utilisant cette site web"
+msgstr "sollicitudes d'accès à l'information envoyées en utilisant cette site web"
 
 #: app/views/public_body/show.rhtml:30
 msgid "Freedom of information requests to"
@@ -1707,9 +1664,7 @@ msgstr ""
 msgid ""
 "Let us know what you were doing when this message\n"
 "appeared and your browser and operating system type and version."
-msgstr ""
-"Dites-nous ce que vous faisiez lorsque ce message est apparu ainsi que votre"
-" navigateur et le type et la version de votre système d'exploitation."
+msgstr "Dites-nous ce que vous faisiez lorsque ce message est apparu ainsi que votre navigateur et le type et la version de votre système d'exploitation."
 
 #: app/views/request/_correspondence.rhtml:26
 #: app/views/request/_correspondence.rhtml:54
@@ -1876,9 +1831,7 @@ msgstr "Pas de demandes similaires trouvés."
 msgid ""
 "Nobody has made any Freedom of Information requests to {{public_body_name}} "
 "using this site yet."
-msgstr ""
-"Personne n'a jamais envoyée une sollicitude d'accès à l'information à "
-"{{public_body_name}} en utilisant cette page."
+msgstr "Personne n'a jamais envoyée une sollicitude d'accès à l'information à {{public_body_name}} en utilisant cette page."
 
 #: app/views/request/_request_listing.rhtml:2
 #: app/views/public_body/_body_listing.rhtml:3
@@ -2104,10 +2057,7 @@ msgstr ""
 msgid ""
 "Please describe more what the request is about in the subject. There is no "
 "need to say it is an FOI request, we add that on anyway."
-msgstr ""
-"Merci d'indiquer le thème de votre requête dans le champ \"Sujet\". Il n'est"
-" pas nécessaire d'indiquer qu'il s'agit d'une demande d'accès aux documents "
-"administratifs, nous le précisons par défaut."
+msgstr "Merci d'indiquer le thème de votre requête dans le champ \"Sujet\". Il n'est pas nécessaire d'indiquer qu'il s'agit d'une demande d'accès aux documents administratifs, nous le précisons par défaut."
 
 #: app/views/user/set_draft_profile_photo.rhtml:22
 msgid ""
@@ -2165,9 +2115,7 @@ msgstr "Merci d'entrer votre nom"
 
 #: app/models/user.rb:123
 msgid "Please enter your name, not your email address, in the name field."
-msgstr ""
-"Merci d'indiquer votre nom, non pas votre e-mail, dans le champ réservée au "
-"nom."
+msgstr "Merci d'indiquer votre nom, non pas votre e-mail, dans le champ réservée au nom."
 
 #: app/models/change_email_validator.rb:31
 msgid "Please enter your new email address"
@@ -2183,9 +2131,7 @@ msgstr "Merci d'entrer votre mot de passe"
 
 #: app/models/outgoing_message.rb:146
 msgid "Please give details explaining why you want a review"
-msgstr ""
-"Merci d'indiquer la/les raison(s) pour laquelle/lesquelles vous demandez une"
-" révision "
+msgstr "Merci d'indiquer la/les raison(s) pour laquelle/lesquelles vous demandez une révision "
 
 #: app/models/about_me_validator.rb:24
 msgid "Please keep it shorter than 500 characters"
@@ -2195,8 +2141,7 @@ msgstr "Merci de vous limiter à 500 caractères "
 msgid ""
 "Please keep the summary short, like in the subject of an email. You can use "
 "a phrase, rather than a full sentence."
-msgstr ""
-"S'il vous plait soyez bref dans le résumé, comme dans le titre d'un email."
+msgstr "S'il vous plait soyez bref dans le résumé, comme dans le titre d'un email."
 
 #: app/views/request/new.rhtml:77
 msgid ""
@@ -2214,9 +2159,7 @@ msgstr ""
 msgid ""
 "Please sign at the bottom with your name, or alter the \"%{signoff}\" "
 "signature"
-msgstr ""
-"S'il vous plait signer à la fin avec votre nom, ou changez la \"%{signoff}\""
-" signature"
+msgstr "S'il vous plait signer à la fin avec votre nom, ou changez la \"%{signoff}\" signature"
 
 #: app/views/user/sign.rhtml:8
 msgid "Please sign in as "
@@ -2243,17 +2186,13 @@ msgstr "S'il vous plait écrivez un résumé avec du texte"
 msgid ""
 "Please write the summary using a mixture of capital and lower case letters. "
 "This makes it easier for others to read."
-msgstr ""
-"S'il vous plait écrivez un résumé en utilisant des lettres majuscules et "
-"minuscules"
+msgstr "S'il vous plait écrivez un résumé en utilisant des lettres majuscules et minuscules"
 
 #: app/models/comment.rb:63
 msgid ""
 "Please write your annotation using a mixture of capital and lower case "
 "letters. This makes it easier for others to read."
-msgstr ""
-"S'il vous plait écrivez votre commentaire en utilisant des lettres "
-"majuscules et minuscules. Ce sera plus facile de lire."
+msgstr "S'il vous plait écrivez votre commentaire en utilisant des lettres majuscules et minuscules. Ce sera plus facile de lire."
 
 #: app/controllers/request_controller.rb:465
 msgid ""
@@ -2265,9 +2204,7 @@ msgstr ""
 msgid ""
 "Please write your message using a mixture of capital and lower case letters."
 " This makes it easier for others to read."
-msgstr ""
-"S'il vous plait écrivez votre message en utilisant des lettres majuscules et"
-" minuscules. Ce sera plus facile de lire."
+msgstr "S'il vous plait écrivez votre message en utilisant des lettres majuscules et minuscules. Ce sera plus facile de lire."
 
 #: app/views/comment/new.rhtml:42
 msgid ""
@@ -2554,9 +2491,7 @@ msgstr "Rechercher"
 
 #: app/views/general/search.rhtml:8
 msgid "Search Freedom of Information requests, public authorities and users"
-msgstr ""
-"Chercher des sollicitudes d'accès à l'information, des institutions "
-"publiques et utilisateurs"
+msgstr "Chercher des sollicitudes d'accès à l'information, des institutions publiques et utilisateurs"
 
 #: app/views/user/show.rhtml:134
 msgid "Search contributions by this person"
@@ -2973,10 +2908,7 @@ msgstr ""
 msgid ""
 "The search index is currently offline, so we can't show the Freedom of "
 "Information requests that have been made to this authority."
-msgstr ""
-"Les fonctionnalités de recherche sont temporairement indisponibles. C'est "
-"pour cette raison que nous ne pouvons afficher les demandes d'information "
-"relative à cette institution."
+msgstr "Les fonctionnalités de recherche sont temporairement indisponibles. C'est pour cette raison que nous ne pouvons afficher les demandes d'information relative à cette institution."
 
 #: app/views/user/show.rhtml:165
 msgid ""
@@ -3176,10 +3108,7 @@ msgstr ""
 msgid ""
 "This covers a very wide spectrum of information about the state of\n"
 "            the <strong>natural and built environment</strong>, such as:"
-msgstr ""
-"Cela couvre un très large spectre d'informations sur l'état de "
-"<strong>l'environnement naturel et construit par l'homme,</strong> comme par"
-" exemple :"
+msgstr "Cela couvre un très large spectre d'informations sur l'état de <strong>l'environnement naturel et construit par l'homme,</strong> comme par exemple :"
 
 #: app/views/request/simple_correspondence.rhtml:1
 msgid ""
@@ -3363,15 +3292,11 @@ msgstr ""
 
 #: app/models/track_thing.rb:284
 msgid "To follow requests and responses matching your search"
-msgstr ""
-"Pour suivre les demandes d'information et les réponses correspondant à votre"
-" recherche"
+msgstr "Pour suivre les demandes d'information et les réponses correspondant à votre recherche"
 
 #: app/models/track_thing.rb:201
 msgid "To follow updates to the request '{{request_title}}'"
-msgstr ""
-"Pour suivre les mises à jour de cette demande d'information "
-"'{{request_title}}'"
+msgstr "Pour suivre les mises à jour de cette demande d'information '{{request_title}}'"
 
 #: app/views/request_mailer/old_unclassified_updated.rhtml:1
 msgid ""
@@ -3421,9 +3346,7 @@ msgstr ""
 msgid ""
 "To use the advanced search, combine phrases and labels as described in the "
 "search tips below."
-msgstr ""
-"Pour utiliser la recherche avancée, associez les termes et les étiquettes "
-"comme indiqué dans les conseils ci-dessous."
+msgstr "Pour utiliser la recherche avancée, associez les termes et les étiquettes comme indiqué dans les conseils ci-dessous."
 
 #: app/views/public_body/view_email_captcha.rhtml:5
 msgid ""
@@ -3499,10 +3422,7 @@ msgstr "Partager cette demande d'information sur Twitter"
 msgid ""
 "Type <strong><code>01/01/2008..14/01/2008</code></strong> to only show "
 "things that happened in the first two weeks of January."
-msgstr ""
-"Saisissez <strong><code>01/01/2008..14/01/2008</code></strong> pour afficher"
-" que les évènements s'étant produits durant les deux premières semaine de "
-"janvier."
+msgstr "Saisissez <strong><code>01/01/2008..14/01/2008</code></strong> pour afficher que les évènements s'étant produits durant les deux premières semaine de janvier."
 
 #: app/models/public_body.rb:37
 msgid "URL name can't be blank"
@@ -3570,17 +3490,13 @@ msgstr ""
 msgid ""
 "Use OR (in capital letters) where you don't mind which word,  e.g. "
 "<strong><code>commons OR lords</code></strong>"
-msgstr ""
-"Utilisez OR (en majuscules) pour indiquer que l'ordre des mots n'importe "
-"pas, \\n\\n par exemple, <code><strong>sénat OR assemblée</strong></code>"
+msgstr "Utilisez OR (en majuscules) pour indiquer que l'ordre des mots n'importe pas, \\n\\n par exemple, <code><strong>sénat OR assemblée</strong></code>"
 
 #: app/views/general/_advanced_search_tips.rhtml:7
 msgid ""
 "Use quotes when you want to find an exact phrase, e.g. "
 "<strong><code>\"Liverpool City Council\"</code></strong>"
-msgstr ""
-"Utilisez les guillemets pour une expression exacte, par exemple, "
-"<code><strong>\"Conseil de l'europe\"</strong></code>"
+msgstr "Utilisez les guillemets pour une expression exacte, par exemple, <code><strong>\"Conseil de l'europe\"</strong></code>"
 
 #: locale/model_attributes.rb:94
 msgid "UserInfoRequestSentAlert|Alert type"
@@ -3725,9 +3641,7 @@ msgstr ""
 msgid ""
 "We will not reveal your email address to anybody unless you or\n"
 "        the law tell us to (<a href=\"%s\">details</a>). "
-msgstr ""
-"Nous ne communiquerons pas votre adresse e-mail sauf si vous nous y \n"
-"        autorisez ou si la loi nous y oblige (<a href=\"%s\">détails</a>). "
+msgstr "Nous ne communiquerons pas votre adresse e-mail sauf si vous nous y \n        autorisez ou si la loi nous y oblige (<a href=\"%s\">détails</a>). "
 
 #: app/views/user_mailer/changeemail_confirm.rhtml:10
 msgid ""
@@ -3841,9 +3755,7 @@ msgstr ""
 
 #: app/models/track_thing.rb:279
 msgid "You are already tracking things matching this search by email"
-msgstr ""
-"Vous nous avez déjà demandé de vous tenir au courant des évolutions de cette"
-" recherche par e-mail"
+msgstr "Vous nous avez déjà demandé de vous tenir au courant des évolutions de cette recherche par e-mail"
 
 #: app/models/track_thing.rb:263
 msgid "You are already tracking this person by email"
@@ -3874,9 +3786,7 @@ msgstr ""
 #: app/views/public_body/show.rhtml:46
 msgid ""
 "You can only request information about the environment from this authority."
-msgstr ""
-"Vous ne pouvez demander des informations concernant l'environnement pour "
-"cette institution."
+msgstr "Vous ne pouvez demander des informations concernant l'environnement pour cette institution."
 
 #: app/views/request_mailer/new_response.rhtml:1
 msgid "You have a new response to the {{law_used_full}} request "
@@ -3886,9 +3796,7 @@ msgstr ""
 msgid ""
 "You have found a bug.  Please <a href=\"{{contact_url}}\">contact us</a> to "
 "tell us about the problem"
-msgstr ""
-"Vous avez identifié un bogue. Merci de <a href=\"{{contact_url}}\">nous "
-"contacter</a> pour nous signaler ce problème"
+msgstr "Vous avez identifié un bogue. Merci de <a href=\"{{contact_url}}\">nous contacter</a> pour nous signaler ce problème"
 
 #: app/views/user/rate_limited.rhtml:5
 msgid ""
@@ -4137,15 +4045,11 @@ msgstr ""
 
 #: app/models/outgoing_message.rb:70
 msgid "Yours faithfully,"
-msgstr ""
-"Je vous prie de croire, Monsieur/Madame, à l'assurance de mes salutations "
-"distinguées,"
+msgstr "Je vous prie de croire, Monsieur/Madame, à l'assurance de mes salutations distinguées,"
 
 #: app/models/outgoing_message.rb:68
 msgid "Yours sincerely,"
-msgstr ""
-"Je vous prie de croire, Monsieur/Madame, à l'assurance de mes salutations "
-"distinguées,"
+msgstr "Je vous prie de croire, Monsieur/Madame, à l'assurance de mes salutations distinguées,"
 
 #: app/views/request/new.rhtml:88
 msgid ""
@@ -4596,9 +4500,7 @@ msgstr ""
 msgid ""
 "{{site_name}} covers requests to {{number_of_authorities}} authorities, "
 "including:"
-msgstr ""
-"{{site_name}} gère les demandes adressées à {{number_of_authorities}} "
-"institutions, dont :"
+msgstr "{{site_name}} gère les demandes adressées à {{number_of_authorities}} institutions, dont :"
 
 #: app/views/public_body/view_email.rhtml:7
 msgid ""
@@ -4609,9 +4511,7 @@ msgstr ""
 #: app/views/general/frontpage.rhtml:55
 msgid ""
 "{{site_name}} users have made {{number_of_requests}} requests, including:"
-msgstr ""
-"Les utilisateurs de {{site_name}} ont envoyé {{number_of_requests}} "
-"demandes, dont :"
+msgstr "Les utilisateurs de {{site_name}} ont envoyé {{number_of_requests}} demandes, dont :"
 
 #: app/models/user.rb:136
 msgid "{{user_name}} (Account suspended)"
@@ -4653,5 +4553,3 @@ msgstr ""
 #: app/views/request/show.rhtml:44
 msgid "{{user}} made this {{law_used_full}} request"
 msgstr ""
-
-
