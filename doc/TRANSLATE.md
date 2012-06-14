@@ -61,9 +61,6 @@ must:
         * this updates the PO template, but also merges it with the
           individual PO files, marking strings that have only changed
           slightly as "fuzzy"
-	* you must emporarily move any theme containing translations
-          out of the way (there's a bug in gettext_i18n_rails that
-          can't cope with translation chains)
     * reupload (`tx push -t`) the POT and PO files to Transifex to the
       current release branch
         * The point of uploading the PO files is that Transifex
