@@ -16,7 +16,7 @@
 * A new, experimental theme for the administrative interface.  It's
   currently packaged as a standalone theme, but will be merged into
   the core once it's been tested and iterated in production a few
-  times.
+  times.  Thanks to @wombleton for kicking this off!
 * Alert subscriptions are now referred to as "following" a request (or
   group of requests) throughout the UI.  When a user "follows" a
   request, updates regarding that request are posted on a new "wall"
@@ -26,11 +26,12 @@
   button for users to report potentially unsuitable requests, and a
   form control in the administrative interface that hides a request
   and sends the user an email explaining why.
+* A bug which prevented locales containing underscores (e.g. `en_GB`)
+  was fixed
+  ([issue #503](https://github.com/sebbacon/alaveteli/issues/503))
+* Error pages are now presented with styling from themes
 
 ## Upgrade notes
-
-* Existing installations will need to install the Bundler gem.  See
-  `INSTALL.md` for details.
 
 * As a result of using bundler, the list of software packages that
   should be installed has changed.  On Debian, you can run:
@@ -40,10 +41,13 @@
   [This gist](https://gist.github.com/2584766) shows the changes to
   `config/packages` since the previous release.
 
+* Existing installations will need to install Bundler.  On Debian this
+  is done by the above command.  See `INSTALL.md` for details.
+
 * Because dependencies are now handled by Bundler, when you next run
   the `rails-post-deploy` script, it will download, compile and
-  install various things.  Part of this is compiling xapian, which may
-  take a *long* time (subsequent deployments should be much faster)
+  install various things.  Part of this is compiling xapian, which will
+  take a *long* time (subsequent deployments will be much faster)
 
 * To support invalidating the Varnish cache, ensure that there's a
   value for `VARNISH_HOST` in `general.yml` (normally this would be
@@ -67,7 +71,14 @@
   `./script/rails-post-deploy`.  If you don't like it, turn it off
   again by removing the line referring to the theme
   (`adminbootstraptheme`) -- but email the mailing list first,
-  explaining why!
+  explaining why!  The intention is to merge this theme into the
+  Alaveteli core in a future release.
+  
+* If you are already using Google Analytics, you are probably
+  including the tracking code manually in your theme.  If you'd like
+  to use Alaveteli's support for Google Analytics, set the `GA_CODE`
+  in `general.yml` and remove all reference to the tracking code from
+  your theme.
 
 * Here's a list of all the new config variables you might want to change:
   * `THEME_URLS`
