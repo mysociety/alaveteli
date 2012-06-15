@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
-"POT-Creation-Date: 2012-06-14 14:21+0100\n"
-"PO-Revision-Date: 2012-06-15 07:16+0000\n"
+"POT-Creation-Date: 2012-06-15 11:36+0100\n"
+"PO-Revision-Date: 2012-06-15 10:40+0000\n"
 "Last-Translator: sebbacon <seb.bacon@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -231,7 +231,7 @@ msgstr "<a href=\"%s\">Dodaj napomenu</a> (da bi se pomoglo podnosiocu zahtjeva 
 msgid "<a href=\"%s\">Are we missing a public authority?</a>."
 msgstr "<a href=\"%s\">Da li nam nedostaje javna ustanova?</a>."
 
-#: app/views/request/_sidebar.rhtml:50
+#: app/views/request/_sidebar.rhtml:60
 msgid ""
 "<a href=\"%s\">Are you the owner of\n"
 "            any commercial copyright on this page?</a>"
@@ -585,7 +585,7 @@ msgstr "Korisnik stranice {{site_name}}"
 msgid "About you:"
 msgstr "O Vama:"
 
-#: app/views/request/_sidebar.rhtml:19
+#: app/views/request/_sidebar.rhtml:29
 msgid "Act on what you've learnt"
 msgstr "Radite na osnovu onoga što ste naučili"
 
@@ -1115,7 +1115,7 @@ msgstr ""
 msgid "Event history"
 msgstr "Prikaz prošlih događanja"
 
-#: app/views/request/_sidebar.rhtml:46
+#: app/views/request/_sidebar.rhtml:56
 msgid "Event history details"
 msgstr "Detalji prikaza prošlih događanja"
 
@@ -1845,7 +1845,7 @@ msgstr "Nedostaju detalji kontakta za '"
 msgid "More about this authority"
 msgstr "Više o ovoj ustanovi"
 
-#: app/views/request/_sidebar.rhtml:40
+#: app/views/request/_sidebar.rhtml:50
 msgid "More similar requests"
 msgstr "Više sličnih zahtjeva"
 
@@ -2576,7 +2576,7 @@ msgstr "Prijavi zloupotrebu"
 msgid "Report an offensive or unsuitable request"
 msgstr ""
 
-#: app/views/request/_sidebar.rhtml:16
+#: app/views/request/_sidebar.rhtml:26
 msgid "Report this request"
 msgstr ""
 
@@ -2616,7 +2616,7 @@ msgstr "Traženo od {{public_body_name}} od strane {{info_request_user}} na datu
 msgid "Requested on {{date}}"
 msgstr "Traženo na datum {{date}}"
 
-#: app/views/request/_sidebar.rhtml:14
+#: app/views/request/_sidebar.rhtml:24
 msgid ""
 "Requests for personal information and vexatious requests are not considered "
 "valid for FOI purposes (<a href=\"/help/about\">read more</a>)."
@@ -2808,7 +2808,7 @@ msgstr "Odjavite se"
 msgid "Sign up"
 msgstr "Registrujte se"
 
-#: app/views/request/_sidebar.rhtml:35
+#: app/views/request/_sidebar.rhtml:45
 msgid "Similar requests"
 msgstr "Slični zahtjevi"
 
@@ -2866,7 +2866,7 @@ msgstr "Počni"
 msgid "Start now &raquo;"
 msgstr "Počni sada &raquo;"
 
-#: app/views/request/_sidebar.rhtml:28
+#: app/views/request/_sidebar.rhtml:38
 msgid "Start your own blog"
 msgstr "Započnite Vaš blog"
 
@@ -3176,7 +3176,7 @@ msgid "Then you can write your reply to "
 msgstr "Tada možete napisati Vaš odgovor za"
 
 #: app/models/track_thing.rb:222
-msgid "Then you will be following all new FOI request."
+msgid "Then you will be following all new FOI requests."
 msgstr ""
 
 #: app/models/track_thing.rb:273
@@ -3412,6 +3412,13 @@ msgid ""
 "        \t   There may be an explanation in the correspondence below."
 msgstr "Ovaj zahtjev je <strong>povučen</strong> od strane osobe koja ga je napravila. \n        <span class=\"whitespace other\" title=\"Tab\">»</span>   Obijašnjenje može biti u dopisima ispod."
 
+#: app/views/request/_sidebar.rhtml:21
+msgid ""
+"This request has been marked for review by the site administrators, who have"
+" not hidden it at this time. If you believe it should be hidden, please <a "
+"href=\"%s\">contact us</a>."
+msgstr ""
+
 #: app/controllers/request_controller.rb:669
 msgid "This request has been reported for administrator attention"
 msgstr ""
@@ -3428,13 +3435,13 @@ msgid ""
 "attention</strong> from the {{site_name}} team."
 msgstr "Ovaj zahtjev je dobio neobičan odgovor, i  <strong>treba pregled</strong> od strane {{site_name}} tima."
 
-#: app/views/request/show.rhtml:7
+#: app/views/request/_sidebar.rhtml:14 app/views/request/show.rhtml:7
 msgid ""
 "This request has prominence 'hidden'. You can only see it because you are logged\n"
 "    in as a super user."
 msgstr "Ovaj zahtjev je inače skriven. Možete ga vidjeti jer ste prijavljeni \n    kao super korisnik."
 
-#: app/views/request/show.rhtml:13
+#: app/views/request/_sidebar.rhtml:18 app/views/request/show.rhtml:13
 msgid ""
 "This request is hidden, so that only you the requester can see it. Please\n"
 "    <a href=\"%s\">contact us</a> if you are not sure why."
@@ -3468,10 +3475,6 @@ msgid ""
 "This was not possible because there is already an account using \n"
 "the email address {{email}}."
 msgstr "To nije bilo moguće jer već postoji račun koji koristi ovu e-mail adresu {{email}}."
-
-#: app/models/track_thing.rb:221
-msgid "To be follow new requests"
-msgstr ""
 
 #: app/controllers/track_controller.rb:204
 msgid "To cancel these alerts"
@@ -3509,6 +3512,10 @@ msgstr "Da biste preuzeli zip fajl"
 
 #: app/models/track_thing.rb:237
 msgid "To follow all successful requests"
+msgstr ""
+
+#: app/models/track_thing.rb:221
+msgid "To follow new requests"
 msgstr ""
 
 #: app/models/track_thing.rb:288
@@ -3649,7 +3656,7 @@ msgstr ""
 msgid "Turn off email alerts"
 msgstr ""
 
-#: app/views/request/_sidebar.rhtml:24
+#: app/views/request/_sidebar.rhtml:34
 msgid "Tweet this request"
 msgstr "Tweetuj ovaj zahtjev"
 

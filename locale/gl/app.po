@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
-"POT-Creation-Date: 2012-06-14 14:21+0100\n"
-"PO-Revision-Date: 2012-06-15 07:16+0000\n"
+"POT-Creation-Date: 2012-06-15 11:36+0100\n"
+"PO-Revision-Date: 2012-06-15 10:40+0000\n"
 "Last-Translator: sebbacon <seb.bacon@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -226,7 +226,7 @@ msgstr "<a href=\"%s\">Añada un comentario</a> (para ayudar al peticionario o a
 msgid "<a href=\"%s\">Are we missing a public authority?</a>."
 msgstr "<a href=\"%s\">¿Nos falta algún organismo público?</a>."
 
-#: app/views/request/_sidebar.rhtml:50
+#: app/views/request/_sidebar.rhtml:60
 msgid ""
 "<a href=\"%s\">Are you the owner of\n"
 "            any commercial copyright on this page?</a>"
@@ -579,7 +579,7 @@ msgstr "Un usuario de {{site_name}}"
 msgid "About you:"
 msgstr "Sobre mí:"
 
-#: app/views/request/_sidebar.rhtml:19
+#: app/views/request/_sidebar.rhtml:29
 msgid "Act on what you've learnt"
 msgstr "Utilice esta información"
 
@@ -1109,7 +1109,7 @@ msgstr "Solicitudes medio-ambientales realizadas en esta web"
 msgid "Event history"
 msgstr "Historial de eventos"
 
-#: app/views/request/_sidebar.rhtml:46
+#: app/views/request/_sidebar.rhtml:56
 msgid "Event history details"
 msgstr "Historial de eventos"
 
@@ -1839,7 +1839,7 @@ msgstr "Faltan datos de contacto para '"
 msgid "More about this authority"
 msgstr "Más información sobre este organismo"
 
-#: app/views/request/_sidebar.rhtml:40
+#: app/views/request/_sidebar.rhtml:50
 msgid "More similar requests"
 msgstr "Más solicitudes similares"
 
@@ -2570,7 +2570,7 @@ msgstr "Denuncie abuso"
 msgid "Report an offensive or unsuitable request"
 msgstr ""
 
-#: app/views/request/_sidebar.rhtml:16
+#: app/views/request/_sidebar.rhtml:26
 msgid "Report this request"
 msgstr ""
 
@@ -2610,7 +2610,7 @@ msgstr "Solicitud a {{public_body_name}} de {{info_request_user}} el {{date}}"
 msgid "Requested on {{date}}"
 msgstr "Pedida el {{date}}"
 
-#: app/views/request/_sidebar.rhtml:14
+#: app/views/request/_sidebar.rhtml:24
 msgid ""
 "Requests for personal information and vexatious requests are not considered "
 "valid for FOI purposes (<a href=\"/help/about\">read more</a>)."
@@ -2801,7 +2801,7 @@ msgstr "Cerrar sesión"
 msgid "Sign up"
 msgstr "Registrarse"
 
-#: app/views/request/_sidebar.rhtml:35
+#: app/views/request/_sidebar.rhtml:45
 msgid "Similar requests"
 msgstr "Solicitudes similares"
 
@@ -2859,7 +2859,7 @@ msgstr "Comenzar"
 msgid "Start now &raquo;"
 msgstr "Comience ahora &raquo;"
 
-#: app/views/request/_sidebar.rhtml:28
+#: app/views/request/_sidebar.rhtml:38
 msgid "Start your own blog"
 msgstr "Crea tu propio blog"
 
@@ -3169,7 +3169,7 @@ msgid "Then you can write your reply to "
 msgstr "Entonces podrás escribir tu respuesta a "
 
 #: app/models/track_thing.rb:222
-msgid "Then you will be following all new FOI request."
+msgid "Then you will be following all new FOI requests."
 msgstr ""
 
 #: app/models/track_thing.rb:273
@@ -3402,6 +3402,13 @@ msgid ""
 "        \t   There may be an explanation in the correspondence below."
 msgstr "Esta solicitud ha sido <strong>retirada</strong> por la persona que la realizó. \n        \t   Puede que haya una explicación en los mensajes a continuación."
 
+#: app/views/request/_sidebar.rhtml:21
+msgid ""
+"This request has been marked for review by the site administrators, who have"
+" not hidden it at this time. If you believe it should be hidden, please <a "
+"href=\"%s\">contact us</a>."
+msgstr ""
+
 #: app/controllers/request_controller.rb:669
 msgid "This request has been reported for administrator attention"
 msgstr ""
@@ -3418,13 +3425,13 @@ msgid ""
 "attention</strong> from the {{site_name}} team."
 msgstr "Esta solicitud ha recibido una respuesta inusual, y <strong>requiere la intervención</strong> del equipo de {{site_name}}."
 
-#: app/views/request/show.rhtml:7
+#: app/views/request/_sidebar.rhtml:14 app/views/request/show.rhtml:7
 msgid ""
 "This request has prominence 'hidden'. You can only see it because you are logged\n"
 "    in as a super user."
 msgstr "Esta solicitud tiene visibilidad 'oculta'. Puedes verla sólo porque estás identificado\n    como super-usuario."
 
-#: app/views/request/show.rhtml:13
+#: app/views/request/_sidebar.rhtml:18 app/views/request/show.rhtml:13
 msgid ""
 "This request is hidden, so that only you the requester can see it. Please\n"
 "    <a href=\"%s\">contact us</a> if you are not sure why."
@@ -3458,10 +3465,6 @@ msgid ""
 "This was not possible because there is already an account using \n"
 "the email address {{email}}."
 msgstr "No es posible porque ya existe una cuenta usando la dirección \nde correo {{email}}."
-
-#: app/models/track_thing.rb:221
-msgid "To be follow new requests"
-msgstr ""
 
 #: app/controllers/track_controller.rb:204
 msgid "To cancel these alerts"
@@ -3499,6 +3502,10 @@ msgstr "Descargar el fichero ZIP"
 
 #: app/models/track_thing.rb:237
 msgid "To follow all successful requests"
+msgstr ""
+
+#: app/models/track_thing.rb:221
+msgid "To follow new requests"
 msgstr ""
 
 #: app/models/track_thing.rb:288
@@ -3639,7 +3646,7 @@ msgstr "TrackThing|Track type"
 msgid "Turn off email alerts"
 msgstr ""
 
-#: app/views/request/_sidebar.rhtml:24
+#: app/views/request/_sidebar.rhtml:34
 msgid "Tweet this request"
 msgstr "Tuitear esta solicitud"
 

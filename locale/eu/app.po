@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
-"POT-Creation-Date: 2012-06-14 14:21+0100\n"
-"PO-Revision-Date: 2012-06-15 07:16+0000\n"
+"POT-Creation-Date: 2012-06-15 11:36+0100\n"
+"PO-Revision-Date: 2012-06-15 10:40+0000\n"
 "Last-Translator: sebbacon <seb.bacon@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -227,7 +227,7 @@ msgstr "<a href=\"%s\">Gehitu azalpenen bat</a> (eskatzaileari edo besteei lagun
 msgid "<a href=\"%s\">Are we missing a public authority?</a>."
 msgstr "<a href=\"%s\">Erakunde publikoren bat ez da agertzen?</a>."
 
-#: app/views/request/_sidebar.rhtml:50
+#: app/views/request/_sidebar.rhtml:60
 msgid ""
 "<a href=\"%s\">Are you the owner of\n"
 "            any commercial copyright on this page?</a>"
@@ -580,7 +580,7 @@ msgstr "{{site_name}} orrialdeko erabiltzailea."
 msgid "About you:"
 msgstr "Zeure buruaz:"
 
-#: app/views/request/_sidebar.rhtml:19
+#: app/views/request/_sidebar.rhtml:29
 msgid "Act on what you've learnt"
 msgstr "Erabil ezazu informazio hau"
 
@@ -1110,7 +1110,7 @@ msgstr "Web honetan egin diren inguruneari buruzko eskabideak"
 msgid "Event history"
 msgstr "Gertaera historia"
 
-#: app/views/request/_sidebar.rhtml:46
+#: app/views/request/_sidebar.rhtml:56
 msgid "Event history details"
 msgstr "Gertaera historia"
 
@@ -1840,7 +1840,7 @@ msgstr "Kontaktuaren datuak falta dira '"
 msgid "More about this authority"
 msgstr "Erakunde honi buruzko informazio gehiago"
 
-#: app/views/request/_sidebar.rhtml:40
+#: app/views/request/_sidebar.rhtml:50
 msgid "More similar requests"
 msgstr "Antzeko eskabide gehiago"
 
@@ -2571,7 +2571,7 @@ msgstr "Salatu gehiegikeria"
 msgid "Report an offensive or unsuitable request"
 msgstr ""
 
-#: app/views/request/_sidebar.rhtml:16
+#: app/views/request/_sidebar.rhtml:26
 msgid "Report this request"
 msgstr ""
 
@@ -2611,7 +2611,7 @@ msgstr "{{info_request_user}}-k eskabidea egin dio {{public_body_name}}-ri {{dat
 msgid "Requested on {{date}}"
 msgstr " {{date}} egunean egindako eskabidea."
 
-#: app/views/request/_sidebar.rhtml:14
+#: app/views/request/_sidebar.rhtml:24
 msgid ""
 "Requests for personal information and vexatious requests are not considered "
 "valid for FOI purposes (<a href=\"/help/about\">read more</a>)."
@@ -2802,7 +2802,7 @@ msgstr "Itxi saioa"
 msgid "Sign up"
 msgstr "Erregistratu"
 
-#: app/views/request/_sidebar.rhtml:35
+#: app/views/request/_sidebar.rhtml:45
 msgid "Similar requests"
 msgstr "Antzeko eskabideak"
 
@@ -2860,7 +2860,7 @@ msgstr "Hasi"
 msgid "Start now &raquo;"
 msgstr "Has zaitez orain &raquo;"
 
-#: app/views/request/_sidebar.rhtml:28
+#: app/views/request/_sidebar.rhtml:38
 msgid "Start your own blog"
 msgstr "Sortu zeure bloga"
 
@@ -3170,7 +3170,7 @@ msgid "Then you can write your reply to "
 msgstr "Orduan ______-ri erantzuna idatzi ahal izango diozu."
 
 #: app/models/track_thing.rb:222
-msgid "Then you will be following all new FOI request."
+msgid "Then you will be following all new FOI requests."
 msgstr ""
 
 #: app/models/track_thing.rb:273
@@ -3403,6 +3403,13 @@ msgid ""
 "        \t   There may be an explanation in the correspondence below."
 msgstr "Eskabide hau sortu zuen pertsonak <strong>kendu du</strong>. \n        \t   Ondoko mezuetan egon daiteke honen azalpena."
 
+#: app/views/request/_sidebar.rhtml:21
+msgid ""
+"This request has been marked for review by the site administrators, who have"
+" not hidden it at this time. If you believe it should be hidden, please <a "
+"href=\"%s\">contact us</a>."
+msgstr ""
+
 #: app/controllers/request_controller.rb:669
 msgid "This request has been reported for administrator attention"
 msgstr ""
@@ -3419,13 +3426,13 @@ msgid ""
 "attention</strong> from the {{site_name}} team."
 msgstr "Eskabide honek erantzun ez-ohikoa jaso du eta {{site_name}}-ko taldearen <strong>parte hartzea behar du</strong>."
 
-#: app/views/request/show.rhtml:7
+#: app/views/request/_sidebar.rhtml:14 app/views/request/show.rhtml:7
 msgid ""
 "This request has prominence 'hidden'. You can only see it because you are logged\n"
 "    in as a super user."
 msgstr "Eskabide honen ikusgarritasuna 'ezkutua' da. Zuk ikus dezakezu super-erabiltzaile bezala identifikatu zarelako."
 
-#: app/views/request/show.rhtml:13
+#: app/views/request/_sidebar.rhtml:18 app/views/request/show.rhtml:13
 msgid ""
 "This request is hidden, so that only you the requester can see it. Please\n"
 "    <a href=\"%s\">contact us</a> if you are not sure why."
@@ -3459,10 +3466,6 @@ msgid ""
 "This was not possible because there is already an account using \n"
 "the email address {{email}}."
 msgstr "Ezinezkoa da, {{email}} helbidea erabiltzen ari den beste kontu bat dagoelako."
-
-#: app/models/track_thing.rb:221
-msgid "To be follow new requests"
-msgstr ""
 
 #: app/controllers/track_controller.rb:204
 msgid "To cancel these alerts"
@@ -3500,6 +3503,10 @@ msgstr "ZIP fitxategia deskargatu"
 
 #: app/models/track_thing.rb:237
 msgid "To follow all successful requests"
+msgstr ""
+
+#: app/models/track_thing.rb:221
+msgid "To follow new requests"
 msgstr ""
 
 #: app/models/track_thing.rb:288
@@ -3640,7 +3647,7 @@ msgstr "TrackThing|Track type"
 msgid "Turn off email alerts"
 msgstr ""
 
-#: app/views/request/_sidebar.rhtml:24
+#: app/views/request/_sidebar.rhtml:34
 msgid "Tweet this request"
 msgstr "Tuiteatu eskabide hau"
 
