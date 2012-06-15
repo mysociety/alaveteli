@@ -44,6 +44,19 @@ This downloads and installs the theme in
 `vendor/plugins/alavetelitheme` and contains examples for nearly
 everything you might want to customise.
 
+# Make sure your theme is as lightweight as possible
+
+The more you put in your theme, the harder it will be to upgrade to
+future versions of Alaveteli.  Everything you place in your theme
+overrides things in the core theme, so if you make a new "main
+template", then new widgets that appear in the core theme won't appear
+on your website.
+
+Therefore, you should consider how you can brand your website without
+changing much in the core theme.  The ideal would be if you are able
+to rebrand the site by only changing the CSS.  You will also need to
+add custom help pages, as described below.
+
 # Branding the site 
 
 The core templates that comprise the layout and user interface of an
