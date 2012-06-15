@@ -56,8 +56,10 @@ must:
     * you should also commit these translations to a hotfix for the
       previous version, so they are preserved against the last known
       good msgids
-    * regenerate the POT file and individual PO files for each language,
-      using `./script/generate_pot.sh` (which calls `rake gettext:find`, etc)
+    * regenerate the POT file and individual PO files for each
+      language, using `bundle exec rake
+      gettext:store_model_attributes`, followed by `bundle exec rake
+      rake gettext:find`
         * this updates the PO template, but also merges it with the
           individual PO files, marking strings that have only changed
           slightly as "fuzzy"
