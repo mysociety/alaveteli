@@ -219,7 +219,7 @@ class TrackThing < ActiveRecord::Base
                     :title_in_rss => _("New Freedom of Information requests"),
                     # Authentication
                     :web => _("To be follow new requests"),
-                    :email => _("Then you will be following all new FOI request."),
+                    :email => _("Then you will be following all new FOI requests."),
                     :email_subject => _("Confirm you want to follow new requests"),
                     # RSS sorting
                     :feed_sortby => 'newest'
