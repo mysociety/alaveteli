@@ -11,7 +11,7 @@ gem 'rails', '2.3.14'
 gem 'pg'
 
 gem 'fast_gettext', '>= 0.6.0'
-gem 'gettext_i18n_rails', '>= 0.6.0', :git => "git@github.com:sebbacon/gettext_i18n_rails.git"
+gem 'gettext_i18n_rails', '>= 0.6.0', :git => "git://github.com/sebbacon/gettext_i18n_rails.git"
 gem 'gettext', '>= 1.9.3'
 gem 'json', '~> 1.5.1'
 gem 'mahoro'
