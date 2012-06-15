@@ -63,7 +63,9 @@ explanation):
     sudo ruby1.8 /tmp/rubygems-1.6.2/setup.rb
  
 To install Alaveteli's Ruby dependencies, we also need to install
-bundler:
+bundler.  In Debian, this is provided as a package (installed as part
+of the package install process above).  You could also install it as a
+gem:
 
     sudo gem1.8 install bundler
     
@@ -221,17 +223,6 @@ update.
 One of the things the script does is install dependencies (using
 `bundle install`).  Note that the first time you run it, part of the
 `bundle install` that compiles `xapian-full` takes a *long* time!
-
-On Debian, at least, the binaries installed by bundler are not put in
-the system `PATH`; therefore, in order to run `rake` (needed for
-deployments), you will need to do something like:
-
-    ln -s /usr/lib/ruby/gems/1.8/bin/rake /usr/local/bin/
-    
-Or (Debian):
-
-    ln -s /usr/lib/ruby/gems/1.8/bin/rake /usr/local/bin/
-
 
 If you want some dummy data to play with, you can try loading the
 fixtures that the test suite uses into your development database.  You
@@ -461,4 +452,18 @@ various other things that can be automated for deployment.
     system-packaged rubygems, and then installing the latest rubygems
     from source, and finally executing `sudo gem update --system
     1.6.2`.
+
+*   **I'm seeing `rake: command not found` when running the post install script
+
+    The script uses `rake`.
+
+    It may be that the binaries installed by bundler are not put in the
+    system `PATH`; therefore, in order to run `rake` (needed for
+    deployments), you may need to do something like:
+
+        ln -s /usr/lib/ruby/gems/1.8/bin/rake /usr/local/bin/
+    
+    Or (Debian):
+
+        ln -s /usr/lib/ruby/gems/1.8/bin/rake /usr/local/bin/
 
