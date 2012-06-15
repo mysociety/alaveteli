@@ -61,7 +61,7 @@ must:
         * this updates the PO template, but also merges it with the
           individual PO files, marking strings that have only changed
           slightly as "fuzzy"
-    * reupload (`tx push -t`) the POT and PO files to Transifex to the
+    * reupload (`tx push -s -t`) the POT and PO files to Transifex to the
       current release branch
         * The point of uploading the PO files is that Transifex
           converts the "fuzzy" suggestions from Transifex into
