@@ -139,11 +139,11 @@ class ApiController < ApplicationController
             attachment_hashes = []
             (attachments || []).each_with_index do |attachment, i|
                 filename = File.basename(attachment.original_filename)
-                body = attachment.read
-                content_type = AlaveteliFileTypes.filename_and_content_to_mimetype(filename, body) || 'application/octet-stream'
+                attachment_body = attachment.read
+                content_type = AlaveteliFileTypes.filename_and_content_to_mimetype(filename, attachment_body) || 'application/octet-stream'
                 attachment_hashes.push(
                     :content_type => content_type,
-                    :body => body,
+                    :body => attachment_body,
                     :filename => filename
                 )
             end

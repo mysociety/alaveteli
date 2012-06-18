@@ -1,5 +1,17 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
+def normalise_whitespace(s)
+    s = s.gsub(/^\s+|\s+$/, "")
+    s = s.gsub(/\s+/, " ")
+    return s
+end
+
+Spec::Matchers.define :be_equal_modulo_whitespace_to do |expected|
+  match do |actual|
+    normalise_whitespace(actual) == normalise_whitespace(expected)
+  end
+end
+
 describe ApiController, "when using the API" do
     it "should check the API key" do
         request_data = {
@@ -99,7 +111,7 @@ describe ApiController, "when using the API" do
         incoming_message = incoming_messages[0]
         
         incoming_message.sent_at.should == Time.iso8601(sent_at)
-        incoming_message.get_main_body_text_folded.should == response_body
+        incoming_message.get_main_body_text_folded.should be_equal_modulo_whitespace_to(response_body)
     end
 
     it "should add a followup to a request" do
@@ -221,7 +233,7 @@ describe ApiController, "when using the API" do
         incoming_message = incoming_messages[0]
         
         incoming_message.sent_at.should == Time.iso8601(sent_at)
-        incoming_message.get_main_body_text_folded.should == response_body
+        incoming_message.get_main_body_text_folded.should be_equal_modulo_whitespace_to(response_body)
         
         # Get the attachment
         attachments = incoming_message.get_attachments_for_display
@@ -229,7 +241,7 @@ describe ApiController, "when using the API" do
         attachment = attachments[0]
         
         attachment.filename.should == "tfl.pdf"
-        attachment.body.should == open("files/tfl.pdf", &:read)
+        attachment.body.should == load_file_fixture("tfl.pdf")
     end
     
     it "should show information about a request" do
