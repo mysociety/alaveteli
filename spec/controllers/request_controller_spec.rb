@@ -1889,6 +1889,7 @@ describe RequestController, "when reporting a request" do
         mail = deliveries[0]
         mail.subject.should =~ /attention_requested/
         mail.from.should include(@user.email)
+        mail.body.should include(@user.name)
     end
 end
 
