@@ -46,7 +46,13 @@ class RequestController < ApplicationController
     end
 
     def show
-        long_cache
+        if !MySociety::Config.get('VARNISH_HOST').nil?
+            # If varnish is set up to accept PURGEs, then cache for a
+            # long time
+            long_cache
+        else
+            medium_cache
+        end
         @locale = self.locale_from_params()
         PublicBody.with_locale(@locale) do
 
