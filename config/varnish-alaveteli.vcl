@@ -87,6 +87,11 @@ sub vcl_recv {
       if (!client.ip ~ purge) {
          error 405 "Not allowed.";
       }
+
+      # For an explanation of the followng roundabout way of defining
+      # ban lists, see
+      # http://kristianlyng.wordpress.com/2010/07/28/smart-bans-with-varnish/
+
       # XXX in Varnish 2.x, the following would be
       # purge("obj.http.x-url ~ " req.url);
       ban("obj.http.x-url ~ " + req.url);

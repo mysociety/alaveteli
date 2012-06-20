@@ -156,11 +156,17 @@ describe RequestController, "when changing things that appear on the request pag
         ir.public_body.save!
         PurgeRequest.all().map{|x| x.model_id}.should =~ ir.public_body.info_requests.map{|x| x.id}
     end
-    it "should purge the downstream cache when the user details are changed" do
+    it "should purge the downstream cache when the user name is changed" do
         ir = info_requests(:fancy_dog_request)
         ir.user.name = "Something new"
         ir.user.save!
         PurgeRequest.all().map{|x| x.model_id}.should =~ ir.user.info_requests.map{|x| x.id}
+    end
+    it "should not purge the downstream cache when non-visible user details are changed" do
+        ir = info_requests(:fancy_dog_request)
+        ir.user.hashed_password = "some old hash"
+        ir.user.save!
+        PurgeRequest.all().count.should == 0
     end
     it "should purge the downstream cache when censor rules have changed" do
         # XXX really, CensorRules should execute expiry logic as part
@@ -290,6 +296,7 @@ describe RequestController, "when showing one request" do
             get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => ['hello.txt'], :skip_cache => 1
             response.content_type.should == "text/plain"
             response.should have_text(/Second hello/)
+            
             get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 3, :file_name => ['hello.txt'], :skip_cache => 1
             response.content_type.should == "text/plain"
             response.should have_text(/First hello/)
@@ -416,15 +423,6 @@ describe RequestController, "when showing one request" do
             get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => ['hello.qwglhm'], :skip_cache => 1
             response.content_type.should == "application/octet-stream"
             response.should have_text(/an unusual sort of file/)
-        end
-
-        it "should apply a content-disposition header" do
-            ir = info_requests(:fancy_dog_request)
-            receive_incoming_mail('incoming-request-attachment-unknown-extension.email', ir.incoming_email)
-            ir.reload            
-            get :get_attachment, :incoming_message_id => ir.incoming_messages[1].id, :id => ir.id, :part => 2, :file_name => ['hello.qwglhm'], :skip_cache => 1
-            response.headers.should include("Content-Disposition")
-            response.headers["Content-Disposition"].should include('hello.qwglhm')
         end
 
         it "should not download attachments with wrong file name" do
@@ -1848,12 +1846,17 @@ end
 describe RequestController, "when reporting a request" do
     integrate_views
 
+    before do
+        @user = users(:robin_user)
+        session[:user_id] = @user.id
+    end
+
     it "should mark a request as having been reported" do
         ir = info_requests(:badger_request)
         title = ir.url_title
         get :show, :url_title => title
         assigns[:info_request].attention_requested.should == false
-        get :report_request, :url_title => title
+        post :report_request, :url_title => title
         get :show, :url_title => title
         assigns[:info_request].attention_requested.should == true
         assigns[:info_request].described_state.should == "attention_requested"
@@ -1861,10 +1864,10 @@ describe RequestController, "when reporting a request" do
 
     it "should not allow a request to be reported twice" do
         title = info_requests(:badger_request).url_title
-        get :report_request, :url_title => title
+        post :report_request, :url_title => title
         get :show, :url_title => title
         response.body.should include("has been reported")
-        get :report_request, :url_title => title
+        post :report_request, :url_title => title
         get :show, :url_title => title
         response.body.should include("has already been reported")
     end
@@ -1873,16 +1876,27 @@ describe RequestController, "when reporting a request" do
         title = info_requests(:badger_request).url_title
         get :show, :url_title => title
         response.body.should include("Offensive?")
-        get :report_request, :url_title => title
+        post :report_request, :url_title => title
         get :show, :url_title => title
         response.body.should_not include("Offensive?")        
         response.body.should include("This request has been reported")
         info_requests(:badger_request).set_described_state("successful")
         get :show, :url_title => title
         response.body.should_not include("This request has been reported")
-        response.body.should include("The site administrators have reviewed this request")
+        response.body.should =~ (/the site administrators.*have not hidden it/)
     end
 
+    it "should send an email from the reporter to admins" do
+        ir = info_requests(:badger_request)
+        title = ir.url_title
+        post :report_request, :url_title => title
+        deliveries = ActionMailer::Base.deliveries
+        deliveries.size.should == 1
+        mail = deliveries[0]
+        mail.subject.should =~ /attention_requested/
+        mail.from.should include(@user.email)
+        mail.body.should include(@user.name)
+    end
 end
 
 

@@ -12,6 +12,12 @@ def mail_reply_test(email_filename)
 end
 
 describe "When filtering" do
+    it "should not fail when not in test mode" do
+        xc = ExternalCommand.new("script/handle-mail-replies")
+        xc.run(load_file_fixture("track-response-exim-bounce.email"))        
+        xc.err.should == ""
+    end
+
     it "should detect an Exim bounce" do
         r = mail_reply_test("track-response-exim-bounce.email")
         r.status.should == 1

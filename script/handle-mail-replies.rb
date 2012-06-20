@@ -167,7 +167,7 @@ end
 
 def load_rails
     require File.join('config', 'boot')
-    require Rails.root + '/config/environment'
+    require File.join('config', 'environment')
 end
 
 def record_bounce(email_address, bounce_message)

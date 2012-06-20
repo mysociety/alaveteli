@@ -127,7 +127,9 @@ module ApplicationHelper
     end
 
     def admin_date(date)
-      "#{I18n.l(date, :format => "%e %B %Y %H:%M:%S")} (#{_('{{length_of_time}} ago', :length_of_time => time_ago_in_words(date))})"
+        ago_text = _('{{length_of_time}} ago', :length_of_time => time_ago_in_words(date))
+        exact_date = I18n.l(date, :format => "%e %B %Y %H:%M:%S")
+        return "#{exact_date} (#{ago_text})"
     end
 
 end

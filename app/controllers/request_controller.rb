@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # app/controllers/request_controller.rb:
 # Show information about one particular request.
 #
@@ -47,7 +46,13 @@ class RequestController < ApplicationController
     end
 
     def show
-        medium_cache
+        if !MySociety::Config.get('VARNISH_HOST').nil?
+            # If varnish is set up to accept PURGEs, then cache for a
+            # long time
+            long_cache
+        else
+            medium_cache
+        end
         @locale = self.locale_from_params()
         PublicBody.with_locale(@locale) do
 
@@ -663,7 +668,7 @@ class RequestController < ApplicationController
             )
         
         if !info_request.attention_requested
-            info_request.set_described_state('attention_requested')
+            info_request.set_described_state('attention_requested', @user)
             info_request.attention_requested = true # tells us if attention has ever been requested
             info_request.save!
             flash[:notice] = _("This request has been reported for administrator attention")
@@ -710,7 +715,7 @@ class RequestController < ApplicationController
 
         # we don't use @attachment.content_type here, as we want same mime type when cached in cache_attachments above
         response.content_type = AlaveteliFileTypes.filename_to_mimetype(params[:file_name].join("/")) || 'application/octet-stream'
-        headers["Content-Disposition"] = "attachment; filename=#{params[:file_name]}"
+
         render :text => @attachment.body
     end
 

@@ -20,6 +20,10 @@ FakeWeb.register_uri(:purge, %r|varnish.localdomain|, :body => "OK")
 # Uncomment the next line to use webrat's matchers
 #require 'webrat/integrations/rspec-rails'
 
+# Use test-specific translations
+FastGettext.add_text_domain 'app', :path => File.join(File.dirname(__FILE__), 'fixtures', 'locale'), :type => :po
+FastGettext.default_text_domain = 'app'
+
 Spec::Runner.configure do |config|
   # If you're not using ActiveRecord you should remove these
   # lines, delete config/database.yml and disable :active_record
