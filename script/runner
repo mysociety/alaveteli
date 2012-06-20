@@ -3,7 +3,7 @@
 daemon_mode = !ARGV.empty? && ARGV[0] == "--daemon"
 
 script_dir = File.dirname(__FILE__)
-alaveteli_dir = File.join(script_dir, "..")
+alaveteli_dir = File.expand_path(File.join(script_dir, ".."))
 
 Dir.chdir(alaveteli_dir) do
     require File.join(alaveteli_dir, 'config', 'boot')

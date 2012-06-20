@@ -401,3 +401,37 @@ describe PublicBody, " when loading CSV files" do
         PublicBody.count.should == original_count
     end
 end
+
+describe PublicBody do
+  describe "calculated home page" do
+    it "should return the home page verbatim if it's present" do
+      public_body = PublicBody.new
+      public_body.home_page = "http://www.example.com"
+      public_body.calculated_home_page.should == "http://www.example.com"
+    end
+
+    it "should return the home page based on the request email domain if it has one" do
+      public_body = PublicBody.new
+      public_body.stub!(:request_email_domain).and_return "public-authority.com"
+      public_body.calculated_home_page.should == "http://www.public-authority.com"
+    end
+
+    it "should return nil if there's no home page and the email domain can't be worked out" do
+      public_body = PublicBody.new
+      public_body.stub!(:request_email_domain).and_return nil
+      public_body.calculated_home_page.should be_nil
+    end
+
+    it "should ensure home page URLs start with http://" do
+      public_body = PublicBody.new
+      public_body.home_page = "example.com"
+      public_body.calculated_home_page.should == "http://example.com"
+    end
+
+    it "should not add http when https is present" do
+      public_body = PublicBody.new
+      public_body.home_page = "https://example.com"
+      public_body.calculated_home_page.should == "https://example.com"
+    end
+  end
+end

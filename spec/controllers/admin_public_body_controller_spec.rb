@@ -4,10 +4,6 @@ describe AdminPublicBodyController, "when administering public bodies" do
     integrate_views
 
     before do
-        username = MySociety::Config.get('ADMIN_USERNAME', '')
-        password = MySociety::Config.get('ADMIN_PASSWORD', '')
-        basic_auth_login @request
-        
         @old_filters = ActionController::Routing::Routes.filters
         ActionController::Routing::Routes.filters = RoutingFilter::Chain.new
     end
@@ -80,19 +76,29 @@ describe AdminPublicBodyController, "when administering public bodies and paying
 
     integrate_views
 
+    before do
+        config = MySociety::Config.load_default()
+        config['SKIP_ADMIN_AUTH'] = false
+        basic_auth_login @request   
+    end
+    after do
+        config = MySociety::Config.load_default()
+        config['SKIP_ADMIN_AUTH'] = true
+    end
+
+
     it "disallows non-authenticated users to do anything" do
         @request.env["HTTP_AUTHORIZATION"] = ""
         n = PublicBody.count
         post :destroy, { :id => 3 }
-        response.code.should == "401"
+        response.should redirect_to(:controller=>'user', :action=>'signin', :token=>PostRedirect.get_last_post_redirect.token)
         PublicBody.count.should == n
         session[:using_admin].should == nil
     end
 
-    it "skips admin authorisation when no username/password set" do
+    it "skips admin authorisation when SKIP_ADMIN_AUTH set" do
         config = MySociety::Config.load_default()
-        config['ADMIN_USERNAME'] = ''
-        config['ADMIN_PASSWORD'] = ''
+        config['SKIP_ADMIN_AUTH'] = true
         @request.env["HTTP_AUTHORIZATION"] = ""
 
         n = PublicBody.count
@@ -101,30 +107,44 @@ describe AdminPublicBodyController, "when administering public bodies and paying
         session[:using_admin].should == 1
     end
     
-    it "skips admin authorisation when no username set" do
+    it "doesn't let people with bad credentials log in" do
         config = MySociety::Config.load_default()
-        config['ADMIN_USERNAME'] = ''
-        config['ADMIN_PASSWORD'] = 'fuz'
-        @request.env["HTTP_AUTHORIZATION"] = ""
-        
-        n = PublicBody.count
-        post :destroy, { :id => public_bodies(:forlorn_public_body).id }
-        PublicBody.count.should == n - 1
-        session[:using_admin].should == 1
-    end
-    it "forces authorisation when password and username set" do
-        config = MySociety::Config.load_default()
+        config['SKIP_ADMIN_AUTH'] = false
         config['ADMIN_USERNAME'] = 'biz'
         config['ADMIN_PASSWORD'] = 'fuz'
         @request.env["HTTP_AUTHORIZATION"] = ""
         n = PublicBody.count
         basic_auth_login(@request, "baduser", "badpassword")
         post :destroy, { :id => public_bodies(:forlorn_public_body).id }
-        response.code.should == "401"
+        response.should redirect_to(:controller=>'user', :action=>'signin', :token=>PostRedirect.get_last_post_redirect.token)
         PublicBody.count.should == n
         session[:using_admin].should == nil
     end
 
+    it "allows people with good credentials log in using HTTP Basic Auth" do
+        config = MySociety::Config.load_default()
+        config['SKIP_ADMIN_AUTH'] = false
+        config['ADMIN_USERNAME'] = 'biz'
+        config['ADMIN_PASSWORD'] = 'fuz'
+        @request.env["HTTP_AUTHORIZATION"] = ""
+        n = PublicBody.count
+        basic_auth_login(@request, "biz", "fuz")
+        post :show, { :id => public_bodies(:humpadink_public_body).id, :emergency => 1}
+        session[:using_admin].should == 1
+        n = PublicBody.count
+        post :destroy, { :id => public_bodies(:forlorn_public_body).id }
+        session[:using_admin].should == 1
+        PublicBody.count.should == n - 1
+    end
+
+    it "allows superusers to do stuff" do
+        session[:user_id] = users(:admin_user).id
+        @request.env["HTTP_AUTHORIZATION"] = ""
+        n = PublicBody.count
+        post :destroy, { :id => public_bodies(:forlorn_public_body).id }
+        PublicBody.count.should == n - 1
+        session[:using_admin].should == 1
+    end
 
 
 end
@@ -132,12 +152,6 @@ end
 describe AdminPublicBodyController, "when administering public bodies with i18n" do
     integrate_views
   
-    before do
-        username = MySociety::Config.get('ADMIN_USERNAME', '')
-        password = MySociety::Config.get('ADMIN_PASSWORD', '')
-        basic_auth_login @request
-    end
-
     it "shows the index page" do
         get :index
     end
@@ -201,10 +215,6 @@ describe AdminPublicBodyController, "when creating public bodies with i18n" do
     integrate_views
   
     before do
-        username = MySociety::Config.get('ADMIN_USERNAME', '')
-        password = MySociety::Config.get('ADMIN_PASSWORD', '')
-        basic_auth_login @request
-        
         @old_filters = ActionController::Routing::Routes.filters
         ActionController::Routing::Routes.filters = RoutingFilter::Chain.new
     end

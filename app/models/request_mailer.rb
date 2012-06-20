@@ -9,7 +9,7 @@
 require 'alaveteli_file_types'
 
 class RequestMailer < ApplicationMailer
-    
+
 
     # Used when an FOI officer uploads a response from their web browser - this is
     # the "fake" email used to store in the same format in the database as if they
@@ -38,20 +38,25 @@ class RequestMailer < ApplicationMailer
         @subject = "Your response to an FOI request was not delivered"
         attachment :content_type => 'message/rfc822', :body => raw_email_data,
             :filename => "original.eml", :transfer_encoding => '7bit', :content_disposition => 'inline'
-        @body = { 
+        @body = {
             :info_request => info_request,
-            :contact_email => MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost')     
+            :contact_email => MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost')
         }
     end
 
     # An FOI response is outside the scope of the system, and needs admin attention
-    def requires_admin(info_request)
-        @from = info_request.user.name_and_email
+    def requires_admin(info_request, set_by = nil)
+        if !set_by.nil?
+            user = set_by
+        else
+            user = info_request.user
+        end
+        @from = user.name_and_email
         @recipients = contact_from_name_and_email
-        @subject = _("FOI response requires admin - ") + info_request.title
+        @subject = _("FOI response requires admin ({{reason}}) - {{title}}", :reason => info_request.described_state, :title => info_request.title)
         url = main_url(request_url(info_request))
         admin_url = request_admin_url(info_request)
-        @body = {:info_request => info_request, :url => url, :admin_url => admin_url }
+        @body = {:reported_by => user, :info_request => info_request, :url => url, :admin_url => admin_url }
     end
 
     # Tell the requester that a new response has arrived
@@ -142,7 +147,7 @@ class RequestMailer < ApplicationMailer
     # Tell the requester that they need to clarify their request
     def not_clarified_alert(info_request, incoming_message)
         respond_url = show_response_url(:id => info_request.id, :incoming_message_id => incoming_message.id)
-        respond_url = respond_url + "#followup" 
+        respond_url = respond_url + "#followup"
 
         post_redirect = PostRedirect.new(
             :uri => respond_url,
@@ -155,7 +160,7 @@ class RequestMailer < ApplicationMailer
                 'Auto-Submitted' => 'auto-generated', # http://tools.ietf.org/html/rfc3834
                 'X-Auto-Response-Suppress' => 'OOF'
         @recipients = info_request.user.name_and_email
-        @subject = "Clarify your FOI request - " + info_request.title
+        @subject = _("Clarify your FOI request - ") + info_request.title
         @body = { :incoming_message => incoming_message, :info_request => info_request, :url => url }
     end
 
@@ -182,7 +187,7 @@ class RequestMailer < ApplicationMailer
     # Class function, called by script/mailin with all incoming responses.
     # [ This is a copy (Monkeypatch!) of function from action_mailer/base.rb,
     # but which additionally passes the raw_email to the member function, as we
-    # want to record it. 
+    # want to record it.
     #
     # That is because we want to be sure we properly record the actual message
     # received in its raw form - so any information won't be lost in a round
@@ -215,7 +220,7 @@ class RequestMailer < ApplicationMailer
         # Find which info requests the email is for
         reply_info_requests = self.requests_matching_email(email)
         # Nothing found, so save in holding pen
-        if reply_info_requests.size == 0 
+        if reply_info_requests.size == 0
             reason = _("Could not identify the request from the email address")
             request = InfoRequest.holding_pen_request
             request.receive(email, raw_email, false, reason)
@@ -225,7 +230,7 @@ class RequestMailer < ApplicationMailer
         # Send the message to each request, to be archived with it
         for reply_info_request in reply_info_requests
             # If environment variable STOP_DUPLICATES is set, don't send message with same id again
-            if ENV['STOP_DUPLICATES'] 
+            if ENV['STOP_DUPLICATES']
                 if reply_info_request.already_received?(email, raw_email)
                     raise "message " + email.message_id + " already received by request"
                 end
@@ -275,7 +280,7 @@ class RequestMailer < ApplicationMailer
         end
     end
 
-    # Send email alerts for new responses which haven't been classified. By default, 
+    # Send email alerts for new responses which haven't been classified. By default,
     # it goes out 3 days after last update of event, then after 10, then after 24.
     def self.alert_new_response_reminders
         MySociety::Config.get("NEW_RESPONSE_REMINDER_AFTER_DAYS", [3, 10, 24]).each_with_index do |days, i|
@@ -283,10 +288,10 @@ class RequestMailer < ApplicationMailer
         end
     end
     def self.alert_new_response_reminders_internal(days_since, type_code)
-        info_requests = InfoRequest.find_old_unclassified(:order => 'info_requests.id', 
-                                                          :include => [:user], 
+        info_requests = InfoRequest.find_old_unclassified(:order => 'info_requests.id',
+                                                          :include => [:user],
                                                           :age_in_days => days_since)
-        
+
         for info_request in info_requests
             alert_event_id = info_request.get_last_response_event_id
             last_response_message = info_request.get_last_response
@@ -302,7 +307,7 @@ class RequestMailer < ApplicationMailer
                 store_sent.user = info_request.user
                 store_sent.alert_type = type_code
                 store_sent.info_request_event_id = alert_event_id
-                # XXX uses same template for reminder 1 and reminder 2 right now. 
+                # XXX uses same template for reminder 1 and reminder 2 right now.
                 RequestMailer.deliver_new_response_reminder_alert(info_request, last_response_message)
                 store_sent.save!
             end
@@ -340,11 +345,11 @@ class RequestMailer < ApplicationMailer
 
     # Send email alert to request submitter for new comments on the request.
     def self.alert_comment_on_request()
-        
+
         # We only check comments made in the last month - this means if the
         # cron jobs broke for more than a month events would be lost, but no
         # matter. I suspect the performance gain will be needed (with an index on updated_at)
-        
+
         # XXX the :order part info_request_events.created_at is a work around
         # for a very old Rails bug which means eager loading does not respect
         # association orders.
@@ -352,7 +357,7 @@ class RequestMailer < ApplicationMailer
         #   http://lists.rubyonrails.org/pipermail/rails-core/2006-July/001798.html
         # That that patch has not been applied, despite bribes of beer, is
         # typical of the lack of quality of Rails.
-        
+
         info_requests = InfoRequest.find(:all,
             :conditions => [
                "info_requests.id in (

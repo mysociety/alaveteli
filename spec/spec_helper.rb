@@ -13,9 +13,16 @@ config['ADMIN_PASSWORD'] = 'baz'
 # tests assume 20 days
 config['REPLY_LATE_AFTER_DAYS'] = 20
 
+# register a fake Varnish server
+require 'fakeweb'
+FakeWeb.register_uri(:purge, %r|varnish.localdomain|, :body => "OK")
 
 # Uncomment the next line to use webrat's matchers
 #require 'webrat/integrations/rspec-rails'
+
+# Use test-specific translations
+FastGettext.add_text_domain 'app', :path => File.join(File.dirname(__FILE__), 'fixtures', 'locale'), :type => :po
+FastGettext.default_text_domain = 'app'
 
 Spec::Runner.configure do |config|
   # If you're not using ActiveRecord you should remove these
@@ -43,7 +50,7 @@ Spec::Runner.configure do |config|
   #
   # You can also declare which fixtures to use (for example fixtures for test/fixtures):
   #
-  # config.fixture_path = RAILS_ROOT + '/spec/fixtures/'
+  # config.fixture_path = Rails.root + '/spec/fixtures/'
   #
   # == Mock Framework
   #

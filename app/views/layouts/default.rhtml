@@ -58,7 +58,7 @@
 
         <%= render :partial => 'general/before_head_end' %>
     </head>
-    <body <%= "class='front'" if params[:action] == 'frontpage' %>>
+    <body class="<%= 'admin' if !session[:using_admin].nil?%> <%= 'front' if params[:action] == 'frontpage' %>">
 
     <!-- XXX: move to a separate file -->
     <% if force_registration_on_new_request && !@user %>
@@ -104,6 +104,7 @@
                 <% if @user %>
                     <%=link_to _("My requests"), show_user_requests_path(:url_name => @user.url_name) %>
                     <%=link_to _("My profile"), show_user_profile_path(:url_name => @user.url_name) %>
+                    <%=link_to _("My wall"), show_user_wall_path(:url_name => @user.url_name) %>
                 <% end %>
 
 
@@ -146,7 +147,6 @@
 
     <%= render :partial => 'general/footer' %>
 
-    <%= render :partial => 'general/before_body_end' %>
 </div>
 <div id="other-country-notice"></div>
 <div id="link_box"><span class="close-button">X</span>
@@ -154,6 +154,22 @@
 <br />
 <input type="text">
 </div>
+    <%
+      ga_code = MySociety::Config.get('GA_CODE', '')
+      
+      unless ga_code.empty? %>
+        <script>
+          var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+          document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+        </script>
+        <script>
+          var pageTracker = _gat._getTracker("<%=ga_code%>");
+          pageTracker._trackPageview();
+        </script>
+        
+      <% end %>
+
+      <%= render :partial => 'general/before_body_end' %>
     </body>
 </html>
 

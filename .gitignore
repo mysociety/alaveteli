@@ -17,3 +17,8 @@ TAGS
 /files/
 /public/download
 /public/*theme
+/vendor/bundle
+.bundle
+bin/
+config/aliases
+.sass-cache

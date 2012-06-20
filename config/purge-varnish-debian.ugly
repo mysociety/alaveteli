@@ -1,0 +1,81 @@
+#!/bin/bash
+#
+### BEGIN INIT INFO
+# Provides: purge-varnish
+# Required-Start: $local_fs $syslog
+# Required-Stop: $local_fs $syslog
+# Default-Start: 2 3 4 5 
+# Default-Stop: 0 1 6
+# Short-Description: purge-varnish is a daemon purging the Alaveteli varnish cache
+# Description: purge-varnish purge the Alaveteli varnish cache
+### END INIT INFO
+#
+# !!(*= $daemon_name *)!! Start the Alaveteli email purge-varnish daemon
+
+NAME=!!(*= $daemon_name *)!!
+DAEMON=/data/vhost/!!(*= $vhost *)!!/alaveteli/script/runner
+DAEMON_ARGS="--daemon PurgeRequest.purge_all_loop"
+PIDFILE=/data/vhost/!!(*= $vhost *)!!/purge-varnish.pid
+LOGFILE=/data/vhost/!!(*= $vhost *)!!/logs/purge-varnish.log
+DUSER=!!(*= $user *)!!
+
+trap "" 1
+
+export PIDFILE LOGFILE
+
+quietly_start_daemon() {
+    /sbin/start-stop-daemon --quiet --start --pidfile "$PIDFILE" --chuid "$DUSER" --startas "$DAEMON" -- $DAEMON_ARGS
+}
+
+start_daemon() {
+    /sbin/start-stop-daemon --start --pidfile "$PIDFILE" --chuid "$DUSER" --startas "$DAEMON" -- $DAEMON_ARGS
+}
+
+stop_daemon() {
+    /sbin/start-stop-daemon --stop --oknodo --pidfile "$PIDFILE"
+}
+
+restart() { stop; start; }
+
+case "$1" in
+  check)
+      quietly_start_daemon
+      if [ $? -ne 1 ]
+      then
+          echo "Alaveteli purge-varnish daemon was not running; now restarted"
+          exit 1
+      else
+          exit 0
+      fi
+      ;;
+  
+  start)
+      echo -n "Starting Alaveteli purge-varnish daemon: $NAME"
+      start_daemon
+      ;;
+  
+  stop)
+        echo -n "Stopping Alaveteli purge-varnish daemon: $NAME"
+        stop_daemon
+        ;;
+  
+  restart)
+      echo -n "Restarting Alaveteli purge-varnish daemon: $NAME"
+      stop_daemon
+      start_daemon
+      ;;
+
+  *)
+    echo "Usage: /etc/init.d/$NAME {start|stop|restart|check}"
+    exit 1
+    ;;
+esac
+
+if [ $? -eq 0 ]; then
+    echo .
+    exit 0
+else
+    echo " failed"
+    exit 1
+fi
+

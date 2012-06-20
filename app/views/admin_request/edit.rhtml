@@ -22,20 +22,7 @@
    </p>
 
    <p><label for="info_request_described_state"><strong>Described state</strong></label> 
-   <%= select( 'info_request', "described_state",
-       [ 
-        'waiting_response',
-        'waiting_clarification', 
-        'gone_postal',
-        'not_held',
-        'rejected', 
-        'successful', 
-        'partially_successful',
-        'internal_review',
-        'error_message',
-        'requires_admin',
-        'user_withdrawn'
-    ]) %>;
+   <%= select( 'info_request', "described_state", InfoRequest.enumerate_states ) %>;
     <label for="info_request_awaiting_description"><strong>Awaiting description</strong></label>
    <%= select('info_request', "awaiting_description", [["Yes - needs state updating",true],["No - state is up to date",false]]) %>
    <br/>(don't forget to change 'awaiting description' when you set described state)<br/>
@@ -60,7 +47,7 @@
 
 <hr>
 
-<% form_tag '../fully_destroy/' + @info_request.id.to_s do %>
+<% form_tag '../destroy/' + @info_request.id.to_s do %>
     <p>
     <strong>This is permanent and irreversible!</strong> <%= submit_tag 'Destory request entirely' %>
     <br>Use it mainly if someone posts private information, e.g. made a Data Protection request. It

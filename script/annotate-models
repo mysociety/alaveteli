@@ -1,0 +1,5 @@
+#!/bin/bash
+#
+# annotates the models in app/ with schema information
+
+bundle exec annotate -m -p before --exclude tests,fixtures

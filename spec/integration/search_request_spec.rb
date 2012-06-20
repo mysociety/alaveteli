@@ -12,6 +12,13 @@ describe "When searching" do
         response.body.should include("&quot;mouse stilton&quot;")
     end
 
+    it "should redirect requests with search in query string to URL-based page" do
+        url = '/search/all?query=bob'
+        request_via_redirect("post", url)
+        response.request.url.should_not include(url)
+        response.request.url.should include("/search/bob/all")
+    end
+
     it "should correctly execute simple search" do
         request_via_redirect("post", "/search",
                              :query => 'bob'

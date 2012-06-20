@@ -47,8 +47,8 @@ class TrackMailer < ApplicationMailer
             return done_something
         end
         for user in users
-            next if !user.should_be_emailed?
-            
+            next if !user.should_be_emailed? || !user.receive_email_alerts
+
             email_about_things = []
             track_things = TrackThing.find(:all, :conditions => [ "tracking_user_id = ? and track_medium = ?", user.id, 'email_daily' ])
             for track_thing in track_things
@@ -56,7 +56,7 @@ class TrackMailer < ApplicationMailer
                 #
                 # We only use track_things_sent_emails records which are less than 14 days old.
                 # In the search query loop below, we also only use items described in last 7 days.
-                # An item described that recently definitely can't appear in track_things_sent_emails 
+                # An item described that recently definitely can't appear in track_things_sent_emails
                 # earlier, so this is safe (with a week long margin of error). If the alerts break
                 # for a whole week, then they will miss some items. Tough.
                 done_info_request_events = {}
@@ -70,7 +70,7 @@ class TrackMailer < ApplicationMailer
                 # Query for things in this track. We use described_at for the
                 # ordering, so we catch anything new (before described), or
                 # anything whose new status has been described.
-                xapian_object = InfoRequest.full_search([InfoRequestEvent], track_thing.track_query, 'described_at', true, nil, 100, 1) 
+                xapian_object = InfoRequest.full_search([InfoRequestEvent], track_thing.track_query, 'described_at', true, nil, 100, 1)
                 # Go through looking for unalerted things
                 alert_results = []
                 for result in xapian_object.results
@@ -86,7 +86,7 @@ class TrackMailer < ApplicationMailer
                     alert_results.push(result)
                 end
                 # If there were more alerts for this track, then store them
-                if alert_results.size > 0 
+                if alert_results.size > 0
                     email_about_things.push([track_thing, alert_results, xapian_object])
                 end
             end

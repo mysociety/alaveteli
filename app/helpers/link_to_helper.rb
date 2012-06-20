@@ -1,6 +1,6 @@
 # app/helpers/link_to_helper.rb:
 # This module is included into all controllers via controllers/application.rb
-# - 
+# -
 #
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
@@ -10,25 +10,29 @@
 module LinkToHelper
 
     # Links to various models
-    
+
     # Requests
     def request_url(info_request, extra_params={})
         params = {:url_title => info_request.url_title, :only_path => true}
         return show_request_url(params.merge(extra_params))
     end
-    
-    def request_link(info_request)
-        link_to h(info_request.title), request_url(info_request)
+
+    def request_link(info_request, cls=nil )
+        link_to h(info_request.title), request_url(info_request), :class => cls
     end
-    
+
     def request_admin_url(info_request)
         return admin_url('request/show/' + info_request.id.to_s)
     end
-    
+
+    def request_admin_link(info_request, name="admin", cls=nil)
+      link_to name, request_admin_url(info_request), :class => cls
+    end
+
     def request_both_links(info_request)
         link_to(h(info_request.title), main_url(request_url(info_request))) + " (" + link_to("admin", request_admin_url(info_request)) + ")"
     end
-    
+
     def request_similar_url(info_request)
         return similar_request_url(:url_title => info_request.url_title, :only_path => true)
     end
@@ -58,7 +62,7 @@ module LinkToHelper
         end
         return respond_url
     end
-  
+
     # Public bodies
     def public_body_url(public_body)
         public_body.url_name.nil? ? '' : show_public_body_url(:url_name => public_body.url_name, :only_path => true)
@@ -66,8 +70,8 @@ module LinkToHelper
     def public_body_link_short(public_body)
         link_to h(public_body.short_or_long_name), public_body_url(public_body)
     end
-    def public_body_link(public_body)
-        link_to h(public_body.name), public_body_url(public_body)
+    def public_body_link(public_body, cls=nil)
+        link_to h(public_body.name), public_body_url(public_body), :class => cls
     end
     def public_body_link_absolute(public_body) # e.g. for in RSS
         link_to h(public_body.name), main_url(public_body_url(public_body))
@@ -79,15 +83,15 @@ module LinkToHelper
         link_to(h(public_body.name), main_url(public_body_url(public_body))) + " (" + link_to("admin", public_body_admin_url(public_body)) + ")"
     end
     def list_public_bodies_default
-        list_public_bodies_url(:tag => 'all') 
+        list_public_bodies_url(:tag => 'all')
     end
 
     # Users
     def user_url(user)
         return show_user_url(:url_name => user.url_name, :only_path => true)
     end
-    def user_link(user)
-        link_to h(user.name), user_url(user)
+    def user_link(user, cls=nil)
+        link_to h(user.name), user_url(user), :class => cls
     end
     def user_link_absolute(user)
         link_to h(user.name), main_url(user_url(user))
@@ -112,6 +116,9 @@ module LinkToHelper
     def user_admin_url(user)
         return admin_url('user/show/' + user.id.to_s)
     end
+    def user_admin_link(user, name="admin", cls=nil)
+      link_to name, user_admin_url(user), :class => cls
+    end
     def user_both_links(user)
         link_to(h(user.name), main_url(user_url(user))) + " (" + link_to("admin", user_admin_url(user)) + ")"
     end
@@ -120,15 +127,15 @@ module LinkToHelper
     def do_track_url(track_thing, feed = 'track')
         if track_thing.track_type == 'request_updates'
             track_request_url(:url_title => track_thing.info_request.url_title, :feed => feed)
-        elsif track_thing.track_type == 'all_new_requests' 
+        elsif track_thing.track_type == 'all_new_requests'
             track_list_url(:view => 'recent', :feed => feed)
-        elsif track_thing.track_type == 'all_successful_requests' 
+        elsif track_thing.track_type == 'all_successful_requests'
             track_list_url(:view => 'successful', :feed => feed)
-        elsif track_thing.track_type == 'public_body_updates' 
+        elsif track_thing.track_type == 'public_body_updates'
             track_public_body_url(:url_name => track_thing.public_body.url_name, :feed => feed)
-        elsif track_thing.track_type == 'user_updates' 
+        elsif track_thing.track_type == 'user_updates'
             track_user_url(:url_name => track_thing.tracked_user.url_name, :feed => feed)
-        elsif track_thing.track_type == 'search_query' 
+        elsif track_thing.track_type == 'search_query'
             track_search_url(:query_array => track_thing.track_query, :feed => feed)
         else
             raise "unknown tracking type " + track_thing.track_type
@@ -141,7 +148,7 @@ module LinkToHelper
             query = query - ["", nil]
             query = query.join("/")
         end
-        routing_info = {:controller => 'general', 
+        routing_info = {:controller => 'general',
                         :action => 'search',
                         :combined => query,
                         :view => nil}
@@ -204,7 +211,9 @@ module LinkToHelper
 
     # Basic date format
     def simple_date(date)
-        return I18n.l(date, :format => "%e %B %Y")
+        date_format = _("simple_date_format")
+        date_format = :long if date_format == "simple_date_format"
+        return I18n.l(date.to_date, :format => date_format)
     end
 
     def simple_time(date)

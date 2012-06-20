@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 108
+# Schema version: 114
 #
 # Table name: exim_logs
 #
@@ -40,7 +40,7 @@ class EximLog < ActiveRecord::Base
 
         ActiveRecord::Base.transaction do
             # see if we already have it
-            done = EximLogDone.find_by_filename(file_name_db)  
+            done = EximLogDone.find_by_filename(file_name_db)
             if !done.nil?
                 if modified.utc == done.last_stat.utc
                     # already have that, nothing to do
@@ -124,7 +124,7 @@ class EximLog < ActiveRecord::Base
 
         return ok
     end
-    
+
 end
 
 

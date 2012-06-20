@@ -6,10 +6,12 @@
 #
 # $Id: user_controller.rb,v 1.71 2009-09-17 07:51:47 francis Exp $
 
+require 'set'
+
 class UserController < ApplicationController
 
     layout :select_layout
-    
+
     protect_from_forgery :only => [ :contact,
                                     :set_profile_photo,
                                     :signchangeemail,
@@ -33,7 +35,7 @@ class UserController < ApplicationController
             @show_profile = false
             @show_requests = true
         end
-        
+
         @display_user = User.find(:first, :conditions => [ "url_name = ? and email_confirmed = ?", params[:url_name], true ])
         if not @display_user
             raise ActiveRecord::RecordNotFound.new("user not found, url_name=" + params[:url_name])
@@ -55,7 +57,7 @@ class UserController < ApplicationController
                 end
                 @xapian_requests = perform_search([InfoRequestEvent], requests_query, 'newest', 'request_collapse')
                 @xapian_comments = perform_search([InfoRequestEvent], comments_query, 'newest', nil)
-                
+
                 if (@page > 1)
                     @page_desc = " (page " + @page.to_s + ")"
                 else
@@ -82,6 +84,50 @@ class UserController < ApplicationController
             @undescribed_requests = @display_user.get_undescribed_requests
         end
 
+        respond_to do |format|
+            format.html { @has_json = true }
+            format.json { render :json => @display_user.json_for_api }
+        end
+
+    end
+
+    # Show the user's wall
+    def wall
+        long_cache
+        @display_user = User.find(:first, :conditions => [ "url_name = ? and email_confirmed = ?", params[:url_name], true ])
+        if not @display_user
+            raise ActiveRecord::RecordNotFound.new("user not found, url_name=" + params[:url_name])
+        end
+        @is_you = !@user.nil? && @user.id == @display_user.id
+        feed_results = Set.new
+        # Use search query for this so can collapse and paginate easily
+        # XXX really should just use SQL query here rather than Xapian.
+        begin
+            requests_query = 'requested_by:' + @display_user.url_name
+            comments_query = 'commented_by:' + @display_user.url_name
+            # XXX combine these as OR query
+            @xapian_requests = perform_search([InfoRequestEvent], requests_query, 'newest', 'request_collapse')
+            @xapian_comments = perform_search([InfoRequestEvent], comments_query, 'newest', nil)
+        rescue
+            @xapian_requests = nil
+            @xapian_comments = nil
+        end
+
+        feed_results += @xapian_requests.results.map {|x| x[:model]} if !@xapian_requests.nil?
+        feed_results += @xapian_comments.results.map {|x| x[:model]} if !@xapian_comments.nil?
+
+        # All tracks for the user
+        if @is_you
+            @track_things = TrackThing.find(:all, :conditions => ["tracking_user_id = ? and track_medium = ?", @display_user.id, 'email_daily'], :order => 'created_at desc')
+            for track_thing in @track_things
+                # XXX factor out of track_mailer.rb
+                xapian_object = InfoRequest.full_search([InfoRequestEvent], track_thing.track_query, 'described_at', true, nil, 20, 1) 
+                feed_results += xapian_object.results.map {|x| x[:model]}
+            end
+        end
+
+        @feed_results = Array(feed_results).sort {|x,y| y.created_at <=> x.created_at}.first(20)
+        
         respond_to do |format|
             format.html { @has_json = true }
             format.json { render :json => @display_user.json_for_api }
@@ -129,7 +175,7 @@ class UserController < ApplicationController
                     session[:user_id] = @user_signin.id
                     session[:user_circumstance] = nil
                     session[:remember_me] = params[:remember_me] ? true : false
-                    
+
                     if is_modal_dialog
                         render :action => 'signin_successful'
                     else
@@ -182,7 +228,7 @@ class UserController < ApplicationController
             return
         end
 
-        if !User.stay_logged_in_on_redirect?(@user)
+        if !User.stay_logged_in_on_redirect?(@user) || post_redirect.circumstance == "login_as"
             @user = post_redirect.user
             @user.email_confirmed = true
             @user.save!
@@ -319,7 +365,7 @@ class UserController < ApplicationController
         if (not session[:user_circumstance]) or (session[:user_circumstance] != "change_email")
             # don't store the password in the db
             params[:signchangeemail].delete(:password)
-            post_redirect = PostRedirect.new(:uri => signchangeemail_url(), 
+            post_redirect = PostRedirect.new(:uri => signchangeemail_url(),
                                              :post_params => params,
                                              :circumstance => "change_email" # special login that lets you change your email
             )
@@ -533,17 +579,29 @@ class UserController < ApplicationController
         end
     end
 
+    # Change about me text on your profile page
+    def set_receive_email_alerts
+        if authenticated_user.nil?
+            flash[:error] = _("You need to be logged in to edit your profile.")
+            redirect_to frontpage_url
+            return
+        end
+        @user.receive_email_alerts = params[:receive_email_alerts]
+        @user.save!
+        redirect_to params[:came_from]
+    end
+
     private
 
     def is_modal_dialog
         (params[:modal].to_i != 0)
     end
-    
+
     # when logging in through a modal iframe, don't display chrome around the content
     def select_layout
         is_modal_dialog ? 'no_chrome' : 'default'
     end
-    
+
     # Decide where we are going to redirect back to after signin/signup, and record that
     def work_out_post_redirect
         # Redirect to front page later if nothing else specified

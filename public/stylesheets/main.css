@@ -41,7 +41,11 @@ border-width:1px;
 }
 
 #navigation_search input#navigation_search_query {
-width:14em;
+width:20.25em;
+font-size: 0.8em;
+padding: 5px;
+margin: -1px -1px 0 0;
+
 }
 
 #navigation_search p {
@@ -307,7 +311,7 @@ color:#A68C2E;
 background-image:url(../images/navimg/status-icons-fail.png);
 }
 
-.icon_not_held {
+.icon_not_held, .icon_attention_requested {
 background-image:url(/images/status-not-held.png);
 color:#A68C2E;
 }
@@ -636,13 +640,15 @@ margin-top:-1em;
 margin:0 0 0 9em;
 }
 
-p#sign_in_reason {
+p#sign_in_reason, p#superuser_message {
 text-align:center;
 font-size:1.4em;
 font-weight:700;
 line-height:1em;
 }
-
+p#superuser_message {
+ font-size:1.2em;
+}
 #signup,#signin {
 clear:none;
 margin-bottom:1em;
@@ -876,6 +882,34 @@ vertical-align:middle;
 text-decoration:none;
 }
 
+#follow_box {
+
+ padding: 4px;
+}
+
+#follow_box .feed_link {
+ text-align: center;
+}
+
+#follow_count {
+ color: #93278F;
+ font-family: 'DeliciousBold', Arial, sans-serif;
+ font-weight: 700;
+ font-size: 60px;
+ line-height: 60px;
+ text-align: right;
+ float: left;
+ margin-top: -15px;
+ margin-right: 5px;
+}
+.follow_count {
+ clear:both;
+}
+
+#follow_box h2 {
+ margin: 0;
+}
+
 h2,dt {
 font-size:1.8em;
 }
@@ -910,7 +944,7 @@ border:none;
 
 #navigation_search input[type=image] {
 border:0;
-margin-bottom:-8px;
+margin-bottom:-9px;
 margin-left:-4px;
 }
 
@@ -1044,7 +1078,7 @@ padding:4px 0;
 .request_listing span.desc {
 background:url(/images/quote-marks.png) no-repeat;
 min-height:60px;
-width:auto;
+width:100%;
 color:#444;
 line-height:18px;
 padding:0 0 0 40px;
@@ -1249,6 +1283,9 @@ cursor:pointer;
 padding:5px 6px;
 }
 
+.feed_link a.link_button_green {
+ color:white;
+}
 a.link_button_green_large {
 background:url(/images/button-gradient-large.png);
 font-size:2em;
@@ -1629,9 +1666,15 @@ div.controller_help h1 a,#logged_in_bar a,#logged_in_bar a:visited,#stepwise_mak
 }
 
 .request_left,#header_left {
-width:625px;
+width:575px;
+padding-right:50px;
 float:left;
 }
+.medium_column {
+width:575px;
+padding-right:50px;
+}
+
 #authority_preview .request_left,
 #authority_preview #header_left {
   width: 100%;

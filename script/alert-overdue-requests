@@ -1,7 +1,5 @@
 #!/bin/bash
 
-LOC=`dirname $0`
+cd "`dirname "$0"`"
 
-"$LOC/runner" 'RequestMailer.alert_overdue_requests()'
-
-
+bundle exec ./runner 'RequestMailer.alert_overdue_requests()'

@@ -1,4 +1,6 @@
-<% @title = "#{h(@info_request.title)} - a Freedom of Information request to #{h(@info_request.public_body.name)}" %>
+<% @title = _("{{title}} - a Freedom of Information request to {{public_body}}",
+                :title => h(@info_request.title),
+                :public_body => (@info_request.public_body.name)) %>
 
 <% if @info_request.prominence == 'hidden' %>
     <p id="hidden_request">
@@ -72,7 +74,7 @@
         <%= _('normally') %> 
         <% end %>
         <%= _('no later than') %> <strong><%= simple_date(@info_request.date_response_required_by) %></strong>
-        (<%= link_to "details", "/help/requesting#quickly_response" %>).
+        (<%= link_to _("details"), "/help/requesting#quickly_response" %>).
     <% elsif @status == 'waiting_response_overdue' %>
         <%= _('Response to this request is <strong>delayed</strong>.') %>
 		<%= _('By law, {{public_body_link}} should normally have responded <strong>promptly</strong> and',:public_body_link=>public_body_link(@info_request.public_body)) %>
@@ -116,6 +118,12 @@
     <% elsif @status == 'user_withdrawn' %>
         <%= _('This request has been <strong>withdrawn</strong> by the person who made it. 
         	   There may be an explanation in the correspondence below.') %>
+    <% elsif @status == 'attention_requested' %>
+        <%= _('This request has been <strong>reported</strong> as needing administrator attention (perhaps because it is vexatious, or a request for personal information)') %>
+    <% elsif @status == 'vexatious' %>
+        <%= _('This request has been <strong>hidden</strong> from the site, because an administrator considers it vexatious') %>
+    <% elsif @status == 'not_foi' %>
+        <%= _('This request has been <strong>hidden</strong> from the site, because an administrator considers it not to be an FOI request') %>
     <% else %>
         <%= render :partial => 'general/custom_state_descriptions', :locals => { :status => @status } %>
     <% end %>

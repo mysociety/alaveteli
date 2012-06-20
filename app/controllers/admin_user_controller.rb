@@ -15,7 +15,7 @@ class AdminUserController < AdminController
     def list
         @query = params[:query]
         @admin_users = User.paginate :order => "name", :page => params[:page], :per_page => 100,
-            :conditions =>  @query.nil? ? nil : ["lower(name) like lower('%'||?||'%') or 
+            :conditions =>  @query.nil? ? nil : ["lower(name) like lower('%'||?||'%') or
                              lower(email) like lower('%'||?||'%')", @query, @query]
     end
 
@@ -28,7 +28,7 @@ class AdminUserController < AdminController
         # Don't use @user as that is any logged in user
         @admin_user = User.find(params[:id])
     end
-    
+
     def show_bounce_message
         @admin_user = User.find(params[:id])
     end
@@ -54,7 +54,7 @@ class AdminUserController < AdminController
         else
             render :action => 'edit'
         end
-    end 
+    end
 
     def destroy_track
         track_thing = TrackThing.find(params[:track_id].to_i)
@@ -62,7 +62,7 @@ class AdminUserController < AdminController
         flash[:notice] = 'Track destroyed'
         redirect_to user_admin_url(track_thing.tracking_user)
     end
-    
+
     def clear_bounce
         user = User.find(params[:id])
         user.email_bounced_at = nil
@@ -74,10 +74,9 @@ class AdminUserController < AdminController
     def login_as
         @admin_user = User.find(params[:id]) # check user does exist
 
-        post_redirect = PostRedirect.new( :uri => main_url(user_url(@admin_user)), :user_id => @admin_user.id)
+        post_redirect = PostRedirect.new( :uri => main_url(user_url(@admin_user)), :user_id => @admin_user.id, :circumstance => "login_as" )
         post_redirect.save!
         url = main_url(confirm_url(:email_token => post_redirect.email_token, :only_path => true))
-        session[:user_id] = nil # Log out current (usually admin) user, so we get logged in as the other user
 
         redirect_to url
     end

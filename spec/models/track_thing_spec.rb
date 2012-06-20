@@ -36,12 +36,17 @@ describe TrackThing, "when tracking changes" do
 
     it "will make some sane descriptions of search-based tracks" do
         tests = [['bob variety:user', "users matching text 'bob'"],
-                 ['bob (variety:sent OR variety:followup_sent OR variety:response OR variety:comment) (latest_status:successful OR latest_status:partially_successful OR latest_status:rejected OR latest_status:not_held)', "requests which are successful or unsuccessful or comments matching text 'bob'"],
+                 ['bob (variety:sent OR variety:followup_sent OR variety:response OR variety:comment) (latest_status:successful OR latest_status:partially_successful OR latest_status:rejected OR latest_status:not_held)', "comments or requests which are successful or unsuccessful matching text 'bob'"],
                  ['(latest_status:waiting_response OR latest_status:waiting_clarification OR waiting_classification:true)', 'requests which are awaiting a response']]
         for query, description in tests
             track_thing = TrackThing.create_track_for_search_query(query)
             track_thing.track_query_description.should == description
         end
+    end
+
+    it "will create an authority-based track when called using a 'bodies' postfix" do
+        track_thing = TrackThing.create_track_for_search_query('fancy dog', 'bodies')
+        track_thing.track_query.should =~ /variety:authority/
     end
 
 end

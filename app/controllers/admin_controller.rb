@@ -36,6 +36,8 @@ class AdminController < ApplicationController
 
         # also force a search reindexing (so changed text reflected in search)
         info_request.reindex_request_events
+        # and remove from varnsi
+        info_request.purge_in_cache
     end
 
     # Expire cached attachment files for a user
@@ -44,23 +46,40 @@ class AdminController < ApplicationController
             expire_for_request(info_request)
         end
     end
-	private
 
-	def authenticate
-            config_username = MySociety::Config.get('ADMIN_USERNAME', '')
-            config_password = MySociety::Config.get('ADMIN_PASSWORD', '')
-            if !config_username.empty? && !config_password.empty?
-                authenticate_or_request_with_http_basic do |user_name, password|
-                    if user_name == config_username && password == config_password
-                        session[:using_admin] = 1
-                        request.env['REMOTE_USER'] = user_name
-                    else
-                        request_http_basic_authentication
+    private
+
+    def authenticate
+        if MySociety::Config.get('SKIP_ADMIN_AUTH', false)
+            session[:using_admin] = 1
+            return
+        else
+            if session[:using_admin].nil?
+                if params[:emergency].nil?
+                    if authenticated?(
+                                      :web => _("To log into the administrative interface"),
+                                      :email => _("Then you can log into the administrative interface"),
+                                      :email_subject => _("Log into the admin interface"),
+                                      :user_name => "a superuser")
+                        if !@user.nil? && @user.admin_level == "super"
+                            session[:using_admin] = 1
+                            request.env['REMOTE_USER'] = @user.url_name
+                        end
+                    end
+                else
+                    config_username = MySociety::Config.get('ADMIN_USERNAME', '')
+                    config_password = MySociety::Config.get('ADMIN_PASSWORD', '')
+                    authenticate_or_request_with_http_basic do |user_name, password|
+                        if user_name == config_username && password == config_password
+                            session[:using_admin] = 1
+                            request.env['REMOTE_USER'] = user_name
+                        else
+                            request_http_basic_authentication
+                        end
                     end
                 end
-            else
-                session[:using_admin] = 1
             end
-	end
+        end
+    end
 end
 

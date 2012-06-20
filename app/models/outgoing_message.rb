@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 108
+# Schema version: 114
 #
 # Table name: outgoing_messages
 #
@@ -37,7 +37,7 @@ class OutgoingMessage < ActiveRecord::Base
 
     # can have many events, for items which were resent by site admin e.g. if
     # contact address changed
-    has_many :info_request_events 
+    has_many :info_request_events
 
     # To override the default letter
     attr_accessor :default_letter
@@ -45,7 +45,7 @@ class OutgoingMessage < ActiveRecord::Base
     # reindex if body text is edited (e.g. by admin interface)
     after_update :xapian_reindex_after_update
     def xapian_reindex_after_update
-        if self.changes.include?('body') 
+        if self.changes.include?('body')
             for info_request_event in self.info_request_events
                 info_request_event.xapian_mark_needs_index
             end
@@ -83,11 +83,11 @@ class OutgoingMessage < ActiveRecord::Base
             "\n\n" +
             "I am writing to request an internal review of " +
             self.info_request.public_body.name +
-            "'s handling of my FOI request " + 
-            "'" + self.info_request.title + "'." + 
+            "'s handling of my FOI request " +
+            "'" + self.info_request.title + "'." +
             "\n\n\n\n [ " + self.get_internal_review_insert_here_note + " ] \n\n\n\n" +
             "A full history of my FOI request and all correspondence is available on the Internet at this address:\n" +
-            "http://" + MySociety::Config.get("DOMAIN", '127.0.0.1:3000') + "/request/" + self.info_request.url_title 
+            "http://" + MySociety::Config.get("DOMAIN", '127.0.0.1:3000') + "/request/" + self.info_request.url_title
         else
             ""
         end
@@ -98,7 +98,7 @@ class OutgoingMessage < ActiveRecord::Base
     def set_signature_name(name)
         # XXX We use raw_body here to get unstripped one
         if self.raw_body == self.get_default_message
-            self.body = self.raw_body + name 
+            self.body = self.raw_body + name
         end
     end
 
@@ -130,7 +130,7 @@ class OutgoingMessage < ActiveRecord::Base
     def contains_postcode?
         MySociety::Validate.contains_postcode?(self.body)
     end
- 
+
     # Set default letter
     def after_initialize
         if self.body.nil?
@@ -267,7 +267,16 @@ class OutgoingMessage < ActiveRecord::Base
         end
     end
 
+    after_save(:purge_in_cache)
+    def purge_in_cache
+        self.info_request.purge_in_cache
+    end
 
+    def for_admin_column
+        self.class.content_columns.each do |column|
+            yield(column.human_name, self.send(column.name), column.type.to_s, column.name)
+        end
+    end
 end
 
 

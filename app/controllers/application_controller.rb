@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # controllers/application.rb:
 # Parent class of all controllers in FOI site. Filters added to this controller
 # apply to all controllers in the application. Likewise, all the methods added
@@ -19,7 +20,7 @@ class ApplicationController < ActionController::Base
 
     # Send notification email on exceptions
     include ExceptionNotification::Notifiable
-    
+
     # Note: a filter stops the chain if it redirects or renders something
     before_filter :authentication_check
     before_filter :set_gettext_locale
@@ -33,7 +34,7 @@ class ApplicationController < ActionController::Base
     def set_vary_header
         response.headers['Vary'] = 'Cookie'
     end
-    
+
     helper_method :anonymous_cache, :short_cache, :medium_cache, :long_cache
     def anonymous_cache(time)
         if session[:user_id].nil?
@@ -117,8 +118,20 @@ class ApplicationController < ActionController::Base
 
     # Override default error handler, for production sites.
     def rescue_action_in_public(exception)
+        # Call `set_view_paths` from the theme, if it exists.
+        # Normally, this is called by the theme itself in a
+        # :before_filter, but when there's an error, this doesn't
+        # happen.  By calling it here, we can ensure error pages are
+        # still styled according to the theme.
+        begin
+            set_view_paths
+        rescue NameError => e
+            if !(e.message =~ /undefined local variable or method `set_view_paths'/)
+                raise
+            end
+        end
         # Make sure expiry time for session is set (before_filters are
-        # otherwise missed by this override) 
+        # otherwise missed by this override)
         session_remember_me
         case exception
         when ActiveRecord::RecordNotFound, ActionController::UnknownAction, ActionController::RoutingError
@@ -140,19 +153,19 @@ class ApplicationController < ActionController::Base
     alias original_rescue_action_locally rescue_action_locally
     def rescue_action_locally(exception)
         # Make sure expiry time for session is set (before_filters are
-        # otherwise missed by this override) 
+        # otherwise missed by this override)
         session_remember_me
 
         # Display default, detailed error for developers
         original_rescue_action_locally(exception)
     end
-      
+
     def local_request?
         false
     end
 
-    # Called from test code, is a mimic of User.confirm, for use in following email
-    # links when in controller tests (since we don't have full integration tests that
+    # Called from test code, is a mimic of UserController.confirm, for use in following email
+    # links when in controller tests (though we also have full integration tests that
     # can work over multiple controllers)
     def test_code_redirect_by_email_token(token, controller_example_group)
         post_redirect = PostRedirect.find_by_email_token(token)
@@ -178,7 +191,7 @@ class ApplicationController < ActionController::Base
     end
 
     def foi_fragment_cache_path(param)
-        path = File.join(RAILS_ROOT, 'cache', 'views', foi_fragment_cache_part_path(param))
+        path = File.join(Rails.root, 'cache', 'views', foi_fragment_cache_part_path(param))
         max_file_length = 255 - 35 # we subtract 35 because tempfile
                                    # adds on a variable number of
                                    # characters
@@ -189,7 +202,7 @@ class ApplicationController < ActionController::Base
         # return stub path so admin can expire it
         first_three_digits = info_request.id.to_s()[0..2]
         path = "views/request/#{first_three_digits}/#{info_request.id}"
-        foi_cache_path = File.join(File.dirname(__FILE__), '../../cache')
+        foi_cache_path = File.expand_path(File.join(File.dirname(__FILE__), '../../cache'))
         return File.join(foi_cache_path, path)
     end
     def foi_fragment_cache_exists?(key_path)
@@ -207,7 +220,7 @@ class ApplicationController < ActionController::Base
         end
     end
 
-    # get the local locale 
+    # get the local locale
     def locale_from_params(*args)
       if params[:show_locale]
         params[:show_locale]
@@ -224,15 +237,15 @@ class ApplicationController < ActionController::Base
             post_redirect = PostRedirect.new(:uri => request.request_uri, :post_params => params,
                 :reason_params => reason_params)
             post_redirect.save!
-            # 'modal' controls whether the sign-in form will be displayed in the typical full-blown 
-            # page or on its own, useful for pop-ups            
+            # 'modal' controls whether the sign-in form will be displayed in the typical full-blown
+            # page or on its own, useful for pop-ups
             redirect_to signin_url(:token => post_redirect.token, :modal => params[:modal])
             return false
         end
         return true
     end
 
-    def authenticated_as_user?(user, reason_params) 
+    def authenticated_as_user?(user, reason_params)
         reason_params[:user_name] = user.name
         reason_params[:user_url] = show_user_url(:url_name => user.url_name)
         if session[:user_id]
@@ -274,6 +287,8 @@ class ApplicationController < ActionController::Base
         # XXX what is the built in Ruby URI munging function that can do this
         # choice of & vs. ? more elegantly than this dumb if statement?
         if uri.include?("?")
+            # XXX This looks odd. What would a fragment identifier be doing server-side?
+            #     But it also looks harmless, so I’ll leave it just in case.
             if uri.include?("#")
                 uri.sub!("#", "&post_redirect=1#")
             else
@@ -294,6 +309,7 @@ class ApplicationController < ActionController::Base
         if params[:post_redirect] and session[:post_redirect_token]
             post_redirect = PostRedirect.find_by_token(session[:post_redirect_token])
             params.update(post_redirect.post_params)
+            params[:post_redirect_user] = post_redirect.user
         end
     end
 
@@ -304,7 +320,7 @@ class ApplicationController < ActionController::Base
         end
     end
 
-    # 
+    #
     def check_read_only
         read_only = MySociety::Config.get('READ_ONLY', '')
         if !read_only.empty?
@@ -329,11 +345,8 @@ class ApplicationController < ActionController::Base
             return "*unknown*";
         end
     end
-    def assign_http_auth_user
-        @http_auth_user = admin_http_auth_user
-    end
 
-    # Convert URL name for sort by order, to Xapian query 
+    # Convert URL name for sort by order, to Xapian query
     def order_to_sort_by(sortby)
         if sortby.nil?
             return [nil, nil]
@@ -349,7 +362,7 @@ class ApplicationController < ActionController::Base
     end
 
     # Function for search
-    def perform_search(models, query, sortby, collapse, per_page = 25, this_page = nil) 
+    def perform_search(models, query, sortby, collapse, per_page = 25, this_page = nil)
         @query = query
         @sortby = sortby
 
@@ -385,7 +398,7 @@ class ApplicationController < ActionController::Base
                 collapse = 'request_collapse'
             end
             options = {
-                :offset => (@page - 1) * @per_page, 
+                :offset => (@page - 1) * @per_page,
                 :limit => @per_page,
                 :sort_by_prefix => nil,
                 :sort_by_ascending => true,
@@ -404,7 +417,7 @@ class ApplicationController < ActionController::Base
                 if e.message =~ /^QueryParserError: Wildcard/
                     # Wildcard expands to too many terms
                     logger.info "Wildcard query '#{query.strip + '*'}' caused: #{e.message}"
-                    
+
                     user_query =  ActsAsXapian.query_parser.parse_query(
                                                query,
                                                Xapian::QueryParser::FLAG_LOVEHATE |
@@ -433,8 +446,8 @@ class ApplicationController < ActionController::Base
 
     def param_exists(item)
         return params[item] && !params[item].empty?
-    end    
-    
+    end
+
     def get_request_variety_from_params
         query = ""
         sortby = "newest"
@@ -459,7 +472,7 @@ class ApplicationController < ActionController::Base
 
     def get_status_from_params
         query = ""
-        if params[:latest_status] 
+        if params[:latest_status]
             statuses = []
             if params[:latest_status].class == String
                 params[:latest_status] = [params[:latest_status]]
@@ -510,7 +523,7 @@ class ApplicationController < ActionController::Base
         query = ""
         tags = []
         if param_exists(:tags)
-            params[:tags].split().each do |tag| 
+            params[:tags].split().each do |tag|
                 tags << "tag:#{tag}"
             end
         end
@@ -519,7 +532,7 @@ class ApplicationController < ActionController::Base
         end
         return query
     end
-    
+
     def make_query_from_params
         query = params[:query] || "" if query.nil?
         query += get_date_range_from_params
@@ -540,16 +553,6 @@ class ApplicationController < ActionController::Base
         return country
     end
 
-    def quietly_try_to_open(url)
-        begin 
-            result = open(url).read.strip
-        rescue OpenURI::HTTPError, SocketError, Errno::ETIMEDOUT, Errno::ECONNREFUSED, Errno::EHOSTUNREACH
-            logger.warn("Unable to open third-party URL #{url}")
-            result = ""
-        end
-        return result
-    end
-    
     # URL generating functions are needed by all controllers (for redirects),
     # views (for links) and mailers (for use in emails), so include them into
     # all of all.

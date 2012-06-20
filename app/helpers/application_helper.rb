@@ -17,6 +17,9 @@ module ApplicationHelper
     # Site-wide access to configuration settings
     include ConfigHelper
 
+    # Useful for sending emails
+    include MailerHelper
+
     # Copied from error_messages_for in active_record_helper.rb
     def foi_error_messages_for(*params)
         options = params.last.is_a?(Hash) ? params.pop.symbolize_keys : {}
@@ -32,14 +35,14 @@ module ApplicationHelper
                   html[key] = 'errorExplanation'
               end
           end
-          
+
           error_messages = []
           for object in objects
               object.errors.each do |attr, message|
                   error_messages << content_tag(:li, message)
               end
           end
-          
+
           content_tag(:div,
               content_tag(:ul, error_messages),
             html
@@ -48,7 +51,7 @@ module ApplicationHelper
             ''
         end
     end
-    
+
     # Highlight words, also escapes HTML (other than spans that we add)
     def highlight_words(t, words, html = true)
         if html
@@ -70,10 +73,10 @@ module ApplicationHelper
         t = highlight_words(t, words, html)
         return t
     end
-	
+
     def locale_name(locale)
         return LanguageNames::get_language_name(locale)
-    end  
+    end
 
     # Use our own algorithm for finding path of cache
     def foi_cache(name = {}, options = nil, &block)
@@ -100,17 +103,33 @@ module ApplicationHelper
     def sanitized_object_name(object_name)
         object_name.gsub(/\]\[|[^-a-zA-Z0-9:.]/,"_").sub(/_$/,"")
     end
- 
+
     def sanitized_method_name(method_name)
         method_name.sub(/\?$/, "")
     end
- 
+
     def form_tag_id(object_name, method_name, locale=nil)
 	if locale.nil?
             return "#{sanitized_object_name(object_name.to_s)}_#{sanitized_method_name(method_name.to_s)}"
         else
             return "#{sanitized_object_name(object_name.to_s)}_#{sanitized_method_name(method_name.to_s)}__#{locale.to_s}"
         end
+    end
+
+    def admin_value(v)
+      if v.nil?
+        nil
+      elsif v.instance_of?(Time)
+        admin_date(v)
+      else
+        h(v)
+      end
+    end
+
+    def admin_date(date)
+        ago_text = _('{{length_of_time}} ago', :length_of_time => time_ago_in_words(date))
+        exact_date = I18n.l(date, :format => "%e %B %Y %H:%M:%S")
+        return "#{exact_date} (#{ago_text})"
     end
 
 end

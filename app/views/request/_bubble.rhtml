@@ -13,7 +13,7 @@
                                     :file_name => a.display_filename + '.html') 
                         %>
                         <% img_filename = "icon_" + a.content_type.sub('/', '_') + "_large.png"
-                        full_filename = File.join(File.dirname(__FILE__), "../../../public/images", img_filename)
+                        full_filename = File.expand_path(File.join(File.dirname(__FILE__), "../../../public/images", img_filename))
                         if File.exist?(full_filename) %>
                             <a href="<%=attachment_url%>"><img class="attachment_image" alt="Attachment" src="/images/<%=img_filename%>"></a>
                         <% else %>

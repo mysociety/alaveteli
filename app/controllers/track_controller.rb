@@ -50,11 +50,15 @@ class TrackController < ApplicationController
         raise ActiveRecord::RecordNotFound.new("None found") if @public_body.nil?
         # If found by historic name, or alternate locale name, redirect to new name
         if  @public_body.url_name != params[:url_name]
-            redirect_to track_public_body_url(:url_name => @public_body.url_name, :feed => params[:feed])
+            redirect_to track_public_body_url(:url_name => @public_body.url_name, :feed => params[:feed], :event_type => params[:event_type])
             return
         end
 
-        @track_thing = TrackThing.create_track_for_public_body(@public_body)
+        if params[:event_type]
+            @track_thing = TrackThing.create_track_for_public_body(@public_body, params[:event_type])
+        else
+            @track_thing = TrackThing.create_track_for_public_body(@public_body)
+        end
 
         return atom_feed_internal if params[:feed] == 'feed'
 
@@ -94,7 +98,23 @@ class TrackController < ApplicationController
         return atom_feed_internal if params[:feed] == 'feed'
 
         if self.track_set
-            redirect_to search_url(@query)
+            if @query.scan("variety").length == 1
+                # we're making a track for a simple filter, for which
+                # there's an expression in the UI (rather than relying
+                # on index:value strings in the query)
+                if @query =~ /variety:user/
+                    postfix = "users"
+                    @query.sub!("variety:user", "")
+                elsif @query =~ /variety:authority/
+                    postfix = "bodies"
+                    @query.sub!("variety:authority", "")
+                elsif @query =~ /variety:sent/
+                    postfix = "requests"
+                    @query.sub!("variety:sent", "")
+                end
+                @query.strip!
+            end
+            redirect_to search_url([@query, postfix])
         end
     end
 
@@ -103,7 +123,7 @@ class TrackController < ApplicationController
         if @user
             @existing_track = TrackThing.find_by_existing_track(@user, @track_thing)
             if @existing_track
-                flash[:notice] = _("You are already being emailed updates about ") + @track_thing.params[:list_description]
+                flash[:notice] = _("You are already following updates about {{track_description}}", :track_description => @track_thing.params[:list_description])
                 return true
             end
         end
@@ -115,8 +135,11 @@ class TrackController < ApplicationController
         @track_thing.track_medium = 'email_daily'
         @track_thing.tracking_user_id = @user.id
         @track_thing.save!
-
-        flash[:notice] = _("You will now be emailed updates about ") + @track_thing.params[:list_description]
+        if @user.receive_email_alerts
+            flash[:notice] = _('You will now be emailed updates about {{track_description}}. <a href="{{change_email_alerts_url}}">Prefer not to receive emails?</a>', :track_description =>  @track_thing.params[:list_description], :change_email_alerts_url => url_for(:controller => "user", :action => "wall", :url_name => @user.url_name))
+        else
+            flash[:notice] = _('You are now <a href="{{wall_url_user}}">following</a> updates about {{track_description}}', :track_description => @track_thing.params[:list_description], :wall_url_user => url_for(:controller => "user", :action => "wall", :url_name => @user.url_name))
+        end
         return true
     end
 
@@ -159,7 +182,7 @@ class TrackController < ApplicationController
         new_medium = params[:track_medium]
         if new_medium == 'delete'
             track_thing.destroy
-            flash[:notice] = _("You will no longer be emailed updates about ") + track_thing.params[:list_description]
+            flash[:notice] = _("You are no longer following {{track_description}}", :track_description => track_thing.params[:list_description])
             redirect_to params[:r]
         # Reuse code like this if we let medium change again.
         #elsif new_medium == 'email_daily'

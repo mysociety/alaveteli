@@ -10,8 +10,8 @@ git status | grep app.po | awk '{print $3}' | xargs git add
 git commit -m "Backup latest po files from Transifex"
 
 # now regenerate POT and PO files from Alaveteli source
-rake gettext:store_model_attributes
-rake gettext:findpot
+bundle exec rake gettext:store_model_attributes
+bundle exec rake gettext:findpot
 
 # upload the result to Transifex
 tx push -t 

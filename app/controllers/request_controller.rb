@@ -16,7 +16,7 @@ class RequestController < ApplicationController
 
     MAX_RESULTS = 500
     PER_PAGE = 25
-    
+
     @@custom_states_loaded = false
     begin
         if ENV["RAILS_ENV"] != "test"
@@ -44,11 +44,17 @@ class RequestController < ApplicationController
         end
         medium_cache
     end
-    
+
     def show
-        medium_cache
+        if !MySociety::Config.get('VARNISH_HOST').nil?
+            # If varnish is set up to accept PURGEs, then cache for a
+            # long time
+            long_cache
+        else
+            medium_cache
+        end
         @locale = self.locale_from_params()
-        PublicBody.with_locale(@locale) do  
+        PublicBody.with_locale(@locale) do
 
             # Look up by old style numeric identifiers
             if params[:url_title].match(/^[0-9]+$/)
@@ -57,7 +63,7 @@ class RequestController < ApplicationController
                 return
             end
 
-            # Look up by new style text names 
+            # Look up by new style text names
             @info_request = InfoRequest.find_by_url_title(params[:url_title])
             if @info_request.nil?
                 raise ActiveRecord::RecordNotFound.new("Request not found")
@@ -69,7 +75,7 @@ class RequestController < ApplicationController
                 render :template => 'request/hidden', :status => 410 # gone
                 return
             end
-           
+
             # Other parameters
             @info_request_events = @info_request.info_request_events
             @status = @info_request.calculate_status
@@ -77,7 +83,7 @@ class RequestController < ApplicationController
             @update_status = params[:update_status] ? true : false
             @old_unclassified = @info_request.is_old_unclassified? && !authenticated_user.nil?
             @is_owning_user = @info_request.is_owning_user?(authenticated_user)
-            
+
             if @update_status
                 return if !@is_owning_user && !authenticated_as_user?(@info_request.user,
                         :web => _("To update the status of this FOI request"),
@@ -85,7 +91,7 @@ class RequestController < ApplicationController
                         :email_subject => _("Update the status of your request to ") + @info_request.public_body.name
                     )
             end
-            
+
 
             @last_info_request_event_id = @info_request.last_event_id_needing_description
             @new_responses_count = @info_request.events_needing_description.select {|i| i.event_type == 'response'}.size
@@ -95,14 +101,14 @@ class RequestController < ApplicationController
             behavior_cache :tag => ['similar', @info_request.id] do
                 begin
                     limit = 10
-                    @xapian_similar = ::ActsAsXapian::Similar.new([InfoRequestEvent], @info_request.info_request_events, 
+                    @xapian_similar = ::ActsAsXapian::Similar.new([InfoRequestEvent], @info_request.info_request_events,
                       :limit => limit, :collapse_by_prefix => 'request_collapse')
                     @xapian_similar_more = (@xapian_similar.matches_estimated > limit)
                 rescue
                     @xapian_similar = nil
                 end
             end
-         
+
             # Track corresponding to this page
             @track_thing = TrackThing.create_track_for_request(@info_request)
             @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss], :has_json => true } ]
@@ -122,7 +128,7 @@ class RequestController < ApplicationController
         @info_request = InfoRequest.find_by_url_title(params[:url_title])
         if @info_request.nil?
             raise ActiveRecord::RecordNotFound.new("Request not found")
-        else            
+        else
             if !@info_request.user_can_view?(authenticated_user)
                 render :template => 'request/hidden', :status => 410 # gone
                 return
@@ -137,16 +143,18 @@ class RequestController < ApplicationController
         @per_page = 25
         @page = (params[:page] || "1").to_i
         @info_request = InfoRequest.find_by_url_title(params[:url_title])
+        raise ActiveRecord::RecordNotFound.new("Request not found") if @info_request.nil?
+
         if !@info_request.user_can_view?(authenticated_user)
             render :template => 'request/hidden', :status => 410 # gone
             return
         end
-        @xapian_object = ::ActsAsXapian::Similar.new([InfoRequestEvent], @info_request.info_request_events, 
+        @xapian_object = ::ActsAsXapian::Similar.new([InfoRequestEvent], @info_request.info_request_events,
             :offset => (@page - 1) * @per_page, :limit => @per_page, :collapse_by_prefix => 'request_collapse')
-        
+
         if (@page > 1)
-            @page_desc = " (page " + @page.to_s + ")" 
-        else    
+            @page_desc = " (page " + @page.to_s + ")"
+        else
             @page_desc = ""
         end
     end
@@ -158,7 +166,7 @@ class RequestController < ApplicationController
         if @view == "recent"
             return redirect_to request_list_all_path(:action => "list", :view => "all", :page => @page), :status => :moved_permanently
         end
-        
+
         # Later pages are very expensive to load
         if @page > MAX_RESULTS / PER_PAGE
             raise ActiveRecord::RecordNotFound.new("Sorry. No pages after #{MAX_RESULTS / PER_PAGE}.")
@@ -168,14 +176,14 @@ class RequestController < ApplicationController
         query = make_query_from_params
         @title = _("View and search requests")
         sortby = "newest"
-        @cache_tag = Digest::MD5.hexdigest(query + @page.to_s) 
+        @cache_tag = Digest::MD5.hexdigest(query + @page.to_s + I18n.locale.to_s)
         behavior_cache :tag => [@cache_tag] do
             xapian_object = perform_search([InfoRequestEvent], query, sortby, 'request_collapse')
             @list_results = xapian_object.results.map { |r| r[:model] }
             @matches_estimated = xapian_object.matches_estimated
             @show_no_more_than = (@matches_estimated > MAX_RESULTS) ? MAX_RESULTS : @matches_estimated
         end
-        
+
         @title = @title + " (page " + @page.to_s + ")" if (@page > 1)
         @track_thing = TrackThing.create_track_for_search_query(query)
         @feed_autodetect = [ { :url => do_track_url(@track_thing, 'feed'), :title => @track_thing.params[:title_in_rss], :has_json => true } ]
@@ -199,7 +207,7 @@ class RequestController < ApplicationController
         # get_undescribed_requests also allows one day since the response
         # arrived.
         if !@user.nil? && params[:submitted_new_request].nil? && !@user.can_leave_requests_undescribed?
-            @undescribed_requests = @user.get_undescribed_requests 
+            @undescribed_requests = @user.get_undescribed_requests
             if @undescribed_requests.size > 1
                 render :action => 'new_please_describe'
                 return
@@ -245,7 +253,7 @@ class RequestController < ApplicationController
             elsif params[:public_body_id]
                 params[:info_request][:public_body_id] = params[:public_body_id]
             end
-            if !params[:info_request][:public_body_id] 
+            if !params[:info_request][:public_body_id]
                 # compulsory to have a body by here, or go to front page which is start of process
                 redirect_to frontpage_url
                 return
@@ -263,7 +271,7 @@ class RequestController < ApplicationController
             params[:outgoing_message][:info_request] = @info_request
             @outgoing_message = OutgoingMessage.new(params[:outgoing_message])
             @outgoing_message.set_signature_name(@user.name) if !@user.nil?
-            
+
             if @info_request.public_body.is_requestable?
                 render :action => 'new'
             else
@@ -286,8 +294,8 @@ class RequestController < ApplicationController
 
         # Create both FOI request and the first request message
         @info_request = InfoRequest.new(params[:info_request])
-        @outgoing_message = OutgoingMessage.new(params[:outgoing_message].merge({ 
-            :status => 'ready', 
+        @outgoing_message = OutgoingMessage.new(params[:outgoing_message].merge({
+            :status => 'ready',
             :message_type => 'initial_request'
         }))
         @info_request.outgoing_messages << @outgoing_message
@@ -312,7 +320,7 @@ class RequestController < ApplicationController
         if params[:preview].to_i == 1
             message = ""
             if @outgoing_message.contains_email?
-                if @user.nil? 
+                if @user.nil?
                     message += _("<p>You do not need to include your email in the request in order to get a reply, as we will ask for it on the next screen (<a href=\"%s\">details</a>).</p>") % [help_privacy_path+"#email_address"];
                 else
                     message += _("<p>You do not need to include your email in the request in order to get a reply (<a href=\"%s\">details</a>).</p>") % [help_privacy_path+"#email_address"];
@@ -344,7 +352,13 @@ class RequestController < ApplicationController
             return
         end
 
-        @info_request.user = authenticated_user
+        if params[:post_redirect_user]
+            # If an admin has clicked the confirmation link on a users behalf,
+            # we don’t want to reassign the request to the administrator.
+            @info_request.user = params[:post_redirect_user]
+        else
+            @info_request.user = authenticated_user
+        end
         # This automatically saves dependent objects, such as @outgoing_message, in the same transaction
         @info_request.save!
         # XXX send_message needs the database id, so we send after saving, which isn't ideal if the request broke here.
@@ -352,7 +366,7 @@ class RequestController < ApplicationController
         flash[:notice] = _("<p>Your {{law_used_full}} request has been <strong>sent on its way</strong>!</p>
             <p><strong>We will email you</strong> when there is a response, or after {{late_number_of_days}} working days if the authority still hasn't
             replied by then.</p>
-            <p>If you write about this request (for example in a forum or a blog) please link to this page, and add an 
+            <p>If you write about this request (for example in a forum or a blog) please link to this page, and add an
             annotation below telling people about your writing.</p>",:law_used_full=>@info_request.law_used_full,
             :late_number_of_days => MySociety::Config.get('REPLY_LATE_AFTER_DAYS', 20))
         redirect_to show_new_request_path(:url_title => @info_request.url_title)
@@ -369,10 +383,10 @@ class RequestController < ApplicationController
             return
         end
 
-        @is_owning_user = @info_request.is_owning_user?(authenticated_user)       
+        @is_owning_user = @info_request.is_owning_user?(authenticated_user)
         @last_info_request_event_id = @info_request.last_event_id_needing_description
         @old_unclassified = @info_request.is_old_unclassified? && !authenticated_user.nil?
-        
+
         # Check authenticated, and parameters set. We check is_owning_user
         # to get admin overrides (see is_owning_user? above)
         if !@old_unclassified && !@is_owning_user && !authenticated_as_user?(@info_request.user,
@@ -399,7 +413,7 @@ class RequestController < ApplicationController
         # Make the state change
         old_described_state = @info_request.described_state
         @info_request.set_described_state(params[:incoming_message][:described_state])
-        
+
         # If you're not the *actual* requester owner. e.g. you are playing the
         # classification game, or you're doing this just because you are an
         # admin user (not because you also own the request).
@@ -408,24 +422,24 @@ class RequestController < ApplicationController
             # don't log if you were the requester XXX This is presumably so you
             # don't score for classifying your own requests. Could instead
             # always log and filter at display time.
-            @info_request.log_event("status_update", 
-                { :user_id => authenticated_user.id, 
-                  :old_described_state => old_described_state, 
+            @info_request.log_event("status_update",
+                { :user_id => authenticated_user.id,
+                  :old_described_state => old_described_state,
                   :described_state => @info_request.described_state,
                 })
-            
+
             # Don't give advice on what to do next, as it isn't their request
             RequestMailer.deliver_old_unclassified_updated(@info_request)
-            if session[:request_game] 
+            if session[:request_game]
                 flash[:notice] = _('Thank you for updating the status of the request \'<a href="{{url}}">{{info_request_title}}</a>\'. There are some more requests below for you to classify.',:info_request_title=>CGI.escapeHTML(@info_request.title), :url=>CGI.escapeHTML(request_url(@info_request)))
-                redirect_to play_url 
+                redirect_to play_url
             else
                 flash[:notice] = _('Thank you for updating this request!')
                 redirect_to request_url(@info_request)
             end
             return
         end
-        
+
         # Display advice for requester on what to do next, as appropriate
         if @info_request.calculate_status == 'waiting_response'
             flash[:notice] = _("<p>Thank you! Hopefully your wait isn't too long.</p> <p>By law, you should get a response promptly, and normally before the end of <strong>
@@ -441,14 +455,14 @@ class RequestController < ApplicationController
             flash[:notice] = _("<p>Thank you! Here are some ideas on what to do next:</p>
             <ul>
             <li>To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>.</li>
-            <li>If you would like to contest the authority's claim that they do not hold the information, here is 
+            <li>If you would like to contest the authority's claim that they do not hold the information, here is
             <a href=\"{{complain_url}}\">how to complain</a>.
             </li>
             <li>We have <a href=\"{{other_means_url}}\">suggestions</a>
             on other means to answer your question.
             </li>
-            </ul>", 
-            :find_authority_url => "/new", 
+            </ul>",
+            :find_authority_url => "/new",
             :complain_url => CGI.escapeHTML(unhappy_url(@info_request)),
             :other_means_url => CGI.escapeHTML(unhappy_url(@info_request)) + "#other_means")
             redirect_to request_url(@info_request)
@@ -487,7 +501,7 @@ class RequestController < ApplicationController
         end
     end
 
-    # Used for links from polymorphic URLs e.g. in Atom feeds - just redirect to 
+    # Used for links from polymorphic URLs e.g. in Atom feeds - just redirect to
     # proper URL for the message the event refers to
     def show_request_event
         @info_request_event = InfoRequestEvent.find(params[:info_request_event_id])
@@ -497,8 +511,8 @@ class RequestController < ApplicationController
             redirect_to outgoing_message_url(@info_request_event.outgoing_message), :status => :moved_permanently
         else
             # XXX maybe there are better URLs for some events than this
-            redirect_to request_url(@info_request_event.info_request), :status => :moved_permanently 
-        end 
+            redirect_to request_url(@info_request_event.info_request), :status => :moved_permanently
+        end
     end
 
     # Show an individual incoming message, and allow followup
@@ -542,8 +556,8 @@ class RequestController < ApplicationController
         if params_outgoing_message.nil?
             params_outgoing_message = {}
         end
-        params_outgoing_message.merge!({ 
-            :status => 'ready', 
+        params_outgoing_message.merge!({
+            :status => 'ready',
             :message_type => 'followup',
             :incoming_message_followup => @incoming_message,
             :info_request_id => @info_request.id
@@ -567,7 +581,7 @@ class RequestController < ApplicationController
             render :template => 'request/hidden', :status => 410 # gone
             return
         end
- 
+
         # Check address is good
         if !OutgoingMailer.is_followupable?(@info_request, @incoming_message)
             raise "unexpected followupable inconsistency" if @info_request.public_body.is_requestable?
@@ -580,7 +594,7 @@ class RequestController < ApplicationController
         # to make sure they're the right user first, before they start writing a
         # message and wasting their time if they are not the requester.
         if !authenticated_as_user?(@info_request.user,
-                :web => @incoming_message.nil? ? 
+                :web => @incoming_message.nil? ?
                     _("To send a follow up message to ") + @info_request.public_body.name :
                     _("To reply to ") + @info_request.public_body.name,
                 :email => @incoming_message.nil? ?
@@ -645,6 +659,25 @@ class RequestController < ApplicationController
         end
     end
 
+    def report_request
+        info_request = InfoRequest.find_by_url_title(params[:url_title])
+        return if !authenticated?(
+                :web => _("To report this FOI request"),
+                :email => _("Then you can report the request '{{title}}'", :title => info_request.title),
+                :email_subject => _("Report an offensive or unsuitable request")
+            )
+        
+        if !info_request.attention_requested
+            info_request.set_described_state('attention_requested', @user)
+            info_request.attention_requested = true # tells us if attention has ever been requested
+            info_request.save!
+            flash[:notice] = _("This request has been reported for administrator attention")
+        else
+            flash[:notice] = _("This request has already been reported for administrator attention")
+        end
+        redirect_to request_url(info_request)
+    end
+
     # special caching code so mime types are handled right
     around_filter :cache_attachments, :only => [ :get_attachment, :get_attachment_as_html ]
     def cache_attachments
@@ -678,7 +711,7 @@ class RequestController < ApplicationController
 
         # Prevent spam to magic request address. Note that the binary
         # subsitution method used depends on the content type
-        @incoming_message.binary_mask_stuff!(@attachment.body, @attachment.content_type) 
+        @incoming_message.binary_mask_stuff!(@attachment.body, @attachment.content_type)
 
         # we don't use @attachment.content_type here, as we want same mime type when cached in cache_attachments above
         response.content_type = AlaveteliFileTypes.filename_to_mimetype(params[:file_name].join("/")) || 'application/octet-stream'
@@ -706,7 +739,7 @@ class RequestController < ApplicationController
         html.sub!("<prefix-here>", view_html_prefix)
         html.sub!("<attachment-url-here>", CGI.escape(@attachment_url))
 
-        @incoming_message.html_mask_stuff!(html) 
+        @incoming_message.html_mask_stuff!(html)
         response.content_type = 'text/html'
         render :text => html
     end
@@ -731,7 +764,7 @@ class RequestController < ApplicationController
         else
             @original_filename = @filename
         end
-       
+
         # check permissions
         raise "internal error, pre-auth filter should have caught this" if !@info_request.user_can_view?(authenticated_user)
         @attachment = IncomingMessage.get_attachment_by_url_part_number(@incoming_message.get_attachments_for_display, @part_number)
@@ -748,7 +781,7 @@ class RequestController < ApplicationController
     # FOI officers can upload a response
     def upload_response
         @locale = self.locale_from_params()
-        PublicBody.with_locale(@locale) do 
+        PublicBody.with_locale(@locale) do
             @info_request = InfoRequest.find_by_url_title(params[:url_title])
 
             @reason_params = {
@@ -817,8 +850,8 @@ class RequestController < ApplicationController
                               )
                 updated = Digest::SHA1.hexdigest(info_request.get_last_event.created_at.to_i.to_s + info_request.updated_at.to_i.to_s)
                 @url_path = "/download/#{updated[0..1]}/#{updated}/#{params[:url_title]}.zip"
-                file_path = File.join(File.dirname(__FILE__), '../../cache/zips', @url_path)
-                if !File.exists?(file_path) 
+                file_path = File.expand_path(File.join(File.dirname(__FILE__), '../../cache/zips', @url_path))
+                if !File.exists?(file_path)
                     FileUtils.mkdir_p(File.dirname(file_path))
                     Zip::ZipFile.open(file_path, Zip::ZipFile::CREATE) { |zipfile|
                         convert_command = MySociety::Config.get("HTML_TO_PDF_COMMAND")
@@ -837,7 +870,7 @@ class RequestController < ApplicationController
                                 logger.error("Could not convert info request #{info_request.id} to PDF with command '#{convert_command} #{url} #{tempfile.path}'")
                             end
                             tempfile.close
-                        else                    
+                        else
                             logger.warn("No HTML -> PDF converter found at #{convert_command}")
                         end
                         if !done
@@ -849,7 +882,7 @@ class RequestController < ApplicationController
                                 f.puts(output)
                             }
                         end
-                        for message in info_request.incoming_messages                
+                        for message in info_request.incoming_messages
                             attachments = message.get_attachments_for_display
                             for attachment in attachments
                                 filename = "#{attachment.url_part_number}_#{attachment.display_filename}"

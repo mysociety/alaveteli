@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 108
+# Schema version: 114
 #
 # Table name: incoming_messages
 #
@@ -11,12 +11,12 @@
 #  cached_attachment_text_clipped :text
 #  cached_main_body_text_folded   :text
 #  cached_main_body_text_unfolded :text
-#  sent_at                        :time
 #  subject                        :text
 #  mail_from_domain               :text
 #  valid_to_reply_to              :boolean
 #  last_parsed                    :datetime
 #  mail_from                      :text
+#  sent_at                        :datetime
 #
 
 # encoding: UTF-8
@@ -81,7 +81,7 @@ class IncomingMessage < ActiveRecord::Base
             # http://www.whatdotheyknow.com/request/reviews_of_unduly_lenient_senten#incoming-4830
             # Report of TMail bug:
             # http://rubyforge.org/tracker/index.php?func=detail&aid=21810&group_id=4512&atid=17370
-            copy_of_raw_data = self.raw_email.data.gsub(/; boundary=\s+"/ims,'; boundary="') 
+            copy_of_raw_data = self.raw_email.data.gsub(/; boundary=\s+"/ims,'; boundary="')
 
             @mail = TMail::Mail.parse(copy_of_raw_data)
             @mail.base64_decode
@@ -92,7 +92,7 @@ class IncomingMessage < ActiveRecord::Base
     # Returns the name of the person the incoming message is from, or nil if
     # there isn't one or if there is only an email address. XXX can probably
     # remove from_name_if_present (which is a monkey patch) by just calling
-    # .from_addrs[0].name here instead? 
+    # .from_addrs[0].name here instead?
 
     # Return false if for some reason this is a message that we shouldn't let them reply to
     def _calculate_valid_to_reply_to
@@ -178,7 +178,7 @@ class IncomingMessage < ActiveRecord::Base
     def safe_mail_from
         if !self.mail_from.nil?
             mail_from = self.mail_from.dup
-            self.info_request.apply_censor_rules_to_text!(mail_from)            
+            self.info_request.apply_censor_rules_to_text!(mail_from)
             return mail_from
         end
     end
@@ -191,7 +191,7 @@ class IncomingMessage < ActiveRecord::Base
     # XXX This fills in part.rfc822_attachment and part.url_part_number within
     # all the parts of the email (see TMail monkeypatch above for how these
     # attributes are added). ensure_parts_counted must be called before using
-    # the attributes. 
+    # the attributes.
     def ensure_parts_counted
         @count_parts_count = 0
         _count_parts_recursive(self.mail)
@@ -215,7 +215,7 @@ class IncomingMessage < ActiveRecord::Base
                     # e.g. http://www.whatdotheyknow.com/request/chinese_names_for_british_politi
                     msg = Mapi::Msg.open(StringIO.new(part.body))
                     part.rfc822_attachment = TMail::Mail.parse(msg.to_mime.to_s)
-                elsif part.content_type == 'application/ms-tnef' 
+                elsif part.content_type == 'application/ms-tnef'
                     # A set of attachments in a TNEF file
                     part.rfc822_attachment = TNEF.as_tmail(part.body)
                 end
@@ -250,10 +250,10 @@ class IncomingMessage < ActiveRecord::Base
         # if they are public anyway.  For now just be precautionary and only
         # put in descriptions of them in square brackets.
         if self.info_request.public_body.is_followupable?
-            text.gsub!(self.info_request.public_body.request_email, "[" + self.info_request.public_body.short_or_long_name + " request email]")
+            text.gsub!(self.info_request.public_body.request_email, _("[{{public_body}} request email]", :public_body => self.info_request.public_body.short_or_long_name))
         end
-        text.gsub!(self.info_request.incoming_email, "[FOI #" + self.info_request.id.to_s + " email]")
-        text.gsub!(MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost'), "[#{MySociety::Config.get('SITE_NAME', 'Alaveteli')} contact email]")
+        text.gsub!(self.info_request.incoming_email, _('[FOI #{{request}} email]', :request => self.info_request.id.to_s) )
+        text.gsub!(MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost'), _("[{{site_name}} contact email]", :site_name => MySociety::Config.get('SITE_NAME', 'Alaveteli')) )
     end
 
     # Replaces all email addresses in (possibly binary data) with equal length alternative ones.
@@ -289,7 +289,7 @@ class IncomingMessage < ActiveRecord::Base
                         # buggy versions of pdftk sometimes fail on
                         # compression, I don't see it's a disaster in
                         # these cases to save an uncompressed version?
-                        recompressed_text = censored_uncompressed_text                        
+                        recompressed_text = censored_uncompressed_text
                         logger.warn "Unable to compress PDF; problem with your pdftk version?"
                     end
                     if !recompressed_text.nil? && !recompressed_text.empty?
@@ -297,10 +297,10 @@ class IncomingMessage < ActiveRecord::Base
                     end
                 end
             end
-            return 
+            return
         end
 
-        self._binary_mask_stuff_internal!(text) 
+        self._binary_mask_stuff_internal!(text)
     end
 
     # Used by binary_mask_stuff - replace text in place
@@ -309,7 +309,7 @@ class IncomingMessage < ActiveRecord::Base
         orig_size = text.size
 
         # Replace ASCII email addresses...
-        text.gsub!(MySociety::Validate.email_find_regexp) do |email| 
+        text.gsub!(MySociety::Validate.email_find_regexp) do |email|
             email.gsub(/[^@.]/, 'x')
         end
 
@@ -320,7 +320,7 @@ class IncomingMessage < ActiveRecord::Base
         emails = ascii_chars.scan(MySociety::Validate.email_find_regexp)
         # Convert back to UCS-2, making a mask at the same time
         emails.map! {|email| [
-                Iconv.conv('ucs-2le', 'ascii', email[0]), 
+                Iconv.conv('ucs-2le', 'ascii', email[0]),
                 Iconv.conv('ucs-2le', 'ascii', email[0].gsub(/[^@.]/, 'x'))
         ] }
         # Now search and replace the UCS-2 email with the UCS-2 mask
@@ -416,7 +416,7 @@ class IncomingMessage < ActiveRecord::Base
         # http://www.whatdotheyknow.com/request/secured_convictions_aided_by_cct
         multiline_original_message = '(' + '''>>>.* \d\d/\d\d/\d\d\d\d\s+\d\d:\d\d(?::\d\d)?\s*>>>''' + ')'
         text.gsub!(/^(#{multiline_original_message}\n.*)$/ms, replacement)
- 
+
         # Single line sections
         text.gsub!(/^(>.*\n)/, replacement)
         text.gsub!(/^(On .+ (wrote|said):\n)/, replacement)
@@ -453,8 +453,8 @@ class IncomingMessage < ActiveRecord::Base
         # http://www.whatdotheyknow.com/request/123/response/192
         # http://www.whatdotheyknow.com/request/235/response/513
         # http://www.whatdotheyknow.com/request/445/response/743
-        original_message = 
-            '(' + '''----* This is a copy of the message, including all the headers. ----*''' + 
+        original_message =
+            '(' + '''----* This is a copy of the message, including all the headers. ----*''' +
             '|' + '''----*\s*Original Message\s*----*''' +
             '|' + '''----*\s*Forwarded message.+----*''' +
             '|' + '''----*\s*Forwarded by.+----*''' +
@@ -482,7 +482,7 @@ class IncomingMessage < ActiveRecord::Base
         return part_file_name
     end
 
-    # (This risks losing info if the unchosen alternative is the only one to contain 
+    # (This risks losing info if the unchosen alternative is the only one to contain
     # useful info, but let's worry about that another time)
     def get_attachment_leaves
         force = true
@@ -538,7 +538,7 @@ class IncomingMessage < ActiveRecord::Base
                 if calc_mime
                     curr_mail.content_type = calc_mime
                 end
-            end 
+            end
 
             # Use standard content types for Word documents etc.
             curr_mail.content_type = normalise_content_type(curr_mail.content_type)
@@ -660,11 +660,11 @@ class IncomingMessage < ActiveRecord::Base
             # Test if it's good UTF-8
             text = Iconv.conv('utf-8', 'utf-8', text)
         rescue Iconv::IllegalSequence
-            # Text looks like unlabelled nonsense, 
+            # Text looks like unlabelled nonsense,
             # strip out anything that isn't UTF-8
             begin
-                text = Iconv.conv('utf-8//IGNORE', source_charset, text) + 
-                    _("\n\n[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]", 
+                text = Iconv.conv('utf-8//IGNORE', source_charset, text) +
+                    _("\n\n[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]",
                       :site_name => MySociety::Config.get('SITE_NAME', 'Alaveteli'))
             rescue Iconv::InvalidEncoding, Iconv::IllegalSequence
                 if source_charset != "utf-8"
@@ -673,7 +673,6 @@ class IncomingMessage < ActiveRecord::Base
                 end
             end
         end
-        
 
         # Fix DOS style linefeeds to Unix style ones (or other later regexps won't work)
         # Needed for e.g. http://www.whatdotheyknow.com/request/60/response/98
@@ -693,7 +692,7 @@ class IncomingMessage < ActiveRecord::Base
         # Find first part which is text/plain or text/html
         # (We have to include HTML, as increasingly there are mail clients that
         # include no text alternative for the main part, and we don't want to
-        # instead use the first text attachment 
+        # instead use the first text attachment
         # e.g. http://www.whatdotheyknow.com/request/list_of_public_authorties)
         leaves.each do |p|
             if p.content_type == 'text/plain' or p.content_type == 'text/html'
@@ -707,8 +706,8 @@ class IncomingMessage < ActiveRecord::Base
                 return p
             end
         end
- 
-        # ... or if none, consider first part 
+
+        # ... or if none, consider first part
         p = leaves[0]
         # if it is a known type then don't use it, return no body (nil)
         if !p.nil? && AlaveteliFileTypes.mimetype_to_extension(p.content_type)
@@ -752,7 +751,7 @@ class IncomingMessage < ActiveRecord::Base
                                          :display_size => "0K")
             attachment.save!
             attachments << attachment
-        end    
+        end
         return attachments
     end
 
@@ -802,7 +801,7 @@ class IncomingMessage < ActiveRecord::Base
                     # XXX call _convert_part_body_to_text here, but need to get charset somehow
                     # e.g. http://www.whatdotheyknow.com/request/1593/response/3088/attach/4/Freedom%20of%20Information%20request%20-%20car%20oval%20sticker:%20Article%2020,%20Convention%20on%20Road%20Traffic%201949.txt
                     body = headers + "\n" + body
-                    
+
                     # This is quick way of getting all headers, but instead we only add some a) to
                     # make it more usable, b) as at least one authority accidentally leaked security
                     # information into a header.
@@ -816,7 +815,6 @@ class IncomingMessage < ActiveRecord::Base
                                          :filename => _get_part_file_name(leaf),
                                          :charset => leaf.charset,
                                          :within_rfc822_subject => within_rfc822_subject,
-                                         :display_size => "0K",
                                          :body => body)
             attachment.save!
             attachments << attachment.id
@@ -837,7 +835,7 @@ class IncomingMessage < ActiveRecord::Base
         end
 
         # now get rid of any attachments we no longer have
-        FoiAttachment.destroy_all("id NOT IN (#{attachments.join(',')}) AND incoming_message_id = #{self.id}")        
+        FoiAttachment.destroy_all("id NOT IN (#{attachments.join(',')}) AND incoming_message_id = #{self.id}")
    end
 
     # Returns body text as HTML with quotes flattened, and emails removed.
@@ -866,10 +864,10 @@ class IncomingMessage < ActiveRecord::Base
                 text = "[Subject only] " + CGI.escapeHTML(self.subject) + text
             end
             # and display link for quoted stuff
-            text = text.gsub(/FOLDED_QUOTED_SECTION/, "\n\n" + '<span class="unfold_link"><a href="?unfold=1#incoming-'+self.id.to_s+'">show quoted sections</a></span>' + "\n\n")
+            text = text.gsub(/FOLDED_QUOTED_SECTION/, "\n\n" + '<span class="unfold_link"><a href="?unfold=1#incoming-'+self.id.to_s+'">'+_("show quoted sections")+'</a></span>' + "\n\n")
         else
             if folded_quoted_text.include?('FOLDED_QUOTED_SECTION')
-                text = text + "\n\n" + '<span class="unfold_link"><a href="?#incoming-'+self.id.to_s+'">hide quoted sections</a></span>'
+                text = text + "\n\n" + '<span class="unfold_link"><a href="?#incoming-'+self.id.to_s+'">'+_("hide quoted sections")+'</a></span>'
             end
         end
         text.strip!
@@ -899,13 +897,13 @@ class IncomingMessage < ActiveRecord::Base
         self.remove_privacy_sensitive_things!(text)
         # This can be useful for memory debugging
         #STDOUT.puts 'xxx '+ MySociety::DebugHelpers::allocated_string_size_around_gc
-        
+
         # Save clipped version for snippets
         if self.cached_attachment_text_clipped.nil?
             self.cached_attachment_text_clipped = text[0..MAX_ATTACHMENT_TEXT_CLIPPED]
             self.save!
         end
-        
+
         return text
     end
     # Returns a version reduced to a sensible maximum size - this
@@ -988,7 +986,7 @@ class IncomingMessage < ActiveRecord::Base
         for entry in zip_file
             if entry.file?
                 filename = entry.to_s
-                begin 
+                begin
                     body = entry.get_input_stream.read
                 rescue
                     # move to next attachment silently if there were problems
@@ -1002,7 +1000,7 @@ class IncomingMessage < ActiveRecord::Base
                 else
                     content_type = 'application/octet-stream'
                 end
-            
+
                 text += _get_attachment_text_internal_one_file(content_type, body)
             end
         end
@@ -1030,8 +1028,6 @@ class IncomingMessage < ActiveRecord::Base
         return get_body_for_quoting + "\n\n" + get_attachment_text_clipped
     end
 
-
-
     # Has message arrived "recently"?
     def recently_arrived
         (Time.now - self.created_at) <= 3.days
@@ -1052,7 +1048,7 @@ class IncomingMessage < ActiveRecord::Base
         end
     end
 
-    # Search all info requests for 
+    # Search all info requests for
     def IncomingMessage.find_all_unknown_mime_types
         for incoming_message in IncomingMessage.find(:all)
             for attachment in incoming_message.get_attachments_for_display
@@ -1118,7 +1114,7 @@ class IncomingMessage < ActiveRecord::Base
             content_type = 'application/vnd.ms-excel'
         end
         if content_type == 'application/mspowerpoint' or content_type == 'application/x-ms-powerpoint'
-            content_type = 'application/vnd.ms-powerpoint' 
+            content_type = 'application/vnd.ms-powerpoint'
         end
         if content_type == 'application/msword' or content_type == 'application/x-ms-word'
             content_type = 'application/vnd.ms-word'
@@ -1134,8 +1130,16 @@ class IncomingMessage < ActiveRecord::Base
 
         return content_type
     end
-    private :normalise_content_type
+
+  def for_admin_column
+    self.class.content_columns.each do |column|
+      yield(column.human_name, self.send(column.name), column.type.to_s, column.name)
+    end
+  end
+
+  private :normalise_content_type
 
 end
+
 
 

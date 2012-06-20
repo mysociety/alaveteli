@@ -1,6 +1,6 @@
 #!/bin/sh
 
-LOC=`dirname $0`
+cd "`dirname "$0"`"
 
-"$LOC/runner" --daemon TrackMailer.alert_tracks_loop
+bundle exec ./runner --daemon TrackMailer.alert_tracks_loop
 

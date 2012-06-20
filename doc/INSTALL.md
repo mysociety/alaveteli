@@ -1,41 +1,75 @@
-These instructions assume Debian Squeeze or Ubuntu 11.04, or later
-(probably, though we won't necessarily have tested in later versions
-yet!)
+These instructions assume Debian Squeeze or Ubuntu 10.04 LTS.
 [Install instructions for OS X](https://github.com/sebbacon/alaveteli/wiki/OS-X-Quickstart)
-are under development.
-
-It is possible to install on Ubuntus as old as 10.04, but you must use
-[Xapian backports](https://launchpad.net/~xapian-backports/+archive/xapian-1.2)
-(see [issue #158](https://github.com/sebbacon/alaveteli/issues/159)
-for discussion).
+are under development.  Debian Squeeze is the best supported
+deployment platform.
 
 Commands are intended to be run via the terminal or over ssh.
 
-As an aid to evaluation, there is an Amazon AMI with all these steps
-configured.  Its id is ami-fa52a993.  It is *not* production-ready:
-Apache isn't set up, and the passwords are insecure.  You may wish to
-run a `git pull` in the source on the software, as it is unlikely to
-be up to date.
+As an aid to evaluation, there is an
+[Amazon AMI](https://github.com/sebbacon/alaveteli/wiki/Alaveteli-ec2-ami)
+with all these steps configured.  It is *not* production-ready.
 
-# Package Installation
+# Get Alaveteli
 
-First, get hold of the source code from github: 
+To start with, you may need to install git, e.g. with `sudo apt-get
+install git-core`
+
+Next, get hold of the Alaveteli source code from github: 
 
     git clone https://github.com/sebbacon/alaveteli.git
+    cd alaveteli
 
-(You may need to install git first, e.g. with `sudo apt-get install git-core`)
+This will get the current stable release from the master branch (which
+always contains the latest release).  If you are a developer and want
+to add or try new features, you might want to swap to the development
+branch:
 
-Now, in a terminal, navigate to the alaveteli folder where this
-install guide lives.
+    git checkout develop
 
-Install the packages that are listed in config/packages using apt-get e.g.:
+# Install system dependencies
+
+These are packages that the software depends on: third-party software
+used to parse documents, host the site, etc.  There are also packages
+that contain headers necessary to compile some of the gem dependencies
+in the next step.
+
+If you are running Debian, you can use specially compiled mysociety
+packages by adding the following to `/etc/apt/sources.list` and
+running `apt-get update`:
+
+    deb http://debian.mysociety.org squeeze main
+
+If you don't set up that mySociety Debian source (e.g. if you're
+running Ubuntu), you should comment out `wkhtmltopdf-static` from
+`config/packages`, as it won't install in the next step
+
+Now install the packages that are listed in config/packages using apt-get
+e.g.:
 
     sudo apt-get install `cut -d " " -f 1 config/packages | grep -v "^#"`
 
-Some of the files also have a version number listed in config/packages - check
-that you have appropriate versions installed. Some also list "|" and offer
-a choice of packages.
+Some of the files also have a version number listed in config/packages
+- check that you have appropriate versions installed. Some also list
+"|" and offer a choice of packages.
 
+# Install Ruby dependencies
+
+Install rubygems 1.6.1 (we're not using the Debian package because we
+need an older version; see "Troubleshooting" below for an
+explanation):
+
+    wget http://rubyforge.org/frs/download.php/74445/rubygems-1.6.2.tgz -O /tmp/rubygems-1.6.2.tgz
+    tar zxvf /tmp/rubygems-1.6.2.tgz -C /tmp/
+    sudo ruby1.8 /tmp/rubygems-1.6.2/setup.rb
+ 
+To install Alaveteli's Ruby dependencies, we also need to install
+bundler.  In Debian, this is provided as a package (installed as part
+of the package install process above).  You could also install it as a
+gem:
+
+    sudo gem1.8 install bundler
+    
+# Install mySociety libraries
 
 You will also want to install mySociety's common ruby libraries and the Rails
 code. Run:
@@ -44,28 +78,38 @@ code. Run:
 
 to fetch the contents of the submodules.
 
-If you would like users to be able to download pretty PDFs as part of 
-the downloadable zipfile of their request history, you should also install
-[wkhtmltopdf](http://code.google.com/p/wkhtmltopdf/downloads/list).  
+## Packages customised by mySociety
+
+Debian users should add the mySociety debian archive to their
+`/etc/apt/sources.list` as described above.  Doing this and following
+the above instructions should install a couple of custom
+dependencies. Users of other platforms can optionally install these
+dependencies manually, as follows:
+
+1. If you would like users to be able to download pretty PDFs as part of
+the downloadable zipfile of their request history, you should install
+[wkhtmltopdf](http://code.google.com/p/wkhtmltopdf/downloads/list).
 We recommend downloading the latest, statically compiled version from
 the project website, as this allows running headless (i.e. without a
 graphical interface running) on Linux.  If you do install
 `wkhtmltopdf`, you need to edit a setting in the config file to point
-to it (see below).  If you don't install it, everything will still work, but 
-users will get ugly, plain text versions of their requests when they 
-download them.
+to it (see below).  If you don't install it, everything will still
+work, but users will get ugly, plain text versions of their requests
+when they download them.
 
-Version 1.44 of `pdftk` contains a bug which makes it to loop forever
+2. Version 1.44 of `pdftk` contains a bug which makes it to loop forever
 in certain edge conditions.  Until it's incorporated into an official
 release, you can either hope you don't encounter the bug (it ties up a
 rails process until you kill it) you'll need to patch it yourself or
 use the Debian package compiled by mySociety (see link in
 [issue 305](https://github.com/sebbacon/alaveteli/issues/305))
 
+
 # Configure Database 
 
 There has been a little work done in trying to make the code work with
-other databases (e.g. SQLite), but the preferred database is PostgreSQL.
+other databases (e.g. SQLite), but the currently supported database is
+PostgreSQL.
 
 If you don't have it installed:
 
@@ -78,54 +122,86 @@ username and password of your postgres database.
 * edit it to point to your local postgresql database in the development
   and test sections and create the databases:
 
-Become the 'postgres' user (`sudo su - postgres`)
-
 Make sure that the user specified in database.yml exists, and has full
 permissions on these databases. As they need the ability to turn off
 constraints whilst running the tests they also need to be a superuser.
-  (See http://dev.rubyonrails.org/ticket/9981)
+(See http://dev.rubyonrails.org/ticket/9981)
+  
+You can create a `foi` user from the command line, thus:
 
-The following command will set up a user 'foi' with password 'foi':
-
-    echo "CREATE DATABASE foi_development encoding 'SQL_ASCII' template template0;
-    CREATE DATABASE foi_test encoding 'SQL_ASCII' template template0;
-    CREATE USER foi WITH CREATEUSER;
-    ALTER USER foi WITH PASSWORD 'foi';
-    ALTER USER foi WITH CREATEDB;
-    GRANT ALL PRIVILEGES ON DATABASE foi_development TO foi;
-    GRANT ALL PRIVILEGES ON DATABASE foi_test TO foi;    	
-    ALTER DATABASE foi_development OWNER TO foi;
-    ALTER DATABASE foi_test OWNER TO foi;" | psql
+    # su - postgres
+    $ createuser -s -P foi
     
+And you can create a database thus:
+
+    $ createdb -T template0 -E SQL_ASCII -O foi foi_production
+    $ createdb -T template0 -E SQL_ASCII -O foi foi_test
+    $ createdb -T template0 -E SQL_ASCII -O foi foi_development
+
 We create using the ``SQL_ASCII`` encoding, because in postgres this
 is means "no encoding"; and because we handle and store all kinds of
 data that may not be valid UTF (for example, data originating from
 various broken email clients that's not 8-bit clean), it's safer to be
 able to store *anything*, than reject data at runtime.
 
-# Configure email
+# Configure email 
 
 You will need to set up an email server (MTA) to send and receive
 emails.  Full configuration for an MTA is beyond the scope of this
-document. However, just to get the tests to pass, you will at a
-minimum need to allow sending emails via a `sendmail` command (a
-requirement met, for example, with `sudo apt-get install exim4`).
+document, though we describe an example configuration for Exim in
+`INSTALL-exim4.md`.
 
-To receive email in a production setup, you will also need to
-configure your MTA to forward incoming emails to Alaveteli.  An
-example configuration is described in `INSTALL-exim4.md`.
+## Minimal
+
+If you just want to get the tests to pass, you will at a minimum need
+to allow sending emails via a `sendmail` command (a requirement met,
+for example, with `sudo apt-get install exim4`).
+
+## Detailed
+
+When an authority receives an email, the email's `reply-to` field is a
+magic address which is parsed and consumed by the Rails app.
+
+To receive such email in a production setup, you will need to
+configure your MTA to pipe incoming emails to the Alaveteli script
+`script/mailin`. Therefore, you will need to configure your MTA to
+accept emails to magic addresses, and to pipe such emails to this
+script.
+
+Magic email addresses are of the form:
+
+    <foi+request-3-691c8388@example.com>
+
+The respective parts of this address are controlled with options in
+config/general.yml, thus:
+
+    INCOMING_EMAIL_PREFIX = 'foi+'
+    INCOMING_EMAIL_DOMAIN = 'example.com'
+
+When you set up your MTA, note that if there is some error inside
+Rails, the email is returned with an exit code 75, which for Exim at
+least means the MTA will try again later.  Additionally, a stacktrace
+is emailed to `CONTACT_EMAIL`.
+
+`INSTALL-exim4.md` describes one possible configuration for Exim (>=
+1.9).
+
+A well-configured installation of this code will separately have had
+Exim make a backup copy of the email in a separate mailbox, just in
+case.
 
 # Set up configs
 
-For overall application settings, copy `config/general.yml-example` to
-`config/general.yml` and edit to your taste.
+Copy `config/general.yml-example` to `config/general.yml` and edit to
+your taste.
 
 Note that the default settings for frontpage examples are designed to
 work with the dummy data shipped with Alaveteli; once you have real
-data, you should edit these.
+data, you should certainly edit these.
 
-The default theme is the "WhatDoTheyKnow" theme.  When you run
-`rails-post-deploy` (see below), that theme gets installed automatically.
+The default theme is the "Alaveteli" theme.  When you run
+`rails-post-deploy` (see below), that theme gets installed
+automatically.
 
 You'll also want to copy `config/memcached.yml-example` to
 `config/memcached.yml`. The application is configured, via the
@@ -139,14 +215,14 @@ In the 'alaveteli' directory, run:
 
     ./script/rails-post-deploy 
 
-(This will need execute privs so `chmod 755` if necessary)
+(This will need execute privs so `chmod 755` if necessary.) This sets
+up directory structures, creates logs, installs/updates themes, runs
+database migrations, etc.  You should run it after each new software
+update.
 
-This sets up directory structures, creates logs, etc.
-
-Next, if you have a `alaveteli/config/rails_env.rb` file, delete it,
-so that tests run against our test database, rather than the
-development one.  (Otherwise, any data you create in development will
-be blown away every time you run the tests.)
+One of the things the script does is install dependencies (using
+`bundle install`).  Note that the first time you run it, part of the
+`bundle install` that compiles `xapian-full` takes a *long* time!
 
 If you want some dummy data to play with, you can try loading the
 fixtures that the test suite uses into your development database.  You
@@ -165,12 +241,24 @@ component so you should really try to get this working.
 
 Make sure everything looks OK:
 
-    rake spec
+    bundle exec rake spec
 
-If there are failures here, something has gone wrong with the preceding
-steps. You might be able to move on to the next step, depending on how
-serious they are, but ideally you should try to find out what's gone
-wrong.
+If there are failures here, something has gone wrong with the
+preceding steps (see the next section for a common problem and
+workaround). You might be able to move on to the next step, depending
+on how serious they are, but ideally you should try to find out what's
+gone wrong.
+
+## glibc bug workaround
+
+There's a
+[bug in glibc](http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=637239)
+which causes Xapian to segfault when running the tests.  Although the
+bug report linked to claims it's fixed in the current Debian stable,
+it's not as of version `2.11.3-2`.
+
+Until it's fixed (e.g. `libc6 2.13-26` does work), you can get the
+tests to pass by setting `export LD_PRELOAD=/lib/libuuid.so.1`.
 
 # Run the Server
 
@@ -186,56 +274,26 @@ the site in action.
 
 # Administrator privileges
 
-By default, anyone can access the administrator pages without authentication.
-They are under the URL `/admin`.
+The administrative interface is at the URL `/admin`.
 
-At mySociety (originators of the Alaveteli software), they use a
-separate layer of HTTP basic authentication, proxied over HTTPS, to
-check who is allowed to use the administrator pages. You might like to
-do something similar.
+Only users with the `super` admin level can access the admin
+interface.  Users create their own accounts in the usual way, and then
+administrators can give them `super` privileges.
 
-Alternatively, update the code so that:
+There is an emergency user account which can be accessed via
+`/admin?emergency=1`, using the credentials `ADMIN_USERNAME` and
+`ADMIN_PASSWORD`, which are set in `general.yml`.  To bootstrap the
+first `super` level accounts, you will need to log in as the emergency
+user.
 
-* By default, admin pages use normal site authentication (checking user admin
-level 'super').
-* Create an option in `config/general` which lets us override that
-behaviour.
+Users with the superuser role also have extra privileges in the
+website frontend, such as being able to categorise any request, being
+able to view items that have been hidden from the search, and being
+presented with "admin" links next to individual requests and comments
+in the front end.
 
-And send us the patch!
-
-# Mailer setup
-
-When an authority receives an email, the email's `reply-to` field is a
-magic address which is parsed and consumed by the Rails app.
-
-Currently, this is done by calling `script/mailin` and piping in the raw
-email.  You will need to configure your MTA to accept emails to magic
-addresses, and to pipe such emails to this script.
-
-Magic email addresses are of the form:
-
-    <foi+request-3-691c8388@example.com>
-
-The respective parts of this address are controlled with options in
-options/general, thus:
-
-    $OPTION_INCOMING_EMAIL_PREFIX = 'foi+'
-    $OPTION_INCOMING_EMAIL_DOMAIN = 'example.com'
-
-`INSTALL-exim.txt` describes one possible configuration for Exim (>=
-1.9).
-
-When you set up your MTA, note that if there is some error inside
-Rails, the email is returned with an exit code 75, which for Exim at
-least means the MTA will try again later.  Additionally, a stacktrace
-is emailed to `$OPTION_CONTACT_EMAIL`.
-
-A well-configured installation of this code will separately have had
-Exim make a backup copy of the email in a separate mailbox, just in
-case.
-
-This setup isn't very scaleable, as it spawns a new Ruby process for
-each email received; patches welcome!
+It is possible completely to override the administrator authentication
+by setting `SKIP_ADMIN_AUTH` to `true` in `general.yml`.
 
 # Cron jobs
 
@@ -262,7 +320,14 @@ One of the cron jobs refers to a script at
 `/etc/init.d/foi-alert-tracks`.  This is an init script, a copy of
 which lives in `config/alert-tracks-debian.ugly`.  As with the cron
 jobs above, replace the variables (and/or bits near the variables)
-with paths to your software.
+with paths to your software.  `config/purge-varnish-debian.ugly` is a
+similar init script, which is optional and not required if you choose
+not to run your site behind Varnish (see below).
+
+The cron jobs refer to a program `run-with-lockfile`. See
+[this issue](https://github.com/sebbacon/alaveteli/issues/112) for a
+discussion of where to find this program, and how you might replace
+it.
 
 # Set up production web server
 
@@ -280,6 +345,38 @@ include the following in an Apache configuration file:
 Under all but light loads, it is strongly recommended to run the
 server behind an http accelerator like Varnish.  A sample varnish VCL
 is supplied in `../conf/varnish-alaveteli.vcl`.
+
+Some
+[production server best practice notes](https://github.com/sebbacon/alaveteli/wiki/Production-Server-Best-Practices)
+are evolving on the wiki.
+
+# Upgrading Alaveteli
+
+The developer team policy is that the master branch in git should
+always contain the latest stable release.  Therefore, in production,
+you should usually have your software deployed from the master branch,
+and an upgrade can be simply `git pull`.
+
+Patch version increases (e.g. 1.2.3 -> 1.2.4) should not require any
+further action on your part.
+
+Minor version increases (e.g. 1.2.4 -> 1.3.0) will usually require
+further action.  You should read the `CHANGES.md` document to see
+what's changed since your last deployment, paying special attention to
+anything in the "Updgrading" sections.
+
+Any upgrade may include new translations strings, i.e. new or altered
+messages to the user that need translating to your locale.  You should
+visit Transifex and try to get your translation up to 100% on each new
+release.  Failure to do so means that any new words added to the
+Alaveteli source code will appear in your website in English by
+default.  If your translations didn't make it to the latest release,
+you will need to download the updated `app.po` for your locale from
+Transifex and save it in the `locales/` folder.
+
+You should always run the script `scripts/rails-post-deploy` after
+each deployment.  This runs any database migrations for you, plus
+various other things that can be automated for deployment.
 
 # Troubleshooting
 
@@ -332,9 +429,8 @@ is supplied in `../conf/varnish-alaveteli.vcl`.
     "*when using TMail should load an email with funny MIME settings'
     FAILED*"**
 
-    Did you remember to remove the file `alaveteli/config/rails_env.rb`
-    as described above?  It's created every time you run
-    `script/rails-post-deploy`
+    This sounds like the tests are running using the `production`
+    environment, rather than the `test` environment, for some reason.
 
 *   **Non-ASCII characters are being displayed as asterisks in my incoming messages**
 
@@ -365,4 +461,18 @@ is supplied in `../conf/varnish-alaveteli.vcl`.
     system-packaged rubygems, and then installing the latest rubygems
     from source, and finally executing `sudo gem update --system
     1.6.2`.
+
+*   **I'm seeing `rake: command not found` when running the post install script
+
+    The script uses `rake`.
+
+    It may be that the binaries installed by bundler are not put in the
+    system `PATH`; therefore, in order to run `rake` (needed for
+    deployments), you may need to do something like:
+
+        ln -s /usr/lib/ruby/gems/1.8/bin/rake /usr/local/bin/
+    
+    Or (Debian):
+
+        ln -s /usr/lib/ruby/gems/1.8/bin/rake /usr/local/bin/
 

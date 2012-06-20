@@ -1,9 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-require 'json'
-
 describe TrackController, "when making a new track on a request" do
-    before do
+    before(:each) do
         @ir = mock_model(InfoRequest, :url_title => 'myrequest',
                                       :title => 'My request')
         @track_thing = mock_model(TrackThing, :save! => true,
@@ -11,12 +9,15 @@ describe TrackController, "when making a new track on a request" do
                                               :track_medium= => nil,
                                               :tracking_user_id= => nil)
         TrackThing.stub!(:create_track_for_request).and_return(@track_thing)
+        TrackThing.stub!(:create_track_for_search_query).and_return(@track_thing)
         TrackThing.stub!(:find_by_existing_track).and_return(nil)
         InfoRequest.stub!(:find_by_url_title).and_return(@ir)
 
         @user = mock_model(User)
         User.stub!(:find).and_return(@user)
         @user.stub!(:locale).and_return("en")
+        @user.stub!(:receive_email_alerts).and_return(true)
+        @user.stub!(:url_name).and_return("bob")
     end
 
     it "should require login when making new track" do
@@ -25,11 +26,18 @@ describe TrackController, "when making a new track on a request" do
         response.should redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
     end
 
-    it "should save the track and redirect if you are logged in" do
+    it "should save a request track and redirect if you are logged in" do
         session[:user_id] = @user.id
         @track_thing.should_receive(:save!)
         get :track_request, :url_title => @ir.url_title, :feed => 'track'
         response.should redirect_to(:controller => 'request', :action => 'show', :url_title => @ir.url_title)
+    end
+
+    it "should save a search track and redirect to the right place" do
+        session[:user_id] = @user.id
+        @track_thing.should_receive(:save!)
+        get :track_search_query, :query_array => ["bob variety:sent"], :feed => 'track'
+        response.should redirect_to(:controller => 'general', :action => 'search', :combined => ["bob", "requests"])
     end
 
 end
@@ -183,6 +191,35 @@ describe TrackController, "when viewing JSON version of a track feed" do
 
 end
 
+describe TrackController, "when tracking a public body" do
 
+    integrate_views
 
+    before(:each) do
+        load_raw_emails_data
+        rebuild_xapian_index
+    end
+    
+    it "should work" do
+        geraldine = public_bodies(:geraldine_public_body)
+        get :track_public_body, :feed => 'feed', :url_name => geraldine.url_name
+        response.should be_success
+        response.should render_template('track/atom_feed')
+        tt = assigns[:track_thing]
+        tt.public_body.should == geraldine
+        tt.track_type.should == 'public_body_updates'
+        tt.track_query.should == "requested_from:" + geraldine.url_name
+    end
 
+    it "should filter by event type" do
+        geraldine = public_bodies(:geraldine_public_body)
+        get :track_public_body, :feed => 'feed', :url_name => geraldine.url_name, :event_type => 'sent'
+        response.should be_success
+        response.should render_template('track/atom_feed')
+        tt = assigns[:track_thing]
+        tt.public_body.should == geraldine
+        tt.track_type.should == 'public_body_updates'
+        tt.track_query.should == "requested_from:" + geraldine.url_name + " variety:sent"
+    end
+
+end

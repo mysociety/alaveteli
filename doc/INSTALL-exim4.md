@@ -34,23 +34,26 @@ In `/etc/exim4/conf.d/transport/04_alaveteli`:
        user = ALAVETELI_USER
        group = ALAVETELI_USER
     
-And, assuming you set `OPTION_INCOMING_EMAIL_PREFIX` in your config at
+And, assuming you set `INCOMING_EMAIL_PREFIX` in your config at
 `config/general` to "foi+", create `config/aliases` with the following
 content:
 
     ^foi\\+.*: |/path/to/alaveteli/software/script/mailin
 
-You should also configure exim to discard any messages sent to the `BLACKHOLE_PREFIX`
-address, whose default value is 'do-not-reply-to-this-address'. For example, add the
-following to config/aliases:
+You should also configure exim to discard any messages sent to the
+`BLACKHOLE_PREFIX` address, whose default value is
+'do-not-reply-to-this-address'. For example, add the following to
+config/aliases:
 
     # We use this for envelope from for some messages where we don't care about delivery
     do-not-reply-to-this-address:        :blackhole:
 
-If you want to make use of the automatic bounce-message handling, then set the `TRACK_SENDER_EMAIL`
-address to be filtered through `script/handle-mail-replies`. Messages that are not bounces or
-out-of-office autoreplies will be forwarded to `FORWARD_NONBOUNCE_RESPONSES_TO`. For example,
-in WhatDoTheyKnow the configuration looks like this:
+If you want to make use of the automatic bounce-message handling, then
+set the `TRACK_SENDER_EMAIL` address to be filtered through
+`script/handle-mail-replies`. Messages that are not bounces or
+out-of-office autoreplies will be forwarded to
+`FORWARD_NONBOUNCE_RESPONSES_TO`. For example, in WhatDoTheyKnow the
+configuration looks like this:
 
     raw_team: [a list of people on the team]
     team:     |/path/to/alaveteli/software/script/handle-mail-replies
@@ -59,7 +62,11 @@ with `FORWARD_NONBOUNCE_RESPONSES_TO: 'raw_team@whatdotheyknow.com'`
 
 Finally, make sure you have `dc_use_split_config='true'` in
 `/etc/exim4/update-exim4.conf.conf`, and execute the command
-`update-exim4.conf`
+`update-exim4.conf`.
+
+NB: if the file `/etc/exim4/exim4.conf` exists then `update-exim4.conf`
+will silently do nothing. Some distributions include this file. If
+yours does, you will need to rename it before running `update-exim4.conf`.
 
 (You may also want to set `dc_eximconfig_configtype='internet'`,
 `dc_local_interfaces='0.0.0.0 ; ::1'`, and

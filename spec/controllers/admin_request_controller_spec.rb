@@ -86,6 +86,27 @@ describe AdminRequestController, "when administering the holding pen" do
         response.should redirect_to(:controller=>'admin_request', :action=>'show', :id=>101)
         InfoRequest.holding_pen_request.incoming_messages.length.should == 0
     end
+    it "allows redelivery to more than one request" do
+        ir1 = info_requests(:fancy_dog_request)
+        ir1.allow_new_responses_from = 'nobody'
+        ir1.handle_rejected_responses = 'holding_pen'
+        ir1.save!
+        ir1.incoming_messages.length.should == 1
+        ir2 = info_requests(:another_boring_request)
+        ir2.incoming_messages.length.should == 1
+
+        receive_incoming_mail('incoming-request-plain.email', ir1.incoming_email, "frob@nowhere.com")
+        InfoRequest.holding_pen_request.incoming_messages.length.should == 1
+
+        new_im = InfoRequest.holding_pen_request.incoming_messages[0]
+        post :redeliver_incoming, :redeliver_incoming_message_id => new_im.id, :url_title => "#{ir1.url_title},#{ir2.url_title}" 
+        ir1.reload
+        ir1.incoming_messages.length.should == 2
+        ir2.reload
+        ir2.incoming_messages.length.should == 2
+        response.should redirect_to(:controller=>'admin_request', :action=>'show', :id=>ir2.id)
+        InfoRequest.holding_pen_request.incoming_messages.length.should == 0
+    end
 
     it "guesses a misdirected request" do
         ir = info_requests(:fancy_dog_request)
@@ -108,6 +129,28 @@ describe AdminRequestController, "when administering the holding pen" do
         raw_email = im.raw_email.filepath
         post :destroy_incoming, :incoming_message_id => im.id
         assert_equal File.exists?(raw_email), false        
+    end
+
+    it "shows a suitable default 'your email has been hidden' message" do
+        ir = info_requests(:fancy_dog_request)
+        get :show, :id => ir.id
+        assigns[:request_hidden_user_explanation].should include(ir.user.name)
+        assigns[:request_hidden_user_explanation].should include("vexatious")
+        get :show, :id => ir.id, :reason => "not_foi"
+        assigns[:request_hidden_user_explanation].should_not include("vexatious")
+        assigns[:request_hidden_user_explanation].should include("not a valid FOI")
+    end
+
+    it "hides requests and sends a notification email that it has done so" do
+        ir = info_requests(:fancy_dog_request)
+        post :hide_request, :id => ir.id, :explanation => "Foo", :reason => "vexatious"
+        ir.reload
+        ir.prominence.should == "requester_only"
+        ir.described_state.should == "vexatious"
+        deliveries = ActionMailer::Base.deliveries
+        deliveries.size.should == 1
+        mail = deliveries[0]
+        mail.body.should =~ /Foo/
     end
 
 end
