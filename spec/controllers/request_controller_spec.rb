@@ -1877,7 +1877,7 @@ describe RequestController, "when reporting a request" do
         info_requests(:badger_request).set_described_state("successful")
         get :show, :url_title => title
         response.body.should_not include("This request has been reported")
-        response.body.should include("The site administrators have reviewed this request")
+        response.body.should =~ (/the site administrators.*have not hidden it/)
     end
 
     it "should send an email from the reporter to admins" do
@@ -1889,6 +1889,7 @@ describe RequestController, "when reporting a request" do
         mail = deliveries[0]
         mail.subject.should =~ /attention_requested/
         mail.from.should include(@user.email)
+        mail.body.should include(@user.name)
     end
 end
 
