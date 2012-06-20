@@ -1,3 +1,9 @@
+GIT
+  remote: git://github.com/ctran/annotate_models.git
+  revision: 18cd39ad01829deba5aa34634b8540d6675ab978
+  specs:
+    annotate (2.4.1.beta1)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -11,7 +17,6 @@ GEM
     activeresource (2.3.14)
       activesupport (= 2.3.14)
     activesupport (2.3.14)
-    annotate (2.4.0)
     columnize (0.3.6)
     fakeweb (1.3.0)
     fast_gettext (0.6.1)
@@ -63,7 +68,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  annotate
+  annotate!
   fakeweb
   fast_gettext (>= 0.6.0)
   gettext (>= 1.9.3)

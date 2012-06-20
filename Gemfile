@@ -41,5 +41,5 @@ end
 
 group :develop do
   gem 'ruby-debug'
-  gem 'annotate'
+  gem 'annotate', :git => 'git://github.com/ctran/annotate_models.git'
 end

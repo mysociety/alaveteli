@@ -12,7 +12,15 @@
   <tr class="<%= cycle('odd', 'even') %>">
     <td><%= request_both_links(info_request) %></td>
     <td><%= public_body_both_links(info_request.public_body) %></td>
-    <td><%= user_both_links(info_request.user) %></td>
+    <% if info_request.is_external? %>
+      <% if info_request.external_user_name.nil? %>
+        <td><i><%= _("Anonymous user") %></i></td>
+      <% else %>
+        <td><%= h(info_request.external_user_name) %></td>
+      <% end %>
+    <% else %>
+      <td><%= user_both_links(info_request.user) %></td>
+    <% end %>
   <% for column in InfoRequest.content_columns.map { |c| c.name } - [ "title", "url_title" ] %>
     <td><%=h info_request.send(column) %></td>
   <% end %>

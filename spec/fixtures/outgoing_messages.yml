@@ -86,3 +86,14 @@ spam_2_outgoing_message:
   updated_at: 2007-01-12 02:56:58.586598
   what_doing: normal_sort
 
+external_outgoing_message:
+  id: 8
+  info_request_id: 109
+  message_type: initial_request
+  status: sent
+  body: "I should like to know about balalas."
+  last_sent_at: 2009-01-12 01:57:58.586598
+  created_at: 2009-01-12 01:56:58.586598
+  updated_at: 2009-01-12 01:56:58.586598
+  what_doing: normal_sort
+

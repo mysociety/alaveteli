@@ -49,7 +49,7 @@
 <th>Updated at</th>
 <% 
     history_columns = PublicBody.content_columns + [] # force dup
-    history_columns.delete_if {|c| ['created_at', 'updated_at', 'first_letter'].include?(c.name)}
+    history_columns.delete_if {|c| ['created_at', 'updated_at', 'first_letter', 'api_key'].include?(c.name)}
     for column in history_columns %>
   <th><%= column.human_name %></th>
 <% end %>

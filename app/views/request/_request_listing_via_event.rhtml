@@ -17,13 +17,13 @@ end %>
       </span>
       <div class="requester">
         <% if event.event_type == 'sent' %>
-            <%= _('Request sent to {{public_body_name}} by {{info_request_user}} on {{date}}.',:public_body_name=>public_body_link_absolute(info_request.public_body),:info_request_user=>user_link_absolute(info_request.user),:date=>simple_date(event.created_at )) %> 
+            <%= _('Request sent to {{public_body_name}} by {{info_request_user}} on {{date}}.',:public_body_name=>public_body_link_absolute(info_request.public_body),:info_request_user=>request_user_link_absolute(info_request),:date=>simple_date(event.created_at )) %> 
         <% elsif event.event_type == 'followup_sent' %>
             <%=event.display_status %>
-            <%= _('sent to {{public_body_name}} by {{info_request_user}} on {{date}}.',:public_body_name=>public_body_link_absolute(info_request.public_body),:info_request_user=>user_link_absolute(info_request.user),:date=>simple_date(event.created_at )) %> 
+            <%= _('sent to {{public_body_name}} by {{info_request_user}} on {{date}}.',:public_body_name=>public_body_link_absolute(info_request.public_body),:info_request_user=>request_user_link_absolute(info_request),:date=>simple_date(event.created_at )) %> 
         <% elsif event.event_type == 'response' %>
             <%=event.display_status %>
-            <%= _('by {{public_body_name}} to {{info_request_user}} on {{date}}.',:public_body_name=>public_body_link_absolute(info_request.public_body),:info_request_user=>user_link_absolute(info_request.user),:date=>simple_date(event.created_at )) %> 
+            <%= _('by {{public_body_name}} to {{info_request_user}} on {{date}}.',:public_body_name=>public_body_link_absolute(info_request.public_body),:info_request_user=>request_user_link_absolute(info_request),:date=>simple_date(event.created_at )) %> 
         <% elsif event.event_type == 'comment' %>
             <%= _('Request to {{public_body_name}} by {{info_request_user}}. Annotated by {{event_comment_user}} on {{date}}.',:public_body_name=>public_body_link_absolute(info_request.public_body),:info_request_user=>user_link_absolute(info_request.user),:event_comment_user=>user_link_absolute(event.comment.user),:date=>simple_date(event.created_at)) %>
         <% else %>
