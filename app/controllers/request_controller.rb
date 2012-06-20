@@ -46,7 +46,7 @@ class RequestController < ApplicationController
     end
 
     def show
-        medium_cache
+        long_cache
         @locale = self.locale_from_params()
         PublicBody.with_locale(@locale) do
 
