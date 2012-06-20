@@ -156,11 +156,17 @@ describe RequestController, "when changing things that appear on the request pag
         ir.public_body.save!
         PurgeRequest.all().map{|x| x.model_id}.should =~ ir.public_body.info_requests.map{|x| x.id}
     end
-    it "should purge the downstream cache when the user details are changed" do
+    it "should purge the downstream cache when the user name is changed" do
         ir = info_requests(:fancy_dog_request)
         ir.user.name = "Something new"
         ir.user.save!
         PurgeRequest.all().map{|x| x.model_id}.should =~ ir.user.info_requests.map{|x| x.id}
+    end
+    it "should not purge the downstream cache when non-visible user details are changed" do
+        ir = info_requests(:fancy_dog_request)
+        ir.user.hashed_password = "some old hash"
+        ir.user.save!
+        PurgeRequest.all().count.should == 0
     end
     it "should purge the downstream cache when censor rules have changed" do
         # XXX really, CensorRules should execute expiry logic as part
