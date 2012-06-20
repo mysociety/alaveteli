@@ -15,12 +15,14 @@ def quietly_try_to_purge(host, url)
     begin 
         result = ""
         result_body = ""
-        Net::HTTP.start(host) {|http|
-            request = Net::HTTP::Purge.new(url)
-            response = http.request(request)
-            result = response.code
-            result_body = response.body
-        }
+        Net::HTTP.bind '127.0.0.1' do 
+            Net::HTTP.start(host) {|http|
+                request = Net::HTTP::Purge.new(url)
+                response = http.request(request)
+                result = response.code
+                result_body = response.body
+            }
+        end
     rescue OpenURI::HTTPError, SocketError, Errno::ETIMEDOUT, Errno::ECONNREFUSED, Errno::EHOSTUNREACH
         Rails.logger.warn("Unable to reach host #{host}")
     end

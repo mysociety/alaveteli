@@ -30,6 +30,7 @@ GEM
     locale (2.0.5)
     mahoro (0.3)
     memcache-client (1.8.5)
+    net-http-local (0.1.2)
     net-purge (0.1.0)
     pg (0.11.0)
     rack (1.1.0)
@@ -79,6 +80,7 @@ DEPENDENCIES
   locale (>= 2.0.5)
   mahoro
   memcache-client
+  net-http-local
   net-purge
   pg
   rack (~> 1.1.0)
