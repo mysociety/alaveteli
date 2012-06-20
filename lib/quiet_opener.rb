@@ -24,12 +24,12 @@ def quietly_try_to_purge(host, url)
             }
         end
     rescue OpenURI::HTTPError, SocketError, Errno::ETIMEDOUT, Errno::ECONNREFUSED, Errno::EHOSTUNREACH
-        Rails.logger.warn("Unable to reach host #{host}")
+        Rails.logger.warn("PURGE: Unable to reach host #{host}")
     end
     if result == "200"
-        Rails.logger.info("Purged URL #{url} at #{host}: #{result}")
+        Rails.logger.info("PURGE: Purged URL #{url} at #{host}: #{result}")
     else
-        Rails.logger.warn("Unable to purge URL #{url} at #{host}: status #{result}")
+        Rails.logger.warn("PURGE: Unable to purge URL #{url} at #{host}: status #{result}")
     end
     return result
 end

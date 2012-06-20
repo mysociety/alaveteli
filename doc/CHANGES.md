@@ -57,7 +57,12 @@
   you leave `VARNISH_HOST` blank, it will have no effect.  Finally,
   you should install the `purge-varnish` init script that's provided
   in `ugly` format at `config/purge-varnish-debian.ugly` to ensure the
-  purge queue is emptied regularly.
+  purge queue is emptied regularly.  Once deployed, you should also
+  check your production log for lines starting `PURGE:` to ensure the
+  purges are successful (a failure will typically be due to a
+  misconfigured Varnish).  If purges are unsuccessful, the conseqence
+  is that individual request pages that are served to anonymous users
+  will be up to 24 hours out of date.
 
 * Administrators are now assumed to log in using standard user accounts
   with superuser privileges (see 'Administrator Privileges' in
