@@ -63,7 +63,9 @@ explanation):
     sudo ruby1.8 /tmp/rubygems-1.6.2/setup.rb
  
 To install Alaveteli's Ruby dependencies, we also need to install
-bundler:
+bundler.  In Debian, this is provided as a package (installed as part
+of the package install process above).  You could also install it as a
+gem:
 
     sudo gem1.8 install bundler
     
@@ -222,17 +224,6 @@ One of the things the script does is install dependencies (using
 `bundle install`).  Note that the first time you run it, part of the
 `bundle install` that compiles `xapian-full` takes a *long* time!
 
-On Debian, at least, the binaries installed by bundler are not put in
-the system `PATH`; therefore, in order to run `rake` (needed for
-deployments), you will need to do something like:
-
-    ln -s /usr/lib/ruby/gems/1.8/bin/rake /usr/local/bin/
-    
-Or (Debian):
-
-    ln -s /usr/lib/ruby/gems/1.8/bin/rake /usr/local/bin/
-
-
 If you want some dummy data to play with, you can try loading the
 fixtures that the test suite uses into your development database.  You
 can do this with:
@@ -374,6 +365,15 @@ further action.  You should read the `CHANGES.md` document to see
 what's changed since your last deployment, paying special attention to
 anything in the "Updgrading" sections.
 
+Any upgrade may include new translations strings, i.e. new or altered
+messages to the user that need translating to your locale.  You should
+visit Transifex and try to get your translation up to 100% on each new
+release.  Failure to do so means that any new words added to the
+Alaveteli source code will appear in your website in English by
+default.  If your translations didn't make it to the latest release,
+you will need to download the updated `app.po` for your locale from
+Transifex and save it in the `locales/` folder.
+
 You should always run the script `scripts/rails-post-deploy` after
 each deployment.  This runs any database migrations for you, plus
 various other things that can be automated for deployment.
@@ -461,4 +461,18 @@ various other things that can be automated for deployment.
     system-packaged rubygems, and then installing the latest rubygems
     from source, and finally executing `sudo gem update --system
     1.6.2`.
+
+*   **I'm seeing `rake: command not found` when running the post install script
+
+    The script uses `rake`.
+
+    It may be that the binaries installed by bundler are not put in the
+    system `PATH`; therefore, in order to run `rake` (needed for
+    deployments), you may need to do something like:
+
+        ln -s /usr/lib/ruby/gems/1.8/bin/rake /usr/local/bin/
+    
+    Or (Debian):
+
+        ln -s /usr/lib/ruby/gems/1.8/bin/rake /usr/local/bin/
 

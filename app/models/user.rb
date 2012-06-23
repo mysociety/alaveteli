@@ -409,7 +409,7 @@ class User < ActiveRecord::Base
         columns = self.class.content_columns.map{|c| c if %w(created_at updated_at admin_level email_confirmed).include?(c.name) }.compact
       end
       columns.each do |column|
-        yield(column.human_name, self.send(column.name), column.type.to_s)
+        yield(column.human_name, self.send(column.name), column.type.to_s, column.name)
       end
     end
 
@@ -438,8 +438,9 @@ class User < ActiveRecord::Base
 
     after_save(:purge_in_cache)
     def purge_in_cache
-        # XXX should only be if specific attributes have changed
-        self.info_requests.each {|x| x.purge_in_cache}
+        if self.name_changed?
+            self.info_requests.each {|x| x.purge_in_cache}
+        end
     end
 
 end

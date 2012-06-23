@@ -77,10 +77,32 @@ describe GeneralController, "when searching" do
     end
 
     describe "when using different locale settings" do 
-        home_link_regex = /href=".*\/en"/
+        home_link_regex = /href=".*\/en\//
         it "should generate URLs with a locale prepended when there's more than one locale set" do
             get :frontpage
             response.should have_text(home_link_regex)
+        end
+
+        it "should use our test PO files rather than the application one" do
+            I18n.default_locale = :es
+            get :frontpage
+            response.should have_text(/XOXO/)
+            I18n.default_locale = :en
+        end
+
+        it "should generate URLs that include the locale when using one that includes an underscore" do
+            I18n.default_locale = :"en_GB"
+            get :frontpage
+            response.should have_text(/href="\/en_GB\//)
+            I18n.default_locale = :en
+        end
+
+        it "should fall back to the language if the territory is unknown" do
+            I18n.default_locale = :"en_US"
+            get :frontpage
+            response.should have_text(/href="\/en\//)
+            response.should_not have_text(/href="\/en_US\//)
+            I18n.default_locale = :en
         end
 
         it "should generate URLs without a locale prepended when there's only one locale set" do

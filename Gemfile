@@ -11,11 +11,13 @@ gem 'rails', '2.3.14'
 gem 'pg'
 
 gem 'fast_gettext', '>= 0.6.0'
+gem 'gettext_i18n_rails', '>= 0.6.0', :git => "git://github.com/sebbacon/gettext_i18n_rails.git"
 gem 'gettext', '>= 1.9.3'
 gem 'json', '~> 1.5.1'
 gem 'mahoro'
 gem 'memcache-client', :require => 'memcache'
 gem 'locale', '>= 2.0.5'
+gem 'net-http-local'
 gem 'net-purge'
 gem 'rack', '~> 1.1.0'
 gem 'rdoc', '~> 2.4.3'
@@ -41,5 +43,5 @@ end
 
 group :develop do
   gem 'ruby-debug'
-  gem 'annotate', :git => 'git://github.com/ctran/annotate_models.git'
+  gem 'annotate'
 end

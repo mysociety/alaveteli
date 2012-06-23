@@ -166,8 +166,8 @@ def forward_on(raw_message)
 end
 
 def load_rails
-    require File.join($alaveteli_dir, 'config', 'boot')
-    require File.join(Rails.root, "config", "environment")
+    require File.join('config', 'boot')
+    require File.join('config', 'environment')
 end
 
 def record_bounce(email_address, bounce_message)

@@ -187,8 +187,9 @@ class LanguageNames
             'za'	=> 'Saɯ cueŋƅ',
             'zu'	=> 'isiZulu'
         }
-
-        return language_names[locale]
+        locale = locale.sub("_", "-") # normalize
+        main_part = I18n::Locale::Tag::Simple.tag(locale).subtags[0]
+        return language_names[main_part]
     end
 end
 
