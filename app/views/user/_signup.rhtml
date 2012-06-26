@@ -37,6 +37,11 @@
     </p>
     
     <p class="form_checkbox">
+        <%= check_box_tag 'newsletter', "1" %>
+        <label for="newsletter"><%= _('Quiero recibir el boletín con novedades.') %></label> 
+    </p>
+
+    <p class="form_checkbox">
         <%= check_box_tag 'toc', "1" %>
         <label for="toc">
             <%= _('He leído las <a href="{{terms_url}}" target="_blank">Condiciones de Uso</a> de la web y su <a href="{{privacy_url}}" target="_blank">Política de Privacidad</a>.', 

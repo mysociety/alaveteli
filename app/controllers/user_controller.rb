@@ -155,7 +155,7 @@ class UserController < ApplicationController
             error = true
         end
         if error || !@user_signup.valid? || params[:toc]!='1'
-            @user_signup.errors.add(:toc, _("Por favor confirme que ha leído las Condiciones de Uso.")) if params[:toc]!='1'
+            @user_signup.errors.add(:toc, _("Por favor confirme que ha le&iacute;do las Condiciones de Uso.")) if params[:toc]!='1'
             # Show the form
             render :action => 'sign'
         else
@@ -187,6 +187,7 @@ class UserController < ApplicationController
             @user = post_redirect.user
             @user.email_confirmed = true
             @user.save!
+            register_user_to_newsletter(@user) if post_redirect.post_params[:newsletter]=='1'
         end
 
         session[:user_id] = @user.id
@@ -571,6 +572,8 @@ class UserController < ApplicationController
     def send_confirmation_mail(user)
         post_redirect = PostRedirect.find_by_token(params[:token])
         post_redirect.user = user
+        # beware: Rails partial updates won't save the hash if editing in place!
+        post_redirect.post_params = post_redirect.post_params.merge({ :newsletter => params[:newsletter] })
         post_redirect.save!
 
         url = confirm_url(:email_token => post_redirect.email_token)
@@ -589,5 +592,32 @@ class UserController < ApplicationController
         render :action => 'confirm' # must be same as for send_confirmation_mail above to avoid leak of presence of email in db
     end
 
+    def register_user_to_newsletter(user_created)	
+      require 'hominid'
+      h = Hominid::API.new(MySociety::Config.get('MAILCHIMP_API_KEY', 'provide_your_mailchiimp_api_key'), 
+                            { :secure => true, 
+                              :timeout => 15
+                            })
+
+      # API function reference: http://apidocs.mailchimp.com/api/rtfm/listsubscribe.func.php
+      list_id = MySociety::Config.get('MAILCHIMP_LIST_ID', 'provide_your_list_unique_id')
+      subscription_email = user_created.email
+      mergeOptions = {
+        :FNAME => user_created.name,
+        :OPTIN_IP => request.remote_ip
+      }
+      
+      logger.debug("Before subscribing user to newsletter")	
+      response = h.list_subscribe(list_id, 
+                                  subscription_email, 
+                                  mergeOptions, 
+                                  'html', # email_type
+                                  false,  # double_optin: flag to control whether a double opt-in confirmation message is sent
+                                  false,  # update_existing
+                                  false,  # replace_interests
+                                  false   #send_welcome
+                                  )
+      logger.info("Registration for newsletter email:#{subscription_email} successful: #{response}")
+    end
 end
 
