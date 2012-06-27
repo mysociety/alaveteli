@@ -19,13 +19,12 @@ class RawEmail < ActiveRecord::Base
 
     has_one :incoming_message
 
-    # We keep the old data_text field (which is of type text) for backwards
-    # compatibility. We use the new data_binary field because only it works
-    # properly in recent versions of PostgreSQL (get seg faults escaping
-    # some binary strings).
-
     def directory
         request_id = self.incoming_message.info_request.id.to_s
+        if request_id.empty?
+            raise "Failed to find the id number of the associated request: has it been saved?"
+        end
+        
         if ENV["RAILS_ENV"] == "test"
             return File.join(Rails.root, 'files/raw_email_test')
         else
@@ -36,7 +35,11 @@ class RawEmail < ActiveRecord::Base
     end
 
     def filepath
-        File.join(self.directory, self.incoming_message.id.to_s)
+        incoming_message_id = self.incoming_message.id.to_s
+        if incoming_message_id.empty?
+            raise "Failed to find the id number of the associated incoming message: has it been saved?"
+        end
+        File.join(self.directory, incoming_message_id)
     end
 
     def data=(d)

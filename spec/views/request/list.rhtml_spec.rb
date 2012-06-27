@@ -19,7 +19,8 @@ describe "when listing recent requests" do
                 :display_status => 'awaiting_response',
                 :calculate_status => 'awaiting_response',
                 :public_body => mock_model(PublicBody, :name => 'Test Quango', :url_name => 'testquango'),
-                :user => mock_model(User, :name => 'Test User', :url_name => 'testuser')
+                :user => mock_model(User, :name => 'Test User', :url_name => 'testuser'),
+                :is_external? => false
             ),
             :incoming_message => nil, :is_incoming_message? => false,
             :outgoing_message => nil, :is_outgoing_message? => false,

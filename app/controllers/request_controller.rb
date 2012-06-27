@@ -59,7 +59,7 @@ class RequestController < ApplicationController
             # Look up by old style numeric identifiers
             if params[:url_title].match(/^[0-9]+$/)
                 @info_request = InfoRequest.find(params[:url_title].to_i)
-                redirect_to request_url(@info_request)
+                redirect_to request_url(@info_request, :format => params[:format])
                 return
             end
 
@@ -309,9 +309,11 @@ class RequestController < ApplicationController
 
         # See if values were valid or not
         if !@existing_request.nil? || !@info_request.valid?
-            # We don't want the error "Outgoing messages is invalid", as the outgoing message
-            # will be valid for a specific reason which we are displaying anyway.
+            # We don't want the error "Outgoing messages is invalid", as in this
+            # case the list of errors will also contain a more specific error
+            # describing the reason it is invalid.
             @info_request.errors.delete("outgoing_messages")
+            
             render :action => 'new'
             return
         end

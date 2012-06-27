@@ -120,6 +120,7 @@ describe IncomingMessage, " folding quoted parts of emails" do
         @user.stub!(:name).and_return("Sir [ Bobble")
         @info_request = mock_model(InfoRequest)
         @info_request.stub!(:user).and_return(@user)
+        @info_request.stub!(:user_name).and_return(@user.name)
 
         @incoming_message = IncomingMessage.new()
         @incoming_message.info_request = @info_request

@@ -28,6 +28,21 @@ class RequestMailer < ApplicationMailer
                 :filename => attachment_name
         end
     end
+    
+    # Used when a response is uploaded using the API
+    def external_response(info_request, body, sent_at, attachments)
+        @from = blackhole_email
+        @recipients = info_request.incoming_name_and_email
+        @body = { :body => body }
+        
+        # ActionMailer only works properly when the time is in the local timezone:
+        # see https://rails.lighthouseapp.com/projects/8994/tickets/3113-actionmailer-only-works-correctly-with-sent_on-times-that-are-in-the-local-time-zone
+        @sent_on = sent_at.dup.localtime
+        
+        attachments.each do |attachment_hash|
+            attachment attachment_hash
+        end
+    end
 
     # Incoming message arrived for a request, but new responses have been stopped.
     def stopped_responses(info_request, email, raw_email_data)
@@ -241,7 +256,12 @@ class RequestMailer < ApplicationMailer
 
     # Send email alerts for overdue requests
     def self.alert_overdue_requests()
-        info_requests = InfoRequest.find(:all, :conditions => [ "described_state = 'waiting_response' and awaiting_description = ?", false ], :include => [ :user ] )
+        info_requests = InfoRequest.find(:all,
+            :conditions => [
+                "described_state = 'waiting_response' and awaiting_description = ? and user_id is not null", false
+            ],
+            :include => [ :user ]
+        )
         for info_request in info_requests
             alert_event_id = info_request.last_event_forming_initial_request.id
             # Only overdue requests

@@ -33,7 +33,7 @@ class InfoRequest < ActiveRecord::Base
     validates_format_of :title, :with => /[a-zA-Z]/, :message => N_("Please write a summary with some text in it"), :if => Proc.new { |info_request| !info_request.title.nil? && !info_request.title.empty? }
 
     belongs_to :user
-    #validates_presence_of :user_id # breaks during construction of new ones :(
+    validate :must_be_internal_or_external
 
     belongs_to :public_body
     validates_presence_of :public_body_id
@@ -103,6 +103,43 @@ class InfoRequest < ActiveRecord::Base
     def must_be_valid_state
         errors.add(:described_state, "is not a valid state") if
             !InfoRequest.enumerate_states.include? described_state
+    end
+    
+    # The request must either be internal, in which case it has
+    # a foreign key reference to a User object and no external_url or external_user_name,
+    # or else be external in which case it has no user_id but does have an external_url,
+    # and may optionally also have an external_user_name.
+    #
+    # External requests are requests that have been added using the API, whereas internal
+    # requests are requests made using the site.
+    def must_be_internal_or_external
+        # We must permit user_id and external_user_name both to be nil, because the system
+        # allows a request to be created by a non-logged-in user.
+        if !user_id.nil?
+            errors.add(:external_user_name, "must be null for an internal request") if !external_user_name.nil?
+            errors.add(:external_url, "must be null for an internal request") if !external_url.nil?
+        end
+    end
+    
+    def is_external?
+        !external_url.nil?
+    end
+    
+    def user_name
+        is_external? ? external_user_name : user.name
+    end
+    
+    def user_name_slug
+        if is_external?
+            if external_user_name.nil?
+                fake_slug = "anonymous"
+            else
+                fake_slug = external_user_name.parameterize
+            end
+            public_body.url_name + "_"+fake_slug
+        else
+            user.url_name
+        end
     end
 
     @@custom_states_loaded = false
@@ -232,7 +269,7 @@ public
         return self.magic_email("request-")
     end
     def incoming_name_and_email
-        return TMail::Address.address_from_name_and_email(self.user.name, self.incoming_email).to_s
+        return TMail::Address.address_from_name_and_email(self.user_name, self.incoming_email).to_s
     end
 
     # Subject lines for emails about the request
@@ -453,7 +490,7 @@ public
             self.save!
         end
         self.info_request_events.each { |event| event.xapian_mark_needs_index } # for the "waiting_classification" index
-        RequestMailer.deliver_new_response(self, incoming_message)
+        RequestMailer.deliver_new_response(self, incoming_message) if !is_external?
     end
 
 
@@ -513,9 +550,6 @@ public
     def requires_admin?
         return true if InfoRequest.requires_admin_states.include?(described_state)
         return false
-    end
-
-    def can_have_attention_requested?
     end
 
     # change status, including for last event for later historical purposes

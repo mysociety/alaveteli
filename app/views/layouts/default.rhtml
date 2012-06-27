@@ -16,6 +16,10 @@
         <% if !params[:print_stylesheet].nil? %>
          <%= stylesheet_link_tag 'print', :rel => "stylesheet", :media => "all"  %>
         <% end %>
+
+	<% if is_admin? %>
+          <%= stylesheet_link_tag "/adminbootstraptheme/stylesheets/admin", :title => "Main", :rel => "stylesheet" %>
+	<% end %>
         <%= javascript_include_tag 'jquery.js', 'jquery-ui.min','jquery.cookie.js', 'general.js' %>
 
         <% if @profile_photo_javascript %>
@@ -58,8 +62,7 @@
 
         <%= render :partial => 'general/before_head_end' %>
     </head>
-    <body class="<%= 'admin' if !session[:using_admin].nil?%> <%= 'front' if params[:action] == 'frontpage' %>">
-
+    <body class="<%= 'admin' if is_admin? %> <%= 'front' if params[:action] == 'frontpage' %>">
     <!-- XXX: move to a separate file -->
     <% if force_registration_on_new_request && !@user %>
     <%= javascript_include_tag 'jquery.fancybox-1.3.4.pack' %>
@@ -81,7 +84,11 @@
         });
     </script>
     <% end %>
-        
+
+<% if session[:using_admin] %>
+  <%= render :partial => 'admin_general/admin_navbar' %>
+<% end %>
+
 <% # code for popup advert for a campaign etc.
 =begin
     <div id="everypage" class="jshide">

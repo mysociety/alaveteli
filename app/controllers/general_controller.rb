@@ -21,7 +21,7 @@ class GeneralController < ApplicationController
     # New, improved front page!
     def frontpage
         medium_cache
-        behavior_cache do
+        behavior_cache :tag => [session[:user_id], request.url] do
             # get some example searches and public bodies to display
             # either from config, or based on a (slow!) query if not set
             body_short_names = MySociety::Config.get('FRONTPAGE_PUBLICBODY_EXAMPLES', '').split(/\s*;\s*/).map{|s| "'%s'" % s.gsub(/'/, "''") }.join(", ")

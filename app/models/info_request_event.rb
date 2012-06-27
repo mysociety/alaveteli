@@ -118,7 +118,7 @@ class InfoRequestEvent < ActiveRecord::Base
         :eager_load => [ :outgoing_message, :comment, { :info_request => [ :user, :public_body, :censor_rules ] } ]
 
     def requested_by
-        self.info_request.user.url_name
+        self.info_request.user_name_slug
     end
     def requested_from
         # acts_as_xapian will detect translated fields via Globalize and add all the

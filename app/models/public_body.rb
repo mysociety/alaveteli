@@ -17,6 +17,7 @@
 #  notes              :text            default(""), not null
 #  first_letter       :string(255)     not null
 #  publication_scheme :text            default(""), not null
+#  api_key            :string(255)     not null
 #
 
 # models/public_body.rb:
@@ -28,6 +29,7 @@
 # $Id: public_body.rb,v 1.160 2009-10-02 22:56:35 francis Exp $
 
 require 'csv'
+require 'securerandom'
 require 'set'
 
 class PublicBody < ActiveRecord::Base
@@ -87,10 +89,13 @@ class PublicBody < ActiveRecord::Base
         end
     end
 
-    # Make sure publication_scheme gets the correct default value.
-    # (This would work automatically, were publication_scheme not a translated attribute)
     def after_initialize
+      # Make sure publication_scheme gets the correct default value.
+      # (This would work automatically, were publication_scheme not a translated attribute)
       self.publication_scheme = "" if self.publication_scheme.nil?
+      
+      # Set an API key if there isn’t one
+      self.api_key = SecureRandom.base64(32) if self.api_key.nil?
     end
 
     # like find_by_url_name but also search historic url_name if none found
@@ -178,7 +183,7 @@ class PublicBody < ActiveRecord::Base
     end
 
     acts_as_versioned
-    self.non_versioned_columns << 'created_at' << 'updated_at' << 'first_letter'
+    self.non_versioned_columns << 'created_at' << 'updated_at' << 'first_letter' << 'api_key'
     class Version
         attr_accessor :created_at
 

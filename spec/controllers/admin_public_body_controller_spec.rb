@@ -146,7 +146,15 @@ describe AdminPublicBodyController, "when administering public bodies and paying
         session[:using_admin].should == 1
     end
 
-
+    it "doesn't allow non-superusers to do stuff" do
+        session[:user_id] = users(:robin_user).id
+        @request.env["HTTP_AUTHORIZATION"] = ""
+        n = PublicBody.count
+        post :destroy, { :id => public_bodies(:forlorn_public_body).id }
+        response.should redirect_to(:controller=>'user', :action=>'signin', :token=>PostRedirect.get_last_post_redirect.token)
+        PublicBody.count.should == n
+        session[:using_admin].should == nil
+    end
 end
 
 describe AdminPublicBodyController, "when administering public bodies with i18n" do
