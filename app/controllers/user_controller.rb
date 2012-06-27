@@ -245,6 +245,7 @@ class UserController < ApplicationController
         session[:user_id] = nil
         session[:user_circumstance] = nil
         session[:remember_me] = false
+        session[:using_admin] = nil
     end
     def signout
         self._do_signout
