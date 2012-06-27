@@ -47,8 +47,6 @@ class AdminController < ApplicationController
         end
     end
 
-    private
-
     def authenticate
         if MySociety::Config.get('SKIP_ADMIN_AUTH', false)
             session[:using_admin] = 1
@@ -64,6 +62,11 @@ class AdminController < ApplicationController
                         if !@user.nil? && @user.admin_level == "super"
                             session[:using_admin] = 1
                             request.env['REMOTE_USER'] = @user.url_name
+                        else
+
+                            session[:using_admin] = nil
+                            session[:user_id] = nil
+                            self.authenticate
                         end
                     end
                 else
