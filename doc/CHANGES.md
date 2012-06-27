@@ -30,6 +30,7 @@
   was fixed
   ([issue #503](https://github.com/sebbacon/alaveteli/issues/503))
 * Error pages are now presented with styling from themes
+* [Full list of changes on github](https://github.com/sebbacon/alaveteli/issues?milestone=13&state=closed)
 
 ## Upgrade notes
 
