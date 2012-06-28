@@ -471,8 +471,4 @@ various other things that can be automated for deployment.
     deployments), you may need to do something like:
 
         ln -s /usr/lib/ruby/gems/1.8/bin/rake /usr/local/bin/
-    
-    Or (Debian):
-
-        ln -s /usr/lib/ruby/gems/1.8/bin/rake /usr/local/bin/
 
