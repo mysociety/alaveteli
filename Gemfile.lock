@@ -85,6 +85,7 @@ DEPENDENCIES
   pg
   rack (~> 1.1.0)
   rails (= 2.3.14)
+  rake
   rdoc (~> 2.4.3)
   recaptcha (~> 0.3.1)
   rmagick
