@@ -3,6 +3,11 @@
 
 * Fixes important security bug [issue #515](https://github.com/sebbacon/alaveteli/issues/515)
 * Show admin nav bar when browsing main site
+* A new API for adding requests and correspondence to an Alaveteli
+  instance, designed for use by public bodies that wish to use
+  Alaveteli as a disclosure log.  See
+  [the wiki](https://github.com/sebbacon/alaveteli/wiki/API) for some
+  documentation.
 * [Full list of changes on github](https://github.com/sebbacon/alaveteli/issues?milestone=8&state=closed)
 
 ## Upgrade notes
