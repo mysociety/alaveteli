@@ -54,7 +54,7 @@ Some of the files also have a version number listed in config/packages
 
 # Install Ruby dependencies
 
-Install rubygems 1.6.1 (we're not using the Debian package because we
+Install rubygems 1.6.2 (we're not using the Debian package because we
 need an older version; see "Troubleshooting" below for an
 explanation):
 
