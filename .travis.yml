@@ -8,6 +8,7 @@ before_install:
   - git submodule update --init --recursive
   - sudo apt-get update
   - export DEBIAN_FRONTEND=noninteractive
+  - sudo apt-get -y install exim4-daemon-light
   - sudo apt-get -y install `cut -d " " -f 1 config/packages | egrep -v "(^#|wkhtml|bundler)"` 
 before_script:
   - psql -c 'create database foi_test template template0 encoding sql_ascii;' -U postgres
