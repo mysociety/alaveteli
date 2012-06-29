@@ -2,7 +2,7 @@ These instructions assume Debian Squeeze or Ubuntu 10.04 LTS.
 [Install instructions for OS X](https://github.com/sebbacon/alaveteli/wiki/OS-X-Quickstart)
 are under development.  Debian Squeeze is the best supported
 deployment platform.
-
+ 
 Commands are intended to be run via the terminal or over ssh.
 
 As an aid to evaluation, there is an
