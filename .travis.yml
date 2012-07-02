@@ -7,6 +7,7 @@ rvm:
 before_install:
   - sudo gem install rubygems-update --version=1.6.2
   - sudo gem update --system 1.6.2
+  - sudo gem install rake
   - git submodule update --init --recursive
   - psql -c "create database foi_test template template0 encoding 'SQL_ASCII';" -U postgres
   - cp config/database.yml-test config/database.yml
