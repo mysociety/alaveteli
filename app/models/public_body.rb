@@ -95,7 +95,7 @@ class PublicBody < ActiveRecord::Base
       self.publication_scheme = "" if self.publication_scheme.nil?
       
       # Set an API key if there isn’t one
-      self.api_key = SecureRandom.base64(32) if self.api_key.nil?
+      self.api_key = SecureRandom.base64(33) if self.api_key.nil?
     end
 
     # like find_by_url_name but also search historic url_name if none found
