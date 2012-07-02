@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
-"POT-Creation-Date: 2012-06-15 11:36+0100\n"
-"PO-Revision-Date: 2012-06-15 10:40+0000\n"
-"Last-Translator: sebbacon <seb.bacon@gmail.com>\n"
+"POT-Creation-Date: 2012-02-08 10:16-0000\n"
+"PO-Revision-Date: 2012-03-20 21:07+0000\n"
+"Last-Translator: David Cabo <david.cabo@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -48,21 +48,9 @@ msgstr " (<strong>pazientzia</strong>, batez ere fitxategi handiekin, hainbat mi
 msgid " (you)"
 msgstr " (zu)"
 
-#: app/views/user/show.rhtml:2
-msgid " - Freedom of Information requests"
-msgstr ""
-
-#: app/views/user/show.rhtml:4
-msgid " - user profile"
-msgstr ""
-
 #: app/views/public_body/show.rhtml:1
 msgid " - view and make Freedom of Information requests"
 msgstr " - Bilatu informaziorako sarbidearen eskabideen artean eta bidali ezazu."
-
-#: app/views/user/wall.rhtml:1
-msgid " - wall"
-msgstr ""
 
 #: app/views/user/signchangepassword_send_confirm.rhtml:18
 msgid ""
@@ -176,19 +164,19 @@ msgstr "'Espainiako krimen estatistika, eskualdeka'"
 msgid "'Pollution levels over time for the River Tyne'"
 msgstr "'Ibaizabal ibaiko kutsadura maila historikoak'"
 
-#: app/models/track_thing.rb:249
+#: app/models/track_thing.rb:245
 msgid "'{{link_to_authority}}', a public authority"
 msgstr "'{{link_to_authority}}', erakunde publiko bat"
 
-#: app/models/track_thing.rb:198
+#: app/models/track_thing.rb:194
 msgid "'{{link_to_request}}', a request"
 msgstr "'{{link_to_request}}', eskabide bat"
 
-#: app/models/track_thing.rb:265
+#: app/models/track_thing.rb:261
 msgid "'{{link_to_user}}', a person"
 msgstr "'{{link_to_user}}', pertsona bat"
 
-#: app/controllers/user_controller.rb:435
+#: app/controllers/user_controller.rb:389
 msgid ""
 ",\n"
 "\n"
@@ -199,7 +187,7 @@ msgid ""
 "{{user_name}}"
 msgstr ",\n\n\n\nAdeitasunez,\n\n{{user_name}}"
 
-#: app/views/user/sign.rhtml:31
+#: app/views/user/sign.rhtml:28
 msgid "- or -"
 msgstr "- edo -"
 
@@ -227,13 +215,13 @@ msgstr "<a href=\"%s\">Gehitu azalpenen bat</a> (eskatzaileari edo besteei lagun
 msgid "<a href=\"%s\">Are we missing a public authority?</a>."
 msgstr "<a href=\"%s\">Erakunde publikoren bat ez da agertzen?</a>."
 
-#: app/views/request/_sidebar.rhtml:60
+#: app/views/request/_sidebar.rhtml:39
 msgid ""
 "<a href=\"%s\">Are you the owner of\n"
 "            any commercial copyright on this page?</a>"
 msgstr "<a href=\"%s\">Orrialde honetako infomazioaren eskubideak dituzu zuk?</a>"
 
-#: app/views/general/search.rhtml:167
+#: app/views/general/search.rhtml:168
 msgid "<a href=\"%s\">Browse all</a> or <a href=\"%s\">ask us to add one</a>."
 msgstr "<a href=\"%s\">Guztiak ikusi</a> o <a href=\"%s\">eskatu beste bat gehitzeko</a>."
 
@@ -248,7 +236,7 @@ msgid ""
 msgstr "<a href=\"%s\">Ireki saioa</a> zure pasahitza aldatzeko, inskribatzeko... ({{user_name}} bakarrik)"
 
 #: app/views/request/_followup.rhtml:66 app/views/request/_followup.rhtml:73
-#: app/views/request/show.rhtml:85 app/views/request/show.rhtml:89
+#: app/views/request/show.rhtml:83 app/views/request/show.rhtml:87
 msgid "<a href=\"%s\">details</a>"
 msgstr "<a href=\"%s\">xehetasunak</a>"
 
@@ -263,48 +251,48 @@ msgid ""
 "{{site_name}}.</p>"
 msgstr "<p>Eginda dago! Eskerrik asko zure laguntzagatik.</p> {{site_name}} laguntzeko<p>badaude<a href=\"{{helpus_url}}\">egin ditzakezun gauza gehiago</a>.</p>"
 
-#: app/controllers/request_controller.rb:450
+#: app/controllers/request_controller.rb:441
 msgid ""
 "<p>Thank you! Here are some ideas on what to do next:</p>\n"
 "            <ul>\n"
 "            <li>To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>.</li>\n"
-"            <li>If you would like to contest the authority's claim that they do not hold the information, here is\n"
+"            <li>If you would like to contest the authority's claim that they do not hold the information, here is \n"
 "            <a href=\"{{complain_url}}\">how to complain</a>.\n"
 "            </li>\n"
 "            <li>We have <a href=\"{{other_means_url}}\">suggestions</a>\n"
 "            on other means to answer your question.\n"
 "            </li>\n"
 "            </ul>"
-msgstr ""
+msgstr "<p>Milesker! Jarraian zer egin erabakitzeko zenbait ideia:</p>\n            <ul>\n            <li>Eskabidea beste erakunde batera bidaltzeko, kopia ezazu testua eta <a href=\"{{find_authority_url}}\">aurkitu beste erakunde bat</a>.</li>\n            <li>Erakundeak informaziorik ez duela egindako baieztapenari erantzun nahi badiozu, hemen azalduko dizugu\n            <a href=\"{{complain_url}}\">nola apelatu</a>.\n            </li>\n            <li>Zure galdera erantzuteko <a href=\"{{other_means_url}}\">beste iradokizunak</a>\n            badauzkagu.\n            </li>\n            </ul>"
 
-#: app/controllers/request_controller.rb:444
+#: app/controllers/request_controller.rb:435
 msgid ""
 "<p>Thank you! Hope you don't have to wait much longer.</p> <p>By law, you "
 "should have got a response promptly, and normally before the end of "
 "<strong>{{date_response_required_by}}</strong>.</p>"
 msgstr "<p>Eskerrik asko! Espero dugu ez duzula luze itxaron behar izango.</p> <p>Legearen arabera, erantzuna laster jaso behar izango duzu, normalean   <strong>{{date_response_required_by}}</strong>amaitu baino lehen.</p>"
 
-#: app/controllers/request_controller.rb:440
+#: app/controllers/request_controller.rb:431
 msgid ""
 "<p>Thank you! Hopefully your wait isn't too long.</p> <p>By law, you should get a response promptly, and normally before the end of <strong>\n"
 "{{date_response_required_by}}</strong>.</p>"
 msgstr "<p>Eskerrik asko! Espero dugu ez duzula luze itxaron behar izango.</p> <p>Legearen arabera, erantzuna laster jaso behar izango duzu, normalean <strong>\n{{date_response_required_by}}</strong> amaitu baino lehen.</p>"
 
-#: app/controllers/request_controller.rb:479
+#: app/controllers/request_controller.rb:470
 msgid ""
 "<p>Thank you! Hopefully your wait isn't too long.</p><p>You should get a "
 "response within {{late_number_of_days}} days, or be told if it will take "
 "longer (<a href=\"{{review_url}}\">details</a>).</p>"
 msgstr "<p>Eskerrik asko! Espero dugu ez duzula luze itxaron behar izango.</p><p>Erantzuna {{late_number_of_days}} egunetan jaso behar izango zenuke, edo erantzuna beranduago helduko zela jakinarazi beharko lizukete (<a href=\"{{review_url}}\">informazio gehago</a>).</p>"
 
-#: app/controllers/request_controller.rb:482
+#: app/controllers/request_controller.rb:473
 msgid ""
 "<p>Thank you! We'll look into what happened and try and fix it up.</p><p>If "
 "the error was a delivery failure, and you can find an up to date FOI email "
 "address for the authority, please tell us using the form below.</p>"
 msgstr "<p>Eskerrik asko! Gertatutakoa ikertuko dugu eta saiatuko gara konpontzen.</p><p> Hutsunea posta ematean gertatu baldin bada, eta erakunde honetako helbide gaurkotuagoa aurkitu ahal baduzu, mesedez, adieraz iezaguzu ondoko inprimakian.</p>"
 
-#: app/controllers/request_controller.rb:447
+#: app/controllers/request_controller.rb:438
 msgid ""
 "<p>Thank you! Your request is long overdue, by more than "
 "{{very_late_number_of_days}} working days. Most requests should be answered "
@@ -312,25 +300,25 @@ msgid ""
 "about this, see below.</p>"
 msgstr "<p>Eskerrik asko! Zure eskabidea atzeratuta dabil, {{very_late_number_of_days}} lan egun baino gehiago igaro dira. Eskabide gehienek erantzuna jaso beharko lukete  {{late_number_of_days}} lan egunetan. Atzerapen hau dela eta, erreklamazioa egin dezakezu, beherago azaltzen den moduan.</p>"
 
-#: app/controllers/user_controller.rb:576
+#: app/controllers/user_controller.rb:530
 msgid ""
 "<p>Thanks for changing the text about you on your profile.</p>\n"
 "            <p><strong>Next...</strong> You can upload a profile photograph too.</p>"
 msgstr "<p>Eskerrik asko zure profil pertsonala gaurkotzeagatik.</p>\n            <p><strong>Orain...</strong> argazkia ere igo dezakezu zure profilera.</p>"
 
-#: app/controllers/user_controller.rb:497
+#: app/controllers/user_controller.rb:451
 msgid ""
 "<p>Thanks for updating your profile photo.</p>\n"
 "                <p><strong>Next...</strong> You can put some text about you and your research on your profile.</p>"
 msgstr "<p>Eskerrik asko zure profilaren argazkia gaurkotzeagatik.</p>\n                <p><strong>Orain...</strong> Zeure buruaz eta zure ikerketaz idatz dezakezu zure profilean.</p>"
 
-#: app/controllers/request_controller.rb:323
+#: app/controllers/request_controller.rb:320
 msgid ""
 "<p>We recommend that you edit your request and remove the email address.\n"
 "                If you leave it, the email address will be sent to the authority, but will not be displayed on the site.</p>"
 msgstr "<p>Gure aholkua hauxe da, zure eskabidea editatu eta posta elektronikoaren helbidea kentzea.\n                Helbidea utziz gero, erakunde publikora bidaliko da, baina ez da ikusgarria izango webgune honetan.</p>"
 
-#: app/controllers/request_controller.rb:468
+#: app/controllers/request_controller.rb:459
 msgid ""
 "<p>We're glad you got all the information that you wanted. If you write "
 "about or make use of the information, please come back and add an annotation"
@@ -339,7 +327,7 @@ msgid ""
 "it.</p>"
 msgstr "<p>Pozgarria da eskatu zenuen informazioa jaso duzula jakitea. Horri buruz idazten baduzu edo erabiltzen baduzu, mesedez itzul zaitez hona eta jarraian gehitu iruzkin bat, zer egin duzun azalduz.</p><p>{{site_name}} erabilgarria izan baldin bada, dagokion GKE<a href=\"{{donation_url}}\">diruz lagundu</a> ahal duzu.</p>"
 
-#: app/controllers/request_controller.rb:471
+#: app/controllers/request_controller.rb:462
 msgid ""
 "<p>We're glad you got some of the information that you wanted. If you found "
 "{{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to "
@@ -347,36 +335,36 @@ msgid ""
 "information, here's what to do now.</p>"
 msgstr "<p>Pozgarria da eskatu zenuen informazioa jaso duzula jakitea. Horri buruz idazten baduzu edo erabiltzen baduzu, mesedez itzul zaitez hona eta jarraian gehitu iruzkin bat, zer egin duzun azalduz.</p><p>{{site_name}} erabilgarria izan baldin bada,dagokion GKE<a href=\"{{donation_url}}\">diruz lagundu</a> ahal duzu.</p>"
 
-#: app/controllers/request_controller.rb:321
+#: app/controllers/request_controller.rb:318
 msgid ""
 "<p>You do not need to include your email in the request in order to get a "
 "reply (<a href=\"%s\">details</a>).</p>"
 msgstr "<p>Eskabidean ez duzu zure posta elektronikoaren helbidea sartu behar, erantzuna jasotzeko (<a href=\"%s\">más detalles</a>).</p>"
 
-#: app/controllers/request_controller.rb:319
+#: app/controllers/request_controller.rb:316
 msgid ""
 "<p>You do not need to include your email in the request in order to get a "
 "reply, as we will ask for it on the next screen (<a "
 "href=\"%s\">details</a>).</p>"
 msgstr "<p>Eskabidean ez duzu zure posta elektronikoaren helbidea sartu behar, erantzuna jasotzeko, ondoko urratsean eskatuko dizugu (<a href=\"%s\">xehetasun gehiago</a>).</p>"
 
-#: app/controllers/request_controller.rb:327
+#: app/controllers/request_controller.rb:324
 msgid ""
 "<p>Your request contains a <strong>postcode</strong>. Unless it directly "
 "relates to the subject of your request, please remove any address as it will"
 " <strong>appear publicly on the Internet</strong>.</p>"
 msgstr "<p>Zure eskabideak <strong>posta kodea</strong> dakar. Eskabidearekin zerikusi zuzena izan ezean, mesedez ezaba ezazu edozein helbide, ya que <strong>Interneten guztion eskura</strong> egongo da eta.</p>"
 
-#: app/controllers/request_controller.rb:361
+#: app/controllers/request_controller.rb:352
 msgid ""
 "<p>Your {{law_used_full}} request has been <strong>sent on its way</strong>!</p>\n"
 "            <p><strong>We will email you</strong> when there is a response, or after {{late_number_of_days}} working days if the authority still hasn't\n"
 "            replied by then.</p>\n"
-"            <p>If you write about this request (for example in a forum or a blog) please link to this page, and add an\n"
+"            <p>If you write about this request (for example in a forum or a blog) please link to this page, and add an \n"
 "            annotation below telling people about your writing.</p>"
-msgstr ""
+msgstr "<p>Zure {{law_used_full}} eskabidea  <strong>bidalita</strong> dago!</p>\n<p><strong>Postaz jakinaraziko dizugu</strong> erantzuna jasotzen denean, edo  {{late_number_of_days}} lan egunetan, erakundeak oraindik erantzun ez badu.</p>\n<p>Eskabide honi buruz idazten baduzu  (foro edo blog batean, adibidez) mesedez, jar ezazu orrialde honetarako esteka eta ondoan gehitu azalpenen bat interesatu posibleei informazioa emanez.</p>"
 
-#: app/controllers/application_controller.rb:327
+#: app/controllers/application_controller.rb:311
 msgid ""
 "<p>{{site_name}} is currently in maintenance. You can only view existing "
 "requests. You cannot make new ones, add followups or annotations, or "
@@ -389,13 +377,6 @@ msgid ""
 "bulk/spam mail folders. Sometimes, our messages are marked that way.</small>\n"
 "</p>"
 msgstr "<small>Web posta erabiltzen baduzu eta \"anti spam\" iragazkiak baldin badizutu, mesedez begira ezazu zure spam zorroan. Batzuetan, gure mezuak honela markatzen dira, akatsez.</small>\n</p>"
-
-#: app/views/public_body/show.rhtml:7
-msgid "<span id='follow_count'>%d</span> person is following this authority"
-msgid_plural ""
-"<span id='follow_count'>%d</span> people are following this authority"
-msgstr[0] ""
-msgstr[1] ""
 
 #: app/views/request/new.rhtml:135
 msgid ""
@@ -527,39 +508,20 @@ msgstr " <strong>Informazioaren zati bat</strong> bidalita dago."
 msgid "<strong>Thank</strong> the public authority or "
 msgstr "<strong>Eman eskerrak</strong> erakunde publikoari edo "
 
-#: app/views/request/show.rhtml:93
+#: app/views/request/show.rhtml:91
 msgid "<strong>did not have</strong> the information requested."
 msgstr "<strong>ez zeukan</strong> eskatutako informazioa."
-
-#: app/views/request/_wall_listing.rhtml:11
-msgid ""
-"A <a href=\"{{request_url}}\">follow up</a> to <em>{{request_title}}</em> "
-"was sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
-msgstr ""
-
-#: app/views/request/_wall_listing.rhtml:13
-msgid ""
-"A <a href=\"{{request_url}}\">response</a> to <em>{{request_title}}</em> was"
-" sent by {{public_body_name}} to {{info_request_user}} on {{date}}.  The "
-"request status is: {{request_status}}"
-msgstr ""
 
 #: app/views/comment/new.rhtml:46
 msgid ""
 "A <strong>summary</strong> of the response if you have received it by post. "
 msgstr "Erantzunaren <strong>laburpena</strong>, posta arruntean jaso baldin baduzu. "
 
-#: app/models/info_request.rb:291
+#: app/models/info_request.rb:284
 msgid "A Freedom of Information request"
 msgstr "Informazio eskabidea"
 
-#: app/views/request/_wall_listing.rhtml:9
-msgid ""
-"A new request, <em><a href=\"{{request_url}}\">{{request_title}}</a></em>, "
-"was sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
-msgstr ""
-
-#: app/models/public_body.rb:297
+#: app/models/public_body.rb:278
 #: app/views/general/_advanced_search_tips.rhtml:46
 msgid "A public authority"
 msgstr "Erakunde publikoa"
@@ -580,7 +542,7 @@ msgstr "{{site_name}} orrialdeko erabiltzailea."
 msgid "About you:"
 msgstr "Zeure buruaz:"
 
-#: app/views/request/_sidebar.rhtml:29
+#: app/views/request/_sidebar.rhtml:8
 msgid "Act on what you've learnt"
 msgstr "Erabil ezazu informazio hau"
 
@@ -598,7 +560,7 @@ msgstr "Gehitu zure eskabideari buruzko iruzkina, aipamen aukeratuekin edo <stro
 msgid "Added on {{date}}"
 msgstr " {{date}} egunean gehituta"
 
-#: app/models/user.rb:60
+#: app/models/user.rb:58
 msgid "Admin level is not included in list"
 msgstr "Administratzailearen maila ez da sartzen zerrendan"
 
@@ -653,10 +615,6 @@ msgstr "Beheko aukera guztiek erabil dezakete <strong>variety</strong> edo <stro
 msgid "Also called {{other_name}}."
 msgstr " {{other_name}} bezala ere ezaguna."
 
-#: app/views/user/_change_receive_email.rhtml:12
-msgid "Also send me alerts by email"
-msgstr ""
-
 #: app/views/track_mailer/event_digest.rhtml:60
 msgid "Alter your subscription"
 msgstr "Alda ezazu zure harpidetza"
@@ -667,17 +625,11 @@ msgid ""
 "you, the original requester, to evaluate them."
 msgstr "Erantzun guztiak automatikoki argitaratzen diren arren, zure esku dago, eskabidearen egile hori, haien ebaluazioa."
 
-#: app/views/request/_wall_listing.rhtml:15
-msgid ""
-"An <a href=\"{{request_url}}\">annotation</a> to <em>{{request_title}}</em> "
-"was made by {{event_comment_user}} on {{date}}"
-msgstr ""
-
 #: app/views/request/_other_describe_state.rhtml:70
 msgid "An <strong>error message</strong> has been received"
 msgstr "<strong>akats mezua</strong> jaso da."
 
-#: app/models/info_request.rb:293
+#: app/models/info_request.rb:286
 msgid "An Environmental Information Regulations request"
 msgstr "Inguruneari buruzko informazioaren eskabidea"
 
@@ -725,15 +677,15 @@ msgstr "Gehigarriak (aukerakoa):"
 msgid "Attachment:"
 msgstr "Gehigarria:"
 
-#: app/models/info_request.rb:792
+#: app/models/info_request.rb:779
 msgid "Awaiting classification."
 msgstr "Sailkatzeko zain."
 
-#: app/models/info_request.rb:812
+#: app/models/info_request.rb:799
 msgid "Awaiting internal review."
 msgstr "Barneko berrikusketaren zain."
 
-#: app/models/info_request.rb:794
+#: app/models/info_request.rb:781
 msgid "Awaiting response."
 msgstr "Erantzunaren zain."
 
@@ -757,23 +709,23 @@ msgstr "Araka itzazu<a href='{{url}}'>beste eskabideak</a>, '{{public_body_name}
 msgid "Browse all authorities..."
 msgstr "Arakatu beste erakunde publikoak..."
 
-#: app/views/request/show.rhtml:88
+#: app/views/request/show.rhtml:86
 msgid ""
 "By law, under all circumstances, {{public_body_link}} should have responded "
 "by now"
 msgstr "Legearen arabera, edozein zirkunstantzia dela, {{public_body_link}}k jada erantzun behar izango zukeen"
 
-#: app/views/request/show.rhtml:80
+#: app/views/request/show.rhtml:78
 msgid ""
 "By law, {{public_body_link}} should normally have responded "
 "<strong>promptly</strong> and"
 msgstr "Legearen arabera, {{public_body_link}}k jada erantzun behar izango zukeen  <strong>laster</strong> eta"
 
-#: app/controllers/track_controller.rb:176
+#: app/controllers/track_controller.rb:153
 msgid "Cancel a {{site_name}} alert"
 msgstr "Baliogabetu {{site_name}}-ren alerta"
 
-#: app/controllers/track_controller.rb:206
+#: app/controllers/track_controller.rb:183
 msgid "Cancel some {{site_name}} alerts"
 msgstr "Baliogabetu {{site_name}}-ren alertak"
 
@@ -781,23 +733,19 @@ msgstr "Baliogabetu {{site_name}}-ren alertak"
 msgid "Cancel, return to your profile page"
 msgstr "Itxi, itzuli nire profilera"
 
-#: locale/model_attributes.rb:2
-msgid "Censor rule"
-msgstr ""
-
-#: locale/model_attributes.rb:3
+#: locale/model_attributes.rb:46
 msgid "CensorRule|Last edit comment"
 msgstr "CensorRule|Last edit comment"
 
-#: locale/model_attributes.rb:4
+#: locale/model_attributes.rb:45
 msgid "CensorRule|Last edit editor"
 msgstr "CensorRule|Last edit editor"
 
-#: locale/model_attributes.rb:5
+#: locale/model_attributes.rb:44
 msgid "CensorRule|Replacement"
 msgstr "CensorRule|Replacement"
 
-#: locale/model_attributes.rb:6
+#: locale/model_attributes.rb:43
 msgid "CensorRule|Text"
 msgstr "CensorRule|Text"
 
@@ -821,7 +769,7 @@ msgstr "Aldatu zure profilaren testua {{site_name}}-an"
 msgid "Change your email"
 msgstr "Aldatu zure posta elektronikoa"
 
-#: app/controllers/user_controller.rb:330
+#: app/controllers/user_controller.rb:284
 #: app/views/user/signchangeemail.rhtml:1
 #: app/views/user/signchangeemail.rhtml:11
 msgid "Change your email address used on {{site_name}}"
@@ -838,7 +786,7 @@ msgstr "Aldatu zure pasahitza"
 msgid "Change your password on {{site_name}}"
 msgstr "Aldatu zure pasahitza {{site_name}}-an"
 
-#: app/controllers/user_controller.rb:284
+#: app/controllers/user_controller.rb:238
 msgid "Change your password {{site_name}}"
 msgstr "Aldatu zure pasahitza {{site_name}}-an"
 
@@ -855,19 +803,19 @@ msgstr "Helbidea kopiatu baldin baduzu, bila ezazu akatsak."
 msgid "Check you haven't included any <strong>personal information</strong>."
 msgstr "Egiazta ezazu ez duzula <strong>inolako informazio pertsonalik</strong> sartu."
 
+#: lib/world_foi_websites.rb:29
+msgid "Chile"
+msgstr "Txile"
+
 #: app/views/user/set_draft_profile_photo.rhtml:5
 msgid "Choose your profile photo"
 msgstr "Aukeratu nire profilaren argazkia"
 
-#: app/models/info_request_event.rb:357
+#: app/models/info_request_event.rb:351
 msgid "Clarification"
 msgstr "Azalpena"
 
-#: app/models/request_mailer.rb:162
-msgid "Clarify your FOI request - "
-msgstr ""
-
-#: app/controllers/request_controller.rb:390
+#: app/controllers/request_controller.rb:381
 msgid "Classify an FOI response from "
 msgstr "Sailaktu _____-tik emandako erantzuna "
 
@@ -883,57 +831,55 @@ msgid ""
 "to reply to your request."
 msgstr "Egin klik ondoko estekan {{public_body}}-ri mezu bat bidaltzeko, gogoratuz zure eskabideari erantzun behar diotela."
 
-#: locale/model_attributes.rb:7
-msgid "Comment"
-msgstr ""
-
-#: locale/model_attributes.rb:8
+#: locale/model_attributes.rb:22
 msgid "Comment|Body"
 msgstr "Comment|Body"
 
-#: locale/model_attributes.rb:9
+#: locale/model_attributes.rb:21
 msgid "Comment|Comment type"
 msgstr "Comment|Comment type"
 
-#: locale/model_attributes.rb:10
+#: locale/model_attributes.rb:24
 msgid "Comment|Locale"
 msgstr "Comment|Locale"
 
-#: locale/model_attributes.rb:11
+#: locale/model_attributes.rb:23
 msgid "Comment|Visible"
 msgstr "Comment|Visible"
 
-#: app/models/track_thing.rb:239
-msgid "Confirm you want to follow all successful FOI requests"
-msgstr ""
+#: app/models/track_thing.rb:219
+msgid "Confirm you want to be emailed about new requests"
+msgstr "Berretsi eskabide berriei buruzko emailak jaso nahi dituzula"
 
-#: app/models/track_thing.rb:223
-msgid "Confirm you want to follow new requests"
-msgstr ""
-
-#: app/models/track_thing.rb:290
+#: app/models/track_thing.rb:286
 msgid ""
-"Confirm you want to follow new requests or responses matching your search"
-msgstr ""
+"Confirm you want to be emailed about new requests or responses matching your"
+" search"
+msgstr "Berretsi eskabide berriei buruzko emailak edo zure bilaketarekin bat egiten duten erantzunak jaso nahi dituzula"
 
-#: app/models/track_thing.rb:274
-msgid "Confirm you want to follow requests by '{{user_name}}'"
-msgstr ""
+#: app/models/track_thing.rb:270
+msgid "Confirm you want to be emailed about requests by '{{user_name}}'"
+msgstr "Berretsi '{{user_name}}'-ren eskabideei buruzko emailak jaso nahi dituzula"
 
-#: app/models/track_thing.rb:258
-msgid "Confirm you want to follow requests to '{{public_body_name}}'"
-msgstr ""
+#: app/models/track_thing.rb:254
+msgid ""
+"Confirm you want to be emailed about requests to '{{public_body_name}}'"
+msgstr "Berretsi '{{public_body_name}}'-ren erantzunei buruzko emailak jaso nahi dituzula"
 
-#: app/models/track_thing.rb:207
-msgid "Confirm you want to follow the request '{{request_title}}'"
-msgstr ""
+#: app/models/track_thing.rb:235
+msgid "Confirm you want to be emailed when an FOI request succeeds"
+msgstr "Berretsi emailak jaso nahi dituzula, eskabide batek arrakasta lortzen duenean"
 
-#: app/controllers/request_controller.rb:344
+#: app/models/track_thing.rb:203
+msgid "Confirm you want to follow updates to the request '{{request_title}}'"
+msgstr "Berretsi '{{request_title}}' eskabidearen gaurkotzeak jaso nahi dituzula"
+
+#: app/controllers/request_controller.rb:341
 msgid "Confirm your FOI request to "
 msgstr "Berretsi _____-ri egindako eskabidea "
 
-#: app/controllers/user_controller.rb:617
-#: app/controllers/request_controller.rb:785
+#: app/controllers/user_controller.rb:559
+#: app/controllers/request_controller.rb:757
 msgid "Confirm your account on {{site_name}}"
 msgstr "Berretsi {{site_name}}-ean daukazun kontua"
 
@@ -941,7 +887,7 @@ msgstr "Berretsi {{site_name}}-ean daukazun kontua"
 msgid "Confirm your annotation to {{info_request_title}}"
 msgstr "Berretsi {{info_request_title}}-ri egindako iruzkina"
 
-#: app/controllers/request_controller.rb:37
+#: app/controllers/request_controller.rb:36
 msgid "Confirm your email address"
 msgstr "Berretsi zure helbide elektronikoa"
 
@@ -949,24 +895,15 @@ msgstr "Berretsi zure helbide elektronikoa"
 msgid "Confirm your new email address on {{site_name}}"
 msgstr "Berretsi {{site_name}}-ean daukazun helbide elektroniko berria"
 
-#: app/models/info_request.rb:824
-msgid ""
-"Considered by administrators as not an FOI request and hidden from site."
-msgstr ""
-
-#: app/models/info_request.rb:822
-msgid "Considered by administrators as vexatious and hidden from site."
-msgstr ""
-
 #: app/views/general/_footer.rhtml:2
 msgid "Contact {{site_name}}"
 msgstr "Jar zaitez {{site_name}}-rekin harremanetan"
 
-#: app/models/request_mailer.rb:223
+#: app/models/request_mailer.rb:219
 msgid "Could not identify the request from the email address"
 msgstr "Ezin izan dugu eskabidea zehaztu helbide elektronikoaren arabera"
 
-#: app/models/profile_photo.rb:94
+#: app/models/profile_photo.rb:96
 msgid ""
 "Couldn't understand the image file that you uploaded. PNG, JPEG, GIF and "
 "many other common image file formats are supported."
@@ -982,7 +919,7 @@ msgid ""
 "            environmental factors listed above)"
 msgstr "(Aldez aurretik aipatu diren eragile ingurunekoek jada kutsatuta egon daitezkeen) kultura guneak eta eraikinak"
 
-#: app/views/request/show.rhtml:70
+#: app/views/request/show.rhtml:68
 msgid ""
 "Currently <strong>waiting for a response</strong> from {{public_body_link}},"
 " they must respond promptly and"
@@ -998,15 +935,15 @@ msgstr "Data:"
 msgid "Dear {{public_body_name}},"
 msgstr "{{public_body_name}} agurgarria,"
 
-#: app/models/request_mailer.rb:91
+#: app/models/request_mailer.rb:87
 msgid "Delayed response to your FOI request - "
 msgstr "Zure informaziorako sarbidearen eskabidea atzeratuta dabil - "
 
-#: app/models/info_request.rb:796
+#: app/models/info_request.rb:783
 msgid "Delayed."
 msgstr "Atzeratuta."
 
-#: app/models/info_request.rb:814
+#: app/models/info_request.rb:801
 msgid "Delivery error"
 msgstr "Akatsa ematean"
 
@@ -1014,7 +951,7 @@ msgstr "Akatsa ematean"
 msgid "Details of request '"
 msgstr "Eskabidearen xehetasunak '"
 
-#: app/views/general/search.rhtml:165
+#: app/views/general/search.rhtml:166
 msgid "Did you mean: {{correction}}"
 msgstr "{{correction}} esan nahi al duzu?"
 
@@ -1042,7 +979,7 @@ msgstr "Posta guztia daukan ZIP fitxategia deskargatu"
 msgid "Download original attachment"
 msgstr "Ondoan datozen fitxategiak deskargatu"
 
-#: app/models/info_request.rb:275
+#: app/models/info_request.rb:268
 msgid "EIR"
 msgstr "EIR"
 
@@ -1064,11 +1001,11 @@ msgstr "Editatu zuri buruzko testua"
 msgid "Edit this request"
 msgstr "Editatu eskabide hau"
 
-#: app/models/user.rb:151
+#: app/models/user.rb:149
 msgid "Either the email or password was not recognised, please try again."
 msgstr "Helbide elektronikoa edo pasahitza ez dira zuzenak, mesedez saiatu berriro."
 
-#: app/models/user.rb:153
+#: app/models/user.rb:151
 msgid ""
 "Either the email or password was not recognised, please try again. Or create"
 " a new account using the form on the right."
@@ -1082,6 +1019,14 @@ msgstr "Badirudi helbide elektronikoa ez dela zuzena"
 msgid "Email me future updates to this request"
 msgstr "Eskabide honen gaurkotzeak emailez jaso nahi ditut"
 
+#: app/models/track_thing.rb:227
+msgid "Email me new successful responses "
+msgstr "Arrakasta izan duten erantzunak jaso nahi ditut "
+
+#: app/models/track_thing.rb:211
+msgid "Email me when there are new requests"
+msgstr "Eskabide berriak daudenean emaila jaso nahi dut"
+
 #: app/views/general/_advanced_search_tips.rhtml:5
 msgid ""
 "Enter words that you want to find separated by spaces, e.g. <strong>climbing"
@@ -1094,7 +1039,7 @@ msgid ""
 "<a href=\"%s\">contact us</a> if you need more)."
 msgstr "Idatz ezazu jarraian zure eskabidea. Fitxategi bat gehitu ahal diozu (Bidali email bat edo jar zaitez gurekin <a href=\"%s\">harremanetan</a>, gehiago behar izanez gero)."
 
-#: app/models/info_request.rb:266 app/models/info_request.rb:284
+#: app/models/info_request.rb:259 app/models/info_request.rb:277
 msgid "Environmental Information Regulations"
 msgstr "Inguruneari buruzko informaziorako sarbidearen legea"
 
@@ -1106,11 +1051,15 @@ msgstr "Egin diren inguruneari buruzko eskabideak"
 msgid "Environmental Information Regulations requests made using this site"
 msgstr "Web honetan egin diren inguruneari buruzko eskabideak"
 
+#: lib/world_foi_websites.rb:13
+msgid "European Union"
+msgstr "Europar Batasuna"
+
 #: app/views/request/details.rhtml:4
 msgid "Event history"
 msgstr "Gertaera historia"
 
-#: app/views/request/_sidebar.rhtml:56
+#: app/views/request/_sidebar.rhtml:35
 msgid "Event history details"
 msgstr "Gertaera historia"
 
@@ -1128,31 +1077,23 @@ msgid ""
 "                this website forever (<a href=\"%s\">why?</a>)."
 msgstr "Orrialde honetan idatziko duzun guztia, <strong>zure izena</strong> barne, \n                <strong>irakurleen eskuragarri</strong> egongo da betiko\n                (<a href=\"%s\">¿por qué?</a>)."
 
-#: locale/model_attributes.rb:12
-msgid "Exim log"
-msgstr ""
-
-#: locale/model_attributes.rb:15
-msgid "Exim log done"
-msgstr ""
-
-#: locale/model_attributes.rb:16
+#: locale/model_attributes.rb:68
 msgid "EximLogDone|Filename"
 msgstr "EximLogDone|Filename"
 
-#: locale/model_attributes.rb:17
+#: locale/model_attributes.rb:69
 msgid "EximLogDone|Last stat"
 msgstr "EximLogDone|Last stat"
 
-#: locale/model_attributes.rb:13
+#: locale/model_attributes.rb:19
 msgid "EximLog|Line"
 msgstr "EximLog|Line"
 
-#: locale/model_attributes.rb:14
+#: locale/model_attributes.rb:18
 msgid "EximLog|Order"
 msgstr "EximLog|Order"
 
-#: app/models/info_request.rb:273
+#: app/models/info_request.rb:266
 msgid "FOI"
 msgstr "FOI"
 
@@ -1164,23 +1105,23 @@ msgstr " {{public_body}}-rako posta helbidea"
 msgid "FOI requests"
 msgstr "Informazio eskabideak"
 
-#: app/models/track_thing.rb:269 app/models/track_thing.rb:270
+#: app/models/track_thing.rb:265 app/models/track_thing.rb:266
 msgid "FOI requests by '{{user_name}}'"
 msgstr "'{{user_name}}'-k egindako informazio eskabideak"
 
-#: app/views/general/search.rhtml:194
+#: app/views/general/search.rhtml:195
 msgid "FOI requests {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "Eskabideak {{start_count}}-tik {{end_count}}-ra, {{total_count}} guztira"
 
-#: app/models/request_mailer.rb:55
-msgid "FOI response requires admin ({{reason}}) - {{title}}"
-msgstr ""
+#: app/models/request_mailer.rb:51
+msgid "FOI response requires admin - "
+msgstr "Eskabidearen erantzunak administratzaile bat behar du - "
 
-#: app/models/profile_photo.rb:99
+#: app/models/profile_photo.rb:101
 msgid "Failed to convert image to a PNG"
 msgstr "Irudia PNG formatura bihurtzean huts egin da"
 
-#: app/models/profile_photo.rb:103
+#: app/models/profile_photo.rb:105
 msgid ""
 "Failed to convert image to the correct size: at %{cols}x%{rows}, need "
 "%{width}x%{height}"
@@ -1197,61 +1138,41 @@ msgid ""
 "           (<a href=\"%s#%s\">why?</a>)."
 msgstr "Lehenbizi, idatz ezazu informazioa eskatu nahi diozun <strong>erakundearen izena</strong>. <strong>Erantzuna eman behar dute</strong> (<a href=\"%s#%s\">zergatik?</a>)."
 
-#: locale/model_attributes.rb:18
-msgid "Foi attachment"
-msgstr ""
-
-#: locale/model_attributes.rb:19
+#: locale/model_attributes.rb:88
 msgid "FoiAttachment|Charset"
 msgstr "FoiAttachment|Charset"
 
-#: locale/model_attributes.rb:20
+#: locale/model_attributes.rb:86
 msgid "FoiAttachment|Content type"
 msgstr "FoiAttachment|Content type"
 
-#: locale/model_attributes.rb:21
+#: locale/model_attributes.rb:89
 msgid "FoiAttachment|Display size"
 msgstr "FoiAttachment|Display size"
 
-#: locale/model_attributes.rb:22
+#: locale/model_attributes.rb:87
 msgid "FoiAttachment|Filename"
 msgstr "FoiAttachment|Filename"
 
-#: locale/model_attributes.rb:23
+#: locale/model_attributes.rb:92
 msgid "FoiAttachment|Hexdigest"
 msgstr "FoiAttachment|Hexdigest"
 
-#: locale/model_attributes.rb:24
+#: locale/model_attributes.rb:90
 msgid "FoiAttachment|Url part number"
 msgstr "FoiAttachment|Url part number"
 
-#: locale/model_attributes.rb:25
+#: locale/model_attributes.rb:91
 msgid "FoiAttachment|Within rfc822 subject"
 msgstr "FoiAttachment|Within rfc822 subject"
 
-#: app/views/track/_tracking_links.rhtml:19
-msgid "Follow"
-msgstr ""
-
-#: app/models/track_thing.rb:215
-msgid "Follow all new requests"
-msgstr ""
-
-#: app/models/track_thing.rb:231
-msgid "Follow new successful responses"
-msgstr ""
-
-#: app/models/track_thing.rb:250
-msgid "Follow requests to {{public_body_name}}"
-msgstr ""
+#: app/views/track/_tracking_links.rhtml:21
+msgid "Follow by email"
+msgstr "Jarraitu postaren bidez"
 
 #: app/views/request/list.rhtml:8
 msgid "Follow these requests"
 msgstr "Jarraitu eskabide hauei"
-
-#: app/models/track_thing.rb:282
-msgid "Follow things matching this search"
-msgstr ""
 
 #: app/views/public_body/show.rhtml:4
 msgid "Follow this authority"
@@ -1261,15 +1182,11 @@ msgstr "Jarraitu erakunde honi"
 msgid "Follow this link to see the request:"
 msgstr "Jarraitu esteka honi eskabidea ikusteko:"
 
-#: app/models/track_thing.rb:266
-msgid "Follow this person"
-msgstr ""
-
-#: app/models/track_thing.rb:199 app/views/request/_sidebar.rhtml:3
+#: app/views/request/_sidebar.rhtml:2
 msgid "Follow this request"
 msgstr "Jarraitu eskabide honi"
 
-#: app/models/info_request_event.rb:361
+#: app/models/info_request_event.rb:355
 msgid "Follow up"
 msgstr "Jarraipena"
 
@@ -1306,11 +1223,11 @@ msgstr "Zure pasahitza ahaztu al duzu?"
 msgid "Found {{count}} public bodies {{description}}"
 msgstr "{{count}} erakunde publiko {{description}} aurkitu dira."
 
-#: app/models/info_request.rb:264
+#: app/models/info_request.rb:257
 msgid "Freedom of Information"
 msgstr "Informaziorako sarbidea"
 
-#: app/models/info_request.rb:282
+#: app/models/info_request.rb:275
 msgid "Freedom of Information Act"
 msgstr "Informaziorako Sarbidearen Legea"
 
@@ -1334,11 +1251,11 @@ msgstr "Informaziorako Sarbidearen Legea jada ez zaio erakunde honi aplikatzen. 
 msgid "Freedom of Information requests made"
 msgstr "Egindako informaziorako sarbidearen eskabideak"
 
-#: app/views/user/show.rhtml:142 app/views/user/show.rhtml:164
+#: app/views/user/show.rhtml:164
 msgid "Freedom of Information requests made by this person"
 msgstr "Pertsona honek egin dituen informaziorako sarbidearen eskabideak"
 
-#: app/views/user/show.rhtml:142 app/views/user/show.rhtml:164
+#: app/views/user/show.rhtml:164
 msgid "Freedom of Information requests made by you"
 msgstr "Zuk egindako informazio eskabideak"
 
@@ -1368,11 +1285,15 @@ msgstr "Nondik:"
 msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
 msgstr "ZEHAZTU HEMEN ZURE KEXA"
 
-#: app/models/info_request.rb:810
+#: lib/world_foi_websites.rb:25
+msgid "Germany"
+msgstr "Alemania"
+
+#: app/models/info_request.rb:797
 msgid "Handled by post."
 msgstr "Posta arruntaren bidez bidalita"
 
-#: app/controllers/services_controller.rb:15
+#: app/controllers/services_controller.rb:13
 msgid ""
 "Hello! You can make Freedom of Information requests within {{country_name}} "
 "at {{link_to_website}}"
@@ -1408,15 +1329,11 @@ msgid ""
 "    Thanks."
 msgstr "Kaixo! Zure laguntza behar dugu. Ondoko eskabidea egin zuen pertsonak ez digu jakinarazi arrakasta izan zuen ala ez. Badituzu minutu batzuk irakurtzeko eta sailkatzeko, guztion onurarako? Eskerrik asko."
 
-#: locale/model_attributes.rb:26
-msgid "Holiday"
-msgstr ""
-
-#: locale/model_attributes.rb:27
+#: locale/model_attributes.rb:65
 msgid "Holiday|Day"
 msgstr "Holiday|Day"
 
-#: locale/model_attributes.rb:28
+#: locale/model_attributes.rb:66
 msgid "Holiday|Description"
 msgstr "Holiday|Description"
 
@@ -1453,10 +1370,6 @@ msgstr "Hauek ez zaizkit gustatzen &mdash; emaidazu gehiago!"
 #: app/views/request_game/play.rhtml:40
 msgid "I don't want to do any more tidying now!"
 msgstr "Ez dut sailkatzen jarraitu nahi"
-
-#: app/views/track/_tracking_links.rhtml:17
-msgid "I like this request"
-msgstr ""
 
 #: app/views/request/_describe_state.rhtml:91
 msgid "I would like to <strong>withdraw this request</strong>"
@@ -1528,7 +1441,7 @@ msgid ""
 "                please <a href=\"%s\">read this first</a>."
 msgstr "Goitizena erabili nahi izanez gero, mesedez <a href=\"%s\">lehenago irakur ezazu hau</a>."
 
-#: app/views/request/show.rhtml:107
+#: app/views/request/show.rhtml:105
 msgid "If you are {{user_link}}, please"
 msgstr "Zu {{user_link}} baldin bazara, mesedez"
 
@@ -1557,7 +1470,7 @@ msgid ""
 "more. Please try doing what you were doing from the beginning."
 msgstr "Posta <strong>duela sei hilabete baino lehenago</strong> jaso baduzu, orduan estekak ez du funtzionatuko. Mesedez, saia zaitez egiten hasieran frogatu duzuna."
 
-#: app/controllers/request_controller.rb:488
+#: app/controllers/request_controller.rb:479
 msgid ""
 "If you have not done so already, please write a message below telling the "
 "authority that you have withdrawn your request. Otherwise they will not know"
@@ -1591,119 +1504,103 @@ msgid ""
 "then there is probably a fault with our server."
 msgstr "Zure nabigatzaileak cookiak onartzen baditu eta mezu hau ikusten baldin baduzu, gure zerbitzarian egon daiteke errorea."
 
-#: locale/model_attributes.rb:29
-msgid "Incoming message"
-msgstr ""
-
-#: locale/model_attributes.rb:30
+#: locale/model_attributes.rb:55
 msgid "IncomingMessage|Cached attachment text clipped"
 msgstr "IncomingMessage|Cached attachment text clipped"
 
-#: locale/model_attributes.rb:31
+#: locale/model_attributes.rb:56
 msgid "IncomingMessage|Cached main body text folded"
 msgstr "IncomingMessage|Cached main body text folded"
 
-#: locale/model_attributes.rb:32
+#: locale/model_attributes.rb:57
 msgid "IncomingMessage|Cached main body text unfolded"
 msgstr "IncomingMessage|Cached main body text unfolded"
 
-#: locale/model_attributes.rb:33
+#: locale/model_attributes.rb:61
 msgid "IncomingMessage|Last parsed"
 msgstr "IncomingMessage|Last parsed"
 
-#: locale/model_attributes.rb:34
+#: locale/model_attributes.rb:62
 msgid "IncomingMessage|Mail from"
 msgstr "IncomingMessage|Mail from"
 
-#: locale/model_attributes.rb:35
+#: locale/model_attributes.rb:59
 msgid "IncomingMessage|Mail from domain"
 msgstr "IncomingMessage|Mail from domain"
 
-#: locale/model_attributes.rb:36
+#: locale/model_attributes.rb:63
 msgid "IncomingMessage|Sent at"
 msgstr "IncomingMessage|Sent at"
 
-#: locale/model_attributes.rb:37
+#: locale/model_attributes.rb:58
 msgid "IncomingMessage|Subject"
 msgstr "IncomingMessage|Subject"
 
-#: locale/model_attributes.rb:38
+#: locale/model_attributes.rb:60
 msgid "IncomingMessage|Valid to reply to"
 msgstr "IncomingMessage|Valid to reply to"
 
 #: locale/model_attributes.rb:39
-msgid "Info request"
-msgstr ""
-
-#: locale/model_attributes.rb:50
-msgid "Info request event"
-msgstr ""
-
-#: locale/model_attributes.rb:51
 msgid "InfoRequestEvent|Calculated state"
 msgstr "InfoRequestEvent|Calculated state"
 
-#: locale/model_attributes.rb:52
+#: locale/model_attributes.rb:38
 msgid "InfoRequestEvent|Described state"
 msgstr "InfoRequestEvent|Described state"
 
-#: locale/model_attributes.rb:53
+#: locale/model_attributes.rb:36
 msgid "InfoRequestEvent|Event type"
 msgstr "InfoRequestEvent|Event type"
 
-#: locale/model_attributes.rb:54
+#: locale/model_attributes.rb:40
 msgid "InfoRequestEvent|Last described at"
 msgstr "InfoRequestEvent|Last described at"
 
-#: locale/model_attributes.rb:55
+#: locale/model_attributes.rb:37
 msgid "InfoRequestEvent|Params yaml"
 msgstr "InfoRequestEvent|Params yaml"
 
-#: locale/model_attributes.rb:56
+#: locale/model_attributes.rb:41
 msgid "InfoRequestEvent|Prominence"
 msgstr "InfoRequestEvent|Prominence"
 
-#: locale/model_attributes.rb:40
+#: locale/model_attributes.rb:102
 msgid "InfoRequest|Allow new responses from"
 msgstr "InfoRequest|Allow new responses from"
 
-#: locale/model_attributes.rb:41
-msgid "InfoRequest|Attention requested"
-msgstr ""
-
-#: locale/model_attributes.rb:42
+#: locale/model_attributes.rb:98
 msgid "InfoRequest|Awaiting description"
 msgstr "InfoRequest|Awaiting description"
 
-#: locale/model_attributes.rb:43
+#: locale/model_attributes.rb:97
 msgid "InfoRequest|Described state"
 msgstr "InfoRequest|Described state"
 
-#: locale/model_attributes.rb:44
+#: locale/model_attributes.rb:103
 msgid "InfoRequest|Handle rejected responses"
 msgstr "InfoRequest|Handle rejected responses"
 
-#: locale/model_attributes.rb:45
+#: locale/model_attributes.rb:104
 msgid "InfoRequest|Idhash"
 msgstr "InfoRequest|Idhash"
 
-#: locale/model_attributes.rb:46
+#: locale/model_attributes.rb:101
 msgid "InfoRequest|Law used"
 msgstr "InfoRequest|Law used"
 
-#: locale/model_attributes.rb:47
+#: locale/model_attributes.rb:99
 msgid "InfoRequest|Prominence"
 msgstr "InfoRequest|Prominence"
 
-#: locale/model_attributes.rb:48
+#: locale/model_attributes.rb:96
 msgid "InfoRequest|Title"
 msgstr "InfoRequest|Title"
 
-#: locale/model_attributes.rb:49
+#: locale/model_attributes.rb:100
 msgid "InfoRequest|Url title"
 msgstr "InfoRequest|Url title"
 
-#: app/models/info_request.rb:800
+#: app/models/info_request.rb:787
 msgid "Information not held."
 msgstr "Informazioa ez dago eskuragarri."
 
@@ -1713,7 +1610,7 @@ msgid ""
 "            radiation, waste materials)"
 msgstr "Emisioei buruzko informazioa (adibidez zarata, energia, erradiazioa, hondakin materialak...)"
 
-#: app/models/info_request_event.rb:354
+#: app/models/info_request_event.rb:348
 msgid "Internal review request"
 msgstr "Barneko berrikusketa egiteko eskabidea"
 
@@ -1729,12 +1626,6 @@ msgid ""
 "or cannot do so.  If you can, please enable cookies, or try using a different\n"
 "browser.  Then press refresh to have another go."
 msgstr "Agian zure nabigatzailea \"cookiak\" ez onartzeko konfiguratuta dago, edo ezin ditu onartu. Baldin badakizu nola, mesedez baimendu itzazu \"cookiak\" edo erabil ezazu beste nabigatzailea bat. Orduan itzul zaitez orrialde honetara eta saia zaitez berriro."
-
-#: app/views/user/_change_receive_email.rhtml:9
-msgid ""
-"Items matching the following conditions are currently displayed on your "
-"wall."
-msgstr ""
 
 #: app/views/user/_user_listing_single.rhtml:21
 msgid "Joined in"
@@ -1753,6 +1644,10 @@ msgstr "Izan zaitez <strong>konkretua</strong>, nahi duzuna lortzeko aukera gehi
 #: app/views/request/_request_filter_form.rhtml:6
 msgid "Keywords"
 msgstr "Hitz gakoak"
+
+#: lib/world_foi_websites.rb:9
+msgid "Kosovo"
+msgstr "Kosovo"
 
 #: app/views/contact_mailer/message.rhtml:10
 msgid "Last authority viewed: "
@@ -1777,15 +1672,11 @@ msgstr "Esteka"
 msgid "List of all authorities (CSV)"
 msgstr "Erakunde guztien zerrenda (CSV)"
 
-#: app/controllers/request_controller.rb:844
+#: app/controllers/request_controller.rb:816
 msgid "Log in to download a zip file of {{info_request_title}}"
 msgstr "Ireki ezazu saio bat {{info_request_title}}-eko ZIP fitxategia deskargatzeko"
 
-#: app/controllers/admin_controller.rb:62
-msgid "Log into the admin interface"
-msgstr ""
-
-#: app/models/info_request.rb:798
+#: app/models/info_request.rb:785
 msgid "Long overdue."
 msgstr "Oso atzeratua."
 
@@ -1840,7 +1731,7 @@ msgstr "Kontaktuaren datuak falta dira '"
 msgid "More about this authority"
 msgstr "Erakunde honi buruzko informazio gehiago"
 
-#: app/views/request/_sidebar.rhtml:50
+#: app/views/request/_sidebar.rhtml:29
 msgid "More similar requests"
 msgstr "Antzeko eskabide gehiago"
 
@@ -1860,10 +1751,6 @@ msgstr "Nire eskabidea ez dute <strong>onartu</strong>"
 msgid "My requests"
 msgstr "Nire eskabideak"
 
-#: app/views/layouts/default.rhtml:107
-msgid "My wall"
-msgstr ""
-
 #: app/models/public_body.rb:36
 msgid "Name can't be blank"
 msgstr "Izena ezin da hutsik utzi"
@@ -1872,9 +1759,13 @@ msgstr "Izena ezin da hutsik utzi"
 msgid "Name is already taken"
 msgstr "Izen hori beste norbait erabiltzen ari da"
 
-#: app/models/track_thing.rb:218 app/models/track_thing.rb:219
+#: app/models/track_thing.rb:214 app/models/track_thing.rb:215
 msgid "New Freedom of Information requests"
 msgstr "Informaziorako Sarbidearen eskabide berriak"
+
+#: lib/world_foi_websites.rb:21
+msgid "New Zealand"
+msgstr "Zelanda Berria"
 
 #: app/views/user/signchangeemail.rhtml:20
 msgid "New e-mail:"
@@ -1892,7 +1783,7 @@ msgstr "Pasahitza berria:"
 msgid "New password: (again)"
 msgstr "Pasahitza berria: (berriro)"
 
-#: app/models/request_mailer.rb:72
+#: app/models/request_mailer.rb:68
 msgid "New response to your FOI request - "
 msgstr "Zure informazio eskabideari egindako erantzun berria - "
 
@@ -1904,7 +1795,7 @@ msgstr "Zure eskabideari egindako erantzun berria"
 msgid "New response to {{law_used_short}} request"
 msgstr "Zure {{law_used_short}} eskabideari egindako erantzun berria"
 
-#: app/models/track_thing.rb:202 app/models/track_thing.rb:203
+#: app/models/track_thing.rb:198 app/models/track_thing.rb:199
 msgid "New updates for the request '{{request_title}}'"
 msgstr " '{{request_title}}' eskabidearen gaurkotzeak"
 
@@ -1944,14 +1835,13 @@ msgstr "Oraindik inork ez dio {{public_body_name}}-ri informazio eskabiderik egi
 msgid "None found."
 msgstr "Ez da emaitzik aurkitu."
 
-#: app/views/user/show.rhtml:175
+#: app/views/user/show.rhtml:175 app/views/user/show.rhtml:197
 msgid "None made."
 msgstr "Ez da honelakorik egin."
 
 #: app/views/user/signchangepassword_confirm.rhtml:1
 #: app/views/user/signchangepassword_confirm.rhtml:3
 #: app/views/user/signchangeemail_confirm.rhtml:3
-#: app/views/user/confirm.rhtml:1 app/views/user/confirm.rhtml:3
 msgid "Now check your email!"
 msgstr "Orain, begira ezazu zure emailan!"
 
@@ -1971,11 +1861,7 @@ msgstr "Orain berrikusi zure mezua, barneko berrikusketa eskatuz"
 msgid "OR remove the existing photo"
 msgstr "EDO ezaba ezazu oraingo argazkia"
 
-#: app/views/request/_sidebar.rhtml:10
-msgid "Offensive? Unsuitable?"
-msgstr ""
-
-#: app/controllers/request_controller.rb:465
+#: app/controllers/request_controller.rb:456
 msgid ""
 "Oh no! Sorry to hear that your request was refused. Here is what to do now."
 msgstr "Ai ene! Zoritxarrez ez dute zure eskabidea onartu. Hauxe da orain egin dezakezuna."
@@ -1998,15 +1884,15 @@ msgstr "Helbide zaharrak ez du ematen baliagarria denik"
 msgid "On this page"
 msgstr "Orrialde honetan"
 
-#: app/views/general/search.rhtml:192
+#: app/views/general/search.rhtml:193
 msgid "One FOI request found"
 msgstr "Eskabide bat aurkitu dugu"
 
-#: app/views/general/search.rhtml:174
+#: app/views/general/search.rhtml:175
 msgid "One person found"
 msgstr "Pertsona bat aurkitu dugu"
 
-#: app/views/general/search.rhtml:151
+#: app/views/general/search.rhtml:152
 msgid "One public authority found"
 msgstr "Erakunde bat aurkitu dugu"
 
@@ -2014,13 +1900,13 @@ msgstr "Erakunde bat aurkitu dugu"
 msgid "Only requests made using {{site_name}} are shown."
 msgstr "{{site_name}}-ren bidez egindako eskabideak baino ez da erakusten."
 
-#: app/models/info_request.rb:406
+#: app/models/info_request.rb:399
 msgid ""
 "Only the authority can reply to this request, and I don't recognise the "
 "address this reply was sent from"
 msgstr "Erakundeak bakarrik erantzun diezaioke eskabide honi, eta ezin dut jakin zein helbidetik bidali zen erantzuna"
 
-#: app/models/info_request.rb:402
+#: app/models/info_request.rb:395
 msgid ""
 "Only the authority can reply to this request, but there is no \"From\" "
 "address to check against"
@@ -2038,31 +1924,27 @@ msgstr "Eskabide originala bidalita"
 msgid "Other:"
 msgstr "Beste batzuk:"
 
-#: locale/model_attributes.rb:57
-msgid "Outgoing message"
-msgstr ""
-
-#: locale/model_attributes.rb:58
+#: locale/model_attributes.rb:26
 msgid "OutgoingMessage|Body"
 msgstr "OutgoingMessage|Body"
 
-#: locale/model_attributes.rb:59
+#: locale/model_attributes.rb:29
 msgid "OutgoingMessage|Last sent at"
 msgstr "OutgoingMessage|Last sent at"
 
-#: locale/model_attributes.rb:60
+#: locale/model_attributes.rb:28
 msgid "OutgoingMessage|Message type"
 msgstr "OutgoingMessage|Message type"
 
-#: locale/model_attributes.rb:61
+#: locale/model_attributes.rb:27
 msgid "OutgoingMessage|Status"
 msgstr "OutgoingMessage|Status"
 
-#: locale/model_attributes.rb:62
+#: locale/model_attributes.rb:30
 msgid "OutgoingMessage|What doing"
 msgstr "OutgoingMessage|What doing"
 
-#: app/models/info_request.rb:804
+#: app/models/info_request.rb:791
 msgid "Partially successful."
 msgstr "Arrakasta partziala."
 
@@ -2082,7 +1964,7 @@ msgstr "Pasahitza: (berriro)"
 msgid "Paste this link into emails, tweets, and anywhere else:"
 msgstr "Itsatsi esteka hau posta elektronikoan, tweetean edo beste edozein lekutan:"
 
-#: app/views/general/search.rhtml:176
+#: app/views/general/search.rhtml:177
 msgid "People {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "Pertsonak, {{start_count}}-tik {{end_count}}-ra, guztira {{total_count}}"
 
@@ -2102,7 +1984,7 @@ msgstr "Eskabideak sailkatzeko jolasean aritu nahi?"
 msgid "Play the request categorisation game!"
 msgstr "Eskabideak sailkatzeko jolasean aritu nahi?"
 
-#: app/views/request/show.rhtml:103
+#: app/views/request/show.rhtml:101
 msgid "Please"
 msgstr "Mesedez"
 
@@ -2110,7 +1992,7 @@ msgstr "Mesedez"
 msgid "Please <a href=\"%s\">get in touch</a> with us so we can fix it."
 msgstr "Mesedez, jar zaitez gurekin <a href=\"%s\">harremanetan</a>, hau konpon dezagun."
 
-#: app/views/request/show.rhtml:54
+#: app/views/request/show.rhtml:52
 msgid ""
 "Please <strong>answer the question above</strong> so we know whether the "
 msgstr "Mesedez, <strong>erantzun iezaiozu aurreko galderari</strong>, guk jakin dezagun ea"
@@ -2139,7 +2021,7 @@ msgid ""
 "correctly from your email."
 msgstr "Mesedez, egiazta ezazu helbide elektronikoaren URLa ondo kopiatu duzula (hau da, hizki eta zenbakien sekuentzia)."
 
-#: app/models/profile_photo.rb:89
+#: app/models/profile_photo.rb:91
 msgid "Please choose a file containing your photo."
 msgstr "Mesedez, aukera ezazu zure argazkia daukan fitxategia"
 
@@ -2147,7 +2029,7 @@ msgstr "Mesedez, aukera ezazu zure argazkia daukan fitxategia"
 msgid "Please choose what sort of reply you are making."
 msgstr "Mesedez, aukera ezazu sortzen ari zaren erantzun mota."
 
-#: app/controllers/request_controller.rb:397
+#: app/controllers/request_controller.rb:388
 msgid ""
 "Please choose whether or not you got some of the information that you "
 "wanted."
@@ -2168,7 +2050,7 @@ msgstr "Mesedez, sakatu ondoko estekan  {{site_name}}-ean erabiltzen duzun posta
 msgid "Please click on the link below to confirm your email address."
 msgstr "Mesedez sakatu ondoko estekan zure helbide elektronikoa baieztatzeko."
 
-#: app/models/info_request.rb:127
+#: app/models/info_request.rb:120
 msgid ""
 "Please describe more what the request is about in the subject. There is no "
 "need to say it is an FOI request, we add that on anyway."
@@ -2184,7 +2066,7 @@ msgstr "Mesedez, ez igo irudi iraingarririk. Desegokitzat jotzen dugun edozein i
 msgid "Please enable \"cookies\" to carry on"
 msgstr "Mesedez, aktiba itzazu \"cookiak\" jarraitzeko"
 
-#: app/models/user.rb:44
+#: app/models/user.rb:42
 msgid "Please enter a password"
 msgstr "Mesedez, sar ezazu pasahitz bat."
 
@@ -2192,11 +2074,11 @@ msgstr "Mesedez, sar ezazu pasahitz bat."
 msgid "Please enter a subject"
 msgstr "Mesedez, jar ezazu izenburu bat"
 
-#: app/models/info_request.rb:32
+#: app/models/info_request.rb:28
 msgid "Please enter a summary of your request"
 msgstr "Mesedez, sar ezazu zure eskabidearen laburpena"
 
-#: app/models/user.rb:122
+#: app/models/user.rb:120
 msgid "Please enter a valid email address"
 msgstr "Mesedez, jar ezazu email baliagarri bat"
 
@@ -2204,7 +2086,7 @@ msgstr "Mesedez, jar ezazu email baliagarri bat"
 msgid "Please enter the message you want to send"
 msgstr "Mesedez, sar ezazu bidali nahi duzun mezua"
 
-#: app/models/user.rb:55
+#: app/models/user.rb:53
 msgid "Please enter the same password twice"
 msgstr "Mesedez, sar ezazu pasahitz bera bi aldiz"
 
@@ -2212,7 +2094,7 @@ msgstr "Mesedez, sar ezazu pasahitz bera bi aldiz"
 msgid "Please enter your annotation"
 msgstr "Mesedez, sar ezazu zure iruzkina"
 
-#: app/models/contact_validator.rb:29 app/models/user.rb:40
+#: app/models/contact_validator.rb:29 app/models/user.rb:38
 msgid "Please enter your email address"
 msgstr "Mesedez, sar ezazu zure helbide elektronikoa"
 
@@ -2224,11 +2106,11 @@ msgstr "Mesedez, sar ezazu zure mezua"
 msgid "Please enter your letter requesting information"
 msgstr "Mesedez, sar ezazu zure informazio eskabidea"
 
-#: app/models/contact_validator.rb:28 app/models/user.rb:42
+#: app/models/contact_validator.rb:28 app/models/user.rb:40
 msgid "Please enter your name"
 msgstr "Mesedez, sar ezazu zure izena"
 
-#: app/models/user.rb:125
+#: app/models/user.rb:123
 msgid "Please enter your name, not your email address, in the name field."
 msgstr "Mesedez, izenaren arloan sar ezazu zure izena, ez zure emaila. "
 
@@ -2252,7 +2134,7 @@ msgstr "Mesedez, azaldu zergatik nahi duzun berrikusketa bat"
 msgid "Please keep it shorter than 500 characters"
 msgstr "Mesedez, muga ezazu zure mezua 500 karakteretan"
 
-#: app/models/info_request.rb:124
+#: app/models/info_request.rb:117
 msgid ""
 "Please keep the summary short, like in the subject of an email. You can use "
 "a phrase, rather than a full sentence."
@@ -2280,11 +2162,11 @@ msgstr "Mesedez, beheko aldean sinatu zure izenarekin, edo aldatu sinadura \"%{s
 msgid "Please sign in as "
 msgstr "Mesedez, ireki saioa ___________  bezala"
 
-#: app/controllers/request_controller.rb:813
+#: app/controllers/request_controller.rb:785
 msgid "Please type a message and/or choose a file containing your response."
 msgstr "Mesedez, idatz ezazu mezua edota aukera ezazu erantzuna dakarren fitxategia."
 
-#: app/controllers/request_controller.rb:485
+#: app/controllers/request_controller.rb:476
 msgid "Please use the form below to tell us more."
 msgstr "Mesedez, erabil ezazu ondoko inprimakia azalpen gehiago emateko."
 
@@ -2293,11 +2175,11 @@ msgstr "Mesedez, erabil ezazu ondoko inprimakia azalpen gehiago emateko."
 msgid "Please use this email address for all replies to this request:"
 msgstr "Mesedez, erabil ezazu ondoko helbidea eskabide honen erantzun guztietarako:"
 
-#: app/models/info_request.rb:33
+#: app/models/info_request.rb:29
 msgid "Please write a summary with some text in it"
 msgstr "Mesedez, idatz ezazu zerbait laburpenean"
 
-#: app/models/info_request.rb:121
+#: app/models/info_request.rb:114
 msgid ""
 "Please write the summary using a mixture of capital and lower case letters. "
 "This makes it easier for others to read."
@@ -2309,7 +2191,7 @@ msgid ""
 "letters. This makes it easier for others to read."
 msgstr "Mesedez, idatz ezazu zure iruzkina hizki larri eta xehe erabiliz, irakurketa errazte aldera."
 
-#: app/controllers/request_controller.rb:474
+#: app/controllers/request_controller.rb:465
 msgid ""
 "Please write your follow up message containing the necessary clarifications "
 "below."
@@ -2335,31 +2217,27 @@ msgstr "Agian lotuta dauden eskabideak:"
 msgid "Post annotation"
 msgstr "Bidali iruzkina"
 
-#: locale/model_attributes.rb:63
-msgid "Post redirect"
-msgstr ""
-
-#: locale/model_attributes.rb:64
+#: locale/model_attributes.rb:53
 msgid "PostRedirect|Circumstance"
 msgstr "PostRedirect|Circumstance"
 
-#: locale/model_attributes.rb:65
+#: locale/model_attributes.rb:51
 msgid "PostRedirect|Email token"
 msgstr "PostRedirect|Email token"
 
-#: locale/model_attributes.rb:66
+#: locale/model_attributes.rb:50
 msgid "PostRedirect|Post params yaml"
 msgstr "PostRedirect|Post params yaml"
 
-#: locale/model_attributes.rb:67
+#: locale/model_attributes.rb:52
 msgid "PostRedirect|Reason params yaml"
 msgstr "PostRedirect|Reason params yaml"
 
-#: locale/model_attributes.rb:68
+#: locale/model_attributes.rb:48
 msgid "PostRedirect|Token"
 msgstr "PostRedirect|Token"
 
-#: locale/model_attributes.rb:69
+#: locale/model_attributes.rb:49
 msgid "PostRedirect|Uri"
 msgstr "PostRedirect"
 
@@ -2395,15 +2273,11 @@ msgstr "Berrikusi zure mezua"
 msgid "Preview your public request"
 msgstr "Berrikusi zure eskabide argitaratua"
 
-#: locale/model_attributes.rb:70
-msgid "Profile photo"
-msgstr ""
-
-#: locale/model_attributes.rb:71
+#: locale/model_attributes.rb:15
 msgid "ProfilePhoto|Data"
 msgstr "ProfilePhoto|Data"
 
-#: locale/model_attributes.rb:72
+#: locale/model_attributes.rb:16
 msgid "ProfilePhoto|Draft"
 msgstr "ProfilePhoto|Draft"
 
@@ -2415,91 +2289,51 @@ msgstr "Erakunde publikoak"
 msgid "Public authorities - {{description}}"
 msgstr "Erakunde publikoak - {{description}}"
 
-#: app/views/general/search.rhtml:153
+#: app/views/general/search.rhtml:154
 msgid "Public authorities {{start_count}} to {{end_count}} of {{total_count}}"
 msgstr "Erakunde publikoak {{start_count}}-etik {{end_count}}-era, guztira {{total_count}}"
 
-#: locale/model_attributes.rb:73
-msgid "Public body"
-msgstr ""
-
-#: locale/model_attributes.rb:85
-msgid "Public body/translation"
-msgstr ""
-
-#: locale/model_attributes.rb:86
-msgid "PublicBody::Translation|First letter"
-msgstr ""
-
-#: locale/model_attributes.rb:87
-msgid "PublicBody::Translation|Locale"
-msgstr ""
-
-#: locale/model_attributes.rb:88
-msgid "PublicBody::Translation|Name"
-msgstr ""
-
-#: locale/model_attributes.rb:89
-msgid "PublicBody::Translation|Notes"
-msgstr ""
-
-#: locale/model_attributes.rb:90
-msgid "PublicBody::Translation|Publication scheme"
-msgstr ""
-
-#: locale/model_attributes.rb:91
-msgid "PublicBody::Translation|Request email"
-msgstr ""
-
-#: locale/model_attributes.rb:92
-msgid "PublicBody::Translation|Short name"
-msgstr ""
-
-#: locale/model_attributes.rb:93
-msgid "PublicBody::Translation|Url name"
-msgstr ""
-
-#: locale/model_attributes.rb:74
+#: locale/model_attributes.rb:12
 msgid "PublicBody|First letter"
 msgstr "Primera letra"
 
-#: locale/model_attributes.rb:75
+#: locale/model_attributes.rb:10
 msgid "PublicBody|Home page"
 msgstr "Sitio web"
 
-#: locale/model_attributes.rb:76
+#: locale/model_attributes.rb:8
 msgid "PublicBody|Last edit comment"
 msgstr "PublicBody|Last edit comment"
 
-#: locale/model_attributes.rb:77
+#: locale/model_attributes.rb:7
 msgid "PublicBody|Last edit editor"
 msgstr "PublicBody|Last edit editor"
 
-#: locale/model_attributes.rb:78
+#: locale/model_attributes.rb:3
 msgid "PublicBody|Name"
 msgstr "Nombre"
 
-#: locale/model_attributes.rb:79
+#: locale/model_attributes.rb:11
 msgid "PublicBody|Notes"
 msgstr "Notas"
 
-#: locale/model_attributes.rb:80
+#: locale/model_attributes.rb:13
 msgid "PublicBody|Publication scheme"
 msgstr "PublicBody|Publication scheme"
 
-#: locale/model_attributes.rb:81
+#: locale/model_attributes.rb:5
 msgid "PublicBody|Request email"
 msgstr "PublicBody|Request email"
 
-#: locale/model_attributes.rb:82
+#: locale/model_attributes.rb:4
 msgid "PublicBody|Short name"
 msgstr "Nombre corto"
 
-#: locale/model_attributes.rb:83
+#: locale/model_attributes.rb:9
 msgid "PublicBody|Url name"
 msgstr "Dirección web"
 
-#: locale/model_attributes.rb:84
+#: locale/model_attributes.rb:6
 msgid "PublicBody|Version"
 msgstr "Versión"
 
@@ -2507,23 +2341,11 @@ msgstr "Versión"
 msgid "Publication scheme"
 msgstr "Argitaratzeko eskema"
 
-#: locale/model_attributes.rb:94
-msgid "Purge request"
-msgstr ""
-
-#: locale/model_attributes.rb:95
-msgid "PurgeRequest|Model"
-msgstr ""
-
-#: locale/model_attributes.rb:96
-msgid "PurgeRequest|Url"
-msgstr ""
-
-#: app/views/track/_tracking_links.rhtml:25
+#: app/views/track/_tracking_links.rhtml:26
 msgid "RSS feed"
 msgstr "RSS"
 
-#: app/views/track/_tracking_links.rhtml:25
+#: app/views/track/_tracking_links.rhtml:26
 msgid "RSS feed of updates"
 msgstr "RSS gaurkotzeak"
 
@@ -2553,7 +2375,7 @@ msgstr "Errore mezua jaso da, adibidez akats bat mezua ematean."
 msgid "Recently described results first"
 msgstr "Lehenbizi deskribatu berri diren emaitzak"
 
-#: app/models/info_request.rb:802
+#: app/models/info_request.rb:789
 msgid "Refused."
 msgstr "Ez da onartu."
 
@@ -2566,18 +2388,6 @@ msgstr "Gogora nazazu</label> (saioa irekita mantentzen du;\n    ez erabili auke
 #: app/views/comment/_single_comment.rhtml:24
 msgid "Report abuse"
 msgstr "Salatu gehiegikeria"
-
-#: app/controllers/request_controller.rb:662
-msgid "Report an offensive or unsuitable request"
-msgstr ""
-
-#: app/views/request/_sidebar.rhtml:26
-msgid "Report this request"
-msgstr ""
-
-#: app/models/info_request.rb:818
-msgid "Reported for administrator attention."
-msgstr ""
 
 #: app/views/request/_after_actions.rhtml:39
 msgid "Request an internal review"
@@ -2611,13 +2421,7 @@ msgstr "{{info_request_user}}-k eskabidea egin dio {{public_body_name}}-ri {{dat
 msgid "Requested on {{date}}"
 msgstr " {{date}} egunean egindako eskabidea."
 
-#: app/views/request/_sidebar.rhtml:24
-msgid ""
-"Requests for personal information and vexatious requests are not considered "
-"valid for FOI purposes (<a href=\"/help/about\">read more</a>)."
-msgstr ""
-
-#: app/models/track_thing.rb:285 app/models/track_thing.rb:286
+#: app/models/track_thing.rb:281 app/models/track_thing.rb:282
 msgid "Requests or responses matching your saved search"
 msgstr "Zure bilaketaren eskabideak edo erantzunak"
 
@@ -2637,7 +2441,7 @@ msgstr "Eskabideari erantzun"
 msgid "Respond using the web"
 msgstr "Web orrialdearen bidez erantzun"
 
-#: app/models/info_request_event.rb:347
+#: app/models/info_request_event.rb:341
 msgid "Response"
 msgstr "Erantzun"
 
@@ -2645,11 +2449,11 @@ msgstr "Erantzun"
 msgid "Response from a public authority"
 msgstr "Erakunde publiko baten erantzuna"
 
-#: app/views/request/show.rhtml:79
+#: app/views/request/show.rhtml:77
 msgid "Response to this request is <strong>delayed</strong>."
 msgstr "Eskabide honen erantzuna <strong>atzeratuta</strong> dago."
 
-#: app/views/request/show.rhtml:87
+#: app/views/request/show.rhtml:85
 msgid "Response to this request is <strong>long overdue</strong>."
 msgstr "Eskabide honen erantzuna <strong>oso atzeratuta</strong> dago."
 
@@ -2736,7 +2540,7 @@ msgstr "Aukera ezazu idatziko diozun erakundea"
 msgid "Send a followup"
 msgstr "Bidali erantzuna"
 
-#: app/controllers/user_controller.rb:411
+#: app/controllers/user_controller.rb:365
 msgid "Send a message to "
 msgstr "Bidal iezaiozu ______-ri mezua"
 
@@ -2781,28 +2585,28 @@ msgstr "Erakutsi bakarrik..."
 msgid "Showing"
 msgstr "Erakusten"
 
-#: app/views/user/sign.rhtml:2 app/views/user/sign.rhtml:27
+#: app/views/user/sign.rhtml:2 app/views/user/sign.rhtml:24
 #: app/views/user/_signin.rhtml:32
 msgid "Sign in"
 msgstr "Ireki saioa"
 
-#: app/views/user/sign.rhtml:23
+#: app/views/user/sign.rhtml:20
 msgid "Sign in or make a new account"
 msgstr "Ireki saioa edo sortu kontu berria"
 
-#: app/views/layouts/default.rhtml:113
+#: app/views/layouts/default.rhtml:112
 msgid "Sign in or sign up"
 msgstr "Ireki saioa edo erregistroa"
 
-#: app/views/layouts/default.rhtml:111
+#: app/views/layouts/default.rhtml:110
 msgid "Sign out"
 msgstr "Itxi saioa"
 
-#: app/views/user/_signup.rhtml:46 app/views/user/sign.rhtml:34
+#: app/views/user/_signup.rhtml:46 app/views/user/sign.rhtml:31
 msgid "Sign up"
 msgstr "Erregistratu"
 
-#: app/views/request/_sidebar.rhtml:45
+#: app/views/request/_sidebar.rhtml:24
 msgid "Similar requests"
 msgstr "Antzeko eskabideak"
 
@@ -2810,7 +2614,7 @@ msgstr "Antzeko eskabideak"
 msgid "Simple search"
 msgstr "Oinarrizko bilaketa"
 
-#: app/models/request_mailer.rb:182
+#: app/models/request_mailer.rb:178
 msgid "Some notes have been added to your FOI request - "
 msgstr "Zure informaziorako sarbidearen eskabideari egindako iruzkin berriak - "
 
@@ -2826,7 +2630,7 @@ msgid ""
 "information has been provided. Everyone'll be exceedingly grateful."
 msgstr "Eskabidea egin zuten zenbaitek ez digute jakinarazi arrakasta izan zuten ala ez. <strong>Zure</strong> laguntza behar dugu &ndash;\naukera ezazu eskabideren bat, irakurri eta jakinarazi informazioa lortu duen ala ez. Guztion eskerrona izango duzu."
 
-#: app/models/request_mailer.rb:173
+#: app/models/request_mailer.rb:169
 msgid "Somebody added a note to your FOI request - "
 msgstr "Zure informaziorako sarbidearen eskabideari egindako iruzkin berria - "
 
@@ -2860,7 +2664,7 @@ msgstr "Hasi"
 msgid "Start now &raquo;"
 msgstr "Has zaitez orain &raquo;"
 
-#: app/views/request/_sidebar.rhtml:38
+#: app/views/request/_sidebar.rhtml:17
 msgid "Start your own blog"
 msgstr "Sortu zeure bloga"
 
@@ -2889,11 +2693,11 @@ msgstr "Bidali egoera"
 msgid "Subscribe to blog"
 msgstr "Blogaren harpidetza eman"
 
-#: app/models/track_thing.rb:234 app/models/track_thing.rb:235
+#: app/models/track_thing.rb:230 app/models/track_thing.rb:231
 msgid "Successful Freedom of Information requests"
 msgstr "Arrakasta izan duten informaziorako sarbidearen eskabideak"
 
-#: app/models/info_request.rb:806
+#: app/models/info_request.rb:793
 msgid "Successful."
 msgstr "Arrakastatsua."
 
@@ -2935,25 +2739,25 @@ msgstr "Eskerrik asko web hau ordenean mantentzen laguntzeagatik!"
 msgid "Thank you for making an annotation!"
 msgstr "Eskerrik asko iruzkina egiteagatik!"
 
-#: app/controllers/request_controller.rb:819
+#: app/controllers/request_controller.rb:791
 msgid ""
 "Thank you for responding to this FOI request! Your response has been "
 "published below, and a link to your response has been emailed to "
 msgstr "Eskerrik asko informazio eskabide honi erantzuteagatik! Zure erantzuna jarraian argitaratuko da eta zure erantzunaren esteka ______-ri bidaliko zaio."
 
-#: app/controllers/request_controller.rb:429
+#: app/controllers/request_controller.rb:420
 msgid ""
 "Thank you for updating the status of the request '<a "
 "href=\"{{url}}\">{{info_request_title}}</a>'. There are some more requests "
 "below for you to classify."
 msgstr "Eskerrik asko  '<a href=\"{{url}}\">{{info_request_title}}</a>' eskabidearen egoera gaurkotzeagatik. Jarraian sailatu daitezkeen beste eskabide batzuk erakutsiko dizkizugu."
 
-#: app/controllers/request_controller.rb:432
+#: app/controllers/request_controller.rb:423
 msgid "Thank you for updating this request!"
 msgstr "Eskerrik asko eskabide hau gaurkotzeagatik!"
 
-#: app/controllers/user_controller.rb:478
-#: app/controllers/user_controller.rb:494
+#: app/controllers/user_controller.rb:432
+#: app/controllers/user_controller.rb:448
 msgid "Thank you for updating your profile photo"
 msgstr "Eskerrik asko zure profilaren argazkia gaurkotzeagatik"
 
@@ -2977,7 +2781,7 @@ msgid ""
 "    requests."
 msgstr "Eskerrik asko dena <strong>garbi eta antolatuta</strong> mantentzen laguntzeagatik.\n    Guk, behar izanez gero, jarraian zure eskabideekin zer egin aholkatu ahal dizugu."
 
-#: app/controllers/user_controller.rb:269
+#: app/controllers/user_controller.rb:223
 msgid ""
 "That doesn't look like a valid email address. Please check you have typed it"
 " correctly."
@@ -3013,7 +2817,7 @@ msgid ""
 "            address</strong>, not just an email, for it to be a valid FOI request"
 msgstr "Erakundeak dio <strong>posta helbide bat\n            </strong> behar duela, ez posta elektronikoa bakarrik, eskabidea baliagarria izan dadin"
 
-#: app/views/request/show.rhtml:111
+#: app/views/request/show.rhtml:109
 msgid ""
 "The authority would like to / has <strong>responded by post</strong> to this"
 " request."
@@ -3046,25 +2850,25 @@ msgstr "Erakundeak posta arruntaren bidez erantzun nahi du / erantzun du"
 msgid "The request has been <strong>refused</strong>"
 msgstr "Eskabidea <strong>ez da onartu</strong>"
 
-#: app/controllers/request_controller.rb:403
+#: app/controllers/request_controller.rb:394
 msgid ""
 "The request has been updated since you originally loaded this page. Please "
 "check for any new incoming messages below, and try again."
 msgstr "Hasiera batean orrialde honetara heldu zenetik eskabidea gaurkotu da. Mesedez, ikus ezazu ea jarraian heldu den mezu bat, eta saia zaitez berriro."
 
-#: app/views/request/show.rhtml:106
+#: app/views/request/show.rhtml:104
 msgid "The request is <strong>waiting for clarification</strong>."
 msgstr "Eskabidea <strong>azalpenaren zain</strong> dago."
 
-#: app/views/request/show.rhtml:99
+#: app/views/request/show.rhtml:97
 msgid "The request was <strong>partially successful</strong>."
 msgstr "Eskabidea <strong>aldizka arrakastatsua</strong> izan da."
 
-#: app/views/request/show.rhtml:95
+#: app/views/request/show.rhtml:93
 msgid "The request was <strong>refused</strong> by"
 msgstr "Eskabidea ez du _______-k  <strong>onartu</strong> "
 
-#: app/views/request/show.rhtml:97
+#: app/views/request/show.rhtml:95
 msgid "The request was <strong>successful</strong>."
 msgstr "Eskabidea <strong>arrakastatsua</strong> izan da."
 
@@ -3109,103 +2913,95 @@ msgid ""
 "Information requests this person has made."
 msgstr "Bilatzailea ez dago orain eskuragarri: ezin ditugu erakutsi pertsona honek egin dituen informazio eskabideak."
 
-#: app/controllers/track_controller.rb:175
+#: app/controllers/track_controller.rb:152
 msgid "Then you can cancel the alert."
 msgstr "Orduan ezeztatu ahal izango duzu zure alerta."
 
-#: app/controllers/track_controller.rb:205
+#: app/controllers/track_controller.rb:182
 msgid "Then you can cancel the alerts."
 msgstr "Orduan ezeztatu ahal izango dituzu zure alertak."
 
-#: app/controllers/user_controller.rb:329
+#: app/controllers/user_controller.rb:283
 msgid "Then you can change your email address used on {{site_name}}"
 msgstr "Orduan {{site_name}}-ean erabili duzun posta aldatu ahal izango duzu."
 
-#: app/controllers/user_controller.rb:283
+#: app/controllers/user_controller.rb:237
 msgid "Then you can change your password on {{site_name}}"
 msgstr "Orduan {{site_name}}-ean erabili duzun pasahitza aldatu ahal izango duzu."
 
-#: app/controllers/request_controller.rb:389
+#: app/controllers/request_controller.rb:380
 msgid "Then you can classify the FOI response you have got from "
 msgstr "Orduan _______-tik jaso duzun erantzuna sailkatu ahal izango duzu."
 
-#: app/controllers/request_controller.rb:843
+#: app/controllers/request_controller.rb:815
 msgid "Then you can download a zip file of {{info_request_title}}."
 msgstr "Orduan {{info_request_title}}-tik deskargatu ahal izango duzu ZIP fitxategia."
-
-#: app/controllers/admin_controller.rb:61
-msgid "Then you can log into the administrative interface"
-msgstr ""
 
 #: app/controllers/request_game_controller.rb:41
 msgid "Then you can play the request categorisation game."
 msgstr "Orduan eskabideak sailkatzeko jolasean jokatu ahal izango duzu."
 
-#: app/controllers/request_controller.rb:661
-msgid "Then you can report the request '{{title}}'"
-msgstr ""
-
-#: app/controllers/user_controller.rb:410
+#: app/controllers/user_controller.rb:364
 msgid "Then you can send a message to "
 msgstr "Orduan _____-ri mezu bat bidali ahal izango diozu"
 
-#: app/controllers/user_controller.rb:616
+#: app/controllers/user_controller.rb:558
 msgid "Then you can sign in to {{site_name}}"
 msgstr "Orduan {{site_name}}-ra sartu ahal izango duzu."
 
-#: app/controllers/request_controller.rb:85
+#: app/controllers/request_controller.rb:84
 msgid "Then you can update the status of your request to "
 msgstr "Orduan gaurkotu ahal izango duzu zure eskabidearen egoera"
 
-#: app/controllers/request_controller.rb:784
+#: app/controllers/request_controller.rb:756
 msgid "Then you can upload an FOI response. "
 msgstr "Orduan erantzuna igo ahal izango duzu. "
 
-#: app/controllers/request_controller.rb:596
+#: app/controllers/request_controller.rb:587
 msgid "Then you can write follow up message to "
 msgstr "Orduan _____-ri mezu bat idatzi ahal izango diozu."
 
-#: app/controllers/request_controller.rb:597
+#: app/controllers/request_controller.rb:588
 msgid "Then you can write your reply to "
 msgstr "Orduan ______-ri erantzuna idatzi ahal izango diozu."
 
-#: app/models/track_thing.rb:222
-msgid "Then you will be following all new FOI requests."
-msgstr ""
-
-#: app/models/track_thing.rb:273
+#: app/models/track_thing.rb:269
 msgid ""
-"Then you will be notified whenever '{{user_name}}' requests something or "
-"gets a response."
-msgstr ""
+"Then you will be emailed whenever '{{user_name}}' requests something or gets"
+" a response."
+msgstr "Orduan '{{user_name}}'-k zerbait eskatu edo erantzuna jasotzen duen bakoitzean mezu bat helduko zaizu."
 
-#: app/models/track_thing.rb:289
+#: app/models/track_thing.rb:285
 msgid ""
-"Then you will be notified whenever a new request or response matches your "
+"Then you will be emailed whenever a new request or response matches your "
 "search."
-msgstr ""
+msgstr "Orduan eskabide berria edo erantzuna zure bilaketarekin bat datorrenean mezua helduko zaizu."
 
-#: app/models/track_thing.rb:238
-msgid "Then you will be notified whenever an FOI request succeeds."
-msgstr ""
+#: app/models/track_thing.rb:234
+msgid "Then you will be emailed whenever an FOI request succeeds."
+msgstr "Orduan eskabide batek arrakasta duen guztietan email bat jasoko duzu."
 
-#: app/models/track_thing.rb:257
+#: app/models/track_thing.rb:218
+msgid "Then you will be emailed whenever anyone makes a new FOI request."
+msgstr "Orduan norbaitek informazio eskabide berria egiten duen bakoitzean email bat jasoko duzu."
+
+#: app/models/track_thing.rb:253
 msgid ""
-"Then you will be notified whenever someone requests something or gets a "
+"Then you will be emailed whenever someone requests something or gets a "
 "response from '{{public_body_name}}'."
-msgstr ""
+msgstr "Orduan norbaitek eskabidea egin edo '{{public_body_name}}'-tik erantzuna jasotzen duen guztietan mezu bat helduko zaizu."
 
-#: app/models/track_thing.rb:206
+#: app/models/track_thing.rb:202
 msgid ""
-"Then you will be updated whenever the request '{{request_title}}' is "
+"Then you will be emailed whenever the request '{{request_title}}' is "
 "updated."
-msgstr ""
+msgstr "Orduan '{{request_title}}' eskabidea gaurkotzen den guztietan email bat jasoko duzu."
 
-#: app/controllers/request_controller.rb:36
+#: app/controllers/request_controller.rb:35
 msgid "Then you'll be allowed to send FOI requests."
 msgstr "Orduan informazio eskabideak bidali ahal izango dituzu."
 
-#: app/controllers/request_controller.rb:343
+#: app/controllers/request_controller.rb:340
 msgid "Then your FOI request to {{public_body_name}} will be sent."
 msgstr "Orduan {{public_body_name}}-ri egin diozun eskabidea bidaliko da."
 
@@ -3219,7 +3015,13 @@ msgid ""
 " this link to see what they wrote."
 msgstr "Badaude {{count}} iruzkin zure {{info_request}} eskabidean. Jarraitu esteka honi esaten dutena irakurtzeko."
 
-#: app/views/request/_sidebar.rhtml:6
+#: app/views/public_body/show.rhtml:7
+msgid "There is %d person following this authority"
+msgid_plural "There are %d people following this authority"
+msgstr[0] "Badago erakunde honi jarraitzen dion pertsona %d."
+msgstr[1] "Badaude erakunde honi jarraitzen dioten %d pertsona."
+
+#: app/views/request/_sidebar.rhtml:5
 msgid "There is %d person following this request"
 msgid_plural "There are %d people following this request"
 msgstr[0] "Badago eskabide honi jarraitzen dion pertsona %d."
@@ -3240,13 +3042,13 @@ msgid ""
 "in touch</a>."
 msgstr "Badago egunean egin ditzakezun eskabide kopuru mugatua, ez dugulako nahi erakunde publikoek gaizki idatzitako eskabide gehiegizkoak jaso ditzaten. Zure kasuan muga hau aplika ez dadin behar izanez gero, mesedez jar zaitez gurekin <a href='{{help_contact_path}}'>harremanetan</a>."
 
-#: app/views/request/show.rhtml:115
+#: app/views/request/show.rhtml:113
 msgid ""
 "There was a <strong>delivery error</strong> or similar, which needs fixing "
 "by the {{site_name}} team."
 msgstr "<strong>Ematean errorea gertatu da</strong> edo antzeko zerbait, eta {{site_name}}-ko taldeak konpondu behar du."
 
-#: app/controllers/user_controller.rb:200
+#: app/controllers/user_controller.rb:154
 #: app/controllers/public_body_controller.rb:83
 msgid "There was an error with the words you entered, please try again."
 msgstr "Sartu dituzun hitzetan errorea gertatu da, mesedez saia zaitez berriro."
@@ -3289,10 +3091,6 @@ msgstr "Ez diote erantzun zure {{law_used_short}} {{title}} eskabideari, \n lege
 msgid "Things to do with this request"
 msgstr "Zer egin daiteke eskabide honekin"
 
-#: app/views/user/show.rhtml:195
-msgid "Things you're following"
-msgstr ""
-
 #: app/views/public_body/show.rhtml:63
 msgid "This authority no longer exists, so you cannot make a request to it."
 msgstr "Erakunde hau jadanik ez da existitzen, ezin da informazio eskabiderik egin."
@@ -3315,6 +3113,10 @@ msgid ""
 "\"{{request_title}}\".  The latest, full version is available online at "
 "{{full_url}}"
 msgstr "Hau \"{{request_title}}\" informazio eskabidearen testua-soilik bertsioa da.  Bertsio gaurkotuena eta osotuena eskuragarri duzu hemen: {{full_url}}"
+
+#: app/foo.rb:1
+msgid "This is a test!"
+msgstr "Hau froga bat da!"
 
 #: app/views/request/_view_html_prefix.rhtml:9
 msgid ""
@@ -3370,69 +3172,35 @@ msgstr "Zure iruzkinak"
 msgid "This request <strong>requires administrator attention</strong>"
 msgstr "Eskabide honek <strong>administratzailearen parte hartzea behar du</strong>"
 
-#: app/controllers/request_controller.rb:671
-msgid "This request has already been reported for administrator attention"
-msgstr ""
-
-#: app/views/request/show.rhtml:57
+#: app/views/request/show.rhtml:55
 msgid "This request has an <strong>unknown status</strong>."
 msgstr "Eskabide honen egoera <strong>ezezaguna</strong> da."
 
-#: app/views/request/show.rhtml:126
-msgid ""
-"This request has been <strong>hidden</strong> from the site, because an "
-"administrator considers it not to be an FOI request"
-msgstr ""
-
-#: app/views/request/show.rhtml:124
-msgid ""
-"This request has been <strong>hidden</strong> from the site, because an "
-"administrator considers it vexatious"
-msgstr ""
-
-#: app/views/request/show.rhtml:122
-msgid ""
-"This request has been <strong>reported</strong> as needing administrator "
-"attention (perhaps because it is vexatious, or a request for personal "
-"information)"
-msgstr ""
-
-#: app/views/request/show.rhtml:119
+#: app/views/request/show.rhtml:117
 msgid ""
 "This request has been <strong>withdrawn</strong> by the person who made it. \n"
 "        \t   There may be an explanation in the correspondence below."
 msgstr "Eskabide hau sortu zuen pertsonak <strong>kendu du</strong>. \n        \t   Ondoko mezuetan egon daiteke honen azalpena."
 
-#: app/views/request/_sidebar.rhtml:21
-msgid ""
-"This request has been marked for review by the site administrators, who have"
-" not hidden it at this time. If you believe it should be hidden, please <a "
-"href=\"%s\">contact us</a>."
-msgstr ""
-
-#: app/controllers/request_controller.rb:669
-msgid "This request has been reported for administrator attention"
-msgstr ""
-
-#: app/models/info_request.rb:396
+#: app/models/info_request.rb:389
 msgid ""
 "This request has been set by an administrator to \"allow new responses from "
 "nobody\""
 msgstr "Administratzaileak eskabide hau konfiguratu du \"inoren erantzunak ez baimentzeko\""
 
-#: app/views/request/show.rhtml:117
+#: app/views/request/show.rhtml:115
 msgid ""
 "This request has had an unusual response, and <strong>requires "
 "attention</strong> from the {{site_name}} team."
 msgstr "Eskabide honek erantzun ez-ohikoa jaso du eta {{site_name}}-ko taldearen <strong>parte hartzea behar du</strong>."
 
-#: app/views/request/_sidebar.rhtml:14 app/views/request/show.rhtml:7
+#: app/views/request/show.rhtml:5
 msgid ""
 "This request has prominence 'hidden'. You can only see it because you are logged\n"
 "    in as a super user."
 msgstr "Eskabide honen ikusgarritasuna 'ezkutua' da. Zuk ikus dezakezu super-erabiltzaile bezala identifikatu zarelako."
 
-#: app/views/request/_sidebar.rhtml:18 app/views/request/show.rhtml:13
+#: app/views/request/show.rhtml:11
 msgid ""
 "This request is hidden, so that only you the requester can see it. Please\n"
 "    <a href=\"%s\">contact us</a> if you are not sure why."
@@ -3467,11 +3235,29 @@ msgid ""
 "the email address {{email}}."
 msgstr "Ezinezkoa da, {{email}} helbidea erabiltzen ari den beste kontu bat dagoelako."
 
-#: app/controllers/track_controller.rb:204
+#: app/models/track_thing.rb:217
+msgid "To be emailed about any new requests"
+msgstr "Eskabide berriei buruzko emailak jasotzeko"
+
+#: app/models/track_thing.rb:233
+msgid "To be emailed about any successful requests"
+msgstr "Arrakasta izan duen edozein eskabideri buruzko emailak jasotzeko"
+
+#: app/models/track_thing.rb:268
+msgid "To be emailed about requests by '{{user_name}}'"
+msgstr "'{{user_name}}'-ren eskabideei buruzko emailak jasotzeko"
+
+#: app/models/track_thing.rb:252
+msgid ""
+"To be emailed about requests made using {{site_name}} to the public "
+"authority '{{public_body_name}}'"
+msgstr "{{site_name}}-ean '{{public_body_name}}' erakundeari egindako eskabideei buruzko emailak jasotzeko."
+
+#: app/controllers/track_controller.rb:181
 msgid "To cancel these alerts"
 msgstr "Baliogabetu alerta hauek"
 
-#: app/controllers/track_controller.rb:174
+#: app/controllers/track_controller.rb:151
 msgid "To cancel this alert"
 msgstr "Baliogabetu alerta hau"
 
@@ -3481,11 +3267,11 @@ msgid ""
 "was a technical problem trying to do this."
 msgstr "Jarraitzeko, saioa ireki edo kontu bat sortu behar duzu. Zoritxarrez, egitean arazo teknikoa gertatu da."
 
-#: app/controllers/user_controller.rb:328
+#: app/controllers/user_controller.rb:282
 msgid "To change your email address used on {{site_name}}"
 msgstr "{{site_name}}-ean erabili den posta helbidea aldatu"
 
-#: app/controllers/request_controller.rb:388
+#: app/controllers/request_controller.rb:379
 msgid "To classify the response to this FOI request"
 msgstr "Eskabide honen erantzuna birsailkatu"
 
@@ -3493,39 +3279,21 @@ msgstr "Eskabide honen erantzuna birsailkatu"
 msgid "To do that please send a private email to "
 msgstr "Hau egiteko, mesedez bidal iezaiozu mezu pribatua ______-ri"
 
-#: app/views/request_mailer/not_clarified_alert.rhtml:4
+#: app/views/request_mailer/not_clarified_alert.rhtml:2
 msgid "To do this, first click on the link below."
 msgstr "Hau egiteko, lehenbizi egin klik beheko estekan."
 
-#: app/controllers/request_controller.rb:842
+#: app/controllers/request_controller.rb:814
 msgid "To download the zip file"
 msgstr "ZIP fitxategia deskargatu"
 
-#: app/models/track_thing.rb:237
-msgid "To follow all successful requests"
-msgstr ""
-
-#: app/models/track_thing.rb:221
-msgid "To follow new requests"
-msgstr ""
-
-#: app/models/track_thing.rb:288
+#: app/models/track_thing.rb:284
 msgid "To follow requests and responses matching your search"
 msgstr "Zure bilaketarekin bat datozen eskabideak eta erantzunak ikusteko"
 
-#: app/models/track_thing.rb:272
-msgid "To follow requests by '{{user_name}}'"
-msgstr ""
-
-#: app/models/track_thing.rb:256
-msgid ""
-"To follow requests made using {{site_name}} to the public authority "
-"'{{public_body_name}}'"
-msgstr ""
-
-#: app/models/track_thing.rb:205
-msgid "To follow the request '{{request_title}}'"
-msgstr ""
+#: app/models/track_thing.rb:201
+msgid "To follow updates to the request '{{request_title}}'"
+msgstr "'{{request_title}}' eskabidearen gaurkotzeei jarraitzeko"
 
 #: app/views/request_mailer/old_unclassified_updated.rhtml:1
 msgid ""
@@ -3537,10 +3305,6 @@ msgstr "Web orrialdea ordenean mantentzen laguntzeko, norbaitek {{public_body}}-
 msgid "To let us know, follow this link and then select the appropriate box."
 msgstr "Jakinarazteko, jarraitu esteka honi eta aukera ezazu kutxa egokia."
 
-#: app/controllers/admin_controller.rb:60
-msgid "To log into the administrative interface"
-msgstr ""
-
 #: app/controllers/request_game_controller.rb:40
 msgid "To play the request categorisation game"
 msgstr "Eskabideak bersailkatzeko jolasean aritu"
@@ -3549,32 +3313,28 @@ msgstr "Eskabideak bersailkatzeko jolasean aritu"
 msgid "To post your annotation"
 msgstr "Gehitu zure iruzkina"
 
-#: app/controllers/request_controller.rb:594
+#: app/controllers/request_controller.rb:585
 msgid "To reply to "
 msgstr "______-ri erantzun"
 
-#: app/controllers/request_controller.rb:660
-msgid "To report this FOI request"
-msgstr ""
-
-#: app/controllers/request_controller.rb:593
+#: app/controllers/request_controller.rb:584
 msgid "To send a follow up message to "
 msgstr "_____-ri erantzuna bidali"
 
-#: app/controllers/user_controller.rb:409
+#: app/controllers/user_controller.rb:363
 msgid "To send a message to "
 msgstr "______-ri mezua bidaltzeko"
 
-#: app/controllers/request_controller.rb:35
-#: app/controllers/request_controller.rb:342
+#: app/controllers/request_controller.rb:34
+#: app/controllers/request_controller.rb:339
 msgid "To send your FOI request"
 msgstr "Zure informazio eskabidea bidaltzeko"
 
-#: app/controllers/request_controller.rb:84
+#: app/controllers/request_controller.rb:83
 msgid "To update the status of this FOI request"
 msgstr "Zure informazio eskabidearen egoera gaurkotzeko"
 
-#: app/controllers/request_controller.rb:783
+#: app/controllers/request_controller.rb:755
 msgid ""
 "To upload a response, you must be logged in using an email address from "
 msgstr "Erantzun bat igotzeko ______-ko posta helbide batekin erregistratuta egon behar duzu"
@@ -3610,44 +3370,48 @@ msgstr "Norentzat:"
 msgid "Today"
 msgstr "Gaur"
 
-#: app/views/user/rate_limited.rhtml:1
-msgid "Too many requests"
-msgstr ""
-
 #: app/views/request/select_authority.rhtml:48
 #: app/views/public_body/_search_ahead.rhtml:4
 msgid "Top search results:"
 msgstr "Emaitzarik onenak:"
 
-#: locale/model_attributes.rb:97
-msgid "Track thing"
-msgstr ""
+#: app/models/track_thing.rb:246
+msgid "Track requests to {{public_body_name}} by email"
+msgstr "{{public_body_name}}-ri egindako eskabideei jarraitu postaren bidez"
+
+#: app/models/track_thing.rb:278
+msgid "Track things matching this search by email"
+msgstr "Jarraitu bilaketa honi postaren bidez"
 
 #: app/views/user/show.rhtml:35
 msgid "Track this person"
 msgstr "Jarraitu pertsona honi"
 
-#: app/views/general/search.rhtml:136
+#: app/models/track_thing.rb:262
+msgid "Track this person by email"
+msgstr "Jarraitu pertsona honi postaren bidez"
+
+#: app/models/track_thing.rb:195
+msgid "Track this request by email"
+msgstr "Jarraitu eskabide honi postaren bidez"
+
+#: app/views/general/search.rhtml:137
 msgid "Track this search"
 msgstr "Jarraitu bilaketa honi"
 
-#: locale/model_attributes.rb:98
+#: locale/model_attributes.rb:33
 msgid "TrackThing|Track medium"
 msgstr "TrackThing|Track medium"
 
-#: locale/model_attributes.rb:99
+#: locale/model_attributes.rb:32
 msgid "TrackThing|Track query"
 msgstr "TrackThing|Track query"
 
-#: locale/model_attributes.rb:100
+#: locale/model_attributes.rb:34
 msgid "TrackThing|Track type"
 msgstr "TrackThing|Track type"
 
-#: app/views/user/_change_receive_email.rhtml:7
-msgid "Turn off email alerts"
-msgstr ""
-
-#: app/views/request/_sidebar.rhtml:34
+#: app/views/request/_sidebar.rhtml:13
 msgid "Tweet this request"
 msgstr "Tuiteatu eskabide hau"
 
@@ -3694,11 +3458,19 @@ msgid ""
 "address for"
 msgstr "Zoritxarrez ez dugu posta helbide baliagarria honentzat: {{info_request_law_used_full}}"
 
+#: lib/world_foi_websites.rb:5
+msgid "United Kingdom"
+msgstr "Erresuma Batua"
+
+#: lib/world_foi_websites.rb:17
+msgid "United States of America"
+msgstr "Amerikako Estatu Batuak"
+
 #: app/views/general/exception_caught.rhtml:22
 msgid "Unknown"
 msgstr "Ezezaguna"
 
-#: app/models/info_request.rb:816
+#: app/models/info_request.rb:803
 msgid "Unusual response."
 msgstr "Ez-ohiko erantzuna."
 
@@ -3707,7 +3479,7 @@ msgstr "Ez-ohiko erantzuna."
 msgid "Update the status of this request"
 msgstr "Gaurkotu eskabide honen egoera"
 
-#: app/controllers/request_controller.rb:86
+#: app/controllers/request_controller.rb:85
 msgid "Update the status of your request to "
 msgstr "Gaurkotu ________-ri egindako eskabidearen egoera"
 
@@ -3723,75 +3495,63 @@ msgid ""
 "<strong><code>\"Liverpool City Council\"</code></strong>"
 msgstr "Erabil itzazu komatxoak esaldi zehatza bilatu nahi duzunean, adibidez <strong><code>\"Europako Kontseilua\"</code></strong>"
 
-#: locale/model_attributes.rb:101
-msgid "User"
-msgstr ""
-
-#: locale/model_attributes.rb:117
-msgid "User info request sent alert"
-msgstr ""
-
-#: locale/model_attributes.rb:118
+#: locale/model_attributes.rb:94
 msgid "UserInfoRequestSentAlert|Alert type"
 msgstr "UserInfoRequestSentAlert|Alert type"
 
-#: locale/model_attributes.rb:102
+#: locale/model_attributes.rb:80
 msgid "User|About me"
 msgstr "User|About me"
 
-#: locale/model_attributes.rb:103
+#: locale/model_attributes.rb:78
 msgid "User|Admin level"
 msgstr "User|Admin level"
 
-#: locale/model_attributes.rb:104
+#: locale/model_attributes.rb:79
 msgid "User|Ban text"
 msgstr "User|Ban text"
 
-#: locale/model_attributes.rb:105
+#: locale/model_attributes.rb:71
 msgid "User|Email"
 msgstr "User|Email"
 
-#: locale/model_attributes.rb:106
+#: locale/model_attributes.rb:83
 msgid "User|Email bounce message"
 msgstr "User|Email bounce message"
 
-#: locale/model_attributes.rb:107
+#: locale/model_attributes.rb:82
 msgid "User|Email bounced at"
 msgstr "User|Email bounced at"
 
-#: locale/model_attributes.rb:108
+#: locale/model_attributes.rb:75
 msgid "User|Email confirmed"
 msgstr "User|Email confirmed"
 
-#: locale/model_attributes.rb:109
+#: locale/model_attributes.rb:73
 msgid "User|Hashed password"
 msgstr "User|Hashed password"
 
-#: locale/model_attributes.rb:110
+#: locale/model_attributes.rb:77
 msgid "User|Last daily track email"
 msgstr "User|Last daily track email"
 
-#: locale/model_attributes.rb:111
+#: locale/model_attributes.rb:81
 msgid "User|Locale"
 msgstr "User|Locale"
 
-#: locale/model_attributes.rb:112
+#: locale/model_attributes.rb:72
 msgid "User|Name"
 msgstr "User|Name"
 
-#: locale/model_attributes.rb:113
+#: locale/model_attributes.rb:84
 msgid "User|No limit"
 msgstr "User|No limit"
 
-#: locale/model_attributes.rb:114
-msgid "User|Receive email alerts"
-msgstr ""
-
-#: locale/model_attributes.rb:115
+#: locale/model_attributes.rb:74
 msgid "User|Salt"
 msgstr "User|Salt"
 
-#: locale/model_attributes.rb:116
+#: locale/model_attributes.rb:76
 msgid "User|Url name"
 msgstr "User|Url name"
 
@@ -3811,7 +3571,7 @@ msgstr "Ikusi '{{public_body_name}}'-ren posta helbidea"
 msgid "View Freedom of Information requests made by {{user_name}}:"
 msgstr "Ikusi  {{user_name}}-k egin dituen informaziorako sarbidearen eskabideak:"
 
-#: app/controllers/request_controller.rb:172
+#: app/controllers/request_controller.rb:169
 msgid "View and search requests"
 msgstr "Ikusi eta bilatu eskabideak"
 
@@ -3827,11 +3587,11 @@ msgstr "Ikusi posta"
 msgid "View requests"
 msgstr "Ikusi eskabideak"
 
-#: app/models/info_request.rb:808
+#: app/models/info_request.rb:795
 msgid "Waiting clarification."
 msgstr "Azalpenaren zain."
 
-#: app/views/request/show.rhtml:113
+#: app/views/request/show.rhtml:111
 msgid ""
 "Waiting for an <strong>internal review</strong> by {{public_body_link}} of "
 "their handling of this request."
@@ -3847,7 +3607,7 @@ msgstr "Erakundeak zure eskabideari emandako erantzunaren barneko berrikusketa a
 msgid "Waiting for the public authority to reply"
 msgstr "Erakundearen erantzunaren zain"
 
-#: app/models/request_mailer.rb:130
+#: app/models/request_mailer.rb:126
 msgid "Was the response you got to your FOI request any good?"
 msgstr "Zure eskabideari emandako erantzuna behar bezalakoa izan da?"
 
@@ -3886,11 +3646,11 @@ msgid ""
 "or the law tell us to."
 msgstr "Ez diogu inori emango zure posta helbidea, zeuk esan edo legeak behartzen bagaitu izan ezik."
 
-#: app/views/request/show.rhtml:63
+#: app/views/request/show.rhtml:61
 msgid "We're waiting for"
 msgstr "______-ren zain gaude"
 
-#: app/views/request/show.rhtml:59
+#: app/views/request/show.rhtml:57
 msgid "We're waiting for someone to read"
 msgstr "Norbaitek irakur dezan itxaroten ari gara"
 
@@ -3950,7 +3710,7 @@ msgstr "Zer gertatzen ari da?"
 msgid "Who can I request information from?"
 msgstr "Nori eska diezaioket informazioa?"
 
-#: app/models/info_request.rb:820
+#: app/models/info_request.rb:805
 msgid "Withdrawn by the requester."
 msgstr "Eskatzaileak kendu du."
 
@@ -3966,11 +3726,11 @@ msgstr "Zure herrialdean honelako web orrialdea ikustea gustatuko litzaizuke?"
 msgid "Write a reply"
 msgstr "Idatzi erantzun bat"
 
-#: app/controllers/request_controller.rb:600
+#: app/controllers/request_controller.rb:591
 msgid "Write a reply to "
 msgstr "Idatzi erantzun bat honi:"
 
-#: app/controllers/request_controller.rb:599
+#: app/controllers/request_controller.rb:590
 msgid "Write your FOI follow up message to "
 msgstr "Idatzi zure erantzuna honi:"
 
@@ -3982,59 +3742,37 @@ msgstr "Idatz ezazu zure eskabidea <strong>hizkera erraz eta argi</strong> batez
 msgid "You"
 msgstr "Zu"
 
-#: app/models/track_thing.rb:216
-msgid "You are already following new requests"
-msgstr ""
+#: app/controllers/track_controller.rb:106
+msgid "You are already being emailed updates about "
+msgstr "Posta bidez gaurkotzeak jasotzen ari zara honi buruz:"
 
-#: app/models/track_thing.rb:251
-msgid "You are already following requests to {{public_body_name}}"
-msgstr ""
+#: app/models/track_thing.rb:247
+msgid "You are already tracking requests to {{public_body_name}} by email"
+msgstr "{{public_body_name}}-ri egindako eskabideei jarraitzen ari zatzaizkie posta bidez"
 
-#: app/models/track_thing.rb:283
-msgid "You are already following things matching this search"
-msgstr ""
+#: app/models/track_thing.rb:279
+msgid "You are already tracking things matching this search by email"
+msgstr "Bilaketa honi jarraitzen ari zatzaizkio posta bidez"
 
-#: app/models/track_thing.rb:267
-msgid "You are already following this person"
-msgstr ""
+#: app/models/track_thing.rb:263
+msgid "You are already tracking this person by email"
+msgstr "Pertsona honi jarraitzen ari zatzaizkio posta bidez"
 
-#: app/models/track_thing.rb:200
-msgid "You are already following this request"
-msgstr ""
+#: app/models/track_thing.rb:196
+msgid "You are already tracking this request by email"
+msgstr "Eskabide honi jarraitzen ari zatzaizkio posta bidez"
 
-#: app/controllers/track_controller.rb:126
-msgid "You are already following updates about {{track_description}}"
-msgstr ""
+#: app/models/track_thing.rb:228
+msgid "You are being emailed about any new successful responses"
+msgstr "Arrakasta izan duen edozein erantzuni buruzko emaila jasotzen ari zara"
 
-#: app/views/user/_change_receive_email.rhtml:4
-msgid ""
-"You are currently receiving notification of new activity on your wall by "
-"email."
-msgstr ""
+#: app/models/track_thing.rb:212
+msgid "You are being emailed when there are new requests"
+msgstr "Eskabide berriak daudenean emaila jasotzen ari zara"
 
-#: app/models/track_thing.rb:232
-msgid "You are following all new successful responses"
-msgstr ""
-
-#: app/controllers/track_controller.rb:185
-msgid "You are no longer following {{track_description}}"
-msgstr ""
-
-#: app/controllers/track_controller.rb:141
-msgid ""
-"You are now <a href=\"{{wall_url_user}}\">following</a> updates about "
-"{{track_description}}"
-msgstr ""
-
-#: app/views/request/show.rhtml:90
+#: app/views/request/show.rhtml:88
 msgid "You can <strong>complain</strong> by"
 msgstr "<strong>Apelatu</strong> ahal duzu."
-
-#: app/views/user/wall.rhtml:4
-msgid ""
-"You can change the requests and users you are following on <a "
-"href=\"{{profile_url}}\">your profile page</a>."
-msgstr ""
 
 #: app/views/request/details.rhtml:58
 msgid ""
@@ -4068,11 +3806,11 @@ msgstr "Egun bateko eskabide kopurua gainditu duzu, hau da 24 ordutan H{{max_req
 msgid "You have made no Freedom of Information requests using this site."
 msgstr "Ez duzu informazio eskabiderik egin web hau erabiliz."
 
-#: app/controllers/user_controller.rb:573
+#: app/controllers/user_controller.rb:527
 msgid "You have now changed the text about you on your profile."
 msgstr "Zure profilari buruzko testua aldatu duzu."
 
-#: app/controllers/user_controller.rb:390
+#: app/controllers/user_controller.rb:344
 msgid "You have now changed your email address used on {{site_name}}"
 msgstr "{{site_name}}-ean erabiltzen duzun helbide elektronikoa aldatu duzu."
 
@@ -4111,23 +3849,19 @@ msgid ""
 "to find one, then please <a href=\"{{help_url}}\">send it to us</a>."
 msgstr "Puede que encuentres una\nen su página web, o llamándoles pare preguntar. Si\nconsigues una, por favor <a href=\"{{help_url}}\">mándanosla</a>."
 
-#: app/controllers/user_controller.rb:551
+#: app/controllers/user_controller.rb:505
 msgid "You need to be logged in to change the text about you on your profile."
 msgstr "Identifikatu behar duzu zure profilaren testua aldatzeko."
 
-#: app/controllers/user_controller.rb:451
+#: app/controllers/user_controller.rb:405
 msgid "You need to be logged in to change your profile photo."
 msgstr "Identifikatu behar duzu zure profilaren argazkia aldatzeko."
 
-#: app/controllers/user_controller.rb:513
+#: app/controllers/user_controller.rb:467
 msgid "You need to be logged in to clear your profile photo."
 msgstr "Identifikatu behar duzu zure profilaren argazkia ezabatzeko."
 
-#: app/controllers/user_controller.rb:585
-msgid "You need to be logged in to edit your profile."
-msgstr ""
-
-#: app/controllers/request_controller.rb:610
+#: app/controllers/request_controller.rb:601
 msgid ""
 "You previously submitted that exact follow up message for this request."
 msgstr "Eskabide honi jada erantzun bera bidali diozu."
@@ -4152,31 +3886,29 @@ msgid ""
 "email alerts."
 msgstr "Ezin duzu eskabide berriak egin, erantzunak bidali, iruzkinak gehitu edo beste erabiltzaileekin harremanetan jarri. Beste eskabideak ikusten edo posta bidezko alertak konfiguratzen jarraitu ahal izango duzu."
 
-#: app/controllers/track_controller.rb:214
+#: app/controllers/track_controller.rb:162
+msgid "You will no longer be emailed updates about "
+msgstr " Ez duzu email bidezko gaurkotze gehiago jasoko honi buruz:"
+
+#: app/controllers/track_controller.rb:191
 msgid "You will no longer be emailed updates for those alerts"
 msgstr "Ez duzu alerta hauei buruzko email gehiago jasoko"
 
-#: app/controllers/track_controller.rb:139
-msgid ""
-"You will now be emailed updates about {{track_description}}. <a "
-"href=\"{{change_email_alerts_url}}\">Prefer not to receive emails?</a>"
-msgstr ""
+#: app/controllers/track_controller.rb:119
+msgid "You will now be emailed updates about "
+msgstr "Orain email bidez honi buruzko gaurkotzeak jasoko dituzu:"
 
-#: app/views/request_mailer/not_clarified_alert.rhtml:8
+#: app/views/request_mailer/not_clarified_alert.rhtml:6
 msgid ""
 "You will only get an answer to your request if you follow up\n"
 "with the clarification."
 msgstr "Azalpenarekin jarraituz gero zure eskabidearen erantzun bakarra jasoko duzu."
 
-#: app/models/request_mailer.rb:110
+#: app/models/request_mailer.rb:106
 msgid "You're long overdue a response to your FOI request - "
 msgstr "Zure informazio eskabidearen erantzuna oso atzeratuta dago - "
 
-#: app/views/user/show.rhtml:199
-msgid "You're not following anything."
-msgstr ""
-
-#: app/controllers/user_controller.rb:522
+#: app/controllers/user_controller.rb:476
 msgid "You've now cleared your profile photo"
 msgstr "Zure profilaren argazkia ezabatu duzu"
 
@@ -4216,18 +3948,22 @@ msgstr "Zure helbide elektronikoa ez zaio inori eman, mezu honi erantzutea eraba
 msgid "Your e-mail:"
 msgstr "Zure helbide elektronikoa:"
 
-#: app/controllers/request_controller.rb:607
+#: app/views/user/show.rhtml:196
+msgid "Your email subscriptions"
+msgstr "Zure posta bidezko harpidetzak"
+
+#: app/controllers/request_controller.rb:598
 msgid ""
 "Your follow up has not been sent because this request has been stopped to "
 "prevent spam. Please <a href=\"%s\">contact us</a> if you really want to "
 "send a follow up message."
 msgstr "Zure erantzuna ez da bidali, eskabide hau blokeatuta dagoelako, spama ekidetzearren. Benetan erantzuna bidali nahi baldin baduzu, mesedez, jar zaitez gurekin <a href=\"%s\">harremanetan</a>."
 
-#: app/controllers/request_controller.rb:635
+#: app/controllers/request_controller.rb:626
 msgid "Your follow up message has been sent on its way."
 msgstr "Zure mezua bidean dago."
 
-#: app/controllers/request_controller.rb:633
+#: app/controllers/request_controller.rb:624
 msgid "Your internal review request has been sent on its way."
 msgstr "Zure barneko berrikusketaren eskabidea bidean dago."
 
@@ -4237,11 +3973,7 @@ msgid ""
 "to you soon."
 msgstr "Zure mezua bidali da. Eskerrik asko idazteagatik, laster jarriko gara zurekin harremanetan."
 
-#: app/controllers/admin_request_controller.rb:363
-msgid "Your message to {{recipient_user_name}} has been sent"
-msgstr ""
-
-#: app/controllers/user_controller.rb:429
+#: app/controllers/user_controller.rb:383
 msgid "Your message to {{recipient_user_name}} has been sent!"
 msgstr "{{recipient_user_name}}-ri egin diozun mezua bidali da."
 
@@ -4268,7 +4000,7 @@ msgstr "Zure izena:"
 msgid "Your original message is attached."
 msgstr "Zure mezu originala erantsita dago."
 
-#: app/controllers/user_controller.rb:311
+#: app/controllers/user_controller.rb:265
 msgid "Your password has been changed."
 msgstr "Zure pasahitza aldatu da."
 
@@ -4316,18 +4048,6 @@ msgstr "Adeitasunez,"
 msgid "Yours sincerely,"
 msgstr "Agur bero bat,"
 
-#: app/models/incoming_message.rb:255
-msgid "[FOI #{{request}} email]"
-msgstr ""
-
-#: app/models/incoming_message.rb:253
-msgid "[{{public_body}} request email]"
-msgstr ""
-
-#: app/models/incoming_message.rb:256
-msgid "[{{site_name}} contact email]"
-msgstr ""
-
 #: app/views/request/new.rhtml:88
 msgid ""
 "a one line summary of the information you are requesting, \n"
@@ -4351,13 +4071,13 @@ msgstr "{{public_body_short_name}} izenez ere ezaguna."
 msgid "and"
 msgstr "eta"
 
-#: app/views/request/show.rhtml:61
+#: app/views/request/show.rhtml:59
 msgid ""
 "and update the status accordingly. Perhaps <strong>you</strong> might like "
 "to help out by doing that?"
 msgstr "eta haren egoera gaurkotu. Agian <strong>zuk</strong> lagundu ahal diguzu egiten."
 
-#: app/views/request/show.rhtml:66
+#: app/views/request/show.rhtml:64
 msgid "and update the status."
 msgstr "eta egoera gaurkotu."
 
@@ -4369,11 +4089,11 @@ msgstr "eta <strong>jarraian zer egin</strong> iradokiko dizugu."
 msgid "answered a request about"
 msgstr "eskabideari erantzun dio"
 
-#: app/models/track_thing.rb:214
+#: app/models/track_thing.rb:210
 msgid "any <a href=\"/list\">new requests</a>"
 msgstr "edozein <a href=\"/list\">eskabide berria</a>"
 
-#: app/models/track_thing.rb:230
+#: app/models/track_thing.rb:226
 msgid "any <a href=\"/list/successful\">successful requests</a>"
 msgstr "edozein <a href=\"/list/successful\">eskabide arrakastatsu</a>"
 
@@ -4401,7 +4121,7 @@ msgstr "‘{{first_letter}}’-tik hasita"
 msgid "between two dates"
 msgstr "bi data tartean"
 
-#: app/views/request/show.rhtml:84
+#: app/views/request/show.rhtml:82
 msgid "by"
 msgstr "nork"
 
@@ -4417,6 +4137,14 @@ msgstr "{{public_body_name}}-k {{info_request_user}}-ri {{date}} egunean."
 msgid "by {{user_link_absolute}}"
 msgstr "{{user_link_absolute}}-k"
 
+#: locale/model_attributes.rb:42
+msgid "censor rule"
+msgstr "zentsura araua"
+
+#: locale/model_attributes.rb:20
+msgid "comment"
+msgstr "iruzkina"
+
 #: app/models/track_thing.rb:85
 #: app/views/request/_request_filter_form.rhtml:14
 #: app/views/general/search.rhtml:99
@@ -4429,11 +4157,7 @@ msgid ""
 "            Or you could phone them."
 msgstr "zure posta helbidea erantsiz, eta zure eskabideari erantzun diezaioten eskatuz.\n            Edo froga ezazu telefonoz deitzen."
 
-#: app/views/request/show.rhtml:77
-msgid "details"
-msgstr ""
-
-#: app/models/info_request_event.rb:364
+#: app/models/info_request_event.rb:358
 msgid "display_status only works for incoming and outgoing messages right now"
 msgstr "display_status-ek orain sarrerako eta irteerako mezuekin bakarrik funtzionatzen du"
 
@@ -4445,6 +4169,10 @@ msgstr "eskola aldian"
 msgid "edit text about you"
 msgstr "zeuri buruzko testua editatu"
 
+#: app/views/user/show.rhtml:199
+msgid "email subscription"
+msgstr "email harpidetza"
+
 #: app/views/request_mailer/very_overdue_alert.rhtml:4
 msgid "even during holidays"
 msgstr "oporretan ere bai"
@@ -4452,6 +4180,18 @@ msgstr "oporretan ere bai"
 #: app/views/general/search.rhtml:56
 msgid "everything"
 msgstr "dena"
+
+#: locale/model_attributes.rb:17
+msgid "exim log"
+msgstr "log exim"
+
+#: locale/model_attributes.rb:67
+msgid "exim log done"
+msgstr "log exim eginda"
+
+#: locale/model_attributes.rb:85
+msgid "foi attachment"
+msgstr "fitxategi erantsia"
 
 #: app/views/request_mailer/requires_admin.rhtml:2
 msgid "has reported an"
@@ -4461,18 +4201,30 @@ msgstr "_______ bat salatu du."
 msgid "have delayed."
 msgstr "atzeratuta daude."
 
-#: app/models/incoming_message.rb:870
-msgid "hide quoted sections"
-msgstr ""
+#: locale/model_attributes.rb:64
+msgid "holiday"
+msgstr "oporrak"
 
-#: app/views/request/_followup.rhtml:63 app/views/request/show.rhtml:72
-#: app/views/request/show.rhtml:82
+#: app/views/request/_followup.rhtml:63 app/views/request/show.rhtml:70
+#: app/views/request/show.rhtml:80
 msgid "in term time"
 msgstr "eskola aldian"
 
 #: app/controllers/public_body_controller.rb:131
 msgid "in the category ‘{{category_name}}’"
 msgstr " ‘{{category_name}}’ kategorian"
+
+#: locale/model_attributes.rb:54
+msgid "incoming message"
+msgstr "incoming message"
+
+#: locale/model_attributes.rb:95
+msgid "info request"
+msgstr "info request"
+
+#: locale/model_attributes.rb:35
+msgid "info request event"
+msgstr "info request event"
 
 #: app/views/user/set_profile_about_me.rhtml:3
 #: app/views/user/signchangeemail.rhtml:3
@@ -4483,7 +4235,7 @@ msgstr "barneko errorea"
 msgid "internal reviews"
 msgstr "barneko berrikusketak"
 
-#: app/views/request/show.rhtml:102
+#: app/views/request/show.rhtml:100
 msgid "is <strong>waiting for your clarification</strong>."
 msgstr "zure <strong>azalpenaren zain</strong> dago."
 
@@ -4514,7 +4266,7 @@ msgstr "erakundeetako mezua"
 msgid "messages from users"
 msgstr "erabiltzaileen mezuak"
 
-#: app/views/request/show.rhtml:76
+#: app/views/request/show.rhtml:74
 msgid "no later than"
 msgstr "______ baino beranduago ez"
 
@@ -4526,15 +4278,35 @@ msgid ""
 "    an email which will go to the right place, please <a href=\"%s\">send it to us</a>."
 msgstr "ez da existitzen. \nEskabidearen orrialdetik saia zaitez mezu zehatz bati erantzuten, eskabide osoari orokorrean erantzun baino. Hala egin behar izanez gero eta helbide elektroniko baliagarria baldin baduzu, mesedez <a href=\"%s\">bidal iezaguzu</a>."
 
-#: app/views/request/show.rhtml:74
+#: app/views/request/show.rhtml:72
 msgid "normally"
 msgstr "normalean"
+
+#: locale/model_attributes.rb:25
+msgid "outgoing message"
+msgstr "irteerako mezua"
 
 #: app/views/user/sign.rhtml:11
 msgid "please sign in as "
 msgstr "mesedez, ireki ezazu saioa _______ bezala"
 
-#: app/views/request/show.rhtml:91
+#: locale/model_attributes.rb:47
+msgid "post redirect"
+msgstr "post redirect"
+
+#: locale/model_attributes.rb:14
+msgid "profile photo"
+msgstr "profilaren argazkia"
+
+#: locale/model_attributes.rb:2
+msgid "public body"
+msgstr "erakunde publikoa"
+
+#: app/views/request_mailer/not_clarified_alert.rhtml:1
+msgid "request."
+msgstr "eskabidea."
+
+#: app/views/request/show.rhtml:89
 msgid "requesting an internal review"
 msgstr "barneko berrikusketa bat eskatuta"
 
@@ -4553,7 +4325,7 @@ msgid ""
 "email to let them know what you are going to do about it."
 msgstr "erantzunak administratzailearen parte hartzea behar du. Berrikusi eta erantzun iezaiozu email honi adierazteko honen inguruan zer egingo duzun."
 
-#: app/views/request/show.rhtml:104
+#: app/views/request/show.rhtml:102
 msgid "send a follow up message"
 msgstr "Bidal ezazu jarraipen mezu bat"
 
@@ -4561,17 +4333,9 @@ msgstr "Bidal ezazu jarraipen mezu bat"
 msgid "sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
 msgstr "{{public_body_name}}-ri {{info_request_user}}-k bidali dio {{date}} egunean."
 
-#: app/models/incoming_message.rb:867
-msgid "show quoted sections"
-msgstr ""
-
-#: app/views/request/show.rhtml:108
+#: app/views/request/show.rhtml:106
 msgid "sign in"
 msgstr "ireki saioa"
-
-#: app/helpers/link_to_helper.rb:214
-msgid "simple_date_format"
-msgstr ""
 
 #: app/models/track_thing.rb:100
 msgid "successful"
@@ -4603,7 +4367,7 @@ msgstr "{{public_body}}-ren helbidea"
 #: app/views/request_mailer/comment_on_alert_plural.rhtml:5
 #: app/views/request_mailer/old_unclassified_updated.rhtml:8
 #: app/views/request_mailer/overdue_alert.rhtml:9
-#: app/views/request_mailer/not_clarified_alert.rhtml:11
+#: app/views/request_mailer/not_clarified_alert.rhtml:9
 #: app/views/request_mailer/very_overdue_alert.rhtml:11
 #: app/views/user_mailer/changeemail_already_used.rhtml:10
 #: app/views/user_mailer/confirm_login.rhtml:11
@@ -4612,17 +4376,21 @@ msgstr "{{public_body}}-ren helbidea"
 msgid "the {{site_name}} team"
 msgstr "{{site_name}}-ko taldea"
 
-#: app/views/request/show.rhtml:64
+#: app/views/request/show.rhtml:62
 msgid "to read"
 msgstr "irakurri"
 
-#: app/views/request/show.rhtml:108
+#: app/views/request/show.rhtml:106
 msgid "to send a follow up message."
 msgstr "jarraipen mezua bidali."
 
-#: app/views/request/show.rhtml:47
+#: app/views/request/show.rhtml:45
 msgid "to {{public_body}}"
 msgstr "{{public_body}}-ri"
+
+#: locale/model_attributes.rb:31
+msgid "track thing"
+msgstr "track thing"
 
 #: app/views/request/_hidden_correspondence.rhtml:32
 msgid "unexpected prominence on request event"
@@ -4632,7 +4400,7 @@ msgstr "eskabidearen gertaeran ustegabeko ikusgarritasuna"
 msgid "unknown reason "
 msgstr "arrazoi ezezaguna"
 
-#: app/models/info_request.rb:829 app/models/info_request_event.rb:359
+#: app/models/info_request.rb:810 app/models/info_request_event.rb:353
 msgid "unknown status "
 msgstr "egoera ezezaguna"
 
@@ -4641,11 +4409,11 @@ msgstr "egoera ezezaguna"
 msgid "unresolved requests"
 msgstr "konpondu gabeko eskabideak"
 
-#: app/views/user/show.rhtml:237
+#: app/views/user/show.rhtml:236
 msgid "unsubscribe"
 msgstr "ezeztatu harpidetza"
 
-#: app/views/user/show.rhtml:209 app/views/user/show.rhtml:223
+#: app/views/user/show.rhtml:208 app/views/user/show.rhtml:222
 msgid "unsubscribe all"
 msgstr "ezeztatu harpidetza guztiak"
 
@@ -4658,9 +4426,17 @@ msgstr "arrakastarik gabekoak"
 msgid "unsuccessful requests"
 msgstr "arrakastarik gabeko eskabideak"
 
-#: app/views/request/show.rhtml:55
+#: app/views/request/show.rhtml:53
 msgid "useful information."
 msgstr "informa baliagarria."
+
+#: locale/model_attributes.rb:70
+msgid "user"
+msgstr "erabiltzailea"
+
+#: locale/model_attributes.rb:93
+msgid "user info request sent alert"
+msgstr "user info request sent alert"
 
 #: app/models/track_thing.rb:82 app/views/general/search.rhtml:54
 msgid "users"
@@ -4681,19 +4457,15 @@ msgstr "{{existing_request_user}}-k eskabide bera bidali du {{date}} egunean. <a
 msgid "{{info_request_user_name}} only:"
 msgstr "{{info_request_user_name}} bakarrik:"
 
-#: app/models/info_request.rb:246
+#: app/models/info_request.rb:239
 msgid "{{law_used_full}} request - {{title}}"
 msgstr "{{law_used_full}} eskabidea - {{title}}"
 
-#: app/models/info_request.rb:244
+#: app/models/info_request.rb:237
 msgid "{{law_used_full}} request GQ - {{title}}"
 msgstr "{{law_used_full}} eskabidea - {{title}}"
 
-#: app/models/info_request.rb:678
-msgid "{{law_used}} requests at {{public_body}}"
-msgstr ""
-
-#: app/helpers/application_helper.rb:130 app/views/general/frontpage.rhtml:62
+#: app/views/general/frontpage.rhtml:62
 msgid "{{length_of_time}} ago"
 msgstr "duela {{length_of_time}}"
 
@@ -4709,16 +4481,11 @@ msgstr "{{number_of_comments}} iruzkin"
 msgid "{{public_body_name}} only:"
 msgstr "{{public_body_name}} bakarrik:"
 
-#: app/views/request_mailer/not_clarified_alert.rhtml:1
-msgid ""
-"{{public_body}} has asked you to explain part of your {{law_used}} request."
-msgstr ""
-
 #: app/views/track_mailer/event_digest.rhtml:21
 msgid "{{public_body}} sent a response to {{user_name}}"
 msgstr "{{public_body}}-k {{user_name}}-ri erantzun dio."
 
-#: app/controllers/user_controller.rb:56
+#: app/controllers/user_controller.rb:54
 msgid "{{search_results}} matching '{{query}}'"
 msgstr " '{{query}}'-k aurkitu ditu {{search_results}}"
 
@@ -4743,11 +4510,7 @@ msgid ""
 "{{site_name}} users have made {{number_of_requests}} requests, including:"
 msgstr " {{site_name}}-eko erabiltzaileek {{number_of_requests}} eskabide egin dituzte, haien artean:"
 
-#: app/views/request/show.rhtml:1
-msgid "{{title}} - a Freedom of Information request to {{public_body}}"
-msgstr ""
-
-#: app/models/user.rb:138
+#: app/models/user.rb:136
 msgid "{{user_name}} (Account suspended)"
 msgstr "{{user_name}} (Kontua baliogabetuta dago)"
 
@@ -4777,13 +4540,13 @@ msgstr "{{user_name}}-k {{public_body}}-ri bidali dio eskabide bat"
 msgid "{{username}} left an annotation:"
 msgstr "{{username}}-k iruzkin bat utzi du:"
 
-#: app/views/request/show.rhtml:38
+#: app/views/request/show.rhtml:36
 msgid ""
 "{{user}} (<a href=\"{{user_admin_url}}\">admin</a>) made this "
 "{{law_used_full}} request (<a href=\"{{request_admin_url}}\">admin</a>) to "
 "{{public_body_link}} (<a href=\"{{public_body_admin_url}}\">admin</a>)"
 msgstr "{{user}}-k (<a href=\"{{user_admin_url}}\">admin</a>) {{law_used_full}} eskabidea  (<a href=\"{{request_admin_url}}\">admin</a>) a {{public_body_link}}-ri egin zion (<a href=\"{{public_body_admin_url}}\">admin</a>)"
 
-#: app/views/request/show.rhtml:46
+#: app/views/request/show.rhtml:44
 msgid "{{user}} made this {{law_used_full}} request"
 msgstr "{{user}}-k {{law_used_full}} eskabidea egin zuen"
