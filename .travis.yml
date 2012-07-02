@@ -1,0 +1,25 @@
+language: ruby
+branches:
+  only:
+    - develop
+    - master
+rvm:
+  - 1.8.7
+before_install:
+  - sudo gem install rubygems-update --version=1.6.2
+  - sudo gem update --system 1.6.2
+  - sudo gem install rake
+  - git submodule update --init --recursive
+  - psql -c "create database foi_test template template0 encoding 'SQL_ASCII';" -U postgres
+  - cp config/database.yml-test config/database.yml
+  - sudo apt-get update
+  - export DEBIAN_FRONTEND=noninteractive
+  - sudo apt-get -y install exim4-daemon-light
+  - sudo apt-get -y install `cut -d " " -f 1 config/packages | egrep -v "(^#|wkhtml|bundler)"`
+  - ./script/rails-post-deploy
+before_script:
+notifications:
+  irc: "irc.freenode.org#alaveteli"
+  email:
+    recipients:
+      - seb.bacon@gmail.com

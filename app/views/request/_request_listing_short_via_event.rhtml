@@ -7,7 +7,7 @@ end %>
     <p>
 
 <%= _('To {{public_body_link_absolute}}',:public_body_link_absolute => public_body_link_absolute(info_request.public_body))%>
-<%= _('by {{user_link_absolute}}',:user_link_absolute => user_link_absolute(info_request.user))%>
+<%= _('by {{user_link_absolute}}',:user_link_absolute => request_user_link_absolute(info_request))%>
     <%= simple_date(info_request.created_at) %>
     </p>
 </div>

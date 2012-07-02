@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
-"POT-Creation-Date: 2012-06-15 11:36+0100\n"
-"PO-Revision-Date: 2012-06-15 10:40+0000\n"
-"Last-Translator: sebbacon <seb.bacon@gmail.com>\n"
+"POT-Creation-Date: 2012-02-08 10:16-0000\n"
+"PO-Revision-Date: 2012-05-26 22:29+0000\n"
+"Last-Translator: David Cabo <david.cabo@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -276,7 +276,7 @@ msgid ""
 "            on other means to answer your question.\n"
 "            </li>\n"
 "            </ul>"
-msgstr ""
+msgstr "<p>¡Gracias! Algunas ideas sobre qué hacer a continuación:</p>\n            <ul>\n            <li>Para mandar la solicitud a otro organismo, copia tu texto y <a href=\"{{find_authority_url}}\">encuentra otro organismo</a>.</li>\n            <li>Si quieres contestar la afirmación del organismo de que no tienen la información, aquí te explicamos \n            <a href=\"{{complain_url}}\">cómo apelar</a>.\n            </li>\n            <li>Tenemos <a href=\"{{other_means_url}}\">sugerencias</a>\n            sobre otras formas de contestar tu pregunta.\n            </li>\n            </ul>"
 
 #: app/controllers/request_controller.rb:444
 msgid ""
@@ -390,13 +390,6 @@ msgid ""
 "bulk/spam mail folders. Sometimes, our messages are marked that way.</small>\n"
 "</p>"
 msgstr "<small>Si usas correo web o tiene filtros \"anti spam\", por favor comprueba\ntus carpetas de spam. A veces, nuestros mensajes se marcan así por error.</small>\n</p>"
-
-#: app/views/public_body/show.rhtml:7
-msgid "<span id='follow_count'>%d</span> person is following this authority"
-msgid_plural ""
-"<span id='follow_count'>%d</span> people are following this authority"
-msgstr[0] ""
-msgstr[1] ""
 
 #: app/views/request/new.rhtml:135
 msgid ""
@@ -668,12 +661,6 @@ msgid ""
 "you, the original requester, to evaluate them."
 msgstr "Aunque todas las respuestas se publican automáticamente, dependemos\nde ti, el creador de la solicitud, para evaluarlas."
 
-#: app/views/request/_wall_listing.rhtml:15
-msgid ""
-"An <a href=\"{{request_url}}\">annotation</a> to <em>{{request_title}}</em> "
-"was made by {{event_comment_user}} on {{date}}"
-msgstr ""
-
 #: app/views/request/_other_describe_state.rhtml:70
 msgid "An <strong>error message</strong> has been received"
 msgstr "Se ha recibido <strong>un mensaje de error</strong>"
@@ -904,26 +891,28 @@ msgstr "Comment|Locale"
 msgid "Comment|Visible"
 msgstr "Comment|Visible"
 
-#: app/models/track_thing.rb:239
-msgid "Confirm you want to follow all successful FOI requests"
-msgstr ""
+#: app/models/track_thing.rb:219
+msgid "Confirm you want to be emailed about new requests"
+msgstr "Confirme que quiere recibir correos sobre nuevas solicitudes"
 
-#: app/models/track_thing.rb:223
-msgid "Confirm you want to follow new requests"
-msgstr ""
+#: app/models/track_thing.rb:286
+msgid ""
+"Confirm you want to be emailed about new requests or responses matching your"
+" search"
+msgstr "Confirma que quieres recibir correos sobre nuevas solicitudes o respuestas que coincidan con tu búsqueda"
+
+#: app/models/track_thing.rb:270
+msgid "Confirm you want to be emailed about requests by '{{user_name}}'"
+msgstr "Confirme que quiere recibir correos sobre las solicitudes de '{{user_name}}'"
 
 #: app/models/track_thing.rb:290
 msgid ""
-"Confirm you want to follow new requests or responses matching your search"
-msgstr ""
+"Confirm you want to be emailed about requests to '{{public_body_name}}'"
+msgstr "Confirme que quiere recibir correos sobre solicitudes a '{{public_body_name}}'"
 
-#: app/models/track_thing.rb:274
-msgid "Confirm you want to follow requests by '{{user_name}}'"
-msgstr ""
-
-#: app/models/track_thing.rb:258
-msgid "Confirm you want to follow requests to '{{public_body_name}}'"
-msgstr ""
+#: app/models/track_thing.rb:235
+msgid "Confirm you want to be emailed when an FOI request succeeds"
+msgstr "Confirma que quieres recibir correos cuando una solicitud tenga éxito"
 
 #: app/models/track_thing.rb:207
 msgid "Confirm you want to follow the request '{{request_title}}'"
@@ -1731,12 +1720,6 @@ msgid ""
 "browser.  Then press refresh to have another go."
 msgstr "Puede que tu navegador esté configurado para no aceptar lo que se conoce como \"cookies\",\no que no pueda hacerlo.  Si sabes cómo, por favor permita las \"cookies\", o usa un navegador\ndistinto.  Entonces vuelva a visitar la página para volver a intentarlo."
 
-#: app/views/user/_change_receive_email.rhtml:9
-msgid ""
-"Items matching the following conditions are currently displayed on your "
-"wall."
-msgstr ""
-
 #: app/views/user/_user_listing_single.rhtml:21
 msgid "Joined in"
 msgstr "Registrado el"
@@ -1860,10 +1843,6 @@ msgstr "Mi solicitud ha sido <strong>rechazada</strong>"
 #: app/views/layouts/default.rhtml:105
 msgid "My requests"
 msgstr "Mis solicitudes"
-
-#: app/views/layouts/default.rhtml:107
-msgid "My wall"
-msgstr ""
 
 #: app/models/public_body.rb:36
 msgid "Name can't be blank"
@@ -3184,7 +3163,11 @@ msgstr ""
 msgid ""
 "Then you will be notified whenever a new request or response matches your "
 "search."
-msgstr ""
+msgstr "Entonces recibirás correos siempre que una nueva solicitud o respuesta encaje con tu búsqueda."
+
+#: app/models/track_thing.rb:234
+msgid "Then you will be emailed whenever an FOI request succeeds."
+msgstr "Entonces recibirás un correo cada vez que una solicitud tenga éxito."
 
 #: app/models/track_thing.rb:238
 msgid "Then you will be notified whenever an FOI request succeeds."
@@ -3200,7 +3183,7 @@ msgstr ""
 msgid ""
 "Then you will be updated whenever the request '{{request_title}}' is "
 "updated."
-msgstr ""
+msgstr "Entonces recibirás correos siempre que la solicitud '{{request_title}}' se actualice."
 
 #: app/controllers/request_controller.rb:36
 msgid "Then you'll be allowed to send FOI requests."
@@ -3219,6 +3202,12 @@ msgid ""
 "There are {{count}} new annotations on your {{info_request}} request. Follow"
 " this link to see what they wrote."
 msgstr "Hay {{count}} comentarios en tu solicitud {{info_request}}. Sigue este enlace para leer lo que dicen."
+
+#: app/views/public_body/show.rhtml:7
+msgid "There is %d person following this authority"
+msgid_plural "There are %d people following this authority"
+msgstr[0] "Hay %d persona siguiendo a este organismo."
+msgstr[1] "Hay %d personas siguiendo a este organismo."
 
 #: app/views/request/_sidebar.rhtml:6
 msgid "There is %d person following this request"
@@ -3468,7 +3457,25 @@ msgid ""
 "the email address {{email}}."
 msgstr "No es posible porque ya existe una cuenta usando la dirección \nde correo {{email}}."
 
-#: app/controllers/track_controller.rb:204
+#: app/models/track_thing.rb:217
+msgid "To be emailed about any new requests"
+msgstr "Para recibir correos sobre nuevas solicitudes"
+
+#: app/models/track_thing.rb:233
+msgid "To be emailed about any successful requests"
+msgstr "Para recibir correos sobre cualquier solicitud exitosa"
+
+#: app/models/track_thing.rb:268
+msgid "To be emailed about requests by '{{user_name}}'"
+msgstr "Para recibir correos sobre solicitudes de '{{user_name}}'"
+
+#: app/models/track_thing.rb:252
+msgid ""
+"To be emailed about requests made using {{site_name}} to the public "
+"authority '{{public_body_name}}'"
+msgstr "Para recibir correos sobre solicitudes hechas en {{site_name}} al organismo '{{public_body_name}}'"
+
+#: app/controllers/track_controller.rb:181
 msgid "To cancel these alerts"
 msgstr "Cancelar estas alertas"
 
@@ -4152,6 +4159,10 @@ msgid ""
 "up\n"
 "email alerts."
 msgstr "No podrás realizar nuevas solicitudes, enviar respuestas, añadir comentarios o\ncontactar con otros usuarios. Podrás continuar viendo otras solicitudes y\nconfigurando nuevas alertas de correo."
+
+#: app/controllers/track_controller.rb:162
+msgid "You will no longer be emailed updates about "
+msgstr "Ya no recibirá actualizaciones por correo sobre "
 
 #: app/controllers/track_controller.rb:214
 msgid "You will no longer be emailed updates for those alerts"

@@ -193,6 +193,7 @@ describe RequestController, "when changing things that appear on the request pag
 end
 
 describe RequestController, "when showing one request" do
+    integrate_views
     
     before(:each) do
         load_raw_emails_data
@@ -207,6 +208,12 @@ describe RequestController, "when showing one request" do
     it "should render with 'show' template" do
         get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
         response.should render_template('show')
+    end
+
+    it "should show the request" do
+        get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
+        response.should be_success
+        response.body.should include("Why do you have such a fancy dog?")
     end
 
     it "should assign the request" do
@@ -1486,7 +1493,7 @@ describe RequestController, "sending unclassified new response reminder alerts" 
         deliveries = ActionMailer::Base.deliveries
         deliveries.size.should == 3 # sufficiently late it sends reminders too
         mail = deliveries[0]
-        mail.body.should =~ /To let us know/
+        mail.body.should =~ /To let everyone know/
         mail.to_addrs.first.to_s.should == info_requests(:fancy_dog_request).user.name_and_email
         mail.body =~ /(http:\/\/.*\/c\/(.*))/
         mail_url = $1
@@ -1843,9 +1850,17 @@ describe RequestController, "when showing similar requests" do
 end
 
 
-describe RequestController, "when reporting a request" do
-    integrate_views
+describe RequestController, "when reporting a request when not logged in" do
+    it "should only allow logged-in users to report requests" do
+        get :report_request, :url_title => info_requests(:badger_request).url_title
+        post_redirect = PostRedirect.get_last_post_redirect
+        response.should redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
+    end
+end
 
+describe RequestController, "when reporting a request (logged in)" do
+    integrate_views
+    
     before do
         @user = users(:robin_user)
         session[:user_id] = @user.id
@@ -1856,19 +1871,29 @@ describe RequestController, "when reporting a request" do
         title = ir.url_title
         get :show, :url_title => title
         assigns[:info_request].attention_requested.should == false
+        
         post :report_request, :url_title => title
+        response.should redirect_to(:action => :show, :url_title => title)
+        
         get :show, :url_title => title
+        response.should be_success
         assigns[:info_request].attention_requested.should == true
         assigns[:info_request].described_state.should == "attention_requested"
     end
 
     it "should not allow a request to be reported twice" do
         title = info_requests(:badger_request).url_title
+        
         post :report_request, :url_title => title
+        response.should redirect_to(:action => :show, :url_title => title)
         get :show, :url_title => title
+        response.should be_success
         response.body.should include("has been reported")
+        
         post :report_request, :url_title => title
+        response.should redirect_to(:action => :show, :url_title => title)
         get :show, :url_title => title
+        response.should be_success
         response.body.should include("has already been reported")
     end
 
@@ -1876,10 +1901,14 @@ describe RequestController, "when reporting a request" do
         title = info_requests(:badger_request).url_title
         get :show, :url_title => title
         response.body.should include("Offensive?")
+        
         post :report_request, :url_title => title
+        response.should redirect_to(:action => :show, :url_title => title)
+        
         get :show, :url_title => title
         response.body.should_not include("Offensive?")        
         response.body.should include("This request has been reported")
+        
         info_requests(:badger_request).set_described_state("successful")
         get :show, :url_title => title
         response.body.should_not include("This request has been reported")

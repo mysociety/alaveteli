@@ -240,6 +240,14 @@ ActionController::Routing::Routes.draw do |map|
         rule.admin_rule_update '/admin/censor/update/:id', :action => 'update'
         rule.admin_rule_destroy '/admin/censor/destroy/:censor_rule_id', :action => 'destroy'
     end
+    
+    map.with_options :controller => 'api' do |api|
+        api.api_create_request '/api/v2/request.json', :action => 'create_request', :conditions => { :method => :post }
+        
+        api.api_show_request '/api/v2/request/:id.json', :action => 'show_request',  :conditions => { :method => :get }
+        api.api_add_correspondence '/api/v2/request/:id.json', :action => 'add_correspondence',  :conditions => { :method => :post }
+    end
+    
     map.filter('conditionallyprependlocale')
 
     # Allow downloading Web Service WSDL as a file with an extension

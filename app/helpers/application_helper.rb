@@ -132,5 +132,9 @@ module ApplicationHelper
         return "#{exact_date} (#{ago_text})"
     end
 
+    def is_admin?
+        return !session[:using_admin].nil? || (!@user.nil? && @user.admin_level == "super")
+    end
+
 end
 

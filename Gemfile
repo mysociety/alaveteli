@@ -39,6 +39,7 @@ gem 'zip'
 group :test do
   gem 'fakeweb'
   gem 'rspec-rails', '~> 1.3.4'
+  gem 'rake'
 end
 
 group :develop do

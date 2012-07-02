@@ -76,13 +76,13 @@ describe PublicBody, " when indexing requests by body they are to" do
 
     it "should find requests to the body" do
         xapian_object = InfoRequest.full_search([InfoRequestEvent], "requested_from:tgq", 'created_at', true, nil, 100, 1)
-        xapian_object.results.size.should == 4
+        xapian_object.results.size.should == PublicBody.find_by_url_name("tgq").info_requests.map(&:info_request_events).flatten.size
     end
 
     it "should update index correctly when URL name of body changes" do
         # initial search
         xapian_object = InfoRequest.full_search([InfoRequestEvent], "requested_from:tgq", 'created_at', true, nil, 100, 1)
-        xapian_object.results.size.should == 4
+        xapian_object.results.size.should == PublicBody.find_by_url_name("tgq").info_requests.map(&:info_request_events).flatten.size
         models_found_before = xapian_object.results.map { |x| x[:model] }
 
         # change the URL name of the body
@@ -96,7 +96,7 @@ describe PublicBody, " when indexing requests by body they are to" do
         xapian_object = InfoRequest.full_search([InfoRequestEvent], "requested_from:tgq", 'created_at', true, nil, 100, 1)
         xapian_object.results.size.should == 0
         xapian_object = InfoRequest.full_search([InfoRequestEvent], "requested_from:gq", 'created_at', true, nil, 100, 1)
-        xapian_object.results.size.should == 4
+        xapian_object.results.size.should == PublicBody.find_by_url_name("gq").info_requests.map(&:info_request_events).flatten.size
         models_found_after = xapian_object.results.map { |x| x[:model] }
 
         models_found_before.should == models_found_after
@@ -118,7 +118,7 @@ describe PublicBody, " when indexing requests by body they are to" do
         xapian_object = InfoRequest.full_search([InfoRequestEvent], "requested_from:gq", 'created_at', true, nil, 100, 1)
         xapian_object.results.size.should == 0
         xapian_object = InfoRequest.full_search([InfoRequestEvent], "requested_from:" + body.url_name, 'created_at', true, nil, 100, 1)
-        xapian_object.results.size.should == 4
+        xapian_object.results.size.should == public_bodies(:geraldine_public_body).info_requests.map(&:info_request_events).flatten.size
         models_found_after = xapian_object.results.map { |x| x[:model] }
     end
 end

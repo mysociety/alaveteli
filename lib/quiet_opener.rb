@@ -1,5 +1,6 @@
 require 'open-uri'
 require 'net-purge'
+require 'net/http/local'
 
 def quietly_try_to_open(url)
     begin 
