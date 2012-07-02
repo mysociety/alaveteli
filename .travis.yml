@@ -22,4 +22,4 @@ notifications:
   irc: "irc.freenode.org#alaveteli"
   email:
     recipients:
-      - alaveteli-dev@googlegroups.com
+      - seb.bacon@gmail.com
