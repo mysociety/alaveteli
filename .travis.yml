@@ -18,3 +18,8 @@ before_install:
   - sudo apt-get -y install `cut -d " " -f 1 config/packages | egrep -v "(^#|wkhtml|bundler)"`
   - ./script/rails-post-deploy
 before_script:
+notifications:
+  irc: "irc.freenode.org#alaveteli"
+  email:
+    recipients:
+      - alaveteli-dev@googlegroups.com
