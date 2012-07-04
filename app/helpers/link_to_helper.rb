@@ -16,7 +16,12 @@ module LinkToHelper
         params = {:url_title => info_request.url_title, :only_path => true}
         return show_request_url(params.merge(extra_params))
     end
-    alias :info_request_url :request_url
+    
+    def info_request_url(info_request)
+        # This method is called implicitly by the builder view views/api/new_requests.atom.builder
+        # to construct the URLs for the feed entries. Therefore we return fully-qualified URLs here.
+        return main_url(request_url(info_request))
+    end
 
     def request_link(info_request, cls=nil )
         link_to h(info_request.title), request_url(info_request), :class => cls
