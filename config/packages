@@ -33,5 +33,6 @@ libpq-dev
 uuid-dev
 ruby1.8-dev
 rubygems
+rake
 build-essential
 bundler
