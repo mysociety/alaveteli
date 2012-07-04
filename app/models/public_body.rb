@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 114
 #
 # Table name: public_bodies
 #
@@ -19,7 +18,6 @@
 #  publication_scheme :text            default(""), not null
 #  api_key            :string(255)     not null
 #
-
 # models/public_body.rb:
 # A public body, from which information can be requested.
 #
@@ -583,5 +581,3 @@ class PublicBody < ActiveRecord::Base
     end
 
 end
-
-

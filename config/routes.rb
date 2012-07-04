@@ -244,8 +244,10 @@ ActionController::Routing::Routes.draw do |map|
     map.with_options :controller => 'api' do |api|
         api.api_create_request '/api/v2/request.json', :action => 'create_request', :conditions => { :method => :post }
         
-        api.api_show_request '/api/v2/request/:id.json', :action => 'show_request',  :conditions => { :method => :get }
-        api.api_add_correspondence '/api/v2/request/:id.json', :action => 'add_correspondence',  :conditions => { :method => :post }
+        api.api_show_request '/api/v2/request/:id.json', :action => 'show_request', :conditions => { :method => :get }
+        api.api_add_correspondence '/api/v2/request/:id.json', :action => 'add_correspondence', :conditions => { :method => :post }
+        
+        api.api_body_request_events '/api/v2/body/:id/request_events.:feed_type', :action => 'body_request_events', :feed_type => '^(json|atom)$'
     end
     
     map.filter('conditionallyprependlocale')
