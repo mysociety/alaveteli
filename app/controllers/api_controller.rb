@@ -155,17 +155,27 @@ class ApiController < ApplicationController
         head :no_content
     end
     
-    def body_new_requests
+    def body_request_events
       feed_type = params[:feed_type]
       raise PermissionDenied.new("#{@public_body.id} != #{params[:id]}") if @public_body.id != params[:id].to_i
       
-      @requests = @public_body.info_requests
+      @events = InfoRequestEvent.find_by_sql([
+        %(select info_request_events.*
+          from info_requests
+          join info_request_events on info_requests.id = info_request_events.info_request_id
+          where info_requests.public_body_id = ?
+          and info_request_events.event_type in (
+            'sent', 'followup_sent', 'resent', 'followup_resent'
+          )
+          order by info_request_events.created_at desc
+        ), @public_body.id
+      ])
       if feed_type == "atom"
-        render :template => "api/new_requests.atom", :layout => false
+        render :template => "api/request_events.atom", :layout => false
       elsif feed_type == "json"
-        render :json => @requests
+        render :json => @events
       else
-        raise ActiveRecord::RecordNotFound.new("Unrecognised feed type: " + feed_type)
+        raise ActiveRecord::RecordNotFound.new("Unrecognised feed type: #{feed_type}")
       end
     end
     
