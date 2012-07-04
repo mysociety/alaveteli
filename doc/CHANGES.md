@@ -1,8 +1,24 @@
+# Version 0.6.2
+## Highlighted features
+
+* This is a minor release to fix small bugs in documentation and install/upgrade process
+* It also includes support for [Continuous Integration using Travis](http://travis-ci.org/)
+
+## Upgrade notes
+
+* No special action required -- just check out this version and run
+  `rails-post-deploy` as usual.
+
 # Version 0.6.1
 ## Highlighted features
 
 * Fixes important security bug [issue #515](https://github.com/sebbacon/alaveteli/issues/515)
 * Show admin nav bar when browsing main site
+* A new API for adding requests and correspondence to an Alaveteli
+  instance, designed for use by public bodies that wish to use
+  Alaveteli as a disclosure log.  See
+  [the wiki](https://github.com/sebbacon/alaveteli/wiki/API) for some
+  documentation.
 * [Full list of changes on github](https://github.com/sebbacon/alaveteli/issues?milestone=8&state=closed)
 
 ## Upgrade notes
