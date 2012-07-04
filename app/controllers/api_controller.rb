@@ -161,7 +161,7 @@ class ApiController < ApplicationController
       
       @requests = @public_body.info_requests
       if feed_type == "atom"
-        render :template => "api/new_requests.atom"
+        render :template => "api/new_requests.atom", :layout => false
       elsif feed_type == "json"
         render :json => @requests
       else

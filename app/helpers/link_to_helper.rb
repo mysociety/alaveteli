@@ -16,6 +16,7 @@ module LinkToHelper
         params = {:url_title => info_request.url_title, :only_path => true}
         return show_request_url(params.merge(extra_params))
     end
+    alias :info_request_url :request_url
 
     def request_link(info_request, cls=nil )
         link_to h(info_request.title), request_url(info_request), :class => cls
