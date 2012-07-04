@@ -1,3 +1,14 @@
+# Version 0.6.2
+## Highlighted features
+
+* This is a minor release to fix small bugs in documentation and install/upgrade process
+* It also includes support for [Continuous Integration using Travis](http://travis-ci.org/)
+
+## Upgrade notes
+
+* No special action required -- just check out this version and run
+  `rails-post-deploy` as usual.
+
 # Version 0.6.1
 ## Highlighted features
 
