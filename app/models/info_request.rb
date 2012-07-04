@@ -1,11 +1,10 @@
 # == Schema Information
-# Schema version: 114
 #
 # Table name: info_requests
 #
 #  id                        :integer         not null, primary key
 #  title                     :text            not null
-#  user_id                   :integer         not null
+#  user_id                   :integer
 #  public_body_id            :integer         not null
 #  created_at                :datetime        not null
 #  updated_at                :datetime        not null
@@ -17,9 +16,10 @@
 #  allow_new_responses_from  :string(255)     default("anybody"), not null
 #  handle_rejected_responses :string(255)     default("bounce"), not null
 #  idhash                    :string(255)     not null
+#  external_user_name        :string(255)
+#  external_url              :string(255)
 #  attention_requested       :boolean         default(FALSE)
 #
-
 
 require 'digest/sha1'
 

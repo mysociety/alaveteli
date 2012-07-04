@@ -155,6 +155,20 @@ class ApiController < ApplicationController
         head :no_content
     end
     
+    def body_new_requests
+      feed_type = params[:feed_type]
+      raise PermissionDenied.new("#{@public_body.id} != #{params[:id]}") if @public_body.id != params[:id].to_i
+      
+      @requests = @public_body.info_requests
+      if feed_type == "atom"
+        render :template => "api/new_requests.atom"
+      elsif feed_type == "json"
+        render :json => @requests
+      else
+        raise ActiveRecord::RecordNotFound.new("Unrecognised feed type: " + feed_type)
+      end
+    end
+    
     protected
     def check_api_key
         raise "Missing required parameter 'k'" if params[:k].nil?
