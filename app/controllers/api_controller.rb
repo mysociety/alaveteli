@@ -184,6 +184,7 @@ class ApiController < ApplicationController
                 
                 request = event.info_request
                 this_event = {
+                    :request_id => request.id,
                     :event_id => event.id,
                     :created_at => event.created_at.iso8601,
                     :event_type => event.event_type,
