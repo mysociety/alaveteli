@@ -2,7 +2,7 @@ These instructions assume Debian Squeeze or Ubuntu 10.04 LTS.
 [Install instructions for OS X](https://github.com/sebbacon/alaveteli/wiki/OS-X-Quickstart)
 are under development.  Debian Squeeze is the best supported
 deployment platform.
-  
+
 Commands are intended to be run via the terminal or over ssh.
 
 As an aid to evaluation, there is an
@@ -33,15 +33,17 @@ used to parse documents, host the site, etc.  There are also packages
 that contain headers necessary to compile some of the gem dependencies
 in the next step.
 
-If you are running Debian, you can use specially compiled mysociety
-packages by adding the following to `/etc/apt/sources.list` and
-running `apt-get update`:
+If you are running Debian, add the following repositories to
+`/etc/apt/sources.list` and run `apt-get update`:
 
     deb http://debian.mysociety.org squeeze main
+    deb http://ftp.debian.org/debian/ testing main non-free contrib
 
-If you don't set up that mySociety Debian source (e.g. if you're
-running Ubuntu), you should comment out `wkhtmltopdf-static` from
-`config/packages`, as it won't install in the next step
+The repositories above allow us to install the packages
+`wkthmltopdf-static` and `bundler` using `apt`; so if you're running
+Ubuntu, you won't be able to use the above repositories, and you will
+need to comment out those two lines in `config/packages` before
+following the next step (and install bundler manually).
 
 Now install the packages that are listed in config/packages using apt-get
 e.g.:
@@ -54,7 +56,7 @@ Some of the files also have a version number listed in config/packages
 
 # Install Ruby dependencies
 
-Install rubygems 1.6.1 (we're not using the Debian package because we
+Install rubygems 1.6.2 (we're not using the Debian package because we
 need an older version; see "Troubleshooting" below for an
 explanation):
 
@@ -469,10 +471,6 @@ various other things that can be automated for deployment.
     It may be that the binaries installed by bundler are not put in the
     system `PATH`; therefore, in order to run `rake` (needed for
     deployments), you may need to do something like:
-
-        ln -s /usr/lib/ruby/gems/1.8/bin/rake /usr/local/bin/
-    
-    Or (Debian):
 
         ln -s /usr/lib/ruby/gems/1.8/bin/rake /usr/local/bin/
 
