@@ -36,13 +36,17 @@ places:
 
 This document is about what you can do in a theme.
 
-To get started, install the sample theme by running 
+By default, the sample theme ("alavetelitheme") has already been 
+installed.  See the setting `THEME_URLS` in `general.yml` for an 
+explanation.
+
+You can also install the sample theme by hand, by running:
 
     ./script/plugin install git://github.com/sebbacon/alavetelitheme.git
     
-This downloads and installs the theme in
-`vendor/plugins/alavetelitheme` and contains examples for nearly
-everything you might want to customise.
+The sample theme contains examples for nearly everything you might 
+want to customise.  You should probably make a copy, rename it, and
+use that as the basis for your own theme.
 
 # Make sure your theme is as lightweight as possible
 
