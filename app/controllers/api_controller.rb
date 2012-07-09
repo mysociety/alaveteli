@@ -151,8 +151,9 @@ class ApiController < ApplicationController
             mail = RequestMailer.create_external_response(request, body, sent_at, attachment_hashes)
             request.receive(mail, mail.encoded, true)
         end
-        
-        head :no_content
+        render :json => {
+            'url' => make_url("request", request.url_title),
+        }        
     end
     
     def body_request_events
