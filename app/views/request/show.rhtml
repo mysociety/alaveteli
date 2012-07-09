@@ -27,7 +27,8 @@
 <div id="left_column">
     <h1><%=h(@info_request.title)%></h1>
 
-    <% if @info_request.user && @info_request.user.profile_photo %>
+
+    <% if !@info_request.is_external? && @info_request.user.profile_photo %>
         <p class="user_photo_on_request">
             <img src="<%= get_profile_photo_url(:url_name => @info_request.user.url_name) %>" alt="">
         </p>
@@ -43,8 +44,10 @@
                     :public_body_link => public_body_link(@info_request.public_body),
                     :public_body_admin_url => public_body_admin_url(@info_request.public_body)) %>
         <% else %>
-            <%= _('{{user}} made this {{law_used_full}} request',:user=>user_link(@info_request.user), :law_used_full=>h(@info_request.law_used_full)) %>
+
+            <%= _('{{user}} made this {{law_used_full}} request',:user=>@info_request.user.nil? ? @info_request.user_name : user_link(@info_request.user), :law_used_full=>h(@info_request.law_used_full)) %>
             <%= _('to {{public_body}}',:public_body=>public_body_link(@info_request.public_body)) %>
+
         <% end %>
     </p>
 
@@ -61,7 +64,8 @@
               <%= _('and update the status accordingly. Perhaps <strong>you</strong> might like to help out by doing that?') %>
             <% else %>
             <%=  _('We\'re waiting for') %>
-              <%= user_link(@info_request.user) %> <%= _('to read') %>
+
+              <%= user_link_for_request(@info_request) %> <%= _('to read') %>
               <%= MySociety::Format.fancy_pluralize(@new_responses_count, 'a recent response', 'recent responses') %>
               <%= _('and update the status.') %>
             <% end %>
@@ -104,7 +108,7 @@
               <%= link_to _("send a follow up message"), respond_to_last_url(@info_request) + '#followup' %>.
         <% else %>
             <%= _('The request is <strong>waiting for clarification</strong>.') %>
-            <%= _('If you are {{user_link}}, please',:user_link=>user_link(@info_request.user)) %>
+            <%= _('If you are {{user_link}}, please',:user_link=>user_link_for_request(@info_request)) %>
             <%= link_to _("sign in"), signin_url(:r => request.request_uri) %> <%= _('to send a follow up message.') %>
         <% end %>
     <% elsif @status == 'gone_postal' %>
