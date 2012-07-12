@@ -85,7 +85,7 @@ instead of the core "about us" file.
 Rails expects all its stylesheets to live at `<railshome>/public`,
 which presents a problem for plugins.  Here's how we solve it: the
 stylesheet and associated resources for your theme live (by
-convention) in at `alavetelitheme/public/`.  This is symlinked from
+convention) in `alavetelitheme/public/`.  This is symlinked from
 the main Rails app -- see `alavetelitheme/install.rb` to see how this
 happens.
 
