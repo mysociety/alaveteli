@@ -136,7 +136,7 @@ class InfoRequest < ActiveRecord::Base
             else
                 fake_slug = external_user_name.parameterize
             end
-            public_body.url_name + "_"+fake_slug
+            (public_body.url_name || "") + "_" + fake_slug
         else
             user.url_name
         end
