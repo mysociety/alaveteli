@@ -1,14 +1,14 @@
 <% if @show_requests %>
- <% @title = h(@display_user.name) + _(" - Freedom of Information requests") %>
+  <% @title =  _("{{user_name}} - Freedom of Information requests", :user_name => h(@display_user.name)) %>
 <% else %>
- <% @title = h(@display_user.name) + _(" - user profile") %>
+  <% @title = _("{{user_name}} - user profile", :user_name => h(@display_user.name)) %>
 <% end %>
 
 <% if (@same_name_users.size >= 1) %>
-    <p><%= _('There is <strong>more than one person</strong> who uses this site and has this name. 
+    <p><%= _('There is <strong>more than one person</strong> who uses this site and has this name.
     One of them is shown below, you may mean a different one:')%> <% for @same_name_user in @same_name_users %>
         <%= user_link(@same_name_user) %>
-    <% end %> 
+    <% end %>
 <% end%>
 
 <% if @show_profile && @is_you && @undescribed_requests.size > 0 %>
@@ -40,11 +40,11 @@
        <a href="#foi_requests"><%= _('FOI requests')%></a>
        <br><a href="#annotations"><%= _('Annotations')%></a>
      <% end %>
-  </div> 
+  </div>
 
   <div class="header_left">
     <p id="user_photo_on_profile">
-        <% if @display_user.profile_photo %> 
+        <% if @display_user.profile_photo %>
             <% if @is_you %>
             <a href="<%= set_profile_photo_url() %>">
             <% end %>
@@ -127,7 +127,7 @@
 <div id="user_profile_search">
     <% form_tag(show_user_url, :method => "get", :id=>"search_form") do %>
     <div>
-        <%= text_field_tag(:user_query, params[:user_query]) %> 
+        <%= text_field_tag(:user_query, params[:user_query]) %>
         <% if @is_you %>
             <%= submit_tag(_("Search your contributions")) %>
         <% else %>
@@ -146,7 +146,7 @@
             <% end %>
         <% else %>
             <h2 class="foi_results" id="foi_requests">
-                <%= @is_you ? n_('Your %d Freedom of Information request', 'Your %d Freedom of Information requests', @xapian_requests.matches_estimated.to_s) % @xapian_requests.matches_estimated.to_s : n_('This person\'s %d Freedom of Information request', 'This person\'s %d Freedom of Information requests',  @xapian_requests.matches_estimated.to_s) % @xapian_requests.matches_estimated %>
+                <%= @is_you ? n_('Your %d Freedom of Information request', 'Your %d Freedom of Information requests', @xapian_requests.matches_estimated) % @xapian_requests.matches_estimated.to_s : n_('This person\'s %d Freedom of Information request', 'This person\'s %d Freedom of Information requests',  @xapian_requests.matches_estimated) % @xapian_requests.matches_estimated %>
                 <!-- matches_estimated <%=@xapian_requests.matches_estimated%> -->
                 <%= @match_phrase %>
                 <%= @page_desc %>
@@ -159,12 +159,12 @@
 
             <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @display_user.info_requests.size) %>
         <% end %>
-    <% else %> 
+    <% else %>
       <% if @show_requests %>
         <h2 class="foi_results" id="foi_requests"><%= @is_you ? _('Freedom of Information requests made by you') : _('Freedom of Information requests made by this person') %> </h2>
         <p><%= _('The search index is currently offline, so we can\'t show the Freedom of Information requests this person has made.')%></p>
       <% end %>
-    <% end %> 
+    <% end %>
 
     <% if !@xapian_comments.nil? %>
         <% if @xapian_comments.results.empty? %>
@@ -221,7 +221,7 @@
                         <%= hidden_field_tag 'r', request.request_uri %>
                         <% if track_things.size > 1 %>
                             <%= submit_tag _('unsubscribe all')%>
-                        <% end %> 
+                        <% end %>
                     </h3>
                 <% end %>
             <% end %>
@@ -231,7 +231,7 @@
                 <li>
                     <% form_tag({:controller => 'track', :action => 'update', :track_id => track_thing.id}, :class => "feed_form") do %>
                         <div>
-                            <%= track_thing.params[:list_description] %> 
+                            <%= track_thing.params[:list_description] %>
                             <%= hidden_field_tag 'track_medium', "delete", { :id => 'track_medium_' + track_thing.id.to_s } %>
                             <%= hidden_field_tag 'r', request.request_uri, { :id => 'r_' + track_thing.id.to_s }  %>
                             <%= submit_tag _('unsubscribe') %>

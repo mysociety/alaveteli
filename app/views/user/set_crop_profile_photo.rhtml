@@ -20,7 +20,7 @@
     <div style="width:96px;height:96px;overflow:hidden;">
         <img src="<%= get_draft_profile_photo_url(:id => @draft_profile_photo.id) %>" id="profile_photo_preview" />
     </div>
-    
+
     </td>
     </tr>
     </table>
@@ -32,12 +32,12 @@
 
     <%= hidden_field_tag 'draft_profile_photo_id', @draft_profile_photo.id %>
 
-    <p><%= _('<strong>Privacy note:</strong> Your photo will be shown in public on the Internet, 
+    <p><%= _('<strong>Privacy note:</strong> Your photo will be shown in public on the Internet,
     wherever you do something on {{site_name}}.', :site_name=>site_name)%>
 
     <p>
         <%= hidden_field_tag 'submitted_crop_profile_photo', 1 %>
-        <%= submit_tag "Done &gt;&gt;" %>
+        <%= submit_tag _("Done") + " &gt;&gt;" %>
     </p>
 
 <% end %>
