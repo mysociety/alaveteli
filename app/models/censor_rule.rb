@@ -9,6 +9,7 @@
 #  public_body_id    :integer
 #  text              :text            not null
 #  replacement       :text            not null
+#  regexp            :boolean
 #  last_edit_editor  :string(255)     not null
 #  last_edit_comment :text            not null
 #  created_at        :datetime        not null
@@ -28,6 +29,8 @@ class CensorRule < ActiveRecord::Base
     belongs_to :user
     belongs_to :public_body
 
+    named_scope :regexps, {:conditions => {:regexp => true}}
+
     def binary_replacement
         self.text.gsub(/./, 'x')
     end
@@ -36,8 +39,10 @@ class CensorRule < ActiveRecord::Base
         if text.nil?
             return nil
         end
-        text.gsub!(self.text, self.replacement)
+        to_replace = regexp? ? Regexp.new(self.text, Regexp::MULTILINE) : self.text
+        text.gsub!(to_replace, self.replacement)
     end
+
     def apply_to_binary!(binary)
         if binary.nil?
             return nil
@@ -45,9 +50,8 @@ class CensorRule < ActiveRecord::Base
         binary.gsub!(self.text, self.binary_replacement)
     end
 
-
     def validate
-        if self.info_request.nil? && self.user.nil? && self.public_body.nil?
+        if !self.regexp? && self.info_request.nil? && self.user.nil? && self.public_body.nil?
             errors.add("Censor must apply to an info request a user or a body; ")
         end
     end

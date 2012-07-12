@@ -997,14 +997,11 @@ public
 
     # Call groups of censor rules
     def apply_censor_rules_to_text!(text)
-        for censor_rule in self.censor_rules
-            censor_rule.apply_to_text!(text)
-        end
-        if self.user # requests during construction have no user
-            for censor_rule in self.user.censor_rules
+        [self.censor_rules, self.user.try(:censor_rules),
+            CensorRule.regexps.all].flatten.compact.each do |censor_rule|
                 censor_rule.apply_to_text!(text)
             end
-        end
+        return text
     end
 
     def apply_censor_rules_to_binary!(binary)
