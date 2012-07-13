@@ -67,7 +67,7 @@
   <%= render :partial => 'admin_general/admin_navbar' %>
 <% end %>
 
-<% if !@popup_banner.empty? %>
+<% if !@popup_banner.blank? %>
 <div id="everypage" class="jshide">
   <p style="float:right"><a href="#top" onclick="$.cookie('seen_foi2', 1, { expires: 7, path: '/' }); $('#everypage').hide('slow'); return false;"><%= _('Close') %></a></p>
   <%= @popup_banner %>
