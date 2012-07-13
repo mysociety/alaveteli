@@ -398,6 +398,7 @@ describe InfoRequest do
         it 'should return true if it is awaiting description, isn\'t the holding pen and hasn\'t had an event in 21 days' do 
             @info_request.is_old_unclassified?.should be_true
         end
+    end
         
     context "with regexp censor rule" do
       before do
