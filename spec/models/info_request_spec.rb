@@ -398,7 +398,27 @@ describe InfoRequest do
         it 'should return true if it is awaiting description, isn\'t the holding pen and hasn\'t had an event in 21 days' do 
             @info_request.is_old_unclassified?.should be_true
         end
-        
     end
-    
+        
+    context "with regexp censor rule" do
+      before do
+          Time.stub!(:now).and_return(Time.utc(2007, 11, 9, 23, 59))
+          @info_request = InfoRequest.create!(:prominence => 'normal',
+                                              :awaiting_description => true,
+                                              :title => 'title',
+                                              :public_body => public_bodies(:geraldine_public_body),
+                                              :user_id => 1)
+          @censor_rule = CensorRule.create(:last_edit_editor => 1,
+                                   :last_edit_comment => 'comment',
+                                   :text => 'text',
+                                   :replacement => 'replacement',
+                                   :regexp => true)
+      end
+      it "applies regexp censor rule" do
+          body = 'text'
+          @info_request.apply_censor_rules_to_text!(body)
+          body.should == 'replacement'
+      end
+    end
+
 end
