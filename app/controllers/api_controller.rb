@@ -71,18 +71,10 @@ class ApiController < ApplicationController
         
     end
     
-    def _get_attachments_from_params(params)
-        attachments = []
-        params.each_pair do |k, v|
-            attachments << v if v.is_a? Tempfile
-        end
-        return attachments
-    end
-
     def add_correspondence
         request = InfoRequest.find(params[:id])
         json = ActiveSupport::JSON.decode(params[:correspondence_json])
-        attachments = _get_attachments_from_params(params)
+        attachments = params[:attachments]
         
         direction = json["direction"]
         body = json["body"]
@@ -155,6 +147,7 @@ class ApiController < ApplicationController
                     :filename => filename
                 )
             end
+            
             mail = RequestMailer.create_external_response(request, body, sent_at, attachment_hashes)
             request.receive(mail, mail.encoded, true)
         end
