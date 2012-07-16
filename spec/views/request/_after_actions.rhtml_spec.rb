@@ -9,6 +9,8 @@ describe 'when displaying actions that can be taken with regard to a request' do
                                       :url_name => 'test_user')
         @mock_request = mock_model(InfoRequest, :title => 'test request', 
                                                 :user => @mock_user, 
+                                                :user_name => @mock_user.name, 
+                                                :is_external? => false,
                                                 :public_body => @mock_body, 
                                                 :url_title => 'test_request')
         assigns[:info_request] = @mock_request

@@ -33,7 +33,7 @@ elsif [ 'sent', 'followup_sent' ].include?(info_request_event.event_type)
     <div class="outgoing correspondence" id="outgoing-<%=outgoing_message.id.to_s%>">
 
         <h2>
-        <%= _("From:") %> <%=h @info_request.user.name %><br>
+        <%= _("From:") %> <%=h @info_request.user_name %><br>
         <br><%= simple_date(info_request_event.created_at) %>
         </h2>
 
