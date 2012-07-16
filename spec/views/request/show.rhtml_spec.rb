@@ -15,6 +15,8 @@ describe 'when viewing an information request' do
                                                 :law_used_full => 'Freedom of Information',
                                                 :public_body => @mock_body,
                                                 :user => @mock_user, 
+                                                :user_name => @mock_user.name, 
+                                                :is_external? => false,
                                                 :calculate_status => 'waiting_response', 
                                                 :date_response_required_by => Date.today,
                                                 :prominence => 'normal')
