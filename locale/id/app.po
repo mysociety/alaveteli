@@ -4,14 +4,15 @@
 # 
 # Translators:
 #   <agus.triwanto@gmail.com>, 2012.
+#   <ariadi01@gmail.com>, 2012.
 #   <bobo@airputih.org>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
 "POT-Creation-Date: 2012-06-15 11:36+0100\n"
-"PO-Revision-Date: 2012-06-15 10:40+0000\n"
-"Last-Translator: sebbacon <seb.bacon@gmail.com>\n"
+"PO-Revision-Date: 2012-06-21 12:27+0000\n"
+"Last-Translator: njung <agung@airputih.or.id>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -50,11 +51,11 @@ msgstr " (Anda)"
 
 #: app/views/user/show.rhtml:2
 msgid " - Freedom of Information requests"
-msgstr ""
+msgstr " - Permintaan Informasi"
 
 #: app/views/user/show.rhtml:4
 msgid " - user profile"
-msgstr ""
+msgstr " - profile user"
 
 #: app/views/public_body/show.rhtml:1
 msgid " - view and make Freedom of Information requests"
@@ -62,7 +63,7 @@ msgstr "- tampilkan dan buat permintaan Freedom of Information"
 
 #: app/views/user/wall.rhtml:1
 msgid " - wall"
-msgstr ""
+msgstr " - wall"
 
 #: app/views/user/signchangepassword_send_confirm.rhtml:18
 msgid ""
@@ -272,7 +273,7 @@ msgid ""
 "            on other means to answer your question.\n"
 "            </li>\n"
 "            </ul>"
-msgstr ""
+msgstr "<p>Terimakasih! Berikut beberapa ide untuk selanjutnya:</p>\n            <ul>\n            <li>Untuk mengirim permintaan Anda ke otoritas lain, pertama salin kalimat permintaan Anda dibawah, kemudian <a href=\"{{find_authority_url}}\">pilih otoritas yang lain</a>.</li>\n            <li>Jika Anda ingin mengadu kepada otoritas publik bahwa mereka tidak menahan informasi, berikut\n            <a href=\"{{complain_url}}\">cara mengadu</a>.\n            </li>\n            <li>Kami mempunyai <a href=\"{{other_means_url}}\">saran</a>\n            dengan maksud untuk menjawab pertanyaan Anda.\n            </li>\n            </ul>"
 
 #: app/controllers/request_controller.rb:444
 msgid ""
@@ -371,7 +372,7 @@ msgid ""
 "            replied by then.</p>\n"
 "            <p>If you write about this request (for example in a forum or a blog) please link to this page, and add an\n"
 "            annotation below telling people about your writing.</p>"
-msgstr ""
+msgstr "<p>Permintaan {{law_used_full}} Anda telah <strong>dikirim</strong>!</p>\n            <p><strong>Kami akan mengirim email kepada Anda</strong> ketika ada jawaban, atau setelah {{late_number_of_days}} hari kerja jika otoritas masih belum mempunyai\n            jawabannya.</p>\n            <p>Jika Anda menulis tentang permintaan ini (misalnya di forum atau blog) silakan tautkan ke halaman ini, dan tambahkan\n            anotasi dibawahnya untuk memberitahu semua orang tentang tulisan Anda.</p>"
 
 #: app/controllers/application_controller.rb:327
 msgid ""
@@ -391,7 +392,7 @@ msgstr "<small>Jika Anda menggunakan email berbasis web atau memiliki filter \"j
 msgid "<span id='follow_count'>%d</span> person is following this authority"
 msgid_plural ""
 "<span id='follow_count'>%d</span> people are following this authority"
-msgstr[0] ""
+msgstr[0] "<span id='follow_count'>%d</span> orang mengikuti otoritas ini"
 
 #: app/views/request/new.rhtml:135
 msgid ""
@@ -531,14 +532,14 @@ msgstr "<strong>tidak memiliki</strong> informasi yang diminta."
 msgid ""
 "A <a href=\"{{request_url}}\">follow up</a> to <em>{{request_title}}</em> "
 "was sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
-msgstr ""
+msgstr "Sebuah <a href=\"{{request_url}}\">tindak lanjut</a> untuk <em>{{request_title}}</em> telah terkirim kepada {{public_body_name}} oleh {{info_request_user}} pada {{date}}."
 
 #: app/views/request/_wall_listing.rhtml:13
 msgid ""
 "A <a href=\"{{request_url}}\">response</a> to <em>{{request_title}}</em> was"
 " sent by {{public_body_name}} to {{info_request_user}} on {{date}}.  The "
 "request status is: {{request_status}}"
-msgstr ""
+msgstr "Sebuah <a href=\"{{request_url}}\">jawaban</a> untuk <em>{{request_title}}</em> telah dikirim oleh {{public_body_name}} kepada {{info_request_user}} pada {{date}}. Status permintaan sekarang adalah : {{request_status}}"
 
 #: app/views/comment/new.rhtml:46
 msgid ""
@@ -553,7 +554,7 @@ msgstr "Permintaan Freedom of Information"
 msgid ""
 "A new request, <em><a href=\"{{request_url}}\">{{request_title}}</a></em>, "
 "was sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
-msgstr ""
+msgstr "Sebuah permintaan baru, <em><a href=\"{{request_url}}\">{{request_title}}</a></em>, telah dikirim kepada {{public_body_name}} oleh {{info_request_user}} pada {{date}}."
 
 #: app/models/public_body.rb:297
 #: app/views/general/_advanced_search_tips.rhtml:46
@@ -651,7 +652,7 @@ msgstr "Juga dipanggil {{other_name}}."
 
 #: app/views/user/_change_receive_email.rhtml:12
 msgid "Also send me alerts by email"
-msgstr ""
+msgstr "Kirimkan juga peringatan kepada Saya melalui email"
 
 #: app/views/track_mailer/event_digest.rhtml:60
 msgid "Alter your subscription"
@@ -667,7 +668,7 @@ msgstr "Meskipun semua respon diterbitkan secara otomatis, kami bergantung pada\
 msgid ""
 "An <a href=\"{{request_url}}\">annotation</a> to <em>{{request_title}}</em> "
 "was made by {{event_comment_user}} on {{date}}"
-msgstr ""
+msgstr "Sebuah <a href=\"{{request_url}}\">anotasi</a> untuk <em>{{request_title}}</em> telah dibuat oleh {{event_comment_user}} pada {{date}}"
 
 #: app/views/request/_other_describe_state.rhtml:70
 msgid "An <strong>error message</strong> has been received"
@@ -757,13 +758,13 @@ msgstr "Melihat semua otoritas..."
 msgid ""
 "By law, under all circumstances, {{public_body_link}} should have responded "
 "by now"
-msgstr "Berdasarkan undang-undang, dalam semua keadaan, {{public_body_tautan}} sekarang seharusnya sudah ditanggapi"
+msgstr "Berdasarkan undang-undang, dalam semua keadaan, {{public_body_link}} sekarang seharusnya sudah ditanggapi"
 
 #: app/views/request/show.rhtml:80
 msgid ""
 "By law, {{public_body_link}} should normally have responded "
 "<strong>promptly</strong> and"
-msgstr "Berdasarkan undang-undang, {{public_body_tautan}} seharusnya sudah menanggapi <strong>pada waktunya</strong> dan"
+msgstr "Berdasarkan undang-undang, {{public_body_link}} seharusnya sudah menanggapi <strong>pada waktunya</strong> dan"
 
 #: app/controllers/track_controller.rb:176
 msgid "Cancel a {{site_name}} alert"
@@ -779,7 +780,7 @@ msgstr "Batal, kembali ke halaman profil Anda"
 
 #: locale/model_attributes.rb:2
 msgid "Censor rule"
-msgstr ""
+msgstr "Aturan sensor"
 
 #: locale/model_attributes.rb:3
 msgid "CensorRule|Last edit comment"
@@ -861,7 +862,7 @@ msgstr "Klarifikasi"
 
 #: app/models/request_mailer.rb:162
 msgid "Clarify your FOI request - "
-msgstr ""
+msgstr "Silakan klarifikasi permintaan Anda - "
 
 #: app/controllers/request_controller.rb:390
 msgid "Classify an FOI response from "
@@ -881,7 +882,7 @@ msgstr "Klik tautan di bawah untuk mengirimkan pesan kepada{{public_body}} mengi
 
 #: locale/model_attributes.rb:7
 msgid "Comment"
-msgstr ""
+msgstr "Komentar"
 
 #: locale/model_attributes.rb:8
 msgid "Comment|Body"
@@ -901,28 +902,28 @@ msgstr "Comment|Visible"
 
 #: app/models/track_thing.rb:239
 msgid "Confirm you want to follow all successful FOI requests"
-msgstr ""
+msgstr "Konfirmasi yang Anda inginkan untuk mengikuti semua permintaan yang berhasil"
 
 #: app/models/track_thing.rb:223
 msgid "Confirm you want to follow new requests"
-msgstr ""
+msgstr "Konfirmasi yang Anda inginkan untuk mengikuti permintaan baru"
 
 #: app/models/track_thing.rb:290
 msgid ""
 "Confirm you want to follow new requests or responses matching your search"
-msgstr ""
+msgstr "Konfirmasi yang Anda inginkan untuk mengikuti permintaan baru atau jawaban tepat yang Anda cari"
 
 #: app/models/track_thing.rb:274
 msgid "Confirm you want to follow requests by '{{user_name}}'"
-msgstr ""
+msgstr "Konfirmasi yang Anda inginkan untuk mengikuti permintaan oleh '{{user_name}}'"
 
 #: app/models/track_thing.rb:258
 msgid "Confirm you want to follow requests to '{{public_body_name}}'"
-msgstr ""
+msgstr "Konfirmasi yang Anda inginkan untuk mengikuti permintaan kepada '{{public_body_name}}'"
 
 #: app/models/track_thing.rb:207
 msgid "Confirm you want to follow the request '{{request_title}}'"
-msgstr ""
+msgstr "Konfirmasi yang Anda inginkan untuk mengikuti permintaan '{{request_title}}'"
 
 #: app/controllers/request_controller.rb:344
 msgid "Confirm your FOI request to "
@@ -948,11 +949,11 @@ msgstr "Konfirmasi alamat email Anda yang baru di {{site_name}}"
 #: app/models/info_request.rb:824
 msgid ""
 "Considered by administrators as not an FOI request and hidden from site."
-msgstr ""
+msgstr "Pertimbangan administrator bahwa tidak mempunyai permintaan dan tersembunyi dari website"
 
 #: app/models/info_request.rb:822
 msgid "Considered by administrators as vexatious and hidden from site."
-msgstr ""
+msgstr "Pertimbangan administrator yang mengesalkan dan tersembunyi dari website"
 
 #: app/views/general/_footer.rhtml:2
 msgid "Contact {{site_name}}"
@@ -982,7 +983,7 @@ msgstr "Situs kebudayaan dan bangunan-bangunan yang didirikan (karena mereka mun
 msgid ""
 "Currently <strong>waiting for a response</strong> from {{public_body_link}},"
 " they must respond promptly and"
-msgstr "Saat ini<strong>sedang menunggu respon</strong> dari{{public_body_tautan}}, mereka harus merespon dengan segera dan "
+msgstr "Saat ini<strong>sedang menunggu respon</strong> dari{{public_body_link}}, mereka harus merespon dengan segera dan "
 
 #: app/views/request/simple_correspondence.rhtml:17
 #: app/views/request/simple_correspondence.rhtml:29
@@ -1126,11 +1127,11 @@ msgstr "Semua yang Anda masukkan di halaman ini, termasuk<strong>nama Anda</stro
 
 #: locale/model_attributes.rb:12
 msgid "Exim log"
-msgstr ""
+msgstr "Riwayat Exim"
 
 #: locale/model_attributes.rb:15
 msgid "Exim log done"
-msgstr ""
+msgstr "Riwayat Exim selesai"
 
 #: locale/model_attributes.rb:16
 msgid "EximLogDone|Filename"
@@ -1170,7 +1171,7 @@ msgstr "Permintaan FOI {{start_count}} sampai{{end_count}} dari{{total_count}}"
 
 #: app/models/request_mailer.rb:55
 msgid "FOI response requires admin ({{reason}}) - {{title}}"
-msgstr ""
+msgstr "Jawaban permintaan membutuhkan {{{reason}}} - {{title}}"
 
 #: app/models/profile_photo.rb:99
 msgid "Failed to convert image to a PNG"
@@ -1195,7 +1196,7 @@ msgstr "Pertama, ketik <strong>nama dari otoritas public Kerajaan Inggris </stro
 
 #: locale/model_attributes.rb:18
 msgid "Foi attachment"
-msgstr ""
+msgstr "Lampiran permintaan"
 
 #: locale/model_attributes.rb:19
 msgid "FoiAttachment|Charset"
@@ -1227,19 +1228,19 @@ msgstr "FoiAttachment|Within rfc822 subject"
 
 #: app/views/track/_tracking_links.rhtml:19
 msgid "Follow"
-msgstr ""
+msgstr "Ikuti"
 
 #: app/models/track_thing.rb:215
 msgid "Follow all new requests"
-msgstr ""
+msgstr "Ikuti semua permintaan baru"
 
 #: app/models/track_thing.rb:231
 msgid "Follow new successful responses"
-msgstr ""
+msgstr "Ikuti semua jawaban yang berhasil"
 
 #: app/models/track_thing.rb:250
 msgid "Follow requests to {{public_body_name}}"
-msgstr ""
+msgstr "Ikuti permintaan untuk {{public_body_name}}"
 
 #: app/views/request/list.rhtml:8
 msgid "Follow these requests"
@@ -1247,7 +1248,7 @@ msgstr "Ikuti permintaan ini"
 
 #: app/models/track_thing.rb:282
 msgid "Follow things matching this search"
-msgstr ""
+msgstr "Ikuti apapun yang sesuai dengan pencarian"
 
 #: app/views/public_body/show.rhtml:4
 msgid "Follow this authority"
@@ -1259,7 +1260,7 @@ msgstr "Ikuti tautan ini untuk pelihat permintaan:"
 
 #: app/models/track_thing.rb:266
 msgid "Follow this person"
-msgstr ""
+msgstr "Ikuti orang ini"
 
 #: app/models/track_thing.rb:199 app/views/request/_sidebar.rhtml:3
 msgid "Follow this request"
@@ -1282,7 +1283,7 @@ msgid ""
 "Follow ups and new responses to this request have been stopped to prevent "
 "spam. Please <a href=\"{{url}}\">contact us</a> if you are {{user_link}} and"
 " need to send a follow up."
-msgstr "Tindak lanjut dan respon baru terhadap permintaan ini telah dihentikan untuk mencegah spam. Silakan<a href=\"{{url}}\">hubungi kami</a> jika Anda {{user_tautan}} dan perlu mengirimkan tindak lanjut."
+msgstr "Tindak lanjut dan respon baru terhadap permintaan ini telah dihentikan untuk mencegah spam. Silakan<a href=\"{{url}}\">hubungi kami</a> jika Anda {{user_link}} dan perlu mengirimkan tindak lanjut."
 
 #: app/views/general/blog.rhtml:7 app/views/general/_footer.rhtml:3
 msgid "Follow us on twitter"
@@ -1372,7 +1373,7 @@ msgstr "Ditangani oleh pos."
 msgid ""
 "Hello! You can make Freedom of Information requests within {{country_name}} "
 "at {{link_to_website}}"
-msgstr "Halo! Anda dapat membuat permintaan Freedom of Information di {{country_name}} pada{{tautan_to_website}}"
+msgstr "Halo! Anda dapat membuat permintaan Freedom of Information di {{country_name}} pada{{link_to_website}}"
 
 #: app/views/layouts/default.rhtml:102
 msgid "Hello, {{username}}!"
@@ -1406,7 +1407,7 @@ msgstr "Hai! Kami butuh bantuan Anda. Individu yang membuat permintaan berikut\n
 
 #: locale/model_attributes.rb:26
 msgid "Holiday"
-msgstr ""
+msgstr "Liburan"
 
 #: locale/model_attributes.rb:27
 msgid "Holiday|Day"
@@ -1452,7 +1453,7 @@ msgstr "Saya tidak mau melakukan perapian lagi saat ini!"
 
 #: app/views/track/_tracking_links.rhtml:17
 msgid "I like this request"
-msgstr ""
+msgstr "Saya suka permintaan ini"
 
 #: app/views/request/_describe_state.rhtml:91
 msgid "I would like to <strong>withdraw this request</strong>"
@@ -1526,7 +1527,7 @@ msgstr "Jika Anda mempertimbangkan untuk menggunakan nama samaran,\n            
 
 #: app/views/request/show.rhtml:107
 msgid "If you are {{user_link}}, please"
-msgstr "Jika Anda adalah {{user_tautan}}, silakan"
+msgstr "Jika Anda adalah {{user_link}}, silakan"
 
 #: app/views/user/bad_token.rhtml:7
 msgid ""
@@ -1589,7 +1590,7 @@ msgstr "Jika browser Anda diatur untuk menerima cookie dan Anda melihat pesan in
 
 #: locale/model_attributes.rb:29
 msgid "Incoming message"
-msgstr ""
+msgstr "Pesan Masuk"
 
 #: locale/model_attributes.rb:30
 msgid "IncomingMessage|Cached attachment text clipped"
@@ -1629,11 +1630,11 @@ msgstr "IncomingMessage|Valid to reply to"
 
 #: locale/model_attributes.rb:39
 msgid "Info request"
-msgstr ""
+msgstr "Info permintaan"
 
 #: locale/model_attributes.rb:50
 msgid "Info request event"
-msgstr ""
+msgstr "Event info permintaan"
 
 #: locale/model_attributes.rb:51
 msgid "InfoRequestEvent|Calculated state"
@@ -1665,7 +1666,7 @@ msgstr "InfoRequest|Allow new responses from"
 
 #: locale/model_attributes.rb:41
 msgid "InfoRequest|Attention requested"
-msgstr ""
+msgstr "InfoRequest|Attention requested"
 
 #: locale/model_attributes.rb:42
 msgid "InfoRequest|Awaiting description"
@@ -1730,7 +1731,7 @@ msgstr "Kemungkinan browser Anda tidak diatur untuk menerima \"cookies\",\natau 
 msgid ""
 "Items matching the following conditions are currently displayed on your "
 "wall."
-msgstr ""
+msgstr "Kesesuaian permintaan akan ditampilkan pada wall Anda."
 
 #: app/views/user/_user_listing_single.rhtml:21
 msgid "Joined in"
@@ -1779,7 +1780,7 @@ msgstr "Masuk untuk mengunduh file zip dari  {{info_request_title}}"
 
 #: app/controllers/admin_controller.rb:62
 msgid "Log into the admin interface"
-msgstr ""
+msgstr "Masuk ke tampilan admin"
 
 #: app/models/info_request.rb:798
 msgid "Long overdue."
@@ -1858,7 +1859,7 @@ msgstr "Permintaan-permintaan saya"
 
 #: app/views/layouts/default.rhtml:107
 msgid "My wall"
-msgstr ""
+msgstr "Wall Saya"
 
 #: app/models/public_body.rb:36
 msgid "Name can't be blank"
@@ -1969,7 +1970,7 @@ msgstr "ATAU menghapus foto yang sudah ada"
 
 #: app/views/request/_sidebar.rhtml:10
 msgid "Offensive? Unsuitable?"
-msgstr ""
+msgstr "Tidak sopan? Tidak sesuai?"
 
 #: app/controllers/request_controller.rb:465
 msgid ""
@@ -2036,7 +2037,7 @@ msgstr "Yang lain:"
 
 #: locale/model_attributes.rb:57
 msgid "Outgoing message"
-msgstr ""
+msgstr "Pesan keluar"
 
 #: locale/model_attributes.rb:58
 msgid "OutgoingMessage|Body"
@@ -2123,7 +2124,7 @@ msgid ""
 "request {{request_link}}. If you would like to ask for information that was "
 "not in your original request, then <a href=\"{{new_request_link}}\">file a "
 "new request</a>."
-msgstr "Mohon <strong>hanya</strong> menulis pesan yang secara langsung berhubungandengan permintaan Anda {{request_tautan}}. Jika Anda ingin menanyakan informasi yang tidak ada dalam permintaan asli Anda, maka <a href=\"{{new_request_tautan}}\">ajukan permintaan baru</a>."
+msgstr "Mohon <strong>hanya</strong> menulis pesan yang secara langsung berhubungandengan permintaan Anda {{request_link}}. Jika Anda ingin menanyakan informasi yang tidak ada dalam permintaan asli Anda, maka <a href=\"{{new_request_link}}\">ajukan permintaan baru</a>."
 
 #: app/views/request/new.rhtml:58
 msgid "Please ask for environmental information only"
@@ -2333,7 +2334,7 @@ msgstr "Pasang anotasi"
 
 #: locale/model_attributes.rb:63
 msgid "Post redirect"
-msgstr ""
+msgstr "Tulisan dialihkan"
 
 #: locale/model_attributes.rb:64
 msgid "PostRedirect|Circumstance"
@@ -2393,7 +2394,7 @@ msgstr "Melihat dulu permintaan publik Anda"
 
 #: locale/model_attributes.rb:70
 msgid "Profile photo"
-msgstr ""
+msgstr "Foto profil"
 
 #: locale/model_attributes.rb:71
 msgid "ProfilePhoto|Data"
@@ -2417,43 +2418,43 @@ msgstr "Ptoritas publik {{start_count}} ke{{end_count}} dari {{total_count}}"
 
 #: locale/model_attributes.rb:73
 msgid "Public body"
-msgstr ""
+msgstr "Badan publik"
 
 #: locale/model_attributes.rb:85
 msgid "Public body/translation"
-msgstr ""
+msgstr "Public body/translation"
 
 #: locale/model_attributes.rb:86
 msgid "PublicBody::Translation|First letter"
-msgstr ""
+msgstr "PublicBody::Translation|First letter"
 
 #: locale/model_attributes.rb:87
 msgid "PublicBody::Translation|Locale"
-msgstr ""
+msgstr "PublicBody::Translation|Locale"
 
 #: locale/model_attributes.rb:88
 msgid "PublicBody::Translation|Name"
-msgstr ""
+msgstr "PublicBody::Translation|Name"
 
 #: locale/model_attributes.rb:89
 msgid "PublicBody::Translation|Notes"
-msgstr ""
+msgstr "PublicBody::Translation|Notes"
 
 #: locale/model_attributes.rb:90
 msgid "PublicBody::Translation|Publication scheme"
-msgstr ""
+msgstr "PublicBody::Translation|Publication scheme"
 
 #: locale/model_attributes.rb:91
 msgid "PublicBody::Translation|Request email"
-msgstr ""
+msgstr "PublicBody::Translation|Request email"
 
 #: locale/model_attributes.rb:92
 msgid "PublicBody::Translation|Short name"
-msgstr ""
+msgstr "PublicBody::Translation|Short name"
 
 #: locale/model_attributes.rb:93
 msgid "PublicBody::Translation|Url name"
-msgstr ""
+msgstr "PublicBody::Translation|Url name"
 
 #: locale/model_attributes.rb:74
 msgid "PublicBody|First letter"
@@ -2505,15 +2506,15 @@ msgstr "Skema publikasi"
 
 #: locale/model_attributes.rb:94
 msgid "Purge request"
-msgstr ""
+msgstr "Pembersihan permintaan"
 
 #: locale/model_attributes.rb:95
 msgid "PurgeRequest|Model"
-msgstr ""
+msgstr "PurgeRequest|Model"
 
 #: locale/model_attributes.rb:96
 msgid "PurgeRequest|Url"
-msgstr ""
+msgstr "PurgeRequest|Url"
 
 #: app/views/track/_tracking_links.rhtml:25
 msgid "RSS feed"
@@ -2565,15 +2566,15 @@ msgstr "Laporkan penyalahgunaan"
 
 #: app/controllers/request_controller.rb:662
 msgid "Report an offensive or unsuitable request"
-msgstr ""
+msgstr "Laporkan sebuah permintaan yang tidak sopan atau tidak sesuai"
 
 #: app/views/request/_sidebar.rhtml:26
 msgid "Report this request"
-msgstr ""
+msgstr "Laporkan permintaan ini"
 
 #: app/models/info_request.rb:818
 msgid "Reported for administrator attention."
-msgstr ""
+msgstr "Dilaporkan untuk perhatian administrator."
 
 #: app/views/request/_after_actions.rhtml:39
 msgid "Request an internal review"
@@ -2611,7 +2612,7 @@ msgstr "Diminta pada {{date}}"
 msgid ""
 "Requests for personal information and vexatious requests are not considered "
 "valid for FOI purposes (<a href=\"/help/about\">read more</a>)."
-msgstr ""
+msgstr "Permintaan informasi pribadi dan permintaan tidak sopan dianggap tidak sah untuk tujuan KIP (<a href=\"/help/about\">selengkapnya</a>)."
 
 #: app/models/track_thing.rb:285 app/models/track_thing.rb:286
 msgid "Requests or responses matching your saved search"
@@ -3130,7 +3131,7 @@ msgstr "Maka Anda dapat mengunduh file zip dari {{info_request_title}}."
 
 #: app/controllers/admin_controller.rb:61
 msgid "Then you can log into the administrative interface"
-msgstr ""
+msgstr "Kemudian Anda dapat masuk ke tampilan administrasi"
 
 #: app/controllers/request_game_controller.rb:41
 msgid "Then you can play the request categorisation game."
@@ -3138,7 +3139,7 @@ msgstr "Maka Anda dapat memainkan permainan kategorisasi permintaan."
 
 #: app/controllers/request_controller.rb:661
 msgid "Then you can report the request '{{title}}'"
-msgstr ""
+msgstr "Kemudian Anda dapat melaporkan permintaan '{{title}}'"
 
 #: app/controllers/user_controller.rb:410
 msgid "Then you can send a message to "
@@ -3166,35 +3167,35 @@ msgstr "Maka Anda dapat menulis balasan kepada "
 
 #: app/models/track_thing.rb:222
 msgid "Then you will be following all new FOI requests."
-msgstr ""
+msgstr "Kemudian Anda dapat mengikuti semua permintaan."
 
 #: app/models/track_thing.rb:273
 msgid ""
 "Then you will be notified whenever '{{user_name}}' requests something or "
 "gets a response."
-msgstr ""
+msgstr "Kemudian Anda akan mendapat notifikasi kapanpun '{{user_name}}' meminta informasi atau mendapatkan jawaban."
 
 #: app/models/track_thing.rb:289
 msgid ""
 "Then you will be notified whenever a new request or response matches your "
 "search."
-msgstr ""
+msgstr "Kemudian Anda akan mendapat notifikasi kapanpun sebuah permintaan atau jawaban yang sesuai dengan yang Anda cari."
 
 #: app/models/track_thing.rb:238
 msgid "Then you will be notified whenever an FOI request succeeds."
-msgstr ""
+msgstr "Kemudian Anda akan mendapat notifikasi kapanpun sebuah permintaan berhasil."
 
 #: app/models/track_thing.rb:257
 msgid ""
 "Then you will be notified whenever someone requests something or gets a "
 "response from '{{public_body_name}}'."
-msgstr ""
+msgstr "Kemudian Anda akan mendapat notifikasi kapanpun seseorang meminta sesuatu atau mendapat jawaban dari '{{public_body_name}}'."
 
 #: app/models/track_thing.rb:206
 msgid ""
 "Then you will be updated whenever the request '{{request_title}}' is "
 "updated."
-msgstr ""
+msgstr "Kemudian Anda akan diberitahu ketika permintaan '{{request_title}}' terbarui."
 
 #: app/controllers/request_controller.rb:36
 msgid "Then you'll be allowed to send FOI requests."
@@ -3285,7 +3286,7 @@ msgstr "Hal-hal yang harus dilakukan dengan permintaan ini"
 
 #: app/views/user/show.rhtml:195
 msgid "Things you're following"
-msgstr ""
+msgstr "Hal yang Anda ikuti"
 
 #: app/views/public_body/show.rhtml:63
 msgid "This authority no longer exists, so you cannot make a request to it."
@@ -3364,7 +3365,7 @@ msgstr "Permintaan ini <strong>membutuhkan perhatian administrator</strong>"
 
 #: app/controllers/request_controller.rb:671
 msgid "This request has already been reported for administrator attention"
-msgstr ""
+msgstr "Permintaan ini telah dilaporkan untuk menjadi perhatian administrator"
 
 #: app/views/request/show.rhtml:57
 msgid "This request has an <strong>unknown status</strong>."
@@ -3374,20 +3375,20 @@ msgstr "Permintaan ini memiliki <strong>status yang tidak diketahui</strong>."
 msgid ""
 "This request has been <strong>hidden</strong> from the site, because an "
 "administrator considers it not to be an FOI request"
-msgstr ""
+msgstr "Permintaan ini telah <strong>disembunyikan</strong> dari website, karena administrator mempertimbangkan permintaan tersebut bukan sebuah permintaan KIP"
 
 #: app/views/request/show.rhtml:124
 msgid ""
 "This request has been <strong>hidden</strong> from the site, because an "
 "administrator considers it vexatious"
-msgstr ""
+msgstr "Permintaan ini telah <strong>disembunyikan</strong> dari website, karena administrator mempertimbangkan permintaan ini tidak sesuai"
 
 #: app/views/request/show.rhtml:122
 msgid ""
 "This request has been <strong>reported</strong> as needing administrator "
 "attention (perhaps because it is vexatious, or a request for personal "
 "information)"
-msgstr ""
+msgstr "Permintaan ini telah <strong>dilaporkan</strong> sebagai keperluan untuk diperhatikan administrator (mungkin karena permintaan ini tidak sesuai, atau sebuah permintaan pribadi)"
 
 #: app/views/request/show.rhtml:119
 msgid ""
@@ -3400,11 +3401,11 @@ msgid ""
 "This request has been marked for review by the site administrators, who have"
 " not hidden it at this time. If you believe it should be hidden, please <a "
 "href=\"%s\">contact us</a>."
-msgstr ""
+msgstr "Permintaan ini telah ditandai untuk di review oleh administrator, tetapi tidak disembunyikan pada saat ini. Jika Anda yakin akan disembunyikan, silakan <a href=\"%s\">kontak kami</a>."
 
 #: app/controllers/request_controller.rb:669
 msgid "This request has been reported for administrator attention"
-msgstr ""
+msgstr "Permintaan ini telah dilaporkan untuk perhatian administrator"
 
 #: app/models/info_request.rb:396
 msgid ""
@@ -3495,11 +3496,11 @@ msgstr "Untuk mengunduh file zip"
 
 #: app/models/track_thing.rb:237
 msgid "To follow all successful requests"
-msgstr ""
+msgstr "Untuk mengikuti semua permintaan yang berhasil"
 
 #: app/models/track_thing.rb:221
 msgid "To follow new requests"
-msgstr ""
+msgstr "Untuk mengikuti permintaan baru"
 
 #: app/models/track_thing.rb:288
 msgid "To follow requests and responses matching your search"
@@ -3507,17 +3508,17 @@ msgstr "Untuk mengikuti permintaan dan respon yang cocok dengan pencarian Anda"
 
 #: app/models/track_thing.rb:272
 msgid "To follow requests by '{{user_name}}'"
-msgstr ""
+msgstr "Untuk mengikuti permintaan dari '{{user_name}}'"
 
 #: app/models/track_thing.rb:256
 msgid ""
 "To follow requests made using {{site_name}} to the public authority "
 "'{{public_body_name}}'"
-msgstr ""
+msgstr "Untuk mengikuti permintaan yang dibuat menggunakan {{site_name}} kepada otoritas publik '{{public_body_name}}'"
 
 #: app/models/track_thing.rb:205
 msgid "To follow the request '{{request_title}}'"
-msgstr ""
+msgstr "Untuk mengikuti permintaan '{{request_title}}'"
 
 #: app/views/request_mailer/old_unclassified_updated.rhtml:1
 msgid ""
@@ -3531,7 +3532,7 @@ msgstr "Untuk memberi tahu kami, ikuti tautan ini dan kemudian pilih kotak yang 
 
 #: app/controllers/admin_controller.rb:60
 msgid "To log into the administrative interface"
-msgstr ""
+msgstr "Untuk masuk ke tampilan administrasi"
 
 #: app/controllers/request_game_controller.rb:40
 msgid "To play the request categorisation game"
@@ -3547,7 +3548,7 @@ msgstr "Untuk membalas ke "
 
 #: app/controllers/request_controller.rb:660
 msgid "To report this FOI request"
-msgstr ""
+msgstr "Untuk melaporkan permintaan ini"
 
 #: app/controllers/request_controller.rb:593
 msgid "To send a follow up message to "
@@ -3589,7 +3590,7 @@ msgstr "Untuk menampilkan respon, klik pada tautan di bawah."
 
 #: app/views/request/_request_listing_short_via_event.rhtml:9
 msgid "To {{public_body_link_absolute}}"
-msgstr "Untuk {{public_body_tautan_absolute}}"
+msgstr "Untuk {{public_body_link_absolute}}"
 
 #: app/views/request/simple_correspondence.rhtml:16
 #: app/views/request/simple_correspondence.rhtml:28
@@ -3604,7 +3605,7 @@ msgstr "Hari ini"
 
 #: app/views/user/rate_limited.rhtml:1
 msgid "Too many requests"
-msgstr ""
+msgstr "Terlalu banyak permintaan"
 
 #: app/views/request/select_authority.rhtml:48
 #: app/views/public_body/_search_ahead.rhtml:4
@@ -3613,7 +3614,7 @@ msgstr "Hasil pencarian teratas:"
 
 #: locale/model_attributes.rb:97
 msgid "Track thing"
-msgstr ""
+msgstr "Melacak sesuatu (permintaan)"
 
 #: app/views/user/show.rhtml:35
 msgid "Track this person"
@@ -3637,7 +3638,7 @@ msgstr "Lacak pencarian ini"
 
 #: app/views/user/_change_receive_email.rhtml:7
 msgid "Turn off email alerts"
-msgstr ""
+msgstr "Matikan tanda (notifikasi) email"
 
 #: app/views/request/_sidebar.rhtml:34
 msgid "Tweet this request"
@@ -3717,11 +3718,11 @@ msgstr "Gunakan tanda kutip ketika Anda ingin menemukan frase yang persis sama, 
 
 #: locale/model_attributes.rb:101
 msgid "User"
-msgstr ""
+msgstr "Pengguna"
 
 #: locale/model_attributes.rb:117
 msgid "User info request sent alert"
-msgstr ""
+msgstr "Informasi permintaan pengguna telah mengirim notifikasi"
 
 #: locale/model_attributes.rb:118
 msgid "UserInfoRequestSentAlert|Alert type"
@@ -3777,7 +3778,7 @@ msgstr "User|No limit"
 
 #: locale/model_attributes.rb:114
 msgid "User|Receive email alerts"
-msgstr ""
+msgstr "User|Receive email alerts"
 
 #: locale/model_attributes.rb:115
 msgid "User|Salt"
@@ -3827,7 +3828,7 @@ msgstr "Menunggu klarifikasi."
 msgid ""
 "Waiting for an <strong>internal review</strong> by {{public_body_link}} of "
 "their handling of this request."
-msgstr "Menunggu <strong>kajian internal</strong> oleh {{public_body_tautan}} mengenai penanganan mereka terhadap permintaan ini."
+msgstr "Menunggu <strong>kajian internal</strong> oleh {{public_body_link}} mengenai penanganan mereka terhadap permintaan ini."
 
 #: app/views/general/_advanced_search_tips.rhtml:33
 msgid ""
@@ -3858,7 +3859,7 @@ msgid ""
 "    information or not\n"
 "        &ndash;\n"
 "\tif you are {{user_link}} please <a href=\"{{url}}\">sign in</a> and let everyone know."
-msgstr "Kami tidak tahu apakah respon terbaru atas pemintaan ini mengandung\n    Informasi atau tidak\n        &ndash;\n\tjika Anda adalah {{user_tautan}} silakan <a href=\"{{url}}\">masuk</a> dan jangan biarkan siapapun tahu."
+msgstr "Kami tidak tahu apakah respon terbaru atas pemintaan ini mengandung\n    Informasi atau tidak\n        &ndash;\n\tjika Anda adalah {{user_link}} silakan <a href=\"{{url}}\">masuk</a> dan jangan biarkan siapapun tahu."
 
 #: app/views/user_mailer/confirm_login.rhtml:8
 msgid ""
@@ -3976,47 +3977,47 @@ msgstr "Anda"
 
 #: app/models/track_thing.rb:216
 msgid "You are already following new requests"
-msgstr ""
+msgstr "Anda telah mengikuti permintaan baru"
 
 #: app/models/track_thing.rb:251
 msgid "You are already following requests to {{public_body_name}}"
-msgstr ""
+msgstr "Anda telah mengikuti permintaan kepada {{public_body_name}}"
 
 #: app/models/track_thing.rb:283
 msgid "You are already following things matching this search"
-msgstr ""
+msgstr "Anda telah mengikuti hal yang sesuai dengan pencarian ini"
 
 #: app/models/track_thing.rb:267
 msgid "You are already following this person"
-msgstr ""
+msgstr "Anda telah mengikuti orang ini"
 
 #: app/models/track_thing.rb:200
 msgid "You are already following this request"
-msgstr ""
+msgstr "Anda telah mengikuti permintaan ini"
 
 #: app/controllers/track_controller.rb:126
 msgid "You are already following updates about {{track_description}}"
-msgstr ""
+msgstr "Anda telah mengikuti pembaruan tentang {{track_description}}"
 
 #: app/views/user/_change_receive_email.rhtml:4
 msgid ""
 "You are currently receiving notification of new activity on your wall by "
 "email."
-msgstr ""
+msgstr "Anda sekarang menerima notifikasi aktivitas baru di wall Anda melalui email."
 
 #: app/models/track_thing.rb:232
 msgid "You are following all new successful responses"
-msgstr ""
+msgstr "Anda mengikuti semua jawaban baru yang berhasil"
 
 #: app/controllers/track_controller.rb:185
 msgid "You are no longer following {{track_description}}"
-msgstr ""
+msgstr "Anda tidak lagi mengikuti {{track_description}}"
 
 #: app/controllers/track_controller.rb:141
 msgid ""
 "You are now <a href=\"{{wall_url_user}}\">following</a> updates about "
 "{{track_description}}"
-msgstr ""
+msgstr "Anda sekarang <a href=\"{{wall_url_user}}\">mengikuti</a> pembaruan tentang {{track_description}}"
 
 #: app/views/request/show.rhtml:90
 msgid "You can <strong>complain</strong> by"
@@ -4026,7 +4027,7 @@ msgstr "Anda dapat <strong>mengajukan keberatan</strong> lewat"
 msgid ""
 "You can change the requests and users you are following on <a "
 "href=\"{{profile_url}}\">your profile page</a>."
-msgstr ""
+msgstr "Anda dapat mengubah permintaan dan profil Anda di <a href=\"{{profile_url}}\">halaman profil Anda</a>."
 
 #: app/views/request/details.rhtml:58
 msgid ""
@@ -4117,7 +4118,7 @@ msgstr "Anda harus masuk untuk menghapus foto profil Anda."
 
 #: app/controllers/user_controller.rb:585
 msgid "You need to be logged in to edit your profile."
-msgstr ""
+msgstr "Anda perlu masuk untuk mengubah profil Anda."
 
 #: app/controllers/request_controller.rb:610
 msgid ""
@@ -4152,7 +4153,7 @@ msgstr "Anda tidak akan lagi diemail update untuk tanda notifikasi tersebut"
 msgid ""
 "You will now be emailed updates about {{track_description}}. <a "
 "href=\"{{change_email_alerts_url}}\">Prefer not to receive emails?</a>"
-msgstr ""
+msgstr "Sekarang Anda akan menerima email pembaruan tentang {{track_description}}. <a href=\"{{change_email_alerts_url}}\">Lebih suka tidak menerima email?</a>"
 
 #: app/views/request_mailer/not_clarified_alert.rhtml:8
 msgid ""
@@ -4166,7 +4167,7 @@ msgstr "Anda telah lama menunda respon terhadap permintaan FOI Anda - "
 
 #: app/views/user/show.rhtml:199
 msgid "You're not following anything."
-msgstr ""
+msgstr "Anda tidak mengikuti apapun."
 
 #: app/controllers/user_controller.rb:522
 msgid "You've now cleared your profile photo"
@@ -4229,7 +4230,7 @@ msgstr "Pesan Anda sudah dikirimkan. Terima kasih telah berhubungan dengan kami!
 
 #: app/controllers/admin_request_controller.rb:363
 msgid "Your message to {{recipient_user_name}} has been sent"
-msgstr ""
+msgstr "Pesan Anda ke {{recipient_user_name}} telah dikirim"
 
 #: app/controllers/user_controller.rb:429
 msgid "Your message to {{recipient_user_name}} has been sent!"
@@ -4308,15 +4309,15 @@ msgstr "Hormat saya,"
 
 #: app/models/incoming_message.rb:255
 msgid "[FOI #{{request}} email]"
-msgstr ""
+msgstr "[FOI #{{request}} email]"
 
 #: app/models/incoming_message.rb:253
 msgid "[{{public_body}} request email]"
-msgstr ""
+msgstr "[{{public_body}} request email]"
 
 #: app/models/incoming_message.rb:256
 msgid "[{{site_name}} contact email]"
-msgstr ""
+msgstr "[{{site_name}} contact email]"
 
 #: app/views/request/new.rhtml:88
 msgid ""
@@ -4421,7 +4422,7 @@ msgstr "berisi alamat pos Anda, dan meminta mereka untuk membalas permintaan ini
 
 #: app/views/request/show.rhtml:77
 msgid "details"
-msgstr ""
+msgstr "rincian"
 
 #: app/models/info_request_event.rb:364
 msgid "display_status only works for incoming and outgoing messages right now"
@@ -4453,7 +4454,7 @@ msgstr "mengalami penundaan"
 
 #: app/models/incoming_message.rb:870
 msgid "hide quoted sections"
-msgstr ""
+msgstr "Sembunyikan bagian yang dikutip"
 
 #: app/views/request/_followup.rhtml:63 app/views/request/show.rhtml:72
 #: app/views/request/show.rhtml:82
@@ -4553,7 +4554,7 @@ msgstr "dikirmkan ke {{public_body_name}} oleh {{info_request_user}} pada {{date
 
 #: app/models/incoming_message.rb:867
 msgid "show quoted sections"
-msgstr ""
+msgstr "Tampilkan bagian yang dikutip"
 
 #: app/views/request/show.rhtml:108
 msgid "sign in"
@@ -4561,7 +4562,7 @@ msgstr "masuk"
 
 #: app/helpers/link_to_helper.rb:214
 msgid "simple_date_format"
-msgstr ""
+msgstr "simple_date_format"
 
 #: app/models/track_thing.rb:100
 msgid "successful"
@@ -4681,7 +4682,7 @@ msgstr "{{law_used_full}} permintaan GQ - {{title}}"
 
 #: app/models/info_request.rb:678
 msgid "{{law_used}} requests at {{public_body}}"
-msgstr ""
+msgstr "{{law_used}} permintaan di {{public_body}}"
 
 #: app/helpers/application_helper.rb:130 app/views/general/frontpage.rhtml:62
 msgid "{{length_of_time}} ago"
@@ -4702,7 +4703,7 @@ msgstr "Hanya {{public_body_name}} :"
 #: app/views/request_mailer/not_clarified_alert.rhtml:1
 msgid ""
 "{{public_body}} has asked you to explain part of your {{law_used}} request."
-msgstr ""
+msgstr "{{public_body}} bertanya kepada Anda untuk menjelaskan bagian permintaan {{law_used}} Anda."
 
 #: app/views/track_mailer/event_digest.rhtml:21
 msgid "{{public_body}} sent a response to {{user_name}}"
@@ -4735,7 +4736,7 @@ msgstr "{{site_name}} users have made {{number_of_requests}} requests, including
 
 #: app/views/request/show.rhtml:1
 msgid "{{title}} - a Freedom of Information request to {{public_body}}"
-msgstr ""
+msgstr "{{title}} - sebuah permintaan Keterbukaan Informasi kepada {{public_body}}"
 
 #: app/models/user.rb:138
 msgid "{{user_name}} (Account suspended)"
