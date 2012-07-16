@@ -318,6 +318,9 @@ like `!!(*= $this *)!!`.  The variables are:
 * `user`: the user that the software runs as
 * `site`: a string to identify your alaveteli instance
 
+There is a dumb python script at `script/make-crontab` which you can
+edit and run to do some basic substitution for you.
+
 One of the cron jobs refers to a script at
 `/etc/init.d/foi-alert-tracks`.  This is an init script, a copy of
 which lives in `config/alert-tracks-debian.ugly`.  As with the cron
