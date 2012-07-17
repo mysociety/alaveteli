@@ -30,7 +30,7 @@ module AlaveteliExternalCommand
             if opts.has_key? :append_to
                 xc.out = opts[:append_to]
             end
-            xc.run(opts[:stdin_string], opts[:env] || {})
+            xc.run(opts[:stdin_string] || "", opts[:env] || {})
             if xc.status != 0
                 # Error
                 $stderr.puts("Error from #{program_name} #{args.join(' ')}:")
