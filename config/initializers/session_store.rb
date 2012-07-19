@@ -9,7 +9,7 @@ ActionController::Base.session = {
   :key => '_wdtk_cookie_session',
   :secret => MySociety::Config.get("COOKIE_STORE_SESSION_SECRET", 'this default is insecure as code is open source, please override for live sites in config/general; this will do for local development')
 }
-ActionController::Base.session_store = :cookie_store
+ActionController::Base.session_store = :active_record_store
 
 # Insert a bit of middleware code to prevent uneeded cookie setting.
 require "#{Rails.root}/lib/whatdotheyknow/strip_empty_sessions"
