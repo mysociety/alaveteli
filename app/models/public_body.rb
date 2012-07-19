@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # == Schema Information
 #
 # Table name: public_bodies
@@ -91,8 +92,9 @@ class PublicBody < ActiveRecord::Base
       # Make sure publication_scheme gets the correct default value.
       # (This would work automatically, were publication_scheme not a translated attribute)
       self.publication_scheme = "" if self.publication_scheme.nil?
-      
-      # Set an API key if there isn’t one
+    end
+
+    def before_save
       self.api_key = SecureRandom.base64(33) if self.api_key.nil?
     end
 
