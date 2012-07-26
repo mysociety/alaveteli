@@ -613,7 +613,7 @@ class UserController < ApplicationController
                                   mergeOptions, 
                                   'html', # email_type
                                   false,  # double_optin: flag to control whether a double opt-in confirmation message is sent
-                                  false,  # update_existing
+                                  true,   # update_existing
                                   false,  # replace_interests
                                   false   #send_welcome
                                   )
