@@ -5,7 +5,10 @@ LOC=`dirname "$0"`
 # Specific file if specified
 if [ x$1 != x ]
 then
-    f=`abspath "$1"`
+    case "$1" in
+      /*) f=$1 ;;
+       *) f=$(pwd)/$1 ;;
+    esac
     cd "$LOC"
     bundle exec ./runner 'EximLog.load_file("'$f'")'
     exit
