@@ -754,12 +754,10 @@ msgid "CensorRule|Text"
 msgstr "CensorRule | Teksti"
 
 #: vendor/plugins/ipvtheme/lib/views/user/signchangeaddress.html.erb:21
-#, fuzzy
 msgid "Change address on {{site_name}}"
 msgstr "Ndrysho fjalekalimin në {{site_name}}"
 
 #: vendor/plugins/ipvtheme/lib/views/user/signchangedob.html.erb:21
-#, fuzzy
 msgid "Change dob on {{site_name}}"
 msgstr "Ndrysho emailin në {{site_name}}"
 
@@ -782,30 +780,25 @@ msgid "Change the text about you on your profile at {{site_name}}"
 msgstr "Ndrysho tekstin për vetën në profilin tënd në {{site_name}}"
 
 #: vendor/plugins/ipvtheme/lib/views/user/_show_user_info.rhtml:26
-#, fuzzy
 msgid "Change your DOB"
 msgstr "Ndrysho email adresën tënde"
 
 #: vendor/plugins/ipvtheme/lib/controller_patches.rb:68
-#, fuzzy
 msgid "Change your DOB used on {{site_name}}"
 msgstr "Ndrysho fjalëkalimin tënd në {{site_name}}"
 
 #: vendor/plugins/ipvtheme/lib/views/user/_show_user_info.rhtml:25
-#, fuzzy
 msgid "Change your address"
 msgstr "Ndrysho fjalëkalimin tënd"
 
 #: vendor/plugins/ipvtheme/lib/controller_patches.rb:45
 #: vendor/plugins/ipvtheme/lib/views/user/signchangeaddress.html.erb:1
 #: vendor/plugins/ipvtheme/lib/views/user/signchangeaddress.html.erb:11
-#, fuzzy
 msgid "Change your address used on {{site_name}}"
 msgstr "Ndysho email adresën tënde të përdorur në këtë {{site_name}}"
 
 #: vendor/plugins/ipvtheme/lib/views/user/signchangedob.html.erb:1
 #: vendor/plugins/ipvtheme/lib/views/user/signchangedob.html.erb:11
-#, fuzzy
 msgid "Change your dob used on {{site_name}}"
 msgstr "Ndrysho fjalëkalimin tënd në {{site_name}}"
 
@@ -1900,7 +1893,6 @@ msgid "New Freedom of Information requests"
 msgstr "Kërkesat e reja për informata zyrtare "
 
 #: vendor/plugins/ipvtheme/lib/views/user/signchangeaddress.html.erb:14
-#, fuzzy
 msgid "New address:"
 msgstr "Fjalëkalim i ri:"
 
@@ -3137,12 +3129,10 @@ msgid "Then you can cancel the alerts."
 msgstr "Pastaj ti mund të anulon njoftimet."
 
 #: vendor/plugins/ipvtheme/lib/controller_patches.rb:67
-#, fuzzy
 msgid "Then you can change your DOB used on {{site_name}}"
 msgstr "Pastaj ti mund të ndryshosh fjalëkalimin tënd që përdoret në {{site_name}}"
 
 #: vendor/plugins/ipvtheme/lib/controller_patches.rb:44
-#, fuzzy
 msgid "Then you can change your address used on {{site_name}}"
 msgstr "Pastaj ti mund të ndryshosh adresën tënde të emailit që përdoret në {{site_name}}"
 
@@ -3479,12 +3469,10 @@ msgid ""
 msgstr "Për të vazhduar, ti duhet të kyçesh ose të hapë një llogari. Për fat të keq, ka pasur një problem teknik duke u përpjekur për të bërë këtë."
 
 #: vendor/plugins/ipvtheme/lib/controller_patches.rb:66
-#, fuzzy
 msgid "To change your DOB used on {{site_name}}"
 msgstr "Për të ndryshuar email adresën tënde të përdorur në {{site_name}}"
 
 #: vendor/plugins/ipvtheme/lib/controller_patches.rb:43
-#, fuzzy
 msgid "To change your address used on {{site_name}}"
 msgstr "Për të ndryshuar email adresën tënde të përdorur në {{site_name}}"
 
@@ -4065,12 +4053,10 @@ msgid "You have now changed the text about you on your profile."
 msgstr "Ju keni ndryshuar tani tekstin për ju në profilin tuaj."
 
 #: vendor/plugins/ipvtheme/lib/controller_patches.rb:59
-#, fuzzy
 msgid "You have now changed your address used on {{site_name}}"
 msgstr "Tash ke ndryshuar adresën tënde të emailit që përdoret në {{site_name}}"
 
 #: vendor/plugins/ipvtheme/lib/controller_patches.rb:85
-#, fuzzy
 msgid "You have now changed your dob used on {{site_name}}"
 msgstr "Tash ke ndryshuar adresën tënde të emailit që përdoret në {{site_name}}"
 
@@ -4221,7 +4207,6 @@ msgid "Your DOB will also be sent to authorities when you make a request.  We wi
 msgstr ""
 
 #: vendor/plugins/ipvtheme/lib/views/user/_signup.rhtml:59
-#, fuzzy
 msgid "Your DOB:"
 msgstr "Emri yt:"
 
@@ -4230,7 +4215,6 @@ msgid "Your address will be sent to authorities when you make a request.  We wil
 msgstr ""
 
 #: vendor/plugins/ipvtheme/lib/views/user/_signup.rhtml:51
-#, fuzzy
 msgid "Your address:"
 msgstr "Emri yt:"
 

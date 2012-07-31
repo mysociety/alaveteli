@@ -783,12 +783,10 @@ msgid "CensorRule|Text"
 msgstr "CensorRule|Text"
 
 #: vendor/plugins/ipvtheme/lib/views/user/signchangeaddress.html.erb:21
-#, fuzzy
 msgid "Change address on {{site_name}}"
 msgstr "Cambiar la contraseña en {{site_name}}"
 
 #: vendor/plugins/ipvtheme/lib/views/user/signchangedob.html.erb:21
-#, fuzzy
 msgid "Change dob on {{site_name}}"
 msgstr "Cambiar correo en {{site_name}}"
 
@@ -811,30 +809,25 @@ msgid "Change the text about you on your profile at {{site_name}}"
 msgstr "Cambiar el texto de tu perfil en {{site_name}}"
 
 #: vendor/plugins/ipvtheme/lib/views/user/_show_user_info.rhtml:26
-#, fuzzy
 msgid "Change your DOB"
 msgstr "Cambia tu correo"
 
 #: vendor/plugins/ipvtheme/lib/controller_patches.rb:68
-#, fuzzy
 msgid "Change your DOB used on {{site_name}}"
 msgstr "Cambia tu contraseña en {{site_name}}"
 
 #: vendor/plugins/ipvtheme/lib/views/user/_show_user_info.rhtml:25
-#, fuzzy
 msgid "Change your address"
 msgstr "Cambia tu contraseña"
 
 #: vendor/plugins/ipvtheme/lib/controller_patches.rb:45
 #: vendor/plugins/ipvtheme/lib/views/user/signchangeaddress.html.erb:1
 #: vendor/plugins/ipvtheme/lib/views/user/signchangeaddress.html.erb:11
-#, fuzzy
 msgid "Change your address used on {{site_name}}"
 msgstr "Cambia tu dirección de correo en {{site_name}}"
 
 #: vendor/plugins/ipvtheme/lib/views/user/signchangedob.html.erb:1
 #: vendor/plugins/ipvtheme/lib/views/user/signchangedob.html.erb:11
-#, fuzzy
 msgid "Change your dob used on {{site_name}}"
 msgstr "Cambia tu contraseña en {{site_name}}"
 
@@ -1949,7 +1942,6 @@ msgid "New Freedom of Information requests"
 msgstr "Nuevas solicitudes de acceso a información"
 
 #: vendor/plugins/ipvtheme/lib/views/user/signchangeaddress.html.erb:14
-#, fuzzy
 msgid "New address:"
 msgstr "Nueva contraseña:"
 
@@ -3214,12 +3206,10 @@ msgid "Then you can cancel the alerts."
 msgstr "Entonces podrá cancelar las alertas."
 
 #: vendor/plugins/ipvtheme/lib/controller_patches.rb:67
-#, fuzzy
 msgid "Then you can change your DOB used on {{site_name}}"
 msgstr "Entonces podrás cambiar tu contraseña en {{site_name}}"
 
 #: vendor/plugins/ipvtheme/lib/controller_patches.rb:44
-#, fuzzy
 msgid "Then you can change your address used on {{site_name}}"
 msgstr "Entonces podrá cambiar el correo utilizado en {{site_name}}"
 
@@ -3572,12 +3562,10 @@ msgstr ""
 "ha habido un problema técnico al intentar hacerlo."
 
 #: vendor/plugins/ipvtheme/lib/controller_patches.rb:66
-#, fuzzy
 msgid "To change your DOB used on {{site_name}}"
 msgstr "Cambiar la dirección de correo usada en {{site_name}}"
 
 #: vendor/plugins/ipvtheme/lib/controller_patches.rb:43
-#, fuzzy
 msgid "To change your address used on {{site_name}}"
 msgstr "Cambiar la dirección de correo usada en {{site_name}}"
 
@@ -4171,12 +4159,10 @@ msgid "You have now changed the text about you on your profile."
 msgstr "Has cambiado el texto sobre ti en tu perfil."
 
 #: vendor/plugins/ipvtheme/lib/controller_patches.rb:59
-#, fuzzy
 msgid "You have now changed your address used on {{site_name}}"
 msgstr "Ha cambiado la dirección de correo que usa en {{site_name}}"
 
 #: vendor/plugins/ipvtheme/lib/controller_patches.rb:85
-#, fuzzy
 msgid "You have now changed your dob used on {{site_name}}"
 msgstr "Ha cambiado la dirección de correo que usa en {{site_name}}"
 
@@ -4333,7 +4319,6 @@ msgid "Your DOB will also be sent to authorities when you make a request.  We wi
 msgstr ""
 
 #: vendor/plugins/ipvtheme/lib/views/user/_signup.rhtml:59
-#, fuzzy
 msgid "Your DOB:"
 msgstr "Tu nombre:"
 
@@ -4342,7 +4327,6 @@ msgid "Your address will be sent to authorities when you make a request.  We wil
 msgstr ""
 
 #: vendor/plugins/ipvtheme/lib/views/user/_signup.rhtml:51
-#, fuzzy
 msgid "Your address:"
 msgstr "Tu nombre:"
 

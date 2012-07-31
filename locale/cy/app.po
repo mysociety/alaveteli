@@ -708,12 +708,10 @@ msgid "CensorRule|Text"
 msgstr ""
 
 #: vendor/plugins/ipvtheme/lib/views/user/signchangeaddress.html.erb:21
-#, fuzzy
 msgid "Change address on {{site_name}}"
 msgstr "Newid cyfrinair ar {{site_name}}"
 
 #: vendor/plugins/ipvtheme/lib/views/user/signchangedob.html.erb:21
-#, fuzzy
 msgid "Change dob on {{site_name}}"
 msgstr "Newid cyfrinair ar {{site_name}}"
 
@@ -740,7 +738,6 @@ msgid "Change your DOB"
 msgstr ""
 
 #: vendor/plugins/ipvtheme/lib/controller_patches.rb:68
-#, fuzzy
 msgid "Change your DOB used on {{site_name}}"
 msgstr "Newid eich cyfrinair ar {{site_name}}"
 
@@ -751,13 +748,11 @@ msgstr ""
 #: vendor/plugins/ipvtheme/lib/controller_patches.rb:45
 #: vendor/plugins/ipvtheme/lib/views/user/signchangeaddress.html.erb:1
 #: vendor/plugins/ipvtheme/lib/views/user/signchangeaddress.html.erb:11
-#, fuzzy
 msgid "Change your address used on {{site_name}}"
 msgstr "Newid eich cyfrinair ar {{site_name}}"
 
 #: vendor/plugins/ipvtheme/lib/views/user/signchangedob.html.erb:1
 #: vendor/plugins/ipvtheme/lib/views/user/signchangedob.html.erb:11
-#, fuzzy
 msgid "Change your dob used on {{site_name}}"
 msgstr "Newid eich cyfrinair ar {{site_name}}"
 
@@ -3024,12 +3019,10 @@ msgid "Then you can cancel the alerts."
 msgstr ""
 
 #: vendor/plugins/ipvtheme/lib/controller_patches.rb:67
-#, fuzzy
 msgid "Then you can change your DOB used on {{site_name}}"
 msgstr "Newid eich cyfrinair ar {{site_name}}"
 
 #: vendor/plugins/ipvtheme/lib/controller_patches.rb:44
-#, fuzzy
 msgid "Then you can change your address used on {{site_name}}"
 msgstr "Newid eich cyfrinair ar {{site_name}}"
 
@@ -3362,12 +3355,10 @@ msgid ""
 msgstr ""
 
 #: vendor/plugins/ipvtheme/lib/controller_patches.rb:66
-#, fuzzy
 msgid "To change your DOB used on {{site_name}}"
 msgstr "Newid eich cyfrinair ar {{site_name}}"
 
 #: vendor/plugins/ipvtheme/lib/controller_patches.rb:43
-#, fuzzy
 msgid "To change your address used on {{site_name}}"
 msgstr "Newid eich cyfrinair ar {{site_name}}"
 
@@ -3936,12 +3927,10 @@ msgid "You have now changed the text about you on your profile."
 msgstr ""
 
 #: vendor/plugins/ipvtheme/lib/controller_patches.rb:59
-#, fuzzy
 msgid "You have now changed your address used on {{site_name}}"
 msgstr "Newid eich cyfrinair ar {{site_name}}"
 
 #: vendor/plugins/ipvtheme/lib/controller_patches.rb:85
-#, fuzzy
 msgid "You have now changed your dob used on {{site_name}}"
 msgstr "Newid eich cyfrinair ar {{site_name}}"
 

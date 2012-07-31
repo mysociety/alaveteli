@@ -733,12 +733,10 @@ msgid "CensorRule|Text"
 msgstr "CensorRule|Text"
 
 #: vendor/plugins/ipvtheme/lib/views/user/signchangeaddress.html.erb:21
-#, fuzzy
 msgid "Change address on {{site_name}}"
 msgstr "Aldatu {{site_name}}-ren pasahitza"
 
 #: vendor/plugins/ipvtheme/lib/views/user/signchangedob.html.erb:21
-#, fuzzy
 msgid "Change dob on {{site_name}}"
 msgstr "Aldatu {{site_name}}-ren posta elektronikoa"
 
@@ -761,30 +759,25 @@ msgid "Change the text about you on your profile at {{site_name}}"
 msgstr "Aldatu zure profilaren testua {{site_name}}-an"
 
 #: vendor/plugins/ipvtheme/lib/views/user/_show_user_info.rhtml:26
-#, fuzzy
 msgid "Change your DOB"
 msgstr "Aldatu zure posta elektronikoa"
 
 #: vendor/plugins/ipvtheme/lib/controller_patches.rb:68
-#, fuzzy
 msgid "Change your DOB used on {{site_name}}"
 msgstr "Aldatu zure pasahitza {{site_name}}-an"
 
 #: vendor/plugins/ipvtheme/lib/views/user/_show_user_info.rhtml:25
-#, fuzzy
 msgid "Change your address"
 msgstr "Aldatu zure pasahitza"
 
 #: vendor/plugins/ipvtheme/lib/controller_patches.rb:45
 #: vendor/plugins/ipvtheme/lib/views/user/signchangeaddress.html.erb:1
 #: vendor/plugins/ipvtheme/lib/views/user/signchangeaddress.html.erb:11
-#, fuzzy
 msgid "Change your address used on {{site_name}}"
 msgstr "Aldatu zure posta elektronikoa {{site_name}}-an"
 
 #: vendor/plugins/ipvtheme/lib/views/user/signchangedob.html.erb:1
 #: vendor/plugins/ipvtheme/lib/views/user/signchangedob.html.erb:11
-#, fuzzy
 msgid "Change your dob used on {{site_name}}"
 msgstr "Aldatu zure pasahitza {{site_name}}-an"
 
@@ -1852,7 +1845,6 @@ msgid "New Freedom of Information requests"
 msgstr "Informaziorako Sarbidearen eskabide berriak"
 
 #: vendor/plugins/ipvtheme/lib/views/user/signchangeaddress.html.erb:14
-#, fuzzy
 msgid "New address:"
 msgstr "Pasahitza berria:"
 
@@ -3082,12 +3074,10 @@ msgid "Then you can cancel the alerts."
 msgstr "Orduan ezeztatu ahal izango dituzu zure alertak."
 
 #: vendor/plugins/ipvtheme/lib/controller_patches.rb:67
-#, fuzzy
 msgid "Then you can change your DOB used on {{site_name}}"
 msgstr "Orduan {{site_name}}-ean erabili duzun pasahitza aldatu ahal izango duzu."
 
 #: vendor/plugins/ipvtheme/lib/controller_patches.rb:44
-#, fuzzy
 msgid "Then you can change your address used on {{site_name}}"
 msgstr "Orduan {{site_name}}-ean erabili duzun posta aldatu ahal izango duzu."
 
@@ -3418,12 +3408,10 @@ msgid ""
 msgstr "Jarraitzeko, saioa ireki edo kontu bat sortu behar duzu. Zoritxarrez, egitean arazo teknikoa gertatu da."
 
 #: vendor/plugins/ipvtheme/lib/controller_patches.rb:66
-#, fuzzy
 msgid "To change your DOB used on {{site_name}}"
 msgstr "{{site_name}}-ean erabili den posta helbidea aldatu"
 
 #: vendor/plugins/ipvtheme/lib/controller_patches.rb:43
-#, fuzzy
 msgid "To change your address used on {{site_name}}"
 msgstr "{{site_name}}-ean erabili den posta helbidea aldatu"
 
@@ -3995,12 +3983,10 @@ msgid "You have now changed the text about you on your profile."
 msgstr "Zure profilari buruzko testua aldatu duzu."
 
 #: vendor/plugins/ipvtheme/lib/controller_patches.rb:59
-#, fuzzy
 msgid "You have now changed your address used on {{site_name}}"
 msgstr "{{site_name}}-ean erabiltzen duzun helbide elektronikoa aldatu duzu."
 
 #: vendor/plugins/ipvtheme/lib/controller_patches.rb:85
-#, fuzzy
 msgid "You have now changed your dob used on {{site_name}}"
 msgstr "{{site_name}}-ean erabiltzen duzun helbide elektronikoa aldatu duzu."
 
@@ -4143,7 +4129,6 @@ msgid "Your DOB will also be sent to authorities when you make a request.  We wi
 msgstr ""
 
 #: vendor/plugins/ipvtheme/lib/views/user/_signup.rhtml:59
-#, fuzzy
 msgid "Your DOB:"
 msgstr "Zure izena:"
 
@@ -4152,7 +4137,6 @@ msgid "Your address will be sent to authorities when you make a request.  We wil
 msgstr ""
 
 #: vendor/plugins/ipvtheme/lib/views/user/_signup.rhtml:51
-#, fuzzy
 msgid "Your address:"
 msgstr "Zure izena:"
 
