@@ -1,87 +1,65 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="<%= I18n.locale %>">
     <head>
-        <title>
-        <% if @title %>
-            <%=@title%> - <%= site_name %>
-        <% else %>
-            <%= site_name %> - <%= _('Make and browse Freedom of Information (FOI) requests') %>
-        <% end %>
-        </title>
-
-        <link rel="shortcut icon" href="/favicon.ico">
-        <%= stylesheet_link_tag 'main', :title => "Main", :rel => "stylesheet", :media => "all" %>
-        <%= stylesheet_link_tag 'fonts', :rel => "stylesheet", :media => "all"  %>
-        <%= stylesheet_link_tag 'print', :rel => "stylesheet", :media => "print"  %>
-        <% if !params[:print_stylesheet].nil? %>
-         <%= stylesheet_link_tag 'print', :rel => "stylesheet", :media => "all"  %>
-        <% end %>
-
-	<% if is_admin? %>
-          <%= stylesheet_link_tag "/adminbootstraptheme/stylesheets/admin", :title => "Main", :rel => "stylesheet" %>
+	<title>
+	<% if @title %>
+	    <%=@title%> - <%= site_name %>
+	<% else %>
+	    <%= site_name %> - <%= _('Make and browse Freedom of Information (FOI) requests') %>
 	<% end %>
-        <%= javascript_include_tag 'jquery.js', 'jquery-ui.min','jquery.cookie.js', 'general.js' %>
+	</title>
 
-        <% if @profile_photo_javascript %>
-            <script type="text/javascript" src="/javascripts/jquery.Jcrop.js"></script>
-            <script type="text/javascript" src="/javascripts/profile_photo.js"></script>
-            <link rel="stylesheet" href="/stylesheets/jquery.Jcrop.css" type="text/css" >
-        <% end %>
+	<link rel="shortcut icon" href="/favicon.ico">
 
-        <%= stylesheet_link_tag 'admin-theme/jquery-ui-1.8.15.custom.css', :rel => 'stylesheet'%>
-        <!--[if LT IE 7]> 
-        <style type="text/css">@import url("/stylesheets/ie6.css");</style> 
-        <![endif]-->
-        <!--[if LT IE 7]> 
-        <style type="text/css">@import url("/stylesheets/ie6-custom.css");</style> 
-        <![endif]-->
-        <!--[if LT IE 8]> 
-        <style type="text/css">@import url("/stylesheets/ie7.css");</style> 
-        <![endif]-->
-        <!-- the following method for customising CSS is deprecated; see `doc/THEMES.md` for detail -->
-        <%= stylesheet_link_tag 'custom', :title => "Main", :rel => "stylesheet"  %>
-        <% if force_registration_on_new_request %>
-        <%= stylesheet_link_tag 'jquery.fancybox-1.3.4', :rel => "stylesheet"  %>
-        <% end %>
+	<%= render :partial => 'general/stylesheet_includes' %>
+	<% if is_admin? %>
+	  <%= stylesheet_link_tag "/adminbootstraptheme/stylesheets/admin", :title => "Main", :rel => "stylesheet" %>
+	<% end %>
 
-        <% if @feed_autodetect %>
-            <% for feed in @feed_autodetect %>
-                <link rel="alternate" type="application/atom+xml" title="<%=h feed[:title] %>" href="<%=h feed[:url]%>">
-                <% if feed[:has_json] %>
-                    <link rel="alternate" type="application/json" title="JSON version of <%=h feed[:title] %>" href="<%=h feed[:url]%>.json">
-                <% end %>
-            <% end %>
-        <% end %>
-        <% if @has_json %>
-            <link rel="alternate" type="application/json" title="JSON version of this page" href="<%=h main_url(request.request_uri, '.json') %>">
-        <% end %>
+	<%= javascript_include_tag 'jquery.js', 'jquery-ui.min','jquery.cookie.js', 'general.js' %>
+	<% if @profile_photo_javascript %>
+	    <script type="text/javascript" src="/javascripts/jquery.Jcrop.js"></script>
+	    <script type="text/javascript" src="/javascripts/profile_photo.js"></script>
+	    <link rel="stylesheet" href="/stylesheets/jquery.Jcrop.css" type="text/css" >
+	<% end %>
 
-        <% if @no_crawl %>
-            <meta name="robots" content="noindex, nofollow">
-        <% end %>
+	<% if @feed_autodetect %>
+	    <% for feed in @feed_autodetect %>
+		<link rel="alternate" type="application/atom+xml" title="<%=h feed[:title] %>" href="<%=h feed[:url]%>">
+		<% if feed[:has_json] %>
+		    <link rel="alternate" type="application/json" title="JSON version of <%=h feed[:title] %>" href="<%=h feed[:url]%>.json">
+		<% end %>
+	    <% end %>
+	<% end %>
+	<% if @has_json %>
+	    <link rel="alternate" type="application/json" title="JSON version of this page" href="<%=h main_url(request.request_uri, '.json') %>">
+	<% end %>
 
-        <%= render :partial => 'general/before_head_end' %>
+	<% if @no_crawl %>
+	    <meta name="robots" content="noindex, nofollow">
+	<% end %>
+
+	<%= render :partial => 'general/before_head_end' %>
     </head>
     <body class="<%= 'admin' if is_admin? %> <%= 'front' if params[:action] == 'frontpage' %>">
-    <!-- XXX: move to a separate file -->
     <% if force_registration_on_new_request && !@user %>
     <%= javascript_include_tag 'jquery.fancybox-1.3.4.pack' %>
     <script type="text/javascript">
-        $(document).ready(function() {
-            $("#make-request-link").fancybox({
-                'modal': false,
-                'width': 920,
-                'height': 400,
-                'type': 'iframe',
-                'href': '/<%= I18n.locale %>/profile/sign_in?modal=1',
-                'onClosed': function() {
-                    // modal_signin_successful variable set by modal dialog box
-                    if (typeof modal_signin_successful != 'undefined' ) {
-                        window.location.href = '<%= select_authority_url %>';
-                    }
-                } 
-            });
-        });
+	$(document).ready(function() {
+	    $("#make-request-link").fancybox({
+		'modal': false,
+		'width': 920,
+		'height': 400,
+		'type': 'iframe',
+		'href': '/<%= I18n.locale %>/profile/sign_in?modal=1',
+		'onClosed': function() {
+		    // modal_signin_successful variable set by modal dialog box
+		    if (typeof modal_signin_successful != 'undefined' ) {
+			window.location.href = '<%= select_authority_url %>';
+		    }
+		}
+	    });
+	});
     </script>
     <% end %>
 
@@ -89,67 +67,66 @@
   <%= render :partial => 'admin_general/admin_navbar' %>
 <% end %>
 
-<% # code for popup advert for a campaign etc.
-=begin
-    <div id="everypage" class="jshide">
-    <p style="float:right"><a href="#top" onclick="$.cookie('seen_foi2', 1, { expires: 7, path: '/' }); $('#everypage').hide('slow'); return false;">Close</a></p>
-    [ message goes here ]
-    <p style="text-align: right"><a href="#top" onclick="$.cookie('seen_foi2', 1, { expires: 7, path: '/' }); $('#everypage').hide('slow'); return false;">Close</a></p>
-    </div>
-=end
-%>
+<% if !@popup_banner.blank? %>
+<div id="everypage" class="jshide">
+  <p style="float:right"><a href="#top" onclick="$.cookie('seen_foi2', 1, { expires: 7, path: '/' }); $('#everypage').hide('slow'); return false;"><%= _('Close') %></a></p>
+  <%= @popup_banner %>
+  <p style="text-align: right"><a href="#top" onclick="$.cookie('seen_foi2', 1, { expires: 7, path: '/' }); $('#everypage').hide('slow'); return false;"><%= _('Close') %></a></p>
+</div>
+<% end %>
+
 <div class="entirebody">
     <div id="banner">
       <div id="banner_inner">
-        <div class="lang"><%= render :partial => 'general/locale_switcher' %></div>
-        
-        <% if not (controller.action_name == 'signin' or controller.action_name == 'signup') %>
-          <div id="logged_in_bar">
-          <% if @user %>
-              <%= _('Hello, {{username}}!', :username => h(@user.name))%>
+	<div class="lang"><%= render :partial => 'general/locale_switcher' %></div>
 
-                <% if @user %>
-                    <%=link_to _("My requests"), show_user_requests_path(:url_name => @user.url_name) %>
-                    <%=link_to _("My profile"), show_user_profile_path(:url_name => @user.url_name) %>
-                    <%=link_to _("My wall"), show_user_wall_path(:url_name => @user.url_name) %>
-                <% end %>
+	<% if not (controller.action_name == 'signin' or controller.action_name == 'signup') %>
+	  <div id="logged_in_bar">
+	  <% if @user %>
+	      <%= _('Hello, {{username}}!', :username => h(@user.name))%>
+
+		<% if @user %>
+		    <%=link_to _("My requests"), show_user_requests_path(:url_name => @user.url_name) %>
+		    <%=link_to _("My profile"), show_user_profile_path(:url_name => @user.url_name) %>
+		    <%=link_to _("My wall"), show_user_wall_path(:url_name => @user.url_name) %>
+		<% end %>
 
 
-              <%= link_to _("Sign out"), signout_url(:r => request.request_uri) %>
-          <% else %>
-              <%= link_to _("Sign in or sign up"), signin_url(:r => request.request_uri) %>
-          <% end %>
-          </div>
-        <% end %>   
+	      <%= link_to _("Sign out"), signout_url(:r => request.request_uri) %>
+	  <% else %>
+	      <%= link_to _("Sign in or sign up"), signin_url(:r => request.request_uri) %>
+	  <% end %>
+	  </div>
+	<% end %>
 
-        <div id="navigation_search">
-            <% form_tag({:controller => "general", :action => "search_redirect"}, {:id => "navigation_search_form"}) do %>
-               <p>
-                   <%= text_field_tag 'query', params[:query], { :size => 40, :id => "navigation_search_query" } %>
-                   <%= image_submit_tag('search-button.png') %>
-               </p>
-            <% end %>
-        </div>
-        
-        <%= render :partial => 'general/orglink' %>
-        
-        <%= render :partial => 'general/topnav' %>
+	<div id="navigation_search">
+	    <% form_tag({:controller => "general", :action => "search_redirect"}, {:id => "navigation_search_form"}) do %>
+	       <p>
+		   <%= text_field_tag 'query', params[:query], { :size => 40, :id => "navigation_search_query" } %>
+		   <%= submit_tag 'search', :id => "navigation_search_button"  %>
+	       </p>
+	    <% end %>
+	</div>
+
+	<%= render :partial => 'general/orglink' %>
+
+	<%= render :partial => 'general/topnav' %>
       </div>
     </div>
     <div id="wrapper">
-        <div id="content">
-            <% if flash[:notice] %>
-                <div id="notice"><%= flash[:notice] %></div>
-            <% end %>
-            <% if flash[:error] %>
-                <div id="error"><%= flash[:error] %></div>
-            <% end %>
+	<div id="content">
+	    <% if flash[:notice] %>
+		<div id="notice"><%= flash[:notice] %></div>
+	    <% end %>
+	    <% if flash[:error] %>
+		<div id="error"><%= flash[:error] %></div>
+	    <% end %>
 
-            <div id="<%= controller.controller_name + "_" + controller.action_name %>" class="controller_<%= controller.controller_name %>">
-            <%= yield :layout %>
-            </div>
-            <div style="clear:both"></div>
-        </div>
+	    <div id="<%= controller.controller_name + "_" + controller.action_name %>" class="controller_<%= controller.controller_name %>">
+	    <%= yield :layout %>
+	    </div>
+	    <div style="clear:both"></div>
+	</div>
     </div>
 
     <%= render :partial => 'general/footer' %>
@@ -163,20 +140,19 @@
 </div>
     <%
       ga_code = MySociety::Config.get('GA_CODE', '')
-      
+
       unless ga_code.empty? %>
-        <script>
-          var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-          document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-        </script>
-        <script>
-          var pageTracker = _gat._getTracker("<%=ga_code%>");
-          pageTracker._trackPageview();
-        </script>
-        
+	<script>
+	  var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	  document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script>
+	  var pageTracker = _gat._getTracker("<%=ga_code%>");
+	  pageTracker._trackPageview();
+	</script>
+
       <% end %>
 
       <%= render :partial => 'general/before_body_end' %>
     </body>
 </html>
-

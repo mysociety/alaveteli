@@ -16,7 +16,7 @@ before_install:
   - export DEBIAN_FRONTEND=noninteractive
   - sudo apt-get -y install exim4-daemon-light
   - sudo apt-get -y install `cut -d " " -f 1 config/packages | egrep -v "(^#|wkhtml|bundler)"`
-  - ./script/rails-post-deploy
+  - RAILS_ENV=test ./script/rails-post-deploy
 before_script:
 notifications:
   irc: "irc.freenode.org#alaveteli"

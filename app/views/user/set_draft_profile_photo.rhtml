@@ -10,12 +10,12 @@
 
 <% form_tag 'set_photo', :id => 'set_draft_profile_photo_form', :multipart => true do %>
     <p>
-	    <label class="form_label" for="file_1"><%= _('Photo of you:')%></label> 
+	    <label class="form_label" for="file_1"><%= _('Photo of you:')%></label>
         <%= file_field_tag :file, :size => 35, :id => 'file_1' %>
     </p>
 
 <ul>
-    <li><%= _('Your photo will be shown in public <strong>on the Internet</strong>, 
+    <li><%= _('Your photo will be shown in public <strong>on the Internet</strong>,
     wherever you do something on {{site_name}}.', :site_name=>site_name)%>
     </li>
 
@@ -36,7 +36,7 @@
     <noscript>
         <div>
             <%= hidden_field_tag 'automatically_crop', 1 %>
-            <%= submit_tag "Done &gt;&gt;" %>
+            <%= submit_tag _("Done &gt;&gt;") %>
         </div>
     </noscript>
 <% end %>
@@ -46,7 +46,7 @@
     <h2><%= _('OR remove the existing photo')%></h2>
 
     <% form_tag 'clear_photo', :id => 'clear_profile_photo_form', :multipart => true do %>
-        <%= submit_tag "Clear photo" %>
+        <%= submit_tag _("Clear photo") %>
     <% end %>
 
 <% end %>

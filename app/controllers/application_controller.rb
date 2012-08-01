@@ -27,6 +27,7 @@ class ApplicationController < ActionController::Base
     before_filter :check_in_post_redirect
     before_filter :session_remember_me
     before_filter :set_vary_header
+    before_filter :set_popup_banner
 
     # scrub sensitive parameters from the logs
     filter_parameter_logging :password
@@ -133,6 +134,10 @@ class ApplicationController < ActionController::Base
         # Make sure expiry time for session is set (before_filters are
         # otherwise missed by this override)
         session_remember_me
+        
+        # Make sure the locale is set correctly too
+        set_gettext_locale
+        
         case exception
         when ActiveRecord::RecordNotFound, ActionController::UnknownAction, ActionController::RoutingError
             @status = 404
@@ -155,6 +160,9 @@ class ApplicationController < ActionController::Base
         # Make sure expiry time for session is set (before_filters are
         # otherwise missed by this override)
         session_remember_me
+
+        # Make sure the locale is set correctly too
+        set_gettext_locale
 
         # Display default, detailed error for developers
         original_rescue_action_locally(exception)
@@ -553,6 +561,9 @@ class ApplicationController < ActionController::Base
         return country
     end
 
+    def set_popup_banner
+        @popup_banner = render_to_string(:partial => "general/popup_banner").strip
+    end
     # URL generating functions are needed by all controllers (for redirects),
     # views (for links) and mailers (for use in emails), so include them into
     # all of all.

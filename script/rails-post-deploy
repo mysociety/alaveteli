@@ -96,6 +96,12 @@ if [ -n "$OPTION_THEME_URL" ]
 then
         echo "Installing $OPTION_THEME_URL using deprecated THEME_URL..."
         script/plugin install --force $OPTION_THEME_URL
+	NAME=`sed -re 's/.*\/(.*)\.git.?/\1/'`
+	POST_INSTALL="vendor/plugins/$NAME/post_install.rb"
+	if [ -e $POST_INSTALL ]
+	then
+            script/runner $POST_INSTALL
+	fi
 fi
 
 # upgrade database
