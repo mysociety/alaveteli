@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 # == Schema Information
 # Schema version: 114
 #
@@ -13,8 +15,6 @@
 #  incoming_message_id   :integer
 #  hexdigest             :string(32)
 #
-
-# encoding: UTF-8
 
 # models/foi_attachment.rb:
 # An attachment to an email (IncomingMessage)
@@ -315,14 +315,21 @@ class FoiAttachment < ActiveRecord::Base
             tempfile.print self.body
             tempfile.flush
 
+            html = nil
             if self.content_type == 'application/pdf'
-                html = AlaveteliExternalCommand.run("pdftohtml", "-nodrm", "-zoom", "1.0", "-stdout", "-enc", "UTF-8", "-noframes", tempfile.path)
+                # We set a timeout here, because pdftohtml can spiral out of control
+                # on some PDF files and we don’t want to crash the whole server.
+                html = AlaveteliExternalCommand.run("pdftohtml", "-nodrm", "-zoom", "1.0", "-stdout", "-enc", "UTF-8", "-noframes", tempfile.path, :timeout => 30)
             elsif self.content_type == 'application/rtf'
-                html = AlaveteliExternalCommand.run("unrtf", "--html", tempfile.path)
-            elsif self.has_google_docs_viewer?
-                html = '' # force error and using Google docs viewer
-            else
-                raise "No HTML conversion available for type " + self.content_type
+                html = AlaveteliExternalCommand.run("unrtf", "--html", tempfile.path, :timeout => 120)
+            end
+            
+            if html.nil?
+                if self.has_google_docs_viewer?
+                    html = '' # force error and using Google docs viewer
+                else
+                    raise "No HTML conversion available for type " + self.content_type
+                end
             end
 
             tempfile.close
