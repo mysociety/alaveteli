@@ -1,7 +1,13 @@
 <% @title = _("{{title}} - a Freedom of Information request to {{public_body}}",
               :title => h(@info_request.title),
               :public_body => (@info_request.public_body.name)) %>
-
+<% if @info_request.all_can_view? %>
+  <% content_for :open_graph_tags do %>
+    <meta property="article:published_time" content="<%= @info_request.created_at.iso8601 %>" />
+    <meta property="article:modified_time" content="<%= @info_request.updated_at.iso8601 %>" />
+    <meta property="og:description" content="<%= @info_request.initial_request_text %>" />
+  <% end %>
+<% end %>
 <% if flash[:request_sent] %>
   <%= render :partial => 'request_sent',
              :locals => { :info_request => @info_request } %>
@@ -89,11 +95,11 @@
     <% elsif @status == 'waiting_response_overdue' %>
       <%= _('Response to this request is <strong>delayed</strong>.') %>
       <%= _('By law, {{public_body_link}} should normally have responded <strong>promptly</strong> and',:public_body_link=>public_body_link(@info_request.public_body)) %>
- 
+
       <% if @info_request.public_body.is_school? %>
         <%= _('in term time') %>
       <% end %>
- 
+
       <%= _('by') %> <strong><%= simple_date(@info_request.date_response_required_by) %></strong>
       (<%= link_to _('details'), help_requesting_path + '#quickly_response' %>)
     <% elsif @status == 'waiting_response_very_overdue' %>
