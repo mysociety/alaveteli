@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
-"POT-Creation-Date: 2012-07-17 10:22+0100\n"
-"PO-Revision-Date: 2012-07-24 14:54+0000\n"
-"Last-Translator: David Cabo <david.cabo@gmail.com>\n"
+"POT-Creation-Date: 2012-08-09 09:33+0100\n"
+"PO-Revision-Date: 2012-08-09 08:34+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -410,7 +410,7 @@ msgstr "<strong>Nota:</strong>\n    Enviaremos un correo a la nueva dirección d
 
 msgid ""
 "<strong>Note:</strong> You're sending a message to yourself, presumably\n"
-"\t    to try out how it works."
+"            to try out how it works."
 msgstr ""
 
 msgid ""
@@ -646,6 +646,9 @@ msgstr "CensorRule|Last edit comment"
 
 msgid "CensorRule|Last edit editor"
 msgstr "CensorRule|Last edit editor"
+
+msgid "CensorRule|Regexp"
+msgstr ""
 
 msgid "CensorRule|Replacement"
 msgstr "CensorRule|Replacement"
@@ -1340,6 +1343,12 @@ msgstr "InfoRequest|Awaiting description"
 msgid "InfoRequest|Described state"
 msgstr "InfoRequest|Described state"
 
+msgid "InfoRequest|External url"
+msgstr ""
+
+msgid "InfoRequest|External user name"
+msgstr ""
+
 msgid "InfoRequest|Handle rejected responses"
 msgstr "InfoRequest|Handle rejected responses"
 
@@ -1945,6 +1954,9 @@ msgstr ""
 
 msgid "PublicBody::Translation|Url name"
 msgstr "<p>Thank you! Here are some ideas on what to do next:</p>⏎\n            <ul>⏎\n            <li>To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>.</li>⏎\n            <li>If you would like to contest the authority's claim that they do not hold the information, here is⏎\n            <a href=\"{{complain_url}}\">how to complain</a>.⏎\n            </li>⏎\n            <li>We have <a href=\"{{other_means_url}}\">suggestions</a>⏎\n            on other means to answer your question.⏎\n            </li>⏎\n            </ul>"
+
+msgid "PublicBody|Api key"
+msgstr ""
 
 msgid "PublicBody|First letter"
 msgstr "Primera letra"
