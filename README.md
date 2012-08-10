@@ -1,6 +1,6 @@
 # Welcome to Alaveteli!
 
-[![Build Status](https://secure.travis-ci.org/sebbacon/alaveteli.png)](http://travis-ci.org/sebbacon/alaveteli)
+[![Build Status](https://secure.travis-ci.org/sebbacon/alaveteli.png)](http://travis-ci.org/sebbacon/alaveteli) [![Dependency Status](https://gemnasium.com/sebbacon/alaveteli.png)](https://gemnasium.com/sebbacon/alaveteli)
 
 This is an open source project to create a standard, internationalised
 platform for making Freedom of Information (FOI) requests in different
