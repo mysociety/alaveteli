@@ -22,3 +22,6 @@ There's background information and a more documentation on
 [our wiki](https://github.com/sebbacon/alaveteli/wiki/Home/), and lots
 of useful information (including a blog) on
 [the project website](http://alaveteli.org)
+
+Looking for the latest stable release? It's on the 
+[master branch](https://github.com/sebbacon/alaveteli/tree/master).
