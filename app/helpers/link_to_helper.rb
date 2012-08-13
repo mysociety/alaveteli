@@ -95,9 +95,21 @@ module LinkToHelper
     end
     def user_link_for_request(request, cls=nil)
         if request.is_external?
-            request.external_user_name || _("Anonymous user")
+            user_name = request.external_user_name || _("Anonymous user")
+            if !request.external_url.nil?
+                link_to h(user_name), request.external_url
+            else
+                user_name
+            end
         else
             link_to h(request.user.name), user_url(request.user), :class => cls
+        end
+    end
+    def user_admin_link_for_request(request)
+        if request.is_external?
+            request.user_name + " (external)"
+        else
+            link_to(h(request.user.name), user_admin_url(request.user))
         end
     end
 
