@@ -70,6 +70,13 @@ describe AdminPublicBodyController, "when administering public bodies" do
         response.should redirect_to(:action=>'list')
         PublicBody.find_by_tag("department").count.should == n
     end
+
+    describe 'import_csv' do
+        it 'should get the page successfully' do
+            get :import_csv
+            response.should be_success
+        end
+    end
 end
 
 describe AdminPublicBodyController, "when administering public bodies and paying attention to authentication" do

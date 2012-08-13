@@ -139,13 +139,8 @@ class AdminPublicBodyController < AdminController
     end
 
     def import_csv
-        if params['commit'] == 'Dry run'
-            dry_run_only = true
-        elsif params['commit'] == 'Upload'
-            dry_run_only = false
-        else
-            raise "internal error, unknown button label"
-        end
+        dry_run_only = (params['commit'] == 'Upload' ? false : true)
+
         if params[:csv_file]
             csv_contents = params[:csv_file].read
         else
