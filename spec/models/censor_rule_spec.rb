@@ -35,23 +35,35 @@ describe CensorRule, "substituting things" do
             @censor_rule.text = "--PRIVATE.*--PRIVATE"
             @censor_rule.replacement = "--REMOVED\nHidden private info\n--REMOVED"
             @censor_rule.regexp = true
-        end
-
-        it "replaces with the regexp" do
-            body =
+            @body =
 <<BODY
 Some public information
 --PRIVATE
 Some private information
 --PRIVATE
 BODY
-            @censor_rule.apply_to_text!(body)
-            body.should ==
+        end
+
+        it "replaces the regexp with the replacement text when applied to text" do
+            @censor_rule.apply_to_text!(@body)
+            @body.should ==
 <<BODY
 Some public information
 --REMOVED
 Hidden private info
 --REMOVED
+BODY
+        end
+
+        it "replaces the regexp with the same number of 'x' characters as the text replaced
+            when applied to binary" do
+            @censor_rule.apply_to_binary!(@body)
+            @body.should ==
+<<BODY
+Some public information
+xxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxx
 BODY
         end
 

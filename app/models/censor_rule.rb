@@ -43,10 +43,6 @@ class CensorRule < ActiveRecord::Base
         end
     end
 
-    def binary_replacement
-        self.text.gsub(/./, 'x')
-    end
-
     def apply_to_text!(text)
         if text.nil?
             return nil
@@ -59,7 +55,8 @@ class CensorRule < ActiveRecord::Base
         if binary.nil?
             return nil
         end
-        binary.gsub!(self.text, self.binary_replacement)
+        to_replace = regexp? ? Regexp.new(self.text, Regexp::MULTILINE) : self.text
+        binary.gsub!(to_replace){ |match| match.gsub(/./, 'x') }
     end
 
     def for_admin_column
