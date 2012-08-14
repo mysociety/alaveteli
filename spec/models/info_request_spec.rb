@@ -407,12 +407,15 @@ describe InfoRequest do
             @global_rule = mock_model(CensorRule, :apply_to_text! => nil)
             @user_rule = mock_model(CensorRule, :apply_to_text! => nil)
             @request_rule = mock_model(CensorRule, :apply_to_text! => nil)
+            @body_rule = mock_model(CensorRule, :apply_to_text! => nil)
             @user = mock_model(User, :censor_rules => [@user_rule])
+            @body = mock_model(PublicBody, :censor_rules => [@body_rule])
             @info_request = InfoRequest.new(:prominence => 'normal',
                                             :awaiting_description => true,
                                             :title => 'title')
             @info_request.stub!(:user).and_return(@user)
             @info_request.stub!(:censor_rules).and_return([@request_rule])
+            @info_request.stub!(:public_body).and_return(@body)
             @text = 'some text'
             CensorRule.stub!(:global).and_return(mock('global context', :all => [@global_rule]))
         end
@@ -430,6 +433,11 @@ describe InfoRequest do
         it 'should not raise an error if there is no user' do
             @info_request.user_id = nil
             lambda{ @info_request.apply_censor_rules_to_text!(@text) }.should_not raise_error
+        end
+
+        it 'should apply a rule from the body associated with the request' do
+            @body_rule.should_receive(:apply_to_text!).with(@text)
+            @info_request.apply_censor_rules_to_text!(@text)
         end
 
         it 'should apply a request rule' do

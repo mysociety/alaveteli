@@ -997,7 +997,7 @@ public
 
     # Call groups of censor rules
     def apply_censor_rules_to_text!(text)
-        applicable_rules = [self.censor_rules, CensorRule.global.all]
+        applicable_rules = [self.censor_rules, self.public_body.censor_rules, CensorRule.global.all]
         if self.user && !self.user.censor_rules.empty?
             applicable_rules << self.user.censor_rules
         end

@@ -42,6 +42,7 @@ class PublicBody < ActiveRecord::Base
 
     has_many :info_requests, :order => 'created_at desc'
     has_many :track_things, :order => 'created_at desc'
+    has_many :censor_rules, :order => 'created_at desc'
 
     has_tag_string
 
