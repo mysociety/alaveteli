@@ -12,7 +12,7 @@
 * Themes can now provide a `post_install.rb` script that is executed
   by `rails-post-deploy`
 * [List of isses on github](https://github.com/sebbacon/alaveteli/issues?milestone=17&state=closed)
-* [List of commits since last release](https://github.com/sebbacon/alaveteli/compare/release/0.6.3)
+* [List of commits since last release](https://github.com/sebbacon/alaveteli/compare/master...release/0.6.3)
 
 ## Upgrade notes
 
