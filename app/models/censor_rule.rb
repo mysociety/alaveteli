@@ -32,6 +32,7 @@ class CensorRule < ActiveRecord::Base
     # a flag to allow the require_user_request_or_public_body validation to be skipped
     attr_accessor :allow_global
     validate :require_user_request_or_public_body, :unless => proc{ |rule| rule.allow_global == true }
+    validate :require_valid_regexp, :if => proc{ |rule| rule.regexp? == true }
 
     named_scope :global, {:conditions => {:info_request_id => nil,
                                           :user_id => nil,
@@ -43,11 +44,23 @@ class CensorRule < ActiveRecord::Base
         end
     end
 
+    def require_valid_regexp
+        begin
+            self.make_regexp()
+        rescue RegexpError => e
+            errors.add(:text, e.message)
+        end
+    end
+
+    def make_regexp
+        return Regexp.new(self.text, Regexp::MULTILINE)
+    end
+
     def apply_to_text!(text)
         if text.nil?
             return nil
         end
-        to_replace = regexp? ? Regexp.new(self.text, Regexp::MULTILINE) : self.text
+        to_replace = regexp? ? self.make_regexp() : self.text
         text.gsub!(to_replace, self.replacement)
     end
 
@@ -55,7 +68,7 @@ class CensorRule < ActiveRecord::Base
         if binary.nil?
             return nil
         end
-        to_replace = regexp? ? Regexp.new(self.text, Regexp::MULTILINE) : self.text
+        to_replace = regexp? ? self.make_regexp() : self.text
         binary.gsub!(to_replace){ |match| match.gsub(/./, 'x') }
     end
 

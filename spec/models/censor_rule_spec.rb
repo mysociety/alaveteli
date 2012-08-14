@@ -73,6 +73,40 @@ end
 
 describe 'when validating rules' do
 
+    describe 'when validating a regexp rule' do
+
+        before do
+            @censor_rule = CensorRule.new(:regexp => true,
+                                          :text => '*')
+        end
+
+        it 'should try to create a regexp from the text' do
+            Regexp.should_receive(:new).with('*', Regexp::MULTILINE)
+            @censor_rule.valid?
+        end
+
+        describe 'if a regexp error is produced' do
+
+            it 'should add an error message to the text field with the regexp error message' do
+                Regexp.stub!(:new).and_raise(RegexpError.new("very bad regexp"))
+                @censor_rule.valid?.should == false
+                @censor_rule.errors.on(:text).should == "very bad regexp"
+            end
+
+        end
+
+        describe 'if no regexp error is produced' do
+
+            it 'should not add any error message to the text field' do
+                Regexp.stub!(:new)
+                @censor_rule.valid?
+                @censor_rule.errors.on(:text).should == nil
+            end
+
+        end
+
+    end
+
     describe 'when the allow_global flag has been set' do
 
         before do
@@ -89,7 +123,7 @@ describe 'when validating rules' do
     describe 'when the allow_global flag has not been set' do
 
         before do
-            @censor_rule = CensorRule.new
+            @censor_rule = CensorRule.new(:text => '/./')
         end
 
         it 'should not allow a global text censor rule (without user_id, request_id or public_body_id)' do
