@@ -89,10 +89,17 @@ describe 'when validating rules' do
     describe 'when the allow_global flag has not been set' do
 
         before do
-            @censor_rule = CensorRule.new()
+            @censor_rule = CensorRule.new
         end
 
-        it 'should not allow a global censor rule (without user_id, request_id or public_body_id)' do
+        it 'should not allow a global text censor rule (without user_id, request_id or public_body_id)' do
+            @censor_rule.valid?.should == false
+            @expected_error = 'Censor must apply to an info request a user or a body;  is invalid'
+            @censor_rule.errors.full_messages.should == [@expected_error]
+        end
+
+        it 'should not allow a global regex censor rule (without user_id, request_id or public_body_id)' do
+            @censor_rule.regexp = true
             @censor_rule.valid?.should == false
             @expected_error = 'Censor must apply to an info request a user or a body;  is invalid'
             @censor_rule.errors.full_messages.should == [@expected_error]
