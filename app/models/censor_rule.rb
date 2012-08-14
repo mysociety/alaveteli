@@ -29,7 +29,19 @@ class CensorRule < ActiveRecord::Base
     belongs_to :user
     belongs_to :public_body
 
-    named_scope :regexps, {:conditions => {:regexp => true}}
+    # a flag to allow the require_user_request_or_public_body validation to be skipped
+    attr_accessor :allow_global
+    validate :require_user_request_or_public_body, :unless => proc{ |rule| rule.allow_global == true }
+
+    named_scope :global, {:conditions => {:info_request_id => nil,
+                                          :user_id => nil,
+                                          :public_body_id => nil}}
+
+    def require_user_request_or_public_body
+        if !self.regexp? && self.info_request.nil? && self.user.nil? && self.public_body.nil?
+            errors.add("Censor must apply to an info request a user or a body; ")
+        end
+    end
 
     def binary_replacement
         self.text.gsub(/./, 'x')
@@ -50,15 +62,15 @@ class CensorRule < ActiveRecord::Base
         binary.gsub!(self.text, self.binary_replacement)
     end
 
-    def validate
-        if !self.regexp? && self.info_request.nil? && self.user.nil? && self.public_body.nil?
-            errors.add("Censor must apply to an info request a user or a body; ")
+    def for_admin_column
+        self.class.content_columns.each do |column|
+          yield(column.human_name, self.send(column.name), column.type.to_s, column.name)
         end
     end
 
-  def for_admin_column
-    self.class.content_columns.each do |column|
-      yield(column.human_name, self.send(column.name), column.type.to_s, column.name)
+    def is_global?
+        return true if (info_request_id.nil? && user_id.nil? && public_body_id.nil?)
+        return false
     end
-  end
+
 end

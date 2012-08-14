@@ -104,7 +104,7 @@ class InfoRequest < ActiveRecord::Base
         errors.add(:described_state, "is not a valid state") if
             !InfoRequest.enumerate_states.include? described_state
     end
-    
+
     # The request must either be internal, in which case it has
     # a foreign key reference to a User object and no external_url or external_user_name,
     # or else be external in which case it has no user_id but does have an external_url,
@@ -120,15 +120,15 @@ class InfoRequest < ActiveRecord::Base
             errors.add(:external_url, "must be null for an internal request") if !external_url.nil?
         end
     end
-    
+
     def is_external?
         !external_url.nil?
     end
-    
+
     def user_name
         is_external? ? external_user_name : user.name
     end
-    
+
     def user_name_slug
         if is_external?
             if external_user_name.nil?
@@ -708,10 +708,10 @@ public
         return self.public_body.is_followupable?
     end
     def recipient_name_and_email
-        return TMail::Address.address_from_name_and_email( 
-            _("{{law_used}} requests at {{public_body}}", 
-                :law_used => self.law_used_short, 
-                :public_body => self.public_body.short_or_long_name), 
+        return TMail::Address.address_from_name_and_email(
+            _("{{law_used}} requests at {{public_body}}",
+                :law_used => self.law_used_short,
+                :public_body => self.public_body.short_or_long_name),
             self.recipient_email).to_s
     end
 
@@ -997,10 +997,13 @@ public
 
     # Call groups of censor rules
     def apply_censor_rules_to_text!(text)
-        [self.censor_rules, self.user.try(:censor_rules),
-            CensorRule.regexps.all].flatten.compact.each do |censor_rule|
-                censor_rule.apply_to_text!(text)
-            end
+        applicable_rules = [self.censor_rules, CensorRule.global.all]
+        if self.user && !self.user.censor_rules.empty?
+            applicable_rules << self.user.censor_rules
+        end
+        applicable_rules.flatten.each do |censor_rule|
+            censor_rule.apply_to_text!(text)
+        end
         return text
     end
 
