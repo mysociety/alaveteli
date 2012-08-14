@@ -116,7 +116,7 @@ describe 'when validating rules' do
     describe 'when the allow_global flag has been set' do
 
         before do
-            @censor_rule = CensorRule.new
+            @censor_rule = CensorRule.new(:text => 'some text')
             @censor_rule.allow_global = true
         end
 
