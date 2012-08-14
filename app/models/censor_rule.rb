@@ -33,6 +33,7 @@ class CensorRule < ActiveRecord::Base
     attr_accessor :allow_global
     validate :require_user_request_or_public_body, :unless => proc{ |rule| rule.allow_global == true }
     validate :require_valid_regexp, :if => proc{ |rule| rule.regexp? == true }
+    validates_presence_of :text
 
     named_scope :global, {:conditions => {:info_request_id => nil,
                                           :user_id => nil,
