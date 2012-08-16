@@ -36,7 +36,7 @@ class AdminController < ApplicationController
 
         # also force a search reindexing (so changed text reflected in search)
         info_request.reindex_request_events
-        # and remove from varnsi
+        # and remove from varnish
         info_request.purge_in_cache
     end
 

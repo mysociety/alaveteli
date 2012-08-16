@@ -313,7 +313,7 @@ class RequestController < ApplicationController
             # case the list of errors will also contain a more specific error
             # describing the reason it is invalid.
             @info_request.errors.delete("outgoing_messages")
-            
+
             render :action => 'new'
             return
         end
@@ -659,6 +659,11 @@ class RequestController < ApplicationController
             @info_request = incoming_message.info_request # used by view
             render :template => 'request/hidden', :status => 410 # gone
         end
+        # Is this a completely public request that we can cache attachments for
+        # to be served up without authentication?
+        if incoming_message.info_request.all_can_view?
+            @files_can_be_cached = true
+        end
     end
 
     def report_request
@@ -668,7 +673,7 @@ class RequestController < ApplicationController
                 :email => _("Then you can report the request '{{title}}'", :title => info_request.title),
                 :email_subject => _("Report an offensive or unsuitable request")
             )
-        
+
         if !info_request.attention_requested
             info_request.set_described_state('attention_requested', @user)
             info_request.attention_requested = true # tells us if attention has ever been requested
@@ -689,6 +694,7 @@ class RequestController < ApplicationController
             key = params.merge(:only_path => true)
             key_path = foi_fragment_cache_path(key)
             if foi_fragment_cache_exists?(key_path)
+                logger.info("Reading cache for #{key_path}")
                 raise PermissionDenied.new("Directory listing not allowed") if File.directory?(key_path)
                 cached = foi_fragment_cache_read(key_path)
                 response.content_type = AlaveteliFileTypes.filename_to_mimetype(params[:file_name].join("/")) || 'application/octet-stream'
@@ -703,7 +709,10 @@ class RequestController < ApplicationController
                 # various fragment cache functions using Ruby Marshall to write the file
                 # which adds a header, so isnt compatible with images that have been
                 # extracted elsewhere from PDFs)
-                foi_fragment_cache_write(key_path, response.body)
+                if @files_can_be_cached == true
+                    logger.info("Writing cache for #{key_path}")
+                    foi_fragment_cache_write(key_path, response.body)
+                end
             end
         end
     end

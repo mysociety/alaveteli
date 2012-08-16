@@ -28,8 +28,8 @@ class AdminRequestController < AdminController
         @info_request = InfoRequest.find(params[:id])
         # XXX is this *really* the only way to render a template to a
         # variable, rather than to the response?
-        vars = OpenStruct.new(:name_to => @info_request.user_name, 
-                :name_from => MySociety::Config.get("CONTACT_NAME", 'Alaveteli'), 
+        vars = OpenStruct.new(:name_to => @info_request.user_name,
+                :name_from => MySociety::Config.get("CONTACT_NAME", 'Alaveteli'),
                 :info_request => @info_request, :reason => params[:reason],
                 :info_request_url => 'http://' + MySociety::Config.get('DOMAIN') + request_url(@info_request),
                 :site_name => site_name)
@@ -81,6 +81,8 @@ class AdminRequestController < AdminController
                     :old_handle_rejected_responses => old_handle_rejected_responses, :handle_rejected_responses => @info_request.handle_rejected_responses,
                     :old_tag_string => old_tag_string, :tag_string => @info_request.tag_string
                 })
+            # expire cached files
+            expire_for_request(@info_request)
             flash[:notice] = 'Request successfully updated.'
             redirect_to request_admin_url(@info_request)
         else
@@ -95,7 +97,8 @@ class AdminRequestController < AdminController
         url_title = @info_request.url_title
 
         @info_request.fully_destroy
-
+        # expire cached files
+        expire_for_request(@info_request)
         flash[:notice] = "Request #{url_title} has been completely destroyed. Email of user who made request: " + user.email
         redirect_to admin_url('request/list')
     end
@@ -166,7 +169,8 @@ class AdminRequestController < AdminController
         @incoming_message.fully_destroy
         @incoming_message.info_request.log_event("destroy_incoming",
             { :editor => admin_http_auth_user(), :deleted_incoming_message_id => incoming_message_id })
-
+        # expire cached files
+        expire_for_request(@info_request)
         flash[:notice] = 'Incoming message successfully destroyed.'
         redirect_to request_admin_url(@info_request)
     end
@@ -174,6 +178,7 @@ class AdminRequestController < AdminController
     def redeliver_incoming
         incoming_message = IncomingMessage.find(params[:redeliver_incoming_message_id])
         message_ids = params[:url_title].split(",").each {|x| x.strip}
+        previous_request = incoming_message.info_request
         destination_request = nil
         ActiveRecord::Base.transaction do
             for m in message_ids
@@ -184,7 +189,7 @@ class AdminRequestController < AdminController
                 end
                 if destination_request.nil?
                     flash[:error] = "Failed to find destination request '" + m + "'"
-                    return redirect_to request_admin_url(incoming_message.info_request)
+                    return redirect_to request_admin_url(previous_request)
                 end
 
                 raw_email_data = incoming_message.raw_email.data
@@ -201,6 +206,8 @@ class AdminRequestController < AdminController
 
                 flash[:notice] = "Message has been moved to request(s). Showing the last one:"
             end
+            # expire cached files
+            expire_for_request(previous_request)
             incoming_message.fully_destroy
         end
         redirect_to request_admin_url(destination_request)
@@ -344,14 +351,14 @@ class AdminRequestController < AdminController
             explanation = params[:explanation]
             info_request = InfoRequest.find(params[:id])
             info_request.prominence = "requester_only"
-            
+
             info_request.log_event("hide", {
                     :editor => admin_http_auth_user(),
                     :reason => params[:reason],
                     :subject => subject,
                     :explanation => explanation
             })
-            
+
             info_request.set_described_state(params[:reason])
             info_request.save!
 
@@ -360,6 +367,8 @@ class AdminRequestController < AdminController
                     subject,
                     params[:explanation]
                 )
+            # expire cached files
+            expire_for_request(info_request)
             flash[:notice] = _("Your message to {{recipient_user_name}} has been sent",:recipient_user_name=>CGI.escapeHTML(info_request.user.name))
             redirect_to request_admin_url(info_request)
         end
