@@ -960,7 +960,7 @@ public
     end
 
     def is_old_unclassified?
-        return false if user_id.nil?
+        return false if is_external?
         return false if !awaiting_description
         return false if url_title == 'holding_pen'
         last_response_event = get_last_response_event
