@@ -793,7 +793,7 @@ class RequestController < ApplicationController
     def upload_response
         @locale = self.locale_from_params()
         PublicBody.with_locale(@locale) do
-            @info_request = InfoRequest.find_by_url_title(params[:url_title])
+            @info_request = InfoRequest.find_by_url_title!(params[:url_title])
 
             @reason_params = {
                     :web => _("To upload a response, you must be logged in using an email address from ") +  CGI.escapeHTML(@info_request.public_body.name),

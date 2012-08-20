@@ -1736,6 +1736,10 @@ describe RequestController, "authority uploads a response from the web interface
         flash[:error].should match(/Please type a message/)
     end
 
+    it 'should 404 for non existent requests' do
+        lambda{ post :upload_response, :url_title => 'i_dont_exist'}.should raise_error(ActiveRecord::RecordNotFound)
+    end
+
     # How do I test a file upload in rails?
     # http://stackoverflow.com/questions/1178587/how-do-i-test-a-file-upload-in-rails
     it "should let the authority upload a file" do
