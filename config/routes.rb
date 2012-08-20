@@ -80,7 +80,7 @@ ActionController::Routing::Routes.draw do |map|
 
     # Use /profile for things to do with the currently signed in user.
     # Use /user/XXXX for things that anyone can see about that user.
-    # Note that /profile isn't indexe by search (see robots.txt)
+    # Note that /profile isn't indexed by search (see robots.txt)
     map.with_options :controller => 'user' do |user|
         user.signin '/profile/sign_in',        :action => 'signin'
         user.signup '/profile/sign_up',        :action => 'signup'

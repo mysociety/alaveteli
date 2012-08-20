@@ -185,7 +185,7 @@ class AdminRequestController < AdminController
                 if m.match(/^[0-9]+$/)
                     destination_request = InfoRequest.find_by_id(m.to_i)
                 else
-                    destination_request = InfoRequest.find_by_url_title(m)
+                    destination_request = InfoRequest.find_by_url_title!(m)
                 end
                 if destination_request.nil?
                     flash[:error] = "Failed to find destination request '" + m + "'"

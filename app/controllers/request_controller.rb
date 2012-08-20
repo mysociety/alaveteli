@@ -64,10 +64,7 @@ class RequestController < ApplicationController
             end
 
             # Look up by new style text names
-            @info_request = InfoRequest.find_by_url_title(params[:url_title])
-            if @info_request.nil?
-                raise ActiveRecord::RecordNotFound.new("Request not found")
-            end
+            @info_request = InfoRequest.find_by_url_title!(params[:url_title])
             set_last_request(@info_request)
 
             # Test for whole request being hidden
@@ -125,14 +122,10 @@ class RequestController < ApplicationController
     # Extra info about a request, such as event history
     def details
         long_cache
-        @info_request = InfoRequest.find_by_url_title(params[:url_title])
-        if @info_request.nil?
-            raise ActiveRecord::RecordNotFound.new("Request not found")
-        else
-            if !@info_request.user_can_view?(authenticated_user)
-                render :template => 'request/hidden', :status => 410 # gone
-                return
-            end
+        @info_request = InfoRequest.find_by_url_title!(params[:url_title])
+        if !@info_request.user_can_view?(authenticated_user)
+            render :template => 'request/hidden', :status => 410 # gone
+            return
         end
         @columns = ['id', 'event_type', 'created_at', 'described_state', 'last_described_at', 'calculated_state' ]
     end
@@ -142,7 +135,7 @@ class RequestController < ApplicationController
         short_cache
         @per_page = 25
         @page = (params[:page] || "1").to_i
-        @info_request = InfoRequest.find_by_url_title(params[:url_title])
+        @info_request = InfoRequest.find_by_url_title!(params[:url_title])
         raise ActiveRecord::RecordNotFound.new("Request not found") if @info_request.nil?
 
         if !@info_request.user_can_view?(authenticated_user)
@@ -431,7 +424,7 @@ class RequestController < ApplicationController
                 })
 
             # Don't give advice on what to do next, as it isn't their request
-            RequestMailer.deliver_old_unclassified_updated(@info_request)
+            RequestMailer.deliver_old_unclassified_updated(@info_request) if !@info_request.is_external?
             if session[:request_game]
                 flash[:notice] = _('Thank you for updating the status of the request \'<a href="{{url}}">{{info_request_title}}</a>\'. There are some more requests below for you to classify.',:info_request_title=>CGI.escapeHTML(@info_request.title), :url=>CGI.escapeHTML(request_url(@info_request)))
                 redirect_to play_url
@@ -667,7 +660,7 @@ class RequestController < ApplicationController
     end
 
     def report_request
-        info_request = InfoRequest.find_by_url_title(params[:url_title])
+        info_request = InfoRequest.find_by_url_title!(params[:url_title])
         return if !authenticated?(
                 :web => _("To report this FOI request"),
                 :email => _("Then you can report the request '{{title}}'", :title => info_request.title),
@@ -850,10 +843,7 @@ class RequestController < ApplicationController
     def download_entire_request
         @locale = self.locale_from_params()
         PublicBody.with_locale(@locale) do
-            info_request = InfoRequest.find_by_url_title(params[:url_title])
-            if info_request.nil?
-                raise ActiveRecord::RecordNotFound.new("Request not found")
-            end
+            info_request = InfoRequest.find_by_url_title!(params[:url_title])
             if authenticated?(
                               :web => _("To download the zip file"),
                               :email => _("Then you can download a zip file of {{info_request_title}}.",:info_request_title=>info_request.title),
