@@ -11,8 +11,16 @@
 
 <% form_tag 'import_csv', :multipart => true do %>
     <p>
-    <label for="csv_file">CSV file:</label>
-    <%= file_field_tag :csv_file, :size => 40 %>
+    <% if @original_csv_file && @temporary_csv_file %>
+        CSV file:
+        <%= @original_csv_file %>
+        <%= hidden_field_tag :original_csv_file, @original_csv_file %>
+        <%= hidden_field_tag :temporary_csv_file, @temporary_csv_file %>
+        <%= link_to 'Clear current file', 'import_csv', :class => "btn btn-warning" %>
+    <% else %>
+        <label for="csv_file">CSV file:</label>
+        <%= file_field_tag :csv_file, :size => 40 %>
+    <% end %>
     </p>
 
     <p>
