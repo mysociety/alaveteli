@@ -942,7 +942,7 @@ public
         last_response_created_at = last_event_time_clause('response')
         age = extra_params[:age_in_days] ? extra_params[:age_in_days].days : OLD_AGE_IN_DAYS
         params = {:select => "*, #{last_response_created_at} as last_response_time",
-                  :conditions => ["awaiting_description = ? and #{last_response_created_at} < ? and url_title != 'holding_pen'",
+                  :conditions => ["awaiting_description = ? and #{last_response_created_at} < ? and url_title != 'holding_pen' and user_id is not null",
                                  true, Time.now() - age],
                                  :order => "last_response_time"}
         params[:limit] = extra_params[:limit] if extra_params[:limit]
@@ -960,6 +960,7 @@ public
     end
 
     def is_old_unclassified?
+        return false if user_id.nil?
         return false if !awaiting_description
         return false if url_title == 'holding_pen'
         last_response_event = get_last_response_event
