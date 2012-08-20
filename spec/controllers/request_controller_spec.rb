@@ -1886,6 +1886,12 @@ describe RequestController, "when reporting a request (logged in)" do
         @user = users(:robin_user)
         session[:user_id] = @user.id
     end
+    
+    it "should 404 for non-existent requests" do
+      lambda {
+        post :report_request, :url_title => "hjksfdhjk_louytu_qqxxx"
+      }.should raise_error(ActiveRecord::RecordNotFound)
+    end
 
     it "should mark a request as having been reported" do
         ir = info_requests(:badger_request)

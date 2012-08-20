@@ -15,7 +15,7 @@ class TrackController < ApplicationController
 
     # Track all updates to a particular request
     def track_request
-        @info_request = InfoRequest.find_by_url_title(params[:url_title])
+        @info_request = InfoRequest.find_by_url_title!(params[:url_title])
         @track_thing = TrackThing.create_track_for_request(@info_request)
 
         return atom_feed_internal if params[:feed] == 'feed'

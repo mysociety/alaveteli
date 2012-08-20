@@ -223,7 +223,7 @@ class InfoRequest < ActiveRecord::Base
             incoming_message.clear_in_database_caches!
         end
     end
-
+    
     # For debugging
     def InfoRequest.profile_search(query)
         t = Time.now.usec
@@ -246,7 +246,9 @@ public
         # For request with same title as others, add on arbitary numeric identifier
         unique_url_title = url_title
         suffix_num = 2 # as there's already one without numeric suffix
-        while not InfoRequest.find_by_url_title(unique_url_title, :conditions => self.id.nil? ? nil : ["id <> ?", self.id] ).nil?
+        while not InfoRequest.find_by_url_title(unique_url_title,
+            :conditions => self.id.nil? ? nil : ["id <> ?", self.id]
+        ).nil?
             unique_url_title = url_title + "_" + suffix_num.to_s
             suffix_num = suffix_num + 1
         end
