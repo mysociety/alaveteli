@@ -456,7 +456,7 @@ public
 
             if !allow
                 if self.handle_rejected_responses == 'bounce'
-                    RequestMailer.deliver_stopped_responses(self, email, raw_email_data)
+                    RequestMailer.deliver_stopped_responses(self, email, raw_email_data) if !is_external?
                 elsif self.handle_rejected_responses == 'holding_pen'
                     InfoRequest.holding_pen_request.receive(email, raw_email_data, false, reason)
                 elsif self.handle_rejected_responses == 'blackhole'
@@ -565,7 +565,7 @@ public
 
         self.calculate_event_states
 
-        if self.requires_admin?
+        if self.requires_admin? && !self.is_external?
             RequestMailer.deliver_requires_admin(self, set_by)
         end
     end
