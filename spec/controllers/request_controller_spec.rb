@@ -114,6 +114,7 @@ describe RequestController, "when listing recent requests" do
         assigns[:list_results].size.should == 25
         assigns[:show_no_more_than].should == RequestController::MAX_RESULTS
     end
+
     it "should return 404 for pages we don't want to serve up" do
         xap_results = mock_model(ActsAsXapian::Search,
                    :results => (1..25).to_a.map { |m| { :model => m } },
@@ -121,6 +122,12 @@ describe RequestController, "when listing recent requests" do
         lambda {
             get :list, :view => 'all', :page => 100
         }.should raise_error(ActiveRecord::RecordNotFound)
+    end
+
+    it 'should not raise an error for a page param of less than zero, but should treat it as
+        a param of 1' do
+        lambda{ get :list, :view => 'all', :page => "-1" }.should_not raise_error
+        assigns[:page].should == 1
     end
 
 end
@@ -1890,7 +1897,7 @@ describe RequestController, "when reporting a request (logged in)" do
         @user = users(:robin_user)
         session[:user_id] = @user.id
     end
-    
+
     it "should 404 for non-existent requests" do
       lambda {
         post :report_request, :url_title => "hjksfdhjk_louytu_qqxxx"
