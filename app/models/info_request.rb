@@ -567,8 +567,11 @@ public
 
         self.calculate_event_states
 
-        if self.requires_admin? && !self.is_external?
-            RequestMailer.deliver_requires_admin(self, set_by)
+        if self.requires_admin?
+            # Check there is someone to send the message "from"
+            if !set_by.nil? || !self.user.nil?
+                RequestMailer.deliver_requires_admin(self, set_by)
+            end
         end
     end
 
