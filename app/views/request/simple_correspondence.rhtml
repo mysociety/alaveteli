@@ -13,7 +13,7 @@
         if !incoming_message.safe_mail_from.nil? && incoming_message.safe_mail_from.strip != @info_request.public_body.name.strip %>
 <%= _('From:') %> <%= incoming_message.safe_mail_from %><% end
         if incoming_message.safe_mail_from.nil? || (incoming_message.mail_from_domain == @info_request.public_body.request_email_domain) %>, <%= @info_request.public_body.name %><% end %>
-<%= _('To:') %> <%= @info_request.user_name %>
+<%= _('To:') %> <% if @info_request.user_name %><%= @info_request.user_name %><% else %><%= "[#{_('An anonymous user')}]"%><% end %>
 <%= _('Date:') %> <%= simple_date(incoming_message.sent_at) %>
 
 <%= incoming_message.get_body_for_quoting %>
@@ -24,7 +24,7 @@
 elsif [ 'sent', 'followup_sent' ].include?(info_request_event.event_type)
     outgoing_message = info_request_event.outgoing_message
     %>
-<%= _('From:') %> <%= @info_request.user_name %>
+<%= _('From:') %> <% if @info_request.user_name %><%= @info_request.user_name %><% else %><%= "[#{_('An anonymous user')}]"%><% end %>
 <%= _('To:') %> <%= @info_request.public_body.name %>
 <%= _('Date:') %> <%= simple_date(info_request_event.created_at) %>
 <%
