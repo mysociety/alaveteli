@@ -3,13 +3,14 @@
 require 'open-uri'
 
 class ServicesController < ApplicationController
+
     def other_country_message
         text = ""
         iso_country_code = MySociety::Config.get('ISO_COUNTRY_CODE').downcase
         if country_from_ip.downcase != iso_country_code
             found_country = WorldFOIWebsites.by_code(country_from_ip)
             found_country_name = !found_country.nil? && found_country[:country_name]
-            
+
             old_fgt_locale = FastGettext.locale
             begin
               FastGettext.locale = FastGettext.best_locale_in(request.env['HTTP_ACCEPT_LANGUAGE'])
@@ -28,15 +29,17 @@ class ServicesController < ApplicationController
         end
         render :text => text, :content_type => "text/plain"  # XXX workaround the HTML validation in test suite
     end
+
     def hidden_user_explanation
         info_request = InfoRequest.find(params[:info_request_id])
-        render :template => "admin_request/hidden_user_explanation", 
+        render :template => "admin_request/hidden_user_explanation",
                :content_type => "text/plain",
                :layout => false,
-               :locals => {:name_to => info_request.user.name, 
-                          :name_from => MySociety::Config.get("CONTACT_NAME", 'Alaveteli'), 
+               :locals => {:name_to => info_request.user_name,
+                          :name_from => MySociety::Config.get("CONTACT_NAME", 'Alaveteli'),
                           :info_request => info_request, :reason => params[:reason],
                           :info_request_url => 'http://' + MySociety::Config.get('DOMAIN') + request_url(info_request),
                           :site_name => site_name}
     end
+
 end
