@@ -206,3 +206,16 @@ def load_test_categories
         "Miscellaneous",
             [ "other", "Miscellaneous", "miscellaneous" ],])
 end
+
+
+# Monkeypatch applicationcontroller because the `render_to_string`
+# method in the original breaks all the rspec test assertions such as
+# `should render_template('foo')`.  Same problem as
+# http://stackoverflow.com/questions/8174415/is-it-possible-to-assert-template-or-render-template-against-the-same-partial-wi
+# - a bug in either Rails or Rspec I don't have the time to fix :(
+
+class ApplicationController < ActionController::Base
+    def set_popup_banner
+        @popup_banner = nil
+    end    
+end

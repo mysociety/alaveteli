@@ -12,7 +12,7 @@ $(document).ready(function() {
 		    }
 		}
 	    })
-	    
+
      }
  }
 
@@ -33,7 +33,7 @@ $(document).ready(function() {
 		  at: "left bottom",
 		  of:  this,
 		  collision: "fit" });
-	     
+
 	 });
      $('.close-button').click(function() { $(this).parent().hide() });
      $('div#variety-filter a').each(function() {
@@ -44,4 +44,9 @@ $(document).ready(function() {
 		     return false;
 		 })
 	 })
+
+   if($.cookie('seen_foi2') == 1) {
+     $('#everypage').hide();
+   }
+
 })

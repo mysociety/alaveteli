@@ -28,7 +28,6 @@ class AdminRequestController < AdminController
         @info_request = InfoRequest.find(params[:id])
         # XXX is this *really* the only way to render a template to a
         # variable, rather than to the response?
-
         vars = OpenStruct.new(:name_to => @info_request.user_name,
                 :name_from => MySociety::Config.get("CONTACT_NAME", 'Alaveteli'),
                 :info_request => @info_request, :reason => params[:reason],

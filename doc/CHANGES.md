@@ -1,3 +1,24 @@
+# Version 0.6.3
+## Highlighted features
+* This is a minor release, mainly to publish new customisation
+  features required by the upcoming
+  [Czech Republic theme](https://github.com/pepe/ipvtheme)
+* Administrators can now use regular expressions when making Censor Rules
+* It is also now possible to create "global" Censor Rules that apply
+  to all content types in the site; however, this power is not exposed
+  to UI users.
+* Some new i18n fixes and template refactoring to allow more extensive
+  customisation in themes
+* Themes can now provide a `post_install.rb` script that is executed
+  by `rails-post-deploy`
+* [List of isses on github](https://github.com/sebbacon/alaveteli/issues?milestone=17&state=closed)
+* [List of commits since last release](https://github.com/sebbacon/alaveteli/compare/master...release/0.6.3)
+
+## Upgrade notes
+
+* No special action required -- just check out this version and run
+  `rails-post-deploy` as usual.
+
 # Version 0.6.2
 ## Highlighted features
 

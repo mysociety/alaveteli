@@ -426,8 +426,89 @@ describe InfoRequest do
             @info_request.prominence = 'requester_only'
             @info_request.all_can_view?.should == false
         end
-
     end
 
+    describe 'when applying censor rules' do
+
+        before do
+            @global_rule = mock_model(CensorRule, :apply_to_text! => nil,
+                                                  :apply_to_binary! => nil)
+            @user_rule = mock_model(CensorRule, :apply_to_text! => nil,
+                                                :apply_to_binary! => nil)
+            @request_rule = mock_model(CensorRule, :apply_to_text! => nil,
+                                                   :apply_to_binary! => nil)
+            @body_rule = mock_model(CensorRule, :apply_to_text! => nil,
+                                                :apply_to_binary! => nil)
+            @user = mock_model(User, :censor_rules => [@user_rule])
+            @body = mock_model(PublicBody, :censor_rules => [@body_rule])
+            @info_request = InfoRequest.new(:prominence => 'normal',
+                                            :awaiting_description => true,
+                                            :title => 'title')
+            @info_request.stub!(:user).and_return(@user)
+            @info_request.stub!(:censor_rules).and_return([@request_rule])
+            @info_request.stub!(:public_body).and_return(@body)
+            @text = 'some text'
+            CensorRule.stub!(:global).and_return(mock('global context', :all => [@global_rule]))
+        end
+
+        context "when applying censor rules to text" do
+
+            it "should apply a global censor rule" do
+                @global_rule.should_receive(:apply_to_text!).with(@text)
+                @info_request.apply_censor_rules_to_text!(@text)
+            end
+
+            it 'should apply a user rule' do
+                @user_rule.should_receive(:apply_to_text!).with(@text)
+                @info_request.apply_censor_rules_to_text!(@text)
+            end
+
+            it 'should not raise an error if there is no user' do
+                @info_request.user_id = nil
+                lambda{ @info_request.apply_censor_rules_to_text!(@text) }.should_not raise_error
+            end
+
+            it 'should apply a rule from the body associated with the request' do
+                @body_rule.should_receive(:apply_to_text!).with(@text)
+                @info_request.apply_censor_rules_to_text!(@text)
+            end
+
+            it 'should apply a request rule' do
+                @request_rule.should_receive(:apply_to_text!).with(@text)
+                @info_request.apply_censor_rules_to_text!(@text)
+            end
+
+        end
+
+        context 'when applying censor rules to binary files' do
+
+            it "should apply a global censor rule" do
+                @global_rule.should_receive(:apply_to_binary!).with(@text)
+                @info_request.apply_censor_rules_to_binary!(@text)
+            end
+
+            it 'should apply a user rule' do
+                @user_rule.should_receive(:apply_to_binary!).with(@text)
+                @info_request.apply_censor_rules_to_binary!(@text)
+            end
+
+            it 'should not raise an error if there is no user' do
+                @info_request.user_id = nil
+                lambda{ @info_request.apply_censor_rules_to_binary!(@text) }.should_not raise_error
+            end
+
+            it 'should apply a rule from the body associated with the request' do
+                @body_rule.should_receive(:apply_to_binary!).with(@text)
+                @info_request.apply_censor_rules_to_binary!(@text)
+            end
+
+            it 'should apply a request rule' do
+                @request_rule.should_receive(:apply_to_binary!).with(@text)
+                @info_request.apply_censor_rules_to_binary!(@text)
+            end
+
+        end
+
+    end
 
 end

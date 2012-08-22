@@ -1,0 +1,20 @@
+
+    <% if !@display_user.get_about_me_for_html_display.empty? || @is_you %>
+        <div class="user_about_me">
+            <img class="comment_quote" src="/images/quote.png" alt="">
+            <%= @display_user.get_about_me_for_html_display %>
+            <% if @is_you %>
+                (<%= link_to _("edit text about you"), set_profile_about_me_url() %>)
+            <% end %>
+        </div>
+    <% end %>
+
+    <% if @is_you %>
+        <p id="user_change_password_email">
+            <% if @display_user.profile_photo %>
+                <%= link_to _('Change profile photo'), set_profile_photo_url() %> |
+            <% end %>
+            <%= link_to _('Change your password'), signchangepassword_url() %> |
+            <%= link_to _('Change your email'), signchangeemail_url() %>
+        </p>
+    <% end %>

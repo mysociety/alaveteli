@@ -45,6 +45,7 @@
                     :public_body_admin_url => public_body_admin_url(@info_request.public_body)) %>
         <% else %>
 
+
             <%= _('{{user}} made this {{law_used_full}} request',:user=>@info_request.user.nil? ? @info_request.user_name : user_link(@info_request.user), :law_used_full=>h(@info_request.law_used_full)) %>
             <%= _('to {{public_body}}',:public_body=>public_body_link(@info_request.public_body)) %>
 
@@ -67,6 +68,7 @@
 
               <%= user_link_for_request(@info_request) %> <%= _('to read') %>
               <%= MySociety::Format.fancy_pluralize(@new_responses_count, 'a recent response', 'recent responses') %>
+
               <%= _('and update the status.') %>
             <% end %>
         <% end %>
