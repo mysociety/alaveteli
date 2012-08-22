@@ -233,6 +233,18 @@ describe RequestController, "when showing one request" do
         response.should redirect_to(:action => 'show', :url_title => info_requests(:naughty_chicken_request).url_title)
     end
 
+    describe 'when showing an external request' do
+
+        it 'should be successful with no logged in user' do
+            get :show, { :url_title => 'balalas' }, { :user_id => nil }
+            response.should be_success
+        end
+
+        it 'should be successful when logged in as an admin user' do
+            get :show, { :url_title => 'balalas' }, { :user_id => users(:admin_user).id }
+            response.should be_success
+        end
+    end
 
     describe 'when handling an update_status parameter' do
         it 'should assign the "update status" flag to the view as true if the parameter is present' do
