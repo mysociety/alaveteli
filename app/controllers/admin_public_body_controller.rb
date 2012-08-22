@@ -139,43 +139,80 @@ class AdminPublicBodyController < AdminController
     end
 
     def import_csv
-        dry_run_only = (params['commit'] == 'Upload' ? false : true)
-
-        if params[:csv_file]
-            csv_contents = params[:csv_file].read
-        else
-            csv_contents = session.delete(:previous_csv)
-        end
-        if !csv_contents.nil?
-            # Try with dry run first
-            en = PublicBody.import_csv(csv_contents, params[:tag], params[:tag_behaviour], true, admin_http_auth_user(), I18n.available_locales)
-            errors = en[0]
-            notes = en[1]
-
-            if errors.size == 0
-                if dry_run_only
-                    notes.push("Dry run was successful, real run would do as above.")
-                    session[:previous_csv] = csv_contents
-                else
-                    # And if OK, with real run
-                    en = PublicBody.import_csv(csv_contents, params[:tag], params[:tag_behaviour], false, admin_http_auth_user(), I18n.available_locales)
-                    errors = en[0]
-                    notes = en[1]
-                    if errors.size != 0
-                        raise "dry run mismatched real run"
-                    end
-                    notes.push("Import was successful.")
-                end
+        @notes = ""
+        @errors = ""
+        if request.post?
+            dry_run_only = (params['commit'] == 'Upload' ? false : true)
+            # Read file from params
+            if params[:csv_file]
+                csv_contents = params[:csv_file].read
+                @original_csv_file = params[:csv_file].original_filename
+            # or from previous dry-run temporary file
+            elsif params[:temporary_csv_file] && params[:original_csv_file]
+                csv_contents = retrieve_csv_data(params[:temporary_csv_file])
+                @original_csv_file = params[:original_csv_file]
             end
-            @errors = errors.join("\n")
-            @notes = notes.join("\n")
-        else
-            @errors = ""
-            @notes = ""
-        end
 
+            if !csv_contents.nil?
+                # Try with dry run first
+                errors, notes = PublicBody.import_csv(csv_contents,
+                                                      params[:tag],
+                                                      params[:tag_behaviour],
+                                                      true,
+                                                      admin_http_auth_user(),
+                                                      I18n.available_locales)
+
+                if errors.size == 0
+                    if dry_run_only
+                        notes.push("Dry run was successful, real run would do as above.")
+                        # Store the csv file for ease of performing the real run
+                        @temporary_csv_file = store_csv_data(csv_contents)
+                    else
+                        # And if OK, with real run
+                        errors, notes = PublicBody.import_csv(csv_contents,
+                                                              params[:tag],
+                                                              params[:tag_behaviour],
+                                                              false,
+                                                              admin_http_auth_user(),
+                                                              I18n.available_locales)
+                        if errors.size != 0
+                            raise "dry run mismatched real run"
+                        end
+                        notes.push("Import was successful.")
+                    end
+                end
+                @errors = errors.join("\n")
+                @notes = notes.join("\n")
+            end
+        end
     end
 
     private
+
+    # Save the contents to a temporary file - not using Tempfile as we need
+    # the file to persist between requests. Return the name of the file.
+    def store_csv_data(csv_contents)
+        tempfile_name = "csv_upload-#{Time.now.strftime("%Y%m%d")}-#{SecureRandom.random_number(10000)}"
+        tempfile = File.new(File.join(Dir::tmpdir, tempfile_name), 'w')
+        tempfile.write(csv_contents)
+        tempfile.close
+        return tempfile_name
+    end
+
+    # Get csv contents from the file whose name is passed, as long as the
+    # name is of the expected form.
+    # Delete the file, return the contents.
+    def retrieve_csv_data(tempfile_name)
+        if not /csv_upload-\d{8}-\d{1,5}/.match(tempfile_name)
+            raise "Invalid filename in upload_csv: #{tempfile_name}"
+        end
+        tempfile_path = File.join(Dir::tmpdir, tempfile_name)
+        if ! File.exist?(tempfile_path)
+            raise "Missing file in upload_csv: #{tempfile_name}"
+        end
+        csv_contents = File.read(tempfile_path)
+        File.delete(tempfile_path)
+        return csv_contents
+    end
 
 end

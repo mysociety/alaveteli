@@ -1001,24 +1001,28 @@ public
         return ret.reverse
     end
 
+    # Get the list of censor rules that apply to this request
+    def applicable_censor_rules
+        applicable_rules = [self.censor_rules, self.public_body.censor_rules, CensorRule.global.all]
+        if self.user && !self.user.censor_rules.empty?
+            applicable_rules << self.user.censor_rules
+        end
+        return applicable_rules.flatten
+    end
+
     # Call groups of censor rules
     def apply_censor_rules_to_text!(text)
-        [self.censor_rules, self.user.try(:censor_rules),
-            CensorRule.regexps.all].flatten.compact.each do |censor_rule|
-                censor_rule.apply_to_text!(text)
-            end
+        self.applicable_censor_rules.each do |censor_rule|
+            censor_rule.apply_to_text!(text)
+        end
         return text
     end
 
     def apply_censor_rules_to_binary!(binary)
-        for censor_rule in self.censor_rules
+        self.applicable_censor_rules.each do |censor_rule|
             censor_rule.apply_to_binary!(binary)
         end
-        if self.user # requests during construction have no user
-            for censor_rule in self.user.censor_rules
-                censor_rule.apply_to_binary!(binary)
-            end
-        end
+        return binary
     end
 
     def is_owning_user?(user)

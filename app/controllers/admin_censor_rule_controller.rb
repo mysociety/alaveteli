@@ -31,8 +31,6 @@ class AdminCensorRuleController < AdminController
                 redirect_to admin_url('request/show/' + @censor_rule.info_request.id.to_s)
             elsif !@censor_rule.user.nil?
                 redirect_to admin_url('user/show/' + @censor_rule.user.id.to_s)
-            elsif @censor_rule.regexp?
-                redirect_to admin_url('')
             else
                 raise "internal error"
             end

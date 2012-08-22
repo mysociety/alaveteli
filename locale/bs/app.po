@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
-"POT-Creation-Date: 2012-07-17 10:22+0100\n"
-"PO-Revision-Date: 2012-07-17 09:24+0000\n"
-"Last-Translator: sebbacon <seb.bacon@gmail.com>\n"
+"POT-Creation-Date: 2012-08-09 09:33+0100\n"
+"PO-Revision-Date: 2012-08-09 08:34+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -412,7 +412,7 @@ msgstr "<strong>Napomena:</strong>\n    Poslati ćemo e-mail na Vašu novu adres
 
 msgid ""
 "<strong>Note:</strong> You're sending a message to yourself, presumably\n"
-"\t    to try out how it works."
+"            to try out how it works."
 msgstr ""
 
 msgid ""
@@ -647,6 +647,9 @@ msgid "CensorRule|Last edit comment"
 msgstr ""
 
 msgid "CensorRule|Last edit editor"
+msgstr ""
+
+msgid "CensorRule|Regexp"
 msgstr ""
 
 msgid "CensorRule|Replacement"
@@ -1342,6 +1345,12 @@ msgstr ""
 msgid "InfoRequest|Described state"
 msgstr ""
 
+msgid "InfoRequest|External url"
+msgstr ""
+
+msgid "InfoRequest|External user name"
+msgstr ""
+
 msgid "InfoRequest|Handle rejected responses"
 msgstr ""
 
@@ -1946,6 +1955,9 @@ msgid "PublicBody::Translation|Short name"
 msgstr ""
 
 msgid "PublicBody::Translation|Url name"
+msgstr ""
+
+msgid "PublicBody|Api key"
 msgstr ""
 
 msgid "PublicBody|First letter"
