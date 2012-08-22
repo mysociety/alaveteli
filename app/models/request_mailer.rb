@@ -28,17 +28,17 @@ class RequestMailer < ApplicationMailer
                 :filename => attachment_name
         end
     end
-    
+
     # Used when a response is uploaded using the API
     def external_response(info_request, body, sent_at, attachments)
         @from = blackhole_email
         @recipients = info_request.incoming_name_and_email
         @body = { :body => body }
-        
+
         # ActionMailer only works properly when the time is in the local timezone:
         # see https://rails.lighthouseapp.com/projects/8994/tickets/3113-actionmailer-only-works-correctly-with-sent_on-times-that-are-in-the-local-time-zone
         @sent_on = sent_at.dup.localtime
-        
+
         attachments.each do |attachment_hash|
             attachment attachment_hash
         end
@@ -392,6 +392,7 @@ class RequestMailer < ApplicationMailer
         )
         for info_request in info_requests
 
+            next if info_request.is_external?
             # Count number of new comments to alert on
             earliest_unalerted_comment_event = nil
             last_comment_event = nil

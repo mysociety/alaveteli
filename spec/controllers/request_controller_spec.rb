@@ -1639,6 +1639,16 @@ describe RequestController, "comment alerts" do
         deliveries.size.should == 0
     end
 
+    it 'should not send an alert for a comment on an external request' do
+        external_request = info_requests(:external_request)
+        external_request.add_comment("This external request is interesting", users(:silly_name_user))
+        # try to send comment alert
+        RequestMailer.alert_comment_on_request
+
+        deliveries = ActionMailer::Base.deliveries
+        deliveries.size.should == 0
+    end
+
     it "should send an alert when there are two new comments" do
         # add two comments - the second one sould be ignored, as is by the user who made the request.
         # the new comment here, will cause the one in the fixture to be picked up as a new comment by alert_comment_on_request also.
