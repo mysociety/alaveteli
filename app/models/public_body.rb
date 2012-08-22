@@ -1,5 +1,5 @@
+# -*- coding: utf-8 -*-
 # == Schema Information
-# Schema version: 114
 #
 # Table name: public_bodies
 #
@@ -19,7 +19,6 @@
 #  publication_scheme :text            default(""), not null
 #  api_key            :string(255)     not null
 #
-
 # models/public_body.rb:
 # A public body, from which information can be requested.
 #
@@ -43,6 +42,7 @@ class PublicBody < ActiveRecord::Base
 
     has_many :info_requests, :order => 'created_at desc'
     has_many :track_things, :order => 'created_at desc'
+    has_many :censor_rules, :order => 'created_at desc'
 
     has_tag_string
 
@@ -93,8 +93,9 @@ class PublicBody < ActiveRecord::Base
       # Make sure publication_scheme gets the correct default value.
       # (This would work automatically, were publication_scheme not a translated attribute)
       self.publication_scheme = "" if self.publication_scheme.nil?
-      
-      # Set an API key if there isn’t one
+    end
+
+    def before_save
       self.api_key = SecureRandom.base64(33) if self.api_key.nil?
     end
 
@@ -583,5 +584,3 @@ class PublicBody < ActiveRecord::Base
     end
 
 end
-
-

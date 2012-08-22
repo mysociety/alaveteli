@@ -2,8 +2,15 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe ServicesController, "when using web services" do
+
     integrate_views
-  
+
+    # store and restore the locale in the context of the test suite to isolate
+    # changes made in these tests
+    before do
+        @old_locale = FastGettext.locale()
+    end
+
     it "should show no alaveteli message when in the deployed country" do
         config = MySociety::Config.load_default()
         config['ISO_COUNTRY_CODE'] = "DE"
@@ -29,5 +36,8 @@ describe ServicesController, "when using web services" do
         response.body.should match(/Puede hacer solicitudes de información en España/)
     end
 
+    after do
+        FastGettext.set_locale(@old_locale)
+    end
 
 end

@@ -59,7 +59,10 @@ must:
     * regenerate the POT file and individual PO files for each
       language, using `bundle exec rake
       gettext:store_model_attributes`, followed by `bundle exec rake
-      rake gettext:find`
+      gettext:find`
+        * careful of including msgids from themes in `vendor/plugin`;
+          you might want to move them out of the way before running
+          the above commands
         * this updates the PO template, but also merges it with the
           individual PO files, marking strings that have only changed
           slightly as "fuzzy"

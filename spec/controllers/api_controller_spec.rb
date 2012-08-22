@@ -260,4 +260,58 @@ describe ApiController, "when using the API" do
         # assigns them and changing assignment to an equality
         # check, which does not really test anything at all.
     end
+    
+    it "should show an Atom feed of new request events" do
+        get :body_request_events,
+            :id => public_bodies(:geraldine_public_body).id,
+            :k => public_bodies(:geraldine_public_body).api_key,
+            :feed_type => "atom"
+        
+        response.should be_success
+        response.should render_template("api/request_events.atom")
+        assigns[:events].size.should > 0
+        assigns[:events].each do |event|
+            event.info_request.public_body.should == public_bodies(:geraldine_public_body)
+            event.outgoing_message.should_not be_nil
+            event.event_type.should satisfy {|x| ['sent', 'followup_sent', 'resent', 'followup_resent'].include?(x)}
+        end
+    end
+
+    it "should show a JSON feed of new request events" do
+        get :body_request_events,
+            :id => public_bodies(:geraldine_public_body).id,
+            :k => public_bodies(:geraldine_public_body).api_key,
+            :feed_type => "json"
+        
+        response.should be_success
+        assigns[:events].size.should > 0
+        assigns[:events].each do |event|
+            event.info_request.public_body.should == public_bodies(:geraldine_public_body)
+            event.outgoing_message.should_not be_nil
+            event.event_type.should satisfy {|x| ['sent', 'followup_sent', 'resent', 'followup_resent'].include?(x)}
+        end
+        
+        assigns[:event_data].size.should == assigns[:events].size
+        assigns[:event_data].each do |event_record|
+            event_record[:event_type].should satisfy {|x| ['sent', 'followup_sent', 'resent', 'followup_resent'].include?(x)}
+        end
+    end
+    
+    it "should honour the since_event_id parameter" do
+        get :body_request_events,
+            :id => public_bodies(:geraldine_public_body).id,
+            :k => public_bodies(:geraldine_public_body).api_key,
+            :feed_type => "json"
+        response.should be_success
+        first_event = assigns[:event_data][0]
+        second_event_id = assigns[:event_data][1][:event_id]
+        
+        get :body_request_events,
+            :id => public_bodies(:geraldine_public_body).id,
+            :k => public_bodies(:geraldine_public_body).api_key,
+            :feed_type => "json",
+            :since_event_id => second_event_id
+        response.should be_success
+        assigns[:event_data].should == [first_event]
+    end
 end

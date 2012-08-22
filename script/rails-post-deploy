@@ -82,12 +82,23 @@ fi
 
 bundle install $bundle_install_options
 
+function run_post_install {
+    NAME=`echo $1 | sed -re 's/.*\/(.*)\.git.?/\1/'`
+    POST_INSTALL="vendor/plugins/$NAME/post_install.rb"
+    if [ -e $POST_INSTALL ]
+    then
+        echo "running post install script at $POST_INSTALL..."
+        script/runner $POST_INSTALL
+    fi
+}
+
 if [ -n "$OPTION_THEME_URLS" ]
 then
     for THEME in "${OPTION_THEME_URLS[@]}"
     do
         echo "Installing $THEME..."
         script/plugin install --force $THEME
+        run_post_install $THEME
     done
 fi
 
@@ -96,6 +107,7 @@ if [ -n "$OPTION_THEME_URL" ]
 then
         echo "Installing $OPTION_THEME_URL using deprecated THEME_URL..."
         script/plugin install --force $OPTION_THEME_URL
+        run_post_install $OPTION_THEME_URL
 fi
 
 # upgrade database
