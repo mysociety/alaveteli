@@ -1598,7 +1598,7 @@ describe RequestController, "comment alerts" do
     end
 
     it "should send an alert (once and once only)" do
-        # delete ficture comment and make new one, so is in last month (as
+        # delete fixture comment and make new one, so is in last month (as
         # alerts are only for comments in last month, see
         # RequestMailer.alert_comment_on_request)
         existing_comment = info_requests(:fancy_dog_request).comments[0]
@@ -1627,7 +1627,7 @@ describe RequestController, "comment alerts" do
     end
 
     it "should not send an alert when you comment on your own request" do
-        # delete ficture comment and make new one, so is in last month (as
+        # delete fixture comment and make new one, so is in last month (as
         # alerts are only for comments in last month, see
         # RequestMailer.alert_comment_on_request)
         existing_comment = info_requests(:fancy_dog_request).comments[0]
