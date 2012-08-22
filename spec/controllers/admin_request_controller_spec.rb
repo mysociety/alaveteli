@@ -220,6 +220,56 @@ describe AdminRequestController, "when administering the holding pen" do
             post :hide_request, :id => ir.id, :explanation => "Foo", :reason => "vexatious"
         end
 
+        describe 'when hiding an external request' do
+
+            before do
+                @controller.stub!(:expire_for_request)
+                @info_request = mock_model(InfoRequest, :prominence= => nil,
+                                                        :log_event => nil,
+                                                        :set_described_state => nil,
+                                                        :save! => nil,
+                                                        :user => nil,
+                                                        :user_name => 'External User',
+                                                        :is_external? => true)
+                InfoRequest.stub!(:find).with(@info_request.id.to_s).and_return(@info_request)
+                @default_params = { :id => @info_request.id,
+                                    :explanation => 'Foo',
+                                    :reason => 'vexatious' }
+            end
+
+            def make_request(params=@default_params)
+                post :hide_request, params
+            end
+
+            it 'should redirect the the admin page for the request' do
+                make_request
+                response.should redirect_to(:controller => 'admin_request',
+                                            :action => 'show',
+                                            :id => @info_request.id)
+            end
+
+            it 'should set the request prominence to "requester_only"' do
+                @info_request.should_receive(:prominence=).with('requester_only')
+                @info_request.should_receive(:save!)
+                make_request
+            end
+
+            it 'should not send a notification email' do
+                ContactMailer.should_not_receive(:deliver_from_admin_message)
+                make_request
+            end
+
+            it 'should add a notice to the flash saying that the request has been hidden' do
+                make_request
+                response.flash[:notice].should == "This external request has been hidden"
+            end
+
+            it 'should expire the file cache for the request' do
+                @controller.should_receive(:expire_for_request)
+                make_request
+            end
+        end
+
     end
 
 end

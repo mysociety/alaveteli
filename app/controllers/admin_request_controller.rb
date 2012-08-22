@@ -362,14 +362,18 @@ class AdminRequestController < AdminController
             info_request.set_described_state(params[:reason])
             info_request.save!
 
-            ContactMailer.deliver_from_admin_message(
-                    info_request.user,
-                    subject,
-                    params[:explanation]
-                )
+            if ! info_request.is_external?
+                ContactMailer.deliver_from_admin_message(
+                        info_request.user,
+                        subject,
+                        params[:explanation]
+                    )
+                flash[:notice] = _("Your message to {{recipient_user_name}} has been sent",:recipient_user_name=>CGI.escapeHTML(info_request.user.name))
+            else
+                flash[:notice] = _("This external request has been hidden")
+            end
             # expire cached files
             expire_for_request(info_request)
-            flash[:notice] = _("Your message to {{recipient_user_name}} has been sent",:recipient_user_name=>CGI.escapeHTML(info_request.user.name))
             redirect_to request_admin_url(info_request)
         end
     end
