@@ -1614,10 +1614,7 @@ describe RequestController, "comment alerts" do
         mail.to_addrs.first.to_s.should == info_requests(:fancy_dog_request).user.name_and_email
         mail.body =~ /(http:\/\/.*)/
         mail_url = $1
-
-        # XXX check mail_url here somehow, can't call comment_url like this:
-        # mail_url.should == comment_url(comments(:silly_comment))
-
+        mail_url.should match("/request/why_do_you_have_such_a_fancy_dog#comment-#{new_comment.id}")
 
         # check if we send again, no more go out
         deliveries.clear
@@ -1657,9 +1654,7 @@ describe RequestController, "comment alerts" do
         mail.to_addrs.first.to_s.should == info_requests(:fancy_dog_request).user.name_and_email
         mail.body =~ /(http:\/\/.*)/
         mail_url = $1
-
-        # XXX check mail_url here somehow, can't call comment_url like this:
-        # mail_url.should == comment_url(comments(:silly_comment))
+        mail_url.should match("/request/why_do_you_have_such_a_fancy_dog#comment-#{comments(:silly_comment).id}")
 
     end
 
