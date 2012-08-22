@@ -28,7 +28,7 @@ gem 'routing-filter', '~> 0.2.4'
 gem 'rspec', '~> 1.3.2'
 gem 'rspec-rails', '~> 1.3.4'
 gem 'ruby-msg', '~> 1.5.0'
-gem 'test-unit', '~> 1.2.3' if RUBY_VERSION.to_f >= 1.9
+gem 'test-unit', '~> 1.2.3', :platforms => :ruby_19
 gem 'vpim'
 gem 'will_paginate', '~> 2.3.11'
 # when 1.2.9 is released by the maintainer, we can stop using this fork:
@@ -43,6 +43,7 @@ group :test do
 end
 
 group :develop do
-  gem 'ruby-debug'
+  gem 'ruby-debug', :platforms => :ruby_18
+  gem 'ruby-debug19', :platforms => :ruby_19
   gem 'annotate'
 end
