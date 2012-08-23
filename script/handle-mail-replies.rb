@@ -166,8 +166,9 @@ def forward_on(raw_message)
 end
 
 def load_rails
-    require File.join('config', 'boot')
-    require File.join('config', 'environment')
+    # @note The main method changes directory.
+    require File.dirname(__FILE__) + '/config/boot'
+    require File.dirname(__FILE__) + '/config/environment'
 end
 
 def record_bounce(email_address, bounce_message)
