@@ -116,7 +116,8 @@ def validate_html(html)
         f.puts html
     end
     if not system($html_validation_script, *($html_validation_script_options +[tempfilename]))
-        raise "HTML validation error in " + tempfilename + " HTTP status: " + @response.response_code.to_s
+      message = %x(#{$html_validation_script} #{$html_validation_script_options.join(' ')} #{tempfilename})
+      raise "HTML validation error in #{tempfilename} HTTP status: #{@response.response_code.to_s} Message: #{message}"
     end
     File.unlink(tempfilename)
     return true
