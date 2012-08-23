@@ -5,8 +5,8 @@ def mail_reply_test(email_filename)
     Dir.chdir Rails.root do
         xc = ExternalCommand.new("script/handle-mail-replies", "--test")
         xc.run(load_file_fixture(email_filename))
-        
-        xc.err.should == ""
+        err = xc.err.split("\n").reject{|line| line[/iconv will be deprecated in the future/]}.join("\n")
+        err.should == ""
         return xc
     end
 end
