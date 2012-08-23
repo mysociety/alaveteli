@@ -585,6 +585,13 @@ class RequestController < ApplicationController
             return
         end
 
+        # Test for external request
+        if @info_request.is_external?
+            @reason = 'external'
+            render :action => 'followup_bad'
+            return
+        end
+
         # Force login early - this is really the "send followup" form. We want
         # to make sure they're the right user first, before they start writing a
         # message and wasting their time if they are not the requester.

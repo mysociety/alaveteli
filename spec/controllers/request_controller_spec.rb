@@ -1014,6 +1014,22 @@ describe RequestController, "when viewing an individual response for reply/follo
         get :show_response, :id => info_requests(:fancy_dog_request).id, :incoming_message_id => incoming_messages(:useless_incoming_message)
         response.should render_template('request/hidden')
     end
+
+    describe 'when viewing a response for an external request' do
+
+        it 'should show a message saying that external requests cannot be followed up' do
+            get :show_response, :id => info_requests(:external_request).id
+            response.should render_template('request/followup_bad')
+            assigns[:reason].should == 'external'
+        end
+
+        it 'should be successful' do
+            get :show_response, :id => info_requests(:external_request).id
+            response.should be_success
+        end
+
+    end
+
 end
 
 describe RequestController, "when classifying an information request" do
