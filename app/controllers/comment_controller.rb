@@ -12,7 +12,7 @@ class CommentController < ApplicationController
 
     def new
         if params[:type] == 'request'
-            @info_request = InfoRequest.find_by_url_title(params[:url_title])
+            @info_request = InfoRequest.find_by_url_title!(params[:url_title])
             @track_thing = TrackThing.create_track_for_request(@info_request)
             if params[:comment]
                 @comment = Comment.new(params[:comment].merge({

@@ -353,7 +353,7 @@ describe InfoRequest do
             InfoRequest.should_receive(:find).with(:all,
                   {:select=> anything,
                    :order=> anything,
-                   :conditions=>["awaiting_description = ? and (select created_at from info_request_events where info_request_events.info_request_id = info_requests.id and info_request_events.event_type = 'response' order by created_at desc limit 1) < ? and url_title != 'holding_pen' and prominence != 'backpage'",
+                   :conditions=>["awaiting_description = ? and (select created_at from info_request_events where info_request_events.info_request_id = info_requests.id and info_request_events.event_type = 'response' order by created_at desc limit 1) < ? and url_title != 'holding_pen' and user_id is not null and prominence != 'backpage'",
                     true, Time.now - 21.days]})
             InfoRequest.find_old_unclassified({:conditions => ["prominence != 'backpage'"]})
         end
@@ -362,7 +362,7 @@ describe InfoRequest do
             InfoRequest.should_receive(:find).with(:all,
                   {:select=>"*, (select created_at from info_request_events where info_request_events.info_request_id = info_requests.id and info_request_events.event_type = 'response' order by created_at desc limit 1) as last_response_time",
                    :order=>"last_response_time",
-                   :conditions=>["awaiting_description = ? and (select created_at from info_request_events where info_request_events.info_request_id = info_requests.id and info_request_events.event_type = 'response' order by created_at desc limit 1) < ? and url_title != 'holding_pen'",
+                   :conditions=>["awaiting_description = ? and (select created_at from info_request_events where info_request_events.info_request_id = info_requests.id and info_request_events.event_type = 'response' order by created_at desc limit 1) < ? and url_title != 'holding_pen' and user_id is not null",
                     true, Time.now - 21.days]})
             InfoRequest.find_old_unclassified
         end
@@ -396,7 +396,7 @@ describe InfoRequest do
         end
 
         it 'should return true if it is awaiting description, isn\'t the holding pen and hasn\'t had an event in 21 days' do
-            @info_request.is_old_unclassified?.should be_true
+            (@info_request.is_external? || @info_request.is_old_unclassified?).should be_true
         end
 
     end
@@ -510,5 +510,6 @@ describe InfoRequest do
         end
 
     end
+
 
 end

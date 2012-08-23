@@ -37,7 +37,7 @@ FRONTPAGE_PUBLICBODY_EXAMPLES: 'tgq'
 # URLs of themes to download and use (when running rails-post-deploy
 # script). Earlier in the list means the templates have a higher
 # priority.
-THEME_URLS: 
+THEME_URLS:
  - 'git://github.com/sebbacon/adminbootstraptheme.git'
  - 'git://github.com/sebbacon/alavetelitheme.git'
 
@@ -157,8 +157,3 @@ VARNISH_HOST: localhost
 
 # Adding a value here will enable Google Analytics on all non-admin pages.
 GA_CODE: ''
-
-# We need to add the WDTK survey variables here, or else the deployment
-# system will cry.
-SURVEY_SECRET: ''
-SURVEY_URL: ''

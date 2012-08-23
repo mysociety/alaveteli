@@ -134,6 +134,10 @@ class ApplicationController < ActionController::Base
         # Make sure expiry time for session is set (before_filters are
         # otherwise missed by this override)
         session_remember_me
+
+        # Make sure the locale is set correctly too
+        set_gettext_locale
+
         case exception
         when ActiveRecord::RecordNotFound, ActionController::UnknownAction, ActionController::RoutingError
             @status = 404
@@ -156,6 +160,9 @@ class ApplicationController < ActionController::Base
         # Make sure expiry time for session is set (before_filters are
         # otherwise missed by this override)
         session_remember_me
+
+        # Make sure the locale is set correctly too
+        set_gettext_locale
 
         # Display default, detailed error for developers
         original_rescue_action_locally(exception)
@@ -385,8 +392,11 @@ class ApplicationController < ActionController::Base
                        # might fail later if the database has subsequently been reopened.
         return result
     end
+
     def get_search_page_from_params
-        return (params[:page] || "1").to_i
+        page = (params[:page] || "1").to_i
+        page = 1 if page < 1
+        return page
     end
 
     def perform_search_typeahead(query, model)

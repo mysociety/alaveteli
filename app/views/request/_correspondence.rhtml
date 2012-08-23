@@ -40,7 +40,7 @@ elsif [ 'sent', 'followup_sent' ].include?(info_request_event.event_type)
         <%= render :partial => 'bubble', :locals => { :body => outgoing_message.get_body_for_html_display(), :attachments => nil }  %>
 
         <p class="event_actions"> 
-            <% if outgoing_message.status == 'ready' %>
+            <% if outgoing_message.status == 'ready' && !@info_request.is_external? %>
                  <strong>Warning:</strong> This message has <strong>not yet been sent</strong> for an unknown reason.
             <% end %> 
 

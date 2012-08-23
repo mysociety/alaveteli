@@ -185,7 +185,7 @@ class AdminRequestController < AdminController
                 if m.match(/^[0-9]+$/)
                     destination_request = InfoRequest.find_by_id(m.to_i)
                 else
-                    destination_request = InfoRequest.find_by_url_title(m)
+                    destination_request = InfoRequest.find_by_url_title!(m)
                 end
                 if destination_request.nil?
                     flash[:error] = "Failed to find destination request '" + m + "'"
@@ -362,14 +362,18 @@ class AdminRequestController < AdminController
             info_request.set_described_state(params[:reason])
             info_request.save!
 
-            ContactMailer.deliver_from_admin_message(
-                    info_request.user,
-                    subject,
-                    params[:explanation]
-                )
+            if ! info_request.is_external?
+                ContactMailer.deliver_from_admin_message(
+                        info_request.user,
+                        subject,
+                        params[:explanation]
+                    )
+                flash[:notice] = _("Your message to {{recipient_user_name}} has been sent",:recipient_user_name=>CGI.escapeHTML(info_request.user.name))
+            else
+                flash[:notice] = _("This external request has been hidden")
+            end
             # expire cached files
             expire_for_request(info_request)
-            flash[:notice] = _("Your message to {{recipient_user_name}} has been sent",:recipient_user_name=>CGI.escapeHTML(info_request.user.name))
             redirect_to request_admin_url(info_request)
         end
     end
