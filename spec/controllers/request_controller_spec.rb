@@ -238,18 +238,63 @@ describe RequestController, "when showing one request" do
         response.should have_tag('div#owner_actions')
     end
 
-    describe 'if the request is awaiting description' do
+    describe 'when the request is being viewed by an admin' do
 
-        before do
-            dog_request = info_requests(:fancy_dog_request)
-            dog_request.awaiting_description = true
-            dog_request.save!
+        describe 'if the request is awaiting description' do
+
+            before do
+                dog_request = info_requests(:fancy_dog_request)
+                dog_request.awaiting_description = true
+                dog_request.save!
+            end
+
+            it 'should show the describe state form' do
+                get :show, { :url_title => 'why_do_you_have_such_a_fancy_dog' },
+                           { :user_id => users(:admin_user).id }
+                response.should have_tag('div.describe_state_form')
+            end
+
+            it 'should ask the user to use the describe state from' do
+                get :show, { :url_title => 'why_do_you_have_such_a_fancy_dog' },
+                           { :user_id => users(:admin_user).id }
+                response.should have_tag('p#request_status', :text => /answer the question above/)
+            end
+
         end
 
-        it 'should show the describe state form' do
-            get :show, { :url_title => 'why_do_you_have_such_a_fancy_dog' },
-                       { :user_id => users(:admin_user).id }
-            response.should have_tag('div.describe_state_form')
+        describe 'if the request is waiting for a response and very overdue' do
+
+            before do
+                dog_request = info_requests(:fancy_dog_request)
+                dog_request.awaiting_description = false
+                dog_request.described_state = 'waiting_response'
+                dog_request.save!
+                dog_request.calculate_status.should == 'waiting_response_very_overdue'
+            end
+
+            it 'should give a link to requesting an internal review' do
+                get :show, { :url_title => 'why_do_you_have_such_a_fancy_dog' },
+                           { :user_id => users(:admin_user).id }
+                response.should have_tag('p#request_status', :text =>/requesting an internal review/)
+            end
+
+        end
+
+        describe 'if the request is waiting clarification' do
+
+            before do
+                dog_request = info_requests(:fancy_dog_request)
+                dog_request.awaiting_description = false
+                dog_request.described_state = 'waiting_clarification'
+                dog_request.save!
+                dog_request.calculate_status.should == 'waiting_clarification'
+            end
+
+            it 'should give a link to make a followup' do
+                get :show, { :url_title => 'why_do_you_have_such_a_fancy_dog' },
+                           { :user_id => users(:admin_user).id }
+                response.should have_tag('p#request_status a', :text =>/send a follow up message/)
+            end
         end
 
     end
@@ -270,10 +315,14 @@ describe RequestController, "when showing one request" do
 
         end
 
-        describe 'when viewing as an admin user' do
+        describe 'when the request is being viewed by an admin' do
+
+            def make_request
+                get :show, { :url_title => 'balalas' }, { :user_id => users(:admin_user).id }
+            end
 
             it 'should be successful' do
-                get :show, { :url_title => 'balalas' }, { :user_id => users(:admin_user).id }
+                make_request
                 response.should be_success
             end
 
@@ -286,8 +335,51 @@ describe RequestController, "when showing one request" do
                 end
 
                 it 'should not show the describe state form' do
-                    get :show, { :url_title => 'balalas' }, { :user_id => users(:admin_user).id }
+                    make_request
                     response.should_not have_tag('div.describe_state_form')
+                end
+
+                it 'should not ask the user to use the describe state form' do
+                    make_request
+                    response.should_not have_tag('p#request_status', :text => /answer the question above/)
+                end
+
+            end
+
+            describe 'if the request is waiting for a response and very overdue' do
+
+                before do
+                    external_request = info_requests(:external_request)
+                    external_request.awaiting_description = false
+                    external_request.described_state = 'waiting_response'
+                    external_request.save!
+                    external_request.calculate_status.should == 'waiting_response_very_overdue'
+                end
+
+                it 'should not give a link to requesting an internal review' do
+                    make_request
+                    response.should_not have_tag('p#request_status', :text =>/requesting an internal review/)
+                end
+            end
+
+            describe 'if the request is waiting clarification' do
+
+                before do
+                    external_request = info_requests(:external_request)
+                    external_request.awaiting_description = false
+                    external_request.described_state = 'waiting_clarification'
+                    external_request.save!
+                    external_request.calculate_status.should == 'waiting_clarification'
+                end
+
+                it 'should not give a link to make a followup' do
+                    make_request
+                    response.should_not have_tag('p#request_status a', :text =>/send a follow up message/)
+                end
+
+                it 'should not give a link to sign in (in the request status paragraph)' do
+                    make_request
+                    response.should_not have_tag('p#request_status a', :text => /sign in/)
                 end
 
             end

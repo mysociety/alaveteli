@@ -50,7 +50,7 @@
 
     <p id="request_status" class="request_icon_line icon_<%= @info_request.calculate_status %>">
     <% if @info_request.awaiting_description %>
-        <% if @is_owning_user %>
+        <% if @is_owning_user && !@info_request.is_external? %>
             <%= _('Please <strong>answer the question above</strong> so we know whether the ')%>
             <%= MySociety::Format.fancy_pluralize(@new_responses_count, 'recent response contains', 'recent responses contain') %> <%= _('useful information.') %>
         <% else %>
@@ -87,8 +87,10 @@
         <%= _('Response to this request is <strong>long overdue</strong>.') %>
         <%= _('By law, under all circumstances, {{public_body_link}} should have responded by now',:public_body_link => public_body_link(@info_request.public_body)) %>
         (<%= _('<a href="%s">details</a>') % [help_requesting_path + '#quickly_response'] %>).
-        <%= _('You can <strong>complain</strong> by') %>
-        <%= link_to _("requesting an internal review"), show_response_no_followup_url(:id => @info_request.id, :incoming_message_id => nil) + "?internal_review=1#followup" %>.
+        <% if !@info_request.is_external? %>
+          <%= _('You can <strong>complain</strong> by') %>
+          <%= link_to _("requesting an internal review"), show_response_no_followup_url(:id => @info_request.id, :incoming_message_id => nil) + "?internal_review=1#followup" %>.
+        <% end %>
     <% elsif @status == 'not_held' %>
         <%= public_body_link(@info_request.public_body) %> <%= _('<strong>did not have</strong> the information requested.') %>
     <% elsif @status == 'rejected' %>
@@ -98,14 +100,16 @@
     <% elsif @status == 'partially_successful' %>
         <%= _('The request was <strong>partially successful</strong>.') %>
     <% elsif @status == 'waiting_clarification' %>
-        <% if @is_owning_user %>
+        <% if @is_owning_user && !@info_request.is_external? %>
             <%=h @info_request.public_body.name %> <%= _('is <strong>waiting for your clarification</strong>.') %>
             <%= _('Please') %>
               <%= link_to _("send a follow up message"), respond_to_last_url(@info_request) + '#followup' %>.
         <% else %>
             <%= _('The request is <strong>waiting for clarification</strong>.') %>
-            <%= _('If you are {{user_link}}, please',:user_link=>user_link_for_request(@info_request)) %>
-            <%= link_to _("sign in"), signin_url(:r => request.request_uri) %> <%= _('to send a follow up message.') %>
+            <% if !@info_request.is_external? %>
+              <%= _('If you are {{user_link}}, please',:user_link=>user_link_for_request(@info_request)) %>
+              <%= link_to _("sign in"), signin_url(:r => request.request_uri) %> <%= _('to send a follow up message.') %>
+            <% end %>
         <% end %>
     <% elsif @status == 'gone_postal' %>
         <%= _('The authority would like to / has <strong>responded by post</strong> to this request.') %>
