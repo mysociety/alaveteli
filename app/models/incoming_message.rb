@@ -1,3 +1,5 @@
+# coding: utf-8
+
 # == Schema Information
 # Schema version: 114
 #
@@ -17,9 +19,6 @@
 #  last_parsed                    :datetime
 #  mail_from                      :text
 #  sent_at                        :datetime
-#
-
-# encoding: UTF-8
 
 # models/incoming_message.rb:
 # An (email) message from really anybody to be logged with a request. e.g. A
@@ -78,7 +77,7 @@ class IncomingMessage < ActiveRecord::Base
             # Hack round bug in TMail's MIME decoding.
             # Report of TMail bug:
             # http://rubyforge.org/tracker/index.php?func=detail&aid=21810&group_id=4512&atid=17370
-            copy_of_raw_data = self.raw_email.data.gsub(/; boundary=\s+"/ims,'; boundary="')
+            copy_of_raw_data = self.raw_email.data.gsub(/; boundary=\s+"/im,'; boundary="')
 
             @mail = TMail::Mail.parse(copy_of_raw_data)
             @mail.base64_decode
@@ -344,13 +343,15 @@ class IncomingMessage < ActiveRecord::Base
         name = Regexp.escape(self.info_request.user_name)
 
         # To end of message sections
-        text.gsub!(/^\s?#{name}[^\n]+\n([^\n]+\n)?\s?Sent by:[^\n]+\n.*/ims, "\n\n" + replacement)
+        text.gsub!(/^\s?#{name}[^\n]+\n([^\n]+\n)?\s?Sent by:[^\n]+\n.*/im, "\n\n" + replacement)
 
         # Some other sort of forwarding quoting
-        text.gsub!(/^\s?#{name}\s+To\s+FOI requests at.*/ims, "\n\n" + replacement)
+        text.gsub!(/^\s?#{name}\s+To\s+FOI requests at.*/im, "\n\n" + replacement)
+
 
         # http://www.whatdotheyknow.com/request/229/response/809
-        text.gsub!(/^\s?From: [^\n]+\n\s?Sent: [^\n]+\n\s?To:\s+['"]?#{name}['"]?\n\s?Subject:.*/ims, "\n\n" + replacement)
+        text.gsub!(/^\s?From: [^\n]+\n\s?Sent: [^\n]+\n\s?To:\s+['"]?#{name}['"]?\n\s?Subject:.*/im, "\n\n" + replacement)
+
 
         return text
 
@@ -393,7 +394,7 @@ class IncomingMessage < ActiveRecord::Base
         # http://www.whatdotheyknow.com/request/police_powers_to_inform_car_insu
         # http://www.whatdotheyknow.com/request/secured_convictions_aided_by_cct
         multiline_original_message = '(' + '''>>>.* \d\d/\d\d/\d\d\d\d\s+\d\d:\d\d(?::\d\d)?\s*>>>''' + ')'
-        text.gsub!(/^(#{multiline_original_message}\n.*)$/ms, replacement)
+        text.gsub!(/^(#{multiline_original_message}\n.*)$/m, replacement)
 
         # Single line sections
         text.gsub!(/^(>.*\n)/, replacement)
@@ -564,7 +565,7 @@ class IncomingMessage < ActiveRecord::Base
         text = self.get_main_body_text_internal
         # Strip the uudecode parts from main text
         # - this also effectively does a .dup as well, so text mods don't alter original
-        text = text.split(/^begin.+^`\n^end\n/sm).join(" ")
+        text = text.split(/^begin.+^`\n^end\n/m).join(" ")
 
         if text.size > 1000000 # 1 MB ish
             raise "main body text more than 1 MB, need to implement clipping like for attachment text, or there is some other MIME decoding problem or similar"
@@ -703,7 +704,7 @@ class IncomingMessage < ActiveRecord::Base
     # Returns attachments that are uuencoded in main body part
     def _uudecode_and_save_attachments(text)
         # Find any uudecoded things buried in it, yeuchly
-        uus = text.scan(/^begin.+^`\n^end\n/sm)
+        uus = text.scan(/^begin.+^`\n^end\n/m)
         attachments = []
         for uu in uus
             # Decode the string
