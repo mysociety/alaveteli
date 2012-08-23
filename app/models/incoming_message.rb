@@ -292,7 +292,7 @@ class IncomingMessage < ActiveRecord::Base
                         logger.warn "Unable to compress PDF; problem with your pdftk version?"
                     end
                     if !recompressed_text.nil? && !recompressed_text.empty?
-                        text[0..-1] = recompressed_text # [0..-1] makes it change the 'text' string in place
+                        text.replace recompressed_text
                     end
                 end
             end
