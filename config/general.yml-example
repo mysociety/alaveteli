@@ -157,3 +157,8 @@ VARNISH_HOST: localhost
 
 # Adding a value here will enable Google Analytics on all non-admin pages.
 GA_CODE: ''
+
+# We need to add the WDTK survey variables here, or else the deployment
+# system will cry.
+SURVEY_SECRET: ''
+SURVEY_URL: ''
