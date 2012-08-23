@@ -5,6 +5,7 @@ branches:
     - master
 rvm:
   - 1.8.7
+  - 1.9.3
 before_install:
   - sudo gem install rubygems-update --version=1.6.2
   - sudo gem update --system 1.6.2
