@@ -54,6 +54,26 @@ describe CommentController, "when commenting on a request" do
         response.should render_template('new')
     end
 
+    describe 'when commenting on an external request' do
+
+        describe 'when responding to a GET request on a successful request' do
+
+            before do
+                @external_request = info_requests(:external_request)
+                @external_request.described_state = 'successful'
+                @external_request.save!
+            end
+
+            it 'should be successful' do
+                get :new, :url_title => @external_request.url_title,
+                          :type => 'request'
+                response.should be_success
+            end
+
+        end
+
+    end
+
 end
 
 
