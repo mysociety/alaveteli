@@ -43,7 +43,7 @@ module ApplicationHelper
           end
 
           content_tag(:div,
-              content_tag(:ul, error_messages),
+              content_tag(:ul, error_messages.join),
             html
           )
         else
