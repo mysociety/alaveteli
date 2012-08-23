@@ -69,6 +69,9 @@
 <p>
     <big><%= _('Annotations will be posted publicly here, and are 
         <strong>not</strong> sent to {{public_body_name}}.',:public_body_name=>h(@info_request.public_body.name)) %></big>
+    <% if @info_request.is_external? %>
+    <big><%= _('Note that the requester will not be notified about your annotation, because the request was published by {{public_body_name}} on their behalf.', :public_body_name => @info_request.public_body.name) %></big>
+    <% end %>
 </p>
 
 <%= render :partial => 'comment/comment_form', :locals => { :track_thing => @track_thing } %>

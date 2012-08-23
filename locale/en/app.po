@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
-"POT-Creation-Date: 2012-07-16 12:33+0100\n"
+"POT-Creation-Date: 2012-07-17 10:22+0100\n"
 "PO-Revision-Date: 2011-02-24 07:11-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -753,7 +753,7 @@ msgstr ""
 
 msgid ""
 "Enter your response below. You may attach one file (use email, or \n"
-"<a href=\"%s\">contact us</a> if you need more)."
+"  <a href=\"%s\">contact us</a> if you need more)."
 msgstr ""
 
 msgid "Environmental Information Regulations"
@@ -1388,6 +1388,9 @@ msgid "None found."
 msgstr ""
 
 msgid "None made."
+msgstr ""
+
+msgid "Note that the requester will not be notified about your annotation, because the request was published by {{public_body_name}} on their behalf."
 msgstr ""
 
 msgid "Now check your email!"
@@ -2031,6 +2034,9 @@ msgid ""
 "{{site_name}} from {{old_email}} to {{new_email}}."
 msgstr ""
 
+msgid "Sorry - you cannot respond to this request via {{site_name}}, because this is a copy of the request originally at {{link_to_original_request}}."
+msgstr ""
+
 msgid "Sorry, but only {{user_name}} is allowed to do that."
 msgstr ""
 
@@ -2447,6 +2453,9 @@ msgid ""
 msgstr ""
 
 msgid "This request is still in progress:"
+msgstr ""
+
+msgid "This request was not made via {{site_name}}"
 msgstr ""
 
 msgid ""
@@ -2916,7 +2925,7 @@ msgstr ""
 
 msgid ""
 "You may <strong>include attachments</strong>. If you would like to attach a\n"
-"file too large for email, use the form below."
+"  file too large for email, use the form below."
 msgstr ""
 
 msgid ""
@@ -2948,7 +2957,7 @@ msgstr ""
 
 msgid ""
 "You should have received a copy of the request by email, and you can respond\n"
-"by <strong>simply replying</strong> to that email. For your convenience, here is the address:"
+"  by <strong>simply replying</strong> to that email. For your convenience, here is the address:"
 msgstr ""
 
 msgid "You want to <strong>give your postal address</strong> to the authority in private."

@@ -1,11 +1,10 @@
 # == Schema Information
-# Schema version: 114
 #
 # Table name: info_requests
 #
 #  id                        :integer         not null, primary key
 #  title                     :text            not null
-#  user_id                   :integer         not null
+#  user_id                   :integer
 #  public_body_id            :integer         not null
 #  created_at                :datetime        not null
 #  updated_at                :datetime        not null
@@ -17,9 +16,10 @@
 #  allow_new_responses_from  :string(255)     default("anybody"), not null
 #  handle_rejected_responses :string(255)     default("bounce"), not null
 #  idhash                    :string(255)     not null
+#  external_user_name        :string(255)
+#  external_url              :string(255)
 #  attention_requested       :boolean         default(FALSE)
 #
-
 
 require 'digest/sha1'
 
@@ -104,7 +104,7 @@ class InfoRequest < ActiveRecord::Base
         errors.add(:described_state, "is not a valid state") if
             !InfoRequest.enumerate_states.include? described_state
     end
-    
+
     # The request must either be internal, in which case it has
     # a foreign key reference to a User object and no external_url or external_user_name,
     # or else be external in which case it has no user_id but does have an external_url,
@@ -120,15 +120,15 @@ class InfoRequest < ActiveRecord::Base
             errors.add(:external_url, "must be null for an internal request") if !external_url.nil?
         end
     end
-    
+
     def is_external?
         !external_url.nil?
     end
-    
+
     def user_name
         is_external? ? external_user_name : user.name
     end
-    
+
     def user_name_slug
         if is_external?
             if external_user_name.nil?
@@ -136,7 +136,7 @@ class InfoRequest < ActiveRecord::Base
             else
                 fake_slug = external_user_name.parameterize
             end
-            public_body.url_name + "_"+fake_slug
+            (public_body.url_name || "") + "_" + fake_slug
         else
             user.url_name
         end
@@ -708,10 +708,10 @@ public
         return self.public_body.is_followupable?
     end
     def recipient_name_and_email
-        return TMail::Address.address_from_name_and_email( 
-            _("{{law_used}} requests at {{public_body}}", 
-                :law_used => self.law_used_short, 
-                :public_body => self.public_body.short_or_long_name), 
+        return TMail::Address.address_from_name_and_email(
+            _("{{law_used}} requests at {{public_body}}",
+                :law_used => self.law_used_short,
+                :public_body => self.public_body.short_or_long_name),
             self.recipient_email).to_s
     end
 
@@ -995,27 +995,28 @@ public
         return ret.reverse
     end
 
+    # Get the list of censor rules that apply to this request
+    def applicable_censor_rules
+        applicable_rules = [self.censor_rules, self.public_body.censor_rules, CensorRule.global.all]
+        if self.user && !self.user.censor_rules.empty?
+            applicable_rules << self.user.censor_rules
+        end
+        return applicable_rules.flatten
+    end
+
     # Call groups of censor rules
     def apply_censor_rules_to_text!(text)
-        for censor_rule in self.censor_rules
+        self.applicable_censor_rules.each do |censor_rule|
             censor_rule.apply_to_text!(text)
         end
-        if self.user # requests during construction have no user
-            for censor_rule in self.user.censor_rules
-                censor_rule.apply_to_text!(text)
-            end
-        end
+        return text
     end
 
     def apply_censor_rules_to_binary!(binary)
-        for censor_rule in self.censor_rules
+        self.applicable_censor_rules.each do |censor_rule|
             censor_rule.apply_to_binary!(binary)
         end
-        if self.user # requests during construction have no user
-            for censor_rule in self.user.censor_rules
-                censor_rule.apply_to_binary!(binary)
-            end
-        end
+        return binary
     end
 
     def is_owning_user?(user)

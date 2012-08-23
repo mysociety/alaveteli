@@ -1,8 +1,8 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-describe InfoRequest do 
+describe InfoRequest do
 
-    describe "guessing a request from an email" do 
+    describe "guessing a request from an email" do
 
         before(:each) do
             @im = incoming_messages(:useless_incoming_message)
@@ -17,7 +17,7 @@ describe InfoRequest do
             @info_request.idhash.should_not == nil
         end
 
-        it 'should find a request based on an email with an intact id and a broken hash' do 
+        it 'should find a request based on an email with an intact id and a broken hash' do
             ir = info_requests(:fancy_dog_request)
             id = ir.id
             @im.mail.to = "request-#{id}-asdfg@example.com"
@@ -35,42 +35,42 @@ describe InfoRequest do
 
     end
 
-    describe "making up the URL title" do 
+    describe "making up the URL title" do
         before do
             @info_request = InfoRequest.new
         end
 
-        it 'should remove spaces, and make lower case' do 
+        it 'should remove spaces, and make lower case' do
             @info_request.title = 'Something True'
             @info_request.url_title.should == 'something_true'
         end
 
-        it 'should not allow a numeric title' do 
+        it 'should not allow a numeric title' do
             @info_request.title = '1234'
             @info_request.url_title.should == 'request'
         end
     end
-     
-    describe "when asked for the last event id that needs description" do 
-    
+
+    describe "when asked for the last event id that needs description" do
+
         before do
             @info_request = InfoRequest.new
         end
-        
-        it 'should return the last undescribed event id if there is one' do 
+
+        it 'should return the last undescribed event id if there is one' do
             last_mock_event = mock_model(InfoRequestEvent)
             other_mock_event = mock_model(InfoRequestEvent)
             @info_request.stub!(:events_needing_description).and_return([other_mock_event, last_mock_event])
             @info_request.last_event_id_needing_description.should == last_mock_event.id
-        end 
-        
+        end
+
         it 'should return zero if there are no undescribed events' do
             @info_request.stub!(:events_needing_description).and_return([])
             @info_request.last_event_id_needing_description.should == 0
         end
-        
+
     end
-    
+
     describe " when emailing" do
 
         before do
@@ -116,7 +116,7 @@ describe InfoRequest do
                 hash_part = ir.incoming_email.match(/-[0-9a-f]+@/)[0]
                 break if hash_part.match(/1/)
             end
-        
+
             # Make email with a 1 in the hash part changed to l
             test_email = ir.incoming_email
             new_hash_part = hash_part.gsub(/1/, "l")
@@ -134,7 +134,7 @@ describe InfoRequest do
         end
 
         it "should return nil when receiving email for a deleted request" do
-            deleted_request_address = InfoRequest.magic_email_for_id("request-", 98765)  
+            deleted_request_address = InfoRequest.magic_email_for_id("request-", 98765)
             found_info_request = InfoRequest.find_by_incoming_email(deleted_request_address)
             found_info_request.should be_nil
         end
@@ -148,7 +148,7 @@ describe InfoRequest do
             update_xapian_index
         end
 
-    end 
+    end
 
     describe "when calculating the status" do
 
@@ -169,22 +169,22 @@ describe InfoRequest do
         end
 
         it "isn't overdue on due date (20 working days after request sent)" do
-            Time.stub!(:now).and_return(Time.utc(2007, 11, 9, 23, 59)) 
+            Time.stub!(:now).and_return(Time.utc(2007, 11, 9, 23, 59))
             @ir.calculate_status.should == 'waiting_response'
         end
 
         it "is overdue a day after due date (20 working days after request sent)" do
-            Time.stub!(:now).and_return(Time.utc(2007, 11, 10, 00, 01)) 
+            Time.stub!(:now).and_return(Time.utc(2007, 11, 10, 00, 01))
             @ir.calculate_status.should == 'waiting_response_overdue'
         end
 
         it "is still overdue 40 working days after request sent" do
-            Time.stub!(:now).and_return(Time.utc(2007, 12, 10, 23, 59)) 
+            Time.stub!(:now).and_return(Time.utc(2007, 12, 10, 23, 59))
             @ir.calculate_status.should == 'waiting_response_overdue'
         end
 
         it "is very overdue the day after 40 working days after request sent" do
-            Time.stub!(:now).and_return(Time.utc(2007, 12, 11, 00, 01)) 
+            Time.stub!(:now).and_return(Time.utc(2007, 12, 11, 00, 01))
             @ir.calculate_status.should == 'waiting_response_very_overdue'
         end
     end
@@ -209,18 +209,18 @@ describe InfoRequest do
 
         it "accepts extended states" do
             # this time would normally be "overdue"
-            Time.stub!(:now).and_return(Time.utc(2007, 11, 10, 00, 01)) 
+            Time.stub!(:now).and_return(Time.utc(2007, 11, 10, 00, 01))
             @ir.set_described_state("deadline_extended")
             @ir.display_status.should == 'Deadline extended.'
             @ir.date_deadline_extended
         end
-        
+
         it "is not overdue if it's had the deadline extended" do
             when_overdue = Time.utc(2007, 11, 10, 00, 01) + 16.days
-            Time.stub!(:now).and_return(when_overdue) 
+            Time.stub!(:now).and_return(when_overdue)
             @ir.calculate_status.should == 'waiting_response_overdue'
         end
-        
+
     end
 
 
@@ -245,160 +245,243 @@ describe InfoRequest do
         end
 
         it "isn't overdue on due date (20 working days after request sent)" do
-            Time.stub!(:now).and_return(Time.utc(2007, 11, 9, 23, 59)) 
+            Time.stub!(:now).and_return(Time.utc(2007, 11, 9, 23, 59))
             @ir.calculate_status.should == 'waiting_response'
         end
 
         it "is overdue a day after due date (20 working days after request sent)" do
-            Time.stub!(:now).and_return(Time.utc(2007, 11, 10, 00, 01)) 
+            Time.stub!(:now).and_return(Time.utc(2007, 11, 10, 00, 01))
             @ir.calculate_status.should == 'waiting_response_overdue'
         end
 
         it "is still overdue 40 working days after request sent" do
-            Time.stub!(:now).and_return(Time.utc(2007, 12, 10, 23, 59)) 
+            Time.stub!(:now).and_return(Time.utc(2007, 12, 10, 23, 59))
             @ir.calculate_status.should == 'waiting_response_overdue'
         end
 
         it "is still overdue the day after 40 working days after request sent" do
-            Time.stub!(:now).and_return(Time.utc(2007, 12, 11, 00, 01)) 
+            Time.stub!(:now).and_return(Time.utc(2007, 12, 11, 00, 01))
             @ir.calculate_status.should == 'waiting_response_overdue'
         end
 
         it "is still overdue 60 working days after request sent" do
-            Time.stub!(:now).and_return(Time.utc(2008, 01, 11, 23, 59)) 
+            Time.stub!(:now).and_return(Time.utc(2008, 01, 11, 23, 59))
             @ir.calculate_status.should == 'waiting_response_overdue'
         end
 
         it "is very overdue the day after 60 working days after request sent" do
-            Time.stub!(:now).and_return(Time.utc(2008, 01, 12, 00, 01)) 
+            Time.stub!(:now).and_return(Time.utc(2008, 01, 12, 00, 01))
             @ir.calculate_status.should == 'waiting_response_very_overdue'
         end
     end
-  
-    describe 'when asked if a user is the owning user for this request' do 
-    
-        before do 
+
+    describe 'when asked if a user is the owning user for this request' do
+
+        before do
             @mock_user = mock_model(User)
             @info_request = InfoRequest.new(:user => @mock_user)
             @other_mock_user = mock_model(User)
         end
-        
-        it 'should return false if a nil object is passed to it' do 
+
+        it 'should return false if a nil object is passed to it' do
             @info_request.is_owning_user?(nil).should be_false
         end
-        
-        it 'should return true if the user is the request\'s owner' do 
+
+        it 'should return true if the user is the request\'s owner' do
             @info_request.is_owning_user?(@mock_user).should be_true
         end
-        
-        it 'should return false for a user that is not the owner and does not own every request' do 
+
+        it 'should return false for a user that is not the owner and does not own every request' do
             @other_mock_user.stub!(:owns_every_request?).and_return(false)
             @info_request.is_owning_user?(@other_mock_user).should be_false
         end
-        
+
         it 'should return true if the user is not the owner but owns every request' do
             @other_mock_user.stub!(:owns_every_request?).and_return(true)
             @info_request.is_owning_user?(@other_mock_user).should be_true
         end
-        
-    end
-    
 
-    describe 'when asked if it requires admin' do 
-    
-        before do 
+    end
+
+
+    describe 'when asked if it requires admin' do
+
+        before do
             @info_request = InfoRequest.new
         end
-        
-        it 'should return true if its described state is error_message' do 
+
+        it 'should return true if its described state is error_message' do
             @info_request.described_state = 'error_message'
             @info_request.requires_admin?.should be_true
         end
-        
-        it 'should return true if its described state is requires_admin' do 
+
+        it 'should return true if its described state is requires_admin' do
             @info_request.described_state = 'requires_admin'
             @info_request.requires_admin?.should be_true
         end
-        
-        it 'should return false if its described state is waiting_response' do 
+
+        it 'should return false if its described state is waiting_response' do
             @info_request.described_state = 'waiting_response'
             @info_request.requires_admin?.should be_false
         end
-        
+
     end
-    
-    describe 'when asked for old unclassified requests' do 
-    
-        before do 
+
+    describe 'when asked for old unclassified requests' do
+
+        before do
             Time.stub!(:now).and_return(Time.utc(2007, 11, 9, 23, 59))
         end
-        
-        it 'should ask for requests using any limit param supplied' do 
-            InfoRequest.should_receive(:find).with(:all, {:select => anything, 
-                                                          :order => anything, 
-                                                          :conditions=> anything, 
+
+        it 'should ask for requests using any limit param supplied' do
+            InfoRequest.should_receive(:find).with(:all, {:select => anything,
+                                                          :order => anything,
+                                                          :conditions=> anything,
                                                           :limit => 5})
             InfoRequest.find_old_unclassified(:limit => 5)
         end
-        
-        it 'should not limit the number of requests returned by default' do 
-            InfoRequest.should_not_receive(:find).with(:all, {:select => anything, 
-                                                              :order => anything, 
-                                                              :conditions=> anything, 
+
+        it 'should not limit the number of requests returned by default' do
+            InfoRequest.should_not_receive(:find).with(:all, {:select => anything,
+                                                              :order => anything,
+                                                              :conditions=> anything,
                                                               :limit => anything})
             InfoRequest.find_old_unclassified
-        end 
-        
-        it 'should add extra conditions if supplied' do 
-            InfoRequest.should_receive(:find).with(:all, 
-                  {:select=> anything, 
-                   :order=> anything, 
-                   :conditions=>["awaiting_description = ? and (select created_at from info_request_events where info_request_events.info_request_id = info_requests.id and info_request_events.event_type = 'response' order by created_at desc limit 1) < ? and url_title != 'holding_pen' and prominence != 'backpage'", 
+        end
+
+        it 'should add extra conditions if supplied' do
+            InfoRequest.should_receive(:find).with(:all,
+                  {:select=> anything,
+                   :order=> anything,
+                   :conditions=>["awaiting_description = ? and (select created_at from info_request_events where info_request_events.info_request_id = info_requests.id and info_request_events.event_type = 'response' order by created_at desc limit 1) < ? and url_title != 'holding_pen' and prominence != 'backpage'",
                     true, Time.now - 21.days]})
             InfoRequest.find_old_unclassified({:conditions => ["prominence != 'backpage'"]})
         end
-        
-        it 'should ask the database for requests that are awaiting description, have a last response older than 21 days old, are not the holding pen and are not backpaged' do 
-            InfoRequest.should_receive(:find).with(:all, 
-                  {:select=>"*, (select created_at from info_request_events where info_request_events.info_request_id = info_requests.id and info_request_events.event_type = 'response' order by created_at desc limit 1) as last_response_time", 
-                   :order=>"last_response_time", 
-                   :conditions=>["awaiting_description = ? and (select created_at from info_request_events where info_request_events.info_request_id = info_requests.id and info_request_events.event_type = 'response' order by created_at desc limit 1) < ? and url_title != 'holding_pen'", 
+
+        it 'should ask the database for requests that are awaiting description, have a last response older than 21 days old, are not the holding pen and are not backpaged' do
+            InfoRequest.should_receive(:find).with(:all,
+                  {:select=>"*, (select created_at from info_request_events where info_request_events.info_request_id = info_requests.id and info_request_events.event_type = 'response' order by created_at desc limit 1) as last_response_time",
+                   :order=>"last_response_time",
+                   :conditions=>["awaiting_description = ? and (select created_at from info_request_events where info_request_events.info_request_id = info_requests.id and info_request_events.event_type = 'response' order by created_at desc limit 1) < ? and url_title != 'holding_pen'",
                     true, Time.now - 21.days]})
             InfoRequest.find_old_unclassified
         end
-        
+
     end
-    
-    describe 'when an instance is asked if it is old and unclassified' do 
-        
-        before do 
+
+    describe 'when an instance is asked if it is old and unclassified' do
+
+        before do
             Time.stub!(:now).and_return(Time.utc(2007, 11, 9, 23, 59))
             @mock_comment_event = safe_mock_model(InfoRequestEvent, :created_at => Time.now - 23.days, :event_type => 'comment')
             @mock_response_event = safe_mock_model(InfoRequestEvent, :created_at => Time.now - 22.days, :event_type => 'response')
-            @info_request = InfoRequest.new(:prominence => 'normal', 
-                                            :awaiting_description => true, 
+            @info_request = InfoRequest.new(:prominence => 'normal',
+                                            :awaiting_description => true,
                                             :info_request_events => [@mock_response_event, @mock_comment_event])
         end
-        
-        it 'should return false if it is the holding pen' do 
+
+        it 'should return false if it is the holding pen' do
             @info_request.stub!(:url_title).and_return('holding_pen')
             @info_request.is_old_unclassified?.should be_false
         end
-        
-        it 'should return false if it is not awaiting description' do 
+
+        it 'should return false if it is not awaiting description' do
             @info_request.stub!(:awaiting_description).and_return(false)
             @info_request.is_old_unclassified?.should be_false
         end
-        
-        it 'should return false if its last response event occurred less than 21 days ago' do 
+
+        it 'should return false if its last response event occurred less than 21 days ago' do
             @mock_response_event.stub!(:created_at).and_return(Time.now - 20.days)
             @info_request.is_old_unclassified?.should be_false
         end
-        
-        it 'should return true if it is awaiting description, isn\'t the holding pen and hasn\'t had an event in 21 days' do 
+
+        it 'should return true if it is awaiting description, isn\'t the holding pen and hasn\'t had an event in 21 days' do
             @info_request.is_old_unclassified?.should be_true
         end
-        
+
     end
-    
+
+    describe 'when applying censor rules' do
+
+        before do
+            @global_rule = mock_model(CensorRule, :apply_to_text! => nil,
+                                                  :apply_to_binary! => nil)
+            @user_rule = mock_model(CensorRule, :apply_to_text! => nil,
+                                                :apply_to_binary! => nil)
+            @request_rule = mock_model(CensorRule, :apply_to_text! => nil,
+                                                   :apply_to_binary! => nil)
+            @body_rule = mock_model(CensorRule, :apply_to_text! => nil,
+                                                :apply_to_binary! => nil)
+            @user = mock_model(User, :censor_rules => [@user_rule])
+            @body = mock_model(PublicBody, :censor_rules => [@body_rule])
+            @info_request = InfoRequest.new(:prominence => 'normal',
+                                            :awaiting_description => true,
+                                            :title => 'title')
+            @info_request.stub!(:user).and_return(@user)
+            @info_request.stub!(:censor_rules).and_return([@request_rule])
+            @info_request.stub!(:public_body).and_return(@body)
+            @text = 'some text'
+            CensorRule.stub!(:global).and_return(mock('global context', :all => [@global_rule]))
+        end
+
+        context "when applying censor rules to text" do
+
+            it "should apply a global censor rule" do
+                @global_rule.should_receive(:apply_to_text!).with(@text)
+                @info_request.apply_censor_rules_to_text!(@text)
+            end
+
+            it 'should apply a user rule' do
+                @user_rule.should_receive(:apply_to_text!).with(@text)
+                @info_request.apply_censor_rules_to_text!(@text)
+            end
+
+            it 'should not raise an error if there is no user' do
+                @info_request.user_id = nil
+                lambda{ @info_request.apply_censor_rules_to_text!(@text) }.should_not raise_error
+            end
+
+            it 'should apply a rule from the body associated with the request' do
+                @body_rule.should_receive(:apply_to_text!).with(@text)
+                @info_request.apply_censor_rules_to_text!(@text)
+            end
+
+            it 'should apply a request rule' do
+                @request_rule.should_receive(:apply_to_text!).with(@text)
+                @info_request.apply_censor_rules_to_text!(@text)
+            end
+
+        end
+
+        context 'when applying censor rules to binary files' do
+
+            it "should apply a global censor rule" do
+                @global_rule.should_receive(:apply_to_binary!).with(@text)
+                @info_request.apply_censor_rules_to_binary!(@text)
+            end
+
+            it 'should apply a user rule' do
+                @user_rule.should_receive(:apply_to_binary!).with(@text)
+                @info_request.apply_censor_rules_to_binary!(@text)
+            end
+
+            it 'should not raise an error if there is no user' do
+                @info_request.user_id = nil
+                lambda{ @info_request.apply_censor_rules_to_binary!(@text) }.should_not raise_error
+            end
+
+            it 'should apply a rule from the body associated with the request' do
+                @body_rule.should_receive(:apply_to_binary!).with(@text)
+                @info_request.apply_censor_rules_to_binary!(@text)
+            end
+
+            it 'should apply a request rule' do
+                @request_rule.should_receive(:apply_to_binary!).with(@text)
+                @info_request.apply_censor_rules_to_binary!(@text)
+            end
+
+        end
+
+    end
+
 end

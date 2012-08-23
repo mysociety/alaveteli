@@ -93,6 +93,14 @@ module LinkToHelper
     def user_link(user, cls=nil)
         link_to h(user.name), user_url(user), :class => cls
     end
+    def user_link_for_request(request, cls=nil)
+        if request.is_external?
+            request.external_user_name || _("Anonymous user")
+        else
+            link_to h(request.user.name), user_url(request.user), :class => cls
+        end
+    end
+
     def user_link_absolute(user)
         link_to h(user.name), main_url(user_url(user))
     end

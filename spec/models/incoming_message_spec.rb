@@ -71,7 +71,7 @@ describe IncomingMessage, " when dealing with incoming mail" do
 
 end
 
-describe IncomingMessage, "when parsing HTML mail" do 
+describe IncomingMessage, "when parsing HTML mail" do
     it "should display UTF-8 characters in the plain text version correctly" do
         html = "<html><b>foo</b> është"
         plain_text = IncomingMessage._get_attachment_text_internal_one_file('text/html', html)
@@ -79,15 +79,15 @@ describe IncomingMessage, "when parsing HTML mail" do
     end
 end
 
-describe IncomingMessage, "when getting the attachment text" do 
+describe IncomingMessage, "when getting the attachment text" do
 
-  it "should not raise an error if the expansion of a zip file raises an error" do 
+  it "should not raise an error if the expansion of a zip file raises an error" do
     mock_entry = mock('ZipFile entry', :file? => true)
     mock_entry.stub!(:get_input_stream).and_raise("invalid distance too far back")
     Zip::ZipFile.stub!(:open).and_return([mock_entry])
     IncomingMessage._get_attachment_text_internal_one_file('application/zip', "some string")
   end
-  
+
 end
 
 
@@ -196,17 +196,17 @@ describe IncomingMessage, " checking validity to reply to with real emails" do
         ActionMailer::Base.deliveries.clear
     end
     it "should allow a reply to plain emails" do
-        ir = info_requests(:fancy_dog_request) 
+        ir = info_requests(:fancy_dog_request)
         receive_incoming_mail('incoming-request-plain.email', ir.incoming_email)
         ir.incoming_messages[1].valid_to_reply_to?.should == true
     end
     it "should not allow a reply to emails with empty return-paths" do
-        ir = info_requests(:fancy_dog_request) 
+        ir = info_requests(:fancy_dog_request)
         receive_incoming_mail('empty-return-path.email', ir.incoming_email)
         ir.incoming_messages[1].valid_to_reply_to?.should == false
     end
     it "should not allow a reply to emails with autoresponse headers" do
-        ir = info_requests(:fancy_dog_request) 
+        ir = info_requests(:fancy_dog_request)
         receive_incoming_mail('autoresponse-header.email', ir.incoming_email)
         ir.incoming_messages[1].valid_to_reply_to?.should == false
     end
@@ -234,6 +234,13 @@ describe IncomingMessage, " when censoring data" do
         @censor_rule_2.last_edit_comment = "none"
         @im.info_request.censor_rules << @censor_rule_2
 
+        @regex_censor_rule = CensorRule.new()
+        @regex_censor_rule.text = 'm[a-z][a-z][a-z]e'
+        @regex_censor_rule.regexp = true
+        @regex_censor_rule.replacement = 'cat'
+        @regex_censor_rule.last_edit_editor = 'unknown'
+        @regex_censor_rule.last_edit_comment = 'none'
+        @im.info_request.censor_rules << @regex_censor_rule
         load_raw_emails_data
     end
 
@@ -246,7 +253,7 @@ describe IncomingMessage, " when censoring data" do
     it "should replace censor text in Word documents" do
         data = @test_data.dup
         @im.binary_mask_stuff!(data, "application/vnd.ms-word")
-        data.should == "There was a mouse called xxxxxxx, he wished that he was xxxx."
+        data.should == "There was a xxxxx called xxxxxxx, he wished that he was xxxx."
     end
 
     it "should replace ASCII email addresses in Word documents" do
@@ -301,7 +308,7 @@ describe IncomingMessage, " when censoring data" do
     it "should apply censor rules to HTML files" do
         data = @test_data.dup
         @im.html_mask_stuff!(data)
-        data.should == "There was a mouse called Jarlsberg, he wished that he was yellow."
+        data.should == "There was a cat called Jarlsberg, he wished that he was yellow."
     end
 
     it "should apply hard-coded privacy rules to HTML files" do
@@ -312,8 +319,8 @@ describe IncomingMessage, " when censoring data" do
     end
 
     it "should apply censor rules to From: addresses" do
-        @im.stub!(:mail_from).and_return("Stilton Mouse")        
-        @im.stub!(:last_parsed).and_return(Time.now)        
+        @im.stub!(:mail_from).and_return("Stilton Mouse")
+        @im.stub!(:last_parsed).and_return(Time.now)
         safe_mail_from = @im.safe_mail_from
         safe_mail_from.should == "Jarlsberg Mouse"
     end
@@ -363,7 +370,7 @@ describe IncomingMessage, " when uudecoding bad messages" do
         im = incoming_messages(:useless_incoming_message)
         im.stub!(:mail).and_return(mail)
         im.extract_attachments!
-        
+
         attachments = im.foi_attachments
         attachments.size.should == 2
         attachments[1].filename.should == 'moo.txt'
@@ -407,7 +414,7 @@ describe IncomingMessage, "when messages are attached to messages" do
 
         im = incoming_messages(:useless_incoming_message)
         im.stub!(:mail).and_return(mail)
-        
+
         im.extract_attachments!
 
         attachments = im.get_attachments_for_display

@@ -18,7 +18,12 @@ describe 'when showing the form for describing the state of a request' do
     
     before do 
         @mock_user = mock_model(User, :name => 'test user', :url_name => 'test_user')
-        @mock_request = mock_model(InfoRequest, :described_state => '', :user => @mock_user)
+        @mock_request = mock_model(InfoRequest,
+            :described_state => '',
+            :user => @mock_user,
+            :user_name => @mock_user.name, 
+            :is_external? => false
+        )
         assigns[:info_request] = @mock_request
     end
     

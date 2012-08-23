@@ -374,24 +374,9 @@ class IncomingMessage < ActiveRecord::Base
         # http://www.whatdotheyknow.com/request/common_purpose_training_graduate#incoming-774
         text.gsub!(/(Mobile|Mob)([\s\/]*(Fax|Tel))*\s*:?[\s\d]*\d/, "[mobile number]")
 
-        # Specific removals # XXX remove these and turn them into censor rules in database
-        # http://www.whatdotheyknow.com/request/total_number_of_objects_in_the_n_6
-        text.gsub!(/\*\*\*+\nPolly Tucker.*/m, "")
-        # http://www.whatdotheyknow.com/request/cctv_data_retention_and_use
-        text.gsub!(/Andy 079.*/, "Andy [mobile number]")
-        # http://www.whatdotheyknow.com/request/how_do_the_pct_deal_with_retirin_113
-        text.gsub!(/(Complaints and Corporate Affairs Officer)\s+Westminster Primary Care Trust.+/m, "\\1")
-
         # Remove WhatDoTheyKnow signup links
         domain = MySociety::Config.get('DOMAIN')
         text.gsub!(/http:\/\/#{domain}\/c\/[^\s]+/, "[WDTK login link]")
-
-        # Remove Home Office survey links
-        # e.g. http://www.whatdotheyknow.com/request/serious_crime_act_2007_section_7#incoming-12650
-        if self.info_request.public_body.url_name == 'home_office'
-            text.gsub!(/Your password:-\s+[^\s]+/, '[password]')
-            text.gsub!(/Password=[^\s]+/, '[password]')
-        end
 
         # Remove things from censor rules
         self.info_request.apply_censor_rules_to_text!(text)
@@ -598,7 +583,6 @@ class IncomingMessage < ActiveRecord::Base
         # Remove existing quoted sections
         folded_quoted_text = self.remove_lotus_quoting(text, 'FOLDED_QUOTED_SECTION')
         folded_quoted_text = IncomingMessage.remove_quoted_sections(text, "FOLDED_QUOTED_SECTION")
-
         self.cached_main_body_text_unfolded = text
         self.cached_main_body_text_folded = folded_quoted_text
         self.save!
