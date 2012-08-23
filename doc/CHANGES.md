@@ -1,3 +1,14 @@
+# Version 0.6.4
+## Highlighted features
+* This is a minor bugfix release, mainly to fix bugs related to external request handling. 
+* [List of issues on github](https://github.com/sebbacon/alaveteli/issues?milestone=18&state=closed)
+* [List of commits since last release](https://github.com/sebbacon/alaveteli/compare/release/master...release/0.6.4)
+
+## Upgrade notes
+
+* No special action required -- just check out this version and run
+  `rails-post-deploy` as usual.
+
 # Version 0.6.3
 ## Highlighted features
 * This is a minor release, mainly to publish new customisation
@@ -11,8 +22,7 @@
   customisation in themes
 * Themes can now provide a `post_install.rb` script that is executed
   by `rails-post-deploy`
-* [List of isses on github](https://github.com/sebbacon/alaveteli/issues?milestone=17&state=closed)
-* [List of commits since last release](https://github.com/sebbacon/alaveteli/compare/master...release/0.6.3)
+* [List of issues on github](https://github.com/sebbacon/alaveteli/issues?milestone=17&state=closed)
 
 ## Upgrade notes
 
