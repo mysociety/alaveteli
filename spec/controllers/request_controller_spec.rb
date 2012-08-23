@@ -233,6 +233,11 @@ describe RequestController, "when showing one request" do
         response.should redirect_to(:action => 'show', :url_title => info_requests(:naughty_chicken_request).url_title)
     end
 
+    it 'should show actions the request owner can take' do
+        get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
+        response.should have_tag('div', :id => 'owner_actions')
+    end
+
     describe 'when showing an external request' do
 
         it 'should be successful with no logged in user' do
@@ -244,7 +249,14 @@ describe RequestController, "when showing one request" do
             get :show, { :url_title => 'balalas' }, { :user_id => users(:admin_user).id }
             response.should be_success
         end
+
+        it 'should not display actions the request owner can take' do
+            get :show, :url_title => 'balalas'
+            response.should_not have_tag('div', :id => 'owner_actions')
+        end
+
     end
+
 
     describe 'when handling an update_status parameter' do
         it 'should assign the "update status" flag to the view as true if the parameter is present' do

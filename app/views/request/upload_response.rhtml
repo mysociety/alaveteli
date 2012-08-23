@@ -27,17 +27,17 @@
 
   <h2><%= _('Respond using the web')%></h2>
 
-  <p><%= _('Enter your response below. You may attach one file (use email, or 
+  <p><%= _('Enter your response below. You may attach one file (use email, or
   <a href="%s">contact us</a> if you need more).')% [help_contact_path] %></p>
 
   <% form_tag '', :id => 'upload_response_form', :multipart => true do %>
       <p>
-          <label class="form_label" for="body"><% _('Response:')%></label> 
+          <label class="form_label" for="body"><% _('Response:')%></label>
                   <%= text_area_tag :body, "", :rows => 10, :cols => 55 %>
       </p>
 
       <p>
-  	    <label class="form_label" for="file_1"><% _('Attachment (optional):')%></label> 
+        <label class="form_label" for="file_1"><% _('Attachment (optional):')%></label>
           <%= file_field_tag :file_1, :size => 35 %>
       </p>
 
