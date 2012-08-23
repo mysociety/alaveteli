@@ -235,30 +235,83 @@ describe RequestController, "when showing one request" do
 
     it 'should show actions the request owner can take' do
         get :show, :url_title => 'why_do_you_have_such_a_fancy_dog'
-        response.should have_tag('div', :id => 'owner_actions')
+        response.should have_tag('div#owner_actions')
+    end
+
+    describe 'if the request is awaiting description' do
+
+        before do
+            dog_request = info_requests(:fancy_dog_request)
+            dog_request.awaiting_description = true
+            dog_request.save!
+        end
+
+        it 'should show the describe state form' do
+            get :show, { :url_title => 'why_do_you_have_such_a_fancy_dog' },
+                       { :user_id => users(:admin_user).id }
+            response.should have_tag('div.describe_state_form')
+        end
+
     end
 
     describe 'when showing an external request' do
 
-        it 'should be successful with no logged in user' do
-            get :show, { :url_title => 'balalas' }, { :user_id => nil }
-            response.should be_success
+        describe 'when viewing with no logged in user' do
+
+            it 'should be successful' do
+                get :show, { :url_title => 'balalas' }, { :user_id => nil }
+                response.should be_success
+            end
+
+            it 'should not display actions the request owner can take' do
+                get :show, :url_title => 'balalas'
+                response.should_not have_tag('div#owner_actions')
+            end
+
         end
 
-        it 'should be successful when logged in as an admin user' do
-            get :show, { :url_title => 'balalas' }, { :user_id => users(:admin_user).id }
-            response.should be_success
-        end
+        describe 'when viewing as an admin user' do
 
-        it 'should not display actions the request owner can take' do
-            get :show, :url_title => 'balalas'
-            response.should_not have_tag('div', :id => 'owner_actions')
+            it 'should be successful' do
+                get :show, { :url_title => 'balalas' }, { :user_id => users(:admin_user).id }
+                response.should be_success
+            end
+
+            describe 'if the request is awaiting description' do
+
+                before do
+                    external_request = info_requests(:external_request)
+                    external_request.awaiting_description = true
+                    external_request.save!
+                end
+
+                it 'should not show the describe state form' do
+                    get :show, { :url_title => 'balalas' }, { :user_id => users(:admin_user).id }
+                    response.should_not have_tag('div.describe_state_form')
+                end
+
+            end
+
         end
 
     end
 
-
     describe 'when handling an update_status parameter' do
+
+        describe 'when the request is external' do
+
+            it 'should assign the "update status" flag to the view as false if the parameter is present' do
+                get :show, :url_title => 'balalas', :update_status => 1
+                assigns[:update_status].should be_false
+            end
+
+            it 'should assign the "update status" flag to the view as false if the parameter is not present' do
+                get :show, :url_title => 'balalas'
+                assigns[:update_status].should be_false
+            end
+
+        end
+
         it 'should assign the "update status" flag to the view as true if the parameter is present' do
             get :show, :url_title => 'why_do_you_have_such_a_fancy_dog', :update_status => 1
             assigns[:update_status].should be_true
@@ -1046,72 +1099,130 @@ end
 
 describe RequestController, "when classifying an information request" do
 
-    before(:each) do
-        @dog_request = info_requests(:fancy_dog_request)
-        @dog_request.stub!(:is_old_unclassified?).and_return(false)
-        InfoRequest.stub!(:find).and_return(@dog_request)
-        load_raw_emails_data
-    end
-
-    def post_status(status)
-        post :describe_state, :incoming_message => { :described_state => status },
-                              :id => @dog_request.id,
-                              :last_info_request_event_id => @dog_request.last_event_id_needing_description,
-                              :submitted_describe_state => 1
-    end
-
-    it "should require login" do
-        post_status('rejected')
-        post_redirect = PostRedirect.get_last_post_redirect
-        response.should redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
-    end
-
-    it 'should ask whether the request is old and unclassified' do
-        @dog_request.should_receive(:is_old_unclassified?)
-        post_status('rejected')
-    end
-
-    it "should not classify the request if logged in as the wrong user" do
-        session[:user_id] = users(:silly_name_user).id
-        post_status('rejected')
-        response.should render_template('user/wrong_user')
-    end
-
-
-
-    describe 'when the request is old and unclassified' do
+    describe 'if the request is external' do
 
         before do
-            @dog_request.stub!(:is_old_unclassified?).and_return(true)
-            RequestMailer.stub!(:deliver_old_unclassified_updated)
+            @external_request = info_requests(:external_request)
         end
 
-        describe 'when the user is not logged in' do
-
-            it 'should require login' do
-                session[:user_id] = nil
-                post_status('rejected')
-                post_redirect = PostRedirect.get_last_post_redirect
-                response.should redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
-            end
-
+        it 'should redirect to the request page' do
+            post :describe_state, :id => @external_request.id,
+                                  :submitted_describe_state => 1
+            response.should redirect_to(:action => 'show',
+                                        :controller => 'request',
+                                        :url_title => @external_request.url_title)
         end
 
-        describe 'when the user is logged in as a different user' do
+    end
+
+    describe 'when the request is internal' do
+
+        before(:each) do
+            @dog_request = info_requests(:fancy_dog_request)
+            @dog_request.stub!(:is_old_unclassified?).and_return(false)
+            InfoRequest.stub!(:find).and_return(@dog_request)
+            load_raw_emails_data
+        end
+
+        def post_status(status)
+            post :describe_state, :incoming_message => { :described_state => status },
+                                  :id => @dog_request.id,
+                                  :last_info_request_event_id => @dog_request.last_event_id_needing_description,
+                                  :submitted_describe_state => 1
+        end
+
+        it "should require login" do
+            post_status('rejected')
+            post_redirect = PostRedirect.get_last_post_redirect
+            response.should redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
+        end
+
+        it 'should ask whether the request is old and unclassified' do
+            @dog_request.should_receive(:is_old_unclassified?)
+            post_status('rejected')
+        end
+
+        it "should not classify the request if logged in as the wrong user" do
+            session[:user_id] = users(:silly_name_user).id
+            post_status('rejected')
+            response.should render_template('user/wrong_user')
+        end
+
+        describe 'when the request is old and unclassified' do
 
             before do
-                @other_user = mock_model(User)
-                session[:user_id] = users(:silly_name_user).id
+                @dog_request.stub!(:is_old_unclassified?).and_return(true)
+                RequestMailer.stub!(:deliver_old_unclassified_updated)
             end
 
-            it 'should classify the request' do
+            describe 'when the user is not logged in' do
+
+                it 'should require login' do
+                    session[:user_id] = nil
+                    post_status('rejected')
+                    post_redirect = PostRedirect.get_last_post_redirect
+                    response.should redirect_to(:controller => 'user', :action => 'signin', :token => post_redirect.token)
+                end
+
+            end
+
+            describe 'when the user is logged in as a different user' do
+
+                before do
+                    @other_user = mock_model(User)
+                    session[:user_id] = users(:silly_name_user).id
+                end
+
+                it 'should classify the request' do
+                    @dog_request.stub!(:calculate_status).and_return('rejected')
+                    @dog_request.should_receive(:set_described_state).with('rejected')
+                    post_status('rejected')
+                end
+
+                it 'should log a status update event' do
+                    expected_params = {:user_id => users(:silly_name_user).id,
+                                       :old_described_state => 'waiting_response',
+                                       :described_state => 'rejected'}
+                    @dog_request.should_receive(:log_event).with("status_update", expected_params)
+                    post_status('rejected')
+                end
+
+                it 'should send an email to the requester letting them know someone has updated the status of their request' do
+                    RequestMailer.should_receive(:deliver_old_unclassified_updated)
+                    post_status('rejected')
+                end
+
+                it 'should redirect to the request page' do
+                    post_status('rejected')
+                    response.should redirect_to(:action => 'show', :controller => 'request', :url_title => @dog_request.url_title)
+                end
+
+                it 'should show a message thanking the user for a good deed' do
+                    post_status('rejected')
+                    flash[:notice].should == 'Thank you for updating this request!'
+                end
+
+            end
+        end
+
+        describe 'when logged in as an admin user who is not the actual requester' do
+
+            before do
+                @admin_user = users(:admin_user)
+                session[:user_id] = @admin_user.id
+                @dog_request = info_requests(:fancy_dog_request)
+                InfoRequest.stub!(:find).and_return(@dog_request)
+                @dog_request.stub!(:each).and_return([@dog_request])
+            end
+
+            it 'should update the status of the request' do
                 @dog_request.stub!(:calculate_status).and_return('rejected')
                 @dog_request.should_receive(:set_described_state).with('rejected')
                 post_status('rejected')
             end
 
             it 'should log a status update event' do
-                expected_params = {:user_id => users(:silly_name_user).id,
+                expected_params = {:user_id => @admin_user.id,
                                    :old_described_state => 'waiting_response',
                                    :described_state => 'rejected'}
                 @dog_request.should_receive(:log_event).with("status_update", expected_params)
@@ -1132,258 +1243,219 @@ describe RequestController, "when classifying an information request" do
                 post_status('rejected')
                 flash[:notice].should == 'Thank you for updating this request!'
             end
+         end
+
+        describe 'when logged in as an admin user who is also the actual requester' do
+
+            before do
+                @admin_user = users(:admin_user)
+                session[:user_id] = @admin_user.id
+                @dog_request = info_requests(:fancy_dog_request)
+                @dog_request.user = @admin_user
+                @dog_request.save!
+                InfoRequest.stub!(:find).and_return(@dog_request)
+                @dog_request.stub!(:each).and_return([@dog_request])
+            end
+
+            it 'should update the status of the request' do
+                @dog_request.stub!(:calculate_status).and_return('rejected')
+                @dog_request.should_receive(:set_described_state).with('rejected')
+                post_status('rejected')
+            end
+
+            it 'should not log a status update event' do
+                @dog_request.should_not_receive(:log_event)
+                post_status('rejected')
+            end
+
+            it 'should not send an email to the requester letting them know someone has updated the status of their request' do
+                RequestMailer.should_not_receive(:deliver_old_unclassified_updated)
+                post_status('rejected')
+            end
+
+            it 'should say it is showing advice as to what to do next' do
+                post_status('rejected')
+                flash[:notice].should match(/Here is what to do now/)
+            end
+
+            it 'should redirect to the unhappy page' do
+                post_status('rejected')
+                response.should redirect_to(:controller => 'help', :action => 'unhappy', :url_title => @dog_request.url_title)
+            end
 
         end
-    end
 
-    describe 'when logged in as an admin user who is not the actual requester' do
+        describe 'when logged in as the requestor' do
 
-        before do
-            @admin_user = users(:admin_user)
-            session[:user_id] = @admin_user.id
-            @dog_request = info_requests(:fancy_dog_request)
-            InfoRequest.stub!(:find).and_return(@dog_request)
-            @dog_request.stub!(:each).and_return([@dog_request])
+            before do
+                @request_owner = users(:bob_smith_user)
+                session[:user_id] = @request_owner.id
+                @dog_request.awaiting_description.should == true
+                @dog_request.stub!(:each).and_return([@dog_request])
+            end
+
+            it "should successfully classify response if logged in as user controlling request" do
+                post_status('rejected')
+                response.should redirect_to(:controller => 'help', :action => 'unhappy', :url_title => @dog_request.url_title)
+                @dog_request.reload
+                @dog_request.awaiting_description.should == false
+                @dog_request.described_state.should == 'rejected'
+                @dog_request.get_last_response_event.should == info_request_events(:useless_incoming_message_event)
+                @dog_request.get_last_response_event.calculated_state.should == 'rejected'
+            end
+
+            it 'should not log a status update event' do
+                @dog_request.should_not_receive(:log_event)
+                post_status('rejected')
+            end
+
+            it 'should not send an email to the requester letting them know someone has updated the status of their request' do
+                RequestMailer.should_not_receive(:deliver_old_unclassified_updated)
+                post_status('rejected')
+            end
+
+            it "should send email when classified as requires_admin" do
+                post :describe_state, :incoming_message => { :described_state => "requires_admin" }, :id => @dog_request.id, :incoming_message_id => incoming_messages(:useless_incoming_message), :last_info_request_event_id => @dog_request.last_event_id_needing_description, :submitted_describe_state => 1
+                response.should redirect_to(:controller => 'help', :action => 'contact')
+
+                @dog_request.reload
+                @dog_request.awaiting_description.should == false
+                @dog_request.described_state.should == 'requires_admin'
+                @dog_request.get_last_response_event.calculated_state.should == 'requires_admin'
+
+                deliveries = ActionMailer::Base.deliveries
+                deliveries.size.should == 1
+                mail = deliveries[0]
+                mail.body.should =~ /as needing admin/
+                mail.from_addrs.first.to_s.should == @request_owner.name_and_email
+            end
+
+            it 'should say it is showing advice as to what to do next' do
+                post_status('rejected')
+                flash[:notice].should match(/Here is what to do now/)
+            end
+
+            it 'should redirect to the unhappy page' do
+                post_status('rejected')
+                response.should redirect_to(:controller => 'help', :action => 'unhappy', :url_title => @dog_request.url_title)
+            end
+
+            it "knows about extended states" do
+                InfoRequest.send(:require, File.expand_path(File.join(File.dirname(__FILE__), '..', 'models', 'customstates')))
+                InfoRequest.send(:include, InfoRequestCustomStates)
+                InfoRequest.class_eval('@@custom_states_loaded = true')
+                RequestController.send(:require, File.expand_path(File.join(File.dirname(__FILE__), '..', 'models', 'customstates')))
+                RequestController.send(:include, RequestControllerCustomStates)
+                RequestController.class_eval('@@custom_states_loaded = true')
+                Time.stub!(:now).and_return(Time.utc(2007, 11, 10, 00, 01))
+                post_status('deadline_extended')
+                flash[:notice].should == 'Authority has requested extension of the deadline.'
+            end
         end
 
-        it 'should update the status of the request' do
-            @dog_request.stub!(:calculate_status).and_return('rejected')
-            @dog_request.should_receive(:set_described_state).with('rejected')
-            post_status('rejected')
-        end
+        describe 'when redirecting after a successful status update by the request owner' do
 
-        it 'should log a status update event' do
-            expected_params = {:user_id => @admin_user.id,
-                               :old_described_state => 'waiting_response',
-                               :described_state => 'rejected'}
-            @dog_request.should_receive(:log_event).with("status_update", expected_params)
-            post_status('rejected')
-        end
+            before do
+                @request_owner = users(:bob_smith_user)
+                session[:user_id] = @request_owner.id
+                @dog_request = info_requests(:fancy_dog_request)
+                @dog_request.stub!(:each).and_return([@dog_request])
+                InfoRequest.stub!(:find).and_return(@dog_request)
+                @old_filters = ActionController::Routing::Routes.filters
+                ActionController::Routing::Routes.filters = RoutingFilter::Chain.new
+            end
+            after do
+                ActionController::Routing::Routes.filters = @old_filters
+            end
 
-        it 'should send an email to the requester letting them know someone has updated the status of their request' do
-            RequestMailer.should_receive(:deliver_old_unclassified_updated)
-            post_status('rejected')
-        end
+            def request_url
+                "request/#{@dog_request.url_title}"
+            end
 
-        it 'should redirect to the request page' do
-            post_status('rejected')
-            response.should redirect_to(:action => 'show', :controller => 'request', :url_title => @dog_request.url_title)
-        end
+            def unhappy_url
+                "help/unhappy/#{@dog_request.url_title}"
+            end
 
-        it 'should show a message thanking the user for a good deed' do
-            post_status('rejected')
-            flash[:notice].should == 'Thank you for updating this request!'
-        end
-     end
+            def expect_redirect(status, redirect_path)
+                post_status(status)
+                response.should redirect_to("http://test.host/#{redirect_path}")
+            end
 
-    describe 'when logged in as an admin user who is also the actual requester' do
+            it 'should redirect to the "request url" with a message in the right tense when status is updated to "waiting response" and the response is not overdue' do
+                @dog_request.stub!(:date_response_required_by).and_return(Time.now.to_date+1)
+                @dog_request.stub!(:date_very_overdue_after).and_return(Time.now.to_date+40)
 
-        before do
-            @admin_user = users(:admin_user)
-            session[:user_id] = @admin_user.id
-            @dog_request = info_requests(:fancy_dog_request)
-            @dog_request.user = @admin_user
-            @dog_request.save!
-            InfoRequest.stub!(:find).and_return(@dog_request)
-            @dog_request.stub!(:each).and_return([@dog_request])
-        end
+                expect_redirect("waiting_response", "request/#{@dog_request.url_title}")
+                flash[:notice].should match(/should get a response/)
+            end
 
-        it 'should update the status of the request' do
-            @dog_request.stub!(:calculate_status).and_return('rejected')
-            @dog_request.should_receive(:set_described_state).with('rejected')
-            post_status('rejected')
-        end
+            it 'should redirect to the "request url" with a message in the right tense when status is updated to "waiting response" and the response is overdue' do
+                @dog_request.stub!(:date_response_required_by).and_return(Time.now.to_date-1)
+                @dog_request.stub!(:date_very_overdue_after).and_return(Time.now.to_date+40)
+                expect_redirect('waiting_response', request_url)
+                flash[:notice].should match(/should have got a response/)
+            end
 
-        it 'should not log a status update event' do
-            @dog_request.should_not_receive(:log_event)
-            post_status('rejected')
-        end
+            it 'should redirect to the "request url" with a message in the right tense when status is updated to "waiting response" and the response is overdue' do
+                @dog_request.stub!(:date_response_required_by).and_return(Time.now.to_date-2)
+                @dog_request.stub!(:date_very_overdue_after).and_return(Time.now.to_date-1)
+                expect_redirect('waiting_response', unhappy_url)
+                flash[:notice].should match(/is long overdue/)
+                flash[:notice].should match(/by more than 40 working days/)
+                flash[:notice].should match(/within 20 working days/)
+            end
 
-        it 'should not send an email to the requester letting them know someone has updated the status of their request' do
-            RequestMailer.should_not_receive(:deliver_old_unclassified_updated)
-            post_status('rejected')
-        end
+            it 'should redirect to the "request url" when status is updated to "not held"' do
+                expect_redirect('not_held', request_url)
+            end
 
-        it 'should say it is showing advice as to what to do next' do
-            post_status('rejected')
-            flash[:notice].should match(/Here is what to do now/)
-        end
+            it 'should redirect to the "request url" when status is updated to "successful"' do
+                expect_redirect('successful', request_url)
+            end
 
-        it 'should redirect to the unhappy page' do
-            post_status('rejected')
-            response.should redirect_to(:controller => 'help', :action => 'unhappy', :url_title => @dog_request.url_title)
-        end
+            it 'should redirect to the "unhappy url" when status is updated to "rejected"' do
+                expect_redirect('rejected', "help/unhappy/#{@dog_request.url_title}")
+            end
 
-    end
+            it 'should redirect to the "unhappy url" when status is updated to "partially successful"' do
+                expect_redirect('partially_successful', "help/unhappy/#{@dog_request.url_title}")
+            end
 
-    describe 'when logged in as the requestor' do
+            it 'should redirect to the "response url" when status is updated to "waiting clarification" and there is a last response' do
+                incoming_message = mock_model(IncomingMessage)
+                @dog_request.stub!(:get_last_response).and_return(incoming_message)
+                expect_redirect('waiting_clarification', "request/#{@dog_request.id}/response/#{incoming_message.id}")
+            end
 
-        before do
-            @request_owner = users(:bob_smith_user)
-            session[:user_id] = @request_owner.id
-            @dog_request.awaiting_description.should == true
-            @dog_request.stub!(:each).and_return([@dog_request])
-        end
+            it 'should redirect to the "response no followup url" when status is updated to "waiting clarification" and there are no events needing description' do
+                @dog_request.stub!(:get_last_response).and_return(nil)
+                expect_redirect('waiting_clarification', "request/#{@dog_request.id}/response")
+            end
 
-        it "should successfully classify response if logged in as user controlling request" do
-            post_status('rejected')
-            response.should redirect_to(:controller => 'help', :action => 'unhappy', :url_title => @dog_request.url_title)
-            @dog_request.reload
-            @dog_request.awaiting_description.should == false
-            @dog_request.described_state.should == 'rejected'
-            @dog_request.get_last_response_event.should == info_request_events(:useless_incoming_message_event)
-            @dog_request.get_last_response_event.calculated_state.should == 'rejected'
-        end
+            it 'should redirect to the "respond to last url" when status is updated to "gone postal"' do
+                expect_redirect('gone_postal', "request/#{@dog_request.id}/response/#{@dog_request.get_last_response.id}?gone_postal=1")
+            end
 
-        it 'should not log a status update event' do
-            @dog_request.should_not_receive(:log_event)
-            post_status('rejected')
-        end
+            it 'should redirect to the "request url" when status is updated to "internal review"' do
+                expect_redirect('internal_review', request_url)
+            end
 
-        it 'should not send an email to the requester letting them know someone has updated the status of their request' do
-            RequestMailer.should_not_receive(:deliver_old_unclassified_updated)
-            post_status('rejected')
-        end
+            it 'should redirect to the "help general url" when status is updated to "requires admin"' do
+                expect_redirect('requires_admin', "help/contact")
+            end
 
-        it "should send email when classified as requires_admin" do
-            post :describe_state, :incoming_message => { :described_state => "requires_admin" }, :id => @dog_request.id, :incoming_message_id => incoming_messages(:useless_incoming_message), :last_info_request_event_id => @dog_request.last_event_id_needing_description, :submitted_describe_state => 1
-            response.should redirect_to(:controller => 'help', :action => 'contact')
+            it 'should redirect to the "help general url" when status is updated to "error message"' do
+                expect_redirect('error_message', "help/contact")
+            end
 
-            @dog_request.reload
-            @dog_request.awaiting_description.should == false
-            @dog_request.described_state.should == 'requires_admin'
-            @dog_request.get_last_response_event.calculated_state.should == 'requires_admin'
+            it 'should redirect to the "respond to last url url" when status is updated to "user_withdrawn"' do
+                expect_redirect('user_withdrawn', "request/#{@dog_request.id}/response/#{@dog_request.get_last_response.id}")
+            end
 
-            deliveries = ActionMailer::Base.deliveries
-            deliveries.size.should == 1
-            mail = deliveries[0]
-            mail.body.should =~ /as needing admin/
-            mail.from_addrs.first.to_s.should == @request_owner.name_and_email
-        end
-
-        it 'should say it is showing advice as to what to do next' do
-            post_status('rejected')
-            flash[:notice].should match(/Here is what to do now/)
-        end
-
-        it 'should redirect to the unhappy page' do
-            post_status('rejected')
-            response.should redirect_to(:controller => 'help', :action => 'unhappy', :url_title => @dog_request.url_title)
-        end
-
-        it "knows about extended states" do
-            InfoRequest.send(:require, File.expand_path(File.join(File.dirname(__FILE__), '..', 'models', 'customstates')))
-            InfoRequest.send(:include, InfoRequestCustomStates)
-            InfoRequest.class_eval('@@custom_states_loaded = true')
-            RequestController.send(:require, File.expand_path(File.join(File.dirname(__FILE__), '..', 'models', 'customstates')))
-            RequestController.send(:include, RequestControllerCustomStates)
-            RequestController.class_eval('@@custom_states_loaded = true')
-            Time.stub!(:now).and_return(Time.utc(2007, 11, 10, 00, 01))
-            post_status('deadline_extended')
-            flash[:notice].should == 'Authority has requested extension of the deadline.'
-        end
-    end
-
-    describe 'when redirecting after a successful status update by the request owner' do
-
-        before do
-            @request_owner = users(:bob_smith_user)
-            session[:user_id] = @request_owner.id
-            @dog_request = info_requests(:fancy_dog_request)
-            @dog_request.stub!(:each).and_return([@dog_request])
-            InfoRequest.stub!(:find).and_return(@dog_request)
-            @old_filters = ActionController::Routing::Routes.filters
-            ActionController::Routing::Routes.filters = RoutingFilter::Chain.new
-        end
-        after do
-            ActionController::Routing::Routes.filters = @old_filters
-        end
-
-        def request_url
-            "request/#{@dog_request.url_title}"
-        end
-
-        def unhappy_url
-            "help/unhappy/#{@dog_request.url_title}"
-        end
-
-        def expect_redirect(status, redirect_path)
-            post_status(status)
-            response.should redirect_to("http://test.host/#{redirect_path}")
-        end
-
-        it 'should redirect to the "request url" with a message in the right tense when status is updated to "waiting response" and the response is not overdue' do
-            @dog_request.stub!(:date_response_required_by).and_return(Time.now.to_date+1)
-            @dog_request.stub!(:date_very_overdue_after).and_return(Time.now.to_date+40)
-
-            expect_redirect("waiting_response", "request/#{@dog_request.url_title}")
-            flash[:notice].should match(/should get a response/)
-        end
-
-        it 'should redirect to the "request url" with a message in the right tense when status is updated to "waiting response" and the response is overdue' do
-            @dog_request.stub!(:date_response_required_by).and_return(Time.now.to_date-1)
-            @dog_request.stub!(:date_very_overdue_after).and_return(Time.now.to_date+40)
-            expect_redirect('waiting_response', request_url)
-            flash[:notice].should match(/should have got a response/)
-        end
-
-        it 'should redirect to the "request url" with a message in the right tense when status is updated to "waiting response" and the response is overdue' do
-            @dog_request.stub!(:date_response_required_by).and_return(Time.now.to_date-2)
-            @dog_request.stub!(:date_very_overdue_after).and_return(Time.now.to_date-1)
-            expect_redirect('waiting_response', unhappy_url)
-            flash[:notice].should match(/is long overdue/)
-            flash[:notice].should match(/by more than 40 working days/)
-            flash[:notice].should match(/within 20 working days/)
-        end
-
-        it 'should redirect to the "request url" when status is updated to "not held"' do
-            expect_redirect('not_held', request_url)
-        end
-
-        it 'should redirect to the "request url" when status is updated to "successful"' do
-            expect_redirect('successful', request_url)
-        end
-
-        it 'should redirect to the "unhappy url" when status is updated to "rejected"' do
-            expect_redirect('rejected', "help/unhappy/#{@dog_request.url_title}")
-        end
-
-        it 'should redirect to the "unhappy url" when status is updated to "partially successful"' do
-            expect_redirect('partially_successful', "help/unhappy/#{@dog_request.url_title}")
-        end
-
-        it 'should redirect to the "response url" when status is updated to "waiting clarification" and there is a last response' do
-            incoming_message = mock_model(IncomingMessage)
-            @dog_request.stub!(:get_last_response).and_return(incoming_message)
-            expect_redirect('waiting_clarification', "request/#{@dog_request.id}/response/#{incoming_message.id}")
-        end
-
-        it 'should redirect to the "response no followup url" when status is updated to "waiting clarification" and there are no events needing description' do
-            @dog_request.stub!(:get_last_response).and_return(nil)
-            expect_redirect('waiting_clarification', "request/#{@dog_request.id}/response")
-        end
-
-        it 'should redirect to the "respond to last url" when status is updated to "gone postal"' do
-            expect_redirect('gone_postal', "request/#{@dog_request.id}/response/#{@dog_request.get_last_response.id}?gone_postal=1")
-        end
-
-        it 'should redirect to the "request url" when status is updated to "internal review"' do
-            expect_redirect('internal_review', request_url)
-        end
-
-        it 'should redirect to the "help general url" when status is updated to "requires admin"' do
-            expect_redirect('requires_admin', "help/contact")
-        end
-
-        it 'should redirect to the "help general url" when status is updated to "error message"' do
-            expect_redirect('error_message', "help/contact")
-        end
-
-        it 'should redirect to the "respond to last url url" when status is updated to "user_withdrawn"' do
-            expect_redirect('user_withdrawn', "request/#{@dog_request.id}/response/#{@dog_request.get_last_response.id}")
         end
 
     end
+
 end
 
 describe RequestController, "when sending a followup message" do

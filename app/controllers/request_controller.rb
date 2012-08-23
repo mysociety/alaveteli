@@ -77,7 +77,13 @@ class RequestController < ApplicationController
             @info_request_events = @info_request.info_request_events
             @status = @info_request.calculate_status
             @collapse_quotes = params[:unfold] ? false : true
-            @update_status = params[:update_status] ? true : false
+
+            # Don't allow status update on external requests, otherwise accept param
+            if @info_request.is_external?
+                @update_status = false
+            else
+                @update_status = params[:update_status] ? true : false
+            end
             @old_unclassified = @info_request.is_old_unclassified? && !authenticated_user.nil?
             @is_owning_user = @info_request.is_owning_user?(authenticated_user)
 
@@ -374,6 +380,13 @@ class RequestController < ApplicationController
 
         # If this isn't a form submit, go to the request page
         if params[:submitted_describe_state].nil?
+            redirect_to request_url(@info_request)
+            return
+        end
+
+        # If this is an external request, go to the request page - we don't allow
+        # state change from the front end interface.
+        if @info_request.is_external?
             redirect_to request_url(@info_request)
             return
         end
