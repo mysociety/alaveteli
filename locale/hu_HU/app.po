@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 #   <alaveteli@atlatszo.hu>, 2012.
 msgid ""
@@ -569,7 +569,7 @@ msgstr "A hozzászólásokkal bárki - önt is beleértve - segítséget nyújth
 msgid ""
 "Annotations will be posted publicly here, and are\n"
 "        <strong>not</strong> sent to {{public_body_name}}."
-msgstr ""
+msgstr "A hozzászólások nyilvánosan megjelennek, de azokat \n        <strong>nem</strong> küldjük el a(z) {{public_body_name}} részére. "
 
 msgid "Anonymous user"
 msgstr ""
@@ -2705,7 +2705,7 @@ msgstr ""
 msgid ""
 "This request has been <strong>withdrawn</strong> by the person who made it.\n"
 "               There may be an explanation in the correspondence below."
-msgstr ""
+msgstr "Ezt az igénylést <strong>visszavonta</strong> az azt benyújtó személy. \n        \t   Előfordulhat, hogy az alábbi levelezésben megtalálja ennek magyarázatát."
 
 msgid ""
 "This request has been marked for review by the site administrators, who have"
@@ -3778,7 +3778,7 @@ msgid ""
 "{{user}} ({{user_admin_link}}) made this {{law_used_full}} request (<a "
 "href=\"{{request_admin_url}}\">admin</a>) to {{public_body_link}} (<a "
 "href=\"{{public_body_admin_url}}\">admin</a>)"
-msgstr ""
+msgstr "{{user}} ({{user_admin_link}}) küldte ezt a {{law_used_full}} igénylést (<a href=\"{{request_admin_url}}\">admin</a>) a(z) {{public_body_link}} részére (<a href=\"{{public_body_admin_url}}\">admin</a>) "
 
 msgid "{{user}} made this {{law_used_full}} request"
 msgstr "{{user}} küldte ezt a {{law_used_full}} igénylést "

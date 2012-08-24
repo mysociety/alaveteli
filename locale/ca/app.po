@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # David Cabo <david.cabo@gmail.com>, 2012.
 #   <ecapfri@yahoo.es>, 2012.
@@ -571,7 +571,7 @@ msgstr "Los comentarios sirven para que cualquiera, incluído tú, pueda ayudar 
 msgid ""
 "Annotations will be posted publicly here, and are\n"
 "        <strong>not</strong> sent to {{public_body_name}}."
-msgstr ""
+msgstr "Los comentarios se muestran públicamente aquí, y \n        <strong>no</strong> se envían a {{public_body_name}}."
 
 msgid "Anonymous user"
 msgstr ""
@@ -2707,7 +2707,7 @@ msgstr ""
 msgid ""
 "This request has been <strong>withdrawn</strong> by the person who made it.\n"
 "               There may be an explanation in the correspondence below."
-msgstr ""
+msgstr "Esta solicitud ha sido <strong>retirada</strong> por la persona que la realizó. \n        \t   Puede que haya una explicación en los mensajes a continuación."
 
 msgid ""
 "This request has been marked for review by the site administrators, who have"
@@ -3780,7 +3780,7 @@ msgid ""
 "{{user}} ({{user_admin_link}}) made this {{law_used_full}} request (<a "
 "href=\"{{request_admin_url}}\">admin</a>) to {{public_body_link}} (<a "
 "href=\"{{public_body_admin_url}}\">admin</a>)"
-msgstr ""
+msgstr "{{user}} ({{user_admin_link}}) hizo esta solicitud {{law_used_full}} (<a href=\"{{request_admin_url}}\">admin</a>) a {{public_body_link}} (<a href=\"{{public_body_admin_url}}\">admin</a>)"
 
 msgid "{{user}} made this {{law_used_full}} request"
 msgstr "{{user}} hizo esta solicitud {{law_used_full}}"

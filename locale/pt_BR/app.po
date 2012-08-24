@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 #   <3laste2000@gmail.com>, 2012.
 #   <a.serramassuda@gmail.com>, 2012.
@@ -582,7 +582,7 @@ msgstr "Os comentários sevem para que qualquer pessoa, inclusive você, possa a
 msgid ""
 "Annotations will be posted publicly here, and are\n"
 "        <strong>not</strong> sent to {{public_body_name}}."
-msgstr ""
+msgstr "Comentários vão ser apenas publicados aqui, e não serão enviadas para o {{public_body_name}}."
 
 msgid "Anonymous user"
 msgstr "Usuário anônimo"
@@ -2718,7 +2718,7 @@ msgstr ""
 msgid ""
 "This request has been <strong>withdrawn</strong> by the person who made it.\n"
 "               There may be an explanation in the correspondence below."
-msgstr ""
+msgstr "Este pedido foi <strong>removido</strong> pela pessoa que o fez. Pode ser que exista uma explicação na troca de emails abaixo."
 
 msgid ""
 "This request has been marked for review by the site administrators, who have"
@@ -3791,7 +3791,7 @@ msgid ""
 "{{user}} ({{user_admin_link}}) made this {{law_used_full}} request (<a "
 "href=\"{{request_admin_url}}\">admin</a>) to {{public_body_link}} (<a "
 "href=\"{{public_body_admin_url}}\">admin</a>)"
-msgstr ""
+msgstr "{{user}} ({{user_admin_link}}) fez esse pedido (<a href=\"{{request_admin_url}}\">admin</a>) para {{public_body_link}} (<a href=\"{{public_body_admin_url}}\">admin</a>)"
 
 msgid "{{user}} made this {{law_used_full}} request"
 msgstr "{{user}} fez esse pedido de {{law_used_full}}"

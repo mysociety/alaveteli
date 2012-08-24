@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # David Cabo <david.cabo@gmail.com>, 2012.
 # FOI Monkey <>, 2012.
@@ -572,7 +572,7 @@ msgstr "Anmerkungen helfen Ihnen, sowie weiteren Benutzern bei der Erstellungen 
 msgid ""
 "Annotations will be posted publicly here, and are\n"
 "        <strong>not</strong> sent to {{public_body_name}}."
-msgstr ""
+msgstr "Anmerkungen werden hier veröffentlicht, und werden  \n        <strong>nicht</strong> an {{public_body_name}} gesendet."
 
 msgid "Anonymous user"
 msgstr ""
@@ -2708,7 +2708,7 @@ msgstr ""
 msgid ""
 "This request has been <strong>withdrawn</strong> by the person who made it.\n"
 "               There may be an explanation in the correspondence below."
-msgstr ""
+msgstr "Diese Anfrage wurde von dem/der Anfrageninhaber/in <strong>zurückgezogen</strong>. \n        <span class=\"whitespace other\" title=\"Tab\">»</span>   Sie können evt. eine Begründung im unten angefügten Kommunikationsverlauf finden."
 
 msgid ""
 "This request has been marked for review by the site administrators, who have"

@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Valon  <vbrestovci@gmail.com>, 2012.
 # vbrestovci <vbrestovci@gmail.com>, 2011.
@@ -574,7 +574,7 @@ msgstr "Napomene služe da bilo ko, uključujući Vas, može pomoći podnosioca 
 msgid ""
 "Annotations will be posted publicly here, and are\n"
 "        <strong>not</strong> sent to {{public_body_name}}."
-msgstr ""
+msgstr "Napomene će biti postane javno ovde, i \n        <strong>naće</strong> biti poslane za {{public_body_name}}."
 
 msgid "Anonymous user"
 msgstr ""
@@ -2714,7 +2714,7 @@ msgstr ""
 msgid ""
 "This request has been <strong>withdrawn</strong> by the person who made it.\n"
 "               There may be an explanation in the correspondence below."
-msgstr ""
+msgstr "Ovaj zahtev je <strong>povučen</strong> od strane osobe koja ga je napravila. \n        <span class=\"whitespace other\" title=\"Tab\">»</span>   Obijašnjenje može biti u dopisima ispod."
 
 msgid ""
 "This request has been marked for review by the site administrators, who have"
@@ -3789,7 +3789,7 @@ msgid ""
 "{{user}} ({{user_admin_link}}) made this {{law_used_full}} request (<a "
 "href=\"{{request_admin_url}}\">admin</a>) to {{public_body_link}} (<a "
 "href=\"{{public_body_admin_url}}\">admin</a>)"
-msgstr ""
+msgstr "{{user}} ({{user_admin_link}}) je podnio ovaj {{law_used_full}} zahtev (<a href=\"{{request_admin_url}}\">admin</a>) za {{public_body_link}} (<a href=\"{{public_body_admin_url}}\">admin</a>)"
 
 msgid "{{user}} made this {{law_used_full}} request"
 msgstr "{{user}} je podnio/la ovaj {{law_used_full}} zahtev"

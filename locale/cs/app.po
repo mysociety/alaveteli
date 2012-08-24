@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Hana Huntova <>, 2012.
 # Jana Kneschke <>, 2012.
@@ -575,7 +575,7 @@ msgstr "Poznámky jsou tu proto, aby kdokoliv, včetně vás, mohl pomoci tazate
 msgid ""
 "Annotations will be posted publicly here, and are\n"
 "        <strong>not</strong> sent to {{public_body_name}}."
-msgstr ""
+msgstr "Poznámky zde budou veřejně k dispozici\n        <strong>a nebudou</strong> poslány {{public_body_name}}."
 
 msgid "Anonymous user"
 msgstr ""
@@ -2715,7 +2715,7 @@ msgstr ""
 msgid ""
 "This request has been <strong>withdrawn</strong> by the person who made it.\n"
 "               There may be an explanation in the correspondence below."
-msgstr ""
+msgstr "Dotaz byla <strong>stažen</strong> tazatelem. \nBližší vysvětlení můžete najít v níže uvedené korespondenci."
 
 msgid ""
 "This request has been marked for review by the site administrators, who have"
@@ -3790,7 +3790,7 @@ msgid ""
 "{{user}} ({{user_admin_link}}) made this {{law_used_full}} request (<a "
 "href=\"{{request_admin_url}}\">admin</a>) to {{public_body_link}} (<a "
 "href=\"{{public_body_admin_url}}\">admin</a>)"
-msgstr ""
+msgstr "{{user}} ({{user_admin_link}}) podal tuto {{law_used_full}} (<a href=\"{{request_admin_url}}\">admin</a>) pro {{public_body_link}} (<a href=\"{{public_body_admin_url}}\">admin</a>)"
 
 msgid "{{user}} made this {{law_used_full}} request"
 msgstr "{{user}} vložil tuto {{law_used_full}} "

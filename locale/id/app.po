@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 #   <agus.triwanto@gmail.com>, 2012.
 #   <ariadi01@gmail.com>, 2012.
@@ -567,7 +567,7 @@ msgstr "Anotasi adalah supaya semua orang, termasuk Anda, dapat membantu pemohon
 msgid ""
 "Annotations will be posted publicly here, and are\n"
 "        <strong>not</strong> sent to {{public_body_name}}."
-msgstr ""
+msgstr "Anotasi akan dimuat secara terbuka di sini, dan\n        <strong>tidak</strong> dikirimkan ke{{public_body_name}}"
 
 msgid "Anonymous user"
 msgstr ""
@@ -2699,7 +2699,7 @@ msgstr "Permintaan ini telah <strong>dilaporkan</strong> sebagai keperluan untuk
 msgid ""
 "This request has been <strong>withdrawn</strong> by the person who made it.\n"
 "               There may be an explanation in the correspondence below."
-msgstr ""
+msgstr "Permintaan ini telah <strong>ditarik</strong> oleh orang yang membuatnya. \n        \t   Mungkin ada penjelasan dalam korespondensi di bawah."
 
 msgid ""
 "This request has been marked for review by the site administrators, who have"
@@ -3770,7 +3770,7 @@ msgid ""
 "{{user}} ({{user_admin_link}}) made this {{law_used_full}} request (<a "
 "href=\"{{request_admin_url}}\">admin</a>) to {{public_body_link}} (<a "
 "href=\"{{public_body_admin_url}}\">admin</a>)"
-msgstr ""
+msgstr "{{user}} ({{user_admin_link}}) membuat {{law_used_full}} permintaan (<a href=\"{{request_admin_url}}\">admin</a>) kepada {{public_body_link}} (<a href=\"{{public_body_admin_url}}\">admin</a>)"
 
 msgid "{{user}} made this {{law_used_full}} request"
 msgstr "{{user}} membuat {{law_used_full}} permintaan ini"
