@@ -441,16 +441,16 @@ describe InfoRequest do
     describe 'when applying censor rules' do
 
         before do
-            @global_rule = mock_model(CensorRule, :apply_to_text! => nil,
+            @global_rule = safe_mock_model(CensorRule, :apply_to_text! => nil,
                                                   :apply_to_binary! => nil)
-            @user_rule = mock_model(CensorRule, :apply_to_text! => nil,
+            @user_rule = safe_mock_model(CensorRule, :apply_to_text! => nil,
                                                 :apply_to_binary! => nil)
-            @request_rule = mock_model(CensorRule, :apply_to_text! => nil,
+            @request_rule = safe_mock_model(CensorRule, :apply_to_text! => nil,
                                                    :apply_to_binary! => nil)
-            @body_rule = mock_model(CensorRule, :apply_to_text! => nil,
+            @body_rule = safe_mock_model(CensorRule, :apply_to_text! => nil,
                                                 :apply_to_binary! => nil)
-            @user = mock_model(User, :censor_rules => [@user_rule])
-            @body = mock_model(PublicBody, :censor_rules => [@body_rule])
+            @user = safe_mock_model(User, :censor_rules => [@user_rule])
+            @body = safe_mock_model(PublicBody, :censor_rules => [@body_rule])
             @info_request = InfoRequest.new(:prominence => 'normal',
                                             :awaiting_description => true,
                                             :title => 'title')
