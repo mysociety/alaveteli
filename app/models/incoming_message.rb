@@ -962,7 +962,7 @@ class IncomingMessage < ActiveRecord::Base
             tempfile.close
         end
 
-        return text
+        text.force_encoding('utf-8')
     end
     def IncomingMessage._get_attachment_text_from_zip_file(zip_file)
         text = ""
