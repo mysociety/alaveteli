@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
-"POT-Creation-Date: 2012-08-09 09:33+0100\n"
-"PO-Revision-Date: 2012-08-09 08:34+0000\n"
+"POT-Creation-Date: 2012-08-24 09:20+0100\n"
+"PO-Revision-Date: 2012-08-24 08:21+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -550,6 +550,9 @@ msgstr "Sebuah<strong>pesan error</strong> telah diterima"
 msgid "An Environmental Information Regulations request"
 msgstr "Permintaan Peraturan Informasi Lingkungan"
 
+msgid "An anonymous user"
+msgstr ""
+
 msgid "Annotation added to request"
 msgstr "Anotasi ditambahkan untuk meminta"
 
@@ -562,9 +565,9 @@ msgid ""
 msgstr "Anotasi adalah supaya semua orang, termasuk Anda, dapat membantu pemohon dengan permintaan mereka. Contohnya:"
 
 msgid ""
-"Annotations will be posted publicly here, and are \n"
+"Annotations will be posted publicly here, and are\n"
 "        <strong>not</strong> sent to {{public_body_name}}."
-msgstr "Anotasi akan dimuat secara terbuka di sini, dan\n        <strong>tidak</strong> dikirimkan ke{{public_body_name}}"
+msgstr ""
 
 msgid "Anonymous user"
 msgstr ""
@@ -877,7 +880,7 @@ msgid ""
 msgstr "Masukkan kata-kata yang ingin Anda cari dipisahkan dengan spasi, contoh <strong>jalur pendakian</strong>"
 
 msgid ""
-"Enter your response below. You may attach one file (use email, or \n"
+"Enter your response below. You may attach one file (use email, or\n"
 "  <a href=\"%s\">contact us</a> if you need more)."
 msgstr ""
 
@@ -1032,6 +1035,11 @@ msgstr "Tindak lanjut dan respon baru terhadap permintaan ini telah dihentikan u
 
 msgid "Follow us on twitter"
 msgstr "Ikuti kami di twitter"
+
+msgid ""
+"Followups cannot be sent for this request, as it was made externally, and "
+"published here by {{public_body_name}} on the requester's behalf."
+msgstr ""
 
 msgid ""
 "For an unknown reason, it is not possible to make a request to this "
@@ -2616,6 +2624,9 @@ msgid ""
 "            the <strong>natural and built environment</strong>, such as:"
 msgstr "Hal ini mencakup spektrum informasi yang sangat luas tentang keadaan dari\nlingkungan <strong> alami dan buatan </strong>, seperti:"
 
+msgid "This external request has been hidden"
+msgstr ""
+
 msgid ""
 "This is a plain-text version of the Freedom of Information request "
 "\"{{request_title}}\".  The latest, full version is available online at "
@@ -2686,9 +2697,9 @@ msgid ""
 msgstr "Permintaan ini telah <strong>dilaporkan</strong> sebagai keperluan untuk diperhatikan administrator (mungkin karena permintaan ini tidak sesuai, atau sebuah permintaan pribadi)"
 
 msgid ""
-"This request has been <strong>withdrawn</strong> by the person who made it. \n"
-"        \t   There may be an explanation in the correspondence below."
-msgstr "Permintaan ini telah <strong>ditarik</strong> oleh orang yang membuatnya. \n        \t   Mungkin ada penjelasan dalam korespondensi di bawah."
+"This request has been <strong>withdrawn</strong> by the person who made it.\n"
+"               There may be an explanation in the correspondence below."
+msgstr ""
 
 msgid ""
 "This request has been marked for review by the site administrators, who have"
@@ -2951,11 +2962,17 @@ msgstr "UserInfoRequestSentAlert|Alert type"
 msgid "User|About me"
 msgstr "User|About me"
 
+msgid "User|Address"
+msgstr ""
+
 msgid "User|Admin level"
 msgstr "User|Admin level"
 
 msgid "User|Ban text"
 msgstr "User|Ban text"
+
+msgid "User|Dob"
+msgstr ""
 
 msgid "User|Email"
 msgstr "User|Email"
@@ -3507,6 +3524,9 @@ msgstr "meskipun dalam hari libur"
 msgid "everything"
 msgstr "seluruhnya"
 
+msgid "external"
+msgstr ""
+
 msgid "has reported an"
 msgstr "telah melaporkan"
 
@@ -3608,6 +3628,9 @@ msgstr "alamat kontak FOI utama untuk {{public_body}}"
 
 msgid "the main FOI contact at {{public_body}}"
 msgstr "kontak FOI utama di {{public_body}}"
+
+msgid "the requester"
+msgstr ""
 
 msgid "the {{site_name}} team"
 msgstr "tim {{site_name}}"
@@ -3744,10 +3767,10 @@ msgid "{{username}} left an annotation:"
 msgstr "{{username}} meninggalkan anotasi:"
 
 msgid ""
-"{{user}} (<a href=\"{{user_admin_url}}\">admin</a>) made this "
-"{{law_used_full}} request (<a href=\"{{request_admin_url}}\">admin</a>) to "
-"{{public_body_link}} (<a href=\"{{public_body_admin_url}}\">admin</a>)"
-msgstr "{{user}} (<a href=\"{{user_admin_url}}\">admin</a>) membuat {{law_used_full}} permintaan (<a href=\"{{request_admin_url}}\">admin</a>) kepada {{public_body_link}} (<a href=\"{{public_body_admin_url}}\">admin</a>)"
+"{{user}} ({{user_admin_link}}) made this {{law_used_full}} request (<a "
+"href=\"{{request_admin_url}}\">admin</a>) to {{public_body_link}} (<a "
+"href=\"{{public_body_admin_url}}\">admin</a>)"
+msgstr ""
 
 msgid "{{user}} made this {{law_used_full}} request"
 msgstr "{{user}} membuat {{law_used_full}} permintaan ini"
