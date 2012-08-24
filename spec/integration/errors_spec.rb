@@ -13,15 +13,17 @@ describe "When rendering errors" do
 
     it "should render a 404 for unrouteable URLs" do
         get("/frobsnasm")
+        response.body.should include("The page doesn't exist")
         response.code.should == "404"
-        response.body.should include("The page doesn't exist")        
     end
     it "should render a 404 for users that don't exist" do
         get("/user/wobsnasm")
+        response.body.should include("The page doesn't exist")
         response.code.should == "404"
     end
     it "should render a 404 for bodies that don't exist" do
         get("/body/wobsnasm")
+        response.body.should include("The page doesn't exist")
         response.code.should == "404"
     end
     it "should render a 500 for general errors" do
@@ -36,12 +38,15 @@ describe "When rendering errors" do
         foi_cache_path = File.expand_path(File.join(File.dirname(__FILE__), '../../cache'))
         FileUtils.mkdir_p(File.join(foi_cache_path, "views/en/request/101/101/response/1/attach/html/1"))
         get("/request/101/response/1/attach/html/1/" )
+        response.body.should include("Directory listing not allowed")
         response.code.should == "403"
         get("/request/101/response/1/attach/html" )
-        response.code.should == "403" 
+        response.body.should include("Directory listing not allowed")
+        response.code.should == "403"
     end
     it "should render a 404 for non-existent 'details' pages for requests" do
         get("/details/request/wobble" )
+        response.body.should include("The page doesn't exist")
         response.code.should == "404"
     end
 end
