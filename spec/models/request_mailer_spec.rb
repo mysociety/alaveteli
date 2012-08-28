@@ -223,7 +223,7 @@ describe RequestMailer, "when sending reminders to requesters to classify a resp
     end
 
     it 'should ask for all requests that are awaiting description and whose latest response is older than the number of days given and that are not the holding pen' do
-        expected_params = {:conditions => [ "awaiting_description = ? and (select created_at from info_request_events where info_request_events.info_request_id = info_requests.id and info_request_events.event_type = 'response' order by created_at desc limit 1) < ? and url_title != 'holding_pen'",
+        expected_params = {:conditions => [ "awaiting_description = ? and (select created_at from info_request_events where info_request_events.info_request_id = info_requests.id and info_request_events.event_type = 'response' order by created_at desc limit 1) < ? and url_title != 'holding_pen' and user_id is not null",
                            true, Time.now() - 7.days ],
                            :include => [ :user ],
                            :order => "info_requests.id"}

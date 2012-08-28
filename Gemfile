@@ -1,5 +1,5 @@
 # Work around bug in Debian Squeeze - see https://github.com/sebbacon/alaveteli/pull/297#issuecomment-4101012
-if File.exist? "/etc/debian_version" and File.open("/etc/debian_version").read.strip =~ /^6\.0\.[45]$/
+if File.exist? "/etc/debian_version" and File.open("/etc/debian_version").read.strip =~ /^(squeeze|6\.0\.[45])$/
     if File.exist? "/lib/libuuid.so.1"
         require 'dl'
         DL::dlopen('/lib/libuuid.so.1')

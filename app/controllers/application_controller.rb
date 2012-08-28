@@ -134,6 +134,10 @@ class ApplicationController < ActionController::Base
         # Make sure expiry time for session is set (before_filters are
         # otherwise missed by this override)
         session_remember_me
+
+        # Make sure the locale is set correctly too
+        set_gettext_locale
+
         case exception
         when ActiveRecord::RecordNotFound, ActionController::UnknownAction, ActionController::RoutingError
             @status = 404
@@ -156,6 +160,9 @@ class ApplicationController < ActionController::Base
         # Make sure expiry time for session is set (before_filters are
         # otherwise missed by this override)
         session_remember_me
+
+        # Make sure the locale is set correctly too
+        set_gettext_locale
 
         # Display default, detailed error for developers
         original_rescue_action_locally(exception)
@@ -206,13 +213,16 @@ class ApplicationController < ActionController::Base
         foi_cache_path = File.expand_path(File.join(File.dirname(__FILE__), '../../cache'))
         return File.join(foi_cache_path, path)
     end
+
     def foi_fragment_cache_exists?(key_path)
         return File.exists?(key_path)
     end
+
     def foi_fragment_cache_read(key_path)
         logger.info "Reading from fragment cache #{key_path}"
         return File.read(key_path)
     end
+
     def foi_fragment_cache_write(key_path, content)
         FileUtils.mkdir_p(File.dirname(key_path))
         logger.info "Writing to fragment cache #{key_path}"
@@ -382,8 +392,11 @@ class ApplicationController < ActionController::Base
                        # might fail later if the database has subsequently been reopened.
         return result
     end
+
     def get_search_page_from_params
-        return (params[:page] || "1").to_i
+        page = (params[:page] || "1").to_i
+        page = 1 if page < 1
+        return page
     end
 
     def perform_search_typeahead(query, model)

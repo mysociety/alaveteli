@@ -25,6 +25,9 @@
     one on their website, or by phoning them up and asking. If you manage
     to find one, then please <a href="%s">send it to us</a>.') % [help_contact_path] %>
     </p>
+<% elsif @reason == 'external' %>
+    <p><%= _("Followups cannot be sent for this request, as it was made externally, and published here by {{public_body_name}} on the requester's behalf.", :public_body_name => h(@info_request.public_body.name)) %>
+    </p>
 <% else %>
     <% raise _("unknown reason ") + @reason %>
 <% end %>

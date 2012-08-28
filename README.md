@@ -1,6 +1,6 @@
 # Welcome to Alaveteli!
 
-[![Build Status](https://secure.travis-ci.org/sebbacon/alaveteli.png)](http://travis-ci.org/sebbacon/alaveteli)
+[![Build Status](https://secure.travis-ci.org/sebbacon/alaveteli.png)](http://travis-ci.org/sebbacon/alaveteli) [![Dependency Status](https://gemnasium.com/sebbacon/alaveteli.png)](https://gemnasium.com/sebbacon/alaveteli)
 
 This is an open source project to create a standard, internationalised
 platform for making Freedom of Information (FOI) requests in different
@@ -22,3 +22,6 @@ There's background information and a more documentation on
 [our wiki](https://github.com/sebbacon/alaveteli/wiki/Home/), and lots
 of useful information (including a blog) on
 [the project website](http://alaveteli.org)
+
+Looking for the latest stable release? It's on the 
+[master branch](https://github.com/sebbacon/alaveteli/tree/master).
