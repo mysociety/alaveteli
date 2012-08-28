@@ -7,9 +7,15 @@
 # $Id: public_body_categories.rb,v 1.1 2009-09-14 14:45:48 francis Exp $
 
 class PublicBodyCategories
-    
-    attr_reader :with_description, :with_headings, :tags, :by_tag, :singular_by_tag
-    
+
+    attr_reader :with_description,
+                :with_headings,
+                :tags,
+                :by_tag,
+                :singular_by_tag,
+                :by_heading,
+                :headings
+
     def initialize(categories)
         @with_headings = categories
         # Arranged in different ways for different sorts of displaying
@@ -17,7 +23,20 @@ class PublicBodyCategories
         @tags = @with_description.map() { |a| a[0] }
         @by_tag = Hash[*@with_description.map() { |a| a[0..1] }.flatten]
         @singular_by_tag = Hash[*@with_description.map() { |a| [a[0],a[2]] }.flatten]
+        @by_heading = {}
+        heading = nil
+        @headings = []
+        @with_headings.each do |row|
+            if ! row.instance_of?(Array)
+                heading = row
+                @headings << row
+                @by_heading[row] = []
+            else
+                @by_heading[heading] << row[0]
+            end
+        end
     end
+
 
     def PublicBodyCategories.get
         load_categories if @@CATEGORIES.empty?
@@ -28,10 +47,10 @@ class PublicBodyCategories
     def PublicBodyCategories.add(locale, categories)
         @@CATEGORIES[locale.to_s] = PublicBodyCategories.new(categories)
     end
-    
+
     private
     @@CATEGORIES = {}
-    
+
     def PublicBodyCategories.load_categories()
         I18n.available_locales.each do |locale|
             begin
