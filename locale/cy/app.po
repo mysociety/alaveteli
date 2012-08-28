@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
-"POT-Creation-Date: 2012-08-09 09:33+0100\n"
-"PO-Revision-Date: 2012-08-09 08:34+0000\n"
+"POT-Creation-Date: 2012-08-24 09:20+0100\n"
+"PO-Revision-Date: 2012-08-24 08:21+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -560,6 +560,9 @@ msgstr ""
 msgid "An Environmental Information Regulations request"
 msgstr ""
 
+msgid "An anonymous user"
+msgstr ""
+
 msgid "Annotation added to request"
 msgstr ""
 
@@ -572,7 +575,7 @@ msgid ""
 msgstr ""
 
 msgid ""
-"Annotations will be posted publicly here, and are \n"
+"Annotations will be posted publicly here, and are\n"
 "        <strong>not</strong> sent to {{public_body_name}}."
 msgstr ""
 
@@ -887,7 +890,7 @@ msgid ""
 msgstr ""
 
 msgid ""
-"Enter your response below. You may attach one file (use email, or \n"
+"Enter your response below. You may attach one file (use email, or\n"
 "  <a href=\"%s\">contact us</a> if you need more)."
 msgstr ""
 
@@ -1041,6 +1044,11 @@ msgid ""
 msgstr ""
 
 msgid "Follow us on twitter"
+msgstr ""
+
+msgid ""
+"Followups cannot be sent for this request, as it was made externally, and "
+"published here by {{public_body_name}} on the requester's behalf."
 msgstr ""
 
 msgid ""
@@ -2632,6 +2640,9 @@ msgid ""
 "            the <strong>natural and built environment</strong>, such as:"
 msgstr ""
 
+msgid "This external request has been hidden"
+msgstr ""
+
 msgid ""
 "This is a plain-text version of the Freedom of Information request "
 "\"{{request_title}}\".  The latest, full version is available online at "
@@ -2708,8 +2719,8 @@ msgid ""
 msgstr ""
 
 msgid ""
-"This request has been <strong>withdrawn</strong> by the person who made it. \n"
-"        \t   There may be an explanation in the correspondence below."
+"This request has been <strong>withdrawn</strong> by the person who made it.\n"
+"               There may be an explanation in the correspondence below."
 msgstr ""
 
 msgid ""
@@ -2973,10 +2984,16 @@ msgstr ""
 msgid "User|About me"
 msgstr ""
 
+msgid "User|Address"
+msgstr ""
+
 msgid "User|Admin level"
 msgstr ""
 
 msgid "User|Ban text"
+msgstr ""
+
+msgid "User|Dob"
 msgstr ""
 
 msgid "User|Email"
@@ -3535,6 +3552,9 @@ msgstr "hyd yn oed yn ystod y gwyliau"
 msgid "everything"
 msgstr ""
 
+msgid "external"
+msgstr ""
+
 msgid "has reported an"
 msgstr ""
 
@@ -3635,6 +3655,9 @@ msgid "the main FOI contact address for {{public_body}}"
 msgstr ""
 
 msgid "the main FOI contact at {{public_body}}"
+msgstr ""
+
+msgid "the requester"
 msgstr ""
 
 msgid "the {{site_name}} team"
@@ -3772,9 +3795,9 @@ msgid "{{username}} left an annotation:"
 msgstr ""
 
 msgid ""
-"{{user}} (<a href=\"{{user_admin_url}}\">admin</a>) made this "
-"{{law_used_full}} request (<a href=\"{{request_admin_url}}\">admin</a>) to "
-"{{public_body_link}} (<a href=\"{{public_body_admin_url}}\">admin</a>)"
+"{{user}} ({{user_admin_link}}) made this {{law_used_full}} request (<a "
+"href=\"{{request_admin_url}}\">admin</a>) to {{public_body_link}} (<a "
+"href=\"{{public_body_admin_url}}\">admin</a>)"
 msgstr ""
 
 msgid "{{user}} made this {{law_used_full}} request"

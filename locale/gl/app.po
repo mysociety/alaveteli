@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
-"POT-Creation-Date: 2012-08-09 09:33+0100\n"
-"PO-Revision-Date: 2012-08-09 08:34+0000\n"
+"POT-Creation-Date: 2012-08-24 09:20+0100\n"
+"PO-Revision-Date: 2012-08-24 10:34+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -552,6 +552,9 @@ msgstr "Se ha recibido <strong>un mensaje de error</strong>"
 msgid "An Environmental Information Regulations request"
 msgstr "Una solicitud de información ambiental"
 
+msgid "An anonymous user"
+msgstr ""
+
 msgid "Annotation added to request"
 msgstr "Comentario añadido a la solicitud"
 
@@ -564,7 +567,7 @@ msgid ""
 msgstr "Los comentarios sirven para que cualquiera, incluído tú, pueda ayudar al creador de la solicitud. Por ejemplo:"
 
 msgid ""
-"Annotations will be posted publicly here, and are \n"
+"Annotations will be posted publicly here, and are\n"
 "        <strong>not</strong> sent to {{public_body_name}}."
 msgstr "Los comentarios se muestran públicamente aquí, y \n        <strong>no</strong> se envían a {{public_body_name}}."
 
@@ -879,7 +882,7 @@ msgid ""
 msgstr "Introduzca las palabras que desee separadas por espacio, es decir <strong>parlamento gasto</strong>"
 
 msgid ""
-"Enter your response below. You may attach one file (use email, or \n"
+"Enter your response below. You may attach one file (use email, or\n"
 "  <a href=\"%s\">contact us</a> if you need more)."
 msgstr ""
 
@@ -1034,6 +1037,11 @@ msgstr "Se han bloqueado nuevas respuestas a esta solicitud para prevenir spam. 
 
 msgid "Follow us on twitter"
 msgstr "Síguenos en Twitter"
+
+msgid ""
+"Followups cannot be sent for this request, as it was made externally, and "
+"published here by {{public_body_name}} on the requester's behalf."
+msgstr ""
 
 msgid ""
 "For an unknown reason, it is not possible to make a request to this "
@@ -2620,6 +2628,9 @@ msgid ""
 "            the <strong>natural and built environment</strong>, such as:"
 msgstr "Esto incluye un amplio espectro de información sobre el estado de\n        el <strong>entorno natural y urbanizado</strong>, como:"
 
+msgid "This external request has been hidden"
+msgstr ""
+
 msgid ""
 "This is a plain-text version of the Freedom of Information request "
 "\"{{request_title}}\".  The latest, full version is available online at "
@@ -2692,8 +2703,8 @@ msgid ""
 msgstr ""
 
 msgid ""
-"This request has been <strong>withdrawn</strong> by the person who made it. \n"
-"        \t   There may be an explanation in the correspondence below."
+"This request has been <strong>withdrawn</strong> by the person who made it.\n"
+"               There may be an explanation in the correspondence below."
 msgstr "Esta solicitud ha sido <strong>retirada</strong> por la persona que la realizó. \n        \t   Puede que haya una explicación en los mensajes a continuación."
 
 msgid ""
@@ -2957,11 +2968,17 @@ msgstr "UserInfoRequestSentAlert|Alert type"
 msgid "User|About me"
 msgstr "User|About me"
 
+msgid "User|Address"
+msgstr ""
+
 msgid "User|Admin level"
 msgstr "User|Admin level"
 
 msgid "User|Ban text"
 msgstr "User|Ban text"
+
+msgid "User|Dob"
+msgstr ""
 
 msgid "User|Email"
 msgstr "User|Email"
@@ -3515,6 +3532,9 @@ msgstr "incluso durante las vacaciones"
 msgid "everything"
 msgstr "todo"
 
+msgid "external"
+msgstr ""
+
 msgid "has reported an"
 msgstr "ha denunciado un"
 
@@ -3616,6 +3636,9 @@ msgstr "la dirección de contacto de {{public_body}}"
 
 msgid "the main FOI contact at {{public_body}}"
 msgstr "el contacto en {{public_body}}"
+
+msgid "the requester"
+msgstr ""
 
 msgid "the {{site_name}} team"
 msgstr "el equipo de {{site_name}}"
@@ -3752,10 +3775,10 @@ msgid "{{username}} left an annotation:"
 msgstr "{{username}} dejó un comentario:"
 
 msgid ""
-"{{user}} (<a href=\"{{user_admin_url}}\">admin</a>) made this "
-"{{law_used_full}} request (<a href=\"{{request_admin_url}}\">admin</a>) to "
-"{{public_body_link}} (<a href=\"{{public_body_admin_url}}\">admin</a>)"
-msgstr "{{user}} (<a href=\"{{user_admin_url}}\">admin</a>) hizo esta solicitud {{law_used_full}} (<a href=\"{{request_admin_url}}\">admin</a>) a {{public_body_link}} (<a href=\"{{public_body_admin_url}}\">admin</a>)"
+"{{user}} ({{user_admin_link}}) made this {{law_used_full}} request (<a "
+"href=\"{{request_admin_url}}\">admin</a>) to {{public_body_link}} (<a "
+"href=\"{{public_body_admin_url}}\">admin</a>)"
+msgstr "{{user}} ({{user_admin_link}}) hizo esta solicitud {{law_used_full}} (<a href=\"{{request_admin_url}}\">admin</a>) a {{public_body_link}} (<a href=\"{{public_body_admin_url}}\">admin</a>)"
 
 msgid "{{user}} made this {{law_used_full}} request"
 msgstr "{{user}} hizo esta solicitud {{law_used_full}}"

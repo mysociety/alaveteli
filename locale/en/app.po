@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
-"POT-Creation-Date: 2012-07-17 10:22+0100\n"
+"POT-Creation-Date: 2012-08-24 09:20+0100\n"
 "PO-Revision-Date: 2011-02-24 07:11-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -333,7 +333,7 @@ msgstr ""
 
 msgid ""
 "<strong>Note:</strong> You're sending a message to yourself, presumably\n"
-"\t    to try out how it works."
+"            to try out how it works."
 msgstr ""
 
 msgid ""
@@ -456,6 +456,9 @@ msgstr ""
 msgid "An Environmental Information Regulations request"
 msgstr ""
 
+msgid "An anonymous user"
+msgstr ""
+
 msgid "Annotation added to request"
 msgstr ""
 
@@ -466,7 +469,7 @@ msgid "Annotations are so anyone, including you, can help the requester with the
 msgstr ""
 
 msgid ""
-"Annotations will be posted publicly here, and are \n"
+"Annotations will be posted publicly here, and are\n"
 "        <strong>not</strong> sent to {{public_body_name}}."
 msgstr ""
 
@@ -533,6 +536,9 @@ msgid "CensorRule|Last edit comment"
 msgstr ""
 
 msgid "CensorRule|Last edit editor"
+msgstr ""
+
+msgid "CensorRule|Regexp"
 msgstr ""
 
 msgid "CensorRule|Replacement"
@@ -752,7 +758,7 @@ msgid "Enter words that you want to find separated by spaces, e.g. <strong>climb
 msgstr ""
 
 msgid ""
-"Enter your response below. You may attach one file (use email, or \n"
+"Enter your response below. You may attach one file (use email, or\n"
 "  <a href=\"%s\">contact us</a> if you need more)."
 msgstr ""
 
@@ -901,6 +907,9 @@ msgid "Follow ups and new responses to this request have been stopped to prevent
 msgstr ""
 
 msgid "Follow us on twitter"
+msgstr ""
+
+msgid "Followups cannot be sent for this request, as it was made externally, and published here by {{public_body_name}} on the requester's behalf."
 msgstr ""
 
 msgid "For an unknown reason, it is not possible to make a request to this authority."
@@ -1188,6 +1197,12 @@ msgid "InfoRequest|Awaiting description"
 msgstr ""
 
 msgid "InfoRequest|Described state"
+msgstr ""
+
+msgid "InfoRequest|External url"
+msgstr ""
+
+msgid "InfoRequest|External user name"
 msgstr ""
 
 msgid "InfoRequest|Handle rejected responses"
@@ -1752,6 +1767,9 @@ msgid "PublicBody::Translation|Short name"
 msgstr ""
 
 msgid "PublicBody::Translation|Url name"
+msgstr ""
+
+msgid "PublicBody|Api key"
 msgstr ""
 
 msgid "PublicBody|First letter"
@@ -2369,6 +2387,9 @@ msgid ""
 "            the <strong>natural and built environment</strong>, such as:"
 msgstr ""
 
+msgid "This external request has been hidden"
+msgstr ""
+
 msgid "This is a plain-text version of the Freedom of Information request \"{{request_title}}\".  The latest, full version is available online at {{full_url}}"
 msgstr ""
 
@@ -2426,8 +2447,8 @@ msgid "This request has been <strong>reported</strong> as needing administrator 
 msgstr ""
 
 msgid ""
-"This request has been <strong>withdrawn</strong> by the person who made it. \n"
-"        \t   There may be an explanation in the correspondence below."
+"This request has been <strong>withdrawn</strong> by the person who made it.\n"
+"               There may be an explanation in the correspondence below."
 msgstr ""
 
 msgid "This request has been marked for review by the site administrators, who have not hidden it at this time. If you believe it should be hidden, please <a href=\"%s\">contact us</a>."
@@ -2670,10 +2691,16 @@ msgstr ""
 msgid "User|About me"
 msgstr ""
 
+msgid "User|Address"
+msgstr ""
+
 msgid "User|Admin level"
 msgstr ""
 
 msgid "User|Ban text"
+msgstr ""
+
+msgid "User|Dob"
 msgstr ""
 
 msgid "User|Email"
@@ -3186,6 +3213,9 @@ msgstr ""
 msgid "everything"
 msgstr ""
 
+msgid "external"
+msgstr ""
+
 msgid "has reported an"
 msgstr ""
 
@@ -3286,6 +3316,9 @@ msgid "the main FOI contact address for {{public_body}}"
 msgstr ""
 
 msgid "the main FOI contact at {{public_body}}"
+msgstr ""
+
+msgid "the requester"
 msgstr ""
 
 msgid "the {{site_name}} team"
@@ -3416,7 +3449,7 @@ msgstr ""
 msgid "{{username}} left an annotation:"
 msgstr ""
 
-msgid "{{user}} (<a href=\"{{user_admin_url}}\">admin</a>) made this {{law_used_full}} request (<a href=\"{{request_admin_url}}\">admin</a>) to {{public_body_link}} (<a href=\"{{public_body_admin_url}}\">admin</a>)"
+msgid "{{user}} ({{user_admin_link}}) made this {{law_used_full}} request (<a href=\"{{request_admin_url}}\">admin</a>) to {{public_body_link}} (<a href=\"{{public_body_admin_url}}\">admin</a>)"
 msgstr ""
 
 msgid "{{user}} made this {{law_used_full}} request"

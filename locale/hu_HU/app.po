@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
-"POT-Creation-Date: 2012-08-09 09:33+0100\n"
-"PO-Revision-Date: 2012-08-09 08:34+0000\n"
+"POT-Creation-Date: 2012-08-24 09:20+0100\n"
+"PO-Revision-Date: 2012-08-24 10:32+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -552,6 +552,9 @@ msgstr "<strong>Hibaüzenet</strong> érkezett "
 msgid "An Environmental Information Regulations request"
 msgstr "Környezeti információ igénylése "
 
+msgid "An anonymous user"
+msgstr ""
+
 msgid "Annotation added to request"
 msgstr "Hozzászólás készült az igényléshez"
 
@@ -564,7 +567,7 @@ msgid ""
 msgstr "A hozzászólásokkal bárki - önt is beleértve - segítséget nyújthat az igénylőnek az adatigényléshez. Például: "
 
 msgid ""
-"Annotations will be posted publicly here, and are \n"
+"Annotations will be posted publicly here, and are\n"
 "        <strong>not</strong> sent to {{public_body_name}}."
 msgstr "A hozzászólások nyilvánosan megjelennek, de azokat \n        <strong>nem</strong> küldjük el a(z) {{public_body_name}} részére. "
 
@@ -879,7 +882,7 @@ msgid ""
 msgstr "Írja be azokat a szavakat, amelyeket szóközzel elválasztva kíván megjeleníteni, pl. <strong>kapaszkodó sáv</strong> "
 
 msgid ""
-"Enter your response below. You may attach one file (use email, or \n"
+"Enter your response below. You may attach one file (use email, or\n"
 "  <a href=\"%s\">contact us</a> if you need more)."
 msgstr ""
 
@@ -1034,6 +1037,11 @@ msgstr "A levélszemét kiszűrése érdekében erre az igénylésre vonatkozóa
 
 msgid "Follow us on twitter"
 msgstr "Kövessen bennünket a twitteren "
+
+msgid ""
+"Followups cannot be sent for this request, as it was made externally, and "
+"published here by {{public_body_name}} on the requester's behalf."
+msgstr ""
 
 msgid ""
 "For an unknown reason, it is not possible to make a request to this "
@@ -2620,6 +2628,9 @@ msgid ""
 "            the <strong>natural and built environment</strong>, such as:"
 msgstr "Az információk széles köre tartozik ide\n            a<strong>természeti és épített környezetre</strong> vonatkozóan, mint például: "
 
+msgid "This external request has been hidden"
+msgstr ""
+
 msgid ""
 "This is a plain-text version of the Freedom of Information request "
 "\"{{request_title}}\".  The latest, full version is available online at "
@@ -2692,9 +2703,9 @@ msgid ""
 msgstr ""
 
 msgid ""
-"This request has been <strong>withdrawn</strong> by the person who made it. \n"
-"        \t   There may be an explanation in the correspondence below."
-msgstr "Ezt az igénylést <strong>visszavonta</strong> az azt benyújtó személy. \n        \t   Előfordulhat, hogy az alábbi levelezésben megtalálja ennek magyarázatát. "
+"This request has been <strong>withdrawn</strong> by the person who made it.\n"
+"               There may be an explanation in the correspondence below."
+msgstr "Ezt az igénylést <strong>visszavonta</strong> az azt benyújtó személy. \n        \t   Előfordulhat, hogy az alábbi levelezésben megtalálja ennek magyarázatát."
 
 msgid ""
 "This request has been marked for review by the site administrators, who have"
@@ -2957,11 +2968,17 @@ msgstr "UserInfoRequestSentAlert|Alert type"
 msgid "User|About me"
 msgstr "User|About me"
 
+msgid "User|Address"
+msgstr ""
+
 msgid "User|Admin level"
 msgstr "User|Admin level"
 
 msgid "User|Ban text"
 msgstr "User|Ban text"
+
+msgid "User|Dob"
+msgstr ""
 
 msgid "User|Email"
 msgstr "User|Email"
@@ -3515,6 +3532,9 @@ msgstr "még tanítási szünetben is"
 msgid "everything"
 msgstr "minden"
 
+msgid "external"
+msgstr ""
+
 msgid "has reported an"
 msgstr "bejelentett"
 
@@ -3616,6 +3636,9 @@ msgstr "{{public_body}} közérdekűadat-igényléshez használt elsődleges e-m
 
 msgid "the main FOI contact at {{public_body}}"
 msgstr "{{public_body}} közérdekűadat-igénylésekkel foglalkozó elsődleges kapcsolattartója "
+
+msgid "the requester"
+msgstr ""
 
 msgid "the {{site_name}} team"
 msgstr "a {{site_name}} csapata "
@@ -3752,10 +3775,10 @@ msgid "{{username}} left an annotation:"
 msgstr "{{username}} hozzászólt:"
 
 msgid ""
-"{{user}} (<a href=\"{{user_admin_url}}\">admin</a>) made this "
-"{{law_used_full}} request (<a href=\"{{request_admin_url}}\">admin</a>) to "
-"{{public_body_link}} (<a href=\"{{public_body_admin_url}}\">admin</a>)"
-msgstr "{{user}} (<a href=\"{{user_admin_url}}\">admin</a>) küldte ezt a {{law_used_full}} igénylést (<a href=\"{{request_admin_url}}\">admin</a>) a(z) {{public_body_link}} részére (<a href=\"{{public_body_admin_url}}\">admin</a>) "
+"{{user}} ({{user_admin_link}}) made this {{law_used_full}} request (<a "
+"href=\"{{request_admin_url}}\">admin</a>) to {{public_body_link}} (<a "
+"href=\"{{public_body_admin_url}}\">admin</a>)"
+msgstr "{{user}} ({{user_admin_link}}) küldte ezt a {{law_used_full}} igénylést (<a href=\"{{request_admin_url}}\">admin</a>) a(z) {{public_body_link}} részére (<a href=\"{{public_body_admin_url}}\">admin</a>) "
 
 msgid "{{user}} made this {{law_used_full}} request"
 msgstr "{{user}} küldte ezt a {{law_used_full}} igénylést "
