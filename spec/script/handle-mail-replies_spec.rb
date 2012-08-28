@@ -1,12 +1,19 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 require "external_command"
 
+def ignore_deprecation_errors(message)
+    message.split("\n").reject{|line|
+        line['iconv will be deprecated in the future'] ||
+        line['Gem.source_index is deprecated'] ||
+        line['Gem.source_index called from']
+    }.join("\n")
+end
+
 def mail_reply_test(email_filename)
     Dir.chdir Rails.root do
         xc = ExternalCommand.new("script/handle-mail-replies", "--test")
         xc.run(load_file_fixture(email_filename))
-        
-        xc.err.should == ""
+        ignore_deprecation_errors(xc.err).should == ""
         return xc
     end
 end
@@ -14,8 +21,8 @@ end
 describe "When filtering" do
     it "should not fail when not in test mode" do
         xc = ExternalCommand.new("script/handle-mail-replies")
-        xc.run(load_file_fixture("track-response-exim-bounce.email"))        
-        xc.err.should == ""
+        xc.run(load_file_fixture("track-response-exim-bounce.email"))
+        ignore_deprecation_errors(xc.err).should == ""
     end
 
     it "should detect an Exim bounce" do

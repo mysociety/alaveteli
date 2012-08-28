@@ -192,9 +192,11 @@ class ApplicationController < ActionController::Base
     # have more than 32,000 entries in one directory on an ext3 filesystem.
     def foi_fragment_cache_part_path(param)
         path = url_for(param)
-        id = param['id'] || param[:id]
-        first_three_digits = id.to_s()[0..2]
-        path = path.sub("/request/", "/request/" + first_three_digits + "/")
+        if Hash === param
+            id = param['id'] || param[:id]
+            first_three_digits = id.to_s()[0..2]
+            path = path.sub("/request/", "/request/" + first_three_digits + "/")
+        end
         return path
     end
 

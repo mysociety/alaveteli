@@ -1,3 +1,5 @@
+# coding: utf-8
+
 # == Schema Information
 # Schema version: 114
 #
@@ -17,9 +19,6 @@
 #  last_parsed                    :datetime
 #  mail_from                      :text
 #  sent_at                        :datetime
-#
-
-# encoding: UTF-8
 
 # models/incoming_message.rb:
 # An (email) message from really anybody to be logged with a request. e.g. A
@@ -81,7 +80,7 @@ class IncomingMessage < ActiveRecord::Base
             # http://www.whatdotheyknow.com/request/reviews_of_unduly_lenient_senten#incoming-4830
             # Report of TMail bug:
             # http://rubyforge.org/tracker/index.php?func=detail&aid=21810&group_id=4512&atid=17370
-            copy_of_raw_data = self.raw_email.data.gsub(/; boundary=\s+"/ims,'; boundary="')
+            copy_of_raw_data = self.raw_email.data.gsub(/; boundary=\s+"/im,'; boundary="')
 
             @mail = TMail::Mail.parse(copy_of_raw_data)
             @mail.base64_decode
@@ -293,7 +292,7 @@ class IncomingMessage < ActiveRecord::Base
                         logger.warn "Unable to compress PDF; problem with your pdftk version?"
                     end
                     if !recompressed_text.nil? && !recompressed_text.empty?
-                        text[0..-1] = recompressed_text # [0..-1] makes it change the 'text' string in place
+                        text.replace recompressed_text
                     end
                 end
             end
@@ -348,15 +347,15 @@ class IncomingMessage < ActiveRecord::Base
 
         # To end of message sections
         # http://www.whatdotheyknow.com/request/university_investment_in_the_arm
-        text.gsub!(/^#{name}[^\n]+\nSent by:[^\n]+\n.*/ims, "\n\n" + replacement)
+        text.gsub!(/^#{name}[^\n]+\nSent by:[^\n]+\n.*/im, "\n\n" + replacement)
 
         # Some other sort of forwarding quoting
         # http://www.whatdotheyknow.com/request/224/response/326
-        text.gsub!(/^#{name}[^\n]+\n[0-9\/:\s]+\s+To\s+FOI requests at.*/ims, "\n\n" + replacement)
+        text.gsub!(/^#{name}[^\n]+\n[0-9\/:\s]+\s+To\s+FOI requests at.*/im, "\n\n" + replacement)
 
         # http://www.whatdotheyknow.com/request/how_do_the_pct_deal_with_retirin_33#incoming-930
         # http://www.whatdotheyknow.com/request/229/response/809
-        text.gsub!(/^From: [^\n]+\nSent: [^\n]+\nTo:\s+['"?]#{name}['"]?\nSubject:.*/ims, "\n\n" + replacement)
+        text.gsub!(/^From: [^\n]+\nSent: [^\n]+\nTo:\s+['"?]#{name}['"]?\nSubject:.*/im, "\n\n" + replacement)
 
         return text
 
@@ -400,7 +399,7 @@ class IncomingMessage < ActiveRecord::Base
         # http://www.whatdotheyknow.com/request/police_powers_to_inform_car_insu
         # http://www.whatdotheyknow.com/request/secured_convictions_aided_by_cct
         multiline_original_message = '(' + '''>>>.* \d\d/\d\d/\d\d\d\d\s+\d\d:\d\d(?::\d\d)?\s*>>>''' + ')'
-        text.gsub!(/^(#{multiline_original_message}\n.*)$/ms, replacement)
+        text.gsub!(/^(#{multiline_original_message}\n.*)$/m, replacement)
 
         # Single line sections
         text.gsub!(/^(>.*\n)/, replacement)
@@ -571,7 +570,7 @@ class IncomingMessage < ActiveRecord::Base
         text = self.get_main_body_text_internal
         # Strip the uudecode parts from main text
         # - this also effectively does a .dup as well, so text mods don't alter original
-        text = text.split(/^begin.+^`\n^end\n/sm).join(" ")
+        text = text.split(/^begin.+^`\n^end\n/m).join(" ")
 
         if text.size > 1000000 # 1 MB ish
             raise "main body text more than 1 MB, need to implement clipping like for attachment text, or there is some other MIME decoding problem or similar"
@@ -708,7 +707,7 @@ class IncomingMessage < ActiveRecord::Base
     # Returns attachments that are uuencoded in main body part
     def _uudecode_and_save_attachments(text)
         # Find any uudecoded things buried in it, yeuchly
-        uus = text.scan(/^begin.+^`\n^end\n/sm)
+        uus = text.scan(/^begin.+^`\n^end\n/m)
         attachments = []
         for uu in uus
             # Decode the string
@@ -963,7 +962,11 @@ class IncomingMessage < ActiveRecord::Base
             tempfile.close
         end
 
-        return text
+        if text.respond_to? :force_encoding
+            text.force_encoding('utf-8')
+        else
+            text
+        end
     end
     def IncomingMessage._get_attachment_text_from_zip_file(zip_file)
         text = ""

@@ -1,4 +1,4 @@
-if RUBY_VERSION.to_f == 1.9
+if RUBY_VERSION.to_f >= 1.9
   class String
     # @see syck/lib/syck/rubytypes.rb
     def is_binary_data?

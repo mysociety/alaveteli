@@ -24,6 +24,47 @@ FakeWeb.register_uri(:purge, %r|varnish.localdomain|, :body => "OK")
 FastGettext.add_text_domain 'app', :path => File.join(File.dirname(__FILE__), 'fixtures', 'locale'), :type => :po
 FastGettext.default_text_domain = 'app'
 
+# Temporary monkey-patch until pull request is merged
+# @see https://github.com/mysociety/commonlib/pull/3
+module MySociety
+  module Validate
+    def Validate.email_match_regexp
+      # This is derived from the grammar in RFC2822.
+      # mailbox = local-part "@" domain
+      # local-part = dot-string | quoted-string
+      # dot-string = atom ("." atom)*
+      # atom = atext+
+      # atext = any character other than space, specials or controls
+      # quoted-string = '"' (qtext|quoted-pair)* '"'
+      # qtext = any character other than '"', '\', or CR
+      # quoted-pair = "\" any character
+      # domain = sub-domain ("." sub-domain)* | address-literal
+      # sub-domain = [A-Za-z0-9][A-Za-z0-9-]*
+      # XXX ignore address-literal because nobody uses those...
+
+      specials = '()<>@,;:\\\\".\\[\\]'
+      controls = '\\000-\\037\\177'
+      # To add MacRuby support, see https://github.com/nex3/sass/pull/432
+      highbit = if RUBY_VERSION.to_f < 1.9
+          '\\200-\\377'
+      else
+          '\\u{80}-\\u{D7FF}\\u{E000}-\\u{FFFD}\\u{10000}-\\u{10FFFF}'
+      end
+      atext = "[^#{specials} #{controls}#{highbit}]"
+      atom = "#{atext}+"
+      dot_string = "#{atom}(\\s*\\.\\s*#{atom})*"
+      qtext = "[^\"\\\\\\r\\n#{highbit}]"
+      quoted_pair = '\\.'
+      quoted_string = "\"(#{qtext}|#{quoted_pair})*\""
+      local_part = "(#{dot_string}|#{quoted_string})"
+      sub_domain = '[A-Za-z0-9][A-Za-z0-9-]*'
+      domain = "#{sub_domain}(\\s*\\.\\s*#{sub_domain})*"
+
+      return "#{local_part}\\s*@\\s*#{domain}"
+    end
+  end
+end
+
 Spec::Runner.configure do |config|
   # If you're not using ActiveRecord you should remove these
   # lines, delete config/database.yml and disable :active_record
@@ -130,7 +171,8 @@ def validate_html(html)
         f.puts html
     end
     if not system($html_validation_script, *($html_validation_script_options +[tempfilename]))
-        raise "HTML validation error in " + tempfilename + " HTTP status: " + @response.response_code.to_s
+      message = %x(#{$html_validation_script} #{$html_validation_script_options.join(' ')} #{tempfilename})
+      raise "HTML validation error in #{tempfilename} HTTP status: #{@response.response_code.to_s} Message: #{message}"
     end
     File.unlink(tempfilename)
     return true

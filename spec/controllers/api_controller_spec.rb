@@ -1,3 +1,4 @@
+# coding: utf-8
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 def normalise_whitespace(s)
@@ -164,7 +165,7 @@ describe ApiController, "when using the API" do
         OutgoingMessage.count.should == n_outgoing_messages
     end
     
-    it "should not allow other people’s requests to be updated" do
+    it "should not allow other people's requests to be updated" do
         request_id = _create_request
         n_incoming_messages = IncomingMessage.count
         n_outgoing_messages = OutgoingMessage.count
