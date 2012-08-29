@@ -168,6 +168,6 @@ anonymous_external_outgoing_message_event:
   outgoing_message_id: 9
   info_request_id: 110
   event_type: sent
-  created_at: 2009-01-02 02:23:45.6789100
+  created_at: 2009-01-03 02:23:45.6789100
   described_state: waiting_response
   calculated_state: waiting_response
