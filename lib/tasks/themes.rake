@@ -77,7 +77,8 @@ namespace :themes do
         verbose = false
         theme_urls = MySociety::Config.get("THEME_URLS", [])
         theme_urls.each{ |theme_url| install_theme(theme_url, verbose) }
-        if theme_url = MySociety::Config.get("THEME_URL", nil)
+        theme_url = MySociety::Config.get("THEME_URL", "")
+        if ! theme_url.blank?
             # Old version of the above, for backwards compatibility
             install_theme(theme_url, verbose, deprecated=true)
         end
