@@ -35,6 +35,7 @@ namespace :themes do
                 rm_rf %w(.git .gitignore)
             else
                 rm_rf install_path
+                raise "#{base_cmd} failed! Stopping."
             end
         end
     end
