@@ -62,7 +62,7 @@ namespace :themes do
         File.directory?(theme_dir(theme_name))
     end
 
-    def install_theme(theme_url, deprecated=false)
+    def install_theme(theme_url, verbose, deprecated=false)
         deprecation_string = deprecated ? " using deprecated THEME_URL" : ""
         theme_name = File.basename(theme_url, '.git')
         puts "Installing theme #{theme_name}#{deprecation_string} from #{theme_url}"
@@ -74,12 +74,12 @@ namespace :themes do
 
     desc "Install themes specified in the config file's THEME_URLS"
     task :install => :environment do
-        verbose = true
+        verbose = false
         theme_urls = MySociety::Config.get("THEME_URLS", [])
-        theme_urls.each{ |theme_url| install_theme(theme_url) }
+        theme_urls.each{ |theme_url| install_theme(theme_url, verbose) }
         if theme_url = MySociety::Config.get("THEME_URL", nil)
             # Old version of the above, for backwards compatibility
-            install_theme(theme_url, deprecated=true)
+            install_theme(theme_url, verbose, deprecated=true)
         end
     end
 end
