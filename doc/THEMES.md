@@ -42,7 +42,7 @@ explanation.
 
 You can also install the sample theme by hand, by running:
 
-    ./script/plugin install git://github.com/sebbacon/alavetelitheme.git
+    ./script/plugin install git://github.com/mysociety/alavetelitheme.git
     
 The sample theme contains examples for nearly everything you might 
 want to customise.  You should probably make a copy, rename it, and
@@ -112,7 +112,7 @@ locale you support.
 # Customising the request states
 
 As mentioned above, if you can possibly live with the
-[default Alaveteli request statuses](https://github.com/sebbacon/alaveteli/wiki/Alaveteli's-request-statuses),
+[default Alaveteli request statuses](https://github.com/mysociety/alaveteli/wiki/Alaveteli's-request-statuses),
 it would be good to do so.  Note that you can set how many days counts
 as "overdue" in the main site config file.
 

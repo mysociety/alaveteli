@@ -2,9 +2,9 @@
 # current version of Rails won't use that.  So for now, monkeypatch,
 # This can be dropped when we move to Rails 3.
 #
-# See https://github.com/sebbacon/alaveteli/issues/38 for Alaveteli
+# See https://github.com/mysociety/alaveteli/issues/38 for Alaveteli
 # bug report
-# 
+#
 # More info about the monkeypatch:
 # http://thewebfellas.com/blog/2010/7/15/rails-2-3-8-rack-1-1-and-the-curious-case-of-the-missing-quotes
 
