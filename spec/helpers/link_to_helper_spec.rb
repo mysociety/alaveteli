@@ -40,8 +40,8 @@ describe LinkToHelper do
 
     describe 'when displaying a user admin link for a request' do
 
-        it 'should return the text "An anonymous user (external)" in the case where there is no username' do
-            info_request = mock_model(InfoRequest, :user_name => nil,
+        it 'should return the text "An anonymous user (external)" in the case where there is no external username' do
+            info_request = mock_model(InfoRequest, :external_user_name => nil,
                                                    :is_external? => true)
             user_admin_link_for_request(info_request).should == 'Anonymous user (external)'
         end
