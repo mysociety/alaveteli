@@ -38,8 +38,8 @@ FRONTPAGE_PUBLICBODY_EXAMPLES: 'tgq'
 # script). Earlier in the list means the templates have a higher
 # priority.
 THEME_URLS:
- - 'git://github.com/sebbacon/adminbootstraptheme.git'
- - 'git://github.com/sebbacon/alavetelitheme.git'
+ - 'git://github.com/mysociety/adminbootstraptheme.git'
+ - 'git://github.com/mysociety/alavetelitheme.git'
 
 # Whether a user needs to sign in to start the New Request process
 FORCE_REGISTRATION_ON_NEW_REQUEST: false
