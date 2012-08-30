@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
-"POT-Creation-Date: 2012-08-09 09:33+0100\n"
-"PO-Revision-Date: 2012-08-09 08:34+0000\n"
+"POT-Creation-Date: 2012-08-24 09:20+0100\n"
+"PO-Revision-Date: 2012-08-24 10:32+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -558,6 +558,9 @@ msgstr "Byla nahlášena <strong>chyba</strong>"
 msgid "An Environmental Information Regulations request"
 msgstr "Dotazy ve smyslu zákona č. 123/1998 Sb., o právu na informace o životním prostředí"
 
+msgid "An anonymous user"
+msgstr ""
+
 msgid "Annotation added to request"
 msgstr "Poznámka u dotazů byla přidána"
 
@@ -570,7 +573,7 @@ msgid ""
 msgstr "Poznámky jsou tu proto, aby kdokoliv, včetně vás, mohl pomoci tazateli s jeho dotazem. Například:"
 
 msgid ""
-"Annotations will be posted publicly here, and are \n"
+"Annotations will be posted publicly here, and are\n"
 "        <strong>not</strong> sent to {{public_body_name}}."
 msgstr "Poznámky zde budou veřejně k dispozici\n        <strong>a nebudou</strong> poslány {{public_body_name}}."
 
@@ -885,7 +888,7 @@ msgid ""
 msgstr "Slova, která chcete najít musí být oddělena mezerou, například <strong>přechod pro chodce</strong>"
 
 msgid ""
-"Enter your response below. You may attach one file (use email, or \n"
+"Enter your response below. You may attach one file (use email, or\n"
 "  <a href=\"%s\">contact us</a> if you need more)."
 msgstr ""
 
@@ -1040,6 +1043,11 @@ msgstr "Přidávání odpovědí a komentářů u tohoto dotazu bylo ukončeno k
 
 msgid "Follow us on twitter"
 msgstr "Sledujte Informace pro všechny na Twitteru"
+
+msgid ""
+"Followups cannot be sent for this request, as it was made externally, and "
+"published here by {{public_body_name}} on the requester's behalf."
+msgstr ""
 
 msgid ""
 "For an unknown reason, it is not possible to make a request to this "
@@ -2628,6 +2636,9 @@ msgid ""
 "            the <strong>natural and built environment</strong>, such as:"
 msgstr "Toto zahrnuje široké spektrum informací o stavu \n             <strong>přírody a památek</strong>, například:"
 
+msgid "This external request has been hidden"
+msgstr ""
+
 msgid ""
 "This is a plain-text version of the Freedom of Information request "
 "\"{{request_title}}\".  The latest, full version is available online at "
@@ -2702,8 +2713,8 @@ msgid ""
 msgstr ""
 
 msgid ""
-"This request has been <strong>withdrawn</strong> by the person who made it. \n"
-"        \t   There may be an explanation in the correspondence below."
+"This request has been <strong>withdrawn</strong> by the person who made it.\n"
+"               There may be an explanation in the correspondence below."
 msgstr "Dotaz byla <strong>stažen</strong> tazatelem. \nBližší vysvětlení můžete najít v níže uvedené korespondenci."
 
 msgid ""
@@ -2967,11 +2978,17 @@ msgstr "UserInfoRequestSentAlert| Typ upozornění"
 msgid "User|About me"
 msgstr "User | O mně"
 
+msgid "User|Address"
+msgstr ""
+
 msgid "User|Admin level"
 msgstr "User | Úroveň admin"
 
 msgid "User|Ban text"
 msgstr "User | Zakázat text"
+
+msgid "User|Dob"
+msgstr ""
 
 msgid "User|Email"
 msgstr "User | E-mail"
@@ -3527,6 +3544,9 @@ msgstr "i během dovolené"
 msgid "everything"
 msgstr "vše"
 
+msgid "external"
+msgstr ""
+
 msgid "has reported an"
 msgstr "nahlásil"
 
@@ -3628,6 +3648,9 @@ msgstr "hlavní kontaktní adresa pro poskytování informací {{public_body}}"
 
 msgid "the main FOI contact at {{public_body}}"
 msgstr "hlavní kontakt pro vznesení dotazu na {{public_body}}"
+
+msgid "the requester"
+msgstr ""
 
 msgid "the {{site_name}} team"
 msgstr "{{site_name}} tým"
@@ -3764,10 +3787,10 @@ msgid "{{username}} left an annotation:"
 msgstr "{{username}} zanechal poznámku:"
 
 msgid ""
-"{{user}} (<a href=\"{{user_admin_url}}\">admin</a>) made this "
-"{{law_used_full}} request (<a href=\"{{request_admin_url}}\">admin</a>) to "
-"{{public_body_link}} (<a href=\"{{public_body_admin_url}}\">admin</a>)"
-msgstr "{{user}} (<a href=\"{{user_admin_url}}\">admin</a>) podal tuto {{law_used_full}} (<a href=\"{{request_admin_url}}\">admin</a>) pro {{public_body_link}} (<a href=\"{{public_body_admin_url}}\">admin</a>)"
+"{{user}} ({{user_admin_link}}) made this {{law_used_full}} request (<a "
+"href=\"{{request_admin_url}}\">admin</a>) to {{public_body_link}} (<a "
+"href=\"{{public_body_admin_url}}\">admin</a>)"
+msgstr "{{user}} ({{user_admin_link}}) podal tuto {{law_used_full}} (<a href=\"{{request_admin_url}}\">admin</a>) pro {{public_body_link}} (<a href=\"{{public_body_admin_url}}\">admin</a>)"
 
 msgid "{{user}} made this {{law_used_full}} request"
 msgstr "{{user}} vložil tuto {{law_used_full}} "

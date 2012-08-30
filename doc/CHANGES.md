@@ -1,8 +1,22 @@
+# Version 0.6.5
+* This is a minor release, to update all documentation and example files to reflect the move of the official repository to http://github.com/mysociety/alaveteli and the alavetelitheme and adminbootstraptheme themes to http://github.com/mysociety/alavetelitheme and http://github.com/mysociety/adminbootstraptheme respectively. 
+* Some basic versioning has been added for themes. An ALAVETELI_VERSION constant has been added in config/environment.rb. When loading themes, `rails-post-deploy` now looks for a tag on the theme repository in the form 'use-with-alaveteli-0.6.5' that matches the ALAVETELI_VERSION being deployed - if it finds such a tag, the theme will be checked out from that tag, rather than from the HEAD of the theme repository. If no such tag is found, HEAD is used, as before [issue #573](https://github.com/mysociety/alaveteli/issues/573). 
+* Apache has been configured to serve cached HTML versions of attached files (and associated images) directly from the file cache, as well as the original versions [issue #580](https://github.com/mysociety/alaveteli/issues/580). 
+* PublicBodyCategories have a couple of new methods for more easily working with headings [issue #575](https://github.com/mysociety/alaveteli/issues/575).
+
+* [List of issues on github](https://github.com/mysociety/alaveteli/issues?milestone=21&state=closed)
+
+## Upgrade notes
+
+* Please update your `THEME_URLS` to point to http://github.com/mysociety/alavetelitheme and http://github.com/mysociety/adminbootstraptheme if you are using the alavetelitheme or adminbootstraptheme themes.
+
+* Check out this version and run `rails-post-deploy` as usual.
+  
 # Version 0.6.4
 ## Highlighted features
 * This is a minor bugfix release, mainly to fix bugs related to external request handling. 
-* [List of issues on github](https://github.com/sebbacon/alaveteli/issues?milestone=18&state=closed)
-* [List of commits since last release](https://github.com/sebbacon/alaveteli/compare/master...release/0.6.4)
+* [List of issues on github](https://github.com/mysociety/alaveteli/issues?milestone=18&state=closed)
+* [List of commits since last release](https://github.com/mysociety/alaveteli/compare/master...release/0.6.4)
 
 ## Upgrade notes
 
@@ -22,7 +36,7 @@
   customisation in themes
 * Themes can now provide a `post_install.rb` script that is executed
   by `rails-post-deploy`
-* [List of issues on github](https://github.com/sebbacon/alaveteli/issues?milestone=17&state=closed)
+* [List of issues on github](https://github.com/mysociety/alaveteli/issues?milestone=17&state=closed)
 
 ## Upgrade notes
 
@@ -43,14 +57,14 @@
 # Version 0.6.1
 ## Highlighted features
 
-* Fixes important security bug [issue #515](https://github.com/sebbacon/alaveteli/issues/515)
+* Fixes important security bug [issue #515](https://github.com/mysociety/alaveteli/issues/515)
 * Show admin nav bar when browsing main site
 * A new API for adding requests and correspondence to an Alaveteli
   instance, designed for use by public bodies that wish to use
   Alaveteli as a disclosure log.  See
-  [the wiki](https://github.com/sebbacon/alaveteli/wiki/API) for some
+  [the wiki](https://github.com/mysociety/alaveteli/wiki/API) for some
   documentation.
-* [Full list of changes on github](https://github.com/sebbacon/alaveteli/issues?milestone=8&state=closed)
+* [Full list of changes on github](https://github.com/mysociety/alaveteli/issues?milestone=8&state=closed)
 
 ## Upgrade notes
 
@@ -87,9 +101,9 @@
   and sends the user an email explaining why.
 * A bug which prevented locales containing underscores (e.g. `en_GB`)
   was fixed
-  ([issue #503](https://github.com/sebbacon/alaveteli/issues/503))
+  ([issue #503](https://github.com/mysociety/alaveteli/issues/503))
 * Error pages are now presented with styling from themes
-* [Full list of changes on github](https://github.com/sebbacon/alaveteli/issues?milestone=13&state=closed)
+* [Full list of changes on github](https://github.com/mysociety/alaveteli/issues?milestone=13&state=closed)
 
 ## Upgrade notes
 
@@ -178,7 +192,7 @@ We now have a most of a Czech translation (thanks Josef Pospisil!)
 Finally, this release also addresses a number of small bugs, including
 the (potentially) important issue #408.
 
-As usual, there is a [full list of changes on github](https://github.com/sebbacon/alaveteli/issues?milestone=9&state=closed)
+As usual, there is a [full list of changes on github](https://github.com/mysociety/alaveteli/issues?milestone=9&state=closed)
 
 ## Upgrade notes
 
@@ -194,16 +208,16 @@ As usual, there is a [full list of changes on github](https://github.com/sebbaco
 * When listing authorities, show all authorities in default locale, rather than only those in the currently selected locale.
 * Ensure incoming emails are only ever parsed once (should give a performance boost)
 * Added a simple rate-limiting feature: restrict the number of requests users can make per day, except if explicitly unrestricted in the admin interface
-* [Full list of changes on github](https://github.com/sebbacon/alaveteli/issues?state=closed&milestone=9)
+* [Full list of changes on github](https://github.com/mysociety/alaveteli/issues?state=closed&milestone=9)
 
 ## Upgrade notes
-* **IMPORTANT! We now depend on Xapian 1.2**, which means you may need to install Xapian from backports.  See [issue #159](https://github.com/sebbacon/alaveteli/issues/159) for more info.
+* **IMPORTANT! We now depend on Xapian 1.2**, which means you may need to install Xapian from backports.  See [issue #159](https://github.com/mysociety/alaveteli/issues/159) for more info.
 * Themes created for 0.4 and below should be changed to match the new format (although the old way should continue to work):
   * You should create a resources folder at `<yourtheme>/public/` and symlink to it from the main rails app.  See the `install.rb` in `alaveteli-theme` example theme for details.
   * Your styles should be moved from `general/custom_css.rhtml` to a standalone stylesheet in `<yourtheme>/public/stylesheets/`
   * The partial at `general/_before_head_end.rhtml` should be changed in the theme to include this stylesheet
-* [issue #281](https://github.com/sebbacon/alaveteli/issues/281) fixes some bugs relating to display of internationalised emails.  To fix any wrongly displayed emails, you'll need to run the script at `script/clear-caches` so that the caches can be regenerated
-* During this release, a bug was discovered in pdftk 1.44 which caused it to loop forever.  Until it's incorporated into an official release, you'll need to patch it yourself or use the Debian package compiled by mySociety (see link in [issue 305](https://github.com/sebbacon/alaveteli/issues/305))
+* [issue #281](https://github.com/mysociety/alaveteli/issues/281) fixes some bugs relating to display of internationalised emails.  To fix any wrongly displayed emails, you'll need to run the script at `script/clear-caches` so that the caches can be regenerated
+* During this release, a bug was discovered in pdftk 1.44 which caused it to loop forever.  Until it's incorporated into an official release, you'll need to patch it yourself or use the Debian package compiled by mySociety (see link in [issue 305](https://github.com/mysociety/alaveteli/issues/305))
 * Ensure you have values for new config variables (see `config/general.yml-example`):
   * EXCEPTION_NOTIFICATIONS_FROM
   * EXCEPTION_NOTIFICATIONS_TO
@@ -220,7 +234,7 @@ As usual, there is a [full list of changes on github](https://github.com/sebbaco
   See the new instructions in INSTALL-exim4.md for details of how to set this up.
 * Logged in users now have the ability to download a zipfile of the entire correspondence for a request
 * Improved UI for responding to requests.  The user now has a single option to "reply" at the bottom of a request, and can adjust who they are replying to on the next page
-* [Full list of changes on github](https://github.com/sebbacon/alaveteli/issues?sort=created&direction=desc&state=closed&milestone=7)
+* [Full list of changes on github](https://github.com/mysociety/alaveteli/issues?sort=created&direction=desc&state=closed&milestone=7)
 
 ## Upgrade notes
 * Remember to `rake db:migrate` and `git submodule update`
@@ -248,4 +262,4 @@ As usual, there is a [full list of changes on github](https://github.com/sebbaco
 * Introduce reCaptcha for people apparently coming from foreign countries (to combat spam) (requires values for new config variables `ISO_COUNTRY_CODE` and `GAZE_URL`, and existing config variables `RECAPTCHA_PUBLIC_KEY` and `RECAPTCHA_PRIVATE_KEY`)
 * Better admin interface for editing multiple translations of a public body at once
 ## Other
-* [Full list of changes on github](https://github.com/sebbacon/alaveteli/issues?milestone=5&state=closed)
+* [Full list of changes on github](https://github.com/mysociety/alaveteli/issues?milestone=5&state=closed)

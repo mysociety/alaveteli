@@ -21,6 +21,11 @@ describe AdminRequestController, "when administering requests" do
         get :show, :id => info_requests(:fancy_dog_request)
     end
 
+    it 'shows an external public body with no username' do
+        get :show, :id => info_requests(:anonymous_external_request)
+        response.should be_success
+    end
+
     it "edits a public body" do
         get :edit, :id => info_requests(:fancy_dog_request)
     end

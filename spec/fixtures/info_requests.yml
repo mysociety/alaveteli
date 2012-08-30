@@ -88,3 +88,13 @@ external_request:
     described_state: waiting_response
     awaiting_description: false
     idhash: a1234567
+anonymous_external_request:
+    id: 110
+    title: Anonymous request
+    url_title: anonymous_request
+    external_user_name:
+    external_url: http://www.example.org/request/anonymous_requesr
+    public_body_id: 2
+    described_state: waiting_response
+    awaiting_description: false
+    idhash: 7654321a
