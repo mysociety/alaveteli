@@ -21,7 +21,7 @@ namespace :themes do
             usage_tag = "use-with-alaveteli-#{ALAVETELI_VERSION}"
             # Query the remote repository passing flags for tags
             version_tag = `git ls-remote --tags #{uri} #{usage_tag}`
-            if !version_tag.blank?
+            if /^[a-z0-9]+\s+refs\/tags\/#{Regexp.escape(usage_tag)}$/.match(version_tag)
                 # If we got a tag, pull that instead of HEAD
                 puts "Using tag #{usage_tag}" if verbose
                 base_cmd += " refs/tags/#{usage_tag}"
