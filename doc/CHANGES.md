@@ -2,6 +2,7 @@
 * This is a minor release, to update all documentation and example files to reflect the move of the official repository to http://github.com/mysociety/alaveteli and the alavetelitheme and adminbootstraptheme themes to http://github.com/mysociety/alavetelitheme and http://github.com/mysociety/adminbootstraptheme respectively. 
 * Some basic versioning has been added for themes. An ALAVETELI_VERSION constant has been added in config/environment.rb. When loading themes, `rails-post-deploy` now looks for a tag on the theme repository in the form 'use-with-alaveteli-0.6.5' that matches the ALAVETELI_VERSION being deployed - if it finds such a tag, the theme will be checked out from that tag, rather than from the HEAD of the theme repository. If no such tag is found, HEAD is used, as before [issue #573](https://github.com/mysociety/alaveteli/issues/573). 
 * Apache has been configured to serve cached HTML versions of attached files (and associated images) directly from the file cache, as well as the original versions [issue #580](https://github.com/mysociety/alaveteli/issues/580). 
+* PublicBodyCategories have a couple of new methods for more easily working with headings [issue #575](https://github.com/mysociety/alaveteli/issues/575).
 
 * [List of issues on github](https://github.com/mysociety/alaveteli/issues?milestone=21&state=closed)
 
