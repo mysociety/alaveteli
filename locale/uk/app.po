@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
 "POT-Creation-Date: 2012-08-24 09:20+0100\n"
-"PO-Revision-Date: 2012-08-27 23:12+0000\n"
+"PO-Revision-Date: 2012-08-28 10:57+0000\n"
 "Last-Translator: hiiri <murahoid@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1404,10 +1404,10 @@ msgid ""
 msgstr ""
 
 msgid "Joined in"
-msgstr ""
+msgstr "Приєднався у"
 
 msgid "Joined {{site_name}} in"
-msgstr ""
+msgstr "Користувач долучився до {{site_name}} у"
 
 msgid ""
 "Keep it <strong>focused</strong>, you'll be more likely to get what you want"
@@ -1504,10 +1504,10 @@ msgid "My wall"
 msgstr "Моя стіна"
 
 msgid "Name can't be blank"
-msgstr "Ім’я не може бути пустим"
+msgstr "Ім’я/назва не може бути пустим"
 
 msgid "Name is already taken"
-msgstr "Користувач з таким іменем уже зареєстрованим"
+msgstr "Це ім’я/назва вже використано"
 
 msgid "New Freedom of Information requests"
 msgstr "Нові запити"
@@ -2167,7 +2167,7 @@ msgstr[1] "Шукати серед %d запитів зроблених до %s"
 msgstr[2] "Шукати серед %d запитів зроблених до %s"
 
 msgid "Search your contributions"
-msgstr ""
+msgstr "Пошук у вашій діяльності на сайті"
 
 msgid "Select one to see more information about the authority."
 msgstr "Оберіть щоб дізнатися більше про розпорядника інформації"
@@ -2212,7 +2212,7 @@ msgid "Show only..."
 msgstr "Показати тільки..."
 
 msgid "Showing"
-msgstr ""
+msgstr "Показати"
 
 msgid "Sign in"
 msgstr "Увійти"
@@ -2620,7 +2620,7 @@ msgid "Things to do with this request"
 msgstr "Що можна зробити з цим запитом"
 
 msgid "Things you're following"
-msgstr ""
+msgstr "Відслідковуване вами"
 
 msgid "This authority no longer exists, so you cannot make a request to it."
 msgstr "Цього органу більше не існує, тож ви не можете зробити запит."
@@ -2904,7 +2904,7 @@ msgid "TrackThing|Track type"
 msgstr ""
 
 msgid "Turn off email alerts"
-msgstr ""
+msgstr "Відключити сповіщення на електронну пошту"
 
 msgid "Tweet this request"
 msgstr ""
@@ -3038,16 +3038,16 @@ msgid "View Freedom of Information requests made by {{user_name}}:"
 msgstr ""
 
 msgid "View and search requests"
-msgstr ""
+msgstr "Переглядати та шукати запити"
 
 msgid "View authorities"
-msgstr ""
+msgstr "Показати розпорядників інформації"
 
 msgid "View email"
-msgstr ""
+msgstr "Показати емейли"
 
 msgid "View requests"
-msgstr ""
+msgstr "Показати запити"
 
 msgid "Waiting clarification."
 msgstr ""
@@ -3193,7 +3193,7 @@ msgstr ""
 msgid ""
 "You are currently receiving notification of new activity on your wall by "
 "email."
-msgstr ""
+msgstr "Ви отримуєте сповіщення про нову активність на вашій стіні електронною поштою."
 
 msgid "You are following all new successful responses"
 msgstr ""
@@ -3212,7 +3212,7 @@ msgstr ""
 msgid ""
 "You can change the requests and users you are following on <a "
 "href=\"{{profile_url}}\">your profile page</a>."
-msgstr ""
+msgstr "Ви можете змінювати відслідковувані вами запити та користувачів на <a href=\"{{profile_url}}\">сторінці вашого профілю</a>."
 
 msgid ""
 "You can get this page in computer-readable format as part of the main JSON\n"
@@ -3229,7 +3229,7 @@ msgstr ""
 msgid ""
 "You have found a bug.  Please <a href=\"{{contact_url}}\">contact us</a> to "
 "tell us about the problem"
-msgstr ""
+msgstr "Ви натрапили на баг. Будь ласка, <a href=\"{{contact_url}}\">напишіть нам</a> про цю проблему"
 
 msgid ""
 "You have hit the rate limit on new requests. Users are ordinarily limited to"
@@ -3238,13 +3238,13 @@ msgid ""
 msgstr ""
 
 msgid "You have made no Freedom of Information requests using this site."
-msgstr ""
+msgstr "Ви не зробили жодного запиту через цей сайт."
 
 msgid "You have now changed the text about you on your profile."
-msgstr ""
+msgstr "Ви змінили текст про себе в профілі."
 
 msgid "You have now changed your email address used on {{site_name}}"
-msgstr ""
+msgstr "Ви змінили свою електронну адресу на {{site_name}}"
 
 msgid ""
 "You just tried to sign up to {{site_name}}, when you\n"
@@ -3326,7 +3326,7 @@ msgid "You're long overdue a response to your FOI request - "
 msgstr ""
 
 msgid "You're not following anything."
-msgstr ""
+msgstr "Ви нічого не відслідковуєте"
 
 msgid "You've now cleared your profile photo"
 msgstr ""
@@ -3352,7 +3352,7 @@ msgid ""
 msgstr ""
 
 msgid "Your annotations"
-msgstr ""
+msgstr "Ваші анотації"
 
 msgid ""
 "Your details have not been given to anyone, unless you choose to reply to this\n"
@@ -3459,13 +3459,13 @@ msgid "admin"
 msgstr ""
 
 msgid "all requests"
-msgstr ""
+msgstr "усі запити"
 
 msgid "also called {{public_body_short_name}}"
 msgstr ""
 
 msgid "and"
-msgstr ""
+msgstr "і"
 
 msgid ""
 "and update the status accordingly. Perhaps <strong>you</strong> might like "
@@ -3535,7 +3535,7 @@ msgid "during term time"
 msgstr ""
 
 msgid "edit text about you"
-msgstr ""
+msgstr "відредагувати інформацію про себе"
 
 msgid "even during holidays"
 msgstr ""
@@ -3571,7 +3571,7 @@ msgid "is <strong>waiting for your clarification</strong>."
 msgstr ""
 
 msgid "just to see how it works"
-msgstr ""
+msgstr "просто щоб побачити, як це працює"
 
 msgid "left an annotation"
 msgstr ""
@@ -3637,7 +3637,7 @@ msgid "successful"
 msgstr ""
 
 msgid "successful requests"
-msgstr ""
+msgstr "успішні запити"
 
 msgid "that you made to"
 msgstr ""
@@ -3682,10 +3682,10 @@ msgid "unsubscribe all"
 msgstr ""
 
 msgid "unsuccessful"
-msgstr ""
+msgstr "невдалі"
 
 msgid "unsuccessful requests"
-msgstr ""
+msgstr "невдалі запити"
 
 msgid "useful information."
 msgstr ""
@@ -3694,7 +3694,7 @@ msgid "users"
 msgstr ""
 
 msgid "{{count}} FOI requests found"
-msgstr ""
+msgstr "Знайдено таку кількість запитів: {{count}}"
 
 msgid ""
 "{{existing_request_user}} already\n"

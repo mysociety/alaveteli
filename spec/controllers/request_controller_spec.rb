@@ -522,7 +522,7 @@ describe RequestController, "when showing one request" do
         # error-handling path, causing the wrong sort of error response to be returned in the
         # case where the integer prefix referred to the wrong request.)
         #
-        # https://github.com/sebbacon/alaveteli/issues/351
+        # https://github.com/mysociety/alaveteli/issues/351
         it "should return 404 for ugly URLs containing a request id that isn't an integer" do
             ir = info_requests(:fancy_dog_request)
             receive_incoming_mail('incoming-request-two-same-name.email', ir.incoming_email)

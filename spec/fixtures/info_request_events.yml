@@ -16,7 +16,7 @@ silly_outgoing_message_event:
   created_at: 2007-10-14 10:41:12.686264
   described_state:
   outgoing_message_id: 2
-useless_incoming_message_event: 
+useless_incoming_message_event:
   id: 902
   params_yaml: "--- \n\
     :incoming_message_id: 1\n"
@@ -25,18 +25,18 @@ useless_incoming_message_event:
   created_at: 2007-11-13 18:09:20.042061
   described_state:
   incoming_message_id: 1
-silly_comment_event: 
+silly_comment_event:
   id: 903
   params_yaml: "--- \n\
     :comment_id: 1\n"
-  incoming_message_id: 
-  last_described_at: 
-  described_state: 
+  incoming_message_id:
+  last_described_at:
+  described_state:
   info_request_id: 101
   comment_id: 1
-  calculated_state: 
+  calculated_state:
   event_type: comment
-  outgoing_message_id: 
+  outgoing_message_id:
   created_at: 2008-08-12 23:05:12.500942
 badger_outgoing_message_event:
   id: 904
@@ -98,11 +98,11 @@ another_comment_event:
   comment_id: 2
   params_yaml: "--- \n\
     :comment_id: 2\n"
-  incoming_message_id: 
-  outgoing_message_id: 
-  last_described_at: 
-  described_state: 
-  calculated_state: 
+  incoming_message_id:
+  outgoing_message_id:
+  last_described_at:
+  described_state:
+  calculated_state:
   event_type: comment
   created_at: 2008-08-12 12:05:12.879634
 
@@ -158,5 +158,16 @@ external_outgoing_message_event:
   info_request_id: 109
   event_type: sent
   created_at: 2009-01-02 02:23:45.6789100
+  described_state: waiting_response
+  calculated_state: waiting_response
+
+anonymous_external_outgoing_message_event:
+  id: 915
+  params_yaml: "--- \n\
+    :outgoing_message_id: 9\n"
+  outgoing_message_id: 9
+  info_request_id: 110
+  event_type: sent
+  created_at: 2009-01-03 02:23:45.6789100
   described_state: waiting_response
   calculated_state: waiting_response
