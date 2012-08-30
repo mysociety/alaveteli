@@ -75,7 +75,7 @@ namespace :themes do
 
     desc "Install themes specified in the config file's THEME_URLS"
     task :install => :environment do
-        verbose = false
+        verbose = true
         theme_urls = MySociety::Config.get("THEME_URLS", [])
         theme_urls.each{ |theme_url| install_theme(theme_url, verbose) }
         theme_url = MySociety::Config.get("THEME_URL", "")
