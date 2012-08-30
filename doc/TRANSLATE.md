@@ -84,4 +84,4 @@ must:
 
 # Translations: developers' view
 
-See the [I18n guide](https://github.com/sebbacon/alaveteli/wiki/I18n-guide) on the wiki.
+See the [I18n guide](https://github.com/mysociety/alaveteli/wiki/I18n-guide) on the wiki.

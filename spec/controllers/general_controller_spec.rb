@@ -9,7 +9,7 @@ describe GeneralController, "when trying to show the blog" do
         FakeWeb.clean_registry
     end
 
-    it "should fail silently if the blog is returning an error" do        
+    it "should fail silently if the blog is returning an error" do
         FakeWeb.register_uri(:get, %r|.*|, :body => "Error", :status => ["500", "Error"])
         get :blog
         response.status.should == "200 OK"
@@ -76,7 +76,7 @@ describe GeneralController, "when searching" do
         response.should redirect_to(:action => 'search', :combined => "mouse", :view => "all") # URL /search/:query/all
     end
 
-    describe "when using different locale settings" do 
+    describe "when using different locale settings" do
         home_link_regex = /href=".*\/en\//
         it "should generate URLs with a locale prepended when there's more than one locale set" do
             get :frontpage
@@ -117,7 +117,7 @@ describe GeneralController, "when searching" do
             I18n.available_locales = old_i18n_available_locales
         end
     end
-    
+
     describe 'when constructing the list of recent requests' do
         before(:each) do
           load_raw_emails_data
@@ -127,7 +127,7 @@ describe GeneralController, "when searching" do
         it 'should list the newest successful request first' do
             # Make sure the newest is listed first even if an older one
             # has a newer comment or was reclassified more recently:
-            #   https://github.com/sebbacon/alaveteli/issues/370
+            #   https://github.com/mysociety/alaveteli/issues/370
             #
             # This is a deliberate behaviour change, in that the
             # previous behaviour (showing more-recently-reclassified
@@ -135,7 +135,7 @@ describe GeneralController, "when searching" do
             get :frontpage
             assigns[:request_events].first.info_request.should == info_requests(:another_boring_request)
         end
-        
+
         it 'should coalesce duplicate requests' do
             get :frontpage
             assigns[:request_events].map(&:info_request).select{|x|x.url_title =~ /^spam/}.length.should == 1
@@ -231,7 +231,7 @@ describe GeneralController, "when searching" do
         u.email_confirmed = true
         u.save!
         update_xapian_index
-        
+
         get :search, :combined => ["unconfirmed", "users"]
         response.should render_template('search')
         assigns[:xapian_users].results.map{|x|x[:model]}.should == [u]
@@ -239,7 +239,7 @@ describe GeneralController, "when searching" do
 
     it "should show tracking links for requests-only searches" do
         get :search, :combined => ['"bob"', "requests"]
-        response.body.should include('Track this search') 
+        response.body.should include('Track this search')
     end
 
 end
