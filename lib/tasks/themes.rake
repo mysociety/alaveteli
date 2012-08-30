@@ -19,9 +19,9 @@ namespace :themes do
             base_cmd = "git pull --depth 1 #{uri}"
             # Is there a tag for this version of Alaveteli?
             usage_tag = "use-with-alaveteli-#{ALAVETELI_VERSION}"
-            # Query the remote repository passing flags for tags and
-            # a non-zero return code on failure to find the tag
-            if system("git ls-remote --exit-code --tags #{uri} #{usage_tag}")
+            # Query the remote repository passing flags for tags
+            version_tag = `git ls-remote --tags #{uri} #{usage_tag}`
+            if !version_tag.blank?
                 # If we got a tag, pull that instead of HEAD
                 puts "Using tag #{usage_tag}" if verbose
                 base_cmd += " refs/tags/#{usage_tag}"
