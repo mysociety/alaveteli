@@ -104,7 +104,7 @@ class PublicBody < ActiveRecord::Base
         locale = self.locale || I18n.locale
         PublicBody.with_locale(locale) do
             found = PublicBody.find(:all,
-                                    :conditions => ["public_body_translations.url_name='#{name}'"],
+                                    :conditions => ["public_body_translations.url_name=?", name],
                                     :joins => :translations,
                                     :readonly => false)
             # If many bodies are found (usually because the url_name is the same across
