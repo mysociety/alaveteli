@@ -72,7 +72,12 @@ class ApiController < ApplicationController
     end
     
     def add_correspondence
-        request = InfoRequest.find(params[:id])
+        request = InfoRequest.find_by_id(params[:id])
+        if request.nil?
+            render :json => { "errors" => ["Could not find request #{params[:id]}"] }, :status => 404
+            return
+        end
+        
         json = ActiveSupport::JSON.decode(params[:correspondence_json])
         attachments = params[:attachments]
         
@@ -83,11 +88,13 @@ class ApiController < ApplicationController
         errors = []
         
         if !request.is_external?
-            raise ActiveRecord::RecordNotFound.new("Request #{params[:id]} cannot be updated using the API")
+            render :json => { "errors" => ["Request #{params[:id]} cannot be updated using the API"] }, :status => 500
+            return
         end
         
         if request.public_body_id != @public_body.id
-            raise ActiveRecord::RecordNotFound.new("You do not own request #{params[:id]}")
+            render :json => { "errors" => ["You do not own request #{params[:id]}"] }, :status => 500
+            return
         end
         
         if !["request", "response"].include?(direction)
