@@ -222,6 +222,10 @@ describe PublicBody, "when searching" do
             body.name.should == "El A Geraldine Quango"
         end
     end
+
+    it 'should not raise an error on a name with a single quote in it' do
+        body = PublicBody.find_by_url_name_with_historic("belfast city council'")
+    end
 end
 
 describe PublicBody, " when dealing public body locales" do
