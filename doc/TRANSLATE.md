@@ -59,11 +59,14 @@ must:
     * regenerate the POT file and individual PO files for each
       language, using `bundle exec rake
       gettext:store_model_attributes`, followed by `bundle exec rake
-      rake gettext:find`
+      gettext:find`
+        * careful of including msgids from themes in `vendor/plugin`;
+          you might want to move them out of the way before running
+          the above commands
         * this updates the PO template, but also merges it with the
           individual PO files, marking strings that have only changed
           slightly as "fuzzy"
-    * reupload (`tx push -s -t`) the POT and PO files to Transifex to the
+    * reupload (`tx push -s -t`) the POT and PO files to Transifex from the
       current release branch
         * The point of uploading the PO files is that Transifex
           converts the "fuzzy" suggestions from Transifex into
@@ -81,4 +84,4 @@ must:
 
 # Translations: developers' view
 
-See the [I18n guide](https://github.com/sebbacon/alaveteli/wiki/I18n-guide) on the wiki.
+See the [I18n guide](https://github.com/mysociety/alaveteli/wiki/I18n-guide) on the wiki.

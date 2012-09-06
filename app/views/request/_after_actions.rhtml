@@ -1,51 +1,52 @@
 <div id="after_actions">
-    
+
     <h2><%= _('Things to do with this request') %></h2>
 
     <div id="anyone_actions">
         <strong><%= _('Anyone:') %></strong>
         <ul>
         <li>
-			<%= _('<a href="%s">Add an annotation</a> (to help the requester or others)') % [new_comment_url(:url_title => @info_request.url_title)] %>
+      <%= _('<a href="%s">Add an annotation</a> (to help the requester or others)') % [new_comment_url(:url_title => @info_request.url_title)] %>
         </li>
-        <% if @old_unclassified %> 
+        <% if @old_unclassified %>
             <li>
                 <%= link_to _('Update the status of this request'), '#describe_state_form_1' %>
             </li>
         <% end %>
       <li>
-          <%= link_to _("Download a zip file of all correspondence"), download_entire_request_url(:url_title => @info_request.url_title) %> 
+          <%= link_to _("Download a zip file of all correspondence"), download_entire_request_url(:url_title => @info_request.url_title) %>
       </li>
     </ul>
     </div>
+    <% if ! @info_request.is_external? %>
+      <div id="owner_actions">
+      <strong><%= _('{{info_request_user_name}} only:',:info_request_user_name=>h(@info_request.user_name)) %></strong>
+        <ul>
 
-    <div id="owner_actions">
-		<strong><%= _('{{info_request_user_name}} only:',:info_request_user_name=>h(@info_request.user.name)) %></strong>
-      <ul>
-      
-      <li>
-          <% if @last_response.nil? %>
-              <%= link_to _("Send a followup"), show_response_no_followup_url(:id => @info_request.id, :incoming_message_id => nil) + "#followup" %>
-          <% else %>
-              <%= link_to _("Write a reply"), show_response_url(:id => @info_request.id, :incoming_message_id => @last_response.id) + "#followup" %>
-          <% end %>
-      </li>
-      <% if !@old_unclassified %>
-          <li>
-          <%= link_to _("Update the status of this request"), request_url(@info_request, :update_status => 1) %>
-          </li>
-      <% end %>
-      <li>
-          <%= link_to _("Request an internal review"), show_response_no_followup_url(:id => @info_request.id, :incoming_message_id => nil) + "?internal_review=1#followup" %> 
-      </li>
-  </ul>
-    </div>
-  
+        <li>
+            <% if @last_response.nil? %>
+                <%= link_to _("Send a followup"), show_response_no_followup_url(:id => @info_request.id, :incoming_message_id => nil) + "#followup" %>
+            <% else %>
+                <%= link_to _("Write a reply"), show_response_url(:id => @info_request.id, :incoming_message_id => @last_response.id) + "#followup" %>
+            <% end %>
+        </li>
+        <% if !@old_unclassified %>
+            <li>
+            <%= link_to _("Update the status of this request"), request_url(@info_request, :update_status => 1) %>
+            </li>
+        <% end %>
+        <li>
+            <%= link_to _("Request an internal review"), show_response_no_followup_url(:id => @info_request.id, :incoming_message_id => nil) + "?internal_review=1#followup" %>
+        </li>
+    </ul>
+      </div>
+    <% end %>
+
     <div id="public_body_actions">
-		<strong><%= _('{{public_body_name}} only:',:public_body_name=>h(@info_request.public_body.name) ) %> </strong>
+    <strong><%= _('{{public_body_name}} only:',:public_body_name=>h(@info_request.public_body.name) ) %> </strong>
       <ul>
       <li>
-          <%= link_to _("Respond to request"), upload_response_url(:url_title => @info_request.url_title) %> 
+          <%= link_to _("Respond to request"), upload_response_url(:url_title => @info_request.url_title) %>
       </li>
       </ul>
     </div>

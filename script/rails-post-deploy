@@ -82,21 +82,7 @@ fi
 
 bundle install $bundle_install_options
 
-if [ -n "$OPTION_THEME_URLS" ]
-then
-    for THEME in "${OPTION_THEME_URLS[@]}"
-    do
-        echo "Installing $THEME..."
-        script/plugin install --force $THEME
-    done
-fi
-
-# Old version of the above, for backwards compatibility
-if [ -n "$OPTION_THEME_URL" ]
-then
-        echo "Installing $OPTION_THEME_URL using deprecated THEME_URL..."
-        script/plugin install --force $OPTION_THEME_URL
-fi
+bundle exec rake themes:install
 
 # upgrade database
 bundle exec rake db:migrate #--trace

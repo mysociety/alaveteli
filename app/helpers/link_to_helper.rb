@@ -45,9 +45,11 @@ module LinkToHelper
     def incoming_message_url(incoming_message)
         return request_url(incoming_message.info_request)+"#incoming-"+incoming_message.id.to_s
     end
+
     def outgoing_message_url(outgoing_message)
         return request_url(outgoing_message.info_request)+"#outgoing-"+outgoing_message.id.to_s
     end
+
     def comment_url(comment)
         return request_url(comment.info_request)+"#comment-"+comment.id.to_s
     end
@@ -67,21 +69,27 @@ module LinkToHelper
     def public_body_url(public_body)
         public_body.url_name.nil? ? '' : show_public_body_url(:url_name => public_body.url_name, :only_path => true)
     end
+
     def public_body_link_short(public_body)
         link_to h(public_body.short_or_long_name), public_body_url(public_body)
     end
+
     def public_body_link(public_body, cls=nil)
         link_to h(public_body.name), public_body_url(public_body), :class => cls
     end
+
     def public_body_link_absolute(public_body) # e.g. for in RSS
         link_to h(public_body.name), main_url(public_body_url(public_body))
     end
+
     def public_body_admin_url(public_body)
         return admin_url('body/show/' + public_body.id.to_s)
     end
+
     def public_body_both_links(public_body)
         link_to(h(public_body.name), main_url(public_body_url(public_body))) + " (" + link_to("admin", public_body_admin_url(public_body)) + ")"
     end
+
     def list_public_bodies_default
         list_public_bodies_url(:tag => 'all')
     end
@@ -90,12 +98,37 @@ module LinkToHelper
     def user_url(user)
         return show_user_url(:url_name => user.url_name, :only_path => true)
     end
+
     def user_link(user, cls=nil)
         link_to h(user.name), user_url(user), :class => cls
     end
+
+    def user_link_for_request(request, cls=nil)
+        if request.is_external?
+            user_name = request.external_user_name || _("Anonymous user")
+            if !request.external_url.nil?
+                link_to h(user_name), request.external_url
+            else
+                user_name
+            end
+        else
+            link_to h(request.user.name), user_url(request.user), :class => cls
+        end
+    end
+
+    def user_admin_link_for_request(request, external_text=nil, internal_text=nil)
+        if request.is_external?
+            text = external_text ? external_text : (request.external_user_name || _("Anonymous user")) + " (external)"
+        else
+            text = internal_text ? internal_text : request.user.name
+            link_to(h(text), user_admin_url(request.user))
+        end
+    end
+
     def user_link_absolute(user)
         link_to h(user.name), main_url(user_url(user))
     end
+
     def request_user_link_absolute(request)
         if request.is_external?
             request.external_user_name || _("Anonymous user")
@@ -103,6 +136,7 @@ module LinkToHelper
             user_link_absolute(request.user)
         end
     end
+
     def user_or_you_link(user)
         if @user && user == @user
             link_to h("you"), user_url(user)
@@ -110,6 +144,7 @@ module LinkToHelper
             link_to h(user.name), user_url(user)
         end
     end
+
     def user_or_you_capital(user)
         if @user && user == @user
             return h("You")
@@ -117,15 +152,19 @@ module LinkToHelper
             return h(user.name)
         end
     end
+
     def user_or_you_capital_link(user)
         link_to user_or_you_capital(user), user_url(user)
     end
+
     def user_admin_url(user)
         return admin_url('user/show/' + user.id.to_s)
     end
+
     def user_admin_link(user, name="admin", cls=nil)
       link_to name, user_admin_url(user), :class => cls
     end
+
     def user_both_links(user)
         link_to(h(user.name), main_url(user_url(user))) + " (" + link_to("admin", user_admin_url(user)) + ")"
     end
@@ -191,6 +230,7 @@ module LinkToHelper
     def about_url
         return help_general_url(:action => 'about')
     end
+
     def unhappy_url(info_request = nil)
         if info_request.nil?
             return help_general_url(:action => 'unhappy')

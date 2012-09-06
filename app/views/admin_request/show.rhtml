@@ -11,14 +11,20 @@
   <% if column.name == 'described_state' %>
     <strong>Calculated status:</strong> <%= @info_request.calculate_status %>
     <br/><strong>Initial request last sent at:</strong> <%=@info_request.date_initial_request_last_sent_at.to_date %>
-        <strong>Date response required by:</strong> <%= @info_request.date_response_required_by %> 
+        <strong>Date response required by:</strong> <%= @info_request.date_response_required_by %>
         <strong>Very overdue after:</strong> <%= @info_request.date_very_overdue_after %>
   <% end %>
   <% if ![ 'allow_new_responses_from' ].include?(column.name) %>
       <br/>
   <% end %>
 <% end %>
-  <strong>Created by:</strong> <%= user_both_links(@info_request.user) %> 
+  <strong>Created by:</strong>
+  <% if @info_request.is_external? %>
+        <%= @info_request.public_body.name %> on behalf of <%= (@info_request.user_name || _('an anonymous user'))%> (using API)
+  <% else %>
+    <%= user_both_links(@info_request.user) %>
+  <% end %>
+
   <span>
       <span>
             (<%= link_to_function("move...", "$(this).up(1).childElements().invoke('toggle')") %>)
@@ -30,7 +36,7 @@
      </span>
   </span>
   <br>
-<strong>Public authority:</strong> <%= public_body_both_links(@info_request.public_body) %> 
+<strong>Public authority:</strong> <%= public_body_both_links(@info_request.public_body) %>
   <span>
       <span>
             (<%= link_to_function("move...", "$(this).up(1).childElements().invoke('toggle')") %>)
@@ -63,7 +69,7 @@
   <% end %>
   <th>Actions</th>
   </tr>
-  
+
 <% for info_request_event in @info_request.info_request_events.find(:all, :order => "created_at, id") %>
   <tr class="<%= cycle('odd', 'even') %>">
   <td><%=h info_request_event.id %></td>
@@ -102,7 +108,7 @@
     <% end %>
     <th>Actions</th>
   </tr>
-  
+
 <% for outgoing_message in @info_request.outgoing_messages.find(:all, :order => 'created_at') %>
   <tr class="<%= cycle('odd', 'even') %>">
   <td><%=h outgoing_message.id %></td>
@@ -110,8 +116,8 @@
 
     <% if column == 'body' %>
     <td>
-        <div><%= simple_format( truncate(outgoing_message.body, :length => 400, 
-                 :omission => link_to_function("...", "$(this).up('td').childElements().invoke('toggle')") 
+        <div><%= simple_format( truncate(outgoing_message.body, :length => 400,
+                 :omission => link_to_function("...", "$(this).up('td').childElements().invoke('toggle')")
             )) %></div>
       <div style="display:none;"><%= simple_format( outgoing_message.body ) %></div>
     </td>
@@ -143,15 +149,15 @@
   <% end %>
   <th>Actions</th>
   </tr>
-  
+
 <% for incoming_message in @info_request.incoming_messages.find(:all, :order => 'created_at') %>
   <tr class="<%= cycle('odd', 'even') %>" id="incoming-<%=incoming_message.id.to_s%>">
   <td><%=h incoming_message.id %></td>
   <% for column in IncomingMessage.content_columns.map { |c| c.name } %>
     <% if column =~ /^cached_.*?$/ %>
     <td>
-      <div><%= simple_format( truncate(incoming_message.send(column), :length => 400, 
-               :omission => link_to_function("...", "$(this).up('td').childElements().invoke('toggle')") 
+      <div><%= simple_format( truncate(incoming_message.send(column), :length => 400,
+               :omission => link_to_function("...", "$(this).up('td').childElements().invoke('toggle')")
             )) %></div>
       <div style="display:none;"><%= simple_format( incoming_message.send(column) ) %></div>
     </td>
@@ -183,7 +189,7 @@
     <% end %>
     <th>Actions</th>
     </tr>
-    
+
   <% for comment in @info_request.comments %>
     <tr class="<%= cycle('odd', 'even') %>">
     <td><%=h comment.id %></td>

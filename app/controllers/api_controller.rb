@@ -158,8 +158,61 @@ class ApiController < ApplicationController
             mail = RequestMailer.create_external_response(request, body, sent_at, attachment_hashes)
             request.receive(mail, mail.encoded, true)
         end
+        render :json => {
+            'url' => make_url("request", request.url_title),
+        }        
+    end
+    
+    def body_request_events
+        feed_type = params[:feed_type]
+        raise PermissionDenied.new("#{@public_body.id} != #{params[:id]}") if @public_body.id != params[:id].to_i
         
-        head :no_content
+        @events = InfoRequestEvent.find_by_sql([
+          %(select info_request_events.*
+            from info_requests
+            join info_request_events on info_requests.id = info_request_events.info_request_id
+            where info_requests.public_body_id = ?
+            and info_request_events.event_type in (
+              'sent', 'followup_sent', 'resent', 'followup_resent'
+            )
+            order by info_request_events.created_at desc
+          ), @public_body.id
+        ])
+        if feed_type == "atom"
+            render :template => "api/request_events.atom", :layout => false
+        elsif feed_type == "json"
+            # For the JSON feed, we take a "since" parameter that allows the client
+            # to restrict to events more recent than a certain other event
+            if params[:since_event_id]
+                @since_event_id = params[:since_event_id].to_i
+            end
+            @event_data = []
+            @events.each do |event|
+                break if event.id == @since_event_id
+                
+                request = event.info_request
+                this_event = {
+                    :request_id => request.id,
+                    :event_id => event.id,
+                    :created_at => event.created_at.iso8601,
+                    :event_type => event.event_type,
+                    :request_url =>  main_url(request_url(request)),
+                    :request_email => request.incoming_email,
+                    :title => request.title,
+                    :body => event.outgoing_message.body,
+                    
+                    :user_name => request.user_name,
+                }
+                if request.user
+                    this_event[:user_url] = main_url(user_url(request.user))
+                end
+                
+                @event_data.push(this_event)
+            end
+            render :json => @event_data
+        else
+            raise ActiveRecord::RecordNotFound.new("Unrecognised feed type: #{feed_type}")
+        end
     end
     
     protected

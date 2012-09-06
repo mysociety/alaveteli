@@ -11,7 +11,13 @@ describe TrackController, "when making a new track on a request" do
         TrackThing.stub!(:create_track_for_request).and_return(@track_thing)
         TrackThing.stub!(:create_track_for_search_query).and_return(@track_thing)
         TrackThing.stub!(:find_by_existing_track).and_return(nil)
-        InfoRequest.stub!(:find_by_url_title).and_return(@ir)
+        InfoRequest.stub!(:find_by_url_title!) do |url_title|
+          if url_title == "myrequest"
+            @ir
+          else
+            raise ActiveRecord::RecordNotFound.new("Not found")
+          end
+        end
 
         @user = mock_model(User)
         User.stub!(:find).and_return(@user)
@@ -31,6 +37,13 @@ describe TrackController, "when making a new track on a request" do
         @track_thing.should_receive(:save!)
         get :track_request, :url_title => @ir.url_title, :feed => 'track'
         response.should redirect_to(:controller => 'request', :action => 'show', :url_title => @ir.url_title)
+    end
+    
+    it "should 404 for non-existent requests" do
+      session[:user_id] = @user.id
+      lambda {
+        get :track_request, :url_title => "hjksfdhjk_louytu_qqxxx", :feed => 'track'
+      }.should raise_error(ActiveRecord::RecordNotFound)
     end
 
     it "should save a search track and redirect to the right place" do

@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 114
 #
 # Table name: users
 #
@@ -21,9 +20,7 @@
 #  email_bounce_message   :text            default(""), not null
 #  no_limit               :boolean         default(FALSE), not null
 #  receive_email_alerts   :boolean         default(TRUE), not null
-#  user_similarity_id     :integer
 #
-
 # models/user.rb:
 # Model of people who use the site to file requests, make comments etc.
 #

@@ -11,6 +11,9 @@
     <% end %>
 </p>
 
+<p><label for="censor_rule_regexp">Is it regexp replacement?</label> (Leave unchecked if you are not sure about this)<br/>
+<%= check_box 'censor_rule', 'regexp' %></p>
+
 <p><label for="censor_rule_text">Text</label> (that you want to remove, case sensitive)<br/>
 <%= text_field 'censor_rule', 'text', :size => 60  %></p>
 
@@ -21,9 +24,9 @@
 <%= text_area 'censor_rule', 'last_edit_comment', :rows => 2, :cols => 60  %></p>
 
 <p><strong>Warning and notes:</strong> This does replace text in binary files, but for
-most formats only in a naive way. It works well on surprisingly many Word documents. Notably 
-it doesn't even do UCS-2 (unicode sometimes used in Word). There is also special code 
-which works on some PDFs. Please <strong>carefully check</strong> all attachments have 
+most formats only in a naive way. It works well on surprisingly many Word documents. Notably
+it doesn't even do UCS-2 (unicode sometimes used in Word). There is also special code
+which works on some PDFs. Please <strong>carefully check</strong> all attachments have
 changed in the way you expect, and haven't become corrupted.
 </p>
 
@@ -31,5 +34,7 @@ changed in the way you expect, and haven't become corrupted.
 things by individual request or by user by adding the censor rule from the
 appropriate page.  If you need to redact across a whole
 authority, it will be easy enough to make code changes to add it, so do ask.
+</p>
+<p><strong>Regexp rules that are hard to process will really slow down request display.</strong> Please only use regexps if you really need to.
 </p>
 

@@ -33,7 +33,7 @@
 <% if [ 'successful', 'partially_successful' ].include?(@info_request.described_state) %>
     <li><%= _(' <strong>Summarise</strong> the content of any information returned. ')%></li>
     <li><%= _(' Say how you\'ve <strong>used the information</strong>, with links if possible.')%> </li>
-    <li> <%= _('<strong>Thank</strong> the public authority or ')%><%=h @info_request.user.name %>. </li>
+    <li> <%= _('<strong>Thank</strong> the public authority or ')%><%=h (@info_request.user_name ? @info_request.user_name : _('the requester')) %>. </li>
 <% end %>
 <% if [ 'partially_successful' ].include?(@info_request.described_state) %>
     <li> <%= _('Suggest how the requester can find the <strong>rest of the information</strong>.')%></li>
@@ -67,8 +67,11 @@
 </ul>
 
 <p>
-    <big><%= _('Annotations will be posted publicly here, and are 
+    <big><%= _('Annotations will be posted publicly here, and are
         <strong>not</strong> sent to {{public_body_name}}.',:public_body_name=>h(@info_request.public_body.name)) %></big>
+    <% if @info_request.is_external? %>
+    <big><%= _('Note that the requester will not be notified about your annotation, because the request was published by {{public_body_name}} on their behalf.', :public_body_name => @info_request.public_body.name) %></big>
+    <% end %>
 </p>
 
 <%= render :partial => 'comment/comment_form', :locals => { :track_thing => @track_thing } %>
