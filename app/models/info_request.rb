@@ -104,7 +104,7 @@ class InfoRequest < ActiveRecord::Base
         errors.add(:described_state, "is not a valid state") if
             !InfoRequest.enumerate_states.include? described_state
     end
-    
+
     # The request must either be internal, in which case it has
     # a foreign key reference to a User object and no external_url or external_user_name,
     # or else be external in which case it has no user_id but does have an external_url,
@@ -120,15 +120,15 @@ class InfoRequest < ActiveRecord::Base
             errors.add(:external_url, "must be null for an internal request") if !external_url.nil?
         end
     end
-    
+
     def is_external?
         !external_url.nil?
     end
-    
+
     def user_name
         is_external? ? external_user_name : user.name
     end
-    
+
     def user_name_slug
         if is_external?
             if external_user_name.nil?
@@ -223,7 +223,7 @@ class InfoRequest < ActiveRecord::Base
             incoming_message.clear_in_database_caches!
         end
     end
-
+    
     # For debugging
     def InfoRequest.profile_search(query)
         t = Time.now.usec
@@ -246,7 +246,9 @@ public
         # For request with same title as others, add on arbitary numeric identifier
         unique_url_title = url_title
         suffix_num = 2 # as there's already one without numeric suffix
-        while not InfoRequest.find_by_url_title(unique_url_title, :conditions => self.id.nil? ? nil : ["id <> ?", self.id] ).nil?
+        while not InfoRequest.find_by_url_title(unique_url_title,
+            :conditions => self.id.nil? ? nil : ["id <> ?", self.id]
+        ).nil?
             unique_url_title = url_title + "_" + suffix_num.to_s
             suffix_num = suffix_num + 1
         end
@@ -456,7 +458,7 @@ public
 
             if !allow
                 if self.handle_rejected_responses == 'bounce'
-                    RequestMailer.deliver_stopped_responses(self, email, raw_email_data)
+                    RequestMailer.deliver_stopped_responses(self, email, raw_email_data) if !is_external?
                 elsif self.handle_rejected_responses == 'holding_pen'
                     InfoRequest.holding_pen_request.receive(email, raw_email_data, false, reason)
                 elsif self.handle_rejected_responses == 'blackhole'
@@ -566,7 +568,10 @@ public
         self.calculate_event_states
 
         if self.requires_admin?
-            RequestMailer.deliver_requires_admin(self, set_by)
+            # Check there is someone to send the message "from"
+            if !set_by.nil? || !self.user.nil?
+                RequestMailer.deliver_requires_admin(self, set_by)
+            end
         end
     end
 
@@ -708,10 +713,10 @@ public
         return self.public_body.is_followupable?
     end
     def recipient_name_and_email
-        return TMail::Address.address_from_name_and_email( 
-            _("{{law_used}} requests at {{public_body}}", 
-                :law_used => self.law_used_short, 
-                :public_body => self.public_body.short_or_long_name), 
+        return TMail::Address.address_from_name_and_email(
+            _("{{law_used}} requests at {{public_body}}",
+                :law_used => self.law_used_short,
+                :public_body => self.public_body.short_or_long_name),
             self.recipient_email).to_s
     end
 
@@ -942,7 +947,7 @@ public
         last_response_created_at = last_event_time_clause('response')
         age = extra_params[:age_in_days] ? extra_params[:age_in_days].days : OLD_AGE_IN_DAYS
         params = {:select => "*, #{last_response_created_at} as last_response_time",
-                  :conditions => ["awaiting_description = ? and #{last_response_created_at} < ? and url_title != 'holding_pen'",
+                  :conditions => ["awaiting_description = ? and #{last_response_created_at} < ? and url_title != 'holding_pen' and user_id is not null",
                                  true, Time.now() - age],
                                  :order => "last_response_time"}
         params[:limit] = extra_params[:limit] if extra_params[:limit]
@@ -960,6 +965,7 @@ public
     end
 
     def is_old_unclassified?
+        return false if is_external?
         return false if !awaiting_description
         return false if url_title == 'holding_pen'
         last_response_event = get_last_response_event
@@ -995,24 +1001,28 @@ public
         return ret.reverse
     end
 
+    # Get the list of censor rules that apply to this request
+    def applicable_censor_rules
+        applicable_rules = [self.censor_rules, self.public_body.censor_rules, CensorRule.global.all]
+        if self.user && !self.user.censor_rules.empty?
+            applicable_rules << self.user.censor_rules
+        end
+        return applicable_rules.flatten
+    end
+
     # Call groups of censor rules
     def apply_censor_rules_to_text!(text)
-        [self.censor_rules, self.user.try(:censor_rules),
-            CensorRule.regexps.all].flatten.compact.each do |censor_rule|
-                censor_rule.apply_to_text!(text)
-            end
+        self.applicable_censor_rules.each do |censor_rule|
+            censor_rule.apply_to_text!(text)
+        end
         return text
     end
 
     def apply_censor_rules_to_binary!(binary)
-        for censor_rule in self.censor_rules
+        self.applicable_censor_rules.each do |censor_rule|
             censor_rule.apply_to_binary!(binary)
         end
-        if self.user # requests during construction have no user
-            for censor_rule in self.user.censor_rules
-                censor_rule.apply_to_binary!(binary)
-            end
-        end
+        return binary
     end
 
     def is_owning_user?(user)
@@ -1030,6 +1040,12 @@ public
             return self.is_owning_user?(user)
         end
         return true
+    end
+
+    # Is this request visible to everyone?
+    def all_can_view?
+        return true if ['normal', 'backpage'].include?(self.prominence)
+        return false
     end
 
     def indexed_by_search?

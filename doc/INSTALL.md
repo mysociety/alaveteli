@@ -1,12 +1,12 @@
 These instructions assume Debian Squeeze or Ubuntu 10.04 LTS.
-[Install instructions for OS X](https://github.com/sebbacon/alaveteli/wiki/OS-X-Quickstart)
+[Install instructions for OS X](https://github.com/mysociety/alaveteli/wiki/OS-X-Quickstart)
 are under development.  Debian Squeeze is the best supported
 deployment platform.
 
 Commands are intended to be run via the terminal or over ssh.
 
 As an aid to evaluation, there is an
-[Amazon AMI](https://github.com/sebbacon/alaveteli/wiki/Alaveteli-ec2-ami)
+[Amazon AMI](https://github.com/mysociety/alaveteli/wiki/Alaveteli-ec2-ami)
 with all these steps configured.  It is *not* production-ready.
 
 # Get Alaveteli
@@ -16,15 +16,14 @@ install git-core`
 
 Next, get hold of the Alaveteli source code from github: 
 
-    git clone https://github.com/sebbacon/alaveteli.git
+    git clone https://github.com/mysociety/alaveteli.git
     cd alaveteli
 
-This will get the current stable release from the master branch (which
-always contains the latest release).  If you are a developer and want
-to add or try new features, you might want to swap to the development
-branch:
+This will get the development branch, which has the latest (possibly
+buggy) code. If you don't want to add or try new features, swap to the
+master branch (which always contains the latest stable release):
 
-    git checkout develop
+    git checkout master
 
 # Install system dependencies
 
@@ -104,7 +103,7 @@ in certain edge conditions.  Until it's incorporated into an official
 release, you can either hope you don't encounter the bug (it ties up a
 rails process until you kill it) you'll need to patch it yourself or
 use the Debian package compiled by mySociety (see link in
-[issue 305](https://github.com/sebbacon/alaveteli/issues/305))
+[issue 305](https://github.com/mysociety/alaveteli/issues/305))
 
 
 # Configure Database 
@@ -330,7 +329,7 @@ similar init script, which is optional and not required if you choose
 not to run your site behind Varnish (see below).
 
 The cron jobs refer to a program `run-with-lockfile`. See
-[this issue](https://github.com/sebbacon/alaveteli/issues/112) for a
+[this issue](https://github.com/mysociety/alaveteli/issues/112) for a
 discussion of where to find this program, and how you might replace
 it.
 
@@ -352,7 +351,7 @@ server behind an http accelerator like Varnish.  A sample varnish VCL
 is supplied in `../conf/varnish-alaveteli.vcl`.
 
 Some
-[production server best practice notes](https://github.com/sebbacon/alaveteli/wiki/Production-Server-Best-Practices)
+[production server best practice notes](https://github.com/mysociety/alaveteli/wiki/Production-Server-Best-Practices)
 are evolving on the wiki.
 
 # Upgrading Alaveteli
@@ -451,7 +450,7 @@ various other things that can be automated for deployment.
         set document.codepage.force_assumed = 1
 
     You should also check that your locale is set up correctly.  See 
-    [https://github.com/sebbacon/alaveteli/issues/128#issuecomment-1814845](this issue followup)
+    [https://github.com/mysociety/alaveteli/issues/128#issuecomment-1814845](this issue followup)
     for further discussion.
     
 *   **I'm getting lots of `SourceIndex.new(hash) is deprecated` errors when running the tests**

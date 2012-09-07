@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-describe PublicBody, " using tags" do 
+describe PublicBody, " using tags" do
     before do
         @public_body = PublicBody.new(:name => 'Aardvark Monitoring Service',
                                     :short_name => 'AMS',
@@ -9,7 +9,7 @@ describe PublicBody, " using tags" do
                                     :last_edit_comment => '')
     end
 
-    it 'should correctly convert a tag string into tags' do 
+    it 'should correctly convert a tag string into tags' do
         @public_body.tag_string = 'stilton emmental'
         @public_body.tag_string.should == 'stilton emmental'
 
@@ -56,7 +56,7 @@ describe PublicBody, " using tags" do
     end
 end
 
-describe PublicBody, " using machine tags" do 
+describe PublicBody, " using machine tags" do
     before do
         @public_body = PublicBody.new(:name => 'Aardvark Monitoring Service',
                                     :short_name => 'AMS',
@@ -114,22 +114,22 @@ describe PublicBody, "when finding_by_tags" do
     end
 end
 
-describe PublicBody, " when making up the URL name" do 
+describe PublicBody, " when making up the URL name" do
     before do
         @public_body = PublicBody.new
     end
 
-    it 'should remove spaces, and make lower case' do 
+    it 'should remove spaces, and make lower case' do
         @public_body.name = 'Some Authority'
         @public_body.url_name.should == 'some_authority'
     end
 
-    it 'should not allow a numeric name' do 
+    it 'should not allow a numeric name' do
         @public_body.name = '1234'
         @public_body.url_name.should == 'body'
     end
 end
- 
+
 describe PublicBody, " when saving" do
     before do
         @public_body = PublicBody.new
@@ -157,14 +157,14 @@ describe PublicBody, " when saving" do
         @public_body.last_edit_comment = "This is a test"
         @public_body.save!
     end
-    
+
     it "should update first_letter" do
         @public_body.name = "Testing Public Body"
         @public_body.short_name = "TPB"
         @public_body.request_email = "request@localhost"
         @public_body.last_edit_editor = "*test*"
         @public_body.last_edit_comment = "This is a test"
-        
+
         @public_body.first_letter.should be_nil
         @public_body.save!
         @public_body.first_letter.should == 'T'
@@ -208,14 +208,14 @@ describe PublicBody, "when searching" do
         body.id.should == 3
         body.class.to_s.should == 'PublicBody'
     end
-    
+
     it "should cope with same url_name across multiple locales" do
         PublicBody.with_locale(:es) do
             # use the unique spanish name to retrieve and edit
             body = PublicBody.find_by_url_name_with_historic('etgq')
             body.short_name = 'tgq' # Same as english version
-            body.save! 
-    
+            body.save!
+
             # now try to retrieve it
             body = PublicBody.find_by_url_name_with_historic('tgq')
             body.id.should == public_bodies(:geraldine_public_body).id
@@ -242,7 +242,7 @@ describe PublicBody, " when loading CSV files" do
         # depending on the tag used. By accessing it here before every test, it doesn't disturb our checks later on
         PublicBody.internal_admin_body
     end
-    
+
     it "should import even if no email is provided" do
         errors, notes = PublicBody.import_csv("1,aBody", '', 'replace', true, 'someadmin') # true means dry run
         errors.should == []
@@ -250,7 +250,7 @@ describe PublicBody, " when loading CSV files" do
         notes[0].should == "line 1: creating new authority 'aBody' (locale: en):\n\t{\"name\":\"aBody\"}"
         notes[1].should =~ /Notes: Some  bodies are in database, but not in CSV file:\n(    [A-Za-z ]+\n)*You may want to delete them manually.\n/
     end
-    
+
     it "should do a dry run successfully" do
         original_count = PublicBody.count
 
@@ -259,8 +259,8 @@ describe PublicBody, " when loading CSV files" do
         errors.should == []
         notes.size.should == 4
         notes[0..2].should == [
-            "line 1: creating new authority 'North West Fake Authority' (locale: en):\n\t\{\"name\":\"North West Fake Authority\",\"request_email\":\"north_west_foi@localhost\"\}", 
-            "line 2: creating new authority 'Scottish Fake Authority' (locale: en):\n\t\{\"name\":\"Scottish Fake Authority\",\"request_email\":\"scottish_foi@localhost\"\}", 
+            "line 1: creating new authority 'North West Fake Authority' (locale: en):\n\t\{\"name\":\"North West Fake Authority\",\"request_email\":\"north_west_foi@localhost\"\}",
+            "line 2: creating new authority 'Scottish Fake Authority' (locale: en):\n\t\{\"name\":\"Scottish Fake Authority\",\"request_email\":\"scottish_foi@localhost\"\}",
             "line 3: creating new authority 'Fake Authority of Northern Ireland' (locale: en):\n\t\{\"name\":\"Fake Authority of Northern Ireland\",\"request_email\":\"ni_foi@localhost\"\}",
         ]
         notes[3].should =~ /Notes: Some  bodies are in database, but not in CSV file:\n(    [A-Za-z ]+\n)*You may want to delete them manually.\n/
@@ -276,8 +276,8 @@ describe PublicBody, " when loading CSV files" do
         errors.should == []
         notes.size.should == 4
         notes[0..2].should == [
-            "line 1: creating new authority 'North West Fake Authority' (locale: en):\n\t\{\"name\":\"North West Fake Authority\",\"request_email\":\"north_west_foi@localhost\"\}", 
-            "line 2: creating new authority 'Scottish Fake Authority' (locale: en):\n\t\{\"name\":\"Scottish Fake Authority\",\"request_email\":\"scottish_foi@localhost\"\}", 
+            "line 1: creating new authority 'North West Fake Authority' (locale: en):\n\t\{\"name\":\"North West Fake Authority\",\"request_email\":\"north_west_foi@localhost\"\}",
+            "line 2: creating new authority 'Scottish Fake Authority' (locale: en):\n\t\{\"name\":\"Scottish Fake Authority\",\"request_email\":\"scottish_foi@localhost\"\}",
             "line 3: creating new authority 'Fake Authority of Northern Ireland' (locale: en):\n\t\{\"name\":\"Fake Authority of Northern Ireland\",\"request_email\":\"ni_foi@localhost\"\}",
         ]
         notes[3].should =~ /Notes: Some  bodies are in database, but not in CSV file:\n(    [A-Za-z ]+\n)*You may want to delete them manually.\n/
@@ -287,14 +287,14 @@ describe PublicBody, " when loading CSV files" do
 
     it "should do imports without a tag successfully" do
         original_count = PublicBody.count
-        
+
         csv_contents = load_file_fixture("fake-authority-type.csv")
         errors, notes = PublicBody.import_csv(csv_contents, '', 'replace', false, 'someadmin') # false means real run
         errors.should == []
         notes.size.should == 4
         notes[0..2].should == [
-            "line 1: creating new authority 'North West Fake Authority' (locale: en):\n\t\{\"name\":\"North West Fake Authority\",\"request_email\":\"north_west_foi@localhost\"\}", 
-            "line 2: creating new authority 'Scottish Fake Authority' (locale: en):\n\t\{\"name\":\"Scottish Fake Authority\",\"request_email\":\"scottish_foi@localhost\"\}", 
+            "line 1: creating new authority 'North West Fake Authority' (locale: en):\n\t\{\"name\":\"North West Fake Authority\",\"request_email\":\"north_west_foi@localhost\"\}",
+            "line 2: creating new authority 'Scottish Fake Authority' (locale: en):\n\t\{\"name\":\"Scottish Fake Authority\",\"request_email\":\"scottish_foi@localhost\"\}",
             "line 3: creating new authority 'Fake Authority of Northern Ireland' (locale: en):\n\t\{\"name\":\"Fake Authority of Northern Ireland\",\"request_email\":\"ni_foi@localhost\"\}",
         ]
         notes[3].should =~ /Notes: Some  bodies are in database, but not in CSV file:\n(    [A-Za-z ]+\n)*You may want to delete them manually.\n/
@@ -309,15 +309,15 @@ describe PublicBody, " when loading CSV files" do
         errors.should == []
         notes.size.should == 4
         notes[0..2].should == [
-            "line 2: creating new authority 'North West Fake Authority' (locale: en):\n\t\{\"name\":\"North West Fake Authority\",\"request_email\":\"north_west_foi@localhost\",\"home_page\":\"http://northwest.org\"\}", 
-            "line 3: creating new authority 'Scottish Fake Authority' (locale: en):\n\t\{\"name\":\"Scottish Fake Authority\",\"request_email\":\"scottish_foi@localhost\",\"home_page\":\"http://scottish.org\",\"tag_string\":\"scottish\"\}", 
+            "line 2: creating new authority 'North West Fake Authority' (locale: en):\n\t\{\"name\":\"North West Fake Authority\",\"request_email\":\"north_west_foi@localhost\",\"home_page\":\"http://northwest.org\"\}",
+            "line 3: creating new authority 'Scottish Fake Authority' (locale: en):\n\t\{\"name\":\"Scottish Fake Authority\",\"request_email\":\"scottish_foi@localhost\",\"home_page\":\"http://scottish.org\",\"tag_string\":\"scottish\"\}",
             "line 4: creating new authority 'Fake Authority of Northern Ireland' (locale: en):\n\t\{\"name\":\"Fake Authority of Northern Ireland\",\"request_email\":\"ni_foi@localhost\",\"tag_string\":\"fake aTag\"\}",
         ]
         notes[3].should =~ /Notes: Some  bodies are in database, but not in CSV file:\n(    [A-Za-z ]+\n)*You may want to delete them manually.\n/
 
         PublicBody.count.should == original_count
     end
-    
+
     it "should import tags successfully when the import tag is not set" do
         csv_contents = load_file_fixture("fake-authority-type-with-field-names.csv")
         errors, notes = PublicBody.import_csv(csv_contents, '', 'replace', false, 'someadmin') # false means real run
@@ -344,11 +344,11 @@ describe PublicBody, " when loading CSV files" do
         PublicBody.find_by_name('North West Fake Authority').tag_array_for_search.should == ['fake']
         PublicBody.find_by_name('Scottish Fake Authority').tag_array_for_search.should == ['fake', 'scottish']
         PublicBody.find_by_name('Fake Authority of Northern Ireland').tag_array_for_search.should == ['aTag', 'fake']
-        
+
         # Import again to check the 'replace' tag functionality works
         new_tags_file = load_file_fixture('fake-authority-add-tags.rb')
         errors, notes = PublicBody.import_csv(new_tags_file, 'fake', 'replace', false, 'someadmin') # false means real run
-        
+
         # Check tags were added successfully
         PublicBody.find_by_name('North West Fake Authority').tag_array_for_search.should == ['aTag']
         PublicBody.find_by_name('Scottish Fake Authority').tag_array_for_search.should == ['aTag']
@@ -363,8 +363,8 @@ describe PublicBody, " when loading CSV files" do
         errors.should == []
         notes.size.should == 7
         notes[0..5].should == [
-            "line 2: creating new authority 'North West Fake Authority' (locale: en):\n\t{\"name\":\"North West Fake Authority\",\"request_email\":\"north_west_foi@localhost\",\"home_page\":\"http://northwest.org\"}", 
-            "line 2: creating new authority 'North West Fake Authority' (locale: es):\n\t{\"name\":\"Autoridad del Nordeste\"}", 
+            "line 2: creating new authority 'North West Fake Authority' (locale: en):\n\t{\"name\":\"North West Fake Authority\",\"request_email\":\"north_west_foi@localhost\",\"home_page\":\"http://northwest.org\"}",
+            "line 2: creating new authority 'North West Fake Authority' (locale: es):\n\t{\"name\":\"Autoridad del Nordeste\"}",
             "line 3: creating new authority 'Scottish Fake Authority' (locale: en):\n\t{\"name\":\"Scottish Fake Authority\",\"request_email\":\"scottish_foi@localhost\",\"home_page\":\"http://scottish.org\",\"tag_string\":\"scottish\"}",
             "line 3: creating new authority 'Scottish Fake Authority' (locale: es):\n\t{\"name\":\"Autoridad Escocesa\"}",
             "line 4: creating new authority 'Fake Authority of Northern Ireland' (locale: en):\n\t{\"name\":\"Fake Authority of Northern Ireland\",\"request_email\":\"ni_foi@localhost\",\"tag_string\":\"fake aTag\"}",
@@ -373,8 +373,8 @@ describe PublicBody, " when loading CSV files" do
         notes[6].should =~ /Notes: Some  bodies are in database, but not in CSV file:\n(    [A-Za-z ]+\n)*You may want to delete them manually.\n/
 
         PublicBody.count.should == original_count + 3
-        
-        # XXX Not sure why trying to do a PublicBody.with_locale fails here. Seems related to 
+
+        # XXX Not sure why trying to do a PublicBody.with_locale fails here. Seems related to
         # the way categories are loaded every time from the PublicBody class. For now we just
         # test some translation was done.
         body = PublicBody.find_by_name('North West Fake Authority')
@@ -387,13 +387,13 @@ describe PublicBody, " when loading CSV files" do
         csv_contents = load_file_fixture("fake-authority-type-with-field-names.csv")
         # Depending on the runtime environment (Ruby version? OS?) the list of available locales
         # is made of strings or symbols, so we use 'en' here as a string to test both scenarios.
-        # See https://github.com/sebbacon/alaveteli/issues/193
+        # See https://github.com/mysociety/alaveteli/issues/193
         errors, notes = PublicBody.import_csv(csv_contents, '', 'replace', true, 'someadmin', ['en', :xx]) # true means dry run
         errors.should == []
         notes.size.should == 4
         notes[0..2].should == [
             "line 2: creating new authority 'North West Fake Authority' (locale: en):\n\t{\"name\":\"North West Fake Authority\",\"request_email\":\"north_west_foi@localhost\",\"home_page\":\"http://northwest.org\"}",
-            "line 3: creating new authority 'Scottish Fake Authority' (locale: en):\n\t{\"name\":\"Scottish Fake Authority\",\"request_email\":\"scottish_foi@localhost\",\"home_page\":\"http://scottish.org\",\"tag_string\":\"scottish\"}", 
+            "line 3: creating new authority 'Scottish Fake Authority' (locale: en):\n\t{\"name\":\"Scottish Fake Authority\",\"request_email\":\"scottish_foi@localhost\",\"home_page\":\"http://scottish.org\",\"tag_string\":\"scottish\"}",
             "line 4: creating new authority 'Fake Authority of Northern Ireland' (locale: en):\n\t{\"name\":\"Fake Authority of Northern Ireland\",\"request_email\":\"ni_foi@localhost\",\"tag_string\":\"fake aTag\"}",
         ]
         notes[3].should =~ /Notes: Some  bodies are in database, but not in CSV file:\n(    [A-Za-z ]+\n)*You may want to delete them manually.\n/

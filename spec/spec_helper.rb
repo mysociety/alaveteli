@@ -5,7 +5,7 @@ require File.expand_path(File.join('..', '..', 'config', 'environment'), __FILE_
 require 'spec/autorun'
 require 'spec/rails'
 
-# set a default username and password so we can test 
+# set a default username and password so we can test
 config = MySociety::Config.load_default()
 config['ADMIN_USERNAME'] = 'foo'
 config['ADMIN_PASSWORD'] = 'baz'
@@ -31,7 +31,21 @@ Spec::Runner.configure do |config|
 
   # fixture_path must end in a separator
   config.fixture_path = File.join(Rails.root, 'spec', 'fixtures') + File::SEPARATOR
-  config.global_fixtures = :users, :public_bodies, :public_body_translations, :public_body_versions, :info_requests, :raw_emails, :incoming_messages, :outgoing_messages, :comments, :info_request_events, :track_things, :foi_attachments, :has_tag_string_tags, :holidays, :track_things_sent_emails
+  config.global_fixtures = :users,
+                           :public_bodies,
+                           :public_body_translations,
+                           :public_body_versions,
+                           :info_requests,
+                           :raw_emails,
+                           :incoming_messages,
+                           :outgoing_messages,
+                           :comments,
+                           :info_request_events,
+                           :track_things,
+                           :foi_attachments,
+                           :has_tag_string_tags,
+                           :holidays,
+                           :track_things_sent_emails
 
   # == Fixtures
   #
@@ -66,7 +80,7 @@ Spec::Runner.configure do |config|
   # For more information take a look at Spec::Runner::Configuration and Spec::Runner
 end
 
-# XXX No idea what namespace/class/module to put this in 
+# XXX No idea what namespace/class/module to put this in
 def receive_incoming_mail(email_name, email_to, email_from = 'geraldinequango@localhost')
     email_name = file_fixture_name(email_name)
     content = File.read(email_name)
@@ -97,15 +111,15 @@ def rebuild_xapian_index(terms = true, values = true, texts = true, dropfirst = 
     end
     parse_all_incoming_messages
     verbose = false
-    # safe_rebuild=true, which involves forking to avoid memory leaks, doesn't work well with rspec. 
+    # safe_rebuild=true, which involves forking to avoid memory leaks, doesn't work well with rspec.
     # unsafe is significantly faster, and we can afford possible memory leaks while testing.
     safe_rebuild = false
-    ActsAsXapian.rebuild_index(["PublicBody", "User", "InfoRequestEvent"].map{|m| m.constantize}, verbose, terms, values, texts, safe_rebuild) 
+    ActsAsXapian.rebuild_index(["PublicBody", "User", "InfoRequestEvent"].map{|m| m.constantize}, verbose, terms, values, texts, safe_rebuild)
 end
 
 def update_xapian_index
     verbose = false
-    ActsAsXapian.update_index(flush_to_disk=false, verbose) 
+    ActsAsXapian.update_index(flush_to_disk=false, verbose)
 end
 
 # Validate an entire HTML page
@@ -217,5 +231,5 @@ end
 class ApplicationController < ActionController::Base
     def set_popup_banner
         @popup_banner = nil
-    end    
+    end
 end

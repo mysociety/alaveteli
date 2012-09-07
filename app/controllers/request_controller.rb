@@ -64,10 +64,7 @@ class RequestController < ApplicationController
             end
 
             # Look up by new style text names
-            @info_request = InfoRequest.find_by_url_title(params[:url_title])
-            if @info_request.nil?
-                raise ActiveRecord::RecordNotFound.new("Request not found")
-            end
+            @info_request = InfoRequest.find_by_url_title!(params[:url_title])
             set_last_request(@info_request)
 
             # Test for whole request being hidden
@@ -80,7 +77,13 @@ class RequestController < ApplicationController
             @info_request_events = @info_request.info_request_events
             @status = @info_request.calculate_status
             @collapse_quotes = params[:unfold] ? false : true
-            @update_status = params[:update_status] ? true : false
+
+            # Don't allow status update on external requests, otherwise accept param
+            if @info_request.is_external?
+                @update_status = false
+            else
+                @update_status = params[:update_status] ? true : false
+            end
             @old_unclassified = @info_request.is_old_unclassified? && !authenticated_user.nil?
             @is_owning_user = @info_request.is_owning_user?(authenticated_user)
 
@@ -125,14 +128,10 @@ class RequestController < ApplicationController
     # Extra info about a request, such as event history
     def details
         long_cache
-        @info_request = InfoRequest.find_by_url_title(params[:url_title])
-        if @info_request.nil?
-            raise ActiveRecord::RecordNotFound.new("Request not found")
-        else
-            if !@info_request.user_can_view?(authenticated_user)
-                render :template => 'request/hidden', :status => 410 # gone
-                return
-            end
+        @info_request = InfoRequest.find_by_url_title!(params[:url_title])
+        if !@info_request.user_can_view?(authenticated_user)
+            render :template => 'request/hidden', :status => 410 # gone
+            return
         end
         @columns = ['id', 'event_type', 'created_at', 'described_state', 'last_described_at', 'calculated_state' ]
     end
@@ -142,7 +141,7 @@ class RequestController < ApplicationController
         short_cache
         @per_page = 25
         @page = (params[:page] || "1").to_i
-        @info_request = InfoRequest.find_by_url_title(params[:url_title])
+        @info_request = InfoRequest.find_by_url_title!(params[:url_title])
         raise ActiveRecord::RecordNotFound.new("Request not found") if @info_request.nil?
 
         if !@info_request.user_can_view?(authenticated_user)
@@ -313,7 +312,7 @@ class RequestController < ApplicationController
             # case the list of errors will also contain a more specific error
             # describing the reason it is invalid.
             @info_request.errors.delete("outgoing_messages")
-            
+
             render :action => 'new'
             return
         end
@@ -385,6 +384,13 @@ class RequestController < ApplicationController
             return
         end
 
+        # If this is an external request, go to the request page - we don't allow
+        # state change from the front end interface.
+        if @info_request.is_external?
+            redirect_to request_url(@info_request)
+            return
+        end
+
         @is_owning_user = @info_request.is_owning_user?(authenticated_user)
         @last_info_request_event_id = @info_request.last_event_id_needing_description
         @old_unclassified = @info_request.is_old_unclassified? && !authenticated_user.nil?
@@ -431,7 +437,7 @@ class RequestController < ApplicationController
                 })
 
             # Don't give advice on what to do next, as it isn't their request
-            RequestMailer.deliver_old_unclassified_updated(@info_request)
+            RequestMailer.deliver_old_unclassified_updated(@info_request) if !@info_request.is_external?
             if session[:request_game]
                 flash[:notice] = _('Thank you for updating the status of the request \'<a href="{{url}}">{{info_request_title}}</a>\'. There are some more requests below for you to classify.',:info_request_title=>CGI.escapeHTML(@info_request.title), :url=>CGI.escapeHTML(request_url(@info_request)))
                 redirect_to play_url
@@ -592,6 +598,13 @@ class RequestController < ApplicationController
             return
         end
 
+        # Test for external request
+        if @info_request.is_external?
+            @reason = 'external'
+            render :action => 'followup_bad'
+            return
+        end
+
         # Force login early - this is really the "send followup" form. We want
         # to make sure they're the right user first, before they start writing a
         # message and wasting their time if they are not the requester.
@@ -659,16 +672,21 @@ class RequestController < ApplicationController
             @info_request = incoming_message.info_request # used by view
             render :template => 'request/hidden', :status => 410 # gone
         end
+        # Is this a completely public request that we can cache attachments for
+        # to be served up without authentication?
+        if incoming_message.info_request.all_can_view?
+            @files_can_be_cached = true
+        end
     end
 
     def report_request
-        info_request = InfoRequest.find_by_url_title(params[:url_title])
+        info_request = InfoRequest.find_by_url_title!(params[:url_title])
         return if !authenticated?(
                 :web => _("To report this FOI request"),
                 :email => _("Then you can report the request '{{title}}'", :title => info_request.title),
                 :email_subject => _("Report an offensive or unsuitable request")
             )
-        
+
         if !info_request.attention_requested
             info_request.set_described_state('attention_requested', @user)
             info_request.attention_requested = true # tells us if attention has ever been requested
@@ -689,6 +707,7 @@ class RequestController < ApplicationController
             key = params.merge(:only_path => true)
             key_path = foi_fragment_cache_path(key)
             if foi_fragment_cache_exists?(key_path)
+                logger.info("Reading cache for #{key_path}")
                 raise PermissionDenied.new("Directory listing not allowed") if File.directory?(key_path)
                 cached = foi_fragment_cache_read(key_path)
                 response.content_type = AlaveteliFileTypes.filename_to_mimetype(params[:file_name].join("/")) || 'application/octet-stream'
@@ -703,7 +722,10 @@ class RequestController < ApplicationController
                 # various fragment cache functions using Ruby Marshall to write the file
                 # which adds a header, so isnt compatible with images that have been
                 # extracted elsewhere from PDFs)
-                foi_fragment_cache_write(key_path, response.body)
+                if @files_can_be_cached == true
+                    logger.info("Writing cache for #{key_path}")
+                    foi_fragment_cache_write(key_path, response.body)
+                end
             end
         end
     end
@@ -784,7 +806,7 @@ class RequestController < ApplicationController
     def upload_response
         @locale = self.locale_from_params()
         PublicBody.with_locale(@locale) do
-            @info_request = InfoRequest.find_by_url_title(params[:url_title])
+            @info_request = InfoRequest.find_by_url_title!(params[:url_title])
 
             @reason_params = {
                     :web => _("To upload a response, you must be logged in using an email address from ") +  CGI.escapeHTML(@info_request.public_body.name),
@@ -841,10 +863,7 @@ class RequestController < ApplicationController
     def download_entire_request
         @locale = self.locale_from_params()
         PublicBody.with_locale(@locale) do
-            info_request = InfoRequest.find_by_url_title(params[:url_title])
-            if info_request.nil?
-                raise ActiveRecord::RecordNotFound.new("Request not found")
-            end
+            info_request = InfoRequest.find_by_url_title!(params[:url_title])
             if authenticated?(
                               :web => _("To download the zip file"),
                               :email => _("Then you can download a zip file of {{info_request_title}}.",:info_request_title=>info_request.title),
