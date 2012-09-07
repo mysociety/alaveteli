@@ -149,16 +149,19 @@ describe ApiController, "when using the API" do
         n_incoming_messages = IncomingMessage.count
         n_outgoing_messages = OutgoingMessage.count
         
-        expect {
-            post :add_correspondence,
-                :k => public_bodies(:geraldine_public_body).api_key,
-                :id => info_requests(:naughty_chicken_request).id,
-                :correspondence_json => {
-                    "direction" => "request",
-                    "sent_at" => Time.now.iso8601,
-                    "body" => "xxx"
-                }.to_json
-        }.to raise_error ActiveRecord::RecordNotFound
+        request_id = info_requests(:naughty_chicken_request).id
+        post :add_correspondence,
+            :k => public_bodies(:geraldine_public_body).api_key,
+            :id => request_id,
+            :correspondence_json => {
+                "direction" => "request",
+                "sent_at" => Time.now.iso8601,
+                "body" => "xxx"
+            }.to_json
+        
+        response.status.should == "500 Internal Server Error"
+        ActiveSupport::JSON.decode(response.body)["errors"].should == [
+          "Request #{request_id} cannot be updated using the API"]
         
         IncomingMessage.count.should == n_incoming_messages
         OutgoingMessage.count.should == n_outgoing_messages
@@ -169,16 +172,18 @@ describe ApiController, "when using the API" do
         n_incoming_messages = IncomingMessage.count
         n_outgoing_messages = OutgoingMessage.count
         
-        expect {
-            post :add_correspondence,
-                :k => public_bodies(:humpadink_public_body).api_key,
-                :id => request_id,
-                :correspondence_json => {
-                    "direction" => "request",
-                    "sent_at" => Time.now.iso8601,
-                    "body" => "xxx"
-                }.to_json
-        }.to raise_error ActiveRecord::RecordNotFound
+        post :add_correspondence,
+            :k => public_bodies(:humpadink_public_body).api_key,
+            :id => request_id,
+            :correspondence_json => {
+                "direction" => "request",
+                "sent_at" => Time.now.iso8601,
+                "body" => "xxx"
+            }.to_json
+        
+        response.status.should == "500 Internal Server Error"
+        ActiveSupport::JSON.decode(response.body)["errors"].should == [
+          "You do not own request #{request_id}"]
         
         IncomingMessage.count.should == n_incoming_messages
         OutgoingMessage.count.should == n_outgoing_messages
@@ -313,5 +318,37 @@ describe ApiController, "when using the API" do
             :since_event_id => second_event_id
         response.should be_success
         assigns[:event_data].should == [first_event]
+    end
+    
+    it "should return a JSON 404 error for non-existent requests" do
+        request_id = 123459876 # Let's hope this doesn't exist!
+        sent_at = "2012-05-28T12:35:39+01:00"
+        response_body = "Thank you for your request for information, which we are handling in accordance with the Freedom of Information Act 2000. You will receive a response within 20 working days or before the next full moon, whichever is sooner.\n\nYours sincerely,\nJohn Gandermulch,\nExample Council FOI Officer\n"
+        post :add_correspondence,
+            :k => public_bodies(:geraldine_public_body).api_key,
+            :id => request_id,
+            :correspondence_json => {
+                "direction" => "response",
+                "sent_at" => sent_at,
+                "body" => response_body
+            }.to_json
+        response.status.should == "404 Not Found"
+        ActiveSupport::JSON.decode(response.body)["errors"].should == ["Could not find request 123459876"]
+    end
+    
+    it "should return a JSON 500 error if we try to add correspondence to a request we don't own" do
+        request_id = info_requests(:naughty_chicken_request).id
+        sent_at = "2012-05-28T12:35:39+01:00"
+        response_body = "Thank you for your request for information, which we are handling in accordance with the Freedom of Information Act 2000. You will receive a response within 20 working days or before the next full moon, whichever is sooner.\n\nYours sincerely,\nJohn Gandermulch,\nExample Council FOI Officer\n"
+        post :add_correspondence,
+            :k => public_bodies(:geraldine_public_body).api_key,
+            :id => request_id,
+            :correspondence_json => {
+                "direction" => "response",
+                "sent_at" => sent_at,
+                "body" => response_body
+            }.to_json
+        response.status.should == "500 Internal Server Error"
+        ActiveSupport::JSON.decode(response.body)["errors"].should == ["Request #{request_id} cannot be updated using the API"]
     end
 end
