@@ -149,16 +149,19 @@ describe ApiController, "when using the API" do
         n_incoming_messages = IncomingMessage.count
         n_outgoing_messages = OutgoingMessage.count
         
-        expect {
-            post :add_correspondence,
-                :k => public_bodies(:geraldine_public_body).api_key,
-                :id => info_requests(:naughty_chicken_request).id,
-                :correspondence_json => {
-                    "direction" => "request",
-                    "sent_at" => Time.now.iso8601,
-                    "body" => "xxx"
-                }.to_json
-        }.to raise_error ActiveRecord::RecordNotFound
+        request_id = info_requests(:naughty_chicken_request).id
+        post :add_correspondence,
+            :k => public_bodies(:geraldine_public_body).api_key,
+            :id => request_id,
+            :correspondence_json => {
+                "direction" => "request",
+                "sent_at" => Time.now.iso8601,
+                "body" => "xxx"
+            }.to_json
+        
+        response.status.should == "500 Internal Server Error"
+        ActiveSupport::JSON.decode(response.body)["errors"].should == [
+          "Request #{request_id} cannot be updated using the API"]
         
         IncomingMessage.count.should == n_incoming_messages
         OutgoingMessage.count.should == n_outgoing_messages
@@ -169,16 +172,18 @@ describe ApiController, "when using the API" do
         n_incoming_messages = IncomingMessage.count
         n_outgoing_messages = OutgoingMessage.count
         
-        expect {
-            post :add_correspondence,
-                :k => public_bodies(:humpadink_public_body).api_key,
-                :id => request_id,
-                :correspondence_json => {
-                    "direction" => "request",
-                    "sent_at" => Time.now.iso8601,
-                    "body" => "xxx"
-                }.to_json
-        }.to raise_error ActiveRecord::RecordNotFound
+        post :add_correspondence,
+            :k => public_bodies(:humpadink_public_body).api_key,
+            :id => request_id,
+            :correspondence_json => {
+                "direction" => "request",
+                "sent_at" => Time.now.iso8601,
+                "body" => "xxx"
+            }.to_json
+        
+        response.status.should == "500 Internal Server Error"
+        ActiveSupport::JSON.decode(response.body)["errors"].should == [
+          "You do not own request #{request_id}"]
         
         IncomingMessage.count.should == n_incoming_messages
         OutgoingMessage.count.should == n_outgoing_messages
