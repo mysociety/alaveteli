@@ -6,3 +6,4 @@ rails_env.rb
 logrotate
 memcached.yml
 *.deployed
+deploy.yml

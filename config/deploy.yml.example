@@ -1,0 +1,11 @@
+# Site-specific deployment configuration lives in this file
+production:
+  repository: git@github.com:mysociety/alaveteli.git
+  branch: master
+  server: www.example.com
+  path: /srv/www/alaveteli_production
+staging:
+  repository: git@github.com:mysociety/alaveteli.git
+  branch: develop
+  server: test.example.com
+  path: /srv/www/alaveteli_staging
