@@ -8,6 +8,7 @@ configuration = YAML.load_file('config/general.yml')['deployment'][stage]
 set :application, 'alaveteli'
 set :scm, :git
 set :user, configuration['user']
+set :use_sudo, false
 
 server configuration['server'], :app, :web, :db, :primary => true
 
