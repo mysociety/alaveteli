@@ -1,12 +1,13 @@
-set :application, "set your application name here"
-set :repository,  "set your repository location here"
+# Deploy to staging by default unless you specify '-S stage=production' on the command line
+set :stage, 'staging' unless exists? :stage
 
+configuration = YAML.load_file('config/general.yml')['deployment'][stage]
+
+set :application, 'alaveteli'
 set :scm, :git
+set :user, configuration['user']
 
-role :web, "your web-server here"                          # Your HTTP server, Apache/etc
-role :app, "your app-server here"                          # This may be the same as your `Web` server
-role :db,  "your primary db-server here", :primary => true # This is where Rails migrations will run
-role :db,  "your slave db-server here"
+server configuration['server'], :app, :web, :db, :primary => true
 
 namespace :deploy do
   desc "Restarting mod_rails with restart.txt"

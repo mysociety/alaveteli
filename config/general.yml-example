@@ -157,3 +157,19 @@ VARNISH_HOST: localhost
 
 # Adding a value here will enable Google Analytics on all non-admin pages.
 GA_CODE: ''
+
+## Capistrano Deployment
+#
+# This section contains site-specific config that allows you to deploy
+# Alaveteli using Capistrano
+deployment:
+  production:
+    repository: git@github.com:mysociety/alaveteli.git
+    branch: master
+    server: www.example.com
+    path: /srv/www/alaveteli_production
+  staging:
+    branch: develop
+    repository: git@github.com:mysociety/alaveteli.git
+    server: test.example.com
+    path: /srv/www/alaveteli_staging
