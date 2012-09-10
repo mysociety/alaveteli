@@ -169,7 +169,7 @@ deployment:
     server: www.example.com
     path: /srv/www/alaveteli_production
   staging:
-    branch: develop
     repository: git@github.com:mysociety/alaveteli.git
+    branch: develop
     server: test.example.com
     path: /srv/www/alaveteli_staging
