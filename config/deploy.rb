@@ -1,3 +1,5 @@
+require 'bundler/capistrano'
+
 # Deploy to staging by default unless you specify '-S stage=production' on the command line
 set :stage, 'staging' unless exists? :stage
 
