@@ -320,6 +320,21 @@ describe ApiController, "when using the API" do
         assigns[:event_data].should == [first_event]
     end
     
+    it "should honour the since_date parameter for the Atom feed" do
+        get :body_request_events,
+            :id => public_bodies(:humpadink_public_body).id,
+            :k => public_bodies(:humpadink_public_body).api_key,
+            :since_date => "2010-01-01",
+            :feed_type => "atom"
+        
+        response.should be_success
+        response.should render_template("api/request_events.atom")
+        assigns[:events].size.should > 0
+        assigns[:events].each do |event|
+            event.created_at.should >= Date.new(2010, 1, 1)
+        end
+    end
+    
     it "should return a JSON 404 error for non-existent requests" do
         request_id = 123459876 # Let's hope this doesn't exist!
         sent_at = "2012-05-28T12:35:39+01:00"

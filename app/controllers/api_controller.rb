@@ -167,17 +167,41 @@ class ApiController < ApplicationController
         feed_type = params[:feed_type]
         raise PermissionDenied.new("#{@public_body.id} != #{params[:id]}") if @public_body.id != params[:id].to_i
         
-        @events = InfoRequestEvent.find_by_sql([
-          %(select info_request_events.*
-            from info_requests
-            join info_request_events on info_requests.id = info_request_events.info_request_id
-            where info_requests.public_body_id = ?
-            and info_request_events.event_type in (
-              'sent', 'followup_sent', 'resent', 'followup_resent'
-            )
-            order by info_request_events.created_at desc
-          ), @public_body.id
-        ])
+        since_date_str = params[:since_date]
+        if since_date_str.nil?
+            @events = InfoRequestEvent.find_by_sql([
+              %(select info_request_events.*
+                from info_requests
+                join info_request_events on info_requests.id = info_request_events.info_request_id
+                where info_requests.public_body_id = ?
+                and info_request_events.event_type in (
+                  'sent', 'followup_sent', 'resent', 'followup_resent'
+                )
+                order by info_request_events.created_at desc
+              ), @public_body.id
+            ])
+        else
+            begin
+              since_date = Date.strptime(since_date_str, "%Y-%m-%d")
+            rescue ArgumentError
+              render :json => {"errors" => [
+                      "Parameter since_date must be in format yyyy-mm-dd (not '#{since_date_str}')" ] },
+                  :status => 500
+              return
+            end
+            @events = InfoRequestEvent.find_by_sql([
+              %(select info_request_events.*
+                from info_requests
+                join info_request_events on info_requests.id = info_request_events.info_request_id
+                where info_requests.public_body_id = ?
+                and info_request_events.event_type in (
+                  'sent', 'followup_sent', 'resent', 'followup_resent'
+                )
+                and info_request_events.created_at >= ?
+                order by info_request_events.created_at desc
+              ), @public_body.id, since_date
+            ])
+        end
         if feed_type == "atom"
             render :template => "api/request_events.atom", :layout => false
         elsif feed_type == "json"
