@@ -9,33 +9,43 @@ namespace :themes do
         File.join(plugin_dir, theme_name)
     end
 
+    def checkout_tag(version)
+        checkout_command = "git checkout #{usage_tag(version)}"
+        success = system(checkout_command)
+        puts "Using tag #{usage_tag(version)}" if verbose && success
+        success
+    end
+
+    def usage_tag(version)
+        "use-with-alaveteli-#{version}"
+    end
+
     def install_theme_using_git(name, uri, verbose=false, options={})
-        mkdir_p(install_path = theme_dir(name))
-        Dir.chdir install_path do
-            init_cmd = "git init"
-            init_cmd += " -q" if options[:quiet] and not verbose
-            puts init_cmd if verbose
-            system(init_cmd)
-            base_cmd = "git pull --depth 1 #{uri}"
-            # Is there a tag for this version of Alaveteli?
-            usage_tag = "use-with-alaveteli-#{ALAVETELI_VERSION}"
-            # Query the remote repository passing flags for tags
-            version_tag = `git ls-remote --tags #{uri} #{usage_tag}`
-            if /^[a-z0-9]+\s+refs\/tags\/#{Regexp.escape(usage_tag)}$/.match(version_tag)
-                # If we got a tag, pull that instead of HEAD
-                puts "Using tag #{usage_tag}" if verbose
-                base_cmd += " refs/tags/#{usage_tag}"
-            else
-                puts "No specific tag for this version: using HEAD" if verbose
-            end
-            base_cmd += " -q" if options[:quiet] and not verbose
-            puts base_cmd if verbose
-            if system(base_cmd)
-                puts "removing: .git .gitignore" if verbose
-                rm_rf %w(.git .gitignore)
+        install_path = theme_dir(name)
+        Dir.chdir(plugin_dir) do
+            clone_command = "git clone #{uri} #{name}"
+            if system(clone_command)
+                Dir.chdir install_path do
+                    # try to checkout a tag exactly matching ALAVETELI VERSION
+                    tag_checked_out = checkout_tag(ALAVETELI_VERSION)
+                    if ! tag_checked_out
+                        # if we're on a hotfix release (four sequence elements or more),
+                        # look for a usage tag matching the minor release (three sequence elements)
+                        # and check that out if found
+                        if hotfix_version = /^(\d+\.\d+\.\d+)(\.\d+)+/.match(ALAVETELI_VERSION)
+                            base_version = hotfix_version[1]
+                            tag_checked_out = checkout_tag(base_version)
+                        end
+                    end
+                    if ! tag_checked_out
+                        puts "No specific tag for this version: using HEAD" if verbose
+                    end
+                    puts "removing: .git .gitignore" if verbose
+                    rm_rf %w(.git .gitignore)
+                end
             else
                 rm_rf install_path
-                raise "#{base_cmd} failed! Stopping."
+                raise "#{clone_command} failed! Stopping."
             end
         end
     end
