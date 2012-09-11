@@ -1,5 +1,14 @@
 namespace :temp do
 
+    desc 'Populate the request_classifications table from info_request_events'
+    task :populate_request_classifications => :environment do
+        InfoRequestEvent.find_each(:conditions => ["event_type = 'status_update'"]) do |classification|
+            RequestClassification.create!(:created_at => classification.created_at,
+                                          :user_id => classification.params[:user_id],
+                                          :info_request_event_id => classification.id)
+        end
+    end
+
     desc "Remove plaintext passwords from post_redirect params"
     task :remove_post_redirect_passwords => :environment do
         PostRedirect.find_each(:conditions => ['post_params_yaml is not null']) do |post_redirect|
