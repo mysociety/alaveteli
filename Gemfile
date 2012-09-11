@@ -35,6 +35,7 @@ gem 'will_paginate', '~> 2.3.11'
 gem 'xapian-full-alaveteli', '~> 1.2.9.5'
 gem 'xml-simple'
 gem 'zip'
+gem 'capistrano'
 
 group :test do
   gem 'fakeweb'
