@@ -9,6 +9,7 @@ set :application, 'alaveteli'
 set :scm, :git
 set :deploy_via, :remote_cache
 set :repository, configuration['repository']
+set :branch, configuration['branch']
 set :deploy_to, configuration['path']
 set :user, configuration['user']
 set :use_sudo, false
