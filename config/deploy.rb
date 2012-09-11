@@ -43,11 +43,16 @@ namespace :deploy do
   task :symlink_configuration do
     links = {
       "#{release_path}/config/database.yml" => "#{shared_path}/database.yml",
-      "#{release_path}/config/general.yml"  => "#{shared_path}/general.yml"
+      "#{release_path}/config/general.yml"  => "#{shared_path}/general.yml",
+      "#{release_path}/files"               => "#{shared_path}/files"
     }
 
     # "ln -sf <a> <b>" creates a symbolic link but deletes <b> if it already exists
     run links.map {|a| "ln -sf #{a.last} #{a.first}"}.join(";")
+  end
+
+  after 'deploy:setup' do
+    run "mkdir -p #{shared_path}/files"
   end
 end
 
