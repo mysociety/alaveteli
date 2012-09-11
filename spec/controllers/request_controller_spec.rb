@@ -1325,7 +1325,7 @@ describe RequestController, "when classifying an information request" do
 
             it 'should record a classification' do
                 event = mock_model(InfoRequestEvent)
-                @dog_request.stub!(:log_event).with("status_update", expected_params).and_return(event)
+                @dog_request.stub!(:log_event).with("status_update", anything()).and_return(event)
                 RequestClassification.should_receive(:create!).with(:user_id => @admin_user.id,
                                                                     :info_request_event_id => event.id)
                 post_status('rejected')
