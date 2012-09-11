@@ -12,7 +12,7 @@ set :deploy_via, :remote_cache
 set :repository, configuration['repository']
 set :branch, configuration['branch']
 set :git_enable_submodules, true
-set :deploy_to, configuration['path']
+set :deploy_to, configuration['deploy_to']
 set :user, configuration['user']
 set :use_sudo, false
 
