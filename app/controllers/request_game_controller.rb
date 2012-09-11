@@ -11,13 +11,12 @@ class RequestGameController < ApplicationController
     def play
         session[:request_game] = Time.now
 
-        old = InfoRequest.find_old_unclassified(:conditions => ["prominence = 'normal'"])
-        @missing = old.size
+        @missing = InfoRequest.count_old_unclassified(:conditions => ["prominence = 'normal'"])
         @total = InfoRequest.count
         @done = @total - @missing
         @percentage = (@done.to_f / @total.to_f * 10000).round / 100.0
 
-        @requests = old.sort_by{ rand }.slice(0..2)
+        @requests = InfoRequest.get_random_old_unclassified(3)
 
         if @missing == 0
             flash[:notice] = _('<p>All done! Thank you very much for your help.</p><p>There are <a href="{{helpus_url}}">more things you can do</a> to help {{site_name}}.</p>',
@@ -25,12 +24,8 @@ class RequestGameController < ApplicationController
                 :site_name => site_name)
         end
 
-        @league_table_28_days = InfoRequestEvent.make_league_table(
-            [ "event_type = 'status_update' and created_at >= ?", Time.now() - 28.days ]
-        )[0..10]
-        @league_table_all_time = InfoRequestEvent.make_league_table(
-            [ "event_type = 'status_update'"]
-        )[0..10]
+        @league_table_28_days = RequestClassification.league_table(10, [ "created_at >= ?", Time.now() - 28.days ])
+        @league_table_all_time = RequestClassification.league_table(10)
         @play_urls = true
     end
 
