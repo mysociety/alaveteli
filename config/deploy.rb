@@ -41,7 +41,9 @@ namespace :deploy do
     links = {
       "#{release_path}/config/database.yml" => "#{shared_path}/database.yml",
       "#{release_path}/config/general.yml"  => "#{shared_path}/general.yml",
-      "#{release_path}/files"               => "#{shared_path}/files"
+      "#{release_path}/files"               => "#{shared_path}/files",
+      "#{release_path}/cache"               => "#{shared_path}/cache",
+      "#{release_path}/public/download"     => "#{release_path}/cache/zips/download"
     }
 
     # "ln -sf <a> <b>" creates a symbolic link but deletes <b> if it already exists
@@ -50,6 +52,7 @@ namespace :deploy do
 
   after 'deploy:setup' do
     run "mkdir -p #{shared_path}/files"
+    run "mkdir -p #{shared_path}/cache"
   end
 end
 
