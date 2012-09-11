@@ -27,4 +27,15 @@ namespace :deploy do
     desc "#{t} task is a no-op with mod_rails"
     task t, :roles => :app do ; end
   end
+
+  desc "Link additional configuration after code update"
+  after "deploy:update_code" do
+    links = {
+      "#{release_path}/config/database.yml" => "#{shared_path}/database.yml",
+      "#{release_path}/config/general.yml"  => "#{shared_path}/general.yml"
+    }
+
+    # "ln -sf <a> <b>" creates a symbolic link but deletes <b> if it already exists
+    run links.map {|a| "ln -sf #{a.last} #{a.first}"}.join(";")
+  end
 end
