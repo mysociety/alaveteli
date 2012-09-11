@@ -3,7 +3,7 @@ require 'bundler/capistrano'
 # Deploy to staging by default unless you specify '-S stage=production' on the command line
 set :stage, 'staging' unless exists? :stage
 
-configuration = YAML.load_file('config/general.yml')[stage]
+configuration = YAML.load_file('config/deploy.yml')[stage]
 
 set :application, 'alaveteli'
 set :scm, :git
