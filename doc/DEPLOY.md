@@ -27,6 +27,8 @@ These are the general steps required to get your staging server up and running:
 
 ### Usage
 
+Ensure you've got a `config/deploy.yml` file with the correct settings for your site. You'll need to share this with everyone in your team that deploys so it might be a good idea to keep the latest version in a [Gist](http://gist.github.com/).
+
 To deploy to staging just run `cap deploy` but if you want to deploy to production you need to run `cap -S stage=production deploy`.
 
 For additional usage instructions, see the [Capistrano wiki](https://github.com/capistrano/capistrano/wiki/).
