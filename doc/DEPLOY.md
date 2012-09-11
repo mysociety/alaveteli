@@ -36,5 +36,5 @@ For additional usage instructions, see the [Capistrano wiki](https://github.com/
 
 ### TODO
 
-* Allow `cap deploy:setup` to install dependencies like those in `config/packages`
+* Get `cap deploy:setup` to do most of the work described above in the *Set up* section
 * Use [Whenever](https://github.com/javan/whenever) to set up cronjobs
