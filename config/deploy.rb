@@ -39,8 +39,8 @@ namespace :deploy do
     task t, :roles => :app do ; end
   end
 
-  desc "Link additional configuration after code update"
-  after "deploy:update_code" do
+  desc 'Link configuration after a code update'
+  task :symlink_configuration do
     links = {
       "#{release_path}/config/database.yml" => "#{shared_path}/database.yml",
       "#{release_path}/config/general.yml"  => "#{shared_path}/general.yml"
@@ -51,4 +51,5 @@ namespace :deploy do
   end
 end
 
+after 'deploy:update_code', 'deploy:symlink_configuration'
 after 'deploy:update_code', 'rake:themes:install'
