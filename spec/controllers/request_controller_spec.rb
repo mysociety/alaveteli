@@ -1275,7 +1275,8 @@ describe RequestController, "when classifying an information request" do
                     expected_params = {:user_id => users(:silly_name_user).id,
                                        :old_described_state => 'waiting_response',
                                        :described_state => 'rejected'}
-                    @dog_request.should_receive(:log_event).with("status_update", expected_params)
+                    event = mock_model(InfoRequestEvent)
+                    @dog_request.should_receive(:log_event).with("status_update", expected_params).and_return(event)
                     post_status('rejected')
                 end
 
@@ -1314,10 +1315,19 @@ describe RequestController, "when classifying an information request" do
             end
 
             it 'should log a status update event' do
+                event = mock_model(InfoRequestEvent)
                 expected_params = {:user_id => @admin_user.id,
                                    :old_described_state => 'waiting_response',
                                    :described_state => 'rejected'}
-                @dog_request.should_receive(:log_event).with("status_update", expected_params)
+                @dog_request.should_receive(:log_event).with("status_update", expected_params).and_return(event)
+                post_status('rejected')
+            end
+
+            it 'should record a classification' do
+                event = mock_model(InfoRequestEvent)
+                @dog_request.stub!(:log_event).with("status_update", expected_params).and_return(event)
+                RequestClassification.should_receive(:create!).with(:user_id => @admin_user.id,
+                                                                    :info_request_event_id => event.id)
                 post_status('rejected')
             end
 
