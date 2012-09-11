@@ -7,6 +7,7 @@ configuration = YAML.load_file('config/deploy.yml')[stage]
 
 set :application, 'alaveteli'
 set :scm, :git
+set :deploy_via, :remote_cache
 set :repository, configuration['repository']
 set :deploy_to, configuration['path']
 set :user, configuration['user']
