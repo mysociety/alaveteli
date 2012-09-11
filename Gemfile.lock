@@ -19,6 +19,7 @@ GEM
       activesupport (= 2.3.14)
     activesupport (2.3.14)
     annotate (2.4.0)
+    cape (1.4.0)
     capistrano (2.13.3)
       highline
       net-scp (>= 1.0.0)
@@ -86,6 +87,7 @@ PLATFORMS
 
 DEPENDENCIES
   annotate
+  cape
   capistrano
   fakeweb
   fast_gettext (>= 0.6.0)
