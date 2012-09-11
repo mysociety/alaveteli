@@ -22,6 +22,7 @@ These are the general steps required to get your staging server up and running:
 * `cp releases/[SOME_DATE]/config/general.yml-example shared/general.yml`
 * Edit those files to match your required settings
 * Back on your machine run `cap deploy` and it should successfully deploy
+* Run the DB migrations `cap deploy:migrate`
 * Configure Apache/Passenger with a DocumentRoot of `your_deploy_to/current/public`
 * Phew. Time to admire your work by browsing to the server!
 
