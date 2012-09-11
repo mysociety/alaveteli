@@ -24,6 +24,14 @@ namespace :rake do
   end
 end
 
+# Not in the rake namespace because we're also specifying app-specific arguments here
+namespace :xapian do
+  desc 'Rebuilds the Xapian index as per the ./scripts/rebuild-xapian-index script'
+  task :rebuild_index do
+    run "cd #{current_path} && bundle exec rake xapian:rebuild_index models='PublicBody User InfoRequestEvent' RAILS_ENV=#{rails_env}"
+  end
+end
+
 namespace :deploy do
   desc "Restarting mod_rails with restart.txt"
   task :restart, :roles => :app, :except => { :no_release => true } do
@@ -39,10 +47,11 @@ namespace :deploy do
   task :symlink_configuration do
     links = {
       "#{release_path}/config/database.yml" => "#{shared_path}/database.yml",
-      "#{release_path}/config/general.yml"  => "#{shared_path}/general.yml",
-      "#{release_path}/files"               => "#{shared_path}/files",
-      "#{release_path}/cache"               => "#{shared_path}/cache",
-      "#{release_path}/public/download"     => "#{release_path}/cache/zips/download"
+      "#{release_path}/config/general.yml" => "#{shared_path}/general.yml",
+      "#{release_path}/files" => "#{shared_path}/files",
+      "#{release_path}/cache" => "#{shared_path}/cache",
+      "#{release_path}/vendor/plugins/acts_as_xapian/xapiandbs" => "#{shared_path}/xapiandbs",
+      "#{release_path}/public/download" => "#{release_path}/cache/zips/download"
     }
 
     # "ln -sf <a> <b>" creates a symbolic link but deletes <b> if it already exists
@@ -52,6 +61,7 @@ namespace :deploy do
   after 'deploy:setup' do
     run "mkdir -p #{shared_path}/files"
     run "mkdir -p #{shared_path}/cache"
+    run "mkdir -p #{shared_path}/xapiandbs"
   end
 end
 
