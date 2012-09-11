@@ -1,5 +1,4 @@
 require 'bundler/capistrano'
-require 'cape'
 
 # Deploy to staging by default unless you specify '-S stage=production' on the command line
 set :stage, 'staging' unless exists? :stage
@@ -19,11 +18,9 @@ set :use_sudo, false
 server configuration['server'], :app, :web, :db, :primary => true
 
 namespace :rake do
-  Cape do
-    # Don't simply mirror all rake tasks because of a issue with Cape
-    # https://github.com/njonsson/cape/issues/7
-    mirror_rake_tasks 'themes:install' do |env|
-      env['RAILS_ENV'] = rails_env
+  namespace :themes do
+    task :install do
+      run "cd #{release_path} && bundle exec rake themes:install RAILS_ENV=#{rails_env}"
     end
   end
 end

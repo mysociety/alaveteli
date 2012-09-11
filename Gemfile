@@ -36,7 +36,6 @@ gem 'xapian-full-alaveteli', '~> 1.2.9.5'
 gem 'xml-simple'
 gem 'zip'
 gem 'capistrano'
-gem 'cape'
 
 group :test do
   gem 'fakeweb'
