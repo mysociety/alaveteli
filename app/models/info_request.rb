@@ -35,7 +35,7 @@ class InfoRequest < ActiveRecord::Base
     belongs_to :user
     validate :must_be_internal_or_external
 
-    belongs_to :public_body
+    belongs_to :public_body, :counter_cache => true
     validates_presence_of :public_body_id
 
     has_many :outgoing_messages, :order => 'created_at'

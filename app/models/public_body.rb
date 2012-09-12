@@ -186,7 +186,7 @@ class PublicBody < ActiveRecord::Base
     end
 
     acts_as_versioned
-    self.non_versioned_columns << 'created_at' << 'updated_at' << 'first_letter' << 'api_key'
+    self.non_versioned_columns << 'created_at' << 'updated_at' << 'first_letter' << 'api_key' << 'info_requests_count'
     class Version
         attr_accessor :created_at
 
