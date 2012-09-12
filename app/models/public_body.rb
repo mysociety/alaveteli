@@ -47,6 +47,7 @@ class PublicBody < ActiveRecord::Base
     has_tag_string
     before_save :set_api_key, :set_default_publication_scheme
 
+
     translates :name, :short_name, :request_email, :url_name, :notes, :first_letter, :publication_scheme
 
     # Convenience methods for creating/editing translations via forms
@@ -553,7 +554,7 @@ class PublicBody < ActiveRecord::Base
 
     def notes_without_html
         # assume notes are reasonably behaved HTML, so just use simple regexp on this
-        self.notes.nil? ? '' : self.notes.gsub(/<\/?[^>]*>/, "")
+        @notes_without_html ||= (self.notes.nil? ? '' : self.notes.gsub(/<\/?[^>]*>/, ""))
     end
 
     def json_for_api
