@@ -7,22 +7,22 @@
     </p>
     <h2>Top recent players</h2>
     <table>
-    <% c = 0; for user, count in @league_table_28_days %>
+    <% c = 0; for classifications in @league_table_28_days %>
         <tr>
             <td> <%= c += 1 %>. <td>
-            <td> <%= user_link(user) %> </td>
-            <td> <%=pluralize(count, 'request').gsub(" ", "&nbsp;")%> </td>
+            <td> <%= user_link(classifications.user) %> </td>
+            <td> <%=pluralize(classifications.cnt, 'request').gsub(" ", "&nbsp;")%> </td>
         </tr>
     <% end %>
     </table>
 
     <h2>All time best players</h2>
     <table>
-    <% c = 0; for user, count in @league_table_all_time %>
+    <% c = 0; for classifications in @league_table_all_time %>
         <tr>
             <td> <%= c += 1 %>. <td>
-            <td> <%= user_link(user) %> </td>
-            <td> <%=pluralize(count, 'request').gsub(" ", "&nbsp;")%> </td>
+            <td> <%= user_link(classifications.user) %> </td>
+            <td> <%= pluralize(classifications.cnt, 'request').gsub(" ", "&nbsp;")%> </td>
         </tr>
     <% end %>
     </table>

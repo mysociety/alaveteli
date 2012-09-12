@@ -422,19 +422,19 @@ class RequestController < ApplicationController
         old_described_state = @info_request.described_state
         @info_request.set_described_state(params[:incoming_message][:described_state])
 
-        # If you're not the *actual* requester owner. e.g. you are playing the
+        # If you're not the *actual* requester. e.g. you are playing the
         # classification game, or you're doing this just because you are an
         # admin user (not because you also own the request).
         if !@info_request.is_actual_owning_user?(authenticated_user)
-            # Log what you did, for classification game score purposes. We
-            # don't log if you were the requester XXX This is presumably so you
-            # don't score for classifying your own requests. Could instead
-            # always log and filter at display time.
-            @info_request.log_event("status_update",
+            # Log the status change by someone other than the requester
+            event = @info_request.log_event("status_update",
                 { :user_id => authenticated_user.id,
                   :old_described_state => old_described_state,
                   :described_state => @info_request.described_state,
                 })
+            # Create a classification event for league tables
+            RequestClassification.create!(:user_id => authenticated_user.id,
+                                          :info_request_event_id => event.id)
 
             # Don't give advice on what to do next, as it isn't their request
             RequestMailer.deliver_old_unclassified_updated(@info_request) if !@info_request.is_external?
