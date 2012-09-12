@@ -45,6 +45,7 @@ class PublicBody < ActiveRecord::Base
     has_many :censor_rules, :order => 'created_at desc'
 
     has_tag_string
+    before_save :set_api_key, :set_default_publication_scheme
 
     translates :name, :short_name, :request_email, :url_name, :notes, :first_letter, :publication_scheme
 
@@ -89,13 +90,13 @@ class PublicBody < ActiveRecord::Base
         end
     end
 
-    def after_initialize
+    def set_default_publication_scheme
       # Make sure publication_scheme gets the correct default value.
       # (This would work automatically, were publication_scheme not a translated attribute)
       self.publication_scheme = "" if self.publication_scheme.nil?
     end
 
-    def before_save
+    def set_api_key
       self.api_key = SecureRandom.base64(33) if self.api_key.nil?
     end
 
@@ -549,6 +550,7 @@ class PublicBody < ActiveRecord::Base
     def notes_as_html
         self.notes
     end
+
     def notes_without_html
         # assume notes are reasonably behaved HTML, so just use simple regexp on this
         self.notes.nil? ? '' : self.notes.gsub(/<\/?[^>]*>/, "")
