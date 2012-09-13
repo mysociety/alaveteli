@@ -16,12 +16,25 @@ class AdminRequestController < AdminController
 
     def list
         @query = params[:query]
-        @info_requests = InfoRequest.paginate :order => "created_at desc", :page => params[:page], :per_page => 100,
+        @info_requests = InfoRequest.paginate :order => "created_at desc",
+                                              :page => params[:page],
+                                              :per_page => 100,
             :conditions =>  @query.nil? ? nil : ["lower(title) like lower('%'||?||'%')", @query]
     end
 
     def list_old_unclassified
-        @info_requests = InfoRequest.find_old_unclassified(:conditions => ["prominence = 'normal'"])
+        @info_requests = WillPaginate::Collection.create((params[:page] or 1), 50) do |pager|
+            info_requests = InfoRequest.find_old_unclassified(:conditions => ["prominence = 'normal'"],
+                                                              :limit => pager.per_page,
+                                                              :offset => pager.offset)
+             # inject the result array into the paginated collection:
+             pager.replace(info_requests)
+
+             unless pager.total_entries
+               # the pager didn't manage to guess the total count, do it manually
+               pager.total_entries = InfoRequest.count_old_unclassified(:conditions => ["prominence = 'normal'"])
+             end
+         end
     end
 
     def show
