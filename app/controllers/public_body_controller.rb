@@ -7,7 +7,7 @@
 #
 # $Id: public_body_controller.rb,v 1.8 2009-09-14 13:27:00 francis Exp $
 
-require 'csv'
+require 'fastercsv'
 
 class PublicBodyController < ApplicationController
     # XXX tidy this up with better error messages, and a more standard infrastructure for the redirect to canonical URL
@@ -148,10 +148,10 @@ class PublicBodyController < ApplicationController
     end
 
     def list_all_csv
-        public_bodies = PublicBody.find(:all, :order => 'url_name')
-        report = StringIO.new
-        CSV::Writer.generate(report, ',') do |title|
-            title << [
+        public_bodies = PublicBody.find(:all, :order => 'url_name',
+                                              :include => [:translations, :tags])
+        report = FasterCSV.generate() do |csv|
+            csv << [
                     'Name',
                     'Short name',
                     # deliberately not including 'Request email'
@@ -164,7 +164,7 @@ class PublicBodyController < ApplicationController
                     'Version',
             ]
             public_bodies.each do |public_body|
-                title << [
+                csv << [
                     public_body.name,
                     public_body.short_name,
                     # DO NOT include request_email (we don't want to make it
@@ -179,8 +179,7 @@ class PublicBodyController < ApplicationController
                 ]
             end
         end
-        report.rewind
-        send_data(report.read, :type=> 'text/csv; charset=utf-8; header=present',
+        send_data(report, :type=> 'text/csv; charset=utf-8; header=present',
                   :filename => 'all-authorities.csv',
                   :disposition =>'attachment', :encoding => 'utf8')
     end

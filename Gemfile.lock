@@ -28,6 +28,7 @@ GEM
     columnize (0.3.6)
     fakeweb (1.3.0)
     fast_gettext (0.6.8)
+    fastercsv (1.5.5)
     gettext (2.2.1)
       locale
     highline (1.6.13)
@@ -89,6 +90,7 @@ DEPENDENCIES
   capistrano
   fakeweb
   fast_gettext (>= 0.6.0)
+  fastercsv (>= 1.5.5)
   gettext (>= 1.9.3)
   gettext_i18n_rails (>= 0.6.0)!
   json (~> 1.5.1)
