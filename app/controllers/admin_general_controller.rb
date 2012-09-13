@@ -61,16 +61,59 @@ class AdminGeneralController < AdminController
             @events_title = "Events, all time"
             date_back_to = Time.now - 1000.years
         end
-        @events = InfoRequestEvent.find(:all, :order => "created_at desc, id desc",
-                :conditions => ["created_at > ? ", date_back_to.getutc])
-        @public_body_history = PublicBody.versioned_class.find(:all, :order => "updated_at desc, id desc",
-                :conditions => ["updated_at > ? ", date_back_to.getutc])
-        for pbh in @public_body_history
-            pbh.created_at = pbh.updated_at
-        end
-        @events += @public_body_history
 
-        @events.sort! { |a,b| b.created_at <=> a.created_at }
+        # Get an array of event attributes within the timespan in the format
+        # [id, type_of_model, event_timestamp]
+        # Note that the relevent date for InfoRequestEvents is creation, but
+        # for PublicBodyVersions is update thoughout
+        connection = InfoRequestEvent.connection
+        timestamps = connection.select_rows("SELECT id,'InfoRequestEvent',
+                                                    created_at AS timestamp
+                                             FROM info_request_events
+                                             WHERE created_at > '#{date_back_to.getutc}'
+                                             UNION
+                                             SELECT id, 'PublicBodyVersion',
+                                                  updated_at AS timestamp
+                                             FROM #{PublicBody.versioned_class.table_name}
+                                             WHERE updated_at > '#{date_back_to.getutc}'
+                                             ORDER by timestamp desc")
+        @events = WillPaginate::Collection.create((params[:page] or 1), 100) do |pager|
+            # create a hash for each model type being returned
+            info_request_event_ids = {}
+            public_body_version_ids = {}
+            # get the relevant slice from the paginator
+            timestamps.slice(pager.offset, pager.per_page).each_with_index do |event, index|
+                # for each event in the slice, add an item to the hash for the model type
+                # whose key is the model id, and value is the position in the slice
+                if event[1] == 'InfoRequestEvent'
+                    info_request_event_ids[event[0].to_i] = index
+                else
+                    public_body_version_ids[event[0].to_i] = index
+                end
+            end
+            # get all the models in the slice, eagerly loading the associations we use in the view
+            public_body_versions = PublicBody.versioned_class.find(:all,
+                                          :conditions => ['id in (?)', public_body_version_ids.keys],
+                                          :include => [ { :public_body => :translations }])
+            info_request_events = InfoRequestEvent.find(:all,
+                                          :conditions => ['id in (?)', info_request_event_ids.keys],
+                                          :include => [:info_request])
+            @events = []
+            # drop the models into a combined array, ordered by their position in the timestamp slice
+            public_body_versions.each do |version|
+                @events[public_body_version_ids[version.id]] = [version, version.updated_at]
+            end
+            info_request_events.each do |event|
+                @events[info_request_event_ids[event.id]] = [event, event.created_at]
+            end
+
+            # inject the result array into the paginated collection:
+            pager.replace(@events)
+
+            # set the total entries for the page to the overall number of results
+            pager.total_entries = timestamps.size
+        end
+
     end
 
     def stats
