@@ -29,7 +29,7 @@ describe RequestMailer, " when receiving incoming mail" do
         InfoRequest.holding_pen_request.incoming_messages.size.should == 1
         last_event = InfoRequest.holding_pen_request.incoming_messages[0].info_request.get_last_event
         last_event.params[:rejected_reason].should == "Could not identify the request from the email address"
-        
+
         deliveries = ActionMailer::Base.deliveries
         deliveries.size.should == 1
         mail = deliveries[0]
@@ -49,7 +49,7 @@ describe RequestMailer, " when receiving incoming mail" do
         InfoRequest.holding_pen_request.incoming_messages.size.should == 1
         last_event = InfoRequest.holding_pen_request.incoming_messages[0].info_request.get_last_event
         last_event.params[:rejected_reason].should =~ /there is no "From" address/
-        
+
         deliveries = ActionMailer::Base.deliveries
         deliveries.size.should == 1
         mail = deliveries[0]
@@ -69,7 +69,7 @@ describe RequestMailer, " when receiving incoming mail" do
         InfoRequest.holding_pen_request.incoming_messages.size.should == 1
         last_event = InfoRequest.holding_pen_request.incoming_messages[0].info_request.get_last_event
         last_event.params[:rejected_reason].should =~ /Only the authority can reply/
-        
+
         deliveries = ActionMailer::Base.deliveries
         deliveries.size.should == 1
         mail = deliveries[0]
@@ -222,12 +222,27 @@ describe RequestMailer, "when sending reminders to requesters to classify a resp
         RequestMailer.alert_new_response_reminders_internal(7, 'new_response_reminder_1')
     end
 
-    it 'should ask for all requests that are awaiting description and whose latest response is older than the number of days given and that are not the holding pen' do
-        expected_params = {:conditions => [ "awaiting_description = ? and (select created_at from info_request_events where info_request_events.info_request_id = info_requests.id and info_request_events.event_type = 'response' order by created_at desc limit 1) < ? and url_title != 'holding_pen' and user_id is not null",
-                           true, Time.now() - 7.days ],
-                           :include => [ :user ],
-                           :order => "info_requests.id"}
-        InfoRequest.should_receive(:find).with(:all, expected_params).and_return([])
+    it 'should ask for all requests that are awaiting description and whose latest response is older
+        than the number of days given and that are not the holding pen' do
+        expected_conditions = [ "awaiting_description = ?
+                                 AND (SELECT created_at
+                                      FROM info_request_events
+                                      WHERE info_request_events.info_request_id = info_requests.id
+                                      AND info_request_events.event_type = 'response'
+                                      ORDER BY created_at desc LIMIT 1) < ?
+                                 AND url_title != 'holding_pen'
+                                 AND user_id IS NOT NULL".split(' ').join(' '),
+                                 true, Time.now() - 7.days ]
+
+        # compare the query string ignoring any spacing differences
+        InfoRequest.should_receive(:find) do |all, query_params|
+            query_string = query_params[:conditions][0]
+            query_params[:conditions][0] = query_string.split(' ').join(' ')
+            query_params[:conditions].should == expected_conditions
+            query_params[:include].should == [ :user ]
+            query_params[:order].should == 'info_requests.id'
+        end
+
         send_alerts
     end
 

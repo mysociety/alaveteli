@@ -9,7 +9,7 @@ irb
 wv
 poppler-utils
 pdftk (>> 1.41+dfsg-1) | pdftk (<< 1.41+dfsg-1) # that version has a non-functionining uncompress option
-gs-gpl
+ghostscript
 catdoc
 links
 elinks
