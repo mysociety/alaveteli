@@ -6,10 +6,11 @@
 <ul>
 <% for @request in @info_requests %>
     <li>
-        <%= request_both_links(@request) %> 
+        <%= request_both_links(@request) %>
         &ndash; <%=simple_date(@request.get_last_response_event.created_at)%>
     </li>
 <% end %>
 </ul>
+<%= will_paginate(@info_requests) %>
 
 

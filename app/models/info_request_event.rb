@@ -43,7 +43,7 @@ class InfoRequestEvent < ActiveRecord::Base
          'resent',
          'followup_sent',
          'followup_resent',
-         
+
          'edit', # title etc. edited (in admin interface)
          'edit_outgoing', # outgoing message edited (in admin interface)
          'edit_comment', # comment edited (in admin interface)
@@ -53,7 +53,7 @@ class InfoRequestEvent < ActiveRecord::Base
          'move_request', # changed user or public body (in admin interface)
          'hide', # hid a request (in admin interface)
          'manual', # you did something in the db by hand
-         
+
          'response',
          'comment',
          'status_update'
@@ -387,24 +387,6 @@ class InfoRequestEvent < ActiveRecord::Base
             return false
         end
         return TMail::Address.parse(prev_addr).address == TMail::Address.parse(curr_addr).address
-    end
-
-    # Given a find condition clause, creates a league table of users who made those events.
-    # XXX this isn't very generic yet, it is just used for the categorisation game tables.
-    def InfoRequestEvent.make_league_table(conditions)
-        status_update_events = InfoRequestEvent.find(:all, :conditions => conditions)
-        table = Hash.new { |h,k| h[k] = 0 }
-        for event in status_update_events
-            user_id = event.params[:user_id]
-            table[user_id] += 1
-        end
-        league_table = []
-        for user_id, count in table
-            user = User.find(user_id)
-            league_table.push([user, count])
-        end
-        league_table.sort! { |a,b| b[1] <=> a[1] }
-        return league_table
     end
 
     def json_for_api(deep, snippet_highlight_proc = nil)

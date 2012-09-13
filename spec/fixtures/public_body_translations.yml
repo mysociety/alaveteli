@@ -1,4 +1,4 @@
-geraldine_es_public_body_translation: 
+geraldine_es_public_body_translation:
   name: El A Geraldine Quango
   first_letter: E
   request_email: geraldine-requests@localhost
@@ -8,8 +8,9 @@ geraldine_es_public_body_translation:
   url_name: etgq
   locale: es
   notes: ""
+  publication_scheme: ""
 
-geraldine_en_public_body_translation: 
+geraldine_en_public_body_translation:
   name: Geraldine Quango
   first_letter: G
   request_email: geraldine-requests@localhost
@@ -19,8 +20,9 @@ geraldine_en_public_body_translation:
   url_name: tgq
   locale: en
   notes: ""
+  publication_scheme: ""
 
-humpadink_es_public_body_translation: 
+humpadink_es_public_body_translation:
   name: "El Department for Humpadinking"
   first_letter: E
   request_email: humpadink-requests@localhost
@@ -30,8 +32,9 @@ humpadink_es_public_body_translation:
   url_name: edfh
   locale: es
   notes: Baguette
+  publication_scheme: ""
 
-humpadink_en_public_body_translation: 
+humpadink_en_public_body_translation:
   name: "Department for Humpadinking"
   first_letter: D
   request_email: humpadink-requests@localhost
@@ -41,8 +44,9 @@ humpadink_en_public_body_translation:
   url_name: dfh
   locale: en
   notes: An albatross told me!!!
+  publication_scheme: ""
 
-forlorn_en_public_body_translation: 
+forlorn_en_public_body_translation:
   name: "Department of Loneliness"
   first_letter: D
   request_email: forlorn-requests@localhost

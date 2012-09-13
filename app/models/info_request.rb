@@ -35,7 +35,7 @@ class InfoRequest < ActiveRecord::Base
     belongs_to :user
     validate :must_be_internal_or_external
 
-    belongs_to :public_body
+    belongs_to :public_body, :counter_cache => true
     validates_presence_of :public_body_id
 
     has_many :outgoing_messages, :order => 'created_at'
@@ -223,7 +223,7 @@ class InfoRequest < ActiveRecord::Base
             incoming_message.clear_in_database_caches!
         end
     end
-    
+
     # For debugging
     def InfoRequest.profile_search(query)
         t = Time.now.usec
@@ -939,26 +939,54 @@ public
     # Used to find when event last changed
     def InfoRequest.last_event_time_clause(event_type=nil)
         event_type_clause = ''
-        event_type_clause = " and info_request_events.event_type = '#{event_type}'" if event_type
-        "(select created_at from info_request_events where info_request_events.info_request_id = info_requests.id#{event_type_clause} order by created_at desc limit 1)"
+        event_type_clause = " AND info_request_events.event_type = '#{event_type}'" if event_type
+        "(SELECT created_at
+          FROM info_request_events
+          WHERE info_request_events.info_request_id = info_requests.id
+          #{event_type_clause}
+          ORDER BY created_at desc
+          LIMIT 1)"
+    end
+
+    def InfoRequest.old_unclassified_params(extra_params, include_last_response_time=false)
+        last_response_created_at = last_event_time_clause('response')
+        age = extra_params[:age_in_days] ? extra_params[:age_in_days].days : OLD_AGE_IN_DAYS
+        params = { :conditions => ["awaiting_description = ?
+                                    AND #{last_response_created_at} < ?
+                                    AND url_title != 'holding_pen'
+                                    AND user_id IS NOT NULL",
+                                    true, Time.now() - age] }
+        if include_last_response_time
+            params[:select] = "*, #{last_response_created_at} AS last_response_time"
+            params[:order] = 'last_response_time'
+        end
+        return params
+    end
+
+    def InfoRequest.count_old_unclassified(extra_params={})
+        params = old_unclassified_params(extra_params)
+        count(:all, params)
+    end
+
+    def InfoRequest.get_random_old_unclassified(limit)
+        params = old_unclassified_params({})
+        params[:limit] = limit
+        params[:order] = "random()"
+        find(:all, params)
     end
 
     def InfoRequest.find_old_unclassified(extra_params={})
-        last_response_created_at = last_event_time_clause('response')
-        age = extra_params[:age_in_days] ? extra_params[:age_in_days].days : OLD_AGE_IN_DAYS
-        params = {:select => "*, #{last_response_created_at} as last_response_time",
-                  :conditions => ["awaiting_description = ? and #{last_response_created_at} < ? and url_title != 'holding_pen' and user_id is not null",
-                                 true, Time.now() - age],
-                                 :order => "last_response_time"}
-        params[:limit] = extra_params[:limit] if extra_params[:limit]
-        params[:include] = extra_params[:include] if extra_params[:include]
+        params = old_unclassified_params(extra_params, include_last_response_time=true)
+        [:limit, :include, :offset].each do |extra|
+            params[extra] = extra_params[extra] if extra_params[extra]
+        end
         if extra_params[:order]
             params[:order] = extra_params[:order]
             params.delete(:select)
         end
         if extra_params[:conditions]
             condition_string = extra_params[:conditions].shift
-            params[:conditions][0] += " and #{condition_string}"
+            params[:conditions][0] += " AND #{condition_string}"
             params[:conditions] += extra_params[:conditions]
         end
         find(:all, params)
