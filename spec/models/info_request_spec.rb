@@ -341,6 +341,14 @@ describe InfoRequest do
             InfoRequest.find_old_unclassified(:limit => 5)
         end
 
+        it 'should ask for requests using any offset param supplied' do
+            InfoRequest.should_receive(:find).with(:all, {:select => anything,
+                                                          :order => anything,
+                                                          :conditions=> anything,
+                                                          :offset => 100})
+            InfoRequest.find_old_unclassified(:offset => 100)
+        end
+
         it 'should not limit the number of requests returned by default' do
             InfoRequest.should_not_receive(:find).with(:all, {:select => anything,
                                                               :order => anything,

@@ -977,8 +977,9 @@ public
 
     def InfoRequest.find_old_unclassified(extra_params={})
         params = old_unclassified_params(extra_params, include_last_response_time=true)
-        params[:limit] = extra_params[:limit] if extra_params[:limit]
-        params[:include] = extra_params[:include] if extra_params[:include]
+        [:limit, :include, :offset].each do |extra|
+            params[extra] = extra_params[extra] if extra_params[extra]
+        end
         if extra_params[:order]
             params[:order] = extra_params[:order]
             params.delete(:select)
