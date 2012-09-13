@@ -16,7 +16,9 @@ class AdminRequestController < AdminController
 
     def list
         @query = params[:query]
-        @info_requests = InfoRequest.paginate :order => "created_at desc", :page => params[:page], :per_page => 100,
+        @info_requests = InfoRequest.paginate :order => "created_at desc",
+                                              :page => params[:page],
+                                              :per_page => 100,
             :conditions =>  @query.nil? ? nil : ["lower(title) like lower('%'||?||'%')", @query]
     end
 
