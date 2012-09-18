@@ -331,7 +331,8 @@ not to run your site behind Varnish (see below).
 The cron jobs refer to a program `run-with-lockfile`. See
 [this issue](https://github.com/mysociety/alaveteli/issues/112) for a
 discussion of where to find this program, and how you might replace
-it.
+it. This [one line script](https://gist.github.com/3741194) can install
+this program system-wide.
 
 # Set up production web server
 
