@@ -13,8 +13,10 @@ end
 # 5,15,25,35,45,55 * * * * !!(*= $user *)!! /etc/init.d/foi-alert-tracks check
 # 5,15,25,35,45,55 * * * * !!(*= $user *)!! /etc/init.d/foi-purge-varnish check
 
-# # Once an hour
-# 09 * * * * !!(*= $user *)!! run-with-lockfile -n /data/vhost/!!(*= $vhost *)!!/alert-comment-on-request.lock /data/vhost/!!(*= $vhost *)!!/!!(*= $vcspath *)!!/script/alert-comment-on-request || echo "stalled?"
+every :hour, :at => 9 do
+  # TODO: Replace script with runner task that Whenever natively supports
+  run_with_lockfile './script/alert-comment-on-request', :lockfile_name => 'alert-comment-on-request'
+end
 
 # # Only root can read the exim log files
 # 31 * * * * root run-with-lockfile -n /data/vhost/!!(*= $vhost *)!!/load-exim-logs.lock /data/vhost/!!(*= $vhost *)!!/!!(*= $vcspath *)!!/script/load-exim-logs || echo "stalled?"
