@@ -3,10 +3,6 @@ require 'bundler/capistrano'
 set :stage, 'staging' unless exists? :stage
 configuration = YAML.load_file('config/deploy.yml')[stage]
 
-set :whenever_command, 'bundle exec whenever'
-set :whenever_identifier, defer { "#{application}_#{stage}" }
-require 'whenever/capistrano'
-
 set :application, 'alaveteli'
 set :scm, :git
 set :deploy_via, :remote_cache
@@ -16,6 +12,11 @@ set :git_enable_submodules, true
 set :deploy_to, configuration['deploy_to']
 set :user, configuration['user']
 set :use_sudo, false
+
+set :whenever_command, 'bundle exec whenever'
+set :whenever_identifier, defer { "#{application}_#{stage}" }
+set :whenever_variables, defer { "environment=#{fetch :whenever_environment}&path=#{fetch :current_path}" }
+require 'whenever/capistrano'
 
 server configuration['server'], :app, :web, :db, :primary => true
 
