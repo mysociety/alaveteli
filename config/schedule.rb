@@ -1,20 +1,7 @@
 # Use this file to easily define all of your cron jobs.
-#
-# It's helpful, but not entirely necessary to understand cron before proceeding.
-# http://en.wikipedia.org/wiki/Cron
 
-# Example:
-#
-# set :output, "/path/to/my/cron_log.log"
-#
-# every 2.hours do
-#   command "/usr/bin/some_great_command"
-#   runner "MyModel.some_method"
-#   rake "some:great:rake:task"
-# end
-#
-# every 4.days do
-#   runner "AnotherModel.prune_old_records"
-# end
-
-# Learn more: http://github.com/javan/whenever
+every 5.minutes do
+  # TODO: Replace run-with-lockfile command with something more Rubyesque
+  # TODO: Replace with Raketask xapian:rebuild_index
+  command "run-with-lockfile -n #{Whenever.path}/change-xapian-database.lock \"#{Whenever.path}/script/update-xapian-index verbose=true\" >> #{Whenever.path}/logs/update-xapian-index.log || echo \"stalled?\""
+end
