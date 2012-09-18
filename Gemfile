@@ -37,6 +37,7 @@ gem 'xapian-full-alaveteli', '~> 1.2.9.5'
 gem 'xml-simple'
 gem 'zip'
 gem 'capistrano'
+gem 'whenever', :require => false
 
 group :test do
   gem 'fakeweb'
