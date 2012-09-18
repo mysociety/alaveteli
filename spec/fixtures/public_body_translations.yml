@@ -56,6 +56,7 @@ forlorn_en_public_body_translation:
   url_name: lonely
   locale: en
   notes: A very lonely public body that no one has corresponded with
+  publication_scheme: ""
 
 silly_walks_en_public_body_translation:
   id: 6
@@ -67,6 +68,7 @@ silly_walks_en_public_body_translation:
   short_name: MSW
   url_name: msw
   notes: You know the one.
+  publication_scheme: ""
 
 sensible_walks_en_public_body_translation:
   id: 7
@@ -78,3 +80,4 @@ sensible_walks_en_public_body_translation:
   short_name: SenseWalk
   url_name: sensible_walks
   notes: I bet you’ve never heard of it.
+  publication_scheme: ""
