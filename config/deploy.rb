@@ -15,7 +15,7 @@ set :use_sudo, false
 
 set :whenever_command, 'bundle exec whenever'
 set :whenever_identifier, defer { "#{application}_#{stage}" }
-set :whenever_variables, defer { "environment=#{fetch :whenever_environment}&path=#{fetch :current_path}" }
+set :whenever_variables, defer { "'environment=#{fetch :whenever_environment}&path=#{fetch :current_path}'" }
 require 'whenever/capistrano'
 
 server configuration['server'], :app, :web, :db, :primary => true
