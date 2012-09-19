@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
-"POT-Creation-Date: 2012-08-24 09:20+0100\n"
+"POT-Creation-Date: 2012-09-19 09:37+0100\n"
 "PO-Revision-Date: 2011-03-09 17:48+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1779,6 +1779,9 @@ msgstr ""
 msgid "PublicBody|Home page"
 msgstr ""
 
+msgid "PublicBody|Info requests count"
+msgstr ""
+
 msgid "PublicBody|Last edit comment"
 msgstr ""
 
@@ -3135,6 +3138,9 @@ msgid "all requests"
 msgstr ""
 
 msgid "also called {{public_body_short_name}}"
+msgstr ""
+
+msgid "an anonymous user"
 msgstr ""
 
 msgid "and"
