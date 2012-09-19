@@ -71,6 +71,7 @@ class AdminRequestController < AdminController
         old_allow_new_responses_from = @info_request.allow_new_responses_from
         old_handle_rejected_responses = @info_request.handle_rejected_responses
         old_tag_string = @info_request.tag_string
+        old_comments_allowed = @info_request.comments_allowed
 
         @info_request.title = params[:info_request][:title]
         @info_request.prominence = params[:info_request][:prominence]
@@ -81,6 +82,7 @@ class AdminRequestController < AdminController
         @info_request.allow_new_responses_from = params[:info_request][:allow_new_responses_from]
         @info_request.handle_rejected_responses = params[:info_request][:handle_rejected_responses]
         @info_request.tag_string = params[:info_request][:tag_string]
+        @info_request.comments_allowed = params[:info_request][:comments_allowed] == "true" ? true : false
 
         if @info_request.valid?
             @info_request.save!
@@ -92,7 +94,8 @@ class AdminRequestController < AdminController
                     :old_awaiting_description => old_awaiting_description, :awaiting_description => @info_request.awaiting_description,
                     :old_allow_new_responses_from => old_allow_new_responses_from, :allow_new_responses_from => @info_request.allow_new_responses_from,
                     :old_handle_rejected_responses => old_handle_rejected_responses, :handle_rejected_responses => @info_request.handle_rejected_responses,
-                    :old_tag_string => old_tag_string, :tag_string => @info_request.tag_string
+                    :old_tag_string => old_tag_string, :tag_string => @info_request.tag_string,
+                    :old_comments_allowed => old_comments_allowed, :tag_string => @info_request.comments_allowed
                 })
             # expire cached files
             expire_for_request(@info_request)
