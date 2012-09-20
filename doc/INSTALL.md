@@ -326,7 +326,7 @@ which lives in `config/alert-tracks-debian.ugly`.  As with the cron
 jobs above, replace the variables (and/or bits near the variables)
 with paths to your software.  `config/purge-varnish-debian.ugly` is a
 similar init script, which is optional and not required if you choose
-not to run your site behind Varnish (see below). Add the following line to your
+not to run your site behind Varnish (see below). Either tweak the file permissions to make the script executable by your deploy user, or add the following line to your
 sudoers file to allow these to be run by your deploy user (named `deploy` in
 this case):
 
