@@ -18,10 +18,11 @@ DAEMON_ARGS="--daemon TrackMailer.alert_tracks_loop"
 PIDFILE=/data/vhost/!!(*= $vhost *)!!/alert-tracks.pid
 LOGFILE=/data/vhost/!!(*= $vhost *)!!/logs/alert-tracks.log
 DUSER=!!(*= $user *)!!
+RAILS_ENV=production
 
 trap "" 1
 
-export PIDFILE LOGFILE
+export PIDFILE LOGFILE RAILS_ENV
 
 quietly_start_daemon() {
     /sbin/start-stop-daemon --quiet --start --pidfile "$PIDFILE" --chuid "$DUSER" --startas "$DAEMON" -- $DAEMON_ARGS
