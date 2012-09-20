@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
-"POT-Creation-Date: 2012-08-24 09:20+0100\n"
-"PO-Revision-Date: 2012-08-24 10:33+0000\n"
+"POT-Creation-Date: 2012-09-19 09:37+0100\n"
+"PO-Revision-Date: 2012-09-19 08:48+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1969,6 +1969,9 @@ msgstr "Primera letra"
 msgid "PublicBody|Home page"
 msgstr "Sitio web"
 
+msgid "PublicBody|Info requests count"
+msgstr ""
+
 msgid "PublicBody|Last edit comment"
 msgstr "PublicBody|Last edit comment"
 
@@ -3453,6 +3456,9 @@ msgstr "eskabide guztiak"
 
 msgid "also called {{public_body_short_name}}"
 msgstr "{{public_body_short_name}} izenez ere ezaguna."
+
+msgid "an anonymous user"
+msgstr ""
 
 msgid "and"
 msgstr "eta"

@@ -222,6 +222,10 @@ describe PublicBody, "when searching" do
             body.name.should == "El A Geraldine Quango"
         end
     end
+
+    it 'should not raise an error on a name with a single quote in it' do
+        body = PublicBody.find_by_url_name_with_historic("belfast city council'")
+    end
 end
 
 describe PublicBody, " when dealing public body locales" do
@@ -403,6 +407,7 @@ describe PublicBody, " when loading CSV files" do
 end
 
 describe PublicBody do
+
   describe "calculated home page" do
     it "should return the home page verbatim if it's present" do
       public_body = PublicBody.new
@@ -434,4 +439,17 @@ describe PublicBody do
       public_body.calculated_home_page.should == "https://example.com"
     end
   end
+
+    describe 'when asked for notes without html' do
+
+        before do
+            @public_body = PublicBody.new(:notes => 'some <a href="/notes">notes</a>')
+        end
+
+        it 'should remove simple tags from notes' do
+            @public_body.notes_without_html.should == 'some notes'
+        end
+
+    end
+
 end

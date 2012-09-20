@@ -341,6 +341,14 @@ describe InfoRequest do
             InfoRequest.find_old_unclassified(:limit => 5)
         end
 
+        it 'should ask for requests using any offset param supplied' do
+            InfoRequest.should_receive(:find).with(:all, {:select => anything,
+                                                          :order => anything,
+                                                          :conditions=> anything,
+                                                          :offset => 100})
+            InfoRequest.find_old_unclassified(:offset => 100)
+        end
+
         it 'should not limit the number of requests returned by default' do
             InfoRequest.should_not_receive(:find).with(:all, {:select => anything,
                                                               :order => anything,
@@ -350,20 +358,49 @@ describe InfoRequest do
         end
 
         it 'should add extra conditions if supplied' do
-            InfoRequest.should_receive(:find).with(:all,
-                  {:select=> anything,
-                   :order=> anything,
-                   :conditions=>["awaiting_description = ? and (select created_at from info_request_events where info_request_events.info_request_id = info_requests.id and info_request_events.event_type = 'response' order by created_at desc limit 1) < ? and url_title != 'holding_pen' and user_id is not null and prominence != 'backpage'",
-                    true, Time.now - 21.days]})
+            expected_conditions = ["awaiting_description = ?
+                                    AND (SELECT created_at
+                                         FROM info_request_events
+                                         WHERE info_request_events.info_request_id = info_requests.id
+                                         AND info_request_events.event_type = 'response'
+                                         ORDER BY created_at desc LIMIT 1) < ?
+                                    AND url_title != 'holding_pen'
+                                    AND user_id IS NOT NULL
+                                    AND prominence != 'backpage'".split(' ').join(' '),
+                                    true, Time.now - 21.days]
+            # compare conditions ignoring whitespace differences
+            InfoRequest.should_receive(:find) do |all, query_params|
+                query_string = query_params[:conditions][0]
+                query_params[:conditions][0] = query_string.split(' ').join(' ')
+                query_params[:conditions].should == expected_conditions
+            end
             InfoRequest.find_old_unclassified({:conditions => ["prominence != 'backpage'"]})
         end
 
-        it 'should ask the database for requests that are awaiting description, have a last response older than 21 days old, are not the holding pen and are not backpaged' do
-            InfoRequest.should_receive(:find).with(:all,
-                  {:select=>"*, (select created_at from info_request_events where info_request_events.info_request_id = info_requests.id and info_request_events.event_type = 'response' order by created_at desc limit 1) as last_response_time",
-                   :order=>"last_response_time",
-                   :conditions=>["awaiting_description = ? and (select created_at from info_request_events where info_request_events.info_request_id = info_requests.id and info_request_events.event_type = 'response' order by created_at desc limit 1) < ? and url_title != 'holding_pen' and user_id is not null",
-                    true, Time.now - 21.days]})
+        it 'should ask the database for requests that are awaiting description, have a last response older
+        than 21 days old, have a user, are not the holding pen and are not backpaged' do
+            expected_conditions = ["awaiting_description = ?
+                                    AND (SELECT created_at
+                                         FROM info_request_events
+                                         WHERE info_request_events.info_request_id = info_requests.id
+                                         AND info_request_events.event_type = 'response'
+                                         ORDER BY created_at desc LIMIT 1) < ?
+                                    AND url_title != 'holding_pen'
+                                    AND user_id IS NOT NULL".split(' ').join(' '),
+                                    true, Time.now - 21.days]
+            expected_select = "*, (SELECT created_at
+                                   FROM info_request_events
+                                   WHERE info_request_events.info_request_id = info_requests.id
+                                   AND info_request_events.event_type = 'response'
+                                   ORDER BY created_at desc LIMIT 1)
+                                   AS last_response_time".split(' ').join(' ')
+            InfoRequest.should_receive(:find) do |all, query_params|
+                query_string = query_params[:conditions][0]
+                query_params[:conditions][0] = query_string.split(' ').join(' ')
+                query_params[:conditions].should == expected_conditions
+                query_params[:select].split(' ').join(' ').should == expected_select
+                query_params[:order].should == "last_response_time"
+            end
             InfoRequest.find_old_unclassified
         end
 

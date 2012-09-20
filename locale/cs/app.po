@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Hana Huntova <>, 2012.
 # Jana Kneschke <>, 2012.
@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
-"POT-Creation-Date: 2012-08-24 09:20+0100\n"
-"PO-Revision-Date: 2012-09-04 16:59+0000\n"
-"Last-Translator: janakneschke <jana.kneschke@gmail.com>\n"
+"POT-Creation-Date: 2012-09-19 09:37+0100\n"
+"PO-Revision-Date: 2012-09-19 08:48+0000\n"
+"Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1975,6 +1975,9 @@ msgstr "PublicBody | První dopis"
 msgid "PublicBody|Home page"
 msgstr "PublicBody | Domovská stránka"
 
+msgid "PublicBody|Info requests count"
+msgstr ""
+
 msgid "PublicBody|Last edit comment"
 msgstr "PublicBody | Naposled aktualizovaný komentář"
 
@@ -3465,6 +3468,9 @@ msgstr "všechny dotazy"
 
 msgid "also called {{public_body_short_name}}"
 msgstr "také se nazývá {{public_body_short_name}}"
+
+msgid "an anonymous user"
+msgstr ""
 
 msgid "and"
 msgstr "a"
