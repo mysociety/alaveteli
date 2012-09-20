@@ -328,11 +328,14 @@ One of the cron jobs refers to a script at
 `/etc/init.d/foi-alert-tracks`.  This is an init script, a copy of
 which lives in `config/alert-tracks-debian.ugly`.  As with the cron
 jobs above, replace the variables (and/or bits near the variables)
-with paths to your software.  `config/purge-varnish-debian.ugly` is a
+with paths to your software. You can use the rake task `rake
+config_files:convert_init_script` to do this.
+`config/purge-varnish-debian.ugly` is a
 similar init script, which is optional and not required if you choose
-not to run your site behind Varnish (see below). Either tweak the file permissions to make the script executable by your deploy user, or add the following line to your
-sudoers file to allow these to be run by your deploy user (named `deploy` in
-this case):
+not to run your site behind Varnish (see below). Either tweak the file
+permissions to make the scripts executable by your deploy user, or add the
+following line to your sudoers file to allow these to be run by your deploy
+user (named `deploy` in this case):
 
     deploy  ALL = NOPASSWD: /etc/init.d/foi-alert-tracks, /etc/init.d/foi-purge-varnish
 
