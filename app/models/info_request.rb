@@ -35,7 +35,7 @@ class InfoRequest < ActiveRecord::Base
     belongs_to :user
     validate :must_be_internal_or_external
 
-    belongs_to :public_body
+    belongs_to :public_body, :counter_cache => true
     validates_presence_of :public_body_id
 
     has_many :outgoing_messages, :order => 'created_at'
@@ -977,8 +977,9 @@ public
 
     def InfoRequest.find_old_unclassified(extra_params={})
         params = old_unclassified_params(extra_params, include_last_response_time=true)
-        params[:limit] = extra_params[:limit] if extra_params[:limit]
-        params[:include] = extra_params[:include] if extra_params[:include]
+        [:limit, :include, :offset].each do |extra|
+            params[extra] = extra_params[extra] if extra_params[extra]
+        end
         if extra_params[:order]
             params[:order] = extra_params[:order]
             params.delete(:select)

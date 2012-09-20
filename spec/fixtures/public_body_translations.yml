@@ -1,4 +1,4 @@
-geraldine_es_public_body_translation: 
+geraldine_es_public_body_translation:
   name: El A Geraldine Quango
   first_letter: E
   request_email: geraldine-requests@localhost
@@ -8,8 +8,9 @@ geraldine_es_public_body_translation:
   url_name: etgq
   locale: es
   notes: ""
+  publication_scheme: ""
 
-geraldine_en_public_body_translation: 
+geraldine_en_public_body_translation:
   name: Geraldine Quango
   first_letter: G
   request_email: geraldine-requests@localhost
@@ -19,8 +20,9 @@ geraldine_en_public_body_translation:
   url_name: tgq
   locale: en
   notes: ""
+  publication_scheme: ""
 
-humpadink_es_public_body_translation: 
+humpadink_es_public_body_translation:
   name: "El Department for Humpadinking"
   first_letter: E
   request_email: humpadink-requests@localhost
@@ -30,8 +32,9 @@ humpadink_es_public_body_translation:
   url_name: edfh
   locale: es
   notes: Baguette
+  publication_scheme: ""
 
-humpadink_en_public_body_translation: 
+humpadink_en_public_body_translation:
   name: "Department for Humpadinking"
   first_letter: D
   request_email: humpadink-requests@localhost
@@ -41,8 +44,9 @@ humpadink_en_public_body_translation:
   url_name: dfh
   locale: en
   notes: An albatross told me!!!
+  publication_scheme: ""
 
-forlorn_en_public_body_translation: 
+forlorn_en_public_body_translation:
   name: "Department of Loneliness"
   first_letter: D
   request_email: forlorn-requests@localhost
@@ -52,6 +56,7 @@ forlorn_en_public_body_translation:
   url_name: lonely
   locale: en
   notes: A very lonely public body that no one has corresponded with
+  publication_scheme: ""
 
 silly_walks_en_public_body_translation:
   id: 6
@@ -63,6 +68,7 @@ silly_walks_en_public_body_translation:
   short_name: MSW
   url_name: msw
   notes: You know the one.
+  publication_scheme: ""
 
 sensible_walks_en_public_body_translation:
   id: 7
@@ -74,3 +80,4 @@ sensible_walks_en_public_body_translation:
   short_name: SenseWalk
   url_name: sensible_walks
   notes: I bet you’ve never heard of it.
+  publication_scheme: ""

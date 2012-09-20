@@ -3,20 +3,20 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-#   <alex@alexskene.com>, 2011, 2012.
+#   <alex@alexskene.com>, 2011-2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
-"POT-Creation-Date: 2012-08-24 09:20+0100\n"
-"PO-Revision-Date: 2012-08-24 08:21+0000\n"
+"POT-Creation-Date: 2012-09-19 09:37+0100\n"
+"PO-Revision-Date: 2012-09-19 08:48+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: cy\n"
-"Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n==2) ? 1 : (n != 8 && n != 11) ? 2 : 3\n"
+"Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n==2) ? 1 : (n != 8 && n != 11) ? 2 : 3;\n"
 
 msgid ""
 "\n"
@@ -1976,6 +1976,9 @@ msgstr ""
 msgid "PublicBody|Home page"
 msgstr ""
 
+msgid "PublicBody|Info requests count"
+msgstr ""
+
 msgid "PublicBody|Last edit comment"
 msgstr ""
 
@@ -3471,6 +3474,9 @@ msgid "all requests"
 msgstr ""
 
 msgid "also called {{public_body_short_name}}"
+msgstr ""
+
+msgid "an anonymous user"
 msgstr ""
 
 msgid "and"

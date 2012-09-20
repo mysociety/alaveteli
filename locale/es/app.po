@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# David Cabo <david.cabo@gmail.com>, 2011, 2012.
+# David Cabo <david.cabo@gmail.com>, 2011-2012.
 #   <fabrizio.scrollini@gmail.com>, 2012.
 #   <gabelula@gmail.com>, 2012.
 # skenaja <alex@alexskene.com>, 2011.
@@ -12,15 +12,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
-"POT-Creation-Date: 2012-08-24 09:20+0100\n"
-"PO-Revision-Date: 2012-08-24 10:34+0000\n"
+"POT-Creation-Date: 2012-09-19 09:37+0100\n"
+"PO-Revision-Date: 2012-09-19 08:48+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: es\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
 "\n"
@@ -1871,7 +1871,7 @@ msgid "Post annotation"
 msgstr "Enviar comentario"
 
 msgid "Post redirect"
-msgstr ""
+msgstr "Redirigir post"
 
 msgid "PostRedirect|Circumstance"
 msgstr "PostRedirect|Circumstance"
@@ -1946,19 +1946,19 @@ msgid "PublicBody::Translation|Locale"
 msgstr "PublicBody::Translation|Locale"
 
 msgid "PublicBody::Translation|Name"
-msgstr ""
+msgstr "Nombre"
 
 msgid "PublicBody::Translation|Notes"
-msgstr ""
+msgstr "Notas"
 
 msgid "PublicBody::Translation|Publication scheme"
-msgstr ""
+msgstr "Transparencia Activa"
 
 msgid "PublicBody::Translation|Request email"
-msgstr ""
+msgstr "Solicitar Correo"
 
 msgid "PublicBody::Translation|Short name"
-msgstr ""
+msgstr "Nombre Corto"
 
 msgid "PublicBody::Translation|Url name"
 msgstr "<p>Thank you! Here are some ideas on what to do next:</p>⏎\n            <ul>⏎\n            <li>To send your request to another authority, first copy the text of your request below, then <a href=\"{{find_authority_url}}\">find the other authority</a>.</li>⏎\n            <li>If you would like to contest the authority's claim that they do not hold the information, here is⏎\n            <a href=\"{{complain_url}}\">how to complain</a>.⏎\n            </li>⏎\n            <li>We have <a href=\"{{other_means_url}}\">suggestions</a>⏎\n            on other means to answer your question.⏎\n            </li>⏎\n            </ul>"
@@ -1971,6 +1971,9 @@ msgstr "Primera letra"
 
 msgid "PublicBody|Home page"
 msgstr "Sitio web"
+
+msgid "PublicBody|Info requests count"
+msgstr ""
 
 msgid "PublicBody|Last edit comment"
 msgstr "PublicBody|Last edit comment"
@@ -2003,13 +2006,13 @@ msgid "Publication scheme"
 msgstr "Esquema de publicación"
 
 msgid "Purge request"
-msgstr ""
+msgstr "Eliminar pedido"
 
 msgid "PurgeRequest|Model"
-msgstr ""
+msgstr "Modelo"
 
 msgid "PurgeRequest|Url"
-msgstr ""
+msgstr "URL"
 
 msgid "RSS feed"
 msgstr "RSS"
@@ -2617,7 +2620,7 @@ msgid "Things to do with this request"
 msgstr "Cosas que hacer con esta solicitud"
 
 msgid "Things you're following"
-msgstr ""
+msgstr "Pedidos que estas siguiendo"
 
 msgid "This authority no longer exists, so you cannot make a request to it."
 msgstr "Este organismo ya no existe, no pueden realizarse solicitudes de información."
@@ -2685,7 +2688,7 @@ msgid "This request <strong>requires administrator attention</strong>"
 msgstr "Esta solicitud <strong>requiere la intervención de un administrador</strong>"
 
 msgid "This request has already been reported for administrator attention"
-msgstr ""
+msgstr "Este pedido ha sido reportado al administrador del sitio."
 
 msgid "This request has an <strong>unknown status</strong>."
 msgstr "Esta solicitud tiene un <strong>estado desconocido</strong>."
@@ -2693,18 +2696,18 @@ msgstr "Esta solicitud tiene un <strong>estado desconocido</strong>."
 msgid ""
 "This request has been <strong>hidden</strong> from the site, because an "
 "administrator considers it not to be an FOI request"
-msgstr ""
+msgstr "Este pedido ha sido  <strong>removido</strong> del sitio, porque el administrador considera que no es un pedido de acceso a la información publica"
 
 msgid ""
 "This request has been <strong>hidden</strong> from the site, because an "
 "administrator considers it vexatious"
-msgstr ""
+msgstr "Este pedido ha sido  <strong>removido</strong> del sitio, porque el administrador considera que  es un pedido inapropiado"
 
 msgid ""
 "This request has been <strong>reported</strong> as needing administrator "
 "attention (perhaps because it is vexatious, or a request for personal "
 "information)"
-msgstr ""
+msgstr "Este pedido ha sido  <strong>removido</strong> del sitio, porque el administrador considera que  es un pedido inapropiado o solicita informacion personal"
 
 msgid ""
 "This request has been <strong>withdrawn</strong> by the person who made it.\n"
@@ -2718,7 +2721,7 @@ msgid ""
 msgstr ""
 
 msgid "This request has been reported for administrator attention"
-msgstr ""
+msgstr "Este pedido ha sido reportado al administrador del sitio."
 
 msgid ""
 "This request has been set by an administrator to \"allow new responses from "
@@ -2793,7 +2796,7 @@ msgid "To download the zip file"
 msgstr "Descargar el fichero ZIP"
 
 msgid "To follow all successful requests"
-msgstr ""
+msgstr "Sigue todos los pedidos exitosos"
 
 msgid "To follow new requests"
 msgstr ""
@@ -2802,15 +2805,15 @@ msgid "To follow requests and responses matching your search"
 msgstr "Para seguir solicitudes y respuestas que encajen con tu búsqueda"
 
 msgid "To follow requests by '{{user_name}}'"
-msgstr ""
+msgstr "Sigue todos los pedidos por y '{{user_name}}'"
 
 msgid ""
 "To follow requests made using {{site_name}} to the public authority "
 "'{{public_body_name}}'"
-msgstr ""
+msgstr "Sigue todos los pedidos hechos {{site_name}}  a la autoridad publica '{{public_body_name}}'"
 
 msgid "To follow the request '{{request_title}}'"
-msgstr ""
+msgstr "Seguir el pedido  '{{request_title}}'"
 
 msgid ""
 "To help us keep the site tidy, someone else has updated the status of the \n"
@@ -2822,7 +2825,7 @@ msgid ""
 msgstr ""
 
 msgid "To log into the administrative interface"
-msgstr ""
+msgstr " Ingresar como administrador"
 
 msgid "To play the request categorisation game"
 msgstr "Jugar al juego de recategorización de solicitudes"
@@ -2834,7 +2837,7 @@ msgid "To reply to "
 msgstr "Contestar a "
 
 msgid "To report this FOI request"
-msgstr ""
+msgstr "Reportar este pedido de acceso"
 
 msgid "To send a follow up message to "
 msgstr "Enviar una respuesta a "
@@ -2875,13 +2878,13 @@ msgid "Today"
 msgstr "Hoy"
 
 msgid "Too many requests"
-msgstr ""
+msgstr "Demasiados pedidos"
 
 msgid "Top search results:"
 msgstr "Mejores resultados:"
 
 msgid "Track thing"
-msgstr ""
+msgstr " Monitorear"
 
 msgid "Track this person"
 msgstr "Seguir a esta persona"
@@ -2899,7 +2902,7 @@ msgid "TrackThing|Track type"
 msgstr "TrackThing|Track type"
 
 msgid "Turn off email alerts"
-msgstr ""
+msgstr "Descontinuar alertas por correo electronico"
 
 msgid "Tweet this request"
 msgstr "Tuitear esta solicitud"
@@ -2961,10 +2964,10 @@ msgid ""
 msgstr "Utiliza comillas cuando quieras buscar una frase exacta, por ejemplo <strong><code>\"Consejo de Europa\"</code></strong>"
 
 msgid "User"
-msgstr ""
+msgstr "usuario"
 
 msgid "User info request sent alert"
-msgstr ""
+msgstr "Alerta de informacion de usuario enviada"
 
 msgid "UserInfoRequestSentAlert|Alert type"
 msgstr "UserInfoRequestSentAlert|Alert type"
@@ -3012,7 +3015,7 @@ msgid "User|No limit"
 msgstr "User|No limit"
 
 msgid "User|Receive email alerts"
-msgstr ""
+msgstr "Usuario Recibe alertas por correo"
 
 msgid "User|Salt"
 msgstr "User|Salt"
@@ -3168,10 +3171,10 @@ msgid "You"
 msgstr "Tú"
 
 msgid "You are already following new requests"
-msgstr ""
+msgstr "Tu  ya estas siguiendo nuevos pedidos"
 
 msgid "You are already following requests to {{public_body_name}}"
-msgstr ""
+msgstr "Tu ya estas siguiendo pedidos a  {{public_body_name}}"
 
 msgid "You are already following things matching this search"
 msgstr ""
@@ -3456,6 +3459,9 @@ msgstr "todas las solicitudes"
 
 msgid "also called {{public_body_short_name}}"
 msgstr "también conocido como {{public_body_short_name}}"
+
+msgid "an anonymous user"
+msgstr ""
 
 msgid "and"
 msgstr "y"

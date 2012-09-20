@@ -6,22 +6,22 @@
 #   <bresta@gmail.com>, 2011.
 # driton <dritoni.h@gmail.com>, 2011.
 # Hana Huntova <>, 2012.
-# Valon  <vbrestovci@gmail.com>, 2011, 2012.
+# Valon  <vbrestovci@gmail.com>, 2011-2012.
 #   <vbrestovci@gmail.com>, 2011.
 # vbrestovci <vbrestovci@gmail.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
-"POT-Creation-Date: 2012-08-24 09:20+0100\n"
-"PO-Revision-Date: 2012-08-24 10:30+0000\n"
+"POT-Creation-Date: 2012-09-19 09:37+0100\n"
+"PO-Revision-Date: 2012-09-19 08:48+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sq\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
 "\n"
@@ -1973,6 +1973,9 @@ msgstr "PublicBody |Germa e parë"
 msgid "PublicBody|Home page"
 msgstr "PublicBody |Ballina"
 
+msgid "PublicBody|Info requests count"
+msgstr ""
+
 msgid "PublicBody|Last edit comment"
 msgstr "PublicBody | Editimi i fundit i komentit"
 
@@ -3457,6 +3460,9 @@ msgstr "të gjitha kërkesat"
 
 msgid "also called {{public_body_short_name}}"
 msgstr "i quajtur edhe {{public_body_short_name}}"
+
+msgid "an anonymous user"
+msgstr ""
 
 msgid "and"
 msgstr "dhe"

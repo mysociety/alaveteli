@@ -15,21 +15,21 @@
 #   <luis.leao@gmail.com>, 2011.
 #   <Nitaibezerra@gmail.com>, 2012.
 #   <patriciacornils@gmail.com>, 2011.
-#   <pedro@esfera.mobi>, 2011, 2012.
+#   <pedro@esfera.mobi>, 2011-2012.
 #   <rafael.moretti@gmail.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: alaveteli\n"
 "Report-Msgid-Bugs-To: http://github.com/sebbacon/alaveteli/issues\n"
-"POT-Creation-Date: 2012-08-24 09:20+0100\n"
-"PO-Revision-Date: 2012-08-24 10:30+0000\n"
+"POT-Creation-Date: 2012-09-19 09:37+0100\n"
+"PO-Revision-Date: 2012-09-19 08:48+0000\n"
 "Last-Translator: louisecrow <louise@mysociety.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pt_BR\n"
-"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid ""
 "\n"
@@ -1981,6 +1981,9 @@ msgstr "PublicBody | Primeira letra"
 msgid "PublicBody|Home page"
 msgstr "PublicBody | Home page"
 
+msgid "PublicBody|Info requests count"
+msgstr ""
+
 msgid "PublicBody|Last edit comment"
 msgstr "PublicBody | Última edição"
 
@@ -3465,6 +3468,9 @@ msgstr "todos os pedidos"
 
 msgid "also called {{public_body_short_name}}"
 msgstr "também conhecido como {{public_body_short_name}}"
+
+msgid "an anonymous user"
+msgstr ""
 
 msgid "and"
 msgstr "e"

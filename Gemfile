@@ -1,5 +1,5 @@
 # Work around bug in Debian Squeeze - see https://github.com/mysociety/alaveteli/pull/297#issuecomment-4101012
-if File.exist? "/etc/debian_version" and File.open("/etc/debian_version").read.strip =~ /^(squeeze|6\.0\.[45])$/
+if File.exist? "/etc/debian_version" and File.open("/etc/debian_version").read.strip =~ /^(squeeze.*|6\.0\.[45])$/
     if File.exist? "/lib/libuuid.so.1"
         require 'dl'
         DL::dlopen('/lib/libuuid.so.1')
@@ -11,6 +11,7 @@ gem 'rails', '2.3.14'
 gem 'pg'
 
 gem 'fast_gettext', '>= 0.6.0'
+gem 'fastercsv', '>=1.5.5'
 gem 'gettext_i18n_rails', '>= 0.6.0', :git => "git://github.com/sebbacon/gettext_i18n_rails.git"
 gem 'gettext', '>= 1.9.3'
 gem 'json', '~> 1.5.1'
@@ -25,6 +26,7 @@ gem 'recaptcha', '~> 0.3.1', :require => 'recaptcha/rails'
 # :require avoids "already initialized constant" warnings
 gem 'rmagick', :require => 'RMagick'
 gem 'routing-filter', '~> 0.2.4'
+gem 'rake', '~> 0.9.2.2'
 gem 'rspec', '~> 1.3.2'
 gem 'rspec-rails', '~> 1.3.4'
 gem 'ruby-msg', '~> 1.5.0'
@@ -35,11 +37,11 @@ gem 'will_paginate', '~> 2.3.11'
 gem 'xapian-full-alaveteli', '~> 1.2.9.5'
 gem 'xml-simple'
 gem 'zip'
+gem 'capistrano'
 
 group :test do
   gem 'fakeweb'
   gem 'rspec-rails', '~> 1.3.4'
-  gem 'rake'
 end
 
 group :develop do
