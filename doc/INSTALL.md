@@ -296,7 +296,7 @@ in the front end.
 It is possible completely to override the administrator authentication
 by setting `SKIP_ADMIN_AUTH` to `true` in `general.yml`.
 
-# Cron jobs
+# Cron jobs and init scripts
 
 `config/crontab.ugly` contains the cronjobs run on WhatDoTheyKnow.
 It's in a strange templating format they use in mySociety.  mySociety
@@ -311,6 +311,10 @@ like `!!(*= $this *)!!`.  The variables are:
   `/data/vhost/!!(*= $vhost *)!!` -- you should replace that whole
   port with a path to the directory where your Alaveteli software
   installation lives, e.g. `/var/www/`
+* `vhost_dir`: the entire path to the directory where the software is
+  served from. -- you should replace this with a path to the 
+  directory where your Alaveteli software installation lives,
+   e.g. `/var/www/`
 * `vcspath`: the name of the alaveteli checkout, e.g. `alaveteli`.
   Thus, `/data/vhost/!!(*= $vhost *)!!/!!(*= $vcspath *)!!` might be
   replaced with `/var/www/alaveteli` in your cron tab
