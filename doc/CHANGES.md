@@ -1,3 +1,15 @@
+# Version 0.6.6
+## Highlighted features
+* Adds deployment via Capistrano - see DEPLOY.md for details
+* Speeds up several admin pages that were slow in large installs
+
+* [List of issues on github](https://github.com/mysociety/alaveteli/issues?milestone=22&state=closed)
+
+## Upgrade notes
+
+* Check out this version and run `rails-post-deploy` as usual. 
+* Run `rake temp:populate_request_classifications` to populate the new request_classifications table which is used in generating the request categorisation game league tables and progress widget.  
+
 # Version 0.6.5
 * This is a minor release, to update all documentation and example files to reflect the move of the official repository to http://github.com/mysociety/alaveteli and the alavetelitheme and adminbootstraptheme themes to http://github.com/mysociety/alavetelitheme and http://github.com/mysociety/adminbootstraptheme respectively. 
 * Some basic versioning has been added for themes. An ALAVETELI_VERSION constant has been added in config/environment.rb. When loading themes, `rails-post-deploy` now looks for a tag on the theme repository in the form 'use-with-alaveteli-0.6.5' that matches the ALAVETELI_VERSION being deployed - if it finds such a tag, the theme will be checked out from that tag, rather than from the HEAD of the theme repository. If no such tag is found, HEAD is used, as before [issue #573](https://github.com/mysociety/alaveteli/issues/573). 
