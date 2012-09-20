@@ -326,7 +326,11 @@ which lives in `config/alert-tracks-debian.ugly`.  As with the cron
 jobs above, replace the variables (and/or bits near the variables)
 with paths to your software.  `config/purge-varnish-debian.ugly` is a
 similar init script, which is optional and not required if you choose
-not to run your site behind Varnish (see below).
+not to run your site behind Varnish (see below). Add the following line to your
+sudoers file to allow these to be run by your deploy user (named `deploy` in
+this case):
+
+    deploy  ALL = NOPASSWD: /etc/init.d/foi-alert-tracks, /etc/init.d/foi-purge-varnish
 
 The cron jobs refer to a program `run-with-lockfile`. See
 [this issue](https://github.com/mysociety/alaveteli/issues/112) for a
