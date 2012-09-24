@@ -30,7 +30,7 @@ class RequestController < ApplicationController
     def select_authority
         # Check whether we force the user to sign in right at the start, or we allow her
         # to start filling the request anonymously
-        if force_registration_on_new_request && !authenticated?(
+        if Configuration::force_registration_on_new_request && !authenticated?(
                 :web => _("To send your FOI request"),
                 :email => _("Then you'll be allowed to send FOI requests."),
                 :email_subject => _("Confirm your email address")
