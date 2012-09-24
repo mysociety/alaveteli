@@ -25,6 +25,18 @@ master branch (which always contains the latest stable release):
 
     git checkout master
 
+# Package pinning
+
+You need to configure [apt-pinning](http://wiki.debian.org/AptPreferences#Pinning-1) preferences because, if not, after adding the system depedencies updates will pull packages from testing and the system will break. 
+
+In order to configure apt-pinning and to keep the stable packages from the Debian repository while installing the ones from the alaveteli repository you need to run the following commands:
+
+    echo "Package: *" >> /tmp/preferences
+    echo "Pin: release a=testing">> /tmp/preferences
+    echo "Pin-Priority: 50" >> /tmp/preferences
+    sudo cp /tmp/preferences /etc/apt/
+    rm /tmp/preferences
+
 # Install system dependencies
 
 These are packages that the software depends on: third-party software
@@ -245,21 +257,9 @@ Make sure everything looks OK:
     bundle exec rake spec
 
 If there are failures here, something has gone wrong with the
-preceding steps (see the next section for a common problem and
-workaround). You might be able to move on to the next step, depending
+preceding steps you might be able to move on to the next step, depending
 on how serious they are, but ideally you should try to find out what's
 gone wrong.
-
-## glibc bug workaround
-
-There's a
-[bug in glibc](http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=637239)
-which causes Xapian to segfault when running the tests.  Although the
-bug report linked to claims it's fixed in the current Debian stable,
-it's not as of version `2.11.3-2`.
-
-Until it's fixed (e.g. `libc6 2.13-26` does work), you can get the
-tests to pass by setting `export LD_PRELOAD=/lib/libuuid.so.1`.
 
 # Run the Server
 
