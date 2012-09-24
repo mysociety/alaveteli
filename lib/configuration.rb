@@ -47,7 +47,6 @@ module Configuration
     :TWITTER_USERNAME => '',
     :USE_DEFAULT_BROWSER_LANGUAGE => true,
     :USE_GHOSTSCRIPT_COMPRESSION => nil,
-    # UTILITY_SEARCH_PATH isn't mentioned in general.yml-example
     :UTILITY_SEARCH_PATH => ["/usr/bin", "/usr/local/bin"],
     :VARNISH_HOST => nil,
     :WORKING_OR_CALENDAR_DAYS => 'working',
