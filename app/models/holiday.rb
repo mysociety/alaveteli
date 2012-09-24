@@ -25,14 +25,18 @@
 
 class Holiday < ActiveRecord::Base
 
+    def Holiday.weekend_or_holiday?(date)
+        # TODO only fetch holidays after the start_date
+        holidays = self.all.collect { |h| h.day }.to_set
+
+        date.wday == 0 || date.wday == 6 || holidays.include?(date)
+    end
+
     # Calculate the date on which a request made on a given date falls due.
     # i.e. it is due by the end of that day.
     def Holiday.due_date_from(start_date, working_days)
         # convert date/times into dates
         start_date = start_date.to_date
-
-        # TODO only fetch holidays after the start_date
-        holidays = self.all.collect { |h| h.day }.to_set
 
         # Count forward (20) working days. We start with today as "day zero". The
         # first of the twenty full working days is the next day. We return the
@@ -49,8 +53,7 @@ class Holiday < ActiveRecord::Base
         # Now step forward into each of the 20 days.
         while days_passed < working_days
             response_required_by += 1.day
-            next if response_required_by.wday == 0 || response_required_by.wday == 6 # weekend
-            next if holidays.include?(response_required_by)
+            next if weekend_or_holiday?(response_required_by)
             days_passed += 1
         end
 
