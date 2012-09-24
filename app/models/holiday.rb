@@ -62,6 +62,8 @@ class Holiday < ActiveRecord::Base
 
     # Calculate the date on which a request made on a given date falls due when
     # the days are given in calendar days (rather than working days)
+    # If the due date falls on a weekend or a holiday then the due date is the next
+    # weekday that isn't a holiday.
     def Holiday.due_date_from_calendar_days(start_date, days)
         # convert date/times into dates
         start_date = start_date.to_date
