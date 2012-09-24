@@ -30,6 +30,9 @@ REPLY_LATE_AFTER_DAYS: 20
 REPLY_VERY_LATE_AFTER_DAYS: 40
 # We give some types of authority like schools a bit longer than everyone else
 SPECIAL_REPLY_VERY_LATE_AFTER_DAYS: 60
+# Whether the days above are given in working or calendar days. Value can be "working" or "calendar".
+# Default is "working".
+WORKING_OR_CALENDAR_DAYS: working
 
 # example public bodies for the home page, semicolon delimited - short_names
 FRONTPAGE_PUBLICBODY_EXAMPLES: 'tgq'
