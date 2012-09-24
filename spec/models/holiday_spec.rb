@@ -77,6 +77,10 @@ describe Holiday, " when calculating due date" do
         it "handles the due date falling on a Holiday" do
             Holiday.due_date_from_calendar_days(Date.new(2008, 12, 5), 20).should == Date.new(2008, 12, 29)
         end
+
+        it "handles Time objects" do
+            Holiday.due_date_from_calendar_days(Time.utc(2009, 03, 17, 12, 0, 0), 20).should == Date.new(2009, 4, 6)
+        end
     end
 end
 
