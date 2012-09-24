@@ -158,8 +158,7 @@ def is_oof?(message)
 end
 
 def forward_on(raw_message)
-    forward_non_bounces_to = MySociety::Config.get("FORWARD_NONBOUNCE_RESPONSES_TO", "user-support@localhost")
-    IO.popen("/usr/sbin/sendmail -i #{forward_non_bounces_to}", "w") do |f|
+    IO.popen("/usr/sbin/sendmail -i #{Configuration::forward_nonbounce_responses_to}", "w") do |f|
         f.write(raw_message);
         f.close;
     end

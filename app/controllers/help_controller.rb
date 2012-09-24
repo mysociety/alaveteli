@@ -20,7 +20,7 @@ class HelpController < ApplicationController
     end
 
     def contact
-        @contact_email = MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost')
+        @contact_email = Configuration::contact_email
         @contact_email = @contact_email.gsub(/@/, "&#64;")
 
         # if they clicked remove for link to request/body, remove it

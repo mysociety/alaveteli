@@ -28,8 +28,7 @@ class RawEmail < ActiveRecord::Base
         if ENV["RAILS_ENV"] == "test"
             return File.join(Rails.root, 'files/raw_email_test')
         else
-            return File.join(MySociety::Config.get('RAW_EMAILS_LOCATION',
-                                                   'files/raw_emails'),
+            return File.join(Configuration::raw_emails_location,
                              request_id[0..2], request_id)
         end
     end

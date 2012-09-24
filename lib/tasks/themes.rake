@@ -86,12 +86,10 @@ namespace :themes do
     desc "Install themes specified in the config file's THEME_URLS"
     task :install => :environment do
         verbose = true
-        theme_urls = MySociety::Config.get("THEME_URLS", [])
-        theme_urls.each{ |theme_url| install_theme(theme_url, verbose) }
-        theme_url = MySociety::Config.get("THEME_URL", "")
-        if ! theme_url.blank?
+        Configuration::theme_urls.each{ |theme_url| install_theme(theme_url, verbose) }
+        if ! Configuration::theme_url.blank?
             # Old version of the above, for backwards compatibility
-            install_theme(theme_url, verbose, deprecated=true)
+            install_theme(Configuration::theme_url, verbose, deprecated=true)
         end
     end
 end

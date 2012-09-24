@@ -33,7 +33,7 @@ describe RequestMailer, " when receiving incoming mail" do
         deliveries = ActionMailer::Base.deliveries
         deliveries.size.should == 1
         mail = deliveries[0]
-        mail.to.should == [ MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost') ]
+        mail.to.should == [ Configuration::contact_email ]
         deliveries.clear
     end
 
@@ -53,7 +53,7 @@ describe RequestMailer, " when receiving incoming mail" do
         deliveries = ActionMailer::Base.deliveries
         deliveries.size.should == 1
         mail = deliveries[0]
-        mail.to.should == [ MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost') ]
+        mail.to.should == [ Configuration::contact_email ]
         deliveries.clear
     end
 
@@ -73,7 +73,7 @@ describe RequestMailer, " when receiving incoming mail" do
         deliveries = ActionMailer::Base.deliveries
         deliveries.size.should == 1
         mail = deliveries[0]
-        mail.to.should == [ MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost') ]
+        mail.to.should == [ Configuration::contact_email ]
         deliveries.clear
     end
 
@@ -157,7 +157,7 @@ describe RequestMailer, " when receiving incoming mail" do
         deliveries = ActionMailer::Base.deliveries
         deliveries.size.should == 1
         mail = deliveries[0]
-        mail.to.should == [ MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost') ]
+        mail.to.should == [ Configuration::contact_email ]
         deliveries.clear
     end
 

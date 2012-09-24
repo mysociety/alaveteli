@@ -14,16 +14,15 @@ module AlaveteliExternalCommand
             if program_name =~ %r(^/)
                 program_path = program_name
             else
-                utility_search_path = MySociety::Config.get("UTILITY_SEARCH_PATH", ["/usr/bin", "/usr/local/bin"])
                 found = false
-                utility_search_path.each do |d|
+                Configuration::utility_search_path.each do |d|
                     program_path = File.join(d, program_name)
                     if File.file? program_path and File.executable? program_path
                         found = true
                         break
                     end
                 end
-                 raise "Could not find #{program_name} in any of #{utility_search_path.join(', ')}" if !found
+                 raise "Could not find #{program_name} in any of #{Configuration::utility_search_path.join(', ')}" if !found
             end
             
             xc = ExternalCommand.new(program_path, *args)

@@ -248,6 +248,6 @@ class ApiController < ApplicationController
     
     private
     def make_url(*args)
-        "http://" + MySociety::Config.get("DOMAIN", '127.0.0.1:3000') + "/" + args.join("/")
+        "http://" + Configuration::domain + "/" + args.join("/")
     end
 end

@@ -63,7 +63,7 @@ class EximLog < ActiveRecord::Base
             order = 0
             for line in f
                 order = order + 1
-                email_domain = MySociety::Config.get("INCOMING_EMAIL_DOMAIN", "localhost")
+                email_domain = Configuration::incoming_email_domain
                 emails = line.scan(/request-[^\s]+@#{email_domain}/).sort.uniq
                 for email in emails
                     info_request = InfoRequest.find_by_incoming_email(email)

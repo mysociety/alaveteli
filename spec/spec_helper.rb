@@ -143,15 +143,14 @@ def validate_as_body(html)
 end
 
 def basic_auth_login(request, username = nil, password = nil)
-    username = MySociety::Config.get('ADMIN_USERNAME') if username.nil?
-    password = MySociety::Config.get('ADMIN_PASSWORD') if password.nil?
+    username = Configuration::admin_username if username.nil?
+    password = Configuration::admin_password if password.nil?
     request.env["HTTP_AUTHORIZATION"] = "Basic " + Base64::encode64("#{username}:#{password}")
 end
 
 # Monkeypatch! Validate HTML in tests.
-utility_search_path = MySociety::Config.get("UTILITY_SEARCH_PATH", ["/usr/bin", "/usr/local/bin"])
 $html_validation_script_found = false
-utility_search_path.each do |d|
+Configuration::utility_search_path.each do |d|
     $html_validation_script = File.join(d, "validate")
     $html_validation_script_options = ["--charset=utf-8"]
     if File.file? $html_validation_script and File.executable? $html_validation_script
