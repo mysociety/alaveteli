@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Hana Huntova <>, 2012.
 # Jana Kneschke <>, 2012.
@@ -3639,7 +3639,7 @@ msgid "sign in"
 msgstr "přihlásit se"
 
 msgid "simple_date_format"
-msgstr "simple_date_format ??"
+msgstr "simple_date_format"
 
 msgid "successful"
 msgstr "úspěšné"
