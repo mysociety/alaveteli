@@ -1,4 +1,5 @@
 # == Schema Information
+# Schema version: 20120919140404
 #
 # Table name: info_requests
 #
@@ -19,6 +20,7 @@
 #  external_user_name        :string(255)
 #  external_url              :string(255)
 #  attention_requested       :boolean         default(FALSE)
+#  comments_allowed          :boolean         default(TRUE), not null
 #
 
 require 'digest/sha1'
