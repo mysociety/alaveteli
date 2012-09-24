@@ -690,7 +690,8 @@ public
     # things, e.g. fees, not properly covered.
     def date_response_required_by
         days_later = MySociety::Config.get('REPLY_LATE_AFTER_DAYS', 20)
-        return Holiday.due_date_from(self.date_initial_request_last_sent_at, days_later)
+        working_or_calendar_days = MySociety::Config.get('WORKING_OR_CALENDAR_DAYS', 'working')
+        return Holiday.due_date_from(self.date_initial_request_last_sent_at, days_later, working_or_calendar_days)
     end
     # This is a long stop - even with UK public interest test extensions, 40
     # days is a very long time.
@@ -698,12 +699,13 @@ public
         last_sent = last_event_forming_initial_request
         very_late_days_later = MySociety::Config.get('REPLY_VERY_LATE_AFTER_DAYS', 40)
         school_very_late_days_later = MySociety::Config.get('SPECIAL_REPLY_VERY_LATE_AFTER_DAYS', 60)
+        working_or_calendar_days = MySociety::Config.get('WORKING_OR_CALENDAR_DAYS', 'working')    
         if self.public_body.is_school?
             # schools have 60 working days maximum (even over a long holiday)
-            return Holiday.due_date_from(self.date_initial_request_last_sent_at, 60)
+            return Holiday.due_date_from(self.date_initial_request_last_sent_at, school_very_late_days_later, working_or_calendar_days)
         else
             # public interest test ICO guidance gives 40 working maximum
-            return Holiday.due_date_from(self.date_initial_request_last_sent_at, 40)
+            return Holiday.due_date_from(self.date_initial_request_last_sent_at, very_late_days_later, working_or_calendar_days)
         end
     end
 
