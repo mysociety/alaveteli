@@ -39,7 +39,7 @@ If you are running Debian, add the following repositories to
     deb http://ftp.debian.org/debian/ testing main non-free contrib
 
 The repositories above allow us to install the packages
-`wkthmltopdf-static` and `bundler` using `apt`; so if you're running
+`wkhtmltopdf-static` and `bundler` using `apt`; so if you're running
 Ubuntu, you won't be able to use the above repositories, and you will
 need to comment out those two lines in `config/packages` before
 following the next step (and install bundler manually).
