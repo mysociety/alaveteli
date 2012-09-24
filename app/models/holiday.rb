@@ -52,12 +52,11 @@ class Holiday < ActiveRecord::Base
 
         # Now step forward into each of the 20 days.
         while days_passed < working_days
-            response_required_by += 1.day
-            next if weekend_or_holiday?(response_required_by)
-            days_passed += 1
+            response_required_by += 1
+            days_passed += 1 unless weekend_or_holiday?(response_required_by)
         end
 
-        return response_required_by
+        response_required_by
     end
 
 end
