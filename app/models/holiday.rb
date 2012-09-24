@@ -50,9 +50,9 @@ class Holiday < ActiveRecord::Base
         # convert date/times into dates
         start_date = start_date.to_date
 
-        # Count forward (20) working days. We start with today as "day zero". The
-        # first of the twenty full working days is the next day. We return the
-        # date of the last of the twenty.
+        # Count forward the number of working days. We start with today as "day zero". The
+        # first of the full working days is the next day. We return the
+        # date of the last of the number of working days.
 
         # This response for example of a public authority complains that we had
         # it wrong.  We didn't (even thought I changed the code for a while,
@@ -62,7 +62,7 @@ class Holiday < ActiveRecord::Base
         days_passed = 0
         response_required_by = start_date
 
-        # Now step forward into each of the 20 days.
+        # Now step forward into each of the working days.
         while days_passed < working_days
             response_required_by += 1
             days_passed += 1 unless weekend_or_holiday?(response_required_by)
