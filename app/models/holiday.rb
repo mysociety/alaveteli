@@ -32,9 +32,10 @@ class Holiday < ActiveRecord::Base
         date.wday == 0 || date.wday == 6 || holidays.include?(date)
     end
 
-    # Calculate the date on which a request made on a given date falls due.
+    # Calculate the date on which a request made on a given date falls due when
+    # days are given in working days
     # i.e. it is due by the end of that day.
-    def Holiday.due_date_from(start_date, working_days)
+    def Holiday.due_date_from_working_days(start_date, working_days)
         # convert date/times into dates
         start_date = start_date.to_date
 

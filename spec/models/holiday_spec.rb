@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe Holiday, " when calculating due date" do
 
     def due_date(ymd) 
-        return Holiday.due_date_from(Date.strptime(ymd), 20).strftime("%F")
+        return Holiday.due_date_from_working_days(Date.strptime(ymd), 20).strftime("%F")
     end
 
     context "in working days" do
@@ -43,7 +43,7 @@ describe Holiday, " when calculating due date" do
         end
 
         it "handles Time objects" do
-        Holiday.due_date_from(Time.utc(2009, 03, 16, 12, 0, 0), 20).strftime('%F').should == '2009-04-16' 
+        Holiday.due_date_from_working_days(Time.utc(2009, 03, 16, 12, 0, 0), 20).strftime('%F').should == '2009-04-16' 
         end
     end
 

@@ -14,7 +14,7 @@ class HolidayController < ApplicationController
     def due_date
         if params[:holiday]
             @request_date = Date.strptime(params[:holiday]) or raise "Invalid date"
-            @due_date = Holiday.due_date_from(@request_date, 20)
+            @due_date = Holiday.due_date_from_working_days(@request_date, 20)
             @skipped = Holiday.all(
                 :conditions => [ 'day >= ? AND day <= ?',
                     @request_date.strftime("%F"), @due_date.strftime("%F")
