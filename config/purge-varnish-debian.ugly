@@ -4,7 +4,7 @@
 # Provides: purge-varnish
 # Required-Start: $local_fs $syslog
 # Required-Stop: $local_fs $syslog
-# Default-Start: 2 3 4 5 
+# Default-Start: 2 3 4 5
 # Default-Stop: 0 1 6
 # Short-Description: purge-varnish is a daemon purging the Alaveteli varnish cache
 # Description: purge-varnish purge the Alaveteli varnish cache
@@ -13,11 +13,14 @@
 # !!(*= $daemon_name *)!! Start the Alaveteli email purge-varnish daemon
 
 NAME=!!(*= $daemon_name *)!!
-DAEMON=/data/vhost/!!(*= $vhost *)!!/alaveteli/script/runner
+DAEMON=!!(*= $vhost_dir *)!!/alaveteli/script/runner
 DAEMON_ARGS="--daemon PurgeRequest.purge_all_loop"
-PIDFILE=/data/vhost/!!(*= $vhost *)!!/purge-varnish.pid
-LOGFILE=/data/vhost/!!(*= $vhost *)!!/logs/purge-varnish.log
+PIDFILE=!!(*= $vhost_dir *)!!/purge-varnish.pid
+LOGFILE=!!(*= $vhost_dir *)!!/logs/purge-varnish.log
 DUSER=!!(*= $user *)!!
+# Set RAILS_ENV - not needed if using config/rails_env.rb
+# RAILS_ENV=your_rails_env
+# export RAILS_ENV
 
 trap "" 1
 
@@ -48,17 +51,17 @@ case "$1" in
           exit 0
       fi
       ;;
-  
+
   start)
       echo -n "Starting Alaveteli purge-varnish daemon: $NAME"
       start_daemon
       ;;
-  
+
   stop)
         echo -n "Stopping Alaveteli purge-varnish daemon: $NAME"
         stop_daemon
         ;;
-  
+
   restart)
       echo -n "Restarting Alaveteli purge-varnish daemon: $NAME"
       stop_daemon
