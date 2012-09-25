@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # David Cabo <david.cabo@gmail.com>, 2011-2012.
 #   <fabrizio.scrollini@gmail.com>, 2012.
