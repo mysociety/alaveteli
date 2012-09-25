@@ -97,10 +97,12 @@ describe RequestMailer, " when receiving incoming mail" do
         # check attached bounce is good copy of incoming-request-plain.email
         mail.multipart?.should == true
         mail.parts.size.should == 2
+        message_part = mail.parts[0].to_s
         bounced_mail = TMail::Mail.parse(mail.parts[1].body)
         bounced_mail.to.should == [ ir.incoming_email ]
         bounced_mail.from.should == [ 'geraldinequango@localhost' ]
-        bounced_mail.body.include?("That's so totally a rubbish question")
+        bounced_mail.body.include?("That's so totally a rubbish question").should be_true
+        message_part.include?("marked to no longer receive responses").should be_true
         deliveries.clear
     end
 
@@ -324,3 +326,4 @@ describe RequestMailer, 'when sending mail when someone has updated an old uncla
     end
 
 end
+
