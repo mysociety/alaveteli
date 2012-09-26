@@ -315,6 +315,12 @@ It's in a strange templating format they use in mySociety.  mySociety
 render the "ugly" file to reference absolute paths, and then drop it
 in `/etc/cron.d/` on the server.
 
+The recommended alternative if you're setting up your own Alaveteli instance is
+to use the included [Whenever](https://github.com/javan/whenever) configuration
+to generate your crontab. You can see these cronjobs by simply running
+`whenever` in the root of your Alaveteli path. If you use Capistrano to deploy
+Alaveteli (see DEPLOY.md) then your server crontab is automatically configured.
+
 The `ugly` format uses simple variable substitution.  A variable looks
 like `!!(*= $this *)!!`.  The variables are:
 
