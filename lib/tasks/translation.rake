@@ -1,7 +1,7 @@
-# require File.join(File.dirname(__FILE__), 'usage')
+require File.join(File.dirname(__FILE__), 'usage')
 namespace :translation do
 
-    # include Usage
+    include Usage
 
     def write_email(email, email_description, output_file)
         mail_object = TMail::Mail.parse(email.to_s)
@@ -77,9 +77,15 @@ namespace :translation do
                                                                  "test body",
                                                                  "attachment.txt",
                                                                  "test attachment text")
-        write_email(fake_response_email, 'Email created when someone uploads a response directly', output_file)
+        write_email(fake_response_email,
+                    'Email created when someone uploads a response directly',
+                    output_file)
 
-        content = File.read(File.join(Rails.root, 'spec', 'fixtures', 'files', 'incoming-request-plain.email'))
+        content = File.read(File.join(Rails.root,
+                                      'spec',
+                                      'fixtures',
+                                      'files',
+                                      'incoming-request-plain.email'))
         response_mail = TMail::Mail.parse(content)
 
         response_mail.from = "authority@example.com"
@@ -95,7 +101,9 @@ namespace :translation do
 
 
         new_response_email = RequestMailer.create_new_response(info_request, incoming_message)
-        write_email(new_response_email, 'Telling the requester that a new response has arrived', output_file)
+        write_email(new_response_email,
+                    'Telling the requester that a new response has arrived',
+                    output_file)
 
         overdue_alert_email = RequestMailer.create_overdue_alert(info_request, info_request.user)
         write_email(overdue_alert_email,
