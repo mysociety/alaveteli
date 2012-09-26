@@ -221,7 +221,7 @@ module LinkToHelper
 
     # Admin pages
     def admin_url(relative_path)
-        admin_url_prefix = MySociety::Config.get("ADMIN_BASE_URL", "")
+        admin_url_prefix = Configuration::admin_base_url
         admin_url_prefix = admin_general_index_path+"/" if admin_url_prefix.empty?
         return admin_url_prefix + relative_path
     end
@@ -241,7 +241,7 @@ module LinkToHelper
 
 
     def main_url(relative_path, append = nil)
-        url_prefix = "http://" + MySociety::Config.get("DOMAIN", '127.0.0.1:3000')
+        url_prefix = "http://" + Configuration::domain
         url = url_prefix + relative_path
         if !append.nil?
             begin

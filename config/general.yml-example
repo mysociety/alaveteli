@@ -161,3 +161,6 @@ VARNISH_HOST: localhost
 
 # Adding a value here will enable Google Analytics on all non-admin pages.
 GA_CODE: ''
+
+# Search path for external commandline utilities (such as pdftohtml, pdftk, unrtf)
+UTILITY_SEARCH_PATH: ["/usr/bin", "/usr/local/bin"]

@@ -87,7 +87,7 @@ class OutgoingMessage < ActiveRecord::Base
             "'" + self.info_request.title + "'." +
             "\n\n\n\n [ " + self.get_internal_review_insert_here_note + " ] \n\n\n\n" +
             "A full history of my FOI request and all correspondence is available on the Internet at this address:\n" +
-            "http://" + MySociety::Config.get("DOMAIN", '127.0.0.1:3000') + "/request/" + self.info_request.url_title
+            "http://" + Configuration::domain + "/request/" + self.info_request.url_title
         else
             ""
         end

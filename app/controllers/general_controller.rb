@@ -24,7 +24,7 @@ class GeneralController < ApplicationController
         behavior_cache :tag => [session[:user_id], request.url] do
             # get some example searches and public bodies to display
             # either from config, or based on a (slow!) query if not set
-            body_short_names = MySociety::Config.get('FRONTPAGE_PUBLICBODY_EXAMPLES', '').split(/\s*;\s*/).map{|s| "'%s'" % s.gsub(/'/, "''") }.join(", ")
+            body_short_names = Configuration::frontpage_publicbody_examples.split(/\s*;\s*/).map{|s| "'%s'" % s.gsub(/'/, "''") }.join(", ")
             @locale = self.locale_from_params()
             locale_condition = 'public_body_translations.locale = ?'
             conditions = [locale_condition, @locale]
@@ -70,7 +70,7 @@ class GeneralController < ApplicationController
     def blog
         medium_cache
         @feed_autodetect = []
-        @feed_url = "#{MySociety::Config.get('BLOG_FEED', '')}?lang=#{self.locale_from_params()}"
+        @feed_url = "#{Configuration::blog_feed}?lang=#{self.locale_from_params()}"
         @blog_items = []
         if not @feed_url.empty?
             content = quietly_try_to_open(@feed_url)
@@ -81,7 +81,7 @@ class GeneralController < ApplicationController
                 @feed_autodetect = [{:url => @feed_url, :title => "#{site_name} blog"}]
             end
         end
-        @twitter_user = MySociety::Config.get('TWITTER_USERNAME', '')
+        @twitter_user = Configuration::twitter_username
     end
 
     # Just does a redirect from ?query= search to /query

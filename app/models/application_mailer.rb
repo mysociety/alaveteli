@@ -16,7 +16,7 @@ class ApplicationMailer < ActionMailer::Base
     self.raise_delivery_errors = true
 
     def blackhole_email
-        MySociety::Config.get("BLACKHOLE_PREFIX", 'do-not-reply-to-this-address')+"@"+MySociety::Config.get("INCOMING_EMAIL_DOMAIN", "localhost")
+        Configuration::blackhole_prefix+"@"+Configuration::incoming_email_domain
     end
 
     # URL generating functions are needed by all controllers (for redirects),
