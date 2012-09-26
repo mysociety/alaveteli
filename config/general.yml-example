@@ -35,6 +35,7 @@ SPECIAL_REPLY_VERY_LATE_AFTER_DAYS: 60
 WORKING_OR_CALENDAR_DAYS: working
 
 # example public bodies for the home page, semicolon delimited - short_names
+# Comment out if you want this to be auto-generated. WARNING: this is slow & don't use production!
 FRONTPAGE_PUBLICBODY_EXAMPLES: 'tgq'
 
 # URLs of themes to download and use (when running rails-post-deploy
