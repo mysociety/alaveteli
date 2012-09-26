@@ -45,7 +45,6 @@ describe ApplicationMailer do
 
         def create_multipart_method(method_name)
             ApplicationMailer.send(:define_method, method_name) do
-                puts "in multipart"
                 attachment :content_type => 'message/rfc822',
                            :body => 'xxx',
                            :filename => "original.eml",
