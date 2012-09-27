@@ -33,7 +33,7 @@
     </p>
 </div>
 
-<% @title = _("Public authorities - {{description}}", :description => @description) %>
+<% @title = @description.empty? ? _("Public authorities") : _("Public authorities - {{description}}", :description => @description) %>
 <div id="left_column_flip">
 <h1><%= _('Public authorities') %></h1>
 
