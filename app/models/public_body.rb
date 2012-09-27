@@ -509,6 +509,15 @@ class PublicBody < ActiveRecord::Base
         return self.request_email_domain
     end
 
+    def request_email
+        override_email = MySociety::Config.get("OVERRIDE_ALL_PUBLIC_BODY_REQUEST_EMAILS", "")
+        if override_email != ""
+            override_email
+        else
+            read_attribute(:request_email)
+        end
+    end
+
     # Domain name of the request email
     def request_email_domain
         return PublicBody.extract_domain_from_email(self.request_email)
