@@ -67,7 +67,7 @@
 
             <% if @public_body.override_request_email %>
                 <p>
-                    <strong>Note:</strong> Because we're testing, requests are being sent to <%= @public_body.override_request_email %> rather than to the actual authority.
+                    <%= _("<strong>Note:</strong> Because we're testing, requests are being sent to {{email}} rather than to the actual authority.", :email => @public_body.override_request_email) %>
                 </p>
             <% end %>
         </div>
