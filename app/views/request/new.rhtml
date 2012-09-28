@@ -86,12 +86,7 @@
             </p>
             <div class="form_item_note">
                 (<%= _("a one line summary of the information you are requesting, \n\t\t\te.g.") %> 
-                  <% if @info_request.law_used == 'eir' %>
-                      <%= _("'Pollution levels over time for the River Tyne'") %>
-                  <% else %>
-                      <%= _("'Crime statistics by ward level for Wales'") %>
-                  <% end %>
-                  )
+                  <%= render :partial => "summary_suggestion" %>)
             </div>
         </div>
         
