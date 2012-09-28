@@ -359,7 +359,7 @@ msgid ""
 msgstr "<strong><code>status:</code></strong> az igénylés állapota vagy korábbi állapota alapján történő kiválasztáshoz, lásd az alábbi <a href=\"{{statuses_url}}\">állapottáblázatot</a>. "
 
 msgid ""
-"<strong><code>tag:charity</code></strong> to find all public bodies or requests with a given tag. You can include multiple tags, \n"
+"<strong><code>tag:charity</code></strong> to find all public authorities or requests with a given tag. You can include multiple tags, \n"
 "    and tag values, e.g. <code>tag:openlylocal AND tag:financial_transaction:335633</code>. Note that by default any of the tags\n"
 "    can be present, you have to put <code>AND</code> explicitly if you only want results them all present."
 msgstr "<strong><code>tag:charity</code></strong> az összes adatgazda vagy igénylés kikereséséhez egy adott címkén belül. Több címkét \n    és címkeértéket is szerepeltethet, pl. <code>tag:openlylocal AND tag:financial_transaction:335633</code>. Ne feledje, hogy alapértelmezés szerint bármely címke\n    szerepelhet; világosan fel kell tüntetnie az <code>AND</code> kódot, ha az összes eredményt meg kívánja jeleníteni. "
@@ -1051,7 +1051,7 @@ msgstr "Ismeretlen okból kifolyólag ennek a közintézménynek nem lehet igén
 msgid "Forgotten your password?"
 msgstr "Elfelejtette jelszavát? "
 
-msgid "Found {{count}} public bodies {{description}}"
+msgid "Found {{count}} public authorities {{description}}"
 msgstr " {{description}} összesen {{count}} adatgazda található a rendszerünkben"
 
 msgid "Freedom of Information"

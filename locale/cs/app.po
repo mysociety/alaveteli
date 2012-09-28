@@ -366,7 +366,7 @@ msgid ""
 msgstr "<strong><code>stav:</code></strong> pro výběr dotazů podle současného či minulého stavu, navštivte <a href=\"{{statuses_url}}\">Tabulku stavů</a> below."
 
 msgid ""
-"<strong><code>tag:charity</code></strong> to find all public bodies or requests with a given tag. You can include multiple tags, \n"
+"<strong><code>tag:charity</code></strong> to find all public authorities or requests with a given tag. You can include multiple tags, \n"
 "    and tag values, e.g. <code>tag:openlylocal AND tag:financial_transaction:335633</code>. Note that by default any of the tags\n"
 "    can be present, you have to put <code>AND</code> explicitly if you only want results them all present."
 msgstr "<strong><code>štítek:charita</code></strong> najde všechny instituce nebo dotazy s daným štítkem. Můžete přidat více štítků \n    a významů, např. <code>štítek:místní AND štítek:financial_transaction:335633</code>. Všimněte si že štítků může být více, ale musí obsahovat slůvko<code>AND</code> aby se vám zobrazily odpovídající výsledky."
@@ -1058,7 +1058,7 @@ msgstr "Z neznámého důvodu není možné vznést dotaz na tuto instituci. "
 msgid "Forgotten your password?"
 msgstr "Zapomněli jste heslo?"
 
-msgid "Found {{count}} public bodies {{description}}"
+msgid "Found {{count}} public authorities {{description}}"
 msgstr "Celkem {{count}} institucí {{description}}"
 
 msgid "Freedom of Information"

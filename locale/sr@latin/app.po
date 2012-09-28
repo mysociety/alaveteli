@@ -364,7 +364,7 @@ msgid ""
 msgstr "<strong><code>status:</code></strong> da biste birali zasnovano na statusu ili historiji statusa zahteva, pogledajte <a href=\"{{statuses_url}}\">tabelu statusa</a> below."
 
 msgid ""
-"<strong><code>tag:charity</code></strong> to find all public bodies or requests with a given tag. You can include multiple tags, \n"
+"<strong><code>tag:charity</code></strong> to find all public authorities or requests with a given tag. You can include multiple tags, \n"
 "    and tag values, e.g. <code>tag:openlylocal AND tag:financial_transaction:335633</code>. Note that by default any of the tags\n"
 "    can be present, you have to put <code>AND</code> explicitly if you only want results them all present."
 msgstr ""
@@ -1056,7 +1056,7 @@ msgstr "Iz nepoznatog razloga, nije moguće podneti zahtev ovoj ustanovi."
 msgid "Forgotten your password?"
 msgstr "Zaboravili ste Vaš password?"
 
-msgid "Found {{count}} public bodies {{description}}"
+msgid "Found {{count}} public authorities {{description}}"
 msgstr "Pronađeno {{count}} javnih tela {{description}}"
 
 msgid "Freedom of Information"
