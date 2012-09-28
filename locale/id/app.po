@@ -357,7 +357,7 @@ msgid ""
 msgstr "<strong><code>status:</code></strong> untuk memilih berdasarkan status atau status historical dari permintaan, lihat <a href=\"{{statuses_url}}\">table status </a> di bawah."
 
 msgid ""
-"<strong><code>tag:charity</code></strong> to find all public bodies or requests with a given tag. You can include multiple tags, \n"
+"<strong><code>tag:charity</code></strong> to find all public authorities or requests with a given tag. You can include multiple tags, \n"
 "    and tag values, e.g. <code>tag:openlylocal AND tag:financial_transaction:335633</code>. Note that by default any of the tags\n"
 "    can be present, you have to put <code>AND</code> explicitly if you only want results them all present."
 msgstr "<strong><code>label:derma</code></strong> untuk mendapatkan semua badan publik atau permintaan-permintaan dengan label yang diberikan. Anda dapat menyertakan beberapa label sekaligus, \n    dan menambahkan nilai label, misalnya <code>label:openlylocal DAN label:transaksi_keuangan:335633</code>. Perhatikan bahwa secara default setiap label \n    dapat muncul, Anda harus menaruh <code>DAN</code> secara eksplisit jika Anda hanya ingin hasil yang mereka semua tampilkan."
@@ -1049,7 +1049,7 @@ msgstr "Untuk alasan yang tidak diketahui, Anda tidak dapat mengajukan permintaa
 msgid "Forgotten your password?"
 msgstr "Lupa kode sandi Anda?"
 
-msgid "Found {{count}} public bodies {{description}}"
+msgid "Found {{count}} public authorities {{description}}"
 msgstr "Ditemukan{{count}} badan publik{{description}}"
 
 msgid "Freedom of Information"

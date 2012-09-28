@@ -362,7 +362,7 @@ msgid ""
 msgstr "<strong><code>Status:</code></strong> um eine Auswahl nach Status oder historischem Status der Anfrage zu treffen, gehen Sie zur unten angezeigten<a href=\"{{statuses_url}}\">Statusübersicht</a> ."
 
 msgid ""
-"<strong><code>tag:charity</code></strong> to find all public bodies or requests with a given tag. You can include multiple tags, \n"
+"<strong><code>tag:charity</code></strong> to find all public authorities or requests with a given tag. You can include multiple tags, \n"
 "    and tag values, e.g. <code>tag:openlylocal AND tag:financial_transaction:335633</code>. Note that by default any of the tags\n"
 "    can be present, you have to put <code>AND</code> explicitly if you only want results them all present."
 msgstr "<strong><code>markieren Sie:Karitas</code></strong>, um alle Behörden oder Anfragen mit dieser Markierung zu finden. Sie können mehrere Markierungen, \n    and tag values, e.g. <code>tag:openlylocal AND tag:financial_transaction:335633</code>. Note that by default any of the tags\n    can be present, you have to put <code>AND</code> explicitly if you only want results them all present."
@@ -1054,7 +1054,7 @@ msgstr "Aus unbekannten Gründen ist es nicht möglich eine Anfrage a diese Beh�
 msgid "Forgotten your password?"
 msgstr "Passwort vergessen?"
 
-msgid "Found {{count}} public bodies {{description}}"
+msgid "Found {{count}} public authorities {{description}}"
 msgstr " {{count}} Behörden {{description}} gefunden"
 
 msgid "Freedom of Information"

@@ -424,7 +424,7 @@ msgstr "<strong><code>status:</code></strong> para filtrar en función del estad
 
 #: app/views/general/_advanced_search_tips.rhtml:16
 msgid ""
-"<strong><code>tag:charity</code></strong> to find all public bodies or requests with a given tag. You can include multiple tags, \n"
+"<strong><code>tag:charity</code></strong> to find all public authorities or requests with a given tag. You can include multiple tags, \n"
 "    and tag values, e.g. <code>tag:openlylocal AND tag:financial_transaction:335633</code>. Note that by default any of the tags\n"
 "    can be present, you have to put <code>AND</code> explicitly if you only want results them all present."
 msgstr "<strong><code>tag:salud</code></strong> para buscar todos los organismos públicos o solicitudes con la etiqueta dada. Puedes incluir múltiples etiquetas, \n    y valores, e.g. <code>tag:salud AND tag:financial_transaction:335633</code>. Por defecto, basta con que cualquiera de las etiquetas\n    esté presente, añade <code>AND</code> explícitamente si sólo quiere resultados con todas ellas presentes."
@@ -1221,7 +1221,7 @@ msgid "Forgotten your password?"
 msgstr "¿Has olvidado tu contraseña?"
 
 #: app/views/public_body/list.rhtml:47
-msgid "Found {{count}} public bodies {{description}}"
+msgid "Found {{count}} public authorities {{description}}"
 msgstr "Encontrados {{count}} organismos públicos {{description}}"
 
 #: app/models/info_request.rb:257
