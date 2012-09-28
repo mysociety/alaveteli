@@ -161,3 +161,10 @@ VARNISH_HOST: localhost
 
 # Adding a value here will enable Google Analytics on all non-admin pages.
 GA_CODE: ''
+
+# If you want to override *all* the public body request emails with your own
+# email so that request emails that would normally go to the public body
+# go to you, then uncomment below and fill in your email.
+# Useful for a staging server to play with the whole process of sending requests
+# without inadvertently sending an email to a real authority
+#OVERRIDE_ALL_PUBLIC_BODY_REQUEST_EMAILS: test-email@foo.com
