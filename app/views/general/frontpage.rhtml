@@ -51,7 +51,13 @@
     <% end %>
 
     <div id="examples_1">
-      <h3><%= _("What information has been released?") %></h3>
+      <h3>
+        <% if @request_events_all_successful %>
+          <%= _("What information has been released?") %>
+        <% else %>
+          <%= _("What information has been requested?") %>
+        <% end %>
+      </h3>
        <%= _("{{site_name}} users have made {{number_of_requests}} requests, including:",
         :site_name => site_name, :number_of_requests => InfoRequest.count) %>
         <ul>
@@ -64,7 +70,13 @@
               </li>
           <% end %>
         </ul>
-        <p><strong><%=link_to _('More successful requests...'), request_list_successful_url %></strong></p>
+        <p><strong>
+          <% if @request_events_all_successful %>
+            <%=link_to _('More successful requests...'), request_list_successful_url %>
+          <% else %>
+            <%=link_to _('More requests...'), request_list_all_url %>
+          <% end %>
+        </strong></p>
     </div>
 </div>
 

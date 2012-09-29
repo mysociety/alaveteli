@@ -55,10 +55,13 @@ class GeneralController < ApplicationController
                 # If there are not yet enough successful requests, fill out the list with
                 # other requests
                 if @request_events.count < max_count
+                    @request_events_all_successful = false
                     query = 'variety:sent'
                     xapian_object = perform_search([InfoRequestEvent], query, sortby, 'request_title_collapse', max_count-@request_events.count)
                     more_events = xapian_object.results.map { |r| r[:model] }
                     @request_events += more_events
+                else
+                    @request_events_all_successful = true
                 end
             rescue
                 @request_events = []
