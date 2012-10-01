@@ -27,9 +27,7 @@ class TrackMailer < ApplicationMailer
     end
 
     def contact_from_name_and_email
-        contact_name = MySociety::Config.get("TRACK_SENDER_NAME", 'Alaveteli')
-        contact_email = MySociety::Config.get("TRACK_SENDER_EMAIL", 'contact@localhost')
-        return "#{contact_name} <#{contact_email}>"
+        "#{Configuration::track_sender_name} <#{Configuration::track_sender_email}>"
     end
 
     # Send email alerts for tracked things.  Never more than one email

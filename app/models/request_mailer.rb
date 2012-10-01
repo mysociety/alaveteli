@@ -55,7 +55,7 @@ class RequestMailer < ApplicationMailer
             :filename => "original.eml", :transfer_encoding => '7bit', :content_disposition => 'inline'
         @body = {
             :info_request => info_request,
-            :contact_email => MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost')
+            :contact_email => Configuration::contact_email
         }
     end
 
@@ -303,7 +303,7 @@ class RequestMailer < ApplicationMailer
     # Send email alerts for new responses which haven't been classified. By default,
     # it goes out 3 days after last update of event, then after 10, then after 24.
     def self.alert_new_response_reminders
-        MySociety::Config.get("NEW_RESPONSE_REMINDER_AFTER_DAYS", [3, 10, 24]).each_with_index do |days, i|
+        Configuration::new_response_reminder_after_days.each_with_index do |days, i|
             self.alert_new_response_reminders_internal(days, "new_response_reminder_#{i+1}")
         end
     end

@@ -168,3 +168,6 @@ GA_CODE: ''
 # Useful for a staging server to play with the whole process of sending requests
 # without inadvertently sending an email to a real authority
 #OVERRIDE_ALL_PUBLIC_BODY_REQUEST_EMAILS: test-email@foo.com
+
+# Search path for external commandline utilities (such as pdftohtml, pdftk, unrtf)
+UTILITY_SEARCH_PATH: ["/usr/bin", "/usr/local/bin"]

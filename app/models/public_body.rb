@@ -336,7 +336,7 @@ class PublicBody < ActiveRecord::Base
                 pb = PublicBody.new(
                  :name => 'Internal admin authority',
                  :short_name => "",
-                 :request_email => MySociety::Config.get("CONTACT_EMAIL", 'contact@localhost'),
+                 :request_email => Configuration::contact_email,
                  :home_page => "",
                  :notes => "",
                  :publication_scheme => "",

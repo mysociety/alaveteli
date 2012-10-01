@@ -12,10 +12,8 @@ describe "When administering the site" do
         response.should be_success
         
         # Now fetch the "log in as" link to log in as Bob
-        admin_username = MySociety::Config.get('ADMIN_USERNAME')
-        admin_password = MySociety::Config.get('ADMIN_PASSWORD')
         get_via_redirect "/admin/user/login_as/#{users(:bob_smith_user).id}", nil, {
-          "Authorization" => "Basic " + Base64.encode64("#{admin_username}:#{admin_password}").strip
+          "Authorization" => "Basic " + Base64.encode64("#{Configuration::admin_username}:#{Configuration::admin_password}").strip
         }
         response.should be_success
         session[:user_id].should == users(:bob_smith_user).id
