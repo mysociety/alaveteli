@@ -327,3 +327,18 @@ describe RequestMailer, 'when sending mail when someone has updated an old uncla
 
 end
 
+describe RequestMailer, 'requires_admin' do
+    it 'body should contain the full admin URL' do
+        user = mock_model(User, :name_and_email => 'Bruce Jones',
+                                :name => 'Bruce Jones')
+        info_request = mock_model(InfoRequest, :user => user,
+                                               :described_state => 'error_message',
+                                               :title => 'Test request',
+                                               :url_title => 'test_request',
+                                               :law_used_short => 'FOI',
+                                               :id => 123)
+        mail = RequestMailer.deliver_requires_admin(info_request)
+
+        mail.body.should include('http://test.host/admin/request/show/123')
+    end
+end
