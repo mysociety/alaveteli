@@ -511,7 +511,7 @@ class PublicBody < ActiveRecord::Base
 
     # Returns nil if configuration variable not set
     def override_request_email
-        e = MySociety::Config.get("OVERRIDE_ALL_PUBLIC_BODY_REQUEST_EMAILS", "")
+        e = Configuration::override_all_public_body_request_emails
         e if e != ""
     end
 

@@ -31,6 +31,7 @@ module Configuration
     :ISO_COUNTRY_CODE => 'GB',
     :MAX_REQUESTS_PER_USER_PER_DAY => nil,
     :NEW_RESPONSE_REMINDER_AFTER_DAYS => [3, 10, 24],
+    :OVERRIDE_ALL_PUBLIC_BODY_REQUEST_EMAILS => '',
     :RAW_EMAILS_LOCATION => 'files/raw_emails',
     :READ_ONLY => '',
     :RECAPTCHA_PRIVATE_KEY => 'x',
