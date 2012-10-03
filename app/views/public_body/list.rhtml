@@ -39,7 +39,7 @@
  </div>
 <% end %>
 
-<h2 class="publicbody_results"><%= _('Found {{count}} public authorities {{description}}', :count=>@public_bodies.total_entries, :description=>@description) %></h2>
+<h2 class="publicbody_results"><%= n_('Found %d public authority %s', 'Found %d public authorities %s', @public_bodies.total_entries) % [@public_bodies.total_entries, @description] %></h2>
 <%= render :partial => 'body_listing', :locals => { :public_bodies => @public_bodies } %>
 
   <%= will_paginate(@public_bodies) %><br/>
