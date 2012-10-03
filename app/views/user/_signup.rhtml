@@ -7,7 +7,7 @@
 
     <p>
         <label class="form_label" for="user_signup_email"><%= _('Your e-mail:')%></label>
-        <%= text_field 'user_signup', 'email', { :size => 20 } %>
+        <%= text_field 'user_signup', 'email', { :size => 20, :tabindex => 60 } %>
     </p>
     <div class="form_item_note">
         <%= _('We will not reveal your email address to anybody unless you or
@@ -16,7 +16,7 @@
 
     <p>
         <label class="form_label" for="user_signup_name"> <%= _('Your name:')%></label>
-        <%= text_field 'user_signup', 'name', { :size => 20 } %>
+        <%= text_field 'user_signup', 'name', { :size => 20, :tabindex => 70 } %>
     </p>
     <div class="form_item_note">
          <%= _('Your <strong>name will appear publicly</strong> 
@@ -28,12 +28,12 @@
 
     <p>
         <label class="form_label" for="user_signup_password"> <%= _('Password:')%></label>
-        <%= password_field 'user_signup', 'password', { :size => 15 } %>
+        <%= password_field 'user_signup', 'password', { :size => 15, :tabindex => 80 } %>
     </p>
 
     <p>
         <label class="form_label" for="user_signup_password_confirmation"> <%= _('Password: (again)')%></label>
-        <%= password_field 'user_signup', 'password_confirmation', { :size => 15 } %>
+        <%= password_field 'user_signup', 'password_confirmation', { :size => 15, :tabindex => 90 } %>
     </p>
 
     <% if @request_from_foreign_country %>
@@ -43,7 +43,7 @@
     <div class="form_button">
         <%= hidden_field_tag 'token', params[:token], {:id => 'signup_token' } %>
         <%= hidden_field_tag :modal, params[:modal], {:id => 'signup_modal' } %>
-        <%= submit_tag _('Sign up') %>
+        <%= submit_tag _('Sign up'), :tabindex => 100 %>
     </div>
 
 <% end %>
