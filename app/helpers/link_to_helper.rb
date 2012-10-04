@@ -222,8 +222,7 @@ module LinkToHelper
     # Admin pages
     def admin_url(relative_path)
         admin_url_prefix = Configuration::admin_base_url
-        admin_url_prefix = admin_general_index_url + "/" if admin_url_prefix.empty?
-        return admin_url_prefix + relative_path
+        (admin_url_prefix.empty? ? admin_general_index_url + '/' : admin_url_prefix) + relative_path
     end
 
     # About page URLs
