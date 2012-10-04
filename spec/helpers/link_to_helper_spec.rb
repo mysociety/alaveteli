@@ -51,11 +51,11 @@ describe LinkToHelper do
     describe 'admin_url' do
         context 'with no ADMIN_BASE_URL set' do
             it 'should prepend the admin general index path to a simple string' do
-                admin_url('unclassified').should == '/en/admin/unclassified'
+                admin_url('unclassified').should == 'http://test.host/en/admin/unclassified'
             end
 
             it 'should prepend the admin general index path to a deeper URL' do
-                admin_url('request/show/123').should == '/en/admin/request/show/123'
+                admin_url('request/show/123').should == 'http://test.host/en/admin/request/show/123'
             end
         end
 
