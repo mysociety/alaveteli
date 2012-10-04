@@ -342,7 +342,7 @@ describe RequestMailer, 'requires_admin' do
     it 'body should contain the full admin URL' do
         mail = RequestMailer.deliver_requires_admin(@info_request)
 
-        mail.body.should include('http://test.host/admin/request/show/123')
+        mail.body.should include('http://test.host/en/admin/request/show/123')
     end
 
     context 'has an ADMIN_BASE_URL set' do
