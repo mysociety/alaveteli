@@ -328,32 +328,30 @@ describe RequestMailer, 'when sending mail when someone has updated an old uncla
 end
 
 describe RequestMailer, 'requires_admin' do
-    it 'body should contain the full admin URL' do
+    before(:each) do
         user = mock_model(User, :name_and_email => 'Bruce Jones',
                                 :name => 'Bruce Jones')
-        info_request = mock_model(InfoRequest, :user => user,
-                                               :described_state => 'error_message',
-                                               :title => 'Test request',
-                                               :url_title => 'test_request',
-                                               :law_used_short => 'FOI',
-                                               :id => 123)
-        mail = RequestMailer.deliver_requires_admin(info_request)
+        @info_request = mock_model(InfoRequest, :user => user,
+                                                :described_state => 'error_message',
+                                                :title => 'Test request',
+                                                :url_title => 'test_request',
+                                                :law_used_short => 'FOI',
+                                                :id => 123)
+    end
+
+    it 'body should contain the full admin URL' do
+        mail = RequestMailer.deliver_requires_admin(@info_request)
 
         mail.body.should include('http://test.host/admin/request/show/123')
     end
 
     context 'has an ADMIN_BASE_URL set' do
-        it 'body should contain the full admin URL' do
+        before(:each) do
             Configuration::should_receive(:admin_base_url).and_return('http://our.proxy.server/admin/alaveteli/')
-            user = mock_model(User, :name_and_email => 'Bruce Jones',
-                                    :name => 'Bruce Jones')
-            info_request = mock_model(InfoRequest, :user => user,
-                                                   :described_state => 'error_message',
-                                                   :title => 'Test request',
-                                                   :url_title => 'test_request',
-                                                   :law_used_short => 'FOI',
-                                                   :id => 123)
-            mail = RequestMailer.deliver_requires_admin(info_request)
+        end
+
+        it 'body should contain the full admin URL' do
+            mail = RequestMailer.deliver_requires_admin(@info_request)
 
             mail.body.should include('http://our.proxy.server/admin/alaveteli/request/show/123')
         end
