@@ -13,7 +13,7 @@ class WorldFOIWebsites
                               {:name => "Ask The EU",
                                   :country_name => "European Union",
                                   :country_iso_code => "",
-                                  :url => "http://asktheu.org"},
+                                  :url => "http://asktheeu.org"},
                               {:name => "MuckRock.com",
                                   :country_name => "United States of America",
                                   :country_iso_code => "US",
@@ -45,7 +45,7 @@ class WorldFOIWebsites
                               {:name => "Acceso Intelligente",
                                   :country_name => "Chile",
                                   :country_iso_code => "CL",
-                                  :url => "accesointeligente.org"}]
+                                  :url => "http://accesointeligente.org"}]
         return world_foi_websites
     end
 
