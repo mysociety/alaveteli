@@ -45,7 +45,7 @@ class WorldFOIWebsites
                               {:name => "Acceso Intelligente",
                                   :country_name => "Chile",
                                   :country_iso_code => "CL",
-                                  :url => "accesointeligente.org"}]
+                                  :url => "http://accesointeligente.org"}]
         return world_foi_websites
     end
 
