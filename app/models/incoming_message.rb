@@ -647,6 +647,7 @@ class IncomingMessage < ActiveRecord::Base
             # Text looks like unlabelled nonsense,
             # strip out anything that isn't UTF-8
             begin
+                source_charset = 'utf-8' if source_charset.nil?
                 text = Iconv.conv('utf-8//IGNORE', source_charset, text) +
                     _("\n\n[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]",
                       :site_name => MySociety::Config.get('SITE_NAME', 'Alaveteli'))
