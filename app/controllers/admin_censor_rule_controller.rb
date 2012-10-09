@@ -3,8 +3,6 @@
 #
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
-#
-# $Id: admin_censor_rule_controller.rb,v 1.7 2009-06-30 14:28:25 francis Exp $
 
 class AdminCensorRuleController < AdminController
     def new

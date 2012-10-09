@@ -15,8 +15,6 @@
 #
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
-#
-# $Id: exim_log_done.rb,v 1.8 2009-09-17 21:10:05 francis Exp $
 
 class EximLogDone < ActiveRecord::Base
     has_many :exim_logs

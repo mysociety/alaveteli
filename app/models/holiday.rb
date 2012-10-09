@@ -20,8 +20,6 @@
 #
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
-#
-# $Id: holiday.rb,v 1.10 2009-10-26 17:52:39 francis Exp $
 
 class Holiday < ActiveRecord::Base
 

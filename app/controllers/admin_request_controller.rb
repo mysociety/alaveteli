@@ -3,8 +3,6 @@
 #
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
-#
-# $Id: admin_request_controller.rb,v 1.42 2009-10-03 01:28:33 francis Exp $
 
 require 'ostruct'
 

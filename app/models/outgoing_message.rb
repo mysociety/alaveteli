@@ -21,8 +21,6 @@
 #
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
-#
-# $Id: outgoing_message.rb,v 1.95 2009-10-04 21:53:54 francis Exp $
 
 class OutgoingMessage < ActiveRecord::Base
     strip_attributes!

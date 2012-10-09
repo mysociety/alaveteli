@@ -3,8 +3,6 @@
 #
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
-#
-# $Id: holiday_controller.rb,v 1.2 2009-10-26 17:52:39 francis Exp $
 
 class HolidayController < ApplicationController
 

@@ -3,8 +3,6 @@
 #
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
-#
-# $Id: user_mailer.rb,v 1.8 2009-02-09 10:37:12 francis Exp $
 
 class UserMailer < ApplicationMailer
     def confirm_login(user, reasons, url)

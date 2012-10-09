@@ -3,8 +3,7 @@
 #
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
-#
-# $Id: application_mailer.rb,v 1.8 2009-02-09 10:37:12 francis Exp $
+
 require 'action_mailer/version'
 class ApplicationMailer < ActionMailer::Base
     # Include all the functions views get, as emails call similar things.

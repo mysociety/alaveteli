@@ -3,8 +3,6 @@
 #
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
-#
-# $Id: activesupport_cache_extensions.rb,v 1.1 2009-07-01 11:07:32 francis Exp $
 
 # Monkeypatch! ./activesupport/lib/active_support/cache/file_store.rb
 

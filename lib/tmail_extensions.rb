@@ -3,8 +3,7 @@
 #
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
-#
-# $Id: tmail_extensions.rb,v 1.7 2009-10-02 23:31:01 francis Exp $
+
 require 'racc/parser'
 require 'tmail'
 require 'tmail/scanner'

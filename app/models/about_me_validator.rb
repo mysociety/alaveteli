@@ -11,8 +11,6 @@
 #
 # Copyright (c) 2010 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
-#
-# $Id: contact_validator.rb,v 1.32 2009-09-17 21:10:05 francis Exp $
 
 class AboutMeValidator < ActiveRecord::BaseWithoutTable
     strip_attributes!

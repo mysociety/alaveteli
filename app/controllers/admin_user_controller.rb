@@ -3,8 +3,6 @@
 #
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
-#
-# $Id: admin_user_controller.rb,v 1.13 2009-07-28 12:53:54 francis Exp $
 
 class AdminUserController < AdminController
     def index

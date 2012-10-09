@@ -3,8 +3,6 @@
 #
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
-#
-# $Id: admin_public_body_controller.rb,v 1.23 2009-08-26 00:58:29 francis Exp $
 
 require "public_body_categories"
 
