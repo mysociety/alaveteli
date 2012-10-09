@@ -4,8 +4,6 @@
 #
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
-#
-# $Id: general_controller.rb,v 1.57 2009-10-03 10:23:43 francis Exp $
 
 begin
   require 'xmlsimple'

@@ -25,8 +25,6 @@
 #
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
-#
-# $Id: post_redirect.rb,v 1.51 2009-09-17 21:10:05 francis Exp $
 
 require 'openssl' # for random bytes function
 

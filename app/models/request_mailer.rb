@@ -3,8 +3,6 @@
 #
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
-#
-# $Id: request_mailer.rb,v 1.89 2009-10-04 21:53:54 francis Exp $
 
 require 'alaveteli_file_types'
 

@@ -4,8 +4,6 @@
 #
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
-#
-# $Id: link_to_helper.rb,v 1.52 2009-04-08 05:34:51 francis Exp $
 
 module LinkToHelper
 

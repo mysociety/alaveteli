@@ -3,8 +3,6 @@
 #
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
-#
-# $Id: outgoing_mailer.rb,v 1.1 2009-10-04 21:53:54 francis Exp $
 
 # Note: The layout for this wraps messages by lines rather than (blank line
 # separated) paragraphs, as is the convention for all the other mailers. This

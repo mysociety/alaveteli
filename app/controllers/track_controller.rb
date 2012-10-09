@@ -4,8 +4,6 @@
 #
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
-#
-# $Id: track_controller.rb,v 1.31 2009-09-02 14:18:26 francis Exp $
 
 class TrackController < ApplicationController
 

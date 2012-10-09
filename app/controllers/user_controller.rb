@@ -3,8 +3,6 @@
 #
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
-#
-# $Id: user_controller.rb,v 1.71 2009-09-17 07:51:47 francis Exp $
 
 require 'set'
 

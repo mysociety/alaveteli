@@ -6,8 +6,6 @@
 #
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
-#
-# $Id: application.rb,v 1.59 2009-09-17 13:01:56 francis Exp $
 
 require 'open-uri'
 

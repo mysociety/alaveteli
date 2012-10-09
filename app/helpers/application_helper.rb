@@ -4,8 +4,7 @@
 #
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
-#
-# $Id: application_helper.rb,v 1.22 2008-07-09 07:24:50 francis Exp $
+
 require 'languages'
 
 module ApplicationHelper

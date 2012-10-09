@@ -3,8 +3,6 @@
 #
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
-#
-# $Id: track_mailer.rb,v 1.23 2009-10-03 02:50:11 francis Exp $
 
 class TrackMailer < ApplicationMailer
     def event_digest(user, email_about_things)

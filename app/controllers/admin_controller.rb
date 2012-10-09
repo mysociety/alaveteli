@@ -3,8 +3,6 @@
 #
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
-#
-# $Id: admin_controller.rb,v 1.29 2009-09-17 10:24:35 francis Exp $
 
 require 'fileutils'
 

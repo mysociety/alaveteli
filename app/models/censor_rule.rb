@@ -21,8 +21,6 @@
 #
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
-#
-# $Id: censor_rule.rb,v 1.14 2009-09-17 21:10:04 francis Exp $
 
 class CensorRule < ActiveRecord::Base
     belongs_to :info_request

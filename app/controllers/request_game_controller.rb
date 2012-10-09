@@ -3,8 +3,6 @@
 #
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
-#
-# $Id: request_game_controller.rb,v 1.9 2009-10-19 22:06:54 francis Exp $
 
 class RequestGameController < ApplicationController
 

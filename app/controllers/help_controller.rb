@@ -3,8 +3,6 @@
 #
 # Copyright (c) 2008 UK Citizens Online Democracy. All rights reserved.
 # Email: francis@mysociety.org; WWW: http://www.mysociety.org/
-#
-# $Id: help_controller.rb,v 1.12 2009-07-14 23:30:37 francis Exp $
 
 class HelpController < ApplicationController
 
