@@ -39,7 +39,7 @@ If you are running Debian, add the following repositories to
     deb http://ftp.debian.org/debian/ testing main non-free contrib
 
 The repositories above allow us to install the packages
-`wkhtmltopdf-static` and `bundler` using `apt`; so if you're running
+`wkthmltopdf-static` and `bundler` using `apt`; so if you're running
 Ubuntu, you won't be able to use the above repositories, and you will
 need to comment out those two lines in `config/packages` before
 following the next step (and install bundler manually).
@@ -326,17 +326,12 @@ which lives in `config/alert-tracks-debian.ugly`.  As with the cron
 jobs above, replace the variables (and/or bits near the variables)
 with paths to your software.  `config/purge-varnish-debian.ugly` is a
 similar init script, which is optional and not required if you choose
-not to run your site behind Varnish (see below). Either tweak the file permissions to make the script executable by your deploy user, or add the following line to your
-sudoers file to allow these to be run by your deploy user (named `deploy` in
-this case):
-
-    deploy  ALL = NOPASSWD: /etc/init.d/foi-alert-tracks, /etc/init.d/foi-purge-varnish
+not to run your site behind Varnish (see below).
 
 The cron jobs refer to a program `run-with-lockfile`. See
 [this issue](https://github.com/mysociety/alaveteli/issues/112) for a
 discussion of where to find this program, and how you might replace
-it. This [one line script](https://gist.github.com/3741194) can install
-this program system-wide.
+it.
 
 # Set up production web server
 

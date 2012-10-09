@@ -1,27 +1,32 @@
+# -*- coding: utf-8 -*-
 # == Schema Information
-# Schema version: 20120919140404
 #
 # Table name: public_bodies
 #
-#  id                  :integer         not null, primary key
-#  name                :text            not null
-#  short_name          :text            not null
-#  request_email       :text            not null
-#  version             :integer         not null
-#  last_edit_editor    :string(255)     not null
-#  last_edit_comment   :text            not null
-#  created_at          :datetime        not null
-#  updated_at          :datetime        not null
-#  url_name            :text            not null
-#  home_page           :text            default(""), not null
-#  notes               :text            default(""), not null
-#  first_letter        :string(255)     not null
-#  publication_scheme  :text            default(""), not null
-#  api_key             :string(255)
-#  info_requests_count :integer         default(0), not null
+#  id                 :integer         not null, primary key
+#  name               :text            not null
+#  short_name         :text            not null
+#  request_email      :text            not null
+#  version            :integer         not null
+#  last_edit_editor   :string(255)     not null
+#  last_edit_comment  :text            not null
+#  created_at         :datetime        not null
+#  updated_at         :datetime        not null
+#  url_name           :text            not null
+#  home_page          :text            default(""), not null
+#  notes              :text            default(""), not null
+#  first_letter       :string(255)     not null
+#  publication_scheme :text            default(""), not null
+#  api_key            :string(255)     not null
 #
+# models/public_body.rb:
+# A public body, from which information can be requested.
+#
+# Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
+# Email: francis@mysociety.org; WWW: http://www.mysociety.org/
+#
+# $Id: public_body.rb,v 1.160 2009-10-02 22:56:35 francis Exp $
 
-# -*- coding: utf-8 -*-
 require 'csv'
 require 'securerandom'
 require 'set'

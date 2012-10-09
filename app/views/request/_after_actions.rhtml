@@ -5,11 +5,9 @@
     <div id="anyone_actions">
         <strong><%= _('Anyone:') %></strong>
         <ul>
-        <% if @info_request.comments_allowed? %>
-          <li>
-            <%= _('<a href="%s">Add an annotation</a> (to help the requester or others)') % [new_comment_url(:url_title => @info_request.url_title)] %>
-          </li>
-        <% end %>
+        <li>
+      <%= _('<a href="%s">Add an annotation</a> (to help the requester or others)') % [new_comment_url(:url_title => @info_request.url_title)] %>
+        </li>
         <% if @old_unclassified %>
             <li>
                 <%= link_to _('Update the status of this request'), '#describe_state_form_1' %>

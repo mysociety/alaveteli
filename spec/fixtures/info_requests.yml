@@ -8,7 +8,6 @@ fancy_dog_request:
     user_id: 1
     described_state: waiting_response
     awaiting_description: true
-    comments_allowed: true
     idhash: 50929748
 naughty_chicken_request:
     id: 103
@@ -20,7 +19,6 @@ naughty_chicken_request:
     user_id: 1
     described_state: waiting_response
     awaiting_description: false
-    comments_allowed: true
     idhash: e8d18c84
 badger_request:
     id: 104
@@ -32,7 +30,6 @@ badger_request:
     user_id: 1
     described_state: waiting_response
     awaiting_description: false
-    comments_allowed: true
     idhash: e8d18c84
 boring_request:
     id: 105
@@ -44,7 +41,6 @@ boring_request:
     user_id: 1
     described_state: successful
     awaiting_description: false
-    comments_allowed: true
     idhash: 173fd003
 another_boring_request:
     id: 106
@@ -56,7 +52,6 @@ another_boring_request:
     user_id: 1
     described_state: successful
     awaiting_description: false
-    comments_allowed: true
     idhash: 173fd004
 
 # A pair of identical requests (with url_title differing only in the numeric suffix)
@@ -71,7 +66,6 @@ spam_1_request:
     user_id: 5
     described_state: successful
     awaiting_description: false
-    comments_allowed: false
     idhash: 173fd005
 spam_2_request:
     id: 108
@@ -83,7 +77,6 @@ spam_2_request:
     user_id: 5
     described_state: successful
     awaiting_description: false
-    comments_allowed: true
     idhash: 173fd005
 external_request:
     id: 109
@@ -94,7 +87,6 @@ external_request:
     public_body_id: 2
     described_state: waiting_response
     awaiting_description: false
-    comments_allowed: true
     idhash: a1234567
 anonymous_external_request:
     id: 110
@@ -105,5 +97,4 @@ anonymous_external_request:
     public_body_id: 2
     described_state: waiting_response
     awaiting_description: false
-    comments_allowed: true
     idhash: 7654321a
