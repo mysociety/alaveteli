@@ -67,13 +67,15 @@ class EximLog < ActiveRecord::Base
                 emails = line.scan(/request-[^\s]+@#{email_domain}/).sort.uniq
                 for email in emails
                     info_request = InfoRequest.find_by_incoming_email(email)
-                    if !info_request.nil?
+                    if info_request
                         exim_log = EximLog.new
                         exim_log.info_request = info_request
                         exim_log.exim_log_done = done
                         exim_log.line = line
                         exim_log.order = order
                         exim_log.save!
+                    else
+                        puts "Warning: Could not find request with email #{email}"
                     end
                 end
             end
