@@ -158,6 +158,10 @@ class EximLog < ActiveRecord::Base
     # XXX does this really check that, as the exim log just wouldn't pick
     # up at all if the requests weren't sent that way as there would be
     # no request- email in it?
+    #
+    # NB: There can be several emails involved in a request. This just checks that
+    # at least one of them has been succesfully sent.
+    #
     def EximLog.check_recent_requests_have_been_sent
         # Get all requests sent for from 2 to 10 days ago. The 2 day gap is
         # because we load exim log lines via cron at best an hour after they
