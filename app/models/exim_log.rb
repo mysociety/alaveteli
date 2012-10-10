@@ -54,8 +54,7 @@ class EximLog < ActiveRecord::Base
             done.save!
 
             f = is_gz ? Zlib::GzipReader.open(file_name) : File.open(file_name, 'r')
-            type = detect_mta_log_type(f)
-            case(type)
+            case(Configuration::mta_log_type.to_sym)
             when :exim
                 load_exim_log_data(f, done)
             when :postfix
@@ -64,13 +63,6 @@ class EximLog < ActiveRecord::Base
                 raise "Unexpected MTA type: #{type}"
             end
         end
-    end
-
-    # Unbelievably dumb heuristic for detecting whether this is an exim or a postfix log
-    def EximLog.detect_mta_log_type(f)
-        r = (f.readline =~ /postfix/) ? :postfix : :exim
-        f.rewind
-        r
     end
 
     # Scan the file
