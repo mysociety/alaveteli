@@ -5,6 +5,7 @@ describe EximLog do
         before :each do
             Configuration.stub!(:incoming_email_domain).and_return("example.com")
             File.stub_chain(:stat, :mtime).and_return(DateTime.new(2012, 10, 10))
+            EximLog.stub!(:detect_mta_log_type).and_return(:exim)
         end
 
         let(:log) {[
