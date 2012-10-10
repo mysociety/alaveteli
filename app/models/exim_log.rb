@@ -125,8 +125,19 @@ class EximLog < ActiveRecord::Base
         line.scan(/request-[^\s]+@#{Configuration::incoming_email_domain}/).sort.uniq
     end
 
-    # Look at the log for a request and check that an email was delivered
     def EximLog.request_sent?(ir)
+        case(Configuration::mta_log_type.to_sym)
+        when :exim
+            request_exim_sent?(ir)
+        when :postfix
+            request_postfix_sent?(ir)
+        else
+            raise "Unexpected MTA type: #{type}"
+        end
+    end
+
+    # Look at the log for a request and check that an email was delivered
+    def EximLog.request_exim_sent?(ir)
         # Look for line showing request was sent
         found = false
         ir.exim_logs.each do |exim_log|
