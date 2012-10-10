@@ -1,7 +1,7 @@
 # == Schema Information
-# Schema version: 114
+# Schema version: 20121010214348
 #
-# Table name: exim_log_dones
+# Table name: mail_server_log_dones
 #
 #  id         :integer         not null, primary key
 #  filename   :text            not null
@@ -10,7 +10,6 @@
 #  updated_at :datetime        not null
 #
 
-# models/exim_log_done.rb:
 # Stores that a particular exim file has been loaded in, see exim_log.rb
 #
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
@@ -18,8 +17,8 @@
 #
 # $Id: exim_log_done.rb,v 1.8 2009-09-17 21:10:05 francis Exp $
 
-class EximLogDone < ActiveRecord::Base
-    has_many :exim_logs
+class MailServerLogDone < ActiveRecord::Base
+    has_many :mail_server_logs
 end
 
 

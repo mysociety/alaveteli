@@ -1,6 +1,6 @@
 # This is a test of the monkey patches in timezone_fixes.rb
 
-# We use EximLogDone here just as a totally random model that has a datetime type.
+# We use MailServerLogDone here just as a totally random model that has a datetime type.
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
@@ -10,8 +10,8 @@ describe "when doing things with timezones" do
     with_env_tz 'America/New_York' do
       with_active_record_default_timezone :utc do
         time = Time.local(2000)
-        exim_log_done = EximLogDone.create('last_stat' => time, 'filename' => 'dummy')
-        saved_time = EximLogDone.find(exim_log_done.id).last_stat
+        mail_server_log_done = MailServerLogDone.create('last_stat' => time, 'filename' => 'dummy')
+        saved_time = MailServerLogDone.find(mail_server_log_done.id).last_stat
         assert_equal time, saved_time
         assert_equal [0, 0, 0, 1, 1, 2000, 6, 1, false, "EST"], time.to_a
         assert_equal [0, 0, 5, 1, 1, 2000, 6, 1, false, "UTC"], saved_time.to_a
@@ -24,8 +24,8 @@ describe "when doing things with timezones" do
       with_active_record_default_timezone :utc do
         Time.use_zone 'Central Time (US & Canada)' do
           time = Time.zone.local(2000)
-          exim_log_done = EximLogDone.create('last_stat' => time, 'filename' => 'dummy')
-          saved_time = EximLogDone.find(exim_log_done.id).last_stat
+          mail_server_log_done = MailServerLogDone.create('last_stat' => time, 'filename' => 'dummy')
+          saved_time = MailServerLogDone.find(mail_server_log_done.id).last_stat
           assert_equal time, saved_time
           assert_equal [0, 0, 0, 1, 1, 2000, 6, 1, false, "CST"], time.to_a
           assert_equal [0, 0, 6, 1, 1, 2000, 6, 1, false, "UTC"], saved_time.to_a
@@ -39,8 +39,8 @@ describe "when doing things with timezones" do
   #it "should preserve time objects with UTC time conversion to default timezone local" do
   #  with_env_tz 'America/New_York' do
   #    time = Time.utc(2000)
-  #    exim_log_done = EximLogDone.create('last_stat' => time, 'filename' => 'dummy')
-  #    saved_time = EximLogDone.find(exim_log_done.id).last_stat
+  #    mail_server_log_done = MailServerLogDone.create('last_stat' => time, 'filename' => 'dummy')
+  #    saved_time = MailServerLogDone.find(mail_server_log_done.id).last_stat
   #    assert_equal time, saved_time
   #    assert_equal [0, 0, 0, 1, 1, 2000, 6, 1, false, "UTC"], time.to_a
   #    assert_equal [0, 0, 19, 31, 12, 1999, 5, 365, false, "EST"], saved_time.to_a
@@ -52,8 +52,8 @@ describe "when doing things with timezones" do
       with_active_record_default_timezone :local do
         Time.use_zone 'Central Time (US & Canada)' do
           time = Time.zone.local(2000)
-          exim_log_done = EximLogDone.create('last_stat' => time, 'filename' => 'dummy')
-          saved_time = EximLogDone.find(exim_log_done.id).last_stat
+          mail_server_log_done = MailServerLogDone.create('last_stat' => time, 'filename' => 'dummy')
+          saved_time = MailServerLogDone.find(mail_server_log_done.id).last_stat
           assert_equal time, saved_time
           assert_equal [0, 0, 0, 1, 1, 2000, 6, 1, false, "CST"], time.to_a
           assert_equal [0, 0, 1, 1, 1, 2000, 6, 1, false, "EST"], saved_time.to_a

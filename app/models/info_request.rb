@@ -47,7 +47,7 @@ class InfoRequest < ActiveRecord::Base
     has_many :track_things, :order => 'created_at desc'
     has_many :comments, :order => 'created_at'
     has_many :censor_rules, :order => 'created_at desc'
-    has_many :exim_logs, :order => 'exim_log_done_id'
+    has_many :mail_server_logs, :order => 'mail_server_log_done_id'
 
     has_tag_string
 
@@ -884,8 +884,8 @@ public
             info_request_event.track_things_sent_emails.each { |a| a.destroy }
             info_request_event.destroy
         end
-        self.exim_logs.each do |exim_log|
-            exim_log.destroy
+        self.mail_server_logs.each do |mail_server_log|
+            mail_server_log.destroy
         end
         self.outgoing_messages.each { |a| a.destroy }
         self.incoming_messages.each { |a| a.destroy }

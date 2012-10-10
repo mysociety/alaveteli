@@ -1,18 +1,17 @@
 # == Schema Information
-# Schema version: 114
+# Schema version: 20121010214348
 #
-# Table name: exim_logs
+# Table name: mail_server_logs
 #
-#  id               :integer         not null, primary key
-#  exim_log_done_id :integer
-#  info_request_id  :integer
-#  order            :integer         not null
-#  line             :text            not null
-#  created_at       :datetime        not null
-#  updated_at       :datetime        not null
+#  id                      :integer         not null, primary key
+#  mail_server_log_done_id :integer
+#  info_request_id         :integer
+#  order                   :integer         not null
+#  line                    :text            not null
+#  created_at              :datetime        not null
+#  updated_at              :datetime        not null
 #
 
-# models/exim_log.rb:
 # We load log file lines for requests in here, for display in the admin interface.
 #
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
@@ -20,34 +19,34 @@
 #
 # $Id: exim_log.rb,v 1.14 2009-09-17 21:10:05 francis Exp $
 
-class EximLog < ActiveRecord::Base
+class MailServerLog < ActiveRecord::Base
     belongs_to :info_request
-    belongs_to :exim_log_done
+    belongs_to :mail_server_log_done
 
     # Load in exim log file from disk, or update if we already have it
     # Assumes files are named with date, rather than cyclically.
     # Doesn't do anything if file hasn't been modified since it was last loaded.
     # Note: If you do use rotated log files (rather than files named by date), at some
     # point old loaded log lines will get deleted in the database.
-    def EximLog.load_file(file_name)
+    def MailServerLog.load_file(file_name)
         is_gz = file_name.include?(".gz")
         file_name_db = is_gz ? file_name.gsub(".gz", "") : file_name
 
         modified = File.stat(file_name).mtime
-        raise "EximLog.load_file: file not found " + file_name if modified.nil?
+        raise "MailServerLog.load_file: file not found " + file_name if modified.nil?
 
         ActiveRecord::Base.transaction do
             # see if we already have it
-            done = EximLogDone.find_by_filename(file_name_db)
+            done = MailServerLogDone.find_by_filename(file_name_db)
             if done
                 if modified.utc == done.last_stat.utc
                     # already have that, nothing to do
                     return
                 else
-                    EximLog.delete_all "exim_log_done_id = " + done.id.to_s
+                    MailServerLog.delete_all "mail_server_log_done_id = " + done.id.to_s
                 end
             else
-                done = EximLogDone.new(:filename => file_name_db)
+                done = MailServerLogDone.new(:filename => file_name_db)
             end
             done.last_stat = modified
             # update done structure so we know when we last read this file
@@ -66,7 +65,7 @@ class EximLog < ActiveRecord::Base
     end
 
     # Scan the file
-    def EximLog.load_exim_log_data(f, done)
+    def MailServerLog.load_exim_log_data(f, done)
         order = 0
         f.each do |line|
             order = order + 1
@@ -74,7 +73,7 @@ class EximLog < ActiveRecord::Base
             for email in emails
                 info_request = InfoRequest.find_by_incoming_email(email)
                 if info_request
-                    info_request.exim_logs.create!(:line => line, :order => order, :exim_log_done => done)
+                    info_request.mail_server_logs.create!(:line => line, :order => order, :mail_server_log_done => done)
                 else
                     puts "Warning: Could not find request with email #{email}"
                 end
@@ -82,7 +81,7 @@ class EximLog < ActiveRecord::Base
         end
     end
 
-    def EximLog.load_postfix_log_data(f, done)
+    def MailServerLog.load_postfix_log_data(f, done)
         order = 0
         emails = scan_for_postfix_queue_ids(f)
         # Go back to the beginning of the file
@@ -94,7 +93,7 @@ class EximLog < ActiveRecord::Base
                 emails[queue_id].each do |email|
                     info_request = InfoRequest.find_by_incoming_email(email)
                     if info_request
-                        info_request.exim_logs.create!(:line => line, :order => order, :exim_log_done => done)
+                        info_request.mail_server_logs.create!(:line => line, :order => order, :mail_server_log_done => done)
                     else
                         puts "Warning: Could not find request with email #{email}"
                     end                    
@@ -103,7 +102,7 @@ class EximLog < ActiveRecord::Base
         end
     end
 
-    def EximLog.scan_for_postfix_queue_ids(f)
+    def MailServerLog.scan_for_postfix_queue_ids(f)
         result = {}
         f.each do |line|
             emails = email_addresses_on_line(line)
@@ -115,17 +114,17 @@ class EximLog < ActiveRecord::Base
     end
 
     # Retuns nil if there is no queue id
-    def EximLog.extract_postfix_queue_id_from_syslog_line(line)
+    def MailServerLog.extract_postfix_queue_id_from_syslog_line(line)
         # Assume the log file was written using syslog and parse accordingly
         m = SyslogProtocol.parse("<13>" + line).content.match(/^\S+: (\S+):/)
         m[1] if m
     end
 
-    def EximLog.email_addresses_on_line(line)
+    def MailServerLog.email_addresses_on_line(line)
         line.scan(/request-[^\s]+@#{Configuration::incoming_email_domain}/).sort.uniq
     end
 
-    def EximLog.request_sent?(ir)
+    def MailServerLog.request_sent?(ir)
         case(Configuration::mta_log_type.to_sym)
         when :exim
             request_exim_sent?(ir)
@@ -137,17 +136,17 @@ class EximLog < ActiveRecord::Base
     end
 
     # Look at the log for a request and check that an email was delivered
-    def EximLog.request_exim_sent?(ir)
+    def MailServerLog.request_exim_sent?(ir)
         # Look for line showing request was sent
         found = false
-        ir.exim_logs.each do |exim_log|
+        ir.mail_server_logs.each do |mail_server_log|
             test_outgoing = " <= " + ir.incoming_email + " "
-            if exim_log.line.include?(test_outgoing)
+            if mail_server_log.line.include?(test_outgoing)
                 # Check the from value is the same (it always will be, but may as well
                 # be sure we are parsing the exim line right)
                 envelope_from = " from <" + ir.incoming_email + "> "
-                if !exim_log.line.include?(envelope_from)
-                    $stderr.puts("unexpected parsing of exim line: [#{exim_log.line.chomp}]")
+                if !mail_server_log.line.include?(envelope_from)
+                    $stderr.puts("unexpected parsing of exim line: [#{mail_server_log.line.chomp}]")
                 else
                     found = true
                 end
@@ -156,10 +155,10 @@ class EximLog < ActiveRecord::Base
         found
     end
 
-    def EximLog.request_postfix_sent?(ir)
+    def MailServerLog.request_postfix_sent?(ir)
         # dsn=2.0.0 is the magic word that says that postfix delivered the email
         # See http://tools.ietf.org/html/rfc3464
-        ir.exim_logs.any? { |l| l.line.include?("dsn=2.0.0") }
+        ir.mail_server_logs.any? { |l| l.line.include?("dsn=2.0.0") }
     end
 
     # Check that the last day of requests has been sent in Exim and we got the
@@ -173,7 +172,7 @@ class EximLog < ActiveRecord::Base
     # NB: There can be several emails involved in a request. This just checks that
     # at least one of them has been succesfully sent.
     #
-    def EximLog.check_recent_requests_have_been_sent
+    def MailServerLog.check_recent_requests_have_been_sent
         # Get all requests sent for from 2 to 10 days ago. The 2 day gap is
         # because we load exim log lines via cron at best an hour after they
         # are made)
