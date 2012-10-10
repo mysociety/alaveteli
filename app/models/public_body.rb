@@ -17,7 +17,7 @@
 #  notes               :text            default(""), not null
 #  first_letter        :string(255)     not null
 #  publication_scheme  :text            default(""), not null
-#  api_key             :string(255)
+#  api_key             :string(255)     not null
 #  info_requests_count :integer         default(0), not null
 #
 
