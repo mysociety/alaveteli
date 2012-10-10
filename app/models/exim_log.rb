@@ -51,19 +51,24 @@ class EximLog < ActiveRecord::Base
             # update done structure so we know when we last read this file
             done.save!
 
-            # scan the file
-            order = 0
-            (is_gz ? Zlib::GzipReader.open(file_name) : File.open(file_name, 'r')).each do |line|
-                order = order + 1
-                email_domain = Configuration::incoming_email_domain
-                emails = line.scan(/request-[^\s]+@#{email_domain}/).sort.uniq
-                for email in emails
-                    info_request = InfoRequest.find_by_incoming_email(email)
-                    if info_request
-                        info_request.exim_logs.create!(:line => line, :order => order, :exim_log_done => done)
-                    else
-                        puts "Warning: Could not find request with email #{email}"
-                    end
+            f = is_gz ? Zlib::GzipReader.open(file_name) : File.open(file_name, 'r')
+            load_exim_log_data(f, done)
+        end
+    end
+
+    # Scan the file
+    def EximLog.load_exim_log_data(f, done)
+        order = 0
+        f.each do |line|
+            order = order + 1
+            email_domain = Configuration::incoming_email_domain
+            emails = line.scan(/request-[^\s]+@#{email_domain}/).sort.uniq
+            for email in emails
+                info_request = InfoRequest.find_by_incoming_email(email)
+                if info_request
+                    info_request.exim_logs.create!(:line => line, :order => order, :exim_log_done => done)
+                else
+                    puts "Warning: Could not find request with email #{email}"
                 end
             end
         end
