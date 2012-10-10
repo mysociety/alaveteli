@@ -61,8 +61,7 @@ class EximLog < ActiveRecord::Base
         order = 0
         f.each do |line|
             order = order + 1
-            email_domain = Configuration::incoming_email_domain
-            emails = line.scan(/request-[^\s]+@#{email_domain}/).sort.uniq
+            emails = email_addresses_on_line(line)
             for email in emails
                 info_request = InfoRequest.find_by_incoming_email(email)
                 if info_request
@@ -77,14 +76,17 @@ class EximLog < ActiveRecord::Base
     def EximLog.scan_for_postfix_queue_ids(f)
         result = {}
         f.each do |line|
-            email_domain = Configuration::incoming_email_domain
-            emails = line.scan(/request-[^\s]+@#{email_domain}/).sort.uniq
+            emails = email_addresses_on_line(line)
             # Assume the log file was written using syslog and parse accordingly
             queue_id = SyslogProtocol.parse("<13>" + line).content.match(/^\S+: (\S+):/)[1]
             result[queue_id] = [] unless result.has_key?(queue_id)
             result[queue_id] = (result[queue_id] + emails).uniq
         end
         result
+    end
+
+    def EximLog.email_addresses_on_line(line)
+        line.scan(/request-[^\s]+@#{Configuration::incoming_email_domain}/).sort.uniq
     end
 
     # Check that the last day of requests has been sent in Exim and we got the
