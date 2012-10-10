@@ -145,6 +145,12 @@ class EximLog < ActiveRecord::Base
         found
     end
 
+    def EximLog.request_postfix_sent?(ir)
+        # dsn=2.0.0 is the magic word that says that postfix delivered the email
+        # See http://tools.ietf.org/html/rfc3464
+        ir.exim_logs.any? { |l| l.line.include?("dsn=2.0.0") }
+    end
+
     # Check that the last day of requests has been sent in Exim and we got the
     # lines. Writes any errors to STDERR. This check is really mainly to
     # check the envelope from is the request address, as Ruby is quite

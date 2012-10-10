@@ -119,5 +119,19 @@ describe EximLog do
                 EximLog.extract_postfix_queue_id_from_syslog_line("Oct  7 07:16:48 kedumba postfix/smtp[14294]: connect to mail.neilcopp.com.au[110.142.151.66]:25: Connection refused").should be_nil
             end
         end
+
+        describe ".request_postfix_sent?" do
+            it "returns true when the logs say the message was sent" do
+                ir = info_requests(:fancy_dog_request)
+                ir.exim_logs.create!(:line => "Oct 10 16:58:38 kedumba postfix/smtp[26358]: A664436F218D: to=<contact@openaustraliafoundation.org.au>, relay=aspmx.l.google.com[74.125.25.26]:25, delay=2.7, delays=0.16/0.02/1.8/0.67, dsn=2.0.0, status=sent (250 2.0.0 OK 1349848723 e6si653316paw.346)", :order => 1)
+                EximLog.request_postfix_sent?(ir).should be_true
+            end
+
+            it "returns false when the logs say the message hasn't been sent" do
+                ir = info_requests(:fancy_dog_request)
+                ir.exim_logs.create!(:line => "Oct 10 13:22:49 kedumba postfix/smtp[11876]: 6FB9036F1307: to=<foo@example.com>, relay=mta7.am0.yahoodns.net[74.6.136.244]:25, delay=1.5, delays=0.03/0/0.48/1, dsn=5.0.0, status=bounced (host mta7.am0.yahoodns.net[74.6.136.244] said: 554 delivery error: dd Sorry your message to foo@example.com cannot be delivered. This account has been disabled or discontinued [#102]. - mta1272.mail.sk1.yahoo.com (in reply to end of DATA command))", :order => 1)
+                EximLog.request_postfix_sent?(ir).should be_false
+            end
+        end
     end
 end
