@@ -68,12 +68,7 @@ class EximLog < ActiveRecord::Base
                 for email in emails
                     info_request = InfoRequest.find_by_incoming_email(email)
                     if info_request
-                        exim_log = EximLog.new
-                        exim_log.info_request = info_request
-                        exim_log.exim_log_done = done
-                        exim_log.line = line
-                        exim_log.order = order
-                        exim_log.save!
+                        info_request.exim_logs.create!(:line => line, :order => order, :exim_log_done => done)
                     else
                         puts "Warning: Could not find request with email #{email}"
                     end
