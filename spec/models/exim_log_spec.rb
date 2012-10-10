@@ -54,5 +54,11 @@ describe EximLog do
             EximLog.load_file("/var/log/exim4/exim-mainlog-2012-10-10")
             ir.exim_logs.count.should == 2
         end
+
+        it "easily handles gzip compress log files" do
+            File.should_not_receive(:open)
+            Zlib::GzipReader.should_receive(:open).with("/var/log/exim4/exim-mainlog-2012-10-10.gz").and_return([])
+            EximLog.load_file("/var/log/exim4/exim-mainlog-2012-10-10.gz")
+        end
     end
 end
