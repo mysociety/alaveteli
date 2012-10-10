@@ -31,7 +31,7 @@ class EximLog < ActiveRecord::Base
         is_gz = file_name.include?(".gz")
         file_name_db = is_gz ? file_name.gsub(".gz", "") : file_name
 
-        modified = File::stat(file_name).mtime
+        modified = File.stat(file_name).mtime
         raise "EximLog.load_file: file not found " + file_name if modified.nil?
 
         ActiveRecord::Base.transaction do
