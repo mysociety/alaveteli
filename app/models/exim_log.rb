@@ -28,12 +28,8 @@ class EximLog < ActiveRecord::Base
     # Assumes files are named with date, rather than cyclically.
     # Doesn't do anything if file hasn't been modified since it was last loaded.
     def EximLog.load_file(file_name)
-        file_name_db = file_name
-        is_gz = false
-        if file_name.include?(".gz")
-            is_gz = true
-            file_name_db = file_name.gsub(".gz", "")
-        end
+        is_gz = file_name.include?(".gz")
+        file_name_db = is_gz ? file_name.gsub(".gz", "") : file_name
 
         modified = File::stat(file_name).mtime
         raise "EximLog.load_file: file not found " + file_name if modified.nil?
