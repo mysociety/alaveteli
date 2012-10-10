@@ -129,7 +129,7 @@ class EximLog < ActiveRecord::Base
     def EximLog.request_sent?(ir)
         # Look for line showing request was sent
         found = false
-        for exim_log in ir.exim_logs
+        ir.exim_logs.each do |exim_log|
             test_outgoing = " <= " + ir.incoming_email + " "
             if exim_log.line.include?(test_outgoing)
                 # Check the from value is the same (it always will be, but may as well
@@ -160,17 +160,15 @@ class EximLog < ActiveRecord::Base
 
         # Go through each request and check it
         ok = true
-        for ir in irs
-            found = request_sent?(ir)
-            if !found
+        irs.each do |ir|
+            unless request_sent?(ir)
                 # It's very important the envelope from is set for avoiding spam filter reasons - this
                 # effectively acts as a check for that.
                 $stderr.puts("failed to find request sending Exim line for request id " + ir.id.to_s + " " + ir.url_title + " (check envelope from is being set to request address in Ruby, and load-exim-logs crontab is working)") # *** don't comment out this STDERR line, it is the point of the function!
                 ok = false
             end
         end
-
-        return ok
+        ok
     end
 
 end
