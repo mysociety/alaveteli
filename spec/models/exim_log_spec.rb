@@ -39,5 +39,24 @@ describe EximLog do
             File.stub_chain(:stat, :mtime).and_return(DateTime.new(2012, 10, 11))
             EximLog.load_file("/var/log/exim4/exim-mainlog-2012-10-10")
         end
+
+        it "doesn't end up with two copies of each line when the same file is actually loaded twice" do
+            Configuration.stub!(:incoming_email_domain).and_return("example.com")
+            log = [
+                "This is a line of a logfile relevant to foi+request-1234@example.com",
+                "This is the second line for the same foi+request-1234@example.com email address"
+            ]
+            File.should_receive(:open).with("/var/log/exim4/exim-mainlog-2012-10-10", "r").twice.and_return(log)
+            ir = info_requests(:fancy_dog_request)
+            InfoRequest.should_receive(:find_by_incoming_email).with("request-1234@example.com").any_number_of_times.and_return(ir)
+
+            File.stub_chain(:stat, :mtime).and_return(DateTime.new(2012, 10, 10))
+            EximLog.load_file("/var/log/exim4/exim-mainlog-2012-10-10")
+            ir.exim_logs.count.should == 2
+
+            File.stub_chain(:stat, :mtime).and_return(DateTime.new(2012, 10, 11))
+            EximLog.load_file("/var/log/exim4/exim-mainlog-2012-10-10")
+            ir.exim_logs.count.should == 2
+        end
     end
 end
