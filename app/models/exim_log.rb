@@ -53,6 +53,8 @@ class EximLog < ActiveRecord::Base
                 done.filename = file_name_db
             end
             done.last_stat = modified
+            # update done structure so we know when we last read this file
+            done.save!
 
             # scan the file
             if is_gz
@@ -74,9 +76,6 @@ class EximLog < ActiveRecord::Base
                     end
                 end
             end
-
-            # update done structure so we know when we last read this file
-            done.save!
         end
     end
 
