@@ -11,7 +11,7 @@ In `/etc/exim4/conf.d/main/04_alaveteli_options`:
 (The user ALAVETELI_USER should have write permissions on ALAVETELI_HOME).
 
 Note that the name and location of the log files created by Exim must match 
-what the `load-exim-logs` script expects, hence the need for the extra
+what the `load-mail-server-logs` script expects, hence the need for the extra
 `log_file_path` setting. And the `check-recent-requests-sent` scripts expects
 the logs to contain the `from=<...>` envelope information, so we make the 
 logs more verbose with `log_selector`. 
