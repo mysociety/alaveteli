@@ -41,27 +41,23 @@ class EximLog < ActiveRecord::Base
         ActiveRecord::Base.transaction do
             # see if we already have it
             done = EximLogDone.find_by_filename(file_name_db)
-            if !done.nil?
+            if done
                 if modified.utc == done.last_stat.utc
                     # already have that, nothing to do
                     return
+                else
+                    EximLog.delete_all "exim_log_done_id = " + done.id.to_s
                 end
-                EximLog.delete_all "exim_log_done_id = " + done.id.to_s
-            end
-            if !done
-                done = EximLogDone.new
-                done.filename = file_name_db
+            else
+                done = EximLogDone.new(:filename => file_name_db)
             end
             done.last_stat = modified
             # update done structure so we know when we last read this file
             done.save!
 
             # scan the file
-            if is_gz
-                f = Zlib::GzipReader.open(file_name)
-            else
-                f = File.open(file_name, 'r')
-            end
+            f = is_gz ? Zlib::GzipReader.open(file_name) : File.open(file_name, 'r')
+
             order = 0
             for line in f
                 order = order + 1
