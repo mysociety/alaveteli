@@ -74,6 +74,19 @@ class EximLog < ActiveRecord::Base
         end
     end
 
+    def EximLog.scan_for_postfix_queue_ids(f)
+        result = {}
+        f.each do |line|
+            email_domain = Configuration::incoming_email_domain
+            emails = line.scan(/request-[^\s]+@#{email_domain}/).sort.uniq
+            # Assume the log file was written using syslog and parse accordingly
+            queue_id = SyslogProtocol.parse("<13>" + line).content.match(/^\S+: (\S+):/)[1]
+            result[queue_id] = [] unless result.has_key?(queue_id)
+            result[queue_id] = (result[queue_id] + emails).uniq
+        end
+        result
+    end
+
     # Check that the last day of requests has been sent in Exim and we got the
     # lines. Writes any errors to STDERR. This check is really mainly to
     # check the envelope from is the request address, as Ruby is quite
