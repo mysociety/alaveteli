@@ -27,7 +27,7 @@ class EximLog < ActiveRecord::Base
     # Load in exim log file from disk, or update if we already have it
     # Assumes files are named with date, rather than cyclically.
     # Doesn't do anything if file hasn't been modified since it was last loaded.
-    def EximLog.load_file(file_name)
+    def EximLog.load_file(file_name, type = :exim)
         is_gz = file_name.include?(".gz")
         file_name_db = is_gz ? file_name.gsub(".gz", "") : file_name
 
@@ -52,7 +52,14 @@ class EximLog < ActiveRecord::Base
             done.save!
 
             f = is_gz ? Zlib::GzipReader.open(file_name) : File.open(file_name, 'r')
-            load_exim_log_data(f, done)
+            case(type)
+            when :exim
+                load_exim_log_data(f, done)
+            when :postfix
+                load_postfix_log_data(f, done)
+            else
+                raise "Unexpected MTA type: #{type}"
+            end
         end
     end
 
