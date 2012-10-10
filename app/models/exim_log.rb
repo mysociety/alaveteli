@@ -77,12 +77,16 @@ class EximLog < ActiveRecord::Base
         result = {}
         f.each do |line|
             emails = email_addresses_on_line(line)
-            # Assume the log file was written using syslog and parse accordingly
-            queue_id = SyslogProtocol.parse("<13>" + line).content.match(/^\S+: (\S+):/)[1]
+            queue_id = extract_queue_id_from_syslog_line(line)
             result[queue_id] = [] unless result.has_key?(queue_id)
             result[queue_id] = (result[queue_id] + emails).uniq
         end
         result
+    end
+
+    def EximLog.extract_queue_id_from_syslog_line(line)
+        # Assume the log file was written using syslog and parse accordingly
+        SyslogProtocol.parse("<13>" + line).content.match(/^\S+: (\S+):/)[1]
     end
 
     def EximLog.email_addresses_on_line(line)
