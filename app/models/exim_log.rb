@@ -73,6 +73,27 @@ class EximLog < ActiveRecord::Base
         end
     end
 
+    def EximLog.load_postfix_log_data(f, done)
+        order = 0
+        emails = scan_for_postfix_queue_ids(f)
+        # Go back to the beginning of the file
+        f.rewind
+        f.each do |line|
+            order = order + 1
+            queue_id = extract_queue_id_from_syslog_line(line)
+            if emails.has_key?(queue_id)
+                emails[queue_id].each do |email|
+                    info_request = InfoRequest.find_by_incoming_email(email)
+                    if info_request
+                        info_request.exim_logs.create!(:line => line, :order => order, :exim_log_done => done)
+                    else
+                        puts "Warning: Could not find request with email #{email}"
+                    end                    
+                end
+            end
+        end
+    end
+
     def EximLog.scan_for_postfix_queue_ids(f)
         result = {}
         f.each do |line|
