@@ -125,6 +125,26 @@ class EximLog < ActiveRecord::Base
         line.scan(/request-[^\s]+@#{Configuration::incoming_email_domain}/).sort.uniq
     end
 
+    # Look at the log for a request and check that an email was delivered
+    def EximLog.request_sent?(ir)
+        # Look for line showing request was sent
+        found = false
+        for exim_log in ir.exim_logs
+            test_outgoing = " <= " + ir.incoming_email + " "
+            if exim_log.line.include?(test_outgoing)
+                # Check the from value is the same (it always will be, but may as well
+                # be sure we are parsing the exim line right)
+                envelope_from = " from <" + ir.incoming_email + "> "
+                if !exim_log.line.include?(envelope_from)
+                    $stderr.puts("unexpected parsing of exim line: [#{exim_log.line.chomp}]")
+                else
+                    found = true
+                end
+            end
+        end
+        found
+    end
+
     # Check that the last day of requests has been sent in Exim and we got the
     # lines. Writes any errors to STDERR. This check is really mainly to
     # check the envelope from is the request address, as Ruby is quite
@@ -141,21 +161,7 @@ class EximLog < ActiveRecord::Base
         # Go through each request and check it
         ok = true
         for ir in irs
-            # Look for line showing request was sent
-            found = false
-            for exim_log in ir.exim_logs
-                test_outgoing = " <= " + ir.incoming_email + " "
-                if exim_log.line.include?(test_outgoing)
-                    # Check the from value is the same (it always will be, but may as well
-                    # be sure we are parsing the exim line right)
-                    envelope_from = " from <" + ir.incoming_email + "> "
-                    if !exim_log.line.include?(envelope_from)
-                        $stderr.puts("unexpected parsing of exim line: [#{exim_log.line.chomp}]")
-                    else
-                        found = true
-                    end
-                end
-            end
+            found = request_sent?(ir)
             if !found
                 # It's very important the envelope from is set for avoiding spam filter reasons - this
                 # effectively acts as a check for that.
